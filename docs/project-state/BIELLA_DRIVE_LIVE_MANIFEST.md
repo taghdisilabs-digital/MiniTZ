@@ -1,0 +1,105 @@
+# Biella Google Drive Live Manifest
+
+Date: 2026-08-26
+
+Drive root ID: `1Z6_qwN9hfHIheXZ_9pYCG8dRDMuRN-l7`
+
+## Live folders
+
+- `00_START_HERE/` — ID `1DiPQ4ly-CtDw8f_2t4fqgVvEm4BjrfJZ`
+- `10_ARCHITECTURE/` — ID `14ATDygc8-tCHvYqG9qYE2XdoK27L6OYR`
+- `20_CURRENT_STATE/` — ID `1GbPXqefsuU7Uf6U4f4yrGetQTcphOLI3`
+- `30_EXECUTION/` — ID `1QVX7072SvqiJ88-tWK1gxuMzFE9TZQce`
+- `40_PROMPTS/` — prompt program root
+- `50_MIGRATION/` — ID `19KuJh-1ZeKq74ue0oltShKLXEYkyS_9U`
+
+Prompt phase folder IDs:
+
+- P0 `1VK8Fbat0rK_R6wlW7HLfIA4W8S0UrIpb`
+- P1 `1PgjPXfhG38pTgVJ6vND7BUDBlr_3N-1o`
+- P2 `1gyrOSIfUqlCTN4PHvV1G-CFrbvJN3ai-`
+- P3 `1IMyMGs8fLZlnQe7Yg66s7Q9zTAr3kFok`
+- P4 `1_NDRSmP8kmcaVdnyBX0PCcxPvr0SBMvt`
+
+## Core live documents
+
+### 00_START_HERE
+
+- `00_BIELLA_PROJECT_INSTRUCTIONS.md`
+- `17_BIELLA_CODEX_START_HERE.md`
+- `BIELLA_PROJECT_KNOWLEDGE_SOURCE.md`
+- `BIELLA_PROJECT_KNOWLEDGE_REGISTRY.json`
+
+### 10_ARCHITECTURE
+
+- `03_BIELLA_IMPLEMENTATION_ARCHITECTURE_AND_MIGRATION_PLAN.md`
+- `04_BIELLA_INTELLIGENCE_TASK_CONSUMPTION_MAP.md`
+- `05_BIELLA_51_PROMPT_MASTER_INDEX.md`
+- `06_BIELLA_BUILD_PHASE_STRUCTURE_AND_LOCAL_RUNTIME_PLAN.md`
+
+`06_BIELLA_BUILD_PHASE_STRUCTURE_AND_LOCAL_RUNTIME_PLAN.md` Drive ID: `1WDrSWjoMukCLaKHbN_Bnt3ui72q1aXNPitzrmq6mxy0`
+
+### 20_CURRENT_STATE
+
+- `10_BIELLA_CURRENT_STATE.md`
+- `11_BIELLA_REPOSITORY_STATE.md`
+- `12_BIELLA_IMPLEMENTED_INTERFACES.md`
+- `13_BIELLA_SCHEMA_AND_MIGRATION_REGISTRY.md`
+- `14_BIELLA_CAPABILITY_REGISTRY.md`
+- `15_BIELLA_ADAPTER_REGISTRY.md`
+- `16_BIELLA_RESOURCE_AND_RUNTIME_STATE.md`
+
+Known IDs:
+
+- `10_BIELLA_CURRENT_STATE.md` — `1RmL6EvRIH9wOZVX7aQavwXTMyGaZ4-eW2c0e0avm7Zc`
+- `11_BIELLA_REPOSITORY_STATE.md` — `1niVSvm8QiO7h8O9zPZrjdbo71-MYHnnf0uNInxnZdjM`
+- `15_BIELLA_ADAPTER_REGISTRY.md` — `15QOei1eKVuR2fCfY3x46j9kz8-VPtLINjIMHrr5dUrc`
+- `16_BIELLA_RESOURCE_AND_RUNTIME_STATE.md` — `1OGZfGelM6NilPAeaoN9DGpBQmd1KKUqgJuicyJimhE8`
+
+### 30_EXECUTION
+
+- `18_BIELLA_CODEX_EXECUTION_PROTOCOL.md`
+- `19_BIELLA_SOURCE_OF_TRUTH_AND_HANDOFF_PROTOCOL.md`
+- `20_BIELLA_PROMPT_EXECUTION_STATUS.md`
+- `21_BIELLA_DECISION_LOG.md`
+- `22_BIELLA_UNRESOLVED_FACTS.md`
+- `23_BIELLA_KPI_AND_ACCEPTANCE_MATRIX.md`
+- `24_BIELLA_DRIVE_TO_VPS_COPY_MANIFEST.md`
+
+Known IDs:
+
+- `18_BIELLA_CODEX_EXECUTION_PROTOCOL.md` — `1imSUkhhqtqn_Hh_icw2uuobmVQY6FPqbfQe2NlrRX4g`
+- `19_BIELLA_SOURCE_OF_TRUTH_AND_HANDOFF_PROTOCOL.md` — `1U20gB7LCo9md2lxI9mXSE8HSk2lzJeJYjCOOGBFu1gg`
+- `20_BIELLA_PROMPT_EXECUTION_STATUS.md` — `1l_OkGjscMLZmDotlKbGIsTF0cYGPinA1Ccl1DielVNs`
+- `22_BIELLA_UNRESOLVED_FACTS.md` — `14dg6J6mY9GHM3jTlbf47AcczaIDBrWHQ3Xp7NJM-IXI`
+- `24_BIELLA_DRIVE_TO_VPS_COPY_MANIFEST.md` — `1V_D7D-q0-umCt3YOHh6TYvqVHmA2P3JdWyjXmRFwQ3o`
+
+### 40_PROMPTS
+
+Expected live prompt counts:
+
+- P0 = 10
+- P1 = 9
+- P2 = 12
+- P3 = 14
+- P4 = 6
+- total = 51
+
+### 50_MIGRATION
+
+- `30_BIELLA_MIGRATION_FIREWALL_SPEC.md`
+- `31_BIELLA_HISTORICAL_SOURCE_MANIFEST.md`
+- `32_BIELLA_MIGRATION_CLASSIFICATION_LEDGER.md`
+
+## Historical sources outside live Biella tree
+
+MiniTZ historical backups remain external/quarantined and must not be copied into normal Biella source/retrieval.
+
+Known historical backup folders:
+
+- `20260824T120314Z__MINITZ_CLEAN_VPS_BACKUP.parts` — `1-H5R58cNlklGrmFNwaQ1dHFiQYGRG5x_`
+- `20260824T120314Z__MINITZ_CLEAN_VPS_BACKUP` — `1tjHW4XvmKL0WueB7UbKzkwk_bWFydgZJ`
+
+## Synchronization note
+
+This GitHub manifest is a durable index, not a replacement for reading the current Drive document when execution depends on its latest text. Material project decisions that affect code should be persisted in both Drive and GitHub through the synchronization rules.
