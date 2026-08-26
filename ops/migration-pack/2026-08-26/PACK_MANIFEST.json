@@ -1,0 +1,14 @@
+{
+  "pack_id": "biella-clean-migration-execution-pack",
+  "version": "2026-08-26",
+  "status": "CANONICAL_GUIDANCE_PACK",
+  "github_repository": "patrickminitz-web/biella-engine",
+  "github_base_observed": "a112b2231ea76376a3bb170c2159f8772e57ba6a",
+  "drive_root_id": "1Z6_qwN9hfHIheXZ_9pYCG8dRDMuRN-l7",
+  "execution_root": "/root/biella",
+  "codex_home": "/root/.codex",
+  "prompt_order": ["PROMPT_00_START_HERE_AND_SOURCE_TRUTH.md","PROMPT_01_CONTINUE_NO_REDO.md","PROMPT_02_CAPABILITY_AND_EXECUTION_MAP.md","PROMPT_03_RESOURCE_ADAPTATION_NVIDIA.md","PROMPT_04_PRODUCTION_INTELLIGENCE_FOUNDER_CTO.md","PROMPT_05_MIGRATION_FILTER_AND_LEDGER.md"],
+  "source_priority": ["CURRENT_EXECUTION_STATE","CURRENT_GITHUB_DURABLE_SOURCE","CURRENT_UNIQUE_CANONICAL_DRIVE","VERIFIED_HISTORICAL_EVIDENCE","PLANNING_AND_OLD_CHAT","UNVERIFIED_INFERENCE"],
+  "historical_classifications": ["UNIVERSAL_GOOD","UNIVERSAL_REWRITE","PROJECT_SPECIFIC","HISTORICAL_EVIDENCE","DUPLICATE","OBSOLETE_OR_DRIFT"],
+  "explicit_rejections": ["mechanical_minitz_to_biella_rename","permanent_agent_hierarchy","imaginary_agent_model_gpu_service","approval_and_reviewer_ceremony_not_required_by_project","arbitrary_fixed_repair_counts","global_serial_execution_without_dependency","hardware_or_provider_as_capability_identity","cache_as_authoritative_truth","fake_completion_or_sync_claim","duplicate_active_authorities","stale_paths_hosts_shas_as_current_truth","chatbot_only_behavior_when_execution_is_available"]
+}
