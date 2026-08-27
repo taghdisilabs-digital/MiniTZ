@@ -2,7 +2,7 @@
 
 Status: ACTIVE PRE-PRODUCTION REVISION RECORD  
 Schema version: 1.0  
-Current authoritative control revision: `1.1.0`  
+Current authoritative control revision: `1.2.0`  
 Package completion status: `IN_PROGRESS`
 
 ## Rules
@@ -35,6 +35,7 @@ Asset working versions (`v001`, `v002`, …) remain separate from this package-l
 | `1.0.0` | 2026-08-27 | ChatGPT Project, owner-directed | Founder request approved | Established approved pre-production control baseline. Existing `BRAND_MASTER_SPEC.md` remains the brand authority. Added `LOCKED_VS_FLEXIBLE.md`, `FILE_NAMING_STANDARD.md`, `FOLDER_STRUCTURE.txt`, and this `VERSION_LOG.md`. Reserved exact root identity `PRIMARY_REFERENCE.png` but did not fabricate or substitute image bytes because the exact founder-supplied reference file is not currently retrievable. | Drive/Git identities to be recorded after successful publication/readback. |
 | `1.0.1` | 2026-08-27 | ChatGPT Project, owner-directed | Founder requested items 10–14 | Identified the exact approved File Library reference source as `c287e56f-7700-452a-9884-af1276faaa1b.png` and completed `REFERENCE_NOTES.md`. Items 12–14 remain uncreated because authoritative geometry may not be guessed or traced from an unavailable raw source. | File Library reference identity + current brand/acceptance contracts. |
 | `1.1.0` | 2026-08-27 | ChatGPT Project, owner-directed | Founder requested items 21–25 | Added complete production-control specifications for PBR materials, pivots/connectors, camera shots, lighting presets and FX. Preserved newer canonical items 15–20 already present in Drive/Git source. No logo geometry was altered. | Drive IDs/readback + GitHub publication/readback for items 21–25. |
+| `1.2.0` | 2026-08-27 | ChatGPT Project, owner-directed | Founder requested items 26–30 | Added motion-layer, render-pass, loading-screen, UI-asset and corporate-asset production controls. Reconciled observed 21–25 publications into the manifest while preserving unrelated current package state. No logo geometry or Engine-kernel mechanism changed. | Drive IDs/readback + GitHub publication/readback for items 26–30. |
 
 ## Current authoritative files
 
@@ -44,17 +45,24 @@ Asset working versions (`v001`, `v002`, …) remain separate from this package-l
 | `LOCKED_VS_FLEXIBLE.md` | `1.0.0` / CURRENT | Defines immutable identity vs production freedom. |
 | `FILE_NAMING_STANDARD.md` | `1.0.0` / CURRENT | Defines deterministic naming and versioning. |
 | `FOLDER_STRUCTURE.txt` | `1.0.0` / CURRENT | Defines shared Codex/Biella package topology. |
-| `VERSION_LOG.md` | `1.1.0` / CURRENT | This revision record. |
+| `VERSION_LOG.md` | `1.2.0` / CURRENT | This revision record. |
 | `PRIMARY_REFERENCE.png` | `SOURCE_IDENTIFIED_NOT_YET_PACKAGED` | Exact File Library source identified as `c287e56f-7700-452a-9884-af1276faaa1b.png`; raw bytes are not yet mounted in the canonical package. |
 | `REFERENCE_NOTES.md` | `1.0.1` / CURRENT | Reference-specific art direction and geometry interpretation boundaries. |
 | `MASTER_LOGO_GEOMETRY.svg` | `NOT_CREATED` | Blocked on exact mounted `PRIMARY_REFERENCE.png` bytes; no approximate geometry may become authority. |
 | `LOGO_CONSTRUCTION_SHEET.pdf` | `NOT_CREATED` | Must derive from approved master vector. |
 | `LOGO_COMPONENT_MAP.pdf` | `NOT_CREATED` | Must derive from approved master vector. |
+
 | `PBR_MATERIAL_SPEC.md` | `1.1.0` / CURRENT | PBR channels, material families, texture/color-space rules and target ranges. |
 | `PIVOT_CONNECTOR_SPEC.md` | `1.1.0` / CURRENT | Relational bearing pivots, rod endpoints, connectors and deterministic assembly behavior. |
 | `CAMERA_SHOT_LIST.md` | `1.1.0` / CURRENT | Required hero, macro, technical and final-reveal camera set. |
 | `LIGHTING_PRESETS.md` | `1.1.0` / CURRENT | Six reproducible lighting states from dormant through cinematic hero. |
 | `FX_REQUIREMENTS.md` | `1.1.0` / CURRENT | Independently controllable sparks, smoke, dust, particles, arcs, glow, heat, shockwave, sweeps and pulse. |
+
+| `MOTION_LAYER_SPEC.md` | `1.2.0` / CURRENT | Independent motion/compositing layer requirements and editable handoff structure. |
+| `RENDER_PASS_SPEC.md` | `1.2.0` / CURRENT | Beauty, AOV/technical pass, alpha and EXR requirements. |
+| `LOADING_SCREEN_MATRIX.md` | `1.2.0` / CURRENT | Required aspect-ratio × loading/status composition matrix. |
+| `UI_ASSET_LIST.md` | `1.2.0` / CURRENT | Project-scoped UI asset production inventory. |
+| `CORPORATE_ASSET_LIST.md` | `1.2.0` / CURRENT | Corporate/business application production inventory. |
 
 ## Publication record
 
@@ -74,6 +82,11 @@ drive:
   camera_shot_list_file_id: 1Jp8sUMBVpTHxMpXFFwstIY7Nz_24RNP7
   lighting_presets_file_id: 1pDVm5kxeDRnBtc8N5zOyRY4_-7SQRyU_
   fx_requirements_file_id: 1ONG56_j8Q7OevbPa_2BXx9pvM4Rza9yG
+  motion_layer_spec_file_id: 1jc6pcK8ik1yrUCebDMxXhE3Binkj82_7
+  render_pass_spec_file_id: 18_7ouINCr-neipub-lNm5NvRzxAkYhOa
+  loading_screen_matrix_file_id: 1dU4CtZxxilmRdbmeQ_TaRZhXoPLjYft4
+  ui_asset_list_file_id: 1fYBF4rnElXS1i6VeGsQk0R7PgZGvEEX2
+  corporate_asset_list_file_id: 1ZDfJK5Awkn_7mgdSYYLq5jMJ5H4EKi26
 
 github:
   repository: patrickminitz-web/biella-engine
