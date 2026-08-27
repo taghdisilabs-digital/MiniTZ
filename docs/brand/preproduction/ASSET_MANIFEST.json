@@ -1,7 +1,7 @@
 {
   "package": "Biella Engine Brand Pre-Production",
   "version": "1.0",
-  "status": "CONTROL_FILES_1_9_COMPLETE_PRIMARY_REFERENCE_PENDING",
+  "status": "CONTROL_FILES_1_11_PARTIAL_10_SOURCE_IDENTIFIED_12_14_PENDING",
   "approved_reference": {
     "filename": "PRIMARY_REFERENCE.png",
     "source": "founder-supplied approved reference board",
@@ -15,323 +15,44 @@
   "status_vocabulary": {
     "COMPLETE": "Content is prepared and ready as a control file.",
     "SOURCE_APPROVED_NOT_YET_PACKAGED": "Founder-approved source exists but is not included in this first-five delivery.",
-    "NOT_CREATED": "Required final-package file remains to be produced."
+    "NOT_CREATED": "Required final-package file remains to be produced.",
+    "SOURCE_IDENTIFIED_NOT_YET_PACKAGED": "Founder-approved source identity has been located, but exact raw bytes are not yet mounted into the canonical package."
   },
   "files": [
-    {
-      "id": 1,
-      "filename": "BRAND_MASTER_SPEC.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Company name, tagline, positioning, visual direction, logo rules, colors, typography direction and locked identity.",
-      "completion_status": "COMPLETE",
-      "required_in_final_package": true
-    },
-    {
-      "id": 2,
-      "filename": "ASSET_MANIFEST.json",
-      "format": "JSON",
-      "dimensions": "N/A",
-      "purpose": "Canonical inventory of all required package files and completion state.",
-      "completion_status": "COMPLETE",
-      "required_in_final_package": true
-    },
-    {
-      "id": 3,
-      "filename": "INTRO_SCENE_BRIEF.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Cinematic logo assembly and activation sequence brief.",
-      "completion_status": "COMPLETE",
-      "required_in_final_package": true
-    },
-    {
-      "id": 4,
-      "filename": "ACCEPTANCE_CRITERIA.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Objective pass/fail definition for final package quality and structure.",
-      "completion_status": "COMPLETE",
-      "required_in_final_package": true
-    },
-    {
-      "id": 5,
-      "filename": "TECHNICAL_DELIVERY_SPEC.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Formats, resolutions, FPS, color-management and source/interchange requirements.",
-      "completion_status": "COMPLETE",
-      "required_in_final_package": true
-    },
-    {
-      "id": 6,
-      "filename": "LOCKED_VS_FLEXIBLE.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Defines immutable identity elements versus production-flexible expressions.",
-      "completion_status": "COMPLETE",
-      "required_in_final_package": true
-    },
-    {
-      "id": 7,
-      "filename": "FILE_NAMING_STANDARD.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Professional filename, version and suffix rules.",
-      "completion_status": "COMPLETE",
-      "required_in_final_package": true
-    },
-    {
-      "id": 8,
-      "filename": "FOLDER_STRUCTURE.txt",
-      "format": "Text",
-      "dimensions": "N/A",
-      "purpose": "Canonical package directory tree for all production agents.",
-      "completion_status": "COMPLETE",
-      "required_in_final_package": true
-    },
-    {
-      "id": 9,
-      "filename": "VERSION_LOG.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Approved revision history and current authority.",
-      "completion_status": "COMPLETE",
-      "required_in_final_package": true
-    },
-    {
-      "id": 10,
-      "filename": "PRIMARY_REFERENCE.png",
-      "format": "PNG",
-      "dimensions": "1536×1024",
-      "purpose": "Founder-approved Biella Engine mechanical reference board supplied 2026-08-27.",
-      "completion_status": "SOURCE_APPROVED_NOT_YET_PACKAGED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 11,
-      "filename": "REFERENCE_NOTES.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Reference-specific art-direction extraction and interpretation boundaries.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 12,
-      "filename": "MASTER_LOGO_GEOMETRY.svg",
-      "format": "SVG",
-      "dimensions": "Scalable vector",
-      "purpose": "Single authoritative vector geometry for all logo expressions.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 13,
-      "filename": "LOGO_CONSTRUCTION_SHEET.pdf",
-      "format": "PDF",
-      "dimensions": "A3 landscape / vector",
-      "purpose": "Proportions, grid, clear space, alignment, minimum sizes and layouts.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 14,
-      "filename": "LOGO_COMPONENT_MAP.pdf",
-      "format": "PDF",
-      "dimensions": "A3 landscape / vector",
-      "purpose": "Named movable logo elements and mechanical relationships.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 15,
-      "filename": "EXPLODED_STATE_REFERENCE.png",
-      "format": "PNG",
-      "dimensions": "3840×2160",
-      "purpose": "Separated symbol components in approved exploded position.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 16,
-      "filename": "ASSEMBLED_STATE_REFERENCE.png",
-      "format": "PNG",
-      "dimensions": "3840×2160",
-      "purpose": "Exact final assembled logo state.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 17,
-      "filename": "ACTIVE_STATE_REFERENCE.png",
-      "format": "PNG",
-      "dimensions": "3840×2160",
-      "purpose": "Assembled logo with approved purple activation/emission treatment.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 18,
-      "filename": "MATERIAL_PALETTE.pdf",
-      "format": "PDF",
-      "dimensions": "A3 landscape / vector+raster",
-      "purpose": "Approved steel, gunmetal, silver, anodized purple and supporting finishes.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 19,
-      "filename": "COLOR_TOKENS.json",
-      "format": "JSON",
-      "dimensions": "N/A",
-      "purpose": "HEX/RGB/CMYK/gradient/glow/UI token definitions.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 20,
-      "filename": "TYPOGRAPHY_SPEC.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Typeface direction, hierarchy, tracking, fallback and wordmark rules.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 21,
-      "filename": "PBR_MATERIAL_SPEC.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Base color, metallic, roughness, normal, height and emission requirements.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 22,
-      "filename": "PIVOT_CONNECTOR_SPEC.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "3D origins, hinges, bearings, pivots and connection point definitions.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 23,
-      "filename": "CAMERA_SHOT_LIST.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Hero, macro, side, low, top and reveal camera requirements.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 24,
-      "filename": "LIGHTING_PRESETS.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Dark/off, activation, industrial, studio, corporate and cinematic lighting presets.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 25,
-      "filename": "FX_REQUIREMENTS.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Sparks, smoke, dust, particles, arcs, fusion glow, heat and pulse requirements.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 26,
-      "filename": "MOTION_LAYER_SPEC.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Independent control requirements for motion/compositing layers.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 27,
-      "filename": "RENDER_PASS_SPEC.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Beauty and technical render-pass requirements.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 28,
-      "filename": "LOADING_SCREEN_MATRIX.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Required aspect-ratio and loading/status compositions.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 29,
-      "filename": "UI_ASSET_LIST.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Panels, frames, indicators, loaders, icons, splash and app assets.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 30,
-      "filename": "CORPORATE_ASSET_LIST.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Business card, stationery, proposal, report, presentation, signage and web treatments.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 31,
-      "filename": "PHYSICAL_APPLICATION_LIST.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Engraving, emboss, plaque, equipment, apparel, packaging and one-color uses.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 32,
-      "filename": "EXPORT_MATRIX.csv",
-      "format": "CSV",
-      "dimensions": "N/A",
-      "purpose": "Machine-checkable list of required export formats and dimensions.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 33,
-      "filename": "QA_CHECKLIST.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Transparency, vector, texture, font, geometry, file, naming and placeholder checks.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 34,
-      "filename": "README_TEMPLATE.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Final package user-facing compatibility and usage documentation template.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    },
-    {
-      "id": 35,
-      "filename": "FINAL_ZIP_SPEC.md",
-      "format": "Markdown",
-      "dimensions": "N/A",
-      "purpose": "Archive name, root structure, required files and pre-compression validation procedure.",
-      "completion_status": "NOT_CREATED",
-      "required_in_final_package": true
-    }
+    {"id":1,"filename":"BRAND_MASTER_SPEC.md","format":"Markdown","dimensions":"N/A","purpose":"Company name, tagline, positioning, visual direction, logo rules, colors, typography direction and locked identity.","completion_status":"COMPLETE","required_in_final_package":true},
+    {"id":2,"filename":"ASSET_MANIFEST.json","format":"JSON","dimensions":"N/A","purpose":"Canonical inventory of all required package files and completion state.","completion_status":"COMPLETE","required_in_final_package":true},
+    {"id":3,"filename":"INTRO_SCENE_BRIEF.md","format":"Markdown","dimensions":"N/A","purpose":"Cinematic logo assembly and activation sequence brief.","completion_status":"COMPLETE","required_in_final_package":true},
+    {"id":4,"filename":"ACCEPTANCE_CRITERIA.md","format":"Markdown","dimensions":"N/A","purpose":"Objective pass/fail definition for final package quality and structure.","completion_status":"COMPLETE","required_in_final_package":true},
+    {"id":5,"filename":"TECHNICAL_DELIVERY_SPEC.md","format":"Markdown","dimensions":"N/A","purpose":"Formats, resolutions, FPS, color-management and source/interchange requirements.","completion_status":"COMPLETE","required_in_final_package":true},
+    {"id":6,"filename":"LOCKED_VS_FLEXIBLE.md","format":"Markdown","dimensions":"N/A","purpose":"Defines immutable identity elements versus production-flexible expressions.","completion_status":"COMPLETE","required_in_final_package":true},
+    {"id":7,"filename":"FILE_NAMING_STANDARD.md","format":"Markdown","dimensions":"N/A","purpose":"Professional filename, version and suffix rules.","completion_status":"COMPLETE","required_in_final_package":true},
+    {"id":8,"filename":"FOLDER_STRUCTURE.txt","format":"Text","dimensions":"N/A","purpose":"Canonical package directory tree for all production agents.","completion_status":"COMPLETE","required_in_final_package":true},
+    {"id":9,"filename":"VERSION_LOG.md","format":"Markdown","dimensions":"N/A","purpose":"Approved revision history and current authority.","completion_status":"COMPLETE","required_in_final_package":true},
+    {"id":10,"filename":"PRIMARY_REFERENCE.png","format":"PNG","dimensions":"1536×1024","purpose":"Founder-approved Biella Engine mechanical reference board supplied 2026-08-27.","completion_status":"SOURCE_IDENTIFIED_NOT_YET_PACKAGED","required_in_final_package":true,"source_identity":"c287e56f-7700-452a-9884-af1276faaa1b.png","source_location":"ChatGPT File Library","packaging_blocker":"Exact raw PNG bytes are not mounted in the active runtime/Drive package."},
+    {"id":11,"filename":"REFERENCE_NOTES.md","format":"Markdown","dimensions":"N/A","purpose":"Reference-specific art-direction extraction and interpretation boundaries.","completion_status":"COMPLETE","required_in_final_package":true},
+    {"id":12,"filename":"MASTER_LOGO_GEOMETRY.svg","format":"SVG","dimensions":"Scalable vector","purpose":"Single authoritative vector geometry for all logo expressions.","completion_status":"NOT_CREATED","required_in_final_package":true,"blocked_by":"PRIMARY_REFERENCE.png exact bytes + approved master geometry"},
+    {"id":13,"filename":"LOGO_CONSTRUCTION_SHEET.pdf","format":"PDF","dimensions":"A3 landscape / vector","purpose":"Proportions, grid, clear space, alignment, minimum sizes and layouts.","completion_status":"NOT_CREATED","required_in_final_package":true,"blocked_by":"PRIMARY_REFERENCE.png exact bytes + approved master geometry"},
+    {"id":14,"filename":"LOGO_COMPONENT_MAP.pdf","format":"PDF","dimensions":"A3 landscape / vector","purpose":"Named movable logo elements and mechanical relationships.","completion_status":"NOT_CREATED","required_in_final_package":true,"blocked_by":"PRIMARY_REFERENCE.png exact bytes + approved master geometry"},
+    {"id":15,"filename":"EXPLODED_STATE_REFERENCE.png","format":"PNG","dimensions":"3840×2160","purpose":"Separated symbol components in approved exploded position.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":16,"filename":"ASSEMBLED_STATE_REFERENCE.png","format":"PNG","dimensions":"3840×2160","purpose":"Exact final assembled logo state.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":17,"filename":"ACTIVE_STATE_REFERENCE.png","format":"PNG","dimensions":"3840×2160","purpose":"Assembled logo with approved purple activation/emission treatment.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":18,"filename":"MATERIAL_PALETTE.pdf","format":"PDF","dimensions":"A3 landscape / vector+raster","purpose":"Approved steel, gunmetal, silver, anodized purple and supporting finishes.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":19,"filename":"COLOR_TOKENS.json","format":"JSON","dimensions":"N/A","purpose":"HEX/RGB/CMYK/gradient/glow/UI token definitions.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":20,"filename":"TYPOGRAPHY_SPEC.md","format":"Markdown","dimensions":"N/A","purpose":"Typeface direction, hierarchy, tracking, fallback and wordmark rules.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":21,"filename":"PBR_MATERIAL_SPEC.md","format":"Markdown","dimensions":"N/A","purpose":"Base color, metallic, roughness, normal, height and emission requirements.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":22,"filename":"PIVOT_CONNECTOR_SPEC.md","format":"Markdown","dimensions":"N/A","purpose":"3D origins, hinges, bearings, pivots and connection point definitions.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":23,"filename":"CAMERA_SHOT_LIST.md","format":"Markdown","dimensions":"N/A","purpose":"Hero, macro, side, low, top and reveal camera requirements.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":24,"filename":"LIGHTING_PRESETS.md","format":"Markdown","dimensions":"N/A","purpose":"Dark/off, activation, industrial, studio, corporate and cinematic lighting presets.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":25,"filename":"FX_REQUIREMENTS.md","format":"Markdown","dimensions":"N/A","purpose":"Sparks, smoke, dust, particles, arcs, fusion glow, heat and pulse requirements.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":26,"filename":"MOTION_LAYER_SPEC.md","format":"Markdown","dimensions":"N/A","purpose":"Independent control requirements for motion/compositing layers.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":27,"filename":"RENDER_PASS_SPEC.md","format":"Markdown","dimensions":"N/A","purpose":"Beauty and technical render-pass requirements.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":28,"filename":"LOADING_SCREEN_MATRIX.md","format":"Markdown","dimensions":"N/A","purpose":"Required aspect-ratio and loading/status compositions.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":29,"filename":"UI_ASSET_LIST.md","format":"Markdown","dimensions":"N/A","purpose":"Panels, frames, indicators, loaders, icons, splash and app assets.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":30,"filename":"CORPORATE_ASSET_LIST.md","format":"Markdown","dimensions":"N/A","purpose":"Business card, stationery, proposal, report, presentation, signage and web treatments.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":31,"filename":"PHYSICAL_APPLICATION_LIST.md","format":"Markdown","dimensions":"N/A","purpose":"Engraving, emboss, plaque, equipment, apparel, packaging and one-color uses.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":32,"filename":"EXPORT_MATRIX.csv","format":"CSV","dimensions":"N/A","purpose":"Machine-checkable list of required export formats and dimensions.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":33,"filename":"QA_CHECKLIST.md","format":"Markdown","dimensions":"N/A","purpose":"Transparency, vector, texture, font, geometry, file, naming and placeholder checks.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":34,"filename":"README_TEMPLATE.md","format":"Markdown","dimensions":"N/A","purpose":"Final package user-facing compatibility and usage documentation template.","completion_status":"NOT_CREATED","required_in_final_package":true},
+    {"id":35,"filename":"FINAL_ZIP_SPEC.md","format":"Markdown","dimensions":"N/A","purpose":"Archive name, root structure, required files and pre-compression validation procedure.","completion_status":"NOT_CREATED","required_in_final_package":true}
   ]
 }
