@@ -2,7 +2,7 @@
 
 Status: ACTIVE PRE-PRODUCTION REVISION RECORD  
 Schema version: 1.0  
-Current authoritative control revision: `1.0.0`  
+Current authoritative control revision: `1.0.1`  
 Package completion status: `IN_PROGRESS`
 
 ## Rules
@@ -33,6 +33,7 @@ Asset working versions (`v001`, `v002`, …) remain separate from this package-l
 | Revision | Date | Changed by | Approval | What changed | Authority / evidence |
 |---|---|---|---|---|---|
 | `1.0.0` | 2026-08-27 | ChatGPT Project, owner-directed | Founder request approved | Established approved pre-production control baseline. Existing `BRAND_MASTER_SPEC.md` remains the brand authority. Added `LOCKED_VS_FLEXIBLE.md`, `FILE_NAMING_STANDARD.md`, `FOLDER_STRUCTURE.txt`, and this `VERSION_LOG.md`. Reserved exact root identity `PRIMARY_REFERENCE.png` but did not fabricate or substitute image bytes because the exact founder-supplied reference file is not currently retrievable. | Drive/Git identities to be recorded after successful publication/readback. |
+| `1.0.1` | 2026-08-27 | ChatGPT Project, owner-directed | Founder requested items 10–14 | Identified the exact approved File Library reference source as `c287e56f-7700-452a-9884-af1276faaa1b.png` and completed `REFERENCE_NOTES.md`. Items 12–14 remain uncreated because authoritative geometry may not be guessed or traced from an unavailable raw source. | File Library reference identity + current brand/acceptance contracts. |
 
 ## Current authoritative files
 
@@ -42,8 +43,12 @@ Asset working versions (`v001`, `v002`, …) remain separate from this package-l
 | `LOCKED_VS_FLEXIBLE.md` | `1.0.0` / CURRENT | Defines immutable identity vs production freedom. |
 | `FILE_NAMING_STANDARD.md` | `1.0.0` / CURRENT | Defines deterministic naming and versioning. |
 | `FOLDER_STRUCTURE.txt` | `1.0.0` / CURRENT | Defines shared Codex/Biella package topology. |
-| `VERSION_LOG.md` | `1.0.0` / CURRENT | This revision record. |
-| `PRIMARY_REFERENCE.png` | `UNRESOLVED_EXACT_SOURCE` | Required exact founder-approved image. No substitute may be created. |
+| `VERSION_LOG.md` | `1.0.1` / CURRENT | This revision record. |
+| `PRIMARY_REFERENCE.png` | `SOURCE_IDENTIFIED_NOT_YET_PACKAGED` | Exact File Library source identified as `c287e56f-7700-452a-9884-af1276faaa1b.png`; raw bytes are not yet mounted in the canonical package. |
+| `REFERENCE_NOTES.md` | `1.0.1` / CURRENT | Reference-specific art direction and geometry interpretation boundaries. |
+| `MASTER_LOGO_GEOMETRY.svg` | `NOT_CREATED` | Blocked on exact mounted `PRIMARY_REFERENCE.png` bytes; no approximate geometry may become authority. |
+| `LOGO_CONSTRUCTION_SHEET.pdf` | `NOT_CREATED` | Must derive from approved master vector. |
+| `LOGO_COMPONENT_MAP.pdf` | `NOT_CREATED` | Must derive from approved master vector. |
 
 ## Publication record
 
@@ -57,7 +62,7 @@ drive:
   file_naming_standard_file_id: 1f5DxACecV-pFG_CJNtRHSCAx0Ydi11nJ
   folder_structure_file_id: 1aamryGAVkvtt4DkvrNB6S1Jk3ifNDtkO
   version_log_file_id: 1Kc82Z19GT-LuBN7W9HtWyzlatVy4YDHp
-  primary_reference_file_id: UNRESOLVED_EXACT_SOURCE
+  primary_reference_file_id: SOURCE_IDENTIFIED_IN_FILE_LIBRARY_NOT_DRIVE
 
 github:
   repository: patrickminitz-web/biella-engine
