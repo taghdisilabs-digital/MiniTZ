@@ -1,0 +1,116 @@
+BIELLA_BRAND_PREPRODUCTION/
+|
+|-- BRAND_MASTER_SPEC.md
+|-- ASSET_MANIFEST.json
+|-- INTRO_SCENE_BRIEF.md
+|-- ACCEPTANCE_CRITERIA.md
+|-- TECHNICAL_DELIVERY_SPEC.md
+|-- LOCKED_VS_FLEXIBLE.md
+|-- FILE_NAMING_STANDARD.md
+|-- FOLDER_STRUCTURE.txt
+|-- VERSION_LOG.md
+|-- PRIMARY_REFERENCE.png
+|
+|-- 01_REFERENCE/
+|   |-- REFERENCE_NOTES.md
+|   |-- EXPLODED_STATE_REFERENCE.png
+|   |-- ASSEMBLED_STATE_REFERENCE.png
+|   `-- ACTIVE_STATE_REFERENCE.png
+|
+|-- 02_LOGO/
+|   |-- MASTER_LOGO_GEOMETRY.svg
+|   |-- LOGO_CONSTRUCTION_SHEET.pdf
+|   |-- LOGO_COMPONENT_MAP.pdf
+|   |-- EDITABLE/
+|   `-- DERIVED/
+|
+|-- 03_BRAND_SYSTEM/
+|   |-- MATERIAL_PALETTE.pdf
+|   |-- COLOR_TOKENS.json
+|   |-- TYPOGRAPHY_SPEC.md
+|   `-- PBR_MATERIAL_SPEC.md
+|
+|-- 04_3D/
+|   |-- PIVOT_CONNECTOR_SPEC.md
+|   |-- SOURCE/
+|   |-- INTERCHANGE/
+|   |   |-- GLB/
+|   |   |-- GLTF/
+|   |   |-- FBX/
+|   |   `-- OBJ/
+|   |-- TEXTURES/
+|   `-- RIGS/
+|
+|-- 05_MOTION/
+|   |-- CAMERA_SHOT_LIST.md
+|   |-- LIGHTING_PRESETS.md
+|   |-- FX_REQUIREMENTS.md
+|   |-- MOTION_LAYER_SPEC.md
+|   |-- SOURCE/
+|   `-- PREVIEWS/
+|
+|-- 06_RENDER/
+|   |-- RENDER_PASS_SPEC.md
+|   |-- BEAUTY/
+|   |-- PASSES/
+|   `-- PREVIEWS/
+|
+|-- 07_LOADING_SCREENS/
+|   |-- LOADING_SCREEN_MATRIX.md
+|   |-- 16X9/
+|   |-- 21X9/
+|   |-- 9X16/
+|   |-- 4X5/
+|   `-- 1X1/
+|
+|-- 08_UI/
+|   |-- UI_ASSET_LIST.md
+|   |-- SOURCE/
+|   `-- EXPORTS/
+|
+|-- 09_CORPORATE/
+|   |-- CORPORATE_ASSET_LIST.md
+|   |-- SOURCE/
+|   `-- EXPORTS/
+|
+|-- 10_PHYSICAL/
+|   |-- PHYSICAL_APPLICATION_LIST.md
+|   |-- SOURCE/
+|   `-- EXPORTS/
+|
+|-- 11_EXPORTS/
+|   |-- EXPORT_MATRIX.csv
+|   |-- SVG/
+|   |-- PDF/
+|   |-- EPS/
+|   |-- PNG/
+|   |-- JPG/
+|   |-- WEB/
+|   |-- PRINT/
+|   `-- MOTION/
+|
+|-- 12_QA/
+|   |-- QA_CHECKLIST.md
+|   |-- REPORTS/
+|   `-- VALIDATION_EVIDENCE/
+|
+`-- 13_DELIVERY/
+    |-- README_TEMPLATE.md
+    |-- FINAL_ZIP_SPEC.md
+    `-- RELEASE_CANDIDATES/
+
+RULES
+-----
+1. The ten root control files remain at package root exactly as named.
+2. Authoritative logo geometry lives only at 02_LOGO/MASTER_LOGO_GEOMETRY.svg.
+3. Editable 3D/motion/project sources stay under SOURCE/ or EDITABLE/ lanes.
+4. Interchange exports never replace native editable source.
+5. Final derivatives live only under 11_EXPORTS/ or the domain EXPORTS/ lane.
+6. QA evidence stays under 12_QA/ and is not mixed with production source.
+7. Release candidates stay under 13_DELIVERY/ until validated.
+8. Caches, autosaves, temporary renders, node_modules, generated build caches,
+   and application scratch data are not part of this package.
+9. Both Codex and Biella must use these exact paths rather than creating
+   parallel package roots.
+10. If a path must change, update FOLDER_STRUCTURE.txt, ASSET_MANIFEST.json,
+    and VERSION_LOG.md in the same approved revision.
