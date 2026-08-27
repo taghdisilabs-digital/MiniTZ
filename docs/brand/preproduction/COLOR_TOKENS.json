@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "brand": "Biella Engine",
+  "status": "PREPRODUCTION_LOCKED_TOKENS",
+  "color_space_notes": {
+    "digital": "sRGB",
+    "video_delivery": "Rec.709 SDR unless later HDR spec is approved",
+    "3d_compositing": "scene-linear; ACEScg preferred",
+    "print": "CMYK values are conversion targets and must be proofed per printer/profile"
+  },
+  "core_colors": {
+    "biella_violet": {"hex":"#7C3AED","rgb":{"r":124,"g":58,"b":237},"cmyk_percent":{"c":48,"m":76,"y":0,"k":7}},
+    "emission_violet": {"hex":"#9B5CFF","rgb":{"r":155,"g":92,"b":255},"cmyk_percent":{"c":39,"m":64,"y":0,"k":0}},
+    "deep_navy_black": {"hex":"#050812","rgb":{"r":5,"g":8,"b":18},"cmyk_percent":{"c":72,"m":56,"y":0,"k":93}},
+    "gunmetal": {"hex":"#1A1F27","rgb":{"r":26,"g":31,"b":39},"cmyk_percent":{"c":33,"m":21,"y":0,"k":85}},
+    "steel": {"hex":"#8E949E","rgb":{"r":142,"g":148,"b":158},"cmyk_percent":{"c":10,"m":6,"y":0,"k":38}},
+    "polished_silver": {"hex":"#E4E7EC","rgb":{"r":228,"g":231,"b":236},"cmyk_percent":{"c":3,"m":2,"y":0,"k":7}},
+    "carbon_black": {"hex":"#090B0F","rgb":{"r":9,"g":11,"b":15},"cmyk_percent":{"c":40,"m":27,"y":0,"k":94}},
+    "heat_orange": {"hex":"#F28A2E","rgb":{"r":242,"g":138,"b":46},"cmyk_percent":{"c":0,"m":43,"y":81,"k":5}},
+    "electric_cyan": {"hex":"#45C7FF","rgb":{"r":69,"g":199,"b":255},"cmyk_percent":{"c":73,"m":22,"y":0,"k":0}},
+    "warm_white": {"hex":"#F5F5F7","rgb":{"r":245,"g":245,"b":247},"cmyk_percent":{"c":1,"m":1,"y":0,"k":3}},
+    "muted_text": {"hex":"#B8BBC7","rgb":{"r":184,"g":187,"b":199},"cmyk_percent":{"c":8,"m":6,"y":0,"k":22}},
+    "border_dark": {"hex":"#2D3240","rgb":{"r":45,"g":50,"b":64},"cmyk_percent":{"c":30,"m":22,"y":0,"k":75}},
+    "semantic_green": {"hex":"#2CCB8C","rgb":{"r":44,"g":203,"b":140},"cmyk_percent":{"c":78,"m":0,"y":31,"k":20}},
+    "semantic_amber": {"hex":"#F0B44D","rgb":{"r":240,"g":180,"b":77},"cmyk_percent":{"c":0,"m":25,"y":68,"k":6}},
+    "semantic_red": {"hex":"#EF5B66","rgb":{"r":239,"g":91,"b":102},"cmyk_percent":{"c":0,"m":62,"y":57,"k":6}}
+  },
+  "gradients": {
+    "violet_engine": {"type":"linear","angle_degrees":135,"stops":[{"position":0,"color":"#6D28D9"},{"position":0.5,"color":"#7C3AED"},{"position":1,"color":"#9B5CFF"}],"usage":"Primary digital accent and controlled anodized-metal expression."},
+    "violet_to_cyan_technical": {"type":"linear","angle_degrees":90,"stops":[{"position":0,"color":"#7C3AED"},{"position":1,"color":"#45C7FF"}],"usage":"Technical diagrams, data flow and execution visualization only; not the default static logo."},
+    "steel_specular": {"type":"linear","angle_degrees":30,"stops":[{"position":0,"color":"#5D636D"},{"position":0.45,"color":"#E4E7EC"},{"position":0.62,"color":"#9CA3AF"},{"position":1,"color":"#3B4048"}],"usage":"Illustrative metallic rendering only; never a substitute for real PBR materials."}
+  },
+  "glow": {
+    "purple_core":{"color":"#9B5CFF","opacity":0.85,"blur_px_at_4k":28,"spread_px_at_4k":4},
+    "purple_edge":{"color":"#7C3AED","opacity":0.55,"blur_px_at_4k":18,"spread_px_at_4k":2},
+    "cyan_technical":{"color":"#45C7FF","opacity":0.45,"blur_px_at_4k":16,"spread_px_at_4k":1},
+    "heat_spark":{"color":"#F28A2E","opacity":0.9,"blur_px_at_4k":10,"spread_px_at_4k":0}
+  },
+  "ui_usage": {
+    "background_primary":"#050812","surface_primary":"#0B0F18","surface_secondary":"#111722","border":"#2D3240","text_primary":"#F5F5F7","text_secondary":"#B8BBC7","brand_primary":"#7C3AED","brand_active":"#9B5CFF","technical_secondary":"#45C7FF","status_success":"#2CCB8C","status_warning":"#F0B44D","status_error":"#EF5B66"
+  },
+  "usage_rules": [
+    "Biella violet is the dominant brand accent.",
+    "Electric cyan is secondary and should primarily signal technical/execution information.",
+    "Heat orange is cinematic/industrial support only and must not become a general UI brand color.",
+    "Green, amber and red are semantic status colors only.",
+    "The static logo must remain recognizable without gradient, glow or metallic effects."
+  ]
+}
