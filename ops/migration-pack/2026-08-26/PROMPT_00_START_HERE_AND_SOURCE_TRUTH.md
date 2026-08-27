@@ -1,49 +1,31 @@
-# Prompt 00 — Start Here, Truth, and Migration Boundary
+# Prompt 00 — Start Here and Source Truth
 
 ## Objective
 
-Enter any Biella migration or implementation task from the **actual current state**, not from stale planning text, MiniTZ history, or conversation memory.
+Enter any Biella implementation or legacy-reuse task from the actual current state, not stale planning text, historical project status, or conversation memory.
 
-## Mandatory first principles
+## Core rule
 
-Biella is not MiniTZ v2.
+Preserve productive software, code, technical knowledge, pipelines, tooling, execution/recovery logic, benchmarks/failure lessons, and useful agent/specialist patterns when technically valid. Remove legacy project identity, branding/lore, fixed hierarchy, blocker/governance rules, mandatory hard-QA stages, artificial limits, stale paths/providers/hardware assumptions, fake capability claims, and nonproductive duplicated/drifted material.
 
-The migration exists to retain useful functional algorithms, real source/data/assets, tested technical mechanisms, production knowledge, successful task patterns, failure lessons, benchmarks, execution experience, and software/web/game/3D/render/image/audio/video/research capability knowledge while removing MiniTZ identity, fixed agent organizations, imaginary agents/models/tools/resources, blocker ceremonies, mandatory critic/validator loops, arbitrary approval gates, fixed hardware/providers, stale paths/machines, serial-worker assumptions, fake completion, duplicates/drift, and code that was merely renamed.
-
-## Evidence vocabulary
-
-- `REAL` — directly observed current source/runtime/output.
-- `REFERENCE` — useful contract/example, not proof of live capability.
-- `HISTORICAL` — past evidence retained for learning/migration.
-- `UNKNOWN` — not yet observed.
-- `REJECTED` — duplicate, obsolete, contaminated, false, or unsuitable for active Biella.
-
-Do not use confident prose to hide `UNKNOWN`.
+Productive donor material may be reused directly when already clean and compatible, or adapted when project coupling must be removed. Do not require quarantine, classification, provenance, or a migration phase merely to reuse valid code or knowledge. Use those mechanisms only when they materially help safety, identity, debugging, deduplication, recovery, or integrity.
 
 ## Current-source rule
 
-Before modifying anything, inspect the existing workstation/repository first. If a repository/workspace already exists: continue it; do not create a second checkout by default; do not reset it to match old Drive text; do not restart an earlier prompt merely because a status document is behind; do not reinstall the host because a historical bootstrap document says to.
+Before modifying anything, inspect the task-relevant existing workstation/repository state. Continue valid current work; do not recreate completed work merely because an old status document is behind. Current Git/source/runtime evidence outranks stale continuity text.
 
-If Git/repository evidence is newer than continuity docs, Git and real outputs win.
+## Conflict rule
 
-## Source conflict rule
+When sources disagree, use the evidence-backed current source for the fact in question. Mark stale claims historical/superseded rather than synthesizing incompatible states.
 
-When two sources disagree: determine which is newer; determine which is directly supported by current source/runtime evidence; choose the evidence-backed authority; mark the other superseded/historical; never merge incompatible claims into a synthetic compromise.
+## No execution bureaucracy
 
-## No mechanical rename
+Do not invent approval/readiness gates, permanent critic/validator chains, fixed repair counts, arbitrary qualification periods, provider ceremonies, global serial rules, or forced prompt-stop boundaries. Real technical dependencies constrain only affected work.
 
-A source is not Biella-native because `MiniTZ` was changed to `Biella`, old paths changed, old agent names were replaced, provider names generalized, or blocker stages renamed. If the underlying architecture/workflow remains historically coupled, classify it `UNIVERSAL_REWRITE` or `OBSOLETE_OR_DRIFT` and reimplement useful semantics cleanly.
+## Evidence rule
 
-## No chatbot-only fallback
-
-When the Task asks for execution and the required tool/environment exists: inspect, act, create/modify the real artifact, test/validate as required, persist evidence, and continue. Do not answer with only a plan, suggestions, pseudo-code, or “you can run…” when execution is possible.
-
-Ask the human only when a necessary decision cannot be resolved from current source, tools, or Project requirements.
-
-## No fake capability
-
-A document claiming an agent/model/GPU/service exists is not runtime evidence. Represent semantic capability, current implementation, and current Resource availability as separate facts.
+Do not claim working, tested, built, rendered, uploaded, deployed, published, or verified results unless actually observed. Choose evidence proportional to the result being claimed.
 
 ## Execution prompt
 
-> Inspect the current Biella workstation and repository exactly once for the facts needed by this task. Establish current branch/HEAD/worktree, relevant implemented interfaces, current task/continuation state, and exact source inputs. Prefer current execution/Git evidence over stale Drive/planning text. Do not reinstall, reset, fresh-clone, recreate completed work, or mechanically rename historical MiniTZ code. Classify unverified claims as UNKNOWN. Then continue the latest real incomplete boundary and persist the resulting evidence.
+> Inspect only the current Biella state needed for this objective. Preserve valid existing work. Reuse productive donor software/code/knowledge/pipelines/tools/specialist patterns when useful, without inheriting legacy identity, blockers, hard QA, artificial limits, or stale infrastructure assumptions. Execute the smallest useful correct change, verify the claimed result as needed, persist meaningful source/artifacts/state, and continue dependency-safe productive work.
