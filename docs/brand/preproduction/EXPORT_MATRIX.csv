@@ -1,0 +1,20 @@
+matrix_id,category,filename_pattern,format,variants,required,alpha,color_space,validation
+EXM-01,logo_master,BIELLA_ENGINE_SYMBOL_MASTER_v###.svg,SVG,scalable,YES,YES,sRGB,real vector; no raster embed; viewBox
+EXM-02,logo_vectors,BIELLA_ENGINE_LOGO_{HORIZONTAL_DARK|HORIZONTAL_LIGHT|MONO_BLACK|MONO_WHITE}_v###.svg,SVG,4 variants,YES,MONO variants NO,sRGB / 1-color,vector open; geometry match; mono no FX
+EXM-03,print_vectors,BIELLA_ENGINE_LOGO_PRINT_v###.{pdf|eps},PDF;EPS,2 formats,YES,NO,CMYK derived,vector preserved; open in vector-capable apps
+EXM-04,print_proof,BIELLA_ENGINE_LOGO_PRINT_PROOF_CMYK_v###.tif,TIFF,3508x2480 @300ppi,YES,NO,CMYK proof,dimensions; print profile recorded
+EXM-05,symbol_png,BIELLA_ENGINE_SYMBOL_{SIZE}PX_ALPHA_v###.png,PNG,SIZE=8192;4096;2048;1024;512;256;128;64;32,YES,YES,sRGB,decode; exact dimensions; true alpha
+EXM-06,lockup_png,BIELLA_ENGINE_LOGO_HORIZONTAL_{SIZE}PX_ALPHA_v###.png,PNG,8192x2731;4096x1365;2048x683;1024x341;512x171;256x85;128x43;64x21,YES,YES,sRGB,decode; exact dimensions; true alpha
+EXM-07,preview_jpg,BIELLA_ENGINE_LOGO_DARK_4K_v###.jpg,JPG,3840x2160,YES,NO,sRGB,decode; 4K; quality>=92
+EXM-08,hero_stills,BIELLA_ENGINE_HERO_{VARIANT}_v###.png,PNG,7680x4320;3840x2160;2560x1440;1920x1080;5120x2160;2160x3840;2160x2700;2160x2160,YES,NO,sRGB,decode; dimensions; visual compare
+EXM-09,hero_exr,BIELLA_ENGINE_HERO_8K_MASTER_v###.exr,EXR,7680x4320,YES,YES,ACEScg,open; channels; dimensions
+EXM-10,3d_native,BIELLA_ENGINE_LOGO_3D_MASTER_v###.<native>,Native DCC,scene,YES,N/A,scene-linear,reopen; separated objects; correct pivots
+EXM-11,3d_interchange,BIELLA_ENGINE_LOGO_3D_{GLB|GLTF|FBX|OBJ}_v###.{glb|gltf|fbx|obj},GLB;GLTF;FBX;OBJ,4 formats,YES,N/A,as exported,independent viewer/import validation
+EXM-12,pbr_maps,BIELLA_ENGINE_LOGO_{BASECOLOR|METALLIC|ROUGHNESS|NORMAL|HEIGHT|EMISSION|AO|MATERIALID}_4K_v###.png,PNG,4096x4096 each,CONDITIONAL,NO,BaseColor/Emission sRGB; data maps linear,decode; dimensions; correct color interpretation
+EXM-13,motion_master,BIELLA_ENGINE_INTRO_MASTER_4K_60FPS_v###.mov + EXR sequence,ProRes4444;EXR sequence,3840x2160 @60fps ~12s,YES,YES,Rec.709 delivery / ACEScg EXR,playback; fps; alpha; no missing frames
+EXM-14,motion_derivatives,BIELLA_ENGINE_INTRO_{PREVIEW_4K_60FPS|PREVIEW_4K_60FPS_HEVC|MASTER_4K_24FPS}_v###,H264;H265;ProRes4444,3840x2160;60fps or 24fps,H264 YES; others CONDITIONAL,24fps master YES,Rec.709,playback; cadence; dimensions
+EXM-15,motion_source_audio,BIELLA_ENGINE_INTRO_MOTION_MASTER_v###.<native>; BIELLA_ENGINE_AUDIO_*_v###.wav,Native motion;WAV,source project; audio 48kHz 24-bit,motion YES; audio CONDITIONAL,N/A,project / audio,reopen/relink; audio sample/bit-depth check
+EXM-16,loading_screens,BIELLA_ENGINE_LOADING_{RATIO}_{W}X{H}_v###.png,PNG,16:9 3840x2160;21:9 5120x2160;9:16 2160x3840;4:5 2160x2700;1:1 2160x2160,YES,NO,sRGB,decode; dimensions; safe composition
+EXM-17,physical_vectors,BIELLA_ENGINE_{SYMBOL_ENGRAVING_MONO|SYMBOL_EMBOSS_MONO|LOGO_FOIL_MONO|SYMBOL_EQUIPMENT_MONO}_v###,SVG;EPS;PDF,4 manufacturing variants,YES,NO,1-color,closed/vector paths; no FX; process proof
+EXM-18,control_docs,LOGO_CONSTRUCTION_SHEET.pdf;LOGO_COMPONENT_MAP.pdf;MATERIAL_PALETTE.pdf,PDF,A3 landscape,YES,NO,document,PDF open; page size
+EXM-19,release_archive,BIELLA_ENGINE_BRAND_MASTER_v001.zip,ZIP,archive,YES,N/A,N/A,clean extract; manifest complete; post-extract hashes match
