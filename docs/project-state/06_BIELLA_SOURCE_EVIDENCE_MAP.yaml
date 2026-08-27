@@ -1,0 +1,460 @@
+schema: biella.source_evidence_map/v2
+version: 2026-08-27.2
+mode: source_resolution_and_evidence_contract
+scope:
+- authority_resolution
+- source_classification
+- evidence_strength
+- proof_requirements
+- migration_semantic_schema
+- project_creation_composition
+excludes:
+- current_commit_values
+- current_ip_values
+- current_task_status
+- prompt_bodies
+authority_order:
+- rank: 1
+  class: CURRENT_EXECUTION_STATE
+  definition: directly observed current files/processes/services/artifacts/runtime
+    outputs
+- rank: 2
+  class: CURRENT_GITHUB_SOURCE
+  definition: current durable repository branch/commit/tree/files after remote readback
+- rank: 3
+  class: CURRENT_CANONICAL_DRIVE
+  definition: current unique non-conflicting Biella operator/project records
+- rank: 4
+  class: VERIFIED_HISTORICAL_EVIDENCE
+  definition: verified prior outputs retained for migration, lessons, or forensics
+- rank: 5
+  class: REFERENCE_OR_PLAN
+  definition: design/reference material; not implementation proof
+- rank: 6
+  class: INFERENCE
+  definition: unverified conclusion; never promoted to fact without evidence
+conflict_policy:
+  synthesize_incompatible_claims: false
+  prefer_timestamp_only: false
+  unresolved_value: UNKNOWN
+  inspect_if_conflict_affects_active_task: true
+  inspect_if_conflict_irrelevant_to_active_task: false
+active_source_registry:
+  engine_source:
+    logical_authority: CURRENT_GITHUB_SOURCE
+    local_resolution: 03_BIELLA_CURRENT_STATE.md -> engine.local.checkout_path
+    remote_resolution: 03_BIELLA_CURRENT_STATE.md -> engine.repository/branch
+    historical_substitute_allowed: false
+  current_execution:
+    logical_authority: CURRENT_EXECUTION_STATE
+    resolution: real active host/workspace/process/output
+    chat_memory_allowed_as_proof: false
+  prompt_contracts:
+    logical_authority: CURRENT_CANONICAL_DRIVE
+    index: 05_BIELLA_PROMPT_INDEX.yaml
+    resolution: fetch exact active prompt by Drive ID
+    title_only_resolution_allowed: false
+  current_state:
+    logical_authority: CURRENT_EXECUTION_STATE
+    state_pointer: 03_BIELLA_CURRENT_STATE.md
+    history_storage: Google Drive chronological/current-state records
+  active_task:
+    logical_authority: CURRENT_EXECUTION_STATE
+    pointer: 04_BIELLA_ACTIVE_TASK.md
+  stable_architecture:
+    logical_authority: REFERENCE_OR_PLAN
+    pointer: 01_BIELLA_PROJECT_KNOWLEDGE_SOURCE.md
+    may_override_current_source: false
+  operating_edge_cases:
+    logical_authority: REFERENCE_OR_PLAN
+    pointer: 00_BIELLA_PROJECT_OPERATING_CONTRACT.md
+  sequencing_plan:
+    logical_authority: REFERENCE_OR_PLAN
+    pointer: 02_Biella_Engine_Final_Migration_Plan_2026-08-27.md
+    immutable_snapshot: true
+  historical_corpus:
+    logical_authority: VERIFIED_HISTORICAL_EVIDENCE
+    active_path: QUARANTINE_ONLY
+    direct_normal_retrieval: false
+    direct_engine_memory: false
+    direct_project_memory: false
+  project_brand:
+    logical_authority: PROJECT_SCOPE
+    required_evidence:
+    - accepted_project_record
+    - provenance
+  project_visual_canon:
+    logical_authority: PROJECT_SCOPE
+    required_evidence:
+    - accepted_visual_reference
+    - artifact_or_content_identity
+    - project_namespace
+  project_content_canon:
+    logical_authority: PROJECT_SCOPE
+    required_evidence:
+    - accepted_project_record
+    - project_namespace
+  provider_vendor_docs:
+    logical_authority: REFERENCE_OR_PLAN
+    role: adapter/runtime implementation reference
+    may_define_kernel_semantics: false
+evidence_states:
+  VERIFIED:
+    definition: observed evidence appropriate to the claim
+  HISTORICAL:
+    definition: verified past evidence; not current implementation truth
+  REFERENCE:
+    definition: useful specification/design/vendor information
+  UNKNOWN:
+    definition: not observed or not resolved
+  REJECTED:
+    definition: invalid, duplicate, obsolete, contaminated, or unsuitable for active
+      authority
+evidence_strength:
+- level: 600
+  class: CURRENT_OBSERVED_EXECUTION
+- level: 500
+  class: REMOTE_DURABLE_READBACK
+- level: 400
+  class: LOCAL_VERIFIED_OUTPUT
+- level: 300
+  class: VERIFIED_HISTORICAL_EVIDENCE
+- level: 200
+  class: REFERENCE_OR_PLAN
+- level: 100
+  class: INFERENCE
+proof_contracts:
+  software:
+    require:
+    - source_identity
+    - required_tests
+    conditional:
+    - typecheck
+    - build
+    - runtime
+    insufficient_alone:
+    - plan
+    - agent_claim
+    - exit_code_without_required_output
+  web:
+    require:
+    - source_identity
+    - build_or_runtime
+    conditional:
+    - browser_validation
+    - accessibility
+    - performance
+    insufficient_alone:
+    - screenshot
+    - deployment_command
+  game:
+    require:
+    - editable_source
+    - build_or_export
+    conditional:
+    - play_runtime_validation
+    - performance
+    insufficient_alone:
+    - screenshot
+    - project_file_without_run_evidence
+  three_d:
+    require:
+    - editable_scene_or_asset
+    - structural_validation
+    conditional:
+    - visual_validation
+    - export_validation
+    insufficient_alone:
+    - rendered_picture_only
+  render:
+    require:
+    - source_or_configuration_identity
+    - decodable_output
+    conditional:
+    - frame_sequence_completeness
+    - performance_metrics
+  image:
+    require:
+    - decoded_output
+    - format_dimensions_when_relevant
+    conditional:
+    - editable_source
+    - visual_acceptance
+  audio:
+    require:
+    - decoded_output
+    conditional:
+    - editable_project_source
+    - loudness_or_quality_validation
+  video:
+    require:
+    - decodable_output
+    conditional:
+    - editable_project_source
+    - sync_validation
+    - encode_validation
+  file_identity:
+    require:
+    - exact_bytes_or_provider_identity
+    - cryptographic_digest_when_exact_identity_matters
+    insufficient_alone:
+    - filename
+  github_publication:
+    require:
+    - local_commit_identity
+    - push
+    - remote_commit_readback
+    - remote_tree_readback
+    insufficient_alone:
+    - git_push_exit_code
+    - local_commit
+  drive_publication:
+    require:
+    - create_upload_or_update
+    - drive_listing_or_fetch_readback
+    conditional:
+    - digest_or_content_verification
+    insufficient_alone:
+    - upload_attempt
+    - http_success
+  performance:
+    require:
+    - measured_runtime_output
+    - measurement_context
+    insufficient_alone:
+    - configured_capacity
+    - vendor_spec
+  resource:
+    require:
+    - observed_resource_snapshot
+    insufficient_alone:
+    - desired_configuration
+    - old_hardware_record
+  migration_quarantine:
+    require:
+    - source_identity
+    - provenance
+    - source_type
+    - quarantine_reference
+    conditional:
+    - raw_sha256_when_exact_bytes_exist
+    - byte_size_when_applicable
+    - source_locator_or_manifest_identity_when_available
+    prove:
+    - raw_bytes_remain_inactive
+    - digest_or_identity_errors_fail_closed
+    content_kind_required: false
+    insufficient_alone:
+    - filename
+    - renamed_copy
+    - summary_without_provenance
+  migration_normalized_candidate:
+    require:
+    - source_identity
+    - provenance_chain
+    - migration_classification
+    - normalized_candidate_or_explicit_rejection
+    - verification_record
+    conditional:
+    - content_kind_when_semantic_knowledge_schema_is_in_scope
+    - destination_scope_when_placement_is_in_scope
+    prove:
+    - classification_explicit
+    - raw_source_not_activated
+    - contamination_removed_or_candidate_rejected
+  migration_activation:
+    require:
+    - normalized_candidate_identity
+    - explicit_destination
+    - task_specific_verification
+    - scope_authorization
+    reject:
+    - raw_quarantine_reference
+    - unclassified_candidate
+    - project_specific_knowledge_to_engine_scope
+identity_model:
+  Artifact:
+    definition: logical output/result identity
+  ContentRef:
+    definition: immutable content identity
+  StorageLocation:
+    definition: physical replica/location
+  invariant: Artifact != ContentRef != StorageLocation
+migration_semantics:
+  classifications:
+    UNIVERSAL_GOOD:
+      active_destination_candidates:
+      - ENGINE
+    UNIVERSAL_REWRITE:
+      active_destination_candidates:
+      - ENGINE
+      require_contamination_removal: true
+    PROJECT_SPECIFIC:
+      active_destination_candidates:
+      - PROJECT
+      require_project_namespace: true
+    HISTORICAL_EVIDENCE:
+      active_destination_candidates:
+      - HISTORICAL
+    DUPLICATE:
+      active_destination_candidates:
+      - NONE
+      action: LINK_TO_EXISTING_AUTHORITY
+    OBSOLETE_OR_DRIFT:
+      active_destination_candidates:
+      - NONE
+      - HISTORICAL
+  content_kinds:
+    CAPABILITY_KNOWLEDGE:
+      default_scope_candidate: ENGINE
+      definition: reusable semantic ability
+    LOGIC_PRIMITIVE:
+      default_scope_candidate: ENGINE
+      definition: compact reusable decision/execution relation
+    GENERATION_INSTRUCTION:
+      default_scope_candidate: ENGINE_OR_PROJECT
+      definition: instruction pattern producing or transforming an artifact
+    PRODUCTION_RECIPE:
+      default_scope_candidate: ENGINE_OR_PROJECT
+      definition: multi-step creation workflow with inputs/outputs/validation
+    PROJECT_BRAND_KNOWLEDGE:
+      default_scope_candidate: PROJECT
+    PROJECT_VISUAL_CANON:
+      default_scope_candidate: PROJECT
+    PROJECT_CONTENT_CANON:
+      default_scope_candidate: PROJECT
+    PROJECT_ASSET_REFERENCE:
+      default_scope_candidate: PROJECT
+    HISTORICAL_EVIDENCE:
+      default_scope_candidate: HISTORICAL
+  axes_independent: true
+  required_record:
+  - source_identity
+  - source_provenance
+  - content_kind
+  - migration_classification
+  - contamination_removed
+  - normalized_value_or_rejection
+  - destination_scope
+  - verification
+  stage_contracts:
+    QUARANTINE_FIREWALL:
+      purpose: preserve exact history safely and make raw activation impossible
+      requires_content_kind_schema: false
+      requires:
+      - exact_source_identity
+      - provenance
+      - quarantine_reference
+      - six_classification_domain_available
+      - fail_closed_admission
+    SEMANTIC_MIGRATION:
+      purpose: extract reusable/project-specific meaning after firewall qualification
+      content_kind_policy: use accepted semantic schema when the active prompt introduces
+        or consumes it
+      may_extract:
+      - CAPABILITY_KNOWLEDGE
+      - LOGIC_PRIMITIVE
+      - GENERATION_INSTRUCTION
+      - PRODUCTION_RECIPE
+      - PROJECT_BRAND_KNOWLEDGE
+      - PROJECT_VISUAL_CANON
+      - PROJECT_CONTENT_CANON
+      - PROJECT_ASSET_REFERENCE
+      - HISTORICAL_EVIDENCE
+    ACTIVE_PLACEMENT:
+      purpose: place only verified normalized candidates
+      requires:
+      - explicit_scope
+      - verification
+      - no_raw_history_reference_as_active_input
+  content_kind_is_independent_of_classification: true
+  content_kind_is_not_a_P0_01_required_interface: true
+  exact_numbered_prompt_controls_implementation_scope: true
+contamination_patterns:
+  reject_or_normalize:
+  - MINITZ_AS_UNIVERSAL_IDENTITY
+  - FIXED_AGENT_HIERARCHY
+  - MANDATORY_CRITIC_VALIDATOR_REPAIR
+  - FIXED_PROVIDER_MODEL_GPU_MACHINE
+  - STALE_PATH_OR_DRIVE_ID_AS_POLICY
+  - GLOBAL_SERIAL_WORKER_RULE
+  - READINESS_CEREMONY
+  - FIXED_REPAIR_COUNT
+  - PROJECT_VISUAL_STYLE_AS_ENGINE_DEFAULT
+  - MECHANICAL_RENAME
+  - UNVERIFIED_COMPLETION
+  - CACHE_OR_WORKSPACE_AS_AUTHORITY
+creation_composition:
+  engine_inputs:
+  - CAPABILITY_KNOWLEDGE
+  - LOGIC_PRIMITIVE
+  - GENERATION_INSTRUCTION
+  - PRODUCTION_RECIPE
+  project_inputs:
+  - PROJECT_OBJECTIVE
+  - PROJECT_REQUIREMENTS
+  - PROJECT_BRAND_KNOWLEDGE
+  - PROJECT_VISUAL_CANON
+  - PROJECT_CONTENT_CANON
+  - PROJECT_ASSET_REFERENCE
+  runtime_inputs:
+  - CURRENT_RESOURCE_STATE
+  - AVAILABLE_IMPLEMENTATIONS
+  compile_to:
+  - PROJECT_SPECIFIC_GRAPH
+  expected_outputs:
+  - EDITABLE_OR_USABLE_ARTIFACT
+  - TASK_REQUIRED_VALIDATION
+  - PROJECT_SCOPED_RESULT
+  invariant:
+    engine_learns: HOW_TO_CREATE
+    project_defines: WHAT_THE_PRODUCT_IS
+    resource_determines: WHERE_AND_HOW_IT_RUNS_NOW
+memory_destination_rules:
+  ENGINE_MEMORY:
+    accept:
+    - EVALUATED_PROJECT_NEUTRAL_KNOWLEDGE
+    reject:
+    - RAW_HISTORY
+    - PROJECT_BRAND
+    - PROJECT_VISUAL_CANON
+    - PROJECT_CONTENT_CANON
+  PROJECT_MEMORY:
+    accept:
+    - ACCEPTED_PROJECT_FACT
+    - PROJECT_BRAND
+    - PROJECT_VISUAL_CANON
+    - PROJECT_CONTENT_CANON
+    - PROJECT_ASSET_REFERENCE
+    reject:
+    - UNCLASSIFIED_RAW_HISTORY
+  RUN_MEMORY:
+    accept:
+    - TASK_STATE
+    - GRAPH_STATE
+    - CHECKPOINT
+    - EXECUTION_EVIDENCE
+  HISTORICAL_EVIDENCE:
+    accept:
+    - RAW_HISTORY
+    - REJECTED_CANDIDATE
+    - SUPERSEDED_OUTPUT
+    - FORENSIC_EVIDENCE
+  CACHE:
+    authoritative: false
+source_resolution_algorithm:
+  input:
+    claim_type: <type>
+    active_task: <task_id>
+  steps:
+  - determine_logical_authority_for_claim
+  - resolve_pointer_without_broad_search
+  - compare_revision_or_identity_if_needed
+  - classify_evidence_state
+  - if_conflict_affects_task_then_reobserve_smallest_source
+  - never_promote_inference_to_verified
+  output:
+    value: <resolved_or_UNKNOWN>
+    authority_class: <class>
+    evidence_state: <state>
+    source_ref: <ref>

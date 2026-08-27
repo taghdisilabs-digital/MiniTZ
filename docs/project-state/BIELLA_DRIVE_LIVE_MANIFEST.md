@@ -4,7 +4,7 @@ Date: 2026-08-27
 
 Drive project root ID: `1Z6_qwN9hfHIheXZ_9pYCG8dRDMuRN-l7`
 
-This file is a durable GitHub index of the live Drive project tree. Drive remains the live operator/project-document and prompt authority; read current Drive content when execution depends on latest text.
+This file is the durable GitHub index of the live Drive project tree. Drive remains the live operator/project-document and numbered-prompt authority. Read the exact current Drive object whenever execution depends on mutable Drive text.
 
 ## Live project folders
 
@@ -44,13 +44,13 @@ This file is a durable GitHub index of the live Drive project tree. Drive remain
 
 Prompt root: `40_PROMPTS/`
 
-Phase folders:
-
-- P0 — `1VK8Fbat0rK_R6wlW7HLfIA4W8S0UrIpb` — 10 numbered prompts
-- P1 — `1PgjPXfhG38pTgVJ6vND7BUDBlr_3N-1o` — 9
-- P2 — `1gyrOSIfUqlCTN4PHvV1G-CFrbvJN3ai-` — 12
-- P3 — `1IMyMGs8fLZlnQe7Yg66s7Q9zTAr3kFok` — 14
-- P4 — `1_NDRSmP8kmcaVdnyBX0PCcxPvr0SBMvt` — 6
+| Phase | Drive folder ID | Count |
+|---|---|---:|
+| P0 | `1VK8Fbat0rK_R6wlW7HLfIA4W8S0UrIpb` | 10 |
+| P1 | `1PgjPXfhG38pTgVJ6vND7BUDBlr_3N-1o` | 9 |
+| P2 | `1gyrOSIfUqlCTN4PHvV1G-CFrbvJN3ai-` | 12 |
+| P3 | `1IMyMGs8fLZlnQe7Yg66s7Q9zTAr3kFok` | 14 |
+| P4 | `1_NDRSmP8kmcaVdnyBX0PCcxPvr0SBMvt` | 6 |
 
 Numbered total: `51`.
 
@@ -58,16 +58,29 @@ Prompt index:
 
 - `40_PROMPTS/05_BIELLA_PROMPT_INDEX.yaml` — `1IK4sSAWbbI1QP2638JKVMMc7yQZItwWl`
 
-Current live P0-01 prompt:
+Current active P0-01 prompt:
 
-- `40_PROMPTS/P0/01_P0-01_Legacy_Productive_Reuse.md`
+- `40_PROMPTS/P0/01_P0-01_Clean_Room_Migration_Firewall.md`
 - Drive ID: `1Rqj1Vs-V_6xhq90NJRS2hnjIQiVYkER6xG2dJ5CJ2oI`
+- Git mirror: `docs/prompts/P0/01_P0-01_Clean_Room_Migration_Firewall.md`
+- Boundary: execute P0-01 only and stop; do not begin P0-02 automatically.
 
-The numbered program is a technical work/navigation map. Number order is not itself the runtime dependency graph.
+The numbered program is a technical work/navigation map. Number order is not itself the runtime dependency graph, but no later numbered prompt may begin before the active numbered boundary is durably closed.
+
+## Inactive alternative contract
+
+- `50_MIGRATION/REFERENCE_INACTIVE_UNTIL_AFTER_P0-10__Legacy_Productive_Reuse.md`
+- Drive ID: `1P4uv74n0UI0JROi5J83ehrg9wDyWPg7FCt5dMMi9HTc`
+- State: `INACTIVE_UNTIL_AFTER_P0_10_DURABLE_CLOSE`
+- Active authority: `false`
+- Default retrieval: forbidden
+- Git publication: intentionally omitted from active source/spec history
+
+This object is historical/reference evidence only. It must not override, broaden, or replace the active Clean-Room P0-01 contract.
 
 ## Auxiliary deep-research prompt packs
 
-These are stored directly under `40_PROMPTS/` and are **not** included in the 51 numbered prompt count:
+These are stored directly under `40_PROMPTS/` and are not included in the 51 numbered prompt count:
 
 | Range | File | Drive ID |
 |---|---|---|
@@ -85,36 +98,35 @@ These are stored directly under `40_PROMPTS/` and are **not** included in the 51
 - folder ID: `1rosbpxa2RdavQ3KWhrW7ZlgddFez78PG`
 - status: `COMPLETE_FOR_MOUNTED_CORPUS`
 - global-corpus complete: **no**
-- exact source records: `545`
-- active reusable candidates: `13`
+- exact historical source records: `545`
+- historically labeled candidate records: `13`
+- active Biella candidates: `0`
 - folder Merkle BLAKE3: `bf945fe4983fb0c0671a85ced85673aa570f4c6cfc96fbbde9bff4f770ae14c2`
 
-Published files:
+Published evidence files:
 
 - report — `1Fojyd6xl-zryyqjLPBRNMl2QMjj_XcSI`
 - source inventory — `1hN8j47pSeUDjBnNP9y-qlipxkusD-vAE`
 - source records — `1wCVy_ewtAGw0WQAnQr5F44RZyt5Ywo16`
-- active candidates — `1Csxmw0kO5z_vmW1AiipMR7eAQkLPkmE8`
+- historical candidate records — `1Csxmw0kO5z_vmW1AiipMR7eAQkLPkmE8`
 - resume — `1EeJqZIg28IBbOzQGFEllCROfP0G9qH3N`
 - manifest — `1FKatJfTTESm5041wIewosX8UAvGQNc80`
 - brand-free validation — `1SbGgwOKL8z9nLEY5eiuDnf_vBWKCsWQK`
 - version comparison — `1aRDaZ1CB0CKJ3t9vAkXVOCwYu3-j6Vmp`
 
-The batch is verified migration/reuse evidence. It is not current Biella engine source.
+This batch is historical/quarantine evidence only. Before P0-01 closes, it must not be loaded into normal retrieval, Project Memory, Engine Knowledge, active source, active prompts, or capability/policy definitions. Its 13 historical labels are not active Biella migration candidates.
 
-## Current Codex P0-01 prompt metadata
+## Current Codex P0-01 contract
 
-Owner-supplied metadata:
+The exact active body is available and is mirrored at:
 
-- `BPC-06_P0_01_CODEX_IMPLEMENTATION_PROMPT.md`
-- SHA-256: `b767963c4d37cd62900337838b42607e26604362b15b6cb01b7c5a68b94f9aa6`
+- Drive: `40_PROMPTS/P0/01_P0-01_Clean_Room_Migration_Firewall.md` — `1Rqj1Vs-V_6xhq90NJRS2hnjIQiVYkER6xG2dJ5CJ2oI`
+- GitHub: `docs/prompts/P0/01_P0-01_Clean_Room_Migration_Firewall.md`
 
-The exact BPC-06 file body was not available as mounted bytes to the synchronization execution, so no replacement/substitute file was created.
+Treat the Drive object as the mutable live prompt and the Git file as the publication snapshot. Re-read Drive before execution if its current text may have changed.
 
 ## Synchronization rule
 
-GitHub is durable source/spec history; Drive is the live operator/project document, prompt, migration-ledger, and continuity authority.
-
-When execution depends on current Drive content, read the exact Drive object rather than relying on this manifest.
+GitHub is durable source/spec history; Drive is the live operator/project-document, prompt, migration-ledger, and continuity authority.
 
 Historical evidence is preserved separately and must not silently override current source, accepted current contracts, or owner correction.

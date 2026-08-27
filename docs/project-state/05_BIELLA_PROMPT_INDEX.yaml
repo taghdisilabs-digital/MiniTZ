@@ -1,0 +1,537 @@
+schema: biella.prompt_index/v2
+version: 2026-08-27.2
+mode: numbered_routing_only
+authority:
+  sequencing_plan: 02_BIELLA_ENGINE_FINAL_MIGRATION_PLAN_2026-08-27.md
+  current_status: 03_BIELLA_CURRENT_STATE.md
+  active_task: 04_BIELLA_ACTIVE_TASK.md
+rules:
+  prompt_bodies_embedded: false
+  resolve_exact_prompt_from_drive: true
+  execute_one_numbered_engine_prompt_per_boundary: true
+  numbered_order_is_not_technical_dependency_graph: true
+  technical_dependencies_must_come_from_exact_prompt: true
+  later_numbered_prompt_before_current_durable_closure: false
+  concurrency_inside_active_prompt_if_exact_contract_allows: true
+  status_must_be_derived_from_03_and_real_source: true
+  do_not_cache_completion_here: true
+program:
+  total_prompts: 51
+  phases:
+    P0:
+      range: [1, 10]
+      count: 10
+      name: Clean Kernel + Migration Firewall
+      entry: current durable source + exact P0-01 contract
+      exit: P0-10 integration qualification passes
+      next_phase: P1
+    P1:
+      range: [11, 19]
+      count: 9
+      name: Durable Cognition + Resources + Scheduler + Routing
+      entry: P0-10 complete
+      exit: P1-09 and required P1 integration pass
+      next_phase: P2
+    P2:
+      range: [20, 31]
+      count: 12
+      name: Universal Execution Fabric
+      entry: P1 complete
+      exit: P2-12 passes
+      next_phase: P3
+    P3:
+      range: [32, 45]
+      count: 14
+      name: Production Capability Packs
+      entry: P2 complete
+      exit: P3-14 cross-domain durable delivery proof passes
+      next_phase: P4
+    P4:
+      range: [46, 51]
+      count: 6
+      name: Evidence-Based Learning + Qualification
+      entry: P3 complete
+      exit: P4-06 full P0-P4 qualification passes
+      next_phase: null
+phase_gates:
+  - {from: P0, to: P1, require: [P0-10]}
+  - {from: P1, to: P2, require: [P1-09]}
+  - {from: P2, to: P3, require: [P2-12]}
+  - {from: P3, to: P4, require: [P3-14]}
+  - {from: P4, to: FOUNDATION_COMPLETE, require: [P4-06]}
+prompts:
+  P0-01:
+    global: 1
+    phase: P0
+    title: "Clean-Room Migration Firewall"
+    drive_id: "1Rqj1Vs-V_6xhq90NJRS2hnjIQiVYkER6xG2dJ5CJ2oI"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: null
+    technical_dependencies: []
+    exact_prompt_dependency_note: No numbered prompt dependency; inspect current connected/source state first.
+    numbered_successor: P0-02
+  P0-02:
+    global: 2
+    phase: P0
+    title: "Universal Project Namespace and Isolation Contract"
+    drive_id: "1aINglpjh2qSuRbPrNT2dkTaBRRWNhLAAhriWTQ-kGwk"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P0-01
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P0-03
+  P0-03:
+    global: 3
+    phase: P0
+    title: "Provider Neutral Capability Contract"
+    drive_id: "1HaRjLqtN9YgNKRJHm7VLIay80_o0qQVJeFXYeyvoJFs"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P0-02
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P0-04
+  P0-04:
+    global: 4
+    phase: P0
+    title: "Universal Typed Task Contract"
+    drive_id: "1weEvFdehM9SuMoCn8bTOwZ1ADO0vYyO319aDPDAeqaE"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P0-03
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P0-05
+  P0-05:
+    global: 5
+    phase: P0
+    title: "Durable Run Identity, Attempts, Leases and Fencing"
+    drive_id: "1a_Xqlzv1HhPcuuI8PNHVVDYhpfQYX_bsm3fnCAYWXwQ"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P0-04
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P0-06
+  P0-06:
+    global: 6
+    phase: P0
+    title: "Artifact and Source Identity Contract"
+    drive_id: "17l-QAoXQPl2QkE3B7BJqoeCVsJHybnrq8UQlRltu1as"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P0-05
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P0-07
+  P0-07:
+    global: 7
+    phase: P0
+    title: "Immutable Revisioned Graph and Node Contracts"
+    drive_id: "1e3EA4_bjuhbdn2dlcsRHpXR0-6snMlY3bL_q8bgxNRU"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P0-06
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P0-08
+  P0-08:
+    global: 8
+    phase: P0
+    title: "Durable Append-Only Event Ledger"
+    drive_id: "1UtCBREk13USF2egMgZrqws_2PUCEAFeQ6VBfh3Y04aY"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P0-07
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P0-09
+  P0-09:
+    global: 9
+    phase: P0
+    title: "Durable Node/Run Execution State and Atomic Finalization"
+    drive_id: "1_yBgxGdKjX88wA9gXk59NzN8No7srJZDRF0CGCIF90I"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P0-08
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P0-10
+  P0-10:
+    global: 10
+    phase: P0
+    title: "P0 Integration, Isolation, Contamination and Recovery Qualification"
+    drive_id: "1Xsx8tYhwvg29FTMkYEK-Sed5kjJHD40HJoFsXYS31IE"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P0-09
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P1-01
+  P1-01:
+    global: 11
+    phase: P1
+    title: "Content-Addressed Object Store"
+    drive_id: "1a8NV8vEPxyKCVhwk1MKSd3AXfhyB87vkpvPko0Ka45c"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P0-10
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P1-02
+  P1-02:
+    global: 12
+    phase: P1
+    title: "Durable Run Memory and Reconstruction"
+    drive_id: "19Bifx_E0RPhs3gxi3srr7118_rnhdT1gSCH3Pyi8I3Y"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P1-01
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P1-03
+  P1-03:
+    global: 13
+    phase: P1
+    title: "Isolated Versioned Project Memory"
+    drive_id: "1c_gu5vm-Zg4qmLk6fqipkS2s7RuHocrEJqG7Ce4S0mA"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P1-02
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P1-04
+  P1-04:
+    global: 14
+    phase: P1
+    title: "Versioned Engine Knowledge and Promotion Boundary"
+    drive_id: "10yO_uSy2A5KrIw_8H6uU9SbnCUb0WZe39Ujq3wAbnYw"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P1-03
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P1-05
+  P1-05:
+    global: 15
+    phase: P1
+    title: "Provider-Neutral Model and Tool Call Ledger"
+    drive_id: "1iKl6rJcmQENG9UolH86DFlj1y2kY5FR_ZPy2NMGmOzI"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P1-04
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P1-06
+  P1-06:
+    global: 16
+    phase: P1
+    title: "Durable Checkpoint and Resume"
+    drive_id: "116Lf3h6Ermqveds96ifQA3AneaC_7giEuMGddMhfimU"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P1-05
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P1-07
+  P1-07:
+    global: 17
+    phase: P1
+    title: "Dynamic Runtime Resource Inventory"
+    drive_id: "17jLplTvv6Fr1_1LBWFq93JWwjt3-zG-0FWCpBEbYUUc"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P1-06
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P1-08
+  P1-08:
+    global: 18
+    phase: P1
+    title: "Concurrent Resource-Aware Graph Scheduler"
+    drive_id: "1cYQKnQeJWQ90Lv9AQQH_oGVAGKgtgvGitU7C3hhGKUo"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P1-07
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P1-09
+  P1-09:
+    global: 19
+    phase: P1
+    title: "Capability, Model, Tool and Compute Routing"
+    drive_id: "1lyJ-tC8_kUy5yYuMftmEcPeNjsIBu8DRbZIU0VBhKDU"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P1-08
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P2-01
+  P2-01:
+    global: 20
+    phase: P2
+    title: "Universal Filesystem Capability Adapter"
+    drive_id: "1cNVwywxtOOlbmNkiZRBZn6jhP_WlnTleDVTieWRXw5U"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P1-09
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P2-02
+  P2-02:
+    global: 21
+    phase: P2
+    title: "Bounded Shell and Managed Process Execution"
+    drive_id: "1FqsA8OT0qgDpNfGobSJcDudPVNpVkzAyCEeD1Ad0Ba8"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P2-01
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P2-03
+  P2-03:
+    global: 22
+    phase: P2
+    title: "Exact-Revision Git Repository Adapter"
+    drive_id: "1508K_PyL7nVdCdvlRUgg0h4L-_whON9Sbyx07u0wYQY"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P2-02
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P2-04
+  P2-04:
+    global: 23
+    phase: P2
+    title: "Replaceable Container and Isolated Runtime Adapter"
+    drive_id: "1ulpsBImXNT3HyP7G0GUfEjNjPXqCknY0uLdjoEn4xyA"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P2-03
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P2-05
+  P2-05:
+    global: 24
+    phase: P2
+    title: "Universal HTTP/API Execution Adapter"
+    drive_id: "11zmSVb23RA5InBxAVWCD_KAqHFn_vLtXrnuublFGvHQ"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P2-04
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P2-06
+  P2-06:
+    global: 25
+    phase: P2
+    title: "Provider-Neutral Model Execution Adapter Layer"
+    drive_id: "1z1EOJUTNn_-jd115J539vG8Auq969p55rAHlR0AXg7k"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P2-05
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P2-07
+  P2-07:
+    global: 26
+    phase: P2
+    title: "Durable Provider-Neutral Browser Automation Adapter"
+    drive_id: "1jgWIpcDZVon6xUZWKDVnh7eIkz0sDKQ9udQiYDfn0iI"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P2-06
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P2-08
+  P2-08:
+    global: 27
+    phase: P2
+    title: "PostgreSQL Project/Task Capability Adapter"
+    drive_id: "1uWBI_N66H-OlseBJkN-QnrLnN9x-0Vrti40ih_6kkfg"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P2-07
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P2-09
+  P2-09:
+    global: 28
+    phase: P2
+    title: "Replaceable Durable Object Storage Backends and Replicas"
+    drive_id: "1lv_zCYOyP8L3RZev-Wtlyy_RpMyOri4GETYCvO3eNHE"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P2-08
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P2-10
+  P2-10:
+    global: 29
+    phase: P2
+    title: "Project-Scoped Context Compilation and Derived Retrieval"
+    drive_id: "1x04_Hu20eHm8NwGu7Gliuhn4EVgPLkxzLxLzPkVZueM"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P2-09
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P2-11
+  P2-11:
+    global: 30
+    phase: P2
+    title: "Durable Candidate Workspace and Sandbox Execution"
+    drive_id: "1iwOAJYyXNdyqdqEc5g3l6hq4ms8wmHaP14eG60ivWFI"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P2-10
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P2-12
+  P2-12:
+    global: 31
+    phase: P2
+    title: "Task-Derived Validation and Evaluation Primitives"
+    drive_id: "1g3eSGdIQLg8b-DZdAwKm5dhUHudKgtlsBcRuGlzzbgo"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P2-11
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P3-01
+  P3-01:
+    global: 32
+    phase: P3
+    title: "Software Engineering Production Pack"
+    drive_id: "1KqL3RzBspIr8HVFtuoFfS5ew1hwVLSOIhMMimuf-9OE"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P2-12
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P3-02
+  P3-02:
+    global: 33
+    phase: P3
+    title: "Web Application Production Pack"
+    drive_id: "1tSP2q6J16nkag6m5j2rmLWIJRcKj9MncuMqriiio7sQ"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P3-01
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P3-03
+  P3-03:
+    global: 34
+    phase: P3
+    title: "Engine-Neutral Game Production Pack"
+    drive_id: "1ZShgBxR5qDFBhLM38MEJCsYCxdlWRjpUgzEYmvQqHlw"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P3-02
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P3-04
+  P3-04:
+    global: 35
+    phase: P3
+    title: "Large-Scale AAA Multi-Domain Production Orchestration Pack"
+    drive_id: "1NLikJ8cPQ3-4ybpMr8FvHN2sn43fPVw_trMet-Wx_HQ"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P3-03
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P3-05
+  P3-05:
+    global: 36
+    phase: P3
+    title: "3D Modeling and Scene Production Pack"
+    drive_id: "1TIG3GggwGdu3ma1e5MeeIontVUO4pmSP4aggJKps0Kg"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P3-04
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P3-06
+  P3-06:
+    global: 37
+    phase: P3
+    title: "Character Modeling, Rigging, Skinning and Character Asset Pack"
+    drive_id: "11Q0LKa5Zl_ctJ6_0tdn_6ezvxNeex6JufFBbDfu5NHM"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P3-05
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P3-07
+  P3-07:
+    global: 38
+    phase: P3
+    title: "Animation Production Pack"
+    drive_id: "1GzQxmCrvIv10WVv0KdoPxlKi7l79J2J6cS-zvoOv-Dk"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P3-06
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P3-08
+  P3-08:
+    global: 39
+    phase: P3
+    title: "Environment and World Production Pack"
+    drive_id: "10wP9734umfbfCGfLvmf3gz_9IfT1h8kTjX06KmW0a54"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P3-07
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P3-09
+  P3-09:
+    global: 40
+    phase: P3
+    title: "Rendering Production Pack"
+    drive_id: "1FYsaztU8wwjl_6k8Nx4xJII4wId-MPflkLFUNwW4gRM"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P3-08
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P3-10
+  P3-10:
+    global: 41
+    phase: P3
+    title: "VFX and Simulation Production Pack"
+    drive_id: "12GmJFm2-6mL7QSjyyaySDWbBi2WrkljUF447XWsHnnI"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P3-09
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P3-11
+  P3-11:
+    global: 42
+    phase: P3
+    title: "Image Production, Editing, Compositing and Texture Pack"
+    drive_id: "1hZm2VC3xYefqwZBxvIhsChrIjCLcZXsTSoOCG3IKLhM"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P3-10
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P3-12
+  P3-12:
+    global: 43
+    phase: P3
+    title: "Audio Production, Processing, Mixing and Validation Pack"
+    drive_id: "1c8GEF9Z6pL9JKMkhXx6ZtsbcKnI5b_jY4k27ie3L1HI"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P3-11
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P3-13
+  P3-13:
+    global: 44
+    phase: P3
+    title: "Video Production, Editing, Compositing and Media Pipeline Pack"
+    drive_id: "12_Z1RrJBW8fGVj5z76wnaphozu8J2DjSrHd2gJVrbmA"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P3-12
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P3-14
+  P3-14:
+    global: 45
+    phase: P3
+    title: "Packaging, Publishing, Release and Durable Delivery Pack"
+    drive_id: "1mkk0VYh14ut2Tz-7YKcdW35p0GJRtv7bVQeVSPVTzpE"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P3-13
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P4-01
+  P4-01:
+    global: 46
+    phase: P4
+    title: "Controlled Evidence-Based Model Capability Comparison"
+    drive_id: "1V2VGta8GmM-6_UB4UwpdqKT-j_4NTRzcd3tXd1tKqOM"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P3-14
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P4-02
+  P4-02:
+    global: 47
+    phase: P4
+    title: "Agent, Skill, Prompt, Tool and Execution Strategy Evaluation"
+    drive_id: "1IKlb4CPzng80VeJOPRo-_R5UdEIr7Vv4dz15x33JXfA"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P4-01
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P4-03
+  P4-03:
+    global: 48
+    phase: P4
+    title: "Conditional Reversible Evidence-Based Routing Learning"
+    drive_id: "1kGNEBjMTBllbfqpiUGcNf7_TxhDZ7uDBvKf-jq5iqBw"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P4-02
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P4-04
+  P4-04:
+    global: 49
+    phase: P4
+    title: "Cache, Locality, Residency and Resource Placement Learning"
+    drive_id: "1ND5zkrv09Jwxs8EDIRQwJ_QGRWAKP0u8lzfjA0ZJ0D4"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P4-03
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P4-05
+  P4-05:
+    global: 50
+    phase: P4
+    title: "Evidence-Based Failure Pattern and Repair Intelligence Learning"
+    drive_id: "1zkyAQmBrWFVn5YU7A_up49Hd5DNA8-Xwic3TY9w0tm8"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P4-04
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: P4-06
+  P4-06:
+    global: 51
+    phase: P4
+    title: "Versioned Production Recipe Learning and Full P0-P4 Qualification"
+    drive_id: "1vsxRXkhtv0n8eJdQ56AVqJJEl3k5hjtqJsrUIqFVeAA"
+    status_source: 03_BIELLA_CURRENT_STATE.md
+    numbered_predecessor: P4-05
+    technical_dependencies: RESOLVE_FROM_EXACT_PROMPT
+    numbered_successor: FOUNDATION_COMPLETE
+resolution_algorithm:
+  input: active_prompt_id
+  steps:
+    - read active prompt from 04_BIELLA_ACTIVE_TASK.md and confirm against 03_BIELLA_CURRENT_STATE.md
+    - lookup exact Drive ID here
+    - fetch exact prompt body
+    - read technical dependencies from exact prompt and current accepted interfaces
+    - verify numbered predecessor is durably closed
+    - execute only active numbered prompt
+  forbidden:
+    - infer prompt body from title
+    - treat numbered_predecessor as technical dependency
+    - invent technical dependencies not present in exact prompt/current source
+    - load all prompt bodies
+    - use this index as completion evidence
