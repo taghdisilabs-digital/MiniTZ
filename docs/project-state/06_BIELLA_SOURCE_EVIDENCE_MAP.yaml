@@ -63,14 +63,14 @@ active_source_registry:
     pointer: 04_BIELLA_ACTIVE_TASK.md
   stable_architecture:
     logical_authority: REFERENCE_OR_PLAN
-    pointer: 01_BIELLA_PROJECT_KNOWLEDGE_SOURCE.md
+    pointer: BIELLA_PROJECT_KNOWLEDGE_SOURCE.md
     may_override_current_source: false
   operating_edge_cases:
     logical_authority: REFERENCE_OR_PLAN
     pointer: 00_BIELLA_PROJECT_OPERATING_CONTRACT.md
   sequencing_plan:
     logical_authority: REFERENCE_OR_PLAN
-    pointer: 02_Biella_Engine_Final_Migration_Plan_2026-08-27.md
+    pointer: 02_BIELLA_ENGINE_FINAL_MIGRATION_PLAN_2026-08-27.md
     immutable_snapshot: true
   historical_corpus:
     logical_authority: VERIFIED_HISTORICAL_EVIDENCE

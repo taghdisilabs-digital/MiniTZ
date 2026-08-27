@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-28 01:43 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-28T01:43:05+02:00"
+state_timestamp_local: "2026-08-28 01:57 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-28T01:57:05+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: a86cffb88a362dbe86c4b4027737db92ccc8ffd3
-    tree: b1828fbca35ebb047349fab20f71a4ec6ab2a24e
+    commit: 272ff5d70a45912ffc5ccf694752c6a2a79c2b91
+    tree: 083cf48c342ee448176de69ebadc7c4acc163444
     observed_date: 2026-08-27
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: codex_handoff_prepublication_reobservation
+    observation_context: codex_handoff_reference_repair_prepublication
     src_present: false
     root_package_json_present: false
     volatile_reobserve_before_next_write: true
