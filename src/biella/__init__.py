@@ -105,6 +105,18 @@ from .graph import (
     NodeRef,
     validate_dag,
 )
+from .event import (
+    Event,
+    EventAuthorityError,
+    EventConflictError,
+    EventContractError,
+    EventError,
+    EventIntegrityError,
+    EventLedger,
+    EventNotFoundError,
+    EventRef,
+    EventScopeError,
+)
 
 __all__ = [
     "ActiveArtifact",
@@ -195,4 +207,14 @@ __all__ = [
     "NodeInputBinding",
     "NodeRef",
     "validate_dag",
+    "Event",
+    "EventAuthorityError",
+    "EventConflictError",
+    "EventContractError",
+    "EventError",
+    "EventIntegrityError",
+    "EventLedger",
+    "EventNotFoundError",
+    "EventRef",
+    "EventScopeError",
 ]

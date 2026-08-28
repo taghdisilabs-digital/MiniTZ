@@ -875,48 +875,16 @@ class RunService:
         requesting_access: ProjectAccess,
         run_ref: RunRef,
     ) -> Run:
-        self.get_run(requesting_access, run_ref)
-        connection = self._connect()
-        try:
-            connection.execute("BEGIN IMMEDIATE")
-            run = self._fetch_run(connection, run_ref)
-            if run.status == "CANCELLED":
-                connection.commit()
-                return run
-            now = self._database_now(connection)
-            self._insert_cancellation(connection, run_ref, now)
-            if run.current_owner_ref is not None and run.current_attempt_id is not None:
-                current_attempt = self._fetch_attempt(
-                    connection,
-                    run,
-                    run.current_attempt_id,
-                )
-                self._insert_attempt_completion(
-                    connection,
-                    current_attempt,
-                    completed_at=now,
-                    terminal_outcome="CANCELLED",
-                )
-            cancelled = self._next_state(
-                run,
-                status="CANCELLED",
-                current_attempt_id=run.current_attempt_id,
-                current_attempt_number=run.current_attempt_number,
-                current_fence=run.current_fence,
-                current_owner_ref=None,
-                lease_expires_at=None,
-                cancellation_requested_at=now,
-                updated_at=now,
-            )
-            self._insert_state(connection, cancelled)
-            self._advance_head(connection, run, cancelled)
-            connection.commit()
-            return cancelled
-        except Exception:
-            connection.rollback()
-            raise
-        finally:
-            connection.close()
+        from .event import EventLedger
+
+        cancelled, _ = EventLedger(self.database_path).request_run_cancellation_with_event(
+            requesting_access,
+            run_ref,
+            idempotency_key=f"run-cancel-{run_ref.run_id}",
+            actor_ref="controller://run-service",
+            metadata={"source": "run-service"},
+        )
+        return cancelled
 
     def requestRunCancellation(
         self,
@@ -926,6 +894,55 @@ class RunService:
         """Compatibility spelling of the required P0-05 cancellation seam."""
 
         return self.request_run_cancellation(requesting_access, run_ref)
+
+    def _request_run_cancellation_in_transaction(
+        self,
+        connection: sqlite3.Connection,
+        requesting_access: ProjectAccess,
+        run_ref: RunRef,
+    ) -> Run:
+        """Cancel one Run inside a caller-owned atomic database transaction."""
+
+        self._authorize(requesting_access, run_ref)
+        if not isinstance(connection, sqlite3.Connection) or not connection.in_transaction:
+            raise RunContractError("Run cancellation transaction must already be active")
+        database_file = connection.execute("PRAGMA database_list").fetchone()[2]
+        if (
+            not isinstance(database_file, str)
+            or Path(database_file).resolve() != self.database_path
+        ):
+            raise RunContractError("Run cancellation transaction uses a different database")
+        run = self._fetch_run(connection, run_ref)
+        if run.status == "CANCELLED":
+            return run
+        now = self._database_now(connection)
+        self._insert_cancellation(connection, run_ref, now)
+        if run.current_owner_ref is not None and run.current_attempt_id is not None:
+            current_attempt = self._fetch_attempt(
+                connection,
+                run,
+                run.current_attempt_id,
+            )
+            self._insert_attempt_completion(
+                connection,
+                current_attempt,
+                completed_at=now,
+                terminal_outcome="CANCELLED",
+            )
+        cancelled = self._next_state(
+            run,
+            status="CANCELLED",
+            current_attempt_id=run.current_attempt_id,
+            current_attempt_number=run.current_attempt_number,
+            current_fence=run.current_fence,
+            current_owner_ref=None,
+            lease_expires_at=None,
+            cancellation_requested_at=now,
+            updated_at=now,
+        )
+        self._insert_state(connection, cancelled)
+        self._advance_head(connection, run, cancelled)
+        return cancelled
 
     def _authorize(self, access: ProjectAccess, run_ref: RunRef) -> None:
         if not isinstance(run_ref, RunRef):
