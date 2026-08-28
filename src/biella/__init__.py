@@ -44,6 +44,20 @@ from .capability import (
     CapabilityRef,
     CapabilityRegistry,
 )
+from .task import (
+    Task,
+    TaskConflictError,
+    TaskContractError,
+    TaskError,
+    TaskInputError,
+    TaskInputRef,
+    TaskIntegrityError,
+    TaskNotFoundError,
+    TaskRef,
+    TaskRevisionService,
+    TaskScopeError,
+    TaskSideEffectError,
+)
 
 __all__ = [
     "ActiveArtifact",
@@ -81,4 +95,16 @@ __all__ = [
     "CapabilityNotFoundError",
     "CapabilityRef",
     "CapabilityRegistry",
+    "Task",
+    "TaskConflictError",
+    "TaskContractError",
+    "TaskError",
+    "TaskInputError",
+    "TaskInputRef",
+    "TaskIntegrityError",
+    "TaskNotFoundError",
+    "TaskRef",
+    "TaskRevisionService",
+    "TaskScopeError",
+    "TaskSideEffectError",
 ]
