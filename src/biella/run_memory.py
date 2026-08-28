@@ -8,6 +8,7 @@ from datetime import datetime
 import hashlib
 import json
 from pathlib import Path
+import re
 import sqlite3
 from types import MappingProxyType
 from typing import cast
@@ -29,6 +30,12 @@ from .task import Task, TaskError, TaskRef
 
 
 _EXTENSION_EVENT_TYPES = {"MODEL_CALL", "RUN_CHECKPOINT", "TOOL_CALL"}
+_MODEL_CALL_REF_PATTERN = re.compile(
+    r"model-call://(prj_[0-9a-f]{32})/(mcall_[0-9a-f]{32})"
+)
+_TOOL_CALL_REF_PATTERN = re.compile(
+    r"tool-call://(prj_[0-9a-f]{32})/(tcall_[0-9a-f]{32})"
+)
 _CONTINUABLE_NODE_STATUSES = {
     "QUEUED",
     "READY",
@@ -221,6 +228,7 @@ class RunMemoryExtensionRef:
     graph_ref: GraphRef | None
     object_refs: tuple[str, ...]
     payload_ref: ContentRef | None
+    call_ref: str | None = None
 
     def __post_init__(self) -> None:
         if self.kind not in _EXTENSION_EVENT_TYPES:
@@ -230,7 +238,19 @@ class RunMemoryExtensionRef:
         if not isinstance(self.sequence, int) or isinstance(self.sequence, bool) or self.sequence < 1:
             raise RunMemoryContractError("Run Memory extension sequence is malformed")
         object.__setattr__(self, "object_refs", tuple(self.object_refs))
-        if not self.object_refs and self.payload_ref is None:
+        pattern = {
+            "MODEL_CALL": _MODEL_CALL_REF_PATTERN,
+            "TOOL_CALL": _TOOL_CALL_REF_PATTERN,
+        }.get(self.kind)
+        if pattern is not None and self.call_ref is not None:
+            matched = pattern.fullmatch(self.call_ref)
+            if matched is None or matched.group(1) != self.event_ref.project_ref.value:
+                raise RunMemoryIntegrityError(
+                    "Run Memory call extension has invalid Project-scoped call reference"
+                )
+        elif self.call_ref is not None:
+            raise RunMemoryContractError("Non-call extension cannot claim CallRef")
+        if not self.object_refs and self.payload_ref is None and self.call_ref is None:
             raise RunMemoryIntegrityError("Run Memory extension Event has no exact reference")
 
 
@@ -348,6 +368,7 @@ class RunMemory:
                     "event_ref": item.event_ref.value,
                     "graph_ref": None if item.graph_ref is None else item.graph_ref.value,
                     "kind": item.kind,
+                    "call_ref": item.call_ref,
                     "object_refs": list(item.object_refs),
                     "payload_ref": None if item.payload_ref is None else item.payload_ref.value,
                     "sequence": item.sequence,
@@ -496,6 +517,7 @@ class RunMemoryService:
                 graph_ref=item.graph_ref,
                 object_refs=tuple(item.object_refs),
                 payload_ref=item.payload_ref,
+                call_ref=item.call_ref,
             )
 
         graphs = tuple(
@@ -584,6 +606,12 @@ class RunMemoryService:
                 graph_ref=event.graph_ref,
                 object_refs=event.object_refs,
                 payload_ref=event.payload_ref,
+                call_ref=(
+                    cast(str, event.metadata["call_ref"])
+                    if event.event_type in {"MODEL_CALL", "TOOL_CALL"}
+                    and isinstance(event.metadata.get("call_ref"), str)
+                    else None
+                ),
             )
             for event in events
             if event.event_type in _EXTENSION_EVENT_TYPES

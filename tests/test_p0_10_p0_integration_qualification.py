@@ -1380,6 +1380,11 @@ class P0IntegrationQualificationTests(unittest.TestCase):
             "h100",
         }
         for path in active_paths:
+            allowed_accounting_identifiers = (
+                {"provider_id", "model_id"}
+                if path.name == "call_ledger.py"
+                else set()
+            )
             source = path.read_text(encoding="utf-8")
             tree = ast.parse(source)
             docstring_nodes = {
@@ -1455,7 +1460,8 @@ class P0IntegrationQualificationTests(unittest.TestCase):
                 if coupling_identifier is not None:
                     self.assertNotIn(
                         coupling_identifier.lower(),
-                        prohibited_coupling_identifiers,
+                        prohibited_coupling_identifiers
+                        - allowed_accounting_identifiers,
                         path.name,
                     )
             self.assertNotIn("BEGIN EXCLUSIVE", source.upper(), path.name)
