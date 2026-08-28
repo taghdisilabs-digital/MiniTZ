@@ -719,6 +719,7 @@ class EventLedger:
         payload_ref: ContentRef | None,
         authority_attempt: ExecutionAttempt | None,
         require_run_authority: bool,
+        known_artifacts: Mapping[str, Artifact] | None = None,
     ) -> Event:
         self._authorize(access, project_ref)
         self._validate_reference_scopes(
@@ -728,11 +729,19 @@ class EventLedger:
             graph_ref,
             node_ref,
         )
-        normalized_refs, artifact_evidence = self._normalize_object_refs(
-            access,
-            project_ref,
-            object_refs,
-        )
+        if known_artifacts is None:
+            normalized_refs, artifact_evidence = self._normalize_object_refs(
+                access,
+                project_ref,
+                object_refs,
+            )
+        else:
+            normalized_refs, artifact_evidence = self._normalize_object_refs_in_transaction(
+                connection,
+                project_ref,
+                object_refs,
+                known_artifacts,
+            )
         run = self._require_run_authority(
             connection,
             access,
@@ -816,6 +825,58 @@ class EventLedger:
         if run_ref is not None:
             self._advance_run_head(connection, event, run_events)
         return event
+
+    def _normalize_object_refs_in_transaction(
+        self,
+        connection: sqlite3.Connection,
+        project_ref: ProjectRef,
+        values: Sequence[EventObjectRef],
+        known_artifacts: Mapping[str, Artifact],
+    ) -> tuple[tuple[str, ...], dict[str, Artifact]]:
+        """Validate refs against the caller's current transaction snapshot.
+
+        This narrow seam lets an atomic publisher reference an Artifact inserted
+        earlier in the same transaction without weakening normal Event lookup.
+        """
+
+        if isinstance(values, (str, bytes)) or not isinstance(values, Sequence):
+            raise EventContractError("Event object_refs must be a sequence")
+        if len(values) > _MAX_OBJECT_REFS:
+            raise EventContractError(
+                f"Event object_refs exceeds {_MAX_OBJECT_REFS} entries"
+            )
+        refs: list[str] = []
+        artifacts: dict[str, Artifact] = {}
+        content_annotations: dict[str, str] = {}
+        for value in values:
+            if isinstance(value, ArtifactRef):
+                if value.project_ref != project_ref:
+                    raise EventScopeError("Event ArtifactRef Project scope mismatch")
+                artifact = known_artifacts.get(value.value)
+                if artifact is None or artifact.artifact_ref != value:
+                    raise EventContractError(
+                        "Atomic Event ArtifactRef lacks supplied exact evidence"
+                    )
+                persisted = self.artifacts._fetch_artifact(connection, value)
+                if persisted != artifact:
+                    raise EventIntegrityError(
+                        "Atomic Event Artifact evidence differs from durable record"
+                    )
+                refs.append(value.value)
+                artifacts[value.value] = artifact
+            elif isinstance(value, ContentRef):
+                prior_media = content_annotations.get(value.value)
+                if prior_media is not None and prior_media != value.media_type:
+                    raise EventContractError(
+                        "Content identity has conflicting media annotations"
+                    )
+                content_annotations[value.value] = value.media_type
+                refs.append(value.value)
+            else:
+                raise EventContractError(
+                    "Event object ref must be ArtifactRef or ContentRef"
+                )
+        return tuple(sorted(set(refs))), artifacts
 
     @staticmethod
     def _validate_reference_scopes(
