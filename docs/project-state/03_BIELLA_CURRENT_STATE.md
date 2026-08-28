@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-28 11:48 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-28T11:48:25+02:00"
+state_timestamp_local: "2026-08-28 12:54 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-28T12:54:09+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: 1573db1a1062bd311603945dd6d4a7323636d6a4
-    tree: 8c4e6ad41fb12601f581affac3e005fe9ceb05a5
+    commit: 6cc8c6a69c9f2051bb3a9755272eff9dcc77da08
+    tree: f9453145afb4d9083e17c4453c9b1f27600a74e2
     observed_date: 2026-08-28
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p0_10_implementation_post_push_exact_readback
+    observation_context: p1_01_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: 1573db1a1062bd311603945dd6d4a7323636d6a4
-    tree: 8c4e6ad41fb12601f581affac3e005fe9ceb05a5
+    head: 6cc8c6a69c9f2051bb3a9755272eff9dcc77da08
+    tree: f9453145afb4d9083e17c4453c9b1f27600a74e2
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 10
+    durable_prompts_complete: 11
     durable_prompts_total: 51
     phase: P1
-    active_prompt: P1-01
-    active_prompt_title: Content-Addressed Object Store
+    active_prompt: P1-02
+    active_prompt_title: Durable Run Memory and Reconstruction
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -376,6 +376,55 @@ engine:
       kernel_neutrality: VERIFIED
     p0_10_required_remote_paths:
       - tests/test_p0_10_p0_integration_qualification.py
+    p1_01_status: DURABLY_COMPLETE
+    p1_01_source_commit: bdde4d5dcb5427160e841a4fa41d2148c6fc7d97
+    p1_01_result_commit: 6cc8c6a69c9f2051bb3a9755272eff9dcc77da08
+    p1_01_result_tree: f9453145afb4d9083e17c4453c9b1f27600a74e2
+    p1_01_remote_readback: VERIFIED
+    p1_01_implementation:
+      production_modules_added: 1
+      public_exports_changed: 9
+      test_methods_added: 20
+      schema_changes: 0
+      atomic_object_layout: digest_sharded_content_and_checksummed_metadata_bundle
+      development_gate: pinned_local_test_extra
+    p1_01_validation:
+      focused_unittest: "20 passed; 0 failed; 0 skipped; T15 executed all 222 P0 cases, strict mypy, exact wheel comparison, clean install, and separate-process restart"
+      regression_unittest: "242 passed; 0 failed; 0 skipped"
+      pytest: "242 passed; 126 subtests passed; 0 failed; 0 skipped"
+      mypy_strict: "23 source/test files; 0 issues; mypy 2.3.1"
+      compileall: PASS
+      concurrency_and_fault_repeat: "7 high-risk cases repeated 10 times; 70 passed"
+      test_quality_scan: "P1-01 skip, placeholder, TODO, FIXME, and NotImplemented hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 2fa46eb45393f7dd652def57f12936dff42830c2599d58bf04fb85fd315519f6; 12 source modules byte-identical; separate writer/reader restart passed"
+      remote_commit_archive: "sha256 8b772a4b31e05a0a36a1bd49f5654e44c42cf800999749dbc7924c93d2826923"
+      remote_source_wheel: "built from exact GitHub commit archive; sha256 122e852187916c4c992eb13ec6bcc135b4ae85affdcfc3189f226342aee3cff6; exact source module equality; separate writer/reader restart passed"
+      independent_review: "READY; no Critical or Important findings after immutable snapshot, nonregular object, metadata integrity, strict-gate, and snapshot readback hardening"
+    p1_01_kpi:
+      content_roundtrip_exact: 100%
+      content_corruption_detected: 100%
+      partial_objects_published: 0
+      path_escapes: 0
+      object_identity_tied_to_storage_uri: 0
+      cache_eviction_can_destroy_authority: 0
+      cross_project_authorization_leaks: 0
+    p1_01_qualification:
+      ContentObject: VERIFIED
+      ObjectStorageBackend: VERIFIED
+      filesystem_backend: VERIFIED
+      memory_reference_backend: VERIFIED
+      streaming_and_expected_identity: VERIFIED
+      atomic_deduplication_and_concurrent_first_writer: VERIFIED
+      corruption_interruption_restart_and_metadata_integrity: VERIFIED
+      quarantine_active_and_Project_authorization_separation: VERIFIED
+      provider_and_session_dependency: 0
+    p1_01_required_remote_paths:
+      - .gitignore
+      - pyproject.toml
+      - src/biella/__init__.py
+      - src/biella/object_store.py
+      - tests/test_p1_01_object_store.py
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -424,10 +473,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P1-01
-    title: Content-Addressed Object Store
-    drive_id: 1a8NV8vEPxyKCVhwk1MKSd3AXfhyB87vkpvPko0Ka45c
-    canonical_prompt_text_sha256: 147ac60d73c0aeda3fe6f13f5e3e279d8abe145549b0ac98d5055e201a923760
+    id: P1-02
+    title: Durable Run Memory and Reconstruction
+    drive_id: 19Bifx_E0RPhs3gxi3srr7118_rnhdT1gSCH3Pyi8I3Y
+    canonical_prompt_text_sha256: 9b0a34a112743edee693683b8fe02d5689da29045b7ef0935f0863b9e2302323
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -494,36 +543,36 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P1-01
-  global_number: 11
-  title: Content-Addressed Object Store
-  prompt_drive_id: 1a8NV8vEPxyKCVhwk1MKSd3AXfhyB87vkpvPko0Ka45c
-  predecessor_result_commit: 1573db1a1062bd311603945dd6d4a7323636d6a4
-  predecessor_result_tree: 8c4e6ad41fb12601f581affac3e005fe9ceb05a5
+  id: P1-02
+  global_number: 12
+  title: Durable Run Memory and Reconstruction
+  prompt_drive_id: 19Bifx_E0RPhs3gxi3srr7118_rnhdT1gSCH3Pyi8I3Y
+  predecessor_result_commit: 6cc8c6a69c9f2051bb3a9755272eff9dcc77da08
+  predecessor_result_tree: f9453145afb4d9083e17c4453c9b1f27600a74e2
 
 next_transition:
-  - verify_P0_10_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P1_01_prompt_and_directly_required_ContentRef_and_Artifact_files_only
-  - implement_provider_neutral_ContentObject_and_ObjectStorageBackend
-  - implement_durable_atomic_streaming_filesystem_backend_and_deterministic_memory_backend
-  - prove_digest_size_readback_dedupe_concurrency_corruption_interruption_restart_and_authorization_boundaries
+  - verify_P1_01_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P1_02_prompt_and_directly_required_Run_Node_Event_Graph_Artifact_interfaces_only
+  - implement_RunMemory_as_reconstruction_from_authoritative_durable_records
+  - expose_exact_Task_Graph_Node_attempt_fence_Event_Artifact_failure_checkpoint_and_ready_set_state
+  - prove_restart_cache_loss_provider_session_absence_scope_denial_and_divergence_detection
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P1_01_before_opening_P1_02
+  - close_P1_02_before_opening_P1_03
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - broaden_P1_01_into_replica_ranking_remote_object_stores_GC_retention_caches_or_later_numbered_architecture
+  - broaden_P1_02_into_provider_sessions_independent_mutable_memory_authority_or_later_numbered_architecture
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
-  - weaken_or_mock_ContentRef_integrity_atomicity_streaming_restart_or_Project_authorization_separation
+  - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P1_02_before_P1_01_durable_close
+  - start_P1_03_before_P1_02_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture

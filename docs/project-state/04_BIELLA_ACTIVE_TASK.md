@@ -4,38 +4,42 @@
 schema: biella.active_task/v3
 
 task:
-  id: P1-01
-  global_number: 11
+  id: P1-02
+  global_number: 12
   phase: P1
-  title: Content-Addressed Object Store
-  state: READY_AFTER_P0_10_DURABLE_CLOSE
+  title: Durable Run Memory and Reconstruction
+  state: READY_AFTER_P1_01_DURABLE_CLOSE
   exact_prompt:
-    title: 11_P1-01_Content_Addressed_Object_Store.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P1/11_P1-01_Content_Addressed_Object_Store.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P1/11_P1-01_Content_Addressed_Object_Store.md.docx
-    drive_id: 1a8NV8vEPxyKCVhwk1MKSd3AXfhyB87vkpvPko0Ka45c
-    local_docx_sha256: 473e3ec03804d36f7128e886da5b34157e5da680d5fd1948ee9199a48c142e92
-    live_drive_exported_docx_sha256: 8b37be941582850ad4f905c27ad92c4fc1b5a287995bad9bf4b772e32a06c535
-    canonical_text_sha256: 147ac60d73c0aeda3fe6f13f5e3e279d8abe145549b0ac98d5055e201a923760
+    title: 12_P1-02_Durable_Run_Memory_and_Reconstruction.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P1/12_P1-02_Durable_Run_Memory_and_Reconstruction.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P1/12_P1-02_Durable_Run_Memory_and_Reconstruction.md.docx
+    drive_id: 19Bifx_E0RPhs3gxi3srr7118_rnhdT1gSCH3Pyi8I3Y
+    local_docx_sha256: 0096d60b6a209758728ae7621fb1f82594c47aa8579bf95cbf267992cfd46afd
+    live_drive_exported_docx_sha256: 7b182974fd3c628115b87036a9a77bf9cfc80a1c24cc94d035f419b7eb982c59
+    canonical_text_sha256: 9b0a34a112743edee693683b8fe02d5689da29045b7ef0935f0863b9e2302323
+    canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P0-10
-    result_commit: 1573db1a1062bd311603945dd6d4a7323636d6a4
-    result_tree: 8c4e6ad41fb12601f581affac3e005fe9ceb05a5
-    exit_decision: READY_FOR_P1
+    id: P1-01
+    result_commit: 6cc8c6a69c9f2051bb3a9755272eff9dcc77da08
+    result_tree: f9453145afb4d9083e17c4453c9b1f27600a74e2
     remote_readback: VERIFIED
-  numbered_successor: P1-02
+    remote_required_paths_and_bytes: VERIFIED
+    exact_remote_archive_build_and_restart: VERIFIED
+  numbered_successor: P1-03
 
 goal:
   establish:
-    - physical_immutable_byte_store_behind_ContentRef
-    - exact_content_integrity_across_process_loss
-    - provider_neutral_replaceable_storage_backend
-    - streaming_atomic_deduplicating_durable_storage
+    - durable_RunMemory_reconstructable_without_conversation_process_worker_provider_cache_or_temporary_workspace_state
+    - exact_meaningful_Run_execution_state_from_existing_authoritative_durable_records
+    - divergence_detection_without_silent_fabrication_or_repair
+    - checkpoint_and_model_or_tool_call_reference_seams_without_payload_duplication
   preserve:
-    - Project_isolation_and_logical_Artifact_authorization_above_content_storage
-    - quarantine_and_active_logical_separation_even_when_physical_bytes_dedupe
-    - all_P0_exact_identity_immutability_fencing_durability_validation_and_evidence_contracts
+    - exact_Task_and_Graph_revision_identity
+    - historical_attempts_fences_failures_Events_and_Artifact_evidence
+    - Project_isolation_and_existing_execution_authority
+    - stale_owner_and_stale_result_rejection
+    - all_P0_and_P1_01_identity_immutability_durability_validation_and_evidence_contracts
 
 prewrite_observation:
   required:
@@ -45,8 +49,8 @@ prewrite_observation:
     - dirty_state
     - migrations_and_tests_if_present
     - AGENTS_policy_and_instruction_files_if_present
-    - accepted_ContentRef_Artifact_and_storage_equivalent_interfaces
-    - exact_P0_10_remote_handoff
+    - accepted_Run_Node_Event_Graph_Artifact_Task_and_storage_interfaces
+    - exact_P1_01_remote_handoff
   rules:
     - inspect_current_state_before_edit
     - preserve_valid_newer_local_work
@@ -57,179 +61,180 @@ prewrite_observation:
 input_scope:
   required:
     - 03_BIELLA_CURRENT_STATE.md
-    - exact_P1_01_canonical_prompt
-    - P0_06_ContentRef_Artifact_Source_and_provenance_interfaces
-    - Project_authorization_interfaces_directly_needed_by_logical_boundary_tests
+    - exact_P1_02_canonical_prompt
+    - accepted_Run_and_Node_execution_state_interfaces
+    - accepted_Event_Graph_Artifact_Task_and_Project_interfaces_directly_needed_by_reconstruction
+    - P1_01_ContentRef_and_object_storage_interfaces_only_when_checkpoint_or_call_refs_require_them
     - directly_touched_repository_files_and_required_regression_tests
   conditional:
     - current_Biella_project_instructions
     - earlier_accepted_contracts_actually_used_by_this_task
   prohibited_by_default:
-    - unopened_P1_02_through_P4_prompt_bodies
+    - unopened_P1_03_through_P4_prompt_bodies
     - broad_historical_backup_or_legacy_reuse_material
     - unrelated_website_work
     - broad_Drive_GitHub_or_filesystem_audits
 
 dependencies:
-  P0_10:
-    result_commit: 1573db1a1062bd311603945dd6d4a7323636d6a4
-    result_tree: 8c4e6ad41fb12601f581affac3e005fe9ceb05a5
+  P1_01:
+    result_commit: 6cc8c6a69c9f2051bb3a9755272eff9dcc77da08
+    result_tree: f9453145afb4d9083e17c4453c9b1f27600a74e2
     required_semantics:
-      - integrated_P0_contract_is_READY_FOR_P1
-      - Project_isolation_quarantine_inertness_exact_identity_immutability_recovery_concurrency_and_kernel_neutrality_hold
-  P0_06_and_earlier_accepted_contracts:
+      - exact_ContentRef_identity_and_durable_object_storage_are_available
+      - physical_content_location_is_separate_from_logical_identity_and_authorization
+      - restart_integrity_and_corruption_detection_hold
+  earlier_accepted_contracts:
     required_semantics:
-      - ContentRef_is_exact_content_identity
-      - Artifact_and_Source_identity_and_provenance_are_immutable
-      - logical_Project_authorization_does_not_collapse_when_digest_is_shared
+      - Run_binds_exact_Project_Task_revision_and_current_execution_authority
+      - Graph_revisions_Node_dependencies_and_historical_supersession_are_durable
+      - Node_attempt_lease_fence_state_failure_output_and_completion_evidence_are_authoritative
+      - Event_ledger_is_chronological_evidence_not_mutable_current_state
+      - Artifact_refs_and_provenance_are_exact_immutable_and_Project_scoped
 
 scope:
   in:
-    - provider_neutral_ObjectStorageBackend
-    - immutable_ContentObject_metadata
-    - real_durable_filesystem_backend
-    - deterministic_in_memory_reference_backend
-    - streaming_put_open_read_stat_exists_and_verify_semantics
-    - incremental_SHA_256_and_exact_size_calculation
-    - expected_digest_and_expected_size_validation
-    - atomic_temporary_write_to_digest_derived_final_exposure
-    - fsync_close_and_required_readback_integrity_verification
-    - identical_byte_reuse_and_concurrent_first_writer_convergence
-    - restart_exact_read_and_corruption_detection
-    - physical_dedupe_with_logical_quarantine_active_and_Project_boundaries_preserved
+    - RunMemory_immutable_reconstructed_view
+    - get_or_reconstruct_RunMemory
+    - consistency_validator
+    - Project_Task_revision_digest_Run_and_current_Graph_revision_identity
+    - Node_state_summary_current_attempt_owner_fence_and_historical_attempts
+    - completed_outputs_failures_stale_cancelled_and_expired_state
+    - Event_sequence_high_water_mark_and_meaningful_chronology
+    - latest_compatible_checkpoint_reference_seam
+    - optional_model_tool_or_provider_live_optimization_reference_seams
+    - continuation_and_current_ready_set_inputs
+    - superseded_Graph_history_without_current_authority
+    - restart_cache_loss_and_provider_session_absence_reconstruction
+    - deterministic_inconsistency_detection_or_resolution_by_authoritative_records
   out:
-    - replica_ranking
-    - remote_or_S3_compatible_object_storage
-    - global_garbage_collection_policy
-    - retention_policy
-    - evictable_authoritative_cache
+    - independent_mutable_RunMemory_authority
+    - duplicated_checkpoint_model_tool_or_large_payload_bytes
+    - provider_session_as_required_continuation_state
+    - Scheduler_or_resource_model_replacement
     - later_numbered_prompt_architecture
     - unrelated_domain_or_provider_specialization
 
 required_interfaces:
   create_or_reconcile:
-    - ContentObject
-    - ObjectStorageBackend
-    - filesystem_backend
-    - memory_or_reference_backend
-    - streaming_put
-    - streaming_open_or_read
-    - stat
-    - exists
-    - verify
-  content_object_conceptual_fields:
-    - algorithm
-    - digest
-    - size
-    - optional_media_type
-    - created_at
-  rule:
-    storage_path_or_URI_is_not_logical_content_identity: true
-    ContentLocation_or_replicas_are_separate_from_ContentObject: true
-    logical_Artifact_authorization_remains_above_physical_content_layer: true
+    - RunMemory
+    - get_or_reconstruct_RunMemory
+    - RunMemory_consistency_validator
+  reconstructable_fields_or_equivalents:
+    - project_id
+    - task_id_revision_and_digest
+    - run_id
+    - accepted_current_graph_and_revision
+    - node_state_summary
+    - current_attempts_owners_and_fences
+    - historical_attempts_across_graph_revisions
+    - completed_output_Artifact_refs
+    - failed_stale_cancelled_and_expired_nodes
+    - Event_sequence_high_water_mark
+    - latest_compatible_checkpoint_ref
+    - continuation_and_ready_set_inputs
+  authority_rule:
+    RunMemory_is_reconstruction_not_second_authority: true
+    materialized_projection_if_any_is_rebuildable_and_non_authoritative: true
+    newer_durable_execution_state_overrides_stale_projection: true
+    contradictions_are_never_silently_merged: true
 
-write_algorithm:
+reconstruction_algorithm:
   required_sequence:
-    - stream_bytes_to_backend_temporary_location
-    - calculate_SHA_256_incrementally
-    - calculate_exact_size
-    - compare_expected_digest_and_size_when_supplied
-    - fsync_and_close_as_required_by_filesystem_semantics
-    - atomically_expose_under_digest_derived_path_or_key
-    - independently_read_back_and_verify_before_durable_success_when_required
-    - return_exact_ContentRef_or_semantically_equivalent_identity
+    - authenticate_exact_Project_scope_and_Run_identity
+    - read_and_verify_exact_Run_and_bound_Task_revision
+    - resolve_and_verify_current_accepted_Graph_revision
+    - reconstruct_current_and_historical_Node_execution_attempt_fence_and_state_evidence
+    - bind_completed_output_Artifacts_failures_and_terminal_evidence
+    - reconstruct_ordered_Event_chronology_and_high_water_mark
+    - select_latest_checkpoint_ref_compatible_with_current_Task_and_Graph
+    - derive_current_continuation_and_ready_set_from_authoritative_state
+    - validate_cross_record_consistency_and_fail_closed_on_unresolved_divergence
+    - return_immutable_RunMemory_view
   invariants:
-    - partial_object_is_never_exposed_as_verified
-    - interrupted_write_leaves_no_verified_final_object_or_misleading_metadata
-    - concurrent_identical_writers_converge_on_one_exact_digest_identity
-    - identical_existing_bytes_are_reused
-    - user_supplied_filename_or_path_is_never_trusted_as_object_locator
+    - restart_or_cache_loss_cannot_erase_verified_work
+    - conversation_or_provider_session_absence_cannot_block_reconstruction
+    - Task_or_Graph_supersession_cannot_rewrite_existing_Run_history
+    - expired_or_stale_owner_is_not_reported_as_current_indefinitely
+    - Event_history_does_not_override_current_execution_authority
+    - foreign_Project_identity_never_grants_RunMemory_access
 
-read_and_integrity:
-  require:
-    - explicit_silent_corruption_detection_path
-    - size_and_digest_verification_before_returning_authoritative_verified_bytes
-    - corrupt_or_truncated_object_never_returned_as_verified_valid_content
-    - large_content_streaming_without_full_bytes_in_memory
-
-data_or_state_changes:
-  allowed:
-    - Content_object_or_location_registry_only_if_required_by_accepted_design
-  prohibit:
-    - storage_URI_as_ContentObject_identity
-    - cache_eviction_that_can_destroy_authoritative_content
-    - premature_GC_retention_or_replica_policy
-
-failure_behavior:
+consistency_and_failure_behavior:
+  detect_or_deterministically_resolve:
+    - missing_Event
+    - stale_materialized_summary
+    - superseded_Graph
+    - output_Artifact_ref_mismatch
+    - Task_or_Graph_identity_drift
+    - attempt_fence_owner_or_terminal_state_divergence
   fail_closed_on:
-    - expected_digest_mismatch
-    - expected_size_mismatch
-    - physical_digest_or_size_corruption
-    - truncated_content
-    - path_escape_or_untrusted_locator
-    - logical_Project_scope_identity_or_authority_mismatch
-    - quarantine_or_historical_content_active_binding
+    - Project_scope_mismatch
+    - identity_authority_or_integrity_mismatch
+    - contradictory_authoritative_records_without_defined_resolution
+    - invalid_checkpoint_compatibility
   preserve:
     - durable_evidence
     - real_failure_cause
+    - already_verified_durable_work
     - unaffected_required_work
-    - already_verified_durable_content
   prohibit:
     - fabricated_success
     - fabricated_missing_fact
+    - silent_repair_of_authoritative_state
     - mocked_real_infrastructure_classification
     - weakened_architecture_for_unavailable_dependency
 
 concurrency_and_recovery:
   require:
-    - concurrent_first_writer_race_uses_real_backend_semantics
-    - duplicate_identical_writers_converge_without_corruption_or_duplicate_authoritative_identity
-    - restart_reconstructs_and_verifies_exact_bytes_without_process_or_session_memory
-    - stale_owners_or_results_remain_rejected_by_existing_authority_model
-    - independent_work_is_not_globally_serialized_beyond_required_storage_or_database_commit_boundary
+    - reconstruction_uses_existing_Graph_Scheduler_and_resource_authority
+    - independent_work_remains_concurrent_when_dependencies_side_effects_and_resources_allow
+    - already_verified_durable_work_survives_recovery
+    - stale_owners_and_results_remain_rejected
+    - reconstruction_observes_one_consistent_authoritative_snapshot_or_fails_closed
+    - no_global_serialization_beyond_existing_required_commit_boundaries
 
 required_test_matrix:
-  - {id: T01, prove: empty_object_exact_roundtrip}
-  - {id: T02, prove: small_text_and_binary_exact_roundtrip}
-  - {id: T03, prove: large_chunked_stream_roundtrip_without_full_RAM_requirement}
-  - {id: T04, prove: expected_digest_mismatch_fails_closed_without_published_object}
-  - {id: T05, prove: expected_size_mismatch_fails_closed_without_published_object}
-  - {id: T06, prove: identical_bytes_dedupe_and_different_bytes_have_different_identity}
-  - {id: T07, prove: concurrent_identical_puts_converge_on_one_exact_identity_and_valid_object}
-  - {id: T08, prove: intentional_corruption_and_truncation_are_detected_and_never_returned_as_verified}
-  - {id: T09, prove: interrupted_write_exposes_no_partial_verified_object_or_misleading_metadata}
-  - {id: T10, prove: filesystem_restart_reads_and_verifies_exact_bytes}
-  - {id: T11, prove: deterministic_memory_reference_backend_matches_provider_neutral_contract}
-  - {id: T12, prove: quarantine_and_active_logical_boundary_survives_physical_dedupe}
-  - {id: T13, prove: Project_Artifact_authorization_remains_enforced_above_physical_content_layer}
-  - {id: T14, prove: path_escape_and_storage_URI_identity_coupling_are_absent}
-  - {id: T15, prove: required_P0_regressions_typecheck_build_and_installed_wheel_restart_smoke_pass_without_skips_placeholders_or_TODO_tests}
+  - {id: T01, prove: representative_multi_node_Run_reconstructs_identically_after_process_restart}
+  - {id: T02, prove: exact_Task_revision_digest_and_current_Graph_revision_reconstruct}
+  - {id: T03, prove: completed_failed_ready_expired_Node_attempt_owner_and_fence_states_reconstruct}
+  - {id: T04, prove: output_Artifact_failure_and_terminal_evidence_refs_survive_restart}
+  - {id: T05, prove: ordered_Events_and_sequence_high_water_mark_reconstruct_without_becoming_current_authority}
+  - {id: T06, prove: latest_checkpoint_ref_is_compatible_with_current_Task_and_Graph_without_payload_duplication}
+  - {id: T07, prove: cache_or_materialized_summary_deletion_does_not_lose_Run_state}
+  - {id: T08, prove: provider_or_hosted_session_absence_does_not_block_reconstruction_or_continuation}
+  - {id: T09, prove: Project_Beta_cannot_reconstruct_Alpha_RunMemory_by_known_Run_ID}
+  - {id: T10, prove: terminal_Run_remains_terminal_and_expired_owner_is_not_current_indefinitely}
+  - {id: T11, prove: superseded_Graph_history_is_available_without_becoming_current}
+  - {id: T12, prove: missing_Event_stale_summary_superseded_Graph_and_output_ref_mismatch_do_not_silently_merge}
+  - {id: T13, prove: newer_Task_revision_does_not_rewrite_existing_RunMemory}
+  - {id: T14, prove: continuation_and_ready_set_follow_authoritative_dependencies_and_current_state}
+  - {id: T15, prove: required_predecessor_regressions_typecheck_build_and_installed_wheel_restart_pass_without_skips_placeholders_or_TODO_tests}
 
 kpi:
-  content_roundtrip_exact: 100%
-  content_corruption_detected: 100%
-  partial_objects_published: 0
-  path_escapes: 0
-  object_identity_tied_to_storage_uri: 0
-  cache_eviction_can_destroy_authority: 0
+  run_state_lost_after_restart: 0
+  conversation_dependency: 0
+  provider_session_dependency: 0
+  completed_nodes_lost: 0
+  Task_revision_drift: 0
+  RunMemory_divergence_silently_accepted: 0
 
 completion_gate:
   require:
-    - verified_immutable_content_survives_restart
-    - backend_is_replaceable_without_changing_ContentRef
-    - Artifact_and_Project_authorization_remain_separate
-    - concurrent_duplicate_writers_converge_without_partial_publication
-    - corruption_is_detected_before_verified_bytes_are_returned
+    - Run_can_answer_what_was_requested_which_Graph_is_current_what_completed_executes_failed_and_remains
+    - reconstruction_uses_durable_state_alone
+    - exact_sources_outputs_attempts_fences_and_chronology_are_preserved
+    - restart_cache_loss_and_provider_session_absence_do_not_lose_verified_state
+    - cross_Project_access_and_identity_drift_fail_closed
     - all_required_tests_and_regressions_pass_without_skips_placeholders_or_TODOs
 
 implementation_method:
-  - verify_exact_P0_10_remote_handoff
-  - inspect_exact_ContentRef_Artifact_Project_interfaces_and_directly_relevant_tests
+  - verify_exact_P1_01_remote_handoff
+  - inspect_exact_Run_Node_Event_Graph_Artifact_Task_Project_interfaces_and_directly_relevant_tests
   - add_task_scoped_failing_tests_before_implementation_or_defect_fix
-  - implement_minimal_provider_neutral_content_store_contract
-  - exercise_real_filesystem_atomicity_concurrency_corruption_and_restart
-  - run_focused_P1_01_tests
-  - run_relevant_P0_regressions_and_full_required_suite
+  - implement_minimal_immutable_RunMemory_reconstruction_contract
+  - validate_one_consistent_authoritative_snapshot_and_defined_divergence_handling
+  - exercise_real_restart_cache_loss_scope_denial_expiration_supersession_and_tampering
+  - run_focused_P1_02_tests
+  - run_relevant_predecessor_regressions_and_full_required_suite
   - run_strict_typecheck_compileall_and_build
   - inspect_actual_wheel_and_clean_install_restart_smoke
   - obtain_independent_changed_code_review_before_publication
@@ -237,7 +242,7 @@ implementation_method:
 publication:
   when_complete:
     - record_source_commit
-    - commit_coherent_P1_01_result
+    - commit_coherent_P1_02_result
     - push_main
     - remote_readback_result_commit
     - remote_readback_result_tree
@@ -268,8 +273,8 @@ continuation:
     - report_intentional_dirty_or_uncommitted_files
     - update_03_BIELLA_CURRENT_STATE
     - update_required_canonical_Drive_continuity
-    - replace_04_with_exact_P1_02_packet_only_after_P1_01_durable_close
-    - close_P1_01_before_opening_P1_02
+    - replace_04_with_exact_P1_03_packet_only_after_P1_02_durable_close
+    - close_P1_02_before_opening_P1_03
   continue_numbered_prompts_one_at_a_time: true
   broad_real_historical_mining: false
 ```
