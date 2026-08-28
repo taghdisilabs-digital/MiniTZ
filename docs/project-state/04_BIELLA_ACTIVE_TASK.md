@@ -4,35 +4,35 @@
 schema: biella.active_task/v3
 
 task:
-  id: P0-05
-  global_number: 5
+  id: P0-06
+  global_number: 6
   phase: P0
-  title: Durable Run Identity, Attempts, Leases, and Fencing
-  state: READY_AFTER_P0_04_DURABLE_CLOSE
+  title: Artifact and Source Identity Contract
+  state: READY_AFTER_P0_05_DURABLE_CLOSE
   exact_prompt:
-    title: 05_P0-05_Durable_Run_Identity_Attempts_Leases_and_Fencing.md.docx
-    drive_id: 1a_Xqlzv1HhPcuuI8PNHVVDYhpfQYX_bsm3fnCAYWXwQ
-    canonical_text_sha256: 4efa15cf86b7133ef006d6e2a5bf0aca5e130d8e6422e7683f7ccc08999e1b08
+    title: 06_P0-06_Artifact_and_Source_Identity_Contract.md.docx
+    drive_id: 17l-QAoXQPl2QkE3B7BJqoeCVsJHybnrq8UQlRltu1as
+    canonical_text_sha256: 6a28d180247ad33881e9b02e57cd9e1cd72e4f2cba619f96dafab0d217bf8bb7
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P0-04
-    result_commit: 9b28ccf93c4cb8edd771f474903bcfa5e7592b1b
-    result_tree: 45b6cffa2eed4f2540e856f7ad7700c4a9c21926
+    id: P0-05
+    result_commit: 8f53a1fd641ad46c893239cd8279f310432086bc
+    result_tree: ed4e97846d8c055a0e8967b83a8b100bef481ddf
     remote_readback: VERIFIED
-  numbered_successor: P0-06
+  numbered_successor: P0-07
 
 goal:
   establish:
-    - durable_Run_identity_bound_to_exact_Task_revision_and_digest
-    - immutable_ExecutionAttempt_lineage
-    - atomic_lease_ownership_with_monotonic_fencing
-    - reusable_current_Run_authority_validation
-    - durable_race_safe_cancellation
+    - Project_scoped_logical_Artifact_identity
+    - exact_immutable_ContentRef_identity
+    - exact_Project_scoped_SourceRef_identity
+    - generic_immutable_ArtifactDerivation_provenance
+    - exact_Task_input_and_Run_output_identity_seams
   guarantee:
-    - Task_intent_is_separate_from_execution_lineage
-    - stale_executors_cannot_mutate_current_Run_authority
-    - owner_identity_reuse_never_restores_an_old_fence
-    - lease_decisions_do_not_trust_worker_local_time
+    - logical_Artifact_identity_is_distinct_from_content_digest
+    - physical_storage_location_is_not_Artifact_or_Content_identity
+    - identical_bytes_never_collapse_Project_authorization
+    - immutable_content_or_provenance_change_creates_a_new_Artifact_revision
 
 prewrite_observation:
   required:
@@ -45,7 +45,7 @@ prewrite_observation:
     - tests_if_present
     - AGENTS_policy_instruction_files_if_present
     - accepted_existing_interfaces
-    - P0_04_exact_remote_handoff
+    - P0_05_exact_remote_handoff
   rules:
     - inspect_current_state_before_edit
     - preserve_valid_newer_local_work
@@ -56,15 +56,17 @@ prewrite_observation:
 input_scope:
   required:
     - 03_BIELLA_CURRENT_STATE.md
-    - exact_P0_05_canonical_prompt
-    - P0_04_Task_interfaces
+    - exact_P0_06_canonical_prompt
+    - P0_01_quarantine_type_boundary
     - P0_02_Project_interfaces
+    - P0_04_Task_and_TaskInputRef_interfaces
+    - P0_05_Run_interfaces
     - directly_touched_repository_files
   conditional:
     - current_Biella_project_instructions
     - earlier_accepted_contracts_actually_used_by_this_task
   prohibited_by_default:
-    - other_46_unopened_prompt_bodies
+    - other_45_unopened_prompt_bodies
     - large_real_MiniTZ_backup
     - inactive_legacy_reuse_contract
     - unrelated_website_work
@@ -72,6 +74,11 @@ input_scope:
     - broad_Drive_GitHub_filesystem_audits
 
 dependencies:
+  P0_01:
+    result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
+    required_semantics:
+      - QuarantineRef_is_migration_only_and_authority_distinct
+      - identical_digest_does_not_activate_quarantined_material
   P0_02:
     result_commit: 2847543e0b3f9bac04e0e879e4b81f748cab712c
     required_interfaces:
@@ -80,252 +87,273 @@ dependencies:
       - ProjectAccess
     required_semantics:
       - authenticated_Project_scope
-      - exact_Project_binding
       - cross_Project_access_fails_closed
   P0_04:
     result_commit: 9b28ccf93c4cb8edd771f474903bcfa5e7592b1b
-    result_tree: 45b6cffa2eed4f2540e856f7ad7700c4a9c21926
     required_interfaces:
       - Task
       - TaskRef
+      - TaskInputRef
       - TaskRevisionService
     required_semantics:
-      - exact_Project_and_Task_revision_identity
-      - deterministic_canonical_Task_digest
-      - immutable_Task_revision_history
+      - exact_immutable_Task_inputs
+      - immutable_Task_revisions
+      - exact_Task_digest
+  P0_05:
+    result_commit: 8f53a1fd641ad46c893239cd8279f310432086bc
+    result_tree: ed4e97846d8c055a0e8967b83a8b100bef481ddf
+    required_interfaces:
+      - Run
+      - RunRef
+      - RunService
+    required_semantics:
+      - exact_Project_and_Task_binding
+      - stale_Run_authority_fails_closed
+      - immutable_attempt_and_authority_history
 
 scope:
   in:
-    - Run_bound_to_exact_Project_Task_id_Task_revision_and_Task_digest
-    - immutable_append_only_ExecutionAttempt_lineage
-    - current_Run_status_attempt_fence_owner_and_lease_state
-    - atomic_Run_lease_acquire_renew_and_release
-    - lease_expiration_and_authority_replacement
-    - monotonically_increasing_fences
-    - authoritative_durable_state_time
-    - durable_cancellation_marker
-    - assertCurrentRunAuthority_seam
-    - transactional_concurrency_and_restart_recovery
-    - durable_integrity_guards
+    - opaque_stable_Project_scoped_Artifact_identity
+    - positive_immutable_Artifact_revision
+    - extensible_Artifact_role_and_type_metadata
+    - exact_SHA_256_ContentRef_with_size_and_media_type
+    - exact_Project_scoped_SourceRef_variants
+    - generic_ArtifactDerivation_relationship
+    - optional_producer_Run_or_future_Node_reference
+    - immutable_content_source_and_derivation_bindings
+    - durable_Artifact_revision_and_derivation_persistence
+    - atomic_creation_and_revision
+    - restart_durability
+    - physical_location_independence
+    - Task_and_Run_exact_identity_integration_seams
   out:
-    - Node_scheduler
-    - resource_locks
-    - global_heavyweight_or_GPU_lock
-    - full_finalization
-    - checkpoint_or_resume
-    - routing
-    - provider_or_hardware_categories
-    - approval_workflow
-    - P0_06_or_later_prompt_implementation
+    - physical_object_storage_backend
+    - remote_object_upload_or_download
+    - storage_routing_or_replication
+    - domain_or_game_specific_Artifact_enum
+    - provider_or_hardware_specialization
+    - new_Graph_Scheduler_or_resource_model
+    - later_numbered_prompt_implementation
 
 required_interfaces:
   exact:
-    - Run
-    - ExecutionAttempt
-    - acquire_Run_lease
-    - renew_Run_lease
-    - release_Run_lease
-    - assertCurrentRunAuthority
-    - requestRunCancellation
+    - Artifact
+    - ArtifactRef
+    - ContentRef
+    - SourceRef
+    - ArtifactDerivation
+  accepted_service_name:
+    - ArtifactService
   rule:
     accepted_existing_semantic_equivalent_may_be_mapped: true
     do_not_duplicate_architecture_due_to_name_difference: true
 
-run_contract:
-  bind_exactly:
-    - ProjectRef
-    - Task_id
-    - Task_revision
-    - Task_canonical_digest
-  durable_state:
-    - opaque_stable_run_id
-    - status
-    - current_attempt
-    - current_fence
-    - current_owner
-    - current_lease
-    - created_at
-    - updated_at
-    - cancellation_marker
-  invariants:
-    - later_Task_revision_never_changes_existing_Run_meaning
-    - Run_identity_is_provider_resource_hardware_and_worker_neutral
-    - exact_Task_revision_and_digest_are_revalidated_at_binding_and_authority_boundaries
+identity_contract:
+  distinct:
+    Artifact:
+      meaning: logical_Project_scoped_produced_or_consumed_object_revision
+      identity_must_not_be:
+        - content_digest
+        - filename
+        - filesystem_path
+        - storage_URI
+        - object_store_location
+    ContentRef:
+      meaning: exact_immutable_byte_or_content_identity
+      require:
+        - algorithm_SHA_256
+        - lowercase_digest
+        - nonnegative_size
+        - bounded_media_type_where_useful
+    storage_location:
+      meaning: mutable_physical_location_of_bytes
+      fully_implemented_in_P0_06: false
+      may_change_without_changing_Artifact_or_ContentRef: true
 
-execution_attempt_contract:
-  immutable_append_only: true
-  record:
-    - opaque_stable_attempt_id
-    - exact_Run_identity
-    - positive_gap_free_attempt_number
-    - monotonically_increasing_fence
-    - owner_or_executor_ref
-    - lease_acquired_at
-    - lease_expires_at
-    - started_at
-    - completed_at
-    - terminal_outcome
+artifact_contract:
+  require:
+    - opaque_stable_artifact_id
+    - exactly_one_ProjectRef
+    - positive_immutable_revision
+    - extensible_role_or_type_string
+    - optional_exact_ContentRef
+    - zero_or_more_exact_SourceRef_values
+    - zero_or_more_exact_ArtifactDerivation_values
+    - optional_producer_RunRef_where_applicable
+    - generic_media_or_schema_metadata
+    - timezone_aware_created_at
+    - semantic_and_record_integrity_digests
+  prohibit:
+    - closed_game_media_or_domain_specific_kernel_enum
+    - path_URL_filename_or_digest_as_logical_artifact_id
+    - authorization_from_ContentRef_knowledge_alone
+
+source_contract:
+  every_source_is_Project_scoped: true
+  represent_exactly_where_applicable:
+    - Git_repository_plus_commit_and_tree
+    - exact_file_ContentRef
+    - database_or_source_revision
+    - URL_or_object_identity_plus_retrieval_timestamp_when_no_exact_remote_version_exists
+  prohibit:
+    - mutable_branch_alone
+    - mutable_path_alone
+    - latest_object_without_exact_version_or_retrieval_evidence
+    - cross_Project_source_without_future_explicit_sharing
+
+derivation_contract:
+  generic: true
+  produced_Artifact_may_reference:
+    - exact_source_ArtifactRef
+    - exact_source_ContentRef
+    - exact_SourceRef
+    - producing_RunRef
+    - future_Node_reference_when_interface_exists
+  preserve_examples:
+    - editable_source_to_export
+    - source_tree_to_build_Artifact
+    - copied_content_without_overwriting_provenance
+  require:
+    - exact_Project_scope
+    - immutable_source_and_output_identity
+    - append_only_durable_derivation
+    - no_cross_Project_derivation
+
+immutability:
+  require:
+    - bound_ContentRef_never_changes_in_place
+    - bound_source_and_derivation_provenance_never_changes_in_place
+    - material_change_creates_next_Artifact_revision
+    - old_Artifact_revision_remains_readable_and_digest_stable
+    - revisions_are_monotonic_and_gap_free_per_logical_Artifact
+    - restart_preserves_all_verified_revisions_and_derivations
+  prohibit:
+    - UPDATE_or_DELETE_of_existing_Artifact_revision
+    - UPDATE_or_DELETE_of_existing_derivation
+    - silent_rebinding_to_different_bytes
+
+project_isolation:
+  require:
+    - exact_Project_scope_on_every_Artifact_Source_and_derivation_query
+    - same_ContentRef_may_back_distinct_Alpha_and_Beta_Artifacts
+    - Artifact_ID_or_ContentRef_knowledge_does_not_grant_access
+    - cross_Project_Artifact_source_or_derivation_binding_fails_privately
+  quarantine_rule:
+    QuarantineRef_is_ArtifactRef: false
+    QuarantineRef_is_ContentRef: false
+    identical_digest_grants_active_authority: false
+
+task_and_run_integration:
+  require:
+    - Task_inputs_can_bind_exact_authorized_Artifact_Source_or_Content_identity
+    - Runs_can_bind_or_record_exact_output_Artifact_Content_identity
+    - expected_Task_revision_and_digest_mismatch_fails_closed
+    - stale_Run_owner_or_fence_cannot_publish_authoritative_Artifact_output
   preserve:
-    - every_ownership_generation
-    - every_fence_transition_across_restart
-  prohibit:
-    - destructive_attempt_counter_that_erases_history
-    - mutation_or_deletion_of_prior_attempt_identity
-
-lease_operations:
-  acquire:
-    - atomically_select_one_current_owner
-    - increment_fence_monotonically_for_each_new_ownership_generation
-    - create_attempt_and_current_authority_as_one_transaction
-    - allow_expired_ownership_to_be_replaced
-    - reject_live_competing_owner
-    - reject_cancelled_or_terminal_Run
-  renew:
-    - require_exact_Project_Run_attempt_owner_and_fence
-    - require_current_live_lease
-    - reject_expired_stale_cancelled_or_terminal_authority
-  release:
-    - require_exact_Project_Run_attempt_owner_and_fence
-    - require_current_live_lease
-    - old_fence_cannot_release_newer_owner
-  time_authority:
-    source: authoritative_database_or_equivalent_durable_clock
-    caller_or_worker_timestamp_decides_authority: false
-
-fencing:
-  monotonic: true
-  authority_is_determined_by:
-    - exact_Run_identity
-    - exact_current_attempt
-    - exact_current_fence
-    - exact_current_owner_when_applicable
-    - live_lease
-    - noncancelled_nonterminal_state
-  authority_is_not_restored_by:
-    - owner_or_executor_name_reuse
-    - late_result_from_expired_attempt
-    - caller_supplied_wall_clock
-  stale_fence_behavior: REJECT
-
-authority_validator:
-  interface: assertCurrentRunAuthority
-  reusable_by_later_finalization_paths: true
-  validate:
-    - authenticated_Project_scope
-    - exact_Run
-    - exact_Task_revision_and_digest
-    - current_attempt_and_fence
-    - current_owner_when_applicable
-    - lease_validity_by_durable_time
-    - cancellation_state
-    - terminal_state
-  prohibit:
-    - weaker_adapter_specific_fencing_checks
-    - accepted_late_old_finalization
-
-cancellation:
-  durable: true
-  race_safe: true
-  after_authoritative_cancellation:
-    - acquisition_cannot_revive_execution
-    - renewal_cannot_revive_execution
-    - late_results_cannot_pass_current_authority
-    - attempt_history_remains_readable
-  does_not_require:
-    - global_approval_workflow
+    - P0_04_exact_Task_input_semantics
+    - P0_05_assertCurrentRunAuthority_seam
 
 persistence:
   require:
-    - durable_Run_identity_and_exact_Task_binding
-    - durable_current_fence_owner_lease_and_cancellation
-    - append_only_attempt_history
-    - atomic_acquisition_attempt_and_fence_transition
-    - atomic_renew_release_and_cancellation_transitions
-    - exact_Project_scope_on_every_query
+    - durable_Artifact_revisions
+    - durable_ContentRef_bindings
+    - durable_SourceRef_bindings
+    - durable_ArtifactDerivation_records
+    - exact_Project_scope_and_foreign_identity_constraints
+    - append_only_update_delete_guards
+    - record_digest_and_relationship_integrity_validation
+    - atomic_initial_creation
+    - atomic_new_revision_and_derivation_binding
     - restart_round_trip
-    - integrity_validation
-    - no_partial_acquisition_state
+    - no_half_created_revision_or_provenance
   schema_change:
-    permitted_only_when_required_for_P0_05: true
+    permitted_only_when_required_for_P0_06: true
     must_be_reported_exactly: true
 
 failure_behavior:
   fail_closed_on:
-    - malformed_or_unauthorized_Project_scope
-    - malformed_or_missing_Run_identity
-    - missing_or_mismatched_Task_revision_or_digest
-    - attempt_owner_or_fence_mismatch
-    - stale_or_expired_lease
-    - cancelled_or_terminal_Run
-    - persisted_integrity_mismatch
-    - transaction_fault
+    - malformed_ArtifactRef_ContentRef_or_SourceRef
+    - missing_or_unauthorized_Project
+    - digest_size_or_media_type_mismatch
+    - nonexistent_source_Artifact_or_Run
+    - expected_Task_revision_or_digest_mismatch
+    - stale_Run_owner_or_fence
+    - cross_Project_Artifact_source_or_derivation
+    - QuarantineRef_masquerade
+    - immutable_revision_conflict
+    - persisted_integrity_or_relationship_mismatch
   preserve:
-    - durable_attempt_and_fence_evidence
+    - durable_evidence
     - real_failure_cause
   prohibit:
     - fabricated_success
     - fabricated_missing_facts
-    - mocked_unavailable_integration_reported_as_real
+    - mocked_unavailable_storage_reported_as_real
 
 concurrency_and_recovery:
+  current_reality:
+    Graph_Scheduler_and_resource_model_present: false
+    do_not_fabricate_missing_later_interfaces: true
   require:
-    - real_transactional_concurrency_where_durable_database_exists
-    - two_owners_racing_for_one_Run_yield_exactly_one_current_owner
-    - concurrent_independent_Runs_can_hold_independent_leases
-    - expired_lease_can_be_replaced_with_higher_fence
-    - stale_renew_and_release_cannot_change_newer_authority
-    - restart_preserves_Run_attempt_fence_and_cancellation_history
-    - transaction_fault_cannot_partially_commit_fence_owner_or_attempt
-  prohibit:
-    - global_heavyweight_resource_lock
-    - GPU_global_execution_lock
+    - real_transactional_concurrency_in_existing_durable_database
+    - independent_nonconflicting_Artifact_creation_can_complete
+    - one_durable_winner_for_conflicting_same_revision
+    - restart_preserves_verified_Artifact_and_derivation_history
+    - stale_Run_authority_cannot_publish_or_replace_output_identity
 
 required_test_matrix:
   - id: T01
-    prove: create_Run_bound_to_exact_Project_Task_revision_and_digest
+    prove: exact_bytes_produce_expected_SHA_256_size_and_media_type_ContentRef
   - id: T02
-    prove: changed_Task_revision_does_not_change_existing_Run_binding
+    prove: changed_bytes_produce_changed_ContentRef
   - id: T03
-    prove: two_owners_race_for_one_Run_and_exactly_one_wins
+    prove: identical_bytes_produce_equal_ContentRef_but_distinct_logical_Artifacts
   - id: T04
-    prove: concurrent_independent_Runs_can_hold_independent_leases
+    prove: identical_bytes_across_Projects_preserve_separate_Artifact_authorization
   - id: T05
-    prove: lease_expiry_then_new_owner_receives_higher_fence
+    prove: cross_Project_Artifact_source_and_derivation_attempts_fail_privately
   - id: T06
-    prove: old_owner_and_fence_are_rejected_even_when_owner_identity_is_reused
+    prove: generic_derivation_chain_preserves_exact_source_and_output_identity
   - id: T07
-    prove: old_fence_renewal_fails
+    prove: immutable_content_or_provenance_change_creates_new_revision_and_preserves_old
   - id: T08
-    prove: old_fence_release_cannot_release_newer_owner
+    prove: exact_Git_repository_commit_and_tree_SourceRef_round_trips
   - id: T09
-    prove: late_old_finalization_authority_check_fails
+    prove: mutable_branch_or_path_alone_is_rejected_as_exact_source
   - id: T10
-    prove: cancellation_blocks_renewal_acquisition_and_finalization_without_erasing_history
+    prove: QuarantineRef_cannot_masquerade_as_ArtifactRef_or_ContentRef
   - id: T11
-    prove: transaction_fault_cannot_leave_fence_owner_attempt_partially_committed
+    prove: physical_path_location_change_does_not_change_Artifact_or_ContentRef
   - id: T12
-    prove: restart_preserves_attempt_and_fence_history
+    prove: Task_input_can_bind_exact_authorized_Artifact_Source_or_Content_identity
   - id: T13
-    prove: caller_or_worker_timestamp_does_not_decide_lease_authority
+    prove: current_Run_authority_can_publish_exact_output_identity
   - id: T14
-    prove: no_provider_hardware_worker_category_scheduler_resource_lock_or_routing_coupling
+    prove: stale_Run_fence_and_Task_digest_mismatch_cannot_publish_output
+  - id: T15
+    prove: digest_size_and_expected_content_mismatch_fail_closed
+  - id: T16
+    prove: update_delete_tamper_and_partial_transaction_fail_closed
+  - id: T17
+    prove: restart_preserves_Artifact_revisions_sources_and_derivations
+  - id: T18
+    prove: no_storage_provider_hardware_or_domain_specific_kernel_coupling
 
 kpi:
-  double_current_owners: 0
-  accepted_stale_fences: 0
-  stale_renewals_accepted: 0
-  fence_regressions: 0
-  partial_acquisition_transactions: 0
-  worker_clock_used_as_authority: 0
+  artifact_without_project_scope: 0
+  digest_mismatches_accepted: 0
+  artifact_content_identity_conflation: 0
+  cross_project_derivations: 0
+  immutable_artifacts_silently_mutated: 0
 
 implementation_method:
-  - verify_exact_P0_04_remote_handoff
+  - verify_exact_P0_05_remote_handoff
   - inspect_exact_current_source_and_accepted_interfaces
-  - write_failure_first_tests_for_each_Run_ownership_boundary
-  - implement_minimum_complete_P0_05
-  - use_real_transactional_SQLite_concurrency_and_database_time
+  - write_failure_first_tests_for_each_identity_isolation_and_provenance_boundary
+  - implement_minimum_complete_P0_06
+  - integrate_exact_Task_inputs_and_fenced_Run_outputs_without_later_architecture
   - run_focused_tests
-  - run_relevant_P0_01_through_P0_04_regressions
+  - run_relevant_P0_01_through_P0_05_regressions
   - run_strict_typecheck
   - build_and_inspect_actual_package_artifact
   - inspect_persistence_schema_indexes_triggers_foreign_keys_and_dependency_boundaries
@@ -333,7 +361,7 @@ implementation_method:
 publication:
   when_implementation_complete:
     - record_source_commit
-    - commit_coherent_P0_05_result
+    - commit_coherent_P0_06_result
     - push_main
     - remote_readback_result_commit
     - remote_readback_result_tree
@@ -363,8 +391,8 @@ continuation:
     - report_intentional_dirty_or_uncommitted_files
     - update_03_BIELLA_CURRENT_STATE
     - update_required_canonical_Drive_continuity
-    - replace_04_with_exact_P0_06_packet
-    - close_P0_05_before_opening_P0_06
+    - replace_04_with_exact_P0_07_packet
+    - close_P0_06_before_opening_P0_07
   continue_numbered_prompts_one_at_a_time: true
   broad_real_historical_mining: false
 ```
