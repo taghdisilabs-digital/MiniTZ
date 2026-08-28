@@ -4,36 +4,36 @@
 schema: biella.active_task/v3
 
 task:
-  id: P0-07
-  global_number: 7
+  id: P0-08
+  global_number: 8
   phase: P0
-  title: Immutable Revisioned Graph and Node Contracts
-  state: READY_AFTER_P0_06_DURABLE_CLOSE
+  title: Durable Append-Only Event Ledger
+  state: READY_AFTER_P0_07_DURABLE_CLOSE
   exact_prompt:
-    title: 07_P0-07_Immutable_Revisioned_Graph_and_Node_Contracts.md.docx
-    drive_id: 1e3EA4_bjuhbdn2dlcsRHpXR0-6snMlY3bL_q8bgxNRU
-    canonical_text_sha256: 6b3c67114e3ad15c8e5f75844202649d1d2aa02a69bca62795e5083d41b3e09e
+    title: 08_P0-08_Durable_Append_Only_Event_Ledger.md.docx
+    drive_id: 1UtCBREk13USF2egMgZrqws_2PUCEAFeQ6VBfh3Y04aY
+    canonical_text_sha256: 3b1f7fb3bd8b239289daef3220f8ec78f5a334168b92a50dc5e0c97878964012
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P0-06
-    result_commit: 747a0b59a296890202be39128c455240d87274f2
-    result_tree: 585ef429b55eed8c261d4af87efe297e2c1a9c67
+    id: P0-07
+    result_commit: c420772708bc64054fdea2d8ed663ed7b550b13f
+    result_tree: c284e6c00997b3e691dce0510c3f7ad421425d35
     remote_readback: VERIFIED
-  numbered_successor: P0-08
+  numbered_successor: P0-09
 
 goal:
   establish:
-    - dynamic_immutable_revisioned_Project_scoped_DAG
-    - productive_extensible_Node_contract
-    - structured_exact_NodeInputBinding
-    - deterministic_DAG_validation_topological_and_ready_set_APIs
-    - exact_Project_Task_Run_and_Graph_revision_binding
-    - canonical_Graph_semantic_and_record_digests
+    - durable_append_only_meaningful_execution_Event_ledger
+    - universal_extensible_Event_envelope
+    - per_Run_monotonic_sequence
+    - explicit_retry_idempotency
+    - transaction_bound_state_plus_Event_append
+    - restart_durable_meaningful_execution_chronology
   guarantee:
-    - Graph_revision_N_is_never_mutated_by_replanning
-    - parallel_siblings_remain_explicitly_parallel
-    - Task_side_effect_authority_cannot_be_escalated_by_Graph_or_Node
-    - no_mandatory_global_pipeline_or_closed_executor_enum
+    - Event_history_survives_logs_provider_traces_worker_memory_and_chat
+    - Events_are_evidence_not_a_second_mutable_state_authority
+    - large_payloads_are_referenced_not_embedded
+    - obvious_secrets_and_unbounded_blobs_do_not_enter_metadata
 
 prewrite_observation:
   required:
@@ -46,7 +46,7 @@ prewrite_observation:
     - tests_if_present
     - AGENTS_policy_instruction_files_if_present
     - accepted_existing_interfaces
-    - P0_06_exact_remote_handoff
+    - P0_07_exact_remote_handoff
   rules:
     - inspect_current_state_before_edit
     - preserve_valid_newer_local_work
@@ -57,18 +57,18 @@ prewrite_observation:
 input_scope:
   required:
     - 03_BIELLA_CURRENT_STATE.md
-    - exact_P0_07_canonical_prompt
+    - exact_P0_08_canonical_prompt
     - P0_02_Project_interfaces
-    - P0_03_Capability_interfaces
-    - P0_04_Task_and_TaskInputRef_interfaces
-    - P0_05_Run_and_fencing_interfaces
-    - P0_06_Artifact_Source_and_Content_identity_interfaces
+    - P0_04_Task_and_TaskRef_interfaces
+    - P0_05_Run_ExecutionAttempt_and_fencing_interfaces
+    - P0_06_Artifact_and_ContentRef_interfaces
+    - P0_07_Graph_GraphRef_Node_and_NodeRef_interfaces
     - directly_touched_repository_files
   conditional:
     - current_Biella_project_instructions
     - earlier_accepted_contracts_actually_used_by_this_task
   prohibited_by_default:
-    - other_44_unopened_prompt_bodies
+    - other_43_unopened_prompt_bodies
     - large_real_MiniTZ_backup
     - inactive_legacy_reuse_contract
     - unrelated_website_work
@@ -78,312 +78,222 @@ input_scope:
 dependencies:
   P0_02:
     result_commit: 2847543e0b3f9bac04e0e879e4b81f748cab712c
-    required_interfaces:
-      - Project
-      - ProjectRef
-      - ProjectAccess
-    required_semantics:
-      - authenticated_Project_scope
-      - cross_Project_access_fails_closed
-  P0_03:
-    result_commit: 4288c792d8f5c1fe12ffd3af47deb7d3aab5d9f1
-    required_interfaces:
-      - CapabilityRef
-      - CapabilityRegistry
-    required_semantics:
-      - exact_extensible_versioned_Capability_identity
-      - Capability_existence_is_not_runtime_availability
+    required_interfaces: [ProjectRef, ProjectAccess]
+    required_semantics: [authenticated_Project_scope, cross_Project_access_fails_closed]
   P0_04:
     result_commit: 9b28ccf93c4cb8edd771f474903bcfa5e7592b1b
-    required_interfaces:
-      - Task
-      - TaskRef
-      - TaskInputRef
-      - TaskRevisionService
-    required_semantics:
-      - exact_immutable_Task_revision_and_digest
-      - bounded_side_effect_authority
-      - structured_inputs_outputs_constraints_and_evidence
+    required_interfaces: [TaskRef, TaskRevisionService]
+    required_semantics: [exact_immutable_Task_revision_and_digest]
   P0_05:
     result_commit: 8f53a1fd641ad46c893239cd8279f310432086bc
-    required_interfaces:
-      - Run
-      - RunRef
-      - RunService
+    required_interfaces: [Run, RunRef, ExecutionAttempt, RunService]
     required_semantics:
       - exact_Project_and_Task_binding
-      - immutable_Run_identity_and_state_history
+      - append_only_Run_state_history
       - current_fenced_authority
+      - caller_owned_atomic_transaction_authority_seam
   P0_06:
     result_commit: 747a0b59a296890202be39128c455240d87274f2
-    result_tree: 585ef429b55eed8c261d4af87efe297e2c1a9c67
-    required_interfaces:
-      - ArtifactRef
-      - ContentRef
-      - SourceRef
+    required_interfaces: [ArtifactRef, ContentRef]
     required_semantics:
-      - exact_Project_scoped_input_and_output_identity
-      - immutable_Artifact_revision_and_provenance
-      - physical_storage_location_is_not_semantic_identity
+      - exact_immutable_payload_identity
+      - large_payload_storage_location_is_not_Event_identity
+  P0_07:
+    result_commit: c420772708bc64054fdea2d8ed663ed7b550b13f
+    result_tree: c284e6c00997b3e691dce0510c3f7ad421425d35
+    required_interfaces: [GraphRef, NodeRef]
+    required_semantics:
+      - exact_Project_Task_Run_and_Graph_revision_binding
+      - immutable_Node_identity
+      - Scheduler_and_resource_allocator_not_yet_present
 
 scope:
   in:
-    - opaque_Project_scoped_GraphRef_and_NodeRef
-    - immutable_positive_Graph_revision
-    - exact_Project_Task_revision_digest_and_Run_binding
-    - productive_Node_with_extensible_executor_kind
-    - exact_required_CapabilityRef_values
-    - dependency_NodeRef_values
-    - structured_NodeInputBinding_to_Task_Artifact_Source_Content_or_prior_Node_output
-    - output_contract_conditions_side_effects_resource_hints_and_evidence
-    - dependency_existence_self_cycle_cycle_and_duplicate_validation
-    - deterministic_topological_order_and_ready_set
-    - fan_out_fan_in_and_conditional_optional_branches
-    - canonical_Graph_digest_and_integrity_record
-    - optional_compiler_identity_and_version_provenance
-    - immutable_replanning_as_Graph_revision_N_plus_1
-    - durable_atomic_persistence_restart_and_concurrency
-    - Run_active_Graph_revision_binding_required_by_this_prompt
+    - opaque_Project_scoped_EventRef
+    - immutable_extensible_Event
+    - exact_optional_Task_Run_Graph_and_Node_refs_with_relationship_validation
+    - durable_per_Run_monotonic_sequence_allocator
+    - bounded_event_type_object_refs_metadata_and_payload_identity
+    - optional_actor_identity_as_bounded_evidence_not_authority
+    - explicit_idempotency_identity_for_logical_retry
+    - appendEvent
+    - transaction_bound_append
+    - Run_event_query_in_sequence_order
+    - append_only_update_delete_guards
+    - record_digest_relationship_and_sequence_integrity
+    - restart_concurrency_and_atomic_rollback
   out:
     - provider_model_worker_or_hardware_selection
-    - resource_scheduler_or_capacity_allocator
+    - new_Scheduler_or_resource_allocator
     - remote_execution_or_queue_dispatch
-    - lifecycle_operations_as_mandatory_productive_Nodes
-    - fixed_maker_critic_validator_pipeline
-    - physical_object_storage
+    - generic_log_telemetry_ingestion
+    - Event_as_mutable_current_state_machine
+    - physical_object_or_secret_storage
     - later_numbered_prompt_implementation
 
 required_interfaces:
-  exact:
-    - Graph
-    - GraphRef
-    - Node
-    - NodeRef
-    - NodeInputBinding
-  required_APIs:
-    - DAG_validator
-    - deterministic_topological_order
-    - deterministic_ready_set
-  accepted_service_name:
-    - GraphService
+  exact: [Event, EventRef]
+  required_APIs: [appendEvent, transaction_bound_append, Run_event_query]
+  accepted_service_name: [EventLedger, EventService]
   rule:
     accepted_existing_semantic_equivalent_may_be_mapped: true
     do_not_duplicate_architecture_due_to_name_difference: true
 
-graph_contract:
-  exact_binding:
-    - ProjectRef
-    - TaskRef
-    - exact_Task_canonical_digest
-    - RunRef
-    - positive_Graph_revision
+event_contract:
   require:
-    - opaque_stable_graph_id
-    - immutable_Node_collection
+    - opaque_stable_event_id
+    - exact_ProjectRef
+    - optional_exact_TaskRef
+    - optional_exact_RunRef
+    - optional_exact_GraphRef
+    - optional_exact_NodeRef
+    - positive_per_Run_sequence_for_Run_scoped_Event
+    - extensible_bounded_event_type_string
+    - bounded_exact_object_refs
+    - bounded_small_metadata
+    - immutable_payload_or_ContentRef_digest_identity_when_present
+    - timezone_aware_durable_database_time
     - canonical_semantic_digest
     - durable_record_digest
-    - timezone_aware_created_at
-    - optional_prior_GraphRef_for_replanning_provenance
-    - optional_compiler_identity_and_version_metadata
+    - explicit_bounded_idempotency_key
+  relationship_rules:
+    - all_present_refs_share_exact_Project_scope
+    - Task_Run_Graph_Node_relationships_match_durable_records
+    - Graph_and_Node_refs_imply_their_exact_Run_and_Task_bindings
+    - payload_ContentRef_is_immutable_identity_not_embedded_large_content
+  optional: [actor_identity_as_bounded_absolute_ref]
   prohibit:
-    - provider_model_worker_or_hardware_as_required_kernel_identity
-    - graph_digest_dependent_on_input_mapping_or_set_order
-    - mutation_of_prior_Graph_revision
-    - fixed_global_pipeline_shape
+    - closed_event_type_enum
+    - provider_or_domain_specific_Event_subclasses
+    - wall_clock_only_Run_ordering
+    - QuarantineRef_as_active_object_or_payload_identity
 
-node_contract:
+append_only_ledger:
   require:
-    - opaque_node_id_unique_within_exact_Graph_revision
-    - exact_parent_GraphRef
-    - extensible_executor_kind_string
-    - exact_required_CapabilityRef_values
-    - exact_dependency_NodeRef_values
-    - structured_input_bindings
-    - output_contract
-    - condition_contract_where_applicable
-    - side_effect_requirement
-    - resource_hints
-    - evidence_and_validation_requirements
-  lifecycle_rule:
-    WAIT_CANCEL_RECOVER_CHECKPOINT_FINALIZE_mandatory_productive_nodes: false
+    - normal_API_has_no_Event_update_or_delete
+    - database_update_delete_guards
+    - per_Run_sequence_unique_monotonic_and_gap_checked
+    - duplicate_idempotency_key_same_semantics_returns_same_Event
+    - duplicate_idempotency_key_conflicting_semantics_fails
+    - restart_preserves_exact_sequence_chronology_and_digests
+    - operator_can_reconstruct_meaningful_Run_chronology_without_process_logs
+  not_an_event:
+    - duplicate_telemetry_line
+    - generic_log_spam
+    - unbounded_stdout
+    - raw_provider_trace
+
+transaction_bound_append:
+  require:
+    - caller_owned_existing_database_transaction
+    - same_database_identity_validation
+    - no_internal_commit_or_rollback_of_caller_transaction
+    - exact_Project_Task_Run_scope_validation_inside_transaction
+    - current_fenced_Run_authority_when_transition_requires_execution_authority
+    - state_transition_and_Event_commit_or_rollback_together
+    - injected_failure_leaves_neither_transition_nor_Event
+    - retry_after_transient_failure_does_not_double_append_completion_Event
+  current_required_proof:
+    - one_real_existing_Run_state_transition_with_terminal_or_cancellation_Event
   prohibit:
-    - closed_executor_kind_enum
-    - implicit_provider_model_or_worker_affinity
-    - Node_side_effect_requirement_stronger_than_Task_authority
+    - fabricated_atomicity_across_separate_transactions
+    - orphan_terminal_Event
+    - terminal_state_without_its_required_Event
 
-node_input_binding:
-  may_bind_exact:
-    - TaskInputRef
-    - ArtifactRef
-    - SourceRef
-    - ContentRef
-    - prior_NodeRef_output_contract_key
-  require:
-    - exact_Project_scope
-    - immutable_source_identity
-    - bounded_structured_binding
-  prohibit:
-    - QuarantineRef
-    - mutable_path_branch_or_latest_object_identity
-    - cross_Project_reference_without_future_explicit_sharing
-
-dag_validation:
-  fail_before_execution_on:
-    - duplicate_Node_identity
-    - missing_dependency
-    - self_dependency
-    - direct_or_indirect_cycle
-    - dependency_from_another_Graph_revision
-    - cross_Project_Node_or_binding
-    - Task_side_effect_authority_escalation
-  deterministic:
-    - topological_order_for_semantically_equal_Graphs
-    - ready_set_for_equal_terminal_state_and_condition_inputs
-  preserve:
-    - parallel_siblings_without_artificial_edges
-    - fan_out
-    - fan_in_waits_for_all_required_dependencies
-    - conditional_optional_branch_semantics
-
-ready_set:
-  inputs:
-    - exact_Graph_revision
-    - current_durable_Node_terminal_states
-    - deterministic_condition_results
-    - exact_Task_authority
-  node_is_ready_when:
-    - all_required_dependencies_succeeded_or_are_satisfied
-    - condition_is_true_or_absent
-    - Task_authority_permits_Node_side_effect_requirement
-    - node_is_not_already_terminal
-  later_not_P0_07:
-    - provider_availability
-    - resource_capacity_scheduling
-    - worker_assignment
-
-immutability_and_replanning:
-  require:
-    - Graph_revision_1_remains_readable_after_revision_2
-    - revision_2_has_exact_prior_GraphRef
-    - material_replan_changes_semantic_digest
-    - revisions_are_monotonic_and_gap_free
-    - Node_contracts_are_immutable_with_their_Graph_revision
-    - restart_preserves_all_Graph_revisions_and_digests
-  prohibit:
-    - UPDATE_or_DELETE_of_Graph_revision_or_Node_contract
-    - silent_Node_dependency_output_or_authority_rewrite
-
-persistence:
-  require:
-    - durable_Graph_revisions
-    - durable_Node_contracts
-    - durable_dependency_and_input_bindings
-    - durable_Graph_heads_and_prior_revision_provenance
-    - exact_Project_Task_Run_and_digest_foreign_bindings
-    - Run_active_Graph_revision_binding
-    - append_only_update_delete_guards
-    - record_digest_and_relationship_integrity_validation
-    - atomic_initial_creation
-    - atomic_new_revision_and_all_Node_bindings
-    - restart_round_trip
-    - no_half_created_Graph_or_Node_set
-  schema_change:
-    permitted_only_when_required_for_P0_07: true
-    must_be_reported_exactly: true
+metadata_and_payload_boundary:
+  small_metadata:
+    - bounded_entry_count
+    - bounded_keys_and_scalar_values
+    - deterministic_JSON_canonicalization
+  reject_or_sanitize_obvious_secret_fields:
+    - credentials
+    - passwords
+    - raw_tokens
+    - authorization_headers
+    - api_keys
+    - private_keys
+  reject_from_ordinary_metadata:
+    - giant_stdout
+    - full_model_prompts
+    - full_model_outputs
+    - unbounded_or_nested_blobs
+  large_payload_rule:
+    - use_ArtifactRef_or_ContentRef
+    - persist_only_exact_ref_and_digest_evidence_in_Event_row
 
 failure_behavior:
   fail_closed_on:
-    - malformed_GraphRef_NodeRef_or_NodeInputBinding
+    - malformed_EventRef_or_Event_envelope
     - missing_or_unauthorized_Project
-    - nonexistent_or_mismatched_Task_revision_or_digest
-    - nonexistent_or_mismatched_Run
-    - duplicate_missing_self_or_cyclic_dependency
-    - cross_Graph_revision_or_cross_Project_binding
-    - unknown_required_CapabilityRef
-    - Task_side_effect_authority_escalation
-    - immutable_revision_conflict
-    - persisted_digest_relationship_or_head_mismatch
-  preserve:
-    - durable_evidence
-    - real_failure_cause
-  prohibit:
-    - fabricated_success
-    - fabricated_scheduler_resource_or_executor_availability
+    - nonexistent_cross_scope_or_mismatched_Task_Run_Graph_Node_ref
+    - stale_or_mismatched_Run_authority_when_required
+    - duplicate_Run_sequence
+    - idempotency_conflict
+    - obvious_secret_or_unbounded_metadata
+    - oversized_embedded_payload
+    - persisted_digest_relationship_sequence_or_head_mismatch
+  preserve: [durable_evidence, real_failure_cause, unaffected_required_work]
+  prohibit: [fabricated_success, mocked_real_infrastructure_claim, silently_dropped_required_completion_Event]
 
 concurrency_and_recovery:
   current_reality:
-    Graph_Scheduler_and_resource_model_present_before_P0_07: false
+    Graph_present: true
+    Scheduler_present: false
+    resource_allocator_present: false
     do_not_fabricate_missing_later_interfaces: true
   require:
     - real_transactional_concurrency_in_existing_durable_database
-    - independent_Graph_creation_can_complete
-    - one_durable_winner_for_conflicting_same_revision
-    - readers_observe_one_consistent_Graph_revision_snapshot
-    - restart_preserves_verified_Graph_Node_and_binding_history
-    - stale_Run_authority_cannot_replace_active_Graph_binding
+    - concurrent_Run_Event_appends_have_unique_ordered_sequences
+    - independent_Run_ledgers_can_progress
+    - one_durable_winner_for_conflicting_idempotency_identity
+    - readers_observe_one_consistent_Event_ledger_snapshot
+    - restart_preserves_verified_Event_history
+    - stale_owners_cannot_append_authoritative_transition_Events
 
 required_test_matrix:
-  - id: T01
-    prove: one_Node_Graph_validates_persists_and_round_trips
-  - id: T02
-    prove: sequential_Graph_has_deterministic_topological_and_ready_order
-  - id: T03
-    prove: fan_out_siblings_become_ready_together_without_artificial_serialization
-  - id: T04
-    prove: fan_in_Node_waits_for_all_required_dependencies
-  - id: T05
-    prove: direct_cycle_indirect_cycle_and_self_cycle_fail_before_persistence
-  - id: T06
-    prove: missing_dependency_and_duplicate_Node_identity_fail_atomically
-  - id: T07
-    prove: equivalent_semantics_produce_stable_digest_topology_and_ready_set
-  - id: T08
-    prove: conditional_optional_branch_changes_readiness_without_invalidating_DAG
-  - id: T09
-    prove: arbitrary_future_executor_kind_is_accepted_without_kernel_enum_change
-  - id: T10
-    prove: exact_registered_CapabilityRef_is_required_and_unknown_ref_fails
-  - id: T11
-    prove: Graph_or_Node_cannot_escalate_Task_side_effect_authority
-  - id: T12
-    prove: Graph_binds_exact_Project_Task_revision_digest_and_Run
-  - id: T13
-    prove: NodeInputBinding_accepts_exact_authorized_inputs_and_rejects_cross_scope_or_quarantine
-  - id: T14
-    prove: Graph_revision_2_preserves_immutable_revision_1_and_prior_ref
-  - id: T15
-    prove: update_delete_tamper_and_partial_transaction_fail_closed
-  - id: T16
-    prove: restart_preserves_Graph_Node_dependencies_inputs_digests_and_active_Run_binding
-  - id: T17
-    prove: independent_creation_and_conflicting_revision_concurrency_are_correct
-  - id: T18
-    prove: no_provider_hardware_scheduler_domain_or_mandatory_pipeline_coupling
+  - {id: T01, prove: append_one_Project_scoped_Event_and_read_it_back}
+  - {id: T02, prove: Run_event_query_returns_durable_monotonic_sequence_order_not_wall_clock_order}
+  - {id: T03, prove: concurrent_appends_to_one_Run_allocate_unique_gap_free_sequences}
+  - {id: T04, prove: independent_Run_event_appends_can_both_complete}
+  - {id: T05, prove: normal_API_and_database_guards_reject_Event_update_and_delete}
+  - {id: T06, prove: injected_state_plus_Event_failure_rolls_back_both}
+  - {id: T07, prove: successful_state_transition_and_required_Event_commit_atomically}
+  - {id: T08, prove: identical_idempotent_retry_returns_same_Event_without_double_append}
+  - {id: T09, prove: conflicting_idempotency_retry_fails_closed}
+  - {id: T10, prove: exact_Project_Task_Run_Graph_and_Node_refs_validate_and_cross_scope_refs_fail}
+  - {id: T11, prove: arbitrary_future_event_type_requires_no_kernel_enum_change}
+  - {id: T12, prove: large_payload_is_referenced_by_Artifact_or_Content_identity_not_embedded}
+  - {id: T13, prove: obvious_secret_fields_and_unbounded_metadata_do_not_persist}
+  - {id: T14, prove: stale_Run_owner_cannot_append_authoritative_transition_Event}
+  - {id: T15, prove: restart_preserves_Event_records_sequences_idempotency_and_Run_chronology}
+  - {id: T16, prove: persisted_digest_sequence_relationship_and_head_tampering_fail_closed}
+  - {id: T17, prove: meaningful_Run_chronology_reconstructs_without_process_logs}
+  - {id: T18, prove: log_spam_is_not_automatically_persisted_and_no_provider_domain_or_closed_type_coupling_exists}
 
 kpi:
-  accepted_cycles: 0
-  mutated_graph_revisions: 0
-  Task_authority_escalations: 0
-  parallel_nodes_forced_serial: 0
-  mandatory_global_pipeline: 0
-  graph_digest_instability: 0
+  mutable_events: 0
+  duplicate_run_sequences: 0
+  orphan_terminal_events: 0
+  cross_project_event_leaks: 0
+  obvious_secret_fields_persisted: 0
 
 implementation_method:
-  - verify_exact_P0_06_remote_handoff
+  - verify_exact_P0_07_remote_handoff
   - inspect_exact_current_source_and_accepted_interfaces
-  - write_failure_first_tests_for_each_DAG_identity_authority_and_revision_boundary
-  - implement_minimum_complete_P0_07
-  - integrate_exact_Task_Run_Capability_and_Artifact_identity_without_later_scheduler_architecture
+  - write_failure_first_tests_for_identity_sequence_idempotency_scope_secrets_and_atomicity
+  - implement_minimum_complete_P0_08
+  - integrate_exact_Project_Task_Run_Graph_Node_Artifact_and_Content_identity
+  - use_existing_fenced_Run_and_caller_transaction_seams_without_inventing_scheduler
   - run_focused_tests
-  - run_relevant_P0_01_through_P0_06_regressions
+  - run_relevant_P0_01_through_P0_07_regressions
   - run_strict_typecheck
   - build_and_inspect_actual_package_artifact
-  - inspect_persistence_schema_indexes_triggers_foreign_keys_and_dependency_boundaries
+  - inspect_persistence_schema_indexes_triggers_foreign_keys_and_transaction_boundaries
 
 publication:
   when_implementation_complete:
     - record_source_commit
-    - commit_coherent_P0_07_result
+    - commit_coherent_P0_08_result
     - push_main
     - remote_readback_result_commit
     - remote_readback_result_tree
@@ -413,8 +323,8 @@ continuation:
     - report_intentional_dirty_or_uncommitted_files
     - update_03_BIELLA_CURRENT_STATE
     - update_required_canonical_Drive_continuity
-    - replace_04_with_exact_P0_08_packet
-    - close_P0_07_before_opening_P0_08
+    - replace_04_with_exact_P0_09_packet
+    - close_P0_08_before_opening_P0_09
   continue_numbered_prompts_one_at_a_time: true
   broad_real_historical_mining: false
 ```
