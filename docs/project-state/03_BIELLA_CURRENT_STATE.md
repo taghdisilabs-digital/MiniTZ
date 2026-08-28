@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-28 06:10 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-28T06:10:11+02:00"
+state_timestamp_local: "2026-08-28 06:35 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-28T06:35:19+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: fa442745b73e02cc2cd67ef0c029973de06bb773
-    tree: 840c45a3cf04c28407e08e5c7e51f11d61e0dadb
+    commit: 2847543e0b3f9bac04e0e879e4b81f748cab712c
+    tree: deedf652f4eafc16b901ea535a4d0adf0663a212
     observed_date: 2026-08-28
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p0_01_implementation_post_push_exact_readback
+    observation_context: p0_02_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: fa442745b73e02cc2cd67ef0c029973de06bb773
-    tree: 840c45a3cf04c28407e08e5c7e51f11d61e0dadb
+    head: 2847543e0b3f9bac04e0e879e4b81f748cab712c
+    tree: deedf652f4eafc16b901ea535a4d0adf0663a212
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 1
+    durable_prompts_complete: 2
     durable_prompts_total: 51
     phase: P0
-    active_prompt: P0-02
-    active_prompt_title: Universal Project Namespace and Isolation Contract
+    active_prompt: P0-03
+    active_prompt_title: Provider-Neutral Capability Contract
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -68,6 +68,30 @@ engine:
       - src/biella/migration.py
       - src/biella/runtime.py
       - tests/test_p0_01_migration_firewall.py
+    p0_02_status: DURABLY_COMPLETE
+    p0_02_source_commit: e042e692d6be6ee797d545ec151f237b05ad589a
+    p0_02_result_commit: 2847543e0b3f9bac04e0e879e4b81f748cab712c
+    p0_02_result_tree: deedf652f4eafc16b901ea535a4d0adf0663a212
+    p0_02_remote_readback: VERIFIED
+    p0_02_validation:
+      focused_unittest: "18 passed; 0 failed; 0 skipped"
+      regression_unittest: "41 passed; 0 failed; 0 skipped"
+      pytest: "41 passed; 34 subtests passed; 0 failed; 0 skipped"
+      mypy_strict: "6 source/test files; 0 issues"
+      compileall: PASS
+      wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 cfc735c2a11f8fa85175dcdd2f69b2d43b3bcd48a3f783952941fbcb71e40ed0; required paths inspected"
+      installed_wheel_smoke: "capability authorization; foreign-ID impersonation blocked; restart; schema integrity; raw access token at rest zero; Project quarantine dependency zero"
+      independent_review: "READY; 0 Critical and 0 Important; sole Minor rollback-coverage gap resolved and all gates rerun"
+    p0_02_kpi:
+      cross_project_reads: 0
+      cross_project_writes: 0
+      cross_project_reference_bindings: 0
+      project_records_missing_scope: 0
+      namespace_collisions_accepted: 0
+    p0_02_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/project.py
+      - tests/test_p0_02_project_isolation.py
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -116,10 +140,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P0-02
-    title: Universal Project Namespace and Isolation Contract
-    drive_id: 1aINglpjh2qSuRbPrNT2dkTaBRRWNhLAAhriWTQ-kGwk
-    canonical_prompt_text_sha256: 2ee7a74cdb4f5f7b62c7b767eb85150be243f89f4536c7a89bc30bf1b0a86657
+    id: P0-03
+    title: Provider-Neutral Capability Contract
+    drive_id: 1HaRjLqtN9YgNKRJHm7VLIay80_o0qQVJeFXYeyvoJFs
+    canonical_prompt_text_sha256: 83ca2cc81759b9e3330d53fdd70e7ac0a4bfa7a918d8dc52348768cd8e35772f
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -169,7 +193,7 @@ migration:
 website:
   program: BIELLA_UNIVERSE_OPTION_C
   public_target: biellagames.dev
-  execution_state: P0_01_GATE_CLEARED_NOT_STARTED
+  execution_state: P0_02_GATE_CLEARED_NOT_STARTED
   first_separate_task_after_p0_01: BU-01
   run_in_same_p0_01_session: false
   universal_engine_kernel_scope: false
@@ -186,33 +210,34 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P0-02
-  title: Universal Project Namespace and Isolation Contract
-  prompt_drive_id: 1aINglpjh2qSuRbPrNT2dkTaBRRWNhLAAhriWTQ-kGwk
-  predecessor_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
-  predecessor_result_tree: 840c45a3cf04c28407e08e5c7e51f11d61e0dadb
+  id: P0-03
+  title: Provider-Neutral Capability Contract
+  prompt_drive_id: 1HaRjLqtN9YgNKRJHm7VLIay80_o0qQVJeFXYeyvoJFs
+  predecessor_result_commit: 2847543e0b3f9bac04e0e879e4b81f748cab712c
+  predecessor_result_tree: deedf652f4eafc16b901ea535a4d0adf0663a212
 
 next_transition:
-  - verify_P0_01_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P0_02_prompt_and_directly_required_files_only
-  - implement_Project_ProjectRef_and_ProjectScoped_contract
-  - prove_Alpha_Beta_isolation_atomic_creation_and_restart_durability
+  - verify_P0_02_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P0_03_prompt_and_directly_required_files_only
+  - implement_Capability_CapabilityRef_and_CapabilityRegistry_contract
+  - prove_provider_neutral_extensible_versioned_registration_and_history
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P0_02_before_opening_P0_03
+  - close_P0_03_before_opening_P0_04
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - broaden_P0_02_into_Task_Run_Artifact_Memory_routing_or_domain_concepts
+  - broaden_P0_03_into_provider_model_tool_worker_resource_routing_or_scheduling
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
-  - model_quarantine_as_an_ordinary_Project
-  - start_P0_03_before_P0_02_durable_close
+  - mutate_global_Capability_semantics_from_Project_configuration
+  - model_Capability_as_current_resource_availability
+  - start_P0_04_before_P0_03_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
