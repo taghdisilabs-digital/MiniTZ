@@ -4,35 +4,34 @@
 schema: biella.active_task/v3
 
 task:
-  id: P0-09
-  global_number: 9
+  id: P0-10
+  global_number: 10
   phase: P0
-  title: Durable Node/Run Execution State and Atomic Finalization
-  state: READY_AFTER_P0_08_DURABLE_CLOSE
+  title: P0 Integration, Isolation, Contamination, and Recovery Qualification
+  state: READY_AFTER_P0_09_DURABLE_CLOSE
   exact_prompt:
-    title: 09_P0-09_Durable_Node_Run_Execution_State_and_Atomic_Finalization.md.docx
-    drive_id: 1_yBgxGdKjX88wA9gXk59NzN8No7srJZDRF0CGCIF90I
-    canonical_text_sha256: 6d6ec80041a00035e1163f094cdc0de0b7b3f30c9c40277632c506aa2cc72412
+    title: 10_P0-10_P0_Integration_Isolation_Contamination_and_Recovery_Qualification.md.docx
+    drive_id: 1Xsx8tYhwvg29FTMkYEK-Sed5kjJHD40HJoFsXYS31IE
+    canonical_text_sha256: c01eb2696e3e92425cf17d03372f3281af7bc6c6205071e0c335c4d8c93a51dc
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P0-08
-    result_commit: 486c05f37a8deccfa786fe3781c9267fc96cc74b
-    result_tree: 7abd3dc98a3689b2c3e0593d4dbdf1207733c67f
+    id: P0-09
+    result_commit: ebcd4ca325ef0455cee91e2959935f6c063a16e3
+    result_tree: 49453937a2037f1b17b5f4d68530d9bc33793eee
     remote_readback: VERIFIED
-  numbered_successor: P0-10
+  numbered_successor: P1-01
 
 goal:
   establish:
-    - durable_Node_and_Run_execution_authority_state
-    - dependency_and_condition_derived_Node_readiness
-    - fenced_Node_lease_start_heartbeat_wait_failure_and_recovery
-    - atomic_output_state_Event_finalization
-    - durable_Run_completion_derived_from_current_Graph
-  guarantee:
-    - stale_expired_cancelled_and_superseded_work_cannot_finalize
-    - completed_Nodes_are_not_reexecuted_after_restart
-    - finalization_and_cancellation_races_have_one_coherent_authoritative_outcome
-    - independent_Nodes_do_not_require_a_global_execution_lock
+    - integrated_P0_01_through_P0_09_qualification_as_one_real_system
+    - Project_isolation_and_cross_component_exact_identity_proof
+    - migration_contamination_firewall_proof_across_all_active_admission_seams
+    - recovery_concurrency_immutability_and_restart_qualification
+    - evidence_based_READY_FOR_P1_exit_decision
+  constrain:
+    - fix_only_cross_component_defects_exposed_by_qualification
+    - do_not_add_new_architecture_for_P0_ceremony
+    - preserve_all_prior_durable_contracts
 
 prewrite_observation:
   required:
@@ -45,7 +44,7 @@ prewrite_observation:
     - tests_if_present
     - AGENTS_policy_instruction_files_if_present
     - accepted_existing_interfaces
-    - P0_08_exact_remote_handoff
+    - P0_09_exact_remote_handoff
   rules:
     - inspect_current_state_before_edit
     - preserve_valid_newer_local_work
@@ -56,19 +55,22 @@ prewrite_observation:
 input_scope:
   required:
     - 03_BIELLA_CURRENT_STATE.md
-    - exact_P0_09_canonical_prompt
+    - exact_P0_10_canonical_prompt
+    - P0_01_migration_firewall_interfaces
     - P0_02_Project_interfaces
-    - P0_04_Task_and_TaskRef_interfaces
-    - P0_05_Run_ExecutionAttempt_leasing_fencing_and_cancellation_interfaces
-    - P0_06_Artifact_and_ContentRef_interfaces
-    - P0_07_Graph_Node_readiness_and_revision_interfaces
-    - P0_08_Event_transaction_bound_append_and_Run_event_query_interfaces
-    - directly_touched_repository_files
+    - P0_03_Capability_interfaces
+    - P0_04_Task_interfaces
+    - P0_05_Run_and_ExecutionAttempt_interfaces
+    - P0_06_Artifact_ContentRef_and_Source_interfaces
+    - P0_07_Graph_and_Node_interfaces
+    - P0_08_Event_interfaces
+    - P0_09_NodeExecution_and_atomic_finalization_interfaces
+    - directly_touched_repository_files_and_P0_tests
   conditional:
     - current_Biella_project_instructions
-    - earlier_accepted_contracts_actually_used_by_this_task
+    - earlier_accepted_contracts_actually_used_by_the_integration_test
   prohibited_by_default:
-    - other_42_unopened_prompt_bodies
+    - unopened_P1_through_P4_prompt_bodies
     - large_real_MiniTZ_backup
     - inactive_legacy_reuse_contract
     - unrelated_website_work
@@ -76,302 +78,298 @@ input_scope:
     - broad_Drive_GitHub_filesystem_audits
 
 dependencies:
+  P0_01:
+    result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
+    required_semantics:
+      - raw_history_is_immutable_quarantined_and_inert
+      - classification_and_provenance_are_explicit
+      - active_runtime_has_zero_raw_QuarantineRef_dependency
   P0_02:
     result_commit: 2847543e0b3f9bac04e0e879e4b81f748cab712c
-    required_interfaces: [ProjectRef, ProjectAccess]
-    required_semantics: [authenticated_Project_scope, cross_Project_access_fails_closed]
+    required_semantics:
+      - exact_authenticated_Project_scope
+      - cross_Project_reads_writes_bindings_and_configuration_fail_closed
+  P0_03:
+    result_commit: 4288c792d8f5c1fe12ffd3af47deb7d3aab5d9f1
+    required_semantics:
+      - open_versioned_Capability_contract
+      - arbitrary_future_Capability_is_data_not_kernel_change
   P0_04:
     result_commit: 9b28ccf93c4cb8edd771f474903bcfa5e7592b1b
-    required_interfaces: [Task, TaskRef, TaskRevisionService]
-    required_semantics: [exact_immutable_Task_revision_digest_authority_and_acceptance_contract]
+    required_semantics:
+      - exact_immutable_Task_revision_and_digest
+      - active_inputs_are_exact_authorized_non_quarantine_refs
   P0_05:
     result_commit: 8f53a1fd641ad46c893239cd8279f310432086bc
-    required_interfaces: [Run, RunRef, ExecutionAttempt, RunService]
     required_semantics:
-      - exact_Project_and_Task_binding
-      - append_only_Run_state_history
-      - current_lease_and_fenced_authority
-      - durable_cancellation
+      - durable_Run_identity_attempts_leases_fences_and_cancellation
+      - stale_authority_cannot_commit
   P0_06:
     result_commit: 747a0b59a296890202be39128c455240d87274f2
-    required_interfaces: [Artifact, ArtifactRef, ContentRef, ArtifactService]
     required_semantics:
-      - exact_immutable_output_identity
-      - current_fenced_authority_for_output_publication
-      - provenance_and_record_integrity
+      - exact_ContentRef_Artifact_Source_and_provenance_identity
+      - cross_Project_and_corrupt_Artifact_evidence_fail_closed
   P0_07:
     result_commit: c420772708bc64054fdea2d8ed663ed7b550b13f
-    required_interfaces: [Graph, GraphRef, Node, NodeRef, GraphService]
     required_semantics:
-      - deterministic_dependency_and_condition_readiness
-      - exact_current_Run_Graph_revision_binding
-      - immutable_Node_contract_and_output_contract
-      - superseded_Graph_revision_history
+      - immutable_revisioned_Graph_and_Node_DAG
+      - dependency_and_condition_readiness
+      - exact_current_Run_Graph_binding_and_supersession
   P0_08:
     result_commit: 486c05f37a8deccfa786fe3781c9267fc96cc74b
-    result_tree: 7abd3dc98a3689b2c3e0593d4dbdf1207733c67f
-    required_interfaces: [Event, EventRef, EventLedger]
     required_semantics:
-      - appendEvent_and_transaction_bound_append
-      - per_Run_monotonic_sequence_and_explicit_idempotency
-      - immutable_exact_object_and_payload_refs
-      - atomic_Run_cancellation_and_Event
+      - immutable_append_only_Event_ledger
+      - exact_refs_monotonic_Run_sequence_and_atomic_cancellation_Event
+  P0_09:
+    result_commit: ebcd4ca325ef0455cee91e2959935f6c063a16e3
+    result_tree: 49453937a2037f1b17b5f4d68530d9bc33793eee
+    required_semantics:
+      - durable_NodeExecution_attempt_state_output_failure_and_ownership
+      - fenced_lease_start_heartbeat_wait_fail_finalize_and_recovery
+      - atomic_Node_output_Event_and_derived_Run_completion
+      - terminal_acceptance_and_completion_Event_manifest_binding
 
 scope:
   in:
-    - durable_NodeExecution_identity_attempts_statuses_outputs_failures_and_ownership
-    - CREATED_QUEUED_READY_LEASED_RUNNING_WAITING_EXTERNAL_SUCCEEDED_FAILED_CANCELLED_STALE_semantics
-    - readiness_from_current_Graph_dependencies_conditions_Task_authority_and_Run_state
-    - atomic_Node_leasing_with_current_Graph_and_fence
-    - start_and_heartbeat_under_live_current_authority
-    - bounded_failure_reason_category_evidence_refs_and_retry_or_replan_signal
-    - expired_worker_recovery_and_higher_fence_reallocation
-    - current_Graph_supersession_staleness
-    - atomic_Artifact_output_binding_Node_terminal_state_Event_and_Run_completion
-    - cancelRun_and_Run_completion
-    - restart_and_real_database_race_proofs
+    - two_unrelated_Projects_and_full_negative_cross_Project_attack_matrix
+    - synthetic_hostile_quarantine_source_and_active_admission_contamination_matrix
+    - arbitrary_future_Capability_unknown_to_hardcoded_domain_logic
+    - software_like_Alpha_Task_with_exact_input_Artifact_or_Source
+    - multi_branch_A_to_B_and_C_to_D_to_E_Graph
+    - independent_B_and_C_real_database_readiness_and_concurrent_ownership
+    - stale_owner_expiry_takeover_and_late_result_rejection
+    - process_or_service_restart_with_durable_reconstruction
+    - Graph_v1_v2_immutability_history_and_stale_result_rejection
+    - Artifact_corruption_and_Event_immutability_failure_proofs
+    - cancellation_finalization_race_with_one_serialized_outcome
+    - active_kernel_historical_provider_domain_agent_hierarchy_and_global_lock_scan
+    - fixes_only_for_real_cross_component_defects_found
+    - exact_READY_FOR_P1_exit_decision
   out:
-    - provider_model_browser_build_render_or_DCC_execution
-    - intelligent_scheduler_or_fixed_repair_loop
-    - resource_availability_as_readiness
-    - remote_worker_dispatch_or_queue_transport
-    - later_numbered_prompt_implementation
+    - large_historical_backup_mining
+    - memory_resource_router_or_provider_adapter_implementation
+    - model_browser_build_render_or_DCC_execution
+    - P1_feature_implementation
     - optional_domain_or_provider_specialization
+    - new_architecture_not_required_to_fix_an_observed_P0_defect
 
 required_interfaces:
-  exact: [NodeExecution]
-  required_APIs:
-    - lease_Node
-    - start_Node
-    - heartbeat_Node
-    - fail_Node
-    - wait_Node
-    - finalize_Node
-    - recoverExpiredExecution
-    - cancelRun
-    - Run_completion
+  use_existing:
+    - MigrationQuarantine_and_normalization_contracts
+    - ProjectStore_ProjectRef_ProjectAccess
+    - CapabilityRegistry_Capability_CapabilityRef
+    - TaskRevisionService_Task_TaskRef
+    - RunService_Run_RunRef_ExecutionAttempt
+    - ArtifactService_Artifact_ArtifactRef_ContentRef_SourceRef
+    - GraphService_Graph_GraphRef_Node_NodeRef
+    - EventLedger_Event_EventRef
+    - NodeExecutionService_NodeExecution_NodeExecutionAttempt
+  new:
+    - task_specific_types_services_or_adapters_only_if_an_observed_integration_defect_requires_them
   rule:
-    accepted_existing_semantic_equivalent_may_be_mapped: true
+    expose_only_stable_semantics_needed_by_later_prompts: true
     do_not_duplicate_architecture_due_to_name_difference: true
 
-node_execution_contract:
-  status_semantics:
-    - CREATED
-    - QUEUED
-    - READY
-    - LEASED
-    - RUNNING
-    - WAITING_EXTERNAL
-    - SUCCEEDED
-    - FAILED
-    - CANCELLED
-    - STALE
-  require:
-    - exact_ProjectRef_TaskRef_RunRef_GraphRef_and_NodeRef
-    - immutable_attempt_identity_and_monotonic_fence
-    - bounded_owner_identity
-    - durable_lease_expiry_using_database_time
-    - append_only_attempt_and_state_history
-    - exact_output_Artifact_or_Content_bindings
-    - bounded_failure_and_waiting_evidence
-    - explicit_idempotency_for_state_transitions_and_finalization
-    - durable_record_and_head_integrity
-  prohibit:
-    - provider_model_hardware_or_domain_fields_in_universal_execution_identity
-    - worker_clock_as_authority
-    - mutable_overwrite_of_prior_attempts_or_terminal_history
-    - QuarantineRef_as_active_input_output_or_evidence_identity
+fixtures:
+  projects: [Alpha, Beta]
+  hostile_quarantine_source: synthetic_only
+  arbitrary_future_capability: required
+  alpha_task_kind: software_like_without_domain_specific_kernel_type
+  exact_input_identity: Artifact_or_Source
+  graph:
+    compact: A_to_B_and_C_to_D_to_E
+    edges: [A_to_B, A_to_C, B_to_D, C_to_D, D_to_E]
+    required_parallel_frontier: [B, C]
+  rule:
+    after_A_succeeds_B_and_C_independently_ready: true
+    no_global_lock_for_B_and_C: true
 
-readiness:
-  derive_from:
-    - accepted_current_Graph_revision
-    - dependency_terminal_states
-    - Graph_conditions
-    - exact_Task_authority
-    - Run_cancellation_and_terminal_state
-  require:
-    - fan_out_independence
-    - fan_in_waits_for_all_required_dependencies
-    - false_optional_conditions_satisfy_dependency_semantics_without_execution
-    - readiness_recomputed_from_durable_truth_after_restart
-  prohibit:
-    - worker_demand_as_readiness
-    - resource_availability_as_readiness
-    - stale_Graph_revision_as_current_readiness_authority
-
-ownership_start_and_heartbeat:
-  lease_require:
-    - one_current_owner_per_Node_execution
-    - exact_current_Graph_revision
-    - Node_is_READY
-    - Run_is_not_cancelled_or_terminal
-    - atomic_owner_attempt_fence_and_lease_commit
-  start_revalidate:
+migration_contamination_matrix:
+  hostile_imperative_text_remains_inert_historical_evidence: true
+  raw_quarantine_must_not_enter:
     - Project
-    - Task_revision_and_digest
-    - current_Run
-    - current_Graph_revision
-    - exact_Node
-    - current_owner_attempt_and_fence
-    - live_lease
-    - cancellation
-  heartbeat_require:
-    - current_owner_attempt_and_fence
-    - live_lease_and_database_time
-    - stale_fence_cannot_be_revived
-    - cancelled_or_superseded_work_cannot_be_renewed
+    - Task_input
+    - Artifact
+    - normal_context_or_retrieval_seam
+    - Project_Memory_seam
+    - Engine_Knowledge_seam
+    - Capability_registry
+    - Graph_instructions
 
-atomic_finalization:
-  transactionally_revalidate_immediately_before_mutation:
-    - accessible_exact_Project
-    - exact_Task_revision_and_digest
-    - Run_not_improperly_terminal_or_cancelled
-    - exact_accepted_current_Graph_revision
-    - Node_belongs_to_current_Graph
-    - current_execution_attempt_owner_and_fence
-    - live_lease_where_required
-    - Node_not_superseded_or_stale
-    - required_dependency_states
-    - exact_output_Artifact_or_Content_identity
-    - output_contract_and_required_evidence
-    - finalization_idempotency
-  only_then_commit_together:
-    - exact_output_bindings
-    - terminal_Node_state
-    - required_Event
-    - ownership_close_or_release
-    - derived_Run_completion_when_all_acceptance_conditions_hold
-  prohibit:
-    - checks_only_before_long_external_call
-    - output_binding_before_final_authority_revalidation
-    - terminal_state_without_required_Event
-    - orphan_terminal_Event
-    - duplicate_finalization_under_retry_or_race
+project_attack_matrix:
+  projects: [Alpha, Beta]
+  direct_and_indirect_reference_substitution:
+    - Task
+    - Run
+    - Graph
+    - Node
+    - Artifact
+    - Source
+    - Event
+    - lease_and_fence
+    - configuration
+  expected:
+    - every_unauthorized_path_rejects
+    - no_private_payload_leak
+    - shared_digest_never_collapses_authorization
 
-failure_waiting_cancellation_and_recovery:
-  failure_record_require:
-    - exact_attempt
-    - bounded_reason_and_category
-    - exact_evidence_or_log_refs
-    - retry_or_replan_technical_possibility
-    - prior_attempt_history_preserved
-  waiting_external_require:
-    - bounded_durable_wait_reason
-    - exact_evidence_or_checkpoint_refs_when_present
-    - no_implicit_authority_extension
-  cancellation_order:
-    cancellation_commits_first: late_finalization_fails
-    finalization_commits_first: preserve_actual_completed_output_and_ordering
-    fabricate_cancellation_of_completed_output: false
-  expired_worker_scenario:
+immutability_and_digest:
+  verify:
+    - Task_revision_digest
+    - Graph_revision_digest
+    - Artifact_ContentRef
+    - Event_immutability
+    - Source_identity
+  mutation_attempts:
+    - historical_Task_revision
+    - historical_Graph_revision
+    - Artifact_content_or_provenance
+    - Event_record_or_sequence
+    - Source_identity
+  expected:
+    - mutation_rejected_or_detected
+    - legitimate_change_requires_new_revision
+    - historical_revision_retained
+
+concurrency:
+  require:
+    - B_and_C_acquired_through_independent_connections_or_transactions
+    - real_database_classification_when_SQLite_is_used
+    - no_purely_mocked_sequential_substitute_for_required_race
+    - no_heavyweight_global_or_production_global_lock
+    - independent_P0_work_not_globally_serialized_beyond_database_write_commit_boundary
+
+worker_loss_and_recovery:
+  scenario:
     - Node_RUNNING_under_fence_N
-    - lease_N_expires_after_worker_loss
-    - recovery_marks_attempt_N_stale_as_appropriate
-    - new_attempt_gets_fence_N_plus_1
-    - late_result_from_N_is_rejected
-    - current_result_from_N_plus_1_may_complete
-  graph_supersession:
-    - old_revision_live_lease_cannot_finalize_as_current
-    - obsolete_current_work_becomes_STALE
-    - completed_old_outputs_remain_historical_reusable_evidence_when_compatible
-    - no_historical_output_deletion
+    - owner_N_lease_expires
+    - recovery_marks_N_stale_as_appropriate
+    - replacement_gets_fence_N_plus_1
+    - late_N_result_is_rejected
+    - N_plus_1_completes_with_exact_Event_and_output_identity
+  preserve:
+    - already_verified_durable_work
+    - completed_Node_non_reexecution
 
-run_completion:
-  derive_from:
-    - accepted_current_Graph_revision
-    - all_required_productive_Node_terminal_states
-    - Task_acceptance_conditions
-    - exact_output_and_evidence_bindings
+cancellation_race:
   require:
-    - same_atomic_finalization_transaction_when_last_Node_completes
-    - required_Run_completion_Event
-    - restart_durable_terminal_state
-    - idempotent_duplicate_completion
-  prohibit:
-    - worker_reported_done_as_sufficient_authority
-    - one_Node_completion_as_automatic_Run_completion
-    - terminal_state_regression
+    - real_database_finalize_vs_cancel_race
+    - exactly_one_technically_valid_serialized_outcome
+    - no_double_finalization
+    - no_cancelled_Run_resurrection
+    - actual_Event_order_matches_commit_order
 
-concurrency_and_recovery:
+graph_revision:
   require:
-    - canonical_lock_order_for_Run_Node_Attempt_Artifact_and_Event_operations
-    - real_database_concurrency_tests_where_supported
-    - two_owner_Node_race_has_exactly_one_winner
-    - two_finalizer_race_accepts_at_most_one
-    - finalize_vs_cancel_race_has_one_coherent_authoritative_outcome
-    - stale_fence_always_loses
-    - independent_Nodes_can_be_current_simultaneously
-    - no_global_execution_lock
-    - restart_preserves_completed_ready_waiting_failed_and_expired_state
-    - restart_never_reexecutes_SUCCEEDED_Node
+    - create_v1_then_bounded_v2_change
+    - v1_immutable_and_history_retained
+    - superseded_Node_cannot_mutate_current_execution
+    - compatible_completed_Artifact_remains_historical_evidence
+
+restart:
+  reconstruct_without_chat_or_provider_session:
+    - Projects
+    - Task_revision
+    - Run_and_fence
+    - Graph
+    - Node_states
+    - Artifacts
+    - Events
+
+kernel_neutrality_scan:
+  inspect_active_source_and_schema_for_semantic_coupling_to:
+    - legacy_donor
+    - Godot
+    - Unreal
+    - Unity
+    - OpenAI
+    - NVIDIA
+    - H100
+    - founder_or_workstation
+    - mandatory_critic_or_validator
+    - global_heavyweight_lock
+    - provider_model_or_agent_hierarchy
+  classification_rule:
+    - distinguish_active_semantic_dependency_from_fixture_test_or_nonsemantic_comment
+    - report_active_dependency_before_READY_FOR_P1
+    - do_not_blindly_delete_legitimate_fixture_or_test_strings
 
 failure_behavior:
   fail_closed_on:
-    - scope_identity_or_exact_relationship_mismatch
-    - stale_expired_or_mismatched_owner_attempt_or_fence
-    - Run_cancellation_or_terminal_state_conflict
-    - Graph_supersession
-    - unmet_dependency_or_condition
-    - invalid_output_or_evidence_identity
-    - output_contract_mismatch
-    - idempotency_conflict
-    - persisted_state_attempt_output_Event_or_head_integrity_mismatch
+    - Project_scope_or_identity_mismatch
+    - quarantine_or_historical_content_active_binding
+    - stale_expired_or_superseded_authority
+    - immutable_record_or_digest_corruption
+    - cancellation_or_terminal_conflict
+    - Event_or_state_head_integrity_failure
   preserve: [durable_evidence, real_failure_cause, unaffected_required_work]
   prohibit: [fabricated_success, fabricated_missing_fact, weakened_architecture_for_unavailable_dependency]
 
 required_test_matrix:
-  - {id: T01, prove: all_required_NodeExecution_status_semantics_are_durable_and_validated}
-  - {id: T02, prove: fan_in_readiness_waits_for_required_dependencies_and_conditions}
-  - {id: T03, prove: two_owners_race_for_one_Node_and_exactly_one_wins}
-  - {id: T04, prove: independent_ready_Nodes_can_be_leased_concurrently_without_global_lock}
-  - {id: T05, prove: start_and_heartbeat_require_current_live_owner_fence_and_lease}
-  - {id: T06, prove: expired_attempt_recovery_marks_stale_and_allocates_higher_fence}
-  - {id: T07, prove: late_fence_N_result_is_rejected_after_fence_N_plus_1}
-  - {id: T08, prove: cancelled_Run_rejects_Node_start_heartbeat_and_finalization}
-  - {id: T09, prove: finalize_vs_cancel_race_has_one_coherent_authoritative_outcome}
-  - {id: T10, prove: Graph_revision_v1_late_result_is_rejected_after_v2_supersession}
-  - {id: T11, prove: finalization_revalidates_exact_Project_Task_Run_Graph_Node_owner_fence_lease_and_dependencies}
-  - {id: T12, prove: finalization_atomically_binds_exact_outputs_Node_state_and_required_Event}
-  - {id: T13, prove: injected_finalization_failure_rolls_back_outputs_state_Event_and_Run_completion}
-  - {id: T14, prove: duplicate_finalization_retry_is_idempotent_and_conflicting_retry_fails}
-  - {id: T15, prove: two_finalizers_race_and_at_most_one_result_is_authoritative}
-  - {id: T16, prove: failure_preserves_attempt_bounded_reason_evidence_and_retry_or_replan_signal}
-  - {id: T17, prove: WAITING_EXTERNAL_is_durable_bounded_and_does_not_extend_stale_authority}
-  - {id: T18, prove: last_required_Node_finalization_atomically_completes_Run_and_appends_Event}
-  - {id: T19, prove: Run_does_not_complete_when_required_work_or_Task_acceptance_is_unsatisfied}
-  - {id: T20, prove: restart_preserves_completed_ready_waiting_failed_and_expired_state_without_reexecuting_success}
-  - {id: T21, prove: state_attempt_output_and_head_tampering_fail_closed}
-  - {id: T22, prove: no_provider_domain_resource_readiness_or_fixed_repair_loop_coupling_exists}
+  - {id: T01, prove: Project_Alpha_Beta_negative_isolation_across_Task_Run_Graph_Node_Artifact_Source_Event_lease_fence_and_configuration}
+  - {id: T02, prove: hostile_synthetic_quarantine_object_is_inert_across_all_active_admission_seams}
+  - {id: T03, prove: arbitrary_future_Capability_executes_without_hardcoded_domain_kernel_change}
+  - {id: T04, prove: A_to_B_and_C_to_D_to_E_readiness_is_exact_and_B_C_parallel_frontier_is_preserved}
+  - {id: T05, prove: B_and_C_can_hold_current_ownership_through_real_independent_database_connections_without_global_lock}
+  - {id: T06, prove: worker_loss_recovery_allocates_fence_N_plus_1_and_rejects_late_N_result}
+  - {id: T07, prove: process_restart_reconstructs_all_P0_identity_authority_Graph_Node_Artifact_and_Event_state}
+  - {id: T08, prove: Graph_v1_v2_history_is_immutable_and_superseded_Node_result_is_rejected}
+  - {id: T09, prove: compatible_completed_Artifact_remains_exact_historical_evidence_after_Graph_supersession}
+  - {id: T10, prove: Artifact_ContentRef_or_provenance_corruption_fails_closed}
+  - {id: T11, prove: Event_update_delete_sequence_or_head_tampering_fails_closed}
+  - {id: T12, prove: cancellation_finalization_race_has_one_coherent_serialized_outcome_without_resurrection}
+  - {id: T13, prove: Task_Graph_Artifact_Event_and_Source_immutability_or_new_revision_semantics_hold_together}
+  - {id: T14, prove: active_kernel_neutrality_scan_has_no_historical_provider_domain_agent_hierarchy_or_heavyweight_global_lock_dependency}
+  - {id: T15, prove: full_P0_01_through_P0_09_regression_matrix_passes_together_without_skips_placeholders_or_TODO_tests}
+  - {id: T16, prove: exact_remote_wheel_and_restart_smoke_preserve_the_integrated_P0_contract}
 
 kpi:
-  double_owned_nodes: 0
+  active_raw_legacy_donor_content: 0
+  cross_project_reads: 0
   accepted_stale_results: 0
-  accepted_cancelled_results: 0
-  terminal_state_regressions: 0
-  completed_nodes_reexecuted_after_restart: 0
-  orphan_terminal_events: 0
+  mutated_Task_or_Graph_revisions: 0
+  provider_specific_kernel_requirements: 0
+  global_heavyweight_resource_lock: 0
+
+exit_decision:
+  READY_FOR_P1_only_when:
+    - migration_firewall_holds
+    - Project_isolation_holds
+    - exact_identity_and_immutability_hold
+    - fencing_and_recovery_hold
+    - Events_and_durable_state_survive_restart
+    - arbitrary_Capability_extensibility_holds
+    - concurrent_independent_work_is_not_globally_serialized
+    - kernel_neutrality_scan_has_no_active_coupling
+  otherwise:
+    - record_exact_failed_condition
+    - fix_only_observed_P0_cross_component_defect_when_possible
+    - do_not_weaken_exit_criteria
 
 implementation_method:
-  - verify_exact_P0_08_remote_handoff
-  - inspect_exact_current_source_and_accepted_interfaces
-  - write_failure_first_tests_for_readiness_ownership_fencing_recovery_finalization_and_cancellation
-  - implement_minimum_complete_P0_09
-  - define_and_enforce_canonical_Run_Node_Attempt_Artifact_Event_lock_order
-  - use_existing_exact_identity_Graph_Artifact_Event_and_fenced_Run_seams
-  - run_focused_tests
-  - run_relevant_P0_01_through_P0_08_regressions
-  - run_strict_typecheck
-  - build_and_inspect_actual_package_artifact
-  - inspect_persistence_schema_indexes_triggers_foreign_keys_and_transaction_boundaries
+  - verify_exact_P0_09_remote_handoff
+  - inspect_exact_current_source_tests_schema_and_accepted_interfaces
+  - add_task_scoped_integration_qualification_tests_before_any_defect_fix
+  - exercise_real_P0_services_as_one_system
+  - use_real_SQLite_connections_transactions_races_and_restart
+  - fix_only_cross_component_defects_exposed_by_red_qualification
+  - run_focused_P0_10_tests
+  - run_full_P0_01_through_P0_09_regressions
+  - run_strict_typecheck_compileall_and_build
+  - inspect_actual_wheel_and_clean_install_smoke
+  - run_kernel_neutrality_and_raw_QuarantineRef_dependency_scans
+  - inspect_schema_indexes_triggers_foreign_keys_and_transaction_boundaries
+  - obtain_independent_changed_code_review_before_publication
 
 publication:
-  when_implementation_complete:
+  when_qualification_complete:
     - record_source_commit
-    - commit_coherent_P0_09_result
+    - commit_coherent_P0_10_result
     - push_main
     - remote_readback_result_commit
     - remote_readback_result_tree
-    - verify_required_remote_paths
+    - verify_required_remote_paths_and_bytes
+    - record_exact_READY_FOR_P1_or_non_ready_decision
   local_success_without_required_remote_readback: not_durable_complete
 
 required_report:
@@ -397,8 +395,8 @@ continuation:
     - report_intentional_dirty_or_uncommitted_files
     - update_03_BIELLA_CURRENT_STATE
     - update_required_canonical_Drive_continuity
-    - replace_04_with_exact_P0_10_packet
-    - close_P0_09_before_opening_P0_10
+    - replace_04_with_exact_P1_01_packet_only_after_P0_10_durable_close
+    - close_P0_10_before_opening_P1_01
   continue_numbered_prompts_one_at_a_time: true
   broad_real_historical_mining: false
 ```

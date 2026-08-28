@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-28 09:46 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-28T09:46:58+02:00"
+state_timestamp_local: "2026-08-28 11:03 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-28T11:03:50+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: 486c05f37a8deccfa786fe3781c9267fc96cc74b
-    tree: 7abd3dc98a3689b2c3e0593d4dbdf1207733c67f
+    commit: ebcd4ca325ef0455cee91e2959935f6c063a16e3
+    tree: 49453937a2037f1b17b5f4d68530d9bc33793eee
     observed_date: 2026-08-28
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p0_08_implementation_post_push_exact_readback
+    observation_context: p0_09_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: 486c05f37a8deccfa786fe3781c9267fc96cc74b
-    tree: 7abd3dc98a3689b2c3e0593d4dbdf1207733c67f
+    head: ebcd4ca325ef0455cee91e2959935f6c063a16e3
+    tree: 49453937a2037f1b17b5f4d68530d9bc33793eee
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 8
+    durable_prompts_complete: 9
     durable_prompts_total: 51
     phase: P0
-    active_prompt: P0-09
-    active_prompt_title: Durable Node/Run Execution State and Atomic Finalization
+    active_prompt: P0-10
+    active_prompt_title: P0 Integration, Isolation, Contamination, and Recovery Qualification
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -284,6 +284,50 @@ engine:
       - src/biella/event.py
       - src/biella/run.py
       - tests/test_p0_08_event_ledger.py
+    p0_09_status: DURABLY_COMPLETE
+    p0_09_source_commit: 75745ca434b78862a659aaa947610e46b12dc09e
+    p0_09_result_commit: ebcd4ca325ef0455cee91e2959935f6c063a16e3
+    p0_09_result_tree: 49453937a2037f1b17b5f4d68530d9bc33793eee
+    p0_09_remote_readback: VERIFIED
+    p0_09_validation:
+      focused_unittest: "25 passed; 0 failed; 0 skipped"
+      regression_unittest: "206 passed; 0 failed; 0 skipped"
+      pytest: "206 passed; 100 subtests passed; 0 failed; 0 skipped"
+      mypy_strict: "20 source/test files; 0 issues"
+      compileall: PASS
+      concurrency_repeat: "two-owner Node acquisition, finalize/cancel, two-finalizer, and direct Event-cancel/finalize races; 4 real SQLite races repeated 10 times; 40 passed"
+      wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 74a8643d8ec66f9d1e64dc0cc251ef0ed8f30c33be8db82e3aa032441b9f762a; embedded execution.py sha256 a22f2a5b6a6081a018c24b033690fdc7b5ae5335bdcb9f88f51fbd8d0567c6a2 exactly matched source"
+      installed_wheel_smoke: "NodeExecution and all lease/start/heartbeat/fail/wait/finalize/recoverExpiredExecution/cancelRun interfaces imported from clean wheel"
+      schema_inspection: "10 Node execution/completion-manifest tables; immutable state/attempt/output/failure/condition/idempotency/manifest guards; exact Project/Task/Run/Graph/Node/Artifact/Event bindings; PRAGMA foreign_key_check empty"
+      independent_review: "READY; no Critical, Important, or Minor findings after Graph-scoped acceptance, terminal acceptance/completion Event manifest binding, cancellation convergence, lock-order, and replay hardening"
+      fallow_review: "live graph snapshot graph:0da34faf4b79fe4d postvalidated stale=false; no deterministic findings; Python project node_modules warning non-applicable"
+    p0_09_kpi:
+      double_owned_nodes: 0
+      accepted_stale_results: 0
+      accepted_cancelled_results: 0
+      terminal_state_regressions: 0
+      completed_nodes_reexecuted_after_restart: 0
+      orphan_terminal_events: 0
+    p0_09_schema_changes:
+      - node_executions
+      - node_execution_attempts
+      - node_execution_attempt_completions
+      - node_execution_state_versions
+      - node_execution_heads
+      - node_execution_bindings
+      - node_execution_failures
+      - node_condition_results
+      - node_transition_idempotency
+      - run_completion_manifests
+      - completion_evidence_sha256_on_Run_state
+      - exact_Project_Task_Run_Graph_Node_Artifact_and_Event_record_bindings
+      - append_only_monotonic_manifest_and_transaction_integrity_guards
+    p0_09_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/event.py
+      - src/biella/execution.py
+      - src/biella/run.py
+      - tests/test_p0_09_execution_state.py
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -332,10 +376,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P0-09
-    title: Durable Node/Run Execution State and Atomic Finalization
-    drive_id: 1_yBgxGdKjX88wA9gXk59NzN8No7srJZDRF0CGCIF90I
-    canonical_prompt_text_sha256: 6d6ec80041a00035e1163f094cdc0de0b7b3f30c9c40277632c506aa2cc72412
+    id: P0-10
+    title: P0 Integration, Isolation, Contamination, and Recovery Qualification
+    drive_id: 1Xsx8tYhwvg29FTMkYEK-Sed5kjJHD40HJoFsXYS31IE
+    canonical_prompt_text_sha256: c01eb2696e3e92425cf17d03372f3281af7bc6c6205071e0c335c4d8c93a51dc
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -385,7 +429,7 @@ migration:
 website:
   program: BIELLA_UNIVERSE_OPTION_C
   public_target: biellagames.dev
-  execution_state: P0_08_GATE_CLEARED_NOT_STARTED
+  execution_state: P0_09_GATE_CLEARED_NOT_STARTED
   first_separate_task_after_p0_01: BU-01
   run_in_same_p0_01_session: false
   universal_engine_kernel_scope: false
@@ -402,37 +446,34 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P0-09
-  title: Durable Node/Run Execution State and Atomic Finalization
-  prompt_drive_id: 1_yBgxGdKjX88wA9gXk59NzN8No7srJZDRF0CGCIF90I
-  predecessor_result_commit: 486c05f37a8deccfa786fe3781c9267fc96cc74b
-  predecessor_result_tree: 7abd3dc98a3689b2c3e0593d4dbdf1207733c67f
+  id: P0-10
+  title: P0 Integration, Isolation, Contamination, and Recovery Qualification
+  prompt_drive_id: 1Xsx8tYhwvg29FTMkYEK-Sed5kjJHD40HJoFsXYS31IE
+  predecessor_result_commit: ebcd4ca325ef0455cee91e2959935f6c063a16e3
+  predecessor_result_tree: 49453937a2037f1b17b5f4d68530d9bc33793eee
 
 next_transition:
-  - verify_P0_08_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P0_09_prompt_and_directly_required_files_only
-  - implement_NodeExecution_lease_start_heartbeat_fail_wait_finalize_recovery_cancel_and_Run_completion
-  - prove_dependency_readiness_fenced_authority_atomic_output_state_Event_finalization_stale_recovery_and_Graph_supersession
+  - verify_P0_09_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P0_10_prompt_and_directly_required_files_only
+  - qualify_P0_01_through_P0_09_as_one_integrated_system_without_new_architecture
+  - prove_Project_attack_matrix_quarantine_inertness_exact_identity_immutability_recovery_concurrency_and_kernel_neutrality
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P0_09_before_opening_P0_10
+  - close_P0_10_and_record_READY_FOR_P1_decision_before_opening_P1_01
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - broaden_P0_09_into_provider_model_browser_build_render_or_later_numbered_architecture
+  - broaden_P0_10_into_memory_resource_router_adapter_or_later_numbered_architecture
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
-  - derive_Node_readiness_from_worker_demand_or_resource_availability
-  - accept_stale_expired_cancelled_or_superseded_Node_results
-  - trust_pre_external_call_authority_without_transactional_finalization_revalidation
-  - rerun_SUCCEEDED_Nodes_during_recovery
-  - add_fixed_repair_loop_or_intelligent_scheduler
-  - start_P0_10_before_P0_09_durable_close
+  - weaken_or_mock_cross_Project_isolation_quarantine_fencing_recovery_or_concurrency_qualification
+  - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
+  - start_P1_01_before_P0_10_durable_close_and_READY_FOR_P1_decision
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
