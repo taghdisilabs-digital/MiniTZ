@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-28 07:47 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-28T07:47:48+02:00"
+state_timestamp_local: "2026-08-28 08:31 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-28T08:31:48+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: 8f53a1fd641ad46c893239cd8279f310432086bc
-    tree: ed4e97846d8c055a0e8967b83a8b100bef481ddf
+    commit: 747a0b59a296890202be39128c455240d87274f2
+    tree: 585ef429b55eed8c261d4af87efe297e2c1a9c67
     observed_date: 2026-08-28
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p0_05_implementation_post_push_exact_readback
+    observation_context: p0_06_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: 8f53a1fd641ad46c893239cd8279f310432086bc
-    tree: ed4e97846d8c055a0e8967b83a8b100bef481ddf
+    head: 747a0b59a296890202be39128c455240d87274f2
+    tree: 585ef429b55eed8c261d4af87efe297e2c1a9c67
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 5
+    durable_prompts_complete: 6
     durable_prompts_total: 51
     phase: P0
-    active_prompt: P0-06
-    active_prompt_title: Artifact and Source Identity Contract
+    active_prompt: P0-07
+    active_prompt_title: Immutable Revisioned Graph and Node Contracts
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -175,6 +175,44 @@ engine:
       - src/biella/__init__.py
       - src/biella/run.py
       - tests/test_p0_05_run_leases.py
+    p0_06_status: DURABLY_COMPLETE
+    p0_06_source_commit: 4723d1502b18a17c75631104bfdfb67df35d6cbe
+    p0_06_result_commit: 747a0b59a296890202be39128c455240d87274f2
+    p0_06_result_tree: 585ef429b55eed8c261d4af87efe297e2c1a9c67
+    p0_06_remote_readback: VERIFIED
+    p0_06_validation:
+      focused_unittest: "27 passed; 0 failed; 0 skipped"
+      regression_unittest: "129 passed; 0 failed; 0 skipped"
+      pytest: "129 passed; 80 subtests passed; 0 failed; 0 skipped"
+      mypy_strict: "14 source/test files; 0 issues"
+      compileall: PASS
+      concurrency_repeat: "conflicting revision, independent creation, and publication/cancellation authority races; 10 repeated passes"
+      wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 3f443d40208fc99aed70d3de84a3b7807c8ad60e3f9af8efcc8b904ca3b07d9f; required paths inspected"
+      installed_wheel_smoke: "Artifact/Source/Derivation/Task/Run exact binding; restart; schema foreign-key integrity"
+      independent_review: "READY; no Critical, Important, or Minor findings after byte identity, exact-record, provenance determinism, and physical-location separation hardening"
+    p0_06_kpi:
+      artifact_without_project_scope: 0
+      digest_mismatches_accepted: 0
+      artifact_content_identity_conflation: 0
+      cross_project_derivations: 0
+      immutable_artifacts_silently_mutated: 0
+    p0_06_schema_changes:
+      - artifact_revisions
+      - artifact_heads
+      - artifact_source_artifact_bindings
+      - artifact_derivations
+      - artifact_task_input_bindings
+      - exact_source_and_Artifact_record_digest_foreign_bindings
+      - append_only_monotonic_and_integrity_triggers
+    p0_06_required_remote_paths:
+      - pyproject.toml
+      - src/biella/__init__.py
+      - src/biella/artifact.py
+      - src/biella/run.py
+      - src/biella/runtime.py
+      - src/biella/task.py
+      - tests/test_p0_01_migration_firewall.py
+      - tests/test_p0_06_artifact_identity.py
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -223,10 +261,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P0-06
-    title: Artifact and Source Identity Contract
-    drive_id: 17l-QAoXQPl2QkE3B7BJqoeCVsJHybnrq8UQlRltu1as
-    canonical_prompt_text_sha256: 6a28d180247ad33881e9b02e57cd9e1cd72e4f2cba619f96dafab0d217bf8bb7
+    id: P0-07
+    title: Immutable Revisioned Graph and Node Contracts
+    drive_id: 1e3EA4_bjuhbdn2dlcsRHpXR0-6snMlY3bL_q8bgxNRU
+    canonical_prompt_text_sha256: 6b3c67114e3ad15c8e5f75844202649d1d2aa02a69bca62795e5083d41b3e09e
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -276,7 +314,7 @@ migration:
 website:
   program: BIELLA_UNIVERSE_OPTION_C
   public_target: biellagames.dev
-  execution_state: P0_05_GATE_CLEARED_NOT_STARTED
+  execution_state: P0_06_GATE_CLEARED_NOT_STARTED
   first_separate_task_after_p0_01: BU-01
   run_in_same_p0_01_session: false
   universal_engine_kernel_scope: false
@@ -293,35 +331,36 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P0-06
-  title: Artifact and Source Identity Contract
-  prompt_drive_id: 17l-QAoXQPl2QkE3B7BJqoeCVsJHybnrq8UQlRltu1as
-  predecessor_result_commit: 8f53a1fd641ad46c893239cd8279f310432086bc
-  predecessor_result_tree: ed4e97846d8c055a0e8967b83a8b100bef481ddf
+  id: P0-07
+  title: Immutable Revisioned Graph and Node Contracts
+  prompt_drive_id: 1e3EA4_bjuhbdn2dlcsRHpXR0-6snMlY3bL_q8bgxNRU
+  predecessor_result_commit: 747a0b59a296890202be39128c455240d87274f2
+  predecessor_result_tree: 585ef429b55eed8c261d4af87efe297e2c1a9c67
 
 next_transition:
-  - verify_P0_05_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P0_06_prompt_and_directly_required_files_only
-  - implement_Artifact_ArtifactRef_ContentRef_SourceRef_and_ArtifactDerivation
-  - prove_Project_scope_exact_content_source_derivation_and_immutable_revision_identity
+  - verify_P0_06_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P0_07_prompt_and_directly_required_files_only
+  - implement_Graph_GraphRef_Node_NodeRef_NodeInputBinding_and_DAG_APIs
+  - prove_exact_Project_Task_Run_binding_DAG_validity_ready_sets_and_immutable_revisions
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P0_06_before_opening_P0_07
+  - close_P0_07_before_opening_P0_08
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - broaden_P0_06_into_physical_object_storage_backends_or_later_numbered_architecture
+  - broaden_P0_07_into_provider_scheduling_remote_execution_or_later_numbered_architecture
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
-  - use_filename_path_storage_URI_or_content_digest_as_logical_Artifact_identity
-  - collapse_cross_Project_authority_for_identical_content
-  - accept_QuarantineRef_as_active_Artifact_or_ContentRef
-  - start_P0_07_before_P0_06_durable_close
+  - add_fixed_global_pipeline_or_closed_executor_kind_enum
+  - model_lifecycle_control_actions_as_mandatory_productive_Nodes
+  - escalate_Task_side_effect_authority_through_Graph_or_Node
+  - accept_cross_Project_cross_Graph_or_mutable_input_bindings
+  - start_P0_08_before_P0_07_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
