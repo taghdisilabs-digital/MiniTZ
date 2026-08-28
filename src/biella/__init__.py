@@ -16,6 +16,23 @@ from .runtime import (
     RetrievalRecord,
     TaskContext,
 )
+from .project import (
+    Project,
+    ProjectAccess,
+    ProjectConflictError,
+    ProjectConfigurationError,
+    ProjectCreationError,
+    ProjectError,
+    ProjectIntegrityError,
+    ProjectNamespaceError,
+    ProjectNotFoundError,
+    ProjectRef,
+    ProjectRegistration,
+    ProjectRetentionError,
+    ProjectScopeError,
+    ProjectScoped,
+    ProjectStore,
+)
 
 __all__ = [
     "ActiveArtifact",
@@ -29,4 +46,19 @@ __all__ = [
     "RetrievalIndex",
     "RetrievalRecord",
     "TaskContext",
+    "Project",
+    "ProjectAccess",
+    "ProjectConflictError",
+    "ProjectConfigurationError",
+    "ProjectCreationError",
+    "ProjectError",
+    "ProjectIntegrityError",
+    "ProjectNamespaceError",
+    "ProjectNotFoundError",
+    "ProjectRef",
+    "ProjectRegistration",
+    "ProjectRetentionError",
+    "ProjectScopeError",
+    "ProjectScoped",
+    "ProjectStore",
 ]
