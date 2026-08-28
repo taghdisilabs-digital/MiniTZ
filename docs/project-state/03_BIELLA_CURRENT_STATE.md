@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-28 09:08 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-28T09:08:05+02:00"
+state_timestamp_local: "2026-08-28 09:46 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-28T09:46:58+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: c420772708bc64054fdea2d8ed663ed7b550b13f
-    tree: c284e6c00997b3e691dce0510c3f7ad421425d35
+    commit: 486c05f37a8deccfa786fe3781c9267fc96cc74b
+    tree: 7abd3dc98a3689b2c3e0593d4dbdf1207733c67f
     observed_date: 2026-08-28
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p0_07_implementation_post_push_exact_readback
+    observation_context: p0_08_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: c420772708bc64054fdea2d8ed663ed7b550b13f
-    tree: c284e6c00997b3e691dce0510c3f7ad421425d35
+    head: 486c05f37a8deccfa786fe3781c9267fc96cc74b
+    tree: 7abd3dc98a3689b2c3e0593d4dbdf1207733c67f
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 7
+    durable_prompts_complete: 8
     durable_prompts_total: 51
     phase: P0
-    active_prompt: P0-08
-    active_prompt_title: Durable Append-Only Event Ledger
+    active_prompt: P0-09
+    active_prompt_title: Durable Node/Run Execution State and Atomic Finalization
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -250,6 +250,40 @@ engine:
       - src/biella/__init__.py
       - src/biella/graph.py
       - tests/test_p0_07_graph_contract.py
+    p0_08_status: DURABLY_COMPLETE
+    p0_08_source_commit: 8e03737c500a6570d1b2e108fde288eb3562986c
+    p0_08_result_commit: 486c05f37a8deccfa786fe3781c9267fc96cc74b
+    p0_08_result_tree: 7abd3dc98a3689b2c3e0593d4dbdf1207733c67f
+    p0_08_remote_readback: VERIFIED
+    p0_08_validation:
+      focused_unittest: "24 passed; 0 failed; 0 skipped"
+      regression_unittest: "181 passed; 0 failed; 0 skipped"
+      pytest: "181 passed; 100 subtests passed; 0 failed; 0 skipped"
+      mypy_strict: "18 source/test files; 0 issues"
+      compileall: PASS
+      concurrency_repeat: "same-Run sequence allocation, public cancellation idempotency, Artifact publication/cancellation, and Graph publication/cancellation races; 10 repeated passes"
+      wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 a6ac60595e7525dcc57f9c9dc006b2cd23d3c323ddc5a9a9add6f5b80901d48e; embedded event.py sha256 0f6eeb4f251dd3f72515fef7a54b53c1029c33c9fe6b2017a66e664e5818de9e exactly matched source"
+      installed_wheel_smoke: "Event/EventRef imports; EventLedger initialization; appendEvent, transaction-bound append, and Run event query interfaces"
+      schema_inspection: "events, event_objects, and run_event_heads tables; 6 append-only/monotonic guards; exact Task/Run/Graph/Node/Artifact record foreign bindings; PRAGMA foreign_key_check empty"
+      independent_review: "READY; no Critical, Important, or Minor findings after atomic public cancellation, actor byte-bound, common-secret filtering, scope, terminal-idempotency, and nullable-evidence hardening"
+    p0_08_kpi:
+      mutable_events: 0
+      duplicate_run_sequences: 0
+      orphan_terminal_events: 0
+      cross_project_event_leaks: 0
+      obvious_secret_fields_persisted: 0
+    p0_08_schema_changes:
+      - events
+      - event_objects
+      - run_event_heads
+      - exact_Task_Run_Graph_Node_and_Artifact_record_foreign_bindings
+      - append_only_monotonic_scope_sequence_and_record_integrity_guards
+      - atomic_Run_cancellation_and_Event_transaction_path
+    p0_08_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/event.py
+      - src/biella/run.py
+      - tests/test_p0_08_event_ledger.py
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -298,10 +332,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P0-08
-    title: Durable Append-Only Event Ledger
-    drive_id: 1UtCBREk13USF2egMgZrqws_2PUCEAFeQ6VBfh3Y04aY
-    canonical_prompt_text_sha256: 3b1f7fb3bd8b239289daef3220f8ec78f5a334168b92a50dc5e0c97878964012
+    id: P0-09
+    title: Durable Node/Run Execution State and Atomic Finalization
+    drive_id: 1_yBgxGdKjX88wA9gXk59NzN8No7srJZDRF0CGCIF90I
+    canonical_prompt_text_sha256: 6d6ec80041a00035e1163f094cdc0de0b7b3f30c9c40277632c506aa2cc72412
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -351,7 +385,7 @@ migration:
 website:
   program: BIELLA_UNIVERSE_OPTION_C
   public_target: biellagames.dev
-  execution_state: P0_07_GATE_CLEARED_NOT_STARTED
+  execution_state: P0_08_GATE_CLEARED_NOT_STARTED
   first_separate_task_after_p0_01: BU-01
   run_in_same_p0_01_session: false
   universal_engine_kernel_scope: false
@@ -368,36 +402,37 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P0-08
-  title: Durable Append-Only Event Ledger
-  prompt_drive_id: 1UtCBREk13USF2egMgZrqws_2PUCEAFeQ6VBfh3Y04aY
-  predecessor_result_commit: c420772708bc64054fdea2d8ed663ed7b550b13f
-  predecessor_result_tree: c284e6c00997b3e691dce0510c3f7ad421425d35
+  id: P0-09
+  title: Durable Node/Run Execution State and Atomic Finalization
+  prompt_drive_id: 1_yBgxGdKjX88wA9gXk59NzN8No7srJZDRF0CGCIF90I
+  predecessor_result_commit: 486c05f37a8deccfa786fe3781c9267fc96cc74b
+  predecessor_result_tree: 7abd3dc98a3689b2c3e0593d4dbdf1207733c67f
 
 next_transition:
-  - verify_P0_07_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P0_08_prompt_and_directly_required_files_only
-  - implement_Event_EventRef_appendEvent_transaction_bound_append_and_Run_event_query
-  - prove_per_Run_sequence_idempotency_scope_immutability_secret_bounds_and_atomic_state_Event_semantics
+  - verify_P0_08_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P0_09_prompt_and_directly_required_files_only
+  - implement_NodeExecution_lease_start_heartbeat_fail_wait_finalize_recovery_cancel_and_Run_completion
+  - prove_dependency_readiness_fenced_authority_atomic_output_state_Event_finalization_stale_recovery_and_Graph_supersession
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P0_08_before_opening_P0_09
+  - close_P0_09_before_opening_P0_10
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - broaden_P0_08_into_provider_scheduling_remote_execution_or_later_numbered_architecture
+  - broaden_P0_09_into_provider_model_browser_build_render_or_later_numbered_architecture
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
-  - hardcode_closed_Event_type_enum
-  - persist_credentials_raw_tokens_private_keys_giant_stdout_or_full_model_prompts_outputs_in_Event_metadata
-  - use_wall_clock_as_the_only_Run_Event_order
-  - let_Event_ledger_become_a_second_mutable_execution_authority
-  - start_P0_09_before_P0_08_durable_close
+  - derive_Node_readiness_from_worker_demand_or_resource_availability
+  - accept_stale_expired_cancelled_or_superseded_Node_results
+  - trust_pre_external_call_authority_without_transactional_finalization_revalidation
+  - rerun_SUCCEEDED_Nodes_during_recovery
+  - add_fixed_repair_loop_or_intelligent_scheduler
+  - start_P0_10_before_P0_09_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
