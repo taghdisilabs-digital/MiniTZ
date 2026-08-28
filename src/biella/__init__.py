@@ -88,6 +88,23 @@ from .artifact import (
     ContentRef,
     SourceRef,
 )
+from .graph import (
+    Graph,
+    GraphAuthorityError,
+    GraphConflictError,
+    GraphContractError,
+    GraphError,
+    GraphIntegrityError,
+    GraphNotFoundError,
+    GraphRef,
+    GraphScopeError,
+    GraphService,
+    GraphSideEffectError,
+    Node,
+    NodeInputBinding,
+    NodeRef,
+    validate_dag,
+)
 
 __all__ = [
     "ActiveArtifact",
@@ -163,4 +180,19 @@ __all__ = [
     "ArtifactService",
     "ContentRef",
     "SourceRef",
+    "Graph",
+    "GraphAuthorityError",
+    "GraphConflictError",
+    "GraphContractError",
+    "GraphError",
+    "GraphIntegrityError",
+    "GraphNotFoundError",
+    "GraphRef",
+    "GraphScopeError",
+    "GraphService",
+    "GraphSideEffectError",
+    "Node",
+    "NodeInputBinding",
+    "NodeRef",
+    "validate_dag",
 ]
