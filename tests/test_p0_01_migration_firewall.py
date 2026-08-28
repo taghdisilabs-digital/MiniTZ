@@ -24,6 +24,7 @@ from biella.runtime import (
     RetrievalRecord,
     TaskContext,
 )
+from biella.project import ProjectRef
 import biella.migration as migration_module
 from biella.migration import (
     MigrationClassification,
@@ -168,7 +169,11 @@ class MigrationFirewallTests(unittest.TestCase):
         self.assertFalse(hasattr(runtime, "register_capability"))
         self.assertFalse(hasattr(runtime, "register_policy"))
 
-        active_ref = ArtifactRef("artifact://sha256/" + "a" * 64)
+        active_ref = ArtifactRef(
+            ProjectRef("prj_" + "0" * 32),
+            "art_" + "a" * 32,
+            1,
+        )
         for raw_value in (
             hostile_extraction.extracted_text,
             candidate.normalized_text,
@@ -176,7 +181,7 @@ class MigrationFirewallTests(unittest.TestCase):
         ):
             with self.subTest(raw_value=raw_value):
                 with self.assertRaises(ValueError):
-                    ArtifactRef(raw_value)
+                    ArtifactRef(active_ref.project_ref, raw_value, 1)
         with self.assertRaises(TypeError):
             runtime.register_artifact(  # type: ignore[call-arg]
                 active_ref,

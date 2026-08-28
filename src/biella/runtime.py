@@ -4,8 +4,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-import re
 from typing import Dict
+
+from .artifact import ArtifactRef as ArtifactRef
 
 
 def _now_utc() -> str:
@@ -16,20 +17,6 @@ def _require_artifact_ref(value: object) -> "ArtifactRef":
     if not isinstance(value, ArtifactRef):
         raise TypeError("Only ArtifactRef may enter runtime reference fields")
     return value
-
-
-@dataclass(frozen=True)
-class ArtifactRef:
-    value: str
-
-    def __post_init__(self) -> None:
-        if not isinstance(self.value, str) or re.fullmatch(
-            r"artifact://sha256/[0-9a-f]{64}",
-            self.value,
-        ) is None:
-            raise ValueError(
-                "ArtifactRef.value must be artifact://sha256/<64 lowercase hex>"
-            )
 
 
 @dataclass(frozen=True)

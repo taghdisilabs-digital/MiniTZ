@@ -39,6 +39,16 @@ _TASK_TYPE_PATTERN = re.compile(
     r"[a-z0-9][a-z0-9-]*(?:\.[a-z0-9][a-z0-9-]*)+"
 )
 _RECORD_SOURCE_PATTERN = re.compile(r"project-record://(rec_[0-9a-f]{32})")
+_ARTIFACT_IDENTITY_SOURCE_PATTERN = re.compile(
+    r"artifact://(prj_[0-9a-f]{32})/(art_[0-9a-f]{32})/([1-9][0-9]*)"
+)
+_ACTIVE_IDENTITY_SOURCE_PATTERN = re.compile(
+    r"(?:"
+    r"artifact://prj_[0-9a-f]{32}/art_[0-9a-f]{32}/[1-9][0-9]*"
+    r"|source://prj_[0-9a-f]{32}/sha256/[0-9a-f]{64}"
+    r"|content://sha256/[0-9a-f]{64}\?size=[0-9]+"
+    r")"
+)
 _SHA256_PATTERN = re.compile(r"[0-9a-f]{64}")
 _KEY_PATTERN = re.compile(r"[a-z][a-z0-9_.-]{0,63}")
 _ABSOLUTE_REF_PATTERN = re.compile(r"[a-z][a-z0-9+.-]*://[^\s\x00-\x1f]{1,512}")
@@ -201,9 +211,12 @@ class TaskInputRef:
             raise TaskInputError("Task input kind is malformed")
         if (
             not isinstance(self.source_ref, str)
-            or _RECORD_SOURCE_PATTERN.fullmatch(self.source_ref) is None
+            or (
+                _RECORD_SOURCE_PATTERN.fullmatch(self.source_ref) is None
+                and _ACTIVE_IDENTITY_SOURCE_PATTERN.fullmatch(self.source_ref) is None
+            )
         ):
-            raise TaskInputError("Task input must be an exact Project record reference")
+            raise TaskInputError("Task input must be an exact active Project identity")
         if (
             not isinstance(self.content_sha256, str)
             or _SHA256_PATTERN.fullmatch(self.content_sha256) is None
@@ -213,9 +226,19 @@ class TaskInputRef:
     @property
     def record_id(self) -> str:
         matched = _RECORD_SOURCE_PATTERN.fullmatch(self.source_ref)
-        if matched is None:
+        if matched is not None:
+            return matched.group(1)
+        if _ACTIVE_IDENTITY_SOURCE_PATTERN.fullmatch(self.source_ref) is None:
             raise TaskInputError("Task input source is malformed")
-        return matched.group(1)
+        bridge_identity = "\x00".join(
+            (
+                self.project_ref.value,
+                self.input_kind,
+                self.source_ref,
+                self.content_sha256,
+            )
+        )
+        return f"rec_{hashlib.sha256(bridge_identity.encode()).hexdigest()[:32]}"
 
     @classmethod
     def from_project_scoped(
@@ -657,22 +680,30 @@ class TaskRevisionService:
                 raise TaskContractError("Required CapabilityRef is not registered") from exc
         if isinstance(input_refs, (str, bytes)) or not isinstance(input_refs, Sequence):
             raise TaskInputError("input_refs must be a sequence")
-        for input_ref in input_refs:
-            if not isinstance(input_ref, TaskInputRef):
-                raise TaskInputError("Active Task inputs must be TaskInputRef")
-            if input_ref.project_ref != project_ref:
-                raise TaskScopeError("Task Project scope mismatch")
-            record = ProjectScoped(
-                project_ref=input_ref.project_ref,
-                record_id=input_ref.record_id,
-                content_sha256=input_ref.content_sha256,
-            )
-            try:
-                observed = self.projects.read_scoped_record(access, record)
-            except ProjectScopeError as exc:
-                raise TaskInputError("Exact Task input does not exist") from exc
-            if observed.content_sha256 != input_ref.content_sha256:
-                raise TaskInputError("Exact Task input digest does not match")
+        connection = self._connect()
+        try:
+            for input_ref in input_refs:
+                if not isinstance(input_ref, TaskInputRef):
+                    raise TaskInputError("Active Task inputs must be TaskInputRef")
+                if input_ref.project_ref != project_ref:
+                    raise TaskScopeError("Task Project scope mismatch")
+                record = ProjectScoped(
+                    project_ref=input_ref.project_ref,
+                    record_id=input_ref.record_id,
+                    content_sha256=input_ref.content_sha256,
+                )
+                try:
+                    observed = self.projects.read_scoped_record(access, record)
+                except ProjectScopeError as exc:
+                    raise TaskInputError("Exact Task input does not exist") from exc
+                if observed.content_sha256 != input_ref.content_sha256:
+                    raise TaskInputError("Exact Task input digest does not match")
+                try:
+                    self._verify_active_identity_bridge(connection, input_ref)
+                except TaskIntegrityError as exc:
+                    raise TaskInputError("Exact active Task input bridge is invalid") from exc
+        finally:
+            connection.close()
 
     @staticmethod
     def _make_task(
@@ -900,6 +931,174 @@ class TaskRevisionService:
         if not isinstance(persisted, str) or not hmac.compare_digest(expected, persisted):
             raise TaskIntegrityError("Task idempotency record failed integrity verification")
 
+    @classmethod
+    def _verify_active_identity_bridge(
+        cls,
+        connection: sqlite3.Connection,
+        input_ref: TaskInputRef,
+    ) -> None:
+        if _RECORD_SOURCE_PATTERN.fullmatch(input_ref.source_ref) is not None:
+            return
+        try:
+            row = connection.execute(
+                """
+                SELECT * FROM artifact_task_input_bindings
+                WHERE project_id = ? AND record_id = ?
+                """,
+                (input_ref.project_ref.value, input_ref.record_id),
+            ).fetchone()
+        except sqlite3.OperationalError as exc:
+            raise TaskIntegrityError("Active Task input bridge is unavailable") from exc
+        if row is None:
+            raise TaskIntegrityError("Active Task input bridge is missing")
+        artifact_id = cast(str | None, row["artifact_id"])
+        artifact_revision = cast(int | None, row["artifact_revision"])
+        artifact_record_sha256 = cast(str | None, row["artifact_record_sha256"])
+        identity_digest = cast(str, row["identity_digest"])
+        identity_ref = cast(str, row["identity_ref"])
+        input_kind = cast(str, row["input_kind"])
+        if (
+            row["project_id"] != input_ref.project_ref.value
+            or row["record_id"] != input_ref.record_id
+            or input_kind != input_ref.input_kind
+            or identity_ref != input_ref.source_ref
+            or not hmac.compare_digest(identity_digest, input_ref.content_sha256)
+        ):
+            raise TaskIntegrityError("Active Task input bridge identity is inconsistent")
+        expected_record_sha256 = hashlib.sha256(
+            cls._json(
+                {
+                    "artifact_id": artifact_id,
+                    "artifact_record_sha256": artifact_record_sha256,
+                    "artifact_revision": artifact_revision,
+                    "identity_digest": identity_digest,
+                    "identity_ref": identity_ref,
+                    "input_kind": input_kind,
+                    "project_id": input_ref.project_ref.value,
+                    "record_id": input_ref.record_id,
+                }
+            ).encode()
+        ).hexdigest()
+        persisted_record_sha256 = row["record_sha256"]
+        if (
+            not isinstance(persisted_record_sha256, str)
+            or not hmac.compare_digest(expected_record_sha256, persisted_record_sha256)
+        ):
+            raise TaskIntegrityError("Active Task input bridge failed integrity verification")
+        artifact_match = _ARTIFACT_IDENTITY_SOURCE_PATTERN.fullmatch(identity_ref)
+        if input_kind == "artifact":
+            if (
+                artifact_match is None
+                or artifact_match.group(1) != input_ref.project_ref.value
+                or artifact_match.group(2) != artifact_id
+                or int(artifact_match.group(3)) != artifact_revision
+            ):
+                raise TaskIntegrityError("Artifact Task input bridge is malformed")
+            artifact_row = connection.execute(
+                """
+                SELECT * FROM artifact_revisions
+                WHERE project_id = ? AND artifact_id = ? AND revision = ?
+                """,
+                (input_ref.project_ref.value, artifact_id, artifact_revision),
+            ).fetchone()
+            if artifact_row is None:
+                raise TaskIntegrityError("Exact Artifact Task input no longer exists")
+            try:
+                content_json = cast(str | None, artifact_row["content_json"])
+                content_payload = (
+                    None
+                    if content_json is None
+                    else cast(dict[str, object], json.loads(content_json))
+                )
+                expected_semantic_digest = hashlib.sha256(
+                    cls._json(
+                        {
+                            "content_ref": content_payload,
+                            "derivation_type": artifact_row["derivation_type"],
+                            "metadata": cast(
+                                dict[str, str],
+                                json.loads(cast(str, artifact_row["metadata_json"])),
+                            ),
+                            "producer_attempt_id": artifact_row["producer_attempt_id"],
+                            "producer_fence": artifact_row["producer_fence"],
+                            "producer_run_ref": artifact_row["producer_run_id"],
+                            "project_ref": artifact_row["project_id"],
+                            "role": artifact_row["role"],
+                            "source_artifact_refs": cast(
+                                list[str],
+                                json.loads(
+                                    cast(str, artifact_row["source_artifact_refs_json"])
+                                ),
+                            ),
+                            "source_content_refs": cast(
+                                list[dict[str, object]],
+                                json.loads(
+                                    cast(str, artifact_row["source_content_refs_json"])
+                                ),
+                            ),
+                            "source_refs": cast(
+                                list[dict[str, object]],
+                                json.loads(cast(str, artifact_row["source_refs_json"])),
+                            ),
+                        }
+                    ).encode()
+                ).hexdigest()
+                persisted_semantic_digest = cast(str, artifact_row["semantic_digest"])
+                if not hmac.compare_digest(
+                    expected_semantic_digest,
+                    persisted_semantic_digest,
+                ):
+                    raise TaskIntegrityError(
+                        "Exact Artifact Task input semantic digest is inconsistent"
+                    )
+                expected_artifact_record_sha256 = hashlib.sha256(
+                    cls._json(
+                        {
+                            "artifact_id": artifact_row["artifact_id"],
+                            "created_at": artifact_row["created_at"],
+                            "project_id": artifact_row["project_id"],
+                            "revision": artifact_row["revision"],
+                            "semantic_digest": persisted_semantic_digest,
+                        }
+                    ).encode()
+                ).hexdigest()
+                persisted_artifact_record_sha256 = cast(
+                    str,
+                    artifact_row["record_sha256"],
+                )
+                if (
+                    artifact_record_sha256 is None
+                    or not hmac.compare_digest(
+                        expected_artifact_record_sha256,
+                        persisted_artifact_record_sha256,
+                    )
+                    or not hmac.compare_digest(
+                        artifact_record_sha256,
+                        persisted_artifact_record_sha256,
+                    )
+                ):
+                    raise TaskIntegrityError(
+                        "Exact Artifact Task input record digest is inconsistent"
+                    )
+                artifact_digest = (
+                    persisted_semantic_digest
+                    if content_payload is None
+                    else cast(str, content_payload["digest"])
+                )
+            except (KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
+                raise TaskIntegrityError("Exact Artifact Task input is malformed") from exc
+            if not hmac.compare_digest(artifact_digest, identity_digest):
+                raise TaskIntegrityError("Artifact Task input digest is inconsistent")
+        elif input_kind in {"source", "content"}:
+            if (
+                artifact_id is not None
+                or artifact_revision is not None
+                or artifact_record_sha256 is not None
+            ):
+                raise TaskIntegrityError("Non-Artifact Task input claims Artifact identity")
+        else:
+            raise TaskIntegrityError("Active Task input kind is unsupported")
+
     def _fetch_task(self, connection: sqlite3.Connection, task_ref: TaskRef) -> Task:
         row = connection.execute(
             """
@@ -1027,6 +1226,7 @@ class TaskRevisionService:
                 raise TaskIntegrityError("Task input binding identity is inconsistent")
             if binding["verified_source_project_id"] is None:
                 raise TaskIntegrityError("Task exact input source no longer exists")
+            self._verify_active_identity_bridge(connection, input_ref)
             parsed_inputs.append(input_ref)
         persisted_inputs = tuple(sorted(parsed_inputs))
         if persisted_inputs != task.input_refs:

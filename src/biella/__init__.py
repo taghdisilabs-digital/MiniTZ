@@ -7,7 +7,6 @@ from .runtime import (
     ActiveArtifact,
     ActiveArtifactStore,
     ActiveRuntime,
-    ArtifactRef,
     EngineKnowledge,
     EngineKnowledgeRecord,
     ProjectMemory,
@@ -73,6 +72,22 @@ from .run import (
     RunScopeError,
     RunService,
 )
+from .artifact import (
+    Artifact,
+    ArtifactAuthorityError,
+    ArtifactConflictError,
+    ArtifactContentError,
+    ArtifactContractError,
+    ArtifactDerivation,
+    ArtifactError,
+    ArtifactIntegrityError,
+    ArtifactNotFoundError,
+    ArtifactRef,
+    ArtifactScopeError,
+    ArtifactService,
+    ContentRef,
+    SourceRef,
+)
 
 __all__ = [
     "ActiveArtifact",
@@ -135,4 +150,17 @@ __all__ = [
     "RunRef",
     "RunScopeError",
     "RunService",
+    "Artifact",
+    "ArtifactAuthorityError",
+    "ArtifactConflictError",
+    "ArtifactContentError",
+    "ArtifactContractError",
+    "ArtifactDerivation",
+    "ArtifactError",
+    "ArtifactIntegrityError",
+    "ArtifactNotFoundError",
+    "ArtifactScopeError",
+    "ArtifactService",
+    "ContentRef",
+    "SourceRef",
 ]

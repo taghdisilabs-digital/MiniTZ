@@ -840,6 +840,36 @@ class RunService:
 
         return self.assert_current_run_authority(requesting_access, attempt)
 
+    def assert_current_run_authority_in_transaction(
+        self,
+        connection: sqlite3.Connection,
+        requesting_access: ProjectAccess,
+        attempt: ExecutionAttempt,
+    ) -> Run:
+        """Validate current authority inside a caller-owned atomic DB transaction."""
+
+        self._require_attempt(attempt)
+        self._authorize(requesting_access, attempt.run_ref)
+        if not isinstance(connection, sqlite3.Connection) or not connection.in_transaction:
+            raise RunContractError("Run authority transaction must already be active")
+        database_file = connection.execute("PRAGMA database_list").fetchone()[2]
+        if (
+            not isinstance(database_file, str)
+            or Path(database_file).resolve() != self.database_path
+        ):
+            raise RunContractError("Run authority transaction uses a different database")
+        run = self._fetch_run(connection, attempt.run_ref)
+        if run.status == "CANCELLED":
+            raise RunCancelledError("Run cancellation invalidates execution authority")
+        persisted = self._fetch_attempt(connection, run, attempt.attempt_id)
+        self._require_same_attempt(persisted, attempt)
+        self._require_current_authority(
+            run,
+            attempt,
+            self._database_now(connection),
+        )
+        return run
+
     def request_run_cancellation(
         self,
         requesting_access: ProjectAccess,
