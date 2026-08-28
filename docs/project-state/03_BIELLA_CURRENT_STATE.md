@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-28 20:59 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-28T20:59:03+02:00"
+state_timestamp_local: "2026-08-28 22:19 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-28T22:19:47+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: eebcbfeeed692031657138626e7972f3829c8fd6
-    tree: 25523deabb6bcaccfccd29404b74a0b4ab97d40e
+    commit: ac5aca11af0866734862c709a537ad98b1ffb9d7
+    tree: 282c46ffc1272adaa7ad4ca5c97104cb573f3f1a
     observed_date: 2026-08-28
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p1_07_implementation_post_push_exact_readback
+    observation_context: p1_08_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: eebcbfeeed692031657138626e7972f3829c8fd6
-    tree: 25523deabb6bcaccfccd29404b74a0b4ab97d40e
+    head: ac5aca11af0866734862c709a537ad98b1ffb9d7
+    tree: 282c46ffc1272adaa7ad4ca5c97104cb573f3f1a
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 17
+    durable_prompts_complete: 18
     durable_prompts_total: 51
     phase: P1
-    active_prompt: P1-08
-    active_prompt_title: Concurrent Resource-Aware Graph Scheduler
+    active_prompt: P1-09
+    active_prompt_title: Capability, Model, Tool, and Compute Routing
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -798,6 +798,95 @@ engine:
       - tests/fixtures/p1_07_installed_reader.py
       - tests/fixtures/p1_07_installed_writer.py
       - tests/test_p1_07_resource_inventory.py
+    p1_08_status: DURABLY_COMPLETE
+    p1_08_source_commit: 875fb4882f1492e96e5ecf35f6d7513ae3eb274d
+    p1_08_result_commit: ac5aca11af0866734862c709a537ad98b1ffb9d7
+    p1_08_result_tree: 282c46ffc1272adaa7ad4ca5c97104cb573f3f1a
+    p1_08_remote_readback: VERIFIED
+    p1_08_implementation:
+      production_modules_added: 1
+      public_exports_added: 20
+      test_methods_added: 15
+      installed_restart_programs_added: 2
+      migrations_added: 0
+      schema_tables_added: 10
+      scheduler_model: durable_Project_scoped_resource_aware_concurrent_Graph_scheduler
+      allocation_model: immutable_identity_append_only_state_fenced_leased_exact_Run_Node_attempt_and_ResourceSnapshot_provenance
+      reservation_model: one_BEGIN_IMMEDIATE_atomic_multi_resource_transaction_with_exact_capacity_device_and_side_effect_conflicts
+      readiness_model: semantic_Graph_READY_is_explicitly_distinct_from_current_resource_schedulability
+      dispatch_model: multiple_independent_Node_leases_and_real_productive_thread_overlap_without_global_heavyweight_lock
+      queue_model: durable_gap_free_wait_dispatch_failure_history_with_verified_heads_and_exact_causes
+      metric_model: immutable_hash_chained_gap_free_scheduler_cycle_evidence_with_verified_heads
+      recovery_model: exact_attempt_fence_binding_idempotent_release_terminal_reconciliation_and_expiry_recovery
+    p1_08_validation:
+      focused_functional_pytest: "14 passed; 1 T15 deselected; 0 failed; 0 skipped; 13.92s final exact-tree run"
+      focused_T15_pytest: "1 passed; 14 deselected; 0 failed; 0 skipped; 938.92s; strict mypy, complete P1-07 nested qualification, exact wheel comparison, clean install, separate installed writer and reader, and durable restart readback"
+      focused_total: "15 passed; 0 failed; 0 skipped"
+      predecessor_regression_inside_T15: "16 P1-07 tests passed with complete nested predecessor, type, build, install, and restart chain; 0 failed; 0 skipped"
+      broad_non_nested_regression: "351 passed; 16 nested T15 gates deselected; 127 subtests passed; 0 failed; 0 skipped; 85.85s"
+      mypy_strict: "45 source/test files; 0 issues; mypy 2.3.1"
+      compileall: PASS
+      diff_check: PASS
+      test_quality_scan: "P1-08 skip, placeholder, TODO, FIXME, and NotImplemented executable-test hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 942d28ecfd4f37c57ef3cdddc7af628366a22a8a2dd10de365f1d5d349a75d55; scheduler.py source and packaged bytes sha256 3aef08efa79f6b3c583d800fb93e0af10478dd39c53216bc3323a35cd6fd4f33 exactly matched"
+      installed_wheel_restart: "separate installed-package writer and reader shared durable SQLite; exact allocation identity, ResourceSnapshot provenance, queue state, release, and restart reconstruction survived"
+      remote_required_paths_and_bytes: "GitHub branch, commit, tree, five blob IDs, sizes, SHA256 bytes, and exact decoded file contents independently read back and matched"
+      independent_review: "READY after dispatch claim, terminal reconciliation, stale-attempt, durable read snapshot, allocation/queue head, and metric completeness hardening"
+      fallow_review: "NOT_RUN; fallow CLI unavailable on host; independent review and deterministic static checks used"
+    p1_08_kpi:
+      independent_nodes_serialized_without_reason: 0
+      exclusive_resource_double_allocations: 0
+      invalid_resource_overcommit: 0
+      resource_leaks_after_terminal: 0
+      permanent_starvation_under_ordinary_load: 0
+      global_heavyweight_lock: 0
+      max_observed_productive_concurrency: 2
+    p1_08_reality_classification:
+      CPU_thread_concurrency_and_SQLite_transactions: REAL
+      local_CPU_RAM_storage_network_cgroup_observation: REAL
+      GPU_shapes_and_contention: TEST_REFERENCE_on_CPU_only_host
+      provider_or_model_routing: NOT_RUN_out_of_scope_until_P1_09
+      installed_wheel_restart: REAL
+    p1_08_qualification:
+      SchedulerService: VERIFIED
+      ResourceAllocation: VERIFIED
+      reservation_dispatch_release_heartbeat_and_recovery_APIs: VERIFIED
+      SchedulerMetrics: VERIFIED
+      semantic_READY_vs_current_schedulability: VERIFIED
+      exact_FIT_and_explicit_FIT_REDUCED_classification: VERIFIED
+      atomic_multi_resource_acquisition_and_full_rollback: VERIFIED
+      requested_vs_effective_capacity_by_exact_Resource: VERIFIED
+      exclusive_device_and_side_effect_target_isolation: VERIFIED
+      actual_productive_concurrency_greater_than_one: VERIFIED
+      CPU_GPU_network_and_distinct_GPU_overlap: VERIFIED_BY_TEST_REFERENCE_RESOURCE_OBSERVATIONS
+      priority_deadline_aging_fairness_and_current_locality_order: VERIFIED
+      durable_queue_pressure_and_exact_wait_causes: VERIFIED
+      append_only_allocation_queue_and_metric_integrity: VERIFIED
+      restart_reconstruction_and_completed_output_authority: VERIFIED
+      dispatch_idempotency_terminal_replay_and_exact_attempt_fence_binding: VERIFIED
+      expiry_executor_loss_cancellation_terminal_and_stale_attempt_rejection: VERIFIED
+      hostile_instruction_like_target_inertness: VERIFIED
+      Project_scope_and_cross_Project_denial: VERIFIED
+      raw_QuarantineRef_runtime_dependency: 0
+    p1_08_schema_changes:
+      - resource_allocations
+      - resource_allocation_states
+      - resource_allocation_heads
+      - resource_allocation_reservations
+      - resource_allocation_side_effects
+      - scheduler_idempotency
+      - scheduler_queue_events
+      - scheduler_queue_heads
+      - scheduler_cycle_metrics
+      - scheduler_cycle_metric_heads
+      - immutable_gap_free_hash_chained_and_monotonic_integrity_guards
+    p1_08_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/scheduler.py
+      - tests/fixtures/p1_08_installed_reader.py
+      - tests/fixtures/p1_08_installed_writer.py
+      - tests/test_p1_08_scheduler.py
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -846,10 +935,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P1-08
-    title: Concurrent Resource-Aware Graph Scheduler
-    drive_id: 1cYQKnQeJWQ90Lv9AQQH_oGVAGKgtgvGitU7C3hhGKUo
-    canonical_prompt_text_sha256: 62c4dfe4980347425e58b9c4321308e1b423c4a340ffd4e7ec689cc9bcc59977
+    id: P1-09
+    title: Capability, Model, Tool, and Compute Routing
+    drive_id: 1lyJ-tC8_kUy5yYuMftmEcPeNjsIBu8DRbZIU0VBhKDU
+    canonical_prompt_text_sha256: d145691200750438ce2ddb64749fef96d58b750e815ebe1903d2b0ce18a22e1d
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -916,36 +1005,39 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P1-08
-  global_number: 18
-  title: Concurrent Resource-Aware Graph Scheduler
-  prompt_drive_id: 1cYQKnQeJWQ90Lv9AQQH_oGVAGKgtgvGitU7C3hhGKUo
-  predecessor_result_commit: eebcbfeeed692031657138626e7972f3829c8fd6
-  predecessor_result_tree: 25523deabb6bcaccfccd29404b74a0b4ab97d40e
+  id: P1-09
+  global_number: 19
+  title: Capability, Model, Tool, and Compute Routing
+  prompt_drive_id: 1lyJ-tC8_kUy5yYuMftmEcPeNjsIBu8DRbZIU0VBhKDU
+  predecessor_result_commit: ac5aca11af0866734862c709a537ad98b1ffb9d7
+  predecessor_result_tree: 282c46ffc1272adaa7ad4ca5c97104cb573f3f1a
 
 next_transition:
-  - verify_P1_07_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P1_08_prompt_and_directly_required_Graph_Node_Run_execution_ResourceSnapshot_and_fit_interfaces_only
-  - implement_durable_fenced_leased_ResourceAllocation_and_scheduler_service
-  - separate_semantic_READY_from_current_resource_schedulability
-  - prove_actual_concurrent_dispatch_resource_scoped_exclusivity_atomic_multi_resource_acquisition_fairness_aging_and_recovery
+  - verify_P1_08_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P1_09_prompt_and_directly_required_Capability_Task_Node_Resource_Scheduler_policy_and_egress_interfaces_only
+  - implement_Project_scoped_CapabilityImplementation_registry_and_layered_implementation_then_compute_resolution
+  - apply_hard_capability_feature_side_effect_policy_egress_context_tool_health_and_Resource_fit_constraints_before_ranking
+  - persist_explainable_RoutingDecision_candidates_rejections_selection_ranking_factors_and_exact_ResourceSnapshot_refs
+  - prove_provider_model_and_resource_replacement_without_Task_or_Capability_mutation_and_scheduler_revalidation_of_current_fit
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P1_08_before_opening_P1_09
+  - close_P1_09_before_opening_P2_01
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - broaden_P1_08_into_provider_routing_learned_locality_or_later_numbered_architecture
+  - collapse_semantic_Capability_implementation_model_tool_runtime_and_compute_into_one_provider_enum
+  - add_hardcoded_local_H100_OpenAI_or_other_historical_fallback_sequence
+  - add_P4_learned_or_opaque_routing_scores
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P1_08_before_P1_07_durable_close
+  - start_P2_01_before_P1_09_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
