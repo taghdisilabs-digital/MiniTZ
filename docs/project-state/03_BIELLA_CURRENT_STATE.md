@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-28 22:19 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-28T22:19:47+02:00"
+state_timestamp_local: "2026-08-28 23:34 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-28T23:34:22+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: ac5aca11af0866734862c709a537ad98b1ffb9d7
-    tree: 282c46ffc1272adaa7ad4ca5c97104cb573f3f1a
+    commit: 3508942cb7527dd0db43d19ae6ce31d937434192
+    tree: 9126aa1f965b027c4f922e95f52ce35d2b3c0988
     observed_date: 2026-08-28
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p1_08_implementation_post_push_exact_readback
+    observation_context: p1_09_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: ac5aca11af0866734862c709a537ad98b1ffb9d7
-    tree: 282c46ffc1272adaa7ad4ca5c97104cb573f3f1a
+    head: 3508942cb7527dd0db43d19ae6ce31d937434192
+    tree: 9126aa1f965b027c4f922e95f52ce35d2b3c0988
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 18
+    durable_prompts_complete: 19
     durable_prompts_total: 51
-    phase: P1
-    active_prompt: P1-09
-    active_prompt_title: Capability, Model, Tool, and Compute Routing
+    phase: P2
+    active_prompt: P2-01
+    active_prompt_title: Universal Filesystem Capability Adapter
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -887,6 +887,90 @@ engine:
       - tests/fixtures/p1_08_installed_reader.py
       - tests/fixtures/p1_08_installed_writer.py
       - tests/test_p1_08_scheduler.py
+    p1_09_status: DURABLY_COMPLETE
+    p1_09_source_commit: 5d52c5f5575d2a8bbfb6c33ea0740b7791c0df5e
+    p1_09_result_commit: 3508942cb7527dd0db43d19ae6ce31d937434192
+    p1_09_result_tree: 9126aa1f965b027c4f922e95f52ce35d2b3c0988
+    p1_09_remote_readback: VERIFIED
+    p1_09_implementation:
+      production_modules_added: 1
+      public_exports_added: 24
+      test_methods_added: 15
+      installed_restart_programs_added: 2
+      migrations_added: 0
+      schema_tables_added: 8
+      routing_layers: semantic_Capability_then_Project_scoped_CapabilityImplementation_then_model_tool_runtime_then_current_compute_Resource
+      implementation_registry: immutable_idempotent_Project_scoped_registry_with_gap_free_hash_chain_verified_head_and_dedicated_immutable_anchor
+      constraint_model: capability_features_Project_provider_runtime_data_egress_side_effect_context_tool_health_and_Resource_fit_before_ranking
+      ranking_model: deterministic_explicit_Project_preference_priority_fit_pressure_cost_latency_locality_and_exact_identity_tie_breakers
+      decision_model: immutable_idempotency_anchored_RoutingDecision_with_typed_canonical_request_policy_candidate_rejection_selection_and_snapshot_evidence
+      persistence_model: one_BEGIN_IMMEDIATE_authority_Capability_Graph_registry_and_full_current_Resource_head_revalidation_before_receipt_insert
+      scheduler_boundary: RoutingDecision_is_evidence_not_reservation_and_P1_08_Scheduler_revalidates_current_fit
+    p1_09_validation:
+      focused_functional_pytest: "14 passed; 1 T15 deselected; 0 failed; 0 skipped; 9.43s final exact-tree run"
+      focused_T15_pytest: "1 passed; 14 deselected; 0 failed; 0 skipped; 959.40s; strict mypy, complete P1-08/P1-07 nested qualification, exact wheel comparison, clean install, separate installed writer and reader, and durable restart readback"
+      focused_total: "15 passed; 0 failed; 0 skipped"
+      predecessor_regression_inside_T15: "15 P1-08 tests passed with complete nested predecessor, type, build, install, and restart chain; 0 failed; 0 skipped"
+      broad_non_nested_regression: "365 passed; 17 nested T15 gates deselected; 127 subtests passed; 0 failed; 0 skipped; 94.82s"
+      mypy_strict: "49 source/test files; 0 issues; mypy 2.3.1"
+      compileall: PASS
+      diff_check: PASS
+      test_quality_scan: "P1-09 skip, placeholder, TODO, FIXME, and NotImplemented executable-test hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      hardcoded_fallback_scan: "local/H100/OpenAI, OpenAI, Anthropic, and provider-fallback routing sequences: 0"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 0430c734749092df00ab56a7061cf14f5d9dc30cc62642eff08688adc183b80e; routing.py source and packaged bytes sha256 7603cbaf98531c8f5c8c78918783801e0bf37e46621a62ce8c216ef200e843fc exactly matched"
+      installed_wheel_restart: "separate installed-package writer and reader shared durable SQLite; exact Project, CapabilityImplementation, Task, Run attempt, Graph/Node, ResourceSnapshot, RoutingDecision, request/policy, and selection evidence survived"
+      remote_required_paths_and_bytes: "GitHub branch, commit, tree, five blob IDs, sizes, SHA256 bytes, and exact decoded file contents independently read back and matched"
+      independent_review: "READY after four adversarial passes closed authority TOCTOU, active Graph, Capability, Resource head, registry erasure, typed evidence, idempotency anchor, and orphan deletion gaps; no Critical or Important findings"
+      fallow_review: "NOT_RUN; fallow CLI unavailable on host; independent adversarial review and deterministic static checks used"
+    p1_09_kpi:
+      Task_contract_changes_when_provider_changes: 0
+      Capability_definition_changes_when_hardware_changes: 0
+      egress_violating_routes: 0
+      hard_constraint_bypasses: 0
+      unexplained_routing_decisions: 0
+      hardcoded_historical_fallback_sequences: 0
+    p1_09_reality_classification:
+      routing_registry_decisions_and_SQLite_transactions: REAL
+      current_CPU_ResourceSnapshot_ranking_and_scheduler_revalidation: REAL
+      provider_model_tool_runtime_identities: TEST_REFERENCE_without_external_provider_execution
+      GPU_shortage_and_recovery: TEST_REFERENCE_on_CPU_only_host
+      installed_wheel_restart: REAL
+    p1_09_qualification:
+      CapabilityImplementation: VERIFIED
+      CapabilityImplementationRegistry: VERIFIED
+      ImplementationResolver: VERIFIED
+      ComputeResolver: VERIFIED
+      RoutingDecision_and_structured_rejection_reason_codes: VERIFIED
+      provider_model_and_Resource_replacement_without_Task_mutation: VERIFIED
+      egress_denial_even_with_credential_metadata: VERIFIED
+      GPU_shortage_no_route_then_recovery_without_Capability_mutation: VERIFIED_BY_TEST_REFERENCE_RESOURCE_OBSERVATIONS
+      new_implementation_without_history_eligible: VERIFIED
+      model_selection_separate_from_compute_placement: VERIFIED
+      scheduler_current_fit_revalidation: VERIFIED
+      deterministic_tie_break_and_explicit_Project_preference: VERIFIED
+      canonical_request_policy_and_exact_provenance_chaining: VERIFIED
+      persistence_authority_Graph_Capability_registry_and_Resource_TOCTOU: VERIFIED
+      trigger_bypass_tamper_deletion_and_total_registry_erasure_detection: VERIFIED
+      hostile_instruction_like_metadata_inertness: VERIFIED
+      Project_scope_and_cross_Project_denial: VERIFIED
+      raw_QuarantineRef_runtime_dependency: 0
+    p1_09_schema_changes:
+      - capability_implementations
+      - capability_implementation_idempotency
+      - capability_implementation_registry_entries
+      - capability_implementation_registry_heads
+      - capability_implementation_registry_anchors
+      - routing_decisions
+      - routing_decision_candidates
+      - routing_idempotency
+      - immutable_gap_free_hash_chained_anchored_and_monotonic_integrity_guards
+    p1_09_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/routing.py
+      - tests/fixtures/p1_09_installed_reader.py
+      - tests/fixtures/p1_09_installed_writer.py
+      - tests/test_p1_09_routing.py
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -935,10 +1019,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P1-09
-    title: Capability, Model, Tool, and Compute Routing
-    drive_id: 1lyJ-tC8_kUy5yYuMftmEcPeNjsIBu8DRbZIU0VBhKDU
-    canonical_prompt_text_sha256: d145691200750438ce2ddb64749fef96d58b750e815ebe1903d2b0ce18a22e1d
+    id: P2-01
+    title: Universal Filesystem Capability Adapter
+    drive_id: 1cNVwywxtOOlbmNkiZRBZn6jhP_WlnTleDVTieWRXw5U
+    canonical_prompt_text_sha256: a9a7f0c5246eec864eae3f44f6171ef389129b602141f7fb74d33f8655c34534
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -1005,39 +1089,41 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P1-09
-  global_number: 19
-  title: Capability, Model, Tool, and Compute Routing
-  prompt_drive_id: 1lyJ-tC8_kUy5yYuMftmEcPeNjsIBu8DRbZIU0VBhKDU
-  predecessor_result_commit: ac5aca11af0866734862c709a537ad98b1ffb9d7
-  predecessor_result_tree: 282c46ffc1272adaa7ad4ca5c97104cb573f3f1a
+  id: P2-01
+  global_number: 20
+  title: Universal Filesystem Capability Adapter
+  prompt_drive_id: 1cNVwywxtOOlbmNkiZRBZn6jhP_WlnTleDVTieWRXw5U
+  predecessor_result_commit: 3508942cb7527dd0db43d19ae6ce31d937434192
+  predecessor_result_tree: 9126aa1f965b027c4f922e95f52ce35d2b3c0988
 
 next_transition:
-  - verify_P1_08_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P1_09_prompt_and_directly_required_Capability_Task_Node_Resource_Scheduler_policy_and_egress_interfaces_only
-  - implement_Project_scoped_CapabilityImplementation_registry_and_layered_implementation_then_compute_resolution
-  - apply_hard_capability_feature_side_effect_policy_egress_context_tool_health_and_Resource_fit_constraints_before_ranking
-  - persist_explainable_RoutingDecision_candidates_rejections_selection_ranking_factors_and_exact_ResourceSnapshot_refs
-  - prove_provider_model_and_resource_replacement_without_Task_or_Capability_mutation_and_scheduler_revalidation_of_current_fit
+  - verify_P1_09_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P2_01_prompt_and_directly_required_Project_Task_Run_Graph_Node_attempt_Artifact_ContentRef_ToolCall_Event_and_routing_interfaces_only
+  - implement_Project_scoped_authorized_FilesystemRoot_and_replaceable_FilesystemAdapter
+  - register_filesystem_read_write_list_stat_mkdir_copy_move_remove_CapabilityImplementations
+  - enforce_canonical_root_relative_paths_and_reject_traversal_absolute_symlink_special_target_and_cross_Project_escape
+  - stream_large_reads_and_writes_with_cancellation_atomic_finalization_exact_digest_ContentRef_Artifact_and_ToolCall_Event_provenance
+  - prove_read_only_side_effect_partial_output_restart_and_workspace_rematerialization_contracts
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P1_09_before_opening_P2_01
+  - close_P2_01_before_opening_P2_02
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - collapse_semantic_Capability_implementation_model_tool_runtime_and_compute_into_one_provider_enum
-  - add_hardcoded_local_H100_OpenAI_or_other_historical_fallback_sequence
-  - add_P4_learned_or_opaque_routing_scores
+  - grant_agents_or_models_arbitrary_host_path_authority
+  - treat_path_as_Artifact_or_Content_identity
+  - rely_on_string_prefix_checks_as_the_only_filesystem_sandbox
+  - report_partial_or_cancelled_output_as_accepted_final_Artifact
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P2_01_before_P1_09_durable_close
+  - start_P2_02_before_P2_01_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture

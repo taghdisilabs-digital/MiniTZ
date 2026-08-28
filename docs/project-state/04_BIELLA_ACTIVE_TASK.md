@@ -4,59 +4,59 @@
 schema: biella.active_task/v3
 
 task:
-  id: P1-09
-  global_number: 19
-  phase: P1
-  title: Capability, Model, Tool, and Compute Routing
-  state: READY_AFTER_P1_08_DURABLE_CLOSE
+  id: P2-01
+  global_number: 20
+  phase: P2
+  title: Universal Filesystem Capability Adapter
+  state: READY_AFTER_P1_09_DURABLE_CLOSE
   exact_prompt:
-    title: 19_P1-09_Capability_Model_Tool_and_Compute_Routing.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P1/19_P1-09_Capability_Model_Tool_and_Compute_Routing.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P1/19_P1-09_Capability_Model_Tool_and_Compute_Routing.md.docx
-    drive_id: 1lyJ-tC8_kUy5yYuMftmEcPeNjsIBu8DRbZIU0VBhKDU
-    local_docx_sha256: fdcdaff2e616df3cffa0051299bc82c03b9a749075e530ba166a479c92ed3d04
-    live_drive_exported_docx_sha256: fd5c9a66b64adf4ad93dee732be021251e891bfade947989aaf13ee1b8dfc979
-    canonical_text_sha256: d145691200750438ce2ddb64749fef96d58b750e815ebe1903d2b0ce18a22e1d
+    title: 20_P2-01_Universal_Filesystem_Capability_Adapter.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/20_P2-01_Universal_Filesystem_Capability_Adapter.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/20_P2-01_Universal_Filesystem_Capability_Adapter.md.docx
+    drive_id: 1cNVwywxtOOlbmNkiZRBZn6jhP_WlnTleDVTieWRXw5U
+    local_docx_sha256: 7b0adb20f74effd0b20f1f55b3220b6da11dac3bec3c521258a3f2e2063d9a41
+    live_drive_exported_docx_sha256: f4e6dfdf6c3bc9059c33384f72fa79f4837b314deee91a7e7acffba26eae0b8d
+    canonical_text_sha256: a9a7f0c5246eec864eae3f44f6171ef389129b602141f7fb74d33f8655c34534
     canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P1-08
-    result_commit: ac5aca11af0866734862c709a537ad98b1ffb9d7
-    result_tree: 282c46ffc1272adaa7ad4ca5c97104cb573f3f1a
+    id: P1-09
+    result_commit: 3508942cb7527dd0db43d19ae6ce31d937434192
+    result_tree: 9126aa1f965b027c4f922e95f52ce35d2b3c0988
     remote_readback: VERIFIED
     remote_required_paths_and_bytes: VERIFIED
     focused_functional_type_build_installed_restart_and_full_regression: VERIFIED
-  numbered_successor: P2-01
+  numbered_successor: P2-02
 
 execution_boundary:
   start_only_after_predecessor_durable_close: satisfied
   load_only:
-    - exact_P1_09_canonical_prompt
+    - exact_P2_01_canonical_prompt
     - current_state_and_active_task_continuity
-    - accepted_Capability_Task_Node_Resource_Scheduler_policy_and_egress_interfaces_directly_required
+    - accepted_Project_Task_Run_Graph_Node_attempt_Artifact_ContentRef_ToolCall_Event_CapabilityImplementation_RoutingDecision_Scheduler_interfaces_directly_required
     - directly_touched_source_and_task_scoped_tests
   do_not_open:
-    - P2_01_or_later_prompt_bodies_before_P1_09_durable_close
+    - P2_02_or_later_prompt_bodies_before_P2_01_durable_close
     - unrelated_historical_backup_or_legacy_material
   preserve:
-    - exact_Project_Task_Run_Graph_Node_attempt_fence_and_Resource_identity
-    - P1_08_concurrent_scheduler_allocation_queue_metric_and_recovery_contracts
+    - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_and_Resource_identity
+    - P1_09_provider_neutral_layered_routing_policy_egress_decision_and_scheduler_revalidation_contracts
     - all_earlier_isolation_provenance_durability_and_quarantine_firewall_contracts
 
 canonical_prompt_text: |-
-  PROMPT 19/51 - P1-09
+  PROMPT 20/51 - P2-01
 
   TITLE
 
-  Capability, Model, Tool, and Compute Routing
+  Universal Filesystem Capability Adapter
 
   PHASE
 
-  P1 - Durable cognition + resources + routing
+  P2 - Universal execution fabric
 
   GOAL
 
-  Implement layered routing that resolves semantic Capability -> compatible implementation -> model/tool/runtime -> current compute/resource placement while preserving Project policy, egress, explainability, and deterministic fallback.
+  Give Biella bounded real filesystem I/O through replaceable adapters while preserving authorized roots, exact byte identity, Project scope, streaming, cancellation, and Artifact provenance.
 
   CURRENT VERIFIED STATE
 
@@ -68,13 +68,13 @@ canonical_prompt_text: |-
 
   SOURCE ARCHITECTURE
 
-  - Make work resumable and observable, add memory scopes, call accounting, resource truth, concurrent scheduling, and provider-neutral routing.
+  - Execute real filesystem/process/Git/runtime/network/model/browser/database/retrieval/workspace work through replaceable adapters with Task-derived validation.
 
   - Apply current Biella project instructions and the kernel semantics relevant to this task. Do not add legacy blockers, hard QA gates, or artificial limits.
 
   DEPENDENCIES
 
-  - Prompt 18/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
+  - Prompt 19/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
 
   - All earlier accepted contracts used by this task; inspect the repository instead of assuming interface names.
 
@@ -90,15 +90,15 @@ canonical_prompt_text: |-
 
   IN SCOPE
 
-  - Create CapabilityImplementation registry with adapter/provider/model/tool/runtime requirements only where applicable.
+  - Register filesystem.read/write/list/stat/mkdir/copy/move/remove capabilities.
 
-  - Hard constraints include capability/version/features, side effects, Project policy, egress, context/tool limits, health, and Resource fit.
+  - Define authorized FilesystemRoot with canonical path, Project/global scope, and READ_ONLY/READ_WRITE/TEMPORARY modes.
 
-  - Rank eligible implementations/resources using deterministic current evidence such as explicit Project preference, health, latency/cost hints, queue/load and locality.
+  - Reject traversal, absolute-root escape, symlink/junction escape, unsafe special targets, and cross-project root binding.
 
-  - Persist RoutingDecision with candidates, rejections/reasons, selected implementation/resource, ResourceSnapshot refs; scheduler revalidates before allocation.
+  - Stream large reads/writes; durable outputs become ContentRefs/Artifacts, never paths-as-authority.
 
-  - No hardcoded local->H100->OpenAI or other historical sequence.
+  - Attribute operations through ToolCall/Event and integrate cancellation/partial-output handling.
 
   OUT OF SCOPE
 
@@ -108,31 +108,27 @@ canonical_prompt_text: |-
 
   REQUIRED IMPLEMENTATION
 
-  - Create CapabilityImplementation registry with adapter/provider/model/tool/runtime requirements only where applicable.
+  - Register filesystem.read/write/list/stat/mkdir/copy/move/remove capabilities.
 
-  - Hard constraints include capability/version/features, side effects, Project policy, egress, context/tool limits, health, and Resource fit.
+  - Define authorized FilesystemRoot with canonical path, Project/global scope, and READ_ONLY/READ_WRITE/TEMPORARY modes.
 
-  - Rank eligible implementations/resources using deterministic current evidence such as explicit Project preference, health, latency/cost hints, queue/load and locality.
+  - Reject traversal, absolute-root escape, symlink/junction escape, unsafe special targets, and cross-project root binding.
 
-  - Persist RoutingDecision with candidates, rejections/reasons, selected implementation/resource, ResourceSnapshot refs; scheduler revalidates before allocation.
+  - Stream large reads/writes; durable outputs become ContentRefs/Artifacts, never paths-as-authority.
 
-  - No hardcoded local->H100->OpenAI or other historical sequence.
+  - Attribute operations through ToolCall/Event and integrate cancellation/partial-output handling.
 
   REQUIRED INTERFACES
 
-  - CapabilityImplementation
+  - FilesystemAdapter
 
-  - implementation resolver
+  - FilesystemRoot
 
-  - compute resolver
-
-  - RoutingDecision
-
-  - rejection reason codes
+  - filesystem CapabilityImplementations
 
   DATA / STATE CHANGES
 
-  - Implementation registry and durable route evidence.
+  - Registered roots and ToolCall/Artifact evidence.
 
   FAILURE BEHAVIOR
 
@@ -148,217 +144,195 @@ canonical_prompt_text: |-
 
   TESTS
 
-  - Provider/model/resource replacement leaves Task unchanged.
+  - Valid read/write/copy/move/remove/list/stat.
 
-  - Remote route rejected by egress policy even with credentials.
+  - Traversal and symlink escapes rejected.
 
-  - GPU shortage returns no-current-route/alternative without deleting Capability; route returns when hardware recovers.
+  - Read-only root rejects write.
 
-  - New implementation with no history remains eligible.
+  - Large streaming file path.
 
-  - Stable deterministic tie-break and structured reasons.
+  - Cancellation/partial output not accepted.
+
+  - Project Beta cannot access Alpha root.
 
   KPI
 
-  - Task_contract_changes_when_provider_changes=0
+  - authorized_root_escapes=0
 
-  - Capability_definition_changes_when_hardware_changes=0
+  - unauthorized_writes=0
 
-  - egress_violating_routes=0
+  - digest_mismatches_accepted=0
 
-  - hard_constraint_bypasses=0
+  - partial_writes_claimed_success=0
 
-  - unexplained_routing_decisions=0
+  - large_files_forced_full_memory=0
 
-  - hardcoded_historical_fallback_sequences=0
+  - unattributed_filesystem_operations=0
 
   RESTORED LONG-FORM REQUIREMENTS
 
-  ROUTING LAYERS
+  FILESYSTEM AS A CAPABILITY ADAPTER
 
-  Implement routing as separate decisions:
+  Implement filesystem work behind a Project/Run/Node-attributed FilesystemAdapter, not direct arbitrary host filesystem access from agents/models.
 
-  required semantic Capability
+  Representative operations:
 
-  ↓
+  read
 
-  compatible CapabilityImplementation
+  write
 
-  ↓
+  list
 
-  model/tool/runtime implementation selection
+  stat
 
-  ↓
+  mkdir
 
-  compute/resource placement
+  copy
 
-  Do not collapse these into a provider/model enum.
+  move
 
-  CAPABILITY IMPLEMENTATION REGISTRY
+  remove
 
-  Represent deployable/executable implementations separately from semantic Capability.
+  Keep the interface extensible without leaking one OS filesystem API into kernel contracts.
 
-  Conceptual fields:
+  CONTROLLED ROOT
 
-  CapabilityImplementation
+  Define FilesystemRoot or equivalent:
 
-  implementation_id
+  - project_id / execution scope;
 
-  capability_ref/version
+  - logical root identity;
 
-  implementation kind
+  - physical path/mount hidden behind adapter;
 
-  adapter/runtime ref
+  - mode: read-only/read-write as appropriate;
 
-  compatible input/output/features
+  - policy/ownership metadata.
 
-  hard requirements
+  A Node receives authorized roots, not arbitrary host path authority.
 
-  Project/data-policy characteristics
+  PATH CANONICALIZATION
 
-  current health/availability ref
+  Before I/O:
 
-  metadata/version
+  - reject traversal outside root (..);
 
-  Provider-specific fields should remain adapter metadata.
+  - normalize separators safely;
 
-  HARD CONSTRAINTS FIRST
+  - handle absolute paths;
 
-  Before ranking, reject candidates that fail:
+  - reject NUL/malformed paths;
 
-  - Capability/version compatibility;
+  - consider case sensitivity/normalization on supported platforms.
 
-  - required modality/features;
+  Do not use simple string prefix checks as the sole sandbox.
 
-  - Task Project/provider/tool restrictions;
+  SYMLINK / JUNCTION / RACE SAFETY
 
-  - data confidentiality/egress;
+  Protect against:
 
-  - side-effect/runtime policy;
+  - symlink escape;
 
-  - context/tool limits;
+  - junction/reparse-point escape where platform applies;
 
-  - Resource fit;
+  - symlink swapped between validation and open;
 
-  - current health/availability.
+  - parent directory replaced.
 
-  A high historical score cannot override hard constraints.
+  Use secure open/realpath/dirfd-style techniques available on the target platform and document unsupported protections honestly.
 
-  DETERMINISTIC P1 RANKING
+  READ
 
-  P4 learns routing later.
+  Read should:
 
-  P1 uses a simple deterministic explicit ranking based on current facts such as:
+  - enforce authorized root;
 
-  - declared implementation priority;
+  - stat/size bound;
 
-  - exact compatibility;
+  - stream large content;
 
-  - current health;
+  - optionally place durable output into Content Store/Artifact when Task requires durability;
 
-  - Resource fit;
+  - record ToolCall/operation evidence.
 
-  - queue pressure;
+  Do not load arbitrarily large files into memory.
 
-  - static/current locality;
+  WRITE
 
-  - Project preference.
+  Support safe atomic write semantics where required:
 
-  Do not create learned opaque scoring.
+  - write temp within authorized target;
 
-  ROUTING DECISION EVIDENCE
+  - fsync/close as appropriate;
 
-  Persist a RoutingDecision/receipt containing:
+  - verify bytes/digest;
 
-  - requested Capability/Task/Node;
+  - atomic replace/rename;
 
-  - workload/input features needed for compatibility;
+  - create Artifact/ContentRef when durable output.
 
-  - candidate implementations;
+  Partial write must not be reported as accepted final Artifact.
 
-  - rejected candidates and structured reasons;
+  COPY/MOVE/REMOVE
 
-  - selected implementation;
+  Enforce source and destination roots independently.
 
-  - selected/required Resource characteristics;
+  External/Project-authoritative deletion/mutation follows Task side-effect authority.
 
-  - ranking factors/version;
+  Do not let candidate Workspace tooling delete protected Project source unintentionally.
 
-  - timestamp/current Resource snapshot refs.
+  ARTIFACT INTEGRATION
 
-  This evidence is later used in P4.
+  Filesystem path is execution location, not Artifact identity.
 
-  NO-ROUTE SEMANTICS
+  Durable meaningful output: path -> exact bytes -> ContentRef -> Artifact.
 
-  If no current implementation fits: return an explicit result such as:
+  CANCELLATION
 
-  - no eligible implementation;
+  Long copy/read/write operations should be cancellable where practical. Cancellation must leave output state explicit; partial file is not valid final output unless Task explicitly accepts partial evidence.
 
-  - Resource temporarily unavailable;
+  PROJECT ISOLATION
 
-  - policy denied;
-
-  - implementation unhealthy.
-
-  Do not delete Capability or rewrite Task.
-
-  FALLBACK
-
-  Fallback may occur only among candidates that satisfy hard constraints.
-
-  Do not hardcode historical chain such as: local -> H100 -> OpenAI.
-
-  The available candidates are runtime registry data.
-
-  COLD START
-
-  A newly registered compatible implementation with no history must remain eligible under deterministic P1 rules.
-
-  Do not require benchmark history to execute it.
-
-  SCHEDULER REVALIDATION
-
-  Routing chooses a candidate based on Resource observations that may become stale before execution.
-
-  Scheduler/allocation must revalidate current fit/health before dispatch/finalization.
-
-  RoutingDecision is evidence, not permanent Resource reservation.
-
-  MODEL VS COMPUTE
-
-  If model implementation can run on multiple Resources, model selection and compute placement remain separate.
-
-  Changing GPU/worker should not require a new Task.
+  Beta cannot use Alpha root/path even if underlying host paths are guessable.
 
   TESTS
 
-  - two implementations same Capability;
+  - permitted read/write/list/stat;
 
-  - provider/model replacement without Task schema change;
+  - path traversal;
 
-  - best-ranked candidate rejected by egress -> next eligible;
+  - absolute escape;
 
-  - Resource unavailable -> alternate Resource/implementation;
+  - symlink escape;
 
-  - no route does not remove Capability;
+  - symlink race where testable;
 
-  - new implementation with no history eligible;
+  - cross-Project root;
 
-  - structured rejection reasons;
+  - read-only root mutation rejected;
 
-  - model selection independent from compute placement;
+  - atomic write;
 
-  - scheduler revalidation catches changed Resource state;
+  - interrupted write;
 
-  - Project Alpha restriction does not affect Beta globally;
+  - large streamed file;
 
-  - no hardcoded provider/worker route chain.
+  - exact ContentRef/Artifact;
 
-  P1 exits when Tasks can remain semantic while current implementations/resources are selected dynamically.
+  - copy/move between authorized roots;
+
+  - unauthorized remove;
+
+  - cancellation;
+
+  - restart/workspace rematerialization path changes do not alter Artifact identity.
+
+  The filesystem adapter must be useful for real work while remaining subordinate to Project/Task authority.
 
   USEFUL EVIDENCE — NON-GATING
 
-  - P2 adapters can plug in behind a provider-neutral route contract; P4 can later learn ranking without redesign.
+  - Real controlled filesystem work produces exact Artifacts while OS/path mechanics remain adapter-local.
 
   DELIVERABLES
 
@@ -380,7 +354,7 @@ canonical_prompt_text: |-
 
   Use this result block:
 
-  PROMPT: 19/51 - P1-09
+  PROMPT: 20/51 - P2-01
 
   STATUS: COMPLETE / PARTIAL / BLOCKED
 
