@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-28 11:03 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-28T11:03:50+02:00"
+state_timestamp_local: "2026-08-28 11:48 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-28T11:48:25+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: ebcd4ca325ef0455cee91e2959935f6c063a16e3
-    tree: 49453937a2037f1b17b5f4d68530d9bc33793eee
+    commit: 1573db1a1062bd311603945dd6d4a7323636d6a4
+    tree: 8c4e6ad41fb12601f581affac3e005fe9ceb05a5
     observed_date: 2026-08-28
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p0_09_implementation_post_push_exact_readback
+    observation_context: p0_10_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: ebcd4ca325ef0455cee91e2959935f6c063a16e3
-    tree: 49453937a2037f1b17b5f4d68530d9bc33793eee
+    head: 1573db1a1062bd311603945dd6d4a7323636d6a4
+    tree: 8c4e6ad41fb12601f581affac3e005fe9ceb05a5
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 9
+    durable_prompts_complete: 10
     durable_prompts_total: 51
-    phase: P0
-    active_prompt: P0-10
-    active_prompt_title: P0 Integration, Isolation, Contamination, and Recovery Qualification
+    phase: P1
+    active_prompt: P1-01
+    active_prompt_title: Content-Addressed Object Store
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -328,6 +328,54 @@ engine:
       - src/biella/execution.py
       - src/biella/run.py
       - tests/test_p0_09_execution_state.py
+    p0_10_status: DURABLY_COMPLETE
+    p0_10_source_commit: 89723860c4e811d9e81dd70ae9f143354165d072
+    p0_10_result_commit: 1573db1a1062bd311603945dd6d4a7323636d6a4
+    p0_10_result_tree: 8c4e6ad41fb12601f581affac3e005fe9ceb05a5
+    p0_10_remote_readback: VERIFIED
+    p0_10_exit_decision: READY_FOR_P1
+    p0_10_implementation:
+      production_source_changes: 0
+      production_defects_found: 0
+      qualification_tests_added: 16
+      changed_path: tests/test_p0_10_p0_integration_qualification.py
+      changed_path_git_blob: 6e844f984e7a04b6c42f7f5bfe5cd7ca3116517b
+      changed_path_sha256: 7fe51fb5f1ac807f7841796be9dd6295a37d8a39ecd76246be763cee121f1377
+    p0_10_validation:
+      focused_unittest: "16 passed; 0 failed; 0 skipped; T15 executed all 206 predecessor cases internally"
+      regression_unittest: "222 passed; 0 failed; 0 skipped"
+      pytest: "222 passed; 100 subtests passed; 0 failed; 0 skipped"
+      mypy_strict: "21 source/test files; 0 issues"
+      compileall: PASS
+      concurrency_repeat: "T05 independent ownership, T06 recovery fencing, and T12 cancellation/finalization race; 10 repeated passes each; 30 passed"
+      schema_inspection: "41 tables; 12 explicit indexes; 74 triggers; WAL; PRAGMA foreign_key_check empty; prohibited schema coupling zero"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      test_quality_scan: "P0 skip, placeholder, TODO, and FIXME hits: 0"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 478e33782bed31d3739d02c0ef888fe2cee0cdef8af671db422227058ca36a88; exact source module byte equality"
+      remote_source_wheel: "built from exact GitHub commit archive; sha256 fe71a7b82a3b6130e496da80f4fdb6e62aa7d684dc43828ae2b26c81231997f6; separate writer/reader restart smoke passed"
+      independent_review: "READY; no remaining findings after T01, T10, T12, T14, T15, and T16 hardening"
+    p0_10_kpi:
+      active_raw_legacy_donor_content: 0
+      cross_project_reads: 0
+      accepted_stale_results: 0
+      mutated_Task_or_Graph_revisions: 0
+      provider_specific_kernel_requirements: 0
+      global_heavyweight_resource_lock: 0
+      exact_identity_roundtrip: 100%
+      durable_restart_roundtrip: 100%
+    p0_10_qualification:
+      required_interfaces: VERIFIED
+      project_quarantine_isolation: VERIFIED
+      explicit_classification: VERIFIED
+      provenance_chaining: VERIFIED
+      idempotency: VERIFIED
+      hostile_instruction_inertness: VERIFIED
+      active_runtime_raw_QuarantineRef_dependency: 0
+      cancellation_finalization_serialization: VERIFIED
+      graph_revision_and_artifact_history: VERIFIED
+      kernel_neutrality: VERIFIED
+    p0_10_required_remote_paths:
+      - tests/test_p0_10_p0_integration_qualification.py
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -376,16 +424,16 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P0-10
-    title: P0 Integration, Isolation, Contamination, and Recovery Qualification
-    drive_id: 1Xsx8tYhwvg29FTMkYEK-Sed5kjJHD40HJoFsXYS31IE
-    canonical_prompt_text_sha256: c01eb2696e3e92425cf17d03372f3281af7bc6c6205071e0c335c4d8c93a51dc
+    id: P1-01
+    title: Content-Addressed Object Store
+    drive_id: 1a8NV8vEPxyKCVhwk1MKSd3AXfhyB87vkpvPko0Ka45c
+    canonical_prompt_text_sha256: 147ac60d73c0aeda3fe6f13f5e3e279d8abe145549b0ac98d5055e201a923760
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
     - title: Legacy Productive Reuse
       drive_id: 1P4uv74n0UI0JROi5J83ehrg9wDyWPg7FCt5dMMi9HTc
-      state: INACTIVE_UNTIL_AFTER_P0_10_DURABLE_CLOSE
+      state: INACTIVE_UNLESS_EXPLICITLY_REQUIRED_BY_NUMBERED_PROMPT
       active_authority: false
       default_retrieval_allowed: false
 
@@ -398,7 +446,7 @@ drive:
     total: 51
 
 migration:
-  stage: P0_01_DURABLY_COMPLETE
+  stage: P0_FOUNDATION_DURABLY_COMPLETE
   firewall_implemented: true
   raw_history_active: false
   real_corpus_registered: false
@@ -429,7 +477,7 @@ migration:
 website:
   program: BIELLA_UNIVERSE_OPTION_C
   public_target: biellagames.dev
-  execution_state: P0_09_GATE_CLEARED_NOT_STARTED
+  execution_state: P0_10_GATE_CLEARED_NOT_STARTED
   first_separate_task_after_p0_01: BU-01
   run_in_same_p0_01_session: false
   universal_engine_kernel_scope: false
@@ -446,34 +494,36 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P0-10
-  title: P0 Integration, Isolation, Contamination, and Recovery Qualification
-  prompt_drive_id: 1Xsx8tYhwvg29FTMkYEK-Sed5kjJHD40HJoFsXYS31IE
-  predecessor_result_commit: ebcd4ca325ef0455cee91e2959935f6c063a16e3
-  predecessor_result_tree: 49453937a2037f1b17b5f4d68530d9bc33793eee
+  id: P1-01
+  global_number: 11
+  title: Content-Addressed Object Store
+  prompt_drive_id: 1a8NV8vEPxyKCVhwk1MKSd3AXfhyB87vkpvPko0Ka45c
+  predecessor_result_commit: 1573db1a1062bd311603945dd6d4a7323636d6a4
+  predecessor_result_tree: 8c4e6ad41fb12601f581affac3e005fe9ceb05a5
 
 next_transition:
-  - verify_P0_09_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P0_10_prompt_and_directly_required_files_only
-  - qualify_P0_01_through_P0_09_as_one_integrated_system_without_new_architecture
-  - prove_Project_attack_matrix_quarantine_inertness_exact_identity_immutability_recovery_concurrency_and_kernel_neutrality
+  - verify_P0_10_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P1_01_prompt_and_directly_required_ContentRef_and_Artifact_files_only
+  - implement_provider_neutral_ContentObject_and_ObjectStorageBackend
+  - implement_durable_atomic_streaming_filesystem_backend_and_deterministic_memory_backend
+  - prove_digest_size_readback_dedupe_concurrency_corruption_interruption_restart_and_authorization_boundaries
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P0_10_and_record_READY_FOR_P1_decision_before_opening_P1_01
+  - close_P1_01_before_opening_P1_02
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - broaden_P0_10_into_memory_resource_router_adapter_or_later_numbered_architecture
+  - broaden_P1_01_into_replica_ranking_remote_object_stores_GC_retention_caches_or_later_numbered_architecture
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
-  - weaken_or_mock_cross_Project_isolation_quarantine_fencing_recovery_or_concurrency_qualification
+  - weaken_or_mock_ContentRef_integrity_atomicity_streaming_restart_or_Project_authorization_separation
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P1_01_before_P0_10_durable_close_and_READY_FOR_P1_decision
+  - start_P1_02_before_P1_01_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
