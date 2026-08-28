@@ -45,6 +45,7 @@ _CONTENT_PATTERN = re.compile(
 )
 _ACTIVE_STATUSES = {"LEASED", "RUNNING", "WAITING_EXTERNAL"}
 _TERMINAL_STATUSES = {"SUCCEEDED", "FAILED", "CANCELLED"}
+_ATTEMPT_COMPLETION_OUTCOMES = _TERMINAL_STATUSES | {"STALE"}
 _ALL_STATUSES = {
     "CREATED",
     "QUEUED",
@@ -1705,7 +1706,14 @@ class NodeExecutionService:
                 """,
                 (run_ref.project_ref.value, run_ref.run_id),
             ).fetchone()
-            if binding is not None or execution is not None:
+            graph_revision = connection.execute(
+                """
+                SELECT 1 FROM graph_revisions
+                WHERE project_id = ? AND run_id = ? LIMIT 1
+                """,
+                (run_ref.project_ref.value, run_ref.run_id),
+            ).fetchone()
+            if binding is not None or execution is not None or graph_revision is not None:
                 raise NodeExecutionIntegrityError(
                     "Run Graph or Node state exists without an active Graph head"
                 )
@@ -2293,6 +2301,21 @@ class NodeExecutionService:
                 or state.current_run_fence != attempt.run_fence
             ):
                 raise NodeExecutionIntegrityError("Node state attempt evidence differs")
+        terminal_outcomes: dict[str, str] = {}
+        for state in history:
+            if (
+                state.current_attempt_id is None
+                or state.status not in _ATTEMPT_COMPLETION_OUTCOMES
+            ):
+                continue
+            prior_outcome = terminal_outcomes.setdefault(
+                state.current_attempt_id,
+                state.status,
+            )
+            if prior_outcome != state.status:
+                raise NodeExecutionIntegrityError(
+                    "Node attempt has contradictory terminal states"
+                )
         completion_rows = connection.execute(
             """
             SELECT * FROM node_execution_attempt_completions
@@ -2314,6 +2337,10 @@ class NodeExecutionService:
                 }
             )
             self._verify_digest(expected, row["record_sha256"], "Node attempt completion")
+            if terminal_outcomes.get(attempt_id) != row["outcome"]:
+                raise NodeExecutionIntegrityError(
+                    "Node attempt completion differs from terminal state"
+                )
             completions.add(attempt_id)
         latest = history[-1]
         live_id = latest.current_attempt_id if latest.status in _ACTIVE_STATUSES else None
