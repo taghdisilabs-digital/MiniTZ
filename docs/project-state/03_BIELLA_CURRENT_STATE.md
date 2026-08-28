@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-28 19:36 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-28T19:36:07+02:00"
+state_timestamp_local: "2026-08-28 20:59 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-28T20:59:03+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: ec0bbdf9f9cbb0d64bf82bf0f8fa53471327060a
-    tree: e6020758dfeaf1e528ccaffbe32c78e0afd245c2
+    commit: eebcbfeeed692031657138626e7972f3829c8fd6
+    tree: 25523deabb6bcaccfccd29404b74a0b4ab97d40e
     observed_date: 2026-08-28
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p1_06_implementation_post_push_exact_readback
+    observation_context: p1_07_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: ec0bbdf9f9cbb0d64bf82bf0f8fa53471327060a
-    tree: e6020758dfeaf1e528ccaffbe32c78e0afd245c2
+    head: eebcbfeeed692031657138626e7972f3829c8fd6
+    tree: 25523deabb6bcaccfccd29404b74a0b4ab97d40e
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 16
+    durable_prompts_complete: 17
     durable_prompts_total: 51
     phase: P1
-    active_prompt: P1-07
-    active_prompt_title: Dynamic Runtime Resource Inventory
+    active_prompt: P1-08
+    active_prompt_title: Concurrent Resource-Aware Graph Scheduler
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -728,6 +728,76 @@ engine:
       - tests/fixtures/p1_06_installed_reader.py
       - tests/fixtures/p1_06_installed_writer.py
       - tests/test_p1_06_checkpoint_resume.py
+    p1_07_status: DURABLY_COMPLETE
+    p1_07_source_commit: b443098e5738cb4a0db8613ff80fe4ef1f3ed559
+    p1_07_result_commit: eebcbfeeed692031657138626e7972f3829c8fd6
+    p1_07_result_tree: 25523deabb6bcaccfccd29404b74a0b4ab97d40e
+    p1_07_remote_readback: VERIFIED
+    p1_07_implementation:
+      production_modules_added: 1
+      public_exports_added: 27
+      test_methods_added: 16
+      installed_restart_programs_added: 2
+      migrations_added: 0
+      schema_tables_added: 4
+      identity_model: immutable_Project_scoped_provider_neutral_Resource_configuration
+      observation_model: immutable_freshness_bounded_ResourceSnapshot_chain_with_measured_derived_or_UNKNOWN_provenance
+      observer_model: real_local_cgroup_aware_observer_and_deterministic_TEST_REFERENCE_observer
+      locality_model: explicit_observed_dimensions_with_exact_Project_scoped_Artifact_and_workspace_evidence
+      fit_model: five_evidence_backed_classifications_without_Task_or_Capability_mutation
+    p1_07_validation:
+      focused_functional_pytest: "15 passed; 1 T15 deselected; 0 failed; 0 skipped; 0.50s final prequalification run"
+      focused_T15_pytest: "1 passed; 15 deselected; 0 failed; 0 skipped; 928.46s; strict mypy, complete P1-06 nested qualification, exact wheel comparison, clean install, separate installed writer and reader, stale rejection, and fresh restart observation"
+      focused_total: "16 passed; 0 failed; 0 skipped"
+      predecessor_regression_inside_T15: "16 P1-06 tests and 7 subtests passed; complete nested predecessor, type, build, install, and restart chain; 0 failed; 0 skipped"
+      earlier_T15_diagnostic: "first isolated run proved all 16 P1-06 tests and 7 subtests passed in 929.73s, then failed only on stale expected text '15 passed'; assertion corrected to current exact count and complete T15 reran successfully"
+      broad_non_nested_regression: "337 passed; 15 nested T15 gates deselected; 127 subtests passed; 0 failed; 0 skipped; 71.66s"
+      mypy_strict: "41 source/test files; 0 issues; mypy 2.3.1"
+      compileall: PASS
+      test_quality_scan: "P1-07 skip, placeholder, TODO, FIXME, and NotImplemented executable-test hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 d35344ba3a282fa7e02cc1801940b8d0043030a3f585bc3a0ed08f08a736860d; resource.py source bytes exact"
+      installed_wheel_restart: "separate installed-package writer and reader shared durable SQLite; immutable Resource identity/config survived; stale snapshot was rejected; new observation chained at sequence 2 and became current"
+      remote_required_paths_and_bytes: "GitHub branch, commit, tree, five blob IDs, sizes, SHA256 bytes, and exact file contents independently read back and matched"
+      independent_review: "READY; no Critical or Important findings after device-fit, host-attribution, Project locality, full-chain, scoped-evidence, and Artifact-integrity hardening; final targeted corrupt-admission/deletion checks passed"
+      fallow_review: "NOT_RUN; fallow CLI unavailable on host; independent review and deterministic static checks used"
+    p1_07_kpi:
+      configured_as_observed_errors: 0
+      stale_snapshots_used_as_fresh: 0
+      capabilities_deleted_due_to_resource_shortage: 0
+      unknown_metrics_fabricated: 0
+      hardware_vendor_kernel_lockin: 0
+    p1_07_qualification:
+      Resource: VERIFIED
+      ResourceSnapshot: VERIFIED
+      ResourceObserver: VERIFIED
+      evaluateResourceFit: VERIFIED
+      configured_expected_vs_observed_physical_effective_used_available: VERIFIED
+      actual_local_CPU_RAM_storage_network_runtime_and_cgroup_observation: VERIFIED
+      zero_one_many_and_arbitrary_vendor_GPU_shapes: VERIFIED
+      per_device_identity_health_features_VRAM_and_fit: VERIFIED
+      explicit_UNKNOWN_and_observer_failure_cause: VERIFIED
+      freshness_staleness_and_fresh_restart_observation: VERIFIED
+      immutable_gap_free_snapshot_provenance_chain: VERIFIED
+      exact_parent_and_Project_scoped_evidence: VERIFIED
+      exact_Artifact_record_and_workspace_locality_scope: VERIFIED
+      queue_allocation_pressure_and_known_cost_source_semantics: VERIFIED
+      all_five_fit_classifications: VERIFIED
+      Capability_unchanged_during_shortage_or_GPU_removal: VERIFIED
+      observer_work_outside_SQLite_writer_transaction: VERIFIED_BY_IMPLEMENTATION_STRUCTURE
+      raw_QuarantineRef_runtime_dependency: 0
+    p1_07_schema_changes:
+      - resources
+      - resource_snapshots
+      - resource_snapshot_heads
+      - resource_snapshot_artifact_bindings
+      - immutable_Resource_snapshot_binding_and_monotonic_head_guards
+    p1_07_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/resource.py
+      - tests/fixtures/p1_07_installed_reader.py
+      - tests/fixtures/p1_07_installed_writer.py
+      - tests/test_p1_07_resource_inventory.py
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -776,10 +846,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P1-07
-    title: Dynamic Runtime Resource Inventory
-    drive_id: 17jLplTvv6Fr1_1LBWFq93JWwjt3-zG-0FWCpBEbYUUc
-    canonical_prompt_text_sha256: 4978af71f689d07ca1ba46abbf198ae5235352622fe9d04f2e9e8308e31b25e1
+    id: P1-08
+    title: Concurrent Resource-Aware Graph Scheduler
+    drive_id: 1cYQKnQeJWQ90Lv9AQQH_oGVAGKgtgvGitU7C3hhGKUo
+    canonical_prompt_text_sha256: 62c4dfe4980347425e58b9c4321308e1b423c4a340ffd4e7ec689cc9bcc59977
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -846,36 +916,36 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P1-07
-  global_number: 17
-  title: Dynamic Runtime Resource Inventory
-  prompt_drive_id: 17jLplTvv6Fr1_1LBWFq93JWwjt3-zG-0FWCpBEbYUUc
-  predecessor_result_commit: ec0bbdf9f9cbb0d64bf82bf0f8fa53471327060a
-  predecessor_result_tree: e6020758dfeaf1e528ccaffbe32c78e0afd245c2
+  id: P1-08
+  global_number: 18
+  title: Concurrent Resource-Aware Graph Scheduler
+  prompt_drive_id: 1cYQKnQeJWQ90Lv9AQQH_oGVAGKgtgvGitU7C3hhGKUo
+  predecessor_result_commit: eebcbfeeed692031657138626e7972f3829c8fd6
+  predecessor_result_tree: 25523deabb6bcaccfccd29404b74a0b4ab97d40e
 
 next_transition:
-  - verify_P1_06_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P1_07_prompt_and_directly_required_Capability_Artifact_workspace_runtime_and_durable_evidence_interfaces_only
-  - implement_provider_neutral_Resource_ResourceSnapshot_ResourceObserver_and_evaluateResourceFit
-  - separate_configured_expected_capacity_from_observed_physical_effective_and_available_state
-  - prove_CPU_only_zero_GPU_arbitrary_vendor_multi_GPU_cgroup_stale_changing_locality_health_and_unknown_metric_behavior
+  - verify_P1_07_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P1_08_prompt_and_directly_required_Graph_Node_Run_execution_ResourceSnapshot_and_fit_interfaces_only
+  - implement_durable_fenced_leased_ResourceAllocation_and_scheduler_service
+  - separate_semantic_READY_from_current_resource_schedulability
+  - prove_actual_concurrent_dispatch_resource_scoped_exclusivity_atomic_multi_resource_acquisition_fairness_aging_and_recovery
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P1_07_before_opening_P1_08
+  - close_P1_08_before_opening_P1_09
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - broaden_P1_07_into_scheduling_routing_or_later_numbered_architecture
+  - broaden_P1_08_into_provider_routing_learned_locality_or_later_numbered_architecture
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P1_07_before_P1_06_durable_close
+  - start_P1_08_before_P1_07_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
