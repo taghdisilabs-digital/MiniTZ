@@ -4,34 +4,35 @@
 schema: biella.active_task/v3
 
 task:
-  id: P0-04
-  global_number: 4
+  id: P0-05
+  global_number: 5
   phase: P0
-  title: Universal Typed Task Contract
-  state: READY_AFTER_P0_03_DURABLE_CLOSE
+  title: Durable Run Identity, Attempts, Leases, and Fencing
+  state: READY_AFTER_P0_04_DURABLE_CLOSE
   exact_prompt:
-    title: 04_P0-04_Universal_Typed_Task_Contract.md.docx
-    drive_id: 1weEvFdehM9SuMoCn8bTOwZ1ADO0vYyO319aDPDAeqaE
-    canonical_text_sha256: 35d6054325de7df70c609703dc2cfa4b5c9f99ba99cddd81d455777055833947
+    title: 05_P0-05_Durable_Run_Identity_Attempts_Leases_and_Fencing.md.docx
+    drive_id: 1a_Xqlzv1HhPcuuI8PNHVVDYhpfQYX_bsm3fnCAYWXwQ
+    canonical_text_sha256: 4efa15cf86b7133ef006d6e2a5bf0aca5e130d8e6422e7683f7ccc08999e1b08
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P0-03
-    result_commit: 4288c792d8f5c1fe12ffd3af47deb7d3aab5d9f1
-    result_tree: 26c62bdd4bf89f3c8cb4a604a89cd6193ed35068
+    id: P0-04
+    result_commit: 9b28ccf93c4cb8edd771f474903bcfa5e7592b1b
+    result_tree: 45b6cffa2eed4f2540e856f7ad7700c4a9c21926
     remote_readback: VERIFIED
-  numbered_successor: P0-05
+  numbered_successor: P0-06
 
 goal:
   establish:
-    - durable_universal_typed_Task_primitive
-    - immutable_Task_revisions
-    - deterministic_canonical_Task_digest
-    - exact_authorized_Task_inputs
+    - durable_Run_identity_bound_to_exact_Task_revision_and_digest
+    - immutable_ExecutionAttempt_lineage
+    - atomic_lease_ownership_with_monotonic_fencing
+    - reusable_current_Run_authority_validation
+    - durable_race_safe_cancellation
   guarantee:
-    - every_Task_belongs_to_exactly_one_Project
-    - Task_expresses_desired_outcome_and_constraints_not_execution_topology
-    - material_edits_create_new_revisions_without_mutating_history
-    - raw_QuarantineRef_is_never_an_active_Task_input
+    - Task_intent_is_separate_from_execution_lineage
+    - stale_executors_cannot_mutate_current_Run_authority
+    - owner_identity_reuse_never_restores_an_old_fence
+    - lease_decisions_do_not_trust_worker_local_time
 
 prewrite_observation:
   required:
@@ -44,30 +45,26 @@ prewrite_observation:
     - tests_if_present
     - AGENTS_policy_instruction_files_if_present
     - accepted_existing_interfaces
-    - P0_03_exact_remote_handoff
+    - P0_04_exact_remote_handoff
   rules:
     - inspect_current_state_before_edit
     - preserve_valid_newer_local_work
-    - reuse_valid_P0_01_through_P0_03_implementation_and_results
+    - reuse_valid_earlier_implementation_and_results
     - reconcile_existing_equivalent_interfaces_by_semantics
     - missing_handoff_paperwork_is_not_a_blocker_when_exact_source_is_observable
 
 input_scope:
   required:
     - 03_BIELLA_CURRENT_STATE.md
-    - exact_P0_04_canonical_prompt
+    - exact_P0_05_canonical_prompt
+    - P0_04_Task_interfaces
     - P0_02_Project_interfaces
-    - P0_03_Capability_interfaces
-    - P0_01_quarantine_and_active_runtime_boundary
     - directly_touched_repository_files
   conditional:
-    - 00_BIELLA_PROJECT_OPERATING_CONTRACT.md
-    - BIELLA_PROJECT_KNOWLEDGE_SOURCE.md
-    - 02_BIELLA_ENGINE_FINAL_MIGRATION_PLAN_2026-08-27.md
-    - 05_BIELLA_PROMPT_INDEX.yaml
-    - 06_BIELLA_SOURCE_EVIDENCE_MAP.yaml
+    - current_Biella_project_instructions
+    - earlier_accepted_contracts_actually_used_by_this_task
   prohibited_by_default:
-    - other_47_unopened_prompt_bodies
+    - other_46_unopened_prompt_bodies
     - large_real_MiniTZ_backup
     - inactive_legacy_reuse_contract
     - unrelated_website_work
@@ -75,335 +72,268 @@ input_scope:
     - broad_Drive_GitHub_filesystem_audits
 
 dependencies:
-  P0_01:
-    result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
-    required_semantics:
-      - QuarantineRef_is_migration_only
-      - active_runtime_rejects_raw_quarantine
   P0_02:
     result_commit: 2847543e0b3f9bac04e0e879e4b81f748cab712c
     required_interfaces:
       - Project
       - ProjectRef
       - ProjectAccess
-      - ProjectScoped
     required_semantics:
       - authenticated_Project_scope
       - exact_Project_binding
       - cross_Project_access_fails_closed
-  P0_03:
-    result_commit: 4288c792d8f5c1fe12ffd3af47deb7d3aab5d9f1
-    result_tree: 26c62bdd4bf89f3c8cb4a604a89cd6193ed35068
+  P0_04:
+    result_commit: 9b28ccf93c4cb8edd771f474903bcfa5e7592b1b
+    result_tree: 45b6cffa2eed4f2540e856f7ad7700c4a9c21926
     required_interfaces:
-      - Capability
-      - CapabilityRef
-      - CapabilityRegistry
+      - Task
+      - TaskRef
+      - TaskRevisionService
     required_semantics:
-      - immutable_versioned_Capability_identity
-      - provider_neutral_semantic_contract
-      - append_only_history
+      - exact_Project_and_Task_revision_identity
+      - deterministic_canonical_Task_digest
+      - immutable_Task_revision_history
 
 scope:
   in:
-    - opaque_stable_Task_identity
-    - exact_Project_ownership
-    - positive_immutable_revision_number
-    - extensible_task_type
-    - bounded_objective
-    - exact_TaskInputRef_collection
-    - required_CapabilityRef_collection
-    - generic_output_contract
-    - generic_constraints
-    - explicit_side_effect_authority
-    - data_and_egress_policy_references
-    - evidence_requirements
-    - acceptance_criteria
-    - generic_resource_hints
-    - quality_latency_and_cost_constraints
-    - idempotency_key
-    - created_at
-    - canonical_digest
-    - durable_revision_and_idempotency_persistence
-    - atomic_creation_and_revision
-    - restart_durability
+    - Run_bound_to_exact_Project_Task_id_Task_revision_and_Task_digest
+    - immutable_append_only_ExecutionAttempt_lineage
+    - current_Run_status_attempt_fence_owner_and_lease_state
+    - atomic_Run_lease_acquire_renew_and_release
+    - lease_expiration_and_authority_replacement
+    - monotonically_increasing_fences
+    - authoritative_durable_state_time
+    - durable_cancellation_marker
+    - assertCurrentRunAuthority_seam
+    - transactional_concurrency_and_restart_recovery
+    - durable_integrity_guards
   out:
-    - Run_implementation
-    - attempts_leases_or_fencing
-    - Graph_implementation
-    - Scheduler_or_Resource_implementation
-    - provider_selection
-    - model_selection
-    - compute_placement
-    - fixed_agent_topology
-    - maker_critic_validator_chain
-    - fixed_pipeline
-    - domain_specific_Task_subclasses
-    - human_approval_bureaucracy
-    - future_sharing_mechanism
-    - P0_05_or_later_prompt_implementation
+    - Node_scheduler
+    - resource_locks
+    - global_heavyweight_or_GPU_lock
+    - full_finalization
+    - checkpoint_or_resume
+    - routing
+    - provider_or_hardware_categories
+    - approval_workflow
+    - P0_06_or_later_prompt_implementation
 
 required_interfaces:
   exact:
-    - Task
-    - TaskRef
-    - TaskInputRef
-  required_service_semantics:
-    - Task_revision_creation
-    - deterministic_canonicalization
-    - durable_read
-    - idempotent_submission
-  accepted_name:
-    - TaskRevisionService
+    - Run
+    - ExecutionAttempt
+    - acquire_Run_lease
+    - renew_Run_lease
+    - release_Run_lease
+    - assertCurrentRunAuthority
+    - requestRunCancellation
   rule:
     accepted_existing_semantic_equivalent_may_be_mapped: true
     do_not_duplicate_architecture_due_to_name_difference: true
 
-task_contract:
-  required:
-    - stable_immutable_task_id
-    - exactly_one_ProjectRef
-    - positive_revision
-    - extensible_task_type_string
-    - bounded_objective
-    - zero_or_more_valid_CapabilityRef_values
-    - zero_or_more_exact_TaskInputRef_values
-    - generic_output_contract
-    - generic_constraints
-    - explicit_side_effect_authority
-    - evidence_requirements
-    - acceptance_criteria
-    - bounded_idempotency_key
-    - timezone_aware_created_at
-    - canonical_digest
-  optional:
-    - data_policy_ref
-    - egress_policy_ref
-    - resource_hints
-    - quality_constraints
-    - latency_constraints
-    - cost_constraints
-  prohibited_universal_fields:
-    - provider
-    - model_name
-    - GPU
-    - worker
-    - fixed_agent_role
-    - maker
-    - critic
-    - validator_chain
-    - fixed_pipeline
-    - game_engine
-
-task_input_contract:
-  require:
-    - exact_immutable_identity
-    - exactly_one_owning_ProjectRef
-    - explicit_input_kind
-    - stable_source_or_Artifact_reference
-    - content_digest_or_immutable_revision_where_applicable
-    - caller_Project_authorization_at_binding_boundary
-  reject:
-    - raw_QuarantineRef
-    - ambiguous_latest_file
-    - mutable_unversioned_path
-    - malformed_identity
-    - nonexistent_source
-    - cross_Project_source_without_future_explicit_sharing
-    - known_foreign_identifier_without_authority
-
-capability_binding:
-  require:
-    - every_required_CapabilityRef_exists_in_durable_registry
-    - exact_version_is_preserved
-    - duplicate_semantically_irrelevant_order_is_canonicalized
-  prohibit:
-    - embedding_provider_or_resource_availability
-    - mutating_Capability_semantics_from_Task
-    - silently_resolving_unknown_or_latest_version
-
-revision_semantics:
-  immutable: true
-  require:
-    - revision_one_remains_byte_and_digest_stable_after_revision_two
-    - material_change_creates_next_revision
-    - same_task_id_is_preserved_across_revisions
-    - revision_numbers_are_monotonic_and_gap_free_per_Task
-    - prior_revisions_remain_readable_after_restart
-  material_changes_include:
-    - objective
-    - task_type
-    - input_refs
-    - required_capabilities
-    - output_contract
-    - constraints
-    - side_effect_authority
-    - data_or_egress_policy
-    - evidence_requirements
-    - acceptance_criteria
-    - resource_hints_or_requirements
-    - quality_latency_or_cost_constraints
-  prohibit:
-    - UPDATE_of_existing_revision_semantics
-    - deletion_of_prior_revision
-    - same_revision_conflicting_contract
-
-canonical_digest:
-  deterministic: true
-  require:
-    - stable_field_ordering
-    - stable_ordering_for_semantic_sets
-    - explicit_null_and_absence_semantics
-    - locale_independent_serialization
-    - exact_Project_and_input_identity
-    - nonfinite_number_rejection
-    - repeated_reads_reproduce_same_canonical_representation_and_digest
-    - equivalent_semantics_hash_identically
-    - every_material_change_changes_digest
-  exclude_as_nondeterministic_metadata:
+run_contract:
+  bind_exactly:
+    - ProjectRef
+    - Task_id
+    - Task_revision
+    - Task_canonical_digest
+  durable_state:
+    - opaque_stable_run_id
+    - status
+    - current_attempt
+    - current_fence
+    - current_owner
+    - current_lease
     - created_at
-  persisted_integrity:
-    - semantic_digest
-    - full_record_digest
-    - append_only_database_guards
+    - updated_at
+    - cancellation_marker
+  invariants:
+    - later_Task_revision_never_changes_existing_Run_meaning
+    - Run_identity_is_provider_resource_hardware_and_worker_neutral
+    - exact_Task_revision_and_digest_are_revalidated_at_binding_and_authority_boundaries
 
-side_effect_authority:
-  representative_values:
-    - READ_ONLY
-    - CANDIDATE_WRITE
-    - PROJECT_WRITE
-    - EXTERNAL_SIDE_EFFECT
-  require:
-    - explicit_value_on_every_Task
-    - later_Graph_or_adapter_cannot_escalate_beyond_Task_authority
-    - escalation_detection_seam_is_tested
+execution_attempt_contract:
+  immutable_append_only: true
+  record:
+    - opaque_stable_attempt_id
+    - exact_Run_identity
+    - positive_gap_free_attempt_number
+    - monotonically_increasing_fence
+    - owner_or_executor_ref
+    - lease_acquired_at
+    - lease_expires_at
+    - started_at
+    - completed_at
+    - terminal_outcome
+  preserve:
+    - every_ownership_generation
+    - every_fence_transition_across_restart
   prohibit:
-    - registration_itself_grants_external_credentials
-    - human_approval_workflow_in_P0_04
+    - destructive_attempt_counter_that_erases_history
+    - mutation_or_deletion_of_prior_attempt_identity
 
-idempotency:
-  require:
-    - scope_by_Project_and_idempotency_key
-    - duplicate_same_semantics_returns_same_Task_revision
-    - duplicate_conflicting_semantics_fails_closed
-    - different_material_revision_is_not_collapsed
-    - restart_preserves_deduplication_record
+lease_operations:
+  acquire:
+    - atomically_select_one_current_owner
+    - increment_fence_monotonically_for_each_new_ownership_generation
+    - create_attempt_and_current_authority_as_one_transaction
+    - allow_expired_ownership_to_be_replaced
+    - reject_live_competing_owner
+    - reject_cancelled_or_terminal_Run
+  renew:
+    - require_exact_Project_Run_attempt_owner_and_fence
+    - require_current_live_lease
+    - reject_expired_stale_cancelled_or_terminal_authority
+  release:
+    - require_exact_Project_Run_attempt_owner_and_fence
+    - require_current_live_lease
+    - old_fence_cannot_release_newer_owner
+  time_authority:
+    source: authoritative_database_or_equivalent_durable_clock
+    caller_or_worker_timestamp_decides_authority: false
 
-domain_neutrality:
-  same_primitive_proof:
-    software:
-      intent: modify_exact_repository_revision_run_tests_produce_candidate
-    three_d:
-      intent: modify_or_create_exact_asset_scene_and_export_editable_interchange_output
+fencing:
+  monotonic: true
+  authority_is_determined_by:
+    - exact_Run_identity
+    - exact_current_attempt
+    - exact_current_fence
+    - exact_current_owner_when_applicable
+    - live_lease
+    - noncancelled_nonterminal_state
+  authority_is_not_restored_by:
+    - owner_or_executor_name_reuse
+    - late_result_from_expired_attempt
+    - caller_supplied_wall_clock
+  stale_fence_behavior: REJECT
+
+authority_validator:
+  interface: assertCurrentRunAuthority
+  reusable_by_later_finalization_paths: true
+  validate:
+    - authenticated_Project_scope
+    - exact_Run
+    - exact_Task_revision_and_digest
+    - current_attempt_and_fence
+    - current_owner_when_applicable
+    - lease_validity_by_durable_time
+    - cancellation_state
+    - terminal_state
   prohibit:
-    - SoftwareTask
-    - ThreeDTask
-    - domain_specific_kernel_union
+    - weaker_adapter_specific_fencing_checks
+    - accepted_late_old_finalization
+
+cancellation:
+  durable: true
+  race_safe: true
+  after_authoritative_cancellation:
+    - acquisition_cannot_revive_execution
+    - renewal_cannot_revive_execution
+    - late_results_cannot_pass_current_authority
+    - attempt_history_remains_readable
+  does_not_require:
+    - global_approval_workflow
 
 persistence:
   require:
-    - durable_Task_revisions
-    - durable_idempotency_records
-    - canonical_digest_index
+    - durable_Run_identity_and_exact_Task_binding
+    - durable_current_fence_owner_lease_and_cancellation
+    - append_only_attempt_history
+    - atomic_acquisition_attempt_and_fence_transition
+    - atomic_renew_release_and_cancellation_transitions
     - exact_Project_scope_on_every_query
-    - atomic_initial_creation
-    - atomic_new_revision_and_idempotency_binding
     - restart_round_trip
-    - immutable_update_delete_guards
-    - no_half_created_revision
+    - integrity_validation
+    - no_partial_acquisition_state
   schema_change:
-    permitted_only_when_required_for_Task_revision_service: true
+    permitted_only_when_required_for_P0_05: true
     must_be_reported_exactly: true
 
 failure_behavior:
   fail_closed_on:
-    - malformed_TaskRef
-    - missing_or_unauthorized_Project
-    - malformed_or_cross_Project_TaskInputRef
-    - raw_QuarantineRef_input
-    - missing_or_invalid_CapabilityRef
-    - nonfinite_or_malformed_structured_value
-    - same_revision_conflicting_contract
-    - idempotency_key_conflict
-    - side_effect_authority_escalation
-    - persisted_digest_or_record_integrity_mismatch
-    - attempted_revision_update_or_delete
-  error_privacy:
-    - identify_technical_scope_or_contract_mismatch
-    - do_not_leak_foreign_Project_private_payload
-    - do_not_leak_more_existence_information_than_contract_permits
+    - malformed_or_unauthorized_Project_scope
+    - malformed_or_missing_Run_identity
+    - missing_or_mismatched_Task_revision_or_digest
+    - attempt_owner_or_fence_mismatch
+    - stale_or_expired_lease
+    - cancelled_or_terminal_Run
+    - persisted_integrity_mismatch
+    - transaction_fault
+  preserve:
+    - durable_attempt_and_fence_evidence
+    - real_failure_cause
+  prohibit:
+    - fabricated_success
+    - fabricated_missing_facts
+    - mocked_unavailable_integration_reported_as_real
 
 concurrency_and_recovery:
-  current_reality:
-    Graph_Scheduler_and_Resource_models_may_not_exist_yet: true
-    do_not_fabricate_them_for_P0_04: true
-  task_service_require:
-    - transactionally_serialize_same_Task_revision_or_idempotency_key
-    - allow_independent_nonconflicting_Task_creation
-    - one_durable_winner_for_concurrent_conflicting_submission
-    - restart_preserves_verified_revisions_and_deduplication
-    - stale_or_conflicting_writer_cannot_replace_immutable_revision
+  require:
+    - real_transactional_concurrency_where_durable_database_exists
+    - two_owners_racing_for_one_Run_yield_exactly_one_current_owner
+    - concurrent_independent_Runs_can_hold_independent_leases
+    - expired_lease_can_be_replaced_with_higher_fence
+    - stale_renew_and_release_cannot_change_newer_authority
+    - restart_preserves_Run_attempt_fence_and_cancellation_history
+    - transaction_fault_cannot_partially_commit_fence_owner_or_attempt
+  prohibit:
+    - global_heavyweight_resource_lock
+    - GPU_global_execution_lock
 
 required_test_matrix:
   - id: T01
-    prove: create_and_read_minimal_valid_Task
+    prove: create_Run_bound_to_exact_Project_Task_revision_and_digest
   - id: T02
-    prove: multi_Capability_Task_uses_exact_registered_versions
+    prove: changed_Task_revision_does_not_change_existing_Run_binding
   - id: T03
-    prove: TaskInputRef_binds_exact_authorized_Project_source
+    prove: two_owners_race_for_one_Run_and_exactly_one_wins
   - id: T04
-    prove: cross_Project_input_binding_is_rejected_privately
+    prove: concurrent_independent_Runs_can_hold_independent_leases
   - id: T05
-    prove: QuarantineRef_is_rejected_as_active_Task_input
+    prove: lease_expiry_then_new_owner_receives_higher_fence
   - id: T06
-    prove: unknown_or_invalid_CapabilityRef_is_rejected
+    prove: old_owner_and_fence_are_rejected_even_when_owner_identity_is_reused
   - id: T07
-    prove: canonical_digest_is_stable_across_semantically_irrelevant_order
+    prove: old_fence_renewal_fails
   - id: T08
-    prove: objective_input_output_side_effect_and_acceptance_changes_each_change_digest
+    prove: old_fence_release_cannot_release_newer_owner
   - id: T09
-    prove: revision_two_preserves_revision_one_immutably
+    prove: late_old_finalization_authority_check_fails
   - id: T10
-    prove: output_contract_and_structured_fields_round_trip_after_restart
+    prove: cancellation_blocks_renewal_acquisition_and_finalization_without_erasing_history
   - id: T11
-    prove: identical_idempotent_duplicate_returns_same_revision
+    prove: transaction_fault_cannot_leave_fence_owner_attempt_partially_committed
   - id: T12
-    prove: conflicting_idempotent_duplicate_fails
+    prove: restart_preserves_attempt_and_fence_history
   - id: T13
-    prove: side_effect_escalation_detection_seam_fails_closed
+    prove: caller_or_worker_timestamp_does_not_decide_lease_authority
   - id: T14
-    prove: software_and_3D_intents_use_identical_Task_schema
-  - id: T15
-    prove: no_provider_model_GPU_worker_agent_critic_reviewer_pipeline_or_game_engine_fields
-  - id: T16
-    prove: nonfinite_or_malformed_structured_values_are_rejected
-  - id: T17
-    prove: direct_update_delete_and_digest_tampering_fail
-  - id: T18
-    prove: concurrent_conflicting_submission_has_one_durable_winner
+    prove: no_provider_hardware_worker_category_scheduler_resource_lock_or_routing_coupling
 
 kpi:
-  unscoped_tasks: 0
-  Task_revision_mutations: 0
-  canonical_digest_instability: 0
-  raw_quarantine_inputs_accepted: 0
-  domain_specific_Task_variants: 0
+  double_current_owners: 0
+  accepted_stale_fences: 0
+  stale_renewals_accepted: 0
+  fence_regressions: 0
+  partial_acquisition_transactions: 0
+  worker_clock_used_as_authority: 0
 
 implementation_method:
-  - verify_exact_P0_03_remote_handoff
+  - verify_exact_P0_04_remote_handoff
   - inspect_exact_current_source_and_accepted_interfaces
-  - write_failure_first_tests_for_each_Task_contract_boundary
-  - implement_minimum_complete_P0_04
+  - write_failure_first_tests_for_each_Run_ownership_boundary
+  - implement_minimum_complete_P0_05
+  - use_real_transactional_SQLite_concurrency_and_database_time
   - run_focused_tests
-  - run_relevant_P0_01_through_P0_03_regressions
+  - run_relevant_P0_01_through_P0_04_regressions
   - run_strict_typecheck
   - build_and_inspect_actual_package_artifact
-  - inspect_persistence_schema_indexes_triggers_and_dependency_boundaries
-  - verify_no_provider_topology_domain_variant_or_raw_quarantine_coupling
+  - inspect_persistence_schema_indexes_triggers_foreign_keys_and_dependency_boundaries
 
 publication:
   when_implementation_complete:
     - record_source_commit
-    - commit_coherent_P0_04_result
+    - commit_coherent_P0_05_result
     - push_main
     - remote_readback_result_commit
     - remote_readback_result_tree
@@ -433,8 +363,8 @@ continuation:
     - report_intentional_dirty_or_uncommitted_files
     - update_03_BIELLA_CURRENT_STATE
     - update_required_canonical_Drive_continuity
-    - replace_04_with_exact_P0_05_packet
-    - close_P0_04_before_opening_P0_05
+    - replace_04_with_exact_P0_06_packet
+    - close_P0_05_before_opening_P0_06
   continue_numbered_prompts_one_at_a_time: true
   broad_real_historical_mining: false
 ```

@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-28 06:54 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-28T06:54:07+02:00"
+state_timestamp_local: "2026-08-28 07:18 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-28T07:18:05+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: 4288c792d8f5c1fe12ffd3af47deb7d3aab5d9f1
-    tree: 26c62bdd4bf89f3c8cb4a604a89cd6193ed35068
+    commit: 9b28ccf93c4cb8edd771f474903bcfa5e7592b1b
+    tree: 45b6cffa2eed4f2540e856f7ad7700c4a9c21926
     observed_date: 2026-08-28
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p0_03_implementation_post_push_exact_readback
+    observation_context: p0_04_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: 4288c792d8f5c1fe12ffd3af47deb7d3aab5d9f1
-    tree: 26c62bdd4bf89f3c8cb4a604a89cd6193ed35068
+    head: 9b28ccf93c4cb8edd771f474903bcfa5e7592b1b
+    tree: 45b6cffa2eed4f2540e856f7ad7700c4a9c21926
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 3
+    durable_prompts_complete: 4
     durable_prompts_total: 51
     phase: P0
-    active_prompt: P0-04
-    active_prompt_title: Universal Typed Task Contract
+    active_prompt: P0-05
+    active_prompt_title: Durable Run Identity, Attempts, Leases, and Fencing
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -116,6 +116,30 @@ engine:
       - src/biella/__init__.py
       - src/biella/capability.py
       - tests/test_p0_03_capability_contract.py
+    p0_04_status: DURABLY_COMPLETE
+    p0_04_source_commit: 6de13afc4b2c2702a8da4db93aaef445ceb9c26c
+    p0_04_result_commit: 9b28ccf93c4cb8edd771f474903bcfa5e7592b1b
+    p0_04_result_tree: 45b6cffa2eed4f2540e856f7ad7700c4a9c21926
+    p0_04_remote_readback: VERIFIED
+    p0_04_validation:
+      focused_unittest: "19 passed; 0 failed; 0 skipped"
+      regression_unittest: "80 passed; 0 failed; 0 skipped"
+      pytest: "80 passed; 51 subtests passed; 0 failed; 0 skipped"
+      mypy_strict: "10 source/test files; 0 issues"
+      compileall: PASS
+      wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 bcccc7c5374d56e75e6462bdcf98e51fad7a5d1829b05a255276289cc16264a0; required paths inspected"
+      installed_wheel_smoke: "Task restart round-trip; exact input corruption detected; provider/topology/raw-QuarantineRef runtime dependency zero"
+      independent_review: "READY; no Critical, Important, or Minor findings after exact-input durability hardening"
+    p0_04_kpi:
+      unscoped_tasks: 0
+      Task_revision_mutations: 0
+      canonical_digest_instability: 0
+      raw_quarantine_inputs_accepted: 0
+      domain_specific_Task_variants: 0
+    p0_04_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/task.py
+      - tests/test_p0_04_task_contract.py
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -164,10 +188,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P0-04
-    title: Universal Typed Task Contract
-    drive_id: 1weEvFdehM9SuMoCn8bTOwZ1ADO0vYyO319aDPDAeqaE
-    canonical_prompt_text_sha256: 35d6054325de7df70c609703dc2cfa4b5c9f99ba99cddd81d455777055833947
+    id: P0-05
+    title: Durable Run Identity, Attempts, Leases, and Fencing
+    drive_id: 1a_Xqlzv1HhPcuuI8PNHVVDYhpfQYX_bsm3fnCAYWXwQ
+    canonical_prompt_text_sha256: 4efa15cf86b7133ef006d6e2a5bf0aca5e130d8e6422e7683f7ccc08999e1b08
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -217,7 +241,7 @@ migration:
 website:
   program: BIELLA_UNIVERSE_OPTION_C
   public_target: biellagames.dev
-  execution_state: P0_03_GATE_CLEARED_NOT_STARTED
+  execution_state: P0_04_GATE_CLEARED_NOT_STARTED
   first_separate_task_after_p0_01: BU-01
   run_in_same_p0_01_session: false
   universal_engine_kernel_scope: false
@@ -234,34 +258,34 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P0-04
-  title: Universal Typed Task Contract
-  prompt_drive_id: 1weEvFdehM9SuMoCn8bTOwZ1ADO0vYyO319aDPDAeqaE
-  predecessor_result_commit: 4288c792d8f5c1fe12ffd3af47deb7d3aab5d9f1
-  predecessor_result_tree: 26c62bdd4bf89f3c8cb4a604a89cd6193ed35068
+  id: P0-05
+  title: Durable Run Identity, Attempts, Leases, and Fencing
+  prompt_drive_id: 1a_Xqlzv1HhPcuuI8PNHVVDYhpfQYX_bsm3fnCAYWXwQ
+  predecessor_result_commit: 9b28ccf93c4cb8edd771f474903bcfa5e7592b1b
+  predecessor_result_tree: 45b6cffa2eed4f2540e856f7ad7700c4a9c21926
 
 next_transition:
-  - verify_P0_03_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P0_04_prompt_and_directly_required_files_only
-  - implement_Task_TaskRef_TaskInputRef_and_revision_canonicalization_service
-  - prove_Project_scope_exact_inputs_immutable_revisions_and_deterministic_digest
+  - verify_P0_04_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P0_05_prompt_and_directly_required_files_only
+  - implement_Run_ExecutionAttempt_leases_fences_authority_and_cancellation
+  - prove_exact_Task_binding_atomic_ownership_and_stale_executor_rejection
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P0_04_before_opening_P0_05
+  - close_P0_05_before_opening_P0_06
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - broaden_P0_04_into_Run_Graph_Scheduler_provider_model_worker_routing_or_execution
+  - broaden_P0_05_into_Node_scheduler_resource_locks_finalization_checkpoint_resume_or_routing
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
-  - accept_raw_QuarantineRef_as_active_Task_input
-  - add_domain_specific_SoftwareTask_or_ThreeDTask_kernel_types
-  - start_P0_05_before_P0_04_durable_close
+  - use_worker_clock_as_Run_lease_authority
+  - add_global_heavyweight_or_GPU_execution_lock
+  - start_P0_06_before_P0_05_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
