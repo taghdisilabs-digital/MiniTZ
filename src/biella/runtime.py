@@ -102,7 +102,9 @@ class EngineKnowledge:
         if not isinstance(record, EngineKnowledgeRecord):
             raise TypeError("EngineKnowledge expects EngineKnowledgeRecord")
         _require_artifact_ref(record.artifact_ref)
-        self._facts[record.artifact_ref.value] = record
+        raise PermissionError(
+            "Direct Engine knowledge writes are prohibited; use candidate promotion"
+        )
 
     def get(self, artifact_ref: ArtifactRef) -> EngineKnowledgeRecord:
         _require_artifact_ref(artifact_ref)
