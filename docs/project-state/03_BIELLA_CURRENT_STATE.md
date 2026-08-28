@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-28 12:54 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-28T12:54:09+02:00"
+state_timestamp_local: "2026-08-28 13:45 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-28T13:45:17+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: 6cc8c6a69c9f2051bb3a9755272eff9dcc77da08
-    tree: f9453145afb4d9083e17c4453c9b1f27600a74e2
+    commit: 609fbeccb37592c4094a409f04134cc404a38073
+    tree: feccfd5a33b951a3330adbb7e6b436852f6cfb75
     observed_date: 2026-08-28
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p1_01_implementation_post_push_exact_readback
+    observation_context: p1_02_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: 6cc8c6a69c9f2051bb3a9755272eff9dcc77da08
-    tree: f9453145afb4d9083e17c4453c9b1f27600a74e2
+    head: 609fbeccb37592c4094a409f04134cc404a38073
+    tree: feccfd5a33b951a3330adbb7e6b436852f6cfb75
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 11
+    durable_prompts_complete: 12
     durable_prompts_total: 51
     phase: P1
-    active_prompt: P1-02
-    active_prompt_title: Durable Run Memory and Reconstruction
+    active_prompt: P1-03
+    active_prompt_title: Isolated Versioned Project Memory
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -425,6 +425,56 @@ engine:
       - src/biella/__init__.py
       - src/biella/object_store.py
       - tests/test_p1_01_object_store.py
+    p1_02_status: DURABLY_COMPLETE
+    p1_02_source_commit: 9358b4d474458463e01d2585f82fe6d54dc2817e
+    p1_02_result_commit: 609fbeccb37592c4094a409f04134cc404a38073
+    p1_02_result_tree: feccfd5a33b951a3330adbb7e6b436852f6cfb75
+    p1_02_remote_readback: VERIFIED
+    p1_02_implementation:
+      production_modules_added: 1
+      shared_execution_verifier_hardened: true
+      public_exports_changed: 12
+      test_methods_added: 20
+      schema_changes: 0
+      authority_model: immutable_projection_reconstructed_from_one_verified_SQLite_snapshot
+      checkpoint_model_tool_payload_policy: reference_only
+    p1_02_validation:
+      focused_unittest: "20 passed; 0 failed; 0 skipped; T15 executed all 242 predecessors, strict mypy, exact wheel comparison, clean install, and separate-process representative multi-node restart"
+      regression_unittest: "262 passed; 0 failed; 0 skipped"
+      pytest: "262 passed; 126 subtests passed; 0 failed; 0 skipped"
+      mypy_strict: "25 source/test files; 0 issues; mypy 2.3.1"
+      compileall: PASS
+      test_quality_scan: "P1-02 skip, placeholder, TODO, FIXME, and NotImplemented hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 193941aa997abe20bfd839ca22a699c78d1703ab8f3bedcbbdb826444e45aa61; 13 source modules byte-identical; separate representative writer/reader restart passed"
+      remote_commit_archive: "sha256 f783bb18765f1f32823cd3f716fca35921578a68731be1522801fc97df223d5c"
+      remote_source_wheel: "built from exact GitHub commit archive; sha256 6f67dd03783ded472033eccc65e8f5b616355939657323b90767554673db22c5; 13 source modules byte-identical; exact remote-source P1-02 gate 20 passed"
+      independent_review: "READY; no Critical or Important findings after immutable projection, completion-state binding, uninitialized Graph, orphaned Graph, and subprocess restart hardening"
+    p1_02_kpi:
+      run_state_lost_after_restart: 0
+      conversation_dependency: 0
+      provider_session_dependency: 0
+      completed_nodes_lost: 0
+      Task_revision_drift: 0
+      RunMemory_divergence_silently_accepted: 0
+    p1_02_qualification:
+      RunMemory: VERIFIED
+      get_or_reconstruct_RunMemory: VERIFIED
+      consistency_validator: VERIFIED
+      exact_Project_Task_Run_Graph_identity: VERIFIED
+      Node_attempt_owner_fence_failure_output_and_completion_history: VERIFIED
+      Event_chronology_and_high_water_mark: VERIFIED
+      checkpoint_model_and_tool_reference_seams: VERIFIED
+      continuation_and_ready_set: VERIFIED
+      one_snapshot_reconstruction_without_second_authority: VERIFIED
+      accepted_uninitialized_Graph_state: VERIFIED
+      cross_Project_scope_denial: VERIFIED
+      provider_conversation_and_cache_dependency: 0
+    p1_02_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/execution.py
+      - src/biella/run_memory.py
+      - tests/test_p1_02_run_memory.py
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -473,10 +523,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P1-02
-    title: Durable Run Memory and Reconstruction
-    drive_id: 19Bifx_E0RPhs3gxi3srr7118_rnhdT1gSCH3Pyi8I3Y
-    canonical_prompt_text_sha256: 9b0a34a112743edee693683b8fe02d5689da29045b7ef0935f0863b9e2302323
+    id: P1-03
+    title: Isolated Versioned Project Memory
+    drive_id: 1c_gu5vm-Zg4qmLk6fqipkS2s7RuHocrEJqG7Ce4S0mA
+    canonical_prompt_text_sha256: e81ff72e3fe027f13553de5f4790bd146f06105c0c048de071021bddb0606c99
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -543,31 +593,31 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P1-02
-  global_number: 12
-  title: Durable Run Memory and Reconstruction
-  prompt_drive_id: 19Bifx_E0RPhs3gxi3srr7118_rnhdT1gSCH3Pyi8I3Y
-  predecessor_result_commit: 6cc8c6a69c9f2051bb3a9755272eff9dcc77da08
-  predecessor_result_tree: f9453145afb4d9083e17c4453c9b1f27600a74e2
+  id: P1-03
+  global_number: 13
+  title: Isolated Versioned Project Memory
+  prompt_drive_id: 1c_gu5vm-Zg4qmLk6fqipkS2s7RuHocrEJqG7Ce4S0mA
+  predecessor_result_commit: 609fbeccb37592c4094a409f04134cc404a38073
+  predecessor_result_tree: feccfd5a33b951a3330adbb7e6b436852f6cfb75
 
 next_transition:
-  - verify_P1_01_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P1_02_prompt_and_directly_required_Run_Node_Event_Graph_Artifact_interfaces_only
-  - implement_RunMemory_as_reconstruction_from_authoritative_durable_records
-  - expose_exact_Task_Graph_Node_attempt_fence_Event_Artifact_failure_checkpoint_and_ready_set_state
-  - prove_restart_cache_loss_provider_session_absence_scope_denial_and_divergence_detection
+  - verify_P1_02_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P1_03_prompt_and_directly_required_Project_Artifact_Run_and_migration_boundary_interfaces_only
+  - implement_versioned_ProjectKnowledge_with_exact_Project_scope_and_provenance
+  - require_explicit_placement_and_preserve_non_destructive_supersession_and_conflicts
+  - prove_cross_Project_denial_no_automatic_Run_or_Engine_promotion_quarantine_rejection_and_restart_durability
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P1_02_before_opening_P1_03
+  - close_P1_03_before_opening_P1_04
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - broaden_P1_02_into_provider_sessions_independent_mutable_memory_authority_or_later_numbered_architecture
+  - broaden_P1_03_into_Engine_Knowledge_embeddings_retrieval_or_later_numbered_architecture
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization

@@ -4,42 +4,42 @@
 schema: biella.active_task/v3
 
 task:
-  id: P1-02
-  global_number: 12
+  id: P1-03
+  global_number: 13
   phase: P1
-  title: Durable Run Memory and Reconstruction
-  state: READY_AFTER_P1_01_DURABLE_CLOSE
+  title: Isolated Versioned Project Memory
+  state: READY_AFTER_P1_02_DURABLE_CLOSE
   exact_prompt:
-    title: 12_P1-02_Durable_Run_Memory_and_Reconstruction.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P1/12_P1-02_Durable_Run_Memory_and_Reconstruction.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P1/12_P1-02_Durable_Run_Memory_and_Reconstruction.md.docx
-    drive_id: 19Bifx_E0RPhs3gxi3srr7118_rnhdT1gSCH3Pyi8I3Y
-    local_docx_sha256: 0096d60b6a209758728ae7621fb1f82594c47aa8579bf95cbf267992cfd46afd
-    live_drive_exported_docx_sha256: 7b182974fd3c628115b87036a9a77bf9cfc80a1c24cc94d035f419b7eb982c59
-    canonical_text_sha256: 9b0a34a112743edee693683b8fe02d5689da29045b7ef0935f0863b9e2302323
+    title: 13_P1-03_Isolated_Versioned_Project_Memory.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P1/13_P1-03_Isolated_Versioned_Project_Memory.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P1/13_P1-03_Isolated_Versioned_Project_Memory.md.docx
+    drive_id: 1c_gu5vm-Zg4qmLk6fqipkS2s7RuHocrEJqG7Ce4S0mA
+    local_docx_sha256: 25c6c26b471fe7f3826e9d2fc8741ca20a261458a219b2ab030a6c906be2fb65
+    live_drive_exported_docx_sha256: 1c7461cc6e43c379de67599f574d62578e338d5b3af330e0f513333b6864ded5
+    canonical_text_sha256: e81ff72e3fe027f13553de5f4790bd146f06105c0c048de071021bddb0606c99
     canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P1-01
-    result_commit: 6cc8c6a69c9f2051bb3a9755272eff9dcc77da08
-    result_tree: f9453145afb4d9083e17c4453c9b1f27600a74e2
+    id: P1-02
+    result_commit: 609fbeccb37592c4094a409f04134cc404a38073
+    result_tree: feccfd5a33b951a3330adbb7e6b436852f6cfb75
     remote_readback: VERIFIED
     remote_required_paths_and_bytes: VERIFIED
     exact_remote_archive_build_and_restart: VERIFIED
-  numbered_successor: P1-03
+  numbered_successor: P1-04
 
 goal:
   establish:
-    - durable_RunMemory_reconstructable_without_conversation_process_worker_provider_cache_or_temporary_workspace_state
-    - exact_meaningful_Run_execution_state_from_existing_authoritative_durable_records
-    - divergence_detection_without_silent_fabrication_or_repair
-    - checkpoint_and_model_or_tool_call_reference_seams_without_payload_duplication
+    - isolated_versioned_Project_scoped_knowledge_for_accepted_facts_requirements_decisions_preferences_asset_relationships_and_domain_knowledge
+    - explicit_provenance_bound_placement_before_observations_become_Project_truth
+    - non_destructive_supersession_and_conflict_aware_current_resolution
+    - durable_authoritative_structured_memory_independent_from_future_derived_indexes
   preserve:
-    - exact_Task_and_Graph_revision_identity
-    - historical_attempts_fences_failures_Events_and_Artifact_evidence
-    - Project_isolation_and_existing_execution_authority
-    - stale_owner_and_stale_result_rejection
-    - all_P0_and_P1_01_identity_immutability_durability_validation_and_evidence_contracts
+    - Project_isolation_and_exact_identity
+    - migration_firewall_and_raw_QuarantineRef_rejection
+    - immutable_Artifact_Run_Task_Graph_Event_and_RunMemory_evidence
+    - no_automatic_Project_to_Engine_promotion
+    - all_P0_through_P1_02_durability_validation_authority_and_evidence_contracts
 
 prewrite_observation:
   required:
@@ -49,8 +49,8 @@ prewrite_observation:
     - dirty_state
     - migrations_and_tests_if_present
     - AGENTS_policy_and_instruction_files_if_present
-    - accepted_Run_Node_Event_Graph_Artifact_Task_and_storage_interfaces
-    - exact_P1_01_remote_handoff
+    - accepted_Project_Artifact_Run_Task_and_migration_boundary_interfaces_directly_needed
+    - exact_P1_02_remote_handoff
   rules:
     - inspect_current_state_before_edit
     - preserve_valid_newer_local_work
@@ -61,179 +61,170 @@ prewrite_observation:
 input_scope:
   required:
     - 03_BIELLA_CURRENT_STATE.md
-    - exact_P1_02_canonical_prompt
-    - accepted_Run_and_Node_execution_state_interfaces
-    - accepted_Event_Graph_Artifact_Task_and_Project_interfaces_directly_needed_by_reconstruction
-    - P1_01_ContentRef_and_object_storage_interfaces_only_when_checkpoint_or_call_refs_require_them
+    - exact_P1_03_canonical_prompt
+    - accepted_Project_scope_and_Project_record_interfaces
+    - accepted_Artifact_ContentRef_Run_and_exact_provenance_interfaces_only_when_directly_needed
+    - migration_firewall_admission_types_only_when_enforcing_raw_QuarantineRef_rejection
     - directly_touched_repository_files_and_required_regression_tests
   conditional:
     - current_Biella_project_instructions
     - earlier_accepted_contracts_actually_used_by_this_task
   prohibited_by_default:
-    - unopened_P1_03_through_P4_prompt_bodies
+    - unopened_P1_04_through_P4_prompt_bodies
     - broad_historical_backup_or_legacy_reuse_material
     - unrelated_website_work
     - broad_Drive_GitHub_or_filesystem_audits
 
 dependencies:
-  P1_01:
-    result_commit: 6cc8c6a69c9f2051bb3a9755272eff9dcc77da08
-    result_tree: f9453145afb4d9083e17c4453c9b1f27600a74e2
+  P1_02:
+    result_commit: 609fbeccb37592c4094a409f04134cc404a38073
+    result_tree: feccfd5a33b951a3330adbb7e6b436852f6cfb75
     required_semantics:
-      - exact_ContentRef_identity_and_durable_object_storage_are_available
-      - physical_content_location_is_separate_from_logical_identity_and_authorization
-      - restart_integrity_and_corruption_detection_hold
+      - exact_Run_state_and_output_evidence_are_reconstructable_without_conversation_or_provider_session_state
+      - immutable_projection_is_not_second_authority
+      - restart_integrity_scope_denial_and_divergence_detection_hold
   earlier_accepted_contracts:
     required_semantics:
-      - Run_binds_exact_Project_Task_revision_and_current_execution_authority
-      - Graph_revisions_Node_dependencies_and_historical_supersession_are_durable
-      - Node_attempt_lease_fence_state_failure_output_and_completion_evidence_are_authoritative
-      - Event_ledger_is_chronological_evidence_not_mutable_current_state
-      - Artifact_refs_and_provenance_are_exact_immutable_and_Project_scoped
+      - Project_identity_and_authorization_are_exact_and_fail_closed
+      - Artifact_ContentRef_Run_Task_and_Event_provenance_are_immutable_and_Project_scoped
+      - raw_QuarantineRef_is_not_an_active_runtime_identity
 
 scope:
   in:
-    - RunMemory_immutable_reconstructed_view
-    - get_or_reconstruct_RunMemory
-    - consistency_validator
-    - Project_Task_revision_digest_Run_and_current_Graph_revision_identity
-    - Node_state_summary_current_attempt_owner_fence_and_historical_attempts
-    - completed_outputs_failures_stale_cancelled_and_expired_state
-    - Event_sequence_high_water_mark_and_meaningful_chronology
-    - latest_compatible_checkpoint_reference_seam
-    - optional_model_tool_or_provider_live_optimization_reference_seams
-    - continuation_and_current_ready_set_inputs
-    - superseded_Graph_history_without_current_authority
-    - restart_cache_loss_and_provider_session_absence_reconstruction
-    - deterministic_inconsistency_detection_or_resolution_by_authoritative_records
+    - ProjectKnowledge_immutable_versioned_record
+    - ProjectKnowledgeRef_exact_identity
+    - knowledge_type_statement_or_payload_ref_applicability_sources_evidence_status_supersedes_and_contradicts
+    - explicit_placement_from_permitted_observation_owner_decision_or_validated_Project_source
+    - candidate_observation_that_does_not_auto_promote
+    - non_destructive_versioning_and_supersession
+    - unresolved_conflict_preservation_and_explicit_resolution
+    - authoritative_structured_search_list_history_and_current_resolution
+    - restart_and_cache_or_index_loss_durability
+    - exact_cross_Project_denial
   out:
-    - independent_mutable_RunMemory_authority
-    - duplicated_checkpoint_model_tool_or_large_payload_bytes
-    - provider_session_as_required_continuation_state
-    - Scheduler_or_resource_model_replacement
+    - automatic_Run_model_or_tool_output_promotion
+    - automatic_Project_to_Engine_Knowledge_promotion
+    - raw_chat_or_model_output_as_authoritative_memory
+    - raw_legacy_donor_or_QuarantineRef_admission
+    - embeddings_vector_index_or_P2_retrieval
     - later_numbered_prompt_architecture
     - unrelated_domain_or_provider_specialization
 
 required_interfaces:
   create_or_reconcile:
-    - RunMemory
-    - get_or_reconstruct_RunMemory
-    - RunMemory_consistency_validator
+    - ProjectKnowledge
+    - ProjectKnowledgeRef
+    - explicit_placement_API
+    - current_resolution_API
+    - supersession_API
   reconstructable_fields_or_equivalents:
     - project_id
-    - task_id_revision_and_digest
-    - run_id
-    - accepted_current_graph_and_revision
-    - node_state_summary
-    - current_attempts_owners_and_fences
-    - historical_attempts_across_graph_revisions
-    - completed_output_Artifact_refs
-    - failed_stale_cancelled_and_expired_nodes
-    - Event_sequence_high_water_mark
-    - latest_compatible_checkpoint_ref
-    - continuation_and_ready_set_inputs
+    - knowledge_id_and_version
+    - knowledge_type_or_category
+    - statement_value_or_exact_content_ref
+    - applicability
+    - source_and_evidence_refs
+    - status_and_currentness
+    - created_at
+    - supersedes_ref
+    - contradicts_refs
   authority_rule:
-    RunMemory_is_reconstruction_not_second_authority: true
-    materialized_projection_if_any_is_rebuildable_and_non_authoritative: true
-    newer_durable_execution_state_overrides_stale_projection: true
-    contradictions_are_never_silently_merged: true
+    ProjectKnowledge_requires_explicit_accepted_placement: true
+    generated_observation_is_not_Project_truth: true
+    ProjectKnowledge_never_becomes_Engine_Knowledge_automatically: true
+    derived_index_is_rebuildable_and_non_authoritative: true
 
-reconstruction_algorithm:
+placement_and_resolution:
   required_sequence:
-    - authenticate_exact_Project_scope_and_Run_identity
-    - read_and_verify_exact_Run_and_bound_Task_revision
-    - resolve_and_verify_current_accepted_Graph_revision
-    - reconstruct_current_and_historical_Node_execution_attempt_fence_and_state_evidence
-    - bind_completed_output_Artifacts_failures_and_terminal_evidence
-    - reconstruct_ordered_Event_chronology_and_high_water_mark
-    - select_latest_checkpoint_ref_compatible_with_current_Task_and_Graph
-    - derive_current_continuation_and_ready_set_from_authoritative_state
-    - validate_cross_record_consistency_and_fail_closed_on_unresolved_divergence
-    - return_immutable_RunMemory_view
+    - authenticate_exact_Project_scope
+    - validate_explicit_placement_authority_and_idempotency
+    - bind_exact_source_provenance_and_evidence_refs
+    - reject_raw_QuarantineRef_and_unaccepted_generated_output
+    - create_new_immutable_version_without_rewriting_history
+    - record_supersedes_or_contradicts_relationships_exactly
+    - resolve_current_only_when_authoritative_history_is_unambiguous_or_explicitly_resolved
+    - preserve_all_conflicting_candidates_and_provenance
   invariants:
-    - restart_or_cache_loss_cannot_erase_verified_work
-    - conversation_or_provider_session_absence_cannot_block_reconstruction
-    - Task_or_Graph_supersession_cannot_rewrite_existing_Run_history
-    - expired_or_stale_owner_is_not_reported_as_current_indefinitely
-    - Event_history_does_not_override_current_execution_authority
-    - foreign_Project_identity_never_grants_RunMemory_access
+    - same_human_key_or_name_may_exist_independently_across_Projects
+    - supersession_never_deletes_or_mutates_prior_version
+    - unresolved_contradiction_never_becomes_arbitrary_last_write_wins_truth
+    - future_index_deletion_cannot_delete_ProjectKnowledge
+    - Run_model_or_tool_output_requires_explicit_acceptance_before_placement
 
 consistency_and_failure_behavior:
-  detect_or_deterministically_resolve:
-    - missing_Event
-    - stale_materialized_summary
-    - superseded_Graph
-    - output_Artifact_ref_mismatch
-    - Task_or_Graph_identity_drift
-    - attempt_fence_owner_or_terminal_state_divergence
   fail_closed_on:
     - Project_scope_mismatch
     - identity_authority_or_integrity_mismatch
-    - contradictory_authoritative_records_without_defined_resolution
-    - invalid_checkpoint_compatibility
+    - raw_QuarantineRef_admission
+    - provenance_or_evidence_mismatch
+    - unresolved_current_conflict
+    - invalid_supersession_or_contradiction_relationship
   preserve:
     - durable_evidence
     - real_failure_cause
-    - already_verified_durable_work
+    - historical_versions
+    - conflicting_candidates_and_exact_provenance
     - unaffected_required_work
   prohibit:
-    - fabricated_success
+    - fabricated_acceptance
     - fabricated_missing_fact
-    - silent_repair_of_authoritative_state
+    - silent_destructive_repair
+    - automatic_truth_from_generated_output
     - mocked_real_infrastructure_classification
     - weakened_architecture_for_unavailable_dependency
 
 concurrency_and_recovery:
   require:
-    - reconstruction_uses_existing_Graph_Scheduler_and_resource_authority
+    - use_existing_Graph_Scheduler_and_resource_authority_when_execution_is_needed
     - independent_work_remains_concurrent_when_dependencies_side_effects_and_resources_allow
     - already_verified_durable_work_survives_recovery
     - stale_owners_and_results_remain_rejected
-    - reconstruction_observes_one_consistent_authoritative_snapshot_or_fails_closed
-    - no_global_serialization_beyond_existing_required_commit_boundaries
+    - concurrent_conflicting_placements_preserve_one_coherent_authoritative_outcome_or_explicit_conflict
+    - no_global_serialization_beyond_required_Project_memory_commit_boundaries
 
 required_test_matrix:
-  - {id: T01, prove: representative_multi_node_Run_reconstructs_identically_after_process_restart}
-  - {id: T02, prove: exact_Task_revision_digest_and_current_Graph_revision_reconstruct}
-  - {id: T03, prove: completed_failed_ready_expired_Node_attempt_owner_and_fence_states_reconstruct}
-  - {id: T04, prove: output_Artifact_failure_and_terminal_evidence_refs_survive_restart}
-  - {id: T05, prove: ordered_Events_and_sequence_high_water_mark_reconstruct_without_becoming_current_authority}
-  - {id: T06, prove: latest_checkpoint_ref_is_compatible_with_current_Task_and_Graph_without_payload_duplication}
-  - {id: T07, prove: cache_or_materialized_summary_deletion_does_not_lose_Run_state}
-  - {id: T08, prove: provider_or_hosted_session_absence_does_not_block_reconstruction_or_continuation}
-  - {id: T09, prove: Project_Beta_cannot_reconstruct_Alpha_RunMemory_by_known_Run_ID}
-  - {id: T10, prove: terminal_Run_remains_terminal_and_expired_owner_is_not_current_indefinitely}
-  - {id: T11, prove: superseded_Graph_history_is_available_without_becoming_current}
-  - {id: T12, prove: missing_Event_stale_summary_superseded_Graph_and_output_ref_mismatch_do_not_silently_merge}
-  - {id: T13, prove: newer_Task_revision_does_not_rewrite_existing_RunMemory}
-  - {id: T14, prove: continuation_and_ready_set_follow_authoritative_dependencies_and_current_state}
+  - {id: T01, prove: create_and_restart_versioned_ProjectKnowledge_with_exact_Project_identity}
+  - {id: T02, prove: exact_statement_or_ContentRef_applicability_sources_evidence_and_created_identity_round_trip}
+  - {id: T03, prove: Alpha_Unreal_and_Beta_Godot_preferences_coexist_without_global_default}
+  - {id: T04, prove: cross_Project_read_by_known_ID_fails_privately}
+  - {id: T05, prove: cross_Project_write_and_supersede_fail}
+  - {id: T06, prove: v2_supersedes_v1_non_destructively_and_v1_remains_readable}
+  - {id: T07, prove: current_resolution_returns_v2_only_when_history_is_unambiguous}
+  - {id: T08, prove: unresolved_contradictory_current_facts_return_conflict_not_arbitrary_choice}
+  - {id: T09, prove: explicit_conflict_resolution_preserves_both_candidates_and_chosen_currentness}
+  - {id: T10, prove: Run_model_and_tool_output_remain_candidate_observations_without_automatic_promotion}
+  - {id: T11, prove: explicit_permitted_placement_binds_exact_provenance_and_acceptance}
+  - {id: T12, prove: raw_QuarantineRef_is_rejected_at_every_ProjectKnowledge_admission_seam}
+  - {id: T13, prove: no_automatic_Project_to_Engine_Knowledge_promotion_or_global_default}
+  - {id: T14, prove: cache_or_derived_index_deletion_does_not_remove_authoritative_ProjectKnowledge}
   - {id: T15, prove: required_predecessor_regressions_typecheck_build_and_installed_wheel_restart_pass_without_skips_placeholders_or_TODO_tests}
 
 kpi:
-  run_state_lost_after_restart: 0
-  conversation_dependency: 0
-  provider_session_dependency: 0
-  completed_nodes_lost: 0
-  Task_revision_drift: 0
-  RunMemory_divergence_silently_accepted: 0
+  cross_project_ProjectMemory_reads: 0
+  automatic_Run_output_to_Project_truth: 0
+  automatic_Project_to_Engine_promotion: 0
+  raw_quarantine_admissions: 0
+  destructive_supersession: 0
+  ambiguous_conflicts_silently_resolved: 0
 
 completion_gate:
   require:
-    - Run_can_answer_what_was_requested_which_Graph_is_current_what_completed_executes_failed_and_remains
-    - reconstruction_uses_durable_state_alone
-    - exact_sources_outputs_attempts_fences_and_chronology_are_preserved
-    - restart_cache_loss_and_provider_session_absence_do_not_lose_verified_state
-    - cross_Project_access_and_identity_drift_fail_closed
+    - ProjectKnowledge_is_isolated_versioned_provenance_bound_and_restart_durable
+    - explicit_placement_is_required_before_observation_becomes_accepted_Project_memory
+    - old_versions_and_conflicting_candidates_remain_durably_readable
+    - current_resolution_is_deterministic_or_reports_unresolved_conflict
+    - raw_QuarantineRef_generated_output_and_cross_Project_authority_fail_closed
+    - derived_index_absence_does_not_remove_or_change_authoritative_memory
     - all_required_tests_and_regressions_pass_without_skips_placeholders_or_TODOs
 
 implementation_method:
-  - verify_exact_P1_01_remote_handoff
-  - inspect_exact_Run_Node_Event_Graph_Artifact_Task_Project_interfaces_and_directly_relevant_tests
+  - verify_exact_P1_02_remote_handoff
+  - inspect_exact_Project_Artifact_Run_and_migration_boundary_interfaces_directly_needed
   - add_task_scoped_failing_tests_before_implementation_or_defect_fix
-  - implement_minimal_immutable_RunMemory_reconstruction_contract
-  - validate_one_consistent_authoritative_snapshot_and_defined_divergence_handling
-  - exercise_real_restart_cache_loss_scope_denial_expiration_supersession_and_tampering
-  - run_focused_P1_02_tests
+  - implement_minimal_versioned_ProjectKnowledge_and_exact_reference_contracts
+  - implement_explicit_placement_supersession_conflict_and_current_resolution
+  - exercise_real_restart_scope_denial_quarantine_generated_output_and_index_loss_cases
+  - run_focused_P1_03_tests
   - run_relevant_predecessor_regressions_and_full_required_suite
   - run_strict_typecheck_compileall_and_build
   - inspect_actual_wheel_and_clean_install_restart_smoke
@@ -242,7 +233,7 @@ implementation_method:
 publication:
   when_complete:
     - record_source_commit
-    - commit_coherent_P1_02_result
+    - commit_coherent_P1_03_result
     - push_main
     - remote_readback_result_commit
     - remote_readback_result_tree
@@ -273,8 +264,8 @@ continuation:
     - report_intentional_dirty_or_uncommitted_files
     - update_03_BIELLA_CURRENT_STATE
     - update_required_canonical_Drive_continuity
-    - replace_04_with_exact_P1_03_packet_only_after_P1_02_durable_close
-    - close_P1_02_before_opening_P1_03
+    - replace_04_with_exact_P1_04_packet_only_after_P1_03_durable_close
+    - close_P1_03_before_opening_P1_04
   continue_numbered_prompts_one_at_a_time: true
   broad_real_historical_mining: false
 ```
