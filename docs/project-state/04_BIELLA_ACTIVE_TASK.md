@@ -4,33 +4,34 @@
 schema: biella.active_task/v3
 
 task:
-  id: P0-03
-  global_number: 3
+  id: P0-04
+  global_number: 4
   phase: P0
-  title: Provider-Neutral Capability Contract
-  state: READY_AFTER_P0_02_DURABLE_CLOSE
+  title: Universal Typed Task Contract
+  state: READY_AFTER_P0_03_DURABLE_CLOSE
   exact_prompt:
-    title: 03_P0-03_Provider_Neutral_Capability_Contract.md.docx
-    drive_id: 1HaRjLqtN9YgNKRJHm7VLIay80_o0qQVJeFXYeyvoJFs
-    canonical_text_sha256: 83ca2cc81759b9e3330d53fdd70e7ac0a4bfa7a918d8dc52348768cd8e35772f
+    title: 04_P0-04_Universal_Typed_Task_Contract.md.docx
+    drive_id: 1weEvFdehM9SuMoCn8bTOwZ1ADO0vYyO319aDPDAeqaE
+    canonical_text_sha256: 35d6054325de7df70c609703dc2cfa4b5c9f99ba99cddd81d455777055833947
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P0-02
-    result_commit: 2847543e0b3f9bac04e0e879e4b81f748cab712c
-    result_tree: deedf652f4eafc16b901ea535a4d0adf0663a212
+    id: P0-03
+    result_commit: 4288c792d8f5c1fe12ffd3af47deb7d3aab5d9f1
+    result_tree: 26c62bdd4bf89f3c8cb4a604a89cd6193ed35068
     remote_readback: VERIFIED
-  numbered_successor: P0-04
+  numbered_successor: P0-05
 
 goal:
   establish:
-    - extensible_versioned_semantic_Capability_registry
-    - provider_neutral_Capability_identity
-    - generic_input_output_and_side_effect_contracts
+    - durable_universal_typed_Task_primitive
+    - immutable_Task_revisions
+    - deterministic_canonical_Task_digest
+    - exact_authorized_Task_inputs
   guarantee:
-    - Capability_describes_what_is_needed_not_who_or_what_executes_it
-    - semantic_existence_is_independent_from_current_implementation_or_resource_availability
-    - arbitrary_future_Capability_registration_requires_no_kernel_enum_switch_or_schema_edit
-    - historical_versions_are_preserved_instead_of_destructively_redefined
+    - every_Task_belongs_to_exactly_one_Project
+    - Task_expresses_desired_outcome_and_constraints_not_execution_topology
+    - material_edits_create_new_revisions_without_mutating_history
+    - raw_QuarantineRef_is_never_an_active_Task_input
 
 prewrite_observation:
   required:
@@ -43,19 +44,21 @@ prewrite_observation:
     - tests_if_present
     - AGENTS_policy_instruction_files_if_present
     - accepted_existing_interfaces
-    - P0_02_exact_remote_handoff
+    - P0_03_exact_remote_handoff
   rules:
     - inspect_current_state_before_edit
     - preserve_valid_newer_local_work
-    - reuse_valid_P0_01_and_P0_02_implementation_and_results
+    - reuse_valid_P0_01_through_P0_03_implementation_and_results
     - reconcile_existing_equivalent_interfaces_by_semantics
     - missing_handoff_paperwork_is_not_a_blocker_when_exact_source_is_observable
 
 input_scope:
   required:
     - 03_BIELLA_CURRENT_STATE.md
-    - exact_P0_03_canonical_prompt
-    - P0_02_result_commit_and_required_interfaces
+    - exact_P0_04_canonical_prompt
+    - P0_02_Project_interfaces
+    - P0_03_Capability_interfaces
+    - P0_01_quarantine_and_active_runtime_boundary
     - directly_touched_repository_files
   conditional:
     - 00_BIELLA_PROJECT_OPERATING_CONTRACT.md
@@ -64,7 +67,7 @@ input_scope:
     - 05_BIELLA_PROMPT_INDEX.yaml
     - 06_BIELLA_SOURCE_EVIDENCE_MAP.yaml
   prohibited_by_default:
-    - other_48_unopened_prompt_bodies
+    - other_47_unopened_prompt_bodies
     - large_real_MiniTZ_backup
     - inactive_legacy_reuse_contract
     - unrelated_website_work
@@ -75,255 +78,332 @@ dependencies:
   P0_01:
     result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
     required_semantics:
-      - clean_Biella_package_boundary
-      - quarantine_isolation
-      - active_runtime_has_no_raw_quarantine_dependency
+      - QuarantineRef_is_migration_only
+      - active_runtime_rejects_raw_quarantine
   P0_02:
     result_commit: 2847543e0b3f9bac04e0e879e4b81f748cab712c
-    result_tree: deedf652f4eafc16b901ea535a4d0adf0663a212
+    required_interfaces:
+      - Project
+      - ProjectRef
+      - ProjectAccess
+      - ProjectScoped
     required_semantics:
-      - stable_opaque_Project_identity
       - authenticated_Project_scope
-      - Project_configuration_is_scoped_and_cannot_mutate_global_semantics
-    quarantine_rule:
-      Capability_registry_dependency_on_raw_quarantine: forbidden
+      - exact_Project_binding
+      - cross_Project_access_fails_closed
+  P0_03:
+    result_commit: 4288c792d8f5c1fe12ffd3af47deb7d3aab5d9f1
+    result_tree: 26c62bdd4bf89f3c8cb4a604a89cd6193ed35068
+    required_interfaces:
+      - Capability
+      - CapabilityRef
+      - CapabilityRegistry
+    required_semantics:
+      - immutable_versioned_Capability_identity
+      - provider_neutral_semantic_contract
+      - append_only_history
 
 scope:
   in:
-    - namespaced_string_Capability_identity
-    - explicit_semantic_version_or_revision
-    - immutable_contract_identity
-    - bounded_description
-    - generic_input_contract
+    - opaque_stable_Task_identity
+    - exact_Project_ownership
+    - positive_immutable_revision_number
+    - extensible_task_type
+    - bounded_objective
+    - exact_TaskInputRef_collection
+    - required_CapabilityRef_collection
     - generic_output_contract
-    - side_effect_characteristics
-    - deprecation_and_supersession_history
-    - durable_registry_persistence
-    - atomic_registration
+    - generic_constraints
+    - explicit_side_effect_authority
+    - data_and_egress_policy_references
+    - evidence_requirements
+    - acceptance_criteria
+    - generic_resource_hints
+    - quality_latency_and_cost_constraints
+    - idempotency_key
+    - created_at
+    - canonical_digest
+    - durable_revision_and_idempotency_persistence
+    - atomic_creation_and_revision
     - restart_durability
-    - arbitrary_future_registration
-    - Project_preference_non_mutation_proof
   out:
-    - provider_registry
-    - model_registry
-    - tool_registry
-    - worker_registry
-    - hardware_or_GPU_registry
-    - implementation_or_adapter_registry
-    - Resource_availability
-    - provider_or_model_selection
+    - Run_implementation
+    - attempts_leases_or_fencing
+    - Graph_implementation
+    - Scheduler_or_Resource_implementation
+    - provider_selection
+    - model_selection
     - compute_placement
-    - scheduler_ranking
-    - routing
-    - Task_Run_or_Graph_kernel_implementation
-    - bulk_registration_of_future_P3_capabilities
-    - historical_donor_roles
-    - P0_04_or_later_prompt_implementation
+    - fixed_agent_topology
+    - maker_critic_validator_chain
+    - fixed_pipeline
+    - domain_specific_Task_subclasses
+    - human_approval_bureaucracy
+    - future_sharing_mechanism
+    - P0_05_or_later_prompt_implementation
 
 required_interfaces:
   exact:
-    - Capability
-    - CapabilityRef
-    - CapabilityRegistry
+    - Task
+    - TaskRef
+    - TaskInputRef
+  required_service_semantics:
+    - Task_revision_creation
+    - deterministic_canonicalization
+    - durable_read
+    - idempotent_submission
+  accepted_name:
+    - TaskRevisionService
   rule:
     accepted_existing_semantic_equivalent_may_be_mapped: true
     do_not_duplicate_architecture_due_to_name_difference: true
 
-capability_contract:
-  required_semantics:
-    - stable_namespaced_string_identity
-    - explicit_version_or_revision
-    - immutable_semantic_contract_per_identity_and_version
-    - bounded_human_description
-    - generic_input_contract_or_schema_reference
-    - generic_output_contract_or_schema_reference
-    - side_effect_characteristics
-    - optional_deprecation_or_supersession_metadata
-    - timezone_aware_created_at
-  representative_examples:
-    - software.debug
-    - 3d.model
-    - model.infer
-    - browser.navigate
-    - render.frame
-  prohibited_core_fields:
-    - provider
-    - model
-    - tool
-    - worker
-    - GPU
-    - hardware
-    - command
-    - agent_role
-    - deployment_health
-    - resource_availability
-    - Project_preference
-
-identity_and_versioning:
-  identity_components:
-    - namespace
-    - name
-    - version_or_revision
+task_contract:
   required:
-    - stable_CapabilityRef
-    - unique_identity_and_version
-    - same_version_same_contract_may_be_idempotent
-    - same_version_conflicting_contract_fails_closed
-    - new_version_with_changed_contract_is_allowed
-    - old_versions_remain_readable_after_new_version
-    - supersession_does_not_delete_predecessor
-    - deprecation_does_not_erase_contract_history
-  prohibited:
-    - destructive_meaning_change_under_same_ref
-    - closed_source_code_Capability_enum
-    - central_switch_edit_for_new_namespace
+    - stable_immutable_task_id
+    - exactly_one_ProjectRef
+    - positive_revision
+    - extensible_task_type_string
+    - bounded_objective
+    - zero_or_more_valid_CapabilityRef_values
+    - zero_or_more_exact_TaskInputRef_values
+    - generic_output_contract
+    - generic_constraints
+    - explicit_side_effect_authority
+    - evidence_requirements
+    - acceptance_criteria
+    - bounded_idempotency_key
+    - timezone_aware_created_at
+    - canonical_digest
+  optional:
+    - data_policy_ref
+    - egress_policy_ref
+    - resource_hints
+    - quality_constraints
+    - latency_constraints
+    - cost_constraints
+  prohibited_universal_fields:
+    - provider
+    - model_name
+    - GPU
+    - worker
+    - fixed_agent_role
+    - maker
+    - critic
+    - validator_chain
+    - fixed_pipeline
+    - game_engine
 
-extensible_registration:
-  data_driven: true
-  arbitrary_future_examples:
-    - quantum.simulate
-    - robotics.plan
-    - biology.sequence_analyze
+task_input_contract:
   require:
-    - previously_unknown_namespace_and_name_register_through_normal_registry_API
-    - no_kernel_source_edit_for_future_registration
-    - no_Task_Run_Graph_schema_migration_for_future_registration
-
-generic_io_contracts:
-  semantic_not_physical: true
-  may_describe:
-    - semantic_input_roles
-    - semantic_output_roles
-    - schema_or_content_references
-  require:
-    - validation_where_contract_is_applicable
-    - immutable_round_trip
-    - no_domain_specific_kernel_union
-
-side_effect_semantics:
-  purpose:
-    - express_possible_mutation_or_external_effect_requirements
-    - allow_later_Task_Graph_validation_to_detect_impossible_escalation
-  authorization_rule:
-    registering_mutating_Capability_grants_external_side_effect_authority: false
-  routing_rule:
-    side_effect_metadata_selects_provider_worker_or_resource: false
-
-availability_separation:
-  require:
-    - Capability_existence_survives_zero_implementations
-    - Capability_existence_survives_zero_available_resources
-    - unavailable_execution_is_reported_separately_when_that_layer_exists
-  example:
-    capability: render.frame
-    semantic_existence_when_no_renderer_or_GPU_is_available: true
-  prohibit:
-    - deleting_Capability_due_to_resource_shortage
-    - embedding_current_health_or_capacity_in_Capability
-    - fabricating_Resource_or_adapter_availability
-
-project_isolation:
-  global_Capability_semantics_are_universal: true
-  Project_may_reference_or_prefer_a_Capability_without_mutating_it: true
+    - exact_immutable_identity
+    - exactly_one_owning_ProjectRef
+    - explicit_input_kind
+    - stable_source_or_Artifact_reference
+    - content_digest_or_immutable_revision_where_applicable
+    - caller_Project_authorization_at_binding_boundary
   reject:
-    - Project_specific_contract_overwrite
-    - Project_specific_version_redefinition
-    - Project_specific_deletion_of_global_Capability
-    - Project_capability_reference_with_authority_escalation
+    - raw_QuarantineRef
+    - ambiguous_latest_file
+    - mutable_unversioned_path
+    - malformed_identity
+    - nonexistent_source
+    - cross_Project_source_without_future_explicit_sharing
+    - known_foreign_identifier_without_authority
+
+capability_binding:
+  require:
+    - every_required_CapabilityRef_exists_in_durable_registry
+    - exact_version_is_preserved
+    - duplicate_semantically_irrelevant_order_is_canonicalized
+  prohibit:
+    - embedding_provider_or_resource_availability
+    - mutating_Capability_semantics_from_Task
+    - silently_resolving_unknown_or_latest_version
+
+revision_semantics:
+  immutable: true
+  require:
+    - revision_one_remains_byte_and_digest_stable_after_revision_two
+    - material_change_creates_next_revision
+    - same_task_id_is_preserved_across_revisions
+    - revision_numbers_are_monotonic_and_gap_free_per_Task
+    - prior_revisions_remain_readable_after_restart
+  material_changes_include:
+    - objective
+    - task_type
+    - input_refs
+    - required_capabilities
+    - output_contract
+    - constraints
+    - side_effect_authority
+    - data_or_egress_policy
+    - evidence_requirements
+    - acceptance_criteria
+    - resource_hints_or_requirements
+    - quality_latency_or_cost_constraints
+  prohibit:
+    - UPDATE_of_existing_revision_semantics
+    - deletion_of_prior_revision
+    - same_revision_conflicting_contract
+
+canonical_digest:
+  deterministic: true
+  require:
+    - stable_field_ordering
+    - stable_ordering_for_semantic_sets
+    - explicit_null_and_absence_semantics
+    - locale_independent_serialization
+    - exact_Project_and_input_identity
+    - nonfinite_number_rejection
+    - repeated_reads_reproduce_same_canonical_representation_and_digest
+    - equivalent_semantics_hash_identically
+    - every_material_change_changes_digest
+  exclude_as_nondeterministic_metadata:
+    - created_at
+  persisted_integrity:
+    - semantic_digest
+    - full_record_digest
+    - append_only_database_guards
+
+side_effect_authority:
+  representative_values:
+    - READ_ONLY
+    - CANDIDATE_WRITE
+    - PROJECT_WRITE
+    - EXTERNAL_SIDE_EFFECT
+  require:
+    - explicit_value_on_every_Task
+    - later_Graph_or_adapter_cannot_escalate_beyond_Task_authority
+    - escalation_detection_seam_is_tested
+  prohibit:
+    - registration_itself_grants_external_credentials
+    - human_approval_workflow_in_P0_04
+
+idempotency:
+  require:
+    - scope_by_Project_and_idempotency_key
+    - duplicate_same_semantics_returns_same_Task_revision
+    - duplicate_conflicting_semantics_fails_closed
+    - different_material_revision_is_not_collapsed
+    - restart_preserves_deduplication_record
+
+domain_neutrality:
+  same_primitive_proof:
+    software:
+      intent: modify_exact_repository_revision_run_tests_produce_candidate
+    three_d:
+      intent: modify_or_create_exact_asset_scene_and_export_editable_interchange_output
+  prohibit:
+    - SoftwareTask
+    - ThreeDTask
+    - domain_specific_kernel_union
 
 persistence:
   require:
-    - durable_Capability_versions
-    - durable_contract_identity
-    - database_uniqueness_for_identity_and_version
-    - atomic_registration
+    - durable_Task_revisions
+    - durable_idempotency_records
+    - canonical_digest_index
+    - exact_Project_scope_on_every_query
+    - atomic_initial_creation
+    - atomic_new_revision_and_idempotency_binding
     - restart_round_trip
-    - immutable_historical_versions
-    - no_half_registered_contract
+    - immutable_update_delete_guards
+    - no_half_created_revision
   schema_change:
-    permitted_only_when_required_for_Capability_registry: true
+    permitted_only_when_required_for_Task_revision_service: true
     must_be_reported_exactly: true
 
 failure_behavior:
   fail_closed_on:
-    - malformed_namespace_or_name
-    - malformed_version
-    - malformed_generic_contract
-    - malformed_side_effect_metadata
-    - duplicate_identity_version_with_conflicting_contract
-    - nonexistent_CapabilityRef
-    - scope_identity_authority_or_integrity_mismatch
-    - attempted_destructive_history_mutation
-    - Project_specific_global_semantic_mutation
-  evidence:
-    preserve_durable_failure_cause: true
-    do_not_fabricate_success_or_missing_facts: true
-  privacy:
-    do_not_leak_unrelated_Project_private_payload: true
+    - malformed_TaskRef
+    - missing_or_unauthorized_Project
+    - malformed_or_cross_Project_TaskInputRef
+    - raw_QuarantineRef_input
+    - missing_or_invalid_CapabilityRef
+    - nonfinite_or_malformed_structured_value
+    - same_revision_conflicting_contract
+    - idempotency_key_conflict
+    - side_effect_authority_escalation
+    - persisted_digest_or_record_integrity_mismatch
+    - attempted_revision_update_or_delete
+  error_privacy:
+    - identify_technical_scope_or_contract_mismatch
+    - do_not_leak_foreign_Project_private_payload
+    - do_not_leak_more_existence_information_than_contract_permits
 
 concurrency_and_recovery:
   current_reality:
     Graph_Scheduler_and_Resource_models_may_not_exist_yet: true
-    do_not_fabricate_them_for_P0_03: true
-  registry_require:
-    - transactionally_serialize_conflicting_registration
-    - allow_independent_nonconflicting_registration
-    - restart_preserves_verified_records
-    - stale_or_conflicting_writers_cannot_replace_immutable_contract
+    do_not_fabricate_them_for_P0_04: true
+  task_service_require:
+    - transactionally_serialize_same_Task_revision_or_idempotency_key
+    - allow_independent_nonconflicting_Task_creation
+    - one_durable_winner_for_concurrent_conflicting_submission
+    - restart_preserves_verified_revisions_and_deduplication
+    - stale_or_conflicting_writer_cannot_replace_immutable_revision
 
 required_test_matrix:
   - id: T01
-    prove: register_software_debug_namespaced_version
+    prove: create_and_read_minimal_valid_Task
   - id: T02
-    prove: register_3d_model_namespaced_version
+    prove: multi_Capability_Task_uses_exact_registered_versions
   - id: T03
-    prove: register_previously_unknown_future_Capability_without_kernel_edit
+    prove: TaskInputRef_binds_exact_authorized_Project_source
   - id: T04
-    prove: same_version_conflicting_contract_rejected
+    prove: cross_Project_input_binding_is_rejected_privately
   - id: T05
-    prove: new_version_with_changed_contract_succeeds_and_old_version_remains
+    prove: QuarantineRef_is_rejected_as_active_Task_input
   - id: T06
-    prove: no_provider_model_hardware_tool_worker_or_agent_role_is_required
+    prove: unknown_or_invalid_CapabilityRef_is_rejected
   - id: T07
-    prove: Capability_exists_when_all_implementations_and_resources_are_unavailable
+    prove: canonical_digest_is_stable_across_semantically_irrelevant_order
   - id: T08
-    prove: generic_input_output_contract_validation_and_round_trip
+    prove: objective_input_output_side_effect_and_acceptance_changes_each_change_digest
   - id: T09
-    prove: side_effect_metadata_round_trip_without_authorization
+    prove: revision_two_preserves_revision_one_immutably
   - id: T10
-    prove: deprecation_and_supersession_do_not_erase_history
+    prove: output_contract_and_structured_fields_round_trip_after_restart
   - id: T11
-    prove: Project_preference_cannot_mutate_global_Capability
+    prove: identical_idempotent_duplicate_returns_same_revision
   - id: T12
-    prove: duplicate_identical_registration_is_idempotent_and_restart_durable
+    prove: conflicting_idempotent_duplicate_fails
   - id: T13
-    prove: malformed_or_nonexistent_identity_fails_closed
+    prove: side_effect_escalation_detection_seam_fails_closed
   - id: T14
-    prove: concurrent_conflicting_registration_has_one_durable_winner
+    prove: software_and_3D_intents_use_identical_Task_schema
+  - id: T15
+    prove: no_provider_model_GPU_worker_agent_critic_reviewer_pipeline_or_game_engine_fields
+  - id: T16
+    prove: nonfinite_or_malformed_structured_values_are_rejected
+  - id: T17
+    prove: direct_update_delete_and_digest_tampering_fail
+  - id: T18
+    prove: concurrent_conflicting_submission_has_one_durable_winner
 
 kpi:
-  new_capability_requires_kernel_change: 0
-  closed_capability_enum_required: 0
-  provider_fields_required: 0
-  hardware_fields_required: 0
-  capability_deleted_due_to_resource_shortage: 0
+  unscoped_tasks: 0
+  Task_revision_mutations: 0
+  canonical_digest_instability: 0
+  raw_quarantine_inputs_accepted: 0
+  domain_specific_Task_variants: 0
 
 implementation_method:
-  - verify_exact_P0_02_remote_handoff
+  - verify_exact_P0_03_remote_handoff
   - inspect_exact_current_source_and_accepted_interfaces
-  - write_failure_first_tests_for_each_Capability_contract_boundary
-  - implement_minimum_complete_P0_03
+  - write_failure_first_tests_for_each_Task_contract_boundary
+  - implement_minimum_complete_P0_04
   - run_focused_tests
-  - run_relevant_P0_01_and_P0_02_regressions
+  - run_relevant_P0_01_through_P0_03_regressions
   - run_strict_typecheck
   - build_and_inspect_actual_package_artifact
-  - inspect_persistence_schema_indexes_and_dependency_boundaries
-  - verify_no_closed_enum_provider_resource_or_Project_semantic_coupling
+  - inspect_persistence_schema_indexes_triggers_and_dependency_boundaries
+  - verify_no_provider_topology_domain_variant_or_raw_quarantine_coupling
 
 publication:
   when_implementation_complete:
     - record_source_commit
-    - commit_coherent_P0_03_result
+    - commit_coherent_P0_04_result
     - push_main
     - remote_readback_result_commit
     - remote_readback_result_tree
@@ -353,8 +433,8 @@ continuation:
     - report_intentional_dirty_or_uncommitted_files
     - update_03_BIELLA_CURRENT_STATE
     - update_required_canonical_Drive_continuity
-    - replace_04_with_exact_P0_04_packet
-    - close_P0_03_before_opening_P0_04
+    - replace_04_with_exact_P0_05_packet
+    - close_P0_04_before_opening_P0_05
   continue_numbered_prompts_one_at_a_time: true
   broad_real_historical_mining: false
 ```

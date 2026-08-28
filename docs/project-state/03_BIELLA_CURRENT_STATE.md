@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-28 06:35 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-28T06:35:19+02:00"
+state_timestamp_local: "2026-08-28 06:54 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-28T06:54:07+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: 2847543e0b3f9bac04e0e879e4b81f748cab712c
-    tree: deedf652f4eafc16b901ea535a4d0adf0663a212
+    commit: 4288c792d8f5c1fe12ffd3af47deb7d3aab5d9f1
+    tree: 26c62bdd4bf89f3c8cb4a604a89cd6193ed35068
     observed_date: 2026-08-28
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p0_02_implementation_post_push_exact_readback
+    observation_context: p0_03_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: 2847543e0b3f9bac04e0e879e4b81f748cab712c
-    tree: deedf652f4eafc16b901ea535a4d0adf0663a212
+    head: 4288c792d8f5c1fe12ffd3af47deb7d3aab5d9f1
+    tree: 26c62bdd4bf89f3c8cb4a604a89cd6193ed35068
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 2
+    durable_prompts_complete: 3
     durable_prompts_total: 51
     phase: P0
-    active_prompt: P0-03
-    active_prompt_title: Provider-Neutral Capability Contract
+    active_prompt: P0-04
+    active_prompt_title: Universal Typed Task Contract
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -92,6 +92,30 @@ engine:
       - src/biella/__init__.py
       - src/biella/project.py
       - tests/test_p0_02_project_isolation.py
+    p0_03_status: DURABLY_COMPLETE
+    p0_03_source_commit: 8d2589f758dc4fc6c2a271e9d36cbea20c113473
+    p0_03_result_commit: 4288c792d8f5c1fe12ffd3af47deb7d3aab5d9f1
+    p0_03_result_tree: 26c62bdd4bf89f3c8cb4a604a89cd6193ed35068
+    p0_03_remote_readback: VERIFIED
+    p0_03_validation:
+      focused_unittest: "20 passed; 0 failed; 0 skipped"
+      regression_unittest: "61 passed; 0 failed; 0 skipped"
+      pytest: "61 passed; 48 subtests passed; 0 failed; 0 skipped"
+      mypy_strict: "8 source/test files; 0 issues"
+      compileall: PASS
+      wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 b7176c564cb80ffff999392b5ad99d84eb6a01c5eff6e0dc10d39d4933405364; required paths inspected"
+      installed_wheel_smoke: "same-version conflict blocked; arbitrary future registration; version history; append-only lifecycle; schema integrity; prohibited coupling zero"
+      independent_review: "READY; no Critical, Important, or Minor findings after durability hardening"
+    p0_03_kpi:
+      new_capability_requires_kernel_change: 0
+      closed_capability_enum_required: 0
+      provider_fields_required: 0
+      hardware_fields_required: 0
+      capability_deleted_due_to_resource_shortage: 0
+    p0_03_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/capability.py
+      - tests/test_p0_03_capability_contract.py
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -140,10 +164,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P0-03
-    title: Provider-Neutral Capability Contract
-    drive_id: 1HaRjLqtN9YgNKRJHm7VLIay80_o0qQVJeFXYeyvoJFs
-    canonical_prompt_text_sha256: 83ca2cc81759b9e3330d53fdd70e7ac0a4bfa7a918d8dc52348768cd8e35772f
+    id: P0-04
+    title: Universal Typed Task Contract
+    drive_id: 1weEvFdehM9SuMoCn8bTOwZ1ADO0vYyO319aDPDAeqaE
+    canonical_prompt_text_sha256: 35d6054325de7df70c609703dc2cfa4b5c9f99ba99cddd81d455777055833947
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -193,7 +217,7 @@ migration:
 website:
   program: BIELLA_UNIVERSE_OPTION_C
   public_target: biellagames.dev
-  execution_state: P0_02_GATE_CLEARED_NOT_STARTED
+  execution_state: P0_03_GATE_CLEARED_NOT_STARTED
   first_separate_task_after_p0_01: BU-01
   run_in_same_p0_01_session: false
   universal_engine_kernel_scope: false
@@ -210,34 +234,34 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P0-03
-  title: Provider-Neutral Capability Contract
-  prompt_drive_id: 1HaRjLqtN9YgNKRJHm7VLIay80_o0qQVJeFXYeyvoJFs
-  predecessor_result_commit: 2847543e0b3f9bac04e0e879e4b81f748cab712c
-  predecessor_result_tree: deedf652f4eafc16b901ea535a4d0adf0663a212
+  id: P0-04
+  title: Universal Typed Task Contract
+  prompt_drive_id: 1weEvFdehM9SuMoCn8bTOwZ1ADO0vYyO319aDPDAeqaE
+  predecessor_result_commit: 4288c792d8f5c1fe12ffd3af47deb7d3aab5d9f1
+  predecessor_result_tree: 26c62bdd4bf89f3c8cb4a604a89cd6193ed35068
 
 next_transition:
-  - verify_P0_02_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P0_03_prompt_and_directly_required_files_only
-  - implement_Capability_CapabilityRef_and_CapabilityRegistry_contract
-  - prove_provider_neutral_extensible_versioned_registration_and_history
+  - verify_P0_03_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P0_04_prompt_and_directly_required_files_only
+  - implement_Task_TaskRef_TaskInputRef_and_revision_canonicalization_service
+  - prove_Project_scope_exact_inputs_immutable_revisions_and_deterministic_digest
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P0_03_before_opening_P0_04
+  - close_P0_04_before_opening_P0_05
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - broaden_P0_03_into_provider_model_tool_worker_resource_routing_or_scheduling
+  - broaden_P0_04_into_Run_Graph_Scheduler_provider_model_worker_routing_or_execution
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
-  - mutate_global_Capability_semantics_from_Project_configuration
-  - model_Capability_as_current_resource_availability
-  - start_P0_04_before_P0_03_durable_close
+  - accept_raw_QuarantineRef_as_active_Task_input
+  - add_domain_specific_SoftwareTask_or_ThreeDTask_kernel_types
+  - start_P0_05_before_P0_04_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
