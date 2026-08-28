@@ -117,6 +117,20 @@ from .event import (
     EventRef,
     EventScopeError,
 )
+from .execution import (
+    ExecutionObjectRef,
+    NodeExecution,
+    NodeExecutionAttempt,
+    NodeExecutionAuthorityError,
+    NodeExecutionConflictError,
+    NodeExecutionContractError,
+    NodeExecutionError,
+    NodeExecutionFailure,
+    NodeExecutionIntegrityError,
+    NodeExecutionNotFoundError,
+    NodeExecutionScopeError,
+    NodeExecutionService,
+)
 
 __all__ = [
     "ActiveArtifact",
@@ -217,4 +231,16 @@ __all__ = [
     "EventNotFoundError",
     "EventRef",
     "EventScopeError",
+    "ExecutionObjectRef",
+    "NodeExecution",
+    "NodeExecutionAttempt",
+    "NodeExecutionAuthorityError",
+    "NodeExecutionConflictError",
+    "NodeExecutionContractError",
+    "NodeExecutionError",
+    "NodeExecutionFailure",
+    "NodeExecutionIntegrityError",
+    "NodeExecutionNotFoundError",
+    "NodeExecutionScopeError",
+    "NodeExecutionService",
 ]

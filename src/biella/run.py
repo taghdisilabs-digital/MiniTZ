@@ -23,7 +23,8 @@ _ATTEMPT_ID_PATTERN = re.compile(r"att_[0-9a-f]{32}")
 _SHA256_PATTERN = re.compile(r"[0-9a-f]{64}")
 _OWNER_REF_PATTERN = re.compile(r"[a-z][a-z0-9+.-]*://[^\s\x00-\x1f]{1,512}")
 _OUTCOME_PATTERN = re.compile(r"[A-Z][A-Z0-9_]{0,63}")
-_RUN_STATUSES = {"PENDING", "RUNNING", "CANCELLED"}
+_RUN_STATUSES = {"PENDING", "RUNNING", "SUCCEEDED", "FAILED", "CANCELLED"}
+_TERMINAL_RUN_STATUSES = {"SUCCEEDED", "FAILED", "CANCELLED"}
 
 
 class RunError(Exception):
@@ -149,6 +150,7 @@ class Run:
     current_owner_ref: str | None
     lease_expires_at: str | None
     cancellation_requested_at: str | None
+    completion_evidence_sha256: str | None
     created_at: str
     updated_at: str
     identity_sha256: str = field(init=False)
@@ -208,6 +210,18 @@ class Run:
         )
         if (self.status == "CANCELLED") != (cancellation is not None):
             raise RunContractError("Run cancellation status and marker are inconsistent")
+        if self.status == "SUCCEEDED":
+            if (
+                not isinstance(self.completion_evidence_sha256, str)
+                or _SHA256_PATTERN.fullmatch(self.completion_evidence_sha256) is None
+            ):
+                raise RunContractError(
+                    "Succeeded Run requires exact completion evidence"
+                )
+        elif self.completion_evidence_sha256 is not None:
+            raise RunContractError(
+                "Only a succeeded Run may bind completion evidence"
+            )
         _validate_timestamp(self.created_at, "created_at")
         _validate_timestamp(self.updated_at, "updated_at")
         object.__setattr__(self, "identity_sha256", self._identity_digest())
@@ -234,21 +248,22 @@ class Run:
         )
 
     def _state_digest(self) -> str:
-        return _sha256(
-            {
-                "cancellation_requested_at": self.cancellation_requested_at,
-                "current_attempt_id": self.current_attempt_id,
-                "current_attempt_number": self.current_attempt_number,
-                "current_fence": self.current_fence,
-                "current_owner_ref": self.current_owner_ref,
-                "lease_expires_at": self.lease_expires_at,
-                "project_id": self.project_ref.value,
-                "run_id": self.run_id,
-                "state_version": self.state_version,
-                "status": self.status,
-                "updated_at": self.updated_at,
-            }
-        )
+        payload: dict[str, object] = {
+            "cancellation_requested_at": self.cancellation_requested_at,
+            "current_attempt_id": self.current_attempt_id,
+            "current_attempt_number": self.current_attempt_number,
+            "current_fence": self.current_fence,
+            "current_owner_ref": self.current_owner_ref,
+            "lease_expires_at": self.lease_expires_at,
+            "project_id": self.project_ref.value,
+            "run_id": self.run_id,
+            "state_version": self.state_version,
+            "status": self.status,
+            "updated_at": self.updated_at,
+        }
+        if self.completion_evidence_sha256 is not None:
+            payload["completion_evidence_sha256"] = self.completion_evidence_sha256
+        return _sha256(payload)
 
 
 @dataclass(frozen=True)
@@ -430,6 +445,7 @@ class RunService:
                     current_owner_ref TEXT,
                     lease_expires_at TEXT,
                     cancellation_requested_at TEXT,
+                    completion_evidence_sha256 TEXT,
                     updated_at TEXT NOT NULL,
                     record_sha256 TEXT NOT NULL,
                     PRIMARY KEY (project_id, run_id, state_version),
@@ -548,6 +564,17 @@ class RunService:
                 END;
                 """
             )
+            state_columns = {
+                cast(str, row["name"])
+                for row in connection.execute(
+                    "PRAGMA table_info(run_state_versions)"
+                ).fetchall()
+            }
+            if "completion_evidence_sha256" not in state_columns:
+                connection.execute(
+                    "ALTER TABLE run_state_versions "
+                    "ADD COLUMN completion_evidence_sha256 TEXT"
+                )
         finally:
             connection.close()
 
@@ -576,6 +603,7 @@ class RunService:
                 current_owner_ref=None,
                 lease_expires_at=None,
                 cancellation_requested_at=None,
+                completion_evidence_sha256=None,
                 created_at=now,
                 updated_at=now,
             )
@@ -662,6 +690,8 @@ class RunService:
             run = self._fetch_run(connection, run_ref)
             if run.status == "CANCELLED":
                 raise RunCancelledError("Run cancellation prevents lease acquisition")
+            if run.status in _TERMINAL_RUN_STATUSES:
+                raise RunAuthorityError("Terminal Run cannot acquire execution authority")
             now, expires_at = self._database_lease_times(connection, duration)
             if (
                 run.current_owner_ref is not None
@@ -731,6 +761,8 @@ class RunService:
             run = self._fetch_run(connection, attempt.run_ref)
             if run.status == "CANCELLED":
                 raise RunCancelledError("Run cancellation invalidates execution authority")
+            if run.status in _TERMINAL_RUN_STATUSES:
+                raise RunAuthorityError("Terminal Run has no execution authority")
             persisted = self._fetch_attempt(connection, run, attempt.attempt_id)
             self._require_same_attempt(persisted, attempt)
             now = self._database_now(connection)
@@ -773,6 +805,8 @@ class RunService:
             run = self._fetch_run(connection, attempt.run_ref)
             if run.status == "CANCELLED":
                 raise RunCancelledError("Run cancellation invalidates execution authority")
+            if run.status in _TERMINAL_RUN_STATUSES:
+                raise RunAuthorityError("Terminal Run has no execution authority")
             persisted = self._fetch_attempt(connection, run, attempt.attempt_id)
             self._require_same_attempt(persisted, attempt)
             now = self._database_now(connection)
@@ -816,6 +850,8 @@ class RunService:
             run = self._fetch_run(connection, attempt.run_ref)
             if run.status == "CANCELLED":
                 raise RunCancelledError("Run cancellation invalidates execution authority")
+            if run.status in _TERMINAL_RUN_STATUSES:
+                raise RunAuthorityError("Terminal Run has no execution authority")
             persisted = self._fetch_attempt(connection, run, attempt.attempt_id)
             self._require_same_attempt(persisted, attempt)
             self._require_current_authority(
@@ -861,6 +897,8 @@ class RunService:
         run = self._fetch_run(connection, attempt.run_ref)
         if run.status == "CANCELLED":
             raise RunCancelledError("Run cancellation invalidates execution authority")
+        if run.status in _TERMINAL_RUN_STATUSES:
+            raise RunAuthorityError("Terminal Run has no execution authority")
         persisted = self._fetch_attempt(connection, run, attempt.attempt_id)
         self._require_same_attempt(persisted, attempt)
         self._require_current_authority(
@@ -875,15 +913,20 @@ class RunService:
         requesting_access: ProjectAccess,
         run_ref: RunRef,
     ) -> Run:
-        from .event import EventLedger
+        from .event import EventConflictError, EventLedger
 
-        cancelled, _ = EventLedger(self.database_path).request_run_cancellation_with_event(
-            requesting_access,
-            run_ref,
-            idempotency_key=f"run-cancel-{run_ref.run_id}",
-            actor_ref="controller://run-service",
-            metadata={"source": "run-service"},
-        )
+        try:
+            cancelled, _ = EventLedger(
+                self.database_path
+            ).request_run_cancellation_with_event(
+                requesting_access,
+                run_ref,
+                idempotency_key=f"run-cancel-{run_ref.run_id}",
+                actor_ref="controller://run-service",
+                metadata={"source": "run-service"},
+            )
+        except EventConflictError as exc:
+            raise RunConflictError("Run cancellation conflicts") from exc
         return cancelled
 
     def requestRunCancellation(
@@ -915,6 +958,8 @@ class RunService:
         run = self._fetch_run(connection, run_ref)
         if run.status == "CANCELLED":
             return run
+        if run.status in _TERMINAL_RUN_STATUSES:
+            raise RunConflictError("Completed Run cannot be cancelled")
         now = self._database_now(connection)
         self._insert_cancellation(connection, run_ref, now)
         if run.current_owner_ref is not None and run.current_attempt_id is not None:
@@ -943,6 +988,98 @@ class RunService:
         self._insert_state(connection, cancelled)
         self._advance_head(connection, run, cancelled)
         return cancelled
+
+    def _complete_run_in_transaction(
+        self,
+        connection: sqlite3.Connection,
+        requesting_access: ProjectAccess,
+        run_ref: RunRef,
+        *,
+        completion_evidence_sha256: str,
+    ) -> Run:
+        """Complete one Run inside a caller-owned atomic database transaction."""
+
+        if (
+            not isinstance(completion_evidence_sha256, str)
+            or _SHA256_PATTERN.fullmatch(completion_evidence_sha256) is None
+        ):
+            raise RunContractError("Run completion evidence digest is malformed")
+
+        return self._terminate_run_in_transaction(
+            connection,
+            requesting_access,
+            run_ref,
+            terminal_status="SUCCEEDED",
+            completion_evidence_sha256=completion_evidence_sha256,
+        )
+
+    def _fail_run_in_transaction(
+        self,
+        connection: sqlite3.Connection,
+        requesting_access: ProjectAccess,
+        run_ref: RunRef,
+    ) -> Run:
+        """Fail one Run inside a caller-owned atomic database transaction."""
+
+        return self._terminate_run_in_transaction(
+            connection,
+            requesting_access,
+            run_ref,
+            terminal_status="FAILED",
+            completion_evidence_sha256=None,
+        )
+
+    def _terminate_run_in_transaction(
+        self,
+        connection: sqlite3.Connection,
+        requesting_access: ProjectAccess,
+        run_ref: RunRef,
+        *,
+        terminal_status: str,
+        completion_evidence_sha256: str | None,
+    ) -> Run:
+        if terminal_status not in {"SUCCEEDED", "FAILED"}:
+            raise RunContractError("Run terminal outcome is unsupported")
+        self._authorize(requesting_access, run_ref)
+        if not isinstance(connection, sqlite3.Connection) or not connection.in_transaction:
+            raise RunContractError("Run terminal transaction must already be active")
+        database_file = connection.execute("PRAGMA database_list").fetchone()[2]
+        if (
+            not isinstance(database_file, str)
+            or Path(database_file).resolve() != self.database_path
+        ):
+            raise RunContractError("Run terminal transaction uses a different database")
+        run = self._fetch_run(connection, run_ref)
+        if run.status == terminal_status:
+            return run
+        if run.status in _TERMINAL_RUN_STATUSES:
+            raise RunConflictError("Run already has a different terminal outcome")
+        if run.status != "RUNNING" or run.current_attempt_id is None:
+            raise RunAuthorityError("Run terminal transition requires current live authority")
+        now = self._database_now(connection)
+        current_attempt = self._fetch_attempt(connection, run, run.current_attempt_id)
+        self._require_current_authority(run, current_attempt, now)
+        self._insert_attempt_completion(
+            connection,
+            current_attempt,
+            completed_at=now,
+            terminal_outcome=terminal_status,
+        )
+        terminal = self._next_state(
+            run,
+            status=terminal_status,
+            current_attempt_id=run.current_attempt_id,
+            current_attempt_number=run.current_attempt_number,
+            current_fence=run.current_fence,
+            current_owner_ref=None,
+            lease_expires_at=None,
+            cancellation_requested_at=None,
+            completion_evidence_sha256=completion_evidence_sha256,
+            updated_at=now,
+        )
+        self._insert_state(connection, terminal)
+        self._advance_head(connection, run, terminal)
+        return terminal
 
     def _authorize(self, access: ProjectAccess, run_ref: RunRef) -> None:
         if not isinstance(run_ref, RunRef):
@@ -984,6 +1121,8 @@ class RunService:
     ) -> None:
         if run.status == "CANCELLED":
             raise RunCancelledError("Run cancellation invalidates execution authority")
+        if run.status in _TERMINAL_RUN_STATUSES:
+            raise RunAuthorityError("Terminal Run has no execution authority")
         if (
             run.status != "RUNNING"
             or run.current_attempt_id != attempt.attempt_id
@@ -1077,6 +1216,7 @@ class RunService:
         lease_expires_at: str | None,
         cancellation_requested_at: str | None,
         updated_at: str,
+        completion_evidence_sha256: str | None = None,
     ) -> Run:
         return Run(
             run_ref=run.run_ref,
@@ -1090,6 +1230,7 @@ class RunService:
             current_owner_ref=current_owner_ref,
             lease_expires_at=lease_expires_at,
             cancellation_requested_at=cancellation_requested_at,
+            completion_evidence_sha256=completion_evidence_sha256,
             created_at=run.created_at,
             updated_at=updated_at,
         )
@@ -1173,8 +1314,8 @@ class RunService:
                 project_id, run_id, state_version, status,
                 current_attempt_id, current_attempt_number, current_fence,
                 current_owner_ref, lease_expires_at, cancellation_requested_at,
-                updated_at, record_sha256
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                completion_evidence_sha256, updated_at, record_sha256
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 run.project_ref.value,
@@ -1187,6 +1328,7 @@ class RunService:
                 run.current_owner_ref,
                 run.lease_expires_at,
                 run.cancellation_requested_at,
+                run.completion_evidence_sha256,
                 run.updated_at,
                 run.state_sha256,
             ),
@@ -1340,6 +1482,10 @@ class RunService:
                         str | None,
                         row["cancellation_requested_at"],
                     ),
+                    completion_evidence_sha256=cast(
+                        str | None,
+                        row["completion_evidence_sha256"],
+                    ),
                     created_at=cast(str, identity["created_at"]),
                     updated_at=cast(str, row["updated_at"]),
                 )
@@ -1421,7 +1567,439 @@ class RunService:
                 raise RunIntegrityError("Completed ExecutionAttempt retained live authority")
             if latest.status != "RUNNING" and attempt.completed_at is None:
                 raise RunIntegrityError("Released Run attempt lacks immutable completion")
+        if latest.status == "SUCCEEDED":
+            self._verify_completion_manifest(connection, latest)
         return latest
+
+    @staticmethod
+    def _completion_manifest_payload(
+        run: Run,
+        *,
+        graph_id: str,
+        graph_revision: int,
+        run_state_version: int,
+        acceptance_events: list[dict[str, object]],
+        completion_event_id: str,
+        completion_event_record_sha256: str,
+        recorded_at: str,
+    ) -> dict[str, object]:
+        return {
+            "acceptance_events": acceptance_events,
+            "completion_event_id": completion_event_id,
+            "completion_event_record_sha256": completion_event_record_sha256,
+            "graph_id": graph_id,
+            "graph_revision": graph_revision,
+            "project_id": run.project_ref.value,
+            "recorded_at": recorded_at,
+            "run_id": run.run_id,
+            "run_state_version": run_state_version,
+            "task_digest": run.task_digest,
+            "task_id": run.task_ref.task_id,
+            "task_revision": run.task_ref.revision,
+        }
+
+    @classmethod
+    def _completion_manifest_sha256(
+        cls,
+        run: Run,
+        *,
+        graph_id: str,
+        graph_revision: int,
+        run_state_version: int,
+        acceptance_events: list[dict[str, object]],
+        completion_event_id: str,
+        completion_event_record_sha256: str,
+        recorded_at: str,
+    ) -> str:
+        return _sha256(
+            cls._completion_manifest_payload(
+                run,
+                graph_id=graph_id,
+                graph_revision=graph_revision,
+                run_state_version=run_state_version,
+                acceptance_events=acceptance_events,
+                completion_event_id=completion_event_id,
+                completion_event_record_sha256=completion_event_record_sha256,
+                recorded_at=recorded_at,
+            )
+        )
+
+    def _verify_completion_manifest(
+        self,
+        connection: sqlite3.Connection,
+        run: Run,
+    ) -> None:
+        if run.completion_evidence_sha256 is None:
+            raise RunIntegrityError("Succeeded Run completion evidence is missing")
+        table = connection.execute(
+            "SELECT 1 FROM sqlite_master WHERE type = 'table' "
+            "AND name = 'run_completion_manifests'"
+        ).fetchone()
+        if table is None:
+            raise RunIntegrityError("Run completion manifest storage is missing")
+        row = connection.execute(
+            """
+            SELECT * FROM run_completion_manifests
+            WHERE project_id = ? AND run_id = ?
+            """,
+            (run.project_ref.value, run.run_id),
+        ).fetchone()
+        if row is None:
+            raise RunIntegrityError("Succeeded Run completion manifest is missing")
+        try:
+            acceptance_events = json.loads(cast(str, row["acceptance_events_json"]))
+        except (TypeError, json.JSONDecodeError) as exc:
+            raise RunIntegrityError("Run completion manifest is malformed") from exc
+        if (
+            not isinstance(acceptance_events, list)
+            or len(acceptance_events) > 64
+            or _json(acceptance_events) != row["acceptance_events_json"]
+        ):
+            raise RunIntegrityError("Run completion acceptance manifest is malformed")
+        try:
+            recorded_at = _validate_timestamp(row["recorded_at"], "recorded_at")
+        except RunContractError as exc:
+            raise RunIntegrityError("Run completion timestamp is malformed") from exc
+        expected_manifest = self._completion_manifest_sha256(
+            run,
+            graph_id=cast(str, row["graph_id"]),
+            graph_revision=cast(int, row["graph_revision"]),
+            run_state_version=cast(int, row["run_state_version"]),
+            acceptance_events=cast(list[dict[str, object]], acceptance_events),
+            completion_event_id=cast(str, row["completion_event_id"]),
+            completion_event_record_sha256=cast(
+                str,
+                row["completion_event_record_sha256"],
+            ),
+            recorded_at=recorded_at,
+        )
+        if (
+            row["run_state_version"] != run.state_version
+            or row["task_id"] != run.task_ref.task_id
+            or row["task_revision"] != run.task_ref.revision
+            or not hmac.compare_digest(cast(str, row["task_digest"]), run.task_digest)
+            or not hmac.compare_digest(cast(str, row["record_sha256"]), expected_manifest)
+            or not hmac.compare_digest(run.completion_evidence_sha256, expected_manifest)
+        ):
+            raise RunIntegrityError("Run completion manifest differs from terminal state")
+        graph = connection.execute(
+            """
+            SELECT 1 FROM graph_revisions
+            WHERE project_id = ? AND graph_id = ? AND revision = ?
+              AND task_id = ? AND task_revision = ? AND task_digest = ?
+              AND run_id = ?
+            """,
+            (
+                run.project_ref.value,
+                row["graph_id"],
+                row["graph_revision"],
+                run.task_ref.task_id,
+                run.task_ref.revision,
+                run.task_digest,
+                run.run_id,
+            ),
+        ).fetchone()
+        if graph is None:
+            raise RunIntegrityError("Run completion Graph evidence is missing")
+        active_graph = connection.execute(
+            """
+            SELECT 1 FROM run_graph_heads
+            WHERE project_id = ? AND run_id = ? AND graph_id = ?
+              AND current_graph_revision = ?
+            """,
+            (
+                run.project_ref.value,
+                run.run_id,
+                row["graph_id"],
+                row["graph_revision"],
+            ),
+        ).fetchone()
+        if active_graph is None:
+            raise RunIntegrityError("Run completion Graph is not the active revision")
+        self._verify_run_completed_event(
+            connection,
+            run,
+            row,
+            cast(list[dict[str, object]], acceptance_events),
+        )
+        task_row = connection.execute(
+            """
+            SELECT acceptance_criteria_json FROM task_revisions
+            WHERE project_id = ? AND task_id = ? AND revision = ?
+              AND canonical_digest = ?
+            """,
+            (
+                run.project_ref.value,
+                run.task_ref.task_id,
+                run.task_ref.revision,
+                run.task_digest,
+            ),
+        ).fetchone()
+        if task_row is None:
+            raise RunIntegrityError("Run completion exact Task is missing")
+        try:
+            task_criteria = json.loads(cast(str, task_row["acceptance_criteria_json"]))
+        except (TypeError, json.JSONDecodeError) as exc:
+            raise RunIntegrityError("Run completion Task acceptance is malformed") from exc
+        if (
+            not isinstance(task_criteria, list)
+            or not all(isinstance(item, str) for item in task_criteria)
+            or _json(task_criteria) != task_row["acceptance_criteria_json"]
+        ):
+            raise RunIntegrityError("Run completion Task acceptance is malformed")
+        criteria: list[str] = []
+        for entry in acceptance_events:
+            if not isinstance(entry, dict) or set(entry) != {
+                "actor_ref",
+                "authority_attempt_id",
+                "authority_fence",
+                "criterion",
+                "event_id",
+                "event_record_sha256",
+                "evidence_ref",
+                "idempotency_key",
+            }:
+                raise RunIntegrityError("Run completion acceptance entry is malformed")
+            criterion = entry["criterion"]
+            if not isinstance(criterion, str) or not criterion:
+                raise RunIntegrityError("Run completion criterion is malformed")
+            criteria.append(criterion)
+            self._verify_completion_acceptance_event(connection, run, row, entry)
+        if criteria != sorted(set(criteria)):
+            raise RunIntegrityError("Run completion acceptance entries are not canonical")
+        if criteria != task_criteria:
+            raise RunIntegrityError("Run completion acceptance is incomplete")
+
+    def _verify_run_completed_event(
+        self,
+        connection: sqlite3.Connection,
+        run: Run,
+        manifest: sqlite3.Row,
+        acceptance_events: list[dict[str, object]],
+    ) -> None:
+        from .event import Event, EventError, EventRef
+        from .graph import GraphRef
+
+        event_row = connection.execute(
+            """
+            SELECT * FROM events
+            WHERE project_id = ? AND event_id = ? AND run_id = ?
+            """,
+            (
+                run.project_ref.value,
+                manifest["completion_event_id"],
+                run.run_id,
+            ),
+        ).fetchone()
+        graph_ref = GraphRef(
+            run.project_ref,
+            cast(str, manifest["graph_id"]),
+            cast(int, manifest["graph_revision"]),
+        )
+        metadata = {
+            "acceptance_evidence_sha256": _sha256(acceptance_events),
+            "state_version": run.state_version,
+        }
+        expected_key = f"p009-rc-{_sha256(graph_ref.value)[:32]}"
+        if (
+            event_row is None
+            or event_row["task_id"] != run.task_ref.task_id
+            or event_row["task_revision"] != run.task_ref.revision
+            or event_row["task_digest"] != run.task_digest
+            or event_row["graph_id"] != graph_ref.graph_id
+            or event_row["graph_revision"] != graph_ref.revision
+            or event_row["node_id"] is not None
+            or event_row["event_type"] != "RUN_COMPLETED"
+            or event_row["actor_ref"] != "controller://execution-service"
+            or event_row["idempotency_key"] != expected_key
+            or event_row["object_refs_json"] != "[]"
+            or event_row["metadata_json"] != _json(metadata)
+            or event_row["payload_ref_json"] is not None
+            or event_row["record_sha256"]
+            != manifest["completion_event_record_sha256"]
+        ):
+            raise RunIntegrityError("Run completion Event differs from manifest")
+        try:
+            event = Event(
+                EventRef(run.project_ref, cast(str, event_row["event_id"])),
+                run.task_ref,
+                run.run_ref,
+                graph_ref,
+                None,
+                cast(int, event_row["sequence"]),
+                cast(str, event_row["event_type"]),
+                cast(str, event_row["idempotency_key"]),
+                cast(str, event_row["actor_ref"]),
+                (),
+                cast(dict[str, str | int], metadata),
+                None,
+                cast(str, event_row["created_at"]),
+            )
+        except (TypeError, ValueError, EventError) as exc:
+            raise RunIntegrityError("Run completion Event is malformed") from exc
+        if (
+            event.semantic_digest != event_row["semantic_digest"]
+            or event.record_sha256 != event_row["record_sha256"]
+        ):
+            raise RunIntegrityError("Run completion Event digest differs")
+        object_count = connection.execute(
+            "SELECT COUNT(*) FROM event_objects WHERE project_id = ? AND event_id = ?",
+            (run.project_ref.value, event.event_ref.event_id),
+        ).fetchone()[0]
+        sequences = tuple(
+            row["sequence"]
+            for row in connection.execute(
+                """
+                SELECT sequence FROM events
+                WHERE project_id = ? AND run_id = ? ORDER BY sequence
+                """,
+                (run.project_ref.value, run.run_id),
+            ).fetchall()
+        )
+        head = connection.execute(
+            "SELECT * FROM run_event_heads WHERE project_id = ? AND run_id = ?",
+            (run.project_ref.value, run.run_id),
+        ).fetchone()
+        expected_head = _sha256(
+            {
+                "current_event_id": event.event_ref.event_id,
+                "current_event_record_sha256": event.record_sha256,
+                "current_sequence": event.sequence,
+                "project_id": run.project_ref.value,
+                "run_id": run.run_id,
+                "updated_at": event.created_at,
+            }
+        )
+        if (
+            object_count != 0
+            or event.sequence is None
+            or sequences != tuple(range(1, event.sequence + 1))
+            or head is None
+            or head["current_sequence"] != event.sequence
+            or head["current_event_id"] != event.event_ref.event_id
+            or head["current_event_record_sha256"] != event.record_sha256
+            or head["updated_at"] != event.created_at
+            or head["record_sha256"] != expected_head
+        ):
+            raise RunIntegrityError("Run completion Event head or sequence differs")
+
+    def _verify_completion_acceptance_event(
+        self,
+        connection: sqlite3.Connection,
+        run: Run,
+        manifest: sqlite3.Row,
+        entry: dict[str, object],
+    ) -> None:
+        from .event import Event, EventError, EventRef
+        from .graph import GraphRef
+
+        event_row = connection.execute(
+            """
+            SELECT * FROM events
+            WHERE project_id = ? AND event_id = ? AND run_id = ?
+            """,
+            (run.project_ref.value, entry["event_id"], run.run_id),
+        ).fetchone()
+        metadata = {
+            "authority_attempt_id": entry["authority_attempt_id"],
+            "authority_fence": entry["authority_fence"],
+            "criterion": entry["criterion"],
+            "request_idempotency_key": entry["idempotency_key"],
+        }
+        object_refs = [entry["evidence_ref"]]
+        if (
+            event_row is None
+            or event_row["task_id"] != run.task_ref.task_id
+            or event_row["task_revision"] != run.task_ref.revision
+            or event_row["task_digest"] != run.task_digest
+            or event_row["graph_id"] != manifest["graph_id"]
+            or event_row["graph_revision"] != manifest["graph_revision"]
+            or event_row["node_id"] is not None
+            or event_row["event_type"] != "RUN_ACCEPTANCE_RECORDED"
+            or event_row["actor_ref"] != entry["actor_ref"]
+            or event_row["idempotency_key"] != self._acceptance_event_key(
+                cast(str, manifest["graph_id"]),
+                cast(int, manifest["graph_revision"]),
+                cast(str, entry["idempotency_key"]),
+            )
+            or event_row["object_refs_json"] != _json(object_refs)
+            or event_row["metadata_json"] != _json(metadata)
+            or event_row["payload_ref_json"] is not None
+            or event_row["record_sha256"] != entry["event_record_sha256"]
+        ):
+            raise RunIntegrityError("Run completion acceptance Event differs")
+        try:
+            event = Event(
+                EventRef(run.project_ref, cast(str, event_row["event_id"])),
+                run.task_ref,
+                run.run_ref,
+                GraphRef(
+                    run.project_ref,
+                    cast(str, manifest["graph_id"]),
+                    cast(int, manifest["graph_revision"]),
+                ),
+                None,
+                cast(int, event_row["sequence"]),
+                cast(str, event_row["event_type"]),
+                cast(str, event_row["idempotency_key"]),
+                cast(str, event_row["actor_ref"]),
+                tuple(cast(list[str], object_refs)),
+                cast(dict[str, str | int], metadata),
+                None,
+                cast(str, event_row["created_at"]),
+            )
+        except (TypeError, ValueError, EventError) as exc:
+            raise RunIntegrityError("Run completion acceptance Event is malformed") from exc
+        if (
+            event.semantic_digest != event_row["semantic_digest"]
+            or event.record_sha256 != event_row["record_sha256"]
+        ):
+            raise RunIntegrityError("Run completion acceptance Event digest differs")
+        authority = self._fetch_attempt(
+            connection,
+            run,
+            cast(str, entry["authority_attempt_id"]),
+        )
+        if (
+            authority.fence != entry["authority_fence"]
+            or authority.owner_ref != entry["actor_ref"]
+        ):
+            raise RunIntegrityError("Run completion acceptance authority differs")
+        object_rows = connection.execute(
+            """
+            SELECT object.*, artifact.record_sha256 AS durable_artifact_sha256
+            FROM event_objects AS object
+            LEFT JOIN artifact_revisions AS artifact
+              ON artifact.project_id = object.project_id
+             AND artifact.artifact_id = object.artifact_id
+             AND artifact.revision = object.artifact_revision
+            WHERE object.project_id = ? AND object.event_id = ?
+            """,
+            (run.project_ref.value, entry["event_id"]),
+        ).fetchall()
+        if (
+            len(object_rows) != 1
+            or object_rows[0]["object_ref"] != entry["evidence_ref"]
+            or object_rows[0]["object_kind"] != "artifact"
+            or object_rows[0]["artifact_record_sha256"]
+            != object_rows[0]["durable_artifact_sha256"]
+        ):
+            raise RunIntegrityError("Run completion acceptance Artifact differs")
+
+    @staticmethod
+    def _acceptance_event_key(
+        graph_id: str,
+        graph_revision: int,
+        idempotency_key: str,
+    ) -> str:
+        digest = _sha256(
+            {
+                "graph_id": graph_id,
+                "graph_revision": graph_revision,
+                "idempotency_key": idempotency_key,
+            }
+        )
+        return f"p009-ra-{digest[:32]}"
 
     def _fetch_attempts(
         self,
@@ -1570,5 +2148,5 @@ class RunService:
                 or current.current_attempt_number != previous.current_attempt_number
             ):
                 raise RunIntegrityError("Run attempt identity changed without a new fence")
-            if previous.status == "CANCELLED" and current != previous:
-                raise RunIntegrityError("Cancelled Run authority history was extended")
+            if previous.status in _TERMINAL_RUN_STATUSES and current != previous:
+                raise RunIntegrityError("Terminal Run authority history was extended")

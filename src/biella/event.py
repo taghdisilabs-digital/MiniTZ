@@ -30,6 +30,7 @@ from .run import (
     Run,
     RunAuthorityError,
     RunError,
+    RunIntegrityError,
     RunRef,
     RunService,
 )
@@ -83,6 +84,7 @@ _SECRET_VALUE_PATTERNS = (
     re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
 )
 _MAX_ACTOR_REF_BYTES = 1024
+_MAX_OBJECT_REFS = 128
 
 
 class EventError(Exception):
@@ -268,7 +270,10 @@ class Event:
         ):
             raise EventContractError("Event idempotency key is malformed")
         _validate_actor_ref(self.actor_ref)
-        if not isinstance(self.object_refs, tuple) or len(self.object_refs) > 32:
+        if (
+            not isinstance(self.object_refs, tuple)
+            or len(self.object_refs) > _MAX_OBJECT_REFS
+        ):
             raise EventContractError("Event object refs must be a bounded tuple")
         if not all(
             isinstance(reference, str)
@@ -570,9 +575,14 @@ class EventLedger:
         authority_attempt: ExecutionAttempt | None,
     ) -> Event:
         self._require_transaction(connection)
-        if event_type == "RUN_CANCELLED":
+        if event_type in {
+            "RUN_ACCEPTANCE_RECORDED",
+            "RUN_CANCELLED",
+            "RUN_COMPLETED",
+            "RUN_FAILED",
+        }:
             raise EventContractError(
-                "RUN_CANCELLED must use the atomic Run cancellation Event API"
+                f"{event_type} must use its atomic Run transition API"
             )
         return self._append_in_transaction(
             connection,
@@ -601,64 +611,40 @@ class EventLedger:
         actor_ref: str,
         metadata: Mapping[str, EventValue],
     ) -> tuple[Run, Event]:
-        self.runs.get_run(requesting_access, run_ref)
-        connection = self._connect()
+        from .execution import (
+            NodeExecutionConflictError,
+            NodeExecutionService,
+        )
+
         try:
-            connection.execute("BEGIN IMMEDIATE")
-            current = self.runs._fetch_run(connection, run_ref)
-            prior_events = self._fetch_verified_run_events(connection, run_ref)
-            cancellation_events = tuple(
-                event for event in prior_events if event.event_type == "RUN_CANCELLED"
-            )
-            if current.status == "CANCELLED":
-                if len(cancellation_events) != 1:
-                    raise EventIntegrityError(
-                        "Cancelled Run lacks exactly one atomic cancellation Event"
-                    )
-                if cancellation_events[0].idempotency_key != idempotency_key:
-                    raise EventConflictError(
-                        "Run cancellation already has a different idempotency identity"
-                    )
-                cancelled = current
-            else:
-                if cancellation_events:
-                    raise EventIntegrityError(
-                        "Live Run already has a terminal cancellation Event"
-                    )
-                cancelled = self.runs._request_run_cancellation_in_transaction(
-                    connection,
-                    requesting_access,
-                    run_ref,
-                )
-            event = self._append_in_transaction(
-                connection,
+            cancelled = NodeExecutionService(self.database_path).cancel_run(
                 requesting_access,
-                project_ref=run_ref.project_ref,
-                task_ref=cancelled.task_ref,
-                run_ref=run_ref,
-                graph_ref=None,
-                node_ref=None,
-                event_type="RUN_CANCELLED",
+                run_ref,
                 idempotency_key=idempotency_key,
                 actor_ref=actor_ref,
-                object_refs=(),
-                metadata=metadata,
-                payload_ref=None,
-                authority_attempt=None,
-                require_run_authority=False,
+                _run_event_metadata=metadata,
             )
-            connection.commit()
-            return cancelled, event
-        except sqlite3.IntegrityError as exc:
-            connection.rollback()
-            if "injected" in str(exc):
-                raise
+        except NodeExecutionConflictError as exc:
             raise EventConflictError("Cancellation Event conflicts") from exc
-        except Exception:
-            connection.rollback()
-            raise
-        finally:
-            connection.close()
+        cancellation_events = tuple(
+            event
+            for event in self.list_run_events(requesting_access, run_ref)
+            if event.event_type == "RUN_CANCELLED"
+        )
+        if len(cancellation_events) != 1:
+            raise EventIntegrityError(
+                "Cancelled Run lacks exactly one atomic cancellation Event"
+            )
+        event = cancellation_events[0]
+        if (
+            event.idempotency_key != idempotency_key
+            or event.actor_ref != actor_ref
+            or dict(event.metadata) != dict(metadata)
+        ):
+            raise EventConflictError(
+                "Run cancellation already has different idempotency semantics"
+            )
+        return cancelled, event
 
     def get_event(
         self,
@@ -695,7 +681,12 @@ class EventLedger:
         run_ref: RunRef,
     ) -> tuple[Event, ...]:
         self._authorize(requesting_access, run_ref.project_ref)
-        self.runs.get_run(requesting_access, run_ref)
+        try:
+            self.runs.get_run(requesting_access, run_ref)
+        except RunIntegrityError as exc:
+            raise EventIntegrityError(
+                "Run-scoped Event completion evidence failed verification"
+            ) from exc
         connection = self._connect()
         try:
             connection.execute("BEGIN")
@@ -943,8 +934,10 @@ class EventLedger:
     ) -> tuple[tuple[str, ...], dict[str, Artifact]]:
         if isinstance(values, (str, bytes)) or not isinstance(values, Sequence):
             raise EventContractError("Event object_refs must be a sequence")
-        if len(values) > 32:
-            raise EventContractError("Event object_refs exceeds 32 entries")
+        if len(values) > _MAX_OBJECT_REFS:
+            raise EventContractError(
+                f"Event object_refs exceeds {_MAX_OBJECT_REFS} entries"
+            )
         refs: list[str] = []
         artifacts: dict[str, Artifact] = {}
         content_annotations: dict[str, str] = {}
