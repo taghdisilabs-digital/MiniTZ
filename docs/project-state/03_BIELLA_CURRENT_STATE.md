@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-28 16:47 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-28T16:47:04+02:00"
+state_timestamp_local: "2026-08-28 18:08 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-28T18:08:23+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: 757aff748f2156de918e4abeca2e317fc25208a2
-    tree: c6fec721da90759377fab91656ae4eb30199d76f
+    commit: 02f89c0d17d2f08a6c7b03f7faa285993f452891
+    tree: 7b8a976bf2a6d6b17a0b85359f6e9b6c570f7358
     observed_date: 2026-08-28
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p1_04_implementation_post_push_exact_readback
+    observation_context: p1_05_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: 757aff748f2156de918e4abeca2e317fc25208a2
-    tree: c6fec721da90759377fab91656ae4eb30199d76f
+    head: 02f89c0d17d2f08a6c7b03f7faa285993f452891
+    tree: 7b8a976bf2a6d6b17a0b85359f6e9b6c570f7358
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 14
+    durable_prompts_complete: 15
     durable_prompts_total: 51
     phase: P1
-    active_prompt: P1-05
-    active_prompt_title: Provider-Neutral Model and Tool Call Ledger
+    active_prompt: P1-06
+    active_prompt_title: Durable Checkpoint and Resume
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -590,6 +590,71 @@ engine:
       - src/biella/engine_memory.py
       - src/biella/runtime.py
       - tests/test_p1_04_engine_knowledge.py
+    p1_05_status: DURABLY_COMPLETE
+    p1_05_source_commit: 555fadaa4a5557598752e331d9003b0aa0e5b43a
+    p1_05_result_commit: 02f89c0d17d2f08a6c7b03f7faa285993f452891
+    p1_05_result_tree: 7b8a976bf2a6d6b17a0b85359f6e9b6c570f7358
+    p1_05_remote_readback: VERIFIED
+    p1_05_implementation:
+      production_modules_added: 1
+      public_exports_changed: 16
+      RunMemory_reference_seam_changed: true
+      test_methods_added: 15
+      installed_restart_programs_added: 2
+      migrations_added: 0
+      schema_tables_added: 4
+      authority_model: exact_live_NodeExecutionAttempt_owner_fence_Run_authority_and_Node_capability_required_for_every_call_start_and_terminal_transition
+      integrity_model: immutable_start_and_terminal_Event_anchors_with_recursive_retry_parent_verification_cycle_depth_guards_and_monotonic_status_heads
+      payload_model: exact_ContentRef_or_ArtifactRef_only_with_secret_safe_bounded_metadata_and_no_large_bodies
+    p1_05_validation:
+      focused_functional_pytest: "14 passed; 4 subtests passed; 0 failed; 0 skipped; 5.79s"
+      focused_T15_unittest: "1 passed; 0 failed; 0 skipped; 890.631s; executed all 305 predecessors, strict mypy, tamper attacks, exact wheel comparison, clean install, separate installed writer and reader"
+      focused_total: "15 passed; 0 failed; 0 skipped"
+      predecessor_regression: "305 executed inside T15; 0 failed; 0 errors; 0 skipped"
+      p1_02_nested_qualification: "1 passed; 242 predecessors plus build/install gate; 104.990s"
+      mypy_strict: "33 source/test files; 0 issues; mypy 2.3.1"
+      compileall: PASS
+      test_quality_scan: "P1-05 skip, placeholder, TODO, FIXME, and NotImplemented executable-test hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 5980af58476f6194bb4e26e31eebb11abd0877bf77b5c02c91aee190bb7f7fb3; 16 source modules byte-identical"
+      installed_wheel_restart: "separate installed-package writer and reader shared durable SQLite; FAILED predecessor, SUCCEEDED retry, nested ToolCall, Event mappings, RunMemory call refs, and restart reconstruction verified"
+      remote_source_gate: "fresh GitHub clone at exact commit 02f89c0d17d2f08a6c7b03f7faa285993f452891 and tree 7b8a976bf2a6d6b17a0b85359f6e9b6c570f7358; 14 functional tests and 4 subtests passed; strict mypy and compileall passed"
+      remote_source_wheel: "built and installed from exact fresh GitHub clone; sha256 92364ea18006e661617b10e60d779fc3d9812914d52dae755f09772f94502449"
+      remote_required_paths_and_bytes: "GitHub branch, commit, tree, seven blob IDs, sizes, and SHA256 bytes independently read back and matched"
+      independent_review: "READY; no Critical or Important findings after start-anchor, terminal-anchor, secret-form, zero-input RunMemory, linked-parent, linked-retry, cycle, and depth hardening"
+    p1_05_kpi:
+      significant_calls_without_call_id: 0
+      calls_without_Run_Node_binding: 0
+      fabricated_usage_metrics: 0
+      raw_credentials_in_call_ledger: 0
+      provider_trace_dependency: 0
+      terminal_call_regressions: 0
+    p1_05_qualification:
+      ModelCall: VERIFIED
+      ToolCall: VERIFIED
+      provider_neutral_call_IDs: VERIFIED
+      exact_Project_Task_Run_Graph_Node_attempt_fence_capability_attribution: VERIFIED
+      nested_and_direct_ToolCall_authority: VERIFIED
+      retry_purpose_and_new_ID_preservation: VERIFIED
+      terminal_status_monotonicity: VERIFIED
+      nullable_usage_cost_and_per_metric_source: VERIFIED
+      ContentRef_and_ArtifactRef_payload_boundary: VERIFIED
+      start_and_terminal_Event_anchors: VERIFIED
+      Event_and_RunMemory_call_discoverability: VERIFIED
+      provider_trace_independence: VERIFIED
+      Project_isolation_and_foreign_output_denial: VERIFIED
+      idempotency_concurrency_restart_and_recursive_link_integrity: VERIFIED
+      secret_safety_and_credential_admission_denial: VERIFIED
+      arbitrary_provider_model_tool_deployment_runtime_IDs: VERIFIED
+      raw_QuarantineRef_runtime_dependency: 0
+    p1_05_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/call_ledger.py
+      - src/biella/run_memory.py
+      - tests/fixtures/p1_05_installed_reader.py
+      - tests/fixtures/p1_05_installed_writer.py
+      - tests/test_p0_10_p0_integration_qualification.py
+      - tests/test_p1_05_call_ledger.py
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -638,10 +703,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P1-05
-    title: Provider-Neutral Model and Tool Call Ledger
-    drive_id: 1iKl6rJcmQENG9UolH86DFlj1y2kY5FR_ZPy2NMGmOzI
-    canonical_prompt_text_sha256: 2463f85ab6d77baeab859d8227f1cda84daadb069ccc13f45799b6c69f92a43b
+    id: P1-06
+    title: Durable Checkpoint and Resume
+    drive_id: 116Lf3h6Ermqveds96ifQA3AneaC_7giEuMGddMhfimU
+    canonical_prompt_text_sha256: 6232b3676bf75f2e0109d30b003a1a0faca609c7b1e955446d8280b6fd4615b8
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -708,36 +773,36 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P1-05
-  global_number: 15
-  title: Provider-Neutral Model and Tool Call Ledger
-  prompt_drive_id: 1iKl6rJcmQENG9UolH86DFlj1y2kY5FR_ZPy2NMGmOzI
-  predecessor_result_commit: 757aff748f2156de918e4abeca2e317fc25208a2
-  predecessor_result_tree: c6fec721da90759377fab91656ae4eb30199d76f
+  id: P1-06
+  global_number: 16
+  title: Durable Checkpoint and Resume
+  prompt_drive_id: 116Lf3h6Ermqveds96ifQA3AneaC_7giEuMGddMhfimU
+  predecessor_result_commit: 02f89c0d17d2f08a6c7b03f7faa285993f452891
+  predecessor_result_tree: 7b8a976bf2a6d6b17a0b85359f6e9b6c570f7358
 
 next_transition:
-  - verify_P1_04_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P1_05_prompt_and_directly_required_Task_Run_Graph_Node_Artifact_ContentRef_Event_and_RunMemory_interfaces_only
-  - implement_provider_neutral_ModelCall_and_ToolCall_with_exact_execution_attribution
-  - enforce_ContentRef_payload_secret_safety_nullable_usage_cost_provenance_and_terminal_status_monotonicity
-  - prove_nested_and_direct_tool_calls_Project_isolation_retry_distinction_provider_trace_independence_and_RunMemory_discoverability
+  - verify_P1_05_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P1_06_prompt_and_directly_required_Run_Task_Graph_Node_execution_Artifact_ContentRef_Event_RunMemory_and_call_ledger_interfaces_only
+  - implement_versioned_immutable_RunCheckpoint_as_content_addressed_Artifact_Event_and_latest_ref
+  - implement_current_durable_state_wins_reconciliation_and_resume_with_new_fences
+  - prove_completed_valid_Node_reuse_dependency_aware_invalidation_newer_Graph_Event_preservation_and_terminal_Run_non_resurrection
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P1_05_before_opening_P1_06
+  - close_P1_06_before_opening_P1_07
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - broaden_P1_05_into_checkpointing_resource_inventory_scheduling_routing_or_later_numbered_architecture
+  - broaden_P1_06_into_resource_inventory_scheduling_routing_or_later_numbered_architecture
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P1_05_before_P1_04_durable_close
+  - start_P1_06_before_P1_05_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
