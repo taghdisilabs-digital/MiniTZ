@@ -4,51 +4,52 @@
 schema: biella.active_task/v3
 
 task:
-  id: P2-02
-  global_number: 21
+  id: P2-03
+  global_number: 22
   phase: P2
-  title: Bounded Shell and Managed Process Execution
-  state: READY_AFTER_P2_01_DURABLE_CLOSE
+  title: Exact-Revision Git Repository Adapter
+  state: READY_AFTER_P2_02_DURABLE_CLOSE
   exact_prompt:
-    title: 21_P2-02_Bounded_Shell_and_Managed_Process_Execution.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/21_P2-02_Bounded_Shell_and_Managed_Process_Execution.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/21_P2-02_Bounded_Shell_and_Managed_Process_Execution.md.docx
-    drive_id: 1FqsA8OT0qgDpNfGobSJcDudPVNpVkzAyCEeD1Ad0Ba8
-    local_docx_sha256: 524b90ead900a0152e23f84d5ba34ca88cb9d6125fa33dc46f035c5717669f10
-    live_drive_exported_docx_sha256: 28a7f420cf8c56096245889a10f9fed229deaa603b5510e718ddfb63909165a6
-    canonical_text_sha256: c522c2ac560d615e5aab10dd9288da3faa0b11aeaa54cfb139a7c2e8e3f31e9f
+    title: 22_P2-03_Exact_Revision_Git_Repository_Adapter.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/22_P2-03_Exact_Revision_Git_Repository_Adapter.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/22_P2-03_Exact_Revision_Git_Repository_Adapter.md.docx
+    drive_id: 1508K_PyL7nVdCdvlRUgg0h4L-_whON9Sbyx07u0wYQY
+    local_docx_sha256: c39b2c17b8e5185b257a835efc337447a1f1b70ad94b08ffe832610be6ee098f
+    live_drive_exported_docx_sha256: 83a3d2d6452779e115154909a61006a709857b75301c2674b795c9ca8ba72850
+    canonical_text_sha256: dbd1c170af28df6546246e01a677dc687fce16d60ea6fc5343cded76ed29817e
     canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P2-01
-    result_commit: bc728ce53160c8bbc0cad8ec0bbf9fb09db6b737
-    result_tree: d8b6f53385b35e77e4a8bb01d2e734568107137f
+    id: P2-02
+    result_commit: 0e61e36865339347ff52213e04ef22e21d44de6f
+    result_tree: dafa639eee961daa89a04d3c69d0a88d2c27f6b3
     remote_readback: VERIFIED
     remote_required_paths_and_bytes: VERIFIED
     focused_type_build_installed_restart_predecessor_and_full_regression: VERIFIED
-  numbered_successor: P2-03
+  numbered_successor: P2-04
 
 execution_boundary:
   start_only_after_predecessor_durable_close: satisfied
   load_only:
-    - exact_P2_02_canonical_prompt
+    - exact_P2_03_canonical_prompt
     - current_state_and_active_task_continuity
-    - accepted_FilesystemRoot_Project_Task_Run_Graph_Node_attempt_Artifact_ContentRef_ToolCall_Event_ResourceAllocation_interfaces_directly_required
+    - accepted_Project_FilesystemRoot_ProcessExecutionRequest_ToolCall_Event_Artifact_ContentRef_and_repository_interfaces_directly_required
     - directly_touched_source_and_task_scoped_tests
   do_not_open:
-    - P2_03_or_later_prompt_bodies_before_P2_02_durable_close
+    - P2_04_or_later_prompt_bodies_before_P2_03_durable_close
     - unrelated_historical_backup_or_legacy_material
   preserve:
-    - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ToolCall_Event_and_ResourceAllocation_identity
+    - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ToolCall_Event_ResourceAllocation_and_managed_process_identity
     - P2_01_authorized_root_path_streaming_atomic_IO_idempotency_and_Project_isolation_contracts
+    - P2_02_direct_argv_explicit_shell_bounded_output_timeout_cancellation_process_ownership_and_truthful_policy_contracts
     - all_earlier_isolation_provenance_durability_routing_scheduler_and_quarantine_firewall_contracts
 
 canonical_prompt_text: |-
-  PROMPT 21/51 - P2-02
+  PROMPT 22/51 - P2-03
 
   TITLE
 
-  Bounded Shell and Managed Process Execution
+  Exact-Revision Git Repository Adapter
 
   PHASE
 
@@ -56,7 +57,7 @@ canonical_prompt_text: |-
 
   GOAL
 
-  Execute real tools/processes with executable+argv semantics, bounded output, timeout, cancellation, process ownership, resource policy, and exact ToolCall evidence.
+  Operate on Git repositories from exact revisions, preserve dirty/unrelated user state, use isolated candidate workspaces, and record exact diff/commit/tree identities without implicit push.
 
   CURRENT VERIFIED STATE
 
@@ -74,7 +75,7 @@ canonical_prompt_text: |-
 
   DEPENDENCIES
 
-  - Prompt 20/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
+  - Prompt 21/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
 
   - All earlier accepted contracts used by this task; inspect the repository instead of assuming interface names.
 
@@ -90,15 +91,15 @@ canonical_prompt_text: |-
 
   IN SCOPE
 
-  - Prefer executable + argument array over arbitrary shell strings; shell interpreter is explicit capability when required.
+  - Define RepositoryRef/RepositoryWorkspaceRef with exact full commit/tree.
 
-  - Define ProcessExecutionRequest with working root, environment allowlist/overrides, stdin ref, time/output limits, network policy, resource allocation.
+  - Inspect HEAD/status/dirty state; candidate changes use isolated worktree/workspace rather than destructive reset.
 
-  - Track durable process execution identity beyond PID; stream stdout/stderr to bounded ContentRefs with truncation evidence.
+  - Use managed process adapter and control hooks, filters, external diff/textconv, credential prompts, submodules/LFS/symlinks according to supported policy.
 
-  - Cancellation terminates only owned process tree with escalation and truthful status; do not claim unsupported isolation enforcement.
+  - Capture diffs/untracked Artifact refs; commits record parent/new commit/tree; push is a separate explicit external side effect.
 
-  - Keep secrets out of environment evidence.
+  - Revalidate stale source where current-base authority matters.
 
   OUT OF SCOPE
 
@@ -108,27 +109,29 @@ canonical_prompt_text: |-
 
   REQUIRED IMPLEMENTATION
 
-  - Prefer executable + argument array over arbitrary shell strings; shell interpreter is explicit capability when required.
+  - Define RepositoryRef/RepositoryWorkspaceRef with exact full commit/tree.
 
-  - Define ProcessExecutionRequest with working root, environment allowlist/overrides, stdin ref, time/output limits, network policy, resource allocation.
+  - Inspect HEAD/status/dirty state; candidate changes use isolated worktree/workspace rather than destructive reset.
 
-  - Track durable process execution identity beyond PID; stream stdout/stderr to bounded ContentRefs with truncation evidence.
+  - Use managed process adapter and control hooks, filters, external diff/textconv, credential prompts, submodules/LFS/symlinks according to supported policy.
 
-  - Cancellation terminates only owned process tree with escalation and truthful status; do not claim unsupported isolation enforcement.
+  - Capture diffs/untracked Artifact refs; commits record parent/new commit/tree; push is a separate explicit external side effect.
 
-  - Keep secrets out of environment evidence.
+  - Revalidate stale source where current-base authority matters.
 
   REQUIRED INTERFACES
 
-  - ProcessExecutionRequest
+  - RepositoryRef
 
-  - managed process adapter
+  - GitAdapter
 
-  - process result/status/failure taxonomy
+  - candidate workspace/worktree APIs
+
+  - diff/commit/push receipts
 
   DATA / STATE CHANGES
 
-  - ToolCall/process execution evidence and output refs.
+  - Repository/workspace refs and commit/tree/diff evidence.
 
   FAILURE BEHAVIOR
 
@@ -144,219 +147,201 @@ canonical_prompt_text: |-
 
   TESTS
 
-  - Success/nonzero/missing executable.
+  - Clean/dirty repo preservation.
 
-  - Timeout and graceful/forced cancellation including child process.
+  - Exact commit checkout/candidate change/diff/commit.
 
-  - Output overflow/truncation and large streaming output.
+  - Stale base explicit.
 
-  - Environment secret filtering, working-directory escape, Project isolation.
+  - Unsafe hooks/filters/path traversal/.git mutation rejected.
 
-  - Network/resource enforcement classified REAL/unsupported honestly.
+  - Explicit safe test push only when Task authorizes.
+
+  - Project isolation.
 
   KPI
 
-  - unbounded_process_output=0
+  - repo_mutations_without_exact_base=0
 
-  - timeouts_reported_success=0
+  - unrelated_dirty_state_destroyed=0
 
-  - cancelled_processes_reported_success=0
+  - source_checkout_modified_by_candidate=0
 
-  - wrong_process_terminated=0
+  - unsafe_Git_config_execution=0
 
-  - secret_environment_values_persisted=0
+  - implicit_pushes=0
 
-  - unsupported_isolation_claimed_enforced=0
+  - unobserved_commit_claims=0
 
   RESTORED LONG-FORM REQUIREMENTS
 
-  MANAGED PROCESS CONTRACT
+  EXACT REPOSITORY IDENTITY
 
-  Implement process execution through a bounded ProcessAdapter/managed process capability.
+  Implement Git as a replaceable repository capability.
 
-  Prefer request shape based on:
+  Represent repository/source identity with exact:
 
-  executable
+  - repository ref/location;
 
-  argv[]
+  - commit SHA;
 
-  working_directory_ref
+  - tree SHA where useful;
 
-  environment / secret refs
+  - submodule refs where relevant;
 
-  stdin ref?
+  - worktree/candidate identity;
 
-  stdout/stderr capture policy
+  - Project scope.
 
-  timeout
+  Do not use mutable branch alone as Task source authority.
 
-  resource limits
+  ADAPTER CAPABILITIES
 
-  network policy classification
+  Support bounded operations equivalent to:
 
-  project/run/node attribution
+  - inspect repository;
 
-  cancellation
+  - status;
 
-  Avoid a shell command string unless an explicit shell capability is required.
+  - diff;
 
-  EXECUTABLE + ARGV
+  - read exact source;
 
-  Default to direct executable + argv to avoid quoting/injection ambiguity.
+  - create candidate worktree;
 
-  If shell execution is supported, make it an explicit implementation/capability with exact shell/runtime identity.
+  - apply/edit candidate;
 
-  WORKING DIRECTORY
+  - commit candidate;
 
-  Working directory must resolve through authorized FilesystemRoot/Workspace.
+  - fetch when Task/network policy permits;
 
-  Do not accept arbitrary host CWD.
+  - push only under explicit external/Project side-effect authority.
 
-  ENVIRONMENT
+  Git CLI may be used through P2-02; Git itself remains adapter implementation.
 
-  Use allowlisted/inherited environment policy.
+  DIRTY STATE
 
-  Secrets should be injected through secret refs at runtime and must not be recorded in ToolCall/Event/log metadata.
+  Before creating candidate:
 
-  Record which non-secret environment/config identity affected execution when reproducibility requires it.
+  - detect tracked/staged/unstaged/untracked state;
 
-  STDOUT / STDERR
+  - preserve unrelated user work;
 
-  Capture bounded output.
+  - do not reset/clean/rebase user state silently.
 
-  Support:
+  If exact base cannot be materialized safely from dirty shared checkout, use isolated worktree/clone/candidate workspace.
 
-  - streaming to Content Object for large output;
+  CANDIDATE WORKTREE
 
-  - bounded preview/tail;
+  Preferred mutation: exact base commit/tree -> isolated worktree -> changes.
 
-  - truncation metadata;
+  Capture:
 
-  - exact exit status;
+  - base commit/tree;
 
-  - timestamps.
+  - current HEAD;
 
-  Do not keep unbounded output in database memory.
+  - staged diff;
 
-  Truncation must be explicit, not silent.
+  - unstaged diff;
 
-  TIMEOUT
+  - untracked files;
 
-  Timeout should terminate the owned process/process tree as supported.
+  - resulting candidate tree/commit.
 
-  Record:
+  Do not mutate protected source checkout unless Task explicitly authorizes Project write.
 
-  - timeout fired;
+  PATCH / APPLY SAFETY
 
-  - termination method;
+  Bind patches/diffs to expected base when possible.
 
-  - final/unknown child state.
+  Reject stale/context-mismatched patch rather than applying partially and claiming success.
 
-  Do not mark timeout success because the parent shell exited.
+  GIT CONFIG / HOOKS / FILTERS
 
-  CANCELLATION
+  Repository behavior may be affected by:
 
-  Cancellation should terminate only processes owned by the current execution identity.
+  - hooks;
 
-  Avoid PID-reuse attacks:
+  - clean/smudge filters;
 
-  - bind process start time/runtime identity/process group/job object;
+  - .gitattributes diff/textconv;
 
-  - never kill a new unrelated process merely because PID matches stale record.
+  - LFS;
 
-  PROCESS TREE
+  - submodules;
 
-  Where applicable, create process group/job/cgroup/container ownership so child processes do not escape cancellation/cleanup.
+  - symlinks.
 
-  Verify orphan behavior.
+  Do not execute uncontrolled hooks/filters from untrusted repository merely because git supports them. Use safe config/environment and record limitations.
 
-  RESOURCE LIMITS
+  SUBMODULES / LFS
 
-  Integrate requested/enforced/observed:
+  If Task/repository relies on them:
 
-  - CPU;
+  - preserve exact identities;
 
-  - RAM;
+  - obey network/credential policy;
 
-  - GPU visibility where runtime adapter supplies it;
+  - do not silently omit required content.
 
-  - file size/process count;
+  If unsupported/unavailable, fail/mark limitation honestly.
 
-  - timeout.
+  COMMIT
 
-  Truthfully report unsupported limits.
+  When Task requires commit:
 
-  NETWORK POLICY
+  - exact candidate tree;
 
-  If local process adapter cannot enforce network=NONE or RESTRICTED, report enforcement unsupported and use isolated runtime when Task requires it.
+  - coherent message;
 
-  Do not claim network isolation from convention.
+  - author identity according to Project/runtime policy;
 
-  OUTPUT ARTIFACTS
+  - verify commit/tree after creation.
 
-  Generated files become Artifacts through Workspace/Filesystem capture, not merely stdout claims.
+  No push is implied.
 
-  FAILURE TYPES
+  PUSH
 
-  Support categories such as:
+  git push is external side effect.
 
-  - EXECUTABLE_NOT_FOUND;
+  Require explicit Task authority and destination/ref identity.
 
-  - SPAWN_FAILED;
-
-  - EXIT_NONZERO;
-
-  - TIMEOUT;
-
-  - CANCELLED;
-
-  - OUTPUT_LIMIT;
-
-  - RESOURCE_LIMIT;
-
-  - POLICY_DENIED.
-
-  Preserve actual exit code/signal as metadata.
+  Do not force-push unless explicitly authorized.
 
   TESTS
 
-  - argv with spaces/metacharacters not shell-interpreted;
+  - inspect exact commit/tree;
 
-  - shell path only through explicit shell capability;
+  - dirty repository preserved;
 
-  - stdout/stderr;
+  - isolated candidate worktree;
 
-  - output truncation;
+  - changed file and untracked file captured;
 
-  - large streamed output;
+  - stale patch rejection;
 
-  - timeout;
+  - commit exact tree;
 
-  - cancellation;
+  - hook/filter safety fixture;
 
-  - child process tree termination;
+  - symlink path behavior;
 
-  - PID reuse/ownership;
+  - submodule/LFS fixture where practical;
 
-  - secret env absent from ledger;
+  - fetch governed by network policy;
 
-  - unauthorized working directory;
+  - push denied on read-only Task;
 
-  - resource limits;
+  - Project Beta cannot use Alpha repository ref;
 
-  - network-policy enforcement classification;
+  - worker/process loss does not lose persisted candidate diff/commit.
 
-  - concurrent processes;
-
-  - generated Artifact verification;
-
-  - process restart does not become durable Run authority.
-
-  Process is a Tool implementation, not the execution state machine.
+  Git source history is Project data. legacy donor Git ancestry must not become Biella history.
 
   USEFUL EVIDENCE — NON-GATING
 
-  - Biella can run real tools safely enough for later Git/build/DCC/media adapters with truthful evidence.
+  - Repository production is exact-revision and candidate-safe; commit/push claims require observation.
 
   DELIVERABLES
 
@@ -378,7 +363,7 @@ canonical_prompt_text: |-
 
   Use this result block:
 
-  PROMPT: 21/51 - P2-02
+  PROMPT: 22/51 - P2-03
 
   STATUS: COMPLETE / PARTIAL / BLOCKED
 

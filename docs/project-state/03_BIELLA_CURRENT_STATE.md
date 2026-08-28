@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-29 00:27 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-29T00:27:25+02:00"
+state_timestamp_local: "2026-08-29 01:12 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-29T01:12:11+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: bc728ce53160c8bbc0cad8ec0bbf9fb09db6b737
-    tree: d8b6f53385b35e77e4a8bb01d2e734568107137f
+    commit: 0e61e36865339347ff52213e04ef22e21d44de6f
+    tree: dafa639eee961daa89a04d3c69d0a88d2c27f6b3
     observed_date: 2026-08-28
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p2_01_implementation_post_push_exact_readback
+    observation_context: p2_02_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: bc728ce53160c8bbc0cad8ec0bbf9fb09db6b737
-    tree: d8b6f53385b35e77e4a8bb01d2e734568107137f
+    head: 0e61e36865339347ff52213e04ef22e21d44de6f
+    tree: dafa639eee961daa89a04d3c69d0a88d2c27f6b3
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 20
+    durable_prompts_complete: 21
     durable_prompts_total: 51
     phase: P2
-    active_prompt: P2-02
-    active_prompt_title: Bounded Shell and Managed Process Execution
+    active_prompt: P2-03
+    active_prompt_title: Exact-Revision Git Repository Adapter
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -1056,6 +1056,90 @@ engine:
       test_p2_01: "blob 52e72b4ffd6266e94bf3a246ee0fa75fd465fd51; size 36952; sha256 ab522bc99db43b23fae849932ad1fd1c9875218f5c6594b86bfc521f4089f426"
       installed_writer: "blob a44556d5f59b6d9b4e4d6b2c2f09424a662597e1; size 4049; sha256 37f206ef5b53f91fb92e56babba4f0f38d0dd6be559bb896c06124c1a6a93a8f"
       installed_reader: "blob c0d3f438a4f4f2ae12b1a47dae85f8293adbbc3d; size 1352; sha256 527891f0e1d264a9a71ab23abecc97eeaf8de6658ecbbb3839421617e430a3cf"
+    p2_02_status: DURABLY_COMPLETE
+    p2_02_source_commit: 50b54edce2b6d98849b3789e3a2769c32ebdafdc
+    p2_02_result_commit: 0e61e36865339347ff52213e04ef22e21d44de6f
+    p2_02_result_tree: dafa639eee961daa89a04d3c69d0a88d2c27f6b3
+    p2_02_remote_readback: VERIFIED
+    p2_02_implementation:
+      production_modules_added: 1
+      public_exports_added: 15
+      focused_pytest_cases: 15
+      installed_restart_programs_added: 2
+      migrations_added: 0
+      schema_tables_added: 3
+      capability_surface: process.execute_and_explicit_process.shell
+      request_model: exact_Project_FilesystemRoot_CWD_executable_argv_environment_secret_refs_stdin_ContentRef_timeout_output_network_resource_and_optional_ResourceAllocation
+      ownership_model: Linux_boot_id_process_start_ticks_executable_digest_inode_isolated_session_process_group_and_live_pidfd_pin
+      output_model: disk_backed_streaming_bounded_stdout_stderr_ContentRefs_with_preview_tail_secret_redaction_and_explicit_truncation
+      termination_model: owned_process_group_TERM_then_KILL_parent_exits_first_detection_and_no_stale_PID_signal
+      evidence_model: canonical_request_ContentRef_exact_ToolCall_start_terminal_Events_Run_produced_Artifact_result_manifest_and_process_identity
+      idempotency_model: immutable_attempt_scoped_claims_terminal_replay_result_manifest_consistency_and_erasure_detection
+    p2_02_validation:
+      focused_pytest: "15 passed; 0 failed; 0 skipped; 35.99s final exact-tree run including build and separate installed restart"
+      predecessor_exact_P2_01_T18: "1 passed; 26 deselected; 0 failed; 0 skipped; 3.11s"
+      broad_non_nested_regression: "404 passed; 20 nested qualification gates deselected; 127 subtests passed; 0 failed; 0 skipped; 150.58s"
+      mypy_strict: "57 source/test files; 0 issues; mypy 2.3.1"
+      compileall: PASS
+      diff_check: PASS
+      test_quality_scan: "P2-02 skip, placeholder, TODO, FIXME, and NotImplemented executable-test hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 b8973c295ecf2b985a1d26c464ceee2797fac81526b37fe59e665cad75ef9b01; process.py source and packaged bytes sha256 7b0d937f9dce3bd558e9dfc305e381ff2dceaa821e469ed1bf1755d2f82ea776 exactly matched"
+      installed_wheel_restart: "separate installed-package writer and reader shared durable SQLite, authorized FilesystemRoot, object storage, stdin/output ContentRefs, Artifact, ToolCall, and managed process evidence"
+      remote_required_paths_and_bytes: "GitHub branch, commit, tree, five blob IDs, sizes, SHA256 bytes, and exact decoded contents independently read back and matched"
+      adversarial_review: "PASS after parent-exits-first child cleanup, forced escalation, PID reuse, quick overflow race, split secret output, manifest forgery, claim erasure, CWD escape, cross-Project, read-only, and stale allocation hardening"
+      fallow_review: "NOT_RUN; fallow CLI unavailable on host; deterministic adversarial tests and static checks used"
+    p2_02_kpi:
+      unbounded_process_output: 0
+      timeouts_reported_success: 0
+      cancelled_processes_reported_success: 0
+      wrong_process_terminated: 0
+      secret_environment_values_persisted: 0
+      unsupported_isolation_claimed_enforced: 0
+    p2_02_reality_classification:
+      direct_executable_plus_argv_and_explicit_shell_capabilities: REAL
+      Linux_pidfd_session_process_group_timeout_and_cancellation: REAL
+      SQLite_claim_identity_result_and_manifest_integrity: REAL
+      FilesystemRoot_ContentRef_Artifact_ToolCall_and_Event_attribution: REAL
+      installed_wheel_separate_process_restart: REAL
+      RLIMIT_CPU_AS_FSIZE: REAL
+      RLIMIT_NPROC_as_root: CONFIGURED_EFFECT_NOT_GUARANTEED
+      local_network_NONE_or_RESTRICTED: UNSUPPORTED_POLICY_DENIED_and_not_claimed
+      cgroup_or_container_containment_of_descendants_that_create_a_new_session: UNSUPPORTED_BY_LOCAL_ADAPTER_and_not_claimed
+    p2_02_qualification:
+      ProcessExecutionRequest: VERIFIED
+      ManagedProcessAdapter_and_ManagedProcessIdentity: VERIFIED
+      ProcessResult_ProcessStatus_and_ProcessFailure_taxonomy: VERIFIED
+      direct_argv_metacharacter_inertness_and_explicit_shell: VERIFIED
+      success_nonzero_missing_executable_and_exact_exit_signal: VERIFIED
+      stdout_stderr_large_streaming_quick_overflow_and_explicit_truncation: VERIFIED
+      stdin_ContentRef_and_generated_file_Artifact_capture: VERIFIED
+      timeout_cancellation_forced_escalation_parent_exits_first_and_child_group_cleanup: VERIFIED
+      boot_starttime_pidfd_process_group_ownership_and_stale_PID_denial: VERIFIED
+      environment_allowlist_secret_refs_split_stream_redaction_and_zero_secret_persistence: VERIFIED
+      authorized_CWD_read_only_and_Project_scope: VERIFIED
+      network_policy_and_resource_limit_truthful_classification: VERIFIED
+      optional_ResourceAllocation_exact_scope_and_unavailable_stale_denial: VERIFIED
+      concurrent_processes_and_restart_idempotency: VERIFIED
+      result_manifest_trigger_bypass_tamper_and_claim_erasure_detection: VERIFIED
+      raw_QuarantineRef_runtime_dependency: 0
+    p2_02_schema_changes:
+      - managed_process_claims
+      - managed_process_executions
+      - managed_process_results
+      - immutable_claim_identity_and_result_integrity_guards
+    p2_02_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/process.py
+      - tests/fixtures/p2_02_installed_reader.py
+      - tests/fixtures/p2_02_installed_writer.py
+      - tests/test_p2_02_process.py
+    p2_02_remote_path_evidence:
+      src_biella_init: "blob a7650add6235207cd7de9f0ed45a3d3b496f0995; size 15192; sha256 d6e046d4c76812af43c8a13e0b6d6f4e7c73766e95dcaf4f571c16857cab86cf"
+      src_biella_process: "blob c1eb44a073ec7af3a1cea081296d5a0de676fa23; size 87579; sha256 7b0d937f9dce3bd558e9dfc305e381ff2dceaa821e469ed1bf1755d2f82ea776"
+      installed_reader: "blob 7c2a0ee8a0fa51c7e31435964d1dd5ce430efe18; size 1640; sha256 69fd65b32dc35288932fbffbf3e6c0f3d2dd87822089347d6dc06e39f65afab2"
+      installed_writer: "blob fefdfd3c86f8a6f65aa78fd9b331f3ddde916e62; size 4683; sha256 e22485279a4262c3bbe9bd5e6e48f5de8a6b91e45eb2a55779023af9ca241237"
+      test_p2_02: "blob 9c869c7ad3dc941616540731402428f48dd63192; size 34042; sha256 6a047358b7852464821817fcec6b12ac28e798279a949518eef200877ca0c29e"
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -1104,10 +1188,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P2-02
-    title: Bounded Shell and Managed Process Execution
-    drive_id: 1FqsA8OT0qgDpNfGobSJcDudPVNpVkzAyCEeD1Ad0Ba8
-    canonical_prompt_text_sha256: c522c2ac560d615e5aab10dd9288da3faa0b11aeaa54cfb139a7c2e8e3f31e9f
+    id: P2-03
+    title: Exact-Revision Git Repository Adapter
+    drive_id: 1508K_PyL7nVdCdvlRUgg0h4L-_whON9Sbyx07u0wYQY
+    canonical_prompt_text_sha256: dbd1c170af28df6546246e01a677dc687fce16d60ea6fc5343cded76ed29817e
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -1174,44 +1258,47 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P2-02
-  global_number: 21
-  title: Bounded Shell and Managed Process Execution
-  prompt_drive_id: 1FqsA8OT0qgDpNfGobSJcDudPVNpVkzAyCEeD1Ad0Ba8
-  predecessor_result_commit: bc728ce53160c8bbc0cad8ec0bbf9fb09db6b737
-  predecessor_result_tree: d8b6f53385b35e77e4a8bb01d2e734568107137f
+  id: P2-03
+  global_number: 22
+  title: Exact-Revision Git Repository Adapter
+  prompt_drive_id: 1508K_PyL7nVdCdvlRUgg0h4L-_whON9Sbyx07u0wYQY
+  predecessor_result_commit: 0e61e36865339347ff52213e04ef22e21d44de6f
+  predecessor_result_tree: dafa639eee961daa89a04d3c69d0a88d2c27f6b3
 
 next_transition:
-  - verify_P2_01_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P2_02_prompt_and_directly_required_FilesystemRoot_Node_attempt_ToolCall_Event_Artifact_ContentRef_ResourceAllocation_and_process_interfaces_only
-  - implement_ProcessExecutionRequest_and_replaceable_managed_process_adapter
-  - prefer_direct_executable_plus_argv_and_make_shell_execution_an_explicit_separate_capability
-  - enforce_authorized_working_root_environment_allowlist_secret_non_persistence_stdin_timeout_output_network_and_resource_policy
-  - bind_owned_process_identity_beyond_PID_and_terminate_only_the_owned_process_tree_with_truthful_escalation_status
-  - stream_bounded_stdout_and_stderr_to_ContentRefs_with_explicit_truncation_and_exact_exit_failure_taxonomy
-  - classify_network_and_resource_enforcement_REAL_or_UNSUPPORTED_without_fabrication
+  - verify_P2_02_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P2_03_prompt_and_directly_required_Project_FilesystemRoot_ProcessExecutionRequest_ToolCall_Event_Artifact_ContentRef_and_repository_interfaces_only
+  - implement_exact_RepositoryRef_RepositoryWorkspaceRef_and_replaceable_GitAdapter
+  - inspect_exact_HEAD_commit_tree_status_and_dirty_state_without_mutating_source_checkout
+  - materialize_exact_base_in_an_isolated_candidate_worktree_and_preserve_unrelated_user_state
+  - disable_uncontrolled_hooks_filters_textconv_credential_prompts_and_implicit_submodule_or_LFS_network_execution
+  - capture_staged_unstaged_and_untracked_candidate_evidence_as_ContentRefs_and_Artifacts
+  - bind_patches_to_expected_base_reject_stale_context_and_record_exact_parent_commit_new_commit_and_tree
+  - make_fetch_network_governed_and_push_a_separate_explicit_external_side_effect_without_force_by_default
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P2_02_before_opening_P2_03
+  - close_P2_03_before_opening_P2_04
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - accept_arbitrary_shell_strings_as_the_default_process_interface
-  - accept_arbitrary_host_working_directories_outside_authorized_FilesystemRoot
-  - persist_secret_environment_values_in_ToolCall_Event_or_process_evidence
-  - keep_unbounded_stdout_or_stderr_in_database_memory
-  - kill_a_process_by_stale_PID_without_exact_owned_process_identity
-  - claim_network_or_resource_isolation_that_the_active_adapter_did_not_enforce
+  - use_mutable_branch_name_without_exact_commit_and_tree_as_source_authority
+  - reset_clean_rebase_or_modify_the_protected_source_checkout_to_create_a_candidate
+  - execute_uncontrolled_repository_hooks_filters_textconv_credential_prompts_submodules_or_LFS
+  - apply_a_stale_or_partial_patch_and_claim_success
+  - mutate_dot_git_through_candidate_paths
+  - imply_push_from_commit_or_fetch
+  - push_without_explicit_Task_authority_destination_and_ref_identity
+  - force_push_without_explicit_authorization
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P2_03_before_P2_02_durable_close
+  - start_P2_04_before_P2_03_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
