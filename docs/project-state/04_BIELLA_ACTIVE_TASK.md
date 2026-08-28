@@ -4,51 +4,51 @@
 schema: biella.active_task/v3
 
 task:
-  id: P2-01
-  global_number: 20
+  id: P2-02
+  global_number: 21
   phase: P2
-  title: Universal Filesystem Capability Adapter
-  state: READY_AFTER_P1_09_DURABLE_CLOSE
+  title: Bounded Shell and Managed Process Execution
+  state: READY_AFTER_P2_01_DURABLE_CLOSE
   exact_prompt:
-    title: 20_P2-01_Universal_Filesystem_Capability_Adapter.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/20_P2-01_Universal_Filesystem_Capability_Adapter.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/20_P2-01_Universal_Filesystem_Capability_Adapter.md.docx
-    drive_id: 1cNVwywxtOOlbmNkiZRBZn6jhP_WlnTleDVTieWRXw5U
-    local_docx_sha256: 7b0adb20f74effd0b20f1f55b3220b6da11dac3bec3c521258a3f2e2063d9a41
-    live_drive_exported_docx_sha256: f4e6dfdf6c3bc9059c33384f72fa79f4837b314deee91a7e7acffba26eae0b8d
-    canonical_text_sha256: a9a7f0c5246eec864eae3f44f6171ef389129b602141f7fb74d33f8655c34534
+    title: 21_P2-02_Bounded_Shell_and_Managed_Process_Execution.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/21_P2-02_Bounded_Shell_and_Managed_Process_Execution.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/21_P2-02_Bounded_Shell_and_Managed_Process_Execution.md.docx
+    drive_id: 1FqsA8OT0qgDpNfGobSJcDudPVNpVkzAyCEeD1Ad0Ba8
+    local_docx_sha256: 524b90ead900a0152e23f84d5ba34ca88cb9d6125fa33dc46f035c5717669f10
+    live_drive_exported_docx_sha256: 28a7f420cf8c56096245889a10f9fed229deaa603b5510e718ddfb63909165a6
+    canonical_text_sha256: c522c2ac560d615e5aab10dd9288da3faa0b11aeaa54cfb139a7c2e8e3f31e9f
     canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P1-09
-    result_commit: 3508942cb7527dd0db43d19ae6ce31d937434192
-    result_tree: 9126aa1f965b027c4f922e95f52ce35d2b3c0988
+    id: P2-01
+    result_commit: bc728ce53160c8bbc0cad8ec0bbf9fb09db6b737
+    result_tree: d8b6f53385b35e77e4a8bb01d2e734568107137f
     remote_readback: VERIFIED
     remote_required_paths_and_bytes: VERIFIED
-    focused_functional_type_build_installed_restart_and_full_regression: VERIFIED
-  numbered_successor: P2-02
+    focused_type_build_installed_restart_predecessor_and_full_regression: VERIFIED
+  numbered_successor: P2-03
 
 execution_boundary:
   start_only_after_predecessor_durable_close: satisfied
   load_only:
-    - exact_P2_01_canonical_prompt
+    - exact_P2_02_canonical_prompt
     - current_state_and_active_task_continuity
-    - accepted_Project_Task_Run_Graph_Node_attempt_Artifact_ContentRef_ToolCall_Event_CapabilityImplementation_RoutingDecision_Scheduler_interfaces_directly_required
+    - accepted_FilesystemRoot_Project_Task_Run_Graph_Node_attempt_Artifact_ContentRef_ToolCall_Event_ResourceAllocation_interfaces_directly_required
     - directly_touched_source_and_task_scoped_tests
   do_not_open:
-    - P2_02_or_later_prompt_bodies_before_P2_01_durable_close
+    - P2_03_or_later_prompt_bodies_before_P2_02_durable_close
     - unrelated_historical_backup_or_legacy_material
   preserve:
-    - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_and_Resource_identity
-    - P1_09_provider_neutral_layered_routing_policy_egress_decision_and_scheduler_revalidation_contracts
-    - all_earlier_isolation_provenance_durability_and_quarantine_firewall_contracts
+    - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ToolCall_Event_and_ResourceAllocation_identity
+    - P2_01_authorized_root_path_streaming_atomic_IO_idempotency_and_Project_isolation_contracts
+    - all_earlier_isolation_provenance_durability_routing_scheduler_and_quarantine_firewall_contracts
 
 canonical_prompt_text: |-
-  PROMPT 20/51 - P2-01
+  PROMPT 21/51 - P2-02
 
   TITLE
 
-  Universal Filesystem Capability Adapter
+  Bounded Shell and Managed Process Execution
 
   PHASE
 
@@ -56,7 +56,7 @@ canonical_prompt_text: |-
 
   GOAL
 
-  Give Biella bounded real filesystem I/O through replaceable adapters while preserving authorized roots, exact byte identity, Project scope, streaming, cancellation, and Artifact provenance.
+  Execute real tools/processes with executable+argv semantics, bounded output, timeout, cancellation, process ownership, resource policy, and exact ToolCall evidence.
 
   CURRENT VERIFIED STATE
 
@@ -74,7 +74,7 @@ canonical_prompt_text: |-
 
   DEPENDENCIES
 
-  - Prompt 19/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
+  - Prompt 20/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
 
   - All earlier accepted contracts used by this task; inspect the repository instead of assuming interface names.
 
@@ -90,15 +90,15 @@ canonical_prompt_text: |-
 
   IN SCOPE
 
-  - Register filesystem.read/write/list/stat/mkdir/copy/move/remove capabilities.
+  - Prefer executable + argument array over arbitrary shell strings; shell interpreter is explicit capability when required.
 
-  - Define authorized FilesystemRoot with canonical path, Project/global scope, and READ_ONLY/READ_WRITE/TEMPORARY modes.
+  - Define ProcessExecutionRequest with working root, environment allowlist/overrides, stdin ref, time/output limits, network policy, resource allocation.
 
-  - Reject traversal, absolute-root escape, symlink/junction escape, unsafe special targets, and cross-project root binding.
+  - Track durable process execution identity beyond PID; stream stdout/stderr to bounded ContentRefs with truncation evidence.
 
-  - Stream large reads/writes; durable outputs become ContentRefs/Artifacts, never paths-as-authority.
+  - Cancellation terminates only owned process tree with escalation and truthful status; do not claim unsupported isolation enforcement.
 
-  - Attribute operations through ToolCall/Event and integrate cancellation/partial-output handling.
+  - Keep secrets out of environment evidence.
 
   OUT OF SCOPE
 
@@ -108,27 +108,27 @@ canonical_prompt_text: |-
 
   REQUIRED IMPLEMENTATION
 
-  - Register filesystem.read/write/list/stat/mkdir/copy/move/remove capabilities.
+  - Prefer executable + argument array over arbitrary shell strings; shell interpreter is explicit capability when required.
 
-  - Define authorized FilesystemRoot with canonical path, Project/global scope, and READ_ONLY/READ_WRITE/TEMPORARY modes.
+  - Define ProcessExecutionRequest with working root, environment allowlist/overrides, stdin ref, time/output limits, network policy, resource allocation.
 
-  - Reject traversal, absolute-root escape, symlink/junction escape, unsafe special targets, and cross-project root binding.
+  - Track durable process execution identity beyond PID; stream stdout/stderr to bounded ContentRefs with truncation evidence.
 
-  - Stream large reads/writes; durable outputs become ContentRefs/Artifacts, never paths-as-authority.
+  - Cancellation terminates only owned process tree with escalation and truthful status; do not claim unsupported isolation enforcement.
 
-  - Attribute operations through ToolCall/Event and integrate cancellation/partial-output handling.
+  - Keep secrets out of environment evidence.
 
   REQUIRED INTERFACES
 
-  - FilesystemAdapter
+  - ProcessExecutionRequest
 
-  - FilesystemRoot
+  - managed process adapter
 
-  - filesystem CapabilityImplementations
+  - process result/status/failure taxonomy
 
   DATA / STATE CHANGES
 
-  - Registered roots and ToolCall/Artifact evidence.
+  - ToolCall/process execution evidence and output refs.
 
   FAILURE BEHAVIOR
 
@@ -144,195 +144,219 @@ canonical_prompt_text: |-
 
   TESTS
 
-  - Valid read/write/copy/move/remove/list/stat.
+  - Success/nonzero/missing executable.
 
-  - Traversal and symlink escapes rejected.
+  - Timeout and graceful/forced cancellation including child process.
 
-  - Read-only root rejects write.
+  - Output overflow/truncation and large streaming output.
 
-  - Large streaming file path.
+  - Environment secret filtering, working-directory escape, Project isolation.
 
-  - Cancellation/partial output not accepted.
-
-  - Project Beta cannot access Alpha root.
+  - Network/resource enforcement classified REAL/unsupported honestly.
 
   KPI
 
-  - authorized_root_escapes=0
+  - unbounded_process_output=0
 
-  - unauthorized_writes=0
+  - timeouts_reported_success=0
 
-  - digest_mismatches_accepted=0
+  - cancelled_processes_reported_success=0
 
-  - partial_writes_claimed_success=0
+  - wrong_process_terminated=0
 
-  - large_files_forced_full_memory=0
+  - secret_environment_values_persisted=0
 
-  - unattributed_filesystem_operations=0
+  - unsupported_isolation_claimed_enforced=0
 
   RESTORED LONG-FORM REQUIREMENTS
 
-  FILESYSTEM AS A CAPABILITY ADAPTER
+  MANAGED PROCESS CONTRACT
 
-  Implement filesystem work behind a Project/Run/Node-attributed FilesystemAdapter, not direct arbitrary host filesystem access from agents/models.
+  Implement process execution through a bounded ProcessAdapter/managed process capability.
 
-  Representative operations:
+  Prefer request shape based on:
 
-  read
+  executable
 
-  write
+  argv[]
 
-  list
+  working_directory_ref
 
-  stat
+  environment / secret refs
 
-  mkdir
+  stdin ref?
 
-  copy
+  stdout/stderr capture policy
 
-  move
+  timeout
 
-  remove
+  resource limits
 
-  Keep the interface extensible without leaking one OS filesystem API into kernel contracts.
+  network policy classification
 
-  CONTROLLED ROOT
+  project/run/node attribution
 
-  Define FilesystemRoot or equivalent:
+  cancellation
 
-  - project_id / execution scope;
+  Avoid a shell command string unless an explicit shell capability is required.
 
-  - logical root identity;
+  EXECUTABLE + ARGV
 
-  - physical path/mount hidden behind adapter;
+  Default to direct executable + argv to avoid quoting/injection ambiguity.
 
-  - mode: read-only/read-write as appropriate;
+  If shell execution is supported, make it an explicit implementation/capability with exact shell/runtime identity.
 
-  - policy/ownership metadata.
+  WORKING DIRECTORY
 
-  A Node receives authorized roots, not arbitrary host path authority.
+  Working directory must resolve through authorized FilesystemRoot/Workspace.
 
-  PATH CANONICALIZATION
+  Do not accept arbitrary host CWD.
 
-  Before I/O:
+  ENVIRONMENT
 
-  - reject traversal outside root (..);
+  Use allowlisted/inherited environment policy.
 
-  - normalize separators safely;
+  Secrets should be injected through secret refs at runtime and must not be recorded in ToolCall/Event/log metadata.
 
-  - handle absolute paths;
+  Record which non-secret environment/config identity affected execution when reproducibility requires it.
 
-  - reject NUL/malformed paths;
+  STDOUT / STDERR
 
-  - consider case sensitivity/normalization on supported platforms.
+  Capture bounded output.
 
-  Do not use simple string prefix checks as the sole sandbox.
+  Support:
 
-  SYMLINK / JUNCTION / RACE SAFETY
+  - streaming to Content Object for large output;
 
-  Protect against:
+  - bounded preview/tail;
 
-  - symlink escape;
+  - truncation metadata;
 
-  - junction/reparse-point escape where platform applies;
+  - exact exit status;
 
-  - symlink swapped between validation and open;
+  - timestamps.
 
-  - parent directory replaced.
+  Do not keep unbounded output in database memory.
 
-  Use secure open/realpath/dirfd-style techniques available on the target platform and document unsupported protections honestly.
+  Truncation must be explicit, not silent.
 
-  READ
+  TIMEOUT
 
-  Read should:
+  Timeout should terminate the owned process/process tree as supported.
 
-  - enforce authorized root;
+  Record:
 
-  - stat/size bound;
+  - timeout fired;
 
-  - stream large content;
+  - termination method;
 
-  - optionally place durable output into Content Store/Artifact when Task requires durability;
+  - final/unknown child state.
 
-  - record ToolCall/operation evidence.
-
-  Do not load arbitrarily large files into memory.
-
-  WRITE
-
-  Support safe atomic write semantics where required:
-
-  - write temp within authorized target;
-
-  - fsync/close as appropriate;
-
-  - verify bytes/digest;
-
-  - atomic replace/rename;
-
-  - create Artifact/ContentRef when durable output.
-
-  Partial write must not be reported as accepted final Artifact.
-
-  COPY/MOVE/REMOVE
-
-  Enforce source and destination roots independently.
-
-  External/Project-authoritative deletion/mutation follows Task side-effect authority.
-
-  Do not let candidate Workspace tooling delete protected Project source unintentionally.
-
-  ARTIFACT INTEGRATION
-
-  Filesystem path is execution location, not Artifact identity.
-
-  Durable meaningful output: path -> exact bytes -> ContentRef -> Artifact.
+  Do not mark timeout success because the parent shell exited.
 
   CANCELLATION
 
-  Long copy/read/write operations should be cancellable where practical. Cancellation must leave output state explicit; partial file is not valid final output unless Task explicitly accepts partial evidence.
+  Cancellation should terminate only processes owned by the current execution identity.
 
-  PROJECT ISOLATION
+  Avoid PID-reuse attacks:
 
-  Beta cannot use Alpha root/path even if underlying host paths are guessable.
+  - bind process start time/runtime identity/process group/job object;
+
+  - never kill a new unrelated process merely because PID matches stale record.
+
+  PROCESS TREE
+
+  Where applicable, create process group/job/cgroup/container ownership so child processes do not escape cancellation/cleanup.
+
+  Verify orphan behavior.
+
+  RESOURCE LIMITS
+
+  Integrate requested/enforced/observed:
+
+  - CPU;
+
+  - RAM;
+
+  - GPU visibility where runtime adapter supplies it;
+
+  - file size/process count;
+
+  - timeout.
+
+  Truthfully report unsupported limits.
+
+  NETWORK POLICY
+
+  If local process adapter cannot enforce network=NONE or RESTRICTED, report enforcement unsupported and use isolated runtime when Task requires it.
+
+  Do not claim network isolation from convention.
+
+  OUTPUT ARTIFACTS
+
+  Generated files become Artifacts through Workspace/Filesystem capture, not merely stdout claims.
+
+  FAILURE TYPES
+
+  Support categories such as:
+
+  - EXECUTABLE_NOT_FOUND;
+
+  - SPAWN_FAILED;
+
+  - EXIT_NONZERO;
+
+  - TIMEOUT;
+
+  - CANCELLED;
+
+  - OUTPUT_LIMIT;
+
+  - RESOURCE_LIMIT;
+
+  - POLICY_DENIED.
+
+  Preserve actual exit code/signal as metadata.
 
   TESTS
 
-  - permitted read/write/list/stat;
+  - argv with spaces/metacharacters not shell-interpreted;
 
-  - path traversal;
+  - shell path only through explicit shell capability;
 
-  - absolute escape;
+  - stdout/stderr;
 
-  - symlink escape;
+  - output truncation;
 
-  - symlink race where testable;
+  - large streamed output;
 
-  - cross-Project root;
-
-  - read-only root mutation rejected;
-
-  - atomic write;
-
-  - interrupted write;
-
-  - large streamed file;
-
-  - exact ContentRef/Artifact;
-
-  - copy/move between authorized roots;
-
-  - unauthorized remove;
+  - timeout;
 
   - cancellation;
 
-  - restart/workspace rematerialization path changes do not alter Artifact identity.
+  - child process tree termination;
 
-  The filesystem adapter must be useful for real work while remaining subordinate to Project/Task authority.
+  - PID reuse/ownership;
+
+  - secret env absent from ledger;
+
+  - unauthorized working directory;
+
+  - resource limits;
+
+  - network-policy enforcement classification;
+
+  - concurrent processes;
+
+  - generated Artifact verification;
+
+  - process restart does not become durable Run authority.
+
+  Process is a Tool implementation, not the execution state machine.
 
   USEFUL EVIDENCE — NON-GATING
 
-  - Real controlled filesystem work produces exact Artifacts while OS/path mechanics remain adapter-local.
+  - Biella can run real tools safely enough for later Git/build/DCC/media adapters with truthful evidence.
 
   DELIVERABLES
 
@@ -354,7 +378,7 @@ canonical_prompt_text: |-
 
   Use this result block:
 
-  PROMPT: 20/51 - P2-01
+  PROMPT: 21/51 - P2-02
 
   STATUS: COMPLETE / PARTIAL / BLOCKED
 
