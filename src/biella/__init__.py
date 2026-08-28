@@ -88,6 +88,17 @@ from .artifact import (
     ContentRef,
     SourceRef,
 )
+from .object_store import (
+    ContentLocation,
+    ContentObject,
+    FilesystemObjectStorageBackend,
+    MemoryObjectStorageBackend,
+    ObjectStorageBackend,
+    ObjectStorageContractError,
+    ObjectStorageError,
+    ObjectStorageIntegrityError,
+    ObjectStorageNotFoundError,
+)
 from .graph import (
     Graph,
     GraphAuthorityError,
@@ -206,6 +217,15 @@ __all__ = [
     "ArtifactService",
     "ContentRef",
     "SourceRef",
+    "ContentLocation",
+    "ContentObject",
+    "FilesystemObjectStorageBackend",
+    "MemoryObjectStorageBackend",
+    "ObjectStorageBackend",
+    "ObjectStorageContractError",
+    "ObjectStorageError",
+    "ObjectStorageIntegrityError",
+    "ObjectStorageNotFoundError",
     "Graph",
     "GraphAuthorityError",
     "GraphConflictError",
