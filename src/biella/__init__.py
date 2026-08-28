@@ -58,6 +58,21 @@ from .task import (
     TaskScopeError,
     TaskSideEffectError,
 )
+from .run import (
+    ExecutionAttempt,
+    Run,
+    RunAuthorityError,
+    RunCancelledError,
+    RunConflictError,
+    RunContractError,
+    RunError,
+    RunIntegrityError,
+    RunLeaseConflictError,
+    RunNotFoundError,
+    RunRef,
+    RunScopeError,
+    RunService,
+)
 
 __all__ = [
     "ActiveArtifact",
@@ -107,4 +122,17 @@ __all__ = [
     "TaskRevisionService",
     "TaskScopeError",
     "TaskSideEffectError",
+    "ExecutionAttempt",
+    "Run",
+    "RunAuthorityError",
+    "RunCancelledError",
+    "RunConflictError",
+    "RunContractError",
+    "RunError",
+    "RunIntegrityError",
+    "RunLeaseConflictError",
+    "RunNotFoundError",
+    "RunRef",
+    "RunScopeError",
+    "RunService",
 ]
