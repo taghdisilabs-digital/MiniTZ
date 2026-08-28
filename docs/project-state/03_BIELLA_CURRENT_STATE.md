@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-28 13:45 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-28T13:45:17+02:00"
+state_timestamp_local: "2026-08-28 14:51 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-28T14:51:08+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: 609fbeccb37592c4094a409f04134cc404a38073
-    tree: feccfd5a33b951a3330adbb7e6b436852f6cfb75
+    commit: fafe35bdcabe436da65c6ef95c7376d6a303b07f
+    tree: 5546854ad7997b5c56a579a07de4d4681d007485
     observed_date: 2026-08-28
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p1_02_implementation_post_push_exact_readback
+    observation_context: p1_03_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: 609fbeccb37592c4094a409f04134cc404a38073
-    tree: feccfd5a33b951a3330adbb7e6b436852f6cfb75
+    head: fafe35bdcabe436da65c6ef95c7376d6a303b07f
+    tree: 5546854ad7997b5c56a579a07de4d4681d007485
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 12
+    durable_prompts_complete: 13
     durable_prompts_total: 51
     phase: P1
-    active_prompt: P1-03
-    active_prompt_title: Isolated Versioned Project Memory
+    active_prompt: P1-04
+    active_prompt_title: Versioned Engine Knowledge and Promotion Boundary
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -475,6 +475,61 @@ engine:
       - src/biella/execution.py
       - src/biella/run_memory.py
       - tests/test_p1_02_run_memory.py
+    p1_03_status: DURABLY_COMPLETE
+    p1_03_source_commit: c9cb83f326580cee9221b017942abbd95b835033
+    p1_03_result_commit: fafe35bdcabe436da65c6ef95c7376d6a303b07f
+    p1_03_result_tree: 5546854ad7997b5c56a579a07de4d4681d007485
+    p1_03_remote_readback: VERIFIED
+    p1_03_implementation:
+      production_modules_added: 1
+      public_exports_changed: 12
+      test_methods_added: 21
+      migrations_added: 0
+      schema_tables_added: 5
+      authority_model: immutable_Project_scoped_candidates_versions_relations_and_monotonic_heads
+      current_resolution_model: deterministic_single_head_or_explicit_conflict
+    p1_03_validation:
+      focused_unittest: "21 passed; 0 failed; 0 skipped; T15 executed all 262 predecessors, strict mypy, exact wheel comparison, clean install, and separate-process restart"
+      independent_functional_unittest: "20 passed; 0 failed; 0 skipped"
+      regression_unittest: "283 passed; 0 failed; 0 skipped; 435.919s"
+      pytest: "283 passed; 126 subtests passed; 0 failed; 0 skipped; isolated rerun 437.29s"
+      parallel_runner_diagnostic: "one pytest run encountered a shared build-directory Errno 17 while unittest built concurrently; isolated full rerun passed; product assertion failures: 0"
+      mypy_strict: "27 source/test files; 0 issues; mypy 2.3.1"
+      compileall: PASS
+      test_quality_scan: "P1-03 skip, placeholder, TODO, FIXME, and NotImplemented hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 f90bbf84af83d268245007d9d46101a001d2495e0882596b5df22dadd275023f; 14 source modules byte-identical"
+      remote_commit_archive: "sha256 924dadf5c646ec635dc1c3886e58c6fd79ec23f261041f605548097cdce35468"
+      remote_source_wheel: "built from exact GitHub commit archive; sha256 6a3f7b18d0e022aa044e70ddd56476d3fe5c8b5a364762d2223683bfeaa44cb9; 14 source modules byte-identical"
+      remote_source_gate: "fresh GitHub clone at exact commit/tree with full history; 21 passed; 0 failed; 0 skipped; 222.197s"
+      archive_gate_environment_note: "archive product tests 20 passed; history-aware predecessor gate requires .git and therefore ran from exact fresh GitHub clone"
+      independent_review: "READY; no Critical or Important findings after orphan-head integrity hardening; get, list, search, and placement fail closed on complete history deletion"
+    p1_03_kpi:
+      cross_project_ProjectMemory_reads: 0
+      automatic_Run_output_to_Project_truth: 0
+      automatic_Project_to_Engine_promotion: 0
+      raw_quarantine_admissions: 0
+      destructive_supersession: 0
+      ambiguous_conflicts_silently_resolved: 0
+    p1_03_qualification:
+      ProjectKnowledge: VERIFIED
+      ProjectKnowledgeRef: VERIFIED
+      ProjectKnowledgeCandidate_and_candidate_ref: VERIFIED
+      explicit_placement_API: VERIFIED
+      supersession_API: VERIFIED
+      conflict_aware_current_resolution_API: VERIFIED
+      exact_statement_or_ContentRef_and_provenance: VERIFIED
+      Project_isolation_and_private_known_ID_denial: VERIFIED
+      non_destructive_history_and_conflict_preservation: VERIFIED
+      explicit_observation_acceptance_boundary: VERIFIED
+      cache_or_index_independence: VERIFIED
+      append_only_restart_and_concurrent_head_integrity: VERIFIED
+      Engine_promotion_dependency: 0
+      raw_QuarantineRef_runtime_dependency: 0
+    p1_03_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/project_memory.py
+      - tests/test_p1_03_project_memory.py
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -523,10 +578,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P1-03
-    title: Isolated Versioned Project Memory
-    drive_id: 1c_gu5vm-Zg4qmLk6fqipkS2s7RuHocrEJqG7Ce4S0mA
-    canonical_prompt_text_sha256: e81ff72e3fe027f13553de5f4790bd146f06105c0c048de071021bddb0606c99
+    id: P1-04
+    title: Versioned Engine Knowledge and Promotion Boundary
+    drive_id: 10yO_uSy2A5KrIw_8H6uU9SbnCUb0WZe39Ujq3wAbnYw
+    canonical_prompt_text_sha256: 027379809b8aa61d929657d7de66f61bcec6b3756488dfb77c107be006eef936
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -593,36 +648,36 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P1-03
-  global_number: 13
-  title: Isolated Versioned Project Memory
-  prompt_drive_id: 1c_gu5vm-Zg4qmLk6fqipkS2s7RuHocrEJqG7Ce4S0mA
-  predecessor_result_commit: 609fbeccb37592c4094a409f04134cc404a38073
-  predecessor_result_tree: feccfd5a33b951a3330adbb7e6b436852f6cfb75
+  id: P1-04
+  global_number: 14
+  title: Versioned Engine Knowledge and Promotion Boundary
+  prompt_drive_id: 10yO_uSy2A5KrIw_8H6uU9SbnCUb0WZe39Ujq3wAbnYw
+  predecessor_result_commit: fafe35bdcabe436da65c6ef95c7376d6a303b07f
+  predecessor_result_tree: 5546854ad7997b5c56a579a07de4d4681d007485
 
 next_transition:
-  - verify_P1_02_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P1_03_prompt_and_directly_required_Project_Artifact_Run_and_migration_boundary_interfaces_only
-  - implement_versioned_ProjectKnowledge_with_exact_Project_scope_and_provenance
-  - require_explicit_placement_and_preserve_non_destructive_supersession_and_conflicts
-  - prove_cross_Project_denial_no_automatic_Run_or_Engine_promotion_quarantine_rejection_and_restart_durability
+  - verify_P1_03_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P1_04_prompt_and_directly_required_ProjectKnowledge_Artifact_Run_and_migration_boundary_interfaces_only
+  - implement_versioned_evidence_backed_KnowledgeCandidate_and_Knowledge
+  - enforce_candidate_scope_classification_evidence_dedup_contradiction_and_placement_boundary
+  - prove_direct_agent_Run_write_denial_Project_contamination_rejection_normalized_migration_seam_and_restart_durability
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P1_03_before_opening_P1_04
+  - close_P1_04_before_opening_P1_05
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - broaden_P1_03_into_Engine_Knowledge_embeddings_retrieval_or_later_numbered_architecture
+  - broaden_P1_04_into_embeddings_retrieval_or_later_numbered_architecture
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P1_03_before_P1_02_durable_close
+  - start_P1_04_before_P1_03_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
