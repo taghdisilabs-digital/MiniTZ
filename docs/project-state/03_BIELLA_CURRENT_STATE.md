@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-28 01:57 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-28T01:57:05+02:00"
+state_timestamp_local: "2026-08-28 06:10 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-28T06:10:11+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,32 +22,52 @@ engine:
   branch: main
 
   observed_remote:
-    commit: 272ff5d70a45912ffc5ccf694752c6a2a79c2b91
-    tree: 083cf48c342ee448176de69ebadc7c4acc163444
-    observed_date: 2026-08-27
+    commit: fa442745b73e02cc2cd67ef0c029973de06bb773
+    tree: 840c45a3cf04c28407e08e5c7e51f11d61e0dadb
+    observed_date: 2026-08-28
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: codex_handoff_reference_repair_prepublication
-    src_present: false
+    observation_context: p0_01_implementation_post_push_exact_readback
+    src_present: true
     root_package_json_present: false
+    root_pyproject_present: true
     volatile_reobserve_before_next_write: true
 
   local:
     checkout_path: /root/biella/repos/biella-engine
-    checkout_exists: UNKNOWN
-    branch: UNKNOWN
-    head: UNKNOWN
-    tree: UNKNOWN
-    upstream: UNKNOWN
-    worktree_status: UNKNOWN
-    newer_valid_work_present: UNKNOWN
+    checkout_exists: true
+    branch: main
+    head: fa442745b73e02cc2cd67ef0c029973de06bb773
+    tree: 840c45a3cf04c28407e08e5c7e51f11d61e0dadb
+    upstream: origin/main
+    worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
+    newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 0
+    durable_prompts_complete: 1
     durable_prompts_total: 51
     phase: P0
-    active_prompt: P0-01
-    active_prompt_title: Clean-Room Migration Firewall
-    p0_01_status: NOT_DURABLY_IMPLEMENTED_ON_RECORDED_REMOTE
+    active_prompt: P0-02
+    active_prompt_title: Universal Project Namespace and Isolation Contract
+    p0_01_status: DURABLY_COMPLETE
+    p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
+    p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
+    p0_01_result_tree: 840c45a3cf04c28407e08e5c7e51f11d61e0dadb
+    p0_01_remote_readback: VERIFIED
+    p0_01_validation:
+      unittest: "23 passed; 0 failed; 0 skipped"
+      pytest: "23 passed; 12 subtests passed; 0 failed; 0 skipped"
+      mypy_strict: "4 source/test files; 0 issues"
+      compileall: PASS
+      wheel_build: "biella_engine-0.1.0-py3-none-any.whl; required paths inspected"
+      installed_wheel_smoke: "runtime import isolated; durable restart round-trip; verified candidate factory"
+      independent_review: "READY; no Critical, Important, or Minor findings"
+    p0_01_required_remote_paths:
+      - .gitignore
+      - pyproject.toml
+      - src/biella/__init__.py
+      - src/biella/migration.py
+      - src/biella/runtime.py
+      - tests/test_p0_01_migration_firewall.py
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -79,9 +99,9 @@ host:
   reinstall_required: false
 
   volatile:
-    reachable: UNKNOWN
+    reachable: true
     ssh_state: UNKNOWN
-    github_push_auth: UNKNOWN
+    github_push_auth: VERIFIED
 
 drive:
   canonical_root_id: 1Z6_qwN9hfHIheXZ_9pYCG8dRDMuRN-l7
@@ -96,10 +116,11 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P0-01
-    title: Clean-Room Migration Firewall
-    drive_id: 1Rqj1Vs-V_6xhq90NJRS2hnjIQiVYkER6xG2dJ5CJ2oI
-    restored_from_drive_revision: "1"
+    id: P0-02
+    title: Universal Project Namespace and Isolation Contract
+    drive_id: 1aINglpjh2qSuRbPrNT2dkTaBRRWNhLAAhriWTQ-kGwk
+    canonical_prompt_text_sha256: 2ee7a74cdb4f5f7b62c7b767eb85150be243f89f4536c7a89bc30bf1b0a86657
+    local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
     - title: Legacy Productive Reuse
@@ -117,8 +138,8 @@ drive:
     total: 51
 
 migration:
-  stage: PRE_P0_01
-  firewall_implemented: false
+  stage: P0_01_DURABLY_COMPLETE
+  firewall_implemented: true
   raw_history_active: false
   real_corpus_registered: false
   broad_extraction_allowed: false
@@ -148,7 +169,7 @@ migration:
 website:
   program: BIELLA_UNIVERSE_OPTION_C
   public_target: biellagames.dev
-  execution_state: WAITING_FOR_P0_01_CLOSE
+  execution_state: P0_01_GATE_CLEARED_NOT_STARTED
   first_separate_task_after_p0_01: BU-01
   run_in_same_p0_01_session: false
   universal_engine_kernel_scope: false
@@ -165,32 +186,33 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P0-01
-  title: Clean-Room Migration Firewall
-  prompt_drive_id: 1Rqj1Vs-V_6xhq90NJRS2hnjIQiVYkER6xG2dJ5CJ2oI
+  id: P0-02
+  title: Universal Project Namespace and Isolation Contract
+  prompt_drive_id: 1aINglpjh2qSuRbPrNT2dkTaBRRWNhLAAhriWTQ-kGwk
+  predecessor_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
+  predecessor_result_tree: 840c45a3cf04c28407e08e5c7e51f11d61e0dadb
 
 next_transition:
-  - connect_to_existing_workstation
-  - preserve_/root/biella_exactly
-  - inspect_checkout_state_once
-  - if_canonical_checkout_absent_create_exactly_one_checkout_from_canonical_github_repo
-  - preserve_genuine_newer_valid_local_work_if_present
-  - otherwise_use_current_observed_github_main
-  - execute_P0_01_only
+  - verify_P0_01_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P0_02_prompt_and_directly_required_files_only
+  - implement_Project_ProjectRef_and_ProjectScoped_contract
+  - prove_Alpha_Beta_isolation_atomic_creation_and_restart_durability
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - stop_at_P0_01_boundary
+  - close_P0_02_before_opening_P0_03
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
+  - broaden_P0_02_into_Task_Run_Artifact_Memory_routing_or_domain_concepts
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
-  - start_P0_02_before_P0_01_durable_close
+  - model_quarantine_as_an_ordinary_Project
+  - start_P0_03_before_P0_02_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
