@@ -33,6 +33,17 @@ from .project import (
     ProjectScoped,
     ProjectStore,
 )
+from .capability import (
+    Capability,
+    CapabilityConflictError,
+    CapabilityContractError,
+    CapabilityError,
+    CapabilityIntegrityError,
+    CapabilityLifecycle,
+    CapabilityNotFoundError,
+    CapabilityRef,
+    CapabilityRegistry,
+)
 
 __all__ = [
     "ActiveArtifact",
@@ -61,4 +72,13 @@ __all__ = [
     "ProjectScopeError",
     "ProjectScoped",
     "ProjectStore",
+    "Capability",
+    "CapabilityConflictError",
+    "CapabilityContractError",
+    "CapabilityError",
+    "CapabilityIntegrityError",
+    "CapabilityLifecycle",
+    "CapabilityNotFoundError",
+    "CapabilityRef",
+    "CapabilityRegistry",
 ]
