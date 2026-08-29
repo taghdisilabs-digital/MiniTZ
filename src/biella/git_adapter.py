@@ -1963,6 +1963,268 @@ class GitAdapter:
                 raise GitConflictError("RepositoryWorkspaceRef is stale")
         return observed
 
+    def get_current_workspace(
+        self,
+        access: ProjectAccess,
+        workspace_ref: RepositoryWorkspaceRef,
+    ) -> RepositoryWorkspaceRef:
+        """Resolve the immutable supplied generation to its exact current generation."""
+
+        observed = self.get_workspace(access, workspace_ref, require_current=False)
+        connection = self._connect()
+        try:
+            head = connection.execute(
+                "SELECT * FROM git_workspace_heads WHERE project_id=? AND workspace_id=?",
+                (access.project_ref.value, observed.workspace_id),
+            ).fetchone()
+        finally:
+            connection.close()
+        if head is None:
+            raise GitIntegrityError("workspace head history is missing")
+        current = self._get_workspace_generation(
+            access,
+            observed.workspace_id,
+            cast(int, head["generation"]),
+        )
+        if not hmac.compare_digest(cast(str, head["record_sha256"]), current.record_sha256):
+            raise GitIntegrityError("workspace head evidence changed")
+        return current
+
+    def export_workspace_bundle(
+        self,
+        access: ProjectAccess,
+        attempt: NodeExecutionAttempt,
+        workspace_ref: RepositoryWorkspaceRef,
+        *,
+        idempotency_key: str,
+    ) -> tuple[ContentRef | None, tuple[ToolCallRef, ...]]:
+        """Persist candidate-only commit objects without duplicating the exact base."""
+
+        self._key(idempotency_key)
+        workspace = self.get_current_workspace(access, workspace_ref)
+        self._require_operation_authority(access, attempt, "read")
+        if workspace.current_commit_sha == workspace.base_commit_sha:
+            return None, ()
+        material = hashlib.sha256(
+            f"{workspace.value}:{idempotency_key}".encode()
+        ).hexdigest()[:40]
+        bundle_path = f".git/biella-snapshot-{material}.bundle"
+        created = self._git(
+            access,
+            attempt,
+            root_ref=workspace.root_ref,
+            working_directory=workspace.relative_path,
+            argv=("bundle", "create", bundle_path, "HEAD", f"^{workspace.base_commit_sha}"),
+            idempotency_material=f"bundle-export-{material}-create",
+            timeout_seconds=600,
+        )
+        listed = self._git(
+            access,
+            attempt,
+            root_ref=workspace.root_ref,
+            working_directory=workspace.relative_path,
+            argv=("bundle", "list-heads", bundle_path),
+            idempotency_material=f"bundle-export-{material}-list",
+        )
+        if self._decode(listed, "bundle heads").strip() != f"{workspace.current_commit_sha} HEAD":
+            raise GitIntegrityError("candidate bundle HEAD differs from durable workspace authority")
+        verified = self._git(
+            access,
+            attempt,
+            root_ref=workspace.root_ref,
+            working_directory=workspace.relative_path,
+            argv=("bundle", "verify", bundle_path),
+            idempotency_material=f"bundle-export-{material}-verify",
+        )
+        read = self.filesystem.read(
+            access,
+            attempt,
+            root_ref=workspace.root_ref,
+            path=f"{workspace.relative_path}/{bundle_path}",
+            media_type="application/x-git-bundle",
+            idempotency_key=f"git-bundle-read-{material}",
+        )
+        removed = self.filesystem.remove(
+            access,
+            attempt,
+            root_ref=workspace.root_ref,
+            path=f"{workspace.relative_path}/{bundle_path}",
+            media_type="application/x-git-bundle",
+            idempotency_key=f"git-bundle-remove-{material}",
+        )
+        return read.output_ref, (
+            created.tool_call_ref,
+            listed.tool_call_ref,
+            verified.tool_call_ref,
+            read.tool_call_ref,
+            removed.tool_call_ref,
+        )
+
+    def restore_workspace_snapshot(
+        self,
+        access: ProjectAccess,
+        attempt: NodeExecutionAttempt,
+        workspace_ref: RepositoryWorkspaceRef,
+        *,
+        expected_head_commit: str,
+        expected_head_tree: str,
+        bundle_ref: ContentRef | None,
+        staged_diff_ref: ContentRef,
+        unstaged_diff_ref: ContentRef,
+        idempotency_key: str,
+    ) -> tuple[RepositoryWorkspaceRef, tuple[ToolCallRef, ...]]:
+        """Restore exact candidate HEAD, worktree changes, and staged index state."""
+
+        self._key(idempotency_key)
+        _object_id(expected_head_commit, "snapshot HEAD")
+        _object_id(expected_head_tree, "snapshot HEAD tree")
+        for ref in (staged_diff_ref, unstaged_diff_ref):
+            try:
+                self.object_store.verify(ref)
+            except ObjectStorageError as exc:
+                raise GitIntegrityError("snapshot Git diff failed verification") from exc
+        workspace = self.get_current_workspace(access, workspace_ref)
+        if workspace.current_commit_sha != workspace.base_commit_sha:
+            raise GitConflictError("snapshot restore requires an exact clean base workspace")
+        self._require_operation_authority(access, attempt, "workspace")
+        material = hashlib.sha256(
+            f"{workspace.value}:{expected_head_commit}:{idempotency_key}".encode()
+        ).hexdigest()[:40]
+        calls: list[ToolCallRef] = []
+        if expected_head_commit != workspace.base_commit_sha:
+            if bundle_ref is None:
+                raise GitIntegrityError("candidate commit snapshot lacks its durable bundle")
+            try:
+                self.object_store.verify(bundle_ref)
+            except ObjectStorageError as exc:
+                raise GitIntegrityError("candidate commit bundle failed verification") from exc
+            bundle_path = f".git/biella-restore-{material}.bundle"
+            written = self.filesystem.write(
+                access,
+                attempt,
+                root_ref=workspace.root_ref,
+                path=f"{workspace.relative_path}/{bundle_path}",
+                content_ref=bundle_ref,
+                idempotency_key=f"git-bundle-write-{material}",
+            )
+            calls.append(written.tool_call_ref)
+            verified = self._git(
+                access,
+                attempt,
+                root_ref=workspace.root_ref,
+                working_directory=workspace.relative_path,
+                argv=("bundle", "verify", bundle_path),
+                idempotency_material=f"bundle-restore-{material}-verify",
+            )
+            listed = self._git(
+                access,
+                attempt,
+                root_ref=workspace.root_ref,
+                working_directory=workspace.relative_path,
+                argv=("bundle", "list-heads", bundle_path),
+                idempotency_material=f"bundle-restore-{material}-list",
+            )
+            if self._decode(listed, "bundle heads").strip() != f"{expected_head_commit} HEAD":
+                raise GitIntegrityError("candidate bundle does not contain the exact snapshot HEAD")
+            fetched = self._git(
+                access,
+                attempt,
+                root_ref=workspace.root_ref,
+                working_directory=workspace.relative_path,
+                argv=("fetch", "--no-tags", "--no-recurse-submodules", bundle_path, "HEAD"),
+                idempotency_material=f"bundle-restore-{material}-fetch",
+                timeout_seconds=600,
+            )
+            checked_out = self._git(
+                access,
+                attempt,
+                root_ref=workspace.root_ref,
+                working_directory=workspace.relative_path,
+                argv=("checkout", "--detach", "--force", "--no-recurse-submodules", expected_head_commit),
+                idempotency_material=f"bundle-restore-{material}-checkout",
+                timeout_seconds=600,
+            )
+            removed = self.filesystem.remove(
+                access,
+                attempt,
+                root_ref=workspace.root_ref,
+                path=f"{workspace.relative_path}/{bundle_path}",
+                media_type="application/x-git-bundle",
+                idempotency_key=f"git-bundle-clean-{material}",
+            )
+            calls.extend(
+                (
+                    verified.tool_call_ref,
+                    listed.tool_call_ref,
+                    fetched.tool_call_ref,
+                    checked_out.tool_call_ref,
+                    removed.tool_call_ref,
+                )
+            )
+        elif bundle_ref is not None:
+            raise GitIntegrityError("base-HEAD snapshot unexpectedly contains a candidate bundle")
+
+        if staged_diff_ref.size_bytes:
+            staged_worktree = self._git(
+                access,
+                attempt,
+                root_ref=workspace.root_ref,
+                working_directory=workspace.relative_path,
+                argv=("apply", "--recount", "-"),
+                stdin_ref=staged_diff_ref,
+                idempotency_material=f"snapshot-restore-{material}-staged-worktree",
+            )
+            calls.append(staged_worktree.tool_call_ref)
+        if unstaged_diff_ref.size_bytes:
+            unstaged_worktree = self._git(
+                access,
+                attempt,
+                root_ref=workspace.root_ref,
+                working_directory=workspace.relative_path,
+                argv=("apply", "--recount", "-"),
+                stdin_ref=unstaged_diff_ref,
+                idempotency_material=f"snapshot-restore-{material}-unstaged-worktree",
+            )
+            calls.append(unstaged_worktree.tool_call_ref)
+        if staged_diff_ref.size_bytes:
+            staged_index = self._git(
+                access,
+                attempt,
+                root_ref=workspace.root_ref,
+                working_directory=workspace.relative_path,
+                argv=("apply", "--cached", "--recount", "-"),
+                stdin_ref=staged_diff_ref,
+                idempotency_material=f"snapshot-restore-{material}-staged-index",
+            )
+            calls.append(staged_index.tool_call_ref)
+        observed_head, observed_tree, _, _, _, _, observed_calls = self._inspect_exact(
+            access,
+            attempt,
+            root_ref=workspace.root_ref,
+            path=workspace.relative_path,
+            material=f"snapshot-restore-{material}-inspect",
+        )
+        calls.extend(observed_calls)
+        if observed_head != expected_head_commit or observed_tree != expected_head_tree:
+            raise GitIntegrityError("restored candidate HEAD/tree differs from durable snapshot")
+        if expected_head_commit == workspace.current_commit_sha:
+            return workspace, tuple(calls)
+        current = RepositoryWorkspaceRef(
+            workspace.workspace_id,
+            workspace.project_ref,
+            workspace.repository_id,
+            workspace.root_ref,
+            workspace.relative_path,
+            workspace.base_commit_sha,
+            workspace.base_tree_sha,
+            expected_head_commit,
+            expected_head_tree,
+            workspace.generation + 1,
+            workspace.created_at,
+        )
+        self._persist_workspace(current, initial=False)
+        return current, tuple(calls)
+
     def create_workspace(
         self,
         access: ProjectAccess,
@@ -2071,7 +2333,7 @@ class GitAdapter:
                     str(source_absolute),
                     str(candidate_absolute),
                 ),
-                idempotency_material=f"workspace-{semantic}-clone",
+                idempotency_material=f"workspace-{workspace_id}-{semantic}-clone",
                 timeout_seconds=600,
             )
             process_calls.append(clone.tool_call_ref)
@@ -2082,7 +2344,7 @@ class GitAdapter:
                 root_ref=candidate_root_ref,
                 working_directory=path,
                 argv=("checkout", "--detach", "--no-recurse-submodules", repository.commit_sha),
-                idempotency_material=f"workspace-{semantic}-checkout",
+                idempotency_material=f"workspace-{workspace_id}-{semantic}-checkout",
                 timeout_seconds=600,
             )
             process_calls.append(checkout.tool_call_ref)
@@ -2093,7 +2355,7 @@ class GitAdapter:
                 root_ref=candidate_root_ref,
                 working_directory=path,
                 argv=("remote", "remove", "origin"),
-                idempotency_material=f"workspace-{semantic}-remove-origin",
+                idempotency_material=f"workspace-{workspace_id}-{semantic}-remove-origin",
             )
             process_calls.append(remove_remote.tool_call_ref)
             head, tree, status, staged, unstaged, untracked, calls = self._inspect_exact(
@@ -2101,7 +2363,7 @@ class GitAdapter:
                 attempt,
                 root_ref=candidate_root_ref,
                 path=path,
-                material=f"workspace-{semantic}-verify",
+                material=f"workspace-{workspace_id}-{semantic}-verify",
             )
             process_calls.extend(calls)
             source_refs.append(status.stdout_ref)
@@ -2194,13 +2456,27 @@ class GitAdapter:
         started: _StartedOperation,
         preceding_calls: Sequence[ToolCallRef] = (),
         preceding_refs: Sequence[ContentRef] = (),
+        excluded_path_components: tuple[str, ...] = (),
+        excluded_path_names: tuple[str, ...] = (),
+        excluded_path_prefixes: tuple[str, ...] = (),
     ) -> RepositoryDiffReceipt:
-        _, _, status, _, _, _, identity_calls = self._workspace_current_identity(
+        _, _, status, staged_paths, unstaged_paths, untracked_paths, identity_calls = self._workspace_current_identity(
             access,
             attempt,
             workspace,
             f"diff-{workspace.workspace_id}-{idempotency_key}-identity",
         )
+
+        def excluded(path: str) -> bool:
+            parts = PurePosixPath(path).parts
+            return (
+                any(part in excluded_path_components for part in parts)
+                or PurePosixPath(path).name in excluded_path_names
+                or any(path == prefix or path.startswith(f"{prefix}/") for prefix in excluded_path_prefixes)
+            )
+
+        if any(excluded(path) for path in (*staged_paths, *unstaged_paths)):
+            raise GitAuthorityError("tracked secret/cache path changes cannot enter a durable Git snapshot")
         staged = self._git(
             access,
             attempt,
@@ -2226,7 +2502,7 @@ class GitAdapter:
             idempotency_material=f"diff-{workspace.workspace_id}-{idempotency_key}-untracked",
         )
         try:
-            untracked_paths = tuple(
+            observed_untracked_paths = tuple(
                 sorted(
                     self._relative_path(item.decode("utf-8"), allow_root=False)
                     for item in self.object_store.read(untracked_result.stdout_ref).split(b"\x00")
@@ -2235,6 +2511,9 @@ class GitAdapter:
             )
         except UnicodeDecodeError as exc:
             raise GitIntegrityError("untracked Git paths are not UTF-8") from exc
+        if observed_untracked_paths != untracked_paths:
+            raise GitConflictError("candidate untracked paths changed during diff capture")
+        untracked_paths = tuple(path for path in observed_untracked_paths if not excluded(path))
         manifest: dict[str, object] = {}
         untracked_refs: list[ContentRef] = []
         for index, untracked_path in enumerate(untracked_paths):
@@ -2305,16 +2584,29 @@ class GitAdapter:
         workspace_ref: RepositoryWorkspaceRef,
         *,
         idempotency_key: str,
+        excluded_path_components: Sequence[str] = (),
+        excluded_path_names: Sequence[str] = (),
+        excluded_path_prefixes: Sequence[str] = (),
     ) -> RepositoryDiffReceipt:
         if not isinstance(workspace_ref, RepositoryWorkspaceRef):
             raise GitContractError("exact RepositoryWorkspaceRef is required")
         self._authorize(access, workspace_ref.project_ref)
+        components = tuple(sorted(set(excluded_path_components)))
+        names = tuple(sorted(set(excluded_path_names)))
+        prefixes = tuple(sorted(set(self._relative_path(item, allow_root=False) for item in excluded_path_prefixes)))
+        if any(not isinstance(item, str) or not item or "/" in item or "\\" in item for item in (*components, *names)):
+            raise GitContractError("Git snapshot exclusions are malformed")
         started = self._start_operation(
             access,
             attempt,
             operation="diff",
             idempotency_key=idempotency_key,
-            payload={"workspace_ref": workspace_ref.value},
+            payload={
+                "excluded_path_components": list(components),
+                "excluded_path_names": list(names),
+                "excluded_path_prefixes": list(prefixes),
+                "workspace_ref": workspace_ref.value,
+            },
         )
         if not started.first_claim:
             return cast(RepositoryDiffReceipt, self.get_receipt(access, started.call.call_ref))
@@ -2327,6 +2619,9 @@ class GitAdapter:
                 operation="diff",
                 idempotency_key=idempotency_key,
                 started=started,
+                excluded_path_components=components,
+                excluded_path_names=names,
+                excluded_path_prefixes=prefixes,
             )
         except Exception:
             self._fail_operation(

@@ -1048,7 +1048,7 @@ class FilesystemAdapter:
             offset += written
 
     @classmethod
-    def _target_state(cls, parent: int, leaf: str) -> tuple[int, int] | None:
+    def _target_state(cls, parent: int, leaf: str) -> tuple[int, int, int] | None:
         try:
             state = os.stat(leaf, dir_fd=parent, follow_symlinks=False)
         except FileNotFoundError:
@@ -1057,7 +1057,7 @@ class FilesystemAdapter:
             raise FilesystemAuthorityError("symlink or junction destination was rejected")
         if not stat_module.S_ISREG(state.st_mode):
             raise FilesystemAuthorityError("destination is not a safe regular file")
-        return state.st_dev, state.st_ino
+        return state.st_dev, state.st_ino, stat_module.S_IMODE(state.st_mode)
 
     def _atomic_write(
         self,
@@ -1079,6 +1079,8 @@ class FilesystemAdapter:
             flags |= getattr(os, "O_NOFOLLOW", 0)
             descriptor = os.open(temporary, flags, 0o600, dir_fd=parent)
             temporary_created = True
+            if before is not None:
+                os.fchmod(descriptor, before[2])
             digest = hashlib.sha256()
             size = 0
             try:
