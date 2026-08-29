@@ -1131,6 +1131,34 @@ class CallLedgerService:
     ) -> ToolCall:
         return cast(ToolCall, self._get_call(requesting_access, call_ref, "TOOL"))
 
+    def get_execution_dimensions(
+        self,
+        requesting_access: ProjectAccess,
+        call_ref: ModelCallRef | ToolCallRef,
+    ) -> Mapping[str, str]:
+        """Return provider-neutral dimensions for provenance and independence checks."""
+        if isinstance(call_ref, ModelCallRef):
+            model_call = self.get_model_call(requesting_access, call_ref)
+            dimensions = {
+                "implementation": f"model://{model_call.provider_id}/{model_call.model_id}",
+                "model": model_call.model_id,
+                "provider": model_call.provider_id,
+                "runtime": model_call.runtime_id,
+                "strategy": f"capability://{model_call.capability_ref.capability_id}/{model_call.capability_ref.version}",
+            }
+            if model_call.deployment_id is not None:
+                dimensions["deployment"] = model_call.deployment_id
+            return dimensions
+        if isinstance(call_ref, ToolCallRef):
+            tool_call = self.get_tool_call(requesting_access, call_ref)
+            return {
+                "implementation": tool_call.implementation_id,
+                "runtime": tool_call.runtime_id,
+                "strategy": f"capability://{tool_call.capability_ref.capability_id}/{tool_call.capability_ref.version}",
+                "tool": tool_call.tool_id,
+            }
+        raise TypeError("call_ref must be ModelCallRef or ToolCallRef")
+
     def get_model_call_for_event(
         self,
         requesting_access: ProjectAccess,
