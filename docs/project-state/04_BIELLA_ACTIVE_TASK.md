@@ -4,53 +4,54 @@
 schema: biella.active_task/v3
 
 task:
-  id: P2-04
-  global_number: 23
+  id: P2-05
+  global_number: 24
   phase: P2
-  title: Replaceable Container and Isolated Runtime Adapter
-  state: READY_AFTER_P2_03_DURABLE_CLOSE
+  title: Universal HTTP/API Execution Adapter
+  state: READY_AFTER_P2_04_DURABLE_CLOSE
   exact_prompt:
-    title: 23_P2-04_Replaceable_Container_and_Isolated_Runtime_Adapter.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/23_P2-04_Replaceable_Container_and_Isolated_Runtime_Adapter.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/23_P2-04_Replaceable_Container_and_Isolated_Runtime_Adapter.md.docx
-    drive_id: 1ulpsBImXNT3HyP7G0GUfEjNjPXqCknY0uLdjoEn4xyA
-    local_docx_sha256: 89aeaa4968876b693987bebbf65c5977743733c1f34a809854d0c7043ea1b01f
-    live_drive_exported_docx_sha256: ddf2ed556ca28e7a51510048e36f9985d2fa6f8bc611ff1b5ad68a90fd094022
-    canonical_text_sha256: c825ff36626451ea5eeefdaa5141f825204408db6b5528b905b7ba9ff087e61e
+    title: 24_P2-05_Universal_HTTP_API_Execution_Adapter.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/24_P2-05_Universal_HTTP_API_Execution_Adapter.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/24_P2-05_Universal_HTTP_API_Execution_Adapter.md.docx
+    drive_id: 11zmSVb23RA5InBxAVWCD_KAqHFn_vLtXrnuublFGvHQ
+    local_docx_sha256: 85552c3db45994bf2f0fe3970d46085ea29d400bd15bc8550800b11851bb2e63
+    live_drive_exported_docx_sha256: 897e74518ff56df57eb58c159241c2496103228e092d20245c0d20cbafdd3de4
+    canonical_text_sha256: f9fc9032c1a8456167c5786127eff102d8b4b782ff2e654988bb9e2a209e5b88
     canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P2-03
-    result_commit: d71c08a6da61713a1859bd9d1b8bb94652c41550
-    result_tree: abc9e6001d2b079b53c49850062d9d38bbbc3a55
+    id: P2-04
+    result_commit: 7aaf3e83847d87538ec033fb9a043ea83bcbdf95
+    result_tree: ec205b0e33c05b2a9bcd8fe6e2e5b8919c0daffc
     remote_readback: VERIFIED
     remote_required_paths_and_bytes: VERIFIED
-    focused_type_build_installed_restart_predecessor_and_full_regression: VERIFIED
-  numbered_successor: P2-05
+    focused_type_build_installed_restart_and_full_regression: VERIFIED
+  numbered_successor: P2-06
 
 execution_boundary:
   start_only_after_predecessor_durable_close: satisfied
   load_only:
-    - exact_P2_04_canonical_prompt
+    - exact_P2_05_canonical_prompt
     - current_state_and_active_task_continuity
-    - accepted_Project_FilesystemRoot_ProcessExecutionRequest_ResourceAllocation_ToolCall_Event_Artifact_ContentRef_and_runtime_interfaces_directly_required
+    - accepted_Project_Task_Run_Graph_NodeAttempt_EgressPolicy_DataPolicy_ContentRef_Artifact_ToolCall_Event_and_transport_interfaces_directly_required
     - directly_touched_source_and_task_scoped_tests
   do_not_open:
-    - P2_05_or_later_prompt_bodies_before_P2_04_durable_close
+    - P2_06_or_later_prompt_bodies_before_P2_05_durable_close
     - unrelated_historical_backup_or_legacy_material
   preserve:
     - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ToolCall_Event_ResourceAllocation_and_managed_process_identity
     - P2_01_authorized_root_path_streaming_atomic_IO_idempotency_and_Project_isolation_contracts
     - P2_02_direct_argv_explicit_shell_bounded_output_timeout_cancellation_process_ownership_and_truthful_policy_contracts
     - P2_03_exact_revision_dirty_source_preservation_candidate_isolation_Git_safety_diff_commit_and_explicit_push_contracts
+    - P2_04_immutable_image_authorized_mount_network_limit_secret_output_cleanup_and_owned_orphan_runtime_contracts
     - all_earlier_isolation_provenance_durability_routing_scheduler_and_quarantine_firewall_contracts
 
 canonical_prompt_text: |-
-  PROMPT 23/51 - P2-04
+  PROMPT 24/51 - P2-05
 
   TITLE
 
-  Replaceable Container and Isolated Runtime Adapter
+  Universal HTTP/API Execution Adapter
 
   PHASE
 
@@ -58,7 +59,7 @@ canonical_prompt_text: |-
 
   GOAL
 
-  Execute Nodes inside bounded isolated/container runtimes without making Docker/Podman/Kubernetes/provider sandboxes part of kernel architecture.
+  Provide controlled outbound HTTP/API transport with explicit destinations, egress policy, credential separation, redirect control, streaming/bounds, timeout/cancel, binary-safe Artifact evidence.
 
   CURRENT VERIFIED STATE
 
@@ -76,7 +77,7 @@ canonical_prompt_text: |-
 
   DEPENDENCIES
 
-  - Prompt 22/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
+  - Prompt 23/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
 
   - All earlier accepted contracts used by this task; inspect the repository instead of assuming interface names.
 
@@ -92,13 +93,15 @@ canonical_prompt_text: |-
 
   IN SCOPE
 
-  - Define IsolatedRuntimeSpec with immutable image/artifact ref, entrypoint/args, mounts, network policy, CPU/RAM/GPU/process limits, environment/secret refs, timeout.
+  - Define HttpDestination and HttpExecutionRequest with origin/path policy, auth ref, data policy, response cap, redirect policy, Task/Run/Node binding.
 
-  - Implement replaceable adapter create/start/execute/cancel/stop/inspect/collect/cleanup and at least one real/reference implementation.
+  - Validate every redirect target; reachability/credentials never override egress permission.
 
-  - Capture exact runtime/image/host/resource identity; enforce and separately report requested vs actually enforced limits.
+  - Resolve credentials only at execution and redact secret headers/cookies.
 
-  - Persist required outputs before cleanup; cancellation/cleanup releases resources; restart orphan reconciliation affects only proven-owned runtimes.
+  - Stream upload/download; large binary response becomes ContentRef/Artifact; HTTP status is transport/application response, not semantic Task acceptance.
+
+  - Persist ToolCall destination/status/latency/safe metadata.
 
   OUT OF SCOPE
 
@@ -108,25 +111,27 @@ canonical_prompt_text: |-
 
   REQUIRED IMPLEMENTATION
 
-  - Define IsolatedRuntimeSpec with immutable image/artifact ref, entrypoint/args, mounts, network policy, CPU/RAM/GPU/process limits, environment/secret refs, timeout.
+  - Define HttpDestination and HttpExecutionRequest with origin/path policy, auth ref, data policy, response cap, redirect policy, Task/Run/Node binding.
 
-  - Implement replaceable adapter create/start/execute/cancel/stop/inspect/collect/cleanup and at least one real/reference implementation.
+  - Validate every redirect target; reachability/credentials never override egress permission.
 
-  - Capture exact runtime/image/host/resource identity; enforce and separately report requested vs actually enforced limits.
+  - Resolve credentials only at execution and redact secret headers/cookies.
 
-  - Persist required outputs before cleanup; cancellation/cleanup releases resources; restart orphan reconciliation affects only proven-owned runtimes.
+  - Stream upload/download; large binary response becomes ContentRef/Artifact; HTTP status is transport/application response, not semantic Task acceptance.
+
+  - Persist ToolCall destination/status/latency/safe metadata.
 
   REQUIRED INTERFACES
 
-  - IsolatedRuntimeSpec
+  - HttpDestination
 
-  - IsolatedRuntimeAdapter
+  - HttpAdapter
 
-  - runtime identity/receipt
+  - HttpExecutionRequest/Result
 
   DATA / STATE CHANGES
 
-  - Runtime ownership/status/output refs.
+  - Destination config refs and ToolCall/Artifact receipts.
 
   FAILURE BEHAVIOR
 
@@ -142,199 +147,219 @@ canonical_prompt_text: |-
 
   TESTS
 
-  - Valid isolated execution and output Artifact.
+  - GET/POST, streamed binary upload/download.
 
-  - Forbidden mount/network policy, secret injection/redaction, resource limits, timeout/cancel/crash.
+  - Response-size cap, timeout/cancel.
 
-  - Cleanup and resource release.
+  - Same-origin allowed and forbidden cross-origin redirects.
 
-  - Restart reconciles owned orphan and does not kill unknown runtime.
+  - Credentials injected but absent from ledger.
 
-  - Reference adapter satisfies same contract.
+  - Egress-denied remote request blocked.
+
+  - Project-scoped destination config.
 
   KPI
 
-  - forbidden_mount_access=0
+  - credential_leaks=0
 
-  - network_policy_bypasses=0
+  - egress_policy_bypasses=0
 
-  - secrets_in_normal_evidence=0
+  - redirect_policy_bypasses=0
 
-  - resource_leaks_after_terminal=0
+  - unbounded_response_materialization=0
 
-  - unknown_runtimes_killed=0
+  - timeouts_claimed_success=0
 
-  - provider_runtime_types_in_kernel=0
+  - binary_content_corruption=0
 
   RESTORED LONG-FORM REQUIREMENTS
 
-  ISOLATED RUNTIME AS REPLACEABLE TOOL
+  HTTP REQUEST CONTRACT
 
-  Implement a generic IsolatedRuntimeAdapter for container/sandbox execution.
+  Implement a provider-neutral HTTP/API adapter with explicit destination/egress semantics.
 
-  Representative interface:
+  Conceptual destination:
 
-  create(spec)
+  HttpDestination
 
-  start(runtime)
+  origin
 
-  execute(runtime, request)
+  allowed path/prefix?
 
-  cancel(execution/runtime)
+  auth profile ref?
 
-  stop(runtime)
+  data/egress classification
 
-  inspect(runtime)
+  TLS requirements
 
-  collect_outputs(runtime)
+  Request:
 
-  cleanup(runtime)
+  method
 
-  describeRuntime()
+  destination_ref / URL resolved under policy
 
-  Do not put Docker/Kubernetes/provider SDK objects in kernel contracts.
+  headers (non-secret + secret refs)
 
-  RUNTIME IDENTITY
+  body/content ref or stream
 
-  Persist enough runtime identity to distinguish generations:
+  timeouts
 
-  - adapter/implementation;
+  redirect policy
 
-  - image/runtime digest;
+  response size limit
 
-  - runtime instance ID;
+  project/run/node attribution
 
-  - generation;
+  EGRESS BEFORE TRANSFER
 
-  - executor/Resource;
+  Before sending Project data:
 
-  - start time.
+  - resolve destination;
 
-  Container ID is supplementary, not durable Run authority.
+  - evaluate Project/Task egress policy;
 
-  IMMUTABLE IMAGE / ENVIRONMENT
+  - evaluate data classification;
 
-  When image-based: bind image digest, not mutable tag alone.
+  - resolve credentials only after authorization.
 
-  Record runtime/tool versions needed for evidence.
+  Technical reachability is not permission.
 
-  MOUNTS
+  REDIRECT POLICY
 
-  Mount only authorized:
+  Support explicit semantics such as:
 
-  - Workspace roots;
+  - NONE
 
-  - input Artifacts/content;
+  - SAME_ORIGIN
 
-  - output roots;
+  - ALLOWLIST
 
-  - secret mounts.
+  Do not follow arbitrary redirects by default when they could exfiltrate authenticated or Project-private data.
 
-  Enforce read-only vs read-write.
+  Re-check egress/auth on redirect.
 
-  Do not expose host root, Docker socket, credential directories, or another Project.
+  AUTH
 
-  NETWORK POLICY
+  Credentials are secret refs resolved at runtime.
 
-  Support semantic modes:
+  Do not persist authorization headers, cookies, API keys, signed URLs with secrets, or passwords in ordinary ToolCall/Event metadata.
 
-  NONE
+  STREAMING REQUESTS
 
-  RESTRICTED
+  Large uploads: stream from authorized ContentRef/Artifact.
 
-  PROJECT_POLICY
+  Do not load entire object into RAM unnecessarily.
 
-  Report actual enforcement.
+  Record bytes transferred and exact source digest.
 
-  If a backend cannot enforce requested policy, it is not a compatible implementation.
+  STREAMING RESPONSES
 
-  Do not label network disabled if DNS/host networking still escapes.
+  Bound:
 
-  RESOURCE LIMITS
+  - max bytes;
 
-  Record:
+  - timeout;
 
-  - requested;
+  - streaming to Object Store for large/binary responses.
 
-  - enforced;
+  If limit exceeded, stop and record OUTPUT_LIMIT; do not truncate silently and call success.
 
-  - observed
+  TRANSPORT VS SEMANTIC SUCCESS
 
-  for CPU/RAM/GPU/storage/process limits where supported.
+  HTTP 2xx means transport/protocol response, not Task success.
 
-  Unsupported limit must be explicit.
+  Persist:
 
-  SECRETS
+  - status;
 
-  Use secret refs/mounts/runtime injection.
+  - response headers subset;
 
-  Do not bake secrets into images, command lines, Events, checkpoints, or output Artifacts.
+  - output ContentRef;
 
-  OUTPUT CAPTURE
+  - timing;
 
-  Before runtime cleanup:
+  - destination identity.
 
-  - collect required output files;
+  Higher-level adapter/Task validation determines semantic success.
 
-  - hash/store;
+  BINARY SAFETY
 
-  - create Artifact/Workspace receipt;
+  Support exact binary upload/download.
 
-  - collect bounded logs/evidence.
+  Verify downloaded bytes/digest when expected identity is known.
 
-  Cleanup must never run first and destroy uncaptured required outputs.
+  TLS
+
+  Do not disable certificate verification silently.
+
+  Custom trust roots/config must be explicit.
 
   CANCELLATION / TIMEOUT
 
-  Terminate only owned runtime/processes, release resources, preserve already durable outputs.
+  Cancel network operation where supported, close streams, leave partial output non-authoritative.
 
-  Late output from stale runtime generation must pass current fence/Run/Node authority before acceptance.
+  FAILURE CATEGORIES
 
-  ORPHAN RECOVERY
+  - EGRESS_DENIED;
 
-  After controller restart, inspect runtimes carrying Biella ownership labels/identities.
+  - AUTH_FAILED;
 
-  Recover/cleanup only runtimes provably owned by the expected Project/Run/Node generation.
+  - DNS/CONNECT_FAILED;
 
-  Never kill unknown containers/processes "because they look old."
+  - TLS_FAILED;
+
+  - TIMEOUT;
+
+  - REDIRECT_DENIED;
+
+  - OUTPUT_LIMIT;
+
+  - HTTP_ERROR;
+
+  - CANCELLED;
+
+  - CONTENT_INTEGRITY_FAILED.
 
   TESTS
 
-  - create/start/execute/stop;
+  - permitted GET/POST;
 
-  - exact image digest;
+  - query/header handling;
 
-  - read-only and writable mounts;
+  - secret auth redaction;
 
-  - cross-Project mount attempt;
+  - egress-denied before body transfer;
 
-  - network NONE verified where backend claims it;
+  - SAME_ORIGIN redirect;
 
-  - unsupported network mode rejected;
+  - cross-origin redirect denied;
 
-  - CPU/RAM limits;
+  - allowlisted redirect;
 
-  - GPU visibility if available;
+  - large streamed upload;
 
-  - secret absent from output/metadata;
+  - large streamed download;
 
-  - output capture before cleanup;
+  - response size cap;
 
-  - timeout/cancel;
+  - binary exact bytes;
 
-  - orphan recovery after process restart;
+  - timeout/cancellation;
 
-  - unknown runtime not killed;
+  - TLS invalid cert fixture where possible;
 
-  - stale generation output rejected;
+  - HTTP 200 with semantically invalid body remains transport success only;
 
-  - adapter replacement does not alter Task/Graph schema.
+  - Project isolation/destination scope;
 
-  This prompt provides the isolation mechanism used later by Workspace/production packs.
+  - ToolCall/Artifact attribution.
+
+  Hosted model/browser/object-store adapters may reuse this HTTP substrate but cannot bypass its policy.
 
   USEFUL EVIDENCE — NON-GATING
 
-  - Isolation is replaceable, outputs durable before cleanup, and enforcement claims match observed reality.
+  - HTTP becomes a safe provider-neutral transport for models/browsers/services without weakening Project policy.
 
   DELIVERABLES
 
@@ -356,7 +381,7 @@ canonical_prompt_text: |-
 
   Use this result block:
 
-  PROMPT: 23/51 - P2-04
+  PROMPT: 24/51 - P2-05
 
   STATUS: COMPLETE / PARTIAL / BLOCKED
 

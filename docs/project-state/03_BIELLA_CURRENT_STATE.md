@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-29 02:06 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-29T02:06:16+02:00"
+state_timestamp_local: "2026-08-29 02:59 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-29T02:59:41+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: d71c08a6da61713a1859bd9d1b8bb94652c41550
-    tree: abc9e6001d2b079b53c49850062d9d38bbbc3a55
+    commit: 7aaf3e83847d87538ec033fb9a043ea83bcbdf95
+    tree: ec205b0e33c05b2a9bcd8fe6e2e5b8919c0daffc
     observed_date: 2026-08-29
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p2_03_implementation_post_push_exact_readback
+    observation_context: p2_04_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: d71c08a6da61713a1859bd9d1b8bb94652c41550
-    tree: abc9e6001d2b079b53c49850062d9d38bbbc3a55
+    head: 7aaf3e83847d87538ec033fb9a043ea83bcbdf95
+    tree: ec205b0e33c05b2a9bcd8fe6e2e5b8919c0daffc
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 22
+    durable_prompts_complete: 23
     durable_prompts_total: 51
     phase: P2
-    active_prompt: P2-04
-    active_prompt_title: Replaceable Container and Isolated Runtime Adapter
+    active_prompt: P2-05
+    active_prompt_title: Universal HTTP/API Execution Adapter
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -1230,6 +1230,90 @@ engine:
       test_p2_03: "blob 44390c5b18fc9ca3720c6e362fd88276ea84d563; size 34699; sha256 5aa4932c33d61583f411799c3349974b35b7567d582999a8523e356349c4efcc"
       installed_writer: "blob e5789110e9c61bad1e371888f576aa4c7e09436d; size 6542; sha256 b2ca51c11895f5567ee663932ab5d1de1b7e4832aac284be682309a4a7d11dfb"
       installed_reader: "blob 93017f99ea5999956158a607957593af776d29f7; size 1787; sha256 2b83acdfa4794dca4e66cfc190a6430c2b3cb767561c343488e435ff6823f2e0"
+    p2_04_status: DURABLY_COMPLETE
+    p2_04_source_commit: 800aa08e5aa6d86221c64ffaef667c5eab46b915
+    p2_04_result_commit: 7aaf3e83847d87538ec033fb9a043ea83bcbdf95
+    p2_04_result_tree: ec205b0e33c05b2a9bcd8fe6e2e5b8919c0daffc
+    p2_04_remote_readback: VERIFIED
+    p2_04_implementation:
+      production_modules_added: 1
+      public_exports_added: 23
+      focused_pytest_cases: 11
+      installed_restart_programs_added: 2
+      migrations_added: 0
+      schema_tables_added: 4
+      capability_surface: runtime_create_start_execute_cancel_stop_inspect_collect_cleanup_describe
+      runtime_contract: immutable_image_digest_entrypoint_direct_args_authorized_mounts_network_policy_CPU_RAM_GPU_storage_process_limits_environment_secret_refs_timeout_and_bounded_logs
+      identity_model: exact_Project_Run_NodeAttempt_fence_optional_ResourceAllocation_adapter_image_runtime_host_boot_container_generation_and_start_time
+      enforcement_model: requested_enforced_and_observed_limits_are_separate_with_NONE_network_read_only_rootfs_nonroot_user_cap_drop_no_new_privileges_CPU_RAM_and_PID_limits
+      output_model: descriptor_safe_stream_capture_secret_scan_ContentRef_Artifact_and_receipt_persistence_before_cleanup
+      recovery_model: exact_owned_label_image_container_generation_spec_NodeAttempt_and_fence_reconciliation_with_unknown_runtime_inertness
+      idempotency_model: immutable_attempt_scoped_claims_monotonic_runtime_generations_exact_terminal_replay_receipt_manifest_consistency_and_erasure_detection
+    p2_04_validation:
+      focused_pytest: "11 passed; 0 failed; 0 skipped; 98.73s final exact-tree run including exact wheel build and separate installed restart"
+      broad_non_nested_regression: "428 passed; 21 nested qualification gates deselected; 127 subtests passed; 0 failed; 0 skipped; 402.61s"
+      mypy_strict: "65 source/test files; 0 issues; mypy 2.3.1"
+      compileall: PASS
+      diff_check: PASS
+      test_quality_scan: "P2-04 skip, placeholder, TODO, FIXME, and NotImplemented executable-test hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 3794a05e504d3739c86e3c8406f479d5cbdf0d4ae0258f9355d25606a8a2a4ee; isolated_runtime.py source and packaged bytes sha256 0ad258145099cc856b76706eb3cbb30640e989844e573277014e6433f984385e exactly matched"
+      installed_wheel_restart: "separate installed-package writer and reader shared durable SQLite, object storage, exact runtime generations, ToolCalls, receipts, output Artifact, cleaned state, and restart reconstruction"
+      remote_required_paths_and_bytes: "GitHub branch, commit, tree, five blob IDs, sizes, SHA256 bytes, and exact raw contents independently read back and matched"
+      adversarial_review: "PASS after mutable image, cross-Project mount, host-root mount, unsupported network/storage/GPU, read-only mutation, hostile argv, secret persistence, timeout/cancel/stop/crash, premature cleanup, stale output, unknown orphan, receipt/state tamper, and content erasure hardening"
+      fallow_review: "NOT_RUN; fallow CLI unavailable on host; deterministic adversarial tests, strict typing, and manual trust-boundary review used"
+      post_test_owned_runtime_inventory: "0 Biella-labeled Docker containers"
+    p2_04_kpi:
+      forbidden_mount_access: 0
+      network_policy_bypasses: 0
+      secrets_in_normal_evidence: 0
+      resource_leaks_after_terminal: 0
+      unknown_runtimes_killed: 0
+      provider_runtime_types_in_kernel: 0
+    p2_04_reality_classification:
+      Docker_OCI_reference_adapter: REAL
+      immutable_Alpine_image_identity: REAL
+      isolated_execution_and_binary_safe_output_Artifact: REAL
+      network_NONE_enforcement: REAL
+      CPU_RAM_and_process_limit_enforcement_and_observation: REAL
+      secret_file_injection_and_managed_log_redaction: REAL
+      timeout_cancel_stop_crash_cleanup_and_restart_reconciliation: REAL
+      installed_wheel_separate_process_restart: REAL
+      local_GPU_visibility: UNAVAILABLE_EXPLICITLY_REJECTED
+      restricted_and_Project_policy_network: UNSUPPORTED_BY_THIS_ADAPTER_EXPLICITLY_REJECTED
+      storage_quota: UNSUPPORTED_BY_THIS_ADAPTER_EXPLICITLY_REJECTED
+    p2_04_qualification:
+      IsolatedRuntimeSpec_IsolatedRuntimeAdapter_RuntimeRef_state_receipts_and_descriptor: VERIFIED
+      exact_image_runtime_host_container_generation_NodeAttempt_Run_and_optional_ResourceAllocation_identity: VERIFIED
+      provider_neutral_Task_Graph_contracts: VERIFIED
+      authorized_read_only_writable_cross_Project_and_forbidden_host_mounts: VERIFIED
+      network_NONE_and_unsupported_network_mode_rejection: VERIFIED
+      requested_enforced_observed_CPU_RAM_process_and_explicit_GPU_storage_support: VERIFIED
+      secret_refs_runtime_injection_redaction_and_normal_evidence_absence: VERIFIED
+      output_ContentRef_and_Artifact_before_cleanup: VERIFIED
+      timeout_cancel_stop_crash_and_owned_resource_release: VERIFIED
+      restart_owned_orphan_recovery_and_unknown_runtime_inertness: VERIFIED
+      stale_generation_output_and_scope_authority_denial: VERIFIED
+      restart_idempotency_receipt_manifest_state_and_content_integrity: VERIFIED
+      raw_QuarantineRef_runtime_dependency: 0
+    p2_04_schema_changes:
+      - isolated_runtime_states
+      - isolated_runtime_heads
+      - isolated_runtime_operation_claims
+      - isolated_runtime_operation_results
+      - immutable_state_claim_result_and_monotonic_generation_integrity_guards
+    p2_04_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/isolated_runtime.py
+      - tests/test_p2_04_isolated_runtime.py
+      - tests/fixtures/p2_04_installed_writer.py
+      - tests/fixtures/p2_04_installed_reader.py
+    p2_04_remote_path_evidence:
+      src_biella_init: "blob d3fe78aed9a2ec78819342eee92cebb241b37c9c; size 17215; sha256 4700e65f440494255a8f99fe0f6fbb313d3c1ec200e0716e39d00c1c0d39e128"
+      src_biella_isolated_runtime: "blob b2770d53872ebe58e88fed646b4c6b95c3d52b18; size 132635; sha256 0ad258145099cc856b76706eb3cbb30640e989844e573277014e6433f984385e"
+      test_p2_04: "blob 3c81ddba0c7a934f47d1a5cdbb12207792bfcdf1; size 38081; sha256 a5bd3f7b4c7609e28151cedcf4a57e8e0ceacb37b8e6bf579ab650fe3dbe390f"
+      installed_writer: "blob d9783a4fdf2d3b3fadbf39bab0f88d3e32a833be; size 6128; sha256 759f539c6aa5e66c805741a0f2cf36d25478861c5180246c7096e93fc8d8d006"
+      installed_reader: "blob 6d62d94a611f7741ad4af8798a09fa2bd6f4d556; size 2045; sha256 aabf26bfdf4eaa060e832e59705724a63514e334a632c259a0e384204e4fe7cb"
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -1278,10 +1362,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P2-04
-    title: Replaceable Container and Isolated Runtime Adapter
-    drive_id: 1ulpsBImXNT3HyP7G0GUfEjNjPXqCknY0uLdjoEn4xyA
-    canonical_prompt_text_sha256: c825ff36626451ea5eeefdaa5141f825204408db6b5528b905b7ba9ff087e61e
+    id: P2-05
+    title: Universal HTTP/API Execution Adapter
+    drive_id: 11zmSVb23RA5InBxAVWCD_KAqHFn_vLtXrnuublFGvHQ
+    canonical_prompt_text_sha256: f9fc9032c1a8456167c5786127eff102d8b4b782ff2e654988bb9e2a209e5b88
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -1348,46 +1432,47 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P2-04
-  global_number: 23
-  title: Replaceable Container and Isolated Runtime Adapter
-  prompt_drive_id: 1ulpsBImXNT3HyP7G0GUfEjNjPXqCknY0uLdjoEn4xyA
-  predecessor_result_commit: d71c08a6da61713a1859bd9d1b8bb94652c41550
-  predecessor_result_tree: abc9e6001d2b079b53c49850062d9d38bbbc3a55
+  id: P2-05
+  global_number: 24
+  title: Universal HTTP/API Execution Adapter
+  prompt_drive_id: 11zmSVb23RA5InBxAVWCD_KAqHFn_vLtXrnuublFGvHQ
+  predecessor_result_commit: 7aaf3e83847d87538ec033fb9a043ea83bcbdf95
+  predecessor_result_tree: ec205b0e33c05b2a9bcd8fe6e2e5b8919c0daffc
 
 next_transition:
-  - verify_P2_03_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P2_04_prompt_and_directly_required_Project_FilesystemRoot_ProcessExecutionRequest_ResourceAllocation_ToolCall_Event_Artifact_ContentRef_and_runtime_interfaces_only
-  - define_exact_IsolatedRuntimeSpec_IsolatedRuntimeAdapter_runtime_identity_and_receipts_without_provider_types_in_kernel
-  - implement_create_start_execute_cancel_stop_inspect_collect_cleanup_and_describeRuntime
-  - bind_immutable_image_or_artifact_identity_entrypoint_args_authorized_mounts_network_policy_limits_environment_secret_refs_and_timeout
-  - provide_at_least_one_real_or_reference_adapter_and_report_requested_enforced_observed_limits_separately
-  - capture_required_outputs_and_bounded_logs_as_ContentRefs_and_Artifacts_before_cleanup
-  - reconcile_only_proven_owned_orphans_and_reject_stale_generation_outputs_without_touching_unknown_runtimes
+  - verify_P2_04_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P2_05_prompt_and_directly_required_Project_Task_Run_Graph_NodeAttempt_EgressPolicy_DataPolicy_ContentRef_Artifact_ToolCall_Event_and_transport_interfaces_only
+  - define_provider_neutral_HttpDestination_HttpExecutionRequest_HttpResult_and_HttpAdapter
+  - authorize_destination_path_data_classification_and_egress_before_resolving_credentials_or_transferring_Project_data
+  - implement_GET_POST_streamed_binary_upload_download_bounds_timeout_cancel_and_binary_exactness
+  - enforce_NONE_SAME_ORIGIN_and_ALLOWLIST_redirect_policy_with_every_target_reauthorized
+  - inject_secret_refs_only_at_execution_and_exclude_authorization_cookie_signed_URL_and_password_material_from_normal_evidence
+  - persist_destination_status_latency_safe_headers_bytes_ContentRef_Artifact_and_ToolCall_evidence_without_claiming_semantic_Task_success
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P2_04_before_opening_P2_05
+  - close_P2_05_before_opening_P2_06
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - put_Docker_Podman_Kubernetes_or_provider_SDK_objects_in_kernel_contracts
-  - accept_mutable_image_tag_without_exact_digest_or_artifact_identity
-  - expose_host_root_Docker_socket_credential_directories_or_another_Project_through_mounts
-  - claim_network_NONE_or_RESTRICTED_when_the_backend_does_not_actually_enforce_it
-  - claim_CPU_RAM_GPU_storage_or_process_limits_enforced_without_observed_backend_evidence
-  - persist_secret_values_in_args_Events_checkpoints_logs_or_Artifacts
-  - cleanup_before_required_output_capture_is_durable
-  - terminate_or_cleanup_runtime_without_exact_ownership_and_generation_proof
+  - put_HTTP_client_provider_SDK_objects_in_kernel_contracts
+  - send_Project_data_before_destination_egress_and_data_policy_authorization
+  - let_reachability_or_credentials_override_egress_permission
+  - follow_unvalidated_or_arbitrary_redirects
+  - persist_authorization_cookie_API_key_signed_URL_password_or_secret_values_in_ToolCalls_Events_logs_or_Artifacts
+  - disable_TLS_certificate_verification_silently
+  - materialize_unbounded_upload_or_response_bodies_in_RAM
+  - truncate_output_limit_responses_and_claim_success
+  - treat_HTTP_2xx_as_semantic_Task_acceptance
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P2_05_before_P2_04_durable_close
+  - start_P2_06_before_P2_05_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
