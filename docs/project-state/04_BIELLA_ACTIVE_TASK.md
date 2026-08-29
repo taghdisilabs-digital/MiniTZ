@@ -4,52 +4,53 @@
 schema: biella.active_task/v3
 
 task:
-  id: P2-06
-  global_number: 25
+  id: P2-07
+  global_number: 26
   phase: P2
-  title: Provider-Neutral Model Execution Adapter Layer
-  state: READY_AFTER_P2_05_DURABLE_CLOSE
+  title: Durable Provider-Neutral Browser Automation Adapter
+  state: READY_AFTER_P2_06_DURABLE_CLOSE
   exact_prompt:
-    title: 25_P2-06_Provider_Neutral_Model_Execution_Adapter_Layer.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/25_P2-06_Provider_Neutral_Model_Execution_Adapter_Layer.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/25_P2-06_Provider_Neutral_Model_Execution_Adapter_Layer.md.docx
-    drive_id: 1z1EOJUTNn_-jd115J539vG8Auq969p55rAHlR0AXg7k
-    local_docx_sha256: 5cb09d89aeee964d91f1c60cf3dc43d163fd1b06577949ce0bf22b144b2ebbc2
-    live_drive_exported_docx_sha256: 956b39840a6ee3f610ba1141f136f931cb341fc6e1a175581d7ce90a1e4edc8c
-    canonical_text_sha256: e3313ab5763d202f4f4c7ffb060dbb0972e5b3012654ec48518c1af48f459926
+    title: 26_P2-07_Durable_Provider_Neutral_Browser_Automation_Adapter.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/26_P2-07_Durable_Provider_Neutral_Browser_Automation_Adapter.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/26_P2-07_Durable_Provider_Neutral_Browser_Automation_Adapter.md.docx
+    drive_id: 1jgWIpcDZVon6xUZWKDVnh7eIkz0sDKQ9udQiYDfn0iI
+    local_docx_sha256: 0631c9ccb7ee33838c944891a2ab9dc98eefdaced2408d5ac482b602c40f3d1c
+    live_drive_exported_docx_sha256: a1dd83bb583a0339f36daba8a1f74bbc97947ebbf798084574b393881662019a
+    canonical_text_sha256: 5e8c7762fbef9af2998351a61402eb8a839207cb8aa1d4e9010aee329661a196
     canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P2-05
-    result_commit: de7864daff7fc9c8939872d0f45968a9f5d4b767
-    result_tree: c12614081948b7af3222b53add7a090d27e6c173
+    id: P2-06
+    result_commit: 35edc349447868fd0be4250d5c071579df5e9650
+    result_tree: 5c1883b17a50117530f4cea9e1df1fc2d30e990c
     remote_readback: VERIFIED
     remote_required_paths_and_bytes: VERIFIED
-    focused_type_build_installed_restart_and_full_regression: VERIFIED
-  numbered_successor: P2-07
+    focused_type_build_installed_restart_live_provider_and_full_regression: VERIFIED
+  numbered_successor: P2-08
 
 execution_boundary:
   start_only_after_predecessor_durable_close: satisfied
   load_only:
-    - exact_P2_06_canonical_prompt
+    - exact_P2_07_canonical_prompt
     - current_state_and_active_task_continuity
-    - accepted_Project_Task_Run_Graph_NodeAttempt_Capability_Routing_ModelCall_ToolCall_ContentRef_Artifact_HTTP_Process_IsolatedRuntime_Resource_and_policy_interfaces_directly_required
+    - accepted_Project_Task_Run_Graph_NodeAttempt_Capability_Routing_ToolCall_ContentRef_Artifact_HTTP_Filesystem_Process_IsolatedRuntime_Resource_Event_and_policy_interfaces_directly_required
     - directly_touched_source_and_task_scoped_tests
   do_not_open:
-    - P2_07_or_later_prompt_bodies_before_P2_06_durable_close
+    - P2_08_or_later_prompt_bodies_before_P2_07_durable_close
     - unrelated_historical_backup_or_legacy_material
   preserve:
     - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ModelCall_ToolCall_Event_ResourceAllocation_and_managed_runtime_identity
     - P2_01_through_P2_04_real_execution_adapter_isolation_streaming_fencing_and_durability_contracts
     - P2_05_destination_egress_credential_redirect_streaming_timeout_cancellation_TLS_and_transport_evidence_contracts
+    - P2_06_provider_neutral_model_deployment_execution_health_tool_policy_fencing_and_provenance_contracts
     - all_earlier_isolation_provenance_durability_routing_scheduler_and_quarantine_firewall_contracts
 
 canonical_prompt_text: |-
-  PROMPT 25/51 - P2-06
+  PROMPT 26/51 - P2-07
 
   TITLE
 
-  Provider-Neutral Model Execution Adapter Layer
+  Durable Provider-Neutral Browser Automation Adapter
 
   PHASE
 
@@ -57,7 +58,7 @@ canonical_prompt_text: |-
 
   GOAL
 
-  Execute model.infer, retrieval.embed, and retrieval.rerank through replaceable hosted/local implementations while keeping provider SDKs outside Task/Run/kernel contracts.
+  Operate real browser sessions/pages/actions while browser state remains ephemeral execution resource and all meaningful outputs/side effects remain durable Biella evidence.
 
   CURRENT VERIFIED STATE
 
@@ -75,7 +76,7 @@ canonical_prompt_text: |-
 
   DEPENDENCIES
 
-  - Prompt 24/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
+  - Prompt 25/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
 
   - All earlier accepted contracts used by this task; inspect the repository instead of assuming interface names.
 
@@ -91,15 +92,15 @@ canonical_prompt_text: |-
 
   IN SCOPE
 
-  - Define ModelDeployment/implementation identity: provider/model/revision/artifact/endpoint, capabilities/modalities/context/tool support, resource/data characteristics, health.
+  - Register browser open/navigate/inspect/extract/click/type/select/upload/download/screenshot/evaluate/wait/submit capabilities.
 
-  - Implement provider-neutral ModelAdapter infer/embed/rerank and at least two implementation classes (real+reference if needed).
+  - Define BrowserAdapter plus session/page generation identity so stale pre-crash actions/results cannot affect replacement sessions.
 
-  - Every call uses P1 ModelCall ledger; structured output and embedding/rerank results are validated, usage remains truthful/nullable.
+  - Downloads/screenshots/extractions persist as Artifacts; uploads come only from authorized refs/roots.
 
-  - Provider-native tool requests map into Biella ToolCall policy; unauthorized tools are not executed.
+  - Read-only vs external mutation follows Task side-effect authority; browser egress cannot bypass HTTP/Project policy.
 
-  - Cancellation/timeouts/late responses respect fences; hosted routes reuse HTTP egress/credential controls; local runtime binds exact generation/resource identity.
+  - Secrets/cookies stay out of ordinary evidence; browser crash/session loss preserves completed durable work.
 
   OUT OF SCOPE
 
@@ -109,29 +110,29 @@ canonical_prompt_text: |-
 
   REQUIRED IMPLEMENTATION
 
-  - Define ModelDeployment/implementation identity: provider/model/revision/artifact/endpoint, capabilities/modalities/context/tool support, resource/data characteristics, health.
+  - Register browser open/navigate/inspect/extract/click/type/select/upload/download/screenshot/evaluate/wait/submit capabilities.
 
-  - Implement provider-neutral ModelAdapter infer/embed/rerank and at least two implementation classes (real+reference if needed).
+  - Define BrowserAdapter plus session/page generation identity so stale pre-crash actions/results cannot affect replacement sessions.
 
-  - Every call uses P1 ModelCall ledger; structured output and embedding/rerank results are validated, usage remains truthful/nullable.
+  - Downloads/screenshots/extractions persist as Artifacts; uploads come only from authorized refs/roots.
 
-  - Provider-native tool requests map into Biella ToolCall policy; unauthorized tools are not executed.
+  - Read-only vs external mutation follows Task side-effect authority; browser egress cannot bypass HTTP/Project policy.
 
-  - Cancellation/timeouts/late responses respect fences; hosted routes reuse HTTP egress/credential controls; local runtime binds exact generation/resource identity.
+  - Secrets/cookies stay out of ordinary evidence; browser crash/session loss preserves completed durable work.
 
   REQUIRED INTERFACES
 
-  - ModelDeployment
+  - BrowserAdapter
 
-  - ModelAdapter
+  - BrowserSessionIdentity
 
-  - infer/embed/rerank request/result
+  - BrowserPageRef
 
-  - runtime health/identity
+  - structured BrowserAction
 
   DATA / STATE CHANGES
 
-  - Deployment registry/health plus ModelCall output refs.
+  - Session/runtime refs and durable ToolCall/Artifact receipts.
 
   FAILURE BEHAVIOR
 
@@ -147,259 +148,317 @@ canonical_prompt_text: |-
 
   TESTS
 
-  - Text inference, structured valid/invalid output, timeout/cancel/late response.
+  - Navigate/inspect/extract/actions/screenshot.
 
-  - Provider replacement without Task change.
+  - Download exact digest; interrupted download rejected as complete.
 
-  - Embedding dimension/count/NaN checks and source digest provenance.
+  - Upload authorized Artifact; arbitrary host path rejected.
 
-  - Rerank candidate coverage/order validation.
+  - Read-only Task mutation rejected; authorized mutation gets durable receipt.
 
-  - Tool-call normalization and unauthorized tool rejection.
+  - Session crash and generation replacement; stale result rejected.
 
-  - Context limit and egress denial.
+  - Project/session/credential isolation.
 
   KPI
 
-  - Task_contract_changes_between_providers=0
+  - browser_session_loss_causes_Run_loss=0
 
-  - provider_sdk_types_in_kernel=0
+  - download_without_ContentRef=0
 
-  - significant_model_calls_missing_ledger=0
+  - external_side_effect_without_Task_authority=0
 
-  - fabricated_usage=0
+  - credential_leaks=0
 
-  - malformed_outputs_treated_success=0
+  - stale_browser_generation_results_accepted=0
 
-  - egress_violating_model_calls=0
+  - browser_provider_types_in_kernel=0
 
   RESTORED LONG-FORM REQUIREMENTS
 
-  MODEL DEPLOYMENT REGISTRY
+  CAPABILITY SURFACE
 
-  Represent model deployments separately from semantic capabilities and providers.
+  Register extensible capabilities equivalent to:
 
-  Conceptual ModelDeployment should capture:
+  browser.open
 
-  - deployment ID;
+  browser.navigate
 
-  - provider/adapter;
+  browser.inspect
 
-  - model identity/name;
+  browser.extract
 
-  - exact revision/Artifact where known;
+  browser.click
 
-  - endpoint/runtime ref;
+  browser.type
 
-  - supported capabilities;
+  browser.select
 
-  - modalities;
+  browser.upload
 
-  - context limits;
+  browser.download
 
-  - structured-output support;
+  browser.screenshot
 
-  - tool support;
+  browser.evaluate
 
-  - required Resources for local;
+  browser.wait_for_condition
 
-  - health/current availability;
+  browser.submit
 
-  - metadata/freshness.
+  Do not make these a closed kernel enum. Future browser capabilities must register without changing Task/Run/Graph primitives.
 
-  Do not pretend a mutable hosted alias has an exact revision if provider does not expose one.
+  ADAPTER CONTRACT
 
-  MODEL ADAPTER
+  Implement a provider-neutral interface equivalent to:
 
-  Provide provider-neutral operations equivalent to:
+  BrowserAdapter:
 
-  infer(request)
+  createSession(spec)
 
-  embed(request)
+  navigate(session, request)
 
-  rerank(request)
+  inspect(session, request)
 
-  health(deployment)
+  performAction(session, action)
 
-  cancel(request)
+  extract(session, request)
 
-  describeRuntime()
+  captureScreenshot(session, request)
 
-  Not every deployment must support every operation.
+  upload(session, request)
 
-  REQUEST / RESULT
+  download(session, request)
 
-  Model requests bind:
+  waitForCondition(session, request)
 
-  - Project/Task/Run/Graph/Node;
+  cancel(session/request)
 
-  - Capability;
+  closeSession(session)
 
-  - exact deployment;
+  inspectSession(session)
 
-  - ContextReceipt/input refs;
+  Implement at least one real browser implementation where current environment permits and a deterministic reference/test implementation where needed.
 
-  - generation parameters;
+  Do not expose Playwright/Selenium/provider SDK objects in kernel contracts.
 
-  - output contract/schema;
+  SESSION GENERATION IDENTITY
 
-  - timeout/cancellation.
+  Persist runtime identity equivalent to:
 
-  Results bind:
+  BrowserSessionIdentity:
 
-  - exact call ledger record;
+  browser_adapter_id
 
-  - output ContentRef/Artifact;
+  implementation_id
 
-  - usage/timing;
+  browser_name
 
-  - finish/status;
+  browser_version
 
-  - model/runtime identity.
+  runtime_version
 
-  MULTIPLE IMPLEMENTATION CLASSES
+  session_id
 
-  P2-06 must prove provider neutrality with at least two implementation classes.
+  executor/resource identity
 
-  If only one real provider is available:
+  generation
 
-  - real adapter A;
+  created_at
 
-  - deterministic/reference adapter B.
+  Page refs include session/page/generation/current URL.
 
-  Report second as REFERENCE, not REAL.
+  A page/session ref is runtime state, not durable Project truth.
 
-  Do not create fake provider claims.
+  If session generation 1 crashes and generation 2 replaces it, every late action/result from generation 1 is stale and rejected.
 
-  HOSTED VS LOCAL
+  SESSION LOSS
 
-  Hosted implementation may use P2-05 HTTP.
+  After browser crash:
 
-  Local implementation may use process/isolated runtime and Resource identity.
+  - Run state survives;
 
-  Both implement the same semantic model adapter contracts.
+  - completed ToolCalls survive;
 
-  STRUCTURED OUTPUT
+  - downloaded Artifacts survive;
 
-  When Task requires schema:
+  - screenshots/extractions survive;
 
-  - request structured output where adapter supports;
+  - already confirmed external side-effect receipts survive;
 
-  - validate result against exact schema/output contract;
+  - incomplete current action fails/stales;
 
-  - malformed model output is not success merely because provider call succeeded.
+  - scheduler may start a new session.
 
-  EMBEDDINGS
+  Do not reconstruct completed work from browser memory alone.
 
-  Validate:
+  EGRESS AND ORIGIN POLICY
 
-  - output count equals input count;
+  Navigation/upload/form submission must respect Project/Task data-egress policy.
 
-  - vector dimensions expected/current deployment metadata;
+  Browser reachability cannot bypass HTTP egress restrictions.
 
-  - all values finite;
+  When uploading Project-private data, validate destination/origin before transferring bytes.
 
-  - exact deployment/runtime provenance.
+  READ VS MUTATION
 
-  Reject NaN/Infinity, missing vectors, dimension drift without explicit new identity.
+  Structured browser actions should declare side-effect class.
 
-  RERANK
+  READ_ONLY examples: navigate, inspect, screenshot, extract.
 
-  Validate:
+  EXTERNAL_SIDE_EFFECT examples: submit form, publish content, delete remote record, send message.
 
-  - every returned candidate refers to an input candidate;
+  A read-only Task cannot perform the latter.
 
-  - no duplicate/missing IDs where contract forbids;
+  Do not create a universal human approval gate; enforce existing Task authority.
 
-  - scores finite;
+  DOM / EXTRACTION
 
-  - ordering complete/valid;
+  Inspection/extraction output should be:
 
-  - exact reranker deployment identity.
+  - bounded;
 
-  PROVIDER TOOL CALLS
+  - structured where practical;
 
-  Provider-native tool-call proposals are normalized to Biella semantics.
+  - bound to exact session/page/url/time;
 
-  A model may propose: tool name + structured args.
+  - persisted as ContentRef/Artifact when durable.
 
-  Biella must:
+  Large DOM/snapshot -> Object Store, not giant database row.
 
-  1.  map to permitted Tool Capability;
+  SCREENSHOT
 
-  2.  enforce Task/Project authority;
+  Screenshot result:
 
-  3.  execute via Tool adapter;
+  - exact ContentRef;
 
-  4.  persist ToolCall;
+  - Artifact;
 
-  5.  feed result back if strategy requires.
+  - ToolCall output ref;
 
-  Provider-native tool calling does not let model execute arbitrary host tools.
+  - viewport;
 
-  CONTEXT LIMIT
+  - page identity;
 
-  Detect context/token limit before/at call where possible and return explicit failure.
+  - URL;
 
-  Do not silently drop required context.
+  - timestamp;
 
-  P2-10 will implement richer context compilation.
+  - browser implementation/runtime identity.
 
-  CANCELLATION / TIMEOUT
+  Screenshot alone is not proof the requested interaction works unless validation says so.
 
-  Cancellation should cancel hosted/local work where supported, release Resources, and reject late stale result through execution fencing.
+  DOWNLOAD
 
-  EGRESS
+  Required flow:
 
-  Private Project data may be sent only to permitted provider/destination under Project/Task policy.
+  authorized browser action
 
-  A capable model is ineligible if egress policy forbids it.
+  → temporary controlled download
 
-  HEALTH / AVAILABILITY
+  → completion
 
-  Temporary provider/model outage affects current implementation availability, not semantic Capability.
+  → digest
 
-  TESTS
+  → Object Store
 
-  - real/reference infer;
+  → Artifact
 
-  - same model.infer Task works across two adapter classes;
+  → verification
 
-  - exact deployment identity;
+  → durable success
 
-  - structured valid output;
+  Temporary browser download path is not Artifact identity.
 
-  - malformed structured output rejected;
+  Interrupted download cannot be accepted complete.
 
-  - embedding finite/dimension/cardinality checks;
+  UPLOAD
 
-  - rerank valid and invalid cases;
+  Upload only:
 
-  - provider tool proposal -> Biella ToolCall;
+  - authorized Artifact/ContentRef;
 
-  - unauthorized tool proposal rejected;
+  - controlled FilesystemRoot.
 
-  - context limit;
+  Reject arbitrary host path.
 
-  - provider unavailable;
+  Stream large uploads.
 
-  - cancellation/timeout;
+  STRUCTURED ACTION
 
-  - stale generation result rejected;
+  Use structured BrowserAction:
 
-  - egress denied;
+  - action_type;
 
-  - local runtime Resource identity where implemented;
+  - target;
 
-  - ModelCall ledger complete;
+  - value_ref;
 
-  - no provider SDK type in kernel.
+  - timeout;
 
-  P2-06 establishes model execution as one replaceable capability implementation layer, not Biella architecture authority.
+  - expected pre/postcondition;
+
+  - side-effect class.
+
+  Avoid arbitrary JS when structured action exists.
+
+  If browser.evaluate exists, treat as explicit bounded capability and do not turn browser JS into host execution privilege.
+
+  WAIT
+
+  Support bounded waits for:
+
+  - selector;
+
+  - URL;
+
+  - DOM property;
+
+  - network idle;
+
+  - explicit event.
+
+  Timeout remains timeout, not success.
+
+  CREDENTIALS / COOKIES
+
+  Credentials from secret refs.
+
+  Do not persist password/token/cookie bytes in ordinary Events/ToolCalls.
+
+  Browser profile/session storage is runtime-sensitive and not Project Memory.
+
+  MODEL-GUIDED BROWSER
+
+  Provider-native browser/computer action proposal:
+
+  ModelCall -> proposed action -> Biella policy/tool validation -> BrowserAdapter -> ToolCall
+
+  The model does not gain authority outside Task/Node policy.
+
+  EVENTS
+
+  Meaningful events may include:
+
+  - BROWSER_SESSION_STARTED;
+
+  - BROWSER_SESSION_REPLACED;
+
+  - BROWSER_ARTIFACT_CREATED;
+
+  - EXTERNAL_SIDE_EFFECT_RECORDED.
+
+  Do not dump browser trace into Event Ledger.
+
+  MANDATORY TEST MATRIX
+
+  Cover session create/close/crash/replacement; navigation and redirects; egress denied; bounded inspect/extract; click/type/select; missing target; read-only mutation rejection; authorized mutation receipt; screenshot; exact download digest; interrupted download; upload Artifact; arbitrary path rejection; secret/cookie redaction; crash after completed download; resume with new session; model-proposed action validation; cross-Project session/Artifact denial.
+
+  Target KPI includes: browser_session_loss_causes_Run_loss=0, stale_browser_generation_results_accepted=0, credential_leaks=0, unattributed_external_browser_mutations=0.
 
   USEFUL EVIDENCE — NON-GATING
 
-  - Multiple model implementation classes share one semantic contract and exact evidence; provider/model choice remains routing data.
+  - Browser is a replaceable tool capability, not Run authority; session loss does not erase completed work.
 
   DELIVERABLES
 
@@ -421,7 +480,7 @@ canonical_prompt_text: |-
 
   Use this result block:
 
-  PROMPT: 25/51 - P2-06
+  PROMPT: 26/51 - P2-07
 
   STATUS: COMPLETE / PARTIAL / BLOCKED
 
