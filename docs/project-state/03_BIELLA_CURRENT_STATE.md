@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-29 08:39 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-29T08:39:36+02:00"
+state_timestamp_local: "2026-08-29 10:10 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-29T10:10:37+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: 03ea21dbd22466470d07a674fd330ad68009d756
-    tree: 5663d2b02872fd0bdc1fb10320e2012e63122345
+    commit: df3b6987865aae2f94eaa9650636fae131e4e167
+    tree: 354127377184cc5901e58a2581fafadc17577e95
     observed_date: 2026-08-29
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p2_09_final_result_post_push_exact_readback
+    observation_context: p2_10_final_result_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: 03ea21dbd22466470d07a674fd330ad68009d756
-    tree: 5663d2b02872fd0bdc1fb10320e2012e63122345
+    head: df3b6987865aae2f94eaa9650636fae131e4e167
+    tree: 354127377184cc5901e58a2581fafadc17577e95
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 28
+    durable_prompts_complete: 29
     durable_prompts_total: 51
     phase: P2
-    active_prompt: P2-10
-    active_prompt_title: Project-Scoped Context Compilation and Derived Retrieval
+    active_prompt: P2-11
+    active_prompt_title: Durable Candidate Workspace and Sandbox Execution
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -1759,6 +1759,97 @@ engine:
       test_p2_09: "blob 6b62cdf300c0e60f4388352d02dd114a4b72cd53; size 25595; sha256 04d3b67ecba921a179372076c7efb995ba04be8bf60fe6b8a568b2df8bb26b9f"
       installed_writer: "blob a7e227a19aebcc3f99e84c5d57b7308cf0d42755; size 2473; sha256 6ec22d521271b0c79f93e9451330b7c2463dd0016948bee777b4ea5f63438f43"
       installed_reader: "blob 243fa1f3fab0930a28f9fb43c704008c17c20911; size 2096; sha256 64ca275fb79fa68fd6071df9c51722a043a8bebb136e0f632f5965a76d07befe"
+    p2_10_status: DURABLY_COMPLETE
+    p2_10_source_commit: 1c6e7fd8a086df851d210e2c26aa918388e552ff
+    p2_10_result_commit: df3b6987865aae2f94eaa9650636fae131e4e167
+    p2_10_result_tree: 354127377184cc5901e58a2581fafadc17577e95
+    p2_10_remote_readback: VERIFIED
+    p2_10_implementation:
+      production_modules_added: 1
+      existing_modules_extended: 1
+      public_export_bindings_created_or_changed: 29
+      focused_pytest_cases: 11
+      migrations_added: 0
+      durable_state_tables_added: 12
+      context_compilation_surface: ContextBudget_ContextCompileRequest_ContextCompiler_ContextLimitError_ContextManifest_ContextReceipt_reduction_evidence_policies_and_token_source
+      retrieval_surface: IndexBuildRequest_IndexBuildResult_RetrievalIndex_RetrievalIndexState_RetrievalChunk_RetrievalCandidate_RetrievalReceipt_RetrievalSearchRequest_RetrievalService_and_SourceSnapshot
+      source_contract: exact_ArtifactRef_to_UTF8_unicode_fixed_v1_chunks_to_P2_06_embedding_to_verified_READY_activation_with_source_chunker_model_deployment_runtime_dimension_and_vector_provenance
+      search_contract: Project_and_source_prefilter_before_bounded_candidate_materialization_with_optional_rerank_preserving_candidate_identity_and_scope
+      context_contract: exact_Task_Run_Graph_Node_attempt_fence_explicit_inputs_Project_Engine_Knowledge_RunMemory_retrieval_tool_policy_budget_reduction_and_content_digest_manifest
+      budget_contract: caller_supplied_exact_token_count_requires_exact_tokenizer_identity_otherwise_explicit_unicode_segment_estimate_with_exclusion_reduction_or_CONTEXT_LIMIT_and_no_silent_truncation
+      concurrency_contract: durable_build_and_compile_claims_source_revalidation_cancellation_and_stale_owner_fencing_preserve_last_READY_index
+      cache_contract: index_cache_deletion_preserves_source_Artifact_Project_Engine_and_RunMemory_truth_and_allows_exact_rebuild
+    p2_10_validation:
+      focused_source_pytest: "11 passed; 0 failed; 0 skipped; 20.15s"
+      exact_installed_wheel_pytest: "11 passed; 0 failed; 0 skipped; 20.13s; executed from /tmp against installed wheel only"
+      broad_non_nested_regression: "505 passed; 20 recursive build/install qualification gates deselected; 137 subtests passed; 0 failed; 0 skipped; 509.83s; current installed-wheel qualification passed separately"
+      diagnostic_regression: "initial relevant matrix found one deterministic build replay ordering failure after 157 passes; ordering fixed before final gates"
+      mypy_strict: "87 source/test files; 0 issues"
+      compileall: PASS
+      diff_check: PASS
+      test_quality_scan: "P2-10 skip, xfail, placeholder, TODO, FIXME, NotImplemented, and executable-pass hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      public_export_check: "481 unique public export bindings"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 b1f0da226a8f205624257f75510c764790292054aa75c43732e9872c47a114ca; all 30 packaged biella Python paths exactly matched source bytes"
+      remote_required_paths_and_bytes: "GitHub main ref, result commit, tree, three blob IDs, sizes, SHA256 bytes, and exact raw contents independently read back and matched"
+      adversarial_review: "PASS for Alpha/Beta Project and source isolation, hostile instruction inertness, raw quarantine rejection, provenance chaining, source staleness, failed replacement, exact rebuild, rerank identity, idempotency, concurrency, cancellation, context limits, and ModelCall linkage"
+      fallow_review: "NOT_RUN; fallow CLI unavailable on host; deterministic adversarial tests, strict typing, and manual trust-boundary review used"
+    p2_10_kpi:
+      cross_project_retrieval_results: 0
+      quarantine_retrieval_results: 0
+      chunks_without_source_provenance: 0
+      stale_indexes_activated: 0
+      silent_context_truncations: 0
+      cache_loss_causes_memory_loss: 0
+    p2_10_reality_classification:
+      SQLite_durable_index_context_receipt_and_claim_state: REAL
+      Filesystem_object_storage_source_and_compiled_context: REAL
+      local_fixed_chunk_build_search_and_bounded_cosine: REAL_CPU
+      P2_06_ReferenceModelAdapter_embedding_rerank_and_reduction: REFERENCE
+      hosted_model_provider_or_external_ANN_service: NOT_RUN_NOT_REQUIRED
+      fallow_static_review: NOT_RUN_CLI_UNAVAILABLE
+    p2_10_qualification:
+      exact_Project_Task_Run_Graph_Node_attempt_fence_and_source_identity: VERIFIED
+      versioned_chunk_embedding_build_verify_activate_and_search_provenance: VERIFIED
+      Project_and_source_prefilter_before_candidate_materialization: VERIFIED
+      optional_rerank_preserves_candidate_set_identity_and_scope: VERIFIED
+      deterministic_compilation_digest_explicit_inclusion_exclusion_and_budget_evidence: VERIFIED
+      exact_tokenizer_identity_or_explicit_estimate_source: VERIFIED
+      stale_cancelled_failed_and_superseded_builds_never_replace_READY: VERIFIED
+      context_receipt_ContentRef_and_significant_ModelCall_provenance_chaining: VERIFIED
+      cache_deletion_preserves_source_Artifact_RunMemory_and_rebuildability: VERIFIED
+      hostile_instruction_bytes_remain_inert_data: VERIFIED
+      raw_QuarantineRef_runtime_dependency: 0
+    p2_10_known_limitations:
+      - text_extraction_is_exact_UTF8_with_versioned_unicode_fixed_v1_character_chunking; other_media_and_chunkers_require_explicit_adapters
+      - vectors_are_durable_SQLite_JSON_and_queried_by_bounded_local_cosine_not_an_external_production_ANN_service
+      - model_qualification_used_the_P2_06_REFERENCE_provider; no_reachable_hosted_provider_was_required
+      - exact_token_count_is_caller_supplied_with_exact_tokenizer_identity; otherwise_the_receipt_records_an_explicit_unicode_segment_estimate
+      - accepted_global_EngineKnowledge_can_be_included_but_the_compiler_does_not_requery_global_promotion_authority; ProjectKnowledge_and_RunMemory_are_durably_revalidated
+      - cache_deletion_and_rebuild_are_per_index; global_GC_is_not_implemented
+      - fallow_CLI_was_unavailable
+    p2_10_schema_changes:
+      - retrieval_index_builds
+      - retrieval_build_heads
+      - retrieval_index_states
+      - retrieval_index_state_heads
+      - retrieval_active_heads
+      - retrieval_chunks
+      - retrieval_receipts
+      - retrieval_search_claims
+      - retrieval_build_cancellations
+      - context_manifests
+      - context_receipts
+      - context_compile_claims
+      - append_only_and_immutable_guards_plus_monotonic_fenced_heads
+    p2_10_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/context_retrieval.py
+      - tests/test_p2_10_context_retrieval.py
+    p2_10_remote_path_evidence:
+      src_biella_init: "blob c2b0e869e122777ea474cd21fedd51f1e8a6e80b; size 25303; sha256 63d20d51d411884096b7d6577ccc6ec7068d7629986413994aff528d8c8cac39"
+      src_biella_context_retrieval: "blob 5c25236e9349923870bbd2f18224bacbadb82c58; size 143802; sha256 cec1daedbd2d8a05c204b52f84cb4055d9ee6c6077911802890433be588eb25d"
+      test_p2_10: "blob 93cba1e7118b434135b0ae0dd962002ce6aa5355; size 46588; sha256 316ecd70df78e19db3416aadbe8f633a3638b218c94ecdaaaf4780051ebd5b3b"
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -1807,10 +1898,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P2-10
-    title: Project-Scoped Context Compilation and Derived Retrieval
-    drive_id: 1x04_Hu20eHm8NwGu7Gliuhn4EVgPLkxzLxLzPkVZueM
-    canonical_prompt_text_sha256: 52662218cf06d7c41c36c1fd1c22b01e9f850fed30af142391dd0f5421b9cffe
+    id: P2-11
+    title: Durable Candidate Workspace and Sandbox Execution
+    drive_id: 1iwOAJYyXNdyqdqEc5g3l6hq4ms8wmHaP14eG60ivWFI
+    canonical_prompt_text_sha256: dd3de5b57be4b8d0583a1c7f3caf3f0840aea1ed9abc4049855093a5fae87498
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -1877,51 +1968,52 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P2-10
-  global_number: 29
-  title: Project-Scoped Context Compilation and Derived Retrieval
-  prompt_drive_id: 1x04_Hu20eHm8NwGu7Gliuhn4EVgPLkxzLxLzPkVZueM
-  predecessor_result_commit: 03ea21dbd22466470d07a674fd330ad68009d756
-  predecessor_result_tree: 5663d2b02872fd0bdc1fb10320e2012e63122345
+  id: P2-11
+  global_number: 30
+  title: Durable Candidate Workspace and Sandbox Execution
+  prompt_drive_id: 1iwOAJYyXNdyqdqEc5g3l6hq4ms8wmHaP14eG60ivWFI
+  predecessor_result_commit: df3b6987865aae2f94eaa9650636fae131e4e167
+  predecessor_result_tree: 354127377184cc5901e58a2581fafadc17577e95
 
 next_transition:
-  - verify_P2_09_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P2_10_prompt_and_directly_required_Task_Run_Graph_Node_Artifact_ProjectKnowledge_EngineKnowledge_RunMemory_ModelCall_ContentRef_and_quarantine_firewall_interfaces_only
-  - compile_deterministic_Project_scoped_ContextManifest_ContentRef_and_ContextReceipt_with_exact_included_excluded_retrieval_tool_policy_budget_and_reduction_evidence
-  - implement_versioned_source_extraction_chunk_embedding_index_build_verify_activate_search_and_optional_rerank_with_exact_provenance
-  - enforce_Project_and_source_prefilter_before_candidate_materialization_and_prevent_model_or_query_scope_widening
-  - reject_invalid_embedding_dimension_cardinality_runtime_or_nonfinite_vectors_and_preserve_candidate_identity_through_rerank
-  - revalidate_sources_around_external_calls_and_reject_stale_cancelled_or_superseded_index_activation_while_preserving_old_READY_index
-  - prove_cache_or_index_deletion_does_not_delete_Project_Engine_Memory_or_source_Artifact_truth_and_support_exact_rebuild
-  - enforce_explicit_context_budget_exclusion_reduction_or_CONTEXT_LIMIT_without_silent_truncation
-  - qualify_determinism_Alpha_Beta_hostile_quarantine_provenance_stale_build_failed_replacement_rebuild_scoped_search_rerank_concurrency_cancellation_and_ModelCall_linkage
+  - verify_P2_10_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P2_11_prompt_and_directly_required_Task_Run_Graph_Node_Artifact_ContentRef_Workspace_adapter_resource_ToolCall_checkpoint_and_quarantine_firewall_interfaces_only
+  - define_durable_logical_Workspace_WorkspaceExecutionPolicy_and_CandidateWorkspaceReceipt_separate_from_local_path
+  - materialize_exact_Project_owned_base_sources_through_Object_Git_and_Filesystem_adapters_without_mutating_protected_source
+  - route_all_candidate_tool_process_Git_runtime_and_model_execution_through_P2_adapters_and_ToolCall_accounting
+  - enforce_filesystem_root_symlink_Project_network_tool_resource_secret_side_effect_timeout_and_host_boundary_policies_truthfully
+  - capture_meaningful_diffs_changed_files_generated_Artifacts_tests_logs_and_output_manifest_before_cleanup
+  - persist_exact_snapshot_and_reconstruct_after_local_loss_while_reporting_uncaptured_attempt_loss_explicitly
+  - preserve_original_exact_base_under_authoritative_source_change_without_silent_rebase_or_relabel
+  - qualify_independent_concurrent_workspaces_cancellation_stale_owner_fencing_output_capture_cleanup_and_resource_release_without_global_lock
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P2_10_before_opening_P2_11
+  - close_P2_11_before_opening_P2_12
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - redefine_ContentRef_or_tie_content_identity_to_backend_URI_ETag_or_replica
-  - mark_a_replica_AVAILABLE_before_independent_exact_digest_and_size_readback_verification
-  - serve_CORRUPT_MISSING_FAILED_UPLOADING_or_unverified_replica_bytes
-  - overwrite_or_repair_corruption_before_recording_the_corrupt_state_and_evidence
-  - treat_interrupted_cancelled_or_partial_upload_as_available
-  - invalidate_a_healthy_replica_because_another_target_is_unavailable
-  - conflate_physical_replica_deletion_with_logical_Artifact_or_ContentObject_deletion
-  - implement_global_GC_or_retention_without_complete_reference_authority
-  - allow_backend_dedupe_to_bypass_Project_Artifact_or_quarantine_authorization
-  - leak_remote_backend_credentials_or_skip_Project_egress_policy
-  - force_execution_directly_against_remote_warehouse_storage
+  - treat_local_workspace_path_as_durable_authority
+  - use_ambiguous_current_or_mutable_base_for_reproducible_candidate_mutation
+  - mutate_protected_Project_engine_or_other_Project_source_as_candidate_work
+  - execute_tools_processes_Git_runtime_or_model_work_by_bypassing_P2_adapters_and_ToolCall_accounting
+  - claim_network_filesystem_resource_secret_or_side_effect_enforcement_that_is_not_real
+  - allow_path_traversal_symlink_escape_host_root_credentials_or_cross_Project_workspace_access
+  - snapshot_secret_mounts_credentials_or_huge_rebuildable_caches
+  - fabricate_uncaptured_candidate_state_after_local_workspace_loss
+  - silently_rebase_or_relabel_a_stale_source_workspace
+  - clean_local_workspace_before_required_capture_and_durable_snapshot
+  - serialize_independent_workspaces_behind_a_global_single_workspace_lock
+  - accept_cancelled_or_stale_owner_late_results_or_leak_resources
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P2_10_before_P2_09_durable_close
+  - start_P2_11_before_P2_10_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture

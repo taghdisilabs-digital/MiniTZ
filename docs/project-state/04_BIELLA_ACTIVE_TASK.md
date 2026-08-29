@@ -4,39 +4,39 @@
 schema: biella.active_task/v3
 
 task:
-  id: P2-10
-  global_number: 29
+  id: P2-11
+  global_number: 30
   phase: P2
-  title: Project-Scoped Context Compilation and Derived Retrieval
-  state: READY_AFTER_P2_09_DURABLE_CLOSE
+  title: Durable Candidate Workspace and Sandbox Execution
+  state: READY_AFTER_P2_10_DURABLE_CLOSE
   exact_prompt:
-    title: 29_P2-10_Project_Scoped_Context_Compilation_and_Derived_Retrieval.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/29_P2-10_Project_Scoped_Context_Compilation_and_Derived_Retrieval.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/29_P2-10_Project_Scoped_Context_Compilation_and_Derived_Retrieval.md.docx
-    drive_id: 1x04_Hu20eHm8NwGu7Gliuhn4EVgPLkxzLxLzPkVZueM
-    local_docx_sha256: 40f77067ba32bbc379be5fa5e7cd539206209f0eb423b7389859dd2372c075a2
-    live_drive_exported_docx_sha256: ed07ff107e12340696bff86fdfe51ac106141fefd27f5c841ab5d851ba5a5a1e
-    canonical_text_sha256: 52662218cf06d7c41c36c1fd1c22b01e9f850fed30af142391dd0f5421b9cffe
+    title: 30_P2-11_Durable_Candidate_Workspace_and_Sandbox_Execution.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/30_P2-11_Durable_Candidate_Workspace_and_Sandbox_Execution.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/30_P2-11_Durable_Candidate_Workspace_and_Sandbox_Execution.md.docx
+    drive_id: 1iwOAJYyXNdyqdqEc5g3l6hq4ms8wmHaP14eG60ivWFI
+    local_docx_sha256: 768bb462d4de0e8f2e0b3a522f417a054ba68364aa4e9967754157faa4636e94
+    live_drive_exported_docx_sha256: 5f199cb7f1a8acc95fabc20489944d3791d350c4cc0766c7e344ebfb1233e458
+    canonical_text_sha256: dd3de5b57be4b8d0583a1c7f3caf3f0840aea1ed9abc4049855093a5fae87498
     canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P2-09
-    result_commit: 03ea21dbd22466470d07a674fd330ad68009d756
-    result_tree: 5663d2b02872fd0bdc1fb10320e2012e63122345
+    id: P2-10
+    result_commit: df3b6987865aae2f94eaa9650636fae131e4e167
+    result_tree: 354127377184cc5901e58a2581fafadc17577e95
     remote_readback: VERIFIED
     remote_required_paths_and_bytes: VERIFIED
-    focused_type_build_installed_restart_and_full_regression: VERIFIED
-  numbered_successor: P2-11
+    focused_type_build_installed_and_full_regression: VERIFIED
+  numbered_successor: P2-12
 
 execution_boundary:
   start_only_after_predecessor_durable_close: satisfied
   load_only:
-    - exact_P2_10_canonical_prompt
+    - exact_P2_11_canonical_prompt
     - current_state_and_active_task_continuity
-    - accepted_Task_Run_Graph_Node_Artifact_ProjectKnowledge_EngineKnowledge_RunMemory_ModelCall_ContentRef_and_quarantine_firewall_interfaces_directly_required
+    - accepted_Task_Run_Graph_Node_Artifact_ContentRef_Workspace_adapter_resource_ToolCall_checkpoint_and_quarantine_firewall_interfaces_directly_required
     - directly_touched_source_and_task_scoped_tests
   do_not_open:
-    - P2_11_or_later_prompt_bodies_before_P2_10_durable_close
+    - P2_12_or_later_prompt_bodies_before_P2_11_durable_close
     - unrelated_historical_backup_or_legacy_material
   preserve:
     - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ModelCall_ToolCall_Event_ResourceAllocation_and_managed_runtime_identity
@@ -47,14 +47,15 @@ execution_boundary:
     - P2_07_browser_session_generation_egress_origin_side_effect_upload_download_wait_secret_and_durable_evidence_contracts
     - P2_08_Project_database_scope_parameterization_bounded_streaming_transaction_truth_TLS_secret_and_internal_database_firewall_contracts
     - P2_09_ContentRef_replica_state_streaming_independent_verification_corruption_fallback_repair_deletion_Project_egress_secret_and_stale_owner_contracts
+    - P2_10_Project_scoped_retrieval_context_budget_provenance_rebuildability_and_quarantine_firewall_contracts
     - all_earlier_isolation_provenance_durability_routing_scheduler_and_quarantine_firewall_contracts
 
 canonical_prompt_text: |
-  PROMPT 29/51 - P2-10
+  PROMPT 30/51 - P2-11
 
   TITLE
 
-  Project-Scoped Context Compilation and Derived Retrieval
+  Durable Candidate Workspace and Sandbox Execution
 
   PHASE
 
@@ -62,7 +63,7 @@ canonical_prompt_text: |
 
   GOAL
 
-  Compile exact model-visible context from permitted Task/Project/Run/Engine sources and build derived retrieval indexes with full provenance, Project/quarantine isolation, explicit context budgets, and rebuildability.
+  Create Project/Run-scoped candidate workspaces that materialize exact sources, execute all tools through Biella adapters, capture/snapshot meaningful changes, and can be reconstructed after local workspace loss.
 
   CURRENT VERIFIED STATE
 
@@ -80,7 +81,7 @@ canonical_prompt_text: |
 
   DEPENDENCIES
 
-  - Prompt 28/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
+  - Prompt 29/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
 
   - All earlier accepted contracts used by this task; inspect the repository instead of assuming interface names.
 
@@ -96,15 +97,15 @@ canonical_prompt_text: |
 
   IN SCOPE
 
-  - Create ContextManifest and ContextReceipt binding exact Task/Run/Node, included/excluded refs, Project/Engine Knowledge, Run state, tool outputs, retrieval scope, data/egress policy, token budget and content digest.
+  - Define Workspace and WorkspaceExecutionPolicy with exact base refs/revision, roots, network/tool/resource/secret/side-effect constraints.
 
-  - Implement source Artifact -> versioned extraction/chunking -> embedding -> index with exact source/chunker/model/runtime provenance; indexes are derived Cache.
+  - Materialize through Object/Git/Filesystem adapters into isolated local high-speed storage; original/protected source remains unchanged.
 
-  - Search must prefilter Project/source scope; optional rerank preserves candidate identity and ModelCalls.
+  - All tool execution goes through Process/Git/Runtime/Model tool pathways; no direct spawn bypass.
 
-  - Source revalidation prevents stale index activation; build->verify->activate keeps old valid index on failed replacement.
+  - Capture diffs/changed files/generated Artifacts into a durable Workspace receipt/snapshot before cleanup.
 
-  - Context over-budget handling is explicit: exclusion/reduction evidence or CONTEXT_LIMIT, never silent truncation.
+  - Resume reuses validated local workspace or reconstructs from base + durable snapshot; uncaptured lost work is reported honestly.
 
   OUT OF SCOPE
 
@@ -114,31 +115,29 @@ canonical_prompt_text: |
 
   REQUIRED IMPLEMENTATION
 
-  - Create ContextManifest and ContextReceipt binding exact Task/Run/Node, included/excluded refs, Project/Engine Knowledge, Run state, tool outputs, retrieval scope, data/egress policy, token budget and content digest.
+  - Define Workspace and WorkspaceExecutionPolicy with exact base refs/revision, roots, network/tool/resource/secret/side-effect constraints.
 
-  - Implement source Artifact -> versioned extraction/chunking -> embedding -> index with exact source/chunker/model/runtime provenance; indexes are derived Cache.
+  - Materialize through Object/Git/Filesystem adapters into isolated local high-speed storage; original/protected source remains unchanged.
 
-  - Search must prefilter Project/source scope; optional rerank preserves candidate identity and ModelCalls.
+  - All tool execution goes through Process/Git/Runtime/Model tool pathways; no direct spawn bypass.
 
-  - Source revalidation prevents stale index activation; build->verify->activate keeps old valid index on failed replacement.
+  - Capture diffs/changed files/generated Artifacts into a durable Workspace receipt/snapshot before cleanup.
 
-  - Context over-budget handling is explicit: exclusion/reduction evidence or CONTEXT_LIMIT, never silent truncation.
+  - Resume reuses validated local workspace or reconstructs from base + durable snapshot; uncaptured lost work is reported honestly.
 
   REQUIRED INTERFACES
 
-  - ContextManifest
+  - Workspace
 
-  - ContextReceipt
+  - WorkspaceExecutionPolicy
 
-  - RetrievalIndex
+  - materialize/capture/snapshot/reconstruct/cleanup APIs
 
-  - RetrievalReceipt
-
-  - chunker/index/search/rerank services
+  - CandidateWorkspaceReceipt
 
   DATA / STATE CHANGES
 
-  - Derived index/version/cache plus durable context/retrieval receipts.
+  - Workspace logical records and snapshot/candidate refs.
 
   FAILURE BEHAVIOR
 
@@ -154,281 +153,265 @@ canonical_prompt_text: |
 
   TESTS
 
-  - Compile deterministic context and receipt.
+  - Create/materialize/mutate/capture workspace.
 
-  - Project Beta and quarantine hostile source never appear.
+  - Two independent workspaces from same source remain separate.
 
-  - Index build/search/rerank with provenance.
+  - Path/symlink/network/Project isolation.
 
-  - Source changes during build -> stale/not activated.
+  - Snapshot -> delete local directory -> restart -> exact reconstruction.
 
-  - Delete index/cache -> authoritative Memory/source survive and index rebuilds.
+  - Uncaptured mutation loss produces explicit failure.
 
-  - Budget overflow records exclusions/reduction.
+  - Cancellation preserves already captured outputs and releases resources.
 
   KPI
 
-  - cross_project_retrieval_results=0
+  - workspace_loss_causes_persisted_candidate_loss=0
 
-  - quarantine_retrieval_results=0
+  - candidate_changes_mutate_protected_source=0
 
-  - chunks_without_source_provenance=0
+  - ambiguous_base_revision=0
 
-  - stale_indexes_activated=0
+  - cross_project_workspace_access=0
 
-  - silent_context_truncations=0
+  - direct_tool_execution_bypassing_adapter=0
 
-  - cache_loss_causes_memory_loss=0
+  - global_single_workspace_lock=0
 
   RESTORED LONG-FORM REQUIREMENTS
 
-  CONTEXT IS A COMPILED EXECUTION OBJECT
+  WORKSPACE IS MATERIALIZED EXECUTION STATE, NOT RUN AUTHORITY
 
-  Do not dump all memory/source into every model call.
+  Implement durable logical Workspace identity separate from local path.
 
-  Compile only permitted context for exact Task/Node.
+  Conceptual:
 
-  Conceptual flow:
+  Workspace
 
-  Task + Node
+  workspace_id
 
-  -> Context Requirements
+  project_id
 
-  -> permitted explicit inputs
+  task_id
 
-  -> Project Knowledge
+  run_id
 
-  -> applicable Engine Knowledge
+  graph_revision
 
-  -> Run state
+  node/graph ownership
 
-  -> retrieval evidence
+  workspace_type
 
-  -> Tool outputs
+  base_source_refs
 
-  -> budget/admission
+  base_revision
 
-  -> ContextManifest
+  execution_policy_ref
 
-  -> Context content object
+  resource_allocation_ref?
 
-  -> ContextReceipt
+  local materialization ref?
 
-  CONTEXT MANIFEST
+  status
 
-  Support fields equivalent to:
+  timestamps
 
-  - manifest ID;
+  Local path may disappear.
 
-  - Project/Task revision/Run/Graph/Node;
+  TYPES
 
-  - objective/input contract refs;
+  Extensible examples:
 
-  - explicit input refs;
+  - REPOSITORY;
 
-  - Project Knowledge refs;
+  - FILES;
 
-  - Engine Knowledge refs;
+  - ASSET;
 
-  - Run refs;
+  - BUILD;
 
-  - retrieval scope;
+  - TEMPORARY.
 
-  - Tool output refs;
+  Do not hardcode game/3D in universal Workspace.
 
-  - data/egress policy;
+  LIFECYCLE
 
-  - context budget;
+  Technical lifecycle:
 
-  - reduction policy;
+  CREATE -> MATERIALIZE -> EXECUTE -> CAPTURE -> PERSIST -> CLEAN
 
-  - deterministic manifest digest.
+  These are workspace lifecycle semantics, not necessarily separate Graph Nodes.
 
-  Do not embed route/provider facts unless required semantically.
+  CREATE
 
-  CONTEXT RECEIPT
+  Bind exact Project/Task/Run/Graph/base sources and execution policy.
 
-  Receipt describes exactly what actually reached model/tool:
+  Mutation Tasks requiring reproducibility cannot use ambiguous "current source".
 
-  - manifest ID/digest;
+  MATERIALIZE
 
-  - context ContentRef/digest;
+  Use Object Store/Filesystem/Git to materialize exact base.
 
-  - included refs;
+  Verify source digest/commit and Project ownership.
 
-  - excluded refs;
+  Do not silently mutate original checkout.
 
-  - retrieval refs;
+  EXECUTION POLICY
 
-  - tool refs;
+  Represent:
 
-  - exact/estimated token count + source;
+  - filesystem roots/modes;
 
-  - reduction evidence;
+  - network NONE/RESTRICTED/PROJECT_POLICY;
 
-  - created_at.
+  - allowed tools/capabilities;
 
-  Significant ModelCall should reference ContextReceipt.
+  - process/resource limits;
 
-  Do not store giant prompt text directly in DB rows.
+  - CPU/RAM/GPU budget refs;
 
-  CANONICALIZATION
+  - secret refs;
 
-  Deterministic ordering for set-like refs, stable serialization, no locale dependence. Reject malformed/duplicate refs as appropriate.
+  - side-effect boundary;
 
-  PROJECT / QUARANTINE ISOLATION
+  - timeout.
 
-  Alpha context cannot include Beta:
+  Do not create one universal sandbox policy that blocks legitimate Project work.
 
-  - ProjectKnowledge;
+  TOOL EXECUTION
 
-  - Artifact;
+  All tool/process/Git/container actions go through P2 adapters/ToolCall accounting.
 
-  - Run Memory;
+  No direct spawn()/filesystem bypass.
 
-  - retrieval chunks;
+  CANDIDATE MUTATION
 
-  - Tool outputs.
+  Models/tools may mutate candidate Workspace, not protected Project/engine/another Project source unless Task explicitly grants write.
 
-  Normal Context Compiler must have no raw quarantine API path.
+  Candidate change is not automatically Project-authoritative.
 
-  Use hostile quarantine fixture and prove absence.
+  CAPTURE
 
-  RETRIEVAL PIPELINE
+  Before cleanup capture meaningful state.
 
-  Derived:
+  Repository:
 
-  authoritative source
+  - base commit;
 
-  -> extract
+  - HEAD;
 
-  -> chunk
+  - staged/unstaged diff;
 
-  -> embed
+  - untracked files;
 
-  -> index
+  - generated Artifacts;
 
-  Every chunk retains:
+  - tests/log refs.
 
-  - Project;
+  File/asset:
 
-  - source Artifact ID;
+  - changed/generated file ContentRefs;
 
-  - source digest/revision;
+  - derivation;
 
-  - chunker version;
+  - output manifest.
 
-  - ordinal/offset;
+  SNAPSHOT
 
-  - chunk digest;
+  Durable Workspace snapshot should capture authoritative candidate state:
 
-  - index version;
+  - manifest;
 
-  - embedding implementation/runtime.
+  - base refs;
 
-  RETRIEVAL INDEX
+  - changed file ContentRefs;
 
-  Versioned RetrievalIndex with:
+  - Git diff/status;
 
-  - Project/source scope;
+  - relevant continuation refs.
 
-  - index/chunker version;
+  Do not archive huge rebuildable caches unnecessarily.
 
-  - embedding capability/implementation/runtime;
+  CHECKPOINT
 
-  - dimension/metric;
+  RunCheckpoint can reference Workspace ID/latest snapshot/base/candidate refs.
 
-  - BUILDING/READY/STALE/FAILED;
+  Resume:
 
-  - timestamps.
+  - reuse valid local Workspace if still exact;
 
-  Index is derived/cache-like.
+  - otherwise reconstruct from base + snapshot.
 
-  Deleting it cannot delete source truth.
+  Same local disk is not required.
 
-  BUILD -> VERIFY -> ACTIVATE
+  MANDATORY LOSS TEST
 
-  Build replacement index separately.
+  1.  create;
 
-  If replacement fails, keep current READY index.
+  2.  change candidate;
 
-  If source changes during build, replacement must not activate current.
+  3.  capture/snapshot;
 
-  SEARCH
+  4.  delete local Workspace;
 
-  Scope comes from Project/Task/ContextManifest.
+  5.  restart;
 
-  Model/query cannot widen scope.
+  6.  reconstruct;
 
-  Prefilter Project/source/current index before materializing candidates.
+  7.  verify exact candidate bytes/state;
 
-  Bound candidate count.
+  8.  continue Run.
 
-  EMBEDDING
+  Persisted work must survive.
 
-  Use P2-06.
+  If Workspace disappears before capture, report lost current attempt honestly; do not fabricate state.
 
-  Validate finite vectors, dimension, cardinality, exact deployment/runtime.
+  FILESYSTEM / NETWORK ISOLATION
 
-  RERANK
+  Reject traversal/symlink/another Project/host root/credentials.
 
-  Optional P2-06 rerank.
+  Network enforcement must be truthful.
 
-  Preserve candidate-set identity, reranker identity, order/scores, request receipt.
+  CONCURRENT WORKSPACES
 
-  Reranker cannot add out-of-scope candidates.
+  Independent Nodes may have independent Workspaces from same base concurrently.
 
-  RETRIEVAL RECEIPT
+  No global Workspace.
 
-  Persist query ref, scope, index refs, candidates, reranked refs, embedding/reranker identities, scores, exact Run/Node.
+  Merging/integration is explicit Graph work.
 
-  SOURCE REVALIDATION
+  STALE SOURCE
 
-  Around external embedding/rerank: bind source digest before; revalidate after if currentness required.
+  If authoritative source changes after creation, Workspace remains valid candidate based on original exact base. Do not silently rebase/relabel.
 
-  Changed source -> stale/rebuild, no current activation.
+  Revalidate before Project merge/write.
 
-  CONTEXT BUDGET
+  CLEANUP / CANCEL
 
-  Do not silently truncate.
+  Persist outputs/snapshot before cleanup.
 
-  When over budget:
+  Cleanup failure remains visible.
 
-  - exclude according to explicit policy;
+  Cancellation stops tools, captures already-valid durable outputs when policy permits, rejects late stale result, releases resources.
 
-  - reduce/summarize only if allowed;
+  SECRET EXCLUSION
 
-  - record exclusion/reduction evidence;
+  Snapshots must exclude SSH keys, OAuth tokens, provider creds, arbitrary secret mounts.
 
-  - if required content cannot fit, return CONTEXT_LIMIT/BLOCKED.
+  RECEIPT
 
-  Never silently drop authority-critical requirements.
+  Produce CandidateWorkspaceReceipt/manifest with exact base, candidate refs, diffs, tests/tool refs, snapshot, digest.
 
-  TOKEN COUNT
+  This is later validation/finalization evidence.
 
-  Exact tokenizer count when available, otherwise clearly labelled estimate.
+  TESTS
 
-  Do not call byte/4 exact.
-
-  CACHE
-
-  Chunks/embeddings/indexes/parses are rebuildable.
-
-  Delete them: Project/Engine Memory and source Artifacts remain; retrieval rebuilds.
-
-  CONCURRENCY / CANCEL
-
-  Independent source ingestion/indexing can run concurrently.
-
-  Cancel partial build -> index not READY.
-
-  TEST MATRIX
-
-  Cover Manifest/Receipt/digests; Alpha/Beta; hostile quarantine; ingest/chunk/embed; invalid embedding; source changes during build; failed replacement preserves old READY; index deletion/rebuild; scoped search; rerank validity; duplicate relative-path source roots; explicit context over-budget exclusions/reduction; no silent truncation; concurrent indexing; cancellation; ModelCall link.
+  Create/materialize/mutate/source unchanged/tools/isolation/path+symlink escape/capture/snapshot/delete+reconstruct/uncaptured loss/stale source/cancel/cleanup/concurrent Workspaces/no global lock.
 
   USEFUL EVIDENCE — NON-GATING
 
-  - Every significant model-visible context can be explained by exact receipts; retrieval remains derived and Project-scoped.
+  - Candidate production is durable/reconstructable and never depends on one local path or shared mutable checkout.
 
   DELIVERABLES
 
@@ -450,7 +433,7 @@ canonical_prompt_text: |
 
   Use this result block:
 
-  PROMPT: 29/51 - P2-10
+  PROMPT: 30/51 - P2-11
 
   STATUS: COMPLETE / PARTIAL / BLOCKED
 
@@ -487,5 +470,4 @@ canonical_prompt_text: |
   - Leave the repository/worktree in an understood state and report any intentional dirty/uncommitted files.
 
   - The next prompt must verify this handoff from actual repository state before editing.
-
 ```
