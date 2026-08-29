@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-29 04:40 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-29T04:40:13+02:00"
+state_timestamp_local: "2026-08-29 06:15 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-29T06:15:14+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: 35edc349447868fd0be4250d5c071579df5e9650
-    tree: 5c1883b17a50117530f4cea9e1df1fc2d30e990c
+    commit: f0bd9e7a03cc8ac1ce7d0555de14055190fede5b
+    tree: ead59ae03ab218c7b95cee9a93813836945aba2e
     observed_date: 2026-08-29
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p2_06_implementation_post_push_exact_readback
+    observation_context: p2_07_final_result_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: 35edc349447868fd0be4250d5c071579df5e9650
-    tree: 5c1883b17a50117530f4cea9e1df1fc2d30e990c
+    head: f0bd9e7a03cc8ac1ce7d0555de14055190fede5b
+    tree: ead59ae03ab218c7b95cee9a93813836945aba2e
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 25
+    durable_prompts_complete: 26
     durable_prompts_total: 51
     phase: P2
-    active_prompt: P2-07
-    active_prompt_title: Durable Provider-Neutral Browser Automation Adapter
+    active_prompt: P2-08
+    active_prompt_title: PostgreSQL Project/Task Capability Adapter
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -1486,6 +1486,95 @@ engine:
       test_p2_06: "blob 6b370198470faed92d2b4f3bd1c9162a4888b657; size 42937; sha256 b5627413eba4f3d6ec36027e54a6dc28230d83d7693dd8cc7258987030443b27"
       installed_writer: "blob 854d82c5af94168933e2cec3b37f064d5202c1c1; size 5831; sha256 e84678a7cfb55cadd1c7cba7a0dd96269b725703e68c4053b4e61198cdd1432b"
       installed_reader: "blob 6b45dc6a47506a766d4dea91871dff0011a83c11; size 1707; sha256 f3d2f0d852136e9310f7c587c70336157b92764482c9bf420ccfcebf9360d44f"
+    p2_07_status: DURABLY_COMPLETE
+    p2_07_source_commit: 2a1fcfbbafe0e2fad9efb85389802e8b9a808960
+    p2_07_initial_implementation_commit: 0360d36e112ac105d7420ee811a1cf02c3409701
+    p2_07_result_commit: f0bd9e7a03cc8ac1ce7d0555de14055190fede5b
+    p2_07_result_tree: ead59ae03ab218c7b95cee9a93813836945aba2e
+    p2_07_remote_readback: VERIFIED
+    p2_07_implementation:
+      production_modules_added: 1
+      public_exports_added: 28
+      focused_pytest_cases: 12
+      installed_restart_programs_added: 2
+      migrations_added: 0
+      schema_tables_added: 7
+      adapter_classes: ReferenceBrowserAdapter_and_WebDriverBrowserAdapter
+      interface_surface: BrowserAdapter_BrowserSessionIdentity_BrowserPageRef_BrowserAction_BrowserActionResult_BrowserWaitCondition_and_BrowserFilesystemUploadSource
+      capability_surface: browser_open_navigate_inspect_extract_click_type_select_upload_download_screenshot_evaluate_wait_for_condition_and_submit
+      execution_contract: exact_Project_Task_digest_Run_Graph_NodeAttempt_fence_Capability_data_egress_destination_side_effect_session_generation_and_page_identity
+      result_contract: exact_ToolCall_ContentRef_output_Artifact_receipt_Artifact_page_runtime_provider_trace_viewport_and_provenance
+      recovery_model: immutable_session_generation_claim_state_head_action_claim_result_and_cancellation_evidence_with_crash_replacement_restart_replay_and_stale_rejection
+      upload_model: authorized_Artifact_ContentRef_or_controlled_FilesystemRoot_only_with_streamed_disk_backed_ZIP_and_incremental_base64_WebDriver_transport
+      wait_model: bounded_selector_URL_DOM_property_network_idle_and_explicit_event_conditions
+      idempotency_model: exact_session_spec_and_action_request_digests_terminal_replay_and_conflicting_request_rejection
+    p2_07_validation:
+      focused_pytest: "12 passed; 0 failed; 0 skipped; 53.63s final exact-tree run including REAL Chromium, exact wheel, install, and separate installed restart"
+      broad_non_nested_regression: "462 passed; 24 nested qualification gates deselected; 127 subtests passed; 0 failed; 0 skipped; 477.35s final rerun"
+      mypy_strict: "77 source/test files; 0 issues"
+      compileall: PASS
+      diff_check: PASS
+      test_quality_scan: "P2-07 skip, placeholder, TODO, FIXME, and NotImplemented executable-test hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 554af3dd8f719e9d742d7109c02a196456be19b9402cd73a6594332e3674b84b; all 27 packaged biella Python source paths exactly matched source bytes"
+      installed_wheel_restart: "separate installed-package writer and reader shared durable SQLite/object storage and verified active session identity plus terminal BrowserAction ContentRef/Artifact/receipt restart readback"
+      real_browser_probe: "pinned selenium/standalone-chromium:4.47.0-20260808 image sha256:1d3d834a2ce93f26cc0d0ae3c61abd189755b32649f5c356c6c5cf9502aa397e; Chromium and ChromeDriver 151.0.7922.108; REAL redirect, inspect, extract, click, type, select, 4.1 MB streamed upload, screenshot, managed download, missing target, submit, and close passed"
+      remote_required_paths_and_bytes: "GitHub branch, final commit, tree, five blob IDs, sizes, SHA256 bytes, and exact raw contents independently read back and matched"
+      resolved_regression: "initial broad run found P0 identifier-level neutrality rejection of threading.Lock/provider_id; adapter-local guards and identifiers were reconciled to accepted semantics; isolated failure and two complete broad reruns passed"
+      adversarial_review: "PASS after cross-Project session/Artifact, Task side-effect, path/origin/egress-before-secret, postcondition, hostile proposal, arbitrary path/JS, controlled root provenance, crash/replacement, late result, timeout/cancel, idempotency, row/content tamper, provider-page preflight, secret scan, and kernel/quarantine isolation checks"
+      fallow_review: "NOT_RUN; fallow CLI unavailable on host; deterministic adversarial tests, strict typing, and manual trust-boundary review used"
+    p2_07_kpi:
+      browser_session_loss_causes_Run_loss: 0
+      download_without_ContentRef: 0
+      external_side_effect_without_Task_authority: 0
+      credential_leaks: 0
+      stale_browser_generation_results_accepted: 0
+      browser_provider_types_in_kernel: 0
+      unattributed_external_browser_mutations: 0
+    p2_07_reality_classification:
+      WebDriverBrowserAdapter: REAL
+      pinned_Selenium_Chromium_container_and_W3C_control_transport: REAL
+      managed_download_and_streamed_upload_transport: REAL
+      ReferenceBrowserAdapter: REFERENCE
+      host_installed_browser_or_provider_SDK: UNAVAILABLE_NOT_REQUIRED_containerized_W3C_fallback_used
+      narrowed_path_policy_REAL_subresource_interception: UNSUPPORTED_AND_FAILS_CLOSED
+    p2_07_qualification:
+      BrowserAdapter_session_identity_page_ref_structured_action_result_wait_and_upload_source_contracts: VERIFIED
+      exact_Project_Task_Run_Graph_NodeAttempt_fence_Capability_policy_destination_origin_and_side_effect_binding: VERIFIED
+      session_generation_replacement_and_stale_action_result_rejection: VERIFIED
+      durable_ToolCall_ContentRef_Artifact_receipt_and_source_provenance_chain: VERIFIED
+      authorized_Artifact_ContentRef_and_controlled_FilesystemRoot_uploads_with_arbitrary_host_path_rejection: VERIFIED
+      exact_and_interrupted_download_classification: VERIFIED
+      bounded_structured_waits_screenshot_viewport_and_provider_runtime_identity: VERIFIED
+      hostile_instruction_model_proposal_secret_cookie_and_provider_type_inertness: VERIFIED
+      restart_idempotency_claim_result_receipt_session_generation_and_content_integrity: VERIFIED
+      raw_QuarantineRef_runtime_dependency: 0
+    p2_07_known_limitations:
+      - REAL_Chromium_host_resolver_containment_accepts_only_full_origin_destination_path_authority; narrower_path_policies_fail_closed_until_a_policy_aware_subresource_interceptor_exists
+      - managed_WebDriver_download_response_is_bounded_to_64_MiB_and_larger_downloads_fail_closed
+      - explicit_event_wait_observes_events_after_listener_registration_and_does_not_fabricate_historical_events
+      - browser_profile_cookie_and_session_storage_remain_ephemeral_runtime_sensitive_state_and_are_not_reconstructed_after_adapter_restart
+    p2_07_schema_changes:
+      - browser_session_generations
+      - browser_session_claims
+      - browser_session_states
+      - browser_session_heads
+      - browser_action_claims
+      - browser_action_results
+      - browser_cancellations
+      - immutable_generation_claim_state_action_result_cancellation_and_monotonic_session_head_integrity_guards
+    p2_07_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/browser_adapter.py
+      - tests/test_p2_07_browser_adapter.py
+      - tests/fixtures/p2_07_installed_writer.py
+      - tests/fixtures/p2_07_installed_reader.py
+    p2_07_remote_path_evidence:
+      src_biella_init: "blob 0760f96415724efe490c2397b7663a043c13ba51; size 21245; sha256 181ccf3b3b0954ada6cfcca97973ea3fde9aa20417da9f5592f2320dc1f31d8a"
+      src_biella_browser_adapter: "blob 3c62b405abd983d0d4b38f9053b34d0333bde433; size 171356; sha256 523335a1bca3fec30b2c252b3db109affd06d857f62736b0409c12afe8df47cd"
+      test_p2_07: "blob 0c815210c9be17f8f0e962cd27dd76a4abb8b715; size 50525; sha256 50a05431514926696edcf27f1dbc72d18a4b0a8855ffe00e1441208a5f77d14e"
+      installed_writer: "blob 20238d6205c04bdbdd7a1e880b651182ceae3bbd; size 6323; sha256 199d64f413523ffec18579348c6cbed595cdf686e037198fef7f8746b616a5e5"
+      installed_reader: "blob 195b6f217c3e213a64b2e1b20ac418ed528a3731; size 2000; sha256 5014dcb461035447da3737888c8f735f89549f2f7de382f2bd1b811e9806b792"
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -1534,10 +1623,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P2-07
-    title: Durable Provider-Neutral Browser Automation Adapter
-    drive_id: 1jgWIpcDZVon6xUZWKDVnh7eIkz0sDKQ9udQiYDfn0iI
-    canonical_prompt_text_sha256: 5e8c7762fbef9af2998351a61402eb8a839207cb8aa1d4e9010aee329661a196
+    id: P2-08
+    title: PostgreSQL Project/Task Capability Adapter
+    drive_id: 1uWBI_N66H-OlseBJkN-QnrLnN9x-0Vrti40ih_6kkfg
+    canonical_prompt_text_sha256: e3d1f864f7adf56a86ba93ed191c2243426793627df214f35d97924ccfda623c
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -1604,49 +1693,48 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P2-07
-  global_number: 26
-  title: Durable Provider-Neutral Browser Automation Adapter
-  prompt_drive_id: 1jgWIpcDZVon6xUZWKDVnh7eIkz0sDKQ9udQiYDfn0iI
-  predecessor_result_commit: 35edc349447868fd0be4250d5c071579df5e9650
-  predecessor_result_tree: 5c1883b17a50117530f4cea9e1df1fc2d30e990c
+  id: P2-08
+  global_number: 27
+  title: PostgreSQL Project/Task Capability Adapter
+  prompt_drive_id: 1uWBI_N66H-OlseBJkN-QnrLnN9x-0Vrti40ih_6kkfg
+  predecessor_result_commit: f0bd9e7a03cc8ac1ce7d0555de14055190fede5b
+  predecessor_result_tree: ead59ae03ab218c7b95cee9a93813836945aba2e
 
 next_transition:
-  - verify_P2_06_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P2_07_prompt_and_directly_required_Project_Task_Run_Graph_NodeAttempt_Capability_Routing_ToolCall_ContentRef_Artifact_HTTP_Filesystem_Process_IsolatedRuntime_Resource_Event_and_policy_interfaces_only
-  - register_extensible_browser_open_navigate_inspect_extract_click_type_select_upload_download_screenshot_evaluate_wait_for_condition_and_submit_capabilities
-  - define_provider_neutral_BrowserAdapter_BrowserSessionIdentity_BrowserPageRef_structured_BrowserAction_and_generation_fencing_contracts
-  - implement_at_least_one_real_browser_adapter_where_current_environment_permits_and_a_deterministic_reference_adapter_where_needed
-  - enforce_Project_Task_side_effect_egress_origin_upload_credential_cookie_timeout_cancel_and_stale_generation_authority
-  - persist_download_screenshot_extraction_and_external_side_effect_receipts_as_exact_ContentRef_Artifact_and_ToolCall_evidence
-  - prove_session_crash_preserves_Run_completed_ToolCalls_downloaded_Artifacts_and_confirmed_side_effect_receipts_while_incomplete_actions_fail_or_stale
-  - validate_model_proposed_browser_actions_through_Biella_policy_before_BrowserAdapter_execution
+  - verify_P2_07_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P2_08_prompt_and_directly_required_Project_Task_Run_Graph_NodeAttempt_Capability_Routing_ToolCall_ContentRef_Artifact_and_policy_interfaces_only
+  - define_scoped_DatabaseConnectionRef_and_provider_neutral_PostgreSQLAdapter_query_execute_transaction_schema_and_migration_contracts
+  - keep_Project_database_connections_explicitly_separate_from_Biella_internal_durable_state_database_authority
+  - enforce_parameterized_statements_Task_read_mutation_DDL_authority_connection_restrictions_TLS_and_secret_ref_only_credentials
+  - implement_bounded_streamed_results_and_Task_selected_ContentRef_Artifact_persistence_with_query_and_parameter_digest_evidence
+  - implement_transaction_begin_commit_rollback_cancel_timeout_reset_and_TRANSACTION_OUTCOME_UNKNOWN_truth
+  - qualify_real_PostgreSQL_connection_auth_query_caps_mutation_transaction_schema_migration_isolation_internal_boundary_and_restart_where_available
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P2_07_before_opening_P2_08
+  - close_P2_08_before_opening_P2_09
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - put_Playwright_Selenium_or_browser_provider_SDK_objects_in_Task_Run_Graph_or_kernel_contracts
-  - treat_browser_session_or_page_runtime_state_as_durable_Project_truth
-  - accept_late_actions_or_results_from_replaced_browser_session_generation
-  - allow_browser_navigation_upload_or_submission_to_bypass_HTTP_Project_Task_data_or_egress_policy
-  - perform_external_browser_mutation_without_exact_Task_side_effect_authority_and_durable_receipt
-  - persist_password_token_cookie_or_profile_bytes_in_ordinary_Event_ToolCall_or_Artifact_metadata
-  - accept_interrupted_or_unverified_download_as_complete
-  - upload_arbitrary_host_paths_outside_authorized_Artifact_ContentRef_or_controlled_FilesystemRoot
-  - treat_browser_evaluate_as_unbounded_host_execution
-  - claim_screenshot_alone_proves_requested_interaction_success
+  - expose_or_silently_resolve_generic_Project_database_capability_to_Biella_internal_state_database
+  - store_raw_database_password_connection_secret_or_unredacted_parameter_bytes_in_Task_Run_Event_ToolCall_or_receipt_evidence
+  - concatenate_model_or_user_values_into_SQL
+  - rely_only_on_SQL_parser_classification_instead_of_exact_Task_and_connection_authority
+  - allow_MUTATING_DDL_or_MIGRATION_operations_under_READ_ONLY_Task_authority
+  - return_unbounded_rows_or_bytes_or_automatically_persist_sensitive_query_bodies
+  - claim_transaction_commit_or_rollback_when_provider_outcome_is_unknown
+  - run_repository_migrations_automatically_against_unknown_or_production_databases
+  - disable_TLS_verification_silently
+  - treat_pool_state_as_durable_authority
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P2_08_before_P2_07_durable_close
+  - start_P2_09_before_P2_08_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture

@@ -4,53 +4,54 @@
 schema: biella.active_task/v3
 
 task:
-  id: P2-07
-  global_number: 26
+  id: P2-08
+  global_number: 27
   phase: P2
-  title: Durable Provider-Neutral Browser Automation Adapter
-  state: READY_AFTER_P2_06_DURABLE_CLOSE
+  title: PostgreSQL Project/Task Capability Adapter
+  state: READY_AFTER_P2_07_DURABLE_CLOSE
   exact_prompt:
-    title: 26_P2-07_Durable_Provider_Neutral_Browser_Automation_Adapter.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/26_P2-07_Durable_Provider_Neutral_Browser_Automation_Adapter.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/26_P2-07_Durable_Provider_Neutral_Browser_Automation_Adapter.md.docx
-    drive_id: 1jgWIpcDZVon6xUZWKDVnh7eIkz0sDKQ9udQiYDfn0iI
-    local_docx_sha256: 0631c9ccb7ee33838c944891a2ab9dc98eefdaced2408d5ac482b602c40f3d1c
-    live_drive_exported_docx_sha256: a1dd83bb583a0339f36daba8a1f74bbc97947ebbf798084574b393881662019a
-    canonical_text_sha256: 5e8c7762fbef9af2998351a61402eb8a839207cb8aa1d4e9010aee329661a196
+    title: 27_P2-08_PostgreSQL_Project_Task_Capability_Adapter.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/27_P2-08_PostgreSQL_Project_Task_Capability_Adapter.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/27_P2-08_PostgreSQL_Project_Task_Capability_Adapter.md.docx
+    drive_id: 1uWBI_N66H-OlseBJkN-QnrLnN9x-0Vrti40ih_6kkfg
+    local_docx_sha256: b7a63f454d92e54b87ebeadacf4c1ca6832801d1403f40d0904a4230f72b4121
+    live_drive_exported_docx_sha256: 197dc0ae9ed93e2df74054a52caf015c4f63cc8435dc42caf619e67d2cd58f72
+    canonical_text_sha256: e3d1f864f7adf56a86ba93ed191c2243426793627df214f35d97924ccfda623c
     canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P2-06
-    result_commit: 35edc349447868fd0be4250d5c071579df5e9650
-    result_tree: 5c1883b17a50117530f4cea9e1df1fc2d30e990c
+    id: P2-07
+    result_commit: f0bd9e7a03cc8ac1ce7d0555de14055190fede5b
+    result_tree: ead59ae03ab218c7b95cee9a93813836945aba2e
     remote_readback: VERIFIED
     remote_required_paths_and_bytes: VERIFIED
-    focused_type_build_installed_restart_live_provider_and_full_regression: VERIFIED
-  numbered_successor: P2-08
+    focused_real_browser_type_build_installed_restart_and_full_regression: VERIFIED
+  numbered_successor: P2-09
 
 execution_boundary:
   start_only_after_predecessor_durable_close: satisfied
   load_only:
-    - exact_P2_07_canonical_prompt
+    - exact_P2_08_canonical_prompt
     - current_state_and_active_task_continuity
-    - accepted_Project_Task_Run_Graph_NodeAttempt_Capability_Routing_ToolCall_ContentRef_Artifact_HTTP_Filesystem_Process_IsolatedRuntime_Resource_Event_and_policy_interfaces_directly_required
+    - accepted_Project_Task_Run_Graph_NodeAttempt_Capability_Routing_ToolCall_ContentRef_Artifact_and_policy_interfaces_directly_required
     - directly_touched_source_and_task_scoped_tests
   do_not_open:
-    - P2_08_or_later_prompt_bodies_before_P2_07_durable_close
+    - P2_09_or_later_prompt_bodies_before_P2_08_durable_close
     - unrelated_historical_backup_or_legacy_material
   preserve:
     - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ModelCall_ToolCall_Event_ResourceAllocation_and_managed_runtime_identity
     - P2_01_through_P2_04_real_execution_adapter_isolation_streaming_fencing_and_durability_contracts
     - P2_05_destination_egress_credential_redirect_streaming_timeout_cancellation_TLS_and_transport_evidence_contracts
     - P2_06_provider_neutral_model_deployment_execution_health_tool_policy_fencing_and_provenance_contracts
+    - P2_07_browser_session_generation_egress_origin_side_effect_upload_download_wait_secret_and_durable_evidence_contracts
     - all_earlier_isolation_provenance_durability_routing_scheduler_and_quarantine_firewall_contracts
 
 canonical_prompt_text: |-
-  PROMPT 26/51 - P2-07
+  PROMPT 27/51 - P2-08
 
   TITLE
 
-  Durable Provider-Neutral Browser Automation Adapter
+  PostgreSQL Project/Task Capability Adapter
 
   PHASE
 
@@ -58,7 +59,7 @@ canonical_prompt_text: |-
 
   GOAL
 
-  Operate real browser sessions/pages/actions while browser state remains ephemeral execution resource and all meaningful outputs/side effects remain durable Biella evidence.
+  Expose PostgreSQL to Project Tasks as a scoped adapter while keeping Biella internal durable-state database authority separate and inaccessible by default.
 
   CURRENT VERIFIED STATE
 
@@ -76,7 +77,7 @@ canonical_prompt_text: |-
 
   DEPENDENCIES
 
-  - Prompt 25/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
+  - Prompt 26/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
 
   - All earlier accepted contracts used by this task; inspect the repository instead of assuming interface names.
 
@@ -92,15 +93,15 @@ canonical_prompt_text: |-
 
   IN SCOPE
 
-  - Register browser open/navigate/inspect/extract/click/type/select/upload/download/screenshot/evaluate/wait/submit capabilities.
+  - Define DatabaseConnectionRef with Project/global scope, endpoint/database identity, auth/TLS refs and restrictions; no raw credentials.
 
-  - Define BrowserAdapter plus session/page generation identity so stale pre-crash actions/results cannot affect replacement sessions.
+  - Implement bounded parameterized query/execute/transaction/schema/migration operations with Task side-effect enforcement.
 
-  - Downloads/screenshots/extractions persist as Artifacts; uploads come only from authorized refs/roots.
+  - Stream/bound results; store sensitive bodies only when Task requires; record query/parameter digests and ToolCall evidence.
 
-  - Read-only vs external mutation follows Task side-effect authority; browser egress cannot bypass HTTP/Project policy.
+  - Transactions report commit/rollback/unknown outcome truthfully; cancellation/timeouts reset/rollback safely.
 
-  - Secrets/cookies stay out of ordinary evidence; browser crash/session loss preserves completed durable work.
+  - Explicitly distinguish Project DB refs from Biella internal DB.
 
   OUT OF SCOPE
 
@@ -110,29 +111,27 @@ canonical_prompt_text: |-
 
   REQUIRED IMPLEMENTATION
 
-  - Register browser open/navigate/inspect/extract/click/type/select/upload/download/screenshot/evaluate/wait/submit capabilities.
+  - Define DatabaseConnectionRef with Project/global scope, endpoint/database identity, auth/TLS refs and restrictions; no raw credentials.
 
-  - Define BrowserAdapter plus session/page generation identity so stale pre-crash actions/results cannot affect replacement sessions.
+  - Implement bounded parameterized query/execute/transaction/schema/migration operations with Task side-effect enforcement.
 
-  - Downloads/screenshots/extractions persist as Artifacts; uploads come only from authorized refs/roots.
+  - Stream/bound results; store sensitive bodies only when Task requires; record query/parameter digests and ToolCall evidence.
 
-  - Read-only vs external mutation follows Task side-effect authority; browser egress cannot bypass HTTP/Project policy.
+  - Transactions report commit/rollback/unknown outcome truthfully; cancellation/timeouts reset/rollback safely.
 
-  - Secrets/cookies stay out of ordinary evidence; browser crash/session loss preserves completed durable work.
+  - Explicitly distinguish Project DB refs from Biella internal DB.
 
   REQUIRED INTERFACES
 
-  - BrowserAdapter
+  - DatabaseConnectionRef
 
-  - BrowserSessionIdentity
+  - PostgreSQLAdapter
 
-  - BrowserPageRef
-
-  - structured BrowserAction
+  - query/transaction/schema/migration requests/results
 
   DATA / STATE CHANGES
 
-  - Session/runtime refs and durable ToolCall/Artifact receipts.
+  - Connection refs and ToolCall/transaction evidence.
 
   FAILURE BEHAVIOR
 
@@ -148,317 +147,239 @@ canonical_prompt_text: |-
 
   TESTS
 
-  - Navigate/inspect/extract/actions/screenshot.
+  - Parameterized SELECT and bounded large result.
 
-  - Download exact digest; interrupted download rejected as complete.
+  - Authorized mutation vs read-only rejection.
 
-  - Upload authorized Artifact; arbitrary host path rejected.
+  - Transaction commit/rollback/cancel/connection-loss ambiguity.
 
-  - Read-only Task mutation rejected; authorized mutation gets durable receipt.
+  - Schema inspection and safe test migration if in scope.
 
-  - Session crash and generation replacement; stale result rejected.
-
-  - Project/session/credential isolation.
+  - Credential redaction, Project isolation, internal-DB boundary.
 
   KPI
 
-  - browser_session_loss_causes_Run_loss=0
+  - raw_DB_credentials_in_Task_or_ledger=0
 
-  - download_without_ContentRef=0
+  - cross_project_DB_access=0
 
-  - external_side_effect_without_Task_authority=0
+  - read_only_write_bypasses=0
 
-  - credential_leaks=0
+  - unbounded_query_results=0
 
-  - stale_browser_generation_results_accepted=0
+  - failed_transactions_claimed_committed=0
 
-  - browser_provider_types_in_kernel=0
+  - internal_Biella_DB_accidentally_exposed=0
 
   RESTORED LONG-FORM REQUIREMENTS
 
-  CAPABILITY SURFACE
+  PROJECT DATABASE VS BIELLA INTERNAL DATABASE
 
-  Register extensible capabilities equivalent to:
+  PostgreSQL is a Project/Task capability adapter.
 
-  browser.open
+  Biella may itself use PostgreSQL internally; that does not mean a generic Project Task automatically receives access to the internal execution database.
 
-  browser.navigate
+  Represent connection refs so Project database connections and engine/infrastructure connections are distinguishable by scope.
 
-  browser.inspect
+  Generic database.postgresql.query must never silently resolve to Biella's own state DB.
 
-  browser.extract
+  CAPABILITIES
 
-  browser.click
+  Support extensible semantics such as:
 
-  browser.type
+  - connect;
 
-  browser.select
+  - inspect_schema;
 
-  browser.upload
+  - query;
 
-  browser.download
+  - transaction;
 
-  browser.screenshot
+  - execute;
 
-  browser.evaluate
+  - migrate;
 
-  browser.wait_for_condition
+  - export/import as later/optional bounded operations.
 
-  browser.submit
+  Mutation requires Task authority.
 
-  Do not make these a closed kernel enum. Future browser capabilities must register without changing Task/Run/Graph primitives.
+  CONNECTION REF
 
-  ADAPTER CONTRACT
+  Conceptual:
 
-  Implement a provider-neutral interface equivalent to:
+  DatabaseConnectionRef:
 
-  BrowserAdapter:
+  connection_id
 
-  createSession(spec)
+  project/global-infrastructure scope
 
-  navigate(session, request)
+  adapter_id
 
-  inspect(session, request)
+  endpoint identity
 
-  performAction(session, action)
+  database identity
 
-  extract(session, request)
+  auth_profile_ref
 
-  captureScreenshot(session, request)
+  TLS/security config
 
-  upload(session, request)
+  capability restrictions
 
-  download(session, request)
+  timestamps
 
-  waitForCondition(session, request)
+  Never store raw password/connection secret in Task/Run/Event/ToolCall.
 
-  cancel(session/request)
+  QUERY
 
-  closeSession(session)
+  Use parameterized queries.
 
-  inspectSession(session)
+  Request binds:
 
-  Implement at least one real browser implementation where current environment permits and a deterministic reference/test implementation where needed.
+  - connection ref;
 
-  Do not expose Playwright/Selenium/provider SDK objects in kernel contracts.
+  - statement/statement ref;
 
-  SESSION GENERATION IDENTITY
+  - parameter refs;
 
-  Persist runtime identity equivalent to:
-
-  BrowserSessionIdentity:
-
-  browser_adapter_id
-
-  implementation_id
-
-  browser_name
-
-  browser_version
-
-  runtime_version
-
-  session_id
-
-  executor/resource identity
-
-  generation
-
-  created_at
-
-  Page refs include session/page/generation/current URL.
-
-  A page/session ref is runtime state, not durable Project truth.
-
-  If session generation 1 crashes and generation 2 replaces it, every late action/result from generation 1 is stale and rejected.
-
-  SESSION LOSS
-
-  After browser crash:
-
-  - Run state survives;
-
-  - completed ToolCalls survive;
-
-  - downloaded Artifacts survive;
-
-  - screenshots/extractions survive;
-
-  - already confirmed external side-effect receipts survive;
-
-  - incomplete current action fails/stales;
-
-  - scheduler may start a new session.
-
-  Do not reconstruct completed work from browser memory alone.
-
-  EGRESS AND ORIGIN POLICY
-
-  Navigation/upload/form submission must respect Project/Task data-egress policy.
-
-  Browser reachability cannot bypass HTTP egress restrictions.
-
-  When uploading Project-private data, validate destination/origin before transferring bytes.
-
-  READ VS MUTATION
-
-  Structured browser actions should declare side-effect class.
-
-  READ_ONLY examples: navigate, inspect, screenshot, extract.
-
-  EXTERNAL_SIDE_EFFECT examples: submit form, publish content, delete remote record, send message.
-
-  A read-only Task cannot perform the latter.
-
-  Do not create a universal human approval gate; enforce existing Task authority.
-
-  DOM / EXTRACTION
-
-  Inspection/extraction output should be:
-
-  - bounded;
-
-  - structured where practical;
-
-  - bound to exact session/page/url/time;
-
-  - persisted as ContentRef/Artifact when durable.
-
-  Large DOM/snapshot -> Object Store, not giant database row.
-
-  SCREENSHOT
-
-  Screenshot result:
-
-  - exact ContentRef;
-
-  - Artifact;
-
-  - ToolCall output ref;
-
-  - viewport;
-
-  - page identity;
-
-  - URL;
-
-  - timestamp;
-
-  - browser implementation/runtime identity.
-
-  Screenshot alone is not proof the requested interaction works unless validation says so.
-
-  DOWNLOAD
-
-  Required flow:
-
-  authorized browser action
-
-  → temporary controlled download
-
-  → completion
-
-  → digest
-
-  → Object Store
-
-  → Artifact
-
-  → verification
-
-  → durable success
-
-  Temporary browser download path is not Artifact identity.
-
-  Interrupted download cannot be accepted complete.
-
-  UPLOAD
-
-  Upload only:
-
-  - authorized Artifact/ContentRef;
-
-  - controlled FilesystemRoot.
-
-  Reject arbitrary host path.
-
-  Stream large uploads.
-
-  STRUCTURED ACTION
-
-  Use structured BrowserAction:
-
-  - action_type;
-
-  - target;
-
-  - value_ref;
+  - mode;
 
   - timeout;
 
-  - expected pre/postcondition;
+  - max rows/bytes;
 
-  - side-effect class.
+  - transaction ref where applicable;
 
-  Avoid arbitrary JS when structured action exists.
+  - Project/Run/Node.
 
-  If browser.evaluate exists, treat as explicit bounded capability and do not turn browser JS into host execution privilege.
+  Do not concatenate model/user values into SQL.
 
-  WAIT
+  READ / MUTATION / DDL
 
-  Support bounded waits for:
+  Distinguish:
 
-  - selector;
+  - READ_ONLY;
 
-  - URL;
+  - MUTATING;
 
-  - DOM property;
+  - DDL/MIGRATION.
 
-  - network idle;
+  Layer Task authority with database permissions/read-only connection profiles where practical.
 
-  - explicit event.
+  Do not rely solely on SQL parser classification for security.
 
-  Timeout remains timeout, not success.
+  BOUNDED RESULTS
 
-  CREDENTIALS / COOKIES
+  Large results:
 
-  Credentials from secret refs.
+  - stream/paginate;
 
-  Do not persist password/token/cookie bytes in ordinary Events/ToolCalls.
+  - enforce row/byte limits;
 
-  Browser profile/session storage is runtime-sensitive and not Project Memory.
+  - persist as ContentRef/Artifact only when durability required.
 
-  MODEL-GUIDED BROWSER
+  Do not automatically persist sensitive query bodies.
 
-  Provider-native browser/computer action proposal:
+  ToolCall metadata may record: query digest, parameter digest/refs, mode, row count, duration, database identity, output ref.
 
-  ModelCall -> proposed action -> Biella policy/tool validation -> BrowserAdapter -> ToolCall
+  TRANSACTIONS
 
-  The model does not gain authority outside Task/Node policy.
+  Support:
 
-  EVENTS
+  - begin;
 
-  Meaningful events may include:
+  - multiple operations;
 
-  - BROWSER_SESSION_STARTED;
+  - commit;
 
-  - BROWSER_SESSION_REPLACED;
+  - rollback;
 
-  - BROWSER_ARTIFACT_CREATED;
+  - cancellation;
 
-  - EXTERNAL_SIDE_EFFECT_RECORDED.
+  - timeout.
 
-  Do not dump browser trace into Event Ledger.
+  Do not claim commit unless observed.
 
-  MANDATORY TEST MATRIX
+  If connection fails during commit and outcome cannot be proven, report TRANSACTION_OUTCOME_UNKNOWN, not success/failure fabrication.
 
-  Cover session create/close/crash/replacement; navigation and redirects; egress denied; bounded inspect/extract; click/type/select; missing target; read-only mutation rejection; authorized mutation receipt; screenshot; exact download digest; interrupted download; upload Artifact; arbitrary path rejection; secret/cookie redaction; crash after completed download; resume with new session; model-proposed action validation; cross-Project session/Artifact denial.
+  MIGRATION
 
-  Target KPI includes: browser_session_loss_causes_Run_loss=0, stale_browser_generation_results_accepted=0, credential_leaks=0, unattributed_external_browser_mutations=0.
+  If implemented:
+
+  - bind exact migration Artifact/digest;
+
+  - target DB;
+
+  - expected before schema/version;
+
+  - observed after state.
+
+  Do not automatically run repository migrations against unknown/production DB.
+
+  SCHEMA INSPECTION
+
+  Bounded metadata: tables, columns, indexes, constraints, extensions/version.
+
+  No data dump/credentials.
+
+  TIMEOUT / CANCELLATION
+
+  Use driver cancellation and statement timeout where available; report enforcement layer.
+
+  Cancelled transaction should rollback/reset safely.
+
+  TLS
+
+  Do not disable TLS verification silently.
+
+  ERROR / SQLSTATE
+
+  Preserve useful bounded SQLSTATE/provider error metadata while preventing secret/parameter leakage.
+
+  Support categories including: CONNECTION_FAILED, AUTH_FAILED, TLS_FAILED, QUERY_FAILED, TIMEOUT, CANCELLED, RESULT_LIMIT, TRANSACTION_ABORTED, TRANSACTION_OUTCOME_UNKNOWN, SCHEMA_MISMATCH, MIGRATION_FAILED, POLICY_DENIED.
+
+  TESTS
+
+  Real PostgreSQL where available:
+
+  - connect/version;
+
+  - bad auth;
+
+  - parameterized SELECT;
+
+  - row/byte caps;
+
+  - streamed large result;
+
+  - authorized write;
+
+  - read-only write rejection;
+
+  - transaction commit;
+
+  - rollback;
+
+  - cancel/timeout rollback;
+
+  - ambiguous commit outcome fixture;
+
+  - schema inspect;
+
+  - migration success/failure if in scope;
+
+  - secret scan of ledger/events/checkpoints;
+
+  - Beta cannot use Alpha connection;
+
+  - Project connection cannot accidentally resolve internal Biella DB;
+
+  - restart recreates pool while durable operation receipts remain.
+
+  Pooling is optimization, not durable authority.
 
   USEFUL EVIDENCE — NON-GATING
 
-  - Browser is a replaceable tool capability, not Run authority; session loss does not erase completed work.
+  - PostgreSQL is an adapter capability, not a Project/kernel requirement; transaction truth and secrets are preserved.
 
   DELIVERABLES
 
@@ -480,7 +401,7 @@ canonical_prompt_text: |-
 
   Use this result block:
 
-  PROMPT: 26/51 - P2-07
+  PROMPT: 27/51 - P2-08
 
   STATUS: COMPLETE / PARTIAL / BLOCKED
 
