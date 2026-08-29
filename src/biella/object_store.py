@@ -6,6 +6,7 @@ from abc import ABC, abstractmethod
 from collections.abc import Iterable, Iterator
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
+from enum import Enum
 import errno
 import hashlib
 import io
@@ -34,6 +35,17 @@ class ObjectStorageNotFoundError(ObjectStorageError):
 
 class ObjectStorageContractError(ObjectStorageError, ValueError):
     """A backend request is malformed."""
+
+
+class ReplicaState(str, Enum):
+    """Durable physical-replica state, separate from logical content identity."""
+
+    AVAILABLE = "AVAILABLE"
+    VERIFYING = "VERIFYING"
+    CORRUPT = "CORRUPT"
+    MISSING = "MISSING"
+    UPLOADING = "UPLOADING"
+    FAILED = "FAILED"
 
 
 @runtime_checkable
@@ -162,10 +174,16 @@ class ContentObject:
 
 @dataclass(frozen=True, order=True)
 class ContentLocation:
-    """One physical locator, deliberately excluded from content identity."""
+    """One observed physical replica, deliberately excluded from identity."""
 
     backend_id: str
     locator: str
+    content_digest: str = ""
+    state: ReplicaState = ReplicaState.AVAILABLE
+    size_bytes: int = 0
+    verified_at: str | None = None
+    created_at: str = "1970-01-01T00:00:00+00:00"
+    failure_ref: str | None = None
 
     def __post_init__(self) -> None:
         for field_name, value in (
@@ -181,6 +199,48 @@ class ContentLocation:
                 raise ObjectStorageContractError(
                     f"ContentLocation {field_name} is malformed"
                 )
+        if self.content_digest and _SHA256_PATTERN.fullmatch(self.content_digest) is None:
+            raise ObjectStorageContractError("ContentLocation content_digest is malformed")
+        if not isinstance(self.state, ReplicaState):
+            raise ObjectStorageContractError("ContentLocation state is malformed")
+        if (
+            not isinstance(self.size_bytes, int)
+            or isinstance(self.size_bytes, bool)
+            or self.size_bytes < 0
+        ):
+            raise ObjectStorageContractError("ContentLocation size_bytes is malformed")
+        timestamp_values = (
+            ("verified_at", self.verified_at),
+            ("created_at", cast(str | None, self.created_at)),
+        )
+        for timestamp_name, timestamp_value in timestamp_values:
+            if timestamp_value is None:
+                if timestamp_name == "verified_at":
+                    continue
+                raise ObjectStorageContractError(
+                    f"ContentLocation {timestamp_name} is malformed"
+                )
+            if not isinstance(timestamp_value, str):
+                raise ObjectStorageContractError(
+                    f"ContentLocation {timestamp_name} is malformed"
+                )
+            try:
+                parsed = datetime.fromisoformat(timestamp_value)
+            except ValueError as exc:
+                raise ObjectStorageContractError(
+                    f"ContentLocation {timestamp_name} is malformed"
+                ) from exc
+            if parsed.tzinfo is None or parsed.utcoffset() is None:
+                raise ObjectStorageContractError(
+                    f"ContentLocation {timestamp_name} is malformed"
+                )
+        if self.failure_ref is not None and (
+            not isinstance(self.failure_ref, str)
+            or not self.failure_ref.startswith("failure://sha256/")
+            or _SHA256_PATTERN.fullmatch(self.failure_ref.removeprefix("failure://sha256/"))
+            is None
+        ):
+            raise ObjectStorageContractError("ContentLocation failure_ref is malformed")
 
 
 class ObjectStorageBackend(ABC):
@@ -310,14 +370,28 @@ class MemoryObjectStorageBackend(ObjectStorageBackend):
     def location(self, content_ref: ContentRef) -> ContentLocation:
         content_ref = _require_content_ref(content_ref)
         self.verify(content_ref)
+        created_at = self._created_at[(content_ref.algorithm, content_ref.digest)]
         return ContentLocation(
             backend_id="memory-reference",
             locator=f"memory://sha256/{content_ref.digest}",
+            content_digest=content_ref.digest,
+            state=ReplicaState.AVAILABLE,
+            size_bytes=content_ref.size_bytes,
+            verified_at=datetime.now(timezone.utc).isoformat(timespec="microseconds"),
+            created_at=created_at,
         )
 
     def verify(self, content_ref: ContentRef) -> bool:
         self.read(content_ref)
         return True
+
+    def delete_replica(self, content_ref: ContentRef) -> None:
+        """Delete one physical ephemeral replica without touching logical identity."""
+
+        content_ref = _require_content_ref(content_ref)
+        key = (content_ref.algorithm, content_ref.digest)
+        self._objects.pop(key, None)
+        self._created_at.pop(key, None)
 
 
 class FilesystemObjectStorageBackend(ObjectStorageBackend):
@@ -673,9 +747,15 @@ class FilesystemObjectStorageBackend(ObjectStorageBackend):
 
     def location(self, content_ref: ContentRef) -> ContentLocation:
         self.verify(content_ref)
+        created_at = self._read_created_at(content_ref)
         return ContentLocation(
             backend_id="filesystem",
             locator=self._object_path(content_ref, create_parent=False).as_uri(),
+            content_digest=content_ref.digest,
+            state=ReplicaState.AVAILABLE,
+            size_bytes=content_ref.size_bytes,
+            verified_at=datetime.now(timezone.utc).isoformat(timespec="microseconds"),
+            created_at=created_at,
         )
 
     def verify(self, content_ref: ContentRef) -> bool:
@@ -685,3 +765,12 @@ class FilesystemObjectStorageBackend(ObjectStorageBackend):
         with self._open_unverified(path) as reader:
             self._verify_reader(reader, content_ref)
         return True
+
+    def delete_replica(self, content_ref: ContentRef) -> None:
+        """Delete one physical replica; Artifact and ContentRef state are untouched."""
+
+        content_ref = _require_content_ref(content_ref)
+        directory = self._object_directory(content_ref, create_parent=False)
+        self._remove_bundle(directory)
+        if directory.parent.exists():
+            self._fsync_directory(directory.parent)
