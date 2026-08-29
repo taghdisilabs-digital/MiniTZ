@@ -9,7 +9,7 @@ domain-specific task, run, or worker hierarchy.
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import datetime, timezone
 import hashlib
 import hmac
@@ -20,7 +20,7 @@ import sqlite3
 from types import MappingProxyType
 from typing import cast
 
-from .capability import Capability, CapabilityRef, CapabilityRegistry
+from .capability import Capability, CapabilityError, CapabilityRef, CapabilityRegistry
 
 
 _PACK_ID_PATTERN = re.compile(r"[a-z][a-z0-9-]{0,63}")
@@ -249,9 +249,17 @@ class ProductionPack:
     def __post_init__(self) -> None:
         if not isinstance(self.pack_ref, ProductionPackRef):
             raise TypeError("pack_ref must be ProductionPackRef")
-        capabilities = tuple(self.capability_definitions)
-        recipes = tuple(self.graph_recipes)
-        validators = tuple(self.validators)
+        if not isinstance(self.capability_definitions, tuple):
+            raise ProductionPackContractError(
+                "capability_definitions must be a bounded tuple"
+            )
+        if not isinstance(self.graph_recipes, tuple):
+            raise ProductionPackContractError("graph_recipes must be a bounded tuple")
+        if not isinstance(self.validators, tuple):
+            raise ProductionPackContractError("validators must be a bounded tuple")
+        capabilities = self.capability_definitions
+        recipes = self.graph_recipes
+        validators = self.validators
         if not capabilities or len(capabilities) > 128 or not all(
             isinstance(item, Capability) for item in capabilities
         ):
@@ -259,10 +267,14 @@ class ProductionPack:
         capability_refs = {item.capability_ref for item in capabilities}
         if len(capability_refs) != len(capabilities):
             raise ProductionPackContractError("capability definitions must be unique")
-        if not all(isinstance(item, GraphRecipeRegistration) for item in recipes):
-            raise ProductionPackContractError("graph_recipes are malformed")
-        if not all(isinstance(item, ValidatorRegistration) for item in validators):
-            raise ProductionPackContractError("validators are malformed")
+        if len(recipes) > 64 or not all(
+            isinstance(item, GraphRecipeRegistration) for item in recipes
+        ):
+            raise ProductionPackContractError("graph_recipes are malformed or unbounded")
+        if len(validators) > 128 or not all(
+            isinstance(item, ValidatorRegistration) for item in validators
+        ):
+            raise ProductionPackContractError("validators are malformed or unbounded")
         if len({item.recipe_ref for item in recipes}) != len(recipes):
             raise ProductionPackContractError("graph recipe refs must be unique")
         if len({item.registration_ref for item in validators}) != len(validators):
@@ -294,6 +306,10 @@ class ProductionPack:
 
     @property
     def validator_refs(self) -> tuple[str, ...]:
+        return tuple(item.validator_ref for item in self.validators)
+
+    @property
+    def validator_registration_refs(self) -> tuple[str, ...]:
         return tuple(item.registration_ref for item in self.validators)
 
     def _semantic_payload(self) -> dict[str, object]:
@@ -428,10 +444,7 @@ class ProductionPackRegistry:
         ):
             raise ProductionPackContractError("idempotency_key is malformed")
 
-        for capability in pack.capability_definitions:
-            CapabilityRegistry(self.database_path).register(capability)
-
-        descriptor_json = self._serialize(pack)
+        capabilities = CapabilityRegistry(self.database_path)
         connection = self._connect()
         try:
             connection.execute("BEGIN IMMEDIATE")
@@ -451,6 +464,7 @@ class ProductionPackRegistry:
                         "idempotency_key already identifies a different immutable pack"
                     )
                 persisted = self._get_from_connection(connection, pack.pack_ref)
+                self._verify_capabilities(connection, capabilities, persisted)
                 connection.commit()
                 return persisted
 
@@ -464,7 +478,17 @@ class ProductionPackRegistry:
                     raise ProductionPackConflictError(
                         "ProductionPack version already has a different descriptor"
                     )
+                self._verify_capabilities(connection, capabilities, persisted)
             else:
+                canonical_definitions = tuple(
+                    capabilities._register_with_connection(connection, capability)
+                    for capability in pack.capability_definitions
+                )
+                pack = replace(
+                    pack,
+                    capability_definitions=canonical_definitions,
+                )
+                descriptor_json = self._serialize(pack)
                 connection.execute(
                     """
                     INSERT INTO production_packs (
@@ -504,22 +528,55 @@ class ProductionPackRegistry:
         finally:
             connection.close()
 
+    @staticmethod
+    def _verify_capabilities(
+        connection: sqlite3.Connection,
+        registry: CapabilityRegistry,
+        pack: ProductionPack,
+    ) -> None:
+        """Verify that every bundled Capability still has its exact contract."""
+
+        try:
+            persisted = tuple(
+                registry._get_with_connection(connection, item.capability_ref)
+                for item in pack.capability_definitions
+            )
+        except CapabilityError as exc:
+            raise ProductionPackIntegrityError(
+                "ProductionPack references missing or invalid Capability evidence"
+            ) from exc
+        for expected, observed in zip(pack.capability_definitions, persisted, strict=True):
+            if not hmac.compare_digest(
+                expected.contract_sha256,
+                observed.contract_sha256,
+            ):
+                raise ProductionPackIntegrityError(
+                    "ProductionPack Capability contract differs from its descriptor"
+                )
+
     def get(self, pack_ref: ProductionPackRef) -> ProductionPack:
         if not isinstance(pack_ref, ProductionPackRef):
             raise TypeError("pack_ref must be ProductionPackRef")
+        capabilities = CapabilityRegistry(self.database_path)
         connection = self._connect()
         try:
-            return self._get_from_connection(connection, pack_ref)
+            pack = self._get_from_connection(connection, pack_ref)
+            self._verify_capabilities(connection, capabilities, pack)
+            return pack
         finally:
             connection.close()
 
     def list_packs(self) -> tuple[ProductionPack, ...]:
+        capabilities = CapabilityRegistry(self.database_path)
         connection = self._connect()
         try:
             rows = connection.execute(
                 "SELECT * FROM production_packs ORDER BY pack_id, version"
             ).fetchall()
-            return tuple(self._from_row(row) for row in rows)
+            packs = tuple(self._from_row(row) for row in rows)
+            for pack in packs:
+                self._verify_capabilities(connection, capabilities, pack)
+            return packs
         finally:
             connection.close()
 
@@ -647,7 +704,14 @@ class ProductionPackRegistry:
             )
         except ProductionPackIntegrityError:
             raise
-        except (KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
+        except (
+            CapabilityError,
+            KeyError,
+            ProductionPackContractError,
+            TypeError,
+            ValueError,
+            json.JSONDecodeError,
+        ) as exc:
             raise ProductionPackIntegrityError("Persisted pack descriptor is malformed") from exc
 
         persisted_digest = row["semantic_digest"]

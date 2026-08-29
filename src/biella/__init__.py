@@ -603,7 +603,7 @@ from .production_pack import (
     ProductionPackRegistry,
     ValidatorRegistration,
 )
-from .packs import software_production_pack
+from .software_pack import software_production_pack
 
 __all__ = [
     "ActiveArtifact",

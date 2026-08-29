@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from ..capability import Capability, CapabilityRef
-from ..production_pack import (
+from .capability import Capability, CapabilityRef
+from .production_pack import (
     GraphRecipeRegistration,
     GraphRecipeStepRegistration,
     ProductionPack,
@@ -71,6 +71,7 @@ def _capability(name: str) -> Capability:
     }[name]
     side_effects = {
         "modify": ("workspace.filesystem.write",),
+        "debug": ("workspace.process.execute",),
         "refactor": ("workspace.filesystem.write",),
         "test": ("workspace.process.execute",),
         "build": ("workspace.process.execute", "workspace.artifact.create"),
@@ -111,6 +112,18 @@ def software_production_pack() -> ProductionPack:
                 GraphRecipeStepRegistration("validate", by_name["validate"], ("test",)),
             ),
         ),
+        GraphRecipeRegistration(
+            recipe_ref="pack-recipe://software/production-repair@1.0.0",
+            steps=(
+                GraphRecipeStepRegistration("inspect", by_name["inspect"]),
+                GraphRecipeStepRegistration("debug", by_name["debug"], ("inspect",)),
+                GraphRecipeStepRegistration("modify", by_name["modify"], ("debug",)),
+                GraphRecipeStepRegistration("test", by_name["test"], ("modify",)),
+                GraphRecipeStepRegistration("build", by_name["build"], ("test",)),
+                GraphRecipeStepRegistration("run", by_name["run"], ("build",)),
+                GraphRecipeStepRegistration("validate", by_name["validate"], ("run",)),
+            ),
+        ),
     )
     validators = (
         ValidatorRegistration(
@@ -136,13 +149,13 @@ def software_production_pack() -> ProductionPack:
         adapters = {
             "inspect": ("adapter://git/v1", "adapter://filesystem/v1"),
             "search": ("adapter://context-retrieval/v1", "adapter://filesystem/v1"),
-            "architecture": ("adapter://project-memory/v1", "adapter://context-retrieval/v1"),
-            "engineer": ("adapter://graph/v1", "adapter://scheduler/v1"),
+            "architecture": ("adapter://project-memory/v1", "adapter://context-retrieval/v1", "adapter://model/v1"),
+            "engineer": ("adapter://graph/v1", "adapter://scheduler/v1", "adapter://model/v1"),
             "modify": ("adapter://git/v1", "adapter://workspace/v1", "adapter://filesystem/v1"),
-            "debug": ("adapter://process/v1", "adapter://context-retrieval/v1"),
+            "debug": ("adapter://process/v1", "adapter://context-retrieval/v1", "adapter://model/v1"),
             "refactor": ("adapter://git/v1", "adapter://workspace/v1"),
             "test": ("adapter://process/v1", "adapter://workspace/v1"),
-            "build": ("adapter://process/v1", "adapter://workspace/v1"),
+            "build": ("adapter://artifact/v1", "adapter://process/v1", "adapter://workspace/v1"),
             "run": ("adapter://process/v1", "adapter://workspace/v1"),
             "profile": ("adapter://process/v1", "adapter://resource/v1"),
             "package": ("adapter://process/v1", "adapter://artifact/v1"),

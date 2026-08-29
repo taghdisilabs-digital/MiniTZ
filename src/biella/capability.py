@@ -374,62 +374,77 @@ class CapabilityRegistry:
         connection = self._connect()
         try:
             connection.execute("BEGIN IMMEDIATE")
-            existing_row = connection.execute(
-                """
-                SELECT * FROM capabilities
-                WHERE capability_id = ? AND version = ?
-                """,
-                (capability.capability_id, capability.version),
-            ).fetchone()
-            if existing_row is not None:
-                existing = self._capability_from_row(connection, existing_row)
-                if not hmac.compare_digest(
-                    existing.contract_sha256,
-                    capability.contract_sha256,
-                ):
-                    raise CapabilityConflictError(
-                        "Capability version already has a different immutable contract"
-                    )
-                connection.commit()
-                return existing
-            connection.execute(
-                """
-                INSERT INTO capabilities (
-                    namespace,
-                    name,
-                    capability_id,
-                    version,
-                    description,
-                    input_contract_json,
-                    output_contract_json,
-                    side_effects_json,
-                    contract_sha256,
-                    record_sha256,
-                    created_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """,
-                (
-                    capability.namespace,
-                    capability.name,
-                    capability.capability_id,
-                    capability.version,
-                    capability.description,
-                    self._serialize_mapping(capability.input_contract),
-                    self._serialize_mapping(capability.output_contract),
-                    self._serialize_sequence(capability.side_effects),
-                    capability.contract_sha256,
-                    self._record_sha256(capability),
-                    capability.created_at,
-                ),
-            )
-            self._after_capability_insert(connection, capability)
+            registered = self._register_with_connection(connection, capability)
             connection.commit()
-            return capability
+            return registered
         except Exception:
             connection.rollback()
             raise
         finally:
             connection.close()
+
+    def _register_with_connection(
+        self,
+        connection: sqlite3.Connection,
+        capability: Capability,
+    ) -> Capability:
+        """Register on an existing transaction owned by a composite registry."""
+
+        if not isinstance(capability, Capability):
+            raise TypeError("Capability is required")
+        if capability.deprecated or capability.superseded_by is not None:
+            raise CapabilityContractError(
+                "Lifecycle state must be recorded through the registry"
+            )
+        existing_row = connection.execute(
+            """
+            SELECT * FROM capabilities
+            WHERE capability_id = ? AND version = ?
+            """,
+            (capability.capability_id, capability.version),
+        ).fetchone()
+        if existing_row is not None:
+            existing = self._capability_from_row(connection, existing_row)
+            if not hmac.compare_digest(
+                existing.contract_sha256,
+                capability.contract_sha256,
+            ):
+                raise CapabilityConflictError(
+                    "Capability version already has a different immutable contract"
+                )
+            return existing
+        connection.execute(
+            """
+            INSERT INTO capabilities (
+                namespace,
+                name,
+                capability_id,
+                version,
+                description,
+                input_contract_json,
+                output_contract_json,
+                side_effects_json,
+                contract_sha256,
+                record_sha256,
+                created_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                capability.namespace,
+                capability.name,
+                capability.capability_id,
+                capability.version,
+                capability.description,
+                self._serialize_mapping(capability.input_contract),
+                self._serialize_mapping(capability.output_contract),
+                self._serialize_sequence(capability.side_effects),
+                capability.contract_sha256,
+                self._record_sha256(capability),
+                capability.created_at,
+            ),
+        )
+        self._after_capability_insert(connection, capability)
+        return capability
 
     def _after_capability_insert(
         self,
@@ -439,13 +454,22 @@ class CapabilityRegistry:
         del connection, capability
 
     def get(self, capability_ref: CapabilityRef) -> Capability:
-        self._require_ref(capability_ref)
         connection = self._connect()
         try:
-            row = self._fetch_row(connection, capability_ref)
-            return self._capability_from_row(connection, row)
+            return self._get_with_connection(connection, capability_ref)
         finally:
             connection.close()
+
+    def _get_with_connection(
+        self,
+        connection: sqlite3.Connection,
+        capability_ref: CapabilityRef,
+    ) -> Capability:
+        """Read and verify one Capability inside a caller-owned transaction."""
+
+        self._require_ref(capability_ref)
+        row = self._fetch_row(connection, capability_ref)
+        return self._capability_from_row(connection, row)
 
     def list_versions(self, capability_id: str) -> tuple[Capability, ...]:
         validated_id = _validate_capability_id(capability_id)

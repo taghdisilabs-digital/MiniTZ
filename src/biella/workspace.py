@@ -1837,7 +1837,11 @@ class WorkspaceService:
                 root_ref=workspace.candidate_root_ref,
                 path=f"{workspace.relative_path}/{item.path}",
                 content_ref=item.content_ref,
-                idempotency_key=_adapter_key(idempotency_key, "write", item.path),
+                idempotency_key=_adapter_key(
+                    idempotency_key,
+                    "write-mode-v2",
+                    item.path,
+                ),
                 mode=item.mode,
             )
             calls.append(written.tool_call_ref)

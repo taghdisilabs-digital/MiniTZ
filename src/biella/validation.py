@@ -20,7 +20,7 @@ from types import MappingProxyType
 from typing import Mapping, Sequence, cast
 from uuid import uuid4
 
-from .artifact import ArtifactRef, ArtifactService, ContentRef
+from .artifact import Artifact, ArtifactError, ArtifactRef, ArtifactService, ContentRef
 from .call_ledger import CallLedgerService, ModelCallRef, ToolCallRef
 from .capability import CapabilityRef
 from .execution import NodeExecutionAttempt, NodeExecutionService
@@ -266,6 +266,9 @@ class ValidationCheck:
         artifact_role = self.parameters.get("artifact_role")
         if artifact_role is not None:
             _name(artifact_role, "required Artifact role")
+        source_artifact_ref = self.parameters.get("source_artifact_ref")
+        if source_artifact_ref is not None:
+            _ref(source_artifact_ref, "required source Artifact ref")
         object.__setattr__(self, "check_id", f"vchk_{_sha(self.semantic_payload())[:32]}")
 
     def semantic_payload(self) -> dict[str, object]:
@@ -745,16 +748,117 @@ class ValidationService:
         self._authorize(access, access.project_ref)
         return ValidationSubject(access.project_ref, "CONTENT", content_ref.value, _sha({"algorithm": content_ref.algorithm, "digest": content_ref.digest, "media_type": content_ref.media_type, "size_bytes": content_ref.size_bytes}), producer_dimensions, {"algorithm": content_ref.algorithm, "digest": content_ref.digest, "media_type": content_ref.media_type, "size_bytes": content_ref.size_bytes})
 
-    def bind_workspace_subject(self, access: ProjectAccess, snapshot_ref: WorkspaceSnapshotRef) -> ValidationSubject:
+    def _workspace_receipt_binding(
+        self,
+        access: ProjectAccess,
+        snapshot_ref: WorkspaceSnapshotRef,
+        *,
+        expected_digest: str | None = None,
+    ) -> tuple[str, ArtifactRef]:
+        """Verify a Workspace receipt, snapshot identity, and bound Artifact."""
+
         self._authorize(access, snapshot_ref.project_ref)
         connection = self._connect()
         try:
-            row = connection.execute("SELECT receipt_sha256 FROM workspace_receipts WHERE project_id=? AND workspace_id=? AND snapshot_sequence=?", (access.project_ref.value, snapshot_ref.workspace_ref.workspace_id, snapshot_ref.sequence)).fetchone()
+            row = connection.execute(
+                """
+                SELECT r.receipt_json, r.receipt_sha256,
+                       s.snapshot_json, s.record_sha256 AS snapshot_sha256
+                FROM workspace_receipts AS r
+                JOIN workspace_snapshots AS s
+                  ON s.project_id = r.project_id
+                 AND s.workspace_id = r.workspace_id
+                 AND s.sequence = r.snapshot_sequence
+                WHERE r.project_id=? AND r.workspace_id=?
+                  AND r.snapshot_sequence=?
+                """,
+                (
+                    access.project_ref.value,
+                    snapshot_ref.workspace_ref.workspace_id,
+                    snapshot_ref.sequence,
+                ),
+            ).fetchone()
         finally:
             connection.close()
         if row is None:
-            raise ValidationNotFoundError("Candidate Workspace receipt was not found")
-        return ValidationSubject(access.project_ref, "WORKSPACE", snapshot_ref.value, cast(str, row["receipt_sha256"]), {}, {"snapshot_sequence": snapshot_ref.sequence, "workspace_id": snapshot_ref.workspace_ref.workspace_id})
+            raise ValidationIntegrityError("Workspace subject receipt disappeared")
+        try:
+            receipt_json = cast(str, row["receipt_json"])
+            snapshot_json = cast(str, row["snapshot_json"])
+            receipt = cast(dict[str, object], json.loads(receipt_json))
+            snapshot = cast(dict[str, object], json.loads(snapshot_json))
+            if not isinstance(receipt, dict) or not isinstance(snapshot, dict):
+                raise TypeError("Workspace evidence is not an object")
+            receipt_digest = _sha(receipt)
+            snapshot_digest = _sha(snapshot)
+            persisted_receipt_digest = row["receipt_sha256"]
+            persisted_snapshot_digest = row["snapshot_sha256"]
+            receipt_artifact_text = receipt["snapshot_artifact_ref"]
+            snapshot_artifact_text = snapshot["artifact_ref"]
+            if (
+                not isinstance(persisted_receipt_digest, str)
+                or not isinstance(persisted_snapshot_digest, str)
+                or not isinstance(receipt_artifact_text, str)
+                or not isinstance(snapshot_artifact_text, str)
+            ):
+                raise TypeError("Workspace evidence identity is not serialized text")
+            project_prefix = f"artifact://{access.project_ref.value}/"
+            if not receipt_artifact_text.startswith(project_prefix):
+                raise ValueError("Workspace Artifact crossed Project scope")
+            artifact_prefix, artifact_id, revision_text = receipt_artifact_text.rsplit("/", 2)
+            if artifact_prefix != f"artifact://{access.project_ref.value}":
+                raise ValueError("Workspace Artifact identity is not canonical")
+            artifact_ref = ArtifactRef(
+                access.project_ref,
+                artifact_id,
+                int(revision_text),
+            )
+        except (
+            ArtifactError,
+            KeyError,
+            TypeError,
+            ValueError,
+            json.JSONDecodeError,
+            ValidationContractError,
+        ) as exc:
+            raise ValidationIntegrityError(
+                "Workspace receipt or snapshot binding is malformed"
+            ) from exc
+        if (
+            receipt_json != _json(receipt)
+            or snapshot_json != _json(snapshot)
+            or _SHA.fullmatch(persisted_receipt_digest) is None
+            or _SHA.fullmatch(persisted_snapshot_digest) is None
+            or not hmac.compare_digest(receipt_digest, persisted_receipt_digest)
+            or not hmac.compare_digest(snapshot_digest, persisted_snapshot_digest)
+            or (
+                expected_digest is not None
+                and not hmac.compare_digest(receipt_digest, expected_digest)
+            )
+            or receipt.get("snapshot_ref") != snapshot_ref.value
+            or receipt.get("workspace_ref") != snapshot_ref.workspace_ref.value
+            or snapshot.get("snapshot_ref") != snapshot_ref.value
+            or snapshot_artifact_text != receipt_artifact_text
+            or artifact_ref.value != receipt_artifact_text
+        ):
+            raise ValidationIntegrityError(
+                "Workspace receipt, snapshot, or subject identity changed"
+            )
+        try:
+            artifact = self.artifacts.get_artifact(access, artifact_ref)
+        except ArtifactError as exc:
+            raise ValidationIntegrityError(
+                "Workspace snapshot Artifact is unavailable or invalid"
+            ) from exc
+        if artifact.role != "workspace.snapshot":
+            raise ValidationIntegrityError(
+                "Workspace receipt does not bind a workspace.snapshot Artifact"
+            )
+        return receipt_digest, artifact_ref
+
+    def bind_workspace_subject(self, access: ProjectAccess, snapshot_ref: WorkspaceSnapshotRef) -> ValidationSubject:
+        receipt_digest, _ = self._workspace_receipt_binding(access, snapshot_ref)
+        return ValidationSubject(access.project_ref, "WORKSPACE", snapshot_ref.value, receipt_digest, {}, {"snapshot_sequence": snapshot_ref.sequence, "workspace_id": snapshot_ref.workspace_ref.workspace_id})
 
     def bind_tool_call_subject(self, access: ProjectAccess, call_ref: ToolCallRef) -> ValidationSubject:
         call = self.calls.get_tool_call(access, call_ref)
@@ -781,14 +885,18 @@ class ValidationService:
             model_call = self.calls.get_model_call(access, ModelCallRef(access.project_ref, cast(str, subject.metadata["call_id"])))
             observed = _sha({"call_record_sha256": model_call.record_sha256, "state_record_sha256": model_call.state.record_sha256})
         elif subject.subject_kind == "WORKSPACE":
-            connection = self._connect()
-            try:
-                row = connection.execute("SELECT receipt_sha256 FROM workspace_receipts WHERE project_id=? AND workspace_id=? AND snapshot_sequence=?", (access.project_ref.value, cast(str, subject.metadata["workspace_id"]), cast(int, subject.metadata["snapshot_sequence"]))).fetchone()
-            finally:
-                connection.close()
-            if row is None:
-                raise ValidationIntegrityError("Workspace subject receipt disappeared")
-            observed = cast(str, row["receipt_sha256"])
+            snapshot_ref = WorkspaceSnapshotRef(
+                WorkspaceRef(
+                    access.project_ref,
+                    cast(str, subject.metadata["workspace_id"]),
+                ),
+                cast(int, subject.metadata["snapshot_sequence"]),
+            )
+            observed, _ = self._workspace_receipt_binding(
+                access,
+                snapshot_ref,
+                expected_digest=subject.exact_digest,
+            )
         else:
             observed = subject.exact_digest
         if not hmac.compare_digest(observed, subject.exact_digest):
@@ -961,8 +1069,10 @@ class ValidationService:
         check = next((item for item in plan.checks if item.check_id == check_id), None)
         if check is None:
             raise ValidationContractError("ValidationResult check is not in the exact plan")
+        for subject in plan.subjects:
+            self._revalidate_subject(access, subject)
         artifact_evidence: list[ArtifactRef] = []
-        artifact_roles: set[str] = set()
+        evidence_artifacts: list[Artifact] = []
         for evidence_ref in evidence_refs:
             if evidence_ref.startswith("artifact://"):
                 project_prefix = f"artifact://{access.project_ref.value}/"
@@ -979,22 +1089,84 @@ class ValidationService:
                 if artifact_ref.value != evidence_ref:
                     raise ValidationContractError("Artifact validation evidence is not canonical")
                 artifact_evidence.append(artifact_ref)
-                artifact_roles.add(artifact.role)
+                evidence_artifacts.append(artifact)
         if check.capability_ref.capability_id in {"validation.build", "validation.runtime", "validation.artifact.exists"} and verdict is ValidationVerdict.PASS and not artifact_evidence:
             raise ValidationContractError("successful build/runtime/artifact validation requires exact Artifact evidence")
         required_artifact_role = check.parameters.get("artifact_role")
+        role_artifacts = tuple(
+            artifact
+            for artifact in evidence_artifacts
+            if artifact.role == required_artifact_role
+        )
         if (
             verdict is ValidationVerdict.PASS
             and isinstance(required_artifact_role, str)
-            and required_artifact_role not in artifact_roles
+            and not role_artifacts
         ):
             raise ValidationContractError(
                 "successful validation lacks the exact required Artifact role"
             )
+        artifact_subject_refs = {
+            subject.subject_ref
+            for subject in plan.subjects
+            if subject.subject_kind == "ARTIFACT"
+        }
+        subject_role_artifacts = tuple(
+            artifact
+            for artifact in role_artifacts
+            if artifact.artifact_ref.value in artifact_subject_refs
+        )
+        if verdict is ValidationVerdict.PASS and isinstance(required_artifact_role, str):
+            if not subject_role_artifacts:
+                raise ValidationContractError(
+                    "required-role Artifact is not an exact ValidationPlan subject"
+                )
+        required_source_artifact = check.parameters.get("source_artifact_ref")
+        if isinstance(required_source_artifact, str):
+            plan_source_artifact_refs = {
+                subject.subject_ref
+                for subject in plan.subjects
+                if subject.subject_kind == "ARTIFACT"
+            }
+            for subject in plan.subjects:
+                if subject.subject_kind != "WORKSPACE":
+                    continue
+                snapshot_ref = WorkspaceSnapshotRef(
+                    WorkspaceRef(
+                        access.project_ref,
+                        cast(str, subject.metadata["workspace_id"]),
+                    ),
+                    cast(int, subject.metadata["snapshot_sequence"]),
+                )
+                _, snapshot_artifact_ref = self._workspace_receipt_binding(
+                    access,
+                    snapshot_ref,
+                    expected_digest=subject.exact_digest,
+                )
+                plan_source_artifact_refs.add(snapshot_artifact_ref.value)
+            if required_source_artifact not in plan_source_artifact_refs:
+                raise ValidationContractError(
+                    "required source Artifact is not bound to an exact plan subject"
+                )
+        provenance_artifacts = (
+            subject_role_artifacts
+            if isinstance(required_artifact_role, str)
+            else tuple(evidence_artifacts)
+        )
+        if (
+            verdict is ValidationVerdict.PASS
+            and isinstance(required_source_artifact, str)
+            and not any(
+                required_source_artifact
+                in {source.value for source in artifact.source_artifact_refs}
+                for artifact in provenance_artifacts
+            )
+        ):
+            raise ValidationContractError(
+                "successful validation lacks required Artifact provenance"
+            )
         if verdict is ValidationVerdict.PASS and not evidence_refs:
             raise ValidationContractError("PASS requires exact validation evidence")
-        for subject in plan.subjects:
-            self._revalidate_subject(access, subject)
         dimensions = dict(validator_dimensions)
         supplied_identity = {
             "implementation": implementation_ref,

@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
+import hashlib
+import json
 import os
 from pathlib import Path
 import shutil
@@ -14,6 +17,9 @@ import biella
 import pytest
 from biella import (
     ArtifactService,
+    Capability,
+    CapabilityConflictError,
+    CapabilityNotFoundError,
     CapabilityRef,
     CapabilityRegistry,
     FilesystemAdapter,
@@ -30,7 +36,10 @@ from biella import (
     NodeRef,
     ProcessExecutionRequest,
     ProcessStatus,
+    ProductionPack,
     ProductionPackConflictError,
+    ProductionPackIntegrityError,
+    ProductionPackNotFoundError,
     ProductionPackRef,
     ProductionPackRegistry,
     ProjectStore,
@@ -86,6 +95,27 @@ def test_t01_public_pack_interfaces_and_software_descriptor_are_exact_data() -> 
     assert {item.capability_id for item in pack.capability_definitions} == SOFTWARE_CAPABILITIES
     assert set(pack.adapter_bindings) == {item.capability_ref.value for item in pack.capability_definitions}
     assert all(pack.adapter_bindings[key] for key in pack.adapter_bindings)
+    bound_adapters = {
+        reference
+        for references in pack.adapter_bindings.values()
+        for reference in references
+    }
+    assert {
+        "adapter://context-retrieval/v1",
+        "adapter://git/v1",
+        "adapter://model/v1",
+        "adapter://process/v1",
+        "adapter://validation/v1",
+        "adapter://workspace/v1",
+    } <= bound_adapters
+    assert "adapter://artifact/v1" in pack.adapter_bindings[
+        CapabilityRef("software.build", "1.0.0").value
+    ]
+    assert "workspace.process.execute" in next(
+        item
+        for item in pack.capability_definitions
+        if item.capability_id == "software.debug"
+    ).side_effects
     assert pack.graph_recipe_refs
     assert pack.validator_refs
     assert pack.resource_profiles
@@ -121,6 +151,137 @@ def test_t02_pack_registration_is_durable_idempotent_and_immutable(tmp_path: Pat
         connection.execute(
             "UPDATE production_packs SET semantic_digest=? WHERE pack_id=? AND version=?",
             ("0" * 64, "software", "1.0.0"),
+        )
+
+
+def test_t02_atomic_pack_registration_rolls_back_partial_capabilities(
+    tmp_path: Path,
+) -> None:
+    database = tmp_path / "atomic-packs.sqlite3"
+    registry = ProductionPackRegistry(database)
+    software = registry.register(
+        software_production_pack(),
+        idempotency_key="atomic-software",
+    )
+    inserted_first = Capability(
+        CapabilityRef("atomic.first", "1.0.0"),
+        "Must roll back when a later Capability conflicts",
+    )
+    conflicting_later = replace(
+        next(
+            item
+            for item in software.capability_definitions
+            if item.capability_id == "software.inspect"
+        ),
+        description="Conflicting immutable inspection contract",
+    )
+    atomic = ProductionPack(
+        ProductionPackRef("atomic", "1.0.0"),
+        (inserted_first, conflicting_later),
+        (),
+        (),
+        ("atomic.result",),
+        {
+            inserted_first.capability_ref.value: ("adapter://atomic/first",),
+            conflicting_later.capability_ref.value: ("adapter://atomic/conflict",),
+        },
+        {
+            inserted_first.capability_ref.value: "resource-profile://atomic/default",
+            conflicting_later.capability_ref.value: "resource-profile://atomic/default",
+        },
+    )
+
+    with pytest.raises(CapabilityConflictError):
+        registry.register(atomic, idempotency_key="atomic-failing-pack")
+    with pytest.raises(CapabilityNotFoundError):
+        CapabilityRegistry(database).get(inserted_first.capability_ref)
+    with pytest.raises(ProductionPackNotFoundError):
+        registry.get(atomic.pack_ref)
+    with sqlite3.connect(database) as connection:
+        assert connection.execute(
+            "SELECT COUNT(*) FROM production_pack_idempotency "
+            "WHERE idempotency_key='atomic-failing-pack'"
+        ).fetchone() == (0,)
+
+
+def test_t02_existing_pack_replay_rejects_missing_capability_evidence(
+    tmp_path: Path,
+) -> None:
+    database = tmp_path / "missing-pack-capability.sqlite3"
+    registry = ProductionPackRegistry(database)
+    pack = software_production_pack()
+    registry.register(pack, idempotency_key="software-original")
+    missing = pack.capability_definitions[0].capability_ref
+
+    with sqlite3.connect(database) as connection:
+        connection.execute("DROP TRIGGER capabilities_no_delete")
+        connection.execute(
+            "DELETE FROM capabilities WHERE capability_id=? AND version=?",
+            (missing.capability_id, missing.version),
+        )
+
+    with pytest.raises(ProductionPackIntegrityError, match="Capability"):
+        registry.register(pack, idempotency_key="software-after-capability-loss")
+    with sqlite3.connect(database) as connection:
+        assert connection.execute(
+            "SELECT COUNT(*) FROM production_pack_idempotency "
+            "WHERE idempotency_key='software-after-capability-loss'"
+        ).fetchone() == (0,)
+
+
+def test_t02_concurrent_pack_conflict_has_one_winner_and_no_loser_footprint(
+    tmp_path: Path,
+) -> None:
+    database = tmp_path / "concurrent-packs.sqlite3"
+    registry = ProductionPackRegistry(database)
+
+    def candidate(name: str) -> ProductionPack:
+        capability = Capability(
+            CapabilityRef(f"concurrent.{name}", "1.0.0"),
+            f"Concurrent candidate {name}",
+        )
+        return ProductionPack(
+            ProductionPackRef(f"concurrent-{name}", "1.0.0"),
+            (capability,),
+            (),
+            (),
+            (f"concurrent.{name}.result",),
+            {
+                capability.capability_ref.value: (
+                    f"adapter://concurrent/{name}",
+                )
+            },
+            {
+                capability.capability_ref.value: (
+                    f"resource-profile://concurrent/{name}"
+                )
+            },
+        )
+
+    candidates = (candidate("alpha"), candidate("beta"))
+
+    def register(pack: ProductionPack) -> ProductionPack | Exception:
+        try:
+            return registry.register(pack, idempotency_key="concurrent-one-winner")
+        except Exception as exc:
+            return exc
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        outcomes = tuple(executor.map(register, candidates))
+    winners = tuple(item for item in outcomes if isinstance(item, ProductionPack))
+    conflicts = tuple(
+        item for item in outcomes if isinstance(item, ProductionPackConflictError)
+    )
+    assert len(winners) == 1
+    assert len(conflicts) == 1
+    winner = winners[0]
+    loser = next(item for item in candidates if item.pack_ref != winner.pack_ref)
+    assert registry.get(winner.pack_ref) == winner
+    with pytest.raises(ProductionPackNotFoundError):
+        registry.get(loser.pack_ref)
+    with pytest.raises(CapabilityNotFoundError):
+        CapabilityRegistry(database).get(
+            loser.capability_definitions[0].capability_ref
         )
 
 
@@ -254,6 +415,18 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         encoding="utf-8",
     )
     source_status = _git(source_path, "status", "--porcelain=v1")
+    beta_source_root_path = tmp_path / "beta-source-root"
+    beta_source_path = beta_source_root_path / "demo"
+    beta_source_path.mkdir(parents=True)
+    _git(beta_source_path, "init", "--initial-branch=main")
+    (beta_source_path / "app.py").write_text(
+        "print('Beta project source')\n",
+        encoding="utf-8",
+    )
+    _git(beta_source_path, "add", "--all")
+    _git(beta_source_path, "commit", "-m", "independent beta fixture")
+    beta_base_commit = _git(beta_source_path, "rev-parse", "HEAD^{commit}")
+    beta_base_tree = _git(beta_source_path, "rev-parse", "HEAD^{tree}")
 
     database = tmp_path / "software-e2e.sqlite3"
     projects = ProjectStore(database)
@@ -267,19 +440,88 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         display_name="Software E2E Beta",
         configuration_refs={"software.test": f"config://sha256/{'2' * 64}"},
     )
-    ProductionPackRegistry(database).register(
+    registered_pack = ProductionPackRegistry(database).register(
         software_production_pack(),
         idempotency_key="software-e2e-pack",
+    )
+    production_recipe = next(
+        recipe
+        for recipe in registered_pack.graph_recipes
+        if recipe.recipe_ref
+        == "pack-recipe://software/production-repair@1.0.0"
+    )
+    assert tuple(step.step_id for step in production_recipe.steps) == (
+        "inspect",
+        "debug",
+        "modify",
+        "test",
+        "build",
+        "run",
+        "validate",
+    )
+    software_capabilities = tuple(
+        step.capability_ref for step in production_recipe.steps
     )
     objects = FilesystemObjectStorageBackend(tmp_path / "objects")
     filesystem = FilesystemAdapter(database, objects)
     git = GitAdapter(database, objects)
+    model = biella.ReferenceModelAdapter(database, objects)
+    model_runtime = biella.ModelRuntimeIdentity(
+        model.adapter_ref,
+        "runtime://python/p3-01-reference",
+        "p3-01-generation-1",
+        "provider://biella/reference",
+        "model://biella/p3-01-reference",
+        "p3-01-v1",
+        None,
+        (),
+        "REFERENCE",
+    )
+    model_deployment = model.register_deployment(
+        alpha.access,
+        biella.ModelDeployment(
+            biella.ModelDeploymentRef.new(alpha.project.project_ref),
+            model.adapter_ref,
+            model_runtime.provider_ref,
+            model_runtime.model_ref,
+            model_runtime.model_revision,
+            None,
+            None,
+            (
+                biella.ModelOperation.EMBED,
+                biella.ModelOperation.INFER,
+                biella.ModelOperation.RERANK,
+            ),
+            ("text",),
+            4096,
+            True,
+            False,
+            8,
+            (),
+            (),
+            (),
+            False,
+            model_runtime,
+        ),
+        idempotency_key="software-model-deployment",
+    )
     capabilities = tuple(
         sorted(
             (
                 *filesystem.register_capabilities(alpha.access),
                 *git.process.register_capabilities(alpha.access),
                 *git.register_capabilities(alpha.access),
+                *model.register_capabilities(alpha.access, model_deployment),
+                *software_capabilities,
+            )
+        )
+    )
+    beta_capabilities = tuple(
+        sorted(
+            (
+                *filesystem.register_capabilities(beta.access),
+                *git.process.register_capabilities(beta.access),
+                *git.register_capabilities(beta.access),
             )
         )
     )
@@ -296,12 +538,16 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
             "validation.build_required": True,
             "validation.runtime_required": True,
         },
-        side_effect_authority="PROJECT_WRITE",
+        side_effect_authority="EXTERNAL_SIDE_EFFECT",
         data_policy_ref=None,
         egress_policy_ref=None,
         evidence_requirements=("artifact", "build", "content-ref", "runtime", "test"),
         acceptance_criteria=("validation.success_rule=ALL_REQUIRED_PASS",),
-        resource_hints={},
+        resource_hints={
+            "resource_profile_ref": registered_pack.resource_profiles[
+                CapabilityRef("software.debug", "1.0.0").value
+            ]
+        },
     )
     runs = RunService(database)
     run = runs.create_run(alpha.access, task_ref=task.task_ref)
@@ -320,7 +566,7 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         (),
         dict(task.output_contract),
         None,
-        "PROJECT_WRITE",
+        "EXTERNAL_SIDE_EFFECT",
         {},
         task.evidence_requirements,
     )
@@ -350,6 +596,70 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         attempt,
         idempotency_key="software-e2e-start",
     )
+    beta_task = TaskRevisionService(database).create_task(
+        beta.access,
+        project_ref=beta.project.project_ref,
+        idempotency_key="software-e2e-beta-task",
+        task_type="software.inspect",
+        objective="Inspect only the independent beta repository",
+        required_capabilities=beta_capabilities,
+        input_refs=(),
+        output_contract={"inspection": "schema://biella/repository-inspection/1"},
+        constraints={},
+        side_effect_authority="PROJECT_WRITE",
+        data_policy_ref=None,
+        egress_policy_ref=None,
+        evidence_requirements=("artifact", "content-ref"),
+        acceptance_criteria=(),
+        resource_hints={},
+    )
+    beta_runs = RunService(database)
+    beta_run = beta_runs.create_run(beta.access, task_ref=beta_task.task_ref)
+    beta_run_attempt = beta_runs.acquire_run_lease(
+        beta.access,
+        beta_run.run_ref,
+        owner_ref="controller://software-pack-beta",
+        lease_seconds=1800,
+    )
+    beta_graph_ref = GraphRef.new(beta.project.project_ref)
+    beta_node = Node(
+        NodeRef.new(beta_graph_ref),
+        "TOOL",
+        beta_capabilities,
+        (),
+        (),
+        dict(beta_task.output_contract),
+        None,
+        "PROJECT_WRITE",
+        {},
+        beta_task.evidence_requirements,
+    )
+    GraphService(database).create_graph(
+        beta.access,
+        graph_ref=beta_graph_ref,
+        task_ref=beta_task.task_ref,
+        expected_task_digest=beta_task.canonical_digest,
+        run_ref=beta_run.run_ref,
+        nodes=(beta_node,),
+        compiler_identity=None,
+        compiler_version=None,
+        authority_attempt=beta_run_attempt,
+    )
+    beta_executions = NodeExecutionService(database)
+    beta_executions.prepare_run(beta.access, beta_run.run_ref)
+    beta_attempt = beta_executions.lease_node(
+        beta.access,
+        beta_node.node_ref,
+        authority_attempt=beta_run_attempt,
+        owner_ref="executor://software-pack-beta",
+        lease_seconds=1800,
+        idempotency_key="software-beta-lease",
+    )
+    beta_executions.start_node(
+        beta.access,
+        beta_attempt,
+        idempotency_key="software-beta-start",
+    )
     source_root = filesystem.register_root(
         alpha.access,
         path=source_root_path,
@@ -366,6 +676,14 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         allow_remove=True,
         idempotency_key="software-candidate-root",
     )
+    beta_source_root = filesystem.register_root(
+        beta.access,
+        path=beta_source_root_path,
+        scope=FilesystemScope.PROJECT,
+        mode=FilesystemMode.READ_WRITE,
+        allow_remove=False,
+        idempotency_key="software-beta-source-root",
+    )
     repository = git.register_repository(
         alpha.access,
         attempt,
@@ -374,6 +692,25 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         expected_commit_sha=base_commit,
         expected_tree_sha=base_tree,
         idempotency_key="software-register-repository",
+    )
+    beta_repository = git.register_repository(
+        beta.access,
+        beta_attempt,
+        root_ref=beta_source_root.root_ref,
+        relative_path="demo",
+        expected_commit_sha=beta_base_commit,
+        expected_tree_sha=beta_base_tree,
+        idempotency_key="software-register-beta-repository",
+    )
+    beta_inspection = git.inspect(
+        beta.access,
+        beta_attempt,
+        beta_repository,
+        idempotency_key="software-inspect-beta-repository",
+    )
+    assert (beta_inspection.head_commit_sha, beta_inspection.head_tree_sha) == (
+        beta_base_commit,
+        beta_base_tree,
     )
     inspection = git.inspect(
         alpha.access,
@@ -386,6 +723,84 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         base_tree,
     )
     assert inspection.untracked_paths == ("local-notes.txt",)
+    focused_source = filesystem.read(
+        alpha.access,
+        attempt,
+        root_ref=source_root.root_ref,
+        path="demo/app.py",
+        media_type="text/x-python",
+        idempotency_key="software-read-focused-source",
+    )
+    retrieval = biella.RetrievalService(database, objects)
+    index = retrieval.buildIndex(
+        alpha.access,
+        attempt,
+        biella.IndexBuildRequest(
+            "software-focused-source",
+            (focused_source.artifact_ref,),
+            "unicode-fixed-v1",
+            256,
+            True,
+            model_deployment,
+            model.capability_ref(biella.ModelOperation.EMBED),
+            "software-focused-index-v1",
+        ),
+        model,
+        credentials={},
+    )
+    assert index.index.state is biella.RetrievalIndexState.READY
+    assert len(index.chunks) == 1
+    retrieval_receipt = retrieval.search(
+        alpha.access,
+        attempt,
+        biella.RetrievalSearchRequest(
+            "software-focused-source",
+            "greeting punctuation defect",
+            (focused_source.artifact_ref,),
+            1,
+            True,
+            model_deployment,
+            model.capability_ref(biella.ModelOperation.EMBED),
+            model_deployment,
+            model.capability_ref(biella.ModelOperation.RERANK),
+            None,
+            "software-focused-search-v1",
+        ),
+        model,
+        credentials={},
+    )
+    assert retrieval_receipt.source_scope == (focused_source.artifact_ref,)
+    run_memory = biella.RunMemoryService(database).reconstruct(
+        alpha.access,
+        attempt.run_ref,
+    )
+    context_manifest, context_receipt = biella.ContextCompiler(
+        database,
+        objects,
+    ).compileContext(
+        alpha.access,
+        attempt,
+        biella.ContextCompileRequest(
+            (focused_source.artifact_ref,),
+            (),
+            (),
+            run_memory,
+            (retrieval_receipt.receipt_ref,),
+            (),
+            (focused_source.artifact_ref,),
+            biella.ContextBudget(2048, 128),
+            biella.ContextReductionPolicy.EXCLUDE_OPTIONAL,
+            (),
+            (),
+            "software-focused-context-v1",
+        ),
+    )
+    assert context_manifest.retrieval_scope == (focused_source.artifact_ref.value,)
+    assert context_receipt.context_ref is not None
+    focused_context = objects.read(context_receipt.context_ref)
+    assert b"def greet" in focused_context
+    assert b"test_exact_greeting" not in focused_context
+    assert b"BIELLA-SOFTWARE-PACK" not in focused_context
 
     workspaces = WorkspaceService(database, objects, filesystem, git)
     policy = workspaces.create_policy(
@@ -460,6 +875,9 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         expected_commit_sha=base_commit,
         idempotency_key="software-apply-repair",
     )
+    candidate_diff = objects.read(changed.unstaged_diff_ref)
+    assert candidate_diff.count(b"diff --git") == 1
+    assert b"diff --git a/app.py b/app.py" in candidate_diff
     workspaces.record_tool_call(
         alpha.access,
         attempt,
@@ -533,7 +951,8 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         build_read.tool_call_ref,
         network_used=False,
     )
-    build_artifact = ArtifactService(database).create_artifact(
+    artifacts = ArtifactService(database)
+    unbound_build_artifact = artifacts.create_artifact(
         alpha.access,
         project_ref=alpha.project.project_ref,
         role="software.build.output",
@@ -577,6 +996,80 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         passing_test.artifact_ref,
     }
     assert _git(source_path, "status", "--porcelain=v1") == source_status
+    wrong_candidate_artifact = artifacts.create_revision(
+        alpha.access,
+        prior_ref=unbound_build_artifact.artifact_ref,
+        role="software.build.output",
+        content_ref=build_read.output_ref,
+        source_refs=(),
+        source_artifact_refs=(unbound_build_artifact.artifact_ref,),
+        source_content_refs=(build.result_ref, build_read.output_ref),
+        derivation_type="software.build.unbound-candidate",
+        metadata={
+            "media_type": build_read.output_ref.media_type,
+            "schema_ref": "schema://biella/software-build-output/1",
+        },
+    )
+    build_artifact = artifacts.create_revision(
+        alpha.access,
+        prior_ref=wrong_candidate_artifact.artifact_ref,
+        role="software.build.output",
+        content_ref=build_read.output_ref,
+        source_refs=(),
+        source_artifact_refs=(
+            wrong_candidate_artifact.artifact_ref,
+            receipt.snapshot_artifact_ref,
+        ),
+        source_content_refs=(build.result_ref, build_read.output_ref),
+        derivation_type="software.build.bind-candidate",
+        metadata={
+            "media_type": build_read.output_ref.media_type,
+            "schema_ref": "schema://biella/software-build-output/1",
+        },
+    )
+    assert receipt.snapshot_artifact_ref in build_artifact.source_artifact_refs
+    unplanned_provenanced_artifact = artifacts.create_revision(
+        alpha.access,
+        prior_ref=build_artifact.artifact_ref,
+        role="software.build.output",
+        content_ref=build_read.output_ref,
+        source_refs=(),
+        source_artifact_refs=(
+            build_artifact.artifact_ref,
+            receipt.snapshot_artifact_ref,
+        ),
+        source_content_refs=(build.result_ref, build_read.output_ref),
+        derivation_type="software.build.unplanned-provenance",
+        metadata={
+            "media_type": build_read.output_ref.media_type,
+            "schema_ref": "schema://biella/software-build-output/1",
+        },
+    )
+
+    legacy_material = json.dumps(
+        [
+            "software-reconstruct-candidate",
+            "write",
+            "dist/software-demo.bundle",
+        ],
+        ensure_ascii=False,
+        allow_nan=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    )
+    legacy_reconstruction_key = (
+        "workspace-"
+        + hashlib.sha256(legacy_material.encode()).hexdigest()[:48]
+    )
+    legacy_child_write = filesystem.write(
+        alpha.access,
+        attempt,
+        root_ref=candidate_root.root_ref,
+        path="candidate/dist/software-demo.bundle",
+        content_ref=build_read.output_ref,
+        idempotency_key=legacy_reconstruction_key,
+    )
+    assert legacy_child_write.payload["schema_version"] == 1
 
     shutil.rmtree(candidate_path)
     restarted_objects = FilesystemObjectStorageBackend(tmp_path / "objects")
@@ -595,15 +1088,77 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         idempotency_key="software-reconstruct-candidate",
     )
     assert restored.repository_workspace_ref is not None
+    assert (candidate_path / "dist/software-demo.bundle").stat().st_mode & 0o7777 == 0o644
+    versioned_material = json.dumps(
+        [
+            "software-reconstruct-candidate",
+            "write-mode-v2",
+            "dist/software-demo.bundle",
+        ],
+        ensure_ascii=False,
+        allow_nan=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    )
+    versioned_reconstruction_key = (
+        "workspace-"
+        + hashlib.sha256(versioned_material.encode()).hexdigest()[:48]
+    )
+    assert versioned_reconstruction_key != legacy_reconstruction_key
+    with sqlite3.connect(database) as connection:
+        request_row = connection.execute(
+            """
+            SELECT request_digest, request_size, request_media_type
+            FROM filesystem_operation_claims
+            WHERE project_id=? AND node_attempt_id=? AND idempotency_key=?
+            """,
+            (
+                alpha.project.project_ref.value,
+                attempt.attempt_id,
+                versioned_reconstruction_key,
+            ),
+        ).fetchone()
+    assert request_row is not None
+    versioned_request = biella.ContentRef(
+        "sha256",
+        request_row[0],
+        request_row[1],
+        request_row[2],
+    )
+    assert json.loads(restarted_objects.read(versioned_request))[
+        "schema_version"
+    ] == 2
     assert _git(candidate_path, "rev-parse", "HEAD^{commit}") == committed.commit_sha
     assert _git(candidate_path, "rev-parse", "HEAD^{tree}") == committed.tree_sha
     assert restarted_git.process.get_result(
         alpha.access,
         passing_test.tool_call_ref,
     ) == passing_test
+    assert restarted_git.process.get_result(
+        alpha.access,
+        failing_test.tool_call_ref,
+    ) == failing_test
+    assert restarted_git.process.get_result(
+        alpha.access,
+        runtime.tool_call_ref,
+    ) == runtime
+    assert ArtifactService(database).get_artifact(
+        alpha.access,
+        build_artifact.artifact_ref,
+    ) == build_artifact
+    assert build_artifact.content_ref is not None
+    assert restarted_objects.read(build_artifact.content_ref) == (
+        b"BIELLA-SOFTWARE-PACK\n"
+        b"def greet(name: str) -> str:\n"
+        b"    return f\"Hello, {name}!\"\n\n\n"
+        b"if __name__ == \"__main__\":\n"
+        b"    print(greet(\"Biella\"))\n"
+    )
     assert restarted_workspaces.get_receipt(alpha.access, receipt.snapshot_ref) == receipt
     with pytest.raises(biella.GitScopeError):
         restarted_git.get_repository(beta.access, repository)
+    with pytest.raises(biella.GitScopeError):
+        restarted_git.get_repository(alpha.access, beta_repository)
     with pytest.raises(biella.WorkspaceScopeError):
         restarted_workspaces.get_workspace(beta.access, workspace.workspace_ref)
 
@@ -614,9 +1169,16 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
             ValidationCheck(
                 CapabilityRef("validation.build", "1.0.0"),
                 True,
-                "project.configuration",
+                next(
+                    item.registration_ref
+                    for item in registered_pack.validators
+                    if item.capability_ref.capability_id == "software.build"
+                ),
                 ("artifact",),
-                parameters={"artifact_role": "software.build.output"},
+                parameters={
+                    "artifact_role": "software.build.output",
+                    "source_artifact_ref": receipt.snapshot_artifact_ref.value,
+                },
             ),
         ),
         f"config://sha256/{'3' * 64}",
@@ -626,6 +1188,10 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         attempt,
         subjects=(
             validation.bind_artifact_subject(alpha.access, build_artifact.artifact_ref),
+            validation.bind_artifact_subject(
+                alpha.access,
+                wrong_candidate_artifact.artifact_ref,
+            ),
             validation.bind_tool_call_subject(alpha.access, passing_test.tool_call_ref),
             validation.bind_workspace_subject(alpha.access, receipt.snapshot_ref),
         ),
@@ -649,6 +1215,48 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
             runtime_ref="runtime://software/local-cpu",
             evidence_refs=(build.artifact_ref.value,),
             idempotency_key="software-wrong-build-artifact",
+        )
+    with pytest.raises(ValidationContractError, match="subject"):
+        validation.record_result(
+            alpha.access,
+            attempt,
+            plan.plan_ref,
+            check_id=role_check.check_id,
+            verdict=ValidationVerdict.PASS,
+            validator_kind="DETERMINISTIC",
+            implementation_ref="validator://software/build-output",
+            runtime_ref="runtime://software/local-cpu",
+            evidence_refs=(unbound_build_artifact.artifact_ref.value,),
+            idempotency_key="software-unbound-build-artifact",
+        )
+    with pytest.raises(ValidationContractError, match="provenance"):
+        validation.record_result(
+            alpha.access,
+            attempt,
+            plan.plan_ref,
+            check_id=role_check.check_id,
+            verdict=ValidationVerdict.PASS,
+            validator_kind="DETERMINISTIC",
+            implementation_ref="validator://software/build-output",
+            runtime_ref="runtime://software/local-cpu",
+            evidence_refs=(wrong_candidate_artifact.artifact_ref.value,),
+            idempotency_key="software-wrong-candidate-build-artifact",
+        )
+    with pytest.raises(ValidationContractError, match="provenance"):
+        validation.record_result(
+            alpha.access,
+            attempt,
+            plan.plan_ref,
+            check_id=role_check.check_id,
+            verdict=ValidationVerdict.PASS,
+            validator_kind="DETERMINISTIC",
+            implementation_ref="validator://software/build-output",
+            runtime_ref="runtime://software/local-cpu",
+            evidence_refs=(
+                wrong_candidate_artifact.artifact_ref.value,
+                unplanned_provenanced_artifact.artifact_ref.value,
+            ),
+            idempotency_key="software-split-subject-provenance-artifacts",
         )
     evidence_by_capability = {
         "validation.build": build_artifact.artifact_ref.value,
@@ -689,7 +1297,7 @@ def test_t06_no_domain_specific_kernel_or_placeholder_escape_hatches() -> None:
         path.read_text(encoding="utf-8")
         for path in (
             root / "src/biella/production_pack.py",
-            root / "src/biella/packs/software.py",
+            root / "src/biella/software_pack.py",
         )
     )
     active_runtime = "\n".join(

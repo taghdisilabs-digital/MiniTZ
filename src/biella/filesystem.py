@@ -1076,14 +1076,12 @@ class FilesystemAdapter:
         try:
             self._assert_descriptor_beneath(root, parent)
             before = self._target_state(parent, leaf)
+            target_mode = mode if mode is not None else (before[2] if before is not None else 0o600)
             flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_CLOEXEC
             flags |= getattr(os, "O_NOFOLLOW", 0)
             descriptor = os.open(temporary, flags, 0o600, dir_fd=parent)
             temporary_created = True
-            if mode is not None:
-                os.fchmod(descriptor, mode)
-            elif before is not None:
-                os.fchmod(descriptor, before[2])
+            os.fchmod(descriptor, 0o600)
             digest = hashlib.sha256()
             size = 0
             try:
@@ -1098,11 +1096,14 @@ class FilesystemAdapter:
                         digest.update(chunk)
                         size += len(chunk)
                         self._write_all(descriptor, chunk)
+                if digest.hexdigest() != content_ref.digest or size != content_ref.size_bytes:
+                    raise FilesystemIntegrityError("atomic write source digest or size differed")
+                os.fchmod(descriptor, target_mode)
+                if stat_module.S_IMODE(os.fstat(descriptor).st_mode) != target_mode:
+                    raise FilesystemIntegrityError("atomic write mode verification failed")
                 os.fsync(descriptor)
             finally:
                 os.close(descriptor)
-            if digest.hexdigest() != content_ref.digest or size != content_ref.size_bytes:
-                raise FilesystemIntegrityError("atomic write source digest or size differed")
             _check_cancelled(cancelled)
             self._assert_descriptor_beneath(root, parent)
             if self._target_state(parent, leaf) != before:
@@ -1124,8 +1125,11 @@ class FilesystemAdapter:
                     observed.hexdigest() != content_ref.digest
                     or observed_size != content_ref.size_bytes
                     or written_state.st_size != content_ref.size_bytes
+                    or stat_module.S_IMODE(written_state.st_mode) != target_mode
                 ):
-                    raise FilesystemIntegrityError("published file failed exact digest verification")
+                    raise FilesystemIntegrityError(
+                        "published file failed exact content or mode verification"
+                    )
             finally:
                 os.close(written_descriptor)
             return content_ref
@@ -1607,10 +1611,10 @@ class FilesystemAdapter:
             not isinstance(mode, int)
             or isinstance(mode, bool)
             or mode < 0
-            or mode > 0o777
+            or mode > 0o7777
         ):
             raise FilesystemContractError(
-                "write mode must contain only ordinary permission bits"
+                "write mode must contain only permission and special mode bits"
             )
         root = self._require_root(access, root_ref, writable=True)
         self._relative_parts(path, allow_root=False)
@@ -1619,7 +1623,7 @@ class FilesystemAdapter:
             "operation": "write",
             "path": path,
             "root_ref": root.root_ref.value,
-            "schema_version": 1,
+            "schema_version": 2 if mode is not None else 1,
         }
         if mode is not None:
             payload["mode"] = mode
