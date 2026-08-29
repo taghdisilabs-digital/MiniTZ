@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-29 06:15 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-29T06:15:14+02:00"
+state_timestamp_local: "2026-08-29 07:59 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-29T07:59:51+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: f0bd9e7a03cc8ac1ce7d0555de14055190fede5b
-    tree: ead59ae03ab218c7b95cee9a93813836945aba2e
+    commit: fcc954bfc2be3fae7f01986311eda2b6fd92e300
+    tree: 3d54e11466499eb6d62729a50e0e29e9ba659da8
     observed_date: 2026-08-29
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p2_07_final_result_post_push_exact_readback
+    observation_context: p2_08_final_result_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: f0bd9e7a03cc8ac1ce7d0555de14055190fede5b
-    tree: ead59ae03ab218c7b95cee9a93813836945aba2e
+    head: fcc954bfc2be3fae7f01986311eda2b6fd92e300
+    tree: 3d54e11466499eb6d62729a50e0e29e9ba659da8
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 26
+    durable_prompts_complete: 27
     durable_prompts_total: 51
     phase: P2
-    active_prompt: P2-08
-    active_prompt_title: PostgreSQL Project/Task Capability Adapter
+    active_prompt: P2-09
+    active_prompt_title: Replaceable Durable Object Storage Backends and Replicas
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -1575,6 +1575,98 @@ engine:
       test_p2_07: "blob 0c815210c9be17f8f0e962cd27dd76a4abb8b715; size 50525; sha256 50a05431514926696edcf27f1dbc72d18a4b0a8855ffe00e1441208a5f77d14e"
       installed_writer: "blob 20238d6205c04bdbdd7a1e880b651182ceae3bbd; size 6323; sha256 199d64f413523ffec18579348c6cbed595cdf686e037198fef7f8746b616a5e5"
       installed_reader: "blob 195b6f217c3e213a64b2e1b20ac418ed528a3731; size 2000; sha256 5014dcb461035447da3737888c8f735f89549f2f7de382f2bd1b811e9806b792"
+    p2_08_status: DURABLY_COMPLETE
+    p2_08_source_commit: e60fcf7b7074c0770ad35af3d5f12862d4545ed9
+    p2_08_result_commit: fcc954bfc2be3fae7f01986311eda2b6fd92e300
+    p2_08_result_tree: 3d54e11466499eb6d62729a50e0e29e9ba659da8
+    p2_08_remote_readback: VERIFIED
+    p2_08_implementation:
+      production_modules_added: 1
+      public_exports_added: 32
+      focused_pytest_cases: 14
+      installed_restart_programs_added: 2
+      migrations_added: 0
+      schema_tables_added: 6
+      adapter_class: LibpqPostgreSQLAdapter
+      interface_surface: DatabaseConnectionRef_DatabaseConnection_DatabaseExecutionBinding_query_connect_transaction_schema_migration_requests_results_and_PostgreSQLAdapter
+      capability_surface: database_postgresql_connect_inspect_schema_query_transaction_execute_and_migrate
+      execution_contract: exact_Project_Task_digest_Run_Graph_NodeAttempt_fence_Capability_connection_scope_mode_restriction_TLS_auth_profile_and_result_persistence_authority
+      result_contract: exact_ToolCall_ContentRef_optional_Artifact_statement_parameter_digest_SQLSTATE_bounded_message_receipt_and_provenance
+      transaction_model: append_only_OPEN_terminal_state_evidence_with_commit_observation_rollback_cancel_timeout_and_TRANSACTION_OUTCOME_UNKNOWN
+      query_model: libpq_parameter_arrays_single_command_protocol_single_row_streaming_and_explicit_READ_ONLY_MUTATING_DDL_MIGRATION_modes
+      storage_model: sensitive_query_rows_persist_only_when_exact_Task_requires_database_persist_result
+      pooling_model: ephemeral_two_connection_pool_keyed_by_connection_ref_and_in_memory_auth_material_digest_never_durable_authority
+    p2_08_validation:
+      focused_pytest: "14 passed; 0 failed; 0 skipped; 16.82s final exact-tree run including REAL PostgreSQL, exact wheel, install, and separate installed restart"
+      broad_non_nested_regression: "474 passed; 26 nested qualification gates deselected; 127 subtests passed; 0 failed; 0 skipped; 488.53s final rerun"
+      mypy_strict: "81 source/test files; 0 issues"
+      compileall: PASS
+      diff_check: PASS
+      test_quality_scan: "P2-08 skip, placeholder, TODO, FIXME, and NotImplemented executable-test hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      neutrality_scan: "prohibited provider/model/agent/heavyweight-lock identifiers in postgresql_adapter.py: 0"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 fb63f728e18409df46699ed5ac53a9133226e51402f410d5f404fb00735bb178; all 28 packaged biella Python source paths exactly matched source bytes"
+      installed_wheel_restart: "separate installed-package writer and reader shared durable SQLite/object storage and REAL PostgreSQL; terminal query ContentRef, receipt, ToolCall status, and row count matched after adapter pool recreation"
+      real_postgresql_probe: "PostgreSQL 18.6 and libpq 18.6; dedicated TCP role/database; connect/version, bad auth, parameterized hostile value, row/byte limits, 25000-row streamed result, mutation/read-only rejection, commit/rollback, timeout, explicit and concurrent cancel, unknown commit fixture, schema inspection, exact-Artifact migration success/failure/schema guard, isolation, secret scan, and restart passed"
+      remote_required_paths_and_bytes: "GitHub main ref, final commit, tree, five blob IDs, sizes, SHA256 bytes, and exact raw contents independently read back and matched"
+      resolved_findings: "explicit connect probes no longer borrow pooled auth; pool reuse is keyed by in-memory credential digest; concurrent cancellation has one rollback owner and one CANCELLED durable terminal state; unresolved custom TLS trust roots fail closed"
+      adversarial_review: "PASS after cross-Project and infrastructure connection denial, internal database identity denial, read-only mislabeled write rejection, hostile parameter inertness, secret redaction, bounded streaming, cancellation race, ambiguous commit, stale schema migration, restart idempotency, receipt integrity, and kernel/quarantine isolation checks"
+      fallow_review: "NOT_RUN; fallow CLI unavailable on host; deterministic adversarial tests, strict typing, and manual trust-boundary review used"
+    p2_08_kpi:
+      raw_DB_credentials_in_Task_or_ledger: 0
+      cross_project_DB_access: 0
+      read_only_write_bypasses: 0
+      unbounded_query_results: 0
+      failed_transactions_claimed_committed: 0
+      internal_Biella_DB_accidentally_exposed: 0
+    p2_08_reality_classification:
+      LibpqPostgreSQLAdapter: REAL
+      local_PostgreSQL_18_6_TCP_server: REAL
+      installed_libpq_18_6_C_ABI_parameter_stream_cancel_TLS_and_SQLSTATE_path: REAL
+      query_execute_transaction_schema_and_migration_operations: REAL
+      ambiguous_commit_transport_loss_fixture: REFERENCE_fault_fixture_over_REAL_transaction_contract
+      separate_Python_PostgreSQL_driver: UNAVAILABLE_NOT_REQUIRED_installed_libpq_fallback_used
+      verified_remote_TLS_handshake: NOT_RUN_no_remote_TLS_database_required
+      custom_TLS_root_ContentRef_resolution: UNAVAILABLE_AND_FAILS_CLOSED_WITH_POLICY_DENIED
+    p2_08_qualification:
+      DatabaseConnectionRef_Project_and_global_infrastructure_scope_with_no_raw_credentials: VERIFIED
+      generic_Project_adapter_internal_database_and_global_infrastructure_boundary: VERIFIED
+      exact_Project_Task_Run_Graph_NodeAttempt_fence_Capability_mode_and_connection_restriction_binding: VERIFIED
+      parameterized_single_statement_only_and_hostile_instruction_inertness: VERIFIED
+      bounded_single_row_streaming_optional_ContentRef_Artifact_persistence_and_provenance: VERIFIED
+      ToolCall_query_parameter_digest_SQLSTATE_redaction_receipt_and_restart_integrity: VERIFIED
+      transaction_begin_multiple_operations_commit_rollback_cancel_timeout_reset_and_unknown_outcome_truth: VERIFIED
+      exact_Artifact_migration_before_after_schema_digest_and_production_denial: VERIFIED
+      bounded_tables_columns_indexes_constraints_extensions_and_server_version_inspection: VERIFIED
+      TLS_mode_minimum_protocol_explicit_loopback_plaintext_and_unresolved_custom_root_fail_closed: VERIFIED
+      raw_QuarantineRef_runtime_dependency: 0
+    p2_08_known_limitations:
+      - exact_custom_TLS_root_certificate_refs_fail_POLICY_DENIED_until_a_ContentRef_to_ephemeral_libpq_sslrootcert_materializer_exists; VERIFY_FULL_without_a_custom_root_uses_libpq_system_trust
+      - REAL_TLS_handshake_was_not_required_or_available_for_the_local_loopback_PostgreSQL_fixture; plaintext_was_explicitly_scoped_to_literal_loopback
+      - result_cells_use_PostgreSQL_text_format_and_JSONL_encoding; binary_result_format_and_COPY_export_import_are_later_optional_operations
+      - schema_inspection_is_bounded_to_the_requested_object_and_byte_limits_and_intentionally_excludes_row_data
+      - production_connections_reject_automatic_migrate_even_when_the_Task_has_external_side_effect_authority
+      - live_transactions_are_ephemeral_pool_state_and_cannot_resume_after_adapter_restart; durable_receipts_and_terminal_results_remain_readable
+    p2_08_schema_changes:
+      - postgresql_connections
+      - postgresql_connection_claims
+      - postgresql_operation_claims
+      - postgresql_operation_results
+      - postgresql_transaction_states
+      - postgresql_transaction_heads
+      - immutable_connection_claim_operation_result_and_transaction_state_integrity_guards
+    p2_08_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/postgresql_adapter.py
+      - tests/test_p2_08_postgresql_adapter.py
+      - tests/fixtures/p2_08_installed_writer.py
+      - tests/fixtures/p2_08_installed_reader.py
+    p2_08_remote_path_evidence:
+      src_biella_init: "blob 25fffaa1f13dc0b153b3ac3c87a7563fc7d94d48; size 23057; sha256 2cb9b5992bc2b15d97e1c56f6d3983b8a06274e4787345151cbafe3167171ff0"
+      src_biella_postgresql_adapter: "blob c162861ee6d3d39694ab11dddb9637ec31ed7b22; size 150890; sha256 06c586d4ef23de25dc658d2dd522524f41f3d796b0e855d4f5424fc6cb1a3684"
+      test_p2_08: "blob 762118d1bf549a6e3df1bbb72b8eb6838b8dee57; size 35737; sha256 f0babedd9044b959baeaa61752dfbaa5d7e07346894775d3c88901519c0ab04c"
+      installed_writer: "blob d57024993bb1773a50aa2a4c35993d3113bed5a4; size 5759; sha256 14ee8e7eb167176788f73ee4f2b9f63d58440437b3c7e060bdc4cd329091bc5d"
+      installed_reader: "blob 79b56495d1a8ed88ed552a2ca799a30f025aa648; size 1553; sha256 eacc3545f47398552e91029c9d3e14782a65a5b2de9cc1d24dcb21b59b79b87a"
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -1623,10 +1715,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P2-08
-    title: PostgreSQL Project/Task Capability Adapter
-    drive_id: 1uWBI_N66H-OlseBJkN-QnrLnN9x-0Vrti40ih_6kkfg
-    canonical_prompt_text_sha256: e3d1f864f7adf56a86ba93ed191c2243426793627df214f35d97924ccfda623c
+    id: P2-09
+    title: Replaceable Durable Object Storage Backends and Replicas
+    drive_id: 1lv_zCYOyP8L3RZev-Wtlyy_RpMyOri4GETYCvO3eNHE
+    canonical_prompt_text_sha256: ab9ab127347220ae14e98d43fcfe673fc446a088421090dc29e5262d405017c4
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -1693,48 +1785,50 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P2-08
-  global_number: 27
-  title: PostgreSQL Project/Task Capability Adapter
-  prompt_drive_id: 1uWBI_N66H-OlseBJkN-QnrLnN9x-0Vrti40ih_6kkfg
-  predecessor_result_commit: f0bd9e7a03cc8ac1ce7d0555de14055190fede5b
-  predecessor_result_tree: ead59ae03ab218c7b95cee9a93813836945aba2e
+  id: P2-09
+  global_number: 28
+  title: Replaceable Durable Object Storage Backends and Replicas
+  prompt_drive_id: 1lv_zCYOyP8L3RZev-Wtlyy_RpMyOri4GETYCvO3eNHE
+  predecessor_result_commit: fcc954bfc2be3fae7f01986311eda2b6fd92e300
+  predecessor_result_tree: 3d54e11466499eb6d62729a50e0e29e9ba659da8
 
 next_transition:
-  - verify_P2_07_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P2_08_prompt_and_directly_required_Project_Task_Run_Graph_NodeAttempt_Capability_Routing_ToolCall_ContentRef_Artifact_and_policy_interfaces_only
-  - define_scoped_DatabaseConnectionRef_and_provider_neutral_PostgreSQLAdapter_query_execute_transaction_schema_and_migration_contracts
-  - keep_Project_database_connections_explicitly_separate_from_Biella_internal_durable_state_database_authority
-  - enforce_parameterized_statements_Task_read_mutation_DDL_authority_connection_restrictions_TLS_and_secret_ref_only_credentials
-  - implement_bounded_streamed_results_and_Task_selected_ContentRef_Artifact_persistence_with_query_and_parameter_digest_evidence
-  - implement_transaction_begin_commit_rollback_cancel_timeout_reset_and_TRANSACTION_OUTCOME_UNKNOWN_truth
-  - qualify_real_PostgreSQL_connection_auth_query_caps_mutation_transaction_schema_migration_isolation_internal_boundary_and_restart_where_available
+  - verify_P2_08_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P2_09_prompt_and_directly_required_ContentRef_ContentLocation_ObjectStorageBackend_Artifact_Project_Task_policy_and_quarantine_firewall_interfaces_only
+  - preserve_P1_ContentRef_identity_and_add_per_backend_replica_state_without_redefining_logical_content
+  - add_or_qualify_a_second_independent_durable_or_reference_backend_with_truthful_REAL_or_REFERENCE_classification
+  - implement_replicateContent_verified_source_stream_upload_readback_verification_and_AVAILABLE_only_after_exact_digest_success
+  - implement_deterministic_healthy_replica_selection_corruption_isolation_fallback_restore_and_optional_repair
+  - ensure_interrupted_cancelled_or_unavailable_target_uploads_never_become_AVAILABLE_and_do_not_invalidate_healthy_replicas
+  - keep_physical_replica_deletion_distinct_from_Artifact_or_logical_ContentObject_deletion
+  - qualify_large_streaming_restart_corruption_fallback_repair_deletion_credential_ETag_Project_and_quarantine_authorization
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P2_08_before_opening_P2_09
+  - close_P2_09_before_opening_P2_10
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - expose_or_silently_resolve_generic_Project_database_capability_to_Biella_internal_state_database
-  - store_raw_database_password_connection_secret_or_unredacted_parameter_bytes_in_Task_Run_Event_ToolCall_or_receipt_evidence
-  - concatenate_model_or_user_values_into_SQL
-  - rely_only_on_SQL_parser_classification_instead_of_exact_Task_and_connection_authority
-  - allow_MUTATING_DDL_or_MIGRATION_operations_under_READ_ONLY_Task_authority
-  - return_unbounded_rows_or_bytes_or_automatically_persist_sensitive_query_bodies
-  - claim_transaction_commit_or_rollback_when_provider_outcome_is_unknown
-  - run_repository_migrations_automatically_against_unknown_or_production_databases
-  - disable_TLS_verification_silently
-  - treat_pool_state_as_durable_authority
+  - redefine_ContentRef_or_tie_content_identity_to_backend_URI_ETag_or_replica
+  - mark_a_replica_AVAILABLE_before_independent_exact_digest_and_size_readback_verification
+  - serve_CORRUPT_MISSING_FAILED_UPLOADING_or_unverified_replica_bytes
+  - overwrite_or_repair_corruption_before_recording_the_corrupt_state_and_evidence
+  - treat_interrupted_cancelled_or_partial_upload_as_available
+  - invalidate_a_healthy_replica_because_another_target_is_unavailable
+  - conflate_physical_replica_deletion_with_logical_Artifact_or_ContentObject_deletion
+  - implement_global_GC_or_retention_without_complete_reference_authority
+  - allow_backend_dedupe_to_bypass_Project_Artifact_or_quarantine_authorization
+  - leak_remote_backend_credentials_or_skip_Project_egress_policy
+  - force_execution_directly_against_remote_warehouse_storage
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P2_09_before_P2_08_durable_close
+  - start_P2_10_before_P2_09_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
