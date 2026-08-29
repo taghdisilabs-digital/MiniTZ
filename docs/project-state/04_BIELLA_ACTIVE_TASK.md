@@ -4,54 +4,52 @@
 schema: biella.active_task/v3
 
 task:
-  id: P2-05
-  global_number: 24
+  id: P2-06
+  global_number: 25
   phase: P2
-  title: Universal HTTP/API Execution Adapter
-  state: READY_AFTER_P2_04_DURABLE_CLOSE
+  title: Provider-Neutral Model Execution Adapter Layer
+  state: READY_AFTER_P2_05_DURABLE_CLOSE
   exact_prompt:
-    title: 24_P2-05_Universal_HTTP_API_Execution_Adapter.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/24_P2-05_Universal_HTTP_API_Execution_Adapter.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/24_P2-05_Universal_HTTP_API_Execution_Adapter.md.docx
-    drive_id: 11zmSVb23RA5InBxAVWCD_KAqHFn_vLtXrnuublFGvHQ
-    local_docx_sha256: 85552c3db45994bf2f0fe3970d46085ea29d400bd15bc8550800b11851bb2e63
-    live_drive_exported_docx_sha256: 897e74518ff56df57eb58c159241c2496103228e092d20245c0d20cbafdd3de4
-    canonical_text_sha256: f9fc9032c1a8456167c5786127eff102d8b4b782ff2e654988bb9e2a209e5b88
+    title: 25_P2-06_Provider_Neutral_Model_Execution_Adapter_Layer.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/25_P2-06_Provider_Neutral_Model_Execution_Adapter_Layer.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/25_P2-06_Provider_Neutral_Model_Execution_Adapter_Layer.md.docx
+    drive_id: 1z1EOJUTNn_-jd115J539vG8Auq969p55rAHlR0AXg7k
+    local_docx_sha256: 5cb09d89aeee964d91f1c60cf3dc43d163fd1b06577949ce0bf22b144b2ebbc2
+    live_drive_exported_docx_sha256: 956b39840a6ee3f610ba1141f136f931cb341fc6e1a175581d7ce90a1e4edc8c
+    canonical_text_sha256: e3313ab5763d202f4f4c7ffb060dbb0972e5b3012654ec48518c1af48f459926
     canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P2-04
-    result_commit: 7aaf3e83847d87538ec033fb9a043ea83bcbdf95
-    result_tree: ec205b0e33c05b2a9bcd8fe6e2e5b8919c0daffc
+    id: P2-05
+    result_commit: de7864daff7fc9c8939872d0f45968a9f5d4b767
+    result_tree: c12614081948b7af3222b53add7a090d27e6c173
     remote_readback: VERIFIED
     remote_required_paths_and_bytes: VERIFIED
     focused_type_build_installed_restart_and_full_regression: VERIFIED
-  numbered_successor: P2-06
+  numbered_successor: P2-07
 
 execution_boundary:
   start_only_after_predecessor_durable_close: satisfied
   load_only:
-    - exact_P2_05_canonical_prompt
+    - exact_P2_06_canonical_prompt
     - current_state_and_active_task_continuity
-    - accepted_Project_Task_Run_Graph_NodeAttempt_EgressPolicy_DataPolicy_ContentRef_Artifact_ToolCall_Event_and_transport_interfaces_directly_required
+    - accepted_Project_Task_Run_Graph_NodeAttempt_Capability_Routing_ModelCall_ToolCall_ContentRef_Artifact_HTTP_Process_IsolatedRuntime_Resource_and_policy_interfaces_directly_required
     - directly_touched_source_and_task_scoped_tests
   do_not_open:
-    - P2_06_or_later_prompt_bodies_before_P2_05_durable_close
+    - P2_07_or_later_prompt_bodies_before_P2_06_durable_close
     - unrelated_historical_backup_or_legacy_material
   preserve:
-    - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ToolCall_Event_ResourceAllocation_and_managed_process_identity
-    - P2_01_authorized_root_path_streaming_atomic_IO_idempotency_and_Project_isolation_contracts
-    - P2_02_direct_argv_explicit_shell_bounded_output_timeout_cancellation_process_ownership_and_truthful_policy_contracts
-    - P2_03_exact_revision_dirty_source_preservation_candidate_isolation_Git_safety_diff_commit_and_explicit_push_contracts
-    - P2_04_immutable_image_authorized_mount_network_limit_secret_output_cleanup_and_owned_orphan_runtime_contracts
+    - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ModelCall_ToolCall_Event_ResourceAllocation_and_managed_runtime_identity
+    - P2_01_through_P2_04_real_execution_adapter_isolation_streaming_fencing_and_durability_contracts
+    - P2_05_destination_egress_credential_redirect_streaming_timeout_cancellation_TLS_and_transport_evidence_contracts
     - all_earlier_isolation_provenance_durability_routing_scheduler_and_quarantine_firewall_contracts
 
 canonical_prompt_text: |-
-  PROMPT 24/51 - P2-05
+  PROMPT 25/51 - P2-06
 
   TITLE
 
-  Universal HTTP/API Execution Adapter
+  Provider-Neutral Model Execution Adapter Layer
 
   PHASE
 
@@ -59,7 +57,7 @@ canonical_prompt_text: |-
 
   GOAL
 
-  Provide controlled outbound HTTP/API transport with explicit destinations, egress policy, credential separation, redirect control, streaming/bounds, timeout/cancel, binary-safe Artifact evidence.
+  Execute model.infer, retrieval.embed, and retrieval.rerank through replaceable hosted/local implementations while keeping provider SDKs outside Task/Run/kernel contracts.
 
   CURRENT VERIFIED STATE
 
@@ -77,7 +75,7 @@ canonical_prompt_text: |-
 
   DEPENDENCIES
 
-  - Prompt 23/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
+  - Prompt 24/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
 
   - All earlier accepted contracts used by this task; inspect the repository instead of assuming interface names.
 
@@ -93,15 +91,15 @@ canonical_prompt_text: |-
 
   IN SCOPE
 
-  - Define HttpDestination and HttpExecutionRequest with origin/path policy, auth ref, data policy, response cap, redirect policy, Task/Run/Node binding.
+  - Define ModelDeployment/implementation identity: provider/model/revision/artifact/endpoint, capabilities/modalities/context/tool support, resource/data characteristics, health.
 
-  - Validate every redirect target; reachability/credentials never override egress permission.
+  - Implement provider-neutral ModelAdapter infer/embed/rerank and at least two implementation classes (real+reference if needed).
 
-  - Resolve credentials only at execution and redact secret headers/cookies.
+  - Every call uses P1 ModelCall ledger; structured output and embedding/rerank results are validated, usage remains truthful/nullable.
 
-  - Stream upload/download; large binary response becomes ContentRef/Artifact; HTTP status is transport/application response, not semantic Task acceptance.
+  - Provider-native tool requests map into Biella ToolCall policy; unauthorized tools are not executed.
 
-  - Persist ToolCall destination/status/latency/safe metadata.
+  - Cancellation/timeouts/late responses respect fences; hosted routes reuse HTTP egress/credential controls; local runtime binds exact generation/resource identity.
 
   OUT OF SCOPE
 
@@ -111,27 +109,29 @@ canonical_prompt_text: |-
 
   REQUIRED IMPLEMENTATION
 
-  - Define HttpDestination and HttpExecutionRequest with origin/path policy, auth ref, data policy, response cap, redirect policy, Task/Run/Node binding.
+  - Define ModelDeployment/implementation identity: provider/model/revision/artifact/endpoint, capabilities/modalities/context/tool support, resource/data characteristics, health.
 
-  - Validate every redirect target; reachability/credentials never override egress permission.
+  - Implement provider-neutral ModelAdapter infer/embed/rerank and at least two implementation classes (real+reference if needed).
 
-  - Resolve credentials only at execution and redact secret headers/cookies.
+  - Every call uses P1 ModelCall ledger; structured output and embedding/rerank results are validated, usage remains truthful/nullable.
 
-  - Stream upload/download; large binary response becomes ContentRef/Artifact; HTTP status is transport/application response, not semantic Task acceptance.
+  - Provider-native tool requests map into Biella ToolCall policy; unauthorized tools are not executed.
 
-  - Persist ToolCall destination/status/latency/safe metadata.
+  - Cancellation/timeouts/late responses respect fences; hosted routes reuse HTTP egress/credential controls; local runtime binds exact generation/resource identity.
 
   REQUIRED INTERFACES
 
-  - HttpDestination
+  - ModelDeployment
 
-  - HttpAdapter
+  - ModelAdapter
 
-  - HttpExecutionRequest/Result
+  - infer/embed/rerank request/result
+
+  - runtime health/identity
 
   DATA / STATE CHANGES
 
-  - Destination config refs and ToolCall/Artifact receipts.
+  - Deployment registry/health plus ModelCall output refs.
 
   FAILURE BEHAVIOR
 
@@ -147,219 +147,259 @@ canonical_prompt_text: |-
 
   TESTS
 
-  - GET/POST, streamed binary upload/download.
+  - Text inference, structured valid/invalid output, timeout/cancel/late response.
 
-  - Response-size cap, timeout/cancel.
+  - Provider replacement without Task change.
 
-  - Same-origin allowed and forbidden cross-origin redirects.
+  - Embedding dimension/count/NaN checks and source digest provenance.
 
-  - Credentials injected but absent from ledger.
+  - Rerank candidate coverage/order validation.
 
-  - Egress-denied remote request blocked.
+  - Tool-call normalization and unauthorized tool rejection.
 
-  - Project-scoped destination config.
+  - Context limit and egress denial.
 
   KPI
 
-  - credential_leaks=0
+  - Task_contract_changes_between_providers=0
 
-  - egress_policy_bypasses=0
+  - provider_sdk_types_in_kernel=0
 
-  - redirect_policy_bypasses=0
+  - significant_model_calls_missing_ledger=0
 
-  - unbounded_response_materialization=0
+  - fabricated_usage=0
 
-  - timeouts_claimed_success=0
+  - malformed_outputs_treated_success=0
 
-  - binary_content_corruption=0
+  - egress_violating_model_calls=0
 
   RESTORED LONG-FORM REQUIREMENTS
 
-  HTTP REQUEST CONTRACT
+  MODEL DEPLOYMENT REGISTRY
 
-  Implement a provider-neutral HTTP/API adapter with explicit destination/egress semantics.
+  Represent model deployments separately from semantic capabilities and providers.
 
-  Conceptual destination:
+  Conceptual ModelDeployment should capture:
 
-  HttpDestination
+  - deployment ID;
 
-  origin
+  - provider/adapter;
 
-  allowed path/prefix?
+  - model identity/name;
 
-  auth profile ref?
+  - exact revision/Artifact where known;
 
-  data/egress classification
+  - endpoint/runtime ref;
 
-  TLS requirements
+  - supported capabilities;
 
-  Request:
+  - modalities;
 
-  method
+  - context limits;
 
-  destination_ref / URL resolved under policy
+  - structured-output support;
 
-  headers (non-secret + secret refs)
+  - tool support;
 
-  body/content ref or stream
+  - required Resources for local;
 
-  timeouts
+  - health/current availability;
 
-  redirect policy
+  - metadata/freshness.
 
-  response size limit
+  Do not pretend a mutable hosted alias has an exact revision if provider does not expose one.
 
-  project/run/node attribution
+  MODEL ADAPTER
 
-  EGRESS BEFORE TRANSFER
+  Provide provider-neutral operations equivalent to:
 
-  Before sending Project data:
+  infer(request)
 
-  - resolve destination;
+  embed(request)
 
-  - evaluate Project/Task egress policy;
+  rerank(request)
 
-  - evaluate data classification;
+  health(deployment)
 
-  - resolve credentials only after authorization.
+  cancel(request)
 
-  Technical reachability is not permission.
+  describeRuntime()
 
-  REDIRECT POLICY
+  Not every deployment must support every operation.
 
-  Support explicit semantics such as:
+  REQUEST / RESULT
 
-  - NONE
+  Model requests bind:
 
-  - SAME_ORIGIN
+  - Project/Task/Run/Graph/Node;
 
-  - ALLOWLIST
+  - Capability;
 
-  Do not follow arbitrary redirects by default when they could exfiltrate authenticated or Project-private data.
+  - exact deployment;
 
-  Re-check egress/auth on redirect.
+  - ContextReceipt/input refs;
 
-  AUTH
+  - generation parameters;
 
-  Credentials are secret refs resolved at runtime.
+  - output contract/schema;
 
-  Do not persist authorization headers, cookies, API keys, signed URLs with secrets, or passwords in ordinary ToolCall/Event metadata.
+  - timeout/cancellation.
 
-  STREAMING REQUESTS
+  Results bind:
 
-  Large uploads: stream from authorized ContentRef/Artifact.
+  - exact call ledger record;
 
-  Do not load entire object into RAM unnecessarily.
+  - output ContentRef/Artifact;
 
-  Record bytes transferred and exact source digest.
+  - usage/timing;
 
-  STREAMING RESPONSES
+  - finish/status;
 
-  Bound:
+  - model/runtime identity.
 
-  - max bytes;
+  MULTIPLE IMPLEMENTATION CLASSES
 
-  - timeout;
+  P2-06 must prove provider neutrality with at least two implementation classes.
 
-  - streaming to Object Store for large/binary responses.
+  If only one real provider is available:
 
-  If limit exceeded, stop and record OUTPUT_LIMIT; do not truncate silently and call success.
+  - real adapter A;
 
-  TRANSPORT VS SEMANTIC SUCCESS
+  - deterministic/reference adapter B.
 
-  HTTP 2xx means transport/protocol response, not Task success.
+  Report second as REFERENCE, not REAL.
 
-  Persist:
+  Do not create fake provider claims.
 
-  - status;
+  HOSTED VS LOCAL
 
-  - response headers subset;
+  Hosted implementation may use P2-05 HTTP.
 
-  - output ContentRef;
+  Local implementation may use process/isolated runtime and Resource identity.
 
-  - timing;
+  Both implement the same semantic model adapter contracts.
 
-  - destination identity.
+  STRUCTURED OUTPUT
 
-  Higher-level adapter/Task validation determines semantic success.
+  When Task requires schema:
 
-  BINARY SAFETY
+  - request structured output where adapter supports;
 
-  Support exact binary upload/download.
+  - validate result against exact schema/output contract;
 
-  Verify downloaded bytes/digest when expected identity is known.
+  - malformed model output is not success merely because provider call succeeded.
 
-  TLS
+  EMBEDDINGS
 
-  Do not disable certificate verification silently.
+  Validate:
 
-  Custom trust roots/config must be explicit.
+  - output count equals input count;
+
+  - vector dimensions expected/current deployment metadata;
+
+  - all values finite;
+
+  - exact deployment/runtime provenance.
+
+  Reject NaN/Infinity, missing vectors, dimension drift without explicit new identity.
+
+  RERANK
+
+  Validate:
+
+  - every returned candidate refers to an input candidate;
+
+  - no duplicate/missing IDs where contract forbids;
+
+  - scores finite;
+
+  - ordering complete/valid;
+
+  - exact reranker deployment identity.
+
+  PROVIDER TOOL CALLS
+
+  Provider-native tool-call proposals are normalized to Biella semantics.
+
+  A model may propose: tool name + structured args.
+
+  Biella must:
+
+  1.  map to permitted Tool Capability;
+
+  2.  enforce Task/Project authority;
+
+  3.  execute via Tool adapter;
+
+  4.  persist ToolCall;
+
+  5.  feed result back if strategy requires.
+
+  Provider-native tool calling does not let model execute arbitrary host tools.
+
+  CONTEXT LIMIT
+
+  Detect context/token limit before/at call where possible and return explicit failure.
+
+  Do not silently drop required context.
+
+  P2-10 will implement richer context compilation.
 
   CANCELLATION / TIMEOUT
 
-  Cancel network operation where supported, close streams, leave partial output non-authoritative.
+  Cancellation should cancel hosted/local work where supported, release Resources, and reject late stale result through execution fencing.
 
-  FAILURE CATEGORIES
+  EGRESS
 
-  - EGRESS_DENIED;
+  Private Project data may be sent only to permitted provider/destination under Project/Task policy.
 
-  - AUTH_FAILED;
+  A capable model is ineligible if egress policy forbids it.
 
-  - DNS/CONNECT_FAILED;
+  HEALTH / AVAILABILITY
 
-  - TLS_FAILED;
-
-  - TIMEOUT;
-
-  - REDIRECT_DENIED;
-
-  - OUTPUT_LIMIT;
-
-  - HTTP_ERROR;
-
-  - CANCELLED;
-
-  - CONTENT_INTEGRITY_FAILED.
+  Temporary provider/model outage affects current implementation availability, not semantic Capability.
 
   TESTS
 
-  - permitted GET/POST;
+  - real/reference infer;
 
-  - query/header handling;
+  - same model.infer Task works across two adapter classes;
 
-  - secret auth redaction;
+  - exact deployment identity;
 
-  - egress-denied before body transfer;
+  - structured valid output;
 
-  - SAME_ORIGIN redirect;
+  - malformed structured output rejected;
 
-  - cross-origin redirect denied;
+  - embedding finite/dimension/cardinality checks;
 
-  - allowlisted redirect;
+  - rerank valid and invalid cases;
 
-  - large streamed upload;
+  - provider tool proposal -> Biella ToolCall;
 
-  - large streamed download;
+  - unauthorized tool proposal rejected;
 
-  - response size cap;
+  - context limit;
 
-  - binary exact bytes;
+  - provider unavailable;
 
-  - timeout/cancellation;
+  - cancellation/timeout;
 
-  - TLS invalid cert fixture where possible;
+  - stale generation result rejected;
 
-  - HTTP 200 with semantically invalid body remains transport success only;
+  - egress denied;
 
-  - Project isolation/destination scope;
+  - local runtime Resource identity where implemented;
 
-  - ToolCall/Artifact attribution.
+  - ModelCall ledger complete;
 
-  Hosted model/browser/object-store adapters may reuse this HTTP substrate but cannot bypass its policy.
+  - no provider SDK type in kernel.
+
+  P2-06 establishes model execution as one replaceable capability implementation layer, not Biella architecture authority.
 
   USEFUL EVIDENCE — NON-GATING
 
-  - HTTP becomes a safe provider-neutral transport for models/browsers/services without weakening Project policy.
+  - Multiple model implementation classes share one semantic contract and exact evidence; provider/model choice remains routing data.
 
   DELIVERABLES
 
@@ -381,7 +421,7 @@ canonical_prompt_text: |-
 
   Use this result block:
 
-  PROMPT: 24/51 - P2-05
+  PROMPT: 25/51 - P2-06
 
   STATUS: COMPLETE / PARTIAL / BLOCKED
 

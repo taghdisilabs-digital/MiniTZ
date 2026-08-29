@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-29 02:59 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-29T02:59:41+02:00"
+state_timestamp_local: "2026-08-29 03:50 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-29T03:50:39+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: 7aaf3e83847d87538ec033fb9a043ea83bcbdf95
-    tree: ec205b0e33c05b2a9bcd8fe6e2e5b8919c0daffc
+    commit: de7864daff7fc9c8939872d0f45968a9f5d4b767
+    tree: c12614081948b7af3222b53add7a090d27e6c173
     observed_date: 2026-08-29
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p2_04_implementation_post_push_exact_readback
+    observation_context: p2_05_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: 7aaf3e83847d87538ec033fb9a043ea83bcbdf95
-    tree: ec205b0e33c05b2a9bcd8fe6e2e5b8919c0daffc
+    head: de7864daff7fc9c8939872d0f45968a9f5d4b767
+    tree: c12614081948b7af3222b53add7a090d27e6c173
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 23
+    durable_prompts_complete: 24
     durable_prompts_total: 51
     phase: P2
-    active_prompt: P2-05
-    active_prompt_title: Universal HTTP/API Execution Adapter
+    active_prompt: P2-06
+    active_prompt_title: Provider-Neutral Model Execution Adapter Layer
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -1314,6 +1314,87 @@ engine:
       test_p2_04: "blob 3c81ddba0c7a934f47d1a5cdbb12207792bfcdf1; size 38081; sha256 a5bd3f7b4c7609e28151cedcf4a57e8e0ceacb37b8e6bf579ab650fe3dbe390f"
       installed_writer: "blob d9783a4fdf2d3b3fadbf39bab0f88d3e32a833be; size 6128; sha256 759f539c6aa5e66c805741a0f2cf36d25478861c5180246c7096e93fc8d8d006"
       installed_reader: "blob 6d62d94a611f7741ad4af8798a09fa2bd6f4d556; size 2045; sha256 aabf26bfdf4eaa060e832e59705724a63514e334a632c259a0e384204e4fe7cb"
+    p2_05_status: DURABLY_COMPLETE
+    p2_05_source_commit: ff8e2d5800e64b67dee96928d4ae2feed189b87c
+    p2_05_result_commit: de7864daff7fc9c8939872d0f45968a9f5d4b767
+    p2_05_result_tree: c12614081948b7af3222b53add7a090d27e6c173
+    p2_05_remote_readback: VERIFIED
+    p2_05_implementation:
+      production_modules_added: 1
+      public_exports_added: 19
+      focused_pytest_cases: 13
+      installed_restart_programs_added: 2
+      migrations_added: 0
+      schema_tables_added: 5
+      capability_surface: register_destination_get_destination_execute_get_result_cancel_describe
+      destination_contract: exact_Project_origin_path_prefix_auth_profile_data_policy_egress_policy_TLS_and_redirect_allowlist_identity
+      request_contract: exact_Project_Task_digest_Run_NodeAttempt_fence_destination_policy_method_path_query_headers_secret_refs_body_redirect_response_cap_timeout_and_expected_digest
+      transport_model: verified_TLS_manual_redirects_streamed_64KiB_upload_and_download_binary_exactness_bounded_response_timeout_and_cancellation
+      evidence_model: safe_HTTP_metadata_ContentRef_response_Artifact_receipt_Artifact_and_ToolCall_with_transport_only_success
+      recovery_model: immutable_destination_execution_claim_result_and_cancellation_evidence_with_restart_replay_tamper_and_content_erasure_detection
+      idempotency_model: exact_destination_and_execution_claim_digests_terminal_replay_and_conflicting_request_rejection
+    p2_05_validation:
+      focused_pytest: "13 passed; 0 failed; 0 skipped; 20.17s final exact-tree run including exact wheel build and separate installed restart"
+      broad_non_nested_regression: "440 passed; 22 nested qualification gates deselected; 127 subtests passed; 0 failed; 0 skipped; 419.38s"
+      mypy_strict: "69 source/test files; 0 issues; mypy 2.3.1"
+      compileall: PASS
+      diff_check: PASS
+      test_quality_scan: "P2-05 skip, placeholder, TODO, FIXME, and NotImplemented executable-test hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 8b66083fb649392eb2ffde721830aecccc3d8dd658cf9720dde1cff2ea7cdb4b; all packaged biella Python paths exactly matched source bytes"
+      installed_wheel_restart: "separate installed-package writer and reader shared durable SQLite, object storage, exact HTTP result, response ContentRef and Artifact, ToolCall, receipt Artifact, and restart verification"
+      remote_required_paths_and_bytes: "GitHub branch, commit, tree, five blob IDs, sizes, SHA256 bytes, and exact raw contents independently read back and matched"
+      adversarial_review: "PASS after cross-Project destination/request/result, policy-before-secret/body, sensitive query/header, redirect exfiltration, output cap, digest mismatch, timeout/cancel, invalid TLS, idempotency, row tamper, and content erasure checks"
+      fallow_review: "NOT_RUN; fallow CLI unavailable on host; deterministic adversarial tests, strict typing, and manual trust-boundary review used"
+    p2_05_kpi:
+      credential_leaks: 0
+      egress_policy_bypasses: 0
+      redirect_policy_bypasses: 0
+      unbounded_response_materialization: 0
+      timeouts_claimed_success: 0
+      binary_content_corruption: 0
+    p2_05_reality_classification:
+      stdlib_HTTP_adapter: REAL
+      loopback_GET_POST_binary_redirect_timeout_and_cancellation_transport: REAL
+      verified_TLS_invalid_certificate_rejection: REAL
+      streamed_ContentRef_upload_and_response_Artifact_download: REAL
+      ToolCall_and_Artifact_durable_restart_evidence: REAL
+      installed_wheel_separate_process_restart: REAL
+      external_internet_provider_endpoint: NOT_RUN_NOT_REQUIRED_FOR_TRANSPORT_QUALIFICATION
+      HTTP2_transport: UNSUPPORTED_BY_THIS_ADAPTER_and_not_claimed
+      custom_TLS_trust_roots: UNSUPPORTED_BY_THIS_ADAPTER_and_not_claimed
+    p2_05_qualification:
+      HttpDestination_HttpAdapter_HttpExecutionRequest_HttpExecutionResult_and_descriptor: VERIFIED
+      exact_Project_Task_Run_NodeAttempt_fence_data_and_egress_policy_binding: VERIFIED
+      policy_authorization_before_credentials_body_or_network_transfer: VERIFIED
+      NONE_SAME_ORIGIN_ALLOWLIST_redirect_reauthorization_and_cross_origin_secret_drop: VERIFIED
+      streamed_upload_download_response_cap_timeout_cancel_and_binary_exactness: VERIFIED
+      verified_TLS_and_invalid_certificate_fail_closed: VERIFIED
+      transport_success_separate_from_HTTP_application_status_and_semantic_acceptance: VERIFIED
+      safe_ToolCall_ContentRef_response_Artifact_receipt_Artifact_and_provenance_chain: VERIFIED
+      restart_idempotency_claim_result_receipt_and_content_integrity: VERIFIED
+      provider_neutral_Task_and_Graph_contracts: VERIFIED
+      hostile_instruction_secret_and_sensitive_metadata_inertness: VERIFIED
+      raw_QuarantineRef_runtime_dependency: 0
+    p2_05_schema_changes:
+      - http_destinations
+      - http_destination_claims
+      - http_execution_claims
+      - http_execution_results
+      - http_cancellations
+      - immutable_destination_claim_result_and_cancellation_integrity_guards
+    p2_05_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/http_adapter.py
+      - tests/test_p2_05_http_adapter.py
+      - tests/fixtures/p2_05_installed_writer.py
+      - tests/fixtures/p2_05_installed_reader.py
+    p2_05_remote_path_evidence:
+      src_biella_init: "blob d807cb248be0c298ebaf5fbc32d6a2038c03651b; size 18167; sha256 7b418a3b6f0e0c784a517300d80a5fab390625a1861557075dc86fda441d1833"
+      src_biella_http_adapter: "blob 47fccd46cbe9b0956aa7008ece2e2fd999242ec6; size 92981; sha256 383da7d6acb042f3149fa69e3175035e4d3196c12d3e9fed54977aea768ebb6b"
+      test_p2_05: "blob a3d746f65fd079e54ee4a7008aa619656c2ab815; size 38778; sha256 2c6366f37b87c5ff4fce25b3c7a1041caca75897161e668930398e92c9fca51a"
+      installed_writer: "blob 2cf31b69da46fd5c25f595b9a2e6e16b1dcea5c1; size 6544; sha256 44cdc65902d5cd0a196cac81faca5ce1e394772d686504bb1cda51bc414c0ff6"
+      installed_reader: "blob d2cd9033c9798e30a4f4dab3a20034a263a07dce; size 1474; sha256 0ffbd098631317428a6fd00c8110968c598a186dfb8ffc9dbd73305741391e9e"
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -1362,10 +1443,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P2-05
-    title: Universal HTTP/API Execution Adapter
-    drive_id: 11zmSVb23RA5InBxAVWCD_KAqHFn_vLtXrnuublFGvHQ
-    canonical_prompt_text_sha256: f9fc9032c1a8456167c5786127eff102d8b4b782ff2e654988bb9e2a209e5b88
+    id: P2-06
+    title: Provider-Neutral Model Execution Adapter Layer
+    drive_id: 1z1EOJUTNn_-jd115J539vG8Auq969p55rAHlR0AXg7k
+    canonical_prompt_text_sha256: e3313ab5763d202f4f4c7ffb060dbb0972e5b3012654ec48518c1af48f459926
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -1432,47 +1513,48 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P2-05
-  global_number: 24
-  title: Universal HTTP/API Execution Adapter
-  prompt_drive_id: 11zmSVb23RA5InBxAVWCD_KAqHFn_vLtXrnuublFGvHQ
-  predecessor_result_commit: 7aaf3e83847d87538ec033fb9a043ea83bcbdf95
-  predecessor_result_tree: ec205b0e33c05b2a9bcd8fe6e2e5b8919c0daffc
+  id: P2-06
+  global_number: 25
+  title: Provider-Neutral Model Execution Adapter Layer
+  prompt_drive_id: 1z1EOJUTNn_-jd115J539vG8Auq969p55rAHlR0AXg7k
+  predecessor_result_commit: de7864daff7fc9c8939872d0f45968a9f5d4b767
+  predecessor_result_tree: c12614081948b7af3222b53add7a090d27e6c173
 
 next_transition:
-  - verify_P2_04_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P2_05_prompt_and_directly_required_Project_Task_Run_Graph_NodeAttempt_EgressPolicy_DataPolicy_ContentRef_Artifact_ToolCall_Event_and_transport_interfaces_only
-  - define_provider_neutral_HttpDestination_HttpExecutionRequest_HttpResult_and_HttpAdapter
-  - authorize_destination_path_data_classification_and_egress_before_resolving_credentials_or_transferring_Project_data
-  - implement_GET_POST_streamed_binary_upload_download_bounds_timeout_cancel_and_binary_exactness
-  - enforce_NONE_SAME_ORIGIN_and_ALLOWLIST_redirect_policy_with_every_target_reauthorized
-  - inject_secret_refs_only_at_execution_and_exclude_authorization_cookie_signed_URL_and_password_material_from_normal_evidence
-  - persist_destination_status_latency_safe_headers_bytes_ContentRef_Artifact_and_ToolCall_evidence_without_claiming_semantic_Task_success
+  - verify_P2_05_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P2_06_prompt_and_directly_required_Project_Task_Run_Graph_NodeAttempt_Capability_Routing_ModelCall_ToolCall_ContentRef_Artifact_HTTP_Process_IsolatedRuntime_Resource_and_policy_interfaces_only
+  - define_provider_neutral_ModelDeployment_ModelAdapter_infer_embed_rerank_request_result_health_identity_and_cancellation_contracts
+  - register_exact_deployment_provider_model_revision_artifact_endpoint_capability_modality_context_tool_resource_data_and_health_identity_without_fabricating_mutable_hosted_revisions
+  - implement_at_least_two_shared_contract_adapter_classes_with_real_and_reference_reality_classification
+  - validate_structured_output_embedding_cardinality_dimension_finiteness_source_digest_and_rerank_candidate_coverage_order_scores
+  - normalize_provider_tool_proposals_to_authorized_Biella_ToolCall_without_direct_host_execution
+  - enforce_context_limit_egress_timeout_cancel_and_late_stale_fence_rejection_with_exact_hosted_or_local_runtime_identity
+  - persist_every_significant_call_through_ModelCall_with_truthful_nullable_usage_and_ContentRef_Artifact_provenance
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P2_05_before_opening_P2_06
+  - close_P2_06_before_opening_P2_07
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - put_HTTP_client_provider_SDK_objects_in_kernel_contracts
-  - send_Project_data_before_destination_egress_and_data_policy_authorization
-  - let_reachability_or_credentials_override_egress_permission
-  - follow_unvalidated_or_arbitrary_redirects
-  - persist_authorization_cookie_API_key_signed_URL_password_or_secret_values_in_ToolCalls_Events_logs_or_Artifacts
-  - disable_TLS_certificate_verification_silently
-  - materialize_unbounded_upload_or_response_bodies_in_RAM
-  - truncate_output_limit_responses_and_claim_success
-  - treat_HTTP_2xx_as_semantic_Task_acceptance
+  - put_model_provider_SDK_objects_in_Task_Run_Graph_or_kernel_contracts
+  - change_Task_contract_when_switching_model_provider_or_adapter_class
+  - fabricate_exact_revision_usage_health_or_provider_availability
+  - bypass_ModelCall_ledger_for_significant_infer_embed_or_rerank_calls
+  - treat_malformed_structured_embedding_or_rerank_output_as_success
+  - execute_provider_native_tool_proposals_without_Biella_Capability_Task_Project_and_ToolCall_policy
+  - send_private_Project_data_to_egress_forbidden_deployment_or_destination
+  - silently_drop_required_context_to_fit_model_limit
+  - accept_late_timeout_cancel_or_stale_fence_model_results
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P2_06_before_P2_05_durable_close
+  - start_P2_07_before_P2_06_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
