@@ -793,6 +793,7 @@ def test_t10_structured_waits_viewport_evidence_and_controlled_root_upload(tmp_p
 _REAL_IMAGE = "selenium/standalone-chromium:4.47.0-20260808"
 _REAL_IMAGE_DIGEST = "sha256:1d3d834a2ce93f26cc0d0ae3c61abd189755b32649f5c356c6c5cf9502aa397e"
 _REAL_DOWNLOAD = bytes(range(256)) * 64
+_REAL_UPLOAD = bytes(range(251)) * 16_384
 
 
 @dataclass
@@ -1002,7 +1003,7 @@ def test_t11_real_pinned_chromium_navigation_actions_upload_download_screenshot_
         assert real.perform_action(env.access, env.attempt, _action(env, state, BrowserActionType.CLICK, target="#button"), secret_values={}, idempotency_key="real-click").succeeded
         clicked = real.extract(env.access, env.attempt, _action(env, state, BrowserActionType.EXTRACT, target="#content"), secret_values={}, idempotency_key="real-extract-clicked")
         assert cast(dict[str, object], _result_json(env, clicked))["text"] == "clicked exact"
-        upload_ref = _put(env, b"real authorized upload", "application/octet-stream")
+        upload_ref = _put(env, _REAL_UPLOAD, "application/octet-stream")
         uploaded = real.upload(
             env.access,
             env.attempt,

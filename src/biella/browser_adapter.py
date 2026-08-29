@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Iterator, Mapping, Sequence
 from dataclasses import dataclass, field, replace
 from datetime import datetime, timezone
 from enum import Enum
@@ -19,6 +19,7 @@ import re
 import sqlite3
 import ssl
 import threading
+import tempfile
 import time
 from types import MappingProxyType
 from typing import Protocol, cast, runtime_checkable
@@ -928,6 +929,12 @@ class _BackendResult:
     provider_metadata: Mapping[str, object] = field(default_factory=dict)
 
 
+@dataclass(frozen=True)
+class _ResolvedBrowserValue:
+    content_ref: ContentRef
+    content: bytes | None
+
+
 class _BackendFailure(Exception):
     def __init__(self, failure: BrowserExecutionFailure, reason: str) -> None:
         super().__init__(reason)
@@ -1817,7 +1824,7 @@ class _BaseBrowserAdapter:
         access: ProjectAccess,
         attempt: NodeExecutionAttempt,
         action: BrowserAction,
-    ) -> tuple[bytes | None, tuple[ContentRef, ...], tuple[ArtifactRef, ...]]:
+    ) -> tuple[_ResolvedBrowserValue | None, tuple[ContentRef, ...], tuple[ArtifactRef, ...]]:
         value_ref = action.value_ref
         if value_ref is None:
             return None, (), ()
@@ -1832,13 +1839,15 @@ class _BaseBrowserAdapter:
                     idempotency_key=f"browser-upload-{action.action_ref.action_id[:40]}",
                 )
                 self.object_store.verify(operation.output_ref)
-                return self.object_store.read(operation.output_ref), (), (operation.artifact_ref,)
+                content = None if action.action_type is BrowserActionType.UPLOAD else self.object_store.read(operation.output_ref)
+                return _ResolvedBrowserValue(operation.output_ref, content), (), (operation.artifact_ref,)
             except (FilesystemError, ObjectStorageError) as exc:
                 raise BrowserAuthorityError("browser FilesystemRoot upload source was rejected") from exc
         if isinstance(value_ref, ContentRef):
             try:
                 self.object_store.verify(value_ref)
-                return self.object_store.read(value_ref), (value_ref,), ()
+                content = None if action.action_type is BrowserActionType.UPLOAD else self.object_store.read(value_ref)
+                return _ResolvedBrowserValue(value_ref, content), (value_ref,), ()
             except ObjectStorageError as exc:
                 raise BrowserIntegrityError("browser value ContentRef failed verification") from exc
         artifact = self.artifacts.get_artifact(access, value_ref)
@@ -1846,7 +1855,8 @@ class _BaseBrowserAdapter:
             raise BrowserIntegrityError("browser value Artifact has no content")
         try:
             self.object_store.verify(artifact.content_ref)
-            return self.object_store.read(artifact.content_ref), (artifact.content_ref,), (artifact.artifact_ref,)
+            content = None if action.action_type is BrowserActionType.UPLOAD else self.object_store.read(artifact.content_ref)
+            return _ResolvedBrowserValue(artifact.content_ref, content), (artifact.content_ref,), (artifact.artifact_ref,)
         except ObjectStorageError as exc:
             raise BrowserIntegrityError("browser value Artifact content failed verification") from exc
 
@@ -2400,7 +2410,7 @@ class _BaseBrowserAdapter:
     def _invoke_backend(
         self,
         action: BrowserAction,
-        value: bytes | None,
+        value: _ResolvedBrowserValue | None,
         secret_value: str | None,
         active: _ActiveAction,
     ) -> _BackendResult:
@@ -2487,7 +2497,7 @@ class ReferenceBrowserAdapter(_BaseBrowserAdapter):
     def _invoke_backend(
         self,
         action: BrowserAction,
-        value: bytes | None,
+        value: _ResolvedBrowserValue | None,
         secret_value: str | None,
         active: _ActiveAction,
     ) -> _BackendResult:
@@ -2525,22 +2535,22 @@ class ReferenceBrowserAdapter(_BaseBrowserAdapter):
             elif action.action_type is BrowserActionType.TYPE:
                 if action.target == "#missing":
                     raise _BackendFailure(BrowserExecutionFailure.TARGET_NOT_FOUND, "reference target is absent")
-                typed = secret_value if secret_value is not None else None if value is None else value.decode()
+                typed = secret_value if secret_value is not None else None if value is None or value.content is None else value.content.decode()
                 if typed is None:
                     raise _BackendFailure(BrowserExecutionFailure.CONTENT_INTEGRITY_FAILED, "reference type value is absent")
                 values[cast(str, action.target)] = typed
                 content = _json({"typed": True, "selector": action.target, "characters": len(typed)}).encode()
                 media = _RESULT_MEDIA
             elif action.action_type is BrowserActionType.SELECT:
-                if action.target == "#missing" or value is None:
+                if action.target == "#missing" or value is None or value.content is None:
                     raise _BackendFailure(BrowserExecutionFailure.TARGET_NOT_FOUND, "reference select target/value is absent")
-                values[cast(str, action.target)] = value.decode()
+                values[cast(str, action.target)] = value.content.decode()
                 content = _json({"selected": True, "selector": action.target}).encode()
                 media = _RESULT_MEDIA
             elif action.action_type is BrowserActionType.UPLOAD:
                 if action.target == "#missing" or value is None:
                     raise _BackendFailure(BrowserExecutionFailure.UPLOAD_DENIED, "reference upload target/value is absent")
-                content = _json({"uploaded": True, "sha256": hashlib.sha256(value).hexdigest(), "size_bytes": len(value)}).encode()
+                content = _json({"uploaded": True, "sha256": value.content_ref.digest, "size_bytes": value.content_ref.size_bytes}).encode()
                 media = _RESULT_MEDIA
             elif action.action_type is BrowserActionType.DOWNLOAD:
                 assert action.target is not None
@@ -2555,10 +2565,10 @@ class ReferenceBrowserAdapter(_BaseBrowserAdapter):
                 content = self._SCREENSHOT
                 media = _PNG_MEDIA
             elif action.action_type is BrowserActionType.EVALUATE:
-                if value is None:
+                if value is None or value.content is None:
                     raise _BackendFailure(BrowserExecutionFailure.CONTENT_INTEGRITY_FAILED, "bounded evaluation request is absent")
                 try:
-                    request = json.loads(value)
+                    request = json.loads(value.content)
                 except json.JSONDecodeError as exc:
                     raise _BackendFailure(BrowserExecutionFailure.CONTENT_INTEGRITY_FAILED, "bounded evaluation request is malformed") from exc
                 if request == {"operation": "title"}:
@@ -2660,6 +2670,28 @@ class WebDriverBrowserAdapter(_BaseBrowserAdapter):
     def _controller_path_allowed(destination: HttpDestination, path: str) -> bool:
         return _path_allowed(path, destination.allowed_path_prefixes)
 
+    @staticmethod
+    def _response_value(raw: bytes, status: int) -> object:
+        try:
+            envelope = json.loads(raw)
+        except json.JSONDecodeError as exc:
+            raise _BackendFailure(BrowserExecutionFailure.PROVIDER_ERROR, "WebDriver response is not JSON") from exc
+        if not isinstance(envelope, dict) or "value" not in envelope:
+            raise _BackendFailure(BrowserExecutionFailure.PROVIDER_ERROR, "WebDriver response envelope is malformed")
+        value = envelope["value"]
+        if status >= 400 or (isinstance(value, dict) and isinstance(value.get("error"), str)):
+            error = value.get("error") if isinstance(value, dict) else None
+            if error in {"no such element", "stale element reference"}:
+                failure = BrowserExecutionFailure.TARGET_NOT_FOUND
+            elif error in {"invalid session id", "session not created"}:
+                failure = BrowserExecutionFailure.SESSION_LOST
+            elif error in {"script timeout", "timeout"}:
+                failure = BrowserExecutionFailure.TIMEOUT
+            else:
+                failure = BrowserExecutionFailure.PROVIDER_ERROR
+            raise _BackendFailure(failure, f"WebDriver error: {error or status}")
+        return value
+
     def _command(
         self,
         destination: HttpDestination,
@@ -2683,6 +2715,7 @@ class WebDriverBrowserAdapter(_BaseBrowserAdapter):
         try:
             connection.request(method, path, body=body, headers=headers)
             response = connection.getresponse()
+            status = response.status
             raw = response.read(64 * 1024 * 1024 + 1)
             if len(raw) > 64 * 1024 * 1024:
                 raise _BackendFailure(BrowserExecutionFailure.OUTPUT_LIMIT, "WebDriver response exceeded bound")
@@ -2692,25 +2725,93 @@ class WebDriverBrowserAdapter(_BaseBrowserAdapter):
             raise _BackendFailure(BrowserExecutionFailure.SESSION_LOST, "WebDriver transport is unavailable") from exc
         finally:
             connection.close()
-        try:
-            envelope = json.loads(raw)
-        except json.JSONDecodeError as exc:
-            raise _BackendFailure(BrowserExecutionFailure.PROVIDER_ERROR, "WebDriver response is not JSON") from exc
-        if not isinstance(envelope, dict) or "value" not in envelope:
-            raise _BackendFailure(BrowserExecutionFailure.PROVIDER_ERROR, "WebDriver response envelope is malformed")
-        value = envelope["value"]
-        if response.status >= 400 or (isinstance(value, dict) and isinstance(value.get("error"), str)):
-            error = value.get("error") if isinstance(value, dict) else None
-            if error in {"no such element", "stale element reference"}:
-                failure = BrowserExecutionFailure.TARGET_NOT_FOUND
-            elif error in {"invalid session id", "session not created"}:
-                failure = BrowserExecutionFailure.SESSION_LOST
-            elif error in {"script timeout", "timeout"}:
-                failure = BrowserExecutionFailure.TIMEOUT
-            else:
-                failure = BrowserExecutionFailure.PROVIDER_ERROR
-            raise _BackendFailure(failure, f"WebDriver error: {error or response.status}")
-        return value
+        return self._response_value(raw, status)
+
+    def _upload_content(
+        self,
+        action: BrowserAction,
+        content_ref: ContentRef,
+        filename: str,
+        active: _ActiveAction,
+    ) -> str:
+        controller, auth_header, auth_value, _ = self._controller(action.session_identity)
+        path = f"/session/{action.session_identity.provider_session_id}/se/file"
+        if not self._controller_path_allowed(controller, path):
+            raise _BackendFailure(BrowserExecutionFailure.AUTHORITY_DENIED, "WebDriver upload path is denied")
+        deadline = time.monotonic() + float(action.timeout_seconds)
+        with tempfile.TemporaryFile() as archive_file:
+            transferred = 0
+            try:
+                with self.object_store.open(content_ref) as source:
+                    with zipfile.ZipFile(archive_file, "w", compression=zipfile.ZIP_DEFLATED, allowZip64=True) as archive:
+                        with archive.open(filename, "w", force_zip64=True) as member:
+                            while True:
+                                if active.cancellation.is_set():
+                                    raise _BackendFailure(BrowserExecutionFailure.CANCELLED, "cancelled")
+                                if time.monotonic() >= deadline:
+                                    raise _BackendFailure(BrowserExecutionFailure.TIMEOUT, "WebDriver upload staging timed out")
+                                chunk = source.read(1024 * 1024)
+                                if not chunk:
+                                    break
+                                transferred += len(chunk)
+                                member.write(chunk)
+            except ObjectStorageError as exc:
+                raise _BackendFailure(BrowserExecutionFailure.CONTENT_INTEGRITY_FAILED, "WebDriver upload source changed") from exc
+            if transferred != content_ref.size_bytes:
+                raise _BackendFailure(BrowserExecutionFailure.CONTENT_INTEGRITY_FAILED, "WebDriver upload source size changed")
+            archive_file.flush()
+            archive_file.seek(0, 2)
+            archive_size = archive_file.tell()
+            prefix = b'{"file":"'
+            suffix = b'"}'
+            encoded_size = 4 * ((archive_size + 2) // 3)
+            headers = {
+                "accept": "application/json",
+                "content-type": "application/json",
+                "content-length": str(len(prefix) + encoded_size + len(suffix)),
+            }
+            if auth_header is not None and auth_value is not None:
+                headers[auth_header] = auth_value
+
+            def body_chunks() -> Iterator[bytes]:
+                yield prefix
+                archive_file.seek(0)
+                while True:
+                    if active.cancellation.is_set():
+                        raise _BackendFailure(BrowserExecutionFailure.CANCELLED, "cancelled")
+                    if time.monotonic() >= deadline:
+                        raise _BackendFailure(BrowserExecutionFailure.TIMEOUT, "WebDriver upload transfer timed out")
+                    chunk = archive_file.read(3 * 256 * 1024)
+                    if not chunk:
+                        break
+                    yield base64.b64encode(chunk)
+                yield suffix
+
+            connection = self._connection(controller, max(0.1, deadline - time.monotonic()))
+            try:
+                connection.putrequest("POST", path)
+                for name, header_value in headers.items():
+                    connection.putheader(name, header_value)
+                connection.endheaders()
+                for chunk in body_chunks():
+                    connection.send(chunk)
+                response = connection.getresponse()
+                status = response.status
+                raw = response.read(64 * 1024 * 1024 + 1)
+                if len(raw) > 64 * 1024 * 1024:
+                    raise _BackendFailure(BrowserExecutionFailure.OUTPUT_LIMIT, "WebDriver response exceeded bound")
+            except _BackendFailure:
+                raise
+            except TimeoutError as exc:
+                raise _BackendFailure(BrowserExecutionFailure.TIMEOUT, "WebDriver upload timed out") from exc
+            except (OSError, http.client.HTTPException) as exc:
+                raise _BackendFailure(BrowserExecutionFailure.SESSION_LOST, "WebDriver upload transport is unavailable") from exc
+            finally:
+                connection.close()
+        remote_path = self._response_value(raw, status)
+        if not isinstance(remote_path, str) or not remote_path:
+            raise _BackendFailure(BrowserExecutionFailure.UPLOAD_DENIED, "WebDriver upload staging failed")
+        return remote_path
 
     def _create_backend_session(
         self,
@@ -2854,13 +2955,6 @@ class WebDriverBrowserAdapter(_BaseBrowserAdapter):
         return _json(value).encode()
 
     @staticmethod
-    def _zip_upload(name: str, payload: bytes) -> str:
-        buffer = BytesIO()
-        with zipfile.ZipFile(buffer, "w", compression=zipfile.ZIP_DEFLATED) as archive:
-            archive.writestr(name, payload)
-        return base64.b64encode(buffer.getvalue()).decode()
-
-    @staticmethod
     def _unzip_download(encoded: str, expected_name: str, maximum_bytes: int) -> bytes:
         try:
             raw = base64.b64decode(encoded, validate=True)
@@ -2883,7 +2977,7 @@ class WebDriverBrowserAdapter(_BaseBrowserAdapter):
     def _invoke_backend(
         self,
         action: BrowserAction,
-        value: bytes | None,
+        value: _ResolvedBrowserValue | None,
         secret_value: str | None,
         active: _ActiveAction,
     ) -> _BackendResult:
@@ -2941,7 +3035,7 @@ class WebDriverBrowserAdapter(_BaseBrowserAdapter):
             result = self._json_output({"clicked": action.target, "external_side_effect": True})
         elif action.action_type is BrowserActionType.TYPE:
             assert action.target is not None
-            text = secret_value if secret_value is not None else None if value is None else value.decode()
+            text = secret_value if secret_value is not None else None if value is None or value.content is None else value.content.decode()
             if text is None:
                 raise _BackendFailure(BrowserExecutionFailure.CONTENT_INTEGRITY_FAILED, "WebDriver type value is absent")
             element = self._find(action, action.target)
@@ -2950,9 +3044,9 @@ class WebDriverBrowserAdapter(_BaseBrowserAdapter):
             result = self._json_output({"typed": True, "selector": action.target, "characters": len(text)})
         elif action.action_type is BrowserActionType.SELECT:
             assert action.target is not None
-            if value is None:
+            if value is None or value.content is None:
                 raise _BackendFailure(BrowserExecutionFailure.CONTENT_INTEGRITY_FAILED, "WebDriver select value is absent")
-            selection = value.decode()
+            selection = value.content.decode()
             selected = self._wd(
                 action.session_identity,
                 "POST",
@@ -2969,18 +3063,10 @@ class WebDriverBrowserAdapter(_BaseBrowserAdapter):
         elif action.action_type is BrowserActionType.UPLOAD:
             assert action.target is not None and value is not None
             filename = action.expected_filename or "upload.bin"
-            remote_path = self._wd(
-                action.session_identity,
-                "POST",
-                "/se/file",
-                {"file": self._zip_upload(filename, value)},
-                action.timeout_seconds,
-            )
-            if not isinstance(remote_path, str) or not remote_path:
-                raise _BackendFailure(BrowserExecutionFailure.UPLOAD_DENIED, "WebDriver upload staging failed")
+            remote_path = self._upload_content(action, value.content_ref, filename, active)
             element = self._find(action, action.target)
             self._wd(action.session_identity, "POST", f"/element/{element}/value", {"text": remote_path}, action.timeout_seconds)
-            result = self._json_output({"uploaded": True, "sha256": hashlib.sha256(value).hexdigest(), "size_bytes": len(value)})
+            result = self._json_output({"uploaded": True, "sha256": value.content_ref.digest, "size_bytes": value.content_ref.size_bytes})
         elif action.action_type is BrowserActionType.DOWNLOAD:
             assert action.destination_ref is not None and action.target is not None and action.expected_filename is not None
             destination = destinations.get(action.destination_ref.value)
@@ -3042,10 +3128,10 @@ class WebDriverBrowserAdapter(_BaseBrowserAdapter):
                 {"viewport": {"device_scale_factor": 1.0, "height": height, "width": width}}
             )
         elif action.action_type is BrowserActionType.EVALUATE:
-            if value is None:
+            if value is None or value.content is None:
                 raise _BackendFailure(BrowserExecutionFailure.CONTENT_INTEGRITY_FAILED, "bounded evaluation request is absent")
             try:
-                request = json.loads(value)
+                request = json.loads(value.content)
             except json.JSONDecodeError as exc:
                 raise _BackendFailure(BrowserExecutionFailure.CONTENT_INTEGRITY_FAILED, "bounded evaluation request is malformed") from exc
             if request == {"operation": "title"}:
