@@ -4,58 +4,52 @@
 schema: biella.active_task/v3
 
 task:
-  id: P2-11
-  global_number: 30
+  id: P2-12
+  global_number: 31
   phase: P2
-  title: Durable Candidate Workspace and Sandbox Execution
-  state: READY_AFTER_P2_10_DURABLE_CLOSE
+  title: Task-Derived Validation and Evaluation Primitives
+  state: READY_AFTER_P2_11_DURABLE_CLOSE
   exact_prompt:
-    title: 30_P2-11_Durable_Candidate_Workspace_and_Sandbox_Execution.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/30_P2-11_Durable_Candidate_Workspace_and_Sandbox_Execution.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/30_P2-11_Durable_Candidate_Workspace_and_Sandbox_Execution.md.docx
-    drive_id: 1iwOAJYyXNdyqdqEc5g3l6hq4ms8wmHaP14eG60ivWFI
-    local_docx_sha256: 768bb462d4de0e8f2e0b3a522f417a054ba68364aa4e9967754157faa4636e94
-    live_drive_exported_docx_sha256: 5f199cb7f1a8acc95fabc20489944d3791d350c4cc0766c7e344ebfb1233e458
-    canonical_text_sha256: dd3de5b57be4b8d0583a1c7f3caf3f0840aea1ed9abc4049855093a5fae87498
+    title: 31_P2-12_Task_Derived_Validation_and_Evaluation_Primitives.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/31_P2-12_Task_Derived_Validation_and_Evaluation_Primitives.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/31_P2-12_Task_Derived_Validation_and_Evaluation_Primitives.md.docx
+    drive_id: 1g3eSGdIQLg8b-DZdAwKm5dhUHudKgtlsBcRuGlzzbgo
+    local_docx_sha256: 446391617cd5df67ab6846d7e9970cc0e2b310969c37c727421a99e88207cd01
+    live_drive_exported_docx_sha256: fa82c20776415c3e46740ab8c2f37c166706b9594b98fb258abe3722fd021da6
+    canonical_text_sha256: 47c6b5724455cb8f0fb8adffe3fae16ccd1a69119a2df88bfc1ad5ce6c3df7e0
     canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P2-10
-    result_commit: df3b6987865aae2f94eaa9650636fae131e4e167
-    result_tree: 354127377184cc5901e58a2581fafadc17577e95
+    id: P2-11
+    result_commit: e29bf2ef8aef14879b54ed35193775573487b527
+    result_tree: abbea75d558a399a9aed359e32e362adc184c22c
     remote_readback: VERIFIED
     remote_required_paths_and_bytes: VERIFIED
     focused_type_build_installed_and_full_regression: VERIFIED
-  numbered_successor: P2-12
+  numbered_successor: P3-01
 
 execution_boundary:
   start_only_after_predecessor_durable_close: satisfied
   load_only:
-    - exact_P2_11_canonical_prompt
+    - exact_P2_12_canonical_prompt
     - current_state_and_active_task_continuity
-    - accepted_Task_Run_Graph_Node_Artifact_ContentRef_Workspace_adapter_resource_ToolCall_checkpoint_and_quarantine_firewall_interfaces_directly_required
+    - accepted_Task_Project_Run_Graph_Node_Artifact_ContentRef_Workspace_ModelCall_ToolCall_Event_capability_and_quarantine_firewall_interfaces_directly_required
     - directly_touched_source_and_task_scoped_tests
   do_not_open:
-    - P2_12_or_later_prompt_bodies_before_P2_11_durable_close
+    - P3_01_or_later_prompt_bodies_before_P2_12_durable_close
     - unrelated_historical_backup_or_legacy_material
   preserve:
-    - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ModelCall_ToolCall_Event_ResourceAllocation_and_managed_runtime_identity
+    - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ModelCall_ToolCall_Event_ResourceAllocation_Workspace_and_managed_runtime_identity
     - P1_ContentRef_object_storage_Project_Engine_Run_memory_graph_event_scheduler_routing_and_checkpoint_contracts
-    - P2_01_through_P2_04_real_execution_adapter_isolation_streaming_fencing_and_durability_contracts
-    - P2_05_destination_egress_credential_redirect_streaming_timeout_cancellation_TLS_and_transport_evidence_contracts
-    - P2_06_provider_neutral_model_deployment_execution_health_tool_policy_fencing_and_provenance_contracts
-    - P2_07_browser_session_generation_egress_origin_side_effect_upload_download_wait_secret_and_durable_evidence_contracts
-    - P2_08_Project_database_scope_parameterization_bounded_streaming_transaction_truth_TLS_secret_and_internal_database_firewall_contracts
-    - P2_09_ContentRef_replica_state_streaming_independent_verification_corruption_fallback_repair_deletion_Project_egress_secret_and_stale_owner_contracts
-    - P2_10_Project_scoped_retrieval_context_budget_provenance_rebuildability_and_quarantine_firewall_contracts
+    - P2_01_through_P2_11_adapter_execution_isolation_retrieval_workspace_snapshot_fencing_durability_and_quarantine_firewall_contracts
     - all_earlier_isolation_provenance_durability_routing_scheduler_and_quarantine_firewall_contracts
 
 canonical_prompt_text: |
-  PROMPT 30/51 - P2-11
+  PROMPT 31/51 - P2-12
 
   TITLE
 
-  Durable Candidate Workspace and Sandbox Execution
+  Task-Derived Validation and Evaluation Primitives
 
   PHASE
 
@@ -63,7 +57,7 @@ canonical_prompt_text: |
 
   GOAL
 
-  Create Project/Run-scoped candidate workspaces that materialize exact sources, execute all tools through Biella adapters, capture/snapshot meaningful changes, and can be reconstructed after local workspace loss.
+  Implement reusable validation/evaluation so exact outputs are accepted according to actual Task/Project requirements, not a universal review hierarchy, and produce clean metrics for P4 learning.
 
   CURRENT VERIFIED STATE
 
@@ -81,7 +75,7 @@ canonical_prompt_text: |
 
   DEPENDENCIES
 
-  - Prompt 29/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
+  - Prompt 30/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
 
   - All earlier accepted contracts used by this task; inspect the repository instead of assuming interface names.
 
@@ -97,15 +91,15 @@ canonical_prompt_text: |
 
   IN SCOPE
 
-  - Define Workspace and WorkspaceExecutionPolicy with exact base refs/revision, roots, network/tool/resource/secret/side-effect constraints.
+  - Compile ValidationPlan from exact subject refs, Task output/evidence/acceptance/risk/side effects and Project criteria; checks can be required/optional with explicit independence/success rules.
 
-  - Materialize through Object/Git/Filesystem adapters into isolated local high-speed storage; original/protected source remains unchanged.
+  - Define ValidationResult PASS/FAIL/INCONCLUSIVE/ERROR and EvaluationResult with explicit metric definitions/measurement sources.
 
-  - All tool execution goes through Process/Git/Runtime/Model tool pathways; no direct spawn bypass.
+  - Support deterministic schema/provenance/test/build/runtime/performance/security/visual validators through capabilities; model/tool validators use call ledger.
 
-  - Capture diffs/changed files/generated Artifacts into a durable Workspace receipt/snapshot before cleanup.
+  - Exact subject digest/current Graph/fence revalidated before current acceptance; stale validator result becomes historical evidence.
 
-  - Resume reuses validated local workspace or reconstructs from base + durable snapshot; uncaptured lost work is reported honestly.
+  - Independent checks may run concurrently; failed validation does not create fixed global repair count.
 
   OUT OF SCOPE
 
@@ -115,29 +109,29 @@ canonical_prompt_text: |
 
   REQUIRED IMPLEMENTATION
 
-  - Define Workspace and WorkspaceExecutionPolicy with exact base refs/revision, roots, network/tool/resource/secret/side-effect constraints.
+  - Compile ValidationPlan from exact subject refs, Task output/evidence/acceptance/risk/side effects and Project criteria; checks can be required/optional with explicit independence/success rules.
 
-  - Materialize through Object/Git/Filesystem adapters into isolated local high-speed storage; original/protected source remains unchanged.
+  - Define ValidationResult PASS/FAIL/INCONCLUSIVE/ERROR and EvaluationResult with explicit metric definitions/measurement sources.
 
-  - All tool execution goes through Process/Git/Runtime/Model tool pathways; no direct spawn bypass.
+  - Support deterministic schema/provenance/test/build/runtime/performance/security/visual validators through capabilities; model/tool validators use call ledger.
 
-  - Capture diffs/changed files/generated Artifacts into a durable Workspace receipt/snapshot before cleanup.
+  - Exact subject digest/current Graph/fence revalidated before current acceptance; stale validator result becomes historical evidence.
 
-  - Resume reuses validated local workspace or reconstructs from base + durable snapshot; uncaptured lost work is reported honestly.
+  - Independent checks may run concurrently; failed validation does not create fixed global repair count.
 
   REQUIRED INTERFACES
 
-  - Workspace
+  - ValidationPlan
 
-  - WorkspaceExecutionPolicy
+  - ValidationResult
 
-  - materialize/capture/snapshot/reconstruct/cleanup APIs
+  - EvaluationResult
 
-  - CandidateWorkspaceReceipt
+  - validation requirement compiler/aggregator
 
   DATA / STATE CHANGES
 
-  - Workspace logical records and snapshot/candidate refs.
+  - Validation/evaluation evidence and subject bindings.
 
   FAILURE BEHAVIOR
 
@@ -153,265 +147,323 @@ canonical_prompt_text: |
 
   TESTS
 
-  - Create/materialize/mutate/capture workspace.
+  - Minimal schema-only Task gets no invented critic.
 
-  - Two independent workspaces from same source remain separate.
+  - Code tests/build with exact candidate; process exit 0 + missing Artifact is not PASS.
 
-  - Path/symlink/network/Project isolation.
+  - Runtime-required Task cannot substitute build-only evidence.
 
-  - Snapshot -> delete local directory -> restart -> exact reconstruction.
+  - Independent validator enforced only when requested.
 
-  - Uncaptured mutation loss produces explicit failure.
+  - Validator outage -> ERROR, not candidate FAIL/PASS.
 
-  - Cancellation preserves already captured outputs and releases resources.
+  - Stale candidate validation rejected; Project criteria isolated.
 
   KPI
 
-  - workspace_loss_causes_persisted_candidate_loss=0
+  - tasks_forced_through_unrequired_validation=0
 
-  - candidate_changes_mutate_protected_source=0
+  - required_validation_skipped=0
 
-  - ambiguous_base_revision=0
+  - validator_transport_error_marked_PASS=0
 
-  - cross_project_workspace_access=0
+  - stale_validation_accepted=0
 
-  - direct_tool_execution_bypassing_adapter=0
+  - mandatory_global_validator_hierarchy=0
 
-  - global_single_workspace_lock=0
+  - opaque_composite_scores=0
 
   RESTORED LONG-FORM REQUIREMENTS
 
-  WORKSPACE IS MATERIALIZED EXECUTION STATE, NOT RUN AUTHORITY
+  VALIDATION VS EVALUATION
 
-  Implement durable logical Workspace identity separate from local path.
+  Keep explicit:
+
+  VALIDATION — does this exact subject satisfy the Task contract?
+
+  EVALUATION — how well did a subject/implementation/strategy perform under explicit metrics?
+
+  Benchmark/evaluation score is not acceptance unless Task says so.
+
+  CAPABILITIES
+
+  Extensible validation:
+
+  - schema;
+
+  - deterministic;
+
+  - test;
+
+  - build;
+
+  - runtime;
+
+  - visual;
+
+  - performance;
+
+  - security;
+
+  - provenance;
+
+  - independent_reasoning.
+
+  Evaluation:
+
+  - quality;
+
+  - performance;
+
+  - cost;
+
+  - reliability;
+
+  - comparison.
+
+  Not a closed kernel enum.
+
+  VALIDATION PLAN
+
+  Compile Task-derived ValidationPlan from: Task output contract + Project requirements + evidence/side-effect/risk requirements.
 
   Conceptual:
 
-  Workspace
+  - plan ID;
 
-  workspace_id
+  - Project/Task/Run;
 
-  project_id
+  - exact subject refs;
 
-  task_id
+  - required checks;
 
-  run_id
+  - optional checks;
 
-  graph_revision
+  - independence requirements;
 
-  node/graph ownership
+  - evidence requirements;
 
-  workspace_type
+  - success rule;
 
-  base_source_refs
+  - digest.
 
-  base_revision
+  This is not a permanent global pipeline.
 
-  execution_policy_ref
+  MINIMAL TASK
 
-  resource_allocation_ref?
+  A Task may require only:
 
-  local materialization ref?
+  - schema;
 
-  status
+  - Artifact exists;
+
+  - digest.
+
+  Do not invent critic/independent model/repair loop.
+
+  STRONG TASK
+
+  If Task requires tests + runtime + security + independent reasoning, enforce them.
+
+  Strength is Task-specific.
+
+  VALIDATION RESULT
+
+  Persist:
+
+  ValidationResult
+
+  validation_id
+
+  plan
+
+  Project/Task/Run
+
+  exact subject refs
+
+  capability
+
+  implementation/runtime
+
+  verdict
+
+  findings refs
+
+  evidence refs
+
+  metrics
 
   timestamps
 
-  Local path may disappear.
+  Verdicts at minimum: PASS, FAIL, INCONCLUSIVE, ERROR.
 
-  TYPES
+  Critical: ERROR != FAIL.
 
-  Extensible examples:
+  Validator provider unavailable means infrastructure error/inconclusive; it is not proof candidate is wrong.
 
-  - REPOSITORY;
+  Tool transport success is not PASS.
 
-  - FILES;
+  EXACT SUBJECT
 
-  - ASSET;
+  Bind exact Artifact digest/workspace receipt/Git tree/build/model result.
 
-  - BUILD;
+  Never validate "latest path" without exact identity.
 
-  - TEMPORARY.
+  Subject change invalidates previous current validation.
 
-  Do not hardcode game/3D in universal Workspace.
+  DETERMINISTIC CHECKS
 
-  LIFECYCLE
+  Use deterministic methods for schema/digest/parse/file existence/build output where possible.
 
-  Technical lifecycle:
+  Do not use model simply because available.
 
-  CREATE -> MATERIALIZE -> EXECUTE -> CAPTURE -> PERSIST -> CLEAN
+  TEST VALIDATION
 
-  These are workspace lifecycle semantics, not necessarily separate Graph Nodes.
+  Bind exact candidate, test command/tool identity, Workspace, ToolCall, output refs, pass/fail counts.
 
-  CREATE
+  Never reuse unrelated historical tests.
 
-  Bind exact Project/Task/Run/Graph/base sources and execution policy.
+  BUILD
 
-  Mutation Tasks requiring reproducibility cannot use ambiguous "current source".
+  Exit 0 + missing expected Artifact is not PASS.
 
-  MATERIALIZE
+  Bind exact toolchain/runtime and build Artifact.
 
-  Use Object Store/Filesystem/Git to materialize exact base.
+  RUNTIME
 
-  Verify source digest/commit and Project ownership.
+  If Task requires real executable/runtime proof, build/typecheck/unit tests alone are insufficient.
 
-  Do not silently mutate original checkout.
+  Run exact Artifact and preserve observable evidence.
 
-  EXECUTION POLICY
+  VISUAL
 
-  Represent:
+  Project supplies visual references/criteria.
 
-  - filesystem roots/modes;
+  Vision model/tool may implement visual validation, bound to exact subject/reference/model runtime.
 
-  - network NONE/RESTRICTED/PROJECT_POLICY;
+  No global Biella visual style.
 
-  - allowed tools/capabilities;
+  PERFORMANCE
 
-  - process/resource limits;
+  Metrics may include latency/FPS/throughput/memory/size/GPU.
 
-  - CPU/RAM/GPU budget refs;
+  Threshold is Project/Task-specific; no global 60 FPS/4K/X ms rule.
 
-  - secret refs;
+  PROVENANCE / SECURITY
 
-  - side-effect boundary;
+  Provenance validates source/derivation/runtime/tool/required receipts.
 
-  - timeout.
+  Security capability remains extensible across secret scan/static/dependency/sandbox tests; no one mandatory scanner.
 
-  Do not create one universal sandbox policy that blocks legitimate Project work.
+  INDEPENDENCE
 
-  TOOL EXECUTION
+  If Task requires independent validator, express exact dimensions: different deployment/model/tool/strategy.
 
-  All tool/process/Git/container actions go through P2 adapters/ToolCall accounting.
+  Do not globally require independence.
 
-  No direct spawn()/filesystem bypass.
+  GRAPH
 
-  CANDIDATE MUTATION
+  Validation may compile to productive VALIDATE Nodes only when required.
 
-  Models/tools may mutate candidate Workspace, not protected Project/engine/another Project source unless Task explicitly grants write.
+  Independent tests/security/etc can run concurrently.
 
-  Candidate change is not automatically Project-authoritative.
+  No fixed produce→critic→validator sequence.
 
-  CAPTURE
+  REPAIR
 
-  Before cleanup capture meaningful state.
+  Failure may:
 
-  Repository:
+  - fail Run;
 
-  - base commit;
+  - create Graph revision;
 
-  - HEAD;
+  - create repair Node;
 
-  - staged/unstaged diff;
+  - route alternative;
 
-  - untracked files;
+  - return result.
 
-  - generated Artifacts;
+  No hardcoded repair count.
 
-  - tests/log refs.
+  AGGREGATION
 
-  File/asset:
+  Deterministic success_rule, e.g. ALL_REQUIRED_PASS.
 
-  - changed/generated file ContentRefs;
+  Optional failure does not necessarily fail Task.
 
-  - derivation;
+  Missing required validation cannot be silently ignored.
 
-  - output manifest.
+  STALE RESULT
 
-  SNAPSHOT
+  Before accepting ValidationResult current, revalidate Project/Task/Run/Graph/subject/fence/currentness.
 
-  Durable Workspace snapshot should capture authoritative candidate state:
+  Late result for superseded subject -> Historical Evidence, not current acceptance.
 
-  - manifest;
+  LEDGER
 
-  - base refs;
+  Model validators -> ModelCall. Tool validators -> ToolCall. Events contain refs, not giant findings.
 
-  - changed file ContentRefs;
+  EVALUATION RESULT
 
-  - Git diff/status;
+  Persist raw dimensions separately: quality, latency, cost, resource, reliability.
 
-  - relevant continuation refs.
+  If composite score exists, formula/weights/components explicit.
 
-  Do not archive huge rebuildable caches unnecessarily.
+  Do not create one opaque "quality_score".
 
-  CHECKPOINT
+  TEST MATRIX
 
-  RunCheckpoint can reference Workspace ID/latest snapshot/base/candidate refs.
+  Include:
 
-  Resume:
+  - schema-only minimal Task/no extra reviewer;
 
-  - reuse valid local Workspace if still exact;
+  - valid/invalid schema;
 
-  - otherwise reconstruct from base + snapshot.
+  - review=false/no validator ModelCall;
 
-  Same local disk is not required.
+  - code tests pass/fail;
 
-  MANDATORY LOSS TEST
+  - stale test evidence;
 
-  1.  create;
+  - build output missing despite exit 0;
 
-  2.  change candidate;
+  - runtime-required Task;
 
-  3.  capture/snapshot;
+  - independent validator required/same implementation rejection;
 
-  4.  delete local Workspace;
+  - validator unavailable ERROR;
 
-  5.  restart;
+  - parallel checks;
 
-  6.  reconstruct;
+  - Project-specific visual/performance criteria;
 
-  7.  verify exact candidate bytes/state;
+  - provenance wrong digest;
 
-  8.  continue Run.
+  - required evidence missing;
 
-  Persisted work must survive.
+  - aggregation;
 
-  If Workspace disappears before capture, report lost current attempt honestly; do not fabricate state.
+  - stale candidate;
 
-  FILESYSTEM / NETWORK ISOLATION
+  - model/tool ledger;
 
-  Reject traversal/symlink/another Project/host root/credentials.
+  - separate evaluation dimensions;
 
-  Network enforcement must be truthful.
+  - Project isolation.
 
-  CONCURRENT WORKSPACES
+  P2 INTEGRATION CLOSURE
 
-  Independent Nodes may have independent Workspaces from same base concurrently.
+  Run representative flow: Git source -> HTTP research -> Context/Retrieval -> model reasoning -> Workspace -> candidate change -> tests/build -> validation -> exact Artifact.
 
-  No global Workspace.
+  Inject process failure, stale source, provider unavailable, Workspace recovery, validation failure.
 
-  Merging/integration is explicit Graph work.
+  Verify completed durable work retained, no Project/quarantine leakage, no provider-specific kernel changes, and Task/Run/Graph unchanged.
 
-  STALE SOURCE
-
-  If authoritative source changes after creation, Workspace remains valid candidate based on original exact base. Do not silently rebase/relabel.
-
-  Revalidate before Project merge/write.
-
-  CLEANUP / CANCEL
-
-  Persist outputs/snapshot before cleanup.
-
-  Cleanup failure remains visible.
-
-  Cancellation stops tools, captures already-valid durable outputs when policy permits, rejects late stale result, releases resources.
-
-  SECRET EXCLUSION
-
-  Snapshots must exclude SSH keys, OAuth tokens, provider creds, arbitrary secret mounts.
-
-  RECEIPT
-
-  Produce CandidateWorkspaceReceipt/manifest with exact base, candidate refs, diffs, tests/tool refs, snapshot, digest.
-
-  This is later validation/finalization evidence.
-
-  TESTS
-
-  Create/materialize/mutate/source unchanged/tools/isolation/path+symlink escape/capture/snapshot/delete+reconstruct/uncaptured loss/stale source/cancel/cleanup/concurrent Workspaces/no global lock.
+  P2 exits READY_FOR_P3 only from observed evidence.
 
   USEFUL EVIDENCE — NON-GATING
 
-  - Candidate production is durable/reconstructable and never depends on one local path or shared mutable checkout.
+  - P2 closes with real multi-adapter flow from exact Git source through context/model/workspace/build/test to validated final Artifact, with failures injected and durable work retained.
 
   DELIVERABLES
 
@@ -423,17 +475,11 @@ canonical_prompt_text: |
 
   EVIDENCE TO REPORT
 
-  - Exact commands/tests and pass/fail counts.
-
-  - Exact files/modules/migrations/interfaces changed.
-
-  - Observed KPI values and REAL/REFERENCE/MOCK/NOT_RUN classifications.
-
-  - Exact source commit, result commit/tree, known limitations, unresolved facts, and next dependency.
+  - P2 integration scenario and REAL/REFERENCE/MOCK/NOT_RUN classification per adapter.
 
   Use this result block:
 
-  PROMPT: 30/51 - P2-11
+  PROMPT: 31/51 - P2-12
 
   STATUS: COMPLETE / PARTIAL / BLOCKED
 

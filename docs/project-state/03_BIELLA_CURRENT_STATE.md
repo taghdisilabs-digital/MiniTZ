@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-29 10:10 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-29T10:10:37+02:00"
+state_timestamp_local: "2026-08-29 12:08 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-29T12:08:29+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: df3b6987865aae2f94eaa9650636fae131e4e167
-    tree: 354127377184cc5901e58a2581fafadc17577e95
+    commit: e29bf2ef8aef14879b54ed35193775573487b527
+    tree: abbea75d558a399a9aed359e32e362adc184c22c
     observed_date: 2026-08-29
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p2_10_final_result_post_push_exact_readback
+    observation_context: p2_11_final_result_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: df3b6987865aae2f94eaa9650636fae131e4e167
-    tree: 354127377184cc5901e58a2581fafadc17577e95
+    head: e29bf2ef8aef14879b54ed35193775573487b527
+    tree: abbea75d558a399a9aed359e32e362adc184c22c
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 29
+    durable_prompts_complete: 30
     durable_prompts_total: 51
     phase: P2
-    active_prompt: P2-11
-    active_prompt_title: Durable Candidate Workspace and Sandbox Execution
+    active_prompt: P2-12
+    active_prompt_title: Task-Derived Validation and Evaluation Primitives
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -1850,6 +1850,103 @@ engine:
       src_biella_init: "blob c2b0e869e122777ea474cd21fedd51f1e8a6e80b; size 25303; sha256 63d20d51d411884096b7d6577ccc6ec7068d7629986413994aff528d8c8cac39"
       src_biella_context_retrieval: "blob 5c25236e9349923870bbd2f18224bacbadb82c58; size 143802; sha256 cec1daedbd2d8a05c204b52f84cb4055d9ee6c6077911802890433be588eb25d"
       test_p2_10: "blob 93cba1e7118b434135b0ae0dd962002ce6aa5355; size 46588; sha256 316ecd70df78e19db3416aadbe8f633a3638b218c94ecdaaaf4780051ebd5b3b"
+    p2_11_status: DURABLY_COMPLETE
+    p2_11_source_commit: a0a3109c092ff486b30ccaade86e4bf8a884ce81
+    p2_11_result_commit: e29bf2ef8aef14879b54ed35193775573487b527
+    p2_11_result_tree: abbea75d558a399a9aed359e32e362adc184c22c
+    p2_11_remote_readback: VERIFIED
+    p2_11_implementation:
+      production_modules_added: 1
+      existing_modules_extended: 3
+      public_export_bindings_created_or_changed: 24
+      focused_pytest_cases: 12
+      migrations_added: 0
+      durable_state_tables_added: 10
+      workspace_surface: Workspace_WorkspaceRef_WorkspaceType_WorkspaceLifecycleState_WorkspaceExecutionPolicy_WorkspaceExecutionPolicyRef_WorkspaceRootGrant_WorkspaceFileSource_WorkspaceRepositorySource_WorkspaceSnapshot_WorkspaceSnapshotRef_CandidateWorkspaceReceipt_and_WorkspaceService
+      lifecycle_surface: CREATE_MATERIALIZE_EXECUTE_CAPTURE_PERSIST_RECONSTRUCT_CLEAN_CANCEL_LOST_UNCAPTURED_and_CLEANUP_FAILED
+      exact_identity_contract: Project_Task_revision_Run_Graph_revision_Node_NodeExecutionAttempt_fence_exact_base_revision_execution_policy_resource_allocation_candidate_root_and_snapshot_sequence
+      materialization_contract: exact_Artifact_or_Repository_base_through_ObjectStorage_Filesystem_and_Git_adapters_into_cleanup_capable_Project_owned_candidate_roots_without_protected_source_mutation
+      repository_snapshot_contract: exact_base_HEAD_tree_staged_and_unstaged_binary_diffs_filtered_untracked_manifest_candidate_only_Git_bundle_regular_file_modes_safe_symlink_state_and_ToolCall_provenance
+      reconstruction_contract: disposable_local_path_recreated_from_exact_base_plus_content_addressed_snapshot_and_candidate_commit_bundle_with_exact_HEAD_index_worktree_untracked_manifest_and_byte_verification
+      policy_contract: Project_root_grants_network_NONE_RESTRICTED_PROJECT_POLICY_allowed_capabilities_ResourceAllocation_secret_refs_secret_mounts_side_effect_boundary_timeout_and_process_limit
+      concurrency_contract: per_Workspace_idempotency_claims_and_monotonic_heads_allow_independent_workspaces_without_global_lock
+      cancellation_contract: valid_outputs_captured_before_cancel_exact_Run_Node_attempt_fenced_late_results_rejected_and_dispatched_ResourceAllocation_released_CANCELLED
+      isolation_contract: canonical_relative_paths_symlink_and_special_object_rejection_cross_Project_scope_denial_cleanup_capable_root_requirement_secret_and_cache_exclusion_and_truthful_network_classification
+    p2_11_validation:
+      focused_source_pytest: "12 passed; 0 failed; 0 skipped; 91.84s final exact-source run"
+      exact_installed_wheel_pytest: "12 passed; 0 failed; 0 skipped; 91.82s; isolated target import verified"
+      diagnostic_adapter_regression: "51 passed; 2 recursive build/install qualification wrappers deselected; 0 failed; 0 skipped; pre-final Filesystem Git and P2-11 boundary matrix; final exact source covered by focused and broad gates"
+      broad_non_nested_regression: "517 passed; 20 recursive build/install qualification gates deselected; 137 subtests passed; 0 failed; 0 skipped; 602.88s; current installed-wheel qualification passed separately"
+      mypy_strict: "89 source/test files; 0 issues"
+      compileall: PASS
+      diff_check: PASS
+      test_quality_scan: "P2-11 skip, xfail, placeholder, TODO, NotImplemented, and executable-pass hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      public_export_check: "505 unique public export bindings; five required workspace APIs callable"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 bae6c627a27287016ecb20d533f836270e4f1d7520ea8fa53508151d6eeeb195; all 31 packaged biella Python paths exactly matched source bytes"
+      remote_required_paths_and_bytes: "GitHub main ref, result commit, tree, five blob IDs, sizes, SHA256 bytes, and exact raw contents independently read back and matched"
+      adversarial_review: "PASS for Project and path isolation, protected-root rejection, hostile instruction inertness, raw quarantine absence, provenance chaining, source staleness, idempotency, concurrent workspaces, uncaptured loss, exact snapshot recovery, candidate commits, staged index, safe symlinks, secrets, cancellation, late fencing, and resource release"
+      fallow_review: "NOT_RUN; fallow CLI unavailable on host; deterministic adversarial tests, strict typing, and manual trust-boundary review used"
+    p2_11_kpi:
+      workspace_loss_causes_persisted_candidate_loss: 0
+      candidate_changes_mutate_protected_source: 0
+      ambiguous_base_revision: 0
+      cross_project_workspace_access: 0
+      direct_tool_execution_bypassing_adapter: 0
+      global_single_workspace_lock: 0
+    p2_11_reality_classification:
+      SQLite_durable_workspace_policy_identity_state_snapshot_receipt_claim_and_ToolCall_evidence: REAL
+      Filesystem_object_storage_manifest_file_diff_and_candidate_bundle_content: REAL
+      managed_local_Filesystem_Process_and_Git_adapter_execution: REAL_CPU
+      local_Git_candidate_commit_bundle_export_verify_restore_and_exact_index_replay: REAL_CPU
+      Scheduler_and_ResourceAllocation_reservation_dispatch_cancellation_and_release: REAL_WITH_REFERENCE_OBSERVER_INPUT
+      hosted_sandbox_or_external_model_provider: NOT_RUN_NOT_REQUIRED
+      fallow_static_review: NOT_RUN_CLI_UNAVAILABLE
+    p2_11_qualification:
+      Workspace_WorkspaceExecutionPolicy_CandidateWorkspaceReceipt_and_five_required_APIs: VERIFIED
+      exact_Project_Task_Run_Graph_Node_attempt_fence_base_policy_and_resource_identity: VERIFIED
+      Object_Git_Filesystem_materialization_and_protected_source_immutability: VERIFIED
+      adapter_only_runtime_and_ToolCall_accounting_in_active_Workspace_module: VERIFIED
+      exact_manifest_changed_ContentRefs_Git_HEAD_tree_staged_unstaged_untracked_bundle_test_Artifact_and_tool_provenance: VERIFIED
+      snapshot_delete_restart_reconstruct_and_continue_with_exact_bytes_Git_HEAD_index_worktree_symlink_and_untracked_state: VERIFIED
+      uncaptured_local_loss_reported_without_fabrication: VERIFIED
+      stale_authoritative_source_preserves_original_exact_base_without_rebase_or_relabel: VERIFIED
+      independent_concurrent_workspaces_without_global_lock_or_cross_contamination: VERIFIED
+      cancellation_captures_valid_outputs_rejects_late_results_and_releases_exact_allocation: VERIFIED
+      secret_mount_cache_credential_path_and_raw_QuarantineRef_snapshot_exclusion: VERIFIED
+      hostile_instruction_bytes_remain_inert_data: VERIFIED
+      idempotency_and_immutable_monotonic_durable_evidence: VERIFIED
+    p2_11_known_limitations:
+      - non_repository_Workspaces_reject_symlinks; Repository_symlink_state_is_reconstructed_and_verified_through_exact_Git_diffs
+      - candidate_commit_bundles_store_only_objects_after_the_exact_base_and_require_the_candidate_HEAD_to_descend_from_that_registered_base
+      - execution_qualification_used_real_local_CPU_Filesystem_Process_Git_SQLite_and_Scheduler_paths; no_hosted_sandbox_or_model_provider_was_required
+      - resource_measurement_used_the_accepted_FakeResourceObserver_reference_input_while_reservation_dispatch_cancellation_and_release_used_the_real_durable_scheduler
+      - rebuildable_caches_and_secret_mounts_are_intentionally_absent_from_snapshots_and_must_be_rematerialized_by_their_own_authoritative_systems
+      - fallow_CLI_was_unavailable
+    p2_11_schema_changes:
+      - workspace_policies
+      - workspace_policy_claims
+      - workspace_identities
+      - workspace_create_claims
+      - workspace_states
+      - workspace_state_heads
+      - workspace_operation_claims
+      - workspace_snapshots
+      - workspace_receipts
+      - workspace_tool_evidence
+      - immutable_policy_identity_snapshot_receipt_and_tool_evidence_guards_plus_monotonic_fenced_state_heads
+    p2_11_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/filesystem.py
+      - src/biella/git_adapter.py
+      - src/biella/workspace.py
+      - tests/test_p2_11_candidate_workspace.py
+    p2_11_remote_path_evidence:
+      src_biella_init: "blob fdf296fc09b0712c5cf993dafb72988f4df30a20; size 26628; sha256 d4933b18eb0385de8a7552fe1a9b97acb72565d8ac09a6993fa7b4ac7ceb225d"
+      src_biella_filesystem: "blob 54727ea84f2e0dc964e9c15ffc7a242eca307d79; size 85532; sha256 695c6172d55cf8e76ce3e907e191011426f088e32daa6a5e23afb70b7f098761"
+      src_biella_git_adapter: "blob 7d8c089003a3a9b8f3e872bfa426a58e524f0954; size 137358; sha256 d16ad337044a1cfb86b881183161cdb84d0ea5ed2faeb88696b03b6a66d26c00"
+      src_biella_workspace: "blob f749af53be89eaadae8742158b50e17bba29221b; size 128508; sha256 092464c6432dc45a3dc67777746652a24b1fb7067f99bf28e7fe6e1782b356dc"
+      test_p2_11: "blob 42d8214de42b34235bc20c3b4bb9fe4708c5f30c; size 35676; sha256 3f6c56a344cc3fe4c727d739aa2395b50f2e1df295b584c081266ee40016dfce"
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -1898,10 +1995,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P2-11
-    title: Durable Candidate Workspace and Sandbox Execution
-    drive_id: 1iwOAJYyXNdyqdqEc5g3l6hq4ms8wmHaP14eG60ivWFI
-    canonical_prompt_text_sha256: dd3de5b57be4b8d0583a1c7f3caf3f0840aea1ed9abc4049855093a5fae87498
+    id: P2-12
+    title: Task-Derived Validation and Evaluation Primitives
+    drive_id: 1g3eSGdIQLg8b-DZdAwKm5dhUHudKgtlsBcRuGlzzbgo
+    canonical_prompt_text_sha256: 47c6b5724455cb8f0fb8adffe3fae16ccd1a69119a2df88bfc1ad5ce6c3df7e0
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -1968,52 +2065,55 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P2-11
-  global_number: 30
-  title: Durable Candidate Workspace and Sandbox Execution
-  prompt_drive_id: 1iwOAJYyXNdyqdqEc5g3l6hq4ms8wmHaP14eG60ivWFI
-  predecessor_result_commit: df3b6987865aae2f94eaa9650636fae131e4e167
-  predecessor_result_tree: 354127377184cc5901e58a2581fafadc17577e95
+  id: P2-12
+  global_number: 31
+  title: Task-Derived Validation and Evaluation Primitives
+  prompt_drive_id: 1g3eSGdIQLg8b-DZdAwKm5dhUHudKgtlsBcRuGlzzbgo
+  predecessor_result_commit: e29bf2ef8aef14879b54ed35193775573487b527
+  predecessor_result_tree: abbea75d558a399a9aed359e32e362adc184c22c
 
 next_transition:
-  - verify_P2_10_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P2_11_prompt_and_directly_required_Task_Run_Graph_Node_Artifact_ContentRef_Workspace_adapter_resource_ToolCall_checkpoint_and_quarantine_firewall_interfaces_only
-  - define_durable_logical_Workspace_WorkspaceExecutionPolicy_and_CandidateWorkspaceReceipt_separate_from_local_path
-  - materialize_exact_Project_owned_base_sources_through_Object_Git_and_Filesystem_adapters_without_mutating_protected_source
-  - route_all_candidate_tool_process_Git_runtime_and_model_execution_through_P2_adapters_and_ToolCall_accounting
-  - enforce_filesystem_root_symlink_Project_network_tool_resource_secret_side_effect_timeout_and_host_boundary_policies_truthfully
-  - capture_meaningful_diffs_changed_files_generated_Artifacts_tests_logs_and_output_manifest_before_cleanup
-  - persist_exact_snapshot_and_reconstruct_after_local_loss_while_reporting_uncaptured_attempt_loss_explicitly
-  - preserve_original_exact_base_under_authoritative_source_change_without_silent_rebase_or_relabel
-  - qualify_independent_concurrent_workspaces_cancellation_stale_owner_fencing_output_capture_cleanup_and_resource_release_without_global_lock
+  - verify_P2_11_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P2_12_prompt_and_directly_required_Task_Project_Run_Graph_Node_Artifact_ContentRef_Workspace_ModelCall_ToolCall_Event_capability_and_quarantine_firewall_interfaces_only
+  - define_durable_ValidationPlan_ValidationResult_EvaluationResult_and_Task_derived_requirement_compiler_aggregator
+  - bind_exact_subject_refs_digests_current_Graph_attempt_fence_validator_capability_implementation_runtime_findings_evidence_metrics_and_timestamps
+  - support_extensible_schema_deterministic_test_build_runtime_visual_performance_security_provenance_and_independent_reasoning_checks_without_closed_kernel_enum
+  - enforce_required_optional_independence_evidence_and_deterministic_success_rules_without_global_validator_hierarchy_or_fixed_repair_count
+  - keep_validation_acceptance_distinct_from_evaluation_metrics_and_make_any_composite_formula_weights_and_components_explicit
+  - route_model_validators_through_ModelCall_and_tool_validators_through_ToolCall_with_refs_only_in_Events
+  - classify_provider_or_transport_outage_as_ERROR_or_INCONCLUSIVE_never_PASS_or_candidate_FAIL_without_evidence
+  - reject_stale_subject_Graph_fence_and_Project_criteria_results_from_current_acceptance_while_preserving_historical_evidence
+  - qualify_minimal_schema_only_strong_code_runtime_independence_visual_performance_provenance_aggregation_parallel_and_Project_isolation_cases
+  - run_representative_P2_integration_flow_and_inject_process_stale_provider_workspace_recovery_and_validation_failures
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P2_11_before_opening_P2_12
+  - close_P2_12_before_opening_P3_01
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - treat_local_workspace_path_as_durable_authority
-  - use_ambiguous_current_or_mutable_base_for_reproducible_candidate_mutation
-  - mutate_protected_Project_engine_or_other_Project_source_as_candidate_work
-  - execute_tools_processes_Git_runtime_or_model_work_by_bypassing_P2_adapters_and_ToolCall_accounting
-  - claim_network_filesystem_resource_secret_or_side_effect_enforcement_that_is_not_real
-  - allow_path_traversal_symlink_escape_host_root_credentials_or_cross_Project_workspace_access
-  - snapshot_secret_mounts_credentials_or_huge_rebuildable_caches
-  - fabricate_uncaptured_candidate_state_after_local_workspace_loss
-  - silently_rebase_or_relabel_a_stale_source_workspace
-  - clean_local_workspace_before_required_capture_and_durable_snapshot
-  - serialize_independent_workspaces_behind_a_global_single_workspace_lock
-  - accept_cancelled_or_stale_owner_late_results_or_leak_resources
+  - validate_latest_path_or_mutable_subject_without_exact_identity
+  - invent_unrequested_critic_independent_model_validator_reviewer_or_repair_loop
+  - create_mandatory_global_produce_critic_validator_pipeline_or_fixed_repair_count
+  - treat_validator_transport_or_provider_success_as_validation_PASS
+  - collapse_ERROR_FAIL_INCONCLUSIVE_or_missing_required_evidence
+  - accept_process_exit_zero_without_required_output_Artifact
+  - substitute_build_typecheck_or_unit_evidence_when_real_runtime_proof_is_required
+  - accept_stale_subject_Graph_fence_or_Project_criteria_validation_as_current
+  - use_model_validation_when_deterministic_schema_digest_parse_or_file_checks_suffice
+  - hide_metric_dimensions_weights_sources_or_composite_formula
+  - treat_evaluation_score_as_acceptance_unless_the_exact_Task_requires_it
+  - reuse_unrelated_historical_tests_or_validator_evidence
+  - leak_findings_payloads_into_Events_instead_of_refs
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P2_11_before_P2_10_durable_close
+  - start_P2_12_before_P2_11_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
