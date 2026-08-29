@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-29 12:08 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-29T12:08:29+02:00"
+state_timestamp_local: "2026-08-29 13:32 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-29T13:32:17+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: e29bf2ef8aef14879b54ed35193775573487b527
-    tree: abbea75d558a399a9aed359e32e362adc184c22c
+    commit: 575ff0683677234f4a8ff41e3eb703d4ea31112f
+    tree: 758f7a1e2bc67d7925307d5146fcdf4b6f52b046
     observed_date: 2026-08-29
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p2_11_final_result_post_push_exact_readback
+    observation_context: p2_12_final_result_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: e29bf2ef8aef14879b54ed35193775573487b527
-    tree: abbea75d558a399a9aed359e32e362adc184c22c
+    head: 575ff0683677234f4a8ff41e3eb703d4ea31112f
+    tree: 758f7a1e2bc67d7925307d5146fcdf4b6f52b046
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 30
+    durable_prompts_complete: 31
     durable_prompts_total: 51
-    phase: P2
-    active_prompt: P2-12
-    active_prompt_title: Task-Derived Validation and Evaluation Primitives
+    phase: P3
+    active_prompt: P3-01
+    active_prompt_title: Software Engineering Production Pack
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -1947,6 +1947,105 @@ engine:
       src_biella_git_adapter: "blob 7d8c089003a3a9b8f3e872bfa426a58e524f0954; size 137358; sha256 d16ad337044a1cfb86b881183161cdb84d0ea5ed2faeb88696b03b6a66d26c00"
       src_biella_workspace: "blob f749af53be89eaadae8742158b50e17bba29221b; size 128508; sha256 092464c6432dc45a3dc67777746652a24b1fb7067f99bf28e7fe6e1782b356dc"
       test_p2_11: "blob 42d8214de42b34235bc20c3b4bb9fe4708c5f30c; size 35676; sha256 3f6c56a344cc3fe4c727d739aa2395b50f2e1df295b584c081266ee40016dfce"
+    p2_12_status: DURABLY_COMPLETE
+    p2_12_source_commit: 08cedd9d1c110418bb32aa22035a081f7a6f8fd9
+    p2_12_result_commit: 575ff0683677234f4a8ff41e3eb703d4ea31112f
+    p2_12_result_tree: 758f7a1e2bc67d7925307d5146fcdf4b6f52b046
+    p2_12_remote_readback: VERIFIED
+    p2_12_implementation:
+      production_modules_added: 1
+      existing_modules_extended: 2
+      public_export_bindings_created_or_changed: 22
+      focused_pytest_cases: 15
+      migrations_added: 0
+      durable_state_tables_added: 8
+      validation_surface: ValidationPlan_ValidationResult_ValidationAggregate_EvaluationResult_ProjectValidationCriteria_ValidationSubject_ValidationCheck_MetricMeasurement_CompositeMetric_and_ValidationService
+      verdict_surface: PASS_FAIL_INCONCLUSIVE_ERROR_with_CURRENT_or_HISTORICAL_evidence_state
+      exact_identity_contract: Project_Task_revision_digest_Run_Graph_revision_record_Node_NodeExecutionAttempt_fence_exact_subject_refs_digests_plan_digest_validator_capability_implementation_runtime_dimensions_and_call_ledger_refs
+      task_derived_contract: output_schema_Artifact_existence_digest_Task_evidence_acceptance_constraints_and_Project_criteria_compile_to_explicit_required_or_optional_checks_with_ALL_REQUIRED_PASS
+      minimality_contract: schema_only_output_Task_compiles_only_schema_Artifact_existence_and_digest_without_invented_critic_model_or_repair_loop
+      specialized_evidence_contract: build_runtime_and_Artifact_PASS_require_exact_durable_Artifact_evidence_and_model_or_tool_Artifact_evidence_must_be_exact_call_output
+      independence_contract: requested_dimensions_are_proved_against_all_subject_producer_dimensions_and_are_not_enforced_when_unrequested
+      current_authority_contract: exact_Task_Graph_active_head_Node_attempt_and_fence_are_revalidated_and_superseded_plan_results_remain_historical_non_accepting_evidence
+      call_ledger_contract: tool_and_model_validators_require_exact_terminal_CallLedger_identity_and_provider_neutral_execution_dimensions; outages remain_ERROR
+      evaluation_contract: explicit_named_finite_metrics_units_definitions_measurement_sources_and_visible_composite_formula_components_weights_score_with_current_attempt_authority
+      concurrency_contract: independent_check_results_may_persist_concurrently_without_global_validator_lock_and_conflicting_current_claims_fail_closed
+      isolation_contract: exact_Project_scope_for_plans_subjects_criteria_evidence_results_aggregates_evaluations_and_call_ledger_refs
+    p2_12_validation:
+      focused_source_pytest: "15 P2-12 cases plus exact P0 neutrality regression passed; 0 failed; 0 skipped; 19.46s final exact-source run"
+      exact_installed_wheel_pytest: "15 passed; 0 failed; 0 skipped; 17.12s; isolated target import verified"
+      diagnostic_call_workspace_validation_regression: "41 passed; 1 recursive predecessor build/install gate deselected; 4 subtests passed; 0 failed; 0 skipped; 114.25s"
+      broad_non_nested_regression: "532 passed; 20 exact recursive build/install qualification gates deselected; 137 subtests passed; 0 failed; 0 skipped; 619.87s final exact-source rerun"
+      mypy_strict: "91 source/test files; 0 issues"
+      compileall: PASS
+      diff_check: PASS
+      test_quality_scan: "P2-12 skip, xfail, placeholder, TODO, FIXME, NotImplemented, and executable-pass hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      public_export_check: "527 unique public export bindings; five required validation/evaluation interfaces callable"
+      active_kernel_neutrality_regression: "PASS after provider-neutral CallLedger execution-dimension boundary; domain/provider coupling identifiers outside CallLedger accounting: 0"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 48959ea6411e3309ef020e3f4807b5e992c7e4def3969a0349781c835353a96d; all 32 packaged biella Python paths exactly matched source bytes"
+      remote_required_paths_and_bytes: "GitHub main ref, result commit, tree, four blob IDs, sizes, SHA256 bytes, and exact raw contents independently read back and matched"
+      adversarial_review: "PASS for minimal validation, explicit required/optional classification, hostile instruction inertness, build Artifact proof, runtime non-substitution, requested independence, provider outage ERROR, stale historical evidence, cross-Project denial, concurrent checks, visual/performance dimensions, exact metric sources and composites, immutable ledgers, call-state staleness, current evaluation authority, candidate Workspace integration, and idempotency"
+      fallow_review: "NOT_RUN; fallow CLI unavailable on host; deterministic adversarial tests, strict typing, active-kernel neutrality, and manual trust-boundary review used"
+    p2_12_kpi:
+      tasks_forced_through_unrequired_validation: 0
+      required_validation_skipped: 0
+      validator_transport_error_marked_PASS: 0
+      stale_validation_accepted: 0
+      mandatory_global_validator_hierarchy: 0
+      opaque_composite_scores: 0
+      cross_project_validation_evidence_accepted: 0
+      build_or_runtime_PASS_without_required_Artifact: 0
+    p2_12_reality_classification:
+      SQLite_durable_validation_plan_result_aggregate_evaluation_claim_and_head_evidence: REAL
+      exact_Task_Graph_Node_attempt_fence_Artifact_Workspace_and_CallLedger_integration: REAL
+      concurrent_result_persistence_and_deterministic_aggregation: REAL_CPU
+      build_runtime_visual_performance_security_and_provenance_validator_semantics: REFERENCE_CAPABILITY_DRIVEN_WITH_REAL_DURABLE_EVIDENCE_GATES
+      managed_model_provider_outage_execution: REFERENCE_LEDGER_FAILURE_NOT_EXTERNAL_PROVIDER_CALL
+      exact_wheel_build_install_import_and_focused_execution: REAL_CPU
+      fallow_static_review: NOT_RUN_CLI_UNAVAILABLE
+    p2_12_qualification:
+      ValidationPlan_ValidationResult_EvaluationResult_compiler_and_aggregator_interfaces: VERIFIED
+      exact_subject_Task_Run_Graph_Node_attempt_fence_and_Project_criteria_binding: VERIFIED
+      minimal_schema_Artifact_digest_plan_without_invented_critic: VERIFIED
+      required_optional_classification_and_ALL_REQUIRED_PASS_aggregation: VERIFIED
+      PASS_FAIL_INCONCLUSIVE_ERROR_are_distinct_and_ERROR_precedence_is_deterministic: VERIFIED
+      build_missing_Artifact_never_PASS_and_runtime_requirement_not_substituted: VERIFIED
+      requested_independence_only_with_explicit_producer_and_validator_dimensions: VERIFIED
+      model_and_tool_validation_ledger_identity_provenance_and_terminal_state_staleness: VERIFIED
+      stale_plan_results_historical_and_never_current_acceptance: VERIFIED
+      explicit_quality_performance_cost_reliability_metrics_and_visible_composite: VERIFIED
+      visual_performance_and_optional_failure_semantics: VERIFIED
+      cross_Project_subject_criteria_and_evidence_isolation: VERIFIED
+      candidate_Workspace_receipt_to_validation_end_to_end_P2_flow: VERIFIED
+      hostile_Task_objective_remains_inert_data: VERIFIED
+      idempotency_concurrency_immutability_restart_readback_and_tamper_guards: VERIFIED
+    p2_12_known_limitations:
+      - validator_capabilities_are_provider_neutral_registration_and_evidence_primitives; domain_specific_validator_implementations_remain_pack_or_Project_data
+      - managed_provider_outage_behavior_was_verified_with_real_durable_CallLedger_failure_evidence_but_no_external_provider_call_was_required
+      - visual_performance_security_build_and_runtime_execution_engines_remain_replaceable_existing_adapters_or_future_pack_registrations_not_kernel_specializations
+      - ContentRef_subject_binding_proves_the_exact_self_describing_content_identity; byte_availability_must_be_proved_by_the_authoritative_object_storage_Artifact_or_adapter_when_the_Task_requires_it
+      - fallow_CLI_was_unavailable
+    p2_12_schema_changes:
+      - validation_plans
+      - validation_plan_claims
+      - validation_plan_heads
+      - validation_results
+      - validation_result_claims
+      - validation_aggregates
+      - evaluation_results
+      - evaluation_claims
+      - immutable_plan_result_aggregate_evaluation_and_claim_guards_plus_monotonic_plan_heads
+    p2_12_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/call_ledger.py
+      - src/biella/validation.py
+      - tests/test_p2_12_validation.py
+    p2_12_remote_path_evidence:
+      src_biella_init: "blob 6594f48f9809329085c1d9bd5f92ef0df5dc7637; size 27800; sha256 338383802f3e614b8fd0cb78f6b8ceee3bc078b3806f19f2bc84239adca20409"
+      src_biella_call_ledger: "blob e25dbe365e5b010965a69a47e67b0a5099f5de4c; size 98550; sha256 4ed513fdfec2e1679898121e5b464d7b15a6d0ab51b92da0b6650f115b0a2be4"
+      src_biella_validation: "blob 2ee1b214fe8a654f0a37edce4181722bdd138741; size 82086; sha256 f53bc467fe469336406c29d08b4e7c84e65b13ae9076837dc51eeb7ea131f721"
+      test_p2_12: "blob 6e25135f860dd49397df8dff8ab730ea5d458f6b; size 34050; sha256 54e36443bf32420555c12bb234961c6411f65caccec2b06475bb8e5253937d98"
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -1995,10 +2094,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P2-12
-    title: Task-Derived Validation and Evaluation Primitives
-    drive_id: 1g3eSGdIQLg8b-DZdAwKm5dhUHudKgtlsBcRuGlzzbgo
-    canonical_prompt_text_sha256: 47c6b5724455cb8f0fb8adffe3fae16ccd1a69119a2df88bfc1ad5ce6c3df7e0
+    id: P3-01
+    title: Software Engineering Production Pack
+    drive_id: 1KqL3RzBspIr8HVFtuoFfS5ew1hwVLSOIhMMimuf-9OE
+    canonical_prompt_text_sha256: 02bbdef4cfa4b965ddbf3ec61448a59c72961129eb325ff7cc5c02ea645b5ffd
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -2065,55 +2164,59 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P2-12
-  global_number: 31
-  title: Task-Derived Validation and Evaluation Primitives
-  prompt_drive_id: 1g3eSGdIQLg8b-DZdAwKm5dhUHudKgtlsBcRuGlzzbgo
-  predecessor_result_commit: e29bf2ef8aef14879b54ed35193775573487b527
-  predecessor_result_tree: abbea75d558a399a9aed359e32e362adc184c22c
+  id: P3-01
+  global_number: 32
+  title: Software Engineering Production Pack
+  prompt_drive_id: 1KqL3RzBspIr8HVFtuoFfS5ew1hwVLSOIhMMimuf-9OE
+  predecessor_result_commit: 575ff0683677234f4a8ff41e3eb703d4ea31112f
+  predecessor_result_tree: 758f7a1e2bc67d7925307d5146fcdf4b6f52b046
 
 next_transition:
-  - verify_P2_11_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P2_12_prompt_and_directly_required_Task_Project_Run_Graph_Node_Artifact_ContentRef_Workspace_ModelCall_ToolCall_Event_capability_and_quarantine_firewall_interfaces_only
-  - define_durable_ValidationPlan_ValidationResult_EvaluationResult_and_Task_derived_requirement_compiler_aggregator
-  - bind_exact_subject_refs_digests_current_Graph_attempt_fence_validator_capability_implementation_runtime_findings_evidence_metrics_and_timestamps
-  - support_extensible_schema_deterministic_test_build_runtime_visual_performance_security_provenance_and_independent_reasoning_checks_without_closed_kernel_enum
-  - enforce_required_optional_independence_evidence_and_deterministic_success_rules_without_global_validator_hierarchy_or_fixed_repair_count
-  - keep_validation_acceptance_distinct_from_evaluation_metrics_and_make_any_composite_formula_weights_and_components_explicit
-  - route_model_validators_through_ModelCall_and_tool_validators_through_ToolCall_with_refs_only_in_Events
-  - classify_provider_or_transport_outage_as_ERROR_or_INCONCLUSIVE_never_PASS_or_candidate_FAIL_without_evidence
-  - reject_stale_subject_Graph_fence_and_Project_criteria_results_from_current_acceptance_while_preserving_historical_evidence
-  - qualify_minimal_schema_only_strong_code_runtime_independence_visual_performance_provenance_aggregation_parallel_and_Project_isolation_cases
-  - run_representative_P2_integration_flow_and_inject_process_stale_provider_workspace_recovery_and_validation_failures
+  - verify_P2_12_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P3_01_prompt_and_directly_required_Capability_Graph_Git_Workspace_Process_Model_Context_Validation_Artifact_Resource_and_Project_interfaces_only
+  - define_provider_neutral_ProductionPack_descriptor_as_pack_data_without_SoftwareTask_SoftwareRun_CodeAgentManager_or_kernel_domain_defaults
+  - register_software_inspect_search_architecture_engineer_modify_debug_refactor_test_build_run_profile_package_and_validate_capabilities
+  - register_graph_recipes_validator_refs_artifact_roles_adapter_bindings_and_resource_profiles_on_existing_universal_substrate
+  - bind_exact_RepositoryRef_base_commit_tree_Project_architecture_acceptance_Task_candidate_Workspace_and_test_build_runtime_receipts
+  - preserve_unrelated_dirty_work_and_keep_framework_toolchain_package_manager_and_Project_conventions_scoped_to_Project_data
+  - use_focused_Git_Filesystem_Context_retrieval_and_reproduce_real_failure_before_bounded_repair
+  - execute_real_repository_inspect_bounded_change_controlled_failure_TDD_repair_tests_build_or_runtime_and_exact_candidate_commit_tree_flow
+  - prove_worker_loss_preserves_captured_candidate_and_completed_test_evidence_and_stale_owners_results_are_rejected
+  - prove_two_Project_repository_scope_context_and_preferences_do_not_cross_contaminate_where_practical
+  - record_observed_test_build_runtime_Artifacts_and_never_accept_exit_zero_without_required_output
+  - keep_expected_domain_specific_kernel_modifications_at_zero
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P2_12_before_opening_P3_01
+  - close_P3_01_before_opening_P3_02
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - validate_latest_path_or_mutable_subject_without_exact_identity
-  - invent_unrequested_critic_independent_model_validator_reviewer_or_repair_loop
-  - create_mandatory_global_produce_critic_validator_pipeline_or_fixed_repair_count
-  - treat_validator_transport_or_provider_success_as_validation_PASS
-  - collapse_ERROR_FAIL_INCONCLUSIVE_or_missing_required_evidence
-  - accept_process_exit_zero_without_required_output_Artifact
-  - substitute_build_typecheck_or_unit_evidence_when_real_runtime_proof_is_required
-  - accept_stale_subject_Graph_fence_or_Project_criteria_validation_as_current
-  - use_model_validation_when_deterministic_schema_digest_parse_or_file_checks_suffice
-  - hide_metric_dimensions_weights_sources_or_composite_formula
-  - treat_evaluation_score_as_acceptance_unless_the_exact_Task_requires_it
-  - reuse_unrelated_historical_tests_or_validator_evidence
-  - leak_findings_payloads_into_Events_instead_of_refs
+  - create_SoftwareTask_SoftwareRun_CodeAgentManager_global_software_worker_or_second_coding_agent_system
+  - mutate_ambiguous_or_mutable_source_without_exact_RepositoryRef_base_commit_and_tree
+  - overwrite_or_revert_unrelated_dirty_Project_work
+  - dump_entire_repository_into_model_context_by_default
+  - redesign_before_reproducing_or_inspecting_real_failure_evidence
+  - force_plan_coder_critic_validator_hierarchy_or_fixed_repair_count
+  - claim_test_build_runtime_profile_or_performance_PASS_without_observed_evidence
+  - accept_build_exit_zero_without_required_build_Artifact
+  - substitute_build_evidence_for_required_runtime_behavior
+  - switch_framework_or_package_manager_without_Task_requirement
+  - execute_production_database_migration_merely_because_a_migration_file_exists
+  - globalize_Project_framework_architecture_preferences_or_Run_output_into_Engine_defaults
+  - lose_captured_candidate_completed_tests_or_build_outputs_after_recoverable_worker_failure
+  - accept_stale_Workspace_Run_Graph_Node_attempt_owner_or_result
+  - add_language_framework_provider_or_domain_specific_kernel_defaults
+  - use_only_mocked_code_strings_instead_of_a_real_repository_end_to_end_task
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P2_12_before_P2_11_durable_close
+  - start_P3_01_before_P2_12_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture

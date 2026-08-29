@@ -4,60 +4,60 @@
 schema: biella.active_task/v3
 
 task:
-  id: P2-12
-  global_number: 31
-  phase: P2
-  title: Task-Derived Validation and Evaluation Primitives
-  state: READY_AFTER_P2_11_DURABLE_CLOSE
+  id: P3-01
+  global_number: 32
+  phase: P3
+  title: Software Engineering Production Pack
+  state: READY_AFTER_P2_12_DURABLE_CLOSE
   exact_prompt:
-    title: 31_P2-12_Task_Derived_Validation_and_Evaluation_Primitives.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/31_P2-12_Task_Derived_Validation_and_Evaluation_Primitives.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/31_P2-12_Task_Derived_Validation_and_Evaluation_Primitives.md.docx
-    drive_id: 1g3eSGdIQLg8b-DZdAwKm5dhUHudKgtlsBcRuGlzzbgo
-    local_docx_sha256: 446391617cd5df67ab6846d7e9970cc0e2b310969c37c727421a99e88207cd01
-    live_drive_exported_docx_sha256: fa82c20776415c3e46740ab8c2f37c166706b9594b98fb258abe3722fd021da6
-    canonical_text_sha256: 47c6b5724455cb8f0fb8adffe3fae16ccd1a69119a2df88bfc1ad5ce6c3df7e0
+    title: 32_P3-01_Software_Engineering_Production_Pack.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P3/32_P3-01_Software_Engineering_Production_Pack.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P3/32_P3-01_Software_Engineering_Production_Pack.md.docx
+    drive_id: 1KqL3RzBspIr8HVFtuoFfS5ew1hwVLSOIhMMimuf-9OE
+    local_docx_sha256: b5d3d83392c7d1546641f889673514c450ce5c3309015b58bfeb8ce44d3aecd9
+    live_drive_exported_docx_sha256: 8b96eaa564b2957e06e816f27e465acb29f946bbd9d1d8ae881575d9e1061052
+    canonical_text_sha256: 02bbdef4cfa4b965ddbf3ec61448a59c72961129eb325ff7cc5c02ea645b5ffd
     canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P2-11
-    result_commit: e29bf2ef8aef14879b54ed35193775573487b527
-    result_tree: abbea75d558a399a9aed359e32e362adc184c22c
+    id: P2-12
+    result_commit: 575ff0683677234f4a8ff41e3eb703d4ea31112f
+    result_tree: 758f7a1e2bc67d7925307d5146fcdf4b6f52b046
     remote_readback: VERIFIED
     remote_required_paths_and_bytes: VERIFIED
     focused_type_build_installed_and_full_regression: VERIFIED
-  numbered_successor: P3-01
+  numbered_successor: P3-02
 
 execution_boundary:
   start_only_after_predecessor_durable_close: satisfied
   load_only:
-    - exact_P2_12_canonical_prompt
+    - exact_P3_01_canonical_prompt
     - current_state_and_active_task_continuity
-    - accepted_Task_Project_Run_Graph_Node_Artifact_ContentRef_Workspace_ModelCall_ToolCall_Event_capability_and_quarantine_firewall_interfaces_directly_required
+    - accepted_Capability_Task_Project_Run_Graph_Node_Artifact_ContentRef_Git_Workspace_Process_Model_Context_Validation_Resource_and_quarantine_firewall_interfaces_directly_required
     - directly_touched_source_and_task_scoped_tests
   do_not_open:
-    - P3_01_or_later_prompt_bodies_before_P2_12_durable_close
+    - P3_02_or_later_prompt_bodies_before_P3_01_durable_close
     - unrelated_historical_backup_or_legacy_material
   preserve:
-    - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ModelCall_ToolCall_Event_ResourceAllocation_Workspace_and_managed_runtime_identity
-    - P1_ContentRef_object_storage_Project_Engine_Run_memory_graph_event_scheduler_routing_and_checkpoint_contracts
-    - P2_01_through_P2_11_adapter_execution_isolation_retrieval_workspace_snapshot_fencing_durability_and_quarantine_firewall_contracts
+    - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ModelCall_ToolCall_Event_ResourceAllocation_Workspace_Validation_and_managed_runtime_identity
+    - P1_ContentRef_object_storage_Project_Engine_Run_memory_graph_event_scheduler_routing_call_ledger_and_checkpoint_contracts
+    - P2_adapter_execution_isolation_retrieval_workspace_validation_fencing_durability_and_quarantine_firewall_contracts
     - all_earlier_isolation_provenance_durability_routing_scheduler_and_quarantine_firewall_contracts
 
 canonical_prompt_text: |
-  PROMPT 31/51 - P2-12
+  PROMPT 32/51 - P3-01
 
   TITLE
 
-  Task-Derived Validation and Evaluation Primitives
+  Software Engineering Production Pack
 
   PHASE
 
-  P2 - Universal execution fabric
+  P3 - Production capability packs
 
   GOAL
 
-  Implement reusable validation/evaluation so exact outputs are accepted according to actual Task/Project requirements, not a universal review hierarchy, and produce clean metrics for P4 learning.
+  Prove real software production on the universal substrate: inspect exact repositories, diagnose real failures, make bounded changes, test/build/run when required, and preserve exact candidate identities.
 
   CURRENT VERIFIED STATE
 
@@ -69,13 +69,13 @@ canonical_prompt_text: |
 
   SOURCE ARCHITECTURE
 
-  - Execute real filesystem/process/Git/runtime/network/model/browser/database/retrieval/workspace work through replaceable adapters with Task-derived validation.
+  - Prove the same kernel can produce real software, web, game, 3D, media, rendering, VFX, and packages without domain-specific kernel redesign.
 
   - Apply current Biella project instructions and the kernel semantics relevant to this task. Do not add legacy blockers, hard QA gates, or artificial limits.
 
   DEPENDENCIES
 
-  - Prompt 30/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
+  - Prompt 31/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
 
   - All earlier accepted contracts used by this task; inspect the repository instead of assuming interface names.
 
@@ -91,15 +91,15 @@ canonical_prompt_text: |
 
   IN SCOPE
 
-  - Compile ValidationPlan from exact subject refs, Task output/evidence/acceptance/risk/side effects and Project criteria; checks can be required/optional with explicit independence/success rules.
+  - Register software.inspect/search/architecture/engineer/modify/debug/refactor/test/build/run/profile/package/validate capabilities as pack data.
 
-  - Define ValidationResult PASS/FAIL/INCONCLUSIVE/ERROR and EvaluationResult with explicit metric definitions/measurement sources.
+  - Reuse Git/Workspace/Process/Model/Context/Validation adapters; do not create a second coding-agent system.
 
-  - Support deterministic schema/provenance/test/build/runtime/performance/security/visual validators through capabilities; model/tool validators use call ledger.
+  - Bind exact base commit/tree, preserve unrelated dirty work, use focused source retrieval/context and task-scoped candidate changes.
 
-  - Exact subject digest/current Graph/fence revalidated before current acceptance; stale validator result becomes historical evidence.
+  - For bugs, reproduce/inspect evidence before redesign; use TDD where useful.
 
-  - Independent checks may run concurrently; failed validation does not create fixed global repair count.
+  - Tests/build/runtime claims require observed outputs; independent checks may run concurrently.
 
   OUT OF SCOPE
 
@@ -109,29 +109,25 @@ canonical_prompt_text: |
 
   REQUIRED IMPLEMENTATION
 
-  - Compile ValidationPlan from exact subject refs, Task output/evidence/acceptance/risk/side effects and Project criteria; checks can be required/optional with explicit independence/success rules.
+  - Register software.inspect/search/architecture/engineer/modify/debug/refactor/test/build/run/profile/package/validate capabilities as pack data.
 
-  - Define ValidationResult PASS/FAIL/INCONCLUSIVE/ERROR and EvaluationResult with explicit metric definitions/measurement sources.
+  - Reuse Git/Workspace/Process/Model/Context/Validation adapters; do not create a second coding-agent system.
 
-  - Support deterministic schema/provenance/test/build/runtime/performance/security/visual validators through capabilities; model/tool validators use call ledger.
+  - Bind exact base commit/tree, preserve unrelated dirty work, use focused source retrieval/context and task-scoped candidate changes.
 
-  - Exact subject digest/current Graph/fence revalidated before current acceptance; stale validator result becomes historical evidence.
+  - For bugs, reproduce/inspect evidence before redesign; use TDD where useful.
 
-  - Independent checks may run concurrently; failed validation does not create fixed global repair count.
+  - Tests/build/runtime claims require observed outputs; independent checks may run concurrently.
 
   REQUIRED INTERFACES
 
-  - ValidationPlan
+  - Software ProductionPack descriptor
 
-  - ValidationResult
-
-  - EvaluationResult
-
-  - validation requirement compiler/aggregator
+  - software capability/recipe/validator registrations
 
   DATA / STATE CHANGES
 
-  - Validation/evaluation evidence and subject bindings.
+  - Project-specific software config remains Project data.
 
   FAILURE BEHAVIOR
 
@@ -147,323 +143,273 @@ canonical_prompt_text: |
 
   TESTS
 
-  - Minimal schema-only Task gets no invented critic.
+  - Real repository inspect -> bounded change -> failing evidence -> repair -> focused tests -> build/runtime when applicable -> exact candidate commit/tree.
 
-  - Code tests/build with exact candidate; process exit 0 + missing Artifact is not PASS.
+  - Worker loss retains captured candidate/completed tests.
 
-  - Runtime-required Task cannot substitute build-only evidence.
-
-  - Independent validator enforced only when requested.
-
-  - Validator outage -> ERROR, not candidate FAIL/PASS.
-
-  - Stale candidate validation rejected; Project criteria isolated.
+  - Project-specific framework/conventions do not become Engine defaults.
 
   KPI
 
-  - tasks_forced_through_unrequired_validation=0
+  - source_changes_without_exact_base=0
 
-  - required_validation_skipped=0
+  - unrelated_source_changes=0
 
-  - validator_transport_error_marked_PASS=0
+  - tests_claimed_PASS_without_execution=0
 
-  - stale_validation_accepted=0
+  - build_claims_without_output=0
 
-  - mandatory_global_validator_hierarchy=0
+  - candidate_work_lost_after_recoverable_failure=0
 
-  - opaque_composite_scores=0
+  - domain_specific_kernel_changes=0
 
   RESTORED LONG-FORM REQUIREMENTS
 
-  VALIDATION VS EVALUATION
+  SOFTWARE PACK, NOT A SECOND CODING ARCHITECTURE
 
-  Keep explicit:
+  Implement a production pack registered on the universal P0/P1/P2 substrate.
 
-  VALIDATION — does this exact subject satisfy the Task contract?
+  Conceptual pack:
 
-  EVALUATION — how well did a subject/implementation/strategy perform under explicit metrics?
+  ProductionPack
 
-  Benchmark/evaluation score is not acceptance unless Task says so.
+  pack_id = software
+
+  version
+
+  capability_definitions
+
+  graph_recipe_refs
+
+  validator_refs
+
+  artifact_roles
+
+  adapter bindings
+
+  resource profiles
+
+  Expected domain-specific kernel modifications: 0.
+
+  Do not create SoftwareTask, SoftwareRun, CodeAgentManager, or a permanent coding-agent hierarchy.
 
   CAPABILITIES
 
-  Extensible validation:
+  Register extensible capabilities equivalent to:
 
-  - schema;
+  - software.inspect;
 
-  - deterministic;
+  - software.search;
 
-  - test;
+  - software.architecture;
 
-  - build;
+  - software.engineer;
 
-  - runtime;
+  - software.modify;
 
-  - visual;
+  - software.debug;
 
-  - performance;
+  - software.refactor;
 
-  - security;
+  - software.test;
 
-  - provenance;
+  - software.build;
 
-  - independent_reasoning.
+  - software.run;
 
-  Evaluation:
+  - software.profile;
 
-  - quality;
+  - software.package;
 
-  - performance;
+  - software.validate.
 
-  - cost;
+  Language/framework-specific implementations may register beneath these semantics without changing kernel.
 
-  - reliability;
+  EXACT SOURCE
 
-  - comparison.
+  Software Task consumes exact RepositoryRef, base commit/tree, source Artifacts, requirements, Project architecture/acceptance.
 
-  Not a closed kernel enum.
+  Never mutate against ambiguous mutable source when reproducibility matters.
 
-  VALIDATION PLAN
+  INSPECTION
 
-  Compile Task-derived ValidationPlan from: Task output contract + Project requirements + evidence/side-effect/risk requirements.
+  Collect only relevant:
 
-  Conceptual:
+  - repository identity;
 
-  - plan ID;
+  - commit/tree/status;
 
-  - Project/Task/Run;
+  - file structure;
 
-  - exact subject refs;
+  - language/toolchain/build/package manager;
 
-  - required checks;
+  - tests;
 
-  - optional checks;
+  - runtime entry points;
 
-  - independence requirements;
+  - architecture relevant to Task.
 
-  - evidence requirements;
+  Use Git/Filesystem/Context/Retrieval.
 
-  - success rule;
+  Do not dump entire repository into a model by default.
 
-  - digest.
+  DEBUGGING
 
-  This is not a permanent global pipeline.
+  For defect work:
 
-  MINIMAL TASK
+  1.  inspect actual failure evidence;
 
-  A Task may require only:
+  2.  reproduce when feasible;
 
-  - schema;
+  3.  identify smallest root defect/boundary;
 
-  - Artifact exists;
+  4.  implement bounded change in candidate Workspace;
 
-  - digest.
+  5.  run affected validation;
 
-  Do not invent critic/independent model/repair loop.
+  6.  repair failures caused by change;
 
-  STRONG TASK
+  7.  preserve unrelated behavior.
 
-  If Task requires tests + runtime + security + independent reasoning, enforce them.
+  Do not redesign before understanding the failure.
 
-  Strength is Task-specific.
+  TDD
 
-  VALIDATION RESULT
+  When feature/bug behavior benefits:
 
-  Persist:
+  - add failing test;
 
-  ValidationResult
+  - observe correct failure;
 
-  validation_id
+  - implement minimal change;
 
-  plan
+  - observe pass.
 
-  Project/Task/Run
+  Do not force TDD onto tasks where it provides no value.
 
-  exact subject refs
+  CANDIDATE WORK
 
-  capability
+  Use P2 Workspace.
 
-  implementation/runtime
+  Preserve:
 
-  verdict
+  - base commit/tree;
 
-  findings refs
+  - changed files;
 
-  evidence refs
+  - candidate diff/tree/commit;
 
-  metrics
+  - generated files;
 
-  timestamps
+  - tests/build receipts.
 
-  Verdicts at minimum: PASS, FAIL, INCONCLUSIVE, ERROR.
+  Do not mutate protected source directly unless Task authorizes Project write.
 
-  Critical: ERROR != FAIL.
+  DYNAMIC GRAPH
 
-  Validator provider unavailable means infrastructure error/inconclusive; it is not proof candidate is wrong.
+  Small Task may be: inspect -> modify -> test.
 
-  Tool transport success is not PASS.
+  Large Task may include parallel analysis/build/static/runtime.
 
-  EXACT SUBJECT
+  Do not force plan/coder/critic/validator sequence.
 
-  Bind exact Artifact digest/workspace receipt/Git tree/build/model result.
+  TEST DISCOVERY / REGRESSION
 
-  Never validate "latest path" without exact identity.
+  Prefer:
 
-  Subject change invalidates previous current validation.
+  1.  focused affected tests;
 
-  DETERMINISTIC CHECKS
+  2.  broader regression at sensible completion boundary.
 
-  Use deterministic methods for schema/digest/parse/file existence/build output where possible.
+  Run full suite when Task/Project requires it.
 
-  Do not use model simply because available.
+  Record exact candidate identity and test command/tool.
 
-  TEST VALIDATION
-
-  Bind exact candidate, test command/tool identity, Workspace, ToolCall, output refs, pass/fail counts.
-
-  Never reuse unrelated historical tests.
+  Never claim pass without observed execution.
 
   BUILD
 
-  Exit 0 + missing expected Artifact is not PASS.
+  Bind exact candidate + toolchain/runtime/config.
 
-  Bind exact toolchain/runtime and build Artifact.
+  Exit 0 is insufficient if required build Artifact absent.
 
   RUNTIME
 
-  If Task requires real executable/runtime proof, build/typecheck/unit tests alone are insufficient.
+  If requested deliverable is working CLI/service/app, execute exact output and observe required behavior.
 
-  Run exact Artifact and preserve observable evidence.
+  Build success alone is not runtime proof.
 
-  VISUAL
+  REFACTOR
 
-  Project supplies visual references/criteria.
+  Refactor preserves external behavior unless Task explicitly changes behavior.
 
-  Vision model/tool may implement visual validation, bound to exact subject/reference/model runtime.
+  No unrelated cleanup.
 
-  No global Biella visual style.
+  DEPENDENCIES / MIGRATIONS
+
+  Use existing package manager/lockfile.
+
+  Do not switch frameworks/package manager without requirement.
+
+  Creating migration file does not authorize executing production DB migration.
 
   PERFORMANCE
 
-  Metrics may include latency/FPS/throughput/memory/size/GPU.
+  Optimization work: baseline -> profile -> change -> remeasure.
 
-  Threshold is Project/Task-specific; no global 60 FPS/4K/X ms rule.
+  No "looks faster" claim.
 
-  PROVENANCE / SECURITY
+  CONCURRENCY
 
-  Provenance validates source/derivation/runtime/tool/required receipts.
+  Independent checks/test partitions can run concurrently under scheduler.
 
-  Security capability remains extensible across secret scan/static/dependency/sandbox tests; no one mandatory scanner.
+  No global software worker.
 
-  INDEPENDENCE
+  RECOVERY
 
-  If Task requires independent validator, express exact dimensions: different deployment/model/tool/strategy.
+  Captured Workspace/candidate/tests/build outputs survive model/worker/process loss.
 
-  Do not globally require independence.
+  Do not repeat completed valid work solely due to worker failure.
 
-  GRAPH
+  ENGINE KNOWLEDGE
 
-  Validation may compile to productive VALIDATE Nodes only when required.
+  Software Run output remains Project/Run evidence until explicit knowledge promotion.
 
-  Independent tests/security/etc can run concurrently.
+  Project architecture/conventions stay Project Memory.
 
-  No fixed produce→critic→validator sequence.
+  REAL END-TO-END TASK
 
-  REPAIR
+  Use at least one real repository:
 
-  Failure may:
+  - inspect;
 
-  - fail Run;
+  - bounded requested change;
 
-  - create Graph revision;
+  - actual modification;
 
-  - create repair Node;
+  - relevant tests;
 
-  - route alternative;
+  - build if repository supports;
 
-  - return result.
+  - runtime if required;
 
-  No hardcoded repair count.
+  - exact candidate source/commit.
 
-  AGGREGATION
+  Inject a controlled failure/failing test, diagnose from evidence, repair, rerun.
 
-  Deterministic success_rule, e.g. ALL_REQUIRED_PASS.
+  Do not use only mocked code strings.
 
-  Optional failure does not necessarily fail Task.
+  PROJECT ISOLATION
 
-  Missing required validation cannot be silently ignored.
+  At least two repository Projects where practical; prove no cross-source/context/preferences.
 
-  STALE RESULT
+  KPI
 
-  Before accepting ValidationResult current, revalidate Project/Task/Run/Graph/subject/fence/currentness.
-
-  Late result for superseded subject -> Historical Evidence, not current acceptance.
-
-  LEDGER
-
-  Model validators -> ModelCall. Tool validators -> ToolCall. Events contain refs, not giant findings.
-
-  EVALUATION RESULT
-
-  Persist raw dimensions separately: quality, latency, cost, resource, reliability.
-
-  If composite score exists, formula/weights/components explicit.
-
-  Do not create one opaque "quality_score".
-
-  TEST MATRIX
-
-  Include:
-
-  - schema-only minimal Task/no extra reviewer;
-
-  - valid/invalid schema;
-
-  - review=false/no validator ModelCall;
-
-  - code tests pass/fail;
-
-  - stale test evidence;
-
-  - build output missing despite exit 0;
-
-  - runtime-required Task;
-
-  - independent validator required/same implementation rejection;
-
-  - validator unavailable ERROR;
-
-  - parallel checks;
-
-  - Project-specific visual/performance criteria;
-
-  - provenance wrong digest;
-
-  - required evidence missing;
-
-  - aggregation;
-
-  - stale candidate;
-
-  - model/tool ledger;
-
-  - separate evaluation dimensions;
-
-  - Project isolation.
-
-  P2 INTEGRATION CLOSURE
-
-  Run representative flow: Git source -> HTTP research -> Context/Retrieval -> model reasoning -> Workspace -> candidate change -> tests/build -> validation -> exact Artifact.
-
-  Inject process failure, stale source, provider unavailable, Workspace recovery, validation failure.
-
-  Verify completed durable work retained, no Project/quarantine leakage, no provider-specific kernel changes, and Task/Run/Graph unchanged.
-
-  P2 exits READY_FOR_P3 only from observed evidence.
+  No ambiguous base source, unrelated source changes, unexecuted PASS claims, build/runtime overclaims, lost recoverable candidate, globalized Project preferences, mandatory critic hierarchy, or domain-specific kernel changes.
 
   USEFUL EVIDENCE — NON-GATING
 
-  - P2 closes with real multi-adapter flow from exact Git source through context/model/workspace/build/test to validated final Artifact, with failures injected and durable work retained.
+  - At least one real repository change is usable/tested and produced through normal Biella Task/Graph/Workspace/Artifact/Validation systems.
 
   DELIVERABLES
 
@@ -475,11 +421,17 @@ canonical_prompt_text: |
 
   EVIDENCE TO REPORT
 
-  - P2 integration scenario and REAL/REFERENCE/MOCK/NOT_RUN classification per adapter.
+  - Exact commands/tests and pass/fail counts.
+
+  - Exact files/modules/migrations/interfaces changed.
+
+  - Observed KPI values and REAL/REFERENCE/MOCK/NOT_RUN classifications.
+
+  - Exact source commit, result commit/tree, known limitations, unresolved facts, and next dependency.
 
   Use this result block:
 
-  PROMPT: 31/51 - P2-12
+  PROMPT: 32/51 - P3-01
 
   STATUS: COMPLETE / PARTIAL / BLOCKED
 
