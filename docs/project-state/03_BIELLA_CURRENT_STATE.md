@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-29 13:32 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-29T13:32:17+02:00"
+state_timestamp_local: "2026-08-30 00:31 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-30T00:31:23+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: 575ff0683677234f4a8ff41e3eb703d4ea31112f
-    tree: 758f7a1e2bc67d7925307d5146fcdf4b6f52b046
+    commit: d1c578a467fb555835458c8ef42eb8cf31cfbcb4
+    tree: 7ba19f32a3980f004f56f3c869cda4b0a30fedd6
     observed_date: 2026-08-29
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p2_12_final_result_post_push_exact_readback
+    observation_context: p3_01_final_result_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: 575ff0683677234f4a8ff41e3eb703d4ea31112f
-    tree: 758f7a1e2bc67d7925307d5146fcdf4b6f52b046
+    head: d1c578a467fb555835458c8ef42eb8cf31cfbcb4
+    tree: 7ba19f32a3980f004f56f3c869cda4b0a30fedd6
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 31
+    durable_prompts_complete: 32
     durable_prompts_total: 51
     phase: P3
-    active_prompt: P3-01
-    active_prompt_title: Software Engineering Production Pack
+    active_prompt: P3-02
+    active_prompt_title: Web Application Production Pack
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -2046,6 +2046,104 @@ engine:
       src_biella_call_ledger: "blob e25dbe365e5b010965a69a47e67b0a5099f5de4c; size 98550; sha256 4ed513fdfec2e1679898121e5b464d7b15a6d0ab51b92da0b6650f115b0a2be4"
       src_biella_validation: "blob 2ee1b214fe8a654f0a37edce4181722bdd138741; size 82086; sha256 f53bc467fe469336406c29d08b4e7c84e65b13ae9076837dc51eeb7ea131f721"
       test_p2_12: "blob 6e25135f860dd49397df8dff8ab730ea5d458f6b; size 34050; sha256 54e36443bf32420555c12bb234961c6411f65caccec2b06475bb8e5253937d98"
+    p3_01_status: DURABLY_COMPLETE
+    p3_01_source_commit: 1096a2787077cc32386f5e2e9d84606899747b04
+    p3_01_preservation_commit: 26acd7bc46bc5ddf7cc2eaa58dcc2cc30ba9e078
+    p3_01_result_commit: d1c578a467fb555835458c8ef42eb8cf31cfbcb4
+    p3_01_result_tree: 7ba19f32a3980f004f56f3c869cda4b0a30fedd6
+    p3_01_remote_readback: VERIFIED
+    p3_01_implementation:
+      production_modules_added: 2
+      existing_modules_extended: 5
+      focused_pytest_cases: 9
+      migrations_added: 0
+      durable_state_tables_added: 2
+      pack_interface_surface: ProductionPackRef_GraphRecipeStepRegistration_GraphRecipeRegistration_ValidatorRegistration_ProductionPack_and_ProductionPackRegistry
+      software_capability_surface: software.inspect_search_architecture_engineer_modify_debug_refactor_test_build_run_profile_package_and_validate
+      registry_contract: immutable_bounded_provider_neutral_descriptor_with_atomic_Capability_pack_and_idempotency_registration
+      recipe_contract: optional_pack_data_over_existing_Graph_Capability_adapter_and_resource_interfaces_without_fixed_plan_coder_critic_validator_hierarchy
+      exact_source_contract: two_real_Project_scoped_Git_repositories_exact_base_commit_tree_unrelated_dirty_source_preservation_focused_retrieval_and_bounded_candidate_diff
+      build_runtime_contract: controlled_red_green_unittest_real_build_output_Artifact_real_runtime_output_and_exact_candidate_commit_tree
+      provenance_contract: one_same_required_role_exact_plan_subject_Artifact_must_chain_to_the_exact_candidate_Workspace_snapshot_Artifact
+      recovery_contract: captured_candidate_failed_and_passing_tests_build_output_runtime_output_file_modes_and_repository_identity_survive_service_restart_and_reconstruction
+      isolation_contract: repository_Workspace_context_configuration_and_evidence_remain_exact_Project_scoped
+      neutrality_contract: no_SoftwareTask_SoftwareRun_CodeAgentManager_global_software_worker_language_framework_provider_or_hardware_kernel_default
+    p3_01_validation:
+      focused_contract_pytest: "8 passed; 1 real-repository E2E deselected for separate execution; 0 failed; 0 skipped; 0.40s"
+      real_repository_e2e_pytest: "1 passed; 0 failed; 0 skipped; 91.01s"
+      affected_filesystem_workspace_validation_regression: "53 passed; 1 recursive exact-wheel gate deselected; 0 failed; 0 skipped; 131.20s"
+      broad_non_nested_regression: "542 passed; 19 exact recursive build/install qualification gates deselected; 137 subtests passed; 0 failed; 0 skipped; 734.64s"
+      exact_wheel_install_restart_gate: "1 passed; 0 failed; 0 skipped; 2.67s; exact top-level source-to-wheel path and byte parity plus isolated install/restart"
+      mypy_strict: "94 source/test files; 0 issues"
+      compileall: PASS
+      diff_check: PASS
+      test_quality_scan: "P3-01 skip, xfail, placeholder, TODO, FIXME, and NotImplemented hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      independent_review: "READY; no Critical or Important findings after atomicity, exact provenance, receipt integrity, mode recovery, adapter binding, focused context, and replay hardening"
+      remote_required_paths_and_bytes: "GitHub main ref, result commit, tree, eight required blob IDs, sizes, SHA256 bytes, exact raw contents, and two obsolete path absences independently read back and matched"
+    p3_01_kpi:
+      source_changes_without_exact_base: 0
+      unrelated_source_changes: 0
+      tests_claimed_PASS_without_execution: 0
+      build_claims_without_output: 0
+      candidate_work_lost_after_recoverable_failure: 0
+      domain_specific_kernel_changes: 0
+    p3_01_reality_classification:
+      SQLite_ProductionPack_Capability_and_idempotency_registry: REAL
+      exact_two_Project_Git_repository_inspection_and_scope_denial: REAL_CPU
+      focused_Retrieval_Context_compilation_with_ReferenceModelAdapter: REFERENCE_MODEL_WITH_REAL_CPU_DURABLE_EVIDENCE
+      controlled_failing_test_repair_passing_test_build_runtime_and_candidate_commit_tree: REAL_CPU
+      Workspace_capture_service_restart_reconstruction_and_file_mode_recovery: REAL_CPU
+      exact_wheel_build_install_import_restart_and_byte_parity: REAL_CPU
+      managed_model_or_hosting_provider_execution: NOT_RUN_NOT_REQUIRED
+      fallow_static_review: NOT_RUN_CLI_UNAVAILABLE
+    p3_01_qualification:
+      provider_neutral_ProductionPack_descriptor_and_exact_software_capabilities: VERIFIED
+      graph_recipes_validators_artifact_roles_adapter_bindings_and_resource_profiles_as_pack_data: VERIFIED
+      atomic_registration_idempotency_concurrency_immutability_restart_and_corruption_guards: VERIFIED
+      exact_base_commit_tree_unrelated_dirty_work_and_task_scoped_candidate_diff: VERIFIED
+      focused_source_retrieval_and_context_without_full_repository_dump: VERIFIED
+      controlled_red_green_test_build_output_runtime_and_exact_candidate_identity: VERIFIED
+      build_exit_zero_without_required_output_never_accepted: VERIFIED
+      exact_candidate_provenance_on_same_required_role_plan_subject_Artifact: VERIFIED
+      Workspace_receipt_snapshot_hash_identity_and_Artifact_role_binding: VERIFIED
+      legacy_replay_compatibility_and_exact_file_mode_recovery: VERIFIED
+      cross_Project_repository_Workspace_context_and_configuration_isolation: VERIFIED
+      captured_candidate_test_build_and_runtime_evidence_survives_restart: VERIFIED
+      domain_specific_kernel_types_or_defaults: ZERO
+    p3_01_known_limitations:
+      - the_real_acceptance_application_used_Python_unittest_and_a_deterministic_local_build_script; language_and_framework_specific_implementations_remain_pack_or_Project_registrations
+      - the_focused_Context_and_Retrieval_flow_used_the_provider_neutral_ReferenceModelAdapter; no_managed_model_provider_call_was_required
+      - no_external_deploy_package_registry_or_hosting_action_was_required_or_authorized
+      - fallow_CLI_was_unavailable; independent_adversarial_review_and_deterministic_graph_contract_tests_were_used
+      - immutable_history_contains_the_automatic_preservation_commit_followed_by_the_reviewed_finalization_commit; no_history_rewrite_was_performed
+    p3_01_schema_changes:
+      - production_packs
+      - production_pack_idempotency
+      - immutable_pack_and_idempotency_guards
+      - caller_owned_Capability_registry_transaction_path
+      - exact_Workspace_receipt_snapshot_and_build_Artifact_provenance_validation
+      - explicit_filesystem_write_mode_request_schema_v2_with_legacy_schema_v1_replay_compatibility
+    p3_01_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/capability.py
+      - src/biella/filesystem.py
+      - src/biella/production_pack.py
+      - src/biella/software_pack.py
+      - src/biella/validation.py
+      - src/biella/workspace.py
+      - tests/test_p3_01_software_pack.py
+    p3_01_remote_path_evidence:
+      src_biella_init: "blob 6aafc178b09a5d7d3c58a6365637081154fa7866; size 28575; sha256 4582d2c94eb4978182c53c10a2b1d28f6f0dabcac73b2931fcb381b5c70e873e"
+      src_biella_capability: "blob 8d734c96be7a25dd7735fb397317c1d63939605e; size 31688; sha256 458e4385a162c5ca8574dad0566fdc71e099fb28377b74cef0fc5d730e38b83c"
+      src_biella_filesystem: "blob 079a9952634ffbb2b5004d54f00505b832cb2604; size 86583; sha256 65bbbf623d5315ca3ad22ee03963a6e555d4e47be9a738b2bf81f1296cfb38de"
+      src_biella_production_pack: "blob 991e57c2d49493e5db478662f8a07bf41d41f026; size 31348; sha256 3510c0536c4bf68c57bdd77a2e5d54f98534fbd1f4d50a18a6166dd250b50a59"
+      src_biella_software_pack: "blob aa94ff78161fc42a425497700da08963e20fc392; size 8224; sha256 c38e67bcb48846f1728ce4346beed5cb2a181e8c76e390f660e75f3618e7a078"
+      src_biella_validation: "blob 74c001356cc9d2bb1ad34b2be3e6096dbf296763; size 90048; sha256 8240037ae40b0ade8f5e6d8c134d53206214c9cc4c0c45a40f2ca76f5e474f52"
+      src_biella_workspace: "blob 3ad68478a0d3f3c83ccb7195b4c49d9c90fbd8ce; size 128738; sha256 0b9da6b7fa147e0028029b483712763099c7786d5b6aa3e7a1c8bedd319cb244"
+      test_p3_01: "blob f6cf8164b028ab41e47805a914e135ebb690448e; size 46345; sha256 597ea138796736ef5f22659ff2243fc703738c40676f7f28ac16bbad51afc7ea"
+      obsolete_src_biella_packs_init: ABSENT
+      obsolete_src_biella_packs_software: ABSENT
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -2094,10 +2192,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P3-01
-    title: Software Engineering Production Pack
-    drive_id: 1KqL3RzBspIr8HVFtuoFfS5ew1hwVLSOIhMMimuf-9OE
-    canonical_prompt_text_sha256: 02bbdef4cfa4b965ddbf3ec61448a59c72961129eb325ff7cc5c02ea645b5ffd
+    id: P3-02
+    title: Web Application Production Pack
+    drive_id: 1tSP2q6J16nkag6m5j2rmLWIJRcKj9MncuMqriiio7sQ
+    canonical_prompt_text_sha256: 387b7431659a466cee56f028edf94eb48522cb18467c5df1a5077b4b93464518
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -2164,59 +2262,61 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P3-01
-  global_number: 32
-  title: Software Engineering Production Pack
-  prompt_drive_id: 1KqL3RzBspIr8HVFtuoFfS5ew1hwVLSOIhMMimuf-9OE
-  predecessor_result_commit: 575ff0683677234f4a8ff41e3eb703d4ea31112f
-  predecessor_result_tree: 758f7a1e2bc67d7925307d5146fcdf4b6f52b046
+  id: P3-02
+  global_number: 33
+  title: Web Application Production Pack
+  prompt_drive_id: 1tSP2q6J16nkag6m5j2rmLWIJRcKj9MncuMqriiio7sQ
+  predecessor_result_commit: d1c578a467fb555835458c8ef42eb8cf31cfbcb4
+  predecessor_result_tree: 7ba19f32a3980f004f56f3c869cda4b0a30fedd6
 
 next_transition:
-  - verify_P2_12_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P3_01_prompt_and_directly_required_Capability_Graph_Git_Workspace_Process_Model_Context_Validation_Artifact_Resource_and_Project_interfaces_only
-  - define_provider_neutral_ProductionPack_descriptor_as_pack_data_without_SoftwareTask_SoftwareRun_CodeAgentManager_or_kernel_domain_defaults
-  - register_software_inspect_search_architecture_engineer_modify_debug_refactor_test_build_run_profile_package_and_validate_capabilities
-  - register_graph_recipes_validator_refs_artifact_roles_adapter_bindings_and_resource_profiles_on_existing_universal_substrate
-  - bind_exact_RepositoryRef_base_commit_tree_Project_architecture_acceptance_Task_candidate_Workspace_and_test_build_runtime_receipts
-  - preserve_unrelated_dirty_work_and_keep_framework_toolchain_package_manager_and_Project_conventions_scoped_to_Project_data
-  - use_focused_Git_Filesystem_Context_retrieval_and_reproduce_real_failure_before_bounded_repair
-  - execute_real_repository_inspect_bounded_change_controlled_failure_TDD_repair_tests_build_or_runtime_and_exact_candidate_commit_tree_flow
-  - prove_worker_loss_preserves_captured_candidate_and_completed_test_evidence_and_stale_owners_results_are_rejected
-  - prove_two_Project_repository_scope_context_and_preferences_do_not_cross_contaminate_where_practical
-  - record_observed_test_build_runtime_Artifacts_and_never_accept_exit_zero_without_required_output
-  - keep_expected_domain_specific_kernel_modifications_at_zero
+  - verify_P3_01_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P3_02_prompt_and_directly_required_ProductionPack_Software_HTTP_Browser_PostgreSQL_Process_Workspace_Git_Validation_Artifact_Project_and_resource_interfaces_only
+  - register_web_inspect_frontend_backend_fullstack_component_route_api_database_integrate_build_run_test_browser_validate_performance_accessibility_and_package_capabilities_as_pack_data
+  - register_web_graph_recipes_validators_artifact_roles_adapter_bindings_and_resource_profiles_without_framework_design_database_runtime_or_hosting_kernel_defaults
+  - discover_actual_framework_runtime_package_manager_build_routing_tests_database_environment_and_entrypoint_from_exact_source
+  - preserve_Project_visual_brand_framework_database_runtime_hosting_and_secret_authority_as_Project_or_Task_data
+  - execute_at_least_one_real_app_inspect_bounded_defect_red_green_repair_test_build_start_HTTP_browser_and_final_package_flow
+  - bind_live_HTTP_and_browser_evidence_to_the_exact_candidate_runtime_and_keep_build_runtime_HTTP_browser_visual_performance_and_accessibility_evidence_distinct
+  - capture_console_runtime_and_required_network_failure_evidence_without_globalizing_irrelevant_third_party_warnings
+  - prove_browser_or_runtime_crash_recovery_preserves_source_build_and_completed_test_evidence
+  - prove_two_Projects_with_different_framework_or_database_configs_coexist_without_cross_Project_leakage
+  - keep_expected_framework_specific_kernel_fields_and_Project_design_or_database_defaults_at_zero
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P3_01_before_opening_P3_02
+  - close_P3_02_before_opening_P3_03
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - create_SoftwareTask_SoftwareRun_CodeAgentManager_global_software_worker_or_second_coding_agent_system
+  - create_WebTask_WebRun_WebAgentManager_global_web_worker_or_second_web_application_architecture
   - mutate_ambiguous_or_mutable_source_without_exact_RepositoryRef_base_commit_and_tree
   - overwrite_or_revert_unrelated_dirty_Project_work
-  - dump_entire_repository_into_model_context_by_default
-  - redesign_before_reproducing_or_inspecting_real_failure_evidence
-  - force_plan_coder_critic_validator_hierarchy_or_fixed_repair_count
-  - claim_test_build_runtime_profile_or_performance_PASS_without_observed_evidence
-  - accept_build_exit_zero_without_required_build_Artifact
-  - substitute_build_evidence_for_required_runtime_behavior
-  - switch_framework_or_package_manager_without_Task_requirement
+  - impose_universal_React_Vue_Svelte_backend_framework_CSS_database_JS_runtime_or_hosting_preference
+  - use_historical_Project_assumptions_over_exact_repository_framework_runtime_build_or_entrypoint_evidence
+  - rewrite_framework_or_package_manager_without_Task_requirement
+  - claim_live_runtime_HTTP_browser_visual_performance_accessibility_or_package_success_from_build_only
+  - validate_browser_behavior_without_an_exact_live_candidate_runtime
+  - treat_screenshot_only_as_behavioral_proof
+  - globalize_Project_visual_brand_design_framework_database_runtime_or_hosting_rules
+  - persist_API_database_or_session_secrets_in_source_prompt_Event_or_Artifact
   - execute_production_database_migration_merely_because_a_migration_file_exists
-  - globalize_Project_framework_architecture_preferences_or_Run_output_into_Engine_defaults
-  - lose_captured_candidate_completed_tests_or_build_outputs_after_recoverable_worker_failure
+  - deploy_externally_without_explicit_Task_authority
+  - claim_complete_accessibility_certification_from_one_automated_scan
+  - impose_global_performance_thresholds_without_Project_criteria
+  - lose_captured_candidate_completed_tests_or_build_package_outputs_after_browser_or_runtime_failure
   - accept_stale_Workspace_Run_Graph_Node_attempt_owner_or_result
-  - add_language_framework_provider_or_domain_specific_kernel_defaults
-  - use_only_mocked_code_strings_instead_of_a_real_repository_end_to_end_task
+  - add_web_framework_design_database_runtime_hosting_provider_or_domain_specific_kernel_defaults
+  - use_only_mocked_HTML_or_response_strings_instead_of_a_real_runnable_application_end_to_end_task
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P3_01_before_P2_12_durable_close
+  - start_P3_02_before_P3_01_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture
