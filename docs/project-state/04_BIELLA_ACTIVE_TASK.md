@@ -4,56 +4,57 @@
 schema: biella.active_task/v3
 
 task:
-  id: P2-09
-  global_number: 28
+  id: P2-10
+  global_number: 29
   phase: P2
-  title: Replaceable Durable Object Storage Backends and Replicas
-  state: READY_AFTER_P2_08_DURABLE_CLOSE
+  title: Project-Scoped Context Compilation and Derived Retrieval
+  state: READY_AFTER_P2_09_DURABLE_CLOSE
   exact_prompt:
-    title: 28_P2-09_Replaceable_Durable_Object_Storage_Backends_and_Replicas.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/28_P2-09_Replaceable_Durable_Object_Storage_Backends_and_Replicas.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/28_P2-09_Replaceable_Durable_Object_Storage_Backends_and_Replicas.md.docx
-    drive_id: 1lv_zCYOyP8L3RZev-Wtlyy_RpMyOri4GETYCvO3eNHE
-    local_docx_sha256: 6717f97c613371d35d45f08a20d7f08638125131f282cda653229383dd3b1b1a
-    live_drive_exported_docx_sha256: 5f5d4efa6d1a45942362cc6abcee1d9ce86631511259225018f9681c8c42fe75
-    canonical_text_sha256: ab9ab127347220ae14e98d43fcfe673fc446a088421090dc29e5262d405017c4
+    title: 29_P2-10_Project_Scoped_Context_Compilation_and_Derived_Retrieval.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/29_P2-10_Project_Scoped_Context_Compilation_and_Derived_Retrieval.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/29_P2-10_Project_Scoped_Context_Compilation_and_Derived_Retrieval.md.docx
+    drive_id: 1x04_Hu20eHm8NwGu7Gliuhn4EVgPLkxzLxLzPkVZueM
+    local_docx_sha256: 40f77067ba32bbc379be5fa5e7cd539206209f0eb423b7389859dd2372c075a2
+    live_drive_exported_docx_sha256: ed07ff107e12340696bff86fdfe51ac106141fefd27f5c841ab5d851ba5a5a1e
+    canonical_text_sha256: 52662218cf06d7c41c36c1fd1c22b01e9f850fed30af142391dd0f5421b9cffe
     canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P2-08
-    result_commit: fcc954bfc2be3fae7f01986311eda2b6fd92e300
-    result_tree: 3d54e11466499eb6d62729a50e0e29e9ba659da8
+    id: P2-09
+    result_commit: 03ea21dbd22466470d07a674fd330ad68009d756
+    result_tree: 5663d2b02872fd0bdc1fb10320e2012e63122345
     remote_readback: VERIFIED
     remote_required_paths_and_bytes: VERIFIED
-    focused_real_postgresql_type_build_installed_restart_and_full_regression: VERIFIED
-  numbered_successor: P2-10
+    focused_type_build_installed_restart_and_full_regression: VERIFIED
+  numbered_successor: P2-11
 
 execution_boundary:
   start_only_after_predecessor_durable_close: satisfied
   load_only:
-    - exact_P2_09_canonical_prompt
+    - exact_P2_10_canonical_prompt
     - current_state_and_active_task_continuity
-    - accepted_ContentRef_ContentLocation_ObjectStorageBackend_Artifact_Project_Task_policy_and_quarantine_firewall_interfaces_directly_required
+    - accepted_Task_Run_Graph_Node_Artifact_ProjectKnowledge_EngineKnowledge_RunMemory_ModelCall_ContentRef_and_quarantine_firewall_interfaces_directly_required
     - directly_touched_source_and_task_scoped_tests
   do_not_open:
-    - P2_10_or_later_prompt_bodies_before_P2_09_durable_close
+    - P2_11_or_later_prompt_bodies_before_P2_10_durable_close
     - unrelated_historical_backup_or_legacy_material
   preserve:
     - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ModelCall_ToolCall_Event_ResourceAllocation_and_managed_runtime_identity
-    - P1_01_ContentRef_provider_neutral_object_storage_exact_digest_streaming_and_physical_location_separation_contracts
+    - P1_ContentRef_object_storage_Project_Engine_Run_memory_graph_event_scheduler_routing_and_checkpoint_contracts
     - P2_01_through_P2_04_real_execution_adapter_isolation_streaming_fencing_and_durability_contracts
     - P2_05_destination_egress_credential_redirect_streaming_timeout_cancellation_TLS_and_transport_evidence_contracts
     - P2_06_provider_neutral_model_deployment_execution_health_tool_policy_fencing_and_provenance_contracts
     - P2_07_browser_session_generation_egress_origin_side_effect_upload_download_wait_secret_and_durable_evidence_contracts
     - P2_08_Project_database_scope_parameterization_bounded_streaming_transaction_truth_TLS_secret_and_internal_database_firewall_contracts
+    - P2_09_ContentRef_replica_state_streaming_independent_verification_corruption_fallback_repair_deletion_Project_egress_secret_and_stale_owner_contracts
     - all_earlier_isolation_provenance_durability_routing_scheduler_and_quarantine_firewall_contracts
 
 canonical_prompt_text: |
-  PROMPT 28/51 - P2-09
+  PROMPT 29/51 - P2-10
 
   TITLE
 
-  Replaceable Durable Object Storage Backends and Replicas
+  Project-Scoped Context Compilation and Derived Retrieval
 
   PHASE
 
@@ -61,7 +62,7 @@ canonical_prompt_text: |
 
   GOAL
 
-  Extend P1 content storage across multiple durable physical backends/replicas while preserving one ContentRef identity and per-replica integrity/health.
+  Compile exact model-visible context from permitted Task/Project/Run/Engine sources and build derived retrieval indexes with full provenance, Project/quarantine isolation, explicit context budgets, and rebuildability.
 
   CURRENT VERIFIED STATE
 
@@ -79,7 +80,7 @@ canonical_prompt_text: |
 
   DEPENDENCIES
 
-  - Prompt 27/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
+  - Prompt 28/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
 
   - All earlier accepted contracts used by this task; inspect the repository instead of assuming interface names.
 
@@ -95,15 +96,15 @@ canonical_prompt_text: |
 
   IN SCOPE
 
-  - Add/qualify a second backend such as S3-compatible/MinIO/reference using existing ObjectStorageBackend.
+  - Create ContextManifest and ContextReceipt binding exact Task/Run/Node, included/excluded refs, Project/Engine Knowledge, Run state, tool outputs, retrieval scope, data/egress policy, token budget and content digest.
 
-  - Track ContentLocation state per backend; replication streams from verified source, verifies target read-back, then marks AVAILABLE.
+  - Implement source Artifact -> versioned extraction/chunking -> embedding -> index with exact source/chunker/model/runtime provenance; indexes are derived Cache.
 
-  - Read selects healthy verified replicas; corrupt/missing replica is isolated and another may serve/repair.
+  - Search must prefilter Project/source scope; optional rerank preserves candidate identity and ModelCalls.
 
-  - Interrupted/cancelled upload never becomes AVAILABLE; backend URI/ETag is not ContentRef authority.
+  - Source revalidation prevents stale index activation; build->verify->activate keeps old valid index on failed replacement.
 
-  - Physical replica deletion remains distinct from logical Artifact/object deletion.
+  - Context over-budget handling is explicit: exclusion/reduction evidence or CONTEXT_LIMIT, never silent truncation.
 
   OUT OF SCOPE
 
@@ -113,27 +114,31 @@ canonical_prompt_text: |
 
   REQUIRED IMPLEMENTATION
 
-  - Add/qualify a second backend such as S3-compatible/MinIO/reference using existing ObjectStorageBackend.
+  - Create ContextManifest and ContextReceipt binding exact Task/Run/Node, included/excluded refs, Project/Engine Knowledge, Run state, tool outputs, retrieval scope, data/egress policy, token budget and content digest.
 
-  - Track ContentLocation state per backend; replication streams from verified source, verifies target read-back, then marks AVAILABLE.
+  - Implement source Artifact -> versioned extraction/chunking -> embedding -> index with exact source/chunker/model/runtime provenance; indexes are derived Cache.
 
-  - Read selects healthy verified replicas; corrupt/missing replica is isolated and another may serve/repair.
+  - Search must prefilter Project/source scope; optional rerank preserves candidate identity and ModelCalls.
 
-  - Interrupted/cancelled upload never becomes AVAILABLE; backend URI/ETag is not ContentRef authority.
+  - Source revalidation prevents stale index activation; build->verify->activate keeps old valid index on failed replacement.
 
-  - Physical replica deletion remains distinct from logical Artifact/object deletion.
+  - Context over-budget handling is explicit: exclusion/reduction evidence or CONTEXT_LIMIT, never silent truncation.
 
   REQUIRED INTERFACES
 
-  - ContentLocation
+  - ContextManifest
 
-  - replicateContent
+  - ContextReceipt
 
-  - replica selection/verify/repair
+  - RetrievalIndex
+
+  - RetrievalReceipt
+
+  - chunker/index/search/rerank services
 
   DATA / STATE CHANGES
 
-  - Per-backend replica status/verification.
+  - Derived index/version/cache plus durable context/retrieval receipts.
 
   FAILURE BEHAVIOR
 
@@ -149,207 +154,281 @@ canonical_prompt_text: |
 
   TESTS
 
-  - Local + second backend same ContentRef.
+  - Compile deterministic context and receipt.
 
-  - Replicate/read-back/restart.
+  - Project Beta and quarantine hostile source never appear.
 
-  - Corrupt backend A falls back to B and is marked corrupt.
+  - Index build/search/rerank with provenance.
 
-  - Interrupted upload safe.
+  - Source changes during build -> stale/not activated.
 
-  - Large streamed replication/cancel.
+  - Delete index/cache -> authoritative Memory/source survive and index rebuilds.
 
-  - Quarantine/active authorization remains distinct even if physical bytes dedupe.
+  - Budget overflow records exclusions/reduction.
 
   KPI
 
-  - content_identity_changes_across_backends=0
+  - cross_project_retrieval_results=0
 
-  - unverified_replica_AVAILABLE=0
+  - quarantine_retrieval_results=0
 
-  - corrupt_replica_served=0
+  - chunks_without_source_provenance=0
 
-  - partial_upload_AVAILABLE=0
+  - stale_indexes_activated=0
 
-  - Artifact_identity_tied_to_URI=0
+  - silent_context_truncations=0
 
-  - backend_credentials_leaked=0
+  - cache_loss_causes_memory_loss=0
 
   RESTORED LONG-FORM REQUIREMENTS
 
-  EXTEND P1 CONTENT STORE; DO NOT REDEFINE CONTENT IDENTITY
+  CONTEXT IS A COMPILED EXECUTION OBJECT
 
-  P1-01 already owns ContentRef.
+  Do not dump all memory/source into every model call.
 
-  P2-09 adds replaceable physical backends/replicas.
+  Compile only permitted context for exact Task/Node.
 
-  Prove:
+  Conceptual flow:
 
-  Content identity != backend != URI
+  Task + Node
 
-  Same bytes B always produce same SHA-256 ContentRef X across backends.
+  -> Context Requirements
 
-  BACKENDS
+  -> permitted explicit inputs
 
-  At least:
+  -> Project Knowledge
 
-  1.  P1 local filesystem backend;
+  -> applicable Engine Knowledge
 
-  2.  a second independent durable/reference backend.
+  -> Run state
 
-  Use real S3-compatible/MinIO/remote storage if available; otherwise use faithful second implementation and label evidence REFERENCE.
+  -> retrieval evidence
 
-  CONTENT LOCATION
+  -> Tool outputs
 
-  Represent per-backend state:
+  -> budget/admission
 
-  ContentLocation:
+  -> ContextManifest
 
-  content_digest
+  -> Context content object
 
-  backend_id
+  -> ContextReceipt
 
-  storage_locator
+  CONTEXT MANIFEST
 
-  state
+  Support fields equivalent to:
 
-  size
+  - manifest ID;
 
-  verified_at
+  - Project/Task revision/Run/Graph/Node;
 
-  created_at
+  - objective/input contract refs;
 
-  failure_ref?
+  - explicit input refs;
 
-  States such as: AVAILABLE, VERIFYING, CORRUPT, MISSING, UPLOADING, FAILED.
+  - Project Knowledge refs;
 
-  REPLICATION
+  - Engine Knowledge refs;
 
-  replicateContent(ref,target) should:
+  - Run refs;
 
-  1.  choose verified source replica;
+  - retrieval scope;
 
-  2.  stream;
+  - Tool output refs;
 
-  3.  upload to target as non-available/in-progress;
+  - data/egress policy;
 
-  4.  verify target content independently/read back;
+  - context budget;
 
-  5.  mark AVAILABLE only after exact digest success.
+  - reduction policy;
 
-  Do not trust provider success or ETag as SHA-256 unless provider explicitly guarantees equivalent digest semantics.
+  - deterministic manifest digest.
 
-  READ SELECTION
+  Do not embed route/provider facts unless required semantically.
 
-  When multiple replicas:
+  CONTEXT RECEIPT
 
-  - only verified healthy replicas eligible;
+  Receipt describes exactly what actually reached model/tool:
 
-  - deterministic current selection may consider local/remote availability;
+  - manifest ID/digest;
 
-  - corrupt replica marked CORRUPT;
+  - context ContentRef/digest;
 
-  - fallback to another healthy replica.
+  - included refs;
 
-  P4 learns ranking later.
+  - excluded refs;
 
-  PARTIAL / INTERRUPTED UPLOAD
+  - retrieval refs;
 
-  Partial target never becomes AVAILABLE.
+  - tool refs;
 
-  Cancellation leaves FAILED/MISSING/incomplete state.
+  - exact/estimated token count + source;
 
-  CORRUPTION / REPAIR
+  - reduction evidence;
 
-  On digest mismatch:
+  - created_at.
 
-  - record/mark replica CORRUPT;
+  Significant ModelCall should reference ContextReceipt.
 
-  - do not serve it;
+  Do not store giant prompt text directly in DB rows.
 
-  - preserve evidence;
+  CANONICALIZATION
 
-  - optionally repair from healthy verified replica.
+  Deterministic ordering for set-like refs, stable serialization, no locale dependence. Reject malformed/duplicate refs as appropriate.
 
-  Do not overwrite corruption before recording the event/evidence.
+  PROJECT / QUARANTINE ISOLATION
 
-  LOCAL + REMOTE ROLE
+  Alpha context cannot include Beta:
 
-  Architecture should support:
+  - ProjectKnowledge;
 
-  - local NVMe replica for high-I/O work;
+  - Artifact;
 
-  - remote durable warehouse replica.
+  - Run Memory;
 
-  Do not force execution directly against remote warehouse.
+  - retrieval chunks;
 
-  RESTORE
+  - Tool outputs.
 
-  Missing local replica + healthy remote: restore local with same ContentRef.
+  Normal Context Compiler must have no raw quarantine API path.
 
-  No new logical Artifact.
+  Use hostile quarantine fixture and prove absence.
 
-  REPLICA DELETION VS LOGICAL DELETION
+  RETRIEVAL PIPELINE
 
-  Deleting physical replica is not deleting Artifact/ContentObject.
+  Derived:
 
-  Do not implement global GC/retention policy without reference completeness.
+  authoritative source
 
-  PROJECT / QUARANTINE AUTHORIZATION
+  -> extract
 
-  Backend may dedupe bytes physically.
+  -> chunk
 
-  Logical authorization remains through Artifact/Project/Quarantine type.
+  -> embed
 
-  Same digest in quarantine and active store does not activate historical content.
+  -> index
 
-  CREDENTIALS / EGRESS
+  Every chunk retains:
 
-  Remote credentials are secret refs. Apply Project egress/network policy.
+  - Project;
 
-  METRICS
+  - source Artifact ID;
 
-  Collect: upload/download bytes, throughput, verification/replication latency, failures, corruption, backend health.
+  - source digest/revision;
 
-  P4 may consume later.
+  - chunker version;
 
-  TESTS
+  - ordinal/offset;
 
-  - same ContentRef local and backend B;
+  - chunk digest;
 
-  - local→B replication;
+  - index version;
 
-  - target read-back;
+  - embedding implementation/runtime.
 
-  - restart/read B;
+  RETRIEVAL INDEX
 
-  - Artifact identity unchanged;
+  Versioned RetrievalIndex with:
 
-  - corrupt A then fallback B;
+  - Project/source scope;
 
-  - A marked CORRUPT;
+  - index/chunker version;
 
-  - repair A if implemented;
+  - embedding capability/implementation/runtime;
 
-  - interrupted/cancelled upload never AVAILABLE;
+  - dimension/metric;
 
-  - unavailable target doesn't invalidate other replica;
+  - BUILDING/READY/STALE/FAILED;
 
-  - large streaming;
+  - timestamps.
 
-  - replica deletion with another verified copy;
+  Index is derived/cache-like.
 
-  - provider credential scan;
+  Deleting it cannot delete source truth.
 
-  - ETag not trusted as SHA;
+  BUILD -> VERIFY -> ACTIVATE
 
-  - quarantine authorization distinct;
+  Build replacement index separately.
 
-  - Beta cannot use digest to bypass Artifact access.
+  If replacement fails, keep current READY index.
+
+  If source changes during build, replacement must not activate current.
+
+  SEARCH
+
+  Scope comes from Project/Task/ContextManifest.
+
+  Model/query cannot widen scope.
+
+  Prefilter Project/source/current index before materializing candidates.
+
+  Bound candidate count.
+
+  EMBEDDING
+
+  Use P2-06.
+
+  Validate finite vectors, dimension, cardinality, exact deployment/runtime.
+
+  RERANK
+
+  Optional P2-06 rerank.
+
+  Preserve candidate-set identity, reranker identity, order/scores, request receipt.
+
+  Reranker cannot add out-of-scope candidates.
+
+  RETRIEVAL RECEIPT
+
+  Persist query ref, scope, index refs, candidates, reranked refs, embedding/reranker identities, scores, exact Run/Node.
+
+  SOURCE REVALIDATION
+
+  Around external embedding/rerank: bind source digest before; revalidate after if currentness required.
+
+  Changed source -> stale/rebuild, no current activation.
+
+  CONTEXT BUDGET
+
+  Do not silently truncate.
+
+  When over budget:
+
+  - exclude according to explicit policy;
+
+  - reduce/summarize only if allowed;
+
+  - record exclusion/reduction evidence;
+
+  - if required content cannot fit, return CONTEXT_LIMIT/BLOCKED.
+
+  Never silently drop authority-critical requirements.
+
+  TOKEN COUNT
+
+  Exact tokenizer count when available, otherwise clearly labelled estimate.
+
+  Do not call byte/4 exact.
+
+  CACHE
+
+  Chunks/embeddings/indexes/parses are rebuildable.
+
+  Delete them: Project/Engine Memory and source Artifacts remain; retrieval rebuilds.
+
+  CONCURRENCY / CANCEL
+
+  Independent source ingestion/indexing can run concurrently.
+
+  Cancel partial build -> index not READY.
+
+  TEST MATRIX
+
+  Cover Manifest/Receipt/digests; Alpha/Beta; hostile quarantine; ingest/chunk/embed; invalid embedding; source changes during build; failed replacement preserves old READY; index deletion/rebuild; scoped search; rerank validity; duplicate relative-path source roots; explicit context over-budget exclusions/reduction; no silent truncation; concurrent indexing; cancellation; ModelCall link.
 
   USEFUL EVIDENCE — NON-GATING
 
-  - Identical bytes retain identical content identity across storage technologies; one replica failure does not destroy a healthy multi-replica object.
+  - Every significant model-visible context can be explained by exact receipts; retrieval remains derived and Project-scoped.
 
   DELIVERABLES
 
@@ -371,7 +450,7 @@ canonical_prompt_text: |
 
   Use this result block:
 
-  PROMPT: 28/51 - P2-09
+  PROMPT: 29/51 - P2-10
 
   STATUS: COMPLETE / PARTIAL / BLOCKED
 
@@ -408,4 +487,5 @@ canonical_prompt_text: |
   - Leave the repository/worktree in an understood state and report any intentional dirty/uncommitted files.
 
   - The next prompt must verify this handoff from actual repository state before editing.
+
 ```

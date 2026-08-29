@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-29 07:59 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-29T07:59:51+02:00"
+state_timestamp_local: "2026-08-29 08:39 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-29T08:39:36+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: fcc954bfc2be3fae7f01986311eda2b6fd92e300
-    tree: 3d54e11466499eb6d62729a50e0e29e9ba659da8
+    commit: 03ea21dbd22466470d07a674fd330ad68009d756
+    tree: 5663d2b02872fd0bdc1fb10320e2012e63122345
     observed_date: 2026-08-29
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p2_08_final_result_post_push_exact_readback
+    observation_context: p2_09_final_result_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: fcc954bfc2be3fae7f01986311eda2b6fd92e300
-    tree: 3d54e11466499eb6d62729a50e0e29e9ba659da8
+    head: 03ea21dbd22466470d07a674fd330ad68009d756
+    tree: 5663d2b02872fd0bdc1fb10320e2012e63122345
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 27
+    durable_prompts_complete: 28
     durable_prompts_total: 51
     phase: P2
-    active_prompt: P2-09
-    active_prompt_title: Replaceable Durable Object Storage Backends and Replicas
+    active_prompt: P2-10
+    active_prompt_title: Project-Scoped Context Compilation and Derived Retrieval
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -1667,6 +1667,98 @@ engine:
       test_p2_08: "blob 762118d1bf549a6e3df1bbb72b8eb6838b8dee57; size 35737; sha256 f0babedd9044b959baeaa61752dfbaa5d7e07346894775d3c88901519c0ab04c"
       installed_writer: "blob d57024993bb1773a50aa2a4c35993d3113bed5a4; size 5759; sha256 14ee8e7eb167176788f73ee4f2b9f63d58440437b3c7e060bdc4cd329091bc5d"
       installed_reader: "blob 79b56495d1a8ed88ed552a2ca799a30f025aa648; size 1553; sha256 eacc3545f47398552e91029c9d3e14782a65a5b2de9cc1d24dcb21b59b79b87a"
+    p2_09_status: DURABLY_COMPLETE
+    p2_09_source_commit: eab63a9b743383beda8be2c6e39aeaa0381f1b31
+    p2_09_result_commit: 03ea21dbd22466470d07a674fd330ad68009d756
+    p2_09_result_tree: 5663d2b02872fd0bdc1fb10320e2012e63122345
+    p2_09_remote_readback: VERIFIED
+    p2_09_implementation:
+      production_modules_added: 1
+      existing_modules_extended: 2
+      public_exports_added: 12
+      focused_pytest_cases: 14
+      installed_restart_programs_added: 2
+      migrations_added: 0
+      durable_state_tables_added: 7
+      independent_reference_backend_tables_added: 1
+      adapter_surface: FilesystemObjectStorageBackend_and_SQLiteObjectStorageBackend
+      coordinator_surface: ReplicatedObjectStore_registerArtifactReplica_replicateContent_readArtifact_openArtifact_locations_observationHistory_repairReplica_deleteReplica_cancelReplication_and_metrics
+      identity_contract: one_P1_ContentRef_across_all_backends_with_ContentLocation_physical_state_excluded_from_Artifact_and_ContentObject_identity
+      authorization_contract: exact_ProjectAccess_and_ArtifactRef_gate_all_logical_reads_replication_repair_deletion_and_cancellation_with_no_digest_only_or_raw_quarantine_entrypoint
+      replica_state_contract: append_only_UPLOADING_VERIFYING_AVAILABLE_CORRUPT_MISSING_FAILED_observations_with_integrity_digests_and_durable_heads
+      concurrency_contract: durable_per_Project_content_target_fences_reject_superseded_uploaders_and_cancelled_or_stale_results_never_publish_AVAILABLE
+      verification_contract: bounded_streaming_and_independent_target_readback_digest_and_size_verification_without_provider_success_ETag_or_verify_claim_authority
+      backend_mapping: ContentLocation.storage_locator_semantics_use_accepted_P1_locator_field_and_size_semantics_use_size_bytes
+    p2_09_validation:
+      focused_pytest: "14 passed; 0 failed; 0 skipped; 3.55s final exact-tree run including durable restart, cancellation, concurrency fencing, exact wheel, install, and separate installed restart"
+      predecessor_storage_regression: "34 passed; 26 subtests passed; 0 failed; 0 skipped; 59.68s across P1-01 and P2-09"
+      broad_non_nested_regression: "487 passed; 27 recursive qualification gates deselected; 127 subtests passed; 0 failed; 0 skipped; 489.66s"
+      mypy_strict: "85 source/test files; 0 issues"
+      compileall: PASS
+      diff_check: PASS
+      test_quality_scan: "P2-09 skip, placeholder, TODO, FIXME, and NotImplemented executable-test hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      credential_scan: "raw provider credential identifiers or values in P2-09 runtime and durable evidence: 0"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 e47588bf76652a1204428c4ce8e25cb3469d70e9a5c57f2b96b60086b6c08387; all 29 packaged biella Python source paths exactly matched source bytes"
+      installed_wheel_restart: "separate installed-package writer and reader shared durable Biella state, filesystem storage, and SQLite reference storage; local replica was physically deleted and exact Artifact and remote replica bytes remained readable after restart"
+      remote_required_paths_and_bytes: "GitHub main ref, final commit, tree, six blob IDs, sizes, SHA256 bytes, and exact raw contents independently read back and matched"
+      adversarial_review: "PASS after cross-Project Artifact denial, raw quarantine type denial, hostile-byte inertness, corruption-before-fallback, provider success and verify-claim distrust, unavailable target isolation, pre-request and live cancellation, stale-owner fencing, physical deletion guard, exact restart, credential-reference validation, and active-runtime quarantine scan"
+      fallow_review: "NOT_RUN; fallow CLI unavailable on host; deterministic adversarial tests, strict typing, and manual trust-boundary review used"
+    p2_09_kpi:
+      content_identity_changes_across_backends: 0
+      unverified_replica_AVAILABLE: 0
+      corrupt_replica_served: 0
+      partial_upload_AVAILABLE: 0
+      Artifact_identity_tied_to_URI: 0
+      backend_credentials_leaked: 0
+    p2_09_reality_classification:
+      ReplicatedObjectStore_coordination_and_durable_replica_state: REAL
+      FilesystemObjectStorageBackend_local_replica: REAL
+      SQLiteObjectStorageBackend_second_independent_durable_backend: REFERENCE
+      S3_compatible_MinIO_or_remote_object_storage: UNAVAILABLE_NOT_REQUIRED_faithful_reference_backend_used
+      provider_ETag_or_success_integrity_claim: REJECTED_AS_AUTHORITY
+      fallow_static_review: NOT_RUN_CLI_UNAVAILABLE
+    p2_09_qualification:
+      P1_ContentRef_identity_across_filesystem_and_second_backend: VERIFIED
+      ContentLocation_per_backend_state_size_locator_verified_created_and_failure_evidence: VERIFIED
+      verified_source_stream_upload_independent_readback_and_AVAILABLE_only_after_exact_digest: VERIFIED
+      deterministic_healthy_selection_corruption_recording_fallback_and_repair: VERIFIED
+      missing_local_restore_with_same_ContentRef_and_no_new_Artifact: VERIFIED
+      unavailable_interrupted_cancelled_and_stale_uploads_never_AVAILABLE: VERIFIED
+      physical_replica_deletion_distinct_from_Artifact_or_ContentObject_deletion: VERIFIED
+      exact_Project_Artifact_remote_egress_secret_ref_and_quarantine_firewall_authority: VERIFIED
+      durable_restart_idempotency_observation_integrity_transfer_fencing_and_metrics: VERIFIED
+      raw_QuarantineRef_runtime_dependency: 0
+    p2_09_known_limitations:
+      - no_reachable_scoped_S3_compatible_MinIO_or_remote_object_store_was_available; the_second_backend_is_an_explicit_durable_SQLite_REFERENCE_implementation_not_a_claimed_remote_service
+      - provider_credential_resolution_and_network_transport_are_backend_responsibilities; network_registrations_require_exact_Project_secret_and_egress_refs_before_use
+      - deterministic_replica_selection_uses_static_priority_then_backend_id; adaptive_cost_latency_and_locality_ranking_remain_for_P4
+      - physical_replica_deletion_requires_another_verified_copy; global_GC_retention_and_reference_completeness_are_intentionally_not_implemented
+      - SQLite_reference_storage_is_for_contract_fidelity_and_restart_evidence_not_remote_warehouse_performance
+    p2_09_schema_changes:
+      - replica_backends
+      - content_replica_observations
+      - content_replica_heads
+      - replica_cancellations
+      - replica_transfer_events
+      - replica_transfer_heads
+      - replica_metric_events
+      - object_storage_objects_in_independent_reference_backend_database
+      - append_only_observation_metric_and_transfer_event_guards_plus_monotonic_fenced_heads
+    p2_09_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/object_store.py
+      - src/biella/replicated_object_store.py
+      - tests/test_p2_09_replicated_object_store.py
+      - tests/fixtures/p2_09_installed_writer.py
+      - tests/fixtures/p2_09_installed_reader.py
+    p2_09_remote_path_evidence:
+      src_biella_init: "blob d3dff59e51a5e7735e11b939ebde19293116d96a; size 23774; sha256 0b63b1dd2339f226907d7e42d3048d094a8178773d7d514ed7c795f4bebd4cb8"
+      src_biella_object_store: "blob 542ec2643f38c23cc506909abad7f526d8c63808; size 28750; sha256 7ee1c8066277d85d5c00bb3a67ece0da75367140160eff14ae27ffdfcd4683f4"
+      src_biella_replicated_object_store: "blob f2096e71e91f31466b39d0cf10aabaaecf71667b; size 63719; sha256 ce3f15caabb8932758526f78b91b73efdfc8c6338a4e97c111c966e310f9d545"
+      test_p2_09: "blob 6b62cdf300c0e60f4388352d02dd114a4b72cd53; size 25595; sha256 04d3b67ecba921a179372076c7efb995ba04be8bf60fe6b8a568b2df8bb26b9f"
+      installed_writer: "blob a7e227a19aebcc3f99e84c5d57b7308cf0d42755; size 2473; sha256 6ec22d521271b0c79f93e9451330b7c2463dd0016948bee777b4ea5f63438f43"
+      installed_reader: "blob 243fa1f3fab0930a28f9fb43c704008c17c20911; size 2096; sha256 64ca275fb79fa68fd6071df9c51722a043a8bebb136e0f632f5965a76d07befe"
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -1715,10 +1807,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P2-09
-    title: Replaceable Durable Object Storage Backends and Replicas
-    drive_id: 1lv_zCYOyP8L3RZev-Wtlyy_RpMyOri4GETYCvO3eNHE
-    canonical_prompt_text_sha256: ab9ab127347220ae14e98d43fcfe673fc446a088421090dc29e5262d405017c4
+    id: P2-10
+    title: Project-Scoped Context Compilation and Derived Retrieval
+    drive_id: 1x04_Hu20eHm8NwGu7Gliuhn4EVgPLkxzLxLzPkVZueM
+    canonical_prompt_text_sha256: 52662218cf06d7c41c36c1fd1c22b01e9f850fed30af142391dd0f5421b9cffe
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -1785,28 +1877,29 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P2-09
-  global_number: 28
-  title: Replaceable Durable Object Storage Backends and Replicas
-  prompt_drive_id: 1lv_zCYOyP8L3RZev-Wtlyy_RpMyOri4GETYCvO3eNHE
-  predecessor_result_commit: fcc954bfc2be3fae7f01986311eda2b6fd92e300
-  predecessor_result_tree: 3d54e11466499eb6d62729a50e0e29e9ba659da8
+  id: P2-10
+  global_number: 29
+  title: Project-Scoped Context Compilation and Derived Retrieval
+  prompt_drive_id: 1x04_Hu20eHm8NwGu7Gliuhn4EVgPLkxzLxLzPkVZueM
+  predecessor_result_commit: 03ea21dbd22466470d07a674fd330ad68009d756
+  predecessor_result_tree: 5663d2b02872fd0bdc1fb10320e2012e63122345
 
 next_transition:
-  - verify_P2_08_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P2_09_prompt_and_directly_required_ContentRef_ContentLocation_ObjectStorageBackend_Artifact_Project_Task_policy_and_quarantine_firewall_interfaces_only
-  - preserve_P1_ContentRef_identity_and_add_per_backend_replica_state_without_redefining_logical_content
-  - add_or_qualify_a_second_independent_durable_or_reference_backend_with_truthful_REAL_or_REFERENCE_classification
-  - implement_replicateContent_verified_source_stream_upload_readback_verification_and_AVAILABLE_only_after_exact_digest_success
-  - implement_deterministic_healthy_replica_selection_corruption_isolation_fallback_restore_and_optional_repair
-  - ensure_interrupted_cancelled_or_unavailable_target_uploads_never_become_AVAILABLE_and_do_not_invalidate_healthy_replicas
-  - keep_physical_replica_deletion_distinct_from_Artifact_or_logical_ContentObject_deletion
-  - qualify_large_streaming_restart_corruption_fallback_repair_deletion_credential_ETag_Project_and_quarantine_authorization
+  - verify_P2_09_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P2_10_prompt_and_directly_required_Task_Run_Graph_Node_Artifact_ProjectKnowledge_EngineKnowledge_RunMemory_ModelCall_ContentRef_and_quarantine_firewall_interfaces_only
+  - compile_deterministic_Project_scoped_ContextManifest_ContentRef_and_ContextReceipt_with_exact_included_excluded_retrieval_tool_policy_budget_and_reduction_evidence
+  - implement_versioned_source_extraction_chunk_embedding_index_build_verify_activate_search_and_optional_rerank_with_exact_provenance
+  - enforce_Project_and_source_prefilter_before_candidate_materialization_and_prevent_model_or_query_scope_widening
+  - reject_invalid_embedding_dimension_cardinality_runtime_or_nonfinite_vectors_and_preserve_candidate_identity_through_rerank
+  - revalidate_sources_around_external_calls_and_reject_stale_cancelled_or_superseded_index_activation_while_preserving_old_READY_index
+  - prove_cache_or_index_deletion_does_not_delete_Project_Engine_Memory_or_source_Artifact_truth_and_support_exact_rebuild
+  - enforce_explicit_context_budget_exclusion_reduction_or_CONTEXT_LIMIT_without_silent_truncation
+  - qualify_determinism_Alpha_Beta_hostile_quarantine_provenance_stale_build_failed_replacement_rebuild_scoped_search_rerank_concurrency_cancellation_and_ModelCall_linkage
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P2_09_before_opening_P2_10
+  - close_P2_10_before_opening_P2_11
 
 prohibited_next_transition:
   - reinstall_host
