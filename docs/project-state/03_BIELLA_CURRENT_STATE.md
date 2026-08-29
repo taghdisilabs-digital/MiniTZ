@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-29 01:12 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-29T01:12:11+02:00"
+state_timestamp_local: "2026-08-29 02:06 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-29T02:06:16+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: 0e61e36865339347ff52213e04ef22e21d44de6f
-    tree: dafa639eee961daa89a04d3c69d0a88d2c27f6b3
-    observed_date: 2026-08-28
+    commit: d71c08a6da61713a1859bd9d1b8bb94652c41550
+    tree: abc9e6001d2b079b53c49850062d9d38bbbc3a55
+    observed_date: 2026-08-29
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p2_02_implementation_post_push_exact_readback
+    observation_context: p2_03_implementation_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,18 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: 0e61e36865339347ff52213e04ef22e21d44de6f
-    tree: dafa639eee961daa89a04d3c69d0a88d2c27f6b3
+    head: d71c08a6da61713a1859bd9d1b8bb94652c41550
+    tree: abc9e6001d2b079b53c49850062d9d38bbbc3a55
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 21
+    durable_prompts_complete: 22
     durable_prompts_total: 51
     phase: P2
-    active_prompt: P2-03
-    active_prompt_title: Exact-Revision Git Repository Adapter
+    active_prompt: P2-04
+    active_prompt_title: Replaceable Container and Isolated Runtime Adapter
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -1140,6 +1140,96 @@ engine:
       installed_reader: "blob 7c2a0ee8a0fa51c7e31435964d1dd5ce430efe18; size 1640; sha256 69fd65b32dc35288932fbffbf3e6c0f3d2dd87822089347d6dc06e39f65afab2"
       installed_writer: "blob fefdfd3c86f8a6f65aa78fd9b331f3ddde916e62; size 4683; sha256 e22485279a4262c3bbe9bd5e6e48f5de8a6b91e45eb2a55779023af9ca241237"
       test_p2_02: "blob 9c869c7ad3dc941616540731402428f48dd63192; size 34042; sha256 6a047358b7852464821817fcec6b12ac28e798279a949518eef200877ca0c29e"
+    p2_03_status: DURABLY_COMPLETE
+    p2_03_source_commit: f066450ebd844435e727f2d6ae40f93559a8d9df
+    p2_03_result_commit: d71c08a6da61713a1859bd9d1b8bb94652c41550
+    p2_03_result_tree: abc9e6001d2b079b53c49850062d9d38bbbc3a55
+    p2_03_remote_readback: VERIFIED
+    p2_03_implementation:
+      production_modules_added: 1
+      public_exports_added: 15
+      focused_pytest_cases: 14
+      installed_restart_programs_added: 2
+      migrations_added: 0
+      schema_tables_added: 7
+      capability_surface: git.inspect_status_diff_read_workspace_apply_commit_fetch_push
+      repository_model: exact_Project_FilesystemRoot_commit_tree_object_format_submodule_config_digest_and_registration_time
+      workspace_model: isolated_clone_exact_base_commit_tree_generation_and_current_commit_tree
+      safety_model: managed_direct_argv_safe_config_no_hooks_no_global_or_system_config_no_prompts_no_ext_diff_no_textconv_no_implicit_submodule_or_LFS_materialization
+      evidence_model: staged_unstaged_untracked_ContentRefs_high_level_Artifacts_exact_process_ToolCalls_and_immutable_receipt_manifests
+      commit_model: explicit_parent_write_tree_commit_tree_atomic_update_ref_and_post_commit_commit_tree_status_observation
+      side_effect_model: commit_without_push_fetch_network_governed_and_push_explicit_non_force_external_side_effect
+      idempotency_model: immutable_attempt_scoped_claims_exact_terminal_replay_workspace_generation_history_manifest_consistency_and_erasure_detection
+    p2_03_validation:
+      focused_pytest: "14 passed; 0 failed; 0 skipped; 160.62s final exact-tree run including build and separate installed restart"
+      predecessor_P2_02_T13_and_T15: "2 passed; 13 deselected; 0 failed; 0 skipped; 7.93s"
+      predecessor_exact_P2_01_T18: "1 passed; 26 deselected; 0 failed; 0 skipped; 3.15s"
+      broad_non_nested_regression: "418 passed; 20 nested qualification gates deselected; 127 subtests passed; 0 failed; 0 skipped; 314.09s"
+      mypy_strict: "61 source/test files; 0 issues; mypy 2.3.1"
+      compileall: PASS
+      diff_check: PASS
+      test_quality_scan: "P2-03 skip, placeholder, TODO, FIXME, and NotImplemented executable-test hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      local_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; sha256 8d016cb7cc26d3b6c8ac80acc218fc350945b8049c7f1e8b3f7da15890f2b71f; git_adapter.py source and packaged bytes sha256 69a2a9249cc6ab1c3f518c51018b280e62d65f2a81a061d32356b716311049f8 exactly matched"
+      installed_wheel_restart: "separate installed-package writer and reader shared durable SQLite, source and candidate roots, object storage, exact diff and commit receipts, Artifacts, ContentRefs, ToolCalls, commit, and tree evidence"
+      remote_required_paths_and_bytes: "GitHub branch, commit, tree, seven blob IDs, sizes, SHA256 bytes, and exact decoded contents independently read back and matched"
+      adversarial_review: "PASS after dirty source preservation, stale source and patch rejection, path escape and .git mutation denial, hook/filter/LFS safety, cross-Project scope, read-only push denial, network-governed fetch, replay after workspace advance, manifest forgery, and content erasure hardening"
+      fallow_review: "NOT_RUN; fallow CLI unavailable on host; deterministic adversarial tests and static checks used"
+    p2_03_kpi:
+      repo_mutations_without_exact_base: 0
+      unrelated_dirty_state_destroyed: 0
+      source_checkout_modified_by_candidate: 0
+      unsafe_Git_config_execution: 0
+      implicit_pushes: 0
+      unobserved_commit_claims: 0
+    p2_03_reality_classification:
+      exact_revision_repository_and_candidate_workspace: REAL
+      managed_process_Git_CLI_execution: REAL
+      staged_unstaged_untracked_ContentRef_and_Artifact_capture: REAL
+      exact_commit_parent_tree_and_push_observation: REAL
+      installed_wheel_separate_process_restart: REAL
+      local_filesystem_fetch_and_explicit_safe_push: REAL
+      remote_network_fetch_or_push: POLICY_GOVERNED_NOT_EXECUTED
+      submodule_content_materialization: UNSUPPORTED_BY_THIS_ADAPTER_and_not_claimed
+      LFS_filter_execution_or_object_materialization: UNSUPPORTED_POLICY_DENIED_and_not_claimed
+    p2_03_qualification:
+      RepositoryRef_and_RepositoryWorkspaceRef: VERIFIED
+      GitAdapter_replaceable_capability_registration: VERIFIED
+      exact_HEAD_commit_tree_status_and_dirty_state: VERIFIED
+      isolated_candidate_without_source_checkout_mutation: VERIFIED
+      exact_staged_unstaged_untracked_diff_evidence: VERIFIED
+      stale_source_stale_patch_context_mismatch_and_path_escape_denial: VERIFIED
+      hooks_filters_textconv_credentials_submodule_LFS_and_symlink_policy: VERIFIED
+      exact_parent_commit_new_commit_tree_and_post_commit_observation: VERIFIED
+      fetch_network_policy_and_push_external_authority: VERIFIED
+      Project_scope_read_only_Task_and_cross_Project_denial: VERIFIED
+      restart_idempotency_receipt_manifest_and_content_integrity: VERIFIED
+      raw_QuarantineRef_runtime_dependency: 0
+    p2_03_schema_changes:
+      - git_repository_claims
+      - git_repositories
+      - git_workspace_claims
+      - git_workspace_states
+      - git_workspace_heads
+      - git_operation_claims
+      - git_operation_results
+      - immutable_repository_workspace_claim_result_and_generation_integrity_guards
+    p2_03_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/process.py
+      - src/biella/git_adapter.py
+      - tests/test_p2_02_process.py
+      - tests/test_p2_03_git_adapter.py
+      - tests/fixtures/p2_03_installed_writer.py
+      - tests/fixtures/p2_03_installed_reader.py
+    p2_03_remote_path_evidence:
+      src_biella_init: "blob c613d0183c037d523cd2d69a34978c80b96b053e; size 15911; sha256 8502a6facde4b19da3bea3c2f0f9bac65dd4ddf19d1c231833c5fee13c8ad748"
+      src_biella_process: "blob 84ccbf1f3c904b4161a02ece092f11cbdfae409c; size 87757; sha256 aeb31b60e54248e6cfc6c1b7839001b440e3a6cf6f4871be6028fee2a06912a9"
+      src_biella_git_adapter: "blob 2af3e29b928f411f256bb94dcf8ccaf35fabf36d; size 124107; sha256 69a2a9249cc6ab1c3f518c51018b280e62d65f2a81a061d32356b716311049f8"
+      test_p2_02: "blob fb1b51ab26eb59d8897135125cda729598dc49d6; size 34366; sha256 3c1b6f7e00bb649bfcdea806fc2c09617566207006dc8dbc7bd5c5d305b51ee6"
+      test_p2_03: "blob 44390c5b18fc9ca3720c6e362fd88276ea84d563; size 34699; sha256 5aa4932c33d61583f411799c3349974b35b7567d582999a8523e356349c4efcc"
+      installed_writer: "blob e5789110e9c61bad1e371888f576aa4c7e09436d; size 6542; sha256 b2ca51c11895f5567ee663932ab5d1de1b7e4832aac284be682309a4a7d11dfb"
+      installed_reader: "blob 93017f99ea5999956158a607957593af776d29f7; size 1787; sha256 2b83acdfa4794dca4e66cfc190a6430c2b3cb767561c343488e435ff6823f2e0"
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -1188,10 +1278,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P2-03
-    title: Exact-Revision Git Repository Adapter
-    drive_id: 1508K_PyL7nVdCdvlRUgg0h4L-_whON9Sbyx07u0wYQY
-    canonical_prompt_text_sha256: dbd1c170af28df6546246e01a677dc687fce16d60ea6fc5343cded76ed29817e
+    id: P2-04
+    title: Replaceable Container and Isolated Runtime Adapter
+    drive_id: 1ulpsBImXNT3HyP7G0GUfEjNjPXqCknY0uLdjoEn4xyA
+    canonical_prompt_text_sha256: c825ff36626451ea5eeefdaa5141f825204408db6b5528b905b7ba9ff087e61e
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -1258,47 +1348,46 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P2-03
-  global_number: 22
-  title: Exact-Revision Git Repository Adapter
-  prompt_drive_id: 1508K_PyL7nVdCdvlRUgg0h4L-_whON9Sbyx07u0wYQY
-  predecessor_result_commit: 0e61e36865339347ff52213e04ef22e21d44de6f
-  predecessor_result_tree: dafa639eee961daa89a04d3c69d0a88d2c27f6b3
+  id: P2-04
+  global_number: 23
+  title: Replaceable Container and Isolated Runtime Adapter
+  prompt_drive_id: 1ulpsBImXNT3HyP7G0GUfEjNjPXqCknY0uLdjoEn4xyA
+  predecessor_result_commit: d71c08a6da61713a1859bd9d1b8bb94652c41550
+  predecessor_result_tree: abc9e6001d2b079b53c49850062d9d38bbbc3a55
 
 next_transition:
-  - verify_P2_02_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P2_03_prompt_and_directly_required_Project_FilesystemRoot_ProcessExecutionRequest_ToolCall_Event_Artifact_ContentRef_and_repository_interfaces_only
-  - implement_exact_RepositoryRef_RepositoryWorkspaceRef_and_replaceable_GitAdapter
-  - inspect_exact_HEAD_commit_tree_status_and_dirty_state_without_mutating_source_checkout
-  - materialize_exact_base_in_an_isolated_candidate_worktree_and_preserve_unrelated_user_state
-  - disable_uncontrolled_hooks_filters_textconv_credential_prompts_and_implicit_submodule_or_LFS_network_execution
-  - capture_staged_unstaged_and_untracked_candidate_evidence_as_ContentRefs_and_Artifacts
-  - bind_patches_to_expected_base_reject_stale_context_and_record_exact_parent_commit_new_commit_and_tree
-  - make_fetch_network_governed_and_push_a_separate_explicit_external_side_effect_without_force_by_default
+  - verify_P2_03_handoff_from_exact_remote_commit_tree_and_required_paths
+  - load_exact_P2_04_prompt_and_directly_required_Project_FilesystemRoot_ProcessExecutionRequest_ResourceAllocation_ToolCall_Event_Artifact_ContentRef_and_runtime_interfaces_only
+  - define_exact_IsolatedRuntimeSpec_IsolatedRuntimeAdapter_runtime_identity_and_receipts_without_provider_types_in_kernel
+  - implement_create_start_execute_cancel_stop_inspect_collect_cleanup_and_describeRuntime
+  - bind_immutable_image_or_artifact_identity_entrypoint_args_authorized_mounts_network_policy_limits_environment_secret_refs_and_timeout
+  - provide_at_least_one_real_or_reference_adapter_and_report_requested_enforced_observed_limits_separately
+  - capture_required_outputs_and_bounded_logs_as_ContentRefs_and_Artifacts_before_cleanup
+  - reconcile_only_proven_owned_orphans_and_reject_stale_generation_outputs_without_touching_unknown_runtimes
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P2_03_before_opening_P2_04
+  - close_P2_04_before_opening_P2_05
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - use_mutable_branch_name_without_exact_commit_and_tree_as_source_authority
-  - reset_clean_rebase_or_modify_the_protected_source_checkout_to_create_a_candidate
-  - execute_uncontrolled_repository_hooks_filters_textconv_credential_prompts_submodules_or_LFS
-  - apply_a_stale_or_partial_patch_and_claim_success
-  - mutate_dot_git_through_candidate_paths
-  - imply_push_from_commit_or_fetch
-  - push_without_explicit_Task_authority_destination_and_ref_identity
-  - force_push_without_explicit_authorization
+  - put_Docker_Podman_Kubernetes_or_provider_SDK_objects_in_kernel_contracts
+  - accept_mutable_image_tag_without_exact_digest_or_artifact_identity
+  - expose_host_root_Docker_socket_credential_directories_or_another_Project_through_mounts
+  - claim_network_NONE_or_RESTRICTED_when_the_backend_does_not_actually_enforce_it
+  - claim_CPU_RAM_GPU_storage_or_process_limits_enforced_without_observed_backend_evidence
+  - persist_secret_values_in_args_Events_checkpoints_logs_or_Artifacts
+  - cleanup_before_required_output_capture_is_durable
+  - terminate_or_cleanup_runtime_without_exact_ownership_and_generation_proof
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P2_04_before_P2_03_durable_close
+  - start_P2_05_before_P2_04_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture

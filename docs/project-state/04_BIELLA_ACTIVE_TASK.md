@@ -4,52 +4,53 @@
 schema: biella.active_task/v3
 
 task:
-  id: P2-03
-  global_number: 22
+  id: P2-04
+  global_number: 23
   phase: P2
-  title: Exact-Revision Git Repository Adapter
-  state: READY_AFTER_P2_02_DURABLE_CLOSE
+  title: Replaceable Container and Isolated Runtime Adapter
+  state: READY_AFTER_P2_03_DURABLE_CLOSE
   exact_prompt:
-    title: 22_P2-03_Exact_Revision_Git_Repository_Adapter.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/22_P2-03_Exact_Revision_Git_Repository_Adapter.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/22_P2-03_Exact_Revision_Git_Repository_Adapter.md.docx
-    drive_id: 1508K_PyL7nVdCdvlRUgg0h4L-_whON9Sbyx07u0wYQY
-    local_docx_sha256: c39b2c17b8e5185b257a835efc337447a1f1b70ad94b08ffe832610be6ee098f
-    live_drive_exported_docx_sha256: 83a3d2d6452779e115154909a61006a709857b75301c2674b795c9ca8ba72850
-    canonical_text_sha256: dbd1c170af28df6546246e01a677dc687fce16d60ea6fc5343cded76ed29817e
+    title: 23_P2-04_Replaceable_Container_and_Isolated_Runtime_Adapter.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P2/23_P2-04_Replaceable_Container_and_Isolated_Runtime_Adapter.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P2/23_P2-04_Replaceable_Container_and_Isolated_Runtime_Adapter.md.docx
+    drive_id: 1ulpsBImXNT3HyP7G0GUfEjNjPXqCknY0uLdjoEn4xyA
+    local_docx_sha256: 89aeaa4968876b693987bebbf65c5977743733c1f34a809854d0c7043ea1b01f
+    live_drive_exported_docx_sha256: ddf2ed556ca28e7a51510048e36f9985d2fa6f8bc611ff1b5ad68a90fd094022
+    canonical_text_sha256: c825ff36626451ea5eeefdaa5141f825204408db6b5528b905b7ba9ff087e61e
     canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P2-02
-    result_commit: 0e61e36865339347ff52213e04ef22e21d44de6f
-    result_tree: dafa639eee961daa89a04d3c69d0a88d2c27f6b3
+    id: P2-03
+    result_commit: d71c08a6da61713a1859bd9d1b8bb94652c41550
+    result_tree: abc9e6001d2b079b53c49850062d9d38bbbc3a55
     remote_readback: VERIFIED
     remote_required_paths_and_bytes: VERIFIED
     focused_type_build_installed_restart_predecessor_and_full_regression: VERIFIED
-  numbered_successor: P2-04
+  numbered_successor: P2-05
 
 execution_boundary:
   start_only_after_predecessor_durable_close: satisfied
   load_only:
-    - exact_P2_03_canonical_prompt
+    - exact_P2_04_canonical_prompt
     - current_state_and_active_task_continuity
-    - accepted_Project_FilesystemRoot_ProcessExecutionRequest_ToolCall_Event_Artifact_ContentRef_and_repository_interfaces_directly_required
+    - accepted_Project_FilesystemRoot_ProcessExecutionRequest_ResourceAllocation_ToolCall_Event_Artifact_ContentRef_and_runtime_interfaces_directly_required
     - directly_touched_source_and_task_scoped_tests
   do_not_open:
-    - P2_04_or_later_prompt_bodies_before_P2_03_durable_close
+    - P2_05_or_later_prompt_bodies_before_P2_04_durable_close
     - unrelated_historical_backup_or_legacy_material
   preserve:
     - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ToolCall_Event_ResourceAllocation_and_managed_process_identity
     - P2_01_authorized_root_path_streaming_atomic_IO_idempotency_and_Project_isolation_contracts
     - P2_02_direct_argv_explicit_shell_bounded_output_timeout_cancellation_process_ownership_and_truthful_policy_contracts
+    - P2_03_exact_revision_dirty_source_preservation_candidate_isolation_Git_safety_diff_commit_and_explicit_push_contracts
     - all_earlier_isolation_provenance_durability_routing_scheduler_and_quarantine_firewall_contracts
 
 canonical_prompt_text: |-
-  PROMPT 22/51 - P2-03
+  PROMPT 23/51 - P2-04
 
   TITLE
 
-  Exact-Revision Git Repository Adapter
+  Replaceable Container and Isolated Runtime Adapter
 
   PHASE
 
@@ -57,7 +58,7 @@ canonical_prompt_text: |-
 
   GOAL
 
-  Operate on Git repositories from exact revisions, preserve dirty/unrelated user state, use isolated candidate workspaces, and record exact diff/commit/tree identities without implicit push.
+  Execute Nodes inside bounded isolated/container runtimes without making Docker/Podman/Kubernetes/provider sandboxes part of kernel architecture.
 
   CURRENT VERIFIED STATE
 
@@ -75,7 +76,7 @@ canonical_prompt_text: |-
 
   DEPENDENCIES
 
-  - Prompt 21/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
+  - Prompt 22/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
 
   - All earlier accepted contracts used by this task; inspect the repository instead of assuming interface names.
 
@@ -91,15 +92,13 @@ canonical_prompt_text: |-
 
   IN SCOPE
 
-  - Define RepositoryRef/RepositoryWorkspaceRef with exact full commit/tree.
+  - Define IsolatedRuntimeSpec with immutable image/artifact ref, entrypoint/args, mounts, network policy, CPU/RAM/GPU/process limits, environment/secret refs, timeout.
 
-  - Inspect HEAD/status/dirty state; candidate changes use isolated worktree/workspace rather than destructive reset.
+  - Implement replaceable adapter create/start/execute/cancel/stop/inspect/collect/cleanup and at least one real/reference implementation.
 
-  - Use managed process adapter and control hooks, filters, external diff/textconv, credential prompts, submodules/LFS/symlinks according to supported policy.
+  - Capture exact runtime/image/host/resource identity; enforce and separately report requested vs actually enforced limits.
 
-  - Capture diffs/untracked Artifact refs; commits record parent/new commit/tree; push is a separate explicit external side effect.
-
-  - Revalidate stale source where current-base authority matters.
+  - Persist required outputs before cleanup; cancellation/cleanup releases resources; restart orphan reconciliation affects only proven-owned runtimes.
 
   OUT OF SCOPE
 
@@ -109,29 +108,25 @@ canonical_prompt_text: |-
 
   REQUIRED IMPLEMENTATION
 
-  - Define RepositoryRef/RepositoryWorkspaceRef with exact full commit/tree.
+  - Define IsolatedRuntimeSpec with immutable image/artifact ref, entrypoint/args, mounts, network policy, CPU/RAM/GPU/process limits, environment/secret refs, timeout.
 
-  - Inspect HEAD/status/dirty state; candidate changes use isolated worktree/workspace rather than destructive reset.
+  - Implement replaceable adapter create/start/execute/cancel/stop/inspect/collect/cleanup and at least one real/reference implementation.
 
-  - Use managed process adapter and control hooks, filters, external diff/textconv, credential prompts, submodules/LFS/symlinks according to supported policy.
+  - Capture exact runtime/image/host/resource identity; enforce and separately report requested vs actually enforced limits.
 
-  - Capture diffs/untracked Artifact refs; commits record parent/new commit/tree; push is a separate explicit external side effect.
-
-  - Revalidate stale source where current-base authority matters.
+  - Persist required outputs before cleanup; cancellation/cleanup releases resources; restart orphan reconciliation affects only proven-owned runtimes.
 
   REQUIRED INTERFACES
 
-  - RepositoryRef
+  - IsolatedRuntimeSpec
 
-  - GitAdapter
+  - IsolatedRuntimeAdapter
 
-  - candidate workspace/worktree APIs
-
-  - diff/commit/push receipts
+  - runtime identity/receipt
 
   DATA / STATE CHANGES
 
-  - Repository/workspace refs and commit/tree/diff evidence.
+  - Runtime ownership/status/output refs.
 
   FAILURE BEHAVIOR
 
@@ -147,201 +142,199 @@ canonical_prompt_text: |-
 
   TESTS
 
-  - Clean/dirty repo preservation.
+  - Valid isolated execution and output Artifact.
 
-  - Exact commit checkout/candidate change/diff/commit.
+  - Forbidden mount/network policy, secret injection/redaction, resource limits, timeout/cancel/crash.
 
-  - Stale base explicit.
+  - Cleanup and resource release.
 
-  - Unsafe hooks/filters/path traversal/.git mutation rejected.
+  - Restart reconciles owned orphan and does not kill unknown runtime.
 
-  - Explicit safe test push only when Task authorizes.
-
-  - Project isolation.
+  - Reference adapter satisfies same contract.
 
   KPI
 
-  - repo_mutations_without_exact_base=0
+  - forbidden_mount_access=0
 
-  - unrelated_dirty_state_destroyed=0
+  - network_policy_bypasses=0
 
-  - source_checkout_modified_by_candidate=0
+  - secrets_in_normal_evidence=0
 
-  - unsafe_Git_config_execution=0
+  - resource_leaks_after_terminal=0
 
-  - implicit_pushes=0
+  - unknown_runtimes_killed=0
 
-  - unobserved_commit_claims=0
+  - provider_runtime_types_in_kernel=0
 
   RESTORED LONG-FORM REQUIREMENTS
 
-  EXACT REPOSITORY IDENTITY
+  ISOLATED RUNTIME AS REPLACEABLE TOOL
 
-  Implement Git as a replaceable repository capability.
+  Implement a generic IsolatedRuntimeAdapter for container/sandbox execution.
 
-  Represent repository/source identity with exact:
+  Representative interface:
 
-  - repository ref/location;
+  create(spec)
 
-  - commit SHA;
+  start(runtime)
 
-  - tree SHA where useful;
+  execute(runtime, request)
 
-  - submodule refs where relevant;
+  cancel(execution/runtime)
 
-  - worktree/candidate identity;
+  stop(runtime)
 
-  - Project scope.
+  inspect(runtime)
 
-  Do not use mutable branch alone as Task source authority.
+  collect_outputs(runtime)
 
-  ADAPTER CAPABILITIES
+  cleanup(runtime)
 
-  Support bounded operations equivalent to:
+  describeRuntime()
 
-  - inspect repository;
+  Do not put Docker/Kubernetes/provider SDK objects in kernel contracts.
 
-  - status;
+  RUNTIME IDENTITY
 
-  - diff;
+  Persist enough runtime identity to distinguish generations:
 
-  - read exact source;
+  - adapter/implementation;
 
-  - create candidate worktree;
+  - image/runtime digest;
 
-  - apply/edit candidate;
+  - runtime instance ID;
 
-  - commit candidate;
+  - generation;
 
-  - fetch when Task/network policy permits;
+  - executor/Resource;
 
-  - push only under explicit external/Project side-effect authority.
+  - start time.
 
-  Git CLI may be used through P2-02; Git itself remains adapter implementation.
+  Container ID is supplementary, not durable Run authority.
 
-  DIRTY STATE
+  IMMUTABLE IMAGE / ENVIRONMENT
 
-  Before creating candidate:
+  When image-based: bind image digest, not mutable tag alone.
 
-  - detect tracked/staged/unstaged/untracked state;
+  Record runtime/tool versions needed for evidence.
 
-  - preserve unrelated user work;
+  MOUNTS
 
-  - do not reset/clean/rebase user state silently.
+  Mount only authorized:
 
-  If exact base cannot be materialized safely from dirty shared checkout, use isolated worktree/clone/candidate workspace.
+  - Workspace roots;
 
-  CANDIDATE WORKTREE
+  - input Artifacts/content;
 
-  Preferred mutation: exact base commit/tree -> isolated worktree -> changes.
+  - output roots;
 
-  Capture:
+  - secret mounts.
 
-  - base commit/tree;
+  Enforce read-only vs read-write.
 
-  - current HEAD;
+  Do not expose host root, Docker socket, credential directories, or another Project.
 
-  - staged diff;
+  NETWORK POLICY
 
-  - unstaged diff;
+  Support semantic modes:
 
-  - untracked files;
+  NONE
 
-  - resulting candidate tree/commit.
+  RESTRICTED
 
-  Do not mutate protected source checkout unless Task explicitly authorizes Project write.
+  PROJECT_POLICY
 
-  PATCH / APPLY SAFETY
+  Report actual enforcement.
 
-  Bind patches/diffs to expected base when possible.
+  If a backend cannot enforce requested policy, it is not a compatible implementation.
 
-  Reject stale/context-mismatched patch rather than applying partially and claiming success.
+  Do not label network disabled if DNS/host networking still escapes.
 
-  GIT CONFIG / HOOKS / FILTERS
+  RESOURCE LIMITS
 
-  Repository behavior may be affected by:
+  Record:
 
-  - hooks;
+  - requested;
 
-  - clean/smudge filters;
+  - enforced;
 
-  - .gitattributes diff/textconv;
+  - observed
 
-  - LFS;
+  for CPU/RAM/GPU/storage/process limits where supported.
 
-  - submodules;
+  Unsupported limit must be explicit.
 
-  - symlinks.
+  SECRETS
 
-  Do not execute uncontrolled hooks/filters from untrusted repository merely because git supports them. Use safe config/environment and record limitations.
+  Use secret refs/mounts/runtime injection.
 
-  SUBMODULES / LFS
+  Do not bake secrets into images, command lines, Events, checkpoints, or output Artifacts.
 
-  If Task/repository relies on them:
+  OUTPUT CAPTURE
 
-  - preserve exact identities;
+  Before runtime cleanup:
 
-  - obey network/credential policy;
+  - collect required output files;
 
-  - do not silently omit required content.
+  - hash/store;
 
-  If unsupported/unavailable, fail/mark limitation honestly.
+  - create Artifact/Workspace receipt;
 
-  COMMIT
+  - collect bounded logs/evidence.
 
-  When Task requires commit:
+  Cleanup must never run first and destroy uncaptured required outputs.
 
-  - exact candidate tree;
+  CANCELLATION / TIMEOUT
 
-  - coherent message;
+  Terminate only owned runtime/processes, release resources, preserve already durable outputs.
 
-  - author identity according to Project/runtime policy;
+  Late output from stale runtime generation must pass current fence/Run/Node authority before acceptance.
 
-  - verify commit/tree after creation.
+  ORPHAN RECOVERY
 
-  No push is implied.
+  After controller restart, inspect runtimes carrying Biella ownership labels/identities.
 
-  PUSH
+  Recover/cleanup only runtimes provably owned by the expected Project/Run/Node generation.
 
-  git push is external side effect.
-
-  Require explicit Task authority and destination/ref identity.
-
-  Do not force-push unless explicitly authorized.
+  Never kill unknown containers/processes "because they look old."
 
   TESTS
 
-  - inspect exact commit/tree;
+  - create/start/execute/stop;
 
-  - dirty repository preserved;
+  - exact image digest;
 
-  - isolated candidate worktree;
+  - read-only and writable mounts;
 
-  - changed file and untracked file captured;
+  - cross-Project mount attempt;
 
-  - stale patch rejection;
+  - network NONE verified where backend claims it;
 
-  - commit exact tree;
+  - unsupported network mode rejected;
 
-  - hook/filter safety fixture;
+  - CPU/RAM limits;
 
-  - symlink path behavior;
+  - GPU visibility if available;
 
-  - submodule/LFS fixture where practical;
+  - secret absent from output/metadata;
 
-  - fetch governed by network policy;
+  - output capture before cleanup;
 
-  - push denied on read-only Task;
+  - timeout/cancel;
 
-  - Project Beta cannot use Alpha repository ref;
+  - orphan recovery after process restart;
 
-  - worker/process loss does not lose persisted candidate diff/commit.
+  - unknown runtime not killed;
 
-  Git source history is Project data. legacy donor Git ancestry must not become Biella history.
+  - stale generation output rejected;
+
+  - adapter replacement does not alter Task/Graph schema.
+
+  This prompt provides the isolation mechanism used later by Workspace/production packs.
 
   USEFUL EVIDENCE — NON-GATING
 
-  - Repository production is exact-revision and candidate-safe; commit/push claims require observation.
+  - Isolation is replaceable, outputs durable before cleanup, and enforcement claims match observed reality.
 
   DELIVERABLES
 
@@ -363,7 +356,7 @@ canonical_prompt_text: |-
 
   Use this result block:
 
-  PROMPT: 22/51 - P2-03
+  PROMPT: 23/51 - P2-04
 
   STATUS: COMPLETE / PARTIAL / BLOCKED
 
