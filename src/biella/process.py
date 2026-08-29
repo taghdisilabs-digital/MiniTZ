@@ -555,7 +555,13 @@ class _BoundedRedactingSink:
             self.file.seek(-2048, os.SEEK_END)
             payload = head + b"\n...[bounded tail]...\n" + self.file.read(2048)
         self.file.seek(position)
-        return payload.decode("utf-8", errors="replace")
+        decoded = payload.decode("utf-8", errors="replace")
+        return "".join(
+            character
+            if ord(character) >= 32 or character in "\t\r\n"
+            else "."
+            for character in decoded
+        )
 
     def close(self) -> None:
         self.file.close()

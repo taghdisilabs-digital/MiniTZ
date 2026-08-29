@@ -683,6 +683,14 @@ def test_t12_restart_idempotency_and_process_identity_never_becomes_run_authorit
 
 def test_t13_stdin_split_secret_redaction_and_observed_resource_limit(tmp_path: Path) -> None:
     env = _environment(tmp_path)
+    binary = env.process.execute(
+        env.access,
+        env.attempt,
+        _request(env, argv=("-c", "import os; os.write(1, b'a\\x00b\\x01c')")),
+        idempotency_key="binary-output-text-preview",
+    )
+    assert env.objects.read(binary.stdout_ref) == b"a\x00b\x01c"
+    assert binary.stdout_preview == "a.b.c"
     stdin_ref = env.objects.put(b"bounded stdin bytes", media_type="application/octet-stream")
     stdin_result = env.process.execute(
         env.access,
