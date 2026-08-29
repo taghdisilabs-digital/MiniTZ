@@ -604,6 +604,7 @@ from .production_pack import (
     ValidatorRegistration,
 )
 from .software_pack import software_production_pack
+from .web_pack import web_production_pack
 
 __all__ = [
     "ActiveArtifact",
@@ -1145,4 +1146,5 @@ __all__ = [
     "ProductionPackRegistry",
     "ValidatorRegistration",
     "software_production_pack",
+    "web_production_pack",
 ]

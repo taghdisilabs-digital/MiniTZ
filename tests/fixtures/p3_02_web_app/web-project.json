@@ -1,0 +1,9 @@
+{
+  "backend_framework": "python-stdlib-http-server",
+  "css_system": "project-owned-inline-css",
+  "database": "none",
+  "frontend_framework": "browser-native-dom",
+  "hosting_provider": "unselected",
+  "package_format": "deterministic-server-zip",
+  "runtime": "cpython"
+}

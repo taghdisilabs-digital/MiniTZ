@@ -16,7 +16,7 @@ from typing import cast
 
 
 _CAPABILITY_ID_PATTERN = re.compile(
-    r"[a-z0-9][a-z0-9-]*(?:\.[a-z0-9][a-z0-9-]*)+"
+    r"[a-z0-9][a-z0-9_-]*(?:\.[a-z0-9][a-z0-9_-]*)+"
 )
 _SEMANTIC_VERSION_PATTERN = re.compile(
     r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)"
