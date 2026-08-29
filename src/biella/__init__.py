@@ -590,6 +590,20 @@ from .validation import (
     ValidationSubject,
     ValidationVerdict,
 )
+from .production_pack import (
+    GraphRecipeRegistration,
+    GraphRecipeStepRegistration,
+    ProductionPack,
+    ProductionPackConflictError,
+    ProductionPackContractError,
+    ProductionPackError,
+    ProductionPackIntegrityError,
+    ProductionPackNotFoundError,
+    ProductionPackRef,
+    ProductionPackRegistry,
+    ValidatorRegistration,
+)
+from .packs import software_production_pack
 
 __all__ = [
     "ActiveArtifact",
@@ -1119,4 +1133,16 @@ __all__ = [
     "ValidationService",
     "ValidationSubject",
     "ValidationVerdict",
+    "GraphRecipeRegistration",
+    "GraphRecipeStepRegistration",
+    "ProductionPack",
+    "ProductionPackConflictError",
+    "ProductionPackContractError",
+    "ProductionPackError",
+    "ProductionPackIntegrityError",
+    "ProductionPackNotFoundError",
+    "ProductionPackRef",
+    "ProductionPackRegistry",
+    "ValidatorRegistration",
+    "software_production_pack",
 ]

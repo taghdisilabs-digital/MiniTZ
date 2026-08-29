@@ -263,6 +263,9 @@ class ValidationCheck:
         object.__setattr__(self, "evidence_requirements", evidence)
         object.__setattr__(self, "independence_dimensions", independence)
         object.__setattr__(self, "parameters", _freeze_scalar_mapping(self.parameters, "Validation check parameters"))
+        artifact_role = self.parameters.get("artifact_role")
+        if artifact_role is not None:
+            _name(artifact_role, "required Artifact role")
         object.__setattr__(self, "check_id", f"vchk_{_sha(self.semantic_payload())[:32]}")
 
     def semantic_payload(self) -> dict[str, object]:
@@ -959,6 +962,7 @@ class ValidationService:
         if check is None:
             raise ValidationContractError("ValidationResult check is not in the exact plan")
         artifact_evidence: list[ArtifactRef] = []
+        artifact_roles: set[str] = set()
         for evidence_ref in evidence_refs:
             if evidence_ref.startswith("artifact://"):
                 project_prefix = f"artifact://{access.project_ref.value}/"
@@ -971,12 +975,22 @@ class ValidationService:
                     artifact_ref = ArtifactRef(access.project_ref, tail[-2], int(tail[-1]))
                 except (TypeError, ValueError) as exc:
                     raise ValidationContractError("Artifact validation evidence is malformed") from exc
-                self.artifacts.get_artifact(access, artifact_ref)
+                artifact = self.artifacts.get_artifact(access, artifact_ref)
                 if artifact_ref.value != evidence_ref:
                     raise ValidationContractError("Artifact validation evidence is not canonical")
                 artifact_evidence.append(artifact_ref)
+                artifact_roles.add(artifact.role)
         if check.capability_ref.capability_id in {"validation.build", "validation.runtime", "validation.artifact.exists"} and verdict is ValidationVerdict.PASS and not artifact_evidence:
             raise ValidationContractError("successful build/runtime/artifact validation requires exact Artifact evidence")
+        required_artifact_role = check.parameters.get("artifact_role")
+        if (
+            verdict is ValidationVerdict.PASS
+            and isinstance(required_artifact_role, str)
+            and required_artifact_role not in artifact_roles
+        ):
+            raise ValidationContractError(
+                "successful validation lacks the exact required Artifact role"
+            )
         if verdict is ValidationVerdict.PASS and not evidence_refs:
             raise ValidationContractError("PASS requires exact validation evidence")
         for subject in plan.subjects:

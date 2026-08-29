@@ -1065,6 +1065,7 @@ class FilesystemAdapter:
         path: str,
         content_ref: ContentRef,
         *,
+        mode: int | None,
         cancelled: Callable[[], bool] | None,
     ) -> ContentRef:
         parts = self._relative_parts(path, allow_root=False)
@@ -1079,7 +1080,9 @@ class FilesystemAdapter:
             flags |= getattr(os, "O_NOFOLLOW", 0)
             descriptor = os.open(temporary, flags, 0o600, dir_fd=parent)
             temporary_created = True
-            if before is not None:
+            if mode is not None:
+                os.fchmod(descriptor, mode)
+            elif before is not None:
                 os.fchmod(descriptor, before[2])
             digest = hashlib.sha256()
             size = 0
@@ -1595,10 +1598,20 @@ class FilesystemAdapter:
         path: str,
         content_ref: ContentRef,
         idempotency_key: str,
+        mode: int | None = None,
         cancelled: Callable[[], bool] | None = None,
     ) -> FilesystemOperation:
         if not isinstance(content_ref, ContentRef):
             raise FilesystemContractError("write requires exact ContentRef input")
+        if mode is not None and (
+            not isinstance(mode, int)
+            or isinstance(mode, bool)
+            or mode < 0
+            or mode > 0o777
+        ):
+            raise FilesystemContractError(
+                "write mode must contain only ordinary permission bits"
+            )
         root = self._require_root(access, root_ref, writable=True)
         self._relative_parts(path, allow_root=False)
         payload = {
@@ -1608,6 +1621,8 @@ class FilesystemAdapter:
             "root_ref": root.root_ref.value,
             "schema_version": 1,
         }
+        if mode is not None:
+            payload["mode"] = mode
         started = self._start_operation(
             access,
             attempt,
@@ -1618,7 +1633,13 @@ class FilesystemAdapter:
         )
 
         def action() -> tuple[ContentRef, Sequence[ContentRef]]:
-            return self._atomic_write(root, path, content_ref, cancelled=cancelled), (content_ref,)
+            return self._atomic_write(
+                root,
+                path,
+                content_ref,
+                mode=mode,
+                cancelled=cancelled,
+            ), (content_ref,)
 
         return self._execute(
             access,
@@ -1867,6 +1888,7 @@ class FilesystemAdapter:
                 destination_root,
                 destination_path,
                 source,
+                mode=None,
                 cancelled=cancelled,
             )
             return output, (source,)
@@ -1941,6 +1963,7 @@ class FilesystemAdapter:
                 destination_root,
                 destination_path,
                 source,
+                mode=None,
                 cancelled=cancelled,
             )
             _check_cancelled(cancelled)

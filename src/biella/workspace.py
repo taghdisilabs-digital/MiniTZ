@@ -1831,7 +1831,15 @@ class WorkspaceService:
         for item in (entry for entry in snapshot.entries if entry.kind == "file"):
             assert item.content_ref is not None
             self._mkdir_parents(access, attempt, workspace, item.path, material=f"{idempotency_key}-parent-{hashlib.sha256(item.path.encode()).hexdigest()[:12]}", calls=calls)
-            written = self.filesystem.write(access, attempt, root_ref=workspace.candidate_root_ref, path=f"{workspace.relative_path}/{item.path}", content_ref=item.content_ref, idempotency_key=_adapter_key(idempotency_key, "write", item.path))
+            written = self.filesystem.write(
+                access,
+                attempt,
+                root_ref=workspace.candidate_root_ref,
+                path=f"{workspace.relative_path}/{item.path}",
+                content_ref=item.content_ref,
+                idempotency_key=_adapter_key(idempotency_key, "write", item.path),
+                mode=item.mode,
+            )
             calls.append(written.tool_call_ref)
         verified, verified_calls = self._scan(access, attempt, workspace, policy, idempotency_material=f"{idempotency_key}-verify")
         calls.extend(verified_calls)
