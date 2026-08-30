@@ -626,6 +626,30 @@ from .game_engine import (
 from .software_pack import software_production_pack
 from .web_pack import web_production_pack
 from .game_pack import game_production_pack
+from .large_scale_pack import (
+    MultiDomainBranch,
+    MultiDomainGraphRecipe,
+    ProductionComponentReality,
+    compile_large_scale_graph_nodes,
+    large_scale_graph_recipe,
+    large_scale_production_pack,
+)
+from .production_integration import (
+    ProductionArtifactBinding,
+    ProductionComponentBinding,
+    ProductionIntegrationAuthorityError,
+    ProductionIntegrationConflictError,
+    ProductionIntegrationContractError,
+    ProductionIntegrationError,
+    ProductionIntegrationIntegrityError,
+    ProductionIntegrationManifest,
+    ProductionIntegrationManifestRef,
+    ProductionIntegrationManifestService,
+    ProductionIntegrationNotFoundError,
+    ProductionIntegrationPublication,
+    ProductionIntegrationScopeError,
+    ProductionValidationBinding,
+)
 
 __all__ = [
     "ActiveArtifact",
@@ -1165,6 +1189,23 @@ __all__ = [
     "ProductionPackNotFoundError",
     "ProductionPackRef",
     "ProductionPackRegistry",
+    "MultiDomainBranch",
+    "MultiDomainGraphRecipe",
+    "ProductionArtifactBinding",
+    "ProductionComponentBinding",
+    "ProductionComponentReality",
+    "ProductionIntegrationAuthorityError",
+    "ProductionIntegrationConflictError",
+    "ProductionIntegrationContractError",
+    "ProductionIntegrationError",
+    "ProductionIntegrationIntegrityError",
+    "ProductionIntegrationManifest",
+    "ProductionIntegrationManifestRef",
+    "ProductionIntegrationManifestService",
+    "ProductionIntegrationNotFoundError",
+    "ProductionIntegrationPublication",
+    "ProductionIntegrationScopeError",
+    "ProductionValidationBinding",
     "ValidatorRegistration",
     "GameAssetInput",
     "GameEngineAdapter",
@@ -1187,4 +1228,7 @@ __all__ = [
     "software_production_pack",
     "web_production_pack",
     "game_production_pack",
+    "compile_large_scale_graph_nodes",
+    "large_scale_graph_recipe",
+    "large_scale_production_pack",
 ]
