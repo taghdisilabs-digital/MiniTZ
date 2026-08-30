@@ -1,7 +1,7 @@
 # 03 — BIELLA CURRENT STATE
 
 ```yaml
-schema: biella.current_state/v4
+schema: biella.current_state/v5
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 observed_date: 2026-08-30
@@ -27,9 +27,9 @@ durable_source:
     tree: b407138ac05af441487aa6005700da98b8016906
     meaning: P3_04_closed_and_P3_05_open_before_recovered_GPT_5_6_dirty_work
   current_execution_map:
-    commit: 3945cae4931ba9bd48f8741b4e918d3d8c9a2a5a
+    commit: 360e35d84c216e632683e711955e90606787d798
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
-    schema: biella.active_task/v5
+    schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
     status: VERIFIED_GITHUB_WRITE
   branch_head_rule: continuity_commits_can_be_newer_than_implementation_base; reobserve_origin_main_before_next_host_write
@@ -51,18 +51,29 @@ numbered_execution:
   future_internal_graphs_precompiled: false
   future_graph_rule: compile_each_from_exact_prompt_and_current_source_only_when_activated
 
-local_execution_state:
-  host_state: STOPPED_AFTER_RECOVERY_CAPTURE
-  last_verified_checkout_head: e228a7bb6db6f94af15dde4a8fb110b028eddbed
-  last_verified_branch_upstream: main...origin/main
-  last_verified_worktree: CLEAN_BEFORE_GPT_5_6_WORKTREE_RESTORE
-  exact_current_worktree_after_next_boot: UNKNOWN_UNTIL_REOBSERVED
-  next_boot_order:
-    - fetch_current_origin_main_continuity
-    - fast_forward_clean_checkout_to_current_continuity
-    - verify_recovery_archive_identity
-    - restore_exact_GPT_5_6_P3_05_worktree
-    - never_hard_reset_after_restoration
+execution_host_state:
+  current_host: NONE
+  previous_host: DESTROYED
+  previous_host_paths_are_current_state: false
+  previous_checkout_observation:
+    head: e228a7bb6db6f94af15dde4a8fb110b028eddbed
+    upstream: main...origin/main
+    worktree: CLEAN_BEFORE_GPT_5_6_WORKTREE_RESTORE
+    evidence_state: HISTORICAL_AFTER_HOST_DESTRUCTION
+  next_host:
+    state: NOT_YET_PROVISIONED
+    canonical_root: /root/biella
+    canonical_codex_home: /root/.codex
+    canonical_checkout: /root/biella/repos/biella-engine
+    bootstrap_order:
+      - provision_new_disposable_execution_host
+      - create_canonical_roots
+      - clone_current_GitHub_main_into_canonical_checkout
+      - verify_current_GitHub_03_04_and_branch_head
+      - fetch_recovery_archive_from_verified_Drive_ID
+      - verify_archive_exact_size_and_sha256
+      - restore_exact_GPT_5_6_P3_05_worktree
+      - never_hard_reset_after_restoration
 
 p3_05_recovery:
   status: CAPTURED_RESTORE_PENDING
@@ -71,6 +82,10 @@ p3_05_recovery:
   recovery_archive_name: GPT56_EXACT_RECOVERY_2026-08-30.tar.gz
   recovery_archive_sha256: 73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
   recovery_archive_size_bytes: 26490936
+  recovery_archive_drive_id: 1Y7aEStdGbCK5a0N9iA8s41l2olTWOUAE
+  recovery_archive_drive_readback: VERIFIED_EXACT_BYTES
+  recovery_archive_drive_readback_sha256: 73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
+  restore_target_host: NEW_HOST_NOT_YET_PROVISIONED
   archive_contains_relevant_sessions: 13
   expected_recovered_dirty_paths_count: 9
   path_set_is_not_content_authority: true
@@ -82,6 +97,7 @@ approved_execution_program:
   active_graph_location: docs/project-state/04_BIELLA_ACTIVE_TASK.md
   active_graph:
     serial_front:
+      - B0_NEW_HOST_BOOTSTRAP
       - R0_PRE_RUN_GUARD
       - R1_RESTORE
       - M0_GAP_MAP
@@ -154,4 +170,7 @@ truth:
   exact_recovered_P3_05_worktree_contents: UNKNOWN_UNTIL_RESTORED_AND_REOBSERVED
   multi_AI_execution_map_approved_by_user: true
   future_numbered_activation_queue_prepared: true
+  previous_VPS_destroyed: VERIFIED_USER_REPORT
+  current_execution_host_exists: false
+  Drive_recovery_archive_exact_readback: VERIFIED
 ```
