@@ -1,14 +1,14 @@
 # 04 — BIELLA ACTIVE TASK
 
 ```yaml
-schema: biella.active_task/v5
+schema: biella.active_task/v6
 
 active_task:
   id: P3-05
   global_number: 36
   phase: P3
   title: 3D Modeling and Scene Production Pack
-  state: RESTORE_GPT_5_6_THEN_EXECUTE_END_TO_END
+  state: PROVISION_NEW_HOST_THEN_RESTORE_GPT_5_6_AND_EXECUTE_END_TO_END
   predecessor: P3-04
   predecessor_result_commit: 28fde1e9224236ce7b37b74434727463e96d9893
   predecessor_result_tree: d7efcc21cab8dc86488ef91963f48791dbe0dca0
@@ -19,6 +19,7 @@ active_task:
 exact_prompt:
   title: 36_P3-05_3D_Modeling_and_Scene_Production_Pack.md.docx
   local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P3/36_P3-05_3D_Modeling_and_Scene_Production_Pack.md.docx
+  local_path_status: ABSENT_UNTIL_NEW_HOST_BOOTSTRAP
   drive_path: gdrive:BiellaEngine/40_PROMPTS/P3/36_P3-05_3D_Modeling_and_Scene_Production_Pack.md.docx
   drive_id: 1TIG3GggwGdu3ma1e5MeeIontVUO4pmSP4aggJKps0Kg
   local_docx_sha256: abb4255869736f571329e3e55409fc8675f927a4ab09bc50bbb6556bbd48c050
@@ -33,8 +34,28 @@ recovery_boundary:
   reject_execution_beginning: "2026-08-30T10:44:52Z"
   recovery_archive: GPT56_EXACT_RECOVERY_2026-08-30.tar.gz
   recovery_archive_sha256: 73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
-  restore_status: PENDING_NEXT_BOOT
+  recovery_archive_size_bytes: 26490936
+  recovery_archive_drive_id: 1Y7aEStdGbCK5a0N9iA8s41l2olTWOUAE
+  recovery_archive_drive_readback: VERIFIED_EXACT_BYTES
+  recovery_archive_drive_readback_sha256: 73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
+  previous_execution_host: DESTROYED
+  restore_status: PENDING_NEW_HOST_RESTORE
   rule: restore_exact_pre_boundary_file_contents; never_replay_rejected_session_mutations
+
+execution_host:
+  current_host: NONE
+  previous_host_state: DESTROYED
+  previous_host_paths_are_authority: false
+  canonical_root_for_next_host: /root/biella
+  canonical_codex_home_for_next_host: /root/.codex
+  canonical_checkout_for_next_host: /root/biella/repos/biella-engine
+  bootstrap_authorities:
+    github_repository: patrickminitz-web/biella-engine
+    github_branch: main
+    drive_current_state_id: 1wiWcdWt4hmTf3narsLw4OqGu_ueKOSa4
+    drive_active_task_id: 1liutA8evH6rPjk-U4tgR13l_kqBrx-DF
+    drive_recovery_archive_id: 1Y7aEStdGbCK5a0N9iA8s41l2olTWOUAE
+  rule: new_host_is_disposable_execution_resource; GitHub_and_Drive_hold_durable_authority
 
 expected_recovered_path_set:
   modified_tracked:
@@ -160,9 +181,27 @@ multi_ai_execution:
     no_permanent_named_agent_hierarchy: true
 
 P3_05_graph:
+  B0_NEW_HOST_BOOTSTRAP:
+    mode: SERIAL_INFRASTRUCTURE
+    depends_on: []
+    objective: provision a fresh execution host and reconstruct canonical Biella roots from current GitHub and verified Drive authority
+    required:
+      - create_or_select_fresh_host
+      - create_/root/biella_and_/root/.codex
+      - clone_or_fetch_patrickminitz-web/biella-engine_main_into_/root/biella/repos/biella-engine
+      - verify_GitHub_continuity_head_before_any_recovery_write
+      - fetch_03_and_04_from_their_existing_Drive_file_IDs_when_needed_for_cross_check
+      - download_recovery_archive_from_Drive_ID_1Y7aEStdGbCK5a0N9iA8s41l2olTWOUAE
+      - verify_archive_size_26490936_and_sha256_73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
+    forbidden:
+      - assume_previous_VPS_disk_or_/root_contents_exist
+      - recreate_/srv/biella
+      - revive_/home/ubuntu/biella-work
+      - create_duplicate_active_checkout
+      - treat_host_or_provider_as_architectural_authority
   R0_PRE_RUN_GUARD:
     mode: SERIAL_READ_ONLY
-    depends_on: []
+    depends_on: [B0_NEW_HOST_BOOTSTRAP]
     objective: verify intended model, canonical repository, branch, prompt identity, recovery archive identity, and source boundary
     stop_before_write_if:
       - wrong_repository_or_branch
@@ -413,55 +452,22 @@ P3_05_required_scope:
     - ThreeDToolAdapter
     - 3D_ProductionPack_descriptor
     - 3D_pack_Artifact_roles_and_validators
-  KPI_targets:
-    dcc_specific_kernel_fields: 0
-    render_only_used_as_3D_source_proof: 0
-    editable_source_missing_when_required: 0
-    invalid_export_claimed_valid: 0
-    global_polygon_budget: 0
-    domain_specific_kernel_changes: 0
-
-future_numbered_activation_queue:
-  policy:
-    order_source: 05_BIELLA_PROMPT_INDEX.yaml
-    technical_dependencies: resolve_from_exact_prompt_and_current_source
-    compile_internal_graph_before_activation: false
-    compile_internal_graph_at_activation: true
-    cross_prompt_parallel_execution: forbidden_unless_04_explicitly_authorizes
-    each_boundary_requires: durable_close_then_next_activation
-    standard_lifecycle:
-      - ACTIVATE_EXACT_NUMBERED_PROMPT
-      - MINIMUM_INSPECTION
-      - COMPILE_IMMUTABLE_GRAPH_REVISION
-      - CLAIM_NONOVERLAPPING_NODES
-      - PARALLELIZE_ONLY_INDEPENDENT_NODES
-      - INTEGRATE
-      - TASK_DERIVED_VALIDATION
-      - EXACT_REPAIR_NODES_IF_REQUIRED
-      - FINAL_REALITY_BUILD_RUNTIME_EVIDENCE
-      - COMMIT_PUSH_REMOTE_READBACK
-      - UPDATE_03_04_AND_DRIVE
-      - ACTIVATE_NEXT
-  tasks:
-    - {id: P3-06, global: 37, title: "Character Modeling, Rigging, Skinning and Character Asset Pack", drive_id: 11Q0LKa5Zl_ctJ6_0tdn_6ezvxNeex6JufFBbDfu5NHM}
-    - {id: P3-07, global: 38, title: "Animation Production Pack", drive_id: 1GzQxmCrvIv10WVv0KdoPxlKi7l79J2J6cS-zvoOv-Dk}
-    - {id: P3-08, global: 39, title: "Environment and World Production Pack", drive_id: 10wP9734umfbfCGfLvmf3gz_9IfT1h8kTjX06KmW0a54}
-    - {id: P3-09, global: 40, title: "Rendering Production Pack", drive_id: 1FYsaztU8wwjl_6k8Nx4xJII4wId-MPflkLFUNwW4gRM}
-    - {id: P3-10, global: 41, title: "VFX and Simulation Production Pack", drive_id: 12GmJFm2-6mL7QSjyyaySDWbBi2WrkljUF447XWsHnnI}
-    - {id: P3-11, global: 42, title: "Image Production, Editing, Compositing and Texture Pack", drive_id: 1hZm2VC3xYefqwZBxvIhsChrIjCLcZXsTSoOCG3IKLhM}
-    - {id: P3-12, global: 43, title: "Audio Production, Processing, Mixing and Validation Pack", drive_id: 1c8GEF9Z6pL9JKMkhXx6ZtsbcKnI5b_jY4k27ie3L1HI}
-    - {id: P3-13, global: 44, title: "Video Production, Editing, Compositing and Media Pipeline Pack", drive_id: 12_Z1RrJBW8fGVj5z76wnaphozu8J2DjSrHd2gJVrbmA}
-    - {id: P3-14, global: 45, title: "Packaging, Publishing, Release and Durable Delivery Pack", drive_id: 1mkk0VYh14ut2Tz-7YKcdW35p0GJRtv7bVQeVSPVTzpE}
-    - {id: P4-01, global: 46, title: "Controlled Evidence-Based Model Capability Comparison", drive_id: 1V2VGta8GmM-6_UB4UwpdqKT-j_4NTRzcd3tXd1tKqOM}
-    - {id: P4-02, global: 47, title: "Agent, Skill, Prompt, Tool and Execution Strategy Evaluation", drive_id: 1IKlb4CPzng80VeJOPRo-_R5UdEIr7Vv4dz15x33JXfA}
-    - {id: P4-03, global: 48, title: "Conditional Reversible Evidence-Based Routing Learning", drive_id: 1kGNEBjMTBllbfqpiUGcNf7_TxhDZ7uDBvKf-jq5iqBw}
-    - {id: P4-04, global: 49, title: "Cache, Locality, Residency and Resource Placement Learning", drive_id: 1ND5zkrv09Jwxs8EDIRQwJ_QGRWAKP0u8lzfjA0ZJ0D4}
-    - {id: P4-05, global: 50, title: "Evidence-Based Failure Pattern and Repair Intelligence Learning", drive_id: 1zkyAQmBrWFVn5YU7A_up49Hd5DNA8-Xwic3TY9w0tm8}
-    - {id: P4-06, global: 51, title: "Versioned Production Recipe Learning and Full P0-P4 Qualification", drive_id: 1vsxRXkhtv0n8eJdQ56AVqJJEl3k5hjtqJsrUIqFVeAA}
+  invariants:
+    - DCC_SDK_types_stay_adapter_local
+    - native_editable_source_is_preserved_where_meaningful
+    - exports_bind_exact_source_target_exporter_version_settings_and_ContentRef
+    - process_exit_alone_is_not_success
+    - render_or_preview_is_not_editable_source_proof
+    - Project_style_poly_scale_rules_remain_Project_scoped
+    - missing_DCC_affects_route_not_Capability
+    - independent_assets_may_run_concurrently_under_existing_scheduler
+    - game_engine_is_not_3D_source_authority
+    - no_domain_kernel_changes
 
 completion_contract:
-  source_and_task_scoped_tests: required
-  typecheck_build_runtime_or_real_domain_evidence: task_derived_and_required_where_applicable
+  software_and_adapter_source: required
+  task_scoped_tests: required
+  typecheck_build_runtime_or_DCC_evidence: task_derived_and_required_where_applicable
   exact_Git_commit_and_tree: required
   remote_readback_after_push: required
   current_Drive_continuity_readback: required
