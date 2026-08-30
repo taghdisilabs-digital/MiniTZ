@@ -603,8 +603,29 @@ from .production_pack import (
     ProductionPackRegistry,
     ValidatorRegistration,
 )
+from .game_engine import (
+    GameAssetInput,
+    GameEngineAdapter,
+    GameEngineAuthorityError,
+    GameEngineConflictError,
+    GameEngineContractError,
+    GameEngineError,
+    GameEngineIntegrityError,
+    GameEngineOperation,
+    GameEngineOperationRequest,
+    GameEngineOperationResult,
+    GameEngineReality,
+    GameEngineResourceRequirements,
+    GameEngineRuntimeDescription,
+    GameEngineScopeError,
+    GameEngineStatus,
+    GameProjectIdentity,
+    IsolatedRuntimeGameEngineAdapter,
+    ReferenceGameEngineAdapter,
+)
 from .software_pack import software_production_pack
 from .web_pack import web_production_pack
+from .game_pack import game_production_pack
 
 __all__ = [
     "ActiveArtifact",
@@ -1145,6 +1166,25 @@ __all__ = [
     "ProductionPackRef",
     "ProductionPackRegistry",
     "ValidatorRegistration",
+    "GameAssetInput",
+    "GameEngineAdapter",
+    "GameEngineAuthorityError",
+    "GameEngineConflictError",
+    "GameEngineContractError",
+    "GameEngineError",
+    "GameEngineIntegrityError",
+    "GameEngineOperation",
+    "GameEngineOperationRequest",
+    "GameEngineOperationResult",
+    "GameEngineReality",
+    "GameEngineResourceRequirements",
+    "GameEngineRuntimeDescription",
+    "GameEngineScopeError",
+    "GameEngineStatus",
+    "GameProjectIdentity",
+    "IsolatedRuntimeGameEngineAdapter",
+    "ReferenceGameEngineAdapter",
     "software_production_pack",
     "web_production_pack",
+    "game_production_pack",
 ]
