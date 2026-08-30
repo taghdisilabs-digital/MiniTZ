@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-30 00:31 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-30T00:31:23+02:00"
+state_timestamp_local: "2026-08-30 01:54 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-30T01:54:11+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: d1c578a467fb555835458c8ef42eb8cf31cfbcb4
-    tree: 7ba19f32a3980f004f56f3c869cda4b0a30fedd6
+    commit: dfe1adc8b198841b17cdb75266c42b318b1db2ef
+    tree: dceceff0c80ed5128264b7c5d7ce2a0fe2ac2c1e
     observed_date: 2026-08-29
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p3_01_final_result_post_push_exact_readback
+    observation_context: p3_02_final_result_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,18 +36,19 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: d1c578a467fb555835458c8ef42eb8cf31cfbcb4
-    tree: 7ba19f32a3980f004f56f3c869cda4b0a30fedd6
+    head: dfe1adc8b198841b17cdb75266c42b318b1db2ef
+    tree: dceceff0c80ed5128264b7c5d7ce2a0fe2ac2c1e
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 32
+    durable_prompts_complete: 33
     durable_prompts_total: 51
+    progress: "33 / 51"
     phase: P3
-    active_prompt: P3-02
-    active_prompt_title: Web Application Production Pack
+    active_prompt: P3-03
+    active_prompt_title: Engine-Neutral Game Production Pack
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -2144,6 +2145,95 @@ engine:
       test_p3_01: "blob f6cf8164b028ab41e47805a914e135ebb690448e; size 46345; sha256 597ea138796736ef5f22659ff2243fc703738c40676f7f28ac16bbad51afc7ea"
       obsolete_src_biella_packs_init: ABSENT
       obsolete_src_biella_packs_software: ABSENT
+    p3_02_status: DURABLY_COMPLETE
+    p3_02_source_commit: 360170ca624f385f1d620ecb25781963b03dcdd4
+    p3_02_result_commit: dfe1adc8b198841b17cdb75266c42b318b1db2ef
+    p3_02_result_tree: dceceff0c80ed5128264b7c5d7ce2a0fe2ac2c1e
+    p3_02_remote_readback: VERIFIED
+    p3_02_implementation:
+      production_modules_added: 1
+      existing_modules_extended: 2
+      focused_pytest_cases: 5
+      migrations_added: 0
+      durable_state_tables_added: 0
+      web_capability_surface: web_inspect_frontend_backend_fullstack_component_route_api_database_integrate_build_run_test_browser_validate_performance_accessibility_and_package
+      pack_descriptor_contract: 15_provider_neutral_capabilities_3_graph_recipes_7_validators_11_distinct_artifact_roles_15_exact_adapter_bindings_and_15_resource_profiles
+      framework_neutrality_contract: framework_design_system_database_runtime_hosting_brand_and_visual_rules_remain_Project_or_Task_data
+      exact_source_contract: two_real_Project_scoped_Git_repositories_with_distinct_configs_exact_base_commit_tree_bounded_candidate_changes_and_cross_Project_denial
+      real_application_contract: controlled_red_green_repair_deterministic_build_runtime_crash_and_restart_live_HTTP_real_pinned_Chromium_DOM_interaction_screenshot_and_package
+      http_provenance_contract: exact_http_execution_receipt_manifests_chain_into_runtime_http_validation_and_package_evidence
+      browser_provenance_contract: exact_browser_session_generation_navigation_interaction_DOM_and_screenshot_receipts_chain_to_the_live_candidate
+      recovery_contract: provider_loss_records_generation_1_loss_reopens_generation_2_and_preserves_source_test_build_runtime_HTTP_browser_and_package_evidence
+      isolation_contract: repository_Workspace_runtime_port_HTTP_destination_browser_session_validation_and_package_evidence_remain_exact_Project_scoped
+      hostile_instruction_contract: repository_embedded_instructions_remain_inert_data_and_never_override_Task_authority
+    p3_02_validation:
+      focused_contract_and_real_e2e_pytest: "5 passed; 0 failed; 0 skipped; 104.18s"
+      final_real_e2e_after_http_receipt_hardening: "1 passed; 0 failed; 0 skipped; 103.59s"
+      affected_contract_regression: "75 passed; 1 recursive exact-wheel gate deselected; 31 subtests passed; 0 failed; 0 skipped; 3.13s"
+      broad_non_nested_regression: "547 passed; 19 exact recursive build/install qualification gates deselected; 137 subtests passed; 0 failed; 0 skipped; 838.56s"
+      exact_wheel_install_restart_gate: "1 passed; 0 failed; 0 skipped; 3.28s; exact source-to-wheel install and restart"
+      mypy_strict: "99 source/test files; 0 issues"
+      compileall: PASS
+      diff_check: PASS
+      test_quality_scan: "P3-02 skip, xfail, placeholder, TODO, FIXME, and NotImplemented hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      independent_review: "READY; no Critical or Important findings after exact HTTP execution receipt provenance hardening"
+      remote_required_paths_and_bytes: "GitHub main ref, result commit, tree, nine required blob IDs, sizes, SHA256 bytes, exact raw contents, and obsolete web-pack path absence independently read back and matched"
+    p3_02_kpi:
+      web_framework_hardcoded_in_kernel: 0
+      screenshot_only_validation: 0
+      build_claimed_live_without_runtime: 0
+      global_web_visual_or_performance_defaults: 0
+      domain_specific_kernel_changes: 0
+    p3_02_reality_classification:
+      SQLite_ProductionPack_Capability_validation_Artifact_and_idempotency_registration: REAL
+      exact_two_Project_Git_repository_inspection_candidate_changes_and_scope_denial: REAL_CPU
+      red_green_test_build_package_and_managed_process_runtime_crash_restart: REAL_CPU
+      live_HTTP_transport_response_and_execution_receipt_provenance: REAL_CPU_NETWORK_LOOPBACK
+      pinned_Selenium_Chromium_DOM_interaction_screenshot_and_provider_loss_recovery: REAL_CONTAINER_BROWSER
+      application_error_and_network_diagnostics: REAL_APPLICATION_INSTRUMENTATION
+      native_browser_console_log_capture: NOT_AVAILABLE_IN_ACCEPTED_BROWSER_CONTRACT
+      PostgreSQL_execution: NOT_RUN_NOT_REQUIRED_BY_SELECTED_PROJECTS
+      external_deployment_or_managed_hosting: NOT_RUN_NOT_REQUIRED
+    p3_02_qualification:
+      provider_neutral_web_ProductionPack_and_exact_15_capability_registrations: VERIFIED
+      graph_recipes_validators_artifact_roles_adapter_bindings_and_resource_profiles_as_pack_data: VERIFIED
+      exact_framework_runtime_package_manager_build_routes_tests_environment_and_entrypoint_discovery: VERIFIED
+      controlled_red_green_repair_test_build_start_HTTP_browser_and_package_flow: VERIFIED
+      build_runtime_HTTP_browser_performance_accessibility_and_package_evidence_remain_distinct: VERIFIED
+      exact_live_candidate_runtime_HTTP_and_browser_provenance_chaining: VERIFIED
+      runtime_crash_and_browser_provider_loss_preserve_verified_source_test_build_and_package_evidence: VERIFIED
+      cross_Project_repository_Workspace_runtime_destination_session_validation_and_package_isolation: VERIFIED
+      hostile_repository_instruction_inertness: VERIFIED
+      idempotency_conflict_and_restart_readback: VERIFIED
+      framework_design_database_runtime_hosting_provider_and_domain_specific_kernel_defaults: ZERO
+      raw_QuarantineRef_dependency_in_active_runtime: ZERO
+    p3_02_known_limitations:
+      - the_accepted_browser_adapter_has_no_native_console_log_API; early_page_error_and_unhandled_rejection_instrumentation_was_real_application_telemetry_not_native_console_capture
+      - PostgreSQL_was_not_executed_because_the_selected_exact_Project_configs_did_not_use_a_database; the_provider_neutral_database_integration_binding_remains_registered
+      - no_external_deployment_or_managed_hosting_action_was_required_or_authorized
+      - nineteen_recursive_exact_build_install_tests_were_excluded_from_the_non_nested_regression_and_covered_by_the_separate_exact_wheel_install_restart_gate
+    p3_02_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/capability.py
+      - src/biella/web_pack.py
+      - tests/test_p3_02_web_pack.py
+      - tests/fixtures/p3_02_web_app/.gitignore
+      - tests/fixtures/p3_02_web_app/build.py
+      - tests/fixtures/p3_02_web_app/candidate_checks.py
+      - tests/fixtures/p3_02_web_app/server.py
+      - tests/fixtures/p3_02_web_app/web-project.json
+    p3_02_remote_path_evidence:
+      src_biella_init: "blob 1fca57153be6259399289c8b250816fb7f1265b6; size 28644; sha256 d8158ac98a56a0640c7726a9ab98eaa94bee99d42ec6329b7856af3084f3dbb8"
+      src_biella_capability: "blob 85c006c3b7c443f704f266d4a5e1248168841dd1; size 31690; sha256 c2ca30af9d1e2ef043c1c143acd8ff23845d51a36d805df1cea89fadf3aba080"
+      src_biella_web_pack: "blob 9f32c56f8a2749adf56fa05abed0c9f0660bde23; size 11323; sha256 f93c9ae581fae9920b438e0007bf58b501c4d3460214851274a3a8d8641b1bcf"
+      test_p3_02: "blob 9cf14bdf9eea6733632fda02a7846b7b2bd38ade; size 77311; sha256 57ae0738084621fa6b2581a3ffd24cd665ce92b69cfe508ca93d02c24d92b8c6"
+      fixture_gitignore: "blob 1be5bdb4c984f43e498ece5befabcf39edc9c10b; size 19; sha256 bf7224daa29be47cef87a50b0351d18e729d129be606faa8e4718116d6e51d87"
+      fixture_build: "blob e229d1e7d22845b8895f771a673b9387ebec667e; size 1131; sha256 1bc29bc2e1bd8e992f4aaa49fde18a59f37df89380ec5b7d12dcbdddadf64d5e"
+      fixture_candidate_checks: "blob 03604278c44961a0be75c9aeb9242cb500c197ab; size 233; sha256 16e16096c6603c6a0004b7db07fe953ed4d499ff2040415eae42a7743c0ff5b8"
+      fixture_server: "blob 1666ce6ffe88f72ea425ed70ea49289f6a6b290d; size 3904; sha256 d4a0057938b27c67752d7cab073ff27d3079905edd8b6725f6a47d5e91d2ec67"
+      fixture_web_project: "blob e9a771436db00142b986b6cf6520c1f35e48be8e; size 275; sha256 a5a354407af99b34c78c95927187841285e76ecd378787da05920217c5111afc"
+      obsolete_src_biella_packs_web: ABSENT
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -2192,10 +2282,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P3-02
-    title: Web Application Production Pack
-    drive_id: 1tSP2q6J16nkag6m5j2rmLWIJRcKj9MncuMqriiio7sQ
-    canonical_prompt_text_sha256: 387b7431659a466cee56f028edf94eb48522cb18467c5df1a5077b4b93464518
+    id: P3-03
+    title: Engine-Neutral Game Production Pack
+    drive_id: 1ZShgBxR5qDFBhLM38MEJCsYCxdlWRjpUgzEYmvQqHlw
+    canonical_prompt_text_sha256: 043a1842c4fa85f2f61dc321850b15ae5cea22a2e6eabb4098fdb16769ca3f17
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -2262,61 +2352,59 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P3-02
-  global_number: 33
-  title: Web Application Production Pack
-  prompt_drive_id: 1tSP2q6J16nkag6m5j2rmLWIJRcKj9MncuMqriiio7sQ
-  predecessor_result_commit: d1c578a467fb555835458c8ef42eb8cf31cfbcb4
-  predecessor_result_tree: 7ba19f32a3980f004f56f3c869cda4b0a30fedd6
+  id: P3-03
+  global_number: 34
+  title: Engine-Neutral Game Production Pack
+  prompt_drive_id: 1ZShgBxR5qDFBhLM38MEJCsYCxdlWRjpUgzEYmvQqHlw
+  predecessor_result_commit: dfe1adc8b198841b17cdb75266c42b318b1db2ef
+  predecessor_result_tree: dceceff0c80ed5128264b7c5d7ce2a0fe2ac2c1e
 
 next_transition:
-  - verify_P3_01_handoff_from_exact_remote_commit_tree_and_required_paths
-  - load_exact_P3_02_prompt_and_directly_required_ProductionPack_Software_HTTP_Browser_PostgreSQL_Process_Workspace_Git_Validation_Artifact_Project_and_resource_interfaces_only
-  - register_web_inspect_frontend_backend_fullstack_component_route_api_database_integrate_build_run_test_browser_validate_performance_accessibility_and_package_capabilities_as_pack_data
-  - register_web_graph_recipes_validators_artifact_roles_adapter_bindings_and_resource_profiles_without_framework_design_database_runtime_or_hosting_kernel_defaults
-  - discover_actual_framework_runtime_package_manager_build_routing_tests_database_environment_and_entrypoint_from_exact_source
-  - preserve_Project_visual_brand_framework_database_runtime_hosting_and_secret_authority_as_Project_or_Task_data
-  - execute_at_least_one_real_app_inspect_bounded_defect_red_green_repair_test_build_start_HTTP_browser_and_final_package_flow
-  - bind_live_HTTP_and_browser_evidence_to_the_exact_candidate_runtime_and_keep_build_runtime_HTTP_browser_visual_performance_and_accessibility_evidence_distinct
-  - capture_console_runtime_and_required_network_failure_evidence_without_globalizing_irrelevant_third_party_warnings
-  - prove_browser_or_runtime_crash_recovery_preserves_source_build_and_completed_test_evidence
-  - prove_two_Projects_with_different_framework_or_database_configs_coexist_without_cross_Project_leakage
-  - keep_expected_framework_specific_kernel_fields_and_Project_design_or_database_defaults_at_zero
+  - verify_P3_02_handoff_from_exact_remote_commit_tree_required_paths_and_live_Drive_continuity
+  - load_exact_P3_03_prompt_and_directly_required_ProductionPack_Software_Git_Workspace_Process_Validation_Artifact_Project_Graph_Scheduler_Resource_and_quarantine_firewall_interfaces_only
+  - register_game_inspect_import_modify_build_run_test_profile_capture_export_package_and_validate_capabilities_as_pack_data
+  - define_provider_neutral_GameEngineAdapter_detect_inspect_import_build_run_test_profile_capture_export_and_describeRuntime_contract
+  - implement_one_real_engine_adapter_when_available_and_a_second_contract_or_reference_adapter_without_Task_or_Graph_schema_change
+  - bind_exact_Project_source_revision_adapter_engine_version_config_target_build_export_digest_output_and_toolchain_runtime_identity
+  - keep_authoritative_Project_source_and_assets_distinct_from_rebuildable_engine_import_build_and_cache_outputs
+  - prove_build_output_does_not_claim_playable_or_runtime_success_without_run_and_capture_evidence_when_required
+  - exercise_candidate_change_import_build_run_crash_scene_state_capture_test_profile_export_cache_deletion_rebuild_and_worker_loss_retention
+  - prove_two_engine_implementations_share_the_same_semantic_contract_and_Project_isolation
+  - expose_exact_Artifact_ref_hooks_for_later_3D_character_animation_environment_image_audio_and_VFX_packs_without_implementing_them
+  - keep_game_engine_hardcoding_global_performance_thresholds_engine_cache_authority_and_domain_specific_kernel_changes_at_zero
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P3_02_before_opening_P3_03
+  - close_P3_03_before_opening_P3_04
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - create_WebTask_WebRun_WebAgentManager_global_web_worker_or_second_web_application_architecture
+  - create_GameTask_GameRun_GameAgentManager_global_game_worker_or_second_game_architecture
   - mutate_ambiguous_or_mutable_source_without_exact_RepositoryRef_base_commit_and_tree
   - overwrite_or_revert_unrelated_dirty_Project_work
-  - impose_universal_React_Vue_Svelte_backend_framework_CSS_database_JS_runtime_or_hosting_preference
-  - use_historical_Project_assumptions_over_exact_repository_framework_runtime_build_or_entrypoint_evidence
-  - rewrite_framework_or_package_manager_without_Task_requirement
-  - claim_live_runtime_HTTP_browser_visual_performance_accessibility_or_package_success_from_build_only
-  - validate_browser_behavior_without_an_exact_live_candidate_runtime
-  - treat_screenshot_only_as_behavioral_proof
-  - globalize_Project_visual_brand_design_framework_database_runtime_or_hosting_rules
-  - persist_API_database_or_session_secrets_in_source_prompt_Event_or_Artifact
-  - execute_production_database_migration_merely_because_a_migration_file_exists
-  - deploy_externally_without_explicit_Task_authority
-  - claim_complete_accessibility_certification_from_one_automated_scan
-  - impose_global_performance_thresholds_without_Project_criteria
-  - lose_captured_candidate_completed_tests_or_build_package_outputs_after_browser_or_runtime_failure
+  - impose_universal_Godot_Unity_Unreal_engine_version_target_gameplay_visual_asset_or_performance_defaults
+  - use_historical_Project_assumptions_over_exact_repository_engine_config_scene_asset_test_plugin_or_entrypoint_evidence
+  - treat_engine_generated_import_build_or_cache_outputs_as_the_only_authority
+  - claim_playable_runtime_scene_behavior_capture_profile_or_export_success_from_build_only
+  - treat_capture_alone_as_gameplay_correctness_without_Task_criteria
+  - invent_gameplay_requirements_through_automated_input_or_interaction
+  - impose_universal_FPS_frame_time_CPU_GPU_RAM_VRAM_load_or_package_thresholds
+  - assume_GUI_or_GPU_availability_on_the_current_CPU_host
+  - publish_an_export_without_explicit_Task_authority
+  - implement_later_3D_character_animation_environment_image_audio_or_VFX_packs
+  - lose_verified_source_build_or_export_evidence_after_runtime_crash_or_worker_loss
   - accept_stale_Workspace_Run_Graph_Node_attempt_owner_or_result
-  - add_web_framework_design_database_runtime_hosting_provider_or_domain_specific_kernel_defaults
-  - use_only_mocked_HTML_or_response_strings_instead_of_a_real_runnable_application_end_to_end_task
+  - add_Godot_Unity_Unreal_or_other_engine_types_to_the_kernel_or_Task_Graph_schema
+  - use_only_mocked_engine_results_when_a_real_available_adapter_can_execute_on_current_resources
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P3_02_before_P3_01_durable_close
+  - start_P3_03_before_P3_02_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture

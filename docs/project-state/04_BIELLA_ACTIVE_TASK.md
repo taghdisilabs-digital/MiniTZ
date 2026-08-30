@@ -4,53 +4,54 @@
 schema: biella.active_task/v3
 
 task:
-  id: P3-02
-  global_number: 33
+  id: P3-03
+  global_number: 34
   phase: P3
-  title: Web Application Production Pack
-  state: READY_AFTER_P3_01_DURABLE_CLOSE
+  title: Engine-Neutral Game Production Pack
+  state: READY_AFTER_P3_02_DURABLE_CLOSE
   exact_prompt:
-    title: 33_P3-02_Web_Application_Production_Pack.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P3/33_P3-02_Web_Application_Production_Pack.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P3/33_P3-02_Web_Application_Production_Pack.md.docx
-    drive_id: 1tSP2q6J16nkag6m5j2rmLWIJRcKj9MncuMqriiio7sQ
-    local_docx_sha256: 90f15637b5cd8922e2a6037faee4b59d65411684d41479d4662f1d3b0e0bf7ca
-    live_drive_exported_docx_sha256: 3f360a5503541418cc7ac9709ffc9c13e942adaab0ae4d7279f0bf0ec32db838
-    canonical_text_sha256: 387b7431659a466cee56f028edf94eb48522cb18467c5df1a5077b4b93464518
+    title: 34_P3-03_Engine_Neutral_Game_Production_Pack.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P3/34_P3-03_Engine_Neutral_Game_Production_Pack.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P3/34_P3-03_Engine_Neutral_Game_Production_Pack.md.docx
+    drive_id: 1ZShgBxR5qDFBhLM38MEJCsYCxdlWRjpUgzEYmvQqHlw
+    local_docx_sha256: fbe83c26ed4c12c4b399b90130341863059ee49caee649dc0f6585ba7c80e1c3
+    live_drive_exported_docx_sha256: 62d993f5b1045bb7a20f4395310ac73c69a2d349edea6ad6af2ae267cecd4ab3
+    canonical_text_sha256: 043a1842c4fa85f2f61dc321850b15ae5cea22a2e6eabb4098fdb16769ca3f17
     canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P3-01
-    result_commit: d1c578a467fb555835458c8ef42eb8cf31cfbcb4
-    result_tree: 7ba19f32a3980f004f56f3c869cda4b0a30fedd6
+    id: P3-02
+    result_commit: dfe1adc8b198841b17cdb75266c42b318b1db2ef
+    result_tree: dceceff0c80ed5128264b7c5d7ce2a0fe2ac2c1e
     remote_readback: VERIFIED
     remote_required_paths_and_bytes: VERIFIED
     focused_type_build_installed_and_full_regression: VERIFIED
-  numbered_successor: P3-03
+  numbered_successor: P3-04
 
 execution_boundary:
   start_only_after_predecessor_durable_close: satisfied
   load_only:
-    - exact_P3_02_canonical_prompt
+    - exact_P3_03_canonical_prompt
     - current_state_and_active_task_continuity
-    - accepted_ProductionPack_Software_Git_Workspace_Process_HTTP_Browser_PostgreSQL_Context_Validation_Artifact_Project_Resource_and_quarantine_firewall_interfaces_directly_required
+    - accepted_ProductionPack_Software_Git_Workspace_Process_Validation_Artifact_Project_Graph_Scheduler_Resource_and_quarantine_firewall_interfaces_directly_required
     - directly_touched_source_and_task_scoped_tests
   do_not_open:
-    - P3_03_or_later_prompt_bodies_before_P3_02_durable_close
+    - P3_04_or_later_prompt_bodies_before_P3_03_durable_close
     - unrelated_historical_backup_or_legacy_material
   preserve:
     - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ModelCall_ToolCall_Event_ResourceAllocation_Workspace_Validation_and_managed_runtime_identity
     - P1_ContentRef_object_storage_Project_Engine_Run_memory_graph_event_scheduler_routing_call_ledger_and_checkpoint_contracts
     - P2_adapter_execution_isolation_retrieval_workspace_validation_fencing_durability_and_quarantine_firewall_contracts
     - P3_01_provider_neutral_ProductionPack_Software_pack_exact_repository_candidate_build_runtime_provenance_recovery_and_Project_isolation_contracts
+    - P3_02_provider_neutral_web_pack_exact_repository_live_runtime_HTTP_browser_package_provenance_recovery_and_Project_isolation_contracts
     - all_earlier_isolation_provenance_durability_routing_scheduler_and_quarantine_firewall_contracts
 
 canonical_prompt_text: |
-  PROMPT 33/51 - P3-02
+  PROMPT 34/51 - P3-03
 
   TITLE
 
-  Web Application Production Pack
+  Engine-Neutral Game Production Pack
 
   PHASE
 
@@ -58,7 +59,7 @@ canonical_prompt_text: |
 
   GOAL
 
-  Build and validate real frontend/backend/full-stack web applications while framework, design system, database, runtime, and hosting remain Project/tool choices.
+  Inspect, modify, build, run, test, profile, capture, export, and package real game Projects while Godot/Unity/Unreal/other engines remain replaceable adapters.
 
   CURRENT VERIFIED STATE
 
@@ -76,7 +77,7 @@ canonical_prompt_text: |
 
   DEPENDENCIES
 
-  - Prompt 32/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
+  - Prompt 33/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
 
   - All earlier accepted contracts used by this task; inspect the repository instead of assuming interface names.
 
@@ -92,15 +93,15 @@ canonical_prompt_text: |
 
   IN SCOPE
 
-  - Register web.inspect/frontend/backend/fullstack/component/route/api/build/run/test/browser_validate/performance/accessibility/package.
+  - Register game.inspect/import/modify/build/run/test/profile/capture/export/package/validate.
 
-  - Discover actual framework/build/runtime from exact source instead of historical assumptions.
+  - Define GameEngineAdapter detect/inspect/import/build/run/test/profile/capture/export/describeRuntime; implement one real adapter when available plus a second contract/reference implementation.
 
-  - Reuse Software pack plus HTTP/Browser/PostgreSQL when applicable.
+  - Bind exact Project source revision, engine/version/config, target and output identity; engine-generated import/build caches remain rebuildable.
 
-  - Separate build, live runtime, HTTP, browser interaction, visual, performance, and accessibility evidence according to Task.
+  - Build success is not playable/runtime proof; run/capture required when Task asks.
 
-  - Preserve Project visual/brand requirements and secrets; no universal React/CSS/DB/hosting preference.
+  - Expose clean hooks for 3D/character/animation/environment/image/audio/VFX packs.
 
   OUT OF SCOPE
 
@@ -110,25 +111,27 @@ canonical_prompt_text: |
 
   REQUIRED IMPLEMENTATION
 
-  - Register web.inspect/frontend/backend/fullstack/component/route/api/build/run/test/browser_validate/performance/accessibility/package.
+  - Register game.inspect/import/modify/build/run/test/profile/capture/export/package/validate.
 
-  - Discover actual framework/build/runtime from exact source instead of historical assumptions.
+  - Define GameEngineAdapter detect/inspect/import/build/run/test/profile/capture/export/describeRuntime; implement one real adapter when available plus a second contract/reference implementation.
 
-  - Reuse Software pack plus HTTP/Browser/PostgreSQL when applicable.
+  - Bind exact Project source revision, engine/version/config, target and output identity; engine-generated import/build caches remain rebuildable.
 
-  - Separate build, live runtime, HTTP, browser interaction, visual, performance, and accessibility evidence according to Task.
+  - Build success is not playable/runtime proof; run/capture required when Task asks.
 
-  - Preserve Project visual/brand requirements and secrets; no universal React/CSS/DB/hosting preference.
+  - Expose clean hooks for 3D/character/animation/environment/image/audio/VFX packs.
 
   REQUIRED INTERFACES
 
-  - Web ProductionPack descriptor
+  - GameEngineAdapter
 
-  - web graph recipes/validators
+  - Game ProductionPack descriptor
+
+  - game Artifact/validation registrations
 
   DATA / STATE CHANGES
 
-  - Web framework/design/database targets remain Project-scoped.
+  - Persist only durable state required by this task; large payloads belong in content-addressed objects/Artifacts, not opaque database blobs.
 
   FAILURE BEHAVIOR
 
@@ -144,229 +147,223 @@ canonical_prompt_text: |
 
   TESTS
 
-  - Real app inspect/modify/test/build/start; HTTP and browser validate live exact candidate.
+  - Detect/inspect exact engine Project; isolated candidate change; import/build/output verification; real/reference launch/capture/test/profile/export.
 
-  - Console/runtime failures captured when required.
+  - Cache deletion rebuilds without source loss.
 
-  - Optional DB and accessibility/performance checks.
+  - Second engine adapter uses same semantic contract.
 
-  - Browser/runtime crash recovery retains source/build.
-
-  - Two Projects with different frameworks/configs coexist.
+  - Worker loss retains verified build.
 
   KPI
 
-  - framework_specific_kernel_fields=0
+  - game_engine_hardcoded_in_kernel=0
 
-  - build_only_claimed_runtime_success=0
+  - build_claimed_playable_without_run=0
 
-  - browser_validation_without_live_candidate=0
+  - engine_cache_used_as_only_authority=0
 
-  - project_design_rules_globalized=0
+  - global_game_performance_threshold=0
 
-  - database_assumption_globalized=0
-
-  - cross_project_web_leaks=0
+  - domain_specific_kernel_changes=0
 
   RESTORED LONG-FORM REQUIREMENTS
 
-  WEB PACK REUSES SOFTWARE + P2
+  ENGINE-NEUTRAL GAME PACK
 
-  Implement web production through the same kernel/Workspace/Git/Process/HTTP/Browser/DB/Validation stack.
+  Implement game production with replaceable engine adapters.
 
-  Do not add a universal preferred:
+  No Godot/Unity/Unreal type belongs in kernel.
 
-  - React/Vue/Svelte/etc.;
+  Conceptual:
 
-  - backend framework;
+  GameEngineAdapter:
 
-  - CSS system;
+  detectProject
 
-  - database;
+  inspectProject
 
-  - JS runtime;
+  importProject
 
-  - hosting provider.
+  build
 
-  Discover Project technology from exact source.
+  run
+
+  test
+
+  profile
+
+  capture
+
+  export
+
+  describeRuntime
+
+  At least one real engine implementation when available; otherwise strong reference adapter and REAL evidence = NOT_RUN.
+
+  Architecture must support second engine without Task/Graph schema change.
 
   CAPABILITIES
 
-  Register:
+  - game.inspect
 
-  - web.inspect;
+  - game.import
 
-  - web.frontend;
+  - game.modify
 
-  - web.backend;
+  - game.build
 
-  - web.fullstack;
+  - game.run
 
-  - web.component;
+  - game.test
 
-  - web.route;
+  - game.profile
 
-  - web.api;
+  - game.capture
 
-  - web.database_integrate;
+  - game.export
 
-  - web.build;
+  - game.package
 
-  - web.run;
+  - game.validate
 
-  - web.test;
+  ENGINE IDENTITY
 
-  - web.browser_validate;
+  Capture exact:
 
-  - web.performance;
+  - adapter;
 
-  - web.accessibility;
+  - engine version;
 
-  - web.package.
+  - project config;
 
-  FRAMEWORK DISCOVERY
+  - target;
 
-  Inspect exact repository commit/tree for:
+  - build/export config digest;
 
-  - framework/runtime;
+  - toolchain/runtime.
 
-  - package manager;
+  Do not store only "Unity project"/"Godot project".
 
-  - build config;
+  PROJECT DATA
 
-  - routing;
+  Engine choice/version/target/input/gameplay/performance/visual/asset requirements are Project data.
 
-  - frontend/backend structure;
+  Do not globalize.
+
+  INSPECTION
+
+  Exact source:
+
+  - project type/config;
+
+  - scripts/source;
+
+  - scenes/levels;
+
+  - assets;
+
+  - build/export config;
 
   - tests;
 
-  - DB dependencies;
+  - plugins/dependencies;
 
-  - environment conventions;
+  - entry scene.
 
-  - entrypoint.
+  Do not infer from legacy donor history.
 
-  Repository evidence beats old Project assumptions.
+  WORKSPACE / CACHE
 
-  DESIGN AUTHORITY
+  Modify in candidate Workspace.
 
-  Visual/UI requirements come from Project Memory/Artifacts/approved references/Task.
+  Distinguish: authoritative Project source/assets vs engine-generated import/build/cache.
 
-  Biella does not apply its own generic web style.
+  Delete cache -> rebuild possible; Project source remains.
 
-  FRONTEND
+  IMPORT
 
-  Support real component/page/style/state/data modifications using current framework.
+  Execute actual engine import where applicable and capture failures/runtime identity.
 
-  Do not rewrite framework without Task.
+  Import cache is not sole authority.
 
-  BACKEND
+  BUILD
 
-  Support route/service/storage/auth/background logic according to Project architecture.
+  Produce actual expected Artifact.
 
-  Do not universally require REST/GraphQL/SQL.
+  Exit success + missing package = not PASS.
 
-  DYNAMIC GRAPH
+  RUN
 
-  Representative: inspect -> parallel frontend/backend analysis -> candidate -> parallel tests/build/static -> runtime -> browser validation -> final Artifact.
+  Launch exact project/build and observe:
 
-  Remove branches that Task does not need.
+  - process/runtime;
 
-  RUNTIME
+  - entry scene/state;
 
-  Start actual candidate through Process/IsolatedRuntime.
+  - crash/errors;
 
-  Capture endpoint/port/runtime/logs/health.
+  - required behavior.
 
-  Do not claim "works" from build only.
+  Build != playable/runtime proof.
 
-  HTTP
+  TEST / INPUT
 
-  Use P2 HTTP adapter for API/health validation against exact live candidate.
+  Use engine-native/software tests where available.
 
-  BROWSER
+  Automated input/interaction may verify state but cannot invent gameplay requirements.
 
-  Use live P2 browser for:
+  CAPTURE
 
-  - page load;
+  Screenshot/video/log/state/performance metrics are evidence.
 
-  - expected content;
+  Capture alone is not gameplay correctness unless Task says so.
 
-  - navigation;
+  PROFILE
 
-  - interaction/forms;
+  When requested measure Project-defined FPS/frame time/CPU/GPU/RAM/VRAM/load/package.
 
-  - screenshot;
+  No universal FPS.
 
-  - console/runtime errors;
+  EXPORT
 
-  - visual checks when required.
+  Bind exact candidate, target, engine/config, verify output.
 
-  Screenshot alone is not proof of behavior.
+  Export != publish.
 
-  CONSOLE / NETWORK ERRORS
+  MULTI-ENGINE NEUTRALITY
 
-  Capture page errors/unhandled exceptions/failed network requests where Task requires clean runtime.
+  Use implementation A plus B/reference for same semantic game.build/run/export.
 
-  Do not fail on irrelevant known third-party warnings unless Project criteria say so.
+  Task contract unchanged.
 
-  DATABASE
+  ASSET INTEGRATION SEAMS
 
-  PostgreSQL only if Project uses it.
+  Accept exact 3D/character/animation/environment/image/audio/VFX Artifact refs when packs exist.
 
-  Migrations require explicit Task authority and preferably test/staging DB.
+  Do not implement downstream packs here.
 
-  Never auto-run production migrations.
+  RESOURCE / HEADLESS
 
-  SECRETS
+  Engine implementation declares CPU/GPU/RAM/storage/headless/interactive support.
 
-  Do not put API/DB/session secrets into source, prompt, Event, or Artifact except intended secure placeholder/config refs.
+  No GUI/GPU assumption.
 
-  ACCESSIBILITY
+  RECOVERY / CONCURRENCY
 
-  If required, run explicit semantic/keyboard/automated checks.
+  Runtime crash leaves source/build.
 
-  Do not claim complete accessibility certification from one automated scan.
+  Worker loss does not rebuild verified build unnecessarily.
 
-  PERFORMANCE
+  Independent tests/assets/build prep may overlap when safe.
 
-  Measure Project-defined latency/bundle/server/memory requirements.
+  TESTS
 
-  No global threshold.
-
-  SCREENSHOTS
-
-  Bind viewport, browser/version, URL, exact candidate identity.
-
-  Compare against Project references when required.
-
-  PACKAGE
-
-  Produce real static/server/container/package output when requested.
-
-  Do not deploy externally unless authorized.
-
-  CONCURRENCY / RECOVERY
-
-  Frontend/backend tests/build/accessibility/static can overlap.
-
-  Browser crash does not lose source/build/test.
-
-  Runtime crash reruns bounded runtime step.
-
-  MULTI-PROJECT NEUTRALITY
-
-  Project A React + PostgreSQL; Project B Svelte + no DB (or equivalent) should both use same pack/kernel without global preference.
-
-  REAL INTEGRATION
-
-  At least one runnable app: inspect -> modify -> test -> build -> start -> HTTP -> browser -> final package.
-
-  Inject a defect and diagnose actual evidence.
+  Project detect/inspect/exact source; candidate change; import; build Artifact; run; crash fixture; scene/state; capture; test; profile; export; cache deletion/rebuild; two engine implementations; no Task schema change; Project isolation; build not runtime; worker loss retains build; no engine-specific kernel.
 
   USEFUL EVIDENCE — NON-GATING
 
-  - A real web Artifact/package is built and observed running without introducing framework-specific kernel architecture.
+  - Game production is engine-neutral and runtime-evidenced; Project gameplay/visual/performance rules stay scoped.
 
   DELIVERABLES
 
@@ -388,7 +385,7 @@ canonical_prompt_text: |
 
   Use this result block:
 
-  PROMPT: 33/51 - P3-02
+  PROMPT: 34/51 - P3-03
 
   STATUS: COMPLETE / PARTIAL / BLOCKED
 
