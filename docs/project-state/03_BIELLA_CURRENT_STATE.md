@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-30 01:54 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-30T01:54:11+02:00"
+state_timestamp_local: "2026-08-30 04:50 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-30T04:50:34+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: dfe1adc8b198841b17cdb75266c42b318b1db2ef
-    tree: dceceff0c80ed5128264b7c5d7ce2a0fe2ac2c1e
-    observed_date: 2026-08-29
+    commit: f665445e1771b98f34e1d82746c5d4a9686e3138
+    tree: 6a8c47f70fcd5df900381e05a93169a9aed25205
+    observed_date: 2026-08-30
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p3_02_final_result_post_push_exact_readback
+    observation_context: p3_03_final_result_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,19 +36,19 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: dfe1adc8b198841b17cdb75266c42b318b1db2ef
-    tree: dceceff0c80ed5128264b7c5d7ce2a0fe2ac2c1e
+    head: f665445e1771b98f34e1d82746c5d4a9686e3138
+    tree: 6a8c47f70fcd5df900381e05a93169a9aed25205
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 33
+    durable_prompts_complete: 34
     durable_prompts_total: 51
-    progress: "33 / 51"
+    progress: "34 / 51"
     phase: P3
-    active_prompt: P3-03
-    active_prompt_title: Engine-Neutral Game Production Pack
+    active_prompt: P3-04
+    active_prompt_title: Large-Scale / AAA Multi-Domain Production Orchestration Pack
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -2234,6 +2234,121 @@ engine:
       fixture_server: "blob 1666ce6ffe88f72ea425ed70ea49289f6a6b290d; size 3904; sha256 d4a0057938b27c67752d7cab073ff27d3079905edd8b6725f6a47d5e91d2ec67"
       fixture_web_project: "blob e9a771436db00142b986b6cf6520c1f35e48be8e; size 275; sha256 a5a354407af99b34c78c95927187841285e76ecd378787da05920217c5111afc"
       obsolete_src_biella_packs_web: ABSENT
+    p3_03_status: DURABLY_COMPLETE
+    p3_03_source_commit: ff77e10c95b9b84e29fe3dcc83e4538ec8328b04
+    p3_03_result_commit: f665445e1771b98f34e1d82746c5d4a9686e3138
+    p3_03_result_tree: 6a8c47f70fcd5df900381e05a93169a9aed25205
+    p3_03_remote_readback: VERIFIED
+    p3_03_implementation:
+      production_modules_added: 2
+      existing_modules_extended: 1
+      focused_pytest_cases: 14
+      migrations_added: 0
+      durable_state_tables_added: 9
+      game_capability_surface: game_inspect_import_modify_build_run_test_profile_capture_export_package_and_validate
+      adapter_contract: GameEngineAdapter_with_detectProject_inspectProject_importProject_build_run_test_profile_capture_export_and_describeRuntime_semantics
+      implementation_contract: IsolatedRuntimeGameEngineAdapter_REAL_and_ReferenceGameEngineAdapter_REFERENCE_share_the_same_provider_neutral_Task_Graph_Capability_and_Artifact_contract
+      identity_contract: exact_Project_RepositoryRef_source_commit_tree_Workspace_snapshot_engine_executable_version_args_project_config_entry_scene_target_export_config_toolchain_runtime_cache_resource_and_output_identity
+      candidate_contract: live_candidate_bytes_modes_and_exact_snapshot_identity_fail_closed_while_engine_generated_cache_and_output_paths_remain_rebuildable
+      execution_contract: direct_REAL_engine_detection_import_build_native_test_run_profile_capture_export_and_deterministic_package_validation_with_build_never_substituting_for_runtime_proof
+      provenance_contract: exact_candidate_build_asset_runtime_receipt_raw_output_domain_output_package_validation_and_aggregate_Artifact_chaining
+      atomicity_contract: all_domain_outputs_publications_success_result_and_verified_detection_or_build_index_commit_in_one_live_Node_and_Run_fenced_transaction
+      recovery_contract: semantic_detection_and_build_identity_excludes_only_worker_local_control_root_and_ResourceAllocation_while_preserving_exact_engine_candidate_runtime_output_and_publication_identity
+      asset_seam_contract: exact_3D_character_animation_environment_image_audio_and_VFX_Artifact_refs_without_implementing_downstream_packs
+      isolation_contract: Project_Repository_Workspace_runtime_Artifact_validation_cache_and_reference_evidence_remain_exact_Project_scoped
+      hostile_instruction_contract: repository_embedded_hostile_instructions_remain_inert_bytes_and_never_override_Task_Node_Run_or_adapter_authority
+    p3_03_validation:
+      focused_pack_validation_and_prior_pack_regression: "27 passed; 0 failed; 0 skipped; 349.86s"
+      final_byte_authoritative_real_Godot_e2e: "1 passed; 0 failed; 0 skipped; 431.29s; exact source, test, and five normalized fixture SHA256 values matched before and after; zero residual biella.runtime containers"
+      affected_P0_contract_regression: "159 passed; 82 subtests passed; 0 failed; 0 skipped; 16.15s"
+      affected_call_resource_scheduler_workspace_validation_regression: "69 passed; 4 recursive predecessor gates deselected; 4 subtests passed; 0 failed; 0 skipped; 129.34s"
+      affected_filesystem_process_git_runtime_regression: "63 passed; 4 recursive exact-wheel gates deselected; 0 failed; 0 skipped; 290.23s; zero residual biella.runtime containers"
+      exact_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; size 502488; sha256 16c1d4652cc4145c1bc9b3cd4e77e3b98ed4b152a5303b5e1bed57333f521e71; required P3-03 paths present"
+      installed_wheel_restart_gate: "isolated install; pip check PASS; two separate interpreter processes verified exact ten-method adapter surface, 11 capabilities, 11 validators, and zero active-runtime QuarantineRef"
+      mypy_strict: "104 source/test files; 0 issues"
+      compileall: PASS
+      diff_check: PASS
+      test_quality_scan: "P3-03 skip, xfail, placeholder, TODO, FIXME, and NotImplemented hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      independent_review: "READY at exact game_engine sha256 bcf8b7a0d419d4b967234ebe3c573e8beb3a59a5b739bc6723fe45f43429a094 and game_pack sha256 2ec6d0b65b477e5ab9a0830d218f08647d385d742d8bbea7562648c4d0710280; no Critical or Important findings"
+      remote_required_paths_and_bytes: "GitHub main ref, result commit, tree, 12 required blob IDs, sizes, SHA256 bytes, and exact raw contents independently read back and matched"
+    p3_03_kpi:
+      game_engine_hardcoded_in_kernel: 0
+      build_claimed_playable_without_run: 0
+      engine_cache_used_as_only_authority: 0
+      global_game_performance_threshold: 0
+      domain_specific_kernel_changes: 0
+    p3_03_reality_classification:
+      SQLite_ProductionPack_Capability_game_operation_detection_build_description_publication_and_idempotency_ledgers: REAL
+      exact_Git_Repository_Workspace_candidate_snapshot_and_live_byte_mode_verification: REAL_CPU
+      pinned_barichello_Godot_CI_image_and_Godot_4_3_detection_import_build_test_run_profile_capture_export: REAL_CPU_CONTAINER
+      runtime_crash_cache_deletion_reimport_and_worker_replacement_detection_build_reuse: REAL_CPU_CONTAINER
+      deterministic_ZIP_package_and_ValidationService_role_provenance_aggregates: REAL_CPU
+      second_engine_semantic_contract: REFERENCE
+      seven_downstream_asset_pack_seams: REAL_ARTIFACT_CONTRACT_WITHOUT_DOWNSTREAM_PACK_IMPLEMENTATION
+      GPU_or_interactive_GUI_engine_execution: NOT_RUN_NOT_REQUIRED_ON_CURRENT_CPU_HEADLESS_PROJECT
+      Unity_or_Unreal_execution: NOT_RUN_NOT_REQUIRED_SECOND_IMPLEMENTATION_PROVED_BY_REFERENCE_ADAPTER
+      external_publish_or_managed_provider_execution: NOT_RUN_NOT_REQUIRED
+    p3_03_qualification:
+      provider_neutral_game_ProductionPack_and_exact_11_capability_registrations: VERIFIED
+      exact_ten_method_GameEngineAdapter_and_REAL_REFERENCE_implementations: VERIFIED
+      exact_source_engine_version_config_scene_target_export_toolchain_runtime_cache_resource_and_output_identity: VERIFIED
+      direct_engine_detection_exact_version_line_and_runtime_backend_evidence: VERIFIED
+      isolated_candidate_inspection_import_build_native_test_run_profile_capture_export_and_package: VERIFIED
+      build_runtime_test_profile_capture_export_and_validation_evidence_remain_distinct: VERIFIED
+      missing_output_forbidden_diagnostic_and_build_without_runtime_fail_closed: VERIFIED
+      cache_deletion_rebuilds_without_source_loss_or_cache_authority: VERIFIED
+      semantic_build_and_detection_adoption_across_changed_control_root_ResourceAllocation_and_Node_fence_without_reexecution: VERIFIED
+      multi_output_publication_result_and_verified_index_atomicity: VERIFIED
+      exact_candidate_build_asset_runtime_output_package_and_validation_provenance_chaining: VERIFIED
+      cross_Project_repository_Workspace_runtime_Artifact_reference_and_validation_isolation: VERIFIED
+      hostile_repository_instruction_inertness: VERIFIED
+      exact_idempotent_replay_changed_semantics_conflict_and_same_key_inflight_exclusion: VERIFIED
+      raw_QuarantineRef_dependency_in_active_runtime: ZERO
+      Godot_Unity_Unreal_or_other_engine_kernel_types_defaults: ZERO
+    p3_03_known_limitations:
+      - the_REAL_adapter_was_qualified_with_Godot_4_3_headless_on_CPU_in_a_pinned_container; GPU_and_interactive_GUI_paths_were_not_required
+      - Unity_and_Unreal_were_not_available_or_required; the_second_implementation_was_the_explicit_REFERENCE_adapter_and_never_claimed_runtime_observation
+      - no_external_game_publish_store_or_managed_provider_action_was_required_or_authorized
+      - eight_recursive_predecessor_build_install_gates_were_excluded_from_affected_regression_groups_and_replaced_by_the_final_exact_wheel_build_install_pip_check_and_two_process_restart_gate
+      - fallow_CLI_was_unavailable; independent_graph_grounded_manual_review_and_executable_transaction_recovery_regressions_were_used
+    p3_03_schema_changes:
+      - game_engine_operation_claims
+      - game_engine_operation_results
+      - game_engine_operation_inflight
+      - game_engine_verified_builds
+      - game_engine_verified_detections
+      - game_engine_runtime_description_claims
+      - game_engine_runtime_descriptions
+      - game_engine_runtime_description_inflight
+      - game_engine_output_publications
+      - immutable_claim_result_verified_build_verified_detection_runtime_description_and_output_publication_guards
+    p3_03_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/game_engine.py
+      - src/biella/game_pack.py
+      - tests/fixtures/p3_03_game_project/.gitignore
+      - tests/fixtures/p3_03_game_project/export_presets.cfg
+      - tests/fixtures/p3_03_game_project/main.gd
+      - tests/fixtures/p3_03_game_project/main.tscn
+      - tests/fixtures/p3_03_game_project/project.godot
+      - tests/fixtures/p3_03_game_project/test_runner.gd
+      - tests/test_p3_03_game_pack.py
+      - tests/test_p3_03_game_real.py
+      - tests/test_p3_03_game_validation.py
+    p3_03_remote_path_evidence:
+      src_biella_init: "blob cd9e045881645fa290c8db2e0aa6c3f8231fadf1; size 29793; sha256 a1c0af057dbba44cf38caec429f89c79855df3ff42451c1cab26ab73fdefc31e"
+      src_biella_game_engine: "blob 83ecbc13a82c182de5504614ed1b4963249ea477; size 171452; sha256 bcf8b7a0d419d4b967234ebe3c573e8beb3a59a5b739bc6723fe45f43429a094"
+      src_biella_game_pack: "blob 4ffe85c0489299ca153ed9f22919ef4afbcf4451; size 11505; sha256 2ec6d0b65b477e5ab9a0830d218f08647d385d742d8bbea7562648c4d0710280"
+      fixture_gitignore: "blob f0238d63e81acc179a1975467e8227fcecbb9714; size 39; sha256 ef77b61caf3c83545487de6157a9bb770b2c1c9bf71e75dbcc969100a2aba6b8"
+      fixture_export_presets: "blob 9ee59939112caf7e213f2591b0e2d82db7cf28f0; size 1181; sha256 1201747f52c264c25a2e8c9972bee3ab21f606e4460dbba7c54ea502e6b61464"
+      fixture_main_gd: "blob 97b3277ecb881b3e4674a790a49f99f90620f26f; size 4149; sha256 118cb98afb6931a6ac2c7f6254784ccd7f4d898da510d29ffd7cb8b76a6021ab"
+      fixture_main_tscn: "blob 40af25be3d468c44c4dc232cf69bf2c5ecbe94f6; size 1009; sha256 bb215832fc305d876d184214bb49b6d34ef15bda3b557263152e7f69bcddb750"
+      fixture_project_godot: "blob cf08720ff71613aaa89bdd9a6296e11b1ee12c2b; size 605; sha256 d1ffc9084fdadc4a6870233e4bfd7f73589ca4064fddde62b32e2af04bd436d8"
+      fixture_test_runner: "blob 59f9238b492038995cde42cd09a272c0205c0c9d; size 1500; sha256 71c40aa84e181e66de9b295a7a741eed26da8a1a7f0f372c9b0af22974345e94"
+      test_p3_03_pack: "blob fa7b1581f34bcf2c1ed864133a0295ad684bbef6; size 35047; sha256 413399c6e9fe8fe2862371ab0ad4df29a23c78ebddb24c9c933448ca36859ef4"
+      test_p3_03_real: "blob a309180da881a16ab59405d7fa1a85899d8c4323; size 56681; sha256 e59a653783ba412d879820a42090269ca399fb019dfe49950ff9e7ef19678e1b"
+      test_p3_03_validation: "blob 70d5fb87632ffabc652dbaa9c6a0ce2b8831a265; size 16392; sha256 c45cb2d0ed356136ec3e799c08499e08d4a31f20e7772f399cd5c93ab5280e1d"
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -2282,10 +2397,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P3-03
-    title: Engine-Neutral Game Production Pack
-    drive_id: 1ZShgBxR5qDFBhLM38MEJCsYCxdlWRjpUgzEYmvQqHlw
-    canonical_prompt_text_sha256: 043a1842c4fa85f2f61dc321850b15ae5cea22a2e6eabb4098fdb16769ca3f17
+    id: P3-04
+    title: Large-Scale / AAA Multi-Domain Production Orchestration Pack
+    drive_id: 1NLikJ8cPQ3-4ybpMr8FvHN2sn43fPVw_trMet-Wx_HQ
+    canonical_prompt_text_sha256: f7a4cd3552b2a2d889826eed6baedbc48131f8be270ed9244bf4884d07cf574a
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -2352,59 +2467,62 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P3-03
-  global_number: 34
-  title: Engine-Neutral Game Production Pack
-  prompt_drive_id: 1ZShgBxR5qDFBhLM38MEJCsYCxdlWRjpUgzEYmvQqHlw
-  predecessor_result_commit: dfe1adc8b198841b17cdb75266c42b318b1db2ef
-  predecessor_result_tree: dceceff0c80ed5128264b7c5d7ce2a0fe2ac2c1e
+  id: P3-04
+  global_number: 35
+  title: Large-Scale / AAA Multi-Domain Production Orchestration Pack
+  prompt_drive_id: 1NLikJ8cPQ3-4ybpMr8FvHN2sn43fPVw_trMet-Wx_HQ
+  predecessor_result_commit: f665445e1771b98f34e1d82746c5d4a9686e3138
+  predecessor_result_tree: 6a8c47f70fcd5df900381e05a93169a9aed25205
 
 next_transition:
-  - verify_P3_02_handoff_from_exact_remote_commit_tree_required_paths_and_live_Drive_continuity
-  - load_exact_P3_03_prompt_and_directly_required_ProductionPack_Software_Git_Workspace_Process_Validation_Artifact_Project_Graph_Scheduler_Resource_and_quarantine_firewall_interfaces_only
-  - register_game_inspect_import_modify_build_run_test_profile_capture_export_package_and_validate_capabilities_as_pack_data
-  - define_provider_neutral_GameEngineAdapter_detect_inspect_import_build_run_test_profile_capture_export_and_describeRuntime_contract
-  - implement_one_real_engine_adapter_when_available_and_a_second_contract_or_reference_adapter_without_Task_or_Graph_schema_change
-  - bind_exact_Project_source_revision_adapter_engine_version_config_target_build_export_digest_output_and_toolchain_runtime_identity
-  - keep_authoritative_Project_source_and_assets_distinct_from_rebuildable_engine_import_build_and_cache_outputs
-  - prove_build_output_does_not_claim_playable_or_runtime_success_without_run_and_capture_evidence_when_required
-  - exercise_candidate_change_import_build_run_crash_scene_state_capture_test_profile_export_cache_deletion_rebuild_and_worker_loss_retention
-  - prove_two_engine_implementations_share_the_same_semantic_contract_and_Project_isolation
-  - expose_exact_Artifact_ref_hooks_for_later_3D_character_animation_environment_image_audio_and_VFX_packs_without_implementing_them
-  - keep_game_engine_hardcoding_global_performance_thresholds_engine_cache_authority_and_domain_specific_kernel_changes_at_zero
+  - verify_P3_03_handoff_from_exact_remote_commit_tree_12_required_paths_and_live_Drive_continuity
+  - load_exact_P3_04_prompt_and_directly_required_ProductionPack_Software_Game_Graph_Scheduler_Resource_Artifact_Checkpoint_Workspace_Validation_Project_Run_Task_and_quarantine_firewall_interfaces_only
+  - define_large_scale_ProductionPack_descriptor_and_multi_domain_graph_recipes_as_pack_data_without_new_kernel_or_controller_types
+  - compose_software_game_3D_character_animation_environment_render_VFX_image_audio_video_and_package_capability_refs_with_downstream_unimplemented_packs_explicitly_REFERENCE_only
+  - persist_ProductionIntegrationManifest_with_exact_Project_Task_Run_Graph_component_Artifact_integration_build_validation_refs_and_digest
+  - represent_real_fan_out_fan_in_with_at_least_four_independent_productive_branches_and_Scheduler_as_the_only_resource_authority
+  - prove_max_concurrent_productive_nodes_greater_than_one_when_current_resources_allow_without_ambiguous_global_serializing_targets
+  - exercise_worker_or_branch_failure_while_retaining_completed_and_independent_running_branches_then_recover_only_the_affected_branch
+  - create_bounded_Graph_v2_for_one_changed_branch_while_preserving_failed_v1_history_and_exact_unaffected_outputs
+  - integrate_only_exact_component_Artifact_versions_and_invalidate_or_version_integration_when_an_upstream_Artifact_changes
+  - compose_Task_derived_domain_validation_without_a_universal_final_critic_or_global_threshold
+  - run_Project_Alpha_large_production_and_unrelated_Project_Beta_work_without_data_leakage
+  - keep_Project_quality_art_direction_performance_and_resource_budgets_as_Project_or_Task_data
+  - keep_domain_specific_second_scheduler_global_production_lock_unjustified_serialization_whole_Run_restart_and_ambiguous_latest_integration_at_zero
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P3_03_before_opening_P3_04
+  - close_P3_04_before_opening_P3_05
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - create_GameTask_GameRun_GameAgentManager_global_game_worker_or_second_game_architecture
-  - mutate_ambiguous_or_mutable_source_without_exact_RepositoryRef_base_commit_and_tree
+  - create_AAAController_AAAFactoryManager_AAAApprovalPipeline_permanent_worker_hierarchy_or_second_orchestrator
+  - create_AAATask_AAARun_AAAGraph_AAAScheduler_or_domain_specific_resource_reservation_authority
+  - create_heavyweight_global_AAA_global_production_global_or_global_production_lock
+  - serialize_independent_productive_branches_without_a_real_dependency_resource_or_mutable_target_conflict
+  - restart_the_whole_Run_after_one_branch_or_worker_failure
+  - erase_succeeded_or_independent_running_branch_evidence_during_recovery
+  - resolve_latest_character_environment_build_validation_or_other_ambiguous_Artifact_during_integration
+  - integrate_without_exact_Project_Task_Run_Graph_component_Artifact_version_and_digest_identity
+  - claim_REFERENCE_downstream_pack_branches_as_REAL_production
+  - implement_later_3D_character_animation_environment_render_VFX_image_audio_video_or_packaging_prompt_bodies
+  - create_a_universal_final_critic_or_global_AAA_quality_gate
+  - impose_global_art_direction_visual_style_performance_FPS_frame_time_CPU_GPU_RAM_VRAM_storage_network_or_package_thresholds
+  - treat_specialist_agents_as_permanent_authority_or_a_required_team_hierarchy
+  - bypass_the_existing_Graph_Scheduler_ResourceAllocation_Checkpoint_Workspace_Artifact_or_Validation_contracts
+  - mutate_ambiguous_or_mutable_source_without_exact_RepositoryRef_Workspace_snapshot_and_Artifact_identity
   - overwrite_or_revert_unrelated_dirty_Project_work
-  - impose_universal_Godot_Unity_Unreal_engine_version_target_gameplay_visual_asset_or_performance_defaults
-  - use_historical_Project_assumptions_over_exact_repository_engine_config_scene_asset_test_plugin_or_entrypoint_evidence
-  - treat_engine_generated_import_build_or_cache_outputs_as_the_only_authority
-  - claim_playable_runtime_scene_behavior_capture_profile_or_export_success_from_build_only
-  - treat_capture_alone_as_gameplay_correctness_without_Task_criteria
-  - invent_gameplay_requirements_through_automated_input_or_interaction
-  - impose_universal_FPS_frame_time_CPU_GPU_RAM_VRAM_load_or_package_thresholds
-  - assume_GUI_or_GPU_availability_on_the_current_CPU_host
-  - publish_an_export_without_explicit_Task_authority
-  - implement_later_3D_character_animation_environment_image_audio_or_VFX_packs
-  - lose_verified_source_build_or_export_evidence_after_runtime_crash_or_worker_loss
-  - accept_stale_Workspace_Run_Graph_Node_attempt_owner_or_result
-  - add_Godot_Unity_Unreal_or_other_engine_types_to_the_kernel_or_Task_Graph_schema
-  - use_only_mocked_engine_results_when_a_real_available_adapter_can_execute_on_current_resources
+  - accept_stale_Task_Run_Graph_revision_Node_attempt_fence_Workspace_checkpoint_Artifact_validation_or_resource_evidence
+  - leak_component_Artifact_manifest_Workspace_Run_or_validation_evidence_across_Projects
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P3_03_before_P3_02_durable_close
+  - start_P3_04_before_P3_03_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture

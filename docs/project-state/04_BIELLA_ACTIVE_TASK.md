@@ -4,54 +4,55 @@
 schema: biella.active_task/v3
 
 task:
-  id: P3-03
-  global_number: 34
+  id: P3-04
+  global_number: 35
   phase: P3
-  title: Engine-Neutral Game Production Pack
-  state: READY_AFTER_P3_02_DURABLE_CLOSE
+  title: Large-Scale / AAA Multi-Domain Production Orchestration Pack
+  state: READY_AFTER_P3_03_DURABLE_CLOSE
   exact_prompt:
-    title: 34_P3-03_Engine_Neutral_Game_Production_Pack.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P3/34_P3-03_Engine_Neutral_Game_Production_Pack.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P3/34_P3-03_Engine_Neutral_Game_Production_Pack.md.docx
-    drive_id: 1ZShgBxR5qDFBhLM38MEJCsYCxdlWRjpUgzEYmvQqHlw
-    local_docx_sha256: fbe83c26ed4c12c4b399b90130341863059ee49caee649dc0f6585ba7c80e1c3
-    live_drive_exported_docx_sha256: 62d993f5b1045bb7a20f4395310ac73c69a2d349edea6ad6af2ae267cecd4ab3
-    canonical_text_sha256: 043a1842c4fa85f2f61dc321850b15ae5cea22a2e6eabb4098fdb16769ca3f17
+    title: 35_P3-04_Large_Scale_AAA_Multi_Domain_Production_Orchestration_Pack.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P3/35_P3-04_Large_Scale_AAA_Multi_Domain_Production_Orchestration_Pack.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P3/35_P3-04_Large_Scale_AAA_Multi_Domain_Production_Orchestration_Pack.md.docx
+    drive_id: 1NLikJ8cPQ3-4ybpMr8FvHN2sn43fPVw_trMet-Wx_HQ
+    local_docx_sha256: 8c154f2b89085ff294f4ca35887d65fca3533c6f06e043f9fde6a04fd9737d42
+    live_drive_exported_docx_sha256: 3133cdbbdc5d26131061b6122b36b764ec2dadd64d196b08e300739f1932e324
+    canonical_text_sha256: f7a4cd3552b2a2d889826eed6baedbc48131f8be270ed9244bf4884d07cf574a
     canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P3-02
-    result_commit: dfe1adc8b198841b17cdb75266c42b318b1db2ef
-    result_tree: dceceff0c80ed5128264b7c5d7ce2a0fe2ac2c1e
+    id: P3-03
+    result_commit: f665445e1771b98f34e1d82746c5d4a9686e3138
+    result_tree: 6a8c47f70fcd5df900381e05a93169a9aed25205
     remote_readback: VERIFIED
     remote_required_paths_and_bytes: VERIFIED
-    focused_type_build_installed_and_full_regression: VERIFIED
-  numbered_successor: P3-04
+    focused_real_type_build_installed_and_relevant_regression: VERIFIED
+  numbered_successor: P3-05
 
 execution_boundary:
   start_only_after_predecessor_durable_close: satisfied
   load_only:
-    - exact_P3_03_canonical_prompt
+    - exact_P3_04_canonical_prompt
     - current_state_and_active_task_continuity
-    - accepted_ProductionPack_Software_Git_Workspace_Process_Validation_Artifact_Project_Graph_Scheduler_Resource_and_quarantine_firewall_interfaces_directly_required
+    - accepted_ProductionPack_Software_Game_Project_Task_Run_Graph_Node_Scheduler_ResourceAllocation_Artifact_Checkpoint_Workspace_Validation_and_quarantine_firewall_interfaces_directly_required
     - directly_touched_source_and_task_scoped_tests
   do_not_open:
-    - P3_04_or_later_prompt_bodies_before_P3_03_durable_close
+    - P3_05_or_later_prompt_bodies_before_P3_04_durable_close
     - unrelated_historical_backup_or_legacy_material
   preserve:
-    - exact_Project_Task_Run_Graph_Node_attempt_fence_Artifact_ContentRef_ModelCall_ToolCall_Event_ResourceAllocation_Workspace_Validation_and_managed_runtime_identity
-    - P1_ContentRef_object_storage_Project_Engine_Run_memory_graph_event_scheduler_routing_call_ledger_and_checkpoint_contracts
+    - exact_Project_Task_Run_Graph_revision_Node_attempt_fence_Artifact_ContentRef_ModelCall_ToolCall_Event_ResourceAllocation_Workspace_Checkpoint_Validation_and_managed_runtime_identity
+    - P1_ContentRef_object_storage_Project_Engine_Run_memory_graph_event_scheduler_routing_call_ledger_checkpoint_and_resource_contracts
     - P2_adapter_execution_isolation_retrieval_workspace_validation_fencing_durability_and_quarantine_firewall_contracts
     - P3_01_provider_neutral_ProductionPack_Software_pack_exact_repository_candidate_build_runtime_provenance_recovery_and_Project_isolation_contracts
     - P3_02_provider_neutral_web_pack_exact_repository_live_runtime_HTTP_browser_package_provenance_recovery_and_Project_isolation_contracts
+    - P3_03_provider_neutral_game_pack_exact_engine_candidate_asset_build_runtime_validation_atomicity_worker_recovery_and_Project_isolation_contracts
     - all_earlier_isolation_provenance_durability_routing_scheduler_and_quarantine_firewall_contracts
 
 canonical_prompt_text: |
-  PROMPT 34/51 - P3-03
+  PROMPT 35/51 - P3-04
 
   TITLE
 
-  Engine-Neutral Game Production Pack
+  Large-Scale / AAA Multi-Domain Production Orchestration Pack
 
   PHASE
 
@@ -59,7 +60,7 @@ canonical_prompt_text: |
 
   GOAL
 
-  Inspect, modify, build, run, test, profile, capture, export, and package real game Projects while Godot/Unity/Unreal/other engines remain replaceable adapters.
+  Prove complex long-lived multi-domain production composes through the same Graph/Scheduler without a separate AAA controller, global lock, or permanent specialist hierarchy.
 
   CURRENT VERIFIED STATE
 
@@ -77,7 +78,7 @@ canonical_prompt_text: |
 
   DEPENDENCIES
 
-  - Prompt 33/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
+  - Prompt 34/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
 
   - All earlier accepted contracts used by this task; inspect the repository instead of assuming interface names.
 
@@ -93,15 +94,15 @@ canonical_prompt_text: |
 
   IN SCOPE
 
-  - Register game.inspect/import/modify/build/run/test/profile/capture/export/package/validate.
+  - Provide composition recipes/bundle metadata spanning software/game/3D/character/animation/environment/render/VFX/image/audio/video/package capabilities; reference downstream packs if not yet implemented.
 
-  - Define GameEngineAdapter detect/inspect/import/build/run/test/profile/capture/export/describeRuntime; implement one real adapter when available plus a second contract/reference implementation.
+  - Represent real dependency fan-out/fan-in and independent branches; resource scheduler remains sole allocation authority.
 
-  - Bind exact Project source revision, engine/version/config, target and output identity; engine-generated import/build caches remain rebuildable.
+  - Persist component Artifacts and ProductionIntegrationManifest with exact refs; integration never resolves ambiguous latest assets.
 
-  - Build success is not playable/runtime proof; run/capture required when Task asks.
+  - Checkpoint long Runs, retain completed branches through worker/branch failure, and use new Graph revision for bounded repair.
 
-  - Expose clean hooks for 3D/character/animation/environment/image/audio/VFX packs.
+  - Project quality/art direction/performance remain Project data.
 
   OUT OF SCOPE
 
@@ -111,23 +112,23 @@ canonical_prompt_text: |
 
   REQUIRED IMPLEMENTATION
 
-  - Register game.inspect/import/modify/build/run/test/profile/capture/export/package/validate.
+  - Provide composition recipes/bundle metadata spanning software/game/3D/character/animation/environment/render/VFX/image/audio/video/package capabilities; reference downstream packs if not yet implemented.
 
-  - Define GameEngineAdapter detect/inspect/import/build/run/test/profile/capture/export/describeRuntime; implement one real adapter when available plus a second contract/reference implementation.
+  - Represent real dependency fan-out/fan-in and independent branches; resource scheduler remains sole allocation authority.
 
-  - Bind exact Project source revision, engine/version/config, target and output identity; engine-generated import/build caches remain rebuildable.
+  - Persist component Artifacts and ProductionIntegrationManifest with exact refs; integration never resolves ambiguous latest assets.
 
-  - Build success is not playable/runtime proof; run/capture required when Task asks.
+  - Checkpoint long Runs, retain completed branches through worker/branch failure, and use new Graph revision for bounded repair.
 
-  - Expose clean hooks for 3D/character/animation/environment/image/audio/VFX packs.
+  - Project quality/art direction/performance remain Project data.
 
   REQUIRED INTERFACES
 
-  - GameEngineAdapter
+  - Large-scale ProductionPack descriptor
 
-  - Game ProductionPack descriptor
+  - ProductionIntegrationManifest
 
-  - game Artifact/validation registrations
+  - multi-domain graph recipes
 
   DATA / STATE CHANGES
 
@@ -147,223 +148,219 @@ canonical_prompt_text: |
 
   TESTS
 
-  - Detect/inspect exact engine Project; isolated candidate change; import/build/output verification; real/reference launch/capture/test/profile/export.
+  - At least four independent branches with productive concurrency >1 when resources allow.
 
-  - Cache deletion rebuilds without source loss.
+  - Kill one worker/branch; completed branches remain; recover only affected branch.
 
-  - Second engine adapter uses same semantic contract.
+  - Graph v2 changes one branch while unaffected historical outputs remain exact.
 
-  - Worker loss retains verified build.
+  - Second Project runs concurrently without data leakage.
+
+  - Static/runtime check for no AAA/global heavy lock or manager authority.
 
   KPI
 
-  - game_engine_hardcoded_in_kernel=0
+  - domain_specific_second_scheduler=0
 
-  - build_claimed_playable_without_run=0
+  - global_production_lock=0
 
-  - engine_cache_used_as_only_authority=0
+  - independent_branches_serialized_without_reason=0
 
-  - global_game_performance_threshold=0
+  - whole_Run_restarted_after_one_branch_failure=0
 
-  - domain_specific_kernel_changes=0
+  - ambiguous_latest_artifact_integration=0
 
   RESTORED LONG-FORM REQUIREMENTS
 
-  ENGINE-NEUTRAL GAME PACK
+  PURPOSE: PROVE NORMAL GRAPH/SCHEDULER SCALES
 
-  Implement game production with replaceable engine adapters.
+  "AAA" here means large-scale, multi-domain, dependency-rich, resource-intensive, long-running production.
 
-  No Godot/Unity/Unreal type belongs in kernel.
+  It does not mean a visual style, engine, permanent team hierarchy, or second orchestrator.
 
-  Conceptual:
+  Do not create:
 
-  GameEngineAdapter:
+  - AAAController;
 
-  detectProject
+  - AAAFactoryManager;
 
-  inspectProject
+  - AAAApprovalPipeline;
 
-  importProject
+  - permanent worker hierarchy.
+
+  Use normal Task -> Graph -> Nodes -> Scheduler -> Capabilities -> Artifacts -> Validation.
+
+  COMPOSITION
+
+  Prepare composition across: software, game, 3D, character, animation, environment, render, VFX, image, audio, video, package.
+
+  Downstream not-yet-implemented capabilities may use REFERENCE implementations for orchestration tests only.
+
+  Never claim reference branch as real production.
+
+  REPRESENTATIVE GRAPH
+
+  Support dynamic pattern similar to:
+
+  requirements
+
+  ├─ software/gameplay
+
+  ├─ environment/materials/lighting
+
+  ├─ character/rig/animation
+
+  └─ audio/VFX
+
+  ↓
+
+  integration
+
+  ↓
 
   build
 
-  run
+  ├─ runtime QA
 
-  test
+  └─ performance
 
-  profile
+  ↓
 
-  capture
+  package
 
-  export
+  This is an example recipe, not mandatory global workflow.
 
-  describeRuntime
+  PARALLEL BRANCHES
 
-  At least one real engine implementation when available; otherwise strong reference adapter and REAL evidence = NOT_RUN.
+  Required proof: at least 4 independent productive branches where resources permit.
 
-  Architecture must support second engine without Task/Graph schema change.
+  Examples: software, environment, character, audio, texture.
 
-  CAPABILITIES
+  Record max_concurrent_productive_nodes > 1 when adequate resources exist.
 
-  - game.inspect
+  RESOURCE CONTENTION
 
-  - game.import
+  Use P1 scheduler:
 
-  - game.modify
+  - GPU-heavy Nodes contend only for GPU capacity;
 
-  - game.build
+  - CPU Nodes continue;
 
-  - game.run
+  - storage/network work overlaps;
 
-  - game.test
+  - multi-resource requirements respected.
 
-  - game.profile
+  No AAA-specific scheduler/reservation hierarchy.
 
-  - game.capture
+  DURABILITY
 
-  - game.export
+  Exercise:
 
-  - game.package
+  - checkpoints;
 
-  - game.validate
+  - Workspace snapshots;
 
-  ENGINE IDENTITY
+  - completed Artifacts;
 
-  Capture exact:
+  - long branch execution;
 
-  - adapter;
+  - worker lease expiry;
 
-  - engine version;
+  - Run reconstruction;
 
-  - project config;
+  - Graph revision.
 
-  - target;
+  A failed character branch must not erase succeeded software/environment or independent running audio.
 
-  - build/export config digest;
+  BOUNDED GRAPH REVISION
 
-  - toolchain/runtime.
+  If one branch needs a new approach: create Graph v2 changing bounded region.
 
-  Do not store only "Unity project"/"Godot project".
+  Preserve:
 
-  PROJECT DATA
+  - unaffected completed branches;
 
-  Engine choice/version/target/input/gameplay/performance/visual/asset requirements are Project data.
+  - failed v1 history;
 
-  Do not globalize.
+  - exact new branch;
 
-  INSPECTION
+  - integration dependency changes.
 
-  Exact source:
+  Do not restart whole Run.
 
-  - project type/config;
+  EXACT INTEGRATION
 
-  - scripts/source;
+  Create ProductionIntegrationManifest or equivalent:
 
-  - scenes/levels;
+  - Project/Task/Run/Graph;
 
-  - assets;
+  - exact component Artifacts/versions;
 
-  - build/export config;
+  - integration refs;
 
-  - tests;
+  - build;
 
-  - plugins/dependencies;
+  - validation refs;
 
-  - entry scene.
+  - digest.
 
-  Do not infer from legacy donor history.
+  Integration may not resolve "latest character/environment".
 
-  WORKSPACE / CACHE
+  Changed upstream Artifact invalidates or creates new integration.
 
-  Modify in candidate Workspace.
+  VALIDATION
 
-  Distinguish: authoritative Project source/assets vs engine-generated import/build/cache.
+  Compose domain-specific validation: software tests, character deformation, render checks, runtime, performance.
 
-  Delete cache -> rebuild possible; Project source remains.
+  No universal final critic.
 
-  IMPORT
+  AGENTS
 
-  Execute actual engine import where applicable and capture failures/runtime identity.
+  Specialists are optional dynamic execution strategies only.
 
-  Import cache is not sole authority.
+  PERFORMANCE
 
-  BUILD
+  Measure actual Project budgets; no generic AAA threshold.
 
-  Produce actual expected Artifact.
+  FAILURE INJECTION
 
-  Exit success + missing package = not PASS.
+  Required:
 
-  RUN
+  1.  multi-branch Graph;
 
-  Launch exact project/build and observe:
+  2.  ≥4 branches;
 
-  - process/runtime;
+  3.  complete ≥2;
 
-  - entry scene/state;
+  4.  kill/fail worker in another;
 
-  - crash/errors;
+  5.  prove completed retained;
 
-  - required behavior.
+  6.  recover/reassign;
 
-  Build != playable/runtime proof.
+  7.  revise Graph if needed;
 
-  TEST / INPUT
+  8.  integrate exact Artifacts;
 
-  Use engine-native/software tests where available.
+  9.  validate final integrated output.
 
-  Automated input/interaction may verify state but cannot invent gameplay requirements.
+  GLOBAL LOCK CHECK
 
-  CAPTURE
+  Static/runtime check finds no heavyweight:global, AAA:global, production:global.
 
-  Screenshot/video/log/state/performance metrics are evidence.
+  Only real resource/mutable-target conflicts serialize.
 
-  Capture alone is not gameplay correctness unless Task says so.
+  MULTI-PROJECT
 
-  PROFILE
+  Run Project Alpha large production while Beta unrelated Task runs.
 
-  When requested measure Project-defined FPS/frame time/CPU/GPU/RAM/VRAM/load/package.
+  Shared scheduler/resource does not mean shared data.
 
-  No universal FPS.
-
-  EXPORT
-
-  Bind exact candidate, target, engine/config, verify output.
-
-  Export != publish.
-
-  MULTI-ENGINE NEUTRALITY
-
-  Use implementation A plus B/reference for same semantic game.build/run/export.
-
-  Task contract unchanged.
-
-  ASSET INTEGRATION SEAMS
-
-  Accept exact 3D/character/animation/environment/image/audio/VFX Artifact refs when packs exist.
-
-  Do not implement downstream packs here.
-
-  RESOURCE / HEADLESS
-
-  Engine implementation declares CPU/GPU/RAM/storage/headless/interactive support.
-
-  No GUI/GPU assumption.
-
-  RECOVERY / CONCURRENCY
-
-  Runtime crash leaves source/build.
-
-  Worker loss does not rebuild verified build unnecessarily.
-
-  Independent tests/assets/build prep may overlap when safe.
-
-  TESTS
-
-  Project detect/inspect/exact source; candidate change; import; build Artifact; run; crash fixture; scene/state; capture; test; profile; export; cache deletion/rebuild; two engine implementations; no Task schema change; Project isolation; build not runtime; worker loss retains build; no engine-specific kernel.
+  P3-04 passes only when normal Biella architecture, not a new AAA authority, handles this.
 
   USEFUL EVIDENCE — NON-GATING
 
-  - Game production is engine-neutral and runtime-evidenced; Project gameplay/visual/performance rules stay scoped.
+  - Complex production uses normal Task/Graph/Run/Scheduler/Artifact semantics and demonstrates bounded failure recovery.
 
   DELIVERABLES
 
@@ -385,7 +382,7 @@ canonical_prompt_text: |
 
   Use this result block:
 
-  PROMPT: 34/51 - P3-03
+  PROMPT: 35/51 - P3-04
 
   STATUS: COMPLETE / PARTIAL / BLOCKED
 
