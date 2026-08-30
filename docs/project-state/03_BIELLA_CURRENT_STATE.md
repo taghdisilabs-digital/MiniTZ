@@ -2,8 +2,8 @@
 
 ```yaml
 schema: biella.current_state/v2
-state_timestamp_local: "2026-08-30 04:50 Europe/Amsterdam"
-state_timestamp_iso: "2026-08-30T04:50:34+02:00"
+state_timestamp_local: "2026-08-30 07:17 Europe/Amsterdam"
+state_timestamp_iso: "2026-08-30T07:17:06+02:00"
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 
@@ -22,11 +22,11 @@ engine:
   branch: main
 
   observed_remote:
-    commit: f665445e1771b98f34e1d82746c5d4a9686e3138
-    tree: 6a8c47f70fcd5df900381e05a93169a9aed25205
+    commit: 28fde1e9224236ce7b37b74434727463e96d9893
+    tree: d7efcc21cab8dc86488ef91963f48791dbe0dca0
     observed_date: 2026-08-30
     evidence: CURRENT_GITHUB_SOURCE
-    observation_context: p3_03_final_result_post_push_exact_readback
+    observation_context: p3_04_final_result_post_push_exact_readback
     src_present: true
     root_package_json_present: false
     root_pyproject_present: true
@@ -36,19 +36,19 @@ engine:
     checkout_path: /root/biella/repos/biella-engine
     checkout_exists: true
     branch: main
-    head: f665445e1771b98f34e1d82746c5d4a9686e3138
-    tree: 6a8c47f70fcd5df900381e05a93169a9aed25205
+    head: 28fde1e9224236ce7b37b74434727463e96d9893
+    tree: d7efcc21cab8dc86488ef91963f48791dbe0dca0
     upstream: origin/main
     worktree_status: CLEAN_AT_IMPLEMENTATION_READBACK
     newer_valid_work_present: false
 
   implementation:
-    durable_prompts_complete: 34
+    durable_prompts_complete: 35
     durable_prompts_total: 51
-    progress: "34 / 51"
+    progress: "35 / 51"
     phase: P3
-    active_prompt: P3-04
-    active_prompt_title: Large-Scale / AAA Multi-Domain Production Orchestration Pack
+    active_prompt: P3-05
+    active_prompt_title: 3D Modeling and Scene Production Pack
     p0_01_status: DURABLY_COMPLETE
     p0_01_source_commit: 007c38004e985c26e8ab732e9ef228de4bd409df
     p0_01_result_commit: fa442745b73e02cc2cd67ef0c029973de06bb773
@@ -2349,6 +2349,105 @@ engine:
       test_p3_03_pack: "blob fa7b1581f34bcf2c1ed864133a0295ad684bbef6; size 35047; sha256 413399c6e9fe8fe2862371ab0ad4df29a23c78ebddb24c9c933448ca36859ef4"
       test_p3_03_real: "blob a309180da881a16ab59405d7fa1a85899d8c4323; size 56681; sha256 e59a653783ba412d879820a42090269ca399fb019dfe49950ff9e7ef19678e1b"
       test_p3_03_validation: "blob 70d5fb87632ffabc652dbaa9c6a0ce2b8831a265; size 16392; sha256 c45cb2d0ed356136ec3e799c08499e08d4a31f20e7772f399cd5c93ab5280e1d"
+    p3_04_status: DURABLY_COMPLETE
+    p3_04_source_commit: d422031545ca0458f2aaa90433941b50577e68b7
+    p3_04_result_commit: 28fde1e9224236ce7b37b74434727463e96d9893
+    p3_04_result_tree: d7efcc21cab8dc86488ef91963f48791dbe0dca0
+    p3_04_remote_readback: VERIFIED
+    p3_04_implementation:
+      production_modules_added: 2
+      existing_modules_extended: 1
+      focused_pytest_cases: 8
+      migrations_added: 0
+      durable_state_tables_added: 2
+      public_interfaces_added: 20
+      composition_contract: exact_12_domain_large_scale_ProductionPack_descriptor_and_normal_17_Node_Task_Run_Graph_fan_out_fan_in_recipe
+      scheduler_contract: existing_Scheduler_and_ResourceAllocation_are_the_only_allocation_authority_with_CPU_GPU_storage_network_and_multi_resource_claims
+      manifest_contract: immutable_Project_scoped_ProductionIntegrationManifest_with_exact_Task_Run_Graph_component_integration_build_package_validation_checkpoint_configuration_and_record_digests
+      provenance_contract: exact_ProductionPack_Artifact_roles_Node_outputs_SourceRef_implementation_receipts_component_integration_build_validation_package_and_manifest_derivation_chain
+      classification_contract: Graph_execution_binding_Artifact_receipt_and_manifest_reality_must_match;_REFERENCE_cannot_inflate_to_REAL
+      recovery_contract: checkpoint_Workspace_snapshot_expired_worker_lease_stale_fence_rejection_same_Run_reassignment_and_bounded_Graph_v2_reuse_invalidation_through_final_manifest
+      idempotency_contract: exact_Project_scoped_claim_replay_survives_current_config_or_Graph_drift_while_changed_semantics_conflict
+      atomicity_contract: manifest_Artifact_bindings_derivation_head_manifest_and_claim_commit_in_one_SQLite_transaction_or_roll_back_together
+      isolation_contract: unrelated_Project_Beta_Task_runs_concurrently_through_the_same_Scheduler_without_Artifact_configuration_Run_or_allocation_leakage
+      hostile_instruction_contract: hostile_bytes_remain_content_addressed_inert_data_and_never_change_Task_Graph_Run_Scheduler_or_Workspace_authority
+    p3_04_validation:
+      focused_large_scale_orchestration: "8 passed; 0 failed; 0 skipped; 98.72s"
+      independent_frozen_reviews: "three READY reviews; focused reruns 8 passed in 101.00s and 101.14s; exact source/test SHA256 stable"
+      affected_P0_migration_isolation_artifact_integration: "84 passed; 51 subtests passed; 0 failed; 0 skipped; 37.59s"
+      affected_P0_graph_execution: "53 passed; 14 subtests passed; 0 failed; 0 skipped; 11.82s"
+      affected_workspace_validation: "27 passed; 0 failed; 0 skipped; 111.39s"
+      prior_production_pack_regression: "28 passed; 0 failed; 0 skipped; 787.80s; includes real Godot qualification"
+      canonical_scheduler_predecessor_chain: "15 passed; 0 failed; 0 skipped; 1031.06s; P1-08 recursively qualified P1-07 P1-06 P1-05 build install and restart gates"
+      direct_call_ledger_predecessor: "15 unittest cases; 0 failures; 0 errors; 0 skipped"
+      mypy_strict: "107 source/test files; 0 issues"
+      compileall: PASS
+      diff_check: PASS
+      test_quality_scan: "P3-04 skip, xfail, placeholder, TODO, FIXME, and NotImplemented hits: 0"
+      active_runtime_quarantine_scan: "raw QuarantineRef dependencies outside migration: 0"
+      exact_wheel_build: "biella_engine-0.1.0-py3-none-any.whl; size 519273; sha256 183dd00e104af1dc95ae279b437a2a793f5e36d5147566cd7cd5759697aa3512; three required source members byte-exact"
+      installed_wheel_restart_gate: "fresh venv install; import resolved from site-packages; exact manifest scope fence idempotency rollback and restart test 1 passed in 30.13s"
+      remote_required_paths_and_bytes: "GitHub main ref, result commit, tree, four required blob IDs, sizes, SHA256 bytes, and exact raw contents independently read back and matched"
+    p3_04_kpi:
+      domain_specific_second_scheduler: 0
+      global_production_lock: 0
+      independent_branches_serialized_without_reason: 0
+      whole_Run_restarted_after_one_branch_failure: 0
+      ambiguous_latest_artifact_integration: 0
+      productive_branches_dispatched_concurrently: 4
+      max_concurrent_productive_nodes: GREATER_THAN_1_VERIFIED
+      exclusive_resource_double_allocations: 0
+      invalid_resource_overcommit: 0
+      cross_Project_reads_or_writes: 0
+      measured_build_size_bytes: 22
+      Project_build_size_budget_bytes: 1024
+    p3_04_reality_classification:
+      SQLite_ProductionPack_Capability_Task_Run_Graph_Node_Artifact_Validation_manifest_and_idempotency_state: REAL
+      Scheduler_allocation_contention_concurrency_fencing_checkpoint_and_recovery_logic: REAL_CPU
+      local_Filesystem_Workspace_snapshot_object_storage_restart_and_hostile_byte_readback: REAL_CPU_FILESYSTEM
+      package_execution_and_exact_implementation_SourceRef_receipt: REAL_CPU
+      Project_defined_build_size_performance_measurement_and_budget_validation: REAL_CPU
+      software_and_game_pack_availability_descriptors: REAL_IMPLEMENTATION_AVAILABLE
+      orchestration_fixture_software_game_3D_character_animation_environment_render_VFX_image_audio_and_video_outputs: REFERENCE
+      synthetic_software_character_render_and_runtime_validation_results: REFERENCE
+      Resource_inventory_observers_for_CPU_GPU_storage_and_network: MOCK_WITH_REAL_SCHEDULER_SEMANTICS
+      worker_kill: SIMULATED_LEASE_ABANDONMENT_WITH_REAL_EXPIRY_AND_RECOVERY
+      external_DCC_media_rendering_or_managed_provider_execution: NOT_RUN_NOT_REQUIRED_FOR_P3_04
+    p3_04_qualification:
+      exact_large_scale_ProductionPack_multi_domain_recipe_capabilities_validators_roles_bindings_and_profiles_as_neutral_data: VERIFIED
+      normal_Task_Graph_Run_Scheduler_Capability_Artifact_Validation_composition_without_second_controller_or_global_lock: VERIFIED
+      four_productive_branches_overlap_and_GPU_contention_defers_only_one_GPU_branch_while_CPU_storage_network_continue: VERIFIED
+      multi_resource_CPU_GPU_reservations_exclusive_device_and_zero_overcommit: VERIFIED
+      checkpoint_Workspace_snapshot_worker_lease_expiry_same_Run_recovery_stale_owner_rejection_and_completed_branch_retention: VERIFIED
+      Graph_v2_bounded_changed_branch_closure_invalidation_unaffected_exact_output_reuse_and_v1_failure_history: VERIFIED
+      repaired_v2_continues_through_integration_build_validation_package_and_exact_manifest: VERIFIED
+      exact_Artifact_roles_implementation_receipts_component_versions_provenance_and_no_latest_resolution: VERIFIED
+      current_PASS_validation_coverage_with_exact_Project_budget_measurement: VERIFIED
+      immutable_fenced_idempotent_atomic_restart_durable_manifest_and_tamper_detection: VERIFIED
+      concurrent_unrelated_Project_isolation: VERIFIED
+      hostile_instruction_inertness: VERIFIED
+      raw_QuarantineRef_dependency_in_active_runtime: ZERO
+      AAA_controller_manager_approval_pipeline_second_scheduler_and_global_production_lock: ZERO
+    p3_04_known_limitations:
+      - all_eleven_pre_package_outputs_in_the_orchestration_fixture_are_explicit_REFERENCE_receipts; prior_real_software_and_game_pack_qualification_is_preserved_but_not_reexecuted_as_a_REAL_branch_inside_this_fixture
+      - GPU_storage_and_network_inventory_is_deterministic_MOCK_observation_data_while_scheduler_reservation_contention_and_recovery_are_REAL
+      - worker_loss_is_simulated_by_real_lease_abandonment_and_expiry_on_the_current_CPU_host_not_by_terminating_an_external_worker_VM
+      - no_external_DCC_media_rendering_or_managed_provider_execution_was_required_or_authorized_for_this_orchestration_prompt
+      - the_initial_combined_P1_pytest_invocation_hit_the_known_tests_namespace_alias_artifact_in_P1_06_T15;_the_canonical_isolated_P1_08_predecessor_chain_then_passed_all_nested_gates
+    p3_04_schema_changes:
+      - production_integration_manifests
+      - production_integration_manifest_claims
+      - immutable_manifest_and_claim_update_delete_guards
+    p3_04_required_remote_paths:
+      - src/biella/__init__.py
+      - src/biella/large_scale_pack.py
+      - src/biella/production_integration.py
+      - tests/test_p3_04_large_scale_orchestration.py
+    p3_04_remote_path_evidence:
+      src_biella_init: "blob 77f35d944e28f32c3dc6ca0f35a33916688794d5; size 31313; sha256 cfc718ca6b8510046faf522464776ecab87e71be6976d0b2564de44986d515d1"
+      src_biella_large_scale_pack: "blob cf866e7b0845e5a65815777320a899d8d1859f33; size 21924; sha256 87956276b3d92faee0df56c30373bb26e0b6654c85db79ef1c92ae2b278fbcc0"
+      src_biella_production_integration: "blob df160e113bea10e1c4a062c00db783104acea303; size 68885; sha256 272b7f31538dd75a8818f4b35021b57602e3c344fb53e6d5892d1a168ce7d43d"
+      test_p3_04: "blob 640f98ccfc08a196438fa68c02eb14d71b507058; size 76956; sha256 cc76fb69abe71a2851668b02ebf4cb707823e5266ff4ab55156b87350f3b1de1"
     historical_spot_local_p0_01_counts_as_current: false
     reconstruct_historical_p0_01_from_prose: false
 
@@ -2397,10 +2496,10 @@ drive:
     website: biellawebsite
 
   active_prompt_identity:
-    id: P3-04
-    title: Large-Scale / AAA Multi-Domain Production Orchestration Pack
-    drive_id: 1NLikJ8cPQ3-4ybpMr8FvHN2sn43fPVw_trMet-Wx_HQ
-    canonical_prompt_text_sha256: f7a4cd3552b2a2d889826eed6baedbc48131f8be270ed9244bf4884d07cf574a
+    id: P3-05
+    title: 3D Modeling and Scene Production Pack
+    drive_id: 1TIG3GggwGdu3ma1e5MeeIontVUO4pmSP4aggJKps0Kg
+    canonical_prompt_text_sha256: e8688b4e820c7df1096f4a88a9e0bcda792fbe17c3e1690839a689bbcf6f46ed
     local_and_live_drive_prompt_text_equal: true
 
   inactive_reference_candidates:
@@ -2467,62 +2566,61 @@ volatile_reobserve_before_next_write:
   - github_push_auth_when_publication_required
 
 next_boundary:
-  id: P3-04
-  global_number: 35
-  title: Large-Scale / AAA Multi-Domain Production Orchestration Pack
-  prompt_drive_id: 1NLikJ8cPQ3-4ybpMr8FvHN2sn43fPVw_trMet-Wx_HQ
-  predecessor_result_commit: f665445e1771b98f34e1d82746c5d4a9686e3138
-  predecessor_result_tree: 6a8c47f70fcd5df900381e05a93169a9aed25205
+  id: P3-05
+  global_number: 36
+  title: 3D Modeling and Scene Production Pack
+  prompt_drive_id: 1TIG3GggwGdu3ma1e5MeeIontVUO4pmSP4aggJKps0Kg
+  predecessor_result_commit: 28fde1e9224236ce7b37b74434727463e96d9893
+  predecessor_result_tree: d7efcc21cab8dc86488ef91963f48791dbe0dca0
 
 next_transition:
-  - verify_P3_03_handoff_from_exact_remote_commit_tree_12_required_paths_and_live_Drive_continuity
-  - load_exact_P3_04_prompt_and_directly_required_ProductionPack_Software_Game_Graph_Scheduler_Resource_Artifact_Checkpoint_Workspace_Validation_Project_Run_Task_and_quarantine_firewall_interfaces_only
-  - define_large_scale_ProductionPack_descriptor_and_multi_domain_graph_recipes_as_pack_data_without_new_kernel_or_controller_types
-  - compose_software_game_3D_character_animation_environment_render_VFX_image_audio_video_and_package_capability_refs_with_downstream_unimplemented_packs_explicitly_REFERENCE_only
-  - persist_ProductionIntegrationManifest_with_exact_Project_Task_Run_Graph_component_Artifact_integration_build_validation_refs_and_digest
-  - represent_real_fan_out_fan_in_with_at_least_four_independent_productive_branches_and_Scheduler_as_the_only_resource_authority
-  - prove_max_concurrent_productive_nodes_greater_than_one_when_current_resources_allow_without_ambiguous_global_serializing_targets
-  - exercise_worker_or_branch_failure_while_retaining_completed_and_independent_running_branches_then_recover_only_the_affected_branch
-  - create_bounded_Graph_v2_for_one_changed_branch_while_preserving_failed_v1_history_and_exact_unaffected_outputs
-  - integrate_only_exact_component_Artifact_versions_and_invalidate_or_version_integration_when_an_upstream_Artifact_changes
-  - compose_Task_derived_domain_validation_without_a_universal_final_critic_or_global_threshold
-  - run_Project_Alpha_large_production_and_unrelated_Project_Beta_work_without_data_leakage
-  - keep_Project_quality_art_direction_performance_and_resource_budgets_as_Project_or_Task_data
-  - keep_domain_specific_second_scheduler_global_production_lock_unjustified_serialization_whole_Run_restart_and_ambiguous_latest_integration_at_zero
+  - verify_P3_04_handoff_from_exact_remote_commit_tree_four_required_paths_and_live_Drive_continuity
+  - load_exact_P3_05_prompt_and_directly_required_ProductionPack_Project_Task_Run_Graph_Scheduler_Resource_Workspace_Artifact_Validation_Process_and_Game_adapter_interfaces_only
+  - register_extensible_3d_inspect_model_mesh_edit_topology_uv_material_scene_convert_optimize_validate_and_preview_capabilities
+  - define_generic_ThreeDToolAdapter_with_inspectAsset_inspectScene_createAsset_modifyAsset_executeOperation_validate_export_preview_and_describeRuntime
+  - implement_at_least_one_REAL_or_REFERENCE_adapter_honestly_with_tool_SDK_types_confined_to_the_adapter
+  - preserve_real_editable_native_source_when_required_plus_exact_interchange_exports_ContentRefs_derivation_and_tool_runtime_identity
+  - implement_bounded_structured_hierarchy_mesh_topology_UV_material_texture_transform_scale_and_dependency_inspection_without_binary_context_dump
+  - reopen_parse_and_technically_validate_exports_instead_of_treating_process_exit_or_preview_as_source_proof
+  - keep_Project_style_polygon_scale_axis_format_and_optimization_targets_scoped_as_Project_or_Task_data
+  - exercise_invalid_topology_dependency_and_UV_fail_closed_cases_DCC_unavailability_routing_and_two_implementation_contract_neutrality
+  - prove_independent_asset_concurrency_and_isolated_same_scene_Workspaces_through_the_existing_Scheduler_and_Resource_model
+  - prove_Project_Alpha_Beta_source_tool_export_validation_and_Artifact_isolation
+  - keep_DCC_specific_kernel_fields_render_only_source_proof_missing_editable_source_invalid_export_global_polygon_budget_and_domain_kernel_changes_at_zero
   - run_required_focused_tests_regressions_typecheck_build
   - commit_and_push
   - remotely_read_back_exact_commit_and_tree
   - update_Drive_continuity_and_current_state
-  - close_P3_04_before_opening_P3_05
+  - close_P3_05_before_opening_P3_06
 
 prohibited_next_transition:
   - reinstall_host
   - rerun_vps_configurator
   - create_or_migrate_to_/srv/biella
   - duplicate_checkout
-  - create_AAAController_AAAFactoryManager_AAAApprovalPipeline_permanent_worker_hierarchy_or_second_orchestrator
-  - create_AAATask_AAARun_AAAGraph_AAAScheduler_or_domain_specific_resource_reservation_authority
-  - create_heavyweight_global_AAA_global_production_global_or_global_production_lock
-  - serialize_independent_productive_branches_without_a_real_dependency_resource_or_mutable_target_conflict
-  - restart_the_whole_Run_after_one_branch_or_worker_failure
-  - erase_succeeded_or_independent_running_branch_evidence_during_recovery
-  - resolve_latest_character_environment_build_validation_or_other_ambiguous_Artifact_during_integration
-  - integrate_without_exact_Project_Task_Run_Graph_component_Artifact_version_and_digest_identity
-  - claim_REFERENCE_downstream_pack_branches_as_REAL_production
-  - implement_later_3D_character_animation_environment_render_VFX_image_audio_video_or_packaging_prompt_bodies
-  - create_a_universal_final_critic_or_global_AAA_quality_gate
-  - impose_global_art_direction_visual_style_performance_FPS_frame_time_CPU_GPU_RAM_VRAM_storage_network_or_package_thresholds
-  - treat_specialist_agents_as_permanent_authority_or_a_required_team_hierarchy
-  - bypass_the_existing_Graph_Scheduler_ResourceAllocation_Checkpoint_Workspace_Artifact_or_Validation_contracts
-  - mutate_ambiguous_or_mutable_source_without_exact_RepositoryRef_Workspace_snapshot_and_Artifact_identity
+  - add_DCC_Blender_Houdini_Maya_USD_glTF_FBX_OBJ_or_3D_domain_fields_to_the_kernel
+  - create_closed_universal_3D_Artifact_role_or_format_enums
+  - treat_rendered_PNG_preview_JSON_text_or_process_exit_as_real_editable_3D_source_or_valid_export_proof
+  - claim_REFERENCE_adapter_execution_as_REAL_DCC_observation
+  - erase_or_replace_high_quality_editable_source_during_decimation_LOD_dedupe_or_conversion
+  - impose_global_polygon_topology_UV_scale_axis_material_texture_format_or_optimization_thresholds
+  - require_UVs_materials_textures_LODs_collision_or_any_specific_interchange_format_when_the_Task_does_not
+  - place_binary_native_or_interchange_files_directly_in_model_context
+  - accept_missing_dependencies_invalid_topology_degenerate_faces_non_manifold_geometry_or_unparseable_exports_as_valid
+  - resolve_latest_source_texture_material_scene_export_tool_plugin_or_runtime_identity
+  - use_game_engine_import_or_preview_as_3D_source_authority
+  - serialize_independent_assets_without_real_resource_or_mutable_scene_conflict
+  - edit_the_same_mutable_scene_concurrently_without_isolated_Workspaces_and_explicit_integration
+  - bypass_existing_Task_Graph_Run_Scheduler_Resource_Workspace_Artifact_Validation_or_adapter_contracts
+  - implement_P3_06_or_later_character_animation_environment_render_VFX_image_audio_video_texture_or_packaging_prompt_bodies
   - overwrite_or_revert_unrelated_dirty_Project_work
-  - accept_stale_Task_Run_Graph_revision_Node_attempt_fence_Workspace_checkpoint_Artifact_validation_or_resource_evidence
-  - leak_component_Artifact_manifest_Workspace_Run_or_validation_evidence_across_Projects
+  - accept_stale_Task_Run_Graph_revision_Node_attempt_fence_Workspace_source_tool_export_Artifact_validation_or_resource_evidence
+  - leak_source_scene_material_texture_export_preview_Workspace_Run_or_validation_evidence_across_Projects
   - broad_historical_backup_extraction
   - raw_MiniTZ_activation
   - weaken_or_mock_Run_Task_Graph_Node_Event_Artifact_fence_integrity_restart_or_Project_authorization
   - treat_fixture_or_comment_strings_as_active_kernel_coupling_without_semantic_inspection
-  - start_P3_04_before_P3_03_durable_close
+  - start_P3_05_before_P3_04_durable_close
   - start_BU_01_in_same_P0_01_session
   - install_gpu_stack_on_cpu_host_for_completeness
   - add_unrequested_security_architecture

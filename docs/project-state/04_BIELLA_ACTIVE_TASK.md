@@ -4,55 +4,56 @@
 schema: biella.active_task/v3
 
 task:
-  id: P3-04
-  global_number: 35
+  id: P3-05
+  global_number: 36
   phase: P3
-  title: Large-Scale / AAA Multi-Domain Production Orchestration Pack
-  state: READY_AFTER_P3_03_DURABLE_CLOSE
+  title: 3D Modeling and Scene Production Pack
+  state: READY_AFTER_P3_04_DURABLE_CLOSE
   exact_prompt:
-    title: 35_P3-04_Large_Scale_AAA_Multi_Domain_Production_Orchestration_Pack.md.docx
-    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P3/35_P3-04_Large_Scale_AAA_Multi_Domain_Production_Orchestration_Pack.md.docx
-    drive_path: gdrive:BiellaEngine/40_PROMPTS/P3/35_P3-04_Large_Scale_AAA_Multi_Domain_Production_Orchestration_Pack.md.docx
-    drive_id: 1NLikJ8cPQ3-4ybpMr8FvHN2sn43fPVw_trMet-Wx_HQ
-    local_docx_sha256: 8c154f2b89085ff294f4ca35887d65fca3533c6f06e043f9fde6a04fd9737d42
-    live_drive_exported_docx_sha256: 3133cdbbdc5d26131061b6122b36b764ec2dadd64d196b08e300739f1932e324
-    canonical_text_sha256: f7a4cd3552b2a2d889826eed6baedbc48131f8be270ed9244bf4884d07cf574a
+    title: 36_P3-05_3D_Modeling_and_Scene_Production_Pack.md.docx
+    local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P3/36_P3-05_3D_Modeling_and_Scene_Production_Pack.md.docx
+    drive_path: gdrive:BiellaEngine/40_PROMPTS/P3/36_P3-05_3D_Modeling_and_Scene_Production_Pack.md.docx
+    drive_id: 1TIG3GggwGdu3ma1e5MeeIontVUO4pmSP4aggJKps0Kg
+    local_docx_sha256: abb4255869736f571329e3e55409fc8675f927a4ab09bc50bbb6556bbd48c050
+    live_drive_exported_docx_sha256: d411b17a37fc988eda9a563c0285515e9be478a12ba024c23dc6696da2c8c8e6
+    canonical_text_sha256: e8688b4e820c7df1096f4a88a9e0bcda792fbe17c3e1690839a689bbcf6f46ed
     canonical_text_extraction: pandoc_plain_wrap_none
     local_and_live_drive_text_equal: true
   numbered_predecessor:
-    id: P3-03
-    result_commit: f665445e1771b98f34e1d82746c5d4a9686e3138
-    result_tree: 6a8c47f70fcd5df900381e05a93169a9aed25205
+    id: P3-04
+    result_commit: 28fde1e9224236ce7b37b74434727463e96d9893
+    result_tree: d7efcc21cab8dc86488ef91963f48791dbe0dca0
     remote_readback: VERIFIED
     remote_required_paths_and_bytes: VERIFIED
-    focused_real_type_build_installed_and_relevant_regression: VERIFIED
-  numbered_successor: P3-05
+    focused_scheduler_provenance_recovery_isolation_type_build_installed_and_relevant_regression: VERIFIED
+  numbered_successor: P3-06
 
 execution_boundary:
   start_only_after_predecessor_durable_close: satisfied
   load_only:
-    - exact_P3_04_canonical_prompt
+    - exact_P3_05_canonical_prompt
     - current_state_and_active_task_continuity
-    - accepted_ProductionPack_Software_Game_Project_Task_Run_Graph_Node_Scheduler_ResourceAllocation_Artifact_Checkpoint_Workspace_Validation_and_quarantine_firewall_interfaces_directly_required
+    - accepted_ProductionPack_Project_Task_Run_Graph_Node_Scheduler_ResourceAllocation_Workspace_Artifact_Validation_Process_and_Game_adapter_interfaces_directly_required
     - directly_touched_source_and_task_scoped_tests
   do_not_open:
-    - P3_05_or_later_prompt_bodies_before_P3_04_durable_close
+    - P3_06_or_later_prompt_bodies_before_P3_05_durable_close
     - unrelated_historical_backup_or_legacy_material
   preserve:
-    - exact_Project_Task_Run_Graph_revision_Node_attempt_fence_Artifact_ContentRef_ModelCall_ToolCall_Event_ResourceAllocation_Workspace_Checkpoint_Validation_and_managed_runtime_identity
+    - exact_Project_Task_Run_Graph_revision_Node_attempt_fence_Artifact_ContentRef_SourceRef_Event_ResourceAllocation_Workspace_Checkpoint_Validation_and_managed_runtime_identity
     - P1_ContentRef_object_storage_Project_Engine_Run_memory_graph_event_scheduler_routing_call_ledger_checkpoint_and_resource_contracts
     - P2_adapter_execution_isolation_retrieval_workspace_validation_fencing_durability_and_quarantine_firewall_contracts
     - P3_01_provider_neutral_ProductionPack_Software_pack_exact_repository_candidate_build_runtime_provenance_recovery_and_Project_isolation_contracts
     - P3_02_provider_neutral_web_pack_exact_repository_live_runtime_HTTP_browser_package_provenance_recovery_and_Project_isolation_contracts
     - P3_03_provider_neutral_game_pack_exact_engine_candidate_asset_build_runtime_validation_atomicity_worker_recovery_and_Project_isolation_contracts
+    - P3_04_large_scale_normal_Graph_Scheduler_exact_Artifact_manifest_classification_provenance_recovery_concurrency_and_Project_isolation_contracts
     - all_earlier_isolation_provenance_durability_routing_scheduler_and_quarantine_firewall_contracts
 
 canonical_prompt_text: |
-  PROMPT 35/51 - P3-04
+  PROMPT 36/51 - P3-05
 
   TITLE
 
-  Large-Scale / AAA Multi-Domain Production Orchestration Pack
+  3D Modeling and Scene Production Pack
 
   PHASE
 
@@ -60,7 +61,7 @@ canonical_prompt_text: |
 
   GOAL
 
-  Prove complex long-lived multi-domain production composes through the same Graph/Scheduler without a separate AAA controller, global lock, or permanent specialist hierarchy.
+  Produce and modify real editable 3D assets/scenes through replaceable DCC/tool implementations with exact source/tool/export identity and technical validation.
 
   CURRENT VERIFIED STATE
 
@@ -78,7 +79,7 @@ canonical_prompt_text: |
 
   DEPENDENCIES
 
-  - Prompt 34/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
+  - Prompt 35/51 implemented result/interfaces when required by this task; missing paperwork is not a blocker.
 
   - All earlier accepted contracts used by this task; inspect the repository instead of assuming interface names.
 
@@ -94,15 +95,15 @@ canonical_prompt_text: |
 
   IN SCOPE
 
-  - Provide composition recipes/bundle metadata spanning software/game/3D/character/animation/environment/render/VFX/image/audio/video/package capabilities; reference downstream packs if not yet implemented.
+  - Register 3d.inspect/model/mesh_edit/topology/uv/material/scene/convert/optimize/validate/preview and extensible additions.
 
-  - Represent real dependency fan-out/fan-in and independent branches; resource scheduler remains sole allocation authority.
+  - Define ThreeDToolAdapter and at least one real/reference implementation; DCC SDK stays adapter-local.
 
-  - Persist component Artifacts and ProductionIntegrationManifest with exact refs; integration never resolves ambiguous latest assets.
+  - Preserve tool-native/editable source where meaningful plus exact interchange exports/derivation.
 
-  - Checkpoint long Runs, retain completed branches through worker/branch failure, and use new Graph revision for bounded repair.
+  - Structured inspection covers hierarchy, mesh/topology/UV/material/texture/transforms/scale/dependencies; no binary dump into model context.
 
-  - Project quality/art direction/performance remain Project data.
+  - Technical validators parse/reopen exports; Project-specific style/poly/scale requirements remain scoped; independent assets may run concurrently.
 
   OUT OF SCOPE
 
@@ -112,23 +113,23 @@ canonical_prompt_text: |
 
   REQUIRED IMPLEMENTATION
 
-  - Provide composition recipes/bundle metadata spanning software/game/3D/character/animation/environment/render/VFX/image/audio/video/package capabilities; reference downstream packs if not yet implemented.
+  - Register 3d.inspect/model/mesh_edit/topology/uv/material/scene/convert/optimize/validate/preview and extensible additions.
 
-  - Represent real dependency fan-out/fan-in and independent branches; resource scheduler remains sole allocation authority.
+  - Define ThreeDToolAdapter and at least one real/reference implementation; DCC SDK stays adapter-local.
 
-  - Persist component Artifacts and ProductionIntegrationManifest with exact refs; integration never resolves ambiguous latest assets.
+  - Preserve tool-native/editable source where meaningful plus exact interchange exports/derivation.
 
-  - Checkpoint long Runs, retain completed branches through worker/branch failure, and use new Graph revision for bounded repair.
+  - Structured inspection covers hierarchy, mesh/topology/UV/material/texture/transforms/scale/dependencies; no binary dump into model context.
 
-  - Project quality/art direction/performance remain Project data.
+  - Technical validators parse/reopen exports; Project-specific style/poly/scale requirements remain scoped; independent assets may run concurrently.
 
   REQUIRED INTERFACES
 
-  - Large-scale ProductionPack descriptor
+  - ThreeDToolAdapter
 
-  - ProductionIntegrationManifest
+  - 3D ProductionPack descriptor
 
-  - multi-domain graph recipes
+  - 3D pack-level Artifact roles/validators
 
   DATA / STATE CHANGES
 
@@ -148,219 +149,181 @@ canonical_prompt_text: |
 
   TESTS
 
-  - At least four independent branches with productive concurrency >1 when resources allow.
+  - Ingest/create editable mesh, inspect, modify geometry/material, save source, export, reopen/validate, generate preview.
 
-  - Kill one worker/branch; completed branches remain; recover only affected branch.
+  - Invalid topology/dependency/UV cases.
 
-  - Graph v2 changes one branch while unaffected historical outputs remain exact.
+  - DCC unavailable affects route, not Capability.
 
-  - Second Project runs concurrently without data leakage.
-
-  - Static/runtime check for no AAA/global heavy lock or manager authority.
+  - Two implementations share contract; Project isolation.
 
   KPI
 
-  - domain_specific_second_scheduler=0
+  - dcc_specific_kernel_fields=0
 
-  - global_production_lock=0
+  - render_only_used_as_3D_source_proof=0
 
-  - independent_branches_serialized_without_reason=0
+  - editable_source_missing_when_required=0
 
-  - whole_Run_restarted_after_one_branch_failure=0
+  - invalid_export_claimed_valid=0
 
-  - ambiguous_latest_artifact_integration=0
+  - global_polygon_budget=0
+
+  - domain_specific_kernel_changes=0
 
   RESTORED LONG-FORM REQUIREMENTS
 
-  PURPOSE: PROVE NORMAL GRAPH/SCHEDULER SCALES
+  REAL EDITABLE 3D SOURCE
 
-  "AAA" here means large-scale, multi-domain, dependency-rich, resource-intensive, long-running production.
+  A rendered PNG is not proof of 3D production.
 
-  It does not mean a visual style, engine, permanent team hierarchy, or second orchestrator.
+  For modeling/scene Tasks preserve real editable/native source where appropriate, plus verified exports and derivation.
 
-  Do not create:
+  PACK
 
-  - AAAController;
+  pack_id = 3d.
 
-  - AAAFactoryManager;
+  Capabilities:
 
-  - AAAApprovalPipeline;
+  - 3d.inspect
 
-  - permanent worker hierarchy.
+  - 3d.model
 
-  Use normal Task -> Graph -> Nodes -> Scheduler -> Capabilities -> Artifacts -> Validation.
+  - 3d.mesh_edit
 
-  COMPOSITION
+  - 3d.topology
 
-  Prepare composition across: software, game, 3D, character, animation, environment, render, VFX, image, audio, video, package.
+  - 3d.uv
 
-  Downstream not-yet-implemented capabilities may use REFERENCE implementations for orchestration tests only.
+  - 3d.material
 
-  Never claim reference branch as real production.
+  - 3d.scene
 
-  REPRESENTATIVE GRAPH
+  - 3d.convert
 
-  Support dynamic pattern similar to:
+  - 3d.optimize
 
-  requirements
+  - 3d.validate
 
-  ├─ software/gameplay
+  - 3d.preview
 
-  ├─ environment/materials/lighting
+  Optional later sculpt/retopo/LOD/collision.
 
-  ├─ character/rig/animation
+  No domain kernel changes.
 
-  └─ audio/VFX
+  TOOL ADAPTER
 
-  ↓
+  Generic ThreeDToolAdapter: inspectAsset, inspectScene, createAsset, modifyAsset, executeOperation, validate, export, preview, describeRuntime.
 
-  integration
+  Tool-specific implementation may be Blender/Houdini/Maya/etc., but tool SDK types stay adapter-local.
 
-  ↓
+  Use real DCC if available; otherwise reference and label NOT_RUN for real 3D.
 
-  build
+  RUNTIME IDENTITY
 
-  ├─ runtime QA
+  Capture tool/version/plugins/runtime/source/operation config/output exact identity.
 
-  └─ performance
+  ARTIFACT ROLES
 
-  ↓
+  Extensible roles: MESH, SCENE, MATERIAL, TEXTURE_SET, UV_DATA, LOD_SET, COLLISION_MESH, INTERCHANGE_EXPORT, PREVIEW.
 
-  package
+  Not universal closed enum.
 
-  This is an example recipe, not mandatory global workflow.
+  FORMATS
 
-  PARALLEL BRANCHES
+  Support native editable and interchange: glTF/GLB, FBX when supported, OBJ, USD, etc.
 
-  Required proof: at least 4 independent productive branches where resources permit.
+  No mandatory format.
 
-  Examples: software, environment, character, audio, texture.
+  INSPECTION
 
-  Record max_concurrent_productive_nodes > 1 when adequate resources exist.
+  Bounded structured: object hierarchy/count, mesh counts, vertices/edges/faces, materials/textures, UV layers, cameras/lights, transforms, dimensions, units/scale, missing dependencies.
 
-  RESOURCE CONTENTION
+  Do not put binary file in model context.
 
-  Use P1 scheduler:
+  MODELING / TOPOLOGY
 
-  - GPU-heavy Nodes contend only for GPU capacity;
+  Geometry may be procedural/deterministic/model-assisted/DCC-scripted.
 
-  - CPU Nodes continue;
+  Model text alone is not final asset.
 
-  - storage/network work overlaps;
+  Validate normals, non-manifold, duplicate vertices, degenerate faces, cleanup, metrics.
 
-  - multi-resource requirements respected.
+  No universal "good topology" or polygon budget.
 
-  No AAA-specific scheduler/reservation hierarchy.
+  UV / MATERIAL
 
-  DURABILITY
+  UVs only when Task requires.
 
-  Exercise:
+  Materials bind exact texture Artifacts and preserve provenance.
 
-  - checkpoints;
+  P3-11 creates texture content later.
 
-  - Workspace snapshots;
+  SCENE / COORDINATES
 
-  - completed Artifacts;
+  Support hierarchy, placement, transforms, camera/light refs, linked assets.
 
-  - long branch execution;
+  Record units/axis conversions. No global Blender/engine convention.
 
-  - worker lease expiry;
+  EXPORT / CONVERSION
 
-  - Run reconstruction;
+  Bind exact source, target format, exporter/version/settings digest.
 
-  - Graph revision.
+  After export:
 
-  A failed character branch must not erase succeeded software/environment or independent running audio.
+  - exists;
 
-  BOUNDED GRAPH REVISION
+  - exact ContentRef;
 
-  If one branch needs a new approach: create Graph v2 changing bounded region.
+  - reopen/parse/inspect where possible;
 
-  Preserve:
+  - derivation.
 
-  - unaffected completed branches;
+  Process exit alone not success.
 
-  - failed v1 history;
+  OPTIMIZATION
 
-  - exact new branch;
+  Decimation/LOD/dedupe/etc. preserve high-quality source and use Project targets/tolerances.
 
-  - integration dependency changes.
+  PREVIEW
 
-  Do not restart whole Run.
+  Viewport/turntable/wireframe/material preview is secondary evidence, not editable source.
 
-  EXACT INTEGRATION
+  RESOURCE / WORKSPACE / CACHE
 
-  Create ProductionIntegrationManifest or equivalent:
+  Use P2 Workspace and Resource scheduler.
 
-  - Project/Task/Run/Graph;
+  Missing DCC affects routing, not 3d.model existence.
 
-  - exact component Artifacts/versions;
+  DCC caches/thumbnails/shaders are rebuildable unless explicit output.
 
-  - integration refs;
+  CONCURRENCY
 
-  - build;
+  Independent assets concurrently.
 
-  - validation refs;
+  Conflicting same-scene edits use isolated Workspaces/integration.
 
-  - digest.
+  GAME INTEGRATION
 
-  Integration may not resolve "latest character/environment".
+  Preserve source 3D, export exact game-compatible Artifact, import via Game adapter, validate if required.
 
-  Changed upstream Artifact invalidates or creates new integration.
+  Game engine is not source authority.
 
-  VALIDATION
+  REAL TASK
 
-  Compose domain-specific validation: software tests, character deformation, render checks, runtime, performance.
+  Create/ingest editable mesh -> inspect -> modify -> material -> save source -> export -> reopen -> validate -> preview -> persist provenance.
 
-  No universal final critic.
+  Do not count JSON pretending to be 3D as real.
 
-  AGENTS
+  SECOND IMPLEMENTATION
 
-  Specialists are optional dynamic execution strategies only.
+  Real adapter A + reference/real B proves tool neutrality.
 
-  PERFORMANCE
-
-  Measure actual Project budgets; no generic AAA threshold.
-
-  FAILURE INJECTION
-
-  Required:
-
-  1.  multi-branch Graph;
-
-  2.  ≥4 branches;
-
-  3.  complete ≥2;
-
-  4.  kill/fail worker in another;
-
-  5.  prove completed retained;
-
-  6.  recover/reassign;
-
-  7.  revise Graph if needed;
-
-  8.  integrate exact Artifacts;
-
-  9.  validate final integrated output.
-
-  GLOBAL LOCK CHECK
-
-  Static/runtime check finds no heavyweight:global, AAA:global, production:global.
-
-  Only real resource/mutable-target conflicts serialize.
-
-  MULTI-PROJECT
-
-  Run Project Alpha large production while Beta unrelated Task runs.
-
-  Shared scheduler/resource does not mean shared data.
-
-  P3-04 passes only when normal Biella architecture, not a new AAA authority, handles this.
+  Project Alpha/Beta style/topology/material rules remain isolated.
 
   USEFUL EVIDENCE — NON-GATING
 
-  - Complex production uses normal Task/Graph/Run/Scheduler/Artifact semantics and demonstrates bounded failure recovery.
+  - Real/reference editable 3D source and verified export exist with exact provenance; preview is evidence, not source.
 
   DELIVERABLES
 
@@ -382,7 +345,7 @@ canonical_prompt_text: |
 
   Use this result block:
 
-  PROMPT: 35/51 - P3-04
+  PROMPT: 36/51 - P3-05
 
   STATUS: COMPLETE / PARTIAL / BLOCKED
 
