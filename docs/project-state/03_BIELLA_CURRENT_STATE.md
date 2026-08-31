@@ -4,7 +4,7 @@
 schema: biella.current_state/v5
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
-observed_date: 2026-08-30
+observed_date: 2026-08-31
 
 authority:
   if_conflict:
@@ -27,12 +27,15 @@ durable_source:
     tree: b407138ac05af441487aa6005700da98b8016906
     meaning: P3_04_closed_and_P3_05_open_before_recovered_GPT_5_6_dirty_work
   current_execution_map:
-    commit: 360e35d84c216e632683e711955e90606787d798
+    observed_remote_main_before_sync: ce10d326a56e46e9fbb51dd4ba22610ba7d9f011
+    observed_remote_tree_before_sync: 2f653b0bc1d06c372c165640a024585022d7a23c
+    local_checkout_fast_forwarded_to: ce10d326a56e46e9fbb51dd4ba22610ba7d9f011
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    status: VERIFIED_GITHUB_WRITE
-  branch_head_rule: continuity_commits_can_be_newer_than_implementation_base; reobserve_origin_main_before_next_host_write
+    continuity_write_commit: THIS_COMMIT
+    status: CURRENT_EXECUTION_AND_REMOTE_RECONCILED_WITH_RECOVERY_STILL_PENDING
+  branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
     first_rejected_execution_time: "2026-08-30T10:44:52Z"
     rejected_post_boundary_completion_claims: P3_05_THROUGH_P3_09
@@ -52,31 +55,56 @@ numbered_execution:
   future_graph_rule: compile_each_from_exact_prompt_and_current_source_only_when_activated
 
 execution_host_state:
-  current_host: NONE
+  current_host:
+    provider: AWS
+    instance_id: i-0056cad38b67415c1
+    region: eu-west-3
+    instance_type: t2.xlarge
+    public_ipv4: 13.38.217.245
+    private_ipv4: 172.31.47.69
+    state: RUNNING
+    os: Ubuntu_26.04.1_LTS
+    kernel: 7.0.0-1011-aws
+    root_filesystem_gib_observed: 338.35
+    resource_note: LOWER_RESOURCE_REPLACEMENT_HOST
   previous_host: DESTROYED
   previous_host_paths_are_current_state: false
-  previous_checkout_observation:
-    head: e228a7bb6db6f94af15dde4a8fb110b028eddbed
-    upstream: main...origin/main
-    worktree: CLEAN_BEFORE_GPT_5_6_WORKTREE_RESTORE
-    evidence_state: HISTORICAL_AFTER_HOST_DESTRUCTION
-  next_host:
-    state: NOT_YET_PROVISIONED
-    canonical_root: /root/biella
-    canonical_codex_home: /root/.codex
-    canonical_checkout: /root/biella/repos/biella-engine
-    bootstrap_order:
-      - provision_new_disposable_execution_host
-      - create_canonical_roots
-      - clone_current_GitHub_main_into_canonical_checkout
-      - verify_current_GitHub_03_04_and_branch_head
-      - fetch_recovery_archive_from_verified_Drive_ID
-      - verify_archive_exact_size_and_sha256
-      - restore_exact_GPT_5_6_P3_05_worktree
-      - never_hard_reset_after_restoration
+  canonical_root: /root/biella
+  canonical_codex_home: /root/.codex
+  canonical_checkout: /root/biella/repos/biella-engine
+  checkout_observation:
+    branch: main
+    worktree_before_fetch: CLEAN
+    head_before_fetch: e228a7bb6db6f94af15dde4a8fb110b028eddbed
+    origin_main_after_fetch: ce10d326a56e46e9fbb51dd4ba22610ba7d9f011
+    head_after_fast_forward: ce10d326a56e46e9fbb51dd4ba22610ba7d9f011
+    fast_forward_files_changed:
+      - docs/project-state/03_BIELLA_CURRENT_STATE.md
+      - docs/project-state/04_BIELLA_ACTIVE_TASK.md
+      - docs/project-state/BIELLA_DRIVE_LIVE_MANIFEST.md
+    worktree_after_fast_forward: UNKNOWN_NOT_REOBSERVED
+  current_restore_order:
+    - preserve_or_restore_long_running_productive_work_before_any_further_remote_mutation
+    - fetch_recovery_archive_from_verified_Drive_ID
+    - verify_archive_exact_size_and_sha256
+    - restore_exact_GPT_5_6_P3_05_worktree
+    - reobserve_recovered_worktree_once
+    - only_then_continue_Spark_preparation
+    - only_then_resume_main_P3_05_Codex
+
+standing_owner_priority:
+  highest_operational_rule: preserve_current_or_recoverable_long_running_productive_work_before_remote_sync_restore_reset_checkout_merge_or_host_replacement
+  remote_newer_does_not_override_unpreserved_execution_work: true
+  session_model_SSH_tmux_or_host_change_does_not_invalidate_verified_work: true
+  current_required_order:
+    - restore_preserved_GPT_5_6_P3_05_work
+    - verify_exact_recovered_state
+    - reconcile_only_remaining_required_GitHub_and_Drive_continuity
+    - finish_Spark_preparation
+    - resume_P3_05_main_Codex
 
 p3_05_recovery:
-  status: CAPTURED_RESTORE_PENDING
+  status: CAPTURED_RESTORE_REQUIRED_ON_CURRENT_HOST
   valid_execution_through: "2026-08-30T10:08:48.575Z"
   reject_execution_beginning: "2026-08-30T10:44:52Z"
   recovery_archive_name: GPT56_EXACT_RECOVERY_2026-08-30.tar.gz
@@ -85,7 +113,10 @@ p3_05_recovery:
   recovery_archive_drive_id: 1Y7aEStdGbCK5a0N9iA8s41l2olTWOUAE
   recovery_archive_drive_readback: VERIFIED_EXACT_BYTES
   recovery_archive_drive_readback_sha256: 73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
-  restore_target_host: NEW_HOST_NOT_YET_PROVISIONED
+  restore_target_host: i-0056cad38b67415c1
+  fresh_Drive_fetch_verified_date: 2026-08-31
+  fresh_Drive_fetch_size_bytes: 26490936
+  fresh_Drive_fetch_sha256: 73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
   archive_contains_relevant_sessions: 13
   expected_recovered_dirty_paths_count: 9
   path_set_is_not_content_authority: true
@@ -171,6 +202,6 @@ truth:
   multi_AI_execution_map_approved_by_user: true
   future_numbered_activation_queue_prepared: true
   previous_VPS_destroyed: VERIFIED_USER_REPORT
-  current_execution_host_exists: false
-  Drive_recovery_archive_exact_readback: VERIFIED
+  current_execution_host_exists: true
+  Drive_recovery_archive_exact_readback: VERIFIED_FRESH_2026_08_31
 ```
