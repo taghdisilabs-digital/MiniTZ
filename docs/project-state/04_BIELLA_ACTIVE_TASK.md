@@ -4,39 +4,34 @@
 schema: biella.active_task/v6
 
 active_task:
-  id: P3-09
-  global_number: 40
+  id: P3-10
+  global_number: 41
   phase: P3
-  title: Rendering Production Pack
+  title: VFX and Simulation Production Pack
   state: ACTIVATED_PROMPT_NOT_LOADED_OR_COMPILED
-  predecessor: P3-08
-  predecessor_source_commit: adaf4b21e7a07d77b8bf2a84f8929ab332fa7358
-  predecessor_result_commit: 0da64ebea6aeb0a69fb73ae8c67317fd8d86c109
-  predecessor_result_tree: da7860a8c0890d3ae82b0ae3d4c9b545efa85759
+  predecessor: P3-09
+  predecessor_result_commit: b23195b82e20a568f22b8ebc7be401d5bb95c97e
+  predecessor_result_tree: c35e5a1f38d6c938828ec0556706a3ed0e3ca93a
   predecessor_github_readback: EXACT_COMMIT_TREE_AND_SIX_BLOBS_CONFIRMED
   execution_authorized: true
 
 exact_prompt:
-  title: Rendering Production Pack
-  drive_id: 1FYsaztU8wwjl_6k8Nx4xJII4wId-MPflkLFUNwW4gRM
+  title: VFX and Simulation Production Pack
+  drive_id: 12GmJFm2-6mL7QSjyyaySDWbBi2WrkljUF447XWsHnnI
   status: NOT_LOADED_OR_COMPILED
-  rule: obtain_exact_P3_09_prompt_body_only_when_execution_begins
+  rule: obtain_exact_P3_10_prompt_body_only_when_execution_begins
 
-prior_durable_through_P3_07:
+prior_durable_through_P3_08:
   status: VERIFIED
-  latest_result_commit: 56de0cff151214c8a73a173be6c5c110d894d378
-  latest_result_tree: d23272291cabb25fdb1ac4971e73d868293e3024
+  latest_result_commit: 0da64ebea6aeb0a69fb73ae8c67317fd8d86c109
+  latest_result_tree: da7860a8c0890d3ae82b0ae3d4c9b545efa85759
 
-P3_08_durable_close:
-  source_commit: adaf4b21e7a07d77b8bf2a84f8929ab332fa7358
-  result_commit: 0da64ebea6aeb0a69fb73ae8c67317fd8d86c109
-  result_tree: da7860a8c0890d3ae82b0ae3d4c9b545efa85759
-  github_readback: EXACT_COMMIT_TREE_AND_SEVEN_BLOBS_CONFIRMED
-  real_runtime: Blender_5.0.1_AND_Godot
-  real_proof: FULL_ENVIRONMENT_EXPORT_REOPEN_GODOT_IMPORT_BUILD_LOAD
-  durability: EnvironmentManifestPublication_IMMUTABLE_ARTIFACT_FRESH_READBACK
-  final_gate: 36_TESTS_GREEN_IN_816.64_SECONDS; STRICT_MYPY_7_PATHS_GREEN; COMPILEALL_DIFF_CLEAN_WHEEL_GREEN
-  wheel_sha256: 80dafddfe37d5d4937390946301dc25289da8ed068d53e0b619643c42415db1f
+P3_09_durable_close:
+  result_commit: b23195b82e20a568f22b8ebc7be401d5bb95c97e
+  result_tree: c35e5a1f38d6c938828ec0556706a3ed0e3ca93a
+  github_readback: EXACT_COMMIT_TREE_CONFIRMED
+  final_gate: 12_TESTS_GREEN_IN_151.62_SECONDS; STRICT_MYPY_5_PATHS_GREEN
+  wheel_sha256: 23f96cd956b87e3c4f0de91bf2da4ebde3f4f1a0185b3a276a0798ca60d5fb54
 
 owner_priority:
   standing_order: preserve_current_or_recoverable_long_running_productive_work_before_any_remote_sync_restore_reset_checkout_merge_or_host_replacement
@@ -197,18 +192,18 @@ multi_ai_execution:
     no_permanent_named_agent_hierarchy: true
 
 current_frontier:
-  state: P3_09_ACTIVATED_NOT_STARTED
+  state: P3_10_ACTIVATED_NOT_STARTED
   P3_05_durable_close_complete: true
   P3_06_durable_close_complete: true
   P3_07_durable_close_complete: true
-  P3_09_prompt_loaded: false
-  P3_09_prompt_compiled: false
-  P3_09_execution_authorized: true
+  P3_10_prompt_loaded: false
+  P3_10_prompt_compiled: false
+  P3_10_execution_authorized: true
 
 activation_boundary:
-  P3_09_authorized: true
-  P3_09_prompt_loaded: false
-  P3_09_graph_compiled: false
-  rule: compile_only_from_exact_P3_09_prompt_and_accepted_source
-  predecessor_evidence: P3_08_durable_close_mapping_above
+  P3_10_authorized: true
+  P3_10_prompt_loaded: false
+  P3_10_graph_compiled: false
+  rule: compile_only_from_exact_P3_10_prompt_and_accepted_source
+  predecessor_evidence: P3_09_durable_close_mapping_above
 ```

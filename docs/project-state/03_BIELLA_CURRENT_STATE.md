@@ -23,31 +23,31 @@ engine:
 
 durable_source:
   current_implementation_base:
-    commit: 0da64ebea6aeb0a69fb73ae8c67317fd8d86c109
-    tree: da7860a8c0890d3ae82b0ae3d4c9b545efa85759
-    meaning: P3_08_durably_closed
+    commit: b23195b82e20a568f22b8ebc7be401d5bb95c97e
+    tree: c35e5a1f38d6c938828ec0556706a3ed0e3ca93a
+    meaning: P3_09_durably_closed
   current_execution_map:
     source_commit: adaf4b21e7a07d77b8bf2a84f8929ab332fa7358
-    result_commit: 0da64ebea6aeb0a69fb73ae8c67317fd8d86c109
-    result_tree: da7860a8c0890d3ae82b0ae3d4c9b545efa85759
+    result_commit: b23195b82e20a568f22b8ebc7be401d5bb95c97e
+    result_tree: c35e5a1f38d6c938828ec0556706a3ed0e3ca93a
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    status: P3_08_DURABLY_CLOSED_P3_09_ACTIVATED_PROMPT_NOT_LOADED
+    status: P3_09_COMPLETE_P3_10_ACTIVATED_PROMPT_NOT_LOADED
   branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
     first_rejected_execution_time: "2026-08-30T10:44:52Z"
-    rejected_post_boundary_completion_claims: P3_09_THROUGH_P3_09
+    rejected_post_boundary_completion_claims: P3_10_THROUGH_P3_09
 
 numbered_execution:
-  durable_prompts_complete: 39
+  durable_prompts_complete: 40
   durable_prompts_total: 51
-  progress: "39 / 51"
+  progress: "40 / 51"
   phase: P3
-  active_prompt: P3-09
-  active_global_number: 40
-  active_title: Rendering Production Pack
-  predecessor: P3-08
+  active_prompt: P3-10
+  active_global_number: 41
+  active_title: VFX and Simulation Production Pack
+  predecessor: P3-09
   successor_execution_authorized: false
   active_execution_authorized: true
   future_activation_shells_prepared: P3_10_THROUGH_P4_06
@@ -105,34 +105,24 @@ p3_05_recovery:
   recovery_archive_drive_readback_sha256: 73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
   reuse_rule: already_verified_archive_reused_without_rehash
 
-prior_durable_through_P3_07:
+prior_durable_through_P3_08:
   status: VERIFIED
-  latest_result_commit: 56de0cff151214c8a73a173be6c5c110d894d378
-  latest_result_tree: d23272291cabb25fdb1ac4971e73d868293e3024
+  latest_result_commit: 0da64ebea6aeb0a69fb73ae8c67317fd8d86c109
+  latest_result_tree: da7860a8c0890d3ae82b0ae3d4c9b545efa85759
 
-p3_08_durable_close:
-  source_commit: adaf4b21e7a07d77b8bf2a84f8929ab332fa7358
-  result_commit: 0da64ebea6aeb0a69fb73ae8c67317fd8d86c109
-  result_tree: da7860a8c0890d3ae82b0ae3d4c9b545efa85759
-  github_readback: EXACT_COMMIT_TREE_AND_SEVEN_BLOBS_CONFIRMED
-  contract: 16_ENVIRONMENT_CAPABILITIES_PROJECT_SCOPED_SPEC_PLACED_ASSETS_PROCEDURAL_TERRAIN
-  real_runtime: Blender_5.0.1_AND_Godot
-  real_proof: FULL_TRANSFORMS_MATERIALS_COLLISION_NAV_LOD_PARTITION_EXPORT_REOPEN_GODOT_IMPORT_BUILD_LOAD
-  durability: EnvironmentManifestPublication_IMMUTABLE_ARTIFACT_FRESH_READBACK
-  validators: BARRIER_FOUR_BRANCH_SIBLING_SURVIVAL_RECOVERY
-  final_gate:
-    tests: 36_GREEN_IN_816.64_SECONDS
-    strict_mypy: 7_PATHS_GREEN
-    compileall: GREEN
-    diff_checks: GREEN
-    clean_wheel: GREEN
-  wheel_sha256: 80dafddfe37d5d4937390946301dc25289da8ed068d53e0b619643c42415db1f
+p3_09_durable_close:
+  result_commit: b23195b82e20a568f22b8ebc7be401d5bb95c97e
+  result_tree: c35e5a1f38d6c938828ec0556706a3ed0e3ca93a
+  github_readback: EXACT_COMMIT_TREE_CONFIRMED
+  contract: 12_RENDER_CAPABILITIES_REAL_BLENDER_FANOUT_RECOVERY_PASS_EVIDENCE
+  final_gate: 12_TESTS_GREEN_IN_151.62_SECONDS; STRICT_MYPY_5_PATHS_GREEN
+  wheel_sha256: 23f96cd956b87e3c4f0de91bf2da4ebde3f4f1a0185b3a276a0798ca60d5fb54
 
 approved_execution_program:
   language: biella.codex.end_to_end/v2
   mode: SINGLE_END_TO_END_NUMBERED_EXECUTION
   active_graph_location: docs/project-state/04_BIELLA_ACTIVE_TASK.md
-  active_graph: P3_09_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
+  active_graph: P3_10_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
   duplicate_prevention:
     exact_Node_identity_and_claim: required
     one_current_owner_per_Node: true
