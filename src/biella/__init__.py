@@ -659,6 +659,15 @@ from .environment_pack import (
     ProceduralTerrain,
     environment_production_pack,
 )
+from .render_pack import (
+    RenderConfig,
+    RenderContractError,
+    RenderFrameRef,
+    RenderRequest,
+    RenderSequenceManifest,
+    RendererAdapter,
+    render_production_pack,
+)
 from .three_d_tool import (
     BlenderThreeDToolAdapter,
     EnvironmentManifestPublication,
@@ -1318,6 +1327,13 @@ __all__ = [
     "PlacedAsset",
     "ProceduralTerrain",
     "environment_production_pack",
+    "RenderConfig",
+    "RenderContractError",
+    "RenderFrameRef",
+    "RenderRequest",
+    "RenderSequenceManifest",
+    "RendererAdapter",
+    "render_production_pack",
     "EnvironmentManifestPublication",
     "BlenderThreeDToolAdapter",
     "ReferenceThreeDToolAdapter",
