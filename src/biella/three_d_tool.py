@@ -40,6 +40,11 @@ from .animation_pack import (
     BoneMapping,
     RetargetMapping,
 )
+from .environment_pack import (
+    EnvironmentContractError,
+    EnvironmentIntegrationManifest,
+    PlacedAsset,
+)
 from .capability import CapabilityRef
 from .call_ledger import ToolCallRef
 from .execution import (
@@ -133,6 +138,7 @@ class ThreeDOperation(str, Enum):
     ANIMATE = "animate"
     RETARGET = "retarget"
     BAKE = "bake"
+    ENVIRONMENT = "environment"
     SCENE = "scene"
     CONVERT = "convert"
     OPTIMIZE = "optimize"
@@ -148,9 +154,7 @@ class ThreeDOperation(str, Enum):
             ThreeDOperation.ANIMATE,
             ThreeDOperation.RETARGET,
             ThreeDOperation.BAKE,
-            ThreeDOperation.ANIMATE,
-            ThreeDOperation.RETARGET,
-            ThreeDOperation.BAKE,
+            ThreeDOperation.ENVIRONMENT,
         }:
             return "3d.model"
         return f"3d.{self.value}"
@@ -182,6 +186,7 @@ _OPERATION_ROLES = MappingProxyType(
         ThreeDOperation.ANIMATE: frozenset({"3d.animation", "3d.rig", "3d.scene"}),
         ThreeDOperation.RETARGET: frozenset({"3d.animation", "3d.retarget-mapping", "3d.rig", "3d.scene"}),
         ThreeDOperation.BAKE: frozenset({"3d.animation", "3d.rig", "3d.scene"}),
+        ThreeDOperation.ENVIRONMENT: frozenset({"3d.environment", "3d.environment-manifest", "3d.scene", "3d.collision", "3d.navigation", "3d.partition", "3d.lod"}),
         ThreeDOperation.SCENE: frozenset({"3d.scene"}),
         ThreeDOperation.CONVERT: frozenset({"3d.interchange-export"}),
         ThreeDOperation.OPTIMIZE: frozenset({"3d.mesh", "3d.scene"}),
@@ -207,6 +212,7 @@ _OUTPUT_MEDIA = MappingProxyType(
         ThreeDOperation.ANIMATE: frozenset({(".blend", "application/x-blender")}),
         ThreeDOperation.RETARGET: frozenset({(".blend", "application/x-blender")}),
         ThreeDOperation.BAKE: frozenset({(".blend", "application/x-blender")}),
+        ThreeDOperation.ENVIRONMENT: frozenset({(".blend", "application/x-blender")}),
         ThreeDOperation.SCENE: frozenset({(".blend", "application/x-blender")}),
         ThreeDOperation.CONVERT: frozenset(
             {
@@ -604,6 +610,79 @@ class ThreeDRootMotionPolicy(str, Enum):
     REMOVE = "remove"
 
 
+@dataclass(frozen=True)
+class ThreeDPlacedAssetSpec:
+    artifact_ref: ArtifactRef
+    content_sha256: str
+    binding_path: str
+    location: tuple[float, float, float]
+    rotation_euler: tuple[float, float, float]
+    scale: tuple[float, float, float]
+    asset_id: str
+    material_ref: str
+    variant: str
+    parent_ref: str | None
+    partition_id: str
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.artifact_ref, ArtifactRef):
+            raise TypeError("environment asset requires ArtifactRef")
+        object.__setattr__(self, "content_sha256", _animation_digest(self.content_sha256, "environment asset content"))
+        object.__setattr__(self, "binding_path", _operation_relative(self.binding_path, "environment asset binding_path"))
+        object.__setattr__(self, "location", _animation_vector(self.location, "environment asset location"))
+        object.__setattr__(self, "rotation_euler", _animation_vector(self.rotation_euler, "environment asset rotation"))
+        object.__setattr__(self, "scale", _animation_vector(self.scale, "environment asset scale", positive=True))
+        object.__setattr__(self, "asset_id", _text(self.asset_id, "environment asset_id", 128))
+        object.__setattr__(self, "material_ref", _ref(self.material_ref, "environment material_ref"))
+        object.__setattr__(self, "variant", _text(self.variant, "environment variant", 128))
+        if self.parent_ref is not None:
+            object.__setattr__(self, "parent_ref", _ref(self.parent_ref, "environment parent_ref"))
+        object.__setattr__(self, "partition_id", _text(self.partition_id, "environment partition_id", 128))
+
+    def payload(self) -> dict[str, object]:
+        return {"artifact_ref": self.artifact_ref.value, "asset_id": self.asset_id, "binding_path": self.binding_path, "content_sha256": self.content_sha256, "location": list(self.location), "material_ref": self.material_ref, "parent_ref": self.parent_ref, "partition_id": self.partition_id, "rotation_euler": list(self.rotation_euler), "scale": list(self.scale), "variant": self.variant}
+
+
+@dataclass(frozen=True)
+class ThreeDEnvironmentLayoutSpec:
+    layout_id: str
+    generator: str
+    generator_version: str
+    seed: int
+    generator_config: Mapping[str, _Scalar]
+    placed_assets: tuple[ThreeDPlacedAssetSpec, ...]
+    material_names: tuple[str, ...]
+    partitions: tuple[str, ...]
+    lod_levels: int
+    include_collision: bool
+    include_navigation: bool
+    semantic_digest: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "layout_id", _text(self.layout_id, "environment layout_id", 128))
+        object.__setattr__(self, "generator", _text(self.generator, "environment generator", 128))
+        object.__setattr__(self, "generator_version", _text(self.generator_version, "environment generator_version", 64))
+        if not isinstance(self.seed, int) or isinstance(self.seed, bool) or not 0 <= self.seed <= 2**63 - 1:
+            raise ThreeDContractError("environment generator seed is malformed")
+        object.__setattr__(self, "generator_config", _config(self.generator_config))
+        if not isinstance(self.placed_assets, tuple) or not self.placed_assets or len(self.placed_assets) > 64 or any(not isinstance(item, ThreeDPlacedAssetSpec) for item in self.placed_assets) or len({item.binding_path for item in self.placed_assets}) != len(self.placed_assets):
+            raise ThreeDContractError("environment placed assets are malformed or duplicated")
+        for field_name in ("material_names", "partitions"):
+            value = getattr(self, field_name)
+            if not isinstance(value, tuple) or not value or len(value) > 64 or any(not isinstance(item, str) or not item or len(item) > 128 for item in value) or len(set(value)) != len(value):
+                raise ThreeDContractError(f"environment {field_name} are malformed or duplicated")
+        if any(item.partition_id not in self.partitions for item in self.placed_assets):
+            raise ThreeDContractError("environment asset partition is not declared by its layout")
+        if not isinstance(self.lod_levels, int) or isinstance(self.lod_levels, bool) or not 1 <= self.lod_levels <= 8:
+            raise ThreeDContractError("environment lod_levels is malformed")
+        if not isinstance(self.include_collision, bool) or not isinstance(self.include_navigation, bool):
+            raise ThreeDContractError("environment collision and navigation flags must be boolean")
+        object.__setattr__(self, "semantic_digest", _digest(self.payload()))
+
+    def payload(self) -> dict[str, object]:
+        return {"generator": self.generator, "generator_config": dict(self.generator_config), "generator_version": self.generator_version, "include_collision": self.include_collision, "include_navigation": self.include_navigation, "layout_id": self.layout_id, "lod_levels": self.lod_levels, "material_names": list(self.material_names), "partitions": list(self.partitions), "placed_assets": [item.payload() for item in self.placed_assets], "seed": self.seed}
+
+
 def _animation_digest(value: object, name: str) -> str:
     if (
         not isinstance(value, str)
@@ -894,6 +973,7 @@ class ThreeDOperationRequest:
     animation_clip_spec: ThreeDAnimationClipSpec | None = None
     retarget_spec: ThreeDRetargetSpec | None = None
     root_motion_policy: ThreeDRootMotionPolicy = ThreeDRootMotionPolicy.PRESERVE
+    environment_spec: ThreeDEnvironmentLayoutSpec | None = None
     reference_output_artifact_ref: ArtifactRef | None = None
     resource_allocation_ref: ResourceAllocationRef | None = None
     request_sha256: str = field(init=False)
@@ -927,7 +1007,7 @@ class ThreeDOperationRequest:
             raise ThreeDContractError("3D source Artifacts are duplicated or unbounded")
         if any(item.project_ref != project for item in self.source_artifact_refs):
             raise ThreeDScopeError("3D source Artifact crossed Project scope")
-        if self.operation is ThreeDOperation.MODEL:
+        if self.operation in {ThreeDOperation.MODEL, ThreeDOperation.ENVIRONMENT}:
             if self.source_path is not None or self.source_artifact_refs:
                 raise ThreeDContractError("3D model creation cannot claim an input source")
         else:
@@ -1061,6 +1141,20 @@ class ThreeDOperationRequest:
                 raise ThreeDContractError("3D animation clip does not match its exact skeleton")
         elif self.animation_clip_spec is not None or self.retarget_spec is not None:
             raise ThreeDContractError("3D animation specifications require an animation operation")
+        if self.operation is ThreeDOperation.ENVIRONMENT:
+            if not isinstance(self.environment_spec, ThreeDEnvironmentLayoutSpec):
+                raise ThreeDContractError("environment operation requires an exact layout specification")
+            if (
+                tuple(item.binding_path for item in self.environment_spec.placed_assets)
+                != tuple(self.auxiliary_artifact_bindings)
+                or any(
+                    self.auxiliary_artifact_bindings[item.binding_path] != item.artifact_ref
+                    for item in self.environment_spec.placed_assets
+                )
+            ):
+                raise ThreeDContractError("environment placed assets differ from exact Artifact bindings")
+        elif self.environment_spec is not None:
+            raise ThreeDContractError("environment layout specification requires an environment operation")
         if self.reference_output_artifact_ref is not None and (
             not isinstance(self.reference_output_artifact_ref, ArtifactRef)
             or self.reference_output_artifact_ref.project_ref != project
@@ -1119,6 +1213,7 @@ class ThreeDOperationRequest:
             "animation_clip_spec": None if self.animation_clip_spec is None else self.animation_clip_spec.payload(),
             "retarget_spec": None if self.retarget_spec is None else self.retarget_spec.payload(),
             "root_motion_policy": self.root_motion_policy.value,
+            "environment_spec": None if self.environment_spec is None else self.environment_spec.payload(),
             "source_artifact_refs": [item.value for item in self.source_artifact_refs],
             "source_path": self.source_path,
             "validation_requirements": self.validation_requirements.payload(),
@@ -1255,6 +1350,7 @@ class ThreeDOperationResult:
             ThreeDOperation.ANIMATE,
             ThreeDOperation.RETARGET,
             ThreeDOperation.BAKE,
+            ThreeDOperation.ENVIRONMENT,
                 ThreeDOperation.SCENE,
                 ThreeDOperation.OPTIMIZE,
             }
@@ -1335,6 +1431,24 @@ class _ThreeDPublication:
     request_ref: ContentRef
     output_observed: bool
     status: ThreeDStatus
+
+
+@dataclass(frozen=True)
+class EnvironmentManifestPublication:
+    """Immutable publication identity for a verified environment manifest."""
+
+    manifest: EnvironmentIntegrationManifest
+    manifest_artifact_ref: ArtifactRef
+    manifest_content_ref: ContentRef
+
+    def __post_init__(self) -> None:
+        if (
+            not isinstance(self.manifest, EnvironmentIntegrationManifest)
+            or not isinstance(self.manifest_artifact_ref, ArtifactRef)
+            or not isinstance(self.manifest_content_ref, ContentRef)
+            or self.manifest.project_ref != self.manifest_artifact_ref.project_ref
+        ):
+            raise EnvironmentContractError("environment manifest publication identity is malformed")
 
 
 @dataclass(frozen=True)
@@ -1514,6 +1628,8 @@ class ThreeDToolAdapter(Protocol):
     def finalizeCharacterRigRef(self, access: ProjectAccess, result: ThreeDOperationResult, specification: CharacterSpecification) -> CharacterRigRef: ...
     def finalizeRetargetMapping(self, access: ProjectAccess, request: ThreeDOperationRequest, result: ThreeDOperationResult, source_rig_ref: CharacterRigRef, target_rig_ref: CharacterRigRef, *, mapping_id: str, mapping_version: str) -> RetargetMapping: ...
     def finalizeAnimationClip(self, access: ProjectAccess, request: ThreeDOperationRequest, result: ThreeDOperationResult, character_rig_ref: CharacterRigRef, *, clip_id: str, mapping: RetargetMapping | None = None) -> AnimationClip: ...
+    def finalizeEnvironmentIntegrationManifest(self, access: ProjectAccess, request: ThreeDOperationRequest, result: ThreeDOperationResult, manifest: EnvironmentIntegrationManifest) -> EnvironmentManifestPublication: ...
+    def verifyEnvironmentManifestPublication(self, access: ProjectAccess, publication: EnvironmentManifestPublication) -> EnvironmentManifestPublication: ...
 
 
 class _MethodCheckedAdapter:
@@ -1555,6 +1671,7 @@ class _MethodCheckedAdapter:
             ThreeDOperation.ANIMATE,
             ThreeDOperation.RETARGET,
             ThreeDOperation.BAKE,
+            ThreeDOperation.ENVIRONMENT,
                 ThreeDOperation.SCENE,
                 ThreeDOperation.OPTIMIZE,
             ),
@@ -1615,6 +1732,24 @@ class _MethodCheckedAdapter:
             access, request, result, character_rig_ref,
             clip_id=clip_id, mapping=mapping,
         )
+
+    def finalizeEnvironmentIntegrationManifest(
+        self,
+        access: ProjectAccess,
+        request: ThreeDOperationRequest,
+        result: ThreeDOperationResult,
+        manifest: EnvironmentIntegrationManifest,
+    ) -> EnvironmentManifestPublication:
+        return self._service.finalize_environment_integration_manifest(
+            access, request, result, manifest,
+        )
+
+    def verifyEnvironmentManifestPublication(
+        self,
+        access: ProjectAccess,
+        publication: EnvironmentManifestPublication,
+    ) -> EnvironmentManifestPublication:
+        return self._service.verify_environment_manifest_publication(access, publication)
 
     def _invoke(self, access: ProjectAccess, attempt: NodeExecutionAttempt, request: ThreeDOperationRequest, *, idempotency_key: str) -> ThreeDOperationResult:
         raise ThreeDContractError("abstract 3D adapter invocation is unavailable")
@@ -1883,6 +2018,23 @@ class _ThreeDService:
                   BEGIN SELECT RAISE(ABORT,'3D retarget mappings are immutable'); END;
                 CREATE TRIGGER IF NOT EXISTS three_d_retarget_mappings_no_delete BEFORE DELETE ON three_d_retarget_mapping_records
                   BEGIN SELECT RAISE(ABORT,'3D retarget mappings cannot be deleted'); END;
+                CREATE TABLE IF NOT EXISTS three_d_environment_manifest_records (
+                  project_id TEXT NOT NULL,
+                  adapter_ref TEXT NOT NULL,
+                  result_record_sha256 TEXT NOT NULL,
+                  environment_id TEXT NOT NULL,
+                  manifest_semantic_sha256 TEXT NOT NULL,
+                  artifact_id TEXT NOT NULL,
+                  artifact_revision INTEGER NOT NULL,
+                  content_sha256 TEXT NOT NULL,
+                  PRIMARY KEY(project_id,adapter_ref,result_record_sha256,environment_id),
+                  UNIQUE(project_id,adapter_ref,artifact_id,artifact_revision),
+                  FOREIGN KEY(project_id) REFERENCES projects(project_id) ON UPDATE RESTRICT ON DELETE RESTRICT
+                );
+                CREATE TRIGGER IF NOT EXISTS three_d_environment_manifests_no_update BEFORE UPDATE ON three_d_environment_manifest_records
+                  BEGIN SELECT RAISE(ABORT,'3D environment manifests are immutable'); END;
+                CREATE TRIGGER IF NOT EXISTS three_d_environment_manifests_no_delete BEFORE DELETE ON three_d_environment_manifest_records
+                  BEGIN SELECT RAISE(ABORT,'3D environment manifests cannot be deleted'); END;
                 CREATE TRIGGER IF NOT EXISTS three_d_claims_no_update BEFORE UPDATE ON three_d_operation_claims
                   BEGIN SELECT RAISE(ABORT,'3D claims are immutable'); END;
                 CREATE TRIGGER IF NOT EXISTS three_d_claims_no_delete BEFORE DELETE ON three_d_operation_claims
@@ -3016,6 +3168,7 @@ class _ThreeDService:
             ThreeDOperation.ANIMATE,
             ThreeDOperation.RETARGET,
             ThreeDOperation.BAKE,
+            ThreeDOperation.ENVIRONMENT,
                 ThreeDOperation.SCENE,
                 ThreeDOperation.CONVERT,
                 ThreeDOperation.OPTIMIZE,
@@ -3656,6 +3809,7 @@ class _ThreeDService:
             ThreeDOperation.ANIMATE,
             ThreeDOperation.RETARGET,
             ThreeDOperation.BAKE,
+            ThreeDOperation.ENVIRONMENT,
                 ThreeDOperation.SCENE,
                 ThreeDOperation.CONVERT,
                 ThreeDOperation.OPTIMIZE,
@@ -4064,6 +4218,7 @@ class _ThreeDService:
             ThreeDOperation.ANIMATE,
             ThreeDOperation.RETARGET,
             ThreeDOperation.BAKE,
+            ThreeDOperation.ENVIRONMENT,
             ThreeDOperation.SCENE,
             ThreeDOperation.OPTIMIZE,
         }:
@@ -4119,6 +4274,7 @@ class _ThreeDService:
             ThreeDOperation.ANIMATE,
             ThreeDOperation.RETARGET,
             ThreeDOperation.BAKE,
+            ThreeDOperation.ENVIRONMENT,
             ThreeDOperation.SCENE,
             ThreeDOperation.OPTIMIZE,
         } and not cls._native_reopen_proven(request, report):
@@ -4212,6 +4368,16 @@ class _ThreeDService:
                 for item in animation["actions"]
             ):
                 raise ThreeDIntegrityError("baked animation output lacks exact bake evidence")
+        if request.operation is ThreeDOperation.ENVIRONMENT:
+            environment_identity = report.get("environment_identity")
+            if (
+                request.environment_spec is None
+                or not isinstance(environment_identity, dict)
+                or environment_identity.get("layout_sha256")
+                != request.environment_spec.semantic_digest
+                or environment_identity.get("seed") != request.environment_spec.seed
+            ):
+                raise ThreeDIntegrityError("environment output lacks exact layout evidence")
         if request.operation is ThreeDOperation.CONVERT:
             expected_export = PurePosixPath(request.output_path).suffix.lower()
             source_inspection = report.get("source_inspection")
@@ -5840,6 +6006,7 @@ class _ThreeDService:
             ThreeDOperation.ANIMATE,
             ThreeDOperation.RETARGET,
             ThreeDOperation.BAKE,
+            ThreeDOperation.ENVIRONMENT,
             ThreeDOperation.SCENE,
             ThreeDOperation.CONVERT,
             ThreeDOperation.OPTIMIZE,
@@ -7207,6 +7374,286 @@ class _ThreeDService:
             raise CharacterContractError(
                 "character handoff evidence failed verification"
             ) from exc
+
+    @staticmethod
+    def _environment_manifest_payload(
+        manifest: EnvironmentIntegrationManifest,
+    ) -> dict[str, object]:
+        specification = manifest.specification
+        terrain = manifest.terrain
+        return {
+            "collision_ref": manifest.collision_ref,
+            "content_sha256": manifest.content_sha256,
+            "derivation_ref": manifest.derivation_ref,
+            "material_ref": manifest.material_ref,
+            "navigation_ref": manifest.navigation_ref,
+            "partition_ref": manifest.partition_ref,
+            "placed_assets": [
+                {
+                    "asset_id": item.asset_id,
+                    "content_sha256": item.content_sha256,
+                    "material_ref": item.material_ref,
+                    "parent_ref": item.parent_ref,
+                    "partition_id": item.partition_id,
+                    "project_ref": item.project_ref.value,
+                    "source_ref": item.source_ref,
+                    "transform": list(item.transform),
+                    "variant": item.variant,
+                }
+                for item in manifest.placed_assets
+            ],
+            "project_ref": manifest.project_ref.value,
+            "prop_ref": manifest.prop_ref,
+            "runtime_ref": manifest.runtime_ref,
+            "specification": {
+                "asset_library_refs": list(specification.asset_library_refs),
+                "content_sha256": specification.content_sha256,
+                "coordinates": dict(specification.coordinates),
+                "environment_id": specification.environment_id,
+                "gameplay_navigation": dict(specification.gameplay_navigation),
+                "layout": dict(specification.layout),
+                "output_acceptance_refs": list(specification.output_acceptance_refs),
+                "partition": dict(specification.partition),
+                "performance": dict(specification.performance),
+                "project_ref": specification.project_ref.value,
+                "representation_tags": list(specification.representation_tags),
+                "source_ref": specification.source_ref,
+                "target_tool_engine": dict(specification.target_tool_engine),
+                "units": specification.units,
+                "visual": dict(specification.visual),
+            },
+            "structure_ref": manifest.structure_ref,
+            "terrain": {
+                "config": dict(terrain.config),
+                "content_sha256": terrain.content_sha256,
+                "generator_ref": terrain.generator_ref,
+                "generator_version": terrain.generator_version,
+                "project_ref": terrain.project_ref.value,
+                "seed": terrain.seed,
+                "terrain_id": terrain.terrain_id,
+                "terrain_ref": terrain.terrain_ref,
+            },
+            "tool_ref": manifest.tool_ref,
+            "vegetation_ref": manifest.vegetation_ref,
+        }
+
+    def _verified_environment_handoff(
+        self,
+        access: ProjectAccess,
+        request: ThreeDOperationRequest,
+        result: ThreeDOperationResult,
+    ) -> tuple[Mapping[str, object], ArtifactRef, ContentRef]:
+        if (
+            not isinstance(request, ThreeDOperationRequest)
+            or not isinstance(result, ThreeDOperationResult)
+            or self.reality is not ThreeDReality.REAL
+            or result.reality is not ThreeDReality.REAL
+            or result.status is not ThreeDStatus.SUCCEEDED
+            or result.operation is not ThreeDOperation.ENVIRONMENT
+            or request.operation is not ThreeDOperation.ENVIRONMENT
+            or request.request_sha256 != result.request_sha256
+            or request.identity.semantic_digest != result.identity_digest
+            or request.project_ref != access.project_ref
+            or result.project_ref != access.project_ref
+            or not result.editable_source
+            or result.preview_only
+            or result.output_artifact_ref is None
+            or result.output_content_ref is None
+            or result.report_ref is None
+            or result.process_call_ref is None
+            or request.environment_spec is None
+        ):
+            raise EnvironmentContractError("environment handoff requires one exact successful REAL editable result")
+        try:
+            self._authorize_project(access, result.project_ref)
+            output = self.artifacts.get_artifact(access, result.output_artifact_ref)
+            if (
+                output.content_ref is None
+                or _content_payload(output.content_ref) != _content_payload(result.output_content_ref)
+                or output.derivation_type != "3d.environment"
+            ):
+                raise EnvironmentContractError("environment artifact identity differs from durable result")
+            self.object_store.verify(result.output_content_ref)
+            self.object_store.verify(result.report_ref)
+            connection = self._connect()
+            try:
+                row = connection.execute(
+                    "SELECT result_json,record_sha256 FROM three_d_operation_results WHERE project_id=? AND adapter_ref=?",
+                    (access.project_ref.value, self.adapter_ref),
+                ).fetchall()
+            finally:
+                connection.close()
+            if not any(
+                self._result_from_row(candidate) == result
+                and hmac.compare_digest(cast(str, candidate["record_sha256"]), result.record_sha256)
+                for candidate in row
+            ):
+                raise EnvironmentContractError("environment result is forged, stale, or not durably persisted")
+            process = self.process.get_result(
+                access,
+                ToolCallRef(result.project_ref, result.process_call_ref.rsplit("/", 1)[-1]),
+            )
+            report = self._driver_report(self.object_store.read(process.stdout_ref))
+            report_bytes = _json(report).encode()
+            if (
+                hashlib.sha256(report_bytes).hexdigest() != result.report_ref.digest
+                or len(report_bytes) != result.report_ref.size_bytes
+                or process.status is not ProcessStatus.SUCCEEDED
+                or process.process_identity is None
+            ):
+                raise EnvironmentContractError("environment result lacks exact successful driver evidence")
+            self._verify_operation_report_schema(request, report)
+            return report, result.output_artifact_ref, result.output_content_ref
+        except EnvironmentContractError:
+            raise
+        except (ArtifactError, ObjectStorageError, ProcessError, ThreeDError, ValueError) as exc:
+            raise EnvironmentContractError("environment handoff evidence failed verification") from exc
+
+    def verify_environment_manifest_publication(
+        self,
+        access: ProjectAccess,
+        publication: EnvironmentManifestPublication,
+    ) -> EnvironmentManifestPublication:
+        if (
+            not isinstance(publication, EnvironmentManifestPublication)
+            or publication.manifest.project_ref != access.project_ref
+            or publication.manifest_artifact_ref.project_ref != access.project_ref
+        ):
+            raise EnvironmentContractError("environment manifest publication crossed Project scope")
+        try:
+            artifact = self.artifacts.get_artifact(access, publication.manifest_artifact_ref)
+            if (
+                artifact.role != "3d.environment-manifest"
+                or artifact.derivation_type != "3d.environment-manifest"
+                or artifact.content_ref is None
+                or _content_payload(artifact.content_ref) != _content_payload(publication.manifest_content_ref)
+            ):
+                raise EnvironmentContractError("environment manifest artifact identity changed")
+            self.object_store.verify(publication.manifest_content_ref)
+            expected = _json(self._environment_manifest_payload(publication.manifest)).encode()
+            if self.object_store.read(publication.manifest_content_ref) != expected:
+                raise EnvironmentContractError("environment manifest artifact bytes changed")
+            return publication
+        except EnvironmentContractError:
+            raise
+        except (ArtifactError, ObjectStorageError, ValueError) as exc:
+            raise EnvironmentContractError("environment manifest publication failed verification") from exc
+
+    def finalize_environment_integration_manifest(
+        self,
+        access: ProjectAccess,
+        request: ThreeDOperationRequest,
+        result: ThreeDOperationResult,
+        manifest: EnvironmentIntegrationManifest,
+    ) -> EnvironmentManifestPublication:
+        report, output_ref, output_content = self._verified_environment_handoff(access, request, result)
+        if not isinstance(manifest, EnvironmentIntegrationManifest) or manifest.project_ref != access.project_ref:
+            raise EnvironmentContractError("environment manifest is malformed or out of project scope")
+        assert request.environment_spec is not None
+        layout = request.environment_spec
+        runtime_ref = "runtime://biella/" + _digest(cast(Mapping[str, object], report["runtime"]))
+        expected_derivation = f"derivation://three-d/environment/{result.record_sha256}"
+        expected_assets = tuple(layout.placed_assets)
+        if (
+            manifest.specification.source_ref != output_ref.value
+            or manifest.specification.content_sha256 != output_content.digest
+            or manifest.content_sha256 != output_content.digest
+            or tuple(manifest.specification.asset_library_refs) != tuple(sorted(item.artifact_ref.value for item in expected_assets))
+            or manifest.terrain.generator_ref != f"generator://three-d/{layout.generator}"
+            or manifest.terrain.generator_version != layout.generator_version
+            or manifest.terrain.seed != layout.seed
+            or manifest.terrain.config != {key: str(value) for key, value in layout.generator_config.items()}
+            or manifest.terrain.terrain_ref != output_ref.value
+            or manifest.terrain.content_sha256 != output_content.digest
+            or len(manifest.placed_assets) != len(expected_assets)
+            or manifest.tool_ref != request.identity.adapter_ref
+            or manifest.runtime_ref != runtime_ref
+            or manifest.derivation_ref != expected_derivation
+            or any(value != output_ref.value for value in (
+                manifest.structure_ref, manifest.prop_ref, manifest.vegetation_ref,
+                manifest.material_ref, manifest.collision_ref, manifest.navigation_ref,
+                manifest.partition_ref,
+            ))
+        ):
+            raise EnvironmentContractError("environment manifest differs from exact result evidence")
+        environment_identity = report.get("environment_identity")
+        reported_assets = None if not isinstance(environment_identity, dict) else environment_identity.get("placed_assets")
+        if not isinstance(reported_assets, list) or len(reported_assets) != len(expected_assets):
+            raise EnvironmentContractError("environment result lacks exact placed asset evidence")
+        observed_assets: list[PlacedAsset] = []
+        for expected, evidence in zip(expected_assets, reported_assets, strict=True):
+            if (
+                not isinstance(evidence, dict)
+                or evidence.get("artifact_ref") != expected.artifact_ref.value
+                or evidence.get("content_sha256") != expected.content_sha256
+                or evidence.get("asset_id") != expected.asset_id
+                or evidence.get("location") != list(expected.location)
+                or evidence.get("rotation_euler") != list(expected.rotation_euler)
+                or evidence.get("scale") != list(expected.scale)
+                or evidence.get("material_ref") != expected.material_ref
+                or evidence.get("variant") != expected.variant
+                or evidence.get("parent_ref") != expected.parent_ref
+                or evidence.get("partition_id") != expected.partition_id
+                or not isinstance(evidence.get("transform"), list)
+            ):
+                raise EnvironmentContractError("environment placed asset evidence differs from its exact request")
+            try:
+                observed_assets.append(PlacedAsset(
+                    project_ref=access.project_ref, asset_id=expected.asset_id,
+                    source_ref=expected.artifact_ref.value, content_sha256=expected.content_sha256,
+                    transform=tuple(float(cast(str | float | int, value)) for value in cast(list[object], evidence["transform"])),
+                    material_ref=expected.material_ref, variant=expected.variant,
+                    parent_ref=expected.parent_ref, partition_id=expected.partition_id,
+                ))
+            except (TypeError, ValueError) as exc:
+                raise EnvironmentContractError("environment placed asset transform is malformed") from exc
+        manifest.require_placed_assets(tuple(observed_assets))
+        payload = self._environment_manifest_payload(manifest)
+        raw = _json(payload).encode()
+        content = self.object_store.put(raw, media_type="application/vnd.biella.environment-manifest+json")
+        connection = self._connect()
+        try:
+            row = connection.execute(
+                "SELECT artifact_id,artifact_revision,manifest_semantic_sha256,content_sha256 FROM three_d_environment_manifest_records WHERE project_id=? AND adapter_ref=? AND result_record_sha256=? AND environment_id=?",
+                (access.project_ref.value, self.adapter_ref, result.record_sha256, manifest.specification.environment_id),
+            ).fetchone()
+        finally:
+            connection.close()
+        if row is not None:
+            if not hmac.compare_digest(cast(str, row["manifest_semantic_sha256"]), content.digest):
+                raise EnvironmentContractError("environment manifest finalization conflicts with durable bytes")
+            artifact = self.artifacts.get_artifact(access, ArtifactRef(access.project_ref, cast(str, row["artifact_id"]), cast(int, row["artifact_revision"])))
+            if artifact.content_ref is None or artifact.content_ref.digest != cast(str, row["content_sha256"]):
+                raise EnvironmentContractError("environment manifest artifact identity changed")
+            self.object_store.verify(artifact.content_ref)
+            if self.object_store.read(artifact.content_ref) != raw:
+                raise EnvironmentContractError("environment manifest artifact bytes changed")
+            return self.verify_environment_manifest_publication(
+                access, EnvironmentManifestPublication(manifest, artifact.artifact_ref, artifact.content_ref),
+            )
+        artifact = self.artifacts.create_artifact(
+            access, project_ref=access.project_ref, role="3d.environment-manifest", content_ref=content,
+            source_refs=(), source_artifact_refs=(output_ref, *tuple(item.artifact_ref for item in layout.placed_assets)),
+            source_content_refs=(output_content,), derivation_type="3d.environment-manifest",
+            metadata={"media_type": "application/vnd.biella.environment-manifest+json", "schema_ref": "schema://biella/environment-manifest/v1", "schema_version": "1.0.0", "semantic_label": "environment-manifest", "semantic_version": "1.0.0"},
+        )
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN IMMEDIATE")
+            try:
+                connection.execute(
+                    "INSERT INTO three_d_environment_manifest_records VALUES (?,?,?,?,?,?,?,?)",
+                    (access.project_ref.value, self.adapter_ref, result.record_sha256, manifest.specification.environment_id, content.digest, artifact.artifact_ref.artifact_id, artifact.artifact_ref.revision, content.digest),
+                )
+                connection.commit()
+                return self.verify_environment_manifest_publication(
+                    access, EnvironmentManifestPublication(manifest, artifact.artifact_ref, content),
+                )
+            except sqlite3.IntegrityError:
+                connection.rollback()
+                return self.finalize_environment_integration_manifest(access, request, result, manifest)
+        finally:
+            connection.close()
 
     def _verified_animation_handoff(
         self,

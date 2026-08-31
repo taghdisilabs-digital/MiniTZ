@@ -281,6 +281,89 @@ def _create(bpy: Any, config: Mapping[str, str | int | float | bool]) -> None:
     bpy.context.view_layer.objects.active = object_value
 
 
+def _environment(bpy: Any, layout: Mapping[str, object], workspace: Path) -> list[dict[str, object]]:
+    _reset(bpy)
+    placed = layout.get("placed_assets")
+    if not isinstance(placed, list) or not placed:
+        raise ValueError("environment placed assets are malformed")
+    terrain_size = float(cast(str | float | int, cast(Mapping[str, object], layout["generator_config"]).get("terrain_size", 12.0)))
+    if not math.isfinite(terrain_size) or not 1.0 <= terrain_size <= 10_000.0:
+        raise ValueError("environment terrain size is malformed")
+    bpy.ops.mesh.primitive_grid_add(x_subdivisions=8, y_subdivisions=8, size=terrain_size)
+    terrain = bpy.context.active_object
+    terrain.name = "BiellaEnvironmentTerrain"
+    terrain["biella_environment_role"] = "terrain"
+    terrain.data.materials.append(_material(bpy, "BiellaTerrainMaterial", (0.18, 0.42, 0.18, 1.0)))
+    evidence: list[dict[str, object]] = []
+    for index, item in enumerate(cast(list[Mapping[str, object]], placed)):
+        location = cast(list[float], item["location"])
+        rotation = cast(list[float], item["rotation_euler"])
+        scale = cast(list[float], item["scale"])
+        binding_path = cast(str, item["binding_path"])
+        source_path = workspace / binding_path
+        if not source_path.is_file() or source_path.suffix.lower() != ".blend":
+            raise ValueError("environment asset binding lacks staged editable source")
+        with bpy.data.libraries.load(str(source_path), link=False) as (source_data, target_data):
+            target_data.objects = source_data.objects[:]
+        placed_object = next(
+            (object_value for object_value in target_data.objects if object_value is not None and object_value.type == "MESH"),
+            None,
+        )
+        if placed_object is None:
+            raise ValueError("environment asset source lacks a mesh object")
+        bpy.context.collection.objects.link(placed_object)
+        placed_object.name = f"BiellaEnvironmentAsset{index}"
+        placed_object.location = location
+        placed_object.rotation_euler = rotation
+        placed_object.scale = scale
+        placed_object["biella_asset_ref"] = cast(str, item["artifact_ref"])
+        placed_object["biella_asset_content_sha256"] = cast(str, item["content_sha256"])
+        material_ref = cast(str, item["material_ref"])
+        placed_object["biella_asset_id"] = cast(str, item["asset_id"])
+        placed_object["biella_material_ref"] = material_ref
+        placed_object["biella_variant"] = cast(str, item["variant"])
+        placed_object["biella_parent_ref"] = cast(str | None, item["parent_ref"])
+        placed_object["biella_partition"] = cast(str, item["partition_id"])
+        placed_object.data.materials.clear()
+        placed_object.data.materials.append(_material(bpy, material_ref, (0.25 + 0.1 * (index % 3), 0.3, 0.2, 1.0)))
+        evidence.append({
+            "artifact_ref": cast(str, item["artifact_ref"]),
+            "asset_id": cast(str, item["asset_id"]),
+            "content_sha256": cast(str, item["content_sha256"]),
+            "location": list(location),
+            "material_ref": material_ref,
+            "parent_ref": cast(str | None, item["parent_ref"]),
+            "partition_id": cast(str, item["partition_id"]),
+            "rotation_euler": list(rotation),
+            "scale": list(scale),
+            "transform": [float(value) for row in placed_object.matrix_world for value in row],
+            "variant": cast(str, item["variant"]),
+        })
+        for lod in range(1, cast(int, layout["lod_levels"])):
+            duplicate = placed_object.copy()
+            duplicate.data = placed_object.data.copy()
+            duplicate.name = f"{placed_object.name}_LOD{lod}"
+            duplicate.display_type = "BOUNDS"
+            duplicate.hide_render = True
+            duplicate["biella_environment_role"] = "lod"
+            bpy.context.collection.objects.link(duplicate)
+    if bool(layout["include_collision"]):
+        collision = terrain.copy()
+        collision.data = terrain.data.copy()
+        collision.name = "BiellaEnvironmentCollision"
+        collision.hide_render = True
+        collision["biella_environment_role"] = "collision"
+        bpy.context.collection.objects.link(collision)
+    if bool(layout["include_navigation"]):
+        navigation = terrain.copy()
+        navigation.data = terrain.data.copy()
+        navigation.name = "BiellaEnvironmentNavigation"
+        navigation.hide_render = True
+        navigation["biella_environment_role"] = "navigation"
+        bpy.context.collection.objects.link(navigation)
+    return evidence
+
+
 def _save_blend(bpy: Any, output: Path) -> None:
     if output.suffix.lower() != ".blend":
         raise ValueError("editable Blender source requires .blend output")
@@ -1839,6 +1922,10 @@ def _main() -> None:
     root_motion_policy = request_payload.get("root_motion_policy")
     if root_motion_policy not in {"preserve", "extract", "remove"}:
         raise ValueError("animation root motion policy is malformed")
+    environment_payload = request_payload.get("environment_spec")
+    if operation == "environment" and not isinstance(environment_payload, dict):
+        raise ValueError("environment operation lacks exact layout specification")
+    environment_placed_assets: list[dict[str, object]] = []
     skin_bindings_raw = request_payload.get("skin_bindings", [])
     if not isinstance(skin_bindings_raw, list) or len(skin_bindings_raw) > _MAX_MESH_ELEMENTS:
         raise ValueError("character skin bindings are malformed")
@@ -2023,6 +2110,10 @@ def _main() -> None:
             raise ValueError("baked animation clip is absent")
         _animate(bpy, animation_clip, cast(str, root_motion_policy), baked=True)
         _save_blend(bpy, output)
+    elif operation == "environment":
+        assert isinstance(environment_payload, dict)
+        environment_placed_assets = _environment(bpy, environment_payload, execution_workspace)
+        _save_blend(bpy, output)
     elif operation == "scene":
         _scene(
             bpy,
@@ -2055,11 +2146,12 @@ def _main() -> None:
         "animate",
         "retarget",
         "bake",
+        "environment",
         "scene",
         "optimize",
     }:
         source_format = _load(bpy, output)
-    generated_output = operation in {"model", "mesh_edit", "topology", "uv", "material", "rig", "skin", "deform", "animate", "retarget", "bake", "scene", "convert", "optimize"}
+    generated_output = operation in {"model", "mesh_edit", "topology", "uv", "material", "rig", "skin", "deform", "animate", "retarget", "bake", "environment", "scene", "convert", "optimize"}
     inspected_source = output if generated_output else source
     if operation == "preview":
         inspected_source = source
@@ -2081,6 +2173,11 @@ def _main() -> None:
     used_auxiliary_paths = set(
         cast(list[str], inspection["bound_dependency_paths"])
     )
+    if operation == "environment" and environment_payload is not None:
+        used_auxiliary_paths.update(
+            cast(str, item["binding_path"])
+            for item in cast(list[Mapping[str, object]], environment_payload["placed_assets"])
+        )
     if source_inspection is not None:
         used_auxiliary_paths.update(
             cast(list[str], source_inspection["bound_dependency_paths"])
@@ -2118,6 +2215,12 @@ def _main() -> None:
             "retarget_sha256": (
                 None if retarget_payload is None else _payload_digest(retarget_payload)
             ),
+        }
+    if environment_payload is not None:
+        report["environment_identity"] = {
+            "layout_sha256": _payload_digest(environment_payload),
+            "placed_assets": environment_placed_assets,
+            "seed": environment_payload.get("seed"),
         }
     if operation not in {"inspect", "validate"}:
         report["output"] = _file_identity(output)
