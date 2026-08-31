@@ -12,6 +12,7 @@ from enum import Enum
 import hashlib
 import hmac
 import json
+import math
 import os
 from pathlib import Path, PurePosixPath
 import re
@@ -27,6 +28,11 @@ from .artifact import (
     ArtifactService,
     ContentRef,
     SourceRef,
+)
+from .character_pack import (
+    CharacterContractError,
+    CharacterRigRef,
+    CharacterSpecification,
 )
 from .capability import CapabilityRef
 from .call_ledger import ToolCallRef
@@ -115,6 +121,9 @@ class ThreeDOperation(str, Enum):
     TOPOLOGY = "topology"
     UV = "uv"
     MATERIAL = "material"
+    RIG = "rig"
+    SKIN = "skin"
+    DEFORM = "deform"
     SCENE = "scene"
     CONVERT = "convert"
     OPTIMIZE = "optimize"
@@ -123,6 +132,12 @@ class ThreeDOperation(str, Enum):
 
     @property
     def capability_id(self) -> str:
+        if self in {
+            ThreeDOperation.RIG,
+            ThreeDOperation.SKIN,
+            ThreeDOperation.DEFORM,
+        }:
+            return "3d.model"
         return f"3d.{self.value}"
 
 
@@ -146,6 +161,9 @@ _OPERATION_ROLES = MappingProxyType(
         ThreeDOperation.TOPOLOGY: frozenset({"3d.mesh", "3d.scene"}),
         ThreeDOperation.UV: frozenset({"3d.mesh", "3d.scene", "3d.uv-data"}),
         ThreeDOperation.MATERIAL: frozenset({"3d.material", "3d.scene"}),
+        ThreeDOperation.RIG: frozenset({"3d.mesh", "3d.rig", "3d.scene"}),
+        ThreeDOperation.SKIN: frozenset({"3d.mesh", "3d.rig", "3d.skin", "3d.scene"}),
+        ThreeDOperation.DEFORM: frozenset({"3d.mesh", "3d.rig", "3d.skin", "3d.deformation", "3d.scene"}),
         ThreeDOperation.SCENE: frozenset({"3d.scene"}),
         ThreeDOperation.CONVERT: frozenset({"3d.interchange-export"}),
         ThreeDOperation.OPTIMIZE: frozenset({"3d.mesh", "3d.scene"}),
@@ -165,6 +183,9 @@ _OUTPUT_MEDIA = MappingProxyType(
         ThreeDOperation.TOPOLOGY: frozenset({(".blend", "application/x-blender")}),
         ThreeDOperation.UV: frozenset({(".blend", "application/x-blender")}),
         ThreeDOperation.MATERIAL: frozenset({(".blend", "application/x-blender")}),
+        ThreeDOperation.RIG: frozenset({(".blend", "application/x-blender")}),
+        ThreeDOperation.SKIN: frozenset({(".blend", "application/x-blender")}),
+        ThreeDOperation.DEFORM: frozenset({(".blend", "application/x-blender")}),
         ThreeDOperation.SCENE: frozenset({(".blend", "application/x-blender")}),
         ThreeDOperation.CONVERT: frozenset(
             {
@@ -423,6 +444,140 @@ class ThreeDToolIdentity:
 
 
 @dataclass(frozen=True)
+class ThreeDBoneSpec:
+    """One provider-neutral rest-pose bone in a generic hierarchy."""
+
+    name: str
+    parent_name: str | None
+    head: tuple[float, float, float]
+    tail: tuple[float, float, float]
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "name", _text(self.name, "3D bone name", 256))
+        if self.parent_name is not None:
+            object.__setattr__(
+                self,
+                "parent_name",
+                _text(self.parent_name, "3D bone parent name", 256),
+            )
+        for name in ("head", "tail"):
+            value = getattr(self, name)
+            if (
+                not isinstance(value, tuple)
+                or len(value) != 3
+                or any(isinstance(item, bool) or not isinstance(item, (int, float)) or not math.isfinite(float(item)) for item in value)
+            ):
+                raise ThreeDContractError(f"3D bone {name} must be three finite coordinates")
+            object.__setattr__(self, name, tuple(float(item) for item in value))
+        if self.head == self.tail:
+            raise ThreeDContractError("3D bone head and tail must differ")
+
+    def payload(self) -> dict[str, object]:
+        return {
+            "head": list(self.head),
+            "name": self.name,
+            "parent_name": self.parent_name,
+            "tail": list(self.tail),
+        }
+
+
+@dataclass(frozen=True)
+class ThreeDSkinWeight:
+    """One exact bone influence for a mesh vertex."""
+
+    bone_name: str
+    weight: float
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "bone_name", _text(self.bone_name, "3D skin bone name", 256))
+        if isinstance(self.weight, bool) or not isinstance(self.weight, (int, float)) or not math.isfinite(float(self.weight)) or not 0.0 <= float(self.weight) <= 1.0:
+            raise ThreeDContractError("3D skin weight must be finite and within [0,1]")
+        object.__setattr__(self, "weight", float(self.weight))
+
+    def payload(self) -> dict[str, object]:
+        return {"bone_name": self.bone_name, "weight": self.weight}
+
+
+@dataclass(frozen=True)
+class ThreeDSkinBinding:
+    """Exact normalized influences for one source-mesh vertex."""
+
+    vertex_index: int
+    weights: tuple[ThreeDSkinWeight, ...]
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.vertex_index, int) or isinstance(self.vertex_index, bool) or self.vertex_index < 0:
+            raise ThreeDContractError("3D skin vertex index is malformed")
+        if (
+            not isinstance(self.weights, tuple)
+            or not self.weights
+            or len(self.weights) > 32
+            or any(not isinstance(item, ThreeDSkinWeight) for item in self.weights)
+            or len({item.bone_name for item in self.weights}) != len(self.weights)
+            or abs(sum(item.weight for item in self.weights) - 1.0) > 1e-9
+        ):
+            raise ThreeDContractError("3D skin weights must be unique and normalized")
+
+    def payload(self) -> dict[str, object]:
+        return {
+            "vertex_index": self.vertex_index,
+            "weights": [item.payload() for item in self.weights],
+        }
+
+
+@dataclass(frozen=True)
+class ThreeDSkeletonSpec:
+    """Generic non-humanoid hierarchy, rest pose, and coordinate convention."""
+
+    coordinate_system: str
+    bones: tuple[ThreeDBoneSpec, ...]
+    semantic_digest: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "coordinate_system", _text(self.coordinate_system, "3D skeleton coordinate system", 128))
+        if (
+            not isinstance(self.bones, tuple)
+            or not self.bones
+            or len(self.bones) > 256
+            or any(not isinstance(item, ThreeDBoneSpec) for item in self.bones)
+            or len({item.name for item in self.bones}) != len(self.bones)
+        ):
+            raise ThreeDContractError("3D skeleton bones are malformed or duplicated")
+        names = {item.name for item in self.bones}
+        if any(item.parent_name is not None and item.parent_name not in names for item in self.bones):
+            raise ThreeDContractError("3D skeleton parent bone is unknown")
+        parents = {item.name: item.parent_name for item in self.bones}
+        for name in names:
+            seen: set[str] = set()
+            current: str | None = name
+            while current is not None:
+                if current in seen:
+                    raise ThreeDContractError("3D skeleton hierarchy contains a cycle")
+                seen.add(current)
+                current = parents[current]
+        object.__setattr__(self, "bones", tuple(self.bones))
+        object.__setattr__(self, "semantic_digest", _digest(self.payload()))
+
+    def validate_skin_bindings(self, bindings: tuple[ThreeDSkinBinding, ...]) -> None:
+        if (
+            not isinstance(bindings, tuple)
+            or len(bindings) > 1_000_000
+            or any(not isinstance(item, ThreeDSkinBinding) for item in bindings)
+            or len({item.vertex_index for item in bindings}) != len(bindings)
+        ):
+            raise ThreeDContractError("3D skin bindings are malformed or duplicated")
+        names = {item.name for item in self.bones}
+        if any(weight.bone_name not in names for item in bindings for weight in item.weights):
+            raise ThreeDContractError("3D skin binding references an unknown skeleton bone")
+
+    def payload(self) -> dict[str, object]:
+        return {
+            "bones": [item.payload() for item in self.bones],
+            "coordinate_system": self.coordinate_system,
+        }
+
+
+@dataclass(frozen=True)
 class ThreeDValidationRequirements:
     """Project/Task-scoped criteria; no value is a global 3D policy."""
 
@@ -436,6 +591,12 @@ class ThreeDValidationRequirements:
     minimum_dimension: float | None = None
     maximum_dimension: float | None = None
     required_unit_system: str | None = None
+    require_skeleton: bool = False
+    require_rig: bool = False
+    require_skin: bool = False
+    require_deformation: bool = False
+    require_normalized_weights: bool = False
+    maximum_weight_influences: int | None = None
 
     def __post_init__(self) -> None:
         for name in (
@@ -445,6 +606,11 @@ class ThreeDValidationRequirements:
             "reject_duplicate_vertices",
             "require_valid_normals",
             "require_uv",
+            "require_skeleton",
+            "require_rig",
+            "require_skin",
+            "require_deformation",
+            "require_normalized_weights",
         ):
             if not isinstance(getattr(self, name), bool):
                 raise ThreeDContractError(f"{name} must be boolean")
@@ -477,6 +643,12 @@ class ThreeDValidationRequirements:
                 "required_unit_system",
                 _text(self.required_unit_system, "required_unit_system", 64),
             )
+        if self.maximum_weight_influences is not None and (
+            not isinstance(self.maximum_weight_influences, int)
+            or isinstance(self.maximum_weight_influences, bool)
+            or not 1 <= self.maximum_weight_influences <= 32
+        ):
+            raise ThreeDContractError("maximum_weight_influences is malformed")
 
     def payload(self) -> dict[str, object]:
         return {
@@ -490,6 +662,12 @@ class ThreeDValidationRequirements:
             "require_uv": self.require_uv,
             "require_valid_normals": self.require_valid_normals,
             "required_unit_system": self.required_unit_system,
+            "require_skeleton": self.require_skeleton,
+            "require_rig": self.require_rig,
+            "require_skin": self.require_skin,
+            "require_deformation": self.require_deformation,
+            "require_normalized_weights": self.require_normalized_weights,
+            "maximum_weight_influences": self.maximum_weight_influences,
         }
 
 
@@ -514,6 +692,8 @@ class ThreeDOperationRequest:
     validation_requirements: ThreeDValidationRequirements = field(
         default_factory=ThreeDValidationRequirements
     )
+    skeleton_spec: ThreeDSkeletonSpec | None = None
+    skin_bindings: tuple[ThreeDSkinBinding, ...] = ()
     reference_output_artifact_ref: ArtifactRef | None = None
     resource_allocation_ref: ResourceAllocationRef | None = None
     request_sha256: str = field(init=False)
@@ -625,6 +805,21 @@ class ThreeDOperationRequest:
         )
         if not isinstance(self.validation_requirements, ThreeDValidationRequirements):
             raise TypeError("3D validation requirements are malformed")
+        if self.skeleton_spec is not None and not isinstance(self.skeleton_spec, ThreeDSkeletonSpec):
+            raise TypeError("3D skeleton specification is malformed")
+        character_operations = {
+            ThreeDOperation.RIG,
+            ThreeDOperation.SKIN,
+            ThreeDOperation.DEFORM,
+        }
+        if self.operation in character_operations and self.skeleton_spec is None:
+            raise ThreeDContractError("3D character operation requires an exact skeleton specification")
+        if self.skin_bindings:
+            if self.operation is not ThreeDOperation.SKIN or self.skeleton_spec is None:
+                raise ThreeDContractError("3D skin bindings require a skinned operation and skeleton")
+            self.skeleton_spec.validate_skin_bindings(self.skin_bindings)
+        elif not isinstance(self.skin_bindings, tuple):
+            raise ThreeDContractError("3D skin bindings are malformed")
         if self.reference_output_artifact_ref is not None and (
             not isinstance(self.reference_output_artifact_ref, ArtifactRef)
             or self.reference_output_artifact_ref.project_ref != project
@@ -678,6 +873,8 @@ class ThreeDOperationRequest:
                 if self.resource_allocation_ref is None
                 else self.resource_allocation_ref.value
             ),
+            "skeleton_spec": None if self.skeleton_spec is None else self.skeleton_spec.payload(),
+            "skin_bindings": [item.payload() for item in self.skin_bindings],
             "source_artifact_refs": [item.value for item in self.source_artifact_refs],
             "source_path": self.source_path,
             "validation_requirements": self.validation_requirements.payload(),
@@ -808,6 +1005,9 @@ class ThreeDOperationResult:
                 ThreeDOperation.TOPOLOGY,
                 ThreeDOperation.UV,
                 ThreeDOperation.MATERIAL,
+                ThreeDOperation.RIG,
+                ThreeDOperation.SKIN,
+                ThreeDOperation.DEFORM,
                 ThreeDOperation.SCENE,
                 ThreeDOperation.OPTIMIZE,
             }
@@ -1064,9 +1264,12 @@ class ThreeDToolAdapter(Protocol):
     def export(self, access: ProjectAccess, attempt: NodeExecutionAttempt, request: ThreeDOperationRequest, *, idempotency_key: str) -> ThreeDOperationResult: ...
     def preview(self, access: ProjectAccess, attempt: NodeExecutionAttempt, request: ThreeDOperationRequest, *, idempotency_key: str) -> ThreeDOperationResult: ...
     def describeRuntime(self, access: ProjectAccess, attempt: NodeExecutionAttempt, identity: ThreeDToolIdentity, *, control_root_ref: FilesystemRootRef, working_directory: str, idempotency_key: str) -> ThreeDRuntimeDescription: ...
+    def finalizeCharacterRigRef(self, access: ProjectAccess, result: ThreeDOperationResult, specification: CharacterSpecification) -> CharacterRigRef: ...
 
 
 class _MethodCheckedAdapter:
+    _service: _ThreeDService
+
     """Shared method-to-operation guard for contract implementations."""
 
     @staticmethod
@@ -1097,6 +1300,9 @@ class _MethodCheckedAdapter:
                 ThreeDOperation.TOPOLOGY,
                 ThreeDOperation.UV,
                 ThreeDOperation.MATERIAL,
+                ThreeDOperation.RIG,
+                ThreeDOperation.SKIN,
+                ThreeDOperation.DEFORM,
                 ThreeDOperation.SCENE,
                 ThreeDOperation.OPTIMIZE,
             ),
@@ -1114,6 +1320,18 @@ class _MethodCheckedAdapter:
     def preview(self, access: ProjectAccess, attempt: NodeExecutionAttempt, request: ThreeDOperationRequest, *, idempotency_key: str) -> ThreeDOperationResult:
         self._require(request, (ThreeDOperation.PREVIEW,))
         return self._invoke(access, attempt, request, idempotency_key=idempotency_key)
+
+    def finalizeCharacterRigRef(
+        self,
+        access: ProjectAccess,
+        result: ThreeDOperationResult,
+        specification: CharacterSpecification,
+    ) -> CharacterRigRef:
+        return self._service.finalize_character_rig_ref(
+            access,
+            result,
+            specification,
+        )
 
     def _invoke(self, access: ProjectAccess, attempt: NodeExecutionAttempt, request: ThreeDOperationRequest, *, idempotency_key: str) -> ThreeDOperationResult:
         raise ThreeDContractError("abstract 3D adapter invocation is unavailable")
@@ -2491,6 +2709,9 @@ class _ThreeDService:
                 ThreeDOperation.TOPOLOGY,
                 ThreeDOperation.UV,
                 ThreeDOperation.MATERIAL,
+                ThreeDOperation.RIG,
+                ThreeDOperation.SKIN,
+                ThreeDOperation.DEFORM,
                 ThreeDOperation.SCENE,
                 ThreeDOperation.CONVERT,
                 ThreeDOperation.OPTIMIZE,
@@ -3125,6 +3346,9 @@ class _ThreeDService:
                 ThreeDOperation.TOPOLOGY,
                 ThreeDOperation.UV,
                 ThreeDOperation.MATERIAL,
+                ThreeDOperation.RIG,
+                ThreeDOperation.SKIN,
+                ThreeDOperation.DEFORM,
                 ThreeDOperation.SCENE,
                 ThreeDOperation.CONVERT,
                 ThreeDOperation.OPTIMIZE,
@@ -3527,6 +3751,9 @@ class _ThreeDService:
             ThreeDOperation.TOPOLOGY,
             ThreeDOperation.UV,
             ThreeDOperation.MATERIAL,
+            ThreeDOperation.RIG,
+            ThreeDOperation.SKIN,
+            ThreeDOperation.DEFORM,
             ThreeDOperation.SCENE,
             ThreeDOperation.OPTIMIZE,
         }:
@@ -3576,12 +3803,54 @@ class _ThreeDService:
             ThreeDOperation.TOPOLOGY,
             ThreeDOperation.UV,
             ThreeDOperation.MATERIAL,
+            ThreeDOperation.RIG,
+            ThreeDOperation.SKIN,
+            ThreeDOperation.DEFORM,
             ThreeDOperation.SCENE,
             ThreeDOperation.OPTIMIZE,
         } and not cls._native_reopen_proven(request, report):
             raise ThreeDIntegrityError(
                 "editable Blender output lacks native reopen proof"
             )
+        if request.operation in {
+            ThreeDOperation.RIG,
+            ThreeDOperation.SKIN,
+            ThreeDOperation.DEFORM,
+        }:
+            character_identity = report.get("character_identity")
+            character_inspection = inspection.get("skin")
+            deformation = inspection.get("deformation")
+            if (
+                request.skeleton_spec is None
+                or not isinstance(character_identity, dict)
+                or character_identity.get("skeleton_sha256")
+                != request.skeleton_spec.semantic_digest
+                or not isinstance(character_inspection, dict)
+                or not isinstance(deformation, dict)
+                or int(inspection.get("skeleton_count", 0)) != 1
+                or int(inspection.get("bone_count", 0))
+                != len(request.skeleton_spec.bones)
+            ):
+                raise ThreeDIntegrityError(
+                    "character Blender output lacks exact mesh and skeleton evidence"
+                )
+            if request.operation is ThreeDOperation.RIG and int(
+                character_inspection.get("rigged_mesh_count", 0)
+            ) < 1:
+                raise ThreeDIntegrityError("character rig output lacks an armature modifier")
+            if request.operation is ThreeDOperation.SKIN and (
+                int(character_inspection.get("skinned_mesh_count", 0)) < 1
+                or int(character_inspection.get("vertices_without_weights", 0)) != 0
+                or int(character_inspection.get("unknown_weight_groups", 0)) != 0
+                or int(character_inspection.get("nonfinite_weights", 0)) != 0
+                or int(character_inspection.get("nonnormalized_vertices", 0)) != 0
+            ):
+                raise ThreeDIntegrityError("character skin output lacks valid weight evidence")
+            if request.operation is ThreeDOperation.DEFORM and (
+                int(deformation.get("posed_bones", 0)) < 1
+                or int(deformation.get("deformed_mesh_count", 0)) < 1
+            ):
+                raise ThreeDIntegrityError("character deformation output lacks pose evidence")
         if request.operation is ThreeDOperation.CONVERT:
             expected_export = PurePosixPath(request.output_path).suffix.lower()
             source_inspection = report.get("source_inspection")
@@ -5204,6 +5473,9 @@ class _ThreeDService:
             ThreeDOperation.TOPOLOGY,
             ThreeDOperation.UV,
             ThreeDOperation.MATERIAL,
+            ThreeDOperation.RIG,
+            ThreeDOperation.SKIN,
+            ThreeDOperation.DEFORM,
             ThreeDOperation.SCENE,
             ThreeDOperation.CONVERT,
             ThreeDOperation.OPTIMIZE,
@@ -6376,6 +6648,201 @@ class _ThreeDService:
         if not hmac.compare_digest(description.record_sha256, cast(str, row["record_sha256"])):
             raise ThreeDIntegrityError("persisted 3D runtime description digest changed")
         return description
+
+    def finalize_character_rig_ref(
+        self,
+        access: ProjectAccess,
+        result: ThreeDOperationResult,
+        specification: CharacterSpecification,
+    ) -> CharacterRigRef:
+        """Finalize the durable REAL character handoff consumed by P3-07."""
+
+        if not isinstance(result, ThreeDOperationResult) or not isinstance(
+            specification,
+            CharacterSpecification,
+        ):
+            raise CharacterContractError(
+                "character handoff requires exact result and specification records"
+            )
+        if (
+            self.reality is not ThreeDReality.REAL
+            or result.reality is not ThreeDReality.REAL
+            or result.status is not ThreeDStatus.SUCCEEDED
+            or result.operation
+            not in {
+                ThreeDOperation.RIG,
+                ThreeDOperation.SKIN,
+                ThreeDOperation.DEFORM,
+            }
+            or not result.editable_source
+            or result.preview_only
+            or result.project_ref != access.project_ref
+            or specification.project_ref != access.project_ref
+            or result.output_artifact_ref is None
+            or result.output_content_ref is None
+            or result.report_ref is None
+            or result.process_call_ref is None
+        ):
+            raise CharacterContractError(
+                "character handoff requires one successful REAL editable character result"
+            )
+        assert result.output_artifact_ref is not None
+        assert result.output_content_ref is not None
+        assert result.report_ref is not None
+        assert result.process_call_ref is not None
+        output_artifact_ref = result.output_artifact_ref
+        output_content_ref = result.output_content_ref
+        report_ref = result.report_ref
+        process_call_ref = result.process_call_ref
+        try:
+            self._authorize_project(access, result.project_ref)
+            connection = self._connect()
+            try:
+                rows = connection.execute(
+                    "SELECT result_json,record_sha256 FROM three_d_operation_results "
+                    "WHERE project_id=? AND adapter_ref=?",
+                    (result.project_ref.value, self.adapter_ref),
+                ).fetchall()
+            finally:
+                connection.close()
+            persisted = next(
+                (
+                    self._result_from_row(row)
+                    for row in rows
+                    if hmac.compare_digest(
+                        self._result_from_row(row).record_sha256,
+                        result.record_sha256,
+                    )
+                    and self._result_from_row(row).request_sha256
+                    == result.request_sha256
+                ),
+                None,
+            )
+            if persisted != result:
+                raise CharacterContractError(
+                    "character result is forged, stale, or not durably persisted"
+                )
+            output = self.artifacts.get_artifact(access, output_artifact_ref)
+            if (
+                output.content_ref is None
+                or _content_payload(output.content_ref)
+                != _content_payload(output_content_ref)
+                or output.derivation_type
+                != f"3d.{result.operation.value.replace('_', '-')}"
+            ):
+                raise CharacterContractError(
+                    "character result artifact identity differs from its durable result"
+                )
+            self.object_store.verify(output_content_ref)
+            self.object_store.verify(report_ref)
+            process = self.process.get_result(
+                access,
+                ToolCallRef(
+                    result.project_ref,
+                    process_call_ref.rsplit("/", 1)[-1],
+                ),
+            )
+            report = self._driver_report(self.object_store.read(process.stdout_ref))
+            report_bytes = _json(report).encode()
+            if (
+                hashlib.sha256(report_bytes).hexdigest() != report_ref.digest
+                or len(report_bytes) != report_ref.size_bytes
+                or process.status is not ProcessStatus.SUCCEEDED
+                or process.process_identity is None
+            ):
+                raise CharacterContractError(
+                    "character result lacks exact successful driver evidence"
+                )
+            character = report.get("character_identity")
+            runtime = report.get("runtime")
+            if (
+                not isinstance(character, dict)
+                or character.get("mesh_sha256") != output_content_ref.digest
+                or character.get("skeleton_sha256")
+                != specification.skeleton_content_sha256
+                or not isinstance(runtime, dict)
+                or not isinstance(runtime.get("driver_sha256"), str)
+                or _SHA256.fullmatch(cast(str, runtime["driver_sha256"])) is None
+            ):
+                raise CharacterContractError(
+                    "character result mesh, skeleton, or script identity changed"
+                )
+
+            def contains_exact_source(
+                reference: str,
+                digest: str,
+            ) -> bool:
+                pending = [output_artifact_ref]
+                seen: set[ArtifactRef] = set()
+                while pending:
+                    current = pending.pop()
+                    if current in seen:
+                        continue
+                    seen.add(current)
+                    artifact = self.artifacts.get_artifact(access, current)
+                    if (
+                        artifact.artifact_ref.value == reference
+                        and artifact.content_ref is not None
+                        and artifact.content_ref.digest == digest
+                    ):
+                        return True
+                    pending.extend(artifact.source_artifact_refs)
+                    if len(seen) > 256:
+                        raise CharacterContractError(
+                            "character artifact lineage is unbounded"
+                        )
+                return False
+
+            if not contains_exact_source(
+                specification.character_artifact_ref,
+                specification.character_content_sha256,
+            ) or not contains_exact_source(
+                specification.mesh_ref,
+                specification.mesh_content_sha256,
+            ):
+                raise CharacterContractError(
+                    "character specification does not match result artifact lineage"
+                )
+            handoff = CharacterRigRef(
+                project_ref=result.project_ref,
+                character_id=specification.character_id,
+                character_artifact_ref=specification.character_artifact_ref,
+                character_content_sha256=specification.character_content_sha256,
+                mesh_ref=specification.mesh_ref,
+                mesh_content_sha256=specification.mesh_content_sha256,
+                skeleton_ref=specification.skeleton_ref,
+                skeleton_content_sha256=specification.skeleton_content_sha256,
+                rig_id=f"rig-{result.request_sha256[:32]}",
+                rig_artifact_ref=output_artifact_ref.value,
+                rig_content_sha256=output_content_ref.digest,
+                scale=specification.scale,
+                coordinate_system=specification.coordinate_system,
+                coordinate_convention_ref=specification.coordinate_convention_ref,
+                rest_pose_ref=specification.rest_pose_ref,
+                provenance_ref=specification.provenance_ref,
+                tool_provenance_ref=(
+                    f"tool-provenance://three-d/{result.identity_digest}"
+                ),
+                script_provenance_ref=(
+                    "script-provenance://blender-driver/"
+                    f"{runtime['driver_sha256']}"
+                ),
+                target_metadata=specification.target_metadata,
+            )
+            handoff.require_specification(specification)
+            return handoff
+        except CharacterContractError:
+            raise
+        except (
+            ArtifactError,
+            ObjectStorageError,
+            ProcessError,
+            ThreeDError,
+            ValueError,
+        ) as exc:
+            raise CharacterContractError(
+                "character handoff evidence failed verification"
+            ) from exc
 
     def describe_reference(
         self,

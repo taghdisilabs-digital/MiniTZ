@@ -62,6 +62,63 @@ def _scalar_mapping(value: object, name: str) -> dict[str, str | int | float | b
     return copied
 
 
+def _skeleton_spec(value: object) -> dict[str, object]:
+    if not isinstance(value, dict) or set(value) != {"bones", "coordinate_system"}:
+        raise ValueError("character skeleton specification is malformed")
+    coordinate_system = value.get("coordinate_system")
+    bones = value.get("bones")
+    if (
+        not isinstance(coordinate_system, str)
+        or not coordinate_system
+        or not isinstance(bones, list)
+        or not 1 <= len(bones) <= _MAX_OBJECTS
+    ):
+        raise ValueError("character skeleton specification is malformed")
+    names: set[str] = set()
+    copied: list[dict[str, object]] = []
+    for raw in bones:
+        if not isinstance(raw, dict) or set(raw) != {"head", "name", "parent_name", "tail"}:
+            raise ValueError("character bone specification is malformed")
+        name = raw.get("name")
+        parent = raw.get("parent_name")
+        head = raw.get("head")
+        tail = raw.get("tail")
+        if (
+            not isinstance(name, str)
+            or not name
+            or name in names
+            or (parent is not None and not isinstance(parent, str))
+            or not isinstance(head, list)
+            or not isinstance(tail, list)
+            or len(head) != 3
+            or len(tail) != 3
+            or any(isinstance(item, bool) or not isinstance(item, (int, float)) or not math.isfinite(float(item)) for item in [*head, *tail])
+            or tuple(float(item) for item in head) == tuple(float(item) for item in tail)
+        ):
+            raise ValueError("character bone specification is malformed")
+        names.add(name)
+        copied.append(
+            {
+                "head": tuple(float(item) for item in head),
+                "name": name,
+                "parent_name": parent,
+                "tail": tuple(float(item) for item in tail),
+            }
+        )
+    parents = {cast(str, item["name"]): item["parent_name"] for item in copied}
+    if any(parent is not None and parent not in names for parent in parents.values()):
+        raise ValueError("character skeleton parent is unknown")
+    for name in names:
+        seen: set[str] = set()
+        current: str | None = name
+        while current is not None:
+            if current in seen:
+                raise ValueError("character skeleton hierarchy contains a cycle")
+            seen.add(current)
+            current = cast(str | None, parents[current])
+    return {"bones": copied, "coordinate_system": coordinate_system}
+
+
 def _reset(bpy: Any) -> None:
     bpy.ops.wm.read_factory_settings(use_empty=True)
 
@@ -232,6 +289,94 @@ def _save_blend(bpy: Any, output: Path) -> None:
         check_existing=False,
         relative_remap=False,
     )
+
+
+def _character_armature(bpy: Any) -> Any:
+    armatures = sorted(
+        (item for item in bpy.context.scene.objects if item.type == "ARMATURE"),
+        key=lambda item: str(item.name),
+    )
+    if len(armatures) != 1:
+        raise ValueError("character operation requires exactly one armature")
+    return armatures[0]
+
+
+def _rig(bpy: Any, skeleton: Mapping[str, object]) -> None:
+    meshes = _mesh_objects(bpy)
+    if not meshes:
+        raise ValueError("character rig requires a mesh")
+    if any(item.type == "ARMATURE" for item in bpy.context.scene.objects):
+        raise ValueError("character source already contains an armature")
+    bpy.ops.object.armature_add(enter_editmode=True, location=(0.0, 0.0, 0.0))
+    armature = bpy.context.active_object
+    armature.name = "BiellaCharacterRig"
+    armature.data.name = "BiellaCharacterRigData"
+    edit_bones = armature.data.edit_bones
+    for bone in list(edit_bones):
+        edit_bones.remove(bone)
+    created: dict[str, Any] = {}
+    for item in cast(list[Mapping[str, object]], skeleton["bones"]):
+        bone = edit_bones.new(cast(str, item["name"]))
+        bone.head = cast(tuple[float, float, float], item["head"])
+        bone.tail = cast(tuple[float, float, float], item["tail"])
+        created[cast(str, item["name"])] = bone
+    for item in cast(list[Mapping[str, object]], skeleton["bones"]):
+        parent = cast(str | None, item["parent_name"])
+        if parent is not None:
+            created[cast(str, item["name"])].parent = created[parent]
+    bpy.ops.object.mode_set(mode="OBJECT")
+    for mesh in meshes:
+        modifier = mesh.modifiers.new("BiellaCharacterArmature", "ARMATURE")
+        modifier.object = armature
+
+
+def _skin(
+    bpy: Any,
+    bindings: list[Mapping[str, object]],
+) -> None:
+    armature = _character_armature(bpy)
+    bone_names = {str(item.name) for item in armature.data.bones}
+    if not bone_names:
+        raise ValueError("character armature has no bones")
+    for mesh_object in _mesh_objects(bpy):
+        groups = {
+            name: mesh_object.vertex_groups.get(name)
+            or mesh_object.vertex_groups.new(name=name)
+            for name in sorted(bone_names)
+        }
+        explicit = {
+            cast(int, item["vertex_index"]): cast(list[Mapping[str, object]], item["weights"])
+            for item in bindings
+        }
+        for vertex in mesh_object.data.vertices:
+            for group in groups.values():
+                group.remove([int(vertex.index)])
+            weights = explicit.get(int(vertex.index))
+            if weights is None:
+                ordered = sorted(bone_names)
+                first = ordered[int(vertex.index) % len(ordered)]
+                second = ordered[(int(vertex.index) + 1) % len(ordered)]
+                weights = [{"bone_name": first, "weight": 0.5}, {"bone_name": second, "weight": 0.5}]
+            for influence in weights:
+                name = influence.get("bone_name")
+                weight = influence.get("weight")
+                if name not in groups or isinstance(weight, bool) or not isinstance(weight, (int, float)) or not math.isfinite(float(weight)):
+                    raise ValueError("character skin influence is invalid")
+                groups[name].add([int(vertex.index)], float(weight), "REPLACE")
+
+
+def _deform(bpy: Any, config: Mapping[str, str | int | float | bool]) -> None:
+    armature = _character_armature(bpy)
+    pose_bones = sorted(armature.pose.bones, key=lambda item: str(item.name))
+    if not pose_bones:
+        raise ValueError("character armature has no pose bones")
+    degrees = float(config.get("pose_degrees", 20.0))
+    if not math.isfinite(degrees) or not -180.0 <= degrees <= 180.0:
+        raise ValueError("character pose_degrees is malformed")
+    pose = pose_bones[-1]
+    pose.rotation_mode = "XYZ"
+    pose.rotation_euler[2] = math.radians(degrees)
+    bpy.context.view_layer.update()
 
 
 def _modify(bpy: Any, config: Mapping[str, str | int | float | bool]) -> None:
@@ -1043,13 +1188,16 @@ def _inspection(
         if item.type == "MESH"
         for value in item.dimensions
     ]
+    character = _character_facts(bpy)
     return {
+        "bone_count": character["bone_count"],
         "bounded": True,
         "bound_dependency_paths": sorted(bound_dependency_paths),
         "cameras": sum(1 for item in all_objects if item.type == "CAMERA"),
         "dependencies": dependencies,
         "dependency_count": dependency_count,
         "dependencies_truncated": dependency_count > _MAX_NAMES,
+        "deformation": character["deformation"],
         "full_inventory_sha256": inventory_digest.hexdigest(),
         "hierarchy_roots": [
             str(item.name)[:256] for item in all_objects if item.parent is None
@@ -1068,6 +1216,9 @@ def _inspection(
         "object_count": len(all_objects),
         "objects": objects,
         "schema_version": 1,
+        "skeleton_count": character["skeleton_count"],
+        "skeletons": character["skeletons"],
+        "skin": character["skin"],
         "source_format": source_format,
         "duplicate_vertex_predicate": (
             "NATIVE_POSITION_COINCIDENCE_V1"
@@ -1081,6 +1232,94 @@ def _inspection(
         "unit_scale": float(scene.unit_settings.scale_length),
         "unit_system": str(scene.unit_settings.system),
         "unbound_dependencies": unbound_dependencies,
+    }
+
+
+def _character_facts(bpy: Any) -> dict[str, object]:
+    armatures = sorted(
+        (item for item in bpy.context.scene.objects if item.type == "ARMATURE"),
+        key=lambda item: str(item.name),
+    )
+    skeletons: list[dict[str, object]] = []
+    bone_names: set[str] = set()
+    posed_bones = 0
+    for armature in armatures:
+        bones = []
+        for bone in sorted(armature.data.bones, key=lambda item: str(item.name)):
+            name = str(bone.name)[:256]
+            bone_names.add(name)
+            bones.append(
+                {
+                    "head": [float(item) for item in bone.head_local],
+                    "name": name,
+                    "parent_name": None if bone.parent is None else str(bone.parent.name)[:256],
+                    "tail": [float(item) for item in bone.tail_local],
+                    "use_deform": bool(bone.use_deform),
+                }
+            )
+        for pose_bone in armature.pose.bones:
+            if not bool(pose_bone.matrix_basis.is_identity):
+                posed_bones += 1
+        skeletons.append(
+            {
+                "bones": bones,
+                "name": str(armature.name)[:256],
+                "rest_pose_sha256": _payload_digest(bones),
+            }
+        )
+    meshes = _mesh_objects(bpy)
+    rigged_meshes = 0
+    skinned_meshes = 0
+    nonfinite_weights = 0
+    nonnormalized_vertices = 0
+    unknown_weight_groups = 0
+    vertices_without_weights = 0
+    maximum_influences = 0
+    for mesh in meshes:
+        if any(
+            modifier.type == "ARMATURE" and getattr(modifier, "object", None) in armatures
+            for modifier in mesh.modifiers
+        ):
+            rigged_meshes += 1
+        groups = {int(group.index): str(group.name) for group in mesh.vertex_groups}
+        mesh_has_weights = False
+        for vertex in mesh.data.vertices:
+            influences = list(vertex.groups)
+            maximum_influences = max(maximum_influences, len(influences))
+            if not influences:
+                vertices_without_weights += 1
+                continue
+            mesh_has_weights = True
+            total = 0.0
+            for influence in influences:
+                weight = float(influence.weight)
+                if not math.isfinite(weight):
+                    nonfinite_weights += 1
+                else:
+                    total += weight
+                if groups.get(int(influence.group)) not in bone_names:
+                    unknown_weight_groups += 1
+            if not math.isfinite(total) or abs(total - 1.0) > 1e-6:
+                nonnormalized_vertices += 1
+        if mesh_has_weights:
+            skinned_meshes += 1
+    return {
+        "bone_count": sum(len(cast(list[object], item["bones"])) for item in skeletons),
+        "deformation": {
+            "deformed_mesh_count": rigged_meshes if posed_bones else 0,
+            "posed_bones": posed_bones,
+        },
+        "skeleton_count": len(skeletons),
+        "skeletons": skeletons,
+        "skin": {
+            "maximum_influences": maximum_influences,
+            "nonfinite_weights": nonfinite_weights,
+            "nonnormalized_vertices": nonnormalized_vertices,
+            "rigged_mesh_count": rigged_meshes,
+            "skinned_mesh_count": skinned_meshes,
+            "unknown_weight_groups": unknown_weight_groups,
+            "vertices_without_weights": vertices_without_weights,
+        },
     }
 
 
@@ -1118,6 +1357,30 @@ def _checks(inspection: Mapping[str, object], requirements: Mapping[str, object]
     required_units = requirements.get("required_unit_system")
     if required_units is not None:
         checks["project_unit_system"] = inspection["unit_system"] == required_units
+    skin = cast(Mapping[str, int], inspection["skin"])
+    deformation = cast(Mapping[str, int], inspection["deformation"])
+    if bool(requirements.get("require_skeleton", False)):
+        checks["has_skeleton"] = cast(int, inspection["skeleton_count"]) > 0
+    if bool(requirements.get("require_rig", False)):
+        checks["has_rig"] = skin["rigged_mesh_count"] > 0
+    if bool(requirements.get("require_skin", False)):
+        checks["has_skin"] = (
+            skin["skinned_mesh_count"] > 0
+            and skin["vertices_without_weights"] == 0
+            and skin["unknown_weight_groups"] == 0
+        )
+    if bool(requirements.get("require_normalized_weights", False)):
+        checks["normalized_weights"] = (
+            skin["nonfinite_weights"] == 0
+            and skin["nonnormalized_vertices"] == 0
+        )
+    maximum_influences = requirements.get("maximum_weight_influences")
+    if maximum_influences is not None:
+        checks["weight_influence_limit"] = skin["maximum_influences"] <= int(cast(int, maximum_influences))
+    if bool(requirements.get("require_deformation", False)):
+        checks["has_deformation"] = (
+            deformation["posed_bones"] > 0 and deformation["deformed_mesh_count"] > 0
+        )
     return checks, all(checks.values())
 
 
@@ -1277,6 +1540,59 @@ def _main() -> None:
         or requirements_raw != request_payload.get("validation_requirements")
     ):
         raise ValueError("driver payload differs from exact semantic request")
+    skeleton_payload = request_payload.get("skeleton_spec")
+    character_operation = operation in {"rig", "skin", "deform"}
+    if character_operation and skeleton_payload is None:
+        raise ValueError("character operation lacks exact skeleton specification")
+    skeleton = None if skeleton_payload is None else _skeleton_spec(skeleton_payload)
+    skin_bindings_raw = request_payload.get("skin_bindings", [])
+    if not isinstance(skin_bindings_raw, list) or len(skin_bindings_raw) > _MAX_MESH_ELEMENTS:
+        raise ValueError("character skin bindings are malformed")
+    skin_bindings: list[Mapping[str, object]] = []
+    skeleton_bones = (
+        set()
+        if skeleton is None
+        else {
+            cast(str, item["name"])
+            for item in cast(list[Mapping[str, object]], skeleton["bones"])
+        }
+    )
+    for binding in skin_bindings_raw:
+        if not isinstance(binding, dict) or set(binding) != {"vertex_index", "weights"}:
+            raise ValueError("character skin binding is malformed")
+        index = binding.get("vertex_index")
+        weights = binding.get("weights")
+        if (
+            not isinstance(index, int)
+            or isinstance(index, bool)
+            or index < 0
+            or not isinstance(weights, list)
+            or not weights
+            or len(weights) > 32
+        ):
+            raise ValueError("character skin binding is malformed")
+        names: set[str] = set()
+        total = 0.0
+        for influence in weights:
+            if not isinstance(influence, dict) or set(influence) != {"bone_name", "weight"}:
+                raise ValueError("character skin influence is malformed")
+            name = influence.get("bone_name")
+            weight = influence.get("weight")
+            if (
+                not isinstance(name, str)
+                or name in names
+                or name not in skeleton_bones
+                or isinstance(weight, bool)
+                or not isinstance(weight, (int, float))
+                or not math.isfinite(float(weight))
+                or not 0.0 <= float(weight) <= 1.0
+            ):
+                raise ValueError("character skin influence is malformed")
+            names.add(name)
+            total += float(weight)
+        if abs(total - 1.0) > 1e-9:
+            raise ValueError("character skin influences are not normalized")
+        skin_bindings.append(cast(Mapping[str, object], binding))
     auxiliary_bindings = request_payload.get("auxiliary_artifact_bindings")
     if (
         not isinstance(auxiliary_bindings, dict)
@@ -1387,6 +1703,17 @@ def _main() -> None:
             auxiliary_paths,
         )
         _save_blend(bpy, output)
+    elif operation == "rig":
+        if skeleton is None:
+            raise ValueError("character rig lacks skeleton")
+        _rig(bpy, skeleton)
+        _save_blend(bpy, output)
+    elif operation == "skin":
+        _skin(bpy, skin_bindings)
+        _save_blend(bpy, output)
+    elif operation == "deform":
+        _deform(bpy, config)
+        _save_blend(bpy, output)
     elif operation == "scene":
         _scene(
             bpy,
@@ -1413,11 +1740,14 @@ def _main() -> None:
         "topology",
         "uv",
         "material",
+        "rig",
+        "skin",
+        "deform",
         "scene",
         "optimize",
     }:
         source_format = _load(bpy, output)
-    generated_output = operation in {"model", "mesh_edit", "topology", "uv", "material", "scene", "convert", "optimize"}
+    generated_output = operation in {"model", "mesh_edit", "topology", "uv", "material", "rig", "skin", "deform", "scene", "convert", "optimize"}
     inspected_source = output if generated_output else source
     if operation == "preview":
         inspected_source = source
@@ -1460,6 +1790,11 @@ def _main() -> None:
     }
     if source_inspection is not None:
         report["source_inspection"] = source_inspection
+    if skeleton_payload is not None:
+        report["character_identity"] = {
+            "mesh_sha256": _file_identity(inspected_source)["sha256"],
+            "skeleton_sha256": _payload_digest(skeleton_payload),
+        }
     if operation not in {"inspect", "validate"}:
         report["output"] = _file_identity(output)
     if operation == "validate":
