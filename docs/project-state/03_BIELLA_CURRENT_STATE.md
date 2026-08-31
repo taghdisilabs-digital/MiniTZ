@@ -23,34 +23,34 @@ engine:
 
 durable_source:
   current_implementation_base:
-    commit: 56de0cff151214c8a73a173be6c5c110d894d378
-    tree: d23272291cabb25fdb1ac4971e73d868293e3024
-    meaning: P3_07_durably_closed
+    commit: 0da64ebea6aeb0a69fb73ae8c67317fd8d86c109
+    tree: da7860a8c0890d3ae82b0ae3d4c9b545efa85759
+    meaning: P3_08_durably_closed
   current_execution_map:
-    source_commit: aa1bb7e0e40c0d8cc02b56c3a0454cd7c3f68c09
-    result_commit: 56de0cff151214c8a73a173be6c5c110d894d378
-    result_tree: d23272291cabb25fdb1ac4971e73d868293e3024
+    source_commit: adaf4b21e7a07d77b8bf2a84f8929ab332fa7358
+    result_commit: 0da64ebea6aeb0a69fb73ae8c67317fd8d86c109
+    result_tree: da7860a8c0890d3ae82b0ae3d4c9b545efa85759
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    status: P3_07_DURABLY_CLOSED_P3_08_ACTIVATED_PROMPT_NOT_LOADED
+    status: P3_08_DURABLY_CLOSED_P3_09_ACTIVATED_PROMPT_NOT_LOADED
   branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
     first_rejected_execution_time: "2026-08-30T10:44:52Z"
-    rejected_post_boundary_completion_claims: P3_08_THROUGH_P3_09
+    rejected_post_boundary_completion_claims: P3_09_THROUGH_P3_09
 
 numbered_execution:
-  durable_prompts_complete: 38
+  durable_prompts_complete: 39
   durable_prompts_total: 51
-  progress: "38 / 51"
+  progress: "39 / 51"
   phase: P3
-  active_prompt: P3-08
-  active_global_number: 39
-  active_title: Environment and World Production Pack
-  predecessor: P3-07
+  active_prompt: P3-09
+  active_global_number: 40
+  active_title: Rendering Production Pack
+  predecessor: P3-08
   successor_execution_authorized: false
   active_execution_authorized: true
-  future_activation_shells_prepared: P3_09_THROUGH_P4_06
+  future_activation_shells_prepared: P3_10_THROUGH_P4_06
   future_internal_graphs_precompiled: false
   future_graph_rule: compile_each_from_exact_prompt_and_current_source_only_when_activated
 
@@ -105,35 +105,34 @@ p3_05_recovery:
   recovery_archive_drive_readback_sha256: 73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
   reuse_rule: already_verified_archive_reused_without_rehash
 
-prior_durable_through_P3_06:
+prior_durable_through_P3_07:
   status: VERIFIED
-  latest_result_commit: 78005b0a30fa7002eed8019a588731551e3d2c6b
-  latest_result_tree: 6737d32d10feae0dcaeb4024ece00f3aa64b20f0
+  latest_result_commit: 56de0cff151214c8a73a173be6c5c110d894d378
+  latest_result_tree: d23272291cabb25fdb1ac4971e73d868293e3024
 
-p3_07_durable_close:
-  source_commit: aa1bb7e0e40c0d8cc02b56c3a0454cd7c3f68c09
-  result_commit: 56de0cff151214c8a73a173be6c5c110d894d378
-  result_tree: d23272291cabb25fdb1ac4971e73d868293e3024
-  github_readback: EXACT_COMMIT_TREE_AND_SIX_BLOBS_CONFIRMED
-  contract: 17_REGISTERED_PATHS_14_CORE_PLUS_MOCAP_FACIAL_COMPRESS
-  public_contracts: CharacterRigRef_BOUND_AnimationClip_AnimationSet_RetargetMapping_RetargetRequest
-  real_runtime: Blender_5.0.1
-  real_proof: ACTION_EDIT_RETARGET_ROOT_LOOP_BLEND_BAKE_EXPORT_REOPEN
-  durability: IMMUTABLE_MAPPING_ARTIFACT_RESTART_READBACK
-  validators: NONFINITE_WRONG_STALE_REJECTION_BARRIER_TWO_CLIP_OVERLAP_SIBLING_SURVIVAL_RECOVERY
+p3_08_durable_close:
+  source_commit: adaf4b21e7a07d77b8bf2a84f8929ab332fa7358
+  result_commit: 0da64ebea6aeb0a69fb73ae8c67317fd8d86c109
+  result_tree: da7860a8c0890d3ae82b0ae3d4c9b545efa85759
+  github_readback: EXACT_COMMIT_TREE_AND_SEVEN_BLOBS_CONFIRMED
+  contract: 16_ENVIRONMENT_CAPABILITIES_PROJECT_SCOPED_SPEC_PLACED_ASSETS_PROCEDURAL_TERRAIN
+  real_runtime: Blender_5.0.1_AND_Godot
+  real_proof: FULL_TRANSFORMS_MATERIALS_COLLISION_NAV_LOD_PARTITION_EXPORT_REOPEN_GODOT_IMPORT_BUILD_LOAD
+  durability: EnvironmentManifestPublication_IMMUTABLE_ARTIFACT_FRESH_READBACK
+  validators: BARRIER_FOUR_BRANCH_SIBLING_SURVIVAL_RECOVERY
   final_gate:
-    tests: 30_GREEN_IN_542.55_SECONDS
-    strict_mypy: 6_PATHS_GREEN
+    tests: 36_GREEN_IN_816.64_SECONDS
+    strict_mypy: 7_PATHS_GREEN
     compileall: GREEN
     diff_checks: GREEN
     clean_wheel: GREEN
-  wheel_sha256: aadb3cf35fff9f9525dede1386edfe9b84aa636d2c6ad1c2ca905e3334afa06d
+  wheel_sha256: 80dafddfe37d5d4937390946301dc25289da8ed068d53e0b619643c42415db1f
 
 approved_execution_program:
   language: biella.codex.end_to_end/v2
   mode: SINGLE_END_TO_END_NUMBERED_EXECUTION
   active_graph_location: docs/project-state/04_BIELLA_ACTIVE_TASK.md
-  active_graph: P3_08_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
+  active_graph: P3_09_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
   duplicate_prevention:
     exact_Node_identity_and_claim: required
     one_current_owner_per_Node: true

@@ -4,40 +4,39 @@
 schema: biella.active_task/v6
 
 active_task:
-  id: P3-08
-  global_number: 39
+  id: P3-09
+  global_number: 40
   phase: P3
-  title: Environment and World Production Pack
+  title: Rendering Production Pack
   state: ACTIVATED_PROMPT_NOT_LOADED_OR_COMPILED
-  predecessor: P3-07
-  predecessor_source_commit: aa1bb7e0e40c0d8cc02b56c3a0454cd7c3f68c09
-  predecessor_result_commit: 56de0cff151214c8a73a173be6c5c110d894d378
-  predecessor_result_tree: d23272291cabb25fdb1ac4971e73d868293e3024
+  predecessor: P3-08
+  predecessor_source_commit: adaf4b21e7a07d77b8bf2a84f8929ab332fa7358
+  predecessor_result_commit: 0da64ebea6aeb0a69fb73ae8c67317fd8d86c109
+  predecessor_result_tree: da7860a8c0890d3ae82b0ae3d4c9b545efa85759
   predecessor_github_readback: EXACT_COMMIT_TREE_AND_SIX_BLOBS_CONFIRMED
   execution_authorized: true
 
 exact_prompt:
-  title: Environment and World Production Pack
-  drive_id: 10wP9734umfbfCGfLvmf3gz_9IfT1h8kTjX06KmW0a54
+  title: Rendering Production Pack
+  drive_id: 1FYsaztU8wwjl_6k8Nx4xJII4wId-MPflkLFUNwW4gRM
   status: NOT_LOADED_OR_COMPILED
-  rule: obtain_exact_P3_08_prompt_body_only_when_execution_begins
+  rule: obtain_exact_P3_09_prompt_body_only_when_execution_begins
 
-prior_durable_through_P3_06:
+prior_durable_through_P3_07:
   status: VERIFIED
-  latest_result_commit: 78005b0a30fa7002eed8019a588731551e3d2c6b
-  latest_result_tree: 6737d32d10feae0dcaeb4024ece00f3aa64b20f0
+  latest_result_commit: 56de0cff151214c8a73a173be6c5c110d894d378
+  latest_result_tree: d23272291cabb25fdb1ac4971e73d868293e3024
 
-P3_07_durable_close:
-  source_commit: aa1bb7e0e40c0d8cc02b56c3a0454cd7c3f68c09
-  result_commit: 56de0cff151214c8a73a173be6c5c110d894d378
-  result_tree: d23272291cabb25fdb1ac4971e73d868293e3024
-  github_readback: EXACT_COMMIT_TREE_AND_SIX_BLOBS_CONFIRMED
-  contract: 17_REGISTERED_PATHS_AND_CharacterRigRef_BOUND_ANIMATION_CONTRACT
-  real_runtime: Blender_5.0.1
-  real_proof: ACTION_EDIT_RETARGET_ROOT_LOOP_BLEND_BAKE_EXPORT_REOPEN
-  durability: IMMUTABLE_MAPPING_ARTIFACT_RESTART_READBACK
-  final_gate: 30_TESTS_GREEN_IN_542.55_SECONDS; STRICT_MYPY_6_PATHS_GREEN; COMPILEALL_DIFF_CLEAN_WHEEL_GREEN
-  wheel_sha256: aadb3cf35fff9f9525dede1386edfe9b84aa636d2c6ad1c2ca905e3334afa06d
+P3_08_durable_close:
+  source_commit: adaf4b21e7a07d77b8bf2a84f8929ab332fa7358
+  result_commit: 0da64ebea6aeb0a69fb73ae8c67317fd8d86c109
+  result_tree: da7860a8c0890d3ae82b0ae3d4c9b545efa85759
+  github_readback: EXACT_COMMIT_TREE_AND_SEVEN_BLOBS_CONFIRMED
+  real_runtime: Blender_5.0.1_AND_Godot
+  real_proof: FULL_ENVIRONMENT_EXPORT_REOPEN_GODOT_IMPORT_BUILD_LOAD
+  durability: EnvironmentManifestPublication_IMMUTABLE_ARTIFACT_FRESH_READBACK
+  final_gate: 36_TESTS_GREEN_IN_816.64_SECONDS; STRICT_MYPY_7_PATHS_GREEN; COMPILEALL_DIFF_CLEAN_WHEEL_GREEN
+  wheel_sha256: 80dafddfe37d5d4937390946301dc25289da8ed068d53e0b619643c42415db1f
 
 owner_priority:
   standing_order: preserve_current_or_recoverable_long_running_productive_work_before_any_remote_sync_restore_reset_checkout_merge_or_host_replacement
@@ -198,18 +197,18 @@ multi_ai_execution:
     no_permanent_named_agent_hierarchy: true
 
 current_frontier:
-  state: P3_08_ACTIVATED_NOT_STARTED
+  state: P3_09_ACTIVATED_NOT_STARTED
   P3_05_durable_close_complete: true
   P3_06_durable_close_complete: true
   P3_07_durable_close_complete: true
-  P3_08_prompt_loaded: false
-  P3_08_prompt_compiled: false
-  P3_08_execution_authorized: true
+  P3_09_prompt_loaded: false
+  P3_09_prompt_compiled: false
+  P3_09_execution_authorized: true
 
 activation_boundary:
-  P3_08_authorized: true
-  P3_08_prompt_loaded: false
-  P3_08_graph_compiled: false
-  rule: compile_only_from_exact_P3_08_prompt_and_accepted_source
-  predecessor_evidence: P3_07_durable_close_mapping_above
+  P3_09_authorized: true
+  P3_09_prompt_loaded: false
+  P3_09_graph_compiled: false
+  rule: compile_only_from_exact_P3_09_prompt_and_accepted_source
+  predecessor_evidence: P3_08_durable_close_mapping_above
 ```
