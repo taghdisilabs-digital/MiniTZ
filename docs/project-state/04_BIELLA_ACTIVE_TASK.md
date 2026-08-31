@@ -4,21 +4,23 @@
 schema: biella.active_task/v6
 
 active_task:
-  id: P3-06
-  global_number: 37
+  id: P3-07
+  global_number: 38
   phase: P3
-  title: NOT_LOADED_UNTIL_EXACT_PROMPT_ACTIVATION
-  state: NEXT_NUMBERED_DEPENDENCY_AFTER_DURABLE_P3_05_CLOSE
-  predecessor: P3-05
-  predecessor_source_commit: e228a7bb6db6f94af15dde4a8fb110b028eddbed
-  predecessor_result_commit: 929d2b3269b6fcc38c75d90aece802dfdaf9fadf
-  predecessor_result_tree: e9bc6bdb156f5ac82039a613b03cb9643ea1125a
-  predecessor_github_readback: EXACT_COMMIT_TREE_AND_ALL_NINE_BLOBS_CONFIRMED
-  execution_authorized: false
+  title: Animation Production Pack
+  state: ACTIVATED_PROMPT_NOT_LOADED_OR_COMPILED
+  predecessor: P3-06
+  predecessor_source_commit: e3c0ecb1ba70c2048f12198533f904da7e7504ed
+  predecessor_result_commit: 78005b0a30fa7002eed8019a588731551e3d2c6b
+  predecessor_result_tree: 6737d32d10feae0dcaeb4024ece00f3aa64b20f0
+  predecessor_github_readback: EXACT_COMMIT_TREE_AND_SIX_BLOBS_CONFIRMED
+  execution_authorized: true
 
 exact_prompt:
-  status: NOT_LOADED_OR_PRELOADED
-  rule: obtain_exact_P3_06_prompt_metadata_and_body_only_when_P3_06_execution_is_explicitly_authorized
+  title: Animation Production Pack
+  drive_id: 1GzQxmCrvIv10WVv0KdoPxlKi7l79J2J6cS-zvoOv-Dk
+  status: NOT_LOADED_OR_COMPILED
+  rule: obtain_exact_P3_07_prompt_body_only_when_execution_begins
 
 P3_05_durable_close:
   source_commit: e228a7bb6db6f94af15dde4a8fb110b028eddbed
@@ -35,12 +37,24 @@ P3_05_durable_close:
   wheel_sha256: fc09a1d9543b2111df4ed41ad17db796c0570d8c67d16e4f28ce3b261a9472dc
   real_runtime: Blender_5.0.1
 
+P3_06_durable_close:
+  source_commit: e3c0ecb1ba70c2048f12198533f904da7e7504ed
+  result_commit: 78005b0a30fa7002eed8019a588731551e3d2c6b
+  result_tree: 6737d32d10feae0dcaeb4024ece00f3aa64b20f0
+  github_readback: EXACT_COMMIT_TREE_AND_SIX_BLOBS_CONFIRMED
+  contract: 16_CHARACTER_CAPABILITIES_12_ROLES_CharacterSpecification_CharacterRigRef
+  real_runtime: Blender_5.0.1
+  real_proof: NON_HUMANOID_RIG_SKIN_DEFORM_EXPORT_REOPEN
+  validators: STALE_MESH_SKELETON_WEIGHT_PROJECT_ISOLATION_WORKER_LOSS_EXACT_ONCE_RECOVERY
+  final_gate: 25_TESTS_GREEN_IN_448.18_SECONDS; STRICT_MYPY_6_PATHS_GREEN; COMPILEALL_DIFF_CLEAN_WHEEL_IMPORT_GREEN
+  wheel_sha256: 9ee31926b63b651561d723dfbd57c541ba38f4f6679429f7444bd7811c0bdf6a
+
 owner_priority:
   standing_order: preserve_current_or_recoverable_long_running_productive_work_before_any_remote_sync_restore_reset_checkout_merge_or_host_replacement
   remote_newer_is_not_permission_to_replace_unpreserved_execution_work: true
   current_sequence:
-    - retain_P3_05_durable_close_evidence
-    - load_and_execute_P3_06_only_after_explicit_authorization
+    - retain_P3_05_and_P3_06_durable_close_evidence
+    - load_and_compile_P3_07_exact_prompt_when_execution_begins
 
 execution_host:
   current_host:
@@ -194,300 +208,17 @@ multi_ai_execution:
     no_permanent_named_agent_hierarchy: true
 
 current_frontier:
-  state: P3_06_NEXT_NUMBERED_DEPENDENCY_NOT_STARTED
+  state: P3_07_ACTIVATED_NOT_STARTED
   P3_05_durable_close_complete: true
-  P3_06_prompt_loaded: false
-  P3_06_execution_authorized: false
+  P3_06_durable_close_complete: true
+  P3_07_prompt_loaded: false
+  P3_07_prompt_compiled: false
+  P3_07_execution_authorized: true
 
-closed_P3_05_graph:
-  B0_NEW_HOST_BOOTSTRAP:
-    mode: SERIAL_INFRASTRUCTURE
-    depends_on: []
-    objective: provision a fresh execution host and reconstruct canonical Biella roots from current GitHub and verified Drive authority
-    required:
-      - create_or_select_fresh_host
-      - create_/root/biella_and_/root/.codex
-      - clone_or_fetch_patrickminitz-web/biella-engine_main_into_/root/biella/repos/biella-engine
-      - verify_GitHub_continuity_head_before_any_recovery_write
-      - fetch_03_and_04_from_their_existing_Drive_file_IDs_when_needed_for_cross_check
-      - download_recovery_archive_from_Drive_ID_1Y7aEStdGbCK5a0N9iA8s41l2olTWOUAE
-      - verify_archive_size_26490936_and_sha256_73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
-    forbidden:
-      - assume_previous_VPS_disk_or_/root_contents_exist
-      - recreate_/srv/biella
-      - revive_/home/ubuntu/biella-work
-      - create_duplicate_active_checkout
-      - treat_host_or_provider_as_architectural_authority
-  R0_PRE_RUN_GUARD:
-    mode: SERIAL_READ_ONLY
-    depends_on: [B0_NEW_HOST_BOOTSTRAP]
-    objective: verify intended model, canonical repository, branch, prompt identity, recovery archive identity, and source boundary
-    stop_before_write_if:
-      - wrong_repository_or_branch
-      - recovery_archive_digest_mismatch
-      - unexplained_newer_implementation_source
-  R1_RESTORE:
-    mode: SERIAL_WRITE
-    depends_on: [R0_PRE_RUN_GUARD]
-    objective: restore exact GPT-5.6 P3-05 worktree and reject post-boundary mutations
-    writes: expected_recovered_path_set_only
-    checkpoint_after: CP0_RESTORED
-  M0_GAP_MAP:
-    mode: SERIAL_READ_MOSTLY
-    depends_on: [R1_RESTORE]
-    objective: inspect recovered P3-05 state once and derive COMPLETE FAILING MISSING BLOCKED map
-    reads:
-      - recovered_P3_05_files
-      - exact_imported_interfaces_only
-    writes: compact_gap_ledger_only
-    checkpoint_after: CP1_GAP_MAP
-  I1_PACK_API:
-    mode: PARALLEL_WRITE
-    depends_on: [M0_GAP_MAP]
-    objective: complete ProductionPack, capability registration, package exports, Artifact roles, and pack validators
-    owned_write_paths:
-      - src/biella/three_d_pack.py
-      - src/biella/production_pack.py
-      - src/biella/__init__.py
-      - tests/test_p3_05_three_d_pack.py
-    forbidden_write_paths:
-      - src/biella/three_d_tool.py
-      - src/biella/_blender_three_d_driver.py
-      - src/biella/process.py
-      - tests/test_p3_05_three_d_real.py
-  I2_THREED_CORE:
-    mode: PARALLEL_WRITE
-    depends_on: [M0_GAP_MAP]
-    objective: complete generic ThreeD contract, durable exact identity/provenance, reference implementation, replay, recovery, and Project isolation
-    owned_write_paths:
-      - src/biella/three_d_tool.py
-    invariants:
-      - DCC_SDK_types_remain_adapter_local
-      - no_DCC_specific_kernel_fields
-      - no_global_style_poly_or_scale_rules
-      - missing_DCC_affects_route_not_Capability
-  I3_BLENDER_DRIVER:
-    mode: PARALLEL_WRITE
-    depends_on: [M0_GAP_MAP]
-    objective: complete adapter-local real Blender editable-source, structured inspection, operation, export, reopen, and preview mechanics
-    owned_write_paths:
-      - src/biella/_blender_three_d_driver.py
-    invariants:
-      - render_or_preview_is_not_source_proof
-      - effective_exporter_settings_and_units_axis_identity_are_observed
-      - bpy_and_tool_specific_types_do_not_escape_adapter_boundary
-  I4_PROCESS_SUBSTRATE:
-    mode: PARALLEL_WRITE
-    depends_on: [M0_GAP_MAP]
-    objective: complete only Process substrate changes proven necessary by the restored real DCC path
-    owned_write_paths:
-      - src/biella/process.py
-      - tests/test_p2_02_process.py
-    invariants:
-      - no_3D_or_Blender_domain_semantics_in_Process
-      - no_Process_redesign
-      - preserve_authority_isolation_evidence_and_recovery_contracts
-  G1_INTEGRATION:
-    mode: SERIAL_READ_ONLY_BY_DEFAULT
-    depends_on:
-      - I1_PACK_API
-      - I2_THREED_CORE
-      - I3_BLENDER_DRIVER
-      - I4_PROCESS_SUBSTRATE
-    objective: verify interfaces align before real acceptance expansion
-    direct_source_writes: forbidden
-    on_failure: create_exact_repair_node_for_original_owner
-    checkpoint_after: CP2_INTEGRATED
-  I5_REAL_ACCEPTANCE:
-    mode: SERIAL_WRITE
-    depends_on: [G1_INTEGRATION]
-    objective: complete task-derived real/reference P3-05 acceptance workflow
-    owned_write_paths:
-      - tests/test_p3_05_three_d_real.py
-    required_flow:
-      - create_or_ingest_editable_mesh
-      - structured_inspect
-      - geometry_modify
-      - topology
-      - UV_when_Task_requires
-      - material
-      - scene
-      - save_native_source
-      - export
-      - exact_ContentRef
-      - reopen_or_parse
-      - technical_validate
-      - preview_secondary_evidence
-      - durable_provenance
-    required_negative_recovery_scope:
-      - invalid_topology
-      - missing_dependency
-      - invalid_or_missing_UV_when_required
-      - corrupt_export
-      - DCC_unavailable
-      - idempotent_replay
-      - restart_recovery
-      - stale_authority
-      - Project_isolation
-      - physical_output_collision
-      - second_reference_or_real_implementation
-    checkpoint_after: CP3_REAL_WORKFLOW
-  G2_IMPLEMENTATION_FREEZE:
-    mode: SERIAL_CONTROL
-    depends_on: [I5_REAL_ACCEPTANCE]
-    objective: prohibit optional scope expansion; only acceptance-blocking defects may create repair nodes
-  V1_PACK_CONTRACT:
-    mode: PARALLEL_READ_ONLY
-    depends_on: [G2_IMPLEMENTATION_FREEZE]
-    validates:
-      - ProductionPack_descriptor
-      - capability_registration
-      - package_exports
-      - Artifact_roles
-      - pack_validators
-      - static_KPI_invariants
-  V2_REAL_OUTPUT_TRUTH:
-    mode: PARALLEL_READ_ONLY
-    depends_on: [G2_IMPLEMENTATION_FREEZE]
-    validates:
-      - real_editable_source
-      - structured_inspection
-      - tool_runtime_plugin_export_identity
-      - export_reopen_parse
-      - preview_secondary_only
-      - dependency_and_material_provenance
-  V3_ISOLATION_RECOVERY:
-    mode: PARALLEL_READ_ONLY
-    depends_on: [G2_IMPLEMENTATION_FREEZE]
-    validates:
-      - Project_Alpha_Beta_isolation
-      - same_output_races
-      - idempotency
-      - stale_attempt_fence
-      - restart_and_partial_failure_recovery
-      - reference_implementation
-      - DCC_unavailable_route_behavior
-  F_REPAIR:
-    mode: DYNAMIC_SERIAL_PER_OWNED_PATH
-    depends_on:
-      - V1_PACK_CONTRACT
-      - V2_REAL_OUTPUT_TRUTH
-      - V3_ISOLATION_RECOVERY
-    create_only_if: exact_validator_failure_exists
-    no_failure_state: SATISFIED_WITHOUT_WRITE
-    ownership_rule: one_failure_one_original_owner_boundary; no_overlapping_live_repairs
-    completion_rule: rerun_exact_failure_then_only_invalidated_validator_nodes
-    checkpoint_after: CP4_REPAIR_CONVERGENCE
-  V4_REGRESSION_GATE:
-    mode: SERIAL_OR_SAFE_PARALLEL_READ_ONLY
-    depends_on: [F_REPAIR]
-    required_scope:
-      - P3_05_pack
-      - P3_05_real
-      - P2_02_Process_if_touched
-      - relevant_P3_03_Game_integration
-      - relevant_ProductionPack_regressions
-      - strict_mypy_on_touched_source_and_tests
-      - compileall
-      - complete_repository_suite_once_only_if_task_contract_requires_it
-  V5_BUILD_RUNTIME_GATE:
-    mode: SERIAL_REALITY_CHECK
-    depends_on: [V4_REGRESSION_GATE]
-    validates_where_applicable:
-      - wheel_build
-      - clean_installed_import
-      - ThreeD_pack_registration
-      - reference_adapter_smoke
-      - real_DCC_executable_and_version
-      - real_create_native_export_reopen_proof
-    reality_classes:
-      - REAL
-      - REFERENCE
-      - NOT_RUN
-    checkpoint_after: CP5_FINAL_VALIDATION
-  C0_DURABLE_CLOSE:
-    mode: SERIAL_WRITE_AND_PUBLICATION
-    depends_on: [V5_BUILD_RUNTIME_GATE]
-    sequence:
-      - final_intended_diff_readback
-      - coherent_commit_or_commits
-      - push_main
-      - remote_commit_tree_required_path_readback
-      - compute_prompt_KPIs_from_current_evidence
-      - replace_03_with_exact_closed_state
-      - replace_04_with_next_prompt_packet
-      - publish_matching_Drive_continuity_preserving_file_identity
-      - exact_Drive_readback
-      - authorize_successor_only_after_all_required_evidence
-    checkpoint_after: CP6_DURABLE_CLOSE
-
-checkpoint_policy:
-  checkpoints:
-    CP0_RESTORED: exact_GPT_5_6_worktree_restored
-    CP1_GAP_MAP: exact_remaining_work_compiled
-    CP2_INTEGRATED: parallel_implementation_integrated
-    CP3_REAL_WORKFLOW: task_real_workflow_implemented
-    CP4_REPAIR_CONVERGENCE: focused_validators_converged
-    CP5_FINAL_VALIDATION: final_task_gate_passed
-    CP6_DURABLE_CLOSE: GitHub_and_Drive_readback_complete
-  persistence:
-    use_existing_Biella_checkpoint_or_Git_durability_mechanism_supported_by_current_source: true
-    coherent_intermediate_commits_are_allowed_when_needed_for_recovery: true
-    checkpoint_is_not_completion_claim: true
-    temporary_state_must_not_be_only_copy_of_meaningful_work: true
-
-worker_result_envelope:
-  required_fields:
-    - node_ref
-    - status
-    - files_read
-    - files_changed
-    - exact_tests_or_checks
-    - exact_observed_results
-    - output_contract_status
-    - blockers
-    - newly_discovered_required_work
-    - invalidated_prior_evidence
-  forbidden:
-    - full_transcript_as_handoff
-    - broad_architecture_summary_unrelated_to_node
-    - completion_claim_without_evidence
-
-P3_05_required_scope:
-  capabilities:
-    - 3d.inspect
-    - 3d.model
-    - 3d.mesh_edit
-    - 3d.topology
-    - 3d.uv
-    - 3d.material
-    - 3d.scene
-    - 3d.convert
-    - 3d.optimize
-    - 3d.validate
-    - 3d.preview
-  interfaces:
-    - ThreeDToolAdapter
-    - 3D_ProductionPack_descriptor
-    - 3D_pack_Artifact_roles_and_validators
-  invariants:
-    - DCC_SDK_types_stay_adapter_local
-    - native_editable_source_is_preserved_where_meaningful
-    - exports_bind_exact_source_target_exporter_version_settings_and_ContentRef
-    - process_exit_alone_is_not_success
-    - render_or_preview_is_not_editable_source_proof
-    - Project_style_poly_scale_rules_remain_Project_scoped
-    - missing_DCC_affects_route_not_Capability
-    - independent_assets_may_run_concurrently_under_existing_scheduler
-    - game_engine_is_not_3D_source_authority
-    - no_domain_kernel_changes
-
-completion_contract:
-  software_and_adapter_source: required
-  task_scoped_tests: required
-  typecheck_build_runtime_or_DCC_evidence: task_derived_and_required_where_applicable
-  exact_Git_commit_and_tree: required
-  remote_readback_after_push: required
-  current_Drive_continuity_readback: required
-  completion_claim_without_matching_evidence: forbidden
+activation_boundary:
+  P3_07_authorized: true
+  P3_07_prompt_loaded: false
+  P3_07_graph_compiled: false
+  rule: compile_only_from_exact_P3_07_prompt_and_accepted_source
+  predecessor_evidence: P3_06_durable_close_mapping_above
 ```

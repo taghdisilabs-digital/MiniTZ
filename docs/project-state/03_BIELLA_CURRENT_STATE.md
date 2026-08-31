@@ -23,33 +23,34 @@ engine:
 
 durable_source:
   current_implementation_base:
-    commit: 929d2b3269b6fcc38c75d90aece802dfdaf9fadf
-    tree: e9bc6bdb156f5ac82039a613b03cb9643ea1125a
-    meaning: P3_05_durably_closed
+    commit: 78005b0a30fa7002eed8019a588731551e3d2c6b
+    tree: 6737d32d10feae0dcaeb4024ece00f3aa64b20f0
+    meaning: P3_06_durably_closed
   current_execution_map:
-    source_commit: e228a7bb6db6f94af15dde4a8fb110b028eddbed
-    result_commit: 929d2b3269b6fcc38c75d90aece802dfdaf9fadf
-    result_tree: e9bc6bdb156f5ac82039a613b03cb9643ea1125a
+    source_commit: e3c0ecb1ba70c2048f12198533f904da7e7504ed
+    result_commit: 78005b0a30fa7002eed8019a588731551e3d2c6b
+    result_tree: 6737d32d10feae0dcaeb4024ece00f3aa64b20f0
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    status: P3_05_DURABLY_CLOSED_P3_06_NEXT_NUMBERED_DEPENDENCY_ONLY
+    status: P3_06_DURABLY_CLOSED_P3_07_ACTIVATED_PROMPT_NOT_LOADED
   branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
     first_rejected_execution_time: "2026-08-30T10:44:52Z"
-    rejected_post_boundary_completion_claims: P3_06_THROUGH_P3_09
+    rejected_post_boundary_completion_claims: P3_07_THROUGH_P3_09
 
 numbered_execution:
-  durable_prompts_complete: 36
+  durable_prompts_complete: 37
   durable_prompts_total: 51
-  progress: "36 / 51"
+  progress: "37 / 51"
   phase: P3
-  active_prompt: P3-06
-  active_global_number: 37
-  active_title: NOT_LOADED_UNTIL_EXACT_PROMPT_ACTIVATION
-  predecessor: P3-05
+  active_prompt: P3-07
+  active_global_number: 38
+  active_title: Animation Production Pack
+  predecessor: P3-06
   successor_execution_authorized: false
-  future_activation_shells_prepared: P3_07_THROUGH_P4_06
+  active_execution_authorized: true
+  future_activation_shells_prepared: P3_08_THROUGH_P4_06
   future_internal_graphs_precompiled: false
   future_graph_rule: compile_each_from_exact_prompt_and_current_source_only_when_activated
 
@@ -127,11 +128,29 @@ p3_05_durable_close:
     sha256: fc09a1d9543b2111df4ed41ad17db796c0570d8c67d16e4f28ce3b261a9472dc
   real_runtime: Blender_5.0.1
 
+p3_06_durable_close:
+  source_commit: e3c0ecb1ba70c2048f12198533f904da7e7504ed
+  result_commit: 78005b0a30fa7002eed8019a588731551e3d2c6b
+  result_tree: 6737d32d10feae0dcaeb4024ece00f3aa64b20f0
+  github_readback: EXACT_COMMIT_TREE_AND_SIX_BLOBS_CONFIRMED
+  contract: 16_CHARACTER_CAPABILITIES_AND_12_ROLES
+  public_contracts: CharacterSpecification_AND_CharacterRigRef
+  real_runtime: Blender_5.0.1
+  real_proof: NON_HUMANOID_RIG_SKIN_DEFORM_EXPORT_REOPEN
+  validators: STALE_MESH_SKELETON_REJECTION_WEIGHT_VALIDATION_PROJECT_ISOLATION_INJECTED_WORKER_LOSS_EXACT_ONCE_RECOVERY
+  final_gate:
+    tests: 25_GREEN_IN_448.18_SECONDS
+    strict_mypy: 6_PATHS_GREEN
+    compileall: GREEN
+    diff_checks: GREEN
+    clean_wheel_import: GREEN
+  wheel_sha256: 9ee31926b63b651561d723dfbd57c541ba38f4f6679429f7444bd7811c0bdf6a
+
 approved_execution_program:
   language: biella.codex.end_to_end/v2
   mode: SINGLE_END_TO_END_NUMBERED_EXECUTION
   active_graph_location: docs/project-state/04_BIELLA_ACTIVE_TASK.md
-  active_graph: P3_06_NOT_PRELOADED; ACTIVATE_FROM_EXACT_PROMPT_ONLY
+  active_graph: P3_07_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
   duplicate_prevention:
     exact_Node_identity_and_claim: required
     one_current_owner_per_Node: true
@@ -179,7 +198,8 @@ context_policy:
 truth:
   P3_04_durable_close: VERIFIED
   P3_05_durable_close: VERIFIED
-  P3_06_or_later_completion_claims_from_rejected_execution: REJECTED
+  P3_06_durable_close: VERIFIED
+  P3_07_or_later_completion_claims_from_rejected_execution: REJECTED
   exact_recovered_P3_05_worktree_contents: REUSED_FOR_DURABLE_CLOSE_WITHOUT_REHASH
   multi_AI_execution_map_approved_by_user: true
   future_numbered_activation_queue_prepared: true
