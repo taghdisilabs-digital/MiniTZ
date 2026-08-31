@@ -1,10 +1,10 @@
 # Biella Google Drive Live Manifest
 
-Date: 2026-08-27
+Date: 2026-08-31
 
 Drive project root ID: `1Z6_qwN9hfHIheXZ_9pYCG8dRDMuRN-l7`
 
-This file is the durable GitHub index of the live Drive project tree. Drive remains the live operator/project-document and numbered-prompt authority. Read the exact current Drive object whenever execution depends on mutable Drive text.
+This file is the durable GitHub pointer index for the live Drive project tree. Mutable execution truth is not owned by this manifest: read `docs/project-state/03_BIELLA_CURRENT_STATE.md`, `docs/project-state/04_BIELLA_ACTIVE_TASK.md`, the exact current Drive prompt, and current source whenever execution depends on mutable state. Historical/date-scoped entries below must not override those authorities.
 
 ## Live project folders
 
@@ -18,11 +18,27 @@ This file is the durable GitHub index of the live Drive project tree. Drive rema
 - `90_BIELLA_STANDALONE_TRANSFER_2026-08-27/` — `1zRvo2JMCOY03LtdK45Xr6DbX0cNdFAwT`
 - `90_TRANSFER_EVIDENCE_EXCLUDED_2026-08-27/` — `17N9IZqBvxaJbBdt0FiMA2vNrpYEAutMs`
 
-## Current live pointers
+## Core authority pointers
+
+### Operating / architecture
+
+- Drive `00_START_HERE/00_BIELLA_PROJECT_OPERATING_CONTRACT.md` — `18V8t7DzadNhM_OwdJsCZ7ztg3L83nlLH`
+  - GitHub: `docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md`
+- Drive `10_ARCHITECTURE/01_BIELLA_PROJECT_KNOWLEDGE_SOURCE.md` — `1aoO8syRV8dH5JQ2Wt2D8WOpi2NDzRbYh`
+  - GitHub counterpart: `docs/project-state/BIELLA_PROJECT_KNOWLEDGE_SOURCE.md`
+  - The filename difference is intentional compatibility metadata here; do not create a duplicate authority file merely to add the `01_` prefix.
+- Drive `10_ARCHITECTURE/02_BIELLA_ENGINE_FINAL_MIGRATION_PLAN_2026-08-27.md` — `1SP1hxqJtBeu0DI2wdHRoHEHmPp7F7Huq`
+  - GitHub: `docs/project-state/02_BIELLA_ENGINE_FINAL_MIGRATION_PLAN_2026-08-27.md`
+  - This is a dated sequencing/reference plan; its embedded 2026-08-27 state snapshot is not current-state authority.
 
 ### Current state
 
 - `20_CURRENT_STATE/03_BIELLA_CURRENT_STATE.md` — `1wiWcdWt4hmTf3narsLw4OqGu_ueKOSa4`
+- Current observed boundary: `35 / 51` durable prompts complete; active prompt `P3-05` / global `36`.
+- Current GitHub state file: `docs/project-state/03_BIELLA_CURRENT_STATE.md`.
+
+Other date-scoped current-state registers remain locatable here but must be freshly read before use:
+
 - `20_CURRENT_STATE/11_BIELLA_REPOSITORY_STATE.md` — `1niVSvm8QiO7h8O9zPZrjdbo71-MYHnnf0uNInxnZdjM`
 - `20_CURRENT_STATE/12_BIELLA_IMPLEMENTED_INTERFACES.md` — `1He8T-cGEMhthcWT-dDkeKOa208QYzVXbH5p3VZCBjto`
 - `20_CURRENT_STATE/13_BIELLA_SCHEMA_AND_MIGRATION_REGISTRY.md` — `1TUH32zW1lF_q8WEaZ42z6Jczd_FEkTrPN_9HkPYmzMM`
@@ -33,6 +49,9 @@ This file is the durable GitHub index of the live Drive project tree. Drive rema
 ### Execution
 
 - `30_EXECUTION/04_BIELLA_ACTIVE_TASK.md` — `1liutA8evH6rPjk-U4tgR13l_kqBrx-DF`
+  - GitHub: `docs/project-state/04_BIELLA_ACTIVE_TASK.md`
+  - Current schema: `biella.active_task/v6`
+  - Current active task: `P3-05 — 3D Modeling and Scene Production Pack`
 - `30_EXECUTION/18_BIELLA_CODEX_EXECUTION_PROTOCOL.md` — `1imSUkhhqtqn_Hh_icw2uuobmVQY6FPqbfQe2NlrRX4g`
 - `30_EXECUTION/19_BIELLA_SOURCE_OF_TRUTH_AND_HANDOFF_PROTOCOL.md` — `1U20gB7LCo9md2lxI9mXSE8HSk2lzJeJYjCOOGBFu1gg`
 - `30_EXECUTION/20_BIELLA_PROMPT_EXECUTION_STATUS.md` — `1l_OkGjscMLZmDotlKbGIsTF0cYGPinA1Ccl1DielVNs`
@@ -58,25 +77,20 @@ Prompt index:
 
 - `40_PROMPTS/05_BIELLA_PROMPT_INDEX.yaml` — `1IK4sSAWbbI1QP2638JKVMMc7yQZItwWl`
 
-Current active P0-01 prompt:
+Current active prompt:
 
-- `40_PROMPTS/P0/01_P0-01_Clean_Room_Migration_Firewall.md`
-- Drive ID: `1Rqj1Vs-V_6xhq90NJRS2hnjIQiVYkER6xG2dJ5CJ2oI`
-- Git mirror: `docs/prompts/P0/01_P0-01_Clean_Room_Migration_Firewall.md`
-- Boundary: execute P0-01 only and stop; do not begin P0-02 automatically.
+- `P3-05` / global `36` — `3D Modeling and Scene Production Pack`
+- Drive ID: `1TIG3GggwGdu3ma1e5MeeIontVUO4pmSP4aggJKps0Kg`
+- Active execution map: `docs/project-state/04_BIELLA_ACTIVE_TASK.md`
+- Successor: `P3-06`; not authorized before P3-05 durable close.
 
-The numbered program is a technical work/navigation map. Number order is not itself the runtime dependency graph, but no later numbered prompt may begin before the active numbered boundary is durably closed.
+The numbered program is a technical work/navigation map. Number order is not itself the runtime dependency graph. The exact active prompt and current source determine technical dependencies.
 
-## Inactive alternative contract
+## Inactive / historical references
 
-- `50_MIGRATION/REFERENCE_INACTIVE_UNTIL_AFTER_P0-10__Legacy_Productive_Reuse.md`
-- Drive ID: `1P4uv74n0UI0JROi5J83ehrg9wDyWPg7FCt5dMMi9HTc`
-- State: `INACTIVE_UNTIL_AFTER_P0_10_DURABLE_CLOSE`
-- Active authority: `false`
-- Default retrieval: forbidden
-- Git publication: intentionally omitted from active source/spec history
+Objects explicitly labeled `REFERENCE`, `SUPERSEDED`, historical, quarantine, transfer staging, or evidence-excluded remain non-authoritative unless a current higher-authority record explicitly activates them for a bounded purpose.
 
-This object is historical/reference evidence only. It must not override, broaden, or replace the active Clean-Room P0-01 contract.
+`50_MIGRATION/BIELLA_LEGACY_SEMANTIC_MIGRATION_batch_0001/` remains historical/quarantine evidence by default. P0-01 completion alone does not promote its raw source, historical labels, or candidates into current Engine source, Project Memory, Engine Knowledge, normal retrieval, capability definitions, or policy. Admission still requires the current migration firewall path and explicit destination/evidence.
 
 ## Auxiliary deep-research prompt packs
 
@@ -91,42 +105,8 @@ These are stored directly under `40_PROMPTS/` and are not included in the 51 num
 | DR-21–23 | `BIELLA_DR_21_23_DELIVERY_EVALUATION_STRATEGY.md` | `1pDP6YXDjEPpHBu30tfEobfh7dj8XS6Ui` |
 | DR-24–26 | `BIELLA_DR_24_26_FAILURE_RECIPES_RESEARCH.md` | `1ltTu6RTQ69YE5oS5sT2W0njORzD_RJsW` |
 
-## Semantic migration evidence
-
-`50_MIGRATION/BIELLA_LEGACY_SEMANTIC_MIGRATION_batch_0001/`
-
-- folder ID: `1rosbpxa2RdavQ3KWhrW7ZlgddFez78PG`
-- status: `COMPLETE_FOR_MOUNTED_CORPUS`
-- global-corpus complete: **no**
-- exact historical source records: `545`
-- historically labeled candidate records: `13`
-- active Biella candidates: `0`
-- folder Merkle BLAKE3: `bf945fe4983fb0c0671a85ced85673aa570f4c6cfc96fbbde9bff4f770ae14c2`
-
-Published evidence files:
-
-- report — `1Fojyd6xl-zryyqjLPBRNMl2QMjj_XcSI`
-- source inventory — `1hN8j47pSeUDjBnNP9y-qlipxkusD-vAE`
-- source records — `1wCVy_ewtAGw0WQAnQr5F44RZyt5Ywo16`
-- historical candidate records — `1Csxmw0kO5z_vmW1AiipMR7eAQkLPkmE8`
-- resume — `1EeJqZIg28IBbOzQGFEllCROfP0G9qH3N`
-- manifest — `1FKatJfTTESm5041wIewosX8UAvGQNc80`
-- brand-free validation — `1SbGgwOKL8z9nLEY5eiuDnf_vBWKCsWQK`
-- version comparison — `1aRDaZ1CB0CKJ3t9vAkXVOCwYu3-j6Vmp`
-
-This batch is historical/quarantine evidence only. Before P0-01 closes, it must not be loaded into normal retrieval, Project Memory, Engine Knowledge, active source, active prompts, or capability/policy definitions. Its 13 historical labels are not active Biella migration candidates.
-
-## Current Codex P0-01 contract
-
-The exact active body is available and is mirrored at:
-
-- Drive: `40_PROMPTS/P0/01_P0-01_Clean_Room_Migration_Firewall.md` — `1Rqj1Vs-V_6xhq90NJRS2hnjIQiVYkER6xG2dJ5CJ2oI`
-- GitHub: `docs/prompts/P0/01_P0-01_Clean_Room_Migration_Firewall.md`
-
-Treat the Drive object as the mutable live prompt and the Git file as the publication snapshot. Re-read Drive before execution if its current text may have changed.
-
 ## Synchronization rule
 
-GitHub is durable source/spec history; Drive is the live operator/project-document, prompt, migration-ledger, and continuity authority.
+GitHub is durable code/source history and durable accepted-spec history. Drive is the live operator/project-document, prompt, migration-ledger, and continuity store. For mutable execution truth, current observed source outranks this pointer manifest.
 
 Historical evidence is preserved separately and must not silently override current source, accepted current contracts, or owner correction.
