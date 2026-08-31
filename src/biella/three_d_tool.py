@@ -34,6 +34,12 @@ from .character_pack import (
     CharacterRigRef,
     CharacterSpecification,
 )
+from .animation_pack import (
+    AnimationClip,
+    AnimationContractError,
+    BoneMapping,
+    RetargetMapping,
+)
 from .capability import CapabilityRef
 from .call_ledger import ToolCallRef
 from .execution import (
@@ -124,6 +130,9 @@ class ThreeDOperation(str, Enum):
     RIG = "rig"
     SKIN = "skin"
     DEFORM = "deform"
+    ANIMATE = "animate"
+    RETARGET = "retarget"
+    BAKE = "bake"
     SCENE = "scene"
     CONVERT = "convert"
     OPTIMIZE = "optimize"
@@ -136,6 +145,12 @@ class ThreeDOperation(str, Enum):
             ThreeDOperation.RIG,
             ThreeDOperation.SKIN,
             ThreeDOperation.DEFORM,
+            ThreeDOperation.ANIMATE,
+            ThreeDOperation.RETARGET,
+            ThreeDOperation.BAKE,
+            ThreeDOperation.ANIMATE,
+            ThreeDOperation.RETARGET,
+            ThreeDOperation.BAKE,
         }:
             return "3d.model"
         return f"3d.{self.value}"
@@ -164,6 +179,9 @@ _OPERATION_ROLES = MappingProxyType(
         ThreeDOperation.RIG: frozenset({"3d.mesh", "3d.rig", "3d.scene"}),
         ThreeDOperation.SKIN: frozenset({"3d.mesh", "3d.rig", "3d.skin", "3d.scene"}),
         ThreeDOperation.DEFORM: frozenset({"3d.mesh", "3d.rig", "3d.skin", "3d.deformation", "3d.scene"}),
+        ThreeDOperation.ANIMATE: frozenset({"3d.animation", "3d.rig", "3d.scene"}),
+        ThreeDOperation.RETARGET: frozenset({"3d.animation", "3d.retarget-mapping", "3d.rig", "3d.scene"}),
+        ThreeDOperation.BAKE: frozenset({"3d.animation", "3d.rig", "3d.scene"}),
         ThreeDOperation.SCENE: frozenset({"3d.scene"}),
         ThreeDOperation.CONVERT: frozenset({"3d.interchange-export"}),
         ThreeDOperation.OPTIMIZE: frozenset({"3d.mesh", "3d.scene"}),
@@ -186,6 +204,9 @@ _OUTPUT_MEDIA = MappingProxyType(
         ThreeDOperation.RIG: frozenset({(".blend", "application/x-blender")}),
         ThreeDOperation.SKIN: frozenset({(".blend", "application/x-blender")}),
         ThreeDOperation.DEFORM: frozenset({(".blend", "application/x-blender")}),
+        ThreeDOperation.ANIMATE: frozenset({(".blend", "application/x-blender")}),
+        ThreeDOperation.RETARGET: frozenset({(".blend", "application/x-blender")}),
+        ThreeDOperation.BAKE: frozenset({(".blend", "application/x-blender")}),
         ThreeDOperation.SCENE: frozenset({(".blend", "application/x-blender")}),
         ThreeDOperation.CONVERT: frozenset(
             {
@@ -577,6 +598,164 @@ class ThreeDSkeletonSpec:
         }
 
 
+class ThreeDRootMotionPolicy(str, Enum):
+    PRESERVE = "preserve"
+    EXTRACT = "extract"
+    REMOVE = "remove"
+
+
+def _animation_digest(value: object, name: str) -> str:
+    if (
+        not isinstance(value, str)
+        or _SHA256.fullmatch(value) is None
+    ):
+        raise ThreeDContractError(f"{name} must be an exact SHA-256 digest")
+    return value
+
+
+def _animation_vector(value: object, name: str, *, positive: bool = False) -> tuple[float, float, float]:
+    if (
+        not isinstance(value, tuple)
+        or len(value) != 3
+        or any(
+            isinstance(item, bool)
+            or not isinstance(item, (int, float))
+            or not math.isfinite(float(item))
+            or (positive and float(item) <= 0.0)
+            for item in value
+        )
+    ):
+        raise ThreeDContractError(f"{name} must be one finite 3D transform")
+    return (float(value[0]), float(value[1]), float(value[2]))
+
+
+@dataclass(frozen=True)
+class ThreeDAnimationKeyframe:
+    bone_name: str
+    frame: float
+    translation: tuple[float, float, float] = (0.0, 0.0, 0.0)
+    rotation_euler: tuple[float, float, float] = (0.0, 0.0, 0.0)
+    scale: tuple[float, float, float] = (1.0, 1.0, 1.0)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "bone_name", _text(self.bone_name, "animation bone_name", 128))
+        if (
+            isinstance(self.frame, bool)
+            or not isinstance(self.frame, (int, float))
+            or not math.isfinite(float(self.frame))
+            or not 0.0 <= float(self.frame) <= 1_000_000.0
+        ):
+            raise ThreeDContractError("animation keyframe frame is malformed")
+        object.__setattr__(self, "frame", float(self.frame))
+        object.__setattr__(self, "translation", _animation_vector(self.translation, "animation translation"))
+        object.__setattr__(self, "rotation_euler", _animation_vector(self.rotation_euler, "animation rotation_euler"))
+        object.__setattr__(self, "scale", _animation_vector(self.scale, "animation scale", positive=True))
+
+    def payload(self) -> dict[str, object]:
+        return {
+            "bone_name": self.bone_name,
+            "frame": self.frame,
+            "rotation_euler": list(self.rotation_euler),
+            "scale": list(self.scale),
+            "translation": list(self.translation),
+        }
+
+
+@dataclass(frozen=True)
+class ThreeDAnimationClipSpec:
+    clip_id: str
+    source_skeleton_sha256: str
+    keyframes: tuple[ThreeDAnimationKeyframe, ...]
+    loop_tolerance: float = 0.0001
+    blend_with_clip_id: str | None = None
+    blend_factor: float = 0.0
+    semantic_digest: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "clip_id", _text(self.clip_id, "animation clip_id", 128))
+        object.__setattr__(self, "source_skeleton_sha256", _animation_digest(self.source_skeleton_sha256, "animation source skeleton"))
+        if (
+            not isinstance(self.keyframes, tuple)
+            or not 1 <= len(self.keyframes) <= 100_000
+            or any(not isinstance(item, ThreeDAnimationKeyframe) for item in self.keyframes)
+            or len({(item.bone_name, item.frame) for item in self.keyframes}) != len(self.keyframes)
+        ):
+            raise ThreeDContractError("animation keyframes are malformed or duplicated")
+        if (
+            isinstance(self.loop_tolerance, bool)
+            or not isinstance(self.loop_tolerance, (int, float))
+            or not math.isfinite(float(self.loop_tolerance))
+            or not 0.0 <= float(self.loop_tolerance) <= 1_000_000.0
+            or isinstance(self.blend_factor, bool)
+            or not isinstance(self.blend_factor, (int, float))
+            or not math.isfinite(float(self.blend_factor))
+            or not 0.0 <= float(self.blend_factor) <= 1.0
+        ):
+            raise ThreeDContractError("animation loop or blend value is malformed")
+        if self.blend_with_clip_id is not None:
+            object.__setattr__(self, "blend_with_clip_id", _text(self.blend_with_clip_id, "animation blend_with_clip_id", 128))
+            if self.blend_with_clip_id == self.clip_id:
+                raise ThreeDContractError("animation cannot blend a clip with itself")
+        elif float(self.blend_factor) != 0.0:
+            raise ThreeDContractError("animation blend factor requires an exact source clip")
+        object.__setattr__(self, "loop_tolerance", float(self.loop_tolerance))
+        object.__setattr__(self, "blend_factor", float(self.blend_factor))
+        object.__setattr__(self, "semantic_digest", _digest(self.payload()))
+
+    def payload(self) -> dict[str, object]:
+        return {
+            "blend_factor": self.blend_factor,
+            "blend_with_clip_id": self.blend_with_clip_id,
+            "clip_id": self.clip_id,
+            "keyframes": [item.payload() for item in self.keyframes],
+            "loop_tolerance": self.loop_tolerance,
+            "source_skeleton_sha256": self.source_skeleton_sha256,
+        }
+
+
+@dataclass(frozen=True)
+class ThreeDRetargetBoneMapping:
+    source_bone_name: str
+    target_bone_name: str
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "source_bone_name", _text(self.source_bone_name, "retarget source_bone_name", 128))
+        object.__setattr__(self, "target_bone_name", _text(self.target_bone_name, "retarget target_bone_name", 128))
+
+    def payload(self) -> dict[str, str]:
+        return {"source_bone_name": self.source_bone_name, "target_bone_name": self.target_bone_name}
+
+
+@dataclass(frozen=True)
+class ThreeDRetargetSpec:
+    source_skeleton_spec: ThreeDSkeletonSpec
+    target_skeleton_sha256: str
+    mappings: tuple[ThreeDRetargetBoneMapping, ...]
+    semantic_digest: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.source_skeleton_spec, ThreeDSkeletonSpec):
+            raise TypeError("retarget source skeleton specification is malformed")
+        object.__setattr__(self, "target_skeleton_sha256", _animation_digest(self.target_skeleton_sha256, "retarget target skeleton"))
+        if (
+            not isinstance(self.mappings, tuple)
+            or not self.mappings
+            or len(self.mappings) > 256
+            or any(not isinstance(item, ThreeDRetargetBoneMapping) for item in self.mappings)
+            or len({item.source_bone_name for item in self.mappings}) != len(self.mappings)
+            or len({item.target_bone_name for item in self.mappings}) != len(self.mappings)
+        ):
+            raise ThreeDContractError("retarget mappings are malformed or duplicated")
+        object.__setattr__(self, "semantic_digest", _digest(self.payload()))
+
+    def payload(self) -> dict[str, object]:
+        return {
+            "mappings": [item.payload() for item in self.mappings],
+            "source_skeleton_spec": self.source_skeleton_spec.payload(),
+            "target_skeleton_sha256": self.target_skeleton_sha256,
+        }
+
+
 @dataclass(frozen=True)
 class ThreeDValidationRequirements:
     """Project/Task-scoped criteria; no value is a global 3D policy."""
@@ -597,6 +776,10 @@ class ThreeDValidationRequirements:
     require_deformation: bool = False
     require_normalized_weights: bool = False
     maximum_weight_influences: int | None = None
+    require_animation: bool = False
+    require_loop: bool = False
+    require_baked_animation: bool = False
+    maximum_loop_error: float | None = None
 
     def __post_init__(self) -> None:
         for name in (
@@ -611,6 +794,9 @@ class ThreeDValidationRequirements:
             "require_skin",
             "require_deformation",
             "require_normalized_weights",
+            "require_animation",
+            "require_loop",
+            "require_baked_animation",
         ):
             if not isinstance(getattr(self, name), bool):
                 raise ThreeDContractError(f"{name} must be boolean")
@@ -649,6 +835,13 @@ class ThreeDValidationRequirements:
             or not 1 <= self.maximum_weight_influences <= 32
         ):
             raise ThreeDContractError("maximum_weight_influences is malformed")
+        if self.maximum_loop_error is not None and (
+            isinstance(self.maximum_loop_error, bool)
+            or not isinstance(self.maximum_loop_error, (int, float))
+            or not math.isfinite(float(self.maximum_loop_error))
+            or not 0.0 <= float(self.maximum_loop_error) <= 1_000_000.0
+        ):
+            raise ThreeDContractError("maximum_loop_error is malformed")
 
     def payload(self) -> dict[str, object]:
         return {
@@ -668,6 +861,10 @@ class ThreeDValidationRequirements:
             "require_deformation": self.require_deformation,
             "require_normalized_weights": self.require_normalized_weights,
             "maximum_weight_influences": self.maximum_weight_influences,
+            "require_animation": self.require_animation,
+            "require_loop": self.require_loop,
+            "require_baked_animation": self.require_baked_animation,
+            "maximum_loop_error": self.maximum_loop_error,
         }
 
 
@@ -694,6 +891,9 @@ class ThreeDOperationRequest:
     )
     skeleton_spec: ThreeDSkeletonSpec | None = None
     skin_bindings: tuple[ThreeDSkinBinding, ...] = ()
+    animation_clip_spec: ThreeDAnimationClipSpec | None = None
+    retarget_spec: ThreeDRetargetSpec | None = None
+    root_motion_policy: ThreeDRootMotionPolicy = ThreeDRootMotionPolicy.PRESERVE
     reference_output_artifact_ref: ArtifactRef | None = None
     resource_allocation_ref: ResourceAllocationRef | None = None
     request_sha256: str = field(init=False)
@@ -811,8 +1011,16 @@ class ThreeDOperationRequest:
             ThreeDOperation.RIG,
             ThreeDOperation.SKIN,
             ThreeDOperation.DEFORM,
+            ThreeDOperation.ANIMATE,
+            ThreeDOperation.RETARGET,
+            ThreeDOperation.BAKE,
         }
-        if self.operation in character_operations and self.skeleton_spec is None:
+        animation_operations = {
+            ThreeDOperation.ANIMATE,
+            ThreeDOperation.RETARGET,
+            ThreeDOperation.BAKE,
+        }
+        if self.operation in character_operations | animation_operations and self.skeleton_spec is None:
             raise ThreeDContractError("3D character operation requires an exact skeleton specification")
         if self.skin_bindings:
             if self.operation is not ThreeDOperation.SKIN or self.skeleton_spec is None:
@@ -820,6 +1028,39 @@ class ThreeDOperationRequest:
             self.skeleton_spec.validate_skin_bindings(self.skin_bindings)
         elif not isinstance(self.skin_bindings, tuple):
             raise ThreeDContractError("3D skin bindings are malformed")
+        if not isinstance(self.root_motion_policy, ThreeDRootMotionPolicy):
+            raise TypeError("3D root motion policy is malformed")
+        if self.operation in animation_operations:
+            if not isinstance(self.animation_clip_spec, ThreeDAnimationClipSpec):
+                raise ThreeDContractError("3D animation operation requires an exact clip specification")
+            assert self.skeleton_spec is not None
+            if self.operation is ThreeDOperation.RETARGET:
+                if not isinstance(self.retarget_spec, ThreeDRetargetSpec):
+                    raise ThreeDContractError("3D retarget operation requires an exact mapping specification")
+                if (
+                    self.animation_clip_spec.source_skeleton_sha256
+                    != self.retarget_spec.source_skeleton_spec.semantic_digest
+                    or self.retarget_spec.target_skeleton_sha256
+                    != self.skeleton_spec.semantic_digest
+                ):
+                    raise ThreeDContractError("3D retarget skeleton identities do not match the exact clip")
+                source_names = {item.name for item in self.retarget_spec.source_skeleton_spec.bones}
+                target_names = {item.name for item in self.skeleton_spec.bones}
+                mapping = {item.source_bone_name: item.target_bone_name for item in self.retarget_spec.mappings}
+                if (
+                    any(item.bone_name not in source_names for item in self.animation_clip_spec.keyframes)
+                    or any(source not in source_names or target not in target_names for source, target in mapping.items())
+                    or any(item.bone_name not in mapping for item in self.animation_clip_spec.keyframes)
+                ):
+                    raise ThreeDContractError("3D retarget mapping does not cover exact animation bones")
+            elif (
+                self.retarget_spec is not None
+                or self.animation_clip_spec.source_skeleton_sha256 != self.skeleton_spec.semantic_digest
+                or any(item.bone_name not in {bone.name for bone in self.skeleton_spec.bones} for item in self.animation_clip_spec.keyframes)
+            ):
+                raise ThreeDContractError("3D animation clip does not match its exact skeleton")
+        elif self.animation_clip_spec is not None or self.retarget_spec is not None:
+            raise ThreeDContractError("3D animation specifications require an animation operation")
         if self.reference_output_artifact_ref is not None and (
             not isinstance(self.reference_output_artifact_ref, ArtifactRef)
             or self.reference_output_artifact_ref.project_ref != project
@@ -875,6 +1116,9 @@ class ThreeDOperationRequest:
             ),
             "skeleton_spec": None if self.skeleton_spec is None else self.skeleton_spec.payload(),
             "skin_bindings": [item.payload() for item in self.skin_bindings],
+            "animation_clip_spec": None if self.animation_clip_spec is None else self.animation_clip_spec.payload(),
+            "retarget_spec": None if self.retarget_spec is None else self.retarget_spec.payload(),
+            "root_motion_policy": self.root_motion_policy.value,
             "source_artifact_refs": [item.value for item in self.source_artifact_refs],
             "source_path": self.source_path,
             "validation_requirements": self.validation_requirements.payload(),
@@ -1008,6 +1252,9 @@ class ThreeDOperationResult:
                 ThreeDOperation.RIG,
                 ThreeDOperation.SKIN,
                 ThreeDOperation.DEFORM,
+            ThreeDOperation.ANIMATE,
+            ThreeDOperation.RETARGET,
+            ThreeDOperation.BAKE,
                 ThreeDOperation.SCENE,
                 ThreeDOperation.OPTIMIZE,
             }
@@ -1265,6 +1512,8 @@ class ThreeDToolAdapter(Protocol):
     def preview(self, access: ProjectAccess, attempt: NodeExecutionAttempt, request: ThreeDOperationRequest, *, idempotency_key: str) -> ThreeDOperationResult: ...
     def describeRuntime(self, access: ProjectAccess, attempt: NodeExecutionAttempt, identity: ThreeDToolIdentity, *, control_root_ref: FilesystemRootRef, working_directory: str, idempotency_key: str) -> ThreeDRuntimeDescription: ...
     def finalizeCharacterRigRef(self, access: ProjectAccess, result: ThreeDOperationResult, specification: CharacterSpecification) -> CharacterRigRef: ...
+    def finalizeRetargetMapping(self, access: ProjectAccess, request: ThreeDOperationRequest, result: ThreeDOperationResult, source_rig_ref: CharacterRigRef, target_rig_ref: CharacterRigRef, *, mapping_id: str, mapping_version: str) -> RetargetMapping: ...
+    def finalizeAnimationClip(self, access: ProjectAccess, request: ThreeDOperationRequest, result: ThreeDOperationResult, character_rig_ref: CharacterRigRef, *, clip_id: str, mapping: RetargetMapping | None = None) -> AnimationClip: ...
 
 
 class _MethodCheckedAdapter:
@@ -1303,6 +1552,9 @@ class _MethodCheckedAdapter:
                 ThreeDOperation.RIG,
                 ThreeDOperation.SKIN,
                 ThreeDOperation.DEFORM,
+            ThreeDOperation.ANIMATE,
+            ThreeDOperation.RETARGET,
+            ThreeDOperation.BAKE,
                 ThreeDOperation.SCENE,
                 ThreeDOperation.OPTIMIZE,
             ),
@@ -1331,6 +1583,37 @@ class _MethodCheckedAdapter:
             access,
             result,
             specification,
+        )
+
+    def finalizeRetargetMapping(
+        self,
+        access: ProjectAccess,
+        request: ThreeDOperationRequest,
+        result: ThreeDOperationResult,
+        source_rig_ref: CharacterRigRef,
+        target_rig_ref: CharacterRigRef,
+        *,
+        mapping_id: str,
+        mapping_version: str,
+    ) -> RetargetMapping:
+        return self._service.finalize_retarget_mapping(
+            access, request, result, source_rig_ref, target_rig_ref,
+            mapping_id=mapping_id, mapping_version=mapping_version,
+        )
+
+    def finalizeAnimationClip(
+        self,
+        access: ProjectAccess,
+        request: ThreeDOperationRequest,
+        result: ThreeDOperationResult,
+        character_rig_ref: CharacterRigRef,
+        *,
+        clip_id: str,
+        mapping: RetargetMapping | None = None,
+    ) -> AnimationClip:
+        return self._service.finalize_animation_clip(
+            access, request, result, character_rig_ref,
+            clip_id=clip_id, mapping=mapping,
         )
 
     def _invoke(self, access: ProjectAccess, attempt: NodeExecutionAttempt, request: ThreeDOperationRequest, *, idempotency_key: str) -> ThreeDOperationResult:
@@ -1582,6 +1865,24 @@ class _ThreeDService:
                     REFERENCES three_d_runtime_claims(project_id,adapter_ref,node_attempt_id,node_fence,idempotency_key)
                     ON UPDATE RESTRICT ON DELETE RESTRICT
                 );
+                CREATE TABLE IF NOT EXISTS three_d_retarget_mapping_records (
+                  project_id TEXT NOT NULL,
+                  adapter_ref TEXT NOT NULL,
+                  result_record_sha256 TEXT NOT NULL,
+                  mapping_id TEXT NOT NULL,
+                  mapping_version TEXT NOT NULL,
+                  mapping_semantic_sha256 TEXT NOT NULL,
+                  artifact_id TEXT NOT NULL,
+                  artifact_revision INTEGER NOT NULL,
+                  content_sha256 TEXT NOT NULL,
+                  PRIMARY KEY(project_id,adapter_ref,result_record_sha256,mapping_id,mapping_version),
+                  UNIQUE(project_id,adapter_ref,artifact_id,artifact_revision),
+                  FOREIGN KEY(project_id) REFERENCES projects(project_id) ON UPDATE RESTRICT ON DELETE RESTRICT
+                );
+                CREATE TRIGGER IF NOT EXISTS three_d_retarget_mappings_no_update BEFORE UPDATE ON three_d_retarget_mapping_records
+                  BEGIN SELECT RAISE(ABORT,'3D retarget mappings are immutable'); END;
+                CREATE TRIGGER IF NOT EXISTS three_d_retarget_mappings_no_delete BEFORE DELETE ON three_d_retarget_mapping_records
+                  BEGIN SELECT RAISE(ABORT,'3D retarget mappings cannot be deleted'); END;
                 CREATE TRIGGER IF NOT EXISTS three_d_claims_no_update BEFORE UPDATE ON three_d_operation_claims
                   BEGIN SELECT RAISE(ABORT,'3D claims are immutable'); END;
                 CREATE TRIGGER IF NOT EXISTS three_d_claims_no_delete BEFORE DELETE ON three_d_operation_claims
@@ -2712,6 +3013,9 @@ class _ThreeDService:
                 ThreeDOperation.RIG,
                 ThreeDOperation.SKIN,
                 ThreeDOperation.DEFORM,
+            ThreeDOperation.ANIMATE,
+            ThreeDOperation.RETARGET,
+            ThreeDOperation.BAKE,
                 ThreeDOperation.SCENE,
                 ThreeDOperation.CONVERT,
                 ThreeDOperation.OPTIMIZE,
@@ -3349,6 +3653,9 @@ class _ThreeDService:
                 ThreeDOperation.RIG,
                 ThreeDOperation.SKIN,
                 ThreeDOperation.DEFORM,
+            ThreeDOperation.ANIMATE,
+            ThreeDOperation.RETARGET,
+            ThreeDOperation.BAKE,
                 ThreeDOperation.SCENE,
                 ThreeDOperation.CONVERT,
                 ThreeDOperation.OPTIMIZE,
@@ -3754,6 +4061,9 @@ class _ThreeDService:
             ThreeDOperation.RIG,
             ThreeDOperation.SKIN,
             ThreeDOperation.DEFORM,
+            ThreeDOperation.ANIMATE,
+            ThreeDOperation.RETARGET,
+            ThreeDOperation.BAKE,
             ThreeDOperation.SCENE,
             ThreeDOperation.OPTIMIZE,
         }:
@@ -3806,6 +4116,9 @@ class _ThreeDService:
             ThreeDOperation.RIG,
             ThreeDOperation.SKIN,
             ThreeDOperation.DEFORM,
+            ThreeDOperation.ANIMATE,
+            ThreeDOperation.RETARGET,
+            ThreeDOperation.BAKE,
             ThreeDOperation.SCENE,
             ThreeDOperation.OPTIMIZE,
         } and not cls._native_reopen_proven(request, report):
@@ -3851,6 +4164,54 @@ class _ThreeDService:
                 or int(deformation.get("deformed_mesh_count", 0)) < 1
             ):
                 raise ThreeDIntegrityError("character deformation output lacks pose evidence")
+        if request.operation in {
+            ThreeDOperation.ANIMATE,
+            ThreeDOperation.RETARGET,
+            ThreeDOperation.BAKE,
+        }:
+            animation_identity = report.get("animation_identity")
+            animation = inspection.get("animation")
+            if (
+                request.animation_clip_spec is None
+                or request.skeleton_spec is None
+                or not isinstance(animation_identity, dict)
+                or animation_identity.get("clip_sha256")
+                != request.animation_clip_spec.semantic_digest
+                or animation_identity.get("source_skeleton_sha256")
+                != request.animation_clip_spec.source_skeleton_sha256
+                or animation_identity.get("target_skeleton_sha256")
+                != request.skeleton_spec.semantic_digest
+                or animation_identity.get("root_motion_policy")
+                != request.root_motion_policy.value
+                or not isinstance(animation, dict)
+                or int(animation.get("action_count", 0)) < 1
+                or not isinstance(animation.get("actions"), list)
+                or not any(
+                    isinstance(item, dict)
+                    and item.get("clip_sha256") == request.animation_clip_spec.semantic_digest
+                    and item.get("fcurve_count", 0) > 0
+                    and item.get("keyframe_count", 0) > 0
+                    for item in animation["actions"]
+                )
+            ):
+                raise ThreeDIntegrityError("animation output lacks exact Action and keyframe evidence")
+            if request.operation is ThreeDOperation.RETARGET and (
+                request.retarget_spec is None
+                or animation_identity.get("retarget_sha256")
+                != request.retarget_spec.semantic_digest
+                or int(inspection.get("skeleton_count", 0)) < 2
+                or int(inspection.get("bone_count", 0))
+                < len(request.retarget_spec.source_skeleton_spec.bones)
+                + len(request.skeleton_spec.bones)
+            ):
+                raise ThreeDIntegrityError("retarget output lacks exact mapping evidence")
+            if request.operation is ThreeDOperation.BAKE and not any(
+                isinstance(item, dict)
+                and item.get("clip_sha256") == request.animation_clip_spec.semantic_digest
+                and item.get("baked") is True
+                for item in animation["actions"]
+            ):
+                raise ThreeDIntegrityError("baked animation output lacks exact bake evidence")
         if request.operation is ThreeDOperation.CONVERT:
             expected_export = PurePosixPath(request.output_path).suffix.lower()
             source_inspection = report.get("source_inspection")
@@ -5476,6 +5837,9 @@ class _ThreeDService:
             ThreeDOperation.RIG,
             ThreeDOperation.SKIN,
             ThreeDOperation.DEFORM,
+            ThreeDOperation.ANIMATE,
+            ThreeDOperation.RETARGET,
+            ThreeDOperation.BAKE,
             ThreeDOperation.SCENE,
             ThreeDOperation.CONVERT,
             ThreeDOperation.OPTIMIZE,
@@ -6843,6 +7207,487 @@ class _ThreeDService:
             raise CharacterContractError(
                 "character handoff evidence failed verification"
             ) from exc
+
+    def _verified_animation_handoff(
+        self,
+        access: ProjectAccess,
+        request: ThreeDOperationRequest,
+        result: ThreeDOperationResult,
+    ) -> tuple[Mapping[str, object], ArtifactRef, ContentRef, ContentRef]:
+        if (
+            not isinstance(request, ThreeDOperationRequest)
+            or not isinstance(result, ThreeDOperationResult)
+            or self.reality is not ThreeDReality.REAL
+            or result.reality is not ThreeDReality.REAL
+            or result.status is not ThreeDStatus.SUCCEEDED
+            or result.operation not in {ThreeDOperation.ANIMATE, ThreeDOperation.RETARGET, ThreeDOperation.BAKE}
+            or request.operation is not result.operation
+            or request.request_sha256 != result.request_sha256
+            or request.identity.semantic_digest != result.identity_digest
+            or request.project_ref != access.project_ref
+            or result.project_ref != access.project_ref
+            or not result.editable_source
+            or result.preview_only
+            or result.output_artifact_ref is None
+            or result.output_content_ref is None
+            or result.report_ref is None
+            or result.process_call_ref is None
+            or request.animation_clip_spec is None
+            or request.skeleton_spec is None
+        ):
+            raise AnimationContractError("animation handoff requires one exact successful REAL editable result")
+        output_ref = result.output_artifact_ref
+        output_content = result.output_content_ref
+        report_ref = result.report_ref
+        try:
+            self._authorize_project(access, result.project_ref)
+            connection = self._connect()
+            try:
+                rows = connection.execute(
+                    "SELECT result_json,record_sha256 FROM three_d_operation_results WHERE project_id=? AND adapter_ref=?",
+                    (result.project_ref.value, self.adapter_ref),
+                ).fetchall()
+            finally:
+                connection.close()
+            persisted: ThreeDOperationResult | None = None
+            for row in rows:
+                candidate = self._result_from_row(row)
+                if (
+                    hmac.compare_digest(candidate.record_sha256, result.record_sha256)
+                    and candidate.request_sha256 == result.request_sha256
+                ):
+                    persisted = candidate
+                    break
+            if persisted != result:
+                raise AnimationContractError("animation result is forged, stale, or not durably persisted")
+            output = self.artifacts.get_artifact(access, output_ref)
+            if (
+                output.content_ref is None
+                or _content_payload(output.content_ref) != _content_payload(output_content)
+                or output.derivation_type != f"3d.{result.operation.value.replace('_', '-')}"
+            ):
+                raise AnimationContractError("animation artifact identity differs from durable result")
+            self.object_store.verify(output_content)
+            self.object_store.verify(report_ref)
+            process = self.process.get_result(
+                access,
+                ToolCallRef(result.project_ref, result.process_call_ref.rsplit("/", 1)[-1]),
+            )
+            report = self._driver_report(self.object_store.read(process.stdout_ref))
+            report_bytes = _json(report).encode()
+            if (
+                hashlib.sha256(report_bytes).hexdigest() != report_ref.digest
+                or len(report_bytes) != report_ref.size_bytes
+                or process.status is not ProcessStatus.SUCCEEDED
+                or process.process_identity is None
+            ):
+                raise AnimationContractError("animation result lacks exact successful driver evidence")
+            self._verify_operation_report_schema(request, report)
+            identity = report.get("animation_identity")
+            if (
+                not isinstance(identity, dict)
+                or identity.get("clip_sha256") != request.animation_clip_spec.semantic_digest
+                or identity.get("source_skeleton_sha256") != request.animation_clip_spec.source_skeleton_sha256
+                or identity.get("target_skeleton_sha256") != request.skeleton_spec.semantic_digest
+                or identity.get("root_motion_policy") != request.root_motion_policy.value
+            ):
+                raise AnimationContractError("animation report identity changed")
+            return report, output_ref, output_content, report_ref
+        except AnimationContractError:
+            raise
+        except (ArtifactError, ObjectStorageError, ProcessError, ThreeDError, ValueError) as exc:
+            raise AnimationContractError("animation handoff evidence failed verification") from exc
+
+    @staticmethod
+    def _rig_identity_payload(rig: CharacterRigRef) -> dict[str, object]:
+        return {
+            "character_artifact_ref": rig.character_artifact_ref,
+            "character_content_sha256": rig.character_content_sha256,
+            "character_id": rig.character_id,
+            "coordinate_convention_ref": rig.coordinate_convention_ref,
+            "coordinate_system": dict(rig.coordinate_system),
+            "mesh_content_sha256": rig.mesh_content_sha256,
+            "mesh_ref": rig.mesh_ref,
+            "project_ref": rig.project_ref.value,
+            "provenance_ref": rig.provenance_ref,
+            "rest_pose_ref": rig.rest_pose_ref,
+            "rig_artifact_ref": rig.rig_artifact_ref,
+            "rig_content_sha256": rig.rig_content_sha256,
+            "rig_id": rig.rig_id,
+            "scale": list(rig.scale),
+            "script_provenance_ref": rig.script_provenance_ref,
+            "skeleton_content_sha256": rig.skeleton_content_sha256,
+            "skeleton_ref": rig.skeleton_ref,
+            "target_metadata": dict(rig.target_metadata),
+            "tool_provenance_ref": rig.tool_provenance_ref,
+        }
+
+    @staticmethod
+    def _rig_from_payload(payload: object) -> CharacterRigRef:
+        if not isinstance(payload, dict):
+            raise AnimationContractError("persisted mapping rig identity is malformed")
+        try:
+            scale = cast(list[float], payload["scale"])
+            return CharacterRigRef(
+                project_ref=ProjectRef(cast(str, payload["project_ref"])),
+                character_id=cast(str, payload["character_id"]),
+                character_artifact_ref=cast(str, payload["character_artifact_ref"]),
+                character_content_sha256=cast(str, payload["character_content_sha256"]),
+                mesh_ref=cast(str, payload["mesh_ref"]),
+                mesh_content_sha256=cast(str, payload["mesh_content_sha256"]),
+                skeleton_ref=cast(str, payload["skeleton_ref"]),
+                skeleton_content_sha256=cast(str, payload["skeleton_content_sha256"]),
+                rig_id=cast(str, payload["rig_id"]),
+                rig_artifact_ref=cast(str, payload["rig_artifact_ref"]),
+                rig_content_sha256=cast(str, payload["rig_content_sha256"]),
+                scale=(float(scale[0]), float(scale[1]), float(scale[2])),
+                coordinate_system=cast(dict[str, str], payload["coordinate_system"]),
+                coordinate_convention_ref=cast(str, payload["coordinate_convention_ref"]),
+                rest_pose_ref=cast(str, payload["rest_pose_ref"]),
+                provenance_ref=cast(str, payload["provenance_ref"]),
+                tool_provenance_ref=cast(str, payload["tool_provenance_ref"]),
+                script_provenance_ref=cast(str, payload["script_provenance_ref"]),
+                target_metadata=cast(dict[str, str], payload["target_metadata"]),
+            )
+        except (CharacterContractError, KeyError, TypeError, ValueError) as exc:
+            raise AnimationContractError("persisted mapping rig identity is malformed") from exc
+
+    @classmethod
+    def _mapping_payload(
+        cls,
+        mapping_id: str,
+        mapping_version: str,
+        source_rig_ref: CharacterRigRef,
+        target_rig_ref: CharacterRigRef,
+        mappings: tuple[BoneMapping, ...],
+    ) -> dict[str, object]:
+        return {
+            "bone_mappings": [
+                {"source_bone": item.source_bone, "target_bone": item.target_bone}
+                for item in mappings
+            ],
+            "mapping_id": mapping_id,
+            "mapping_version": mapping_version,
+            "source_rig_ref": cls._rig_identity_payload(source_rig_ref),
+            "target_rig_ref": cls._rig_identity_payload(target_rig_ref),
+        }
+
+    @staticmethod
+    def _artifact_ref_from_value(access: ProjectAccess, value: str) -> ArtifactRef:
+        prefix = f"artifact://{access.project_ref.value}/"
+        if not isinstance(value, str) or not value.startswith(prefix):
+            raise AnimationContractError("mapping artifact reference is malformed")
+        parts = value.removeprefix(prefix).split("/")
+        if len(parts) != 2 or not parts[1].isdigit():
+            raise AnimationContractError("mapping artifact reference is malformed")
+        try:
+            return ArtifactRef(access.project_ref, parts[0], int(parts[1]))
+        except (TypeError, ValueError) as exc:
+            raise AnimationContractError("mapping artifact reference is malformed") from exc
+
+    def _require_animation_rig(
+        self,
+        access: ProjectAccess,
+        rig: CharacterRigRef,
+        skeleton_digest: str,
+    ) -> ArtifactRef:
+        if (
+            not isinstance(rig, CharacterRigRef)
+            or rig.project_ref != access.project_ref
+            or rig.skeleton_content_sha256 != skeleton_digest
+            or not rig.rig_artifact_ref.startswith(f"artifact://{access.project_ref.value}/")
+        ):
+            raise AnimationContractError("character rig is stale, forged, or out of project scope")
+        artifact_ref = self._artifact_ref_from_value(access, rig.rig_artifact_ref)
+        try:
+            artifact = self.artifacts.get_artifact(access, artifact_ref)
+        except ArtifactError as exc:
+            raise AnimationContractError("character rig artifact is not durable") from exc
+        if artifact.content_ref is None or artifact.content_ref.digest != rig.rig_content_sha256:
+            raise AnimationContractError("character rig artifact content changed")
+        return artifact_ref
+
+    def _animation_lineage_contains(
+        self,
+        access: ProjectAccess,
+        output_ref: ArtifactRef,
+        expected_ref: ArtifactRef,
+        expected_digest: str,
+    ) -> bool:
+        pending = [output_ref]
+        seen: set[ArtifactRef] = set()
+        while pending:
+            current = pending.pop()
+            if current in seen:
+                continue
+            seen.add(current)
+            artifact = self.artifacts.get_artifact(access, current)
+            if artifact.artifact_ref == expected_ref and artifact.content_ref is not None and artifact.content_ref.digest == expected_digest:
+                return True
+            pending.extend(artifact.source_artifact_refs)
+            if len(seen) > 256:
+                raise AnimationContractError("animation artifact lineage is unbounded")
+        return False
+
+    def _mapping_from_artifact(
+        self,
+        access: ProjectAccess,
+        mapping_ref: str,
+        content_sha256: str,
+    ) -> RetargetMapping:
+        artifact_ref = self._artifact_ref_from_value(access, mapping_ref)
+        try:
+            artifact = self.artifacts.get_artifact(access, artifact_ref)
+            if (
+                artifact.role != "3d.retarget-mapping"
+                or artifact.derivation_type != "3d.retarget-mapping"
+                or artifact.content_ref is None
+                or artifact.content_ref.digest != content_sha256
+            ):
+                raise AnimationContractError("retarget mapping artifact identity changed")
+            self.object_store.verify(artifact.content_ref)
+            raw = self.object_store.read(artifact.content_ref)
+            if hashlib.sha256(raw).hexdigest() != content_sha256:
+                raise AnimationContractError("retarget mapping bytes changed")
+            payload = json.loads(raw.decode("utf-8"))
+            if not isinstance(payload, dict) or _json(payload).encode() != raw:
+                raise AnimationContractError("retarget mapping bytes are not canonical")
+            pairs = payload.get("bone_mappings")
+            if not isinstance(pairs, list):
+                raise AnimationContractError("retarget mapping pairs are malformed")
+            mapping = RetargetMapping(
+                project_ref=access.project_ref,
+                mapping_id=cast(str, payload["mapping_id"]),
+                mapping_version=cast(str, payload["mapping_version"]),
+                source_rig_ref=self._rig_from_payload(payload["source_rig_ref"]),
+                target_rig_ref=self._rig_from_payload(payload["target_rig_ref"]),
+                bone_mappings=tuple(
+                    BoneMapping(cast(str, item["source_bone"]), cast(str, item["target_bone"]))
+                    for item in pairs
+                    if isinstance(item, dict)
+                ),
+                mapping_ref=artifact_ref.value,
+                content_sha256=artifact.content_ref.digest,
+            )
+            if len(mapping.bone_mappings) != len(pairs):
+                raise AnimationContractError("retarget mapping pairs are malformed")
+            connection = self._connect()
+            try:
+                row = connection.execute(
+                    "SELECT mapping_semantic_sha256,content_sha256 FROM three_d_retarget_mapping_records "
+                    "WHERE project_id=? AND adapter_ref=? AND artifact_id=? AND artifact_revision=?",
+                    (access.project_ref.value, self.adapter_ref, artifact_ref.artifact_id, artifact_ref.revision),
+                ).fetchone()
+            finally:
+                connection.close()
+            if (
+                row is None
+                or not hmac.compare_digest(cast(str, row["mapping_semantic_sha256"]), content_sha256)
+                or not hmac.compare_digest(cast(str, row["content_sha256"]), content_sha256)
+            ):
+                raise AnimationContractError("retarget mapping artifact lacks durable record")
+            return mapping
+        except AnimationContractError:
+            raise
+        except (ArtifactError, ObjectStorageError, UnicodeDecodeError, json.JSONDecodeError, KeyError, TypeError, ValueError) as exc:
+            raise AnimationContractError("retarget mapping artifact failed verification") from exc
+
+    def _persist_mapping_artifact(
+        self,
+        access: ProjectAccess,
+        result: ThreeDOperationResult,
+        output_ref: ArtifactRef,
+        output_content: ContentRef,
+        source_artifact: ArtifactRef,
+        target_artifact: ArtifactRef,
+        mapping_id: str,
+        mapping_version: str,
+        source_rig_ref: CharacterRigRef,
+        target_rig_ref: CharacterRigRef,
+        pairs: tuple[BoneMapping, ...],
+    ) -> RetargetMapping:
+        payload = self._mapping_payload(mapping_id, mapping_version, source_rig_ref, target_rig_ref, pairs)
+        raw = _json(payload).encode()
+        content = self.object_store.put(raw, media_type="application/vnd.biella.retarget-mapping+json")
+        mapping_digest = content.digest
+        connection = self._connect()
+        try:
+            row = connection.execute(
+                "SELECT artifact_id,artifact_revision,content_sha256,mapping_semantic_sha256 FROM three_d_retarget_mapping_records "
+                "WHERE project_id=? AND adapter_ref=? AND result_record_sha256=? AND mapping_id=? AND mapping_version=?",
+                (access.project_ref.value, self.adapter_ref, result.record_sha256, mapping_id, mapping_version),
+            ).fetchone()
+        finally:
+            connection.close()
+        if row is not None:
+            if not hmac.compare_digest(cast(str, row["mapping_semantic_sha256"]), mapping_digest):
+                raise AnimationContractError("retarget mapping finalization conflicts with durable bytes")
+            artifact_ref = ArtifactRef(access.project_ref, cast(str, row["artifact_id"]), cast(int, row["artifact_revision"]))
+            return self._mapping_from_artifact(access, artifact_ref.value, cast(str, row["content_sha256"]))
+        artifact = self.artifacts.create_artifact(
+            access,
+            project_ref=access.project_ref,
+            role="3d.retarget-mapping",
+            content_ref=content,
+            source_refs=(),
+            source_artifact_refs=(output_ref, source_artifact, target_artifact),
+            source_content_refs=(output_content,),
+            derivation_type="3d.retarget-mapping",
+            metadata={
+                "media_type": "application/vnd.biella.retarget-mapping+json",
+                "schema_ref": "schema://biella/retarget-mapping/v1",
+                "schema_version": "1.0.0",
+                "semantic_label": "retarget-mapping",
+                "semantic_version": "1.0.0",
+            },
+        )
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN IMMEDIATE")
+            try:
+                connection.execute(
+                    "INSERT INTO three_d_retarget_mapping_records VALUES (?,?,?,?,?,?,?,?,?)",
+                    (
+                        access.project_ref.value, self.adapter_ref, result.record_sha256,
+                        mapping_id, mapping_version, mapping_digest, artifact.artifact_ref.artifact_id,
+                        artifact.artifact_ref.revision, content.digest,
+                    ),
+                )
+                connection.commit()
+                return self._mapping_from_artifact(access, artifact.artifact_ref.value, content.digest)
+            except sqlite3.IntegrityError:
+                connection.rollback()
+                row = connection.execute(
+                    "SELECT artifact_id,artifact_revision,content_sha256,mapping_semantic_sha256 FROM three_d_retarget_mapping_records "
+                    "WHERE project_id=? AND adapter_ref=? AND result_record_sha256=? AND mapping_id=? AND mapping_version=?",
+                    (access.project_ref.value, self.adapter_ref, result.record_sha256, mapping_id, mapping_version),
+                ).fetchone()
+                if row is None or not hmac.compare_digest(cast(str, row["mapping_semantic_sha256"]), mapping_digest):
+                    raise AnimationContractError("retarget mapping persistence conflicts")
+                winner = ArtifactRef(access.project_ref, cast(str, row["artifact_id"]), cast(int, row["artifact_revision"]))
+                return self._mapping_from_artifact(access, winner.value, cast(str, row["content_sha256"]))
+        finally:
+            connection.close()
+
+    def finalize_retarget_mapping(
+        self,
+        access: ProjectAccess,
+        request: ThreeDOperationRequest,
+        result: ThreeDOperationResult,
+        source_rig_ref: CharacterRigRef,
+        target_rig_ref: CharacterRigRef,
+        *,
+        mapping_id: str,
+        mapping_version: str,
+    ) -> RetargetMapping:
+        report, output_ref, output_content, _ = self._verified_animation_handoff(access, request, result)
+        if request.operation is not ThreeDOperation.RETARGET or request.retarget_spec is None:
+            raise AnimationContractError("retarget mapping requires an exact RETARGET request")
+        assert request.skeleton_spec is not None
+        source_artifact = self._require_animation_rig(access, source_rig_ref, request.retarget_spec.source_skeleton_spec.semantic_digest)
+        target_artifact = self._require_animation_rig(access, target_rig_ref, request.skeleton_spec.semantic_digest)
+        if not self._animation_lineage_contains(access, output_ref, source_artifact, source_rig_ref.rig_content_sha256):
+            raise AnimationContractError("retarget result lineage does not contain its exact source rig")
+        identity = report.get("animation_identity")
+        if not isinstance(identity, dict) or identity.get("retarget_sha256") != request.retarget_spec.semantic_digest:
+            raise AnimationContractError("retarget mapping report identity changed")
+        try:
+            return self._persist_mapping_artifact(
+                access, result, output_ref, output_content, source_artifact, target_artifact,
+                mapping_id, mapping_version, source_rig_ref, target_rig_ref,
+                tuple(BoneMapping(item.source_bone_name, item.target_bone_name) for item in request.retarget_spec.mappings),
+            )
+        except AnimationContractError:
+            raise
+        except (TypeError, ValueError) as exc:
+            raise AnimationContractError("retarget mapping finalization is malformed") from exc
+
+    def finalize_animation_clip(
+        self,
+        access: ProjectAccess,
+        request: ThreeDOperationRequest,
+        result: ThreeDOperationResult,
+        character_rig_ref: CharacterRigRef,
+        *,
+        clip_id: str,
+        mapping: RetargetMapping | None = None,
+    ) -> AnimationClip:
+        report, output_ref, output_content, report_ref = self._verified_animation_handoff(access, request, result)
+        assert request.animation_clip_spec is not None
+        assert request.skeleton_spec is not None
+        rig_artifact = self._require_animation_rig(access, character_rig_ref, request.skeleton_spec.semantic_digest)
+        if request.operation is ThreeDOperation.RETARGET:
+            resolved = (
+                self._mapping_from_artifact(access, mapping.mapping_ref, mapping.content_sha256)
+                if isinstance(mapping, RetargetMapping)
+                else None
+            )
+            if (
+                not isinstance(mapping, RetargetMapping)
+                or resolved != mapping
+                or request.retarget_spec is None
+                or mapping.project_ref != access.project_ref
+                or mapping.source_rig_ref.skeleton_content_sha256 != request.retarget_spec.source_skeleton_spec.semantic_digest
+                or mapping.target_rig_ref != character_rig_ref
+                or tuple((item.source_bone, item.target_bone) for item in mapping.bone_mappings)
+                != tuple((item.source_bone_name, item.target_bone_name) for item in request.retarget_spec.mappings)
+            ):
+                raise AnimationContractError("retarget animation clip requires its exact finalized mapping")
+        elif mapping is not None and mapping.target_rig_ref != character_rig_ref:
+            raise AnimationContractError("animation mapping is stale or mismatched")
+        if request.operation is not ThreeDOperation.RETARGET and not self._animation_lineage_contains(access, output_ref, rig_artifact, character_rig_ref.rig_content_sha256):
+            raise AnimationContractError("animation result lineage does not contain its exact character rig")
+        inspection = report.get("inspection")
+        if not isinstance(inspection, dict):
+            raise AnimationContractError("animation report inspection is malformed")
+        animation = inspection.get("animation")
+        if not isinstance(animation, dict) or not isinstance(animation.get("actions"), list):
+            raise AnimationContractError("animation report lacks action inspection")
+        action = next(
+            (item for item in animation["actions"] if isinstance(item, dict) and item.get("clip_sha256") == request.animation_clip_spec.semantic_digest),
+            None,
+        )
+        frame_rate = animation.get("frame_rate")
+        if (
+            not isinstance(action, dict)
+            or isinstance(frame_rate, bool)
+            or not isinstance(frame_rate, (int, float))
+            or not math.isfinite(float(frame_rate))
+            or float(frame_rate) <= 0.0
+            or any(not isinstance(action.get(name), (int, float)) for name in ("start_frame", "end_frame", "fcurve_count", "keyframe_count", "loop_error"))
+        ):
+            raise AnimationContractError("animation timing or channel inspection is malformed")
+        start_frame = float(cast(float | int, action["start_frame"]))
+        end_frame = float(cast(float | int, action["end_frame"]))
+        if not end_frame > start_frame:
+            raise AnimationContractError("animation action timing is stale or empty")
+        start_time = start_frame / float(frame_rate)
+        end_time = end_frame / float(frame_rate)
+        try:
+            return AnimationClip(
+                project_ref=access.project_ref,
+                clip_id=clip_id,
+                source_artifact_ref=output_ref.value,
+                content_sha256=output_content.digest,
+                character_rig_ref=character_rig_ref,
+                start_time=start_time,
+                end_time=end_time,
+                duration_seconds=end_time - start_time,
+                frame_rate=float(frame_rate),
+                time_unit="seconds",
+                channel_summary={"fcurves": int(cast(int | float, action["fcurve_count"])), "keyframes": int(cast(int | float, action["keyframe_count"]))},
+                root_motion_metadata={"policy": request.root_motion_policy.value},
+                loop_metadata={"loop_error": str(action["loop_error"]), "tolerance": str(request.animation_clip_spec.loop_tolerance)},
+                coordinate_system={"skeleton": request.skeleton_spec.coordinate_system},
+                coordinate_convention_ref=character_rig_ref.coordinate_convention_ref,
+                tool_provenance_ref=f"tool-provenance://three-d/{result.identity_digest}",
+                runtime_ref=f"runtime://three-d/{result.identity_digest}",
+                content_ref=f"content://sha256/{output_content.digest}",
+            )
+        except AnimationContractError:
+            raise
+        except (TypeError, ValueError) as exc:
+            raise AnimationContractError("animation clip finalization is malformed") from exc
 
     def describe_reference(
         self,

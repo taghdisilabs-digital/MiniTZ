@@ -644,9 +644,19 @@ from .character_pack import (
     CharacterSpecification,
     character_production_pack,
 )
+from .animation_pack import (
+    AnimationClip,
+    AnimationSet,
+    BoneMapping,
+    RetargetMapping,
+    RetargetRequest,
+    animation_production_pack,
+)
 from .three_d_tool import (
     BlenderThreeDToolAdapter,
     ReferenceThreeDToolAdapter,
+    ThreeDAnimationClipSpec,
+    ThreeDAnimationKeyframe,
     ThreeDBoneSpec,
     ThreeDAuthorityError,
     ThreeDConflictError,
@@ -667,6 +677,9 @@ from .three_d_tool import (
     ThreeDToolAdapter,
     ThreeDToolIdentity,
     ThreeDValidationRequirements,
+    ThreeDRetargetBoneMapping,
+    ThreeDRetargetSpec,
+    ThreeDRootMotionPolicy,
 )
 from .three_d_pack import three_d_production_pack
 from .large_scale_pack import (
@@ -1284,8 +1297,16 @@ __all__ = [
     "CharacterRigRef",
     "CharacterSpecification",
     "character_production_pack",
+    "AnimationClip",
+    "AnimationSet",
+    "BoneMapping",
+    "RetargetMapping",
+    "RetargetRequest",
+    "animation_production_pack",
     "BlenderThreeDToolAdapter",
     "ReferenceThreeDToolAdapter",
+    "ThreeDAnimationClipSpec",
+    "ThreeDAnimationKeyframe",
     "ThreeDBoneSpec",
     "ThreeDAuthorityError",
     "ThreeDConflictError",
@@ -1306,6 +1327,9 @@ __all__ = [
     "ThreeDToolAdapter",
     "ThreeDToolIdentity",
     "ThreeDValidationRequirements",
+    "ThreeDRetargetBoneMapping",
+    "ThreeDRetargetSpec",
+    "ThreeDRootMotionPolicy",
     "software_production_pack",
     "web_production_pack",
     "game_production_pack",

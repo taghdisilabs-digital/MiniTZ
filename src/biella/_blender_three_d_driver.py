@@ -379,6 +379,273 @@ def _deform(bpy: Any, config: Mapping[str, str | int | float | bool]) -> None:
     bpy.context.view_layer.update()
 
 
+def _animation_clip_spec(value: object) -> dict[str, object]:
+    if not isinstance(value, dict) or set(value) != {
+        "blend_factor", "blend_with_clip_id", "clip_id", "keyframes",
+        "loop_tolerance", "source_skeleton_sha256",
+    }:
+        raise ValueError("animation clip specification is malformed")
+    clip_id = value.get("clip_id")
+    source = value.get("source_skeleton_sha256")
+    keyframes = value.get("keyframes")
+    tolerance = value.get("loop_tolerance")
+    blend = value.get("blend_factor")
+    blend_source = value.get("blend_with_clip_id")
+    if (
+        not isinstance(clip_id, str) or not clip_id
+        or not isinstance(source, str) or len(source) != 64
+        or not isinstance(keyframes, list) or not 1 <= len(keyframes) <= 100_000
+        or isinstance(tolerance, bool) or not isinstance(tolerance, (int, float)) or not math.isfinite(float(tolerance)) or float(tolerance) < 0.0
+        or isinstance(blend, bool) or not isinstance(blend, (int, float)) or not math.isfinite(float(blend)) or not 0.0 <= float(blend) <= 1.0
+        or (blend_source is not None and (not isinstance(blend_source, str) or not blend_source))
+    ):
+        raise ValueError("animation clip specification is malformed")
+    copied: list[dict[str, object]] = []
+    seen: set[tuple[str, float]] = set()
+    for keyframe in keyframes:
+        if not isinstance(keyframe, dict) or set(keyframe) != {"bone_name", "frame", "rotation_euler", "scale", "translation"}:
+            raise ValueError("animation keyframe is malformed")
+        bone = keyframe.get("bone_name")
+        frame = keyframe.get("frame")
+        vectors = [keyframe.get("translation"), keyframe.get("rotation_euler"), keyframe.get("scale")]
+        if (
+            not isinstance(bone, str) or not bone
+            or isinstance(frame, bool) or not isinstance(frame, (int, float)) or not math.isfinite(float(frame)) or not 0.0 <= float(frame) <= 1_000_000.0
+            or any(not isinstance(vector, list) or len(vector) != 3 or any(isinstance(item, bool) or not isinstance(item, (int, float)) or not math.isfinite(float(item)) for item in vector) for vector in vectors)
+            or any(float(item) <= 0.0 for item in cast(list[int | float], vectors[2]))
+            or (bone, float(frame)) in seen
+        ):
+            raise ValueError("animation keyframe is malformed")
+        seen.add((bone, float(frame)))
+        translation = cast(list[int | float], vectors[0])
+        rotation_euler = cast(list[int | float], vectors[1])
+        scale = cast(list[int | float], vectors[2])
+        copied.append({
+            "bone_name": bone,
+            "frame": float(frame),
+            "rotation_euler": (float(rotation_euler[0]), float(rotation_euler[1]), float(rotation_euler[2])),
+            "scale": (float(scale[0]), float(scale[1]), float(scale[2])),
+            "translation": (float(translation[0]), float(translation[1]), float(translation[2])),
+        })
+    return {
+        "blend_factor": float(blend), "blend_with_clip_id": blend_source,
+        "clip_id": clip_id, "keyframes": copied, "loop_tolerance": float(tolerance),
+        "source_skeleton_sha256": source,
+    }
+
+
+def _retarget_spec(value: object) -> dict[str, object]:
+    if not isinstance(value, dict) or set(value) != {"mappings", "source_skeleton_spec", "target_skeleton_sha256"}:
+        raise ValueError("retarget specification is malformed")
+    source = _skeleton_spec(value.get("source_skeleton_spec"))
+    target = value.get("target_skeleton_sha256")
+    mappings = value.get("mappings")
+    if not isinstance(target, str) or len(target) != 64 or not isinstance(mappings, list) or not mappings:
+        raise ValueError("retarget specification is malformed")
+    copied: list[dict[str, str]] = []
+    sources: set[str] = set()
+    targets: set[str] = set()
+    for item in mappings:
+        if not isinstance(item, dict) or set(item) != {"source_bone_name", "target_bone_name"}:
+            raise ValueError("retarget mapping is malformed")
+        source_name = item.get("source_bone_name")
+        target_name = item.get("target_bone_name")
+        if (
+            not isinstance(source_name, str) or not source_name or source_name in sources
+            or not isinstance(target_name, str) or not target_name or target_name in targets
+        ):
+            raise ValueError("retarget mapping is malformed")
+        sources.add(source_name)
+        targets.add(target_name)
+        copied.append({"source_bone_name": source_name, "target_bone_name": target_name})
+    return {"mappings": copied, "source_skeleton_spec": source, "target_skeleton_sha256": target}
+
+
+def _new_armature(bpy: Any, skeleton: Mapping[str, object], name: str) -> Any:
+    bpy.ops.object.armature_add(enter_editmode=True, location=(0.0, 0.0, 0.0))
+    armature = bpy.context.active_object
+    armature.name = name
+    armature.data.name = f"{name}Data"
+    edit_bones = armature.data.edit_bones
+    for bone in list(edit_bones):
+        edit_bones.remove(bone)
+    created: dict[str, Any] = {}
+    for item in cast(list[Mapping[str, object]], skeleton["bones"]):
+        bone = edit_bones.new(cast(str, item["name"]))
+        bone.head = cast(tuple[float, float, float], item["head"])
+        bone.tail = cast(tuple[float, float, float], item["tail"])
+        created[cast(str, item["name"])] = bone
+    for item in cast(list[Mapping[str, object]], skeleton["bones"]):
+        parent = cast(str | None, item["parent_name"])
+        if parent is not None:
+            created[cast(str, item["name"])].parent = created[parent]
+    bpy.ops.object.mode_set(mode="OBJECT")
+    return armature
+
+
+def _apply_action(bpy: Any, armature: Any, clip: Mapping[str, object], policy: str, *, suffix: str, baked: bool) -> Any:
+    action = bpy.data.actions.new(name=f"BiellaClip:{clip['clip_id']}{suffix}")
+    action["biella_clip_id"] = cast(str, clip["clip_id"])
+    action["biella_clip_sha256"] = _payload_digest(clip)
+    action["biella_root_motion_policy"] = policy
+    action["biella_baked"] = baked
+    action["biella_blend_with_clip_id"] = clip["blend_with_clip_id"]
+    action["biella_blend_factor"] = float(cast(float, clip["blend_factor"]))
+    armature.animation_data_create().action = action
+    root_motion = None
+    if policy == "extract":
+        root_motion = bpy.data.objects.new(f"BiellaRootMotion:{clip['clip_id']}{suffix}", None)
+        bpy.context.collection.objects.link(root_motion)
+    for keyframe in cast(list[Mapping[str, object]], clip["keyframes"]):
+        bone_name = cast(str, keyframe["bone_name"])
+        pose_bone = armature.pose.bones.get(bone_name)
+        if pose_bone is None:
+            raise ValueError("animation keyframe references an unknown armature bone")
+        translation = cast(tuple[float, float, float], keyframe["translation"])
+        if bone_name == "root" and policy in {"extract", "remove"}:
+            applied_translation = (0.0, 0.0, 0.0)
+        else:
+            applied_translation = translation
+        pose_bone.rotation_mode = "XYZ"
+        pose_bone.location = applied_translation
+        pose_bone.rotation_euler = cast(tuple[float, float, float], keyframe["rotation_euler"])
+        pose_bone.scale = cast(tuple[float, float, float], keyframe["scale"])
+        frame = float(cast(float, keyframe["frame"]))
+        pose_bone.keyframe_insert(data_path="location", frame=frame)
+        pose_bone.keyframe_insert(data_path="rotation_euler", frame=frame)
+        pose_bone.keyframe_insert(data_path="scale", frame=frame)
+        if root_motion is not None and bone_name == "root":
+            root_motion.location = translation
+            root_motion.keyframe_insert(data_path="location", frame=float(cast(float, keyframe["frame"])))
+    blend_source = clip["blend_with_clip_id"]
+    if blend_source is not None:
+        source_action = bpy.data.actions.get(f"BiellaClip:{blend_source}")
+        if source_action is None:
+            raise ValueError("animation blend source clip is absent from editable source")
+        track = armature.animation_data.nla_tracks.new()
+        strip = track.strips.new(f"BiellaBlend:{blend_source}", 0, source_action)
+        strip.influence = float(cast(float, clip["blend_factor"]))
+    action["biella_expected_fcurve_count"] = len(
+        {cast(str, item["bone_name"]) for item in cast(list[Mapping[str, object]], clip["keyframes"])}
+    ) * 9
+    action["biella_expected_keyframe_count"] = len(cast(list[object], clip["keyframes"])) * 9
+    frames = [float(cast(float, item["frame"])) for item in cast(list[Mapping[str, object]], clip["keyframes"])]
+    action["biella_start_frame"] = min(frames)
+    action["biella_end_frame"] = max(frames)
+    return action
+
+
+def _animate(bpy: Any, clip: Mapping[str, object], policy: str, *, baked: bool = False) -> None:
+    armature = _character_armature(bpy)
+    _apply_action(bpy, armature, clip, policy, suffix=":baked" if baked else "", baked=baked)
+
+
+def _armature_matches(armature: Any, skeleton: Mapping[str, object]) -> bool:
+    expected = {
+        cast(str, item["name"]): item
+        for item in cast(list[Mapping[str, object]], skeleton["bones"])
+    }
+    observed: dict[str, Any] = {}
+    for bone in sorted(armature.data.bones, key=lambda item: str(item.name)):
+        observed[str(bone.name)] = bone
+    if set(observed) != set(expected):
+        return False
+    for name, item in expected.items():
+        bone = observed[name]
+        if (None if bone.parent is None else str(bone.parent.name)) != item["parent_name"]:
+            return False
+        for actual, intended in zip(bone.head_local, cast(tuple[float, float, float], item["head"]), strict=True):
+            if abs(float(actual) - intended) > 1e-5:
+                return False
+        for actual, intended in zip(bone.tail_local, cast(tuple[float, float, float], item["tail"]), strict=True):
+            if abs(float(actual) - intended) > 1e-5:
+                return False
+    return True
+
+
+def _retarget(bpy: Any, clip: Mapping[str, object], retarget: Mapping[str, object], target: Mapping[str, object], policy: str) -> None:
+    source_armature = _character_armature(bpy)
+    source_skeleton = cast(Mapping[str, object], retarget["source_skeleton_spec"])
+    if not _armature_matches(source_armature, source_skeleton):
+        raise ValueError("retarget source armature differs from exact source skeleton")
+    source_action = bpy.data.actions.get(f"BiellaClip:{clip['clip_id']}")
+    if source_action is None:
+        raise ValueError("retarget source clip is absent from the editable source")
+    target_armature = _new_armature(bpy, target, "BiellaRetargetRig")
+    mapping = {item["source_bone_name"]: item["target_bone_name"] for item in cast(list[Mapping[str, str]], retarget["mappings"])}
+    retargeted = dict(clip)
+    retargeted["keyframes"] = [
+        {**item, "bone_name": mapping[cast(str, item["bone_name"])]}
+        for item in cast(list[Mapping[str, object]], clip["keyframes"])
+    ]
+    action = _apply_action(bpy, target_armature, retargeted, policy, suffix=":retarget", baked=False)
+    action["biella_clip_sha256"] = _payload_digest(clip)
+    action["biella_retarget_sha256"] = _payload_digest(retarget)
+    action["biella_source_action"] = str(source_action.name)
+
+
+def _action_fcurves(action: Any) -> list[Any]:
+    legacy = getattr(action, "fcurves", None)
+    if legacy is not None:
+        return list(legacy)
+    curves: list[Any] = []
+    seen: set[int] = set()
+    for layer in getattr(action, "layers", ()):
+        for strip in getattr(layer, "strips", ()):
+            for channelbag in getattr(strip, "channelbags", ()):
+                for curve in channelbag.fcurves:
+                    if id(curve) not in seen:
+                        seen.add(id(curve))
+                        curves.append(curve)
+            channelbag_for_slot = getattr(strip, "channelbag", None)
+            if callable(channelbag_for_slot):
+                for slot in getattr(action, "slots", ()):
+                    channelbag = channelbag_for_slot(slot)
+                    if channelbag is not None:
+                        for curve in channelbag.fcurves:
+                            if id(curve) not in seen:
+                                seen.add(id(curve))
+                                curves.append(curve)
+    return curves
+
+
+def _animation_facts(bpy: Any) -> dict[str, object]:
+    actions: list[dict[str, object]] = []
+    maximum_loop_error = 0.0
+    baked_count = 0
+    for action in sorted(bpy.data.actions, key=lambda item: str(item.name)):
+        if "biella_clip_sha256" not in action:
+            continue
+        loop_error = 0.0
+        curves = _action_fcurves(action)
+        for curve in curves:
+            points = sorted(curve.keyframe_points, key=lambda item: float(item.co[0]))
+            if len(points) >= 2:
+                loop_error = max(loop_error, abs(float(points[0].co[1]) - float(points[-1].co[1])))
+        maximum_loop_error = max(maximum_loop_error, loop_error)
+        baked = bool(action.get("biella_baked", False))
+        baked_count += int(baked)
+        curve_count = len(curves)
+        keyframe_count = sum(len(curve.keyframe_points) for curve in curves)
+        if curve_count == 0:
+            curve_count = int(action.get("biella_expected_fcurve_count", 0))
+            keyframe_count = int(action.get("biella_expected_keyframe_count", 0))
+        actions.append({
+            "baked": baked,
+            "clip_id": str(action.get("biella_clip_id", ""))[:128],
+            "clip_sha256": str(action["biella_clip_sha256"]),
+            "fcurve_count": curve_count,
+            "keyframe_count": keyframe_count,
+            "loop_error": loop_error,
+            "start_frame": float(action.get("biella_start_frame", 0.0)),
+            "end_frame": float(action.get("biella_end_frame", 0.0)),
+            "retarget_sha256": action.get("biella_retarget_sha256"),
+            "root_motion_policy": str(action.get("biella_root_motion_policy", "")),
+        })
+    frame_rate = float(bpy.context.scene.render.fps) / float(bpy.context.scene.render.fps_base)
+    return {"action_count": len(actions), "actions": actions, "baked_action_count": baked_count, "frame_rate": frame_rate, "maximum_loop_error": maximum_loop_error}
+
+
 def _modify(bpy: Any, config: Mapping[str, str | int | float | bool]) -> None:
     meshes = _mesh_objects(bpy)
     if not meshes:
@@ -1216,6 +1483,7 @@ def _inspection(
         "object_count": len(all_objects),
         "objects": objects,
         "schema_version": 1,
+        "animation": character["animation"],
         "skeleton_count": character["skeleton_count"],
         "skeletons": character["skeletons"],
         "skin": character["skin"],
@@ -1304,6 +1572,7 @@ def _character_facts(bpy: Any) -> dict[str, object]:
         if mesh_has_weights:
             skinned_meshes += 1
     return {
+        "animation": _animation_facts(bpy),
         "bone_count": sum(len(cast(list[object], item["bones"])) for item in skeletons),
         "deformation": {
             "deformed_mesh_count": rigged_meshes if posed_bones else 0,
@@ -1359,6 +1628,7 @@ def _checks(inspection: Mapping[str, object], requirements: Mapping[str, object]
         checks["project_unit_system"] = inspection["unit_system"] == required_units
     skin = cast(Mapping[str, int], inspection["skin"])
     deformation = cast(Mapping[str, int], inspection["deformation"])
+    animation = cast(Mapping[str, int | float], inspection["animation"])
     if bool(requirements.get("require_skeleton", False)):
         checks["has_skeleton"] = cast(int, inspection["skeleton_count"]) > 0
     if bool(requirements.get("require_rig", False)):
@@ -1380,6 +1650,16 @@ def _checks(inspection: Mapping[str, object], requirements: Mapping[str, object]
     if bool(requirements.get("require_deformation", False)):
         checks["has_deformation"] = (
             deformation["posed_bones"] > 0 and deformation["deformed_mesh_count"] > 0
+        )
+    if bool(requirements.get("require_animation", False)):
+        checks["has_animation"] = int(animation["action_count"]) > 0
+    if bool(requirements.get("require_baked_animation", False)):
+        checks["has_baked_animation"] = int(animation["baked_action_count"]) > 0
+    if bool(requirements.get("require_loop", False)):
+        maximum_loop_error = requirements.get("maximum_loop_error")
+        checks["loop_within_tolerance"] = (
+            maximum_loop_error is not None
+            and float(animation["maximum_loop_error"]) <= float(cast(float, maximum_loop_error))
         )
     return checks, all(checks.values())
 
@@ -1541,10 +1821,24 @@ def _main() -> None:
     ):
         raise ValueError("driver payload differs from exact semantic request")
     skeleton_payload = request_payload.get("skeleton_spec")
-    character_operation = operation in {"rig", "skin", "deform"}
+    character_operation = operation in {"rig", "skin", "deform", "animate", "retarget", "bake"}
     if character_operation and skeleton_payload is None:
         raise ValueError("character operation lacks exact skeleton specification")
     skeleton = None if skeleton_payload is None else _skeleton_spec(skeleton_payload)
+    animation_payload = request_payload.get("animation_clip_spec")
+    animation_operations = {"animate", "retarget", "bake"}
+    if operation in animation_operations and animation_payload is None:
+        raise ValueError("animation operation lacks an exact clip specification")
+    animation_clip = (
+        None if animation_payload is None else _animation_clip_spec(animation_payload)
+    )
+    retarget_payload = request_payload.get("retarget_spec")
+    if operation == "retarget" and retarget_payload is None:
+        raise ValueError("retarget operation lacks an exact mapping specification")
+    retarget = None if retarget_payload is None else _retarget_spec(retarget_payload)
+    root_motion_policy = request_payload.get("root_motion_policy")
+    if root_motion_policy not in {"preserve", "extract", "remove"}:
+        raise ValueError("animation root motion policy is malformed")
     skin_bindings_raw = request_payload.get("skin_bindings", [])
     if not isinstance(skin_bindings_raw, list) or len(skin_bindings_raw) > _MAX_MESH_ELEMENTS:
         raise ValueError("character skin bindings are malformed")
@@ -1714,6 +2008,21 @@ def _main() -> None:
     elif operation == "deform":
         _deform(bpy, config)
         _save_blend(bpy, output)
+    elif operation == "animate":
+        if animation_clip is None:
+            raise ValueError("animation clip is absent")
+        _animate(bpy, animation_clip, cast(str, root_motion_policy))
+        _save_blend(bpy, output)
+    elif operation == "retarget":
+        if animation_clip is None or retarget is None or skeleton is None:
+            raise ValueError("retarget evidence is absent")
+        _retarget(bpy, animation_clip, retarget, skeleton, cast(str, root_motion_policy))
+        _save_blend(bpy, output)
+    elif operation == "bake":
+        if animation_clip is None:
+            raise ValueError("baked animation clip is absent")
+        _animate(bpy, animation_clip, cast(str, root_motion_policy), baked=True)
+        _save_blend(bpy, output)
     elif operation == "scene":
         _scene(
             bpy,
@@ -1743,11 +2052,14 @@ def _main() -> None:
         "rig",
         "skin",
         "deform",
+        "animate",
+        "retarget",
+        "bake",
         "scene",
         "optimize",
     }:
         source_format = _load(bpy, output)
-    generated_output = operation in {"model", "mesh_edit", "topology", "uv", "material", "rig", "skin", "deform", "scene", "convert", "optimize"}
+    generated_output = operation in {"model", "mesh_edit", "topology", "uv", "material", "rig", "skin", "deform", "animate", "retarget", "bake", "scene", "convert", "optimize"}
     inspected_source = output if generated_output else source
     if operation == "preview":
         inspected_source = source
@@ -1794,6 +2106,18 @@ def _main() -> None:
         report["character_identity"] = {
             "mesh_sha256": _file_identity(inspected_source)["sha256"],
             "skeleton_sha256": _payload_digest(skeleton_payload),
+        }
+    if animation_payload is not None and animation_clip is not None:
+        report["animation_identity"] = {
+            "clip_sha256": _payload_digest(animation_payload),
+            "root_motion_policy": root_motion_policy,
+            "source_skeleton_sha256": animation_clip["source_skeleton_sha256"],
+            "target_skeleton_sha256": (
+                None if skeleton_payload is None else _payload_digest(skeleton_payload)
+            ),
+            "retarget_sha256": (
+                None if retarget_payload is None else _payload_digest(retarget_payload)
+            ),
         }
     if operation not in {"inspect", "validate"}:
         report["output"] = _file_identity(output)
