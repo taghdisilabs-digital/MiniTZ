@@ -19,13 +19,21 @@ import signal
 import sqlite3
 import stat as stat_module
 import subprocess
+import sys
 import tempfile
 import time
 from types import MappingProxyType
 from typing import BinaryIO, cast
 from uuid import uuid4
 
-from .artifact import Artifact, ArtifactRef, ArtifactService, ContentRef
+from .artifact import (
+    Artifact,
+    ArtifactConflictError,
+    ArtifactNotFoundError,
+    ArtifactRef,
+    ArtifactService,
+    ContentRef,
+)
 from .call_ledger import (
     CallAuthorityError,
     CallConflictError,
@@ -34,7 +42,11 @@ from .call_ledger import (
     ToolCallRef,
 )
 from .capability import Capability, CapabilityRef, CapabilityRegistry
-from .execution import NodeExecutionAttempt
+from .execution import (
+    NodeExecutionAttempt,
+    NodeExecutionAuthorityError,
+    NodeExecutionError,
+)
 from .filesystem import (
     FilesystemAdapter,
     FilesystemAuthorityError,
@@ -60,7 +72,12 @@ from .routing import (
     ImplementationKind,
     RoutingNotFoundError,
 )
-from .run import ExecutionAttempt, RunService
+from .run import (
+    ExecutionAttempt,
+    RunAuthorityError,
+    RunError,
+    RunService,
+)
 from .scheduler import (
     ResourceAllocationRef,
     SchedulerAuthorityError,
@@ -86,6 +103,37 @@ _RESULT_MEDIA_TYPE = "application/vnd.biella.process-result+json"
 _STDOUT_MEDIA_TYPE = "application/vnd.biella.process-output"
 _STDERR_MEDIA_TYPE = "application/vnd.biella.process-output"
 _READ_CHUNK = 64 * 1024
+_CONTENT_DESCRIPTOR_PREFIX = "@biella-content-fd:"
+_DIRECTORY_DESCRIPTOR_PREFIX = "@biella-directory-fd:"
+_LAUNCH_GATE_SCRIPT = """
+import os
+import sys
+
+status_fd = int(sys.argv[3])
+try:
+    gate_fd = int(sys.argv[1])
+    executable_fd = int(sys.argv[2])
+    working_fd = int(sys.argv[4])
+    target_argv = sys.argv[5:]
+    try:
+        release = os.read(gate_fd, 1)
+    finally:
+        os.close(gate_fd)
+    if release != b"1":
+        raise RuntimeError("launch gate closed before release")
+    os.close(working_fd)
+    os.set_inheritable(executable_fd, False)
+    os.set_inheritable(status_fd, False)
+    os.execve(f"/proc/self/fd/{executable_fd}", target_argv, os.environ)
+except BaseException as exc:
+    try:
+        error_number = getattr(exc, "errno", None)
+        token = f"gate-failed:{error_number or 0}".encode("ascii")
+        os.write(status_fd, token)
+    except OSError:
+        pass
+    os._exit(126)
+"""
 
 
 class ProcessError(Exception):
@@ -138,6 +186,7 @@ class ProcessFailure(str, Enum):
     OUTPUT_LIMIT = "OUTPUT_LIMIT"
     RESOURCE_LIMIT = "RESOURCE_LIMIT"
     POLICY_DENIED = "POLICY_DENIED"
+    RECOVERY_UNCERTAIN = "RECOVERY_UNCERTAIN"
 
 
 def _json(value: object) -> str:
@@ -277,6 +326,13 @@ class ProcessExecutionRequest:
     resource_policy: ProcessResourcePolicy = field(default_factory=ProcessResourcePolicy)
     resource_allocation_ref: ResourceAllocationRef | None = None
     shell: bool = False
+    expected_executable_sha256: str | None = None
+    descriptor_content_refs: Mapping[str, ContentRef] = field(
+        default_factory=dict
+    )
+    descriptor_directory_paths: Mapping[str, str] = field(
+        default_factory=dict
+    )
     request_sha256: str = field(init=False)
 
     def __post_init__(self) -> None:
@@ -291,6 +347,13 @@ class ProcessExecutionRequest:
         executable = _text(self.executable, "executable")
         if not os.path.isabs(executable):
             raise ProcessContractError("executable must be an absolute path, not PATH lookup")
+        if self.expected_executable_sha256 is not None and (
+            not isinstance(self.expected_executable_sha256, str)
+            or _SHA256.fullmatch(self.expected_executable_sha256) is None
+        ):
+            raise ProcessContractError(
+                "expected executable digest is malformed"
+            )
         if not isinstance(self.argv, tuple) or len(self.argv) > 4096:
             raise ProcessContractError("argv must be a bounded tuple")
         for item in self.argv:
@@ -311,17 +374,84 @@ class ProcessExecutionRequest:
             raise ProcessContractError("environment and secret environment keys overlap")
         if self.stdin_ref is not None and not isinstance(self.stdin_ref, ContentRef):
             raise ProcessContractError("stdin_ref must be exact ContentRef")
-        for value, name in (
+        if (
+            not isinstance(self.descriptor_content_refs, Mapping)
+            or len(self.descriptor_content_refs) > 256
+        ):
+            raise ProcessContractError(
+                "descriptor_content_refs must be a bounded mapping"
+            )
+        descriptor_refs: dict[str, ContentRef] = {}
+        for key, content_value in self.descriptor_content_refs.items():
+            _key(key)
+            if not isinstance(content_value, ContentRef):
+                raise ProcessContractError(
+                    "descriptor_content_refs requires exact ContentRefs"
+                )
+            descriptor_refs[key] = content_value
+        object.__setattr__(
+            self,
+            "descriptor_content_refs",
+            MappingProxyType(dict(sorted(descriptor_refs.items()))),
+        )
+        if (
+            not isinstance(self.descriptor_directory_paths, Mapping)
+            or len(self.descriptor_directory_paths) > 64
+        ):
+            raise ProcessContractError(
+                "descriptor_directory_paths must be a bounded mapping"
+            )
+        directory_paths: dict[str, str] = {}
+        for key, directory_value in self.descriptor_directory_paths.items():
+            _key(key)
+            try:
+                parts = FilesystemAdapter._relative_parts(directory_value)
+                normalized = "." if not parts else "/".join(parts)
+            except FilesystemContractError as exc:
+                raise ProcessContractError(
+                    "descriptor directory path must be canonical and relative"
+                ) from exc
+            directory_paths[key] = normalized
+        object.__setattr__(
+            self,
+            "descriptor_directory_paths",
+            MappingProxyType(dict(sorted(directory_paths.items()))),
+        )
+        descriptor_markers = [
+            item.removeprefix(_CONTENT_DESCRIPTOR_PREFIX)
+            for item in self.argv
+            if item.startswith(_CONTENT_DESCRIPTOR_PREFIX)
+        ]
+        if (
+            len(descriptor_markers) != len(set(descriptor_markers))
+            or set(descriptor_markers) != set(descriptor_refs)
+        ):
+            raise ProcessContractError(
+                "every descriptor ContentRef requires one exact argv marker"
+            )
+        directory_markers = [
+            item.removeprefix(_DIRECTORY_DESCRIPTOR_PREFIX)
+            for item in self.argv
+            if item.startswith(_DIRECTORY_DESCRIPTOR_PREFIX)
+        ]
+        if (
+            len(directory_markers) != len(set(directory_markers))
+            or set(directory_markers) != set(directory_paths)
+        ):
+            raise ProcessContractError(
+                "every descriptor directory requires one exact argv marker"
+            )
+        for duration_value, name in (
             (self.timeout_seconds, "timeout_seconds"),
             (self.termination_grace_seconds, "termination_grace_seconds"),
         ):
-            if isinstance(value, bool) or not isinstance(value, (int, float)) or not 0 < float(value) <= 31_536_000:
+            if isinstance(duration_value, bool) or not isinstance(duration_value, (int, float)) or not 0 < float(duration_value) <= 31_536_000:
                 raise ProcessContractError(f"{name} is invalid")
-        for value, name in (
+        for limit_value, name in (
             (self.stdout_limit_bytes, "stdout_limit_bytes"),
             (self.stderr_limit_bytes, "stderr_limit_bytes"),
         ):
-            if not isinstance(value, int) or isinstance(value, bool) or value < 0 or value > 2**63 - 1:
+            if not isinstance(limit_value, int) or isinstance(limit_value, bool) or limit_value < 0 or limit_value > 2**63 - 1:
                 raise ProcessContractError(f"{name} is invalid")
         if not isinstance(self.network_policy, NetworkPolicy) or not isinstance(self.resource_policy, ProcessResourcePolicy):
             raise ProcessContractError("network or resource policy is malformed")
@@ -339,7 +469,7 @@ class ProcessExecutionRequest:
         return CapabilityRef("process.shell" if self.shell else "process.execute", "1.0.0")
 
     def payload(self) -> dict[str, object]:
-        return {
+        payload: dict[str, object] = {
             "argv": list(self.argv),
             "environment_overrides": dict(self.environment_overrides),
             "executable": self.executable,
@@ -358,6 +488,20 @@ class ProcessExecutionRequest:
             "working_directory": self.working_directory,
             "working_root_ref": self.working_root_ref.value,
         }
+        if self.expected_executable_sha256 is not None:
+            payload["expected_executable_sha256"] = (
+                self.expected_executable_sha256
+            )
+        if self.descriptor_content_refs:
+            payload["descriptor_content_refs"] = {
+                key: _content_payload(value)
+                for key, value in self.descriptor_content_refs.items()
+            }
+        if self.descriptor_directory_paths:
+            payload["descriptor_directory_paths"] = dict(
+                self.descriptor_directory_paths
+            )
+        return payload
 
 
 @dataclass(frozen=True)
@@ -575,6 +719,25 @@ class _StartedCall:
 
 
 @dataclass(frozen=True)
+class _LaunchReservation:
+    disposition: str
+    owner_pid: int
+    owner_boot_id: str
+    owner_start_ticks: int
+    reserved_at: str
+
+
+@dataclass(frozen=True)
+class _RecoveryAuthority:
+    generation: int
+    owner_token: str
+    owner_pid: int
+    owner_boot_id: str
+    owner_start_ticks: int
+    acquired_at: str
+
+
+@dataclass(frozen=True)
 class _ProcessObservation:
     identity: ManagedProcessIdentity | None
     status: ProcessStatus
@@ -672,6 +835,46 @@ class ManagedProcessAdapter:
                     FOREIGN KEY (project_id, call_id) REFERENCES calls(project_id, call_id)
                       ON UPDATE RESTRICT ON DELETE RESTRICT
                 );
+                CREATE TABLE IF NOT EXISTS managed_process_prepared_executions (
+                    project_id TEXT NOT NULL,
+                    execution_id TEXT NOT NULL,
+                    call_id TEXT NOT NULL,
+                    pid INTEGER NOT NULL,
+                    process_group_id INTEGER NOT NULL,
+                    boot_id TEXT NOT NULL,
+                    start_ticks INTEGER NOT NULL,
+                    executable_sha256 TEXT NOT NULL,
+                    executable_device INTEGER NOT NULL,
+                    executable_inode INTEGER NOT NULL,
+                    started_at TEXT NOT NULL,
+                    record_sha256 TEXT NOT NULL,
+                    PRIMARY KEY (project_id, execution_id),
+                    UNIQUE (project_id, call_id),
+                    FOREIGN KEY (project_id, call_id) REFERENCES calls(project_id, call_id)
+                      ON UPDATE RESTRICT ON DELETE RESTRICT
+                );
+                CREATE TABLE IF NOT EXISTS managed_process_launches (
+                    project_id TEXT NOT NULL,
+                    call_id TEXT NOT NULL,
+                    node_attempt_id TEXT NOT NULL,
+                    idempotency_key TEXT NOT NULL,
+                    disposition TEXT NOT NULL CHECK (disposition IN ('LAUNCH','RECOVERY')),
+                    owner_pid INTEGER NOT NULL,
+                    owner_boot_id TEXT NOT NULL,
+                    owner_start_ticks INTEGER NOT NULL,
+                    reserved_at TEXT NOT NULL,
+                    record_sha256 TEXT NOT NULL,
+                    PRIMARY KEY (project_id, call_id),
+                    UNIQUE (project_id, node_attempt_id, idempotency_key),
+                    FOREIGN KEY (project_id, call_id) REFERENCES managed_process_claims(project_id, call_id)
+                      ON UPDATE RESTRICT ON DELETE RESTRICT
+                );
+                INSERT OR IGNORE INTO managed_process_prepared_executions
+                  SELECT project_id,execution_id,call_id,pid,process_group_id,
+                         boot_id,start_ticks,executable_sha256,
+                         executable_device,executable_inode,started_at,
+                         record_sha256
+                    FROM managed_process_executions;
                 CREATE TABLE IF NOT EXISTS managed_process_results (
                     project_id TEXT NOT NULL,
                     call_id TEXT NOT NULL,
@@ -682,6 +885,47 @@ class ManagedProcessAdapter:
                     FOREIGN KEY (project_id, call_id) REFERENCES calls(project_id, call_id)
                       ON UPDATE RESTRICT ON DELETE RESTRICT
                 );
+                CREATE TABLE IF NOT EXISTS managed_process_recovery_heads (
+                    project_id TEXT NOT NULL,
+                    call_id TEXT NOT NULL,
+                    generation INTEGER NOT NULL,
+                    owner_token_sha256 TEXT NOT NULL,
+                    owner_pid INTEGER NOT NULL,
+                    owner_boot_id TEXT NOT NULL,
+                    owner_start_ticks INTEGER NOT NULL,
+                    acquired_at TEXT NOT NULL,
+                    head_sha256 TEXT NOT NULL,
+                    PRIMARY KEY (project_id, call_id),
+                    FOREIGN KEY (project_id, call_id) REFERENCES managed_process_claims(project_id, call_id)
+                      ON UPDATE RESTRICT ON DELETE RESTRICT
+                );
+                CREATE TABLE IF NOT EXISTS managed_process_recovery_events (
+                    project_id TEXT NOT NULL,
+                    call_id TEXT NOT NULL,
+                    generation INTEGER NOT NULL,
+                    owner_token_sha256 TEXT NOT NULL,
+                    owner_pid INTEGER NOT NULL,
+                    owner_boot_id TEXT NOT NULL,
+                    owner_start_ticks INTEGER NOT NULL,
+                    acquired_at TEXT NOT NULL,
+                    prior_head_sha256 TEXT,
+                    event_sha256 TEXT NOT NULL,
+                    PRIMARY KEY (project_id, call_id, generation),
+                    FOREIGN KEY (project_id, call_id) REFERENCES managed_process_claims(project_id, call_id)
+                      ON UPDATE RESTRICT ON DELETE RESTRICT
+                );
+                CREATE TABLE IF NOT EXISTS managed_process_recovery_releases (
+                    project_id TEXT NOT NULL,
+                    call_id TEXT NOT NULL,
+                    generation INTEGER NOT NULL,
+                    owner_token_sha256 TEXT NOT NULL,
+                    released_at TEXT NOT NULL,
+                    release_sha256 TEXT NOT NULL,
+                    PRIMARY KEY (project_id, call_id, generation),
+                    FOREIGN KEY (project_id, call_id, generation)
+                      REFERENCES managed_process_recovery_events(project_id, call_id, generation)
+                      ON UPDATE RESTRICT ON DELETE RESTRICT
+                );
                 CREATE TRIGGER IF NOT EXISTS managed_process_claims_no_update BEFORE UPDATE ON managed_process_claims
                   BEGIN SELECT RAISE(ABORT, 'Managed process claims are immutable'); END;
                 CREATE TRIGGER IF NOT EXISTS managed_process_claims_no_delete BEFORE DELETE ON managed_process_claims
@@ -690,10 +934,26 @@ class ManagedProcessAdapter:
                   BEGIN SELECT RAISE(ABORT, 'Managed process identities are immutable'); END;
                 CREATE TRIGGER IF NOT EXISTS managed_process_executions_no_delete BEFORE DELETE ON managed_process_executions
                   BEGIN SELECT RAISE(ABORT, 'Managed process identities cannot be deleted'); END;
+                CREATE TRIGGER IF NOT EXISTS managed_process_prepared_no_update BEFORE UPDATE ON managed_process_prepared_executions
+                  BEGIN SELECT RAISE(ABORT, 'Managed process prepared identities are immutable'); END;
+                CREATE TRIGGER IF NOT EXISTS managed_process_prepared_no_delete BEFORE DELETE ON managed_process_prepared_executions
+                  BEGIN SELECT RAISE(ABORT, 'Managed process prepared identities cannot be deleted'); END;
+                CREATE TRIGGER IF NOT EXISTS managed_process_launches_no_update BEFORE UPDATE ON managed_process_launches
+                  BEGIN SELECT RAISE(ABORT, 'Managed process launch reservations are immutable'); END;
+                CREATE TRIGGER IF NOT EXISTS managed_process_launches_no_delete BEFORE DELETE ON managed_process_launches
+                  BEGIN SELECT RAISE(ABORT, 'Managed process launch reservations cannot be deleted'); END;
                 CREATE TRIGGER IF NOT EXISTS managed_process_results_no_update BEFORE UPDATE ON managed_process_results
                   BEGIN SELECT RAISE(ABORT, 'Managed process results are immutable'); END;
                 CREATE TRIGGER IF NOT EXISTS managed_process_results_no_delete BEFORE DELETE ON managed_process_results
                   BEGIN SELECT RAISE(ABORT, 'Managed process results cannot be deleted'); END;
+                CREATE TRIGGER IF NOT EXISTS managed_process_recovery_events_no_update BEFORE UPDATE ON managed_process_recovery_events
+                  BEGIN SELECT RAISE(ABORT, 'Managed process recovery events are immutable'); END;
+                CREATE TRIGGER IF NOT EXISTS managed_process_recovery_events_no_delete BEFORE DELETE ON managed_process_recovery_events
+                  BEGIN SELECT RAISE(ABORT, 'Managed process recovery events cannot be deleted'); END;
+                CREATE TRIGGER IF NOT EXISTS managed_process_recovery_releases_no_update BEFORE UPDATE ON managed_process_recovery_releases
+                  BEGIN SELECT RAISE(ABORT, 'Managed process recovery releases are immutable'); END;
+                CREATE TRIGGER IF NOT EXISTS managed_process_recovery_releases_no_delete BEFORE DELETE ON managed_process_recovery_releases
+                  BEGIN SELECT RAISE(ABORT, 'Managed process recovery releases cannot be deleted'); END;
                 """
             )
         finally:
@@ -799,7 +1059,9 @@ class ManagedProcessAdapter:
         except RoutingNotFoundError as exc:
             raise ProcessAuthorityError("managed process implementation is not registered") from exc
         start_key, _ = self._call_keys(attempt, idempotency_key)
-        inputs = (request_ref,) if request.stdin_ref is None else (request_ref, request.stdin_ref)
+        inputs = [request_ref, *request.descriptor_content_refs.values()]
+        if request.stdin_ref is not None:
+            inputs.append(request.stdin_ref)
         try:
             call = self.calls.start_tool_call(
                 access,
@@ -812,7 +1074,7 @@ class ManagedProcessAdapter:
                 tool_id=cast(str, implementation.tool_ref),
                 implementation_id=implementation.implementation_ref.value,
                 runtime_id=implementation.runtime_ref,
-                input_refs=inputs,
+                input_refs=self._unique_content_refs(inputs),
                 provider_trace_id=None,
             )
         except CallAuthorityError as exc:
@@ -880,6 +1142,297 @@ class ManagedProcessAdapter:
             raise
         finally:
             connection.close()
+
+    @staticmethod
+    def _launch_payload(
+        attempt: NodeExecutionAttempt,
+        idempotency_key: str,
+        started: _StartedCall,
+        reservation: _LaunchReservation,
+    ) -> dict[str, object]:
+        return {
+            "call_ref": started.call.call_ref.value,
+            "disposition": reservation.disposition,
+            "idempotency_key": idempotency_key,
+            "node_attempt_id": attempt.attempt_id,
+            "owner_boot_id": reservation.owner_boot_id,
+            "owner_pid": reservation.owner_pid,
+            "owner_start_ticks": reservation.owner_start_ticks,
+            "request_ref": started.request_ref.value,
+            "reserved_at": reservation.reserved_at,
+        }
+
+    def _reserve_disposition(
+        self,
+        attempt: NodeExecutionAttempt,
+        idempotency_key: str,
+        started: _StartedCall,
+        *,
+        disposition: str,
+    ) -> tuple[_LaunchReservation, bool]:
+        if disposition not in {"LAUNCH", "RECOVERY"}:
+            raise ProcessIntegrityError(
+                "managed process launch disposition is unsupported"
+            )
+        owner_pid = os.getpid()
+        owner_boot_id = self._boot_id()
+        owner_start_ticks = self._start_ticks(owner_pid)
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN IMMEDIATE")
+            claim = connection.execute(
+                "SELECT * FROM managed_process_claims WHERE project_id=? "
+                "AND node_attempt_id=? AND idempotency_key=?",
+                (
+                    attempt.node_ref.project_ref.value,
+                    attempt.attempt_id,
+                    idempotency_key,
+                ),
+            ).fetchone()
+            if (
+                claim is None
+                or claim["call_id"] != started.call.call_ref.call_id
+                or claim["request_digest"] != started.request_ref.digest
+                or claim["request_size"] != started.request_ref.size_bytes
+                or claim["request_media_type"] != started.request_ref.media_type
+            ):
+                raise ProcessIntegrityError(
+                    "managed process launch lost its exact immutable claim"
+                )
+            existing = connection.execute(
+                "SELECT * FROM managed_process_launches WHERE project_id=? "
+                "AND call_id=?",
+                (
+                    attempt.node_ref.project_ref.value,
+                    started.call.call_ref.call_id,
+                ),
+            ).fetchone()
+            if existing is not None:
+                reservation = _LaunchReservation(
+                    cast(str, existing["disposition"]),
+                    cast(int, existing["owner_pid"]),
+                    cast(str, existing["owner_boot_id"]),
+                    cast(int, existing["owner_start_ticks"]),
+                    cast(str, existing["reserved_at"]),
+                )
+                expected = self._launch_payload(
+                    attempt,
+                    idempotency_key,
+                    started,
+                    reservation,
+                )
+                if (
+                    existing["node_attempt_id"] != attempt.attempt_id
+                    or existing["idempotency_key"] != idempotency_key
+                    or not hmac.compare_digest(
+                        cast(str, existing["record_sha256"]),
+                        _digest(expected),
+                    )
+                ):
+                    raise ProcessIntegrityError(
+                        "managed process launch reservation changed"
+                    )
+                connection.commit()
+                return reservation, False
+            reservation = _LaunchReservation(
+                disposition,
+                owner_pid,
+                owner_boot_id,
+                owner_start_ticks,
+                self._database_now(connection),
+            )
+            payload = self._launch_payload(
+                attempt,
+                idempotency_key,
+                started,
+                reservation,
+            )
+            connection.execute(
+                "INSERT INTO managed_process_launches VALUES (?,?,?,?,?,?,?,?,?,?)",
+                (
+                    attempt.node_ref.project_ref.value,
+                    started.call.call_ref.call_id,
+                    attempt.attempt_id,
+                    idempotency_key,
+                    reservation.disposition,
+                    reservation.owner_pid,
+                    reservation.owner_boot_id,
+                    reservation.owner_start_ticks,
+                    reservation.reserved_at,
+                    _digest(payload),
+                ),
+            )
+            connection.commit()
+            return reservation, True
+        except sqlite3.IntegrityError as exc:
+            connection.rollback()
+            raise ProcessConflictError(
+                "managed process launch reservation conflicts"
+            ) from exc
+        except Exception:
+            connection.rollback()
+            raise
+        finally:
+            connection.close()
+
+    def _owner_state(self, reservation: _LaunchReservation) -> str:
+        try:
+            boot_id = self._boot_id()
+        except ProcessIntegrityError:
+            return "UNKNOWN"
+        if boot_id != reservation.owner_boot_id:
+            return "DEAD"
+        try:
+            raw = Path(f"/proc/{reservation.owner_pid}/stat").read_text(
+                encoding="ascii"
+            )
+        except FileNotFoundError:
+            return "DEAD"
+        except (OSError, UnicodeError):
+            return "UNKNOWN"
+        try:
+            fields = raw.rsplit(")", 1)[1].strip().split()
+            process_state = fields[0]
+            start_ticks = int(fields[19])
+        except (ValueError, IndexError):
+            return "UNKNOWN"
+        if process_state == "Z":
+            return "DEAD"
+        return (
+            "LIVE"
+            if start_ticks == reservation.owner_start_ticks
+            else "DEAD"
+        )
+
+    def _claimed_started_call(
+        self,
+        access: ProjectAccess,
+        attempt: NodeExecutionAttempt,
+        request: ProcessExecutionRequest,
+        idempotency_key: str,
+    ) -> _StartedCall | None:
+        request_ref = self._request_ref(request)
+        connection = self._connect()
+        try:
+            claim = connection.execute(
+                "SELECT * FROM managed_process_claims WHERE project_id=? "
+                "AND node_attempt_id=? AND idempotency_key=?",
+                (
+                    access.project_ref.value,
+                    attempt.attempt_id,
+                    idempotency_key,
+                ),
+            ).fetchone()
+        finally:
+            connection.close()
+        if claim is None:
+            return None
+        call_ref = ToolCallRef(
+            access.project_ref,
+            cast(str, claim["call_id"]),
+        )
+        expected_claim = _digest(
+            {
+                "call_ref": call_ref.value,
+                "idempotency_key": idempotency_key,
+                "node_attempt_id": attempt.attempt_id,
+                "project_ref": access.project_ref.value,
+                "request_ref": request_ref.value,
+            }
+        )
+        if (
+            claim["request_digest"] != request_ref.digest
+            or claim["request_size"] != request_ref.size_bytes
+            or claim["request_media_type"] != request_ref.media_type
+            or not hmac.compare_digest(
+                cast(str, claim["claim_sha256"]),
+                expected_claim,
+            )
+        ):
+            raise ProcessConflictError(
+                "managed process idempotency identity changed"
+            )
+        call = self.calls.get_tool_call(access, call_ref)
+        if call.attempt != attempt:
+            raise ProcessAuthorityError(
+                "managed process recovery lost exact Node attempt authority"
+            )
+        return _StartedCall(call, request_ref, False)
+
+    def _execution_identity_for_call(
+        self,
+        call_ref: ToolCallRef,
+    ) -> ManagedProcessIdentity | None:
+        return self._identity_for_call(
+            call_ref,
+            table="managed_process_executions",
+            label="execution",
+        )
+
+    def _prepared_identity_for_call(
+        self,
+        call_ref: ToolCallRef,
+    ) -> ManagedProcessIdentity | None:
+        return self._identity_for_call(
+            call_ref,
+            table="managed_process_prepared_executions",
+            label="prepared execution",
+        )
+
+    def _identity_for_call(
+        self,
+        call_ref: ToolCallRef,
+        *,
+        table: str,
+        label: str,
+    ) -> ManagedProcessIdentity | None:
+        if table not in {
+            "managed_process_executions",
+            "managed_process_prepared_executions",
+        }:
+            raise ProcessIntegrityError(
+                "managed process identity table is unsupported"
+            )
+        connection = self._connect()
+        try:
+            row = connection.execute(
+                f"SELECT * FROM {table} WHERE project_id=? AND call_id=?",
+                (call_ref.project_ref.value, call_ref.call_id),
+            ).fetchone()
+        finally:
+            connection.close()
+        if row is None:
+            return None
+        return self._identity_from_row(call_ref, row, label=label)
+
+    @staticmethod
+    def _identity_from_row(
+        call_ref: ToolCallRef,
+        row: sqlite3.Row,
+        *,
+        label: str,
+    ) -> ManagedProcessIdentity:
+        identity = ManagedProcessIdentity(
+            cast(str, row["execution_id"]),
+            call_ref.project_ref,
+            call_ref,
+            cast(int, row["pid"]),
+            cast(int, row["process_group_id"]),
+            cast(str, row["boot_id"]),
+            cast(int, row["start_ticks"]),
+            cast(str, row["executable_sha256"]),
+            cast(int, row["executable_device"]),
+            cast(int, row["executable_inode"]),
+            cast(str, row["started_at"]),
+        )
+        if not hmac.compare_digest(
+            identity.record_sha256,
+            cast(str, row["record_sha256"]),
+        ):
+            raise ProcessIntegrityError(
+                f"managed process recovery {label} identity changed"
+            )
+        return identity
 
     def _current_time(self) -> str:
         connection = self._connect()
@@ -949,6 +1502,83 @@ class ManagedProcessAdapter:
             raise ProcessIntegrityError("process working directory failed verification") from exc
 
     @staticmethod
+    def _open_descriptor_directory(
+        working_descriptor: int,
+        relative_path: str,
+    ) -> int:
+        try:
+            parts = FilesystemAdapter._relative_parts(relative_path)
+            current = os.dup(working_descriptor)
+            for part in parts:
+                try:
+                    state = os.stat(
+                        part,
+                        dir_fd=current,
+                        follow_symlinks=False,
+                    )
+                    if not stat_module.S_ISDIR(state.st_mode):
+                        raise ProcessAuthorityError(
+                            "process descriptor path is not a directory"
+                        )
+                    flags = os.O_RDONLY | os.O_DIRECTORY | os.O_CLOEXEC
+                    flags |= getattr(os, "O_NOFOLLOW", 0)
+                    child = os.open(part, flags, dir_fd=current)
+                finally:
+                    os.close(current)
+                current = child
+            return current
+        except ProcessError:
+            raise
+        except (FilesystemContractError, OSError) as exc:
+            raise ProcessIntegrityError(
+                "process descriptor directory could not be pinned"
+            ) from exc
+
+    def _open_descriptor_content(self, content_ref: ContentRef) -> BinaryIO:
+        """Return an exact read-only FD even for stream-only object stores."""
+
+        self.object_store.verify(content_ref)
+        reader = self.object_store.open(content_ref)
+        try:
+            reader.fileno()
+        except (AttributeError, OSError):
+            snapshot = tempfile.TemporaryFile(mode="w+b")
+            try:
+                digest = hashlib.sha256()
+                size = 0
+                with reader:
+                    while chunk := reader.read(_READ_CHUNK):
+                        snapshot.write(chunk)
+                        digest.update(chunk)
+                        size += len(chunk)
+                        if size > content_ref.size_bytes:
+                            raise ProcessIntegrityError(
+                                "process descriptor content exceeded its exact identity"
+                            )
+                if (
+                    size != content_ref.size_bytes
+                    or not hmac.compare_digest(
+                        digest.hexdigest(),
+                        content_ref.digest,
+                    )
+                ):
+                    raise ProcessIntegrityError(
+                        "process descriptor content differs from its exact identity"
+                    )
+                snapshot.flush()
+                descriptor = os.open(
+                    f"/proc/self/fd/{snapshot.fileno()}",
+                    os.O_RDONLY | os.O_CLOEXEC,
+                )
+                readonly = os.fdopen(descriptor, "rb")
+            except Exception:
+                snapshot.close()
+                raise
+            snapshot.close()
+            return readonly
+        return reader
+
+    @staticmethod
     def _open_executable(request: ProcessExecutionRequest) -> tuple[int, str, os.stat_result]:
         try:
             canonical = Path(request.executable).resolve(strict=True)
@@ -984,7 +1614,25 @@ class ManagedProcessAdapter:
                 break
             digest.update(chunk)
         os.lseek(descriptor, 0, os.SEEK_SET)
-        return descriptor, digest.hexdigest(), opened
+        executable_sha256 = digest.hexdigest()
+        if os.pread(descriptor, 4, 0) != b"\x7fELF":
+            os.close(descriptor)
+            raise ProcessAuthorityError(
+                "process executable must be a native ELF image; "
+                "scripts require an explicit interpreter executable"
+            )
+        if (
+            request.expected_executable_sha256 is not None
+            and not hmac.compare_digest(
+                executable_sha256,
+                request.expected_executable_sha256,
+            )
+        ):
+            os.close(descriptor)
+            raise ProcessAuthorityError(
+                "process executable differs from its expected digest"
+            )
+        return descriptor, executable_sha256, opened
 
     def _environment(
         self,
@@ -1066,7 +1714,7 @@ class ManagedProcessAdapter:
             raise ProcessIntegrityError("managed process start identity is malformed")
         return value
 
-    def _identity(
+    def _prepare_identity(
         self,
         access: ProjectAccess,
         call_ref: ToolCallRef,
@@ -1094,7 +1742,8 @@ class ManagedProcessAdapter:
         try:
             connection.execute("BEGIN IMMEDIATE")
             connection.execute(
-                "INSERT INTO managed_process_executions VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                "INSERT INTO managed_process_prepared_executions "
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
                 (
                     identity.project_ref.value,
                     identity.execution_id,
@@ -1117,6 +1766,81 @@ class ManagedProcessAdapter:
         finally:
             connection.close()
         return identity
+
+    def _persist_execution_identity(
+        self,
+        identity: ManagedProcessIdentity,
+    ) -> ManagedProcessIdentity:
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN IMMEDIATE")
+            prepared = connection.execute(
+                "SELECT * FROM managed_process_prepared_executions "
+                "WHERE project_id=? AND execution_id=? AND call_id=?",
+                (
+                    identity.project_ref.value,
+                    identity.execution_id,
+                    identity.tool_call_ref.call_id,
+                ),
+            ).fetchone()
+            if prepared is None or not self._identity_row_matches(
+                prepared,
+                identity,
+            ):
+                raise ProcessIntegrityError(
+                    "managed process prepared identity changed before exec"
+                )
+            connection.execute(
+                "INSERT INTO managed_process_executions "
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                (
+                    identity.project_ref.value,
+                    identity.execution_id,
+                    identity.tool_call_ref.call_id,
+                    identity.pid,
+                    identity.process_group_id,
+                    identity.boot_id,
+                    identity.start_ticks,
+                    identity.executable_sha256,
+                    identity.executable_device,
+                    identity.executable_inode,
+                    identity.started_at,
+                    identity.record_sha256,
+                ),
+            )
+            connection.commit()
+        except sqlite3.IntegrityError as exc:
+            connection.rollback()
+            raise ProcessConflictError(
+                "managed process execution identity conflicts"
+            ) from exc
+        except Exception:
+            connection.rollback()
+            raise
+        finally:
+            connection.close()
+        return identity
+
+    @staticmethod
+    def _identity_row_matches(
+        row: sqlite3.Row,
+        identity: ManagedProcessIdentity,
+    ) -> bool:
+        return (
+            row["call_id"] == identity.tool_call_ref.call_id
+            and row["pid"] == identity.pid
+            and row["process_group_id"] == identity.process_group_id
+            and row["boot_id"] == identity.boot_id
+            and row["start_ticks"] == identity.start_ticks
+            and row["executable_sha256"] == identity.executable_sha256
+            and row["executable_device"] == identity.executable_device
+            and row["executable_inode"] == identity.executable_inode
+            and row["started_at"] == identity.started_at
+            and hmac.compare_digest(
+                cast(str, row["record_sha256"]),
+                identity.record_sha256,
+            )
+        )
 
     def _identity_is_current(self, identity: ManagedProcessIdentity) -> bool:
         try:
@@ -1259,7 +1983,13 @@ class ManagedProcessAdapter:
         _, working_descriptor = self._working_directory(access, request)
         executable_descriptor: int | None = None
         pidfd: int | None = None
+        gate_reader: int | None = None
+        gate_writer: int | None = None
+        status_reader: int | None = None
+        status_writer: int | None = None
         stdin_reader: BinaryIO | None = None
+        descriptor_readers: dict[str, BinaryIO] = {}
+        descriptor_directories: dict[str, int] = {}
         stdout_sink = _BoundedRedactingSink(request.stdout_limit_bytes, secret_bytes)
         stderr_sink = _BoundedRedactingSink(request.stderr_limit_bytes, secret_bytes)
         try:
@@ -1274,13 +2004,60 @@ class ManagedProcessAdapter:
                     resource_enforcement=resource_enforcement,
                 )
             if request.stdin_ref is not None:
-                stdin_reader = self.object_store.open(request.stdin_ref)
-            args = (request.executable, *request.argv)
-            pass_descriptors = (working_descriptor, executable_descriptor)
+                stdin_reader = self._open_descriptor_content(request.stdin_ref)
+            for key, content_ref in request.descriptor_content_refs.items():
+                descriptor_readers[key] = self._open_descriptor_content(
+                    content_ref
+                )
+            for key, relative_path in request.descriptor_directory_paths.items():
+                descriptor_directories[key] = self._open_descriptor_directory(
+                    working_descriptor,
+                    relative_path,
+                )
+            target_args = (
+                request.executable,
+                *(
+                    str(
+                        descriptor_readers[
+                            item.removeprefix(_CONTENT_DESCRIPTOR_PREFIX)
+                        ].fileno()
+                    )
+                    if item.startswith(_CONTENT_DESCRIPTOR_PREFIX)
+                    else str(
+                        descriptor_directories[
+                            item.removeprefix(_DIRECTORY_DESCRIPTOR_PREFIX)
+                        ]
+                    )
+                    if item.startswith(_DIRECTORY_DESCRIPTOR_PREFIX)
+                    else item
+                    for item in request.argv
+                ),
+            )
+            gate_reader, gate_writer = os.pipe2(os.O_CLOEXEC)
+            status_reader, status_writer = os.pipe2(os.O_CLOEXEC)
+            gate_args = (
+                sys.executable,
+                "-I",
+                "-c",
+                _LAUNCH_GATE_SCRIPT,
+                str(gate_reader),
+                str(executable_descriptor),
+                str(status_writer),
+                str(working_descriptor),
+                *target_args,
+            )
+            pass_descriptors = (
+                working_descriptor,
+                executable_descriptor,
+                gate_reader,
+                status_writer,
+                *(reader.fileno() for reader in descriptor_readers.values()),
+                *descriptor_directories.values(),
+            )
             try:
                 process = subprocess.Popen(
-                    args,
-                    executable=f"/proc/self/fd/{executable_descriptor}",
+                    gate_args,
+                    executable="/proc/self/exe",
                     cwd=f"/proc/self/fd/{working_descriptor}",
                     env=environment,
                     stdin=subprocess.DEVNULL if stdin_reader is None else stdin_reader,
@@ -1298,6 +2075,10 @@ class ManagedProcessAdapter:
                     network_enforcement="INHERITED_NOT_ISOLATED",
                     resource_enforcement=resource_enforcement,
                 )
+            os.close(gate_reader)
+            gate_reader = None
+            os.close(status_writer)
+            status_writer = None
             try:
                 pidfd = os.pidfd_open(process.pid, 0)
             except (AttributeError, OSError) as exc:
@@ -1306,7 +2087,7 @@ class ManagedProcessAdapter:
                     process.wait(timeout=5)
                 raise ProcessIntegrityError("managed process pidfd identity is unavailable") from exc
             try:
-                identity = self._identity(
+                prepared_identity = self._prepare_identity(
                     access,
                     started.call.call_ref,
                     process,
@@ -1318,6 +2099,67 @@ class ManagedProcessAdapter:
                 if process.poll() is None and os.getpgid(process.pid) == process.pid:
                     os.killpg(process.pid, signal.SIGKILL)
                     process.wait(timeout=5)
+                raise
+            try:
+                os.write(gate_writer, b"1")
+            finally:
+                os.close(gate_writer)
+                gate_writer = None
+            status_selector = selectors.DefaultSelector()
+            try:
+                status_selector.register(status_reader, selectors.EVENT_READ)
+                ready = status_selector.select(
+                    min(5.0, float(request.timeout_seconds))
+                )
+                if not ready:
+                    self._terminate_owned(
+                        process,
+                        prepared_identity,
+                        float(request.termination_grace_seconds),
+                        pidfd=pidfd,
+                    )
+                    exec_error = b"launch gate acknowledgement timed out"
+                else:
+                    exec_error = os.read(status_reader, 128)
+            finally:
+                status_selector.close()
+                os.close(status_reader)
+                status_reader = None
+            if exec_error:
+                if process.poll() is None:
+                    self._terminate_owned(
+                        process,
+                        prepared_identity,
+                        float(request.termination_grace_seconds),
+                        pidfd=pidfd,
+                    )
+                else:
+                    process.wait(timeout=5)
+                assert process.stdout is not None and process.stderr is not None
+                process.stdout.close()
+                process.stderr.close()
+                return self._empty_observation(
+                    started_at=started_at,
+                    status=ProcessStatus.FAILED,
+                    failure=ProcessFailure.SPAWN_FAILED,
+                    network_enforcement="INHERITED_NOT_ISOLATED",
+                    resource_enforcement=resource_enforcement,
+                )
+            try:
+                identity = self._persist_execution_identity(
+                    prepared_identity
+                )
+            except Exception:
+                if (
+                    process.poll() is None
+                    or self._owned_group_has_live_members(prepared_identity)
+                ):
+                    self._terminate_owned(
+                        process,
+                        prepared_identity,
+                        float(request.termination_grace_seconds),
+                        pidfd=pidfd,
+                    )
                 raise
             assert process.stdout is not None and process.stderr is not None
             os.set_blocking(process.stdout.fileno(), False)
@@ -1452,10 +2294,22 @@ class ManagedProcessAdapter:
             stderr_sink.close()
             if stdin_reader is not None:
                 stdin_reader.close()
+            for reader in descriptor_readers.values():
+                reader.close()
+            for descriptor in descriptor_directories.values():
+                os.close(descriptor)
             if executable_descriptor is not None:
                 os.close(executable_descriptor)
             if pidfd is not None:
                 os.close(pidfd)
+            if gate_reader is not None:
+                os.close(gate_reader)
+            if gate_writer is not None:
+                os.close(gate_writer)
+            if status_reader is not None:
+                os.close(status_reader)
+            if status_writer is not None:
+                os.close(status_writer)
             os.close(working_descriptor)
 
     def _run_attempt(self, access: ProjectAccess, attempt: NodeExecutionAttempt) -> ExecutionAttempt:
@@ -1471,9 +2325,104 @@ class ManagedProcessAdapter:
             raise ProcessAuthorityError("exact Run execution authority is unavailable")
         return result
 
+    def _validate_recovery_authority(
+        self,
+        access: ProjectAccess,
+        attempt: NodeExecutionAttempt,
+        request: ProcessExecutionRequest,
+    ) -> None:
+        run_attempt = self._run_attempt(access, attempt)
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN IMMEDIATE")
+            try:
+                _, _, task, _ = self.calls.executions._require_live_attempt(
+                    connection,
+                    access,
+                    attempt,
+                    allowed_statuses={"RUNNING"},
+                )
+                current_run = (
+                    self.runs.assert_current_run_authority_in_transaction(
+                        connection,
+                        access,
+                        run_attempt,
+                    )
+                )
+            except (
+                NodeExecutionAuthorityError,
+                NodeExecutionError,
+                RunAuthorityError,
+                RunError,
+            ) as exc:
+                raise ProcessAuthorityError(
+                    "managed process recovery lost exact Node or Run authority"
+                ) from exc
+            if (
+                task.canonical_digest != attempt.task_digest
+                or current_run.task_ref != attempt.task_ref
+                or current_run.task_digest != attempt.task_digest
+            ):
+                raise ProcessAuthorityError(
+                    "managed process recovery Task authority changed"
+                )
+            connection.commit()
+        except Exception:
+            connection.rollback()
+            raise
+        finally:
+            connection.close()
+        if request.resource_allocation_ref is not None:
+            self._validate_allocation(access, attempt, request)
+
     @staticmethod
     def _unique_content_refs(values: Sequence[ContentRef]) -> tuple[ContentRef, ...]:
         return tuple(sorted({item.value: item for item in values}.values(), key=lambda item: item.value))
+
+    def _request_dependency_refs(
+        self,
+        request_ref: ContentRef,
+    ) -> tuple[ContentRef, ...]:
+        """Recover every exact byte dependency from immutable request evidence."""
+
+        try:
+            request_payload = json.loads(self.object_store.read(request_ref))
+        except (
+            ObjectStorageError,
+            json.JSONDecodeError,
+            UnicodeDecodeError,
+        ) as exc:
+            raise ProcessIntegrityError(
+                "managed process request evidence is unavailable"
+            ) from exc
+        if not isinstance(request_payload, dict):
+            raise ProcessIntegrityError(
+                "managed process request evidence is malformed"
+            )
+        stdin_ref = _content_from_payload(request_payload.get("stdin_ref"))
+        descriptor_payload = request_payload.get(
+            "descriptor_content_refs",
+            {},
+        )
+        if not isinstance(descriptor_payload, dict):
+            raise ProcessIntegrityError(
+                "managed process descriptor ContentRefs are malformed"
+            )
+        descriptor_refs: list[ContentRef] = []
+        for key, value in descriptor_payload.items():
+            if not isinstance(key, str):
+                raise ProcessIntegrityError(
+                    "managed process descriptor ContentRef key is malformed"
+                )
+            descriptor_ref = _content_from_payload(value)
+            if descriptor_ref is None:
+                raise ProcessIntegrityError(
+                    "managed process descriptor ContentRef is missing"
+                )
+            descriptor_refs.append(descriptor_ref)
+        if stdin_ref is not None:
+            descriptor_refs.append(stdin_ref)
+        return self._unique_content_refs(descriptor_refs)
 
     def _result_manifest(
         self,
@@ -1509,31 +2458,90 @@ class ManagedProcessAdapter:
         self,
         access: ProjectAccess,
         attempt: NodeExecutionAttempt,
+        call_ref: ToolCallRef,
         request: ProcessExecutionRequest,
         request_ref: ContentRef,
         result_ref: ContentRef,
         observation: _ProcessObservation,
     ) -> Artifact:
         sources = [request_ref, observation.stdout_ref, observation.stderr_ref]
+        sources.extend(request.descriptor_content_refs.values())
         if request.stdin_ref is not None:
             sources.append(request.stdin_ref)
-        return self.artifacts.publish_from_run(
-            access,
-            producer_attempt=self._run_attempt(access, attempt),
-            expected_task_ref=attempt.task_ref,
-            expected_task_digest=attempt.task_digest,
-            role="process.execution.result",
-            content_ref=result_ref,
-            source_refs=(),
-            source_artifact_refs=(),
-            source_content_refs=self._unique_content_refs(sources),
-            derivation_type="process.execution",
-            metadata={
-                "media_type": result_ref.media_type,
-                "schema_ref": "schema://biella/process-result/1",
-                "schema_version": "1.0.0",
-            },
+        source_content_refs = self._unique_content_refs(sources)
+        metadata = {
+            "media_type": result_ref.media_type,
+            "schema_ref": "schema://biella/process-result/1",
+            "schema_version": "1.0.0",
+        }
+        producer_attempt = self._run_attempt(access, attempt)
+        artifact_ref = self._result_artifact_ref(call_ref)
+        try:
+            existing = self.artifacts.get_artifact(access, artifact_ref)
+        except ArtifactNotFoundError:
+            try:
+                return self.artifacts._create_artifact(
+                    access,
+                    artifact_ref,
+                    role="process.execution.result",
+                    content_ref=result_ref,
+                    source_refs=(),
+                    source_artifact_refs=(),
+                    source_content_refs=source_content_refs,
+                    derivation_type="process.execution",
+                    metadata=metadata,
+                    producer_attempt=producer_attempt,
+                    expected_task_ref=attempt.task_ref,
+                    expected_task_digest=attempt.task_digest,
+                    expected_prior=None,
+                )
+            except ArtifactConflictError:
+                existing = self.artifacts.get_artifact(access, artifact_ref)
+        if (
+            existing.role != "process.execution.result"
+            or existing.content_ref != result_ref
+            or existing.source_refs
+            or existing.source_artifact_refs
+            or existing.source_content_refs != source_content_refs
+            or existing.derivation_type != "process.execution"
+            or existing.producer_run_ref != producer_attempt.run_ref
+            or existing.producer_attempt_id != producer_attempt.attempt_id
+            or existing.producer_fence != producer_attempt.fence
+            or dict(existing.metadata) != metadata
+        ):
+            raise ProcessIntegrityError(
+                "deterministic managed process Artifact identity changed"
+            )
+        return existing
+
+    @staticmethod
+    def _result_artifact_ref(call_ref: ToolCallRef) -> ArtifactRef:
+        return ArtifactRef(
+            call_ref.project_ref,
+            "art_"
+            + hashlib.sha256(
+                (
+                    "managed-process-result\x00" + call_ref.call_id
+                ).encode()
+            ).hexdigest()[:32],
+            1,
         )
+
+    def _managed_idempotency_key(self, call_ref: ToolCallRef) -> str:
+        connection = self._connect()
+        try:
+            row = connection.execute(
+                "SELECT idempotency_key FROM managed_process_claims "
+                "WHERE project_id=? AND call_id=?",
+                (call_ref.project_ref.value, call_ref.call_id),
+            ).fetchone()
+        finally:
+            connection.close()
+        if row is None:
+            raise ProcessIntegrityError(
+                "managed process completion lost its exact claim"
+            )
+        return _key(cast(str, row["idempotency_key"]))
 
     def _complete(
         self,
@@ -1550,6 +2558,7 @@ class ManagedProcessAdapter:
         artifact = self._publish_artifact(
             access,
             attempt,
+            started.call.call_ref,
             request,
             started.request_ref,
             result_ref,
@@ -1612,12 +2621,35 @@ class ManagedProcessAdapter:
         connection = self._connect()
         try:
             connection.execute("BEGIN IMMEDIATE")
+            prior = connection.execute(
+                "SELECT * FROM managed_process_results WHERE project_id=? "
+                "AND call_id=?",
+                (
+                    result.project_ref.value,
+                    result.tool_call_ref.call_id,
+                ),
+            ).fetchone()
+            serialized = _json(result.payload())
+            if prior is not None:
+                if (
+                    prior["result_json"] != serialized
+                    or prior["completed_at"] != result.completed_at
+                    or not hmac.compare_digest(
+                        cast(str, prior["record_sha256"]),
+                        result.record_sha256,
+                    )
+                ):
+                    raise ProcessConflictError(
+                        "managed process result conflicts"
+                    )
+                connection.commit()
+                return
             connection.execute(
                 "INSERT INTO managed_process_results VALUES (?,?,?,?,?)",
                 (
                     result.project_ref.value,
                     result.tool_call_ref.call_id,
-                    _json(result.payload()),
+                    serialized,
                     result.completed_at,
                     result.record_sha256,
                 ),
@@ -1628,6 +2660,924 @@ class ManagedProcessAdapter:
             raise ProcessConflictError("managed process result conflicts") from exc
         finally:
             connection.close()
+
+    def _result_if_present(
+        self,
+        access: ProjectAccess,
+        call_ref: ToolCallRef,
+    ) -> ProcessResult | None:
+        connection = self._connect()
+        try:
+            row = connection.execute(
+                "SELECT 1 FROM managed_process_results WHERE project_id=? "
+                "AND call_id=?",
+                (call_ref.project_ref.value, call_ref.call_id),
+            ).fetchone()
+        finally:
+            connection.close()
+        if row is None:
+            return None
+        return self.get_result(access, call_ref)
+
+    def _reconstruct_terminal_result(
+        self,
+        access: ProjectAccess,
+        started: _StartedCall,
+        *,
+        published_artifact_ref: ArtifactRef | None = None,
+    ) -> ProcessResult:
+        call = self.calls.get_tool_call(access, started.call.call_ref)
+        if call.status == "RUNNING" and published_artifact_ref is None:
+            raise ProcessIntegrityError(
+                "running managed process call has no terminal result to reconstruct"
+            )
+        if published_artifact_ref is None:
+            evidence = (
+                call.output_refs
+                if call.status == "SUCCEEDED"
+                else call.failure_evidence_refs
+            )
+            content_refs = tuple(
+                item for item in evidence if isinstance(item, ContentRef)
+            )
+            artifact_refs = tuple(
+                item for item in evidence if isinstance(item, ArtifactRef)
+            )
+            if (
+                len(evidence) != 2
+                or len(content_refs) != 1
+                or len(artifact_refs) != 1
+                or content_refs[0].media_type != _RESULT_MEDIA_TYPE
+            ):
+                raise ProcessIntegrityError(
+                    "terminal managed process call lacks exact recovery evidence"
+                )
+            result_ref = content_refs[0]
+            artifact_ref = artifact_refs[0]
+        else:
+            artifact_ref = published_artifact_ref
+            if artifact_ref != self._result_artifact_ref(call.call_ref):
+                raise ProcessIntegrityError(
+                    "managed process publication recovery identity changed"
+                )
+            published_artifact = self.artifacts.get_artifact(
+                access,
+                artifact_ref,
+            )
+            if published_artifact.content_ref is None:
+                raise ProcessIntegrityError(
+                    "published managed process result lacks exact content"
+                )
+            result_ref = published_artifact.content_ref
+        artifact = self.artifacts.get_artifact(access, artifact_ref)
+        if artifact.content_ref != result_ref:
+            raise ProcessIntegrityError(
+                "terminal managed process Artifact evidence changed"
+            )
+        try:
+            payload = json.loads(self.object_store.read(result_ref))
+        except (
+            ObjectStorageError,
+            json.JSONDecodeError,
+            UnicodeDecodeError,
+        ) as exc:
+            raise ProcessIntegrityError(
+                "terminal managed process manifest is unavailable"
+            ) from exc
+        if (
+            not isinstance(payload, dict)
+            or type(payload.get("schema_version")) is not int
+            or payload.get("schema_version") != 1
+        ):
+            raise ProcessIntegrityError(
+                "terminal managed process manifest schema changed"
+            )
+        try:
+            stdout_ref = _content_from_payload(payload["stdout_ref"])
+            stderr_ref = _content_from_payload(payload["stderr_ref"])
+            if stdout_ref is None or stderr_ref is None:
+                raise ProcessIntegrityError(
+                    "terminal managed process streams are missing"
+                )
+            failure_value = cast(str | None, payload["failure"])
+            result = ProcessResult(
+                access.project_ref,
+                call.call_ref,
+                started.request_ref,
+                result_ref,
+                artifact_ref,
+                self._identity_from_payload(
+                    payload["process_identity"],
+                    access.project_ref,
+                    call.call_ref,
+                ),
+                ProcessStatus(cast(str, payload["status"])),
+                (
+                    None
+                    if failure_value is None
+                    else ProcessFailure(failure_value)
+                ),
+                cast(int | None, payload["exit_code"]),
+                cast(int | None, payload["signal_number"]),
+                stdout_ref,
+                stderr_ref,
+                cast(bool, payload["stdout_truncated"]),
+                cast(bool, payload["stderr_truncated"]),
+                cast(str, payload["stdout_preview"]),
+                cast(str, payload["stderr_preview"]),
+                cast(str, payload["termination_method"]),
+                cast(str, payload["process_tree_state"]),
+                cast(str, payload["network_enforcement"]),
+                cast(dict[str, str], payload["resource_enforcement"]),
+                cast(str, payload["started_at"]),
+                cast(str, payload["completed_at"]),
+            )
+        except (KeyError, TypeError, ValueError, ProcessError) as exc:
+            raise ProcessIntegrityError(
+                "terminal managed process manifest is malformed"
+            ) from exc
+        expected_status = {
+            ProcessStatus.SUCCEEDED: "SUCCEEDED",
+            ProcessStatus.FAILED: "FAILED",
+            ProcessStatus.TIMED_OUT: "TIMED_OUT",
+            ProcessStatus.CANCELLED: "CANCELLED",
+        }[result.status]
+        if payload.get("request_sha256") != started.request_ref.digest:
+            raise ProcessIntegrityError(
+                "terminal managed process call and manifest differ"
+            )
+        dependency_refs = self._request_dependency_refs(started.request_ref)
+        expected_sources = [
+            started.request_ref,
+            result.stdout_ref,
+            result.stderr_ref,
+            *dependency_refs,
+        ]
+        if artifact.source_content_refs != self._unique_content_refs(
+            expected_sources
+        ) or (
+            artifact_ref != self._result_artifact_ref(call.call_ref)
+            or artifact.role != "process.execution.result"
+            or artifact.source_refs
+            or artifact.source_artifact_refs
+            or artifact.derivation_type != "process.execution"
+            or artifact.producer_run_ref != started.call.attempt.run_ref
+            or artifact.producer_attempt_id
+            != started.call.attempt.run_attempt_id
+            or artifact.producer_fence != started.call.attempt.run_fence
+            or dict(artifact.metadata)
+            != {
+                "media_type": result_ref.media_type,
+                "schema_ref": "schema://biella/process-result/1",
+                "schema_version": "1.0.0",
+            }
+        ):
+            raise ProcessIntegrityError(
+                "managed process result Artifact provenance changed"
+            )
+        for content_ref in (
+            started.request_ref,
+            result_ref,
+            result.stdout_ref,
+            result.stderr_ref,
+            *dependency_refs,
+        ):
+            try:
+                self.object_store.verify(content_ref)
+            except ObjectStorageError as exc:
+                raise ProcessIntegrityError(
+                    "managed process reconstruction content failed verification"
+                ) from exc
+        self._verify_result_manifest(result)
+        if call.status == "RUNNING":
+            _, finish_key = self._call_keys(
+                started.call.attempt,
+                self._managed_idempotency_key(call.call_ref),
+            )
+            try:
+                call = self.calls.finish_tool_call(
+                    access,
+                    started.call.attempt,
+                    call.call_ref,
+                    idempotency_key=finish_key,
+                    status=expected_status,
+                    output_refs=(result_ref, artifact_ref)
+                    if result.status is ProcessStatus.SUCCEEDED
+                    else (),
+                    usage=None,
+                    cost=None,
+                    failure_category=None
+                    if result.status is ProcessStatus.SUCCEEDED
+                    else cast(ProcessFailure, result.failure).value,
+                    failure_reason=None
+                    if result.status is ProcessStatus.SUCCEEDED
+                    else "managed process completed without success",
+                    failure_evidence_refs=()
+                    if result.status is ProcessStatus.SUCCEEDED
+                    else (result_ref, artifact_ref),
+                )
+            except CallAuthorityError as exc:
+                raise ProcessAuthorityError(
+                    "managed process publication recovery lost authority"
+                ) from exc
+            except CallConflictError as exc:
+                raise ProcessConflictError(
+                    "managed process publication recovery conflicts"
+                ) from exc
+        elif (
+            call.status != expected_status
+            or (
+                result.status is ProcessStatus.SUCCEEDED
+                and (
+                    call.failure_category is not None
+                    or call.failure_evidence_refs
+                )
+            )
+            or (
+                result.status is not ProcessStatus.SUCCEEDED
+                and call.failure_category
+                != cast(ProcessFailure, result.failure).value
+            )
+        ):
+            raise ProcessIntegrityError(
+                "terminal managed process call and manifest differ"
+            )
+        self._persist_result(result)
+        return self.get_result(access, call.call_ref)
+
+    def _resume_published_result(
+        self,
+        access: ProjectAccess,
+        started: _StartedCall,
+    ) -> ProcessResult | None:
+        artifact_ref = self._result_artifact_ref(started.call.call_ref)
+        try:
+            self.artifacts.get_artifact(access, artifact_ref)
+        except ArtifactNotFoundError:
+            return None
+        return self._reconstruct_terminal_result(
+            access,
+            started,
+            published_artifact_ref=artifact_ref,
+        )
+
+    @staticmethod
+    def _recovery_head_payload(
+        call_ref: ToolCallRef,
+        authority: _RecoveryAuthority,
+    ) -> dict[str, object]:
+        return {
+            "acquired_at": authority.acquired_at,
+            "call_ref": call_ref.value,
+            "generation": authority.generation,
+            "owner_boot_id": authority.owner_boot_id,
+            "owner_pid": authority.owner_pid,
+            "owner_start_ticks": authority.owner_start_ticks,
+            "owner_token_sha256": hashlib.sha256(
+                authority.owner_token.encode()
+            ).hexdigest(),
+        }
+
+    def _claim_recovery(
+        self,
+        call_ref: ToolCallRef,
+    ) -> _RecoveryAuthority:
+        token = uuid4().hex
+        owner_pid = os.getpid()
+        owner_boot_id = self._boot_id()
+        owner_start_ticks = self._start_ticks(owner_pid)
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN IMMEDIATE")
+            self._verify_recovery_chain(connection, call_ref)
+            existing = connection.execute(
+                "SELECT * FROM managed_process_recovery_heads "
+                "WHERE project_id=? AND call_id=?",
+                (call_ref.project_ref.value, call_ref.call_id),
+            ).fetchone()
+            generation = 1
+            prior_head: str | None = None
+            if existing is not None:
+                prior_authority = _RecoveryAuthority(
+                    cast(int, existing["generation"]),
+                    "",
+                    cast(int, existing["owner_pid"]),
+                    cast(str, existing["owner_boot_id"]),
+                    cast(int, existing["owner_start_ticks"]),
+                    cast(str, existing["acquired_at"]),
+                )
+                prior_payload = {
+                    **self._recovery_head_payload(call_ref, prior_authority),
+                    "owner_token_sha256": cast(
+                        str,
+                        existing["owner_token_sha256"],
+                    ),
+                }
+                if not hmac.compare_digest(
+                    cast(str, existing["head_sha256"]),
+                    _digest(prior_payload),
+                ):
+                    raise ProcessIntegrityError(
+                        "managed process recovery head changed"
+                    )
+                prior_reservation = _LaunchReservation(
+                    "RECOVERY",
+                    prior_authority.owner_pid,
+                    prior_authority.owner_boot_id,
+                    prior_authority.owner_start_ticks,
+                    prior_authority.acquired_at,
+                )
+                release = connection.execute(
+                    "SELECT 1 FROM managed_process_recovery_releases "
+                    "WHERE project_id=? AND call_id=? AND generation=?",
+                    (
+                        call_ref.project_ref.value,
+                        call_ref.call_id,
+                        prior_authority.generation,
+                    ),
+                ).fetchone()
+                owner_state = self._owner_state(prior_reservation)
+                if release is None and owner_state != "DEAD":
+                    raise ProcessConflictError(
+                        "managed process recovery owner is live or unverifiable"
+                    )
+                generation = prior_authority.generation + 1
+                prior_head = cast(str, existing["head_sha256"])
+            authority = _RecoveryAuthority(
+                generation,
+                token,
+                owner_pid,
+                owner_boot_id,
+                owner_start_ticks,
+                self._database_now(connection),
+            )
+            payload = self._recovery_head_payload(call_ref, authority)
+            head_sha = _digest(payload)
+            if existing is None:
+                connection.execute(
+                    "INSERT INTO managed_process_recovery_heads "
+                    "VALUES (?,?,?,?,?,?,?,?,?)",
+                    (
+                        call_ref.project_ref.value,
+                        call_ref.call_id,
+                        authority.generation,
+                        cast(str, payload["owner_token_sha256"]),
+                        authority.owner_pid,
+                        authority.owner_boot_id,
+                        authority.owner_start_ticks,
+                        authority.acquired_at,
+                        head_sha,
+                    ),
+                )
+            else:
+                updated = connection.execute(
+                    "UPDATE managed_process_recovery_heads SET "
+                    "generation=?,owner_token_sha256=?,owner_pid=?,"
+                    "owner_boot_id=?,owner_start_ticks=?,acquired_at=?,"
+                    "head_sha256=? WHERE project_id=? AND call_id=? "
+                    "AND generation=? AND head_sha256=?",
+                    (
+                        authority.generation,
+                        cast(str, payload["owner_token_sha256"]),
+                        authority.owner_pid,
+                        authority.owner_boot_id,
+                        authority.owner_start_ticks,
+                        authority.acquired_at,
+                        head_sha,
+                        call_ref.project_ref.value,
+                        call_ref.call_id,
+                        authority.generation - 1,
+                        prior_head,
+                    ),
+                ).rowcount
+                if updated != 1:
+                    raise ProcessConflictError(
+                        "managed process recovery authority was fenced"
+                    )
+            event = {
+                "head": payload,
+                "prior_head_sha256": prior_head,
+            }
+            connection.execute(
+                "INSERT INTO managed_process_recovery_events "
+                "VALUES (?,?,?,?,?,?,?,?,?,?)",
+                (
+                    call_ref.project_ref.value,
+                    call_ref.call_id,
+                    authority.generation,
+                    cast(str, payload["owner_token_sha256"]),
+                    authority.owner_pid,
+                    authority.owner_boot_id,
+                    authority.owner_start_ticks,
+                    authority.acquired_at,
+                    prior_head,
+                    _digest(event),
+                ),
+            )
+            connection.commit()
+            return authority
+        except sqlite3.IntegrityError as exc:
+            connection.rollback()
+            raise ProcessConflictError(
+                "managed process recovery authority conflicts"
+            ) from exc
+        except Exception:
+            connection.rollback()
+            raise
+        finally:
+            connection.close()
+
+    def _verify_recovery_chain(
+        self,
+        connection: sqlite3.Connection,
+        call_ref: ToolCallRef,
+    ) -> bool:
+        events = connection.execute(
+            "SELECT * FROM managed_process_recovery_events "
+            "WHERE project_id=? AND call_id=? ORDER BY generation",
+            (call_ref.project_ref.value, call_ref.call_id),
+        ).fetchall()
+        prior_head: str | None = None
+        last_payload: dict[str, object] | None = None
+        for expected_generation, row in enumerate(events, start=1):
+            payload: dict[str, object] = {
+                "acquired_at": cast(str, row["acquired_at"]),
+                "call_ref": call_ref.value,
+                "generation": cast(int, row["generation"]),
+                "owner_boot_id": cast(str, row["owner_boot_id"]),
+                "owner_pid": cast(int, row["owner_pid"]),
+                "owner_start_ticks": cast(
+                    int,
+                    row["owner_start_ticks"],
+                ),
+                "owner_token_sha256": cast(
+                    str,
+                    row["owner_token_sha256"],
+                ),
+            }
+            event = {
+                "head": payload,
+                "prior_head_sha256": prior_head,
+            }
+            if (
+                row["generation"] != expected_generation
+                or row["prior_head_sha256"] != prior_head
+                or not hmac.compare_digest(
+                    cast(str, row["event_sha256"]),
+                    _digest(event),
+                )
+            ):
+                raise ProcessIntegrityError(
+                    "managed process recovery event chain changed"
+                )
+            prior_head = _digest(payload)
+            last_payload = payload
+        head = connection.execute(
+            "SELECT * FROM managed_process_recovery_heads "
+            "WHERE project_id=? AND call_id=?",
+            (call_ref.project_ref.value, call_ref.call_id),
+        ).fetchone()
+        if head is None:
+            if events:
+                raise ProcessIntegrityError(
+                    "managed process recovery head is missing"
+                )
+            return False
+        if last_payload is None or prior_head is None:
+            raise ProcessIntegrityError(
+                "managed process recovery head lacks its immutable event"
+            )
+        if (
+            head["generation"] != last_payload["generation"]
+            or head["owner_token_sha256"]
+            != last_payload["owner_token_sha256"]
+            or head["owner_pid"] != last_payload["owner_pid"]
+            or head["owner_boot_id"] != last_payload["owner_boot_id"]
+            or head["owner_start_ticks"]
+            != last_payload["owner_start_ticks"]
+            or head["acquired_at"] != last_payload["acquired_at"]
+            or not hmac.compare_digest(
+                cast(str, head["head_sha256"]),
+                prior_head,
+            )
+        ):
+            raise ProcessIntegrityError(
+                "managed process recovery head and event chain differ"
+            )
+        releases = connection.execute(
+            "SELECT * FROM managed_process_recovery_releases "
+            "WHERE project_id=? AND call_id=? ORDER BY generation",
+            (call_ref.project_ref.value, call_ref.call_id),
+        ).fetchall()
+        event_by_generation = {
+            cast(int, row["generation"]): row for row in events
+        }
+        for release in releases:
+            generation = cast(int, release["generation"])
+            event_row = event_by_generation.get(generation)
+            payload = {
+                "call_ref": call_ref.value,
+                "generation": generation,
+                "owner_token_sha256": cast(
+                    str,
+                    release["owner_token_sha256"],
+                ),
+                "released_at": cast(str, release["released_at"]),
+            }
+            if (
+                event_row is None
+                or release["owner_token_sha256"]
+                != event_row["owner_token_sha256"]
+                or not hmac.compare_digest(
+                    cast(str, release["release_sha256"]),
+                    _digest(payload),
+                )
+            ):
+                raise ProcessIntegrityError(
+                    "managed process recovery release evidence changed"
+                )
+        return True
+
+    def _assert_recovery_authority(
+        self,
+        call_ref: ToolCallRef,
+        authority: _RecoveryAuthority,
+    ) -> None:
+        payload = self._recovery_head_payload(call_ref, authority)
+        connection = self._connect()
+        try:
+            self._verify_recovery_chain(connection, call_ref)
+            row = connection.execute(
+                "SELECT * FROM managed_process_recovery_heads "
+                "WHERE project_id=? AND call_id=?",
+                (call_ref.project_ref.value, call_ref.call_id),
+            ).fetchone()
+            released = connection.execute(
+                "SELECT 1 FROM managed_process_recovery_releases "
+                "WHERE project_id=? AND call_id=? AND generation=?",
+                (
+                    call_ref.project_ref.value,
+                    call_ref.call_id,
+                    authority.generation,
+                ),
+            ).fetchone()
+        finally:
+            connection.close()
+        if (
+            row is None
+            or released is not None
+            or row["generation"] != authority.generation
+            or row["owner_token_sha256"]
+            != payload["owner_token_sha256"]
+            or row["owner_pid"] != authority.owner_pid
+            or row["owner_boot_id"] != authority.owner_boot_id
+            or row["owner_start_ticks"] != authority.owner_start_ticks
+            or row["acquired_at"] != authority.acquired_at
+            or not hmac.compare_digest(
+                cast(str, row["head_sha256"]),
+                _digest(payload),
+            )
+        ):
+            raise ProcessAuthorityError(
+                "managed process recovery authority was fenced"
+            )
+
+    def _release_recovery_authority(
+        self,
+        call_ref: ToolCallRef,
+        authority: _RecoveryAuthority,
+    ) -> None:
+        token_sha = hashlib.sha256(authority.owner_token.encode()).hexdigest()
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN IMMEDIATE")
+            self._verify_recovery_chain(connection, call_ref)
+            head = connection.execute(
+                "SELECT * FROM managed_process_recovery_heads "
+                "WHERE project_id=? AND call_id=?",
+                (call_ref.project_ref.value, call_ref.call_id),
+            ).fetchone()
+            if (
+                head is None
+                or head["generation"] != authority.generation
+                or head["owner_token_sha256"] != token_sha
+            ):
+                raise ProcessAuthorityError(
+                    "managed process recovery release was fenced"
+                )
+            prior = connection.execute(
+                "SELECT * FROM managed_process_recovery_releases "
+                "WHERE project_id=? AND call_id=? AND generation=?",
+                (
+                    call_ref.project_ref.value,
+                    call_ref.call_id,
+                    authority.generation,
+                ),
+            ).fetchone()
+            if prior is not None:
+                connection.commit()
+                return
+            released_at = self._database_now(connection)
+            payload = {
+                "call_ref": call_ref.value,
+                "generation": authority.generation,
+                "owner_token_sha256": token_sha,
+                "released_at": released_at,
+            }
+            connection.execute(
+                "INSERT INTO managed_process_recovery_releases "
+                "VALUES (?,?,?,?,?,?)",
+                (
+                    call_ref.project_ref.value,
+                    call_ref.call_id,
+                    authority.generation,
+                    token_sha,
+                    released_at,
+                    _digest(payload),
+                ),
+            )
+            connection.commit()
+        except sqlite3.IntegrityError as exc:
+            connection.rollback()
+            raise ProcessConflictError(
+                "managed process recovery release conflicts"
+            ) from exc
+        except Exception:
+            connection.rollback()
+            raise
+        finally:
+            connection.close()
+
+    def _latest_recovery_released(self, call_ref: ToolCallRef) -> bool:
+        connection = self._connect()
+        try:
+            self._verify_recovery_chain(connection, call_ref)
+            head = connection.execute(
+                "SELECT generation FROM managed_process_recovery_heads "
+                "WHERE project_id=? AND call_id=?",
+                (call_ref.project_ref.value, call_ref.call_id),
+            ).fetchone()
+            if head is None:
+                return False
+            release = connection.execute(
+                "SELECT 1 FROM managed_process_recovery_releases "
+                "WHERE project_id=? AND call_id=? AND generation=?",
+                (
+                    call_ref.project_ref.value,
+                    call_ref.call_id,
+                    head["generation"],
+                ),
+            ).fetchone()
+            return release is not None
+        finally:
+            connection.close()
+
+    def _terminate_recovered_identity(
+        self,
+        identity: ManagedProcessIdentity,
+        grace_seconds: float,
+        authority: _RecoveryAuthority,
+    ) -> tuple[str, str]:
+        group_live = self._owned_group_has_live_members(identity)
+        if not group_live:
+            return (
+                "RECOVERY_ALREADY_EXITED",
+                "RECOVERY_NO_LIVE_OWNED_PROCESS_GROUP",
+            )
+        try:
+            pidfd = os.pidfd_open(identity.pid, 0)
+        except (AttributeError, OSError):
+            return (
+                "RECOVERY_NO_SIGNAL_PIDFD_UNAVAILABLE",
+                "RECOVERY_LIVE_GROUP_NOT_SIGNALED_IDENTITY_UNVERIFIABLE",
+            )
+        try:
+            if (
+                not self._identity_is_current(identity)
+                or os.getpgid(identity.pid) != identity.process_group_id
+            ):
+                return (
+                    "RECOVERY_NO_SIGNAL_IDENTITY_UNVERIFIABLE",
+                    "RECOVERY_LIVE_GROUP_NOT_SIGNALED_IDENTITY_UNVERIFIABLE",
+                )
+            self._assert_recovery_authority(
+                identity.tool_call_ref,
+                authority,
+            )
+            try:
+                os.killpg(identity.process_group_id, signal.SIGTERM)
+            except ProcessLookupError:
+                return (
+                    "RECOVERY_ALREADY_EXITED",
+                    "RECOVERY_NO_LIVE_OWNED_PROCESS_GROUP",
+                )
+            deadline = time.monotonic() + grace_seconds
+            while (
+                self._owned_group_has_live_members(identity)
+                and time.monotonic() < deadline
+            ):
+                time.sleep(
+                    min(0.02, max(0.0, deadline - time.monotonic()))
+                )
+            if not self._owned_group_has_live_members(identity):
+                return (
+                    "RECOVERY_SIGTERM_PROCESS_GROUP",
+                    "RECOVERY_OWNED_PROCESS_GROUP_TERMINATED_NO_LIVE_MEMBERS",
+                )
+            if not self._identity_is_current(identity):
+                return (
+                    "RECOVERY_NO_SIGKILL_IDENTITY_CHANGED",
+                    "RECOVERY_LIVE_GROUP_NOT_SIGNALED_AFTER_IDENTITY_CHANGE",
+                )
+            self._assert_recovery_authority(
+                identity.tool_call_ref,
+                authority,
+            )
+            try:
+                os.killpg(identity.process_group_id, signal.SIGKILL)
+            except ProcessLookupError:
+                return (
+                    "RECOVERY_SIGTERM_PROCESS_GROUP",
+                    "RECOVERY_OWNED_PROCESS_GROUP_TERMINATED_NO_LIVE_MEMBERS",
+                )
+            kill_deadline = time.monotonic() + 5.0
+            while (
+                self._owned_group_has_live_members(identity)
+                and time.monotonic() < kill_deadline
+            ):
+                time.sleep(0.02)
+            if self._owned_group_has_live_members(identity):
+                raise ProcessIntegrityError(
+                    "recovered owned process group remained live after SIGKILL"
+                )
+            return (
+                "RECOVERY_SIGTERM_THEN_SIGKILL_PROCESS_GROUP",
+                "RECOVERY_OWNED_PROCESS_GROUP_TERMINATED_NO_LIVE_MEMBERS",
+            )
+        finally:
+            os.close(pidfd)
+
+    def _recovery_observation(
+        self,
+        access: ProjectAccess,
+        attempt: NodeExecutionAttempt,
+        request: ProcessExecutionRequest,
+        started: _StartedCall,
+        authority: _RecoveryAuthority,
+    ) -> _ProcessObservation:
+        self._validate_recovery_authority(access, attempt, request)
+        self._assert_recovery_authority(
+            started.call.call_ref,
+            authority,
+        )
+        identity = self._execution_identity_for_call(started.call.call_ref)
+        prepared_identity = self._prepared_identity_for_call(
+            started.call.call_ref
+        )
+        if identity is not None and prepared_identity != identity:
+            raise ProcessIntegrityError(
+                "managed process executed identity differs from its launch gate"
+            )
+        if identity is None:
+            if prepared_identity is None:
+                termination_method = "RECOVERY_DUPLICATE_LAUNCH_SUPPRESSED"
+                process_tree_state = (
+                    "RECOVERY_GATE_CLOSED_BEFORE_PREPARATION_NOT_RETRIED"
+                )
+                started_at = self._current_time()
+            else:
+                termination_method, process_tree_state = (
+                    self._terminate_recovered_identity(
+                        prepared_identity,
+                        float(request.termination_grace_seconds),
+                        authority,
+                    )
+                )
+                started_at = prepared_identity.started_at
+        else:
+            termination_method, process_tree_state = (
+                self._terminate_recovered_identity(
+                    identity,
+                    float(request.termination_grace_seconds),
+                    authority,
+                )
+            )
+            started_at = identity.started_at
+        empty = self.object_store.put(b"", media_type=_STDOUT_MEDIA_TYPE)
+        resource_enforcement = MappingProxyType(
+            {
+                key: "RECOVERY_UNOBSERVED"
+                for key in self._resource_enforcement(
+                    request.resource_policy
+                )
+            }
+        )
+        return _ProcessObservation(
+            identity,
+            ProcessStatus.FAILED,
+            ProcessFailure.RECOVERY_UNCERTAIN,
+            None,
+            None,
+            empty,
+            empty,
+            False,
+            False,
+            "",
+            "",
+            termination_method,
+            process_tree_state,
+            "RECOVERY_NETWORK_STATE_UNOBSERVED",
+            resource_enforcement,
+            started_at,
+            self._current_time(),
+        )
+
+    def _recover_incomplete(
+        self,
+        access: ProjectAccess,
+        attempt: NodeExecutionAttempt,
+        request: ProcessExecutionRequest,
+        started: _StartedCall,
+        *,
+        idempotency_key: str,
+        allow_current_owner: bool,
+    ) -> ProcessResult:
+        existing_result = self._result_if_present(
+            access,
+            started.call.call_ref,
+        )
+        if existing_result is not None:
+            return existing_result
+        current = self.calls.get_tool_call(access, started.call.call_ref)
+        if current.status != "RUNNING":
+            return self._reconstruct_terminal_result(access, started)
+        published = self._resume_published_result(access, started)
+        if published is not None:
+            return published
+        self._validate_recovery_authority(access, attempt, request)
+        reservation, created = self._reserve_disposition(
+            attempt,
+            idempotency_key,
+            started,
+            disposition="RECOVERY",
+        )
+        if not created:
+            owner_state = self._owner_state(reservation)
+            released_recovery = self._latest_recovery_released(
+                started.call.call_ref
+            )
+            if owner_state == "UNKNOWN" and not released_recovery:
+                raise ProcessIntegrityError(
+                    "managed process launch owner state is unverifiable"
+                )
+            if (
+                owner_state == "LIVE"
+                and not allow_current_owner
+                and not released_recovery
+            ):
+                raise ProcessConflictError(
+                    "managed process is owned by a live execution caller"
+                )
+        existing_result = self._result_if_present(
+            access,
+            started.call.call_ref,
+        )
+        if existing_result is not None:
+            return existing_result
+        self._validate_recovery_authority(access, attempt, request)
+        recovery_authority = self._claim_recovery(started.call.call_ref)
+        try:
+            observation = self._recovery_observation(
+                access,
+                attempt,
+                request,
+                started,
+                recovery_authority,
+            )
+            self._assert_recovery_authority(
+                started.call.call_ref,
+                recovery_authority,
+            )
+            allocation_evidence = (
+                "NOT_BOUND"
+                if request.resource_allocation_ref is None
+                else request.resource_allocation_ref.value
+            )
+            return self._complete(
+                access,
+                attempt,
+                request,
+                started,
+                observation,
+                allocation_evidence=allocation_evidence,
+                idempotency_key=idempotency_key,
+            )
+        except BaseException:
+            self._release_recovery_authority(
+                started.call.call_ref,
+                recovery_authority,
+            )
+            raise
 
     def execute(
         self,
@@ -1642,19 +3592,79 @@ class ManagedProcessAdapter:
         if not isinstance(request, ProcessExecutionRequest):
             raise ProcessContractError("ProcessExecutionRequest is required")
         self._authorize(access, request.project_ref)
-        started = self._start_call(
+        preexisting = self._claimed_started_call(
             access,
             attempt,
             request,
-            idempotency_key=idempotency_key,
+            idempotency_key,
         )
-        if not started.first_claim:
-            current = self.calls.get_tool_call(access, started.call.call_ref)
-            if current.status == "RUNNING":
-                raise ProcessConflictError("managed process is already claimed and incomplete")
-            return self.get_result(access, current.call_ref)
+        allocation_evidence: str | None = None
+        if preexisting is None:
+            allocation_evidence = self._validate_allocation(
+                access,
+                attempt,
+                request,
+            )
+        started: _StartedCall | None = None
+        owns_launch = False
         try:
-            allocation_evidence = self._validate_allocation(access, attempt, request)
+            started = self._start_call(
+                access,
+                attempt,
+                request,
+                idempotency_key=idempotency_key,
+            )
+            if not started.first_claim:
+                current = self.calls.get_tool_call(
+                    access,
+                    started.call.call_ref,
+                )
+                if current.status != "RUNNING":
+                    existing = self._result_if_present(
+                        access,
+                        current.call_ref,
+                    )
+                    if existing is not None:
+                        return existing
+                    return self._reconstruct_terminal_result(
+                        access,
+                        started,
+                    )
+                return self._recover_incomplete(
+                    access,
+                    attempt,
+                    request,
+                    started,
+                    idempotency_key=idempotency_key,
+                    allow_current_owner=False,
+                )
+            self._validate_recovery_authority(
+                access,
+                attempt,
+                request,
+            )
+            if allocation_evidence is None:
+                allocation_evidence = self._validate_allocation(
+                    access,
+                    attempt,
+                    request,
+                )
+            reservation, created = self._reserve_disposition(
+                attempt,
+                idempotency_key,
+                started,
+                disposition="LAUNCH",
+            )
+            if not created or reservation.disposition != "LAUNCH":
+                return self._recover_incomplete(
+                    access,
+                    attempt,
+                    request,
+                    started,
+                    idempotency_key=idempotency_key,
+                    allow_current_owner=False,
+                )
+            owns_launch = True
             observation = self._run_process(
                 access,
                 started,
@@ -1671,47 +3681,36 @@ class ManagedProcessAdapter:
                 allocation_evidence=allocation_evidence,
                 idempotency_key=idempotency_key,
             )
-        except Exception as exc:
-            self._fail_call(
-                access,
-                attempt,
-                started,
-                idempotency_key=idempotency_key,
-            )
+        except BaseException as exc:
+            recoverable = owns_launch
+            if recoverable:
+                recovery_started = started
+                if recovery_started is None:
+                    recovery_started = self._claimed_started_call(
+                        access,
+                        attempt,
+                        request,
+                        idempotency_key,
+                    )
+                if recovery_started is not None:
+                    current = self.calls.get_tool_call(
+                        access,
+                        recovery_started.call.call_ref,
+                    )
+                    if current.status == "RUNNING":
+                        self._recover_incomplete(
+                            access,
+                            attempt,
+                            request,
+                            recovery_started,
+                            idempotency_key=idempotency_key,
+                            allow_current_owner=True,
+                        )
             if isinstance(exc, ProcessError):
                 raise
             if isinstance(exc, (ObjectStorageError, FilesystemError, OSError)):
                 raise ProcessIntegrityError("managed process dependency failed") from exc
             raise
-
-    def _fail_call(
-        self,
-        access: ProjectAccess,
-        attempt: NodeExecutionAttempt,
-        started: _StartedCall,
-        *,
-        idempotency_key: str,
-    ) -> None:
-        current = self.calls.get_tool_call(access, started.call.call_ref)
-        if current.status != "RUNNING":
-            return
-        _, finish_key = self._call_keys(attempt, idempotency_key)
-        try:
-            self.calls.finish_tool_call(
-                access,
-                attempt,
-                current.call_ref,
-                idempotency_key=finish_key,
-                status="FAILED",
-                output_refs=(),
-                usage=None,
-                cost=None,
-                failure_category="PROCESS_ADAPTER_FAILURE",
-                failure_reason="managed process adapter failed closed",
-                failure_evidence_refs=(),
-            )
-        except (CallAuthorityError, CallConflictError):
-            return
 
     @staticmethod
     def _artifact_ref(value: object, project_ref: ProjectRef) -> ArtifactRef:
@@ -1846,20 +3845,62 @@ class ManagedProcessAdapter:
         ).fetchone()
         if row is None:
             raise ProcessIntegrityError("managed process identity history is missing")
-        expected = (
-            row["call_id"] == identity.tool_call_ref.call_id
-            and row["pid"] == identity.pid
-            and row["process_group_id"] == identity.process_group_id
-            and row["boot_id"] == identity.boot_id
-            and row["start_ticks"] == identity.start_ticks
-            and row["executable_sha256"] == identity.executable_sha256
-            and row["executable_device"] == identity.executable_device
-            and row["executable_inode"] == identity.executable_inode
-            and row["started_at"] == identity.started_at
-            and hmac.compare_digest(cast(str, row["record_sha256"]), identity.record_sha256)
-        )
-        if not expected:
+        prepared = connection.execute(
+            "SELECT * FROM managed_process_prepared_executions "
+            "WHERE project_id=? AND execution_id=?",
+            (identity.project_ref.value, identity.execution_id),
+        ).fetchone()
+        if (
+            prepared is None
+            or not self._identity_row_matches(row, identity)
+            or not self._identity_row_matches(prepared, identity)
+        ):
             raise ProcessIntegrityError("managed process identity evidence changed")
+
+    def _verify_launch_reservation(
+        self,
+        connection: sqlite3.Connection,
+        call_ref: ToolCallRef,
+        claim: sqlite3.Row,
+    ) -> None:
+        row = connection.execute(
+            "SELECT * FROM managed_process_launches WHERE project_id=? "
+            "AND call_id=?",
+            (call_ref.project_ref.value, call_ref.call_id),
+        ).fetchone()
+        if row is None:
+            raise ProcessIntegrityError(
+                "managed process result lacks immutable launch provenance"
+            )
+        request_ref = ContentRef(
+            "sha256",
+            cast(str, claim["request_digest"]),
+            cast(int, claim["request_size"]),
+            cast(str, claim["request_media_type"]),
+        )
+        payload = {
+            "call_ref": call_ref.value,
+            "disposition": cast(str, row["disposition"]),
+            "idempotency_key": cast(str, claim["idempotency_key"]),
+            "node_attempt_id": cast(str, claim["node_attempt_id"]),
+            "owner_boot_id": cast(str, row["owner_boot_id"]),
+            "owner_pid": cast(int, row["owner_pid"]),
+            "owner_start_ticks": cast(int, row["owner_start_ticks"]),
+            "request_ref": request_ref.value,
+            "reserved_at": cast(str, row["reserved_at"]),
+        }
+        if (
+            row["node_attempt_id"] != claim["node_attempt_id"]
+            or row["idempotency_key"] != claim["idempotency_key"]
+            or row["disposition"] not in {"LAUNCH", "RECOVERY"}
+            or not hmac.compare_digest(
+                cast(str, row["record_sha256"]),
+                _digest(payload),
+            )
+        ):
+            raise ProcessIntegrityError(
+                "managed process launch provenance changed"
+            )
 
     def get_result(self, access: ProjectAccess, call_ref: ToolCallRef) -> ProcessResult:
         if not isinstance(call_ref, ToolCallRef):
@@ -1906,7 +3947,89 @@ class ManagedProcessAdapter:
                 or result.request_ref != request_ref
             ):
                 raise ProcessIntegrityError("managed process result evidence changed")
+            prepared = connection.execute(
+                "SELECT * FROM managed_process_prepared_executions "
+                "WHERE project_id=? AND call_id=?",
+                (call_ref.project_ref.value, call_ref.call_id),
+            ).fetchone()
+            executed = connection.execute(
+                "SELECT * FROM managed_process_executions "
+                "WHERE project_id=? AND call_id=?",
+                (call_ref.project_ref.value, call_ref.call_id),
+            ).fetchone()
+            prepared_identity = (
+                None
+                if prepared is None
+                else self._identity_from_row(
+                    call_ref,
+                    prepared,
+                    label="prepared execution",
+                )
+            )
+            executed_identity = (
+                None
+                if executed is None
+                else self._identity_from_row(
+                    call_ref,
+                    executed,
+                    label="execution",
+                )
+            )
+            identity_free_failures = {
+                ProcessFailure.EXECUTABLE_NOT_FOUND,
+                ProcessFailure.POLICY_DENIED,
+                ProcessFailure.SPAWN_FAILED,
+                ProcessFailure.RECOVERY_UNCERTAIN,
+            }
+            if (
+                executed_identity != result.process_identity
+                or (
+                    executed_identity is not None
+                    and prepared_identity != executed_identity
+                )
+                or (
+                    prepared_identity is not None
+                    and executed_identity is None
+                    and result.failure
+                    not in {
+                        ProcessFailure.SPAWN_FAILED,
+                        ProcessFailure.RECOVERY_UNCERTAIN,
+                    }
+                )
+                or (
+                    prepared_identity is not None
+                    and result.started_at != prepared_identity.started_at
+                )
+                or (
+                    result.process_identity is None
+                    and result.failure not in identity_free_failures
+                )
+                or (
+                    result.process_identity is not None
+                    and result.failure
+                    in {
+                        ProcessFailure.EXECUTABLE_NOT_FOUND,
+                        ProcessFailure.POLICY_DENIED,
+                        ProcessFailure.SPAWN_FAILED,
+                    }
+                )
+            ):
+                raise ProcessIntegrityError(
+                    "managed process launch gate and result classification differ"
+                )
             self._verify_persisted_identity(connection, result.process_identity)
+            self._verify_launch_reservation(connection, call_ref, claim)
+            has_recovery = self._verify_recovery_chain(
+                connection,
+                call_ref,
+            )
+            if (
+                result.failure is ProcessFailure.RECOVERY_UNCERTAIN
+                and not has_recovery
+            ):
+                raise ProcessIntegrityError(
+                    "recovery-classified process result lacks recovery provenance"
+                )
             connection.commit()
         except Exception:
             connection.rollback()
@@ -1926,13 +4049,39 @@ class ManagedProcessAdapter:
         if {item.value for item in evidence} != {result.result_ref.value, result.artifact_ref.value}:
             raise ProcessIntegrityError("managed process ToolCall result evidence differs")
         artifact = self.artifacts.get_artifact(access, result.artifact_ref)
-        if artifact.content_ref != result.result_ref:
-            raise ProcessIntegrityError("managed process Artifact content differs")
+        dependency_refs = self._request_dependency_refs(result.request_ref)
+        expected_sources = self._unique_content_refs(
+            (
+                result.request_ref,
+                result.stdout_ref,
+                result.stderr_ref,
+                *dependency_refs,
+            )
+        )
+        if (
+            artifact.content_ref != result.result_ref
+            or result.artifact_ref != self._result_artifact_ref(call.call_ref)
+            or artifact.role != "process.execution.result"
+            or artifact.source_refs
+            or artifact.source_artifact_refs
+            or artifact.source_content_refs != expected_sources
+            or artifact.derivation_type != "process.execution"
+            or artifact.producer_run_ref != call.attempt.run_ref
+            or artifact.producer_attempt_id != call.attempt.run_attempt_id
+            or artifact.producer_fence != call.attempt.run_fence
+            or dict(artifact.metadata)
+            != {
+                "media_type": result.result_ref.media_type,
+                "schema_ref": "schema://biella/process-result/1",
+                "schema_version": "1.0.0",
+            }
+        ):
+            raise ProcessIntegrityError(
+                "managed process Artifact provenance changed"
+            )
         for content_ref in (
-            result.request_ref,
             result.result_ref,
-            result.stdout_ref,
-            result.stderr_ref,
+            *expected_sources,
         ):
             try:
                 self.object_store.verify(content_ref)

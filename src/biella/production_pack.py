@@ -23,9 +23,9 @@ from typing import cast
 from .capability import Capability, CapabilityError, CapabilityRef, CapabilityRegistry
 
 
-_PACK_ID_PATTERN = re.compile(r"[a-z][a-z0-9-]{0,63}")
+_PACK_ID_PATTERN = re.compile(r"[a-z0-9][a-z0-9-]{0,63}")
 _VERSION_PATTERN = re.compile(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)")
-_ROLE_PATTERN = re.compile(r"[a-z][a-z0-9_.-]{0,127}")
+_ROLE_PATTERN = re.compile(r"[a-z0-9][a-z0-9_.-]{0,127}")
 _ABSOLUTE_REF_PATTERN = re.compile(r"[a-z][a-z0-9+.-]*://[^\s\x00-\x1f]{1,512}")
 _SHA256_PATTERN = re.compile(r"[0-9a-f]{64}")
 

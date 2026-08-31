@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import ast
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import hashlib
 import json
 import os
@@ -32,6 +32,7 @@ from biella import (
     GraphRef,
     GraphService,
     ManagedProcessAdapter,
+    MemoryObjectStorageBackend,
     NetworkPolicy,
     Node,
     NodeExecutionAttempt,
@@ -214,6 +215,75 @@ def _request(
     }
     values.update(changes)
     return ProcessExecutionRequest(**values)  # type: ignore[arg-type]
+
+
+class _InjectedManagedLaunchCrash(BaseException):
+    """Test-only abrupt caller loss that bypasses ordinary Exception cleanup."""
+
+
+_MANAGED_PROCESS_TABLES = (
+    "managed_process_claims",
+    "managed_process_launches",
+    "managed_process_prepared_executions",
+    "managed_process_executions",
+    "managed_process_results",
+    "managed_process_recovery_heads",
+    "managed_process_recovery_events",
+    "managed_process_recovery_releases",
+)
+
+
+def _managed_process_counts(database: Path) -> dict[str, int]:
+    connection = sqlite3.connect(database)
+    try:
+        counts: dict[str, int] = {}
+        for table in _MANAGED_PROCESS_TABLES:
+            row = connection.execute(f"SELECT COUNT(*) FROM {table}").fetchone()
+            assert row is not None
+            counts[table] = int(row[0])
+        return counts
+    finally:
+        connection.close()
+
+
+def _only_managed_call_ref(env: _Environment) -> ToolCallRef:
+    connection = sqlite3.connect(env.database)
+    try:
+        rows = connection.execute(
+            "SELECT call_id FROM managed_process_claims"
+        ).fetchall()
+    finally:
+        connection.close()
+    assert len(rows) == 1
+    return ToolCallRef(env.project_ref, str(rows[0][0]))
+
+
+def _wait_for_file_bytes(path: Path, expected: bytes) -> None:
+    deadline = time.monotonic() + 3.0
+    observed: bytes | None = None
+    while time.monotonic() < deadline:
+        try:
+            observed = path.read_bytes()
+        except FileNotFoundError:
+            observed = None
+        if observed == expected:
+            return
+        time.sleep(0.01)
+    assert observed == expected
+
+
+def _assert_identity_stopped(
+    process: ManagedProcessAdapter,
+    identity: biella.ManagedProcessIdentity,
+) -> None:
+    deadline = time.monotonic() + 3.0
+    while (
+        process._owned_group_has_live_members(identity)
+        and time.monotonic() < deadline
+    ):
+        time.sleep(0.01)
+    assert not process._owned_group_has_live_members(identity)
+    assert _process_state(identity.pid) in {None, "Z"}
 
 
 def test_t02_registers_direct_and_explicit_shell_capabilities(tmp_path: Path) -> None:
@@ -913,3 +983,647 @@ def test_t15_type_build_exact_wheel_and_separate_installed_restart() -> None:
         assert observed["artifact_ref"] == identity["artifact_ref"]
         assert observed["process_record_sha256"] == identity["process_record_sha256"]
         assert observed["record_sha256"] == identity["record_sha256"]
+
+
+def test_t16_expected_executable_digest_mismatch_never_reaches_target(
+    tmp_path: Path,
+) -> None:
+    env = _environment(tmp_path)
+    marker = env.root_path / "digest-mismatch-target-ran"
+    request = _request(
+        env,
+        argv=(
+            "-c",
+            "from pathlib import Path; Path('digest-mismatch-target-ran').write_text('ran')",
+        ),
+        expected_executable_sha256="0" * 64,
+    )
+
+    with pytest.raises(
+        ProcessAuthorityError,
+        match="differs from its expected digest",
+    ):
+        env.process.execute(
+            env.access,
+            env.attempt,
+            request,
+            idempotency_key="expected-executable-digest-mismatch",
+        )
+
+    call_ref = _only_managed_call_ref(env)
+    recovered = env.process.get_result(env.access, call_ref)
+    replay = env.process.execute(
+        env.access,
+        env.attempt,
+        request,
+        idempotency_key="expected-executable-digest-mismatch",
+    )
+    assert not marker.exists()
+    assert recovered == replay
+    assert recovered.status is ProcessStatus.FAILED
+    assert recovered.failure is ProcessFailure.RECOVERY_UNCERTAIN
+    assert recovered.process_identity is None
+    assert recovered.termination_method == "RECOVERY_DUPLICATE_LAUNCH_SUPPRESSED"
+    assert recovered.process_tree_state == "RECOVERY_GATE_CLOSED_BEFORE_PREPARATION_NOT_RETRIED"
+    assert _managed_process_counts(env.database) == {
+        "managed_process_claims": 1,
+        "managed_process_launches": 1,
+        "managed_process_prepared_executions": 0,
+        "managed_process_executions": 0,
+        "managed_process_results": 1,
+        "managed_process_recovery_heads": 1,
+        "managed_process_recovery_events": 1,
+        "managed_process_recovery_releases": 0,
+    }
+
+
+def test_t17_actual_execve_failure_is_prepared_only_spawn_failure(
+    tmp_path: Path,
+) -> None:
+    env = _environment(tmp_path)
+    invalid_executable = tmp_path / "invalid-executable"
+    invalid_executable.write_bytes(b"\x7fELFnot-an-executable-image\n")
+    invalid_executable.chmod(0o700)
+    marker = env.root_path / "invalid-executable-target-ran"
+    request = _request(
+        env,
+        executable=str(invalid_executable),
+        argv=(str(marker),),
+    )
+
+    result = env.process.execute(
+        env.access,
+        env.attempt,
+        request,
+        idempotency_key="actual-execve-failure",
+    )
+    replay = env.process.execute(
+        env.access,
+        env.attempt,
+        request,
+        idempotency_key="actual-execve-failure",
+    )
+    prepared = env.process._prepared_identity_for_call(result.tool_call_ref)
+
+    assert not marker.exists()
+    assert replay == result
+    assert result.status is ProcessStatus.FAILED
+    assert result.failure is ProcessFailure.SPAWN_FAILED
+    assert result.process_identity is None
+    assert prepared is not None
+    _assert_identity_stopped(env.process, prepared)
+    assert _managed_process_counts(env.database) == {
+        "managed_process_claims": 1,
+        "managed_process_launches": 1,
+        "managed_process_prepared_executions": 1,
+        "managed_process_executions": 0,
+        "managed_process_results": 1,
+        "managed_process_recovery_heads": 0,
+        "managed_process_recovery_events": 0,
+        "managed_process_recovery_releases": 0,
+    }
+
+
+def test_t18_crash_after_prepared_identity_keeps_gate_closed_and_replays_once(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    env = _environment(tmp_path)
+    marker = env.root_path / "prepared-gate-target-ran"
+    request = _request(
+        env,
+        argv=(
+            "-c",
+            "from pathlib import Path; Path('prepared-gate-target-ran').write_text('ran')",
+        ),
+    )
+    original_prepare = env.process._prepare_identity
+    prepared_identities: list[biella.ManagedProcessIdentity] = []
+
+    def crash_after_prepare(
+        access: ProjectAccess,
+        call_ref: ToolCallRef,
+        process: subprocess.Popen[bytes],
+        executable_sha256: str,
+        executable_state: os.stat_result,
+        started_at: str,
+    ) -> biella.ManagedProcessIdentity:
+        identity = original_prepare(
+            access,
+            call_ref,
+            process,
+            executable_sha256,
+            executable_state,
+            started_at,
+        )
+        prepared_identities.append(identity)
+        raise _InjectedManagedLaunchCrash(
+            "crash after prepared identity before gate release"
+        )
+
+    monkeypatch.setattr(env.process, "_prepare_identity", crash_after_prepare)
+    with pytest.raises(
+        _InjectedManagedLaunchCrash,
+        match="before gate release",
+    ):
+        env.process.execute(
+            env.access,
+            env.attempt,
+            request,
+            idempotency_key="crash-after-prepared-identity",
+        )
+
+    call_ref = _only_managed_call_ref(env)
+    recovered = env.process.get_result(env.access, call_ref)
+    replay = env.process.execute(
+        env.access,
+        env.attempt,
+        request,
+        idempotency_key="crash-after-prepared-identity",
+    )
+    assert len(prepared_identities) == 1
+    assert env.process._prepared_identity_for_call(call_ref) == prepared_identities[0]
+    assert env.process._execution_identity_for_call(call_ref) is None
+    assert not marker.exists()
+    assert replay == recovered
+    assert recovered.status is ProcessStatus.FAILED
+    assert recovered.failure is ProcessFailure.RECOVERY_UNCERTAIN
+    assert recovered.process_identity is None
+    assert recovered.termination_method.startswith("RECOVERY_")
+    _assert_identity_stopped(env.process, prepared_identities[0])
+    assert _managed_process_counts(env.database) == {
+        "managed_process_claims": 1,
+        "managed_process_launches": 1,
+        "managed_process_prepared_executions": 1,
+        "managed_process_executions": 0,
+        "managed_process_results": 1,
+        "managed_process_recovery_heads": 1,
+        "managed_process_recovery_events": 1,
+        "managed_process_recovery_releases": 0,
+    }
+
+
+def test_t19_crash_after_exec_ack_is_fenced_without_duplicate_launch(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    env = _environment(tmp_path)
+    marker = env.root_path / "exec-ack-target-count"
+    request = _request(
+        env,
+        argv=(
+            "-c",
+            "from pathlib import Path; import time; p=Path('exec-ack-target-count'); f=p.open('a'); f.write('target\\n'); f.flush(); f.close(); time.sleep(30)",
+        ),
+        timeout_seconds=5.0,
+    )
+    acknowledged_identities: list[biella.ManagedProcessIdentity] = []
+
+    def crash_before_confirmation(
+        identity: biella.ManagedProcessIdentity,
+    ) -> biella.ManagedProcessIdentity:
+        acknowledged_identities.append(identity)
+        _wait_for_file_bytes(marker, b"target\n")
+        raise _InjectedManagedLaunchCrash(
+            "crash after exec acknowledgement before confirmation"
+        )
+
+    monkeypatch.setattr(
+        env.process,
+        "_persist_execution_identity",
+        crash_before_confirmation,
+    )
+    with pytest.raises(
+        _InjectedManagedLaunchCrash,
+        match="before confirmation",
+    ):
+        env.process.execute(
+            env.access,
+            env.attempt,
+            request,
+            idempotency_key="crash-after-exec-ack",
+        )
+
+    call_ref = _only_managed_call_ref(env)
+    recovered = env.process.get_result(env.access, call_ref)
+    replay = env.process.execute(
+        env.access,
+        env.attempt,
+        request,
+        idempotency_key="crash-after-exec-ack",
+    )
+    assert len(acknowledged_identities) == 1
+    assert env.process._prepared_identity_for_call(call_ref) == acknowledged_identities[0]
+    assert env.process._execution_identity_for_call(call_ref) is None
+    assert marker.read_bytes() == b"target\n"
+    assert replay == recovered
+    assert recovered.status is ProcessStatus.FAILED
+    assert recovered.failure is ProcessFailure.RECOVERY_UNCERTAIN
+    assert recovered.process_identity is None
+    assert recovered.termination_method.startswith("RECOVERY_SIGTERM")
+    _assert_identity_stopped(env.process, acknowledged_identities[0])
+    assert _managed_process_counts(env.database) == {
+        "managed_process_claims": 1,
+        "managed_process_launches": 1,
+        "managed_process_prepared_executions": 1,
+        "managed_process_executions": 0,
+        "managed_process_results": 1,
+        "managed_process_recovery_heads": 1,
+        "managed_process_recovery_events": 1,
+        "managed_process_recovery_releases": 0,
+    }
+
+
+def test_t20_crash_after_confirmed_execution_recovers_exact_identity_once(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    env = _environment(tmp_path)
+    marker = env.root_path / "confirmed-target-count"
+    request = _request(
+        env,
+        argv=(
+            "-c",
+            "from pathlib import Path; import time; p=Path('confirmed-target-count'); f=p.open('a'); f.write('target\\n'); f.flush(); f.close(); time.sleep(30)",
+        ),
+        timeout_seconds=5.0,
+    )
+    original_persist = env.process._persist_execution_identity
+    confirmed_identities: list[biella.ManagedProcessIdentity] = []
+
+    def crash_after_confirmation(
+        identity: biella.ManagedProcessIdentity,
+    ) -> biella.ManagedProcessIdentity:
+        confirmed = original_persist(identity)
+        confirmed_identities.append(confirmed)
+        _wait_for_file_bytes(marker, b"target\n")
+        raise _InjectedManagedLaunchCrash(
+            "crash after confirmed execution before result"
+        )
+
+    monkeypatch.setattr(
+        env.process,
+        "_persist_execution_identity",
+        crash_after_confirmation,
+    )
+    with pytest.raises(
+        _InjectedManagedLaunchCrash,
+        match="before result",
+    ):
+        env.process.execute(
+            env.access,
+            env.attempt,
+            request,
+            idempotency_key="crash-after-confirmed-execution",
+        )
+
+    call_ref = _only_managed_call_ref(env)
+    recovered = env.process.get_result(env.access, call_ref)
+    replay = env.process.execute(
+        env.access,
+        env.attempt,
+        request,
+        idempotency_key="crash-after-confirmed-execution",
+    )
+    assert len(confirmed_identities) == 1
+    exact_identity = confirmed_identities[0]
+    assert env.process._prepared_identity_for_call(call_ref) == exact_identity
+    assert env.process._execution_identity_for_call(call_ref) == exact_identity
+    assert recovered.process_identity == exact_identity
+    assert marker.read_bytes() == b"target\n"
+    assert replay == recovered
+    assert recovered.status is ProcessStatus.FAILED
+    assert recovered.failure is ProcessFailure.RECOVERY_UNCERTAIN
+    assert recovered.termination_method.startswith("RECOVERY_SIGTERM")
+    _assert_identity_stopped(env.process, exact_identity)
+    assert _managed_process_counts(env.database) == {
+        "managed_process_claims": 1,
+        "managed_process_launches": 1,
+        "managed_process_prepared_executions": 1,
+        "managed_process_executions": 1,
+        "managed_process_results": 1,
+        "managed_process_recovery_heads": 1,
+        "managed_process_recovery_events": 1,
+        "managed_process_recovery_releases": 0,
+    }
+
+
+def test_t21_prepared_identity_tamper_missing_and_mismatch_fail_readback(
+    tmp_path: Path,
+) -> None:
+    def completed_environment(path: Path, namespace: str) -> tuple[_Environment, ProcessResult]:
+        environment = _environment(path, namespace=namespace)
+        result = environment.process.execute(
+            environment.access,
+            environment.attempt,
+            _request(environment, argv=("-c", "print('identity-evidence')")),
+            idempotency_key="prepared-identity-evidence",
+        )
+        assert _managed_process_counts(environment.database)[
+            "managed_process_prepared_executions"
+        ] == 1
+        return environment, result
+
+    tampered, tampered_result = completed_environment(
+        tmp_path / "tampered",
+        "prepared-tampered",
+    )
+    connection = sqlite3.connect(tampered.database)
+    try:
+        with pytest.raises(sqlite3.IntegrityError, match="claims are immutable"):
+            connection.execute(
+                "UPDATE managed_process_claims SET call_id=call_id"
+            )
+        connection.rollback()
+        with pytest.raises(sqlite3.IntegrityError, match="prepared identities are immutable"):
+            connection.execute(
+                "UPDATE managed_process_prepared_executions SET pid=pid"
+            )
+        connection.rollback()
+        connection.execute("DROP TRIGGER managed_process_prepared_no_update")
+        connection.execute(
+            "UPDATE managed_process_prepared_executions SET record_sha256=? WHERE call_id=?",
+            ("0" * 64, tampered_result.tool_call_ref.call_id),
+        )
+        connection.commit()
+    finally:
+        connection.close()
+    with pytest.raises(
+        ProcessIntegrityError,
+        match="prepared execution identity changed",
+    ):
+        tampered.process.get_result(
+            tampered.access,
+            tampered_result.tool_call_ref,
+        )
+
+    missing, missing_result = completed_environment(
+        tmp_path / "missing",
+        "prepared-missing",
+    )
+    connection = sqlite3.connect(missing.database)
+    try:
+        connection.execute("DROP TRIGGER managed_process_prepared_no_delete")
+        connection.execute(
+            "DELETE FROM managed_process_prepared_executions WHERE call_id=?",
+            (missing_result.tool_call_ref.call_id,),
+        )
+        connection.commit()
+    finally:
+        connection.close()
+    with pytest.raises(
+        ProcessIntegrityError,
+        match="launch gate and result classification differ",
+    ):
+        missing.process.get_result(
+            missing.access,
+            missing_result.tool_call_ref,
+        )
+
+    mismatched, mismatched_result = completed_environment(
+        tmp_path / "mismatched",
+        "prepared-mismatched",
+    )
+    connection = sqlite3.connect(mismatched.database)
+    connection.row_factory = sqlite3.Row
+    try:
+        row = connection.execute(
+            "SELECT * FROM managed_process_prepared_executions WHERE call_id=?",
+            (mismatched_result.tool_call_ref.call_id,),
+        ).fetchone()
+        assert row is not None
+        forged_execution_id = "pexec_" + "0" * 32
+        assert forged_execution_id != row["execution_id"]
+        forged_payload = {
+            "boot_id": row["boot_id"],
+            "executable_device": row["executable_device"],
+            "executable_inode": row["executable_inode"],
+            "executable_sha256": row["executable_sha256"],
+            "execution_id": forged_execution_id,
+            "pid": row["pid"],
+            "process_group_id": row["process_group_id"],
+            "project_ref": mismatched.project_ref.value,
+            "start_ticks": row["start_ticks"],
+            "started_at": row["started_at"],
+            "tool_call_ref": mismatched_result.tool_call_ref.value,
+        }
+        forged_record = hashlib.sha256(
+            json.dumps(
+                forged_payload,
+                ensure_ascii=False,
+                allow_nan=False,
+                separators=(",", ":"),
+                sort_keys=True,
+            ).encode()
+        ).hexdigest()
+        connection.execute("DROP TRIGGER managed_process_prepared_no_update")
+        connection.execute(
+            "UPDATE managed_process_prepared_executions "
+            "SET execution_id=?,record_sha256=? WHERE call_id=?",
+            (
+                forged_execution_id,
+                forged_record,
+                mismatched_result.tool_call_ref.call_id,
+            ),
+        )
+        connection.commit()
+    finally:
+        connection.close()
+    with pytest.raises(
+        ProcessIntegrityError,
+        match="launch gate and result classification differ",
+    ):
+        mismatched.process.get_result(
+            mismatched.access,
+            mismatched_result.tool_call_ref,
+        )
+
+
+def test_t22_shebang_executable_requires_explicit_interpreter_and_never_runs(
+    tmp_path: Path,
+) -> None:
+    env = _environment(tmp_path, namespace="explicit-interpreter")
+    marker = env.root_path / "implicit-interpreter-ran.txt"
+    script = env.root_path / "implicit-interpreter.py"
+    script.write_text(
+        "#!/usr/bin/python3\n"
+        "from pathlib import Path\n"
+        f"Path({str(marker)!r}).write_bytes(b'ran')\n"
+    )
+    script.chmod(0o700)
+    request = _request(env, executable=str(script), argv=())
+
+    with pytest.raises(
+        ProcessAuthorityError,
+        match="native ELF image.*explicit interpreter",
+    ):
+        env.process.execute(
+            env.access,
+            env.attempt,
+            request,
+            idempotency_key="implicit-interpreter-denied",
+        )
+
+    assert not marker.exists()
+    recovered = env.process.get_result(
+        env.access,
+        _only_managed_call_ref(env),
+    )
+    assert recovered.status is ProcessStatus.FAILED
+    assert recovered.failure is ProcessFailure.RECOVERY_UNCERTAIN
+    assert recovered.process_identity is None
+    assert not marker.exists()
+
+
+def test_t23_stream_only_descriptor_content_is_exact_read_only_and_replayable(
+    tmp_path: Path,
+) -> None:
+    env = _environment(tmp_path, namespace="memory-descriptor")
+    memory = MemoryObjectStorageBackend()
+    process = ManagedProcessAdapter(
+        env.database,
+        memory,
+        inherited_environment={"LANG": "C.UTF-8"},
+    )
+    payload = b"descriptor-from-memory"
+    payload_ref = memory.put(payload, media_type="application/octet-stream")
+    request = _request(
+        env,
+        argv=(
+            "-c",
+            (
+                "import fcntl,os,sys; fd=int(sys.argv[1]); data=os.read(fd,4096); "
+                "state=b'READ_ONLY' if fcntl.fcntl(fd,fcntl.F_GETFL)&os.O_ACCMODE==os.O_RDONLY "
+                "else b'WRITABLE'; "
+                "sys.stdout.buffer.write(data+b'|'+state)"
+            ),
+            "@biella-content-fd:payload",
+        ),
+        descriptor_content_refs={"payload": payload_ref},
+    )
+
+    result = process.execute(
+        env.access,
+        env.attempt,
+        request,
+        idempotency_key="memory-descriptor-read-only",
+    )
+    restarted = ManagedProcessAdapter(
+        env.database,
+        memory,
+        inherited_environment={"LANG": "C.UTF-8"},
+    )
+
+    assert result.status is ProcessStatus.SUCCEEDED
+    assert memory.read(result.stdout_ref) == payload + b"|READ_ONLY"
+    assert memory.read(payload_ref) == payload
+    assert restarted.get_result(env.access, result.tool_call_ref) == result
+
+
+def test_t24_stream_only_stdin_is_exact_and_replayable(tmp_path: Path) -> None:
+    env = _environment(tmp_path, namespace="memory-stdin")
+    memory = MemoryObjectStorageBackend()
+    process = ManagedProcessAdapter(
+        env.database,
+        memory,
+        inherited_environment={"LANG": "C.UTF-8"},
+    )
+    stdin_payload = b"stdin-from-memory\n"
+    stdin_ref = memory.put(stdin_payload, media_type="application/octet-stream")
+    request = _request(
+        env,
+        argv=("-c", "import sys; sys.stdout.buffer.write(sys.stdin.buffer.read())"),
+        stdin_ref=stdin_ref,
+    )
+
+    result = process.execute(
+        env.access,
+        env.attempt,
+        request,
+        idempotency_key="memory-stdin-exact",
+    )
+    restarted = ManagedProcessAdapter(
+        env.database,
+        memory,
+        inherited_environment={"LANG": "C.UTF-8"},
+    )
+
+    assert result.status is ProcessStatus.SUCCEEDED
+    assert memory.read(result.stdout_ref) == stdin_payload
+    assert restarted.get_result(env.access, result.tool_call_ref) == result
+
+
+def test_t25_normal_readback_verifies_all_inputs_and_exact_artifact_provenance(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    env = _environment(tmp_path, namespace="readback-provenance")
+    memory = MemoryObjectStorageBackend()
+    process = ManagedProcessAdapter(
+        env.database,
+        memory,
+        inherited_environment={"LANG": "C.UTF-8"},
+    )
+    stdin_bytes = b"stdin-evidence"
+    descriptor_bytes = b"descriptor-evidence"
+    stdin_ref = memory.put(stdin_bytes, media_type="application/octet-stream")
+    descriptor_ref = memory.put(
+        descriptor_bytes,
+        media_type="application/octet-stream",
+    )
+    request = _request(
+        env,
+        argv=(
+            "-c",
+            (
+                "import os,sys; "
+                "sys.stdout.buffer.write(sys.stdin.buffer.read()+os.read(int(sys.argv[1]),4096))"
+            ),
+            "@biella-content-fd:payload",
+        ),
+        stdin_ref=stdin_ref,
+        descriptor_content_refs={"payload": descriptor_ref},
+    )
+    result = process.execute(
+        env.access,
+        env.attempt,
+        request,
+        idempotency_key="readback-provenance",
+    )
+
+    memory.delete_replica(descriptor_ref)
+    with pytest.raises(
+        ProcessIntegrityError,
+        match="ContentRef failed verification",
+    ):
+        process.get_result(env.access, result.tool_call_ref)
+    assert memory.put(
+        descriptor_bytes,
+        media_type="application/octet-stream",
+    ) == descriptor_ref
+
+    artifact = process.artifacts.get_artifact(env.access, result.artifact_ref)
+    forged = replace(
+        artifact,
+        source_content_refs=tuple(
+            item
+            for item in artifact.source_content_refs
+            if item != descriptor_ref
+        ),
+    )
+    original_get_artifact = process.artifacts.get_artifact
+
+    def forged_get_artifact(
+        access: ProjectAccess,
+        artifact_ref: biella.ArtifactRef,
+    ) -> biella.Artifact:
+        if artifact_ref == result.artifact_ref:
+            return forged
+        return original_get_artifact(access, artifact_ref)
+
+    monkeypatch.setattr(process.artifacts, "get_artifact", forged_get_artifact)
+    with pytest.raises(
+        ProcessIntegrityError,
+        match="Artifact provenance changed",
+    ):
+        process.get_result(env.access, result.tool_call_ref)
