@@ -33,7 +33,6 @@ durable_source:
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    continuity_write_commit: THIS_COMMIT
     status: CURRENT_EXECUTION_AND_REMOTE_RECONCILED_WITH_RECOVERY_STILL_PENDING
   branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
