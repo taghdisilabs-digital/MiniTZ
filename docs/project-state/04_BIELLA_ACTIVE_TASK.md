@@ -4,71 +4,43 @@
 schema: biella.active_task/v6
 
 active_task:
-  id: P3-05
-  global_number: 36
+  id: P3-06
+  global_number: 37
   phase: P3
-  title: 3D Modeling and Scene Production Pack
-  state: RESTORE_PRESERVED_GPT_5_6_P3_05_BEFORE_ANY_FURTHER_MUTATION
-  predecessor: P3-04
-  predecessor_result_commit: 28fde1e9224236ce7b37b74434727463e96d9893
-  predecessor_result_tree: d7efcc21cab8dc86488ef91963f48791dbe0dca0
-  predecessor_remote_readback: VERIFIED
-  successor: P3-06
-  successor_authorized_before_close: false
+  title: NOT_LOADED_UNTIL_EXACT_PROMPT_ACTIVATION
+  state: NEXT_NUMBERED_DEPENDENCY_AFTER_DURABLE_P3_05_CLOSE
+  predecessor: P3-05
+  predecessor_source_commit: e228a7bb6db6f94af15dde4a8fb110b028eddbed
+  predecessor_result_commit: 929d2b3269b6fcc38c75d90aece802dfdaf9fadf
+  predecessor_result_tree: e9bc6bdb156f5ac82039a613b03cb9643ea1125a
+  predecessor_github_readback: EXACT_COMMIT_TREE_AND_ALL_NINE_BLOBS_CONFIRMED
+  execution_authorized: false
 
 exact_prompt:
-  title: 36_P3-05_3D_Modeling_and_Scene_Production_Pack.md.docx
-  local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P3/36_P3-05_3D_Modeling_and_Scene_Production_Pack.md.docx
-  local_path_status: UNKNOWN_ON_CURRENT_HOST_UNTIL_REQUIRED
-  drive_path: gdrive:BiellaEngine/40_PROMPTS/P3/36_P3-05_3D_Modeling_and_Scene_Production_Pack.md.docx
-  drive_id: 1TIG3GggwGdu3ma1e5MeeIontVUO4pmSP4aggJKps0Kg
-  local_docx_sha256: abb4255869736f571329e3e55409fc8675f927a4ab09bc50bbb6556bbd48c050
-  live_drive_exported_docx_sha256: d411b17a37fc988eda9a563c0285515e9be478a12ba024c23dc6696da2c8c8e6
-  canonical_text_sha256: e8688b4e820c7df1096f4a88a9e0bcda792fbe17c3e1690839a689bbcf6f46ed
-  technical_dependencies: RESOLVE_FROM_EXACT_PROMPT_AND_CURRENT_SOURCE
+  status: NOT_LOADED_OR_PRELOADED
+  rule: obtain_exact_P3_06_prompt_metadata_and_body_only_when_P3_06_execution_is_explicitly_authorized
 
-recovery_boundary:
-  durable_implementation_base: e228a7bb6db6f94af15dde4a8fb110b028eddbed
-  durable_implementation_base_tree: b407138ac05af441487aa6005700da98b8016906
-  preserve_execution_through: "2026-08-30T10:08:48.575Z"
-  reject_execution_beginning: "2026-08-30T10:44:52Z"
-  recovery_archive: GPT56_EXACT_RECOVERY_2026-08-30.tar.gz
-  recovery_archive_sha256: 73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
-  recovery_archive_size_bytes: 26490936
-  recovery_archive_drive_id: 1Y7aEStdGbCK5a0N9iA8s41l2olTWOUAE
-  recovery_archive_drive_readback: VERIFIED_EXACT_BYTES
-  recovery_archive_drive_readback_sha256: 73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
-  fresh_Drive_fetch_verified_date: 2026-08-31
-  fresh_Drive_fetch_size_bytes: 26490936
-  fresh_Drive_fetch_sha256: 73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
-  current_restore_host_instance_id: i-0056cad38b67415c1
-  previous_execution_host: DESTROYED
-  restore_status: PENDING_CURRENT_HOST_RESTORE
-  rule: restore_exact_pre_boundary_file_contents; never_replay_rejected_session_mutations
+P3_05_durable_close:
+  source_commit: e228a7bb6db6f94af15dde4a8fb110b028eddbed
+  result_commit: 929d2b3269b6fcc38c75d90aece802dfdaf9fadf
+  result_tree: e9bc6bdb156f5ac82039a613b03cb9643ea1125a
+  github_readback: EXACT_COMMIT_TREE_AND_ALL_NINE_BLOBS_CONFIRMED
+  recovery_archive: REUSED_WITHOUT_REHASH
+  validators:
+    pack_contract: COMPLETE
+    real_output_truth: COMPLETE
+    isolation_recovery: COMPLETE
+  final_gate: 72_TESTS_GREEN; STRICT_MYPY_9_PATHS_GREEN; COMPILEALL_GREEN; DIFF_CHECKS_GREEN; CLEAN_WHEEL_INSTALL_IMPORT_GREEN
+  wheel: biella_engine-0.1.0-py3-none-any.whl
+  wheel_sha256: fc09a1d9543b2111df4ed41ad17db796c0570d8c67d16e4f28ce3b261a9472dc
+  real_runtime: Blender_5.0.1
 
 owner_priority:
   standing_order: preserve_current_or_recoverable_long_running_productive_work_before_any_remote_sync_restore_reset_checkout_merge_or_host_replacement
   remote_newer_is_not_permission_to_replace_unpreserved_execution_work: true
   current_sequence:
-    - restore_GPT56_EXACT_RECOVERY_2026_08_30_to_current_host
-    - verify_exact_recovered_nine_path_worktree_and_any_additional_recovery_evidence
-    - reconcile_only_remaining_required_GitHub_and_Drive_continuity
-    - finish_PREP_TOKEN_EXEC_011_Spark_preparation
-    - resume_P3_05_with_user_selected_non_Spark_main_Codex
-  prohibited_before_restore:
-    - further_git_merge_reset_checkout_or_remote_replacement
-    - Spark_execution
-    - main_P3_05_Codex_execution
-    - successor_prompt_execution
-
-preparation_lane:
-  drive_root_id: 1nVKKASTsqmCw8CT9P_qYaz8h65F5C6Dx
-  package_revision: 2.9.0
-  last_durable_prep: PREP-TOKEN-EXEC-010
-  active_ready_prep: PREP-TOKEN-EXEC-011
-  integration_performed: false
-  assumptions: []
-  execution_now: BLOCKED_BY_OWNER_RECOVERY_FIRST_PRIORITY_NOT_BY_PREP_DEFECT
+    - retain_P3_05_durable_close_evidence
+    - load_and_execute_P3_06_only_after_explicit_authorization
 
 execution_host:
   current_host:
@@ -125,10 +97,6 @@ codex_execution_contract:
     superpowers_is_runtime_dependency: false
     biella_authority_overrides_generic_skill_workflow: true
     no_permanent_reviewer_or_manager_hierarchy: true
-  model_guard:
-    intended_model: user_selected_non_Spark_Codex_model
-    forbidden_silent_substitution: gpt-5.3-codex-spark
-    if_intended_model_unavailable: stop_before_repository_write
   normal_context:
     - 03_BIELLA_CURRENT_STATE.md
     - 04_BIELLA_ACTIVE_TASK.md
@@ -226,18 +194,12 @@ multi_ai_execution:
     no_permanent_named_agent_hierarchy: true
 
 current_frontier:
-  state: RECOVERY_BEFORE_EXECUTION
-  current_required_node: R1_RESTORE
-  host_provisioned: true
-  canonical_checkout_present: true
-  remote_main_fetched_and_fast_forwarded: true
-  recovery_archive_current_Drive_bytes_verified: true
-  recovery_archive_restored_to_VPS: false
-  recovered_worktree_reobserved: false
-  Spark_PREP_011_allowed_before_restore: false
-  P3_05_main_Codex_allowed_before_restore: false
+  state: P3_06_NEXT_NUMBERED_DEPENDENCY_NOT_STARTED
+  P3_05_durable_close_complete: true
+  P3_06_prompt_loaded: false
+  P3_06_execution_authorized: false
 
-P3_05_graph:
+closed_P3_05_graph:
   B0_NEW_HOST_BOOTSTRAP:
     mode: SERIAL_INFRASTRUCTURE
     depends_on: []
@@ -262,7 +224,6 @@ P3_05_graph:
     objective: verify intended model, canonical repository, branch, prompt identity, recovery archive identity, and source boundary
     stop_before_write_if:
       - wrong_repository_or_branch
-      - intended_model_unavailable_or_silent_Spark_substitution
       - recovery_archive_digest_mismatch
       - unexplained_newer_implementation_source
   R1_RESTORE:

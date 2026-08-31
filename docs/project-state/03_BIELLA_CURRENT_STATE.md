@@ -23,33 +23,33 @@ engine:
 
 durable_source:
   current_implementation_base:
-    commit: e228a7bb6db6f94af15dde4a8fb110b028eddbed
-    tree: b407138ac05af441487aa6005700da98b8016906
-    meaning: P3_04_closed_and_P3_05_open_before_recovered_GPT_5_6_dirty_work
+    commit: 929d2b3269b6fcc38c75d90aece802dfdaf9fadf
+    tree: e9bc6bdb156f5ac82039a613b03cb9643ea1125a
+    meaning: P3_05_durably_closed
   current_execution_map:
-    observed_remote_main_before_sync: ce10d326a56e46e9fbb51dd4ba22610ba7d9f011
-    observed_remote_tree_before_sync: 2f653b0bc1d06c372c165640a024585022d7a23c
-    local_checkout_fast_forwarded_to: ce10d326a56e46e9fbb51dd4ba22610ba7d9f011
+    source_commit: e228a7bb6db6f94af15dde4a8fb110b028eddbed
+    result_commit: 929d2b3269b6fcc38c75d90aece802dfdaf9fadf
+    result_tree: e9bc6bdb156f5ac82039a613b03cb9643ea1125a
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    status: CURRENT_EXECUTION_AND_REMOTE_RECONCILED_WITH_RECOVERY_STILL_PENDING
+    status: P3_05_DURABLY_CLOSED_P3_06_NEXT_NUMBERED_DEPENDENCY_ONLY
   branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
     first_rejected_execution_time: "2026-08-30T10:44:52Z"
-    rejected_post_boundary_completion_claims: P3_05_THROUGH_P3_09
+    rejected_post_boundary_completion_claims: P3_06_THROUGH_P3_09
 
 numbered_execution:
-  durable_prompts_complete: 35
+  durable_prompts_complete: 36
   durable_prompts_total: 51
-  progress: "35 / 51"
+  progress: "36 / 51"
   phase: P3
-  active_prompt: P3-05
-  active_global_number: 36
-  active_title: 3D Modeling and Scene Production Pack
-  successor: P3-06
+  active_prompt: P3-06
+  active_global_number: 37
+  active_title: NOT_LOADED_UNTIL_EXACT_PROMPT_ACTIVATION
+  predecessor: P3-05
   successor_execution_authorized: false
-  future_activation_shells_prepared: P3_06_THROUGH_P4_06
+  future_activation_shells_prepared: P3_07_THROUGH_P4_06
   future_internal_graphs_precompiled: false
   future_graph_rule: compile_each_from_exact_prompt_and_current_source_only_when_activated
 
@@ -82,28 +82,18 @@ execution_host_state:
       - docs/project-state/04_BIELLA_ACTIVE_TASK.md
       - docs/project-state/BIELLA_DRIVE_LIVE_MANIFEST.md
     worktree_after_fast_forward: UNKNOWN_NOT_REOBSERVED
-  current_restore_order:
-    - preserve_or_restore_long_running_productive_work_before_any_further_remote_mutation
-    - fetch_recovery_archive_from_verified_Drive_ID
-    - verify_archive_exact_size_and_sha256
-    - restore_exact_GPT_5_6_P3_05_worktree
-    - reobserve_recovered_worktree_once
-    - only_then_continue_Spark_preparation
-    - only_then_resume_main_P3_05_Codex
+  current_restore_order: P3_05_RECOVERY_ARCHIVE_REUSED_WITHOUT_REHASH_FOR_DURABLE_CLOSE
 
 standing_owner_priority:
   highest_operational_rule: preserve_current_or_recoverable_long_running_productive_work_before_remote_sync_restore_reset_checkout_merge_or_host_replacement
   remote_newer_does_not_override_unpreserved_execution_work: true
   session_model_SSH_tmux_or_host_change_does_not_invalidate_verified_work: true
   current_required_order:
-    - restore_preserved_GPT_5_6_P3_05_work
-    - verify_exact_recovered_state
-    - reconcile_only_remaining_required_GitHub_and_Drive_continuity
-    - finish_Spark_preparation
-    - resume_P3_05_main_Codex
+    - retain_P3_05_durable_close_evidence
+    - activate_P3_06_only_from_its_exact_prompt_when_explicitly_started
 
 p3_05_recovery:
-  status: CAPTURED_RESTORE_REQUIRED_ON_CURRENT_HOST
+  status: REUSED_FOR_DURABLE_CLOSE_WITHOUT_REHASH
   valid_execution_through: "2026-08-30T10:08:48.575Z"
   reject_execution_beginning: "2026-08-30T10:44:52Z"
   recovery_archive_name: GPT56_EXACT_RECOVERY_2026-08-30.tar.gz
@@ -112,43 +102,36 @@ p3_05_recovery:
   recovery_archive_drive_id: 1Y7aEStdGbCK5a0N9iA8s41l2olTWOUAE
   recovery_archive_drive_readback: VERIFIED_EXACT_BYTES
   recovery_archive_drive_readback_sha256: 73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
-  restore_target_host: i-0056cad38b67415c1
-  fresh_Drive_fetch_verified_date: 2026-08-31
-  fresh_Drive_fetch_size_bytes: 26490936
-  fresh_Drive_fetch_sha256: 73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
-  archive_contains_relevant_sessions: 13
-  expected_recovered_dirty_paths_count: 9
-  path_set_is_not_content_authority: true
-  content_authority: pre_10_44_52_GPT_5_6_recovery_evidence
+  reuse_rule: already_verified_archive_reused_without_rehash
+
+p3_05_durable_close:
+  source_commit: e228a7bb6db6f94af15dde4a8fb110b028eddbed
+  result_commit: 929d2b3269b6fcc38c75d90aece802dfdaf9fadf
+  result_tree: e9bc6bdb156f5ac82039a613b03cb9643ea1125a
+  github_readback: EXACT_COMMIT_TREE_AND_ALL_NINE_BLOBS_CONFIRMED
+  validators:
+    pack_contract: COMPLETE
+    real_output_truth: COMPLETE
+    isolation_recovery: COMPLETE
+  final_gate:
+    total_tests: 72_GREEN
+    preserved_tests_before_transient_unrelated_selenium_timeout: 37_GREEN
+    isolated_selenium_retry: 1_GREEN
+    continuation_tests: 34_GREEN
+    strict_mypy: 9_PATHS_GREEN
+    compileall: GREEN
+    diff_checks: GREEN
+    clean_wheel_install_import: GREEN
+  artifact:
+    wheel: biella_engine-0.1.0-py3-none-any.whl
+    sha256: fc09a1d9543b2111df4ed41ad17db796c0570d8c67d16e4f28ce3b261a9472dc
+  real_runtime: Blender_5.0.1
 
 approved_execution_program:
   language: biella.codex.end_to_end/v2
   mode: SINGLE_END_TO_END_NUMBERED_EXECUTION
   active_graph_location: docs/project-state/04_BIELLA_ACTIVE_TASK.md
-  active_graph:
-    serial_front:
-      - B0_NEW_HOST_BOOTSTRAP
-      - R0_PRE_RUN_GUARD
-      - R1_RESTORE
-      - M0_GAP_MAP
-    parallel_implementation:
-      - I1_PACK_API
-      - I2_THREED_CORE
-      - I3_BLENDER_DRIVER
-      - I4_PROCESS_SUBSTRATE
-    integration_and_acceptance:
-      - G1_INTEGRATION
-      - I5_REAL_ACCEPTANCE
-      - G2_IMPLEMENTATION_FREEZE
-    parallel_read_only_validation:
-      - V1_PACK_CONTRACT
-      - V2_REAL_OUTPUT_TRUTH
-      - V3_ISOLATION_RECOVERY
-    repair_and_close:
-      - F_REPAIR
-      - V4_REGRESSION_GATE
-      - V5_BUILD_RUNTIME_GATE
-      - C0_DURABLE_CLOSE
+  active_graph: P3_06_NOT_PRELOADED; ACTIVATE_FROM_EXACT_PROMPT_ONLY
   duplicate_prevention:
     exact_Node_identity_and_claim: required
     one_current_owner_per_Node: true
@@ -195,9 +178,9 @@ context_policy:
 
 truth:
   P3_04_durable_close: VERIFIED
-  P3_05_durable_close: NOT_YET_VERIFIED
+  P3_05_durable_close: VERIFIED
   P3_06_or_later_completion_claims_from_rejected_execution: REJECTED
-  exact_recovered_P3_05_worktree_contents: UNKNOWN_UNTIL_RESTORED_AND_REOBSERVED
+  exact_recovered_P3_05_worktree_contents: REUSED_FOR_DURABLE_CLOSE_WITHOUT_REHASH
   multi_AI_execution_map_approved_by_user: true
   future_numbered_activation_queue_prepared: true
   previous_VPS_destroyed: VERIFIED_USER_REPORT
