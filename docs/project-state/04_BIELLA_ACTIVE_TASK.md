@@ -8,7 +8,7 @@ active_task:
   global_number: 36
   phase: P3
   title: 3D Modeling and Scene Production Pack
-  state: PROVISION_NEW_HOST_THEN_RESTORE_GPT_5_6_AND_EXECUTE_END_TO_END
+  state: RESTORE_PRESERVED_GPT_5_6_P3_05_BEFORE_ANY_FURTHER_MUTATION
   predecessor: P3-04
   predecessor_result_commit: 28fde1e9224236ce7b37b74434727463e96d9893
   predecessor_result_tree: d7efcc21cab8dc86488ef91963f48791dbe0dca0
@@ -19,7 +19,7 @@ active_task:
 exact_prompt:
   title: 36_P3-05_3D_Modeling_and_Scene_Production_Pack.md.docx
   local_path: /root/biella/import/canon/BiellaEngine/40_PROMPTS/P3/36_P3-05_3D_Modeling_and_Scene_Production_Pack.md.docx
-  local_path_status: ABSENT_UNTIL_NEW_HOST_BOOTSTRAP
+  local_path_status: UNKNOWN_ON_CURRENT_HOST_UNTIL_REQUIRED
   drive_path: gdrive:BiellaEngine/40_PROMPTS/P3/36_P3-05_3D_Modeling_and_Scene_Production_Pack.md.docx
   drive_id: 1TIG3GggwGdu3ma1e5MeeIontVUO4pmSP4aggJKps0Kg
   local_docx_sha256: abb4255869736f571329e3e55409fc8675f927a4ab09bc50bbb6556bbd48c050
@@ -38,24 +38,69 @@ recovery_boundary:
   recovery_archive_drive_id: 1Y7aEStdGbCK5a0N9iA8s41l2olTWOUAE
   recovery_archive_drive_readback: VERIFIED_EXACT_BYTES
   recovery_archive_drive_readback_sha256: 73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
+  fresh_Drive_fetch_verified_date: 2026-08-31
+  fresh_Drive_fetch_size_bytes: 26490936
+  fresh_Drive_fetch_sha256: 73052d6cffea8017bebee64750d8de532654ca6c7e8dffff62caa554efe30f0d
+  current_restore_host_instance_id: i-0056cad38b67415c1
   previous_execution_host: DESTROYED
-  restore_status: PENDING_NEW_HOST_RESTORE
+  restore_status: PENDING_CURRENT_HOST_RESTORE
   rule: restore_exact_pre_boundary_file_contents; never_replay_rejected_session_mutations
 
+owner_priority:
+  standing_order: preserve_current_or_recoverable_long_running_productive_work_before_any_remote_sync_restore_reset_checkout_merge_or_host_replacement
+  remote_newer_is_not_permission_to_replace_unpreserved_execution_work: true
+  current_sequence:
+    - restore_GPT56_EXACT_RECOVERY_2026_08_30_to_current_host
+    - verify_exact_recovered_nine_path_worktree_and_any_additional_recovery_evidence
+    - reconcile_only_remaining_required_GitHub_and_Drive_continuity
+    - finish_PREP_TOKEN_EXEC_011_Spark_preparation
+    - resume_P3_05_with_user_selected_non_Spark_main_Codex
+  prohibited_before_restore:
+    - further_git_merge_reset_checkout_or_remote_replacement
+    - Spark_execution
+    - main_P3_05_Codex_execution
+    - successor_prompt_execution
+
+preparation_lane:
+  drive_root_id: 1nVKKASTsqmCw8CT9P_qYaz8h65F5C6Dx
+  package_revision: 2.9.0
+  last_durable_prep: PREP-TOKEN-EXEC-010
+  active_ready_prep: PREP-TOKEN-EXEC-011
+  integration_performed: false
+  assumptions: []
+  execution_now: BLOCKED_BY_OWNER_RECOVERY_FIRST_PRIORITY_NOT_BY_PREP_DEFECT
+
 execution_host:
-  current_host: NONE
+  current_host:
+    provider: AWS
+    instance_id: i-0056cad38b67415c1
+    region: eu-west-3
+    instance_type: t2.xlarge
+    public_ipv4: 13.38.217.245
+    private_ipv4: 172.31.47.69
+    state: RUNNING
+    os: Ubuntu_26.04.1_LTS
+    kernel: 7.0.0-1011-aws
+    resource_note: LOWER_RESOURCE_REPLACEMENT_HOST
   previous_host_state: DESTROYED
   previous_host_paths_are_authority: false
-  canonical_root_for_next_host: /root/biella
-  canonical_codex_home_for_next_host: /root/.codex
-  canonical_checkout_for_next_host: /root/biella/repos/biella-engine
+  canonical_root: /root/biella
+  canonical_codex_home: /root/.codex
+  canonical_checkout: /root/biella/repos/biella-engine
+  checkout_observation:
+    worktree_before_fetch: CLEAN
+    head_before_fetch: e228a7bb6db6f94af15dde4a8fb110b028eddbed
+    origin_main_after_fetch: ce10d326a56e46e9fbb51dd4ba22610ba7d9f011
+    head_after_fast_forward: ce10d326a56e46e9fbb51dd4ba22610ba7d9f011
+    worktree_after_fast_forward: UNKNOWN_NOT_REOBSERVED
+    fast_forward_scope: ONLY_03_04_AND_BIELLA_DRIVE_LIVE_MANIFEST
   bootstrap_authorities:
     github_repository: patrickminitz-web/biella-engine
     github_branch: main
     drive_current_state_id: 1wiWcdWt4hmTf3narsLw4OqGu_ueKOSa4
     drive_active_task_id: 1liutA8evH6rPjk-U4tgR13l_kqBrx-DF
     drive_recovery_archive_id: 1Y7aEStdGbCK5a0N9iA8s41l2olTWOUAE
-  rule: new_host_is_disposable_execution_resource; GitHub_and_Drive_hold_durable_authority
+  rule: current_execution_state_is_preserved_first; GitHub_and_Drive_are_durable_authorities_but_do_not_override_unpreserved_newer_productive_work
 
 expected_recovered_path_set:
   modified_tracked:
@@ -179,6 +224,18 @@ multi_ai_execution:
     parallel_workers_only_if: independent_dependencies_and_nonoverlapping_side_effects_and_material_wall_clock_benefit
     no_mandatory_planner_critic_validator_chain: true
     no_permanent_named_agent_hierarchy: true
+
+current_frontier:
+  state: RECOVERY_BEFORE_EXECUTION
+  current_required_node: R1_RESTORE
+  host_provisioned: true
+  canonical_checkout_present: true
+  remote_main_fetched_and_fast_forwarded: true
+  recovery_archive_current_Drive_bytes_verified: true
+  recovery_archive_restored_to_VPS: false
+  recovered_worktree_reobserved: false
+  Spark_PREP_011_allowed_before_restore: false
+  P3_05_main_Codex_allowed_before_restore: false
 
 P3_05_graph:
   B0_NEW_HOST_BOOTSTRAP:
