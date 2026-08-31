@@ -4,57 +4,47 @@
 schema: biella.active_task/v6
 
 active_task:
-  id: P3-07
-  global_number: 38
+  id: P3-08
+  global_number: 39
   phase: P3
-  title: Animation Production Pack
+  title: Environment and World Production Pack
   state: ACTIVATED_PROMPT_NOT_LOADED_OR_COMPILED
-  predecessor: P3-06
-  predecessor_source_commit: e3c0ecb1ba70c2048f12198533f904da7e7504ed
-  predecessor_result_commit: 78005b0a30fa7002eed8019a588731551e3d2c6b
-  predecessor_result_tree: 6737d32d10feae0dcaeb4024ece00f3aa64b20f0
+  predecessor: P3-07
+  predecessor_source_commit: aa1bb7e0e40c0d8cc02b56c3a0454cd7c3f68c09
+  predecessor_result_commit: 56de0cff151214c8a73a173be6c5c110d894d378
+  predecessor_result_tree: d23272291cabb25fdb1ac4971e73d868293e3024
   predecessor_github_readback: EXACT_COMMIT_TREE_AND_SIX_BLOBS_CONFIRMED
   execution_authorized: true
 
 exact_prompt:
-  title: Animation Production Pack
-  drive_id: 1GzQxmCrvIv10WVv0KdoPxlKi7l79J2J6cS-zvoOv-Dk
+  title: Environment and World Production Pack
+  drive_id: 10wP9734umfbfCGfLvmf3gz_9IfT1h8kTjX06KmW0a54
   status: NOT_LOADED_OR_COMPILED
-  rule: obtain_exact_P3_07_prompt_body_only_when_execution_begins
+  rule: obtain_exact_P3_08_prompt_body_only_when_execution_begins
 
-P3_05_durable_close:
-  source_commit: e228a7bb6db6f94af15dde4a8fb110b028eddbed
-  result_commit: 929d2b3269b6fcc38c75d90aece802dfdaf9fadf
-  result_tree: e9bc6bdb156f5ac82039a613b03cb9643ea1125a
-  github_readback: EXACT_COMMIT_TREE_AND_ALL_NINE_BLOBS_CONFIRMED
-  recovery_archive: REUSED_WITHOUT_REHASH
-  validators:
-    pack_contract: COMPLETE
-    real_output_truth: COMPLETE
-    isolation_recovery: COMPLETE
-  final_gate: 72_TESTS_GREEN; STRICT_MYPY_9_PATHS_GREEN; COMPILEALL_GREEN; DIFF_CHECKS_GREEN; CLEAN_WHEEL_INSTALL_IMPORT_GREEN
-  wheel: biella_engine-0.1.0-py3-none-any.whl
-  wheel_sha256: fc09a1d9543b2111df4ed41ad17db796c0570d8c67d16e4f28ce3b261a9472dc
-  real_runtime: Blender_5.0.1
+prior_durable_through_P3_06:
+  status: VERIFIED
+  latest_result_commit: 78005b0a30fa7002eed8019a588731551e3d2c6b
+  latest_result_tree: 6737d32d10feae0dcaeb4024ece00f3aa64b20f0
 
-P3_06_durable_close:
-  source_commit: e3c0ecb1ba70c2048f12198533f904da7e7504ed
-  result_commit: 78005b0a30fa7002eed8019a588731551e3d2c6b
-  result_tree: 6737d32d10feae0dcaeb4024ece00f3aa64b20f0
+P3_07_durable_close:
+  source_commit: aa1bb7e0e40c0d8cc02b56c3a0454cd7c3f68c09
+  result_commit: 56de0cff151214c8a73a173be6c5c110d894d378
+  result_tree: d23272291cabb25fdb1ac4971e73d868293e3024
   github_readback: EXACT_COMMIT_TREE_AND_SIX_BLOBS_CONFIRMED
-  contract: 16_CHARACTER_CAPABILITIES_12_ROLES_CharacterSpecification_CharacterRigRef
+  contract: 17_REGISTERED_PATHS_AND_CharacterRigRef_BOUND_ANIMATION_CONTRACT
   real_runtime: Blender_5.0.1
-  real_proof: NON_HUMANOID_RIG_SKIN_DEFORM_EXPORT_REOPEN
-  validators: STALE_MESH_SKELETON_WEIGHT_PROJECT_ISOLATION_WORKER_LOSS_EXACT_ONCE_RECOVERY
-  final_gate: 25_TESTS_GREEN_IN_448.18_SECONDS; STRICT_MYPY_6_PATHS_GREEN; COMPILEALL_DIFF_CLEAN_WHEEL_IMPORT_GREEN
-  wheel_sha256: 9ee31926b63b651561d723dfbd57c541ba38f4f6679429f7444bd7811c0bdf6a
+  real_proof: ACTION_EDIT_RETARGET_ROOT_LOOP_BLEND_BAKE_EXPORT_REOPEN
+  durability: IMMUTABLE_MAPPING_ARTIFACT_RESTART_READBACK
+  final_gate: 30_TESTS_GREEN_IN_542.55_SECONDS; STRICT_MYPY_6_PATHS_GREEN; COMPILEALL_DIFF_CLEAN_WHEEL_GREEN
+  wheel_sha256: aadb3cf35fff9f9525dede1386edfe9b84aa636d2c6ad1c2ca905e3334afa06d
 
 owner_priority:
   standing_order: preserve_current_or_recoverable_long_running_productive_work_before_any_remote_sync_restore_reset_checkout_merge_or_host_replacement
   remote_newer_is_not_permission_to_replace_unpreserved_execution_work: true
   current_sequence:
-    - retain_P3_05_and_P3_06_durable_close_evidence
-    - load_and_compile_P3_07_exact_prompt_when_execution_begins
+    - retain_prior_through_P3_06_and_P3_07_durable_close_evidence
+    - load_and_compile_P3_08_exact_prompt_when_execution_begins
 
 execution_host:
   current_host:
@@ -208,17 +198,18 @@ multi_ai_execution:
     no_permanent_named_agent_hierarchy: true
 
 current_frontier:
-  state: P3_07_ACTIVATED_NOT_STARTED
+  state: P3_08_ACTIVATED_NOT_STARTED
   P3_05_durable_close_complete: true
   P3_06_durable_close_complete: true
-  P3_07_prompt_loaded: false
-  P3_07_prompt_compiled: false
-  P3_07_execution_authorized: true
+  P3_07_durable_close_complete: true
+  P3_08_prompt_loaded: false
+  P3_08_prompt_compiled: false
+  P3_08_execution_authorized: true
 
 activation_boundary:
-  P3_07_authorized: true
-  P3_07_prompt_loaded: false
-  P3_07_graph_compiled: false
-  rule: compile_only_from_exact_P3_07_prompt_and_accepted_source
-  predecessor_evidence: P3_06_durable_close_mapping_above
+  P3_08_authorized: true
+  P3_08_prompt_loaded: false
+  P3_08_graph_compiled: false
+  rule: compile_only_from_exact_P3_08_prompt_and_accepted_source
+  predecessor_evidence: P3_07_durable_close_mapping_above
 ```
