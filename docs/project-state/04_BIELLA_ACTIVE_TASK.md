@@ -4,55 +4,39 @@
 schema: biella.active_task/v6
 
 program_boundary:
-  state: NEXT_FRONTIER_NOT_CLAIMED
+  state: ACTIVE
   completed_predecessor: P3-09
-  next_numbered_prompt: P3-10
-  next_global_number: 41
-  next_title: VFX and Simulation Production Pack
-  next_prompt_drive_id: 12GmJFm2-6mL7QSjyyaySDWbBi2WrkljUF447XWsHnnI
-  execution_started: false
-  execution_authorized: false_until_canonical_ledger_claim
+  active_numbered_prompt: P3-10
+  active_global_number: 41
+  active_title: VFX and Simulation Production Pack
+  active_prompt_drive_id: 12GmJFm2-6mL7QSjyyaySDWbBi2WrkljUF447XWsHnnI
+  execution_started: true
+  execution_authorized: true
+  authorization_basis: MAHDI_STANDING_P3_06_THROUGH_P4_06
+  spark_or_prep_dependency: NONE
 
 P3_09_durable_close:
-  status: COMPLETE
-  exact_prompt_drive_id: 1FYsaztU8wwjl_6k8Nx4xJII4wId-MPflkLFUNwW4gRM
-  preserved_source:
-    commit: b23195b82e20a568f22b8ebc7be401d5bb95c97e
-    tree: c35e5a1f38d6c938828ec0556706a3ed0e3ca93a
-  repair_result:
-    commit: 3b431a5f9c591a3e89bdd83ac3a9a5363dfd4f0d
-    tree: b7bb982a67e6f414e7ff055df745b84f18fc1469
-  github_readback: EXACT_COMMIT_TREE_AND_REQUIRED_PATHS_CONFIRMED
-  generic_renderer_adapter:
-    methods:
-      - inspect
-      - renderFrame
-      - renderSequence
-      - renderPasses
-      - cancel
-      - describeRuntime
-      - validateOutput
-  final_recovery: PRESERVED_FRAME_RESULT_JOURNAL_REPLAY_THROUGH_GENERIC_ADAPTER
-  fresh_gate:
-    workflow_run: 33526038687
-    job: 99917005167
-    focused_tests: 3_PASS_IN_1_23_SECONDS
-    strict_mypy: 2_SOURCE_FILES_NO_ISSUES
-    compileall: PASS
-    wheel_build: PASS
-    wheel_sha256: ccf1b41636d7dfa56f39075dd0c2614abf360abfef644ea53be466448cdcbb15
-  preserved_real_evidence:
-    render_tool_blob: 1c3edc2bd0f03249ab6d36901872e8aed6a59ac3
-    real_test_blob: 705c841cb6c37c8fa61d599e2aff80a94db62d95
-    historical_real_gate: 12_TESTS_GREEN_IN_151_62_SECONDS
-  drive_evidence_id: 1b0fHOflk3gQCVR2Gt-FdRxj9m2DrZrtY
+  status: COMPLETE_DURABLE
+  result_commit: 39e51b95de130dddf2e8cde49670257742c0eaac
+  result_tree: 772e20442cc4a2113361841614a080678e916685
+  github_readback: EXACT_COMMIT_TREE_AND_REQUIRED_PATH_SHA256_CONFIRMED
+  engine_run: run_3b6573ba49d140fbb66d09c400148a01
+  engine_graph: graph://prj_fa4cdeecc0dc4bbabf8258bf67fc2c77/gph_08abf64d1a5641d787981537221f44ec/1
+  validation_aggregate_sha256: 55c72416e31a2ea29049464effc91c9548d38ca776e7ef9d4455c2d7573e9934
+  acceptance_event: event://prj_fa4cdeecc0dc4bbabf8258bf67fc2c77/evt_73257ef8a3fb44ba9d440f435bd76b8d
+  canonical_drive_evidence_id: 1b0fHOflk3gQCVR2Gt-FdRxj9m2DrZrtY
+  qualification_drive_id: 1DGkVgs707kqewC-Q__sGZwzKwp106wvq
+  retained_real_drive_id: 1axZ9AI57hN1grrQVTPiGvFgZtES6S5OO
+  engine_evidence_drive_id: 12_bAY27t05rz1cmDA40YquOuXc4p16jQ
+  drive_readback: EXACT_BYTES_VERIFIED
 
-next_frontier:
+active_frontier:
   ledger_task_id: ENG-P3-10
   dependency: ENG-P3-09
-  ledger_state_before_dependency_transition: BLOCKED
-  required_transition_after_P3_09_COMPLETE: READY
+  ledger_state: READY
   title: P3-10 VFX and Simulation Production Pack durable repair
+  exact_prompt_drive_id: 12GmJFm2-6mL7QSjyyaySDWbBi2WrkljUF447XWsHnnI
   completion_gap: full_simulation_adapter_ENOSPC_1_through_300_recovery_and_durable_evidence
-  do_not_start_in_this_execution: true
+  preservation_rule: preserve_unaffected_work_and_reuse_valid_REAL_evidence
+  next_action: LOAD_EXACT_P3_10_PROMPT_AND_CLASSIFY_CURRENT_REQUIREMENTS
 ```
