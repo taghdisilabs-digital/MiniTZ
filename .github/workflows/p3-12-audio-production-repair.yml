@@ -10,6 +10,7 @@ on:
       - "tests/test_p3_12_audio_pack.py"
       - "tests/test_p3_12_audio_real.py"
       - "tests/test_p3_12_audio_model.py"
+      - "tests/test_p3_12_audio_runtime_identity.py"
       - "docs/project-state/03_BIELLA_CURRENT_STATE.md"
       - "docs/project-state/04_BIELLA_ACTIVE_TASK.md"
       - "docs/project-state/evidence/P3_12_AUDIO_PRODUCTION_REPAIR_EVIDENCE.md"
@@ -49,8 +50,8 @@ jobs:
           sudo install -m 0755 /tmp/p3-12-nonexecuted-tool /usr/bin/bwrap
           sudo mkdir -p /usr/lib/blender/scripts/addons_core/io_scene_gltf2
           printf '%s\n' '# P3-12 non-executed scheduler fixture' | sudo tee /usr/lib/blender/scripts/addons_core/io_scene_gltf2/__init__.py >/dev/null
-      - name: P3-12 audio contract, real runtime, and provider-boundary tests
-        run: python -m pytest tests/test_p3_12_audio_pack.py tests/test_p3_12_audio_real.py tests/test_p3_12_audio_model.py -q
+      - name: P3-12 audio contract, real runtime, provider-boundary, and identity tests
+        run: python -m pytest tests/test_p3_12_audio_pack.py tests/test_p3_12_audio_real.py tests/test_p3_12_audio_model.py tests/test_p3_12_audio_runtime_identity.py -q
       - name: Strict typecheck
         run: python -m mypy src/biella/audio_pack.py src/biella/audio_tool.py src/biella/cloudflare_audio_model.py
       - name: Compile
@@ -70,6 +71,7 @@ jobs:
               Path("tests/test_p3_12_audio_pack.py"),
               Path("tests/test_p3_12_audio_real.py"),
               Path("tests/test_p3_12_audio_model.py"),
+              Path("tests/test_p3_12_audio_runtime_identity.py"),
           ]
           ffmpeg_identity = subprocess.check_output(["/usr/bin/ffmpeg", "-version"], text=True).splitlines()[0]
           ffprobe_identity = subprocess.check_output(["/usr/bin/ffprobe", "-version"], text=True).splitlines()[0]
