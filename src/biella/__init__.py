@@ -1857,6 +1857,22 @@ __all__ = [
     "compile_large_scale_graph_nodes",
     "large_scale_graph_recipe",
     "large_scale_production_pack",
+    "CacheAuthority",
+    "CacheIdentity",
+    "CacheObjectAuthority",
+    "CacheRetentionEstimate",
+    "CacheReuseState",
+    "LocalityObservation",
+    "PlacementEvidenceState",
+    "PlacementEstimate",
+    "PlacementLearningError",
+    "PlacementLearningService",
+    "P4_04_L40S_FIXTURE_SHA256",
+    "EvidenceImportError",
+    "ExternalLocalityArtifacts",
+    "ImportedLocalityEvidence",
+    "LocalityEvidenceBinding",
+    "import_p4_04_l40s_evidence",
 ]
 
 
@@ -2006,4 +2022,30 @@ def __getattr__(name: str) -> Any:
         if name == "StrategyEvidenceImportError":
             return strategy_evaluation_evidence.EvidenceImportError
         return getattr(strategy_evaluation_evidence, name)
+    if name in {
+        "CacheAuthority",
+        "CacheIdentity",
+        "CacheObjectAuthority",
+        "CacheRetentionEstimate",
+        "CacheReuseState",
+        "LocalityObservation",
+        "PlacementEvidenceState",
+        "PlacementEstimate",
+        "PlacementLearningError",
+        "PlacementLearningService",
+    }:
+        from . import placement_learning
+
+        return getattr(placement_learning, name)
+    if name in {
+        "P4_04_L40S_FIXTURE_SHA256",
+        "EvidenceImportError",
+        "ExternalLocalityArtifacts",
+        "ImportedLocalityEvidence",
+        "LocalityEvidenceBinding",
+        "import_p4_04_l40s_evidence",
+    }:
+        from . import placement_learning_evidence
+
+        return getattr(placement_learning_evidence, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
