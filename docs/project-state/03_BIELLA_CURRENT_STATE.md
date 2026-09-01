@@ -23,29 +23,31 @@ engine:
 
 durable_source:
   current_result:
-    implementation_commit: 3a9c325ab821046e6a702011a213f2d9558dad16
-    implementation_tree: 16b6eee8eb6fa16c6f8e234c566dbe0ef95b0113
-    closure_commit: ccc32dbb2ad3cc9140845da14d0ff3e502650fa3
-    closure_tree: 441ac66afaf00fae4bd1d761e4d0e901057ae442
-    meaning: P3_10_COMPLETE_DURABLE
-    github_readback: EXACT_COMMIT_TREE_AND_REQUIRED_PATH_SHA256_CONFIRMED
+    implementation_commit: 31c4aab5a72eaa8763d84537308c6ded7da23a73
+    implementation_tree: 76593cefa6ed18669443e11dfaa31b7a5f7c4542
+    workflow_commit: dfc20b302c4b1cb6ed6c8c0de8c74f5fd5cdb39b
+    workflow_tree: 0de9fbd58db0b62c3abc9fe98685000cb37e0299
+    closure_commit: 117ee12c9eb5fa7da26148506f2701ad169890f5
+    closure_tree: eb2777d371349b46115fafb18a945e21d1962104
+    meaning: P3_11_COMPLETE_DURABLE
+    github_readback: EXACT_COMMIT_TREE_AND_REQUIRED_PATH_BLOB_CONFIRMED
     preserved_later_work_completion_authority: false
   preserved_worktree:
     path: src/biella/production_recipe_learning.py
     sha256: 01879237ebac6c96b985b0b05f822897d25b6f2dd9f8f13952e38d7e93cd5d2d
-    meaning: INDEPENDENT_P4_06_PRODUCTIVE_WORK; NOT_PART_OF_P3_10
+    meaning: INDEPENDENT_P4_06_PRODUCTIVE_WORK; NOT_PART_OF_P3_11
 
 numbered_execution:
-  durable_prompts_complete: 46
+  durable_prompts_complete: 47
   durable_prompts_total: 51
-  progress: "46 / 51 durable; non-contiguous audited; active repair frontier 42"
+  progress: "47 / 51 durable; non-contiguous audited; active repair frontier 43"
   phase: P3_DURABLE_REPAIR
-  just_closed_prompt: P3-10
-  just_closed_global_number: 41
-  active_prompt: P3-11
-  active_global_number: 42
-  active_title: Image Production, Editing, Compositing and Texture Pack
-  active_drive_prompt_id: 1hZm2VC3xYefqwZBxvIhsChrIjCLcZXsTSoOCG3IKLhM
+  just_closed_prompt: P3-11
+  just_closed_global_number: 42
+  active_prompt: P3-12
+  active_global_number: 43
+  active_title: Audio Production, Processing, Mixing and Validation Pack
+  active_drive_prompt_id: 1c8GEF9Z6pL9JKMkhXx6ZtsbcKnI5b_jY4k27ie3L1HI
   execution_authorized: true
   authorization_basis: MAHDI_STANDING_P3_06_THROUGH_P4_06
 
@@ -58,55 +60,64 @@ completion_audit_2026_09_01:
   P3_08: {durable_close: COMPLETE}
   P3_09: {durable_close: COMPLETE}
   P3_10: {durable_close: COMPLETE}
-  P3_11: {durable_close: REOBSERVE_PRESERVED_COMPLETE_CLAIM, audit_gap: durable_image_production_evidence}
+  P3_11: {durable_close: COMPLETE}
   P3_12: {durable_close: INCOMPLETE, missing: durable_audio_production_evidence}
   P3_13: {durable_close: INCOMPLETE, missing: six_KPI_report_correction_and_durable_media_video_evidence}
   P3_14: {durable_close: INCOMPLETE, missing: phase_exit_provenance_Event_and_delivery_evidence}
   P4_01_through_P4_05: {durable_close: COMPLETE, reuse: REQUIRED}
   P4_06: {durable_close: INCOMPLETE, missing: authoritative_Engine_evidence_and_combined_failure_scenario}
 
-p3_10_durable_close:
-  exact_prompt_drive_id: 12GmJFm2-6mL7QSjyyaySDWbBi2WrkljUF447XWsHnnI
-  implementation_commit: 3a9c325ab821046e6a702011a213f2d9558dad16
-  implementation_tree: 16b6eee8eb6fa16c6f8e234c566dbe0ef95b0113
-  closure_commit: ccc32dbb2ad3cc9140845da14d0ff3e502650fa3
-  closure_tree: 441ac66afaf00fae4bd1d761e4d0e901057ae442
-  github_readback: EXACT_COMMIT_TREE_AND_REQUIRED_PATH_SHA256_CONFIRMED
+p3_11_durable_close:
+  exact_prompt_drive_id: 1hZm2VC3xYefqwZBxvIhsChrIjCLcZXsTSoOCG3IKLhM
+  implementation_commit: 31c4aab5a72eaa8763d84537308c6ded7da23a73
+  implementation_tree: 76593cefa6ed18669443e11dfaa31b7a5f7c4542
+  workflow_commit: dfc20b302c4b1cb6ed6c8c0de8c74f5fd5cdb39b
+  workflow_tree: 0de9fbd58db0b62c3abc9fe98685000cb37e0299
+  closure_commit: 117ee12c9eb5fa7da26148506f2701ad169890f5
+  closure_tree: eb2777d371349b46115fafb18a945e21d1962104
+  github_readback: EXACT_COMMIT_TREE_AND_REQUIRED_PATH_BLOB_CONFIRMED
   real_execution:
-    archive_sha256: 0c34a996833be4dc8ffdb6263c569293840a4d09367978f445ddc6a2abf7761b
-    archive_size_bytes: 1090235
-    qualification: SIX_REAL_CHECKPOINTS; ENOSPC_RECOVERY; BAKE; PREVIEW; GLB; EXACT_GODOT_BIND; FORGED_REJECT
+    retained_archive_sha256: 98ee595b2ecfe338e42aec2f14ced8f6ee353a6600880936e12f38c374c05594
+    retained_archive_size_bytes: 381904
+    l40s_outputs: 10_EXACT_OPERATIONS; 10_DISTINCT_CONTENT_REFS
+    true_concurrency: PRODUCER_FENCE_2; MEASURED_MAXIMUM_2
+    cloudflare_generate_edit: 2_OF_2_PASS
+    cloudflare_decode: 4_OF_4_PASS
+    l40s_truth: CPU_PILLOW_ON_L40S; NO_GPU_SUCCESS_CLAIM
   engine_evidence:
-    project_ref: prj_f0e75ef71b964949897f5c0fbc8db0d7
-    task_ref: tsk_93b6eedef56f4830af846fe693f79952/1
-    run_ref: run_bfa1a18ffeff4a1eacb8355fb9cb5955
+    project_ref: prj_659da64f27c742c1a7055a2dafa728af
+    task_ref: tsk_778f76e7a8714420a6daac44783b940a/1
+    run_ref: run_0001925f6b014896af64188d53062cb1
     run_status: SUCCEEDED
-    graph_ref: graph://prj_f0e75ef71b964949897f5c0fbc8db0d7/gph_9853a1a21ba441eab101e4109933e344/1
-    retained_artifact_ref: artifact://prj_f0e75ef71b964949897f5c0fbc8db0d7/art_5bc4a19a1abf41e6853f813f487aee08/1
-    validation_aggregate_sha256: 3b17909e017cfcc35b8af78520615a3aa2ab47281360a0f5c9bd614af9925eb2
-    evidence_event_ref: event://prj_f0e75ef71b964949897f5c0fbc8db0d7/evt_ddd7fd35a8234b01919cec18cbc7bca7
-    acceptance_event_ref: event://prj_f0e75ef71b964949897f5c0fbc8db0d7/evt_a0cc38b49fdf4ab48a4e9b7fada35564
+    graph_ref: graph://prj_659da64f27c742c1a7055a2dafa728af/gph_3d3cbe85d9084f0aa429861fb343e247/1
+    retained_artifact_ref: artifact://prj_659da64f27c742c1a7055a2dafa728af/art_0bede7439ee24111b53cc706a40a6439/1
+    integration_artifact_ref: artifact://prj_659da64f27c742c1a7055a2dafa728af/art_02b355aeef8e418ab08cb97ba394e9a0/1
+    validation_aggregate_sha256: 3b9576c157cbb6eb7ba6253926bd6ba764114f26d496229386b85d19baac2808
+    evidence_event_ref: event://prj_659da64f27c742c1a7055a2dafa728af/evt_ecbfd621696d444384f73eed61acaf33
+    acceptance_event_ref: event://prj_659da64f27c742c1a7055a2dafa728af/evt_5770a8c8ba5b4554a2d6e3fc4c8b9566
   kpis:
-    simulation_cache_used_as_only_authority: 0
-    verified_segments_lost_after_failure: 0
-    incompatible_checkpoint_resumes: 0
-    dependent_solver_steps_parallelized_incorrectly: 0
-    global_GPU_requirement_for_VFX: 0
+    corrupt_image_accepted: 0
+    source_image_destructively_mutated: 0
+    project_visual_style_globalized: 0
+    texture_channel_convention_implicit: 0
+    color_space_silently_changed: 0
+    provider_specific_image_kernel_architecture: 0
   drive_evidence:
-    canonical_evidence_id: 1_VXkRE-gQ3BRkrDO_UQk9Nl8qteczSAFm6Kl_hBsd2Y
-    qualification_id: 1PsP12KJZO8k1RAiuweQ53MrGuSWR_fD1
-    retained_real_archive_id: 1qxW-e8-szAsGWzwtOr5qlohBj3VIOnoT
-    engine_evidence_id: 1wPdPhvf4wv-AmYdB_8RzoOiXJckukyj1
-    wheel_id: 1G-Y8vbuE-TkjPS_r27fpKun6NarHh8Un
-    wheel_qualification_id: 1oehemrHP28ZvRx8BPQLRokuv6KqxKiT8
+    canonical_evidence_id: 1Cd14c7J0wrxqIVAbDJT2IgjYFpGOCW1rXboUe6stny0
+    qualification_id: 13F5MskYW_lKpkaa_HWGwpbQceN_6Jgp0
+    retained_real_archive_id: 1V-NGZHsh4bF8_lMW5jTnIdBb34qsGWMx
+    engine_evidence_id: 11KmLmp_Wp99n96bu6yR00jacqYdfJdYS
+    wheel_id: 1Ti5UwwGbLnXDMxUSPQQ7wyMzAekzXrpA
+    cloudflare_qualification_id: 1XOVDcD3oQjAMf2E45M9Pmi3F81hDUs2E
     exact_byte_readback: VERIFIED
 
 continuation:
-  active_task_id: ENG-P3-11
-  active_task_title: P3-11 Image Production, Editing, Compositing and Texture Pack durable repair
-  dependency: ENG-P3-10_COMPLETE
+  active_task_id: ENG-P3-12
+  active_task_title: P3-12 Audio Production, Processing, Mixing and Validation Pack durable repair
+  dependency: ENG-P3-11_COMPLETE
   ledger_claim: COMPLETE
-  acceptance_state: REOBSERVE_EXACT_PROMPT_AND_CURRENT_EVIDENCE
+  acceptance_state: LOAD_EXACT_PROMPT_AND_REOBSERVE_CURRENT_SOURCE_AND_EVIDENCE
   execution_started: true
   spark_or_prep_dependency: NONE
+  ordered_frontier: P3-12_THEN_P3-13_THEN_P3-14_THEN_REUSE_P4-01_THROUGH_P4-05_THEN_P4-06_THEN_FOUNDATION_COMPLETE_THEN_BIELLA_GAMES
 ```
