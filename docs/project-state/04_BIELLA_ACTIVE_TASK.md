@@ -4,14 +4,14 @@
 schema: biella.active_task/v6
 
 active_task:
-  id: P3-14
-  global_number: 45
-  phase: P3
-  title: Packaging, Publishing, Release and Durable Delivery Pack
+  id: P4-01
+  global_number: 46
+  phase: P4
+  title: Controlled Evidence-Based Model Capability Comparison
   state: ACTIVATED_PROMPT_NOT_LOADED_OR_COMPILED
-  predecessor: P3-13
-  predecessor_result_commit: 27f8958aa3f6a2847b5d506580f04bcc904db98e
-  predecessor_result_tree: c92b5e322259ccd7619a7d51dbe94f270942b10e
+  predecessor: P3-14
+  predecessor_result_commit: 68c00a4e1464206c2a69e14f8b8049fe29438fb8
+  predecessor_result_tree: 2516591d9c3f893c9da583c06a9e7e9eb6bb0882
   predecessor_github_readback: EXACT_COMMIT_TREE_AND_EIGHT_BLOBS_CONFIRMED
   execution_authorized: true
   standing_authorization: true
@@ -19,10 +19,10 @@ active_task:
   legacy_spark_prep_dependency: false
 
 exact_prompt:
-  title: Packaging, Publishing, Release and Durable Delivery Pack
-  drive_id: 1mkk0VYh14ut2Tz-7YKcdW35p0GJRtv7bVQeVSPVTzpE
+  title: Controlled Evidence-Based Model Capability Comparison
+  drive_id: 1V2VGta8GmM-6_UB4UwpdqKT-j_4NTRzcd3tXd1tKqOM
   status: NOT_LOADED_OR_COMPILED
-  rule: obtain_exact_P3_14_prompt_body_only_when_execution_begins
+  rule: obtain_exact_P4_01_prompt_body_only_when_execution_begins
 
 prior_durable_through_P3_08:
   status: VERIFIED
@@ -57,12 +57,32 @@ P3_13_durable_close:
   optional_generative_path: NOT_RUN
   wheel_sha256: abd3933d701e7dd33c0f6b2d40bc947e2d84ac565a90bf76af3aad46008f2810
 
+P3_14_durable_close:
+  result_commit: 68c00a4e1464206c2a69e14f8b8049fe29438fb8
+  result_tree: 2516591d9c3f893c9da583c06a9e7e9eb6bb0882
+  github_readback: EXACT_COMMIT_TREE_AND_EIGHT_PATHS_CONFIRMED
+  status: COMPLETE; P3_READY_FOR_P4
+  qualification: 17_TESTS_GREEN_IN_59.01_SECONDS_WITH_LIVE_CLOUDFLARE_KV_ENABLED; STRICT_MYPY_8_FILES_SUCCESS; SIX_PROMPT_KPIS_ZERO
+  wheel_sha256: 4a1f4de335a505707b38f991f9fd83cd60c9bfc8dfa9f2e9d62dbc488f46409c
+  delivery_contract: DELIVERY_AT_1_0_0_15_CAPABILITIES_LAZY_EXPORTS_DETERMINISTIC_PACKAGES_FULL_REOPEN_DIGEST_PATH_PERMISSION_SYMLINK_VALIDATION_BOUNDED_SECRET_SCAN_SECRET_REF_HMAC_POST_VERIFY
+  external_authority: EXACT_TASK_NODE_RUN_FENCE_IMMUTABLE_IDEMPOTENT_REMOTE_KEYS_FULL_SHA_READBACK_VERIFICATION_FAILURE_OUTCOME_UNKNOWN_DURABLE_RECEIPT
+  cloudflare_kv_namespace: biella-p3-14-delivery
+  cloudflare_kv_namespace_id: f35ac3a280eb4b1387f5d2d403fc3266
+  real_cross_domain_proof:
+    software_project: prj_3cc1bf23fc5546e19379b1f8c2baeff9
+    software_package_key: biella/packages/2ff85b54f0909de58f477b49d42f3b6585b2fa296dc7fc9abf589c8bcab4ce83
+    software_receipt_digest: f5089f4ee6f12785fd9a443e52bc9c32f47a7230fa97bc58b317a7c3c84021e8
+    video_project: prj_c4ab734ec30b4db482b30bd5b35cb77b
+    video_package_key: biella/packages/8efefe37f544462f24ead38938b703eb2a1dad22f72f2b3609691d02363df45e
+    video_receipt_digest: 274801d7eaeffea49d34780e8a14e1e61511eeecefb30a7de336c9b3f58c1b9a
+    proof: BOTH_VERIFIED_BY_REAL_PUT_AND_FULL_GET; LOCAL_PACKAGES_RETAINED; NO_DELETE; CROSS_PROJECT_USE_REJECTED
+
 owner_priority:
   standing_order: preserve_current_or_recoverable_long_running_productive_work_before_any_remote_sync_restore_reset_checkout_merge_or_host_replacement
   remote_newer_is_not_permission_to_replace_unpreserved_execution_work: true
   current_sequence:
-    - retain_predecessor_P3_13_durable_close_evidence
-    - load_and_compile_P3_14_exact_prompt_when_execution_begins
+    - retain_predecessor_P3_14_durable_close_evidence
+    - load_and_compile_P4_01_exact_prompt_when_execution_begins
 
 execution_host:
   current_host:
@@ -216,21 +236,23 @@ multi_ai_execution:
     no_permanent_named_agent_hierarchy: true
 
 current_frontier:
-  state: P3_14_ACTIVATED_NOT_STARTED
+  state: P4_01_ACTIVATED_NOT_STARTED
   P3_05_durable_close_complete: true
   P3_06_durable_close_complete: true
   P3_07_durable_close_complete: true
   P3_13_durable_close_complete: true
-  P3_14_prompt_loaded: false
-  P3_14_prompt_compiled: false
-  P3_14_execution_started: false
-  P3_14_execution_authorized: true
+  P3_14_durable_close_complete: true
+  P4_01_prompt_loaded: false
+  P4_01_prompt_compiled: false
+  P4_01_execution_started: false
+  P4_01_execution_authorized: true
 
 activation_boundary:
-  P3_14_authorized: true
-  P3_14_prompt_loaded: false
-  P3_14_graph_compiled: false
-  P3_14_execution_started: false
-  rule: compile_only_from_exact_P3_14_prompt_and_accepted_source
-  predecessor_evidence: P3_13_durable_close_mapping_above
+  P4_01_authorized: true
+  P4_01_prompt_loaded: false
+  P4_01_graph_compiled: false
+  P4_01_execution_started: false
+  legacy_spark_prep_dependency: false
+  rule: compile_only_from_exact_P4_01_prompt_and_accepted_source
+  predecessor_evidence: P3_14_durable_close_mapping_above
 ```

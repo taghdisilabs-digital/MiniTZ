@@ -4,7 +4,7 @@
 schema: biella.current_state/v5
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
-observed_date: 2026-08-31
+observed_date: 2026-09-01
 
 authority:
   if_conflict:
@@ -23,34 +23,34 @@ engine:
 
 durable_source:
   current_implementation_base:
-    commit: 27f8958aa3f6a2847b5d506580f04bcc904db98e
-    tree: c92b5e322259ccd7619a7d51dbe94f270942b10e
-    meaning: P3_13_durably_closed
+    commit: 68c00a4e1464206c2a69e14f8b8049fe29438fb8
+    tree: 2516591d9c3f893c9da583c06a9e7e9eb6bb0882
+    meaning: P3_14_durably_closed_P3_ready_for_P4
   current_execution_map:
-    source_commit: 3dcc194253bb54d2a171cf7230877af95231ebe7
-    result_commit: 27f8958aa3f6a2847b5d506580f04bcc904db98e
-    result_tree: c92b5e322259ccd7619a7d51dbe94f270942b10e
+    source_commit: 27f8958aa3f6a2847b5d506580f04bcc904db98e
+    result_commit: 68c00a4e1464206c2a69e14f8b8049fe29438fb8
+    result_tree: 2516591d9c3f893c9da583c06a9e7e9eb6bb0882
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    status: P3_13_COMPLETE_P3_14_ACTIVATED_PROMPT_NOT_LOADED
+    status: P3_14_COMPLETE_P3_READY_FOR_P4_P4_01_ACTIVATED_PROMPT_NOT_LOADED
   branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
     first_rejected_execution_time: "2026-08-30T10:44:52Z"
     rejected_post_boundary_completion_claims: P3_10_THROUGH_P3_09
 
 numbered_execution:
-  durable_prompts_complete: 44
+  durable_prompts_complete: 45
   durable_prompts_total: 51
-  progress: "44 / 51"
-  phase: P3
-  active_prompt: P3-14
-  active_global_number: 45
-  active_title: Packaging, Publishing, Release and Durable Delivery Pack
-  predecessor: P3-13
-  successor_execution_authorized: false
+  progress: "45 / 51"
+  phase: P4
+  active_prompt: P4-01
+  active_global_number: 46
+  active_title: Controlled Evidence-Based Model Capability Comparison
+  predecessor: P3-14
+  successor_execution_authorized: true
   active_execution_authorized: true
-  future_activation_shells_prepared: P3_14_THROUGH_P4_06
+  future_activation_shells_prepared: P4_01_THROUGH_P4_06
   future_internal_graphs_precompiled: false
   future_graph_rule: compile_each_from_exact_prompt_and_current_source_only_when_activated
 
@@ -90,8 +90,8 @@ standing_owner_priority:
   remote_newer_does_not_override_unpreserved_execution_work: true
   session_model_SSH_tmux_or_host_change_does_not_invalidate_verified_work: true
   current_required_order:
-    - retain_P3_05_durable_close_evidence
-    - activate_P3_06_only_from_its_exact_prompt_when_explicitly_started
+    - retain_P3_14_durable_close_evidence
+    - load_and_compile_P4_01_only_from_its_exact_prompt_when_execution_begins
 
 p3_05_recovery:
   status: REUSED_FOR_DURABLE_CLOSE_WITHOUT_REHASH
@@ -140,11 +140,38 @@ p3_13_durable_close:
   wheel_sha256: abd3933d701e7dd33c0f6b2d40bc947e2d84ac565a90bf76af3aad46008f2810
   wheel_import: BASE_IMPORT_AND_PILLOW_LAZY_VERIFIED
 
+p3_14_durable_close:
+  result_commit: 68c00a4e1464206c2a69e14f8b8049fe29438fb8
+  result_tree: 2516591d9c3f893c9da583c06a9e7e9eb6bb0882
+  github_readback: EXACT_COMMIT_TREE_AND_EIGHT_PATHS_CONFIRMED
+  status: COMPLETE; P3_READY_FOR_P4
+  qualification: 17_TESTS_GREEN_IN_59.01_SECONDS_WITH_LIVE_CLOUDFLARE_KV_ENABLED; STRICT_MYPY_8_FILES_SUCCESS; SIX_PROMPT_KPIS_ZERO
+  wheel: DELIVERY_AT_1_0_0_15_CAPABILITIES_AND_LAZY_EXPORTS_VERIFIED
+  wheel_sha256: 4a1f4de335a505707b38f991f9fd83cd60c9bfc8dfa9f2e9d62dbc488f46409c
+  package_integrity: DETERMINISTIC_EXACT_PACKAGES_FULL_REOPEN_DIGEST_PATH_PERMISSION_SYMLINK_VALIDATION_BOUNDED_SECRET_SCAN_SECRET_REF_HMAC_POST_VERIFY
+  publication_authority: EXACT_TASK_NODE_RUN_FENCE_EXTERNAL_AUTHORITY_IMMUTABLE_IDEMPOTENT_REMOTE_KEYS_FULL_SHA_READBACK_VERIFICATION_FAILURE_OUTCOME_UNKNOWN_TRUTH_DURABLE_RECEIPT
+  cloudflare_kv:
+    namespace: biella-p3-14-delivery
+    namespace_id: f35ac3a280eb4b1387f5d2d403fc3266
+  cross_domain_real_proof:
+    software_project:
+      project: prj_3cc1bf23fc5546e19379b1f8c2baeff9
+      package_key: biella/packages/2ff85b54f0909de58f477b49d42f3b6585b2fa296dc7fc9abf589c8bcab4ce83
+      receipt_digest: f5089f4ee6f12785fd9a443e52bc9c32f47a7230fa97bc58b317a7c3c84021e8
+      proof: RUNNABLE_BACKEND_VERIFIED_BY_REAL_PUT_AND_FULL_GET
+    video_project:
+      project: prj_c4ab734ec30b4db482b30bd5b35cb77b
+      package_key: biella/packages/8efefe37f544462f24ead38938b703eb2a1dad22f72f2b3609691d02363df45e
+      receipt_digest: 274801d7eaeffea49d34780e8a14e1e61511eeecefb30a7de336c9b3f58c1b9a
+      proof: REAL_DECODABLE_MP4_VERIFIED_BY_REAL_PUT_AND_FULL_GET
+    retention: NO_DELETE; LOCAL_PACKAGES_RETAINED
+    isolation: SAME_GENERIC_KERNEL; CROSS_PROJECT_USE_REJECTED
+
 approved_execution_program:
   language: biella.codex.end_to_end/v2
   mode: SINGLE_END_TO_END_NUMBERED_EXECUTION
   active_graph_location: docs/project-state/04_BIELLA_ACTIVE_TASK.md
-  active_graph: P3_14_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
+  active_graph: P4_01_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
   duplicate_prevention:
     exact_Node_identity_and_claim: required
     one_current_owner_per_Node: true
@@ -194,6 +221,8 @@ truth:
   P3_05_durable_close: VERIFIED
   P3_06_durable_close: VERIFIED
   P3_07_durable_close: VERIFIED
+  P3_14_durable_close: VERIFIED
+  P3_READY_FOR_P4: VERIFIED
   P3_08_or_later_completion_claims_from_rejected_execution: REJECTED
   exact_recovered_P3_05_worktree_contents: REUSED_FOR_DURABLE_CLOSE_WITHOUT_REHASH
   multi_AI_execution_map_approved_by_user: true
