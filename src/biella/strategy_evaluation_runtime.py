@@ -113,7 +113,7 @@ def _run_value(run_ref: RunRef) -> str:
 class StrategyCellCoordinate:
     project_ref: ProjectRef
     experiment_digest: str
-    model_id: str
+    candidate_id: str
     model_digest: str
     strategy_id: str
     strategy_digest: str
@@ -140,7 +140,7 @@ class StrategyCellCoordinate:
         ):
             _require_sha(value, label)
         for value, label in (
-            (self.model_id, "model identity"),
+            (self.candidate_id, "model identity"),
             (self.strategy_id, "strategy identity"),
             (self.task_id, "task identity"),
             (self.output_key, "output key"),
@@ -195,7 +195,7 @@ class StrategyCellCoordinate:
     def value(self) -> str:
         return (
             f"strategy-evaluation-cell://{self.project_ref.value}/{self.experiment_digest}/"
-            f"{self.model_id}/{self.strategy_digest}/{self.task_digest}/{self.repetition}"
+            f"{self.candidate_id}/{self.strategy_digest}/{self.task_digest}/{self.repetition}"
         )
 
     def payload(self) -> dict[str, object]:
@@ -203,7 +203,7 @@ class StrategyCellCoordinate:
             "cache_identity": self.cache_identity,
             "experiment_digest": self.experiment_digest,
             "model_digest": self.model_digest,
-            "model_id": self.model_id,
+            "model_id": self.candidate_id,
             "node_ref": self.node_ref.value,
             "order_index": self.order_index,
             "output_key": self.output_key,
@@ -276,7 +276,7 @@ class StrategyMatrixManifest:
         }
         observed = {
             (
-                item.model_id,
+                item.candidate_id,
                 item.model_digest,
                 item.strategy_id,
                 item.strategy_digest,
@@ -480,11 +480,11 @@ class StrategyEvaluationMatrixRuntime:
         coordinate: StrategyCellCoordinate,
         evaluation_run: StrategyEvaluationRun,
     ) -> None:
-        model = next(item for item in manifest.experiment.models if item.candidate_id == coordinate.model_id)
+        model = next(item for item in manifest.experiment.models if item.candidate_id == coordinate.candidate_id)
         if (
             evaluation_run.experiment.canonical_digest != manifest.experiment.canonical_digest
             or evaluation_run.run_ref != manifest.run_ref
-            or evaluation_run.model_id != coordinate.model_id
+            or evaluation_run.candidate_id != coordinate.candidate_id
             or model.canonical_digest != coordinate.model_digest
             or evaluation_run.strategy_id != coordinate.strategy_id
             or evaluation_run.strategy_digest != coordinate.strategy_digest

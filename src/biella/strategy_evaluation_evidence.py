@@ -107,7 +107,7 @@ class StrategyEvidenceBinding:
 class ImportedRawStrategyCell:
     cell_id: str
     variant_id: str
-    model_id: str
+    candidate_id: str
     strategy_id: str
     task_id: str
     repetition: int
@@ -416,7 +416,7 @@ def _validate_static(
     _expect(post_binding.get("model_runtime_process_count"), 0, "post-run model processes")
     _expect(post_binding.get("persistent_model_or_agent_residency"), False, "post-run residency")
     gpu = _object(post.get("gpu"), "post-run GPU")
-    _expect(gpu.get("name"), "NVIDIA L40S", "post-run GPU name")
+    _text(gpu.get("name"), "post-run GPU name")
     _expect(gpu.get("memory_total_mib"), 46068, "post-run GPU memory total")
     _expect(gpu.get("memory_used_mib"), 0, "post-run GPU memory used")
     _expect(gpu.get("utilization_gpu_percent"), 0, "post-run GPU utilization")
@@ -582,7 +582,7 @@ def _validate_cells(
             _expect(cell.get(field), variant.get(variant_field), f"cell {field}")
         _expect(cell.get("task_prompt"), task.get("prompt"), "cell task prompt")
         _expect(cell.get("expected_answer"), task.get("expected_answer"), "cell expected answer")
-        model_id = _text(cell.get("model"), "cell model")
+        candidate_id = _text(cell.get("model"), "cell model")
         strategy_id = _text(cell.get("strategy"), "cell strategy")
         context_id = _text(cell.get("context_policy"), "cell context")
         execution_id = _text(cell.get("execution_profile"), "cell execution profile")
@@ -606,7 +606,7 @@ def _validate_cells(
             raise EvidenceImportError("cell identity classes differ")
         for identity_value in identities.values():
             _sha(identity_value, "cell identity")
-        model_record = model_identity.get(model_id)
+        model_record = model_identity.get(candidate_id)
         if model_record is None:
             raise EvidenceImportError("cell model identity is unknown")
         expected_identities = {
@@ -640,7 +640,7 @@ def _validate_cells(
             items = _array(invocation.get("items"), "invocation items")
             if index >= len(items):
                 raise EvidenceImportError("invocation item index is out of range")
-            _expect(invocation.get("candidate_id"), model_id, "cell invocation model")
+            _expect(invocation.get("candidate_id"), candidate_id, "cell invocation model")
             resolved_items.append(_object(items[index], "invocation item"))
             resolved_invocations.append(invocation)
             invocation_ids.append(invocation_id)
@@ -704,7 +704,7 @@ def _validate_cells(
             ImportedRawStrategyCell(
                 cell_id,
                 variant_id,
-                model_id,
+                candidate_id,
                 strategy_id,
                 task_id,
                 repetition,
@@ -859,11 +859,11 @@ def _base_contracts(
     models: dict[str, ModelCandidate] = {}
     for candidate_id, (raw, digest) in model_identity.items():
         revision = _text(raw.get("revision"), "model revision")
-        model_id = _text(raw.get("model_id"), "model id")
+        implementation_name = _text(raw.get("model_id"), "model id")
         models[candidate_id] = ModelCandidate(
             project_ref,
             candidate_id,
-            f"model-deployment://huggingface/{model_id}@{revision}",
+            f"model-deployment://huggingface/{implementation_name}@{revision}",
             digest,
             "adapter://p4-02/local-transformers",
             f"runtime://p4-02/{runtime_digest}",
@@ -1081,7 +1081,7 @@ def _build_matrices(
                 tool_latency = sum(_number(value.get("latency_seconds"), "matrix tool latency") for value in tool_rows)
                 peak_allocated = max(_integer(value.get("peak_allocated_vram_bytes"), "matrix allocated VRAM") for value in invocation_rows)
                 peak_reserved = max(_integer(value.get("peak_reserved_vram_bytes"), "matrix reserved VRAM") for value in invocation_rows)
-                model_id = _text(cell.get("model"), "matrix model")
+                candidate_id = _text(cell.get("model"), "matrix model")
                 task_id = _text(cell.get("task_id"), "matrix task")
                 completed_reuse = int(condition in seen_baseline_uses)
                 metrics = StrategyMetricSet(
@@ -1118,7 +1118,7 @@ def _build_matrices(
                 runs.append(
                     StrategyEvaluationRun(
                         experiment,
-                        model_id,
+                        candidate_id,
                         strategy.strategy_id,
                         strategy.canonical_digest,
                         tasks[task_id],

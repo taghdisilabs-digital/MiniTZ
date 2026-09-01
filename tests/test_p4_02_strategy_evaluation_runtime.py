@@ -337,7 +337,7 @@ def _callback(
         now = _now()
         run = StrategyEvaluationRun(
             experiment=kernel.experiment,
-            model_id=coordinate.model_id,
+            candidate_id=coordinate.candidate_id,
             strategy_id=coordinate.strategy_id,
             strategy_digest=coordinate.strategy_digest,
             task=kernel.experiment.task_set.tasks[0],

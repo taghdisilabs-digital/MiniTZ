@@ -206,7 +206,7 @@ def _metrics(*, success: bool, score: float, latency: float = 1.0) -> StrategyMe
 
 def _run(
     experiment: StrategyEvaluationExperiment,
-    model_id: str,
+    candidate_id: str,
     strategy_id: str,
     repetition: int,
     score: float,
@@ -215,7 +215,7 @@ def _run(
     strategy = next(item for item in experiment.strategies if item.strategy_id == strategy_id)
     return StrategyEvaluationRun(
         experiment=experiment,
-        model_id=model_id,
+        candidate_id=candidate_id,
         strategy_id=strategy_id,
         strategy_digest=strategy.canonical_digest,
         task=experiment.task_set.tasks[0],
@@ -279,9 +279,9 @@ def test_same_model_experiment_is_scoped_and_cannot_weaken_task_validation() -> 
 
 def test_same_model_pairing_attributes_strategy_effect_and_preserves_worse_runs() -> None:
     experiment = _experiment(ProjectRef.new(), repetitions=3)
-    model_id = experiment.models[0].candidate_id
+    candidate_id = experiment.models[0].candidate_id
     runs = tuple(
-        _run(experiment, model_id, strategy_id, repetition, score)
+        _run(experiment, candidate_id, strategy_id, repetition, score)
         for repetition in range(1, 4)
         for strategy_id, score in (("strategy-s1", 0.0), ("strategy-s2", 1.0))
     )
@@ -308,8 +308,8 @@ def test_factorial_result_separates_model_strategy_and_interaction_effects() -> 
         ("model-b", "strategy-s2"): 0.7,
     }
     runs = tuple(
-        _run(experiment, model_id, strategy_id, 1, score)
-        for (model_id, strategy_id), score in scores.items()
+        _run(experiment, candidate_id, strategy_id, 1, score)
+        for (candidate_id, strategy_id), score in scores.items()
     )
 
     result = build_strategy_evaluation_result(experiment, runs)

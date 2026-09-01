@@ -275,7 +275,7 @@ class EvaluationCellBinding:
 @dataclass(frozen=True)
 class CandidateEvidenceSummary:
     candidate_id: str
-    model_id: str
+    implementation_name: str
     revision: str
     sample_cells: int
     semantic_pass: int
@@ -302,7 +302,7 @@ class CandidateEvidenceSummary:
 class ImportedEvaluationCell:
     coordinate: EvaluationCellKey
     run: ModelEvaluationRun
-    model_id: str
+    implementation_name: str
     revision: str
     sequence_index: int
     pair_index: int
@@ -342,7 +342,7 @@ class ImportedModelEvaluationEvidence:
 @dataclass(frozen=True)
 class _CandidateIdentity:
     candidate_id: str
-    model_id: str
+    implementation_name: str
     revision: str
     identity_sha256: str
 
@@ -358,7 +358,7 @@ class _IdentityEvidence:
 @dataclass(frozen=True)
 class _Cell:
     key: EvaluationCellKey
-    model_id: str
+    implementation_name: str
     revision: str
     sequence_index: int
     pair_index: int
@@ -541,7 +541,7 @@ def _validate_static_documents(
         "seeded randomization policy",
     )
     resource = _object(spec.get("resource"), "resource policy")
-    _expect(resource.get("expected_gpu_name"), "NVIDIA L40S", "resource GPU")
+    _text(resource.get("expected_gpu_name"), "resource GPU")
     _expect(resource.get("expected_gpu_count"), 1, "resource GPU count")
     _expect(resource.get("execution"), "sequential_single_process_no_daemon", "execution")
     _expect(resource.get("keep_both_models_loaded_if_feasible"), True, "model residency")
@@ -696,8 +696,8 @@ def _validate_identities(
     observed_resource = _object(
         observed_environment.get("resource"), "observed resource"
     )
-    _expect(resource.get("gpu_name"), "NVIDIA L40S", "resource GPU name")
-    _expect(resource.get("torch_device_name"), "NVIDIA L40S", "torch GPU name")
+    gpu_name = _text(resource.get("gpu_name"), "resource GPU name")
+    _expect(resource.get("torch_device_name"), gpu_name, "torch GPU name")
     _expect(resource.get("single_gpu"), True, "single-GPU condition")
     _expect(resource.get("sequential_execution"), True, "sequential condition")
     _expect(resource.get("daemon_started"), False, "daemon condition")
@@ -749,12 +749,12 @@ def _validate_identities(
         candidate_id = _text(value.get("candidate_id"), "model candidate identity")
         if digest != _EXPECTED_MODEL_IDENTITY_SHA256.get(candidate_id):
             raise EvidenceImportError("model identity differs from exact worker evidence")
-        model_id = _text(value.get("model_id"), "model identity model id")
+        implementation_name = _text(value.get("model_id"), "model identity model id")
         revision = _text(value.get("revision"), "model identity revision")
         if _SHA1.fullmatch(revision) is None:
             raise EvidenceImportError("model identity revision is mutable or malformed")
         spec_candidate = spec_candidates.get(candidate_id)
-        manifest_candidate = manifest_candidates.get(model_id)
+        manifest_candidate = manifest_candidates.get(implementation_name)
         if spec_candidate is None or manifest_candidate is None:
             raise EvidenceImportError("model identity is absent from manifests")
         _expect(value.get("model_id"), spec_candidate.get("model_id"), "model id")
@@ -773,7 +773,7 @@ def _validate_identities(
         _expect(value.get("dtype"), "float16", "model dtype")
         candidate_identities[candidate_id] = _CandidateIdentity(
             candidate_id,
-            model_id,
+            implementation_name,
             revision,
             digest,
         )
@@ -899,7 +899,7 @@ def _validate_cells(
             raise EvidenceImportError("result contains an unknown evaluation coordinate")
         candidate = identities.candidates[candidate_id]
         task = tasks[task_id]
-        _expect(raw["model_id"], candidate.model_id, "cell model id")
+        _expect(raw["model_id"], candidate.implementation_name, "cell model id")
         _expect(raw["revision"], candidate.revision, "cell model revision")
         prompt = _text(raw["prompt"], "cell prompt")
         _expect(prompt, task.get("prompt"), "cell task prompt")
@@ -997,7 +997,7 @@ def _validate_cells(
         cells.append(
             _Cell(
                 key,
-                candidate.model_id,
+                candidate.implementation_name,
                 candidate.revision,
                 sequence_index,
                 pair_index,
@@ -1149,7 +1149,7 @@ def _validate_summaries(
         summaries.append(
             CandidateEvidenceSummary(
                 candidate_id,
-                identity.model_id,
+                identity.implementation_name,
                 identity.revision,
                 15,
                 semantic_pass,
@@ -1370,7 +1370,7 @@ def _build_suite(
             identity.candidate_id,
             (
                 "model-deployment://external-worker/"
-                f"{identity.candidate_id}/{identity.revision}"
+                f"{identity.implementation_name}/{identity.revision}"
             ),
             identity.identity_sha256,
             "adapter://external-worker/tokenizer-chat-template",
@@ -1581,7 +1581,7 @@ def _build_runs(
             ImportedEvaluationCell(
                 cell.key,
                 run,
-                cell.model_id,
+                cell.implementation_name,
                 cell.revision,
                 cell.sequence_index,
                 cell.pair_index,

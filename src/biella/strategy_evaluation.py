@@ -652,7 +652,7 @@ class StrategyMetricSet:
 @dataclass(frozen=True)
 class StrategyEvaluationRun:
     experiment: StrategyEvaluationExperiment
-    model_id: str
+    candidate_id: str
     strategy_id: str
     strategy_digest: str
     task: EvaluationTask
@@ -673,7 +673,7 @@ class StrategyEvaluationRun:
             raise StrategyContractError("strategy evaluation run identity is malformed")
         if not isinstance(self.task, EvaluationTask) or not isinstance(self.metrics, StrategyMetricSet):
             raise StrategyContractError("strategy evaluation run task/metrics are malformed")
-        model = next((item for item in self.experiment.models if item.candidate_id == self.model_id), None)
+        model = next((item for item in self.experiment.models if item.candidate_id == self.candidate_id), None)
         strategy = next(
             (
                 item
@@ -717,7 +717,7 @@ class StrategyEvaluationRun:
             "experiment": self.experiment.canonical_digest,
             "infrastructure_outcome": self.infrastructure_outcome,
             "metrics": self.metrics.payload(),
-            "model_id": self.model_id,
+            "model_id": self.candidate_id,
             "repetition": self.repetition,
             "run": f"run://{self.run_ref.project_ref.value}/{self.run_ref.run_id}",
             "semantic_outcome": self.semantic_outcome,
@@ -822,7 +822,7 @@ class StrategyEvaluationResult:
         if not runs or any(item.experiment.canonical_digest != self.experiment.canonical_digest for item in runs):
             raise StrategyContractError("strategy result run differs from exact experiment")
         cells = {
-            (item.model_id, item.strategy_digest, item.task.canonical_digest, item.repetition)
+            (item.candidate_id, item.strategy_digest, item.task.canonical_digest, item.repetition)
             for item in runs
         }
         if len(cells) != len(runs):
@@ -831,7 +831,7 @@ class StrategyEvaluationResult:
         effects = tuple(self.effects)
         if any(item.experiment_digest != self.experiment.canonical_digest for item in comparisons + effects):
             raise StrategyContractError("strategy result comparison/effect differs from experiment")
-        object.__setattr__(self, "runs", tuple(sorted(runs, key=lambda item: (item.model_id, item.strategy_id, item.strategy_digest, item.task.canonical_digest, item.repetition))))
+        object.__setattr__(self, "runs", tuple(sorted(runs, key=lambda item: (item.candidate_id, item.strategy_id, item.strategy_digest, item.task.canonical_digest, item.repetition))))
         object.__setattr__(self, "pairwise_comparisons", tuple(sorted(comparisons, key=lambda item: (item.model_digest, item.left_strategy_digest, item.right_strategy_digest))))
         object.__setattr__(self, "effects", tuple(sorted(effects, key=lambda item: (item.effect_kind.value, item.identity_digests))))
         object.__setattr__(self, "experiment_digest", self.experiment.canonical_digest)
@@ -921,7 +921,7 @@ def build_strategy_evaluation_result(
     if any(item.experiment.canonical_digest != experiment.canonical_digest for item in exact):
         raise StrategyContractError("strategy run differs from exact experiment")
     by_cell = {
-        (item.model_id, item.strategy_digest, item.task.canonical_digest, item.repetition): item
+        (item.candidate_id, item.strategy_digest, item.task.canonical_digest, item.repetition): item
         for item in exact
     }
     if len(by_cell) != len(exact):
@@ -931,13 +931,13 @@ def build_strategy_evaluation_result(
     comparisons: list[StrategyPairwiseComparison] = []
     effects: list[StrategyEffectEstimate] = []
     confounder_keys = tuple(experiment.confounders)
-    for model_id, model in sorted(models.items()):
+    for candidate_id, model in sorted(models.items()):
         for left, right in itertools.combinations(strategies, 2):
             pairs: list[tuple[StrategyEvaluationRun, StrategyEvaluationRun]] = []
             for task in experiment.task_set.tasks:
                 for repetition in range(1, experiment.repetitions + 1):
-                    left_run = by_cell.get((model_id, left.canonical_digest, task.canonical_digest, repetition))
-                    right_run = by_cell.get((model_id, right.canonical_digest, task.canonical_digest, repetition))
+                    left_run = by_cell.get((candidate_id, left.canonical_digest, task.canonical_digest, repetition))
+                    right_run = by_cell.get((candidate_id, right.canonical_digest, task.canonical_digest, repetition))
                     if left_run is not None and right_run is not None:
                         pairs.append((left_run, right_run))
             if not pairs:
@@ -975,7 +975,7 @@ def build_strategy_evaluation_result(
                     len(pairs),
                     _mean(deltas),
                     _conclusion(len(pairs)),
-                    {"model": model_id, "workload": experiment.workload_profile.profile_id},
+                    {"model": candidate_id, "workload": experiment.workload_profile.profile_id},
                 )
             )
     if experiment.matrix_kind is MatrixKind.FACTORIAL:
