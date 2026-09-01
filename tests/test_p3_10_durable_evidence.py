@@ -95,6 +95,7 @@ _HEX = re.compile(r"[0-9a-f]{64}")
 _GIT_OBJECT = re.compile(r"(?:[0-9a-f]{40}|[0-9a-f]{64})")
 _REF = re.compile(r"[a-z][a-z0-9+.-]*://[^\s\x00-\x1f]{1,512}")
 _CATEGORY = re.compile(r"[a-z][a-z0-9_.-]{0,63}")
+_ENGINE_ROLE = re.compile(r"[a-z0-9][a-z0-9-]*(?:\.[a-z0-9][a-z0-9-]*)+")
 
 
 @dataclass(frozen=True)
@@ -898,7 +899,7 @@ def _publish(
         producer_attempt=run_attempt,
         expected_task_ref=task.task_ref,
         expected_task_digest=task.canonical_digest,
-        role=f"vfx.{evidence.category}",
+        role=_engine_artifact_role(evidence.category),
         content_ref=content_ref,
         source_refs=(),
         source_artifact_refs=tuple(source.artifact_ref for source in sources),
@@ -1140,6 +1141,13 @@ def _import_engine_evidence(
             idempotency_key=f"p3-10-{label}-finalize",
         )
         assert completed.status == "SUCCEEDED"
+        released = scheduler.release(
+            access,
+            dispatched.allocation,
+            outcome="COMPLETED",
+            idempotency_key=f"p3-10-{label}-release",
+        )
+        assert released.status == "RELEASED"
         return completed.status
 
     dispatches: dict[tuple[str, int], ScheduledDispatch] = {}
@@ -1263,7 +1271,18 @@ def _import_engine_evidence(
     kpi_result_names: set[str] = set()
     for check in plan.checks:
         kpi_name = check.parameters.get("kpi")
-        assert isinstance(kpi_name, str) and package.kpis[kpi_name] == 0
+        metrics: tuple[MetricMeasurement, ...] = ()
+        if isinstance(kpi_name, str):
+            assert package.kpis[kpi_name] == 0
+            metrics = (
+                MetricMeasurement(
+                    _engine_metric_name(kpi_name),
+                    0.0,
+                    "count",
+                    f"Exact {kpi_name} violations in retained P3-10 REAL evidence",
+                    integration_artifact.artifact_ref.value,
+                ),
+            )
         result = validations.record_result(
             access,
             integration_dispatch.node_attempt,
@@ -1282,20 +1301,13 @@ def _import_engine_evidence(
                 ),
             },
             evidence_refs=evidence_refs,
-            metrics=(
-                MetricMeasurement(
-                    kpi_name,
-                    0.0,
-                    "count",
-                    f"Exact {kpi_name} violations in retained P3-10 REAL evidence",
-                    integration_artifact.artifact_ref.value,
-                ),
-            ),
+            metrics=metrics,
             idempotency_key=f"p3-10-result-{check.check_id}",
         )
         assert result.verdict is ValidationVerdict.PASS
         assert result.evidence_state is ValidationEvidenceState.CURRENT
-        kpi_result_names.add(kpi_name)
+        if isinstance(kpi_name, str):
+            kpi_result_names.add(kpi_name)
         results.append(result)
     assert kpi_result_names == set(_KPI_NAMES)
     aggregate = validations.aggregate(
@@ -1451,6 +1463,20 @@ def _integration_record_digest(document: Mapping[str, object]) -> str:
     return hashlib.sha256(_canonical(unsigned)).hexdigest()
 
 
+def _engine_metric_name(prompt_kpi_name: str) -> str:
+    assert prompt_kpi_name in _KPI_NAMES, "unknown P3-10 prompt KPI"
+    return {
+        "global_GPU_requirement_for_VFX": "global_gpu_requirement_for_vfx",
+    }.get(prompt_kpi_name, prompt_kpi_name)
+
+
+def _engine_artifact_role(retained_category: str) -> str:
+    assert _CATEGORY.fullmatch(retained_category), "retained evidence category"
+    role = f"vfx.{retained_category.replace('_', '-')}"
+    assert _ENGINE_ROLE.fullmatch(role), "projected Engine Artifact role"
+    return role
+
+
 def _minimal_manifest(*, overlay_count: int = 0) -> Mapping[str, object]:
     return {
         "schema": _SCHEMA,
@@ -1491,6 +1517,43 @@ def test_p3_10_integration_record_digest_is_constructible_and_archive_digest_is_
         "process": hashlib.sha256(process_payload).hexdigest(),
     }
     assert hashlib.sha256(_canonical(stored)).hexdigest() != integration_digest
+
+
+def test_p3_10_engine_metric_name_projection_preserves_exact_prompt_kpis() -> None:
+    assert {name: _engine_metric_name(name) for name in _KPI_NAMES} == {
+        "simulation_cache_used_as_only_authority": "simulation_cache_used_as_only_authority",
+        "verified_segments_lost_after_failure": "verified_segments_lost_after_failure",
+        "incompatible_checkpoint_resumes": "incompatible_checkpoint_resumes",
+        "dependent_solver_steps_parallelized_incorrectly": "dependent_solver_steps_parallelized_incorrectly",
+        "global_GPU_requirement_for_VFX": "global_gpu_requirement_for_vfx",
+    }
+
+
+def test_p3_10_engine_artifact_role_projects_only_invalid_category_characters() -> None:
+    assert {
+        category: _engine_artifact_role(category)
+        for category in (
+            "bake",
+            "checkpoint",
+            "contracts",
+            "handoff",
+            "inputs",
+            "preview",
+            "record",
+            "runtime_log",
+            "specification",
+        )
+    } == {
+        "bake": "vfx.bake",
+        "checkpoint": "vfx.checkpoint",
+        "contracts": "vfx.contracts",
+        "handoff": "vfx.handoff",
+        "inputs": "vfx.inputs",
+        "preview": "vfx.preview",
+        "record": "vfx.record",
+        "runtime_log": "vfx.runtime-log",
+        "specification": "vfx.specification",
+    }
 
 
 def _write_test_archive(
