@@ -10,6 +10,7 @@ from typing import Callable, Mapping
 from .artifact import ArtifactRef, ArtifactService, ContentRef
 from .execution import NodeExecutionAttempt
 from .filesystem import FilesystemAdapter, FilesystemConflictError, FilesystemError, FilesystemRootRef
+from .game_engine import GameAssetInput, GameRuntimeInputBinding
 from .object_store import ObjectStorageBackend
 from .process import ManagedProcessAdapter, ProcessExecutionRequest, ProcessResourcePolicy, ProcessStatus
 from .project import ProjectAccess, ProjectRef
@@ -18,6 +19,7 @@ from .render_tool import RendererAdapter
 from .scheduler import ResourceAllocation, ScheduledDispatch, Scheduler
 from .three_d_tool import ThreeDToolIdentity, _ThreeDService
 from .vfx_pack import SimulationBakeRef, SimulationCheckpointRef, SimulationContractError, SimulationSpecification
+from .vfx_recovery import SimulationResourceRecoveryPlan, plan_verified_resource_exhaustion_recovery
 
 
 def _bytes(value: object) -> bytes:
@@ -140,7 +142,7 @@ class BlenderSimulationAdapter:
         particle_count = int(specification.config.get("particle_count", "8"))
         if specification.simulation_type not in {"particles", "procedural"} or not 1 <= particle_count <= 256:
             raise SimulationContractError("REAL Blender simulation type or particle_count is unsupported")
-        return {"simulation_type": specification.simulation_type, "segment": frame, "frame_start": specification.frame_start, "frame_end": frame, "timestep": specification.timestep, "substeps": specification.substeps, "seed": specification.seed, "generator_ref": specification.generator_ref, "solver_ref": specification.solver_ref, "runtime_ref": specification.runtime_ref, "particle_count": particle_count, "gravity": self._vector(specification.config, "gravity", (0.0, 0.0, -9.81)), "initial_velocity": self._vector(specification.config, "initial_velocity", (0.0, 0.0, 1.0)), "floor_height": float(specification.config.get("floor_height", "0")), "restitution": float(specification.config.get("restitution", "0.5")), "predecessor_state": predecessor_state, "material_parameters": dict(specification.material_parameters), "output_path": output_path}
+        return {"simulation_type": specification.simulation_type, "segment": frame, "frame_start": frame, "frame_end": frame, "timestep": specification.timestep, "substeps": specification.substeps, "seed": specification.seed, "generator_ref": specification.generator_ref, "solver_ref": specification.solver_ref, "runtime_ref": specification.runtime_ref, "particle_count": particle_count, "gravity": self._vector(specification.config, "gravity", (0.0, 0.0, -9.81)), "initial_velocity": self._vector(specification.config, "initial_velocity", (0.0, 0.0, 1.0)), "floor_height": float(specification.config.get("floor_height", "0")), "restitution": float(specification.config.get("restitution", "0.5")), "predecessor_state": predecessor_state, "requires_predecessor_state": frame > specification.frame_start, "material_parameters": dict(specification.material_parameters), "output_path": output_path}
 
     def simulate(self, specification: SimulationSpecification, checkpoint: SimulationCheckpointRef | None = None) -> SimulationBakeRef:
         if specification.project_ref != self.project_ref or specification.tool_ref != self.tool_ref or specification.tool_version != self.identity.tool_version or specification.runtime_ref != self.runtime_ref:
@@ -229,6 +231,80 @@ class BlenderSimulationAdapter:
             raise SimulationContractError("bake manifest is incomplete or corrupt")
         self.bake_artifact_ref = bake_ref
         return SimulationBakeRef.create(self.project_ref, specification, "application/x-blender", (current_ref.value, bake_ref.value, manifest_ref.value), (current_content.digest, current_content.digest, manifest_content.digest), chain, final_attempt.attempt_id, final_attempt.fence)
+
+    def plan_resource_exhaustion_recovery(
+        self,
+        specification: SimulationSpecification,
+        *,
+        failed_frame: int,
+        failure_reason: str,
+    ) -> SimulationResourceRecoveryPlan:
+        checkpoints: list[SimulationCheckpointRef] = []
+        for frame in range(specification.frame_start, failed_frame):
+            checkpoint = self._existing_checkpoint(specification, frame)
+            if checkpoint is None:
+                raise SimulationContractError(
+                    "resource recovery requires an exact durable checkpoint prefix"
+                )
+            checkpoints.append(checkpoint)
+        dispatchable_frames = tuple(
+            frame
+            for frame in sorted(self.segment_dispatches)
+            if frame >= failed_frame
+        )
+        return plan_verified_resource_exhaustion_recovery(
+            artifacts=self.artifacts,
+            access=self.access,
+            specification=specification,
+            verified_checkpoints=checkpoints,
+            failed_frame=failed_frame,
+            failure_reason=failure_reason,
+            dispatchable_frames=dispatchable_frames,
+        )
+
+    def game_runtime_input(
+        self,
+        attempt: NodeExecutionAttempt,
+        *,
+        kind: str,
+        runtime_path: str,
+    ) -> tuple[GameAssetInput, GameRuntimeInputBinding]:
+        if self.bake_artifact_ref is None:
+            raise SimulationContractError(
+                "completed bake Artifact is required for game handoff"
+            )
+        bake = self.artifacts.get_artifact(self.access, self.bake_artifact_ref)
+        if bake.content_ref is None:
+            raise SimulationContractError("completed bake ContentRef is missing")
+        final_attempt = self.segment_dispatches[
+            max(self.segment_dispatches)
+        ].node_attempt
+        if (
+            final_attempt.attempt_id != attempt.attempt_id
+            or final_attempt.fence != attempt.fence
+        ):
+            raise SimulationContractError(
+                "game handoff requires exact bake producer authority"
+            )
+        GameAssetInput(kind, self.bake_artifact_ref)
+        role = f"game.asset.{kind}.input"
+        artifact_ref = self._publish(
+            attempt,
+            role=role,
+            content=bake.content_ref,
+            sources=(self.bake_artifact_ref,),
+            source_contents=(bake.content_ref,),
+            derivation="vfx.blender.game-input",
+            metadata={"media_type": bake.content_ref.media_type},
+        )
+        asset = GameAssetInput(kind, artifact_ref)
+        binding = GameRuntimeInputBinding(
+            artifact_ref,
+            role,
+            bake.content_ref,
+            runtime_path,
+        )
+        return asset, binding
 
     def render_preview(self, renderer: RendererAdapter, attempt: NodeExecutionAttempt, request: RenderRequest, *, idempotency_key: str) -> RenderFrameRef:
         if self.bake_artifact_ref is None:
