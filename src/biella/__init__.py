@@ -719,6 +719,10 @@ from .render_pack import (
     RendererAdapter,
     render_production_pack,
 )
+from .render_tool import (
+    ReferenceRendererAdapter,
+    RendererAdapter as BlenderRendererAdapter,
+)
 from .vfx_pack import (
     SimulationAdapter,
     SimulationBakeRef,
@@ -1644,6 +1648,8 @@ __all__ = [
     "RenderRequest",
     "RenderSequenceManifest",
     "RendererAdapter",
+    "BlenderRendererAdapter",
+    "ReferenceRendererAdapter",
     "render_production_pack",
     "SimulationAdapter",
     "SimulationBakeRef",
