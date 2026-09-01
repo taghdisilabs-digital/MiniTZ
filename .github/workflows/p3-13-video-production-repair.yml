@@ -1,0 +1,106 @@
+name: P3-13 Video Production Repair
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/biella/video_frame_pipeline.py"
+      - "src/biella/video_pack.py"
+      - "src/biella/video_tool.py"
+      - "tests/test_p3_13_video_frames.py"
+      - "tests/test_p3_13_video_pack.py"
+      - "tests/test_p3_13_video_real.py"
+      - "docs/project-state/03_BIELLA_CURRENT_STATE.md"
+      - "docs/project-state/04_BIELLA_ACTIVE_TASK.md"
+      - "docs/project-state/evidence/P3_13_VIDEO_PRODUCTION_REPAIR_EVIDENCE.md"
+      - ".github/workflows/p3-13-video-production-repair.yml"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install test and FFmpeg dependencies
+        run: |
+          python -m pip install -e ".[test]"
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ffmpeg
+      - name: Record exact video runtime identity
+        run: |
+          command -v ffmpeg
+          command -v ffprobe
+          ffmpeg -version | head -n 1
+          ffprobe -version | head -n 1
+          sha256sum "$(command -v ffmpeg)" "$(command -v ffprobe)"
+      - name: Provide non-executed P3-05 scheduler support fixtures
+        run: |
+          cat > /tmp/p3-13-nonexecuted-tool <<'SH'
+          #!/bin/sh
+          echo "P3-13 video evidence must not execute this scheduler fixture" >&2
+          exit 97
+          SH
+          chmod 0755 /tmp/p3-13-nonexecuted-tool
+          sudo install -m 0755 /tmp/p3-13-nonexecuted-tool /usr/bin/blender
+          sudo install -m 0755 /tmp/p3-13-nonexecuted-tool /usr/bin/bwrap
+          sudo mkdir -p /usr/lib/blender/scripts/addons_core/io_scene_gltf2
+          printf '%s\n' '# P3-13 non-executed scheduler fixture' | sudo tee /usr/lib/blender/scripts/addons_core/io_scene_gltf2/__init__.py >/dev/null
+      - name: P3-13 video contract and real runtime tests
+        run: python -m pytest tests/test_p3_13_video_frames.py tests/test_p3_13_video_pack.py tests/test_p3_13_video_real.py -q
+      - name: Strict typecheck
+        run: python -m mypy src/biella/video_frame_pipeline.py src/biella/video_pack.py src/biella/video_tool.py
+      - name: Compile
+        run: python -m compileall -q src/biella
+      - name: Build wheel
+        run: python -m pip wheel . --no-deps -w dist
+      - name: Emit P3-13 bounded CI evidence
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+          import hashlib, json, shutil, subprocess
+          from pathlib import Path
+          files = [
+              Path("src/biella/video_frame_pipeline.py"),
+              Path("src/biella/video_pack.py"),
+              Path("src/biella/video_tool.py"),
+              Path("tests/test_p3_13_video_frames.py"),
+              Path("tests/test_p3_13_video_pack.py"),
+              Path("tests/test_p3_13_video_real.py"),
+          ]
+          ffmpeg = Path(shutil.which("ffmpeg") or "")
+          ffprobe = Path(shutil.which("ffprobe") or "")
+          wheels = sorted(Path("dist").glob("*.whl"))
+          payload = {
+              "task": "P3-13",
+              "source_sha256": {str(path): hashlib.sha256(path.read_bytes()).hexdigest() for path in files},
+              "runtime_identity": {
+                  "ffmpeg": subprocess.check_output([str(ffmpeg), "-version"], text=True).splitlines()[0],
+                  "ffmpeg_sha256": hashlib.sha256(ffmpeg.read_bytes()).hexdigest(),
+                  "ffprobe": subprocess.check_output([str(ffprobe), "-version"], text=True).splitlines()[0],
+                  "ffprobe_sha256": hashlib.sha256(ffprobe.read_bytes()).hexdigest(),
+              },
+              "wheel_sha256": {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in wheels},
+              "kpi_authority": "NOT_CLAIMED_BY_CI; RETAINED_REAL_ENGINE_EVIDENCE_REQUIRED",
+              "reality_classification": {
+                  "decode_edit_frame_audio_subtitle_mux_validation": "REAL_FFMPEG",
+                  "p3_05_scheduler_support_paths": "NON_EXECUTED_FIXTURE",
+                  "generative_video_model": "NOT_RUN_OPTIONAL_PATH",
+              },
+          }
+          encoded = (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode()
+          target = Path("dist/p3_13_video_production_evidence.json")
+          target.write_bytes(encoded)
+          print(json.dumps({"evidence_sha256": hashlib.sha256(encoded).hexdigest(), **payload}, sort_keys=True))
+          PY
+      - name: Upload P3-13 wheel and bounded CI evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: p3-13-video-production-ci
+          path: |
+            dist/*.whl
+            dist/p3_13_video_production_evidence.json
+          if-no-files-found: error
