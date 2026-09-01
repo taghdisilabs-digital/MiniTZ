@@ -238,8 +238,8 @@ def _normalize_value(value: object, *, key: str = "") -> object:
 
 
 def _evidence_token(value: object) -> str:
-    _assert_no_raw_or_secret(value)
     text = str(value)
+    _assert_no_raw_or_secret(text)
     if _HEX64.fullmatch(text):
         return text
     return f"evi_{hashlib.sha256(text.encode('utf-8')).hexdigest()}"
@@ -1809,6 +1809,29 @@ class ProductionRecipeLearningService:
             "WHERE recipe_id = ? AND scope_key IN (?, 'ENGINE') "
             "ORDER BY rowid",
             (recipe_id, _project_key(project_ref)),
+        ).fetchall()
+        result: list[RecipeRunEvidence] = []
+        for row in rows:
+            payload = json.loads(str(row["record_json"]))
+            if not isinstance(payload, dict):
+                raise RecipeIntegrityError(
+                    "stored recipe evidence is malformed"
+                )
+            result.append(self._run_from_record(payload))
+        return tuple(result)
+
+    def list_recipe_runs(
+        self,
+        recipe: ProductionRecipe,
+    ) -> tuple[RecipeRunEvidence, ...]:
+        """Read back all retained outcomes for one exact accessible recipe."""
+
+        self._verify_integrity()
+        self._require_current_recipe(recipe)
+        rows = self._connection.execute(
+            "SELECT record_json FROM recipe_run_evidence "
+            "WHERE recipe_id = ? AND scope_key = ? ORDER BY rowid",
+            (recipe.recipe_id, recipe._scope_key),
         ).fetchall()
         result: list[RecipeRunEvidence] = []
         for row in rows:

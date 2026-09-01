@@ -2,6 +2,7 @@ from __future__ import annotations
 from pathlib import Path
 import pytest
 from biella.project import ProjectRef
+from biella.run import RunRef
 
 def test_recipe_normalizes_id_different_software_graphs_and_matches_compatible_task(tmp_path: Path) -> None:
  from biella.production_recipe_learning import ProductionRecipeLearningService,RecipeScope
@@ -30,7 +31,7 @@ def test_recipe_v2_supersession_failure_retention_and_evidence_projection(tmp_pa
  from biella.production_recipe_learning import ProductionRecipeLearningService,RecipeRunOutcome
  s=ProductionRecipeLearningService(tmp_path/'r.db'); p=ProjectRef.new(); r=s.extract_recipe(p,{},(),(),(),applicability={},parameter_schema={},learning_evidence=())
  v2=s.supersede_recipe(p,r,applicability={"v":"2"},parameter_schema={},learning_evidence=())
- with pytest.raises(Exception): s.record_recipe_run(r,'run',RecipeRunOutcome.FAILED,('evidence://failure/v1',),r.canonical_digest,1,1,validation_evidence=())
+ with pytest.raises(Exception): s.record_recipe_run(r,RunRef(p, "run_" + "a" * 32),RecipeRunOutcome.FAILED,('evidence://failure/v1',),r.canonical_digest,1,1,validation_evidence=())
  assert s.kpi_results()
 
 def test_recipe_rejects_raw_quarantine_and_tampered_or_deleted_learning_state(tmp_path: Path) -> None:
@@ -39,3 +40,10 @@ def test_recipe_rejects_raw_quarantine_and_tampered_or_deleted_learning_state(tm
  for raw in ('quarantine://raw/x','raw://unclassified/x'):
   with pytest.raises(Exception): s.extract_recipe(p,{},(),(raw,),(),applicability={},parameter_schema={},learning_evidence=())
  with pytest.raises(Exception): s.build_system_evidence_summary(p,())
+
+def test_failed_recipe_run_evidence_is_retained_after_restart(tmp_path: Path) -> None:
+ from biella.production_recipe_learning import ProductionRecipeLearningService,RecipeRunOutcome
+ project=ProjectRef.new(); db=tmp_path/'retained.db'; service=ProductionRecipeLearningService(db); recipe=service.extract_recipe(project,{},(),(),(),applicability={},parameter_schema={},learning_evidence=())
+ run=RunRef(project,"run_"+"b"*32)
+ service.record_recipe_run(recipe,run,RecipeRunOutcome.FAILED,("evidence://failure/retained/v1",),recipe.canonical_digest,1,1,validation_evidence=())
+ assert len(ProductionRecipeLearningService(db).list_recipe_runs(recipe)) == 1
