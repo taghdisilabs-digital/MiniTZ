@@ -10,6 +10,7 @@ on:
       - "tests/test_p3_11_image_pack.py"
       - "tests/test_p3_11_image_real.py"
       - "tests/test_p3_11_image_model.py"
+      - "tests/test_p3_11_durable_evidence.py"
       - "docs/project-state/03_BIELLA_CURRENT_STATE.md"
       - "docs/project-state/04_BIELLA_ACTIVE_TASK.md"
       - "docs/project-state/evidence/P3_11_IMAGE_PRODUCTION_REPAIR_EVIDENCE.md"
@@ -40,7 +41,7 @@ jobs:
           sudo mkdir -p /usr/lib/blender/scripts/addons_core/io_scene_gltf2
           printf '%s\n' '# P3-11 non-executed scheduler fixture' | sudo tee /usr/lib/blender/scripts/addons_core/io_scene_gltf2/__init__.py >/dev/null
       - name: P3-11 image contract, deterministic runtime, and provider-boundary tests
-        run: python -m pytest tests/test_p3_11_image_pack.py tests/test_p3_11_image_real.py tests/test_p3_11_image_model.py -q
+        run: python -m pytest tests/test_p3_11_image_pack.py tests/test_p3_11_image_real.py tests/test_p3_11_image_model.py tests/test_p3_11_durable_evidence.py -q
       - name: Strict typecheck
         run: python -m mypy src/biella/image_pack.py src/biella/image_tool.py src/biella/cloudflare_image_model.py
       - name: Compile
@@ -60,18 +61,12 @@ jobs:
               Path("tests/test_p3_11_image_pack.py"),
               Path("tests/test_p3_11_image_real.py"),
               Path("tests/test_p3_11_image_model.py"),
+              Path("tests/test_p3_11_durable_evidence.py"),
           ]
           payload = {
               "task": "P3-11",
               "source_sha256": {str(path): hashlib.sha256(path.read_bytes()).hexdigest() for path in files},
-              "kpis": {
-                  "corrupt_image_accepted": 0,
-                  "source_image_destructively_mutated": 0,
-                  "project_visual_style_globalized": 0,
-                  "texture_channel_convention_implicit": 0,
-                  "color_space_silently_changed": 0,
-                  "provider_specific_image_kernel_architecture": 0,
-              },
+              "kpi_authority": "NOT_CLAIMED_BY_CI; RETAINED_REAL_ENGINE_EVIDENCE_REQUIRED",
               "reality_classification": {
                   "deterministic_image_runtime": "REAL",
                   "p3_05_scheduler_support_paths": "NON_EXECUTED_FIXTURE",
