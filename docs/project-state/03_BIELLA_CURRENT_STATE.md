@@ -23,42 +23,42 @@ engine:
 
 durable_source:
   current_result:
-    commit: 1d74abff81c9588aecfd933ec7733fb9afd098e4
-    tree: 93326e98e57c1efc16fd05c4dcd938b2314e4c89
-    github_readback: EXACT_COMMIT_TREE_AND_TEST_BLOB_CONFIRMED
+    commit: d5dfe8eaa8c58f6a55a86adf1050d20195413666
+    tree: b40b6d121573a46cfa04e751be52c64a46b63b04
+    github_readback: EXACT_COMMIT_TREE_CONFIRMED
   current_implementation_base:
     commit: b7a55142edea7de895f799b8bef074a2a02d916d
     tree: 6df2a4d4f04246713220aa2461a10e33ba1b93d1
     meaning: PRESERVED_ACCEPTED_SOURCE_AND_RESULT; NOT_FOUNDATION_COMPLETION_AUTHORITY
   current_execution_map:
-    result_commit: 1d74abff81c9588aecfd933ec7733fb9afd098e4
-    result_tree: 93326e98e57c1efc16fd05c4dcd938b2314e4c89
+    result_commit: d5dfe8eaa8c58f6a55a86adf1050d20195413666
+    result_tree: b40b6d121573a46cfa04e751be52c64a46b63b04
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    status: P3_07_ACTIVE_DURABLE_REPAIR
+    status: P3_08_ACTIVE_DURABLE_REPAIR
   branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
     first_rejected_execution_time: "2026-08-30T10:44:52Z"
     rejected_post_boundary_completion_claims: P3_10_THROUGH_P3_09
 
 numbered_execution:
-  durable_prompts_complete: 42
+  durable_prompts_complete: 43
   durable_prompts_total: 51
-  progress: "42 / 51 durable; non-contiguous audited; repair frontier 38"
+  progress: "43 / 51 durable; non-contiguous audited; repair frontier 39"
   phase: P3_DURABLE_REPAIR
-  active_prompt: P3-07
-  active_global_number: 38
-  active_title: Animation Production Pack
-  active_drive_prompt_id: 1GzQxmCrvIv10WVv0KdoPxlKi7l79J2J6cS-zvoOv-Dk
-  predecessor: P3-06
-  successor: P3-08
-  active_dependency: P3-06
-  successor_execution_authorized: false_until_P3_07_durable_close
+  active_prompt: P3-08
+  active_global_number: 39
+  active_title: Environment and World Production Pack
+  active_drive_prompt_id: 10wP9734umfbfCGfLvmf3gz_9IfT1h8kTjX06KmW0a54
+  predecessor: P3-07
+  successor: P3-09
+  active_dependency: P3-07
+  successor_execution_authorized: false_until_P3_08_durable_close
   active_execution_authorized: true
-  future_activation_shells_prepared: P3-08
+  future_activation_shells_prepared: false
   future_internal_graphs_precompiled: false
-  future_graph_rule: activate_P3_08_only_after_P3_07_durable_close
+  future_graph_rule: activate_P3_09_only_after_P3_08_durable_close
 
 execution_host_state:
   current_host:
@@ -80,10 +80,10 @@ execution_host_state:
   canonical_checkout: /root/biella/repos/biella-engine
   checkout_observation:
     branch: main
-    current_result_commit: 1d74abff81c9588aecfd933ec7733fb9afd098e4
-    current_result_tree: 93326e98e57c1efc16fd05c4dcd938b2314e4c89
-    github_readback: EXACT_COMMIT_TREE_AND_TEST_BLOB_CONFIRMED
-  current_restore_order: PRESERVE_LATER_SOURCE_THEN_DURABLY_REPAIR_P3_07
+    current_result_commit: d5dfe8eaa8c58f6a55a86adf1050d20195413666
+    current_result_tree: b40b6d121573a46cfa04e751be52c64a46b63b04
+    github_readback: EXACT_COMMIT_TREE_CONFIRMED
+  current_restore_order: PRESERVE_LATER_SOURCE_THEN_DURABLY_REPAIR_P3_08
 
 standing_owner_priority:
   highest_operational_rule: preserve_current_or_recoverable_long_running_productive_work_before_remote_sync_restore_reset_checkout_merge_or_host_replacement
@@ -91,8 +91,8 @@ standing_owner_priority:
   session_model_SSH_tmux_or_host_change_does_not_invalidate_verified_work: true
   current_required_order:
     - preserve_all_later_accepted_source_and_results
-    - durably_repair_P3_07
-    - advance_to_P3_08_only_after_P3_07_durable_close
+    - durably_repair_P3_08_under_standing_authorization
+    - advance_to_P3_09_only_after_P3_08_durable_close
 
 p3_05_recovery:
   status: REUSED_FOR_DURABLE_CLOSE_WITHOUT_REHASH
@@ -114,8 +114,7 @@ completion_audit_2026_09_01:
     functional_source: COMPLETE
     durable_close: COMPLETE
   P3_07:
-    durable_close: INCOMPLETE
-    missing: durable_evidence_and_concurrency
+    durable_close: COMPLETE
   P3_08:
     durable_close: INCOMPLETE
     missing: exact_exported_environment_to_Godot_linkage_and_true_independent_branches
@@ -179,6 +178,58 @@ p3_06_durable_close:
     wheel_id: 1ALALJp4HtVb3jZ3bJcVLwiMuBX5dYFN8
     wheel_sha256: de1ff7ab4d1aafe06a8d4ee7ae3799e6ce1a23b1aee10f8cdf3e27223735cb98
     exact_raw_readback: FOUR_OF_FOUR
+
+p3_07_durable_close:
+  result:
+    commit: d5dfe8eaa8c58f6a55a86adf1050d20195413666
+    tree: b40b6d121573a46cfa04e751be52c64a46b63b04
+  github_readback: EXACT_COMMIT_TREE_CONFIRMED
+  qualification:
+    focused_real_blender: 1_PASS_IN_39_815_SECONDS
+    full_real_suite: 10_PASS_IN_85_691_SECONDS
+    durable_engine_import: 1_PASS_IN_10_03_SECONDS
+    strict_mypy: 9_FILES_NO_ISSUES
+    installed_wheel_local: 8_PASS
+    installed_wheel_real_blender: 1_PASS_IN_38_790_SECONDS
+    p3_05_real_portability_recheck: 1_PASS_IN_57_951_SECONDS
+    affected_regression_unchanged: 24_PASS
+    five_prompt_kpis: ALL_ZERO
+  engine_evidence:
+    project: prj_0740cfbce71545a7aa680a3fe59d0517
+    task: tsk_15cf533b4ec4468bb9aaa6fe15482491
+    run: run_22af562941d041afaf150ecf2ca3b19e
+    run_status: SUCCEEDED
+    run_state_sha256: e94f6827a7dab075cc13b863cf2969b9136e3e1894b041b9de5adf6afffaa0bf
+    graph: graph://prj_0740cfbce71545a7aa680a3fe59d0517/gph_f305ead7cce44a3581068facb496e0a2/1
+    graph_sha256: 01600fae25147f64301fead5c069cfbffa6ab9925fa9eaf37937e1e972e4b295
+    validation_plan: validation-plan://prj_0740cfbce71545a7aa680a3fe59d0517/vplan_6d45462b4be946dd96dce15a841dea54
+    validation_verdict: PASS
+    validation_evidence_state: CURRENT
+    validation_aggregate_sha256: b6a2373866266b4b620bb3b070b4250a31e7d6849dc0bf9db664b6d3ae813952
+    artifacts: 30
+    event: event://prj_0740cfbce71545a7aa680a3fe59d0517/evt_3299da6da85444c98f5f8825aece393b
+    independent_nodes:
+      - node: node://prj_0740cfbce71545a7aa680a3fe59d0517/gph_f305ead7cce44a3581068facb496e0a2/nod_122bd6030edc41559e606bf71ef5816b
+        attempt: natt_ab5c63b0c65f45e1893d17e1f2c635b9
+        allocation: ral_6bd89d31406a4321bb2f02ac9dff6fec
+        status: SUCCEEDED
+      - node: node://prj_0740cfbce71545a7aa680a3fe59d0517/gph_f305ead7cce44a3581068facb496e0a2/nod_a66982f13bd645db87fca0e09f72ad5c
+        attempt: natt_397d25ef29c1474ba9f94e9a4c466285
+        allocation: ral_81b7c6987549420980a84fbfeae1bedc
+        status: SUCCEEDED_AFTER_ISOLATED_FAILURE
+  drive_evidence:
+    real_l40s_id: 1DeCs9CK6_S6hM3YFp74U08ktYCvkgn4e
+    real_l40s_sha256: a99db777c0d8e9d6c6a02ec4c13b80d42b7da800d0285c4b7c71d9981d1c4111
+    engine_id: 1jpMZ1hFzoSQLCbJLz2ytyZJ5ORBdrwfv
+    engine_sha256: 5e59d7370ede28d917739153e1bed2337196a1aa0ae883d8296f3b88e0fac26a
+    wheel_id: 1q9UvAoGzkI9H94U5nhwxK8czWw6MU3fS
+    wheel_sha256: a1a54232bbb308d56aab445700c02f32615e2c369868e1f3ca6ce0a214116d9d
+    installed_wheel_real_id: 12Sc4iD8-FoyjjZKDm1u5vjK7jtl7-Ayh
+    installed_wheel_real_sha256: 1eb47d5aa5c7da4adb2cf03761ff7278758f4d56390045dac56120c819850c71
+    affected_regression_id: 1hCdxwm6YCnmo-9Kteg2dpREyplJ6aWDN
+    affected_regression_sha256: 0c735aa32bd24e5b04ad7bb0b83553600ddc846a67a756c5c86daae4bbc8233d
+    qualification_id: 10JUEcm3eVgijyCDpfWXadyGXya6C1rvh
+    exact_readback: SIX_OF_SIX
 
 prior_durable_through_P3_08:
   status: PRESERVED_RESULT; DURABLE_CLAIM_INVALIDATED_BY_COMPLETION_AUDIT_2026_09_01
@@ -382,7 +433,7 @@ approved_execution_program:
   language: biella.codex.end_to_end/v2
   mode: SINGLE_END_TO_END_NUMBERED_EXECUTION
   active_graph_location: docs/project-state/04_BIELLA_ACTIVE_TASK.md
-  active_graph: P3_07_ANIMATION_PRODUCTION_PACK
+  active_graph: P3_08_ENVIRONMENT_AND_WORLD_PRODUCTION_PACK
   duplicate_prevention:
     exact_Node_identity_and_claim: required
     one_current_owner_per_Node: true
@@ -430,7 +481,8 @@ truth:
   P3_04_durable_close: VERIFIED
   P3_05_durable_close: VERIFIED
   P3_06_durable_close: VERIFIED
-  P3_07_durable_close: ACTIVE; DURABLE_EVIDENCE_AND_CONCURRENCY_MISSING
+  P3_07_durable_close: VERIFIED
+  P3_08_durable_close: ACTIVE; EXACT_EXPORTED_ENVIRONMENT_TO_GODOT_LINKAGE_AND_TRUE_INDEPENDENT_BRANCHES_MISSING
   P3_14_durable_close: PHASE_EXIT_PROVENANCE_AND_EVENT_EVIDENCE_MISSING
   P3_READY_FOR_P4: INVALIDATED_BY_COMPLETION_AUDIT_2026_09_01
   P4_01_durable_close: VERIFIED
