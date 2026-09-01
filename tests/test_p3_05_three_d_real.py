@@ -16,6 +16,7 @@ from typing import cast
 
 import pytest
 
+import biella._blender_three_d_driver as _blender_driver
 from biella._blender_three_d_driver import _package_python_tree_sha256
 from biella import (
     ArtifactRef,
@@ -91,7 +92,9 @@ _BWRAP = Path("/usr/bin/bwrap")
 _GLTF_EXPORTER = Path(
     "/usr/lib/blender/scripts/addons_core/io_scene_gltf2"
 )
-_DRIVER = Path(__file__).parents[1] / "src/biella/_blender_three_d_driver.py"
+_DRIVER_FILE = _blender_driver.__file__
+assert _DRIVER_FILE is not None
+_DRIVER = Path(_DRIVER_FILE).resolve()
 
 
 @dataclass(frozen=True)
@@ -475,7 +478,28 @@ def test_t02_real_blender_editable_export_reopen_validate_preview_and_restart(
     assert runtime.available
     assert runtime.process_call_ref is not None
     assert runtime.driver_sha256 == env.identity.driver_sha256
-    assert runtime.embedded_python_version == "3.14.4"
+    embedded_python_probe = subprocess.run(
+        [
+            env.identity.executable_path,
+            "--background",
+            "--factory-startup",
+            "--python-expr",
+            (
+                "import platform; "
+                "print('BIELLA_EMBEDDED_PYTHON=' + platform.python_version())"
+            ),
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    observed_embedded_python = next(
+        line.removeprefix("BIELLA_EMBEDDED_PYTHON=")
+        for line in embedded_python_probe.stdout.splitlines()
+        if line.startswith("BIELLA_EMBEDDED_PYTHON=")
+    )
+    assert runtime.embedded_python_version == observed_embedded_python
     assert runtime.network_enforcement == "SANDBOX_NETWORK_DENIED"
     assert runtime.resource_allocation_ref == env.allocation_ref
     assert BlenderThreeDToolAdapter(

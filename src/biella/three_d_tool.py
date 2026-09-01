@@ -39,6 +39,7 @@ from .animation_pack import (
     AnimationContractError,
     BoneMapping,
     RetargetMapping,
+    RetargetRequest,
 )
 from .environment_pack import (
     EnvironmentContractError,
@@ -1452,6 +1453,27 @@ class EnvironmentManifestPublication:
 
 
 @dataclass(frozen=True)
+class RetargetRequestPublication:
+    """Immutable Artifact identity for one exact versioned retarget request."""
+
+    request: RetargetRequest
+    request_artifact_ref: ArtifactRef
+    request_content_ref: ContentRef
+
+    def __post_init__(self) -> None:
+        if (
+            not isinstance(self.request, RetargetRequest)
+            or not isinstance(self.request_artifact_ref, ArtifactRef)
+            or not isinstance(self.request_content_ref, ContentRef)
+            or self.request.project_ref != self.request_artifact_ref.project_ref
+            or self.request_content_ref.digest != self.request.request_sha256
+        ):
+            raise AnimationContractError(
+                "retarget request publication identity is malformed"
+            )
+
+
+@dataclass(frozen=True)
 class ThreeDRuntimeDescription:
     project_ref: ProjectRef
     identity_digest: str
@@ -1627,6 +1649,8 @@ class ThreeDToolAdapter(Protocol):
     def describeRuntime(self, access: ProjectAccess, attempt: NodeExecutionAttempt, identity: ThreeDToolIdentity, *, control_root_ref: FilesystemRootRef, working_directory: str, idempotency_key: str) -> ThreeDRuntimeDescription: ...
     def finalizeCharacterRigRef(self, access: ProjectAccess, result: ThreeDOperationResult, specification: CharacterSpecification) -> CharacterRigRef: ...
     def finalizeRetargetMapping(self, access: ProjectAccess, request: ThreeDOperationRequest, result: ThreeDOperationResult, source_rig_ref: CharacterRigRef, target_rig_ref: CharacterRigRef, *, mapping_id: str, mapping_version: str) -> RetargetMapping: ...
+    def persistRetargetRequest(self, access: ProjectAccess, request: RetargetRequest) -> RetargetRequestPublication: ...
+    def verifyRetargetRequestPublication(self, access: ProjectAccess, publication: RetargetRequestPublication) -> RetargetRequestPublication: ...
     def finalizeAnimationClip(self, access: ProjectAccess, request: ThreeDOperationRequest, result: ThreeDOperationResult, character_rig_ref: CharacterRigRef, *, clip_id: str, mapping: RetargetMapping | None = None) -> AnimationClip: ...
     def finalizeEnvironmentIntegrationManifest(self, access: ProjectAccess, request: ThreeDOperationRequest, result: ThreeDOperationResult, manifest: EnvironmentIntegrationManifest) -> EnvironmentManifestPublication: ...
     def verifyEnvironmentManifestPublication(self, access: ProjectAccess, publication: EnvironmentManifestPublication) -> EnvironmentManifestPublication: ...
@@ -1731,6 +1755,22 @@ class _MethodCheckedAdapter:
         return self._service.finalize_animation_clip(
             access, request, result, character_rig_ref,
             clip_id=clip_id, mapping=mapping,
+        )
+
+    def persistRetargetRequest(
+        self,
+        access: ProjectAccess,
+        request: RetargetRequest,
+    ) -> RetargetRequestPublication:
+        return self._service.persist_retarget_request(access, request)
+
+    def verifyRetargetRequestPublication(
+        self,
+        access: ProjectAccess,
+        publication: RetargetRequestPublication,
+    ) -> RetargetRequestPublication:
+        return self._service.verify_retarget_request_publication(
+            access, publication
         )
 
     def finalizeEnvironmentIntegrationManifest(
@@ -2018,6 +2058,23 @@ class _ThreeDService:
                   BEGIN SELECT RAISE(ABORT,'3D retarget mappings are immutable'); END;
                 CREATE TRIGGER IF NOT EXISTS three_d_retarget_mappings_no_delete BEFORE DELETE ON three_d_retarget_mapping_records
                   BEGIN SELECT RAISE(ABORT,'3D retarget mappings cannot be deleted'); END;
+                CREATE TABLE IF NOT EXISTS three_d_retarget_request_records (
+                  project_id TEXT NOT NULL,
+                  adapter_ref TEXT NOT NULL,
+                  request_id TEXT NOT NULL,
+                  request_version TEXT NOT NULL,
+                  request_semantic_sha256 TEXT NOT NULL,
+                  artifact_id TEXT NOT NULL,
+                  artifact_revision INTEGER NOT NULL,
+                  content_sha256 TEXT NOT NULL,
+                  PRIMARY KEY(project_id,adapter_ref,request_id,request_version),
+                  UNIQUE(project_id,adapter_ref,artifact_id,artifact_revision),
+                  FOREIGN KEY(project_id) REFERENCES projects(project_id) ON UPDATE RESTRICT ON DELETE RESTRICT
+                );
+                CREATE TRIGGER IF NOT EXISTS three_d_retarget_requests_no_update BEFORE UPDATE ON three_d_retarget_request_records
+                  BEGIN SELECT RAISE(ABORT,'3D retarget requests are immutable'); END;
+                CREATE TRIGGER IF NOT EXISTS three_d_retarget_requests_no_delete BEFORE DELETE ON three_d_retarget_request_records
+                  BEGIN SELECT RAISE(ABORT,'3D retarget requests cannot be deleted'); END;
                 CREATE TABLE IF NOT EXISTS three_d_environment_manifest_records (
                   project_id TEXT NOT NULL,
                   adapter_ref TEXT NOT NULL,
@@ -8015,6 +8072,230 @@ class _ThreeDService:
                 return self._mapping_from_artifact(access, winner.value, cast(str, row["content_sha256"]))
         finally:
             connection.close()
+
+    def _retarget_request_sources(
+        self,
+        access: ProjectAccess,
+        request: RetargetRequest,
+    ) -> tuple[Artifact, ...]:
+        expected = (
+            (request.clip.source_artifact_ref, request.clip.content_sha256),
+            (request.mapping.mapping_ref, request.mapping.content_sha256),
+            (request.source_rig_ref.rig_artifact_ref, request.source_rig_ref.rig_content_sha256),
+            (request.target_rig_ref.rig_artifact_ref, request.target_rig_ref.rig_content_sha256),
+        )
+        sources: dict[ArtifactRef, Artifact] = {}
+        for value, digest in expected:
+            artifact_ref = self._artifact_ref_from_value(access, value)
+            try:
+                artifact = self.artifacts.get_artifact(access, artifact_ref)
+            except ArtifactError as exc:
+                raise AnimationContractError(
+                    "retarget request source Artifact is not durable"
+                ) from exc
+            if artifact.content_ref is None or artifact.content_ref.digest != digest:
+                raise AnimationContractError(
+                    "retarget request source content identity changed"
+                )
+            self.object_store.verify(artifact.content_ref)
+            prior = sources.get(artifact_ref)
+            if prior is not None and prior.content_ref != artifact.content_ref:
+                raise AnimationContractError(
+                    "retarget request aliases conflicting source identities"
+                )
+            sources[artifact_ref] = artifact
+        return tuple(sorted(sources.values(), key=lambda item: item.artifact_ref.value))
+
+    def verify_retarget_request_publication(
+        self,
+        access: ProjectAccess,
+        publication: RetargetRequestPublication,
+    ) -> RetargetRequestPublication:
+        if (
+            not isinstance(publication, RetargetRequestPublication)
+            or publication.request.project_ref != access.project_ref
+            or publication.request_artifact_ref.project_ref != access.project_ref
+        ):
+            raise AnimationContractError(
+                "retarget request publication crossed Project scope"
+            )
+        request = publication.request
+        try:
+            artifact = self.artifacts.get_artifact(
+                access, publication.request_artifact_ref
+            )
+            raw = request.canonical_bytes()
+            if (
+                artifact.role != "3d.retarget-request"
+                or artifact.derivation_type != "3d.retarget-request"
+                or artifact.content_ref is None
+                or artifact.content_ref != publication.request_content_ref
+                or artifact.content_ref.digest != request.request_sha256
+                or hashlib.sha256(raw).hexdigest() != request.request_sha256
+            ):
+                raise AnimationContractError(
+                    "retarget request Artifact identity changed"
+                )
+            self.object_store.verify(artifact.content_ref)
+            if self.object_store.read(artifact.content_ref) != raw:
+                raise AnimationContractError("retarget request canonical bytes changed")
+            expected_sources = self._retarget_request_sources(access, request)
+            if set(artifact.source_artifact_refs) != {
+                item.artifact_ref for item in expected_sources
+            }:
+                raise AnimationContractError("retarget request lineage changed")
+            connection = self._connect()
+            try:
+                row = connection.execute(
+                    "SELECT request_semantic_sha256,artifact_id,artifact_revision,content_sha256 "
+                    "FROM three_d_retarget_request_records WHERE project_id=? AND adapter_ref=? "
+                    "AND request_id=? AND request_version=?",
+                    (
+                        access.project_ref.value,
+                        self.adapter_ref,
+                        request.request_id,
+                        request.request_version,
+                    ),
+                ).fetchone()
+            finally:
+                connection.close()
+            if (
+                row is None
+                or not hmac.compare_digest(cast(str, row["request_semantic_sha256"]), request.request_sha256)
+                or cast(str, row["artifact_id"]) != publication.request_artifact_ref.artifact_id
+                or cast(int, row["artifact_revision"]) != publication.request_artifact_ref.revision
+                or not hmac.compare_digest(cast(str, row["content_sha256"]), request.request_sha256)
+            ):
+                raise AnimationContractError(
+                    "retarget request Artifact lacks its immutable durable record"
+                )
+            return publication
+        except AnimationContractError:
+            raise
+        except (ArtifactError, ObjectStorageError, TypeError, ValueError) as exc:
+            raise AnimationContractError(
+                "retarget request publication failed verification"
+            ) from exc
+
+    def _retarget_request_publication_from_row(
+        self,
+        access: ProjectAccess,
+        request: RetargetRequest,
+        row: sqlite3.Row,
+    ) -> RetargetRequestPublication:
+        artifact_ref = ArtifactRef(
+            access.project_ref,
+            cast(str, row["artifact_id"]),
+            cast(int, row["artifact_revision"]),
+        )
+        try:
+            artifact = self.artifacts.get_artifact(access, artifact_ref)
+        except ArtifactError as exc:
+            raise AnimationContractError(
+                "retarget request durable Artifact is unavailable"
+            ) from exc
+        if artifact.content_ref is None:
+            raise AnimationContractError("retarget request durable content is unavailable")
+        return self.verify_retarget_request_publication(
+            access,
+            RetargetRequestPublication(request, artifact_ref, artifact.content_ref),
+        )
+
+    def persist_retarget_request(
+        self,
+        access: ProjectAccess,
+        request: RetargetRequest,
+    ) -> RetargetRequestPublication:
+        if not isinstance(request, RetargetRequest) or request.project_ref != access.project_ref:
+            raise AnimationContractError(
+                "retarget request persistence requires one exact Project request"
+            )
+        raw = request.canonical_bytes()
+        if hashlib.sha256(raw).hexdigest() != request.request_sha256:
+            raise AnimationContractError("retarget request semantic identity changed")
+        connection = self._connect()
+        try:
+            row = connection.execute(
+                "SELECT request_semantic_sha256,artifact_id,artifact_revision,content_sha256 "
+                "FROM three_d_retarget_request_records WHERE project_id=? AND adapter_ref=? "
+                "AND request_id=? AND request_version=?",
+                (access.project_ref.value, self.adapter_ref, request.request_id, request.request_version),
+            ).fetchone()
+        finally:
+            connection.close()
+        if row is not None:
+            if not hmac.compare_digest(cast(str, row["request_semantic_sha256"]), request.request_sha256):
+                raise AnimationContractError(
+                    "retarget request ID and version conflict with durable bytes"
+                )
+            return self._retarget_request_publication_from_row(access, request, row)
+        sources = self._retarget_request_sources(access, request)
+        content = self.object_store.put(
+            raw, media_type="application/vnd.biella.retarget-request+json"
+        )
+        if content.digest != request.request_sha256:
+            raise AnimationContractError("retarget request storage identity changed")
+        artifact = self.artifacts.create_artifact(
+            access,
+            project_ref=access.project_ref,
+            role="3d.retarget-request",
+            content_ref=content,
+            source_refs=(),
+            source_artifact_refs=tuple(item.artifact_ref for item in sources),
+            source_content_refs=tuple(cast(ContentRef, item.content_ref) for item in sources),
+            derivation_type="3d.retarget-request",
+            metadata={
+                "media_type": "application/vnd.biella.retarget-request+json",
+                "schema_ref": "schema://biella/retarget-request/v1",
+                "schema_version": "1.0.0",
+                "semantic_label": "retarget-request",
+                "semantic_version": request.request_version,
+            },
+        )
+        winner: sqlite3.Row | None = None
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN IMMEDIATE")
+            try:
+                connection.execute(
+                    "INSERT INTO three_d_retarget_request_records VALUES (?,?,?,?,?,?,?,?)",
+                    (
+                        access.project_ref.value,
+                        self.adapter_ref,
+                        request.request_id,
+                        request.request_version,
+                        request.request_sha256,
+                        artifact.artifact_ref.artifact_id,
+                        artifact.artifact_ref.revision,
+                        content.digest,
+                    ),
+                )
+                connection.commit()
+            except sqlite3.IntegrityError:
+                connection.rollback()
+                winner = connection.execute(
+                    "SELECT request_semantic_sha256,artifact_id,artifact_revision,content_sha256 "
+                    "FROM three_d_retarget_request_records WHERE project_id=? AND adapter_ref=? "
+                    "AND request_id=? AND request_version=?",
+                    (access.project_ref.value, self.adapter_ref, request.request_id, request.request_version),
+                ).fetchone()
+                if (
+                    winner is None
+                    or not hmac.compare_digest(
+                        cast(str, winner["request_semantic_sha256"]), request.request_sha256
+                    )
+                ):
+                    raise AnimationContractError(
+                        "retarget request persistence conflicts"
+                    )
+        finally:
+            connection.close()
+        if winner is not None:
+            return self._retarget_request_publication_from_row(access, request, winner)
+        return self.verify_retarget_request_publication(
+            access,
+            RetargetRequestPublication(request, artifact.artifact_ref, content),
+        )
 
     def finalize_retarget_mapping(
         self,

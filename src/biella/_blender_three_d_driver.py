@@ -178,6 +178,180 @@ def _self_contained_gltf(source: Path) -> None:
             pending.extend(value)
 
 
+_ANIMATION_MANIFEST_PROPERTY = "biella_animation_manifest_v1"
+
+
+def _animation_export_manifest(bpy: Any) -> list[dict[str, object]]:
+    records: list[dict[str, object]] = []
+    for action in sorted(bpy.data.actions, key=lambda item: str(item.name)):
+        if "biella_clip_sha256" not in action:
+            continue
+        records.append(
+            {
+                "action_name": str(action.name),
+                "baked": bool(action.get("biella_baked", False)),
+                "clip_id": str(action.get("biella_clip_id", "")),
+                "clip_sha256": str(action["biella_clip_sha256"]),
+                "end_frame": float(action.get("biella_end_frame", 0.0)),
+                "expected_fcurve_count": int(
+                    action.get("biella_expected_fcurve_count", 0)
+                ),
+                "expected_keyframe_count": int(
+                    action.get("biella_expected_keyframe_count", 0)
+                ),
+                "loop_tolerance": float(
+                    action.get("biella_loop_tolerance", 0.0)
+                ),
+                "retarget_sha256": action.get("biella_retarget_sha256"),
+                "root_motion_policy": str(
+                    action.get("biella_root_motion_policy", "")
+                ),
+                "source_skeleton_sha256": action.get(
+                    "biella_source_skeleton_sha256"
+                ),
+                "start_frame": float(action.get("biella_start_frame", 0.0)),
+                "target_skeleton_sha256": action.get(
+                    "biella_target_skeleton_sha256"
+                ),
+            }
+        )
+    if len(records) > 128:
+        raise ValueError("animation export manifest is unbounded")
+    return records
+
+
+def _embed_animation_export_manifest(bpy: Any) -> None:
+    manifest = _animation_export_manifest(bpy)
+    if not manifest:
+        return
+    encoded = json.dumps(
+        manifest,
+        ensure_ascii=False,
+        allow_nan=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    )
+    armatures = sorted(
+        (item for item in bpy.context.scene.objects if item.type == "ARMATURE"),
+        key=lambda item: str(item.name),
+    )
+    if not armatures:
+        raise ValueError("animation export lacks an armature metadata carrier")
+    for armature in armatures:
+        armature[_ANIMATION_MANIFEST_PROPERTY] = encoded
+
+
+def _restore_animation_export_manifest(bpy: Any) -> None:
+    encoded_values = {
+        str(item[_ANIMATION_MANIFEST_PROPERTY])
+        for item in bpy.context.scene.objects
+        if _ANIMATION_MANIFEST_PROPERTY in item
+    }
+    if not encoded_values:
+        return
+    if len(encoded_values) != 1:
+        raise ValueError("imported animation manifests conflict")
+    try:
+        manifest = json.loads(encoded_values.pop())
+    except json.JSONDecodeError as exc:
+        raise ValueError("imported animation manifest is malformed") from exc
+    if not isinstance(manifest, list) or not manifest or len(manifest) > 128:
+        raise ValueError("imported animation manifest is malformed or unbounded")
+    expected_keys = {
+        "action_name",
+        "baked",
+        "clip_id",
+        "clip_sha256",
+        "end_frame",
+        "expected_fcurve_count",
+        "expected_keyframe_count",
+        "loop_tolerance",
+        "retarget_sha256",
+        "root_motion_policy",
+        "source_skeleton_sha256",
+        "start_frame",
+        "target_skeleton_sha256",
+    }
+    seen: set[str] = set()
+    for raw in manifest:
+        if not isinstance(raw, dict) or set(raw) != expected_keys:
+            raise ValueError("imported animation manifest record is malformed")
+        name = raw["action_name"]
+        clip_id = raw["clip_id"]
+        clip_sha256 = raw["clip_sha256"]
+        root_motion_policy = raw["root_motion_policy"]
+        if (
+            not isinstance(name, str)
+            or not name
+            or name in seen
+            or not isinstance(clip_id, str)
+            or not clip_id
+            or not isinstance(clip_sha256, str)
+            or len(clip_sha256) != 64
+            or any(character not in "0123456789abcdef" for character in clip_sha256)
+            or root_motion_policy not in {"preserve", "extract", "remove"}
+            or not isinstance(raw["baked"], bool)
+        ):
+            raise ValueError("imported animation manifest identity is malformed")
+        numeric = (
+            raw["start_frame"],
+            raw["end_frame"],
+            raw["loop_tolerance"],
+        )
+        counts = (raw["expected_fcurve_count"], raw["expected_keyframe_count"])
+        digests = (
+            raw["retarget_sha256"],
+            raw["source_skeleton_sha256"],
+            raw["target_skeleton_sha256"],
+        )
+        if (
+            any(
+                isinstance(value, bool)
+                or not isinstance(value, (int, float))
+                or not math.isfinite(float(value))
+                for value in numeric
+            )
+            or any(
+                isinstance(value, bool) or not isinstance(value, int) or value < 0
+                for value in counts
+            )
+            or any(
+                value is not None
+                and (
+                    not isinstance(value, str)
+                    or len(value) != 64
+                    or any(
+                        character not in "0123456789abcdef"
+                        for character in value
+                    )
+                )
+                for value in digests
+            )
+        ):
+            raise ValueError("imported animation manifest evidence is malformed")
+        action = bpy.data.actions.get(name)
+        if action is None:
+            raise ValueError("imported animation manifest action is absent")
+        seen.add(name)
+        action["biella_baked"] = raw["baked"]
+        action["biella_clip_id"] = clip_id
+        action["biella_clip_sha256"] = clip_sha256
+        action["biella_end_frame"] = raw["end_frame"]
+        action["biella_expected_fcurve_count"] = raw["expected_fcurve_count"]
+        action["biella_expected_keyframe_count"] = raw["expected_keyframe_count"]
+        action["biella_loop_tolerance"] = raw["loop_tolerance"]
+        action["biella_root_motion_policy"] = root_motion_policy
+        action["biella_start_frame"] = raw["start_frame"]
+        for key in (
+            "retarget_sha256",
+            "source_skeleton_sha256",
+            "target_skeleton_sha256",
+        ):
+            value = raw[key]
+            if value is not None:
+                action[f"biella_{key}"] = value
+
+
 def _load(bpy: Any, source: Path) -> str:
     suffix = source.suffix.lower()
     if suffix == ".blend":
@@ -187,6 +361,7 @@ def _load(bpy: Any, source: Path) -> str:
     if suffix in {".glb", ".gltf"}:
         _self_contained_gltf(source)
         bpy.ops.import_scene.gltf(filepath=str(source))
+        _restore_animation_export_manifest(bpy)
         return "GLTF"
     raise ValueError(f"unsupported exact 3D source suffix: {suffix}")
 
@@ -574,6 +749,13 @@ def _apply_action(bpy: Any, armature: Any, clip: Mapping[str, object], policy: s
     action["biella_baked"] = baked
     action["biella_blend_with_clip_id"] = clip["blend_with_clip_id"]
     action["biella_blend_factor"] = float(cast(float, clip["blend_factor"]))
+    action["biella_loop_tolerance"] = float(cast(float, clip["loop_tolerance"]))
+    action["biella_source_skeleton_sha256"] = cast(
+        str, clip["source_skeleton_sha256"]
+    )
+    action["biella_target_skeleton_sha256"] = cast(
+        str, clip["source_skeleton_sha256"]
+    )
     armature.animation_data_create().action = action
     root_motion = None
     if policy == "extract":
@@ -665,6 +847,7 @@ def _retarget(bpy: Any, clip: Mapping[str, object], retarget: Mapping[str, objec
     action["biella_clip_sha256"] = _payload_digest(clip)
     action["biella_retarget_sha256"] = _payload_digest(retarget)
     action["biella_source_action"] = str(source_action.name)
+    action["biella_target_skeleton_sha256"] = _payload_digest(target)
 
 
 def _action_fcurves(action: Any) -> list[Any]:
@@ -710,9 +893,15 @@ def _animation_facts(bpy: Any) -> dict[str, object]:
         baked_count += int(baked)
         curve_count = len(curves)
         keyframe_count = sum(len(curve.keyframe_points) for curve in curves)
+        source_curve_count = int(
+            action.get("biella_expected_fcurve_count", curve_count)
+        )
+        source_keyframe_count = int(
+            action.get("biella_expected_keyframe_count", keyframe_count)
+        )
         if curve_count == 0:
-            curve_count = int(action.get("biella_expected_fcurve_count", 0))
-            keyframe_count = int(action.get("biella_expected_keyframe_count", 0))
+            curve_count = source_curve_count
+            keyframe_count = source_keyframe_count
         actions.append({
             "baked": baked,
             "clip_id": str(action.get("biella_clip_id", ""))[:128],
@@ -720,10 +909,15 @@ def _animation_facts(bpy: Any) -> dict[str, object]:
             "fcurve_count": curve_count,
             "keyframe_count": keyframe_count,
             "loop_error": loop_error,
+            "loop_tolerance": float(action.get("biella_loop_tolerance", 0.0)),
             "start_frame": float(action.get("biella_start_frame", 0.0)),
             "end_frame": float(action.get("biella_end_frame", 0.0)),
             "retarget_sha256": action.get("biella_retarget_sha256"),
             "root_motion_policy": str(action.get("biella_root_motion_policy", "")),
+            "source_skeleton_sha256": action.get("biella_source_skeleton_sha256"),
+            "source_fcurve_count": source_curve_count,
+            "source_keyframe_count": source_keyframe_count,
+            "target_skeleton_sha256": action.get("biella_target_skeleton_sha256"),
         })
     frame_rate = float(bpy.context.scene.render.fps) / float(bpy.context.scene.render.fps_base)
     return {"action_count": len(actions), "actions": actions, "baked_action_count": baked_count, "frame_rate": frame_rate, "maximum_loop_error": maximum_loop_error}
@@ -1754,6 +1948,7 @@ def _export(
 ) -> dict[str, object]:
     suffix = output.suffix.lower()
     if suffix in {".glb", ".gltf"}:
+        _embed_animation_export_manifest(bpy)
         export_format = "GLB" if suffix == ".glb" else "GLTF_EMBEDDED"
         export_yup = bool(config.get("export_yup", True))
         settings = _gltf_effective_settings(
@@ -1761,6 +1956,7 @@ def _export(
             {
                 "export_apply": True,
                 "export_draco_mesh_compression_enable": False,
+                "export_extras": True,
                 "export_format": export_format,
                 "export_use_gltfpack": False,
                 "export_yup": export_yup,

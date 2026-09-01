@@ -208,6 +208,35 @@ def _animation_request(
     )
 
 
+def _animation_evidence(
+    report: dict[str, object],
+) -> tuple[dict[str, Any], tuple[dict[str, Any], ...]]:
+    inspection = report.get("inspection")
+    assert isinstance(inspection, dict)
+    animation = inspection.get("animation")
+    assert isinstance(animation, dict)
+    actions = animation.get("actions")
+    assert isinstance(actions, list)
+    assert all(isinstance(item, dict) for item in actions)
+    return animation, tuple(item for item in actions if isinstance(item, dict))
+
+
+def _exact_action(
+    actions: tuple[dict[str, Any], ...],
+    clip_sha256: str,
+    *,
+    retarget_sha256: str | None = None,
+) -> dict[str, Any]:
+    matches = tuple(
+        item
+        for item in actions
+        if item.get("clip_sha256") == clip_sha256
+        and item.get("retarget_sha256") == retarget_sha256
+    )
+    assert len(matches) == 1
+    return matches[0]
+
+
 def test_real_animation_actions_retarget_bake_preview_export_and_reopen(tmp_path: Path) -> None:
     support = _support()
     env = support._environment(tmp_path)
@@ -245,12 +274,13 @@ def test_real_animation_actions_retarget_bake_preview_export_and_reopen(tmp_path
         env.access, env.attempt, blended_request, idempotency_key="animation-turn"
     )
     assert turned.editable_source and turned.output_artifact_ref is not None
+    baked_clip = _clip("turn-baked", source_skeleton)
     baked = env.adapter.executeOperation(
         env.access,
         env.attempt,
         _animation_request(
             env, ThreeDOperation.BAKE, turned.output_artifact_ref, "turn.blend",
-            "turn-baked.blend", source_skeleton, _clip("turn-baked", source_skeleton),
+            "turn-baked.blend", source_skeleton, baked_clip,
             root_motion=ThreeDRootMotionPolicy.REMOVE,
         ),
         idempotency_key="animation-bake",
@@ -320,8 +350,18 @@ def test_real_animation_actions_retarget_bake_preview_export_and_reopen(tmp_path
         )
     retarget_report = support._report(env, retargeted)
     assert retarget_report["animation_identity"]["retarget_sha256"] == mapping.semantic_digest
-    assert retarget_report["inspection"]["animation"]["action_count"] >= 2
-    assert any(item["root_motion_policy"] == "extract" for item in retarget_report["inspection"]["animation"]["actions"])
+    retarget_animation, retarget_actions = _animation_evidence(retarget_report)
+    assert retarget_animation["action_count"] == len(retarget_actions)
+    walk_action = _exact_action(retarget_actions, walk.semantic_digest)
+    turn_action = _exact_action(retarget_actions, blended.semantic_digest)
+    retarget_action = _exact_action(
+        retarget_actions,
+        blended.semantic_digest,
+        retarget_sha256=mapping.semantic_digest,
+    )
+    baked_report = support._report(env, baked)
+    baked_animation, baked_actions = _animation_evidence(baked_report)
+    baked_action = _exact_action(baked_actions, baked_clip.semantic_digest)
     validated = env.adapter.validate(
         env.access,
         env.attempt,
@@ -378,7 +418,80 @@ def test_real_animation_actions_retarget_bake_preview_export_and_reopen(tmp_path
         ),
         idempotency_key="animation-reopen",
     )
-    assert support._report(env, reopened)["inspection"]["source_format"] == "GLTF"
+    reopened_report = support._report(env, reopened)
+    reopened_inspection = reopened_report["inspection"]
+    assert isinstance(reopened_inspection, dict)
+    assert reopened_inspection["source_format"] == "GLTF"
+    reopened_animation, reopened_actions = _animation_evidence(reopened_report)
+    reopened_baked = tuple(
+        (
+            item.get("clip_id"),
+            item.get("start_frame"),
+            item.get("end_frame"),
+            item.get("source_fcurve_count"),
+            item.get("source_keyframe_count"),
+        )
+        for item in reopened_actions
+        if item.get("clip_id") == baked_clip.clip_id
+    )
+    assert all(
+        int(item["fcurve_count"]) >= int(item["source_fcurve_count"])
+        and int(item["keyframe_count"]) >= int(item["source_keyframe_count"])
+        for item in reopened_actions
+    )
+
+    exact_action_evidence = (
+        (walk_action, walk.clip_id, walk.semantic_digest),
+        (turn_action, blended.clip_id, blended.semantic_digest),
+        (retarget_action, blended.clip_id, blended.semantic_digest),
+        (baked_action, baked_clip.clip_id, baked_clip.semantic_digest),
+    )
+    animation_kpis = {
+        "exact_clip_action_keyframe_mismatches": sum(
+            int(
+                (
+                    item["clip_id"],
+                    item["clip_sha256"],
+                    item["start_frame"],
+                    item["end_frame"],
+                    item["fcurve_count"],
+                    item["keyframe_count"],
+                )
+                != (clip_id, clip_sha256, 1.0, 12.0, 36, 72)
+            )
+            for item, clip_id, clip_sha256 in exact_action_evidence
+        ),
+        "retarget_mapping_mismatches": int(
+            retarget_report["animation_identity"]["retarget_sha256"]
+            != mapping.semantic_digest
+        )
+        + int(retarget_action["retarget_sha256"] != mapping.semantic_digest),
+        "root_motion_loop_bake_failures": sum(
+            (
+                int(turn_action["root_motion_policy"] != "extract"),
+                int(retarget_action["root_motion_policy"] != "preserve"),
+                int(baked_action["root_motion_policy"] != "remove"),
+                int(baked_action["baked"] is not True),
+                int(
+                    float(baked_animation["maximum_loop_error"])
+                    > baked_clip.loop_tolerance
+                ),
+                int(validated.technical_valid is not True),
+            )
+        ),
+        "export_reopen_failures": int(
+            reopened_inspection["source_format"] != "GLTF"
+        )
+        + int(reopened_animation["action_count"] < 1)
+            + int(
+                reopened_baked
+                != ((baked_clip.clip_id, 1.0, 12.0, 18, 36),)
+            ),
+    }
+    assert animation_kpis["exact_clip_action_keyframe_mismatches"] == 0
+    assert animation_kpis["retarget_mapping_mismatches"] == 0
+    assert animation_kpis["root_motion_loop_bake_failures"] == 0
+    assert animation_kpis["export_reopen_failures"] == 0
     with pytest.raises(ThreeDConflictError):
         env.adapter.executeOperation(
             env.access,
@@ -399,19 +512,34 @@ def test_animation_specs_reject_nonfinite_transforms() -> None:
 
 def test_independent_animation_worker_failure_recovers_without_erasing_peer(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     support = _support()
-    env = support._environment(tmp_path)
+    success_env, failed_env = support._environments(tmp_path, count=2)
+    assert success_env.database == failed_env.database
+    assert success_env.objects is failed_env.objects
+    assert success_env.access == failed_env.access
+    assert success_env.attempt.node_ref != failed_env.attempt.node_ref
+    assert success_env.attempt.attempt_id != failed_env.attempt.attempt_id
+    assert success_env.allocation_ref != failed_env.allocation_ref
     skeleton = _source_skeleton()
-    _, skin = _rigged_character(env, skeleton, "animation-peer")
+    _, skin = _rigged_character(success_env, skeleton, "animation-peer")
+    _, failed_skin = _rigged_character(
+        failed_env,
+        skeleton,
+        "animation-failed-peer",
+    )
+    success_clip = _clip("peer-success", skeleton)
+    failed_clip = _clip("peer-recover", skeleton)
     success_request = _animation_request(
-        env, ThreeDOperation.ANIMATE, skin.output_artifact_ref, "animation-peer-skin.blend",
-        "peer-success.blend", skeleton, _clip("peer-success", skeleton),
+        success_env, ThreeDOperation.ANIMATE, skin.output_artifact_ref, "animation-peer-skin.blend",
+        "peer-success.blend", skeleton, success_clip,
     )
     failed_request = _animation_request(
-        env, ThreeDOperation.ANIMATE, skin.output_artifact_ref, "animation-peer-skin.blend",
-        "peer-recover.blend", skeleton, _clip("peer-recover", skeleton),
+        failed_env, ThreeDOperation.ANIMATE, failed_skin.output_artifact_ref, "animation-failed-peer-skin.blend",
+        "peer-recover.blend", skeleton, failed_clip,
     )
-    fault_adapter = type(env.adapter)(env.database, env.objects)
-    success_adapter = type(env.adapter)(env.database, env.objects)
+    assert success_request.resource_allocation_ref == success_env.allocation_ref
+    assert failed_request.resource_allocation_ref == failed_env.allocation_ref
+    fault_adapter = type(failed_env.adapter)(failed_env.database, failed_env.objects)
+    success_adapter = type(success_env.adapter)(success_env.database, success_env.objects)
     persistence_barrier = Barrier(2)
     original_success_persist = success_adapter._service._persist
 
@@ -428,18 +556,31 @@ def test_independent_animation_worker_failure_recovers_without_erasing_peer(tmp_
     with ThreadPoolExecutor(max_workers=2) as executor:
         peer = executor.submit(
             success_adapter.executeOperation,
-            env.access, env.attempt, success_request, idempotency_key="animation-peer-success",
+            success_env.access, success_env.attempt, success_request, idempotency_key="animation-peer-success",
         )
         failed = executor.submit(
             fault_adapter.executeOperation,
-            env.access, env.attempt, failed_request, idempotency_key="animation-peer-recover",
+            failed_env.access, failed_env.attempt, failed_request, idempotency_key="animation-peer-recover",
         )
         peer_result = peer.result()
         with pytest.raises(RuntimeError, match="worker loss after durable process"):
             failed.result()
     assert peer_result.output_artifact_ref is not None
+    peer_artifact_ref = peer_result.output_artifact_ref
+    peer_content_ref = peer_result.output_content_ref
+    peer_bytes_after_failure = success_env.objects.read(peer_content_ref)
+    peer_report_after_failure = support._report(success_env, peer_result)
+    _, peer_actions_after_failure = _animation_evidence(peer_report_after_failure)
+    peer_action = _exact_action(peer_actions_after_failure, success_clip.semantic_digest)
+    assert (
+        peer_action["clip_id"],
+        peer_action["start_frame"],
+        peer_action["end_frame"],
+        peer_action["fcurve_count"],
+        peer_action["keyframe_count"],
+    ) == (success_clip.clip_id, 1.0, 12.0, 36, 72)
     failed_process_key = f"three-d-blender-{failed_request.request_sha256[:36]}"
-    with sqlite3.connect(env.database) as connection:
+    with sqlite3.connect(failed_env.database) as connection:
         assert tuple(
             int(connection.execute(
                 f"SELECT COUNT(*) FROM {table} WHERE call_id=("
@@ -453,16 +594,35 @@ def test_independent_animation_worker_failure_recovers_without_erasing_peer(tmp_
                 "managed_process_results",
             )
         ) == (1, 1, 1, 1)
-    recovered_adapter = type(env.adapter)(env.database, env.objects)
+    recovered_adapter = type(failed_env.adapter)(failed_env.database, failed_env.objects)
     recovered = recovered_adapter.executeOperation(
-        env.access, env.attempt, failed_request, idempotency_key="animation-peer-recover",
+        failed_env.access, failed_env.attempt, failed_request, idempotency_key="animation-peer-recover",
     )
     assert recovered.editable_source and recovered.output_artifact_ref is not None
-    replayed = type(env.adapter)(env.database, env.objects).executeOperation(
-        env.access, env.attempt, failed_request, idempotency_key="animation-peer-recover",
+    replayed = type(failed_env.adapter)(failed_env.database, failed_env.objects).executeOperation(
+        failed_env.access, failed_env.attempt, failed_request, idempotency_key="animation-peer-recover",
     )
     assert replayed == recovered
-    with sqlite3.connect(env.database) as connection:
+    recovered_report = support._report(failed_env, recovered)
+    _, recovered_actions = _animation_evidence(recovered_report)
+    recovered_action = _exact_action(recovered_actions, failed_clip.semantic_digest)
+    assert (
+        recovered_action["clip_id"],
+        recovered_action["start_frame"],
+        recovered_action["end_frame"],
+        recovered_action["fcurve_count"],
+        recovered_action["keyframe_count"],
+    ) == (failed_clip.clip_id, 1.0, 12.0, 36, 72)
+    peer_bytes_after_recovery = failed_env.objects.read(peer_content_ref)
+    peer_report_after_recovery = support._report(failed_env, peer_result)
+    independent_clip_artifact_losses = int(
+        peer_result.output_artifact_ref != peer_artifact_ref
+        or peer_result.output_content_ref != peer_content_ref
+        or peer_bytes_after_recovery != peer_bytes_after_failure
+        or peer_report_after_recovery != peer_report_after_failure
+    )
+    assert independent_clip_artifact_losses == 0
+    with sqlite3.connect(failed_env.database) as connection:
         assert tuple(
             int(connection.execute(
                 f"SELECT COUNT(*) FROM {table} WHERE call_id=("

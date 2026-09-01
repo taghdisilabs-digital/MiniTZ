@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 from dataclasses import replace
+import hashlib
+import json
 import math
 
 import pytest
@@ -58,3 +60,64 @@ def test_animation_contracts_bind_exact_character_rigs_mapping_and_policies() ->
     with pytest.raises(AnimationContractError): request.require_mapping(replace(mapping, content_sha256="0" * 64))
     with pytest.raises(AnimationContractError): replace(request, policy_versions={})
     with pytest.raises(AnimationContractError): replace(request, transform=(math.inf,) * 16)
+
+
+def test_animation_set_rejects_cross_paired_clip_reference_and_digest() -> None:
+    project_ref = ProjectRef.new()
+    rig = _rig(project_ref, "source", "c" * 64, "d" * 64)
+    walk = _clip(project_ref, rig)
+    run = replace(
+        walk,
+        clip_id="run-cycle",
+        source_artifact_ref="artifact://animation/run/source/v1",
+        content_sha256="3" * 64,
+        content_ref="content://animation/run/v1",
+    )
+    animation_set = AnimationSet(
+        project_ref,
+        "locomotion",
+        (run.source_artifact_ref, walk.source_artifact_ref),
+        (run.content_sha256, walk.content_sha256),
+        rig,
+        {"kind": "locomotion"},
+        "1.0.0",
+    )
+
+    assert animation_set.clip_identities == (
+        (run.source_artifact_ref, run.content_sha256),
+        (walk.source_artifact_ref, walk.content_sha256),
+    )
+    assert animation_set.require_clip(walk) is walk
+    assert animation_set.require_clip(run) is run
+    with pytest.raises(AnimationContractError):
+        animation_set.require_clip(replace(walk, content_sha256=run.content_sha256))
+
+
+def test_retarget_request_has_versioned_canonical_identity_for_persistence() -> None:
+    project_ref = ProjectRef.new()
+    source = _rig(project_ref, "source", "c" * 64, "d" * 64)
+    target = _rig(project_ref, "target", "e" * 64, "f" * 64)
+    clip = _clip(project_ref, source)
+    mapping = _mapping(project_ref, source, target)
+    request = _request(project_ref, clip, source, target, mapping)
+
+    expected_bytes = json.dumps(
+        request.payload(),
+        ensure_ascii=False,
+        allow_nan=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+    assert request.request_version == "1.0.0"
+    assert request.payload()["request_id"] == "walk-retarget"
+    assert request.payload()["request_version"] == "1.0.0"
+    mapping_payload = request.payload()["mapping"]
+    assert isinstance(mapping_payload, dict)
+    assert mapping_payload["content_sha256"] == "2" * 64
+    assert request.canonical_bytes() == expected_bytes
+    assert request.request_sha256 == hashlib.sha256(expected_bytes).hexdigest()
+    assert replace(request, policy_refs=dict(reversed(tuple(request.policy_refs.items())))).request_sha256 == request.request_sha256
+    assert replace(request, request_version="1.0.1").request_sha256 != request.request_sha256
+    assert replace(request, transform=(2.0, *(1.0,) * 15)).request_sha256 != request.request_sha256
+    with pytest.raises(AnimationContractError):
+        replace(request, request_version="v1")

@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+import hashlib
+import json
 import math
 import re
 from types import MappingProxyType
@@ -144,17 +146,25 @@ class AnimationSet:
     def __post_init__(self) -> None:
         if not isinstance(self.project_ref, ProjectRef): raise AnimationContractError("project_ref must be ProjectRef")
         object.__setattr__(self, "set_id", _identity(self.set_id, "set_id"))
-        object.__setattr__(self, "clip_refs", _refs(self.clip_refs, "clip_refs"))
+        refs = tuple(_ref(item, "clip_refs") for item in self.clip_refs)
+        if not refs or len(refs) > 64 or len(set(refs)) != len(refs):
+            raise AnimationContractError("clip_refs is empty, duplicated, or unbounded")
         digests = tuple(_sha(item, "clip_content_sha256s") for item in self.clip_content_sha256s)
-        if len(digests) != len(self.clip_refs): raise AnimationContractError("clip identities are incomplete")
-        object.__setattr__(self, "clip_content_sha256s", digests)
+        if len(digests) != len(refs): raise AnimationContractError("clip identities are incomplete")
+        identities = tuple(sorted(zip(refs, digests, strict=True)))
+        object.__setattr__(self, "clip_refs", tuple(item[0] for item in identities))
+        object.__setattr__(self, "clip_content_sha256s", tuple(item[1] for item in identities))
         if not isinstance(self.character_rig_ref, CharacterRigRef) or self.character_rig_ref.project_ref != self.project_ref:
             raise AnimationContractError("character_rig_ref is out of project scope")
         object.__setattr__(self, "labels", _mapping(self.labels, "labels", allow_empty=True))
         if not isinstance(self.version, str) or not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", self.version): raise AnimationContractError("version is malformed")
 
+    @property
+    def clip_identities(self) -> tuple[tuple[str, str], ...]:
+        return tuple(zip(self.clip_refs, self.clip_content_sha256s, strict=True))
+
     def require_clip(self, clip: AnimationClip) -> AnimationClip:
-        if not isinstance(clip, AnimationClip) or clip.project_ref != self.project_ref or clip.character_rig_ref != self.character_rig_ref or clip.source_artifact_ref not in self.clip_refs or clip.content_sha256 not in self.clip_content_sha256s:
+        if not isinstance(clip, AnimationClip) or clip.project_ref != self.project_ref or clip.character_rig_ref != self.character_rig_ref or (clip.source_artifact_ref, clip.content_sha256) not in self.clip_identities:
             raise AnimationContractError("clip is stale or mismatched for animation set")
         return clip
 
@@ -193,6 +203,69 @@ class RetargetMapping:
         object.__setattr__(self, "bone_mappings", mappings)
 
 
+def _rig_payload(rig: CharacterRigRef) -> dict[str, object]:
+    return {
+        "character_artifact_ref": rig.character_artifact_ref,
+        "character_content_sha256": rig.character_content_sha256,
+        "character_id": rig.character_id,
+        "coordinate_convention_ref": rig.coordinate_convention_ref,
+        "coordinate_system": dict(rig.coordinate_system),
+        "mesh_content_sha256": rig.mesh_content_sha256,
+        "mesh_ref": rig.mesh_ref,
+        "project_ref": rig.project_ref.value,
+        "provenance_ref": rig.provenance_ref,
+        "rest_pose_ref": rig.rest_pose_ref,
+        "rig_artifact_ref": rig.rig_artifact_ref,
+        "rig_content_sha256": rig.rig_content_sha256,
+        "rig_id": rig.rig_id,
+        "scale": list(rig.scale),
+        "script_provenance_ref": rig.script_provenance_ref,
+        "skeleton_content_sha256": rig.skeleton_content_sha256,
+        "skeleton_ref": rig.skeleton_ref,
+        "target_metadata": dict(rig.target_metadata),
+        "tool_provenance_ref": rig.tool_provenance_ref,
+    }
+
+
+def _clip_payload(clip: AnimationClip) -> dict[str, object]:
+    return {
+        "channel_summary": dict(clip.channel_summary),
+        "character_rig_ref": _rig_payload(clip.character_rig_ref),
+        "clip_id": clip.clip_id,
+        "content_ref": clip.content_ref,
+        "content_sha256": clip.content_sha256,
+        "coordinate_convention_ref": clip.coordinate_convention_ref,
+        "coordinate_system": dict(clip.coordinate_system),
+        "duration_seconds": clip.duration_seconds,
+        "end_time": clip.end_time,
+        "frame_rate": clip.frame_rate,
+        "loop_metadata": dict(clip.loop_metadata),
+        "project_ref": clip.project_ref.value,
+        "root_motion_metadata": dict(clip.root_motion_metadata),
+        "runtime_ref": clip.runtime_ref,
+        "source_artifact_ref": clip.source_artifact_ref,
+        "start_time": clip.start_time,
+        "time_unit": clip.time_unit,
+        "tool_provenance_ref": clip.tool_provenance_ref,
+    }
+
+
+def _retarget_mapping_payload(mapping: RetargetMapping) -> dict[str, object]:
+    return {
+        "bone_mappings": [
+            {"source_bone": item.source_bone, "target_bone": item.target_bone}
+            for item in sorted(mapping.bone_mappings, key=lambda item: (item.source_bone, item.target_bone))
+        ],
+        "content_sha256": mapping.content_sha256,
+        "mapping_id": mapping.mapping_id,
+        "mapping_ref": mapping.mapping_ref,
+        "mapping_version": mapping.mapping_version,
+        "project_ref": mapping.project_ref.value,
+        "source_rig_ref": _rig_payload(mapping.source_rig_ref),
+        "target_rig_ref": _rig_payload(mapping.target_rig_ref),
+    }
+
+
 @dataclass(frozen=True)
 class RetargetRequest:
     project_ref: ProjectRef
@@ -208,10 +281,13 @@ class RetargetRequest:
     output_contract_refs: tuple[str, ...]
     policy_refs: Mapping[str, str]
     policy_versions: Mapping[str, str]
+    request_version: str = _VERSION
+    request_sha256: str = field(init=False)
 
     def __post_init__(self) -> None:
         if not isinstance(self.project_ref, ProjectRef): raise AnimationContractError("project_ref must be ProjectRef")
         object.__setattr__(self, "request_id", _identity(self.request_id, "request_id"))
+        if not isinstance(self.request_version, str) or not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", self.request_version): raise AnimationContractError("request_version is malformed")
         if not isinstance(self.clip, AnimationClip) or not isinstance(self.source_rig_ref, CharacterRigRef) or not isinstance(self.target_rig_ref, CharacterRigRef) or not isinstance(self.mapping, RetargetMapping):
             raise AnimationContractError("retarget request must bind exact clip, rigs, and mapping")
         if self.clip.project_ref != self.project_ref or self.source_rig_ref.project_ref != self.project_ref or self.target_rig_ref.project_ref != self.project_ref or self.mapping.project_ref != self.project_ref or self.clip.character_rig_ref != self.source_rig_ref or self.mapping.source_rig_ref != self.source_rig_ref or self.mapping.target_rig_ref != self.target_rig_ref:
@@ -233,6 +309,34 @@ class RetargetRequest:
                 raise AnimationContractError("policy version is malformed")
         object.__setattr__(self, "policy_refs", policy_refs)
         object.__setattr__(self, "policy_versions", policy_versions)
+        object.__setattr__(self, "request_sha256", hashlib.sha256(self.canonical_bytes()).hexdigest())
+
+    def payload(self) -> dict[str, object]:
+        return {
+            "clip": _clip_payload(self.clip),
+            "mapping": _retarget_mapping_payload(self.mapping),
+            "output_contract_refs": list(self.output_contract_refs),
+            "policy_refs": dict(self.policy_refs),
+            "policy_versions": dict(self.policy_versions),
+            "project_ref": self.project_ref.value,
+            "request_id": self.request_id,
+            "request_version": self.request_version,
+            "root_motion_metadata": dict(self.root_motion_metadata),
+            "source_rig_ref": _rig_payload(self.source_rig_ref),
+            "source_scale": list(self.source_scale),
+            "target_rig_ref": _rig_payload(self.target_rig_ref),
+            "target_scale": list(self.target_scale),
+            "transform": list(self.transform),
+        }
+
+    def canonical_bytes(self) -> bytes:
+        return json.dumps(
+            self.payload(),
+            ensure_ascii=False,
+            allow_nan=False,
+            separators=(",", ":"),
+            sort_keys=True,
+        ).encode("utf-8")
 
     def require_clip(self, clip: AnimationClip) -> AnimationClip:
         if not isinstance(clip, AnimationClip) or clip != self.clip or clip.character_rig_ref != self.source_rig_ref: raise AnimationContractError("clip identity is stale or out of scope")
