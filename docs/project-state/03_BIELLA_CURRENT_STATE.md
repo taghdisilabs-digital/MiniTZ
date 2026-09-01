@@ -23,42 +23,42 @@ engine:
 
 durable_source:
   current_result:
-    commit: d5dfe8eaa8c58f6a55a86adf1050d20195413666
-    tree: b40b6d121573a46cfa04e751be52c64a46b63b04
+    commit: d720e0979d6cf8c0e3644a25df8e8f08db0b2f22
+    tree: 9e01b2cd528f0519346021889edf73c92e74e718
     github_readback: EXACT_COMMIT_TREE_CONFIRMED
   current_implementation_base:
     commit: b7a55142edea7de895f799b8bef074a2a02d916d
     tree: 6df2a4d4f04246713220aa2461a10e33ba1b93d1
     meaning: PRESERVED_ACCEPTED_SOURCE_AND_RESULT; NOT_FOUNDATION_COMPLETION_AUTHORITY
   current_execution_map:
-    result_commit: d5dfe8eaa8c58f6a55a86adf1050d20195413666
-    result_tree: b40b6d121573a46cfa04e751be52c64a46b63b04
+    result_commit: d720e0979d6cf8c0e3644a25df8e8f08db0b2f22
+    result_tree: 9e01b2cd528f0519346021889edf73c92e74e718
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    status: P3_08_ACTIVE_DURABLE_REPAIR
+    status: P3_09_ACTIVE_DURABLE_REPAIR
   branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
     first_rejected_execution_time: "2026-08-30T10:44:52Z"
     rejected_post_boundary_completion_claims: P3_10_THROUGH_P3_09
 
 numbered_execution:
-  durable_prompts_complete: 43
+  durable_prompts_complete: 44
   durable_prompts_total: 51
-  progress: "43 / 51 durable; non-contiguous audited; repair frontier 39"
+  progress: "44 / 51 durable; non-contiguous audited; repair frontier 40"
   phase: P3_DURABLE_REPAIR
-  active_prompt: P3-08
-  active_global_number: 39
-  active_title: Environment and World Production Pack
-  active_drive_prompt_id: 10wP9734umfbfCGfLvmf3gz_9IfT1h8kTjX06KmW0a54
-  predecessor: P3-07
-  successor: P3-09
-  active_dependency: P3-07
-  successor_execution_authorized: false_until_P3_08_durable_close
+  active_prompt: P3-09
+  active_global_number: 40
+  active_title: Rendering Production Pack
+  active_drive_prompt_id: 1FYsaztU8wwjl_6k8Nx4xJII4wId-MPflkLFUNwW4gRM
+  predecessor: P3-08
+  successor: P3-10
+  active_dependency: P3-08
+  successor_execution_authorized: false_until_P3_09_durable_close
   active_execution_authorized: true
   future_activation_shells_prepared: false
   future_internal_graphs_precompiled: false
-  future_graph_rule: activate_P3_09_only_after_P3_08_durable_close
+  future_graph_rule: activate_P3_10_only_after_P3_09_durable_close
 
 execution_host_state:
   current_host:
@@ -80,10 +80,10 @@ execution_host_state:
   canonical_checkout: /root/biella/repos/biella-engine
   checkout_observation:
     branch: main
-    current_result_commit: d5dfe8eaa8c58f6a55a86adf1050d20195413666
-    current_result_tree: b40b6d121573a46cfa04e751be52c64a46b63b04
+    current_result_commit: d720e0979d6cf8c0e3644a25df8e8f08db0b2f22
+    current_result_tree: 9e01b2cd528f0519346021889edf73c92e74e718
     github_readback: EXACT_COMMIT_TREE_CONFIRMED
-  current_restore_order: PRESERVE_LATER_SOURCE_THEN_DURABLY_REPAIR_P3_08
+  current_restore_order: PRESERVE_LATER_SOURCE_THEN_DURABLY_REPAIR_P3_09
 
 standing_owner_priority:
   highest_operational_rule: preserve_current_or_recoverable_long_running_productive_work_before_remote_sync_restore_reset_checkout_merge_or_host_replacement
@@ -91,8 +91,8 @@ standing_owner_priority:
   session_model_SSH_tmux_or_host_change_does_not_invalidate_verified_work: true
   current_required_order:
     - preserve_all_later_accepted_source_and_results
-    - durably_repair_P3_08_under_standing_authorization
-    - advance_to_P3_09_only_after_P3_08_durable_close
+    - durably_repair_P3_09_under_standing_authorization
+    - advance_to_P3_10_only_after_P3_09_durable_close
 
 p3_05_recovery:
   status: REUSED_FOR_DURABLE_CLOSE_WITHOUT_REHASH
@@ -116,8 +116,7 @@ completion_audit_2026_09_01:
   P3_07:
     durable_close: COMPLETE
   P3_08:
-    durable_close: INCOMPLETE
-    missing: exact_exported_environment_to_Godot_linkage_and_true_independent_branches
+    durable_close: COMPLETE
   P3_09:
     durable_close: INCOMPLETE
     missing: generic_renderer_adapter_final_recovery_and_durable_evidence
@@ -230,6 +229,58 @@ p3_07_durable_close:
     affected_regression_sha256: 0c735aa32bd24e5b04ad7bb0b83553600ddc846a67a756c5c86daae4bbc8233d
     qualification_id: 10JUEcm3eVgijyCDpfWXadyGXya6C1rvh
     exact_readback: SIX_OF_SIX
+
+p3_08_durable_close:
+  result:
+    commit: d720e0979d6cf8c0e3644a25df8e8f08db0b2f22
+    tree: 9e01b2cd528f0519346021889edf73c92e74e718
+  github_readback: EXACT_COMMIT_TREE_CONFIRMED
+  qualification:
+    environment_focused: 9_PASS
+    game_bridge: 3_PASS
+    durable_importer: 5_PASS
+    strict_mypy: 8_FILES_NO_ISSUES
+    affected_real_l40s: 3_PASS_IN_125_65_SECONDS
+    installed_wheel_real_l40s: 7_PASS_IN_176_39_SECONDS
+    five_prompt_kpis:
+      environment_style_globalized: 0
+      untracked_placed_asset_sources: 0
+      engine_specific_world_structure_in_kernel: 0
+      global_environment_budget: 0
+      stale_environment_integration_accepted: 0
+  engine_evidence:
+    project: prj_aa4c818900a14ad388837d4ff2245ad8
+    task: tsk_c2ee396069594ea69f4d53a2362bcbf6/1
+    run: run_393952a2c2924c22be088e6c69609d54
+    run_status: SUCCEEDED
+    graph: graph://prj_aa4c818900a14ad388837d4ff2245ad8/gph_9393af0e00c146d0b6cc33517ed10a3c/1
+    validation_plan: validation-plan://prj_aa4c818900a14ad388837d4ff2245ad8/vplan_68d54162582548eeb0736b3b63c5de63
+    validation_verdict: PASS
+    validation_aggregate_sha256: 8406ef52f77e87f88952973a941e7b5ce9c215bd280e879a5cc8a24c28a1efa6
+    integration_artifact: artifact://prj_aa4c818900a14ad388837d4ff2245ad8/art_28b96667e0cd478ba8485fedce15e5ef/1
+    event: event://prj_aa4c818900a14ad388837d4ff2245ad8/evt_2c5bba65863f4df8b257b26fa3602240
+  l40s:
+    parallel_four_branch_gate: RESOURCE_UNAVAILABLE_BOUNDED_NONBLOCKING
+    exact_boundary: BLENDER_EXIT_134_PTHREAD_CREATE_RESOURCE_TEMPORARILY_UNAVAILABLE
+    authoritative_independent_branch_graph: PASS
+    sequential_affected_real: PASS
+    sequential_installed_wheel_real: PASS
+    post_state: BLENDER_GODOT_GPU_PROCESSES_ZERO; VRAM_ZERO
+  drive_evidence:
+    final_real_id: 1RQduTD8PMrR5ujy3EXpSKmy_iJxvw57Q
+    final_real_sha256: f83534d1a48628b016fe0622320f8998f42ed08efddeb137bc59ae777050eb57
+    engine_id: 1mkggvv8-IxavDQkN9iPFns6Dv5kkxpkO
+    engine_sha256: 72011411bfc31b92bf777d6003f5ad3287a9faa5234cfd10aed3717286b20061
+    affected_regression_id: 1EWHmfXwSFBc7hgKkzsCGF-tCe8LDWhNO
+    affected_regression_sha256: 8c23c499f14c808e71bd2c27e5d07a81f3537bf4bf00915a61280bb07f74cfd8
+    installed_wheel_real_id: 1dMhdqmW4nrLmFXLtUisC3Pxr37YbJIia
+    installed_wheel_real_sha256: 38539e9bd23352963750633279823ab9a0679ee788d0f435e1ce6171217c68a9
+    wheel_id: 1awHzPmaBPNF4cZ2x7LHIbFiD0MilQ5X2
+    wheel_sha256: bc3b3725442401d416e4c63c948d470a0695d7e5280872e14bf3d97ee0adee52
+    resource_limit_id: 1wzgx4MNaEZV-7C-JSFQ_zhPqtTZB1wLu
+    resource_limit_sha256: bbba651f26ffb95415c09bd1cb6d3111d6adebd4a9231b5042aaa265ed883706
+    qualification_id: 1lXzDOvEzAjAHbP6u7mnKwONajMo_snod
+    exact_readback: SEVEN_OF_SEVEN
 
 prior_durable_through_P3_08:
   status: PRESERVED_RESULT; DURABLE_CLAIM_INVALIDATED_BY_COMPLETION_AUDIT_2026_09_01
@@ -433,7 +484,7 @@ approved_execution_program:
   language: biella.codex.end_to_end/v2
   mode: SINGLE_END_TO_END_NUMBERED_EXECUTION
   active_graph_location: docs/project-state/04_BIELLA_ACTIVE_TASK.md
-  active_graph: P3_08_ENVIRONMENT_AND_WORLD_PRODUCTION_PACK
+  active_graph: P3_09_RENDERING_PRODUCTION_PACK
   duplicate_prevention:
     exact_Node_identity_and_claim: required
     one_current_owner_per_Node: true
@@ -482,7 +533,8 @@ truth:
   P3_05_durable_close: VERIFIED
   P3_06_durable_close: VERIFIED
   P3_07_durable_close: VERIFIED
-  P3_08_durable_close: ACTIVE; EXACT_EXPORTED_ENVIRONMENT_TO_GODOT_LINKAGE_AND_TRUE_INDEPENDENT_BRANCHES_MISSING
+  P3_08_durable_close: VERIFIED
+  P3_09_durable_close: ACTIVE; GENERIC_RENDERER_ADAPTER_FINAL_RECOVERY_AND_DURABLE_EVIDENCE_MISSING
   P3_14_durable_close: PHASE_EXIT_PROVENANCE_AND_EVENT_EVIDENCE_MISSING
   P3_READY_FOR_P4: INVALIDATED_BY_COMPLETION_AUDIT_2026_09_01
   P4_01_durable_close: VERIFIED
