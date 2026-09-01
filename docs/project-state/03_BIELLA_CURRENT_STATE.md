@@ -23,35 +23,33 @@ engine:
 
 durable_source:
   current_implementation_base:
-    commit: ad2f46a242e6fca216b767fb7e46aaacc1e2ca17
-    tree: c33516fad72499d9ba8af434f1a23741d63c3386
-    meaning: P4_03_durably_closed_reconciled_and_pushed
+    commit: 6892628a9f48114755ec02f3aa8728399312b163
+    tree: f33654a9471aa66da1aa1aa06cf4cfd6bbf07b8c
+    meaning: P4_04_durably_qualified_and_published
   current_execution_map:
-    source_commit: dcfadf6c71b314c499f94f2adc541984c469c1c6
-    source_tree: d352e5df5f1479ddef454f13b085d8d7d2c31cbe
-    result_commit: ad2f46a242e6fca216b767fb7e46aaacc1e2ca17
-    result_tree: c33516fad72499d9ba8af434f1a23741d63c3386
+    result_commit: 6892628a9f48114755ec02f3aa8728399312b163
+    result_tree: f33654a9471aa66da1aa1aa06cf4cfd6bbf07b8c
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    status: P4_03_COMPLETE_P4_04_ACTIVATED_PROMPT_NOT_LOADED
+    status: P4_04_COMPLETE_P4_05_ACTIVATED_PROMPT_NOT_LOADED
   branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
     first_rejected_execution_time: "2026-08-30T10:44:52Z"
     rejected_post_boundary_completion_claims: P3_10_THROUGH_P3_09
 
 numbered_execution:
-  durable_prompts_complete: 48
+  durable_prompts_complete: 49
   durable_prompts_total: 51
-  progress: "48 / 51"
+  progress: "49 / 51"
   phase: P4
-  active_prompt: P4-04
-  active_global_number: 49
-  active_title: Cache, Locality, Residency and Resource Placement Learning
-  predecessor: P4-03
+  active_prompt: P4-05
+  active_global_number: 50
+  active_title: Evidence-Based Failure Pattern and Repair Intelligence Learning
+  predecessor: P4-04
   successor_execution_authorized: true
   active_execution_authorized: true
-  future_activation_shells_prepared: P4_04_THROUGH_P4_06
+  future_activation_shells_prepared: P4_05_THROUGH_P4_06
   future_internal_graphs_precompiled: false
   future_graph_rule: compile_each_from_exact_prompt_and_current_source_only_when_activated
 
@@ -91,8 +89,8 @@ standing_owner_priority:
   remote_newer_does_not_override_unpreserved_execution_work: true
   session_model_SSH_tmux_or_host_change_does_not_invalidate_verified_work: true
   current_required_order:
-    - retain_P4_03_durable_close_evidence
-    - load_and_compile_P4_04_only_from_its_exact_prompt_when_execution_begins
+    - retain_P4_04_durable_close_evidence
+    - load_and_compile_P4_05_only_from_its_exact_prompt_when_execution_begins
 
 p3_05_recovery:
   status: REUSED_FOR_DURABLE_CLOSE_WITHOUT_REHASH
@@ -252,11 +250,27 @@ p4_03_durable_close:
   limitations: CONTROLLED_REPLAY_EXACT_P4_TASKSET_PROCESS_SCOPED_CUDA_HIDING_NOT_PHYSICAL_REMOVAL_NO_ONLINE_DISTRIBUTION_NETWORK_QUEUE_COST_EVIDENCE_DESCRIPTIVE_ONLY
   unresolved: NONE
 
+p4_04_durable_close:
+  result_commit: 6892628a9f48114755ec02f3aa8728399312b163
+  result_tree: f33654a9471aa66da1aa1aa06cf4cfd6bbf07b8c
+  github_readback: EXACT_TEN_OF_TEN_PATHS_CONFIRMED
+  qualification: FOCUSED_8_OF_8; STRICT_MYPY_178_FILES; P4_54_OF_54; NEUTRAL_RESOURCE_ROUTING_31_OF_31; PREDECESSOR_BUILD_INSTALL_RESTART_1_OF_1
+  real_l40s:
+    cases: 7_OF_7
+    checks: 26_OF_26
+    results_sha256: 978d907094c0ead0d70687ffe194d13310a7900410f2dd6d8c7d1202d169cbed
+    post_run: GPU_PROCESS_AND_RESIDENCY_ZERO
+  drive_evidence:
+    spec_id: 1fNSBejzpq5Ci1OYkyDyvHlpGHagm5mqW
+    results_id: 1IkoJj9FGXC07MHHk-UlJl2jNCJLaLC31
+    manifest_id: 1ju6IkWQXsPtDXatgM23DtuV19jHsUKAT
+    post_id: 18uKbLweyte4Hwha4ZKe7-V-sLzgRuIjt
+
 approved_execution_program:
   language: biella.codex.end_to_end/v2
   mode: SINGLE_END_TO_END_NUMBERED_EXECUTION
   active_graph_location: docs/project-state/04_BIELLA_ACTIVE_TASK.md
-  active_graph: P4_04_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
+  active_graph: P4_05_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
   duplicate_prevention:
     exact_Node_identity_and_claim: required
     one_current_owner_per_Node: true
@@ -311,6 +325,7 @@ truth:
   P4_01_durable_close: VERIFIED
   P4_02_durable_close: VERIFIED
   P4_03_durable_close: VERIFIED
+  P4_04_durable_close: VERIFIED
   P3_08_or_later_completion_claims_from_rejected_execution: REJECTED
   exact_recovered_P3_05_worktree_contents: REUSED_FOR_DURABLE_CLOSE_WITHOUT_REHASH
   multi_AI_execution_map_approved_by_user: true
