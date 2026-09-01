@@ -11,7 +11,7 @@ from pathlib import Path
 import sqlite3
 import sys
 from threading import Barrier
-from typing import Any
+from typing import Any, cast
 
 import pytest
 
@@ -126,6 +126,42 @@ def test_real_environment_terrain_assets_collision_navigation_lod_preview_export
     assert report["environment_identity"]["placed_assets"][1]["material_ref"] == "material://environment/tree"
     assert report["environment_identity"]["placed_assets"][1]["rotation_euler"] == [0.0, 0.0, -0.3]
     assert report["environment_identity"]["placed_assets"][1]["scale"] == [1.5, 1.5, 2.0]
+    reopened_source = env.adapter.inspectAsset(
+        env.access,
+        env.attempt,
+        support._request(
+            env,
+            ThreeDOperation.INSPECT,
+            source=result.output_artifact_ref,
+            source_path="environment.blend",
+            output_path="environment-source-reopen.json",
+            output_role="3d.inspection",
+            output_media_type="application/json",
+        ),
+        idempotency_key="environment-source-reopen",
+    )
+    reopened_environment = support._report(env, reopened_source)["inspection"]["environment"]
+    assert reopened_environment["generator"]["name"] == "grid-terrain"
+    assert reopened_environment["generator"]["version"] == "1.0.0"
+    assert reopened_environment["generator"]["config"] == {"terrain_size": 24.0}
+    assert reopened_environment["generator"]["seed"] == 42
+    objects = reopened_environment["objects"]
+    roles = [item["role"] for item in objects]
+    assert roles.count("collision") == 1
+    assert roles.count("navigation") == 1
+    authoritative = {item["asset_id"]: item for item in objects if item["role"] == "placed_asset"}
+    assert authoritative["rock"]["artifact_ref"] == assets[0].output_artifact_ref.value
+    assert authoritative["rock"]["artifact_content_sha256"] == assets[0].output_content_ref.digest
+    assert authoritative["rock"]["materials"] == ["material://environment/rock"]
+    lods = [item for item in objects if item["role"] == "lod"]
+    assert {item["lod_source_asset_id"] for item in lods} == {"rock", "tree"}
+    assert all(item["faces"] < authoritative[item["lod_source_asset_id"]]["faces"] for item in lods)
+    assert all(item["lod_source_content_sha256"] == authoritative[item["lod_source_asset_id"]]["artifact_content_sha256"] for item in lods)
+    partitions = {item["partition_id"]: item for item in reopened_environment["partitions"]}
+    assert partitions["north"]["asset_ids"] == ["rock"]
+    assert partitions["north"]["artifact_content_sha256s"] == [assets[0].output_content_ref.digest]
+    assert partitions["south"]["asset_ids"] == ["tree"]
+    assert {"terrain", "foliage", "material://environment/rock", "material://environment/tree"} <= set(reopened_environment["materials"])
     manifest = _manifest(env, request, result, report)
     finalized = env.adapter.finalizeEnvironmentIntegrationManifest(env.access, request, result, manifest)
     assert finalized.manifest == manifest
@@ -167,6 +203,157 @@ def test_real_environment_terrain_assets_collision_navigation_lod_preview_export
     exported = env.adapter.export(env.access, env.attempt, support._request(env, ThreeDOperation.CONVERT, source=result.output_artifact_ref, source_path="environment.blend", output_path="environment.glb", output_role="3d.interchange-export", output_media_type="model/gltf-binary"), idempotency_key="environment-export")
     reopened = env.adapter.inspectAsset(env.access, env.attempt, support._request(env, ThreeDOperation.INSPECT, source=exported.output_artifact_ref, source_path="environment.glb", output_path="environment-reopen.json", output_role="3d.inspection", output_media_type="application/json"), idempotency_key="environment-reopen")
     assert support._report(env, reopened)["inspection"]["source_format"] == "GLTF"
+
+
+def test_environment_rejects_declared_digest_different_from_bound_artifact_content(tmp_path: Path) -> None:
+    support = _support()
+    env = support._environment(tmp_path)
+    asset = env.adapter.createAsset(
+        env.access,
+        env.attempt,
+        support._request(
+            env,
+            ThreeDOperation.MODEL,
+            source=None,
+            source_path=None,
+            output_path="digest-source.blend",
+            output_role="3d.mesh",
+            output_media_type="application/x-blender",
+            config={"name": "DigestSource", "unit_system": "METRIC"},
+        ),
+        idempotency_key="environment-digest-source",
+    )
+    assert asset.output_artifact_ref is not None and asset.output_content_ref is not None
+    layout = ThreeDEnvironmentLayoutSpec(
+        layout_id="digest-mismatch",
+        generator="grid-terrain",
+        generator_version="1.0.0",
+        seed=5,
+        generator_config={"terrain_size": 12.0},
+        placed_assets=(
+            ThreeDPlacedAssetSpec(
+                asset.output_artifact_ref,
+                "0" * 64,
+                "assets/source.blend",
+                (0.0, 0.0, 0.0),
+                (0.0, 0.0, 0.0),
+                (1.0, 1.0, 1.0),
+                "digest-source",
+                "material://environment/source",
+                "default",
+                None,
+                "main",
+            ),
+        ),
+        material_names=("terrain",),
+        partitions=("main",),
+        lod_levels=1,
+        include_collision=True,
+        include_navigation=True,
+    )
+    request = replace(
+        support._request(
+            env,
+            ThreeDOperation.MODEL,
+            source=None,
+            source_path=None,
+            output_path="digest-mismatch.blend",
+            output_role="3d.scene",
+            output_media_type="application/x-blender",
+        ),
+        operation=ThreeDOperation.ENVIRONMENT,
+        output_role="3d.environment",
+        auxiliary_artifact_bindings={"assets/source.blend": asset.output_artifact_ref},
+        environment_spec=layout,
+    )
+    with pytest.raises(ThreeDContractError, match="digest differs from bound Artifact ContentRef"):
+        env.adapter.executeOperation(
+            env.access,
+            env.attempt,
+            request,
+            idempotency_key="environment-digest-mismatch",
+        )
+
+
+def test_real_environment_terrain_geometry_is_identity_deterministic(tmp_path: Path) -> None:
+    support = _support()
+    env = support._environment(tmp_path)
+    asset = env.adapter.createAsset(
+        env.access,
+        env.attempt,
+        support._request(
+            env,
+            ThreeDOperation.MODEL,
+            source=None,
+            source_path=None,
+            output_path="determinism-source.blend",
+            output_role="3d.mesh",
+            output_media_type="application/x-blender",
+            config={"name": "DeterminismSource", "unit_system": "METRIC"},
+        ),
+        idempotency_key="environment-determinism-source",
+    )
+    assert asset.output_artifact_ref is not None and asset.output_content_ref is not None
+
+    def realize(label: str, *, seed: int, terrain_size: float) -> dict[str, Any]:
+        layout = ThreeDEnvironmentLayoutSpec(
+            layout_id=f"determinism-{label}",
+            generator="grid-terrain",
+            generator_version="1.0.0",
+            seed=seed,
+            generator_config={"terrain_size": terrain_size},
+            placed_assets=(
+                ThreeDPlacedAssetSpec(
+                    asset.output_artifact_ref,
+                    asset.output_content_ref.digest,
+                    "assets/source.blend",
+                    (0.0, 0.0, 0.0),
+                    (0.0, 0.0, 0.0),
+                    (1.0, 1.0, 1.0),
+                    "determinism-source",
+                    "material://environment/source",
+                    "default",
+                    None,
+                    "main",
+                ),
+            ),
+            material_names=("terrain",),
+            partitions=("main",),
+            lod_levels=1,
+            include_collision=True,
+            include_navigation=True,
+        )
+        request = replace(
+            support._request(
+                env,
+                ThreeDOperation.MODEL,
+                source=None,
+                source_path=None,
+                output_path=f"{label}.blend",
+                output_role="3d.scene",
+                output_media_type="application/x-blender",
+            ),
+            operation=ThreeDOperation.ENVIRONMENT,
+            output_role="3d.environment",
+            auxiliary_artifact_bindings={"assets/source.blend": asset.output_artifact_ref},
+            environment_spec=layout,
+        )
+        result = env.adapter.executeOperation(
+            env.access,
+            env.attempt,
+            request,
+            idempotency_key=f"environment-determinism-{label}",
+        )
+        assert result.editable_source, result.failure_reason
+        return cast(dict[str, Any], support._report(env, result)["inspection"]["environment"]["generator"])
+
+    first = realize("same-a", seed=19, terrain_size=12.0)
+    second = realize("same-b", seed=19, terrain_size=12.0)
+    changed_seed = realize("changed-seed", seed=20, terrain_size=12.0)
+    changed_config = realize("changed-config", seed=19, terrain_size=18.0)
+    assert first["terrain_geometry_sha256"] == second["terrain_geometry_sha256"]
+    assert first["terrain_geometry_sha256"] != changed_seed["terrain_geometry_sha256"]
+    assert first["terrain_geometry_sha256"] != changed_config["terrain_geometry_sha256"]
 
 
 def test_independent_environment_branches_overlap_and_recover_exactly_once(

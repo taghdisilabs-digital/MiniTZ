@@ -6,10 +6,11 @@ import math
 import pytest
 
 import biella
+from biella.artifact import ArtifactRef
 from biella.environment_pack import EnvironmentContractError, EnvironmentIntegrationManifest, EnvironmentSpecification, PlacedAsset, ProceduralTerrain, environment_production_pack
 from biella.production_pack import ProductionPackRef
 from biella.project import ProjectRef
-from biella.three_d_tool import EnvironmentManifestPublication, ThreeDEnvironmentLayoutSpec, ThreeDPlacedAssetSpec
+from biella.three_d_tool import EnvironmentManifestPublication, ThreeDContractError, ThreeDEnvironmentLayoutSpec, ThreeDPlacedAssetSpec
 
 
 CAPS = {"inspect", "layout", "terrain", "structure", "populate", "vegetation", "material", "lighting_setup", "collision", "navigation_prepare", "lod", "optimize", "partition", "export", "preview", "validate"}
@@ -40,3 +41,41 @@ def test_environment_records_fail_closed_for_stale_project_and_transform() -> No
     with pytest.raises(EnvironmentContractError): manifest.require_placed_assets((replace(asset, transform=(2.0,) * 16),))
     with pytest.raises(EnvironmentContractError): manifest.require_placed_assets((replace(asset, material_ref="artifact://material/changed/v1"),))
     with pytest.raises(EnvironmentContractError): manifest.require_specification(replace(spec, project_ref=ProjectRef.new()))
+
+
+@pytest.mark.parametrize(
+    ("generator", "generator_version"),
+    (("unknown-terrain", "1.0.0"), ("grid-terrain", "2.0.0")),
+)
+def test_environment_layout_rejects_unsupported_generator_identity(
+    generator: str,
+    generator_version: str,
+) -> None:
+    project = ProjectRef.new()
+    placed = ThreeDPlacedAssetSpec(
+        ArtifactRef(project, "art_11111111111111111111111111111111", 1),
+        "a" * 64,
+        "assets/source.blend",
+        (0.0, 0.0, 0.0),
+        (0.0, 0.0, 0.0),
+        (1.0, 1.0, 1.0),
+        "source",
+        "material://environment/source",
+        "default",
+        None,
+        "main",
+    )
+    with pytest.raises(ThreeDContractError, match="unsupported terrain generator"):
+        ThreeDEnvironmentLayoutSpec(
+            layout_id="unsupported-generator",
+            generator=generator,
+            generator_version=generator_version,
+            seed=1,
+            generator_config={"terrain_size": 12.0},
+            placed_assets=(placed,),
+            material_names=("terrain",),
+            partitions=("main",),
+            lod_levels=1,
+            include_collision=True,
+            include_navigation=True,
+        )

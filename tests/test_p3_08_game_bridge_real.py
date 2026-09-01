@@ -1,4 +1,4 @@
-"""Real Game-adapter bridge qualification for exact environment artifacts."""
+"""REAL Blender-to-Game bridge qualification over exact Artifact bindings."""
 
 from __future__ import annotations
 
@@ -7,22 +7,35 @@ import hashlib
 import importlib.util
 import json
 import math
+import os
 from pathlib import Path
-import shlex
+import shutil
+import subprocess
 import sys
 from typing import Any
 
 import pytest
 
-from biella import ArtifactService, GameEngineOperation, GameEngineReality, GameEngineScopeError, RuntimeMount
-from biella.environment_pack import (
-    EnvironmentContractError,
-    EnvironmentIntegrationManifest,
-    EnvironmentSpecification,
-    PlacedAsset,
-    ProceduralTerrain,
+from biella import (
+    ArtifactRef,
+    ArtifactService,
+    GameEngineOperation,
+    GameEngineReality,
+    GameEngineStatus,
+    GameRuntimeInputBinding,
+    ProjectRef,
 )
+from biella.artifact import ContentRef
 from biella.game_engine import GameAssetInput
+import biella.game_engine as game_engine
+
+
+NOT_RUN_GODOT = (
+    "P3-08 REAL bridge NOT_RUN: exact local Godot 4.3 container image is unavailable"
+)
+NOT_RUN_BLENDER = (
+    "P3-08 REAL bridge NOT_RUN: local Blender executable is unavailable"
+)
 
 
 def _p3_03_support() -> Any:
@@ -43,7 +56,22 @@ def _sha256(content: bytes) -> str:
     return hashlib.sha256(content).hexdigest()
 
 
-def _artifact(env: Any, role: str, content: bytes, media_type: str, derivation: str) -> Any:
+def _content_payload(content_ref: ContentRef) -> dict[str, object]:
+    return {
+        "algorithm": content_ref.algorithm,
+        "digest": content_ref.digest,
+        "media_type": content_ref.media_type,
+        "size_bytes": content_ref.size_bytes,
+    }
+
+
+def _artifact(
+    env: Any,
+    role: str,
+    content: bytes,
+    media_type: str,
+    derivation: str,
+) -> Any:
     content_ref = env.objects.put(content, media_type=media_type)
     return ArtifactService(env.database).create_artifact(
         env.access,
@@ -58,167 +86,41 @@ def _artifact(env: Any, role: str, content: bytes, media_type: str, derivation: 
     )
 
 
-def _validate_bridge_manifest(
-    payload: object,
+def _binding(
+    artifact: Any,
+    runtime_path: str,
     *,
-    project_ref: str,
-    expected: dict[str, tuple[str, str]],
-) -> dict[str, object]:
-    if not isinstance(payload, dict) or payload.get("project_ref") != project_ref:
-        raise ValueError("environment manifest Project scope is invalid")
-    for name in ("export", "collision", "navigation"):
-        item = payload.get(name)
-        if not isinstance(item, dict):
-            raise ValueError(f"environment manifest {name} is missing")
-        expected_ref, expected_sha = expected[name]
-        if item.get("artifact_ref") != expected_ref or item.get("sha256") != expected_sha:
-            raise ValueError(f"environment manifest {name} reference is forged")
-    placements = payload.get("placements")
-    if not isinstance(placements, list) or len(placements) != 1:
-        raise ValueError("environment manifest placements are missing")
-    placement = placements[0]
-    if not isinstance(placement, dict):
-        raise ValueError("environment manifest placement is malformed")
-    transform = placement.get("transform")
-    scale = placement.get("scale")
-    if not isinstance(transform, list) or len(transform) != 16:
-        raise ValueError("environment manifest transform is malformed")
-    if not isinstance(scale, list) or len(scale) != 3:
-        raise ValueError("environment manifest scale is malformed")
-    try:
-        transform_values = tuple(float(value) for value in transform)
-        scale_values = tuple(float(value) for value in scale)
-    except (TypeError, ValueError) as error:
-        raise ValueError("environment manifest transform or scale is non-numeric") from error
-    if not all(math.isfinite(value) for value in transform_values):
-        raise ValueError("environment manifest transform is non-finite")
-    if not all(math.isfinite(value) and value > 0.0 for value in scale_values):
-        raise ValueError("environment manifest scale is invalid")
-    return payload
-
-
-def _stage(env: Any, path: str, artifact: Any, key: str) -> None:
+    role: str | None = None,
+    content_ref: ContentRef | None = None,
+) -> Any:
+    binding_type = getattr(game_engine, "GameRuntimeInputBinding", None)
+    assert binding_type is not None, "Game runtime Artifact binding seam is missing"
+    assert GameRuntimeInputBinding is binding_type
     assert artifact.content_ref is not None
-    (Path(env.control_root.canonical_path) / "inputs" / path).parent.mkdir(parents=True, exist_ok=True)
-    env.filesystem.write(
-        env.access,
-        env.primary_attempt,
-        root_ref=env.control_root.root_ref,
-        path=f"inputs/{path}",
-        content_ref=artifact.content_ref,
-        idempotency_key=key,
-        mode=0o644,
+    return binding_type(
+        artifact.artifact_ref,
+        artifact.role if role is None else role,
+        artifact.content_ref if content_ref is None else content_ref,
+        runtime_path,
     )
 
 
-def _with_bridge_inputs(env: Any, spec: Any) -> Any:
-    return replace(
-        spec,
-        mounts=spec.mounts
-        + (RuntimeMount(env.control_root.root_ref, "inputs", "/workspace/bridge-input", True),),
+def _require_godot_runtime(support: Any) -> None:
+    docker = shutil.which("docker")
+    if docker is None:
+        pytest.skip(NOT_RUN_GODOT)
+    available = subprocess.run(
+        (docker, "image", "inspect", support.IMAGE_REF),
+        check=False,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        timeout=15,
     )
+    if available.returncode != 0:
+        pytest.skip(NOT_RUN_GODOT)
 
 
-def _runtime_script() -> bytes:
-    return b'''extends SceneTree
-
-func _finite_positive(values: Array) -> bool:
-    if values.size() != 3:
-        return false
-    for value in values:
-        var number := float(value)
-        if is_nan(number) or is_inf(number) or number <= 0.0:
-            return false
-    return true
-
-func _finite_transform(values: Array) -> bool:
-    if values.size() != 16:
-        return false
-    for value in values:
-        var number := float(value)
-        if is_nan(number) or is_inf(number):
-            return false
-    return true
-
-func _init() -> void:
-    var manifest = JSON.parse_string(FileAccess.get_file_as_string("res://evidence/bridge/environment-manifest.json"))
-    assert(manifest is Dictionary)
-    var export_data: Dictionary = manifest["export"]
-    var collision_data: Dictionary = manifest["collision"]
-    var navigation_data: Dictionary = manifest["navigation"]
-    var placement: Dictionary = manifest["placements"][0]
-    var packed = load("res://evidence/bridge/environment.tscn")
-    assert(packed is PackedScene)
-    var environment = packed.instantiate()
-    var collision = environment.get_node_or_null("Collision")
-    var navigation = environment.get_node_or_null("Navigation")
-    var valid = (
-        FileAccess.get_sha256("res://evidence/bridge/environment.tscn") == export_data["sha256"]
-        and FileAccess.get_sha256("res://evidence/bridge/collision.json") == collision_data["sha256"]
-        and FileAccess.get_sha256("res://evidence/bridge/navigation.json") == navigation_data["sha256"]
-        and _finite_transform(placement["transform"])
-        and _finite_positive(placement["scale"])
-        and collision is StaticBody3D
-        and navigation is NavigationRegion3D
-    )
-    DirAccess.make_dir_recursive_absolute("res://evidence/run")
-    var output = FileAccess.open("res://evidence/run/runtime.json", FileAccess.WRITE)
-    output.store_string(JSON.stringify({
-        "valid": valid,
-        "project_ref": manifest["project_ref"],
-        "export": export_data,
-        "collision": collision_data,
-        "navigation": navigation_data,
-        "transform": placement["transform"],
-        "scale": placement["scale"],
-        "collision_node": collision != null,
-        "navigation_node": navigation != null,
-    }))
-    output.close()
-    print("BIELLA_ENVIRONMENT_BRIDGE_RUNTIME")
-    quit()
-'''
-
-
-def test_real_game_import_and_runtime_bridge_environment_artifacts(tmp_path: Path) -> None:
-    support = _p3_03_support()
-    env = support._environment(tmp_path)
-    transform = [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 4.0, 0.0, -2.0, 1.0]
-    scale = [1.0, 1.0, 1.0]
-    export_bytes = b'''[gd_scene load_steps=3 format=3]\n\n[sub_resource type="BoxMesh" id="BoxMesh_env"]\nsize = Vector3(2, 1, 2)\n\n[sub_resource type="BoxShape3D" id="BoxShape_env"]\nsize = Vector3(2, 1, 2)\n\n[node name="Environment" type="Node3D"]\n[node name="Visual" type="MeshInstance3D" parent="."]\nmesh = SubResource("BoxMesh_env")\n[node name="Collision" type="StaticBody3D" parent="."]\n[node name="Shape" type="CollisionShape3D" parent="Collision"]\nshape = SubResource("BoxShape_env")\n[node name="Navigation" type="NavigationRegion3D" parent="."]\n'''
-    collision_bytes = b'{"shape":"box","size":[2,1,2]}'
-    navigation_bytes = b'{"regions":["environment"]}'
-    export = _artifact(env, "game.asset.environment.input", export_bytes, "application/x-godot-scene", "p3-08.environment-export")
-    collision = _artifact(env, "game.asset.environment.input", collision_bytes, "application/json", "p3-08.environment-collision")
-    navigation = _artifact(env, "game.asset.environment.input", navigation_bytes, "application/json", "p3-08.environment-navigation")
-    expected = {
-        "export": (export.artifact_ref.value, _sha256(export_bytes)),
-        "collision": (collision.artifact_ref.value, _sha256(collision_bytes)),
-        "navigation": (navigation.artifact_ref.value, _sha256(navigation_bytes)),
-    }
-    manifest_payload: dict[str, object] = {
-        "project_ref": env.access.project_ref.value,
-        "export": {"artifact_ref": expected["export"][0], "sha256": expected["export"][1]},
-        "collision": {"artifact_ref": expected["collision"][0], "sha256": expected["collision"][1]},
-        "navigation": {"artifact_ref": expected["navigation"][0], "sha256": expected["navigation"][1]},
-        "placements": [{"transform": transform, "scale": scale}],
-    }
-    _validate_bridge_manifest(manifest_payload, project_ref=env.access.project_ref.value, expected=expected)
-    specification = EnvironmentSpecification(env.access.project_ref, "world-01", export.artifact_ref.value, _sha256(export_bytes), "meter", {"up": "Z"}, {"layout": "bridge"}, {"nav": "required"}, {"visual": "game"}, ("artifact://library/environment/v1",), {"tool": "godot"}, {"performance": "project"}, {"partition": "project"}, ("contract://output/environment/v1",), ("representation://environment/bridge/v1",))
-    terrain = ProceduralTerrain(env.access.project_ref, "terrain-01", "generator://terrain/v1", "1.0.0", {"mode": "fixture"}, 7, export.artifact_ref.value, _sha256(export_bytes))
-    placed = PlacedAsset(env.access.project_ref, "environment-01", export.artifact_ref.value, _sha256(export_bytes), tuple(transform), "artifact://material/environment/v1", "default", None, "partition-a")
-    integration = EnvironmentIntegrationManifest(env.access.project_ref, specification, terrain, (placed,), export.artifact_ref.value, export.artifact_ref.value, export.artifact_ref.value, "artifact://material/environment/v1", collision.artifact_ref.value, navigation.artifact_ref.value, "artifact://partition/environment/v1", "tool://godot/v1", "runtime://godot/v1", "derivation://environment/bridge/v1", _sha256(json.dumps(manifest_payload, sort_keys=True, separators=(",", ":")).encode()))
-    assert integration.collision_ref == collision.artifact_ref.value
-    assert integration.navigation_ref == navigation.artifact_ref.value
-    manifest_bytes = json.dumps(manifest_payload, sort_keys=True, separators=(",", ":")).encode()
-    manifest = _artifact(env, "game.asset.environment.input", manifest_bytes, "application/json", "p3-08.environment-manifest")
-    script = _artifact(env, "game.asset.environment.input", _runtime_script(), "application/x-gdscript", "p3-08.environment-runtime-validator")
-    _stage(env, "environment.tscn", export, "stage-environment-export")
-    _stage(env, "collision.json", collision, "stage-environment-collision")
-    _stage(env, "navigation.json", navigation, "stage-environment-navigation")
-    _stage(env, "environment-manifest.json", manifest, "stage-environment-manifest")
-    _stage(env, "environment_bridge.gd", script, "stage-environment-runtime-validator")
-    assets = tuple(GameAssetInput("environment", item.artifact_ref) for item in (export, manifest, collision, navigation))
+def _detect(env: Any, support: Any) -> None:
     detection_spec = replace(
         support._spec(env, "true"),
         entrypoint=env.identity.engine_executable_path,
@@ -227,90 +129,528 @@ def test_real_game_import_and_runtime_bridge_environment_artifacts(tmp_path: Pat
         outputs=(),
         environment={},
     )
-    detection_request = support._request(
-        env,
-        GameEngineOperation.DETECT,
-        detection_spec,
-        "game.engine.detection",
-    )
     detected = env.adapter.detect_project(
         env.access,
         env.primary_attempt,
-        detection_request,
+        support._request(
+            env,
+            GameEngineOperation.DETECT,
+            detection_spec,
+            "game.engine.detection",
+        ),
         idempotency_key="p3-08-environment-detect",
     )
     assert detected.reality is GameEngineReality.REAL
-    import_spec = _with_bridge_inputs(env, support._spec(
-        env,
-        "set -euo pipefail; rm -rf evidence/run; mkdir -p evidence/run evidence/bridge; cp /workspace/bridge-input/* evidence/bridge/; godot --headless --path . --editor --quit; rm -rf evidence/bridge; "
-        + "printf '%s' "
-        + shlex.quote(json.dumps({"project_ref": env.access.project_ref.value, "export": expected["export"], "collision": expected["collision"], "navigation": expected["navigation"]}, sort_keys=True))
-        + " > evidence/run/import.json",
-        outputs=(("evidence/run/import.json", "application/json"),),
-    ))
-    import_request = replace(
-        support._request(env, GameEngineOperation.IMPORT, import_spec, "game.import.output", required_output_markers=("Godot Engine",)),
-        asset_inputs=assets,
+    assert detected.status is GameEngineStatus.SUCCEEDED
+
+
+def _blender_environment_bytes(tmp_path: Path) -> bytes:
+    blender = shutil.which("blender")
+    if blender is None:
+        pytest.skip(NOT_RUN_BLENDER)
+    output = tmp_path / "p3-08-blender-environment.glb"
+    source = tmp_path / "p3-08-blender-environment.blend"
+    generator = tmp_path / "p3-08-generate-environment.py"
+    generator.write_text(
+        f'''import bpy
+
+bpy.ops.object.select_all(action="SELECT")
+bpy.ops.object.delete(use_global=False)
+
+def material(name, color):
+    value = bpy.data.materials.new(name=name)
+    value.diffuse_color = (*color, 1.0)
+    return value
+
+def cube(name, location, scale, selected_material=None):
+    bpy.ops.mesh.primitive_cube_add(size=2.0, location=location)
+    value = bpy.context.object
+    value.name = name
+    value.scale = scale
+    if selected_material is not None:
+        value.data.materials.append(selected_material)
+    return value
+
+terrain_material = material("TerrainMaterial", (0.18, 0.42, 0.16))
+foliage_material = material("FoliageMaterial", (0.08, 0.28, 0.07))
+rock_material = material("RockMaterial", (0.32, 0.34, 0.36))
+
+terrain = cube("Terrain", (0.0, 0.0, -0.5), (8.0, 8.0, 0.5), terrain_material)
+terrain["biella_partition"] = "terrain"
+placed = cube("PlacedTree", (4.0, -2.0, 1.0), (1.5, 2.0, 0.75), foliage_material)
+placed["biella_material_ref"] = "material://environment/foliage"
+placed["biella_partition"] = "north"
+cube("Terrain-col", (0.0, 0.0, -0.5), (8.0, 8.0, 0.5), None)
+
+bpy.ops.mesh.primitive_plane_add(size=16.0, location=(0.0, 0.0, 0.01))
+navigation = bpy.context.object
+navigation.name = "Navigation-navmesh"
+navigation["biella_navigation"] = "walkable"
+
+cube("Rock_LOD0", (-3.0, 2.0, 0.6), (1.0, 1.0, 1.0), rock_material)
+cube("Rock_LOD1", (-3.0, 2.0, 0.6), (0.65, 0.65, 0.65), rock_material)
+
+bpy.ops.object.empty_add(type="PLAIN_AXES", location=(0.0, 0.0, 0.0))
+partition = bpy.context.object
+partition.name = "Partition_north"
+partition["biella_partition"] = "north"
+
+bpy.ops.wm.save_as_mainfile(filepath={os.fspath(source)!r})
+bpy.ops.export_scene.gltf(
+    filepath={os.fspath(output)!r},
+    export_format="GLB",
+    export_extras=True,
+    export_apply=False,
+)
+print("BIELLA_P3_08_BLENDER_EXPORT=" + {os.fspath(output)!r})
+''',
+        encoding="utf-8",
     )
-    imported = env.adapter.import_project(env.access, env.primary_attempt, import_request, idempotency_key="p3-08-environment-import")
-    assert imported.reality is GameEngineReality.REAL
-    import_artifact = env.artifacts.get_artifact(env.access, imported.output_artifact_refs[0])
-    assert set(item.artifact_ref for item in assets) <= set(import_artifact.source_artifact_refs)
-    assert json.loads(support._output_bytes(env, imported, "game.import.output")) == {"collision": list(expected["collision"]), "export": list(expected["export"]), "navigation": list(expected["navigation"]), "project_ref": env.access.project_ref.value}
-    build_request = replace(
+    completed = subprocess.run(
+        (
+            blender,
+            "--background",
+            "--factory-startup",
+            "--disable-autoexec",
+            "--python",
+            os.fspath(generator),
+        ),
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=120,
+    )
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+    assert f"BIELLA_P3_08_BLENDER_EXPORT={output}" in completed.stdout
+    payload = output.read_bytes()
+    assert payload[:4] == b"glTF" and len(payload) > 1_000
+    return payload
+
+
+def _runtime_script() -> bytes:
+    return b'''extends SceneTree
+
+const INPUT_ROOT := "/run/biella/game-inputs/"
+
+func _walk(node: Node, nodes: Array[Node]) -> void:
+    nodes.append(node)
+    for child in node.get_children():
+        _walk(child, nodes)
+
+func _find(nodes: Array[Node], fragment: String) -> Node:
+    for node in nodes:
+        if fragment.to_lower() in String(node.name).to_lower():
+            return node
+    return null
+
+func _input_file_count() -> int:
+    var directory := DirAccess.open(INPUT_ROOT)
+    assert(directory != null)
+    var count := 0
+    directory.list_dir_begin()
+    var name := directory.get_next()
+    while name != "":
+        if not directory.current_is_dir():
+            count += 1
+        name = directory.get_next()
+    directory.list_dir_end()
+    return count
+
+func _init() -> void:
+    var manifest = JSON.parse_string(
+        FileAccess.get_file_as_string(INPUT_ROOT + "bindings.json")
+    )
+    assert(manifest is Dictionary)
+    var bindings: Array = manifest["bindings"]
+    var exact_bindings := bindings.size() == 2 and _input_file_count() == 3
+    var paths := {}
+    for binding in bindings:
+        var runtime_path := String(binding["runtime_path"])
+        var content: Dictionary = binding["content_ref"]
+        paths[runtime_path] = true
+        exact_bindings = exact_bindings and FileAccess.file_exists(INPUT_ROOT + runtime_path)
+        exact_bindings = exact_bindings and FileAccess.get_sha256(INPUT_ROOT + runtime_path) == content["digest"]
+        exact_bindings = exact_bindings and binding["artifact_role"] == "game.asset.environment.input"
+    exact_bindings = exact_bindings and paths.has("environment.glb") and paths.has("validate_bridge.gd")
+
+    var packed := load("res://evidence/bridge/environment.glb") as PackedScene
+    assert(packed != null)
+    var environment: Node = packed.instantiate()
+    var nodes: Array[Node] = []
+    _walk(environment, nodes)
+    var placed := _find(nodes, "PlacedTree") as Node3D
+    var transform_valid := placed != null and placed.position.length() > 0.1
+    var scale_valid := placed != null and placed.scale.distance_to(Vector3.ONE) > 0.1
+    var material_valid := false
+    if placed is MeshInstance3D:
+        var mesh_instance := placed as MeshInstance3D
+        if mesh_instance.mesh != null:
+            for surface in range(mesh_instance.mesh.get_surface_count()):
+                var selected_material := mesh_instance.get_active_material(surface)
+                if selected_material != null and "FoliageMaterial" in selected_material.resource_name:
+                    material_valid = true
+    var collision_runtime := false
+    var navigation_runtime := false
+    for node in nodes:
+        collision_runtime = collision_runtime or node is StaticBody3D or node is CollisionShape3D
+        navigation_runtime = navigation_runtime or node is NavigationRegion3D
+    var lod_valid := _find(nodes, "LOD0") != null and _find(nodes, "LOD1") != null
+    var partition_valid := _find(nodes, "Partition_north") != null
+    var valid := (
+        exact_bindings
+        and transform_valid
+        and scale_valid
+        and material_valid
+        and collision_runtime
+        and navigation_runtime
+        and lod_valid
+        and partition_valid
+    )
+    DirAccess.make_dir_recursive_absolute("res://evidence/run")
+    var output := FileAccess.open("res://evidence/run/runtime.json", FileAccess.WRITE)
+    output.store_string(JSON.stringify({
+        "valid": valid,
+        "project_ref": manifest["project_ref"],
+        "bindings": bindings,
+        "exact_bindings": exact_bindings,
+        "position": [] if placed == null else [placed.position.x, placed.position.y, placed.position.z],
+        "scale": [] if placed == null else [placed.scale.x, placed.scale.y, placed.scale.z],
+        "transform_valid": transform_valid,
+        "scale_valid": scale_valid,
+        "material_valid": material_valid,
+        "collision_runtime": collision_runtime,
+        "navigation_runtime": navigation_runtime,
+        "lod_valid": lod_valid,
+        "partition_valid": partition_valid,
+    }))
+    output.close()
+    print("BIELLA_P3_08_EXACT_BLENDER_ENVIRONMENT_CONSUMED")
+    quit(0 if valid else 1)
+'''
+
+
+def test_runtime_input_binding_contract_is_exact_and_digest_bound() -> None:
+    binding_type = getattr(game_engine, "GameRuntimeInputBinding", None)
+    assert binding_type is not None, "Game runtime Artifact binding seam is missing"
+    project_ref = ProjectRef.new()
+    artifact_ref = ArtifactRef(project_ref, "art_" + "1" * 32, 7)
+    content_ref = ContentRef.from_bytes(
+        b"exact environment bytes",
+        media_type="model/gltf-binary",
+    )
+    binding = binding_type(
+        artifact_ref,
+        "game.asset.environment.input",
+        content_ref,
+        "environment.glb",
+    )
+    assert binding.payload() == {
+        "artifact_ref": artifact_ref.value,
+        "artifact_role": "game.asset.environment.input",
+        "content_ref": _content_payload(content_ref),
+        "runtime_path": "environment.glb",
+    }
+    assert binding.container_path == "/run/biella/game-inputs/environment.glb"
+
+
+def test_real_adapter_fails_result_for_invalid_runtime_artifact_bindings(
+    tmp_path: Path,
+) -> None:
+    support = _p3_03_support()
+    _require_godot_runtime(support)
+    env = support._environment(tmp_path)
+    _detect(env, support)
+
+    exported = _artifact(
+        env,
+        "game.asset.environment.input",
+        b"exact Blender GLB placeholder for binding validation",
+        "model/gltf-binary",
+        "p3-08.binding-export",
+    )
+    assert exported.content_ref is not None
+    updated_content = env.objects.put(
+        b"newer exact Blender GLB placeholder",
+        media_type="model/gltf-binary",
+    )
+    updated = ArtifactService(env.database).create_revision(
+        env.access,
+        prior_ref=exported.artifact_ref,
+        role=exported.role,
+        content_ref=updated_content,
+        source_refs=(),
+        source_artifact_refs=(exported.artifact_ref,),
+        source_content_refs=(exported.content_ref, updated_content),
+        derivation_type="p3-08.binding-export-revision",
+        metadata={"media_type": "model/gltf-binary"},
+    )
+    wrong_role = _artifact(
+        env,
+        "game.asset.image.input",
+        b"wrong role bytes",
+        "image/png",
+        "p3-08.binding-wrong-role",
+    )
+    extra = _artifact(
+        env,
+        "game.asset.environment.input",
+        b"extra authorized-looking bytes",
+        "application/octet-stream",
+        "p3-08.binding-extra",
+    )
+    forged_content = env.objects.put(
+        b"forged substitute",
+        media_type="model/gltf-binary",
+    )
+    missing_ref = ArtifactRef(
+        env.access.project_ref,
+        "art_" + "f" * 32,
+        1,
+    )
+    missing_artifact = replace(exported, artifact_ref=missing_ref)
+    valid = _binding(exported, "environment.glb")
+    cases = (
+        (
+            "forged",
+            (GameAssetInput("environment", exported.artifact_ref),),
+            (_binding(exported, "environment.glb", content_ref=forged_content),),
+        ),
+        (
+            "missing",
+            (GameAssetInput("environment", missing_ref),),
+            (_binding(missing_artifact, "environment.glb"),),
+        ),
+        (
+            "stale",
+            (GameAssetInput("environment", updated.artifact_ref),),
+            (valid,),
+        ),
+        (
+            "role",
+            (GameAssetInput("environment", wrong_role.artifact_ref),),
+            (_binding(wrong_role, "environment.glb", role="game.asset.environment.input"),),
+        ),
+        (
+            "omitted",
+            (GameAssetInput("environment", exported.artifact_ref),),
+            (),
+        ),
+        (
+            "extra",
+            (GameAssetInput("environment", exported.artifact_ref),),
+            (valid, _binding(extra, "extra.bin")),
+        ),
+    )
+    for label, assets, bindings in cases:
+        spec = support._spec(
+            env,
+            "mkdir -p evidence/run; printf invalid > evidence/run/invalid.json",
+            outputs=(("evidence/run/invalid.json", "application/json"),),
+        )
+        request = replace(
+            support._request(
+                env,
+                GameEngineOperation.IMPORT,
+                spec,
+                "game.import.output",
+            ),
+            asset_inputs=assets,
+            runtime_input_bindings=bindings,
+        )
+        result = env.adapter.import_project(
+            env.access,
+            env.primary_attempt,
+            request,
+            idempotency_key=f"p3-08-invalid-binding-{label}",
+        )
+        assert result.reality is GameEngineReality.REAL
+        assert result.status is GameEngineStatus.FAILED
+        assert result.output_artifact_refs == ()
+        assert result.failure_reason is not None and label in result.failure_reason
+
+
+def test_real_game_consumes_exact_blender_exported_environment_artifact(
+    tmp_path: Path,
+) -> None:
+    support = _p3_03_support()
+    _require_godot_runtime(support)
+    env = support._environment(tmp_path)
+    export_bytes = _blender_environment_bytes(tmp_path)
+    script_bytes = _runtime_script()
+    exported = _artifact(
+        env,
+        "game.asset.environment.input",
+        export_bytes,
+        "model/gltf-binary",
+        "p3-08.blender-environment-export",
+    )
+    validator = _artifact(
+        env,
+        "game.asset.environment.input",
+        script_bytes,
+        "application/x-gdscript",
+        "p3-08.godot-environment-consumer",
+    )
+    assert exported.content_ref is not None and validator.content_ref is not None
+    assets = (
+        GameAssetInput("environment", exported.artifact_ref),
+        GameAssetInput("environment", validator.artifact_ref),
+    )
+    bindings = (
+        _binding(exported, "environment.glb"),
+        _binding(validator, "validate_bridge.gd"),
+    )
+    _detect(env, support)
+
+    import_spec = support._spec(
+        env,
+        "set -euo pipefail; cleanup(){ rm -rf evidence/bridge; }; trap cleanup EXIT; "
+        "rm -rf evidence/bridge evidence/run; "
+        "mkdir -p evidence/bridge evidence/run; "
+        "cp /run/biella/game-inputs/environment.glb evidence/bridge/environment.glb; "
+        "godot --headless --path . --editor --quit; "
+        "cp /run/biella/game-inputs/bindings.json evidence/run/import.json; "
+        "rm -rf evidence/bridge",
+        outputs=(("evidence/run/import.json", "application/json"),),
+    )
+    import_request = replace(
         support._request(
             env,
-            GameEngineOperation.BUILD,
-            support._spec(
-                env,
-                "set -euo pipefail; mkdir -p dist; godot --headless --path . --export-pack 'Linux/X11' dist/biella-game.pck; test -s dist/biella-game.pck",
-                outputs=(("dist/biella-game.pck", "application/octet-stream"),),
-            ),
-            "game.build.output",
+            GameEngineOperation.IMPORT,
+            import_spec,
+            "game.import.output",
+            required_output_markers=("Godot Engine",),
         ),
         asset_inputs=assets,
+        runtime_input_bindings=bindings,
     )
-    built = env.adapter.build(env.access, env.primary_attempt, build_request, idempotency_key="p3-08-environment-build")
-    assert built.reality is GameEngineReality.REAL
-    build_ref = built.output_artifact_refs[0]
-    run_spec = _with_bridge_inputs(env, support._spec(
+    imported = env.adapter.import_project(
+        env.access,
+        env.primary_attempt,
+        import_request,
+        idempotency_key="p3-08-blender-environment-import",
+    )
+    assert imported.reality is GameEngineReality.REAL
+    assert imported.status is GameEngineStatus.SUCCEEDED, imported.failure_reason
+    imported_artifact = env.artifacts.get_artifact(
+        env.access,
+        imported.output_artifact_refs[0],
+    )
+    assert set(artifact.artifact_ref for artifact in (exported, validator)) <= set(
+        imported_artifact.source_artifact_refs
+    )
+    imported_manifest = json.loads(
+        support._output_bytes(env, imported, "game.import.output")
+    )
+    assert imported_manifest["project_ref"] == env.access.project_ref.value
+    assert imported_manifest["bindings"] == [
+        {
+            "artifact_ref": exported.artifact_ref.value,
+            "artifact_role": exported.role,
+            "content_ref": _content_payload(exported.content_ref),
+            "kind": "environment",
+            "runtime_path": "environment.glb",
+        },
+        {
+            "artifact_ref": validator.artifact_ref.value,
+            "artifact_role": validator.role,
+            "content_ref": _content_payload(validator.content_ref),
+            "kind": "environment",
+            "runtime_path": "validate_bridge.gd",
+        },
+    ]
+
+    build_request = support._request(
         env,
-        "set -euo pipefail; mkdir -p evidence/bridge; cp /workspace/bridge-input/* evidence/bridge/; godot --headless --path . --script res://evidence/bridge/environment_bridge.gd; rm -rf evidence/bridge",
-        outputs=(("evidence/run/runtime.json", "application/json"),),
-    ))
-    run_request = replace(
-        support._request(env, GameEngineOperation.RUN, run_spec, "game.runtime.observation", build_artifact_ref=build_ref, required_output_markers=("BIELLA_ENVIRONMENT_BRIDGE_RUNTIME",)),
-        asset_inputs=assets,
+        GameEngineOperation.BUILD,
+        support._spec(
+            env,
+            "set -euo pipefail; mkdir -p dist; "
+            "godot --headless --path . --export-pack 'Linux/X11' dist/biella-game.pck; "
+            "test -s dist/biella-game.pck",
+            outputs=(("dist/biella-game.pck", "application/octet-stream"),),
+        ),
+        "game.build.output",
     )
-    ran = env.adapter.run(env.access, env.primary_attempt, run_request, idempotency_key="p3-08-environment-run")
-    assert ran.reality is GameEngineReality.REAL and ran.runtime_observed
-    runtime_artifact = env.artifacts.get_artifact(env.access, ran.output_artifact_refs[0])
-    assert set(item.artifact_ref for item in assets) <= set(runtime_artifact.source_artifact_refs)
-    runtime = json.loads(support._output_bytes(env, ran, "game.runtime.observation"))
-    assert runtime == {"collision": manifest_payload["collision"], "collision_node": True, "export": manifest_payload["export"], "navigation": manifest_payload["navigation"], "navigation_node": True, "project_ref": env.access.project_ref.value, "scale": scale, "transform": transform, "valid": True}
-    forged = json.loads(manifest_bytes)
-    forged["export"]["artifact_ref"] = "artifact://forged/environment/v1"
-    with pytest.raises(ValueError, match="forged"):
-        _validate_bridge_manifest(forged, project_ref=env.access.project_ref.value, expected=expected)
-    missing = json.loads(manifest_bytes)
-    del missing["collision"]
-    with pytest.raises(ValueError, match="missing"):
-        _validate_bridge_manifest(missing, project_ref=env.access.project_ref.value, expected=expected)
-    nonfinite = json.loads(manifest_bytes)
-    nonfinite["placements"][0]["transform"][0] = float("nan")
-    with pytest.raises(ValueError, match="non-finite"):
-        _validate_bridge_manifest(nonfinite, project_ref=env.access.project_ref.value, expected=expected)
-    invalid_scale = json.loads(manifest_bytes)
-    invalid_scale["placements"][0]["scale"][0] = 0.0
-    with pytest.raises(ValueError, match="scale"):
-        _validate_bridge_manifest(invalid_scale, project_ref=env.access.project_ref.value, expected=expected)
-    with pytest.raises(EnvironmentContractError):
-        replace(placed, transform=(math.inf,) * 16)
-    foreign_content = env.objects.put(b"foreign", media_type="application/octet-stream")
-    foreign = ArtifactService(env.database).create_artifact(env.beta_access, project_ref=env.beta_access.project_ref, role="game.asset.environment.input", content_ref=foreign_content, source_refs=(), source_artifact_refs=(), source_content_refs=(foreign_content,), derivation_type="p3-08.foreign-environment", metadata={"media_type": "application/octet-stream"})
-    foreign_manifest = json.loads(manifest_bytes)
-    foreign_manifest["navigation"] = {"artifact_ref": foreign.artifact_ref.value, "sha256": _sha256(b"foreign")}
-    with pytest.raises(ValueError, match="forged"):
-        _validate_bridge_manifest(foreign_manifest, project_ref=env.access.project_ref.value, expected=expected)
-    with pytest.raises(GameEngineScopeError):
-        replace(import_request, asset_inputs=(GameAssetInput("environment", foreign.artifact_ref),))
+    built = env.adapter.build(
+        env.access,
+        env.primary_attempt,
+        build_request,
+        idempotency_key="p3-08-blender-environment-build",
+    )
+    assert built.reality is GameEngineReality.REAL
+    assert built.status is GameEngineStatus.SUCCEEDED, built.failure_reason
+
+    run_spec = support._spec(
+        env,
+        "set -euo pipefail; cleanup(){ rm -rf evidence/bridge; }; trap cleanup EXIT; "
+        "rm -rf evidence/bridge; mkdir -p evidence/bridge; "
+        "cp /run/biella/game-inputs/environment.glb evidence/bridge/environment.glb; "
+        "cp /run/biella/game-inputs/validate_bridge.gd evidence/bridge/validate_bridge.gd; "
+        "godot --headless --path . --editor --quit; "
+        "godot --headless --path . --script res://evidence/bridge/validate_bridge.gd; "
+        "rm -rf evidence/bridge",
+        outputs=(("evidence/run/runtime.json", "application/json"),),
+    )
+    run_request = replace(
+        support._request(
+            env,
+            GameEngineOperation.RUN,
+            run_spec,
+            "game.runtime.observation",
+            build_artifact_ref=built.output_artifact_refs[0],
+            required_output_markers=(
+                "BIELLA_P3_08_EXACT_BLENDER_ENVIRONMENT_CONSUMED",
+            ),
+        ),
+        asset_inputs=assets,
+        runtime_input_bindings=bindings,
+    )
+    ran = env.adapter.run(
+        env.access,
+        env.primary_attempt,
+        run_request,
+        idempotency_key="p3-08-blender-environment-run",
+    )
+    assert ran.reality is GameEngineReality.REAL
+    assert ran.status is GameEngineStatus.SUCCEEDED, ran.failure_reason
+    assert ran.runtime_observed
+    runtime_artifact = env.artifacts.get_artifact(
+        env.access,
+        ran.output_artifact_refs[0],
+    )
+    assert set(artifact.artifact_ref for artifact in (exported, validator)) <= set(
+        runtime_artifact.source_artifact_refs
+    )
+    runtime = json.loads(
+        support._output_bytes(env, ran, "game.runtime.observation")
+    )
+    assert runtime["valid"] is True
+    assert runtime["project_ref"] == env.access.project_ref.value
+    for key in (
+        "exact_bindings",
+        "transform_valid",
+        "scale_valid",
+        "material_valid",
+        "collision_runtime",
+        "navigation_runtime",
+        "lod_valid",
+        "partition_valid",
+    ):
+        assert runtime[key] is True
+    assert len(runtime["position"]) == 3
+    assert len(runtime["scale"]) == 3
+    assert all(math.isfinite(float(value)) for value in runtime["position"])
+    assert all(
+        math.isfinite(float(value)) and float(value) > 0.0
+        for value in runtime["scale"]
+    )
+    by_path = {item["runtime_path"]: item for item in runtime["bindings"]}
+    assert by_path["environment.glb"]["artifact_ref"] == exported.artifact_ref.value
+    assert by_path["environment.glb"]["content_ref"]["digest"] == _sha256(
+        export_bytes
+    )
+    assert by_path["validate_bridge.gd"]["artifact_ref"] == validator.artifact_ref.value
+    assert by_path["validate_bridge.gd"]["content_ref"]["digest"] == _sha256(
+        script_bytes
+    )

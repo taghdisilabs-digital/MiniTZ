@@ -663,6 +663,8 @@ class ThreeDEnvironmentLayoutSpec:
         object.__setattr__(self, "layout_id", _text(self.layout_id, "environment layout_id", 128))
         object.__setattr__(self, "generator", _text(self.generator, "environment generator", 128))
         object.__setattr__(self, "generator_version", _text(self.generator_version, "environment generator_version", 64))
+        if (self.generator, self.generator_version) != ("grid-terrain", "1.0.0"):
+            raise ThreeDContractError("unsupported terrain generator or version")
         if not isinstance(self.seed, int) or isinstance(self.seed, bool) or not 0 <= self.seed <= 2**63 - 1:
             raise ThreeDContractError("environment generator seed is malformed")
         object.__setattr__(self, "generator_config", _config(self.generator_config))
@@ -4427,14 +4429,127 @@ class _ThreeDService:
                 raise ThreeDIntegrityError("baked animation output lacks exact bake evidence")
         if request.operation is ThreeDOperation.ENVIRONMENT:
             environment_identity = report.get("environment_identity")
+            environment = inspection.get("environment")
+            layout = request.environment_spec
             if (
-                request.environment_spec is None
+                layout is None
                 or not isinstance(environment_identity, dict)
                 or environment_identity.get("layout_sha256")
-                != request.environment_spec.semantic_digest
-                or environment_identity.get("seed") != request.environment_spec.seed
+                != layout.semantic_digest
+                or environment_identity.get("seed") != layout.seed
+                or environment_identity.get("generator") != layout.generator
+                or environment_identity.get("generator_version") != layout.generator_version
+                or environment_identity.get("generator_config") != dict(layout.generator_config)
+                or not isinstance(environment, dict)
             ):
                 raise ThreeDIntegrityError("environment output lacks exact layout evidence")
+            generator = environment.get("generator")
+            objects = environment.get("objects")
+            partitions = environment.get("partitions")
+            materials = environment.get("materials")
+            expected_generator_identity = _digest({
+                "generator": layout.generator,
+                "generator_config": dict(layout.generator_config),
+                "generator_version": layout.generator_version,
+                "seed": layout.seed,
+            })
+            if (
+                not isinstance(generator, dict)
+                or generator.get("name") != layout.generator
+                or generator.get("version") != layout.generator_version
+                or generator.get("config") != dict(layout.generator_config)
+                or generator.get("seed") != layout.seed
+                or generator.get("identity_sha256") != expected_generator_identity
+                or not isinstance(generator.get("terrain_geometry_sha256"), str)
+                or _SHA256.fullmatch(cast(str, generator["terrain_geometry_sha256"])) is None
+                or environment_identity.get("terrain_geometry_sha256")
+                != generator.get("terrain_geometry_sha256")
+                or not isinstance(objects, list)
+                or not isinstance(partitions, list)
+                or not isinstance(materials, list)
+            ):
+                raise ThreeDIntegrityError("environment output lacks exact terrain realization evidence")
+            authoritative = {
+                item.get("asset_id"): item
+                for item in objects
+                if isinstance(item, dict) and item.get("role") == "placed_asset"
+            }
+            expected_assets = {item.asset_id: item for item in layout.placed_assets}
+            if set(authoritative) != set(expected_assets):
+                raise ThreeDIntegrityError("environment output lacks exact authoritative placed assets")
+            for asset_id, expected in expected_assets.items():
+                observed = authoritative[asset_id]
+                if (
+                    observed.get("artifact_ref") != expected.artifact_ref.value
+                    or observed.get("artifact_content_sha256") != expected.content_sha256
+                    or observed.get("material_ref") != expected.material_ref
+                    or observed.get("variant") != expected.variant
+                    or observed.get("parent_ref") != expected.parent_ref
+                    or observed.get("partition_id") != expected.partition_id
+                    or observed.get("materials") != [expected.material_ref]
+                    or not isinstance(observed.get("faces"), int)
+                    or cast(int, observed["faces"]) < 1
+                ):
+                    raise ThreeDIntegrityError("environment authoritative asset provenance differs from its request")
+            lods = [
+                item for item in objects
+                if isinstance(item, dict) and item.get("role") == "lod"
+            ]
+            if len(lods) != len(expected_assets) * (layout.lod_levels - 1):
+                raise ThreeDIntegrityError("environment output lacks exact LOD derivations")
+            for lod in lods:
+                source_id = lod.get("lod_source_asset_id")
+                source = expected_assets.get(cast(str, source_id))
+                if (
+                    source is None
+                    or lod.get("lod_source_artifact_ref") != source.artifact_ref.value
+                    or lod.get("lod_source_content_sha256") != source.content_sha256
+                    or lod.get("partition_id") != source.partition_id
+                    or not isinstance(lod.get("lod_level"), int)
+                    or not 1 <= cast(int, lod["lod_level"]) < layout.lod_levels
+                    or not isinstance(lod.get("faces"), int)
+                    or cast(int, lod["faces"]) >= cast(int, authoritative[source.asset_id]["faces"])
+                ):
+                    raise ThreeDIntegrityError("environment LOD does not preserve exact lower-detail derivation")
+            role_counts = {
+                role: sum(
+                    1 for item in objects
+                    if isinstance(item, dict) and item.get("role") == role
+                )
+                for role in ("collision", "navigation")
+            }
+            if (
+                role_counts["collision"] != int(layout.include_collision)
+                or role_counts["navigation"] != int(layout.include_navigation)
+            ):
+                raise ThreeDIntegrityError("environment collision or navigation realization differs from its request")
+            observed_partitions = {
+                item.get("partition_id"): item
+                for item in partitions
+                if isinstance(item, dict)
+            }
+            if set(observed_partitions) != set(layout.partitions):
+                raise ThreeDIntegrityError("environment partition structure differs from its request")
+            for partition_id in layout.partitions:
+                expected_partition_assets = sorted(
+                    item.asset_id for item in layout.placed_assets
+                    if item.partition_id == partition_id
+                )
+                expected_partition_digests = sorted(
+                    item.content_sha256 for item in layout.placed_assets
+                    if item.partition_id == partition_id
+                )
+                observed = observed_partitions[partition_id]
+                if (
+                    observed.get("asset_ids") != expected_partition_assets
+                    or observed.get("artifact_content_sha256s") != expected_partition_digests
+                ):
+                    raise ThreeDIntegrityError("environment partition assignment lacks exact provenance")
+            if not {
+                *layout.material_names,
+                *(item.material_ref for item in layout.placed_assets),
+            } <= set(cast(list[object], materials)):
+                raise ThreeDIntegrityError("environment materials are not independently reopened")
         if request.operation is ThreeDOperation.CONVERT:
             expected_export = PurePosixPath(request.output_path).suffix.lower()
             source_inspection = report.get("source_inspection")
@@ -5747,6 +5862,25 @@ class _ThreeDService:
             request,
             verify_source=False,
         )
+        if request.operation is ThreeDOperation.ENVIRONMENT:
+            assert request.environment_spec is not None
+            try:
+                for item in request.environment_spec.placed_assets:
+                    artifact = self.artifacts.get_artifact(access, item.artifact_ref)
+                    if (
+                        artifact.content_ref is None
+                        or not hmac.compare_digest(
+                            artifact.content_ref.digest,
+                            item.content_sha256,
+                        )
+                    ):
+                        raise ThreeDContractError(
+                            "environment asset digest differs from bound Artifact ContentRef"
+                        )
+            except ArtifactError as exc:
+                raise ThreeDContractError(
+                    "environment asset digest differs from bound Artifact ContentRef"
+                ) from exc
         claimed, terminal = self._claim_state(
             access,
             attempt,

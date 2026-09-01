@@ -670,6 +670,7 @@ from .game_engine import (
     GameEngineScopeError,
     GameEngineStatus,
     GameProjectIdentity,
+    GameRuntimeInputBinding,
     IsolatedRuntimeGameEngineAdapter,
     ReferenceGameEngineAdapter,
 )
@@ -1607,6 +1608,7 @@ __all__ = [
     "GameEngineScopeError",
     "GameEngineStatus",
     "GameProjectIdentity",
+    "GameRuntimeInputBinding",
     "IsolatedRuntimeGameEngineAdapter",
     "ReferenceGameEngineAdapter",
     "CHARACTER_MESH",

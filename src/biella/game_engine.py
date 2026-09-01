@@ -40,6 +40,7 @@ from .isolated_runtime import (
     IsolatedRuntimeError,
     IsolatedRuntimeSpec,
     RuntimeDescriptor,
+    RuntimeMount,
     RuntimeNetworkPolicy,
     RuntimeReceipt,
     RuntimeRef,
@@ -83,6 +84,7 @@ _OPERATION_ROLE = {
     "capture": "game.capture.output",
     "export": "game.export.output",
 }
+_RUNTIME_INPUT_ROOT = "/run/biella/game-inputs"
 
 
 class GameEngineError(Exception):
@@ -325,6 +327,48 @@ class GameAssetInput:
 
 
 @dataclass(frozen=True)
+class GameRuntimeInputBinding:
+    """Exact authorized Artifact materialization into one isolated runtime path."""
+
+    artifact_ref: ArtifactRef
+    artifact_role: str
+    content_ref: ContentRef
+    runtime_path: str
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.artifact_ref, ArtifactRef):
+            raise TypeError("game runtime input requires exact ArtifactRef")
+        if (
+            not isinstance(self.artifact_role, str)
+            or _ROLE.fullmatch(self.artifact_role) is None
+        ):
+            raise GameEngineContractError("game runtime input Artifact role is malformed")
+        if not isinstance(self.content_ref, ContentRef):
+            raise TypeError("game runtime input requires exact ContentRef")
+        object.__setattr__(
+            self,
+            "runtime_path",
+            _relative(self.runtime_path, "game runtime input path"),
+        )
+        if self.runtime_path == "bindings.json":
+            raise GameEngineContractError(
+                "game runtime input path is reserved for exact binding evidence"
+            )
+
+    @property
+    def container_path(self) -> str:
+        return f"{_RUNTIME_INPUT_ROOT}/{self.runtime_path}"
+
+    def payload(self) -> dict[str, object]:
+        return {
+            "artifact_ref": self.artifact_ref.value,
+            "artifact_role": self.artifact_role,
+            "content_ref": _content(self.content_ref),
+            "runtime_path": self.runtime_path,
+        }
+
+
+@dataclass(frozen=True)
 class GameProjectIdentity:
     """Exact source, candidate, engine, config, target, and runtime identity."""
 
@@ -504,6 +548,7 @@ class GameEngineOperationRequest:
     required_output_markers: tuple[str, ...] = ()
     forbidden_output_markers: tuple[str, ...] = ()
     resource_allocation_ref: ResourceAllocationRef | None = None
+    runtime_input_bindings: tuple[GameRuntimeInputBinding, ...] = ()
     request_sha256: str = field(init=False)
 
     def __post_init__(self) -> None:
@@ -600,6 +645,36 @@ class GameEngineOperationRequest:
             or self.resource_allocation_ref.project_ref != project
         ):
             raise GameEngineScopeError("game ResourceAllocation crossed Project scope")
+        if (
+            not isinstance(self.runtime_input_bindings, tuple)
+            or len(self.runtime_input_bindings) > 128
+            or any(
+                not isinstance(item, GameRuntimeInputBinding)
+                for item in self.runtime_input_bindings
+            )
+        ):
+            raise GameEngineContractError(
+                "game runtime input bindings are malformed or unbounded"
+            )
+        if any(
+            item.artifact_ref.project_ref != project
+            for item in self.runtime_input_bindings
+        ):
+            raise GameEngineScopeError(
+                "game runtime input binding crossed Project scope"
+            )
+        if len({item.artifact_ref for item in self.runtime_input_bindings}) != len(
+            self.runtime_input_bindings
+        ):
+            raise GameEngineContractError(
+                "game runtime input Artifact bindings are duplicated"
+            )
+        if len({item.runtime_path for item in self.runtime_input_bindings}) != len(
+            self.runtime_input_bindings
+        ):
+            raise GameEngineContractError(
+                "game runtime input paths are duplicated"
+            )
         object.__setattr__(self, "request_sha256", _digest(self.payload()))
 
     @property
@@ -627,6 +702,9 @@ class GameEngineOperationRequest:
                 if self.resource_allocation_ref is None
                 else self.resource_allocation_ref.value
             ),
+            "runtime_input_bindings": [
+                item.payload() for item in self.runtime_input_bindings
+            ],
             "runtime_spec": None if self.runtime_spec is None else self.runtime_spec.payload(),
             "runtime_spec_sha256": (
                 None if self.runtime_spec is None else self.runtime_spec.spec_sha256
@@ -1111,6 +1189,8 @@ class _BaseGameEngineAdapter:
         access: ProjectAccess,
         attempt: NodeExecutionAttempt,
         request: GameEngineOperationRequest,
+        *,
+        verify_assets: bool = True,
     ) -> None:
         try:
             self.projects.get_project(access, request.project_ref)
@@ -1185,11 +1265,12 @@ class _BaseGameEngineAdapter:
                 )
             self._verify_content(build.content_ref, "game build Artifact")
             self._verify_build_origin(request, build.artifact_ref)
-        for asset in request.asset_inputs:
-            artifact = self.artifacts.get_artifact(access, asset.artifact_ref)
-            if artifact.role != asset.expected_role:
-                raise GameEngineIntegrityError("game asset Artifact role changed")
-            self._verify_content(artifact.content_ref, "game asset Artifact")
+        if verify_assets:
+            for asset in request.asset_inputs:
+                artifact = self.artifacts.get_artifact(access, asset.artifact_ref)
+                if artifact.role != asset.expected_role:
+                    raise GameEngineIntegrityError("game asset Artifact role changed")
+                self._verify_content(artifact.content_ref, "game asset Artifact")
 
     def _verify_build_origin(
         self,
@@ -2842,6 +2923,301 @@ class IsolatedRuntimeGameEngineAdapter(_BaseGameEngineAdapter):
                 "game requires GPU resources that the runtime did not observe"
             )
 
+    @staticmethod
+    def _runtime_input_operation_key(
+        attempt: NodeExecutionAttempt,
+        request: GameEngineOperationRequest,
+        operation: str,
+        path: str,
+    ) -> str:
+        material = (
+            f"{attempt.record_sha256}\x00{request.request_sha256}\x00"
+            f"{operation}\x00{path}"
+        )
+        return f"game-input-{hashlib.sha256(material.encode()).hexdigest()[:40]}"
+
+    def _validated_runtime_inputs(
+        self,
+        access: ProjectAccess,
+        request: GameEngineOperationRequest,
+    ) -> tuple[tuple[GameAssetInput, GameRuntimeInputBinding, Artifact], ...]:
+        assets = {item.artifact_ref: item for item in request.asset_inputs}
+        bindings = {
+            item.artifact_ref: item for item in request.runtime_input_bindings
+        }
+        if not assets and not bindings:
+            return ()
+        missing = set(assets) - set(bindings)
+        extra = set(bindings) - set(assets)
+        if missing or extra:
+            stale = any(
+                missing_ref.artifact_id == extra_ref.artifact_id
+                and missing_ref.revision != extra_ref.revision
+                for missing_ref in missing
+                for extra_ref in extra
+            )
+            if stale:
+                raise GameEngineIntegrityError(
+                    "game runtime input binding is stale"
+                )
+            if missing and not extra:
+                raise GameEngineIntegrityError(
+                    "game runtime input binding was omitted"
+                )
+            if extra and not missing:
+                raise GameEngineIntegrityError(
+                    "game runtime input binding is extra"
+                )
+            raise GameEngineIntegrityError(
+                "game runtime input binding coverage is forged"
+            )
+        validated: list[
+            tuple[GameAssetInput, GameRuntimeInputBinding, Artifact]
+        ] = []
+        for asset in request.asset_inputs:
+            binding = bindings[asset.artifact_ref]
+            try:
+                artifact = self.artifacts.get_artifact(access, asset.artifact_ref)
+            except ArtifactNotFoundError as exc:
+                raise GameEngineIntegrityError(
+                    "game runtime input Artifact is missing"
+                ) from exc
+            if (
+                artifact.role != asset.expected_role
+                or binding.artifact_role != asset.expected_role
+                or binding.artifact_role != artifact.role
+            ):
+                raise GameEngineIntegrityError(
+                    "game runtime input Artifact role is wrong"
+                )
+            if artifact.content_ref is None:
+                raise GameEngineIntegrityError(
+                    "game runtime input Artifact content is missing"
+                )
+            if artifact.content_ref != binding.content_ref:
+                raise GameEngineIntegrityError(
+                    "game runtime input content binding is forged"
+                )
+            self._verify_content(
+                binding.content_ref,
+                "game runtime input Artifact",
+            )
+            validated.append((asset, binding, artifact))
+        return tuple(validated)
+
+    @staticmethod
+    def _runtime_input_mount_conflicts(mount: RuntimeMount) -> bool:
+        target = PurePosixPath(mount.target_path)
+        root = PurePosixPath(_RUNTIME_INPUT_ROOT)
+        return (
+            target == root
+            or target.is_relative_to(root)
+            or root.is_relative_to(target)
+        )
+
+    def _materialize_runtime_inputs(
+        self,
+        access: ProjectAccess,
+        attempt: NodeExecutionAttempt,
+        request: GameEngineOperationRequest,
+        spec: IsolatedRuntimeSpec,
+    ) -> IsolatedRuntimeSpec:
+        validated = self._validated_runtime_inputs(access, request)
+        if not validated:
+            return spec
+        if self.filesystem is None or self.object_store is None:
+            raise GameEngineIntegrityError(
+                "game runtime input materialization services are unavailable"
+            )
+        if any(self._runtime_input_mount_conflicts(item) for item in spec.mounts):
+            raise GameEngineIntegrityError(
+                "game runtime input mount is extra or substitutes adapter authority"
+            )
+        stage_digest = hashlib.sha256(
+            f"{attempt.record_sha256}\x00{request.request_sha256}".encode()
+        ).hexdigest()[:40]
+        stage_directory = f".biella-game-inputs-{stage_digest}"
+        self.filesystem.mkdir(
+            access,
+            attempt,
+            root_ref=request.control_root_ref,
+            path=stage_directory,
+            idempotency_key=self._runtime_input_operation_key(
+                attempt,
+                request,
+                "mkdir",
+                stage_directory,
+            ),
+        )
+        parents = {
+            parent.as_posix()
+            for _, binding, _ in validated
+            for parent in PurePosixPath(binding.runtime_path).parents
+            if parent != PurePosixPath(".")
+        }
+        for parent in sorted(
+            parents,
+            key=lambda value: (len(PurePosixPath(value).parts), value),
+        ):
+            path = f"{stage_directory}/{parent}"
+            self.filesystem.mkdir(
+                access,
+                attempt,
+                root_ref=request.control_root_ref,
+                path=path,
+                idempotency_key=self._runtime_input_operation_key(
+                    attempt,
+                    request,
+                    "mkdir",
+                    path,
+                ),
+            )
+        manifest_bindings: list[dict[str, object]] = []
+        for asset, binding, _ in sorted(
+            validated,
+            key=lambda item: item[1].runtime_path,
+        ):
+            path = f"{stage_directory}/{binding.runtime_path}"
+            written = self.filesystem.write(
+                access,
+                attempt,
+                root_ref=request.control_root_ref,
+                path=path,
+                content_ref=binding.content_ref,
+                idempotency_key=self._runtime_input_operation_key(
+                    attempt,
+                    request,
+                    "write",
+                    path,
+                ),
+                mode=0o444,
+            )
+            observed = self.filesystem.read(
+                access,
+                attempt,
+                root_ref=request.control_root_ref,
+                path=path,
+                media_type=binding.content_ref.media_type,
+                idempotency_key=self._runtime_input_operation_key(
+                    attempt,
+                    request,
+                    "read",
+                    path,
+                ),
+            )
+            if (
+                written.output_ref != binding.content_ref
+                or observed.output_ref != binding.content_ref
+            ):
+                raise GameEngineIntegrityError(
+                    "game runtime input materialized bytes are forged or stale"
+                )
+            manifest_bindings.append({**binding.payload(), "kind": asset.kind})
+        manifest_payload = {
+            "bindings": manifest_bindings,
+            "project_ref": request.project_ref.value,
+            "request_sha256": request.request_sha256,
+            "schema_version": 1,
+        }
+        manifest_ref = self.object_store.put(
+            _json(manifest_payload).encode(),
+            media_type="application/vnd.biella.game-runtime-input-bindings+json",
+        )
+        manifest_path = f"{stage_directory}/bindings.json"
+        written_manifest = self.filesystem.write(
+            access,
+            attempt,
+            root_ref=request.control_root_ref,
+            path=manifest_path,
+            content_ref=manifest_ref,
+            idempotency_key=self._runtime_input_operation_key(
+                attempt,
+                request,
+                "write",
+                manifest_path,
+            ),
+            mode=0o444,
+        )
+        observed_manifest = self.filesystem.read(
+            access,
+            attempt,
+            root_ref=request.control_root_ref,
+            path=manifest_path,
+            media_type=manifest_ref.media_type,
+            idempotency_key=self._runtime_input_operation_key(
+                attempt,
+                request,
+                "read",
+                manifest_path,
+            ),
+        )
+        if (
+            written_manifest.output_ref != manifest_ref
+            or observed_manifest.output_ref != manifest_ref
+        ):
+            raise GameEngineIntegrityError(
+                "game runtime input binding evidence failed materialization"
+            )
+        root = self.filesystem.get_root(access, request.control_root_ref)
+        for relative in sorted(
+            {stage_directory, *(f"{stage_directory}/{item}" for item in parents)},
+            key=lambda value: len(PurePosixPath(value).parts),
+            reverse=True,
+        ):
+            path = os.fspath(Path(root.canonical_path).joinpath(*PurePosixPath(relative).parts))
+            descriptor = os.open(
+                path,
+                os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC,
+            )
+            try:
+                state = os.fstat(descriptor)
+                if not stat.S_ISDIR(state.st_mode):
+                    raise GameEngineIntegrityError(
+                        "game runtime input staging path changed kind"
+                    )
+                os.fchmod(descriptor, 0o555)
+            finally:
+                os.close(descriptor)
+        return replace(
+            spec,
+            mounts=(
+                *spec.mounts,
+                RuntimeMount(
+                    request.control_root_ref,
+                    stage_directory,
+                    _RUNTIME_INPUT_ROOT,
+                    True,
+                ),
+            ),
+        )
+
+    def _unstaged_runtime_spec(
+        self,
+        request: GameEngineOperationRequest,
+        spec: IsolatedRuntimeSpec,
+    ) -> IsolatedRuntimeSpec:
+        staged = tuple(
+            item for item in spec.mounts if item.target_path == _RUNTIME_INPUT_ROOT
+        )
+        if request.runtime_input_bindings:
+            if (
+                len(staged) != 1
+                or staged[0].root_ref != request.control_root_ref
+                or not staged[0].read_only
+                or not staged[0].source_path.startswith(".biella-game-inputs-")
+            ):
+                raise GameEngineIntegrityError(
+                    "recovered game runtime input mount changed"
+                )
+        elif staged:
+            raise GameEngineIntegrityError(
+                "recovered game runtime contains an extra input mount"
+            )
+        return replace(
+            spec,
+            mounts=tuple(item for item in spec.mounts if item not in staged),
+        )
+
     def _read_evidence(self, content_ref: ContentRef | None) -> bytes:
         if content_ref is None:
             return b""
@@ -3001,7 +3377,13 @@ class IsolatedRuntimeGameEngineAdapter(_BaseGameEngineAdapter):
         if (
             collection.state.status is not RuntimeStatus.SUCCEEDED
             or self._build_cache_key(
-                replace(request, runtime_spec=collection.state.spec)
+                replace(
+                    request,
+                    runtime_spec=self._unstaged_runtime_spec(
+                        request,
+                        collection.state.spec,
+                    ),
+                )
             )
             != self._build_cache_key(request)
         ):
@@ -3513,7 +3895,7 @@ class IsolatedRuntimeGameEngineAdapter(_BaseGameEngineAdapter):
 
     def _invoke(self, access: ProjectAccess, attempt: NodeExecutionAttempt, request: GameEngineOperationRequest, operation: GameEngineOperation, idempotency_key: str, secret_values: Mapping[str, str]) -> GameEngineOperationResult:
         self._require_method(request, operation)
-        self._authorize(access, attempt, request)
+        self._authorize(access, attempt, request, verify_assets=False)
         if request.identity.adapter_ref != self.adapter_ref:
             raise GameEngineIntegrityError("real adapter identity differs")
         if request.runtime_spec is None:
@@ -3601,10 +3983,16 @@ class IsolatedRuntimeGameEngineAdapter(_BaseGameEngineAdapter):
         failure_reason: str | None = None
         observed_at = description.observed_at
         try:
+            effective_spec = self._materialize_runtime_inputs(
+                access,
+                attempt,
+                request,
+                spec,
+            )
             created = self.runtime.create(
                 access,
                 attempt,
-                spec,
+                effective_spec,
                 control_root_ref=request.control_root_ref,
                 resource_allocation_ref=request.resource_allocation_ref,
                 idempotency_key=self._phase_key(
@@ -3665,7 +4053,13 @@ class IsolatedRuntimeGameEngineAdapter(_BaseGameEngineAdapter):
                     if failure_reason is None
                     else f"{failure_reason}; {collection_failure}"
                 )
-        except (ArtifactError, IsolatedRuntimeError) as exc:
+        except (
+            ArtifactError,
+            FilesystemError,
+            GameEngineError,
+            IsolatedRuntimeError,
+            ObjectStorageError,
+        ) as exc:
             failure_reason = (
                 "isolated runtime or evidence operation failed: "
                 f"{type(exc).__name__}: {str(exc)[:1024]}"
@@ -3776,7 +4170,7 @@ class IsolatedRuntimeGameEngineAdapter(_BaseGameEngineAdapter):
             reused_verified_build=False,
             observed_at=observed_at,
         )
-        self._authorize(access, attempt, request)
+        self._authorize(access, attempt, request, verify_assets=False)
         return self._persist_result(
             access,
             attempt,

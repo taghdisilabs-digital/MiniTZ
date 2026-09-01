@@ -456,19 +456,128 @@ def _create(bpy: Any, config: Mapping[str, str | int | float | bool]) -> None:
     bpy.context.view_layer.objects.active = object_value
 
 
-def _environment(bpy: Any, layout: Mapping[str, object], workspace: Path) -> list[dict[str, object]]:
+def _environment_lod_mesh(bpy: Any, source: Any, lod_level: int) -> Any:
+    source_faces = len(source.data.polygons)
+    if source_faces <= 1:
+        raise ValueError("environment asset source lacks detail for an LOD derivation")
+    bounds = [tuple(float(value) for value in corner) for corner in source.bound_box]
+    if lod_level == 1 and source_faces > 4:
+        vertices = [bounds[index] for index in (0, 1, 2, 6)]
+        faces = [(0, 1, 2), (0, 3, 1), (0, 2, 3), (1, 3, 2)]
+    else:
+        vertices = [bounds[index] for index in (0, 1, 6)]
+        faces = [(0, 1, 2)]
+    mesh = bpy.data.meshes.new(f"{source.name}LOD{lod_level}Mesh")
+    mesh.from_pydata(vertices, [], faces)
+    mesh.update(calc_edges=True)
+    for material in source.data.materials:
+        if material is not None:
+            mesh.materials.append(material)
+    return mesh
+
+
+def _mesh_geometry_sha256(mesh: Any) -> str:
+    return _payload_digest({
+        "faces": [list(int(index) for index in polygon.vertices) for polygon in mesh.polygons],
+        "vertices": [
+            [round(float(value), 9) for value in vertex.co]
+            for vertex in mesh.vertices
+        ],
+    })
+
+
+def _environment(
+    bpy: Any,
+    layout: Mapping[str, object],
+    workspace: Path,
+    input_content_bindings: Mapping[str, Mapping[str, object]],
+) -> list[dict[str, object]]:
     _reset(bpy)
+    generator = layout.get("generator")
+    generator_version = layout.get("generator_version")
+    if (generator, generator_version) != ("grid-terrain", "1.0.0"):
+        raise ValueError("unsupported environment terrain generator or version")
+    generator_config = layout.get("generator_config")
+    seed = layout.get("seed")
+    if not isinstance(generator_config, dict) or not isinstance(seed, int) or isinstance(seed, bool):
+        raise ValueError("environment generator identity is malformed")
     placed = layout.get("placed_assets")
     if not isinstance(placed, list) or not placed:
         raise ValueError("environment placed assets are malformed")
-    terrain_size = float(cast(str | float | int, cast(Mapping[str, object], layout["generator_config"]).get("terrain_size", 12.0)))
+    declared_bindings = {
+        cast(str, item["binding_path"]): cast(str, item["content_sha256"])
+        for item in cast(list[Mapping[str, object]], placed)
+    }
+    if set(declared_bindings) != set(input_content_bindings) or any(
+        input_content_bindings[path].get("digest") != digest
+        for path, digest in declared_bindings.items()
+    ):
+        raise ValueError("environment asset digest differs from bound Artifact ContentRef")
+    terrain_size = float(cast(str | float | int, generator_config.get("terrain_size", 12.0)))
     if not math.isfinite(terrain_size) or not 1.0 <= terrain_size <= 10_000.0:
         raise ValueError("environment terrain size is malformed")
+    generator_payload = {
+        "generator": generator,
+        "generator_config": dict(generator_config),
+        "generator_version": generator_version,
+        "seed": seed,
+    }
+    generator_identity = _payload_digest(generator_payload)
+    root_collection = bpy.data.collections.new("BiellaEnvironment")
+    root_collection["biella_environment_role"] = "environment"
+    bpy.context.scene.collection.children.link(root_collection)
+    raw_partitions = layout.get("partitions")
+    if not isinstance(raw_partitions, list) or not raw_partitions:
+        raise ValueError("environment partitions are malformed")
+    partition_collections: dict[str, Any] = {}
+    for partition_id in cast(list[str], raw_partitions):
+        collection = bpy.data.collections.new(f"BiellaEnvironmentPartition.{partition_id}")
+        collection["biella_environment_role"] = "partition"
+        collection["biella_partition_id"] = partition_id
+        collection["biella_generator_identity_sha256"] = generator_identity
+        root_collection.children.link(collection)
+        partition_collections[partition_id] = collection
     bpy.ops.mesh.primitive_grid_add(x_subdivisions=8, y_subdivisions=8, size=terrain_size)
     terrain = bpy.context.active_object
     terrain.name = "BiellaEnvironmentTerrain"
     terrain["biella_environment_role"] = "terrain"
-    terrain.data.materials.append(_material(bpy, "BiellaTerrainMaterial", (0.18, 0.42, 0.18, 1.0)))
+    terrain["biella_generator"] = generator
+    terrain["biella_generator_version"] = generator_version
+    terrain["biella_generator_config_json"] = json.dumps(
+        generator_config,
+        ensure_ascii=False,
+        allow_nan=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    )
+    terrain["biella_generator_seed"] = seed
+    terrain["biella_generator_identity_sha256"] = generator_identity
+    height_scale = terrain_size * 0.02
+    for vertex in terrain.data.vertices:
+        sample = hashlib.sha256(
+            f"{generator_identity}:{int(vertex.index)}".encode()
+        ).digest()
+        normalized = int.from_bytes(sample[:8], "big") / float(2**64 - 1)
+        vertex.co.z = (normalized * 2.0 - 1.0) * height_scale
+    terrain.data.update()
+    for collection in tuple(terrain.users_collection):
+        collection.objects.unlink(terrain)
+    root_collection.objects.link(terrain)
+    raw_material_names = layout.get("material_names")
+    if not isinstance(raw_material_names, list) or not raw_material_names:
+        raise ValueError("environment materials are malformed")
+    for index, material_name in enumerate(cast(list[str], raw_material_names)):
+        color_digest = hashlib.sha256(f"{generator_identity}:{material_name}".encode()).digest()
+        terrain.data.materials.append(_material(
+            bpy,
+            material_name,
+            (
+                0.15 + color_digest[0] / 510.0,
+                0.15 + color_digest[1] / 510.0,
+                0.15 + color_digest[2] / 510.0,
+                1.0,
+            ),
+        ))
     evidence: list[dict[str, object]] = []
     for index, item in enumerate(cast(list[Mapping[str, object]], placed)):
         location = cast(list[float], item["location"])
@@ -486,7 +595,11 @@ def _environment(bpy: Any, layout: Mapping[str, object], workspace: Path) -> lis
         )
         if placed_object is None:
             raise ValueError("environment asset source lacks a mesh object")
-        bpy.context.collection.objects.link(placed_object)
+        partition_id = cast(str, item["partition_id"])
+        partition_collection = partition_collections.get(partition_id)
+        if partition_collection is None:
+            raise ValueError("environment asset partition is undeclared")
+        partition_collection.objects.link(placed_object)
         placed_object.name = f"BiellaEnvironmentAsset{index}"
         placed_object.location = location
         placed_object.rotation_euler = rotation
@@ -498,7 +611,9 @@ def _environment(bpy: Any, layout: Mapping[str, object], workspace: Path) -> lis
         placed_object["biella_material_ref"] = material_ref
         placed_object["biella_variant"] = cast(str, item["variant"])
         placed_object["biella_parent_ref"] = cast(str | None, item["parent_ref"])
-        placed_object["biella_partition"] = cast(str, item["partition_id"])
+        placed_object["biella_partition"] = partition_id
+        placed_object["biella_environment_role"] = "placed_asset"
+        placed_object["biella_lod_level"] = 0
         placed_object.data.materials.clear()
         placed_object.data.materials.append(_material(bpy, material_ref, (0.25 + 0.1 * (index % 3), 0.3, 0.2, 1.0)))
         evidence.append({
@@ -516,26 +631,30 @@ def _environment(bpy: Any, layout: Mapping[str, object], workspace: Path) -> lis
         })
         for lod in range(1, cast(int, layout["lod_levels"])):
             duplicate = placed_object.copy()
-            duplicate.data = placed_object.data.copy()
+            duplicate.data = _environment_lod_mesh(bpy, placed_object, lod)
             duplicate.name = f"{placed_object.name}_LOD{lod}"
             duplicate.display_type = "BOUNDS"
             duplicate.hide_render = True
             duplicate["biella_environment_role"] = "lod"
-            bpy.context.collection.objects.link(duplicate)
+            duplicate["biella_lod_level"] = lod
+            duplicate["biella_lod_source_asset_id"] = cast(str, item["asset_id"])
+            duplicate["biella_lod_source_artifact_ref"] = cast(str, item["artifact_ref"])
+            duplicate["biella_lod_source_content_sha256"] = cast(str, item["content_sha256"])
+            partition_collection.objects.link(duplicate)
     if bool(layout["include_collision"]):
         collision = terrain.copy()
         collision.data = terrain.data.copy()
         collision.name = "BiellaEnvironmentCollision"
         collision.hide_render = True
         collision["biella_environment_role"] = "collision"
-        bpy.context.collection.objects.link(collision)
+        root_collection.objects.link(collision)
     if bool(layout["include_navigation"]):
         navigation = terrain.copy()
         navigation.data = terrain.data.copy()
         navigation.name = "BiellaEnvironmentNavigation"
         navigation.hide_render = True
         navigation["biella_environment_role"] = "navigation"
-        bpy.context.collection.objects.link(navigation)
+        root_collection.objects.link(navigation)
     return evidence
 
 
@@ -1435,6 +1554,7 @@ def _inspection(
 ) -> dict[str, object]:
     scene = bpy.context.scene
     objects: list[dict[str, object]] = []
+    environment_objects: list[dict[str, object]] = []
     totals = {
         "vertices": 0,
         "edges": 0,
@@ -1554,6 +1674,9 @@ def _inspection(
     inventory_digest = hashlib.sha256()
     total_mesh_elements = 0
     for object_index, object_value in enumerate(all_objects):
+        environment_faces = 0
+        environment_materials: list[str] = []
+        environment_geometry_sha256: str | None = None
         item: dict[str, object] = {
             "children": [str(child.name)[:256] for child in sorted(object_value.children, key=lambda child: str(child.name))[:_MAX_NAMES]],
             "dimensions": [round(float(value), 9) for value in object_value.dimensions],
@@ -1689,6 +1812,9 @@ def _inspection(
             }
             material_names.update(all_materials)
             materials = sorted(all_materials)[:_MAX_NAMES]
+            environment_materials = materials
+            environment_faces = len(mesh.polygons)
+            environment_geometry_sha256 = _mesh_geometry_sha256(mesh)
             uv_layers = sorted(str(layer.name)[:256] for layer in mesh.uv_layers)[:_MAX_NAMES]
             invalid_uv_values = sum(
                 1
@@ -1714,6 +1840,39 @@ def _inspection(
             item["mesh"] = mesh_facts
             for metric_name in totals:
                 totals[metric_name] += cast(int, mesh_facts[metric_name])
+        environment_role = object_value.get("biella_environment_role")
+        if isinstance(environment_role, str):
+            environment_item: dict[str, object] = {
+                "collections": sorted(str(collection.name) for collection in object_value.users_collection),
+                "faces": environment_faces,
+                "geometry_sha256": environment_geometry_sha256,
+                "materials": environment_materials,
+                "name": str(object_value.name),
+                "role": environment_role,
+            }
+            property_names = {
+                "artifact_content_sha256": "biella_asset_content_sha256",
+                "artifact_ref": "biella_asset_ref",
+                "asset_id": "biella_asset_id",
+                "generator_config_json": "biella_generator_config_json",
+                "generator_identity_sha256": "biella_generator_identity_sha256",
+                "generator_name": "biella_generator",
+                "generator_seed": "biella_generator_seed",
+                "generator_version": "biella_generator_version",
+                "lod_level": "biella_lod_level",
+                "lod_source_artifact_ref": "biella_lod_source_artifact_ref",
+                "lod_source_asset_id": "biella_lod_source_asset_id",
+                "lod_source_content_sha256": "biella_lod_source_content_sha256",
+                "material_ref": "biella_material_ref",
+                "parent_ref": "biella_parent_ref",
+                "partition_id": "biella_partition",
+                "variant": "biella_variant",
+            }
+            for evidence_name, property_name in property_names.items():
+                value = object_value.get(property_name)
+                if value is not None:
+                    environment_item[evidence_name] = value
+            environment_objects.append(environment_item)
         inventory_digest.update(
             json.dumps(
                 item,
@@ -1733,7 +1892,7 @@ def _inspection(
         for value in item.dimensions
     ]
     character = _character_facts(bpy)
-    return {
+    inspection: dict[str, object] = {
         "bone_count": character["bone_count"],
         "bounded": True,
         "bound_dependency_paths": sorted(bound_dependency_paths),
@@ -1778,6 +1937,54 @@ def _inspection(
         "unit_system": str(scene.unit_settings.system),
         "unbound_dependencies": unbound_dependencies,
     }
+    if environment_objects:
+        terrain = next(
+            (item for item in environment_objects if item["role"] == "terrain"),
+            None,
+        )
+        if terrain is None or not isinstance(terrain.get("generator_config_json"), str):
+            raise ValueError("reopened environment lacks exact terrain generator provenance")
+        generator_config = json.loads(cast(str, terrain["generator_config_json"]))
+        if not isinstance(generator_config, dict):
+            raise ValueError("reopened environment generator config is malformed")
+        partitions: list[dict[str, object]] = []
+        for collection in sorted(bpy.data.collections, key=lambda item: str(item.name)):
+            if collection.get("biella_environment_role") != "partition":
+                continue
+            partition_id = collection.get("biella_partition_id")
+            if not isinstance(partition_id, str):
+                raise ValueError("reopened environment partition identity is malformed")
+            authoritative_objects = sorted(
+                (
+                    item for item in collection.objects
+                    if item.get("biella_environment_role") == "placed_asset"
+                ),
+                key=lambda item: str(item.get("biella_asset_id")),
+            )
+            partitions.append({
+                "artifact_content_sha256s": sorted(
+                    str(item.get("biella_asset_content_sha256"))
+                    for item in authoritative_objects
+                ),
+                "asset_ids": [str(item.get("biella_asset_id")) for item in authoritative_objects],
+                "collection_name": str(collection.name),
+                "object_names": sorted(str(item.name) for item in collection.objects),
+                "partition_id": partition_id,
+            })
+        inspection["environment"] = {
+            "generator": {
+                "config": generator_config,
+                "identity_sha256": terrain.get("generator_identity_sha256"),
+                "name": terrain.get("generator_name"),
+                "seed": terrain.get("generator_seed"),
+                "terrain_geometry_sha256": terrain.get("geometry_sha256"),
+                "version": terrain.get("generator_version"),
+            },
+            "materials": sorted(material_names)[:_MAX_NAMES],
+            "objects": environment_objects,
+            "partitions": partitions,
+        }
+    return inspection
 
 
 def _character_facts(bpy: Any) -> dict[str, object]:
@@ -2308,7 +2515,12 @@ def _main() -> None:
         _save_blend(bpy, output)
     elif operation == "environment":
         assert isinstance(environment_payload, dict)
-        environment_placed_assets = _environment(bpy, environment_payload, execution_workspace)
+        environment_placed_assets = _environment(
+            bpy,
+            environment_payload,
+            execution_workspace,
+            input_content_bindings,
+        )
         _save_blend(bpy, output)
     elif operation == "scene":
         _scene(
@@ -2413,10 +2625,24 @@ def _main() -> None:
             ),
         }
     if environment_payload is not None:
+        environment_inspection = inspection.get("environment")
+        environment_generator = (
+            environment_inspection.get("generator")
+            if isinstance(environment_inspection, dict)
+            else None
+        )
         report["environment_identity"] = {
+            "generator": environment_payload.get("generator"),
+            "generator_config": environment_payload.get("generator_config"),
+            "generator_version": environment_payload.get("generator_version"),
             "layout_sha256": _payload_digest(environment_payload),
             "placed_assets": environment_placed_assets,
             "seed": environment_payload.get("seed"),
+            "terrain_geometry_sha256": (
+                environment_generator.get("terrain_geometry_sha256")
+                if isinstance(environment_generator, dict)
+                else None
+            ),
         }
     if operation not in {"inspect", "validate"}:
         report["output"] = _file_identity(output)
