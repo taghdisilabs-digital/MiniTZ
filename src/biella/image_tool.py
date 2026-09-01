@@ -1054,6 +1054,9 @@ class DeterministicImageTool(ImageToolAdapter):
         binding: TextureMaterialBinding,
         producer_attempt_id: str,
         producer_fence: int,
+        *,
+        render_input: ImageArtifactContentRef,
+        vfx_input: ImageArtifactContentRef,
     ) -> ImageArtifactContentRef:
         if self.dispatch is None:
             raise ImageContractError("material binding requires a bound existing dispatch")
@@ -1065,6 +1068,12 @@ class DeterministicImageTool(ImageToolAdapter):
         material = self._resolve_artifact(binding.material)
         if not material.artifact.role.startswith("3d."):
             raise ImageContractError("material binding requires an exact 3D Artifact")
+        render_source = self._resolve_artifact(render_input)
+        if not render_source.artifact.role.startswith("render."):
+            raise ImageContractError("material binding requires an exact render Artifact")
+        vfx_source = self._resolve_artifact(vfx_input)
+        if not vfx_source.artifact.role.startswith("vfx."):
+            raise ImageContractError("material binding requires an exact VFX Artifact")
         texture_sources: list[_ResolvedSource] = []
         texture_report: dict[str, dict[str, str]] = {}
         for role in sorted(binding.texture_roles):
@@ -1091,6 +1100,20 @@ class DeterministicImageTool(ImageToolAdapter):
                 "semantic": semantic,
             }
         report = {
+            "consumer_inputs": {
+                "3d": {
+                    "artifact_ref": material.artifact.artifact_ref.value,
+                    "content_sha256": material.content_ref.digest,
+                },
+                "render": {
+                    "artifact_ref": render_source.artifact.artifact_ref.value,
+                    "content_sha256": render_source.content_ref.digest,
+                },
+                "vfx": {
+                    "artifact_ref": vfx_source.artifact.artifact_ref.value,
+                    "content_sha256": vfx_source.content_ref.digest,
+                },
+            },
             "material_artifact_ref": material.artifact.artifact_ref.value,
             "material_content_sha256": material.content_ref.digest,
             "texture_specification_digest": binding.texture_specification.image_specification.canonical_digest,
@@ -1104,7 +1127,7 @@ class DeterministicImageTool(ImageToolAdapter):
             role="image.validation-evidence",
             payload=payload,
             media_type="application/json",
-            sources=(material, *texture_sources),
+            sources=(material, render_source, vfx_source, *texture_sources),
             derivation="image.texture.material-binding",
         )
         evidence_artifact = self.artifacts.get_artifact(

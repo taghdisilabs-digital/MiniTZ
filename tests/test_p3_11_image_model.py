@@ -56,9 +56,23 @@ def _image(
     from PIL import Image
 
     output = BytesIO()
-    color = (0, 128, 255, 255) if mode == "RGBA" else (0, 128, 255)
+    color: object
+    if mode == "RGBA":
+        color = (0, 128, 255, 255)
+    elif mode == "L":
+        color = 255
+    else:
+        color = (0, 128, 255)
     Image.new(mode, (width, height), color=color).save(output, format=image_format)
     return output.getvalue()
+
+
+def _cloudflare_response(payload: bytes) -> CloudflareHttpResponse:
+    return CloudflareHttpResponse(
+        200,
+        {"content-type": "application/json"},
+        json.dumps({"result": {"image": base64.b64encode(payload).decode("ascii")}}).encode(),
+    )
 
 
 def _input(
@@ -240,6 +254,55 @@ def _setup(tmp_path: Path, output_format: str = "image/png") -> _Fixture:
     )
 
 
+def _operation_specification(
+    fixture: _Fixture,
+    operation: str,
+    sources: tuple[ImageArtifactContentRef, ...],
+    *,
+    size: tuple[int, int] = (256, 256),
+    parameters: Mapping[str, str] | None = None,
+    config: Mapping[str, str] | None = None,
+    role: str = "image.edited",
+) -> ImageSpecification:
+    bound_parameters = {} if parameters is None else parameters
+    bound_config = {"guidance": "3.5", "steps": "4"} if config is None else config
+    encoded = json.dumps(
+        {"operation": operation, "parameters": dict(bound_parameters)},
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode()
+    return ImageSpecification.create(
+        fixture.access.project_ref,
+        f"sphere-{operation}",
+        sources,
+        (fixture.reference,),
+        ImageOperation(
+            operation,
+            f"recipe://image/{operation}/v1",
+            hashlib.sha256(encoded).hexdigest(),
+            bound_parameters,
+        ),
+        size[0],
+        size[1],
+        "image/png",
+        ("red", "green", "blue"),
+        8,
+        "profile://srgb/v1",
+        "none",
+        {},
+        fixture.specification.model_ref,
+        fixture.specification.model_version,
+        fixture.specification.runtime_ref,
+        17,
+        bound_config,
+        fixture.prompt.artifact_ref,
+        fixture.prompt.content_ref,
+        fixture.prompt.content_sha256,
+        "validator://image/png/v1",
+        {"role": role},
+    )
+
+
 def _artifact_ref(project_ref: ProjectRef, value: str) -> ArtifactRef:
     prefix = f"artifact://{project_ref.value}/"
     artifact_id, revision = value.removeprefix(prefix).rsplit("/", 1)
@@ -275,10 +338,8 @@ def test_provider_contract_import_does_not_require_pillow(
     assert completed.returncode == 0, completed.stderr
 
 
-@pytest.mark.parametrize("shape", ["binary", "base64", "data-uri", "url"])
-def test_cloudflare_model_accepts_response_shapes_and_publishes_with_provenance(
+def test_cloudflare_model_accepts_official_response_and_publishes_with_provenance(
     tmp_path: Path,
-    shape: str,
 ) -> None:
     fixture = _setup(tmp_path)
     payload = _image()
@@ -292,24 +353,7 @@ def test_cloudflare_model_accepts_response_shapes_and_publishes_with_provenance(
         timeout_seconds: float,
     ) -> CloudflareHttpResponse:
         calls.append((method, url, headers, body))
-        if method == "GET":
-            assert url == "https://images.example/output.png"
-            assert headers == {}
-            return CloudflareHttpResponse(200, {"content-type": "image/png"}, payload)
-        if shape == "binary":
-            return CloudflareHttpResponse(200, {"Content-Type": "image/png"}, payload)
-        encoded = base64.b64encode(payload).decode("ascii")
-        if shape == "base64":
-            result: object = {"image": encoded}
-        elif shape == "data-uri":
-            result = {"image": f"data:image/png;base64,{encoded}"}
-        else:
-            result = {"url": "https://images.example/output.png"}
-        return CloudflareHttpResponse(
-            200,
-            {"content-type": "application/json"},
-            json.dumps({"result": result}).encode(),
-        )
+        return _cloudflare_response(payload)
 
     adapter = CloudflareImageModel(
         fixture.database,
@@ -355,6 +399,272 @@ def test_cloudflare_model_accepts_response_shapes_and_publishes_with_provenance(
     assert _ENVIRONMENT["CLOUDFLARE_API_TOKEN"] not in repr(artifact.metadata)
 
 
+@pytest.mark.parametrize("shape", ["binary", "string", "data", "data-uri", "url"])
+def test_cloudflare_model_rejects_non_schema_response_shapes(
+    tmp_path: Path,
+    shape: str,
+) -> None:
+    fixture = _setup(tmp_path)
+    payload = _image()
+    encoded = base64.b64encode(payload).decode("ascii")
+
+    def transport(
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        body: bytes | None,
+        timeout_seconds: float,
+    ) -> CloudflareHttpResponse:
+        if shape == "binary":
+            return CloudflareHttpResponse(200, {"content-type": "image/png"}, payload)
+        if shape == "string":
+            result: object = encoded
+        elif shape == "data":
+            result = {"data": encoded}
+        elif shape == "data-uri":
+            result = {"image": f"data:image/png;base64,{encoded}"}
+        else:
+            result = {"url": "https://images.example/output.png"}
+        return CloudflareHttpResponse(
+            200,
+            {"content-type": "application/json"},
+            json.dumps({"result": result}).encode(),
+        )
+
+    adapter = CloudflareImageModel(
+        fixture.database,
+        fixture.objects,
+        access=fixture.access,
+        transport=transport,
+        environment=_ENVIRONMENT,
+    )
+    with pytest.raises(CloudflareImageModelError, match="official|result.image"):
+        adapter.generate(fixture.access, fixture.attempt, fixture.specification)
+
+
+@pytest.mark.parametrize(
+    ("operation", "size", "parameters", "requires_mask"),
+    (
+        ("edit", (256, 256), {"instruction": "remove scratches"}, False),
+        ("inpaint", (256, 256), {"instruction": "repair center"}, True),
+        (
+            "outpaint",
+            (320, 320),
+            {"bottom": "32", "left": "32", "right": "32", "top": "32"},
+            False,
+        ),
+    ),
+)
+def test_cloudflare_model_executes_operation_specific_edit_inpaint_and_outpaint(
+    tmp_path: Path,
+    operation: str,
+    size: tuple[int, int],
+    parameters: Mapping[str, str],
+    requires_mask: bool,
+) -> None:
+    fixture = _setup(tmp_path)
+    mask_payload = _image(mode="L")
+    mask = _input(
+        fixture.database,
+        fixture.objects,
+        fixture.access,
+        role="image.mask",
+        payload=mask_payload,
+        media_type="image/png",
+    )
+    sources = (fixture.source, mask) if requires_mask else (fixture.source,)
+    specification = _operation_specification(
+        fixture,
+        operation,
+        sources,
+        size=size,
+        parameters=parameters,
+    )
+    response_payload = _image(*size)
+    captured_body: bytes | None = None
+
+    def transport(
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        body: bytes | None,
+        timeout_seconds: float,
+    ) -> CloudflareHttpResponse:
+        nonlocal captured_body
+        captured_body = body
+        return _cloudflare_response(response_payload)
+
+    result = CloudflareImageModel(
+        fixture.database,
+        fixture.objects,
+        access=fixture.access,
+        transport=transport,
+        environment=_ENVIRONMENT,
+    ).generate(fixture.access, fixture.attempt, specification)
+
+    assert captured_body is not None
+    assert f'name="seed"\r\n\r\n{specification.seed}'.encode() in captured_body
+    assert f'"operation":"{operation}"'.encode() in captured_body
+    assert json.dumps(dict(parameters), sort_keys=True, separators=(",", ":")).encode() in captured_body
+    assert b'name="guidance"' in captured_body
+    assert b'name="operation"' not in captured_body
+    assert b'name="config"' not in captured_body
+    assert b'name="steps"' not in captured_body
+    assert b'name="model_ref"' not in captured_body
+    assert b'name="runtime_ref"' not in captured_body
+    assert b'name="specification_digest"' not in captured_body
+    assert b'input_image_0' in captured_body
+    assert (b'input_image_2' in captured_body) is requires_mask
+    artifact = ArtifactService(fixture.database).get_artifact(
+        fixture.access,
+        _artifact_ref(fixture.access.project_ref, result.output.artifact_ref),
+    )
+    assert artifact.role == "image.edited"
+    assert result.specification_digest == specification.canonical_digest
+    assert artifact.derivation_type == f"image.cloudflare.flux-2-klein-4b.{operation}"
+    assert result.derivation == f"image.cloudflare.flux-2-klein-4b.{operation}"
+
+
+def test_cloudflare_model_rejects_missing_operation_bindings_before_transport(
+    tmp_path: Path,
+) -> None:
+    fixture = _setup(tmp_path)
+    called = False
+
+    def transport(
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        body: bytes | None,
+        timeout_seconds: float,
+    ) -> CloudflareHttpResponse:
+        nonlocal called
+        called = True
+        return CloudflareHttpResponse(200, {"content-type": "image/png"}, _image())
+
+    adapter = CloudflareImageModel(
+        fixture.database,
+        fixture.objects,
+        access=fixture.access,
+        transport=transport,
+        environment=_ENVIRONMENT,
+    )
+    missing_mask = _operation_specification(fixture, "inpaint", (fixture.source,))
+    with pytest.raises(CloudflareImageModelError, match="mask"):
+        adapter.generate(fixture.access, fixture.attempt, missing_mask)
+    missing_geometry = _operation_specification(fixture, "outpaint", (fixture.source,))
+    with pytest.raises(CloudflareImageModelError, match="geometry"):
+        adapter.generate(fixture.access, fixture.attempt, missing_geometry)
+    wrong_role = _operation_specification(
+        fixture,
+        "edit",
+        (fixture.source,),
+        role="image.generated",
+    )
+    with pytest.raises(CloudflareImageModelError, match="role"):
+        adapter.generate(fixture.access, fixture.attempt, wrong_role)
+    unsupported_config = _operation_specification(
+        fixture,
+        "edit",
+        (fixture.source,),
+        config={"strength": "0.75"},
+    )
+    with pytest.raises(CloudflareImageModelError, match="unsupported"):
+        adapter.generate(fixture.access, fixture.attempt, unsupported_config)
+    wrong_steps = _operation_specification(
+        fixture,
+        "edit",
+        (fixture.source,),
+        config={"guidance": "3.5", "steps": "5"},
+    )
+    with pytest.raises(CloudflareImageModelError, match="fixed steps=4"):
+        adapter.generate(fixture.access, fixture.attempt, wrong_steps)
+    assert not called
+
+
+@pytest.mark.parametrize("source_size", ((512, 256), (256, 512)))
+def test_cloudflare_model_rejects_provider_inputs_at_512_pixels_before_transport(
+    tmp_path: Path,
+    source_size: tuple[int, int],
+) -> None:
+    fixture = _setup(tmp_path)
+    oversized = _input(
+        fixture.database,
+        fixture.objects,
+        fixture.access,
+        role="image.source",
+        payload=_image(*source_size),
+        media_type="image/png",
+    )
+    specification = _operation_specification(
+        fixture,
+        "edit",
+        (oversized,),
+        size=source_size,
+    )
+    called = False
+
+    def transport(
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        body: bytes | None,
+        timeout_seconds: float,
+    ) -> CloudflareHttpResponse:
+        nonlocal called
+        called = True
+        return CloudflareHttpResponse(200, {"content-type": "image/png"}, _image())
+
+    adapter = CloudflareImageModel(
+        fixture.database,
+        fixture.objects,
+        access=fixture.access,
+        transport=transport,
+        environment=_ENVIRONMENT,
+    )
+    with pytest.raises(CloudflareImageModelError, match="smaller than 512x512"):
+        adapter.generate(fixture.access, fixture.attempt, specification)
+    assert not called
+
+
+def test_cloudflare_model_rejects_non_png_provider_input_before_transport(
+    tmp_path: Path,
+) -> None:
+    fixture = _setup(tmp_path)
+    jpeg_source = _input(
+        fixture.database,
+        fixture.objects,
+        fixture.access,
+        role="image.source",
+        payload=_image(image_format="JPEG"),
+        media_type="image/jpeg",
+    )
+    specification = _operation_specification(fixture, "edit", (jpeg_source,))
+    called = False
+
+    def transport(
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        body: bytes | None,
+        timeout_seconds: float,
+    ) -> CloudflareHttpResponse:
+        nonlocal called
+        called = True
+        return _cloudflare_response(_image())
+
+    adapter = CloudflareImageModel(
+        fixture.database,
+        fixture.objects,
+        access=fixture.access,
+        transport=transport,
+        environment=_ENVIRONMENT,
+    )
+    with pytest.raises(CloudflareImageModelError, match="raw PNG"):
+        adapter.generate(fixture.access, fixture.attempt, specification)
+    assert not called
+
+
 @pytest.mark.parametrize(
     ("payload", "output_format"),
     [
@@ -384,7 +694,7 @@ def test_cloudflare_model_rejects_incomplete_or_contract_violating_output(
         body: bytes | None,
         timeout_seconds: float,
     ) -> CloudflareHttpResponse:
-        return CloudflareHttpResponse(200, {"content-type": output_format}, payload)
+        return _cloudflare_response(payload)
 
     adapter = CloudflareImageModel(
         fixture.database,
@@ -464,7 +774,7 @@ def test_cloudflare_model_rejects_foreign_project_artifact_aliases(
     ) -> CloudflareHttpResponse:
         nonlocal called
         called = True
-        return CloudflareHttpResponse(200, {"content-type": "image/png"}, _image())
+        return _cloudflare_response(_image())
 
     adapter = CloudflareImageModel(
         fixture.database,
@@ -586,7 +896,7 @@ def test_cloudflare_model_revalidates_node_authority_after_transport(tmp_path: P
             retry_possible=False,
             idempotency_key="invalidate-cloudflare-image-attempt",
         )
-        return CloudflareHttpResponse(200, {"content-type": "image/png"}, _image())
+        return _cloudflare_response(_image())
 
     adapter = CloudflareImageModel(
         fixture.database,

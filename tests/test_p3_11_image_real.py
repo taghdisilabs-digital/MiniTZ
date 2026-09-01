@@ -634,6 +634,16 @@ def test_channels_texture_validation_and_material_binding_persist_exact_evidence
         media_type="application/json",
         role="3d.material",
     )
+    render_input = _source(
+        environment,
+        _encoded_image("RGB", (1, 1), [(12, 34, 56)]),
+        role="render.frame",
+    )
+    vfx_input = _source(
+        environment,
+        _encoded_image("RGB", (1, 1), [(65, 43, 21)]),
+        role="vfx.preview",
+    )
     binding = TextureMaterialBinding(
         environment.access.project_ref,
         texture_spec,
@@ -645,6 +655,8 @@ def test_channels_texture_validation_and_material_binding_persist_exact_evidence
         binding,
         environment.attempt.attempt_id,
         environment.attempt.fence,
+        render_input=render_input,
+        vfx_input=vfx_input,
     )
     bound_artifact = ArtifactService(environment.database).get_artifact(
         environment.access,
@@ -655,6 +667,28 @@ def test_channels_texture_validation_and_material_binding_persist_exact_evidence
     bound_report = json.loads(environment.objects.read(bound_artifact.content_ref))
     assert bound_report["material_content_sha256"] == material.content_sha256
     assert bound_report["textures"]["image.normal"]["content_sha256"] == normal_output.output.content_sha256
+    assert bound_report["consumer_inputs"] == {
+        "3d": {
+            "artifact_ref": material.artifact_ref,
+            "content_sha256": material.content_sha256,
+        },
+        "render": {
+            "artifact_ref": render_input.artifact_ref,
+            "content_sha256": render_input.content_sha256,
+        },
+        "vfx": {
+            "artifact_ref": vfx_input.artifact_ref,
+            "content_sha256": vfx_input.content_sha256,
+        },
+    }
+    with pytest.raises(ImageContractError, match="render"):
+        tool.bind_material(
+            binding,
+            environment.attempt.attempt_id,
+            environment.attempt.fence,
+            render_input=normal_output.output,
+            vfx_input=vfx_input,
+        )
 
 
 def test_project_and_stale_node_fences_fail_closed(tmp_path: Path) -> None:
