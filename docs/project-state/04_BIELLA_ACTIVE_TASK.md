@@ -10,7 +10,7 @@ program_boundary:
   active_global_number: 44
   active_title: Video Production, Editing, Compositing and Media Pipeline Pack
   active_prompt_drive_id: 12_Z1RrJBW8fGVj5z76wnaphozu8J2DjSrHd2gJVrbmA
-  execution_started: false
+  execution_started: true
   execution_authorized: true
   authorization_basis: MAHDI_STANDING_P3_06_THROUGH_P4_06
   spark_or_prep_dependency: NONE
@@ -40,8 +40,8 @@ P3_12_durable_close:
 active_frontier:
   ledger_task_id: ENG-P3-13
   dependency: ENG-P3-12
-  ledger_claim: READY_ELIGIBLE
-  acceptance_state: REOBSERVE_REQUIRED
+  ledger_claim: RUNNING
+  acceptance_state: SOURCE_REPAIR_AND_REAL_EVIDENCE_EXECUTION
   title: P3-13 Video Production, Editing, Compositing and Media Pipeline durable repair
   exact_prompt_drive_id: 12_Z1RrJBW8fGVj5z76wnaphozu8J2DjSrHd2gJVrbmA
   completion_gap: six_KPI_report_correction_and_durable_media_video_evidence

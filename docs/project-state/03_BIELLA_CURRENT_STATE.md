@@ -135,9 +135,9 @@ continuation:
   active_task_id: ENG-P3-13
   active_task_title: P3-13 Video Production, Editing, Compositing and Media Pipeline durable repair
   dependency: ENG-P3-12_COMPLETE
-  ledger_claim: READY_ELIGIBLE
-  acceptance_state: LOAD_EXACT_PROMPT_AND_REOBSERVE_CURRENT_SOURCE_AND_EVIDENCE
-  execution_started: false
+  ledger_claim: RUNNING
+  acceptance_state: SOURCE_REPAIR_AND_REAL_EVIDENCE_EXECUTION
+  execution_started: true
   spark_or_prep_dependency: NONE
   ordered_frontier: P3-13_THEN_P3-14_THEN_REUSE_P4-01_THROUGH_P4-05_THEN_P4-06_THEN_FOUNDATION_COMPLETE_THEN_BIELLA_GAMES
 ```
