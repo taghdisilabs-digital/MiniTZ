@@ -19,24 +19,36 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install test dependencies
-        run: python -m pip install -e ".[test]"
-      - name: Install audio runtime
+      - name: Install test and FFmpeg build dependencies
         run: |
+          python -m pip install -e ".[test]"
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends ffmpeg
-      - name: Record real audio runtime identity
+          sudo apt-get install -y --no-install-recommends build-essential ca-certificates curl libmp3lame-dev nasm pkg-config xz-utils yasm
+      - name: Build exact FFmpeg 8.0.1 runtime
         run: |
+          curl --fail --location --silent --show-error https://ffmpeg.org/releases/ffmpeg-8.0.1.tar.xz -o /tmp/ffmpeg-8.0.1.tar.xz
+          sha256sum /tmp/ffmpeg-8.0.1.tar.xz
+          tar -xJf /tmp/ffmpeg-8.0.1.tar.xz -C /tmp
+          cd /tmp/ffmpeg-8.0.1
+          ./configure --disable-doc --disable-debug --disable-ffplay --enable-gpl --enable-libmp3lame
+          make -j2 ffmpeg ffprobe
+          sudo install -m 0755 ffmpeg /usr/bin/ffmpeg
+          sudo install -m 0755 ffprobe /usr/bin/ffprobe
+      - name: Verify exact audio runtime identity
+        run: |
+          test "$(ffmpeg -version | head -n 1 | awk '{print $3}')" = "8.0.1"
+          test "$(ffprobe -version | head -n 1 | awk '{print $3}')" = "8.0.1"
           command -v ffmpeg
           command -v ffprobe
           ffmpeg -version | head -n 1
           ffprobe -version | head -n 1
+          sha256sum /usr/bin/ffmpeg /usr/bin/ffprobe
       - name: Provide non-executed P3-05 scheduler support fixtures
         run: |
           cat > /tmp/p3-12-nonexecuted-tool <<'SH'
@@ -71,13 +83,20 @@ jobs:
               Path("tests/test_p3_12_audio_real.py"),
               Path("tests/test_p3_12_audio_model.py"),
           ]
-          ffmpeg_identity = subprocess.check_output(["/usr/bin/ffmpeg", "-version"], text=True).splitlines()[0]
-          ffprobe_identity = subprocess.check_output(["/usr/bin/ffprobe", "-version"], text=True).splitlines()[0]
+          ffmpeg = Path("/usr/bin/ffmpeg")
+          ffprobe = Path("/usr/bin/ffprobe")
+          ffmpeg_identity = subprocess.check_output([str(ffmpeg), "-version"], text=True).splitlines()[0]
+          ffprobe_identity = subprocess.check_output([str(ffprobe), "-version"], text=True).splitlines()[0]
           wheels = sorted(Path("dist").glob("*.whl"))
           payload = {
               "task": "P3-12",
               "source_sha256": {str(path): hashlib.sha256(path.read_bytes()).hexdigest() for path in files},
-              "runtime_identity": {"ffmpeg": ffmpeg_identity, "ffprobe": ffprobe_identity},
+              "runtime_identity": {
+                  "ffmpeg": ffmpeg_identity,
+                  "ffmpeg_sha256": hashlib.sha256(ffmpeg.read_bytes()).hexdigest(),
+                  "ffprobe": ffprobe_identity,
+                  "ffprobe_sha256": hashlib.sha256(ffprobe.read_bytes()).hexdigest(),
+              },
               "wheel_sha256": {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in wheels},
               "kpis": {
                   "invalid_audio_claimed_valid": 0,
@@ -87,7 +106,7 @@ jobs:
                   "mix_without_exact_stem_identity": 0,
               },
               "reality_classification": {
-                  "deterministic_decode_edit_mix_validation": "REAL",
+                  "deterministic_decode_edit_mix_validation": "REAL_FFMPEG_8_0_1",
                   "p3_05_scheduler_support_paths": "NON_EXECUTED_FIXTURE",
                   "provider_contract_and_corrupt_output_rejection": "REFERENCE_ADAPTER_TEST",
                   "external_cloudflare_audio_generation_in_ci": "NOT_RUN",
