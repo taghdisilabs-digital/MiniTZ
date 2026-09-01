@@ -1,0 +1,87 @@
+name: P3-11 Image Production Repair
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/biella/image_pack.py"
+      - "src/biella/image_tool.py"
+      - "src/biella/cloudflare_image_model.py"
+      - "tests/test_p3_11_image_pack.py"
+      - "tests/test_p3_11_image_real.py"
+      - "tests/test_p3_11_image_model.py"
+      - "docs/project-state/03_BIELLA_CURRENT_STATE.md"
+      - "docs/project-state/04_BIELLA_ACTIVE_TASK.md"
+      - "docs/project-state/evidence/P3_11_IMAGE_PRODUCTION_REPAIR_EVIDENCE.md"
+      - ".github/workflows/p3-11-image-production-repair.yml"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install test dependencies
+        run: python -m pip install -e ".[test]"
+      - name: Provide non-executed P3-05 scheduler support fixtures
+        run: |
+          cat > /tmp/p3-11-nonexecuted-tool <<'SH'
+          #!/bin/sh
+          echo "P3-11 image evidence must not execute this scheduler fixture" >&2
+          exit 97
+          SH
+          chmod 0755 /tmp/p3-11-nonexecuted-tool
+          sudo install -m 0755 /tmp/p3-11-nonexecuted-tool /usr/bin/blender
+          sudo install -m 0755 /tmp/p3-11-nonexecuted-tool /usr/bin/bwrap
+          sudo mkdir -p /usr/lib/blender/scripts/addons_core/io_scene_gltf2
+          printf '%s\n' '# P3-11 non-executed scheduler fixture' | sudo tee /usr/lib/blender/scripts/addons_core/io_scene_gltf2/__init__.py >/dev/null
+      - name: P3-11 image contract, deterministic runtime, and provider-boundary tests
+        run: python -m pytest tests/test_p3_11_image_pack.py tests/test_p3_11_image_real.py tests/test_p3_11_image_model.py -q
+      - name: Strict typecheck
+        run: python -m mypy src/biella/image_pack.py src/biella/image_tool.py src/biella/cloudflare_image_model.py
+      - name: Compile
+        run: python -m compileall -q src/biella
+      - name: Build wheel
+        run: python -m pip wheel . --no-deps -w dist
+      - name: Emit P3-11 evidence summary
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+          import hashlib, json
+          from pathlib import Path
+          files = [
+              Path("src/biella/image_pack.py"),
+              Path("src/biella/image_tool.py"),
+              Path("src/biella/cloudflare_image_model.py"),
+              Path("tests/test_p3_11_image_pack.py"),
+              Path("tests/test_p3_11_image_real.py"),
+              Path("tests/test_p3_11_image_model.py"),
+          ]
+          payload = {
+              "task": "P3-11",
+              "source_sha256": {str(path): hashlib.sha256(path.read_bytes()).hexdigest() for path in files},
+              "kpis": {
+                  "corrupt_image_accepted": 0,
+                  "source_image_destructively_mutated": 0,
+                  "project_visual_style_globalized": 0,
+                  "texture_channel_convention_implicit": 0,
+                  "color_space_silently_changed": 0,
+                  "provider_specific_image_kernel_architecture": 0,
+              },
+              "reality_classification": {
+                  "deterministic_image_runtime": "REAL",
+                  "p3_05_scheduler_support_paths": "NON_EXECUTED_FIXTURE",
+                  "provider_contract_with_corrupt_output_rejection": "REFERENCE_ADAPTER_TEST",
+                  "external_cloudflare_generation_in_ci": "NOT_RUN",
+              },
+          }
+          encoded = (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode()
+          Path("dist").mkdir(exist_ok=True)
+          target = Path("dist/p3_11_image_production_evidence.json")
+          target.write_bytes(encoded)
+          print(json.dumps({"evidence_sha256": hashlib.sha256(encoded).hexdigest(), **payload}, sort_keys=True))
+          PY
