@@ -45,6 +45,9 @@ Graph revisions are immutable; replanning creates a new revision.
 Independent Nodes may execute concurrently when dependencies, side effects, and Resources permit.
 Agents/specialists are dynamic execution resources/patterns, never permanent authority hierarchy.
 
+RESOURCE_EXECUTION
+Hardware is runtime Resource state. Route independent long/GPU work to compatible Resources when this materially reduces elapsed time. The L40S worker is production-first: do not keep a local agent or LLM resident merely for idle utilization. Load model/runtime state only for exact active Task/Node work that requires it; record exact identities and measured Resource evidence; release VRAM after the last dependent workload unless immediate reuse has measured value. Future-prompt GPU work may be identified in advance but executes only after its owning numbered prompt becomes active. Resource measurements optimize routing/placement and never become correctness or authority.
+
 NUMBERED_EXECUTION
 Program order=P0(01-10)->P1(11-19)->P2(20-31)->P3(32-45)->P4(46-51).
 One numbered Engine prompt is active per execution boundary.
