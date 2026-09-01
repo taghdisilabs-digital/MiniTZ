@@ -4,41 +4,46 @@
 schema: biella.active_task/v6
 
 active_task:
-  id: P3-10
-  global_number: 41
+  id: P3-11
+  global_number: 42
   phase: P3
-  title: VFX and Simulation Production Pack
+  title: Image Production, Editing, Compositing and Texture Pack
   state: ACTIVATED_PROMPT_NOT_LOADED_OR_COMPILED
-  predecessor: P3-09
-  predecessor_result_commit: b23195b82e20a568f22b8ebc7be401d5bb95c97e
-  predecessor_result_tree: c35e5a1f38d6c938828ec0556706a3ed0e3ca93a
+  predecessor: P3-10
+  predecessor_result_commit: b7fe1a20caabeda053b1fb8c42d01a7da999b34e
+  predecessor_result_tree: 5b94821f1fb98a9993d384e9a2d034bcff843376
   predecessor_github_readback: EXACT_COMMIT_TREE_AND_SIX_BLOBS_CONFIRMED
   execution_authorized: true
 
 exact_prompt:
-  title: VFX and Simulation Production Pack
-  drive_id: 12GmJFm2-6mL7QSjyyaySDWbBi2WrkljUF447XWsHnnI
+  title: Image Production, Editing, Compositing and Texture Pack
+  drive_id: 1hZm2VC3xYefqwZBxvIhsChrIjCLcZXsTSoOCG3IKLhM
   status: NOT_LOADED_OR_COMPILED
-  rule: obtain_exact_P3_10_prompt_body_only_when_execution_begins
+  rule: obtain_exact_P3_11_prompt_body_only_when_execution_begins
 
 prior_durable_through_P3_08:
   status: VERIFIED
   latest_result_commit: 0da64ebea6aeb0a69fb73ae8c67317fd8d86c109
   latest_result_tree: da7860a8c0890d3ae82b0ae3d4c9b545efa85759
 
-P3_09_durable_close:
-  result_commit: b23195b82e20a568f22b8ebc7be401d5bb95c97e
-  result_tree: c35e5a1f38d6c938828ec0556706a3ed0e3ca93a
-  github_readback: EXACT_COMMIT_TREE_CONFIRMED
-  final_gate: 12_TESTS_GREEN_IN_151.62_SECONDS; STRICT_MYPY_5_PATHS_GREEN
-  wheel_sha256: 23f96cd956b87e3c4f0de91bf2da4ebde3f4f1a0185b3a276a0798ca60d5fb54
+prior_durable_through_P3_09:
+  status: VERIFIED
+  latest_result_commit: b23195b82e20a568f22b8ebc7be401d5bb95c97e
+  latest_result_tree: c35e5a1f38d6c938828ec0556706a3ed0e3ca93a
+
+P3_10_durable_close:
+  result_commit: b7fe1a20caabeda053b1fb8c42d01a7da999b34e
+  result_tree: 5b94821f1fb98a9993d384e9a2d034bcff843376
+  github_readback: EXACT_COMMIT_TREE_AND_SIX_PATHS_CONFIRMED
+  final_gate: 6_TESTS_GREEN_IN_179.74_SECONDS; STRICT_MYPY_5_PATHS_GREEN; ALL_FIVE_KPIS_ZERO
+  wheel_sha256: 2a6708db1033dbf654baa71ea30d21465a70cfbdfcfbe7b59d3fe5fe4f859f91
 
 owner_priority:
   standing_order: preserve_current_or_recoverable_long_running_productive_work_before_any_remote_sync_restore_reset_checkout_merge_or_host_replacement
   remote_newer_is_not_permission_to_replace_unpreserved_execution_work: true
   current_sequence:
-    - retain_prior_through_P3_06_and_P3_07_durable_close_evidence
-    - load_and_compile_P3_08_exact_prompt_when_execution_begins
+    - retain_predecessor_P3_10_durable_close_evidence
+    - load_and_compile_P3_11_exact_prompt_when_execution_begins
 
 execution_host:
   current_host:
@@ -192,18 +197,19 @@ multi_ai_execution:
     no_permanent_named_agent_hierarchy: true
 
 current_frontier:
-  state: P3_10_ACTIVATED_NOT_STARTED
+  state: P3_11_ACTIVATED_NOT_STARTED
   P3_05_durable_close_complete: true
   P3_06_durable_close_complete: true
   P3_07_durable_close_complete: true
-  P3_10_prompt_loaded: false
-  P3_10_prompt_compiled: false
-  P3_10_execution_authorized: true
+  P3_10_durable_close_complete: true
+  P3_11_prompt_loaded: false
+  P3_11_prompt_compiled: false
+  P3_11_execution_authorized: true
 
 activation_boundary:
-  P3_10_authorized: true
-  P3_10_prompt_loaded: false
-  P3_10_graph_compiled: false
-  rule: compile_only_from_exact_P3_10_prompt_and_accepted_source
-  predecessor_evidence: P3_09_durable_close_mapping_above
+  P3_11_authorized: true
+  P3_11_prompt_loaded: false
+  P3_11_graph_compiled: false
+  rule: compile_only_from_exact_P3_11_prompt_and_accepted_source
+  predecessor_evidence: P3_10_durable_close_mapping_above
 ```

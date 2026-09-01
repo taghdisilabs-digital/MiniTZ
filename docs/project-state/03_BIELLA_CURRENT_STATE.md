@@ -23,34 +23,34 @@ engine:
 
 durable_source:
   current_implementation_base:
-    commit: b23195b82e20a568f22b8ebc7be401d5bb95c97e
-    tree: c35e5a1f38d6c938828ec0556706a3ed0e3ca93a
-    meaning: P3_09_durably_closed
+    commit: b7fe1a20caabeda053b1fb8c42d01a7da999b34e
+    tree: 5b94821f1fb98a9993d384e9a2d034bcff843376
+    meaning: P3_10_durably_closed
   current_execution_map:
-    source_commit: adaf4b21e7a07d77b8bf2a84f8929ab332fa7358
-    result_commit: b23195b82e20a568f22b8ebc7be401d5bb95c97e
-    result_tree: c35e5a1f38d6c938828ec0556706a3ed0e3ca93a
+    source_commit: b23195b82e20a568f22b8ebc7be401d5bb95c97e
+    result_commit: b7fe1a20caabeda053b1fb8c42d01a7da999b34e
+    result_tree: 5b94821f1fb98a9993d384e9a2d034bcff843376
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    status: P3_09_COMPLETE_P3_10_ACTIVATED_PROMPT_NOT_LOADED
+    status: P3_10_COMPLETE_P3_11_ACTIVATED_PROMPT_NOT_LOADED
   branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
     first_rejected_execution_time: "2026-08-30T10:44:52Z"
     rejected_post_boundary_completion_claims: P3_10_THROUGH_P3_09
 
 numbered_execution:
-  durable_prompts_complete: 40
+  durable_prompts_complete: 41
   durable_prompts_total: 51
-  progress: "40 / 51"
+  progress: "41 / 51"
   phase: P3
-  active_prompt: P3-10
-  active_global_number: 41
-  active_title: VFX and Simulation Production Pack
-  predecessor: P3-09
+  active_prompt: P3-11
+  active_global_number: 42
+  active_title: Image Production, Editing, Compositing and Texture Pack
+  predecessor: P3-10
   successor_execution_authorized: false
   active_execution_authorized: true
-  future_activation_shells_prepared: P3_10_THROUGH_P4_06
+  future_activation_shells_prepared: P3_11_THROUGH_P4_06
   future_internal_graphs_precompiled: false
   future_graph_rule: compile_each_from_exact_prompt_and_current_source_only_when_activated
 
@@ -110,19 +110,24 @@ prior_durable_through_P3_08:
   latest_result_commit: 0da64ebea6aeb0a69fb73ae8c67317fd8d86c109
   latest_result_tree: da7860a8c0890d3ae82b0ae3d4c9b545efa85759
 
-p3_09_durable_close:
-  result_commit: b23195b82e20a568f22b8ebc7be401d5bb95c97e
-  result_tree: c35e5a1f38d6c938828ec0556706a3ed0e3ca93a
-  github_readback: EXACT_COMMIT_TREE_CONFIRMED
-  contract: 12_RENDER_CAPABILITIES_REAL_BLENDER_FANOUT_RECOVERY_PASS_EVIDENCE
-  final_gate: 12_TESTS_GREEN_IN_151.62_SECONDS; STRICT_MYPY_5_PATHS_GREEN
-  wheel_sha256: 23f96cd956b87e3c4f0de91bf2da4ebde3f4f1a0185b3a276a0798ca60d5fb54
+prior_durable_through_P3_09:
+  status: VERIFIED
+  latest_result_commit: b23195b82e20a568f22b8ebc7be401d5bb95c97e
+  latest_result_tree: c35e5a1f38d6c938828ec0556706a3ed0e3ca93a
+
+p3_10_durable_close:
+  result_commit: b7fe1a20caabeda053b1fb8c42d01a7da999b34e
+  result_tree: 5b94821f1fb98a9993d384e9a2d034bcff843376
+  github_readback: EXACT_COMMIT_TREE_AND_SIX_PATHS_CONFIRMED
+  contract: REAL_BLENDER_DETERMINISTIC_SIMULATION_CHECKPOINT_RESUME_FENCING_CACHE_ENOSPC_CANCEL_CONCURRENT_EFFECTS_EXACT_BAKE_RENDER
+  final_gate: 6_TESTS_GREEN_IN_179.74_SECONDS; STRICT_MYPY_5_PATHS_GREEN; ALL_FIVE_KPIS_ZERO
+  wheel_sha256: 2a6708db1033dbf654baa71ea30d21465a70cfbdfcfbe7b59d3fe5fe4f859f91
 
 approved_execution_program:
   language: biella.codex.end_to_end/v2
   mode: SINGLE_END_TO_END_NUMBERED_EXECUTION
   active_graph_location: docs/project-state/04_BIELLA_ACTIVE_TASK.md
-  active_graph: P3_10_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
+  active_graph: P3_11_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
   duplicate_prevention:
     exact_Node_identity_and_claim: required
     one_current_owner_per_Node: true
