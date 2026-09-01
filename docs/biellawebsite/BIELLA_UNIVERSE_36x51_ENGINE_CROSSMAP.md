@@ -8,7 +8,7 @@ Purpose: Map every Biella Universe website task to the Biella Engine prompt(s) t
 - `BU-*` owns only website/product-specific work.
 - `P0-*` through `P4-*` own reusable Biella Engine mechanisms.
 - This map is about **semantic ownership**, not proof that an engine prompt is complete.
-- Actual completion must be read from `20_BIELLA_PROMPT_EXECUTION_STATUS.md` and current repository interfaces.
+- Actual Engine state/completion authority is `docs/project-state/03_BIELLA_CURRENT_STATE.md` + `docs/project-state/04_BIELLA_ACTIVE_TASK.md`, reconciled with current verified repository interfaces and remote source identity.
 - If an engine owner is not implemented, use only a narrow website-local bridge when necessary, or a clearly labeled simulation for demos. Do not create a substitute universal subsystem in website code.
 
 ## A. All 36 BU tasks → engine capability owners

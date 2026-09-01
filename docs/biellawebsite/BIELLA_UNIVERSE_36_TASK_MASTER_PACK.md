@@ -11,7 +11,7 @@ For every BU task:
 - consume the mapped engine capability if its current verified interface exists;
 - otherwise use only a narrow website-local bridge when needed, or a clearly labeled deterministic simulation for a demo;
 - never create a substitute universal storage, memory, scheduler, routing, browser, model, validation, production, publishing or learning subsystem;
-- actual engine completion comes from `20_BIELLA_PROMPT_EXECUTION_STATUS.md` and current verified repository interfaces, not from this website pack;
+- actual Engine state/completion authority comes from `docs/project-state/03_BIELLA_CURRENT_STATE.md` + `docs/project-state/04_BIELLA_ACTIVE_TASK.md`, reconciled with current verified repository interfaces and remote source identity, not from this website pack;
 - the full bidirectional 36×51 ownership map is `docs/biellawebsite/BIELLA_UNIVERSE_36x51_ENGINE_CROSSMAP.md`.
 
 `P2-08 PostgreSQL Adapter` is intentionally not required by the present Option C scope.
