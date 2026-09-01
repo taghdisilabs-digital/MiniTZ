@@ -4,14 +4,14 @@
 schema: biella.active_task/v6
 
 active_task:
-  id: P4-02
-  global_number: 47
+  id: P4-03
+  global_number: 48
   phase: P4
-  title: Agent, Skill, Prompt, Tool and Execution Strategy Evaluation
+  title: Conditional Reversible Evidence-Based Routing Learning
   state: ACTIVATED_PROMPT_NOT_LOADED_OR_COMPILED
-  predecessor: P4-01
-  predecessor_result_commit: 3fc7f1eeecbf2b6fb7b4754c31939c5e8aa7e22f
-  predecessor_result_tree: a87e9219ca2b27448a4de9e75412d22d00be977e
+  predecessor: P4-02
+  predecessor_result_commit: 5a261f021c3c743e68910c5f0f61f5ab7b12b471
+  predecessor_result_tree: 2b377a9bbff0d720b69c6179b562ee67e81a5211
   predecessor_github_readback: EXACT_COMMIT_TREE_AND_EIGHT_BLOBS_CONFIRMED
   execution_authorized: true
   standing_authorization: true
@@ -19,10 +19,10 @@ active_task:
   legacy_spark_prep_dependency: false
 
 exact_prompt:
-  title: Agent, Skill, Prompt, Tool and Execution Strategy Evaluation
-  drive_id: 1IKlb4CPzng80VeJOPRo-_R5UdEIr7Vv4dz15x33JXfA
+  title: Conditional Reversible Evidence-Based Routing Learning
+  drive_id: 1kGNEBjMTBllbfqpiUGcNf7_TxhDZ7uDBvKf-jq5iqBw
   status: NOT_LOADED_OR_COMPILED
-  rule: obtain_exact_P4_02_prompt_body_only_when_execution_begins; P4_02_exact_prompt_governs_its_L40S_matrix_only_after_activation
+  rule: obtain_exact_P4_03_prompt_body_only_when_execution_begins
 
 prior_durable_through_P3_08:
   status: VERIFIED
@@ -96,12 +96,28 @@ P4_01_durable_close:
   unknown_metrics: COST_QUEUE_REMOTE_RESOURCE_TIMEOUT
   post_run_l40s: 0_MIB_NO_RESIDENCY
 
+P4_02_durable_close:
+  source_boundary_commit: 7c48244f2aea833f32ea6d3b774fa473aeae5772
+  source_boundary_tree: cd39defcd2aa7272940974c3f1863a9218b1ab8a
+  result_commit: 5a261f021c3c743e68910c5f0f61f5ab7b12b471
+  result_tree: 2b377a9bbff0d720b69c6179b562ee67e81a5211
+  github_readback: EXACT_ELEVEN_PATHS_PASS
+  qualification: P4_01_AND_P4_02_31_TESTS_GREEN_IN_7.14_SECONDS; REPAIRED_P4_02_14_TESTS_GREEN_IN_3.35_SECONDS; STRICT_MYPY_7_FILES_PASS; ALL_KPIS_ZERO
+  wheel_sha256: 98dea755f9a2917f6415df086e5f645cf6b5564b5e36005397b61f441b3f9567
+  implementation: STRATEGY_EVALUATION_CONTRACTS_RUNTIME_EVIDENCE_THREE_TESTS_FOUR_REAL_FIXTURES_ROOT_EXPORTS_NO_MIGRATION
+  real_l40s: 120_OF_120_INFRASTRUCTURE_69_PASS_51_FAIL_138_MODEL_INVOCATIONS_15_TOOLS_SIX_MATRICES_RAW_REAL_BINDING_REFERENCE_IMPORTED_QUASI_CONTROLLED
+  artifact_digests: SPEC_5e06acd_RESULTS_c231296e_MANIFEST_4c68e6_POST_9669aa3
+  post_run: VRAM_0_MIB_PROCESSES_0
+  kpis_zero: MISSING_VERSION_IDENTITY_MODEL_STRATEGY_EFFECT_MISLABELS_HIERARCHY_VALIDATION_OVERRIDE_UNRECORDED_PROMPT_TOOL_CHANGES
+  limitations: SMALL_EXACT_TASKSET_EXTERNAL_NON_NATIVE_ENGINE_AUTHORITY_PADDED_BATCHING_PROCESS_WIDE_VRAM_DESCRIPTIVE_NO_SIGNIFICANCE_OR_UNIVERSAL_WINNER
+  unresolved: NONE
+
 owner_priority:
   standing_order: preserve_current_or_recoverable_long_running_productive_work_before_any_remote_sync_restore_reset_checkout_merge_or_host_replacement
   remote_newer_is_not_permission_to_replace_unpreserved_execution_work: true
   current_sequence:
-    - retain_predecessor_P4_01_durable_close_evidence
-    - load_and_compile_P4_02_exact_prompt_when_execution_begins
+    - retain_predecessor_P4_02_durable_close_evidence
+    - load_and_compile_P4_03_exact_prompt_when_execution_begins
 
 execution_host:
   current_host:
@@ -255,24 +271,24 @@ multi_ai_execution:
     no_permanent_named_agent_hierarchy: true
 
 current_frontier:
-  state: P4_02_ACTIVATED_NOT_STARTED
+  state: P4_03_ACTIVATED_NOT_STARTED
   P3_05_durable_close_complete: true
   P3_06_durable_close_complete: true
   P3_07_durable_close_complete: true
   P3_13_durable_close_complete: true
   P3_14_durable_close_complete: true
-  P4_01_durable_close_complete: true
-  P4_02_prompt_loaded: false
-  P4_02_prompt_compiled: false
-  P4_02_execution_started: false
-  P4_02_execution_authorized: true
+  P4_02_durable_close_complete: true
+  P4_03_prompt_loaded: false
+  P4_03_prompt_compiled: false
+  P4_03_execution_started: false
+  P4_03_execution_authorized: true
 
 activation_boundary:
-  P4_02_authorized: true
-  P4_02_prompt_loaded: false
-  P4_02_graph_compiled: false
-  P4_02_execution_started: false
+  P4_03_authorized: true
+  P4_03_prompt_loaded: false
+  P4_03_graph_compiled: false
+  P4_03_execution_started: false
   legacy_spark_prep_dependency: false
-  rule: compile_only_from_exact_P4_02_prompt_and_accepted_source; P4_02_exact_prompt_governs_its_L40S_matrix_only_after_activation
-  predecessor_evidence: P4_01_durable_close_mapping_above
+  rule: compile_only_from_exact_P4_03_prompt_and_accepted_source
+  predecessor_evidence: P4_02_durable_close_mapping_above
 ```

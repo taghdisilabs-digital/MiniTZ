@@ -23,37 +23,35 @@ engine:
 
 durable_source:
   current_implementation_base:
-    commit: 3fc7f1eeecbf2b6fb7b4754c31939c5e8aa7e22f
-    tree: a87e9219ca2b27448a4de9e75412d22d00be977e
-    meaning: P4_01_durably_closed
+    commit: 5a261f021c3c743e68910c5f0f61f5ab7b12b471
+    tree: 2b377a9bbff0d720b69c6179b562ee67e81a5211
+    meaning: P4_02_durably_closed
   current_execution_map:
-    source_commit: ede6095fbf2b3712e46e5a06711eb240453136fc
-    source_tree: 9e6d7da30a3f8db51493999c56ff569369852a18
-    implementation_commit: 84f26c8f8eb7bd83a2b9d175944f39ba7341e018
-    implementation_tree: 4a0ead0e7bc5e5732595c503d7d735052d64e2da
-    result_commit: 3fc7f1eeecbf2b6fb7b4754c31939c5e8aa7e22f
-    result_tree: a87e9219ca2b27448a4de9e75412d22d00be977e
+    source_commit: 7c48244f2aea833f32ea6d3b774fa473aeae5772
+    source_tree: cd39defcd2aa7272940974c3f1863a9218b1ab8a
+    result_commit: 5a261f021c3c743e68910c5f0f61f5ab7b12b471
+    result_tree: 2b377a9bbff0d720b69c6179b562ee67e81a5211
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    status: P4_01_COMPLETE_P4_02_ACTIVATED_PROMPT_NOT_LOADED
+    status: P4_02_COMPLETE_P4_03_ACTIVATED_PROMPT_NOT_LOADED
   branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
     first_rejected_execution_time: "2026-08-30T10:44:52Z"
     rejected_post_boundary_completion_claims: P3_10_THROUGH_P3_09
 
 numbered_execution:
-  durable_prompts_complete: 46
+  durable_prompts_complete: 47
   durable_prompts_total: 51
-  progress: "46 / 51"
+  progress: "47 / 51"
   phase: P4
-  active_prompt: P4-02
-  active_global_number: 47
-  active_title: Agent, Skill, Prompt, Tool and Execution Strategy Evaluation
-  predecessor: P4-01
+  active_prompt: P4-03
+  active_global_number: 48
+  active_title: Conditional Reversible Evidence-Based Routing Learning
+  predecessor: P4-02
   successor_execution_authorized: true
   active_execution_authorized: true
-  future_activation_shells_prepared: P4_02_THROUGH_P4_06
+  future_activation_shells_prepared: P4_03_THROUGH_P4_06
   future_internal_graphs_precompiled: false
   future_graph_rule: compile_each_from_exact_prompt_and_current_source_only_when_activated
 
@@ -93,8 +91,8 @@ standing_owner_priority:
   remote_newer_does_not_override_unpreserved_execution_work: true
   session_model_SSH_tmux_or_host_change_does_not_invalidate_verified_work: true
   current_required_order:
-    - retain_P4_01_durable_close_evidence
-    - load_and_compile_P4_02_only_from_its_exact_prompt_when_execution_begins
+    - retain_P4_02_durable_close_evidence
+    - load_and_compile_P4_03_only_from_its_exact_prompt_when_execution_begins
 
 p3_05_recovery:
   status: REUSED_FOR_DURABLE_CLOSE_WITHOUT_REHASH
@@ -199,11 +197,41 @@ p4_01_durable_close:
     unknowns: COST_QUEUE_REMOTE_RESOURCE_TIMEOUT
     post_run: L40S_0_MIB_NO_RESIDENCY
 
+p4_02_durable_close:
+  source_boundary:
+    commit: 7c48244f2aea833f32ea6d3b774fa473aeae5772
+    tree: cd39defcd2aa7272940974c3f1863a9218b1ab8a
+  result:
+    commit: 5a261f021c3c743e68910c5f0f61f5ab7b12b471
+    tree: 2b377a9bbff0d720b69c6179b562ee67e81a5211
+  github_readback: EXACT_ELEVEN_PATHS_PASS
+  implementation: STRATEGY_EVALUATION_CONTRACTS_RUNTIME_EVIDENCE_THREE_TESTS_FOUR_REAL_FIXTURES_AND_ROOT_EXPORTS; NO_MIGRATION
+  qualification: P4_01_AND_P4_02_31_TESTS_GREEN_IN_7.14_SECONDS; REPAIRED_P4_02_14_TESTS_GREEN_IN_3.35_SECONDS; STRICT_MYPY_7_FILES_PASS; ALL_KPIS_ZERO
+  wheel_sha256: 98dea755f9a2917f6415df086e5f645cf6b5564b5e36005397b61f441b3f9567
+  wheel_imports: VERIFIED
+  real_l40s:
+    infrastructure: 120_OF_120
+    semantic: 69_OF_120_PASS_51_OF_120_FAIL
+    model_invocations: 138
+    tool_calls: 15
+    matrices: 6
+    artifact_digests: SPEC_5e06acd_RESULTS_c231296e_MANIFEST_4c68e6_POST_9669aa3
+    post_run: VRAM_0_MIB_PROCESSES_0
+    evidence_classification: RAW_REAL_BINDING_REFERENCE_IMPORTED_QUASI_CONTROLLED
+  kpis_zero:
+    - missing_version_identity
+    - model_or_strategy_effect_mislabels
+    - hierarchy
+    - validation_override
+    - unrecorded_prompt_or_tool_changes
+  limitations: SMALL_EXACT_TASKSET_EXTERNAL_NON_NATIVE_ENGINE_AUTHORITY_PADDED_BATCHING_PROCESS_WIDE_VRAM_DESCRIPTIVE_NO_SIGNIFICANCE_OR_UNIVERSAL_WINNER
+  unresolved: NONE
+
 approved_execution_program:
   language: biella.codex.end_to_end/v2
   mode: SINGLE_END_TO_END_NUMBERED_EXECUTION
   active_graph_location: docs/project-state/04_BIELLA_ACTIVE_TASK.md
-  active_graph: P4_02_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
+  active_graph: P4_03_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
   duplicate_prevention:
     exact_Node_identity_and_claim: required
     one_current_owner_per_Node: true
@@ -256,6 +284,7 @@ truth:
   P3_14_durable_close: VERIFIED
   P3_READY_FOR_P4: VERIFIED
   P4_01_durable_close: VERIFIED
+  P4_02_durable_close: VERIFIED
   P3_08_or_later_completion_claims_from_rejected_execution: REJECTED
   exact_recovered_P3_05_worktree_contents: REUSED_FOR_DURABLE_CLOSE_WITHOUT_REHASH
   multi_AI_execution_map_approved_by_user: true
