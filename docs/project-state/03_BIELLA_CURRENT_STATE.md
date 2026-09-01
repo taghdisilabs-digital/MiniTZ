@@ -23,35 +23,35 @@ engine:
 
 durable_source:
   current_implementation_base:
-    commit: 4140f584d4994895b46b7b35ec43c4535844348d
-    tree: 579c4ce1f8e4171aca12a4bb659b4c502950acfd
-    meaning: P4_05_durably_qualified_and_published
+    commit: b7a55142edea7de895f799b8bef074a2a02d916d
+    tree: 6df2a4d4f04246713220aa2461a10e33ba1b93d1
+    meaning: P4_06_durably_qualified_FOUNDATION_COMPLETE
   current_execution_map:
-    result_commit: 4140f584d4994895b46b7b35ec43c4535844348d
-    result_tree: 579c4ce1f8e4171aca12a4bb659b4c502950acfd
+    result_commit: b7a55142edea7de895f799b8bef074a2a02d916d
+    result_tree: 6df2a4d4f04246713220aa2461a10e33ba1b93d1
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    status: P4_05_COMPLETE_P4_06_ACTIVATED_PROMPT_NOT_LOADED
+    status: P4_06_COMPLETE_FOUNDATION_COMPLETE_NO_NEXT_NUMBERED_PROMPT
   branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
     first_rejected_execution_time: "2026-08-30T10:44:52Z"
     rejected_post_boundary_completion_claims: P3_10_THROUGH_P3_09
 
 numbered_execution:
-  durable_prompts_complete: 50
+  durable_prompts_complete: 51
   durable_prompts_total: 51
-  progress: "50 / 51"
-  phase: P4
-  active_prompt: P4-06
-  active_global_number: 51
-  active_title: Versioned Production Recipe Learning and Full P0-P4 Qualification
-  predecessor: P4-05
-  successor_execution_authorized: true
-  active_execution_authorized: true
-  future_activation_shells_prepared: P4_06_ONLY
+  progress: "51 / 51"
+  phase: FOUNDATION_COMPLETE
+  active_prompt: NONE
+  active_global_number: NONE
+  active_title: Foundation Complete
+  predecessor: P4-06
+  successor_execution_authorized: false
+  active_execution_authorized: false
+  future_activation_shells_prepared: NONE
   future_internal_graphs_precompiled: false
-  future_graph_rule: compile_each_from_exact_prompt_and_current_source_only_when_activated
+  future_graph_rule: no_next_numbered_prompt
 
 execution_host_state:
   current_host:
@@ -89,8 +89,8 @@ standing_owner_priority:
   remote_newer_does_not_override_unpreserved_execution_work: true
   session_model_SSH_tmux_or_host_change_does_not_invalidate_verified_work: true
   current_required_order:
-    - retain_P4_04_durable_close_evidence
-    - load_and_compile_P4_05_only_from_its_exact_prompt_when_execution_begins
+    - retain_P4_06_durable_close_evidence
+    - no_next_numbered_execution
 
 p3_05_recovery:
   status: REUSED_FOR_DURABLE_CLOSE_WITHOUT_REHASH
@@ -283,11 +283,29 @@ p4_05_durable_close:
   limitations: SIMILARITY_INDEX_DERIVED_NON_AUTHORITATIVE; MODEL_SCORE_NEVER_IDENTITY; REPAIR_PROPOSAL_REQUIRES_TASK_GRAPH_AUTHORITY
   unresolved: NONE
 
+p4_06_durable_close:
+  initial_source_commit: 5f9e69318d3d690201661e2ff76cdff65b251b05
+  result_commit: b7a55142edea7de895f799b8bef074a2a02d916d
+  result_tree: 6df2a4d4f04246713220aa2461a10e33ba1b93d1
+  github_readback: EXACT_SEVEN_OF_SEVEN_THEN_REPAIR_TWO_OF_TWO_CONFIRMED
+  qualification: P4_79_OF_79; FOCUSED_14_OF_14; NEUTRAL_INVALIDATED_1_OF_1; STRICT_MYPY_186
+  wheel_sha256: 87b5f4c314ef77d75de02e7f79ee966a933b5ec2fc3c487abf2896e4aba26000
+  drive_evidence:
+    runtime_qualification_id: 1aPBlo32W0lXj_d2Fkfw4QeYhHk5cOFbl
+    runtime_qualification_sha256: bb6501aa312e071685b59f6b04172294a3d78926b4e711201415c76c174889bf
+    recipe_store_id: 1sRgvPljcCKiNdTO3EsqGxdF2SSRtWcc_
+    recipe_store_sha256: e865a29a5cd4a50071eb54d911a92ddcd721f1f972a1b1feeefc4a2a70952b6f
+    system_summary_id: 13kCHinR5a-TW7SiIbPESdQZz-Ygjj9MS
+    system_summary_file_sha256: eeb3fd11a2e2e1adf3df17c505921d687c809aa42eef57d184bbab457ff64079
+    system_summary_payload_digest: a5c83cf3bde04647b6009445d07b986abe4c99c23991c0770680366271069c66
+    exact_readback: THREE_OF_THREE
+  status: COMPLETE; FOUNDATION_COMPLETE
+
 approved_execution_program:
   language: biella.codex.end_to_end/v2
   mode: SINGLE_END_TO_END_NUMBERED_EXECUTION
   active_graph_location: docs/project-state/04_BIELLA_ACTIVE_TASK.md
-  active_graph: P4_06_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
+  active_graph: FOUNDATION_COMPLETE_NO_ACTIVE_NUMBERED_GRAPH
   duplicate_prevention:
     exact_Node_identity_and_claim: required
     one_current_owner_per_Node: true
@@ -317,7 +335,6 @@ context_policy:
   normal_load:
     - docs/project-state/03_BIELLA_CURRENT_STATE.md
     - docs/project-state/04_BIELLA_ACTIVE_TASK.md
-    - exact_active_numbered_prompt
     - directly_touched_source_and_interfaces
   read_only_if_required:
     - 00_operational_edge_cases
@@ -343,10 +360,14 @@ truth:
   P4_02_durable_close: VERIFIED
   P4_03_durable_close: VERIFIED
   P4_04_durable_close: VERIFIED
+  P4_05_durable_close: VERIFIED
+  P4_06_durable_close: VERIFIED
+  P0_THROUGH_P4_COMPLETE: VERIFIED
+  FOUNDATION_COMPLETE: VERIFIED
   P3_08_or_later_completion_claims_from_rejected_execution: REJECTED
   exact_recovered_P3_05_worktree_contents: REUSED_FOR_DURABLE_CLOSE_WITHOUT_REHASH
   multi_AI_execution_map_approved_by_user: true
-  future_numbered_activation_queue_prepared: true
+  future_numbered_activation_queue_prepared: false
   previous_VPS_destroyed: VERIFIED_USER_REPORT
   current_execution_host_exists: true
   Drive_recovery_archive_exact_readback: VERIFIED_FRESH_2026_08_31
