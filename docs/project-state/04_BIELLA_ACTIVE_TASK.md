@@ -4,22 +4,25 @@
 schema: biella.active_task/v6
 
 active_task:
-  id: P3-13
-  global_number: 44
+  id: P3-14
+  global_number: 45
   phase: P3
-  title: Video Production, Editing, Compositing and Media Pipeline Pack
+  title: Packaging, Publishing, Release and Durable Delivery Pack
   state: ACTIVATED_PROMPT_NOT_LOADED_OR_COMPILED
-  predecessor: P3-12
-  predecessor_result_commit: 3dcc194253bb54d2a171cf7230877af95231ebe7
-  predecessor_result_tree: 8835d92e6651ea13ec5f02b87487f0520fb7bae6
-  predecessor_github_readback: EXACT_COMMIT_TREE_AND_SEVEN_BLOBS_CONFIRMED
+  predecessor: P3-13
+  predecessor_result_commit: 27f8958aa3f6a2847b5d506580f04bcc904db98e
+  predecessor_result_tree: c92b5e322259ccd7619a7d51dbe94f270942b10e
+  predecessor_github_readback: EXACT_COMMIT_TREE_AND_EIGHT_BLOBS_CONFIRMED
   execution_authorized: true
+  standing_authorization: true
+  supersedes_continuity: false
+  legacy_spark_prep_dependency: false
 
 exact_prompt:
-  title: Video Production, Editing, Compositing and Media Pipeline Pack
-  drive_id: 12_Z1RrJBW8fGVj5z76wnaphozu8J2DjSrHd2gJVrbmA
+  title: Packaging, Publishing, Release and Durable Delivery Pack
+  drive_id: 1mkk0VYh14ut2Tz-7YKcdW35p0GJRtv7bVQeVSPVTzpE
   status: NOT_LOADED_OR_COMPILED
-  rule: obtain_exact_P3_13_prompt_body_only_when_execution_begins
+  rule: obtain_exact_P3_14_prompt_body_only_when_execution_begins
 
 prior_durable_through_P3_08:
   status: VERIFIED
@@ -41,20 +44,25 @@ prior_durable_through_P3_11:
   latest_result_commit: 72bd7d78f7fe5ff53cac003cfeddcd91188fcfe3
   latest_result_tree: 21ed73b5e2f55ce21a77ce28f40d5b415f159c0b
 
-P3_12_durable_close:
-  result_commit: 3dcc194253bb54d2a171cf7230877af95231ebe7
-  result_tree: 8835d92e6651ea13ec5f02b87487f0520fb7bae6
-  github_readback: EXACT_COMMIT_TREE_AND_SEVEN_PATHS_CONFIRMED
-  final_gate: 23_PASSED_1_INTENTIONAL_MELO_TEMP_UNAVAILABLE_SKIP_IN_119.70_SECONDS; STRICT_MYPY_7_PATHS_GREEN; FIVE_KPIS_ZERO
-  provider_incident: ONE_MELOTTS_HTTP_500_PRESERVED_NOT_RETRIED
-  wheel_sha256: 9877cbaa10c82b28517802968f899e12046f7d9115084639611eb5b0458c70ac
+prior_durable_through_P3_12:
+  status: VERIFIED
+  latest_result_commit: 3dcc194253bb54d2a171cf7230877af95231ebe7
+  latest_result_tree: 8835d92e6651ea13ec5f02b87487f0520fb7bae6
+
+P3_13_durable_close:
+  result_commit: 27f8958aa3f6a2847b5d506580f04bcc904db98e
+  result_tree: c92b5e322259ccd7619a7d51dbe94f270942b10e
+  github_readback: EXACT_COMMIT_TREE_AND_EIGHT_PATHS_CONFIRMED
+  final_gate: 12_TESTS_GREEN_IN_147.41_SECONDS; STRICT_MYPY_7_FILES_SUCCESS; FIVE_PROMPT_KPIS_ZERO
+  optional_generative_path: NOT_RUN
+  wheel_sha256: abd3933d701e7dd33c0f6b2d40bc947e2d84ac565a90bf76af3aad46008f2810
 
 owner_priority:
   standing_order: preserve_current_or_recoverable_long_running_productive_work_before_any_remote_sync_restore_reset_checkout_merge_or_host_replacement
   remote_newer_is_not_permission_to_replace_unpreserved_execution_work: true
   current_sequence:
-    - retain_predecessor_P3_12_durable_close_evidence
-    - load_and_compile_P3_13_exact_prompt_when_execution_begins
+    - retain_predecessor_P3_13_durable_close_evidence
+    - load_and_compile_P3_14_exact_prompt_when_execution_begins
 
 execution_host:
   current_host:
@@ -208,19 +216,21 @@ multi_ai_execution:
     no_permanent_named_agent_hierarchy: true
 
 current_frontier:
-  state: P3_13_ACTIVATED_NOT_STARTED
+  state: P3_14_ACTIVATED_NOT_STARTED
   P3_05_durable_close_complete: true
   P3_06_durable_close_complete: true
   P3_07_durable_close_complete: true
-  P3_12_durable_close_complete: true
-  P3_13_prompt_loaded: false
-  P3_13_prompt_compiled: false
-  P3_13_execution_authorized: true
+  P3_13_durable_close_complete: true
+  P3_14_prompt_loaded: false
+  P3_14_prompt_compiled: false
+  P3_14_execution_started: false
+  P3_14_execution_authorized: true
 
 activation_boundary:
-  P3_13_authorized: true
-  P3_13_prompt_loaded: false
-  P3_13_graph_compiled: false
-  rule: compile_only_from_exact_P3_13_prompt_and_accepted_source
-  predecessor_evidence: P3_12_durable_close_mapping_above
+  P3_14_authorized: true
+  P3_14_prompt_loaded: false
+  P3_14_graph_compiled: false
+  P3_14_execution_started: false
+  rule: compile_only_from_exact_P3_14_prompt_and_accepted_source
+  predecessor_evidence: P3_13_durable_close_mapping_above
 ```

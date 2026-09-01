@@ -23,34 +23,34 @@ engine:
 
 durable_source:
   current_implementation_base:
-    commit: 3dcc194253bb54d2a171cf7230877af95231ebe7
-    tree: 8835d92e6651ea13ec5f02b87487f0520fb7bae6
-    meaning: P3_12_durably_closed
+    commit: 27f8958aa3f6a2847b5d506580f04bcc904db98e
+    tree: c92b5e322259ccd7619a7d51dbe94f270942b10e
+    meaning: P3_13_durably_closed
   current_execution_map:
-    source_commit: 72bd7d78f7fe5ff53cac003cfeddcd91188fcfe3
-    result_commit: 3dcc194253bb54d2a171cf7230877af95231ebe7
-    result_tree: 8835d92e6651ea13ec5f02b87487f0520fb7bae6
+    source_commit: 3dcc194253bb54d2a171cf7230877af95231ebe7
+    result_commit: 27f8958aa3f6a2847b5d506580f04bcc904db98e
+    result_tree: c92b5e322259ccd7619a7d51dbe94f270942b10e
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    status: P3_12_COMPLETE_P3_13_ACTIVATED_PROMPT_NOT_LOADED
+    status: P3_13_COMPLETE_P3_14_ACTIVATED_PROMPT_NOT_LOADED
   branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
     first_rejected_execution_time: "2026-08-30T10:44:52Z"
     rejected_post_boundary_completion_claims: P3_10_THROUGH_P3_09
 
 numbered_execution:
-  durable_prompts_complete: 43
+  durable_prompts_complete: 44
   durable_prompts_total: 51
-  progress: "43 / 51"
+  progress: "44 / 51"
   phase: P3
-  active_prompt: P3-13
-  active_global_number: 44
-  active_title: Video Production, Editing, Compositing and Media Pipeline Pack
-  predecessor: P3-12
+  active_prompt: P3-14
+  active_global_number: 45
+  active_title: Packaging, Publishing, Release and Durable Delivery Pack
+  predecessor: P3-13
   successor_execution_authorized: false
   active_execution_authorized: true
-  future_activation_shells_prepared: P3_13_THROUGH_P4_06
+  future_activation_shells_prepared: P3_14_THROUGH_P4_06
   future_internal_graphs_precompiled: false
   future_graph_rule: compile_each_from_exact_prompt_and_current_source_only_when_activated
 
@@ -125,21 +125,26 @@ prior_durable_through_P3_11:
   latest_result_commit: 72bd7d78f7fe5ff53cac003cfeddcd91188fcfe3
   latest_result_tree: 21ed73b5e2f55ce21a77ce28f40d5b415f159c0b
 
-p3_12_durable_close:
-  result_commit: 3dcc194253bb54d2a171cf7230877af95231ebe7
-  result_tree: 8835d92e6651ea13ec5f02b87487f0520fb7bae6
-  github_readback: EXACT_COMMIT_TREE_AND_SEVEN_PATHS_CONFIRMED
-  contract: REAL_FFMPEG_8_0_1_DECODE_EDIT_RESAMPLE_CONVERT_FILTER_NORMALIZE_STEM_MIX_SESSION_METRICS_GAME_VIDEO_HANDOFF_AND_REAL_CLOUDFLARE_AURA_1_SPEECH
-  final_gate: 23_PASSED_1_INTENTIONAL_MELO_TEMP_UNAVAILABLE_SKIP_IN_119.70_SECONDS; STRICT_MYPY_7_PATHS_GREEN; FIVE_KPIS_ZERO
-  provider_incident: ONE_MELOTTS_HTTP_500_PRESERVED_NOT_RETRIED
-  capabilities: 21_TOTAL_INCLUDING_3_EXPLICIT_OPTIONAL
-  wheel_sha256: 9877cbaa10c82b28517802968f899e12046f7d9115084639611eb5b0458c70ac
+prior_durable_through_P3_12:
+  status: VERIFIED
+  latest_result_commit: 3dcc194253bb54d2a171cf7230877af95231ebe7
+  latest_result_tree: 8835d92e6651ea13ec5f02b87487f0520fb7bae6
+
+p3_13_durable_close:
+  result_commit: 27f8958aa3f6a2847b5d506580f04bcc904db98e
+  result_tree: c92b5e322259ccd7619a7d51dbe94f270942b10e
+  github_readback: EXACT_COMMIT_TREE_AND_EIGHT_PATHS_CONFIRMED
+  contract: REAL_FFMPEG_8_0_1_FULL_PROBE_DECODE_MANAGED_PROCESS_MEDIA_FRAMES_IMMUTABLE_SOURCE_ORDERED_P3_11_FRAMES_P3_12_AUDIO_SUBTITLE_MUX_COMPOSE_ENCODE_PROXY_SESSION_GAME_HANDOFF_FAILURE_CANCEL_REPLAY_RECOVERY
+  final_gate: 12_TESTS_GREEN_IN_147.41_SECONDS; STRICT_MYPY_7_FILES_SUCCESS; FIVE_PROMPT_KPIS_ZERO
+  optional_generative_path: NOT_RUN
+  wheel_sha256: abd3933d701e7dd33c0f6b2d40bc947e2d84ac565a90bf76af3aad46008f2810
+  wheel_import: BASE_IMPORT_AND_PILLOW_LAZY_VERIFIED
 
 approved_execution_program:
   language: biella.codex.end_to_end/v2
   mode: SINGLE_END_TO_END_NUMBERED_EXECUTION
   active_graph_location: docs/project-state/04_BIELLA_ACTIVE_TASK.md
-  active_graph: P3_13_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
+  active_graph: P3_14_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
   duplicate_prevention:
     exact_Node_identity_and_claim: required
     one_current_owner_per_Node: true
