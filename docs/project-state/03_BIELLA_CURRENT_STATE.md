@@ -23,33 +23,33 @@ engine:
 
 durable_source:
   current_implementation_base:
-    commit: 6892628a9f48114755ec02f3aa8728399312b163
-    tree: f33654a9471aa66da1aa1aa06cf4cfd6bbf07b8c
-    meaning: P4_04_durably_qualified_and_published
+    commit: 4140f584d4994895b46b7b35ec43c4535844348d
+    tree: 579c4ce1f8e4171aca12a4bb659b4c502950acfd
+    meaning: P4_05_durably_qualified_and_published
   current_execution_map:
-    result_commit: 6892628a9f48114755ec02f3aa8728399312b163
-    result_tree: f33654a9471aa66da1aa1aa06cf4cfd6bbf07b8c
+    result_commit: 4140f584d4994895b46b7b35ec43c4535844348d
+    result_tree: 579c4ce1f8e4171aca12a4bb659b4c502950acfd
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    status: P4_04_COMPLETE_P4_05_ACTIVATED_PROMPT_NOT_LOADED
+    status: P4_05_COMPLETE_P4_06_ACTIVATED_PROMPT_NOT_LOADED
   branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
     first_rejected_execution_time: "2026-08-30T10:44:52Z"
     rejected_post_boundary_completion_claims: P3_10_THROUGH_P3_09
 
 numbered_execution:
-  durable_prompts_complete: 49
+  durable_prompts_complete: 50
   durable_prompts_total: 51
-  progress: "49 / 51"
+  progress: "50 / 51"
   phase: P4
-  active_prompt: P4-05
-  active_global_number: 50
-  active_title: Evidence-Based Failure Pattern and Repair Intelligence Learning
-  predecessor: P4-04
+  active_prompt: P4-06
+  active_global_number: 51
+  active_title: Versioned Production Recipe Learning and Full P0-P4 Qualification
+  predecessor: P4-05
   successor_execution_authorized: true
   active_execution_authorized: true
-  future_activation_shells_prepared: P4_05_THROUGH_P4_06
+  future_activation_shells_prepared: P4_06_ONLY
   future_internal_graphs_precompiled: false
   future_graph_rule: compile_each_from_exact_prompt_and_current_source_only_when_activated
 
@@ -266,11 +266,28 @@ p4_04_durable_close:
     manifest_id: 1ju6IkWQXsPtDXatgM23DtuV19jHsUKAT
     post_id: 18uKbLweyte4Hwha4ZKe7-V-sLzgRuIjt
 
+p4_05_durable_close:
+  result_commit: 4140f584d4994895b46b7b35ec43c4535844348d
+  result_tree: 579c4ce1f8e4171aca12a4bb659b4c502950acfd
+  github_readback: EXACT_NINE_OF_NINE_PATHS_CONFIRMED
+  qualification: FOCUSED_11_OF_11; STRICT_MYPY_181_FILES; P4_65_OF_65; TASK_EXECUTION_AUTHORITY_44_PLUS_3_SUBTESTS; NEUTRAL_1_OF_1; WHEEL_BUILD_INSTALL_RESTART_PASS
+  kpis: ALL_SIX_ZERO
+  reality: REAL_SQLITE_DURABILITY_AND_KNOWLEDGE_PROJECTION; PRIOR_P3_CASES_REFERENCE_ONLY
+  l40s: NOT_USED_NO_PROMPT_MATRIX_OR_MATERIAL_GPU_WORK
+  drive_evidence:
+    qualification_id: 1DubjS-3HHUoOpkL7vg5PP5tMlkyHud1T
+    qualification_sha256: 0f0e5a7d953dab0103d9c6b10234443742c867a037607d44b4bf93e68d37bc9c
+    reference_manifest_id: 1tzVOlqpgXuHDKny-DwtMhivA3-d5vmrt
+    reference_manifest_sha256: 89739140899c24a9499f9ee64d216c4c29a7e7f9f1c5d421c47d2b6c5f6c3bcf
+    exact_readback: TWO_OF_TWO
+  limitations: SIMILARITY_INDEX_DERIVED_NON_AUTHORITATIVE; MODEL_SCORE_NEVER_IDENTITY; REPAIR_PROPOSAL_REQUIRES_TASK_GRAPH_AUTHORITY
+  unresolved: NONE
+
 approved_execution_program:
   language: biella.codex.end_to_end/v2
   mode: SINGLE_END_TO_END_NUMBERED_EXECUTION
   active_graph_location: docs/project-state/04_BIELLA_ACTIVE_TASK.md
-  active_graph: P4_05_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
+  active_graph: P4_06_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
   duplicate_prevention:
     exact_Node_identity_and_claim: required
     one_current_owner_per_Node: true
