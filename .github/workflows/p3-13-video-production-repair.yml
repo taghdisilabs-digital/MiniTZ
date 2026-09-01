@@ -10,9 +10,6 @@ on:
       - "tests/test_p3_13_video_frames.py"
       - "tests/test_p3_13_video_pack.py"
       - "tests/test_p3_13_video_real.py"
-      - "docs/project-state/03_BIELLA_CURRENT_STATE.md"
-      - "docs/project-state/04_BIELLA_ACTIVE_TASK.md"
-      - "docs/project-state/evidence/P3_13_VIDEO_PRODUCTION_REPAIR_EVIDENCE.md"
       - ".github/workflows/p3-13-video-production-repair.yml"
   workflow_dispatch:
 

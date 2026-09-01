@@ -23,11 +23,11 @@ engine:
 
 durable_source:
   current_result:
-    implementation_commit: c99cb2d57f7dd710e97465fed4d961286b72050c
-    implementation_tree: e0cf13164bc335342ef4d206569197f03366f710
-    closure_commit: 4b7e6b6e48805392fadca69ef02470f6d4c3967d
-    closure_tree: a0affdd0b81599c5eb9bb649f46488ed8955adc9
-    meaning: P3_12_COMPLETE_DURABLE
+    implementation_commit: 8133a5408babc142602f93e1af22cf8eb258a9db
+    implementation_tree: c1679d62ba3f7ad65143292a0b2dbd282ae37603
+    workflow_qualification_commit: fef638d87ec0799e7f94d806cf01da307c5e543d
+    workflow_qualification_tree: 566fa04e3cf080a96a44f9bab16d2785fc60d692
+    meaning: P3_13_COMPLETE_DURABLE
     github_readback: EXACT_COMMIT_TREE_AND_REQUIRED_PATH_BLOB_CONFIRMED
     preserved_later_work_completion_authority: false
   preserved_worktree:
@@ -36,16 +36,17 @@ durable_source:
     meaning: INDEPENDENT_P4_06_PRODUCTIVE_WORK; NOT_PART_OF_P3_12
 
 numbered_execution:
-  durable_prompts_complete: 48
+  durable_prompts_complete: 49
   durable_prompts_total: 51
-  progress: "48 / 51 durable; non-contiguous audited; active repair frontier 44"
+  progress: "49 / 51 durable; non-contiguous audited; active repair frontier 45"
   phase: P3_DURABLE_REPAIR
-  just_closed_prompt: P3-12
-  just_closed_global_number: 43
-  active_prompt: P3-13
-  active_global_number: 44
-  active_title: Video Production, Editing, Compositing and Media Pipeline Pack
-  active_drive_prompt_id: 12_Z1RrJBW8fGVj5z76wnaphozu8J2DjSrHd2gJVrbmA
+  just_closed_prompt: P3-13
+  just_closed_global_number: 44
+  active_prompt: P3-14
+  active_global_number: 45
+  active_title: Packaging, Publishing, Release and Durable Delivery Pack
+  active_drive_prompt_id: 1mkk0VYh14ut2Tz-7YKcdW35p0GJRtv7bVQeVSPVTzpE
+  execution_started: false
   execution_authorized: true
   authorization_basis: MAHDI_STANDING_P3_06_THROUGH_P4_06
 
@@ -60,7 +61,7 @@ completion_audit_2026_09_01:
   P3_10: {durable_close: COMPLETE}
   P3_11: {durable_close: COMPLETE}
   P3_12: {durable_close: COMPLETE}
-  P3_13: {durable_close: INCOMPLETE, missing: six_KPI_report_correction_and_durable_media_video_evidence}
+  P3_13: {durable_close: COMPLETE}
   P3_14: {durable_close: INCOMPLETE, missing: phase_exit_provenance_Event_and_delivery_evidence}
   P4_01_through_P4_05: {durable_close: COMPLETE, reuse: REQUIRED}
   P4_06: {durable_close: INCOMPLETE, missing: authoritative_Engine_evidence_and_combined_failure_scenario}
@@ -131,13 +132,54 @@ p3_12_durable_close:
     completion_event: evt-ENG-P3-12-complete-20260901T194148Z
     successor_status: READY_ELIGIBLE
 
+p3_13_durable_close:
+  status: COMPLETE_DURABLE
+  completed_at_utc: 2026-09-01T20:50:10Z
+  exact_prompt_drive_id: 12_Z1RrJBW8fGVj5z76wnaphozu8J2DjSrHd2gJVrbmA
+  repair_commit: 8133a5408babc142602f93e1af22cf8eb258a9db
+  repair_tree: c1679d62ba3f7ad65143292a0b2dbd282ae37603
+  workflow_qualification_commit: fef638d87ec0799e7f94d806cf01da307c5e543d
+  workflow_qualification_tree: 566fa04e3cf080a96a44f9bab16d2785fc60d692
+  github_actions_run: 33554959677
+  github_actions_artifact: 9819033703
+  l40s_package_gate: PASS
+  engine_evidence:
+    project_ref: prj_de760e9b27764d0f8754f7bcecc31c47
+    run_ref: run_7dea687cfafe409bb132f7ff68fbd8e4
+    run_status: SUCCEEDED
+    graph_ref: graph://prj_de760e9b27764d0f8754f7bcecc31c47/gph_f189fc9a80c94bb881bdc2a1a1b36157/1
+    validation_aggregate_sha256: 88adf5cc6cc6448e7fe2f3bfd6b4ca86e2d9d1c6a98da5d7fd1c10971f088707
+    validation_status: PASS
+    validation_freshness: CURRENT
+    evidence_event_ref: event://prj_de760e9b27764d0f8754f7bcecc31c47/evt_30faa1b561ff4aa589558e01ddedc8c6
+    acceptance_event_ref: event://prj_de760e9b27764d0f8754f7bcecc31c47/evt_3e4732a151834e53bcadd2849f367dda
+  kpis:
+    invalid_video_container_claimed_valid: 0
+    source_video_destructively_mutated: 0
+    global_frame_rate_or_resolution_policy: 0
+    missing_frames_silently_replaced: 0
+    frame_order_lost: 0
+    audio_silently_stretched: 0
+  drive_evidence:
+    canonical_evidence_id: 15XWGE_7cSrXyDShiXmhFOqG5WbT1CSTg
+    retained_real_archive_id: 11y5PsDydFy47HOuuk7oRaXYD5700Eyr9
+    retained_real_archive_sha256: 32152eab780d65d27231f25d6f12993d16509d3065597bf1e5d2ee841efcf31f
+    retained_real_archive_size_bytes: 1269361
+    engine_evidence_id: 1NK1k_Cu3g4lTQCkG6f9_x2aTEZPG4lwA
+    engine_evidence_sha256: 8ec7e88ea6500cea9f94bbad8187e9dce771bbb356cbf03cc06a10c20b7d122f
+  canonical_ledger:
+    task_status: COMPLETE
+    successor_status: READY_ELIGIBLE
+    readback: VERIFIED
+
 continuation:
-  active_task_id: ENG-P3-13
-  active_task_title: P3-13 Video Production, Editing, Compositing and Media Pipeline durable repair
-  dependency: ENG-P3-12_COMPLETE
-  ledger_claim: RUNNING
-  acceptance_state: SOURCE_REPAIR_AND_REAL_EVIDENCE_EXECUTION
-  execution_started: true
+  active_task_id: ENG-P3-14
+  active_task_title: P3-14 Packaging, Publishing, Release and Durable Delivery durable repair
+  dependency: ENG-P3-13_COMPLETE
+  ledger_state: READY_ELIGIBLE
+  ledger_claim: NONE
+  acceptance_state: LOAD_EXACT_PROMPT_AND_REOBSERVE_CURRENT_SOURCE_AND_EVIDENCE
+  execution_started: false
   spark_or_prep_dependency: NONE
-  ordered_frontier: P3-13_THEN_P3-14_THEN_REUSE_P4-01_THROUGH_P4-05_THEN_P4-06_THEN_FOUNDATION_COMPLETE_THEN_BIELLA_GAMES
+  ordered_frontier: P3-14_THEN_REUSE_P4-01_THROUGH_P4-05_THEN_P4-06_THEN_FOUNDATION_COMPLETE_THEN_BIELLA_GAMES
 ```
