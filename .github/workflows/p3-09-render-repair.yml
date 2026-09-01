@@ -1,0 +1,43 @@
+name: P3-09 Renderer Repair
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/biella/render_pack.py"
+      - "src/biella/render_tool.py"
+      - "src/biella/_blender_render_driver.py"
+      - "src/biella/__init__.py"
+      - "tests/test_p3_09_render_pack.py"
+      - "tests/test_p3_09_render_real.py"
+      - "tests/test_p3_09_durable_evidence.py"
+      - ".github/workflows/p3-09-render-repair.yml"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install test dependencies
+        run: python -m pip install -e ".[test]"
+      - name: Focused contract tests
+        run: python -m pytest tests/test_p3_09_render_pack.py tests/test_p3_09_durable_evidence.py -q
+      - name: Strict typecheck
+        run: >-
+          python -m mypy --strict
+          src/biella/render_pack.py
+          src/biella/render_tool.py
+          src/biella/_blender_render_driver.py
+          src/biella/__init__.py
+          tests/test_p3_09_render_pack.py
+          tests/test_p3_09_render_real.py
+          tests/test_p3_09_durable_evidence.py
+      - name: Compile
+        run: python -m compileall -q src/biella
+      - name: Build wheel
+        run: python -m pip wheel . --no-deps -w dist
