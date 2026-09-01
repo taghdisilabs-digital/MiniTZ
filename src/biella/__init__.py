@@ -730,6 +730,29 @@ from .cloudflare_audio_model import (
     CloudflareAudioTransport,
     cloudflare_audio_model_adapter,
 )
+from .video_pack import (
+    VIDEO_ARTIFACT_ROLES,
+    VIDEO_CAPABILITIES,
+    AudioTrackBinding,
+    EditableVideoSessionBinding,
+    GameVideoHandoffBinding,
+    SubtitleTrackBinding,
+    VideoArtifactContentRef,
+    VideoClip,
+    VideoContractError,
+    VideoEdit,
+    VideoEffect,
+    VideoFrameRef,
+    VideoFrameSequenceManifest,
+    VideoInspectionRef,
+    VideoModelAdapter,
+    VideoOutputRef,
+    VideoSpecification,
+    VideoTimeline,
+    VideoToolAdapter,
+    VideoTransition,
+    video_production_pack,
+)
 if TYPE_CHECKING:
     from .image_tool import DeterministicImageTool
     from .audio_tool import (
@@ -739,6 +762,22 @@ if TYPE_CHECKING:
         AudioStemBatch,
         AudioTargetMeasurements,
         DeterministicAudioTool,
+    )
+    from .video_frame_pipeline import (
+        VideoDerivedArtifactEvidence,
+        VideoFrameEvidence,
+        VideoFramePipeline,
+        VideoFramePipelineError,
+        VideoFrameProcessingEvidence,
+        VideoFrameRequest,
+        VideoFrameSequenceResult,
+    )
+    from .video_tool import (
+        DeterministicVideoTool,
+        VideoDecodedMetadata,
+        VideoInspection,
+        VideoRenderResult,
+        VideoStreamEvidence,
     )
 from .three_d_tool import (
     BlenderThreeDToolAdapter,
@@ -1464,6 +1503,39 @@ __all__ = [
     "AudioStemBatch",
     "AudioTargetMeasurements",
     "DeterministicAudioTool",
+    "VIDEO_ARTIFACT_ROLES",
+    "VIDEO_CAPABILITIES",
+    "AudioTrackBinding",
+    "EditableVideoSessionBinding",
+    "GameVideoHandoffBinding",
+    "SubtitleTrackBinding",
+    "VideoArtifactContentRef",
+    "VideoClip",
+    "VideoContractError",
+    "VideoEdit",
+    "VideoEffect",
+    "VideoFrameRef",
+    "VideoFrameSequenceManifest",
+    "VideoInspectionRef",
+    "VideoModelAdapter",
+    "VideoOutputRef",
+    "VideoSpecification",
+    "VideoTimeline",
+    "VideoToolAdapter",
+    "VideoTransition",
+    "video_production_pack",
+    "DeterministicVideoTool",
+    "VideoDecodedMetadata",
+    "VideoInspection",
+    "VideoRenderResult",
+    "VideoStreamEvidence",
+    "VideoFramePipelineError",
+    "VideoFrameRequest",
+    "VideoFrameProcessingEvidence",
+    "VideoFrameEvidence",
+    "VideoFrameSequenceResult",
+    "VideoDerivedArtifactEvidence",
+    "VideoFramePipeline",
     "EnvironmentManifestPublication",
     "BlenderThreeDToolAdapter",
     "ReferenceThreeDToolAdapter",
@@ -1521,4 +1593,26 @@ def __getattr__(name: str) -> Any:
         from . import audio_tool
 
         return getattr(audio_tool, name)
+    if name in {
+        "DeterministicVideoTool",
+        "VideoDecodedMetadata",
+        "VideoInspection",
+        "VideoRenderResult",
+        "VideoStreamEvidence",
+    }:
+        from . import video_tool
+
+        return getattr(video_tool, name)
+    if name in {
+        "VideoFramePipelineError",
+        "VideoFrameRequest",
+        "VideoFrameProcessingEvidence",
+        "VideoFrameEvidence",
+        "VideoFrameSequenceResult",
+        "VideoDerivedArtifactEvidence",
+        "VideoFramePipeline",
+    }:
+        from . import video_frame_pipeline
+
+        return getattr(video_frame_pipeline, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
