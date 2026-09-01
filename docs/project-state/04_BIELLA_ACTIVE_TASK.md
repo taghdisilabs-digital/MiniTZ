@@ -4,14 +4,14 @@
 schema: biella.active_task/v6
 
 active_task:
-  id: P4-03
-  global_number: 48
+  id: P4-04
+  global_number: 49
   phase: P4
-  title: Conditional Reversible Evidence-Based Routing Learning
+  title: Cache, Locality, Residency and Resource Placement Learning
   state: ACTIVATED_PROMPT_NOT_LOADED_OR_COMPILED
-  predecessor: P4-02
-  predecessor_result_commit: 5a261f021c3c743e68910c5f0f61f5ab7b12b471
-  predecessor_result_tree: 2b377a9bbff0d720b69c6179b562ee67e81a5211
+  predecessor: P4-03
+  predecessor_result_commit: ad2f46a242e6fca216b767fb7e46aaacc1e2ca17
+  predecessor_result_tree: c33516fad72499d9ba8af434f1a23741d63c3386
   predecessor_github_readback: EXACT_COMMIT_TREE_AND_EIGHT_BLOBS_CONFIRMED
   execution_authorized: true
   standing_authorization: true
@@ -19,10 +19,10 @@ active_task:
   legacy_spark_prep_dependency: false
 
 exact_prompt:
-  title: Conditional Reversible Evidence-Based Routing Learning
-  drive_id: 1kGNEBjMTBllbfqpiUGcNf7_TxhDZ7uDBvKf-jq5iqBw
+  title: Cache, Locality, Residency and Resource Placement Learning
+  drive_id: 1ND5zkrv09Jwxs8EDIRQwJ_QGRWAKP0u8lzfjA0ZJ0D4
   status: NOT_LOADED_OR_COMPILED
-  rule: obtain_exact_P4_03_prompt_body_only_when_execution_begins
+  rule: obtain_exact_P4_04_prompt_body_only_when_execution_begins
 
 prior_durable_through_P3_08:
   status: VERIFIED
@@ -112,12 +112,29 @@ P4_02_durable_close:
   limitations: SMALL_EXACT_TASKSET_EXTERNAL_NON_NATIVE_ENGINE_AUTHORITY_PADDED_BATCHING_PROCESS_WIDE_VRAM_DESCRIPTIVE_NO_SIGNIFICANCE_OR_UNIVERSAL_WINNER
   unresolved: NONE
 
+P4_03_durable_close:
+  coherent_result_commit: dcfadf6c71b314c499f94f2adc541984c469c1c6
+  coherent_result_tree: d352e5df5f1479ddef454f13b085d8d7d2c31cbe
+  reconciled_pushed_head: ad2f46a242e6fca216b767fb7e46aaacc1e2ca17
+  reconciled_pushed_tree: c33516fad72499d9ba8af434f1a23741d63c3386
+  github_readback: EXACT_COMMIT_TREE_AND_FIFTEEN_CHANGED_PATHS_PASS
+  qualification: 15_FOCUSED_TESTS_PASS_INITIAL_FINAL_GATE_60_PASS_1_PREDECESSOR_FAILURE_EXACT_P0_PROVIDER_NEUTRAL_REPAIR_PASS_39_INVALIDATED_P4_TESTS_PASS_STRICT_MYPY_173_PASS
+  wheel_sha256: 41eeb7783ecc1b99d2c138e13b0966e4e3710dbd01f588525855179bcb4be52f
+  wheel_import: VERIFIED
+  runtime_contract: HARD_CONSTRAINTS_CURRENT_RESOURCES_FIRST_VERSIONED_ESTIMATES_OBJECTIVES_EXPLANATIONS_COLD_START_SAFE_BOUNDED_SHADOW_SUPERSESSION_ROLLBACK_FALLBACK_SCHEDULER_REVALIDATION_IMMUTABLE_RECEIPTS_FAIL_CLOSED_REAL_IMPORTER
+  real_l40s: 12_CASES_22_OF_22_CHECKS_4_REJECTIONS_QUALITY_M15_TOOL_ON_LATENCY_M15_SPECIALIST_UNAVAILABLE_NO_ELIGIBLE_CANDIDATE_RECOVERED_FALLBACK_M15_S1_QUALITY_MAE_0_LATENCY_MAE_0_0016360651332888755_SECONDS
+  artifact_digests: SPEC_e0a4ccd_RESULTS_9b592360_MANIFEST_73c067dc_POST_7e767a9a
+  post_run: VRAM_0_MIB_PROCESSES_0_MODEL_RESIDENCY_0
+  evidence_classification: REAL_L40S_RAW_REFERENCE_BINDING_IMPORTED_QUASI_CONTROLLED
+  limitations: CONTROLLED_REPLAY_EXACT_P4_TASKSET_PROCESS_SCOPED_CUDA_HIDING_NOT_PHYSICAL_REMOVAL_NO_ONLINE_DISTRIBUTION_NETWORK_QUEUE_COST_EVIDENCE_DESCRIPTIVE_ONLY
+  unresolved: NONE
+
 owner_priority:
   standing_order: preserve_current_or_recoverable_long_running_productive_work_before_any_remote_sync_restore_reset_checkout_merge_or_host_replacement
   remote_newer_is_not_permission_to_replace_unpreserved_execution_work: true
   current_sequence:
-    - retain_predecessor_P4_02_durable_close_evidence
-    - load_and_compile_P4_03_exact_prompt_when_execution_begins
+    - retain_predecessor_P4_03_durable_close_evidence
+    - load_and_compile_P4_04_exact_prompt_when_execution_begins
 
 execution_host:
   current_host:
@@ -271,24 +288,24 @@ multi_ai_execution:
     no_permanent_named_agent_hierarchy: true
 
 current_frontier:
-  state: P4_03_ACTIVATED_NOT_STARTED
+  state: P4_04_ACTIVATED_NOT_STARTED
   P3_05_durable_close_complete: true
   P3_06_durable_close_complete: true
   P3_07_durable_close_complete: true
   P3_13_durable_close_complete: true
   P3_14_durable_close_complete: true
-  P4_02_durable_close_complete: true
-  P4_03_prompt_loaded: false
-  P4_03_prompt_compiled: false
-  P4_03_execution_started: false
-  P4_03_execution_authorized: true
+  P4_03_durable_close_complete: true
+  P4_04_prompt_loaded: false
+  P4_04_prompt_compiled: false
+  P4_04_execution_started: false
+  P4_04_execution_authorized: true
 
 activation_boundary:
-  P4_03_authorized: true
-  P4_03_prompt_loaded: false
-  P4_03_graph_compiled: false
-  P4_03_execution_started: false
+  P4_04_authorized: true
+  P4_04_prompt_loaded: false
+  P4_04_graph_compiled: false
+  P4_04_execution_started: false
   legacy_spark_prep_dependency: false
-  rule: compile_only_from_exact_P4_03_prompt_and_accepted_source
-  predecessor_evidence: P4_02_durable_close_mapping_above
+  rule: compile_only_from_exact_P4_04_prompt_and_accepted_source
+  predecessor_evidence: P4_03_durable_close_mapping_above
 ```
