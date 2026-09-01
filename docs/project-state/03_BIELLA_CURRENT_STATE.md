@@ -23,30 +23,29 @@ engine:
 
 durable_source:
   current_result:
-    commit: 39e51b95de130dddf2e8cde49670257742c0eaac
-    tree: 772e20442cc4a2113361841614a080678e916685
-    meaning: P3_09_COMPLETE_DURABLE_MERGED_RESULT
+    implementation_commit: 3a9c325ab821046e6a702011a213f2d9558dad16
+    implementation_tree: 16b6eee8eb6fa16c6f8e234c566dbe0ef95b0113
+    closure_commit: ccc32dbb2ad3cc9140845da14d0ff3e502650fa3
+    closure_tree: 441ac66afaf00fae4bd1d761e4d0e901057ae442
+    meaning: P3_10_COMPLETE_DURABLE
     github_readback: EXACT_COMMIT_TREE_AND_REQUIRED_PATH_SHA256_CONFIRMED
-  preserved_later_source:
-    commit: b7a55142edea7de895f799b8bef074a2a02d916d
-    tree: 6df2a4d4f04246713220aa2461a10e33ba1b93d1
-    meaning: PRESERVED_ACCEPTED_LATER_SOURCE; NOT_FOUNDATION_COMPLETION_AUTHORITY
+    preserved_later_work_completion_authority: false
   preserved_worktree:
     path: src/biella/production_recipe_learning.py
     sha256: 01879237ebac6c96b985b0b05f822897d25b6f2dd9f8f13952e38d7e93cd5d2d
-    meaning: INDEPENDENT_P4_06_PRODUCTIVE_WORK; NOT_PART_OF_P3_09
+    meaning: INDEPENDENT_P4_06_PRODUCTIVE_WORK; NOT_PART_OF_P3_10
 
 numbered_execution:
-  durable_prompts_complete: 45
+  durable_prompts_complete: 46
   durable_prompts_total: 51
-  progress: "45 / 51 durable; non-contiguous audited; active repair frontier 41"
+  progress: "46 / 51 durable; non-contiguous audited; active repair frontier 42"
   phase: P3_DURABLE_REPAIR
-  just_closed_prompt: P3-09
-  just_closed_global_number: 40
-  active_prompt: P3-10
-  active_global_number: 41
-  active_title: VFX and Simulation Production Pack
-  active_drive_prompt_id: 12GmJFm2-6mL7QSjyyaySDWbBi2WrkljUF447XWsHnnI
+  just_closed_prompt: P3-10
+  just_closed_global_number: 41
+  active_prompt: P3-11
+  active_global_number: 42
+  active_title: Image Production, Editing, Compositing and Texture Pack
+  active_drive_prompt_id: 1hZm2VC3xYefqwZBxvIhsChrIjCLcZXsTSoOCG3IKLhM
   execution_authorized: true
   authorization_basis: MAHDI_STANDING_P3_06_THROUGH_P4_06
 
@@ -58,74 +57,56 @@ completion_audit_2026_09_01:
   P3_07: {durable_close: COMPLETE}
   P3_08: {durable_close: COMPLETE}
   P3_09: {durable_close: COMPLETE}
-  P3_10: {durable_close: INCOMPLETE, missing: full_simulation_adapter_ENOSPC_1_through_300_recovery_and_durable_evidence}
-  P3_11: {durable_close: INCOMPLETE, missing: durable_image_production_evidence}
+  P3_10: {durable_close: COMPLETE}
+  P3_11: {durable_close: REOBSERVE_PRESERVED_COMPLETE_CLAIM, audit_gap: durable_image_production_evidence}
   P3_12: {durable_close: INCOMPLETE, missing: durable_audio_production_evidence}
   P3_13: {durable_close: INCOMPLETE, missing: six_KPI_report_correction_and_durable_media_video_evidence}
   P3_14: {durable_close: INCOMPLETE, missing: phase_exit_provenance_Event_and_delivery_evidence}
   P4_01_through_P4_05: {durable_close: COMPLETE, reuse: REQUIRED}
   P4_06: {durable_close: INCOMPLETE, missing: authoritative_Engine_evidence_and_combined_failure_scenario}
 
-p3_09_durable_close:
-  exact_prompt_drive_id: 1FYsaztU8wwjl_6k8Nx4xJII4wId-MPflkLFUNwW4gRM
-  result_commit: 39e51b95de130dddf2e8cde49670257742c0eaac
-  result_tree: 772e20442cc4a2113361841614a080678e916685
-  implementation:
-    provider_neutral_contract: src/biella/render_pack.py
-    blender_and_reference_adapters: src/biella/render_tool.py
-    blender_driver: src/biella/_blender_render_driver.py
-    duplicate_adapter_module: ABSENT
+p3_10_durable_close:
+  exact_prompt_drive_id: 12GmJFm2-6mL7QSjyyaySDWbBi2WrkljUF447XWsHnnI
+  implementation_commit: 3a9c325ab821046e6a702011a213f2d9558dad16
+  implementation_tree: 16b6eee8eb6fa16c6f8e234c566dbe0ef95b0113
+  closure_commit: ccc32dbb2ad3cc9140845da14d0ff3e502650fa3
+  closure_tree: 441ac66afaf00fae4bd1d761e4d0e901057ae442
+  github_readback: EXACT_COMMIT_TREE_AND_REQUIRED_PATH_SHA256_CONFIRMED
   real_execution:
-    renderer_a: renderer://blender
-    runtime_a: runtime://host/blender-5.0.1-cpu
-    renderer_b: renderer://reference/v1
-    output_count: 10
-    final_frame_pass_outputs: 9
-    recovery: INJECTED_FRAME_3_NORMAL_LOSS; EIGHT_PRESERVED; ONE_RESUMED
+    archive_sha256: 0c34a996833be4dc8ffdb6263c569293840a4d09367978f445ddc6a2abf7761b
+    archive_size_bytes: 1090235
+    qualification: SIX_REAL_CHECKPOINTS; ENOSPC_RECOVERY; BAKE; PREVIEW; GLB; EXACT_GODOT_BIND; FORGED_REJECT
   engine_evidence:
-    project_ref: prj_fa4cdeecc0dc4bbabf8258bf67fc2c77
-    task_ref: tsk_c6c2af75925e4b12a0ccdcb6d2caeb56/1
-    run_ref: run_3b6573ba49d140fbb66d09c400148a01
+    project_ref: prj_f0e75ef71b964949897f5c0fbc8db0d7
+    task_ref: tsk_93b6eedef56f4830af846fe693f79952/1
+    run_ref: run_bfa1a18ffeff4a1eacb8355fb9cb5955
     run_status: SUCCEEDED
-    graph_ref: graph://prj_fa4cdeecc0dc4bbabf8258bf67fc2c77/gph_08abf64d1a5641d787981537221f44ec/1
-    integration_artifact_ref: artifact://prj_fa4cdeecc0dc4bbabf8258bf67fc2c77/art_69abdc0500c14d269446f8952058159f/1
-    validation_aggregate_sha256: 55c72416e31a2ea29049464effc91c9548d38ca776e7ef9d4455c2d7573e9934
-    event_ref: event://prj_fa4cdeecc0dc4bbabf8258bf67fc2c77/evt_f28b2e1bb85a48a29a52a9343fd208e3
-    acceptance_event_ref: event://prj_fa4cdeecc0dc4bbabf8258bf67fc2c77/evt_73257ef8a3fb44ba9d440f435bd76b8d
+    graph_ref: graph://prj_f0e75ef71b964949897f5c0fbc8db0d7/gph_9853a1a21ba441eab101e4109933e344/1
+    retained_artifact_ref: artifact://prj_f0e75ef71b964949897f5c0fbc8db0d7/art_5bc4a19a1abf41e6853f813f487aee08/1
+    validation_aggregate_sha256: 3b17909e017cfcc35b8af78520615a3aa2ab47281360a0f5c9bd614af9925eb2
+    evidence_event_ref: event://prj_f0e75ef71b964949897f5c0fbc8db0d7/evt_ddd7fd35a8234b01919cec18cbc7bca7
+    acceptance_event_ref: event://prj_f0e75ef71b964949897f5c0fbc8db0d7/evt_a0cc38b49fdf4ab48a4e9b7fada35564
   kpis:
-    renderer_specific_kernel_fields: 0
-    verified_frames_lost_after_failure: 0
-    completed_frames_rerendered_due_only_to_restart: 0
-    mixed_scene_versions_in_sequence: 0
-    render_claimed_success_with_missing_output: 0
-  qualification:
-    strict_mypy: PASS
-    focused_contract_tests: 7_PASS
-    blender_5_data_pass_tests: 2_PASS
-    durable_import_tests: 7_PASS
-    installed_wheel_tests: 7_PASS
-    project_isolation: PASS
-    source_contamination: PASS
-  l40s:
-    status: RESOURCE_UNAVAILABLE
-    cause: PRODUCTION_BWRAP_NAMESPACE_CANNOT_INITIALIZE_CUDA_OPTIX
-    false_success_claimed: false
-    p3_09_blocker: false
+    simulation_cache_used_as_only_authority: 0
+    verified_segments_lost_after_failure: 0
+    incompatible_checkpoint_resumes: 0
+    dependent_solver_steps_parallelized_incorrectly: 0
+    global_GPU_requirement_for_VFX: 0
   drive_evidence:
-    canonical_evidence_id: 1b0fHOflk3gQCVR2Gt-FdRxj9m2DrZrtY
-    qualification_id: 1DGkVgs707kqewC-Q__sGZwzKwp106wvq
-    retained_real_archive_id: 1axZ9AI57hN1grrQVTPiGvFgZtES6S5OO
-    engine_evidence_id: 12_bAY27t05rz1cmDA40YquOuXc4p16jQ
-    wheel_id: 1FDf2hihsJHwzk-DZxvf5-aw8VWL2Ybo6
-    wheel_qualification_id: 1f9vOvSCHvnU5whULsGuYNQMrGI2mc0KY
-    l40s_resource_evidence_id: 1lU_gM2cDHResm9ppb6RP4EkQIDI5j8ht
+    canonical_evidence_id: 1_VXkRE-gQ3BRkrDO_UQk9Nl8qteczSAFm6Kl_hBsd2Y
+    qualification_id: 1PsP12KJZO8k1RAiuweQ53MrGuSWR_fD1
+    retained_real_archive_id: 1qxW-e8-szAsGWzwtOr5qlohBj3VIOnoT
+    engine_evidence_id: 1wPdPhvf4wv-AmYdB_8RzoOiXJckukyj1
+    wheel_id: 1G-Y8vbuE-TkjPS_r27fpKun6NarHh8Un
+    wheel_qualification_id: 1oehemrHP28ZvRx8BPQLRokuv6KqxKiT8
     exact_byte_readback: VERIFIED
 
 continuation:
-  active_task_id: ENG-P3-10
-  active_task_title: P3-10 VFX and Simulation Production Pack durable repair
-  dependency: ENG-P3-09_COMPLETE
-  ledger_state: READY
+  active_task_id: ENG-P3-11
+  active_task_title: P3-11 Image Production, Editing, Compositing and Texture Pack durable repair
+  dependency: ENG-P3-10_COMPLETE
+  ledger_claim: COMPLETE
+  acceptance_state: REOBSERVE_EXACT_PROMPT_AND_CURRENT_EVIDENCE
   execution_started: true
   spark_or_prep_dependency: NONE
 ```
