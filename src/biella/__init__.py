@@ -781,6 +781,24 @@ from .model_evaluation import (
     PairwiseComparison,
     WorkloadProfile,
 )
+from .strategy_evaluation import (
+    ExecutionStrategy,
+    MatrixKind,
+    PromptArtifact,
+    SkillArtifact,
+    StrategyContractError,
+    StrategyDimension,
+    StrategyEffectEstimate,
+    StrategyEffectKind,
+    StrategyEvaluationExperiment,
+    StrategyEvaluationKnowledgeCandidate,
+    StrategyEvaluationResult,
+    StrategyEvaluationRun,
+    StrategyMetricSet,
+    StrategyPairwiseComparison,
+    StrategyPattern,
+    build_strategy_evaluation_result,
+)
 if TYPE_CHECKING:
     from .image_tool import DeterministicImageTool
     from .audio_tool import (
@@ -867,6 +885,32 @@ if TYPE_CHECKING:
         ImportedModelEvaluationEvidence,
         P4_01_L40S_FIXTURE_SHA256,
         import_p4_01_l40s_evidence,
+    )
+    from .strategy_evaluation_runtime import (
+        StrategyCellCoordinate,
+        StrategyCellExecutionProduct,
+        StrategyCellInfrastructureFailure,
+        StrategyCompletedCellEvidence,
+        StrategyEvaluationMatrixRuntime,
+        StrategyEvaluationRuntimeError,
+        StrategyMatrixAuthorityError,
+        StrategyMatrixBatchResult,
+        StrategyMatrixContractError,
+        StrategyMatrixEvidenceError,
+        StrategyMatrixManifest,
+        StrategyMatrixRecovery,
+        StrategyMatrixRecoveryError,
+    )
+    from .strategy_evaluation_evidence import (
+        EvidenceImportError as StrategyEvidenceImportError,
+        ExternalStrategyEvaluationArtifacts,
+        ImportedRawStrategyCell,
+        ImportedStrategyEvaluationEvidence,
+        ImportedStrategyMatrixEvidence,
+        P4_02_L40S_FIXTURE_SHA256,
+        StrategyEvidenceBinding,
+        VariantEvidenceSummary,
+        import_p4_02_l40s_evidence,
     )
 from .three_d_tool import (
     BlenderThreeDToolAdapter,
@@ -1661,6 +1705,44 @@ __all__ = [
     "ImportedEvaluationCell",
     "ImportedModelEvaluationEvidence",
     "import_p4_01_l40s_evidence",
+    "ExecutionStrategy",
+    "MatrixKind",
+    "PromptArtifact",
+    "SkillArtifact",
+    "StrategyContractError",
+    "StrategyDimension",
+    "StrategyEffectEstimate",
+    "StrategyEffectKind",
+    "StrategyEvaluationExperiment",
+    "StrategyEvaluationKnowledgeCandidate",
+    "StrategyEvaluationResult",
+    "StrategyEvaluationRun",
+    "StrategyMetricSet",
+    "StrategyPairwiseComparison",
+    "StrategyPattern",
+    "build_strategy_evaluation_result",
+    "StrategyCellCoordinate",
+    "StrategyCellExecutionProduct",
+    "StrategyCellInfrastructureFailure",
+    "StrategyCompletedCellEvidence",
+    "StrategyEvaluationMatrixRuntime",
+    "StrategyEvaluationRuntimeError",
+    "StrategyMatrixAuthorityError",
+    "StrategyMatrixBatchResult",
+    "StrategyMatrixContractError",
+    "StrategyMatrixEvidenceError",
+    "StrategyMatrixManifest",
+    "StrategyMatrixRecovery",
+    "StrategyMatrixRecoveryError",
+    "P4_02_L40S_FIXTURE_SHA256",
+    "StrategyEvidenceImportError",
+    "ExternalStrategyEvaluationArtifacts",
+    "ImportedRawStrategyCell",
+    "ImportedStrategyEvaluationEvidence",
+    "ImportedStrategyMatrixEvidence",
+    "StrategyEvidenceBinding",
+    "VariantEvidenceSummary",
+    "import_p4_02_l40s_evidence",
     "ArchiveVerification",
     "DeliveryLocalError",
     "DeliveryLocalPostPackageError",
@@ -1854,4 +1936,38 @@ def __getattr__(name: str) -> Any:
         from . import model_evaluation_evidence
 
         return getattr(model_evaluation_evidence, name)
+    if name in {
+        "StrategyCellCoordinate",
+        "StrategyCellExecutionProduct",
+        "StrategyCellInfrastructureFailure",
+        "StrategyCompletedCellEvidence",
+        "StrategyEvaluationMatrixRuntime",
+        "StrategyEvaluationRuntimeError",
+        "StrategyMatrixAuthorityError",
+        "StrategyMatrixBatchResult",
+        "StrategyMatrixContractError",
+        "StrategyMatrixEvidenceError",
+        "StrategyMatrixManifest",
+        "StrategyMatrixRecovery",
+        "StrategyMatrixRecoveryError",
+    }:
+        from . import strategy_evaluation_runtime
+
+        return getattr(strategy_evaluation_runtime, name)
+    if name in {
+        "P4_02_L40S_FIXTURE_SHA256",
+        "StrategyEvidenceImportError",
+        "ExternalStrategyEvaluationArtifacts",
+        "ImportedRawStrategyCell",
+        "ImportedStrategyEvaluationEvidence",
+        "ImportedStrategyMatrixEvidence",
+        "StrategyEvidenceBinding",
+        "VariantEvidenceSummary",
+        "import_p4_02_l40s_evidence",
+    }:
+        from . import strategy_evaluation_evidence
+
+        if name == "StrategyEvidenceImportError":
+            return strategy_evaluation_evidence.EvidenceImportError
+        return getattr(strategy_evaluation_evidence, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
