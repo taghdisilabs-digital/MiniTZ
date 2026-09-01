@@ -10,6 +10,7 @@ on:
       - "tests/test_p3_12_audio_pack.py"
       - "tests/test_p3_12_audio_real.py"
       - "tests/test_p3_12_audio_model.py"
+      - "tests/test_p3_12_durable_evidence.py"
       - "docs/project-state/03_BIELLA_CURRENT_STATE.md"
       - "docs/project-state/04_BIELLA_ACTIVE_TASK.md"
       - "docs/project-state/evidence/P3_12_AUDIO_PRODUCTION_REPAIR_EVIDENCE.md"
@@ -61,8 +62,8 @@ jobs:
           sudo install -m 0755 /tmp/p3-12-nonexecuted-tool /usr/bin/bwrap
           sudo mkdir -p /usr/lib/blender/scripts/addons_core/io_scene_gltf2
           printf '%s\n' '# P3-12 non-executed scheduler fixture' | sudo tee /usr/lib/blender/scripts/addons_core/io_scene_gltf2/__init__.py >/dev/null
-      - name: P3-12 audio contract, real runtime, and provider-boundary tests
-        run: python -m pytest tests/test_p3_12_audio_pack.py tests/test_p3_12_audio_real.py tests/test_p3_12_audio_model.py -q
+      - name: P3-12 audio contract, real runtime, provider boundary, and retained importer tests
+        run: python -m pytest tests/test_p3_12_audio_pack.py tests/test_p3_12_audio_real.py tests/test_p3_12_audio_model.py tests/test_p3_12_durable_evidence.py -q
       - name: Strict typecheck
         run: python -m mypy src/biella/audio_pack.py src/biella/audio_tool.py src/biella/cloudflare_audio_model.py
       - name: Compile
@@ -98,13 +99,7 @@ jobs:
                   "ffprobe_sha256": hashlib.sha256(ffprobe.read_bytes()).hexdigest(),
               },
               "wheel_sha256": {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in wheels},
-              "kpis": {
-                  "invalid_audio_claimed_valid": 0,
-                  "source_audio_destructively_mutated": 0,
-                  "project_loudness_target_globalized": 0,
-                  "implicit_sample_rate_or_channel_conversion": 0,
-                  "mix_without_exact_stem_identity": 0,
-              },
+              "kpi_authority": "NOT_CLAIMED_BY_CI; RETAINED_REAL_ENGINE_EVIDENCE_REQUIRED",
               "reality_classification": {
                   "deterministic_decode_edit_mix_validation": "REAL_FFMPEG_8_0_1",
                   "p3_05_scheduler_support_paths": "NON_EXECUTED_FIXTURE",
@@ -118,3 +113,11 @@ jobs:
           target.write_bytes(encoded)
           print(json.dumps({"evidence_sha256": hashlib.sha256(encoded).hexdigest(), **payload}, sort_keys=True))
           PY
+      - name: Upload P3-12 wheel and bounded CI evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: p3-12-audio-production-ci
+          path: |
+            dist/*.whl
+            dist/p3_12_audio_production_evidence.json
+          if-no-files-found: error
