@@ -4,14 +4,14 @@
 schema: biella.active_task/v6
 
 active_task:
-  id: P4-01
-  global_number: 46
+  id: P4-02
+  global_number: 47
   phase: P4
-  title: Controlled Evidence-Based Model Capability Comparison
+  title: Agent, Skill, Prompt, Tool and Execution Strategy Evaluation
   state: ACTIVATED_PROMPT_NOT_LOADED_OR_COMPILED
-  predecessor: P3-14
-  predecessor_result_commit: 68c00a4e1464206c2a69e14f8b8049fe29438fb8
-  predecessor_result_tree: 2516591d9c3f893c9da583c06a9e7e9eb6bb0882
+  predecessor: P4-01
+  predecessor_result_commit: 3fc7f1eeecbf2b6fb7b4754c31939c5e8aa7e22f
+  predecessor_result_tree: a87e9219ca2b27448a4de9e75412d22d00be977e
   predecessor_github_readback: EXACT_COMMIT_TREE_AND_EIGHT_BLOBS_CONFIRMED
   execution_authorized: true
   standing_authorization: true
@@ -19,10 +19,10 @@ active_task:
   legacy_spark_prep_dependency: false
 
 exact_prompt:
-  title: Controlled Evidence-Based Model Capability Comparison
-  drive_id: 1V2VGta8GmM-6_UB4UwpdqKT-j_4NTRzcd3tXd1tKqOM
+  title: Agent, Skill, Prompt, Tool and Execution Strategy Evaluation
+  drive_id: 1IKlb4CPzng80VeJOPRo-_R5UdEIr7Vv4dz15x33JXfA
   status: NOT_LOADED_OR_COMPILED
-  rule: obtain_exact_P4_01_prompt_body_only_when_execution_begins
+  rule: obtain_exact_P4_02_prompt_body_only_when_execution_begins; P4_02_exact_prompt_governs_its_L40S_matrix_only_after_activation
 
 prior_durable_through_P3_08:
   status: VERIFIED
@@ -77,12 +77,31 @@ P3_14_durable_close:
     video_receipt_digest: 274801d7eaeffea49d34780e8a14e1e61511eeecefb30a7de336c9b3f58c1b9a
     proof: BOTH_VERIFIED_BY_REAL_PUT_AND_FULL_GET; LOCAL_PACKAGES_RETAINED; NO_DELETE; CROSS_PROJECT_USE_REJECTED
 
+P4_01_durable_close:
+  source_boundary_commit: ede6095fbf2b3712e46e5a06711eb240453136fc
+  source_boundary_tree: 9e6d7da30a3f8db51493999c56ff569369852a18
+  implementation_commit: 84f26c8f8eb7bd83a2b9d175944f39ba7341e018
+  implementation_tree: 4a0ead0e7bc5e5732595c503d7d735052d64e2da
+  result_commit: 3fc7f1eeecbf2b6fb7b4754c31939c5e8aa7e22f
+  result_tree: a87e9219ca2b27448a4de9e75412d22d00be977e
+  github_readback: EXACT_INSTRUCTION_AND_ELEVEN_P4_PATHS_CONFIRMED
+  qualification: 17_TESTS_GREEN_IN_4.32_SECONDS; STRICT_MYPY_7_FILES_SUCCESS; SIX_PROMPT_KPIS_ZERO
+  wheel_sha256: c97e1ff514dbc98df69cb9fd96c5702ee9f8f93ff2bee5a07bd17a7a2a547423
+  wheel_surface: CORE_AND_LAZY_EXPORTS_VERIFIED
+  contract: EXACT_VERSIONED_SUITE_TASKSET_PROFILE_RUN_RESULT_STATISTICS_PAIRWISE_KNOWLEDGE_CANDIDATE_DURABLE_MATRIX_SKIP_SUCCEEDED_CELLS_SEPARATE_OUTCOMES_UNKNOWN_METRICS_NONE_NO_PROMOTION_OR_UNIVERSAL_WINNER
+  real_l40s_evidence: QWEN2_5_0_5B_7ae557604adf67be50417f59c2c2f167def9a775_QWEN2_5_1_5B_989aa7980e4cf806f80c7fef2b1adb7bc71aa306_SAME_L40S_CUDA12_6_PYTORCH2_7_1_CU126_TRANSFORMERS4_53_2_FP16_WARM_30_OF_30_INFRA_3_OF_15_VS_12_OF_15_SEMANTIC_0_9_6_PAIRED_DESCRIPTIVE_ONLY
+  fixture_result_sha256: 7928b7a5e23c1e8dd6b64734c1503f517b123e4910a24b4dc7c04de2ab0bc3fb
+  fixture_spec_sha256: 0c8af78b5f57d9ac3899af842f3867dfec05cbd9cbbd0d0769c8bdb76f70858f
+  evidence_classification: REAL_RAW_ARTIFACTS_REFERENCE_LOCAL_BINDINGS_QUASI_CONTROLLED_HISTORICAL_EXTERNAL_EXECUTION_WITHOUT_NATIVE_ENGINE_AUTHORITY_AND_PROCESS_WIDE_VRAM
+  unknown_metrics: COST_QUEUE_REMOTE_RESOURCE_TIMEOUT
+  post_run_l40s: 0_MIB_NO_RESIDENCY
+
 owner_priority:
   standing_order: preserve_current_or_recoverable_long_running_productive_work_before_any_remote_sync_restore_reset_checkout_merge_or_host_replacement
   remote_newer_is_not_permission_to_replace_unpreserved_execution_work: true
   current_sequence:
-    - retain_predecessor_P3_14_durable_close_evidence
-    - load_and_compile_P4_01_exact_prompt_when_execution_begins
+    - retain_predecessor_P4_01_durable_close_evidence
+    - load_and_compile_P4_02_exact_prompt_when_execution_begins
 
 execution_host:
   current_host:
@@ -236,23 +255,24 @@ multi_ai_execution:
     no_permanent_named_agent_hierarchy: true
 
 current_frontier:
-  state: P4_01_ACTIVATED_NOT_STARTED
+  state: P4_02_ACTIVATED_NOT_STARTED
   P3_05_durable_close_complete: true
   P3_06_durable_close_complete: true
   P3_07_durable_close_complete: true
   P3_13_durable_close_complete: true
   P3_14_durable_close_complete: true
-  P4_01_prompt_loaded: false
-  P4_01_prompt_compiled: false
-  P4_01_execution_started: false
-  P4_01_execution_authorized: true
+  P4_01_durable_close_complete: true
+  P4_02_prompt_loaded: false
+  P4_02_prompt_compiled: false
+  P4_02_execution_started: false
+  P4_02_execution_authorized: true
 
 activation_boundary:
-  P4_01_authorized: true
-  P4_01_prompt_loaded: false
-  P4_01_graph_compiled: false
-  P4_01_execution_started: false
+  P4_02_authorized: true
+  P4_02_prompt_loaded: false
+  P4_02_graph_compiled: false
+  P4_02_execution_started: false
   legacy_spark_prep_dependency: false
-  rule: compile_only_from_exact_P4_01_prompt_and_accepted_source
-  predecessor_evidence: P3_14_durable_close_mapping_above
+  rule: compile_only_from_exact_P4_02_prompt_and_accepted_source; P4_02_exact_prompt_governs_its_L40S_matrix_only_after_activation
+  predecessor_evidence: P4_01_durable_close_mapping_above
 ```
