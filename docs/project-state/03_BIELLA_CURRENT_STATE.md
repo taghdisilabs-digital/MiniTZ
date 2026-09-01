@@ -22,44 +22,43 @@ engine:
   canonical_checkout: /root/biella/repos/biella-engine
 
 durable_source:
-  continuity_before_current_edit:
-    local_commit: 560889105fbddc569915d5a618839815acdaa342
-    origin_main_commit: 560889105fbddc569915d5a618839815acdaa342
-    tree: 843e7e4c19c3843f3d1b35263585882ae4f31728
-    alignment: EXACT
+  current_result:
+    commit: 1d74abff81c9588aecfd933ec7733fb9afd098e4
+    tree: 93326e98e57c1efc16fd05c4dcd938b2314e4c89
+    github_readback: EXACT_COMMIT_TREE_AND_TEST_BLOB_CONFIRMED
   current_implementation_base:
     commit: b7a55142edea7de895f799b8bef074a2a02d916d
     tree: 6df2a4d4f04246713220aa2461a10e33ba1b93d1
     meaning: PRESERVED_ACCEPTED_SOURCE_AND_RESULT; NOT_FOUNDATION_COMPLETION_AUTHORITY
   current_execution_map:
-    result_commit: b7a55142edea7de895f799b8bef074a2a02d916d
-    result_tree: 6df2a4d4f04246713220aa2461a10e33ba1b93d1
+    result_commit: 1d74abff81c9588aecfd933ec7733fb9afd098e4
+    result_tree: 93326e98e57c1efc16fd05c4dcd938b2314e4c89
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    status: P3_06_ACTIVE_DURABLE_REPAIR
+    status: P3_07_ACTIVE_DURABLE_REPAIR
   branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
     first_rejected_execution_time: "2026-08-30T10:44:52Z"
     rejected_post_boundary_completion_claims: P3_10_THROUGH_P3_09
 
 numbered_execution:
-  durable_prompts_complete: 41
+  durable_prompts_complete: 42
   durable_prompts_total: 51
-  progress: "41 / 51 durable; non-contiguous audit; repair frontier 37"
+  progress: "42 / 51 durable; non-contiguous audited; repair frontier 38"
   phase: P3_DURABLE_REPAIR
-  active_prompt: P3-06
-  active_global_number: 37
-  active_title: Character Modeling, Rigging, Skinning, and Character Asset Pack
-  active_drive_prompt_id: 11Q0LKa5Zl_ctJ6_0tdn_6ezvxNeex6JufFBbDfu5NHM
-  predecessor: P3-05
-  successor: P3-07
-  active_dependency: P3-05
-  successor_execution_authorized: false_until_P3_06_durable_close
+  active_prompt: P3-07
+  active_global_number: 38
+  active_title: Animation Production Pack
+  active_drive_prompt_id: 1GzQxmCrvIv10WVv0KdoPxlKi7l79J2J6cS-zvoOv-Dk
+  predecessor: P3-06
+  successor: P3-08
+  active_dependency: P3-06
+  successor_execution_authorized: false_until_P3_07_durable_close
   active_execution_authorized: true
-  future_activation_shells_prepared: P3-07
+  future_activation_shells_prepared: P3-08
   future_internal_graphs_precompiled: false
-  future_graph_rule: activate_P3_07_only_after_P3_06_durable_close
+  future_graph_rule: activate_P3_08_only_after_P3_07_durable_close
 
 execution_host_state:
   current_host:
@@ -81,11 +80,10 @@ execution_host_state:
   canonical_checkout: /root/biella/repos/biella-engine
   checkout_observation:
     branch: main
-    local_head_before_current_edit: 560889105fbddc569915d5a618839815acdaa342
-    origin_main_before_current_edit: 560889105fbddc569915d5a618839815acdaa342
-    aligned_tree_before_current_edit: 843e7e4c19c3843f3d1b35263585882ae4f31728
-    alignment: EXACT
-  current_restore_order: PRESERVE_LATER_SOURCE_THEN_DURABLY_REPAIR_P3_06
+    current_result_commit: 1d74abff81c9588aecfd933ec7733fb9afd098e4
+    current_result_tree: 93326e98e57c1efc16fd05c4dcd938b2314e4c89
+    github_readback: EXACT_COMMIT_TREE_AND_TEST_BLOB_CONFIRMED
+  current_restore_order: PRESERVE_LATER_SOURCE_THEN_DURABLY_REPAIR_P3_07
 
 standing_owner_priority:
   highest_operational_rule: preserve_current_or_recoverable_long_running_productive_work_before_remote_sync_restore_reset_checkout_merge_or_host_replacement
@@ -93,8 +91,8 @@ standing_owner_priority:
   session_model_SSH_tmux_or_host_change_does_not_invalidate_verified_work: true
   current_required_order:
     - preserve_all_later_accepted_source_and_results
-    - durably_repair_P3_06
-    - advance_to_P3_07_only_after_P3_06_durable_close
+    - durably_repair_P3_07
+    - advance_to_P3_08_only_after_P3_07_durable_close
 
 p3_05_recovery:
   status: REUSED_FOR_DURABLE_CLOSE_WITHOUT_REHASH
@@ -114,13 +112,7 @@ completion_audit_2026_09_01:
   FOUNDATION_COMPLETE: INVALIDATED
   P3_06:
     functional_source: COMPLETE
-    durable_close: INCOMPLETE
-    missing:
-      - durable_Task_Run_Graph_Node_Artifact_refs
-      - retained_REAL_Blender_artifacts_and_reports
-      - exact_commands_and_six_KPI_values
-      - wheel_Drive_ID_SHA256_and_exact_readback
-      - exact_result_block
+    durable_close: COMPLETE
   P3_07:
     durable_close: INCOMPLETE
     missing: durable_evidence_and_concurrency
@@ -153,6 +145,40 @@ completion_audit_2026_09_01:
       tree: 6df2a4d4f04246713220aa2461a10e33ba1b93d1
     durable_close: INCOMPLETE
     missing: authoritative_Engine_evidence_and_combined_failure_scenario
+
+p3_06_durable_close:
+  implementation:
+    commit: 78005b0a30fa7002eed8019a588731551e3d2c6b
+    tree: 6737d32d10feae0dcaeb4024ece00f3aa64b20f0
+  result:
+    commit: 1d74abff81c9588aecfd933ec7733fb9afd098e4
+    tree: 93326e98e57c1efc16fd05c4dcd938b2314e4c89
+  github_readback: EXACT_COMMIT_TREE_AND_TEST_BLOB_CONFIRMED
+  qualification:
+    real_tests: 6
+    engine_evidence_tests: 1
+    installed_wheel_tests: 3
+    six_kpis: ALL_ZERO
+  engine_evidence:
+    project: prj_145a1cb379234d329bcef9016e33220c
+    run: run_6cd6de862c704e7395a99988429fd135
+    run_status: SUCCEEDED
+    graph: graph://prj_145a1cb379234d329bcef9016e33220c/gph_7788383d1e5f42d396717878cfadeea2/1
+    node: node://prj_145a1cb379234d329bcef9016e33220c/gph_7788383d1e5f42d396717878cfadeea2/1/nod_42db888aef7b4cd780159cd2cda4d694
+    node_status: SUCCEEDED
+    artifacts: 11
+    validation_aggregate_sha256: a6ca97ee816c1393b29008dc028ac613cf0385d588245b457abf5aee86a65f1
+    validation_status: PASS
+  drive_evidence:
+    qualification_id: 17JiKtO0V-bauEAqtsvF9v1dSIVHexYbP
+    qualification_sha256: 993294df8b4860ceb1a5e3d7f13bc9f899df258c8549c6d54b95a8758fdb616c
+    l40s_id: 1WAG4vM7EDZTM_Y1ytCxgGjcoe6TN9ryn
+    l40s_sha256: 51b11696bfbf6cb13f330f4451aec98080187cd1670ef126c6b987ca5422c089
+    engine_id: 1-J1e56nCoXjLxO5-lye4hfZiNBsdRw9J
+    engine_sha256: d51a123e76aee974671395c45778667aef01ab10fc58a46752325dc74896a204
+    wheel_id: 1ALALJp4HtVb3jZ3bJcVLwiMuBX5dYFN8
+    wheel_sha256: de1ff7ab4d1aafe06a8d4ee7ae3799e6ce1a23b1aee10f8cdf3e27223735cb98
+    exact_raw_readback: FOUR_OF_FOUR
 
 prior_durable_through_P3_08:
   status: PRESERVED_RESULT; DURABLE_CLAIM_INVALIDATED_BY_COMPLETION_AUDIT_2026_09_01
@@ -356,7 +382,7 @@ approved_execution_program:
   language: biella.codex.end_to_end/v2
   mode: SINGLE_END_TO_END_NUMBERED_EXECUTION
   active_graph_location: docs/project-state/04_BIELLA_ACTIVE_TASK.md
-  active_graph: P3_06_CHARACTER_MODELING_RIGGING_SKINNING_AND_CHARACTER_ASSET_PACK
+  active_graph: P3_07_ANIMATION_PRODUCTION_PACK
   duplicate_prevention:
     exact_Node_identity_and_claim: required
     one_current_owner_per_Node: true
@@ -403,8 +429,8 @@ context_policy:
 truth:
   P3_04_durable_close: VERIFIED
   P3_05_durable_close: VERIFIED
-  P3_06_durable_close: FUNCTIONAL_SOURCE_COMPLETE; DURABLE_EVIDENCE_MISSING
-  P3_07_durable_close: DURABLE_EVIDENCE_AND_CONCURRENCY_MISSING
+  P3_06_durable_close: VERIFIED
+  P3_07_durable_close: ACTIVE; DURABLE_EVIDENCE_AND_CONCURRENCY_MISSING
   P3_14_durable_close: PHASE_EXIT_PROVENANCE_AND_EVENT_EVIDENCE_MISSING
   P3_READY_FOR_P4: INVALIDATED_BY_COMPLETION_AUDIT_2026_09_01
   P4_01_durable_close: VERIFIED
