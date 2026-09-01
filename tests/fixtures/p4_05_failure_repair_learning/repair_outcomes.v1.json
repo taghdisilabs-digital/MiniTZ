@@ -1,0 +1,17 @@
+{
+  "schema": "biella.failure_repair_fixture/v1",
+  "case_id": "p3-13-video-encode-repair",
+  "reality": "REFERENCE",
+  "source_ref": "tests/test_p3_13_video_real.py:477",
+  "failed_repair": {
+    "failure_category": "encoder.failure",
+    "error_code": "INVALID_ENCODE_CONFIGURATION",
+    "outcome": "FAILED",
+    "source_preserved": true
+  },
+  "successful_repair": {
+    "strategy": "corrected distinct encode specification",
+    "outcome": "SUCCEEDED",
+    "validation": "validated MP4 duration"
+  }
+}

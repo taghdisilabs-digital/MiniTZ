@@ -2048,4 +2048,31 @@ def __getattr__(name: str) -> Any:
         from . import placement_learning_evidence
 
         return getattr(placement_learning_evidence, name)
+    if name in {
+        "FailureKnowledgeProjection",
+        "FailureLearningAuthorityError",
+        "FailureLearningContractError",
+        "FailureLearningError",
+        "FailureLearningIntegrityError",
+        "FailureLearningScopeError",
+        "FailureLearningService",
+        "FailureLearningVersionError",
+        "FailureMatchState",
+        "FailureObservation",
+        "FailurePatternCandidate",
+        "FailurePatternMatch",
+        "FailurePatternScope",
+        "FailurePatternStatus",
+        "FailureRecurrenceMetrics",
+        "RepairAttempt",
+        "RepairNodeProposal",
+        "RepairOutcome",
+        "RepairRecommendation",
+        "RepairStrategy",
+        "RootCauseCandidate",
+        "RootCauseState",
+    }:
+        from . import failure_repair_learning
+
+        return getattr(failure_repair_learning, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

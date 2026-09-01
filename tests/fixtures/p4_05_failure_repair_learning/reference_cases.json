@@ -1,0 +1,11 @@
+{
+  "schema": "biella.failure_repair_reference_manifest/v1",
+  "reality": "REFERENCE",
+  "production_history_claimed": false,
+  "cases": [
+    "volatile_same_failure.v1.json",
+    "similar_symptom_different_cause.v1.json",
+    "similar_text_different_failures.v1.json",
+    "repair_outcomes.v1.json"
+  ]
+}

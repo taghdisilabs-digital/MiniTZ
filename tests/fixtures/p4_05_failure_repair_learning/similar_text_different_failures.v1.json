@@ -1,0 +1,19 @@
+{
+  "schema": "biella.failure_repair_fixture/v1",
+  "case_id": "p3-12-stale-audio-authority",
+  "reality": "REFERENCE",
+  "source_ref": "tests/test_p3_12_audio_model.py:762",
+  "failures": [
+    {
+      "failure_category": "execution.authority",
+      "error_code": "STALE_EXECUTION",
+      "symptom": "request rejected before transport because execution authority is stale"
+    },
+    {
+      "failure_category": "provider.failure",
+      "error_code": "POST_REQUEST_AUTHORITY_STALE",
+      "symptom": "response rejected after transport because execution authority became stale"
+    }
+  ],
+  "bounded_result": "validator is not called and ledger remains RUNNING"
+}

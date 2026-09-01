@@ -1,0 +1,19 @@
+{
+  "schema": "biella.failure_repair_fixture/v1",
+  "case_id": "p3-10-interrupted-continuation-causes",
+  "reality": "REFERENCE",
+  "source_ref": "tests/test_p3_10_vfx_real.py:87",
+  "failures": [
+    {
+      "failure_category": "worker.failure",
+      "error_code": "WORKER_LOST",
+      "symptom": "continuation interrupted after valid checkpoint"
+    },
+    {
+      "failure_category": "checkpoint.failure",
+      "error_code": "CHECKPOINT_CORRUPT",
+      "symptom": "continuation interrupted by forged or corrupt checkpoint"
+    }
+  ],
+  "bounded_result": "valid checkpoint may resume; corrupt checkpoint is rejected"
+}

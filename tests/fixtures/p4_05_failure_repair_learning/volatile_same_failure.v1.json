@@ -1,0 +1,13 @@
+{
+  "schema": "biella.failure_repair_fixture/v1",
+  "case_id": "p3-05-atomic-publication-recovery",
+  "reality": "REFERENCE",
+  "source_ref": "tests/test_p3_05_three_d_real.py:2018",
+  "failure_category": "atomic_publication.failure",
+  "error_code": "RUNTIME_ERROR",
+  "observations": [
+    "run_job-91 attempt_req-a1 failed before atomic publication",
+    "run_job-92 attempt_req-b2 failed before atomic publication"
+  ],
+  "bounded_result": "same idempotency key later reaches SUCCEEDED without partial publication"
+}
