@@ -753,6 +753,20 @@ from .video_pack import (
     VideoTransition,
     video_production_pack,
 )
+from .delivery_pack import (
+    DELIVERY_ARTIFACT_ROLES,
+    DELIVERY_CAPABILITIES,
+    DeliveryArtifactContentRef,
+    DeliveryContractError,
+    DeliveryToolAdapter,
+    PackageEntry,
+    PackageManifest,
+    PublishAdapter,
+    PublishDestination,
+    PublishReceipt,
+    PublishRequest,
+    delivery_production_pack,
+)
 if TYPE_CHECKING:
     from .image_tool import DeterministicImageTool
     from .audio_tool import (
@@ -778,6 +792,39 @@ if TYPE_CHECKING:
         VideoInspection,
         VideoRenderResult,
         VideoStreamEvidence,
+    )
+    from .delivery_tool import (
+        ArchiveVerification,
+        DeliveryLocalError,
+        DeliveryLocalPostPackageError,
+        DeterministicLocalDeliveryTool,
+        HmacSha256SigningSpec,
+        InstallableStructuralValidator,
+        LocalPackageConfig,
+        LocalPackageRequest,
+        LocalPackageResult,
+        PACKAGE_MANIFEST_PATH,
+        PackageInput,
+        PackageVerificationEntry,
+        PreservedLocalPackage,
+        RequiredEntriesValidator,
+        SecretFinding,
+        SecretResolver,
+        SecretScanEvidence,
+        scan_for_obvious_secrets,
+        verify_local_archive,
+    )
+    from .cloudflare_kv_publish import (
+        CloudflareKVPublishAdapter,
+        CloudflareKvAuthorityError,
+        CloudflareKvConflictError,
+        CloudflareKvContractError,
+        CloudflareKvHttpTransport,
+        CloudflareKvIntegrityError,
+        CloudflareKvPublishAdapter,
+        CloudflareKvPublishError,
+        CloudflareKvTransport,
+        CloudflareKvTransportResponse,
     )
 from .three_d_tool import (
     BlenderThreeDToolAdapter,
@@ -1524,6 +1571,47 @@ __all__ = [
     "VideoToolAdapter",
     "VideoTransition",
     "video_production_pack",
+    "DELIVERY_CAPABILITIES",
+    "DELIVERY_ARTIFACT_ROLES",
+    "DeliveryContractError",
+    "DeliveryArtifactContentRef",
+    "PackageEntry",
+    "PackageManifest",
+    "PublishDestination",
+    "PublishRequest",
+    "PublishReceipt",
+    "DeliveryToolAdapter",
+    "PublishAdapter",
+    "delivery_production_pack",
+    "ArchiveVerification",
+    "DeliveryLocalError",
+    "DeliveryLocalPostPackageError",
+    "DeterministicLocalDeliveryTool",
+    "HmacSha256SigningSpec",
+    "InstallableStructuralValidator",
+    "LocalPackageConfig",
+    "LocalPackageRequest",
+    "LocalPackageResult",
+    "PACKAGE_MANIFEST_PATH",
+    "PackageInput",
+    "PackageVerificationEntry",
+    "PreservedLocalPackage",
+    "RequiredEntriesValidator",
+    "SecretFinding",
+    "SecretResolver",
+    "SecretScanEvidence",
+    "scan_for_obvious_secrets",
+    "verify_local_archive",
+    "CloudflareKvPublishError",
+    "CloudflareKvContractError",
+    "CloudflareKvAuthorityError",
+    "CloudflareKvConflictError",
+    "CloudflareKvIntegrityError",
+    "CloudflareKvTransportResponse",
+    "CloudflareKvTransport",
+    "CloudflareKvHttpTransport",
+    "CloudflareKvPublishAdapter",
+    "CloudflareKVPublishAdapter",
     "DeterministicVideoTool",
     "VideoDecodedMetadata",
     "VideoInspection",
@@ -1615,4 +1703,43 @@ def __getattr__(name: str) -> Any:
         from . import video_frame_pipeline
 
         return getattr(video_frame_pipeline, name)
+    if name in {
+        "ArchiveVerification",
+        "DeliveryLocalError",
+        "DeliveryLocalPostPackageError",
+        "DeterministicLocalDeliveryTool",
+        "HmacSha256SigningSpec",
+        "InstallableStructuralValidator",
+        "LocalPackageConfig",
+        "LocalPackageRequest",
+        "LocalPackageResult",
+        "PACKAGE_MANIFEST_PATH",
+        "PackageInput",
+        "PackageVerificationEntry",
+        "PreservedLocalPackage",
+        "RequiredEntriesValidator",
+        "SecretFinding",
+        "SecretResolver",
+        "SecretScanEvidence",
+        "scan_for_obvious_secrets",
+        "verify_local_archive",
+    }:
+        from . import delivery_tool
+
+        return getattr(delivery_tool, name)
+    if name in {
+        "CloudflareKvPublishError",
+        "CloudflareKvContractError",
+        "CloudflareKvAuthorityError",
+        "CloudflareKvConflictError",
+        "CloudflareKvIntegrityError",
+        "CloudflareKvTransportResponse",
+        "CloudflareKvTransport",
+        "CloudflareKvHttpTransport",
+        "CloudflareKvPublishAdapter",
+        "CloudflareKVPublishAdapter",
+    }:
+        from . import cloudflare_kv_publish
+
+        return getattr(cloudflare_kv_publish, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
