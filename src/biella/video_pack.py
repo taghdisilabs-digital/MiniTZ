@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
+from fractions import Fraction
 import hashlib
 import json
 import math
@@ -162,9 +163,35 @@ class VideoFrameSequenceManifest:
         values = tuple(frames)
         if not isinstance(project_ref, ProjectRef) or not values or not all(isinstance(frame, VideoFrameRef) and frame.project_ref == project_ref for frame in values):
             raise VideoContractError("frame manifest Project/frames are incompatible")
-        if tuple(frame.frame_index for frame in values) != tuple(range(values[0].frame_index, values[0].frame_index + len(values))) or tuple(frame.timestamp for frame in values) != tuple(sorted(frame.timestamp for frame in values)):
+        checked_fps = _text(fps, "fps")
+        try:
+            rate = Fraction(checked_fps)
+        except (ValueError, ZeroDivisionError) as exc:
+            raise VideoContractError("frame manifest fps is not rational") from exc
+        if rate <= 0:
+            raise VideoContractError("frame manifest fps must be positive")
+        first_index = values[0].frame_index
+        if tuple(frame.frame_index for frame in values) != tuple(range(first_index, first_index + len(values))):
             raise VideoContractError("frame manifest is not ordered or has missing frames")
-        return {"project_ref": project_ref.value, "sequence_ref": _ref(sequence_ref, "sequence_ref"), "version": _text(version, "sequence version"), "fps": _text(fps, "fps"), "frames": [frame.payload() for frame in values]}
+        first_clip = values[0].clip
+        if any(frame.clip != first_clip for frame in values):
+            raise VideoContractError("frame manifest clip/source order is inconsistent")
+        timestamps = tuple(frame.timestamp for frame in values)
+        if len(set(timestamps)) != len(timestamps):
+            raise VideoContractError("frame manifest contains duplicate timestamps")
+        first_timestamp = timestamps[0]
+        for offset, timestamp in enumerate(timestamps):
+            expected = first_timestamp + float(Fraction(offset, 1) / rate)
+            if not math.isclose(timestamp, expected, rel_tol=0.0, abs_tol=1e-9):
+                raise VideoContractError("frame manifest timestamp cadence differs from fps")
+        artifact_refs = tuple(frame.frame.artifact_ref for frame in values)
+        if len(set(artifact_refs)) != len(artifact_refs):
+            raise VideoContractError("frame manifest contains duplicate Artifact identity")
+        content_refs = tuple(frame.frame.content_ref for frame in values)
+        content_sha256 = tuple(frame.frame.content_sha256 for frame in values)
+        if len(set(content_refs)) != len(content_refs) or len(set(content_sha256)) != len(content_sha256):
+            raise VideoContractError("frame manifest contains duplicate Content identity")
+        return {"project_ref": project_ref.value, "sequence_ref": _ref(sequence_ref, "sequence_ref"), "version": _text(version, "sequence version"), "fps": checked_fps, "frames": [frame.payload() for frame in values]}
 
     def __post_init__(self) -> None:
         if _sha(self.manifest_digest, "manifest_digest") != _digest(self._payload(self.project_ref, self.sequence_ref, self.version, self.fps, self.frames)):
@@ -228,6 +255,9 @@ class VideoEdit:
         _text(self.operation, "edit operation")
         object.__setattr__(self, "parameters", _map(self.parameters, "edit parameters"))
 
+    def payload(self) -> dict[str, object]:
+        return {"edit_ref": self.edit_ref, "clip": self.clip.payload(), "operation": self.operation, "parameters": dict(self.parameters)}
+
 
 @dataclass(frozen=True)
 class VideoTransition:
@@ -242,6 +272,9 @@ class VideoTransition:
             raise VideoContractError("transition range is invalid")
         object.__setattr__(self, "parameters", _map(self.parameters, "transition parameters"))
 
+    def payload(self) -> dict[str, object]:
+        return {"transition_ref": self.transition_ref, "at": self.at, "duration": self.duration, "parameters": dict(self.parameters)}
+
 
 @dataclass(frozen=True)
 class VideoEffect:
@@ -253,6 +286,9 @@ class VideoEffect:
         _ref(self.effect_ref, "effect_ref")
         _text(self.version, "effect version")
         object.__setattr__(self, "parameters", _map(self.parameters, "effect parameters"))
+
+    def payload(self) -> dict[str, object]:
+        return {"effect_ref": self.effect_ref, "version": self.version, "parameters": dict(self.parameters)}
 
 
 @dataclass(frozen=True)
@@ -291,6 +327,15 @@ class VideoTimeline:
             raise VideoContractError("timeline media dependency crossed Project scope")
         if tuple(clip.timeline_start for clip in clips) != tuple(sorted(clip.timeline_start for clip in clips)) or len({clip.source.artifact_ref for clip in clips}) != len(clips):
             raise VideoContractError("timeline clips are duplicated or unordered")
+        for refs, label in (
+            (tuple(item.edit_ref for item in edits), "edit"),
+            (tuple(item.transition_ref for item in transitions), "transition"),
+            (tuple(item.effect_ref for item in effects), "effect"),
+        ):
+            if len(refs) != len(set(refs)):
+                raise VideoContractError(f"timeline contains duplicate {label} references")
+        if edits and tuple(item.clip for item in edits) != clips:
+            raise VideoContractError("timeline edit clips do not exactly bind declared clips in order")
         expected_track_order = tuple(f"audio:{index}" for index in range(len(audio))) + tuple(f"subtitle:{index}" for index in range(len(subtitles)))
         if tuple(self.track_order) != expected_track_order:
             raise VideoContractError("timeline track order is missing or inconsistent")
@@ -314,7 +359,7 @@ class VideoTimeline:
         object.__setattr__(self, "timeline_digest", _digest(self.payload()))
 
     def payload(self) -> dict[str, object]:
-        return {"timeline_ref": self.timeline_ref, "version": self.version, "edits": [item.edit_ref for item in self.edits], "transitions": [item.transition_ref for item in self.transitions], "effects": [item.effect_ref for item in self.effects], "clips": [item.payload() for item in self.clips], "image_sources": [item.payload() for item in self.image_sources], "render_sequences": [item.manifest_digest for item in self.render_sequences], "audio_tracks": [item.payload() for item in self.audio_tracks], "subtitle_tracks": [item.payload() for item in self.subtitle_tracks], "track_order": list(self.track_order), "timebase": self.timebase, "policy": dict(self.policy), "output_contract": dict(self.output_contract)}
+        return {"project_ref": self.project_ref.value, "timeline_ref": self.timeline_ref, "version": self.version, "edits": [item.payload() for item in self.edits], "transitions": [item.payload() for item in self.transitions], "effects": [item.payload() for item in self.effects], "clips": [item.payload() for item in self.clips], "image_sources": [item.payload() for item in self.image_sources], "render_sequences": [item.manifest_digest for item in self.render_sequences], "audio_tracks": [item.payload() for item in self.audio_tracks], "subtitle_tracks": [item.payload() for item in self.subtitle_tracks], "track_order": list(self.track_order), "timebase": self.timebase, "policy": dict(self.policy), "output_contract": dict(self.output_contract)}
 
 
 @dataclass(frozen=True)

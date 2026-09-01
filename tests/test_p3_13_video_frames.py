@@ -448,6 +448,12 @@ def test_existing_image_and_render_sequences_keep_exact_source_order(
             image.artifact_ref,
             image.content_sha256,
             True,
+            attempt=_dispatch(environment).node_attempt,
+            resource_ref="resource://video/render-fixture/cpu",
+            resource_identity_sha256=hashlib.sha256(
+                b"video-render-fixture-resource"
+            ).hexdigest(),
+            device_identity="device://video/render-fixture/cpu",
         )
         for frame, image in zip((10, 11, 12), images, strict=True)
     )

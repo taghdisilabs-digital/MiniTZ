@@ -60,7 +60,15 @@ def _dispatch(environment: Any) -> ScheduledDispatch:
     return ScheduledDispatch(allocation, environment.attempt)
 
 
-def _fixture_mp4(*, seconds: float = 0.8, rate: int = 25) -> bytes:
+def _fixture_mp4(
+    *,
+    seconds: float = 0.8,
+    rate: int = 25,
+    color_primaries: str = "bt709",
+    color_transfer: str = "bt709",
+    color_space: str = "bt709",
+    color_range: str = "tv",
+) -> bytes:
     completed = subprocess.run(
         (
             "/usr/bin/ffmpeg",
@@ -86,14 +94,20 @@ def _fixture_mp4(*, seconds: float = 0.8, rate: int = 25) -> bytes:
             "ultrafast",
             "-pix_fmt",
             "yuv420p",
+            "-x264-params",
+            (
+                f"colorprim={color_primaries}:transfer={color_transfer}:"
+                f"colormatrix={color_space}:"
+                f"range={'limited' if color_range == 'tv' else 'full'}"
+            ),
             "-color_primaries",
-            "bt709",
+            color_primaries,
             "-color_trc",
-            "bt709",
+            color_transfer,
             "-colorspace",
-            "bt709",
+            color_space,
             "-color_range",
-            "tv",
+            color_range,
             "-codec:a",
             "aac",
             "-ar",
@@ -261,7 +275,11 @@ def _specification(
         runtime_ref=tool.runtime_ref,
         model_ref=None,
         seed=0,
-        config={"preset": "medium", "scale_filter": "bicubic"}
+        config={
+            "preset": "medium",
+            "scale_filter": "bicubic",
+            "color_policy": "preserve",
+        }
         if config is None
         else dict(config),
         validator_ref=tool.validator_ref,
@@ -470,6 +488,61 @@ def test_exact_trim_and_reference_mux_preserve_audio_subtitle_and_provenance(
     assert handoff.output == rendered.output and handoff.target == target
 
 
+def test_color_policy_preserves_or_explicitly_converts_source_metadata(
+    tmp_path: Path,
+) -> None:
+    environment = _environment(tmp_path)
+    dispatch = _dispatch(environment)
+    tool = _tool(environment, dispatch)
+    source = _source(
+        environment,
+        _fixture_mp4(
+            seconds=0.4,
+            color_primaries="smpte170m",
+            color_transfer="smpte170m",
+            color_space="smpte170m",
+        ),
+        media_type="video/mp4",
+        role="video.source",
+    )
+    preserving = _specification(
+        environment,
+        tool,
+        source,
+        video_id="color-preserve-refusal",
+        operation="encode",
+        duration=0.4,
+    )
+
+    with pytest.raises(VideoContractError, match="color policy"):
+        tool.execute(environment.access, environment.attempt, preserving)
+
+    converting = _specification(
+        environment,
+        tool,
+        source,
+        video_id="color-convert",
+        operation="encode",
+        duration=0.4,
+        config={
+            "preset": "medium",
+            "scale_filter": "bicubic",
+            "color_policy": "convert",
+        },
+    )
+    converted = tool.execute(environment.access, environment.attempt, converting)
+    _, converted_payload = _read_output(environment, converted)
+    stream = tool.validate(
+        converted_payload, expected_media_type="video/mp4"
+    ).video_stream
+    assert (
+        stream.color_primaries,
+        stream.color_transfer,
+        stream.color_space,
+        stream.color_range,
+    ) == ("bt709", "bt709", "bt709", "tv")
+
+
 def test_real_encoder_failure_and_stale_worker_preserve_sources_then_recover(
     tmp_path: Path,
 ) -> None:
@@ -487,7 +560,11 @@ def test_real_encoder_failure_and_stale_worker_preserve_sources_then_recover(
         video_id="encoder-failure",
         operation="encode",
         duration=0.4,
-        config={"preset": "not-a-real-x264-preset", "scale_filter": "bicubic"},
+        config={
+            "preset": "not-a-real-x264-preset",
+            "scale_filter": "bicubic",
+            "color_policy": "preserve",
+        },
     )
 
     with pytest.raises(VideoContractError, match="process|encoder|failed"):

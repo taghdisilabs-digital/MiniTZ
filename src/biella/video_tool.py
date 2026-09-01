@@ -60,6 +60,8 @@ _COLOR_POLICIES = {
     "color://bt709/v1": ("bt709", "bt709", "bt709", "tv"),
     "color://rec709/v1": ("bt709", "bt709", "bt709", "tv"),
 }
+_FFMPEG_COLOR_COMPONENTS = frozenset({"bt709", "smpte170m"})
+_FFMPEG_COLOR_RANGES = frozenset({"pc", "tv"})
 _ROLE_BY_OPERATION = {
     "compose": "video.composite",
     "edit": "video.clip",
@@ -1211,9 +1213,12 @@ class DeterministicVideoTool(VideoToolAdapter):
             raise VideoContractError("non-compose video requires one source and no implicit edits")
         preset = specification.config.get("preset")
         scale_filter = specification.config.get("scale_filter")
+        color_policy = specification.config.get("color_policy")
         if not preset or scale_filter not in {"bilinear", "bicubic", "lanczos", "neighbor"}:
             raise VideoContractError("video encoder preset and scale filter must be explicit")
-        if set(specification.config) != {"preset", "scale_filter"}:
+        if color_policy not in {"convert", "preserve"}:
+            raise VideoContractError("video color policy must explicitly preserve or convert")
+        if set(specification.config) != {"preset", "scale_filter", "color_policy"}:
             raise VideoContractError("video config contains unknown implicit behavior")
         role = specification.output_contract.get("role", _ROLE_BY_OPERATION[specification.operation])
         if role not in VIDEO_ARTIFACT_ROLES:
@@ -1317,6 +1322,38 @@ class DeterministicVideoTool(VideoToolAdapter):
             raise VideoContractError("preserve fps requires one exact source rate")
         return rates[0]
 
+    @staticmethod
+    def _color_filter(
+        specification: VideoSpecification, segment: _VideoSegment
+    ) -> str | None:
+        stream = segment.metadata.video_stream
+        source = (
+            stream.color_primaries,
+            stream.color_transfer,
+            stream.color_space,
+            stream.color_range,
+        )
+        target = _COLOR_POLICIES[cast(str, specification.color_ref)]
+        policy = specification.config["color_policy"]
+        if policy == "preserve":
+            if source != target:
+                raise VideoContractError(
+                    "video color policy preserve differs from exact source metadata"
+                )
+            return None
+        if (
+            any(value not in _FFMPEG_COLOR_COMPONENTS for value in source[:3])
+            or source[3] not in _FFMPEG_COLOR_RANGES
+        ):
+            raise VideoContractError(
+                "video color policy conversion requires supported exact source metadata"
+            )
+        return (
+            "colorspace="
+            f"iprimaries={source[0]}:itrc={source[1]}:ispace={source[2]}:irange={source[3]}:"
+            f"primaries={target[0]}:trc={target[1]}:space={target[2]}:range={target[3]}"
+        )
+
     def _encode(
         self,
         specification: VideoSpecification,
@@ -1343,8 +1380,13 @@ class DeterministicVideoTool(VideoToolAdapter):
             chain = [
                 f"trim=start={_seconds(segment.source_start)}:end={_seconds(segment.source_end)}",
                 "setpts=PTS-STARTPTS",
-                f"scale={specification.width}:{specification.height}:flags={specification.config['scale_filter']}",
             ]
+            color_filter = self._color_filter(specification, segment)
+            if color_filter is not None:
+                chain.append(color_filter)
+            chain.append(
+                f"scale={specification.width}:{specification.height}:flags={specification.config['scale_filter']}"
+            )
             if specification.fps_policy == "conform":
                 chain.append(f"fps={_fraction_text(fps)}:round=near")
             chain.extend(
