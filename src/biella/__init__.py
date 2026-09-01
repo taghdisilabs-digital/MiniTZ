@@ -3,6 +3,8 @@
 Migration-only interfaces are deliberately isolated in :mod:`biella.migration`.
 """
 
+from typing import TYPE_CHECKING, Any
+
 from .runtime import (
     ActiveArtifact,
     ActiveArtifactStore,
@@ -677,6 +679,32 @@ from .vfx_pack import (
     vfx_production_pack,
 )
 from .simulation_tool import BlenderSimulationAdapter, ReferenceSimulationAdapter
+from .image_pack import (
+    IMAGE_ARTIFACT_ROLES,
+    IMAGE_CAPABILITIES,
+    ChannelPacking,
+    ImageArtifactContentRef,
+    ImageContractError,
+    ImageInspectionRef,
+    ImageModelAdapter,
+    ImageOperation,
+    ImageOutputRef,
+    ImageSpecification,
+    ImageToolAdapter,
+    NormalConvention,
+    TextureMaterialBinding,
+    TextureSpecification,
+    image_production_pack,
+)
+from .cloudflare_image_model import (
+    CloudflareHttpResponse,
+    CloudflareImageModel,
+    CloudflareImageModelError,
+    CloudflareTransport,
+    cloudflare_image_model_adapter,
+)
+if TYPE_CHECKING:
+    from .image_tool import DeterministicImageTool
 from .three_d_tool import (
     BlenderThreeDToolAdapter,
     EnvironmentManifestPublication,
@@ -1351,6 +1379,27 @@ __all__ = [
     "vfx_production_pack",
     "BlenderSimulationAdapter",
     "ReferenceSimulationAdapter",
+    "IMAGE_ARTIFACT_ROLES",
+    "IMAGE_CAPABILITIES",
+    "ChannelPacking",
+    "ImageArtifactContentRef",
+    "ImageContractError",
+    "ImageInspectionRef",
+    "ImageModelAdapter",
+    "ImageOperation",
+    "ImageOutputRef",
+    "ImageSpecification",
+    "ImageToolAdapter",
+    "NormalConvention",
+    "TextureMaterialBinding",
+    "TextureSpecification",
+    "image_production_pack",
+    "DeterministicImageTool",
+    "CloudflareHttpResponse",
+    "CloudflareImageModel",
+    "CloudflareImageModelError",
+    "CloudflareTransport",
+    "cloudflare_image_model_adapter",
     "EnvironmentManifestPublication",
     "BlenderThreeDToolAdapter",
     "ReferenceThreeDToolAdapter",
@@ -1389,3 +1438,12 @@ __all__ = [
     "large_scale_graph_recipe",
     "large_scale_production_pack",
 ]
+
+
+def __getattr__(name: str) -> Any:
+    """Load optional image-runtime dependencies only when their symbol is requested."""
+    if name == "DeterministicImageTool":
+        from .image_tool import DeterministicImageTool
+
+        return DeterministicImageTool
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
