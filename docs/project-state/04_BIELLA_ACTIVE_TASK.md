@@ -1,44 +1,52 @@
-# 04 — BIELLA ACTIVE TASK
+# 04 - BIELLA ACTIVE TASK
 
 ```yaml
 schema: biella.active_task/v6
 
 program_boundary:
-  state: FOUNDATION_COMPLETE
-  completed_task:
-    id: P4-06
-    global_number: 51
-    phase: P4
-    state: COMPLETE
-  active_numbered_prompt: NONE
-  successor: NONE
-  successor_dependency: NONE
-  execution_authorized: false
-  authorization_reason: PROGRAM_BOUNDARY_COMPLETE_NOT_APPROVAL_REQUIRED
-  unresolved: NONE
+  state: ACTIVE_NUMBERED_REPAIR
+  completed_predecessor: P3-05
+  active_numbered_prompt: P3-06
+  active_global_number: 37
+  active_title: Character Modeling, Rigging, Skinning, and Character Asset Pack
+  active_prompt_drive_id: 11Q0LKa5Zl_ctJ6_0tdn_6ezvxNeex6JufFBbDfu5NHM
+  successor: P3-07
+  successor_dependency: P3-06_DURABLE_CLOSE
+  execution_authorized: true
+  authorization_reason: STANDING_OWNER_AUTHORIZATION_P3_06_THROUGH_P4_06
+  unresolved: P3_06_DURABLE_RUN_ARTIFACT_REPORT_EVIDENCE
 
-durable_result:
-  commit: b7a55142edea7de895f799b8bef074a2a02d916d
-  tree: 6df2a4d4f04246713220aa2461a10e33ba1b93d1
-  github_readback: EXACT
+accepted_source:
+  implementation_commit: 78005b0a30fa7002eed8019a588731551e3d2c6b
+  implementation_tree: 6737d32d10feae0dcaeb4024ece00f3aa64b20f0
+  current_preserved_source_commit: b7a55142edea7de895f799b8bef074a2a02d916d
+  current_preserved_source_tree: 6df2a4d4f04246713220aa2461a10e33ba1b93d1
+  source_classification: COMPLETE_REUSE_WITHOUT_REIMPLEMENTATION
 
-qualification:
-  P4: 79_OF_79
-  focused: 14_OF_14
-  neutral: 1_OF_1
-  strict_mypy_files: 186
-  wheel_sha256_prefix: 87b5f4c
+audit_invalidation:
+  functional_source: COMPLETE
+  missing:
+    - durable_Task_Run_Graph_Node_Artifact_evidence_refs
+    - retained_REAL_Blender_output_and_process_reports
+    - exact_commands_and_named_six_KPI_results
+    - published_wheel_identity_and_exact_readback
+  optional_engine_import: NOT_REQUIRED
 
-drive_evidence:
-  qualification:
-    id: 1aPBlo32W0lXj_d2Fkfw4QeYhHk5cOFbl
-    sha256: bb6501aa312e071685b59f6b04172294a3d78926b4e711201415c76c174889bf
-  recipe_store:
-    id: 1sRgvPljcCKiNdTO3EsqGxdF2SSRtWcc_
-    sha256: e865a29a5cd4a50071eb54d911a92ddcd721f1f972a1b1feeefc4a2a70952b6f
-  system_summary:
-    id: 13kCHinR5a-TW7SiIbPESdQZz-Ygjj9MS
-    sha256: eeb3fd11a2e2e1adf3df17c505921d687c809aa42eef57d184bbab457ff64079
+graph:
+  revision: P3_06_EVIDENCE_REPAIR_R1
+  nodes:
+    - id: P3-06-L40S-REAL
+      resource: biella-gpu
+      status: RUNNING
+      writes: /root/biella/jobs/p3-06-evidence-20260901
+    - id: P3-06-ENGINE-EVIDENCE
+      resource: controller
+      status: READY
+      dependency: P3-06-L40S-REAL
+    - id: P3-06-PUBLISH-CLOSE
+      resource: controller
+      status: BLOCKED
+      dependency: P3-06-ENGINE-EVIDENCE
 
 execution_dependencies:
   spark: REMOVED
