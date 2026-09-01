@@ -668,6 +668,15 @@ from .render_pack import (
     RendererAdapter,
     render_production_pack,
 )
+from .vfx_pack import (
+    SimulationAdapter,
+    SimulationBakeRef,
+    SimulationCheckpointRef,
+    SimulationContractError,
+    SimulationSpecification,
+    vfx_production_pack,
+)
+from .simulation_tool import BlenderSimulationAdapter, ReferenceSimulationAdapter
 from .three_d_tool import (
     BlenderThreeDToolAdapter,
     EnvironmentManifestPublication,
@@ -1334,6 +1343,14 @@ __all__ = [
     "RenderSequenceManifest",
     "RendererAdapter",
     "render_production_pack",
+    "SimulationAdapter",
+    "SimulationBakeRef",
+    "SimulationCheckpointRef",
+    "SimulationContractError",
+    "SimulationSpecification",
+    "vfx_production_pack",
+    "BlenderSimulationAdapter",
+    "ReferenceSimulationAdapter",
     "EnvironmentManifestPublication",
     "BlenderThreeDToolAdapter",
     "ReferenceThreeDToolAdapter",
