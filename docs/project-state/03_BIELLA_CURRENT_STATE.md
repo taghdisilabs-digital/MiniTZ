@@ -23,34 +23,34 @@ engine:
 
 durable_source:
   current_implementation_base:
-    commit: 72bd7d78f7fe5ff53cac003cfeddcd91188fcfe3
-    tree: 21ed73b5e2f55ce21a77ce28f40d5b415f159c0b
-    meaning: P3_11_durably_closed
+    commit: 3dcc194253bb54d2a171cf7230877af95231ebe7
+    tree: 8835d92e6651ea13ec5f02b87487f0520fb7bae6
+    meaning: P3_12_durably_closed
   current_execution_map:
-    source_commit: b7fe1a20caabeda053b1fb8c42d01a7da999b34e
-    result_commit: 72bd7d78f7fe5ff53cac003cfeddcd91188fcfe3
-    result_tree: 21ed73b5e2f55ce21a77ce28f40d5b415f159c0b
+    source_commit: 72bd7d78f7fe5ff53cac003cfeddcd91188fcfe3
+    result_commit: 3dcc194253bb54d2a171cf7230877af95231ebe7
+    result_tree: 8835d92e6651ea13ec5f02b87487f0520fb7bae6
     file: docs/project-state/04_BIELLA_ACTIVE_TASK.md
     schema: biella.active_task/v6
     language: biella.codex.end_to_end/v2
-    status: P3_11_COMPLETE_P3_12_ACTIVATED_PROMPT_NOT_LOADED
+    status: P3_12_COMPLETE_P3_13_ACTIVATED_PROMPT_NOT_LOADED
   branch_head_rule: continuity_commits_may_advance_after_this_record; preserve_current_productive_state_before_any_future_remote_mutation_then_reobserve_origin_main
   rejected_history:
     first_rejected_execution_time: "2026-08-30T10:44:52Z"
     rejected_post_boundary_completion_claims: P3_10_THROUGH_P3_09
 
 numbered_execution:
-  durable_prompts_complete: 42
+  durable_prompts_complete: 43
   durable_prompts_total: 51
-  progress: "42 / 51"
+  progress: "43 / 51"
   phase: P3
-  active_prompt: P3-12
-  active_global_number: 43
-  active_title: Audio Production, Processing, Mixing and Validation Pack
-  predecessor: P3-11
+  active_prompt: P3-13
+  active_global_number: 44
+  active_title: Video Production, Editing, Compositing and Media Pipeline Pack
+  predecessor: P3-12
   successor_execution_authorized: false
   active_execution_authorized: true
-  future_activation_shells_prepared: P3_12_THROUGH_P4_06
+  future_activation_shells_prepared: P3_13_THROUGH_P4_06
   future_internal_graphs_precompiled: false
   future_graph_rule: compile_each_from_exact_prompt_and_current_source_only_when_activated
 
@@ -120,20 +120,26 @@ prior_durable_through_P3_10:
   latest_result_commit: b7fe1a20caabeda053b1fb8c42d01a7da999b34e
   latest_result_tree: 5b94821f1fb98a9993d384e9a2d034bcff843376
 
-p3_11_durable_close:
-  result_commit: 72bd7d78f7fe5ff53cac003cfeddcd91188fcfe3
-  result_tree: 21ed73b5e2f55ce21a77ce28f40d5b415f159c0b
-  github_readback: EXACT_COMMIT_TREE_AND_EIGHT_PATHS_CONFIRMED
-  contract: REAL_PILLOW_DETERMINISTIC_DECODE_EDIT_COMPOSITE_TEXTURE_MATERIAL_CONCURRENCY_AND_REAL_CLOUDFLARE_WORKERS_AI_FLUX_GENERATION
-  final_gate: 28_TESTS_GREEN_IN_70.93_SECONDS; 2_AFFECTED_TYPE_REPAIR_TESTS_GREEN_IN_13.32_SECONDS; STRICT_MYPY_7_PATHS_GREEN; SIX_KPIS_ZERO
-  wheel_extra: Pillow_12.1.1_image
-  wheel_sha256: d839c9d17a0c92e16c0f66c8307fa0c4e0fb27305b187e0646f0bd851ebc8d89
+prior_durable_through_P3_11:
+  status: VERIFIED
+  latest_result_commit: 72bd7d78f7fe5ff53cac003cfeddcd91188fcfe3
+  latest_result_tree: 21ed73b5e2f55ce21a77ce28f40d5b415f159c0b
+
+p3_12_durable_close:
+  result_commit: 3dcc194253bb54d2a171cf7230877af95231ebe7
+  result_tree: 8835d92e6651ea13ec5f02b87487f0520fb7bae6
+  github_readback: EXACT_COMMIT_TREE_AND_SEVEN_PATHS_CONFIRMED
+  contract: REAL_FFMPEG_8_0_1_DECODE_EDIT_RESAMPLE_CONVERT_FILTER_NORMALIZE_STEM_MIX_SESSION_METRICS_GAME_VIDEO_HANDOFF_AND_REAL_CLOUDFLARE_AURA_1_SPEECH
+  final_gate: 23_PASSED_1_INTENTIONAL_MELO_TEMP_UNAVAILABLE_SKIP_IN_119.70_SECONDS; STRICT_MYPY_7_PATHS_GREEN; FIVE_KPIS_ZERO
+  provider_incident: ONE_MELOTTS_HTTP_500_PRESERVED_NOT_RETRIED
+  capabilities: 21_TOTAL_INCLUDING_3_EXPLICIT_OPTIONAL
+  wheel_sha256: 9877cbaa10c82b28517802968f899e12046f7d9115084639611eb5b0458c70ac
 
 approved_execution_program:
   language: biella.codex.end_to_end/v2
   mode: SINGLE_END_TO_END_NUMBERED_EXECUTION
   active_graph_location: docs/project-state/04_BIELLA_ACTIVE_TASK.md
-  active_graph: P3_12_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
+  active_graph: P3_13_AUTHORIZED_PROMPT_NOT_LOADED_OR_COMPILED
   duplicate_prevention:
     exact_Node_identity_and_claim: required
     one_current_owner_per_Node: true
