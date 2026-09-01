@@ -9,6 +9,9 @@ on:
       - "src/biella/vfx_recovery.py"
       - "tests/test_p3_10_vfx_pack.py"
       - "tests/test_p3_10_enospc_recovery.py"
+      - "docs/project-state/03_BIELLA_CURRENT_STATE.md"
+      - "docs/project-state/04_BIELLA_ACTIVE_TASK.md"
+      - "docs/project-state/evidence/P3_10_VFX_SIMULATION_REPAIR_EVIDENCE.md"
       - ".github/workflows/p3-10-vfx-simulation-repair.yml"
   workflow_dispatch:
 
