@@ -767,6 +767,20 @@ from .delivery_pack import (
     PublishRequest,
     delivery_production_pack,
 )
+from .model_evaluation import (
+    DescriptiveStatistics,
+    EvaluationContractError,
+    EvaluationTask,
+    EvaluationTaskSet,
+    EvidenceClass,
+    ModelCandidate,
+    ModelEvaluationKnowledgeCandidate,
+    ModelEvaluationResult,
+    ModelEvaluationRun,
+    ModelEvaluationSuite,
+    PairwiseComparison,
+    WorkloadProfile,
+)
 if TYPE_CHECKING:
     from .image_tool import DeterministicImageTool
     from .audio_tool import (
@@ -825,6 +839,34 @@ if TYPE_CHECKING:
         CloudflareKvPublishError,
         CloudflareKvTransport,
         CloudflareKvTransportResponse,
+    )
+    from .model_evaluation_runtime import (
+        ArtifactEvidence,
+        CellExecutionProduct,
+        CellInfrastructureFailure,
+        CompletedCellEvidence,
+        EvaluationCellCoordinate,
+        MatrixAuthorityError,
+        MatrixBatchResult,
+        MatrixContractError,
+        MatrixEvidenceError,
+        MatrixManifest,
+        MatrixRecovery,
+        MatrixRecoveryError,
+        ModelEvaluationMatrixRuntime,
+        ProjectKnowledgeCandidatePayload,
+    )
+    from .model_evaluation_evidence import (
+        CandidateEvidenceSummary,
+        EvaluationCellBinding,
+        EvaluationCellKey,
+        EvidenceImportError,
+        EvidenceReality,
+        ExternalEvaluationArtifacts,
+        ImportedEvaluationCell,
+        ImportedModelEvaluationEvidence,
+        P4_01_L40S_FIXTURE_SHA256,
+        import_p4_01_l40s_evidence,
     )
 from .three_d_tool import (
     BlenderThreeDToolAdapter,
@@ -1583,6 +1625,42 @@ __all__ = [
     "DeliveryToolAdapter",
     "PublishAdapter",
     "delivery_production_pack",
+    "EvidenceClass",
+    "EvaluationContractError",
+    "WorkloadProfile",
+    "EvaluationTask",
+    "EvaluationTaskSet",
+    "ModelCandidate",
+    "ModelEvaluationSuite",
+    "ModelEvaluationRun",
+    "DescriptiveStatistics",
+    "PairwiseComparison",
+    "ModelEvaluationResult",
+    "ModelEvaluationKnowledgeCandidate",
+    "ArtifactEvidence",
+    "CellExecutionProduct",
+    "CellInfrastructureFailure",
+    "CompletedCellEvidence",
+    "EvaluationCellCoordinate",
+    "MatrixAuthorityError",
+    "MatrixBatchResult",
+    "MatrixContractError",
+    "MatrixEvidenceError",
+    "MatrixManifest",
+    "MatrixRecovery",
+    "MatrixRecoveryError",
+    "ModelEvaluationMatrixRuntime",
+    "ProjectKnowledgeCandidatePayload",
+    "P4_01_L40S_FIXTURE_SHA256",
+    "EvidenceImportError",
+    "EvidenceReality",
+    "ExternalEvaluationArtifacts",
+    "EvaluationCellKey",
+    "EvaluationCellBinding",
+    "CandidateEvidenceSummary",
+    "ImportedEvaluationCell",
+    "ImportedModelEvaluationEvidence",
+    "import_p4_01_l40s_evidence",
     "ArchiveVerification",
     "DeliveryLocalError",
     "DeliveryLocalPostPackageError",
@@ -1742,4 +1820,38 @@ def __getattr__(name: str) -> Any:
         from . import cloudflare_kv_publish
 
         return getattr(cloudflare_kv_publish, name)
+    if name in {
+        "ArtifactEvidence",
+        "CellExecutionProduct",
+        "CellInfrastructureFailure",
+        "CompletedCellEvidence",
+        "EvaluationCellCoordinate",
+        "MatrixAuthorityError",
+        "MatrixBatchResult",
+        "MatrixContractError",
+        "MatrixEvidenceError",
+        "MatrixManifest",
+        "MatrixRecovery",
+        "MatrixRecoveryError",
+        "ModelEvaluationMatrixRuntime",
+        "ProjectKnowledgeCandidatePayload",
+    }:
+        from . import model_evaluation_runtime
+
+        return getattr(model_evaluation_runtime, name)
+    if name in {
+        "P4_01_L40S_FIXTURE_SHA256",
+        "EvidenceImportError",
+        "EvidenceReality",
+        "ExternalEvaluationArtifacts",
+        "EvaluationCellKey",
+        "EvaluationCellBinding",
+        "CandidateEvidenceSummary",
+        "ImportedEvaluationCell",
+        "ImportedModelEvaluationEvidence",
+        "import_p4_01_l40s_evidence",
+    }:
+        from . import model_evaluation_evidence
+
+        return getattr(model_evaluation_evidence, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

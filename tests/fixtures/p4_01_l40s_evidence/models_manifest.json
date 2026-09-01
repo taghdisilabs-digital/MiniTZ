@@ -1,0 +1,26 @@
+{
+  "cache_root": "/root/biella/work/p4-01-model-eval/cache/huggingface/hub",
+  "installed_at": "2026-09-01T04:07:33.845832Z",
+  "model_count": 2,
+  "models": [
+    {
+      "access": "public_anonymous",
+      "cache_file_count": 7,
+      "family": "Qwen2.5-Instruct",
+      "model_file_bytes": 999586347,
+      "model_id": "Qwen/Qwen2.5-0.5B-Instruct",
+      "resolved_revision_sha": "7ae557604adf67be50417f59c2c2f167def9a775",
+      "snapshot_path": "/root/biella/work/p4-01-model-eval/cache/huggingface/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775"
+    },
+    {
+      "access": "public_anonymous",
+      "cache_file_count": 7,
+      "family": "Qwen2.5-Instruct",
+      "model_file_bytes": 3098955668,
+      "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+      "resolved_revision_sha": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+      "snapshot_path": "/root/biella/work/p4-01-model-eval/cache/huggingface/hub/models--Qwen--Qwen2.5-1.5B-Instruct/snapshots/989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+    }
+  ],
+  "schema_version": 1
+}
