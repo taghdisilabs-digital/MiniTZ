@@ -703,8 +703,43 @@ from .cloudflare_image_model import (
     CloudflareTransport,
     cloudflare_image_model_adapter,
 )
+from .audio_pack import (
+    AUDIO_ARTIFACT_ROLES,
+    AUDIO_CAPABILITIES,
+    AUDIO_OPTIONAL_CAPABILITIES,
+    AudioArtifactContentRef,
+    AudioContractError,
+    AudioInspectionRef,
+    AudioModelAdapter,
+    AudioOutputRef,
+    AudioSpecification,
+    AudioToolAdapter,
+    EditableAudioSessionBinding,
+    GameAudioHandoffBinding,
+    MixSpecification,
+    ProcessingChain,
+    StemSpecification,
+    VideoAudioHandoffBinding,
+    audio_production_pack,
+)
+from .cloudflare_audio_model import (
+    AudioByteValidator,
+    CloudflareAudioHttpResponse,
+    CloudflareAudioModel,
+    CloudflareAudioModelError,
+    CloudflareAudioTransport,
+    cloudflare_audio_model_adapter,
+)
 if TYPE_CHECKING:
     from .image_tool import DeterministicImageTool
+    from .audio_tool import (
+        AudioDecodedMetadata,
+        AudioInspection,
+        AudioMixResult,
+        AudioStemBatch,
+        AudioTargetMeasurements,
+        DeterministicAudioTool,
+    )
 from .three_d_tool import (
     BlenderThreeDToolAdapter,
     EnvironmentManifestPublication,
@@ -1400,6 +1435,35 @@ __all__ = [
     "CloudflareImageModelError",
     "CloudflareTransport",
     "cloudflare_image_model_adapter",
+    "AUDIO_ARTIFACT_ROLES",
+    "AUDIO_CAPABILITIES",
+    "AUDIO_OPTIONAL_CAPABILITIES",
+    "AudioArtifactContentRef",
+    "AudioContractError",
+    "AudioInspectionRef",
+    "AudioModelAdapter",
+    "AudioOutputRef",
+    "AudioSpecification",
+    "AudioToolAdapter",
+    "EditableAudioSessionBinding",
+    "GameAudioHandoffBinding",
+    "MixSpecification",
+    "ProcessingChain",
+    "StemSpecification",
+    "VideoAudioHandoffBinding",
+    "audio_production_pack",
+    "AudioByteValidator",
+    "CloudflareAudioHttpResponse",
+    "CloudflareAudioModel",
+    "CloudflareAudioModelError",
+    "CloudflareAudioTransport",
+    "cloudflare_audio_model_adapter",
+    "AudioDecodedMetadata",
+    "AudioInspection",
+    "AudioMixResult",
+    "AudioStemBatch",
+    "AudioTargetMeasurements",
+    "DeterministicAudioTool",
     "EnvironmentManifestPublication",
     "BlenderThreeDToolAdapter",
     "ReferenceThreeDToolAdapter",
@@ -1441,9 +1505,20 @@ __all__ = [
 
 
 def __getattr__(name: str) -> Any:
-    """Load optional image-runtime dependencies only when their symbol is requested."""
+    """Load optional media-runtime dependencies only when their symbol is requested."""
     if name == "DeterministicImageTool":
         from .image_tool import DeterministicImageTool
 
         return DeterministicImageTool
+    if name in {
+        "AudioDecodedMetadata",
+        "AudioInspection",
+        "AudioMixResult",
+        "AudioStemBatch",
+        "AudioTargetMeasurements",
+        "DeterministicAudioTool",
+    }:
+        from . import audio_tool
+
+        return getattr(audio_tool, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
