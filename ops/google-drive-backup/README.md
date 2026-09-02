@@ -128,9 +128,9 @@ CONTROLLER_BIELLA_FULL_20260901T222006Z.3.6G_PARTS_SHA256.txt
 - Drive file ID: `1GyFBfhaWtLigBj_TwFnbZ0uJpueUjTP5`
 - Size: `6,719,217,498` bytes
 
-## Proven large-file upload settings
+## Proven fast large-file upload settings
 
-Use one large file at a time. The working path is sequential `copyto`, IPv4 binding, HTTP/2 disabled, then explicit readback.
+For evacuation, use one large file at a time. The proven fast path is sequential `copyto`, IPv4 binding, HTTP/2 disabled, then an `lsl` metadata/size check. **Do not run `rclone cat` between parts.**
 
 ```bash
 rclone copyto \
@@ -148,7 +148,7 @@ rclone copyto \
   --progress
 ```
 
-Verify the finalized Drive object before proceeding:
+After the command returns, confirm the finalized Drive object and expected size:
 
 ```bash
 rclone lsl \
@@ -158,11 +158,40 @@ rclone lsl \
   --disable-http2
 ```
 
+Then move immediately to the next part.
+
 For the controller evacuation, the reliable part size was about 3.5-3.9 GiB. Parallel 512 MiB uploads repeatedly stalled around 4 GiB and are not the default evacuation path.
 
-## Full remote-byte verification
+The fast operational sequence is:
 
-For each uploaded part:
+```text
+copyto(part N)
+-> wait for copyto to return
+-> lsl size check
+-> copyto(part N+1)
+```
+
+## Do not confuse Drive finalization with readback
+
+When rclone shows a file at `100%` but still shows:
+
+```text
+Transferred: 0 / 1
+```
+
+it is still inside `copyto`, waiting for Drive finalization and/or an internal retry. The displayed transfer rate can decay from MiB/s to KiB/s or bytes/s while no new payload bytes are moving. That slowdown is **not** a SHA256 readback.
+
+If rclone reports more transmitted bytes than the file size (for example 7.4 GiB transmitted for one 3.7 GiB file), that indicates an upload retry/retransmission inside `copyto`; it does not mean a second verification download is occurring.
+
+## Optional full remote-byte verification — never in the evacuation upload loop
+
+`rclone cat` downloads the remote object back from Google Drive. Running it after every uploaded part adds one complete download of every part and can roughly double the network traffic for the backup.
+
+For the 2026-09-02 full GPU backup, 17 parts represented roughly 61 GiB of compressed backup data. Per-part `rclone cat` verification would therefore add roughly another 61 GiB of Drive-to-worker traffic and substantial extra wall-clock time.
+
+Do **not** put this operation between sequential uploads unless Mahdi explicitly requests cryptographic remote-byte verification or the active task contract requires it.
+
+If explicit byte-for-byte verification is required later, run it as a separate post-upload operation:
 
 ```bash
 REMOTE_SHA="$(
@@ -175,7 +204,7 @@ REMOTE_SHA="$(
 )"
 ```
 
-For a split archive, read every part back from Drive in exact original order and hash the reconstructed byte stream:
+For a split archive, a full reconstructed-stream check is likewise a separate optional post-upload operation:
 
 ```bash
 REMOTE_FULL_SHA="$(
@@ -190,11 +219,11 @@ REMOTE_FULL_SHA="$(
 )"
 ```
 
-Compare `REMOTE_FULL_SHA` against the local compressed-stream SHA256 before considering the Drive copy verified.
+This is stronger cryptographic assurance, but it is **not the default evacuation transfer path**.
 
 ## Current full GPU VPS backup format
 
-The active script creates a compressed stream from the persistent filesystem and splits it into approximately 3.8 GiB pieces:
+The active backup created a compressed stream from the persistent filesystem and split it into approximately 3.8 GiB pieces:
 
 ```text
 /FULL_GPU_VPS_BACKUP_STAGING_<UTC_TIMESTAMP>/
@@ -217,29 +246,45 @@ Excluded runtime pseudo-filesystems:
 /run
 ```
 
-Current execution observed on 2026-09-02 created 17 parts for `FULL_GPU_VPS_20260902T033807Z`: sixteen approximately 3.8 GiB parts plus one approximately 2.0 GiB part.
+The 2026-09-02 execution created 17 parts for `FULL_GPU_VPS_20260902T033807Z`: sixteen parts of `3,984,588,800` bytes plus final part `0016` of `2,142,394,289` bytes.
 
-## Completion gate
+## Status vocabulary and completion gates
 
-Do not delete the local source merely because rclone reports bytes transferred. The full-VPS script must finish with:
+Do not collapse upload presence and cryptographic byte-readback into one ambiguous word.
+
+Use these exact meanings:
 
 ```text
-BACKUP_VERIFIED=YES
+FAST_EVACUATION_COMPLETE=YES
+```
+
+means every expected unique part exists in Drive and each Drive object has the expected byte size. This is the normal fast evacuation completion state.
+
+```text
+BYTE_READBACK_VERIFIED=YES
+```
+
+means a separate `rclone cat`/SHA256 operation downloaded the remote bytes and matched the expected digest. Do not claim this unless that operation was actually performed.
+
+```text
 SOURCE_DELETE_PERFORMED=NO
 ```
 
-The verification path is:
+means the upload procedure itself did not delete the source.
+
+The default evacuation path is therefore:
 
 ```text
 local archive/stream
--> ~3.8 GiB parts
+-> ~3.5-3.9 GiB parts
 -> sequential copyto
 -> Drive lsl size check
--> per-part Drive byte SHA256
--> checksum/metadata upload
--> complete Drive reconstructed-stream SHA256
--> BACKUP_VERIFIED=YES
+-> next part
+-> all expected unique parts present at expected sizes
+-> FAST_EVACUATION_COMPLETE=YES
 ```
+
+Do not add per-part `rclone cat`, full reconstructed-stream downloads, alternate backup formats, parallel transfer layers, or extra infrastructure unless explicitly requested or required by the active task.
 
 ## Related runbook
 
