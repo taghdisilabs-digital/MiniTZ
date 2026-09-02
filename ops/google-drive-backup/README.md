@@ -2,11 +2,44 @@
 
 This folder records the operational Google Drive/rclone paths and the upload method that worked on the L40S worker. It intentionally does **not** contain OAuth tokens, client secrets, refresh tokens, or the contents of `rclone.conf`.
 
+## Access boundary
+
+Treat the local PC side and the remote GPU side as separate identities.
+
+- The **GPU SSH username may change** when the worker/provider/image changes.
+- The GPU host/IP is currently `152.228.213.182`.
+- The last observed GPU SSH username was `ubuntu`, but scripts/runbooks must not treat that username as permanent.
+- Express the remote login as `<GPU_USER>@152.228.213.182` unless the current username has been freshly observed.
+- The **PC local folder is stable** and must not be changed merely because the GPU username changes.
+- Do not derive, rename, or relocate the PC local folder from the remote GPU username.
+- The exact PC local folder path must be copied from the user's machine/current configuration when needed; do not invent it from remote state.
+
+Example SSH form:
+
+```text
+ssh -i <PC_LOCAL_KEY_PATH> <GPU_USER>@152.228.213.182
+```
+
+Example SCP form:
+
+```text
+scp -i <PC_LOCAL_KEY_PATH> <PC_LOCAL_FILE_OR_FOLDER> <GPU_USER>@152.228.213.182:/home/<GPU_USER>/
+```
+
+The invariant is:
+
+```text
+PC local path = stable user-owned path
+GPU username   = replaceable remote login detail
+GPU filesystem = remote machine state
+```
+
 ## Runtime host
 
 - Hostname: `biella-l40s-worker`
-- SSH target: `ubuntu@152.228.213.182`
-- Root shell: `sudo -i`
+- GPU address: `152.228.213.182`
+- Last observed SSH user: `ubuntu` (replaceable; reobserve before relying on it)
+- Root shell after login: `sudo -i`
 - Full VPS backup script: `/root/FULL_GPU_VPS_BACKUP_TO_DRIVE.sh`
 - Full VPS backup log: `/root/FULL_GPU_VPS_BACKUP_TO_DRIVE.log`
 - Backup tmux session: `full-gpu-vps-backup`
