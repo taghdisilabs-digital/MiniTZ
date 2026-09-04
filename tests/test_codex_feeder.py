@@ -284,3 +284,47 @@ def test_init_existing_production_preserves_completed_work(tmp_path: Path):
     feeder.save_production(path, production)
     feeder.init_production(path, project_root=project)
     assert feeder.find_task(feeder.load_production(path), "D01-003")["status"] == "COMPLETE"
+
+
+def test_external_demo_handoff_waits_without_executing_demo_task(tmp_path: Path, monkeypatch):
+    project = tmp_path / "games"
+    _write_games_authority(project)
+    path = tmp_path / "production.json"
+    feeder.write_games_production(path, project_root=project)
+    production = feeder.load_production(path)
+    assert production["demo_execution"] == "external_until_complete"
+    assert feeder.demo_handoff_waiting(production) is True
+
+    def forbidden_task_call(*args, **kwargs):
+        raise AssertionError("Demo task execution must not run while external controller owns Demo")
+
+    def stop_after_wait(_seconds):
+        raise RuntimeError("WAIT_OBSERVED")
+
+    monkeypatch.setattr(feeder, "_invoke_production_task", forbidden_task_call)
+    monkeypatch.setattr(feeder, "discover_catalog", catalog)
+    monkeypatch.setattr(feeder.time, "sleep", stop_after_wait)
+    try:
+        feeder.run_production(path, runtime_root=tmp_path / "runtime")
+    except RuntimeError as exc:
+        assert str(exc) == "WAIT_OBSERVED"
+    else:
+        raise AssertionError("run_production did not enter handoff wait")
+
+    waited = feeder.load_production(path)
+    assert waited["status"] == "WAITING_DEMO_HANDOFF"
+    assert waited["current_task"] == "D01-003"
+    assert feeder.find_task(waited, "D01-003")["status"] == "PENDING"
+
+
+def test_demo_handoff_releases_when_demo_section_is_complete(tmp_path: Path):
+    project = tmp_path / "games"
+    _write_games_authority(project)
+    path = tmp_path / "production.json"
+    feeder.write_games_production(path, project_root=project)
+    production = feeder.load_production(path)
+    demo = production["sections"][0]
+    for task in demo["tasks"]:
+        task["status"] = "COMPLETE"
+    demo["status"] = "COMPLETE"
+    assert feeder.demo_handoff_waiting(production) is False

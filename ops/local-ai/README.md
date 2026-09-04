@@ -38,4 +38,4 @@ The feeder has one active durable production document:
 
 That document contains Demo 01 plus Stage 2 through Stage 8 as sections, with task completion/evidence stored in the section itself. There is no separate active queue, state file, batch ledger, or model-specific project memory.
 
-Do not start the feeder while another controller owns the Games write boundary. `sync` can refresh current Demo completion before the next start so completed tasks are preserved rather than replayed.
+While another controller owns Demo 01, the feeder can stay active in `WAITING_DEMO_HANDOFF`. It only syncs current Demo completion and performs no Demo task or Unreal launch. When Demo 01 is complete, the same service automatically continues into Stage 2.

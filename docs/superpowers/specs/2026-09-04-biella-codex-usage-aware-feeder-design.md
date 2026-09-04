@@ -23,4 +23,4 @@ The feeder never invokes `/usage`, redeems resets, or changes account quota. Ava
 `biella-codex` remains the only public controller. Internal feeder actions are `biella-codex feed init|sync|run|start|status|stop`. They operate on the single canonical production document; no queue path is passed around.
 
 ## Ownership
-One feeder task runs at a time. Do not start it while another controller owns the Games write boundary. `sync` may refresh current Demo progress read-only; execution starts only after the existing write owner releases the boundary.
+One feeder task runs at a time. While another controller owns Demo 01, the feeder remains in `WAITING_DEMO_HANDOFF`, performs only read/sync of Demo progress, and executes no Demo task or Unreal launch. Once all 50 Demo tasks are complete, the same service automatically advances into Stage 2.

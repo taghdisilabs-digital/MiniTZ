@@ -47,7 +47,7 @@ grep -Fq 'one durable production document' "$policy"
 grep -Fq '/root/biella/work/games-production.json' "$policy"
 grep -Fq 'do not create separate queue, state, batch, or progress-ledger authorities' "$policy"
 grep -Fq '20-50 task set' "$policy"
-grep -Fq 'Do not start the feeder while another controller owns the Games write boundary' "$policy"
+grep -Fq 'WAITING_DEMO_HANDOFF' "$policy"
 
 bash -n "$wrapper"
 bash -n "$installer"

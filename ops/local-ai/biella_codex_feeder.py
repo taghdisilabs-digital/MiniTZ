@@ -352,6 +352,15 @@ def _refresh_current(production: dict[str, Any]) -> None:
     production["current_task"] = None
 
 
+def demo_handoff_waiting(production: Mapping[str, Any]) -> bool:
+    if production.get("demo_execution") != "external_until_complete":
+        return False
+    demo = next(section for section in production["sections"] if section["id"] == "demo01")
+    if demo.get("status") in _COMPLETE_STATUSES:
+        return False
+    return any(task.get("status") not in _COMPLETE_STATUSES for task in demo.get("tasks", []))
+
+
 def write_games_production(path: Path, *, project_root: Path = Path("/root/biella/repos/biella-games")) -> Path:
     demo_tasks = _read_demo_authority(project_root)
     sections = [{
@@ -368,6 +377,7 @@ def write_games_production(path: Path, *, project_root: Path = Path("/root/biell
         "goal": "Complete Biella Games through the current accepted production sequence and release-candidate evidence",
         "project_root": str(project_root.resolve()),
         "status": "READY",
+        "demo_execution": "external_until_complete",
         "current_section": None,
         "current_task": None,
         "active_model": None,
@@ -713,6 +723,22 @@ def run_production(production_path: Path, *, runtime_root: Path | None = None) -
         save_production(production_path, production)
         catalog = discover_catalog()
         while True:
+            if demo_handoff_waiting(production):
+                try:
+                    sync_demo_progress(production_path)
+                    production = load_production(production_path)
+                except (FileNotFoundError, ValueError):
+                    pass
+                if demo_handoff_waiting(production):
+                    production["status"] = "WAITING_DEMO_HANDOFF"
+                    production["active_model"] = None
+                    production["active_reasoning"] = None
+                    production["updated_at"] = datetime.now(timezone.utc).isoformat()
+                    save_production(production_path, production)
+                    time.sleep(max(1.0, float(os.environ.get("BIELLA_DEMO_HANDOFF_POLL_SECONDS", "30"))))
+                    continue
+                production["status"] = "RUNNING"
+                save_production(production_path, production)
             _refresh_current(production)
             section_id = production.get("current_section")
             if not section_id:
@@ -887,6 +913,10 @@ def _project_root() -> Path:
 def init_production(path: Path, *, project_root: Path) -> Path:
     if path.exists():
         sync_demo_progress(path)
+        production = load_production(path)
+        if "demo_execution" not in production:
+            production["demo_execution"] = "external_until_complete"
+            save_production(path, production)
         return path
     return write_games_production(path, project_root=project_root)
 

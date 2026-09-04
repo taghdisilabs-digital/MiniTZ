@@ -34,4 +34,4 @@
 - [x] Remove obsolete internal queue/state implementation.
 - [ ] Run full feeder/controller/workstation regressions.
 - [ ] Commit, push, remote-readback, install exact bytes, initialize one live production document.
-- [ ] Leave execution stopped while the current Games controller owns the write boundary.
+- [ ] Start the one service in `WAITING_DEMO_HANDOFF`; verify zero Demo execution and automatic Stage 2 handoff readiness.
