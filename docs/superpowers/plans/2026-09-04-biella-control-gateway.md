@@ -11,8 +11,8 @@
 - Task 1 — COMPLETED.
 - Task 2 — COMPLETED.
 - Task 3 — COMPLETED.
-- Task 4 — IN_PROGRESS.
-- Task 5 — PENDING.
+- Task 4 — COMPLETED.
+- Task 5 — IN_PROGRESS.
 
 ### Task 1: Auth and HTTP contract
 - [x] Add failing tests for role enforcement, session cookies, and no generic command route.
@@ -33,10 +33,10 @@
 - [x] Run tests and commit.
 
 ### Task 4: VPS service and static deployment
-- [ ] Add systemd service and installer contract tests.
-- [ ] Install Website `dist` to `/var/lib/biella-control/site` without changing `biellagames.dev`.
-- [ ] Install gateway under `/usr/local/lib/biella-control` and enable `biella-control-gateway.service`.
-- [ ] Verify localhost `/control/` and API behavior; configure password hashes locally when available.
+- [x] Add systemd service and installer contract tests.
+- [x] Install Website `dist` to `/var/lib/biella-control/site` without changing `biellagames.dev`.
+- [x] Install gateway under `/usr/local/lib/biella-control` and enable `biella-control-gateway.service`.
+- [x] Verify localhost `/control/` and API behavior; configure password hashes locally when available.
 
 ### Task 5: Cloudflare ingress and live verification
 - [ ] Create a named Cloudflare Tunnel for `control.biellagames.dev` only.

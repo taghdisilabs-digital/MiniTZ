@@ -6,7 +6,10 @@ import urllib.request
 from pathlib import Path
 from typing import Callable
 
-from .biella_control_gateway import APPROVED_CAPABILITIES
+try:
+    from .biella_control_gateway import APPROVED_CAPABILITIES
+except ImportError:
+    from biella_control_gateway import APPROVED_CAPABILITIES
 
 CommandRunner = Callable[[list[str], Path | None, int], tuple[int, str]]
 
