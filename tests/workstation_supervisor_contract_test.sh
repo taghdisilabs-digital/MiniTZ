@@ -62,12 +62,17 @@ require_literal "$PROVIDERS" 'api.mistral.ai/v1/models'
 require_literal "$PROVIDERS" 'api.tavily.com/usage'
 require_literal "$PROVIDERS" 'generativelanguage.googleapis.com/v1beta/models'
 require_literal "$LIB" 'llm-router'
+require_literal "$LIB" 'runuser -u ollama -- env'
+require_literal "$LIB" 'pgrep -P'
+require_literal "$LIB" 'biella_find_exact_argv'
+forbid_literal "$LIB" 'pgrep -f -- "$signature"'
 require_literal "$LIB" 'http.server 61374'
 require_literal "$LIB" 'http.server 81374'
 require_literal "$LIB" 'http://127.0.0.1:61374'
 forbid_literal "$CLI" 'ollama pull'
 forbid_literal "$LIB" 'ollama pull'
 forbid_literal "$INSTALLER" 'ollama pull'
+forbid_literal "$PROVIDERS" 'curl -sS'
 
 bash -n "$CLI"
 bash -n "$LIB"

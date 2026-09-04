@@ -11,7 +11,7 @@ biella_ensure_runtime_dirs
 check_bearer() {
   local name="$1" url="$2" token="$3" code tmp
   tmp="$(mktemp "$BIELLA_RUNTIME_ROOT/tmp/provider.XXXXXX")"
-  code="$(curl -sS -o "$tmp" -w '%{http_code}' -H "Authorization: Bearer $token" "$url" || true)"
+  code="$(curl -s -o "$tmp" -w '%{http_code}' -H "Authorization: Bearer $token" "$url" || true)"
   rm -f -- "$tmp"
   if [[ "$code" == 2* ]]; then
     printf '%-12s CONNECTED HTTP=%s\n' "$name" "$code"
@@ -23,7 +23,7 @@ check_bearer() {
 check_api_key_header() {
   local name="$1" url="$2" token="$3" code tmp
   tmp="$(mktemp "$BIELLA_RUNTIME_ROOT/tmp/provider.XXXXXX")"
-  code="$(curl -sS -o "$tmp" -w '%{http_code}' -H "x-goog-api-key: $token" "$url" || true)"
+  code="$(curl -s -o "$tmp" -w '%{http_code}' -H "x-goog-api-key: $token" "$url" || true)"
   rm -f -- "$tmp"
   [[ "$code" == 2* ]] && printf '%-12s CONNECTED HTTP=%s\n' "$name" "$code" || printf '%-12s DEGRADED  HTTP=%s\n' "$name" "${code:-000}"
 }

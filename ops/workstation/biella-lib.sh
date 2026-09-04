@@ -120,25 +120,62 @@ biella_up_local() {
   biella_verify_qwen_vram >/dev/null
   biella_verify_v1_responses
 }
-biella_kill_matching_signature() {
-  local signature="$1" pid cmdline
+biella_find_exact_argv() {
+  python3 - "$@" <<'PY2'
+import glob, os, sys
+expected=list(sys.argv[1:])
+for path in glob.glob('/proc/[0-9]*/cmdline'):
+    try:
+        raw=open(path,'rb').read().split(b'\0')
+    except OSError:
+        continue
+    argv=[item.decode('utf-8','surrogateescape') for item in raw if item]
+    if not argv:
+        continue
+    normalized=[os.path.basename(argv[0]), *argv[1:]]
+    if normalized == expected:
+        print(path.split('/')[2])
+PY2
+}
+
+biella_kill_exact_argv() {
+  local pid
   while read -r pid; do
-    [[ -r "/proc/$pid/cmdline" ]] || continue
-    cmdline="$(tr '\0' ' ' < "/proc/$pid/cmdline")"
-    [[ "$cmdline" == *"$signature"* ]] || continue
+    [[ -n "$pid" ]] || continue
     kill "$pid" 2>/dev/null || true
-  done < <(pgrep -f -- "$signature" 2>/dev/null || true)
+  done < <(biella_find_exact_argv "$@")
+}
+
+biella_kill_process_tree() {
+  local pid="$1" child
+  while read -r child; do
+    [[ -n "$child" ]] || continue
+    biella_kill_process_tree "$child"
+  done < <(pgrep -P "$pid" 2>/dev/null || true)
+  kill "$pid" 2>/dev/null || true
+}
+
+biella_stop_legacy_ollama_tree() {
+  local pid
+  while read -r pid; do
+    [[ -n "$pid" ]] || continue
+    biella_kill_process_tree "$pid"
+  done < <(biella_find_exact_argv runuser -u ollama -- env \
+    HOME=/usr/share/ollama OLLAMA_MODELS=/usr/share/ollama/.ollama/models \
+    OLLAMA_HOST=127.0.0.1:11434 OLLAMA_CONTEXT_LENGTH=16384 OLLAMA_NUM_PARALLEL=1 \
+    OLLAMA_MAX_LOADED_MODELS=1 OLLAMA_FLASH_ATTENTION=1 OLLAMA_KV_CACHE_TYPE=q8_0 \
+    OLLAMA_KEEP_ALIVE=-1 /usr/local/bin/ollama serve)
 }
 
 biella_cleanup_legacy() {
   if command -v tmux >/dev/null 2>&1 && tmux has-session -t llm-router 2>/dev/null; then
     tmux kill-session -t llm-router
   fi
-  biella_kill_matching_signature 'python3 -m http.server 61374 --bind 0.0.0.0 --directory /mnt/biella-production/BiellaProduction'
-  biella_kill_matching_signature 'python3 -m http.server 81374 --bind 0.0.0.0 --directory /mnt/biella-production/BiellaProduction'
-  biella_kill_matching_signature 'cloudflared tunnel --no-autoupdate --url http://127.0.0.1:61374'
+  biella_stop_legacy_ollama_tree
+  biella_kill_exact_argv python3 -m http.server 61374 --bind 0.0.0.0 --directory /mnt/biella-production/BiellaProduction
+  biella_kill_exact_argv python3 -m http.server 81374 --bind 0.0.0.0 --directory /mnt/biella-production/BiellaProduction
+  biella_kill_exact_argv cloudflared tunnel --no-autoupdate --url http://127.0.0.1:61374
 }
-
 biella_gpu_status() {
   if command -v nvidia-smi >/dev/null 2>&1; then
     nvidia-smi --query-gpu=name,memory.total,memory.used,driver_version --format=csv,noheader 2>/dev/null | head -n 1
