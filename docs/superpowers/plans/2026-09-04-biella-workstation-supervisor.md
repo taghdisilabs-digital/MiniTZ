@@ -85,7 +85,7 @@
 
 - [ ] Add failing tests for independent provider health, runtime storage paths, and bounded cleanup signatures.
 - [ ] Implement runtime directories under `/mnt/biella-extra/biella-runtime/{cache,tmp,logs,builds,models}`.
-- [ ] Implement provider checker composition for Cloudflare, Groq, Cerebras, OpenRouter, Mistral, Tavily, Modal, Saturn, and Gemini/Google degraded reporting.
+- [ ] Implement provider checker composition for Cloudflare, Groq, Cerebras, OpenRouter, Mistral, Tavily, Exa, Pinecone, Qdrant, Deepgram, AssemblyAI, ElevenLabs, Stability AI, Supabase, Neon, Upstash, Cloudinary, Axiom, Pexels, Modal, Saturn, and Gemini/Google independent status reporting.
 - [ ] Implement bounded cleanup for the legacy `llm-router`, ports 61374/81374 Python servers, and the matching quick tunnel only.
 - [ ] Run all shell contract/smoke tests and `git diff --check`.
 - [ ] Commit `feat: integrate providers storage and bounded cleanup`.
@@ -100,7 +100,7 @@
 - [ ] Run all repository shell tests and `git diff --check`; require zero failures before touching live service ownership.
 - [ ] Install the supervisor and refreshed local-AI runtime from the isolated branch.
 - [ ] Start `biella-ollama.service`, warm Qwen, verify native and `/v1` APIs, then retire the legacy `tmux llm-router` only after the service is healthy.
-- [ ] Run `biella providers`; require healthy Cloudflare, Groq, Cerebras, OpenRouter, Mistral, and Tavily, while reporting other lanes independently.
+- [ ] Run `biella providers`; require the core verified provider set to remain healthy and require every additional lane to report an explicit independent state rather than blocking the workstation.
 - [ ] Run Modal token info, Codex MCP list, GPU/VRAM checks, disk checks, and `biella doctor`.
 - [ ] Run bounded cleanup and verify the known temporary HTTP/tunnel processes are gone while Desktop Commander remains online.
 - [ ] Re-run all workstation acceptance checks after cleanup.

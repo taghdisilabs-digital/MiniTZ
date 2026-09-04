@@ -12,3 +12,5 @@
 - Modal, Saturn, Cloudflare, Groq, Cerebras, OpenRouter, Mistral, Tavily, Gemini/Google, Docker, GitHub, and local Qwen are valid Biella production tools when configured.
 - Preserve current project authority, accepted state, source boundaries, and explicit task scope.
 - Do not invent approval, deployment, synchronization, publication, or provider success without observed evidence.
+- Exa and Pexels are valid web/media retrieval tools; use them only when their specialized retrieval adds value over Tavily or native search.
+- Pinecone and Qdrant are valid vector stores; Deepgram, AssemblyAI, and ElevenLabs are valid speech/audio tools; Stability AI and Cloudinary are valid media-production tools; Supabase, Neon, and Upstash are valid data/runtime tools; Axiom is a valid observability tool when configured.

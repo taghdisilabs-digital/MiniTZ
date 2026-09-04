@@ -14,7 +14,7 @@ Create one super-capable, low-friction Biella creation workstation on `biella-l4
 - `qwen3-coder-next:biella` is live in Ollama with 16K context and 26 GPU layers.
 - Codex CLI 0.153.2, Modal 1.5.5, Gemini CLI 0.58.0, Docker, uv/uvx, GitHub CLI, rclone, and cloudflared are installed.
 - Saturn MCP is registered with Codex.
-- Cloudflare, Groq, Cerebras, OpenRouter, Mistral, and Tavily provider checks return HTTP 200.
+- Cloudflare, Groq, Cerebras, OpenRouter, Mistral, and Tavily provider checks return HTTP 200; the provider registry also supports Exa, Pinecone, Qdrant, Deepgram, AssemblyAI, ElevenLabs, Stability AI, Supabase, Neon, Upstash, Cloudinary, Axiom, and Pexels.
 - Modal token authentication is valid.
 - Gemini credentials exist but Gemini API health is independently degraded and must not block the workstation.
 - `/mnt/biella-extra` is a separate ext4 volume with about 343 GiB free.
@@ -59,7 +59,7 @@ The supervisor warms `qwen3-coder-next:biella` with `num_gpu=26`, `num_ctx=16384
 
 ## Provider environment
 
-The controller sources the existing root-only runtime file and exposes configured credentials to child tools. Provider health is independent: a failing Gemini or Cloudflare lane is reported as `DEGRADED` without making local Qwen, Modal, Saturn, or other healthy providers unusable.
+The controller sources the existing root-only runtime file and exposes configured credentials to child tools. The registry covers AI inference, search, vector stores, speech/audio, media, databases/runtime, observability, and stock-media APIs. Provider health is independent: live-safe checks report `CONNECTED`; credentials that are usable but have no non-billable probe report `CONFIGURED`; credentials missing a required non-secret project locator report `NEEDS_LOCATOR`; failures report `DEGRADED` without blocking healthy lanes.
 ## Agent modes and noise control
 
 `biella agent` is the fast local-first creation mode. It delegates to the same `biella-codex` controller but supplies `mcp_servers.saturn.enabled=false` for startup so local work does not wait on MCP initialization. All configured provider credentials remain available to explicit tools and subprocesses.
@@ -94,7 +94,7 @@ The implementation is accepted only when fresh checks prove:
 - `biella agent` can invoke the local Codex/Qwen path without eager Saturn MCP;
 - `biella codex` retains Saturn MCP;
 - Modal auth is valid;
-- Cloudflare, Groq, Cerebras, OpenRouter, Mistral, and Tavily health checks succeed;
+- the core verified provider set remains healthy and every additional configured provider is reported independently as `CONNECTED`, `CONFIGURED`, `NEEDS_LOCATOR`, or `DEGRADED`;
 - Gemini/Google is either healthy or explicitly reported degraded with its observed cause;
 - extra runtime storage exists on `/mnt/biella-extra`;
 - temporary legacy processes are absent after cleanup;
