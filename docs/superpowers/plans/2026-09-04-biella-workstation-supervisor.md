@@ -26,7 +26,7 @@
 - Task 2 — COMPLETED and verified 2026-09-04.
 - Task 3 — COMPLETED and verified 2026-09-04.
 - Task 4 — COMPLETED and verified 2026-09-04.
-- Task 5 — MERGE_PENDING; acceptance verified 2026-09-04.
+- Task 5 — COMPLETED and merged to main 2026-09-04.
 
 ### Task 1: Supervisor command contract
 
@@ -112,7 +112,7 @@
 - [x] Run Modal token info, Codex MCP list, GPU/VRAM checks, disk checks, and `biella doctor`.
 - [x] Run bounded cleanup and verify the known temporary HTTP/tunnel processes are gone while Desktop Commander remains online.
 - [x] Re-run all workstation acceptance checks after cleanup.
-- [ ] Commit any evidence-driven fixes, verify branch clean, and fast-forward `main` only after all acceptance checks pass.
+- [x] Commit any evidence-driven fixes, verify branch clean, and fast-forward `main` only after all acceptance checks pass.
 
 ## Plan self-review
 
