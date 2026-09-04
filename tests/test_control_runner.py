@@ -14,7 +14,7 @@ class CaptureExec:
     def __call__(self, argv, cwd, env, timeout):
         self.calls.append((list(argv), Path(cwd), dict(env), timeout))
         if "exec" in argv:
-            return 0, "banner\ncodex\nPROJECT_RESULT\ntokens used\n10\nPROJECT_RESULT\n"
+            return 0, "banner\ncodex\nPROJECT_RESULT\ntokens used\n10\n"
         return 0, "STATUS_OK\n"
 
 

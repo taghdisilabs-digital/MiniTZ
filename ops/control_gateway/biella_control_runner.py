@@ -46,7 +46,17 @@ def start_thread(fn: Callable[[], None]) -> None:
 
 def final_agent_text(output: str) -> str:
     lines = [line.strip() for line in output.splitlines() if line.strip()]
-    return lines[-1][:12000] if lines else "Local agent completed without a text response."
+    if not lines:
+        return "Local agent completed without a text response."
+    for index, line in enumerate(lines):
+        if line.lower() == "tokens used" and index > 0:
+            return lines[index - 1][:12000]
+    lower = [line.lower() for line in lines]
+    if "codex" in lower:
+        index = max(i for i, line in enumerate(lower) if line == "codex")
+        if index + 1 < len(lines):
+            return lines[index + 1][:12000]
+    return lines[-1][:12000]
 
 
 class ProjectRunner:
