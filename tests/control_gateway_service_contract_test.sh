@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+DIR="$ROOT/ops/control_gateway"
+MAIN="$DIR/biella_control_main.py"
+SERVICE="$DIR/biella-control-gateway.service"
+INSTALLER="$DIR/install-biella-control-gateway.sh"
+AUTH_WRAPPER="$DIR/biella-control-auth"
+
+for f in "$MAIN" "$SERVICE" "$INSTALLER" "$AUTH_WRAPPER"; do
+  [[ -f "$f" ]] || { echo "missing control gateway artifact: $f" >&2; exit 1; }
+done
+
+require() { grep -Fq -- "$2" "$1" || { echo "missing literal in $1: $2" >&2; exit 1; }; }
+forbid() { ! grep -Fq -- "$2" "$1" || { echo "forbidden literal in $1: $2" >&2; exit 1; }; }
+
+require "$MAIN" '127.0.0.1'
+require "$MAIN" '8787'
+require "$MAIN" '/var/lib/biella-control/site'
+require "$MAIN" '/root/.config/biella-control/auth.json'
+require "$MAIN" '/root/biella/repos/biella-engine'
+require "$MAIN" '/root/biella/repos/biella-games'
+require "$SERVICE" 'ExecStart=/usr/bin/python3 /usr/local/lib/biella-control/biella_control_main.py'
+require "$SERVICE" 'User=root'
+require "$SERVICE" 'UMask=0077'
+require "$INSTALLER" '/usr/local/lib/biella-control'
+require "$INSTALLER" '/usr/local/bin/biella-control-auth'
+require "$INSTALLER" '/var/lib/biella-control/site'
+require "$INSTALLER" 'biella-control-gateway.service'
+require "$AUTH_WRAPPER" 'biella_control_auth.py'
+forbid "$INSTALLER" 'CLOUDFLARE_API_TOKEN='
+forbid "$INSTALLER" 'password='
+
+bash -n "$INSTALLER"
+bash -n "$AUTH_WRAPPER"
+echo 'control gateway service contract: PASS'
