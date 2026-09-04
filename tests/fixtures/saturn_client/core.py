@@ -1,0 +1,2 @@
+class ServerOptionTypes:
+    SIZES = "sizes"

@@ -1,0 +1,79 @@
+manifest: BIELLA_LOCAL_AI_RUNTIME_2026-09-04
+status: IMPLEMENTED_IN_REPOSITORY_RUNTIME_VALIDATION_PENDING
+authority: current_project_state_only
+effective_date: 2026-09-04
+project_lanes:
+  - WEBSITE
+  - ENGINE
+  - GAMES
+current_task_scope: bounded_local_ai_recovery_runtime
+
+controller:
+  host: biella-l40s-worker
+  role: codex_main_controller
+  worker_role: local_qwen_bulk_worker
+
+local_qwen:
+  provider: ollama
+  endpoint: http://127.0.0.1:11434
+  model: qwen3-coder-next:biella
+  gpu_layers: 26
+  context_tokens: 16384
+  keep_alive: -1
+  vram_hard_limit_bytes: 32212254720
+  vram_hard_limit: "<30 GiB"
+  remaining_model_residency: cpu_ram
+  cpu_ram_target_gib: 86
+  model_download: forbidden
+  vllm: forbidden
+  unload_reload_tuning_loop: forbidden
+
+codex:
+  role: main_controller
+  invocation: codex --oss -m qwen3-coder-next:biella
+  saturn_mcp_registration: official_stdio_server
+
+saturn:
+  integration: official_saturn_api_and_mcp
+  package_source: https://github.com/saturncloud/claude-plugin
+  credential_names:
+    - SATURN_BASE_URL
+    - SATURN_TOKEN
+  capabilities_expected:
+    - list_resources
+    - list_instance_types
+    - inspect_resources
+    - start_resource
+    - stop_resource
+    - fetch_logs
+  credential_storage: root_only_0600_runtime_file
+  runtime_status: validation_pending
+
+cloudflare:
+  boundary: external_ingress_only
+  origin: http://127.0.0.1:8787
+  credential_name: CLOUDFLARE_TUNNEL_TOKEN
+  managed_mode: systemd_token_file
+  empty_token_mode: existing_service_or_quick_tunnel
+  runtime_status: validation_pending
+
+observed_baseline_2026_09_04:
+  gpu: NVIDIA L40S
+  memory_total_mib: 46068
+  memory_used_mib: 26953
+  driver: 580.178.04
+  local_ollama_port_11434: not_verified_in_this_workspace
+  vllm_port_8000: not_running_at_observation
+  recovery_trigger: RTX5000_deletion_reported_2026-09-03_near_end_of_day
+
+artifacts:
+  decision_record: docs/project-state/BIELLA_LOCAL_AI_RUNTIME_DECISION_2026-09-04.md
+  launcher: ops/local-ai/biella-ai-start.sh
+  saturn_probe: ops/local-ai/biella-saturn-probe.py
+  saturn_mcp_bridge: ops/local-ai/biella-saturn-mcp.sh
+  codex_wrapper: ops/local-ai/biella-codex.sh
+  installer: ops/local-ai/install-biella-ai.sh
+
+filing_rule:
+  include: current_verified_or_explicitly_accepted_runtime_state
+  exclude: historical_superseded_legacy_exploratory_or_unverified_material

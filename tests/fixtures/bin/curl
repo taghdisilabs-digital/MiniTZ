@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+case "$*" in
+  *"/api/tags")
+    printf '%s\n' '{"models":[{"name":"qwen3-coder-next:biella"}]}'
+    ;;
+  *"/api/generate")
+    printf '%s\n' '{"response":"READY","done":true}'
+    ;;
+  *"/api/ps")
+    printf '%s\n' '{"models":[{"name":"qwen3-coder-next:biella","size_vram":28899803136}]}'
+    ;;
+  *"/health")
+    exit 1
+    ;;
+  *)
+    printf 'unexpected fake curl request: %s\n' "$*" >&2
+    exit 1
+    ;;
+esac

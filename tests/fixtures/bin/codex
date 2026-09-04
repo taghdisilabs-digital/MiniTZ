@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+readonly MARKER="${FAKE_CODEX_MCP_MARKER:?FAKE_CODEX_MCP_MARKER is required}"
+
+if [[ "${1:-}" == "mcp" && "${2:-}" == "list" ]]; then
+  if [[ -f "$MARKER" ]]; then
+    printf 'saturn stdio %s\n' "$(<"$MARKER")"
+  else
+    printf 'No MCP servers configured.\n'
+  fi
+  exit 0
+fi
+
+if [[ "${1:-}" == "mcp" && "${2:-}" == "add" ]]; then
+  printf '%s\n' "${5:?wrapper path missing}" > "$MARKER"
+  exit 0
+fi
+
+printf 'unexpected fake codex request: %s\n' "$*" >&2
+exit 1

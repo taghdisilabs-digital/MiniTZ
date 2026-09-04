@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+printf '%s\n' 'https://biella-test.trycloudflare.com'
+while sleep 1; do
+  :
+done

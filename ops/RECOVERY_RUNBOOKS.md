@@ -62,6 +62,26 @@ L40S validates and integrates outputs
 
 The RTX5000 worker is not a second autonomous source-writing authority.
 
+### Bounded L40S local-AI runtime
+
+```text
+docs/project-state/BIELLA_LOCAL_AI_RUNTIME_DECISION_2026-09-04.md
+docs/project-state/BIELLA_LOCAL_AI_RUNTIME_MANIFEST_2026-09-04.yaml
+ops/local-ai/README.md
+ops/local-ai/biella-ai-start.sh
+```
+
+This current runtime boundary uses the existing Ollama model
+`qwen3-coder-next:biella` with 26 GPU layers, a 16K context, permanent
+keep-alive, and a strict positive VRAM residency below 30 GiB. It has no model
+download path and no vLLM path. Codex remains the controller; Saturn is exposed
+through its official stdio MCP integration; Cloudflare is external ingress only
+around the existing localhost gateway.
+
+The launcher records live Saturn resource enumeration and service readiness
+under `/var/lib/biella-ai/`, while credentials remain outside the repository
+and Drive in root-only mode-`0600` runtime files.
+
 ## Secret handling
 
 Never commit private keys, OAuth tokens, refresh tokens, Cloudflare credentials, `rclone.conf` contents, or similar secret material.
