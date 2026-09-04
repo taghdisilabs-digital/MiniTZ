@@ -18,19 +18,21 @@ authority:
 
 engine:
   repository: patrickminitz-web/biella-engine
-  branch: codex/p3-14-durable-closure-20260904
+  branch: main
   canonical_checkout: /root/biella/repos/biella-engine
 
 durable_source:
   current_result:
-    implementation_commit: ae5d69a0686968af96283260d1c8073f84a833d2
-    implementation_tree: 39d8f9e338365a28437b44eebde601c80f49508a
-    workflow_qualification_commit: ae5d69a0686968af96283260d1c8073f84a833d2
-    workflow_qualification_tree: 39d8f9e338365a28437b44eebde601c80f49508a
+    implementation_commit: cb451cc221993efd5963727866873c2256c1090e
+    implementation_tree: cfcf31f27db642aad1539a5a040f0b5059e828dd
+    workflow_qualification_commit: cb451cc221993efd5963727866873c2256c1090e
+    workflow_qualification_tree: cfcf31f27db642aad1539a5a040f0b5059e828dd
     evidence_commit: 250c47f29f13ccd0641aa8b830bdda5dcd8fee47
     evidence_tree: b321de264f879a03e8f22b2276300d959ad20cec
     evidence_blob_sha: 22608d28690819bdc4ca6e30abea7031d1a8690d
     evidence_path: docs/project-state/evidence/P3_14_DELIVERY_QUALIFICATION_EVIDENCE.md
+    qualification_record_source_commit: ae5d69a0686968af96283260d1c8073f84a833d2
+    qualification_record_source_tree: 39d8f9e338365a28437b44eebde601c80f49508a
     meaning: P3_14_COMPLETE_DURABLE_REFERENCE_CI
     github_readback: EXACT_COMMIT_TREE_AND_REQUIRED_PATH_BLOB_CONFIRMED
     live_l40s_execution: NOT_RUN
@@ -181,34 +183,36 @@ p3_13_durable_close:
 
 p3_14_durable_close:
   status: COMPLETE_DURABLE
-  completed_at_utc: 2026-09-04T14:27:41Z
+  completed_at_utc: 2026-09-04T14:36:11Z
   exact_prompt_drive_id: 1mkk0VYh14ut2Tz-7YKcdW35p0GJRtv7bVQeVSPVTzpE
-  implementation_commit: ae5d69a0686968af96283260d1c8073f84a833d2
-  implementation_tree: 39d8f9e338365a28437b44eebde601c80f49508a
-  workflow_qualification_commit: ae5d69a0686968af96283260d1c8073f84a833d2
-  workflow_qualification_tree: 39d8f9e338365a28437b44eebde601c80f49508a
-  github_actions_run: 33883262378
-  github_actions_job: 101056787223
+  implementation_commit: cb451cc221993efd5963727866873c2256c1090e
+  implementation_tree: cfcf31f27db642aad1539a5a040f0b5059e828dd
+  workflow_qualification_commit: cb451cc221993efd5963727866873c2256c1090e
+  workflow_qualification_tree: cfcf31f27db642aad1539a5a040f0b5059e828dd
+  github_actions_run: 33884528731
+  github_actions_job: 101060955843
   github_actions_result: SUCCESS
   focused_tests: 16_PASSED_1_SKIPPED
+  focused_test_output_sha256: b93e684d200bb4d0f0bb14ff629f6f74115627ea0eec013c081e80fbb7b0880a
   strict_mypy: PASS
   compileall: PASS
   wheel_build: PASS
-  wheel_sha256: f299003409190d3d06b4cf1bb9c3273fa7ffcc74eaf71b55ce4429a7f2aa3233
-  generated_evidence_json_sha256: 561d758b00dec158c03ccfe6b51526de44394fe8d6dd074e9fdaeef4c2040a1f
-  artifact_id: 9940829453
-  artifact_sha256: 570fb404db6b06526ce3cd0066eb86442861e3fdbba4bf48187d9d80617fff9b
-  artifact_size_bytes: 896397
+  wheel_sha256: fac6cc513b400b0668038fcb9959260b51a4c1401016a1f1e03252341bbb516a
+  generated_evidence_json_sha256: a46d93fe124aed54390540c6da26ef09aa9e70bd1aa1d200a3fa2f7cdf7d4870
+  artifact_id: 9941313281
+  artifact_sha256: 9399ed9d797de916553a0db298f9e72b46d5150b557e6db742ba10424add59bb
+  artifact_size_bytes: 896380
   evidence_commit: 250c47f29f13ccd0641aa8b830bdda5dcd8fee47
   evidence_tree: b321de264f879a03e8f22b2276300d959ad20cec
   evidence_blob_sha: 22608d28690819bdc4ca6e30abea7031d1a8690d
   evidence_path: docs/project-state/evidence/P3_14_DELIVERY_QUALIFICATION_EVIDENCE.md
+  qualification_record_source_commit: ae5d69a0686968af96283260d1c8073f84a833d2
+  qualification_record_source_tree: 39d8f9e338365a28437b44eebde601c80f49508a
   live_l40s_execution: NOT_RUN
   live_cloudflare_publish: NOT_RUN
   drive_publication: NOT_RUN
   github_readback: EXACT_COMMIT_TREE_AND_REQUIRED_PATH_BLOB_CONFIRMED
   completion_gap: CLOSED
-
 continuation:
   active_task_id: ENG-P4-06
   active_task_title: P4-06 Versioned Production Recipe Learning and System Evidence Summary
