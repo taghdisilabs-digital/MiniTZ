@@ -92,6 +92,11 @@ P3_14_durable_close:
   live_l40s_execution: NOT_RUN
   live_cloudflare_publish: NOT_RUN
   drive_publication: NOT_RUN
+  canonical_drive_sync: VERIFIED
+  canonical_drive_state_file_id: 1wiWcdWt4hmTf3narsLw4OqGu_ueKOSa4
+  canonical_drive_task_file_id: 1liutA8evH6rPjk-U4tgR13l_kqBrx-DF
+  drive_evidence_file_id: 1qm2gmf2RWwGelwUa9KUfyUFxrd5GW-Ug
+  drive_artifact_file_id: 1Pp2P3-n0pP25PtiMB5Ba46fLfcb22iJf
   github_readback: EXACT_COMMIT_TREE_AND_REQUIRED_PATH_BLOB_CONFIRMED
   completion_gap: CLOSED
 active_frontier:
