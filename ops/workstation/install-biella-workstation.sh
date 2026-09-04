@@ -9,6 +9,11 @@ readonly CLI_LINK="/usr/local/bin/biella"
 
 install -d -o root -g root -m 755 "$INSTALL_DIR"
 install -o root -g root -m 755 "$SOURCE_DIR/biella" "$SOURCE_DIR/biella-lib.sh" "$INSTALL_DIR/"
+install -o root -g root -m 644 "$SOURCE_DIR/biella-ollama.service" /etc/systemd/system/biella-ollama.service
+if command -v systemctl >/dev/null 2>&1; then
+  systemctl daemon-reload
+  systemctl enable biella-ollama.service >/dev/null
+fi
 
 if [[ -e "$CLI_LINK" || -L "$CLI_LINK" ]]; then
   [[ -L "$CLI_LINK" && "$(readlink "$CLI_LINK")" == "$INSTALL_DIR/biella" ]] || {

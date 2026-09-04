@@ -56,3 +56,67 @@ biella_exec_or_fail() {
   command -v "$command" >/dev/null 2>&1 || { printf 'Missing command: %s\n' "$command" >&2; return 1; }
   exec "$command" "$@"
 }
+readonly BIELLA_QWEN_NUM_GPU=26
+readonly BIELLA_QWEN_NUM_CTX=16384
+readonly BIELLA_VRAM_LIMIT_BYTES=$((30 * 1024 * 1024 * 1024))
+
+biella_wait_for_ollama() {
+  local attempt
+  for ((attempt=1; attempt<=60; attempt++)); do
+    biella_ollama_ready && return 0
+    sleep 1
+  done
+  return 1
+}
+
+biella_start_supervised_ollama() {
+  command -v systemctl >/dev/null 2>&1 || return 1
+  systemctl list-unit-files biella-ollama.service >/dev/null 2>&1 || return 1
+  systemctl start biella-ollama.service
+  biella_wait_for_ollama
+}
+
+biella_warm_qwen() {
+  local payload
+  payload="$(python3 - "$BIELLA_QWEN_MODEL" "$BIELLA_QWEN_NUM_GPU" "$BIELLA_QWEN_NUM_CTX" <<'PY'
+import json, sys
+print(json.dumps({"model":sys.argv[1],"prompt":"Reply with READY only.","stream":False,"keep_alive":-1,"options":{"num_gpu":int(sys.argv[2]),"num_ctx":int(sys.argv[3])}}))
+PY
+)"
+  curl -fsS --connect-timeout 3 --max-time 900 -H 'Content-Type: application/json' --data-binary "$payload" "$BIELLA_OLLAMA_URL/api/generate" >/dev/null
+}
+biella_verify_qwen_vram() {
+  curl -fsS --connect-timeout 3 --max-time 20 "$BIELLA_OLLAMA_URL/api/ps" |
+    python3 -c '
+import json,sys
+model=sys.argv[1]; limit=int(sys.argv[2]); data=json.load(sys.stdin)
+items=[x for x in data.get("models",[]) if x.get("name")==model or x.get("model")==model]
+if not items: raise SystemExit("Qwen is not loaded")
+vram=items[0].get("size_vram")
+if not isinstance(vram,int) or vram<=0 or vram>=limit: raise SystemExit("Qwen VRAM contract failed")
+print(vram)
+' "$BIELLA_QWEN_MODEL" "$BIELLA_VRAM_LIMIT_BYTES"
+}
+
+biella_verify_v1_responses() {
+  local base payload
+  base="${BIELLA_OLLAMA_URL%/api}"
+  base="${base%/}"
+  payload="$(python3 - "$BIELLA_QWEN_MODEL" <<'PY'
+import json,sys
+print(json.dumps({"model":sys.argv[1],"input":"Reply with READY only."}))
+PY
+)"
+  curl -fsS --connect-timeout 3 --max-time 300 -H 'Content-Type: application/json' \
+    --data-binary "$payload" "$base/v1/responses" |
+    python3 -c 'import json,sys; d=json.load(sys.stdin); raise SystemExit(0 if d.get("status") in {"completed","in_progress"} else 1)'
+}
+
+biella_up_local() {
+  biella_ollama_ready || biella_start_supervised_ollama || {
+    printf 'Biella Ollama service is unavailable.\n' >&2; return 1;
+  }
+  biella_warm_qwen
+  biella_verify_qwen_vram >/dev/null
+  biella_verify_v1_responses
+}
