@@ -3,10 +3,11 @@ set -Eeuo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 wrapper="$root/ops/local-ai/biella-codex.sh"
 installer="$root/ops/local-ai/install-biella-ai.sh"
+feeder="$root/ops/local-ai/biella_codex_feeder.py"
 cli="$root/ops/workstation/biella"
 policy="$root/ops/workstation/AGENTS.md"
 
-for f in "$wrapper" "$installer" "$cli" "$policy"; do
+for f in "$wrapper" "$installer" "$feeder" "$cli" "$policy"; do
   [[ -f "$f" ]] || { echo "missing $f"; exit 1; }
 done
 
@@ -16,6 +17,9 @@ grep -Fq -- '--dangerously-bypass-approvals-and-sandbox' "$wrapper"
 grep -Fq 'shell_environment_policy.inherit' "$wrapper"
 grep -Fq -- '--search' "$wrapper"
 grep -Fq 'cd /root' "$wrapper"
+grep -Fq 'BIELLA_CODEX_FEEDER' "$wrapper"
+grep -Fq '"${1:-}" == "feed"' "$wrapper"
+grep -Fq 'biella_codex_feeder.py' "$installer"
 ! grep -Fq -- '--oss' "$wrapper"
 ! grep -Fq 'qwen3-coder-next:biella' "$wrapper"
 ! grep -Fq 'gpt-5.6-luna' "$wrapper"
@@ -35,6 +39,10 @@ grep -Fq 'single active Codex home' "$policy"
 grep -Fq 'progressive context' "$policy"
 grep -Fq 'checkpoint before context pressure' "$policy"
 grep -Fq 'Codex chooses local Qwen' "$policy"
+grep -Fq 'gpt-6-astra' "$policy"
+grep -Fq 'ultra' "$policy"
+grep -Fq 'Creation tasks never use low reasoning' "$policy"
+grep -Fq 'Mahdi controls Codex account usage' "$policy"
 
 bash -n "$wrapper"
 bash -n "$installer"

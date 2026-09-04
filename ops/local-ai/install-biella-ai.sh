@@ -23,6 +23,7 @@ install -o root -g root -m 755 \
   "$SOURCE_DIR/biella-saturn-mcp.sh" \
   "$SOURCE_DIR/biella-saturn-probe.py" \
   "$SOURCE_DIR/biella-codex.sh" \
+  "$SOURCE_DIR/biella_codex_feeder.py" \
   "$INSTALL_DIR/"
 for obsolete in \
   /usr/local/bin/biella-ai-start \

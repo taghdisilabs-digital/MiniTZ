@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly BIELLA_CODEX_FEEDER="${BIELLA_CODEX_FEEDER:-$SCRIPT_DIR/biella_codex_feeder.py}"
 readonly RUNTIME_ENV="${BIELLA_AI_RUNTIME_ENV:-/root/.config/biella-ai/runtime.env}"
 readonly CODEX_BIN="${BIELLA_CODEX_BIN:-/usr/bin/codex}"
 export BIELLA_CONTEXT_MODE="${BIELLA_CONTEXT_MODE:-progressive}"
@@ -17,10 +19,15 @@ if [[ -f "$RUNTIME_ENV" && ! -L "$RUNTIME_ENV" ]]; then
 fi
 
 export CODEX_HOME="/root/.codex"
-
-[[ -x "$CODEX_BIN" ]] || { printf 'Codex binary missing: %s\n' "$CODEX_BIN" >&2; exit 1; }
 cd /root
 
+if [[ "${1:-}" == "feed" ]]; then
+  shift
+  [[ -x "$BIELLA_CODEX_FEEDER" ]] || { printf 'Codex feeder missing: %s\n' "$BIELLA_CODEX_FEEDER" >&2; exit 1; }
+  exec "$BIELLA_CODEX_FEEDER" "$@"
+fi
+
+[[ -x "$CODEX_BIN" ]] || { printf 'Codex binary missing: %s\n' "$CODEX_BIN" >&2; exit 1; }
 exec "$CODEX_BIN" \
   --dangerously-bypass-approvals-and-sandbox \
   --dangerously-bypass-hook-trust \
