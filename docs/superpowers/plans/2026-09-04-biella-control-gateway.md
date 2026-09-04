@@ -9,8 +9,8 @@
 ## Progress
 
 - Task 1 — COMPLETED.
-- Task 2 — IN_PROGRESS.
-- Task 3 — PENDING.
+- Task 2 — COMPLETED.
+- Task 3 — IN_PROGRESS.
 - Task 4 — PENDING.
 - Task 5 — PENDING.
 
@@ -21,9 +21,9 @@
 - [x] Run tests and commit.
 
 ### Task 2: Current-state read APIs
-- [ ] Add failing tests for Website/Engine/Games lane validation and response shapes.
-- [ ] Implement overview, capabilities, services, milestones, hardware, workers, and files using current sources only.
-- [ ] Keep provider failures independent and exclude historical/superseded/unverified records.
+- [x] Add failing tests for Website/Engine/Games lane validation and response shapes.
+- [x] Implement overview, capabilities, services, milestones, hardware, workers, and files using current sources only.
+- [x] Keep provider failures independent and exclude historical/superseded/unverified records.
 - [x] Run tests and commit.
 
 ### Task 3: Dialog, runs, and SSE
