@@ -12,7 +12,7 @@
 - Task 2 — COMPLETED.
 - Task 3 — COMPLETED.
 - Task 4 — COMPLETED.
-- Task 5 — IN_PROGRESS.
+- Task 5 — BLOCKED_CLOUDFLARE_TUNNEL_EDIT_PERMISSION; local gateway verified.
 
 ### Task 1: Auth and HTTP contract
 - [x] Add failing tests for role enforcement, session cookies, and no generic command route.
