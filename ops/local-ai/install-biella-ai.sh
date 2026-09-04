@@ -19,6 +19,7 @@ install -o root -g root -m 755 \
   "$SOURCE_DIR/biella-saturn-probe.py" \
   "$SOURCE_DIR/biella-codex.sh" \
   "$SOURCE_DIR/biella-local-agent.sh" \
+  "$SOURCE_DIR/qwen-codex-model-catalog.json" \
   "$INSTALL_DIR/"
 
 for link_pair in \

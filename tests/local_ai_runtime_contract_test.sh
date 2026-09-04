@@ -7,6 +7,7 @@ SATURN_MCP="$ROOT_DIR/ops/local-ai/biella-saturn-mcp.sh"
 INSTALLER="$ROOT_DIR/ops/local-ai/install-biella-ai.sh"
 CODEX_WRAPPER="$ROOT_DIR/ops/local-ai/biella-codex.sh"
 LOCAL_AGENT="$ROOT_DIR/ops/local-ai/biella-local-agent.sh"
+QWEN_CATALOG="$ROOT_DIR/ops/local-ai/qwen-codex-model-catalog.json"
 MANIFEST="$ROOT_DIR/docs/project-state/BIELLA_LOCAL_AI_RUNTIME_MANIFEST_2026-09-04.yaml"
 
 require_file() {
@@ -36,6 +37,7 @@ require_file "$SATURN_MCP"
 require_file "$INSTALLER"
 require_file "$CODEX_WRAPPER"
 require_file "$LOCAL_AGENT"
+require_file "$QWEN_CATALOG"
 require_file "$MANIFEST"
 
 require_literal "$LAUNCHER" 'qwen3-coder-next:biella'
@@ -61,12 +63,17 @@ require_literal "$CODEX_WRAPPER" '--local-provider'
 require_literal "$CODEX_WRAPPER" 'ollama'
 require_literal "$CODEX_WRAPPER" '--dangerously-bypass-approvals-and-sandbox'
 require_literal "$CODEX_WRAPPER" '--dangerously-bypass-hook-trust'
+require_literal "$CODEX_WRAPPER" 'BIELLA_CODEX_DISABLE_HOOKS'
 require_literal "$CODEX_WRAPPER" '--search'
 require_literal "$LOCAL_AGENT" 'biella-codex'
 require_literal "$LOCAL_AGENT" 'mcp_servers.saturn.enabled=false'
 require_literal "$LOCAL_AGENT" 'model_reasoning_effort="none"'
 require_literal "$LOCAL_AGENT" '--disable plugins'
 require_literal "$LOCAL_AGENT" '--disable apps'
+require_literal "$LOCAL_AGENT" 'BIELLA_CODEX_DISABLE_HOOKS=1'
+require_literal "$LOCAL_AGENT" 'model_catalog_json'
+require_literal "$QWEN_CATALOG" 'qwen3-coder-next:biella'
+require_literal "$QWEN_CATALOG" '"context_window": 16384'
 require_literal "$INSTALLER" 'biella-local-agent'
 require_literal "$MANIFEST" 'WEBSITE'
 require_literal "$MANIFEST" 'ENGINE'

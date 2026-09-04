@@ -1,0 +1,63 @@
+{
+  "models": [
+    {
+      "slug": "qwen3-coder-next:biella",
+      "display_name": "Qwen3 Coder Next Biella",
+      "description": "Biella local Qwen coding worker served by Ollama.",
+      "default_reasoning_level": "none",
+      "supported_reasoning_levels": [
+        {
+          "effort": "none",
+          "description": "Direct local generation"
+        }
+      ],
+      "shell_type": "unified_exec",
+      "visibility": "hide",
+      "supported_in_api": true,
+      "priority": 1,
+      "additional_speed_tiers": [],
+      "service_tiers": [],
+      "availability_nux": null,
+      "upgrade": null,
+      "model_messages": {
+        "instructions_template": "You are Codex controlling the Biella local Qwen worker. Execute the user task directly and use available tools when useful. {{ personality }}",
+        "instructions_variables": {
+          "personality_default": "",
+          "personality_friendly": "",
+          "personality_pragmatic": ""
+        },
+        "approvals": null,
+        "collaboration_modes": null,
+        "auto_review": null,
+        "permissions": null,
+        "multi_agent": null
+      },
+      "include_skills_usage_instructions": true,
+      "include_plugin_usage_instructions": false,
+      "include_apps_usage_instructions": false,
+      "default_reasoning_summary": "none",
+      "support_verbosity": false,
+      "default_verbosity": "low",
+      "apply_patch_tool_type": "freeform",
+      "web_search_tool_type": "text_and_image",
+      "truncation_policy": {
+        "mode": "tokens",
+        "limit": 12000
+      },
+      "supports_image_detail_original": false,
+      "context_window": 16384,
+      "max_context_window": 16384,
+      "comp_hash": "biella-qwen-20260904-v1",
+      "effective_context_window_percent": 95,
+      "experimental_supported_tools": [],
+      "input_modalities": [
+        "text"
+      ],
+      "supports_search_tool": true,
+      "use_responses_lite": false,
+      "node_repl_auto_review_required": false,
+      "node_repl_disabled": false,
+      "base_instructions": "You are Codex controlling the Biella local Qwen coding worker. Work directly in the current workspace, preserve existing valid work, use tools when useful, and keep output concise."
+    }
+  ]
+}

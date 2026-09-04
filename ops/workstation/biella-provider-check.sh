@@ -107,7 +107,7 @@ if [[ -n "${SUPABASE_PUBLISHABLE_KEY:-}" ]]; then
 else
   not_configured Supabase
 fi
-[[ -n "${NEON_API_KEY:-}" ]] && curl_config_header Neon 'https://console.neon.tech/api/v2/projects?limit=1' 0 \
+[[ -n "${NEON_API_KEY:-}" ]] && curl_config_header Neon 'https://console.neon.tech/api/v2/users/me' 0 \
   "Authorization: Bearer $NEON_API_KEY" || not_configured Neon
 
 if [[ -n "${UPSTASH_API_KEY:-}" ]]; then

@@ -31,7 +31,7 @@ done
 for literal in \
   'api.pinecone.io/indexes' 'api.deepgram.com/v1/projects' \
   'api.assemblyai.com/v2/transcript' 'api.elevenlabs.io/v1/models' \
-  'api.stability.ai/v1/user/account' 'console.neon.tech/api/v2/projects' \
+  'api.stability.ai/v1/user/account' 'console.neon.tech/api/v2/users/me' \
   'api.pexels.com/v1/curated' 'api.axiom.co/v2/tokens' 'api-key:' \
   'NEEDS_LOCATOR' 'CONFIGURED'; do
   require_literal "$CHECK" "$literal"

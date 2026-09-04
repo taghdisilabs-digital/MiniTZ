@@ -14,7 +14,7 @@ set +a
 
 updates_file="$(mktemp /tmp/biella-provider-updates.XXXXXX)"
 chmod 600 "$updates_file"
-trap 'rm -f -- "$updates_file"' EXIT
+trap '[[ -z "${updates_file:-}" ]] || rm -f -- "$updates_file"' EXIT
 
 queue_value() {
   local key="$1" value="$2"
@@ -94,5 +94,4 @@ PY
 
 chmod 600 "$RUNTIME"
 chown root:root "$RUNTIME"
-unset updates_file
 printf 'Provider configuration updated.\n'

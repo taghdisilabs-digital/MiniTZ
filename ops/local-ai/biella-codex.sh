@@ -12,12 +12,19 @@ if [[ -f "$RUNTIME_ENV" && ! -L "$RUNTIME_ENV" ]]; then
 fi
 
 # Codex remains the controller; Ollama is the local Qwen worker.
-# This worker is intentionally unrestricted at the Codex approval/sandbox layer.
-exec "$CODEX_BIN" \
-  --oss \
-  --local-provider ollama \
-  -m qwen3-coder-next:biella \
-  --dangerously-bypass-approvals-and-sandbox \
-  --dangerously-bypass-hook-trust \
-  --search \
-  "$@"
+# Full mode trusts enabled hooks; fast local mode disables hooks entirely.
+args=(
+  --oss
+  --local-provider ollama
+  -m qwen3-coder-next:biella
+  --dangerously-bypass-approvals-and-sandbox
+  --search
+)
+
+if [[ "${BIELLA_CODEX_DISABLE_HOOKS:-0}" == 1 ]]; then
+  args+=(--disable hooks)
+else
+  args+=(--dangerously-bypass-hook-trust)
+fi
+
+exec "$CODEX_BIN" "${args[@]}" "$@"
