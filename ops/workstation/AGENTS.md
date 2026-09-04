@@ -45,3 +45,11 @@ Use `gpt-6-astra` with `ultra` reasoning for hard frontier work, deep Project-me
 Creation tasks never use low reasoning. Use at least high reasoning for creation; use xhigh/max/ultra when task risk, ambiguity, visual/product consequence, or integration depth warrants it.
 Short bounded tasks may prefer Luna with smaller reasoning effort, then fall back to another eligible Codex model when the preferred model returns an observed usage/rate-limit error.
 Never probe quota by spending a model call. Learn model availability only from normal task execution results and local model-catalog metadata.
+## Games production feeder
+
+The active Games feeder has one durable production document: `/root/biella/work/games-production.json`. It contains ordered sections and task status in the same document; do not create separate queue, state, batch, or progress-ledger authorities.
+Demo 01 is the first section. Preserve current canonical Demo completion and resume only the earliest unfinished task. Never reopen completed tasks unless current authoritative evidence materially invalidates them.
+After Demo 01, continue through the current accepted Games implementation sections from `docs/IMPLEMENTATION_SEQUENCE.md`. Empty sections are planned just-in-time with a bounded 20-50 task set, stored inside that same section.
+Use Astra Ultra for section planning/audit and deep-memory frontier resolution when available. Section planning must stay inside the current accepted section, avoid overlapping tasks, and never invent product scope from stale TODOs or historical evidence.
+After executing a section, audit that same section. Append only materially missing tasks to it; mark the section complete only with current implementation/runtime evidence. Then advance to the next section.
+Do not start the feeder while another controller owns the Games write boundary. Sync/read current progress first, preserve the existing owner handoff, and start only after that write boundary is released.

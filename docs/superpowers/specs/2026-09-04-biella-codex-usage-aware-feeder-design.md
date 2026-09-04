@@ -1,33 +1,26 @@
 # Biella Codex Usage-Aware Feeder Design
 
 ## Goal
-Keep `biella-codex` as the only AI/production entrypoint while adding an internal single-flight feeder that advances bounded tasks and chooses Codex models by task class and observed availability.
+Keep `biella-codex` as the only AI/production entrypoint and run Games production from one durable sectioned document until the accepted game completion sequence is satisfied.
 
-## Authority and boundaries
-- The user controls only Codex account usage/reset decisions.
-- The feeder must never invoke `/usage`, redeem a reset, buy credits, or alter account quota settings.
-- Model/provider/tool choice after launch is execution routing, not a new authority hierarchy.
-- One active feeder task at a time. Preserve verified work and never reset progress merely because a model/session changes.
+## One production state
+The only active feeder authority is `/root/biella/work/games-production.json`. It contains run state, ordered sections, tasks, task completion/evidence, current section/task, model cooldowns, and the latest result. Do not create separate queue, state, batch, or progress-ledger files. Runtime attempt logs and the single-flight lock remain non-authoritative runtime evidence under `/mnt/biella-extra/biella-runtime/codex-feeder/`.
+
+## Sections and continuation
+`demo01` is the first section and imports current progress from `docs/DEMO_01_QUEUE.md` without downgrading already completed tasks. Stage 2 through Stage 8 are taken from current `docs/IMPLEMENTATION_SEQUENCE.md`. Empty stages are planned just-in-time into the same section with 20-50 bounded, non-overlapping tasks unless materially fewer are required. After each section executes, the same section is audited; only missing work is appended. Completion advances to the next section. Stage 8 audit is the game/release-candidate completion boundary.
 
 ## Routing
-- `simple`: prefer `gpt-5.6-luna` with medium reasoning; fall back to other available Codex models without probing.
-- `medium`: prefer Luna high/xhigh or Sol/Terra high depending on availability.
-- `creation`: reasoning is never low; minimum high, normally xhigh/max.
-- `hard` and `deep_memory`: prefer `gpt-6-astra` with `ultra` exactly.
-- `hard_creation`: prefer `gpt-6-astra` with `ultra`.
-- A usage/rate-limit failure on a real task marks only that model temporarily unavailable; the same task is retried on the next eligible model.
+- `simple`: prefer Luna medium; observed usage/rate-limit failures fall back without quota probing.
+- `medium`: prefer Luna high, then eligible alternatives.
+- `creation`: never below high; normally xhigh/max.
+- `hard`, `deep_memory`, `hard_creation`: Astra Ultra first.
+- Section planning/audit is deep-memory work and therefore Astra Ultra first.
 
-## Usage awareness
-No quota-probing calls are allowed. Availability is learned only from normal task executions. If Codex returns a reset timestamp, persist it; otherwise use a bounded cooldown. A successful invocation clears stale cooldown state for that model.
-
-## Context control
-Each numbered task runs in a fresh `codex exec` context. The prompt contains only the task, compact global Demo-01 goal, directly relevant current state, and checkpoint contract. Hard/deep-memory tasks may expand context progressively and use Astra Ultra.
-
-## Persistence
-Queue definition and progress are durable files under `/root/biella/work/<run-id>/`. Runtime logs and locks live under `/mnt/biella-extra/biella-runtime/codex-feeder/<run-id>/`. Source code remains in the Engine repo.
+## Usage and context
+The feeder never invokes `/usage`, redeems resets, or changes account quota. Availability is learned only from normal task results and local model catalog metadata. Each task runs in a fresh bounded context containing only its section/task and directly relevant current authority. Completed work is preserved unless current authoritative evidence materially invalidates it.
 
 ## Interface
-`biella-codex` remains the only public controller. It gains an internal `feed` subcommand: `biella-codex feed run|status|stop ...`. No model-specific launcher is created.
+`biella-codex` remains the only public controller. Internal feeder actions are `biella-codex feed init|sync|run|start|status|stop`. They operate on the single canonical production document; no queue path is passed around.
 
-## Demo-01 start
-The first run is a compact 50-task Demo-01 queue. Tasks are classified by difficulty/creation/deep-memory needs. The feeder runs automatically until all tasks are complete or an actual external/owner-level dependency is observed.
+## Ownership
+One feeder task runs at a time. Do not start it while another controller owns the Games write boundary. `sync` may refresh current Demo progress read-only; execution starts only after the existing write owner releases the boundary.

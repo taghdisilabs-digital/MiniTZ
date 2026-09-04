@@ -1,48 +1,37 @@
 # Biella Codex Usage-Aware Feeder Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Add a tested usage-aware task feeder behind the single `biella-codex` entrypoint and start the 50-task Demo-01 run.
+**Goal:** Maintain one sectioned Games production flow behind `biella-codex`, preserving progress and continuing from Demo 01 through Stage 8.
 
-**Architecture:** A small Python feeder owns queue parsing, task classification, model selection, observed-limit cooldowns, single-flight locking, fresh-context Codex execution, and progress persistence. The existing shell wrapper intercepts only the `feed` subcommand; normal interactive Codex behavior is unchanged.
+**Architecture:** One Python feeder, one durable `/root/biella/work/games-production.json`, one current task, and one systemd single-flight run. Sections are planned/audited just-in-time inside that same document.
 
-**Tech Stack:** Python 3 standard library, Bash, Codex CLI, systemd-run for detached execution, Git.
+**Tech Stack:** Python 3 standard library, Bash, Codex CLI, systemd-run, Git.
 
 **Spec:** `docs/superpowers/specs/2026-09-04-biella-codex-usage-aware-feeder-design.md`
 
-## Global Constraints
-- `biella-codex` remains the only AI/production entrypoint.
-- Never invoke `/usage` or redeem usage resets.
-- Creation tasks never use low reasoning.
-- Hard/deep-memory tasks prefer `gpt-6-astra` with `ultra`.
-- One feeder task at a time; preserve verified work.
+## Constraints
+- `biella-codex` is the only AI/production entrypoint.
+- Never invoke `/usage` or redeem resets.
+- Creation never uses low reasoning.
+- Astra Ultra handles hard/deep-memory/section planning and audit first.
+- Preserve completed tasks; no overlapping write owner.
+- No separate queue/state/batch/ledger authority.
 
----
+### Task 1: Unified production document
+- [x] Import Demo progress and Stage 2-8 sections into one production document.
+- [x] Embed task status/evidence and current pointers in the same file.
+- [x] Preserve completed tasks on sync/init.
 
-### Task 1: Model selector and observed-limit state
-**Files:** Create `ops/local-ai/biella_codex_feeder.py`; create `tests/test_codex_feeder.py`.
-- [ ] Write failing tests for task-class routing, creation reasoning floor, Astra Ultra hard/deep routing, and cooldown fallback.
-- [ ] Run focused tests and verify RED.
-- [ ] Implement minimal pure selector/state logic.
-- [ ] Run focused tests and verify GREEN.
+### Task 2: Rolling section execution
+- [x] Plan empty sections into 20-50 bounded tasks using deep-memory routing.
+- [x] Execute one task at a time with usage-aware model fallback.
+- [x] Audit the same section and append only remaining missing tasks.
+- [x] Advance automatically through Stage 8.
 
-### Task 2: Queue execution and checkpoint persistence
-**Files:** Modify `ops/local-ai/biella_codex_feeder.py`; modify `tests/test_codex_feeder.py`.
-- [ ] Write failing tests for 50-task queue continuity, resume, single-flight state, success advance, and usage-limit fallback without `/usage`.
-- [ ] Verify RED, implement, verify GREEN.
-
-### Task 3: Single-entrypoint integration
-**Files:** Modify `ops/local-ai/biella-codex.sh`, `ops/local-ai/install-biella-ai.sh`, controller contract tests.
-- [ ] Write failing shell/runtime contract for `biella-codex feed` and installed feeder path.
-- [ ] Verify RED, implement wrapper/installer integration, verify GREEN.
-
-### Task 4: Demo-01 queue and detached run
-**Files:** Create a durable run queue under `/root/biella/work/demo01-codex-feeder/` at install/start time; no project-wide prompt files.
-- [ ] Generate exactly 50 compact tasks with classes.
-- [ ] Validate numbering, dependency order, and class constraints.
-- [ ] Install exact verified source, start detached feeder, and read back status.
-
-### Task 5: Regression, commit, publish
-- [ ] Run focused feeder/controller tests plus existing workstation/control contracts.
-- [ ] Commit coherent source, fast-forward main only if unchanged, push, remote-readback exact SHA.
-- [ ] Verify live installed bytes and feeder status.
+### Task 3: Single interface and verification
+- [x] Replace `init-demo01/--queue` with `init|sync|run|start|status|stop`.
+- [x] Remove obsolete internal queue/state implementation.
+- [ ] Run full feeder/controller/workstation regressions.
+- [ ] Commit, push, remote-readback, install exact bytes, initialize one live production document.
+- [ ] Leave execution stopped while the current Games controller owns the write boundary.

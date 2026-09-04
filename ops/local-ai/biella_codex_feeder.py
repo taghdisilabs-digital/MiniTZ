@@ -27,15 +27,6 @@ class Task:
     title: str
 
 
-@dataclass(frozen=True)
-class QueueSpec:
-    run_id: str
-    goal: str
-    project_root: Path
-    tasks: tuple[Task, ...]
-    source_path: Path
-
-
 class AlreadyRunning(RuntimeError):
     pass
 
@@ -196,119 +187,20 @@ def build_codex_command(route: Route, schema_path: Path, output_path: Path, cwd:
     ]
 
 
-def load_queue(path: Path) -> QueueSpec:
-    data = json.loads(path.read_text(encoding="utf-8"))
-    if data.get("schema_version") != 1:
-        raise ValueError("unsupported queue schema")
-    raw_tasks = data.get("tasks")
-    if not isinstance(raw_tasks, list) or not raw_tasks:
-        raise ValueError("queue requires tasks")
-    tasks: list[Task] = []
-    seen: set[str] = set()
-    for item in raw_tasks:
-        task = Task(str(item["id"]), str(item["class"]), str(item["title"]))
-        if task.id in seen:
-            raise ValueError(f"duplicate task id: {task.id}")
-        if task.task_class not in _ROUTE_PROFILES:
-            raise ValueError(f"unknown task class: {task.task_class}")
-        seen.add(task.id)
-        tasks.append(task)
-    return QueueSpec(
-        run_id=str(data["run_id"]),
-        goal=str(data["goal"]),
-        project_root=Path(str(data["project_root"])),
-        tasks=tuple(tasks),
-        source_path=path.resolve(),
-    )
 
 
-def initial_state(queue: QueueSpec) -> dict[str, Any]:
-    return {
-        "schema_version": 1,
-        "run_id": queue.run_id,
-        "queue_path": str(queue.source_path),
-        "status": "READY",
-        "current_task": queue.tasks[0].id if queue.tasks else None,
-        "completed": [],
-        "cooldowns": {},
-        "last_result": None,
-        "updated_at": datetime.now(timezone.utc).isoformat(),
-    }
 
 
-def save_state(path: Path, state: Mapping[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    tmp.write_text(json.dumps(state, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
-    os.replace(tmp, path)
 
 
-def load_state(path: Path, queue: QueueSpec) -> dict[str, Any]:
-    if not path.exists():
-        return initial_state(queue)
-    state = json.loads(path.read_text(encoding="utf-8"))
-    if state.get("run_id") != queue.run_id:
-        raise ValueError("state run_id does not match queue")
-    known = {task.id for task in queue.tasks}
-    completed = state.get("completed", [])
-    if not isinstance(completed, list) or any(item not in known for item in completed):
-        raise ValueError("state contains unknown completed task")
-    return state
 
 
-def next_task(queue: QueueSpec, state: Mapping[str, Any]) -> Task | None:
-    completed = set(state.get("completed", []))
-    for task in queue.tasks:
-        if task.id not in completed:
-            return task
-    return None
 
 
-def mark_complete(state: dict[str, Any], task_id: str, status: str, model: str, reasoning: str) -> None:
-    completed = state.setdefault("completed", [])
-    if task_id not in completed:
-        completed.append(task_id)
-    state["last_result"] = {"task_id": task_id, "status": status, "model": model, "reasoning": reasoning}
-    state["current_task"] = None
-    state["updated_at"] = datetime.now(timezone.utc).isoformat()
 
 
-def record_limit_failure(
-    state: dict[str, Any],
-    task: Task,
-    route: Route,
-    error_text: str,
-    observed_at: datetime,
-) -> None:
-    retry_at = limit_retry_at(error_text, observed_at)
-    state.setdefault("cooldowns", {})[route.model] = retry_at.isoformat()
-    state["current_task"] = task.id
-    state["last_result"] = {
-        "task_id": task.id,
-        "status": "MODEL_COOLDOWN",
-        "model": route.model,
-        "reasoning": route.reasoning,
-        "retry_at": retry_at.isoformat(),
-    }
-    state["updated_at"] = observed_at.isoformat()
 
 
-def build_task_prompt(queue: QueueSpec, task: Task, state: Mapping[str, Any]) -> str:
-    previous = state.get("last_result")
-    previous_text = "none"
-    if isinstance(previous, dict) and previous.get("task_id") == task.id:
-        previous_text = json.dumps(previous, sort_keys=True, separators=(",", ":"))
-    return (
-        "Biella production task. Work autonomously from /root and follow current AGENTS/current GitHub/Drive/runtime authority.\n"
-        f"RUN: {queue.run_id}\nGOAL: {queue.goal}\n"
-        f"TASK: {task.id} [{task.task_class}] {task.title}\n"
-        f"PROJECT: {queue.project_root}\n"
-        f"PREVIOUS_ATTEMPT: {previous_text}\n"
-        "Preserve valid newer work; verify before redoing. Internal tool/build/provider failures are repair/routing work. "
-        "Codex may use configured local Qwen, APIs, GPU, Unreal, GitHub, Drive and production tools when useful. "
-        "Do not manage Codex account quota or usage resets. Creation output must be real/editable and visually inspectable when applicable. "
-        "Finish this task or return only a genuine external dependency/owner decision. Keep final summary compact."
-    )
 
 
 def result_schema() -> dict[str, Any]:
@@ -382,59 +274,524 @@ _DEMO01_TASKS: tuple[tuple[str, str], ...] = (
 )
 
 
-def write_demo01_queue(path: Path) -> Path:
-    tasks = [
-        {"id": f"D01-{index:03d}", "class": task_class, "title": title}
-        for index, (task_class, title) in enumerate(_DEMO01_TASKS, start=1)
-    ]
-    payload = {
-        "schema_version": 1,
-        "run_id": "demo01-50",
-        "goal": "Finish the first real playable packaged Biella Games Demo 01 vertical slice",
-        "project_root": "/root/biella/repos/biella-games",
-        "tasks": tasks,
+
+
+
+_COMPLETE_STATUSES = {"COMPLETE", "COMPLETE_ALREADY"}
+_DEMO_LINE_RE = re.compile(r"^- \[(?P<done>[xX ])\] (?P<id>D01-\d{3}) \| (?P<title>[^|]+?) \| (?P<status>[^|]+?) \| (?P<evidence>.*)$")
+_STAGE_RE = re.compile(r"^## Stage (?P<number>[2-8]) — (?P<title>.+)$")
+
+
+def _demo_task_class(task_id: str) -> str:
+    number = int(task_id.rsplit("-", 1)[1])
+    if 1 <= number <= len(_DEMO01_TASKS):
+        return _DEMO01_TASKS[number - 1][0]
+    return "medium"
+
+
+def _read_demo_authority(project_root: Path) -> list[dict[str, Any]]:
+    path = project_root / "docs" / "DEMO_01_QUEUE.md"
+    tasks: list[dict[str, Any]] = []
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        match = _DEMO_LINE_RE.match(raw.strip())
+        if not match:
+            continue
+        status = match.group("status").strip()
+        if match.group("done").lower() == "x" and status not in _COMPLETE_STATUSES:
+            status = "COMPLETE"
+        if status not in _COMPLETE_STATUSES:
+            status = "PENDING"
+        evidence = match.group("evidence").strip()
+        tasks.append({
+            "id": match.group("id"),
+            "class": _demo_task_class(match.group("id")),
+            "title": match.group("title").strip(),
+            "status": status,
+            "evidence": [evidence] if evidence else [],
+        })
+    if not tasks:
+        raise ValueError(f"no Demo 01 tasks found in {path}")
+    return tasks
+
+
+def _read_stage_sections(project_root: Path) -> list[dict[str, Any]]:
+    path = project_root / "docs" / "IMPLEMENTATION_SEQUENCE.md"
+    sections: list[dict[str, Any]] = []
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        match = _STAGE_RE.match(raw.strip())
+        if not match:
+            continue
+        number = match.group("number")
+        sections.append({
+            "id": f"stage{number}",
+            "title": match.group("title").strip(),
+            "source": "docs/IMPLEMENTATION_SEQUENCE.md",
+            "status": "PENDING",
+            "tasks": [],
+            "evidence": [],
+        })
+    expected = [f"stage{i}" for i in range(2, 9)]
+    if [section["id"] for section in sections] != expected:
+        raise ValueError("implementation sequence must expose Stage 2 through Stage 8 in order")
+    return sections
+
+
+def _refresh_current(production: dict[str, Any]) -> None:
+    for section in production["sections"]:
+        if section.get("status") in _COMPLETE_STATUSES:
+            continue
+        for task in section["tasks"]:
+            if task.get("status") not in _COMPLETE_STATUSES:
+                production["current_section"] = section["id"]
+                production["current_task"] = task["id"]
+                return
+        production["current_section"] = section["id"]
+        production["current_task"] = None
+        return
+    production["current_section"] = None
+    production["current_task"] = None
+
+
+def write_games_production(path: Path, *, project_root: Path = Path("/root/biella/repos/biella-games")) -> Path:
+    demo_tasks = _read_demo_authority(project_root)
+    sections = [{
+        "id": "demo01",
+        "title": "Demo 01 — first playable vertical slice",
+        "source": "docs/DEMO_01_QUEUE.md",
+        "status": "IN_PROGRESS",
+        "tasks": demo_tasks,
+        "evidence": [],
+    }, *_read_stage_sections(project_root)]
+    production: dict[str, Any] = {
+        "schema_version": 2,
+        "run_id": "biella-games-production",
+        "goal": "Complete Biella Games through the current accepted production sequence and release-candidate evidence",
+        "project_root": str(project_root.resolve()),
+        "status": "READY",
+        "current_section": None,
+        "current_task": None,
+        "active_model": None,
+        "active_reasoning": None,
+        "cooldowns": {},
+        "attempt_seq": 0,
+        "last_result": None,
+        "sections": sections,
+        "updated_at": datetime.now(timezone.utc).isoformat(),
     }
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+    _refresh_current(production)
+    save_production(path, production)
     return path
 
 
-def apply_agent_result(
-    state: dict[str, Any],
-    task: Task,
+def load_production(path: Path) -> dict[str, Any]:
+    production = json.loads(path.read_text(encoding="utf-8"))
+    if production.get("schema_version") != 2:
+        raise ValueError("unsupported production schema")
+    if not isinstance(production.get("sections"), list) or not production["sections"]:
+        raise ValueError("production requires sections")
+    seen: set[str] = set()
+    for section in production["sections"]:
+        if not isinstance(section.get("tasks"), list):
+            raise ValueError("section tasks must be a list")
+        for task in section["tasks"]:
+            task_id = str(task["id"])
+            if task_id in seen:
+                raise ValueError(f"duplicate task id: {task_id}")
+            if task.get("class") not in _ROUTE_PROFILES:
+                raise ValueError(f"unknown task class: {task.get('class')}")
+            seen.add(task_id)
+    return production
+
+
+def save_production(path: Path, production: Mapping[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(json.dumps(production, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+    os.replace(tmp, path)
+
+
+def find_task(production: Mapping[str, Any], task_id: str) -> dict[str, Any]:
+    for section in production["sections"]:
+        for task in section["tasks"]:
+            if task["id"] == task_id:
+                return task
+    raise KeyError(task_id)
+
+
+def next_production_task(production: Mapping[str, Any]) -> Task | None:
+    for section in production["sections"]:
+        for item in section["tasks"]:
+            if item.get("status") not in _COMPLETE_STATUSES:
+                return Task(str(item["id"]), str(item["class"]), str(item["title"]))
+        if section.get("status") not in _COMPLETE_STATUSES and not section["tasks"]:
+            return None
+    return None
+
+
+def mark_production_complete(
+    production: dict[str, Any], task_id: str, status: str, model: str, reasoning: str, evidence: Sequence[str]
+) -> None:
+    if status not in _COMPLETE_STATUSES:
+        raise ValueError("completion status required")
+    task = find_task(production, task_id)
+    task["status"] = status
+    task["model"] = model
+    task["reasoning"] = reasoning
+    task["evidence"] = list(evidence)
+    task["completed_at"] = datetime.now(timezone.utc).isoformat()
+    production["last_result"] = {"task_id": task_id, "status": status, "model": model, "reasoning": reasoning, "evidence": list(evidence)}
+    production["updated_at"] = datetime.now(timezone.utc).isoformat()
+    _refresh_current(production)
+
+
+def sync_demo_progress(path: Path) -> None:
+    production = load_production(path)
+    project_root = Path(str(production["project_root"]))
+    source_tasks = _read_demo_authority(project_root)
+    demo = next(section for section in production["sections"] if section["id"] == "demo01")
+    existing = {task["id"]: task for task in demo["tasks"]}
+    for source in source_tasks:
+        task = existing.get(source["id"])
+        if task is None:
+            demo["tasks"].append(source)
+            continue
+        task["title"] = source["title"]
+        task["class"] = source["class"]
+        if task.get("status") not in _COMPLETE_STATUSES and source["status"] in _COMPLETE_STATUSES:
+            task["status"] = source["status"]
+            task["evidence"] = source["evidence"]
+    if all(task.get("status") in _COMPLETE_STATUSES for task in demo["tasks"]):
+        demo["status"] = "COMPLETE"
+    _refresh_current(production)
+    production["updated_at"] = datetime.now(timezone.utc).isoformat()
+    save_production(path, production)
+
+
+def apply_section_plan(production: dict[str, Any], section_id: str, plan: Mapping[str, Any]) -> None:
+    if plan.get("section_id") != section_id:
+        raise ValueError("section plan id mismatch")
+    section = next(section for section in production["sections"] if section["id"] == section_id)
+    if bool(plan.get("complete")):
+        section["status"] = "COMPLETE_ALREADY" if not section["tasks"] else "COMPLETE"
+        section["evidence"] = list(plan.get("evidence", []))
+        section["summary"] = str(plan.get("summary", ""))
+        _refresh_current(production)
+        return
+    existing_titles = {re.sub(r"\s+", " ", str(task["title"]).strip().lower()) for task in section["tasks"]}
+    prefix_match = re.search(r"(\d+)$", section_id)
+    prefix = f"S{prefix_match.group(1)}" if prefix_match else section_id.upper()
+    next_number = len(section["tasks"]) + 1
+    for raw in plan.get("tasks", []):
+        task_class = str(raw["class"])
+        if task_class not in _ROUTE_PROFILES:
+            raise ValueError(f"unknown task class: {task_class}")
+        title = str(raw["title"]).strip()
+        normalized = re.sub(r"\s+", " ", title.lower())
+        if not title or normalized in existing_titles:
+            continue
+        section["tasks"].append({
+            "id": f"{prefix}-{next_number:03d}",
+            "class": task_class,
+            "title": title,
+            "status": "PENDING",
+            "evidence": [],
+        })
+        existing_titles.add(normalized)
+        next_number += 1
+    section["status"] = "IN_PROGRESS"
+    section["summary"] = str(plan.get("summary", ""))
+    section["evidence"] = list(plan.get("evidence", []))
+    _refresh_current(production)
+
+
+def _section_record(production: Mapping[str, Any], section_id: str) -> dict[str, Any]:
+    for section in production["sections"]:
+        if section["id"] == section_id:
+            return section
+    raise KeyError(section_id)
+
+
+def _section_for_task(production: Mapping[str, Any], task_id: str) -> dict[str, Any]:
+    for section in production["sections"]:
+        if any(task["id"] == task_id for task in section["tasks"]):
+            return section
+    raise KeyError(task_id)
+
+
+def section_plan_schema() -> dict[str, Any]:
+    return {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["section_id", "complete", "summary", "evidence", "tasks"],
+        "properties": {
+            "section_id": {"type": "string"},
+            "complete": {"type": "boolean"},
+            "summary": {"type": "string"},
+            "evidence": {"type": "array", "items": {"type": "string"}},
+            "tasks": {
+                "type": "array",
+                "maxItems": 50,
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": ["class", "title"],
+                    "properties": {
+                        "class": {"type": "string", "enum": sorted(_ROUTE_PROFILES)},
+                        "title": {"type": "string", "minLength": 1, "maxLength": 240},
+                    },
+                },
+            },
+        },
+    }
+
+
+def build_section_prompt(production: Mapping[str, Any], section: Mapping[str, Any], *, audit: bool) -> str:
+    existing = [
+        f"{task['id']} [{task.get('status','PENDING')}] {task['title']}"
+        for task in section.get("tasks", [])[-50:]
+    ]
+    existing_text = "\n".join(existing) if existing else "none"
+    mode = (
+        "Audit this section after execution. If every accepted requirement in this section is now satisfied by current source and real evidence, return complete=true. Otherwise return only the remaining missing tasks."
+        if audit
+        else "Plan the currently incomplete work for this section. Return 20 to 50 bounded tasks unless materially fewer are required by current accepted scope."
+    )
+    return (
+        "Biella Games production section refresh. Work from current canonical GitHub/Drive/runtime authority and directly relevant source only.\n"
+        f"RUN: {production['run_id']}\nGOAL: {production['goal']}\n"
+        f"PROJECT: {production['project_root']}\nSECTION: {section['id']} | {section['title']}\nSOURCE: {section.get('source','')}\n"
+        f"MODE: {mode}\nEXISTING SECTION TASKS:\n{existing_text}\n"
+        "Tasks must be non-overlapping, dependency-aware, execution-sized, and limited to this section. Preserve completed work. "
+        "Do not derive work from stale TODOs or historical files unless current authority requires it. Do not invent product scope. "
+        "Use deep inspection only for named missing facts. Creation tasks must be classified creation/hard_creation and never rely on low reasoning. "
+        "Set complete=true only with current implementation/runtime evidence supporting the whole section."
+    )
+
+
+def build_production_task_prompt(production: Mapping[str, Any], task: Task) -> str:
+    section = _section_for_task(production, task.id)
+    record = find_task(production, task.id)
+    previous = production.get("last_result")
+    previous_text = "none"
+    if isinstance(previous, dict) and previous.get("task_id") == task.id:
+        previous_text = json.dumps(previous, sort_keys=True, separators=(",", ":"))
+    return (
+        "Biella Games production task. Work autonomously from /root and follow current AGENTS/current GitHub/Drive/runtime authority.\n"
+        f"RUN: {production['run_id']}\nGOAL: {production['goal']}\n"
+        f"SECTION: {section['id']} | {section['title']}\nTASK: {task.id} [{task.task_class}] {task.title}\n"
+        f"PROJECT: {production['project_root']}\nPREVIOUS_ATTEMPT: {previous_text}\n"
+        "Execute only this task boundary. Verify current work before editing and preserve valid completed work. "
+        "Do not reopen earlier section tasks. Internal tool/build/provider failures are repair/routing work. "
+        "Codex may use configured local Qwen, APIs, GPU, Unreal, GitHub, Drive and production tools when useful. "
+        "Do not manage Codex account quota or usage resets. Creation output must be real/editable and visually inspectable when applicable. "
+        "Return COMPLETE_ALREADY when current evidence already satisfies the task."
+    )
+
+
+def _invoke_structured(
+    prompt: str,
     route: Route,
-    result: Mapping[str, Any],
-    observed_at: datetime,
+    runtime_root: Path,
+    schema_path: Path,
+    output_path: Path,
+    stdout_path: Path,
+    stderr_path: Path,
+) -> tuple[int, Mapping[str, Any] | None, str]:
+    cmd = build_codex_command(route, schema_path, output_path, Path("/root"))
+    with stdout_path.open("w", encoding="utf-8") as stdout, stderr_path.open("w", encoding="utf-8") as stderr:
+        proc = subprocess.run(cmd, input=prompt, text=True, stdout=stdout, stderr=stderr, check=False, env=os.environ.copy())
+    error_text = _tail_text(stderr_path) + "\n" + _tail_text(stdout_path)
+    if proc.returncode != 0:
+        return proc.returncode, None, error_text
+    if not output_path.exists():
+        return 1, None, "Codex completed without structured result"
+    try:
+        return 0, json.loads(output_path.read_text(encoding="utf-8")), error_text
+    except json.JSONDecodeError as exc:
+        return 1, None, f"invalid structured result: {exc}"
+
+
+def _record_production_failure(
+    production: dict[str, Any], route: Route, detail: str, observed: datetime, *, task_id: str | None = None, limited: bool = False
+) -> None:
+    retry_at = limit_retry_at(detail, observed) if limited else observed + timedelta(minutes=2)
+    production.setdefault("cooldowns", {})[route.model] = retry_at.isoformat()
+    production["last_result"] = {
+        "task_id": task_id,
+        "status": "MODEL_COOLDOWN" if limited else "MODEL_RUNTIME_COOLDOWN",
+        "model": route.model,
+        "reasoning": route.reasoning,
+        "retry_at": retry_at.isoformat(),
+        "summary": detail[-2000:],
+        "evidence": [],
+    }
+    production["updated_at"] = observed.isoformat()
+
+
+def _invoke_production_task(
+    production: dict[str, Any], task: Task, route: Route, runtime_root: Path, schema_path: Path
+) -> tuple[int, Mapping[str, Any] | None, str]:
+    seq = int(production.get("attempt_seq", 0)) + 1
+    production["attempt_seq"] = seq
+    attempts = runtime_root / "attempts"
+    attempts.mkdir(parents=True, exist_ok=True)
+    stem = f"{seq:04d}-{task.id}-{route.model}"
+    return _invoke_structured(
+        build_production_task_prompt(production, task), route, runtime_root, schema_path,
+        attempts / f"{stem}.result.json", attempts / f"{stem}.stdout.log", attempts / f"{stem}.stderr.log"
+    )
+
+
+def _invoke_section_plan(
+    production: dict[str, Any], section: Mapping[str, Any], route: Route, runtime_root: Path, schema_path: Path, *, audit: bool
+) -> tuple[int, Mapping[str, Any] | None, str]:
+    seq = int(production.get("attempt_seq", 0)) + 1
+    production["attempt_seq"] = seq
+    attempts = runtime_root / "attempts"
+    attempts.mkdir(parents=True, exist_ok=True)
+    stem = f"{seq:04d}-PLAN-{section['id']}-{route.model}"
+    return _invoke_structured(
+        build_section_prompt(production, section, audit=audit), route, runtime_root, schema_path,
+        attempts / f"{stem}.result.json", attempts / f"{stem}.stdout.log", attempts / f"{stem}.stderr.log"
+    )
+
+
+def _apply_production_task_result(
+    production: dict[str, Any], task: Task, route: Route, result: Mapping[str, Any], observed: datetime
 ) -> str:
     if result.get("task_id") != task.id:
         raise ValueError("agent result task_id mismatch")
     status = str(result.get("status"))
     summary = str(result.get("summary", ""))
     evidence = list(result.get("evidence", []))
-    if status in {"COMPLETE", "COMPLETE_ALREADY"}:
-        mark_complete(state, task.id, status, route.model, route.reasoning)
-        state["last_result"].update({"summary": summary, "evidence": evidence})
-        state["status"] = "RUNNING"
-        state["updated_at"] = observed_at.isoformat()
+    record = find_task(production, task.id)
+    if status in _COMPLETE_STATUSES:
+        record["status"] = status
+        record["summary"] = summary
+        record["evidence"] = evidence
+        record["model"] = route.model
+        record["reasoning"] = route.reasoning
+        record["completed_at"] = observed.isoformat()
+        production["last_result"] = {"task_id": task.id, "status": status, "summary": summary, "evidence": evidence, "model": route.model, "reasoning": route.reasoning}
+        production["status"] = "RUNNING"
+        production["updated_at"] = observed.isoformat()
+        _refresh_current(production)
         return "ADVANCE"
-    checkpoint = {
-        "task_id": task.id,
-        "status": status,
-        "model": route.model,
-        "reasoning": route.reasoning,
-        "summary": summary,
-        "evidence": evidence,
-    }
-    state["current_task"] = task.id
-    state["last_result"] = checkpoint
-    state["updated_at"] = observed_at.isoformat()
+    production["last_result"] = {"task_id": task.id, "status": status, "summary": summary, "evidence": evidence, "model": route.model, "reasoning": route.reasoning}
+    production["updated_at"] = observed.isoformat()
     if status == "CONTINUE":
-        state["status"] = "RUNNING"
+        record["status"] = "PENDING"
+        production["status"] = "RUNNING"
+        production["current_task"] = task.id
         return "RETRY_TASK"
     if status in {"EXTERNAL_DEPENDENCY", "OWNER_DECISION"}:
-        state["status"] = status
+        production["status"] = status
+        production["current_task"] = task.id
         return "PAUSE"
     raise ValueError(f"unsupported agent status: {status}")
+
+
+def run_production(production_path: Path, *, runtime_root: Path | None = None) -> int:
+    production = load_production(production_path)
+    if _section_record(production, "demo01").get("status") not in _COMPLETE_STATUSES:
+        try:
+            sync_demo_progress(production_path)
+            production = load_production(production_path)
+        except (FileNotFoundError, ValueError):
+            pass
+    runtime_root = runtime_root or Path("/mnt/biella-extra/biella-runtime/codex-feeder") / str(production["run_id"])
+    runtime_root.mkdir(parents=True, exist_ok=True)
+    task_schema_path = runtime_root / "result-schema.json"
+    section_schema_path = runtime_root / "section-plan-schema.json"
+    task_schema_path.write_text(json.dumps(result_schema(), sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+    section_schema_path.write_text(json.dumps(section_plan_schema(), sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+    lock = RunLock(runtime_root / "run.lock")
+    lock.acquire()
+    try:
+        production["status"] = "RUNNING"
+        save_production(production_path, production)
+        catalog = discover_catalog()
+        while True:
+            _refresh_current(production)
+            section_id = production.get("current_section")
+            if not section_id:
+                production["status"] = "COMPLETE"
+                production["current_task"] = None
+                production["active_model"] = None
+                production["active_reasoning"] = None
+                production["updated_at"] = datetime.now(timezone.utc).isoformat()
+                save_production(production_path, production)
+                return 0
+            section = _section_record(production, str(section_id))
+            task = next_production_task(production)
+            if task is None or _section_for_task(production, task.id)["id"] != section_id:
+                if section_id == "demo01":
+                    section["status"] = "COMPLETE"
+                    _refresh_current(production)
+                    save_production(production_path, production)
+                    continue
+                audit = bool(section.get("tasks"))
+                now = datetime.now(timezone.utc)
+                try:
+                    route = select_route("deep_memory", catalog, production.get("cooldowns", {}), now)
+                except RuntimeError:
+                    production["status"] = "WAITING_MODEL_AVAILABILITY"
+                    save_production(production_path, production)
+                    time.sleep(min(60.0, max(1.0, _earliest_cooldown_delay(production.get("cooldowns", {}), now))))
+                    catalog = discover_catalog()
+                    continue
+                production["active_model"] = route.model
+                production["active_reasoning"] = route.reasoning
+                save_production(production_path, production)
+                rc, plan, error_text = _invoke_section_plan(production, section, route, runtime_root, section_schema_path, audit=audit)
+                observed = datetime.now(timezone.utc)
+                if rc != 0:
+                    _record_production_failure(production, route, error_text, observed, limited=bool(_LIMIT_RE.search(error_text)))
+                    save_production(production_path, production)
+                    continue
+                before = len(section["tasks"])
+                try:
+                    apply_section_plan(production, str(section_id), plan or {})
+                except (ValueError, TypeError, KeyError) as exc:
+                    _record_production_failure(production, route, f"invalid section plan: {exc}", observed)
+                    save_production(production_path, production)
+                    continue
+                if not bool((plan or {}).get("complete")) and len(section["tasks"]) == before:
+                    _record_production_failure(production, route, "section planner returned no new tasks and did not complete section", observed)
+                save_production(production_path, production)
+                continue
+            now = datetime.now(timezone.utc)
+            try:
+                route = select_route(task.task_class, catalog, production.get("cooldowns", {}), now)
+            except RuntimeError:
+                production["status"] = "WAITING_MODEL_AVAILABILITY"
+                save_production(production_path, production)
+                time.sleep(min(60.0, max(1.0, _earliest_cooldown_delay(production.get("cooldowns", {}), now))))
+                catalog = discover_catalog()
+                continue
+            production["active_model"] = route.model
+            production["active_reasoning"] = route.reasoning
+            production["current_task"] = task.id
+            save_production(production_path, production)
+            rc, result, error_text = _invoke_production_task(production, task, route, runtime_root, task_schema_path)
+            observed = datetime.now(timezone.utc)
+            if rc != 0:
+                _record_production_failure(production, route, error_text, observed, task_id=task.id, limited=bool(_LIMIT_RE.search(error_text)))
+                save_production(production_path, production)
+                continue
+            try:
+                action = _apply_production_task_result(production, task, route, result or {}, observed)
+            except (ValueError, TypeError, KeyError) as exc:
+                _record_production_failure(production, route, f"invalid agent result: {exc}", observed, task_id=task.id)
+                save_production(production_path, production)
+                continue
+            save_production(production_path, production)
+            if action == "PAUSE":
+                return 2
+    finally:
+        lock.release()
+
 
 
 
@@ -485,22 +842,6 @@ def _tail_text(path: Path, maximum_bytes: int = 65536) -> str:
     return data[-maximum_bytes:].decode("utf-8", errors="replace")
 
 
-def _record_runtime_failure(
-    state: dict[str, Any], task: Task, route: Route, observed_at: datetime, detail: str
-) -> None:
-    until = observed_at + timedelta(minutes=2)
-    state.setdefault("cooldowns", {})[route.model] = until.isoformat()
-    state["current_task"] = task.id
-    state["last_result"] = {
-        "task_id": task.id,
-        "status": "MODEL_RUNTIME_COOLDOWN",
-        "model": route.model,
-        "reasoning": route.reasoning,
-        "retry_at": until.isoformat(),
-        "summary": detail[-2000:],
-        "evidence": [],
-    }
-    state["updated_at"] = observed_at.isoformat()
 
 
 def _earliest_cooldown_delay(cooldowns: Mapping[str, str], now: datetime) -> float:
@@ -518,126 +859,11 @@ def _earliest_cooldown_delay(cooldowns: Mapping[str, str], now: datetime) -> flo
     return min(waits) if waits else 60.0
 
 
-def _invoke_task(
-    queue: QueueSpec,
-    task: Task,
-    state: dict[str, Any],
-    route: Route,
-    runtime_root: Path,
-    schema_path: Path,
-) -> tuple[int, Mapping[str, Any] | None, str]:
-    seq = int(state.get("attempt_seq", 0)) + 1
-    state["attempt_seq"] = seq
-    attempts = runtime_root / "attempts"
-    attempts.mkdir(parents=True, exist_ok=True)
-    stem = f"{seq:04d}-{task.id}-{route.model}"
-    stdout_path = attempts / f"{stem}.stdout.log"
-    stderr_path = attempts / f"{stem}.stderr.log"
-    output_path = attempts / f"{stem}.result.json"
-    prompt = build_task_prompt(queue, task, state)
-    cmd = build_codex_command(route, schema_path, output_path, Path("/root"))
-    with stdout_path.open("w", encoding="utf-8") as stdout, stderr_path.open("w", encoding="utf-8") as stderr:
-        proc = subprocess.run(
-            cmd,
-            input=prompt,
-            text=True,
-            stdout=stdout,
-            stderr=stderr,
-            check=False,
-            env=os.environ.copy(),
-        )
-    error_text = _tail_text(stderr_path) + "\n" + _tail_text(stdout_path)
-    if proc.returncode != 0:
-        return proc.returncode, None, error_text
-    if not output_path.exists():
-        return 1, None, "Codex completed without structured result"
-    try:
-        result = json.loads(output_path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as exc:
-        return 1, None, f"invalid structured result: {exc}"
-    return 0, result, error_text
-
-
-def run_queue(queue_path: Path, *, runtime_root: Path | None = None) -> int:
-    queue = load_queue(queue_path)
-    state_path = queue.source_path.parent / "state.json"
-    runtime_root = runtime_root or Path("/mnt/biella-extra/biella-runtime/codex-feeder") / queue.run_id
-    runtime_root.mkdir(parents=True, exist_ok=True)
-    schema_path = runtime_root / "result-schema.json"
-    schema_path.write_text(json.dumps(result_schema(), sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
-    lock = RunLock(runtime_root / "run.lock")
-    lock.acquire()
-    try:
-        state = load_state(state_path, queue)
-        state["status"] = "RUNNING"
-        save_state(state_path, state)
-        catalog = discover_catalog()
-        while True:
-            task = next_task(queue, state)
-            if task is None:
-                state["status"] = "COMPLETE"
-                state["current_task"] = None
-                state["updated_at"] = datetime.now(timezone.utc).isoformat()
-                save_state(state_path, state)
-                return 0
-            state["current_task"] = task.id
-            now = datetime.now(timezone.utc)
-            try:
-                route = select_route(task.task_class, catalog, state.get("cooldowns", {}), now)
-            except RuntimeError:
-                state["status"] = "WAITING_MODEL_AVAILABILITY"
-                state["updated_at"] = now.isoformat()
-                save_state(state_path, state)
-                time.sleep(min(60.0, max(1.0, _earliest_cooldown_delay(state.get("cooldowns", {}), now))))
-                catalog = discover_catalog()
-                continue
-            state["active_model"] = route.model
-            state["active_reasoning"] = route.reasoning
-            state["updated_at"] = now.isoformat()
-            save_state(state_path, state)
-            returncode, result, error_text = _invoke_task(queue, task, state, route, runtime_root, schema_path)
-            observed = datetime.now(timezone.utc)
-            if returncode != 0:
-                if _LIMIT_RE.search(error_text):
-                    record_limit_failure(state, task, route, error_text, observed)
-                else:
-                    _record_runtime_failure(state, task, route, observed, error_text)
-                save_state(state_path, state)
-                continue
-            try:
-                action = apply_agent_result(state, task, route, result or {}, observed)
-            except (ValueError, TypeError) as exc:
-                _record_runtime_failure(state, task, route, observed, f"invalid agent result: {exc}")
-                save_state(state_path, state)
-                continue
-            if action == "ADVANCE":
-                next_item = next_task(queue, state)
-                state["current_task"] = next_item.id if next_item else None
-                save_state(state_path, state)
-                continue
-            save_state(state_path, state)
-            if action == "PAUSE":
-                return 2
-    finally:
-        lock.release()
 
 
 
-def status_payload(queue_path: Path) -> dict[str, Any]:
-    queue = load_queue(queue_path)
-    state = load_state(queue.source_path.parent / "state.json", queue)
-    current = next_task(queue, state)
-    return {
-        "run_id": queue.run_id,
-        "status": state.get("status", "READY"),
-        "current_task": state.get("current_task") or (current.id if current else None),
-        "completed": len(state.get("completed", [])),
-        "total": len(queue.tasks),
-        "active_model": state.get("active_model"),
-        "active_reasoning": state.get("active_reasoning"),
-        "cooldowns": state.get("cooldowns", {}),
-        "last_result": state.get("last_result"),
-    }
+
+
 
 
 def _unit_name(run_id: str) -> str:
@@ -645,15 +871,62 @@ def _unit_name(run_id: str) -> str:
     return f"biella-codex-feed-{safe}"
 
 
-def start_detached(queue_path: Path) -> int:
-    queue = load_queue(queue_path)
-    unit = _unit_name(queue.run_id)
-    active = subprocess.run(
-        ["systemctl", "is-active", "--quiet", unit],
-        check=False,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-    )
+
+
+
+
+
+def _production_path() -> Path:
+    return Path(os.environ.get("BIELLA_GAMES_PRODUCTION_FILE", "/root/biella/work/games-production.json"))
+
+
+def _project_root() -> Path:
+    return Path(os.environ.get("BIELLA_GAMES_PROJECT_ROOT", "/root/biella/repos/biella-games"))
+
+
+def init_production(path: Path, *, project_root: Path) -> Path:
+    if path.exists():
+        sync_demo_progress(path)
+        return path
+    return write_games_production(path, project_root=project_root)
+
+
+def production_status_payload(path: Path) -> dict[str, Any]:
+    production = load_production(path)
+    total = 0
+    completed = 0
+    section_summary: list[dict[str, Any]] = []
+    for section in production["sections"]:
+        section_total = len(section["tasks"])
+        section_completed = sum(1 for task in section["tasks"] if task.get("status") in _COMPLETE_STATUSES)
+        total += section_total
+        completed += section_completed
+        section_summary.append({
+            "id": section["id"],
+            "status": section["status"],
+            "completed": section_completed,
+            "total": section_total,
+        })
+    return {
+        "run_id": production["run_id"],
+        "status": production.get("status", "READY"),
+        "current_section": production.get("current_section"),
+        "current_task": production.get("current_task"),
+        "completed": completed,
+        "total": total,
+        "active_model": production.get("active_model"),
+        "active_reasoning": production.get("active_reasoning"),
+        "cooldowns": production.get("cooldowns", {}),
+        "sections": section_summary,
+        "last_result": production.get("last_result"),
+    }
+
+
+def start_production(path: Path) -> int:
+    init_production(path, project_root=_project_root())
+    production = load_production(path)
+    unit = _unit_name(production["run_id"])
+    active = subprocess.run(["systemctl", "is-active", "--quiet", unit], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     if active.returncode == 0:
         print(json.dumps({"unit": unit, "status": "ALREADY_RUNNING"}, sort_keys=True))
         return 0
@@ -664,11 +937,11 @@ def start_detached(queue_path: Path) -> int:
         "--collect",
         "--property=Type=exec",
         "--property=Restart=no",
+        f"--setenv=BIELLA_GAMES_PRODUCTION_FILE={path.resolve()}",
+        f"--setenv=BIELLA_GAMES_PROJECT_ROOT={_project_root().resolve()}",
         entrypoint,
         "feed",
         "run",
-        "--queue",
-        str(queue.source_path),
     ]
     proc = subprocess.run(cmd, text=True, capture_output=True, check=False)
     if proc.returncode != 0:
@@ -678,45 +951,46 @@ def start_detached(queue_path: Path) -> int:
     return 0
 
 
-def stop_detached(queue_path: Path) -> int:
-    queue = load_queue(queue_path)
-    unit = _unit_name(queue.run_id)
-    proc = subprocess.run(["systemctl", "stop", unit], check=False)
-    return proc.returncode
+def stop_production(path: Path) -> int:
+    production = load_production(path)
+    return subprocess.run(["systemctl", "stop", _unit_name(production["run_id"])], check=False).returncode
 
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="biella-codex feed")
     sub = parser.add_subparsers(dest="command", required=True)
-    init = sub.add_parser("init-demo01")
-    init.add_argument("--queue", type=Path, required=True)
-    run = sub.add_parser("run")
-    run.add_argument("--queue", type=Path, required=True)
-    start = sub.add_parser("start")
-    start.add_argument("--queue", type=Path, required=True)
-    status = sub.add_parser("status")
-    status.add_argument("--queue", type=Path, required=True)
-    stop = sub.add_parser("stop")
-    stop.add_argument("--queue", type=Path, required=True)
+    sub.add_parser("init")
+    sub.add_parser("sync")
+    sub.add_parser("run")
+    sub.add_parser("start")
+    sub.add_parser("status")
+    sub.add_parser("stop")
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     os.umask(0o077)
     args = _parser().parse_args(argv)
-    if args.command == "init-demo01":
-        write_demo01_queue(args.queue)
-        print(json.dumps({"queue": str(args.queue.resolve()), "tasks": 50}, sort_keys=True))
+    production_path = _production_path()
+    if args.command == "init":
+        init_production(production_path, project_root=_project_root())
+        payload = production_status_payload(production_path)
+        payload["production"] = str(production_path.resolve())
+        print(json.dumps(payload, sort_keys=True))
+        return 0
+    if args.command == "sync":
+        sync_demo_progress(production_path)
+        print(json.dumps(production_status_payload(production_path), sort_keys=True))
         return 0
     if args.command == "run":
-        return run_queue(args.queue)
+        return run_production(production_path)
     if args.command == "start":
-        return start_detached(args.queue)
+        return start_production(production_path)
     if args.command == "status":
-        print(json.dumps(status_payload(args.queue), sort_keys=True))
+        print(json.dumps(production_status_payload(production_path), sort_keys=True))
         return 0
     if args.command == "stop":
-        return stop_detached(args.queue)
+        return stop_production(production_path)
     raise AssertionError(args.command)
 
 
