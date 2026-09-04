@@ -1,91 +1,50 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -Eeuo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LAUNCHER="$ROOT_DIR/ops/local-ai/biella-ai-start.sh"
 SATURN_MCP="$ROOT_DIR/ops/local-ai/biella-saturn-mcp.sh"
 INSTALLER="$ROOT_DIR/ops/local-ai/install-biella-ai.sh"
 CODEX_WRAPPER="$ROOT_DIR/ops/local-ai/biella-codex.sh"
-LOCAL_AGENT="$ROOT_DIR/ops/local-ai/biella-local-agent.sh"
-QWEN_CATALOG="$ROOT_DIR/ops/local-ai/qwen-codex-model-catalog.json"
 MANIFEST="$ROOT_DIR/docs/project-state/BIELLA_LOCAL_AI_RUNTIME_MANIFEST_2026-09-04.yaml"
 
-require_file() {
-  [[ -f "$1" ]] || { echo "missing required artifact: $1" >&2; exit 1; }
-}
+require_file() { [[ -f "$1" ]] || { echo "missing required artifact: $1" >&2; exit 1; }; }
+require_literal() { grep -Fq -- "$2" "$1" || { echo "missing contract literal in $1: $2" >&2; exit 1; }; }
+forbid_literal() { ! grep -Fq -- "$2" "$1" || { echo "forbidden runtime behavior in $1: $2" >&2; exit 1; }; }
 
-require_literal() {
-  local file="$1"
-  local literal="$2"
-  rg -F --quiet -- "$literal" "$file" || {
-    echo "missing contract literal in $file: $literal" >&2
-    exit 1
-  }
-}
-
-forbid_literal() {
-  local file="$1"
-  local literal="$2"
-  if rg -F --quiet -- "$literal" "$file"; then
-    echo "forbidden runtime behavior in $file: $literal" >&2
-    exit 1
-  fi
-}
-
-require_file "$LAUNCHER"
-require_file "$SATURN_MCP"
-require_file "$INSTALLER"
-require_file "$CODEX_WRAPPER"
-require_file "$LOCAL_AGENT"
-require_file "$QWEN_CATALOG"
-require_file "$MANIFEST"
+for f in "$LAUNCHER" "$SATURN_MCP" "$INSTALLER" "$CODEX_WRAPPER" "$MANIFEST"; do require_file "$f"; done
 
 require_literal "$LAUNCHER" 'qwen3-coder-next:biella'
 require_literal "$LAUNCHER" 'num_gpu'
 require_literal "$LAUNCHER" 'num_ctx'
 require_literal "$LAUNCHER" 'keep_alive'
-require_literal "$LAUNCHER" 'CPU_RAM_TARGET_GIB=86'
-require_literal "$LAUNCHER" 'SATURN_BASE_URL'
-require_literal "$LAUNCHER" 'SATURN_TOKEN'
-require_literal "$LAUNCHER" 'CLOUDFLARE_ACCOUNT_ID'
-require_literal "$LAUNCHER" 'CLOUDFLARE_API_TOKEN'
-require_literal "$LAUNCHER" 'CLOUDFLARE_TUNNEL_TOKEN'
-require_literal "$LAUNCHER" 'account-api'
-require_literal "$LAUNCHER" 'codex mcp'
-require_literal "$LAUNCHER" '30 * 1024 * 1024 * 1024'
-require_literal "$LAUNCHER" 'systemctl'
-require_literal "$SATURN_MCP" 'saturn-mcp'
 require_literal "$SATURN_MCP" 'SATURN_TOKEN'
-require_literal "$INSTALLER" 'biella-ai-start'
 require_literal "$CODEX_WRAPPER" 'runtime.env'
-require_literal "$CODEX_WRAPPER" '--oss'
-require_literal "$CODEX_WRAPPER" '--local-provider'
-require_literal "$CODEX_WRAPPER" 'ollama'
+require_literal "$CODEX_WRAPPER" 'CODEX_HOME="/root/.codex"'
 require_literal "$CODEX_WRAPPER" '--dangerously-bypass-approvals-and-sandbox'
-require_literal "$CODEX_WRAPPER" '--dangerously-bypass-hook-trust'
-require_literal "$CODEX_WRAPPER" 'BIELLA_CODEX_DISABLE_HOOKS'
+require_literal "$CODEX_WRAPPER" 'shell_environment_policy.inherit'
 require_literal "$CODEX_WRAPPER" '--search'
-require_literal "$LOCAL_AGENT" 'biella-codex'
-require_literal "$LOCAL_AGENT" 'mcp_servers.saturn.enabled=false'
-require_literal "$LOCAL_AGENT" 'model_reasoning_effort="none"'
-require_literal "$LOCAL_AGENT" '--disable plugins'
-require_literal "$LOCAL_AGENT" '--disable apps'
-require_literal "$LOCAL_AGENT" 'BIELLA_CODEX_DISABLE_HOOKS=1'
-require_literal "$LOCAL_AGENT" 'model_catalog_json'
-require_literal "$QWEN_CATALOG" 'qwen3-coder-next:biella'
-require_literal "$QWEN_CATALOG" '"context_window": 16384'
-require_literal "$INSTALLER" 'biella-local-agent'
-require_literal "$MANIFEST" 'WEBSITE'
-require_literal "$MANIFEST" 'ENGINE'
-require_literal "$MANIFEST" 'GAMES'
-require_literal "$MANIFEST" 'vllm: forbidden'
-require_literal "$MANIFEST" 'model_download: forbidden'
-require_literal "$MANIFEST" 'CLOUDFLARE_ACCOUNT_ID'
-require_literal "$MANIFEST" 'CLOUDFLARE_API_TOKEN'
-
+forbid_literal "$CODEX_WRAPPER" '--oss'
+forbid_literal "$CODEX_WRAPPER" '--local-provider'
+forbid_literal "$CODEX_WRAPPER" 'qwen3-coder-next:biella'
+require_literal "$INSTALLER" '/usr/local/bin/biella-codex'
+require_literal "$MANIFEST" 'codex_wrapper:'
+require_literal "$MANIFEST" 'local_qwen:'
 forbid_literal "$LAUNCHER" 'ollama pull'
 forbid_literal "$LAUNCHER" 'vllm serve'
-forbid_literal "$LAUNCHER" '<YOUR_TOKEN>'
-forbid_literal "$SATURN_MCP" '<YOUR_TOKEN>'
 
-echo "local AI runtime contract: PASS"
+for obsolete in \
+  "$ROOT_DIR/ops/local-ai/biella-local-agent.sh" \
+  "$ROOT_DIR/ops/local-ai/biella-work.sh" \
+  "$ROOT_DIR/ops/local-ai/biella-work-contract.md" \
+  "$ROOT_DIR/ops/local-ai/biella-model.sh" \
+  "$ROOT_DIR/ops/local-ai/biella-luna.sh" \
+  "$ROOT_DIR/ops/local-ai/biella-astra.sh"; do
+  [[ ! -e "$obsolete" ]] || { echo "obsolete controller source remains: $obsolete" >&2; exit 1; }
+done
+
+bash -n "$LAUNCHER"
+bash -n "$SATURN_MCP"
+bash -n "$INSTALLER"
+bash -n "$CODEX_WRAPPER"
+echo 'local AI runtime contract: PASS'

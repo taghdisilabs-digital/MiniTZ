@@ -3,6 +3,11 @@ set -Eeuo pipefail
 
 readonly RUNTIME_ENV="${BIELLA_AI_RUNTIME_ENV:-/root/.config/biella-ai/runtime.env}"
 readonly CODEX_BIN="${BIELLA_CODEX_BIN:-/usr/bin/codex}"
+export BIELLA_CONTEXT_MODE="${BIELLA_CONTEXT_MODE:-progressive}"
+export BIELLA_CONTEXT_MAX_FILES="${BIELLA_CONTEXT_MAX_FILES:-8}"
+export BIELLA_CONTEXT_MAX_BYTES="${BIELLA_CONTEXT_MAX_BYTES:-65536}"
+export BIELLA_CONTEXT_LOG_TAIL_LINES="${BIELLA_CONTEXT_LOG_TAIL_LINES:-120}"
+export BIELLA_CONTEXT_SEARCH_RESULTS="${BIELLA_CONTEXT_SEARCH_RESULTS:-20}"
 
 if [[ -f "$RUNTIME_ENV" && ! -L "$RUNTIME_ENV" ]]; then
   set -a
@@ -11,20 +16,14 @@ if [[ -f "$RUNTIME_ENV" && ! -L "$RUNTIME_ENV" ]]; then
   set +a
 fi
 
-# Codex remains the controller; Ollama is the local Qwen worker.
-# Full mode trusts enabled hooks; fast local mode disables hooks entirely.
-args=(
-  --oss
-  --local-provider ollama
-  -m qwen3-coder-next:biella
-  --dangerously-bypass-approvals-and-sandbox
-  --search
-)
+export CODEX_HOME="/root/.codex"
 
-if [[ "${BIELLA_CODEX_DISABLE_HOOKS:-0}" == 1 ]]; then
-  args+=(--disable hooks)
-else
-  args+=(--dangerously-bypass-hook-trust)
-fi
+[[ -x "$CODEX_BIN" ]] || { printf 'Codex binary missing: %s\n' "$CODEX_BIN" >&2; exit 1; }
+cd /root
 
-exec "$CODEX_BIN" "${args[@]}" "$@"
+exec "$CODEX_BIN" \
+  --dangerously-bypass-approvals-and-sandbox \
+  --dangerously-bypass-hook-trust \
+  --search \
+  -c 'shell_environment_policy.inherit="all"' \
+  "$@"

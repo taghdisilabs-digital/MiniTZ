@@ -108,6 +108,12 @@ class WorkstationStateTest(unittest.TestCase):
         self.assertIn("NVIDIA L40S", hardware["gpu"])
         self.assertEqual(hardware["vram_used"], "27702297886 bytes")
         self.assertIn("ram_used", hardware)
+        usage_names = {item["name"] for item in hardware["usage"]}
+        self.assertIn("Context mode", usage_names)
+        self.assertIn("Context file budget", usage_names)
+        self.assertIn("Context byte budget", usage_names)
+        self.assertIn("Context log tail", usage_names)
+        self.assertIn("Context search results", usage_names)
         workers = self.state.payload("workers", "Engine")
         worker_names = {item["name"] for item in workers["items"]}
         for required in {"Ollama", "Qwen", "Codex", "Saturn MCP", "Cloudflare tunnel"}:

@@ -10,8 +10,11 @@ current_task_scope: bounded_local_ai_recovery_runtime
 
 controller:
   host: biella-l40s-worker
-  role: codex_main_controller
-  worker_role: local_qwen_bulk_worker
+  role: unified_codex_main_controller
+  entrypoint: /usr/local/bin/biella-codex
+  codex_home: /root/.codex
+  model_selection: operator_codex_model_only
+  resource_routing: codex_task_scoped
 
 local_qwen:
   provider: ollama
@@ -30,7 +33,11 @@ local_qwen:
 
 codex:
   role: main_controller
-  invocation: codex --oss -m qwen3-coder-next:biella
+  invocation: biella-codex [Codex model selection via /model or Codex CLI flags]
+  execution: unrestricted
+  environment_inheritance: all
+  progressive_context: enabled
+  shared_project_context_home: /root/.codex
   saturn_mcp_registration: official_stdio_server
 
 saturn:
@@ -71,7 +78,7 @@ observed_baseline_2026_09_04:
 
 artifacts:
   decision_record: docs/project-state/BIELLA_LOCAL_AI_RUNTIME_DECISION_2026-09-04.md
-  launcher: ops/local-ai/biella-ai-start.sh
+  runtime_launcher_internal: ops/local-ai/biella-ai-start.sh
   saturn_probe: ops/local-ai/biella-saturn-probe.py
   saturn_mcp_bridge: ops/local-ai/biella-saturn-mcp.sh
   codex_wrapper: ops/local-ai/biella-codex.sh

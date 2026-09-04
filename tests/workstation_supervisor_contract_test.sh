@@ -31,8 +31,11 @@ forbid_literal() {
 }
 for f in "$CLI" "$LIB" "$INSTALLER" "$SERVICE" "$POLICY" "$PROVIDERS" "$CONFIGURER"; do require_file "$f"; done
 
-for cmd in up down status doctor agent codex providers configure modal logs cleanup; do
+for cmd in up down status doctor providers configure modal logs cleanup; do
   require_literal "$CLI" "$cmd"
+done
+for obsolete_case in 'agent)' 'work)' 'codex)' 'model)' 'luna)' 'astra)'; do
+  forbid_literal "$CLI" "$obsolete_case"
 done
 
 require_literal "$LIB" '/root/.config/biella-ai/runtime.env'
@@ -51,7 +54,7 @@ require_literal "$SERVICE" 'OLLAMA_KV_CACHE_TYPE=q8_0'
 require_literal "$SERVICE" 'OLLAMA_KEEP_ALIVE=-1'
 require_literal "$LIB" '/v1/responses'
 require_literal "$LIB" '30 * 1024 * 1024 * 1024'
-require_literal "$POLICY" 'local Qwen'
+require_literal "$POLICY" 'Codex chooses local Qwen'
 require_literal "$POLICY" 'one external provider'
 require_literal "$POLICY" 'Never print secret values'
 require_literal "$INSTALLER" '/root/.codex/AGENTS.md'

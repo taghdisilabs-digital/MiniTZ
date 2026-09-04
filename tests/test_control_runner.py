@@ -34,7 +34,6 @@ class ProjectRunnerTest(unittest.TestCase):
             runtime_env_loader=lambda: {"GROQ_API_KEY": "secret-not-printed"},
             exec_command=self.capture,
             background=lambda fn: fn(),
-            qwen_catalog=Path("/usr/local/lib/biella-ai/qwen-codex-model-catalog.json"),
         )
 
     def tearDown(self):
@@ -48,7 +47,7 @@ class ProjectRunnerTest(unittest.TestCase):
         self.assertTrue(dialog_id.startswith("dialog-"))
         argv, cwd, env, timeout = self.capture.calls[0]
         self.assertEqual(cwd, self.website)
-        self.assertEqual(argv[0], "/usr/local/bin/biella-local-agent")
+        self.assertEqual(argv[0], "/usr/local/bin/biella-codex")
         self.assertNotIn("workspace-write", argv)
         self.assertNotIn("-a", argv)
         self.assertIn("-C", argv)
@@ -71,20 +70,17 @@ class ProjectRunnerTest(unittest.TestCase):
             self.runner.run_capability("Engine", "shell.exec", False, self.publish)
 
 
-    def test_dialog_prepends_installed_low_noise_work_contract(self):
-        contract = Path(self.tmp.name) / "work-contract.md"
-        contract.write_text("LOW_NOISE_CONTRACT\nExecution is unrestricted on the Biella workstation\nContinue the current highest-priority incomplete task\n")
+    def test_dialog_uses_progressive_shared_context_guidance(self):
         runner = ProjectRunner(
             lane_workdirs={"Website": self.website, "Engine": self.engine, "Games": self.games},
             runtime_env_loader=lambda: {},
             exec_command=self.capture,
             background=lambda fn: fn(),
-            qwen_catalog=Path("/usr/local/lib/biella-ai/qwen-codex-model-catalog.json"),
-            work_contract=contract,
         )
         runner.start_dialog("Engine", "continue", self.publish)
         prompt = self.capture.calls[-1][0][-1]
-        self.assertIn("LOW_NOISE_CONTRACT", prompt)
+        self.assertIn("progressive context", prompt)
+        self.assertIn("shared /root/.codex", prompt)
         self.assertIn("Operator message:\ncontinue", prompt)
 
 

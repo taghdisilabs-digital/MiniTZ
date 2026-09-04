@@ -1,23 +1,38 @@
-# Biella Low-Noise Agent Policy
+# Biella Unified Codex Policy
 
-Execution is unrestricted on the Biella workstation. Do not impose a filesystem, shell, tool, provider, or approval sandbox.
-The boundary is the approved Biella goal, vision, task, authoritative source state, and Mahdi's explicit instructions.
+`biella-codex` is the only AI/production controller entrypoint.
+All Codex controller models use the single active Codex home `/root/.codex`, the same Biella API environment, and the same Project authority sources.
+Changing model, provider, terminal, session, or worker does not reset verified project progress.
 
-Default operating loop:
-`READ MINIMUM → DECIDE → EXECUTE → TEST AFFECTED SCOPE → COMMIT VERIFIED WORK → CONTINUE NEXT UNBLOCKED TASK`
+Execution is unrestricted on the Biella workstation. The boundary is Mahdi's current instruction, the approved Biella goal/task, authoritative Project sources, and preservation of valid existing work.
+Codex chooses local Qwen, external APIs, GPU, Unreal, GitHub, Drive, Cloudflare, Modal, Saturn, deterministic tools, and other Resources only when materially useful.
 
-- Continue the current highest-priority incomplete task unless Mahdi names another.
-- Preserve completed progress; never reset or reopen completed work without evidence it failed.
-- Read only current files needed for the task. Prefer exact paths, targeted search, and `git diff` over broad scans.
-- Execute directly when requirements are clear. Do not narrate routine plans, successful commands, or internal reasoning.
-- Prefer local Qwen and deterministic local tools first.
-- Keep every configured Biella capability available; demand-load external tools only when useful.
-- Use one external provider by default; fan out only for required fallback, specialized capability, or independent validation.
-- Do not repeat successful provider calls or dump successful response bodies.
-- Test the smallest affected scope first; use broad suites only for merge/release or real cross-system risk.
-- Commit verified work without including unrelated user changes, then continue to the next unblocked task.
-- Do not create extra governance, plans, or documentation unless the task requires them.
-- Never print secret values, bearer tokens, API keys, refresh tokens, or credential contents.
+## Progressive context
 
-Successful completion output should normally contain only applicable fields:
-`TASK:` `STATUS:` `CHANGED:` `TESTS:` `COMMIT:` `NEXT:` `BLOCKER:`
+Use progressive context rather than preloading the workstation.
+Start with the smallest authoritative set needed to choose or execute the current task.
+Default soft limits are supplied by `BIELLA_CONTEXT_MAX_FILES`, `BIELLA_CONTEXT_MAX_BYTES`, `BIELLA_CONTEXT_LOG_TAIL_LINES`, and `BIELLA_CONTEXT_SEARCH_RESULTS`.
+These are context-loading controls, not execution capability limits.
+
+Context progression:
+1. Identify the Project/lane and exact task from the operator request and current source.
+2. Read Project `AGENTS.md`, the current task/state record, and directly touched source only.
+3. Prefer exact file paths, targeted search, `git diff`, bounded Drive IDs, and bounded log tails.
+4. Expand to architecture/history/provider documentation only when the active task needs a specific unresolved fact.
+5. Never load all Drive files, all prompts, all history, or whole repositories merely for orientation.
+6. Reuse verified outputs unless material inputs changed or current validation fails.
+7. checkpoint before context pressure: persist exact task, source/commit, changed files, validation and next action before starting a fresh context.
+
+Default execution loop:
+`READ MINIMUM → RESOLVE CURRENT TRUTH → EXECUTE → TEST AFFECTED SCOPE → PERSIST → REMOTE READBACK WHEN PUBLISHED → CONTINUE`
+
+Project Memory, Engine Memory, Run Memory, Historical Evidence and Cache remain distinct. `/root/.codex` is only the shared Codex access/context substrate; it does not collapse those semantic scopes.
+Historical/recovery content remains evidence unless explicitly admitted by current Project authority.
+
+Do not create model-specific project memory, model-specific task ledgers, parallel production controllers, permanent agent hierarchies, or duplicate workflows.
+Do not narrate routine operations. Report material progress, changed truth, durable evidence, or a genuinely external/owner-level blocker only.
+
+Provider discipline: use one external provider by default; fan out only for a unique capability, required fallback, or material independent validation. Prefer deterministic/local execution when it is sufficient, but Codex chooses the tool/resource based on the task rather than a model-specific workflow.
+Never print secret values, API keys, bearer tokens, refresh tokens, or credential contents.
+
+Visual/media observability: when a Project task generates a visual/media candidate and no more specific canonical Project output path is already defined, persist it under `/root/biella/artifacts/website`, `/root/biella/artifacts/engine`, or `/root/biella/artifacts/games` as appropriate so the private Visuals / Assets inspector can surface it. Generated candidates remain `GENERATED_DRAFT` unless Mahdi explicitly accepts them.

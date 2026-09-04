@@ -5,10 +5,12 @@ import os
 from pathlib import Path
 
 try:
+    from .biella_control_assets import AssetCatalog, AssetRoot
     from .biella_control_gateway import AuthStore, EventHub, SessionStore, build_server
     from .biella_control_runner import ProjectRunner
     from .biella_control_state import WorkstationState
 except ImportError:
+    from biella_control_assets import AssetCatalog, AssetRoot
     from biella_control_gateway import AuthStore, EventHub, SessionStore, build_server
     from biella_control_runner import ProjectRunner
     from biella_control_state import WorkstationState
@@ -30,6 +32,23 @@ def main() -> int:
 
     events = EventHub()
     state = WorkstationState(engine_repo=engine_repo, games_repo=games_repo, website_ref=website_ref)
+    asset_catalog = AssetCatalog({
+        "Website": [
+            AssetRoot("website-generated", Path("/root/biella/artifacts/website"), "GENERATED_DRAFT"),
+            AssetRoot("website-build", website_workdir / "website" / "dist", "CURRENT_BUILD"),
+        ],
+        "Engine": [
+            AssetRoot("engine-generated", Path("/root/biella/artifacts/engine"), "GENERATED_DRAFT"),
+            AssetRoot("engine-builds", Path("/mnt/biella-extra/biella-runtime/builds"), "CURRENT_BUILD"),
+        ],
+        "Games": [
+            AssetRoot("games-generated", Path("/root/biella/artifacts/games"), "GENERATED_DRAFT"),
+            AssetRoot("games-visual-output", games_repo / "visual_production" / "outputs", "GENERATED_DRAFT"),
+            AssetRoot("games-content", games_repo / "Content", "CURRENT_SOURCE"),
+            AssetRoot("games-recovery-visuals", Path("/root/spark-biella-games/visual_production/outputs"), "HISTORICAL_RECOVERY"),
+            AssetRoot("games-recovery-content", Path("/root/spark-biella-games/Content"), "HISTORICAL_RECOVERY"),
+        ],
+    })
     runner = ProjectRunner(lane_workdirs={
         "Website": website_workdir,
         "Engine": engine_repo,
@@ -44,6 +63,7 @@ def main() -> int:
         sessions=SessionStore(ttl_seconds=ttl),
         state=state,
         runner=runner,
+        assets=asset_catalog,
         events=events,
     )
     print(f"Biella control gateway listening on http://{host}:{port}", flush=True)

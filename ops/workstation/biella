@@ -15,9 +15,6 @@ Commands:
   down       Stop Biella-owned supervised runtime services
   status     Show compact workstation status
   doctor     Run workstation diagnostics
-  agent      Start the fast local-first Codex/Qwen agent
-  work       Run low-noise Codex/Qwen autopilot
-  codex      Start the full Biella Codex controller
   providers  Check configured external providers
   configure  Update provider credentials with hidden prompts
   modal      Run Modal CLI with Biella environment
@@ -58,15 +55,6 @@ case "$command_name" in
     printf 'OpenAI-compatible Qwen API: '; biella_verify_v1_responses >/dev/null 2>&1 && printf 'READY\n' || printf 'DEGRADED\n'
     printf '\nProviders:\n'
     "$SCRIPT_DIR/biella-provider-check.sh"
-    ;;
-  agent)
-    biella_exec_or_fail biella-local-agent "$@"
-    ;;
-  work)
-    biella_exec_or_fail biella-work "$@"
-    ;;
-  codex)
-    biella_exec_or_fail biella-codex "$@"
     ;;
   providers)
     exec "$SCRIPT_DIR/biella-provider-check.sh" "$@"

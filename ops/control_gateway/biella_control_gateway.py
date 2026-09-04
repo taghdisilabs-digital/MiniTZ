@@ -137,13 +137,14 @@ class EventHub:
 class ControlHTTPServer(ThreadingHTTPServer):
     daemon_threads = True
 
-    def __init__(self, address, handler, *, static_root, auth_store, sessions, state, runner, events):
+    def __init__(self, address, handler, *, static_root, auth_store, sessions, state, runner, assets, events):
         super().__init__(address, handler)
         self.static_root = Path(static_root).resolve()
         self.auth_store = auth_store
         self.sessions = sessions
         self.state = state
         self.runner = runner
+        self.assets = assets
         self.events = events
 
 
@@ -158,7 +159,7 @@ class ControlHandler(BaseHTTPRequestHandler):
         self.send_header("X-Frame-Options", "DENY")
         self.send_header("Referrer-Policy", "no-referrer")
         self.send_header("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
-        self.send_header("Content-Security-Policy", "default-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; frame-ancestors 'none'")
+        self.send_header("Content-Security-Policy", "default-src 'self'; connect-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; frame-ancestors 'none'")
     def _json(self, status: int, payload: object, extra_headers: list[tuple[str, str]] | None = None) -> None:
         body = json.dumps(payload, separators=(",", ":")).encode()
         self.send_response(status)
@@ -244,6 +245,28 @@ class ControlHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+
+    def _serve_asset(self, lane: str, root_id: str, relative_path: str) -> None:
+        try:
+            candidate = self.server.assets.resolve_asset(lane, root_id, relative_path)
+        except ValueError:
+            self._json(HTTPStatus.NOT_FOUND, {"error": "asset_not_found"})
+            return
+        try:
+            body = candidate.read_bytes()
+        except OSError:
+            self._json(HTTPStatus.NOT_FOUND, {"error": "asset_not_found"})
+            return
+        mime = mimetypes.guess_type(candidate.name)[0] or "application/octet-stream"
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", mime)
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Content-Disposition", f'inline; filename="{candidate.name}"')
+        self.send_header("Cache-Control", "private, max-age=60")
+        self._security_headers()
+        self.end_headers()
+        self.wfile.write(body)
+
     def _handle_events(self, lane: str) -> None:
         channel = self.server.events.subscribe(lane)
         self.send_response(HTTPStatus.OK)
@@ -285,6 +308,36 @@ class ControlHandler(BaseHTTPRequestHandler):
                 self._json(HTTPStatus.BAD_REQUEST, {"error": "invalid_lane"})
                 return
             self._handle_events(lane)
+            return
+        if path == "/v1/control/assets":
+            if not self._require_session():
+                return
+            query = parse_qs(parsed.query)
+            lane = self._lane((query.get("lane") or [""])[0])
+            if not lane:
+                self._json(HTTPStatus.BAD_REQUEST, {"error": "invalid_lane"})
+                return
+            kind = (query.get("kind") or [None])[0]
+            source_class = (query.get("source_class") or [None])[0]
+            try:
+                limit = int((query.get("limit") or ["100"])[0])
+                payload = self.server.assets.list_assets(lane, kind=kind, source_class=source_class, limit=limit)
+            except (TypeError, ValueError):
+                self._json(HTTPStatus.BAD_REQUEST, {"error": "invalid_asset_query"})
+                return
+            self._json(HTTPStatus.OK, payload)
+            return
+        if path == "/v1/control/assets/file":
+            if not self._require_session():
+                return
+            query = parse_qs(parsed.query)
+            lane = self._lane((query.get("lane") or [""])[0])
+            root_id = str((query.get("root_id") or [""])[0])
+            relative_path = str((query.get("path") or [""])[0])
+            if not lane or not root_id or not relative_path:
+                self._json(HTTPStatus.BAD_REQUEST, {"error": "invalid_asset_request"})
+                return
+            self._serve_asset(lane, root_id, relative_path)
             return
         route_map = {
             "/v1/control/overview": "overview",
@@ -365,7 +418,7 @@ class ControlHandler(BaseHTTPRequestHandler):
 
 
 def build_server(*, host: str, port: int, static_root: Path, auth_store: AuthStore,
-                 sessions: SessionStore, state, runner, events: EventHub) -> ControlHTTPServer:
+                 sessions: SessionStore, state, runner, assets, events: EventHub) -> ControlHTTPServer:
     return ControlHTTPServer(
         (host, port), ControlHandler,
         static_root=static_root,
@@ -373,5 +426,6 @@ def build_server(*, host: str, port: int, static_root: Path, auth_store: AuthSto
         sessions=sessions,
         state=state,
         runner=runner,
+        assets=assets,
         events=events,
     )

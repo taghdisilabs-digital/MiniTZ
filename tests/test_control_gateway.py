@@ -39,6 +39,23 @@ class FakeRunner:
         return {"run_id": "run-1", "status": "COMPLETE"}
 
 
+class FakeAssets:
+    def __init__(self, preview: Path):
+        self.preview = preview
+
+    def list_assets(self, lane, **kwargs):
+        return {"lane": lane, "count": 1, "items": [{
+            "lane": lane, "root_id": "test", "path": "preview.png",
+            "name": "preview.png", "kind": "image", "source_class": "CURRENT",
+            "previewable": True, "size_bytes": self.preview.stat().st_size,
+        }]}
+
+    def resolve_asset(self, lane, root_id, relative_path):
+        if lane != "Games" or root_id != "test" or relative_path != "preview.png":
+            raise ValueError("asset unavailable")
+        return self.preview
+
+
 class GatewayTest(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -58,6 +75,9 @@ class GatewayTest(unittest.TestCase):
         }))
         auth_file.chmod(0o600)
         self.runner = FakeRunner()
+        self.preview = root / "preview.png"
+        self.preview.write_bytes(b"\x89PNG\r\npreview")
+        self.assets = FakeAssets(self.preview)
         self.server = build_server(
             host="127.0.0.1",
             port=0,
@@ -66,6 +86,7 @@ class GatewayTest(unittest.TestCase):
             sessions=SessionStore(ttl_seconds=3600),
             state=FakeState(),
             runner=self.runner,
+            assets=self.assets,
             events=EventHub(),
         )
         self.thread = threading.Thread(target=self.server.serve_forever, daemon=True)
@@ -151,6 +172,27 @@ class GatewayTest(unittest.TestCase):
         self.assertEqual(status, 202)
         self.assertEqual(body["dialog_id"], "dialog-1")
         self.assertEqual(self.runner.dialog_calls, [("Website", "inspect current source")])
+
+    def test_assets_require_auth_and_return_allowlisted_preview(self):
+        status, _, body = self.request("GET", "/v1/control/assets?lane=Games")
+        self.assertEqual(status, 401)
+        cookie, _ = self.login("mahdi", "operator-pass")
+        status, _, body = self.request("GET", "/v1/control/assets?lane=Games&limit=20", cookie=cookie)
+        self.assertEqual(status, 200)
+        self.assertEqual(body["items"][0]["name"], "preview.png")
+        status, headers, body = self.request(
+            "GET", "/v1/control/assets/file?lane=Games&root_id=test&path=preview.png", cookie=cookie
+        )
+        self.assertEqual(status, 200)
+        self.assertEqual(body, b"\x89PNG\r\npreview")
+        self.assertTrue(any(k.lower() == "content-type" and v == "image/png" for k, v in headers))
+
+    def test_asset_preview_rejects_unknown_path(self):
+        cookie, _ = self.login("mahdi", "operator-pass")
+        status, _, body = self.request(
+            "GET", "/v1/control/assets/file?lane=Games&root_id=test&path=../secret", cookie=cookie
+        )
+        self.assertEqual(status, 404)
 
 
 if __name__ == "__main__":

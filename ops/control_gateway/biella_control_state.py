@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import urllib.request
 from pathlib import Path
@@ -175,6 +176,11 @@ class WorkstationState:
         usage = [
             {"name": "Host RAM", "value": f"{used // 1024} MiB", "detail": f"{total // 1024} MiB total"},
             {"name": "Qwen VRAM", "value": f"{vram or 0} bytes", "detail": "qwen3-coder-next:biella"},
+            {"name": "Context mode", "value": os.environ.get("BIELLA_CONTEXT_MODE", "progressive"), "detail": "context loading policy"},
+            {"name": "Context file budget", "value": os.environ.get("BIELLA_CONTEXT_MAX_FILES", "8"), "detail": "soft files per expansion"},
+            {"name": "Context byte budget", "value": os.environ.get("BIELLA_CONTEXT_MAX_BYTES", "65536"), "detail": "soft bytes per expansion"},
+            {"name": "Context log tail", "value": os.environ.get("BIELLA_CONTEXT_LOG_TAIL_LINES", "120"), "detail": "maximum routine log tail lines"},
+            {"name": "Context search results", "value": os.environ.get("BIELLA_CONTEXT_SEARCH_RESULTS", "20"), "detail": "maximum routine targeted results"},
         ]
         return {
             "lane": lane,
