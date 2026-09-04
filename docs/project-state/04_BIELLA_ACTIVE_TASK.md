@@ -5,11 +5,11 @@ schema: biella.active_task/v6
 
 program_boundary:
   state: ACTIVE
-  completed_predecessor: P3-13
-  active_numbered_prompt: P3-14
-  active_global_number: 45
-  active_title: Packaging, Publishing, Release and Durable Delivery Pack
-  active_prompt_drive_id: 1mkk0VYh14ut2Tz-7YKcdW35p0GJRtv7bVQeVSPVTzpE
+  completed_predecessor: P3-14
+  active_numbered_prompt: P4-06
+  active_global_number: 51
+  active_title: Versioned Production Recipe Learning and System Evidence Summary
+  active_prompt_drive_id: 1vsxRXkhtv0n8eJdQ56AVqJJEl3k5hjtqJsrUIqFVeAA
   execution_started: false
   execution_authorized: true
   authorization_basis: MAHDI_STANDING_P3_06_THROUGH_P4_06
@@ -62,20 +62,50 @@ P3_13_durable_close:
   acceptance_event: event://prj_de760e9b27764d0f8754f7bcecc31c47/evt_3e4732a151834e53bcadd2849f367dda
   l40s_package_gate: PASS
   six_kpis: ZERO
-  ledger_readback: P3-13_COMPLETE; P3-14_READY
+  ledger_readback: P3-13_COMPLETE; P3-14_COMPLETE_DURABLE; P4-06_READY
+
+P3_14_durable_close:
+  status: COMPLETE_DURABLE
+  completed_at_utc: 2026-09-04T14:27:41Z
+  exact_prompt_drive_id: 1mkk0VYh14ut2Tz-7YKcdW35p0GJRtv7bVQeVSPVTzpE
+  implementation_commit: ae5d69a0686968af96283260d1c8073f84a833d2
+  implementation_tree: 39d8f9e338365a28437b44eebde601c80f49508a
+  workflow_qualification_commit: ae5d69a0686968af96283260d1c8073f84a833d2
+  workflow_qualification_tree: 39d8f9e338365a28437b44eebde601c80f49508a
+  github_actions_run: 33883262378
+  github_actions_job: 101056787223
+  github_actions_result: SUCCESS
+  focused_tests: 16_PASSED_1_SKIPPED
+  strict_mypy: PASS
+  compileall: PASS
+  wheel_build: PASS
+  wheel_sha256: f299003409190d3d06b4cf1bb9c3273fa7ffcc74eaf71b55ce4429a7f2aa3233
+  generated_evidence_json_sha256: 561d758b00dec158c03ccfe6b51526de44394fe8d6dd074e9fdaeef4c2040a1f
+  artifact_id: 9940829453
+  artifact_sha256: 570fb404db6b06526ce3cd0066eb86442861e3fdbba4bf48187d9d80617fff9b
+  artifact_size_bytes: 896397
+  evidence_commit: 250c47f29f13ccd0641aa8b830bdda5dcd8fee47
+  evidence_blob_sha: 22608d28690819bdc4ca6e30abea7031d1a8690d
+  evidence_path: docs/project-state/evidence/P3_14_DELIVERY_QUALIFICATION_EVIDENCE.md
+  live_l40s_execution: NOT_RUN
+  live_cloudflare_publish: NOT_RUN
+  drive_publication: NOT_RUN
+  github_readback: EXACT_COMMIT_TREE_AND_REQUIRED_PATH_BLOB_CONFIRMED
+  completion_gap: CLOSED
+
 
 active_frontier:
-  ledger_task_id: ENG-P3-14
-  dependency: ENG-P3-13
+  ledger_task_id: ENG-P4-06
+  dependency: ENG-P3-14_COMPLETE_DURABLE
   ledger_state: READY_ELIGIBLE
   ledger_claim: NONE
   execution_started: false
   acceptance_state: LOAD_EXACT_PROMPT_AND_REOBSERVE_CURRENT_SOURCE_AND_EVIDENCE
-  title: P3-14 Packaging, Publishing, Release and Durable Delivery durable repair
-  exact_prompt_drive_id: 1mkk0VYh14ut2Tz-7YKcdW35p0GJRtv7bVQeVSPVTzpE
-  completion_gap: phase_exit_provenance_Event_and_delivery_evidence
+  title: P4-06 Versioned Production Recipe Learning and System Evidence Summary
+  exact_prompt_drive_id: 1vsxRXkhtv0n8eJdQ56AVqJJEl3k5hjtqJsrUIqFVeAA
+  completion_gap: authoritative_Engine_evidence_and_combined_failure_scenario
   preservation_rule: preserve_current_source_and_reuse_valid_REAL_evidence_when_inputs_are_unchanged
   next_action: LOAD_EXACT_PROMPT_AND_REOBSERVE_CURRENT_SOURCE_AND_EVIDENCE
   p4_reuse: P4-01_THROUGH_P4-05_COMPLETE_DO_NOT_REBUILD
-  ordered_successors: REUSE_P4-01_THROUGH_P4-05_THEN_P4-06_THEN_FOUNDATION_COMPLETE_THEN_BIELLA_GAMES
+  ordered_successors: P4-06_THEN_FOUNDATION_COMPLETE_THEN_BIELLA_GAMES
 ```
