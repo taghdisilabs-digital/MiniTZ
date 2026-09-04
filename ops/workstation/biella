@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+# shellcheck source=biella-lib.sh
+source "$SCRIPT_DIR/biella-lib.sh"
+
+usage() {
+  cat <<'EOF'
+Usage: biella <command> [args]
+
+Commands:
+  up         Start/verify the Biella local runtime
+  down       Stop Biella-owned supervised runtime services
+  status     Show compact workstation status
+  doctor     Run workstation diagnostics
+  agent      Start the fast local-first Codex/Qwen agent
+  codex      Start the full Biella Codex controller
+  providers  Check configured external providers
+  modal      Run Modal CLI with Biella environment
+  logs       Show recent Biella service logs
+  cleanup    Remove known temporary Biella runtime noise
+EOF
+}
+
+biella_require_root
+biella_load_runtime_env
+biella_ensure_runtime_dirs
+
+command_name="${1:-status}"
+[[ $# -eq 0 ]] || shift
+case "$command_name" in
+  up)
+    biella_exec_or_fail biella-ai-start "$@"
+    ;;
+  down)
+    if command -v systemctl >/dev/null 2>&1 && systemctl list-unit-files biella-ollama.service >/dev/null 2>&1; then
+      systemctl stop biella-ollama.service
+    else
+      printf 'No Biella-owned supervised runtime service is installed.\n'
+    fi
+    ;;
+  status)
+    biella_status_basic
+    ;;
+  doctor)
+    biella_status_basic
+    printf 'Codex:  '; command -v codex >/dev/null 2>&1 && codex --version || printf 'MISSING\n'
+    printf 'Modal:  '; command -v modal >/dev/null 2>&1 && modal --version || printf 'MISSING\n'
+    ;;
+  agent)
+    biella_exec_or_fail biella-local-agent "$@"
+    ;;
+  codex)
+    biella_exec_or_fail biella-codex "$@"
+    ;;
+  providers)
+    biella_exec_or_fail biella-provider-check "$@"
+    ;;
+  modal)
+    biella_exec_or_fail modal "$@"
+    ;;
+  logs)
+    if command -v journalctl >/dev/null 2>&1; then
+      journalctl -u biella-ollama.service -n "${BIELLA_LOG_LINES:-80}" --no-pager 2>/dev/null || true
+    fi
+    ;;
+  cleanup)
+    printf 'No supervised cleanup action is required before service cutover.\n'
+    ;;
+  -h|--help|help)
+    usage
+    ;;
+  *)
+    usage >&2
+    exit 2
+    ;;
+esac
