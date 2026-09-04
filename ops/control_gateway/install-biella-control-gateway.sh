@@ -25,6 +25,9 @@ install -o root -g root -m 644 \
   "$INSTALL_DIR/"
 install -o root -g root -m 600 "$SOURCE_DIR/biella_control_auth.py" "$INSTALL_DIR/"
 install -o root -g root -m 755 "$SOURCE_DIR/biella-control-auth" /usr/local/bin/biella-control-auth
+install -o root -g root -m 755 "$SOURCE_DIR/biella-control-cloudflare-token" /usr/local/bin/biella-control-cloudflare-token
+install -o root -g root -m 755 "$SOURCE_DIR/configure-biella-control-tunnel.sh" /usr/local/bin/biella-control-tunnel-configure
+install -o root -g root -m 644 "$SOURCE_DIR/biella-control-tunnel.service" "$INSTALL_DIR/biella-control-tunnel.service"
 
 if [[ -n "$site_source" ]]; then
   [[ -f "$site_source/control/index.html" ]] || { echo 'site build missing control/index.html' >&2; exit 1; }

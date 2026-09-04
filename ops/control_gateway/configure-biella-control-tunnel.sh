@@ -8,7 +8,8 @@ readonly TUNNEL_NAME="biella-control"
 readonly ORIGIN="http://127.0.0.1:8787"
 readonly CONFIG_DIR="/etc/cloudflared"
 readonly CONFIG_FILE="$CONFIG_DIR/biella-control.yml"
-readonly SERVICE_SOURCE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/biella-control-tunnel.service"
+readonly CONTROL_INSTALL_DIR="${BIELLA_CONTROL_INSTALL_DIR:-/usr/local/lib/biella-control}"
+readonly SERVICE_SOURCE="$CONTROL_INSTALL_DIR/biella-control-tunnel.service"
 
 [[ "$EUID" -eq 0 ]] || { echo 'run tunnel configurator as root' >&2; exit 1; }
 [[ -f "$RUNTIME_ENV" && ! -L "$RUNTIME_ENV" ]] || { echo 'Biella runtime credentials missing' >&2; exit 1; }
@@ -17,7 +18,9 @@ set -a
 # shellcheck disable=SC1090
 source "$RUNTIME_ENV"
 set +a
-[[ -n "${CLOUDFLARE_ACCOUNT_ID:-}" && -n "${CLOUDFLARE_API_TOKEN:-}" ]] || { echo 'Cloudflare account credentials are required' >&2; exit 1; }
+[[ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ]] || { echo 'Cloudflare account ID is required' >&2; exit 1; }
+TUNNEL_API_TOKEN="${CLOUDFLARE_TUNNEL_API_TOKEN:-${CLOUDFLARE_API_TOKEN:-}}"
+[[ -n "$TUNNEL_API_TOKEN" ]] || { echo 'Cloudflare Tunnel/DNS API token is required' >&2; exit 1; }
 command -v cloudflared >/dev/null 2>&1 || { echo 'cloudflared is required' >&2; exit 1; }
 
 install -d -o root -g root -m 700 "$CONFIG_DIR"
@@ -25,7 +28,8 @@ curl_cfg="$(mktemp "$CONFIG_DIR/control-api.XXXXXX")"
 work_dir="$(mktemp -d /tmp/biella-control-cloudflare.XXXXXX)"
 trap 'rm -f -- "$curl_cfg"; rm -rf -- "$work_dir"' EXIT
 chmod 600 "$curl_cfg"
-printf 'header = "Authorization: Bearer %s"\n' "$CLOUDFLARE_API_TOKEN" > "$curl_cfg"
+printf 'header = "Authorization: Bearer %s"\n' "$TUNNEL_API_TOKEN" > "$curl_cfg"
+unset TUNNEL_API_TOKEN
 
 cf_get() {
   local path="$1" output="$2" code

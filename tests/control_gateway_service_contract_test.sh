@@ -6,8 +6,10 @@ MAIN="$DIR/biella_control_main.py"
 SERVICE="$DIR/biella-control-gateway.service"
 INSTALLER="$DIR/install-biella-control-gateway.sh"
 AUTH_WRAPPER="$DIR/biella-control-auth"
+TUNNEL_TOKEN_WRAPPER="$DIR/biella-control-cloudflare-token"
+TUNNEL_CONFIG="$DIR/configure-biella-control-tunnel.sh"
 
-for f in "$MAIN" "$SERVICE" "$INSTALLER" "$AUTH_WRAPPER"; do
+for f in "$MAIN" "$SERVICE" "$INSTALLER" "$AUTH_WRAPPER" "$TUNNEL_TOKEN_WRAPPER" "$TUNNEL_CONFIG"; do
   [[ -f "$f" ]] || { echo "missing control gateway artifact: $f" >&2; exit 1; }
 done
 
@@ -25,6 +27,10 @@ require "$SERVICE" 'User=root'
 require "$SERVICE" 'UMask=0077'
 require "$INSTALLER" '/usr/local/lib/biella-control'
 require "$INSTALLER" '/usr/local/bin/biella-control-auth'
+require "$INSTALLER" '/usr/local/bin/biella-control-cloudflare-token'
+require "$INSTALLER" '/usr/local/bin/biella-control-tunnel-configure'
+require "$INSTALLER" 'configure-biella-control-tunnel.sh'
+require "$INSTALLER" 'biella-control-tunnel.service'
 require "$INSTALLER" '/var/lib/biella-control/site'
 require "$INSTALLER" 'biella-control-gateway.service'
 require "$AUTH_WRAPPER" 'biella_control_auth.py'
@@ -33,4 +39,6 @@ forbid "$INSTALLER" 'password='
 
 bash -n "$INSTALLER"
 bash -n "$AUTH_WRAPPER"
+bash -n "$TUNNEL_TOKEN_WRAPPER"
+bash -n "$TUNNEL_CONFIG"
 echo 'control gateway service contract: PASS'
