@@ -37,7 +37,7 @@
 
 - [ ] **Step 1: Add the workflow on the isolated branch**
 
-The workflow must run on pushes to `main` when P3-14 source/tests/workflow/state evidence paths change and support manual dispatch. Its validation job must:
+The workflow must run on pushes to `main` and the isolated `codex/**` branches when P3-14 source/tests/workflow/state evidence paths change, and support manual dispatch. Its validation job must:
 
 1. check out the exact commit;
 2. install `.[test]`;
@@ -74,7 +74,7 @@ Commit message: `ci: qualify P3-14 durable delivery`.
 
 - [ ] **Step 1: Trigger qualification from the isolated branch**
 
-Use the workflow’s supported dispatch or branch push path. Do not infer success from commit creation.
+Push the workflow commit to the isolated `codex/p3-14-durable-closure-20260904` branch so its branch-scoped trigger starts a fresh run; use manual dispatch only if the connector exposes it. Do not infer success from commit creation.
 
 - [ ] **Step 2: Read the workflow run and job result**
 
