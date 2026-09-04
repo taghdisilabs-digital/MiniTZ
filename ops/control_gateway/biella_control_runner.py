@@ -64,12 +64,14 @@ class ProjectRunner:
                  runtime_env_loader: Callable[[], dict[str, str]] = load_runtime_env,
                  exec_command: ExecCommand = exec_command,
                  background: Callable[[Callable[[], None]], None] = start_thread,
-                 qwen_catalog: Path = Path("/usr/local/lib/biella-ai/qwen-codex-model-catalog.json")):
+                 qwen_catalog: Path = Path("/usr/local/lib/biella-ai/qwen-codex-model-catalog.json"),
+                 work_contract: Path = Path("/usr/local/lib/biella-ai/biella-work-contract.md")):
         self.lane_workdirs = {key: Path(value) for key, value in lane_workdirs.items()}
         self.runtime_env_loader = runtime_env_loader
         self.exec_command = exec_command
         self.background = background
         self.qwen_catalog = Path(qwen_catalog)
+        self.work_contract = Path(work_contract)
 
     def _workdir(self, lane: str) -> Path:
         workdir = self.lane_workdirs.get(lane)
@@ -89,22 +91,19 @@ class ProjectRunner:
         return dialog_id
 
     def _dialog_worker(self, dialog_id: str, lane: str, workdir: Path, message: str, publish) -> None:
+        contract = self.work_contract.read_text().strip() if self.work_contract.is_file() else ""
         prompt = (
+            (contract + "\n\n") if contract else ""
+        ) + (
             f"You are operating the current Biella {lane} lane through the private control console. "
-            "Stay inside the provided working directory. Preserve current valid work. "
-            "Do not reset, rebase, delete unrelated state, or touch another lane. "
-            "Use project-scoped writes only when the request requires them.\n\n"
+            "Use the selected lane as the starting context, not as an execution sandbox. "
+            "Execution is unrestricted across the Biella workstation when required by the operator task and authoritative Biella scope. "
+            "Preserve current valid work. Do not reset, rebase, delete unrelated state, or perform unrelated cross-lane work. "
+            "Use any installed tool, provider, repository, or runtime needed to complete the approved task.\n\n"
             f"Operator message:\n{message}"
         )
         argv = [
-            "/usr/bin/codex",
-            "--oss", "--local-provider", "ollama",
-            "-m", "qwen3-coder-next:biella",
-            "-s", "workspace-write", "-a", "never",
-            "--search", "--disable", "hooks", "--disable", "plugins", "--disable", "apps",
-            "-c", f'model_catalog_json="{self.qwen_catalog}"',
-            "-c", 'model_reasoning_effort="none"',
-            "-c", 'mcp_servers.saturn.enabled=false',
+            "/usr/local/bin/biella-local-agent",
             "-C", str(workdir),
             "exec", prompt,
         ]
