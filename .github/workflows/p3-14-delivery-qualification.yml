@@ -1,0 +1,165 @@
+name: P3-14 Durable Delivery Qualification
+
+on:
+  push:
+    branches:
+      - main
+      - "codex/**"
+    paths:
+      - "src/biella/delivery_pack.py"
+      - "src/biella/delivery_tool.py"
+      - "src/biella/cloudflare_kv_publish.py"
+      - "src/biella/production_integration.py"
+      - "tests/test_p3_14_delivery_pack.py"
+      - "tests/test_p3_14_delivery_local.py"
+      - "tests/test_p3_14_delivery_publish.py"
+      - "tests/test_p3_14_cross_domain.py"
+      - "docs/project-state/evidence/P3_14_DELIVERY_QUALIFICATION_EVIDENCE.md"
+      - ".github/workflows/p3-14-delivery-qualification.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out exact source revision
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install test dependencies
+        run: python -m pip install -e ".[test]"
+
+      - name: Install FFmpeg for cross-domain media verification
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ffmpeg
+
+      - name: Record exact source identity
+        run: |
+          {
+            echo "SOURCE_COMMIT=$(git rev-parse HEAD)"
+            echo "SOURCE_TREE=$(git rev-parse HEAD^{tree})"
+            echo "FFMPEG_IDENTITY=$(ffmpeg -version | head -n 1)"
+            echo "FFPROBE_IDENTITY=$(ffprobe -version | head -n 1)"
+          } | tee "$RUNNER_TEMP/p3-14-runtime.txt"
+
+      - name: Run focused P3-14 delivery tests
+        shell: bash
+        run: |
+          set -o pipefail
+          python -m pytest             tests/test_p3_14_delivery_pack.py             tests/test_p3_14_delivery_local.py             tests/test_p3_14_delivery_publish.py             tests/test_p3_14_cross_domain.py             -q 2>&1 | tee "$RUNNER_TEMP/p3-14-pytest.txt"
+
+      - name: Run strict typecheck
+        run: python -m mypy           src/biella/delivery_pack.py           src/biella/delivery_tool.py           src/biella/cloudflare_kv_publish.py           src/biella/production_integration.py
+
+      - name: Compile all Engine modules
+        run: python -m compileall -q src/biella
+
+      - name: Build wheel
+        run: python -m pip wheel . --no-deps -w dist
+
+      - name: Emit bounded P3-14 CI evidence
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          import re
+          import subprocess
+
+          def sha256(path: Path) -> str:
+              return hashlib.sha256(path.read_bytes()).hexdigest()
+
+          def command_output(path: Path) -> str:
+              return path.read_text(encoding="utf-8", errors="replace").strip()
+
+          source_files = [
+              Path("src/biella/delivery_pack.py"),
+              Path("src/biella/delivery_tool.py"),
+              Path("src/biella/cloudflare_kv_publish.py"),
+              Path("src/biella/production_integration.py"),
+              Path("tests/test_p3_14_delivery_pack.py"),
+              Path("tests/test_p3_14_delivery_local.py"),
+              Path("tests/test_p3_14_delivery_publish.py"),
+              Path("tests/test_p3_14_cross_domain.py"),
+              Path(".github/workflows/p3-14-delivery-qualification.yml"),
+          ]
+          for path in source_files:
+              if not path.is_file():
+                  raise SystemExit(f"missing evidence source file: {path}")
+
+          pytest_output = command_output(Path(os.environ["RUNNER_TEMP"]) / "p3-14-pytest.txt")
+          summary_matches = re.findall(
+              r"(\d+\s+(?:passed|failed|skipped|xfailed|xpassed|error\w*))",
+              pytest_output,
+          )
+          wheels = sorted(Path("dist").glob("*.whl"))
+          if not wheels:
+              raise SystemExit("wheel build produced no wheel")
+          commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+          tree = subprocess.check_output(["git", "rev-parse", "HEAD^{tree}"], text=True).strip()
+          runtime_lines = command_output(Path(os.environ["RUNNER_TEMP"]) / "p3-14-runtime.txt").splitlines()
+
+          payload = {
+              "schema": "biella.p3-14.delivery-qualification/v1",
+              "task": "P3-14",
+              "source_commit": commit,
+              "source_tree": tree,
+              "workflow": {
+                  "name": os.environ["GITHUB_WORKFLOW"],
+                  "run_id": os.environ["GITHUB_RUN_ID"],
+                  "run_attempt": os.environ["GITHUB_RUN_ATTEMPT"],
+                  "ref": os.environ["GITHUB_REF"],
+              },
+              "focused_tests": {
+                  "command": "python -m pytest tests/test_p3_14_delivery_pack.py tests/test_p3_14_delivery_local.py tests/test_p3_14_delivery_publish.py tests/test_p3_14_cross_domain.py -q",
+                  "result": "PASS",
+                  "summary_tokens": summary_matches,
+                  "output_sha256": hashlib.sha256(pytest_output.encode("utf-8")).hexdigest(),
+              },
+              "typecheck": {
+                  "command": "python -m mypy src/biella/delivery_pack.py src/biella/delivery_tool.py src/biella/cloudflare_kv_publish.py src/biella/production_integration.py",
+                  "result": "PASS",
+              },
+              "compile": {
+                  "command": "python -m compileall -q src/biella",
+                  "result": "PASS",
+              },
+              "wheel": {
+                  "result": "PASS",
+                  "sha256": {str(path): sha256(path) for path in wheels},
+              },
+              "source_sha256": {str(path): sha256(path) for path in source_files},
+              "runtime_identity": runtime_lines,
+              "reality_classification": {
+                  "focused_ci_tests": "REFERENCE_CI",
+                  "l40s_execution": "NOT_RUN",
+                  "live_cloudflare_publish": "NOT_RUN",
+                  "drive_publication": "NOT_RUN",
+              },
+          }
+          encoded = (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8")
+          target = Path("dist/p3_14_delivery_qualification_evidence.json")
+          target.write_bytes(encoded)
+          print(json.dumps({"evidence_sha256": hashlib.sha256(encoded).hexdigest(), **payload}, sort_keys=True))
+          PY
+
+      - name: Upload P3-14 wheel and evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: p3-14-delivery-qualification
+          path: |
+            dist/*.whl
+            dist/p3_14_delivery_qualification_evidence.json
+          if-no-files-found: error
