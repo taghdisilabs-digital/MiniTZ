@@ -8,7 +8,7 @@ readonly CLI_LINK="/usr/local/bin/biella"
 [[ "$EUID" -eq 0 ]] || { printf 'Run workstation installer as root.\n' >&2; exit 1; }
 
 install -d -o root -g root -m 755 "$INSTALL_DIR"
-install -o root -g root -m 755 "$SOURCE_DIR/biella" "$SOURCE_DIR/biella-lib.sh" "$INSTALL_DIR/"
+install -o root -g root -m 755 "$SOURCE_DIR/biella" "$SOURCE_DIR/biella-lib.sh" "$SOURCE_DIR/biella-provider-check.sh" "$INSTALL_DIR/"
 install -d -o root -g root -m 700 /root/.codex
 install -o root -g root -m 644 "$SOURCE_DIR/AGENTS.md" /root/.codex/AGENTS.md
 install -o root -g root -m 644 "$SOURCE_DIR/biella-ollama.service" /etc/systemd/system/biella-ollama.service

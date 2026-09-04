@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+readonly SELF="$(readlink -f "${BASH_SOURCE[0]}")"
+readonly SCRIPT_DIR="$(cd "$(dirname "$SELF")" && pwd -P)"
 # shellcheck source=biella-lib.sh
 source "$SCRIPT_DIR/biella-lib.sh"
 
@@ -43,11 +44,17 @@ case "$command_name" in
     ;;
   status)
     biella_status_basic
+    if biella_qwen_loaded; then printf 'Qwen VRAM bytes: '; biella_verify_qwen_vram || true; fi
     ;;
   doctor)
     biella_status_basic
+    printf 'GPU:    '; biella_gpu_status
+    printf 'Disk:   '; biella_disk_status
     printf 'Codex:  '; command -v codex >/dev/null 2>&1 && codex --version || printf 'MISSING\n'
     printf 'Modal:  '; command -v modal >/dev/null 2>&1 && modal --version || printf 'MISSING\n'
+    printf 'OpenAI-compatible Qwen API: '; biella_verify_v1_responses >/dev/null 2>&1 && printf 'READY\n' || printf 'DEGRADED\n'
+    printf '\nProviders:\n'
+    "$SCRIPT_DIR/biella-provider-check.sh"
     ;;
   agent)
     biella_exec_or_fail biella-local-agent "$@"
@@ -56,7 +63,7 @@ case "$command_name" in
     biella_exec_or_fail biella-codex "$@"
     ;;
   providers)
-    biella_exec_or_fail biella-provider-check "$@"
+    exec "$SCRIPT_DIR/biella-provider-check.sh" "$@"
     ;;
   modal)
     biella_exec_or_fail modal "$@"
@@ -67,7 +74,8 @@ case "$command_name" in
     fi
     ;;
   cleanup)
-    printf 'No supervised cleanup action is required before service cutover.\n'
+    biella_cleanup_legacy
+    printf 'Known legacy Biella runtime noise removed.\n'
     ;;
   -h|--help|help)
     usage

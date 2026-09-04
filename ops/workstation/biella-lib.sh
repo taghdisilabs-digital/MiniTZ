@@ -120,3 +120,33 @@ biella_up_local() {
   biella_verify_qwen_vram >/dev/null
   biella_verify_v1_responses
 }
+biella_kill_matching_signature() {
+  local signature="$1" pid cmdline
+  while read -r pid; do
+    [[ -r "/proc/$pid/cmdline" ]] || continue
+    cmdline="$(tr '\0' ' ' < "/proc/$pid/cmdline")"
+    [[ "$cmdline" == *"$signature"* ]] || continue
+    kill "$pid" 2>/dev/null || true
+  done < <(pgrep -f -- "$signature" 2>/dev/null || true)
+}
+
+biella_cleanup_legacy() {
+  if command -v tmux >/dev/null 2>&1 && tmux has-session -t llm-router 2>/dev/null; then
+    tmux kill-session -t llm-router
+  fi
+  biella_kill_matching_signature 'python3 -m http.server 61374 --bind 0.0.0.0 --directory /mnt/biella-production/BiellaProduction'
+  biella_kill_matching_signature 'python3 -m http.server 81374 --bind 0.0.0.0 --directory /mnt/biella-production/BiellaProduction'
+  biella_kill_matching_signature 'cloudflared tunnel --no-autoupdate --url http://127.0.0.1:61374'
+}
+
+biella_gpu_status() {
+  if command -v nvidia-smi >/dev/null 2>&1; then
+    nvidia-smi --query-gpu=name,memory.total,memory.used,driver_version --format=csv,noheader 2>/dev/null | head -n 1
+  else
+    printf 'unavailable\n'
+  fi
+}
+
+biella_disk_status() {
+  df -h "$BIELLA_RUNTIME_ROOT" 2>/dev/null | awk 'NR==2 {print $2" total, "$3" used, "$4" free"}'
+}

@@ -7,6 +7,7 @@ LIB="$ROOT_DIR/ops/workstation/biella-lib.sh"
 INSTALLER="$ROOT_DIR/ops/workstation/install-biella-workstation.sh"
 SERVICE="$ROOT_DIR/ops/workstation/biella-ollama.service"
 POLICY="$ROOT_DIR/ops/workstation/AGENTS.md"
+PROVIDERS="$ROOT_DIR/ops/workstation/biella-provider-check.sh"
 
 require_file() {
   [[ -f "$1" ]] || { echo "missing required artifact: $1" >&2; exit 1; }
@@ -27,7 +28,7 @@ forbid_literal() {
     exit 1
   }
 }
-for f in "$CLI" "$LIB" "$INSTALLER" "$SERVICE" "$POLICY"; do require_file "$f"; done
+for f in "$CLI" "$LIB" "$INSTALLER" "$SERVICE" "$POLICY" "$PROVIDERS"; do require_file "$f"; done
 
 for cmd in up down status doctor agent codex providers modal logs cleanup; do
   require_literal "$CLI" "$cmd"
@@ -53,6 +54,17 @@ require_literal "$POLICY" 'local Qwen'
 require_literal "$POLICY" 'one external provider'
 require_literal "$POLICY" 'Never print secret values'
 require_literal "$INSTALLER" '/root/.codex/AGENTS.md'
+require_literal "$CLI" 'readlink -f'
+require_literal "$PROVIDERS" 'api.groq.com/openai/v1/models'
+require_literal "$PROVIDERS" 'api.cerebras.ai/v1/models'
+require_literal "$PROVIDERS" 'openrouter.ai/api/v1/models'
+require_literal "$PROVIDERS" 'api.mistral.ai/v1/models'
+require_literal "$PROVIDERS" 'api.tavily.com/usage'
+require_literal "$PROVIDERS" 'generativelanguage.googleapis.com/v1beta/models'
+require_literal "$LIB" 'llm-router'
+require_literal "$LIB" 'http.server 61374'
+require_literal "$LIB" 'http.server 81374'
+require_literal "$LIB" 'http://127.0.0.1:61374'
 forbid_literal "$CLI" 'ollama pull'
 forbid_literal "$LIB" 'ollama pull'
 forbid_literal "$INSTALLER" 'ollama pull'
