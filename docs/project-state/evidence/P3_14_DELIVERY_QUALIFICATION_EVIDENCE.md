@@ -7,32 +7,32 @@ Boundary: P3-14 packaging, publishing, release, and durable delivery
 
 ## Result
 
-The corrected P3-14 qualification completed successfully in GitHub Actions.
+The bounded P3-14 qualification completed successfully on the durable `main` state in GitHub Actions.
 
 - Workflow: `.github/workflows/p3-14-delivery-qualification.yml`
-- Source commit: `ae5d69a0686968af96283260d1c8073f84a833d2`
-- Source tree: `39d8f9e338365a28437b44eebde601c80f49508a`
-- Workflow run: `33883262378`
-- Job: `101056787223`
+- Source commit: `cb451cc221993efd5963727866873c2256c1090e`
+- Source tree: `cfcf31f27db642aad1539a5a040f0b5059e828dd`
+- Workflow run: `33884528731`
+- Job: `101060955843`
 - Artifact: `p3-14-delivery-qualification`
-- Artifact ID: `9940829453`
-- Artifact ZIP digest: `sha256:570fb404db6b06526ce3cd0066eb86442861e3fdbba4bf48187d9d80617fff9b`
-- Artifact size: `896397` bytes
-- Artifact expiry observed: `2026-12-03T14:21:32Z`
+- Artifact ID: `9941313281`
+- Artifact ZIP digest: `sha256:9399ed9d797de916553a0db298f9e72b46d5150b557e6db742ba10424add59bb`
+- Artifact size: `896380` bytes
+- Artifact expiry observed: `2026-12-03T14:34:35Z`
 
-Run URL: https://github.com/patrickminitz-web/biella-engine/actions/runs/33883262378
+Run URL: https://github.com/patrickminitz-web/biella-engine/actions/runs/33884528731
 
 ## Verification performed
 
-- Focused P3-14 tests: PASS — `16 passed, 1 skipped` in `64.20s`
+- Focused P3-14 tests: PASS — `16 passed, 1 skipped` in `50.43s`
 - Strict mypy: PASS
 - Python compileall: PASS
 - Wheel build: PASS
 - Wheel: `dist/biella_engine-0.1.0-py3-none-any.whl`
 - Wheel size: `898769` bytes
-- Wheel SHA-256: `f299003409190d3d06b4cf1bb9c3273fa7ffcc74eaf71b55ce4429a7f2aa3233`
-- Evidence JSON SHA-256: `561d758b00dec158c03ccfe6b51526de44394fe8d6dd074e9fdaeef4c2040a1f`
-- Pytest output SHA-256: `e19e30b0fc961aca99b5b0bc002fa4a520dcab61a71d3d886ee6c19abe8e9501`
+- Wheel SHA-256: `fac6cc513b400b0668038fcb9959260b51a4c1401016a1f1e03252341bbb516a`
+- Evidence JSON SHA-256: `a46d93fe124aed54390540c6da26ef09aa9e70bd1aa1d200a3fa2f7cdf7d4870`
+- Pytest output SHA-256: `b93e684d200bb4d0f0bb14ff629f6f74115627ea0eec013c081e80fbb7b0880a`
 
 ## Qualification classifications
 
@@ -41,7 +41,9 @@ Run URL: https://github.com/patrickminitz-web/biella-engine/actions/runs/3388326
 - Live Cloudflare publish: `NOT_RUN`
 - Drive publication: `NOT_RUN`
 
-The result proves the checked-in P3-14 source and packaging path under the stated CI environment. It does not claim that an L40S runtime, live Cloudflare account, or Drive side effect was exercised.
+`Drive publication: NOT_RUN` is the P3-14 delivery-side-effect classification emitted by the qualification workflow. It is distinct from publication of canonical project-state and qualification evidence to Google Drive, which is recorded separately as verified.
+
+The result proves the checked-in P3-14 source and packaging path under the stated CI environment. It does not claim that an L40S runtime, live Cloudflare account, or P3-14 Drive delivery side effect was exercised.
 
 ## Source identity
 
@@ -61,12 +63,25 @@ The generated evidence recorded these SHA-256 values:
 
 ## Bounded CI correction
 
-The first qualification attempt (`33883082555`) failed because the GitHub runner did not provide the non-executed `/usr/bin/blender` and `/usr/bin/bwrap` fixtures expected by the existing P3-14 local tests. The workflow was corrected to install the same exit-97 non-executed fixtures already used by the successful P3-12/P3-13 CI workflows. The next run (`33883262378`) passed.
+The first qualification attempt (`33883082555`) failed because the GitHub runner did not provide the non-executed `/usr/bin/blender` and `/usr/bin/bwrap` fixtures expected by the existing P3-14 local tests. The workflow was corrected to install the same exit-97 non-executed fixtures already used by the successful P3-12/P3-13 CI workflows. Run `33883262378` then passed on the corrected workflow.
+
+A subsequent qualification on the durable `main` state, run `33884528731`, also passed and is the current qualification referenced by the canonical project state.
 
 This correction changes CI setup only; it does not alter production delivery behavior.
 
+## Durable publication and readback
+
+Canonical project-state/evidence publication is recorded as `VERIFIED` with these stable Drive file IDs:
+
+- Current state: `1wiWcdWt4hmTf3narsLw4OqGu_ueKOSa4`
+- Active task: `1liutA8evH6rPjk-U4tgR13l_kqBrx-DF`
+- P3-14 evidence: `1qm2gmf2RWwGelwUa9KUfyUFxrd5GW-Ug`
+- Qualification artifact: `1Pp2P3-n0pP25PtiMB5Ba46fLfcb22iJf`
+
+The Drive qualification artifact is the `33884528731` ZIP and has recorded size `896380` bytes, matching the GitHub Actions artifact size.
+
 ## Durable boundary
 
-P3-14 is qualified in reference CI. The next project frontier remains P4-06. No P4-06 implementation or consumer activation is claimed by this record.
+P3-14 is `COMPLETE_DURABLE` under the bounded reference-CI qualification described above. The active project frontier is P4-06. No P4-06 completion or consumer activation is claimed by this record.
 
-No historical payload, secret, or unverified runtime claim is promoted by this evidence.
+L40S execution and live Cloudflare publishing remain `NOT_RUN`. Historical data is not promoted by this evidence.
