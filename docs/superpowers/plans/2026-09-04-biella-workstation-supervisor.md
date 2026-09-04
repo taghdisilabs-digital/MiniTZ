@@ -20,6 +20,14 @@
 
 ---
 
+## Progress
+
+- Task 1 — COMPLETED and verified 2026-09-04.
+- Task 2 — COMPLETED and verified 2026-09-04.
+- Task 3 — COMPLETED and verified 2026-09-04.
+- Task 4 — COMPLETED and verified 2026-09-04.
+- Task 5 — IN_PROGRESS.
+
 ### Task 1: Supervisor command contract
 
 **Files:**
@@ -31,11 +39,11 @@
 **Interfaces:**
 - Produces: `biella <up|down|status|doctor|agent|codex|providers|modal|logs|cleanup>`.
 
-- [ ] Write a failing contract test that requires all subcommands, root-only runtime loading, `/mnt/biella-extra/biella-runtime`, and no model-download command.
-- [ ] Run `bash tests/workstation_supervisor_contract_test.sh`; expect failure because files are absent.
-- [ ] Implement command dispatch and shared helpers without changing live services.
-- [ ] Run the contract test and `bash -n` on all new scripts; expect PASS.
-- [ ] Commit `feat: add Biella workstation supervisor interface`.
+- [x] Write a failing contract test that requires all subcommands, root-only runtime loading, `/mnt/biella-extra/biella-runtime`, and no model-download command.
+- [x] Run `bash tests/workstation_supervisor_contract_test.sh`; expect failure because files are absent.
+- [x] Implement command dispatch and shared helpers without changing live services.
+- [x] Run the contract test and `bash -n` on all new scripts; expect PASS.
+- [x] Commit `feat: add Biella workstation supervisor interface`.
 ### Task 2: Durable Ollama service
 
 **Files:**
@@ -46,12 +54,12 @@
 **Interfaces:**
 - Produces: `biella-ollama.service` listening only on `127.0.0.1:11434` with current proven Qwen runtime environment.
 
-- [ ] Extend the contract test to require the exact Ollama environment values and `User=ollama`.
-- [ ] Run the contract test; expect failure because the service file is absent.
-- [ ] Add the systemd unit and installer logic that copies/enables it but does not touch model bytes.
-- [ ] Add `biella up` warmup checks for `/api/ps` and `/v1/responses` and the `<30 GiB` VRAM bound.
-- [ ] Run contract and existing local-AI smoke tests; expect PASS.
-- [ ] Commit `feat: supervise Biella Ollama with systemd`.
+- [x] Extend the contract test to require the exact Ollama environment values and `User=ollama`.
+- [x] Run the contract test; expect failure because the service file is absent.
+- [x] Add the systemd unit and installer logic that copies/enables it but does not touch model bytes.
+- [x] Add `biella up` warmup checks for `/api/ps` and `/v1/responses` and the `<30 GiB` VRAM bound.
+- [x] Run contract and existing local-AI smoke tests; expect PASS.
+- [x] Commit `feat: supervise Biella Ollama with systemd`.
 
 ### Task 3: Fast and full agent modes with noise control
 
@@ -65,11 +73,11 @@
 - Produces: `biella-local-agent` delegating to `biella-codex` with `mcp_servers.saturn.enabled=false`.
 - Produces: global noise policy installed to `/root/.codex/AGENTS.md`.
 
-- [ ] Add failing tests requiring the local-agent wrapper and noise-policy installation.
-- [ ] Verify the tests fail for the missing artifacts.
-- [ ] Implement the delegating wrapper and policy; do not duplicate unrestricted flags already owned by `biella-codex`.
-- [ ] Run local-AI contract/smoke tests and supervisor contract tests.
-- [ ] Commit `feat: add fast local agent and noise control`.
+- [x] Add failing tests requiring the local-agent wrapper and noise-policy installation.
+- [x] Verify the tests fail for the missing artifacts.
+- [x] Implement the delegating wrapper and policy; do not duplicate unrestricted flags already owned by `biella-codex`.
+- [x] Run local-AI contract/smoke tests and supervisor contract tests.
+- [x] Commit `feat: add fast local agent and noise control`.
 
 ### Task 4: Provider, storage, and cleanup integration
 
@@ -83,12 +91,12 @@
 - `biella cleanup` targets only known temporary Biella process signatures.
 - `biella doctor` reports storage, GPU, binaries, MCP, Modal, provider, and Gemini status independently.
 
-- [ ] Add failing tests for independent provider health, runtime storage paths, and bounded cleanup signatures.
-- [ ] Implement runtime directories under `/mnt/biella-extra/biella-runtime/{cache,tmp,logs,builds,models}`.
-- [ ] Implement provider checker composition for Cloudflare, Groq, Cerebras, OpenRouter, Mistral, Tavily, Exa, Pinecone, Qdrant, Deepgram, AssemblyAI, ElevenLabs, Stability AI, Supabase, Neon, Upstash, Cloudinary, Axiom, Pexels, Modal, Saturn, and Gemini/Google independent status reporting.
-- [ ] Implement bounded cleanup for the legacy `llm-router`, ports 61374/81374 Python servers, and the matching quick tunnel only.
-- [ ] Run all shell contract/smoke tests and `git diff --check`.
-- [ ] Commit `feat: integrate providers storage and bounded cleanup`.
+- [x] Add failing tests for independent provider health, runtime storage paths, and bounded cleanup signatures.
+- [x] Implement runtime directories under `/mnt/biella-extra/biella-runtime/{cache,tmp,logs,builds,models}`.
+- [x] Implement provider checker composition for Cloudflare, Groq, Cerebras, OpenRouter, Mistral, Tavily, Exa, Pinecone, Qdrant, Deepgram, AssemblyAI, ElevenLabs, Stability AI, Supabase, Neon, Upstash, Cloudinary, Axiom, Pexels, Modal, Saturn, and Gemini/Google independent status reporting.
+- [x] Implement bounded cleanup for the legacy `llm-router`, ports 61374/81374 Python servers, and the matching quick tunnel only.
+- [x] Run all shell contract/smoke tests and `git diff --check`.
+- [x] Commit `feat: integrate providers storage and bounded cleanup`.
 ### Task 5: Install, cut over, and verify workstation
 
 **Files:**
