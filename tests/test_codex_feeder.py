@@ -64,6 +64,7 @@ def test_codex_command_never_contains_usage_or_reset_actions(tmp_path: Path):
     assert "reset" not in joined
     assert "--dangerously-bypass-approvals-and-sandbox" in cmd
     assert 'model_reasoning_effort="medium"' in cmd
+    assert cmd.index("--search") < cmd.index("exec")
 
 
 def sample_queue(tmp_path: Path):

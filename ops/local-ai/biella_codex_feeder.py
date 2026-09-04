@@ -176,10 +176,10 @@ def build_codex_command(route: Route, schema_path: Path, output_path: Path, cwd:
     codex_bin = os.environ.get("BIELLA_CODEX_BIN", "/usr/bin/codex")
     return [
         codex_bin,
+        "--search",
         "exec",
         "--dangerously-bypass-approvals-and-sandbox",
         "--dangerously-bypass-hook-trust",
-        "--search",
         "-c",
         'shell_environment_policy.inherit="all"',
         "-c",
