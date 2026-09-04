@@ -1,0 +1,211 @@
+<div id="biella-recovery-data-map" aria-labelledby="biella-recovery-data-map-title">
+  <style>
+    #biella-recovery-data-map {
+      --map-blue: var(--viz-series-1);
+      --map-green: var(--viz-series-2);
+      --map-orange: var(--viz-series-3);
+      --map-purple: var(--viz-series-4);
+      --map-red: var(--viz-series-5);
+      color: var(--foreground);
+      font-family: inherit;
+      font-size: var(--font-size-base);
+      line-height: 1.45;
+      max-width: 1024px;
+      margin: 0 auto;
+    }
+
+    #biella-recovery-data-map h2,
+    #biella-recovery-data-map h3,
+    #biella-recovery-data-map p {
+      margin: 0;
+    }
+
+    #biella-recovery-data-map h2 {
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+    }
+
+    #biella-recovery-data-map .map-note {
+      color: var(--muted-foreground);
+      font-size: 0.86rem;
+      margin-bottom: 1rem;
+    }
+
+    #biella-recovery-data-map .lanes,
+    #biella-recovery-data-map .sources {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    #biella-recovery-data-map .lanes {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    #biella-recovery-data-map .sources {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 1.1rem;
+    }
+
+    #biella-recovery-data-map .lane,
+    #biella-recovery-data-map .source {
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--map-blue);
+      padding: 0.75rem;
+      min-width: 0;
+    }
+
+    #biella-recovery-data-map .lane:nth-child(2) { border-top-color: var(--map-green); }
+    #biella-recovery-data-map .lane:nth-child(3) { border-top-color: var(--map-orange); }
+    #biella-recovery-data-map .source:nth-child(2) { border-top-color: var(--map-green); }
+    #biella-recovery-data-map .source:nth-child(3) { border-top-color: var(--map-orange); }
+    #biella-recovery-data-map .source:nth-child(4) { border-top-color: var(--map-purple); }
+    #biella-recovery-data-map .source:nth-child(5) { border-top-color: var(--map-red); }
+    #biella-recovery-data-map .source:nth-child(6) { border-top-color: var(--map-blue); }
+
+    #biella-recovery-data-map h3 {
+      font-size: 0.96rem;
+      font-weight: 500;
+      margin-bottom: 0.45rem;
+    }
+
+    #biella-recovery-data-map .identity {
+      color: var(--muted-foreground);
+      font-size: 0.78rem;
+      overflow-wrap: anywhere;
+      margin-bottom: 0.45rem;
+    }
+
+    #biella-recovery-data-map ul {
+      margin: 0;
+      padding-left: 1.05rem;
+    }
+
+    #biella-recovery-data-map li {
+      margin: 0.25rem 0;
+    }
+
+    #biella-recovery-data-map .relation {
+      color: var(--muted-foreground);
+      text-align: center;
+      margin: 0.55rem 0 0;
+      font-size: 0.84rem;
+    }
+
+    #biella-recovery-data-map .status {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      margin-top: 0.55rem;
+      color: var(--muted-foreground);
+    }
+
+    #biella-recovery-data-map .quarantine {
+      border-top-color: var(--map-red);
+      margin-top: 0.75rem;
+    }
+
+    #biella-recovery-data-map a {
+      color: var(--primary);
+      text-decoration: underline;
+      text-underline-offset: 0.15em;
+    }
+
+    @media (max-width: 700px) {
+      #biella-recovery-data-map .lanes,
+      #biella-recovery-data-map .sources {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <h2 id="biella-recovery-data-map-title">Biella recovery evidence map</h2>
+  <p class="map-note">Three project lanes are durable sources; archive and workspace items are recovery candidates until their contents are inspected.</p>
+
+  <div class="lanes" role="list" aria-label="Three Biella project lanes">
+    <section class="lane" role="listitem">
+      <h3>Biella / Website</h3>
+      <p class="identity"><a href="https://github.com/patrickminitz-web/biella-engine/tree/website">biella-engine:website</a> → biellagames.dev</p>
+      <ul>
+        <li>BU-01–BU-05 source, content, canon, and information architecture</li>
+        <li>Visual/source resolution and Game media admission rules</li>
+        <li>Consumes Engine and Games evidence</li>
+      </ul>
+      <span class="status">SEPARATED SOURCE · current website runtime media: 0 accepted</span>
+    </section>
+
+    <section class="lane" role="listitem">
+      <h3>Biella Engine</h3>
+      <p class="identity"><a href="https://github.com/patrickminitz-web/biella-engine/tree/main">biella-engine:main</a></p>
+      <ul>
+        <li>Reusable execution, evidence, production, and learning mechanisms</li>
+        <li>RTX5000 render-worker boundary and recovery runbooks</li>
+        <li>P4-06 implementation exists; final qualification is not proven</li>
+      </ul>
+      <span class="status">DURABLE CODE/DOCS · no game media payload in GitHub tree</span>
+    </section>
+
+    <section class="lane" role="listitem">
+      <h3>Biella Games</h3>
+      <p class="identity"><a href="https://github.com/patrickminitz-web/biella-games/tree/automation/production-executor-v2">biella-games:automation/production-executor-v2</a></p>
+      <ul>
+        <li>Unreal bootstrap and crash-resistant production executor</li>
+        <li>Qwen/vLLM launcher and Windows build/playtest gates</li>
+        <li>No tracked Content/, .uasset, .umap, or .blend payload</li>
+      </ul>
+      <span class="status">SEPARATED TOOLING · runtime/assets remain external candidates</span>
+    </section>
+  </div>
+
+  <p class="relation" aria-hidden="true">↓ source repositories and branches identify the system; external archives may contain the missing production payload</p>
+
+  <div class="sources" role="list" aria-label="Recovery candidates and evidence sources">
+    <section class="source" role="listitem">
+      <h3>Pre-Codex workspace</h3>
+      <p class="identity">BIELLA_PRE_CODEX_20260903T014153Z.tar.gz · 11.53 GiB</p>
+      <p>Filesystem inventory only; timestamped before the reported September 3 end-of-day deletion.</p>
+      <span class="status">HIGH-VALUE CANDIDATE · contents unlisted</span>
+    </section>
+
+    <section class="source" role="listitem">
+      <h3>L40S backup</h3>
+      <p class="identity"><a href="https://drive.google.com/drive/folders/1PF4NOtL15KxtBRl6msSO_UNCOnAp5O24">6.72-GB archive folder</a></p>
+      <p>Direct archive plus incomplete split variants; likely L40S workspace/source channel.</p>
+      <span class="status">RECOVERY CANDIDATE · integrity/content not verified</span>
+    </section>
+
+    <section class="source" role="listitem">
+      <h3>Controller backup</h3>
+      <p class="identity"><a href="https://drive.google.com/drive/folders/1vf-6AcRl2qOlxF-qjm5KWx-5o13YjU60">two checksum-covered parts</a></p>
+      <p>Part sizes sum to the recorded 7,677,969,359-byte archive; the direct upload is separately marked invalid.</p>
+      <span class="status">RECONSTRUCTION CANDIDATE · zstd not verified</span>
+    </section>
+
+    <section class="source" role="listitem">
+      <h3>Builds and renders</h3>
+      <p class="identity">Windows previews · BIELLA_ALL_27_RENDERS.zip · PRESERVE/20260904T001358Z</p>
+      <p>Post-build and post-deletion filesystem candidates that may contain packaged outputs or render evidence.</p>
+      <span class="status">RECOVERY EVIDENCE · package contents uninspected</span>
+    </section>
+
+    <section class="source" role="listitem">
+      <h3>Local-AI context</h3>
+      <p class="identity"><a href="https://drive.google.com/drive/folders/1I4Hg7-jrzWQ5jYr1I4HgZe5CE8IpugDw">CODEX_RECOVERY</a></p>
+      <p>269.86-MB archive paths are <code>/root/.codex</code> and <code>/usr/local/bin/codex-qwen</code>.</p>
+      <span class="status">AI-CONTEXT CANDIDATE · not game content</span>
+    </section>
+
+    <section class="source" role="listitem">
+      <h3>Visual evidence</h3>
+      <p class="identity">Uploaded arena screenshot · Drive visual-development PNGs</p>
+      <p>Useful visual clues, but no source commit, runtime build ID, capture log, or acceptance record.</p>
+      <span class="status">UNPROVEN / GENERATED DRAFT · not accepted gameplay</span>
+    </section>
+  </div>
+
+  <section class="source quarantine" aria-label="Excluded historical material">
+    <h3>Excluded from current filings</h3>
+    <p>MiniTZ/BoosTZ, FoundersWorld logs, old website asset maps, superseded migration packs, and generated drafts remain historical or inactive evidence.</p>
+  </section>
+</div>
