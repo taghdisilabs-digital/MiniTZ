@@ -10,8 +10,8 @@
 
 - Task 1 — COMPLETED.
 - Task 2 — COMPLETED.
-- Task 3 — IN_PROGRESS.
-- Task 4 — PENDING.
+- Task 3 — COMPLETED.
+- Task 4 — IN_PROGRESS.
 - Task 5 — PENDING.
 
 ### Task 1: Auth and HTTP contract
@@ -27,9 +27,9 @@
 - [x] Run tests and commit.
 
 ### Task 3: Dialog, runs, and SSE
-- [ ] Add failing tests for observer write rejection and approved capability allowlist.
-- [ ] Implement SSE event queues.
-- [ ] Implement project-scoped local Codex dialog jobs and exact approved run commands.
+- [x] Add failing tests for observer write rejection and approved capability allowlist.
+- [x] Implement SSE event queues.
+- [x] Implement project-scoped local Codex dialog jobs and exact approved run commands.
 - [x] Run tests and commit.
 
 ### Task 4: VPS service and static deployment

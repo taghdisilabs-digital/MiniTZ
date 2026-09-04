@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import http.client
 import json
+import queue
 import tempfile
 import threading
 import unittest
@@ -154,3 +155,17 @@ class GatewayTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class EventHubTest(unittest.TestCase):
+    def test_publish_subscribe_is_lane_scoped(self):
+        hub = EventHub()
+        website = hub.subscribe("Website")
+        engine = hub.subscribe("Engine")
+        event = {"text": "current event"}
+        hub.publish("Website", event)
+        self.assertEqual(website.get(timeout=1), event)
+        with self.assertRaises(queue.Empty):
+            engine.get(timeout=0.05)
+        hub.unsubscribe("Website", website)
+        hub.unsubscribe("Engine", engine)

@@ -337,7 +337,11 @@ class ControlHandler(BaseHTTPRequestHandler):
             if not lane or not message or len(message) > 12000:
                 self._json(HTTPStatus.BAD_REQUEST, {"error": "invalid_dialog"})
                 return
-            dialog_id = self.server.runner.start_dialog(lane, message, self.server.events.publish)
+            try:
+                dialog_id = self.server.runner.start_dialog(lane, message, self.server.events.publish)
+            except ValueError:
+                self._json(HTTPStatus.CONFLICT, {"error": "lane_workspace_unavailable"})
+                return
             self._json(HTTPStatus.ACCEPTED, {"dialog_id": dialog_id, "status": "ACCEPTED"})
             return
         if path == "/v1/control/runs":
@@ -350,7 +354,11 @@ class ControlHandler(BaseHTTPRequestHandler):
             if not lane or capability_id not in APPROVED_CAPABILITIES:
                 self._json(HTTPStatus.BAD_REQUEST, {"error": "unapproved_capability"})
                 return
-            result = self.server.runner.run_capability(lane, capability_id, auto_run, self.server.events.publish)
+            try:
+                result = self.server.runner.run_capability(lane, capability_id, auto_run, self.server.events.publish)
+            except ValueError:
+                self._json(HTTPStatus.CONFLICT, {"error": "lane_workspace_unavailable"})
+                return
             self._json(HTTPStatus.OK, result)
             return
         self._json(HTTPStatus.NOT_FOUND, {"error": "not_found"})
