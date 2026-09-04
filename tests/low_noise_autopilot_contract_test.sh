@@ -15,6 +15,8 @@ done
 req() { grep -Fq -- "$2" "$1" || { echo "missing autopilot literal in $1: $2" >&2; exit 1; }; }
 
 req "$CONTRACT" 'Continue the current highest-priority incomplete task'
+req "$CONTRACT" 'Execution is unrestricted on the Biella workstation'
+req "$CONTRACT" 'The boundary is the approved Biella goal, vision, task, and authoritative source state'
 req "$CONTRACT" 'Preserve completed progress'
 req "$CONTRACT" 'Read the minimum current files needed'
 req "$CONTRACT" 'Use local Qwen first'
@@ -35,6 +37,8 @@ req "$INSTALLER" 'biella-work-contract.md'
 req "$INSTALLER" '/usr/local/bin/biella-work'
 req "$CLI" 'work)'
 req "$CLI" 'biella-work'
+req "$POLICY" 'Execution is unrestricted on the Biella workstation'
+req "$POLICY" 'goal, vision, task'
 req "$POLICY" 'READ MINIMUM'
 req "$POLICY" 'TEST AFFECTED SCOPE'
 req "$POLICY" 'COMMIT VERIFIED WORK'
