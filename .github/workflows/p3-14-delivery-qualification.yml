@@ -42,6 +42,19 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends ffmpeg
 
+      - name: Provide non-executed Blender and sandbox fixtures
+        run: |
+          cat > /tmp/p3-14-nonexecuted-tool <<'SH'
+          #!/bin/sh
+          echo "P3-14 qualification must not execute this scheduler fixture" >&2
+          exit 97
+          SH
+          chmod 0755 /tmp/p3-14-nonexecuted-tool
+          sudo install -m 0755 /tmp/p3-14-nonexecuted-tool /usr/bin/blender
+          sudo install -m 0755 /tmp/p3-14-nonexecuted-tool /usr/bin/bwrap
+          sudo mkdir -p /usr/lib/blender/scripts/addons_core/io_scene_gltf2
+          printf '%s\n' '# P3-14 non-executed scheduler fixture' | sudo tee /usr/lib/blender/scripts/addons_core/io_scene_gltf2/__init__.py >/dev/null
+
       - name: Record exact source identity
         run: |
           {
