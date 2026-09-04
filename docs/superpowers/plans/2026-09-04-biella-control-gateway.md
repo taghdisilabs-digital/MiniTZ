@@ -13,6 +13,9 @@
 - Task 3 — COMPLETED.
 - Task 4 — COMPLETED.
 - Task 5 — BLOCKED_CLOUDFLARE_TUNNEL_EDIT_PERMISSION; local gateway verified.
+  - Temporary preview verified: https://streaming-vitamin-technological-looks.trycloudflare.com/control/
+  - Gateway auth state: NOT_CONFIGURED; run `biella-control-auth configure` locally.
+  - Browser local-agent path verified: `BROWSER_AGENT_READY`; Engine worktree remained clean.
 
 ### Task 1: Auth and HTTP contract
 - [x] Add failing tests for role enforcement, session cookies, and no generic command route.
