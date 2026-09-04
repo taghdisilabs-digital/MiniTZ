@@ -9,6 +9,8 @@ STATE_ROOT="$TEST_ROOT/state"
 LOG_ROOT="$TEST_ROOT/log"
 MARKER="$TEST_ROOT/codex-mcp-path"
 FAKE_TOKEN="smoke-token-not-a-production-secret"
+FAKE_CF_TOKEN="smoke-cloudflare-token-not-a-production-secret"
+FAKE_CF_ACCOUNT="0123456789abcdef0123456789abcdef"
 
 cleanup() {
   if [[ -f "$STATE_ROOT/cloudflared.pid" ]]; then
@@ -20,8 +22,8 @@ trap cleanup EXIT
 
 install -d -m 700 "$RUNTIME_ROOT" "$STATE_ROOT" "$LOG_ROOT" "$TEST_ROOT/bin"
 install -m 755 "$FIXTURE_DIR/bin/curl" "$FIXTURE_DIR/bin/codex" "$FIXTURE_DIR/bin/cloudflared" "$FIXTURE_DIR/bin/systemctl" "$TEST_ROOT/bin/"
-printf 'SATURN_BASE_URL=https://saturn.example.invalid\nSATURN_TOKEN=%q\nCLOUDFLARE_TUNNEL_TOKEN=\nCLOUDFLARE_CONFIGURED=1\n' \
-  "$FAKE_TOKEN" > "$RUNTIME_ROOT/runtime.env"
+printf 'SATURN_BASE_URL=https://saturn.example.invalid\nSATURN_TOKEN=%q\nCLOUDFLARE_ACCOUNT_ID=%q\nCLOUDFLARE_API_TOKEN=%q\nCLOUDFLARE_TUNNEL_TOKEN=\nCLOUDFLARE_CONFIGURED=1\n' \
+  "$FAKE_TOKEN" "$FAKE_CF_ACCOUNT" "$FAKE_CF_TOKEN" > "$RUNTIME_ROOT/runtime.env"
 chmod 600 "$RUNTIME_ROOT/runtime.env"
 
 set +e
@@ -42,12 +44,14 @@ set -e
 }
 grep -F --quiet -- 'READY' <<< "$OUTPUT"
 grep -F --quiet -- 'Saturn:       CONNECTED (1 resources, 1 instance types)' <<< "$OUTPUT"
-grep -F --quiet -- 'Cloudflare:   CONNECTED (quick)' <<< "$OUTPUT"
+grep -F --quiet -- 'Cloudflare:   CONNECTED (account-api)' <<< "$OUTPUT"
 grep -F --quiet -- 'Codex:        READY (Saturn MCP registered; use biella-codex)' <<< "$OUTPUT"
 grep -F --quiet -- 'Gateway:      NOT_VERIFIED' <<< "$OUTPUT"
 grep -F --quiet -- 'saturn_resource_count=1' "$STATE_ROOT/status.env"
 grep -F --quiet -- 'qwen_gpu_layers=26' "$STATE_ROOT/status.env"
+grep -F --quiet -- 'cloudflare_account_api=VERIFIED' "$STATE_ROOT/status.env"
 [[ "$(stat -c '%a' "$RUNTIME_ROOT/runtime.env")" == "600" ]]
 ! grep -R -F --quiet -- "$FAKE_TOKEN" "$STATE_ROOT" "$LOG_ROOT" "$MARKER"
+! grep -R -F --quiet -- "$FAKE_CF_TOKEN" "$STATE_ROOT" "$LOG_ROOT" "$MARKER"
 
 printf 'local AI runtime smoke: PASS\n'

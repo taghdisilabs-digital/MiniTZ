@@ -6,7 +6,7 @@ IFS=$'\n\t'
 #
 # This launcher intentionally owns only the local execution boundary:
 # Ollama -> Qwen, Codex -> local Ollama, Codex -> Saturn stdio MCP, and
-# Cloudflare -> the existing localhost gateway. It does not create a second
+# Cloudflare account API + optional tunnel. It does not create a second
 # project manager, reviewer, router, or model-download path.
 
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -35,8 +35,11 @@ BIELLA_GATEWAY_URL="${BIELLA_GATEWAY_URL%/}"
 
 SATURN_BASE_URL=""
 SATURN_TOKEN=""
+CLOUDFLARE_ACCOUNT_ID=""
+CLOUDFLARE_API_TOKEN=""
 CLOUDFLARE_TUNNEL_TOKEN=""
 CLOUDFLARE_CONFIGURED=""
+CLOUDFLARE_ACCOUNT_API_STATUS="NOT_CONFIGURED"
 SATURN_RESOURCE_COUNT=0
 SATURN_INSTANCE_TYPE_COUNT=0
 QWEN_VRAM_BYTES=0
@@ -104,19 +107,28 @@ prompt_and_save_credentials() {
     printf '\n'
   fi
 
-  if [[ -z "$CLOUDFLARE_CONFIGURED" ]]; then
+  if [[ -z "$CLOUDFLARE_ACCOUNT_ID" ]]; then
     require_interactive_prompt
-    printf 'Cloudflare tunnel token (press Enter for existing/quick tunnel):\n> '
-    read -r -s CLOUDFLARE_TUNNEL_TOKEN
+    printf 'Cloudflare Account ID:\n> '
+    read -r CLOUDFLARE_ACCOUNT_ID
+  fi
+
+  if [[ -z "$CLOUDFLARE_API_TOKEN" ]]; then
+    require_interactive_prompt
+    printf 'Cloudflare Workers AI API token:\n> '
+    read -r -s CLOUDFLARE_API_TOKEN
     printf '\n'
-    CLOUDFLARE_CONFIGURED=1
   fi
 
   [[ -n "$SATURN_BASE_URL" ]] || die "Saturn URL is required"
   [[ "$SATURN_BASE_URL" =~ ^https?://[^[:space:]]+$ ]] || die "Saturn URL must start with http:// or https://"
   [[ -n "$SATURN_TOKEN" ]] || die "Saturn API token is required"
+  [[ "$CLOUDFLARE_ACCOUNT_ID" =~ ^[0-9A-Fa-f]{32}$ ]] || die "Cloudflare Account ID must be 32 hex characters"
+  [[ -n "$CLOUDFLARE_API_TOKEN" ]] || die "Cloudflare Workers AI API token is required"
   reject_newlines "$SATURN_BASE_URL" "Saturn URL"
   reject_newlines "$SATURN_TOKEN" "Saturn API token"
+  reject_newlines "$CLOUDFLARE_ACCOUNT_ID" "Cloudflare Account ID"
+  reject_newlines "$CLOUDFLARE_API_TOKEN" "Cloudflare API token"
   reject_newlines "$CLOUDFLARE_TUNNEL_TOKEN" "Cloudflare tunnel token"
 
   local tmp_env
@@ -125,6 +137,8 @@ prompt_and_save_credentials() {
   {
     printf 'SATURN_BASE_URL=%q\n' "$SATURN_BASE_URL"
     printf 'SATURN_TOKEN=%q\n' "$SATURN_TOKEN"
+    printf 'CLOUDFLARE_ACCOUNT_ID=%q\n' "$CLOUDFLARE_ACCOUNT_ID"
+    printf 'CLOUDFLARE_API_TOKEN=%q\n' "$CLOUDFLARE_API_TOKEN"
     printf 'CLOUDFLARE_TUNNEL_TOKEN=%q\n' "$CLOUDFLARE_TUNNEL_TOKEN"
     printf 'CLOUDFLARE_CONFIGURED=%q\n' "$CLOUDFLARE_CONFIGURED"
   } > "$tmp_env"
@@ -392,8 +406,24 @@ start_quick_tunnel() {
   return 1
 }
 
+verify_cloudflare_account_api() {
+  local response
+  response="$(curl -fsS --connect-timeout 3 --max-time 30 \
+    -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+    "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/ai/models/search")" \
+    || die "Cloudflare Workers AI account API verification failed"
+  python3 -c '
+import json, sys
+data=json.load(sys.stdin)
+sys.exit(0 if data.get("success") is True else 1)
+' <<< "$response" \
+    || die "Cloudflare Workers AI account API rejected the configured credentials"
+  CLOUDFLARE_ACCOUNT_API_STATUS="VERIFIED"
+}
+
 connect_cloudflare() {
   local cloudflared_bin=""
+  verify_cloudflare_account_api
   if command -v cloudflared >/dev/null 2>&1; then
     cloudflared_bin="$(command -v cloudflared)"
   fi
@@ -404,11 +434,11 @@ connect_cloudflare() {
     if command -v systemctl >/dev/null 2>&1 && systemctl daemon-reload >/dev/null 2>&1 \
       && systemctl enable --now biella-cloudflared.service >/dev/null 2>&1 \
       && wait_for_systemd_cloudflared; then
-      CLOUDFLARE_MODE="managed"
+      CLOUDFLARE_MODE="account-api+managed-tunnel"
     else
       start_cloudflared_direct "$cloudflared_bin" \
         || die "Cloudflare managed tunnel could not be started"
-      CLOUDFLARE_MODE="managed-direct"
+      CLOUDFLARE_MODE="account-api+managed-direct-tunnel"
     fi
     CLOUDFLARE_STATUS="CONNECTED"
     return 0
@@ -425,10 +455,7 @@ connect_cloudflare() {
     return 0
   fi
 
-  [[ -n "$cloudflared_bin" ]] || die "Cloudflare is not configured: install cloudflared or provide an existing tunnel"
-  start_quick_tunnel "$cloudflared_bin" \
-    || die "Cloudflare quick tunnel did not expose a trycloudflare.com endpoint"
-  CLOUDFLARE_MODE="quick"
+  CLOUDFLARE_MODE="account-api"
   CLOUDFLARE_STATUS="CONNECTED"
 }
 
@@ -458,6 +485,7 @@ write_status() {
     printf 'saturn_resource_count=%q\n' "$SATURN_RESOURCE_COUNT"
     printf 'saturn_instance_type_count=%q\n' "$SATURN_INSTANCE_TYPE_COUNT"
     printf 'cloudflare=%q\n' "$CLOUDFLARE_STATUS"
+    printf 'cloudflare_account_api=%q\n' "$CLOUDFLARE_ACCOUNT_API_STATUS"
     printf 'cloudflare_mode=%q\n' "$CLOUDFLARE_MODE"
     printf 'gateway=%q\n' "$GATEWAY_STATUS"
     printf 'codex=READY\n'
@@ -486,7 +514,7 @@ main() {
   printf '[4/6] Registering Saturn tools with Codex\n'
   register_saturn_with_codex
 
-  printf '[5/6] Starting Cloudflare\n'
+  printf '[5/6] Connecting Cloudflare account API / optional tunnel\n'
   connect_cloudflare
 
   printf '[6/6] Checking services\n'

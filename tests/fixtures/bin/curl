@@ -11,6 +11,9 @@ case "$*" in
   *"/api/ps")
     printf '%s\n' '{"models":[{"name":"qwen3-coder-next:biella","size_vram":28899803136}]}'
     ;;
+  *"api.cloudflare.com/client/v4/accounts/"*"/ai/models/search"*)
+    printf '%s\n' '{"success":true,"errors":[],"messages":[],"result":[]}'
+    ;;
   *"/health")
     exit 1
     ;;

@@ -35,16 +35,18 @@ treated as a model endpoint.
 
 ## Cloudflare boundary
 
-Cloudflare is external ingress only. The configured origin is the existing
-localhost gateway at `http://127.0.0.1:8787`; the launcher does not create that
-gateway or change its routes. A supplied tunnel token is saved as a root-only
-token file and used by a managed systemd service when systemd is available.
-Pressing Enter at the token prompt reuses an active service or uses a quick
-tunnel if `cloudflared` is installed.
+Cloudflare Workers AI uses the account-scoped provider credentials already
+expected by the Engine adapters: `CLOUDFLARE_ACCOUNT_ID` and
+`CLOUDFLARE_API_TOKEN`. Startup verifies those credentials against the Workers
+AI account API. Codex inherits the root-only runtime environment so the Engine
+provider adapters can use the same account API without embedding credentials in
+source.
 
-The tunnel's remote ingress mapping remains a Cloudflare-side configuration.
-The launcher reports tunnel process connectivity separately from gateway health
-so a tunnel process is not mistaken for a healthy application origin.
+Cloudflare Tunnel remains optional external ingress around the existing
+localhost gateway at `http://127.0.0.1:8787`. A supplied
+`CLOUDFLARE_TUNNEL_TOKEN` can start the managed tunnel service; it is not a
+replacement for the Workers AI account API credentials and is never inserted
+between Codex and Ollama.
 
 ## Startup sequence
 

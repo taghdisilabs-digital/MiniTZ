@@ -52,9 +52,12 @@ saturn:
 cloudflare:
   boundary: external_ingress_only
   origin: http://127.0.0.1:8787
-  credential_name: CLOUDFLARE_TUNNEL_TOKEN
-  managed_mode: systemd_token_file
-  empty_token_mode: existing_service_or_quick_tunnel
+  account_api_credentials:
+    - CLOUDFLARE_ACCOUNT_ID
+    - CLOUDFLARE_API_TOKEN
+  account_api_role: workers_ai_provider_api
+  tunnel_credential: CLOUDFLARE_TUNNEL_TOKEN
+  tunnel_mode: optional_external_ingress_only
   runtime_status: validation_pending
 
 observed_baseline_2026_09_04:

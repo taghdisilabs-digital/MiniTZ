@@ -13,10 +13,11 @@ bash ops/local-ai/install-biella-ai.sh
 biella-ai-start
 ```
 
-The first interactive start asks for the Saturn URL, the Saturn API token, and
-an optional Cloudflare tunnel token. The URL/token values are written only to
-`/root/.config/biella-ai/runtime.env`, owned by root with mode `0600`. No secret
-belongs in Git, Drive, or the project manifest.
+The first interactive start asks for the Saturn URL/token and the Cloudflare
+Account ID plus Workers AI API token. An optional `CLOUDFLARE_TUNNEL_TOKEN`
+may be supplied separately when external tunnel ingress is wanted. Provider
+credentials are written only to `/root/.config/biella-ai/runtime.env`, owned by
+root with mode `0600`. No secret belongs in Git, Drive, or the project manifest.
 
 ## Runtime contract
 
@@ -30,10 +31,10 @@ belongs in Git, Drive, or the project manifest.
   the local Ollama model.
 - Saturn is connected through the official Saturn MCP package and is probed
   through its API before the MCP entry is registered with Codex.
-- Cloudflare is external ingress only. A managed token uses a root-only token
-  file and systemd; an empty token reuses an active service or starts a quick
-  tunnel to the existing localhost gateway. It never sits between Codex and
-  Ollama.
+- Cloudflare Workers AI uses `CLOUDFLARE_ACCOUNT_ID` and
+  `CLOUDFLARE_API_TOKEN`; startup verifies those credentials against the
+  Workers AI account API. A tunnel token is optional external ingress only and
+  never sits between Codex and Ollama.
 
 The launcher does not perform a model unload/reload tuning loop. If the VRAM
 bound fails, it stops and records the observed state for diagnosis.
