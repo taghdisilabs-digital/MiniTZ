@@ -30,3 +30,10 @@ echo 'unified codex runtime: PASS'
 
 feed_out="$(BIELLA_AI_RUNTIME_ENV="$tmp/runtime.env" BIELLA_CODEX_BIN="$tmp/codex" BIELLA_CODEX_FEEDER="$tmp/feeder" "$root/ops/local-ai/biella-codex.sh" feed status --run-id demo01-50)"
 grep -Fq 'FEEDER_ARGS=status --run-id demo01-50' <<<"$feed_out"
+
+mkdir -p "$tmp/installed" "$tmp/bin"
+cp "$root/ops/local-ai/biella-codex.sh" "$tmp/installed/biella-codex.sh"
+cp "$tmp/feeder" "$tmp/installed/biella_codex_feeder.py"
+ln -s "$tmp/installed/biella-codex.sh" "$tmp/bin/biella-codex"
+symlink_out="$(BIELLA_AI_RUNTIME_ENV="$tmp/runtime.env" BIELLA_CODEX_BIN="$tmp/codex" "$tmp/bin/biella-codex" feed status --run-id demo01-50)"
+grep -Fq 'FEEDER_ARGS=status --run-id demo01-50' <<<"$symlink_out"

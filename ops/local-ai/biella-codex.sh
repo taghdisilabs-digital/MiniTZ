@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+readonly SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
 readonly BIELLA_CODEX_FEEDER="${BIELLA_CODEX_FEEDER:-$SCRIPT_DIR/biella_codex_feeder.py}"
 readonly RUNTIME_ENV="${BIELLA_AI_RUNTIME_ENV:-/root/.config/biella-ai/runtime.env}"
 readonly CODEX_BIN="${BIELLA_CODEX_BIN:-/usr/bin/codex}"
