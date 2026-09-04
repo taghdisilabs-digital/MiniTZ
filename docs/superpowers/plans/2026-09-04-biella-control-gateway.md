@@ -12,7 +12,8 @@
 - Task 2 — COMPLETED.
 - Task 3 — COMPLETED.
 - Task 4 — COMPLETED.
-- Task 5 — BLOCKED_CLOUDFLARE_TUNNEL_EDIT_PERMISSION; local gateway verified.
+- Task 5 — COMPLETED; permanent Cloudflare ingress and live control readback verified.
+- Low-noise unrestricted browser autopilot verified; execution is bounded by Biella goal/vision/task intent rather than sandboxing.
   - Temporary preview verified: https://streaming-vitamin-technological-looks.trycloudflare.com/control/
   - Gateway auth state: NOT_CONFIGURED; run `biella-control-auth configure` locally.
   - Browser local-agent path verified: `BROWSER_AGENT_READY`; Engine worktree remained clean.
