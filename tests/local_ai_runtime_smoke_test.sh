@@ -22,6 +22,7 @@ trap cleanup EXIT
 
 install -d -m 700 "$RUNTIME_ROOT" "$STATE_ROOT" "$LOG_ROOT" "$TEST_ROOT/bin"
 install -m 755 "$FIXTURE_DIR/bin/curl" "$FIXTURE_DIR/bin/codex" "$FIXTURE_DIR/bin/cloudflared" "$FIXTURE_DIR/bin/systemctl" "$TEST_ROOT/bin/"
+ln -s "$ROOT_DIR/ops/local-ai/biella-ai-start.sh" "$TEST_ROOT/bin/biella-ai-start"
 printf 'SATURN_BASE_URL=https://saturn.example.invalid\nSATURN_TOKEN=%q\nCLOUDFLARE_ACCOUNT_ID=%q\nCLOUDFLARE_API_TOKEN=%q\nCLOUDFLARE_TUNNEL_TOKEN=\nCLOUDFLARE_CONFIGURED=1\n' \
   "$FAKE_TOKEN" "$FAKE_CF_ACCOUNT" "$FAKE_CF_TOKEN" > "$RUNTIME_ROOT/runtime.env"
 chmod 600 "$RUNTIME_ROOT/runtime.env"
@@ -34,7 +35,7 @@ OUTPUT="$(PATH="$TEST_ROOT/bin:$PATH" \
   BIELLA_AI_STATE_ROOT="$STATE_ROOT" \
   BIELLA_AI_LOG_ROOT="$LOG_ROOT" \
   BIELLA_GATEWAY_URL="http://127.0.0.1:8787" \
-  bash "$ROOT_DIR/ops/local-ai/biella-ai-start.sh" 2>&1)"
+  "$TEST_ROOT/bin/biella-ai-start" 2>&1)"
 EXIT_CODE=$?
 set -e
 

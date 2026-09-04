@@ -9,7 +9,8 @@ IFS=$'\n\t'
 # Cloudflare account API + optional tunnel. It does not create a second
 # project manager, reviewer, router, or model-download path.
 
-readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+readonly SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
 readonly RUNTIME_ROOT="${BIELLA_AI_RUNTIME_ROOT:-/root/.config/biella-ai}"
 readonly STATE_ROOT="${BIELLA_AI_STATE_ROOT:-/var/lib/biella-ai}"
 readonly LOG_ROOT="${BIELLA_AI_LOG_ROOT:-/var/log/biella-ai}"
