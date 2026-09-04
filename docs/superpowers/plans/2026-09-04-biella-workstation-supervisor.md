@@ -26,7 +26,7 @@
 - Task 2 — COMPLETED and verified 2026-09-04.
 - Task 3 — COMPLETED and verified 2026-09-04.
 - Task 4 — COMPLETED and verified 2026-09-04.
-- Task 5 — IN_PROGRESS.
+- Task 5 — MERGE_PENDING; acceptance verified 2026-09-04.
 
 ### Task 1: Supervisor command contract
 
@@ -105,13 +105,13 @@
 **Interfaces:**
 - Produces installed `/usr/local/bin/biella`, `biella-local-agent`, `biella-codex`, and active `biella-ollama.service`.
 
-- [ ] Run all repository shell tests and `git diff --check`; require zero failures before touching live service ownership.
-- [ ] Install the supervisor and refreshed local-AI runtime from the isolated branch.
-- [ ] Start `biella-ollama.service`, warm Qwen, verify native and `/v1` APIs, then retire the legacy `tmux llm-router` only after the service is healthy.
-- [ ] Run `biella providers`; require the core verified provider set to remain healthy and require every additional lane to report an explicit independent state rather than blocking the workstation.
-- [ ] Run Modal token info, Codex MCP list, GPU/VRAM checks, disk checks, and `biella doctor`.
-- [ ] Run bounded cleanup and verify the known temporary HTTP/tunnel processes are gone while Desktop Commander remains online.
-- [ ] Re-run all workstation acceptance checks after cleanup.
+- [x] Run all repository shell tests and `git diff --check`; require zero failures before touching live service ownership.
+- [x] Install the supervisor and refreshed local-AI runtime from the isolated branch.
+- [x] Start `biella-ollama.service`, warm Qwen, verify native and `/v1` APIs, then retire the legacy `tmux llm-router` only after the service is healthy.
+- [x] Run `biella providers`; require the core verified provider set to remain healthy and require every additional lane to report an explicit independent state rather than blocking the workstation.
+- [x] Run Modal token info, Codex MCP list, GPU/VRAM checks, disk checks, and `biella doctor`.
+- [x] Run bounded cleanup and verify the known temporary HTTP/tunnel processes are gone while Desktop Commander remains online.
+- [x] Re-run all workstation acceptance checks after cleanup.
 - [ ] Commit any evidence-driven fixes, verify branch clean, and fast-forward `main` only after all acceptance checks pass.
 
 ## Plan self-review
