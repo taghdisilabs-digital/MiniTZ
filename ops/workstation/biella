@@ -16,6 +16,7 @@ Commands:
   status     Show compact workstation status
   doctor     Run workstation diagnostics
   agent      Start the fast local-first Codex/Qwen agent
+  work       Run low-noise Codex/Qwen autopilot
   codex      Start the full Biella Codex controller
   providers  Check configured external providers
   configure  Update provider credentials with hidden prompts
@@ -60,6 +61,9 @@ case "$command_name" in
     ;;
   agent)
     biella_exec_or_fail biella-local-agent "$@"
+    ;;
+  work)
+    biella_exec_or_fail biella-work "$@"
     ;;
   codex)
     biella_exec_or_fail biella-codex "$@"

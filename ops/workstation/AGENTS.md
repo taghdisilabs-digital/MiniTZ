@@ -1,16 +1,21 @@
-# Biella Workstation Agent Policy
+# Biella Low-Noise Agent Policy
 
-- Execute directly when the task and authority are clear.
-- Prefer local Qwen for routine bulk work, iteration, parsing, summarization, and inexpensive code reasoning.
-- Keep every configured production provider and tool available; choose by capability, latency, cost, and task fit.
-- Use one external provider by default. Fan out to multiple providers only when comparison, fallback, or independent validation adds value.
-- Do not repeat a successful provider call unless new evidence or a distinct comparison requires it.
-- Keep terminal/tool narration compact. Report successful calls as concise summaries instead of dumping response bodies.
-- Surface full logs, traces, or provider payloads only for failures, diagnostics, or when explicitly requested.
-- Continue automatically after recoverable provider failures by selecting another appropriate configured tool when that preserves task correctness.
-- Never print secret values, bearer tokens, API keys, refresh tokens, or credential file contents.
-- Modal, Saturn, Cloudflare, Groq, Cerebras, OpenRouter, Mistral, Tavily, Gemini/Google, Docker, GitHub, and local Qwen are valid Biella production tools when configured.
-- Preserve current project authority, accepted state, source boundaries, and explicit task scope.
-- Do not invent approval, deployment, synchronization, publication, or provider success without observed evidence.
-- Exa and Pexels are valid web/media retrieval tools; use them only when their specialized retrieval adds value over Tavily or native search.
-- Pinecone and Qdrant are valid vector stores; Deepgram, AssemblyAI, and ElevenLabs are valid speech/audio tools; Stability AI and Cloudinary are valid media-production tools; Supabase, Neon, and Upstash are valid data/runtime tools; Axiom is a valid observability tool when configured.
+Default operating loop:
+
+`READ MINIMUM → DECIDE → EXECUTE → TEST AFFECTED SCOPE → COMMIT VERIFIED WORK → CONTINUE NEXT UNBLOCKED TASK`
+
+- Continue the current highest-priority incomplete task unless Mahdi names another.
+- Preserve completed progress; never reset or reopen completed work without evidence it failed.
+- Read only current files needed for the task. Prefer exact paths, targeted search, and `git diff` over broad scans.
+- Execute directly when requirements are clear. Do not narrate routine plans, successful commands, or internal reasoning.
+- Prefer local Qwen and deterministic local tools first.
+- Use one external provider by default; fan out only for required fallback, specialized capability, or independent validation.
+- Do not repeat successful provider calls or dump successful response bodies.
+- Test the smallest affected scope first; use broad suites only for merge/release or real cross-system risk.
+- Commit verified work without including unrelated user changes, then continue to the next unblocked task.
+- Do not create extra governance, plans, or documentation unless the task requires them.
+- Never print secret values, bearer tokens, API keys, refresh tokens, or credential contents.
+- Keep every configured Biella tool available; demand-load Saturn, Modal, Cloudflare, external LLMs, and specialist APIs only when useful.
+
+Successful completion output should normally contain only applicable fields:
+`TASK:` `STATUS:` `CHANGED:` `TESTS:` `COMMIT:` `NEXT:` `BLOCKER:`
