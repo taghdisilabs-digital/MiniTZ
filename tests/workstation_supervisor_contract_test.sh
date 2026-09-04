@@ -6,6 +6,7 @@ CLI="$ROOT_DIR/ops/workstation/biella"
 LIB="$ROOT_DIR/ops/workstation/biella-lib.sh"
 INSTALLER="$ROOT_DIR/ops/workstation/install-biella-workstation.sh"
 SERVICE="$ROOT_DIR/ops/workstation/biella-ollama.service"
+POLICY="$ROOT_DIR/ops/workstation/AGENTS.md"
 
 require_file() {
   [[ -f "$1" ]] || { echo "missing required artifact: $1" >&2; exit 1; }
@@ -26,7 +27,7 @@ forbid_literal() {
     exit 1
   }
 }
-for f in "$CLI" "$LIB" "$INSTALLER" "$SERVICE"; do require_file "$f"; done
+for f in "$CLI" "$LIB" "$INSTALLER" "$SERVICE" "$POLICY"; do require_file "$f"; done
 
 for cmd in up down status doctor agent codex providers modal logs cleanup; do
   require_literal "$CLI" "$cmd"
@@ -48,6 +49,10 @@ require_literal "$SERVICE" 'OLLAMA_KV_CACHE_TYPE=q8_0'
 require_literal "$SERVICE" 'OLLAMA_KEEP_ALIVE=-1'
 require_literal "$LIB" '/v1/responses'
 require_literal "$LIB" '30 * 1024 * 1024 * 1024'
+require_literal "$POLICY" 'local Qwen'
+require_literal "$POLICY" 'one external provider'
+require_literal "$POLICY" 'Never print secret values'
+require_literal "$INSTALLER" '/root/.codex/AGENTS.md'
 forbid_literal "$CLI" 'ollama pull'
 forbid_literal "$LIB" 'ollama pull'
 forbid_literal "$INSTALLER" 'ollama pull'

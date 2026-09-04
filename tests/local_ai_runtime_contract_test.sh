@@ -6,6 +6,7 @@ LAUNCHER="$ROOT_DIR/ops/local-ai/biella-ai-start.sh"
 SATURN_MCP="$ROOT_DIR/ops/local-ai/biella-saturn-mcp.sh"
 INSTALLER="$ROOT_DIR/ops/local-ai/install-biella-ai.sh"
 CODEX_WRAPPER="$ROOT_DIR/ops/local-ai/biella-codex.sh"
+LOCAL_AGENT="$ROOT_DIR/ops/local-ai/biella-local-agent.sh"
 MANIFEST="$ROOT_DIR/docs/project-state/BIELLA_LOCAL_AI_RUNTIME_MANIFEST_2026-09-04.yaml"
 
 require_file() {
@@ -34,6 +35,7 @@ require_file "$LAUNCHER"
 require_file "$SATURN_MCP"
 require_file "$INSTALLER"
 require_file "$CODEX_WRAPPER"
+require_file "$LOCAL_AGENT"
 require_file "$MANIFEST"
 
 require_literal "$LAUNCHER" 'qwen3-coder-next:biella'
@@ -60,6 +62,9 @@ require_literal "$CODEX_WRAPPER" 'ollama'
 require_literal "$CODEX_WRAPPER" '--dangerously-bypass-approvals-and-sandbox'
 require_literal "$CODEX_WRAPPER" '--dangerously-bypass-hook-trust'
 require_literal "$CODEX_WRAPPER" '--search'
+require_literal "$LOCAL_AGENT" 'biella-codex'
+require_literal "$LOCAL_AGENT" 'mcp_servers.saturn.enabled=false'
+require_literal "$INSTALLER" 'biella-local-agent'
 require_literal "$MANIFEST" 'WEBSITE'
 require_literal "$MANIFEST" 'ENGINE'
 require_literal "$MANIFEST" 'GAMES'
