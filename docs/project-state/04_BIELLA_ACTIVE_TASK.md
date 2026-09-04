@@ -84,11 +84,11 @@ P3_14_durable_close:
   artifact_id: 9941313281
   artifact_sha256: 9399ed9d797de916553a0db298f9e72b46d5150b557e6db742ba10424add59bb
   artifact_size_bytes: 896380
-  evidence_commit: 250c47f29f13ccd0641aa8b830bdda5dcd8fee47
-  evidence_blob_sha: 22608d28690819bdc4ca6e30abea7031d1a8690d
+  evidence_commit: 1cd04275ee39dc7d2f8102b4daaa484718a2f974
+  evidence_blob_sha: 93f7b982442c9f0f0ccf24571c10e95c24848a08
   evidence_path: docs/project-state/evidence/P3_14_DELIVERY_QUALIFICATION_EVIDENCE.md
-  qualification_record_source_commit: ae5d69a0686968af96283260d1c8073f84a833d2
-  qualification_record_source_tree: 39d8f9e338365a28437b44eebde601c80f49508a
+  qualification_record_source_commit: cb451cc221993efd5963727866873c2256c1090e
+  qualification_record_source_tree: cfcf31f27db642aad1539a5a040f0b5059e828dd
   live_l40s_execution: NOT_RUN
   live_cloudflare_publish: NOT_RUN
   drive_publication: NOT_RUN
