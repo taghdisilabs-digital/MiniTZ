@@ -18,6 +18,7 @@ Commands:
   agent      Start the fast local-first Codex/Qwen agent
   codex      Start the full Biella Codex controller
   providers  Check configured external providers
+  configure  Update provider credentials with hidden prompts
   modal      Run Modal CLI with Biella environment
   logs       Show recent Biella service logs
   cleanup    Remove known temporary Biella runtime noise
@@ -52,6 +53,7 @@ case "$command_name" in
     printf 'Disk:   '; biella_disk_status
     printf 'Codex:  '; command -v codex >/dev/null 2>&1 && codex --version || printf 'MISSING\n'
     printf 'Modal:  '; command -v modal >/dev/null 2>&1 && modal --version || printf 'MISSING\n'
+    printf 'Docker: '; command -v docker >/dev/null 2>&1 && docker --version || printf 'MISSING\n'
     printf 'OpenAI-compatible Qwen API: '; biella_verify_v1_responses >/dev/null 2>&1 && printf 'READY\n' || printf 'DEGRADED\n'
     printf '\nProviders:\n'
     "$SCRIPT_DIR/biella-provider-check.sh"
@@ -64,6 +66,9 @@ case "$command_name" in
     ;;
   providers)
     exec "$SCRIPT_DIR/biella-provider-check.sh" "$@"
+    ;;
+  configure)
+    exec "$SCRIPT_DIR/biella-provider-configure.sh" "$@"
     ;;
   modal)
     biella_exec_or_fail modal "$@"

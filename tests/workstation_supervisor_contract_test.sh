@@ -8,6 +8,7 @@ INSTALLER="$ROOT_DIR/ops/workstation/install-biella-workstation.sh"
 SERVICE="$ROOT_DIR/ops/workstation/biella-ollama.service"
 POLICY="$ROOT_DIR/ops/workstation/AGENTS.md"
 PROVIDERS="$ROOT_DIR/ops/workstation/biella-provider-check.sh"
+CONFIGURER="$ROOT_DIR/ops/workstation/biella-provider-configure.sh"
 
 require_file() {
   [[ -f "$1" ]] || { echo "missing required artifact: $1" >&2; exit 1; }
@@ -28,9 +29,9 @@ forbid_literal() {
     exit 1
   }
 }
-for f in "$CLI" "$LIB" "$INSTALLER" "$SERVICE" "$POLICY" "$PROVIDERS"; do require_file "$f"; done
+for f in "$CLI" "$LIB" "$INSTALLER" "$SERVICE" "$POLICY" "$PROVIDERS" "$CONFIGURER"; do require_file "$f"; done
 
-for cmd in up down status doctor agent codex providers modal logs cleanup; do
+for cmd in up down status doctor agent codex providers configure modal logs cleanup; do
   require_literal "$CLI" "$cmd"
 done
 
@@ -61,6 +62,13 @@ require_literal "$PROVIDERS" 'openrouter.ai/api/v1/models'
 require_literal "$PROVIDERS" 'api.mistral.ai/v1/models'
 require_literal "$PROVIDERS" 'api.tavily.com/usage'
 require_literal "$PROVIDERS" 'generativelanguage.googleapis.com/v1beta/models'
+require_literal "$CONFIGURER" 'GROQ_API_KEY'
+require_literal "$CONFIGURER" 'CEREBRAS_API_KEY'
+require_literal "$CONFIGURER" 'OPENROUTER_API_KEY'
+require_literal "$CONFIGURER" 'MISTRAL_API_KEY'
+require_literal "$CONFIGURER" 'TAVILY_API_KEY'
+require_literal "$INSTALLER" 'biella-provider-configure'
+require_literal "$CLI" 'Docker:'
 require_literal "$LIB" 'llm-router'
 require_literal "$LIB" 'runuser -u ollama -- env'
 require_literal "$LIB" 'pgrep -P'
