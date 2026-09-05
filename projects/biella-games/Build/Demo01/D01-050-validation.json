@@ -1,0 +1,195 @@
+{
+  "task_id": "D01-50",
+  "result": "PASS",
+  "boundary": "PRE_TRANSITION",
+  "started_utc": "2026-09-05T17:01:31.203107+00:00",
+  "verified_utc": "2026-09-05T17:01:39.882184+00:00",
+  "source_commit": "1d14a28f7b79b1079169592b3a35ebcfd3d1436c",
+  "source_tree": "4ea805d37c94028b982b6f63885425146b04b02b",
+  "verifier": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d01_050.py",
+    "bytes": 9446,
+    "sha256": "404cf8421269dad59a34670e2f7cca33db5318cdfd257c2d8b7dc6ffeb5d08ab"
+  },
+  "publication_owner": "Auto Feeder",
+  "drive_mutations": 0,
+  "canonical_folders": [
+    {
+      "drive_path": "gdrive:Biella/CURRENT",
+      "file_id": "1GbPXqefsuU7Uf6U4f4yrGetQTcphOLI3"
+    },
+    {
+      "drive_path": "gdrive:Biella/PROJECTS/GAMES",
+      "file_id": "1SgvztxBMthMRbr6BPS-n9OXa2RYyXXDb"
+    }
+  ],
+  "drive_readback": [
+    {
+      "local_path": "docs/project-state/03_BIELLA_CURRENT_STATE.md",
+      "drive_path": "gdrive:Biella/CURRENT/03_BIELLA_CURRENT_STATE.md",
+      "file_id": "1wiWcdWt4hmTf3narsLw4OqGu_ueKOSa4",
+      "metadata_before": {
+        "Path": "03_BIELLA_CURRENT_STATE.md",
+        "Name": "03_BIELLA_CURRENT_STATE.md",
+        "Size": 5386,
+        "MimeType": "text/markdown",
+        "ModTime": "2026-09-05T16:52:39.967Z",
+        "IsDir": false,
+        "ID": "1wiWcdWt4hmTf3narsLw4OqGu_ueKOSa4"
+      },
+      "metadata_after": {
+        "Path": "03_BIELLA_CURRENT_STATE.md",
+        "Name": "03_BIELLA_CURRENT_STATE.md",
+        "Size": 5386,
+        "MimeType": "text/markdown",
+        "ModTime": "2026-09-05T16:52:39.967Z",
+        "IsDir": false,
+        "ID": "1wiWcdWt4hmTf3narsLw4OqGu_ueKOSa4"
+      },
+      "local_bytes": 5386,
+      "remote_bytes": 5386,
+      "local_sha256": "4b455998cbcde3f5f2ebc21e571d1d2af9b9cbddabe07139a35f7bd879c04fb4",
+      "remote_sha256": "4b455998cbcde3f5f2ebc21e571d1d2af9b9cbddabe07139a35f7bd879c04fb4",
+      "exact_bytes": true
+    },
+    {
+      "local_path": "docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+      "drive_path": "gdrive:Biella/CURRENT/04_BIELLA_ACTIVE_TASK.md",
+      "file_id": "1liutA8evH6rPjk-U4tgR13l_kqBrx-DF",
+      "metadata_before": {
+        "Path": "04_BIELLA_ACTIVE_TASK.md",
+        "Name": "04_BIELLA_ACTIVE_TASK.md",
+        "Size": 789,
+        "MimeType": "text/markdown",
+        "ModTime": "2026-09-05T16:52:39.966Z",
+        "IsDir": false,
+        "ID": "1liutA8evH6rPjk-U4tgR13l_kqBrx-DF"
+      },
+      "metadata_after": {
+        "Path": "04_BIELLA_ACTIVE_TASK.md",
+        "Name": "04_BIELLA_ACTIVE_TASK.md",
+        "Size": 789,
+        "MimeType": "text/markdown",
+        "ModTime": "2026-09-05T16:52:39.966Z",
+        "IsDir": false,
+        "ID": "1liutA8evH6rPjk-U4tgR13l_kqBrx-DF"
+      },
+      "local_bytes": 789,
+      "remote_bytes": 789,
+      "local_sha256": "0d3729522bcf4e3e5f3218f0c38d88c53d4aec7ba7db26f5ecfb5315a3ef6622",
+      "remote_sha256": "0d3729522bcf4e3e5f3218f0c38d88c53d4aec7ba7db26f5ecfb5315a3ef6622",
+      "exact_bytes": true
+    },
+    {
+      "local_path": "projects/biella-games/docs/PRODUCTION.md",
+      "drive_path": "gdrive:Biella/PROJECTS/GAMES/PRODUCTION.md",
+      "file_id": "1LUVUz0iG_xL7eOkF1OEBtJ2R9a455eqx",
+      "metadata_before": {
+        "Path": "PRODUCTION.md",
+        "Name": "PRODUCTION.md",
+        "Size": 27955,
+        "MimeType": "text/markdown",
+        "ModTime": "2026-09-05T16:52:39.964Z",
+        "IsDir": false,
+        "ID": "1LUVUz0iG_xL7eOkF1OEBtJ2R9a455eqx"
+      },
+      "metadata_after": {
+        "Path": "PRODUCTION.md",
+        "Name": "PRODUCTION.md",
+        "Size": 27955,
+        "MimeType": "text/markdown",
+        "ModTime": "2026-09-05T16:52:39.964Z",
+        "IsDir": false,
+        "ID": "1LUVUz0iG_xL7eOkF1OEBtJ2R9a455eqx"
+      },
+      "local_bytes": 27955,
+      "remote_bytes": 27955,
+      "local_sha256": "3ecebf180f6257df94a9bc6ffd9865a36ae9da5f2a1c438e5821fdd7a2d29742",
+      "remote_sha256": "3ecebf180f6257df94a9bc6ffd9865a36ae9da5f2a1c438e5821fdd7a2d29742",
+      "exact_bytes": true
+    }
+  ],
+  "queue": {
+    "completed_predecessors": 49,
+    "total_demo_tasks": 50,
+    "active_task": "D01-50",
+    "active_status": "PENDING",
+    "authority": "projects/biella-games/docs/PRODUCTION.md",
+    "stale_03_aggregate_preserved": true
+  },
+  "predecessor_github_readback": {
+    "commit": "9d4850e0616c90c3b2a181f71232e898b64cad44",
+    "tree": "7b06627f2a1988749c8a8bf4d07acdc2849ad4f8",
+    "contained_in_source": true
+  },
+  "evidence": [
+    {
+      "path": "projects/biella-games/Build/Demo01/D01-46-acceptance.md",
+      "bytes": 1201,
+      "sha256": "e017df1d542fedd99397a6584c7fd1474b47330891042f80ce0f37e99bd3199e",
+      "source_commit": "1d14a28f7b79b1079169592b3a35ebcfd3d1436c"
+    },
+    {
+      "path": "projects/biella-games/Build/Demo01/D01-47-acceptance.md",
+      "bytes": 2170,
+      "sha256": "831b0d3940591a6724262be10dfc578d8829188bf6f00d397bfed102563af33a",
+      "source_commit": "1d14a28f7b79b1079169592b3a35ebcfd3d1436c"
+    },
+    {
+      "path": "projects/biella-games/Build/Demo01/D01-048-acceptance.md",
+      "bytes": 6498,
+      "sha256": "a992165cea75c53478d6d2f6026d740b2b0afe47347995d04e8c1cc191034936",
+      "source_commit": "1d14a28f7b79b1079169592b3a35ebcfd3d1436c"
+    },
+    {
+      "path": "projects/biella-games/Build/Demo01/D01-048-validation.json",
+      "bytes": 90719,
+      "sha256": "41a1cd54ea60aafaee8987d3f8b7f0d7bab54b7ea04a5941384ab21bb9b2c3c3",
+      "source_commit": "1d14a28f7b79b1079169592b3a35ebcfd3d1436c"
+    },
+    {
+      "path": "projects/biella-games/Build/Demo01/D01-048-independent-replay.json",
+      "bytes": 18757,
+      "sha256": "f939f92a206c6a513f0822a3809bdcbe91340d8767c7ef6098391a9a2a988c41",
+      "source_commit": "1d14a28f7b79b1079169592b3a35ebcfd3d1436c"
+    }
+  ],
+  "package": {
+    "path": "/root/biella/artifacts/games/D01-46/BiellaGames-Linux-x64-D01-46.tar.zst",
+    "bytes": 297346213,
+    "sha256": "c1085849f0919865a40191b9a40a5883be662b032766d4ef6620fa4f4b315bc8"
+  },
+  "package_source_commit": "00c7243077403d9ebfb812318cd23a3a5b13641f",
+  "package_members": [
+    {
+      "name": "BiellaGames.sh",
+      "sha256": "0f758fc1d431fca29cae27ecf35820d9ea70864532c0959f2d578e5216f68c46",
+      "bytes": 258
+    },
+    {
+      "name": "BiellaGames",
+      "sha256": "b23aacd3ab55b236ad91830e1ffba125ae51b961a6e989d63637c2c1bc696b59",
+      "bytes": 296823920
+    },
+    {
+      "name": "BiellaGames-Linux.pak",
+      "sha256": "061c0df4c76e96e72781202a690a906dbc328ebdcd7f6008d7327b2ed4d40a06",
+      "bytes": 180187025
+    }
+  ],
+  "gameplay_source_hashes_matched": 73,
+  "historical_protected_metadata": "EXACT_GIT_REVISION_MATCH",
+  "historical_acceptance_revision": {
+    "head": "c4c981eca4bc3cc6ee36da2ccee36d58a7ef2bc3",
+    "head_tree": "19bf6f237bd36e903c5017e716e2439dbf6e1bad",
+    "project_status": [
+      "?? Build/Demo01/D01-048-runs/",
+      "?? tests/run_d01_048.py",
+      "?? tests/test_d01_048.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "engine_P4_06": "INCOMPLETE_DEFERRED",
+  "visual_status": "GENERATED_DRAFT",
+  "scope": "Existing Linux x64 Development automated acceptance; no new gameplay or performance run. This receipt verifies already-published continuity. The Auto Feeder owns the later completion publication."
+}
