@@ -74,7 +74,7 @@ public:
     EDemo01Team GetTeam() const { return Team; }
 
     void SetDisplayColor(const FLinearColor& Color);
-    float MoveTowardLocation(const FVector& Target, float DeltaTime);
+    virtual float MoveTowardLocation(const FVector& Target, float DeltaTime);
     virtual void Defeat(const FString& Reason);
 
 protected:

@@ -1,0 +1,108 @@
+{
+  "result": "PASS",
+  "byte_exact": true,
+  "files": [
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression-final/captures/distant_region.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/captures/distant_region.png",
+      "bytes": 896632,
+      "sha256": "a83ca7a89617ece6203a043d63ba3a3e6cfb1168f6816c17cfc0c1d52a6b78f2"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression-final/captures/final_return.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/captures/final_return.png",
+      "bytes": 905750,
+      "sha256": "dbf67a03482233c250ba8d24558c671f95d926c2dd9f12b9accdbbdf07fd1659"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression-final/captures/injury_return.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/captures/injury_return.png",
+      "bytes": 911141,
+      "sha256": "060f1a33b5505813fb6769e3976174a15bb2fd451d15e39e08fee8253001e62f"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression-final/captures/interior.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/captures/interior.png",
+      "bytes": 814686,
+      "sha256": "f64d239825eb1d2fd4b2a04f50a73a29f3cdf9fc8369484f5fab2c2db738c87d"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression-final/captures/street_start.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/captures/street_start.png",
+      "bytes": 953854,
+      "sha256": "6824f4d251b9cb807c66f6af35631eb26cb37399a5173e1dec694c4c3942b2f8"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression-final/captures/terrace.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/captures/terrace.png",
+      "bytes": 889165,
+      "sha256": "9197e7e5931deaba81e5b0ce570e10d67b63161add7e9ba5633742ef166b67b3"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression-final/events.log",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/events.log",
+      "bytes": 7180,
+      "sha256": "e3e7fcf512f5491c87b3e446f6b8861f058d6cfca330c8a68e0e537f76a67376"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression-final/frames.csv",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/frames.csv",
+      "bytes": 1390697,
+      "sha256": "04d2139a3a627dd1ea53acbbb914ca5b1517eff71a2dcd31e92b9edf9366d9b9"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression-final/process-memory.jsonl",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/process-memory.jsonl",
+      "bytes": 40652,
+      "sha256": "d1ab456020a059dfe6203a5ad5f20a821a606cb892003816e904791feaf1394d"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression-final/runtime.engine.log",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/runtime.engine.log",
+      "bytes": 399251,
+      "sha256": "7df4964f1f78ef6a9d0103516c584e1b46349cca9f23ecfff6f4a54999034385"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression-final/runtime.stdout.log",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/runtime.stdout.log",
+      "bytes": 398739,
+      "sha256": "2f9e8078d1b03f03802f34b62db7e7056fc70ca52c0cd6cd08f40a0876efbc20"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression-final/streaming.json",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/streaming.json",
+      "bytes": 1143,
+      "sha256": "80191f7f34b976fb67adf304c0ebbf5ffbd3c0081b6c11611a20e6c4790d0d8a"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression-final/validation.json",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/validation.json",
+      "bytes": 99475,
+      "sha256": "61e84559a13fe83ce75d37f8ca0e983c3e7597897c24037c5d3322551d24dc7e"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/shared-regression-final/process-memory.jsonl",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/shared-regression-final/process-memory.jsonl",
+      "bytes": 7814,
+      "sha256": "de9b73ad8c801d7a9230413ddcf8fe9bff873fbfa82afa3c4b541dc3d78138e9"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/shared-regression-final/runtime.engine.log",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/shared-regression-final/runtime.engine.log",
+      "bytes": 295882,
+      "sha256": "bcaecec1c0a1890c3f23fee5513b7d18040fc210a02d060d5ba7e0c098ab293e"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/shared-regression-final/runtime.stdout.log",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/shared-regression-final/runtime.stdout.log",
+      "bytes": 296051,
+      "sha256": "a69cecb48a062b0e6d680726608f012066d12fa93b2e2e0edbc05a1be581303b"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/shared-regression-final/validation.json",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/shared-regression-final/validation.json",
+      "bytes": 98329,
+      "sha256": "c21ade44fc9d1700240ba34e0684be94037a2f329f17f0280d85f9ddd420340d"
+    }
+  ]
+}

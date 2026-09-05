@@ -1,0 +1,305 @@
+{
+  "result": "PASS",
+  "candidate_replays": [
+    {
+      "result": "PASS",
+      "count": 4,
+      "initial_rivals": 1,
+      "initial_infected": 3,
+      "combat_duration_seconds": 20.013033,
+      "all_frames": {
+        "frames": 2842,
+        "wall_seconds": 34.833589324,
+        "p50_ms": 12.205408,
+        "p95_ms": 14.125871,
+        "p99_ms": 15.88662,
+        "max_ms": 705.891023,
+        "peak_resident_bytes": 2978873344.0
+      },
+      "combat_frames": {
+        "frames": 1570,
+        "wall_seconds": 20.012886788,
+        "p50_ms": 12.540426,
+        "p95_ms": 14.342275,
+        "p99_ms": 15.88662,
+        "max_ms": 705.891023,
+        "peak_resident_bytes": 2974220288.0
+      },
+      "at_least_75_percent_active": {
+        "frames": 623,
+        "wall_seconds": 8.497783378,
+        "p50_ms": 12.742631,
+        "p95_ms": 14.725385,
+        "p99_ms": 16.232498,
+        "max_ms": 705.891023,
+        "peak_resident_bytes": 2974220288.0
+      },
+      "active_end": 1,
+      "max_overlap_pairs": 0.0,
+      "natural_damage_events": 22,
+      "natural_damage_sources": [
+        "D02Pop_Street03_00",
+        "D02Pop_Street03_01",
+        "D02Pop_Street03_02",
+        "D02Pop_Street03_03"
+      ],
+      "natural_damage_targets": [
+        "D02Pop_Street03_00",
+        "D02Pop_Street03_01",
+        "D02Pop_Street03_02",
+        "D02Pop_Street03_03"
+      ],
+      "files": [
+        {
+          "path": "Build/Population/runtime-4-qualified/result.json",
+          "size_bytes": 134,
+          "sha256": "e18fd977facb59f096783ae194beec8979710928f5a093d702c75a40178127b4"
+        },
+        {
+          "path": "Build/Population/runtime-4-qualified/frames.csv",
+          "size_bytes": 204360,
+          "sha256": "4d676370e88f0703d1a6950aef81428f36575f437ef82334094e5221b96e37e1"
+        },
+        {
+          "path": "Build/Population/runtime-4-qualified/events.log",
+          "size_bytes": 1229,
+          "sha256": "41af22b0d5d909ac65123c66931ce53a03ceaa1411e622d177d7c6eb8c23ce20"
+        },
+        {
+          "path": "Build/Population/runtime-4-qualified/runtime.stdout.log",
+          "size_bytes": 405894,
+          "sha256": "5c4abe5c80faa8bedeb86e004f7e47221c33c62d947c44994caf03379bb87dec"
+        },
+        {
+          "path": "Build/Population/runtime-4-qualified/runtime.engine.log",
+          "size_bytes": 406507,
+          "sha256": "8c9f87fdf69932641022ade48cd438837063abef65bbd4f3eaaa6f53ee40464d"
+        },
+        {
+          "path": "Build/Population/runtime-4-qualified/captures/dense_start.png",
+          "size_bytes": 940545,
+          "sha256": "78af485023a89f4bbf888978a25d768690a2751a8768d3f2591bab5657eab234"
+        },
+        {
+          "path": "Build/Population/runtime-4-qualified/captures/combat_result.png",
+          "size_bytes": 929921,
+          "sha256": "a92e85b883ccb386907b57e400109495754e4508fad44b147fca263f47c31820"
+        },
+        {
+          "path": "Build/Population/runtime-4-qualified/captures/navigation_result.png",
+          "size_bytes": 953099,
+          "sha256": "861fb1f015dcdc140513e85b6dcf6835b8f6aee6f45e214f6c601bd766f452c1"
+        }
+      ],
+      "capture_status": "GENERATED_DRAFT"
+    },
+    {
+      "result": "PASS",
+      "count": 8,
+      "initial_rivals": 2,
+      "initial_infected": 6,
+      "combat_duration_seconds": 20.008206,
+      "all_frames": {
+        "frames": 2948,
+        "wall_seconds": 35.38755178500001,
+        "p50_ms": 11.960053,
+        "p95_ms": 13.936626,
+        "p99_ms": 15.222804,
+        "max_ms": 740.51242,
+        "peak_resident_bytes": 2993352704.0
+      },
+      "combat_frames": {
+        "frames": 1684,
+        "wall_seconds": 20.010360028,
+        "p50_ms": 11.779899,
+        "p95_ms": 13.813454,
+        "p99_ms": 14.794675,
+        "max_ms": 740.51242,
+        "peak_resident_bytes": 2984927232.0
+      },
+      "at_least_75_percent_active": {
+        "frames": 659,
+        "wall_seconds": 8.501731348,
+        "p50_ms": 12.041404,
+        "p95_ms": 13.936626,
+        "p99_ms": 15.183084,
+        "max_ms": 740.51242,
+        "peak_resident_bytes": 2984521728.0
+      },
+      "active_end": 2,
+      "max_overlap_pairs": 0.0,
+      "natural_damage_events": 44,
+      "natural_damage_sources": [
+        "D02Pop_Street03_00",
+        "D02Pop_Street03_01",
+        "D02Pop_Street03_02",
+        "D02Pop_Street03_03",
+        "D02Pop_Street03_04",
+        "D02Pop_Street03_05",
+        "D02Pop_Street03_06",
+        "D02Pop_Street03_07"
+      ],
+      "natural_damage_targets": [
+        "D02Pop_Street03_00",
+        "D02Pop_Street03_01",
+        "D02Pop_Street03_02",
+        "D02Pop_Street03_03",
+        "D02Pop_Street03_04",
+        "D02Pop_Street03_05",
+        "D02Pop_Street03_06",
+        "D02Pop_Street03_07"
+      ],
+      "files": [
+        {
+          "path": "Build/Population/runtime-8-qualified/result.json",
+          "size_bytes": 134,
+          "sha256": "2f1ec29dc51608ca5a82bc15c4cdec4492d80838118ca0d475687fd8ba5d2e22"
+        },
+        {
+          "path": "Build/Population/runtime-8-qualified/frames.csv",
+          "size_bytes": 212287,
+          "sha256": "7ccd953b78760b953f18567a30cc6cedfb6e0791748ebc5ea2d89a5557830f75"
+        },
+        {
+          "path": "Build/Population/runtime-8-qualified/events.log",
+          "size_bytes": 1229,
+          "sha256": "9f7b269d816afde839b7e2c5fa55793d56b9c80712a90e94b83e1eb6a1121920"
+        },
+        {
+          "path": "Build/Population/runtime-8-qualified/runtime.stdout.log",
+          "size_bytes": 439088,
+          "sha256": "562b6b03d1807056b1ed3831a28660dede986764fb3c742d2632ba378dfb6f73"
+        },
+        {
+          "path": "Build/Population/runtime-8-qualified/runtime.engine.log",
+          "size_bytes": 439947,
+          "sha256": "4138667004435b0fcca749ab975c345e7ab2de1d6448486e5f621373fe0ab1ff"
+        },
+        {
+          "path": "Build/Population/runtime-8-qualified/captures/dense_start.png",
+          "size_bytes": 946913,
+          "sha256": "80c863aca38483b3f68886afd7596173e49407e5a4506f7ea11803b6b7985532"
+        },
+        {
+          "path": "Build/Population/runtime-8-qualified/captures/combat_result.png",
+          "size_bytes": 930060,
+          "sha256": "f10c6adafe7d8ab903ba5f33950587e2886ae193e6550bbe1777fcd157f1c60d"
+        },
+        {
+          "path": "Build/Population/runtime-8-qualified/captures/navigation_result.png",
+          "size_bytes": 952488,
+          "sha256": "fd506e95f0ed25bc66d708905a5281d60a406d5bd1ec0c09ae1d4b5252a753e0"
+        }
+      ],
+      "capture_status": "GENERATED_DRAFT"
+    },
+    {
+      "result": "PASS",
+      "count": 12,
+      "initial_rivals": 3,
+      "initial_infected": 9,
+      "combat_duration_seconds": 20.006549,
+      "all_frames": {
+        "frames": 2948,
+        "wall_seconds": 35.864670925,
+        "p50_ms": 12.139926,
+        "p95_ms": 14.136211,
+        "p99_ms": 15.51829,
+        "max_ms": 601.193513,
+        "peak_resident_bytes": 2981560320.0
+      },
+      "combat_frames": {
+        "frames": 1676,
+        "wall_seconds": 20.006357515,
+        "p50_ms": 11.962483,
+        "p95_ms": 14.14674,
+        "p99_ms": 15.347247,
+        "max_ms": 601.193513,
+        "peak_resident_bytes": 2981560320.0
+      },
+      "at_least_75_percent_active": {
+        "frames": 698,
+        "wall_seconds": 8.361280993000001,
+        "p50_ms": 11.180795,
+        "p95_ms": 14.201073,
+        "p99_ms": 15.44737,
+        "max_ms": 601.193513,
+        "peak_resident_bytes": 2981249024.0
+      },
+      "active_end": 3,
+      "max_overlap_pairs": 0.0,
+      "natural_damage_events": 65,
+      "natural_damage_sources": [
+        "D02Pop_Street03_00",
+        "D02Pop_Street03_01",
+        "D02Pop_Street03_02",
+        "D02Pop_Street03_03",
+        "D02Pop_Street03_04",
+        "D02Pop_Street03_05",
+        "D02Pop_Street03_06",
+        "D02Pop_Street03_07",
+        "D02Pop_Street03_08",
+        "D02Pop_Street03_09",
+        "D02Pop_Street03_10",
+        "D02Pop_Street03_11"
+      ],
+      "natural_damage_targets": [
+        "D02Pop_Street03_00",
+        "D02Pop_Street03_01",
+        "D02Pop_Street03_02",
+        "D02Pop_Street03_03",
+        "D02Pop_Street03_04",
+        "D02Pop_Street03_05",
+        "D02Pop_Street03_06",
+        "D02Pop_Street03_07",
+        "D02Pop_Street03_08",
+        "D02Pop_Street03_09",
+        "D02Pop_Street03_10",
+        "D02Pop_Street03_11"
+      ],
+      "files": [
+        {
+          "path": "Build/Population/runtime-12-qualified/result.json",
+          "size_bytes": 135,
+          "sha256": "6909da153edcefdba8f26672c01f319be0d5d710717e2d8b6b7aff1539e74097"
+        },
+        {
+          "path": "Build/Population/runtime-12-qualified/frames.csv",
+          "size_bytes": 216294,
+          "sha256": "a57219be299c4e70a8a6c47cac599dfe3f4ec37f700b259259935a0332550be5"
+        },
+        {
+          "path": "Build/Population/runtime-12-qualified/events.log",
+          "size_bytes": 1234,
+          "sha256": "702f0ddad452a8fce2686838fc8ed3287ab3c273f3204446cf3308f489b6e845"
+        },
+        {
+          "path": "Build/Population/runtime-12-qualified/runtime.stdout.log",
+          "size_bytes": 483277,
+          "sha256": "0de6e5e68826909705c80e44548b5f31dd245c97e09f8941998ab6a5816e63e1"
+        },
+        {
+          "path": "Build/Population/runtime-12-qualified/runtime.engine.log",
+          "size_bytes": 484455,
+          "sha256": "8dfa44e4f99381034e81ef44f3922af2fdd8c80ceadb2769a1525398186999b6"
+        },
+        {
+          "path": "Build/Population/runtime-12-qualified/captures/dense_start.png",
+          "size_bytes": 947400,
+          "sha256": "3074ce1908cd8295c875d159aa2153b5079c1bcd8df76b2afc0939a71a240bf2"
+        },
+        {
+          "path": "Build/Population/runtime-12-qualified/captures/combat_result.png",
+          "size_bytes": 929623,
+          "sha256": "be9780b6dcba27289d114e6b21c286150953fa33ef0294b218ba24d8f020ae5c"
+        },
+        {
+          "path": "Build/Population/runtime-12-qualified/captures/navigation_result.png",
+          "size_bytes": 952316,
+          "sha256": "2510408c8ac332868ffe7af091ed28948cdd3db02e436b9b08c85011d72b099c"
+        }
+      ],
+      "capture_status": "GENERATED_DRAFT"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+Setting up bundled DotNet SDK
+Running command : dotnet Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll BiellaGamesEditor Linux Development /root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject -WaitMutex -NoUBA -NoHotReloadFromIDE
+Log file: /home/unreal/.config/Epic/UnrealBuildTool/Log.txt
+Determining max actions to execute in parallel (15 physical cores, 15 logical cores)
+  Executing up to 15 processes, one per physical core
+UbaStorageServer - FileMapping backing: memfd
+UbaSessionServer - Disable remote execution (remote sessions will finish current processes)
+Invalidating makefile for BiellaGamesEditor (source file added)
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Core/SharedDefinitions.Core.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Core/SharedPCH.Core.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Core/SharedPCH.Core.Cpp20.h.gch.rsp!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/CoreUObject/SharedDefinitions.CoreUObject.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/CoreUObject/SharedPCH.CoreUObject.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/CoreUObject/SharedPCH.CoreUObject.Cpp20.h.gch.rsp!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/CoreUObject/SharedDefinitions.CoreUObject.RTTI.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/CoreUObject/SharedPCH.CoreUObject.RTTI.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/CoreUObject/SharedPCH.CoreUObject.RTTI.Cpp20.h.gch.rsp!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Slate/SharedDefinitions.Slate.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Slate/SharedPCH.Slate.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Slate/SharedPCH.Slate.Cpp20.h.gch.rsp!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Engine/SharedDefinitions.Engine.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Engine/SharedPCH.Engine.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Engine/SharedPCH.Engine.Cpp20.h.gch.rsp!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Engine/SharedDefinitions.Engine.Project.ValApi.ValExpApi.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Engine/SharedPCH.Engine.Project.ValApi.ValExpApi.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Engine/SharedPCH.Engine.Project.ValApi.ValExpApi.Cpp20.h.gch.rsp!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/UnrealEd/SharedDefinitions.UnrealEd.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/UnrealEd/SharedPCH.UnrealEd.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/UnrealEd/SharedPCH.UnrealEd.Cpp20.h.gch.rsp!
+Unhandled exception: IOException: Permission denied
+Wrapped by UnauthorizedAccessException: Access to the path '/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaPopulationTest.cpp' is denied.
+   at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirError)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, UnixFileMode openPermissions, Int64& fileLength, UnixFileMode& filePermissions, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at EpicGames.Core.FileReference.ReadAllText(FileReference location, Encoding encoding)
+   at EpicGames.Core.FileReference.ReadAllText(FileReference location)
+   at UnrealBuildTool.SourceFileMetadataCache.<>c__DisplayClass17_0.<GetSourceFileInfo>g__UpdateSourceFileInfo|0(FileItem SourceFile)
+   at UnrealBuildTool.SourceFileMetadataCache.<>c__DisplayClass17_0.<GetSourceFileInfo>b__1(FileItem _)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.AddOrUpdate(TKey key, Func`2 addValueFactory, Func`3 updateValueFactory)
+   at UnrealBuildTool.SourceFileMetadataCache.GetSourceFileInfo(FileItem SourceFile)
+   at UnrealBuildTool.SourceFileMetadataCache.GetFirstInclude(FileItem SourceFile)
+   at UnrealBuildTool.UEBuildModuleCPP.CheckFirstIncludeMatchesEachCppFile(ReadOnlyTargetRules Target, CppCompileEnvironment ModuleCompileEnvironment, List`1 HeaderFiles, List`1 CppFiles)
+   at UnrealBuildTool.UEBuildModuleCPP.Compile(ReadOnlyTargetRules Target, UEToolChain ToolChain, CppCompileEnvironment BinaryCompileEnvironment, ISourceFileWorkingSet WorkingSet, IActionGraphBuilder Graph, ILogger Logger)
+   at UnrealBuildTool.UEBuildBinary.<>c__DisplayClass36_0.<SetupBinaryLinkEnvironment>b__0(Int32 index)
+   at UnrealBuildBase.Parallel2.For(Int32 from, Int32 to, Action`1 body, Int32 helperCount, Boolean useTasks)
+   at UnrealBuildTool.UEBuildBinary.SetupBinaryLinkEnvironment(ReadOnlyTargetRules Target, UEToolChain ToolChain, LinkEnvironment LinkEnvironment, CppCompileEnvironment CompileEnvironment, ISourceFileWorkingSet WorkingSet, DirectoryReference ExeDir, IActionGraphBuilder Graph, ILogger Logger)
+   at UnrealBuildTool.UEBuildBinary.Build(ReadOnlyTargetRules Target, UEToolChain ToolChain, CppCompileEnvironment CompileEnvironment, LinkEnvironment LinkEnvironment, ISourceFileWorkingSet WorkingSet, DirectoryReference ExeDir, IActionGraphBuilder Graph, ILogger Logger)
+   at UnrealBuildTool.UEBuildTarget.<>c__DisplayClass72_0.<BuildMakefile2>b__3(UEBuildBinary Binary)
+   at UnrealBuildBase.Parallel2.<>c__DisplayClass0_0`1.<ForEach>g__WorkerLoop|0()
+--- End of stack trace from previous location ---
+   at UnrealBuildBase.Parallel2.ForEach[TSource](IEnumerable`1 source, Action`1 body, Int32 helperCount, Boolean useTasks)
+   at UnrealBuildTool.UEBuildTarget.BuildMakefile2(ISourceFileWorkingSet WorkingSet, ILogger Logger, BuildContext context, FileHashCache fileHashCache, IEnumerable`1 customManifestFileNames)
+   at UnrealBuildTool.BuildMode.<>c__DisplayClass25_5.<CreateMakefiles>b__7(List`1 intermediateFolderGroup)
+   at UnrealBuildBase.Parallel2.<>c__DisplayClass0_0`1.<ForEach>g__WorkerLoop|0()
+--- End of stack trace from previous location ---
+   at UnrealBuildBase.Parallel2.ForEach[TSource](IEnumerable`1 source, Action`1 body, Int32 helperCount, Boolean useTasks)
+   at UnrealBuildTool.BuildMode.<>c__DisplayClass25_1.<CreateMakefiles>b__2(KeyValuePair`2 kv)
+   at UnrealBuildBase.Parallel2.<>c__DisplayClass0_0`1.<ForEach>g__WorkerLoop|0()
+--- End of stack trace from previous location ---
+   at UnrealBuildBase.Parallel2.ForEach[TSource](IEnumerable`1 source, Action`1 body, Int32 helperCount, Boolean useTasks)
+   at UnrealBuildTool.BuildMode.CreateMakefiles(BuildConfiguration buildConfiguration, List`1 descriptors, ISourceFileWorkingSet workingSet, ILogger logger, Boolean runInitScripts, Boolean skipPreBuildTargets, List`1 outTasks, CppDependencyCache cppDependencyCache, FileHashCache fileHashCache)
+   at UnrealBuildTool.BuildMode.ExecuteAsync(CommandLineArguments Arguments, ILogger Logger)
+   at UnrealBuildTool.BuildMode.ExecuteAsync(CommandLineArguments Arguments, ILogger Logger)
+   at UnrealBuildTool.UnrealBuildTool.Main(String[] ArgumentsArray)
+
+Result: Failed (OtherCompilationError)
+Total execution time: 3.73 seconds
+Trace written to file /home/unreal/.config/Epic/UnrealBuildTool/Trace.uba with size 2.1kb

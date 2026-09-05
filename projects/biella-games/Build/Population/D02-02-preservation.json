@@ -1,0 +1,63 @@
+{
+  "result": "PASS",
+  "base_commit": "7c9e29b23b2cb0053ebb7c53dd5f92001c929fd2",
+  "protected": [
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/03_BIELLA_CURRENT_STATE.md",
+      "sha256": "1a980de557326e42ab4db94cd69ae397d3f3bcec0f7d875d70de09a42812d8be",
+      "unchanged": true
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+      "sha256": "673cd12f63a78837672710f1341a37ed944e5a12c5c6e39aa51fbe8b8a70ebf8",
+      "unchanged": true
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/docs/PRODUCTION.md",
+      "sha256": "b607e1050dbed0ce50181275d584dff31028436e5e8dc8f2651320893962f739",
+      "unchanged": true
+    }
+  ],
+  "tracked_modified_paths": [
+    "projects/biella-games/Config/DefaultGame.ini",
+    "projects/biella-games/Source/BiellaGames/Private/BiellaWorldContinuity.cpp",
+    "projects/biella-games/Source/BiellaGames/Private/Tests/BiellaWorldStreamingTest.cpp",
+    "projects/biella-games/Source/BiellaGames/Public/BiellaDemoPawn.h"
+  ],
+  "all_other_predecessor_tracked_bytes_unchanged": true,
+  "engine_p4_06": "INCOMPLETE_DEFERRED",
+  "boundary": "D02-02 only; no 03/04/PRODUCTION transition; local commit handed to Auto Feeder for publication.",
+  "checked_at": "2026-09-05T23:58:30.502193+00:00",
+  "final_tested_source_review_hashes_match": true,
+  "final_188_input_identities_match": true,
+  "preservation_scope": "All pre-existing Games Project tracked bytes except the four documented integrations, plus protected Engine 03/04. Concurrent website work is preserved separately.",
+  "concurrent_revision": {
+    "head": "3a03951a0c86a34b68bcd7f6d384169a40aaec3c",
+    "subject": "website: add live evidence-bound investor deck",
+    "paths_changed": [
+      ".github/workflows/website-production.yml",
+      "website/content/investor-deck-manifest.json",
+      "website/package.json",
+      "website/reference/investor-deck-v1/01_founder_execution_engine.png",
+      "website/reference/investor-deck-v1/02_founder_directed_execution_system.png",
+      "website/reference/investor-deck-v1/03_proven_progress.png",
+      "website/reference/investor-deck-v1/04_operating_loop.png",
+      "website/reference/investor-deck-v1/05_games_first_visible_proof.png",
+      "website/reference/investor-deck-v1/06_capability_coverage.png",
+      "website/reference/investor-deck-v1/07_execution_insights.png",
+      "website/reference/investor-deck-v1/08_product_to_company_proof.png",
+      "website/reference/investor-deck-v1/09_financial_posture.png",
+      "website/reference/investor-deck-v1/10_professional_financial_framing.png",
+      "website/reference/investor-deck-v1/APPROVED_VISUAL_SYSTEM.md",
+      "website/reference/investor-deck-v1/SHA256SUMS.txt",
+      "website/scripts/build.mjs",
+      "website/src/index.html",
+      "website/src/investors/app.js",
+      "website/src/investors/index.html",
+      "website/src/investors/styles.css",
+      "website/tests/test_investor_deck.py"
+    ],
+    "games_or_protected_authority_changed": false,
+    "existing_unstaged_website_edits_preserved": true
+  }
+}

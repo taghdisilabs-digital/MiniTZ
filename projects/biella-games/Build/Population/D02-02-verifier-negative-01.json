@@ -1,0 +1,51 @@
+{
+  "result": "PASS",
+  "real_baseline": "PASS",
+  "rejected": 11,
+  "checks": {
+    "missing_continuity": {
+      "result": "REJECTED",
+      "reason": "Missing, duplicate or reordered lifecycle event"
+    },
+    "duplicate_identity": {
+      "result": "REJECTED",
+      "reason": "Duplicate or missing stable spawn"
+    },
+    "wrong_candidate": {
+      "result": "REJECTED",
+      "reason": "Wrong candidate count"
+    },
+    "synthetic_timestep": {
+      "result": "REJECTED",
+      "reason": "Synthetic runtime time"
+    },
+    "missing_frame": {
+      "result": "REJECTED",
+      "reason": "Missing engine frame"
+    },
+    "forged_wall_interval": {
+      "result": "REJECTED",
+      "reason": "Wall interval mismatch"
+    },
+    "hidden_overlap": {
+      "result": "REJECTED",
+      "reason": "Interpenetrating population capsules"
+    },
+    "impossible_population": {
+      "result": "REJECTED",
+      "reason": "Invalid population counts"
+    },
+    "missing_autonomous_damage": {
+      "result": "REJECTED",
+      "reason": "No bidirectional autonomous rival/infected damage"
+    },
+    "healed_resume": {
+      "result": "REJECTED",
+      "reason": "Event not present in runtime log"
+    },
+    "missing_obstacle_replan": {
+      "result": "REJECTED",
+      "reason": "No replan while obstruction existed"
+    }
+  }
+}

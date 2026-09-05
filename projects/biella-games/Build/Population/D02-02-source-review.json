@@ -1,0 +1,63 @@
+{
+  "task_id": "D02-02",
+  "review": "Local source review plus independent raw-evidence replay; single Codex authority. Configured Qwen review timed out twice; no external review verdict inferred.",
+  "resolved_findings": [
+    "Supported active actors must not become dormant when capsule occupancy or temporary navigation rebuild interrupts placement; live obstruction regression reproduced failure and final candidate runs passed.",
+    "Streaming fixture isolation must hold new director admission before world tick; all original streaming assertions retained. Final build runtime regression passed 13,903 frames over 165.75551037001424 seconds, including traversal, suspension/return and defeat reconstruction."
+  ],
+  "checked_contracts": [
+    "finite stable authored IDs and exact actor reuse across suspension",
+    "per-update admission budget, player distance, full capsule clearance, floor and complete navigation path",
+    "real wall-frame admission guard; no removal or healing solely due frame pressure",
+    "swept infected movement, full Recast path replanning and shared autonomous combat/pressure",
+    "defeat tombstones and explained lifecycle reasons",
+    "raw ordinary frame counter/wall-clock/memory evidence and bidirectional natural damage",
+    "independent verifier rejects eleven corrupted evidence controls"
+  ],
+  "files": [
+    {
+      "path": "Source/BiellaGames/Public/BiellaPopulation.h",
+      "sha256": "9d4d7315b0be8ec0c4fd6620bae9770e1b33bd9fcdd23dab2f8757ef28f7caaf"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaPopulation.cpp",
+      "sha256": "33f35c067493c05546c7bb0cbdc9a44fc0f6a602ecfe8788b22a7903716b1c8f"
+    },
+    {
+      "path": "Source/BiellaGames/Private/Tests/BiellaPopulationTest.cpp",
+      "sha256": "af92613de88fe8180d4ee8856b301236185d3ca1cf99fe93395aaffab5b8640d"
+    },
+    {
+      "path": "Source/BiellaGames/Private/Tests/BiellaWorldStreamingTest.cpp",
+      "sha256": "4bef5808f907ae7a6f29816350547c9852abd523940ca77b897612e6dfa3d15f"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaWorldContinuity.cpp",
+      "sha256": "f7d9a7ab7380e9b81c9c102966fea9c04ff338136112e2b4d31e6a10b66864cd"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaDemoPawn.h",
+      "sha256": "469d6c58436cc1dd9f1bcad9d1ed7a915b95f08193a5c051040d4967aca2b9a5"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "sha256": "68e399da0f7469cf9330114d423fab5fb59be14777bcc79e4950d0c2ec1940a3"
+    },
+    {
+      "path": "tests/run_d02_02.py",
+      "sha256": "1a3d4b68189dd1cdadaa21a8b2a05a2bea6e103dd796a41004361a7542e00b1f"
+    },
+    {
+      "path": "tests/verify_d02_02.py",
+      "sha256": "76323e909d100b7849fff2ea4ea25bbdffae18cb4f4bd0683e62d2ab8a9b812a"
+    },
+    {
+      "path": "tests/test_verify_d02_02.py",
+      "sha256": "036d61b17439bf62f4393b500a90f8fb8206e65a5819ae64b764e2e5365e3a4e"
+    }
+  ],
+  "final_runtime_validation": "PASS: final-build 4/8/12 population, streaming and shared combat; all five replayed from exact canonical copies with identical tested input hashes.",
+  "verifier_negative_controls": "PASS: 11/11 rejected against runtime-4-final-build",
+  "remaining_task_concerns": [],
+  "limitations": "Development-host evidence; bounded match-local continuity; raw maximum hitches disclosed; no shipping/AAA visual or package acceptance."
+}

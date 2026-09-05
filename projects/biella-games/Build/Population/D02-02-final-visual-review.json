@@ -1,0 +1,97 @@
+{
+  "task_id": "D02-02",
+  "time": "2026-09-05T23:55:56.890914+00:00",
+  "result": "PASS",
+  "capture_status": "GENERATED_DRAFT",
+  "decoded": 9,
+  "visually_inspected": 5,
+  "observations": [
+    "Increasing rival/infected population visible in the three initial-density captures; some actors are occluded by the player or one another.",
+    "Twelve-actor outcome capture shows changed mission threat count after the measured combat and subsequent disclosed fixture isolation. Raw logs/frames establish the autonomous combat; the capture alone is not proof.",
+    "Twelve-actor navigation outcome shows the real probe and target together after obstruction/replanning.",
+    "Current blockout assets, normal third-person HUD and test player-health display clamp are visible; no AAA art, audio or owner visual acceptance claimed."
+  ],
+  "files": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/runtime-4-final-build/captures/dense_start.png",
+      "sha256": "a91f061d4e1fcde359c9d87f214080167e50baa13c1c2ec752262f986d795b46",
+      "decoded_size": [
+        1280,
+        720
+      ],
+      "visually_inspected_original": true
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/runtime-4-final-build/captures/combat_result.png",
+      "sha256": "01f1f0161e809c6e9c708d17b8fb644f3802a5b51a2f7e6ed36dd7eeddb0e30d",
+      "decoded_size": [
+        1280,
+        720
+      ],
+      "visually_inspected_original": false
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/runtime-4-final-build/captures/navigation_result.png",
+      "sha256": "8c85ed796b51f8e29cb489a2742187cbb255215df45ddce5d8c6383b878c4ace",
+      "decoded_size": [
+        1280,
+        720
+      ],
+      "visually_inspected_original": false
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/runtime-8-final-build/captures/dense_start.png",
+      "sha256": "de5eed05867a48d5dc08703220c93ae98742ab0ba1266d4891d81b423b8bef06",
+      "decoded_size": [
+        1280,
+        720
+      ],
+      "visually_inspected_original": true
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/runtime-8-final-build/captures/combat_result.png",
+      "sha256": "5de75b6c5a66a90a023336fb0f9d6bedf56291581a487fbc478d2d605d388719",
+      "decoded_size": [
+        1280,
+        720
+      ],
+      "visually_inspected_original": false
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/runtime-8-final-build/captures/navigation_result.png",
+      "sha256": "9a955443dc43f29901c81a24a955aa4914e517fa584053849379bb667d9c1af1",
+      "decoded_size": [
+        1280,
+        720
+      ],
+      "visually_inspected_original": false
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/runtime-12-final-build/captures/dense_start.png",
+      "sha256": "ff123525bcea0965f536f6cef3353e9b2705407044854134aa4ae62100e34cab",
+      "decoded_size": [
+        1280,
+        720
+      ],
+      "visually_inspected_original": true
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/runtime-12-final-build/captures/combat_result.png",
+      "sha256": "579e760e13d925dc570c6b62b0ae9fbdcb1350869f66a18297ab48878303ddd8",
+      "decoded_size": [
+        1280,
+        720
+      ],
+      "visually_inspected_original": true
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/runtime-12-final-build/captures/navigation_result.png",
+      "sha256": "53d6d746d147275cb270aac6c2e8ba5f966561a04881faa2171a674bd28b53ff",
+      "decoded_size": [
+        1280,
+        720
+      ],
+      "visually_inspected_original": true
+    }
+  ]
+}

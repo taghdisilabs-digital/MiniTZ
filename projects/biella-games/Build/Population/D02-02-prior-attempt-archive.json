@@ -1,0 +1,155 @@
+{
+  "result": "PASS",
+  "exact_copies": [
+    {
+      "source": "/root/biella/artifacts/games/D02-02/red-01/process-memory.jsonl",
+      "canonical": "Build/Population/red-01/process-memory.jsonl",
+      "size_bytes": 3395,
+      "sha256": "0f92a97e34d64f2872eff3a418790c70ffedbd2e269bcb3d37337a7199a033ab"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/red-01/runtime.engine.log",
+      "canonical": "Build/Population/red-01/runtime.engine.log",
+      "size_bytes": 195076,
+      "sha256": "81c759b21218a91dda43dac7b97483210aaf6f421ef6d6c3e4aafca617484cb8"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/red-01/runtime.stdout.log",
+      "canonical": "Build/Population/red-01/runtime.stdout.log",
+      "size_bytes": 196065,
+      "sha256": "3cd65e7a573b5fda5b6ed1ee5af8b0a4ebe1925b2bfa929f6295380ebd27ade9"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/red-01/validation.json",
+      "canonical": "Build/Population/red-01/validation.json",
+      "size_bytes": 48984,
+      "sha256": "0b218947239317c314ae388951707f744f240675e8caad650c868049c57f3951"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/crowd-red-01/captures/dense_start.png",
+      "canonical": "Build/Population/crowd-red-01/captures/dense_start.png",
+      "size_bytes": 960951,
+      "sha256": "d0e602b6aa721a91d7f6ade93e1af5754227e2a41ced9730b5c4f12d3206fc9e"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/crowd-red-01/events.log",
+      "canonical": "Build/Population/crowd-red-01/events.log",
+      "size_bytes": 368,
+      "sha256": "b4ef716f05c946c7ce4f16a48f557a6b4280a9419a888e71766aa38ae7b6f4ce"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/crowd-red-01/frames.csv",
+      "canonical": "Build/Population/crowd-red-01/frames.csv",
+      "size_bytes": 25554,
+      "sha256": "dc0f0579af1078af08ad661b2283606ff8d058618b30233659db0a6e67df91d6"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/crowd-red-01/process-memory.jsonl",
+      "canonical": "Build/Population/crowd-red-01/process-memory.jsonl",
+      "size_bytes": 8471,
+      "sha256": "5f1422ddc2fe348ef79ca25276600cc164b4b52623b35f9f5ac3cc2e56727848"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/crowd-red-01/result.json",
+      "canonical": "Build/Population/crowd-red-01/result.json",
+      "size_bytes": 151,
+      "sha256": "c5e62fb0f244a5d924bad01b0f13543f9f640ed91e0737ff8a94f7965ebc4938"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/crowd-red-01/runtime.engine-CRC.log",
+      "canonical": "Build/Population/crowd-red-01/runtime.engine-CRC.log",
+      "size_bytes": 13379,
+      "sha256": "a314accd54fddc2c8070c2b6f777ef1107177238d19ead8cfea9c29837fa0eba"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/crowd-red-01/runtime.engine.log",
+      "canonical": "Build/Population/crowd-red-01/runtime.engine.log",
+      "size_bytes": 368910,
+      "sha256": "01db920176fb1d5fb6800676a78526876ee45a00bbb4f590dd7565f416f45b9b"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/crowd-red-01/runtime.stdout.log",
+      "canonical": "Build/Population/crowd-red-01/runtime.stdout.log",
+      "size_bytes": 382233,
+      "sha256": "c95c935a44f033498511f68619c6d9dcf11682336e8630965f49f63df7e2e0fe"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/crowd-red-01/validation.json",
+      "canonical": "Build/Population/crowd-red-01/validation.json",
+      "size_bytes": 49928,
+      "sha256": "49d0dfc8c766cfdd306b3ab286feb777f99df307353c3ec08355f604843e6c4a"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression/events.log",
+      "canonical": "Build/Population/streaming-regression/events.log",
+      "size_bytes": 424,
+      "sha256": "b6317c3cf92523d73f3f50774d52b3c2944794d602b0c916b997296b318c3719"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression/frames.csv",
+      "canonical": "Build/Population/streaming-regression/frames.csv",
+      "size_bytes": 8892,
+      "sha256": "ca8ec21e086e64137a8ea65d9ccbc7edfe80b6780829930a7dc7834580feb902"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression/process-memory.jsonl",
+      "canonical": "Build/Population/streaming-regression/process-memory.jsonl",
+      "size_bytes": 7470,
+      "sha256": "a968601970dbf676734b331272d300b3869e98e559ddb07a30c6977fdf031d51"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression/runtime.engine-CRC.log",
+      "canonical": "Build/Population/streaming-regression/runtime.engine-CRC.log",
+      "size_bytes": 13387,
+      "sha256": "84ccb33019e46cdb7c1df11038806ece0c5d19a7fbb5460f52099a920760aa2e"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression/runtime.engine.log",
+      "canonical": "Build/Population/streaming-regression/runtime.engine.log",
+      "size_bytes": 367301,
+      "sha256": "bdc946fb17a79b2f7019aa114cd91982869c40b2846609a1583bfe490b94e5c0"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression/runtime.stdout.log",
+      "canonical": "Build/Population/streaming-regression/runtime.stdout.log",
+      "size_bytes": 380629,
+      "sha256": "12977b99f5608138fdfd98e02aa597189cbde1ab7e2bcfdd48ff6cc0f1965950"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression/streaming.json",
+      "canonical": "Build/Population/streaming-regression/streaming.json",
+      "size_bytes": 1181,
+      "sha256": "d986ddd361b405249f1fafb92f614bc506e80e58fd4b46fc6fefb42738876970"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/streaming-regression/validation.json",
+      "canonical": "Build/Population/streaming-regression/validation.json",
+      "size_bytes": 96666,
+      "sha256": "97e2a24745cb7335ef2457758c3c9673d625eacaf22909073ad7e106f206cbe2"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/shared-regression/process-memory.jsonl",
+      "canonical": "Build/Population/shared-regression/process-memory.jsonl",
+      "size_bytes": 7810,
+      "sha256": "9a5ad774a7e5892a9709baeb27d77647d75a4bd3d8312eff18c4884e39ad9b24"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/shared-regression/runtime.engine.log",
+      "canonical": "Build/Population/shared-regression/runtime.engine.log",
+      "size_bytes": 296202,
+      "sha256": "959faa8b48473bf8ef285f74bb9f4b546c1c932346bfe5dd15e3bbd49192136c"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/shared-regression/runtime.stdout.log",
+      "canonical": "Build/Population/shared-regression/runtime.stdout.log",
+      "size_bytes": 296369,
+      "sha256": "85625c6002fae389b3cd3d44d537e797c3862d6eb3c7307b1bc7603262296aa9"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-02/shared-regression/validation.json",
+      "canonical": "Build/Population/shared-regression/validation.json",
+      "size_bytes": 98236,
+      "sha256": "b88d4a76ac636d4db5a2b6290f5b605b4efb6fcc10b72ac3f53defded686e90e"
+    }
+  ]
+}

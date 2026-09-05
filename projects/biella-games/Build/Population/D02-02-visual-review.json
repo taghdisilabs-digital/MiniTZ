@@ -1,0 +1,105 @@
+{
+  "task_id": "D02-02",
+  "result": "PASS",
+  "capture_status": "GENERATED_DRAFT",
+  "method": "Decoded original runtime PNGs and visually inspected all nine; no image synthesis or alteration.",
+  "observations": [
+    "Dense-start captures show the third-person player facing the increasing red infected / ochre rival groups in the existing navigable street blockout; some actors are naturally occluded by the player or other actors. Exact counts come from actor identities and raw frame evidence.",
+    "Combat-result captures show the changed encounter after autonomous fighting; actor movement, damage and defeats are verified from the runtime, not inferred solely from the still image.",
+    "Navigation-result captures show the probe and its opponent after actual obstruction replanning and arrival.",
+    "The existing gameplay HUD remains real game state. Fixture player health is 10000 while the existing UI clamps display to 100; this is survival scaffolding, not a shipping health change.",
+    "Existing blockout art and HUD are not AAA visual/art acceptance. Audio is disabled in this test."
+  ],
+  "captures": [
+    {
+      "path": "Build/Population/runtime-4-qualified/captures/dense_start.png",
+      "sha256": "78af485023a89f4bbf888978a25d768690a2751a8768d3f2591bab5657eab234",
+      "size": [
+        1280,
+        720
+      ],
+      "decoded": true,
+      "visually_inspected": true
+    },
+    {
+      "path": "Build/Population/runtime-4-qualified/captures/combat_result.png",
+      "sha256": "a92e85b883ccb386907b57e400109495754e4508fad44b147fca263f47c31820",
+      "size": [
+        1280,
+        720
+      ],
+      "decoded": true,
+      "visually_inspected": true
+    },
+    {
+      "path": "Build/Population/runtime-4-qualified/captures/navigation_result.png",
+      "sha256": "861fb1f015dcdc140513e85b6dcf6835b8f6aee6f45e214f6c601bd766f452c1",
+      "size": [
+        1280,
+        720
+      ],
+      "decoded": true,
+      "visually_inspected": true
+    },
+    {
+      "path": "Build/Population/runtime-8-qualified/captures/dense_start.png",
+      "sha256": "80c863aca38483b3f68886afd7596173e49407e5a4506f7ea11803b6b7985532",
+      "size": [
+        1280,
+        720
+      ],
+      "decoded": true,
+      "visually_inspected": true
+    },
+    {
+      "path": "Build/Population/runtime-8-qualified/captures/combat_result.png",
+      "sha256": "f10c6adafe7d8ab903ba5f33950587e2886ae193e6550bbe1777fcd157f1c60d",
+      "size": [
+        1280,
+        720
+      ],
+      "decoded": true,
+      "visually_inspected": true
+    },
+    {
+      "path": "Build/Population/runtime-8-qualified/captures/navigation_result.png",
+      "sha256": "fd506e95f0ed25bc66d708905a5281d60a406d5bd1ec0c09ae1d4b5252a753e0",
+      "size": [
+        1280,
+        720
+      ],
+      "decoded": true,
+      "visually_inspected": true
+    },
+    {
+      "path": "Build/Population/runtime-12-qualified/captures/dense_start.png",
+      "sha256": "3074ce1908cd8295c875d159aa2153b5079c1bcd8df76b2afc0939a71a240bf2",
+      "size": [
+        1280,
+        720
+      ],
+      "decoded": true,
+      "visually_inspected": true
+    },
+    {
+      "path": "Build/Population/runtime-12-qualified/captures/combat_result.png",
+      "sha256": "be9780b6dcba27289d114e6b21c286150953fa33ef0294b218ba24d8f020ae5c",
+      "size": [
+        1280,
+        720
+      ],
+      "decoded": true,
+      "visually_inspected": true
+    },
+    {
+      "path": "Build/Population/runtime-12-qualified/captures/navigation_result.png",
+      "sha256": "2510408c8ac332868ffe7af091ed28948cdd3db02e436b9b08c85011d72b099c",
+      "size": [
+        1280,
+        720
+      ],
+      "decoded": true,
+      "visually_inspected": true
+    }
+  ]
+}

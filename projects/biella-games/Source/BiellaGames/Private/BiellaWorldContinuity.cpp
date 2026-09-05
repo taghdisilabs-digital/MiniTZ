@@ -1,5 +1,6 @@
 // Copyright Biella Games. All Rights Reserved.
 #include "BiellaWorldContinuity.h"
+#include "BiellaPopulation.h"
 
 #include "Components/CapsuleComponent.h"
 #include "Components/BoxComponent.h"
@@ -323,6 +324,10 @@ void ABiellaOpenWorldGameMode::SpawnBasicWorldGeometry()
 void ABiellaOpenWorldGameMode::BeginPlay()
 {
     Super::BeginPlay();
+    if (HasAuthority())
+    {
+        GetWorld()->SpawnActor<ABiellaPopulationDirector>();
+    }
     // The first slice used a floor at -88cm. Keep its actors and objective,
     // placing the same initial encounter above this map's street datum.
     for (TActorIterator<ABiellaDemoPawn> It(GetWorld()); It; ++It)
@@ -344,7 +349,7 @@ void ABiellaOpenWorldGameMode::Tick(float DeltaTime)
     UNavigationSystemV1* Navigation = FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld());
     for (TActorIterator<ABiellaDemoPawn> It(GetWorld()); It; ++It)
     {
-        if (It->IsA<ABiellaStreamingCharacter>() || It->IsA<ABiellaStreamingInfected>()) { continue; }
+        if (It->IsA<ABiellaStreamingCharacter>() || It->IsA<ABiellaStreamingInfected>() || It->ActorHasTag(TEXT("D02Population"))) { continue; }
         // Persistent mission actors keep their identity/health while native
         // regions stream. They cannot simulate, collide or be targeted over
         // absent terrain. Newly spawned pressure actors use the same policy.

@@ -3,6 +3,7 @@
 #if WITH_DEV_AUTOMATION_TESTS
 
 #include "BiellaWorldContinuity.h"
+#include "BiellaPopulation.h"
 #include "BiellaDemoObjectiveManager.h"
 #include "BiellaGamesGameModeBase.h"
 #include "BiellaGamesGameState.h"
@@ -424,8 +425,12 @@ private:
             !Candidate->GetMapName().Contains(TEXT("BiellaOpenWorldMap"))) { return; }
         // Fixture controls live entirely in automation. The fresh map's actors
         // retain authored health, collision, transform and mission membership.
-        // Only opponent movement/attacks are held; player, objective, pressure,
+        // Opponent movement/attacks and new encounter admission are held; player, objective, pressure,
         // Recast, streaming and rendering continue through ordinary engine ticks.
+        // D02 population is tested autonomously by BiellaGames.D02.Population.
+        // Prevent actors admitted later in this tick bypassing fixture isolation.
+        for (TActorIterator<ABiellaPopulationDirector> It(Candidate); It; ++It)
+        { It->MaxActive = 0; }
         for (TActorIterator<ABiellaDemoPawn> It(Candidate); It; ++It)
         {
             if (ABiellaStreamingInfected* Infected = Cast<ABiellaStreamingInfected>(*It))

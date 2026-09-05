@@ -1,0 +1,6 @@
+D02_POP_TEST event=relocate phase=1 time=0.132332
+D02_POP_TEST event=placement_rejections_pass phase=1 time=2.133909
+D02_POP_TEST event=admission phase=2 time=2.133973
+D02_POP_TEST event=frame_pressure phase=3 time=2.440540
+D02_POP_TEST event=frame_guard_pass active=3 spawned=4 measured_ms=10.798 phase=3 time=4.448208
+D02_POP_TEST event=combat phase=4 time=4.448530

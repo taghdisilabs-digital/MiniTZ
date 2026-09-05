@@ -1,0 +1,2 @@
+D02-01 evidence: /root/biella/artifacts/games/D02-02/streaming-regression/validation.json
+{"task_id": "D02-01", "result": "FAIL", "error": "Unreal failed or exceeded process deadline", "validation": "/root/biella/artifacts/games/D02-02/streaming-regression/validation.json"}

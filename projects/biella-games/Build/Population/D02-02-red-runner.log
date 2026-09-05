@@ -1,0 +1,6 @@
+{
+  "task_id": "D02-02",
+  "result": "FAIL",
+  "output": "/root/biella/artifacts/games/D02-02/red-01",
+  "error": "Unreal process failed"
+}

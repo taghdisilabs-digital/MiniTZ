@@ -1,0 +1,83 @@
+{
+  "result": "PASS",
+  "streaming": {
+    "task_id": "D02-01",
+    "result": "PASS",
+    "frames": 13903,
+    "wall_seconds": 165.75551037001424,
+    "visible_cell_loads": 51,
+    "visible_cell_unloads": 39,
+    "frame_wall_ms_p95": 13.992218009661883,
+    "frame_wall_ms_p99": 14.967948955018073,
+    "peak_process_resident_bytes": 3009372160,
+    "capture_status": "GENERATED_DRAFT",
+    "files": [
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/streaming.json",
+        "size_bytes": 1143,
+        "sha256": "80191f7f34b976fb67adf304c0ebbf5ffbd3c0081b6c11611a20e6c4790d0d8a"
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/frames.csv",
+        "size_bytes": 1390697,
+        "sha256": "04d2139a3a627dd1ea53acbbb914ca5b1517eff71a2dcd31e92b9edf9366d9b9"
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/events.log",
+        "size_bytes": 7180,
+        "sha256": "e3e7fcf512f5491c87b3e446f6b8861f058d6cfca330c8a68e0e537f76a67376"
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/captures/street_start.png",
+        "size_bytes": 953854,
+        "sha256": "6824f4d251b9cb807c66f6af35631eb26cb37399a5173e1dec694c4c3942b2f8"
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/captures/interior.png",
+        "size_bytes": 814686,
+        "sha256": "f64d239825eb1d2fd4b2a04f50a73a29f3cdf9fc8369484f5fab2c2db738c87d"
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/captures/terrace.png",
+        "size_bytes": 889165,
+        "sha256": "9197e7e5931deaba81e5b0ce570e10d67b63161add7e9ba5633742ef166b67b3"
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/captures/distant_region.png",
+        "size_bytes": 896632,
+        "sha256": "a83ca7a89617ece6203a043d63ba3a3e6cfb1168f6816c17cfc0c1d52a6b78f2"
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/captures/injury_return.png",
+        "size_bytes": 911141,
+        "sha256": "060f1a33b5505813fb6769e3976174a15bb2fd451d15e39e08fee8253001e62f"
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/streaming-regression-final/captures/final_return.png",
+        "size_bytes": 905750,
+        "sha256": "dbf67a03482233c250ba8d24558c671f95d926c2dd9f12b9accdbbdf07fd1659"
+      }
+    ]
+  },
+  "shared": {
+    "log": "/root/biella/repos/biella-engine/projects/biella-games/Build/Population/shared-regression-final/runtime.stdout.log",
+    "result": "PASS",
+    "phases": 10,
+    "damage_events": 20,
+    "damage_edges": {
+      "infected_to_player": 4,
+      "rival_to_infected": 4,
+      "player_to_infected": 3,
+      "rival_to_player": 5,
+      "infected_to_rival": 1,
+      "player_to_rival": 3
+    },
+    "defeats": 4,
+    "duration_seconds": 13.495,
+    "minimum_cadence_seconds": {
+      "infected": 0.854,
+      "rival": 0.902,
+      "player": 0.346
+    }
+  }
+}

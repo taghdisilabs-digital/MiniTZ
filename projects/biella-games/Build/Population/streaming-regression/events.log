@@ -1,0 +1,4 @@
+D02_01_TEST event=fixture_world_reload_requested wall=0.008808 phase=0 waypoint=0 location=V(0) loads=0 unloads=0
+D02_01_TEST event=world_ready wall=0.124234 phase=0 waypoint=0 location=V(Z=88.00) loads=0 unloads=0
+D02_01_TEST event=initial_shaders_ready wall=1.170879 phase=0 waypoint=0 location=V(Z=90.00) loads=12 unloads=0
+D02_01_TEST event=failed wall=1.172063 phase=0 waypoint=0 location=V(Z=90.00) loads=12 unloads=0
