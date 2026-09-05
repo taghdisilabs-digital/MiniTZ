@@ -35,7 +35,7 @@ def make_repo(path: Path) -> str:
 class FakeCommands:
     def __call__(self, argv, cwd=None, timeout=15):
         command = " ".join(argv)
-        if command == "/usr/local/bin/biella-codex feed status":
+        if command == "/usr/local/bin/biella-codex production status":
             return 0, json.dumps({
                 "status": "STOPPED", "current_section": "demo01", "current_task": "D01-019",
                 "completed": 18, "total": 50, "active_model": None, "active_reasoning": None,

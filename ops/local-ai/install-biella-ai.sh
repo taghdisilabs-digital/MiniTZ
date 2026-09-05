@@ -23,7 +23,13 @@ install -o root -g root -m 755 \
   "$SOURCE_DIR/biella-saturn-mcp.sh" \
   "$SOURCE_DIR/biella-saturn-probe.py" \
   "$SOURCE_DIR/biella-codex.sh" \
-  "$SOURCE_DIR/biella_codex_feeder.py" \
+  "$SOURCE_DIR/biella_production_runner.py" \
+  "$INSTALL_DIR/"
+install -o root -g root -m 644 \
+  "$SOURCE_DIR/biella_production_state.py" \
+  "$SOURCE_DIR/biella_task_packet.py" \
+  "$SOURCE_DIR/biella_codex_routing.py" \
+  "$SOURCE_DIR/biella_production_evidence.py" \
   "$INSTALL_DIR/"
 for obsolete in \
   /usr/local/bin/biella-ai-start \
@@ -50,7 +56,8 @@ rm -f -- \
   "$INSTALL_DIR/biella-model.sh" \
   "$INSTALL_DIR/biella-luna.sh" \
   "$INSTALL_DIR/biella-astra.sh" \
-  "$INSTALL_DIR/biella-work-contract.md"
+  "$INSTALL_DIR/biella-work-contract.md" \
+  "$INSTALL_DIR/biella_codex_feeder.py"
 
 printf 'Installed unified Biella Codex controller under %s.\n' "$INSTALL_DIR"
 printf 'Only AI/production entrypoint: biella-codex\n'

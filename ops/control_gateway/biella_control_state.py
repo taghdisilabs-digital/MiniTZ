@@ -126,8 +126,8 @@ class WorkstationState:
             "updated_at": info["updated_at"],
         }
 
-    def _feeder_status(self) -> dict[str, object]:
-        rc, output = self.commands(["/usr/local/bin/biella-codex", "feed", "status"], None, 15)
+    def _production_status(self) -> dict[str, object]:
+        rc, output = self.commands(["/usr/local/bin/biella-codex", "production", "status"], None, 15)
         if rc != 0:
             return {"status": "ERROR", "current_task": None, "completed": 0, "total": 0}
         try:
@@ -173,18 +173,18 @@ class WorkstationState:
 
     def projection(self, lane: str) -> dict[str, object]:
         info = self._commit_info(lane)
-        feeder = self._feeder_status()
+        production_status = self._production_status()
         control = {
             "project": lane,
-            "status": feeder.get("status", "ERROR"),
-            "current_section": feeder.get("current_section"),
-            "current_task": feeder.get("current_task"),
-            "completed": feeder.get("completed", 0),
-            "total": feeder.get("total", 0),
-            "active_model": feeder.get("active_model"),
-            "active_reasoning": feeder.get("active_reasoning"),
-            "heartbeat_at": feeder.get("heartbeat_at"),
-            "sections": feeder.get("sections", []),
+            "status": production_status.get("status", "ERROR"),
+            "current_section": production_status.get("current_section"),
+            "current_task": production_status.get("current_task"),
+            "completed": production_status.get("completed", 0),
+            "total": production_status.get("total", 0),
+            "active_model": production_status.get("active_model"),
+            "active_reasoning": production_status.get("active_reasoning"),
+            "heartbeat_at": production_status.get("heartbeat_at"),
+            "sections": production_status.get("sections", []),
             "commit": info["commit"],
             "updated_at": info["updated_at"],
         }

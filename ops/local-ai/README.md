@@ -18,23 +18,25 @@ biella-codex
 
 Mahdi chooses Codex model/usage. After launch, Codex decides when to use local Qwen/Ollama, L40S GPU, Unreal, GitHub, Drive, Cloudflare, Saturn, Modal, configured APIs, shell/build tools, and other project resources.
 
-## Games production feeder
+## Monorepo production runner
 
-The feeder is an internal section of the same controller:
+The production runner is an internal section of the same controller:
 
 ```bash
-biella-codex feed sync
-biella-codex feed status
-biella-codex feed start
-biella-codex feed stop
+biella-codex production sync
+biella-codex production status
+biella-codex production start
+biella-codex production stop
 ```
 
-Its one durable production source is:
+Durable execution state is:
 
 ```text
+/root/biella/repos/biella-engine/docs/project-state/03_BIELLA_CURRENT_STATE.md
+/root/biella/repos/biella-engine/docs/project-state/04_BIELLA_ACTIVE_TASK.md
 /root/biella/repos/biella-engine/projects/biella-games/docs/PRODUCTION.md
 ```
 
-That Project file contains Demo 01 plus Stage 2 through Stage 8, with task completion/evidence stored in each section. Feeder runtime state under `/mnt/biella-extra/biella-runtime/codex-feeder/biella-games-production/` is telemetry only and contains no durable completion ledger.
+Runtime telemetry under `/mnt/biella-extra/biella-runtime/codex-production/` contains only liveness, current attempt/model/PIDs, cooldowns, last result, and heartbeat. It is not a completion ledger.
 
-`feed start` resumes the earliest unfinished task from the canonical Project source. `feed stop` stops execution without changing completed Project work. There is no separate active queue, batch ledger, model-specific project memory, or `games-production.json` authority.
+`production start` reconstructs the earliest unfinished canonical task, executes one bounded writer at a time, refreshes heartbeat during long Codex attempts, validates structured evidence, advances 03/04 plus Project state, and continues. Empty later sections are planned/audited just-in-time inside the same Project `PRODUCTION.md`. There is no separate active queue, batch ledger, model-specific project memory, feeder authority, or `games-production.json`.

@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import argparse
 import fcntl
 import json
 import os
 import subprocess
+import sys
 import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -260,3 +262,73 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             _beat(runtime_path, telemetry); return 2
     finally:
         lock.release()
+
+
+def default_repo_root() -> Path:
+    return Path(os.environ.get("BIELLA_REPO_ROOT", "/root/biella/repos/biella-engine"))
+
+
+def default_project_root(repo_root: Path | None = None) -> Path:
+    repo = repo_root or default_repo_root()
+    return Path(os.environ.get("BIELLA_PROJECT_ROOT", str(repo / "projects/biella-games")))
+
+
+def default_runtime_root() -> Path:
+    return Path(os.environ.get("BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT", "/mnt/biella-extra/biella-runtime/codex-production"))
+
+
+def start_production(repo_root: Path, project_root: Path, runtime_root: Path) -> int:
+    if service_active():
+        print(json.dumps({"unit": UNIT_NAME, "status": "ALREADY_RUNNING"}, sort_keys=True)); return 0
+    state.resolve_current_task(repo_root, project_root)
+    entrypoint = os.environ.get("BIELLA_CODEX_ENTRYPOINT", "/usr/local/bin/biella-codex")
+    cmd = [
+        "systemd-run", f"--unit={UNIT_NAME}", "--collect", "--property=Type=exec", "--property=Restart=no",
+        f"--setenv=BIELLA_REPO_ROOT={Path(repo_root).resolve()}",
+        f"--setenv=BIELLA_PROJECT_ROOT={Path(project_root).resolve()}",
+        f"--setenv=BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT={Path(runtime_root).resolve()}",
+        entrypoint, "production", "run",
+    ]
+    proc = subprocess.run(cmd, text=True, capture_output=True, check=False)
+    if proc.returncode != 0:
+        print(proc.stderr or proc.stdout, file=sys.stderr, end=""); return proc.returncode
+    print(json.dumps({"unit": UNIT_NAME, "status": "STARTED"}, sort_keys=True)); return 0
+
+
+def stop_production(runtime_root: Path) -> int:
+    rc = subprocess.run(["systemctl", "stop", UNIT_NAME], check=False).returncode
+    runtime_path = Path(runtime_root) / "runtime.json"
+    telemetry = load_runtime(runtime_path)
+    telemetry.update({"status": "STOPPED", "pid": None, "child_pid": None, "active_model": None, "active_reasoning": None})
+    _beat(runtime_path, telemetry)
+    return rc
+
+
+def _parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(prog="biella-codex production")
+    sub = parser.add_subparsers(dest="command", required=True)
+    for name in ("sync", "run", "start", "status", "stop"):
+        sub.add_parser(name)
+    return parser
+
+
+def main(argv=None) -> int:
+    os.umask(0o077)
+    args = _parser().parse_args(argv)
+    repo_root = default_repo_root(); project_root = default_project_root(repo_root); runtime_root = default_runtime_root()
+    if args.command == "run":
+        return run_production(repo_root, project_root, runtime_root)
+    if args.command == "start":
+        return start_production(repo_root, project_root, runtime_root)
+    if args.command == "status":
+        print(json.dumps(production_status(repo_root, project_root, runtime_root / "runtime.json"), sort_keys=True)); return 0
+    if args.command == "sync":
+        state.resolve_current_task(repo_root, project_root)
+        print(json.dumps(production_status(repo_root, project_root, runtime_root / "runtime.json"), sort_keys=True)); return 0
+    if args.command == "stop":
+        return stop_production(runtime_root)
+    raise AssertionError(args.command)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

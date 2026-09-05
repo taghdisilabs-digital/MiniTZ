@@ -3,11 +3,11 @@ set -Eeuo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 wrapper="$root/ops/local-ai/biella-codex.sh"
 installer="$root/ops/local-ai/install-biella-ai.sh"
-feeder="$root/ops/local-ai/biella_codex_feeder.py"
+runner="$root/ops/local-ai/biella_production_runner.py"
 cli="$root/ops/workstation/biella"
 policy="$root/ops/workstation/AGENTS.md"
 
-for f in "$wrapper" "$installer" "$feeder" "$cli" "$policy"; do
+for f in "$wrapper" "$installer" "$runner" "$cli" "$policy"; do
   [[ -f "$f" ]] || { echo "missing $f"; exit 1; }
 done
 
@@ -17,9 +17,11 @@ grep -Fq -- '--dangerously-bypass-approvals-and-sandbox' "$wrapper"
 grep -Fq 'shell_environment_policy.inherit' "$wrapper"
 grep -Fq -- '--search' "$wrapper"
 grep -Fq 'cd /root' "$wrapper"
-grep -Fq 'BIELLA_CODEX_FEEDER' "$wrapper"
-grep -Fq '"${1:-}" == "feed"' "$wrapper"
-grep -Fq 'biella_codex_feeder.py' "$installer"
+grep -Fq 'BIELLA_PRODUCTION_RUNNER' "$wrapper"
+grep -Fq '"${1:-}" == "production"' "$wrapper"
+! grep -Fq '"${1:-}" == "feed"' "$wrapper"
+! grep -Fq 'biella_codex_feeder.py' "$installer"
+grep -Fq 'biella_production_runner.py' "$installer"
 ! grep -Fq -- '--oss' "$wrapper"
 ! grep -Fq 'qwen3-coder-next:biella' "$wrapper"
 ! grep -Fq 'gpt-5.6-luna' "$wrapper"
@@ -43,10 +45,13 @@ grep -Fq 'gpt-6-astra' "$policy"
 grep -Fq 'ultra' "$policy"
 grep -Fq 'Creation tasks never use low reasoning' "$policy"
 grep -Fq 'Mahdi controls Codex account usage' "$policy"
-grep -Fq 'one durable production source' "$policy"
+grep -Fq 'Durable execution state is' "$policy"
+grep -Fq '03_BIELLA_CURRENT_STATE.md' "$policy"
+grep -Fq '04_BIELLA_ACTIVE_TASK.md' "$policy"
 grep -Fq 'projects/biella-games/docs/PRODUCTION.md' "$policy"
 ! grep -Fq '/root/biella/work/games-production.json' "$policy"
 grep -Fq 'runtime telemetry' "$policy"
+grep -Fq 'codex-production' "$policy"
 grep -Fq 'do not create separate queue, state, batch, or progress-ledger authorities' "$policy"
 grep -Fq '20-50 task set' "$policy"
 
