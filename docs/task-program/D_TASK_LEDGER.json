@@ -1,5 +1,5 @@
 {
-  "current_task": "D01-38",
+  "current_task": "D01-39",
   "execution_authority": "current 03/04 + Project PRODUCTION.md",
   "registry_is_queue": false,
   "schema": "biella.d_task_ledger/v1",
@@ -1152,7 +1152,7 @@
         "D01-038"
       ],
       "program": "D01",
-      "status": "PENDING",
+      "status": "COMPLETE_ALREADY",
       "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D01-38",
       "title": "Add success/failure overlays and restart input"

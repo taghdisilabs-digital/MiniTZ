@@ -4,11 +4,11 @@
 schema: biella.active_task/v9
 
 task:
-  id: D01-38
+  id: D01-39
   project: Biella Games
   section: demo01
-  class: creation
-  title: Add success/failure overlays and restart input
+  class: hard
+  title: Add deterministic playtest harness and telemetry
   status: PENDING
   runner: READY
 
@@ -18,7 +18,7 @@ task:
     - projects/biella-games/docs/PRODUCTION.md
 
   continuity:
-    completed_predecessor: D01-37
+    completed_predecessor: D01-38
     production_source: projects/biella-games/docs/PRODUCTION.md
 
   preserve:
@@ -26,5 +26,5 @@ task:
     - Engine P4-06 as INCOMPLETE_DEFERRED
     - one-repository/one-controller/one-Project-production-source architecture
 
-  stop: Execute only D01-38; validate and persist it before advancing.
+  stop: Execute only D01-39; validate and persist it before advancing.
 ```

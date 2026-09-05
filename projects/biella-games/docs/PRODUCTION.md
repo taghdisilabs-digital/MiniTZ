@@ -9,8 +9,8 @@ Engine: `/opt/unreal/UE_5.8.2`
 Execution rule: one current task; verify, execute, persist evidence, then advance
 Evidence rule: editable source plus task-derived build/runtime/package evidence
 Current section: `demo01`
-Current task: `D01-38`
-Progress: `37/50` Demo tasks complete
+Current task: `D01-39`
+Progress: `38/50` Demo tasks complete
 
 ## Section: demo01 | Demo 01 — first playable vertical slice | IN_PROGRESS
 
@@ -53,7 +53,7 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 - [x] D01-35 | medium | Add failure/death state | COMPLETE | Committed locally as a95ca7d.; D01-035 live Unreal automation passed: health zero → Failure, player_alive=false, objective success blocked.; D01-034 objective regression passed.; Structural verifier passed: completed=34/50 current=D01-035.; Protected task and production metadata unchanged; not advanced.
 - [x] D01-36 | medium | Add deterministic restart/reset path | COMPLETE | Committed locally as 1556f80.; UE 5.8.2 build passed.; Runtime restart test passed: Failure → restart → clean Active match.; Validation and structural verifiers passed; worktree is clean.
 - [x] D01-37 | creation | Add gameplay HUD core | COMPLETE | Native UMG HUD added for health, ammo, threat countdown, objective progress, phase, and crosshair.; UE 5.8.2 build, headless runtime, rendered Vulkan runtime, and D01-036 restart regression all passed.; [Acceptance evidence](/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-037-acceptance.md) and [validation JSON](/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-037-validation.json).; Committed locally as bf50a65e9953b2c0e9d26b002b8e1be6d1d24688; worktree clean. Metadata remains unchanged.
-- [ ] D01-38 | creation | Add success/failure overlays and restart input | PENDING | UI/runtime evidence
+- [x] D01-38 | creation | Add success/failure overlays and restart input | COMPLETE_ALREADY | Fresh UE 5.8.2 build, headless automation, and rendered Vulkan automation all passed.; Runtime verified success/failure overlays, `R` restart input, authoritative map reload, and clean Active reset.; Acceptance record: [D01-038-acceptance.md](/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-038-acceptance.md:1).; Validation JSON: [D01-038-validation.json](/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-038-validation.json:1).; Local commit `2721cc178a1b1f34723646d7b6d14a9698d24994`; worktree clean and protected metadata unchanged.
 - [ ] D01-39 | hard | Add deterministic playtest harness and telemetry | PENDING | captured event timeline
 - [ ] D01-40 | hard_creation | Apply visual/readability pass | PENDING | gameplay-distance legibility
 - [ ] D01-41 | creation | Expose generated visuals through inspection layer | PENDING | draft status + visible index
