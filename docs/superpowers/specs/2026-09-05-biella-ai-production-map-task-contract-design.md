@@ -203,8 +203,8 @@ Initial executable dispatcher operations are deliberately high-leverage: `status
 ### Cost and evidence
 Routing may use paid services automatically under Mahdi's authorization. Prefer existing free/trial/prepaid balance when observable, but never perform quota-probing calls solely to inspect balances. Record provider, semantic capability, operation, latency, model where applicable, and usage/cost fields when the provider returns them. Provider success is not task acceptance; outputs still require task-derived validation.
 
-### Missing locator rule
-A credential without its required account/project locator is `NEEDS_LOCATOR`, not `CONNECTED`. Search existing authorized configuration for the locator before asking Mahdi. Never infer a locator from a secret. Unknown service names such as the currently ambiguous `Endpoint` remain `UNKNOWN` until an exact configured provider/URL is observable.
+### Locator rule
+A credential without its required account/project locator is `NEEDS_LOCATOR`, not `CONNECTED`. Search existing authorized configuration for the locator before asking Mahdi and never infer a locator from a secret. The supplied Supabase URL, Upstash account email, and Cloudinary cloud name are now configured runtime locators. The supplied `endpoint` is the Qdrant cluster URL (`QDRANT_URL`), not a separate provider. Current Resource status therefore has no unresolved locator.
 
 ## Non-negotiable integration constraints
 - Do not replace `biella-codex` or add another public controller.

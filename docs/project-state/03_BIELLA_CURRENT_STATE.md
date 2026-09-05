@@ -31,6 +31,8 @@ active_execution:
   consolidation_state: COMPLETE_VERIFIED
 
   runner: READY
+  runner_implementation_commit: 0a9b4bf703ae79a2f82e61be998bdf483cb0f19e
+  runner_implementation_tree: 37507908e1b8b8feec45b39a3d30c312e3372769
 games:
   project_path: projects/biella-games
   production_source: projects/biella-games/docs/PRODUCTION.md
@@ -63,7 +65,8 @@ resources:
   verified_live_operations: [Tavily_search, Exa_semantic_search, Groq_fast_llm]
   configured_connected: [Cloudflare, Saturn, Groq, Cerebras, OpenRouter, Mistral, Tavily, Exa, Pinecone, Qdrant, Deepgram, AssemblyAI, ElevenLabs, StabilityAI, Supabase, Neon, Upstash, Cloudinary, Axiom, Pexels, Modal]
   needs_locator: []
-  restricted_or_unresolved: [Axiom, Endpoint]
+  restricted_or_unresolved: [Axiom]
+  qdrant_endpoint: CONFIGURED_RUNTIME_RESOURCE
 
 drive:
   canonical_root_name: Biella
@@ -78,6 +81,7 @@ drive:
   games_project_folder_id: 1SgvztxBMthMRbr6BPS-n9OXa2RYyXXDb
   provenance_file_id: 156sYJpCS_aVo62hSyir4Kfc5gDe_aTc0
   qualification_file_id: 1_Mlg42DpKmLIcaF02QOeJJ2xXYXzNGvk
+  production_file_id: 1LUVUz0iG_xL7eOkF1OEBtJ2R9a455eqx
   navigation_state: VERIFIED
 
 control:
@@ -93,6 +97,8 @@ workspace:
   obsolete_recovery_backups_checkpoints: REMOVED
   legacy_games_production_json_sha256: e23bd1634ae14cad059a8196f4e82dd6de982014c4892616348c2393ada18ecd
   legacy_games_production_json: REMOVED_SUPERSEDED_BY_PROJECT_PRODUCTION_MD
+  legacy_feeder_runtime_archive: /root/biella/archive/runtime/codex-feeder/biella-games-production-20260905
+  legacy_feeder_runtime_manifest_sha256: f819eafba2ad62ce002cb88e98bc3a32a5847e47a1309ad54fc7c5c63d8970a3
 
 archived_repositories:
   patrickminitz-web/biella-games: ARCHIVED_READ_ONLY
