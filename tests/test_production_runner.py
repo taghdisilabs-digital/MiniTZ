@@ -133,3 +133,25 @@ def test_runner_is_directly_executable():
     completed = subprocess.run([str(MODULE), "--help"], text=True, capture_output=True, check=False)
     assert completed.returncode == 0, completed.stderr
     assert "production" in completed.stdout.lower() or "usage" in completed.stdout.lower()
+
+
+def test_start_production_uses_persistent_systemd_unit(tmp_path: Path, monkeypatch):
+    calls = []
+    class Completed:
+        returncode = 0
+        stdout = ""
+        stderr = ""
+    monkeypatch.setattr(runner, "service_active", lambda: False)
+    monkeypatch.setattr(runner.state, "resolve_current_task", lambda *_args, **_kwargs: object())
+    monkeypatch.setattr(runner.subprocess, "run", lambda cmd, **kwargs: calls.append(cmd) or Completed())
+    assert runner.start_production(tmp_path, tmp_path / "project", tmp_path / "runtime") == 0
+    assert calls == [["systemctl", "start", "biella-codex-production.service"]]
+
+
+def test_persistent_production_unit_is_enabled_restartable_contract():
+    unit = (LOCAL_AI / "biella-codex-production.service").read_text()
+    assert "ExecStart=/usr/local/bin/biella-codex production run" in unit
+    assert "Restart=on-failure" in unit
+    assert "RestartPreventExitStatus=2" in unit
+    assert "RestartPreventExitStatus=2 3" not in unit
+    assert "WantedBy=multi-user.target" in unit

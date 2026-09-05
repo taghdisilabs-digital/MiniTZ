@@ -1,0 +1,17 @@
+[Unit]
+Description=Biella Canonical Production Runner
+After=network-online.target biella-ollama.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=BIELLA_REPO_ROOT=/root/biella/repos/biella-engine
+Environment=BIELLA_PROJECT_ROOT=/root/biella/repos/biella-engine/projects/biella-games
+Environment=BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT=/mnt/biella-extra/biella-runtime/codex-production
+ExecStart=/usr/local/bin/biella-codex production run
+Restart=on-failure
+RestartSec=10
+RestartPreventExitStatus=2
+
+[Install]
+WantedBy=multi-user.target

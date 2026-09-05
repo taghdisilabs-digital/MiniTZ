@@ -31,6 +31,9 @@ install -o root -g root -m 644 \
   "$SOURCE_DIR/biella_codex_routing.py" \
   "$SOURCE_DIR/biella_production_evidence.py" \
   "$INSTALL_DIR/"
+install -o root -g root -m 644 "$SOURCE_DIR/biella-codex-production.service" /etc/systemd/system/biella-codex-production.service
+systemctl daemon-reload
+systemctl enable biella-codex-production.service >/dev/null
 for obsolete in \
   /usr/local/bin/biella-ai-start \
   /usr/local/bin/biella-local-agent \

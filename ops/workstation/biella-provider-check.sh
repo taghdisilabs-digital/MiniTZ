@@ -42,6 +42,25 @@ curl_config_header() {
   report_http "$name" "$code" "$restricted_ok"
 }
 
+
+curl_config_post_json_header() {
+  local name="$1" url="$2" data="$3" restricted_ok="$4"; shift 4
+  local cfg body code header
+  cfg="$(mktemp "$BIELLA_RUNTIME_ROOT/tmp/curl.XXXXXX")"
+  body="$(mktemp "$BIELLA_RUNTIME_ROOT/tmp/provider.XXXXXX")"
+  chmod 600 "$cfg" "$body"
+  {
+    printf 'silent\nshow-error\nconnect-timeout = 4\nmax-time = 20\nrequest = "POST"\n'
+    printf 'output = "%s"\nwrite-out = "%%{http_code}"\n' "$body"
+    printf 'url = "%s"\ndata = "%s"\n' "$url" "$data"
+    printf 'header = "Content-Type: application/json"\n'
+    for header in "$@"; do printf 'header = "%s"\n' "$header"; done
+  } > "$cfg"
+  code="$(curl --config "$cfg" 2>/dev/null || true)"
+  rm -f -- "$cfg" "$body"
+  report_http "$name" "$code" "$restricted_ok"
+}
+
 curl_config_basic() {
   local name="$1" url="$2" userpass="$3" restricted_ok="${4:-0}"
   local cfg body code
@@ -71,12 +90,12 @@ fi
 [[ -n "${TAVILY_API_KEY:-}" ]] && curl_config_header Tavily 'https://api.tavily.com/usage' 0 "Authorization: Bearer $TAVILY_API_KEY" || not_configured Tavily
 
 if [[ -n "${GEMINI_API_KEY:-}" ]]; then
-  curl_config_header Gemini 'https://generativelanguage.googleapis.com/v1beta/models' 0 "x-goog-api-key: $GEMINI_API_KEY"
+  curl_config_header Gemini 'https://generativelanguage.googleapis.com/v1beta/openai/models/gemini-3.8-flash' 0 "Authorization: Bearer $GEMINI_API_KEY"
 else
   not_configured Gemini
 fi
 
-[[ -n "${EXA_API_KEY:-}" ]] && configured Exa 'NO_LIVE_PROBE' || not_configured Exa
+[[ -n "${EXA_API_KEY:-}" ]] && curl_config_post_json_header Exa 'https://api.exa.ai/search' '{\"query\":\"Biella provider health\",\"numResults\":1}' 0 "x-api-key: $EXA_API_KEY" || not_configured Exa
 [[ -n "${PINECONE_API_KEY:-}" ]] && curl_config_header Pinecone 'https://api.pinecone.io/indexes' 0 \
   "Api-Key: $PINECONE_API_KEY" 'X-Pinecone-Api-Version: 2026-04' || not_configured Pinecone
 if [[ -n "${QDRANT_API_KEY:-}" ]]; then
@@ -100,7 +119,7 @@ fi
 
 if [[ -n "${SUPABASE_PUBLISHABLE_KEY:-}" ]]; then
   if [[ -n "${SUPABASE_URL:-}" ]]; then
-    curl_config_header Supabase "${SUPABASE_URL%/}/rest/v1/" 0 "apikey: $SUPABASE_PUBLISHABLE_KEY"
+    curl_config_header Supabase "${SUPABASE_URL%/}/auth/v1/health" 0 "apikey: $SUPABASE_PUBLISHABLE_KEY"
   else
     needs_locator Supabase SUPABASE_URL
   fi
@@ -131,7 +150,7 @@ else
   not_configured Cloudinary
 fi
 
-[[ -n "${AXIOM_API_TOKEN:-}" ]] && curl_config_header Axiom 'https://api.axiom.co/v2/tokens' 1 \
+[[ -n "${AXIOM_API_TOKEN:-}" ]] && curl_config_header Axiom 'https://api.axiom.co/v2/datasets' 1 \
   "Authorization: Bearer $AXIOM_API_TOKEN" || not_configured Axiom
 [[ -n "${PEXELS_API_KEY:-}" ]] && curl_config_header Pexels 'https://api.pexels.com/v1/curated?per_page=1' 0 \
   "Authorization: $PEXELS_API_KEY" || not_configured Pexels

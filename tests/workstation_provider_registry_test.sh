@@ -34,7 +34,7 @@ for literal in \
   'api.pinecone.io/indexes' 'api.deepgram.com/v1/projects' \
   'api.assemblyai.com/v2/transcript' 'api.elevenlabs.io/v1/models' \
   'api.stability.ai/v1/user/account' 'console.neon.tech/api/v2/users/me' \
-  'api.pexels.com/v1/curated' 'api.axiom.co/v2/tokens' 'api-key:' \
+  'api.pexels.com/v1/curated' 'api.axiom.co/v2/datasets' 'api.exa.ai/search' '/auth/v1/health' 'api-key:' \
   'NEEDS_LOCATOR' 'CONFIGURED'; do
   require_literal "$CHECK" "$literal"
 done
@@ -43,7 +43,7 @@ require_literal "$INSTALL" 'biella-provider-configure'
 require_literal "$INSTALL" 'biella-provider-check'
 require_literal "$INSTALL" 'biella-resource.py'
 require_literal "$INSTALL" 'provider-registry.json'
-for literal in '"paid_allowed": true' '"free_credit_preferred": true' '"tavily"' '"exa"' '"groq"' '"cerebras"' '"deepgram"' '"stabilityai"' '"neon"' '"modal"'; do
+for literal in '"paid_allowed": true' '"free_credit_preferred": true' '"tavily"' '"exa"' '"groq"' '"cerebras"' '"deepgram"' '"stabilityai"' '"neon"' '"modal"' '"gemini"'; do
   require_literal "$REGISTRY" "$literal"
 done
 bash -n "$CHECK"

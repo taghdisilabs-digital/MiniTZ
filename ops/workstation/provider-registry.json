@@ -96,20 +96,6 @@
         "ELEVENLABS_API_KEY"
       ]
     },
-    "endpoint": {
-      "authority": "UNKNOWN_PROVIDER_SEMANTICS",
-      "capabilities": [
-        "custom.endpoint"
-      ],
-      "cost_class": "credit_or_paid",
-      "display_name": "Endpoint",
-      "locator_env": [
-        "ENDPOINT_URL"
-      ],
-      "required_env": [
-        "ENDPOINT_API_KEY"
-      ]
-    },
     "exa": {
       "capabilities": [
         "research.semantic",
@@ -122,6 +108,19 @@
         "EXA_API_KEY"
       ],
       "search_url": "https://api.exa.ai/search"
+    },
+    "gemini": {
+      "capabilities": [
+        "llm.fast",
+        "llm.code"
+      ],
+      "chat_url": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+      "cost_class": "credit_or_paid",
+      "display_name": "Gemini",
+      "locator_env": [],
+      "required_env": [
+        "GEMINI_API_KEY"
+      ]
     },
     "groq": {
       "capabilities": [
@@ -305,9 +304,6 @@
       "saturn",
       "modal"
     ],
-    "custom.endpoint": [
-      "endpoint"
-    ],
     "database.sql": [
       "neon",
       "supabase"
@@ -320,13 +316,15 @@
       "mistral",
       "groq",
       "cerebras",
-      "openrouter"
+      "openrouter",
+      "gemini"
     ],
     "llm.fast": [
       "groq",
       "cerebras",
       "mistral",
-      "openrouter"
+      "openrouter",
+      "gemini"
     ],
     "media.transform": [
       "cloudinary"

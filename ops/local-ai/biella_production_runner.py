@@ -294,15 +294,7 @@ def start_production(repo_root: Path, project_root: Path, runtime_root: Path) ->
     if service_active():
         print(json.dumps({"unit": UNIT_NAME, "status": "ALREADY_RUNNING"}, sort_keys=True)); return 0
     state.resolve_current_task(repo_root, project_root)
-    entrypoint = os.environ.get("BIELLA_CODEX_ENTRYPOINT", "/usr/local/bin/biella-codex")
-    cmd = [
-        "systemd-run", f"--unit={UNIT_NAME}", "--collect", "--property=Type=exec", "--property=Restart=no",
-        f"--setenv=BIELLA_REPO_ROOT={Path(repo_root).resolve()}",
-        f"--setenv=BIELLA_PROJECT_ROOT={Path(project_root).resolve()}",
-        f"--setenv=BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT={Path(runtime_root).resolve()}",
-        entrypoint, "production", "run",
-    ]
-    proc = subprocess.run(cmd, text=True, capture_output=True, check=False)
+    proc = subprocess.run(["systemctl", "start", f"{UNIT_NAME}.service"], text=True, capture_output=True, check=False)
     if proc.returncode != 0:
         print(proc.stderr or proc.stdout, file=sys.stderr, end=""); return proc.returncode
     print(json.dumps({"unit": UNIT_NAME, "status": "STARTED"}, sort_keys=True)); return 0

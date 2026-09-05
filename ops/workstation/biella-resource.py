@@ -176,7 +176,7 @@ def _model_for(provider_id: str, provider: Mapping[str, Any], env: Mapping[str, 
 def _bearer_key(provider_id: str) -> str:
     return {
         "groq": "GROQ_API_KEY", "cerebras": "CEREBRAS_API_KEY", "mistral": "MISTRAL_API_KEY",
-        "openrouter": "OPENROUTER_API_KEY",
+        "openrouter": "OPENROUTER_API_KEY", "gemini": "GEMINI_API_KEY",
     }[provider_id]
 
 

@@ -24,6 +24,7 @@ def configured_env() -> dict[str, str]:
         "MISTRAL_API_KEY": "mistral-secret",
         "OPENROUTER_API_KEY": "openrouter-secret",
         "SUPABASE_PUBLISHABLE_KEY": "supabase-secret",
+        "GEMINI_API_KEY": "gemini-secret",
     }
 
 
@@ -31,7 +32,7 @@ def test_registry_covers_approved_resource_pool_and_paid_policy():
     registry = resource.load_registry(REGISTRY)
     expected = {"cloudflare", "saturn", "groq", "cerebras", "openrouter", "mistral", "tavily", "exa",
                 "pinecone", "qdrant", "deepgram", "assemblyai", "elevenlabs", "stabilityai", "supabase",
-                "neon", "upstash", "cloudinary", "axiom", "pexels", "modal", "endpoint"}
+                "neon", "upstash", "cloudinary", "axiom", "pexels", "modal", "gemini"}
     assert expected <= set(registry["providers"])
     assert registry["policy"]["paid_allowed"] is True
     assert registry["policy"]["free_credit_preferred"] is True
@@ -47,7 +48,8 @@ def test_status_never_emits_secret_values_and_missing_locator_is_explicit():
     providers = {item["id"]: item for item in payload["providers"]}
     assert providers["groq"]["state"] == "CONFIGURED"
     assert providers["supabase"]["state"] == "NEEDS_LOCATOR"
-    assert providers["endpoint"]["state"] == "NOT_CONFIGURED"
+    assert providers["gemini"]["state"] == "CONFIGURED"
+    assert "endpoint" not in providers
 
 
 def test_capability_routing_prefers_specialized_configured_resources():
@@ -93,3 +95,17 @@ def test_fast_llm_uses_observed_default_and_returns_compact_usage():
     assert result["usage"]["total_tokens"] == 16
     assert calls[0][1] == "https://api.groq.com/openai/v1/chat/completions"
     assert "groq-secret" not in json.dumps(result)
+
+
+def test_gemini_is_routable_as_fast_llm_without_leaking_key():
+    registry = resource.load_registry(REGISTRY)
+    calls = []
+    def transport(method, url, headers, body, timeout):
+        calls.append((method, url, headers, body, timeout))
+        return {"choices": [{"message": {"content": "gemini result"}}], "model": body["model"], "usage": {"total_tokens": 7}}
+    result = resource.run_fast_llm(registry, "summarize", env=configured_env(), provider="gemini", model="observed-test-model", transport=transport)
+    assert result["provider"] == "gemini"
+    assert result["text"] == "gemini result"
+    assert calls[0][1].endswith("/v1beta/openai/chat/completions")
+    assert calls[0][2]["Authorization"] == "Bearer gemini-secret"
+    assert "gemini-secret" not in json.dumps(result)
