@@ -1,0 +1,10 @@
+{
+  "command": "biella resource route native-performance",
+  "observed_response": {
+    "capability": "native-performance",
+    "providers": []
+  },
+  "selected": "Local Unreal 5.8.2 native runtime timers, Linux /proc, NVIDIA driver nvidia-smi graphics process accounting",
+  "external_provider_calls": 0,
+  "reason": "Direct measurement on the actual current runtime host; external inference cannot replace native timings."
+}

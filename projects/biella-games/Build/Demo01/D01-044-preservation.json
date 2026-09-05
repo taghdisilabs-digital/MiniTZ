@@ -1,0 +1,23 @@
+{
+  "task_id": "D01-44",
+  "base_commit": "eb629ef0023aba37062bf1f7528587191ecf95c5",
+  "protected_metadata_matches_HEAD": true,
+  "protected": [
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/03_BIELLA_CURRENT_STATE.md",
+      "sha256": "cc4f647d6530498e211bc717f673a7480e40863fa579fa7526930f508af41448",
+      "bytes": 5386
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+      "sha256": "6eacb39526a1e13ed7a2b71362ca0392d5382c4e5ce2479cbf2f55a4dcf3cdc1",
+      "bytes": 779
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/docs/PRODUCTION.md",
+      "sha256": "58b111211ab22c170f144ac584cc8896804457ed1e4f492e0e5af9f7522e3e97",
+      "bytes": 14447
+    }
+  ],
+  "scope": "Only D01-44 editable instrumentation and measured evidence. No state/production transition or publication."
+}

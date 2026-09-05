@@ -1,0 +1,1793 @@
+{
+  "task_id": "D01-44",
+  "result": "PASS",
+  "created_utc": "20260905T094646.479673Z",
+  "mode": "SMOKE_ONLY",
+  "revision": {
+    "head": "eb629ef0023aba37062bf1f7528587191ecf95c5",
+    "head_tree": "c599351e256227287ddde48692e6091e966684de",
+    "project_status": [
+      " M Source/BiellaGames/BiellaGames.Build.cs",
+      "?? Build/Demo01/D01-044-editor-build.log",
+      "?? Build/Demo01/D01-044-predecessor-regression.log",
+      "?? Build/Demo01/D01-044-predecessor-regression/",
+      "?? Build/Demo01/D01-044-smoke-runner.log",
+      "?? Build/Demo01/D01-044-verifier-tests.log",
+      "?? Source/BiellaGames/Private/Tests/BiellaNativePerformanceTest.cpp",
+      "?? tests/run_d01_044.py",
+      "?? tests/test_d01_044.py",
+      "?? tests/verify_d01_044.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "identities_before": [
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor",
+      "sha256": "fa261aef63feb2e43a82262c3ef3eed9ea07980de426bb43762d6b1da07f7d7a",
+      "bytes": 450840
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Build/Build.version",
+      "sha256": "ff99fc3dd98e7c7fd2f5700334bc792dfb7baced3828cdee32940bb69581a6a4",
+      "bytes": 215
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+      "sha256": "717d96f26b873ae8a608e5dea862549a515b1c4cbd43ed36a31dd5a4151ce797",
+      "bytes": 274
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGamesEditor.target",
+      "sha256": "3df65cadc765140c22f9c4154a44be125bca3f2759562bc63bbc1155392ea492",
+      "bytes": 998973
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/UnrealEditor.modules",
+      "sha256": "550b567553f0b41fff1bc2b8c810126857148922b4e75615e67347fdd3a38a43",
+      "bytes": 96
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/libUnrealEditor-BiellaGames.so",
+      "sha256": "4ef74d7c17ae9375a5b943f6fd065fce0b5bc2c2152f47f20998a3a39c9c0ac1",
+      "bytes": 1204624
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Config/DefaultEngine.ini",
+      "sha256": "c4fb1836db4e4805336cbb820ffc2b49ccb943138a1e5211879a3ab8a9dd1076",
+      "bytes": 1483
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Config/DefaultGame.ini",
+      "sha256": "fb300de27bfba441548c8fe9f00347b20cacb4638759f43923f23b05d6213fea",
+      "bytes": 593
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Config/DefaultInput.ini",
+      "sha256": "e1b7a60e4da1acca28b8540ed7b2746551df9ae1ddc0056eb45a0932ed82ea78",
+      "bytes": 9483
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Maps/BiellaGameplayMap.umap",
+      "sha256": "7899e51349e2540958c98b23372772cd195bd9f1ffd6e3385f430a0d2daeb777",
+      "bytes": 17229
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Maps/BiellaGameplayMap_Recovered.umap",
+      "sha256": "d8c0cdc7b37783d36dbb9f64a4ec641d7ddbaa7568ba22f3bb2e4f503b2d4677",
+      "bytes": 17359
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/BiellaGames.Build.cs",
+      "sha256": "fe875bdaa6e0330b03a1af338ff796e56708d13c00a9df740b8251b7e4b9f362",
+      "bytes": 775
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/BiellaGames.cpp",
+      "sha256": "256382027fe5e6d492cbbdbf13dbf449a438b7063398ef5c80fc049fbaebf78c",
+      "bytes": 198
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/BiellaGames.h",
+      "sha256": "30af2b68e6d8210e4ce4fbd26f6a2b8c3648cf2a1226d64b17c4f88c94fccdf1",
+      "bytes": 91
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BasicWorldGeometry.cpp",
+      "sha256": "b9b94999c18f142c8ac17d94a59cd7b474b278662b35843ddb97c75056f9c9ad",
+      "bytes": 11411
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaDemoObjectiveManager.cpp",
+      "sha256": "9485b05457ca3d28db8229a5811e8354cc149a24898e77f01591e99badffbd10",
+      "bytes": 6664
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaDemoPawn.cpp",
+      "sha256": "6816155e8afbc6d5e98e40ee5622a52bd54663ec96072662793d03f03157cf96",
+      "bytes": 9772
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGameplayFeedback.cpp",
+      "sha256": "9db2596c4b37cf09cfb4e2b2ce3f60dc9f0b327bc651e13ba1dd93c6e62312a4",
+      "bytes": 11405
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGameplayHUD.cpp",
+      "sha256": "563164d170c3f2f5cb2c750ce8558e986741cc0e3171fe362c7a66a353a2ae81",
+      "bytes": 17953
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+      "sha256": "71bf61c12d0e499e53687e85ff33e9c67c7e64cedcd9c060f934f0a85ce380c2",
+      "bytes": 15208
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesGameInstance.cpp",
+      "sha256": "908284a0b1d9e1ba1356a7d6b375e897706c22ec1906a289557f5f0dd21b3e7d",
+      "bytes": 434
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp",
+      "sha256": "a95f20d744e1df5510af5a683a71db49d78e8241320d179ee908c51835537411",
+      "bytes": 11014
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesGameState.cpp",
+      "sha256": "796cb4707ac7ebc3aa20ec3c5980395551f980d65a0299d1d0bf88ef29f16164",
+      "bytes": 6272
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesPlayerController.cpp",
+      "sha256": "84703f60b0e9f010686e71c59bb7f3176f0c48fea6c8c9fd5d9c7351bc76bfae",
+      "bytes": 2718
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaInfected.cpp",
+      "sha256": "f93ed5abe0f4ca4066dd70340f0ce2c205a3f8b3e12db95c81e74ec79c1ddbe3",
+      "bytes": 6945
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaPlaytestTelemetry.cpp",
+      "sha256": "44a20ca99d09f0bc665ba51d57fc5a796085816bc57648b695f7e6b69b3f859b",
+      "bytes": 5558
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaRival.cpp",
+      "sha256": "2b8e491b187d1b7ec1eeccd17fabd9581fcbd7fe6533ae8caf08dea35fa72016",
+      "bytes": 16600
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaArenaPressureTest.cpp",
+      "sha256": "b912a87fbc9e441c5a98fc95d333a71e4d8c3ca1c07558b1732323f9a75d00e3",
+      "bytes": 6155
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaDemoObjectiveTest.cpp",
+      "sha256": "f9719a4e369358b5c384175e10bd0a9527e11db515182cb0e843cb0365c29862",
+      "bytes": 9283
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaDeterministicPlaytest.cpp",
+      "sha256": "014b3a868474e36c170501fe1c3b0bf845a72640a100caeb476b351eb5fdc8f5",
+      "bytes": 33357
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaFailureStateTest.cpp",
+      "sha256": "15a7c02db1648004c1c3c2d31ac95d248d637e5d2262da94f74037bd97031cdf",
+      "bytes": 6418
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaFeedbackTest.cpp",
+      "sha256": "f376c2f79e37187074f1d1ff5cc6fd43302f58f3fc99e0079a78c9702c69bf44",
+      "bytes": 34677
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaGameplayHUDTest.cpp",
+      "sha256": "e51d2be298c21b5ee461a26cb26737814ac19d95b4a40f40bef00a01a1cab7f2",
+      "bytes": 7623
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaNativePerformanceTest.cpp",
+      "sha256": "6472f50352b01f81bc95da670610a55c1d589d4560d6215680c7d25f8ca6f61d",
+      "bytes": 23803
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaPressureResponsesTest.cpp",
+      "sha256": "cdb3c6c69b6f9dcc5776540e189eaf8a4ad8a182a335f03b1a4caed1ad27ae8c",
+      "bytes": 26522
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaRestartResetTest.cpp",
+      "sha256": "b29e409b32b66f628683e84f3e6b8cf008ea232639ad662bf49bf18fa734cc04",
+      "bytes": 9791
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaRivalCombatTest.cpp",
+      "sha256": "2b33dca2e52882e94efc7154f0ab5985570f1d4a23ce89e824aedb1e2ce54cb2",
+      "bytes": 21945
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaRivalNavigationTest.cpp",
+      "sha256": "a4c9dc728b13e9454aa30a21ac9e13dc73208f7cf51b05e3d9ba03941ccbd6ac",
+      "bytes": 21411
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaSharedInteractionTest.cpp",
+      "sha256": "0be9079ec2e343206a938e3a6ab6316bac1d95ef88053da3c5509d349af1c9e0",
+      "bytes": 22934
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaTerminalOverlayTest.cpp",
+      "sha256": "66fc2c6018be49ffccdc6ceadd3e43af569210a2feab0f3092a3bdfda7ca8313",
+      "bytes": 11047
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaVisualReadabilityTest.cpp",
+      "sha256": "7d929225d3ec6e33ba1d442061f51b9b31f743719013c7dba7bcfa542b2d653b",
+      "bytes": 28464
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BasicWorldGeometry.h",
+      "sha256": "b5de058cbaf852dcb4152e447f67e4d3555befd08fc7c9c9c90c76e71ca82dee",
+      "bytes": 1729
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaDemoObjectiveManager.h",
+      "sha256": "973911b97ab16afb2f7a7c33f60ecb3520e95d3fec04bfc2f6e013c9fa4b4646",
+      "bytes": 2183
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaDemoPawn.h",
+      "sha256": "d71cd56097c0b56703d73d83e3ec25065e4c57b557cab0ca27cf779b4532f34a",
+      "bytes": 2847
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGameplayFeedback.h",
+      "sha256": "5effd52aea5e49355c003d19cccae5a11201365a843a5d31535794e78a80eb44",
+      "bytes": 3045
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGameplayHUD.h",
+      "sha256": "b1ad3808378a9b205104049fc8a1cff32380c340b8cb7e4161500a74853f9f88",
+      "bytes": 3794
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesCharacter.h",
+      "sha256": "9d9d27049531bacf656fc36dd29b6af916bc4fbd4a37d9c6adf570425f9ed795",
+      "bytes": 3344
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesGameInstance.h",
+      "sha256": "a4cfbf5bf4b854096844eaa0b36cbd43d26d2e5ab3bcca1478e62f4d35dde63c",
+      "bytes": 473
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesGameModeBase.h",
+      "sha256": "c59ef97659efc16a8458ea79b7857d63e8ce82a8d2dcc6a9475381e8dd6d37cf",
+      "bytes": 2283
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesGameState.h",
+      "sha256": "e82da83f790682a7b70567400983835514f2e581ef84b76fa3e88328a6824aaf",
+      "bytes": 3071
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesPlayerController.h",
+      "sha256": "1c40f6542e9274cdfd5df5171a276aa02a907b822b893103df21b9cc28c32148",
+      "bytes": 919
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaInfected.h",
+      "sha256": "996cc1d1c6ef431d48bd562f7cec87036715463b17f0d0e5bc4c43b018706e5a",
+      "bytes": 1897
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaPlaytestTelemetry.h",
+      "sha256": "f2ac4a47dfe772051d164b058af04a2df308607d0be541903001e527171cb333",
+      "bytes": 1332
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaRival.h",
+      "sha256": "b8d3d195d369609248b0edd4d6b9f434edffcf0638c53e26e9cc53613856e2b1",
+      "bytes": 2591
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames.Target.cs",
+      "sha256": "4799f3aaff4fdbef67e6fd8c4bba578b08336aac195d7df0906fe4c3281ac13c",
+      "bytes": 370
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGamesEditor.Target.cs",
+      "sha256": "8464660556e742c670c5178cdf7b713f6c47309e099e054fff4c5a10e726f085",
+      "bytes": 384
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_039.py",
+      "sha256": "9df5e5188444a8dba455768ceed3915c44796a6e9897dd89a1e96d7147b610e8",
+      "bytes": 9977
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d01_039.py",
+      "sha256": "159e65a23995bf5cbe5678b68fc2816ddd5d405872033838d403abcaa1c88926",
+      "bytes": 21241
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_Failure.uasset",
+      "sha256": "c78631b279cc4e0af7ea72d914e7a33372b3cc6221be53d68bda8f574832f95f",
+      "bytes": 32988
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_Hurt.uasset",
+      "sha256": "061ce3c51240547f2b5234330fbd9cecbedf4c88e536afc3f54434174c1754dd",
+      "bytes": 14870
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_Impact.uasset",
+      "sha256": "ce2b9fbe5df63e6ac56bc17e95c0212a4cd13cf10eec3169646deb9c253ceab6",
+      "bytes": 12394
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_Pressure.uasset",
+      "sha256": "99e27cb5922a58e5320f9405e9da791a470c415638a1e398a8d2086e8a811d17",
+      "bytes": 12718
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_ShotA.uasset",
+      "sha256": "f62f3e71283244dba5882afa8a14fb5c08db3a7fdb6b15f92b147d15365fc633",
+      "bytes": 17087
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_ShotB.uasset",
+      "sha256": "bb406c7c82666b32b95c1a6e76cc0273004a712016b4055ca86c25c5980645b5",
+      "bytes": 17139
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_ShotC.uasset",
+      "sha256": "9bb6f99f4887a7820a9db7d38dc792f9236cf60544fab75ea413b26db968955c",
+      "bytes": 16332
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_Success.uasset",
+      "sha256": "8114762a7e283060d01ca538d16f3bf651a23624a040a2f997cb06c601eeecf3",
+      "bytes": 35359
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/M_FeedbackParticle.uasset",
+      "sha256": "656d1f1bac66e98df33158f764028226a6de6cd460089063e94bd64a51b48939",
+      "bytes": 10927
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/NS_Impact.uasset",
+      "sha256": "d07a7b6ffbb1b00adb18bb95dfb3f2cb7c203955eacdcde4ac03cec21cf2ddc6",
+      "bytes": 445437
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/NS_Muzzle.uasset",
+      "sha256": "472881a1ed4e829fe69a62b429c34a738233b8288bcc8be2b4dbf7dbf84ce354",
+      "bytes": 444673
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Materials/M_DemoReadability.uasset",
+      "sha256": "4fdf1b6ad04d0bb32f515a5547df6b7f455e599bec6ee8d012307b7d2f4c8b59",
+      "bytes": 7054
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_042.py",
+      "sha256": "20f00aeeddd84e08f6cfe0d0ba40dd53887ece95d3df065d5083e943ebc343c9",
+      "bytes": 9548
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_043.py",
+      "sha256": "ec8da542ba3cc3c1cca4c326af31050a07fc013a42a295cd17b51dd61bea2bcf",
+      "bytes": 11482
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_044.py",
+      "sha256": "91e0d9db8333586306488c5053de7d98c0a4ffceb983f1a65a4b1df83e1e26ce",
+      "bytes": 17459
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/test_d01_044.py",
+      "sha256": "7dae83aae879393271dd1f0f37614cbd2a33415a7949b3308806dbe84e18a6b7",
+      "bytes": 11798
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d01_044.py",
+      "sha256": "a275b44d27dc69f58494ad266c57dcd601654562a971e6e5298fc27cbeb89cdd",
+      "bytes": 19376
+    }
+  ],
+  "protected_before": [
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/03_BIELLA_CURRENT_STATE.md",
+      "sha256": "cc4f647d6530498e211bc717f673a7480e40863fa579fa7526930f508af41448",
+      "bytes": 5386
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+      "sha256": "6eacb39526a1e13ed7a2b71362ca0392d5382c4e5ce2479cbf2f55a4dcf3cdc1",
+      "bytes": 779
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/docs/PRODUCTION.md",
+      "sha256": "58b111211ab22c170f144ac584cc8896804457ed1e4f492e0e5af9f7522e3e97",
+      "bytes": 14447
+    }
+  ],
+  "host": {
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39",
+    "cpu": "AMD EPYC 9124 16-Core Processor",
+    "logical_cpus": 15,
+    "cpu_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "clock_ticks_per_second": 100,
+    "memory_kib": {
+      "MemTotal": 90501504,
+      "MemFree": 4565768,
+      "MemAvailable": 87080980,
+      "Buffers": 382080,
+      "Cached": 81383684,
+      "SwapCached": 14096,
+      "Active": 1426932,
+      "Inactive": 81307256,
+      "Active(anon)": 365188,
+      "Inactive(anon)": 612572,
+      "Active(file)": 1061744,
+      "Inactive(file)": 80694684,
+      "Unevictable": 27448,
+      "Mlocked": 27448,
+      "SwapTotal": 33554428,
+      "SwapFree": 33479396,
+      "Zswap": 0,
+      "Zswapped": 0,
+      "Dirty": 324,
+      "Writeback": 0,
+      "AnonPages": 990040,
+      "Mapped": 411444,
+      "Shmem": 552,
+      "KReclaimable": 2274296,
+      "Slab": 2673180,
+      "SReclaimable": 2274296,
+      "SUnreclaim": 398884,
+      "KernelStack": 9600,
+      "PageTables": 17164,
+      "SecPageTables": 0,
+      "NFS_Unstable": 0,
+      "Bounce": 0,
+      "WritebackTmp": 0,
+      "CommitLimit": 78805180,
+      "Committed_AS": 3552724,
+      "VmallocTotal": 13743895347199,
+      "VmallocUsed": 180108,
+      "VmallocChunk": 0,
+      "Percpu": 12416,
+      "HardwareCorrupted": 0,
+      "AnonHugePages": 0,
+      "ShmemHugePages": 0,
+      "ShmemPmdMapped": 0,
+      "FileHugePages": 0,
+      "FilePmdMapped": 0,
+      "Unaccepted": 0,
+      "HugePages_Total": 0,
+      "HugePages_Free": 0,
+      "HugePages_Rsvd": 0,
+      "HugePages_Surp": 0,
+      "Hugepagesize": 2048,
+      "Hugetlb": 0,
+      "DirectMap4k": 5498732,
+      "DirectMap2M": 76175360,
+      "DirectMap1G": 10485760
+    },
+    "cgroup_limits": {
+      "cpu.max": "max 100000",
+      "memory.max": "max",
+      "cpuset.cpus.effective": "0-14"
+    },
+    "gpus": [
+      {
+        "name": "NVIDIA L40S",
+        "uuid": "GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5",
+        "driver": "580.178.04",
+        "pstate": "P8",
+        "utilization_percent": 0.0,
+        "memory_utilization_percent": 0.0,
+        "vram_used_mib": 0.0,
+        "vram_total_mib": 46068.0,
+        "power_w": 33.38,
+        "temperature_c": 43.0,
+        "sm_clock_mhz": 210.0,
+        "processes": []
+      }
+    ]
+  },
+  "scope": "Native Linux UnrealEditor -game Development, Vulkan, Xvfb; no shipping or target-tier acceptance.",
+  "capture_status": "GENERATED_DRAFT",
+  "captures_directory": "/root/biella/artifacts/games/D01-044/20260905T094646.479673Z-1280x720",
+  "command": [
+    "runuser",
+    "-u",
+    "unreal",
+    "--",
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1280x720x24",
+    "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor",
+    "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+    "/Game/Maps/BiellaGameplayMap",
+    "-game",
+    "-vulkan",
+    "-NoVSync",
+    "-windowed",
+    "-ResX=1280",
+    "-ResY=720",
+    "-unattended",
+    "-AudioMixer",
+    "-DeterministicAudio",
+    "-nosplash",
+    "-NoAsyncLoadingThread",
+    "-stdout",
+    "-FullStdOutLogOutput",
+    "-AbsLog=/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T094646.479673Z-1280x720/runtime.engine.log",
+    "-ExecCmds=t.MaxFPS 0,r.VSync 0,r.ScreenPercentage 100,r.DynamicRes.OperationMode 0,sg.ViewDistanceQuality 3,sg.AntiAliasingQuality 3,sg.ShadowQuality 3,sg.GlobalIlluminationQuality 3,sg.ReflectionQuality 3,sg.PostProcessQuality 3,sg.TextureQuality 3,sg.EffectsQuality 3,sg.FoliageQuality 3,sg.ShadingQuality 3,sg.LandscapeQuality 3,Automation RunTests BiellaGames.Demo01.NativePerformance; SoftQuit",
+    "-BiellaTelemetry=/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T094646.479673Z-1280x720/telemetry.jsonl",
+    "-BiellaPerfOutput=/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T094646.479673Z-1280x720",
+    "-BiellaPerfCaptures=/root/biella/artifacts/games/D01-044/20260905T094646.479673Z-1280x720",
+    "-BiellaPerfSeconds=30.0",
+    "-BiellaPerfWarmup=5.0"
+  ],
+  "runtime": {
+    "returncode": 0,
+    "watchdog_failure": null,
+    "elapsed_seconds": 60.55490976400324,
+    "unreal_process_identities": [
+      {
+        "pid": 1740983,
+        "start_ticks": 24842177
+      }
+    ],
+    "survivors": [],
+    "log_finalization": {
+      "closed": true,
+      "elapsed_seconds": 2.2755077649781015,
+      "timeout_seconds": 45,
+      "observed_writers": [
+        {
+          "pid": 1740985,
+          "fd": "1"
+        },
+        {
+          "pid": 1740985,
+          "fd": "2"
+        }
+      ],
+      "remaining_writers": []
+    }
+  },
+  "verification": {
+    "result": "PASS",
+    "logs": {
+      "warnings": {
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'ActorLayersWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'UObjectLabelWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'FolderCompatibilityWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'DiskSizeWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'AssetDataItemTypeWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'AssetDataLabelWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'AssetDataVirtualPathWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'AssetNameWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'DynamicAssetDataColumnBaseWidgetConstructor' as purpose '0' isn't registered.": 5,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'StaticMeshTrianglesWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'AlertWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'AlertHeaderWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'OutlinerUnsavedWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'OutlinerUnsavedHeaderConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'SocketWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'TypeInfoWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'VisibilityWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_0).": 10,
+        "LogConsoleManager: Warning: Console variable 'r.MotionVectorSimulation' used in the render thread. Rendering artifacts could happen. Use ECVF_RenderThreadSafe or don't use in render thread.": 1,
+        "LogNavigation: Warning: ProcessRegistrationCandidates RecastNavMesh_0 will be removed. This warning will disapear once the map is saved.": 5,
+        "LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance": 5,
+        "LogAutomationController: Warning: LogCrowdFollowing: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance [log]": 4,
+        "LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_0). [log]": 8,
+        "LogAutomationController: Warning: LogNavigation: ProcessRegistrationCandidates RecastNavMesh_0 will be removed. This warning will disapear once the map is saved. [log]": 4,
+        "LogVulkanRHI: Warning: Found 1 unfreed allocations!": 2
+      },
+      "baseline_warnings": {
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'ActorLayersWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'UObjectLabelWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'FolderCompatibilityWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'DiskSizeWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'AssetDataItemTypeWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'AssetDataLabelWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'AssetDataVirtualPathWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'AssetNameWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'DynamicAssetDataColumnBaseWidgetConstructor' as purpose '0' isn't registered.": 5,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'StaticMeshTrianglesWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'AlertWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'AlertHeaderWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'OutlinerUnsavedWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'OutlinerUnsavedHeaderConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'SocketWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'TypeInfoWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogEditorDataStorageUI: Warning: Unable to register widget factory 'VisibilityWidgetConstructor' as purpose '0' isn't registered.": 1,
+        "LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_0).": 416,
+        "LogConsoleManager: Warning: Console variable 'r.MotionVectorSimulation' used in the render thread. Rendering artifacts could happen. Use ECVF_RenderThreadSafe or don't use in render thread.": 1,
+        "LogNavigation: Warning: ProcessRegistrationCandidates RecastNavMesh_0 will be removed. This warning will disapear once the map is saved.": 208,
+        "LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance": 208,
+        "LogAutomationController: Warning: LogCrowdFollowing: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance [log]": 207,
+        "LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_0). [log]": 414,
+        "LogAutomationController: Warning: LogNavigation: ProcessRegistrationCandidates RecastNavMesh_0 will be removed. This warning will disapear once the map is saved. [log]": 207,
+        "LogVulkanRHI: Warning: Found 1 unfreed allocations!": 2
+      },
+      "classification": "Exact predecessor warning signatures remain disclosed; not warning-free."
+    },
+    "scope": "Observed native development-host workload; no shipping target or performance budget accepted.",
+    "settings": {
+      "rhi": "Vulkan",
+      "cpu": "AMD EPYC 9124 16-Core Processor",
+      "gpu": "NVIDIA L40S (NVIDIA UNIX x86_64 Kernel Module  580.178.04  Tue Jul  7 12:38:21 UTC 2026)",
+      "viewport_width": 1280,
+      "viewport_height": 720,
+      "fixed_timestep": false,
+      "benchmarking": false,
+      "smooth_framerate": false,
+      "use_fixed_framerate": false,
+      "platform_clock_id": 1,
+      "cvars": {
+        "t.MaxFPS": "0",
+        "r.VSync": "0",
+        "r.ScreenPercentage": "100",
+        "r.DynamicRes.OperationMode": "0",
+        "r.AntiAliasingMethod": "4",
+        "r.TemporalAA.Upsampling": "1",
+        "r.DynamicGlobalIlluminationMethod": "1",
+        "r.ReflectionMethod": "1",
+        "r.Shadow.Virtual.Enable": "1",
+        "r.Nanite": "1",
+        "r.RayTracing": "0",
+        "r.TSR.History.ScreenPercentage": "200",
+        "r.NGX.DLSS.Enable": "unavailable",
+        "r.Streamline.DLSSG.Enable": "unavailable",
+        "r.FidelityFX.FI.Enabled": "unavailable",
+        "sg.ViewDistanceQuality": "3",
+        "sg.AntiAliasingQuality": "3",
+        "sg.ShadowQuality": "3",
+        "sg.GlobalIlluminationQuality": "3",
+        "sg.ReflectionQuality": "3",
+        "sg.PostProcessQuality": "3",
+        "sg.TextureQuality": "3",
+        "sg.EffectsQuality": "3",
+        "sg.FoliageQuality": "3",
+        "sg.ShadingQuality": "3",
+        "r.Streaming.PoolSize": "1000"
+      }
+    },
+    "measurement_start_wall_seconds": 5.002499568999999,
+    "measurement_end_wall_seconds": 35.014886385,
+    "frame_time": {
+      "all_measurement": {
+        "count": 2138,
+        "duration_seconds": 30.012386816,
+        "mean_ms": 14.037599072029934,
+        "p50_ms": 13.886492,
+        "p90_ms": 15.61969,
+        "p95_ms": 16.27056435,
+        "p99_ms": 18.035302100000003,
+        "max_ms": 93.421785,
+        "min_ms": 8.653355,
+        "observed_fps": 71.23725324172499,
+        "hitches_gt_ms": {
+          "33.3": 6,
+          "50": 6,
+          "100": 0
+        }
+      },
+      "active": {
+        "count": 1666,
+        "duration_seconds": 23.931332173999998,
+        "mean_ms": 14.364545122448979,
+        "p50_ms": 14.1286925,
+        "p90_ms": 15.7767315,
+        "p95_ms": 16.411198249999998,
+        "p99_ms": 18.11130019999999,
+        "max_ms": 93.421785,
+        "min_ms": 8.653355,
+        "observed_fps": 69.61584870774608,
+        "hitches_gt_ms": {
+          "33.3": 6,
+          "50": 6,
+          "100": 0
+        }
+      },
+      "terminal": {
+        "count": 469,
+        "duration_seconds": 6.043478588,
+        "mean_ms": 12.88588185074627,
+        "p50_ms": 12.972398,
+        "p90_ms": 14.4956254,
+        "p95_ms": 15.101117,
+        "p99_ms": 17.36342896,
+        "max_ms": 20.184761,
+        "min_ms": 9.285698,
+        "observed_fps": 77.60431234608025,
+        "hitches_gt_ms": {
+          "33.3": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "travel": {
+        "count": 3,
+        "duration_seconds": 0.037576054,
+        "mean_ms": 12.525351333333333,
+        "p50_ms": 12.664171,
+        "p90_ms": 12.899271800000001,
+        "p95_ms": 12.9286594,
+        "p99_ms": 12.95216948,
+        "max_ms": 12.958047,
+        "min_ms": 11.953836,
+        "observed_fps": 79.83807985798616,
+        "hitches_gt_ms": {
+          "33.3": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "warmup": {
+        "count": 304,
+        "duration_seconds": 5.002499568999999,
+        "mean_ms": 16.4555906875,
+        "p50_ms": 13.7143735,
+        "p90_ms": 15.64446,
+        "p95_ms": 16.38056185,
+        "p99_ms": 18.60152539000001,
+        "max_ms": 725.327492,
+        "min_ms": 0.622533,
+        "observed_fps": 60.76962042812722,
+        "hitches_gt_ms": {
+          "33.3": 2,
+          "50": 2,
+          "100": 1
+        }
+      },
+      "capture": {
+        "count": 4,
+        "duration_seconds": 0.202220779,
+        "mean_ms": 50.55519475,
+        "p50_ms": 11.635168499999999,
+        "p90_ms": 124.89959920000003,
+        "p95_ms": 148.6094401,
+        "p99_ms": 167.57731282000003,
+        "max_ms": 172.319281,
+        "min_ms": 6.631161,
+        "observed_fps": 19.78036094896064,
+        "hitches_gt_ms": {
+          "33.3": 1,
+          "50": 1,
+          "100": 1
+        }
+      }
+    },
+    "simulation_delta": {
+      "count": 2138,
+      "duration_seconds": 30.012603890999998,
+      "mean_ms": 14.03770060383536,
+      "p50_ms": 13.8960115,
+      "p90_ms": 15.6315994,
+      "p95_ms": 16.2572298,
+      "p99_ms": 18.12403246000001,
+      "max_ms": 93.374645,
+      "min_ms": 8.612364,
+      "hitches_gt_ms": {
+        "33.3": 6,
+        "50": 6,
+        "100": 0
+      }
+    },
+    "thread_timings": {
+      "game_ms": {
+        "count": 2138,
+        "mean_ms": 3.7850304045837233,
+        "p50_ms": 3.5285,
+        "p90_ms": 4.508,
+        "p95_ms": 5.01815,
+        "p99_ms": 8.434200000000004,
+        "max_ms": 92.873001,
+        "min_ms": 1.722,
+        "hitches_gt_ms": {
+          "33.3": 3,
+          "50": 3,
+          "100": 0
+        },
+        "zero_or_unavailable_samples": 0,
+        "interpretation": "Positive engine timer samples; may be pipelined/delayed; not FPS or additive frame cost."
+      },
+      "render_ms": {
+        "count": 2138,
+        "mean_ms": 13.134476612722171,
+        "p50_ms": 13.0435,
+        "p90_ms": 15.030199999999999,
+        "p95_ms": 15.677050000000001,
+        "p99_ms": 17.175489630000005,
+        "max_ms": 115.486,
+        "min_ms": 6.884,
+        "hitches_gt_ms": {
+          "33.3": 3,
+          "50": 3,
+          "100": 1
+        },
+        "zero_or_unavailable_samples": 0,
+        "interpretation": "Positive engine timer samples; may be pipelined/delayed; not FPS or additive frame cost."
+      },
+      "rhi_ms": {
+        "count": 2138,
+        "mean_ms": 2.3232329279700656,
+        "p50_ms": 2.238,
+        "p90_ms": 3.1895,
+        "p95_ms": 3.5497500000000004,
+        "p99_ms": 5.411770000000019,
+        "max_ms": 23.077,
+        "min_ms": 0.958,
+        "hitches_gt_ms": {
+          "33.3": 0,
+          "50": 0,
+          "100": 0
+        },
+        "zero_or_unavailable_samples": 0,
+        "interpretation": "Positive engine timer samples; may be pipelined/delayed; not FPS or additive frame cost."
+      },
+      "gpu_ms": {
+        "count": 2138,
+        "mean_ms": 4.8438489237605244,
+        "p50_ms": 4.810499999999999,
+        "p90_ms": 5.25,
+        "p95_ms": 5.32,
+        "p99_ms": 5.443410000000001,
+        "max_ms": 24.534,
+        "min_ms": 4.066,
+        "hitches_gt_ms": {
+          "33.3": 0,
+          "50": 0,
+          "100": 0
+        },
+        "zero_or_unavailable_samples": 0,
+        "interpretation": "Positive engine timer samples; may be pipelined/delayed; not FPS or additive frame cost."
+      },
+      "game_wait_ms": {
+        "count": 2137,
+        "mean_ms": 10.257319138511932,
+        "p50_ms": 10.271,
+        "p90_ms": 11.9772,
+        "p95_ms": 12.556199999999999,
+        "p99_ms": 14.369279999999996,
+        "max_ms": 86.481003,
+        "min_ms": 0.001,
+        "hitches_gt_ms": {
+          "33.3": 3,
+          "50": 3,
+          "100": 0
+        },
+        "zero_or_unavailable_samples": 1,
+        "interpretation": "Positive engine timer samples; may be pipelined/delayed; not FPS or additive frame cost."
+      },
+      "render_wait_ms": {
+        "count": 2138,
+        "mean_ms": 0.9030486431244154,
+        "p50_ms": 0.713,
+        "p90_ms": 1.2743,
+        "p95_ms": 1.4932000000000007,
+        "p99_ms": 2.398320000000007,
+        "max_ms": 61.016998,
+        "min_ms": 0.01,
+        "hitches_gt_ms": {
+          "33.3": 3,
+          "50": 2,
+          "100": 0
+        },
+        "zero_or_unavailable_samples": 0,
+        "interpretation": "Positive engine timer samples; may be pipelined/delayed; not FPS or additive frame cost."
+      },
+      "swap_ms": {
+        "count": 2138,
+        "mean_ms": 0.02048690364826941,
+        "p50_ms": 0.014,
+        "p90_ms": 0.029,
+        "p95_ms": 0.062,
+        "p99_ms": 0.14026000000000022,
+        "max_ms": 0.261,
+        "min_ms": 0.006,
+        "hitches_gt_ms": {
+          "33.3": 0,
+          "50": 0,
+          "100": 0
+        },
+        "zero_or_unavailable_samples": 0,
+        "interpretation": "Positive engine timer samples; may be pipelined/delayed; not FPS or additive frame cost."
+      }
+    },
+    "player_movement_from_measured_frames": 5845.213713855037,
+    "top_hitches": [
+      {
+        "frame": 2187,
+        "wall_seconds": 19.719974656,
+        "wall_delta_ms": 93.421785,
+        "sim_delta_ms": 12.976717,
+        "stage": "measure",
+        "phase": "active",
+        "cycle": 4,
+        "game_ms": 8.409,
+        "render_ms": 10.56,
+        "rhi_ms": 2.51,
+        "gpu_ms": 4.096,
+        "game_wait_ms": 4.659,
+        "render_wait_ms": 0.864,
+        "swap_ms": 0.012,
+        "pawn_count": 4,
+        "autonomous_pawns": 3,
+        "player_x": 0.0,
+        "player_y": 0.0,
+        "player_z": 150.0,
+        "view_yaw": 0.0,
+        "health": 100.0,
+        "ammo": 60,
+        "pressure": 0.0,
+        "active_audio": 2,
+        "active_vfx": 2
+      },
+      {
+        "frame": 2188,
+        "wall_seconds": 19.810032361,
+        "wall_delta_ms": 90.057705,
+        "sim_delta_ms": 93.374645,
+        "stage": "measure",
+        "phase": "active",
+        "cycle": 4,
+        "game_ms": 92.873001,
+        "render_ms": 115.486,
+        "rhi_ms": 2.51,
+        "gpu_ms": 4.096,
+        "game_wait_ms": 1.181,
+        "render_wait_ms": 61.016998,
+        "swap_ms": 0.022,
+        "pawn_count": 4,
+        "autonomous_pawns": 3,
+        "player_x": 13.601366,
+        "player_y": 0.0,
+        "player_z": 228.125,
+        "view_yaw": 0.155721,
+        "health": 100.0,
+        "ammo": 60,
+        "pressure": 0.0,
+        "active_audio": 2,
+        "active_vfx": 2
+      },
+      {
+        "frame": 1386,
+        "wall_seconds": 8.870808981,
+        "wall_delta_ms": 86.141961,
+        "sim_delta_ms": 11.945435,
+        "stage": "measure",
+        "phase": "active",
+        "cycle": 3,
+        "game_ms": 5.762,
+        "render_ms": 11.435,
+        "rhi_ms": 1.143,
+        "gpu_ms": 4.307,
+        "game_wait_ms": 6.152,
+        "render_wait_ms": 0.374,
+        "swap_ms": 0.017,
+        "pawn_count": 4,
+        "autonomous_pawns": 3,
+        "player_x": 0.0,
+        "player_y": 0.0,
+        "player_z": 150.0,
+        "view_yaw": 0.0,
+        "health": 100.0,
+        "ammo": 60,
+        "pressure": 0.0,
+        "active_audio": 2,
+        "active_vfx": 2
+      },
+      {
+        "frame": 2656,
+        "wall_seconds": 26.431868232,
+        "wall_delta_ms": 78.788502,
+        "sim_delta_ms": 12.63135,
+        "stage": "measure",
+        "phase": "active",
+        "cycle": 5,
+        "game_ms": 5.726,
+        "render_ms": 11.875,
+        "rhi_ms": 1.266,
+        "gpu_ms": 4.566,
+        "game_wait_ms": 6.753,
+        "render_wait_ms": 0.694,
+        "swap_ms": 0.016,
+        "pawn_count": 4,
+        "autonomous_pawns": 3,
+        "player_x": 0.0,
+        "player_y": 0.0,
+        "player_z": 150.0,
+        "view_yaw": 0.0,
+        "health": 100.0,
+        "ammo": 60,
+        "pressure": 0.0,
+        "active_audio": 2,
+        "active_vfx": 2
+      },
+      {
+        "frame": 1387,
+        "wall_seconds": 8.94890905,
+        "wall_delta_ms": 78.100069,
+        "sim_delta_ms": 86.10348,
+        "stage": "measure",
+        "phase": "active",
+        "cycle": 3,
+        "game_ms": 84.869003,
+        "render_ms": 98.559998,
+        "rhi_ms": 1.143,
+        "gpu_ms": 4.307,
+        "game_wait_ms": 1.678,
+        "render_wait_ms": 56.139,
+        "swap_ms": 0.017,
+        "pawn_count": 4,
+        "autonomous_pawns": 3,
+        "player_x": 11.565541,
+        "player_y": 0.0,
+        "player_z": 228.125,
+        "view_yaw": 0.143345,
+        "health": 100.0,
+        "ammo": 60,
+        "pressure": 0.0,
+        "active_audio": 2,
+        "active_vfx": 2
+      },
+      {
+        "frame": 2657,
+        "wall_seconds": 26.506698591,
+        "wall_delta_ms": 74.830359,
+        "sim_delta_ms": 78.773763,
+        "stage": "measure",
+        "phase": "active",
+        "cycle": 5,
+        "game_ms": 78.471001,
+        "render_ms": 98.344002,
+        "rhi_ms": 1.266,
+        "gpu_ms": 4.566,
+        "game_wait_ms": 0.84,
+        "render_wait_ms": 45.685001,
+        "swap_ms": 0.017,
+        "pawn_count": 4,
+        "autonomous_pawns": 3,
+        "player_x": 9.680276,
+        "player_y": 0.0,
+        "player_z": 228.125,
+        "view_yaw": 0.151576,
+        "health": 100.0,
+        "ammo": 60,
+        "pressure": 0.0,
+        "active_audio": 2,
+        "active_vfx": 2
+      },
+      {
+        "frame": 2298,
+        "wall_seconds": 21.470156453,
+        "wall_delta_ms": 24.515465,
+        "sim_delta_ms": 16.170246,
+        "stage": "measure",
+        "phase": "active",
+        "cycle": 4,
+        "game_ms": 8.036,
+        "render_ms": 14.739,
+        "rhi_ms": 2.603,
+        "gpu_ms": 5.009,
+        "game_wait_ms": 11.854,
+        "render_wait_ms": 0.732,
+        "swap_ms": 0.012,
+        "pawn_count": 4,
+        "autonomous_pawns": 3,
+        "player_x": 542.171713,
+        "player_y": 237.704584,
+        "player_z": 228.125,
+        "view_yaw": 21.791105,
+        "health": 100.0,
+        "ammo": 60,
+        "pressure": 0.0,
+        "active_audio": 2,
+        "active_vfx": 2
+      },
+      {
+        "frame": 2554,
+        "wall_seconds": 25.050367806,
+        "wall_delta_ms": 20.184761,
+        "sim_delta_ms": 13.681723,
+        "stage": "measure",
+        "phase": "terminal",
+        "cycle": 4,
+        "game_ms": 2.774,
+        "render_ms": 13.403,
+        "rhi_ms": 3.2,
+        "gpu_ms": 4.623,
+        "game_wait_ms": 10.747,
+        "render_wait_ms": 1.384,
+        "swap_ms": 0.013,
+        "pawn_count": 4,
+        "autonomous_pawns": 0,
+        "player_x": 1220.128051,
+        "player_y": 761.505072,
+        "player_z": 228.125,
+        "view_yaw": 56.391365,
+        "health": 100.0,
+        "ammo": 54,
+        "pressure": 0.0,
+        "active_audio": 0,
+        "active_vfx": 0
+      },
+      {
+        "frame": 2886,
+        "wall_seconds": 29.907395455,
+        "wall_delta_ms": 19.938476,
+        "sim_delta_ms": 14.696424,
+        "stage": "measure",
+        "phase": "active",
+        "cycle": 5,
+        "game_ms": 3.099,
+        "render_ms": 17.860001,
+        "rhi_ms": 6.15,
+        "gpu_ms": 5.112,
+        "game_wait_ms": 11.481,
+        "render_wait_ms": 0.577,
+        "swap_ms": 0.013,
+        "pawn_count": 4,
+        "autonomous_pawns": 3,
+        "player_x": 978.929159,
+        "player_y": 638.520525,
+        "player_z": 228.125,
+        "view_yaw": 42.388446,
+        "health": 100.0,
+        "ammo": 60,
+        "pressure": 0.0,
+        "active_audio": 0,
+        "active_vfx": 0
+      },
+      {
+        "frame": 1171,
+        "wall_seconds": 5.90843064,
+        "wall_delta_ms": 19.602989,
+        "sim_delta_ms": 13.11858,
+        "stage": "measure",
+        "phase": "active",
+        "cycle": 2,
+        "game_ms": 3.51,
+        "render_ms": 13.125,
+        "rhi_ms": 2.782,
+        "gpu_ms": 5.104,
+        "game_wait_ms": 9.218,
+        "render_wait_ms": 5.7,
+        "swap_ms": 0.017,
+        "pawn_count": 4,
+        "autonomous_pawns": 1,
+        "player_x": 981.109615,
+        "player_y": 692.30551,
+        "player_z": 228.125,
+        "view_yaw": 46.384963,
+        "health": 100.0,
+        "ammo": 56,
+        "pressure": 0.0,
+        "active_audio": 0,
+        "active_vfx": 1
+      }
+    ],
+    "percentile_method": "Linear interpolation at (n-1)*p/100; every measured frame retained, including transitions.",
+    "telemetry": {
+      "session": "01A070F6-C819-7D64-AF19-5BB0D94312E8",
+      "records": 146,
+      "event_counts": {
+        "telemetry_ready": 1,
+        "phase": 10,
+        "objective_activated": 5,
+        "damage": 56,
+        "defeat": 14,
+        "objective_progress": 10,
+        "objective_success": 5,
+        "perf_begin": 1,
+        "perf_cycle_begin": 5,
+        "perf_heartbeat": 8,
+        "perf_restart": 4,
+        "restart_requested": 4,
+        "weapon_fire": 20,
+        "perf_measure_begin": 1,
+        "perf_complete": 1,
+        "telemetry_shutdown": 1
+      },
+      "measured_positive_damage_events": 41,
+      "measured_player_shot_events": 18,
+      "measured_wall_begin": 16.97115992300678,
+      "complete_wall_seconds": 47.18461455500801,
+      "restart_events": 4,
+      "sha256": "6018c433a75d1a11c84e9bda31c2a9402cf54b95dae675c4a845eb93ea510d69"
+    },
+    "captures": [
+      {
+        "path": "/root/biella/artifacts/games/D01-044/20260905T094646.479673Z-1280x720/warmup.png",
+        "size_bytes": 875511,
+        "sha256": "c6339f4ca44c0314791b38369eacf2e4f3c5409bb89f94e70a4809f78b083476",
+        "width": 1280,
+        "height": 720,
+        "rgb_stddev": [
+          61.724833288644,
+          71.23653420730365,
+          70.04850432372454
+        ],
+        "status": "GENERATED_DRAFT"
+      },
+      {
+        "path": "/root/biella/artifacts/games/D01-044/20260905T094646.479673Z-1280x720/final.png",
+        "size_bytes": 723299,
+        "sha256": "ebb018556a0fc39269fbc5b6e7421bc93c76727c6ddbb5ad1b1c609c1d407339",
+        "width": 1280,
+        "height": 720,
+        "rgb_stddev": [
+          40.267252353761855,
+          45.83509735527908,
+          49.80595867407504
+        ],
+        "status": "GENERATED_DRAFT"
+      }
+    ],
+    "raw": {
+      "frames.csv": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T094646.479673Z-1280x720/frames.csv",
+        "size_bytes": 474068,
+        "sha256": "70a6523d5ccd22df388fa74e44aad0097f26461b1524f9d2da58ade8aa12317c"
+      },
+      "perf.json": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T094646.479673Z-1280x720/perf.json",
+        "size_bytes": 4262,
+        "sha256": "51ef9d76e5a52e23834bb1bad7b0bb52407bc859d01c7843e74a9f8eaee1deaa"
+      },
+      "telemetry.jsonl": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T094646.479673Z-1280x720/telemetry.jsonl",
+        "size_bytes": 47751,
+        "sha256": "6018c433a75d1a11c84e9bda31c2a9402cf54b95dae675c4a845eb93ea510d69"
+      }
+    }
+  },
+  "resources": {
+    "sampling": "Independent /proc and nvidia-smi graphics-process samples (~1 Hz); CPU 100% = one logical core.",
+    "clock_id": 1,
+    "measurement_clock_start": 248448.354940247,
+    "measurement_clock_end": 248478.367327063,
+    "samples": 28,
+    "pid": 1740983,
+    "start_ticks": 24842177,
+    "gpu_uuid": "GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5",
+    "sample_cost_seconds": {
+      "min": 0.14950935597880743,
+      "mean": 0.1626888686109201,
+      "max": 0.17462700200849213
+    },
+    "cpu_percent_one_core": {
+      "min": 317.0645866033929,
+      "mean": 340.3564243077596,
+      "max": 369.9720618086194
+    },
+    "rss_mib": {
+      "min": 2814.9140625,
+      "mean": 2826.4708426339284,
+      "max": 2851.1796875
+    },
+    "rss_hwm_mib": 2851.1796875,
+    "rss_first_window_mean_mib": 2831.390625,
+    "rss_last_window_mean_mib": 2825.098828125,
+    "rss_window_delta_mib": -6.291796874999818,
+    "window_sample_count": 10,
+    "process_vram_mib": {
+      "min": 1711.0,
+      "mean": 1717.5,
+      "max": 1821.0
+    },
+    "device_vram_mib": {
+      "min": 1795.0,
+      "mean": 1799.9285714285713,
+      "max": 1861.0
+    },
+    "gpu_utilization_percent": {
+      "min": 30.0,
+      "mean": 36.92857142857143,
+      "max": 49.0
+    },
+    "gpu_power_w": {
+      "min": 72.93,
+      "mean": 84.61785714285715,
+      "max": 93.77
+    },
+    "gpu_temperature_c": {
+      "min": 45.0,
+      "mean": 45.964285714285715,
+      "max": 46.0
+    },
+    "threads": {
+      "min": 56,
+      "mean": 56,
+      "max": 56
+    },
+    "fault_deltas": {
+      "minor_faults": 5496,
+      "major_faults": 0
+    },
+    "io_deltas": {
+      "read_bytes": 0,
+      "write_bytes": 970752,
+      "syscr": 16541,
+      "syscw": 36621
+    },
+    "swap_mib": {
+      "min": 0.0,
+      "mean": 0.0,
+      "max": 0.0
+    },
+    "host_available_memory_mib": {
+      "min": 81718.46484375,
+      "mean": 82001.0615234375,
+      "max": 82498.84375
+    },
+    "other_gpu_processes": [],
+    "memory_interpretation": "Bounded observed residency/windows include caches and editor overhead; no leak-free claim or target budget."
+  },
+  "capture_copies": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T094646.479673Z-1280x720/captures/final.png",
+      "sha256": "ebb018556a0fc39269fbc5b6e7421bc93c76727c6ddbb5ad1b1c609c1d407339",
+      "bytes": 723299
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T094646.479673Z-1280x720/captures/warmup.png",
+      "sha256": "c6339f4ca44c0314791b38369eacf2e4f3c5409bb89f94e70a4809f78b083476",
+      "bytes": 875511
+    }
+  ],
+  "identities_after": [
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor",
+      "sha256": "fa261aef63feb2e43a82262c3ef3eed9ea07980de426bb43762d6b1da07f7d7a",
+      "bytes": 450840
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Build/Build.version",
+      "sha256": "ff99fc3dd98e7c7fd2f5700334bc792dfb7baced3828cdee32940bb69581a6a4",
+      "bytes": 215
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+      "sha256": "717d96f26b873ae8a608e5dea862549a515b1c4cbd43ed36a31dd5a4151ce797",
+      "bytes": 274
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGamesEditor.target",
+      "sha256": "3df65cadc765140c22f9c4154a44be125bca3f2759562bc63bbc1155392ea492",
+      "bytes": 998973
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/UnrealEditor.modules",
+      "sha256": "550b567553f0b41fff1bc2b8c810126857148922b4e75615e67347fdd3a38a43",
+      "bytes": 96
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/libUnrealEditor-BiellaGames.so",
+      "sha256": "4ef74d7c17ae9375a5b943f6fd065fce0b5bc2c2152f47f20998a3a39c9c0ac1",
+      "bytes": 1204624
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Config/DefaultEngine.ini",
+      "sha256": "c4fb1836db4e4805336cbb820ffc2b49ccb943138a1e5211879a3ab8a9dd1076",
+      "bytes": 1483
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Config/DefaultGame.ini",
+      "sha256": "fb300de27bfba441548c8fe9f00347b20cacb4638759f43923f23b05d6213fea",
+      "bytes": 593
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Config/DefaultInput.ini",
+      "sha256": "e1b7a60e4da1acca28b8540ed7b2746551df9ae1ddc0056eb45a0932ed82ea78",
+      "bytes": 9483
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Maps/BiellaGameplayMap.umap",
+      "sha256": "7899e51349e2540958c98b23372772cd195bd9f1ffd6e3385f430a0d2daeb777",
+      "bytes": 17229
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Maps/BiellaGameplayMap_Recovered.umap",
+      "sha256": "d8c0cdc7b37783d36dbb9f64a4ec641d7ddbaa7568ba22f3bb2e4f503b2d4677",
+      "bytes": 17359
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/BiellaGames.Build.cs",
+      "sha256": "fe875bdaa6e0330b03a1af338ff796e56708d13c00a9df740b8251b7e4b9f362",
+      "bytes": 775
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/BiellaGames.cpp",
+      "sha256": "256382027fe5e6d492cbbdbf13dbf449a438b7063398ef5c80fc049fbaebf78c",
+      "bytes": 198
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/BiellaGames.h",
+      "sha256": "30af2b68e6d8210e4ce4fbd26f6a2b8c3648cf2a1226d64b17c4f88c94fccdf1",
+      "bytes": 91
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BasicWorldGeometry.cpp",
+      "sha256": "b9b94999c18f142c8ac17d94a59cd7b474b278662b35843ddb97c75056f9c9ad",
+      "bytes": 11411
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaDemoObjectiveManager.cpp",
+      "sha256": "9485b05457ca3d28db8229a5811e8354cc149a24898e77f01591e99badffbd10",
+      "bytes": 6664
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaDemoPawn.cpp",
+      "sha256": "6816155e8afbc6d5e98e40ee5622a52bd54663ec96072662793d03f03157cf96",
+      "bytes": 9772
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGameplayFeedback.cpp",
+      "sha256": "9db2596c4b37cf09cfb4e2b2ce3f60dc9f0b327bc651e13ba1dd93c6e62312a4",
+      "bytes": 11405
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGameplayHUD.cpp",
+      "sha256": "563164d170c3f2f5cb2c750ce8558e986741cc0e3171fe362c7a66a353a2ae81",
+      "bytes": 17953
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+      "sha256": "71bf61c12d0e499e53687e85ff33e9c67c7e64cedcd9c060f934f0a85ce380c2",
+      "bytes": 15208
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesGameInstance.cpp",
+      "sha256": "908284a0b1d9e1ba1356a7d6b375e897706c22ec1906a289557f5f0dd21b3e7d",
+      "bytes": 434
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp",
+      "sha256": "a95f20d744e1df5510af5a683a71db49d78e8241320d179ee908c51835537411",
+      "bytes": 11014
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesGameState.cpp",
+      "sha256": "796cb4707ac7ebc3aa20ec3c5980395551f980d65a0299d1d0bf88ef29f16164",
+      "bytes": 6272
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesPlayerController.cpp",
+      "sha256": "84703f60b0e9f010686e71c59bb7f3176f0c48fea6c8c9fd5d9c7351bc76bfae",
+      "bytes": 2718
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaInfected.cpp",
+      "sha256": "f93ed5abe0f4ca4066dd70340f0ce2c205a3f8b3e12db95c81e74ec79c1ddbe3",
+      "bytes": 6945
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaPlaytestTelemetry.cpp",
+      "sha256": "44a20ca99d09f0bc665ba51d57fc5a796085816bc57648b695f7e6b69b3f859b",
+      "bytes": 5558
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaRival.cpp",
+      "sha256": "2b8e491b187d1b7ec1eeccd17fabd9581fcbd7fe6533ae8caf08dea35fa72016",
+      "bytes": 16600
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaArenaPressureTest.cpp",
+      "sha256": "b912a87fbc9e441c5a98fc95d333a71e4d8c3ca1c07558b1732323f9a75d00e3",
+      "bytes": 6155
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaDemoObjectiveTest.cpp",
+      "sha256": "f9719a4e369358b5c384175e10bd0a9527e11db515182cb0e843cb0365c29862",
+      "bytes": 9283
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaDeterministicPlaytest.cpp",
+      "sha256": "014b3a868474e36c170501fe1c3b0bf845a72640a100caeb476b351eb5fdc8f5",
+      "bytes": 33357
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaFailureStateTest.cpp",
+      "sha256": "15a7c02db1648004c1c3c2d31ac95d248d637e5d2262da94f74037bd97031cdf",
+      "bytes": 6418
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaFeedbackTest.cpp",
+      "sha256": "f376c2f79e37187074f1d1ff5cc6fd43302f58f3fc99e0079a78c9702c69bf44",
+      "bytes": 34677
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaGameplayHUDTest.cpp",
+      "sha256": "e51d2be298c21b5ee461a26cb26737814ac19d95b4a40f40bef00a01a1cab7f2",
+      "bytes": 7623
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaNativePerformanceTest.cpp",
+      "sha256": "6472f50352b01f81bc95da670610a55c1d589d4560d6215680c7d25f8ca6f61d",
+      "bytes": 23803
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaPressureResponsesTest.cpp",
+      "sha256": "cdb3c6c69b6f9dcc5776540e189eaf8a4ad8a182a335f03b1a4caed1ad27ae8c",
+      "bytes": 26522
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaRestartResetTest.cpp",
+      "sha256": "b29e409b32b66f628683e84f3e6b8cf008ea232639ad662bf49bf18fa734cc04",
+      "bytes": 9791
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaRivalCombatTest.cpp",
+      "sha256": "2b33dca2e52882e94efc7154f0ab5985570f1d4a23ce89e824aedb1e2ce54cb2",
+      "bytes": 21945
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaRivalNavigationTest.cpp",
+      "sha256": "a4c9dc728b13e9454aa30a21ac9e13dc73208f7cf51b05e3d9ba03941ccbd6ac",
+      "bytes": 21411
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaSharedInteractionTest.cpp",
+      "sha256": "0be9079ec2e343206a938e3a6ab6316bac1d95ef88053da3c5509d349af1c9e0",
+      "bytes": 22934
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaTerminalOverlayTest.cpp",
+      "sha256": "66fc2c6018be49ffccdc6ceadd3e43af569210a2feab0f3092a3bdfda7ca8313",
+      "bytes": 11047
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaVisualReadabilityTest.cpp",
+      "sha256": "7d929225d3ec6e33ba1d442061f51b9b31f743719013c7dba7bcfa542b2d653b",
+      "bytes": 28464
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BasicWorldGeometry.h",
+      "sha256": "b5de058cbaf852dcb4152e447f67e4d3555befd08fc7c9c9c90c76e71ca82dee",
+      "bytes": 1729
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaDemoObjectiveManager.h",
+      "sha256": "973911b97ab16afb2f7a7c33f60ecb3520e95d3fec04bfc2f6e013c9fa4b4646",
+      "bytes": 2183
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaDemoPawn.h",
+      "sha256": "d71cd56097c0b56703d73d83e3ec25065e4c57b557cab0ca27cf779b4532f34a",
+      "bytes": 2847
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGameplayFeedback.h",
+      "sha256": "5effd52aea5e49355c003d19cccae5a11201365a843a5d31535794e78a80eb44",
+      "bytes": 3045
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGameplayHUD.h",
+      "sha256": "b1ad3808378a9b205104049fc8a1cff32380c340b8cb7e4161500a74853f9f88",
+      "bytes": 3794
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesCharacter.h",
+      "sha256": "9d9d27049531bacf656fc36dd29b6af916bc4fbd4a37d9c6adf570425f9ed795",
+      "bytes": 3344
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesGameInstance.h",
+      "sha256": "a4cfbf5bf4b854096844eaa0b36cbd43d26d2e5ab3bcca1478e62f4d35dde63c",
+      "bytes": 473
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesGameModeBase.h",
+      "sha256": "c59ef97659efc16a8458ea79b7857d63e8ce82a8d2dcc6a9475381e8dd6d37cf",
+      "bytes": 2283
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesGameState.h",
+      "sha256": "e82da83f790682a7b70567400983835514f2e581ef84b76fa3e88328a6824aaf",
+      "bytes": 3071
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesPlayerController.h",
+      "sha256": "1c40f6542e9274cdfd5df5171a276aa02a907b822b893103df21b9cc28c32148",
+      "bytes": 919
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaInfected.h",
+      "sha256": "996cc1d1c6ef431d48bd562f7cec87036715463b17f0d0e5bc4c43b018706e5a",
+      "bytes": 1897
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaPlaytestTelemetry.h",
+      "sha256": "f2ac4a47dfe772051d164b058af04a2df308607d0be541903001e527171cb333",
+      "bytes": 1332
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaRival.h",
+      "sha256": "b8d3d195d369609248b0edd4d6b9f434edffcf0638c53e26e9cc53613856e2b1",
+      "bytes": 2591
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames.Target.cs",
+      "sha256": "4799f3aaff4fdbef67e6fd8c4bba578b08336aac195d7df0906fe4c3281ac13c",
+      "bytes": 370
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGamesEditor.Target.cs",
+      "sha256": "8464660556e742c670c5178cdf7b713f6c47309e099e054fff4c5a10e726f085",
+      "bytes": 384
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_039.py",
+      "sha256": "9df5e5188444a8dba455768ceed3915c44796a6e9897dd89a1e96d7147b610e8",
+      "bytes": 9977
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d01_039.py",
+      "sha256": "159e65a23995bf5cbe5678b68fc2816ddd5d405872033838d403abcaa1c88926",
+      "bytes": 21241
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_Failure.uasset",
+      "sha256": "c78631b279cc4e0af7ea72d914e7a33372b3cc6221be53d68bda8f574832f95f",
+      "bytes": 32988
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_Hurt.uasset",
+      "sha256": "061ce3c51240547f2b5234330fbd9cecbedf4c88e536afc3f54434174c1754dd",
+      "bytes": 14870
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_Impact.uasset",
+      "sha256": "ce2b9fbe5df63e6ac56bc17e95c0212a4cd13cf10eec3169646deb9c253ceab6",
+      "bytes": 12394
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_Pressure.uasset",
+      "sha256": "99e27cb5922a58e5320f9405e9da791a470c415638a1e398a8d2086e8a811d17",
+      "bytes": 12718
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_ShotA.uasset",
+      "sha256": "f62f3e71283244dba5882afa8a14fb5c08db3a7fdb6b15f92b147d15365fc633",
+      "bytes": 17087
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_ShotB.uasset",
+      "sha256": "bb406c7c82666b32b95c1a6e76cc0273004a712016b4055ca86c25c5980645b5",
+      "bytes": 17139
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_ShotC.uasset",
+      "sha256": "9bb6f99f4887a7820a9db7d38dc792f9236cf60544fab75ea413b26db968955c",
+      "bytes": 16332
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_Success.uasset",
+      "sha256": "8114762a7e283060d01ca538d16f3bf651a23624a040a2f997cb06c601eeecf3",
+      "bytes": 35359
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/M_FeedbackParticle.uasset",
+      "sha256": "656d1f1bac66e98df33158f764028226a6de6cd460089063e94bd64a51b48939",
+      "bytes": 10927
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/NS_Impact.uasset",
+      "sha256": "d07a7b6ffbb1b00adb18bb95dfb3f2cb7c203955eacdcde4ac03cec21cf2ddc6",
+      "bytes": 445437
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/NS_Muzzle.uasset",
+      "sha256": "472881a1ed4e829fe69a62b429c34a738233b8288bcc8be2b4dbf7dbf84ce354",
+      "bytes": 444673
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Materials/M_DemoReadability.uasset",
+      "sha256": "4fdf1b6ad04d0bb32f515a5547df6b7f455e599bec6ee8d012307b7d2f4c8b59",
+      "bytes": 7054
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_042.py",
+      "sha256": "20f00aeeddd84e08f6cfe0d0ba40dd53887ece95d3df065d5083e943ebc343c9",
+      "bytes": 9548
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_043.py",
+      "sha256": "ec8da542ba3cc3c1cca4c326af31050a07fc013a42a295cd17b51dd61bea2bcf",
+      "bytes": 11482
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_044.py",
+      "sha256": "91e0d9db8333586306488c5053de7d98c0a4ffceb983f1a65a4b1df83e1e26ce",
+      "bytes": 17459
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/test_d01_044.py",
+      "sha256": "7dae83aae879393271dd1f0f37614cbd2a33415a7949b3308806dbe84e18a6b7",
+      "bytes": 11798
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d01_044.py",
+      "sha256": "a275b44d27dc69f58494ad266c57dcd601654562a971e6e5298fc27cbeb89cdd",
+      "bytes": 19376
+    }
+  ],
+  "protected_after": [
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/03_BIELLA_CURRENT_STATE.md",
+      "sha256": "cc4f647d6530498e211bc717f673a7480e40863fa579fa7526930f508af41448",
+      "bytes": 5386
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+      "sha256": "6eacb39526a1e13ed7a2b71362ca0392d5382c4e5ce2479cbf2f55a4dcf3cdc1",
+      "bytes": 779
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/docs/PRODUCTION.md",
+      "sha256": "58b111211ab22c170f144ac584cc8896804457ed1e4f492e0e5af9f7522e3e97",
+      "bytes": 14447
+    }
+  ],
+  "evidence": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T094646.479673Z-1280x720/frames.csv",
+      "sha256": "70a6523d5ccd22df388fa74e44aad0097f26461b1524f9d2da58ade8aa12317c",
+      "bytes": 474068
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T094646.479673Z-1280x720/perf.json",
+      "sha256": "51ef9d76e5a52e23834bb1bad7b0bb52407bc859d01c7843e74a9f8eaee1deaa",
+      "bytes": 4262
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T094646.479673Z-1280x720/resources.jsonl",
+      "sha256": "71a1f270efd44ea1fc17924c309c672f81bea033e894cad151138c3af19d35da",
+      "bytes": 125019
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T094646.479673Z-1280x720/runtime.engine.log",
+      "sha256": "f3ad07803137925f61b4b58eb9a2d4a0b8446d040aabf0fa622e976a6660786a",
+      "bytes": 368076
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T094646.479673Z-1280x720/runtime.stdout.log",
+      "sha256": "a3be05ecc183d3f279a115269b71b877f18331c241716408675f875df49bfef5",
+      "bytes": 367676
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T094646.479673Z-1280x720/telemetry.jsonl",
+      "sha256": "6018c433a75d1a11c84e9bda31c2a9402cf54b95dae675c4a845eb93ea510d69",
+      "bytes": 47751
+    }
+  ]
+}

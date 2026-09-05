@@ -1,0 +1,2088 @@
+{
+  "task_id": "D01-44",
+  "result": "PASS",
+  "scope": "BOUNDED_NATIVE_LINUX_DEVELOPMENT_HOST_MEASUREMENT",
+  "total_measured_frames": 23153,
+  "total_measured_seconds": 360.022953034,
+  "720p_repeat_fps_difference_percent_of_pair_mean": 3.7382597687000882,
+  "measurements": [
+    {
+      "label": "720p A",
+      "validation": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T095159.349031Z-1280x720/validation.json",
+        "sha256": "53c7986e0ff28794c73396189a3aca0d174c1c43697a5302c1411e81b8ae36d4",
+        "bytes": 77525
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "frames": {
+        "count": 8410,
+        "duration_seconds": 120.013004775,
+        "mean_ms": 14.270274051724137,
+        "p50_ms": 14.103205500000001,
+        "p90_ms": 15.8732769,
+        "p95_ms": 16.58380395,
+        "p99_ms": 18.821828209999996,
+        "max_ms": 104.422173,
+        "min_ms": 8.362607,
+        "observed_fps": 70.07573900651052,
+        "hitches_gt_ms": {
+          "33.3": 26,
+          "50": 25,
+          "100": 1
+        }
+      },
+      "simulation_delta": {
+        "count": 8410,
+        "duration_seconds": 120.011370141,
+        "mean_ms": 14.270079683828776,
+        "p50_ms": 14.108415,
+        "p90_ms": 15.895773,
+        "p95_ms": 16.577461500000002,
+        "p99_ms": 18.873718099999998,
+        "max_ms": 104.475464,
+        "min_ms": 8.225035,
+        "hitches_gt_ms": {
+          "33.3": 26,
+          "50": 25,
+          "100": 1
+        }
+      },
+      "thread_mean_ms": {
+        "game_ms": 3.781907846016647,
+        "render_ms": 13.35482496825208,
+        "rhi_ms": 2.4069838285374554,
+        "gpu_ms": 4.926507253032105,
+        "game_wait_ms": 10.499261159623854,
+        "render_wait_ms": 0.9150775266349584,
+        "swap_ms": 0.01992152199762188
+      },
+      "resources": {
+        "sampling": "Independent /proc and nvidia-smi graphics-process samples (~1 Hz); CPU 100% = one logical core.",
+        "clock_id": 1,
+        "measurement_clock_start": 248765.599950066,
+        "measurement_clock_end": 248885.61295484102,
+        "samples": 113,
+        "pid": 1743158,
+        "start_ticks": 24873464,
+        "gpu_uuid": "GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5",
+        "sample_cost_seconds": {
+          "min": 0.12328795201028697,
+          "mean": 0.16055844188436033,
+          "max": 0.1753968219854869
+        },
+        "cpu_percent_one_core": {
+          "min": 301.8261145403216,
+          "mean": 338.3721362105102,
+          "max": 377.56532862716426
+        },
+        "rss_mib": {
+          "min": 2798.15625,
+          "mean": 2818.2848797013276,
+          "max": 2840.01953125
+        },
+        "rss_hwm_mib": 2840.01953125,
+        "rss_first_window_mean_mib": 2803.6234375,
+        "rss_last_window_mean_mib": 2835.928515625,
+        "rss_window_delta_mib": 32.30507812499991,
+        "window_sample_count": 10,
+        "process_vram_mib": {
+          "min": 1719.0,
+          "mean": 1727.8141592920354,
+          "max": 1973.0
+        },
+        "device_vram_mib": {
+          "min": 1803.0,
+          "mean": 1812.0973451327434,
+          "max": 2057.0
+        },
+        "gpu_utilization_percent": {
+          "min": 16.0,
+          "mean": 36.0353982300885,
+          "max": 50.0
+        },
+        "gpu_memory_utilization_percent": {
+          "min": 0.0,
+          "mean": 1.9646017699115044,
+          "max": 3.0
+        },
+        "gpu_power_w": {
+          "min": 65.89,
+          "mean": 84.59274336283185,
+          "max": 99.83
+        },
+        "gpu_temperature_c": {
+          "min": 45.0,
+          "mean": 45.97345132743363,
+          "max": 46.0
+        },
+        "gpu_sm_clock_mhz": {
+          "min": 825.0,
+          "mean": 1082.5221238938052,
+          "max": 1830.0
+        },
+        "host_cpu_busy_percent_all_cores": {
+          "min": 23.876765083440308,
+          "mean": 26.630992527730278,
+          "max": 29.78723404255319
+        },
+        "host_cpu_steal_percent_all_cores": {
+          "min": 0.0,
+          "mean": 0.03326330228952427,
+          "max": 0.1925545571245186
+        },
+        "threads": {
+          "min": 59,
+          "mean": 59,
+          "max": 59
+        },
+        "fault_deltas": {
+          "minor_faults": 13344,
+          "major_faults": 0
+        },
+        "io_deltas": {
+          "read_bytes": 0,
+          "write_bytes": 4251648,
+          "syscr": 67231,
+          "syscw": 147998
+        },
+        "swap_mib": {
+          "min": 0.0,
+          "mean": 0.0,
+          "max": 0.0
+        },
+        "host_available_memory_mib": {
+          "min": 81800.33984375,
+          "mean": 82187.98938744469,
+          "max": 82508.96875
+        },
+        "other_gpu_processes": [],
+        "memory_interpretation": "Bounded observed residency/windows include caches and editor overhead; no leak-free claim or target budget."
+      },
+      "cycles": 17,
+      "restarts": 16,
+      "measured_gameplay_events": {
+        "session": "01A070FB-8BA1-78F7-B584-EEC8C01916F7",
+        "records": 486,
+        "event_counts": {
+          "telemetry_ready": 1,
+          "phase": 33,
+          "objective_activated": 17,
+          "damage": 184,
+          "defeat": 47,
+          "objective_progress": 32,
+          "objective_success": 16,
+          "perf_begin": 1,
+          "perf_cycle_begin": 17,
+          "perf_heartbeat": 27,
+          "perf_restart": 16,
+          "restart_requested": 16,
+          "weapon_fire": 76,
+          "perf_measure_begin": 1,
+          "perf_complete": 1,
+          "telemetry_shutdown": 1
+        },
+        "measured_positive_damage_events": 160,
+        "measured_player_shot_events": 70,
+        "measured_wall_begin": 22.013869233982405,
+        "complete_wall_seconds": 144.63536466797814,
+        "restart_events": 16,
+        "sha256": "d73013413d633fc37af6aa09a16e8f46d5cee7a0a8954b7e28f4d4abc571abaa",
+        "cycle_begin_perf_seconds": {
+          "1": 0.003215909,
+          "2": 2.116911101,
+          "3": 8.823389169,
+          "4": 19.544602492,
+          "5": 26.384014798,
+          "6": 37.226286046,
+          "7": 44.041862213,
+          "8": 54.77916911,
+          "9": 61.635297497,
+          "10": 72.355659451,
+          "11": 79.195281408,
+          "12": 89.927694037,
+          "13": 96.660119874,
+          "14": 107.411820472,
+          "15": 114.134088904,
+          "16": 124.875538816,
+          "17": 131.6025413
+        },
+        "restart_perf_seconds": [
+          2.015118344,
+          8.723243597,
+          19.457565099,
+          26.291138411,
+          37.12736256,
+          43.953064784,
+          54.686740732,
+          61.521102388,
+          72.263774406,
+          79.103509485,
+          89.83615102,
+          96.565584333,
+          107.307203017,
+          114.04171302,
+          124.775770933,
+          131.510337669
+        ]
+      },
+      "top_hitches": [
+        {
+          "frame": 5018,
+          "wall_seconds": 61.636506504,
+          "wall_delta_ms": 104.422173,
+          "sim_delta_ms": 13.68649,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 9,
+          "game_ms": 6.508,
+          "render_ms": 12.132,
+          "rhi_ms": 2.156,
+          "gpu_ms": 4.818,
+          "game_wait_ms": 7.129,
+          "render_wait_ms": 0.628,
+          "swap_ms": 0.014,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 8,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0012090069999999287,
+          "seconds_since_preceding_restart": 0.11540411600000056
+        },
+        {
+          "frame": 8335,
+          "wall_seconds": 107.413234283,
+          "wall_delta_ms": 94.93142,
+          "sim_delta_ms": 13.848455,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 14,
+          "game_ms": 6.282,
+          "render_ms": 12.37,
+          "rhi_ms": 3.107,
+          "gpu_ms": 4.064,
+          "game_wait_ms": 7.742,
+          "render_wait_ms": 1.104,
+          "swap_ms": 0.014,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 13,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.001413810999991938,
+          "seconds_since_preceding_restart": 0.10603126599998802
+        },
+        {
+          "frame": 9501,
+          "wall_seconds": 124.876212359,
+          "wall_delta_ms": 90.121666,
+          "sim_delta_ms": 14.352575,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 16,
+          "game_ms": 10.269,
+          "render_ms": 12.665,
+          "rhi_ms": 1.974,
+          "gpu_ms": 5.072,
+          "game_wait_ms": 4.582,
+          "render_wait_ms": 0.698,
+          "swap_ms": 0.012,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 15,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0006735429999906728,
+          "seconds_since_preceding_restart": 0.10044142599998906
+        },
+        {
+          "frame": 3300,
+          "wall_seconds": 37.227673176,
+          "wall_delta_ms": 89.528706,
+          "sim_delta_ms": 13.446335,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 6,
+          "game_ms": 6.153,
+          "render_ms": 12.866,
+          "rhi_ms": 1.376,
+          "gpu_ms": 4.617,
+          "game_wait_ms": 7.408,
+          "render_wait_ms": 1.284,
+          "swap_ms": 0.013,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 5,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0013871300000047881,
+          "seconds_since_preceding_restart": 0.10031061600000157
+        },
+        {
+          "frame": 5803,
+          "wall_seconds": 72.445147815,
+          "wall_delta_ms": 88.34429,
+          "sim_delta_ms": 81.632737,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 10,
+          "game_ms": 80.907997,
+          "render_ms": 129.268005,
+          "rhi_ms": 2.417,
+          "gpu_ms": 4.278,
+          "game_wait_ms": 0.989,
+          "render_wait_ms": 30.854,
+          "swap_ms": 0.02,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 10.395689,
+          "player_y": 0.0,
+          "player_z": 228.125,
+          "view_yaw": 0.16592,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "active",
+          "previous_cycle": 10,
+          "transition_interval": false,
+          "seconds_since_cycle_start": 0.0894883640000046,
+          "seconds_since_preceding_restart": 0.18137340900000254
+        },
+        {
+          "frame": 7507,
+          "wall_seconds": 96.662060345,
+          "wall_delta_ms": 85.517699,
+          "sim_delta_ms": 13.776314,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 13,
+          "game_ms": 6.616,
+          "render_ms": 13.351,
+          "rhi_ms": 2.125,
+          "gpu_ms": 4.162,
+          "game_wait_ms": 7.159,
+          "render_wait_ms": 0.871,
+          "swap_ms": 0.015,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 12,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0019404709999975012,
+          "seconds_since_preceding_restart": 0.09647601199999656
+        },
+        {
+          "frame": 6999,
+          "wall_seconds": 90.013965013,
+          "wall_delta_ms": 85.182312,
+          "sim_delta_ms": 81.031724,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 12,
+          "game_ms": 80.196999,
+          "render_ms": 110.794998,
+          "rhi_ms": 2.193,
+          "gpu_ms": 4.53,
+          "game_wait_ms": 1.577,
+          "render_wait_ms": 45.68,
+          "swap_ms": 0.029,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 10.243179,
+          "player_y": 0.0,
+          "player_z": 228.125,
+          "view_yaw": 0.173546,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "active",
+          "previous_cycle": 12,
+          "transition_interval": false,
+          "seconds_since_cycle_start": 0.08627097600000866,
+          "seconds_since_preceding_restart": 0.1778139930000009
+        },
+        {
+          "frame": 6247,
+          "wall_seconds": 79.197043806,
+          "wall_delta_ms": 84.003208,
+          "sim_delta_ms": 12.148528,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 11,
+          "game_ms": 5.908,
+          "render_ms": 10.921,
+          "rhi_ms": 2.246,
+          "gpu_ms": 5.037,
+          "game_wait_ms": 6.125,
+          "render_wait_ms": 0.556,
+          "swap_ms": 0.016,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 10,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0017623979999967787,
+          "seconds_since_preceding_restart": 0.09353432099999281
+        },
+        {
+          "frame": 2535,
+          "wall_seconds": 26.385141972,
+          "wall_delta_ms": 82.710331,
+          "sim_delta_ms": 14.305865,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 5,
+          "game_ms": 6.454,
+          "render_ms": 13.319,
+          "rhi_ms": 2.784,
+          "gpu_ms": 4.556,
+          "game_wait_ms": 7.905,
+          "render_wait_ms": 0.612,
+          "swap_ms": 0.018,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 4,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0011271740000005082,
+          "seconds_since_preceding_restart": 0.09400356100000096
+        },
+        {
+          "frame": 8793,
+          "wall_seconds": 114.134964583,
+          "wall_delta_ms": 82.29494,
+          "sim_delta_ms": 13.668421,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 15,
+          "game_ms": 6.274,
+          "render_ms": 12.073,
+          "rhi_ms": 1.808,
+          "gpu_ms": 4.771,
+          "game_wait_ms": 7.304,
+          "render_wait_ms": 0.482,
+          "swap_ms": 0.015,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 14,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0008756790000035153,
+          "seconds_since_preceding_restart": 0.09325156299999549
+        }
+      ],
+      "fresh_replay": "PASS"
+    },
+    {
+      "label": "1080p",
+      "validation": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T095503.680759Z-1920x1080/validation.json",
+        "sha256": "f22390ea45ec2ff0acb91669c4d039af4210645e5abdc460684e259ec764a58f",
+        "bytes": 77607
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "frames": {
+        "count": 6013,
+        "duration_seconds": 120.002110667,
+        "mean_ms": 19.95711136986529,
+        "p50_ms": 19.665149,
+        "p90_ms": 22.56399,
+        "p95_ms": 23.54667,
+        "p99_ms": 25.8894264,
+        "max_ms": 96.392498,
+        "min_ms": 10.470733,
+        "observed_fps": 50.107451998788434,
+        "hitches_gt_ms": {
+          "33.3": 27,
+          "50": 25,
+          "100": 0
+        }
+      },
+      "simulation_delta": {
+        "count": 6013,
+        "duration_seconds": 120.000727788,
+        "mean_ms": 19.956881388325296,
+        "p50_ms": 19.674889,
+        "p90_ms": 22.562374000000002,
+        "p95_ms": 23.5455756,
+        "p99_ms": 25.885646960000006,
+        "max_ms": 96.433498,
+        "min_ms": 10.416321,
+        "hitches_gt_ms": {
+          "33.3": 27,
+          "50": 25,
+          "100": 0
+        }
+      },
+      "thread_mean_ms": {
+        "game_ms": 4.10060834724763,
+        "render_ms": 19.008729922002328,
+        "rhi_ms": 1.9380445699318143,
+        "gpu_ms": 6.743477465990354,
+        "game_wait_ms": 15.87217063642417,
+        "render_wait_ms": 0.9480803267919508,
+        "swap_ms": 0.01836953267919508
+      },
+      "resources": {
+        "sampling": "Independent /proc and nvidia-smi graphics-process samples (~1 Hz); CPU 100% = one logical core.",
+        "clock_id": 1,
+        "measurement_clock_start": 248950.152985497,
+        "measurement_clock_end": 249070.155096164,
+        "samples": 113,
+        "pid": 1745120,
+        "start_ticks": 24891898,
+        "gpu_uuid": "GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5",
+        "sample_cost_seconds": {
+          "min": 0.12132448802003637,
+          "mean": 0.16171290810772143,
+          "max": 0.18446496900287457
+        },
+        "cpu_percent_one_core": {
+          "min": 232.33515160299874,
+          "mean": 275.5561530527058,
+          "max": 335.09975680177826
+        },
+        "rss_mib": {
+          "min": 2834.953125,
+          "mean": 2851.989318307522,
+          "max": 2867.6171875
+        },
+        "rss_hwm_mib": 2867.6171875,
+        "rss_first_window_mean_mib": 2860.729296875,
+        "rss_last_window_mean_mib": 2856.82890625,
+        "rss_window_delta_mib": -3.900390625,
+        "window_sample_count": 10,
+        "process_vram_mib": {
+          "min": 2153.0,
+          "mean": 2167.0884955752213,
+          "max": 2415.0
+        },
+        "device_vram_mib": {
+          "min": 2237.0,
+          "mean": 2250.6991150442477,
+          "max": 2499.0
+        },
+        "gpu_utilization_percent": {
+          "min": 26.0,
+          "mean": 35.95575221238938,
+          "max": 48.0
+        },
+        "gpu_memory_utilization_percent": {
+          "min": 2.0,
+          "mean": 3.061946902654867,
+          "max": 5.0
+        },
+        "gpu_power_w": {
+          "min": 65.65,
+          "mean": 90.68230088495575,
+          "max": 111.9
+        },
+        "gpu_temperature_c": {
+          "min": 46.0,
+          "mean": 46.29203539823009,
+          "max": 47.0
+        },
+        "gpu_sm_clock_mhz": {
+          "min": 810.0,
+          "mean": 1021.4601769911504,
+          "max": 1650.0
+        },
+        "host_cpu_busy_percent_all_cores": {
+          "min": 19.43913320586361,
+          "mean": 22.407113133641193,
+          "max": 26.474358974358974
+        },
+        "host_cpu_steal_percent_all_cores": {
+          "min": 0.0,
+          "mean": 0.0165630509790187,
+          "max": 0.2544529262086514
+        },
+        "threads": {
+          "min": 58,
+          "mean": 58,
+          "max": 58
+        },
+        "fault_deltas": {
+          "minor_faults": 11332,
+          "major_faults": 0
+        },
+        "io_deltas": {
+          "read_bytes": 0,
+          "write_bytes": 4182016,
+          "syscr": 48239,
+          "syscw": 121629
+        },
+        "swap_mib": {
+          "min": 0.0,
+          "mean": 0.0,
+          "max": 0.0
+        },
+        "host_available_memory_mib": {
+          "min": 82783.67578125,
+          "mean": 82838.96560425885,
+          "max": 82893.6796875
+        },
+        "other_gpu_processes": [],
+        "memory_interpretation": "Bounded observed residency/windows include caches and editor overhead; no leak-free claim or target budget."
+      },
+      "cycles": 16,
+      "restarts": 15,
+      "measured_gameplay_events": {
+        "session": "01A070FE-5CB4-701C-8B78-67AAA661D26D",
+        "records": 481,
+        "event_counts": {
+          "telemetry_ready": 1,
+          "phase": 32,
+          "objective_activated": 16,
+          "damage": 184,
+          "defeat": 47,
+          "objective_progress": 32,
+          "objective_success": 16,
+          "perf_begin": 1,
+          "perf_cycle_begin": 16,
+          "perf_heartbeat": 27,
+          "perf_restart": 15,
+          "restart_requested": 15,
+          "weapon_fire": 76,
+          "perf_measure_begin": 1,
+          "perf_complete": 1,
+          "telemetry_shutdown": 1
+        },
+        "measured_positive_damage_events": 161,
+        "measured_player_shot_events": 69,
+        "measured_wall_begin": 21.971295415976783,
+        "complete_wall_seconds": 142.34439572598785,
+        "restart_events": 15,
+        "sha256": "a285e652e0a704073a5e7b6e46a8d382274c907e392ee602c21c54ce2c8607f8",
+        "cycle_begin_perf_seconds": {
+          "1": 0.004862072,
+          "2": 2.110312525,
+          "3": 8.841819797,
+          "4": 19.563569748,
+          "5": 26.415968684,
+          "6": 37.251178972,
+          "7": 44.130121097,
+          "8": 54.852061033,
+          "9": 61.691598065,
+          "10": 72.543717366,
+          "11": 79.402048243,
+          "12": 90.236987077,
+          "13": 97.066907275,
+          "14": 107.937430633,
+          "15": 114.686819179,
+          "16": 125.531724172
+        },
+        "restart_perf_seconds": [
+          2.012057147,
+          8.730362457,
+          19.467829412,
+          26.320912763,
+          37.168500525,
+          44.020154319,
+          54.755218535,
+          61.593285276,
+          72.450324801,
+          79.294717953,
+          90.128317927,
+          96.973740225,
+          107.832401912,
+          114.575580746,
+          125.427686211
+        ]
+      },
+      "top_hitches": [
+        {
+          "frame": 4921,
+          "wall_seconds": 90.239297346,
+          "wall_delta_ms": 96.392498,
+          "sim_delta_ms": 18.146606,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 12,
+          "game_ms": 6.754,
+          "render_ms": 17.919001,
+          "rhi_ms": 1.189,
+          "gpu_ms": 6.689,
+          "game_wait_ms": 10.603,
+          "render_wait_ms": 0.827,
+          "swap_ms": 0.012,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 11,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.00231026900000586,
+          "seconds_since_preceding_restart": 0.11097941900000308
+        },
+        {
+          "frame": 6191,
+          "wall_seconds": 114.688835222,
+          "wall_delta_ms": 96.121703,
+          "sim_delta_ms": 19.992495,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 15,
+          "game_ms": 7.098,
+          "render_ms": 18.509001,
+          "rhi_ms": 1.284,
+          "gpu_ms": 5.884,
+          "game_wait_ms": 13.405,
+          "render_wait_ms": 0.461,
+          "swap_ms": 0.012,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 14,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0020160429999975804,
+          "seconds_since_preceding_restart": 0.1132544759999945
+        },
+        {
+          "frame": 2635,
+          "wall_seconds": 44.131343113,
+          "wall_delta_ms": 93.351564,
+          "sim_delta_ms": 20.623139,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 7,
+          "game_ms": 6.912,
+          "render_ms": 19.872,
+          "rhi_ms": 1.216,
+          "gpu_ms": 6.419,
+          "game_wait_ms": 13.626,
+          "render_wait_ms": 0.916,
+          "swap_ms": 0.015,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 6,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.001222015999999826,
+          "seconds_since_preceding_restart": 0.11118879400000026
+        },
+        {
+          "frame": 5848,
+          "wall_seconds": 107.938471986,
+          "wall_delta_ms": 90.549585,
+          "sim_delta_ms": 18.750738,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 14,
+          "game_ms": 6.181,
+          "render_ms": 18.259001,
+          "rhi_ms": 1.404,
+          "gpu_ms": 5.806,
+          "game_wait_ms": 12.321,
+          "render_wait_ms": 0.827,
+          "swap_ms": 0.011,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 13,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0010413529999908633,
+          "seconds_since_preceding_restart": 0.10607007400000157
+        },
+        {
+          "frame": 4387,
+          "wall_seconds": 79.403136746,
+          "wall_delta_ms": 89.740257,
+          "sim_delta_ms": 22.269834,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 11,
+          "game_ms": 7.16,
+          "render_ms": 20.73,
+          "rhi_ms": 1.443,
+          "gpu_ms": 6.545,
+          "game_wait_ms": 15.129,
+          "render_wait_ms": 1.066,
+          "swap_ms": 0.063,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 10,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.001088503000005403,
+          "seconds_since_preceding_restart": 0.10841879299999846
+        },
+        {
+          "frame": 4922,
+          "wall_seconds": 90.327915869,
+          "wall_delta_ms": 88.618523,
+          "sim_delta_ms": 96.433498,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 12,
+          "game_ms": 96.308998,
+          "render_ms": 116.810997,
+          "rhi_ms": 1.189,
+          "gpu_ms": 6.689,
+          "game_wait_ms": 1.023,
+          "render_wait_ms": 57.792,
+          "swap_ms": 0.016,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 14.507094,
+          "player_y": 0.0,
+          "player_z": 228.125,
+          "view_yaw": 0.217759,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "active",
+          "previous_cycle": 12,
+          "transition_interval": false,
+          "seconds_since_cycle_start": 0.0909287919999997,
+          "seconds_since_preceding_restart": 0.19959794199999692
+        },
+        {
+          "frame": 6731,
+          "wall_seconds": 125.532502349,
+          "wall_delta_ms": 88.43739,
+          "sim_delta_ms": 19.824121,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 16,
+          "game_ms": 7.017,
+          "render_ms": 18.907,
+          "rhi_ms": 0.768,
+          "gpu_ms": 6.714,
+          "game_wait_ms": 12.584,
+          "render_wait_ms": 0.947,
+          "swap_ms": 0.012,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 15,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0007781770000008237,
+          "seconds_since_preceding_restart": 0.10481613800000389
+        },
+        {
+          "frame": 3515,
+          "wall_seconds": 61.692652327,
+          "wall_delta_ms": 85.262231,
+          "sim_delta_ms": 16.776167,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 9,
+          "game_ms": 5.807,
+          "render_ms": 14.853,
+          "rhi_ms": 1.399,
+          "gpu_ms": 6.22,
+          "game_wait_ms": 10.997,
+          "render_wait_ms": 0.488,
+          "swap_ms": 0.016,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 8,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0010542619999966973,
+          "seconds_since_preceding_restart": 0.09936705099999443
+        },
+        {
+          "frame": 3178,
+          "wall_seconds": 54.852694366,
+          "wall_delta_ms": 81.439841,
+          "sim_delta_ms": 18.456071,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 8,
+          "game_ms": 5.977,
+          "render_ms": 17.724001,
+          "rhi_ms": 1.235,
+          "gpu_ms": 5.589,
+          "game_wait_ms": 12.048,
+          "render_wait_ms": 0.403,
+          "swap_ms": 0.021,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 7,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0006333330000032333,
+          "seconds_since_preceding_restart": 0.09747583100000412
+        },
+        {
+          "frame": 1411,
+          "wall_seconds": 19.565310065,
+          "wall_delta_ms": 81.433672,
+          "sim_delta_ms": 18.659817,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 4,
+          "game_ms": 5.71,
+          "render_ms": 18.080999,
+          "rhi_ms": 1.451,
+          "gpu_ms": 6.547,
+          "game_wait_ms": 12.611,
+          "render_wait_ms": 0.544,
+          "swap_ms": 0.014,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 3,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0017403169999994361,
+          "seconds_since_preceding_restart": 0.09748065299999809
+        }
+      ],
+      "fresh_replay": "PASS"
+    },
+    {
+      "label": "720p B",
+      "validation": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T095830.179104Z-1280x720/validation.json",
+        "sha256": "d6471250c55ec687848bf04906fa05572d1aab94172da572bbcb06cb9d13d141",
+        "bytes": 77701
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "frames": {
+        "count": 8730,
+        "duration_seconds": 120.007837592,
+        "mean_ms": 13.74660224421535,
+        "p50_ms": 13.771562,
+        "p90_ms": 15.5419409,
+        "p95_ms": 16.19068305,
+        "p99_ms": 18.339408609999982,
+        "max_ms": 96.730413,
+        "min_ms": 7.08659,
+        "observed_fps": 72.74524877016835,
+        "hitches_gt_ms": {
+          "33.3": 27,
+          "50": 26,
+          "100": 0
+        }
+      },
+      "simulation_delta": {
+        "count": 8730,
+        "duration_seconds": 120.010900538,
+        "mean_ms": 13.746953097136311,
+        "p50_ms": 13.769892,
+        "p90_ms": 15.550612,
+        "p95_ms": 16.21948654999999,
+        "p99_ms": 18.33582199,
+        "max_ms": 97.841277,
+        "min_ms": 7.06673,
+        "hitches_gt_ms": {
+          "33.3": 27,
+          "50": 26,
+          "100": 0
+        }
+      },
+      "thread_mean_ms": {
+        "game_ms": 3.7509450166093927,
+        "render_ms": 12.846980640664375,
+        "rhi_ms": 2.304298625658648,
+        "gpu_ms": 4.6748497139748,
+        "game_wait_ms": 10.006296871001032,
+        "render_wait_ms": 0.8999864835051546,
+        "swap_ms": 0.018605269186712486
+      },
+      "resources": {
+        "sampling": "Independent /proc and nvidia-smi graphics-process samples (~1 Hz); CPU 100% = one logical core.",
+        "clock_id": 1,
+        "measurement_clock_start": 249156.702592818,
+        "measurement_clock_end": 249276.71043041002,
+        "samples": 113,
+        "pid": 1746818,
+        "start_ticks": 24912546,
+        "gpu_uuid": "GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5",
+        "sample_cost_seconds": {
+          "min": 0.12424550802097656,
+          "mean": 0.16050242653206212,
+          "max": 0.17654880898771808
+        },
+        "cpu_percent_one_core": {
+          "min": 302.99357538542085,
+          "mean": 344.4119600575917,
+          "max": 391.092242557037
+        },
+        "rss_mib": {
+          "min": 2796.421875,
+          "mean": 2823.7824944690265,
+          "max": 2849.5546875
+        },
+        "rss_hwm_mib": 2849.5546875,
+        "rss_first_window_mean_mib": 2831.501171875,
+        "rss_last_window_mean_mib": 2846.058984375,
+        "rss_window_delta_mib": 14.557812499999727,
+        "window_sample_count": 10,
+        "process_vram_mib": {
+          "min": 1710.0,
+          "mean": 1723.6637168141592,
+          "max": 2017.0
+        },
+        "device_vram_mib": {
+          "min": 1794.0,
+          "mean": 1809.2566371681417,
+          "max": 2061.0
+        },
+        "gpu_utilization_percent": {
+          "min": 12.0,
+          "mean": 35.7787610619469,
+          "max": 49.0
+        },
+        "gpu_memory_utilization_percent": {
+          "min": 0.0,
+          "mean": 2.0,
+          "max": 3.0
+        },
+        "gpu_power_w": {
+          "min": 70.01,
+          "mean": 86.19230088495576,
+          "max": 111.7
+        },
+        "gpu_temperature_c": {
+          "min": 46.0,
+          "mean": 46.06194690265487,
+          "max": 47.0
+        },
+        "gpu_sm_clock_mhz": {
+          "min": 885.0,
+          "mean": 1209.1592920353983,
+          "max": 2280.0
+        },
+        "host_cpu_busy_percent_all_cores": {
+          "min": 24.440179142674346,
+          "mean": 26.95283553450731,
+          "max": 30.799220272904485
+        },
+        "host_cpu_steal_percent_all_cores": {
+          "min": 0.0,
+          "mean": 0.01550753038414319,
+          "max": 0.12944983818770225
+        },
+        "threads": {
+          "min": 57,
+          "mean": 57,
+          "max": 57
+        },
+        "fault_deltas": {
+          "minor_faults": 13380,
+          "major_faults": 0
+        },
+        "io_deltas": {
+          "read_bytes": 0,
+          "write_bytes": 4214784,
+          "syscr": 69655,
+          "syscw": 154060
+        },
+        "swap_mib": {
+          "min": 0.0,
+          "mean": 0.0,
+          "max": 0.0
+        },
+        "host_available_memory_mib": {
+          "min": 81769.21484375,
+          "mean": 81954.89781526549,
+          "max": 82341.35546875
+        },
+        "other_gpu_processes": [],
+        "memory_interpretation": "Bounded observed residency/windows include caches and editor overhead; no leak-free claim or target budget."
+      },
+      "cycles": 17,
+      "restarts": 16,
+      "measured_gameplay_events": {
+        "session": "01A07101-8410-7C22-8D62-DE72014083A7",
+        "records": 485,
+        "event_counts": {
+          "telemetry_ready": 1,
+          "phase": 33,
+          "objective_activated": 17,
+          "damage": 183,
+          "defeat": 47,
+          "objective_progress": 32,
+          "objective_success": 16,
+          "perf_begin": 1,
+          "perf_cycle_begin": 17,
+          "perf_heartbeat": 27,
+          "perf_restart": 16,
+          "restart_requested": 16,
+          "weapon_fire": 76,
+          "perf_measure_begin": 1,
+          "perf_complete": 1,
+          "telemetry_shutdown": 1
+        },
+        "measured_positive_damage_events": 159,
+        "measured_player_shot_events": 70,
+        "measured_wall_begin": 21.837368456996046,
+        "complete_wall_seconds": 144.19054873401183,
+        "restart_events": 16,
+        "sha256": "cf8feca38871433c5b974cf8b4215bb842a52bb4663be27860663a771c38aac1",
+        "cycle_begin_perf_seconds": {
+          "1": 0.003752379,
+          "2": 2.11043612,
+          "3": 8.959748711,
+          "4": 19.604337674,
+          "5": 26.326543425,
+          "6": 37.057143798,
+          "7": 43.791040767,
+          "8": 54.442937034,
+          "9": 61.260728274,
+          "10": 72.004014937,
+          "11": 78.843152571,
+          "12": 89.674156389,
+          "13": 96.397861734,
+          "14": 107.150680569,
+          "15": 113.872866642,
+          "16": 124.506572616,
+          "17": 131.351941486
+        },
+        "restart_perf_seconds": [
+          2.0152792,
+          8.861816361,
+          19.497891404,
+          26.229950173,
+          36.959113446,
+          43.698715667,
+          54.340484118,
+          61.183438283,
+          71.918052352,
+          78.742193467,
+          89.58517536,
+          96.315847793,
+          107.050014532,
+          113.776748142,
+          124.416654507,
+          131.252590208
+        ]
+      },
+      "top_hitches": [
+        {
+          "frame": 8623,
+          "wall_seconds": 107.248672969,
+          "wall_delta_ms": 96.730413,
+          "sim_delta_ms": 91.572013,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 14,
+          "game_ms": 90.101997,
+          "render_ms": 124.772003,
+          "rhi_ms": 1.962,
+          "gpu_ms": 4.786,
+          "game_wait_ms": 1.668,
+          "render_wait_ms": 53.09,
+          "swap_ms": 0.022,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 13.081277,
+          "player_y": 0.0,
+          "player_z": 228.125,
+          "view_yaw": 0.157398,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "active",
+          "previous_cycle": 14,
+          "transition_interval": false,
+          "seconds_since_cycle_start": 0.09799239999999543,
+          "seconds_since_preceding_restart": 0.19865843699999175
+        },
+        {
+          "frame": 2164,
+          "wall_seconds": 19.606041321,
+          "wall_delta_ms": 96.229665,
+          "sim_delta_ms": 14.797004,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 4,
+          "game_ms": 6.857,
+          "render_ms": 13.019,
+          "rhi_ms": 2.533,
+          "gpu_ms": 4.709,
+          "game_wait_ms": 8.007,
+          "render_wait_ms": 0.812,
+          "swap_ms": 0.016,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 3,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0017036469999993642,
+          "seconds_since_preceding_restart": 0.10814991699999865
+        },
+        {
+          "frame": 6608,
+          "wall_seconds": 78.84451067,
+          "wall_delta_ms": 93.117597,
+          "sim_delta_ms": 12.361363,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 11,
+          "game_ms": 6.084,
+          "render_ms": 11.941,
+          "rhi_ms": 2.236,
+          "gpu_ms": 3.796,
+          "game_wait_ms": 6.241,
+          "render_wait_ms": 0.468,
+          "swap_ms": 0.012,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 10,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0013580990000008342,
+          "seconds_since_preceding_restart": 0.10231720299999836
+        },
+        {
+          "frame": 4663,
+          "wall_seconds": 54.444158229,
+          "wall_delta_ms": 92.980724,
+          "sim_delta_ms": 14.187841,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 8,
+          "game_ms": 8.241,
+          "render_ms": 13.142,
+          "rhi_ms": 2.015,
+          "gpu_ms": 4.392,
+          "game_wait_ms": 5.75,
+          "render_wait_ms": 0.555,
+          "swap_ms": 0.014,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 7,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0012211949999993976,
+          "seconds_since_preceding_restart": 0.10367411100000368
+        },
+        {
+          "frame": 8622,
+          "wall_seconds": 107.151942556,
+          "wall_delta_ms": 91.698167,
+          "sim_delta_ms": 13.11652,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 14,
+          "game_ms": 7.257,
+          "render_ms": 11.507,
+          "rhi_ms": 1.962,
+          "gpu_ms": 4.786,
+          "game_wait_ms": 6.585,
+          "render_wait_ms": 0.445,
+          "swap_ms": 0.015,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 13,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0012619869999923594,
+          "seconds_since_preceding_restart": 0.10192802399998868
+        },
+        {
+          "frame": 3440,
+          "wall_seconds": 37.05820619,
+          "wall_delta_ms": 88.843446,
+          "sim_delta_ms": 13.431776,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 6,
+          "game_ms": 6.938,
+          "render_ms": 12.098,
+          "rhi_ms": 2.573,
+          "gpu_ms": 3.808,
+          "game_wait_ms": 6.636,
+          "render_wait_ms": 1.169,
+          "swap_ms": 0.021,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 5,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0010623920000014664,
+          "seconds_since_preceding_restart": 0.09909274399999646
+        },
+        {
+          "frame": 2632,
+          "wall_seconds": 26.327527966,
+          "wall_delta_ms": 87.632342,
+          "sim_delta_ms": 12.800181,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 5,
+          "game_ms": 6.351,
+          "render_ms": 12.019,
+          "rhi_ms": 1.474,
+          "gpu_ms": 4.492,
+          "game_wait_ms": 6.281,
+          "render_wait_ms": 1.052,
+          "swap_ms": 0.01,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 4,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0009845410000011157,
+          "seconds_since_preceding_restart": 0.0975777930000028
+        },
+        {
+          "frame": 9089,
+          "wall_seconds": 113.873505036,
+          "wall_delta_ms": 86.482146,
+          "sim_delta_ms": 13.352604,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 15,
+          "game_ms": 6.114,
+          "render_ms": 12.511,
+          "rhi_ms": 1.883,
+          "gpu_ms": 4.392,
+          "game_wait_ms": 7.303,
+          "render_wait_ms": 0.732,
+          "swap_ms": 0.014,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 14,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.000638393999992104,
+          "seconds_since_preceding_restart": 0.09675689399999499
+        },
+        {
+          "frame": 3919,
+          "wall_seconds": 43.792554899,
+          "wall_delta_ms": 83.444512,
+          "sim_delta_ms": 13.212001,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 7,
+          "game_ms": 8.064,
+          "render_ms": 12.112,
+          "rhi_ms": 2.175,
+          "gpu_ms": 4.385,
+          "game_wait_ms": 5.129,
+          "render_wait_ms": 0.8,
+          "swap_ms": 0.007,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 6,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0015141320000040537,
+          "seconds_since_preceding_restart": 0.09383923200000055
+        },
+        {
+          "frame": 9810,
+          "wall_seconds": 124.507508676,
+          "wall_delta_ms": 80.365796,
+          "sim_delta_ms": 13.887335,
+          "stage": "measure",
+          "phase": "active",
+          "cycle": 16,
+          "game_ms": 8.126,
+          "render_ms": 13.882,
+          "rhi_ms": 1.532,
+          "gpu_ms": 4.907,
+          "game_wait_ms": 5.399,
+          "render_wait_ms": 0.618,
+          "swap_ms": 0.015,
+          "pawn_count": 4,
+          "autonomous_pawns": 3,
+          "player_x": 0.0,
+          "player_y": 0.0,
+          "player_z": 150.0,
+          "view_yaw": 0.0,
+          "health": 100.0,
+          "ammo": 60,
+          "pressure": 0.0,
+          "active_audio": 2,
+          "active_vfx": 2,
+          "previous_phase": "travel",
+          "previous_cycle": 15,
+          "transition_interval": true,
+          "seconds_since_cycle_start": 0.0009360600000007935,
+          "seconds_since_preceding_restart": 0.09085416899999643
+        }
+      ],
+      "fresh_replay": "PASS"
+    }
+  ],
+  "tested_inputs": [
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor",
+      "sha256": "fa261aef63feb2e43a82262c3ef3eed9ea07980de426bb43762d6b1da07f7d7a",
+      "bytes": 450840
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Build/Build.version",
+      "sha256": "ff99fc3dd98e7c7fd2f5700334bc792dfb7baced3828cdee32940bb69581a6a4",
+      "bytes": 215
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+      "sha256": "717d96f26b873ae8a608e5dea862549a515b1c4cbd43ed36a31dd5a4151ce797",
+      "bytes": 274
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGamesEditor.target",
+      "sha256": "3df65cadc765140c22f9c4154a44be125bca3f2759562bc63bbc1155392ea492",
+      "bytes": 998973
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/UnrealEditor.modules",
+      "sha256": "550b567553f0b41fff1bc2b8c810126857148922b4e75615e67347fdd3a38a43",
+      "bytes": 96
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/libUnrealEditor-BiellaGames.so",
+      "sha256": "4ef74d7c17ae9375a5b943f6fd065fce0b5bc2c2152f47f20998a3a39c9c0ac1",
+      "bytes": 1204624
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Config/DefaultEngine.ini",
+      "sha256": "c4fb1836db4e4805336cbb820ffc2b49ccb943138a1e5211879a3ab8a9dd1076",
+      "bytes": 1483
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Config/DefaultGame.ini",
+      "sha256": "fb300de27bfba441548c8fe9f00347b20cacb4638759f43923f23b05d6213fea",
+      "bytes": 593
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Config/DefaultInput.ini",
+      "sha256": "e1b7a60e4da1acca28b8540ed7b2746551df9ae1ddc0056eb45a0932ed82ea78",
+      "bytes": 9483
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Maps/BiellaGameplayMap.umap",
+      "sha256": "7899e51349e2540958c98b23372772cd195bd9f1ffd6e3385f430a0d2daeb777",
+      "bytes": 17229
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Maps/BiellaGameplayMap_Recovered.umap",
+      "sha256": "d8c0cdc7b37783d36dbb9f64a4ec641d7ddbaa7568ba22f3bb2e4f503b2d4677",
+      "bytes": 17359
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/BiellaGames.Build.cs",
+      "sha256": "fe875bdaa6e0330b03a1af338ff796e56708d13c00a9df740b8251b7e4b9f362",
+      "bytes": 775
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/BiellaGames.cpp",
+      "sha256": "256382027fe5e6d492cbbdbf13dbf449a438b7063398ef5c80fc049fbaebf78c",
+      "bytes": 198
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/BiellaGames.h",
+      "sha256": "30af2b68e6d8210e4ce4fbd26f6a2b8c3648cf2a1226d64b17c4f88c94fccdf1",
+      "bytes": 91
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BasicWorldGeometry.cpp",
+      "sha256": "b9b94999c18f142c8ac17d94a59cd7b474b278662b35843ddb97c75056f9c9ad",
+      "bytes": 11411
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaDemoObjectiveManager.cpp",
+      "sha256": "9485b05457ca3d28db8229a5811e8354cc149a24898e77f01591e99badffbd10",
+      "bytes": 6664
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaDemoPawn.cpp",
+      "sha256": "6816155e8afbc6d5e98e40ee5622a52bd54663ec96072662793d03f03157cf96",
+      "bytes": 9772
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGameplayFeedback.cpp",
+      "sha256": "9db2596c4b37cf09cfb4e2b2ce3f60dc9f0b327bc651e13ba1dd93c6e62312a4",
+      "bytes": 11405
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGameplayHUD.cpp",
+      "sha256": "563164d170c3f2f5cb2c750ce8558e986741cc0e3171fe362c7a66a353a2ae81",
+      "bytes": 17953
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+      "sha256": "71bf61c12d0e499e53687e85ff33e9c67c7e64cedcd9c060f934f0a85ce380c2",
+      "bytes": 15208
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesGameInstance.cpp",
+      "sha256": "908284a0b1d9e1ba1356a7d6b375e897706c22ec1906a289557f5f0dd21b3e7d",
+      "bytes": 434
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp",
+      "sha256": "a95f20d744e1df5510af5a683a71db49d78e8241320d179ee908c51835537411",
+      "bytes": 11014
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesGameState.cpp",
+      "sha256": "796cb4707ac7ebc3aa20ec3c5980395551f980d65a0299d1d0bf88ef29f16164",
+      "bytes": 6272
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesPlayerController.cpp",
+      "sha256": "84703f60b0e9f010686e71c59bb7f3176f0c48fea6c8c9fd5d9c7351bc76bfae",
+      "bytes": 2718
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaInfected.cpp",
+      "sha256": "f93ed5abe0f4ca4066dd70340f0ce2c205a3f8b3e12db95c81e74ec79c1ddbe3",
+      "bytes": 6945
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaPlaytestTelemetry.cpp",
+      "sha256": "44a20ca99d09f0bc665ba51d57fc5a796085816bc57648b695f7e6b69b3f859b",
+      "bytes": 5558
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaRival.cpp",
+      "sha256": "2b8e491b187d1b7ec1eeccd17fabd9581fcbd7fe6533ae8caf08dea35fa72016",
+      "bytes": 16600
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaArenaPressureTest.cpp",
+      "sha256": "b912a87fbc9e441c5a98fc95d333a71e4d8c3ca1c07558b1732323f9a75d00e3",
+      "bytes": 6155
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaDemoObjectiveTest.cpp",
+      "sha256": "f9719a4e369358b5c384175e10bd0a9527e11db515182cb0e843cb0365c29862",
+      "bytes": 9283
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaDeterministicPlaytest.cpp",
+      "sha256": "014b3a868474e36c170501fe1c3b0bf845a72640a100caeb476b351eb5fdc8f5",
+      "bytes": 33357
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaFailureStateTest.cpp",
+      "sha256": "15a7c02db1648004c1c3c2d31ac95d248d637e5d2262da94f74037bd97031cdf",
+      "bytes": 6418
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaFeedbackTest.cpp",
+      "sha256": "f376c2f79e37187074f1d1ff5cc6fd43302f58f3fc99e0079a78c9702c69bf44",
+      "bytes": 34677
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaGameplayHUDTest.cpp",
+      "sha256": "e51d2be298c21b5ee461a26cb26737814ac19d95b4a40f40bef00a01a1cab7f2",
+      "bytes": 7623
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaNativePerformanceTest.cpp",
+      "sha256": "6472f50352b01f81bc95da670610a55c1d589d4560d6215680c7d25f8ca6f61d",
+      "bytes": 23803
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaPressureResponsesTest.cpp",
+      "sha256": "cdb3c6c69b6f9dcc5776540e189eaf8a4ad8a182a335f03b1a4caed1ad27ae8c",
+      "bytes": 26522
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaRestartResetTest.cpp",
+      "sha256": "b29e409b32b66f628683e84f3e6b8cf008ea232639ad662bf49bf18fa734cc04",
+      "bytes": 9791
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaRivalCombatTest.cpp",
+      "sha256": "2b33dca2e52882e94efc7154f0ab5985570f1d4a23ce89e824aedb1e2ce54cb2",
+      "bytes": 21945
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaRivalNavigationTest.cpp",
+      "sha256": "a4c9dc728b13e9454aa30a21ac9e13dc73208f7cf51b05e3d9ba03941ccbd6ac",
+      "bytes": 21411
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaSharedInteractionTest.cpp",
+      "sha256": "0be9079ec2e343206a938e3a6ab6316bac1d95ef88053da3c5509d349af1c9e0",
+      "bytes": 22934
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaTerminalOverlayTest.cpp",
+      "sha256": "66fc2c6018be49ffccdc6ceadd3e43af569210a2feab0f3092a3bdfda7ca8313",
+      "bytes": 11047
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaVisualReadabilityTest.cpp",
+      "sha256": "7d929225d3ec6e33ba1d442061f51b9b31f743719013c7dba7bcfa542b2d653b",
+      "bytes": 28464
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BasicWorldGeometry.h",
+      "sha256": "b5de058cbaf852dcb4152e447f67e4d3555befd08fc7c9c9c90c76e71ca82dee",
+      "bytes": 1729
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaDemoObjectiveManager.h",
+      "sha256": "973911b97ab16afb2f7a7c33f60ecb3520e95d3fec04bfc2f6e013c9fa4b4646",
+      "bytes": 2183
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaDemoPawn.h",
+      "sha256": "d71cd56097c0b56703d73d83e3ec25065e4c57b557cab0ca27cf779b4532f34a",
+      "bytes": 2847
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGameplayFeedback.h",
+      "sha256": "5effd52aea5e49355c003d19cccae5a11201365a843a5d31535794e78a80eb44",
+      "bytes": 3045
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGameplayHUD.h",
+      "sha256": "b1ad3808378a9b205104049fc8a1cff32380c340b8cb7e4161500a74853f9f88",
+      "bytes": 3794
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesCharacter.h",
+      "sha256": "9d9d27049531bacf656fc36dd29b6af916bc4fbd4a37d9c6adf570425f9ed795",
+      "bytes": 3344
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesGameInstance.h",
+      "sha256": "a4cfbf5bf4b854096844eaa0b36cbd43d26d2e5ab3bcca1478e62f4d35dde63c",
+      "bytes": 473
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesGameModeBase.h",
+      "sha256": "c59ef97659efc16a8458ea79b7857d63e8ce82a8d2dcc6a9475381e8dd6d37cf",
+      "bytes": 2283
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesGameState.h",
+      "sha256": "e82da83f790682a7b70567400983835514f2e581ef84b76fa3e88328a6824aaf",
+      "bytes": 3071
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesPlayerController.h",
+      "sha256": "1c40f6542e9274cdfd5df5171a276aa02a907b822b893103df21b9cc28c32148",
+      "bytes": 919
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaInfected.h",
+      "sha256": "996cc1d1c6ef431d48bd562f7cec87036715463b17f0d0e5bc4c43b018706e5a",
+      "bytes": 1897
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaPlaytestTelemetry.h",
+      "sha256": "f2ac4a47dfe772051d164b058af04a2df308607d0be541903001e527171cb333",
+      "bytes": 1332
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaRival.h",
+      "sha256": "b8d3d195d369609248b0edd4d6b9f434edffcf0638c53e26e9cc53613856e2b1",
+      "bytes": 2591
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames.Target.cs",
+      "sha256": "4799f3aaff4fdbef67e6fd8c4bba578b08336aac195d7df0906fe4c3281ac13c",
+      "bytes": 370
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGamesEditor.Target.cs",
+      "sha256": "8464660556e742c670c5178cdf7b713f6c47309e099e054fff4c5a10e726f085",
+      "bytes": 384
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_039.py",
+      "sha256": "9df5e5188444a8dba455768ceed3915c44796a6e9897dd89a1e96d7147b610e8",
+      "bytes": 9977
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d01_039.py",
+      "sha256": "159e65a23995bf5cbe5678b68fc2816ddd5d405872033838d403abcaa1c88926",
+      "bytes": 21241
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_Failure.uasset",
+      "sha256": "c78631b279cc4e0af7ea72d914e7a33372b3cc6221be53d68bda8f574832f95f",
+      "bytes": 32988
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_Hurt.uasset",
+      "sha256": "061ce3c51240547f2b5234330fbd9cecbedf4c88e536afc3f54434174c1754dd",
+      "bytes": 14870
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_Impact.uasset",
+      "sha256": "ce2b9fbe5df63e6ac56bc17e95c0212a4cd13cf10eec3169646deb9c253ceab6",
+      "bytes": 12394
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_Pressure.uasset",
+      "sha256": "99e27cb5922a58e5320f9405e9da791a470c415638a1e398a8d2086e8a811d17",
+      "bytes": 12718
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_ShotA.uasset",
+      "sha256": "f62f3e71283244dba5882afa8a14fb5c08db3a7fdb6b15f92b147d15365fc633",
+      "bytes": 17087
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_ShotB.uasset",
+      "sha256": "bb406c7c82666b32b95c1a6e76cc0273004a712016b4055ca86c25c5980645b5",
+      "bytes": 17139
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_ShotC.uasset",
+      "sha256": "9bb6f99f4887a7820a9db7d38dc792f9236cf60544fab75ea413b26db968955c",
+      "bytes": 16332
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/Audio/S_Success.uasset",
+      "sha256": "8114762a7e283060d01ca538d16f3bf651a23624a040a2f997cb06c601eeecf3",
+      "bytes": 35359
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/M_FeedbackParticle.uasset",
+      "sha256": "656d1f1bac66e98df33158f764028226a6de6cd460089063e94bd64a51b48939",
+      "bytes": 10927
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/NS_Impact.uasset",
+      "sha256": "d07a7b6ffbb1b00adb18bb95dfb3f2cb7c203955eacdcde4ac03cec21cf2ddc6",
+      "bytes": 445437
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/NS_Muzzle.uasset",
+      "sha256": "472881a1ed4e829fe69a62b429c34a738233b8288bcc8be2b4dbf7dbf84ce354",
+      "bytes": 444673
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Materials/M_DemoReadability.uasset",
+      "sha256": "4fdf1b6ad04d0bb32f515a5547df6b7f455e599bec6ee8d012307b7d2f4c8b59",
+      "bytes": 7054
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_042.py",
+      "sha256": "20f00aeeddd84e08f6cfe0d0ba40dd53887ece95d3df065d5083e943ebc343c9",
+      "bytes": 9548
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_043.py",
+      "sha256": "ec8da542ba3cc3c1cca4c326af31050a07fc013a42a295cd17b51dd61bea2bcf",
+      "bytes": 11482
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_044.py",
+      "sha256": "418f7aabe3231a5b6e84c8d3890e49b1ffa2c5aa0586caac636aef79ba9ee202",
+      "bytes": 18221
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/test_d01_044.py",
+      "sha256": "b8e507d4414707d0ae29de828d5dd324206d23fd2dbcbc6b20ac946fe51e4865",
+      "bytes": 13078
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/test_d01_044_resources.py",
+      "sha256": "1fc74772cc59cd082de1acac6ccb2d9bd1c8808a027b37b301c48a6656b0240e",
+      "bytes": 6806
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d01_044.py",
+      "sha256": "41ed92389191d2d7f5aab2922fa8d2ae39d4dce5ed96f1c0d09dccc16bf97d96",
+      "bytes": 21529
+    }
+  ],
+  "protected": [
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/03_BIELLA_CURRENT_STATE.md",
+      "sha256": "cc4f647d6530498e211bc717f673a7480e40863fa579fa7526930f508af41448",
+      "bytes": 5386
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+      "sha256": "6eacb39526a1e13ed7a2b71362ca0392d5382c4e5ce2479cbf2f55a4dcf3cdc1",
+      "bytes": 779
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/docs/PRODUCTION.md",
+      "sha256": "58b111211ab22c170f144ac584cc8896804457ed1e4f492e0e5af9f7522e3e97",
+      "bytes": 14447
+    }
+  ],
+  "build": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-editor-build.log",
+    "sha256": "ef53332635f7647d4e634803ea03daf99e1a38e083796fd02446eb4b30d4627c",
+    "bytes": 7740
+  },
+  "verifier_tests": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-verifier-tests-final.log",
+    "sha256": "ba4c9f30631b140be7f715ae1133a2c2cbe54fb2c10c51a74074bccd99a5a936",
+    "bytes": 5475
+  },
+  "predecessor_regression": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-predecessor-regression/20260905T094604.366002Z-nullrhi-3fe5b7e7/validation.json",
+    "sha256": "cc27d36f3039a4a94607e5e4d61d772c5180bc12206a99e45e563e1444ec5c1c",
+    "bytes": 39702
+  },
+  "analysis_source": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/summarize_d01_044.py",
+    "sha256": "dc036b474e49da6ee4b89fb99f7586bb0a89210692348034159bd00c5d27ec4a",
+    "bytes": 7047
+  },
+  "acceptance": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-acceptance.md",
+    "sha256": "ff0fe00e66d38e1978d0d9f11719651247af38b7ff022d6552ff9b533183d8a9",
+    "bytes": 12037
+  },
+  "validation": {
+    "raw_evidence_replayed": "PASS",
+    "retained_evidence_digests": "PASS",
+    "same_source_content_build_across_runs": "PASS",
+    "current_tested_bytes": "PASS",
+    "protected_metadata_matches_HEAD": "PASS",
+    "adversarial_tests": 40,
+    "predecessor_fresh_processes": 2
+  },
+  "canonical_metadata_changed": false,
+  "publication_owner": "Auto Feeder",
+  "limitations": [
+    "Linux UnrealEditor -game Development on L40S/Xvfb; no Windows/DX12/package target qualification.",
+    "No FPS/memory budget invented; existing target-tier decisions remain UNKNOWN.",
+    "Asynchronous thread/GPU timings support a limiting-stage inference, not traced pass-level diagnosis.",
+    "One-second OS/device samples can miss subsecond resource peaks; buffer/cache/editor overhead remains included.",
+    "No leak-free, physical latency/scanout, production-scale content or final visual acceptance claim."
+  ]
+}

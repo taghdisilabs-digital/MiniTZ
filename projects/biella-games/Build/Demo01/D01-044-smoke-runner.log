@@ -1,0 +1,7 @@
+D01-44 evidence: /root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T094646.479673Z-1280x720/validation.json
+{
+  "result": "PASS",
+  "mode": "SMOKE_ONLY",
+  "validation": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-runs/20260905T094646.479673Z-1280x720/validation.json",
+  "error": null
+}

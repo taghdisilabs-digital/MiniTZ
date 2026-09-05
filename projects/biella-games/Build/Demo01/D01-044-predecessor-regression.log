@@ -1,0 +1,9 @@
+D01-39 attempt: /root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-predecessor-regression/20260905T094604.366002Z-nullrhi-3fe5b7e7
+Run 1/2: automation passed; captured run-01.telemetry.jsonl
+Run 2/2: automation passed; captured run-02.telemetry.jsonl
+{
+  "task_id": "D01-39",
+  "result": "PASS",
+  "validation": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-predecessor-regression/20260905T094604.366002Z-nullrhi-3fe5b7e7/validation.json",
+  "error": null
+}
