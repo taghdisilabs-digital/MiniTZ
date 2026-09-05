@@ -21,13 +21,13 @@ def test_consolidation_is_active_and_games_progress_is_preserved():
     production = PRODUCTION.read_text(encoding="utf-8")
     assert "BIELLA-CONSOLIDATION-2026-09-05" in state
     assert "BIELLA-CONSOLIDATION-2026-09-05" in task
-    assert "completed_demo_tasks: 26" in state
-    assert "queued_successor: D01-027" in state
+    assert "completed_demo_tasks: 28" in state
+    assert "queued_successor: D01-029" in state
     assert "external_writer_state: STOPPED_FOR_CONSOLIDATION" in state
     assert "feeder: STOPPED_BY_OWNER" in state
     # The imported monorepo snapshot must match the final frozen Games writer state before cutover.
-    assert "Current task: `D01-027`" in production
-    assert production.count("- [x] D01-") == 26
+    assert "Current task: `D01-029`" in production
+    assert production.count("- [x] D01-") == 28
     assert "imported_snapshot_state: CURRENT_PRESERVED_IMPORT" in state
 
 

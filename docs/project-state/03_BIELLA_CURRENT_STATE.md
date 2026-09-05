@@ -29,21 +29,21 @@ active_execution:
   working_branch: monorepo-unification-20260905
   base_commit: 086b79de3a5bf3f6ea00ced13cc1433c09c37a78
   feeder: STOPPED_BY_OWNER
-  next_after_consolidation: D01-027
+  next_after_consolidation: D01-029
 
 games:
   project_path: projects/biella-games
   production_source: projects/biella-games/docs/PRODUCTION.md
   section: demo01
-  completed_demo_tasks: 26
+  completed_demo_tasks: 28
   total_demo_tasks: 50
-  queued_successor: D01-027
-  preserved_source_commit: 2193b769e61b43ebfc4f910f6380c68e6b828cd5
-  preserved_source_tree: b80f2fcee95b3180d0a5a7b6664819876962ce6e
-  import_readback: 88_OF_88_BLOBS_MATCHED_BEFORE_PATH_EDITS
+  queued_successor: D01-029
+  preserved_source_commit: f7e74205988cb48946e62efeffe5c5330ec6437b
+  preserved_source_tree: 1324b3dd942927352abaa2ef70a463cbdfca53db
+  import_readback: LATEST_9_PATH_DELTA_IMPORTED_FROM_EXACT_PRESERVATION_COMMIT
   imported_snapshot_state: CURRENT_PRESERVED_IMPORT
   external_writer_state: STOPPED_FOR_CONSOLIDATION
-  external_live_observation: D01-001_THROUGH_D01-026_COMPLETE_D01-027_PENDING_PARTIAL_PRESERVED
+  external_live_observation: D01-001_THROUGH_D01-028_COMPLETE_D01-029_PENDING_PARTIAL_PRESERVED
 
 engine_numbered_execution:
   P4_01_through_P4_05: COMPLETE_REUSE_REQUIRED

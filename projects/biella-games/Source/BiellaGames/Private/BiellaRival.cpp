@@ -83,6 +83,7 @@ void ABiellaRival::Tick(float DeltaTime)
         {
             CurrentTarget = NewTarget;
             bTargetLogged = false;
+            bPositionLogged = false;
         }
     }
     if (!CurrentTarget)
@@ -96,6 +97,13 @@ void ABiellaRival::Tick(float DeltaTime)
             *GetName(), *CurrentTarget->GetName(), static_cast<int32>(CurrentTarget->GetTeam()));
     }
     const float Distance = FVector::Dist(GetActorLocation(), CurrentTarget->GetActorLocation());
+    if (!bPositionLogged)
+    {
+        bPositionLogged = true;
+        UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL RIVAL_POSITION actor=%s target=%s mode=%s distance=%.1f"),
+            *GetName(), *CurrentTarget->GetName(),
+            Distance > PreferredDistance ? TEXT("advance") : TEXT("hold"), Distance);
+    }
     if (Distance > PreferredDistance)
     {
         MoveTowardLocation(CurrentTarget->GetActorLocation(), DeltaTime);

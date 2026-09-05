@@ -80,7 +80,6 @@ void ABiellaGamesGameModeBase::SpawnDemoActors()
     if (InfectedActors.Num() > 0)
     {
         UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL INFECTED_SPAWN count=%d source=map"), InfectedActors.Num());
-        return;
     }
 
     const FVector SpawnLocations[] = {
@@ -101,6 +100,22 @@ void ABiellaGamesGameModeBase::SpawnDemoActors()
         }
     }
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL INFECTED_GROUP_READY count=%d"), InfectedActors.Num());
+
+    TArray<AActor*> ExistingRivals;
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABiellaRival::StaticClass(), ExistingRivals);
+    if (ExistingRivals.Num() > 0)
+    {
+        RivalActor = Cast<ABiellaRival>(ExistingRivals[0]);
+    }
+    if (!RivalActor)
+    {
+        FActorSpawnParameters RivalParams;
+        RivalParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+        RivalActor = GetWorld()->SpawnActor<ABiellaRival>(
+            ABiellaRival::StaticClass(), FVector(900.0f, 0.0f, 0.0f), FRotator::ZeroRotator, RivalParams);
+    }
+    UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL RIVAL_SPAWN actor=%s source=runtime"),
+        RivalActor ? *RivalActor->GetName() : TEXT("None"));
 }
 
 void ABiellaGamesGameModeBase::RequestRestart()

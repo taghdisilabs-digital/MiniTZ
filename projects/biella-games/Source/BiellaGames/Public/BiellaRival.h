@@ -39,4 +39,5 @@ public:
 private:
     float WeaponCooldownRemaining = 0.0f;
     bool bTargetLogged = false;
+    bool bPositionLogged = false;
 };

@@ -9,12 +9,12 @@ Engine: `/opt/unreal/UE_5.8.2`
 Execution rule: one current task; verify, execute, persist evidence, then advance
 Evidence rule: editable source plus task-derived build/runtime/package evidence
 Current section: `demo01`
-Current task: `D01-027`
-Progress: `26/50` Demo tasks complete
+Current task: `D01-029`
+Progress: `28/50` Demo tasks complete
 
 ## Section: demo01 | Demo 01 — first playable vertical slice | IN_PROGRESS
 
-Source: migrated from `docs/DEMO_01_QUEUE.md` at preservation commit `2193b769e61b43ebfc4f910f6380c68e6b828cd5` / tree `b80f2fcee95b3180d0a5a7b6664819876962ce6e`.
+Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74205988cb48946e62efeffe5c5330ec6437b` / tree `1324b3dd942927352abaa2ef70a463cbdfca53db` supersedes the earlier preservation floor for D01-027/028 progress.
 
 - [x] D01-001 | deep_memory | Resolve live canonical Games execution root | COMPLETE_ALREADY | /root/biella/repos/biella-games observed
 - [x] D01-002 | deep_memory | Verify GitHub authority and engine-repository separation | COMPLETE_ALREADY | repo metadata + main SHA/tree observed
@@ -42,8 +42,8 @@ Source: migrated from `docs/DEMO_01_QUEUE.md` at preservation commit `2193b769e6
 - [x] D01-024 | medium | Add infected navigation/chase | COMPLETE | bounded swept movement; runtime D01_SIGNAL INFECTED_CHASE for both agents
 - [x] D01-025 | medium | Add infected melee damage timing | COMPLETE_ALREADY | TryMeleeTarget applies damage with range gate and cooldown; runtime exercised in acceptance harness
 - [x] D01-026 | medium | Add infected hit reaction and death | COMPLETE_ALREADY | shared pawn hit flash, HIT_REACTION, health zero, and DEFEAT apply to infected
-- [ ] D01-027 | medium | Add rival contestant pawn/runtime actor | PENDING | editable actor + spawn evidence
-- [ ] D01-028 | medium | Add rival perception and target selection | PENDING | autonomous decision evidence
+- [x] D01-027 | medium | Add rival contestant pawn/runtime actor | COMPLETE | ABiellaRival editable pawn; runtime spawn; D01_SIGNAL RIVAL_READY/RIVAL_SPAWN
+- [x] D01-028 | medium | Add rival perception and target selection | COMPLETE | runtime RIVAL_TARGET selected infected team=2; target retargets after defeat
 - [ ] D01-029 | hard | Add rival navigation and combat positioning | PENDING | real movement/position evidence
 - [ ] D01-030 | hard | Add rival weapon use and damage response | PENDING | rival combat evidence
 - [ ] D01-031 | hard | Prove shared player/rival/infected interaction | PENDING | cross-actor state evidence
@@ -99,4 +99,4 @@ Source: migrated from `docs/DEMO_01_QUEUE.md` at preservation commit `2193b769e6
 
 ## Migration checkpoint
 
-The automatic feeder and parallel production workers are stopped for monorepo/workspace consolidation. D01-001..D01-026 remain complete. D01-027 is preserved as the next task with partial source present but no completion claim. It must not run until consolidation validation closes.
+The automatic feeder and parallel production workers are stopped for monorepo/workspace consolidation. D01-001..D01-028 remain complete. D01-029 is the next task; its partial source/build/runtime evidence is preserved but it remains PENDING and must not be promoted without task-derived acceptance.

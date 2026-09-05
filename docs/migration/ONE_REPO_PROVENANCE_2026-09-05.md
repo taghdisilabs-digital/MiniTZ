@@ -16,12 +16,15 @@ Destination checkout: `/root/biella/repos/biella-engine`
 - source repository: `patrickminitz-web/biella-games`
 - initial preservation floor commit: `7152b533b7b26ebb6cca5ec67d7b85c4d59fac2f`
 - initial preservation floor tree: `dfd183d8b60da26cfa2b5281a67bdcb4b38eb183`
-- final frozen progress commit: `2193b769e61b43ebfc4f910f6380c68e6b828cd5`
-- final frozen progress tree: `b80f2fcee95b3180d0a5a7b6664819876962ce6e`
+- earlier frozen progress commit: `2193b769e61b43ebfc4f910f6380c68e6b828cd5`
+- earlier frozen progress tree: `b80f2fcee95b3180d0a5a7b6664819876962ce6e`
+- latest frozen progress commit: `f7e74205988cb48946e62efeffe5c5330ec6437b`
+- latest frozen progress tree: `1324b3dd942927352abaa2ef70a463cbdfca53db`
 - classification: `PROJECT_SPECIFIC`
 - destination: `projects/biella-games/`
-- final pre-edit verification: `88/88 Git blobs matched exactly`
-- Demo state at final freeze: D01-001..D01-026 complete; D01-027 pending with partial rival source preserved but no completion claim.
+- initial full-import verification: `88/88 Git blobs matched exactly`.
+- late delta import: `9/9 changed paths` imported from the exact latest preservation commit.
+- Demo state at latest freeze: D01-001..D01-028 complete; D01-029 pending with partial navigation/positioning source and build/runtime evidence preserved but no completion claim.
 - all parallel production workers were stopped before the final frozen snapshot was imported.
 
 ### Website/control

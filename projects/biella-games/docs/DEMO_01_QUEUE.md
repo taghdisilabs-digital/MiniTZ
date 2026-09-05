@@ -13,8 +13,8 @@ Engine: /opt/unreal/UE_5.8.2
 Host: biella-l40s-worker / NVIDIA L40S
 Execution rule: one current task; verify, execute, checkpoint, advance
 Evidence rule: editable source plus fresh build/runtime/package evidence
-Current task: D01-027
-Last checkpoint: D01-026 COMPLETE_ALREADY
+Current task: D01-029
+Last checkpoint: D01-028 COMPLETE
 
 ## Tasks
 - [x] D01-001 | Resolve live canonical Games execution root | COMPLETE_ALREADY | /root/biella/repos/biella-games observed
@@ -43,8 +43,8 @@ Last checkpoint: D01-026 COMPLETE_ALREADY
 - [x] D01-024 | Add infected navigation/chase | COMPLETE | bounded swept movement; runtime D01_SIGNAL INFECTED_CHASE for both agents
 - [x] D01-025 | Add infected melee damage timing | COMPLETE_ALREADY | TryMeleeTarget applies damage with range gate and cooldown; runtime exercised in acceptance harness
 - [x] D01-026 | Add infected hit reaction and death | COMPLETE_ALREADY | shared pawn hit flash, HIT_REACTION, health zero, and DEFEAT apply to infected
-- [ ] D01-027 | Add rival contestant pawn/runtime actor | PENDING | editable actor + spawn evidence
-- [ ] D01-028 | Add rival perception and target selection | PENDING | autonomous decision evidence
+- [x] D01-027 | Add rival contestant pawn/runtime actor | COMPLETE | ABiellaRival editable pawn; runtime spawn; D01_SIGNAL RIVAL_READY/RIVAL_SPAWN
+- [x] D01-028 | Add rival perception and target selection | COMPLETE | runtime RIVAL_TARGET selected infected team=2; target retargets after defeat
 - [ ] D01-029 | Add rival navigation and combat positioning | PENDING | real movement/position evidence
 - [ ] D01-030 | Add rival weapon use and damage response | PENDING | rival combat evidence
 - [ ] D01-031 | Prove shared player/rival/infected interaction | PENDING | cross-actor state evidence
@@ -69,9 +69,9 @@ Last checkpoint: D01-026 COMPLETE_ALREADY
 - [ ] D01-050 | Publish Drive closure and verify exact readback | PENDING | queue/evidence/package identities
 
 ## Checkpoint
-task_id: D01-026
+task_id: D01-028
 source_sha: 71762b8f1e0e3f999f5a621559f1c63b6e5b56bb + worktree
-changed_files: Source/BiellaDemoPawn.cpp, Source/BiellaInfected.cpp
- tests: source verified inherited HIT_REACTION/COMBAT_FEEDBACK/DEFEAT path for infected; compiled in D01-024 build
-status: COMPLETE_ALREADY
-next_action: add rival contestant pawn/runtime actor (D01-027)
+changed_files: Source/BiellaRival.cpp, Build/Demo01/D01-028-runtime.log
+tests: 16s runtime produced RIVAL_TARGET team=2, RIVAL_FIRE, DAMAGE, COMBAT_FEEDBACK, and DEFEAT
+status: COMPLETE
+next_action: add rival navigation and combat positioning (D01-029)
