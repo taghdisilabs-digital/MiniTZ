@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "python3 -m unittest -v tests/test_contracts.py tests/test_control_contracts.py",
+    "test": "python3 -m unittest -v tests/test_contracts.py tests/test_control_contracts.py tests/test_investor_deck.py",
     "test:browser": "python3 tests/browser/test_site.py && python3 tests/browser/test_control_site.py"
   }
 }

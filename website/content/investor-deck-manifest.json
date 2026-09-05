@@ -1,0 +1,78 @@
+{
+  "schema": "biella.website.investor-deck/v1",
+  "status": "ACCEPTED_VISUAL_REFERENCE",
+  "acceptance_authority": "Mahdi Taghdisi",
+  "source_pack": {
+    "canonical_vps_path": "/root/biella/artifacts/website/investor-deck/biella_investor_visual_pack_v1.zip",
+    "sha256": "c936cce5213b20fa0d4c8f9057fb8618512a50d3025594dc7468c185c0e4f303"
+  },
+  "visual_assets": [
+    {
+      "filename": "01_founder_execution_engine.png",
+      "sha256": "ee50e1c468bd7500075f4b70076623c4e32586215b856e39255f836213176465",
+      "bytes": 1533053
+    },
+    {
+      "filename": "02_founder_directed_execution_system.png",
+      "sha256": "8adeac1cea61def57ff2f55005f66206d6e2f7c80d0d68cf6a76913721f1abca",
+      "bytes": 1674164
+    },
+    {
+      "filename": "03_proven_progress.png",
+      "sha256": "8bf210be6fe07bff0c83a088a5dde00eeb0fa42792afaf182479c22264dda03a",
+      "bytes": 1513594
+    },
+    {
+      "filename": "04_operating_loop.png",
+      "sha256": "da3b3f316786c213fa7ef6bbfe64b593858971d2995826c9400a459c76fa7efd",
+      "bytes": 1209553
+    },
+    {
+      "filename": "05_games_first_visible_proof.png",
+      "sha256": "a97ba7296d6e2ba00c89c6a0c03c0c8e69e273a49642080674b69bece1c65cda",
+      "bytes": 1777122
+    },
+    {
+      "filename": "06_capability_coverage.png",
+      "sha256": "a493403ab4026f066798d3be13ab71792a1095fc386cb123c8c6e233ba3e656e",
+      "bytes": 1524599
+    },
+    {
+      "filename": "07_execution_insights.png",
+      "sha256": "bf1bee021222ac49f4860b7c04f62e554f7edb64d25f88f63f523449ac8632c7",
+      "bytes": 1423606
+    },
+    {
+      "filename": "08_product_to_company_proof.png",
+      "sha256": "5489d94ffdf6f8adf2e268da525696f5fcff98a952f147012396d757083ae802",
+      "bytes": 1522143
+    },
+    {
+      "filename": "09_financial_posture.png",
+      "sha256": "15b770b1f50a117e1c0a842ecdd7e2a15364c96d530100c550f41d6614363f3d",
+      "bytes": 1515662
+    },
+    {
+      "filename": "10_professional_financial_framing.png",
+      "sha256": "371e172832bad814829dd8f258080ac5da8e525aeb866cd457b5a3f2ca7291c9",
+      "bytes": 1628854
+    }
+  ],
+  "content_policy": {
+    "pixel_text_is_metric_authority": false,
+    "live_metrics_must_resolve_from_current_authority": true,
+    "unknowns_remain_open": true,
+    "refresh_after_durable_task_state_commit": true
+  },
+  "canonical_evidence_sources": [
+    "docs/task-program/D_TASK_LEDGER.json",
+    "docs/project-state/03_BIELLA_CURRENT_STATE.md",
+    "docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+    "projects/biella-games/docs/PRODUCTION.md"
+  ],
+  "production_task_relation": {
+    "D13-06": "PENDING_BROADER_TASK_NOT_CLOSED_BY_THIS_DELIVERABLE",
+    "D24-02": "FUTURE",
+    "D24-04": "FUTURE"
+  }
+}

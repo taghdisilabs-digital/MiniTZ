@@ -1,7 +1,14 @@
 name: Website Production Deployment
 on:
   push:
-    branches: [website-production]
+    branches: [main]
+    paths:
+      - 'website/**'
+      - 'docs/task-program/D_TASK_LEDGER.json'
+      - 'docs/project-state/03_BIELLA_CURRENT_STATE.md'
+      - 'docs/project-state/04_BIELLA_ACTIVE_TASK.md'
+      - 'projects/biella-games/docs/PRODUCTION.md'
+      - '.github/workflows/website-production.yml'
 permissions:
   contents: read
 jobs:
@@ -18,11 +25,12 @@ jobs:
       - name: Bind exact source tree
         run: echo "BIELLA_SOURCE_TREE=$(git rev-parse HEAD^{tree})" >> "$GITHUB_ENV"
         working-directory: .
+      - run: npm run test
       - run: npm run build
         env:
           BIELLA_SOURCE_COMMIT: ${{ github.sha }}
           BIELLA_SOURCE_TREE: ${{ env.BIELLA_SOURCE_TREE }}
-          BIELLA_SOURCE_BRANCH: website-production
+          BIELLA_SOURCE_BRANCH: main
           BIELLA_DEPLOY_ENV: PRODUCTION
           BIELLA_DEPLOYMENT_STATUS: PRODUCTION_DEPLOYED
       - name: Deploy production Worker
@@ -32,20 +40,26 @@ jobs:
         run: |
           test -n "$CLOUDFLARE_API_TOKEN"
           test -n "$CLOUDFLARE_ACCOUNT_ID"
-          npx --yes wrangler@4 deploy --message "BU production ${GITHUB_SHA}" 2>&1 | tee production-deployment.txt
+          npx --yes wrangler@4 deploy --message "Biella production ${GITHUB_SHA}" 2>&1 | tee production-deployment.txt
       - name: Production readback
         run: |
           for i in $(seq 1 12); do
-            if curl -fsS --max-time 15 https://biellagames.dev/deployment.json -o production-readback.json; then break; fi
+            if curl -fsS --max-time 15 https://biellagames.dev/deployment.json -o production-readback.json && curl -fsS --max-time 15 https://biellagames.dev/data/investor-snapshot.json -o investor-readback.json && curl -fsS --max-time 15 https://biellagames.dev/investors/ -o investor-page.html; then break; fi
             sleep 10
           done
           test -s production-readback.json
+          test -s investor-readback.json
+          test -s investor-page.html
           python3 - <<'PY'
           import json, os
-          x=json.load(open('production-readback.json'))
-          assert x['source_commit'] == os.environ['GITHUB_SHA']
-          assert x['source_tree'] == os.environ['BIELLA_SOURCE_TREE']
-          assert x['environment'] == 'PRODUCTION'
+          dep=json.load(open('production-readback.json'))
+          inv=json.load(open('investor-readback.json'))
+          assert dep['source_commit'] == os.environ['GITHUB_SHA']
+          assert dep['source_tree'] == os.environ['BIELLA_SOURCE_TREE']
+          assert dep['environment'] == 'PRODUCTION'
+          assert inv['source']['commit'] == os.environ['GITHUB_SHA']
+          assert inv['program']['total_tasks'] > 0
+          assert inv['program']['completed_tasks'] <= inv['program']['total_tasks']
           PY
       - uses: actions/upload-artifact@v4
         with:
@@ -53,3 +67,5 @@ jobs:
           path: |
             website/production-deployment.txt
             website/production-readback.json
+            website/investor-readback.json
+            website/investor-page.html
