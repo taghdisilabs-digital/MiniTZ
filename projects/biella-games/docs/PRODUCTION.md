@@ -9,8 +9,8 @@ Engine: `/opt/unreal/UE_5.8.2`
 Execution rule: one current task; verify, execute, persist evidence, then advance
 Evidence rule: editable source plus task-derived build/runtime/package evidence
 Current section: `demo01`
-Current task: `D01-034`
-Progress: `33/50` Demo tasks complete
+Current task: `D01-035`
+Progress: `34/50` Demo tasks complete
 
 ## Section: demo01 | Demo 01 — first playable vertical slice | IN_PROGRESS
 
@@ -49,7 +49,7 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 - [x] D01-031 | hard | Prove shared player/rival/infected interaction | COMPLETE | projects/biella-games/Build/Demo01/D01-031-acceptance.md; projects/biella-games/Build/Demo01/D01-031-validation.json; projects/biella-games/Build/Demo01/D01-031-shared-30fps.log; projects/biella-games/Build/Demo01/D01-031-shared-120fps.log; projects/biella-games/Build/Demo01/D01-031-rival-regression.log
 - [x] D01-032 | medium | Add authoritative arena-pressure state | COMPLETE_ALREADY | Existing implementation commit 0b5f82628f2ca0c8bb5ceea0ce1914a67613f9d9 is contained in origin/main.; D01-032 verifier passed: 4 authoritative transitions, canonical identity, server authority.; Demo 01 structural verifier passed: 31/50 complete.; Canonical worktree is clean.
 - [x] D01-033 | hard | Add pressure world consequence and responses | COMPLETE | Local commit: ea5428589d1e817caabe501d12196af7ad6d3d07; working tree clean.; 11 pressure-response phases passed at 30/120 FPS caps, including rendered Vulkan validation.; D01-029 through D01-032 regressions passed.; [Acceptance evidence](/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-033-acceptance.md)
-- [ ] D01-034 | medium | Add objective manager and success condition | PENDING | executable objective state
+- [x] D01-034 | medium | Add objective manager and success condition | COMPLETE | Implemented and integrated ABiellaDemoObjectiveManager with replicated objective state and GameState success transition.; UE 5.8.2 build passed; live objective automation and verifier passed activation → progress → success.; Evidence: [D01-034 acceptance](/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-034-acceptance.md).; Committed locally as 6ff1449. Protected task metadata unchanged.
 - [ ] D01-035 | medium | Add failure/death state | PENDING | health zero/failure evidence
 - [ ] D01-036 | medium | Add deterministic restart/reset path | PENDING | restart returns clean match
 - [ ] D01-037 | creation | Add gameplay HUD core | PENDING | health/ammo/countdown/objective
