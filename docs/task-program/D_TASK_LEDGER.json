@@ -1,5 +1,5 @@
 {
-  "current_task": "D01-39",
+  "current_task": "D01-40",
   "execution_authority": "current 03/04 + Project PRODUCTION.md",
   "registry_is_queue": false,
   "schema": "biella.d_task_ledger/v1",
@@ -1165,7 +1165,7 @@
         "D01-039"
       ],
       "program": "D01",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D01-39",
       "title": "Add deterministic playtest harness and telemetry"
