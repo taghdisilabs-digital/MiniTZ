@@ -21,7 +21,7 @@ UNIT_NAME = "biella-codex-production"
 _RUNTIME_KEYS = {
     "status", "project", "task_id", "attempt", "pid", "child_pid",
     "active_model", "active_reasoning", "cooldowns", "last_result",
-    "heartbeat_at", "updated_at",
+    "heartbeat_at", "updated_at", "task_session_id", "session_task_id",
 }
 
 
@@ -55,6 +55,7 @@ def initial_runtime() -> dict[str, Any]:
         "pid": None, "child_pid": None, "active_model": None,
         "active_reasoning": None, "cooldowns": {}, "last_result": None,
         "heartbeat_at": None, "updated_at": datetime.now(timezone.utc).isoformat(),
+        "task_session_id": None, "session_task_id": None,
     }
 
 
@@ -94,11 +95,48 @@ def _tail(path: Path, maximum_bytes: int = 65536) -> str:
     return path.read_bytes()[-maximum_bytes:].decode("utf-8", errors="replace")
 
 
+def _extract_codex_session_id(path: Path) -> str | None:
+    if not path.exists():
+        return None
+    for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        try:
+            item = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(item, dict):
+            continue
+        if isinstance(item.get("thread_id"), str) and item.get("thread_id"):
+            return str(item["thread_id"])
+        payload = item.get("payload")
+        if isinstance(payload, dict):
+            for key in ("thread_id", "session_id"):
+                if isinstance(payload.get(key), str) and payload.get(key):
+                    return str(payload[key])
+    return None
+
+
+def _resume_session_for(telemetry: Mapping[str, Any], task_id: str) -> str | None:
+    if telemetry.get("session_task_id") != task_id:
+        return None
+    raw = telemetry.get("task_session_id")
+    return str(raw) if isinstance(raw, str) and raw else None
+
+
+def _clear_task_session(telemetry: dict[str, Any]) -> None:
+    telemetry["task_session_id"] = None
+    telemetry["session_task_id"] = None
+
+
 def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, output_path: Path,
                       stdout_path: Path, stderr_path: Path, runtime_path: Path,
                       telemetry: dict[str, Any], *, heartbeat_interval: float = 30.0,
-                      on_heartbeat: Callable[[datetime], None] | None = None) -> tuple[int, str]:
-    cmd = routing.build_codex_command(route, schema_path, output_path, Path("/root"))
+                      on_heartbeat: Callable[[datetime], None] | None = None,
+                      cwd: Path | None = None, resume_session_id: str | None = None,
+                      session_task_id: str | None = None) -> tuple[int, str]:
+    if resume_session_id:
+        cmd = routing.build_codex_resume_command(route, schema_path, output_path, resume_session_id)
+    else:
+        cmd = routing.build_codex_command(route, schema_path, output_path, cwd or Path("/root"))
     stdout_path.parent.mkdir(parents=True, exist_ok=True)
     with stdout_path.open("w", encoding="utf-8") as stdout, stderr_path.open("w", encoding="utf-8") as stderr:
         proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, text=True, stdout=stdout, stderr=stderr, env=os.environ.copy())
@@ -117,6 +155,10 @@ def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, outp
             time.sleep(min(0.05, max(0.005, heartbeat_interval / 4)))
         rc = int(proc.returncode or 0)
     telemetry["child_pid"] = None
+    observed_session = resume_session_id or _extract_codex_session_id(stdout_path)
+    if observed_session and session_task_id:
+        telemetry["task_session_id"] = observed_session
+        telemetry["session_task_id"] = session_task_id
     observed = _beat(runtime_path, telemetry)
     if on_heartbeat:
         on_heartbeat(observed)
@@ -248,7 +290,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 telemetry.update({"status": "RUNNING", "task_id": f"PLAN:{section.id}", "active_model": route.model, "active_reasoning": route.reasoning})
                 _beat(runtime_path, telemetry)
                 output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"PLAN-{section.id}-{route.model}")
-                rc, error_text = invoke_structured(packets.compile_section_packet(production, section, audit=bool(section.tasks)), route, section_schema_path, output, stdout, stderr, runtime_path, telemetry, heartbeat_interval=heartbeat_interval)
+                rc, error_text = invoke_structured(packets.compile_section_packet(production, section, audit=bool(section.tasks)), route, section_schema_path, output, stdout, stderr, runtime_path, telemetry, heartbeat_interval=heartbeat_interval, cwd=project_root, session_task_id=f"PLAN:{section.id}")
                 if rc != 0:
                     _set_failure(telemetry, route, error_text, f"PLAN:{section.id}"); _beat(runtime_path, telemetry); continue
                 try:
@@ -281,7 +323,12 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             _beat(runtime_path, telemetry)
             output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"{task.id}-{route.model}")
             prompt = packets.compile_task_packet(repo_root, production, task)
-            rc, error_text = invoke_structured(prompt, route, schema_path, output, stdout, stderr, runtime_path, telemetry, heartbeat_interval=heartbeat_interval)
+            resume_session_id = _resume_session_for(telemetry, task.id)
+            rc, error_text = invoke_structured(
+                prompt, route, schema_path, output, stdout, stderr, runtime_path, telemetry,
+                heartbeat_interval=heartbeat_interval, cwd=project_root,
+                resume_session_id=resume_session_id, session_task_id=task.id,
+            )
             if rc != 0:
                 _set_failure(telemetry, route, error_text, task.id); _beat(runtime_path, telemetry); continue
             try:
@@ -299,6 +346,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 telemetry["last_result"] = {"task_id": task.id, "status": "RECOVERING_INTERNAL", "summary": str(exc), "evidence": list(result.evidence), "model": route.model, "reasoning": route.reasoning}
                 _beat(runtime_path, telemetry); time.sleep(1.0); continue
             if result.status in {"COMPLETE", "COMPLETE_ALREADY"}:
+                _clear_task_session(telemetry)
                 _persist_until_success(repo_root, result.task_id, runtime_path, telemetry)
             _beat(runtime_path, telemetry)
             continue

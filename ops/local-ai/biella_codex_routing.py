@@ -122,17 +122,37 @@ def earliest_cooldown_delay(cooldowns: Mapping[str, str], now: datetime) -> floa
     return min(waits) if waits else 60.0
 
 
+def _production_exec_args(route: Route, schema_path: Path, output_path: Path) -> list[str]:
+    return [
+        "--dangerously-bypass-approvals-and-sandbox",
+        "--dangerously-bypass-hook-trust",
+        "--disable", "multi_agent",
+        "--disable", "multi_agent_v2",
+        "-c", 'shell_environment_policy.inherit="all"',
+        "-c", 'model_auto_compact_token_limit=96000',
+        "-c", f'model_reasoning_effort="{route.reasoning}"',
+        "-m", route.model,
+        "--json",
+        "--output-schema", str(schema_path),
+        "-o", str(output_path),
+    ]
+
+
 def build_codex_command(route: Route, schema_path: Path, output_path: Path, cwd: Path) -> list[str]:
     codex_bin = os.environ.get("BIELLA_CODEX_BIN", "/usr/bin/codex")
     return [
         codex_bin, "--search", "exec",
-        "--dangerously-bypass-approvals-and-sandbox",
-        "--dangerously-bypass-hook-trust",
-        "-c", 'shell_environment_policy.inherit="all"',
-        "-c", f'model_reasoning_effort="{route.reasoning}"',
-        "-m", route.model,
+        *_production_exec_args(route, schema_path, output_path),
         "-C", str(cwd),
-        "--output-schema", str(schema_path),
-        "-o", str(output_path),
+        "-",
+    ]
+
+
+def build_codex_resume_command(route: Route, schema_path: Path, output_path: Path, session_id: str) -> list[str]:
+    codex_bin = os.environ.get("BIELLA_CODEX_BIN", "/usr/bin/codex")
+    return [
+        codex_bin, "--search", "exec", "resume",
+        *_production_exec_args(route, schema_path, output_path),
+        session_id,
         "-",
     ]

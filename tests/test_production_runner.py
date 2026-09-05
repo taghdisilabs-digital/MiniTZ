@@ -281,3 +281,28 @@ def test_runner_startup_clears_stale_child_pid_before_first_work(tmp_path: Path,
     with pytest.raises(RuntimeError, match="stop after startup"):
         runner.run_production(repo, project, runtime_root)
     assert runner.load_runtime(runtime_root / "runtime.json")["child_pid"] is None
+
+
+def test_extract_codex_session_id_from_jsonl(tmp_path: Path):
+    log = tmp_path / "stdout.log"
+    log.write_text('{"type":"thread.started","thread_id":"01a-task-session"}\n{"type":"turn.started"}\n')
+    assert runner._extract_codex_session_id(log) == "01a-task-session"
+
+
+def test_task_session_is_reused_only_for_same_task():
+    telemetry = runner.initial_runtime()
+    telemetry["task_session_id"] = "session-d02"
+    telemetry["session_task_id"] = "D02-01"
+    assert runner._resume_session_for(telemetry, "D02-01") == "session-d02"
+    assert runner._resume_session_for(telemetry, "D02-02") is None
+
+
+def test_runtime_persists_task_session_identity(tmp_path: Path):
+    runtime = tmp_path / "runtime.json"
+    telemetry = runner.initial_runtime()
+    telemetry["task_session_id"] = "session-d02"
+    telemetry["session_task_id"] = "D02-01"
+    runner.save_runtime(runtime, telemetry)
+    loaded = runner.load_runtime(runtime)
+    assert loaded["task_session_id"] == "session-d02"
+    assert loaded["session_task_id"] == "D02-01"
