@@ -58,3 +58,17 @@ def test_no_legacy_json_state_is_created(tmp_path: Path):
     repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
     state.resolve_current_task(repo, project)
     assert not list(tmp_path.rglob("games-production.json"))
+
+
+def test_resolve_migrates_legacy_feeder_fields_to_runner(tmp_path: Path):
+    repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
+    p03 = repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md"
+    p04 = repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md"
+    p03.write_text(p03.read_text().replace("  state: READY\n", "  state: READY\n  feeder: STOPPED_BY_OWNER\n"))
+    p04.write_text(p04.read_text().replace("  status: PENDING\n", "  status: PENDING\n  feeder: STOPPED_BY_OWNER\n"))
+    resolved = state.resolve_current_task(repo, project)
+    assert resolved.id == "D01-030"
+    assert "feeder:" not in p03.read_text()
+    assert "feeder:" not in p04.read_text()
+    assert "runner:" in p03.read_text()
+    assert "runner:" in p04.read_text()

@@ -69,7 +69,10 @@ def test_run_completes_canonical_task_and_exits(tmp_path: Path, monkeypatch):
         code = f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"
         return [sys.executable, "-c", code]
     monkeypatch.setattr(runner.routing, "build_codex_command", command)
+    persisted = []
+    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: persisted.append(task_id) or {"commit": "c", "tree": "t"})
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.02) == 0
+    assert persisted == ["D01-030", "SECTION-demo01"]
     production = state.load_project_production(project)
     assert state.find_task(production, "D01-030").status == "COMPLETE"
     assert state.load_active_task(repo).id == "NONE"
@@ -98,6 +101,7 @@ def test_runner_plans_and_audits_empty_next_section(tmp_path: Path, monkeypatch)
         code = f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"
         return [sys.executable, "-c", code]
     monkeypatch.setattr(runner.routing, "build_codex_command", command)
+    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: {"commit": task_id, "tree": "t"})
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.02) == 0
     production = state.load_project_production(project)
     assert state.find_task(production, "S2-001").status == "COMPLETE"

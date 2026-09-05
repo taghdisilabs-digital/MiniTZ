@@ -57,3 +57,32 @@ def test_continue_does_not_advance(tmp_path: Path):
     result = evidence.TaskResult("D01-030", "CONTINUE", "more work", ("partial",))
     evidence.apply_result(repo, project, result, routing.Route("gpt-6-astra", "ultra"))
     assert state.load_active_task(repo).id == "D01-030"
+
+
+def test_continue_does_not_dirty_durable_state(tmp_path: Path):
+    repo, project = fixture(tmp_path)
+    before03 = (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_bytes()
+    before04 = (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").read_bytes()
+    result = evidence.TaskResult("D01-030", "CONTINUE", "more work", ("partial",))
+    evidence.apply_result(repo, project, result, routing.Route("gpt-6-astra", "ultra"))
+    assert (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_bytes() == before03
+    assert (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").read_bytes() == before04
+
+
+def test_persist_continuity_commits_and_pushes_exact_main(tmp_path: Path):
+    import subprocess
+    repo, project = fixture(tmp_path)
+    subprocess.run(["git", "init", "-q", "-b", "main", str(repo)], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.name", "Biella Test"], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.email", "test@example.invalid"], check=True)
+    remote = tmp_path / "remote.git"; subprocess.run(["git", "init", "-q", "--bare", str(remote)], check=True)
+    subprocess.run(["git", "-C", str(repo), "remote", "add", "origin", str(remote)], check=True)
+    subprocess.run(["git", "-C", str(repo), "add", "."], check=True); subprocess.run(["git", "-C", str(repo), "commit", "-qm", "base"], check=True)
+    subprocess.run(["git", "-C", str(repo), "push", "-q", "-u", "origin", "main"], check=True)
+    result = evidence.TaskResult("D01-030", "COMPLETE", "done", ("runtime pass",))
+    evidence.apply_result(repo, project, result, routing.Route("gpt-6-astra", "ultra"))
+    identity = evidence.persist_continuity(repo, "D01-030", publish_drive=False)
+    local = subprocess.check_output(["git", "-C", str(repo), "rev-parse", "HEAD"], text=True).strip()
+    remote_head = subprocess.check_output(["git", "--git-dir", str(remote), "rev-parse", "refs/heads/main"], text=True).strip()
+    assert identity["commit"] == local == remote_head
+    assert subprocess.check_output(["git", "-C", str(repo), "status", "--porcelain"], text=True) == ""

@@ -209,6 +209,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     _beat(runtime_path, telemetry); return 0
                 if section.id == "demo01" and section.tasks and all(t.status in {"COMPLETE", "COMPLETE_ALREADY"} for t in section.tasks):
                     state.mark_section_status(project_root, section.id, "COMPLETE")
+                    evidence.persist_continuity(repo_root, f"SECTION-{section.id}")
                     continue
                 now = datetime.now(timezone.utc)
                 try:
@@ -225,6 +226,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 try:
                     plan = json.loads(output.read_text(encoding="utf-8"))
                     state.apply_section_plan(repo_root, project_root, section.id, plan)
+                    evidence.persist_continuity(repo_root, f"PLAN-{section.id}")
                 except (OSError, json.JSONDecodeError, ValueError, KeyError) as exc:
                     _set_failure(telemetry, route, f"invalid section plan: {exc}", f"PLAN:{section.id}"); _beat(runtime_path, telemetry); continue
                 telemetry["last_result"] = {"task_id": None, "status": "SECTION_REFRESH", "summary": str(plan.get("summary", "")), "evidence": list(plan.get("evidence", [])), "model": route.model, "reasoning": route.reasoning}
@@ -238,7 +240,9 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 time.sleep(min(60.0, max(1.0, routing.earliest_cooldown_delay(telemetry.get("cooldowns", {}), now))))
                 catalog = routing.discover_catalog(); continue
             telemetry.update({"status": "RUNNING", "task_id": task.id, "active_model": route.model, "active_reasoning": route.reasoning})
-            state.sync_current_state(repo_root, production, task, state="IN_PROGRESS", execution_started=True)
+            if evidence.continuity_changes(repo_root):
+                evidence.persist_continuity(repo_root, f"RECONCILE-{task.id}")
+            evidence.assert_clean_task_workspace(repo_root)
             _beat(runtime_path, telemetry)
             output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"{task.id}-{route.model}")
             prompt = packets.compile_task_packet(repo_root, production, task)
@@ -253,7 +257,15 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 "task_id": result.task_id, "status": result.status, "summary": result.summary,
                 "evidence": list(result.evidence), "model": route.model, "reasoning": route.reasoning,
             }
-            evidence.apply_result(repo_root, project_root, result, route)
+            try:
+                evidence.apply_result(repo_root, project_root, result, route)
+                if result.status in {"COMPLETE", "COMPLETE_ALREADY", "EXTERNAL_DEPENDENCY", "OWNER_DECISION"}:
+                    identity = evidence.persist_continuity(repo_root, result.task_id)
+                    telemetry["last_result"]["continuity"] = identity
+            except Exception as exc:
+                telemetry["status"] = "ERROR"
+                telemetry["last_result"] = {"task_id": task.id, "status": "PERSISTENCE_ERROR", "summary": str(exc), "evidence": list(result.evidence), "model": route.model, "reasoning": route.reasoning}
+                _beat(runtime_path, telemetry); return 3
             _beat(runtime_path, telemetry)
             if result.status in {"COMPLETE", "COMPLETE_ALREADY", "CONTINUE"}:
                 continue

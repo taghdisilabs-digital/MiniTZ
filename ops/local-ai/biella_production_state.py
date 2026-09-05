@@ -222,6 +222,7 @@ def sync_current_state(repo_root: Path, production: ProductionState, task: TaskR
     if not path.exists():
         return
     lines = path.read_text(encoding="utf-8").splitlines()
+    _remove_yaml_block_field(lines, "active_execution", "feeder")
     task_id = task.id if task else "NONE"
     _update_yaml_block(lines, "active_execution", {
         "id": task_id, "project": "Biella Games", "section": task.section_id if task else "NONE",
@@ -245,6 +246,11 @@ def resolve_current_task(repo_root: Path, project_root: Path) -> TaskRecord | No
             sync_current_state(repo_root, production, None, state="COMPLETE")
         return None
     if active.id == current.id:
+        legacy_active = "feeder:" in active_task_path(repo_root).read_text(encoding="utf-8")
+        legacy_state = current_state_path(repo_root).exists() and "feeder:" in current_state_path(repo_root).read_text(encoding="utf-8")
+        if legacy_active or legacy_state:
+            write_active_task(repo_root, current, predecessor=_previous_completed_task(production, current.id))
+            sync_current_state(repo_root, production, current)
         return current
     try:
         previous = find_task(production, active.id)
@@ -355,3 +361,27 @@ def apply_section_plan(repo_root: Path, project_root: Path, section_id: str, pla
     write_active_task(repo_root, successor, predecessor=section.tasks[-1].id if section.tasks else section_id)
     sync_current_state(repo_root, production, successor, state="PENDING")
     return production
+
+
+def _remove_yaml_block_field(lines: list[str], block: str, field_name: str) -> None:
+    start = next((i for i, line in enumerate(lines) if line == f"{block}:"), None)
+    if start is None:
+        return
+    end = len(lines)
+    for i in range(start + 1, len(lines)):
+        if lines[i] == "```" or (lines[i] and not lines[i].startswith(" ")):
+            end = i; break
+    for i in range(end - 1, start, -1):
+        if lines[i].startswith(f"  {field_name}:"):
+            del lines[i]
+
+
+def _previous_completed_task(production: ProductionState, task_id: str) -> str | None:
+    previous = None
+    for section in production.sections:
+        for task in section.tasks:
+            if task.id == task_id:
+                return previous
+            if task.status in _COMPLETE:
+                previous = task.id
+    return previous
