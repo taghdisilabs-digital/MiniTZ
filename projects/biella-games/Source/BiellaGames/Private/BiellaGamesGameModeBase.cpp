@@ -130,6 +130,28 @@ void ABiellaGamesGameModeBase::PostLogin(APlayerController* NewPlayer)
         NewPlayer ? *NewPlayer->GetName() : TEXT("None"));
 }
 
+void ABiellaGamesGameModeBase::HandlePlayerDefeat(ABiellaGamesCharacter* Player,
+    const FString& Reason)
+{
+    if (!HasAuthority() || !GetWorld() || bPlayerFailureHandled)
+    {
+        return;
+    }
+
+    ABiellaGamesGameState* State = GetWorld()->GetGameState<ABiellaGamesGameState>();
+    if (!State || State->Phase == EDemo01Phase::Success)
+    {
+        return;
+    }
+
+    bPlayerFailureHandled = true;
+    State->bPlayerAlive = false;
+    State->SetPhase(EDemo01Phase::Failure, TEXT("You were defeated."));
+    UE_LOG(LogTemp, Display,
+        TEXT("D01_SIGNAL PLAYER_FAILURE actor=%s health=%.1f phase=Failure reason=%s authority=server"),
+        *GetNameSafe(Player), Player ? Player->GetHealth() : 0.0f, *Reason);
+}
+
 void ABiellaGamesGameModeBase::SpawnBasicWorldGeometry()
 {
     if (!GetWorld())

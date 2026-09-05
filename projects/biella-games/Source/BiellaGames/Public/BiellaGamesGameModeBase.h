@@ -31,6 +31,7 @@ public:
     virtual void PostLogin(APlayerController* NewPlayer) override;
     void SpawnBasicWorldGeometry();
     void SpawnDemoActors();
+    void HandlePlayerDefeat(ABiellaGamesCharacter* Player, const FString& Reason);
     void RequestRestart();
 
     int32 GetPressureReinforcementCount() const { return PressureReinforcementCount; }
@@ -53,6 +54,7 @@ private:
     bool bPressureSlotUsed[2] = { false, false };
     int32 PressureReinforcementCount = 0;
     float NextPressureSpawnAttempt = 0.0f;
+    bool bPlayerFailureHandled = false;
 
     UPROPERTY()
     TArray<TObjectPtr<ABiellaInfected>> InfectedActors;

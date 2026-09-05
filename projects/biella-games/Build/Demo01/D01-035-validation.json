@@ -1,0 +1,63 @@
+{
+  "task_id": "D01-035",
+  "result": "PASS",
+  "observed_date_utc": "2026-09-05T05:15:58Z",
+  "base_commit": "2ed7d8f",
+  "runtime": "Unreal Engine 5.8.2 Linux Editor -game; canonical BiellaGameplayMap",
+  "resource_routes": [
+    {
+      "capability": "code",
+      "providers": []
+    },
+    {
+      "capability": "runtime-validation",
+      "providers": []
+    }
+  ],
+  "resource_selection": "Local installed Unreal compiler, runtime, deterministic automation and log validators; no external provider was needed.",
+  "editor_build": {
+    "result": "Succeeded",
+    "process_exit": 0,
+    "target": "BiellaGamesEditor"
+  },
+  "runtime_results": [
+    {
+      "log": "D01-035-failure.log",
+      "result": "PASS",
+      "process_exit": 0,
+      "automation_test": "BiellaGames.Demo01.FailureState",
+      "phases": ["health_zero", "failure"],
+      "player_health": 0.0,
+      "game_phase": "Failure",
+      "player_alive": false,
+      "objective_success": false,
+      "authority": "server",
+      "sha256": "7401a48b5f6e79b71b38e4d37e197af9875f125d72f464144966e92f59f12b9d"
+    }
+  ],
+  "regressions": [
+    {
+      "log": "D01-035-objective-regression.log",
+      "result": "PASS",
+      "process_exit": 0,
+      "automation_test": "BiellaGames.Demo01.ObjectiveManager",
+      "phases": ["activation", "progress", "success"],
+      "sha256": "1bd4c35b589ccaa607305a61185d38f73025f1cc03c9bdc9f2e5426460a82eeb"
+    }
+  ],
+  "source_sha256": {
+    "Source/BiellaGames/Public/BiellaGamesGameModeBase.h": "8dea3b43a01d715d3cb19712605850a3b3753d244a7ddb384a67caa4acb5c92d",
+    "Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp": "c6596b876d2bd1f06ad12bd81140f1c431b098fefbba96e9420703566fee1561",
+    "Source/BiellaGames/Private/BiellaGamesCharacter.cpp": "cf4d55656e21ecbf29ef6acad2e5ead8517228ff811700fa89c6c0b6b34391cc",
+    "Source/BiellaGames/Private/BiellaDemoObjectiveManager.cpp": "feaa6a96c8aab8425fa65045960308d92c828b24410afbece82961944990f7c9",
+    "Source/BiellaGames/Private/Tests/BiellaFailureStateTest.cpp": "9f0b0f3186d8736c7ada849bb05d933781b5290977623b773796daf8d0a3ba93",
+    "tests/verify_d01_035.py": "f12d4d853d690426e64a9c941aff1b3f78983b1e366cce94ff37578b08b91805"
+  },
+  "structural_validation": "DEMO01_STRUCTURE_PASS completed=34/50 current=D01-035",
+  "protected_authority_files_unchanged": true,
+  "qualification_limits": [
+    "Failure acceptance is a live single-process Linux Editor runtime qualification; it is not Win64 package, multiplayer, or native performance qualification.",
+    "D01-036 restart/reset, HUD/overlay tasks, and Engine P4-06 remain outside this boundary.",
+    "Auto Feeder owns GitHub/Drive publication, remote readback and canonical state transition."
+  ]
+}

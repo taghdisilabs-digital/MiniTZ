@@ -2,6 +2,7 @@
 
 #include "BiellaGamesCharacter.h"
 
+#include "BiellaGamesGameModeBase.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -287,6 +288,11 @@ void ABiellaGamesCharacter::Defeat(const FString& Reason)
     if (WeaponMesh)
     {
         WeaponMesh->SetVisibility(false);
+    }
+    if (ABiellaGamesGameModeBase* Mode = GetWorld() ?
+        GetWorld()->GetAuthGameMode<ABiellaGamesGameModeBase>() : nullptr)
+    {
+        Mode->HandlePlayerDefeat(this, Reason);
     }
 }
 

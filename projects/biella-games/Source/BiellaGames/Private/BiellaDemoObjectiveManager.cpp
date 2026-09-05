@@ -113,11 +113,14 @@ void ABiellaDemoObjectiveManager::EvaluateObjective()
     MirrorGameState(InfectedRemaining, IsValid(Rival) && !Rival->IsDefeated(),
         IsValid(Player) && !Player->IsDefeated());
 
-    if (ObjectiveState == EDemo01ObjectiveState::Active && TargetCount > 0 && InfectedRemaining == 0)
+    ABiellaGamesGameState* State = GetWorld()->GetGameState<ABiellaGamesGameState>();
+    if (ObjectiveState == EDemo01ObjectiveState::Active && State &&
+        State->Phase != EDemo01Phase::Failure && State->bPlayerAlive &&
+        TargetCount > 0 && InfectedRemaining == 0)
     {
         ObjectiveState = EDemo01ObjectiveState::Succeeded;
         ObjectiveStatus = TEXT("Arena cleared.");
-        if (ABiellaGamesGameState* State = GetWorld()->GetGameState<ABiellaGamesGameState>())
+        if (State)
         {
             State->SetPhase(EDemo01Phase::Success, ObjectiveStatus);
         }
