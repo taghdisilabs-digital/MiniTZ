@@ -266,3 +266,18 @@ def test_pre_task_reconcile_defers_when_current_task_output_is_dirty(tmp_path: P
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.02) == 0
     assert "RECONCILE-D01-30" not in persisted
     assert "D01-30" in persisted
+
+
+def test_runner_startup_clears_stale_child_pid_before_first_work(tmp_path: Path, monkeypatch):
+    repo = tmp_path / "repo"
+    project = repo / "projects/biella-games"
+    runtime_root = tmp_path / "runtime"
+    runtime_root.mkdir(parents=True)
+    stale = runner.initial_runtime()
+    stale["child_pid"] = 999999
+    runner.save_runtime(runtime_root / "runtime.json", stale)
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {})
+    monkeypatch.setattr(runner.state, "sync_project_metadata", lambda _project: (_ for _ in ()).throw(RuntimeError("stop after startup")))
+    with pytest.raises(RuntimeError, match="stop after startup"):
+        runner.run_production(repo, project, runtime_root)
+    assert runner.load_runtime(runtime_root / "runtime.json")["child_pid"] is None

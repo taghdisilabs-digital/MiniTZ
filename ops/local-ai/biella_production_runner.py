@@ -223,7 +223,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
     lock = ProductionLock(runtime_root / "run.lock"); lock.acquire()
     try:
         telemetry = load_runtime(runtime_path)
-        telemetry.update({"status": "RUNNING", "project": "biella-games", "pid": os.getpid()})
+        telemetry.update({"status": "RUNNING", "project": "biella-games", "pid": os.getpid(), "child_pid": None})
         _beat(runtime_path, telemetry)
         catalog = routing.discover_catalog()
         while True:
