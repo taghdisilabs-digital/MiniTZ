@@ -5,6 +5,7 @@ import argparse
 import fcntl
 import json
 import os
+import socket
 import subprocess
 import sys
 import time
@@ -79,11 +80,26 @@ def load_runtime(path: Path) -> dict[str, Any]:
     return result
 
 
+
+def _sd_notify(message: str) -> None:
+    address = os.environ.get("NOTIFY_SOCKET", "")
+    if not address:
+        return
+    if address.startswith("@"):
+        address = "\0" + address[1:]
+    try:
+        with socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM) as sock:
+            sock.connect(address)
+            sock.sendall(message.encode("utf-8"))
+    except OSError:
+        return
+
 def _beat(runtime_path: Path, telemetry: dict[str, Any], *, at: datetime | None = None) -> datetime:
     observed = at or datetime.now(timezone.utc)
     telemetry["heartbeat_at"] = observed.isoformat()
     telemetry["updated_at"] = observed.isoformat()
     save_runtime(runtime_path, telemetry)
+    _sd_notify("WATCHDOG=1")
     return observed
 
 

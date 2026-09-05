@@ -155,3 +155,18 @@ def test_persistent_production_unit_is_enabled_restartable_contract():
     assert "RestartPreventExitStatus=2" in unit
     assert "RestartPreventExitStatus=2 3" not in unit
     assert "WantedBy=multi-user.target" in unit
+
+
+def test_runtime_heartbeat_notifies_systemd_watchdog(tmp_path: Path, monkeypatch):
+    observed = []
+    monkeypatch.setattr(runner, "_sd_notify", lambda message: observed.append(message))
+    telemetry = runner.initial_runtime()
+    runner._beat(tmp_path / "runtime.json", telemetry)
+    assert observed == ["WATCHDOG=1"]
+
+
+def test_persistent_unit_has_same_process_watchdog_contract():
+    unit = (LOCAL_AI / "biella-codex-production.service").read_text()
+    assert "WatchdogSec=120" in unit
+    assert "NotifyAccess=main" in unit
+    assert "Restart=on-failure" in unit
