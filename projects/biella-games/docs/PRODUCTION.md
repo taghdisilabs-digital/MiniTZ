@@ -9,8 +9,8 @@ Engine: `/opt/unreal/UE_5.8.2`
 Execution rule: one current task; verify, execute, persist evidence, then advance
 Evidence rule: editable source plus task-derived build/runtime/package evidence
 Current section: `demo01`
-Current task: `D01-42`
-Progress: `41/50` Demo tasks complete
+Current task: `D01-43`
+Progress: `42/50` Demo tasks complete
 
 ## Section: demo01 | Demo 01 — first playable vertical slice | IN_PROGRESS
 
@@ -57,7 +57,7 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 - [x] D01-39 | hard | Add deterministic playtest harness and telemetry | COMPLETE | Local commit: 91605251b68f6f828911f10bce07501010496dad; worktree clean.; UE build, six runtime playtests, three predecessor regressions, and 19 verifier tests passed.; Headless and Vulkan runs matched the same 56-event timeline.; Acceptance: projects/biella-games/Build/Demo01/D01-039-acceptance.md
 - [x] D01-40 | hard_creation | Apply visual/readability pass | COMPLETE | Local commit: 600fdda86b6f1b1845966a7d24312eada9593548; clean worktree.; UE build, 12 rendered captures at 720p/1080p, and affected gameplay regressions passed.; [Acceptance and evidence](/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-040-acceptance.md)
 - [x] D01-41 | creation | Expose generated visuals through inspection layer | COMPLETE | Committed locally as 92e6a62; worktree clean and ahead of origin/main by one commit.; 12 final captures indexed with SHA-256, dimensions, preview paths, and GENERATED_DRAFT status.; D01-41 verifier, catalog readback, and 12 control gateway tests passed.; Protected state, active task, and production metadata unchanged.
-- [ ] D01-42 | hard_creation | Add event-driven audio/VFX feedback polish | PENDING | runtime feedback
+- [x] D01-42 | hard_creation | Add event-driven audio/VFX feedback polish | COMPLETE | Local commit: f6fc7a1b230b73f5c79deb2c09cb37cc9c94da19; UE build, rendered audio/VFX validation, and predecessor regressions passed.; [Acceptance evidence](/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-acceptance.md)
 - [ ] D01-43 | hard | Run stability/soak qualification | PENDING | sustained clean runtime
 - [ ] D01-44 | hard | Measure native performance/resource behavior | PENDING | frame/resource telemetry
 - [ ] D01-45 | medium | Repair lifecycle/GC/spawn cleanup | PENDING | no accumulating runtime leak
