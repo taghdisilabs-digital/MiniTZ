@@ -138,6 +138,14 @@ def sync_project_metadata(project_root: Path) -> ProductionState:
     lines = path.read_text(encoding="utf-8").splitlines()
     _replace_meta(lines, "Current section:", section)
     _replace_meta(lines, "Current task:", task.id if task else None)
+    demo = next((candidate for candidate in production.sections if candidate.id == "demo01"), None)
+    if demo is not None:
+        complete = sum(item.status in _COMPLETE for item in demo.tasks)
+        rendered = f"Progress: `{complete}/{len(demo.tasks)}` Demo tasks complete"
+        for index, line in enumerate(lines):
+            if line.startswith("Progress:"):
+                lines[index] = rendered
+                break
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return load_project_production(project_root)
 

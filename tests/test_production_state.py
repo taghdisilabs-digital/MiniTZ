@@ -91,3 +91,14 @@ def test_resolve_migrates_execution_started_out_of_durable_state(tmp_path: Path)
     assert resolved.id == "D01-030"
     assert "execution_started:" not in p03.read_text()
     assert "execution_started:" not in p04.read_text()
+
+
+def test_sync_project_metadata_updates_demo_progress_from_task_rows(tmp_path: Path):
+    repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
+    path = project / "docs/PRODUCTION.md"
+    text = path.read_text(encoding="utf-8")
+    text = text.replace("Current task: `D01-030`\n", "Current task: `D01-030`\nProgress: `0/99` Demo tasks complete\n")
+    path.write_text(text, encoding="utf-8")
+    state.sync_project_metadata(project)
+    updated = path.read_text(encoding="utf-8")
+    assert "Progress: `1/3` Demo tasks complete" in updated

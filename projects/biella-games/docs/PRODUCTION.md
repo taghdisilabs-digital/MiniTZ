@@ -10,7 +10,7 @@ Execution rule: one current task; verify, execute, persist evidence, then advanc
 Evidence rule: editable source plus task-derived build/runtime/package evidence
 Current section: `demo01`
 Current task: `D01-032`
-Progress: `30/50` Demo tasks complete
+Progress: `31/50` Demo tasks complete
 
 ## Section: demo01 | Demo 01 — first playable vertical slice | IN_PROGRESS
 
@@ -97,6 +97,6 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 
 `docs/IMPLEMENTATION_SEQUENCE.md` is the accepted roadmap source for this section. Tasks are compiled just-in-time only when this section becomes current; completed prior work is reused.
 
-## Migration checkpoint
+## Execution continuity
 
-D01-001..D01-030 are durably complete. D01-031 is the current pending task. Canonical automatic execution is the monorepo-native `biella-codex production` runner, which derives work from 03/04 plus this Project file and keeps runtime state telemetry-only.
+The monorepo-native `biella-codex production` runner derives the current frontier from 03/04 plus the metadata and task rows above. Historical feeder/migration checkpoints are closed and are not active task pointers; completed task rows and evidence remain preserved unless materially invalidated.
