@@ -4,7 +4,7 @@
 schema: biella.active_task/v9
 
 task:
-  id: D01-038
+  id: D01-38
   project: Biella Games
   section: demo01
   class: creation
@@ -18,7 +18,7 @@ task:
     - projects/biella-games/docs/PRODUCTION.md
 
   continuity:
-    completed_predecessor: D01-037
+    completed_predecessor: D01-37
     production_source: projects/biella-games/docs/PRODUCTION.md
 
   preserve:
@@ -26,5 +26,5 @@ task:
     - Engine P4-06 as INCOMPLETE_DEFERRED
     - one-repository/one-controller/one-Project-production-source architecture
 
-  stop: Execute only D01-038; validate and persist it before advancing.
+  stop: Execute only D01-38; validate and persist it before advancing.
 ```
