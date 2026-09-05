@@ -6,11 +6,9 @@ public class BiellaGames : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "NavigationSystem" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "NavigationSystem", "UMG" });
 		
-		// Uncomment if you are using Slate UI
-		// PrivateDependencyModuleNames.Add("Slate");
-		// PrivateDependencyModuleNames.Add("SlateCore");
+		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 		
 		// Uncomment if you are using online features
 		// AddModuleNamesWithExcludedFromBuild("OnlineSubsystem");

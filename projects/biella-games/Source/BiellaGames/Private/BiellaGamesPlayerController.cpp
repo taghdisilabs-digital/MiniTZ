@@ -2,7 +2,9 @@
 
 #include "BiellaGamesPlayerController.h"
 
+#include "BiellaGameplayHUD.h"
 #include "BiellaGamesGameModeBase.h"
+#include "Blueprint/WidgetBlueprintLibrary.h"
 #include "InputCoreTypes.h"
 
 ABiellaGamesPlayerController::ABiellaGamesPlayerController()
@@ -14,7 +16,36 @@ void ABiellaGamesPlayerController::BeginPlay()
 {
     Super::BeginPlay();
     SetInputMode(FInputModeGameOnly());
+    if (IsLocalController())
+    {
+        GameplayHUD = CreateWidget<UBiellaGameplayHUD>(this, UBiellaGameplayHUD::StaticClass());
+        if (GameplayHUD)
+        {
+            GameplayHUD->AddToViewport(100);
+            UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL HUD_VIEWPORT_READY widget=%s owner=%s"),
+                *GameplayHUD->GetName(), *GetName());
+        }
+    }
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL CONTROLLER_READY game_input=true"));
+}
+
+void ABiellaGamesPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+    if (GameplayHUD)
+    {
+        GameplayHUD->RemoveFromParent();
+        GameplayHUD = nullptr;
+    }
+    Super::EndPlay(EndPlayReason);
+}
+
+void ABiellaGamesPlayerController::PlayerTick(float DeltaTime)
+{
+    Super::PlayerTick(DeltaTime);
+    if (GameplayHUD)
+    {
+        GameplayHUD->RefreshFromRuntime();
+    }
 }
 
 void ABiellaGamesPlayerController::SetupInputComponent()

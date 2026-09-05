@@ -17,7 +17,7 @@
 
 namespace
 {
-void FreezeEncounter(UWorld* World)
+void FreezeRestartEncounter(UWorld* World)
 {
     if (!World)
     {
@@ -91,7 +91,7 @@ public:
             {
                 return false;
             }
-            FreezeEncounter(Candidate);
+            FreezeRestartEncounter(Candidate);
         }
 
         ABiellaGamesGameModeBase* Mode = Cast<ABiellaGamesGameModeBase>(Candidate->GetAuthGameMode());
@@ -125,7 +125,7 @@ public:
 
         if (Phase == EPhase::ArmRestart)
         {
-            FreezeEncounter(Candidate);
+            FreezeRestartEncounter(Candidate);
             if (State->Phase != EDemo01Phase::Active || !Manager->IsObjectiveActive() ||
                 State->InfectedRemaining <= 0 ||
                 GameInstance->RestartCount != ExpectedFinalRestartCount - 1)
@@ -226,7 +226,7 @@ bool FBiellaRestartResetTest::RunTest(const FString& Parameters)
     bool bPreparedWorld = false;
     if (ExistingWorld)
     {
-        FreezeEncounter(ExistingWorld);
+        FreezeRestartEncounter(ExistingWorld);
         ABiellaGamesGameModeBase* Mode = Cast<ABiellaGamesGameModeBase>(ExistingWorld->GetAuthGameMode());
         ABiellaGamesGameState* State = ExistingWorld->GetGameState<ABiellaGamesGameState>();
         ABiellaDemoObjectiveManager* Manager = Mode ? Mode->GetObjectiveManager() : nullptr;
