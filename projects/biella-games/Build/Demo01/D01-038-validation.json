@@ -1,0 +1,78 @@
+{
+  "task_id": "D01-038",
+  "status": "PASS",
+  "task_outcome": "COMPLETE_ALREADY",
+  "implementation_commit": "6a80aa2cfc808071ca848763af818cbaa53556ab",
+  "validated_source_revision": "c7d10b098921df7801180daacba6a319b6638534",
+  "validated_source_tree": "8aaa4a47a789c66427d66acc1285cf2226191ff9",
+  "build": {
+    "engine": "UE 5.8.2",
+    "target": "BiellaGamesEditor Linux Development",
+    "log": "Build/Demo01/D01-038-editor-build.log",
+    "sha256": "58d401f541642dd1ac86a27f54552adb1fd239e1f2584e8e03386ccddffd846e",
+    "result": "PASS",
+    "exit_code": 0
+  },
+  "runtime": {
+    "automation_test": "BiellaGames.Demo01.TerminalOverlay",
+    "headless": {
+      "log": "Build/Demo01/D01-038-overlay-headless.log",
+      "sha256": "a1ffc5a8516855c06e6e4f284bf1417435e826bef2c5536c5d94d97782f429a2",
+      "result": "PASS",
+      "exit_code": 0
+    },
+    "rendered_vulkan": {
+      "log": "Build/Demo01/D01-038-overlay-vulkan-fresh.log",
+      "sha256": "c93d2d6f90c209e0c576244cd580ded4d9dfe4bab544de4d2ce2ca68b303c135",
+      "result": "PASS",
+      "exit_code": 0,
+      "resolution": "1280x720",
+      "render_mode": "Vulkan offscreen"
+    },
+    "signals": {
+      "success_overlay": {
+        "title": "SUCCESS // ARENA CLEARED",
+        "message": "Arena cleared.",
+        "prompt": "PRESS R TO RESTART",
+        "input": "R",
+        "input_accepted": true
+      },
+      "failure_overlay": {
+        "title": "FAILURE // YOU WERE DEFEATED",
+        "message": "You were defeated.",
+        "prompt": "PRESS R TO RESTART",
+        "player_alive": false
+      },
+      "completion": "D01_038_TEST COMPLETE success_overlay=true failure_overlay=true restart_input=R restart_count=2 active_reset=true source=authoritative_runtime"
+    }
+  },
+  "restart_recovery": {
+    "result": "PASS",
+    "restart_count": 2,
+    "final_phase": "Active",
+    "objective": "Demo01ClearArena",
+    "objective_target": 2,
+    "objective_progress": 0,
+    "infected_remaining": 2,
+    "player_alive": true,
+    "player_health": 100.0,
+    "authority": "server"
+  },
+  "source_sha256": {
+    "Source/BiellaGames/Private/BiellaGameplayHUD.cpp": "116c48638d1b9a0f1c460ec73a9361f627f55cdb31b8123a2227fe058e55f0a8",
+    "Source/BiellaGames/Public/BiellaGameplayHUD.h": "848b43a9d6081137b27827cb38348f33fd68e7fc3868a574316cd9726c8ec1ff",
+    "Source/BiellaGames/Private/BiellaGamesPlayerController.cpp": "84703f60b0e9f010686e71c59bb7f3176f0c48fea6c8c9fd5d9c7351bc76bfae",
+    "Source/BiellaGames/Public/BiellaGamesPlayerController.h": "1c40f6542e9274cdfd5df5171a276aa02a907b822b893103df21b9cc28c32148",
+    "Source/BiellaGames/Private/Tests/BiellaTerminalOverlayTest.cpp": "66fc2c6018be49ffccdc6ceadd3e43af569210a2feab0f3092a3bdfda7ca8313"
+  },
+  "structural_verifier": "DEMO01_STRUCTURE_PASS completed=37/50 current=D01-38",
+  "predecessor_regression": {
+    "log": "Build/Demo01/D01-038-predecessor-regression.log",
+    "sha256": "2cbba73f808e348ff4b2c621711542cc6b34950cb3e909b6b01fac6ea387625f",
+    "result": "PASS"
+  },
+  "notes": [
+    "Evidence was produced from the live Unreal runtime and authoritative server phase/objective state.",
+    "The runtime emitted existing navigation/crowd warnings; no D01-038 automation assertion failed."
+  ]
+}
