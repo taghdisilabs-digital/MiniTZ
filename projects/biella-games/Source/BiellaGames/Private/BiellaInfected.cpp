@@ -28,12 +28,14 @@ void ABiellaInfected::BeginPlay()
 
 void ABiellaInfected::SetPreferredTarget(ABiellaDemoPawn* Target)
 {
-    CurrentTarget = Target;
+    CurrentTarget = !IsDefeated() && IsValid(Target) && Target != this &&
+        !Target->IsDefeated() && Target->GetTeam() != GetTeam() ? Target : nullptr;
+    bChaseLogged = false;
 }
 
 ABiellaDemoPawn* ABiellaInfected::ChooseTarget() const
 {
-    if (!GetWorld())
+    if (!GetWorld() || IsDefeated())
     {
         return nullptr;
     }
@@ -44,7 +46,7 @@ ABiellaDemoPawn* ABiellaInfected::ChooseTarget() const
     for (AActor* Candidate : Candidates)
     {
         ABiellaDemoPawn* Pawn = Cast<ABiellaDemoPawn>(Candidate);
-        if (!Pawn || Pawn == this || Pawn->IsDefeated() || Pawn->GetTeam() == EDemo01Team::Infected)
+        if (!IsValid(Pawn) || Pawn == this || Pawn->IsDefeated() || Pawn->GetTeam() == GetTeam())
         {
             continue;
         }
@@ -67,7 +69,7 @@ void ABiellaInfected::Tick(float DeltaTime)
         return;
     }
     ABiellaDemoPawn* Target = CurrentTarget;
-    if (!Target || Target->IsDefeated() ||
+    if (!IsValid(Target) || Target == this || Target->IsDefeated() || Target->GetTeam() == GetTeam() ||
         FVector::DistSquared(GetActorLocation(), Target->GetActorLocation()) > FMath::Square(AggroRange))
     {
         Target = ChooseTarget();
@@ -82,7 +84,7 @@ void ABiellaInfected::Tick(float DeltaTime)
             }
         }
     }
-    if (!Target)
+    if (!IsValid(Target))
     {
         return;
     }
@@ -105,15 +107,39 @@ void ABiellaInfected::Tick(float DeltaTime)
 
 bool ABiellaInfected::TryMeleeTarget(ABiellaDemoPawn* Target)
 {
-    if (!Target || Target->IsDefeated() || IsDefeated() ||
-        AttackCooldownRemaining > 0.0f ||
-        FVector::DistSquared(GetActorLocation(), Target->GetActorLocation()) > FMath::Square(AttackRange * 1.25f))
+    if (!IsValid(Target) || Target == this || Target->GetTeam() == GetTeam() ||
+        Target->IsDefeated() || IsDefeated() || !GetWorld() || AttackCooldownRemaining > 0.0f ||
+        !FMath::IsFinite(AttackRange) || AttackRange <= 0.0f ||
+        !FMath::IsFinite(AttackDamage) || AttackDamage <= 0.0f ||
+        !FMath::IsFinite(AttackCooldown) || AttackCooldown <= 0.0f ||
+        FVector::DistSquared(GetActorLocation(), Target->GetActorLocation()) > FMath::Square(AttackRange))
+    {
+        return false;
+    }
+    FCollisionQueryParams TraceParams(SCENE_QUERY_STAT(Demo01InfectedMelee), false, this);
+    FHitResult Hit;
+    if (!GetWorld()->LineTraceSingleByChannel(Hit, GetActorLocation(), Target->GetActorLocation(),
+            ECC_Visibility, TraceParams) || Hit.GetActor() != Target)
     {
         return false;
     }
     const float Applied = Target->ApplyDemoDamage(AttackDamage, this, TEXT("infected_melee"));
     AttackCooldownRemaining = AttackCooldown;
-    UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL INFECTED_MELEE attacker=%s target=%s hit=%s damage=%.1f"),
-        *GetName(), *Target->GetName(), Applied > 0.0f ? TEXT("true") : TEXT("false"), Applied);
+    UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL INFECTED_MELEE attacker=%s target=%s hit=%s damage=%.1f impact=%s time=%.3f"),
+        *GetName(), *Target->GetName(), Applied > 0.0f ? TEXT("true") : TEXT("false"), Applied,
+        *Hit.ImpactPoint.ToCompactString(), GetWorld()->GetTimeSeconds());
     return Applied > 0.0f;
+}
+
+void ABiellaInfected::Defeat(const FString& Reason)
+{
+    Super::Defeat(Reason);
+    CurrentTarget = nullptr;
+    AttackCooldownRemaining = 0.0f;
+    bChaseLogged = false;
+    ConsumeMovementInputVector();
+    if (PawnMovement)
+    {
+        PawnMovement->StopMovementImmediately();
+    }
 }

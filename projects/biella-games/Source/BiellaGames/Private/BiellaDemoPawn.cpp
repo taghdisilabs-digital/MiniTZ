@@ -5,6 +5,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
+#include "Engine/World.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "UObject/ConstructorHelpers.h"
@@ -73,14 +74,17 @@ float ABiellaDemoPawn::TakeDamage(float DamageAmount, const FDamageEvent& Damage
 float ABiellaDemoPawn::ApplyDemoDamage(float DamageAmount, AActor* DamageCauser,
     const FString& DamageTag)
 {
-    if (bDefeated || DamageAmount <= 0.0f)
+    if (bDefeated || !FMath::IsFinite(DamageAmount) || DamageAmount <= 0.0f)
     {
         return 0.0f;
     }
     const float Applied = FMath::Min(DamageAmount, Health);
     Health -= Applied;
-    UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL DAMAGE target=%s amount=%.1f health=%.1f tag=%s"),
-        *GetName(), Applied, Health, *DamageTag);
+    const ABiellaDemoPawn* SourcePawn = Cast<ABiellaDemoPawn>(DamageCauser);
+    UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL DAMAGE target=%s amount=%.1f health=%.1f tag=%s source=%s source_team=%d target_team=%d time=%.3f"),
+        *GetName(), Applied, Health, *DamageTag, *GetNameSafe(DamageCauser),
+        SourcePawn ? static_cast<int32>(SourcePawn->GetTeam()) : -1,
+        static_cast<int32>(Team), GetWorld()->GetTimeSeconds());
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL HIT_REACTION target=%s"), *GetName());
     CombatFlashRemaining = 0.12f;
     SetDisplayColor(FLinearColor(1.0f, 0.03f, 0.02f));

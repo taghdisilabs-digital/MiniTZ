@@ -84,6 +84,10 @@ void ABiellaGamesCharacter::BeginPlay()
 void ABiellaGamesCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
+    if (IsDefeated())
+    {
+        return;
+    }
     FireCooldownRemaining = FMath::Max(0.0f, FireCooldownRemaining - DeltaTime);
     if (bJumping)
     {
@@ -136,27 +140,31 @@ void ABiellaGamesCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 
 void ABiellaGamesCharacter::MoveForward(const FInputActionValue& Value)
 {
+    if (IsDefeated()) { return; }
     AddMovementInput(GetActorForwardVector(), Value.Get<float>() * (bSprintHeld ? 1.35f : 1.0f));
 }
 
 void ABiellaGamesCharacter::MoveBackward(const FInputActionValue& Value)
 {
+    if (IsDefeated()) { return; }
     AddMovementInput(-GetActorForwardVector(), Value.Get<float>() * (bSprintHeld ? 1.35f : 1.0f));
 }
 
 void ABiellaGamesCharacter::MoveRight(const FInputActionValue& Value)
 {
+    if (IsDefeated()) { return; }
     AddMovementInput(GetActorRightVector(), Value.Get<float>() * (bSprintHeld ? 1.35f : 1.0f));
 }
 
 void ABiellaGamesCharacter::MoveLeft(const FInputActionValue& Value)
 {
+    if (IsDefeated()) { return; }
     AddMovementInput(-GetActorRightVector(), Value.Get<float>() * (bSprintHeld ? 1.35f : 1.0f));
 }
 
 void ABiellaGamesCharacter::JumpStarted(const FInputActionValue& Value)
 {
-    if (!bJumping)
+    if (!IsDefeated() && !bJumping)
     {
         bJumping = true;
         JumpElapsed = 0.0f;
@@ -188,6 +196,7 @@ void ABiellaGamesCharacter::JumpEnded(const FInputActionValue& Value)
 
 void ABiellaGamesCharacter::SprintStarted(const FInputActionValue& Value)
 {
+    if (IsDefeated()) { return; }
     bSprintHeld = true;
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL SPRINT_STARTED"));
 }
@@ -214,7 +223,7 @@ void ABiellaGamesCharacter::FireWeapon(const FInputActionValue& Value)
     for (AActor* Candidate : Candidates)
     {
         ABiellaDemoPawn* Pawn = Cast<ABiellaDemoPawn>(Candidate);
-        if (!Pawn || Pawn == this || Pawn->IsDefeated() || Pawn->GetTeam() == EDemo01Team::Player)
+        if (!IsValid(Pawn) || Pawn == this || Pawn->IsDefeated() || Pawn->GetTeam() == GetTeam())
         {
             continue;
         }
@@ -234,8 +243,9 @@ void ABiellaGamesCharacter::FireWeapon(const FInputActionValue& Value)
 bool ABiellaGamesCharacter::FireWeaponAt(ABiellaDemoPawn* Target, float DamageAmount,
     const FString& DamageTag)
 {
-    if (!Target || Target == this || Target->IsDefeated() || IsDefeated() ||
-        FireCooldownRemaining > 0.0f || Ammo <= 0 || !GetWorld())
+    if (!IsValid(Target) || Target == this || Target->GetTeam() == GetTeam() ||
+        Target->IsDefeated() || IsDefeated() || FireCooldownRemaining > 0.0f ||
+        Ammo <= 0 || !GetWorld() || !FMath::IsFinite(DamageAmount) || DamageAmount <= 0.0f)
     {
         return false;
     }
@@ -244,7 +254,7 @@ bool ABiellaGamesCharacter::FireWeaponAt(ABiellaDemoPawn* Target, float DamageAm
     FCollisionQueryParams TraceParams(SCENE_QUERY_STAT(Demo01WeaponTrace), true, this);
     FHitResult Hit;
     const bool bTraceHit = GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_Visibility, TraceParams);
-    const bool bTargetVisible = !bTraceHit || Hit.GetActor() == Target;
+    const bool bTargetVisible = bTraceHit && Hit.GetActor() == Target;
     if (!bTargetVisible)
     {
         UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL WEAPON_BLOCKED target=%s blocker=%s"),
@@ -261,6 +271,23 @@ bool ABiellaGamesCharacter::FireWeaponAt(ABiellaDemoPawn* Target, float DamageAm
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL WEAPON_FIRE owner=%s target=%s hit=true damage=%.1f ammo=%d"),
         *GetName(), *Target->GetName(), Applied, Ammo);
     return true;
+}
+
+void ABiellaGamesCharacter::Defeat(const FString& Reason)
+{
+    Super::Defeat(Reason);
+    bJumping = false;
+    bSprintHeld = false;
+    FireCooldownRemaining = 0.0f;
+    ConsumeMovementInputVector();
+    if (PawnMovement)
+    {
+        PawnMovement->StopMovementImmediately();
+    }
+    if (WeaponMesh)
+    {
+        WeaponMesh->SetVisibility(false);
+    }
 }
 
 void ABiellaGamesCharacter::EnsureInputActions()

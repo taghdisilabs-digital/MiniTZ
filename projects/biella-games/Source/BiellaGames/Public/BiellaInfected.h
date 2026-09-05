@@ -16,6 +16,7 @@ public:
 
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaTime) override;
+    virtual void Defeat(const FString& Reason) override;
 
     void SetPreferredTarget(ABiellaDemoPawn* Target);
     ABiellaDemoPawn* ChooseTarget() const;

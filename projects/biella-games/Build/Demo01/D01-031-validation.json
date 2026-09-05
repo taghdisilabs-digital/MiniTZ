@@ -1,0 +1,154 @@
+{
+  "task_id": "D01-031",
+  "base_commit": "e893807d50108ab570163a7aa25417e302852461",
+  "observed_date_utc": "2026-09-05",
+  "runtime": "Unreal Engine 5.8.2 Linux Editor -game -nullrhi; canonical BiellaGameplayMap",
+  "resource_routes": [
+    {
+      "capability": "runtime-validation",
+      "providers": []
+    },
+    {
+      "capability": "game-code",
+      "providers": []
+    }
+  ],
+  "editor_build": {
+    "process_exit": 0,
+    "result": "Succeeded",
+    "log": "D01-031-editor-final.log"
+  },
+  "runtime_results": {
+    "D01-031-shared-30fps.log": {
+      "log": "D01-031-shared-30fps.log",
+      "result": "PASS",
+      "phases": 10,
+      "damage_events": 20,
+      "damage_edges": {
+        "infected_to_player": 4,
+        "rival_to_infected": 4,
+        "player_to_infected": 3,
+        "rival_to_player": 5,
+        "infected_to_rival": 1,
+        "player_to_rival": 3
+      },
+      "defeats": 4,
+      "duration_seconds": 13.467,
+      "minimum_cadence_seconds": {
+        "infected": 0.866,
+        "rival": 0.9,
+        "player": 0.366
+      },
+      "process_exit": 0,
+      "automation_result": "Success",
+      "sha256": "de0d9fa5bb45f3ce3adafe2ca1788150f06e23bc99fc219aaf99a065ff2834a9"
+    },
+    "D01-031-shared-120fps.log": {
+      "log": "D01-031-shared-120fps.log",
+      "result": "PASS",
+      "phases": 10,
+      "damage_events": 20,
+      "damage_edges": {
+        "infected_to_player": 4,
+        "rival_to_infected": 4,
+        "player_to_infected": 3,
+        "rival_to_player": 5,
+        "infected_to_rival": 1,
+        "player_to_rival": 3
+      },
+      "defeats": 4,
+      "duration_seconds": 13.419,
+      "minimum_cadence_seconds": {
+        "infected": 0.85,
+        "rival": 0.9,
+        "player": 0.35
+      },
+      "process_exit": 0,
+      "automation_result": "Success",
+      "sha256": "d098c14d8454f0efec15c6bc794d37ef3b74f2d5422253219bf28b9537396dda"
+    }
+  },
+  "regression": {
+    "log": "D01-031-rival-regression.log",
+    "process_exit": 0,
+    "automation_results": {
+      "RivalCombat": "Success",
+      "RivalNavigation": "Success"
+    },
+    "passed_phases": {
+      "029": [
+        "detour",
+        "hold",
+        "retreat",
+        "dynamic_obstruction",
+        "occluded_combat_position",
+        "bounded_failure",
+        "route_reopened",
+        "no_target_stop",
+        "defeat_stop"
+      ],
+      "030": [
+        "gates_range_occlusion",
+        "point_blank",
+        "autonomous_cadence",
+        "incoming_damage_recovery",
+        "defeat_stop"
+      ]
+    }
+  },
+  "source_sha256": {
+    "Source/BiellaGames/BiellaGames.Build.cs": "33372d5eda3fd6874646cadd1cddc45962f7ef594440a035e217914457bed970",
+    "Source/BiellaGames/BiellaGames.cpp": "256382027fe5e6d492cbbdbf13dbf449a438b7063398ef5c80fc049fbaebf78c",
+    "Source/BiellaGames/BiellaGames.h": "30af2b68e6d8210e4ce4fbd26f6a2b8c3648cf2a1226d64b17c4f88c94fccdf1",
+    "Source/BiellaGames/Private/BasicWorldGeometry.cpp": "4ce1bdc0aa12dc33e45cba10043a10d4ded312aae0889b3e7ed62a35592fe983",
+    "Source/BiellaGames/Private/BiellaDemoPawn.cpp": "3697ba5126282da6ab7deab39c2cd21b8a10e0af278e62c5c79ffb2b8f4ae0b9",
+    "Source/BiellaGames/Private/BiellaGamesCharacter.cpp": "3535dca574159149cef43b5babd0910718a8a902a55ea6eee3d6526eb398c24b",
+    "Source/BiellaGames/Private/BiellaGamesGameInstance.cpp": "908284a0b1d9e1ba1356a7d6b375e897706c22ec1906a289557f5f0dd21b3e7d",
+    "Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp": "83c14d7ae5f1e21eb26f0f39715e506ef01c1d30970de40e8e372b7db1169e1f",
+    "Source/BiellaGames/Private/BiellaGamesGameState.cpp": "3dcfde1ede9849cf797f23e2c824340723d8d8138e510f8a491b222ca63ed675",
+    "Source/BiellaGames/Private/BiellaGamesPlayerController.cpp": "ea67fa67b1772640f7eea8b7f00e0d353f5504709eef8f91b637f5447bc18da8",
+    "Source/BiellaGames/Private/BiellaInfected.cpp": "7c3458f589909a843becf8abd6bade953786a4ca51c89d277d8fd4564617c949",
+    "Source/BiellaGames/Private/BiellaRival.cpp": "6887b22fe8bb3dccf386c81356c650c8e19443f0c49519560acfd7f7b548b653",
+    "Source/BiellaGames/Private/Tests/BiellaRivalCombatTest.cpp": "2b33dca2e52882e94efc7154f0ab5985570f1d4a23ce89e824aedb1e2ce54cb2",
+    "Source/BiellaGames/Private/Tests/BiellaRivalNavigationTest.cpp": "a4c9dc728b13e9454aa30a21ac9e13dc73208f7cf51b05e3d9ba03941ccbd6ac",
+    "Source/BiellaGames/Private/Tests/BiellaSharedInteractionTest.cpp": "0be9079ec2e343206a938e3a6ab6316bac1d95ef88053da3c5509d349af1c9e0",
+    "Source/BiellaGames/Public/BasicWorldGeometry.h": "b13b1ea9959b50f5c46c18999af8e4bda68bef6cc406501381a03a5f0f6554bd",
+    "Source/BiellaGames/Public/BiellaDemoPawn.h": "cddd7e7054c7d5e8f21e17b6b6830ff16ea8f218ffe4297d3071b8ca98b01464",
+    "Source/BiellaGames/Public/BiellaGamesCharacter.h": "9d9d27049531bacf656fc36dd29b6af916bc4fbd4a37d9c6adf570425f9ed795",
+    "Source/BiellaGames/Public/BiellaGamesGameInstance.h": "a4cfbf5bf4b854096844eaa0b36cbd43d26d2e5ab3bcca1478e62f4d35dde63c",
+    "Source/BiellaGames/Public/BiellaGamesGameModeBase.h": "9389ee378915ed8c724362e399ce14cb527682b418edc825dc9f38077a291579",
+    "Source/BiellaGames/Public/BiellaGamesGameState.h": "9666d2256be0e7e07672a3e0bb4e81b2b090c8688ee2be05ca608ddfbc8c2014",
+    "Source/BiellaGames/Public/BiellaGamesPlayerController.h": "e5f05f88486028049dc4af59c4fe94cc5f0b4755814c942b8f23ab1a8a26dffd",
+    "Source/BiellaGames/Public/BiellaInfected.h": "811eadbca42f04445cc5a078f9f8d4c03713feafb758f70e019128258c33157b",
+    "Source/BiellaGames/Public/BiellaRival.h": "b8d3d195d369609248b0edd4d6b9f434edffcf0638c53e26e9cc53613856e2b1",
+    "Source/BiellaGames.Target.cs": "4799f3aaff4fdbef67e6fd8c4bba578b08336aac195d7df0906fe4c3281ac13c",
+    "Source/BiellaGamesEditor.Target.cs": "8464660556e742c670c5178cdf7b713f6c47309e099e054fff4c5a10e726f085",
+    "BiellaGames.uproject": "717d96f26b873ae8a608e5dea862549a515b1c4cbd43ed36a31dd5a4151ce797",
+    "Config/DefaultEngine.ini": "afb4417b2e79d66065552338d13eb3d7a685f1beb3000ac0a4a07de490060943",
+    "Config/DefaultGame.ini": "fb300de27bfba441548c8fe9f00347b20cacb4638759f43923f23b05d6213fea",
+    "Config/DefaultInput.ini": "e1b7a60e4da1acca28b8540ed7b2746551df9ae1ddc0056eb45a0932ed82ea78",
+    "Content/Maps/BiellaGameplayMap.umap": "115cec2b94f83860965195ca89f088d91eb50a80e20023ba8e5bac22c3e002e6",
+    "tests/verify_d01_031.py": "ddd86ae86443d15ab4ff2fe61a245fad464e366bec1dcb5884f1695d2b022ee0"
+  },
+  "editor_module_sha256": "ab407521ef3a11915beed722f569522751fc2c178a50abff80528da17a27d044",
+  "evidence_sha256": {
+    "D01-031-acceptance.md": "2a9d1f27d75dd5da0054b925717221cc3f9e8f973d42841474b02fe437b61012",
+    "D01-031-editor-final.log": "eefd1f03c37d92823779df3cd39dc87a9835336044645309c587135a5e09bb74",
+    "D01-031-editor.log": "cbda29ac6f858827acab8df7dc0b787e2b034593c765902233fc44eb4595e253",
+    "D01-031-rival-regression.log": "796954f825d8fcf19c05c4476398b911eebce24a731c52778f29cabd79b0287e",
+    "D01-031-shared-120fps.log": "d098c14d8454f0efec15c6bc794d37ef3b74f2d5422253219bf28b9537396dda",
+    "D01-031-shared-30fps.log": "de0d9fa5bb45f3ce3adafe2ca1788150f06e23bc99fc219aaf99a065ff2834a9",
+    "D01-031-shared-initial.log": "79e64ca99f43d485f610f312a693de48d89d0db95f2f7846fa1c2885e8440d8b"
+  },
+  "protected_authority_files_unchanged_sha256": {
+    "docs/project-state/03_BIELLA_CURRENT_STATE.md": "2cb4cbcbc4393108a68657b001fe192a06d1128b68f5ac140222e3f5d249b197",
+    "docs/project-state/04_BIELLA_ACTIVE_TASK.md": "6f936a45e53d64e27315a862a37a63e1a84ed481e73c60dd55bba2c2f1eea473",
+    "projects/biella-games/docs/PRODUCTION.md": "797039ae2ff9090038603f95994f5492cac329b140e5ff147cbe8f0755c6f7c2"
+  },
+  "qualification_limits": [
+    "Headless gameplay simulation, collision and runtime material state; no rendered quality/native rendered FPS claim",
+    "No Win64 package or population-scale qualification",
+    "D01-032 and successors not executed; 03/04/PRODUCTION transitions remain runner-owned"
+  ],
+  "development_evidence_note": "D01-031-editor.log and D01-031-shared-initial.log record the successful initial implementation before extra negative probes; acceptance and module/source hashes refer to final source/build/runs."
+}
