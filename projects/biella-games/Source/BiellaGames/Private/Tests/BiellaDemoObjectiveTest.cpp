@@ -16,7 +16,7 @@
 
 namespace
 {
-void FreezeEncounter(UWorld* World)
+void FreezeObjectiveEncounter(UWorld* World)
 {
     if (!World)
     {
@@ -109,7 +109,7 @@ public:
                 UE_LOG(LogTemp, Display,
                     TEXT("D01_034_TEST PASS phase=activation id=%s target=%d remaining=%d state=Active"),
                     *Manager->ObjectiveId.ToString(), Manager->TargetCount, State->InfectedRemaining);
-                FreezeEncounter(World.Get());
+                FreezeObjectiveEncounter(World.Get());
                 TArray<AActor*> Actors;
                 UGameplayStatics::GetAllActorsOfClass(World.Get(), ABiellaInfected::StaticClass(), Actors);
                 for (AActor* Actor : Actors)
@@ -205,7 +205,7 @@ bool FBiellaDemoObjectiveTest::RunTest(const FString& Parameters)
             UWorld* Candidate = Context.World();
             if (Candidate && Candidate->IsGameWorld() && Candidate->HasBegunPlay())
             {
-                FreezeEncounter(Candidate);
+                FreezeObjectiveEncounter(Candidate);
                 break;
             }
         }

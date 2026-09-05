@@ -17,7 +17,7 @@
 
 namespace
 {
-void FreezeEncounter(UWorld* World)
+void FreezeFailureEncounter(UWorld* World)
 {
     if (!World)
     {
@@ -160,7 +160,7 @@ bool FBiellaFailureStateTest::RunTest(const FString& Parameters)
             UWorld* Candidate = Context.World();
             if (Candidate && Candidate->IsGameWorld() && Candidate->HasBegunPlay())
             {
-                FreezeEncounter(Candidate);
+                FreezeFailureEncounter(Candidate);
                 break;
             }
         }
