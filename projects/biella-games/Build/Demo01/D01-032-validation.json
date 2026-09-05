@@ -1,0 +1,42 @@
+{
+  "task_id": "D01-032",
+  "base_commit": "f0521d0df75db5352fb6e9cd12ee67cdf309e7de",
+  "observed_date_utc": "2026-09-05",
+  "runtime": "Unreal Engine 5.8.2 Linux Editor -game -nullrhi; canonical BiellaGameplayMap",
+  "editor_build": {
+    "process_exit": 0,
+    "result": "Succeeded",
+    "log": "D01-032-editor.log",
+    "module_sha256": "6910721118a4d2f3a670111351497e030adf8596ef0901e3082407b18baaa6be"
+  },
+  "runtime_result": {
+    "log": "D01-032-arena-pressure.log",
+    "process_exit": 0,
+    "automation_result": "Success",
+    "verifier": "tests/verify_d01_032.py",
+    "identity": "Demo01ArenaPressure",
+    "authority": "server",
+    "transitions": [
+      {"phase": "rising", "level": 20.0, "state": "Rising", "revision": 1},
+      {"phase": "elevated", "level": 50.0, "state": "Elevated", "revision": 2},
+      {"phase": "critical", "level": 85.0, "state": "Critical", "revision": 3},
+      {"phase": "reset", "level": 0.0, "state": "Inactive", "revision": 4}
+    ],
+    "sha256": "23b71dae1ce9ea7a05d4d51d01669a01af3c01c21a1ed6715b8ea8502daedb5a"
+  },
+  "source_sha256": {
+    "Source/BiellaGames/Public/BiellaGamesGameState.h": "8f0507ef1b1ba7c5dd0260e2e0665d0a46a0817c45bbf472e5a8944210261c56",
+    "Source/BiellaGames/Private/BiellaGamesGameState.cpp": "dbe2d8897d3e0a5b63dd05ffde409e556635c4fa2af4f1d40d9a770efae3d1e8",
+    "Source/BiellaGames/Private/Tests/BiellaArenaPressureTest.cpp": "b912a87fbc9e441c5a98fc95d333a71e4d8c3ca1c07558b1732323f9a75d00e3",
+    "tests/verify_d01_032.py": "99d78e877a5c4b6484f4d39de71a29f2bc731735a30fdaf9652d63121b211116"
+  },
+  "evidence_sha256": {
+    "D01-032-editor.log": "e868458c25dddf219af6d87e1cc43fae3012b9ce8338b918a9ab88aae39ba77d",
+    "D01-032-arena-pressure.log": "23b71dae1ce9ea7a05d4d51d01669a01af3c01c21a1ed6715b8ea8502daedb5a"
+  },
+  "protected_authority_files_unchanged": true,
+  "qualification_limits": [
+    "D01-033 pressure world consequences and later tasks were not executed",
+    "No rendered quality, native FPS, package, or final pressure-mechanic claim"
+  ]
+}
