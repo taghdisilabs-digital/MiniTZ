@@ -11,6 +11,7 @@ class ADirectionalLight;
 class APointLight;
 class UStaticMesh;
 class UMaterialInstanceDynamic;
+class ABiellaGamesGameState;
 
 UCLASS()
 class BIELLAGAMES_API ABasicWorldGeometry : public AActor
@@ -21,11 +22,15 @@ public:
     ABasicWorldGeometry();
 
     virtual void BeginPlay() override;
-    void SetPressureLevel(float Pressure);
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+    int32 GetAppliedPressureRevision() const { return AppliedPressureRevision; }
+    APointLight* GetPressureLight() const { return PressureLight.Get(); }
     int32 GetArenaPieceCount() const { return ArenaPieces.Num(); }
     bool IsTraversable(const FVector& Location) const;
 
 protected:
+    void ApplyArenaPressure(const ABiellaGamesGameState& State);
+    void SetPressureLevel(float Pressure);
     void BuildArena();
     AStaticMeshActor* SpawnCube(const FVector& Location, const FVector& Scale,
         const FLinearColor& Color, const FString& Label);
@@ -41,6 +46,11 @@ protected:
     UPROPERTY()
     TObjectPtr<APointLight> PressureLight;
 
+    UPROPERTY()
+    TObjectPtr<AActor> NavigationBounds;
+
     float PressureLevel = 0.0f;
     bool bBuilt = false;
+    int32 AppliedPressureRevision = INDEX_NONE;
+    TWeakObjectPtr<ABiellaGamesGameState> PressureState;
 };

@@ -3,6 +3,7 @@
 #include "BiellaInfected.h"
 
 #include "BiellaGamesCharacter.h"
+#include "BiellaGamesGameState.h"
 #include "Engine/World.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "Kismet/GameplayStatics.h"
@@ -22,8 +23,51 @@ ABiellaInfected::ABiellaInfected()
 void ABiellaInfected::BeginPlay()
 {
     Super::BeginPlay();
+    if (HasAuthority())
+    {
+        if (ABiellaGamesGameState* State = GetWorld()->GetGameState<ABiellaGamesGameState>())
+        {
+            PressureState = State;
+            State->OnArenaPressureChanged.AddUObject(this, &ABiellaInfected::ApplyArenaPressure);
+            ApplyArenaPressure(*State);
+        }
+    }
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL INFECTED_READY actor=%s health=%.1f speed=%.1f"),
         *GetName(), MaxHealth, MovementSpeed);
+}
+
+void ABiellaInfected::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+    if (ABiellaGamesGameState* State = PressureState.Get())
+    {
+        State->OnArenaPressureChanged.RemoveAll(this);
+    }
+    PressureState.Reset();
+    Super::EndPlay(EndPlayReason);
+}
+
+void ABiellaInfected::ApplyArenaPressure(const ABiellaGamesGameState& State)
+{
+    if (!HasAuthority())
+    {
+        return;
+    }
+    const float MaxMultiplier = FMath::IsFinite(MaxPressureMovementMultiplier)
+        ? FMath::Clamp(MaxPressureMovementMultiplier, 1.0f, 2.0f) : 1.0f;
+    const float PressureAlpha = FMath::IsFinite(State.ArenaPressure)
+        ? FMath::Clamp(State.ArenaPressure / 100.0f, 0.0f, 1.0f) : 0.0f;
+    // MovementSpeed remains the base tuning value, including across repeated transitions.
+    PressureMovementMultiplier = FMath::Lerp(1.0f, MaxMultiplier, PressureAlpha);
+    AppliedPressureRevision = State.GetArenaPressureRevision();
+    const float EffectiveSpeed = IsDefeated() ? 0.0f : MovementSpeed * PressureMovementMultiplier;
+    if (PawnMovement)
+    {
+        PawnMovement->MaxSpeed = EffectiveSpeed;
+    }
+    UE_LOG(LogTemp, Display,
+        TEXT("D01_SIGNAL PRESSURE_MOVEMENT id=%s revision=%d actor=%s level=%.1f base_speed=%.1f effective_speed=%.1f"),
+        *State.ArenaPressureId.ToString(), AppliedPressureRevision, *GetName(), State.ArenaPressure,
+        MovementSpeed, EffectiveSpeed);
 }
 
 void ABiellaInfected::SetPreferredTarget(ABiellaDemoPawn* Target)
@@ -99,9 +143,9 @@ void ABiellaInfected::Tick(float DeltaTime)
         {
             bChaseLogged = true;
             UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL INFECTED_CHASE actor=%s target=%s speed=%.1f"),
-                *GetName(), *Target->GetName(), MovementSpeed);
+                *GetName(), *Target->GetName(), MovementSpeed * PressureMovementMultiplier);
         }
-        MoveTowardLocation(Target->GetActorLocation(), DeltaTime);
+        MoveTowardLocation(Target->GetActorLocation(), DeltaTime * PressureMovementMultiplier);
     }
 }
 
@@ -141,5 +185,6 @@ void ABiellaInfected::Defeat(const FString& Reason)
     if (PawnMovement)
     {
         PawnMovement->StopMovementImmediately();
+        PawnMovement->MaxSpeed = 0.0f;
     }
 }

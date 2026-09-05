@@ -33,6 +33,10 @@ void ABiellaGamesGameState::GetLifetimeReplicatedProps(
 
 void ABiellaGamesGameState::ResetState()
 {
+    if (!HasAuthority())
+    {
+        return;
+    }
     MatchTime = 0.0f;
     ArenaPressure = 0.0f;
     ArenaPressureId = TEXT("Demo01ArenaPressure");
@@ -44,6 +48,7 @@ void ABiellaGamesGameState::ResetState()
     bPlayerAlive = true;
     Phase = EDemo01Phase::Intro;
     ObjectiveText = TEXT("Enter the arena.");
+    OnArenaPressureChanged.Broadcast(*this);
 }
 
 void ABiellaGamesGameState::SetPhase(EDemo01Phase NewPhase, const FString& NewObjective)
@@ -111,5 +116,11 @@ bool ABiellaGamesGameState::SetArenaPressure(float NewPressure, const FString& R
         *StaticEnum<EDemo01ArenaPressureState>()->GetNameStringByValue(
             static_cast<int64>(ArenaPressureState)),
         ArenaPressure, ArenaPressureRevision, *ArenaPressureReason);
+    OnArenaPressureChanged.Broadcast(*this);
     return true;
+}
+
+void ABiellaGamesGameState::OnRep_ArenaPressure()
+{
+    OnArenaPressureChanged.Broadcast(*this);
 }

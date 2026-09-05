@@ -1,6 +1,7 @@
 // Copyright Biella Games. All Rights Reserved.
 
 #include "BasicWorldGeometry.h"
+#include "BiellaGamesGameState.h"
 
 #include "Components/DirectionalLightComponent.h"
 #include "Components/BoxComponent.h"
@@ -35,6 +36,41 @@ void ABasicWorldGeometry::BeginPlay()
 {
     Super::BeginPlay();
     BuildArena();
+    if (ABiellaGamesGameState* State = GetWorld()->GetGameState<ABiellaGamesGameState>())
+    {
+        PressureState = State;
+        State->OnArenaPressureChanged.AddUObject(this, &ABasicWorldGeometry::ApplyArenaPressure);
+        ApplyArenaPressure(*State);
+    }
+}
+
+void ABasicWorldGeometry::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+    if (PressureState.IsValid())
+    {
+        PressureState->OnArenaPressureChanged.RemoveAll(this);
+    }
+    // Runtime-built pieces belong to this region; allow reconstruction from
+    // the current GameState after unloading/recreating the arena actor.
+    for (AActor* Piece : ArenaPieces)
+    {
+        if (IsValid(Piece)) { Piece->Destroy(); }
+    }
+    if (IsValid(SunLight)) { SunLight->Destroy(); }
+    if (IsValid(PressureLight)) { PressureLight->Destroy(); }
+    if (IsValid(NavigationBounds)) { NavigationBounds->Destroy(); }
+    Super::EndPlay(EndPlayReason);
+}
+
+void ABasicWorldGeometry::ApplyArenaPressure(const ABiellaGamesGameState& State)
+{
+    SetPressureLevel(State.ArenaPressure);
+    AppliedPressureRevision = State.GetArenaPressureRevision();
+    UE_LOG(LogTemp, Display,
+        TEXT("D01_SIGNAL PRESSURE_LIGHT id=%s revision=%d level=%.1f intensity=%.1f"),
+        *State.ArenaPressureId.ToString(), AppliedPressureRevision, PressureLevel,
+        PressureLight && PressureLight->GetLightComponent() ?
+            PressureLight->GetLightComponent()->Intensity : -1.0f);
 }
 
 void ABasicWorldGeometry::BuildArena()
@@ -89,6 +125,7 @@ void ABasicWorldGeometry::BuildArena()
         if (UPointLightComponent* Light =
             Cast<UPointLightComponent>(PressureLight->GetLightComponent()))
         {
+            Light->SetMobility(EComponentMobility::Movable);
             Light->SetAttenuationRadius(2400.0f);
             Light->SetIntensity(900.0f);
             Light->SetLightColor(FLinearColor(0.2f, 0.8f, 0.55f));
@@ -102,6 +139,7 @@ void ABasicWorldGeometry::BuildArena()
         FVector(0.0f, 0.0f, 100.0f), FRotator::ZeroRotator);
     if (NavBounds)
     {
+        NavigationBounds = NavBounds;
         UBoxComponent* BoundsBox = NewObject<UBoxComponent>(NavBounds, TEXT("ArenaNavigationBounds"));
         NavBounds->AddInstanceComponent(BoundsBox);
         BoundsBox->SetupAttachment(NavBounds->GetRootComponent());

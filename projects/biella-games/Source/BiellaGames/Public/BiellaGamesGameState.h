@@ -6,6 +6,9 @@
 #include "GameFramework/GameStateBase.h"
 #include "BiellaGamesGameState.generated.h"
 
+class ABiellaGamesGameState;
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnDemo01ArenaPressureChanged, const ABiellaGamesGameState&);
+
 UENUM(BlueprintType)
 enum class EDemo01Phase : uint8
 {
@@ -47,7 +50,7 @@ public:
     UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Demo01|ArenaPressure")
     EDemo01ArenaPressureState ArenaPressureState = EDemo01ArenaPressureState::Inactive;
 
-    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Demo01|ArenaPressure")
+    UPROPERTY(ReplicatedUsing=OnRep_ArenaPressure, VisibleAnywhere, BlueprintReadOnly, Category="Demo01|ArenaPressure")
     int32 ArenaPressureRevision = 0;
 
     UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Demo01|ArenaPressure")
@@ -80,4 +83,12 @@ public:
 
     UFUNCTION(BlueprintPure, Category="Demo01|ArenaPressure")
     int32 GetArenaPressureRevision() const { return ArenaPressureRevision; }
+
+    // All consumers read one authoritative snapshot. Late consumers read this
+    // GameState on BeginPlay before subscribing to subsequent revisions.
+    FOnDemo01ArenaPressureChanged OnArenaPressureChanged;
+
+private:
+    UFUNCTION()
+    void OnRep_ArenaPressure();
 };

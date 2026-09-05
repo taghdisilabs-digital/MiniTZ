@@ -9,6 +9,8 @@
 #include "EngineUtils.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/CapsuleComponent.h"
+#include "NavigationSystem.h"
 
 ABiellaGamesGameModeBase::ABiellaGamesGameModeBase()
 {
@@ -23,12 +25,90 @@ void ABiellaGamesGameModeBase::BeginPlay()
     Super::BeginPlay();
     SpawnBasicWorldGeometry();
     SpawnDemoActors();
+    if (ABiellaGamesGameState* State = GetWorld()->GetGameState<ABiellaGamesGameState>())
+    {
+        PressureState = State;
+        State->OnArenaPressureChanged.AddUObject(this, &ABiellaGamesGameModeBase::ApplyArenaPressure);
+        ApplyArenaPressure(*State);
+    }
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL MODE_READY class=BiellaGamesGameModeBase"));
 }
 
 void ABiellaGamesGameModeBase::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
+    if (GetWorld()->GetTimeSeconds() >= NextPressureSpawnAttempt)
+    {
+        TrySpawnPressureReinforcements();
+    }
+}
+
+void ABiellaGamesGameModeBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+    if (PressureState.IsValid())
+    {
+        PressureState->OnArenaPressureChanged.RemoveAll(this);
+    }
+    Super::EndPlay(EndPlayReason);
+}
+
+ABiellaInfected* ABiellaGamesGameModeBase::GetPressureReinforcement(int32 Index) const
+{
+    return Index >= 0 && Index < 2 ? PressureReinforcements[Index].Get() : nullptr;
+}
+
+void ABiellaGamesGameModeBase::ApplyArenaPressure(const ABiellaGamesGameState& State)
+{
+    // The GameState is the only trigger. No elapsed-time escalation is added.
+    TrySpawnPressureReinforcements();
+}
+
+void ABiellaGamesGameModeBase::TrySpawnPressureReinforcements()
+{
+    if (!HasAuthority() || !PressureState.IsValid() || !GetWorld()) { return; }
+    const ABiellaGamesGameState& State = *PressureState.Get();
+    const int32 RequestedSlots = State.ArenaPressureState == EDemo01ArenaPressureState::Critical ? 2 :
+        State.ArenaPressureState == EDemo01ArenaPressureState::Elevated ? 1 : 0;
+    // Only retry unavailable navigation or occupied placements; this is not a
+    // spawn wave timer. Downgrading pressure cancels any still-unfilled slot.
+    NextPressureSpawnAttempt = GetWorld()->GetTimeSeconds() + 1.0f;
+    UNavigationSystemV1* Navigation = FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld());
+    const ABiellaInfected* Defaults = GetDefault<ABiellaInfected>();
+    const float Radius = Defaults->Collision->GetScaledCapsuleRadius();
+    const float HalfHeight = Defaults->Collision->GetScaledCapsuleHalfHeight();
+    for (int32 Slot = 0; Slot < FMath::Min(RequestedSlots, PressureSpawnLocations.Num()); ++Slot)
+    {
+        if (bPressureSlotUsed[Slot]) { continue; }
+        FNavLocation Floor;
+        if (!Navigation || !Navigation->ProjectPointToNavigation(PressureSpawnLocations[Slot], Floor,
+                FVector(80.0f, 80.0f, 150.0f)))
+        {
+            UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL PRESSURE_SPAWN_DEFERRED id=%s revision=%d slot=%d reason=navigation"),
+                *State.ArenaPressureId.ToString(), State.GetArenaPressureRevision(), Slot);
+            continue;
+        }
+        const FVector Location = Floor.Location + FVector(0.0f, 0.0f, HalfHeight + 2.0f);
+        if (GetWorld()->OverlapBlockingTestByChannel(Location, FQuat::Identity, ECC_Pawn,
+                FCollisionShape::MakeCapsule(Radius, HalfHeight)))
+        {
+            UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL PRESSURE_SPAWN_DEFERRED id=%s revision=%d slot=%d reason=collision"),
+                *State.ArenaPressureId.ToString(), State.GetArenaPressureRevision(), Slot);
+            continue;
+        }
+        FActorSpawnParameters Params;
+        Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::DontSpawnIfColliding;
+        ABiellaInfected* Infected = GetWorld()->SpawnActor<ABiellaInfected>(
+            ABiellaInfected::StaticClass(), Location, FRotator::ZeroRotator, Params);
+        if (!Infected) { continue; }
+        InfectedActors.Add(Infected);
+        PressureReinforcements[Slot] = Infected;
+        bPressureSlotUsed[Slot] = true;
+        ++PressureReinforcementCount;
+        UE_LOG(LogTemp, Display,
+            TEXT("D01_SIGNAL PRESSURE_SPAWN id=%s revision=%d level=%.1f slot=%d actor=%s count=%d location=%s authority=server"),
+            *State.ArenaPressureId.ToString(), State.GetArenaPressureRevision(), State.ArenaPressure,
+            Slot, *Infected->GetName(), PressureReinforcementCount, *Location.ToCompactString());
+    }
 }
 
 void ABiellaGamesGameModeBase::PostLogin(APlayerController* NewPlayer)

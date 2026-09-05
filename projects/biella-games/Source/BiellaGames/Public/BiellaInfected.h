@@ -6,6 +6,8 @@
 #include "BiellaDemoPawn.h"
 #include "BiellaInfected.generated.h"
 
+class ABiellaGamesGameState;
+
 UCLASS()
 class BIELLAGAMES_API ABiellaInfected : public ABiellaDemoPawn
 {
@@ -15,12 +17,20 @@ public:
     ABiellaInfected();
 
     virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
     virtual void Tick(float DeltaTime) override;
     virtual void Defeat(const FString& Reason) override;
 
     void SetPreferredTarget(ABiellaDemoPawn* Target);
     ABiellaDemoPawn* ChooseTarget() const;
     bool TryMeleeTarget(ABiellaDemoPawn* Target);
+
+    float GetPressureMovementMultiplier() const { return PressureMovementMultiplier; }
+    int32 GetAppliedPressureRevision() const { return AppliedPressureRevision; }
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Demo01|ArenaPressure",
+        meta=(ClampMin="1.0", ClampMax="2.0"))
+    float MaxPressureMovementMultiplier = 1.5f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Demo01|Infected")
     float AggroRange = 2200.0f;
@@ -37,6 +47,11 @@ public:
     TObjectPtr<ABiellaDemoPawn> CurrentTarget;
 
 private:
+    void ApplyArenaPressure(const ABiellaGamesGameState& State);
+
+    TWeakObjectPtr<ABiellaGamesGameState> PressureState;
+    float PressureMovementMultiplier = 1.0f;
+    int32 AppliedPressureRevision = INDEX_NONE;
     float AttackCooldownRemaining = 0.0f;
     bool bChaseLogged = false;
 };
