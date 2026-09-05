@@ -9,7 +9,7 @@ Engine: `/opt/unreal/UE_5.8.2`
 Execution rule: one current task; verify, execute, persist evidence, then advance
 Evidence rule: editable source plus task-derived build/runtime/package evidence
 Current section: `post_d01`
-Current task: `D02-01`
+Current task: `D02-02`
 Progress: `50/50` Demo tasks complete
 
 ## Section: demo01 | Demo 01 — first playable vertical slice | COMPLETE
@@ -71,7 +71,7 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 
 ## Section: post_d01 | Canonical D02-D24 continuation — D02-D08 Games; D09-D14 website/; D15-D24 repo-wide AAA | PENDING
 
-- [ ] D02-01 | hard_creation | Open-world streaming and continuity | PENDING | registry_status=PENDING_UNPLANNED
+- [x] D02-01 | hard_creation | Open-world streaming and continuity | COMPLETE | Committed and published through 50836a1; GitHub readback verified.; Vulkan traversal: 779.53 m, 51 loads, 39 unloads; continuity and D01 regressions passed.; Editor build and non-editor module compilation passed. Full Game relink remains unqualified.; [Acceptance evidence](/root/biella/repos/biella-engine/projects/biella-games/Build/OpenWorld/D02-01-acceptance.md)
 - [ ] D02-02 | hard_creation | Population and encounter scaling | PENDING | registry_status=PENDING_UNPLANNED
 - [ ] D02-03 | hard_creation | Vehicle runtime when explicitly approved | PENDING | registry_status=PENDING_UNPLANNED
 - [ ] D02-04 | hard_creation | Deeper interaction, destruction, and environment state | PENDING | registry_status=PENDING_UNPLANNED
