@@ -3,6 +3,7 @@ from pathlib import Path
 import importlib.util
 import json
 import os
+import subprocess
 import sys
 import pytest
 
@@ -126,3 +127,9 @@ def test_observed_limit_falls_back_to_next_eligible_model(tmp_path: Path, monkey
     assert used[:2] == ["gpt-6-astra", "gpt-5.6-terra"]
     telemetry = runner.load_runtime(runtime_root / "runtime.json")
     assert "gpt-6-astra" in telemetry["cooldowns"]
+
+
+def test_runner_is_directly_executable():
+    completed = subprocess.run([str(MODULE), "--help"], text=True, capture_output=True, check=False)
+    assert completed.returncode == 0, completed.stderr
+    assert "production" in completed.stdout.lower() or "usage" in completed.stdout.lower()
