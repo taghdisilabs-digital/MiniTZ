@@ -20,19 +20,19 @@ def test_consolidation_is_closed_and_games_frontier_is_current():
     task = TASK.read_text(encoding="utf-8")
     production = PRODUCTION.read_text(encoding="utf-8")
     assert "consolidation_state: COMPLETE_VERIFIED" in state
-    assert "id: D01-032" in state
-    assert "id: D01-032" in task
+    assert "id: D01-033" in state
+    assert "id: D01-033" in task
     assert "BIELLA-CONSOLIDATION-2026-09-05" not in task
-    assert "completed_demo_tasks: 31" in state
-    assert "queued_successor: D01-032" in state
+    assert "completed_demo_tasks: 32" in state
+    assert "queued_successor: D01-033" in state
     assert "runner: READY" in state
     assert "feeder:" not in state
     assert "execution_started:" not in state
     assert "execution_started:" not in task
     assert "navigation_state: VERIFIED" in state
-    assert "Current task: `D01-032`" in production
-    assert "Progress: `31/50` Demo tasks complete" in production
-    assert production.count("- [x] D01-") == 31
+    assert "Current task: `D01-033`" in production
+    assert "Progress: `32/50` Demo tasks complete" in production
+    assert production.count("- [x] D01-") == 32
     assert "latest_preservation_commit: f7e74205988cb48946e62efeffe5c5330ec6437b" in state
 
 
