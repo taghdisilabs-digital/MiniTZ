@@ -30,8 +30,8 @@ active_execution:
   consolidation_state: COMPLETE_VERIFIED
 
   runner: READY
-  runner_implementation_commit: 0a9b4bf703ae79a2f82e61be998bdf483cb0f19e
-  runner_implementation_tree: 37507908e1b8b8feec45b39a3d30c312e3372769
+  runner_implementation_commit: 266133a53b145341074d82f277fcfc409aea7a0a
+  runner_implementation_tree: 7a43b59c96fdd2c5b847bb64258085ad1ee30d39
 games:
   project_path: projects/biella-games
   production_source: projects/biella-games/docs/PRODUCTION.md
