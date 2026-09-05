@@ -4,11 +4,11 @@
 schema: biella.active_task/v9
 
 task:
-  id: D01-037
+  id: D01-038
   project: Biella Games
   section: demo01
   class: creation
-  title: Add gameplay HUD core
+  title: Add success/failure overlays and restart input
   status: PENDING
   runner: READY
 
@@ -18,7 +18,7 @@ task:
     - projects/biella-games/docs/PRODUCTION.md
 
   continuity:
-    completed_predecessor: D01-036
+    completed_predecessor: D01-037
     production_source: projects/biella-games/docs/PRODUCTION.md
 
   preserve:
@@ -26,5 +26,5 @@ task:
     - Engine P4-06 as INCOMPLETE_DEFERRED
     - one-repository/one-controller/one-Project-production-source architecture
 
-  stop: Execute only D01-037; validate and persist it before advancing.
+  stop: Execute only D01-038; validate and persist it before advancing.
 ```
