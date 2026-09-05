@@ -55,6 +55,7 @@ private:
     int32 PressureReinforcementCount = 0;
     float NextPressureSpawnAttempt = 0.0f;
     bool bPlayerFailureHandled = false;
+    bool bRestartRequested = false;
 
     UPROPERTY()
     TArray<TObjectPtr<ABiellaInfected>> InfectedActors;

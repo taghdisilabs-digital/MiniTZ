@@ -2,6 +2,7 @@
 
 #include "BasicWorldGeometry.h"
 #include "BiellaGamesCharacter.h"
+#include "BiellaGamesGameInstance.h"
 #include "BiellaGamesGameState.h"
 #include "BiellaInfected.h"
 #include "BiellaRival.h"
@@ -234,8 +235,26 @@ void ABiellaGamesGameModeBase::SpawnDemoActors()
 
 void ABiellaGamesGameModeBase::RequestRestart()
 {
-    if (GetWorld())
+    if (!HasAuthority() || !GetWorld() || bRestartRequested)
     {
-        UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()));
+        return;
     }
+
+    bRestartRequested = true;
+    UBiellaGamesGameInstance* GameInstance = Cast<UBiellaGamesGameInstance>(GetGameInstance());
+    if (GameInstance)
+    {
+        GameInstance->RecordRestart();
+    }
+
+    const ABiellaGamesGameState* State = GetWorld()->GetGameState<ABiellaGamesGameState>();
+    const FString MapName = GetWorld()->GetName();
+    UE_LOG(LogTemp, Display,
+        TEXT("D01_SIGNAL RESTART_REQUESTED map=%s previous_phase=%d restart_count=%d authority=server"),
+        *MapName, State ? static_cast<int32>(State->Phase) : -1,
+        GameInstance ? GameInstance->RestartCount : -1);
+
+    // Reload the active map so every run-local actor, objective and replicated
+    // state is reconstructed from the same authored starting conditions.
+    UGameplayStatics::OpenLevel(this, FName(*MapName));
 }

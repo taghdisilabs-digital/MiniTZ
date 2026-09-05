@@ -1,0 +1,22 @@
+{
+  "task_id": "D01-036",
+  "runs": [
+    {
+      "log": "Build/Demo01/D01-036-restart.log",
+      "result": "PASS",
+      "phases": [
+        "terminal_failure",
+        "restart_request",
+        "clean_match"
+      ],
+      "restart_count": 2,
+      "objective_target": 2,
+      "objective_progress": 0,
+      "infected_remaining": 2,
+      "player_health": 100.0,
+      "arena_pressure": 0.0,
+      "game_phase": "Active",
+      "authority": "server"
+    }
+  ]
+}
