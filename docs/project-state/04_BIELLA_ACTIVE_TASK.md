@@ -4,11 +4,11 @@
 schema: biella.active_task/v9
 
 task:
-  id: D01-44
+  id: D01-45
   project: Biella Games
   section: demo01
-  class: hard
-  title: Measure native performance/resource behavior
+  class: medium
+  title: Repair lifecycle/GC/spawn cleanup
   status: PENDING
   runner: READY
 
@@ -18,7 +18,7 @@ task:
     - projects/biella-games/docs/PRODUCTION.md
 
   continuity:
-    completed_predecessor: D01-43
+    completed_predecessor: D01-44
     production_source: projects/biella-games/docs/PRODUCTION.md
 
   preserve:
@@ -26,5 +26,5 @@ task:
     - Engine P4-06 as INCOMPLETE_DEFERRED
     - one-repository/one-controller/one-Project-production-source architecture
 
-  stop: Execute only D01-44; validate and persist it before advancing.
+  stop: Execute only D01-45; validate and persist it before advancing.
 ```

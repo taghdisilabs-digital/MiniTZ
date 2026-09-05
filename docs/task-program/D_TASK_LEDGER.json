@@ -1,5 +1,5 @@
 {
-  "current_task": "D01-44",
+  "current_task": "D01-45",
   "execution_authority": "current 03/04 + Project PRODUCTION.md",
   "registry_is_queue": false,
   "schema": "biella.d_task_ledger/v1",
@@ -1230,7 +1230,7 @@
         "D01-044"
       ],
       "program": "D01",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D01-44",
       "title": "Measure native performance/resource behavior"
