@@ -156,3 +156,20 @@ class ProjectRunnerTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_standalone_dialog_autonomously_handles_routine_needs():
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td); work = root / "engine"; work.mkdir()
+        capture = CaptureExec(); events = []
+        runner = ProjectRunner(
+            lane_workdirs={"Engine": work}, runtime_env_loader=lambda: {},
+            exec_command=capture, background=lambda fn: fn(), production_active=lambda: False,
+        )
+        runner.start_dialog("Engine", "continue current work", lambda lane, event: events.append((lane, event)))
+        prompt = capture.calls[-1][0][-1].lower()
+        assert "resolve routine task needs autonomously" in prompt
+        assert "install/configure task-scoped dependencies" in prompt
+        assert "do not stop for confirmation" in prompt
+        assert "genuine destructive or irreversible" in prompt

@@ -224,6 +224,8 @@ class ProjectRunner:
             "prefer targeted search and bounded log tails, and checkpoint before context pressure. "
             "The lane is starting context, not an execution sandbox. Preserve valid existing work and task status. "
             "Codex may use any configured local model, API, GPU, repository, runtime, or production tool when materially useful. "
+            "Resolve routine task needs autonomously: install/configure task-scoped dependencies, create required local support files, and repair reversible tool/provider/environment failures instead of stopping for confirmation. "
+            "Do not stop for confirmation, routine permission, design approval, or owner decision when the operator message or current project authority already authorizes the work. Only a genuine destructive or irreversible external action lacking authorization, or truly unavailable required authority/fact, may require stopping; preserve progress and state the exact need. "
             "Do not create model-specific project memory or parallel controller workflows.\n\n"
             f"Operator message:\n{message}"
         )

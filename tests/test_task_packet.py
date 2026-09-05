@@ -62,3 +62,36 @@ def test_task_memory_capsule_is_bounded_and_project_aware(tmp_path: Path):
     assert capsule["session_id"] == "session-d02"
     assert capsule["dirty_paths"] == ["Source/BiellaGames/Private/BiellaWorldContinuity.cpp", "tests/run_d02_01.py"]
     assert len(__import__("json").dumps(capsule).encode()) < 8192
+
+
+def test_task_packet_autonomously_provides_routine_needs(tmp_path: Path):
+    repo = tmp_path / "repo"; (repo / "docs/project-state").mkdir(parents=True)
+    active = "task:\n  id: D02-01\n  project: Biella Games\n  section: post_d01\n  class: hard_creation\n  title: Streaming\n  status: PENDING\n"
+    (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").write_text(active, encoding="utf-8")
+    task = state.TaskRecord("D02-01", "hard_creation", "Streaming", "PENDING", (), "post_d01")
+    production = state.ProductionState(Path("/repo/projects/biella-games"), "IN_PROGRESS", "post_d01", "D02-01", [state.SectionRecord("post_d01", "Continuation", "IN_PROGRESS", [task])])
+    packet = packets.compile_task_packet(repo, production, task).lower()
+    assert "resolve routine task needs autonomously" in packet
+    assert "install/configure task-scoped dependencies" in packet
+    assert "do not stop for confirmation" in packet
+    assert "return continue" in packet
+    assert "owner_decision" not in packet
+    assert "external_dependency" not in packet
+
+
+def test_resume_packet_keeps_autonomy_without_reinjecting_full_contract(tmp_path: Path):
+    task = state.TaskRecord("D02-01", "hard_creation", "Streaming", "PENDING", (), "post_d01")
+    packet = packets.compile_resume_packet(task, tmp_path / "D02-01.json").lower()
+    assert "resolve routine task needs autonomously" in packet
+    assert "do not stop for confirmation" in packet
+    assert "active contract" in packet
+    assert "return continue" in packet
+
+
+def test_section_planner_never_creates_approval_gate_tasks():
+    task = state.TaskRecord("D02-01", "hard_creation", "Streaming", "PENDING", (), "post_d01")
+    production = state.ProductionState(Path("/repo/projects/biella-games"), "IN_PROGRESS", "post_d01", "D02-01", [state.SectionRecord("post_d01", "Continuation", "IN_PROGRESS", [task])])
+    packet = packets.compile_section_packet(production, production.sections[0], audit=True).lower()
+    assert "do not create approval" in packet
+    assert "owner-decision" in packet
+    assert "executable missing work" in packet
