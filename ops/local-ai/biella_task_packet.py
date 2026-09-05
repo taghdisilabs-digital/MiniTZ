@@ -25,3 +25,32 @@ def compile_task_packet(repo_root: Path, production: ProductionState, task: Task
         "Runner owns canonical state transition: do not edit 03/04 task identity or Project PRODUCTION status/next-task metadata. "
         "Do not probe quota/balance, do not inspect or manage Codex usage/resets/credits, and do not advance beyond this task."
     )
+
+
+def section_plan_schema() -> dict[str, object]:
+    classes = ["creation", "deep_memory", "hard", "hard_creation", "medium", "simple"]
+    return {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object", "additionalProperties": False,
+        "required": ["section_id", "complete", "summary", "evidence", "tasks"],
+        "properties": {
+            "section_id": {"type": "string"}, "complete": {"type": "boolean"},
+            "summary": {"type": "string"}, "evidence": {"type": "array", "items": {"type": "string"}},
+            "tasks": {"type": "array", "maxItems": 50, "items": {
+                "type": "object", "additionalProperties": False,
+                "required": ["class", "title"],
+                "properties": {"class": {"type": "string", "enum": classes}, "title": {"type": "string", "minLength": 1, "maxLength": 240}},
+            }},
+        },
+    }
+
+
+def compile_section_packet(production: ProductionState, section, *, audit: bool) -> str:
+    existing = "\n".join(f"{task.id} [{task.status}] {task.title}" for task in section.tasks[-50:]) or "none"
+    mode = "Audit current source/evidence. Return complete=true only when this section is actually satisfied; otherwise return only missing delta tasks." if audit else "Plan incomplete work. Return 20-50 bounded tasks unless materially fewer are required by accepted scope."
+    return (
+        "Biella production section planning boundary.\n"
+        f"PROJECT_ROOT: {production.project_root}\nSECTION: {section.id} | {section.title}\nMODE: {mode}\nEXISTING:\n{existing}\n"
+        "Tasks must be non-overlapping, dependency-aware, execution-sized, and limited to this section. Preserve completed work. "
+        "Use biella resource routing when specialized Resources reduce model work. Do not invent scope, duplicate semantic tasks, probe quotas, or reopen completed work without material invalidation evidence."
+    )

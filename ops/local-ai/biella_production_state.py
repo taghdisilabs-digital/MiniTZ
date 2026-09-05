@@ -279,3 +279,79 @@ def mark_task_complete(repo_root: Path, project_root: Path, task_id: str, status
     write_active_task(repo_root, successor, predecessor=task_id)
     sync_current_state(repo_root, production, successor, state="PENDING" if successor else "COMPLETE")
     return production
+
+
+def mark_section_status(project_root: Path, section_id: str, status: str) -> ProductionState:
+    path = production_path(project_root)
+    lines = path.read_text(encoding="utf-8").splitlines()
+    found = False
+    for index, raw in enumerate(lines):
+        match = _SECTION_RE.match(raw.strip())
+        if match and match.group("id") == section_id:
+            lines[index] = f"## Section: {section_id} | {match.group('title').strip()} | {status}"
+            found = True
+            break
+    if not found:
+        raise KeyError(section_id)
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return sync_project_metadata(project_root)
+
+
+_ALLOWED_TASK_CLASSES = {"simple", "medium", "creation", "hard", "deep_memory", "hard_creation"}
+
+
+def apply_section_plan(repo_root: Path, project_root: Path, section_id: str, plan: dict) -> ProductionState:
+    if plan.get("section_id") != section_id:
+        raise ValueError("section plan id mismatch")
+    production = load_project_production(project_root)
+    section = next((item for item in production.sections if item.id == section_id), None)
+    if section is None:
+        raise KeyError(section_id)
+    if bool(plan.get("complete")):
+        production = mark_section_status(project_root, section_id, "COMPLETE_ALREADY" if not section.tasks else "COMPLETE")
+        successor = next_task(production)
+        write_active_task(repo_root, successor, predecessor=section.tasks[-1].id if section.tasks else section_id)
+        sync_current_state(repo_root, production, successor, state="PENDING" if successor else "COMPLETE")
+        return production
+
+    existing_titles = {re.sub(r"\s+", " ", task.title.strip().lower()) for task in section.tasks}
+    prefix_match = re.search(r"(\d+)$", section_id)
+    prefix = f"S{prefix_match.group(1)}" if prefix_match else section_id.upper()
+    next_number = 1
+    for task in section.tasks:
+        match = re.match(re.escape(prefix) + r"-(\d+)$", task.id)
+        if match:
+            next_number = max(next_number, int(match.group(1)) + 1)
+    additions: list[str] = []
+    for raw in plan.get("tasks", []):
+        if not isinstance(raw, dict):
+            raise ValueError("section task must be an object")
+        task_class = str(raw.get("class", "")); title = str(raw.get("title", "")).strip()
+        if task_class not in _ALLOWED_TASK_CLASSES:
+            raise ValueError(f"unknown task class: {task_class}")
+        normalized = re.sub(r"\s+", " ", title.lower())
+        if not title or normalized in existing_titles:
+            continue
+        additions.append(f"- [ ] {prefix}-{next_number:03d} | {task_class} | {title} | PENDING | ")
+        existing_titles.add(normalized); next_number += 1
+    if not additions:
+        raise ValueError("section plan returned no unique tasks")
+
+    path = production_path(project_root); lines = path.read_text(encoding="utf-8").splitlines()
+    for index, raw in enumerate(lines):
+        match = _SECTION_RE.match(raw.strip())
+        if match and match.group("id") == section_id:
+            lines[index] = f"## Section: {section_id} | {match.group('title').strip()} | IN_PROGRESS"
+            start = index; break
+    else:
+        raise KeyError(section_id)
+    end = len(lines)
+    for index in range(start + 1, len(lines)):
+        if _SECTION_RE.match(lines[index].strip()): end = index; break
+    while end > start + 1 and lines[end - 1] == "": end -= 1
+    lines[end:end] = ["", *additions, ""]
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    production = sync_project_metadata(project_root); successor = next_task(production)
+    write_active_task(repo_root, successor, predecessor=section.tasks[-1].id if section.tasks else section_id)
+    sync_current_state(repo_root, production, successor, state="PENDING")
+    return production
