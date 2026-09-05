@@ -19,6 +19,8 @@ if [[ -f "$RUNTIME_ENV" && ! -L "$RUNTIME_ENV" ]]; then
   set +a
 fi
 
+export HOME="${HOME:-/root}"
+export GH_CONFIG_DIR="${GH_CONFIG_DIR:-/root/.config/gh}"
 export CODEX_HOME="/root/.codex"
 cd /root
 
