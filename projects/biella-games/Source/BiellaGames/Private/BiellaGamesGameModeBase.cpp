@@ -88,8 +88,11 @@ void ABiellaGamesGameModeBase::TrySpawnPressureReinforcements()
             continue;
         }
         const FVector Location = Floor.Location + FVector(0.0f, 0.0f, HalfHeight + 2.0f);
+        // Match pawn movement's solid simple collision. The default world
+        // query traces complex surfaces and can miss an enclosed capsule.
+        const FCollisionQueryParams PlacementQuery(SCENE_QUERY_STAT(Demo01PressureSpawn), false);
         if (GetWorld()->OverlapBlockingTestByChannel(Location, FQuat::Identity, ECC_Pawn,
-                FCollisionShape::MakeCapsule(Radius, HalfHeight)))
+                FCollisionShape::MakeCapsule(Radius, HalfHeight), PlacementQuery))
         {
             UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL PRESSURE_SPAWN_DEFERRED id=%s revision=%d slot=%d reason=collision"),
                 *State.ArenaPressureId.ToString(), State.GetArenaPressureRevision(), Slot);

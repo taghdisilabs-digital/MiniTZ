@@ -59,6 +59,17 @@ void ABasicWorldGeometry::EndPlay(const EEndPlayReason::Type EndPlayReason)
     if (IsValid(SunLight)) { SunLight->Destroy(); }
     if (IsValid(PressureLight)) { PressureLight->Destroy(); }
     if (IsValid(NavigationBounds)) { NavigationBounds->Destroy(); }
+    // Streaming can call BeginPlay again on this same actor instance. Its
+    // generated children no longer exist, so rebuild and consume the current
+    // authoritative pressure snapshot on the next BeginPlay.
+    ArenaPieces.Reset();
+    SunLight = nullptr;
+    PressureLight = nullptr;
+    NavigationBounds = nullptr;
+    PressureState.Reset();
+    AppliedPressureRevision = INDEX_NONE;
+    bBuilt = false;
+    Tags.Remove(TEXT("D01ArenaBuilt"));
     Super::EndPlay(EndPlayReason);
 }
 
@@ -127,6 +138,9 @@ void ABasicWorldGeometry::BuildArena()
         {
             Light->SetMobility(EComponentMobility::Movable);
             Light->SetAttenuationRadius(2400.0f);
+            // Explicit physical units keep the pressure signal readable at
+            // arena distances; the legacy unitless default is much dimmer.
+            Light->SetIntensityUnits(ELightUnits::Lumens);
             Light->SetIntensity(900.0f);
             Light->SetLightColor(FLinearColor(0.2f, 0.8f, 0.55f));
         }
@@ -171,10 +185,14 @@ AStaticMeshActor* ABasicWorldGeometry::SpawnCube(const FVector& Location,
     {
         return nullptr;
     }
+    UStaticMeshComponent* Mesh = Piece->GetStaticMeshComponent();
+    // Reloads build after the world has begun play, when registered static
+    // components reject SetStaticMesh. Configure while movable, then restore
+    // static mobility for the completed arena piece.
+    Mesh->SetMobility(EComponentMobility::Movable);
     Piece->SetActorScale3D(Scale);
     Piece->SetActorLabel(Label);
     Piece->Tags.Add(TEXT("D01ArenaPiece"));
-    UStaticMeshComponent* Mesh = Piece->GetStaticMeshComponent();
     Mesh->SetStaticMesh(CubeMesh);
     Mesh->SetCollisionProfileName(TEXT("BlockAll"));
     if (UMaterialInterface* Base = LoadObject<UMaterialInterface>(
@@ -184,6 +202,7 @@ AStaticMeshActor* ABasicWorldGeometry::SpawnCube(const FVector& Location,
         Material->SetVectorParameterValue(TEXT("BaseColor"), Color);
         Mesh->SetMaterial(0, Material);
     }
+    Mesh->SetMobility(EComponentMobility::Static);
     ArenaPieces.Add(Piece);
     return Piece;
 }

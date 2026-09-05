@@ -1,0 +1,255 @@
+{
+  "task_id": "D01-033",
+  "result": "PASS",
+  "observed_date_utc": "2026-09-05T04:58:22.271315+00:00",
+  "base_commit": "4a3aa0476ae42d269fce93d7b55db60e1dce382e",
+  "preserved_implementation_commit": "6582d4bcbc5a86dc87495a21e9f4f4c6187b8fc7",
+  "runtime": "Unreal Engine 5.8.2 Linux Editor -game; canonical BiellaGameplayMap",
+  "resource_routes": [
+    {
+      "capability": "code",
+      "providers": []
+    },
+    {
+      "capability": "runtime-validation",
+      "providers": []
+    }
+  ],
+  "resource_selection": "Local installed Unreal compiler, runtime, GPU, deterministic automation and log validators; no external provider eligible for these routed capabilities.",
+  "editor_build": {
+    "log": "D01-033-editor-qualified.log",
+    "process_exit": 0,
+    "result": "Succeeded",
+    "sha256": "088804099223bd392a1dee756c2ebc0651b8117b6a21a7796d4298cf23afd9c7"
+  },
+  "module_sha256": "6c21ecdfd8177533bd6fb3191a98f62b7e51ac805cb4cd790105b7da4d6762a3",
+  "runtime_results": [
+    {
+      "log": "D01-033-pressure-vulkan-qualified.log",
+      "result": "PASS",
+      "phases": [
+        "baseline_chase",
+        "rising_no_spawn",
+        "blocked_spawn",
+        "downgrade_cancels_retry",
+        "unblocked_retry",
+        "elevated_chase",
+        "critical_two_slots",
+        "late_consumers",
+        "reset_restores_baseline",
+        "defeated_stays_stopped",
+        "no_duplicates_or_refill"
+      ],
+      "identity": "Demo01ArenaPressure",
+      "transitions": 10,
+      "spawn_count": 2,
+      "baseline_cm": 196.005,
+      "baseline_seconds": 0.933,
+      "elevated_cm": 201.258,
+      "elevated_seconds": 0.767,
+      "velocity_ratio": 1.25,
+      "process_exit": 0,
+      "sha256": "5e2a529be8ead8c1ed0bab1fb18b3485527e6c0e1fdc3b58cad7379625cc36b5"
+    },
+    {
+      "log": "D01-033-pressure-120fps-qualified.log",
+      "result": "PASS",
+      "phases": [
+        "baseline_chase",
+        "rising_no_spawn",
+        "blocked_spawn",
+        "downgrade_cancels_retry",
+        "unblocked_retry",
+        "elevated_chase",
+        "critical_two_slots",
+        "late_consumers",
+        "reset_restores_baseline",
+        "defeated_stays_stopped",
+        "no_duplicates_or_refill"
+      ],
+      "identity": "Demo01ArenaPressure",
+      "transitions": 10,
+      "spawn_count": 2,
+      "baseline_cm": 157.527,
+      "baseline_seconds": 0.75,
+      "elevated_cm": 196.905,
+      "elevated_seconds": 0.75,
+      "velocity_ratio": 1.25,
+      "process_exit": 0,
+      "sha256": "a449f4ca191d6f5a8344fda85efeeef1ce5bd7e242ec608afdbc798858a0b706"
+    }
+  ],
+  "regressions": {
+    "D01-032": {
+      "log": "D01-033-state-regression-qualified.log",
+      "result": "PASS",
+      "transitions": 4,
+      "identity": "Demo01ArenaPressure",
+      "process_exit": 0,
+      "sha256": "fdd0ec37245930e3d9aec01848e86b00317e6bf7031cb6c8eeed005c615989ae"
+    },
+    "D01-031": {
+      "log": "D01-033-shared-regression-qualified.log",
+      "result": "PASS",
+      "phases": 10,
+      "damage_events": 20,
+      "damage_edges": {
+        "infected_to_player": 4,
+        "rival_to_infected": 4,
+        "player_to_infected": 3,
+        "rival_to_player": 5,
+        "infected_to_rival": 1,
+        "player_to_rival": 3
+      },
+      "defeats": 4,
+      "duration_seconds": 13.419,
+      "minimum_cadence_seconds": {
+        "infected": 0.85,
+        "rival": 0.9,
+        "player": 0.35
+      },
+      "process_exit": 0,
+      "sha256": "8ac62f57d48f776b5de57ab8e5818fa4084fa39c924e2113a189854618c96eb5"
+    },
+    "D01-029_D01-030": {
+      "log": "D01-033-rival-regression-qualified.log",
+      "process_exit": 0,
+      "result": "PASS",
+      "phases": {
+        "029": [
+          "detour",
+          "hold",
+          "retreat",
+          "dynamic_obstruction",
+          "occluded_combat_position",
+          "bounded_failure",
+          "route_reopened",
+          "no_target_stop",
+          "defeat_stop"
+        ],
+        "030": [
+          "gates_range_occlusion",
+          "point_blank",
+          "autonomous_cadence",
+          "incoming_damage_recovery",
+          "defeat_stop"
+        ]
+      },
+      "sha256": "2a7308fac3e8f3c206ad652f4c960ccebc72df2cc146a43bc3ff3eb597d2aca5"
+    }
+  },
+  "rendered_evidence": {
+    "device": "NVIDIA L40S",
+    "rhi": "Vulkan",
+    "resolution": [
+      960,
+      540
+    ],
+    "simulation_cap": 30,
+    "captures": [
+      "D01-033-baseline.png",
+      "D01-033-critical.png"
+    ],
+    "visual_inspection": "Decoded both final live captures: fixed arena surfaces shift from green to warm orange; infected population changes in the same player-camera view. Existing blockout presentation retained.",
+    "fixed_wall_region_xyxy": [
+      100,
+      80,
+      300,
+      120
+    ],
+    "baseline_mean_rgb": [
+      8.183875,
+      24.46825,
+      19.706375
+    ],
+    "critical_mean_rgb": [
+      52.180125,
+      31.383625,
+      10.3505
+    ],
+    "private_inspector_path": "/root/biella/artifacts/games/D01-033",
+    "capture_asset_status": "GENERATED_DRAFT"
+  },
+  "source_sha256": {
+    "BiellaGames.uproject": "717d96f26b873ae8a608e5dea862549a515b1c4cbd43ed36a31dd5a4151ce797",
+    "Config/DefaultEngine.ini": "afb4417b2e79d66065552338d13eb3d7a685f1beb3000ac0a4a07de490060943",
+    "Config/DefaultInput.ini": "e1b7a60e4da1acca28b8540ed7b2746551df9ae1ddc0056eb45a0932ed82ea78",
+    "Content/Maps/BiellaGameplayMap.umap": "115cec2b94f83860965195ca89f088d91eb50a80e20023ba8e5bac22c3e002e6",
+    "Source/BiellaGames/BiellaGames.Build.cs": "33372d5eda3fd6874646cadd1cddc45962f7ef594440a035e217914457bed970",
+    "Source/BiellaGames/BiellaGames.cpp": "256382027fe5e6d492cbbdbf13dbf449a438b7063398ef5c80fc049fbaebf78c",
+    "Source/BiellaGames/BiellaGames.h": "30af2b68e6d8210e4ce4fbd26f6a2b8c3648cf2a1226d64b17c4f88c94fccdf1",
+    "Source/BiellaGames/Private/BasicWorldGeometry.cpp": "883d8a824f6bf7c78a05be1e37eee86d3236c9dd0324932905cc091644ba2a5d",
+    "Source/BiellaGames/Private/BiellaDemoPawn.cpp": "3697ba5126282da6ab7deab39c2cd21b8a10e0af278e62c5c79ffb2b8f4ae0b9",
+    "Source/BiellaGames/Private/BiellaGamesCharacter.cpp": "3535dca574159149cef43b5babd0910718a8a902a55ea6eee3d6526eb398c24b",
+    "Source/BiellaGames/Private/BiellaGamesGameInstance.cpp": "908284a0b1d9e1ba1356a7d6b375e897706c22ec1906a289557f5f0dd21b3e7d",
+    "Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp": "8130e4b415870a63b64b35abb477ae830dd0b78efa0138723d7da58cfabc71b2",
+    "Source/BiellaGames/Private/BiellaGamesGameState.cpp": "646e9ee3ebc9a4b301a0740d83a1904167c0105733681dd6cc1f3b4dddb84f5d",
+    "Source/BiellaGames/Private/BiellaGamesPlayerController.cpp": "ea67fa67b1772640f7eea8b7f00e0d353f5504709eef8f91b637f5447bc18da8",
+    "Source/BiellaGames/Private/BiellaInfected.cpp": "87eff898156ad5a922d1e6c250d85dcde90c713da08d0a39c49a7dd55e5943fb",
+    "Source/BiellaGames/Private/BiellaRival.cpp": "6887b22fe8bb3dccf386c81356c650c8e19443f0c49519560acfd7f7b548b653",
+    "Source/BiellaGames/Private/Tests/BiellaArenaPressureTest.cpp": "b912a87fbc9e441c5a98fc95d333a71e4d8c3ca1c07558b1732323f9a75d00e3",
+    "Source/BiellaGames/Private/Tests/BiellaPressureResponsesTest.cpp": "cdb3c6c69b6f9dcc5776540e189eaf8a4ad8a182a335f03b1a4caed1ad27ae8c",
+    "Source/BiellaGames/Private/Tests/BiellaRivalCombatTest.cpp": "2b33dca2e52882e94efc7154f0ab5985570f1d4a23ce89e824aedb1e2ce54cb2",
+    "Source/BiellaGames/Private/Tests/BiellaRivalNavigationTest.cpp": "a4c9dc728b13e9454aa30a21ac9e13dc73208f7cf51b05e3d9ba03941ccbd6ac",
+    "Source/BiellaGames/Private/Tests/BiellaSharedInteractionTest.cpp": "0be9079ec2e343206a938e3a6ab6316bac1d95ef88053da3c5509d349af1c9e0",
+    "Source/BiellaGames/Public/BasicWorldGeometry.h": "db41d9a1fcef5060e4560d4851974f0e920f1fed386c31982d67ad6e14c839d9",
+    "Source/BiellaGames/Public/BiellaDemoPawn.h": "cddd7e7054c7d5e8f21e17b6b6830ff16ea8f218ffe4297d3071b8ca98b01464",
+    "Source/BiellaGames/Public/BiellaGamesCharacter.h": "9d9d27049531bacf656fc36dd29b6af916bc4fbd4a37d9c6adf570425f9ed795",
+    "Source/BiellaGames/Public/BiellaGamesGameInstance.h": "a4cfbf5bf4b854096844eaa0b36cbd43d26d2e5ab3bcca1478e62f4d35dde63c",
+    "Source/BiellaGames/Public/BiellaGamesGameModeBase.h": "a59f45010658a8451195426f91e83b9fea4663a1d6e09a6873e164e9d0197ec3",
+    "Source/BiellaGames/Public/BiellaGamesGameState.h": "2f1fabf80d576f55f4ffc73c4bfa79257cd2b74948efcb915f2d40e8b30f9055",
+    "Source/BiellaGames/Public/BiellaGamesPlayerController.h": "e5f05f88486028049dc4af59c4fe94cc5f0b4755814c942b8f23ab1a8a26dffd",
+    "Source/BiellaGames/Public/BiellaInfected.h": "996cc1d1c6ef431d48bd562f7cec87036715463b17f0d0e5bc4c43b018706e5a",
+    "Source/BiellaGames/Public/BiellaRival.h": "b8d3d195d369609248b0edd4d6b9f434edffcf0638c53e26e9cc53613856e2b1",
+    "Source/BiellaGames.Target.cs": "4799f3aaff4fdbef67e6fd8c4bba578b08336aac195d7df0906fe4c3281ac13c",
+    "Source/BiellaGamesEditor.Target.cs": "8464660556e742c670c5178cdf7b713f6c47309e099e054fff4c5a10e726f085",
+    "tests/verify_d01_033.py": "0964ab32f8dceea9ba94992af05083e4dea7a1a5199508bcdd2b663bcceee7cd"
+  },
+  "artifact_sha256": {
+    "D01-033-acceptance.md": "3775d543e9a2a076e6c0e0a2fbdda07b0264387896aa53c5270f4b398b873995",
+    "D01-033-baseline-unitless.png": "654e573aff5af707844997660127c9f9676b1342756e879681f60a540beecd04",
+    "D01-033-baseline.png": "77c03b0396e188487f58656dfc284dc667a80deb047070245b76f7cbf9634913",
+    "D01-033-critical-unitless.png": "b6a1dbfddd4aef9a5be3e94a87ad59a77facea35a161efe1998b26bb6614375b",
+    "D01-033-critical.png": "daf250132a706bd01299b75c445166b45a19d463c280b6a7b1eeaef8a166b90c",
+    "D01-033-editor-acceptance.log": "3853d4fb3bc57e1597d0b3c15046c7eafbb0c8b2d9380865f2df91d03a1496c8",
+    "D01-033-editor-diagnostic.log": "dff7e8adbee4a932fc9e206592629a5a2ce1117d22cab85cae649f0404047270",
+    "D01-033-editor-final.log": "5bc3e7eddf4479b1042d8035cbfe96b7e4c166f338c1c0ef3d8fdc38bf989dd7",
+    "D01-033-editor-physics.log": "e82321d5242d10060d7200c8afb61e7229ebc9b7960bcb86134bc05d6afacd5e",
+    "D01-033-editor-placement.log": "338ce3f0b1a59d427ee0c572dba2ce27ebe2c88083d6a533c0824c73bf8048ad",
+    "D01-033-editor-qualified.log": "088804099223bd392a1dee756c2ebc0651b8117b6a21a7796d4298cf23afd9c7",
+    "D01-033-editor-retry.log": "2af3d7b8a2dcb378a9e6cee5beef2003d46d0d921f2bae247941e46b6f25291e",
+    "D01-033-editor-runtime-final.log": "88d801f938c08b9cff51d60ce94db02adf6c2f3f9f28d1a74daee025ff4881f0",
+    "D01-033-editor.log": "3fbb65982272301ac7b8e3c8bcf7ee62f99061f67ddd89fb3d492538cb988082",
+    "D01-033-pressure-120fps-qualified.log": "a449f4ca191d6f5a8344fda85efeeef1ce5bd7e242ec608afdbc798858a0b706",
+    "D01-033-pressure-120fps.log": "514069b935c9781ec091ca50d232e94b415b733098c2e5cb9e917973f31ba44e",
+    "D01-033-pressure-30fps-acceptance.log": "69a7480819cc4776846ab9a99c927619fa459c336e34ba2cb1552e17104f53f8",
+    "D01-033-pressure-30fps-final.log": "866fdf996cfdea21efa1e906075e56815d0cfc640454f0ab26624167b9cfaf10",
+    "D01-033-pressure-30fps-retry.log": "5c11e3a10d163bc8c57865dba85babe3ef9b9b79dc5956074efa051e61f9e8f6",
+    "D01-033-pressure-30fps.log": "1f9479e43455ee6edf0500bb59b94452d2f148e8a00a60d53ef1008b07f289b2",
+    "D01-033-pressure-diagnostic.log": "39758dcb8980ef520bd97c455514aedf14477a602b2512d16563144a187ddda4",
+    "D01-033-pressure-vulkan-qualified.log": "5e2a529be8ead8c1ed0bab1fb18b3485527e6c0e1fdc3b58cad7379625cc36b5",
+    "D01-033-pressure-vulkan.log": "1e5453da2e603b9edd49fa01dfb069f29ecef2012786326866c56d2455a9b60c",
+    "D01-033-recovery-build.log": "d6a5d62220ee952364f75104cc1e0074f42b4c182a3480159e98c35e77080916",
+    "D01-033-render-smoke.log": "165c732574b00924254914105225c96c6d822322cdfcf32220427af0af855cab",
+    "D01-033-rival-regression-qualified.log": "2a7308fac3e8f3c206ad652f4c960ccebc72df2cc146a43bc3ff3eb597d2aca5",
+    "D01-033-rival-regression.log": "c0a1c914b62974a430c0b3756e60b7d7814b48ea0adca45771d520fd0d2d5034",
+    "D01-033-shared-regression-qualified.log": "8ac62f57d48f776b5de57ab8e5818fa4084fa39c924e2113a189854618c96eb5",
+    "D01-033-shared-regression.log": "9181262e71e57d07235af9dbd797f1b756ada9c97f5c76de55d19791615e5c60",
+    "D01-033-state-regression-qualified.log": "fdd0ec37245930e3d9aec01848e86b00317e6bf7031cb6c8eeed005c615989ae",
+    "D01-033-state-regression.log": "8594b07d928ace83f4388a4d7c61e7a69db7a850608be5bb4365e18134f57d03"
+  },
+  "protected_authority_files_unchanged_sha256": {
+    "docs/project-state/03_BIELLA_CURRENT_STATE.md": "85a68c5a138d19414de1dfa953db27da3c34d32c1ea715d79c1ccb8f74f23443",
+    "docs/project-state/04_BIELLA_ACTIVE_TASK.md": "b46fac6ee8a9b51ba877d47b8ab64416f99c751747fdd906d48e3535305c77a8",
+    "projects/biella-games/docs/PRODUCTION.md": "3ebb5589780760a99ec0e501c3e60854794f981fb26562c4f3a6197abe6d9b9f"
+  },
+  "structural_validation": "DEMO01_STRUCTURE_PASS completed=32/50 current=D01-033",
+  "qualification_limits": [
+    "Actor streaming lifecycle replay and restored local collision/navigation; not full World Partition streaming qualification.",
+    "Rendered live pressure response in existing blockout; no AAA art acceptance, Win64 package, multiplayer replication or native rendered performance claim.",
+    "No new timed escalation, damage, hazards, shrinking geometry or mission/restart system.",
+    "Only D01-033 executed; canonical 03/04/PRODUCTION status and next-task metadata unchanged; Engine P4-06 remains INCOMPLETE_DEFERRED.",
+    "Auto Feeder owns GitHub/Drive publication, remote readback and canonical state transition."
+  ],
+  "diagnostic_history": "Earlier non-qualified logs and unitless captures preserve development failures/intermediate successes; qualified logs and final captures use the final source/module hashes above."
+}
