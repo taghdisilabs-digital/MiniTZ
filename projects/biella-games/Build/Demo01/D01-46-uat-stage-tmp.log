@@ -1,0 +1,19 @@
+
+Running AutomationTool...
+
+Setting up bundled DotNet SDK
+Start UAT Interactively: dotnet AutomationTool.dll BuildCookRun -project=/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject -noP4 -nocompileuat -platform=Linux -clientconfig=Development -skipbuild -skipcook -stage -pak -archive -archivedirectory=/tmp/biella-d01-46-archive -utf8output -unattended -nozenstore
+/opt/unreal/UE_5.8.2/Engine/Binaries/ThirdParty/DotNet/10.0/linux-x64/dotnet
+Starting AutomationTool...
+Parsing command line: BuildCookRun -project=/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject -noP4 -nocompileuat -platform=Linux -clientconfig=Development -skipbuild -skipcook -stage -pak -archive -archivedirectory=/tmp/biella-d01-46-archive -utf8output -unattended -nozenstore
+Initializing script modules...
+Total script module initialization time: 0.39 s.
+Using /opt/unreal/UE_5.8.2/Engine/Binaries/ThirdParty/DotNet/10.0/linux-x64/dotnet
+Executing commands...
+Setting up ProjectParams for /root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject
+********** STAGE COMMAND STARTED **********
+Stage Failed. Missing receipt '/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames.target'. Check that this target has been built.
+(see /home/unreal/Library/Logs/Unreal Engine/LocalBuildLogs/Log.txt for full exception trace)
+AutomationTool executed for 0h 0m 2s
+AutomationTool exiting with ExitCode=103 (Error_MissingExecutable)
+RunUAT ERROR: AutomationTool was unable to run successfully. Exited with code: 103
