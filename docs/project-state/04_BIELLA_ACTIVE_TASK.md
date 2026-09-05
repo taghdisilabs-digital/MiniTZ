@@ -4,11 +4,11 @@
 schema: biella.active_task/v9
 
 task:
-  id: D01-45
+  id: D01-46
   project: Biella Games
   section: demo01
   class: medium
-  title: Repair lifecycle/GC/spawn cleanup
+  title: Package the playable build
   status: PENDING
   runner: READY
 
@@ -18,7 +18,7 @@ task:
     - projects/biella-games/docs/PRODUCTION.md
 
   continuity:
-    completed_predecessor: D01-44
+    completed_predecessor: D01-45
     production_source: projects/biella-games/docs/PRODUCTION.md
 
   preserve:
@@ -26,5 +26,5 @@ task:
     - Engine P4-06 as INCOMPLETE_DEFERRED
     - one-repository/one-controller/one-Project-production-source architecture
 
-  stop: Execute only D01-45; validate and persist it before advancing.
+  stop: Execute only D01-46; validate and persist it before advancing.
 ```

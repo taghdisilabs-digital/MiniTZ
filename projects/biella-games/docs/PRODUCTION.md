@@ -9,8 +9,8 @@ Engine: `/opt/unreal/UE_5.8.2`
 Execution rule: one current task; verify, execute, persist evidence, then advance
 Evidence rule: editable source plus task-derived build/runtime/package evidence
 Current section: `demo01`
-Current task: `D01-45`
-Progress: `44/50` Demo tasks complete
+Current task: `D01-46`
+Progress: `45/50` Demo tasks complete
 
 ## Section: demo01 | Demo 01 — first playable vertical slice | IN_PROGRESS
 
@@ -60,7 +60,7 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 - [x] D01-42 | hard_creation | Add event-driven audio/VFX feedback polish | COMPLETE | Local commit: f6fc7a1b230b73f5c79deb2c09cb37cc9c94da19; UE build, rendered audio/VFX validation, and predecessor regressions passed.; [Acceptance evidence](/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-acceptance.md)
 - [x] D01-43 | hard | Run stability/soak qualification | COMPLETE | Local commit: e765f4890bacf6aa15acfbe911209cbc3eabdc1c. Worktree clean; protected metadata unchanged.; UE build, 38 verifier tests, and two predecessor regressions passed.; [Acceptance evidence](/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-043-acceptance.md)
 - [x] D01-44 | hard | Measure native performance/resource behavior | COMPLETE | 23,153 native frames over 360 seconds on the Linux/Vulkan development host: 720p 70.1–72.7 FPS; 1080p 50.1 FPS. Restart spikes reached 104.4 ms.; UE build, 40 tests, two predecessor playtests, and raw-evidence replay passed.; [Acceptance report](/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-044-acceptance.md). Worktree clean; protected metadata unchanged.
-- [ ] D01-45 | medium | Repair lifecycle/GC/spawn cleanup | PENDING | no accumulating runtime leak
+- [x] D01-45 | medium | Repair lifecycle/GC/spawn cleanup | COMPLETE | UE 5.8.2 build succeeded.; Live lifecycle automation passed; predecessor D01-39 regression passed twice.; Committed locally as 5c6aa6a.; Protected metadata unchanged; worktree clean.
 - [ ] D01-46 | medium | Package the playable build | PENDING | exact package + digest
 - [ ] D01-47 | medium | Launch clean package and capture run evidence | PENDING | package runtime log
 - [ ] D01-48 | hard | Execute full end-to-end playable acceptance | PENDING | launch through restart
