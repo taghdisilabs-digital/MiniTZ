@@ -246,3 +246,23 @@ def test_derived_ledger_failure_never_blocks_critical_persistence(tmp_path: Path
     assert result == {"commit": "c", "tree": "t"}
     assert telemetry["status"] == "RUNNING"
     assert telemetry["last_result"]["derived_ledger"]["status"] == "PENDING_RETRY"
+
+
+def test_pre_task_reconcile_defers_when_current_task_output_is_dirty(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime_root = tmp_path / "runtime"
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {"gpt-6-astra": {"ultra"}})
+
+    def command(_route, _schema, output, _cwd):
+        payload = {"task_id": "D01-030", "status": "COMPLETE", "summary": "done", "evidence": ["runtime pass"]}
+        code = f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"
+        return [sys.executable, "-c", code]
+
+    monkeypatch.setattr(runner.routing, "build_codex_command", command)
+    monkeypatch.setattr(runner.evidence, "continuity_changes", lambda _repo: True)
+    monkeypatch.setattr(runner.evidence, "unexpected_dirty_paths", lambda _repo: {"projects/biella-games/partial.cpp"})
+    persisted = []
+    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: persisted.append(task_id) or {"commit": "c", "tree": "t"})
+    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.02) == 0
+    assert "RECONCILE-D01-30" not in persisted
+    assert "D01-30" in persisted

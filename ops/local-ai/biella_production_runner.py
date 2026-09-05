@@ -269,7 +269,15 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 catalog = routing.discover_catalog(); continue
             telemetry.update({"status": "RUNNING", "task_id": task.id, "active_model": route.model, "active_reasoning": route.reasoning})
             if evidence.continuity_changes(repo_root):
-                _persist_until_success(repo_root, f"RECONCILE-{task.id}", runtime_path, telemetry)
+                unexpected = evidence.unexpected_dirty_paths(repo_root)
+                if unexpected:
+                    telemetry["last_result"] = {
+                        "task_id": task.id, "status": "RECONCILE_DEFERRED",
+                        "summary": "Continuity reconciliation deferred until current task output is committed.",
+                        "evidence": sorted(unexpected),
+                    }
+                else:
+                    _persist_until_success(repo_root, f"RECONCILE-{task.id}", runtime_path, telemetry)
             _beat(runtime_path, telemetry)
             output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"{task.id}-{route.model}")
             prompt = packets.compile_task_packet(repo_root, production, task)

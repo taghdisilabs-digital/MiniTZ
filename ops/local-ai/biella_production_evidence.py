@@ -177,3 +177,12 @@ def assert_clean_task_workspace(repo_root: Path) -> None:
         return
     if dirty:
         raise RuntimeError("production task requires a clean canonical worktree: " + ", ".join(sorted(dirty)))
+
+
+def unexpected_dirty_paths(repo_root: Path) -> set[str]:
+    try:
+        dirty = _dirty_paths(Path(repo_root))
+    except subprocess.CalledProcessError:
+        return set()
+    allowed = {path for path in _CONTINUITY_PATHS if (Path(repo_root) / path).exists()}
+    return dirty - allowed
