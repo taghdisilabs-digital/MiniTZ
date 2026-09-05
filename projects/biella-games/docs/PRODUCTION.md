@@ -9,8 +9,8 @@ Engine: `/opt/unreal/UE_5.8.2`
 Execution rule: one current task; verify, execute, persist evidence, then advance
 Evidence rule: editable source plus task-derived build/runtime/package evidence
 Current section: `demo01`
-Current task: `D01-032`
-Progress: `31/50` Demo tasks complete
+Current task: `D01-033`
+Progress: `32/50` Demo tasks complete
 
 ## Section: demo01 | Demo 01 — first playable vertical slice | IN_PROGRESS
 
@@ -47,7 +47,7 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 - [x] D01-029 | hard | Add rival navigation and combat positioning | COMPLETE | UE 5.8.2 build and live headless runtime tests passed: navigation, positioning, obstruction recovery, collision, and stopping.; GitHub main 62d5315 verified by exact commit, tree, and changed-file readback.; Existing Drive continuity records updated and read back; completed tasks preserved.
 - [x] D01-030 | hard | Add rival weapon use and damage response | COMPLETE | equipped rival weapon; actual capsule/muzzle hit resolution with range/cooldown/target gates; inherited hit response and immediate defeat cleanup; UE 5.8.2 Editor build, live combat at 30/120 FPS caps and all nine navigation regression phases PASS; Build/Demo01/D01-030-acceptance.md and D01-030-validation.json
 - [x] D01-031 | hard | Prove shared player/rival/infected interaction | COMPLETE | projects/biella-games/Build/Demo01/D01-031-acceptance.md; projects/biella-games/Build/Demo01/D01-031-validation.json; projects/biella-games/Build/Demo01/D01-031-shared-30fps.log; projects/biella-games/Build/Demo01/D01-031-shared-120fps.log; projects/biella-games/Build/Demo01/D01-031-rival-regression.log
-- [ ] D01-032 | medium | Add authoritative arena-pressure state | PENDING | pressure state source/runtime
+- [x] D01-032 | medium | Add authoritative arena-pressure state | COMPLETE_ALREADY | Existing implementation commit 0b5f82628f2ca0c8bb5ceea0ce1914a67613f9d9 is contained in origin/main.; D01-032 verifier passed: 4 authoritative transitions, canonical identity, server authority.; Demo 01 structural verifier passed: 31/50 complete.; Canonical worktree is clean.
 - [ ] D01-033 | hard | Add pressure world consequence and responses | PENDING | lights/spawns/movement consequence
 - [ ] D01-034 | medium | Add objective manager and success condition | PENDING | executable objective state
 - [ ] D01-035 | medium | Add failure/death state | PENDING | health zero/failure evidence
