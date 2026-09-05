@@ -1,0 +1,100 @@
+{
+  "task_id": "D01-43",
+  "result": "PASS",
+  "cause": "Detached UnrealTraceServer inherited stdout and flushed normal setup/shutdown after gameplay process group exited.",
+  "runs": [
+    {
+      "attempt": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-043-runs/20260905T090359.802435Z/validation.json",
+      "original_manifest": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-043-runs/20260905T090359.802435Z/validation.json",
+        "sha256": "f6c033f0a9c7e503c41315fcc9ee87a7955d2f86184c133ca72044713ccbe452",
+        "bytes": 49596
+      },
+      "original_log_identity": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-043-runs/20260905T090359.802435Z/soak.stdout.log",
+        "sha256": "adae1541ab7e7bc8f8bbe5a7aaca121f41eed13132f56967a6da17aac5cf1191",
+        "bytes": 358763
+      },
+      "original_prefix_matches": true,
+      "final_log_identity": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-043-runs/20260905T090359.802435Z/soak.stdout.log",
+        "sha256": "66827e754a6997b618be92e402d91f8e40f66a82ef0a11b8ce506095436d7da3",
+        "bytes": 359533
+      },
+      "trailer_bytes": 770,
+      "trailer_sha256": "c61001d0de661740067f989ea2c1e2892532908f6368f5c8cfbec19082f3ad62",
+      "trailer_text": "Opening shared memory\nShared memory doesn't exist, checking legacy lock file\nChecking for a '/tmp/UnrealTraceServer.pid' lock file\nForking process\nOpening shared memory\nStarting the store\nReading settings from '/home/unreal/UnrealEngine/UnrealTrace/Settings.ini'\n\nUnable to open settings file /home/unreal/UnrealEngine/UnrealTrace/Settings.ini.\n\nStore settings (/home/unreal/UnrealEngine/UnrealTrace/Settings.ini):\n - Store port: 1989\n - Recorder port: 1981\n - Thread count: 0\n - Sponsored mode: 1\n - Directory: '/home/unreal/UnrealEngine/UnrealTrace/Store/001'\nSignalling parent 1725382\nTerminating server, no sponsors or connections active.\nListening cancelled, closing port...\nListening cancelled, closing port...\nReceived signal 15\nDaemon is exiting without errors.\n",
+      "final_writers": {
+        "closed": true,
+        "elapsed_seconds": 0.013385072001256049,
+        "timeout_seconds": 2,
+        "observed_writers": [],
+        "remaining_writers": []
+      },
+      "final_log_classification": "PASS_UNCHANGED",
+      "telemetry_and_monitor_unchanged": true
+    },
+    {
+      "attempt": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-043-runs/20260905T090626.266544Z/validation.json",
+      "original_manifest": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-043-runs/20260905T090626.266544Z/validation.json",
+        "sha256": "f52a0027510cccd4307290ea1b499b7ae58c3b63453ba7189ee511199484545e",
+        "bytes": 79988
+      },
+      "original_log_identity": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-043-runs/20260905T090626.266544Z/soak.stdout.log",
+        "sha256": "5b5a191919571884086f998882ee6cc1e50343d8a0b59682bb5da4d6ff72a0a0",
+        "bytes": 3922041
+      },
+      "original_prefix_matches": true,
+      "final_log_identity": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-043-runs/20260905T090626.266544Z/soak.stdout.log",
+        "sha256": "53dd116e7fb473a516419d29804d385758b36ce4fde82cd4fd1bea2e1c999a6b",
+        "bytes": 3922811
+      },
+      "trailer_bytes": 770,
+      "trailer_sha256": "d71409846467d1460bf90334964771fe3ea0c149bbc5081974fa1ecac51652cc",
+      "trailer_text": "Opening shared memory\nShared memory doesn't exist, checking legacy lock file\nChecking for a '/tmp/UnrealTraceServer.pid' lock file\nForking process\nOpening shared memory\nStarting the store\nReading settings from '/home/unreal/UnrealEngine/UnrealTrace/Settings.ini'\n\nUnable to open settings file /home/unreal/UnrealEngine/UnrealTrace/Settings.ini.\n\nStore settings (/home/unreal/UnrealEngine/UnrealTrace/Settings.ini):\n - Store port: 1989\n - Recorder port: 1981\n - Thread count: 0\n - Sponsored mode: 1\n - Directory: '/home/unreal/UnrealEngine/UnrealTrace/Store/001'\nSignalling parent 1726884\nTerminating server, no sponsors or connections active.\nReceived signal 15\nDaemon is exiting without errors.\nListening cancelled, closing port...\nListening cancelled, closing port...\n",
+      "final_writers": {
+        "closed": true,
+        "elapsed_seconds": 0.012151846021879464,
+        "timeout_seconds": 2,
+        "observed_writers": [],
+        "remaining_writers": []
+      },
+      "final_log_classification": "PASS_UNCHANGED",
+      "telemetry_and_monitor_unchanged": true
+    },
+    {
+      "attempt": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-043-runs/20260905T092755.495920Z/validation.json",
+      "original_manifest": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-043-runs/20260905T092755.495920Z/validation.json",
+        "sha256": "f003d834d8de9a75b3c7cfc08002785c46953548d434e79283ab10e79e720a49",
+        "bytes": 50527
+      },
+      "original_log_identity": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-043-runs/20260905T092755.495920Z/soak.stdout.log",
+        "sha256": "ec2a9cad61dafba6016903188b47ed718bece62e59eb52e2c9be9bff5cf9eb7a",
+        "bytes": 360328
+      },
+      "original_prefix_matches": true,
+      "final_log_identity": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-043-runs/20260905T092755.495920Z/soak.stdout.log",
+        "sha256": "ec2a9cad61dafba6016903188b47ed718bece62e59eb52e2c9be9bff5cf9eb7a",
+        "bytes": 360328
+      },
+      "trailer_bytes": 0,
+      "trailer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "trailer_text": "",
+      "final_writers": {
+        "closed": true,
+        "elapsed_seconds": 0.013817781989928335,
+        "timeout_seconds": 2,
+        "observed_writers": [],
+        "remaining_writers": []
+      },
+      "final_log_classification": "PASS_UNCHANGED",
+      "telemetry_and_monitor_unchanged": true
+    }
+  ]
+}

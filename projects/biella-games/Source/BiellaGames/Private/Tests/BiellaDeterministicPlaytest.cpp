@@ -9,6 +9,7 @@
 #include "BiellaGamesGameState.h"
 #include "BiellaGamesPlayerController.h"
 #include "BiellaGameplayHUD.h"
+#include "BiellaGameplayFeedback.h"
 #include "BiellaInfected.h"
 #include "BiellaPlaytestTelemetry.h"
 #include "BiellaRival.h"
@@ -51,6 +52,12 @@ public:
         FParse::Value(FCommandLine::Get(), TEXT("BiellaPlaytestSeed="), Seed);
         PreActorTick = FWorldDelegates::OnWorldPreActorTick.AddRaw(this,
             &FBiellaDeterministicScenario::FreezeBeforeFirstTick);
+    }
+
+    // Observation only: lets the soak bracket the unchanged core before its first checkpoint.
+    UWorld* GetInitialBaselineWorld() const
+    {
+        return Phase == EPhase::Baseline && Cycle == 0 ? World.Get() : nullptr;
     }
 
     virtual ~FBiellaDeterministicScenario() override
@@ -346,6 +353,262 @@ private:
     FVector MovementStart = FVector::ZeroVector;
     int32 Seed = 1337, RestartBase = 0, Cycle = 0, MovementFrames = 0, Pressure = 0, Shots = 0, Checkpoints = 0;
 };
+
+// Test-only composition: one core command at a time, one GameInstance, bounded
+// wall-clock heartbeats. Destroying the core releases its real AI freeze hooks.
+class FBiellaStabilitySoak final : public IAutomationLatentCommand
+{
+public:
+    FBiellaStabilitySoak(FAutomationTestBase* InTest, UWorld* Previous, double Seconds, int32 Cycles)
+        : Test(InTest), Core(MakeUnique<FBiellaDeterministicScenario>(InTest, Previous)),
+          Instance(Previous ? Cast<UBiellaGamesGameInstance>(Previous->GetGameInstance()) : nullptr),
+          GuardStart(FPlatformTime::Seconds()), TargetSeconds(Seconds), TargetCycles(Cycles)
+    {
+    }
+
+    virtual bool Update() override
+    {
+        const double Now = FPlatformTime::Seconds();
+        if (Test->HasAnyErrors()) { return Fail(TEXT("Automation error during stability soak")); }
+        if (Now - GuardStart > TargetSeconds + 180.0)
+        {
+            return Fail(TEXT("Stability soak exceeded requested duration plus 180 seconds"));
+        }
+        UWorld* World = PlaytestWorld();
+        if (!World) { return false; }
+        UBiellaGamesGameInstance* Current = Cast<UBiellaGamesGameInstance>(World->GetGameInstance());
+        if (!Instance.IsValid() && !bStarted) { Instance = Current; }
+        if (!Current || Current != Instance.Get()) { return Fail(TEXT("Soak GameInstance changed")); }
+        UBiellaPlaytestTelemetry* Telemetry = Current->GetSubsystem<UBiellaPlaytestTelemetry>();
+        if (!Telemetry || !Telemetry->IsCapturing() || Telemetry->HasWriteError())
+        {
+            return Fail(TEXT("Soak requires writable live telemetry throughout"));
+        }
+        if (bStarted)
+        {
+            if (!Sample(World)) { return Fail(TEXT("Soak runtime membership, finite pose or feedback invariant failed")); }
+            if (Now - LastHeartbeat >= 1.0)
+            {
+                if (!Record(World, TEXT("soak_heartbeat"))) { return Fail(TEXT("Soak heartbeat write failed")); }
+                LastHeartbeat = Now;
+            }
+        }
+        if (bNatural)
+        {
+            if (World != NaturalWorld.Get()) { return Fail(TEXT("Unexpected world replacement during natural encounter")); }
+            double Displacement = 0.0;
+            for (const auto& Entry : NaturalPositions)
+            {
+                if (!Entry.Key.IsValid() || !Entry.Key->IsActorTickEnabled())
+                {
+                    return Fail(TEXT("Natural encounter lost an actor or its autonomous tick"));
+                }
+                Displacement += FVector::Dist(Entry.Value, Entry.Key->GetActorLocation());
+            }
+            NaturalMaxDisplacement = FMath::Max(NaturalMaxDisplacement, Displacement);
+            if (Now - NaturalStart < 5.0) { return false; }
+            if (NaturalMaxDisplacement <= 1.0 || GFrameCounter <= NaturalFrameStart ||
+                World->GetTimeSeconds() <= NaturalSimStart)
+            {
+                return Fail(TEXT("Unfrozen natural encounter did not advance real actors and simulation"));
+            }
+            if (!Record(World, TEXT("soak_natural_end"), {
+                {TEXT("natural_elapsed_seconds"), Number(Now - NaturalStart)},
+                {TEXT("natural_max_displacement"), Number(NaturalMaxDisplacement)}}))
+            {
+                return Fail(TEXT("Natural encounter completion write failed"));
+            }
+            ABiellaGamesGameModeBase* Mode = World->GetAuthGameMode<ABiellaGamesGameModeBase>();
+            if (!Mode) { return Fail(TEXT("Missing authoritative mode for soak restart")); }
+            bNatural = false;
+            bCycleAnnounced = false;
+            NaturalPositions.Reset();
+            // Install the next first-tick freezer before requesting map travel.
+            Core = MakeUnique<FBiellaDeterministicScenario>(Test, World);
+            Mode->RequestRestart();
+            return false;
+        }
+
+        const bool bCoreDone = Core->Update();
+        if (Test->HasAnyErrors()) { return Fail(TEXT("Core scenario failed during stability soak")); }
+        if (!bCycleAnnounced)
+        {
+            UWorld* BaselineWorld = Core->GetInitialBaselineWorld();
+            if (!BaselineWorld) { return false; }
+            if (!Sample(BaselineWorld) || !IsCleanBaseline(BaselineWorld))
+            {
+                return Fail(TEXT("Soak cycle did not reconstruct the clean initial Active baseline"));
+            }
+            if (!bStarted)
+            {
+                bStarted = true;
+                WorkStart = FPlatformTime::Seconds();
+                LastHeartbeat = WorkStart;
+                if (!Record(BaselineWorld, TEXT("soak_begin"), {
+                    {TEXT("target_seconds"), Number(TargetSeconds)},
+                    {TEXT("target_cycles"), FString::FromInt(TargetCycles)},
+                    {TEXT("natural_seconds"), TEXT("5")}}))
+                {
+                    return Fail(TEXT("Soak begin write failed"));
+                }
+            }
+            bCycleAnnounced = true;
+            if (!Record(BaselineWorld, TEXT("soak_cycle_begin")))
+            {
+                return Fail(TEXT("Soak cycle begin write failed"));
+            }
+        }
+        if (!bCoreDone) { return false; }
+        World = PlaytestWorld();
+        if (!World || !Sample(World) || !IsCleanBaseline(World))
+        {
+            return Fail(TEXT("Completed core did not leave a clean reconstructed Active baseline"));
+        }
+        ++CompletedCycles;
+        if (!Record(World, TEXT("soak_cycle_end"))) { return Fail(TEXT("Soak cycle end write failed")); }
+        if (FPlatformTime::Seconds() - WorkStart >= TargetSeconds && CompletedCycles >= TargetCycles)
+        {
+            if (!Record(World, TEXT("soak_complete"))) { return Fail(TEXT("Soak completion write failed")); }
+            Core.Reset();
+            UE_LOG(LogTemp, Display, TEXT("D01_043_TEST COMPLETE cycles=%d elapsed_wall_seconds=%.3f source=live_runtime"),
+                CompletedCycles, FPlatformTime::Seconds() - WorkStart);
+            return true;
+        }
+        Core.Reset();
+        bNatural = true;
+        NaturalWorld = World;
+        NaturalStart = FPlatformTime::Seconds();
+        NaturalSimStart = World->GetTimeSeconds();
+        NaturalFrameStart = GFrameCounter;
+        NaturalMaxDisplacement = 0.0;
+        for (TActorIterator<ABiellaDemoPawn> It(World); It; ++It)
+        {
+            if (!Cast<ABiellaGamesCharacter>(*It)) { NaturalPositions.Add(*It, It->GetActorLocation()); }
+        }
+        if (!Record(World, TEXT("soak_natural_begin"))) { return Fail(TEXT("Natural encounter begin write failed")); }
+        return false;
+    }
+
+private:
+    static FString Number(double Value) { return FString::Printf(TEXT("%.6f"), Value); }
+    bool IsCleanBaseline(UWorld* World) const
+    {
+        ABiellaGamesPlayerController* Controller = Cast<ABiellaGamesPlayerController>(World->GetFirstPlayerController());
+        ABiellaGamesCharacter* Player = Controller ? Cast<ABiellaGamesCharacter>(Controller->GetPawn()) : nullptr;
+        ABiellaGamesGameState* State = World->GetGameState<ABiellaGamesGameState>();
+        ABiellaGamesGameModeBase* Mode = World->GetAuthGameMode<ABiellaGamesGameModeBase>();
+        ABiellaDemoObjectiveManager* Objective = Mode ? Mode->GetObjectiveManager() : nullptr;
+        UBiellaGameplayHUD* HUD = Controller ? Controller->GetGameplayHUD() : nullptr;
+        if (!Player || !State || !Objective || !HUD || !HUD->IsRuntimeBound() || HUD->IsTerminalOverlayVisible() ||
+            State->Phase != EDemo01Phase::Active || Player->GetHealth() != 100.0f || Player->GetAmmo() != 60 ||
+            Player->IsDefeated() || !State->bPlayerAlive || State->InfectedRemaining != 2 ||
+            !Objective->IsObjectiveActive() || Objective->TargetCount != 2 || Objective->ProgressCount != 0 ||
+            State->ArenaPressure != 0.0f || State->ArenaPressureRevision != 0) { return false; }
+        for (TActorIterator<ABiellaInfected> It(World); It; ++It)
+        {
+            if (It->GetHealth() != 70.0f || It->IsDefeated()) { return false; }
+        }
+        for (TActorIterator<ABiellaRival> It(World); It; ++It)
+        {
+            if (It->GetHealth() != 100.0f || It->IsDefeated()) { return false; }
+        }
+        return true;
+    }
+    bool Sample(UWorld* World)
+    {
+        SampleFields.Reset();
+        ABiellaGamesPlayerController* Controller = Cast<ABiellaGamesPlayerController>(World->GetFirstPlayerController());
+        ABiellaGamesCharacter* Player = Controller ? Cast<ABiellaGamesCharacter>(Controller->GetPawn()) : nullptr;
+        ABiellaGamesGameState* State = World->GetGameState<ABiellaGamesGameState>();
+        ABiellaGamesGameModeBase* Mode = World->GetAuthGameMode<ABiellaGamesGameModeBase>();
+        ABiellaDemoObjectiveManager* Objective = Mode ? Mode->GetObjectiveManager() : nullptr;
+        bool bMembership = World->IsGameWorld() && World->HasBegunPlay() &&
+            World->GetGameInstance() == Instance.Get() && Controller && Controller->GetWorld() == World &&
+            Player && Player->GetWorld() == World && State && State->GetWorld() == World &&
+            Mode && Mode->GetWorld() == World && Objective && Objective->GetWorld() == World;
+        bool bFinite = true;
+        int32 Actors = 0, Players = 0, InfectedCount = 0, Rivals = 0;
+        bool bAutonomousTicks = true;
+        for (TActorIterator<ABiellaDemoPawn> It(World); It; ++It)
+        {
+            ++Actors;
+            bMembership &= IsValid(*It) && It->GetWorld() == World;
+            bFinite &= !It->GetActorTransform().ContainsNaN() && !It->GetVelocity().ContainsNaN() &&
+                FMath::IsFinite(It->GetHealth());
+            Players += Cast<ABiellaGamesCharacter>(*It) ? 1 : 0;
+            InfectedCount += Cast<ABiellaInfected>(*It) ? 1 : 0;
+            Rivals += Cast<ABiellaRival>(*It) ? 1 : 0;
+            if (!Cast<ABiellaGamesCharacter>(*It)) { bAutonomousTicks &= It->IsActorTickEnabled(); }
+        }
+        bMembership &= Actors == 4 && Players == 1 && InfectedCount == 2 && Rivals == 1;
+        if (Controller)
+        {
+            FVector ViewLocation; FRotator ViewRotation;
+            Controller->GetPlayerViewPoint(ViewLocation, ViewRotation);
+            bFinite &= !ViewLocation.ContainsNaN() && !ViewRotation.ContainsNaN();
+        }
+        UBiellaGameplayFeedback* Feedback = UBiellaGameplayFeedback::Get(World);
+        const bool bAssets = Feedback && Feedback->AreAssetsReady();
+        const int32 Audio = Feedback ? Feedback->GetActiveAudioCount() : -1;
+        const int32 VFX = Feedback ? Feedback->GetActiveVFXCount() : -1;
+        SampleFields = {
+            {TEXT("pose_finite"), bFinite ? TEXT("true") : TEXT("false")},
+            {TEXT("world_membership"), bMembership ? TEXT("true") : TEXT("false")},
+            {TEXT("actor_count"), FString::FromInt(Actors)},
+            {TEXT("assets_ready"), bAssets ? TEXT("true") : TEXT("false")},
+            {TEXT("active_audio"), FString::FromInt(Audio)},
+            {TEXT("active_vfx"), FString::FromInt(VFX)},
+            {TEXT("autonomous_ticks_enabled"), bAutonomousTicks ? TEXT("true") : TEXT("false")},
+            {TEXT("clean_active_baseline"), IsCleanBaseline(World) ? TEXT("true") : TEXT("false")},
+            {TEXT("world_id"), FString::Printf(TEXT("%u"), World->GetUniqueID())}};
+        if (Player)
+        {
+            const FVector Position = Player->GetActorLocation();
+            SampleFields.Add(TEXT("player_x"), Number(Position.X));
+            SampleFields.Add(TEXT("player_y"), Number(Position.Y));
+            SampleFields.Add(TEXT("player_z"), Number(Position.Z));
+        }
+        return bMembership && bFinite && bAssets && Audio >= 0 && Audio <= 14 && VFX >= 0 && VFX <= 24;
+    }
+    bool Record(UWorld* World, const TCHAR* Event, const TMap<FString, FString>& Extra = {})
+    {
+        if (!World || !Sample(World) || !Instance.IsValid()) { return false; }
+        TMap<FString, FString> Fields = SampleFields;
+        Fields.Append(Extra);
+        Fields.Add(TEXT("elapsed_wall_seconds"), Number(bStarted ? FPlatformTime::Seconds() - WorkStart : 0.0));
+        Fields.Add(TEXT("completed_cycles"), FString::FromInt(CompletedCycles));
+        const bool bEnd = FCString::Strcmp(Event, TEXT("soak_cycle_end")) == 0 ||
+            FCString::Strcmp(Event, TEXT("soak_complete")) == 0 || bNatural;
+        Fields.Add(TEXT("cycle_index"), FString::FromInt(bEnd ? CompletedCycles : CompletedCycles + 1));
+        Fields.Add(TEXT("frame_counter"), FString::Printf(TEXT("%llu"), static_cast<unsigned long long>(GFrameCounter)));
+        Fields.Add(TEXT("restart_total"), FString::FromInt(Instance->RestartCount));
+        Fields.Add(TEXT("instance_id"), FString::Printf(TEXT("%u"), Instance->GetUniqueID()));
+        Fields.Add(TEXT("phase"), bNatural ? TEXT("natural") : bCycleAnnounced ? TEXT("core") : TEXT("restarting"));
+        UBiellaPlaytestTelemetry::Record(World, Event, Fields);
+        UBiellaPlaytestTelemetry* Telemetry = Instance->GetSubsystem<UBiellaPlaytestTelemetry>();
+        return Telemetry && Telemetry->IsCapturing() && !Telemetry->HasWriteError() && !Test->HasAnyErrors();
+    }
+    bool Fail(const TCHAR* Reason)
+    {
+        UBiellaPlaytestTelemetry::Record(PlaytestWorld(), TEXT("soak_failed"), {{TEXT("reason"), Reason}});
+        Core.Reset();
+        Test->AddError(Reason);
+        UE_LOG(LogTemp, Error, TEXT("D01_043_TEST FAIL reason=%s"), Reason);
+        return true;
+    }
+    FAutomationTestBase* Test;
+    TUniquePtr<FBiellaDeterministicScenario> Core;
+    TWeakObjectPtr<UBiellaGamesGameInstance> Instance;
+    TWeakObjectPtr<UWorld> NaturalWorld;
+    TMap<TWeakObjectPtr<ABiellaDemoPawn>, FVector> NaturalPositions;
+    TMap<FString, FString> SampleFields;
+    double GuardStart, TargetSeconds, WorkStart = 0.0, LastHeartbeat = 0.0, NaturalStart = 0.0;
+    double NaturalMaxDisplacement = 0.0;
+    float NaturalSimStart = 0.0f;
+    uint64 NaturalFrameStart = 0;
+    int32 TargetCycles, CompletedCycles = 0;
+    bool bStarted = false, bCycleAnnounced = false, bNatural = false;
+};
 }
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FBiellaDeterministicPlaytest,
@@ -367,6 +630,37 @@ bool FBiellaDeterministicPlaytest::RunTest(const FString& Parameters)
         Mode->RequestRestart();
     }
     ADD_LATENT_AUTOMATION_COMMAND(FBiellaDeterministicScenario(this, Existing));
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FBiellaStabilitySoakTest,
+    "BiellaGames.Demo01.StabilitySoak",
+    EAutomationTestFlags::ClientContext | EAutomationTestFlags::ProductFilter)
+
+bool FBiellaStabilitySoakTest::RunTest(const FString& Parameters)
+{
+    double Seconds = 900.0;
+    int32 Cycles = 20;
+    FParse::Value(FCommandLine::Get(), TEXT("BiellaSoakSeconds="), Seconds);
+    FParse::Value(FCommandLine::Get(), TEXT("BiellaSoakCycles="), Cycles);
+    if (!FMath::IsFinite(Seconds) || Seconds < 10.0 || Cycles < 1)
+    {
+        AddError(TEXT("Soak requires finite BiellaSoakSeconds >= 10 and BiellaSoakCycles >= 1; qualification requires >= 900 seconds and >= 20 cycles"));
+        return false;
+    }
+    if (!FApp::UseFixedTimeStep() || !FMath::IsNearlyEqual(FApp::GetFixedDeltaTime(), 1.0 / 60.0, 0.000001))
+    {
+        AddError(TEXT("Stability soak requires -UseFixedTimeStep -FPS=60"));
+        return false;
+    }
+    UWorld* Existing = PlaytestWorld();
+    if (Existing)
+    {
+        ABiellaGamesGameModeBase* Mode = Existing->GetAuthGameMode<ABiellaGamesGameModeBase>();
+        if (!Mode) { AddError(TEXT("No authoritative Demo01 game mode")); return false; }
+        Mode->RequestRestart();
+    }
+    ADD_LATENT_AUTOMATION_COMMAND(FBiellaStabilitySoak(this, Existing, Seconds, Cycles));
     return true;
 }
 

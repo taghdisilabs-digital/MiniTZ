@@ -1,0 +1,20 @@
+E
+======================================================================
+ERROR: test_d01_043 (unittest.loader._FailedTest.test_d01_043)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_d01_043
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/loader.py", line 394, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/loader.py", line 337, in _get_module_from_name
+    __import__(name)
+  File "/root/biella/repos/biella-engine/projects/biella-games/tests/test_d01_043.py", line 10, in <module>
+    from run_d01_043 import finalize_log
+ImportError: cannot import name 'finalize_log' from 'run_d01_043' (/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_043.py)
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

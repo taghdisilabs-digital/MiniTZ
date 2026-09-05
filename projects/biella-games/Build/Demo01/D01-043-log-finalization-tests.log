@@ -1,0 +1,24 @@
+test_unclosed_writer_fails_finalization_bound (test_d01_043.LogFinalizationGates.test_unclosed_writer_fails_finalization_bound) ... ok
+test_waits_for_detached_late_writer_before_hashing (test_d01_043.LogFinalizationGates.test_waits_for_detached_late_writer_before_hashing) ... ok
+test_crash_ensure_or_error_cannot_hide_behind_success (test_d01_043.QualificationGates.test_crash_ensure_or_error_cannot_hide_behind_success) ... ok
+test_missing_completion_fails (test_d01_043.QualificationGates.test_missing_completion_fails) ... ok
+test_new_warning_fails_even_if_old_warning_is_known (test_d01_043.QualificationGates.test_new_warning_fails_even_if_old_warning_is_known) ... ok
+test_short_run_cannot_claim_qualification (test_d01_043.QualificationGates.test_short_run_cannot_claim_qualification) ... ok
+test_changed_session_rejected (test_d01_043.RetainedCaptureGates.test_changed_session_rejected) ... ok
+test_corrupted_gameplay_result_rejected (test_d01_043.RetainedCaptureGates.test_corrupted_gameplay_result_rejected) ... ok
+test_dirty_final_baseline_rejected (test_d01_043.RetainedCaptureGates.test_dirty_final_baseline_rejected) ... ok
+test_feedback_overflow_rejected (test_d01_043.RetainedCaptureGates.test_feedback_overflow_rejected) ... ok
+test_frozen_natural_encounter_rejected (test_d01_043.RetainedCaptureGates.test_frozen_natural_encounter_rejected) ... ok
+test_insufficient_elapsed_rejected (test_d01_043.RetainedCaptureGates.test_insufficient_elapsed_rejected) ... ok
+test_missing_actor_rejected (test_d01_043.RetainedCaptureGates.test_missing_actor_rejected) ... ok
+test_missing_sequence_rejected (test_d01_043.RetainedCaptureGates.test_missing_sequence_rejected) ... ok
+test_motionless_natural_encounter_rejected (test_d01_043.RetainedCaptureGates.test_motionless_natural_encounter_rejected) ... ok
+test_no_autonomous_combat_rejected (test_d01_043.RetainedCaptureGates.test_no_autonomous_combat_rejected) ... ok
+test_original_smoke_passes_only_as_smoke (test_d01_043.RetainedCaptureGates.test_original_smoke_passes_only_as_smoke) ... ok
+test_stalled_frames_rejected (test_d01_043.RetainedCaptureGates.test_stalled_frames_rejected) ... ok
+test_truncated_shutdown_rejected (test_d01_043.RetainedCaptureGates.test_truncated_shutdown_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.586s
+
+OK
