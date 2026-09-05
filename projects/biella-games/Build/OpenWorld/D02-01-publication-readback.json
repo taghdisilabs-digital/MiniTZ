@@ -1,0 +1,1427 @@
+{
+  "task_id": "D02-01",
+  "result": "PASS",
+  "verified_utc": "2026-09-05T22:58:49.820145+00:00",
+  "destination": "https://github.com/patrickminitz-web/biella-engine",
+  "branch": "main",
+  "implementation_commit": "c626fff052c3c6efabefdfad8bfa8262cc904b82",
+  "implementation_tree": "688376a0e99c5c4242a411fb3d632fde910576a6",
+  "remote_commit_tree_verified": true,
+  "remote_main_at_readback": "c626fff052c3c6efabefdfad8bfa8262cc904b82",
+  "verification": "GitHub API commit/tree identities match local immutable Git objects, which transitively identify every changed path; four required files additionally fetched through GitHub Contents API and compared byte-for-byte.",
+  "changed_file_count": 230,
+  "files": [
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-acceptance.md",
+      "git_blob": "e6b0fbbbad75945eb284d2f504a5b0f4377172e4",
+      "sha256": "f0087b2cdf0ccf8c366c3b1e72f8c78acf771d1b1187e83330a20dc27f82dc60",
+      "bytes": 8591
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-geometry.log",
+      "git_blob": "27f92c949f223f0c23fcc6fa8fc6619b1dd28786",
+      "sha256": "2e7a50103db97cf081eac56dac4d5f7bcefddcbd0a150fddcf95fa604ea0a47d",
+      "bytes": 223084
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-geometry.stdout.log",
+      "git_blob": "e95c82f0085d3037e90ca77ea167355e19946ca2",
+      "sha256": "b8ef8210b9eb2968bf0deaf17e06b48bd24eb79e4a82a2228358ab3452e80c01",
+      "bytes": 223937
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r1.log",
+      "git_blob": "5bcec8654147b593f00e07031111553f97d68cda",
+      "sha256": "cc38c858ba8444e5fdd5eaebd7c0bc5f51a7567d74c822d514ae927cc4cccab6",
+      "bytes": 217823
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r1.stdout.log",
+      "git_blob": "4beb353bf217be35753b7baed8804fb183bec6d4",
+      "sha256": "7e538f4f7fc0defe38cda3e112e72cc3d60ba02942b62da801fd4f477ced48d8",
+      "bytes": 217719
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r10.log",
+      "git_blob": "7be131ded2205e17d125bc5c3fc1afb2a0a7886d",
+      "sha256": "4e68b759fbfa97568081405b195aa800225b35986066e87eb03ff54f41b41177",
+      "bytes": 218948
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r10.stdout.log",
+      "git_blob": "5cf31c91fd31c8ac8c50c798fe28992be155ed5e",
+      "sha256": "b9f46936337952f3841fde8de90ff3e962a2c649df73dfb6fb3c647711f2ebe6",
+      "bytes": 219850
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r11.log",
+      "git_blob": "79114eb4f71539a48310ace95f74add4170ebe1a",
+      "sha256": "d1e3ff5924685140d260cd55eac68f349c3608427117c0b66194eec11cc15aa7",
+      "bytes": 219140
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r11.stdout.log",
+      "git_blob": "fe70730b0d8b24e16cea8c45f4f04af94a1d1fcc",
+      "sha256": "ed3fd9fa5bb3f8d09bb4cb425a2860f5cd9eebbd1b5744bcf565e01edc6abdb2",
+      "bytes": 220039
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r12.log",
+      "git_blob": "12d3273e6c730953657325ecaea1ebabdf931c82",
+      "sha256": "ab0359d7687d66268660acbe793717a9dabec38d399ee7ca1588108e858c1fc9",
+      "bytes": 226604
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r12.stdout.log",
+      "git_blob": "fb8516faf3a2068388bbcbcb5293657c12e4534c",
+      "sha256": "b1418294796cbdbca268d347057467d4445f69a92ab4559453080839d6538aff",
+      "bytes": 227483
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r2.log",
+      "git_blob": "0f77f7a8315a4ea6a7954648664d719855fc6855",
+      "sha256": "11a6b7b7e57562f73df0ef9cbd0a24de0e0e58da18f774ffbb7de24cc5147c02",
+      "bytes": 219794
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r2.stdout.log",
+      "git_blob": "ee41f7e5ce02872f6472b613e589a59b2663c0a5",
+      "sha256": "50979e04db5b6daafb9575dd1130489ce9fe297ad85e5d2cff4b744604d48a67",
+      "bytes": 220663
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r3.log",
+      "git_blob": "671bc808bad3639097ebb1c1e3dccd8096a92e8a",
+      "sha256": "f97625f89e6b2fdb8b572d872f6677aaa8070964537927fd1a31aafd150eefa7",
+      "bytes": 219240
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r3.stdout.log",
+      "git_blob": "a204aaa166f27d70c33acc88e6d6f3640b501015",
+      "sha256": "d0c2928a523c28ee582d02e5c06d96e3903465ec6a8ff7927d21b78b9c919237",
+      "bytes": 220141
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r4.log",
+      "git_blob": "3f363fdb7db68d4bced28aa51c2c8393ab0d0e74",
+      "sha256": "953cca18126a17ae0c249de3ed7af95157406dd709046e7fb4279600fa7bd917",
+      "bytes": 219531
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r4.stdout.log",
+      "git_blob": "741c2a8127fb248f499ce944b788c94cd5e0d933",
+      "sha256": "40aef71c764d991b29d1a50c4d01710c82a1aa43d2719afb7c0e9bc2abc6b335",
+      "bytes": 220428
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r5.log",
+      "git_blob": "f25faacd58f93200e90ec33dff19771b7101db05",
+      "sha256": "ce125bc03b249f3f9bd05e57990fd901eebc637b6ee1a2f7234c160a58a4cfa3",
+      "bytes": 219018
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r5.stdout.log",
+      "git_blob": "10a81045ab85b0310b3d5a6866c3fdc0a020cd07",
+      "sha256": "773e7306b7a020530ab4d68c2caa44d0bd88321aa11cbe05b4d52e44b6393e7b",
+      "bytes": 219919
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r6.log",
+      "git_blob": "e5793def7bfa3c41c18213d36e8eb04e89928142",
+      "sha256": "8fa76cd444f2831167b92c0a82f79c042dc49a3a1f36e9fa6a825035774f675a",
+      "bytes": 243901
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r6.stdout.log",
+      "git_blob": "16157596f5cd3fef8be327289f3691d13ecfeeb7",
+      "sha256": "7f07c85b992e304ba4fdd51b1eac5675ac4eaeb6336481183b77478a508f56c3",
+      "bytes": 244594
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r7.log",
+      "git_blob": "2de19310f72362b10ee85ea874bcc22a4287a343",
+      "sha256": "f369814eaf60842d4dd6ef3fe89ceaf0ae0dcd5ae82576f6dd978e903a37e683",
+      "bytes": 227172
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r7.stdout.log",
+      "git_blob": "e4e2ee377645661d8eda93b805de6d42f4871276",
+      "sha256": "23742480b0b9b50f8d0f2ee102ce16d4a087066f22ffc77cbfe18fcbbdde0742",
+      "bytes": 228012
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r8.log",
+      "git_blob": "528c262f94ebcfda5191eeb9a4260f11c471c43b",
+      "sha256": "f1b88f58a99e69639bbb23afe44765042a16dd598c9acda97b492d71315a08a6",
+      "bytes": 275926
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r8.stdout.log",
+      "git_blob": "349d8bfea5a6d2ef20fa670f8221eecc4b075c09",
+      "sha256": "9eec34b4636a1bed07e1b6895f529b5dfa2da0a6a48b294afa005bcdd9fd253a",
+      "bytes": 276531
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r9.log",
+      "git_blob": "6c6b27d4ad51ab06c8531e7152b2880ad166b0d0",
+      "sha256": "f6e5ca0d821987d07f9101e08511fff8acbbab9d2766aa81073b49fbce52261e",
+      "bytes": 223887
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-author-r9.stdout.log",
+      "git_blob": "da86aa946d9c9413c66e6a9636514c7f067ecd21",
+      "sha256": "f72957abd340ba04acc635967c8846ef87bf5d2dcacb0c5d5086abc7f3ad6166",
+      "bytes": 224759
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression-final-runner.log",
+      "git_blob": "5a7166928a09c71cefd5f246c633380067f22e9b",
+      "sha256": "1cf1a0ee3571c461b87ea10b5614509eec1aed4b36784b6a5f4d8f8d5d20403f",
+      "bytes": 516
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression-final/20260905T222959.460315Z-nullrhi-31272583/run-01.engine.log",
+      "git_blob": "422f47cef0d0deb8db32f2e0850969b221f1a17d",
+      "sha256": "cfb4503e57b6ce732f163b8bdddbad1237733a33dff76441631ed11f58ba8d6b",
+      "bytes": 229402
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression-final/20260905T222959.460315Z-nullrhi-31272583/run-01.json",
+      "git_blob": "757a14434a2af7953a4ca770865d3edf577da6e7",
+      "sha256": "2f8f6c25703c6605cee89bf8eb6f706fba056433fd28f3d59723d3c6baa3502b",
+      "bytes": 1864
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression-final/20260905T222959.460315Z-nullrhi-31272583/run-01.stdout.log",
+      "git_blob": "92d60ddf3c238f11b0fd4778316b3efe8494e566",
+      "sha256": "2b7445af8cdf57b23e13bf640f9d156e8804c56ca8ab294d5ee1eabaa06168f4",
+      "bytes": 230108
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression-final/20260905T222959.460315Z-nullrhi-31272583/run-01.telemetry.jsonl",
+      "git_blob": "9c97104b22e4ee2e387d103568d66bd459ae5070",
+      "sha256": "16f6f1feb42a76fb6eaf85d8a1456919a6b80e5aa22e898c9f5017326f0534bb",
+      "bytes": 23166
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression-final/20260905T222959.460315Z-nullrhi-31272583/run-02.engine.log",
+      "git_blob": "f334773667b8907784c73f892c36894083194d55",
+      "sha256": "4c708aa28f8da09f8a97ad7363ed59bcc223dbea29db5ba692f9d88fd8da713c",
+      "bytes": 229402
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression-final/20260905T222959.460315Z-nullrhi-31272583/run-02.json",
+      "git_blob": "9ac0a8f7aaaac5bf44c0cf4aad25c79f13a78478",
+      "sha256": "8eb7a1336ead80236acae7c278060e78af3e3cfbbb2cd5f1b6ee8884cdb4713a",
+      "bytes": 1864
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression-final/20260905T222959.460315Z-nullrhi-31272583/run-02.stdout.log",
+      "git_blob": "a1ad69c2441ccd87496bd0a0402e8113a21aa37e",
+      "sha256": "644495e1416ad7748f04d6d3101bde8cc4a1b08476da5ac7f7d4ce2b86dc3fbc",
+      "bytes": 230108
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression-final/20260905T222959.460315Z-nullrhi-31272583/run-02.telemetry.jsonl",
+      "git_blob": "2519c99ef04bac52df5d504ee5d6c73de451269e",
+      "sha256": "dbbb7b17345d4145c93666cd9c34a8ceeb600f547e49faa2377d44473b37b527",
+      "bytes": 23160
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression-final/20260905T222959.460315Z-nullrhi-31272583/validation.json",
+      "git_blob": "acec6c8b3e4f0b54219f32c61d705702a169e190",
+      "sha256": "d41c09415b643bd32420a62011120bffe2cf2a6217a9b742a750876b60b7efeb",
+      "bytes": 44687
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression-runner.log",
+      "git_blob": "8a3b41ae3db0d0089554ddac99d8ea57119ba8ca",
+      "sha256": "651ee6f0882724a965204a847e6a53727f2687fa022b6633ffae5c37843d186f",
+      "bytes": 504
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression/20260905T204854.427731Z-nullrhi-6e7016ce/run-01.engine.log",
+      "git_blob": "2a0a51a109f76d0efc6ac45ce516ce8471a5c4c1",
+      "sha256": "0e10a2ffb21abb918c9963779fd9fbfb6062e8f65869c2e5f4cb50207ea550c4",
+      "bytes": 230151
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression/20260905T204854.427731Z-nullrhi-6e7016ce/run-01.json",
+      "git_blob": "94b057e70c98a8fb1a4e690f53f05d5d5382c493",
+      "sha256": "04959f32e9989b7274a1cf824b1c42e0d15eedfd1456dbbd5e829cba1e50d5e7",
+      "bytes": 1834
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression/20260905T204854.427731Z-nullrhi-6e7016ce/run-01.stdout.log",
+      "git_blob": "25d7c0d0d32974eca5c4dd788c72621d9e9e4474",
+      "sha256": "885353cbf958e2de0f45162dbfd17fa9e449a0d4a526a713ae3c915f3fba632a",
+      "bytes": 230853
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression/20260905T204854.427731Z-nullrhi-6e7016ce/run-01.telemetry.jsonl",
+      "git_blob": "046aadabf5afe8edbbb2935cf72fb5239c44309d",
+      "sha256": "76d8c8a7e27d18739060bcda56d64cd28365dddf4249316e611b235fcb04f1bd",
+      "bytes": 23164
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression/20260905T204854.427731Z-nullrhi-6e7016ce/run-02.engine.log",
+      "git_blob": "4d982fa2ce871995159ca0880d4d512765fad27e",
+      "sha256": "cdcf599ff373477b271114600485254c4f9b5b9b68fce5107d4d2dbc152df27b",
+      "bytes": 230049
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression/20260905T204854.427731Z-nullrhi-6e7016ce/run-02.json",
+      "git_blob": "d8d8ef6e476c11437c9d551b66d2537312f4e0a1",
+      "sha256": "7e72981c5d9076c4ae01e48b47646e31fc52f517e91a511ba996e830a73b7415",
+      "bytes": 1834
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression/20260905T204854.427731Z-nullrhi-6e7016ce/run-02.stdout.log",
+      "git_blob": "bd2356dcc6338006936244018f177ffa89fe8ed0",
+      "sha256": "3fb0510dd45f8d81dafa68f38a1822d4dc443429060e22fd6ba27b7b0c36f3ff",
+      "bytes": 230752
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression/20260905T204854.427731Z-nullrhi-6e7016ce/run-02.telemetry.jsonl",
+      "git_blob": "461ddfa8a849405a3d0c78fe1193d2e922b83de0",
+      "sha256": "a8f9e6815ac2d15c7b3eaf8d7ad0f32e930bc7c0791a34959aa5ad99893b257b",
+      "bytes": 23168
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-demo-regression/20260905T204854.427731Z-nullrhi-6e7016ce/validation.json",
+      "git_blob": "f449f1bf6fe96c3d8a93c196120fc2a46ff93a4c",
+      "sha256": "1940231b6398f65c13011bfeb9c504e49625d7900ec683d1922abffc71193570",
+      "bytes": 43025
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-editor-build-r10.log",
+      "git_blob": "191e46b4b8fa7396bce20db759d3a76ada284cd2",
+      "sha256": "77df1752168fb45726580f77cc2435dc70ab49d997563bd6288f6e088c84440e",
+      "bytes": 3091
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-editor-build-r11.log",
+      "git_blob": "b13650fe03b18418d6579e80f1d8fd3f57028d97",
+      "sha256": "eea6631d1701e8bbbc21049aec81a1a3534ceebe1e2542f347b5f612ae50ce67",
+      "bytes": 2395
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-editor-build-r12.log",
+      "git_blob": "76d4bbb38e77bb847692491c18c05b5e7e142a7c",
+      "sha256": "b99576191c36bc342baae9ad735cb79cdb201f4fd8b6210c4e963727f28689fe",
+      "bytes": 2436
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-editor-build-r13.log",
+      "git_blob": "fae472e9907214c29912ad93c82c4e2429126e1c",
+      "sha256": "3eca0b45950b714a93692273a9f86db93620ca6de948a0cc60a7451b6d820a55",
+      "bytes": 2436
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-editor-build-r14.log",
+      "git_blob": "0a19ea8de7f89d9ce8fd7dcd8268777b84780906",
+      "sha256": "909fdd2a0a2362f3f60fe87ffe5e6294f10d5ffc45524c76729daa1bc119a1c1",
+      "bytes": 2398
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-editor-build-r15.log",
+      "git_blob": "0b29e20a749fad9d96e77152ae1e53e465b2f3f4",
+      "sha256": "2578cefc6a06d0820c6976a38458cb0d2b25fa4b907133b27631cdc59a171750",
+      "bytes": 2398
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-editor-build-r16.log",
+      "git_blob": "1614bce1142b5e20b956084815312008bef88daf",
+      "sha256": "4a0e1111ad566d4889ecdbe441e669d96038d6d96c0f796c382226860fbe0da0",
+      "bytes": 2397
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-editor-build-r3.log",
+      "git_blob": "73da1fe87a53eb10f35926cd707d82a958751ebb",
+      "sha256": "82aa1bff142cd913b7d34aa688e5fde3e9c281acbd4ddeab866258e0c1bc8b6f",
+      "bytes": 2744
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-editor-build-r4.log",
+      "git_blob": "67ad071240255e2e4ee5b0d432f436d614249007",
+      "sha256": "f07340c6735876b673342f76fb2c2991008d18f6c20b11f5aea746d17f7ab75c",
+      "bytes": 10338
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-editor-build-r5.log",
+      "git_blob": "b07c7595b6a8470cf57bcea2cd664e7737257f51",
+      "sha256": "edb5de88c3b0a3deb7122bc4bd9dd995190677bdfef0cf53ac2866277f4da0a1",
+      "bytes": 8031
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-editor-build-r6.log",
+      "git_blob": "61de6110c07c11be7d12bb8de9b9bb0027bdb73f",
+      "sha256": "cc42a04b488b80477aa025d8a4e97a81e3ce7f6fe733e36b34bb24b3a223b05b",
+      "bytes": 2398
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-editor-build-r7.log",
+      "git_blob": "209aa84fd163a6ce0d180fea80f00f9a287cbec3",
+      "sha256": "bec59a2e9846289c025bc2a22d280eec5b3800cb168d7efc923a380dfb406eca",
+      "bytes": 7707
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-editor-build-r8.log",
+      "git_blob": "dedb82f05c67f4cac68fee91362ae394c97b516a",
+      "sha256": "570376cf3292c6e1192093b5f0afe99f9db811b6196ea3cf69893d9a11db4c85",
+      "bytes": 2436
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-editor-build-r9.log",
+      "git_blob": "b3a989514287b682bba4b1cb068272223437ab03",
+      "sha256": "9cc5aec7c3da60d3c98f17caa0325510266ce16f66052e76eeb1c78aa409c0fd",
+      "bytes": 3131
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-editor-build-retry.log",
+      "git_blob": "611714f6a3c477fa762fbbf6e4f70d1845602414",
+      "sha256": "f51987ddce3db04f612cd17e7ea1b880c20037cd0f7f3d01f7a42cf399b1d268",
+      "bytes": 8210
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-editor-build.log",
+      "git_blob": "84f2b7d94a974df7b89bc7433542404aa1baf555",
+      "sha256": "a420f82a024afdd2e563ecd98e0815c01c7a19bc39008ed4d8c321896becf7db",
+      "bytes": 5031
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-final-review-python-checks.json",
+      "git_blob": "50c0c3655aa6ed3183cb1c8ba1cffc528567ca78",
+      "sha256": "ce4bba9fbbaa57d68098f6c3d733547268edb8fb1e4aae84dd15bdb9a906557f",
+      "bytes": 1456
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-game-build-retry.log",
+      "git_blob": "35782dbb4f84c86bf9c30ddd17409a68ef150bd3",
+      "sha256": "25fa8979228a7f692c5dfcdfedfb64a59e5bbf5082a22a0c98e74d60002e813a",
+      "bytes": 153100
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-game-build-source-final.log",
+      "git_blob": "13dc51c1bf4a8a5ea449395ab70a382dce9c8f22",
+      "sha256": "a4d248ab56247c28da49f43968b0ef2f486ece38cf90b672952818b02c683e42",
+      "bytes": 17148
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-game-build-source-retry.log",
+      "git_blob": "55484ec408398b287aed03e5aab1c8f469f1991e",
+      "sha256": "b574a4ce667b9fca86bf79dc1e1db50b75982a425b06a6d6855b2106316e2223",
+      "bytes": 2351
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-game-build-source.log",
+      "git_blob": "fb96e343ec85673e0d3e7a56a2cb59d1d8ba909d",
+      "sha256": "5716c3e83915b469acd8d540f4da043716cc3a4752f57214d688ff2d55e82082",
+      "bytes": 153139
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-game-build.log",
+      "git_blob": "ca7c2f6f751cc7dda7af6458f8012acdee93f1ed",
+      "sha256": "c1b3a8f53479f07a597751db43fc3903cc7aa94d953cc66f0849132ae25f339c",
+      "bytes": 2773
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-game-module-compile.json",
+      "git_blob": "7f5fd82ef5eb62ace7838e51cbd9d6a549d29d5e",
+      "sha256": "eb1671e3ae4f60c1390cab4bd4bb0d4db24b49218ca17fd0335fff2e41d86549",
+      "bytes": 2441
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-game-module-compile.log",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-hlod-build.log",
+      "git_blob": "809d9b7f339564b650be7e6f746a785d637e04f2",
+      "sha256": "9bce1f5a89dc19f9225b68a4f142d4bc2692cd995dc018ad93b6b14db2d80129",
+      "bytes": 232939
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-hlod-build.stdout.log",
+      "git_blob": "961970ad31a92e1b3b0f199754a6b309dc4c6626",
+      "sha256": "def83958c607a076f5419dc5446911944c3a63fc6f019c6a073ad4d6df3f061f",
+      "bytes": 233690
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-independent-verification.json",
+      "git_blob": "79066ec9d80a12c4800a29d044e94f5f23900380",
+      "sha256": "c7c1af4dc7d7f2cb97bf4cfeb931d90125789b0bf8580fe3df9b996f234a2d23",
+      "bytes": 2539
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-lighting-author.log",
+      "git_blob": "2de22708eef4e43d5b6e9ee6e3ce1466aa1d4686",
+      "sha256": "db201969d2fd74e8cd033961fab7c5206682e1714338c341f24871b6efa1fa50",
+      "bytes": 238900
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-lighting-author.stdout.log",
+      "git_blob": "98ebc11115a52a7d7e3989407c0cb525adca0d78",
+      "sha256": "0078794d6a0d18566654f0e075cf24a918b440b7fc10e652b7779b712f1e40d9",
+      "bytes": 239730
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-lighting-readback.log",
+      "git_blob": "0522021b6090bcee7e27b4bd7a97401e4f6acdf0",
+      "sha256": "4499173e74f5c75f356744165fc2616c74dba7a1e7cd8aa80924aa0ae74295a2",
+      "bytes": 230196
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-lighting-readback.stdout.log",
+      "git_blob": "e61818ad3bf212e5d8b152b19241312cac604f28",
+      "sha256": "3523ae1a3ed33e3ec5faac13cdd27c10ac1fcba8a097c15d5e697a09fd5200f9",
+      "bytes": 231075
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-local-build-triage.json",
+      "git_blob": "04db0286e30091943bbb0c841b8f530e6c3704c8",
+      "sha256": "4eeaa082bd57cb3f5116c1049a4fa623513912222d798e98038fafb1d5dc2710",
+      "bytes": 1004
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-map-authoring.json",
+      "git_blob": "5267accd0352b1a4dab62e10e657017dfb0a438f",
+      "sha256": "88c62f565e9b436b2bdbe295d6028bd840ba5ce88c60cb3ce25223511c018f38",
+      "bytes": 16099
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-map-hlod-readback.log",
+      "git_blob": "7e8f8c986f62cf85d373ed354866ec79fcd165a0",
+      "sha256": "02f2f39232db742a31a94a6a27bdf1f54a5649eacc19b107f2130f03a15cdf09",
+      "bytes": 227112
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-map-hlod-readback.stdout.log",
+      "git_blob": "beb8f2c27ed12cc3dddb41e7b7f334a28c1ba1a3",
+      "sha256": "af705a32ef3bde09c636871720781667e226b6f60b99825b60aedc0b6742704e",
+      "bytes": 227013
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-map-readback.json",
+      "git_blob": "ec16281d6ae2453839445b941ac2dd447a4db374",
+      "sha256": "94c2c6121236da0c8406ae5bd4ee567fab9e507c932f48e34579ea8dfee55595",
+      "bytes": 16098
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-map-readback.log",
+      "git_blob": "bb4c5077b74003d4bd3c96abf9425e721cd80a00",
+      "sha256": "de7f4e1a39af4dbf249dfb4d72aac059ca4233a5c227f21323672df00da75eb6",
+      "bytes": 217008
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-map-readback.stdout.log",
+      "git_blob": "62feedae9242751bd1155b40321ac68a2ed951a6",
+      "sha256": "b0ae9ea097734d015708495c7dfe2b90c8a6aa9e26ba2d0d54a0c7b0e45ef1b9",
+      "bytes": 217211
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-material-author.log",
+      "git_blob": "942b5883c3baf9ec0f2143fd624320838bcb197c",
+      "sha256": "633014740c212d94fe06fb538a6f83ec92c3c4fd203f6a05c26e47f73ed6ea51",
+      "bytes": 235638
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-material-author.stdout.log",
+      "git_blob": "f927f280b663dc3aaa0022139ce420f4986c85ff",
+      "sha256": "fec14977531221e3766d9f895bf1df5906ea88c70fa07a947073bf58e2bba8d0",
+      "bytes": 236481
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-material-hlod-build.log",
+      "git_blob": "fbbc921c2d8d713d78672969defc141e9a2175ba",
+      "sha256": "9e1c6fd2c5f9957790c717e8bb2920da8943b1418dda343a5120d77e68b9cf62",
+      "bytes": 232957
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-material-hlod-build.stdout.log",
+      "git_blob": "1d3d7492c1638949a72b657559618e28b81164e8",
+      "sha256": "665b6b21891a8d4db9d19ac9f28f0ed12d51ba230a0b07bb3dfeb4dbde9c1090",
+      "bytes": 233708
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-material-hlod-readback.log",
+      "git_blob": "b6bed616fc4ebad0347031545aeed80ddd3c37f5",
+      "sha256": "f63be918f938b18af29eebba929097197baa51034682ced4945c25ef7a964744",
+      "bytes": 229549
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-material-hlod-readback.stdout.log",
+      "git_blob": "67b8e6d91056eb6d668e1b3f0a28f19f085c924e",
+      "sha256": "610866d9bbf1e5c0a29c6aecd910b627c074ce3ff356d0b31ed09e7591a109ff",
+      "bytes": 230428
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-origin-navigation-diagnostic.log",
+      "git_blob": "e9de07c7efa7f658603445409ea25224dcbe4367",
+      "sha256": "7487ac512129851e4214e97830e304c3fb25a3c1c5daae396eb337679eac4fbd",
+      "bytes": 15666
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-precommit-verification.json",
+      "git_blob": "be770f708aa983101ad889e5854c6734a0044e33",
+      "sha256": "349424bfbf1a3939445f6ac206c04c27d8eb3a821cdaade040f9c15b49aa5c28",
+      "bytes": 3348
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-preservation.json",
+      "git_blob": "760a5b855e84c51ab0cdd3cf5d3cb6719e5610ac",
+      "sha256": "a8a6b7f3c72bdfbf40d2b596b7326c56630ec6eccc9cc53cc72ea7dcb22bed1c",
+      "bytes": 2935
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-runtime-07-runner.log",
+      "git_blob": "7683a378bd9c339fdd6bea421e0ce5850fd815f4",
+      "sha256": "a28b94532d649ad83713b6ac03b4c53d42edde47c64b6b28c7449c2ecb3e9850",
+      "bytes": 215
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-shared-regression-final/process-memory.jsonl",
+      "git_blob": "beda89f015e6ba6ac1fba569804b6ba1ce3d52e9",
+      "sha256": "78b89ed799bd53b28a0c76b7a3a0250e536f7a03ee8b417213fc191b9d695289",
+      "bytes": 7809
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-shared-regression-final/runtime.engine.log",
+      "git_blob": "107d5fee6193307e76e68c9188364cd3e05e32ff",
+      "sha256": "9106fe12053c9ccc21604cb9b0361dd814c6da30c2294ee364c19bc11553fdd2",
+      "bytes": 296528
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-shared-regression-final/runtime.stdout.log",
+      "git_blob": "1c1d9e958735e23ad0836cf10ad974503fdea492",
+      "sha256": "6e1a7856df422539d122f18cbcba548d09bf19186ad5a41b0f5d0cab0adc9ee2",
+      "bytes": 296694
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-shared-regression-final/validation.json",
+      "git_blob": "2628b8f88e43d35cc6046db16527c8d4279fbd16",
+      "sha256": "085bfa241536c850629c2eacb4e9a32b913ea50c4b7b5de1ca207cd555ba70d7",
+      "bytes": 97827
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-visual-review.json",
+      "git_blob": "1e80cf54ee8f1b26346a9f59a62785259362f8d5",
+      "sha256": "0dea84996cea626e02c972fbb20e06eb3ccdf1b190e7698f94460de680a0e020",
+      "bytes": 2350
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/game-module-inputs/BiellaGames.Shared.rsp",
+      "git_blob": "e7ce8813c93f20d02f419605dac7deff1201f5bc",
+      "sha256": "b6d27404b7d38143af67175f669360829c5dae8094a8ad9c522ef0c04a8c3f8d",
+      "bytes": 13686
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/game-module-inputs/Definitions.BiellaGames.h",
+      "git_blob": "6b41056425e16934e5f66254e982d412ee236653",
+      "sha256": "185be1f34d703350eb449c3cf09e11c40ecb540a4b0cd55c62f299441c693a79",
+      "bytes": 3166
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/game-module-inputs/Module.BiellaGames.cpp",
+      "git_blob": "a2e4b1fe74482c8cd7a7d2b590a52ca5861e1014",
+      "sha256": "07ed1310b2b81a7a5e9ccfc82effa4b778bcdaa1f762b44a904bb706412e010d",
+      "bytes": 6687
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/game-module-inputs/Module.BiellaGames.cpp.o.rsp",
+      "git_blob": "01d65d87bfacd70263aa26f0e6cd89227543f76d",
+      "sha256": "5d5f507774f732624819138e3f0eb23d86436c85c2c73235b81aebb298f79d52",
+      "bytes": 3099
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-06/events.log",
+      "git_blob": "6a83fea7e6696bb17dbc5efd80e378125e78d64c",
+      "sha256": "f3a46d362b49e25107e7894fc113238f45765bfcd56166c01bf7c29db2a40bf4",
+      "bytes": 6951
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-06/streaming.json",
+      "git_blob": "e7b949a22c5611b2eb3a435d2c2fb63aa39e17f6",
+      "sha256": "2c111f29e97e6059e7aeefb8745b71217f2cdbfac6bbe4403e296b6e28716d4c",
+      "bytes": 1158
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-06/validation.json",
+      "git_blob": "cff17364c10506c42b61780e70282477e2148404",
+      "sha256": "4616cccb4bb9ddd6dc8059db682ee51ed1f8491643846ff0abdea898f82bee8a",
+      "bytes": 97475
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-07/captures/distant_region.png",
+      "git_blob": "db21ee33ff0d93767c1238e2980147974ca923c6",
+      "sha256": "39ce836e64d1b8b02f269ef6628291282c1fae4c9a0c05e268752d1e7532f025",
+      "bytes": 893927
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-07/captures/final_return.png",
+      "git_blob": "fec7080e68283af616c557ad11934e63156d9371",
+      "sha256": "dd1514c3d5d83d6388bde85382abdae1e6e0aed078f889ff5ca412f180284fec",
+      "bytes": 911378
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-07/captures/injury_return.png",
+      "git_blob": "77c8b02b7cbfe618821db03c8025ab04826007a2",
+      "sha256": "e4ecfb9998938aed07289d8d9dd58ed73ea717039a4eacde3aeba22996525974",
+      "bytes": 910833
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-07/captures/interior.png",
+      "git_blob": "300bf075b930ab4f3732f3c9a67f70db78c8baa2",
+      "sha256": "03bf544f5d4be2071a13c587a911eca7513aab590cb6900a7f16719167c804b9",
+      "bytes": 815854
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-07/captures/street_start.png",
+      "git_blob": "501698841380042167a57eae3b50c93fd5416946",
+      "sha256": "93a72bbb010e48f2a5f63c9345ccb4a2a2314d026d6258c0da09ba34e79badee",
+      "bytes": 953489
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-07/captures/terrace.png",
+      "git_blob": "62035aeb8ff017e25e488f6f9746bf251a592bb2",
+      "sha256": "e34691904eb8d5f3a665517312a3b4b3170310f87a74e642a6d6f9d56ea78321",
+      "bytes": 889807
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-07/events.log",
+      "git_blob": "4b7e77ef4638a1294a646d6f744aa8fc135f6544",
+      "sha256": "06d85974296a4bfeb99ba15fd97fc911c65d8eec3176bf9b1c559ae0d0cf99a6",
+      "bytes": 7183
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-07/frames.csv",
+      "git_blob": "b8157a6785600e09fbd3ba353a7ae39a745a73da",
+      "sha256": "1ec84658c408203741e4ed2aa63b43195e4c1bececa79fe116533a29c633a5dd",
+      "bytes": 1237497
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-07/process-memory.jsonl",
+      "git_blob": "3df7d3b093b9a8be02ad43de60bb585fc022643d",
+      "sha256": "9182c186869c8663c3f1fa8c65b0cc3e0b2a6d464a7e7ee8a3e0fd353afaad14",
+      "bytes": 40661
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-07/runtime.engine.log",
+      "git_blob": "bc35845a96d315d5d91b9596bfaa74b6a3854ce4",
+      "sha256": "679170560352dd747e896e2d34d285dac0df603f9b4a34276f184a40a2202ed6",
+      "bytes": 303053
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-07/runtime.stdout.log",
+      "git_blob": "00ad885bbaff5db6c0f9d05b19ba398d73907ec0",
+      "sha256": "87d0ea24108dcef29544a8794cac69495758f74ffb42d3c677a5b9d25bab244e",
+      "bytes": 303178
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-07/streaming.json",
+      "git_blob": "243b15c323aa869c10862331fc47ab6854087fa4",
+      "sha256": "24f012db9a34a209db5b88ce1117c313cdeba3911a6f9fb73921cf00f3988e8d",
+      "bytes": 1142
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-07/validation.json",
+      "git_blob": "bab0f46b664aafc5899f694b2002229499a561d0",
+      "sha256": "834227e90b7e0c703b71d8f88e76ba6a9066893fc23090ee45f00f24385267b4",
+      "bytes": 98574
+    },
+    {
+      "path": "projects/biella-games/Content/Maps/BiellaOpenWorldMap.umap",
+      "git_blob": "8447e80c2a436471dc92e1133a5c61e84155b7db",
+      "sha256": "93cada47d6c93b1b3ea79b34294bdac21a8626299054e2cc3a8bfa47ba18d9bb",
+      "bytes": 12871
+    },
+    {
+      "path": "projects/biella-games/Content/Maps/BiellaOpenWorldMap_HLODLayer_Instanced.uasset",
+      "git_blob": "6118e32dfb87ac804cd9e2c72afad3787a43be11",
+      "sha256": "1cfa6bdaf1d50af6606018b785f9526dda41cd1743befdc01d8d7262d2fc3341",
+      "bytes": 1763
+    },
+    {
+      "path": "projects/biella-games/Content/Maps/BiellaOpenWorldMap_HLODLayer_Merged.uasset",
+      "git_blob": "a9db9ba7e27eba7c3ce6f984c9da3217afce1bb2",
+      "sha256": "0743931d905e2d3ccb22ef48a4a5a52e3f2576fd62052180bf996dce2b4c327f",
+      "bytes": 3072
+    },
+    {
+      "path": "projects/biella-games/Content/OpenWorld/DataLayers/DL_Continuation.uasset",
+      "git_blob": "67c2ce6f54242044efcd9e29790b321fe63ca74b",
+      "sha256": "7962a8b0d9e9b89846bef71f5b8a87fc5575367ad46b9d3628740d0a8ab7ccf8",
+      "bytes": 1302
+    },
+    {
+      "path": "projects/biella-games/Content/OpenWorld/HLOD/HLOD_Continuation.uasset",
+      "git_blob": "b0a376816ec8402964e05f13deabf3079e80c91a",
+      "sha256": "83b651551bc8bf7fe9153b11d3126a9cfa14f7595f83d18524b9df4353a0d1b4",
+      "bytes": 1471
+    },
+    {
+      "path": "projects/biella-games/Content/OpenWorld/Materials/MI_Interior.uasset",
+      "git_blob": "c2864ae88f9b9d42c439d93e9cf8f0f9f336cd77",
+      "sha256": "0b0f69c127eb861a6fb5efc9a587ac9bd0348dfc75cf8a2ef7d6fc3c16fc40c7",
+      "bytes": 3221
+    },
+    {
+      "path": "projects/biella-games/Content/OpenWorld/Materials/MI_Route.uasset",
+      "git_blob": "8643293c0af326ef2687d42a8793004595254931",
+      "sha256": "57d2fd61dc9ce842dab12ce7e68b88cb902b2257a9f559a7bf8e642fa2fc2681",
+      "bytes": 3206
+    },
+    {
+      "path": "projects/biella-games/Content/OpenWorld/Materials/MI_Street.uasset",
+      "git_blob": "92b13d9cdfb5443e7c7c1bf6c4e0da2fdd995a61",
+      "sha256": "11190d502fdffad7c706207b759284fbbb144b2128b61ab4f434e243037aef93",
+      "bytes": 3211
+    },
+    {
+      "path": "projects/biella-games/Content/OpenWorld/Materials/MI_Wall.uasset",
+      "git_blob": "0ae6f27da6e5c1cb50fe534bec9f150613b8b8ad",
+      "sha256": "f3fa17ce033a59d69c9a666a50737c081310dd39044c7262822736b04b2ad738",
+      "bytes": 3201
+    },
+    {
+      "path": "projects/biella-games/Content/OpenWorld/Materials/M_Continuation.uasset",
+      "git_blob": "6e4777d90e0450a16b82c32f650d7c3d5def05d9",
+      "sha256": "79d8d8c73be294e1aeda7eb3e22c976bb3538d34cc88a61cdc36ae583b4d5f37",
+      "bytes": 7123
+    },
+    {
+      "path": "projects/biella-games/Content/Python/author_open_world.py",
+      "git_blob": "fcb72600174ec6c2536355063747d1439a4d67f4",
+      "sha256": "5f5e44d0922fa806565934b10b63b4dcd6572e336a1bd8127fdcf94f2ca93a82",
+      "bytes": 19520
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/0/01/BPFRY7ZGPGXAQZACC5YPI6.uasset",
+      "git_blob": "b336021c9a1754c8ae4efb458c2d546720cbee62",
+      "sha256": "264ced27995ecfe9ba6ce2275c3b9815aac7976a18970eba00726ca7fdfb8a5d",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/0/PE/UGKZR4GMUF3AJR61LNH9TX.uasset",
+      "git_blob": "fdc7d0eadc5ef1e888eca1ab27d8f28df4ba15ea",
+      "sha256": "23cb16cc85a5f8bd6cc075fb58daea5951213940914abedd3666a2d46c093314",
+      "bytes": 4525
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/0/SC/YTXU3KD499ABDYX6S9P88G.uasset",
+      "git_blob": "8611505e4ff93472825be6557cc7d47b7bc64194",
+      "sha256": "a206458edc286b32efa27a0336f0e4b6e0b94e97b570b129df31bb3b750659c1",
+      "bytes": 4587
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/0/TF/M84WUTUE6WASIFHHUCDZNE.uasset",
+      "git_blob": "e0711fe1ecbe6d6d78526905d0dc7eb94744131c",
+      "sha256": "d97311cbd3f5a8c35e012f922322f13e5da0d6a5dadb598641945319331b87be",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/1/63/0MSCL1K5XDQVWDFJVJSU6I.uasset",
+      "git_blob": "d530143932102702d8413699199f439a1828611b",
+      "sha256": "4def1b6ea52fb3d217f539f29a1673b00f351060aacf669759ef725ecb313847",
+      "bytes": 18884
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/1/KL/NEAQDZSC54EPAAYYF6PISD.uasset",
+      "git_blob": "8f3e7b9e19faccea133eb6ade8a5c8e9c5d85248",
+      "sha256": "eb556df66f068cbef2a3e46ffd4ff807d92271fef49a4ed0a70659e266b2413c",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/6C/ZO4Z3SKSSKOYR74MVOIN9D.uasset",
+      "git_blob": "8ddb193b448a050bcaf8cf419a3652b392a452d7",
+      "sha256": "d766e7b9341889667039958ab5850b82df420dcc8079614ad3b6c2e5aa2f8687",
+      "bytes": 4297
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/JJ/QMT2NPQ6PM0D96MS9MP9CT.uasset",
+      "git_blob": "bca2b6f46424fd9c7059763ad00289ad9df0c89c",
+      "sha256": "cb768422e4c724b9e4f4473cc1bd1fe7df8fc728d0c254ca0cf8e08b9574bacd",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/MZ/PLSMVGIF2D890CJ15OYEYG.uasset",
+      "git_blob": "62328cbd4f4f1f1c0c41291135d987cd26d76e92",
+      "sha256": "48791799caf492ba02acf00175305819e2ef7aa9d4765a31d93c02677e61565a",
+      "bytes": 4587
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/WE/47JTDDXO6OQE5KD4KLD1H2.uasset",
+      "git_blob": "06176aaf6623ca5e593dcd2bcdb130fd46e54bb2",
+      "sha256": "dcc424333eeb6c47ac3c50ba6d2037362475485547365e2b2832e2c679d166f2",
+      "bytes": 4540
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/3/JG/13WQ2LABLKZQ1QUFPA2B84.uasset",
+      "git_blob": "5abe3b5f463e5cab2a537804f1ac09947ff130dd",
+      "sha256": "96873267d5d62f974d6f51c3d574955827c9d49a8cf1678062a1171da8cb5a39",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/3/ZD/9EEF3OCZJ0CW6P9M42MYEZ.uasset",
+      "git_blob": "b92a93fc22a383ae8af8350319f9939be4b89490",
+      "sha256": "78f80920b4d86f37fb7f44b63027274684f674af2034752e73e998ff5fd74217",
+      "bytes": 3810
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/1T/O40B8WS8BP35VZSJEO02LP.uasset",
+      "git_blob": "9ddf528e5cb4491b47ccfa29d6bb725390af65b9",
+      "sha256": "99df1b16db63b287b4d2fbbebb5e79b4bceef3590f7d441df139be6b18691b4b",
+      "bytes": 4532
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/3N/NQ2OMLJG5G2HDAC8VBPMLF.uasset",
+      "git_blob": "9f30a18b78f52dfed7f3cef5c8a105f8666bf8ad",
+      "sha256": "a4a80299a78956ed59ad71ddc442430c2108b53bdefcc6913e53cd80fc0ce139",
+      "bytes": 4540
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/73/7N4C23H1TUM0R25IY6B2D7.uasset",
+      "git_blob": "c1087a6ffed30fbafce8e1f8ec37cc29227d9849",
+      "sha256": "5e281157ee31171fa7ffa2cc5a05729b169d425d424c998f91fa68e112bc0855",
+      "bytes": 4540
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/7G/YP5SWC5MSWO9X499M7LHBC.uasset",
+      "git_blob": "ee724411768d1c058b120185bf409f24acdb00a0",
+      "sha256": "e593990330a3be2216dc7095dd568c802fb68b5fe9c6cfa1bf6e363314542faa",
+      "bytes": 17076
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/C3/NK7RQMHD8H4HG3MRH2FXP1.uasset",
+      "git_blob": "28454909f5104e1821d3d12457122d4ce4c9f22a",
+      "sha256": "156380bf42edc0a5785fb08686f63b377d7f93111d16563171f2f56d2bb6a6ac",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/CI/HWQT51H5WF3VMBMD2L783H.uasset",
+      "git_blob": "bc048799459c21a5c5ee2352933cd0e47d24106d",
+      "sha256": "d077d48160db33d4d82aa9b437e0a4a4480508844a9ab2873fb7efb93c83dcf9",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/EU/CEW8L2LA9IIVWR9QYUS1ZO.uasset",
+      "git_blob": "b24b5a9acf85697bde4833a7cd27f2c1378a7e8f",
+      "sha256": "48ca261643a451609ba05f54173815792a8a6f1745704a3209c02d4950a90b75",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/Y5/8B9KKCHO66OLOB8ZXTY4ED.uasset",
+      "git_blob": "dcbefc1a618ef3192adad2d43e72d9e5e1b341c8",
+      "sha256": "4f677a3b48871cf1cbfa499c4c829e131866f7efa02c8f1d9c62ea8b9a06d19b",
+      "bytes": 4530
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/5/4E/OVGYXM1X9567RU6N4CW4W2.uasset",
+      "git_blob": "4a99f044fe6ed38274d20a90d63fb24929f04b5a",
+      "sha256": "287670039a098a334619ca4a185d32fde531c06e6e2cad8b37eccd4644617407",
+      "bytes": 28762
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/5/4E/Q8RGSFZN0ENJQXSGMDGH4T.uasset",
+      "git_blob": "54eab0b0a784c42a41e5f3debda93f03beac2c0f",
+      "sha256": "1abc828e22184e3374906159be057f7dbdac67e8771adeb22d059a916fa8c1ac",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/5/DY/ZA9CIYS4ERTG2KZR3IBPZJ.uasset",
+      "git_blob": "b6d598ff342c7f4278aea8f0025b046a2772aec7",
+      "sha256": "70ca628b5885f6c2c16d1f1cb1541f3cf90a5664fd075cb8039d269a49abe2a1",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/5/G9/15YJDXZ9FKHCBOIFFZ4GWS.uasset",
+      "git_blob": "0c4a0b57b4f445ce309e396639eb00cc0c3ee3f0",
+      "sha256": "e2a9adbadb6591de3b40e0c736f3a9a55f9a3dad7fad05f6c68bca6f66121539",
+      "bytes": 3883
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/5/JP/UTBHFVP5X00N2GNL8AAGC0.uasset",
+      "git_blob": "143ccc30c31281e52e8a32dc53806fd901e8c481",
+      "sha256": "b5accc32a2ee171c96719b741047b5c530467ca711dcad9dec4b0fcd3734e7d7",
+      "bytes": 4540
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/1G/AN3WAJ6PKO8QEHRARONVW0.uasset",
+      "git_blob": "394448559bc47b6a08923d1cbda9526f8831d0da",
+      "sha256": "ab5668928cc74ba28ec1fdb4f364dbd01e9a8c65ef407a7a2a6dd2a66d72d52e",
+      "bytes": 25111
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/20/EYZL24649FTGEL3CA7I06L.uasset",
+      "git_blob": "a4dbc1161da98949833328f4f7d70c00e56e649d",
+      "sha256": "926cbd7fb606c5a6ca7e2263a2cb4d9ed0b76e533f329c41f0dd06cd8b5ed135",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/6R/WTO08A5NAS2A4KKMBTLF8C.uasset",
+      "git_blob": "61398a2adc2c6f3762d3f47ede4444fab3b056f7",
+      "sha256": "18f4ccfc2538e7eed31f319110353438a52597795a92c34c23801eb2e83e6635",
+      "bytes": 4520
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/96/NHWXF5PJ70OMK6ZWJSFYQZ.uasset",
+      "git_blob": "0b100b082a1dfeba3282ddfa817d1880076912ad",
+      "sha256": "0bba8aa60ed180b234a88f10c3784ff71a2aa5fd115b081ac8bc177d5e150ab4",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/AA/002QTQQYWNDZG5VQN4V1FD.uasset",
+      "git_blob": "48f5b6db11598f5f59d513bd2509e689dca09bdc",
+      "sha256": "9636634e59a9710f6761503b7848a2934b637932beef5e3285cce3bd96368875",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/LH/VFNFOMY7W4AX1ANEITF02Z.uasset",
+      "git_blob": "42dd13f2440063fde8190183532afb795ca2914a",
+      "sha256": "96f1ce1ced20f58c1a5368427340a5f0cded19ffa7103a94c60c6c2e28cc07e7",
+      "bytes": 4587
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/OF/1FOAZ4TNBPK5W55ZHRLUJP.uasset",
+      "git_blob": "8ba6d2cda363ce0a398b5983965933e3908fe423",
+      "sha256": "65d47aaef2d995726c142146429d340abc050aad1b7dc2a630b3e2b883df670d",
+      "bytes": 4524
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/9M/040TSZVYP0NJEMG95KUWB2.uasset",
+      "git_blob": "4c50d9bf8bf9598e1d9c7447f67816f5b3e29915",
+      "sha256": "2fd1a573b1f82f7cc9c8d6325bde32b723df40b8b41ec26cd327569f884f7de0",
+      "bytes": 5255
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/EA/ZHVGOM45EW800RTCBZQHUN.uasset",
+      "git_blob": "a1c851dbba7c068918edad100e37e4a7eef278e9",
+      "sha256": "6e3a31fff48e531656556e8210526578a64041182df382ea14bf84ce5ddd70d4",
+      "bytes": 28762
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/HL/NF6R0UBKZK7642L7TS7TXX.uasset",
+      "git_blob": "f43757d1f610e7f033904d0bb78e2a8709f087d5",
+      "sha256": "75990c4f953bf1a1e959bad1f04652bfa3e5deb85af9745e993ebadeb5b03147",
+      "bytes": 4525
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/OD/7WD9F6PNZ47KVC0P1QI9K7.uasset",
+      "git_blob": "7037ef35317014f9aef5692d982a0caca6866943",
+      "sha256": "65d704aedea8ac12861967ef76116cc8f267a97b5b920677a748ef3f9274d46b",
+      "bytes": 4540
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/V2/CQF0QGUO9N4HFEDEW3GNBG.uasset",
+      "git_blob": "91bc947005362ac0c8b3f0be37a679da44a7360e",
+      "sha256": "7dbff6edb552054061f6e3c22aaa489d33b3ead9aaaca12ca481b3255a782850",
+      "bytes": 4520
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/W1/WIAOUBXKP1OUHLIKVFHZ86.uasset",
+      "git_blob": "fd7ad972144e0c375ab1ed701a2373e4f0912f02",
+      "sha256": "d6b7daa1ce452ae3195872a5989b646291b22962ed53f72ad59e30e37b8c314b",
+      "bytes": 3356
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/8/66/G8MYV62TUTT8XPU20E1YSW.uasset",
+      "git_blob": "f9c6125140c963ed0d76eecfc8c07a3d8f234260",
+      "sha256": "cd6a866e752e2e9434142dc92292e9f0fb8d299bdb236098ab25aeb4b1275af9",
+      "bytes": 4540
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/8/BU/DIV0H0YOGJO7KISFC0VEQ2.uasset",
+      "git_blob": "f1cdf13e6fb89c71d3d74a37b3d81b351dab9a3b",
+      "sha256": "0e597eb2bbc451d8c26f2d746e213ddfc54422f64243c5df86a994655a8d2da9",
+      "bytes": 4524
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/8/IW/GHM2W1RO9TYJBIOS1SLU42.uasset",
+      "git_blob": "27b1a1b404f30a2dde72dc3966770636dc81b3c8",
+      "sha256": "b9a77bb2094749d1c2afc118177f68d75ef8a8c077cb2d3a2b1ed0598617c383",
+      "bytes": 4540
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/8/LQ/YX4E187UPCXSNR99CC2QT3.uasset",
+      "git_blob": "e270096aae0d3ea9473281065aa4ea2c2580851d",
+      "sha256": "781755f1b27160c9805ecf77a71d3eac956a5e41267bd9b7874d785de249d0f3",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/8/SS/UADNFK4JQ17MCQVIK9IFHQ.uasset",
+      "git_blob": "f43af7ba74826737fc0570e3a08381fefd616934",
+      "sha256": "816911eaf721019c18319c5ca19e15db89af62e3a064c35c0433e74e64c99e13",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/CJ/ZWPFR5C1OY67D284Z5PJFI.uasset",
+      "git_blob": "848942c232c1cbd6aa64ab9117d743105f3b2ef4",
+      "sha256": "880bbb18479a618195141a01bb79227ed69e3d75e7a3b917e53242ea15f72b40",
+      "bytes": 4587
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/IN/73Z5XAAK77POMDNV6IJ1X3.uasset",
+      "git_blob": "3be10eaebd36fbee6429804b1966236491234d77",
+      "sha256": "756bce03adeda4b7a2f3b48facbadcc609670f69af1247457641e0e48ad1e82a",
+      "bytes": 4540
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/MO/N53GEA3MYFDQ8NY2N51SXZ.uasset",
+      "git_blob": "aa2beb7073afd16fe6b297408bd2410d72a6c87c",
+      "sha256": "50121ef49a5602e3c72c348c16cecf6f37df38eb925e0a968a8ebcc01acafa8f",
+      "bytes": 4520
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/XQ/A81CIRKVMGQW9M11WGFTSG.uasset",
+      "git_blob": "1a6237bd3fb63110cd1c93924b929d1c7c181abc",
+      "sha256": "d5c2115b587343cfb0433c461cdb0eb60bbf7b3c221787866ab7184c04557856",
+      "bytes": 4520
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/A/0K/HKX32EKD1NWSED5MNRVPQS.uasset",
+      "git_blob": "4b80852d1e8a50f895488b2d6deb65d12d163279",
+      "sha256": "d2ded10dc2af226658689719a788c63a94802ddcefb0d47e26b01bcba7f43b83",
+      "bytes": 4524
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/A/7J/B0B72O5AF6MU5855WA18S4.uasset",
+      "git_blob": "86e79d88f46cdc54d638535a1a45cceb08040582",
+      "sha256": "08541b623689e69b072b62f8e603989997f824ac28a81e36fd9efddcfd252d94",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/A/8B/ZYMW6EHHEW32TEQDALZBK0.uasset",
+      "git_blob": "7cc130e5fd7081a814ed70b9baf6aec1ac61b44f",
+      "sha256": "377be45cd8e6f61fb3b153d359c745bc67d4e1869623a00b15fa4e2f27389509",
+      "bytes": 4587
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/A/9I/RNOJE0G4YM8LENOFX9OQQ4.uasset",
+      "git_blob": "d69a950a8f63cb850204a9113280fb83c02908de",
+      "sha256": "c65d7f8b39525b03af2d5a2a620e27615fd0ffe7769cd27c64a305e4ad663e10",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/A/FL/UNBE0J92WZAJP8TJBJJPC3.uasset",
+      "git_blob": "0efb539c4648ead9602ea685874c3a4273e5dfe1",
+      "sha256": "ce170351e7103f2b4ded360b05eed921a1dec8aeca2d5353a908dc6a5ceba1d8",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/A/HP/X8SPGOPWZMM4F4DB1QKNE3.uasset",
+      "git_blob": "ca681c8036beb3e3e1db5798823e6aa2c1fc9a8c",
+      "sha256": "baf05ec5ddb803d7c46b6a9f5d47c2ce42dc0e16cbb995a360f43dc077069563",
+      "bytes": 2349
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/B/IB/EIP7OGBUKU9QJ3COM0G7IO.uasset",
+      "git_blob": "df7db2651c2a9d2129fa16bf0bdab90e11d4a9ab",
+      "sha256": "26136782ac8d94c5a0cfddaa0c8014d6418fe53677831ddc2827a74e7ce6a8fa",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/B/IL/MRJUT3HX8IIH37TFBJ49R4.uasset",
+      "git_blob": "2772cee3b6f54da36c4d160c5dcce8c8489e50ab",
+      "sha256": "60a98d6097efdb8fb4a180fbe5c8ca264f3f0c833358184b1457ef41cd0f5d5b",
+      "bytes": 4540
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/B/QY/H2ORX7E5P8RIC8ZAHVUVPZ.uasset",
+      "git_blob": "57a554fa9b9f0db681a42fee6c8d95a3603b86fb",
+      "sha256": "721b2a043370ce159d697c565f805093dda9fc457736efebd61120fe325d561e",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/B/T8/TTS9Q5AH37FKAWPKPUNUAE.uasset",
+      "git_blob": "4a0f9296bffe169c5457cc077cdadd4e7b44be9c",
+      "sha256": "097c098a8b7314c68402c744261da257d78fb5d50e81d5dc4a0d832c8ffc3be2",
+      "bytes": 28756
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/B/VZ/0PL4TSRMPDZB4AZ13NFFHI.uasset",
+      "git_blob": "4a220e388d5331c8867be42990e9dd151a6c9be2",
+      "sha256": "b5284b4218b2c947593866f75b42a538d365466fd99f0b194595e5c3a4c42db3",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/4X/OAGDK0V5RO71D75MQR71A5.uasset",
+      "git_blob": "45d8d79d2ebca6493c256af48fa623cae304a8cb",
+      "sha256": "f40dfa83457486ded3f58b5d9eeefee22ffb095ead90004675f81514245e8e14",
+      "bytes": 4445
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/WS/GUOTZHEJFA5ALN214QAQ6S.uasset",
+      "git_blob": "08918e4b3bee0aaf105c872015d716dc79d73897",
+      "sha256": "add456ea47341b5512a60747ff78851a2a26b6b071b64843074f1b0832c3b8f6",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/XV/23H7JEE582Z4NUPMVZXIA7.uasset",
+      "git_blob": "d4ae97f67a382b322c03933d8cc7500adfcddcb5",
+      "sha256": "0c39acab09504f377515884a504dcd587b1329d7dff3caf22947c99ff3d1345d",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/0M/OH0G3NFP2VUG0KSU84C3D3.uasset",
+      "git_blob": "5a19e2055154130e5b7553926c60c81bc47dd162",
+      "sha256": "4e9fc6f246246af19f19980b953c6fb7177d49fa01669823e7512c8de6e2c286",
+      "bytes": 21457
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/4K/MBWQZAEKN0CPGHNUHXCZVX.uasset",
+      "git_blob": "25d322b9bc9e8d41cdd327245a2a4db6032f0326",
+      "sha256": "007542ab605df6fab2ef7169702e98d77229cc5a7cf0abcfbd039c4a1f2767df",
+      "bytes": 4523
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/6M/CSR4JAORICXR2LP9CEI3U7.uasset",
+      "git_blob": "349d7582a55a1757f03203f0f53e352f3cefb19b",
+      "sha256": "f620daa4c333e4eb24acba64d04b74f0f7f2a99267606388928eadced617ec7e",
+      "bytes": 4524
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/DU/O4T0WKU95IR99HYBB1P3K3.uasset",
+      "git_blob": "144e4644d96657c712e5a49e63345e3fc5c1dd5c",
+      "sha256": "511f47c908126dab6431690d2ab1be23e5764dac6a489516344ba9da406836a6",
+      "bytes": 25119
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/GS/POHMRMPJG17YV5NEWA7R6C.uasset",
+      "git_blob": "8e045e3ed1a60ab54f247e414face3f8ef2c1cf2",
+      "sha256": "8111e828f90efb48e2ba40a2428dd4cee3db32b4bc114ef56aeaefd5c1290d12",
+      "bytes": 4587
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/HC/Z5CBF6CSG29ZCGHEJO11B6.uasset",
+      "git_blob": "21cb4070bf0825035e889320d01ed6d3d137af31",
+      "sha256": "41cadddd31c43157ced54e333418bbfa3dd61951391532a25b44c21a5d04d4de",
+      "bytes": 21466
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/JR/9J7EAI2OGB8I9M3ESJECC4.uasset",
+      "git_blob": "88146222088c779b8f0609233566628568c6ddf4",
+      "sha256": "679637efca874c60afd480937b801247bad96f12c1fe1cc5ebdaaa93b7a963c9",
+      "bytes": 4525
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/K7/9W9CT2C1XTT17XE2NXULZK.uasset",
+      "git_blob": "9cc834aa0a2357197883b72e9d9d93ebe46595ca",
+      "sha256": "221b4e260dc24330ff20ccb9f69249bd8312560300ac6c5ac5286bb4aadf9043",
+      "bytes": 28756
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/PZ/26859T6HLZU1PEFOK0J7G5.uasset",
+      "git_blob": "e317d18f8b3111eff926d447e2f02146a905df8e",
+      "sha256": "04f6516974c50d650288b07b62a0399baa9e256d847a776e92f68d32c6a7788e",
+      "bytes": 5394
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/QB/EOO9JLBMVV51BVVOGMHLC9.uasset",
+      "git_blob": "5d801f909ddf50678d397657e7211a0d898d1c10",
+      "sha256": "a74f360febe3f1d1867e97cfbe5f1e0fda446d13e9207fd185abb36ee43664ac",
+      "bytes": 4628
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/VJ/MA2RX36D9EZLTXIEYYEL32.uasset",
+      "git_blob": "71d871f8bf54022a9321bed3cee4b5dee143556d",
+      "sha256": "c087a4e117aea9be0297f59d578d333ac8d52c0d5a6c81f0ac16d5cda2996cdf",
+      "bytes": 4540
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/WX/XORGCMGT8G4KZLFGD9AIJD.uasset",
+      "git_blob": "a5d30433076ea34d1fd4ff5536c6f0d3022a74bb",
+      "sha256": "4f805d2913770abfacc906425b95b680439e98f1f0aea51ffdbfb3c79f2e7489",
+      "bytes": 40425
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/X8/KR0MA47DR8QXY8WPAHW9J0.uasset",
+      "git_blob": "fa1213b9016ef73ada1a2b1a8a034d58b8a95154",
+      "sha256": "6b2530b46df88000b2f76f95789bfb887488d4ae1429d162127b6867ca1def60",
+      "bytes": 28758
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/10/KMD5DYYD35GWHLFVKL91VM.uasset",
+      "git_blob": "66df04ef89cdef822a9d455849e89b9c376c5d33",
+      "sha256": "019fea2c9e0da64ce0176ff6f613994f386bca4ddd55a6d16b04f003cc14e831",
+      "bytes": 4524
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/6O/ZHV798ZWDXI4J4SJS2XHT7.uasset",
+      "git_blob": "7bf89846b643e3ea29f9185c22c668a5b06c18cc",
+      "sha256": "3a15de651c90d4e3b212e5def63dfb1189caed9137b2e89fa311f65dae431368",
+      "bytes": 4532
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/D0/IACNFRK4FTEHBMCZJ36N5K.uasset",
+      "git_blob": "1daa38b09ab9815091108d8e92d1165f143a556e",
+      "sha256": "80b32e5e84c94601685219b7956a1251123b5c58dce244ed3f153d59bff994bd",
+      "bytes": 21466
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/VR/8M7H7O3XP7DVDBZY9TS9I5.uasset",
+      "git_blob": "21476ba98e20bc07cc723cca9f32f35d10d9ffab",
+      "sha256": "27b812f2ab2bcc7ce4fe12a3c92e7bee2658f6830c260976969fa97d76e68747",
+      "bytes": 4524
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalActors__/Maps/BiellaOpenWorldMap/F/19/X6BYEWCT1X4KMSG4E70PKS.uasset",
+      "git_blob": "66de261901ee3b336af5608cf4953ee94fa5db59",
+      "sha256": "9b2525a7dd9974e0ae44a302d0f609756bfd6ec40238cfd475881943323a9ae8",
+      "bytes": 4415
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalObjects__/Maps/BiellaOpenWorldMap/0/IG/5F3TKMCDUEH002H7HNWHUO.uasset",
+      "git_blob": "d5010647331bc23fd30e8b4e525609ff88412e48",
+      "sha256": "d7afcc2ccbce61a8f4f7d1dfc2154201a18dcffd9b5a6b61faa4effa59d8accc",
+      "bytes": 2028
+    },
+    {
+      "path": "projects/biella-games/Content/__ExternalObjects__/Maps/BiellaOpenWorldMap/D/Z1/M9K1YTWGSNY24NFEHAXJW5.uasset",
+      "git_blob": "54ab91dcabca07035001ad02fea5c6cb612125ab",
+      "sha256": "f0335ab0865cc947484961d0d691f213cfe4f18531b8a473d24eeeff61a74a0d",
+      "bytes": 1912
+    },
+    {
+      "path": "projects/biella-games/Source/BiellaGames/Private/BiellaDemoObjectiveManager.cpp",
+      "git_blob": "d1b4ca45a0f204a341036efc787e81ca158a0286",
+      "sha256": "ae6ad024c465902dcf4f4a68721c2bd1b50cb92943f5c297b5982d936d653b7d",
+      "bytes": 6757
+    },
+    {
+      "path": "projects/biella-games/Source/BiellaGames/Private/BiellaDemoPawn.cpp",
+      "git_blob": "a63fd19ea2d837473850e286d4f6df93800dbc24",
+      "sha256": "24a41c4efc03dac8fefba7607bd757982a5caf3029a796c1aaaefc667a02f68a",
+      "bytes": 11429
+    },
+    {
+      "path": "projects/biella-games/Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+      "git_blob": "0cde65082e6091e2ab5e752c95edbd187822f617",
+      "sha256": "0a656f1f942a590127a80e8964c4a8f31581733b20df05a3a970003ef638b328",
+      "bytes": 15247
+    },
+    {
+      "path": "projects/biella-games/Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp",
+      "git_blob": "aab9f6e0731a7cd132148e0b7d9818cb0f9d575f",
+      "sha256": "20a65231806b73d0bb7fb3e1f93250b4b53da5c2a716a110851ea100bc76832a",
+      "bytes": 13750
+    },
+    {
+      "path": "projects/biella-games/Source/BiellaGames/Private/BiellaInfected.cpp",
+      "git_blob": "b17909ea108167d2222a996e5c2bce44f2f56d75",
+      "sha256": "780595a07574aaed11436a39a9542e83840e56c8c3a5136bc28fe218e652a7e2",
+      "bytes": 7037
+    },
+    {
+      "path": "projects/biella-games/Source/BiellaGames/Private/BiellaRival.cpp",
+      "git_blob": "b7b4332e3a6ec1c8c24e2f4f3939693b75df5272",
+      "sha256": "f8e7e7ac4ab8912341e5e5d744ab7c341f8dc683160a11f222dfd23502930999",
+      "bytes": 16847
+    },
+    {
+      "path": "projects/biella-games/Source/BiellaGames/Private/BiellaWorldAuthoring.cpp",
+      "git_blob": "cad545804a27849adbc59a017e5b66be92e85c05",
+      "sha256": "c693fccdb0bf825120bbb3317d088074711ff25d113c3e9c87bccc03ee30cbef",
+      "bytes": 1983
+    },
+    {
+      "path": "projects/biella-games/Source/BiellaGames/Private/BiellaWorldContinuity.cpp",
+      "git_blob": "4acb6950bb12fa313cc44e3c84104701ec633140",
+      "sha256": "247961617c34de5506c5a2f73eecfdd05af01a4e95c95978e15419305916dd4c",
+      "bytes": 16072
+    },
+    {
+      "path": "projects/biella-games/Source/BiellaGames/Private/Tests/BiellaWorldStreamingTest.cpp",
+      "git_blob": "3505e7601d536069efc8be49eea32e07b02aa3e4",
+      "sha256": "3ce17cf7952c613203e677d72995d0fb867cfd0c82282a77dc78bb09cd1829ba",
+      "bytes": 42725
+    },
+    {
+      "path": "projects/biella-games/Source/BiellaGames/Public/BiellaDemoPawn.h",
+      "git_blob": "55286ffcf4e032f94181a32fffaa28ae26244adb",
+      "sha256": "845ddd358ba263617cde2a2c97d8e6698c93bfa742679e799119c8b61f0b72e1",
+      "bytes": 3487
+    },
+    {
+      "path": "projects/biella-games/Source/BiellaGames/Public/BiellaGamesCharacter.h",
+      "git_blob": "1e4c0ad3e2ebd76e18e432da3b92df5f58138b6f",
+      "sha256": "b0eb709ae18be65d8b796290e4ad3ad68b1e5979776f8c5d2a8810f80e9d14db",
+      "bytes": 3435
+    },
+    {
+      "path": "projects/biella-games/Source/BiellaGames/Public/BiellaGamesGameModeBase.h",
+      "git_blob": "551e6737d8ec2fcf4cfa18a900366f321955b896",
+      "sha256": "c560a037ff48427ebefa4a9c05b4d26e2174628f1fdd304763038148da641f76",
+      "bytes": 2326
+    },
+    {
+      "path": "projects/biella-games/Source/BiellaGames/Public/BiellaWorldAuthoring.h",
+      "git_blob": "bd1d12ca261b5bb1a7360f29583eedcc8e3c8d71",
+      "sha256": "99dc57cfb71777cfb49a694fc64341809d372ed249fc24ff212ca9cba3b18090",
+      "bytes": 1140
+    },
+    {
+      "path": "projects/biella-games/Source/BiellaGames/Public/BiellaWorldContinuity.h",
+      "git_blob": "3cb6bb0137a5d748e7352e2ea5393d53985e4150",
+      "sha256": "f6efc640e1d996983a19811457ebf99e5cb322194eb2825726f56aa3ab27cb31",
+      "bytes": 4078
+    },
+    {
+      "path": "projects/biella-games/docs/WORLD_STREAMING.md",
+      "git_blob": "8617eca9a26cf0f2118e7bc77924bf1c8f898e6c",
+      "sha256": "96cefea3cce2241c4510c243192355483dc644d1918c6be14bc35537aa6a0a4e",
+      "bytes": 5474
+    },
+    {
+      "path": "projects/biella-games/tests/run_d02_01.py",
+      "git_blob": "94a9c23808a6197ba69dcb7933b36a375e73babd",
+      "sha256": "afa5b79881adfda19d10489513f125e1e966630d91a843f65a4c0a8fcdee4677",
+      "bytes": 9797
+    },
+    {
+      "path": "projects/biella-games/tests/run_d02_01_shared_regression.py",
+      "git_blob": "bd59b9b2490c5a3e09ced90dcf3479c91643c8a7",
+      "sha256": "35b77ec95606dd700606fcc2a65dc8700b270d306adbf85b78459d3273b49c09",
+      "bytes": 5458
+    },
+    {
+      "path": "projects/biella-games/tests/verify_d02_01.py",
+      "git_blob": "96e2ca10639034de258f1c7a52eb2826f5bfaad7",
+      "sha256": "6349151e5a2513f62933cac57b2e0a9c75c834ee1470d774c8f5c381113a5e80",
+      "bytes": 7266
+    }
+  ],
+  "direct_content_readbacks": [
+    {
+      "path": "projects/biella-games/Source/BiellaGames/Private/BiellaWorldContinuity.cpp",
+      "git_blob": "4acb6950bb12fa313cc44e3c84104701ec633140",
+      "sha256": "247961617c34de5506c5a2f73eecfdd05af01a4e95c95978e15419305916dd4c",
+      "bytes": 16072,
+      "result": "PASS"
+    },
+    {
+      "path": "projects/biella-games/Content/Maps/BiellaOpenWorldMap.umap",
+      "git_blob": "8447e80c2a436471dc92e1133a5c61e84155b7db",
+      "sha256": "93cada47d6c93b1b3ea79b34294bdac21a8626299054e2cc3a8bfa47ba18d9bb",
+      "bytes": 12871,
+      "result": "PASS"
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/D02-01-acceptance.md",
+      "git_blob": "e6b0fbbbad75945eb284d2f504a5b0f4377172e4",
+      "sha256": "f0087b2cdf0ccf8c366c3b1e72f8c78acf771d1b1187e83330a20dc27f82dc60",
+      "bytes": 8591,
+      "result": "PASS"
+    },
+    {
+      "path": "projects/biella-games/Build/OpenWorld/runtime-07/validation.json",
+      "git_blob": "bab0f46b664aafc5899f694b2002229499a561d0",
+      "sha256": "834227e90b7e0c703b71d8f88e76ba6a9066893fc23090ee45f00f24385267b4",
+      "bytes": 98574,
+      "result": "PASS"
+    }
+  ],
+  "drive": "No Drive-maintained authority record changed and no D02-specific Drive destination defined.",
+  "canonical_state_transition": "Not performed; Auto Feeder retains ownership."
+}
