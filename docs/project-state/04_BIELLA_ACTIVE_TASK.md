@@ -4,11 +4,11 @@
 schema: biella.active_task/v9
 
 task:
-  id: D01-47
+  id: D01-48
   project: Biella Games
   section: demo01
-  class: medium
-  title: Launch clean package and capture run evidence
+  class: hard
+  title: Execute full end-to-end playable acceptance
   status: PENDING
   runner: READY
 
@@ -18,7 +18,7 @@ task:
     - projects/biella-games/docs/PRODUCTION.md
 
   continuity:
-    completed_predecessor: D01-46
+    completed_predecessor: D01-47
     production_source: projects/biella-games/docs/PRODUCTION.md
 
   preserve:
@@ -26,5 +26,5 @@ task:
     - Engine P4-06 as INCOMPLETE_DEFERRED
     - one-repository/one-controller/one-Project-production-source architecture
 
-  stop: Execute only D01-47; validate and persist it before advancing.
+  stop: Execute only D01-48; validate and persist it before advancing.
 ```
