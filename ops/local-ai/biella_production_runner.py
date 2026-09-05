@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import fcntl
+import hashlib
 import json
 import os
 import subprocess
@@ -13,6 +14,7 @@ from pathlib import Path
 from typing import Any, Callable, Mapping
 
 import biella_codex_routing as routing
+import biella_memory_compactor as memory_compactor
 import biella_production_evidence as evidence
 import biella_production_events as production_events
 import biella_production_state as state
@@ -181,13 +183,142 @@ def _write_task_capsule(repo_root: Path, project_root: Path, runtime_root: Path,
     return path
 
 
-def _task_prompt(repo_root: Path, production: state.ProductionState, task: state.TaskRecord, telemetry: Mapping[str, Any], capsule_path: Path) -> str:
+def _task_prompt(repo_root: Path, production: state.ProductionState, task: state.TaskRecord, telemetry: Mapping[str, Any], capsule_path: Path, projection_path: Path | None = None, local_assist_path: Path | None = None) -> str:
     if _resume_session_for(telemetry, task.id):
-        return packets.compile_resume_packet(task, capsule_path)
-    initial = packets.compile_task_packet(repo_root, production, task)
-    if capsule_path.exists():
-        initial += f"\nTASK_MEMORY: {capsule_path}\nRead this bounded recovery capsule before redoing any existing work.\n"
-    return initial
+        prompt = packets.compile_resume_packet(task, capsule_path)
+    else:
+        prompt = packets.compile_task_packet(repo_root, production, task)
+        if capsule_path.exists():
+            prompt += f"\nTASK_MEMORY: {capsule_path}\nRead this bounded recovery capsule before redoing any existing work.\n"
+    if projection_path and Path(projection_path).exists():
+        prompt += (
+            f"\nMEMORY_PROJECTION: {projection_path}\n"
+            "This is a rebuildable compact derivative of current authority, verified actions, failures, and capabilities. "
+            "Use it to avoid redundant rereads; follow its source refs back to raw authority/evidence when exact detail is required. "
+            "It never overrides current source or task authority.\n"
+        )
+    if local_assist_path and Path(local_assist_path).exists():
+        prompt += (
+            f"\nLOCAL_RESOURCE_ASSIST: {local_assist_path}\n"
+            "This local-Qwen output is non-authoritative bounded assistance. Reuse useful analysis, validate it against current source/evidence, "
+            "and do not repeat its work with Codex unless validation or missing detail requires it.\n"
+        )
+    return prompt
+
+
+def _refresh_memory_projection(repo_root: Path, project_root: Path, runtime_root: Path, task_id: str, journal: production_events.ProductionEventJournal | None = None) -> Path | None:
+    try:
+        result = memory_compactor.refresh_compacted_memory(
+            repo_root, project_root, runtime_root, current_task_id=task_id
+        )
+    except Exception as exc:
+        if journal is not None:
+            journal.emit(
+                "memory.compaction_failed", task_id=task_id, status="ERROR",
+                text=f"Compacted memory refresh failed; continuing from raw task memory: {exc}",
+            )
+        return None
+    if journal is not None:
+        journal.emit(
+            "memory.compacted", task_id=task_id, status="COMPLETE",
+            text=str(result.projection_path), full_index=str(result.index_path),
+        )
+    return result.projection_path
+
+
+def _assist_projection_payload(projection: Mapping[str, Any]) -> dict[str, Any]:
+    memory = projection.get("task_memory") if isinstance(projection.get("task_memory"), Mapping) else {}
+    memory_keep = {
+        key: memory.get(key) for key in (
+            "task_id", "task_class", "title", "summary", "next_action",
+            "last_status", "evidence", "dirty_path_count"
+        ) if memory.get(key) is not None
+    }
+    failures = []
+    for row in projection.get("failures", []) if isinstance(projection.get("failures"), list) else []:
+        if not isinstance(row, Mapping):
+            continue
+        failures.append({
+            key: row.get(key) for key in (
+                "task_id", "failure_type", "type", "status", "text",
+                "detail", "diagnostic", "tool", "exit_code", "evidence"
+            ) if row.get(key) is not None
+        })
+    return {
+        "task_id": projection.get("task_id"),
+        "task_memory": memory_keep,
+        "failures": failures[-8:],
+        "capabilities": projection.get("capabilities") or {},
+        "verified_actions": projection.get("verified_actions") or [],
+    }
+
+
+def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_path: Path, journal: production_events.ProductionEventJournal | None = None) -> Path | None:
+    try:
+        projection = json.loads(Path(projection_path).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        if journal is not None:
+            journal.emit("resource.local_assist_failed", task_id=task_id, status="ERROR", text=f"Projection unavailable for local assist: {exc}")
+        return None
+    if not isinstance(projection, Mapping):
+        return None
+    meaningful = _assist_projection_payload(projection)
+    canonical = json.dumps(meaningful, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    digest = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+    safe_task = str(task_id).replace("/", "_")
+    path = Path(runtime_root) / "memory" / "local-assist" / f"{safe_task}-{digest[:20]}.json"
+    if path.exists():
+        return path
+    task_class = str((meaningful.get("task_memory") or {}).get("task_class") or "")
+    if task_class == "simple" and not meaningful.get("failures"):
+        return None
+    prompt = (
+        "You are Biella's bounded local Qwen execution assistant. Do not decide authority or completion. "
+        "Use the compact task state below to reduce general Codex reasoning. Return a concise technical assist: "
+        "(1) next smallest action, (2) likely failure cause if any, (3) exact files/tests/tools to inspect or run, "
+        "(4) reusable verified pattern if supported. Do not invent facts, do not repeat the whole input, and do not propose task advancement.\n\n"
+        + canonical[:12000]
+    )
+    argv = [
+        "/usr/local/bin/biella", "resource", "fast-llm",
+        "--provider", "ollama-qwen", "--max-tokens", "320", "--prompt", prompt,
+    ]
+    if journal is not None:
+        journal.emit("resource.local_assist_started", task_id=task_id, status="RUNNING", text=digest[:20], provider="ollama-qwen")
+    try:
+        proc = subprocess.run(argv, text=True, capture_output=True, timeout=90, check=False)
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        if journal is not None:
+            journal.emit("resource.local_assist_failed", task_id=task_id, status="ERROR", text=str(exc), provider="ollama-qwen")
+        return None
+    if proc.returncode != 0:
+        if journal is not None:
+            journal.emit("resource.local_assist_failed", task_id=task_id, status="ERROR", text=(proc.stderr or proc.stdout or "local assist failed")[-1600:], provider="ollama-qwen")
+        return None
+    try:
+        payload = json.loads(proc.stdout)
+    except json.JSONDecodeError:
+        if journal is not None:
+            journal.emit("resource.local_assist_failed", task_id=task_id, status="ERROR", text="Local assist returned invalid JSON", provider="ollama-qwen")
+        return None
+    result = {
+        "schema": "biella.local_resource_assist/v1",
+        "task_id": task_id,
+        "projection_content_sha256": digest,
+        "provider": payload.get("provider"),
+        "model": payload.get("model"),
+        "text": payload.get("text"),
+        "usage": payload.get("usage") or {},
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "authority": "NON_AUTHORITATIVE_RESOURCE_ASSIST",
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(json.dumps(result, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n", encoding="utf-8")
+    os.replace(tmp, path)
+    if journal is not None:
+        journal.emit("resource.local_assist_completed", task_id=task_id, status="COMPLETE", text=str(path), provider=str(result.get("provider") or "ollama-qwen"), model=str(result.get("model") or ""))
+    return path
 
 
 def _helper_allowed(task_id: str) -> bool:
@@ -444,7 +575,9 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             _beat(runtime_path, telemetry)
             output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"{task.id}-{route.model}")
             capsule_path = _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
-            prompt = _task_prompt(repo_root, production, task, telemetry, capsule_path)
+            projection_path = _refresh_memory_projection(repo_root, project_root, runtime_root, task.id, journal)
+            local_assist_path = _ensure_local_resource_assist(runtime_root, task.id, projection_path, journal) if projection_path else None
+            prompt = _task_prompt(repo_root, production, task, telemetry, capsule_path, projection_path, local_assist_path)
             resume_session_id = _resume_session_for(telemetry, task.id)
             journal.emit("task.continued" if resume_session_id else "task.started", task_id=task.id, status="RUNNING", text=task.title, model=route.model, reasoning=route.reasoning)
             rc, error_text = invoke_structured(
@@ -468,6 +601,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             }
             journal.emit("task.completed" if result.status in {"COMPLETE", "COMPLETE_ALREADY"} else "task.continue", task_id=result.task_id, status=result.status, text=result.summary)
             _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
+            _refresh_memory_projection(repo_root, project_root, runtime_root, task.id, journal)
             try:
                 evidence.apply_result(repo_root, project_root, result, route)
             except Exception as exc:
@@ -476,6 +610,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 _beat(runtime_path, telemetry); time.sleep(1.0); continue
             if result.status in {"COMPLETE", "COMPLETE_ALREADY"}:
                 _clear_task_session(telemetry)
+                _refresh_memory_projection(repo_root, project_root, runtime_root, result.task_id, journal)
                 _persist_until_success(repo_root, result.task_id, runtime_path, telemetry, event_journal=journal)
             _beat(runtime_path, telemetry)
             continue

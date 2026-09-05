@@ -28,6 +28,7 @@ install -o root -g root -m 755 \
 install -o root -g root -m 644 \
   "$SOURCE_DIR/biella_production_state.py" \
   "$SOURCE_DIR/biella_production_events.py" \
+  "$SOURCE_DIR/biella_memory_compactor.py" \
   "$SOURCE_DIR/biella_task_packet.py" \
   "$SOURCE_DIR/biella_task_ids.py" \
   "$SOURCE_DIR/biella_task_ledger.py" \

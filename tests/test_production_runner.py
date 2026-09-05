@@ -416,3 +416,73 @@ def test_live_session_identity_is_persisted_before_child_finishes(tmp_path: Path
 def test_codex_subagent_fanout_is_never_enabled_by_production(monkeypatch):
     monkeypatch.setenv("BIELLA_CODEX_ONE_HELPER_TASKS", "*")
     assert runner._helper_allowed("D02-01") is False
+
+
+def test_task_prompt_references_compacted_memory_projection(tmp_path: Path):
+    repo, project = write_repo_fixture(tmp_path)
+    production = state.load_project_production(project)
+    task = state.find_task(production, "D01-030")
+    telemetry = runner.initial_runtime()
+    capsule = runner._task_capsule_path(tmp_path / "runtime", task.id)
+    projection = tmp_path / "runtime" / "memory" / "current-task.json"
+    projection.parent.mkdir(parents=True)
+    projection.write_text('{}\n')
+    prompt = runner._task_prompt(repo, production, task, telemetry, capsule, projection)
+    assert f"MEMORY_PROJECTION: {projection}" in prompt
+    assert "never overrides current source or task authority" in prompt
+
+
+def test_memory_compaction_failure_never_blocks_task_execution(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime = tmp_path / "runtime"
+    journal = runner.production_events.ProductionEventJournal(
+        runtime / "events.jsonl", failure_path=runtime / "failures.jsonl"
+    )
+    monkeypatch.setattr(
+        runner.memory_compactor, "refresh_compacted_memory",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(RuntimeError("broken compactor")),
+    )
+    assert runner._refresh_memory_projection(repo, project, runtime, "D01-030", journal) is None
+    events = [json.loads(line) for line in (runtime / "events.jsonl").read_text().splitlines()]
+    assert events[-1]["type"] == "memory.compaction_failed"
+    failures = [json.loads(line) for line in (runtime / "failures.jsonl").read_text().splitlines()]
+    assert failures[-1]["failure_type"] == "memory.compaction_failed"
+
+
+def test_local_resource_assist_is_cached_by_meaningful_projection(tmp_path: Path, monkeypatch):
+    projection = tmp_path / "memory" / "current-task.json"
+    projection.parent.mkdir(parents=True)
+    projection.write_text(json.dumps({
+        "task_id":"D02-01", "generated_at":"one",
+        "task_memory":{"task_class":"hard_creation","title":"Streaming","summary":"partial","next_action":"fix build","updated_at":"ignored"},
+        "failures":[{"task_id":"D02-01","status":"FAILED","detail":"build permissions"}],
+        "capabilities":{"unreal.assist":["ollama-qwen"]}, "verified_actions":[]
+    }))
+    calls = []
+    def fake_run(argv, **kwargs):
+        calls.append(argv)
+        return subprocess.CompletedProcess(argv, 0, stdout=json.dumps({
+            "capability":"llm.fast","provider":"ollama-qwen","model":"qwen3-coder-next:biella",
+            "text":"repair generated permissions only","usage":{"total_tokens":22}
+        })+"\n", stderr="")
+    monkeypatch.setattr(runner.subprocess, "run", fake_run)
+    first = runner._ensure_local_resource_assist(tmp_path, "D02-01", projection)
+    assert first and first.exists()
+    payload = json.loads(first.read_text())
+    assert payload["provider"] == "ollama-qwen"
+    assert payload["text"] == "repair generated permissions only"
+    projection.write_text(projection.read_text().replace('"generated_at": "one"', '"generated_at": "two"').replace('"updated_at": "ignored"', '"updated_at": "later"'))
+    second = runner._ensure_local_resource_assist(tmp_path, "D02-01", projection)
+    assert second == first
+    assert len(calls) == 1
+
+
+def test_local_resource_assist_failure_is_non_blocking_and_recorded(tmp_path: Path, monkeypatch):
+    projection = tmp_path / "memory" / "current-task.json"
+    projection.parent.mkdir(parents=True)
+    projection.write_text(json.dumps({"task_id":"D02-01","task_memory":{"summary":"x"},"failures":[],"capabilities":{}}))
+    monkeypatch.setattr(runner.subprocess, "run", lambda argv, **kwargs: subprocess.CompletedProcess(argv, 2, stdout="", stderr="local resource unavailable"))
+    journal = runner.production_events.ProductionEventJournal(tmp_path / "events.jsonl", failure_path=tmp_path / "failures.jsonl")
+    assert runner._ensure_local_resource_assist(tmp_path, "D02-01", projection, journal) is None
+    failures = [json.loads(line) for line in (tmp_path / "failures.jsonl").read_text().splitlines()]
+    assert failures[-1]["failure_type"] == "resource.local_assist_failed"
