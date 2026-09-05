@@ -1,0 +1,27 @@
+{
+  "command": [
+    "runuser",
+    "-u",
+    "unreal",
+    "--",
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1280x720x24",
+    "/tmp/biella-d01-48-navigation-xr4kpbx3/Linux/BiellaGames.sh",
+    "-vulkan",
+    "-NoVSync",
+    "-windowed",
+    "-ResX=1280",
+    "-ResY=720",
+    "-unattended",
+    "-nosplash",
+    "-NoAsyncLoadingThread",
+    "-stdout",
+    "-FullStdOutLogOutput",
+    "-AbsLog=/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-048-runs/20260905T164050.070724Z/navigation/engine.log",
+    "-ExecCmds=Automation RunTests BiellaGames.Demo01.RivalNavigation; SoftQuit",
+    "-nosound"
+  ],
+  "cwd": "/tmp/biella-d01-48-navigation-xr4kpbx3"
+}

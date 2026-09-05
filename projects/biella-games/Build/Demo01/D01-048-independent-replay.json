@@ -1,0 +1,587 @@
+{
+  "task_id": "D01-48",
+  "result": "PASS",
+  "package_sha256": "c1085849f0919865a40191b9a40a5883be662b032766d4ef6620fa4f4b315bc8",
+  "core": {
+    "task_id": "D01-39",
+    "result": "PASS",
+    "scenario": "demo01_core_v1",
+    "trace_sha256": "438cd2e30b6f67f2fe6319a51451dfd0046264638ef8065e5acbb4b74b49a7af",
+    "comparison": "ordered event + all fields + relative restart; session/sequence/map/timestamps excluded",
+    "runs": [
+      {
+        "capture": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-048-runs/20260905T164050.070724Z/core-nullrhi/telemetry.jsonl",
+        "session": "01A07271-C0BF-7E7F-B881-422891893A44",
+        "records": 72,
+        "scenario_events": 56,
+        "seed": 1337,
+        "restart_count": 2,
+        "event_counts": {
+          "arena_pressure": 1,
+          "checkpoint": 7,
+          "damage": 15,
+          "defeat": 3,
+          "fixture": 2,
+          "input": 9,
+          "objective_activated": 2,
+          "objective_progress": 2,
+          "objective_success": 1,
+          "phase": 4,
+          "restart_requested": 2,
+          "scenario_begin": 1,
+          "scenario_complete": 1,
+          "weapon_fire": 6
+        },
+        "checkpoints": [
+          {
+            "ammo": "60",
+            "health": "100.000",
+            "infected_remaining": "2",
+            "name": "active_baseline",
+            "objective_progress": "0",
+            "phase": "Active",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "0",
+            "target_count": "2"
+          },
+          {
+            "ammo": "60",
+            "health": "100.000",
+            "infected_remaining": "2",
+            "name": "movement",
+            "objective_progress": "0",
+            "phase": "Active",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "0",
+            "target_count": "2"
+          },
+          {
+            "ammo": "57",
+            "health": "100.000",
+            "infected_remaining": "1",
+            "name": "first_infected_defeated",
+            "objective_progress": "1",
+            "phase": "Active",
+            "pressure": "20.000",
+            "pressure_revision": "1",
+            "restart_relative": "0",
+            "target_count": "2"
+          },
+          {
+            "ammo": "54",
+            "health": "100.000",
+            "infected_remaining": "0",
+            "name": "success",
+            "objective_progress": "2",
+            "phase": "Success",
+            "pressure": "20.000",
+            "pressure_revision": "1",
+            "restart_relative": "0",
+            "target_count": "2"
+          },
+          {
+            "ammo": "60",
+            "health": "100.000",
+            "infected_remaining": "2",
+            "name": "restart_after_success",
+            "objective_progress": "0",
+            "phase": "Active",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "1",
+            "target_count": "2"
+          },
+          {
+            "ammo": "60",
+            "health": "0.000",
+            "infected_remaining": "2",
+            "name": "failure",
+            "objective_progress": "0",
+            "phase": "Failure",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "1",
+            "target_count": "2"
+          },
+          {
+            "ammo": "60",
+            "health": "100.000",
+            "infected_remaining": "2",
+            "name": "restart_after_failure",
+            "objective_progress": "0",
+            "phase": "Active",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "2",
+            "target_count": "2"
+          }
+        ],
+        "wall_seconds": 0.6302660370129161
+      },
+      {
+        "capture": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-048-runs/20260905T164050.070724Z/core-vulkan/telemetry.jsonl",
+        "session": "01A07271-D4AD-768A-9513-B998846D8B84",
+        "records": 72,
+        "scenario_events": 56,
+        "seed": 1337,
+        "restart_count": 2,
+        "event_counts": {
+          "arena_pressure": 1,
+          "checkpoint": 7,
+          "damage": 15,
+          "defeat": 3,
+          "fixture": 2,
+          "input": 9,
+          "objective_activated": 2,
+          "objective_progress": 2,
+          "objective_success": 1,
+          "phase": 4,
+          "restart_requested": 2,
+          "scenario_begin": 1,
+          "scenario_complete": 1,
+          "weapon_fire": 6
+        },
+        "checkpoints": [
+          {
+            "ammo": "60",
+            "health": "100.000",
+            "infected_remaining": "2",
+            "name": "active_baseline",
+            "objective_progress": "0",
+            "phase": "Active",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "0",
+            "target_count": "2"
+          },
+          {
+            "ammo": "60",
+            "health": "100.000",
+            "infected_remaining": "2",
+            "name": "movement",
+            "objective_progress": "0",
+            "phase": "Active",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "0",
+            "target_count": "2"
+          },
+          {
+            "ammo": "57",
+            "health": "100.000",
+            "infected_remaining": "1",
+            "name": "first_infected_defeated",
+            "objective_progress": "1",
+            "phase": "Active",
+            "pressure": "20.000",
+            "pressure_revision": "1",
+            "restart_relative": "0",
+            "target_count": "2"
+          },
+          {
+            "ammo": "54",
+            "health": "100.000",
+            "infected_remaining": "0",
+            "name": "success",
+            "objective_progress": "2",
+            "phase": "Success",
+            "pressure": "20.000",
+            "pressure_revision": "1",
+            "restart_relative": "0",
+            "target_count": "2"
+          },
+          {
+            "ammo": "60",
+            "health": "100.000",
+            "infected_remaining": "2",
+            "name": "restart_after_success",
+            "objective_progress": "0",
+            "phase": "Active",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "1",
+            "target_count": "2"
+          },
+          {
+            "ammo": "60",
+            "health": "0.000",
+            "infected_remaining": "2",
+            "name": "failure",
+            "objective_progress": "0",
+            "phase": "Failure",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "1",
+            "target_count": "2"
+          },
+          {
+            "ammo": "60",
+            "health": "100.000",
+            "infected_remaining": "2",
+            "name": "restart_after_failure",
+            "objective_progress": "0",
+            "phase": "Active",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "2",
+            "target_count": "2"
+          }
+        ],
+        "wall_seconds": 10.830150516994763
+      }
+    ]
+  },
+  "runs": {
+    "core-nullrhi": {
+      "result": "PASS",
+      "suite": "DeterministicPlaytest",
+      "renderer": "nullrhi",
+      "elapsed_wall_seconds": 1.569
+    },
+    "core-vulkan": {
+      "result": "PASS",
+      "suite": "DeterministicPlaytest",
+      "renderer": "vulkan",
+      "elapsed_wall_seconds": 13.638
+    },
+    "shared": {
+      "result": "PASS",
+      "suite": "SharedInteraction",
+      "renderer": "vulkan",
+      "elapsed_wall_seconds": 22.15,
+      "gameplay": {
+        "log": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-048-runs/20260905T164050.070724Z/shared/stdout.log",
+        "result": "PASS",
+        "phases": 10,
+        "damage_events": 20,
+        "damage_edges": {
+          "infected_to_player": 4,
+          "rival_to_infected": 4,
+          "player_to_infected": 3,
+          "rival_to_player": 5,
+          "infected_to_rival": 1,
+          "player_to_rival": 3
+        },
+        "defeats": 4,
+        "duration_seconds": 13.533,
+        "minimum_cadence_seconds": {
+          "infected": 0.857,
+          "rival": 0.9,
+          "player": 0.351
+        }
+      }
+    },
+    "pressure": {
+      "result": "PASS",
+      "suite": "PressureResponses",
+      "renderer": "vulkan",
+      "elapsed_wall_seconds": 17.382,
+      "gameplay": {
+        "log": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-048-runs/20260905T164050.070724Z/pressure/stdout.log",
+        "result": "PASS",
+        "phases": [
+          "baseline_chase",
+          "rising_no_spawn",
+          "blocked_spawn",
+          "downgrade_cancels_retry",
+          "unblocked_retry",
+          "elevated_chase",
+          "critical_two_slots",
+          "late_consumers",
+          "reset_restores_baseline",
+          "defeated_stays_stopped",
+          "no_duplicates_or_refill"
+        ],
+        "identity": "Demo01ArenaPressure",
+        "transitions": 10,
+        "spawn_count": 2,
+        "baseline_cm": 158.097,
+        "baseline_seconds": 0.753,
+        "elevated_cm": 199.895,
+        "elevated_seconds": 0.762,
+        "velocity_ratio": 1.25
+      }
+    },
+    "navigation": {
+      "result": "PASS",
+      "suite": "RivalNavigation",
+      "renderer": "vulkan",
+      "elapsed_wall_seconds": 41.824,
+      "phases": [
+        "detour",
+        "hold",
+        "retreat",
+        "dynamic_obstruction",
+        "occluded_combat_position",
+        "bounded_failure",
+        "route_reopened",
+        "no_target_stop",
+        "defeat_stop"
+      ]
+    },
+    "visual": {
+      "result": "PASS",
+      "suite": "VisualReadability",
+      "renderer": "vulkan",
+      "elapsed_wall_seconds": 15.479,
+      "frames": [
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/visual/active_06m_1280x720.png",
+          "sha256": "f92e462215204381f5f18f0f9b2af32febd71f14a416baec2c7381fe2bb7c4c5",
+          "bytes": 745229,
+          "size": [
+            1280,
+            720
+          ],
+          "rgb_stddev": [
+            43.82334294387398,
+            48.02405125580703,
+            50.29276634796532
+          ]
+        },
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/visual/active_12m_1280x720.png",
+          "sha256": "f5a303e4d454c5dc6a5247f94b49f603b1333f7bb3f6a208a19e6877cb969013",
+          "bytes": 736089,
+          "size": [
+            1280,
+            720
+          ],
+          "rgb_stddev": [
+            41.864145290719094,
+            47.26791164863863,
+            50.07575589165641
+          ]
+        },
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/visual/active_20m_1280x720.png",
+          "sha256": "4b6b1fee7df242ae276bd9fc4b9d21715dba79113bd63f46d30737806d44842e",
+          "bytes": 732060,
+          "size": [
+            1280,
+            720
+          ],
+          "rgb_stddev": [
+            41.07417018996512,
+            46.9434452681524,
+            49.97020688329578
+          ]
+        },
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/visual/failure_1280x720.png",
+          "sha256": "3d55a18a4e567497ec4a47aebc194657d67f8cfb6baf4b4bf848e5a305a8fad5",
+          "bytes": 204568,
+          "size": [
+            1280,
+            720
+          ],
+          "rgb_stddev": [
+            25.026313982319746,
+            17.404712222600672,
+            15.776801648359836
+          ]
+        },
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/visual/low_health_pressure_100_1280x720.png",
+          "sha256": "46e28fc8ca1d3401e542214d68d1b69650d346292535b88a86d2fb6b7bdb5f86",
+          "bytes": 746858,
+          "size": [
+            1280,
+            720
+          ],
+          "rgb_stddev": [
+            45.7468446158254,
+            46.4195719571178,
+            49.827754401216794
+          ]
+        },
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/visual/success_1280x720.png",
+          "sha256": "d79a9afaf6f0adb43d99fbf84690b7d8c281fa2da47e147e554446cb6d815af8",
+          "bytes": 240343,
+          "size": [
+            1280,
+            720
+          ],
+          "rgb_stddev": [
+            17.287662225775094,
+            23.340377606493508,
+            18.475170085930536
+          ]
+        }
+      ]
+    },
+    "feedback": {
+      "result": "PASS",
+      "suite": "EventFeedback",
+      "renderer": "vulkan",
+      "elapsed_wall_seconds": 16.278,
+      "audio": [
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/feedback/combat.wav",
+          "sha256": "dcfb373e7cdd22abc9da1178b920a656892f015e68630a43bf13e7a816268681",
+          "bytes": 131116,
+          "sample_rate": 48000,
+          "channels": 2,
+          "pcm_bits": 16,
+          "frames": 32768,
+          "clipped_samples": 0,
+          "duration_seconds": 0.6827,
+          "peak": 0.059906,
+          "rms": 0.00899,
+          "audible_seconds": 0.2907,
+          "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+        },
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/feedback/failure.wav",
+          "sha256": "94689c71cd7d61c830a3df87f7d86041dce31113bebb207cc7ffec4b93e81073",
+          "bytes": 180268,
+          "sample_rate": 48000,
+          "channels": 2,
+          "pcm_bits": 16,
+          "frames": 45056,
+          "clipped_samples": 0,
+          "duration_seconds": 0.9387,
+          "peak": 0.12442,
+          "rms": 0.02107,
+          "audible_seconds": 0.7855,
+          "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+        },
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/feedback/hurt.wav",
+          "sha256": "bc5db2e7977861c37bc49612a23fa8c3748cc8fa0eb94dc77db31a4bf5764eb8",
+          "bytes": 69676,
+          "sample_rate": 48000,
+          "channels": 2,
+          "pcm_bits": 16,
+          "frames": 17408,
+          "clipped_samples": 0,
+          "duration_seconds": 0.3627,
+          "peak": 0.204437,
+          "rms": 0.031987,
+          "audible_seconds": 0.2102,
+          "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+        },
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/feedback/pressure.wav",
+          "sha256": "d15046c1c1eb90427eefe68ab210253ab495b011757c339f32635651266eb0ac",
+          "bytes": 118828,
+          "sample_rate": 48000,
+          "channels": 2,
+          "pcm_bits": 16,
+          "frames": 29696,
+          "clipped_samples": 0,
+          "duration_seconds": 0.6187,
+          "peak": 0.124481,
+          "rms": 0.025855,
+          "audible_seconds": 0.4936,
+          "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+        },
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/feedback/success.wav",
+          "sha256": "e352639a6a2adff147226d585dcf10769b132ff04e01ae879c27770b60bdf175",
+          "bytes": 155692,
+          "sample_rate": 48000,
+          "channels": 2,
+          "pcm_bits": 16,
+          "frames": 38912,
+          "clipped_samples": 0,
+          "duration_seconds": 0.8107,
+          "peak": 0.069824,
+          "rms": 0.018397,
+          "audible_seconds": 0.643,
+          "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+        }
+      ],
+      "frames": [
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/feedback/combat.png",
+          "sha256": "6505a6588864fc4dd3ea55106b58261db0c2cc4caf65d34b260a9f48ae13846a",
+          "bytes": 747623,
+          "size": [
+            1280,
+            720
+          ],
+          "rgb_stddev": [
+            44.080761941748314,
+            47.882969861145355,
+            50.202019153562254
+          ]
+        },
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/feedback/dense_combat.png",
+          "sha256": "84031112d36f900d5a40a07f7873e8647d3b4c78b8047bd0fd97a3e2abe4f607",
+          "bytes": 746629,
+          "size": [
+            1280,
+            720
+          ],
+          "rgb_stddev": [
+            44.14585037187419,
+            47.81286907112366,
+            50.19399942977029
+          ]
+        },
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/feedback/failure.png",
+          "sha256": "e560514f66a0997383c52193abda7bc54bb8821d9741b07432155ea03e5ddd24",
+          "bytes": 204378,
+          "size": [
+            1280,
+            720
+          ],
+          "rgb_stddev": [
+            25.025930116858703,
+            17.410244567595317,
+            15.780301735991692
+          ]
+        },
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/feedback/hurt.png",
+          "sha256": "8282c21e47b3a44ae3668526e5d494b30d10a560cd970a152a6187adb9cc64eb",
+          "bytes": 745261,
+          "size": [
+            1280,
+            720
+          ],
+          "rgb_stddev": [
+            44.14416568548698,
+            47.79427921685752,
+            50.17913824470926
+          ]
+        },
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/feedback/pressure.png",
+          "sha256": "77ca6300e7a1abbb2cc09f21d5b4fb01976d69dfb7d13e98684a4944d823fd69",
+          "bytes": 817686,
+          "size": [
+            1280,
+            720
+          ],
+          "rgb_stddev": [
+            37.278150370906644,
+            34.16858000267299,
+            32.214150657324495
+          ]
+        },
+        {
+          "path": "/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/feedback/success.png",
+          "sha256": "eea85e6e893e300daa36ec38cce3a502dc641e05531bc6503ae551a56df0be2e",
+          "bytes": 231262,
+          "size": [
+            1280,
+            720
+          ],
+          "rgb_stddev": [
+            17.294043533790752,
+            23.23642448918022,
+            18.46186227122508
+          ]
+        }
+      ]
+    }
+  },
+  "qualification": "Actual Linux Development package; seven clean processes; fixture conditions remain explicit"
+}

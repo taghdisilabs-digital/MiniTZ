@@ -1,0 +1,23 @@
+{
+  "command": [
+    "runuser",
+    "-u",
+    "unreal",
+    "--",
+    "/tmp/biella-d01-48-core-nullrhi-vwp8uejg/Linux/BiellaGames.sh",
+    "-nullrhi",
+    "-unattended",
+    "-nosplash",
+    "-NoAsyncLoadingThread",
+    "-stdout",
+    "-FullStdOutLogOutput",
+    "-AbsLog=/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-048-runs/20260905T164050.070724Z/core-nullrhi/engine.log",
+    "-ExecCmds=Automation RunTests BiellaGames.Demo01.DeterministicPlaytest; SoftQuit",
+    "-BiellaTelemetry=/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-048-runs/20260905T164050.070724Z/core-nullrhi/telemetry.jsonl",
+    "-BiellaPlaytestSeed=1337",
+    "-UseFixedTimeStep",
+    "-FPS=60",
+    "-nosound"
+  ],
+  "cwd": "/tmp/biella-d01-48-core-nullrhi-vwp8uejg"
+}

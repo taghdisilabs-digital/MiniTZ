@@ -1,0 +1,1148 @@
+﻿Log file open, 09/05/26 16:40:52
+LogInit: Running DelayedAutoRegister Phase StartOfEnginePreInit
+LogCore: Display: UTS: The Unreal Trace Server binary is not available ('../../../Engine/Binaries/Linux/UnrealTraceServer')
+LogTrace: Initializing trace...
+LogTrace: Finished trace initialization.
+LogCsvProfiler: Display: Metadata set : platform="Linux"
+LogCsvProfiler: Display: Metadata set : config="Development"
+LogCsvProfiler: Display: Metadata set : buildversion="++UE5+Release-5.8-CL-56702186"
+LogCsvProfiler: Display: Metadata set : engineversion="5.8.2-56702186+++UE5+Release-5.8"
+LogCsvProfiler: Display: Metadata set : enginereleaseversion="5.8.2"
+LogCsvProfiler: Display: Metadata set : os="Ubuntu 24.04.4 LTS 6.8.0-138-generic"
+LogCsvProfiler: Display: Metadata set : cpu="AuthenticAMD|AMD EPYC 9124 16-Core Processor"
+LogCsvProfiler: Display: Metadata set : pgoenabled="0"
+LogCsvProfiler: Display: Metadata set : pgoprofilingenabled="0"
+LogCsvProfiler: Display: Metadata set : ltoenabled="0"
+LogCsvProfiler: Display: Metadata set : asan="0"
+LogCsvProfiler: Display: Metadata set : mergedmodules="0"
+LogCsvProfiler: Display: Metadata set : compacttset="0"
+LogCsvProfiler: Display: Metadata set : commandline="" BiellaGames -nullrhi -unattended -nosplash -NoAsyncLoadingThread -stdout -FullStdOutLogOutput -AbsLog=/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-048-runs/20260905T164050.070724Z/core-nullrhi/engine.log -ExecCmds="Automation RunTests BiellaGames.Demo01.DeterministicPlaytest; SoftQuit" -BiellaTelemetry=/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-048-runs/20260905T164050.070724Z/core-nullrhi/telemetry.jsonl -BiellaPlaytestSeed=1337 -UseFixedTimeStep -FPS=60 -nosound""
+LogCsvProfiler: Display: Metadata set : loginid="3da9d2f3021f461a93a81e6b23a2b4d7-000003e9"
+LogCsvProfiler: Display: Metadata set : llm="0"
+LogPakFile: Initializing PakPlatformFile
+LogPakFile: Display: Found Pak file ../../../BiellaGames/Content/Paks/BiellaGames-Linux.pak attempting to mount.
+LogPakFile: Display: Mounting pak file ../../../BiellaGames/Content/Paks/BiellaGames-Linux.pak.
+LogPakFile: Display: Mounted Pak file '../../../BiellaGames/Content/Paks/BiellaGames-Linux.pak', mount point: '../../../'
+LogCsvProfiler: Display: Metadata set : zenstreaming="0"
+LogInit: Running DelayedAutoRegister Phase FileSystemReady
+LogInit: Running DelayedAutoRegister Phase TaskGraphSystemReady
+LogStats: Stats thread started at 0.100833
+LogInit: Running DelayedAutoRegister Phase StatSystemReady
+LogCsvProfiler: Display: Metadata set : systemresolution.resx="1280"
+LogCsvProfiler: Display: Metadata set : systemresolution.resy="720"
+LogICUInternationalization: ICU TimeZone Detection - Raw Offset: +0:00, Platform Override: ''
+LogInit: Session CrashGUID >====================================================
+         Session CrashGUID >   UECC-Linux-01A07271BEEF7DDAAB76E8EE15C5661E
+         Session CrashGUID >====================================================
+LogConfig: No local boot hotfix file found at: [../../../BiellaGames/Saved/PersistentDownloadDir/HotfixForNextBoot.txt]
+LogInit: Running DelayedAutoRegister Phase IniSystemReady
+LogAudio: Display: Audio Device Manager not initializing due to all audio being disabled. If this is not intentional, please check command line arguments for "-nosound".
+LogPluginManager: Mounting Engine plugin Paper2D
+LogPluginManager: Mounting Engine plugin AISupport
+LogPluginManager: Mounting Engine plugin EnvironmentQueryEditor
+LogPluginManager: Mounting Engine plugin ACLPlugin
+LogPluginManager: Mounting Engine plugin AnimationData
+LogPluginManager: Mounting Engine plugin AnimatorKit
+LogPluginManager: Mounting Engine plugin ControlRig
+LogPluginManager: Mounting Engine plugin ControlRigModules
+LogPluginManager: Mounting Engine plugin ControlRigSpline
+LogPluginManager: Mounting Engine plugin DeformerGraph
+LogPluginManager: Mounting Engine plugin EaseCurveTool
+LogPluginManager: Mounting Engine plugin GameplayInsights
+LogAssetRegistry: Premade AssetRegistry loaded from '../../../BiellaGames/AssetRegistry.bin'.
+LogPluginManager: Mounting Engine plugin IKRig
+LogPluginManager: Mounting Engine plugin PhysicsControl
+LogPluginManager: Mounting Engine plugin RigLogic
+LogPluginManager: Mounting Engine plugin SkeletalMeshModelingTools
+LogPluginManager: Mounting Engine plugin TweeningUtils
+LogPluginManager: Mounting Engine plugin AudioInsights
+LogPluginManager: Mounting Engine plugin AudioInsightsRuntime
+LogPluginManager: Mounting Engine plugin AudioModulationInsights
+LogPluginManager: Mounting Engine plugin BaseMaterial
+LogPluginManager: Mounting Engine plugin CameraShakePreviewer
+LogPluginManager: Mounting Engine plugin EngineCameras
+LogPluginManager: Mounting Engine plugin GameplayCameras
+LogPluginManager: Mounting Engine plugin ChaosCloth
+LogPluginManager: Mounting Engine plugin ChaosVD
+LogPluginManager: Mounting Engine plugin CompositeCore
+LogPluginManager: Mounting Engine plugin OodleNetwork
+LogPluginManager: Mounting Engine plugin Dataflow
+LogPluginManager: Mounting Engine plugin AnimationSharing
+LogPluginManager: Mounting Engine plugin ConcertMain
+LogPluginManager: Mounting Engine plugin ConcertSyncClient
+LogPluginManager: Mounting Engine plugin ConcertSyncCore
+LogPluginManager: Mounting Engine plugin ConcertSharedSlate
+LogPluginManager: Mounting Engine plugin DumpGPUServices
+LogPluginManager: Mounting Engine plugin NamingTokens
+LogPluginManager: Mounting Engine plugin PluginUtils
+LogPluginManager: Mounting Engine plugin ProjectLauncher
+LogPluginManager: Mounting Engine plugin RenderDocPlugin
+LogPluginManager: Mounting Engine plugin FileSandbox
+LogPluginManager: Mounting Engine plugin UObjectPlugin
+LogPluginManager: Mounting Engine plugin AssetManagerEditor
+LogPluginManager: Mounting Engine plugin BlueprintHeaderView
+LogPluginManager: Mounting Engine plugin BlueprintMaterialTextureNodes
+LogPluginManager: Mounting Engine plugin ColorGrading
+LogPluginManager: Mounting Engine plugin ConsoleVariables
+LogPluginManager: Mounting Engine plugin ContentBrowserAssetDataSource
+LogPluginManager: Mounting Engine plugin CurveEditorTools
+LogPluginManager: Mounting Engine plugin DataValidation
+LogPluginManager: Mounting Engine plugin EditorScriptingUtilities
+LogPluginManager: Mounting Engine plugin EngineAssetDefinitions
+LogPluginManager: Mounting Engine plugin FacialAnimation
+LogPluginManager: Mounting Engine plugin GeometryMode
+LogPluginManager: Mounting Engine plugin MaterialAssetWizard
+LogPluginManager: Mounting Engine plugin LightMixer
+LogPluginManager: Mounting Engine plugin ObjectMixer
+LogPluginManager: Mounting Engine plugin ProxyLODPlugin
+LogPluginManager: Mounting Engine plugin SequencerAnimTools
+LogPluginManager: Mounting Engine plugin SpeedTreeImporter
+LogPluginManager: Mounting Engine plugin UMGWidgetPreview
+LogPluginManager: Mounting Engine plugin UVEditor
+LogPluginManager: Mounting Engine plugin EnhancedInput
+LogPluginManager: Mounting Engine plugin DatasmithContent
+LogPluginManager: Mounting Engine plugin GLTFExporter
+LogPluginManager: Mounting Engine plugin VariantManager
+LogPluginManager: Mounting Engine plugin VariantManagerContent
+LogPluginManager: Mounting Engine plugin Scribble
+LogPluginManager: Mounting Engine plugin AutomationUtils
+LogPluginManager: Mounting Engine plugin BackChannel
+LogPluginManager: Mounting Engine plugin Buoyancy
+LogPluginManager: Mounting Engine plugin ChaosCaching
+LogPluginManager: Mounting Engine plugin ChaosEditor
+LogPluginManager: Mounting Engine plugin ChaosNiagara
+LogPluginManager: Mounting Engine plugin ChaosSolverPlugin
+LogPluginManager: Mounting Engine plugin ChaosUserDataPT
+LogPluginManager: Mounting Engine plugin CharacterAI
+LogPluginManager: Mounting Engine plugin ControlRigPhysics
+LogPluginManager: Mounting Engine plugin EditorDataStorage
+LogPluginManager: Mounting Engine plugin EditorDataStorageFeatures
+LogPluginManager: Mounting Engine plugin EditorPerformance
+LogPluginManager: Mounting Engine plugin EditorTRSGizmo
+LogPluginManager: Mounting Engine plugin Fracture
+LogPluginManager: Mounting Engine plugin FullBodyIK
+LogPluginManager: Mounting Engine plugin GeometryCollectionPlugin
+LogPluginManager: Mounting Engine plugin GeometryDataflow
+LogPluginManager: Mounting Engine plugin GizmoFramework
+LogPluginManager: Mounting Engine plugin GlobalConfigurationData
+LogPluginManager: Mounting Engine plugin InterchangeAxfAssets
+LogPluginManager: Mounting Engine plugin Landmass
+LogPluginManager: Mounting Engine plugin LevelSequenceNavigatorBridge
+LogPluginManager: Mounting Engine plugin LocalizableMessage
+LogPluginManager: Mounting Engine plugin MutableAssetUserData
+LogPluginManager: Mounting Engine plugin NFORDenoise
+LogPluginManager: Mounting Engine plugin PlanarCut
+LogPluginManager: Mounting Engine plugin PlatformCrypto
+LogPluginManager: Mounting Engine plugin PythonScriptPlugin
+LogPluginManager: Mounting Engine plugin RuntimeTelemetry
+LogPluginManager: Mounting Engine plugin ToolPresets
+LogPluginManager: Mounting Engine plugin Water
+LogPluginManager: Mounting Engine plugin Cascade
+LogPluginManager: Mounting Engine plugin Niagara
+LogPluginManager: Mounting Engine plugin NiagaraPreviewContent
+LogPluginManager: Mounting Engine plugin NiagaraSimCaching
+LogPluginManager: Mounting Engine plugin AlembicImporter
+LogPluginManager: Mounting Engine plugin InterchangeAssets
+LogPluginManager: Mounting Engine plugin InterchangeEditor
+LogPluginManager: Mounting Engine plugin Interchange
+LogPluginManager: Mounting Engine plugin AvfMedia
+LogPluginManager: Mounting Engine plugin ImgMedia
+LogPluginManager: Mounting Engine plugin MP4Utilities
+LogPluginManager: Mounting Engine plugin MediaCompositing
+LogPluginManager: Mounting Engine plugin MediaPlate
+LogPluginManager: Mounting Engine plugin TmvMedia
+LogPluginManager: Mounting Engine plugin WebMMedia
+LogPluginManager: Mounting Engine plugin WmfMedia
+LogPluginManager: Mounting Engine plugin MeshPainting
+LogPluginManager: Mounting Engine plugin TcpMessaging
+LogPluginManager: Mounting Engine plugin UdpMessaging
+LogPluginManager: Mounting Engine plugin MetaHumanSDK
+LogPluginManager: Mounting Engine plugin ActorSequence
+LogPluginManager: Mounting Engine plugin LevelSequenceEditor
+LogPluginManager: Mounting Engine plugin SequenceValidator
+LogPluginManager: Mounting Engine plugin SequencerScripting
+LogPluginManager: Mounting Engine plugin TemplateSequence
+LogPluginManager: Mounting Engine plugin Mutable
+LogPluginManager: Mounting Engine plugin NNEDenoiser
+LogPluginManager: Mounting Engine plugin NNERuntimeORT
+LogPluginManager: Mounting Engine plugin OnlineBase
+LogPluginManager: Mounting Engine plugin OnlineServices
+LogPluginManager: Mounting Engine plugin OnlineSubsystem
+LogPluginManager: Mounting Engine plugin OnlineSubsystemNull
+LogPluginManager: Mounting Engine plugin OnlineSubsystemUtils
+LogPluginManager: Mounting Engine plugin PCG
+LogPluginManager: Mounting Engine plugin AutomatedPerfTestTools
+LogPluginManager: Mounting Engine plugin LauncherChunkInstaller
+LogPluginManager: Mounting Engine plugin ActorLayerUtilities
+LogPluginManager: Mounting Engine plugin AndroidFileServer
+LogPluginManager: Mounting Engine plugin AndroidPermission
+LogPluginManager: Mounting Engine plugin AppleImageUtils
+LogPluginManager: Mounting Engine plugin ArchVisCharacter
+LogPluginManager: Mounting Engine plugin AssetTags
+LogPluginManager: Mounting Engine plugin AudioCapture
+LogPluginManager: Mounting Engine plugin AudioSynesthesia
+LogPluginManager: Mounting Engine plugin AudioWidgets
+LogPluginManager: Mounting Engine plugin CableComponent
+LogPluginManager: Mounting Engine plugin ChunkDownloader
+LogPluginManager: Mounting Engine plugin ComputeFramework
+LogPluginManager: Mounting Engine plugin CustomMeshComponent
+LogPluginManager: Mounting Engine plugin SQLiteCore
+LogPluginManager: Mounting Engine plugin ExampleDeviceProfileSelector
+LogPluginManager: Mounting Engine plugin GeometryCache
+LogPluginManager: Mounting Engine plugin GeometryProcessing
+LogPluginManager: Mounting Engine plugin GooglePAD
+LogPluginManager: Mounting Engine plugin HairStrands
+LogPluginManager: Mounting Engine plugin InputDebugging
+LogPluginManager: Mounting Engine plugin LinuxDeviceProfileSelector
+LogPluginManager: Mounting Engine plugin LocationServicesBPLibrary
+LogPluginManager: Mounting Engine plugin MeshModelingToolset
+LogPluginManager: Mounting Engine plugin Metasound
+LogPluginManager: Mounting Engine plugin MobilePatchingUtils
+LogPluginManager: Mounting Engine plugin ModelViewViewModel
+LogPluginManager: Mounting Engine plugin MsQuic
+LogPluginManager: Mounting Engine plugin ProceduralMeshComponent
+LogPluginManager: Mounting Engine plugin PropertyAccessEditor
+LogPluginManager: Mounting Engine plugin PropertyBindingUtils
+LogPluginManager: Mounting Engine plugin ResonanceAudio
+LogPluginManager: Mounting Engine plugin RigVM
+LogPluginManager: Mounting Engine plugin SignificanceManager
+LogPluginManager: Mounting Engine plugin SkeletalMerging
+LogPluginManager: Mounting Engine plugin SoundFields
+LogPluginManager: Mounting Engine plugin StateTree
+LogPluginManager: Mounting Engine plugin Synthesis
+LogPluginManager: Mounting Engine plugin WaveTable
+LogPluginManager: Mounting Engine plugin WebMMoviePlayer
+LogPluginManager: Mounting Engine plugin InterchangeTests
+LogPluginManager: Mounting Engine plugin TraceUtilities
+LogPluginManager: Mounting Engine plugin Takes
+LogPluginManager: Mounting Engine plugin WorldMetrics
+LogInit: Running DelayedAutoRegister Phase EarliestPossiblePluginsLoaded
+LogConfig: Applying CVar settings from Section [/Script/CompositeCore.CompositeCorePluginSettings] File [Engine]
+LogConfig: Applying CVar settings from Section [/Script/RenderDocPlugin.RenderDocPluginSettings] File [Engine]
+RenderDocPlugin: Display: RenderDoc plugin will not be loaded. Use '-AttachRenderDoc' on the cmd line or enable 'renderdoc.AutoAttach' in the plugin settings.
+LogNFORDenoise: NFORDenoise function starting up
+LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+LogStudioTelemetry: Started StudioTelemetry Session
+LogInit: Using libcurl 8.15.0
+LogInit:  - built for x86_64-unknown-linux-gnu
+LogInit:  - supports SSL with OpenSSL/1.1.1t
+LogInit:  - supports HTTP deflate (compression) using libz 1.3
+LogInit:  - other features:
+LogInit:      CURL_VERSION_SSL
+LogInit:      CURL_VERSION_LIBZ
+LogInit:      CURL_VERSION_IPV6
+LogInit:      CURL_VERSION_ASYNCHDNS
+LogInit:      CURL_VERSION_LARGEFILE
+LogInit:      CURL_VERSION_TLSAUTH_SRP
+LogInit:      CURL_VERSION_HTTP2
+LogInit:  CurlRequestOptions (configurable via config and command line):
+LogInit:  - bVerifyPeer = true  - Libcurl will verify peer certificate
+LogInit:  - bUseHttpProxy = false  - Libcurl will NOT use HTTP proxy
+LogInit:  - CVarHttpReuseConnectionEnabled = true  - Libcurl will reuse connections
+LogInit:  - MaxHostConnections = 16  - Libcurl will limit the number of connections to a host
+LogInit:  - LocalHostAddr = Default
+LogInit:  - BufferSize = 65536
+LogInit: CreateHttpThread using FCurlMultiPollEventLoopHttpThread
+LogInit: Creating http thread with maximum 251 concurrent requests
+LogOnline: OSS: Created online subsystem instance for: NULL
+LogOnline: OSS: TryLoadSubsystemAndSetDefault: Loaded subsystem for type [NULL]
+LogInit: ExecutableName: BiellaGames
+LogInit: Build: ++UE5+Release-5.8-CL-56702186
+LogInit: Platform=Linux
+LogInit: MachineId=3da9d2f3021f461a93a81e6b23a2b4d7-000003e9
+LogInit: DeviceId=
+LogInit: Engine Version: 5.8.2-56702186+++UE5+Release-5.8
+LogInit: Compatible Engine Version: 5.8.0-55116800+++UE5+Release-5.8
+LogInit: Net CL: 55116800
+LogInit: OS: Ubuntu 24.04.4 LTS (6.8.0-138-generic), CPU: AMD EPYC 9124 16-Core Processor, GPU: NVIDIA L40S (NVIDIA UNIX x86_64 Kernel Module  580.178.04  Tue Jul  7 12:38:21 UTC 2026)
+LogInit: CPU Model ID: 19111, microcode revision: a101148
+LogInit: Compiled (64-bit): Sep  5 2026 10:56:55
+LogInit: Architecture: x64
+LogInit: Compiled with Clang: 20.1.8 (github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+LogInit: Build Configuration: Development
+LogInit: Branch Name: ++UE5+Release-5.8
+LogInit: Command Line: -nullrhi -unattended -nosplash -NoAsyncLoadingThread -stdout -FullStdOutLogOutput -AbsLog=/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-048-runs/20260905T164050.070724Z/core-nullrhi/engine.log -ExecCmds="Automation RunTests BiellaGames.Demo01.DeterministicPlaytest; SoftQuit" -BiellaTelemetry=/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-048-runs/20260905T164050.070724Z/core-nullrhi/telemetry.jsonl -BiellaPlaytestSeed=1337 -UseFixedTimeStep -FPS=60 -nosound
+LogInit: Base Directory: /tmp/biella-d01-48-core-nullrhi-vwp8uejg/Linux/BiellaGames/Binaries/Linux/
+LogInit: Allocator: Binned2
+LogInit: Installed Engine Build: 0
+LogInit: This binary is optimized with LTO: no, PGO: no, instrumented for PGO data collection: no
+LogDevObjectVersion: Number of dev versions registered: 44
+LogDevObjectVersion:   Dev-Blueprints (B0D832E4-1F89-4F0D-ACCF-7EB736FD4AA2): 10
+LogDevObjectVersion:   Dev-Build (E1C64328-A22C-4D53-A36C-8E866417BD8C): 0
+LogDevObjectVersion:   Dev-Core (375EC13C-06E4-48FB-B500-84F0262A717E): 4
+LogDevObjectVersion:   Dev-Editor (E4B068ED-F494-42E9-A231-DA0B2E46BB41): 40
+LogDevObjectVersion:   Dev-Framework (CFFC743F-43B0-4480-9391-14DF171D2073): 37
+LogDevObjectVersion:   Dev-Mobile (B02B49B5-BB20-44E9-A304-32B752E40360): 3
+LogDevObjectVersion:   Dev-Networking (A4E4105C-59A1-49B5-A7C5-40C4547EDFEE): 0
+LogDevObjectVersion:   Dev-Online (39C831C9-5AE6-47DC-9A44-9C173E1C8E7C): 0
+LogDevObjectVersion:   Dev-Physics (78F01B33-EBEA-4F98-B9B4-84EACCB95AA2): 20
+LogDevObjectVersion:   Dev-Platform (6631380F-2D4D-43E0-8009-CF276956A95A): 0
+LogDevObjectVersion:   Dev-Rendering (12F88B9F-8875-4AFC-A67C-D90C383ABD29): 49
+LogDevObjectVersion:   Dev-Sequencer (7B5AE74C-D270-4C10-A958-57980B212A5A): 13
+LogDevObjectVersion:   Dev-VR (D7296918-1DD6-4BDD-9DE2-64A83CC13884): 3
+LogDevObjectVersion:   Dev-LoadTimes (C2A15278-BFE7-4AFE-6C17-90FF531DF755): 1
+LogDevObjectVersion:   Private-Geometry (6EACA3D4-40EC-4CC1-B786-8BED09428FC5): 3
+LogDevObjectVersion:   Dev-AnimPhys (29E575DD-E0A3-4627-9D10-D276232CDCEA): 17
+LogDevObjectVersion:   Dev-Anim (AF43A65D-7FD3-4947-9873-3E8ED9C1BB05): 15
+LogDevObjectVersion:   Dev-ReflectionCapture (6B266CEC-1EC7-4B8F-A30B-E4D90942FC07): 1
+LogDevObjectVersion:   Dev-Automation (0DF73D61-A23F-47EA-B727-89E90C41499A): 1
+LogDevObjectVersion:   FortniteMain (601D1886-AC64-4F84-AA16-D3DE0DEAC7D6): 268
+LogDevObjectVersion:   FortniteValkyrie (8DBC2C5B-54A7-43E0-A768-FCBB7DA29060): 8
+LogDevObjectVersion:   FortniteSeason (5B4C06B7-2463-4AF8-805B-BF70CDF5D0DD): 15
+LogDevObjectVersion:   FortniteRelease (E7086368-6B23-4C58-8439-1B7016265E91): 20
+LogDevObjectVersion:   Dev-Enterprise (9DFFBCD6-494F-0158-E221-12823C92A888): 11
+LogDevObjectVersion:   Dev-Niagara (F2AED0AC-9AFE-416F-8664-AA7FFA26D6FC): 1
+LogDevObjectVersion:   Dev-Destruction (174F1F0B-B4C6-45A5-B13F-2EE8D0FB917D): 10
+LogDevObjectVersion:   Dev-Physics-Ext (35F94A83-E258-406C-A318-09F59610247C): 41
+LogDevObjectVersion:   Dev-PhysicsMaterial-Chaos (B68FC16E-8B1B-42E2-B453-215C058844FE): 1
+LogDevObjectVersion:   Dev-CineCamera (B2E18506-4273-CFC2-A54E-F4BB758BBA07): 1
+LogDevObjectVersion:   Dev-VirtualProduction (64F58936-FD1B-42BA-BA96-7289D5D0FA4E): 1
+LogDevObjectVersion:   UE5-Main (697DD581-E64F-41AB-AA4A-51ECBEB7B628): 123
+LogDevObjectVersion:   UE5-Release (D89B5E42-24BD-4D46-8412-ACA8DF641779): 68
+LogDevObjectVersion:   UE5-SpecialProject (59DA5D52-1232-4948-B878-597870B8E98B): 9
+LogDevObjectVersion:   Dev-MediaFramework (6F0ED827-A609-4895-9C91-998D90180EA4): 2
+LogDevObjectVersion:   Dev-NaniteResearch (30D58BE3-95EA-4282-A6E3-B159D8EBB06A): 1
+LogDevObjectVersion:   Dev-ComputeFramework (6304A3E7-0059-4F59-8CFC-21BD7721FD4E): 0
+LogDevObjectVersion:   Dev-RigVM (DC49959B-53C0-4DE7-9156-EA885E7C5D39): 25
+LogDevObjectVersion:   Dev-ControlRig (A7820CFB-20A7-4359-8C54-2C149623CF50): 43
+LogDevObjectVersion:   Dev-PhysicsControl (E68A5C1A-42C3-CA0D-B014-41B228C1F2DD): 33
+LogDevObjectVersion:   Dev-RigPhysics (B7F3D285-4A1C-5E08-2D6B-9F71C50E8A14): 6
+LogDevObjectVersion:   Dev-Optimus (93EDE1AA-10CA-7375-4DF9-8A2849B157A0): 14
+LogDevObjectVersion:   Dev-IKRig (F6DFBB78-BB50-A0E4-4018-B84D60CBAF23): 14
+LogDevObjectVersion:   FN-Main-InterchangePipeline (B69D2E47-E2A8-4003-BF77-18A492C4D899): 2
+LogDevObjectVersion:   Dev-Scribble (DC49359B-53C0-4DE7-9126-EA885E1C5D39): 0
+LogInit: Presizing for max 2097152 objects, including 1 objects not considered by GC.
+LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: false, Async Post Load: true, Multithreaded: false
+LogInit: Object subsystem initialized
+LogConfig: Set CVar [[con.DebugEarlyDefault:1]]
+LogConfig: CVar [[con.DebugLateDefault:1]] deferred - dummy variable created
+LogConfig: CVar [[con.DebugLateCheat:1]] deferred - dummy variable created
+LogConfig: CVar [[LogNamedEventFilters:Frame *]] deferred - dummy variable created
+LogConfig: Set CVar [[r.setres:1280x720]]
+LogConfig: Set CVar [[fx.NiagaraAllowRuntimeScalabilityChanges:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: CVar [[QualityLevelMapping:high]] deferred - dummy variable created
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.Shadow.DetectVertexShaderLayerAtRuntime:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: CVar [[con.DebugLateDefault:1]] deferred - dummy variable created
+[2026.09.05-16.40.52:311][  0]LogConfig: CVar [[con.DebugLateCheat:1]] deferred - dummy variable created
+[2026.09.05-16.40.52:311][  0]LogConfig: CVar [[LogNamedEventFilters:Frame *]] deferred - dummy variable created
+[2026.09.05-16.40.52:311][  0]LogConfig: CVar [[QualityLevelMapping:high]] deferred - dummy variable created
+[2026.09.05-16.40.52:311][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.RendererSettings] File [Engine]
+[2026.09.05-16.40.52:311][  0]LogConfig: CVar [[VisualizeCalibrationColorMaterialPath:/Engine/EngineMaterials/PPM_DefaultCalibrationColor.PPM_DefaultCalibrationColor]] deferred - dummy variable created
+[2026.09.05-16.40.52:311][  0]LogConfig: CVar [[VisualizeCalibrationGrayscaleMaterialPath:/Engine/EngineMaterials/PPM_DefaultCalibrationGrayscale.PPM_DefaultCalibrationGrayscale]] deferred - dummy variable created
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.GPUCrashDebugging:0]]
+[2026.09.05-16.40.52:311][  0]LogConfig: CVar [[MaxSkinBones:(Default=65536,PerPlatform=(("Mobile", 256)))]] deferred - dummy variable created
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.Substrate.RoughDiffuse:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.Substrate.ShadingQuality:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.Substrate.TileCoord8bits:0]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.Substrate.Glints:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.Substrate.ClosuresPerPixel:4]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.Refraction.Blur:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.DefaultFeature.AutoExposure.ExtendDefaultLuminanceRange:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.DefaultFeature.AutoExposure.Bias:0.0]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.GenerateMeshDistanceFields:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.DynamicGlobalIlluminationMethod:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.ReflectionMethod:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.Shadow.Virtual.Enable:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.Nanite.ProjectEnabled:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.SkinCache.CompileShaders:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[r.Shaders.RemoveUnusedInterpolators:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.RendererOverrideSettings] File [Engine]
+[2026.09.05-16.40.52:311][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.StreamingSettings] File [Engine]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[s.MinBulkDataSizeForAsyncLoading:131072]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[s.AsyncLoadingThreadEnabled:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[s.EventDrivenLoaderEnabled:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[s.WarnIfTimeLimitExceeded:0]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[s.TimeLimitExceededMultiplier:1.5]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[s.TimeLimitExceededMinTime:0.005]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[s.UseBackgroundLevelStreaming:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[s.PriorityAsyncLoadingExtraTime:15.0]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[s.LevelStreamingActorsUpdateTimeLimit:5.0]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[s.PriorityLevelStreamingActorsUpdateExtraTime:5.0]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[s.LevelStreamingComponentsRegistrationGranularity:10]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[s.UnregisterComponentsTimeLimit:1.0]]
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[s.LevelStreamingComponentsUnregistrationGranularity:5]]
+[2026.09.05-16.40.52:311][  0]LogConfig: CVar [[s.MaxPackageSummarySize:16384]] deferred - dummy variable created
+[2026.09.05-16.40.52:311][  0]LogConfig: Set CVar [[s.FlushStreamingOnExit:1]]
+[2026.09.05-16.40.52:311][  0]LogConfig: CVar [[FixedBootOrder:/Script/Engine/Default__SoundBase]] deferred - dummy variable created
+[2026.09.05-16.40.52:311][  0]LogConfig: CVar [[FixedBootOrder:/Script/Engine/Default__MaterialInterface]] deferred - dummy variable created
+[2026.09.05-16.40.52:311][  0]LogConfig: CVar [[FixedBootOrder:/Script/Engine/Default__DeviceProfileManager]] deferred - dummy variable created
+[2026.09.05-16.40.52:311][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.GarbageCollectionSettings] File [Engine]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[gc.MaxObjectsNotConsideredByGC:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[gc.NumRetriesBeforeForcingGC:10]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[gc.AllowParallelGC:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[gc.TimeBetweenPurgingPendingKillObjects:61.1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[gc.MaxObjectsInEditor:25165824]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[gc.IncrementalBeginDestroyEnabled:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[gc.CreateGCClusters:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[gc.MinGCClusterSize:5]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[gc.AssetClustreringEnabled:0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[gc.ActorClusteringEnabled:0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[gc.VerifyUObjectsAreNotFGCObjects:0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.NetworkSettings] File [Engine]
+[2026.09.05-16.40.52:312][  0]LogConfig: CVar [[NetworkEmulationProfiles:(ProfileName="Average",ToolTip="Simulates average internet conditions")]] deferred - dummy variable created
+[2026.09.05-16.40.52:312][  0]LogConfig: CVar [[NetworkEmulationProfiles:(ProfileName="Bad",ToolTip="Simulates laggy internet conditions")]] deferred - dummy variable created
+[2026.09.05-16.40.52:312][  0]LogConfig: CVar [[NetworkEmulationProfiles:(ProfileName="BufferBloat",ToolTip="Simulates a connection affected by buffer bloat (in and out)")]] deferred - dummy variable created
+[2026.09.05-16.40.52:312][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resx="640"
+[2026.09.05-16.40.52:312][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resy="360"
+[2026.09.05-16.40.52:312][  0]LogConfig: Applying CVar settings from Section [ViewDistanceQuality@3] File [Scalability]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.SkeletalMeshLODBias:0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.ViewDistanceScale:1.0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Applying CVar settings from Section [AntiAliasingQuality@3] File [Scalability]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.FXAA.Quality:4]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.TemporalAA.Quality:2]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.TSR.History.R11G11B10:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.TSR.History.ScreenPercentage:200]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.TSR.History.UpdateQuality:3]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.TSR.ShadingRejection.Flickering:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.TSR.RejectionAntiAliasingQuality:2]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.TSR.ReprojectionField:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.TSR.Resurrection:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Applying CVar settings from Section [ShadowQuality@3] File [Scalability]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.LightFunctionQuality:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.ShadowQuality:5]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.CSM.MaxCascades:10]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.MaxResolution:2048]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.MaxCSMResolution:2048]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.RadiusThreshold:0.01]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.DistanceScale:1.0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.CSM.TransitionScale:1.0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.PreShadowResolutionFactor:1.0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.DistanceFieldShadowing:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.VolumetricFog:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.VolumetricFog.GridPixelSize:8]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.VolumetricFog.GridSizeZ:128]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.VolumetricFog.HistoryMissSupersampleCount:4]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.LightMaxDrawDistanceScale:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.CapsuleShadows:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.Virtual.MaxPhysicalPages:4096]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.Virtual.ResolutionLodBiasDirectional:-1.5]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.Virtual.ResolutionLodBiasDirectionalMoving:-1.5]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.Virtual.ResolutionLodBiasLocal:0.0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.Virtual.ResolutionLodBiasLocalMoving:1.0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.Virtual.SMRT.RayCountDirectional:8]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.Virtual.SMRT.SamplesPerRayDirectional:4]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.Virtual.SMRT.RayCountLocal:8]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.Virtual.SMRT.SamplesPerRayLocal:4]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Shadow.Virtual.MarkCoarsePagesLocal:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.MegaLights.NumSamplesPerPixel:4]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.MegaLights.DownsampleMode:2]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.MegaLights.ScreenTraces.Quality:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.MegaLights.FrontLayerTranslucency.Allow:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.MegaLights.FrontLayerTranslucency.SpecularOnly:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.MegaLights.FrontLayerTranslucency.SoftShadows:0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.MegaLights.FrontLayerTranslucency.TexturedRectLights:0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.MegaLights.Spatial.UseHistorySpatialVariance:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.MegaLights.Volume.GridPixelSize:8]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.MegaLights.Volume.GridSizeZ:128]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Applying CVar settings from Section [GlobalIlluminationQuality@3] File [Scalability]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.DistanceFieldAO:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.SkylightIntensityMultiplier:1.0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.AOQuality:2]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.DiffuseIndirect.Allow:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.FinalGatherMethod:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.LumenScene.SurfaceCache.AtlasSize:4096]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.LumenScene.SurfaceCache.CardTexelDensityScale:100]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.LumenScene.SurfaceCache.CardMinResolution:2]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.LumenScene.SurfaceCache.CardMaxResolution:512]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.LumenScene.DirectLighting.MaxLightsPerTile:8]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.LumenScene.DirectLighting.UpdateFactor:32]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.LumenScene.Radiosity.UpdateFactor:64]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.LumenScene.Radiosity.ProbeSpacing:4]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.LumenScene.Radiosity.HemisphereProbeResolution:4]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.TraceMeshSDFs.Allow:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.RadianceCache.ProbeResolution:32]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.RadianceCache.NumProbesToTraceBudget:150]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.DownsampleFactor:16]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.NumAdaptiveProbes:8]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.TracingOctahedronResolution:8]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.IrradianceFormat:0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.StochasticInterpolation:0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.FullResolutionJitterWidth:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.TwoSidedFoliageBackfaceDiffuse:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.ScreenTraces.HZBTraversal.FullResDepth:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.ShortRangeAO.DownsampleFactor:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.ShortRangeAO.HorizonSearch.SliceCount:2]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.ShortRangeAO.BentNormal:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.ShortRangeAO.HorizonSearch.HZB:0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.ShortRangeAO.HorizonSearch.ForegroundSampleRejectPower:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.ShortRangeAO.FoliageOcclusionStrength:.7]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.GridPixelSize:32]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.TraceFromVolume:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.ShareRadianceCacheWithOpaque:0]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.SpatialFilter:1]]
+[2026.09.05-16.40.52:312][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.TracingOctahedronResolution:3]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.RadianceCache.ProbeResolution:8]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.RadianceCache.GridResolution:24]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.RadianceCache.NumProbesToTraceBudget:100]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Lumen.HardwareRayTracing.HitLighting.Allowed:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.RayTracing.Scene.BuildMode:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.RayTracing.Geometry.SkeletalMeshes:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.MeshCardRepresentation.SkeletalMesh:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.RayTracing.DynamicGeometry.MaxUpdatePrimitivesPerFrame:-1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Applying CVar settings from Section [ReflectionQuality@3] File [Scalability]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SSR.Quality:3]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SSR.HalfResSceneColor:0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Lumen.Reflections.Allow:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Lumen.Reflections.DownsampleFactor:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Lumen.Reflections.MaxRoughnessToTraceForFoliage:0.4]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.MaxRoughnessToEvaluateRoughSpecularForFoliage:0.8]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Lumen.Reflections.ScreenSpaceReconstruction.NumSamples:5]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Lumen.Reflections.ScreenSpaceReconstruction.MinWeight:0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyReflections.FrontLayer.Allow:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyReflections.FrontLayer.Enable:0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Applying CVar settings from Section [PostProcessQuality@3] File [Scalability]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.MotionBlurQuality:4]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.MotionBlur.HalfResGather:0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.AmbientOcclusionMipLevelFactor:0.4]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.AmbientOcclusionMaxQuality:100]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.AmbientOcclusionLevels:-1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.AmbientOcclusionRadiusScale:1.0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.DepthOfFieldQuality:2]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.RenderTargetPoolMin:400]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.LensFlareQuality:2]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SceneColorFringeQuality:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.EyeAdaptationQuality:2]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.BloomQuality:5]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Bloom.ScreenPercentage:50.000]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.FastBlurThreshold:100]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Upscale.Quality:3]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.LightShaftQuality:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Filter.SizeScale:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.LUT.Shaper:0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.LUT.Size:32]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Tonemapper.Quality:5]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.DOF.Gather.ResolutionDivisor:2         ; lower gathering resolution]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.DOF.Gather.AccumulatorQuality:1        ; higher gathering accumulator quality]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.DOF.Gather.PostfilterMethod:1          ; Median3x3 postfilering method]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.DOF.Gather.EnableBokehSettings:0       ; no bokeh simulation when gathering]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.DOF.Gather.RingCount:4                 ; medium number of samples when gathering]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.DOF.Scatter.ForegroundCompositing:1    ; additive foreground scattering]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.DOF.Scatter.BackgroundCompositing:2    ; additive background scattering]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.DOF.Scatter.EnableBokehSettings:1      ; bokeh simulation when scattering]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.DOF.Scatter.MaxSpriteRatio:0.1         ; only a maximum of 10% of scattered bokeh]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.DOF.Recombine.Quality:1                ; cheap slight out of focus]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.DOF.Recombine.EnableBokehSettings:0    ; no bokeh simulation on slight out of focus]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.DOF.TemporalAAQuality:1                ; more stable temporal accumulation]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.DOF.Kernel.MaxForegroundRadius:0.025]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.DOF.Kernel.MaxBackgroundRadius:0.025]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Applying CVar settings from Section [TextureQuality@3] File [Scalability]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Streaming.MipBias:0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Streaming.AmortizeCPUToGPUCopy:0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Streaming.MaxNumTexturesToStreamPerFrame:0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Streaming.Boost:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.MaxAnisotropy:8]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.VT.MaxAnisotropy:8]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Streaming.LimitPoolSizeToVRAM:0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Streaming.PoolSize:1000]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Streaming.MaxEffectiveScreenSize:0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Applying CVar settings from Section [EffectsQuality@3] File [Scalability]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.TranslucencyLightingVolume.Dim:64]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.RefractionQuality:2]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SceneColorFormat:4]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.DetailMode:3]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.TranslucencyLightingVolume.Blur:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.MaterialQualityLevel:1 ; High quality]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SSS.Scale:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SSS.SampleSet:2]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SSS.Quality:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SSS.HalfRes:0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SSGI.Quality:3]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.EmitterSpawnRateScale:1.0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.ParticleLightQuality:2]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.FastApplyOnOpaque:1 ; Always have FastSkyLUT 1 in this case to avoid wrong sky]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.SampleCountMaxPerSlice:4]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.DepthResolution:16.0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SkyAtmosphere.FastSkyLUT:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SkyAtmosphere.FastSkyLUT.SampleCountMin:4.0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SkyAtmosphere.FastSkyLUT.SampleCountMax:128.0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SkyAtmosphere.SampleCountMin:4.0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SkyAtmosphere.SampleCountMax:128.0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SkyAtmosphere.TransmittanceLUT.UseSmallFormat:0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SkyAtmosphere.TransmittanceLUT.SampleCount:10.0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.SkyAtmosphere.MultiScatteringLUT.SampleCount:15.0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Fog.SeparateComposition:-1	; Allow fog separate composition when FSSS is enabled.]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[fx.Niagara.QualityLevel:3]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.Refraction.OffsetQuality:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.HeterogeneousVolumes.Allowed:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.HeterogeneousVolumes.DownsampleFactor:2]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.HeterogeneousVolumes.MaxStepCount:256]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.HeterogeneousVolumes.Shadows.Resolution:512]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.HeterogeneousVolumes.Shadows.Precision:0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.HeterogeneousVolumes.UseExistenceMask:0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Applying CVar settings from Section [FoliageQuality@3] File [Scalability]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[foliage.DensityScale:1.0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[grass.DensityScale:1.0]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[pcg.Quality:3]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Applying CVar settings from Section [ShadingQuality@3] File [Scalability]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.HairStrands.SkyLighting.IntegrationType:2]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.HairStrands.SkyAO.SampleCount:4]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.HairStrands.Visibility.MSAA.SamplePerPixel:4]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[r.AnisotropicMaterials:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Applying CVar settings from Section [LandscapeQuality@3] File [Scalability]
+[2026.09.05-16.40.52:313][  0]LogLinux: Selected Device Profile: [Linux]
+[2026.09.05-16.40.52:313][  0]LogInit: Selected Device Profile: [Linux]
+[2026.09.05-16.40.52:313][  0]LogHAL: Display: Platform has ~ 87 GB [92673540096 / 137438953472 / 87], which maps to Largest [LargestMinGB=32, LargerMinGB=12, DefaultMinGB=8, SmallerMinGB=6, SmallestMinGB=0)
+[2026.09.05-16.40.52:313][  0]LogDeviceProfileManager: Going up to parent DeviceProfile []
+[2026.09.05-16.40.52:313][  0]LogDeviceProfileManager: Pushing Device Profile CVar: [[UI.SlateSDFText.RasterizationMode:Bitmap -> Msdf]]
+[2026.09.05-16.40.52:313][  0]LogDeviceProfileManager: Pushing Device Profile CVar: [[UI.SlateSDFText.ResolutionLevel:2 -> 2]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Applying CVar settings from Section [Startup] File [../../../Engine/Config/ConsoleVariables.ini]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[p.chaos.AllowCreatePhysxBodies:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[fx.SkipVectorVMBackendOptimizations:1]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Applying CVar settings from Section [Startup_Linux] File [../../../Engine/Config/ConsoleVariables.ini]
+[2026.09.05-16.40.52:313][  0]LogConfig: Applying CVar settings from Section [ConsoleVariables] File [Engine]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[g.TimeoutForBlockOnRenderFence:60000]]
+[2026.09.05-16.40.52:313][  0]LogConfig: Set CVar [[memory.MemoryPressureCriticalThresholdPercent:10]]
+[2026.09.05-16.40.52:313][  0]LogInit: Unix hardware info:
+[2026.09.05-16.40.52:313][  0]LogInit:  - we are the first instance of this executable
+[2026.09.05-16.40.52:314][  0]LogInit:  - this process' id (pid) is 1822609, parent process' id (ppid) is 1822602
+[2026.09.05-16.40.52:314][  0]LogInit:  - we are not running under debugger
+[2026.09.05-16.40.52:314][  0]LogInit:  - machine network name is 'biella-l40s-worker'
+[2026.09.05-16.40.52:314][  0]LogInit:  - user name is 'unreal' (unreal)
+[2026.09.05-16.40.52:314][  0]LogInit:  - we're logged in locally
+[2026.09.05-16.40.52:314][  0]LogInit:  - we're running without rendering
+[2026.09.05-16.40.52:314][  0]LogInit:  - CPU: AuthenticAMD 'AMD EPYC 9124 16-Core Processor' (signature: 0xA10F11)
+[2026.09.05-16.40.52:314][  0]LogInit:  - Number of physical cores available for the process: 15
+[2026.09.05-16.40.52:314][  0]LogInit:  - Number of logical cores available for the process: 15
+[2026.09.05-16.40.52:314][  0]LogInit:  - GPU Brand Info: NVIDIA L40S (NVIDIA UNIX x86_64 Kernel Module  580.178.04  Tue Jul  7 12:38:21 UTC 2026)
+[2026.09.05-16.40.52:314][  0]LogInit:  - Memory allocator used: Binned2
+[2026.09.05-16.40.52:314][  0]LogInit:  - This is an internal build.
+[2026.09.05-16.40.52:314][  0]LogCore: Benchmarking clocks:
+[2026.09.05-16.40.52:314][  0]LogCore:  - CLOCK_MONOTONIC (id=1), resolution 0.000000001s, can sustain 11971706 (11972K, 12M) calls per second without zero deltas.
+[2026.09.05-16.40.52:314][  0]LogCore:  - CLOCK_MONOTONIC_COARSE (id=6), resolution 0.001000000s, can sustain 61451121 (61451K, 61M) calls per second with 99.998210% zero deltas.
+[2026.09.05-16.40.52:314][  0]LogCore:  - CLOCK_MONOTONIC_RAW (id=4), resolution 0.000000001s, can sustain 11977752 (11978K, 12M) calls per second without zero deltas.
+[2026.09.05-16.40.52:314][  0]LogCore:  - CLOCK_REALTIME (id=0), resolution 0.000000001s, can sustain 11770949 (11771K, 12M) calls per second with 67.453339% zero deltas.
+[2026.09.05-16.40.52:314][  0]LogCore: Selected CLOCK_MONOTONIC (1) as the best available clock.
+[2026.09.05-16.40.52:314][  0]LogInit: Unix-specific commandline switches:
+[2026.09.05-16.40.52:314][  0]LogInit:  -ansimalloc - use malloc()/free() from libc (useful for tools like valgrind and electric fence)
+[2026.09.05-16.40.52:314][  0]LogInit:  -jemalloc - use jemalloc for all memory allocation
+[2026.09.05-16.40.52:314][  0]LogInit:  -binnedmalloc - use binned malloc  for all memory allocation
+[2026.09.05-16.40.52:314][  0]LogInit:  -filemapcachesize=NUMBER - set the size for case-sensitive file mapping cache
+[2026.09.05-16.40.52:314][  0]LogInit:  -useksm - uses kernel same-page mapping (KSM) for mapped memory (OFF)
+[2026.09.05-16.40.52:314][  0]LogInit:  -ksmmergeall - marks all mmap'd memory pages suitable for KSM (OFF)
+[2026.09.05-16.40.52:314][  0]LogInit:  -preloadmodulesymbols - Loads the main module symbols file into memory (OFF)
+[2026.09.05-16.40.52:314][  0]LogInit:  -sigdfl=SIGNAL - Allows a specific signal to be set to its default handler rather then ignoring the signal
+[2026.09.05-16.40.52:314][  0]LogInit:  -crashhandlerstacksize - Allows setting crash handler stack sizes (204800)
+[2026.09.05-16.40.52:314][  0]LogInit:  -noexclusivelockonwrite - disables marking files created by the engine as exclusive locked while the engine has them opened
+[2026.09.05-16.40.52:314][  0]LogInit:  -httpproxy=ADDRESS:PORT - redirects HTTP requests to a proxy (only supported if compiled with libcurl)
+[2026.09.05-16.40.52:314][  0]LogInit:  -reuseconn - allow libcurl to reuse HTTP connections (only matters if compiled with libcurl)
+[2026.09.05-16.40.52:314][  0]LogInit:  -virtmemkb=NUMBER - sets process virtual memory (address space) limit (overrides VirtualMemoryLimitInKB value from .ini)
+[2026.09.05-16.40.52:314][  0]LogInit:  -allowsyscallfilterfile=PATH_TO_FILE - sets up a system call filter allow list. any invalid syscall in this list *will* cause a crash
+[2026.09.05-16.40.52:314][  0]LogInit:  - Physical RAM available (not considering process quota): 87 GB (88380 MB, 90501504 KB, 92673540096 bytes)
+[2026.09.05-16.40.52:314][  0]LogInit:  - VirtualMemoryAllocator pools will grow at scale 1
+[2026.09.05-16.40.52:314][  0]LogInit:  - MemoryRangeDecommit() will be a no-op (re-run with -vmapoolevict to change)
+[2026.09.05-16.40.52:314][  0]LogInit:  - PageSize 4096
+[2026.09.05-16.40.52:314][  0]LogInit:  - BinnedPageSize 65536
+[2026.09.05-16.40.52:314][  0]LogCsvProfiler: Display: Metadata set : extradevelopmentmemorymb="0"
+[2026.09.05-16.40.52:314][  0]LogSpline: Registered spline type: TypeId=0x54E3AD22, Impl=MultiSpline, Value=Vector
+[2026.09.05-16.40.52:314][  0]LogChaosDD: Chaos Debug Draw Startup
+[2026.09.05-16.40.52:314][  0]LogInit: Physics initialised using underlying interface: Chaos
+[2026.09.05-16.40.52:314][  0]LogInit: Using OS detected language (en-US-POSIX).
+[2026.09.05-16.40.52:314][  0]LogInit: Using OS detected locale (en-US-POSIX).
+[2026.09.05-16.40.52:314][  0]LogTextLocalizationManager: No specific localization for 'en-US-POSIX' exists, so 'en' will be used for the language.
+[2026.09.05-16.40.52:363][  0]LogInit: Not creating cursor resources due to headless application.
+[2026.09.05-16.40.52:366][  0]LogObj: Display: Attempting to load config data for Default__SlateThemeManager before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.09.05-16.40.52:368][  0]LogSlate: New Slate User Created. Platform User Id 0, User Index 0, Is Virtual User: 0
+[2026.09.05-16.40.52:368][  0]LogSlate: Slate User Registered.  User Index 0, Is Virtual User: 0
+[2026.09.05-16.40.52:385][  0]LogInit: Running DelayedAutoRegister Phase PreRHIInit
+[2026.09.05-16.40.52:386][  0]LogVRS: Current RHI does not support Variable Rate Shading
+[2026.09.05-16.40.52:386][  0]LogRHI: Render tracing channels set: 'Submission' -> 0xf
+[2026.09.05-16.40.52:386][  0]LogCsvProfiler: Display: Metadata set : verbatimrhiname="Null"
+[2026.09.05-16.40.52:386][  0]LogCsvProfiler: Display: Metadata set : rhiname="Null"
+[2026.09.05-16.40.52:386][  0]LogCsvProfiler: Display: Metadata set : rhifeaturelevel="SM5"
+[2026.09.05-16.40.52:386][  0]LogCsvProfiler: Display: Metadata set : shaderplatform="VULKAN_SM5"
+[2026.09.05-16.40.52:386][  0]LogCsvProfiler: Display: Metadata set : gpu=""
+[2026.09.05-16.40.52:386][  0]LogCsvProfiler: Display: Metadata set : gpudriver=""
+[2026.09.05-16.40.52:386][  0]LogInit: Initializing FReadOnlyCVARCache
+[2026.09.05-16.40.52:391][  0]LogRendererCore: Ray tracing is disabled. Reason: disabled through project setting (r.RayTracing=0).
+[2026.09.05-16.40.52:391][  0]LogInit: Running DelayedAutoRegister Phase ShaderTypesReady
+[2026.09.05-16.40.52:391][  0]LogSlate: Using FreeType 2.14.1
+[2026.09.05-16.40.52:392][  0]LogSlate: SlateFontServices - WITH_FREETYPE: 1, WITH_HARFBUZZ: 1
+[2026.09.05-16.40.52:395][  0]LogInit: Using OS detected language (en-US-POSIX).
+[2026.09.05-16.40.52:395][  0]LogInit: Using OS detected locale (en-US-POSIX).
+[2026.09.05-16.40.52:395][  0]LogTextLocalizationManager: No localization for 'en-US-POSIX' exists, so 'en' will be used for the language.
+[2026.09.05-16.40.52:395][  0]LogTextLocalizationManager: No localization for 'en-US-POSIX' exists, so 'en' will be used for the locale.
+[2026.09.05-16.40.52:395][  0]LogSlate: FontCache flush requested. Reason: Culture for localization was changed
+[2026.09.05-16.40.52:395][  0]LogAssetRegistry: ActiveMountsLoading is disabled.
+[2026.09.05-16.40.52:395][  0]LogAssetRegistry: FAssetRegistry took 0.0001 seconds to start up
+[2026.09.05-16.40.52:398][  0]LogInit: Running DelayedAutoRegister Phase PreObjectSystemReady
+[2026.09.05-16.40.52:533][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64Editor not found.
+[2026.09.05-16.40.52:533][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64 not found.
+[2026.09.05-16.40.52:535][  0]LogLinux: Selected Device Profile: [Linux]
+[2026.09.05-16.40.52:535][  0]LogDeviceProfileManager: Active device profile: [0x7fd59a8b07e8][0x7fd55b630040 82] Linux
+[2026.09.05-16.40.52:535][  0]LogCsvProfiler: Display: Metadata set : deviceprofile="Linux"
+[2026.09.05-16.40.52:535][  0]LogInit: Running DelayedAutoRegister Phase DeviceProfileManagerReady
+[2026.09.05-16.40.52:536][  0]LogStreaming: Display: FlushAsyncLoading(8): 8 QueuedPackages, 0 AsyncPackages
+[2026.09.05-16.40.52:536][  0]LogPackageLocalizationCache: Processed 81 localized package path(s) for 1 prioritized culture(s) in 0.000130 seconds
+[2026.09.05-16.40.52:536][  0]LogPakFile: New pak file ../../../BiellaGames/Content/Paks/BiellaGames-Linux.pak added to pak precacher.
+[2026.09.05-16.40.52:571][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.09.05-16.40.52:579][  0]LogMetaSound: Display: MetaSound Page Target Initialized to 'Default'
+[2026.09.05-16.40.52:584][  0]LogStats: UGameplayTagsManager::InitializeManager -  0.000 s
+[2026.09.05-16.40.52:588][  0]LogConfig: Applying CVar settings from Section [/Script/NNEDenoiser.NNEDenoiserSettings] File [Engine]
+[2026.09.05-16.40.52:596][  0]LogNiagaraDebuggerClient: Niagara Debugger Client Initialized | Session: 14E0AD0A09344FFA8000000000003F00 | Instance: 01A07271BE707515A64AB97C31F3A88B (biella-l40s-worker-1822609).
+[2026.09.05-16.40.52:598][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.09.05-16.40.52:606][  0]LogInit: Running DelayedAutoRegister Phase ObjectSystemReady
+[2026.09.05-16.40.52:606][  0]LogModuleManager: StartProcessingNewlyLoadedObjects
+[2026.09.05-16.40.52:616][  0]LogNNERuntimeORT: MakeRuntimeORTDml:
+[2026.09.05-16.40.52:616][  0]LogNNERuntimeORT:   DirectML:  no
+[2026.09.05-16.40.52:616][  0]LogNNERuntimeORT:   RHI D3D12: no
+[2026.09.05-16.40.52:616][  0]LogNNERuntimeORT:   D3D12:     n/a (checked in CanCreateModelGPU)
+[2026.09.05-16.40.52:616][  0]LogNNERuntimeORT: Interface availability:
+[2026.09.05-16.40.52:616][  0]LogNNERuntimeORT:   GPU: n/a (checked in CanCreateModelGPU)
+[2026.09.05-16.40.52:616][  0]LogNNERuntimeORT:   RDG: no
+[2026.09.05-16.40.52:616][  0]LogNNERuntimeORT: NNERuntimeORTDml is not available!
+[2026.09.05-16.40.52:624][  0]LogAudio: Display: Registering Engine Module Parameter Interfaces...
+[2026.09.05-16.40.52:625][  0]LogMetaSound: MetaSound Engine Initialized
+[2026.09.05-16.40.52:633][  0]LogAndroidPermission: UAndroidPermissionCallbackProxy::GetInstance
+[2026.09.05-16.40.52:642][  0]LogUObjectArray: 34607 objects as part of root set at end of initial load.
+[2026.09.05-16.40.52:642][  0]LogUObjectArray: 4 objects are not in the root set, but can never be destroyed because they are in the DisregardForGC set.
+[2026.09.05-16.40.52:642][  0]LogUObjectArray: CloseDisregardForGC: 34607/34607 objects in disregard for GC pool
+[2026.09.05-16.40.52:653][  0]LogEngine: Initializing Engine...
+[2026.09.05-16.40.52:667][  0]LogNetVersion: Set ProjectVersion to 0.1.0-demo01. Version Checksum will be recalculated on next use.
+[2026.09.05-16.40.52:667][  0]LogInit: Texture streaming: Disabled
+[2026.09.05-16.40.52:667][  0]LogCsvProfiler: Display: Metadata set : largeworldcoordinates="1"
+[2026.09.05-16.40.52:668][  0]LogChaosDD: Creating Chaos Debug Draw Scene for world Untitled
+[2026.09.05-16.40.52:669][  0]LogNiagara: UAV Float16 is not supported, compressed GPU emitters will be disabled.
+[2026.09.05-16.40.52:672][  0]LogTemp: Display: D01_SIGNAL GAME_INSTANCE_READY
+[2026.09.05-16.40.52:672][  0]LogEngine: GameWindow did not exist.  Was created
+[2026.09.05-16.40.52:673][  0]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2026.09.05-16.40.52:674][  0]LogInit: Display: Game Engine Initialized.
+[2026.09.05-16.40.52:674][  0]LogNNEDenoiser: Ray Tracing is not enabled, therefore NNEDenoiser is not registered!
+[2026.09.05-16.40.52:674][  0]LogMutable: Creating Mutable Customizable Object System.
+[2026.09.05-16.40.52:681][  0]LogCsvProfiler: Display: Metadata set : raytracing="0"
+[2026.09.05-16.40.52:687][  0]LogInit: Display: Starting Game.
+[2026.09.05-16.40.52:687][  0]LogGlobalStatus: Browse Started Browse: "/Game/Maps/BiellaGameplayMap?Name=Player"
+[2026.09.05-16.40.52:687][  0]LogNet: Browse: /Game/Maps/BiellaGameplayMap?Name=Player
+[2026.09.05-16.40.52:687][  0]LogLoad: LoadMap: /Game/Maps/BiellaGameplayMap?Name=Player
+[2026.09.05-16.40.52:687][  0]LogWorld: BeginTearingDown for /Temp/Untitled_0
+[2026.09.05-16.40.52:688][  0]LogWorld: UWorld::CleanupWorld for Untitled, bSessionEnded=true, bCleanupResources=true
+[2026.09.05-16.40.52:688][  0]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2026.09.05-16.40.52:695][  0]LogUObjectHash: Compacting FUObjectHashTables data took   2.03ms
+[2026.09.05-16.40.52:696][  0]LogChaosDD: Creating Chaos Debug Draw Scene for world BiellaGameplayMap
+[2026.09.05-16.40.52:699][  0]LogLoad: Game class is 'BiellaGamesGameModeBase'
+[2026.09.05-16.40.52:699][  0]LogWorld: Bringing World /Game/Maps/BiellaGameplayMap.BiellaGameplayMap up for play (max tick rate 0) at 2026.09.05-16.40.52
+[2026.09.05-16.40.52:699][  0]LogWorld: Bringing up level for play took: 0.000172
+[2026.09.05-16.40.52:699][  0]LogEnhancedInput: Enhanced Input local player subsystem has initialized the user settings!
+[2026.09.05-16.40.52:700][  0]LogTemp: Display: D01_SIGNAL PLAYER_LOGIN controller=BiellaGamesPlayerController_2147482399
+[2026.09.05-16.40.52:701][  0]LogTemp: Display: D01_SIGNAL READABILITY_SUN source=authored_map mobility=movable intensity=5
+[2026.09.05-16.40.52:701][  0]LogTemp: Display: D01_SIGNAL ARENA_READY pieces=11 floor=true walls=4 cover=3 lighting=true
+[2026.09.05-16.40.52:701][  0]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482358).
+[2026.09.05-16.40.52:701][  0]LogTemp: Display: D01_SIGNAL NAVIGATION_CONFIGURED mode=recast_dynamic source=arena_collision
+[2026.09.05-16.40.52:701][  0]LogTemp: Display: D01_SIGNAL PRESSURE_LIGHT id=Demo01ArenaPressure revision=0 level=0.0 intensity=900.0
+[2026.09.05-16.40.52:701][  0]LogTemp: Display: D01_SIGNAL WORLD_READY source=map
+[2026.09.05-16.40.52:701][  0]LogTemp: Display: D01_SIGNAL PRESSURE_MOVEMENT id=Demo01ArenaPressure revision=0 actor=BiellaInfected_2147482357 level=0.0 base_speed=210.0 effective_speed=210.0
+[2026.09.05-16.40.52:701][  0]LogTemp: Display: D01_SIGNAL INFECTED_READY actor=BiellaInfected_2147482357 health=70.0 speed=210.0
+[2026.09.05-16.40.52:701][  0]LogTemp: Display: D01_SIGNAL INFECTED_SPAWN actor=BiellaInfected_2147482357 index=0
+[2026.09.05-16.40.52:701][  0]LogTemp: Display: D01_SIGNAL PRESSURE_MOVEMENT id=Demo01ArenaPressure revision=0 actor=BiellaInfected_2147482353 level=0.0 base_speed=210.0 effective_speed=210.0
+[2026.09.05-16.40.52:701][  0]LogTemp: Display: D01_SIGNAL INFECTED_READY actor=BiellaInfected_2147482353 health=70.0 speed=210.0
+[2026.09.05-16.40.52:701][  0]LogTemp: Display: D01_SIGNAL INFECTED_SPAWN actor=BiellaInfected_2147482353 index=1
+[2026.09.05-16.40.52:701][  0]LogTemp: Display: D01_SIGNAL INFECTED_GROUP_READY count=2
+[2026.09.05-16.40.52:702][  0]LogTemp: Display: D01_SIGNAL RIVAL_READY actor=BiellaRival_2147482350 health=100.0 speed=260.0
+[2026.09.05-16.40.52:702][  0]LogTemp: Display: D01_SIGNAL RIVAL_WEAPON_READY actor=BiellaRival_2147482350 range=950.0 damage=14.0 cooldown=0.90
+[2026.09.05-16.40.52:702][  0]LogTemp: Display: D01_SIGNAL RIVAL_SPAWN actor=BiellaRival_2147482350 source=runtime
+[2026.09.05-16.40.52:702][  0]LogTemp: Display: D01_SIGNAL OBJECTIVE_TARGET_REGISTERED id=Demo01ClearArena actor=BiellaInfected_2147482357 target=1
+[2026.09.05-16.40.52:702][  0]LogTemp: Display: D01_SIGNAL OBJECTIVE_TARGET_REGISTERED id=Demo01ClearArena actor=BiellaInfected_2147482353 target=2
+[2026.09.05-16.40.52:702][  0]LogTemp: Display: D01_SIGNAL PHASE phase=1 objective=Eliminate all infected.
+[2026.09.05-16.40.52:703][  0]LogTemp: Display: D01_SIGNAL OBJECTIVE_ACTIVATED id=Demo01ClearArena version=1 target=2 condition=infected_remaining_zero authority=server
+[2026.09.05-16.40.52:704][  0]LogTemp: Display: D01_SIGNAL OBJECTIVE_MANAGER_READY id=Demo01ClearArena version=1 authority=server
+[2026.09.05-16.40.52:704][  0]LogTemp: Display: D01_SIGNAL MODE_READY class=BiellaGamesGameModeBase
+[2026.09.05-16.40.52:704][  0]LogTemp: Display: D01_SIGNAL ARENA_PRESSURE_READY id=Demo01ArenaPressure state=Inactive level=0.0 revision=0 authority=server
+[2026.09.05-16.40.52:704][  0]LogTemp: Display: D01_SIGNAL PLAYER_PAWN_READY mesh=true collision=pawn
+[2026.09.05-16.40.52:704][  0]LogTemp: Display: D01_SIGNAL CAMERA_READY boom=520.0 collision_test=true probe=12.0
+[2026.09.05-16.40.52:704][  0]LogTemp: Display: D01_SIGNAL AIM_READY yaw_input=MouseX pitch_input=MouseY clamped=true
+[2026.09.05-16.40.52:704][  0]LogTemp: Display: D01_SIGNAL INPUT_READY actions=10 mappings=10
+[2026.09.05-16.40.52:704][  0]LogTemp: Display: D01_SIGNAL LOCOMOTION_READY speed=520.0 jump=true
+[2026.09.05-16.40.52:704][  0]LogTemp: Display: D01_SIGNAL WEAPON_READY equipped=true ammo=60 trace=visibility
+[2026.09.05-16.40.52:704][  0]LogViewport: Display: Viewport MouseLockMode Changed, DoNotLock -> LockOnCapture
+[2026.09.05-16.40.52:704][  0]LogViewport: Display: Viewport MouseCaptureMode Changed, NoCapture -> CapturePermanently
+[2026.09.05-16.40.52:705][  0]LogTemp: Display: D01_SIGNAL HUD_READY health=100.0/100.0 ammo=60 countdown=2 objective=Eliminate all infected. progress=0/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.52:705][  0]LogTemp: Display: D01_SIGNAL HUD_VIEWPORT_READY widget=BiellaGameplayHUD_2147482341 owner=BiellaGamesPlayerController_2147482399
+[2026.09.05-16.40.52:705][  0]LogTemp: Display: D01_SIGNAL CONTROLLER_READY game_input=true
+[2026.09.05-16.40.52:705][  0]LogLoad: Took 0.017228 seconds to LoadMap(/Game/Maps/BiellaGameplayMap)
+[2026.09.05-16.40.52:705][  0]LogGlobalStatus: LoadMap Load map complete /Game/Maps/BiellaGameplayMap
+[2026.09.05-16.40.52:705][  0]LogPakFile: AllPaks IndexSizes: DirectoryHashSize=32, PathHashSize=16, EntriesSize=53248, DirTreeIndexSize=260576, TotalSize=313872
+[2026.09.05-16.40.52:705][  0]LogInit: Running DelayedAutoRegister Phase EndOfEngineInit
+[2026.09.05-16.40.52:706][  0]LogInit: Display: Engine is initialized. Leaving FEngineLoop::Init()
+[2026.09.05-16.40.52:706][  0]LogLoad: (Engine Initialization) Total time: 0.63 seconds
+[2026.09.05-16.40.52:706][  0]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482358).
+[2026.09.05-16.40.52:706][  0]LogNavigation: Warning: ProcessRegistrationCandidates RecastNavMesh_2147482358 will be removed. This warning will disapear once the map is saved.
+[2026.09.05-16.40.52:711][  1]Automation: RunTests='BiellaGames.Demo01.DeterministicPlaytest' Queued.
+[2026.09.05-16.40.52:711][  1]Automation: SoftQuit Command Queued.
+[2026.09.05-16.40.52:711][  1]LogTrace: Display: Control listening on port 1985
+[2026.09.05-16.40.52:713][  1]LogTemp: Display: D01_SIGNAL INFECTED_AGGRO actor=BiellaInfected_2147482357 target=BiellaRival_2147482350
+[2026.09.05-16.40.52:713][  1]LogTemp: Display: D01_SIGNAL INFECTED_CHASE actor=BiellaInfected_2147482357 target=BiellaRival_2147482350 speed=210.0
+[2026.09.05-16.40.52:713][  1]LogTemp: Display: D01_SIGNAL INFECTED_AGGRO actor=BiellaInfected_2147482353 target=BiellaRival_2147482350
+[2026.09.05-16.40.52:713][  1]LogTemp: Display: D01_SIGNAL INFECTED_CHASE actor=BiellaInfected_2147482353 target=BiellaRival_2147482350 speed=210.0
+[2026.09.05-16.40.52:713][  1]LogTemp: Display: D01_SIGNAL RIVAL_TARGET actor=BiellaRival_2147482350 target=BiellaInfected_2147482357 team=2
+[2026.09.05-16.40.52:713][  1]LogTemp: Display: D01_SIGNAL RIVAL_POSITION actor=BiellaRival_2147482350 target=BiellaInfected_2147482357 mode=EDemo01RivalPositionState::Blocked location=V(X=900.00, Z=2.00) distance=460.4
+[2026.09.05-16.40.52:713][  1]LogTemp: Display: D01_SIGNAL RIVAL_PATH_FAILED actor=BiellaRival_2147482350 query=1 retry=0.5
+[2026.09.05-16.40.52:713][  1]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_2147482357 amount=14.0 health=56.0 tag=rival_fire source=BiellaRival_2147482350 source_team=1 target_team=2 time=0.033
+[2026.09.05-16.40.52:715][  1]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_2147482357
+[2026.09.05-16.40.52:715][  1]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_2147482357 feedback=hit_flash
+[2026.09.05-16.40.52:715][  1]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_2147482350 target=BiellaInfected_2147482357 hit=true damage=14.0 muzzle=V(X=825.84, Y=50.74, Z=33.82) impact=V(X=554.66, Y=236.28, Z=3.83) time=0.033
+[2026.09.05-16.40.52:723][  1]LogAutomationCommandLine: Display: Ready to start automation
+[2026.09.05-16.40.52:752][ 31]LogTemp: Display: D01_SIGNAL RIVAL_PATH actor=BiellaRival_2147482350 revision=1 points=5 length=295.3 goal=V(X=1015.18, Y=-78.81, Z=10.00)
+[2026.09.05-16.40.52:752][ 31]LogTemp: Display: D01_SIGNAL RIVAL_POSITION actor=BiellaRival_2147482350 target=BiellaInfected_2147482357 mode=EDemo01RivalPositionState::Retreat location=V(X=900.00, Z=2.00) distance=460.4
+[2026.09.05-16.40.52:769][ 56]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_2147482357 amount=14.0 health=42.0 tag=rival_fire source=BiellaRival_2147482350 source_team=1 target_team=2 time=0.950
+[2026.09.05-16.40.52:771][ 56]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_2147482357
+[2026.09.05-16.40.52:771][ 56]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_2147482357 feedback=hit_flash
+[2026.09.05-16.40.52:771][ 56]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_2147482350 target=BiellaInfected_2147482357 hit=true damage=14.0 muzzle=V(X=767.85, Y=28.29, Z=40.51) impact=V(X=550.68, Y=231.32, Z=5.01) time=0.950
+[2026.09.05-16.40.52:800][102]LogTemp: Display: D01_SIGNAL RIVAL_PATH_COMPLETE actor=BiellaRival_2147482350 revision=1 reason=combat_range location=V(X=986.51, Y=-85.24, Z=10.00) distance=580.4
+[2026.09.05-16.40.52:800][102]LogTemp: Display: D01_SIGNAL RIVAL_POSITION actor=BiellaRival_2147482350 target=BiellaInfected_2147482357 mode=EDemo01RivalPositionState::Hold location=V(X=986.51, Y=-85.24, Z=10.00) distance=580.4
+[2026.09.05-16.40.52:804][111]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_2147482357 amount=14.0 health=28.0 tag=rival_fire source=BiellaRival_2147482350 source_team=1 target_team=2 time=1.867
+[2026.09.05-16.40.52:805][111]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_2147482357
+[2026.09.05-16.40.52:805][111]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_2147482357 feedback=hit_flash
+[2026.09.05-16.40.52:805][111]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_2147482350 target=BiellaInfected_2147482357 hit=true damage=14.0 muzzle=V(X=914.27, Y=-31.77, Z=42.01) impact=V(X=553.76, Y=235.02, Z=3.60) time=1.867
+[2026.09.05-16.40.52:829][166]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_2147482357 amount=14.0 health=14.0 tag=rival_fire source=BiellaRival_2147482350 source_team=1 target_team=2 time=2.783
+[2026.09.05-16.40.52:830][166]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_2147482357
+[2026.09.05-16.40.52:830][166]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_2147482357 feedback=hit_flash
+[2026.09.05-16.40.52:830][166]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_2147482350 target=BiellaInfected_2147482357 hit=true damage=14.0 muzzle=V(X=914.27, Y=-31.77, Z=42.01) impact=V(X=553.76, Y=235.02, Z=3.60) time=2.783
+[2026.09.05-16.40.52:853][221]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_2147482357 amount=14.0 health=0.0 tag=rival_fire source=BiellaRival_2147482350 source_team=1 target_team=2 time=3.700
+[2026.09.05-16.40.52:854][221]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_2147482357
+[2026.09.05-16.40.52:854][221]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_2147482357 feedback=hit_flash
+[2026.09.05-16.40.52:854][221]LogTemp: Display: D01_SIGNAL DEFEAT actor=BiellaInfected_2147482357 reason=rival_fire
+[2026.09.05-16.40.52:855][221]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_2147482350 target=BiellaInfected_2147482357 hit=true damage=14.0 muzzle=V(X=914.27, Y=-31.77, Z=42.01) impact=V(X=553.76, Y=235.02, Z=3.60) time=3.700
+[2026.09.05-16.40.52:856][222]LogTemp: Display: D01_SIGNAL RIVAL_TARGET actor=BiellaRival_2147482350 target=BiellaInfected_2147482353 team=2
+[2026.09.05-16.40.52:856][222]LogTemp: Display: D01_SIGNAL RIVAL_PATH actor=BiellaRival_2147482350 revision=2 points=2 length=101.8 goal=V(X=1081.87, Y=-49.51, Z=10.00)
+[2026.09.05-16.40.52:856][222]LogTemp: Display: D01_SIGNAL RIVAL_POSITION actor=BiellaRival_2147482350 target=BiellaInfected_2147482353 mode=EDemo01RivalPositionState::Retreat location=V(X=986.51, Y=-85.24, Z=10.00) distance=498.2
+[2026.09.05-16.40.52:858][224]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=100.0/100.0 ammo=60 countdown=1 objective=Eliminate all infected. progress=1/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.52:866][241]LogTemp: Display: D01_SIGNAL RIVAL_PATH_COMPLETE actor=BiellaRival_2147482350 revision=2 reason=combat_range location=V(X=1063.61, Y=-56.35, Z=10.00) distance=580.5
+[2026.09.05-16.40.52:866][241]LogTemp: Display: D01_SIGNAL RIVAL_POSITION actor=BiellaRival_2147482350 target=BiellaInfected_2147482353 mode=EDemo01RivalPositionState::Hold location=V(X=1063.61, Y=-56.35, Z=10.00) distance=580.5
+[2026.09.05-16.40.52:880][276]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_2147482353 amount=14.0 health=56.0 tag=rival_fire source=BiellaRival_2147482350 source_team=1 target_team=2 time=4.617
+[2026.09.05-16.40.52:882][276]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_2147482353
+[2026.09.05-16.40.52:882][276]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_2147482353 feedback=hit_flash
+[2026.09.05-16.40.52:882][276]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_2147482350 target=BiellaInfected_2147482353 hit=true damage=14.0 muzzle=V(X=979.45, Y=-87.88, Z=42.01) impact=V(X=559.33, Y=-245.27, Z=3.60) time=4.617
+[2026.09.05-16.40.52:893][303]LogConfig: Branch 'GameplayTags' had been unloaded. Reloading on-demand took 0.03ms
+[2026.09.05-16.40.52:893][303]LogConfig: Reload Context for thread GameThread: Action=GetSection Section=AutomationTestFallbackHierarchy Key=
+[2026.09.05-16.40.52:893][303]LogAutomationWorker: Received FindWorkersMessage from 01A07271C0E17A339F9101D5ACC4D073
+[2026.09.05-16.40.52:894][304]LogAutomationController: Received FindWorkersResponseMessage from 01A07271C0E17121830CF31D672DFA64
+[2026.09.05-16.40.52:894][304]LogAutomationController: Requesting test list from 01A07271C0E17121830CF31D672DFA64
+[2026.09.05-16.40.52:894][304]LogAutomationWorker: Received RequestTestsMessage from 01A07271C0E17A339F9101D5ACC4D073
+[2026.09.05-16.40.52:906][304]LogAutomationWorker: Set 1929 tests to 01A07271C0E17A339F9101D5ACC4D073
+[2026.09.05-16.40.52:906][305]LogAutomationController: Received RequestTestsReplyCompleteMessage from 01A07271C0E17121830CF31D672DFA64
+[2026.09.05-16.40.52:907][305]LogAutomationController: 1929 tests available on 01A07271C0E17121830CF31D672DFA64
+[2026.09.05-16.40.52:917][305]LogAutomationCommandLine: Display: Found 1 automation tests based on 'BiellaGames.Demo01.DeterministicPlaytest'
+[2026.09.05-16.40.52:917][305]LogAutomationCommandLine: Display: 	BiellaGames.Demo01.DeterministicPlaytest
+[2026.09.05-16.40.52:917][305]LogAutomationController: Sending StopTests to 01A07271C0E17121830CF31D672DFA64
+[2026.09.05-16.40.52:917][305]LogAutomationController: Sending StartTestSession to 01A07271C0E17121830CF31D672DFA64
+[2026.09.05-16.40.52:917][305]LogAutomationController: Display: Clearing ../../../BiellaGames/Saved/Automation/Logs/ and ../../../BiellaGames/Saved/Automation/Tmp/
+[2026.09.05-16.40.52:919][305]LogAutomationWorker: Received StopTests from 01A07271C0E17A339F9101D5ACC4D073
+[2026.09.05-16.40.52:919][305]LogAutomationWorker: Received StartTestSession from 01A07271C0E17A339F9101D5ACC4D073
+[2026.09.05-16.40.52:919][305]LogAutomationController: Sending RunTest DeterministicPlaytest to 01A07271C0E17121830CF31D672DFA64
+[2026.09.05-16.40.52:919][305]LogAutomationController: Display: Test Started. Name={DeterministicPlaytest} Path={BiellaGames.Demo01.DeterministicPlaytest}
+[2026.09.05-16.40.52:919][306]LogAutomationWorker: Received RunTests DeterministicPlaytest from 01A07271C0E17A339F9101D5ACC4D073
+[2026.09.05-16.40.52:919][306]LogTemp: Display: D01_SIGNAL RESTART_COUNT value=1
+[2026.09.05-16.40.52:919][306]LogTemp: Display: D01_SIGNAL RESTART_REQUESTED map=BiellaGameplayMap previous_phase=1 restart_count=1 authority=server
+[2026.09.05-16.40.52:921][307]LogGlobalStatus: Browse Started Browse: "/Game/Maps/BiellaGameplayMap"
+[2026.09.05-16.40.52:921][307]LogNet: Browse: /Game/Maps/BiellaGameplayMap
+[2026.09.05-16.40.52:921][307]LogLoad: LoadMap: /Game/Maps/BiellaGameplayMap
+[2026.09.05-16.40.52:921][307]LogWorld: BeginTearingDown for /Game/Maps/BiellaGameplayMap
+[2026.09.05-16.40.52:921][307]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance
+[2026.09.05-16.40.52:922][307]LogWorld: UWorld::CleanupWorld for BiellaGameplayMap, bSessionEnded=true, bCleanupResources=true
+[2026.09.05-16.40.52:922][307]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2026.09.05-16.40.52:929][307]LogUObjectHash: Compacting FUObjectHashTables data took   1.47ms
+[2026.09.05-16.40.52:929][307]LogStreaming: Display: FlushAsyncLoading(82): 1 QueuedPackages, 0 AsyncPackages
+[2026.09.05-16.40.52:930][307]LogChaosDD: Creating Chaos Debug Draw Scene for world BiellaGameplayMap
+[2026.09.05-16.40.52:932][307]LogLoad: Game class is 'BiellaGamesGameModeBase'
+[2026.09.05-16.40.52:933][307]LogWorld: Bringing World /Game/Maps/BiellaGameplayMap.BiellaGameplayMap up for play (max tick rate 0) at 2026.09.05-16.40.52
+[2026.09.05-16.40.52:933][307]LogWorld: Bringing up level for play took: 0.000170
+[2026.09.05-16.40.52:933][307]LogTemp: Display: D01_SIGNAL PLAYER_LOGIN controller=BiellaGamesPlayerController_2147482220
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL READABILITY_SUN source=authored_map mobility=movable intensity=5
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL ARENA_READY pieces=11 floor=true walls=4 cover=3 lighting=true
+[2026.09.05-16.40.52:935][307]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482184).
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL NAVIGATION_CONFIGURED mode=recast_dynamic source=arena_collision
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL PRESSURE_LIGHT id=Demo01ArenaPressure revision=0 level=0.0 intensity=900.0
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL WORLD_READY source=map
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL PRESSURE_MOVEMENT id=Demo01ArenaPressure revision=0 actor=BiellaInfected_2147482183 level=0.0 base_speed=210.0 effective_speed=210.0
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL INFECTED_READY actor=BiellaInfected_2147482183 health=70.0 speed=210.0
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL INFECTED_SPAWN actor=BiellaInfected_2147482183 index=0
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL PRESSURE_MOVEMENT id=Demo01ArenaPressure revision=0 actor=BiellaInfected_2147482180 level=0.0 base_speed=210.0 effective_speed=210.0
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL INFECTED_READY actor=BiellaInfected_2147482180 health=70.0 speed=210.0
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL INFECTED_SPAWN actor=BiellaInfected_2147482180 index=1
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL INFECTED_GROUP_READY count=2
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL RIVAL_READY actor=BiellaRival_2147482177 health=100.0 speed=260.0
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL RIVAL_WEAPON_READY actor=BiellaRival_2147482177 range=950.0 damage=14.0 cooldown=0.90
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL RIVAL_SPAWN actor=BiellaRival_2147482177 source=runtime
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL OBJECTIVE_TARGET_REGISTERED id=Demo01ClearArena actor=BiellaInfected_2147482183 target=1
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL OBJECTIVE_TARGET_REGISTERED id=Demo01ClearArena actor=BiellaInfected_2147482180 target=2
+[2026.09.05-16.40.52:935][307]LogTemp: Display: D01_SIGNAL PHASE phase=1 objective=Eliminate all infected.
+[2026.09.05-16.40.52:937][307]LogTemp: Display: D01_SIGNAL OBJECTIVE_ACTIVATED id=Demo01ClearArena version=1 target=2 condition=infected_remaining_zero authority=server
+[2026.09.05-16.40.52:938][307]LogTemp: Display: D01_SIGNAL OBJECTIVE_MANAGER_READY id=Demo01ClearArena version=1 authority=server
+[2026.09.05-16.40.52:938][307]LogTemp: Display: D01_SIGNAL MODE_READY class=BiellaGamesGameModeBase
+[2026.09.05-16.40.52:938][307]LogTemp: Display: D01_SIGNAL ARENA_PRESSURE_READY id=Demo01ArenaPressure state=Inactive level=0.0 revision=0 authority=server
+[2026.09.05-16.40.52:938][307]LogTemp: Display: D01_SIGNAL PLAYER_PAWN_READY mesh=true collision=pawn
+[2026.09.05-16.40.52:938][307]LogTemp: Display: D01_SIGNAL CAMERA_READY boom=520.0 collision_test=true probe=12.0
+[2026.09.05-16.40.52:938][307]LogTemp: Display: D01_SIGNAL AIM_READY yaw_input=MouseX pitch_input=MouseY clamped=true
+[2026.09.05-16.40.52:938][307]LogTemp: Display: D01_SIGNAL INPUT_READY actions=10 mappings=10
+[2026.09.05-16.40.52:938][307]LogTemp: Display: D01_SIGNAL LOCOMOTION_READY speed=520.0 jump=true
+[2026.09.05-16.40.52:938][307]LogTemp: Display: D01_SIGNAL WEAPON_READY equipped=true ammo=60 trace=visibility
+[2026.09.05-16.40.52:939][307]LogTemp: Display: D01_SIGNAL HUD_READY health=100.0/100.0 ammo=60 countdown=2 objective=Eliminate all infected. progress=0/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.52:939][307]LogTemp: Display: D01_SIGNAL HUD_VIEWPORT_READY widget=BiellaGameplayHUD_2147482169 owner=BiellaGamesPlayerController_2147482220
+[2026.09.05-16.40.52:939][307]LogTemp: Display: D01_SIGNAL CONTROLLER_READY game_input=true
+[2026.09.05-16.40.52:939][307]LogLoad: Took 0.017769 seconds to LoadMap(/Game/Maps/BiellaGameplayMap)
+[2026.09.05-16.40.52:939][307]LogGlobalStatus: LoadMap Load map complete /Game/Maps/BiellaGameplayMap
+[2026.09.05-16.40.52:939][307]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482184).
+[2026.09.05-16.40.52:939][307]LogNavigation: Warning: ProcessRegistrationCandidates RecastNavMesh_2147482184 will be removed. This warning will disapear once the map is saved.
+[2026.09.05-16.40.52:949][308]LogTemp: Display: D01_039_TEST CHECKPOINT name=active_baseline phase=1 health=100.0 ammo=60
+[2026.09.05-16.40.52:989][360]LogTemp: Display: D01_039_TEST CHECKPOINT name=movement phase=1 health=100.0 ammo=60
+[2026.09.05-16.40.52:989][360]LogTemp: Display: D01_SIGNAL ARENA_PRESSURE_TRANSITION id=Demo01ArenaPressure previous=Inactive state=Rising level=20.0 revision=1 reason=D01-039_seeded_fixture authority=server
+[2026.09.05-16.40.52:990][361]LogTemp: Display: D01_SIGNAL PRESSURE_MOVEMENT id=Demo01ArenaPressure revision=1 actor=BiellaInfected_2147482180 level=20.0 base_speed=210.0 effective_speed=231.0
+[2026.09.05-16.40.52:990][361]LogTemp: Display: D01_SIGNAL PRESSURE_MOVEMENT id=Demo01ArenaPressure revision=1 actor=BiellaInfected_2147482183 level=20.0 base_speed=210.0 effective_speed=231.0
+[2026.09.05-16.40.52:990][361]LogTemp: Display: D01_SIGNAL PRESSURE_LIGHT id=Demo01ArenaPressure revision=1 level=20.0 intensity=1240.0
+[2026.09.05-16.40.52:999][379]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_2147482180 amount=34.0 health=36.0 tag=player_fire source=BiellaGamesCharacter_2147482211 source_team=0 target_team=2 time=1.217
+[2026.09.05-16.40.53:000][379]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_2147482180
+[2026.09.05-16.40.53:000][379]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_2147482180 feedback=hit_flash
+[2026.09.05-16.40.53:000][379]LogTemp: Display: D01_SIGNAL WEAPON_FIRE owner=BiellaGamesCharacter_2147482211 target=BiellaInfected_2147482180 hit=true damage=34.0 ammo=59
+[2026.09.05-16.40.53:001][379]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=100.0/100.0 ammo=59 countdown=2 objective=Eliminate all infected. progress=0/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:010][398]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_2147482180 amount=34.0 health=2.0 tag=player_fire source=BiellaGamesCharacter_2147482211 source_team=0 target_team=2 time=1.533
+[2026.09.05-16.40.53:011][398]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_2147482180
+[2026.09.05-16.40.53:011][398]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_2147482180 feedback=hit_flash
+[2026.09.05-16.40.53:011][398]LogTemp: Display: D01_SIGNAL WEAPON_FIRE owner=BiellaGamesCharacter_2147482211 target=BiellaInfected_2147482180 hit=true damage=34.0 ammo=58
+[2026.09.05-16.40.53:011][398]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=100.0/100.0 ammo=58 countdown=2 objective=Eliminate all infected. progress=0/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:020][417]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_2147482180 amount=2.0 health=0.0 tag=player_fire source=BiellaGamesCharacter_2147482211 source_team=0 target_team=2 time=1.850
+[2026.09.05-16.40.53:020][417]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_2147482180
+[2026.09.05-16.40.53:020][417]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_2147482180 feedback=hit_flash
+[2026.09.05-16.40.53:020][417]LogTemp: Display: D01_SIGNAL DEFEAT actor=BiellaInfected_2147482180 reason=player_fire
+[2026.09.05-16.40.53:021][417]LogTemp: Display: D01_SIGNAL WEAPON_FIRE owner=BiellaGamesCharacter_2147482211 target=BiellaInfected_2147482180 hit=true damage=2.0 ammo=57
+[2026.09.05-16.40.53:021][417]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=100.0/100.0 ammo=57 countdown=2 objective=Eliminate all infected. progress=0/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:025][423]LogTemp: Display: D01_039_TEST CHECKPOINT name=first_infected_defeated phase=1 health=100.0 ammo=57
+[2026.09.05-16.40.53:025][423]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=100.0/100.0 ammo=57 countdown=1 objective=Eliminate all infected. progress=1/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:034][441]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_2147482183 amount=34.0 health=36.0 tag=player_fire source=BiellaGamesCharacter_2147482211 source_team=0 target_team=2 time=2.250
+[2026.09.05-16.40.53:034][441]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_2147482183
+[2026.09.05-16.40.53:034][441]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_2147482183 feedback=hit_flash
+[2026.09.05-16.40.53:034][441]LogTemp: Display: D01_SIGNAL WEAPON_FIRE owner=BiellaGamesCharacter_2147482211 target=BiellaInfected_2147482183 hit=true damage=34.0 ammo=56
+[2026.09.05-16.40.53:035][441]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=100.0/100.0 ammo=56 countdown=1 objective=Eliminate all infected. progress=1/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:044][460]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_2147482183 amount=34.0 health=2.0 tag=player_fire source=BiellaGamesCharacter_2147482211 source_team=0 target_team=2 time=2.567
+[2026.09.05-16.40.53:045][460]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_2147482183
+[2026.09.05-16.40.53:045][460]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_2147482183 feedback=hit_flash
+[2026.09.05-16.40.53:045][460]LogTemp: Display: D01_SIGNAL WEAPON_FIRE owner=BiellaGamesCharacter_2147482211 target=BiellaInfected_2147482183 hit=true damage=34.0 ammo=55
+[2026.09.05-16.40.53:046][460]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=100.0/100.0 ammo=55 countdown=1 objective=Eliminate all infected. progress=1/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:055][480]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_2147482183 amount=2.0 health=0.0 tag=player_fire source=BiellaGamesCharacter_2147482211 source_team=0 target_team=2 time=2.900
+[2026.09.05-16.40.53:056][480]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_2147482183
+[2026.09.05-16.40.53:056][480]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_2147482183 feedback=hit_flash
+[2026.09.05-16.40.53:056][480]LogTemp: Display: D01_SIGNAL DEFEAT actor=BiellaInfected_2147482183 reason=player_fire
+[2026.09.05-16.40.53:056][480]LogTemp: Display: D01_SIGNAL WEAPON_FIRE owner=BiellaGamesCharacter_2147482211 target=BiellaInfected_2147482183 hit=true damage=2.0 ammo=54
+[2026.09.05-16.40.53:057][480]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=100.0/100.0 ammo=54 countdown=1 objective=Eliminate all infected. progress=1/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:058][482]LogTemp: Display: D01_SIGNAL PHASE phase=2 objective=Arena cleared.
+[2026.09.05-16.40.53:059][482]LogTemp: Display: D01_SIGNAL OBJECTIVE_SUCCESS id=Demo01ClearArena version=1 progress=2/2 condition=infected_remaining_zero authority=server
+[2026.09.05-16.40.53:059][483]LogTemp: Display: D01_SIGNAL TERMINAL_INPUT_STATE terminal=true movement=ignored look=ignored restart_key=R
+[2026.09.05-16.40.53:060][483]LogTemp: Display: D01_SIGNAL HUD_TERMINAL_OVERLAY phase=SUCCESS title=SUCCESS // ARENA CLEARED message=Arena cleared. prompt=PRESS R TO RESTART source=runtime
+[2026.09.05-16.40.53:060][483]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=100.0/100.0 ammo=54 countdown=0 objective=Arena cleared. progress=2/2 phase=SUCCESS source=runtime
+[2026.09.05-16.40.53:060][483]LogTemp: Display: D01_039_TEST CHECKPOINT name=success phase=2 health=100.0 ammo=54
+[2026.09.05-16.40.53:061][484]LogTemp: Display: D01_SIGNAL RESTART_INPUT source=controller
+[2026.09.05-16.40.53:061][484]LogTemp: Display: D01_SIGNAL RESTART_COUNT value=2
+[2026.09.05-16.40.53:061][484]LogTemp: Display: D01_SIGNAL RESTART_REQUESTED map=BiellaGameplayMap previous_phase=2 restart_count=2 authority=server
+[2026.09.05-16.40.53:062][485]LogGlobalStatus: Browse Started Browse: "/Game/Maps/BiellaGameplayMap"
+[2026.09.05-16.40.53:064][485]LogNet: Browse: /Game/Maps/BiellaGameplayMap
+[2026.09.05-16.40.53:064][485]LogLoad: LoadMap: /Game/Maps/BiellaGameplayMap
+[2026.09.05-16.40.53:064][485]LogWorld: BeginTearingDown for /Game/Maps/BiellaGameplayMap
+[2026.09.05-16.40.53:064][485]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance
+[2026.09.05-16.40.53:064][485]LogWorld: UWorld::CleanupWorld for BiellaGameplayMap, bSessionEnded=true, bCleanupResources=true
+[2026.09.05-16.40.53:064][485]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2026.09.05-16.40.53:070][485]LogUObjectHash: Compacting FUObjectHashTables data took   1.32ms
+[2026.09.05-16.40.53:071][485]LogStreaming: Display: FlushAsyncLoading(84): 1 QueuedPackages, 0 AsyncPackages
+[2026.09.05-16.40.53:071][485]LogChaosDD: Creating Chaos Debug Draw Scene for world BiellaGameplayMap
+[2026.09.05-16.40.53:074][485]LogLoad: Game class is 'BiellaGamesGameModeBase'
+[2026.09.05-16.40.53:074][485]LogWorld: Bringing World /Game/Maps/BiellaGameplayMap.BiellaGameplayMap up for play (max tick rate 0) at 2026.09.05-16.40.53
+[2026.09.05-16.40.53:074][485]LogWorld: Bringing up level for play took: 0.000180
+[2026.09.05-16.40.53:075][485]LogTemp: Display: D01_SIGNAL PLAYER_LOGIN controller=BiellaGamesPlayerController_2147482048
+[2026.09.05-16.40.53:076][485]LogTemp: Display: D01_SIGNAL READABILITY_SUN source=authored_map mobility=movable intensity=5
+[2026.09.05-16.40.53:076][485]LogTemp: Display: D01_SIGNAL ARENA_READY pieces=11 floor=true walls=4 cover=3 lighting=true
+[2026.09.05-16.40.53:077][485]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482012).
+[2026.09.05-16.40.53:077][485]LogTemp: Display: D01_SIGNAL NAVIGATION_CONFIGURED mode=recast_dynamic source=arena_collision
+[2026.09.05-16.40.53:077][485]LogTemp: Display: D01_SIGNAL PRESSURE_LIGHT id=Demo01ArenaPressure revision=0 level=0.0 intensity=900.0
+[2026.09.05-16.40.53:077][485]LogTemp: Display: D01_SIGNAL WORLD_READY source=map
+[2026.09.05-16.40.53:077][485]LogTemp: Display: D01_SIGNAL PRESSURE_MOVEMENT id=Demo01ArenaPressure revision=0 actor=BiellaInfected_2147482011 level=0.0 base_speed=210.0 effective_speed=210.0
+[2026.09.05-16.40.53:077][485]LogTemp: Display: D01_SIGNAL INFECTED_READY actor=BiellaInfected_2147482011 health=70.0 speed=210.0
+[2026.09.05-16.40.53:077][485]LogTemp: Display: D01_SIGNAL INFECTED_SPAWN actor=BiellaInfected_2147482011 index=0
+[2026.09.05-16.40.53:077][485]LogTemp: Display: D01_SIGNAL PRESSURE_MOVEMENT id=Demo01ArenaPressure revision=0 actor=BiellaInfected_2147482008 level=0.0 base_speed=210.0 effective_speed=210.0
+[2026.09.05-16.40.53:077][485]LogTemp: Display: D01_SIGNAL INFECTED_READY actor=BiellaInfected_2147482008 health=70.0 speed=210.0
+[2026.09.05-16.40.53:077][485]LogTemp: Display: D01_SIGNAL INFECTED_SPAWN actor=BiellaInfected_2147482008 index=1
+[2026.09.05-16.40.53:077][485]LogTemp: Display: D01_SIGNAL INFECTED_GROUP_READY count=2
+[2026.09.05-16.40.53:077][485]LogTemp: Display: D01_SIGNAL RIVAL_READY actor=BiellaRival_2147482005 health=100.0 speed=260.0
+[2026.09.05-16.40.53:077][485]LogTemp: Display: D01_SIGNAL RIVAL_WEAPON_READY actor=BiellaRival_2147482005 range=950.0 damage=14.0 cooldown=0.90
+[2026.09.05-16.40.53:077][485]LogTemp: Display: D01_SIGNAL RIVAL_SPAWN actor=BiellaRival_2147482005 source=runtime
+[2026.09.05-16.40.53:077][485]LogTemp: Display: D01_SIGNAL OBJECTIVE_TARGET_REGISTERED id=Demo01ClearArena actor=BiellaInfected_2147482011 target=1
+[2026.09.05-16.40.53:077][485]LogTemp: Display: D01_SIGNAL OBJECTIVE_TARGET_REGISTERED id=Demo01ClearArena actor=BiellaInfected_2147482008 target=2
+[2026.09.05-16.40.53:077][485]LogTemp: Display: D01_SIGNAL PHASE phase=1 objective=Eliminate all infected.
+[2026.09.05-16.40.53:078][485]LogTemp: Display: D01_SIGNAL OBJECTIVE_ACTIVATED id=Demo01ClearArena version=1 target=2 condition=infected_remaining_zero authority=server
+[2026.09.05-16.40.53:078][485]LogTemp: Display: D01_SIGNAL OBJECTIVE_MANAGER_READY id=Demo01ClearArena version=1 authority=server
+[2026.09.05-16.40.53:078][485]LogTemp: Display: D01_SIGNAL MODE_READY class=BiellaGamesGameModeBase
+[2026.09.05-16.40.53:078][485]LogTemp: Display: D01_SIGNAL ARENA_PRESSURE_READY id=Demo01ArenaPressure state=Inactive level=0.0 revision=0 authority=server
+[2026.09.05-16.40.53:078][485]LogTemp: Display: D01_SIGNAL PLAYER_PAWN_READY mesh=true collision=pawn
+[2026.09.05-16.40.53:078][485]LogTemp: Display: D01_SIGNAL CAMERA_READY boom=520.0 collision_test=true probe=12.0
+[2026.09.05-16.40.53:078][485]LogTemp: Display: D01_SIGNAL AIM_READY yaw_input=MouseX pitch_input=MouseY clamped=true
+[2026.09.05-16.40.53:078][485]LogTemp: Display: D01_SIGNAL INPUT_READY actions=10 mappings=10
+[2026.09.05-16.40.53:078][485]LogTemp: Display: D01_SIGNAL LOCOMOTION_READY speed=520.0 jump=true
+[2026.09.05-16.40.53:078][485]LogTemp: Display: D01_SIGNAL WEAPON_READY equipped=true ammo=60 trace=visibility
+[2026.09.05-16.40.53:079][485]LogTemp: Display: D01_SIGNAL HUD_READY health=100.0/100.0 ammo=60 countdown=2 objective=Eliminate all infected. progress=0/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:079][485]LogTemp: Display: D01_SIGNAL HUD_VIEWPORT_READY widget=BiellaGameplayHUD_2147481997 owner=BiellaGamesPlayerController_2147482048
+[2026.09.05-16.40.53:079][485]LogTemp: Display: D01_SIGNAL CONTROLLER_READY game_input=true
+[2026.09.05-16.40.53:079][485]LogLoad: Took 0.016913 seconds to LoadMap(/Game/Maps/BiellaGameplayMap)
+[2026.09.05-16.40.53:079][485]LogGlobalStatus: LoadMap Load map complete /Game/Maps/BiellaGameplayMap
+[2026.09.05-16.40.53:079][485]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482012).
+[2026.09.05-16.40.53:079][485]LogNavigation: Warning: ProcessRegistrationCandidates RecastNavMesh_2147482012 will be removed. This warning will disapear once the map is saved.
+[2026.09.05-16.40.53:083][486]LogTemp: Display: D01_039_TEST CHECKPOINT name=restart_after_success phase=1 health=100.0 ammo=60
+[2026.09.05-16.40.53:085][487]LogTemp: Display: D01_SIGNAL INFECTED_AGGRO actor=BiellaInfected_2147482008 target=BiellaGamesCharacter_2147482039
+[2026.09.05-16.40.53:085][487]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaGamesCharacter_2147482039 amount=12.0 health=88.0 tag=infected_melee source=BiellaInfected_2147482008 source_team=2 target_team=0 time=0.050
+[2026.09.05-16.40.53:086][487]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaGamesCharacter_2147482039
+[2026.09.05-16.40.53:086][487]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaGamesCharacter_2147482039 feedback=hit_flash
+[2026.09.05-16.40.53:086][487]LogTemp: Display: D01_SIGNAL INFECTED_MELEE attacker=BiellaInfected_2147482008 target=BiellaGamesCharacter_2147482039 hit=true damage=12.0 impact=V(X=-758.00, Y=-950.00, Z=2.00) time=0.050
+[2026.09.05-16.40.53:087][488]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=88.0/100.0 ammo=60 countdown=2 objective=Eliminate all infected. progress=0/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:108][539]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaGamesCharacter_2147482039 amount=12.0 health=76.0 tag=infected_melee source=BiellaInfected_2147482008 source_team=2 target_team=0 time=0.917
+[2026.09.05-16.40.53:108][539]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaGamesCharacter_2147482039
+[2026.09.05-16.40.53:108][539]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaGamesCharacter_2147482039 feedback=hit_flash
+[2026.09.05-16.40.53:108][539]LogTemp: Display: D01_SIGNAL INFECTED_MELEE attacker=BiellaInfected_2147482008 target=BiellaGamesCharacter_2147482039 hit=true damage=12.0 impact=V(X=-758.00, Y=-950.00, Z=2.00) time=0.917
+[2026.09.05-16.40.53:109][540]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=76.0/100.0 ammo=60 countdown=2 objective=Eliminate all infected. progress=0/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:128][591]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaGamesCharacter_2147482039 amount=12.0 health=64.0 tag=infected_melee source=BiellaInfected_2147482008 source_team=2 target_team=0 time=1.783
+[2026.09.05-16.40.53:129][591]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaGamesCharacter_2147482039
+[2026.09.05-16.40.53:129][591]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaGamesCharacter_2147482039 feedback=hit_flash
+[2026.09.05-16.40.53:129][591]LogTemp: Display: D01_SIGNAL INFECTED_MELEE attacker=BiellaInfected_2147482008 target=BiellaGamesCharacter_2147482039 hit=true damage=12.0 impact=V(X=-758.00, Y=-950.00, Z=2.00) time=1.783
+[2026.09.05-16.40.53:129][592]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=64.0/100.0 ammo=60 countdown=2 objective=Eliminate all infected. progress=0/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:152][643]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaGamesCharacter_2147482039 amount=12.0 health=52.0 tag=infected_melee source=BiellaInfected_2147482008 source_team=2 target_team=0 time=2.650
+[2026.09.05-16.40.53:152][643]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaGamesCharacter_2147482039
+[2026.09.05-16.40.53:152][643]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaGamesCharacter_2147482039 feedback=hit_flash
+[2026.09.05-16.40.53:152][643]LogTemp: Display: D01_SIGNAL INFECTED_MELEE attacker=BiellaInfected_2147482008 target=BiellaGamesCharacter_2147482039 hit=true damage=12.0 impact=V(X=-758.00, Y=-950.00, Z=2.00) time=2.650
+[2026.09.05-16.40.53:153][644]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=52.0/100.0 ammo=60 countdown=2 objective=Eliminate all infected. progress=0/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:175][695]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaGamesCharacter_2147482039 amount=12.0 health=40.0 tag=infected_melee source=BiellaInfected_2147482008 source_team=2 target_team=0 time=3.517
+[2026.09.05-16.40.53:175][695]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaGamesCharacter_2147482039
+[2026.09.05-16.40.53:175][695]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaGamesCharacter_2147482039 feedback=hit_flash
+[2026.09.05-16.40.53:175][695]LogTemp: Display: D01_SIGNAL INFECTED_MELEE attacker=BiellaInfected_2147482008 target=BiellaGamesCharacter_2147482039 hit=true damage=12.0 impact=V(X=-758.00, Y=-950.00, Z=2.00) time=3.517
+[2026.09.05-16.40.53:176][696]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=40.0/100.0 ammo=60 countdown=2 objective=Eliminate all infected. progress=0/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:197][747]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaGamesCharacter_2147482039 amount=12.0 health=28.0 tag=infected_melee source=BiellaInfected_2147482008 source_team=2 target_team=0 time=4.383
+[2026.09.05-16.40.53:198][747]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaGamesCharacter_2147482039
+[2026.09.05-16.40.53:198][747]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaGamesCharacter_2147482039 feedback=hit_flash
+[2026.09.05-16.40.53:198][747]LogTemp: Display: D01_SIGNAL INFECTED_MELEE attacker=BiellaInfected_2147482008 target=BiellaGamesCharacter_2147482039 hit=true damage=12.0 impact=V(X=-758.00, Y=-950.00, Z=2.00) time=4.383
+[2026.09.05-16.40.53:198][748]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=28.0/100.0 ammo=60 countdown=2 objective=Eliminate all infected. progress=0/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:219][799]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaGamesCharacter_2147482039 amount=12.0 health=16.0 tag=infected_melee source=BiellaInfected_2147482008 source_team=2 target_team=0 time=5.250
+[2026.09.05-16.40.53:219][799]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaGamesCharacter_2147482039
+[2026.09.05-16.40.53:219][799]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaGamesCharacter_2147482039 feedback=hit_flash
+[2026.09.05-16.40.53:220][799]LogTemp: Display: D01_SIGNAL INFECTED_MELEE attacker=BiellaInfected_2147482008 target=BiellaGamesCharacter_2147482039 hit=true damage=12.0 impact=V(X=-758.00, Y=-950.00, Z=2.00) time=5.250
+[2026.09.05-16.40.53:220][800]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=16.0/100.0 ammo=60 countdown=2 objective=Eliminate all infected. progress=0/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:241][851]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaGamesCharacter_2147482039 amount=12.0 health=4.0 tag=infected_melee source=BiellaInfected_2147482008 source_team=2 target_team=0 time=6.117
+[2026.09.05-16.40.53:242][851]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaGamesCharacter_2147482039
+[2026.09.05-16.40.53:242][851]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaGamesCharacter_2147482039 feedback=hit_flash
+[2026.09.05-16.40.53:242][851]LogTemp: Display: D01_SIGNAL INFECTED_MELEE attacker=BiellaInfected_2147482008 target=BiellaGamesCharacter_2147482039 hit=true damage=12.0 impact=V(X=-758.00, Y=-950.00, Z=2.00) time=6.117
+[2026.09.05-16.40.53:242][852]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=4.0/100.0 ammo=60 countdown=2 objective=Eliminate all infected. progress=0/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:263][903]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaGamesCharacter_2147482039 amount=4.0 health=0.0 tag=infected_melee source=BiellaInfected_2147482008 source_team=2 target_team=0 time=6.983
+[2026.09.05-16.40.53:264][903]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaGamesCharacter_2147482039
+[2026.09.05-16.40.53:264][903]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaGamesCharacter_2147482039 feedback=hit_flash
+[2026.09.05-16.40.53:264][903]LogTemp: Display: D01_SIGNAL DEFEAT actor=BiellaGamesCharacter_2147482039 reason=infected_melee
+[2026.09.05-16.40.53:264][903]LogTemp: Display: D01_SIGNAL PHASE phase=3 objective=You were defeated.
+[2026.09.05-16.40.53:265][903]LogTemp: Display: D01_SIGNAL PLAYER_FAILURE actor=BiellaGamesCharacter_2147482039 health=0.0 phase=Failure reason=infected_melee authority=server
+[2026.09.05-16.40.53:265][903]LogTemp: Display: D01_SIGNAL INFECTED_MELEE attacker=BiellaInfected_2147482008 target=BiellaGamesCharacter_2147482039 hit=true damage=4.0 impact=V(X=-758.00, Y=-950.00, Z=2.00) time=6.983
+[2026.09.05-16.40.53:265][904]LogTemp: Display: D01_SIGNAL TERMINAL_INPUT_STATE terminal=true movement=ignored look=ignored restart_key=R
+[2026.09.05-16.40.53:265][904]LogTemp: Display: D01_SIGNAL HUD_TERMINAL_OVERLAY phase=FAILURE title=FAILURE // YOU WERE DEFEATED message=You were defeated. prompt=PRESS R TO RESTART source=runtime
+[2026.09.05-16.40.53:265][904]LogTemp: Display: D01_SIGNAL HUD_UPDATE health=0.0/100.0 ammo=60 countdown=2 objective=You were defeated. progress=0/2 phase=FAILURE source=runtime
+[2026.09.05-16.40.53:267][904]LogTemp: Display: D01_039_TEST CHECKPOINT name=failure phase=3 health=0.0 ammo=60
+[2026.09.05-16.40.53:267][905]LogTemp: Display: D01_SIGNAL RESTART_INPUT source=controller
+[2026.09.05-16.40.53:267][905]LogTemp: Display: D01_SIGNAL RESTART_COUNT value=3
+[2026.09.05-16.40.53:267][905]LogTemp: Display: D01_SIGNAL RESTART_REQUESTED map=BiellaGameplayMap previous_phase=3 restart_count=3 authority=server
+[2026.09.05-16.40.53:268][906]LogGlobalStatus: Browse Started Browse: "/Game/Maps/BiellaGameplayMap"
+[2026.09.05-16.40.53:268][906]LogNet: Browse: /Game/Maps/BiellaGameplayMap
+[2026.09.05-16.40.53:268][906]LogLoad: LoadMap: /Game/Maps/BiellaGameplayMap
+[2026.09.05-16.40.53:268][906]LogWorld: BeginTearingDown for /Game/Maps/BiellaGameplayMap
+[2026.09.05-16.40.53:268][906]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance
+[2026.09.05-16.40.53:270][906]LogWorld: UWorld::CleanupWorld for BiellaGameplayMap, bSessionEnded=true, bCleanupResources=true
+[2026.09.05-16.40.53:270][906]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2026.09.05-16.40.53:277][906]LogUObjectHash: Compacting FUObjectHashTables data took   1.45ms
+[2026.09.05-16.40.53:277][906]LogStreaming: Display: FlushAsyncLoading(86): 1 QueuedPackages, 0 AsyncPackages
+[2026.09.05-16.40.53:278][906]LogChaosDD: Creating Chaos Debug Draw Scene for world BiellaGameplayMap
+[2026.09.05-16.40.53:281][906]LogLoad: Game class is 'BiellaGamesGameModeBase'
+[2026.09.05-16.40.53:281][906]LogWorld: Bringing World /Game/Maps/BiellaGameplayMap.BiellaGameplayMap up for play (max tick rate 0) at 2026.09.05-16.40.53
+[2026.09.05-16.40.53:281][906]LogWorld: Bringing up level for play took: 0.000167
+[2026.09.05-16.40.53:281][906]LogTemp: Display: D01_SIGNAL PLAYER_LOGIN controller=BiellaGamesPlayerController_2147481876
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL READABILITY_SUN source=authored_map mobility=movable intensity=5
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL ARENA_READY pieces=11 floor=true walls=4 cover=3 lighting=true
+[2026.09.05-16.40.53:283][906]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147481840).
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL NAVIGATION_CONFIGURED mode=recast_dynamic source=arena_collision
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL PRESSURE_LIGHT id=Demo01ArenaPressure revision=0 level=0.0 intensity=900.0
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL WORLD_READY source=map
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL PRESSURE_MOVEMENT id=Demo01ArenaPressure revision=0 actor=BiellaInfected_2147481839 level=0.0 base_speed=210.0 effective_speed=210.0
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL INFECTED_READY actor=BiellaInfected_2147481839 health=70.0 speed=210.0
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL INFECTED_SPAWN actor=BiellaInfected_2147481839 index=0
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL PRESSURE_MOVEMENT id=Demo01ArenaPressure revision=0 actor=BiellaInfected_2147481836 level=0.0 base_speed=210.0 effective_speed=210.0
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL INFECTED_READY actor=BiellaInfected_2147481836 health=70.0 speed=210.0
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL INFECTED_SPAWN actor=BiellaInfected_2147481836 index=1
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL INFECTED_GROUP_READY count=2
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL RIVAL_READY actor=BiellaRival_2147481833 health=100.0 speed=260.0
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL RIVAL_WEAPON_READY actor=BiellaRival_2147481833 range=950.0 damage=14.0 cooldown=0.90
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL RIVAL_SPAWN actor=BiellaRival_2147481833 source=runtime
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL OBJECTIVE_TARGET_REGISTERED id=Demo01ClearArena actor=BiellaInfected_2147481839 target=1
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL OBJECTIVE_TARGET_REGISTERED id=Demo01ClearArena actor=BiellaInfected_2147481836 target=2
+[2026.09.05-16.40.53:283][906]LogTemp: Display: D01_SIGNAL PHASE phase=1 objective=Eliminate all infected.
+[2026.09.05-16.40.53:284][906]LogTemp: Display: D01_SIGNAL OBJECTIVE_ACTIVATED id=Demo01ClearArena version=1 target=2 condition=infected_remaining_zero authority=server
+[2026.09.05-16.40.53:284][906]LogTemp: Display: D01_SIGNAL OBJECTIVE_MANAGER_READY id=Demo01ClearArena version=1 authority=server
+[2026.09.05-16.40.53:284][906]LogTemp: Display: D01_SIGNAL MODE_READY class=BiellaGamesGameModeBase
+[2026.09.05-16.40.53:284][906]LogTemp: Display: D01_SIGNAL ARENA_PRESSURE_READY id=Demo01ArenaPressure state=Inactive level=0.0 revision=0 authority=server
+[2026.09.05-16.40.53:284][906]LogTemp: Display: D01_SIGNAL PLAYER_PAWN_READY mesh=true collision=pawn
+[2026.09.05-16.40.53:284][906]LogTemp: Display: D01_SIGNAL CAMERA_READY boom=520.0 collision_test=true probe=12.0
+[2026.09.05-16.40.53:284][906]LogTemp: Display: D01_SIGNAL AIM_READY yaw_input=MouseX pitch_input=MouseY clamped=true
+[2026.09.05-16.40.53:284][906]LogTemp: Display: D01_SIGNAL INPUT_READY actions=10 mappings=10
+[2026.09.05-16.40.53:284][906]LogTemp: Display: D01_SIGNAL LOCOMOTION_READY speed=520.0 jump=true
+[2026.09.05-16.40.53:284][906]LogTemp: Display: D01_SIGNAL WEAPON_READY equipped=true ammo=60 trace=visibility
+[2026.09.05-16.40.53:285][906]LogTemp: Display: D01_SIGNAL HUD_READY health=100.0/100.0 ammo=60 countdown=2 objective=Eliminate all infected. progress=0/2 phase=ACTIVE source=runtime
+[2026.09.05-16.40.53:285][906]LogTemp: Display: D01_SIGNAL HUD_VIEWPORT_READY widget=BiellaGameplayHUD_2147481825 owner=BiellaGamesPlayerController_2147481876
+[2026.09.05-16.40.53:285][906]LogTemp: Display: D01_SIGNAL CONTROLLER_READY game_input=true
+[2026.09.05-16.40.53:285][906]LogLoad: Took 0.017107 seconds to LoadMap(/Game/Maps/BiellaGameplayMap)
+[2026.09.05-16.40.53:285][906]LogGlobalStatus: LoadMap Load map complete /Game/Maps/BiellaGameplayMap
+[2026.09.05-16.40.53:285][906]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147481840).
+[2026.09.05-16.40.53:286][906]LogNavigation: Warning: ProcessRegistrationCandidates RecastNavMesh_2147481840 will be removed. This warning will disapear once the map is saved.
+[2026.09.05-16.40.53:293][907]LogTemp: Display: D01_039_TEST CHECKPOINT name=restart_after_failure phase=1 health=100.0 ammo=60
+[2026.09.05-16.40.53:294][907]LogTemp: Display: D01_039_TEST COMPLETE seed=1337 checkpoints=7 source=live_runtime
+[2026.09.05-16.40.53:294][908]LogTemp: Display: D01_SIGNAL INFECTED_AGGRO actor=BiellaInfected_2147481836 target=BiellaRival_2147481833
+[2026.09.05-16.40.53:294][908]LogTemp: Display: D01_SIGNAL INFECTED_CHASE actor=BiellaInfected_2147481836 target=BiellaRival_2147481833 speed=210.0
+[2026.09.05-16.40.53:294][908]LogTemp: Display: D01_SIGNAL RIVAL_TARGET actor=BiellaRival_2147481833 target=BiellaInfected_2147481839 team=2
+[2026.09.05-16.40.53:295][908]LogTemp: Display: D01_SIGNAL RIVAL_PATH actor=BiellaRival_2147481833 revision=1 points=5 length=295.3 goal=V(X=1015.18, Y=-78.81, Z=10.00)
+[2026.09.05-16.40.53:295][908]LogTemp: Display: D01_SIGNAL RIVAL_POSITION actor=BiellaRival_2147481833 target=BiellaInfected_2147481839 mode=EDemo01RivalPositionState::Retreat location=V(X=900.00, Z=2.00) distance=460.4
+[2026.09.05-16.40.53:295][908]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_2147481839 amount=14.0 health=56.0 tag=rival_fire source=BiellaRival_2147481833 source_team=1 target_team=2 time=0.050
+[2026.09.05-16.40.53:295][908]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_2147481839
+[2026.09.05-16.40.53:295][908]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_2147481839 feedback=hit_flash
+[2026.09.05-16.40.53:295][908]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_2147481833 target=BiellaInfected_2147481839 hit=true damage=14.0 muzzle=V(X=821.65, Y=50.91, Z=34.17) impact=V(X=554.52, Y=236.07, Z=3.91) time=0.050
+[2026.09.05-16.40.53:295][908]LogTemp: Display: D01_SIGNAL INFECTED_AGGRO actor=BiellaInfected_2147481839 target=BiellaRival_2147481833
+[2026.09.05-16.40.53:295][908]LogTemp: Display: D01_SIGNAL INFECTED_CHASE actor=BiellaInfected_2147481839 target=BiellaRival_2147481833 speed=210.0
+[2026.09.05-16.40.53:297][909]LogAutomationController: Display: Test Completed. Result={Success} Name={DeterministicPlaytest} Path={BiellaGames.Demo01.DeterministicPlaytest}
+[2026.09.05-16.40.53:297][909]LogAutomationController: BeginEvents: BiellaGames.Demo01.DeterministicPlaytest
+[2026.09.05-16.40.53:297][909]LogAutomationController: Warning: LogCrowdFollowing: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance [log] 
+[2026.09.05-16.40.53:297][909]LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482184). [log] 
+[2026.09.05-16.40.53:297][909]LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482184). [log] 
+[2026.09.05-16.40.53:297][909]LogAutomationController: Warning: LogNavigation: ProcessRegistrationCandidates RecastNavMesh_2147482184 will be removed. This warning will disapear once the map is saved. [log] 
+[2026.09.05-16.40.53:297][909]LogAutomationController: Warning: LogCrowdFollowing: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance [log] 
+[2026.09.05-16.40.53:297][909]LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482012). [log] 
+[2026.09.05-16.40.53:297][909]LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482012). [log] 
+[2026.09.05-16.40.53:297][909]LogAutomationController: Warning: LogNavigation: ProcessRegistrationCandidates RecastNavMesh_2147482012 will be removed. This warning will disapear once the map is saved. [log] 
+[2026.09.05-16.40.53:297][909]LogAutomationController: Warning: LogCrowdFollowing: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance [log] 
+[2026.09.05-16.40.53:297][909]LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147481840). [log] 
+[2026.09.05-16.40.53:297][909]LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147481840). [log] 
+[2026.09.05-16.40.53:297][909]LogAutomationController: Warning: LogNavigation: ProcessRegistrationCandidates RecastNavMesh_2147481840 will be removed. This warning will disapear once the map is saved. [log] 
+[2026.09.05-16.40.53:297][909]LogAutomationController: EndEvents: BiellaGames.Demo01.DeterministicPlaytest
+[2026.09.05-16.40.53:298][909]LogAutomationController: Sending StopTestSession to 01A07271C0E17121830CF31D672DFA64
+[2026.09.05-16.40.53:299][910]LogAutomationWorker: Received StopTestSession from 01A07271C0E17A339F9101D5ACC4D073
+[2026.09.05-16.40.53:299][910]LogAutomationCommandLine: Shutting down. GIsCriticalError=0
+[2026.09.05-16.40.53:299][910]LogAutomationCommandLine: Display: **** TEST COMPLETE. EXIT CODE: 0 ****
+[2026.09.05-16.40.53:299][910]LogCore: FUnixPlatformMisc::RequestExit(bForce=false, ReturnCode=0, CallSite=<NoCallSiteInfo>)
+[2026.09.05-16.40.53:299][910]LogCore: FUnixPlatformMisc::RequestExit(0, <NoCallSiteInfo>)
+[2026.09.05-16.40.53:299][910]LogGenericPlatformMisc: FPlatformMisc::RequestExit(0, <NoCallSiteInfo>)
+[2026.09.05-16.40.53:299][910]LogCore: Engine exit requested (reason: GenericPlatform RequestExit)
+[2026.09.05-16.40.53:299][910]LogAutomationCommandLine: Display: ...Automation Test Queue Empty 1 tests performed.
+[2026.09.05-16.40.53:299][911]LogCore: Engine exit requested (reason: EngineExit() was called; note: exit was already requested)
+[2026.09.05-16.40.53:299][911]LogInit: Display: PreExit Game.
+[2026.09.05-16.40.53:300][911]LogWorld: BeginTearingDown for /Game/Maps/BiellaGameplayMap
+[2026.09.05-16.40.53:300][911]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance
+[2026.09.05-16.40.53:302][911]LogWorld: UWorld::CleanupWorld for BiellaGameplayMap, bSessionEnded=true, bCleanupResources=true
+[2026.09.05-16.40.53:302][911]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2026.09.05-16.40.53:302][911]LogRuntimeTelemetry: Recording EnginePreExit events
+[2026.09.05-16.40.53:302][911]LogSlate: Request Window 'BiellaGames (64-bit Development SF_VULKAN_SM5) ' being destroyed
+[2026.09.05-16.40.53:303][911]LogSlate: Window 'BiellaGames (64-bit Development SF_VULKAN_SM5) ' being destroyed
+[2026.09.05-16.40.53:304][911]LogSlate: Slate User Destroyed.  User Index 0, Is Virtual User: 0
+[2026.09.05-16.40.53:304][911]LogExit: Preparing to exit.
+[2026.09.05-16.40.53:316][911]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2026.09.05-16.40.53:317][911]LogDemo: Cleaned up 0 splitscreen connections, owner deletion: enabled
+[2026.09.05-16.40.53:321][911]LogExit: Game engine shut down
+[2026.09.05-16.40.53:360][911]LogExit: Object subsystem successfully closed.
+[2026.09.05-16.40.53:373][911]LogChaosDD: Chaos Debug Draw Shutdown
+[2026.09.05-16.40.53:374][911]LogNFORDenoise: NFORDenoise function shutting down
+[2026.09.05-16.40.53:374][911]LogPakFile: Destroying PakPlatformFile
+[2026.09.05-16.40.53:377][911]LogExit: Exiting.
+[2026.09.05-16.40.53:385][911]Log file closed, 09/05/26 16:40:53

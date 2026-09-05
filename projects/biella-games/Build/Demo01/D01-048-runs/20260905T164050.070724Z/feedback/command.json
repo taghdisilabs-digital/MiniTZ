@@ -1,0 +1,31 @@
+{
+  "command": [
+    "runuser",
+    "-u",
+    "unreal",
+    "--",
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1280x720x24",
+    "/tmp/biella-d01-48-feedback-igwy67cz/Linux/BiellaGames.sh",
+    "-vulkan",
+    "-NoVSync",
+    "-windowed",
+    "-ResX=1280",
+    "-ResY=720",
+    "-unattended",
+    "-nosplash",
+    "-NoAsyncLoadingThread",
+    "-stdout",
+    "-FullStdOutLogOutput",
+    "-AbsLog=/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-048-runs/20260905T164050.070724Z/feedback/engine.log",
+    "-ExecCmds=Automation RunTests BiellaGames.Demo01.EventFeedback; SoftQuit",
+    "-BiellaFeedbackOutput=/root/biella/artifacts/games/D01-048/20260905T164050.070724Z/feedback",
+    "-AudioMixer",
+    "-DeterministicAudio",
+    "-UseFixedTimeStep",
+    "-FPS=60"
+  ],
+  "cwd": "/tmp/biella-d01-48-feedback-igwy67cz"
+}
