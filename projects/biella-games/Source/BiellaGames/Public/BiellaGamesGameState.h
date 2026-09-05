@@ -56,19 +56,19 @@ public:
     UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Demo01|ArenaPressure")
     FString ArenaPressureReason;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Demo01")
+    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Demo01")
     int32 InfectedRemaining = 0;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Demo01")
+    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Demo01")
     bool bRivalAlive = true;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Demo01")
+    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Demo01")
     bool bPlayerAlive = true;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Demo01")
+    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Demo01")
     EDemo01Phase Phase = EDemo01Phase::Intro;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Demo01")
+    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Demo01")
     FString ObjectiveText;
 
     void ResetState();

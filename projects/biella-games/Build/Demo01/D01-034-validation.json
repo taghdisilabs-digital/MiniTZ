@@ -1,0 +1,56 @@
+{
+  "task_id": "D01-034",
+  "result": "PASS",
+  "observed_date_utc": "2026-09-05T05:09:47Z",
+  "base_commit": "0491b95",
+  "runtime": "Unreal Engine 5.8.2 Linux Editor -game; canonical BiellaGameplayMap",
+  "resource_routes": [
+    {
+      "capability": "code",
+      "providers": []
+    },
+    {
+      "capability": "runtime-validation",
+      "providers": []
+    }
+  ],
+  "resource_selection": "Local installed Unreal compiler, runtime, deterministic automation and log validators; no external provider was needed.",
+  "editor_build": {
+    "result": "Succeeded",
+    "process_exit": 0,
+    "target": "BiellaGamesEditor"
+  },
+  "runtime_results": [
+    {
+      "log": "D01-034-objective.log",
+      "result": "PASS",
+      "process_exit": 0,
+      "automation_test": "BiellaGames.Demo01.ObjectiveManager",
+      "phases": ["activation", "progress", "success"],
+      "objective_id": "Demo01ClearArena",
+      "objective_version": 1,
+      "condition": "infected_remaining_zero",
+      "target_count": 2,
+      "progress_count": 2,
+      "authority": "server",
+      "sha256": "2238e92b1ab3d3a818f87a3b589a7a488411a0a6a7d97ecb1d24efc6b9f1ebfb"
+    }
+  ],
+  "source_sha256": {
+    "Source/BiellaGames/Public/BiellaDemoObjectiveManager.h": "973911b97ab16afb2f7a7c33f60ecb3520e95d3fec04bfc2f6e013c9fa4b4646",
+    "Source/BiellaGames/Private/BiellaDemoObjectiveManager.cpp": "3c48ae4fd00cb00b86aeb688efa77e073b9f05094b3b1407128e87bd609ceb8c",
+    "Source/BiellaGames/Public/BiellaGamesGameModeBase.h": "7409e9e2dbf298229d1573190051836b4fc92e7730d8ff4fbf0116d5a0020aa8",
+    "Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp": "df0d1821d1bc53f21e4b6ed915f1320535a9fe2ace4cc86aa9c1a26860e31cec",
+    "Source/BiellaGames/Public/BiellaGamesGameState.h": "e82da83f790682a7b70567400983835514f2e581ef84b76fa3e88328a6824aaf",
+    "Source/BiellaGames/Private/BiellaGamesGameState.cpp": "38ef2be0cff28dcd21717e69aa71a97163d4b80bd2dfdc9f80f6eadf134ea848",
+    "Source/BiellaGames/Private/Tests/BiellaDemoObjectiveTest.cpp": "5d05c4917dc4e74355347d9103e36e79ef96e53489abf11c042658ae66c84c20",
+    "tests/verify_d01_034.py": "79306fe8436054ff77d4a21793d8a30c149fa514292f0a50fc79887307481b63"
+  },
+  "structural_validation": "DEMO01_STRUCTURE_PASS completed=33/50 current=D01-034",
+  "protected_authority_files_unchanged": true,
+  "qualification_limits": [
+    "Objective acceptance is a live single-process Linux Editor runtime qualification; it is not Win64 package, multiplayer, or native performance qualification.",
+    "D01-035 failure/death, D01-036 restart/reset, HUD/overlay tasks, and Engine P4-06 remain outside this boundary.",
+    "Auto Feeder owns GitHub/Drive publication and canonical state transition."
+  ]
+}

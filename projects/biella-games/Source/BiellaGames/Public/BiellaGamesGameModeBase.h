@@ -12,6 +12,7 @@ class ABiellaGamesGameState;
 class ABasicWorldGeometry;
 class ABiellaInfected;
 class ABiellaRival;
+class ABiellaDemoObjectiveManager;
 
 UCLASS()
 class BIELLAGAMES_API ABiellaGamesGameModeBase : public AGameModeBase
@@ -34,6 +35,7 @@ public:
 
     int32 GetPressureReinforcementCount() const { return PressureReinforcementCount; }
     ABiellaInfected* GetPressureReinforcement(int32 Index) const;
+    ABiellaDemoObjectiveManager* GetObjectiveManager() const { return ObjectiveManager; }
     const TArray<FVector>& GetPressureSpawnLocations() const { return PressureSpawnLocations; }
 
     // Bounded Demo01 tuning: one slot at Elevated and one at Critical.
@@ -56,4 +58,6 @@ private:
     TArray<TObjectPtr<ABiellaInfected>> InfectedActors;
     UPROPERTY()
     TObjectPtr<ABiellaRival> RivalActor;
+    UPROPERTY()
+    TObjectPtr<ABiellaDemoObjectiveManager> ObjectiveManager;
 };

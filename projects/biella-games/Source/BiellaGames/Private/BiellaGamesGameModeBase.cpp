@@ -6,6 +6,7 @@
 #include "BiellaInfected.h"
 #include "BiellaRival.h"
 #include "BiellaGamesPlayerController.h"
+#include "BiellaDemoObjectiveManager.h"
 #include "EngineUtils.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
@@ -25,6 +26,14 @@ void ABiellaGamesGameModeBase::BeginPlay()
     Super::BeginPlay();
     SpawnBasicWorldGeometry();
     SpawnDemoActors();
+    if (HasAuthority() && GetWorld())
+    {
+        FActorSpawnParameters ObjectiveParams;
+        ObjectiveParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+        ObjectiveManager = GetWorld()->SpawnActor<ABiellaDemoObjectiveManager>(
+            ABiellaDemoObjectiveManager::StaticClass(), FVector::ZeroVector,
+            FRotator::ZeroRotator, ObjectiveParams);
+    }
     if (ABiellaGamesGameState* State = GetWorld()->GetGameState<ABiellaGamesGameState>())
     {
         PressureState = State;

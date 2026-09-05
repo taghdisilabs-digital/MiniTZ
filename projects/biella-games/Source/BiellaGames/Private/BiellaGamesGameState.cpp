@@ -29,6 +29,11 @@ void ABiellaGamesGameState::GetLifetimeReplicatedProps(
     DOREPLIFETIME(ABiellaGamesGameState, ArenaPressureState);
     DOREPLIFETIME(ABiellaGamesGameState, ArenaPressureRevision);
     DOREPLIFETIME(ABiellaGamesGameState, ArenaPressureReason);
+    DOREPLIFETIME(ABiellaGamesGameState, InfectedRemaining);
+    DOREPLIFETIME(ABiellaGamesGameState, bRivalAlive);
+    DOREPLIFETIME(ABiellaGamesGameState, bPlayerAlive);
+    DOREPLIFETIME(ABiellaGamesGameState, Phase);
+    DOREPLIFETIME(ABiellaGamesGameState, ObjectiveText);
 }
 
 void ABiellaGamesGameState::ResetState()
