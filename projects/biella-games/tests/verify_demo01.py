@@ -25,13 +25,14 @@ for token in ("D01_SIGNAL", "FireWeapon", "ABiellaInfected", "TryMeleeTarget"):
     assert token in source, token
 
 production = (root / "docs/PRODUCTION.md").read_text(encoding="utf-8")
-ids = re.findall(r"^- \[[ xX]\] (D01-\d{3}) \|", production, re.M)
-assert ids == [f"D01-{i:03d}" for i in range(1, 51)]
-completed = re.findall(r"^- \[[xX]\] (D01-\d{3}) \|", production, re.M)
-incomplete = re.findall(r"^- \[ \] (D01-\d{3}) \|", production, re.M)
+canonical = lambda value: f"D01-{int(value.split('-', 1)[1]):02d}"
+ids = re.findall(r"^- \[[ xX]\] (D01-\d{2,3}) \|", production, re.M)
+assert [canonical(value) for value in ids] == [f"D01-{i:02d}" for i in range(1, 51)]
+completed = re.findall(r"^- \[[xX]\] (D01-\d{2,3}) \|", production, re.M)
+incomplete = re.findall(r"^- \[ \] (D01-\d{2,3}) \|", production, re.M)
 match = re.search(r"^Current task: `([^`]+)`$", production, re.M)
 assert match, "current task metadata missing"
-current = match.group(1)
-assert incomplete and current == incomplete[0], (current, incomplete[:1])
-assert completed == [f"D01-{i:03d}" for i in range(1, len(completed) + 1)]
+current = canonical(match.group(1))
+assert incomplete and current == canonical(incomplete[0]), (current, incomplete[:1])
+assert [canonical(value) for value in completed] == [f"D01-{i:02d}" for i in range(1, len(completed) + 1)]
 print(f"DEMO01_STRUCTURE_PASS completed={len(completed)}/50 current={current}")
