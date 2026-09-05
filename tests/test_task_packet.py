@@ -29,3 +29,4 @@ def test_packet_contains_exact_active_contract_and_resource_rule(tmp_path: Path)
     assert "biella resource route <capability>" in packet
     assert "/usage" not in packet
     assert "quota" in packet.lower()
+    assert "runner owns canonical state transition" in packet.lower()

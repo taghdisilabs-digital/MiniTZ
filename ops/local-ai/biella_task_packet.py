@@ -22,5 +22,6 @@ def compile_task_packet(repo_root: Path, production: ProductionState, task: Task
         "Use real editable outputs and task-derived validation. Before expensive general-model work, use "
         "`biella resource route <capability>` and configured specialized Resources when they materially reduce time/tokens or improve quality. "
         "Free/trial/prepaid and paid Resources are authorized when useful; use one provider by default and validate its output. "
+        "Runner owns canonical state transition: do not edit 03/04 task identity or Project PRODUCTION status/next-task metadata. "
         "Do not probe quota/balance, do not inspect or manage Codex usage/resets/credits, and do not advance beyond this task."
     )
