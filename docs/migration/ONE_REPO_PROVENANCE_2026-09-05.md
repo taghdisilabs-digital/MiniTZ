@@ -1,11 +1,11 @@
 # One-Repo Consolidation Provenance — 2026-09-05
 
-Status: `IN_PROGRESS`
+Status: `VERIFIED`
 Authority: Mahdi Taghdisi approved one canonical repository/workspace and no loss of completed or in-progress work.
 Destination repository: `patrickminitz-web/biella-engine`
 Destination checkout: `/root/biella/repos/biella-engine`
 
-## Current destination base
+## Initial destination base
 
 - commit: `086b79de3a5bf3f6ea00ced13cc1433c09c37a78`
 - tree: `5340d28dd98d372afd590b4b25d4e528cac3c0e7`
@@ -56,7 +56,22 @@ Destination checkout: `/root/biella/repos/biella-engine`
 
 - Demo continuity commit: `44b9a90e9f9143b7f9c859682f5595d621955882`, tree `19fe536524075110f5229ab15bbf2b5098a26c96`; classification `HISTORICAL_EVIDENCE` unless a specific still-current delta survives comparison with the newer Demo queue.
 - state-bridge preservation commit: `e50cb09a6d0b8f36da72ef16d4148620311a663c`, tree `e619ff08bb51a0ffab40efff47f56a4ca28a2c13`; classification `UNIVERSAL_REWRITE`. It contains design/test scaffold but no `biella_state_bridge.py` implementation, so no nonexistent implementation is promoted.
-- `/root/spark-biella-games`: recovery input only. Keep until all still-needed admitted Games outputs are verified in the monorepo; then remove proven redundant bulk data while retaining minimal provenance.
+- former `/root/spark-biella-games`: recovery input only; moved without byte deletion to `/root/biella/archive/recovery/spark-biella-games` after monorepo qualification.
+
+## Verified consolidation closure
+
+- canonical active repository: `patrickminitz-web/biella-engine` / `/root/biella/repos/biella-engine`.
+- verified implementation commit: `ee656b419bbd2ecf1fe5702c490355feea26b4e2`; tree `d598dfb928ca3e283d5b508c43f46fd69dde8eef`.
+- latest Games preservation commit: `f7e74205988cb48946e62efeffe5c5330ec6437b`; D01-001..D01-028 complete, D01-029 pending.
+- Engine GitHub active branches: `main` only. Fifteen removed branch heads are retained by exact `archive/branch/*` tags before branch deletion.
+- `patrickminitz-web/biella-games` and `patrickminitz-web/capability_preparation` are archived/read-only, not active source authorities.
+- old local Games repository moved to `/root/biella/archive/repos/biella-games-preserved-20260905`.
+- Spark recovery moved to `/root/biella/archive/recovery/spark-biella-games`; it remains historical recovery, not active input.
+- superseded `/root/biella/work/games-production.json` SHA256 `e23bd1634ae14cad059a8196f4e82dd6de982014c4892616348c2393ada18ecd` was removed after canonical `projects/biella-games/docs/PRODUCTION.md` became verified authority.
+- temporary Games import copy plus obsolete local workstation recovery/backups/checkpoints were removed after current main/tests superseded them.
+- Drive root `Biella` ID `1Z6_qwN9hfHIheXZ_9pYCG8dRDMuRN-l7` now exposes `CURRENT`, `PROJECTS`, `OUTPUTS`, `ARCHIVE`; Games folder ID `1SgvztxBMthMRbr6BPS-n9OXa2RYyXXDb` is preserved at `PROJECTS/GAMES`.
+- historical Drive execution/handoff/recovery/capability-preparation trees were reparented under `ARCHIVE` without byte deletion.
+- automated Games feeder remains `STOPPED_BY_OWNER`; no production task was advanced by the consolidation process.
 
 ## Preservation rule
 

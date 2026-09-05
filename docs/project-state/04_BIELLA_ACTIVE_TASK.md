@@ -1,80 +1,86 @@
 # 04 - BIELLA ACTIVE TASK
 
 ```yaml
-schema: biella.active_task/v7
+schema: biella.active_task/v8
 
 task:
-  id: BIELLA-CONSOLIDATION-2026-09-05
+  id: D01-029
+  project: Biella Games
+  section: demo01
+  class: hard
+  title: Add rival navigation and combat positioning
+  status: PENDING
+  execution_started: false
+  feeder: STOPPED_BY_OWNER
+
   objective: >
-    Consolidate Biella Git, Drive, feeder state, control UI, and local workspace
-    into one canonical production authority without losing completed or in-progress work.
+    Prove the rival contestant performs real gameplay positioning/navigation relative
+    to its selected target, reusing the already-preserved rival source and evidence
+    and implementing only any materially missing delta.
 
   authority:
-    - Mahdi explicit approval in current execution
+    - Mahdi Taghdisi current product/execution authority
     - docs/project-state/03_BIELLA_CURRENT_STATE.md
-    - docs/superpowers/specs/2026-09-05-biella-ai-production-map-task-contract-design.md
-    - docs/migration/ONE_REPO_PROVENANCE_2026-09-05.md
+    - projects/biella-games/AGENTS.md
+    - projects/biella-games/docs/PRODUCTION.md
 
   read:
-    - current biella-engine main and consolidation branch
-    - preserved Games commit 2193b769e61b43ebfc4f910f6380c68e6b828cd5
-    - stranded Website/control commit b621a0680c5586a1502558efb81ff084f8d1da74
-    - capability-preparation commit aa718584a99c0cee1884488bb4dafec4d2e94c05
-    - future AAA-SF commit 297129637fded33dc0e3636954645e5655803928
-    - current canonical Drive roots and file IDs
+    - projects/biella-games/Source/BiellaGames/Public/BiellaRival.h
+    - projects/biella-games/Source/BiellaGames/Private/BiellaRival.cpp
+    - projects/biella-games/Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp
+    - projects/biella-games/Build/Demo01/D01-029-editor.log
+    - projects/biella-games/Build/Demo01/D01-029-runtime.log
+    - docs/migration/evidence/MONOREPO_GAMES_QUALIFICATION_2026-09-05.md
 
   write:
-    - canonical monorepo source under /root/biella/repos/biella-engine after merge
-    - current-state and active-task continuity
-    - projects/biella-games/docs/PRODUCTION.md
-    - controller/feeder/control/website paths required by consolidation
-    - canonical Drive navigation and continuity records
+    - projects/biella-games/Source/BiellaGames/Public/BiellaRival.h only if a missing delta requires it
+    - projects/biella-games/Source/BiellaGames/Private/BiellaRival.cpp only if a missing delta requires it
+    - projects/biella-games/Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp only if spawn/ownership needs repair
+    - projects/biella-games/Build/Demo01/D01-029-* task-derived evidence
+    - projects/biella-games/docs/PRODUCTION.md after acceptance
 
   preserve:
-    - all D01-001 through D01-026 completion/evidence plus the pending D01-027 partial source preserved before cutover
-    - P3/P4 durable Engine evidence already accepted
-    - P4-06 as INCOMPLETE_DEFERRED, not complete
-    - current Games/Website/capability/AAA-SF preserved source identities
-    - existing Drive file identities where canonicals are moved
+    - D01-001 through D01-028 accepted completion and evidence
+    - existing ABiellaRival source and current D01-029 logs
+    - migration-observed RIVAL_POSITION evidence as evidence, not an automatic completion claim
+    - Engine P4-06 as INCOMPLETE_DEFERRED
+    - one-repository/one-controller/one-Project-production-source architecture
 
   must:
-    - one active Git repository after closure
-    - one canonical local repo root after closure
-    - one durable Project task/section source, not a feeder completion ledger
-    - automatic control liveness from observed runtime heartbeat/service state
-    - semantic task deduplication before adding future work
-    - prune only proven redundant recovery/backup/worktree copies
+    - reobserve current D01-029 source and evidence before writing
+    - return COMPLETE_ALREADY without reimplementation if current evidence already satisfies acceptance
+    - otherwise execute only the materially missing positioning/navigation delta
+    - use biella resource routing when a specialized configured Resource reduces model work or improves quality
+    - run real UE 5.8.2 build/runtime validation tied to current source
 
   must_not:
-    - execute D01-027 or overwrite its preserved partial source during consolidation
-    - restart the automated feeder before consolidation qualification
-    - delete unique source/evidence/progress
-    - claim P4-06 or Foundation complete
-    - promote historical or Project-specific source into Engine authority implicitly
+    - reopen or redo D01-001 through D01-028 without material invalidation evidence
+    - mark D01-029 complete solely because migration qualification observed RIVAL_POSITION
+    - begin D01-030 before durable D01-029 acceptance
+    - create another repo, feeder ledger, scheduler, controller, or Project state authority
+    - manage or redeem Codex usage/reset/credits
 
   acceptance:
-    - monorepo contains verified Engine, Games, Website/control, reusable schema/reference inputs
-    - Games progress reads 26/50 with D01-027 next and no D01-027 completion claim
-    - Engine/controller/website/Games migration validation passes
-    - GitHub main remote readback matches exact final commit/tree
-    - Drive current state and navigation read back with preserved canonical IDs
-    - superseded copies are removed only after unique-value verification
+    - editable rival source has explicit target-relative movement/positioning behavior
+    - current runtime proves rival positioning with target identity and positioning mode/distance evidence
+    - positioning behavior is compatible with rival targeting and combat without invalidating prior Demo tasks
+    - current UE 5.8.2 Editor build succeeds
+    - no fatal/assert/unhandled exception/segfault in bounded runtime qualification
 
   validate:
-    - Python feeder/control/monorepo/continuity tests
-    - unified Codex controller/runtime contracts
-    - Website build and control browser/contracts
-    - Games verify_demo01.py
-    - Unreal 5.8.2 Editor build and headless launch from projects/biella-games
-    - exact GitHub and Drive remote readback
+    - python3 projects/biella-games/tests/verify_demo01.py
+    - /opt/unreal/UE_5.8.2/Engine/Build/BatchFiles/Linux/Build.sh BiellaGamesEditor Linux Development
+    - bounded non-root Unreal runtime with D01_SIGNAL RIVAL_POSITION evidence
+    - affected Engine/feeder/control tests only if shared source changes
 
   persist:
     - patrickminitz-web/biella-engine main
-    - Drive root ID 1Z6_qwN9hfHIheXZ_9pYCG8dRDMuRN-l7
-    - existing 03/04 Drive file identities
-    - migration provenance in canonical Git/Drive
+    - projects/biella-games/docs/PRODUCTION.md
+    - exact task-derived evidence under projects/biella-games/Build/Demo01/
+    - Drive CURRENT continuity with existing 03/04 file IDs
 
   stop: >
-    Stop after consolidation is durably verified and 04 has been replaced with
-    D01-027 after final verification. Do not execute Games production in this task.
+    After D01-029 is durably accepted or correctly marked COMPLETE_ALREADY, advance
+    canonical production to D01-030 and stop at that boundary unless Mahdi has
+    explicitly authorized continued production execution.
 ```

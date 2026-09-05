@@ -1,35 +1,35 @@
 # 03 - BIELLA CURRENT STATE
 
 ```yaml
-schema: biella.current_state/v6
+schema: biella.current_state/v7
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
 observed_date: 2026-09-05
 
 authority:
-  if_conflict:
-    - CURRENT_EXECUTION_STATE
-    - CURRENT_GITHUB_SOURCE
-    - CURRENT_CANONICAL_DRIVE
-    - VERIFIED_HISTORICAL_EVIDENCE
-    - REFERENCE_OR_PLAN
-    - INFERENCE
+  if_conflict: [CURRENT_EXECUTION_STATE, CURRENT_GITHUB_SOURCE, CURRENT_CANONICAL_DRIVE, VERIFIED_HISTORICAL_EVIDENCE, REFERENCE_OR_PLAN, INFERENCE]
   correction_rule: invalidate_only_conflicting_state; preserve_independently_valid_work
 
 repository:
   repository: patrickminitz-web/biella-engine
   branch: main
   canonical_checkout: /root/biella/repos/biella-engine
-  target_structure: ONE_REPOSITORY_MONOREPO
+  structure: ONE_REPOSITORY_MONOREPO
+  implementation_commit: ee656b419bbd2ecf1fe5702c490355feea26b4e2
+  implementation_tree: d598dfb928ca3e283d5b508c43f46fd69dde8eef
+  github_readback: VERIFIED_EXACT_MAIN_AND_REQUIRED_PATHS
+  active_remote_branches: [main]
+  historical_branch_refs: 15_REMOTE_ARCHIVE_TAGS
 
 active_execution:
-  id: BIELLA-CONSOLIDATION-2026-09-05
-  state: IN_PROGRESS
-  authority: MAHDI_EXPLICIT_APPROVAL
-  working_branch: monorepo-unification-20260905
-  base_commit: 086b79de3a5bf3f6ea00ced13cc1433c09c37a78
+  id: D01-029
+  project: Biella Games
+  section: demo01
+  state: PENDING
+  execution_started: false
   feeder: STOPPED_BY_OWNER
-  next_after_consolidation: D01-029
+  controller: biella-codex
+  consolidation_state: COMPLETE_VERIFIED
 
 games:
   project_path: projects/biella-games
@@ -38,12 +38,11 @@ games:
   completed_demo_tasks: 28
   total_demo_tasks: 50
   queued_successor: D01-029
-  preserved_source_commit: f7e74205988cb48946e62efeffe5c5330ec6437b
-  preserved_source_tree: 1324b3dd942927352abaa2ef70a463cbdfca53db
-  import_readback: LATEST_9_PATH_DELTA_IMPORTED_FROM_EXACT_PRESERVATION_COMMIT
-  imported_snapshot_state: CURRENT_PRESERVED_IMPORT
-  external_writer_state: STOPPED_FOR_CONSOLIDATION
-  external_live_observation: D01-001_THROUGH_D01-028_COMPLETE_D01-029_PENDING_PARTIAL_PRESERVED
+  latest_preservation_commit: f7e74205988cb48946e62efeffe5c5330ec6437b
+  latest_preservation_tree: 1324b3dd942927352abaa2ef70a463cbdfca53db
+  late_delta_import: 9_OF_9_CHANGED_PATHS_IMPORTED
+  migration_qualification: VERIFIED_BUILD_AND_HEADLESS_RUNTIME
+  migration_runtime_note: RIVAL_POSITION_OBSERVED_BUT_D01_029_REMAINS_PENDING
 
 engine_numbered_execution:
   P4_01_through_P4_05: COMPLETE_REUSE_REQUIRED
@@ -52,29 +51,51 @@ engine_numbered_execution:
   FOUNDATION_COMPLETE: false
   deferred_reason: MAHDI_EXPLICIT_WORKFLOW_CONSOLIDATION_AND_GAMES_EXECUTION_DIRECTION
 
-preserved_inputs:
-  website_control_commit: b621a0680c5586a1502558efb81ff084f8d1da74
-  capability_preparation_commit: aa718584a99c0cee1884488bb4dafec4d2e94c05
-  aaa_sf_commit: 297129637fded33dc0e3636954645e5655803928
-  aaa_sf_state: FUTURE_PROGRAM_BLOCKED
+resources:
+  dispatcher: /usr/local/bin/biella resource
+  free_credit_preferred: true
+  paid_allowed: true
+  quota_probe_forbidden: true
+  verified_live_operations: [Tavily_search, Exa_semantic_search, Groq_fast_llm]
+  configured_connected: [Cloudflare, Saturn, Groq, Cerebras, OpenRouter, Mistral, Tavily, Exa, Pinecone, Qdrant, Deepgram, AssemblyAI, ElevenLabs, StabilityAI, Neon, Pexels, Modal]
+  needs_locator: [Supabase, Upstash, Cloudinary]
+  restricted_or_unresolved: [Axiom, Endpoint]
 
 drive:
+  canonical_root_name: Biella
   canonical_root_id: 1Z6_qwN9hfHIheXZ_9pYCG8dRDMuRN-l7
+  current_folder_id: 1GbPXqefsuU7Uf6U4f4yrGetQTcphOLI3
+  projects_folder_id: 1hQ2IR00sxHdXiMAMiyzxadXstiPnMoz9
+  outputs_folder_id: 1O1F5DT-zIbWTAjtJlhVJslodG7rDVUEW
+  archive_folder_id: 1dn3IEwDf_cPO7l5Zd0mZ84b_IOG0GsU3
   current_state_file_id: 1wiWcdWt4hmTf3narsLw4OqGu_ueKOSa4
   active_task_file_id: 1liutA8evH6rPjk-U4tgR13l_kqBrx-DF
   production_map_doc_id: 1aRnEdxQwe-Dn3VRh29CMkTXlxHOjcCjtfR-GNxQpp6s
-  games_current_root_id: 1SgvztxBMthMRbr6BPS-n9OXa2RYyXXDb
-  navigation_state: CONSOLIDATION_PENDING
+  games_project_folder_id: 1SgvztxBMthMRbr6BPS-n9OXa2RYyXXDb
+  provenance_file_id: 156sYJpCS_aVo62hSyir4Kfc5gDe_aTc0
+  qualification_file_id: 1_Mlg42DpKmLIcaF02QOeJJ2xXYXzNGvk
+  navigation_state: VERIFIED
+
+control:
+  url: https://control.biellagames.dev/control/
+  source: website/src/control
+  views: [Control, Work, Outputs, System]
+  public_readback: VERIFIED_HTTP_200_EXACT_INSTALLED_INDEX
+
+workspace:
+  active_repo_roots: [/root/biella/repos/biella-engine]
+  old_games_repo: /root/biella/archive/repos/biella-games-preserved-20260905
+  spark_recovery: /root/biella/archive/recovery/spark-biella-games
+  obsolete_recovery_backups_checkpoints: REMOVED
+  legacy_games_production_json_sha256: e23bd1634ae14cad059a8196f4e82dd6de982014c4892616348c2393ada18ecd
+  legacy_games_production_json: REMOVED_SUPERSEDED_BY_PROJECT_PRODUCTION_MD
+
+archived_repositories:
+  patrickminitz-web/biella-games: ARCHIVED_READ_ONLY
+  patrickminitz-web/capability_preparation: ARCHIVED_READ_ONLY
 
 evidence:
-  p3_14: docs/project-state/evidence/P3_14_DELIVERY_QUALIFICATION_EVIDENCE.md
   migration_provenance: docs/migration/ONE_REPO_PROVENANCE_2026-09-05.md
   games_monorepo_qualification: docs/migration/evidence/MONOREPO_GAMES_QUALIFICATION_2026-09-05.md
-  prior_durable_state: GIT_HISTORY_AND_DEDICATED_EVIDENCE_FILES
-
-pruning:
-  rule: REMOVE_ONLY_AFTER_UNIQUE_VALUE_MIGRATED_OR_REJECTED_AND_REMOTE_READBACK_VERIFIED
-  spark_recovery: UNRESOLVED_KEEP
-  old_worktrees: PENDING_COMPARE_AFTER_CANONICAL_PUBLISH
-  old_repositories: PENDING_ARCHIVE_AFTER_CANONICAL_PUBLISH
+  prior_durable_state: GIT_HISTORY_ARCHIVE_TAGS_AND_DEDICATED_EVIDENCE
 ```

@@ -15,20 +15,21 @@ def test_current_state_has_one_repo_and_preserves_deferred_engine_frontier():
     assert "/root/biella/repos/biella-games" not in text
 
 
-def test_consolidation_is_active_and_games_progress_is_preserved():
+def test_consolidation_is_closed_and_games_frontier_is_current():
     state = STATE.read_text(encoding="utf-8")
     task = TASK.read_text(encoding="utf-8")
     production = PRODUCTION.read_text(encoding="utf-8")
-    assert "BIELLA-CONSOLIDATION-2026-09-05" in state
-    assert "BIELLA-CONSOLIDATION-2026-09-05" in task
+    assert "consolidation_state: COMPLETE_VERIFIED" in state
+    assert "id: D01-029" in state
+    assert "id: D01-029" in task
+    assert "BIELLA-CONSOLIDATION-2026-09-05" not in task
     assert "completed_demo_tasks: 28" in state
     assert "queued_successor: D01-029" in state
-    assert "external_writer_state: STOPPED_FOR_CONSOLIDATION" in state
     assert "feeder: STOPPED_BY_OWNER" in state
-    # The imported monorepo snapshot must match the final frozen Games writer state before cutover.
+    assert "navigation_state: VERIFIED" in state
     assert "Current task: `D01-029`" in production
     assert production.count("- [x] D01-") == 28
-    assert "imported_snapshot_state: CURRENT_PRESERVED_IMPORT" in state
+    assert "latest_preservation_commit: f7e74205988cb48946e62efeffe5c5330ec6437b" in state
 
 
 def test_active_task_is_compact_task_packet_not_historical_ledger():
