@@ -171,7 +171,7 @@ def write_active_task(repo_root: Path, task: TaskRecord | None, *, project: str 
         text = (
             "# 04 - BIELLA ACTIVE TASK\n\n```yaml\nschema: biella.active_task/v9\n\n"
             "task:\n  id: NONE\n  project: Biella Games\n  section: NONE\n  class: NONE\n"
-            "  title: No active Project task\n  status: COMPLETE\n  execution_started: false\n  runner: STOPPED\n```\n"
+            "  title: No active Project task\n  status: COMPLETE\n  runner: STOPPED\n```\n"
         )
     else:
         pred = predecessor or "NONE"
@@ -179,7 +179,7 @@ def write_active_task(repo_root: Path, task: TaskRecord | None, *, project: str 
             "# 04 - BIELLA ACTIVE TASK\n\n```yaml\nschema: biella.active_task/v9\n\n"
             f"task:\n  id: {task.id}\n  project: {project}\n  section: {task.section_id}\n"
             f"  class: {task.task_class}\n  title: {task.title}\n  status: PENDING\n"
-            "  execution_started: false\n  runner: READY\n\n"
+            "  runner: READY\n\n"
             "  authority:\n    - Mahdi Taghdisi current product/execution authority\n"
             "    - docs/project-state/03_BIELLA_CURRENT_STATE.md\n"
             "    - projects/biella-games/docs/PRODUCTION.md\n\n"
@@ -217,16 +217,17 @@ def _update_yaml_block(lines: list[str], block: str, fields: dict[str, str]) -> 
         lines[insert_at:insert_at] = additions
 
 
-def sync_current_state(repo_root: Path, production: ProductionState, task: TaskRecord | None, *, state: str = "PENDING", execution_started: bool = False) -> None:
+def sync_current_state(repo_root: Path, production: ProductionState, task: TaskRecord | None, *, state: str = "PENDING") -> None:
     path = current_state_path(repo_root)
     if not path.exists():
         return
     lines = path.read_text(encoding="utf-8").splitlines()
     _remove_yaml_block_field(lines, "active_execution", "feeder")
+    _remove_yaml_block_field(lines, "active_execution", "execution_started")
     task_id = task.id if task else "NONE"
     _update_yaml_block(lines, "active_execution", {
         "id": task_id, "project": "Biella Games", "section": task.section_id if task else "NONE",
-        "state": state, "execution_started": str(execution_started).lower(), "runner": "ACTIVE" if execution_started else "READY",
+        "state": state, "runner": "READY" if task else "STOPPED",
     })
     _update_yaml_block(lines, "games", {
         "completed_demo_tasks": str(completed_count(production)),
@@ -246,8 +247,10 @@ def resolve_current_task(repo_root: Path, project_root: Path) -> TaskRecord | No
             sync_current_state(repo_root, production, None, state="COMPLETE")
         return None
     if active.id == current.id:
-        legacy_active = "feeder:" in active_task_path(repo_root).read_text(encoding="utf-8")
-        legacy_state = current_state_path(repo_root).exists() and "feeder:" in current_state_path(repo_root).read_text(encoding="utf-8")
+        active_text = active_task_path(repo_root).read_text(encoding="utf-8")
+        state_text = current_state_path(repo_root).read_text(encoding="utf-8") if current_state_path(repo_root).exists() else ""
+        legacy_active = "feeder:" in active_text or "execution_started:" in active_text
+        legacy_state = "feeder:" in state_text or "execution_started:" in state_text
         if legacy_active or legacy_state:
             write_active_task(repo_root, current, predecessor=_previous_completed_task(production, current.id))
             sync_current_state(repo_root, production, current)

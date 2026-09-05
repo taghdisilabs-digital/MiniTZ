@@ -71,7 +71,7 @@ def apply_result(repo_root: Path, project_root: Path, result: TaskResult, route:
     if result.status == "CONTINUE":
         return
     if result.status in {"EXTERNAL_DEPENDENCY", "OWNER_DECISION"}:
-        sync_current_state(repo_root, production, task, state=result.status, execution_started=False)
+        sync_current_state(repo_root, production, task, state=result.status)
         return
     raise ValueError(f"unsupported result status: {result.status}")
 
