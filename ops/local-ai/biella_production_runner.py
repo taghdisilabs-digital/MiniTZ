@@ -154,9 +154,18 @@ def _project_dirty_paths(repo_root: Path, project_root: Path) -> list[str]:
 
 
 def _write_task_capsule(repo_root: Path, project_root: Path, runtime_root: Path, task: state.TaskRecord, telemetry: Mapping[str, Any]) -> Path:
+    path = _task_capsule_path(runtime_root, task.id)
+    existing: Mapping[str, Any] = {}
+    if path.exists():
+        try:
+            loaded = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(loaded, dict) and loaded.get("task_id") == task.id:
+                existing = loaded
+        except (OSError, json.JSONDecodeError):
+            pass
     previous = telemetry.get("last_result") if isinstance(telemetry.get("last_result"), dict) else {}
     if previous.get("task_id") != task.id:
-        previous = {}
+        previous = existing
     capsule = packets.build_task_memory_capsule(
         task, project_root, session_id=_resume_session_for(telemetry, task.id),
         summary=str(previous.get("summary", "")), evidence=previous.get("evidence", ()),
@@ -164,7 +173,6 @@ def _write_task_capsule(repo_root: Path, project_root: Path, runtime_root: Path,
     )
     capsule["last_status"] = previous.get("status")
     capsule["updated_at"] = datetime.now(timezone.utc).isoformat()
-    path = _task_capsule_path(runtime_root, task.id)
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + ".tmp")
     tmp.write_text(json.dumps(capsule, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")

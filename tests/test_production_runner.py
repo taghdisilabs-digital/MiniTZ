@@ -339,3 +339,21 @@ def test_capsule_write_preserves_same_task_progress(tmp_path: Path):
     assert payload["session_id"] == "session-d01"
     assert payload["summary"] == "partial"
     assert payload["evidence"] == ["build pass"]
+
+
+def test_capsule_keeps_existing_task_memory_when_runtime_last_result_is_unrelated(tmp_path: Path):
+    repo, project = write_repo_fixture(tmp_path)
+    production = state.load_project_production(project)
+    task = state.find_task(production, "D01-030")
+    runtime_root = tmp_path / "runtime"
+    path = runner._task_capsule_path(runtime_root, task.id)
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps({"task_id": task.id, "summary": "preserved hypothesis", "evidence": ["runtime evidence"]}))
+    telemetry = runner.initial_runtime()
+    telemetry["task_session_id"] = "session-d01"
+    telemetry["session_task_id"] = task.id
+    telemetry["last_result"] = {"task_id": "SECTION-demo01", "status": "COMPLETE", "summary": "unrelated", "evidence": []}
+    runner._write_task_capsule(repo, project, runtime_root, task, telemetry)
+    payload = json.loads(path.read_text())
+    assert payload["summary"] == "preserved hypothesis"
+    assert payload["evidence"] == ["runtime evidence"]
