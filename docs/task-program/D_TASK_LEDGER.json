@@ -1,5 +1,5 @@
 {
-  "current_task": "D01-46",
+  "current_task": "D01-47",
   "execution_authority": "current 03/04 + Project PRODUCTION.md",
   "registry_is_queue": false,
   "schema": "biella.d_task_ledger/v1",
@@ -1256,7 +1256,7 @@
         "D01-046"
       ],
       "program": "D01",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D01-46",
       "title": "Package the playable build"
@@ -1321,8 +1321,8 @@
         "GAME-20-WORLD-STREAMING"
       ],
       "program": "D02",
-      "status": "PENDING_UNPLANNED",
-      "status_source": "docs/task-program/D00_D08_ENGINE_GAMES.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D02-01",
       "title": "Open-world streaming and continuity"
     },
@@ -1334,8 +1334,8 @@
         "GAME-21-POPULATION-SCALING"
       ],
       "program": "D02",
-      "status": "PENDING_UNPLANNED",
-      "status_source": "docs/task-program/D00_D08_ENGINE_GAMES.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D02-02",
       "title": "Population and encounter scaling"
     },
@@ -1347,8 +1347,8 @@
         "GAME-22-VEHICLES"
       ],
       "program": "D02",
-      "status": "PENDING_UNPLANNED",
-      "status_source": "docs/task-program/D00_D08_ENGINE_GAMES.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D02-03",
       "title": "Vehicle runtime when explicitly approved"
     },
@@ -1360,8 +1360,8 @@
         "GAME-23-INTERACTION-DESTRUCTION"
       ],
       "program": "D02",
-      "status": "PENDING_UNPLANNED",
-      "status_source": "docs/task-program/D00_D08_ENGINE_GAMES.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D02-04",
       "title": "Deeper interaction, destruction, and environment state"
     },
@@ -1375,8 +1375,8 @@
         "GAME-30-PRODUCTION-QUALITY"
       ],
       "program": "D03",
-      "status": "PENDING_UNPLANNED",
-      "status_source": "docs/task-program/D00_D08_ENGINE_GAMES.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D03-01",
       "title": "Production rendering, animation, VFX, and audio quality"
     },
@@ -1388,8 +1388,8 @@
         "GAME-40-CONTENT-MULTIPLICATION"
       ],
       "program": "D04",
-      "status": "PENDING_UNPLANNED",
-      "status_source": "docs/task-program/D00_D08_ENGINE_GAMES.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D04-01",
       "title": "Data-driven content system multiplication"
     },
@@ -1401,8 +1401,8 @@
         "GAME-50-UI-ACCESSIBILITY"
       ],
       "program": "D05",
-      "status": "PENDING_UNPLANNED",
-      "status_source": "docs/task-program/D00_D08_ENGINE_GAMES.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D05-01",
       "title": "UI, settings, localization, and accessibility"
     },
@@ -1414,8 +1414,8 @@
         "GAME-60-CINEMATICS"
       ],
       "program": "D06",
-      "status": "PENDING_UNPLANNED",
-      "status_source": "docs/task-program/D00_D08_ENGINE_GAMES.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D06-01",
       "title": "Cinematic and presentation integration"
     },
@@ -1430,8 +1430,8 @@
         "GAME-70-PERFORMANCE-QUALIFICATION"
       ],
       "program": "D07",
-      "status": "PENDING_UNPLANNED",
-      "status_source": "docs/task-program/D00_D08_ENGINE_GAMES.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D07-01",
       "title": "Full performance, stability, and scalability qualification"
     },
@@ -1443,8 +1443,8 @@
         "GAME-80-RELEASE-CANDIDATE"
       ],
       "program": "D08",
-      "status": "PENDING_UNPLANNED",
-      "status_source": "docs/task-program/D00_D08_ENGINE_GAMES.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D08-01",
       "title": "Delivery, update, and release-candidate qualification"
     },
@@ -1455,8 +1455,8 @@
         "WEB-BU-01"
       ],
       "program": "D09",
-      "status": "COMPLETE",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "COMPLETE_ALREADY",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D09-01",
       "title": "Full Drive + GitHub Website Source Inventory"
     },
@@ -1469,8 +1469,8 @@
         "WEB-BU-02"
       ],
       "program": "D09",
-      "status": "COMPLETE",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "COMPLETE_ALREADY",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D09-02",
       "title": "Website Source Classification Using Migration Firewall"
     },
@@ -1483,8 +1483,8 @@
         "WEB-BU-03"
       ],
       "program": "D09",
-      "status": "COMPLETE",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "COMPLETE_ALREADY",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D09-03",
       "title": "Visual Canon and Asset Master Selection"
     },
@@ -1497,8 +1497,8 @@
         "WEB-BU-04"
       ],
       "program": "D09",
-      "status": "COMPLETE",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "COMPLETE_ALREADY",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D09-04",
       "title": "Content and Story Canon"
     },
@@ -1511,8 +1511,8 @@
         "WEB-BU-05"
       ],
       "program": "D09",
-      "status": "COMPLETE",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "COMPLETE_ALREADY",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D09-05",
       "title": "Universe Information Architecture"
     },
@@ -1525,8 +1525,8 @@
         "WEB-BU-06"
       ],
       "program": "D09",
-      "status": "READY",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D09-06",
       "title": "Cloudflare + GitHub Website Delivery Topology"
     },
@@ -1542,8 +1542,8 @@
         "WEB-BU-07"
       ],
       "program": "D10",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D10-01",
       "title": "Website Application Scaffold and Preview Deployment"
     },
@@ -1557,8 +1557,8 @@
         "WEB-BU-08"
       ],
       "program": "D10",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D10-02",
       "title": "Biella Website Design System"
     },
@@ -1572,8 +1572,8 @@
         "WEB-BU-09"
       ],
       "program": "D10",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D10-03",
       "title": "Typography, Iconography and Accessibility Foundation"
     },
@@ -1587,8 +1587,8 @@
         "WEB-BU-10"
       ],
       "program": "D10",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D10-04",
       "title": "Motion and Transition Language"
     },
@@ -1602,8 +1602,8 @@
         "WEB-BU-11"
       ],
       "program": "D10",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D10-05",
       "title": "Website Asset Migration and Web Derivatives"
     },
@@ -1617,8 +1617,8 @@
         "WEB-BU-12"
       ],
       "program": "D10",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D10-06",
       "title": "Website Content Registry"
     },
@@ -1634,8 +1634,8 @@
         "WEB-BU-13"
       ],
       "program": "D11",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D11-01",
       "title": "Cinematic Entry and Living Biella Core"
     },
@@ -1649,8 +1649,8 @@
         "WEB-BU-14"
       ],
       "program": "D11",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D11-02",
       "title": "Home Journey \u2014 Objective to Delivery"
     },
@@ -1664,8 +1664,8 @@
         "WEB-BU-15"
       ],
       "program": "D11",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D11-03",
       "title": "Biella Engine Product Experience"
     },
@@ -1680,8 +1680,8 @@
         "WEB-BU-16"
       ],
       "program": "D11",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D11-04",
       "title": "Biella Games Product Experience"
     },
@@ -1695,8 +1695,8 @@
         "WEB-BU-17"
       ],
       "program": "D11",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D11-05",
       "title": "Intelligence Experience"
     },
@@ -1710,8 +1710,8 @@
         "WEB-BU-18"
       ],
       "program": "D11",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D11-06",
       "title": "Production Pipeline Experience"
     },
@@ -1726,8 +1726,8 @@
         "WEB-BU-19"
       ],
       "program": "D12",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D12-01",
       "title": "Capability Explorer"
     },
@@ -1740,8 +1740,8 @@
         "WEB-BU-20"
       ],
       "program": "D12",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D12-02",
       "title": "Interactive Orchestration Demonstration"
     },
@@ -1756,8 +1756,8 @@
         "WEB-BU-21"
       ],
       "program": "D12",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D12-03",
       "title": "Project and Showcase System"
     },
@@ -1771,8 +1771,8 @@
         "WEB-BU-22"
       ],
       "program": "D12",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D12-04",
       "title": "Game / World Gallery and Playable Embeds"
     },
@@ -1786,8 +1786,8 @@
         "WEB-BU-23"
       ],
       "program": "D12",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D12-05",
       "title": "3D and Media Gallery"
     },
@@ -1801,8 +1801,8 @@
         "WEB-BU-24"
       ],
       "program": "D12",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D12-06",
       "title": "Interactive Timeline, News and Releases"
     },
@@ -1816,8 +1816,8 @@
         "WEB-BU-25"
       ],
       "program": "D13",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D13-01",
       "title": "Public Documentation Hub"
     },
@@ -1831,8 +1831,8 @@
         "WEB-BU-26"
       ],
       "program": "D13",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D13-02",
       "title": "Public Website Search"
     },
@@ -1846,8 +1846,8 @@
         "WEB-BU-27"
       ],
       "program": "D13",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D13-03",
       "title": "Ask Biella Public Guide"
     },
@@ -1861,8 +1861,8 @@
         "WEB-BU-28"
       ],
       "program": "D13",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D13-04",
       "title": "NVIDIA Compute / Model Demonstration"
     },
@@ -1876,8 +1876,8 @@
         "WEB-BU-29"
       ],
       "program": "D13",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D13-05",
       "title": "Live Research / Tool Demonstration"
     },
@@ -1891,8 +1891,8 @@
         "WEB-BU-30"
       ],
       "program": "D13",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D13-06",
       "title": "About, Partner, Investor and Contact Experience"
     },
@@ -1906,8 +1906,8 @@
         "WEB-BU-31"
       ],
       "program": "D14",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D14-01",
       "title": "SEO, Social Preview and Discoverability"
     },
@@ -1921,8 +1921,8 @@
         "WEB-BU-32"
       ],
       "program": "D14",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D14-02",
       "title": "Analytics, Privacy and Product Insight"
     },
@@ -1938,8 +1938,8 @@
         "WEB-BU-33"
       ],
       "program": "D14",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D14-03",
       "title": "Performance, Caching and Core Web Vitals"
     },
@@ -1956,8 +1956,8 @@
         "WEB-BU-34"
       ],
       "program": "D14",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D14-04",
       "title": "Responsive, Browser, Device and Accessibility Qualification"
     },
@@ -1973,8 +1973,8 @@
         "WEB-BU-35"
       ],
       "program": "D14",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D14-05",
       "title": "Website Resilience, Error and Cost Boundaries"
     },
@@ -1991,8 +1991,8 @@
         "WEB-BU-36"
       ],
       "program": "D14",
-      "status": "BLOCKED",
-      "status_source": "docs/task-program/D09_D14_WEBSITE.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D14-06",
       "title": "Cloudflare Production Launch and Final Website Qualification"
     },
@@ -2004,8 +2004,8 @@
         "AAA-SF-001"
       ],
       "program": "D15",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D15-01",
       "title": "Lock authoritative predecessor closure set"
     },
@@ -2017,8 +2017,8 @@
         "AAA-SF-002"
       ],
       "program": "D15",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D15-02",
       "title": "Freeze current source and decision identities"
     },
@@ -2030,8 +2030,8 @@
         "AAA-SF-003"
       ],
       "program": "D15",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D15-03",
       "title": "Create post-program evidence namespace"
     },
@@ -2043,8 +2043,8 @@
         "AAA-SF-004"
       ],
       "program": "D15",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D15-04",
       "title": "Bind production-ready predecessor build"
     },
@@ -2056,8 +2056,8 @@
         "AAA-SF-005"
       ],
       "program": "D16",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D16-01",
       "title": "Reproduce release from clean checkout"
     },
@@ -2069,8 +2069,8 @@
         "AAA-SF-006"
       ],
       "program": "D16",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D16-02",
       "title": "Make package recipe reproducible"
     },
@@ -2082,8 +2082,8 @@
         "AAA-SF-007"
       ],
       "program": "D16",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D16-03",
       "title": "Qualify clean-machine install and launch"
     },
@@ -2095,8 +2095,8 @@
         "AAA-SF-008"
       ],
       "program": "D16",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D16-04",
       "title": "Qualify save, settings, restart, and reconstruction"
     },
@@ -2108,8 +2108,8 @@
         "AAA-SF-009"
       ],
       "program": "D16",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D16-05",
       "title": "Qualify crash, assert, and failure diagnostics"
     },
@@ -2121,8 +2121,8 @@
         "AAA-SF-010"
       ],
       "program": "D16",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D16-06",
       "title": "Qualify update and package replacement"
     },
@@ -2134,8 +2134,8 @@
         "AAA-SF-011"
       ],
       "program": "D16",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D16-07",
       "title": "Capture representative packaged-runtime baseline"
     },
@@ -2147,8 +2147,8 @@
         "AAA-SF-012"
       ],
       "program": "D16",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D16-08",
       "title": "Close reproducible-build proof"
     },
@@ -2160,8 +2160,8 @@
         "AAA-SF-013"
       ],
       "program": "D17",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D17-01",
       "title": "Select canonical AAA challenger slice"
     },
@@ -2173,8 +2173,8 @@
         "AAA-SF-014"
       ],
       "program": "D17",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D17-02",
       "title": "Prove traversal and camera quality"
     },
@@ -2186,8 +2186,8 @@
         "AAA-SF-015"
       ],
       "program": "D17",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D17-03",
       "title": "Prove combat feel and consequence chain"
     },
@@ -2199,8 +2199,8 @@
         "AAA-SF-016"
       ],
       "program": "D17",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D17-04",
       "title": "Prove player, rival, infected, and arena interaction"
     },
@@ -2212,8 +2212,8 @@
         "AAA-SF-017"
       ],
       "program": "D17",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D17-05",
       "title": "Qualify animation and motion continuity"
     },
@@ -2225,8 +2225,8 @@
         "AAA-SF-018"
       ],
       "program": "D17",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D17-06",
       "title": "Qualify audio, VFX, HUD, and gameplay readability"
     },
@@ -2238,8 +2238,8 @@
         "AAA-SF-019"
       ],
       "program": "D17",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D17-07",
       "title": "Qualify environment, material, lighting, and world coherence"
     },
@@ -2251,8 +2251,8 @@
         "AAA-SF-020"
       ],
       "program": "D17",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D17-08",
       "title": "Close AAA vertical-slice evidence package"
     },
@@ -2264,8 +2264,8 @@
         "AAA-SF-021"
       ],
       "program": "D18",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D18-01",
       "title": "Define blind external playtest contract"
     },
@@ -2277,8 +2277,8 @@
         "AAA-SF-022"
       ],
       "program": "D18",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D18-02",
       "title": "Prepare founder-independent playtest handoff"
     },
@@ -2290,8 +2290,8 @@
         "AAA-SF-023"
       ],
       "program": "D18",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D18-03",
       "title": "Run first independent external session"
     },
@@ -2303,8 +2303,8 @@
         "AAA-SF-024"
       ],
       "program": "D18",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D18-04",
       "title": "Run independent session on a different machine context"
     },
@@ -2316,8 +2316,8 @@
         "AAA-SF-025"
       ],
       "program": "D18",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D18-05",
       "title": "Aggregate external comprehension and friction evidence"
     },
@@ -2329,8 +2329,8 @@
         "AAA-SF-026"
       ],
       "program": "D18",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D18-06",
       "title": "Repair highest-impact reproducible external blockers"
     },
@@ -2342,8 +2342,8 @@
         "AAA-SF-027"
       ],
       "program": "D18",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D18-07",
       "title": "Run post-repair external replay"
     },
@@ -2355,8 +2355,8 @@
         "AAA-SF-028"
       ],
       "program": "D18",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D18-08",
       "title": "Close independent-player proof"
     },
@@ -2368,8 +2368,8 @@
         "AAA-SF-029"
       ],
       "program": "D19",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D19-01",
       "title": "Lock representative target hardware tiers from measured evidence"
     },
@@ -2381,8 +2381,8 @@
         "AAA-SF-030"
       ],
       "program": "D19",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D19-02",
       "title": "Lock native frame-time and responsiveness targets from evidence"
     },
@@ -2394,8 +2394,8 @@
         "AAA-SF-031"
       ],
       "program": "D19",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D19-03",
       "title": "Qualify world traversal streaming and hitch behavior"
     },
@@ -2407,8 +2407,8 @@
         "AAA-SF-032"
       ],
       "program": "D19",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D19-04",
       "title": "Qualify combat population stress behavior"
     },
@@ -2420,8 +2420,8 @@
         "AAA-SF-033"
       ],
       "program": "D19",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D19-05",
       "title": "Qualify memory, VRAM, residency, and leak behavior"
     },
@@ -2433,8 +2433,8 @@
         "AAA-SF-034"
       ],
       "program": "D19",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D19-06",
       "title": "Qualify sustained packaged-runtime stability"
     },
@@ -2446,8 +2446,8 @@
         "AAA-SF-035"
       ],
       "program": "D19",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D19-07",
       "title": "Requalify clean Shipping package"
     },
@@ -2459,8 +2459,8 @@
         "AAA-SF-036"
       ],
       "program": "D19",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D19-08",
       "title": "Close release-operations proof"
     },
@@ -2472,8 +2472,8 @@
         "AAA-SF-037"
       ],
       "program": "D20",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D20-01",
       "title": "Select second production scenario from approved systems"
     },
@@ -2485,8 +2485,8 @@
         "AAA-SF-038"
       ],
       "program": "D20",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D20-02",
       "title": "Produce second environment or encounter composition through reusable systems"
     },
@@ -2498,8 +2498,8 @@
         "AAA-SF-039"
       ],
       "program": "D20",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D20-03",
       "title": "Produce different rival and infected encounter composition"
     },
@@ -2511,8 +2511,8 @@
         "AAA-SF-040"
       ],
       "program": "D20",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D20-04",
       "title": "Produce alternate approved arena-pressure sequence"
     },
@@ -2524,8 +2524,8 @@
         "AAA-SF-041"
       ],
       "program": "D20",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D20-05",
       "title": "Measure content-system reuse versus bespoke work"
     },
@@ -2537,8 +2537,8 @@
         "AAA-SF-042"
       ],
       "program": "D20",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D20-06",
       "title": "Package and qualify second scenario"
     },
@@ -2550,8 +2550,8 @@
         "AAA-SF-043"
       ],
       "program": "D20",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D20-07",
       "title": "Compare production time, intervention, and quality across scenarios"
     },
@@ -2563,8 +2563,8 @@
         "AAA-SF-044"
       ],
       "program": "D20",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D20-08",
       "title": "Close repeatable-content proof"
     },
@@ -2576,8 +2576,8 @@
         "AAA-SF-045"
       ],
       "program": "D21",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D21-01",
       "title": "Define founder-leverage evidence schema"
     },
@@ -2589,8 +2589,8 @@
         "AAA-SF-046"
       ],
       "program": "D21",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D21-02",
       "title": "Compute accepted-task throughput from real traces"
     },
@@ -2602,8 +2602,8 @@
         "AAA-SF-047"
       ],
       "program": "D21",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D21-03",
       "title": "Measure founder intervention per accepted outcome"
     },
@@ -2615,8 +2615,8 @@
         "AAA-SF-048"
       ],
       "program": "D21",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D21-04",
       "title": "Measure compute, model, tool, and infrastructure cost per outcome"
     },
@@ -2628,8 +2628,8 @@
         "AAA-SF-049"
       ],
       "program": "D21",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D21-05",
       "title": "Measure objective-to-validated-artifact cycle time"
     },
@@ -2641,8 +2641,8 @@
         "AAA-SF-050"
       ],
       "program": "D21",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D21-06",
       "title": "Benchmark durable recovery after interruption"
     },
@@ -2654,8 +2654,8 @@
         "AAA-SF-051"
       ],
       "program": "D21",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D21-07",
       "title": "Benchmark model or provider continuity on the same project"
     },
@@ -2667,8 +2667,8 @@
         "AAA-SF-052"
       ],
       "program": "D21",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D21-08",
       "title": "Publish solo-founder leverage evidence report"
     },
@@ -2680,8 +2680,8 @@
         "AAA-SF-053"
       ],
       "program": "D22",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D22-01",
       "title": "Select non-Biella-Games external pilot objective"
     },
@@ -2693,8 +2693,8 @@
         "AAA-SF-054"
       ],
       "program": "D22",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D22-02",
       "title": "Package repeatable external deployment and onboarding path"
     },
@@ -2706,8 +2706,8 @@
         "AAA-SF-055"
       ],
       "program": "D22",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D22-03",
       "title": "Onboard external pilot without founder reconstruction"
     },
@@ -2719,8 +2719,8 @@
         "AAA-SF-056"
       ],
       "program": "D22",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D22-04",
       "title": "Execute first external objective to a validated artifact"
     },
@@ -2732,8 +2732,8 @@
         "AAA-SF-057"
       ],
       "program": "D22",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D22-05",
       "title": "Persist and reconstruct external pilot state"
     },
@@ -2745,8 +2745,8 @@
         "AAA-SF-058"
       ],
       "program": "D22",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D22-06",
       "title": "Recover pilot after bounded infrastructure interruption"
     },
@@ -2758,8 +2758,8 @@
         "AAA-SF-059"
       ],
       "program": "D22",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D22-07",
       "title": "Continue external pilot with second objective or worker change"
     },
@@ -2771,8 +2771,8 @@
         "AAA-SF-060"
       ],
       "program": "D22",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D22-08",
       "title": "Close external replication proof"
     },
@@ -2784,8 +2784,8 @@
         "AAA-SF-061"
       ],
       "program": "D23",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D23-01",
       "title": "Publish truthful playable-proof surface"
     },
@@ -2797,8 +2797,8 @@
         "AAA-SF-062"
       ],
       "program": "D23",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D23-02",
       "title": "Distribute qualified build to bounded external test cohort"
     },
@@ -2810,8 +2810,8 @@
         "AAA-SF-063"
       ],
       "program": "D23",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D23-03",
       "title": "Capture real demand signals from proof surface"
     },
@@ -2823,8 +2823,8 @@
         "AAA-SF-064"
       ],
       "program": "D23",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D23-04",
       "title": "Publish game demand evidence report"
     },
@@ -2836,8 +2836,8 @@
         "AAA-SF-065"
       ],
       "program": "D23",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D23-05",
       "title": "Package external pilot commercial offer"
     },
@@ -2849,8 +2849,8 @@
         "AAA-SF-066"
       ],
       "program": "D23",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D23-06",
       "title": "Obtain and evidence first contracted or paid usage"
     },
@@ -2862,8 +2862,8 @@
         "AAA-SF-067"
       ],
       "program": "D24",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D24-01",
       "title": "Build unified evidence index"
     },
@@ -2875,8 +2875,8 @@
         "AAA-SF-068"
       ],
       "program": "D24",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D24-02",
       "title": "Define live investor demonstration runbook"
     },
@@ -2888,8 +2888,8 @@
         "AAA-SF-069"
       ],
       "program": "D24",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D24-03",
       "title": "Execute fresh live objective-to-outcome demonstration"
     },
@@ -2901,8 +2901,8 @@
         "AAA-SF-070"
       ],
       "program": "D24",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D24-04",
       "title": "Assemble technical and investor data-room proof bundle"
     },
@@ -2914,8 +2914,8 @@
         "AAA-SF-071"
       ],
       "program": "D24",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D24-05",
       "title": "Reconcile every AAA-challenger claim to current evidence"
     },
@@ -2927,8 +2927,8 @@
         "AAA-SF-072"
       ],
       "program": "D24",
-      "status": "FUTURE_BLOCKED",
-      "status_source": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D24-06",
       "title": "Declare or withhold AAA Challenger Solo Founder proof"
     }
