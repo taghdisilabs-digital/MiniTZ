@@ -28,6 +28,8 @@ install -o root -g root -m 755 \
 install -o root -g root -m 644 \
   "$SOURCE_DIR/biella_production_state.py" \
   "$SOURCE_DIR/biella_task_packet.py" \
+  "$SOURCE_DIR/biella_task_ids.py" \
+  "$SOURCE_DIR/biella_task_ledger.py" \
   "$SOURCE_DIR/biella_codex_routing.py" \
   "$SOURCE_DIR/biella_production_evidence.py" \
   "$INSTALL_DIR/"

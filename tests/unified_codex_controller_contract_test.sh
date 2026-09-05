@@ -22,6 +22,8 @@ grep -Fq '"${1:-}" == "production"' "$wrapper"
 ! grep -Fq '"${1:-}" == "feed"' "$wrapper"
 if grep -Fq 'biella_codex_feeder.py' "$installer"; then echo 'legacy feeder installer reference remains' >&2; exit 1; fi
 grep -Fq 'biella_production_runner.py' "$installer"
+grep -Fq 'biella_task_ids.py' "$installer"
+grep -Fq 'biella_task_ledger.py' "$installer"
 grep -Fq '## Progressive Auto Feeder' "$root/ops/local-ai/README.md"
 ! grep -Fq 'biella-codex production stop' "$root/ops/local-ai/README.md"
 grep -Fq '## Progressive Auto Feeder' "$root/ops/workstation/AGENTS.md"
