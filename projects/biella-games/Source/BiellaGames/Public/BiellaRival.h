@@ -23,6 +23,7 @@ public:
 
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaTime) override;
+    virtual void Defeat(const FString& Reason) override;
 
     void SetPreferredTarget(ABiellaDemoPawn* Target);
     ABiellaDemoPawn* ChooseTarget() const;
@@ -32,6 +33,9 @@ public:
     const TArray<FVector>& GetNavigationPathPoints() const { return NavigationPathPoints; }
     int32 GetPathRevision() const { return PathRevision; }
     int32 GetFailedPathQueries() const { return FailedPathQueries; }
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Demo01|Rival")
+    TObjectPtr<UStaticMeshComponent> WeaponMesh;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Demo01|Rival")
     float WeaponRange = 950.0f;
@@ -64,5 +68,8 @@ private:
     int32 FailedPathQueries = 0;
     float ReplanRemaining = 0.0f;
     float WeaponCooldownRemaining = 0.0f;
+    float WeaponFlashRemaining = 0.0f;
+    UPROPERTY()
+    TObjectPtr<UMaterialInstanceDynamic> WeaponMaterial;
     bool bTargetLogged = false;
 };

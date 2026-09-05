@@ -16,6 +16,8 @@ ABiellaDemoPawn::ABiellaDemoPawn()
     SetRootComponent(Collision.Get());
     Collision->InitCapsuleSize(42.0f, 88.0f);
     Collision->SetCollisionProfileName(TEXT("Pawn"));
+    // Weapon traces must resolve a real capsule hit, including intervening pawns.
+    Collision->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 
     PawnMovement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("PawnMovement"));
     PawnMovement->UpdatedComponent = Collision.Get();

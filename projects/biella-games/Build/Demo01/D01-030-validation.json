@@ -1,0 +1,130 @@
+{
+  "task_id": "D01-030",
+  "base_commit": "62d5315748b41b6655590ae7a5365f1ccec5ebd2",
+  "observed_date_utc": "2026-09-05",
+  "runtime": "Unreal Engine 5.8.2 Linux Editor -game -nullrhi; canonical BiellaGameplayMap",
+  "resource_routes": [
+    {
+      "capability": "game-code",
+      "providers": []
+    },
+    {
+      "capability": "coding",
+      "providers": []
+    }
+  ],
+  "resource_execution": "Local editable C++ and Unreal runtime validation; no external generation needed",
+  "editor_build_exit": 0,
+  "runtime_results": {
+    "D01-030-combat-30fps.log": {
+      "process_exit": 0,
+      "automation_result": "Success",
+      "passed_phases": [
+        "gates_range_occlusion",
+        "point_blank",
+        "autonomous_cadence",
+        "incoming_damage_recovery",
+        "defeat_stop"
+      ],
+      "sha256": "7a9cc61ea0d8dd758ca0d35771c226c12d87e34b518ca6a05da03d704efd08cf",
+      "observed_shot_intervals_seconds": [
+        0.9,
+        0.9
+      ],
+      "target_health_after_shots": [
+        86.0,
+        72.0,
+        58.0
+      ],
+      "normal_encounter_before_fixture": "rival defeats first infected and selects second"
+    },
+    "D01-030-combat-120fps.log": {
+      "process_exit": 0,
+      "automation_result": "Success",
+      "passed_phases": [
+        "gates_range_occlusion",
+        "point_blank",
+        "autonomous_cadence",
+        "incoming_damage_recovery",
+        "defeat_stop"
+      ],
+      "sha256": "782c4fb0ef52628bad582250fd21a03192f7fdacbf2443e08bb6fd88aa107b9f",
+      "observed_shot_intervals_seconds": [
+        0.9,
+        0.9
+      ],
+      "target_health_after_shots": [
+        86.0,
+        72.0,
+        58.0
+      ],
+      "normal_encounter_before_fixture": "rival defeats first infected and selects second"
+    },
+    "D01-030-navigation-regression.log": {
+      "process_exit": 0,
+      "automation_result": "Success",
+      "passed_phases": [
+        "detour",
+        "hold",
+        "retreat",
+        "dynamic_obstruction",
+        "occluded_combat_position",
+        "bounded_failure",
+        "route_reopened",
+        "no_target_stop",
+        "defeat_stop"
+      ],
+      "sha256": "8464d718032fac2dd3e15e22f1c69825572c3e1828cff0533a25064c988e8d9e"
+    }
+  },
+  "source_sha256": {
+    "BiellaGames.uproject": "717d96f26b873ae8a608e5dea862549a515b1c4cbd43ed36a31dd5a4151ce797",
+    "Config/DefaultEngine.ini": "afb4417b2e79d66065552338d13eb3d7a685f1beb3000ac0a4a07de490060943",
+    "Config/DefaultGame.ini": "fb300de27bfba441548c8fe9f00347b20cacb4638759f43923f23b05d6213fea",
+    "Config/DefaultInput.ini": "e1b7a60e4da1acca28b8540ed7b2746551df9ae1ddc0056eb45a0932ed82ea78",
+    "Content/Maps/BiellaGameplayMap.umap": "115cec2b94f83860965195ca89f088d91eb50a80e20023ba8e5bac22c3e002e6",
+    "Source/BiellaGames/BiellaGames.Build.cs": "33372d5eda3fd6874646cadd1cddc45962f7ef594440a035e217914457bed970",
+    "Source/BiellaGames/BiellaGames.cpp": "256382027fe5e6d492cbbdbf13dbf449a438b7063398ef5c80fc049fbaebf78c",
+    "Source/BiellaGames/BiellaGames.h": "30af2b68e6d8210e4ce4fbd26f6a2b8c3648cf2a1226d64b17c4f88c94fccdf1",
+    "Source/BiellaGames/Private/BasicWorldGeometry.cpp": "4ce1bdc0aa12dc33e45cba10043a10d4ded312aae0889b3e7ed62a35592fe983",
+    "Source/BiellaGames/Private/BiellaDemoPawn.cpp": "627571ccd2a25df0d55c4507f2e79ef77592ac756fc376414acd2197ea1748a4",
+    "Source/BiellaGames/Private/BiellaGamesCharacter.cpp": "3a2b32bcce5aae6acc578091a619b259707205e01de0b5015f6aafbd63b46ccb",
+    "Source/BiellaGames/Private/BiellaGamesGameInstance.cpp": "908284a0b1d9e1ba1356a7d6b375e897706c22ec1906a289557f5f0dd21b3e7d",
+    "Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp": "83c14d7ae5f1e21eb26f0f39715e506ef01c1d30970de40e8e372b7db1169e1f",
+    "Source/BiellaGames/Private/BiellaGamesGameState.cpp": "3dcfde1ede9849cf797f23e2c824340723d8d8138e510f8a491b222ca63ed675",
+    "Source/BiellaGames/Private/BiellaGamesPlayerController.cpp": "ea67fa67b1772640f7eea8b7f00e0d353f5504709eef8f91b637f5447bc18da8",
+    "Source/BiellaGames/Private/BiellaInfected.cpp": "bc406257aa4ff6344951b18e227c57ec583d1090239397763c0b1061486efdb3",
+    "Source/BiellaGames/Private/BiellaRival.cpp": "6887b22fe8bb3dccf386c81356c650c8e19443f0c49519560acfd7f7b548b653",
+    "Source/BiellaGames/Private/Tests/BiellaRivalCombatTest.cpp": "2b33dca2e52882e94efc7154f0ab5985570f1d4a23ce89e824aedb1e2ce54cb2",
+    "Source/BiellaGames/Private/Tests/BiellaRivalNavigationTest.cpp": "a4c9dc728b13e9454aa30a21ac9e13dc73208f7cf51b05e3d9ba03941ccbd6ac",
+    "Source/BiellaGames/Public/BasicWorldGeometry.h": "b13b1ea9959b50f5c46c18999af8e4bda68bef6cc406501381a03a5f0f6554bd",
+    "Source/BiellaGames/Public/BiellaDemoPawn.h": "cddd7e7054c7d5e8f21e17b6b6830ff16ea8f218ffe4297d3071b8ca98b01464",
+    "Source/BiellaGames/Public/BiellaGamesCharacter.h": "c52779e653da520354a2ef14f8d7910bce26cdf46fe395924c1d0010765d0b1c",
+    "Source/BiellaGames/Public/BiellaGamesGameInstance.h": "a4cfbf5bf4b854096844eaa0b36cbd43d26d2e5ab3bcca1478e62f4d35dde63c",
+    "Source/BiellaGames/Public/BiellaGamesGameModeBase.h": "9389ee378915ed8c724362e399ce14cb527682b418edc825dc9f38077a291579",
+    "Source/BiellaGames/Public/BiellaGamesGameState.h": "9666d2256be0e7e07672a3e0bb4e81b2b090c8688ee2be05ca608ddfbc8c2014",
+    "Source/BiellaGames/Public/BiellaGamesPlayerController.h": "e5f05f88486028049dc4af59c4fe94cc5f0b4755814c942b8f23ab1a8a26dffd",
+    "Source/BiellaGames/Public/BiellaInfected.h": "a71155aab5359027d07318d33a0bed961d795f60fe56fbc20d65271a07d1cab0",
+    "Source/BiellaGames/Public/BiellaRival.h": "b8d3d195d369609248b0edd4d6b9f434edffcf0638c53e26e9cc53613856e2b1",
+    "Source/BiellaGames.Target.cs": "4799f3aaff4fdbef67e6fd8c4bba578b08336aac195d7df0906fe4c3281ac13c",
+    "Source/BiellaGamesEditor.Target.cs": "8464660556e742c670c5178cdf7b713f6c47309e099e054fff4c5a10e726f085"
+  },
+  "editor_module_sha256": "a53c098aeb566bb4a0556a0e8f40e1745cf0c5a3594d0852408b5846a0c0250b",
+  "navigation_regression_module_sha256": "254bfba98df96094f81baa94ac9e6fdc04e9c785c344e169e0ff0b80a18a6f06",
+  "navigation_regression_identity_note": "Regression ran on unchanged final gameplay source before addition of combat test instrumentation; separate module identity retained.",
+  "evidence_sha256": {
+    "D01-030-combat-120fps.log": "782c4fb0ef52628bad582250fd21a03192f7fdacbf2443e08bb6fd88aa107b9f",
+    "D01-030-combat-30fps.log": "7a9cc61ea0d8dd758ca0d35771c226c12d87e34b518ca6a05da03d704efd08cf",
+    "D01-030-combat-initial.log": "8f199497de490b9cef3df77d75e7f1bc1c862f8d736687b2b278e529a90cee93",
+    "D01-030-editor-acceptance.log": "1c312c3faa9d467e4bf93ec6d860c2b7a5aadf4609d13d9bafa2f207a0c4a249",
+    "D01-030-editor-permission-retry.log": "d47d041bb631ef587b16dbc303683a6705498a5d3f58b13a5546e7417a660f19",
+    "D01-030-editor-test-initial.log": "645856cf0be51f685ad5230d0df05f5b79435b0995b133a9b6485e9f69658b7a",
+    "D01-030-editor.log": "c061a2285c9e4f655ee0224ce5f7ed69e8c74b30424d51a940fe1c16528bc41a",
+    "D01-030-navigation-regression.log": "8464d718032fac2dd3e15e22f1c69825572c3e1828cff0533a25064c988e8d9e"
+  },
+  "qualification_limits": [
+    "Headless simulation, collision and runtime material state; no rendered-frame quality or native rendered FPS claim",
+    "No Win64 package qualification",
+    "D01-031 and later tasks remain pending"
+  ]
+}

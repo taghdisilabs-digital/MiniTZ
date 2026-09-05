@@ -66,7 +66,7 @@ public:
 
     void SetDisplayColor(const FLinearColor& Color);
     float MoveTowardLocation(const FVector& Target, float DeltaTime);
-    void Defeat(const FString& Reason);
+    virtual void Defeat(const FString& Reason);
 
 protected:
     UPROPERTY()

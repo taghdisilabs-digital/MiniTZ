@@ -1,0 +1,1666 @@
+Opening shared memory
+Shared memory doesn't exist, checking legacy lock file
+Checking for a '/tmp/UnrealTraceServer.pid' lock file
+Forking process
+Wait until we know the daemon has started.
+Parent received signal 10
+Daemon signalled successful start
+Forked complete (ret=0)
+Increasing per-process limit of core file size to infinity.
+LogInit: Running DelayedAutoRegister Phase StartOfEnginePreInit
+LogInit: Display: Running engine for game: BiellaGames
+LogCore: UTS: Unreal Trace Server launched successfully
+LogTrace: Initializing trace...
+LogCore: Display: Requested channels: 'cpu,gpu,frame,log,bookmark,screenshot,region'
+LogCore: No trace connection. Tracing to in-memory cache.
+LogTrace: Finished trace initialization.
+LogTrace: Display: Control listening on port 1985
+LogCsvProfiler: Display: Metadata set : platform="Linux"
+LogCsvProfiler: Display: Metadata set : config="Development"
+LogCsvProfiler: Display: Metadata set : buildversion="++UE5+Release-5.8-CL-56702186"
+LogCsvProfiler: Display: Metadata set : engineversion="5.8.2-56702186+++UE5+Release-5.8"
+LogCsvProfiler: Display: Metadata set : enginereleaseversion="5.8.2"
+LogCsvProfiler: Display: Metadata set : os="Ubuntu 24.04.4 LTS 6.8.0-138-generic"
+LogCsvProfiler: Display: Metadata set : cpu="AuthenticAMD|AMD EPYC 9124 16-Core Processor"
+LogCsvProfiler: Display: Metadata set : pgoenabled="0"
+LogCsvProfiler: Display: Metadata set : pgoprofilingenabled="0"
+LogCsvProfiler: Display: Metadata set : ltoenabled="0"
+LogCsvProfiler: Display: Metadata set : asan="0"
+LogCsvProfiler: Display: Metadata set : mergedmodules="0"
+LogCsvProfiler: Display: Metadata set : compacttset="0"
+LogCsvProfiler: Display: Metadata set : commandline="" /root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject /Game/Maps/BiellaGameplayMap -game -nullrhi -unattended -nosound -nosplash -stdout -FullStdOutLogOutput -NoAsyncLoadingThread -ExecCmds="t.MaxFPS 120,Automation RunTests BiellaGames.Demo01.RivalCombat; SoftQuit" -seconds=130""
+LogCsvProfiler: Display: Metadata set : loginid="3da9d2f3021f461a93a81e6b23a2b4d7-000003e9"
+LogCsvProfiler: Display: Metadata set : llm="0"
+Failed to find game directory: /opt/unreal/UE_5.8.2/BiellaGames/Binaries
+LogModuleManager: InternalLoadLibrary: 'StorageServerClient' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-StorageServerClient.so')
+LogModuleManager: InternalLoadLibrary: 'CookOnTheFly' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-CookOnTheFly.so')
+LogModuleManager: InternalLoadLibrary: 'StreamingFile' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-StreamingFile.so')
+LogModuleManager: InternalLoadLibrary: 'NetworkFile' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-NetworkFile.so')
+LogModuleManager: InternalLoadLibrary: 'PakFile' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-PakFile.so')
+LogModuleManager: InternalLoadLibrary: 'RSA' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-RSA.so')
+LogModuleManager: InternalLoadLibrary: 'SandboxFile' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-SandboxFile.so')
+LogCsvProfiler: Display: Metadata set : zenstreaming="0"
+LogInit: Running DelayedAutoRegister Phase FileSystemReady
+LogInit: Running DelayedAutoRegister Phase TaskGraphSystemReady
+LogStats: Stats thread started at 0.172122
+LogInit: Running DelayedAutoRegister Phase StatSystemReady
+LogModuleManager: InternalLoadLibrary: 'CoreUObject' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-CoreUObject.so')
+LogCsvProfiler: Display: Metadata set : systemresolution.resx="1280"
+LogCsvProfiler: Display: Metadata set : systemresolution.resy="720"
+LogModuleManager: InternalLoadLibrary: 'Engine' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Engine.so')
+LogModuleManager: InternalLoadLibrary: 'UniversalObjectLocator' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-UniversalObjectLocator.so')
+LogModuleManager: InternalLoadLibrary: 'Renderer' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Renderer.so')
+LogModuleManager: InternalLoadLibrary: 'AnimGraphRuntime' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AnimGraphRuntime.so')
+LogModuleManager: InternalLoadLibrary: 'OpenGLDrv' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-OpenGLDrv.so')
+LogModuleManager: InternalLoadLibrary: 'SlateRHIRenderer' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-SlateRHIRenderer.so')
+LogModuleManager: InternalLoadLibrary: 'Landscape' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Landscape.so')
+LogModuleManager: InternalLoadLibrary: 'RHICore' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-RHICore.so')
+LogModuleManager: InternalLoadLibrary: 'RenderCore' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-RenderCore.so')
+LogModuleManager: InternalLoadLibrary: 'TextureCompressor' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TextureCompressor.so')
+LogModuleManager: InternalLoadLibrary: 'OpenColorIOWrapper' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-OpenColorIOWrapper.so')
+LogModuleManager: InternalLoadLibrary: 'Virtualization' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Virtualization.so')
+LogModuleManager: InternalLoadLibrary: 'MessageLog' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MessageLog.so')
+LogModuleManager: InternalLoadLibrary: 'AudioEditor' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AudioEditor.so')
+LogModuleManager: InternalLoadLibrary: 'PropertyEditor' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-PropertyEditor.so')
+LogModuleManager: InternalLoadLibrary: 'AudioExtensions' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AudioExtensions.so')
+LogModuleManager: InternalLoadLibrary: 'SignalProcessing' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-SignalProcessing.so')
+LogModuleManager: InternalLoadLibrary: 'AudioMixerCore' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AudioMixerCore.so')
+LogModuleManager: InternalLoadLibrary: 'AnimationModifiers' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AnimationModifiers.so')
+LogICUInternationalization: ICU TimeZone Detection - Raw Offset: +0:00, Platform Override: ''
+LogInit: Session CrashGUID >====================================================
+         Session CrashGUID >   UECC-Linux-01A06F62A5DE78809177601465EA9254
+         Session CrashGUID >====================================================
+LogConfig: No local boot hotfix file found at: [../../../../../../root/biella/repos/biella-engine/projects/biella-games/Saved/PersistentDownloadDir/HotfixForNextBoot.txt]
+LogInit: Running DelayedAutoRegister Phase IniSystemReady
+LogAudio: Display: Audio Device Manager not initializing due to all audio being disabled. If this is not intentional, please check command line arguments for "-nosound".
+LogModuleManager: InternalLoadLibrary: 'TelemetryUtils' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TelemetryUtils.so')
+LogPluginManager: Looking for build plugins target receipt
+LogPluginManager: Found matching target receipt: ../../../../../../root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGamesEditor.target
+LogPluginManager: Looking for enabled plugins target receipt
+LogPluginManager: Found matching target receipt: ../../../../../../root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGamesEditor.target
+LogPluginManager: Mounting Engine plugin WorldMetrics
+LogPluginManager: Mounting Engine plugin EnhancedInput
+LogPluginManager: Mounting Engine plugin Dataflow
+LogPluginManager: Mounting Engine plugin Mutable
+LogPluginManager: Mounting Engine plugin AudioModulationInsights
+LogPluginManager: Mounting Engine plugin TraceUtilities
+LogPluginManager: Mounting Engine plugin RenderTraceInsights
+LogPluginManager: Mounting Engine plugin IoStoreInsights
+LogPluginManager: Mounting Engine plugin ChaosInsights
+LogPluginManager: Mounting Engine plugin PCG
+LogPluginManager: Mounting Engine plugin AudioInsights
+LogPluginManager: Mounting Engine plugin ChaosVD
+LogPluginManager: Mounting Engine plugin AudioInsightsRuntime
+LogPluginManager: Mounting Engine plugin XGEController
+LogPluginManager: Mounting Engine plugin BaseMaterial
+LogPluginManager: Mounting Engine plugin UbaController
+LogPluginManager: Mounting Engine plugin CmdLinkServer
+LogPluginManager: Mounting Engine plugin RenderGraphInsights
+LogPluginManager: Mounting Engine plugin MassInsights
+LogPluginManager: Mounting Engine plugin DerivedDataBuildController
+LogPluginManager: Mounting Engine plugin ChaosCloth
+LogPluginManager: Mounting Engine plugin MeshPainting
+LogPluginManager: Mounting Engine plugin TcpMessaging
+LogPluginManager: Mounting Engine plugin UdpMessaging
+LogPluginManager: Mounting Engine plugin AlembicImporter
+LogPluginManager: Mounting Engine plugin AutomatedPerfTestTools
+LogPluginManager: Mounting Engine plugin RuntimeTelemetry
+LogPluginManager: Mounting Engine plugin PlatformCrypto
+LogPluginManager: Mounting Engine plugin PlanarCut
+LogConfig: Display: Loading Mac ini files took 0.49 seconds
+LogPluginManager: Mounting Engine plugin MeshModelingToolsetExp
+LogPluginManager: Mounting Engine plugin EditorPerformance
+LogPluginManager: Mounting Engine plugin ControlRigPhysics
+LogPluginManager: Mounting Engine plugin HttpInsights
+LogPluginManager: Mounting Engine plugin ChaosSolverPlugin
+LogPluginManager: Mounting Engine plugin BackChannel
+LogPluginManager: Mounting Engine plugin Landmass
+LogPluginManager: Mounting Engine plugin ChaosNiagara
+LogPluginManager: Mounting Engine plugin AdvancedRenamer
+LogPluginManager: Mounting Engine plugin GeometryDataflow
+LogPluginManager: Mounting Engine plugin EditorTRSGizmo
+LogPluginManager: Mounting Engine plugin SkeletalReduction
+LogPluginManager: Mounting Engine plugin GeometryCollectionPlugin
+LogPluginManager: Mounting Engine plugin NFORDenoise
+LogPluginManager: Mounting Engine plugin LowLevelNetTrace
+LogPluginManager: Mounting Engine plugin EditorDataStorageFeatures
+LogPluginManager: Mounting Engine plugin ChaosUserDataPT
+LogPluginManager: Mounting Engine plugin GeometryFlow
+LogPluginManager: Mounting Engine plugin PythonScriptPlugin
+LogPluginManager: Mounting Engine plugin Buoyancy
+LogPluginManager: Mounting Engine plugin Fracture
+LogPluginManager: Mounting Engine plugin Water
+LogPluginManager: Mounting Engine plugin SequenceNavigator
+LogPluginManager: Mounting Engine plugin AutomationUtils
+LogPluginManager: Mounting Engine plugin GlobalConfigurationData
+LogPluginManager: Mounting Engine plugin CharacterAI
+LogPluginManager: Mounting Engine plugin MutableAssetUserData
+LogPluginManager: Mounting Engine plugin EditorTelemetry
+LogPluginManager: Mounting Engine plugin EditorDataStorage
+LogPluginManager: Mounting Engine plugin ChaosCaching
+LogPluginManager: Mounting Engine plugin LocalizableMessage
+LogPluginManager: Mounting Engine plugin FullBodyIK
+LogPluginManager: Mounting Engine plugin GizmoFramework
+LogPluginManager: Mounting Engine plugin ToolPresets
+LogPluginManager: Mounting Engine plugin ChaosEditor
+LogConfig: Display: Loading Android ini files took 0.70 seconds
+LogPluginManager: Mounting Engine plugin LevelSequenceNavigatorBridge
+LogPluginManager: Mounting Engine plugin LauncherChunkInstaller
+LogPluginManager: Mounting Engine plugin NiagaraInsights
+LogPluginManager: Mounting Engine plugin NiagaraSimCaching
+LogConfig: Display: Loading TVOS ini files took 0.72 seconds
+LogPluginManager: Mounting Engine plugin NiagaraPreviewContent
+LogPluginManager: Mounting Engine plugin Cascade
+LogPluginManager: Mounting Engine plugin Niagara
+LogPluginManager: Mounting Engine plugin CompositeCore
+LogPluginManager: Mounting Engine plugin ConsoleVariables
+LogPluginManager: Mounting Engine plugin DataValidation
+LogPluginManager: Mounting Engine plugin BlueprintHeaderView
+LogPluginManager: Mounting Engine plugin EditorScriptingUtilities
+LogPluginManager: Mounting Engine plugin WorldPartitionHLODUtilities
+LogPluginManager: Mounting Engine plugin SequencerAnimTools
+LogPluginManager: Mounting Engine plugin EngineAssetDefinitions
+LogPluginManager: Mounting Engine plugin CurveEditorTools
+LogPluginManager: Mounting Engine plugin ColorGrading
+LogPluginManager: Mounting Engine plugin AssetManagerEditor
+LogPluginManager: Mounting Engine plugin FacialAnimation
+LogPluginManager: Mounting Engine plugin BlueprintMaterialTextureNodes
+LogPluginManager: Mounting Engine plugin MacGraphicsSwitching
+LogPluginManager: Mounting Engine plugin MobileLauncherProfileWizard
+LogPluginManager: Mounting Engine plugin EditorDebugTools
+LogPluginManager: Mounting Engine plugin GeometryMode
+LogPluginManager: Mounting Engine plugin UMGWidgetPreview
+LogPluginManager: Mounting Engine plugin MeshLODToolset
+LogPluginManager: Mounting Engine plugin CryptoKeys
+LogPluginManager: Mounting Engine plugin ProxyLODPlugin
+LogPluginManager: Mounting Engine plugin StylusInput
+LogPluginManager: Mounting Engine plugin GameplayTagsEditor
+LogPluginManager: Mounting Engine plugin ModelingToolsEditorMode
+LogPluginManager: Mounting Engine plugin UVEditor
+LogPluginManager: Mounting Engine plugin SpeedTreeImporter
+LogPluginManager: Mounting Engine plugin MaterialAssetWizard
+LogPluginManager: Mounting Engine plugin ChangelistReview
+LogPluginManager: Mounting Engine plugin MaterialAnalyzer
+LogPluginManager: Mounting Engine plugin AISupport
+LogPluginManager: Mounting Engine plugin EnvironmentQueryEditor
+LogPluginManager: Mounting Engine plugin OnlineServices
+LogPluginManager: Mounting Engine plugin OnlineSubsystem
+LogPluginManager: Mounting Engine plugin OnlineSubsystemUtils
+LogPluginManager: Mounting Engine plugin EOSShared
+LogPluginManager: Mounting Engine plugin OnlineBase
+LogPluginManager: Mounting Engine plugin OnlineSubsystemNull
+LogPluginManager: Mounting Engine plugin VariantManager
+LogConfig: Display: Loading VulkanPC ini files took 0.84 seconds
+LogPluginManager: Mounting Engine plugin PluginBrowser
+LogPluginManager: Mounting Engine plugin VariantManagerContent
+LogPluginManager: Mounting Engine plugin DatasmithContent
+LogPluginManager: Mounting Engine plugin OodleNetwork
+LogPluginManager: Mounting Engine plugin GLTFExporter
+LogPluginManager: Mounting Engine plugin InterchangeTests
+LogPluginManager: Mounting Engine plugin ControlRig
+LogPluginManager: Mounting Engine plugin DeformerGraph
+LogConfig: Display: Loading IOS ini files took 0.86 seconds
+LogConfig: Display: Loading Windows ini files took 0.87 seconds
+LogPluginManager: Mounting Engine plugin BlendSpaceMotionAnalysis
+LogPluginManager: Mounting Engine plugin ControlRigModules
+LogPluginManager: Mounting Engine plugin EaseCurveTool
+LogPluginManager: Mounting Engine plugin PhysicsControl
+LogPluginManager: Mounting Engine plugin ACLPlugin
+LogPluginManager: Mounting Engine plugin AnimationData
+LogPluginManager: Mounting Engine plugin GameplayInsights
+LogPluginManager: Mounting Engine plugin IKRig
+LogPluginManager: Mounting Engine plugin ControlRigSpline
+LogPluginManager: Mounting Engine plugin AnimatorKit
+LogPluginManager: Mounting Engine plugin AnimationModifierLibrary
+LogPluginManager: Mounting Engine plugin SkeletalMeshModelingTools
+LogPluginManager: Mounting Engine plugin NNERuntimeORT
+LogPluginManager: Mounting Engine plugin RigLogic
+LogPluginManager: Mounting Engine plugin NNEDenoiser
+LogPluginManager: Mounting Engine plugin VisualStudioSourceCodeAccess
+LogPluginManager: Mounting Engine plugin Paper2D
+LogPluginManager: Mounting Engine plugin KDevelopSourceCodeAccess
+LogPluginManager: Mounting Engine plugin SubversionSourceControl
+LogPluginManager: Mounting Engine plugin PropertyAccessNode
+LogPluginManager: Mounting Engine plugin RenderDocPlugin
+LogConfig: Display: Loading VisionOS ini files took 0.91 seconds
+LogPluginManager: Mounting Engine plugin GitSourceControl
+LogPluginManager: Mounting Engine plugin AnimationSharing
+LogPluginManager: Mounting Engine plugin N10XSourceCodeAccess
+LogPluginManager: Mounting Engine plugin ProjectLauncher
+LogPluginManager: Mounting Engine plugin PlasticSourceControl
+LogPluginManager: Mounting Engine plugin XCodeSourceCodeAccess
+LogPluginManager: Mounting Engine plugin UObjectPlugin
+LogPluginManager: Mounting Engine plugin NamingTokens
+LogPluginManager: Mounting Engine plugin PluginUtils
+LogPluginManager: Mounting Engine plugin VisualStudioCodeSourceCodeAccess
+LogPluginManager: Mounting Engine plugin GPUReshape
+LogPluginManager: Mounting Engine plugin CodeLiteSourceCodeAccess
+LogPluginManager: Mounting Engine plugin PixWinPlugin
+LogPluginManager: Mounting Engine plugin PerforceSourceControl
+LogPluginManager: Mounting Engine plugin DumpGPUServices
+LogPluginManager: Mounting Engine plugin TweeningUtils
+LogPluginManager: Mounting Engine plugin CLionSourceCodeAccess
+LogPluginManager: Mounting Engine plugin RiderSourceCodeAccess
+LogPluginManager: Mounting Engine plugin MetaHumanSDK
+LogConfig: Display: Loading Linux ini files took 0.95 seconds
+LogPluginManager: Mounting Engine plugin NullSourceCodeAccess
+LogPluginManager: Mounting Engine plugin Takes
+LogPluginManager: Mounting Engine plugin MP4Utilities
+LogPluginManager: Mounting Engine plugin MediaCompositing
+LogPluginManager: Mounting Engine plugin MediaPlayerEditor
+LogPluginManager: Mounting Engine plugin ImgMedia
+LogPluginManager: Mounting Engine plugin WebMMedia
+LogPluginManager: Mounting Engine plugin AvfMedia
+LogPluginManager: Mounting Engine plugin AndroidMedia
+LogPluginManager: Mounting Engine plugin MediaPlate
+LogPluginManager: Mounting Engine plugin TmvMedia
+LogPluginManager: Mounting Engine plugin WmfMedia
+LogPluginManager: Mounting Engine plugin InterchangeEditor
+LogPluginManager: Mounting Engine plugin InterchangeAssets
+LogPluginManager: Mounting Engine plugin Interchange
+LogPluginManager: Mounting Engine plugin AndroidPermission
+LogPluginManager: Mounting Engine plugin AudioWidgets
+LogPluginManager: Mounting Engine plugin ArchVisCharacter
+LogPluginManager: Mounting Engine plugin Metasound
+LogUnixPlatformFile: FUnixFileMapper::MapCaseInsensitiveFile: Lookup:/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/Metasound/Config/DefaultMetasound.ini Found:/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/Metasound/Config/DefaultMetaSound.ini
+
+LogUnixPlatformFile: FUnixFileMapper::OpenCaseInsensitiveRead: '/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/Metasound/Config/DefaultMetasound.ini' to '/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/Metasound/Config/DefaultMetaSound.ini'
+LogPluginManager: Mounting Engine plugin WindowsDeviceProfileSelector
+LogPluginManager: Mounting Engine plugin GoogleCloudMessaging
+LogPluginManager: Mounting Engine plugin LinuxDeviceProfileSelector
+LogPluginManager: Mounting Engine plugin WebMMoviePlayer
+LogPluginManager: Mounting Engine plugin CustomMeshComponent
+LogPluginManager: Mounting Engine plugin ComputeFramework
+LogPluginManager: Mounting Engine plugin AudioCapture
+LogPluginManager: Mounting Engine plugin GeometryCache
+LogPluginManager: Mounting Engine plugin MsQuic
+LogConfig: Display: Loading LinuxArm64 ini files took 0.99 seconds
+LogPluginManager: Mounting Engine plugin InputDebugging
+LogPluginManager: Mounting Engine plugin ModelViewViewModel
+LogPluginManager: Mounting Engine plugin ChunkDownloader
+LogPluginManager: Mounting Engine plugin ResonanceAudio
+LogPluginManager: Mounting Engine plugin AssetTags
+LogPluginManager: Mounting Engine plugin GeometryProcessing
+LogPluginManager: Mounting Engine plugin IOSDeviceProfileSelector
+LogPluginManager: Mounting Engine plugin Synthesis
+LogPluginManager: Mounting Engine plugin GeometryScripting
+LogPluginManager: Mounting Engine plugin AndroidDeviceProfileSelector
+LogPluginManager: Mounting Engine plugin StateTree
+LogConfig: Display: Loading Unix ini files took 1.01 seconds
+LogPluginManager: Mounting Engine plugin AudioSynesthesia
+LogPluginManager: Mounting Engine plugin CableComponent
+LogPluginManager: Mounting Engine plugin PropertyBindingUtils
+LogPluginManager: Mounting Engine plugin HairStrands
+LogPluginManager: Mounting Engine plugin MobilePatchingUtils
+LogPluginManager: Mounting Engine plugin AppleMoviePlayer
+LogPluginManager: Mounting Engine plugin PropertyAccessEditor
+LogPluginManager: Mounting Engine plugin LocationServicesBPLibrary
+LogPluginManager: Mounting Engine plugin WaveTable
+LogPluginManager: Mounting Engine plugin AppleImageUtils
+LogPluginManager: Mounting Engine plugin SoundFields
+LogPluginManager: Mounting Engine plugin ActorLayerUtilities
+LogPluginManager: Mounting Engine plugin ProceduralMeshComponent
+LogPluginManager: Mounting Engine plugin AndroidMoviePlayer
+LogPluginManager: Mounting Engine plugin MeshModelingToolset
+LogPluginManager: Mounting Engine plugin RigVM
+LogPluginManager: Mounting Engine plugin ExampleDeviceProfileSelector
+LogPluginManager: Mounting Engine plugin AndroidFileServer
+LogPluginManager: Mounting Engine plugin SkeletalMerging
+LogPluginManager: Mounting Engine plugin WindowsMoviePlayer
+LogPluginManager: Mounting Engine plugin GameplayCameras
+LogPluginManager: Mounting Engine plugin GooglePAD
+LogPluginManager: Mounting Engine plugin SignificanceManager
+LogPluginManager: Mounting Engine plugin CameraShakePreviewer
+LogPluginManager: Mounting Engine plugin EngineCameras
+LogPluginManager: Mounting Engine plugin ActorSequence
+LogPluginManager: Mounting Engine plugin SequenceValidator
+LogPluginManager: Mounting Engine plugin LevelSequenceEditor
+LogPluginManager: Mounting Engine plugin SequencerScripting
+LogPluginManager: Mounting Engine plugin TemplateSequence
+LogPluginManager: Mounting Engine plugin Scribble
+LogPluginManager: Mounting Engine plugin ContentBrowserFileDataSource
+LogPluginManager: Mounting Engine plugin ContentBrowserClassDataSource
+LogPluginManager: Mounting Engine plugin ContentBrowserAssetDataSource
+LogPluginManager: Mounting Engine plugin LightMixer
+LogPluginManager: Mounting Engine plugin ObjectMixer
+LogPluginManager: Mounting Engine plugin OnlineSubsystemIOS
+LogPluginManager: Mounting Engine plugin ConcertMain
+LogPluginManager: Mounting Engine plugin SQLiteCore
+LogPluginManager: Mounting Engine plugin FileSandbox
+LogPluginManager: Mounting Engine plugin XInputDevice
+LogPluginManager: Mounting Engine plugin BaseCharacterFXEditor
+LogPluginManager: Mounting Engine plugin InterchangeAxfAssets
+LogUnixPlatformFile: FUnixFileMapper::MapCaseInsensitiveFile: Lookup:/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/InterchangeAxF/Assets/Config/DefaultInterchangeAxfAssets.ini Found:/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/InterchangeAxF/Assets/Config/DefaultInterchangeAxFAssets.ini
+
+LogUnixPlatformFile: FUnixFileMapper::OpenCaseInsensitiveRead: '/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/InterchangeAxF/Assets/Config/DefaultInterchangeAxfAssets.ini' to '/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/InterchangeAxF/Assets/Config/DefaultInterchangeAxFAssets.ini'
+LogPluginManager: Mounting Engine plugin OnlineSubsystemGooglePlay
+LogPluginManager: Mounting Engine plugin PortableObjectFileDataSource
+LogPluginManager: Mounting Engine plugin ConcertSharedSlate
+LogPluginManager: Mounting Engine plugin ConcertSyncCore
+LogPluginManager: Mounting Engine plugin ConcertSyncClient
+LogModuleManager: InternalLoadLibrary: 'PlatformCrypto' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PlatformCrypto/Binaries/Linux/libUnrealEditor-PlatformCrypto.so')
+LogModuleManager: InternalLoadLibrary: 'PlatformCryptoTypes' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PlatformCrypto/Binaries/Linux/libUnrealEditor-PlatformCryptoTypes.so')
+LogModuleManager: InternalLoadLibrary: 'PlatformCryptoContext' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PlatformCrypto/Binaries/Linux/libUnrealEditor-PlatformCryptoContext.so')
+LogModuleManager: InternalLoadLibrary: 'PythonScriptPluginPreload' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PythonScriptPlugin/Binaries/Linux/libUnrealEditor-PythonScriptPluginPreload.so')
+LogModuleManager: InternalLoadLibrary: 'PlasticSourceControl' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/PlasticSourceControl/Binaries/Linux/libUnrealEditor-PlasticSourceControl.so')
+LogModuleManager: InternalLoadLibrary: 'SourceControl' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-SourceControl.so')
+SourceControl: Revision control is disabled
+SourceControl: Revision control is disabled
+LogModuleManager: InternalLoadLibrary: 'PerforceSourceControl' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/PerforceSourceControl/Binaries/Linux/libUnrealEditor-PerforceSourceControl.so')
+SourceControl: Revision control is disabled
+LogInit: Running DelayedAutoRegister Phase EarliestPossiblePluginsLoaded
+LogModuleManager: InternalLoadLibrary: 'PCGCompute' ('/opt/unreal/UE_5.8.2/Engine/Plugins/PCG/Binaries/Linux/libUnrealEditor-PCGCompute.so')
+LogModuleManager: InternalLoadLibrary: 'ChaosCloth' ('/opt/unreal/UE_5.8.2/Engine/Plugins/ChaosCloth/Binaries/Linux/libUnrealEditor-ChaosCloth.so')
+LogModuleManager: InternalLoadLibrary: 'RuntimeTelemetry' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/RuntimeTelemetry/Binaries/Linux/libUnrealEditor-RuntimeTelemetry.so')
+LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+LogModuleManager: InternalLoadLibrary: 'Analytics' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Analytics.so')
+LogStudioTelemetry: Started StudioTelemetry Session
+LogModuleManager: InternalLoadLibrary: 'NFORDenoise' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/NFORDenoise/Binaries/Linux/libUnrealEditor-NFORDenoise.so')
+LogNFORDenoise: NFORDenoise function starting up
+LogModuleManager: InternalLoadLibrary: 'Buoyancy' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/Buoyancy/Binaries/Linux/libUnrealEditor-Buoyancy.so')
+LogModuleManager: InternalLoadLibrary: 'Water' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/Water/Binaries/Linux/libUnrealEditor-Water.so')
+LogModuleManager: InternalLoadLibrary: 'LauncherChunkInstaller' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Portal/LauncherChunkInstaller/Binaries/Linux/libUnrealEditor-LauncherChunkInstaller.so')
+LogModuleManager: InternalLoadLibrary: 'NiagaraShader' ('/opt/unreal/UE_5.8.2/Engine/Plugins/FX/Niagara/Binaries/Linux/libUnrealEditor-NiagaraShader.so')
+LogModuleManager: InternalLoadLibrary: 'NiagaraVertexFactories' ('/opt/unreal/UE_5.8.2/Engine/Plugins/FX/Niagara/Binaries/Linux/libUnrealEditor-NiagaraVertexFactories.so')
+LogModuleManager: InternalLoadLibrary: 'CompositeCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Compositing/CompositeCore/Binaries/Linux/libUnrealEditor-CompositeCore.so')
+LogConfig: Applying CVar settings from Section [/Script/CompositeCore.CompositeCorePluginSettings] File [Engine]
+LogModuleManager: InternalLoadLibrary: 'AISupportModule' ('/opt/unreal/UE_5.8.2/Engine/Plugins/AI/AISupport/Binaries/Linux/libUnrealEditor-AISupportModule.so')
+LogModuleManager: InternalLoadLibrary: 'OnlineServicesInterface' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Online/OnlineServices/Binaries/Linux/libUnrealEditor-OnlineServicesInterface.so')
+LogModuleManager: InternalLoadLibrary: 'OnlineServicesCommon' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Online/OnlineServices/Binaries/Linux/libUnrealEditor-OnlineServicesCommon.so')
+LogModuleManager: InternalLoadLibrary: 'OnlineServicesCommonEngineUtils' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Online/OnlineServices/Binaries/Linux/libUnrealEditor-OnlineServicesCommonEngineUtils.so')
+LogModuleManager: InternalLoadLibrary: 'OnlineSubsystem' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Online/OnlineSubsystem/Binaries/Linux/libUnrealEditor-OnlineSubsystem.so')
+LogModuleManager: InternalLoadLibrary: 'HTTP' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-HTTP.so')
+LogModuleManager: InternalLoadLibrary: 'SSL' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-SSL.so')
+LogInit: Using libcurl 8.15.0
+LogInit:  - built for x86_64-unknown-linux-gnu
+LogInit:  - supports SSL with OpenSSL/1.1.1t
+LogInit:  - supports HTTP deflate (compression) using libz 1.3
+LogInit:  - other features:
+LogInit:      CURL_VERSION_SSL
+LogInit:      CURL_VERSION_LIBZ
+LogInit:      CURL_VERSION_IPV6
+LogInit:      CURL_VERSION_ASYNCHDNS
+LogInit:      CURL_VERSION_LARGEFILE
+LogInit:      CURL_VERSION_TLSAUTH_SRP
+LogInit:      CURL_VERSION_HTTP2
+LogInit:  CurlRequestOptions (configurable via config and command line):
+LogInit:  - bVerifyPeer = true  - Libcurl will verify peer certificate
+LogInit:  - bUseHttpProxy = false  - Libcurl will NOT use HTTP proxy
+LogInit:  - CVarHttpReuseConnectionEnabled = true  - Libcurl will reuse connections
+LogInit:  - MaxHostConnections = 16  - Libcurl will limit the number of connections to a host
+LogInit:  - LocalHostAddr = Default
+LogInit:  - BufferSize = 65536
+LogInit: CreateHttpThread using FCurlMultiPollEventLoopHttpThread
+LogInit: Creating http thread with maximum 251 concurrent requests
+LogModuleManager: InternalLoadLibrary: 'XMPP' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-XMPP.so')
+LogModuleManager: InternalLoadLibrary: 'WebSockets' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-WebSockets.so')
+LogModuleManager: InternalLoadLibrary: 'OnlineSubsystemNULL' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Online/OnlineSubsystemNull/Binaries/Linux/libUnrealEditor-OnlineSubsystemNull.so')
+LogModuleManager: InternalLoadLibrary: 'Sockets' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Sockets.so')
+LogOnline: OSS: Created online subsystem instance for: NULL
+LogOnline: OSS: TryLoadSubsystemAndSetDefault: Loaded subsystem for type [NULL]
+LogModuleManager: InternalLoadLibrary: 'OnlineSubsystemUtils' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Online/OnlineSubsystemUtils/Binaries/Linux/libUnrealEditor-OnlineSubsystemUtils.so')
+LogModuleManager: InternalLoadLibrary: 'OnlineBlueprintSupport' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Online/OnlineSubsystemUtils/Binaries/Linux/libUnrealEditor-OnlineBlueprintSupport.so')
+LogModuleManager: InternalLoadLibrary: 'EOSShared' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Online/EOSShared/Binaries/Linux/libUnrealEditor-EOSShared.so')
+Shutdown handler: initialize.
+LogEOSShared: Initialize Initializing EOSSDK Version:1.19.1.2-53289219
+LogModuleManager: InternalLoadLibrary: 'VariantManagerContent' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Enterprise/VariantManagerContent/Binaries/Linux/libUnrealEditor-VariantManagerContent.so')
+LogModuleManager: InternalLoadLibrary: 'DatasmithContent' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Enterprise/DatasmithContent/Binaries/Linux/libUnrealEditor-DatasmithContent.so')
+LogModuleManager: InternalLoadLibrary: 'GLTFExporter' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Enterprise/GLTFExporter/Binaries/Linux/libUnrealEditor-GLTFExporter.so')
+LogModuleManager: InternalLoadLibrary: 'OptimusSettings' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/DeformerGraph/Binaries/Linux/libUnrealEditor-OptimusSettings.so')
+LogModuleManager: InternalLoadLibrary: 'ACLPlugin' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/ACLPlugin/Binaries/Linux/libUnrealEditor-ACLPlugin.so')
+LogModuleManager: InternalLoadLibrary: 'NNEDenoiserShaders' ('/opt/unreal/UE_5.8.2/Engine/Plugins/NNE/NNEDenoiser/Binaries/Linux/libUnrealEditor-NNEDenoiserShaders.so')
+LogModuleManager: InternalLoadLibrary: 'RenderDocPlugin' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/RenderDocPlugin/Binaries/Linux/libUnrealEditor-RenderDocPlugin.so')
+LogConfig: Applying CVar settings from Section [/Script/RenderDocPlugin.RenderDocPluginSettings] File [Engine]
+RenderDocPlugin: Display: RenderDoc plugin will not be loaded. Use '-AttachRenderDoc' on the cmd line or enable 'renderdoc.AutoAttach' in the plugin settings.
+LogModuleManager: InternalLoadLibrary: 'TmvMediaShaders' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Media/TmvMedia/Binaries/Linux/libUnrealEditor-TmvMediaShaders.so')
+LogModuleManager: InternalLoadLibrary: 'InterchangeAssets' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Interchange/Assets/Binaries/Linux/libUnrealEditor-InterchangeAssets.so')
+LogModuleManager: InternalLoadLibrary: 'LinuxDeviceProfileSelector' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/LinuxDeviceProfileSelector/Binaries/Linux/libUnrealEditor-LinuxDeviceProfileSelector.so')
+LogModuleManager: InternalLoadLibrary: 'ComputeFramework' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/ComputeFramework/Binaries/Linux/libUnrealEditor-ComputeFramework.so')
+LogModuleManager: InternalLoadLibrary: 'ChunkDownloader' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/ChunkDownloader/Binaries/Linux/libUnrealEditor-ChunkDownloader.so')
+LogModuleManager: InternalLoadLibrary: 'HairStrandsCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/HairStrands/Binaries/Linux/libUnrealEditor-HairStrandsCore.so')
+LogAsyncCompilation: Display: MemorySharingInfo: UsedMemory=4996MiB, MaxMemoryAvailable=121148MiB
+LogModuleManager: InternalLoadLibrary: 'ExampleDeviceProfileSelector' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/ExampleDeviceProfileSelector/Binaries/Linux/libUnrealEditor-ExampleDeviceProfileSelector.so')
+LogModuleManager: InternalLoadLibrary: 'InterchangeAxFAssets' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/InterchangeAxF/Assets/Binaries/Linux/libUnrealEditor-InterchangeAxFAssets.so')
+LogInit: ExecutableName: UnrealEditor-Cmd
+LogInit: Build: ++UE5+Release-5.8-CL-56702186
+LogInit: Platform=LinuxEditor
+LogInit: MachineId=3da9d2f3021f461a93a81e6b23a2b4d7-000003e9
+LogInit: DeviceId=
+LogInit: Engine Version: 5.8.2-56702186+++UE5+Release-5.8
+LogInit: Compatible Engine Version: 5.8.0-55116800+++UE5+Release-5.8
+LogInit: Net CL: 55116800
+LogInit: OS: Ubuntu 24.04.4 LTS (6.8.0-138-generic), CPU: AMD EPYC 9124 16-Core Processor, GPU: NVIDIA L40S (NVIDIA UNIX x86_64 Kernel Module  580.178.04  Tue Jul  7 12:38:21 UTC 2026)
+LogInit: CPU Model ID: 19111, microcode revision: a101148
+LogInit: Compiled (64-bit): Sep  3 2026 21:10:56
+LogInit: Architecture: x64
+LogInit: Compiled with Clang: 20.1.8 (github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+LogInit: Build Configuration: Development
+LogInit: Branch Name: ++UE5+Release-5.8
+LogInit: Command Line: /Game/Maps/BiellaGameplayMap -game -nullrhi -unattended -nosound -nosplash -stdout -FullStdOutLogOutput -NoAsyncLoadingThread -ExecCmds="t.MaxFPS 120,Automation RunTests BiellaGames.Demo01.RivalCombat; SoftQuit" -seconds=130
+LogInit: Base Directory: /opt/unreal/UE_5.8.2/Engine/Binaries/Linux/
+LogInit: Allocator: Mimalloc
+LogInit: Installed Engine Build: 1
+LogInit: This binary is optimized with LTO: no, PGO: no, instrumented for PGO data collection: no
+LogDevObjectVersion: Number of dev versions registered: 36
+LogDevObjectVersion:   Dev-Blueprints (B0D832E4-1F89-4F0D-ACCF-7EB736FD4AA2): 10
+LogDevObjectVersion:   Dev-Build (E1C64328-A22C-4D53-A36C-8E866417BD8C): 0
+LogDevObjectVersion:   Dev-Core (375EC13C-06E4-48FB-B500-84F0262A717E): 4
+LogDevObjectVersion:   Dev-Editor (E4B068ED-F494-42E9-A231-DA0B2E46BB41): 40
+LogDevObjectVersion:   Dev-Framework (CFFC743F-43B0-4480-9391-14DF171D2073): 37
+LogDevObjectVersion:   Dev-Mobile (B02B49B5-BB20-44E9-A304-32B752E40360): 3
+LogDevObjectVersion:   Dev-Networking (A4E4105C-59A1-49B5-A7C5-40C4547EDFEE): 0
+LogDevObjectVersion:   Dev-Online (39C831C9-5AE6-47DC-9A44-9C173E1C8E7C): 0
+LogDevObjectVersion:   Dev-Physics (78F01B33-EBEA-4F98-B9B4-84EACCB95AA2): 20
+LogDevObjectVersion:   Dev-Platform (6631380F-2D4D-43E0-8009-CF276956A95A): 0
+LogDevObjectVersion:   Dev-Rendering (12F88B9F-8875-4AFC-A67C-D90C383ABD29): 49
+LogDevObjectVersion:   Dev-Sequencer (7B5AE74C-D270-4C10-A958-57980B212A5A): 13
+LogDevObjectVersion:   Dev-VR (D7296918-1DD6-4BDD-9DE2-64A83CC13884): 3
+LogDevObjectVersion:   Dev-LoadTimes (C2A15278-BFE7-4AFE-6C17-90FF531DF755): 1
+LogDevObjectVersion:   Private-Geometry (6EACA3D4-40EC-4CC1-B786-8BED09428FC5): 3
+LogDevObjectVersion:   Dev-AnimPhys (29E575DD-E0A3-4627-9D10-D276232CDCEA): 17
+LogDevObjectVersion:   Dev-Anim (AF43A65D-7FD3-4947-9873-3E8ED9C1BB05): 15
+LogDevObjectVersion:   Dev-ReflectionCapture (6B266CEC-1EC7-4B8F-A30B-E4D90942FC07): 1
+LogDevObjectVersion:   Dev-Automation (0DF73D61-A23F-47EA-B727-89E90C41499A): 1
+LogDevObjectVersion:   FortniteMain (601D1886-AC64-4F84-AA16-D3DE0DEAC7D6): 268
+LogDevObjectVersion:   FortniteValkyrie (8DBC2C5B-54A7-43E0-A768-FCBB7DA29060): 8
+LogDevObjectVersion:   FortniteSeason (5B4C06B7-2463-4AF8-805B-BF70CDF5D0DD): 15
+LogDevObjectVersion:   FortniteRelease (E7086368-6B23-4C58-8439-1B7016265E91): 20
+LogDevObjectVersion:   Dev-Enterprise (9DFFBCD6-494F-0158-E221-12823C92A888): 11
+LogDevObjectVersion:   Dev-Niagara (F2AED0AC-9AFE-416F-8664-AA7FFA26D6FC): 1
+LogDevObjectVersion:   Dev-Destruction (174F1F0B-B4C6-45A5-B13F-2EE8D0FB917D): 10
+LogDevObjectVersion:   Dev-Physics-Ext (35F94A83-E258-406C-A318-09F59610247C): 41
+LogDevObjectVersion:   Dev-PhysicsMaterial-Chaos (B68FC16E-8B1B-42E2-B453-215C058844FE): 1
+LogDevObjectVersion:   Dev-CineCamera (B2E18506-4273-CFC2-A54E-F4BB758BBA07): 1
+LogDevObjectVersion:   Dev-VirtualProduction (64F58936-FD1B-42BA-BA96-7289D5D0FA4E): 1
+LogDevObjectVersion:   UE5-Main (697DD581-E64F-41AB-AA4A-51ECBEB7B628): 123
+LogDevObjectVersion:   UE5-Release (D89B5E42-24BD-4D46-8412-ACA8DF641779): 68
+LogDevObjectVersion:   UE5-SpecialProject (59DA5D52-1232-4948-B878-597870B8E98B): 9
+LogDevObjectVersion:   Dev-MediaFramework (6F0ED827-A609-4895-9C91-998D90180EA4): 2
+LogDevObjectVersion:   Dev-NaniteResearch (30D58BE3-95EA-4282-A6E3-B159D8EBB06A): 1
+LogDevObjectVersion:   Dev-ComputeFramework (6304A3E7-0059-4F59-8CFC-21BD7721FD4E): 0
+LogInit: Presizing for max 25165824 objects, including 0 objects not considered by GC.
+LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: false, Async Post Load: false, Multithreaded: false
+LogInit: Object subsystem initialized
+LogConfig: Set CVar [[con.DebugEarlyDefault:1]]
+LogConfig: CVar [[con.DebugLateDefault:1]] deferred - dummy variable created
+LogConfig: CVar [[con.DebugLateCheat:1]] deferred - dummy variable created
+LogConfig: CVar [[LogNamedEventFilters:Frame *]] deferred - dummy variable created
+LogConfig: Set CVar [[r.setres:1280x720]]
+LogConfig: Set CVar [[fx.NiagaraAllowRuntimeScalabilityChanges:1]]
+LogConfig: CVar [[QualityLevelMapping:high]] deferred - dummy variable created
+LogConfig: Set CVar [[r.Shadow.DetectVertexShaderLayerAtRuntime:1]]
+[2026.09.05-02.25.32:765][  0]LogConfig: CVar [[con.DebugLateDefault:1]] deferred - dummy variable created
+[2026.09.05-02.25.32:765][  0]LogConfig: CVar [[con.DebugLateCheat:1]] deferred - dummy variable created
+[2026.09.05-02.25.32:765][  0]LogConfig: CVar [[LogNamedEventFilters:Frame *]] deferred - dummy variable created
+[2026.09.05-02.25.32:765][  0]LogConfig: CVar [[QualityLevelMapping:high]] deferred - dummy variable created
+[2026.09.05-02.25.32:765][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.RendererSettings] File [Engine]
+[2026.09.05-02.25.32:765][  0]LogConfig: CVar [[VisualizeCalibrationColorMaterialPath:/Engine/EngineMaterials/PPM_DefaultCalibrationColor.PPM_DefaultCalibrationColor]] deferred - dummy variable created
+[2026.09.05-02.25.32:765][  0]LogConfig: CVar [[VisualizeCalibrationGrayscaleMaterialPath:/Engine/EngineMaterials/PPM_DefaultCalibrationGrayscale.PPM_DefaultCalibrationGrayscale]] deferred - dummy variable created
+[2026.09.05-02.25.32:765][  0]LogConfig: Set CVar [[r.GPUCrashDebugging:0]]
+[2026.09.05-02.25.32:765][  0]LogConfig: CVar [[MaxSkinBones:(Default=65536,PerPlatform=(("Mobile", 256)))]] deferred - dummy variable created
+[2026.09.05-02.25.32:765][  0]LogConfig: Set CVar [[r.Substrate.RoughDiffuse:1]]
+[2026.09.05-02.25.32:765][  0]LogConfig: Set CVar [[r.Substrate.ShadingQuality:1]]
+[2026.09.05-02.25.32:765][  0]LogConfig: Set CVar [[r.Substrate.TileCoord8bits:0]]
+[2026.09.05-02.25.32:765][  0]LogConfig: Set CVar [[r.Substrate.Glints:1]]
+[2026.09.05-02.25.32:765][  0]LogConfig: Set CVar [[r.Substrate.ClosuresPerPixel:4]]
+[2026.09.05-02.25.32:765][  0]LogConfig: Set CVar [[r.Refraction.Blur:1]]
+[2026.09.05-02.25.32:765][  0]LogConfig: Set CVar [[r.DefaultFeature.AutoExposure.ExtendDefaultLuminanceRange:1]]
+[2026.09.05-02.25.32:765][  0]LogConfig: Set CVar [[r.DynamicGlobalIlluminationMethod:1]]
+[2026.09.05-02.25.32:765][  0]LogConfig: Set CVar [[r.ReflectionMethod:1]]
+[2026.09.05-02.25.32:765][  0]LogConfig: Set CVar [[r.Shadow.Virtual.Enable:1]]
+[2026.09.05-02.25.32:765][  0]LogConfig: Set CVar [[r.Nanite.ProjectEnabled:1]]
+[2026.09.05-02.25.32:765][  0]LogConfig: Set CVar [[r.SkinCache.CompileShaders:1]]
+[2026.09.05-02.25.32:765][  0]LogConfig: Set CVar [[r.Shaders.RemoveUnusedInterpolators:1]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.RendererOverrideSettings] File [Engine]
+[2026.09.05-02.25.32:766][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.StreamingSettings] File [Engine]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[s.MinBulkDataSizeForAsyncLoading:131072]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[s.AsyncLoadingThreadEnabled:1]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[s.EventDrivenLoaderEnabled:1]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[s.WarnIfTimeLimitExceeded:0]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[s.TimeLimitExceededMultiplier:1.5]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[s.TimeLimitExceededMinTime:0.005]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[s.UseBackgroundLevelStreaming:1]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[s.PriorityAsyncLoadingExtraTime:15.0]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[s.LevelStreamingActorsUpdateTimeLimit:5.0]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[s.PriorityLevelStreamingActorsUpdateExtraTime:5.0]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[s.LevelStreamingComponentsRegistrationGranularity:10]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[s.UnregisterComponentsTimeLimit:1.0]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[s.LevelStreamingComponentsUnregistrationGranularity:5]]
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[s.MaxPackageSummarySize:16384]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[s.FlushStreamingOnExit:1]]
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[FixedBootOrder:/Script/Engine/Default__SoundBase]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[FixedBootOrder:/Script/Engine/Default__MaterialInterface]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[FixedBootOrder:/Script/Engine/Default__DeviceProfileManager]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.GarbageCollectionSettings] File [Engine]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[gc.MaxObjectsNotConsideredByGC:1]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[gc.NumRetriesBeforeForcingGC:10]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[gc.AllowParallelGC:1]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[gc.TimeBetweenPurgingPendingKillObjects:61.1]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[gc.MaxObjectsInEditor:25165824]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[gc.IncrementalBeginDestroyEnabled:1]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[gc.CreateGCClusters:1]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[gc.MinGCClusterSize:5]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[gc.AssetClustreringEnabled:0]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[gc.ActorClusteringEnabled:0]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[gc.VerifyUObjectsAreNotFGCObjects:0]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.NetworkSettings] File [Engine]
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[NetworkEmulationProfiles:(ProfileName="Average",ToolTip="Simulates average internet conditions")]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[NetworkEmulationProfiles:(ProfileName="Bad",ToolTip="Simulates laggy internet conditions")]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[NetworkEmulationProfiles:(ProfileName="BufferBloat",ToolTip="Simulates a connection affected by buffer bloat (in and out)")]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: Applying CVar settings from Section [/Script/UnrealEd.CookerSettings] File [Engine]
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[DefaultASTCQualityBySpeed:2]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[DefaultASTCQualityBySize:3]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[DefaultASTCQualityBySizeHQ:4]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:WidgetBlueprint]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:GroupActor]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:MetaData]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:ObjectRedirector]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:NavMeshRenderingComponent]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:ReflectionCaptureComponent]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:TextRenderComponent]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:Font]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:InterpCurveEdSetup]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:MaterialExpression]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:NiagaraEmitter]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:NiagaraScript]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:ParticleEmitter]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:ParticleLODLevel]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:ParticleModule]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:SubUVAnimation]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:SoundNode]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:GameplayEffectUIData]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:AmbientSound]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedClient:WidgetBlueprint]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedClient:GroupActor]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedClient:MetaData]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedClient:ObjectRedirector]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedClient:InterpCurveEdSetup]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[VersionedIntRValues:r.AllowStaticLighting]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[VersionedIntRValues:r.MaterialEditor.LWCTruncateMode]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[VersionedIntRValues:r.VelocityOutputPass]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[VersionedIntRValues:r.SelectiveBasePassOutputs]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[VersionedIntRValues:r.DBuffer]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[VersionedIntRValues:r.Mobile.DBuffer]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[VersionedIntRValues:r.Shaders.Symbols]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[VersionedIntRValues:r.Shaders.GenerateSymbols]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[VersionedIntRValues:r.Shaders.WriteSymbols]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[VersionedIntRValues:r.Shaders.AllowUniqueSymbols]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[VersionedIntRValues:r.Shaders.ExtraData]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[VersionedIntRValues:r.Shaders.Optimize]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[VersionedIntRValues:r.CompileShadersForDevelopment]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[VersionedIntRValues:r.MobileHDR]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogConfig: CVar [[VersionedIntRValues:r.UsePreExposure]] deferred - dummy variable created
+[2026.09.05-02.25.32:766][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resx="1920"
+[2026.09.05-02.25.32:766][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resy="1080"
+[2026.09.05-02.25.32:766][  0]LogConfig: Applying CVar settings from Section [ViewDistanceQuality@3] File [Scalability]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[r.SkeletalMeshLODBias:0]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[r.ViewDistanceScale:1.0]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Applying CVar settings from Section [AntiAliasingQuality@3] File [Scalability]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[r.FXAA.Quality:4]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[r.TemporalAA.Quality:2]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[r.TSR.History.R11G11B10:1]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[r.TSR.History.ScreenPercentage:200]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[r.TSR.History.UpdateQuality:3]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[r.TSR.ShadingRejection.Flickering:1]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[r.TSR.RejectionAntiAliasingQuality:2]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[r.TSR.ReprojectionField:1]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[r.TSR.Resurrection:1]]
+[2026.09.05-02.25.32:766][  0]LogConfig: Applying CVar settings from Section [ShadowQuality@3] File [Scalability]
+[2026.09.05-02.25.32:766][  0]LogConfig: Set CVar [[r.LightFunctionQuality:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.ShadowQuality:5]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.CSM.MaxCascades:10]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.MaxResolution:2048]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.MaxCSMResolution:2048]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.RadiusThreshold:0.01]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.DistanceScale:1.0]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.CSM.TransitionScale:1.0]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.PreShadowResolutionFactor:1.0]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.DistanceFieldShadowing:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.VolumetricFog:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.VolumetricFog.GridPixelSize:8]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.VolumetricFog.GridSizeZ:128]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.VolumetricFog.HistoryMissSupersampleCount:4]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.LightMaxDrawDistanceScale:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.CapsuleShadows:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.Virtual.MaxPhysicalPages:4096]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.Virtual.ResolutionLodBiasDirectional:-1.5]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.Virtual.ResolutionLodBiasDirectionalMoving:-1.5]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.Virtual.ResolutionLodBiasLocal:0.0]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.Virtual.ResolutionLodBiasLocalMoving:1.0]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.Virtual.SMRT.RayCountDirectional:8]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.Virtual.SMRT.SamplesPerRayDirectional:4]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.Virtual.SMRT.RayCountLocal:8]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.Virtual.SMRT.SamplesPerRayLocal:4]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Shadow.Virtual.MarkCoarsePagesLocal:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.MegaLights.NumSamplesPerPixel:4]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.MegaLights.DownsampleMode:2]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.MegaLights.ScreenTraces.Quality:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.MegaLights.FrontLayerTranslucency.Allow:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.MegaLights.FrontLayerTranslucency.SpecularOnly:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.MegaLights.FrontLayerTranslucency.SoftShadows:0]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.MegaLights.FrontLayerTranslucency.TexturedRectLights:0]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.MegaLights.Spatial.UseHistorySpatialVariance:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.MegaLights.Volume.GridPixelSize:8]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.MegaLights.Volume.GridSizeZ:128]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Applying CVar settings from Section [GlobalIlluminationQuality@3] File [Scalability]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.DistanceFieldAO:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.SkylightIntensityMultiplier:1.0]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.AOQuality:2]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.DiffuseIndirect.Allow:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.FinalGatherMethod:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.LumenScene.SurfaceCache.AtlasSize:4096]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.LumenScene.SurfaceCache.CardTexelDensityScale:100]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.LumenScene.SurfaceCache.CardMinResolution:2]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.LumenScene.SurfaceCache.CardMaxResolution:512]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.LumenScene.DirectLighting.MaxLightsPerTile:8]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.LumenScene.DirectLighting.UpdateFactor:32]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.LumenScene.Radiosity.UpdateFactor:64]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.LumenScene.Radiosity.ProbeSpacing:4]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.LumenScene.Radiosity.HemisphereProbeResolution:4]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.TraceMeshSDFs.Allow:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.RadianceCache.ProbeResolution:32]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.RadianceCache.NumProbesToTraceBudget:150]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.DownsampleFactor:16]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.NumAdaptiveProbes:8]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.TracingOctahedronResolution:8]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.IrradianceFormat:0]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.StochasticInterpolation:0]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.FullResolutionJitterWidth:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.TwoSidedFoliageBackfaceDiffuse:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.ScreenTraces.HZBTraversal.FullResDepth:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.ShortRangeAO.DownsampleFactor:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.ShortRangeAO.HorizonSearch.SliceCount:2]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.ShortRangeAO.BentNormal:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.ShortRangeAO.HorizonSearch.HZB:0]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.ShortRangeAO.HorizonSearch.ForegroundSampleRejectPower:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.ShortRangeAO.FoliageOcclusionStrength:.7]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.GridPixelSize:32]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.TraceFromVolume:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.ShareRadianceCacheWithOpaque:0]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.SpatialFilter:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.TracingOctahedronResolution:3]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.RadianceCache.ProbeResolution:8]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.RadianceCache.GridResolution:24]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.RadianceCache.NumProbesToTraceBudget:100]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.HardwareRayTracing.HitLighting.Allowed:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.RayTracing.Scene.BuildMode:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.RayTracing.Geometry.SkeletalMeshes:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.MeshCardRepresentation.SkeletalMesh:1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.RayTracing.DynamicGeometry.MaxUpdatePrimitivesPerFrame:-1]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Applying CVar settings from Section [ReflectionQuality@3] File [Scalability]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.SSR.Quality:3]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.SSR.HalfResSceneColor:0]]
+[2026.09.05-02.25.32:767][  0]LogConfig: Set CVar [[r.Lumen.Reflections.Allow:1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Lumen.Reflections.DownsampleFactor:1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Lumen.Reflections.MaxRoughnessToTraceForFoliage:0.4]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.MaxRoughnessToEvaluateRoughSpecularForFoliage:0.8]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Lumen.Reflections.ScreenSpaceReconstruction.NumSamples:5]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Lumen.Reflections.ScreenSpaceReconstruction.MinWeight:0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyReflections.FrontLayer.Allow:1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyReflections.FrontLayer.Enable:0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Applying CVar settings from Section [PostProcessQuality@3] File [Scalability]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.MotionBlurQuality:4]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.MotionBlur.HalfResGather:0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.AmbientOcclusionMipLevelFactor:0.4]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.AmbientOcclusionMaxQuality:100]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.AmbientOcclusionLevels:-1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.AmbientOcclusionRadiusScale:1.0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.DepthOfFieldQuality:2]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.RenderTargetPoolMin:400]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.LensFlareQuality:2]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SceneColorFringeQuality:1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.EyeAdaptationQuality:2]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.BloomQuality:5]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Bloom.ScreenPercentage:50.000]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.FastBlurThreshold:100]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Upscale.Quality:3]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.LightShaftQuality:1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Filter.SizeScale:1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.LUT.Shaper:0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.LUT.Size:32]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Tonemapper.Quality:5]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.DOF.Gather.ResolutionDivisor:2         ; lower gathering resolution]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.DOF.Gather.AccumulatorQuality:1        ; higher gathering accumulator quality]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.DOF.Gather.PostfilterMethod:1          ; Median3x3 postfilering method]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.DOF.Gather.EnableBokehSettings:0       ; no bokeh simulation when gathering]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.DOF.Gather.RingCount:4                 ; medium number of samples when gathering]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.DOF.Scatter.ForegroundCompositing:1    ; additive foreground scattering]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.DOF.Scatter.BackgroundCompositing:2    ; additive background scattering]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.DOF.Scatter.EnableBokehSettings:1      ; bokeh simulation when scattering]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.DOF.Scatter.MaxSpriteRatio:0.1         ; only a maximum of 10% of scattered bokeh]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.DOF.Recombine.Quality:1                ; cheap slight out of focus]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.DOF.Recombine.EnableBokehSettings:0    ; no bokeh simulation on slight out of focus]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.DOF.TemporalAAQuality:1                ; more stable temporal accumulation]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.DOF.Kernel.MaxForegroundRadius:0.025]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.DOF.Kernel.MaxBackgroundRadius:0.025]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Applying CVar settings from Section [TextureQuality@3] File [Scalability]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Streaming.MipBias:0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Streaming.AmortizeCPUToGPUCopy:0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Streaming.MaxNumTexturesToStreamPerFrame:0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Streaming.Boost:1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.MaxAnisotropy:8]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.VT.MaxAnisotropy:8]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Streaming.LimitPoolSizeToVRAM:0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Streaming.PoolSize:1000]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Streaming.MaxEffectiveScreenSize:0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Applying CVar settings from Section [EffectsQuality@3] File [Scalability]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.TranslucencyLightingVolume.Dim:64]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.RefractionQuality:2]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SceneColorFormat:4]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.DetailMode:3]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.TranslucencyLightingVolume.Blur:1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.MaterialQualityLevel:1 ; High quality]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SSS.Scale:1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SSS.SampleSet:2]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SSS.Quality:1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SSS.HalfRes:0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SSGI.Quality:3]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.EmitterSpawnRateScale:1.0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.ParticleLightQuality:2]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.FastApplyOnOpaque:1 ; Always have FastSkyLUT 1 in this case to avoid wrong sky]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.SampleCountMaxPerSlice:4]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.DepthResolution:16.0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SkyAtmosphere.FastSkyLUT:1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SkyAtmosphere.FastSkyLUT.SampleCountMin:4.0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SkyAtmosphere.FastSkyLUT.SampleCountMax:128.0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SkyAtmosphere.SampleCountMin:4.0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SkyAtmosphere.SampleCountMax:128.0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SkyAtmosphere.TransmittanceLUT.UseSmallFormat:0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SkyAtmosphere.TransmittanceLUT.SampleCount:10.0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.SkyAtmosphere.MultiScatteringLUT.SampleCount:15.0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Fog.SeparateComposition:-1	; Allow fog separate composition when FSSS is enabled.]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[fx.Niagara.QualityLevel:3]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.Refraction.OffsetQuality:1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.HeterogeneousVolumes.Allowed:1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.HeterogeneousVolumes.DownsampleFactor:2]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.HeterogeneousVolumes.MaxStepCount:256]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.HeterogeneousVolumes.Shadows.Resolution:512]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.HeterogeneousVolumes.Shadows.Precision:0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.HeterogeneousVolumes.UseExistenceMask:0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Applying CVar settings from Section [FoliageQuality@3] File [Scalability]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[foliage.DensityScale:1.0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[grass.DensityScale:1.0]]
+[2026.09.05-02.25.32:768][  0]LogConfig: CVar [[pcg.Quality:3]] deferred - dummy variable created
+[2026.09.05-02.25.32:768][  0]LogConfig: Applying CVar settings from Section [ShadingQuality@3] File [Scalability]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.HairStrands.SkyLighting.IntegrationType:2]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.HairStrands.SkyAO.SampleCount:4]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.HairStrands.Visibility.MSAA.SamplePerPixel:4]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[r.AnisotropicMaterials:1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Applying CVar settings from Section [LandscapeQuality@3] File [Scalability]
+[2026.09.05-02.25.32:768][  0]LogLinux: Selected Device Profile: [LinuxEditor]
+[2026.09.05-02.25.32:768][  0]LogInit: Selected Device Profile: [LinuxEditor]
+[2026.09.05-02.25.32:768][  0]LogHAL: Display: Platform has ~ 87 GB [92673540096 / 137438953472 / 87], which maps to Largest [LargestMinGB=32, LargerMinGB=12, DefaultMinGB=8, SmallerMinGB=6, SmallestMinGB=0)
+[2026.09.05-02.25.32:768][  0]LogDeviceProfileManager: Going up to parent DeviceProfile [Linux]
+[2026.09.05-02.25.32:768][  0]LogDeviceProfileManager: Going up to parent DeviceProfile []
+[2026.09.05-02.25.32:768][  0]LogDeviceProfileManager: Pushing Device Profile CVar: [[UI.SlateSDFText.RasterizationMode:Bitmap -> Msdf]]
+[2026.09.05-02.25.32:768][  0]LogDeviceProfileManager: Pushing Device Profile CVar: [[UI.SlateSDFText.ResolutionLevel:2 -> 2]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Applying CVar settings from Section [Startup] File [../../../Engine/Config/ConsoleVariables.ini]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[p.chaos.AllowCreatePhysxBodies:1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[fx.SkipVectorVMBackendOptimizations:1]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Applying CVar settings from Section [Startup_Linux] File [../../../Engine/Config/ConsoleVariables.ini]
+[2026.09.05-02.25.32:768][  0]LogConfig: Applying CVar settings from Section [ConsoleVariables] File [Engine]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[g.TimeoutForBlockOnRenderFence:60000]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[memory.MemoryPressureCriticalThresholdPercent:10]]
+[2026.09.05-02.25.32:768][  0]LogConfig: Applying CVar settings from Section [ConsoleVariables] File [/root/biella/repos/biella-engine/projects/biella-games/Saved/Config/LinuxEditor/Editor.ini]
+[2026.09.05-02.25.32:768][  0]LogConfig: Set CVar [[SplineComponent.OnlyUpdateActiveSpline:0]]
+[2026.09.05-02.25.32:769][  0]LogInit: Unix hardware info:
+[2026.09.05-02.25.32:769][  0]LogInit:  - we are the first instance of this executable
+[2026.09.05-02.25.32:769][  0]LogInit:  - this process' id (pid) is 1384055, parent process' id (ppid) is 1384054
+[2026.09.05-02.25.32:769][  0]LogInit:  - we are not running under debugger
+[2026.09.05-02.25.32:769][  0]LogInit:  - machine network name is 'biella-l40s-worker'
+[2026.09.05-02.25.32:769][  0]LogInit:  - user name is 'unreal' (unreal)
+[2026.09.05-02.25.32:769][  0]LogInit:  - we're logged in locally
+[2026.09.05-02.25.32:769][  0]LogInit:  - we're running without rendering
+[2026.09.05-02.25.32:769][  0]LogInit:  - CPU: AuthenticAMD 'AMD EPYC 9124 16-Core Processor' (signature: 0xA10F11)
+[2026.09.05-02.25.32:769][  0]LogInit:  - Number of physical cores available for the process: 15
+[2026.09.05-02.25.32:769][  0]LogInit:  - Number of logical cores available for the process: 15
+[2026.09.05-02.25.32:769][  0]LogInit:  - GPU Brand Info: NVIDIA L40S (NVIDIA UNIX x86_64 Kernel Module  580.178.04  Tue Jul  7 12:38:21 UTC 2026)
+[2026.09.05-02.25.32:769][  0]LogInit:  - Memory allocator used: Mimalloc
+[2026.09.05-02.25.32:769][  0]LogInit:  - This is an internal build.
+[2026.09.05-02.25.32:769][  0]LogCore: Benchmarking clocks:
+[2026.09.05-02.25.32:769][  0]LogCore:  - CLOCK_MONOTONIC (id=1), resolution 0.000000001s, can sustain 30428172 (30428K, 30M) calls per second without zero deltas.
+[2026.09.05-02.25.32:769][  0]LogCore:  - CLOCK_MONOTONIC_COARSE (id=6), resolution 0.001000000s, can sustain 182000596 (182001K, 182M) calls per second with 99.999396% zero deltas.
+[2026.09.05-02.25.32:769][  0]LogCore:  - CLOCK_MONOTONIC_RAW (id=4), resolution 0.000000001s, can sustain 30232139 (30232K, 30M) calls per second without zero deltas.
+[2026.09.05-02.25.32:769][  0]LogCore:  - CLOCK_REALTIME (id=0), resolution 0.000000001s, can sustain 30486209 (30486K, 30M) calls per second with 87.289170% zero deltas.
+[2026.09.05-02.25.32:769][  0]LogCore: Selected CLOCK_MONOTONIC (1) as the best available clock.
+[2026.09.05-02.25.32:769][  0]LogInit: Unix-specific commandline switches:
+[2026.09.05-02.25.32:769][  0]LogInit:  -ansimalloc - use malloc()/free() from libc (useful for tools like valgrind and electric fence)
+[2026.09.05-02.25.32:769][  0]LogInit:  -jemalloc - use jemalloc for all memory allocation
+[2026.09.05-02.25.32:769][  0]LogInit:  -binnedmalloc - use binned malloc  for all memory allocation
+[2026.09.05-02.25.32:769][  0]LogInit:  -filemapcachesize=NUMBER - set the size for case-sensitive file mapping cache
+[2026.09.05-02.25.32:769][  0]LogInit:  -useksm - uses kernel same-page mapping (KSM) for mapped memory (OFF)
+[2026.09.05-02.25.32:769][  0]LogInit:  -ksmmergeall - marks all mmap'd memory pages suitable for KSM (OFF)
+[2026.09.05-02.25.32:769][  0]LogInit:  -preloadmodulesymbols - Loads the main module symbols file into memory (OFF)
+[2026.09.05-02.25.32:769][  0]LogInit:  -sigdfl=SIGNAL - Allows a specific signal to be set to its default handler rather then ignoring the signal
+[2026.09.05-02.25.32:769][  0]LogInit:  -crashhandlerstacksize - Allows setting crash handler stack sizes (204800)
+[2026.09.05-02.25.32:769][  0]LogInit:  -noexclusivelockonwrite - disables marking files created by the engine as exclusive locked while the engine has them opened
+[2026.09.05-02.25.32:769][  0]LogInit:  -httpproxy=ADDRESS:PORT - redirects HTTP requests to a proxy (only supported if compiled with libcurl)
+[2026.09.05-02.25.32:769][  0]LogInit:  -reuseconn - allow libcurl to reuse HTTP connections (only matters if compiled with libcurl)
+[2026.09.05-02.25.32:769][  0]LogInit:  -virtmemkb=NUMBER - sets process virtual memory (address space) limit (overrides VirtualMemoryLimitInKB value from .ini)
+[2026.09.05-02.25.32:769][  0]LogInit:  -allowsyscallfilterfile=PATH_TO_FILE - sets up a system call filter allow list. any invalid syscall in this list *will* cause a crash
+[2026.09.05-02.25.32:769][  0]LogInit:  - Physical RAM available (not considering process quota): 87 GB (88380 MB, 90501504 KB, 92673540096 bytes)
+[2026.09.05-02.25.32:769][  0]LogInit:  - VirtualMemoryAllocator pools will grow at scale 1.4
+[2026.09.05-02.25.32:769][  0]LogInit:  - MemoryRangeDecommit() will be a no-op (re-run with -vmapoolevict to change)
+[2026.09.05-02.25.32:769][  0]LogInit:  - PageSize 4096
+[2026.09.05-02.25.32:769][  0]LogInit:  - BinnedPageSize 65536
+[2026.09.05-02.25.32:769][  0]LogCsvProfiler: Display: Metadata set : extradevelopmentmemorymb="0"
+[2026.09.05-02.25.32:769][  0]LogModuleManager: InternalLoadLibrary: 'IoStoreOnDemandCore' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-IoStoreOnDemandCore.so')
+[2026.09.05-02.25.32:769][  0]LogModuleManager: InternalLoadLibrary: 'BandwidthDebugDelegates' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-BandwidthDebugDelegates.so')
+[2026.09.05-02.25.32:770][  0]LogModuleManager: InternalLoadLibrary: 'ClientBandwidthDebugVisualizer' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-ClientBandwidthDebugVisualizer.so')
+[2026.09.05-02.25.32:775][  0]LogModuleManager: InternalLoadLibrary: 'BandwidthMeasurementTool' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-BandwidthMeasurementTool.so')
+[2026.09.05-02.25.32:776][  0]LogModuleManager: InternalLoadLibrary: 'DownlinkBandwidthManager' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-DownlinkBandwidthManager.so')
+[2026.09.05-02.25.32:776][  0]LogObj: Display: Attempting to load config data for Default__DownlinkBandwidthManagerConfig before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.09.05-02.25.32:776][  0]LogModuleManager: InternalLoadLibrary: 'Chaos' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Chaos.so')
+[2026.09.05-02.25.32:776][  0]LogModuleManager: InternalLoadLibrary: 'GeometryCore' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-GeometryCore.so')
+[2026.09.05-02.25.32:777][  0]LogSpline: Registered spline type: TypeId=0x54E3AD22, Impl=MultiSpline, Value=Vector
+[2026.09.05-02.25.32:777][  0]LogModuleManager: InternalLoadLibrary: 'ChaosSolverEngine' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-ChaosSolverEngine.so')
+[2026.09.05-02.25.32:782][  0]LogChaosDD: Chaos Debug Draw Startup
+[2026.09.05-02.25.32:782][  0]LogInit: Physics initialised using underlying interface: Chaos
+[2026.09.05-02.25.32:782][  0]LogInit: Using OS detected language (en-US-POSIX).
+[2026.09.05-02.25.32:782][  0]LogInit: Using OS detected locale (en-US-POSIX).
+[2026.09.05-02.25.32:783][  0]LogTextLocalizationManager: No specific localization for 'en-US-POSIX' exists, so 'en' will be used for the language.
+[2026.09.05-02.25.33:175][  0]LogInit: Not creating cursor resources due to headless application.
+[2026.09.05-02.25.33:178][  0]LogObj: Display: Attempting to load config data for Default__SlateThemeManager before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.09.05-02.25.33:181][  0]LogModuleManager: InternalLoadLibrary: 'Settings' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Settings.so')
+[2026.09.05-02.25.33:181][  0]LogModuleManager: InternalLoadLibrary: 'InputCore' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-InputCore.so')
+[2026.09.05-02.25.33:182][  0]LogSlate: New Slate User Created. Platform User Id 0, User Index 0, Is Virtual User: 0
+[2026.09.05-02.25.33:182][  0]LogSlate: Slate User Registered.  User Index 0, Is Virtual User: 0
+[2026.09.05-02.25.33:212][  0]LogInit: Running DelayedAutoRegister Phase PreRHIInit
+[2026.09.05-02.25.33:214][  0]LogModuleManager: InternalLoadLibrary: 'NullDrv' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-NullDrv.so')
+[2026.09.05-02.25.33:215][  0]LogVRS: Current RHI does not support Variable Rate Shading
+[2026.09.05-02.25.33:217][  0]LogRHI: Render tracing channels set: 'Submission' -> 0xf
+[2026.09.05-02.25.33:217][  0]LogCsvProfiler: Display: Metadata set : verbatimrhiname="Null"
+[2026.09.05-02.25.33:217][  0]LogCsvProfiler: Display: Metadata set : rhiname="Null"
+[2026.09.05-02.25.33:217][  0]LogCsvProfiler: Display: Metadata set : rhifeaturelevel="SM5"
+[2026.09.05-02.25.33:217][  0]LogCsvProfiler: Display: Metadata set : shaderplatform="VULKAN_SM5"
+[2026.09.05-02.25.33:217][  0]LogCsvProfiler: Display: Metadata set : gpu=""
+[2026.09.05-02.25.33:217][  0]LogCsvProfiler: Display: Metadata set : gpudriver=""
+[2026.09.05-02.25.33:217][  0]LogInit: Initializing FReadOnlyCVARCache
+[2026.09.05-02.25.33:217][  0]LogModuleManager: InternalLoadLibrary: 'TargetPlatform' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TargetPlatform.so')
+[2026.09.05-02.25.33:223][  0]LogModuleManager: InternalLoadLibrary: 'DesktopPlatform' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-DesktopPlatform.so')
+[2026.09.05-02.25.33:235][  0]Launching UnrealBuildTool... [/opt/unreal/UE_5.8.2/Engine/Build/BatchFiles/Linux/Build.sh -Mode=ValidatePlatforms -OutputSDKs  -AllPlatforms  -project="/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject" -log="/root/biella/repos/biella-engine/projects/biella-games/Saved/Logs/AutoSDKInfo.txt" -verbose -timestamps -progress]
+[2026.09.05-02.25.33:235][  0]LogModuleManager: InternalLoadLibrary: 'TurnkeySupport' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TurnkeySupport.so')
+Setting up bundled DotNet SDK
+Running command : dotnet Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll -Mode=ValidatePlatforms -OutputSDKs -AllPlatforms -project=/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject -log=/root/biella/repos/biella-engine/projects/biella-games/Saved/Logs/AutoSDKInfo.txt -verbose -timestamps -progress
+Log file: /root/biella/repos/biella-engine/projects/biella-games/Saved/Logs/AutoSDKInfo.txt
+##PlatformValidate: Win64 INVALID <UNKNOWN>
+##PlatformValidate: Mac INVALID <UNKNOWN>
+##PlatformValidate: IOS INVALID <UNKNOWN>
+##PlatformValidate: Android INVALID r27c
+##PlatformValidate: Linux VALID v26_clang-20.1.8-rockylinux8
+##PlatformValidate: LinuxArm64 VALID v26_clang-20.1.8-rockylinux8
+##PlatformValidate: TVOS INVALID <UNKNOWN>
+##PlatformValidate: VisionOS INVALID <UNKNOWN>
+Unable to find required SDK version 'MainVersion' for platform Win64. Check your SDK.json files
+Unable to find required SDK version 'MainVersion' for platform Mac. Check your SDK.json files
+Unable to find required SDK version 'MainVersion' for platform IOS. Check your SDK.json files
+Unable to find required SDK version 'MainVersion' for platform TVOS. Check your SDK.json files
+Unable to find required SDK version 'MainVersion' for platform VisionOS. Check your SDK.json files
+Trace written to file /home/unreal/.config/Epic/UnrealBuildTool/Trace.uba with size 316b
+[2026.09.05-02.25.33:590][  0]LogTargetPlatformManager: UBT AutoSDK ReturnCode: 0
+[2026.09.05-02.25.33:591][  0]LogModuleManager: InternalLoadLibrary: 'TextureFormat' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TextureFormat.so')
+[2026.09.05-02.25.33:592][  0]LogModuleManager: InternalLoadLibrary: 'TextureFormatASTC' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TextureFormatASTC.so')
+[2026.09.05-02.25.33:594][  0]LogModuleManager: InternalLoadLibrary: 'TextureFormatDXT' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TextureFormatDXT.so')
+[2026.09.05-02.25.33:597][  0]LogModuleManager: InternalLoadLibrary: 'TextureFormatETC2' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TextureFormatETC2.so')
+[2026.09.05-02.25.33:599][  0]LogModuleManager: InternalLoadLibrary: 'TextureFormatIntelISPCTexComp' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TextureFormatIntelISPCTexComp.so')
+[2026.09.05-02.25.33:600][  0]LogModuleManager: InternalLoadLibrary: 'TextureFormatOodle' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TextureFormatOodle.so')
+[2026.09.05-02.25.33:602][  0]LogModuleManager: InternalLoadLibrary: 'TextureFormatUncompressed' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TextureFormatUncompressed.so')
+[2026.09.05-02.25.33:604][  0]LogTextureFormatASTC: Display: ASTCEnc version 5.0.1 library loaded
+[2026.09.05-02.25.33:604][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatASTC
+[2026.09.05-02.25.33:604][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatDXT
+[2026.09.05-02.25.33:604][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatETC2
+[2026.09.05-02.25.33:604][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatIntelISPCTexComp
+[2026.09.05-02.25.33:604][  0]LogTextureFormatOodle: Display: Oodle Texture TFO init; latest sdk version = 2.9.16
+[2026.09.05-02.25.33:605][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: liboo2texlinux64.2.9.16.so
+[2026.09.05-02.25.33:606][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatOodle
+[2026.09.05-02.25.33:606][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatUncompressed
+[2026.09.05-02.25.33:670][  0]LogModuleManager: InternalLoadLibrary: 'LinuxTargetPlatform' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/Linux/libUnrealEditor-LinuxTargetPlatform.so')
+[2026.09.05-02.25.33:671][  0]LogModuleManager: InternalLoadLibrary: 'LinuxTargetPlatformSettings' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/Linux/libUnrealEditor-LinuxTargetPlatformSettings.so')
+[2026.09.05-02.25.33:693][  0]LogModuleManager: InternalLoadLibrary: 'LinuxTargetPlatformControls' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/Linux/libUnrealEditor-LinuxTargetPlatformControls.so')
+[2026.09.05-02.25.33:701][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Linux'
+[2026.09.05-02.25.33:701][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'LinuxEditor'
+[2026.09.05-02.25.33:702][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'LinuxServer'
+[2026.09.05-02.25.33:702][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'LinuxClient'
+[2026.09.05-02.25.33:702][  0]LogTargetPlatformManager: Display: Building Assets For LinuxEditor
+[2026.09.05-02.25.33:702][  0]LogModuleManager: InternalLoadLibrary: 'AudioFormatOPUS' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AudioFormatOpus.so')
+[2026.09.05-02.25.33:705][  0]LogModuleManager: InternalLoadLibrary: 'AudioFormatOGG' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AudioFormatOgg.so')
+[2026.09.05-02.25.33:711][  0]LogModuleManager: InternalLoadLibrary: 'AudioFormatADPCM' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AudioFormatADPCM.so')
+[2026.09.05-02.25.33:716][  0]LogModuleManager: InternalLoadLibrary: 'AudioFormatBINK' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AudioFormatBink.so')
+[2026.09.05-02.25.33:717][  0]LogModuleManager: InternalLoadLibrary: 'AudioFormatRAD' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AudioFormatRad.so')
+[2026.09.05-02.25.33:717][  0]LogModuleManager: InternalLoadLibrary: 'ShaderFormatVectorVM' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-ShaderFormatVectorVM.so')
+[2026.09.05-02.25.33:730][  0]LogTargetPlatformManager: Unable to find shader format SF_VULKAN_SM5 from hinted modules, loading all potential format modules to find it
+[2026.09.05-02.25.33:730][  0]LogModuleManager: InternalLoadLibrary: 'ShaderFormatOpenGL' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-ShaderFormatOpenGL.so')
+[2026.09.05-02.25.33:731][  0]LogTargetPlatformManager: Loaded format module ShaderFormatOpenGL
+[2026.09.05-02.25.33:731][  0]LogTargetPlatformManager:   GLSL_150_ES31
+[2026.09.05-02.25.33:731][  0]LogTargetPlatformManager:   GLSL_ES3_1_ANDROID
+[2026.09.05-02.25.33:731][  0]LogTargetPlatformManager: Loaded format module ShaderFormatVectorVM
+[2026.09.05-02.25.33:731][  0]LogTargetPlatformManager:   VVM_1_0
+[2026.09.05-02.25.33:731][  0]LogModuleManager: InternalLoadLibrary: 'VulkanShaderFormat' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-VulkanShaderFormat.so')
+[2026.09.05-02.25.33:732][  0]LogTargetPlatformManager: Loaded format module VulkanShaderFormat
+[2026.09.05-02.25.33:732][  0]LogTargetPlatformManager:   SF_VULKAN_SM5
+[2026.09.05-02.25.33:732][  0]LogTargetPlatformManager:   SF_VULKAN_ES31_ANDROID
+[2026.09.05-02.25.33:732][  0]LogTargetPlatformManager:   SF_VULKAN_ES31
+[2026.09.05-02.25.33:732][  0]LogTargetPlatformManager:   SF_VULKAN_SM5_ANDROID
+[2026.09.05-02.25.33:732][  0]LogTargetPlatformManager:   SF_VULKAN_SM6
+[2026.09.05-02.25.33:732][  0]LogRendererCore: Ray tracing is disabled. Reason: disabled through project setting (r.RayTracing=0).
+[2026.09.05-02.25.33:732][  0]LogModuleManager: InternalLoadLibrary: 'DerivedDataCache' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-DerivedDataCache.so')
+[2026.09.05-02.25.33:734][  0]LogDerivedDataCache: ProjectPak: Pak cache file ../../../../../../root/biella/repos/biella-engine/projects/biella-games/DerivedDataCache/DDC.ddp not found, will not use a pak cache.
+[2026.09.05-02.25.33:735][  0]LogDerivedDataCache: InstalledProjectPak: Pak cache file ../../../../../../root/biella/repos/biella-engine/projects/biella-games/DerivedDataCache/Compressed.ddp not found, will not use a pak cache.
+[2026.09.05-02.25.33:939][  0]LogDerivedDataCache: Display: ../../../Engine/DerivedDataCache/Compressed.ddp: Opened pak cache for reading. (1082 MiB)
+[2026.09.05-02.25.33:939][  0]LogDerivedDataCache: EnterprisePak: Pak cache file ../../../Enterprise/DerivedDataCache/Compressed.ddp not found, will not use a pak cache.
+[2026.09.05-02.25.33:940][  0]LogZenServiceInstance: Found Zen config default=/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Data
+[2026.09.05-02.25.33:940][  0]LogZenServiceInstance: Display: Launching zen utility '/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/zen service status'.
+[2026.09.05-02.25.33:966][  0]LogZenServiceInstance: Display: Writing plugin version info to '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zen_plugin_versions.json'
+[2026.09.05-02.25.33:966][  0]LogZenServiceInstance: Display: Read zen version cache file from '/home/unreal/.config/Epic/UnrealEngine/5.8/Saved/Zen/zen.version', version: '5.8.13-202605190912-linux-x86_64-release-094f62c2'
+[2026.09.05-02.25.33:966][  0]LogZenServiceInstance: InTree version at '/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/zenserver' is '5.8.13-202605190912-linux-x86_64-release-094f62c2'
+[2026.09.05-02.25.33:966][  0]LogZenServiceInstance: Display: Read zen version cache file from '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zen.version', version: '5.8.13-202605190912-linux-x86_64-release-094f62c2'
+[2026.09.05-02.25.33:966][  0]LogZenServiceInstance: Installed version at '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zenserver' is '5.8.13-202605190912-linux-x86_64-release-094f62c2'
+[2026.09.05-02.25.33:966][  0]LogZenServiceInstance: Display: Installed service at '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zenserver' is up to date
+[2026.09.05-02.25.33:969][  0]LogUnixPlatformFile: FUnixFileMapper::MapCaseInsensitiveFile: Lookup:/opt/unreal/UE_5.8.2/Engine/Binaries/DotNet/OidcToken/linux-x64/OidcToken Found:/opt/unreal/UE_5.8.2/Engine/Binaries/DotNET/OidcToken/linux-x64/OidcToken
+
+[2026.09.05-02.25.33:969][  0]LogZenServiceInstance: No current process using the data dir found, launching a new instance
+[2026.09.05-02.25.33:970][  0]LogZenServiceInstance: Display: Launching executable '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zenserver', working dir '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install', data dir '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Data', args '--port 8558 --data-dir /home/unreal/.config/Epic/UnrealEngine/Common/Zen/Data --http asio --gc-cache-duration-seconds 1209600 --gc-interval-seconds 21600 --gc-low-diskspace-threshold 2147483648 --cache-bucket-limit-overwrites --quiet --restrict-content-types --allow-external-oidctoken-exe=false --plugins-config "/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zen_plugins_v1.json" --security-config-path "/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/security-config.json" --owner-pid 1384055  --child-id Zen_1384055_Startup --detach'
+[2026.09.05-02.25.34:028][  0]LogZenServiceInstance: Display: Unreal Zen Storage Server HTTP service at http://[::1]:8558 status: OK!.
+[2026.09.05-02.25.34:028][  0]LogZenServiceInstance: Local ZenServer AutoLaunch initialization completed in 0.063 seconds
+[2026.09.05-02.25.34:029][  0]LogDerivedDataCache: Display: ZenLocal: Using ZenServer HTTP service at [::1] with namespace ue.ddc. Status: OK!.
+[2026.09.05-02.25.34:036][  0]LogDerivedDataCache: /home/unreal/.config/Epic/UnrealEngine/Common/DerivedDataCache: Speed tests took 0.01 seconds.
+[2026.09.05-02.25.34:036][  0]LogDerivedDataCache: Display: /home/unreal/.config/Epic/UnrealEngine/Common/DerivedDataCache: Performance: Latency=0.02ms. RandomReadSpeed=1122.05MBs, RandomWriteSpeed=166.97MBs. Assigned SpeedClass 'Local'
+[2026.09.05-02.25.34:037][  0]LogDerivedDataCache: Local: Using data cache path /home/unreal/.config/Epic/UnrealEngine/Common/DerivedDataCache: Writable
+[2026.09.05-02.25.34:037][  0]LogDerivedDataCache: ZenShared: Disabled because Host is set to 'None'
+[2026.09.05-02.25.34:037][  0]LogDerivedDataCache: Shared: Disabled because no path is configured.
+[2026.09.05-02.25.34:037][  0]LogDerivedDataCache: Cloud: Disabled because Host is set to 'None'
+[2026.09.05-02.25.34:037][  0]LogModuleManager: InternalLoadLibrary: 'ShaderPreprocessor' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-ShaderPreprocessor.so')
+[2026.09.05-02.25.34:038][  0]LogShaderCompilers: Guid format shader working directory is 12 characters bigger than the processId version (../../../../../../root/biella/repos/biella-engine/projects/biella-games/Intermediate/Shaders/WorkingDirectory/1384055/).
+[2026.09.05-02.25.34:038][  0]LogShaderCompilers: Cleaned the shader compiler working directory '../../../../../../root/biella/repos/biella-engine/projects/biella-games/Intermediate/Shaders/tmp/01A06F62B156716FAF5DDB4E8ECBE50B/'.
+[2026.09.05-02.25.34:038][  0]LogShaderCompilers: Display: No distributed shader compiler controller found
+[2026.09.05-02.25.34:038][  0]LogShaderCompilers: Display: Using 7 local workers for shader compilation
+[2026.09.05-02.25.34:039][  0]LogShaderCompilers: Display: Compiling shader autogen file: ../../../../../../root/biella/repos/biella-engine/projects/biella-games/Intermediate/ShaderAutogen/VULKAN_SM5/AutogenShaderHeaders.ush
+[2026.09.05-02.25.34:039][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.09.05-02.25.34:530][  0]LogInit: Running DelayedAutoRegister Phase ShaderTypesReady
+[2026.09.05-02.25.34:531][  0]LogModuleManager: InternalLoadLibrary: 'SlateNullRenderer' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-SlateNullRenderer.so')
+[2026.09.05-02.25.34:537][  0]LogSlate: Using FreeType 2.14.1
+[2026.09.05-02.25.34:537][  0]LogSlate: SlateFontServices - WITH_FREETYPE: 1, WITH_HARFBUZZ: 1
+[2026.09.05-02.25.34:538][  0]LogModuleManager: InternalLoadLibrary: 'NullInstallBundleManager' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-NullInstallBundleManager.so')
+[2026.09.05-02.25.34:539][  0]LogInit: Using OS detected language (en-US-POSIX).
+[2026.09.05-02.25.34:539][  0]LogInit: Using OS detected locale (en-US-POSIX).
+[2026.09.05-02.25.34:539][  0]LogTextLocalizationManager: No localization for 'en-US-POSIX' exists, so 'en' will be used for the language.
+[2026.09.05-02.25.34:539][  0]LogTextLocalizationManager: No localization for 'en-US-POSIX' exists, so 'en' will be used for the locale.
+[2026.09.05-02.25.34:539][  0]LogSlate: FontCache flush requested. Reason: Culture for localization was changed
+[2026.09.05-02.25.34:540][  0]LogModuleManager: InternalLoadLibrary: 'AssetRegistry' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AssetRegistry.so')
+[2026.09.05-02.25.34:541][  0]LogAssetRegistry: ActiveMountsLoading is disabled.
+[2026.09.05-02.25.34:541][  0]LogAssetRegistry: FAssetRegistry took 0.0005 seconds to start up
+[2026.09.05-02.25.34:549][  0]LogInit: Running DelayedAutoRegister Phase PreObjectSystemReady
+[2026.09.05-02.25.34:844][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64Editor not found.
+[2026.09.05-02.25.34:844][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64 not found.
+[2026.09.05-02.25.34:893][  0]LogLinux: Selected Device Profile: [LinuxEditor]
+[2026.09.05-02.25.34:894][  0]LogDeviceProfileManager: Active device profile: [0x70599dad700][0x70599e90000 82] LinuxEditor
+[2026.09.05-02.25.34:894][  0]LogCsvProfiler: Display: Metadata set : deviceprofile="LinuxEditor"
+[2026.09.05-02.25.34:894][  0]LogInit: Running DelayedAutoRegister Phase DeviceProfileManagerReady
+[2026.09.05-02.25.34:898][  0]LogStreaming: Display: FlushAsyncLoading(1): 1 QueuedPackages, 0 AsyncPackages
+[2026.09.05-02.25.34:938][  0]LogPackageLocalizationCache: Processed 87 localized package path(s) for 1 prioritized culture(s) in 0.040158 seconds
+[2026.09.05-02.25.34:952][  0]LogTextureEncodingSettings: Display: Texture Encode Speed: Final (cook).
+[2026.09.05-02.25.34:952][  0]LogTextureEncodingSettings: Display: Oodle Texture Encode Speed settings: Fast: RDO Off Lambda=0, Effort=Normal Final: RDO Off Lambda=0, Effort=Normal
+[2026.09.05-02.25.34:952][  0]LogTextureEncodingSettings: Display: Shared linear texture encoding: Disabled
+[2026.09.05-02.25.34:962][  0]LogModuleManager: InternalLoadLibrary: 'MeshUtilities' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MeshUtilities.so')
+[2026.09.05-02.25.34:980][  0]LogModuleManager: InternalLoadLibrary: 'MaterialBaking' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MaterialBaking.so')
+[2026.09.05-02.25.34:986][  0]LogModuleManager: InternalLoadLibrary: 'MeshMergeUtilities' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MeshMergeUtilities.so')
+[2026.09.05-02.25.34:991][  0]LogModuleManager: InternalLoadLibrary: 'MeshReductionInterface' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MeshReductionInterface.so')
+[2026.09.05-02.25.34:997][  0]LogMeshReduction: Display: HLOD mesh reduction module (r.ProxyLODMeshReductionModule) set to "ProxyLODMeshReduction" which doesn't exist.
+[2026.09.05-02.25.34:997][  0]LogModuleManager: InternalLoadLibrary: 'QuadricMeshReduction' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-QuadricMeshReduction.so')
+[2026.09.05-02.25.34:997][  0]LogModuleManager: InternalLoadLibrary: 'SkeletalMeshReduction' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/SkeletalReduction/Binaries/Linux/libUnrealEditor-SkeletalMeshReduction.so')
+[2026.09.05-02.25.35:003][  0]LogModuleManager: InternalLoadLibrary: 'MeshBoneReduction' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MeshBoneReduction.so')
+[2026.09.05-02.25.35:008][  0]LogMeshReduction: Display: Using QuadricMeshReduction for automatic static mesh reduction
+[2026.09.05-02.25.35:008][  0]LogMeshReduction: Display: Using SkeletalMeshReduction for automatic skeletal mesh reduction
+[2026.09.05-02.25.35:008][  0]LogMeshReduction: Display: No automatic mesh merging module available
+[2026.09.05-02.25.35:008][  0]LogMeshReduction: Display: No distributed automatic mesh merging module available
+[2026.09.05-02.25.35:008][  0]LogMeshMerging: No automatic mesh merging module available
+[2026.09.05-02.25.35:008][  0]LogMeshMerging: No distributed automatic mesh merging module available
+[2026.09.05-02.25.35:008][  0]LogModuleManager: InternalLoadLibrary: 'StaticMeshDescription' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-StaticMeshDescription.so')
+[2026.09.05-02.25.35:008][  0]LogModuleManager: InternalLoadLibrary: 'GeometryProcessingInterfaces' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-GeometryProcessingInterfaces.so')
+[2026.09.05-02.25.35:009][  0]LogModuleManager: InternalLoadLibrary: 'NaniteBuilder' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-NaniteBuilder.so')
+[2026.09.05-02.25.35:014][  0]LogModuleManager: InternalLoadLibrary: 'MeshBuilder' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MeshBuilder.so')
+[2026.09.05-02.25.35:047][  0]LogModuleManager: InternalLoadLibrary: 'KismetCompiler' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-KismetCompiler.so')
+[2026.09.05-02.25.35:053][  0]LogModuleManager: InternalLoadLibrary: 'MovieSceneTools' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MovieSceneTools.so')
+[2026.09.05-02.25.35:058][  0]LogModuleManager: InternalLoadLibrary: 'Sequencer' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Sequencer.so')
+[2026.09.05-02.25.35:072][  0]LogModuleManager: InternalLoadLibrary: 'AssetDefinition' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AssetDefinition.so')
+[2026.09.05-02.25.35:163][  0]LogModuleManager: InternalLoadLibrary: 'Media' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Media.so')
+[2026.09.05-02.25.35:229][  0]LogConfig: Applying CVar settings from Section [/Script/CQTest.CQTestSettings] File [Engine]
+[2026.09.05-02.25.35:259][  0]LogVirtualization: Display: VirtualizationSystem name found in ini file: None
+[2026.09.05-02.25.35:259][  0]LogVirtualization: Display: FNullVirtualizationSystem mounted, virtualization will be disabled
+[2026.09.05-02.25.35:259][  0]LogInit: Running DelayedAutoRegister Phase ObjectSystemReady
+[2026.09.05-02.25.35:259][  0]LogModuleManager: StartProcessingNewlyLoadedObjects
+[2026.09.05-02.25.35:259][  0]LogModuleManager: InternalLoadLibrary: 'Core' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Core.so')
+[2026.09.05-02.25.35:259][  0]LogModuleManager: InternalLoadLibrary: 'Networking' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Networking.so')
+[2026.09.05-02.25.35:259][  0]LogModuleManager: InternalLoadLibrary: 'AudioMixerSDL' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AudioMixerSDL.so')
+[2026.09.05-02.25.35:266][  0]LogModuleManager: InternalLoadLibrary: 'HeadMountedDisplay' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-HeadMountedDisplay.so')
+[2026.09.05-02.25.35:271][  0]LogModuleManager: InternalLoadLibrary: 'SourceCodeAccess' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-SourceCodeAccess.so')
+[2026.09.05-02.25.35:271][  0]LogHAL: Linux SourceCodeAccessSettings: VisualStudioCode
+[2026.09.05-02.25.35:272][  0]LogModuleManager: InternalLoadLibrary: 'Messaging' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Messaging.so')
+[2026.09.05-02.25.35:272][  0]LogModuleManager: InternalLoadLibrary: 'MRMesh' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MRMesh.so')
+[2026.09.05-02.25.35:279][  0]LogModuleManager: InternalLoadLibrary: 'UnrealEd' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-UnrealEd.so')
+[2026.09.05-02.25.35:284][  0]LogModuleManager: InternalLoadLibrary: 'LandscapeEditorUtilities' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-LandscapeEditorUtilities.so')
+[2026.09.05-02.25.35:290][  0]LogModuleManager: InternalLoadLibrary: 'SubobjectDataInterface' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-SubobjectDataInterface.so')
+[2026.09.05-02.25.35:295][  0]LogModuleManager: InternalLoadLibrary: 'SlateCore' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-SlateCore.so')
+[2026.09.05-02.25.35:296][  0]LogModuleManager: InternalLoadLibrary: 'Slate' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Slate.so')
+[2026.09.05-02.25.35:297][  0]LogModuleManager: InternalLoadLibrary: 'SlateReflector' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-SlateReflector.so')
+[2026.09.05-02.25.35:302][  0]LogModuleManager: InternalLoadLibrary: 'EditorStyle' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-EditorStyle.so')
+[2026.09.05-02.25.35:307][  0]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2026.09.05-02.25.35:308][  0]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2026.09.05-02.25.35:312][  0]LogModuleManager: InternalLoadLibrary: 'UMG' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-UMG.so')
+[2026.09.05-02.25.35:317][  0]LogModuleManager: InternalLoadLibrary: 'UMGEditor' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-UMGEditor.so')
+[2026.09.05-02.25.35:322][  0]LogModuleManager: InternalLoadLibrary: 'ScriptableEditorWidgets' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-ScriptableEditorWidgets.so')
+[2026.09.05-02.25.35:329][  0]LogModuleManager: InternalLoadLibrary: 'CollisionAnalyzer' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-CollisionAnalyzer.so')
+[2026.09.05-02.25.35:335][  0]LogModuleManager: InternalLoadLibrary: 'WorkspaceMenuStructure' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-WorkspaceMenuStructure.so')
+[2026.09.05-02.25.35:340][  0]LogModuleManager: InternalLoadLibrary: 'FunctionalTesting' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-FunctionalTesting.so')
+[2026.09.05-02.25.35:351][  0]LogModuleManager: InternalLoadLibrary: 'BehaviorTreeEditor' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-BehaviorTreeEditor.so')
+[2026.09.05-02.25.35:361][  0]LogModuleManager: InternalLoadLibrary: 'GameplayTasksEditor' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-GameplayTasksEditor.so')
+[2026.09.05-02.25.35:366][  0]LogModuleManager: InternalLoadLibrary: 'StringTableEditor' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-StringTableEditor.so')
+[2026.09.05-02.25.35:372][  0]LogModuleManager: InternalLoadLibrary: 'AssetTools' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AssetTools.so')
+[2026.09.05-02.25.35:377][  0]LogModuleManager: InternalLoadLibrary: 'VREditor' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-VREditor.so')
+[2026.09.05-02.25.35:384][  0]LogModuleManager: InternalLoadLibrary: 'MaterialEditor' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MaterialEditor.so')
+[2026.09.05-02.25.35:389][  0]LogModuleManager: InternalLoadLibrary: 'Overlay' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Overlay.so')
+[2026.09.05-02.25.35:395][  0]LogModuleManager: InternalLoadLibrary: 'OverlayEditor' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-OverlayEditor.so')
+[2026.09.05-02.25.35:400][  0]LogModuleManager: InternalLoadLibrary: 'MediaAssets' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MediaAssets.so')
+[2026.09.05-02.25.35:406][  0]LogModuleManager: InternalLoadLibrary: 'ClothingSystemRuntimeNv' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-ClothingSystemRuntimeNv.so')
+[2026.09.05-02.25.35:411][  0]LogModuleManager: InternalLoadLibrary: 'ClothingSystemEditor' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-ClothingSystemEditor.so')
+[2026.09.05-02.25.35:417][  0]LogModuleManager: InternalLoadLibrary: 'AnimationDataController' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AnimationDataController.so')
+[2026.09.05-02.25.35:423][  0]LogModuleManager: InternalLoadLibrary: 'TimeManagement' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TimeManagement.so')
+[2026.09.05-02.25.35:428][  0]LogModuleManager: InternalLoadLibrary: 'AnimGraph' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AnimGraph.so')
+[2026.09.05-02.25.35:433][  0]LogModuleManager: InternalLoadLibrary: 'WorldBookmark' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-WorldBookmark.so')
+[2026.09.05-02.25.35:448][  0]LogModuleManager: InternalLoadLibrary: 'WorldPartitionEditor' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-WorldPartitionEditor.so')
+[2026.09.05-02.25.35:455][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize started...
+[2026.09.05-02.25.35:457][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize took 2.107 ms
+[2026.09.05-02.25.35:457][  0]LogModuleManager: InternalLoadLibrary: 'SceneOutliner' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-SceneOutliner.so')
+[2026.09.05-02.25.35:462][  0]LogModuleManager: InternalLoadLibrary: 'PacketHandler' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-PacketHandler.so')
+[2026.09.05-02.25.35:463][  0]LogModuleManager: InternalLoadLibrary: 'NetworkReplayStreaming' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-NetworkReplayStreaming.so')
+[2026.09.05-02.25.35:463][  0]LogModuleManager: InternalLoadLibrary: 'MassEntity' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MassEntity.so')
+[2026.09.05-02.25.35:478][  0]LogModuleManager: InternalLoadLibrary: 'MassEntityTestSuite' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MassEntityTestSuite.so')
+[2026.09.05-02.25.35:494][  0]LogModuleManager: InternalLoadLibrary: 'BlueprintMaterialTextureNodes' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Editor/BlueprintMaterialTextureNodes/Binaries/Linux/libUnrealEditor-BlueprintMaterialTextureNodes.so')
+[2026.09.05-02.25.35:500][  0]LogModuleManager: InternalLoadLibrary: 'WebMMoviePlayer' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/WebMMoviePlayer/Binaries/Linux/libUnrealEditor-WebMMoviePlayer.so')
+[2026.09.05-02.25.35:508][  0]LogModuleManager: InternalLoadLibrary: 'AndroidFileServer' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AndroidFileServer/Binaries/Linux/libUnrealEditor-AndroidFileServer.so')
+[2026.09.05-02.25.35:516][  0]LogModuleManager: InternalLoadLibrary: 'EnhancedInput' ('/opt/unreal/UE_5.8.2/Engine/Plugins/EnhancedInput/Binaries/Linux/libUnrealEditor-EnhancedInput.so')
+[2026.09.05-02.25.35:527][  0]LogStats: UGameplayTagsManager::InitializeManager -  0.000 s
+[2026.09.05-02.25.35:527][  0]LogModuleManager: InternalLoadLibrary: 'InputBlueprintNodes' ('/opt/unreal/UE_5.8.2/Engine/Plugins/EnhancedInput/Binaries/Linux/libUnrealEditor-InputBlueprintNodes.so')
+[2026.09.05-02.25.35:537][  0]LogModuleManager: InternalLoadLibrary: 'BlueprintGraph' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-BlueprintGraph.so')
+[2026.09.05-02.25.35:543][  0]LogModuleManager: InternalLoadLibrary: 'MutableRuntime' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Mutable/Binaries/Linux/libUnrealEditor-MutableRuntime.so')
+[2026.09.05-02.25.35:551][  0]LogModuleManager: InternalLoadLibrary: 'CustomizableObject' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Mutable/Binaries/Linux/libUnrealEditor-CustomizableObject.so')
+[2026.09.05-02.25.35:563][  0]LogModuleManager: InternalLoadLibrary: 'MutableTools' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Mutable/Binaries/Linux/libUnrealEditor-MutableTools.so')
+[2026.09.05-02.25.35:570][  0]LogModuleManager: InternalLoadLibrary: 'TcpMessaging' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Messaging/TcpMessaging/Binaries/Linux/libUnrealEditor-TcpMessaging.so')
+[2026.09.05-02.25.35:570][  0]LogModuleManager: InternalLoadLibrary: 'UdpMessaging' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Messaging/UdpMessaging/Binaries/Linux/libUnrealEditor-UdpMessaging.so')
+[2026.09.05-02.25.35:572][  0]LogModuleManager: InternalLoadLibrary: 'PythonScriptPlugin' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PythonScriptPlugin/Binaries/Linux/libUnrealEditor-PythonScriptPlugin.so')
+[2026.09.05-02.25.35:583][  0]LogModuleManager: InternalLoadLibrary: 'ChaosCaching' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/ChaosCaching/Binaries/Linux/libUnrealEditor-ChaosCaching.so')
+[2026.09.05-02.25.35:588][  0]LogModuleManager: InternalLoadLibrary: 'FullBodyIK' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/FullBodyIK/Binaries/Linux/libUnrealEditor-FullBodyIK.so')
+[2026.09.05-02.25.35:673][  0]LogModuleManager: InternalLoadLibrary: 'PBIK' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/FullBodyIK/Binaries/Linux/libUnrealEditor-PBIK.so')
+[2026.09.05-02.25.35:679][  0]LogModuleManager: InternalLoadLibrary: 'NiagaraSimCaching' ('/opt/unreal/UE_5.8.2/Engine/Plugins/FX/NiagaraSimCaching/Binaries/Linux/libUnrealEditor-NiagaraSimCaching.so')
+[2026.09.05-02.25.35:686][  0]LogModuleManager: InternalLoadLibrary: 'NiagaraCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/FX/Niagara/Binaries/Linux/libUnrealEditor-NiagaraCore.so')
+[2026.09.05-02.25.35:686][  0]LogModuleManager: InternalLoadLibrary: 'Niagara' ('/opt/unreal/UE_5.8.2/Engine/Plugins/FX/Niagara/Binaries/Linux/libUnrealEditor-Niagara.so')
+[2026.09.05-02.25.35:692][  0]LogNiagaraDebuggerClient: Niagara Debugger Client Initialized | Session: 9A17AD0ACD8D420C8000000000005200 | Instance: 01A06F62A4C57820BD850AD5C012C0C4 (biella-l40s-worker-1384055).
+[2026.09.05-02.25.35:692][  0]LogModuleManager: InternalLoadLibrary: 'NiagaraEditor' ('/opt/unreal/UE_5.8.2/Engine/Plugins/FX/Niagara/Binaries/Linux/libUnrealEditor-NiagaraEditor.so')
+[2026.09.05-02.25.35:732][  0]LogModuleManager: InternalLoadLibrary: 'ContentBrowser' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-ContentBrowser.so')
+[2026.09.05-02.25.35:738][  0]LogModuleManager: InternalLoadLibrary: 'ContentBrowserData' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-ContentBrowserData.so')
+[2026.09.05-02.25.35:743][  0]LogModuleManager: InternalLoadLibrary: 'CollectionManager' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-CollectionManager.so')
+[2026.09.05-02.25.35:751][  0]LogCollectionManager: Loaded 0 collections in 0.002467 seconds
+[2026.09.05-02.25.35:751][  0]LogModuleManager: InternalLoadLibrary: 'DirectoryWatcher' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-DirectoryWatcher.so')
+[2026.09.05-02.25.35:752][  0]LogUnixPlatformFile: Warning: create dir('/root/biella/repos/biella-engine/projects/biella-games/Content/Developers/') failed: errno=13 (Permission denied)
+[2026.09.05-02.25.35:752][  0]LogFileCache: Scanning file cache for directory '/root/biella/repos/biella-engine/projects/biella-games/Saved/Collections/' took 0.00s
+[2026.09.05-02.25.35:752][  0]LogUnixPlatformFile: Warning: create dir('/root/biella/repos/biella-engine/projects/biella-games/Content/Developers/') failed: errno=13 (Permission denied)
+[2026.09.05-02.25.35:752][  0]LogCollectionManager: Fixed up redirectors for 0 collections in 0.000000 seconds (updated 0 objects)
+[2026.09.05-02.25.35:753][  0]LogModuleManager: InternalLoadLibrary: 'ToolMenus' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-ToolMenus.so')
+[2026.09.05-02.25.35:759][  0]LogModuleManager: InternalLoadLibrary: 'LevelSequence' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-LevelSequence.so')
+[2026.09.05-02.25.35:765][  0]LogModuleManager: InternalLoadLibrary: 'NiagaraAnimNotifies' ('/opt/unreal/UE_5.8.2/Engine/Plugins/FX/Niagara/Binaries/Linux/libUnrealEditor-NiagaraAnimNotifies.so')
+[2026.09.05-02.25.35:772][  0]LogModuleManager: InternalLoadLibrary: 'AssetManagerEditor' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Editor/AssetManagerEditor/Binaries/Linux/libUnrealEditor-AssetManagerEditor.so')
+[2026.09.05-02.25.35:784][  0]LogModuleManager: InternalLoadLibrary: 'TreeMap' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TreeMap.so')
+[2026.09.05-02.25.35:785][  0]LogModuleManager: InternalLoadLibrary: 'FacialAnimation' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Editor/FacialAnimation/Binaries/Linux/libUnrealEditor-FacialAnimation.so')
+[2026.09.05-02.25.35:791][  0]LogModuleManager: InternalLoadLibrary: 'GameplayTagsEditor' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Editor/GameplayTagsEditor/Binaries/Linux/libUnrealEditor-GameplayTagsEditor.so')
+[2026.09.05-02.25.35:798][  0]LogModuleManager: InternalLoadLibrary: 'EnvironmentQueryEditor' ('/opt/unreal/UE_5.8.2/Engine/Plugins/AI/EnvironmentQueryEditor/Binaries/Linux/libUnrealEditor-EnvironmentQueryEditor.so')
+[2026.09.05-02.25.35:805][  0]LogModuleManager: InternalLoadLibrary: 'ControlRig' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/ControlRig/Binaries/Linux/libUnrealEditor-ControlRig.so')
+[2026.09.05-02.25.35:812][  0]LogModuleManager: InternalLoadLibrary: 'Constraints' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Constraints.so')
+[2026.09.05-02.25.35:818][  0]LogModuleManager: InternalLoadLibrary: 'ControlRigDeveloper' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/ControlRig/Binaries/Linux/libUnrealEditor-ControlRigDeveloper.so')
+[2026.09.05-02.25.35:838][  0]LogModuleManager: InternalLoadLibrary: 'OptimusCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/DeformerGraph/Binaries/Linux/libUnrealEditor-OptimusCore.so')
+[2026.09.05-02.25.35:853][  0]LogModuleManager: InternalLoadLibrary: 'OptimusDeveloper' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/DeformerGraph/Binaries/Linux/libUnrealEditor-OptimusDeveloper.so')
+[2026.09.05-02.25.35:854][  0]LogModuleManager: InternalLoadLibrary: 'AnimationData' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/AnimationData/Binaries/Linux/libUnrealEditor-AnimationData.so')
+[2026.09.05-02.25.35:860][  0]LogModuleManager: InternalLoadLibrary: 'AnimationModifierLibrary' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/AnimationModifierLibrary/Binaries/Linux/libUnrealEditor-AnimationModifierLibrary.so')
+[2026.09.05-02.25.35:867][  0]LogModuleManager: InternalLoadLibrary: 'NNERuntimeORT' ('/opt/unreal/UE_5.8.2/Engine/Plugins/NNE/NNERuntimeORT/Binaries/Linux/libUnrealEditor-NNERuntimeORT.so')
+[2026.09.05-02.25.35:870][  0]LogNNERuntimeORT: MakeRuntimeORTDml:
+[2026.09.05-02.25.35:870][  0]LogNNERuntimeORT:   DirectML:  no
+[2026.09.05-02.25.35:870][  0]LogNNERuntimeORT:   RHI D3D12: no
+[2026.09.05-02.25.35:870][  0]LogNNERuntimeORT:   D3D12:     n/a (checked in CanCreateModelGPU)
+[2026.09.05-02.25.35:870][  0]LogNNERuntimeORT: Interface availability:
+[2026.09.05-02.25.35:870][  0]LogNNERuntimeORT:   GPU: n/a (checked in CanCreateModelGPU)
+[2026.09.05-02.25.35:870][  0]LogNNERuntimeORT:   RDG: no
+[2026.09.05-02.25.35:870][  0]LogNNERuntimeORT: NNERuntimeORTDml can only cook!
+[2026.09.05-02.25.35:870][  0]LogModuleManager: InternalLoadLibrary: 'NNEEditor' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-NNEEditor.so')
+[2026.09.05-02.25.35:877][  0]LogModuleManager: InternalLoadLibrary: 'RigLogicLib' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/RigLogic/Binaries/Linux/libUnrealEditor-RigLogicLib.so')
+[2026.09.05-02.25.35:884][  0]LogModuleManager: InternalLoadLibrary: 'RigLogicDeveloper' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/RigLogic/Binaries/Linux/libUnrealEditor-RigLogicDeveloper.so')
+[2026.09.05-02.25.35:894][  0]LogModuleManager: InternalLoadLibrary: 'Paper2D' ('/opt/unreal/UE_5.8.2/Engine/Plugins/2D/Paper2D/Binaries/Linux/libUnrealEditor-Paper2D.so')
+[2026.09.05-02.25.35:907][  0]LogModuleManager: InternalLoadLibrary: 'PropertyAccessNode' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/PropertyAccessNode/Binaries/Linux/libUnrealEditor-PropertyAccessNode.so')
+[2026.09.05-02.25.35:913][  0]LogModuleManager: InternalLoadLibrary: 'AnimationSharing' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/AnimationSharing/Binaries/Linux/libUnrealEditor-AnimationSharing.so')
+[2026.09.05-02.25.35:920][  0]LogModuleManager: InternalLoadLibrary: 'NullSourceCodeAccess' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/NullSourceCodeAccess/Binaries/Linux/libUnrealEditor-NullSourceCodeAccess.so')
+[2026.09.05-02.25.35:920][  0]LogModuleManager: InternalLoadLibrary: 'ImgMediaEngine' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Media/ImgMedia/Binaries/Linux/libUnrealEditor-ImgMediaEngine.so')
+[2026.09.05-02.25.35:926][  0]LogModuleManager: InternalLoadLibrary: 'InterchangeNodes' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Interchange/Runtime/Binaries/Linux/libUnrealEditor-InterchangeNodes.so')
+[2026.09.05-02.25.35:926][  0]LogModuleManager: InternalLoadLibrary: 'InterchangeFactoryNodes' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Interchange/Runtime/Binaries/Linux/libUnrealEditor-InterchangeFactoryNodes.so')
+[2026.09.05-02.25.35:932][  0]LogModuleManager: InternalLoadLibrary: 'InterchangeImport' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Interchange/Runtime/Binaries/Linux/libUnrealEditor-InterchangeImport.so')
+[2026.09.05-02.25.36:111][  0]LogModuleManager: InternalLoadLibrary: 'InterchangePipelines' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Interchange/Runtime/Binaries/Linux/libUnrealEditor-InterchangePipelines.so')
+[2026.09.05-02.25.36:126][  0]LogModuleManager: InternalLoadLibrary: 'MetasoundGraphCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/Metasound/Binaries/Linux/libUnrealEditor-MetasoundGraphCore.so')
+[2026.09.05-02.25.36:127][  0]LogModuleManager: InternalLoadLibrary: 'MetasoundGenerator' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/Metasound/Binaries/Linux/libUnrealEditor-MetasoundGenerator.so')
+[2026.09.05-02.25.36:142][  0]LogModuleManager: InternalLoadLibrary: 'MetasoundFrontend' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/Metasound/Binaries/Linux/libUnrealEditor-MetasoundFrontend.so')
+[2026.09.05-02.25.36:147][  0]LogModuleManager: InternalLoadLibrary: 'AudioChannelAgnosticCore' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AudioChannelAgnosticCore.so')
+[2026.09.05-02.25.36:148][  0]LogModuleManager: InternalLoadLibrary: 'MetasoundStandardNodes' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/Metasound/Binaries/Linux/libUnrealEditor-MetasoundStandardNodes.so')
+[2026.09.05-02.25.36:171][  0]LogModuleManager: InternalLoadLibrary: 'MetasoundEngine' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/Metasound/Binaries/Linux/libUnrealEditor-MetasoundEngine.so')
+[2026.09.05-02.25.36:186][  0]LogMetaSound: Display: MetaSound Page Target Initialized to 'Default'
+[2026.09.05-02.25.36:186][  0]LogModuleManager: InternalLoadLibrary: 'WaveTable' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/WaveTable/Binaries/Linux/libUnrealEditor-WaveTable.so')
+[2026.09.05-02.25.36:195][  0]LogAudio: Display: Registering Engine Module Parameter Interfaces...
+[2026.09.05-02.25.36:195][  0]LogMetaSound: MetaSound Engine Initialized
+[2026.09.05-02.25.36:195][  0]LogModuleManager: InternalLoadLibrary: 'MetasoundEngineTest' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/Metasound/Binaries/Linux/libUnrealEditor-MetasoundEngineTest.so')
+[2026.09.05-02.25.36:223][  0]LogModuleManager: InternalLoadLibrary: 'AudioWidgets' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AudioWidgets/Binaries/Linux/libUnrealEditor-AudioWidgets.so')
+[2026.09.05-02.25.36:229][  0]LogModuleManager: InternalLoadLibrary: 'AdvancedWidgets' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AdvancedWidgets.so')
+[2026.09.05-02.25.36:236][  0]LogModuleManager: InternalLoadLibrary: 'MetasoundEditor' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/Metasound/Binaries/Linux/libUnrealEditor-MetasoundEditor.so')
+[2026.09.05-02.25.36:243][  0]LogModuleManager: InternalLoadLibrary: 'CustomMeshComponent' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/CustomMeshComponent/Binaries/Linux/libUnrealEditor-CustomMeshComponent.so')
+[2026.09.05-02.25.36:249][  0]LogModuleManager: InternalLoadLibrary: 'MsQuicRuntime' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/MsQuic/Binaries/Linux/libUnrealEditor-MsQuicRuntime.so')
+[2026.09.05-02.25.36:249][  0]LogModuleManager: InternalLoadLibrary: 'ResonanceAudio' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/ResonanceAudio/Binaries/Linux/libUnrealEditor-ResonanceAudio.so')
+[2026.09.05-02.25.36:258][  0]LogModuleManager: InternalLoadLibrary: 'Synthesis' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/Synthesis/Binaries/Linux/libUnrealEditor-Synthesis.so')
+[2026.09.05-02.25.36:271][  0]LogModuleManager: InternalLoadLibrary: 'GeometryScriptingCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/GeometryScripting/Binaries/Linux/libUnrealEditor-GeometryScriptingCore.so')
+[2026.09.05-02.25.36:277][  0]LogModuleManager: InternalLoadLibrary: 'StateTreeModule' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/StateTree/Binaries/Linux/libUnrealEditor-StateTreeModule.so')
+[2026.09.05-02.25.36:290][  0]LogModuleManager: InternalLoadLibrary: 'TraceServices' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TraceServices.so')
+[2026.09.05-02.25.36:291][  0]LogModuleManager: InternalLoadLibrary: 'TraceAnalysis' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TraceAnalysis.so')
+[2026.09.05-02.25.36:291][  0]LogModuleManager: InternalLoadLibrary: 'StateTreeTestSuite' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/StateTree/Binaries/Linux/libUnrealEditor-StateTreeTestSuite.so')
+[2026.09.05-02.25.36:307][  0]LogModuleManager: InternalLoadLibrary: 'AudioSynesthesiaCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AudioSynesthesia/Binaries/Linux/libUnrealEditor-AudioSynesthesiaCore.so')
+[2026.09.05-02.25.36:307][  0]LogModuleManager: InternalLoadLibrary: 'AudioSynesthesia' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AudioSynesthesia/Binaries/Linux/libUnrealEditor-AudioSynesthesia.so')
+[2026.09.05-02.25.36:313][  0]LogModuleManager: InternalLoadLibrary: 'AudioAnalyzer' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AudioAnalyzer.so')
+[2026.09.05-02.25.36:318][  0]LogModuleManager: InternalLoadLibrary: 'CableComponent' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/CableComponent/Binaries/Linux/libUnrealEditor-CableComponent.so')
+[2026.09.05-02.25.36:324][  0]LogModuleManager: InternalLoadLibrary: 'PropertyBindingUtils' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/PropertyBindingUtils/Binaries/Linux/libUnrealEditor-PropertyBindingUtils.so')
+[2026.09.05-02.25.36:329][  0]LogModuleManager: InternalLoadLibrary: 'PropertyBindingUtilsTestSuite' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/PropertyBindingUtils/Binaries/Linux/libUnrealEditor-PropertyBindingUtilsTestSuite.so')
+[2026.09.05-02.25.36:335][  0]LogModuleManager: InternalLoadLibrary: 'HairStrandsDeformer' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/HairStrands/Binaries/Linux/libUnrealEditor-HairStrandsDeformer.so')
+[2026.09.05-02.25.36:343][  0]LogModuleManager: InternalLoadLibrary: 'HairStrandsSolver' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/HairStrands/Binaries/Linux/libUnrealEditor-HairStrandsSolver.so')
+[2026.09.05-02.25.36:352][  0]LogModuleManager: InternalLoadLibrary: 'PropertyAccessEditor' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/PropertyAccess/Binaries/Linux/libUnrealEditor-PropertyAccessEditor.so')
+[2026.09.05-02.25.36:358][  0]LogModuleManager: InternalLoadLibrary: 'LocationServicesBPLibrary' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/LocationServicesBPLibrary/Binaries/Linux/libUnrealEditor-LocationServicesBPLibrary.so')
+[2026.09.05-02.25.36:363][  0]LogModuleManager: InternalLoadLibrary: 'SoundFields' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/SoundFields/Binaries/Linux/libUnrealEditor-SoundFields.so')
+[2026.09.05-02.25.36:369][  0]LogModuleManager: InternalLoadLibrary: 'ProceduralMeshComponent' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/ProceduralMeshComponent/Binaries/Linux/libUnrealEditor-ProceduralMeshComponent.so')
+[2026.09.05-02.25.36:374][  0]LogModuleManager: InternalLoadLibrary: 'RigVM' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/RigVM/Binaries/Linux/libUnrealEditor-RigVM.so')
+[2026.09.05-02.25.36:379][  0]LogModuleManager: InternalLoadLibrary: 'RigVMDeveloper' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/RigVM/Binaries/Linux/libUnrealEditor-RigVMDeveloper.so')
+[2026.09.05-02.25.36:386][  0]LogModuleManager: InternalLoadLibrary: 'GameplayCameras' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Cameras/GameplayCameras/Binaries/Linux/libUnrealEditor-GameplayCameras.so')
+[2026.09.05-02.25.36:406][  0]LogModuleManager: InternalLoadLibrary: 'SignificanceManager' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/SignificanceManager/Binaries/Linux/libUnrealEditor-SignificanceManager.so')
+[2026.09.05-02.25.36:411][  0]LogModuleManager: InternalLoadLibrary: 'EngineCameras' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Cameras/EngineCameras/Binaries/Linux/libUnrealEditor-EngineCameras.so')
+[2026.09.05-02.25.36:420][  0]LogModuleManager: InternalLoadLibrary: 'ActorSequence' ('/opt/unreal/UE_5.8.2/Engine/Plugins/MovieScene/ActorSequence/Binaries/Linux/libUnrealEditor-ActorSequence.so')
+[2026.09.05-02.25.36:426][  0]LogModuleManager: InternalLoadLibrary: 'Scribble' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/Animation/Scribble/Binaries/Linux/libUnrealEditor-Scribble.so')
+[2026.09.05-02.25.36:426][  0]LogModuleManager: InternalLoadLibrary: 'Concert' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/Concert/ConcertMain/Binaries/Linux/libUnrealEditor-Concert.so')
+[2026.09.05-02.25.36:429][  0]LogModuleManager: InternalLoadLibrary: 'ConcertClient' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/Concert/ConcertMain/Binaries/Linux/libUnrealEditor-ConcertClient.so')
+[2026.09.05-02.25.36:436][  0]LogModuleManager: InternalLoadLibrary: 'ConcertTransport' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/Concert/ConcertMain/Binaries/Linux/libUnrealEditor-ConcertTransport.so')
+[2026.09.05-02.25.36:436][  0]LogModuleManager: InternalLoadLibrary: 'ConcertServer' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/Concert/ConcertMain/Binaries/Linux/libUnrealEditor-ConcertServer.so')
+[2026.09.05-02.25.36:438][  0]LogModuleManager: InternalLoadLibrary: 'SQLiteCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/Database/SQLiteCore/Binaries/Linux/libUnrealEditor-SQLiteCore.so')
+[2026.09.05-02.25.36:439][  0]LogModuleManager: InternalLoadLibrary: 'ConcertSyncCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/Concert/ConcertSync/ConcertSyncCore/Binaries/Linux/libUnrealEditor-ConcertSyncCore.so')
+[2026.09.05-02.25.36:448][  0]LogModuleManager: InternalLoadLibrary: 'BiellaGames' ('/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/libUnrealEditor-BiellaGames.so')
+[2026.09.05-02.25.36:457][  0]LogModuleManager: InternalLoadLibrary: 'WorldMetricsCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/WorldMetrics/Binaries/Linux/libUnrealEditor-WorldMetricsCore.so')
+[2026.09.05-02.25.36:463][  0]LogModuleManager: InternalLoadLibrary: 'WorldMetricsTest' ('/opt/unreal/UE_5.8.2/Engine/Plugins/WorldMetrics/Binaries/Linux/libUnrealEditor-WorldMetricsTest.so')
+[2026.09.05-02.25.36:469][  0]LogModuleManager: InternalLoadLibrary: 'CsvMetrics' ('/opt/unreal/UE_5.8.2/Engine/Plugins/WorldMetrics/Binaries/Linux/libUnrealEditor-CsvMetrics.so')
+[2026.09.05-02.25.36:474][  0]LogModuleManager: InternalLoadLibrary: 'DataflowEnginePlugin' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Dataflow/Binaries/Linux/libUnrealEditor-DataflowEnginePlugin.so')
+[2026.09.05-02.25.36:480][  0]LogModuleManager: InternalLoadLibrary: 'DataflowEngine' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-DataflowEngine.so')
+[2026.09.05-02.25.36:485][  0]LogModuleManager: InternalLoadLibrary: 'DataflowSimulation' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-DataflowSimulation.so')
+[2026.09.05-02.25.36:491][  0]LogModuleManager: InternalLoadLibrary: 'DataflowNodes' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Dataflow/Binaries/Linux/libUnrealEditor-DataflowNodes.so')
+[2026.09.05-02.25.36:502][  0]LogModuleManager: InternalLoadLibrary: 'CustomizableObjectEditor' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Mutable/Binaries/Linux/libUnrealEditor-CustomizableObjectEditor.so')
+[2026.09.05-02.25.36:526][  0]LogMutable: Creating Mutable Customizable Object System.
+[2026.09.05-02.25.36:526][  0]LogModuleManager: InternalLoadLibrary: 'TraceUtilities' ('/opt/unreal/UE_5.8.2/Engine/Plugins/TraceUtilities/Binaries/Linux/libUnrealEditor-TraceUtilities.so')
+[2026.09.05-02.25.36:532][  0]LogModuleManager: InternalLoadLibrary: 'PCG' ('/opt/unreal/UE_5.8.2/Engine/Plugins/PCG/Binaries/Linux/libUnrealEditor-PCG.so')
+[2026.09.05-02.25.36:582][  0]LogConfig: Applying CVar settings from Section [/Script/PCG.PCGEngineSettings] File [Engine]
+[2026.09.05-02.25.36:591][  0]LogModuleManager: InternalLoadLibrary: 'ChaosVDBlueprint' ('/opt/unreal/UE_5.8.2/Engine/Plugins/ChaosVD/Binaries/Linux/libUnrealEditor-ChaosVDBlueprint.so')
+[2026.09.05-02.25.36:597][  0]LogModuleManager: InternalLoadLibrary: 'AudioInsightsRuntime' ('/opt/unreal/UE_5.8.2/Engine/Plugins/AudioInsightsRuntime/Binaries/Linux/libUnrealEditor-AudioInsightsRuntime.so')
+[2026.09.05-02.25.36:603][  0]LogModuleManager: InternalLoadLibrary: 'MeshModelingToolsExp' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/MeshModelingToolsetExp/Binaries/Linux/libUnrealEditor-MeshModelingToolsExp.so')
+[2026.09.05-02.25.36:609][  0]LogModuleManager: InternalLoadLibrary: 'ModelingUI' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/MeshModelingToolsetExp/Binaries/Linux/libUnrealEditor-ModelingUI.so')
+[2026.09.05-02.25.36:610][  0]LogModuleManager: InternalLoadLibrary: 'ControlRigPhysics' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/ControlRigPhysics/Binaries/Linux/libUnrealEditor-ControlRigPhysics.so')
+[2026.09.05-02.25.36:627][  0]LogModuleManager: InternalLoadLibrary: 'BackChannel' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/BackChannel/Binaries/Linux/libUnrealEditor-BackChannel.so')
+[2026.09.05-02.25.36:628][  0]LogModuleManager: InternalLoadLibrary: 'Landmass' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/Landmass/Binaries/Linux/libUnrealEditor-Landmass.so')
+[2026.09.05-02.25.36:633][  0]LogModuleManager: InternalLoadLibrary: 'ChaosNiagara' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/ChaosNiagara/Binaries/Linux/libUnrealEditor-ChaosNiagara.so')
+[2026.09.05-02.25.36:641][  0]LogModuleManager: InternalLoadLibrary: 'GeometryDataflowNodes' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/GeometryDataflow/Binaries/Linux/libUnrealEditor-GeometryDataflowNodes.so')
+[2026.09.05-02.25.36:648][  0]LogModuleManager: InternalLoadLibrary: 'DataflowMedialSkeleton' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/GeometryDataflow/Binaries/Linux/libUnrealEditor-DataflowMedialSkeleton.so')
+[2026.09.05-02.25.36:648][  0]LogModuleManager: InternalLoadLibrary: 'GeometryCollectionTracks' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/GeometryCollectionPlugin/Binaries/Linux/libUnrealEditor-GeometryCollectionTracks.so')
+[2026.09.05-02.25.36:654][  0]LogModuleManager: InternalLoadLibrary: 'GeometryCollectionSequencer' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/GeometryCollectionPlugin/Binaries/Linux/libUnrealEditor-GeometryCollectionSequencer.so')
+[2026.09.05-02.25.36:660][  0]LogModuleManager: InternalLoadLibrary: 'GeometryCollectionEngine' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-GeometryCollectionEngine.so')
+[2026.09.05-02.25.36:665][  0]LogModuleManager: InternalLoadLibrary: 'GeometryCollectionNodes' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/GeometryCollectionPlugin/Binaries/Linux/libUnrealEditor-GeometryCollectionNodes.so')
+[2026.09.05-02.25.36:709][  0]LogModuleManager: InternalLoadLibrary: 'GeometryCollectionDepNodes' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/GeometryCollectionPlugin/Binaries/Linux/libUnrealEditor-GeometryCollectionDepNodes.so')
+[2026.09.05-02.25.36:716][  0]LogModuleManager: InternalLoadLibrary: 'ChaosUserDataPT' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/ChaosUserDataPT/Binaries/Linux/libUnrealEditor-ChaosUserDataPT.so')
+[2026.09.05-02.25.36:716][  0]LogModuleManager: InternalLoadLibrary: 'GeometryFlowCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/GeometryFlow/Binaries/Linux/libUnrealEditor-GeometryFlowCore.so')
+[2026.09.05-02.25.36:716][  0]LogModuleManager: InternalLoadLibrary: 'GeometryFlowMeshProcessing' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/GeometryFlow/Binaries/Linux/libUnrealEditor-GeometryFlowMeshProcessing.so')
+[2026.09.05-02.25.36:717][  0]LogModuleManager: InternalLoadLibrary: 'AutomationUtils' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/AutomationUtils/Binaries/Linux/libUnrealEditor-AutomationUtils.so')
+[2026.09.05-02.25.36:723][  0]LogModuleManager: InternalLoadLibrary: 'GlobalConfigurationData' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/GlobalConfigurationData/Binaries/Linux/libUnrealEditor-GlobalConfigurationData.so')
+[2026.09.05-02.25.36:729][  0]LogModuleManager: InternalLoadLibrary: 'GlobalConfigurationDataCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/GlobalConfigurationData/Binaries/Linux/libUnrealEditor-GlobalConfigurationDataCore.so')
+[2026.09.05-02.25.36:730][  0]LogModuleManager: InternalLoadLibrary: 'MutableAssetUserData' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/MutableAssetUserData/Binaries/Linux/libUnrealEditor-MutableAssetUserData.so')
+[2026.09.05-02.25.36:736][  0]LogModuleManager: InternalLoadLibrary: 'TedsCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/EditorDataStorage/Binaries/Linux/libUnrealEditor-TedsCore.so')
+[2026.09.05-02.25.36:748][  0]LogModuleManager: InternalLoadLibrary: 'TypedElementFramework' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TypedElementFramework.so')
+[2026.09.05-02.25.36:749][  0]LogModuleManager: InternalLoadLibrary: 'MassEntityEditor' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MassEntityEditor.so')
+[2026.09.05-02.25.36:755][  0]LogModuleManager: InternalLoadLibrary: 'MassEntityDebugger' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MassEntityDebugger.so')
+[2026.09.05-02.25.36:763][  0]LogModuleManager: InternalLoadLibrary: 'LocalizableMessage' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/LocalizableMessage/Binaries/Linux/libUnrealEditor-LocalizableMessage.so')
+[2026.09.05-02.25.36:763][  0]LogModuleManager: InternalLoadLibrary: 'LocalizableMessageBlueprint' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/LocalizableMessage/Binaries/Linux/libUnrealEditor-LocalizableMessageBlueprint.so')
+[2026.09.05-02.25.36:769][  0]LogModuleManager: InternalLoadLibrary: 'NiagaraBlueprintNodes' ('/opt/unreal/UE_5.8.2/Engine/Plugins/FX/Niagara/Binaries/Linux/libUnrealEditor-NiagaraBlueprintNodes.so')
+[2026.09.05-02.25.36:776][  0]LogModuleManager: InternalLoadLibrary: 'ConsoleVariablesEditor' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Editor/ConsoleVariablesEditor/Binaries/Linux/libUnrealEditor-ConsoleVariablesEditor.so')
+[2026.09.05-02.25.36:784][  0]LogModuleManager: InternalLoadLibrary: 'ConsoleVariablesEditorRuntime' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Editor/ConsoleVariablesEditor/Binaries/Linux/libUnrealEditor-ConsoleVariablesEditorRuntime.so')
+[2026.09.05-02.25.36:789][  0]LogModuleManager: InternalLoadLibrary: 'OnlineBase' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Online/OnlineBase/Binaries/Linux/libUnrealEditor-OnlineBase.so')
+[2026.09.05-02.25.36:790][  0]LogModuleManager: InternalLoadLibrary: 'OodleNetworkHandlerComponent' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Compression/OodleNetwork/Binaries/Linux/libUnrealEditor-OodleNetworkHandlerComponent.so')
+[2026.09.05-02.25.36:796][  0]LogModuleManager: InternalLoadLibrary: 'PhysicsControl' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/PhysicsControl/Binaries/Linux/libUnrealEditor-PhysicsControl.so')
+[2026.09.05-02.25.36:801][  0]LogModuleManager: InternalLoadLibrary: 'PhysicsControlUncookedOnly' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/PhysicsControl/Binaries/Linux/libUnrealEditor-PhysicsControlUncookedOnly.so')
+[2026.09.05-02.25.36:807][  0]LogModuleManager: InternalLoadLibrary: 'RewindDebuggerRuntime' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/GameplayInsights/Binaries/Linux/libUnrealEditor-RewindDebuggerRuntime.so')
+[2026.09.05-02.25.36:812][  0]LogModuleManager: InternalLoadLibrary: 'RewindDebuggerVLogRuntime' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/GameplayInsights/Binaries/Linux/libUnrealEditor-RewindDebuggerVLogRuntime.so')
+[2026.09.05-02.25.36:818][  0]LogModuleManager: InternalLoadLibrary: 'IKRig' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/IKRig/Binaries/Linux/libUnrealEditor-IKRig.so')
+[2026.09.05-02.25.36:833][  0]LogModuleManager: InternalLoadLibrary: 'IKRigDeveloper' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/IKRig/Binaries/Linux/libUnrealEditor-IKRigDeveloper.so')
+[2026.09.05-02.25.36:840][  0]LogModuleManager: InternalLoadLibrary: 'ControlRigSpline' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/ControlRigSpline/Binaries/Linux/libUnrealEditor-ControlRigSpline.so')
+[2026.09.05-02.25.36:847][  0]LogModuleManager: InternalLoadLibrary: 'RigLogicModule' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/RigLogic/Binaries/Linux/libUnrealEditor-RigLogicModule.so')
+[2026.09.05-02.25.36:853][  0]LogModuleManager: InternalLoadLibrary: 'NNEDenoiser' ('/opt/unreal/UE_5.8.2/Engine/Plugins/NNE/NNEDenoiser/Binaries/Linux/libUnrealEditor-NNEDenoiser.so')
+[2026.09.05-02.25.36:859][  0]LogConfig: Applying CVar settings from Section [/Script/NNEDenoiser.NNEDenoiserSettings] File [Engine]
+[2026.09.05-02.25.36:859][  0]LogModuleManager: InternalLoadLibrary: 'KDevelopSourceCodeAccess' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/KDevelopSourceCodeAccess/Binaries/Linux/libUnrealEditor-KDevelopSourceCodeAccess.so')
+[2026.09.05-02.25.36:860][  0]LogModuleManager: InternalLoadLibrary: 'SubversionSourceControl' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/SubversionSourceControl/Binaries/Linux/libUnrealEditor-SubversionSourceControl.so')
+[2026.09.05-02.25.36:865][  0]SourceControl: Revision control is disabled
+[2026.09.05-02.25.36:865][  0]LogModuleManager: InternalLoadLibrary: 'UObjectPlugin' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/UObjectPlugin/Binaries/Linux/libUnrealEditor-UObjectPlugin.so')
+[2026.09.05-02.25.36:866][  0]LogModuleManager: InternalLoadLibrary: 'NamingTokens' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/NamingTokens/Binaries/Linux/libUnrealEditor-NamingTokens.so')
+[2026.09.05-02.25.36:873][  0]LogModuleManager: InternalLoadLibrary: 'NamingTokensUI' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/NamingTokens/Binaries/Linux/libUnrealEditor-NamingTokensUI.so')
+[2026.09.05-02.25.36:879][  0]LogModuleManager: InternalLoadLibrary: 'NamingTokensUncookedOnly' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/NamingTokens/Binaries/Linux/libUnrealEditor-NamingTokensUncookedOnly.so')
+[2026.09.05-02.25.36:884][  0]LogModuleManager: InternalLoadLibrary: 'VisualStudioCodeSourceCodeAccess' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/VisualStudioCodeSourceCodeAccess/Binaries/Linux/libUnrealEditor-VisualStudioCodeSourceCodeAccess.so')
+[2026.09.05-02.25.36:892][  0]LogModuleManager: InternalLoadLibrary: 'CodeLiteSourceCodeAccess' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/CodeLiteSourceCodeAccess/Binaries/Linux/libUnrealEditor-CodeLiteSourceCodeAccess.so')
+[2026.09.05-02.25.36:893][  0]LogModuleManager: InternalLoadLibrary: 'DumpGPUServices' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/DumpGPUServices/Binaries/Linux/libUnrealEditor-DumpGPUServices.so')
+[2026.09.05-02.25.36:894][  0]LogModuleManager: InternalLoadLibrary: 'TweeningUtils' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Animation/TweeningUtils/Binaries/Linux/libUnrealEditor-TweeningUtils.so')
+[2026.09.05-02.25.36:894][  0]LogModuleManager: InternalLoadLibrary: 'CLionSourceCodeAccess' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/CLionSourceCodeAccess/Binaries/Linux/libUnrealEditor-CLionSourceCodeAccess.so')
+[2026.09.05-02.25.36:895][  0]LogModuleManager: InternalLoadLibrary: 'MetaHumanSDKRuntime' ('/opt/unreal/UE_5.8.2/Engine/Plugins/MetaHuman/MetaHumanSDK/Binaries/Linux/libUnrealEditor-MetaHumanSDKRuntime.so')
+[2026.09.05-02.25.36:901][  0]LogModuleManager: InternalLoadLibrary: 'TakeMovieScene' ('/opt/unreal/UE_5.8.2/Engine/Plugins/VirtualProduction/Takes/Binaries/Linux/libUnrealEditor-TakeMovieScene.so')
+[2026.09.05-02.25.36:907][  0]LogModuleManager: InternalLoadLibrary: 'MediaCompositing' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Media/MediaCompositing/Binaries/Linux/libUnrealEditor-MediaCompositing.so')
+[2026.09.05-02.25.36:913][  0]LogModuleManager: InternalLoadLibrary: 'ImgMedia' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Media/ImgMedia/Binaries/Linux/libUnrealEditor-ImgMedia.so')
+[2026.09.05-02.25.36:926][  0]LogModuleManager: InternalLoadLibrary: 'MediaPlate' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Media/MediaPlate/Binaries/Linux/libUnrealEditor-MediaPlate.so')
+[2026.09.05-02.25.36:934][  0]LogModuleManager: InternalLoadLibrary: 'GLTFCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Interchange/Runtime/Binaries/Linux/libUnrealEditor-GLTFCore.so')
+[2026.09.05-02.25.36:939][  0]LogModuleManager: InternalLoadLibrary: 'InterchangeMessages' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Interchange/Runtime/Binaries/Linux/libUnrealEditor-InterchangeMessages.so')
+[2026.09.05-02.25.36:939][  0]LogModuleManager: InternalLoadLibrary: 'InterchangeExport' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Interchange/Runtime/Binaries/Linux/libUnrealEditor-InterchangeExport.so')
+[2026.09.05-02.25.36:945][  0]LogModuleManager: InternalLoadLibrary: 'InterchangeDispatcher' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Interchange/Runtime/Binaries/Linux/libUnrealEditor-InterchangeDispatcher.so')
+[2026.09.05-02.25.36:945][  0]LogModuleManager: InternalLoadLibrary: 'InterchangeCommon' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Interchange/Runtime/Binaries/Linux/libUnrealEditor-InterchangeCommon.so')
+[2026.09.05-02.25.36:945][  0]LogModuleManager: InternalLoadLibrary: 'InterchangeAnalytics' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Interchange/Runtime/Binaries/Linux/libUnrealEditor-InterchangeAnalytics.so')
+[2026.09.05-02.25.36:951][  0]LogModuleManager: InternalLoadLibrary: 'InterchangeCommonParser' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Interchange/Runtime/Binaries/Linux/libUnrealEditor-InterchangeCommonParser.so')
+[2026.09.05-02.25.36:956][  0]LogModuleManager: InternalLoadLibrary: 'InterchangeFbxParser' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Interchange/Runtime/Binaries/Linux/libUnrealEditor-InterchangeFbxParser.so')
+[2026.09.05-02.25.36:961][  0]LogModuleManager: InternalLoadLibrary: 'AndroidPermission' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AndroidPermission/Binaries/Linux/libUnrealEditor-AndroidPermission.so')
+[2026.09.05-02.25.36:967][  0]LogAndroidPermission: UAndroidPermissionCallbackProxy::GetInstance
+[2026.09.05-02.25.36:967][  0]LogModuleManager: InternalLoadLibrary: 'AudioWidgetsCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AudioWidgets/Binaries/Linux/libUnrealEditor-AudioWidgetsCore.so')
+[2026.09.05-02.25.36:967][  0]LogModuleManager: InternalLoadLibrary: 'ArchVisCharacter' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/ArchVisCharacter/Binaries/Linux/libUnrealEditor-ArchVisCharacter.so')
+[2026.09.05-02.25.36:974][  0]LogModuleManager: InternalLoadLibrary: 'ComputeDataInterface' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/ComputeFramework/Binaries/Linux/libUnrealEditor-ComputeDataInterface.so')
+[2026.09.05-02.25.36:979][  0]LogModuleManager: InternalLoadLibrary: 'EditableComputeGraph' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/ComputeFramework/Binaries/Linux/libUnrealEditor-EditableComputeGraph.so')
+[2026.09.05-02.25.36:985][  0]LogModuleManager: InternalLoadLibrary: 'AudioCapture' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AudioCapture/Binaries/Linux/libUnrealEditor-AudioCapture.so')
+[2026.09.05-02.25.36:991][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.09.05-02.25.36:991][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.09.05-02.25.36:991][  0]LogModuleManager: InternalLoadLibrary: 'GeometryCache' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/GeometryCache/Binaries/Linux/libUnrealEditor-GeometryCache.so')
+[2026.09.05-02.25.36:997][  0]LogModuleManager: InternalLoadLibrary: 'GeometryCacheEd' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/GeometryCache/Binaries/Linux/libUnrealEditor-GeometryCacheEd.so')
+[2026.09.05-02.25.37:004][  0]LogModuleManager: InternalLoadLibrary: 'GeometryCacheTracks' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/GeometryCache/Binaries/Linux/libUnrealEditor-GeometryCacheTracks.so')
+[2026.09.05-02.25.37:010][  0]LogModuleManager: InternalLoadLibrary: 'GeometryCacheSequencer' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/GeometryCache/Binaries/Linux/libUnrealEditor-GeometryCacheSequencer.so')
+[2026.09.05-02.25.37:016][  0]LogModuleManager: InternalLoadLibrary: 'InputDebugging' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/InputDebugging/Binaries/Linux/libUnrealEditor-InputDebugging.so')
+[2026.09.05-02.25.37:021][  0]LogModuleManager: InternalLoadLibrary: 'ModelViewViewModel' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/ModelViewViewModel/Binaries/Linux/libUnrealEditor-ModelViewViewModel.so')
+[2026.09.05-02.25.37:026][  0]LogModuleManager: InternalLoadLibrary: 'ModelViewViewModelBlueprint' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/ModelViewViewModel/Binaries/Linux/libUnrealEditor-ModelViewViewModelBlueprint.so')
+[2026.09.05-02.25.37:035][  0]LogModuleManager: InternalLoadLibrary: 'ModelViewViewModelDebugger' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/ModelViewViewModel/Binaries/Linux/libUnrealEditor-ModelViewViewModelDebugger.so')
+[2026.09.05-02.25.37:040][  0]LogModuleManager: InternalLoadLibrary: 'AssetTags' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AssetTags/Binaries/Linux/libUnrealEditor-AssetTags.so')
+[2026.09.05-02.25.37:046][  0]LogModuleManager: InternalLoadLibrary: 'GeometryAlgorithms' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/GeometryProcessing/Binaries/Linux/libUnrealEditor-GeometryAlgorithms.so')
+[2026.09.05-02.25.37:046][  0]LogModuleManager: InternalLoadLibrary: 'DynamicMesh' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/GeometryProcessing/Binaries/Linux/libUnrealEditor-DynamicMesh.so')
+[2026.09.05-02.25.37:047][  0]LogModuleManager: InternalLoadLibrary: 'MeshFileUtils' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/GeometryProcessing/Binaries/Linux/libUnrealEditor-MeshFileUtils.so')
+[2026.09.05-02.25.37:048][  0]LogModuleManager: InternalLoadLibrary: 'StateTreeDeveloper' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/StateTree/Binaries/Linux/libUnrealEditor-StateTreeDeveloper.so')
+[2026.09.05-02.25.37:053][  0]LogModuleManager: InternalLoadLibrary: 'StateTreeEditorModule' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/StateTree/Binaries/Linux/libUnrealEditor-StateTreeEditorModule.so')
+[2026.09.05-02.25.37:060][  0]LogModuleManager: InternalLoadLibrary: 'HairStrandsRuntime' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/HairStrands/Binaries/Linux/libUnrealEditor-HairStrandsRuntime.so')
+[2026.09.05-02.25.37:066][  0]LogModuleManager: InternalLoadLibrary: 'MobilePatchingUtils' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/MobilePatchingUtils/Binaries/Linux/libUnrealEditor-MobilePatchingUtils.so')
+[2026.09.05-02.25.37:074][  0]LogModuleManager: InternalLoadLibrary: 'AppleImageUtils' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AppleImageUtils/Binaries/Linux/libUnrealEditor-AppleImageUtils.so')
+[2026.09.05-02.25.37:080][  0]LogModuleManager: InternalLoadLibrary: 'AppleImageUtilsBlueprintSupport' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AppleImageUtils/Binaries/Linux/libUnrealEditor-AppleImageUtilsBlueprintSupport.so')
+[2026.09.05-02.25.37:086][  0]LogModuleManager: InternalLoadLibrary: 'ActorLayerUtilities' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/ActorLayerUtilities/Binaries/Linux/libUnrealEditor-ActorLayerUtilities.so')
+[2026.09.05-02.25.37:091][  0]LogModuleManager: InternalLoadLibrary: 'MeshModelingTools' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/MeshModelingToolset/Binaries/Linux/libUnrealEditor-MeshModelingTools.so')
+[2026.09.05-02.25.37:097][  0]LogModuleManager: InternalLoadLibrary: 'ModelingComponents' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/MeshModelingToolset/Binaries/Linux/libUnrealEditor-ModelingComponents.so')
+[2026.09.05-02.25.37:102][  0]LogModuleManager: InternalLoadLibrary: 'GeometryFramework' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-GeometryFramework.so')
+[2026.09.05-02.25.37:108][  0]LogModuleManager: InternalLoadLibrary: 'ModelingOperators' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/MeshModelingToolset/Binaries/Linux/libUnrealEditor-ModelingOperators.so')
+[2026.09.05-02.25.37:113][  0]LogModuleManager: InternalLoadLibrary: 'SkeletalMerging' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/SkeletalMerging/Binaries/Linux/libUnrealEditor-SkeletalMerging.so')
+[2026.09.05-02.25.37:118][  0]LogModuleManager: InternalLoadLibrary: 'GameplayCamerasUncookedOnly' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Cameras/GameplayCameras/Binaries/Linux/libUnrealEditor-GameplayCamerasUncookedOnly.so')
+[2026.09.05-02.25.37:124][  0]LogModuleManager: InternalLoadLibrary: 'GooglePAD' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/GooglePAD/Binaries/Linux/libUnrealEditor-GooglePAD.so')
+[2026.09.05-02.25.37:130][  0]LogModuleManager: InternalLoadLibrary: 'SequencerScripting' ('/opt/unreal/UE_5.8.2/Engine/Plugins/MovieScene/SequencerScripting/Binaries/Linux/libUnrealEditor-SequencerScripting.so')
+[2026.09.05-02.25.37:141][  0]LogModuleManager: InternalLoadLibrary: 'TemplateSequence' ('/opt/unreal/UE_5.8.2/Engine/Plugins/MovieScene/TemplateSequence/Binaries/Linux/libUnrealEditor-TemplateSequence.so')
+[2026.09.05-02.25.37:147][  0]LogModuleManager: InternalLoadLibrary: 'FileSandboxCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/Sandbox/FileSandbox/Binaries/Linux/libUnrealEditor-FileSandboxCore.so')
+[2026.09.05-02.25.37:153][  0]LogModuleManager: InternalLoadLibrary: 'ConcertSharedSlate' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/Concert/ConcertUI/ConcertSharedSlate/Binaries/Linux/libUnrealEditor-ConcertSharedSlate.so')
+[2026.09.05-02.25.37:161][  0]LogModuleManager: InternalLoadLibrary: 'ConcertSyncClient' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Developer/Concert/ConcertSync/ConcertSyncClient/Binaries/Linux/libUnrealEditor-ConcertSyncClient.so')
+[2026.09.05-02.25.37:169][  0]LogModuleManager: InternalLoadLibrary: 'TakesCore' ('/opt/unreal/UE_5.8.2/Engine/Plugins/VirtualProduction/Takes/Binaries/Linux/libUnrealEditor-TakesCore.so')
+[2026.09.05-02.25.37:176][  0]LogModuleManager: InternalLoadLibrary: 'TakeTrackRecorders' ('/opt/unreal/UE_5.8.2/Engine/Plugins/VirtualProduction/Takes/Binaries/Linux/libUnrealEditor-TakeTrackRecorders.so')
+[2026.09.05-02.25.37:183][  0]LogModuleManager: InternalLoadLibrary: 'TakeRecorderSources' ('/opt/unreal/UE_5.8.2/Engine/Plugins/VirtualProduction/Takes/Binaries/Linux/libUnrealEditor-TakeRecorderSources.so')
+[2026.09.05-02.25.37:198][  0]LogModuleManager: InternalLoadLibrary: 'TakeRecorder' ('/opt/unreal/UE_5.8.2/Engine/Plugins/VirtualProduction/Takes/Binaries/Linux/libUnrealEditor-TakeRecorder.so')
+[2026.09.05-02.25.37:204][  0]LogModuleManager: InternalLoadLibrary: 'TakeRecorderEditor' ('/opt/unreal/UE_5.8.2/Engine/Plugins/VirtualProduction/Takes/Binaries/Linux/libUnrealEditor-TakeRecorderEditor.so')
+[2026.09.05-02.25.37:212][  0]LogModuleManager: InternalLoadLibrary: 'CacheTrackRecorder' ('/opt/unreal/UE_5.8.2/Engine/Plugins/VirtualProduction/Takes/Binaries/Linux/libUnrealEditor-CacheTrackRecorder.so')
+[2026.09.05-02.25.37:218][  0]LogModuleManager: InternalLoadLibrary: 'TakeRecorderNamingTokens' ('/opt/unreal/UE_5.8.2/Engine/Plugins/VirtualProduction/Takes/Binaries/Linux/libUnrealEditor-TakeRecorderNamingTokens.so')
+[2026.09.05-02.25.37:244][  0]LogUObjectArray: 47950 objects as part of root set at end of initial load.
+[2026.09.05-02.25.37:244][  0]LogUObjectArray: CloseDisregardForGC: 0/0 objects in disregard for GC pool
+[2026.09.05-02.25.37:261][  0]LogModuleManager: InternalLoadLibrary: 'ProfileVisualizer' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-ProfileVisualizer.so')
+[2026.09.05-02.25.37:268][  0]LogModuleManager: InternalLoadLibrary: 'ImageWriteQueue' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-ImageWriteQueue.so')
+[2026.09.05-02.25.37:273][  0]LogModuleManager: InternalLoadLibrary: 'ImageWrapper' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-ImageWrapper.so')
+[2026.09.05-02.25.37:355][  0]LogTemp: Error test: UE::UnifiedErrorTest::Empty: [Empty error]
+[2026.09.05-02.25.37:355][  0]LogTemp: Error with param: UE::UnifiedErrorTest::WithInt: [Error with int -7]
+[2026.09.05-02.25.37:355][  0]LogTemp: Error with context: UE::UnifiedErrorTest::Empty: [Empty error]
+[2026.09.05-02.25.37:355][  0]LogTemp: FError that has been invalidated: ::: []
+[2026.09.05-02.25.37:355][  0]LogTemp: FError that has been moved from: ::: []
+[2026.09.05-02.25.37:398][  0]LogEngine: Initializing Engine...
+[2026.09.05-02.25.37:398][  0]LogModuleManager: InternalLoadLibrary: 'TypedElementRuntime' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-TypedElementRuntime.so')
+[2026.09.05-02.25.37:426][  0]LogNetVersion: Set ProjectVersion to 0.1.0-demo01. Version Checksum will be recalculated on next use.
+[2026.09.05-02.25.37:427][  0]LogInit: Texture streaming: Disabled
+[2026.09.05-02.25.37:437][  0]LogModuleManager: InternalLoadLibrary: 'MessagingRpc' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MessagingRpc.so')
+[2026.09.05-02.25.37:438][  0]LogModuleManager: InternalLoadLibrary: 'PortalRpc' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-PortalRpc.so')
+[2026.09.05-02.25.37:440][  0]LogModuleManager: InternalLoadLibrary: 'PortalServices' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-PortalServices.so')
+[2026.09.05-02.25.37:441][  0]LogModuleManager: InternalLoadLibrary: 'StreamingPauseRendering' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-StreamingPauseRendering.so')
+[2026.09.05-02.25.37:446][  0]LogModuleManager: InternalLoadLibrary: 'MovieScene' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MovieScene.so')
+[2026.09.05-02.25.37:452][  0]LogModuleManager: InternalLoadLibrary: 'MovieSceneTracks' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MovieSceneTracks.so')
+[2026.09.05-02.25.37:457][  0]LogModuleManager: InternalLoadLibrary: 'CinematicCamera' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-CinematicCamera.so')
+[2026.09.05-02.25.37:462][  0]LogModuleManager: InternalLoadLibrary: 'SparseVolumeTexture' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-SparseVolumeTexture.so')
+[2026.09.05-02.25.37:468][  0]LogCsvProfiler: Display: Metadata set : largeworldcoordinates="1"
+[2026.09.05-02.25.37:468][  0]LogChaosDD: Creating Chaos Debug Draw Scene for world Untitled
+[2026.09.05-02.25.37:471][  0]LogNiagara: UAV Float16 is not supported, compressed GPU emitters will be disabled.
+[2026.09.05-02.25.37:472][  0]LogModuleManager: InternalLoadLibrary: 'ChaosVDRuntime' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-ChaosVDRuntime.so')
+[2026.09.05-02.25.37:474][  0]LogTemp: Display: D01_SIGNAL GAME_INSTANCE_READY
+[2026.09.05-02.25.37:474][  0]LogModuleManager: InternalLoadLibrary: 'MovieSceneCapture' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-MovieSceneCapture.so')
+[2026.09.05-02.25.37:479][  0]LogEngine: GameWindow did not exist.  Was created
+[2026.09.05-02.25.37:480][  0]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2026.09.05-02.25.37:481][  0]LogInit: Display: Game Engine Initialized.
+[2026.09.05-02.25.37:482][  0]LogNNEDenoiser: Ray Tracing is not enabled, therefore NNEDenoiser is not registered!
+[2026.09.05-02.25.37:483][  0]LogNiagaraEditor: GEditor isn't valid! Particle reset commands will not work for Niagara components!
+[2026.09.05-02.25.37:483][  0]LogModuleManager: InternalLoadLibrary: 'SessionServices' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-SessionServices.so')
+[2026.09.05-02.25.37:484][  0]LogPython: Python enabled via CVar 'Engine.Python.IsEnabledByDefault'
+[2026.09.05-02.25.37:484][  0]LogPython: Using Python 3.11.8
+[2026.09.05-02.25.37:706][  0]LogPython: Display: No pip-enabled plugins with python dependencies found, skipping
+[2026.09.05-02.25.38:041][  0]LogCsvProfiler: Display: Metadata set : raytracing="0"
+[2026.09.05-02.25.38:042][  0]LogModuleManager: InternalLoadLibrary: 'PlanarCut' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PlanarCutPlugin/Binaries/Linux/libUnrealEditor-PlanarCut.so')
+[2026.09.05-02.25.38:043][  0]LogModuleManager: InternalLoadLibrary: 'FractureEngine' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/Fracture/Binaries/Linux/libUnrealEditor-FractureEngine.so')
+[2026.09.05-02.25.38:044][  0]LogModuleManager: InternalLoadLibrary: 'CharacterAI' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/CharacterAI/Binaries/Linux/libUnrealEditor-CharacterAI.so')
+[2026.09.05-02.25.38:045][  0]LogModuleManager: InternalLoadLibrary: 'MP4Utilities' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Media/MP4Utilities/Binaries/Linux/libUnrealEditor-MP4Utilities.so')
+[2026.09.05-02.25.38:045][  0]LogModuleManager: InternalLoadLibrary: 'MP4Boxes' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Media/MP4Utilities/Binaries/Linux/libUnrealEditor-MP4Boxes.so')
+[2026.09.05-02.25.38:046][  0]LogModuleManager: InternalLoadLibrary: 'MP4Muxer' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Media/MP4Utilities/Binaries/Linux/libUnrealEditor-MP4Muxer.so')
+[2026.09.05-02.25.38:047][  0]LogModuleManager: InternalLoadLibrary: 'ImgMediaFactory' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Media/ImgMedia/Binaries/Linux/libUnrealEditor-ImgMediaFactory.so')
+[2026.09.05-02.25.38:052][  0]LogModuleManager: InternalLoadLibrary: 'WebMMedia' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Media/WebMMedia/Binaries/Linux/libUnrealEditor-WebMMedia.so')
+[2026.09.05-02.25.38:058][  0]LogModuleManager: InternalLoadLibrary: 'WebMMediaFactory' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Media/WebMMedia/Binaries/Linux/libUnrealEditor-WebMMediaFactory.so')
+[2026.09.05-02.25.38:058][  0]LogModuleManager: InternalLoadLibrary: 'AvfMediaFactory' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Media/AvfMedia/Binaries/Linux/libUnrealEditor-AvfMediaFactory.so')
+[2026.09.05-02.25.38:059][  0]LogModuleManager: InternalLoadLibrary: 'TmvMedia' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Media/TmvMedia/Binaries/Linux/libUnrealEditor-TmvMedia.so')
+[2026.09.05-02.25.38:064][  0]LogModuleManager: InternalLoadLibrary: 'WmfMediaFactory' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Media/WmfMedia/Binaries/Linux/libUnrealEditor-WmfMediaFactory.so')
+[2026.09.05-02.25.38:073][  0]LogEditorDataStorage: Initializing
+[2026.09.05-02.25.38:073][  0]LogEditorDataStorage: Initializing TEDS Core.
+[2026.09.05-02.25.38:073][  0]LogEditorDataStorage: Initialized TEDS Core.
+[2026.09.05-02.25.38:073][  0]LogEditorDataStorage: Initializing TEDS Compatibility.
+[2026.09.05-02.25.38:073][  0]LogEditorDataStorage: Initialized TEDS Compatibility.
+[2026.09.05-02.25.38:077][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'ActorLayersWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:077][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'UObjectLabelWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:077][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'FolderCompatibilityWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:078][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'DiskSizeWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:078][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'AssetDataItemTypeWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:078][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'AssetDataLabelWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:078][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'AssetDataVirtualPathWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:078][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'AssetNameWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:078][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'DynamicAssetDataColumnBaseWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:078][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'DynamicAssetDataColumnBaseWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:078][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'DynamicAssetDataColumnBaseWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:078][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'DynamicAssetDataColumnBaseWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:078][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'DynamicAssetDataColumnBaseWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:078][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'StaticMeshTrianglesWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:079][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'AlertWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:079][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'AlertHeaderWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:079][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'OutlinerUnsavedWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:079][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'OutlinerUnsavedHeaderConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:079][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'SocketWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:079][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'TypeInfoWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:079][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'VisibilityWidgetConstructor' as purpose '0' isn't registered.
+[2026.09.05-02.25.38:079][  0]LogEditorDataStorage: Initialized
+[2026.09.05-02.25.38:080][  0]LogInit: Display: Starting Game.
+[2026.09.05-02.25.38:080][  0]LogGlobalStatus: Browse Started Browse: "/Game/Maps/BiellaGameplayMap?Name=Player"
+[2026.09.05-02.25.38:080][  0]LogNet: Browse: /Game/Maps/BiellaGameplayMap?Name=Player
+[2026.09.05-02.25.38:081][  0]LogLoad: LoadMap: /Game/Maps/BiellaGameplayMap?Name=Player
+[2026.09.05-02.25.38:081][  0]LogWorld: BeginTearingDown for /Temp/Untitled_0
+[2026.09.05-02.25.38:081][  0]LogWorld: UWorld::CleanupWorld for Untitled, bSessionEnded=true, bCleanupResources=true
+[2026.09.05-02.25.38:082][  0]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2026.09.05-02.25.38:120][  0]LogUObjectHash: Compacting FUObjectHashTables data took   0.95ms
+[2026.09.05-02.25.38:125][  0]LogChaosDD: Creating Chaos Debug Draw Scene for world BiellaGameplayMap_Recovered
+[2026.09.05-02.25.38:128][  0]LogModuleManager: InternalLoadLibrary: 'AIModule' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AIModule.so')
+[2026.09.05-02.25.38:134][  0]LogModuleManager: InternalLoadLibrary: 'NavigationSystem' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-NavigationSystem.so')
+[2026.09.05-02.25.38:140][  0]LogModuleManager: InternalLoadLibrary: 'AITestSuite' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AITestSuite.so')
+[2026.09.05-02.25.38:145][  0]LogModuleManager: InternalLoadLibrary: 'GameplayDebugger' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-GameplayDebugger.so')
+[2026.09.05-02.25.38:152][  0]LogLoad: Game class is 'BiellaGamesGameModeBase'
+[2026.09.05-02.25.38:154][  0]LogWorld: Bringing World /Game/Maps/BiellaGameplayMap.BiellaGameplayMap_Recovered up for play (max tick rate 0) at 2026.09.05-02.25.38
+[2026.09.05-02.25.38:154][  0]LogWorld: Bringing up level for play took: 0.000642
+[2026.09.05-02.25.38:156][  0]LogEnhancedInput: Enhanced Input local player subsystem has initialized the user settings!
+[2026.09.05-02.25.38:156][  0]LogModuleManager: InternalLoadLibrary: 'Voice' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-Voice.so')
+[2026.09.05-02.25.38:163][  0]LogTemp: Display: D01_SIGNAL PLAYER_LOGIN controller=BiellaGamesPlayerController_0
+[2026.09.05-02.25.38:166][  0]LogTemp: Display: D01_SIGNAL ARENA_READY pieces=8 floor=true walls=4 cover=3 lighting=true
+[2026.09.05-02.25.38:166][  0]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_0).
+[2026.09.05-02.25.38:166][  0]LogTemp: Display: D01_SIGNAL NAVIGATION_CONFIGURED mode=recast_dynamic source=arena_collision
+[2026.09.05-02.25.38:166][  0]LogTemp: Display: D01_SIGNAL WORLD_READY source=map
+[2026.09.05-02.25.38:167][  0]LogTemp: Display: D01_SIGNAL INFECTED_READY actor=BiellaInfected_0 health=70.0 speed=210.0
+[2026.09.05-02.25.38:167][  0]LogTemp: Display: D01_SIGNAL INFECTED_SPAWN actor=BiellaInfected_0 index=0
+[2026.09.05-02.25.38:167][  0]LogTemp: Display: D01_SIGNAL INFECTED_READY actor=BiellaInfected_1 health=70.0 speed=210.0
+[2026.09.05-02.25.38:167][  0]LogTemp: Display: D01_SIGNAL INFECTED_SPAWN actor=BiellaInfected_1 index=1
+[2026.09.05-02.25.38:167][  0]LogTemp: Display: D01_SIGNAL INFECTED_GROUP_READY count=2
+[2026.09.05-02.25.38:167][  0]LogTemp: Display: D01_SIGNAL RIVAL_READY actor=BiellaRival_0 health=100.0 speed=260.0
+[2026.09.05-02.25.38:167][  0]LogTemp: Display: D01_SIGNAL RIVAL_WEAPON_READY actor=BiellaRival_0 range=950.0 damage=14.0 cooldown=0.90
+[2026.09.05-02.25.38:167][  0]LogTemp: Display: D01_SIGNAL RIVAL_SPAWN actor=BiellaRival_0 source=runtime
+[2026.09.05-02.25.38:167][  0]LogTemp: Display: D01_SIGNAL MODE_READY class=BiellaGamesGameModeBase
+[2026.09.05-02.25.38:167][  0]LogViewport: Display: Viewport MouseLockMode Changed, DoNotLock -> LockOnCapture
+[2026.09.05-02.25.38:167][  0]LogViewport: Display: Viewport MouseCaptureMode Changed, NoCapture -> CapturePermanently
+[2026.09.05-02.25.38:167][  0]LogTemp: Display: D01_SIGNAL CONTROLLER_READY game_input=true
+[2026.09.05-02.25.38:167][  0]LogTemp: Display: D01_SIGNAL PLAYER_PAWN_READY mesh=true collision=pawn
+[2026.09.05-02.25.38:167][  0]LogTemp: Display: D01_SIGNAL CAMERA_READY boom=520.0 collision_test=true probe=12.0
+[2026.09.05-02.25.38:167][  0]LogTemp: Display: D01_SIGNAL AIM_READY yaw_input=MouseX pitch_input=MouseY clamped=true
+[2026.09.05-02.25.38:167][  0]LogTemp: Display: D01_SIGNAL INPUT_READY actions=10 mappings=10
+[2026.09.05-02.25.38:167][  0]LogTemp: Display: D01_SIGNAL LOCOMOTION_READY speed=520.0 jump=true
+[2026.09.05-02.25.38:167][  0]LogTemp: Display: D01_SIGNAL WEAPON_READY equipped=true ammo=60 trace=visibility
+[2026.09.05-02.25.38:167][  0]LogLoad: Took 0.086513 seconds to LoadMap(/Game/Maps/BiellaGameplayMap)
+[2026.09.05-02.25.38:167][  0]LogGlobalStatus: LoadMap Load map complete /Game/Maps/BiellaGameplayMap
+[2026.09.05-02.25.38:167][  0]LogModuleManager: InternalLoadLibrary: 'AutomationWorker' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AutomationWorker.so')
+[2026.09.05-02.25.38:174][  0]LogModuleManager: InternalLoadLibrary: 'AutomationController' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-AutomationController.so')
+[2026.09.05-02.25.38:179][  0]LogModuleManager: InternalLoadLibrary: 'SequenceRecorder' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-SequenceRecorder.so')
+[2026.09.05-02.25.38:186][  0]LogModuleManager: InternalLoadLibrary: 'SequenceRecorderSections' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-SequenceRecorderSections.so')
+[2026.09.05-02.25.38:300][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PreLoad): 0 .ref files found, 0 referenced binaries
+[2026.09.05-02.25.38:300][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 0 total binaries, 0 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.09.05-02.25.38:300][  0]LogAssetRegistry: Display: FindShardedCacheFiles: 0 via .ref, 0 via migration fallback, 0 total
+[2026.09.05-02.25.38:300][  0]LogAssetRegistry: Display: AssetDataGatherer spent 0.000s loading caches from ../../../../../../root/biella/repos/biella-engine/projects/biella-games/Intermediate/CachedAssetRegistry.
+[2026.09.05-02.25.38:831][  0]LogAssetRegistry: AssetRegistryGather time 0.4501s: AssetDataDiscovery 0.0000s, AssetDataGather 0.4080s, StoreResults 0.0421s. Wall time 4.2900s.
+	NumCachedDirectories 0. NumUncachedDirectories 1749. NumCachedFiles 0. NumUncachedFiles 8752.
+	BackgroundTickInterruptions 0.
+[2026.09.05-02.25.38:832][  0]LogAssetRegistry: Display: Starting OnFilesLoaded.Broadcast
+[2026.09.05-02.25.38:835][  0]LogAssetRegistry: Display: Completed OnFilesLoaded.Broadcast: 0.003s
+[2026.09.05-02.25.38:835][  0]LogInit: Running DelayedAutoRegister Phase EndOfEngineInit
+[2026.09.05-02.25.38:914][  0]LogInit: Display: Engine is initialized. Leaving FEngineLoop::Init()
+[2026.09.05-02.25.38:915][  0]LogLoad: (Engine Initialization) Total time: 8.09 seconds
+[2026.09.05-02.25.38:915][  0]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_0).
+[2026.09.05-02.25.38:915][  0]LogNavigation: Warning: ProcessRegistrationCandidates RecastNavMesh_0 will be removed. This warning will disapear once the map is saved.
+[2026.09.05-02.25.38:920][  0]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2026.09.05-02.25.38:920][  0]LogPython: Display: Running start-up script /opt/unreal/UE_5.8.2/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py... started...
+[2026.09.05-02.25.38:930][  0]LogPython: Display: Running start-up script /opt/unreal/UE_5.8.2/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py... took 9.933 ms
+[2026.09.05-02.25.38:931][  0]LogPython: Display: Running start-up script /opt/unreal/UE_5.8.2/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py... started...
+[2026.09.05-02.25.38:939][  0]LogPython: registering <class 'ControlRigWorkflows.workflow_deformation_rig_preset.provider'>
+
+[2026.09.05-02.25.38:945][  0]LogPython: Display: Running start-up script /opt/unreal/UE_5.8.2/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py... took 14.061 ms (total: 23.995 ms)
+[2026.09.05-02.25.38:945][  0]t.MaxFPS = "120"
+[2026.09.05-02.25.38:947][  0]Automation: RunTests='BiellaGames.Demo01.RivalCombat' Queued.
+[2026.09.05-02.25.38:947][  0]Automation: SoftQuit Command Queued.
+[2026.09.05-02.25.38:948][  1]LogTemp: Display: D01_SIGNAL INFECTED_AGGRO actor=BiellaInfected_0 target=BiellaRival_0
+[2026.09.05-02.25.38:948][  1]LogTemp: Display: D01_SIGNAL INFECTED_CHASE actor=BiellaInfected_0 target=BiellaRival_0 speed=210.0
+[2026.09.05-02.25.38:948][  1]LogTemp: Display: D01_SIGNAL INFECTED_AGGRO actor=BiellaInfected_1 target=BiellaRival_0
+[2026.09.05-02.25.38:948][  1]LogTemp: Display: D01_SIGNAL INFECTED_CHASE actor=BiellaInfected_1 target=BiellaRival_0 speed=210.0
+[2026.09.05-02.25.38:948][  1]LogTemp: Display: D01_SIGNAL RIVAL_TARGET actor=BiellaRival_0 target=BiellaInfected_0 team=2
+[2026.09.05-02.25.38:949][  1]LogTemp: Display: D01_SIGNAL RIVAL_PATH actor=BiellaRival_0 revision=1 points=3 length=171.4 goal=V(X=1015.18, Y=-78.81, Z=10.00)
+[2026.09.05-02.25.38:949][  1]LogTemp: Display: D01_SIGNAL RIVAL_POSITION actor=BiellaRival_0 target=BiellaInfected_0 mode=EDemo01RivalPositionState::Retreat location=V(X=900.00, Z=2.00) distance=460.4
+[2026.09.05-02.25.38:949][  1]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_0 amount=14.0 health=56.0 tag=rival_fire
+[2026.09.05-02.25.38:949][  1]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_0
+[2026.09.05-02.25.38:949][  1]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_0 feedback=hit_flash
+[2026.09.05-02.25.38:949][  1]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_0 target=BiellaInfected_0 hit=true damage=14.0 muzzle=V(X=833.98, Y=50.41, Z=34.57) impact=V(X=554.93, Y=236.68, Z=3.85) time=0.033
+[2026.09.05-02.25.38:951][  2]LogEngineAutomationLatentCommand: FWaitForInteractiveFrameRate: FApp::CanEverRender() == false. Passing wait immediately.
+[2026.09.05-02.25.38:951][  2]LogAutomationCommandLine: Display: Ready to start automation
+[2026.09.05-02.25.38:964][  3]LogTemp: Display: D01_SIGNAL RIVAL_PATH_INVALIDATED actor=BiellaRival_0 revision=1
+[2026.09.05-02.25.39:448][ 61]LogTemp: Display: D01_SIGNAL RIVAL_PATH actor=BiellaRival_0 revision=2 points=3 length=156.5 goal=V(X=1019.43, Y=-72.52, Z=10.00)
+[2026.09.05-02.25.39:848][109]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_0 amount=14.0 health=42.0 tag=rival_fire
+[2026.09.05-02.25.39:848][109]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_0
+[2026.09.05-02.25.39:848][109]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_0 feedback=hit_flash
+[2026.09.05-02.25.39:848][109]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_0 target=BiellaInfected_0 hit=true damage=14.0 muzzle=V(X=920.91, Y=15.87, Z=41.58) impact=V(X=555.87, Y=238.16, Z=3.72) time=0.933
+[2026.09.05-02.25.39:956][122]LogTemp: Display: D01_SIGNAL RIVAL_PATH_COMPLETE actor=BiellaRival_0 revision=2 reason=combat_range location=V(X=1009.72, Y=-53.83, Z=9.85) distance=581.7
+[2026.09.05-02.25.39:956][122]LogTemp: Display: D01_SIGNAL RIVAL_POSITION actor=BiellaRival_0 target=BiellaInfected_0 mode=EDemo01RivalPositionState::Hold location=V(X=1009.72, Y=-53.83, Z=9.85) distance=581.7
+[2026.09.05-02.25.40:748][217]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_0 amount=14.0 health=28.0 tag=rival_fire
+[2026.09.05-02.25.40:748][217]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_0
+[2026.09.05-02.25.40:748][217]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_0 feedback=hit_flash
+[2026.09.05-02.25.40:748][217]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_0 target=BiellaInfected_0 hit=true damage=14.0 muzzle=V(X=934.05, Y=-5.34, Z=41.88) impact=V(X=555.36, Y=237.34, Z=3.58) time=1.833
+[2026.09.05-02.25.41:648][325]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_0 amount=14.0 health=14.0 tag=rival_fire
+[2026.09.05-02.25.41:648][325]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_0
+[2026.09.05-02.25.41:648][325]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_0 feedback=hit_flash
+[2026.09.05-02.25.41:648][325]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_0 target=BiellaInfected_0 hit=true damage=14.0 muzzle=V(X=934.05, Y=-5.34, Z=41.88) impact=V(X=555.36, Y=237.34, Z=3.58) time=2.733
+[2026.09.05-02.25.42:548][433]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_0 amount=14.0 health=0.0 tag=rival_fire
+[2026.09.05-02.25.42:549][433]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_0
+[2026.09.05-02.25.42:549][433]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_0 feedback=hit_flash
+[2026.09.05-02.25.42:549][433]LogTemp: Display: D01_SIGNAL DEFEAT actor=BiellaInfected_0 reason=rival_fire
+[2026.09.05-02.25.42:549][433]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_0 target=BiellaInfected_0 hit=true damage=14.0 muzzle=V(X=934.05, Y=-5.34, Z=41.88) impact=V(X=555.36, Y=237.34, Z=3.58) time=3.633
+[2026.09.05-02.25.42:557][434]LogTemp: Display: D01_SIGNAL RIVAL_TARGET actor=BiellaRival_0 target=BiellaInfected_1 team=2
+[2026.09.05-02.25.43:449][541]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaInfected_1 amount=14.0 health=56.0 tag=rival_fire
+[2026.09.05-02.25.43:449][541]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaInfected_1
+[2026.09.05-02.25.43:449][541]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaInfected_1 feedback=hit_flash
+[2026.09.05-02.25.43:449][541]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_0 target=BiellaInfected_1 hit=true damage=14.0 muzzle=V(X=926.91, Y=-88.69, Z=41.57) impact=V(X=558.71, Y=-243.70, Z=3.95) time=4.534
+[2026.09.05-02.25.43:958][602]LogModuleManager: InternalLoadLibrary: 'ScreenShotComparisonTools' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealEditor-ScreenShotComparisonTools.so')
+[2026.09.05-02.25.43:973][602]LogConfig: Branch 'GameplayTags' had been unloaded. Reloading on-demand took 0.07ms
+[2026.09.05-02.25.43:973][602]LogConfig: Reload Context for thread GameThread: Action=GetSection Section=AutomationTestFallbackHierarchy Key=
+[2026.09.05-02.25.43:976][603]LogAutomationWorker: Received FindWorkersMessage from 01A06F62C1837FE3A4822407E830EF84
+[2026.09.05-02.25.43:976][603]LogAutomationController: Received FindWorkersResponseMessage from 01A06F62C17D773AA85AC1C3E53474AB
+[2026.09.05-02.25.43:976][603]LogAutomationController: Requesting test list from 01A06F62C17D773AA85AC1C3E53474AB
+[2026.09.05-02.25.43:983][604]LogAutomationWorker: Received RequestTestsMessage from 01A06F62C1837FE3A4822407E830EF84
+[2026.09.05-02.25.44:006][604]LogAutomationWorker: Set 2208 tests to 01A06F62C1837FE3A4822407E830EF84
+[2026.09.05-02.25.44:007][605]LogAutomationController: Received RequestTestsReplyCompleteMessage from 01A06F62C17D773AA85AC1C3E53474AB
+[2026.09.05-02.25.44:009][605]LogAutomationController: 2208 tests available on 01A06F62C17D773AA85AC1C3E53474AB
+[2026.09.05-02.25.44:024][605]LogAutomationCommandLine: Display: Found 1 automation tests based on 'BiellaGames.Demo01.RivalCombat'
+[2026.09.05-02.25.44:024][605]LogAutomationCommandLine: Display: 	BiellaGames.Demo01.RivalCombat
+[2026.09.05-02.25.44:024][605]LogAutomationController: Sending StopTests to 01A06F62C17D773AA85AC1C3E53474AB
+[2026.09.05-02.25.44:025][605]LogAutomationController: Sending StartTestSession to 01A06F62C17D773AA85AC1C3E53474AB
+[2026.09.05-02.25.44:025][605]LogAutomationController: Display: Clearing ../../../../../../root/biella/repos/biella-engine/projects/biella-games/Saved/Automation/Logs/ and ../../../../../../root/biella/repos/biella-engine/projects/biella-games/Saved/Automation/Tmp/
+[2026.09.05-02.25.44:025][605]AutomationTestingLog: -----Test Run 3----
+[2026.09.05-02.25.44:026][605]LogAutomationController: Sending RunTest RivalCombat to 01A06F62C17D773AA85AC1C3E53474AB
+[2026.09.05-02.25.44:026][605]LogAutomationController: Display: Test Started. Name={RivalCombat} Path={BiellaGames.Demo01.RivalCombat}
+[2026.09.05-02.25.44:026][605]LogAutomationWorker: Received StopTests from 01A06F62C1837FE3A4822407E830EF84
+[2026.09.05-02.25.44:026][605]LogAutomationWorker: Received StartTestSession from 01A06F62C1837FE3A4822407E830EF84
+[2026.09.05-02.25.44:026][605]LogAutomationWorker: Received RunTests RivalCombat from 01A06F62C1837FE3A4822407E830EF84
+[2026.09.05-02.25.44:028][606]LogTemp: Display: D01_SIGNAL RIVAL_READY actor=BiellaRival_1 health=100.0 speed=260.0
+[2026.09.05-02.25.44:028][606]LogTemp: Display: D01_SIGNAL RIVAL_WEAPON_READY actor=BiellaRival_1 range=950.0 damage=14.0 cooldown=0.90
+[2026.09.05-02.25.44:028][606]LogTemp: Display: D01_SIGNAL DEFEAT actor=BiellaDemoPawn_1 reason=D01_030_dead_target
+[2026.09.05-02.25.44:029][606]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaDemoPawn_0 amount=14.0 health=86.0 tag=rival_fire
+[2026.09.05-02.25.44:029][606]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaDemoPawn_0
+[2026.09.05-02.25.44:029][606]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaDemoPawn_0 feedback=hit_flash
+[2026.09.05-02.25.44:029][606]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_1 target=BiellaDemoPawn_0 hit=true damage=14.0 muzzle=V(X=-560.03, Y=-950.00, Z=35.63) impact=V(X=258.00, Y=-950.00, Z=3.64) time=5.112
+[2026.09.05-02.25.44:029][606]LogTemp: Display: D01_030_TEST PASS phase=gates_range_occlusion time=5.112
+[2026.09.05-02.25.44:030][606]LogTemp: Display: D01_SIGNAL RIVAL_READY actor=BiellaRival_2 health=100.0 speed=260.0
+[2026.09.05-02.25.44:030][606]LogTemp: Display: D01_SIGNAL RIVAL_WEAPON_READY actor=BiellaRival_2 range=950.0 damage=14.0 cooldown=0.90
+[2026.09.05-02.25.44:030][606]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaDemoPawn_3 amount=14.0 health=86.0 tag=rival_fire
+[2026.09.05-02.25.44:030][606]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaDemoPawn_3
+[2026.09.05-02.25.44:030][606]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaDemoPawn_3 feedback=hit_flash
+[2026.09.05-02.25.44:030][606]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_2 target=BiellaDemoPawn_3 hit=true damage=14.0 muzzle=V(X=-567.37, Y=-950.00, Z=15.51) impact=V(X=-592.00, Y=-950.00, Z=21.92) time=5.112
+[2026.09.05-02.25.44:030][606]LogTemp: Display: D01_030_TEST PASS phase=point_blank time=5.112
+[2026.09.05-02.25.44:030][606]LogTemp: Display: D01_SIGNAL RIVAL_READY actor=BiellaRival_3 health=100.0 speed=260.0
+[2026.09.05-02.25.44:030][606]LogTemp: Display: D01_SIGNAL RIVAL_WEAPON_READY actor=BiellaRival_3 range=950.0 damage=14.0 cooldown=0.90
+[2026.09.05-02.25.44:030][606]LogTemp: Display: D01_030_TEST BEGIN phase=autonomous_cadence time=5.112
+[2026.09.05-02.25.44:035][607]LogTemp: Display: D01_SIGNAL RIVAL_TARGET actor=BiellaRival_3 target=BiellaDemoPawn_4 team=2
+[2026.09.05-02.25.44:035][607]LogTemp: Display: D01_SIGNAL RIVAL_POSITION actor=BiellaRival_3 target=BiellaDemoPawn_4 mode=EDemo01RivalPositionState::Hold location=V(X=-650.00, Y=-950.00, Z=2.00) distance=600.0
+[2026.09.05-02.25.44:035][607]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaDemoPawn_4 amount=14.0 health=86.0 tag=rival_fire
+[2026.09.05-02.25.44:035][607]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaDemoPawn_4
+[2026.09.05-02.25.44:036][607]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaDemoPawn_4 feedback=hit_flash
+[2026.09.05-02.25.44:036][607]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_3 target=BiellaDemoPawn_4 hit=true damage=14.0 muzzle=V(X=-560.07, Y=-950.00, Z=34.76) impact=V(X=-92.00, Y=-950.00, Z=4.70) time=5.121
+[2026.09.05-02.25.44:036][607]LogTemp: Display: D01_030_TEST shot=1 health=86.0 time=5.121 interval=5.121
+[2026.09.05-02.25.44:936][715]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaDemoPawn_4 amount=14.0 health=72.0 tag=rival_fire
+[2026.09.05-02.25.44:936][715]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaDemoPawn_4
+[2026.09.05-02.25.44:936][715]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaDemoPawn_4 feedback=hit_flash
+[2026.09.05-02.25.44:936][715]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_3 target=BiellaDemoPawn_4 hit=true damage=14.0 muzzle=V(X=-560.07, Y=-950.00, Z=34.76) impact=V(X=-92.00, Y=-950.00, Z=4.70) time=6.021
+[2026.09.05-02.25.44:937][715]LogTemp: Display: D01_030_TEST shot=2 health=72.0 time=6.021 interval=0.900
+[2026.09.05-02.25.45:836][823]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaDemoPawn_4 amount=14.0 health=58.0 tag=rival_fire
+[2026.09.05-02.25.45:836][823]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaDemoPawn_4
+[2026.09.05-02.25.45:836][823]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaDemoPawn_4 feedback=hit_flash
+[2026.09.05-02.25.45:836][823]LogTemp: Display: D01_SIGNAL RIVAL_FIRE owner=BiellaRival_3 target=BiellaDemoPawn_4 hit=true damage=14.0 muzzle=V(X=-560.07, Y=-950.00, Z=34.76) impact=V(X=-92.00, Y=-950.00, Z=4.70) time=6.921
+[2026.09.05-02.25.45:837][823]LogTemp: Display: D01_030_TEST shot=3 health=58.0 time=6.921 interval=0.900
+[2026.09.05-02.25.45:837][823]LogTemp: Display: D01_030_TEST PASS phase=autonomous_cadence time=6.921
+[2026.09.05-02.25.45:838][823]LogTemp: Display: D01_SIGNAL PLAYER_PAWN_READY mesh=true collision=pawn
+[2026.09.05-02.25.45:838][823]LogTemp: Display: D01_SIGNAL CAMERA_READY boom=520.0 collision_test=true probe=12.0
+[2026.09.05-02.25.45:838][823]LogTemp: Display: D01_SIGNAL AIM_READY yaw_input=MouseX pitch_input=MouseY clamped=true
+[2026.09.05-02.25.45:838][823]LogTemp: Display: D01_SIGNAL INPUT_READY actions=10 mappings=10
+[2026.09.05-02.25.45:838][823]LogTemp: Display: D01_SIGNAL LOCOMOTION_READY speed=520.0 jump=true
+[2026.09.05-02.25.45:838][823]LogTemp: Display: D01_SIGNAL WEAPON_READY equipped=true ammo=60 trace=visibility
+[2026.09.05-02.25.45:838][823]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaRival_3 amount=34.0 health=66.0 tag=D01_030_player_weapon
+[2026.09.05-02.25.45:838][823]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaRival_3
+[2026.09.05-02.25.45:838][823]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaRival_3 feedback=hit_flash
+[2026.09.05-02.25.45:838][823]LogTemp: Display: D01_SIGNAL WEAPON_FIRE owner=BiellaGamesCharacter_1 target=BiellaRival_3 hit=true damage=34.0 ammo=59
+[2026.09.05-02.25.45:838][823]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaRival_3 amount=27.0 health=39.0 tag=engine
+[2026.09.05-02.25.45:838][823]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaRival_3
+[2026.09.05-02.25.45:838][823]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaRival_3 feedback=hit_flash
+[2026.09.05-02.25.45:838][823]LogTemp: Display: D01_030_TEST BEGIN phase=incoming_damage_recovery time=6.921
+[2026.09.05-02.25.45:844][824]LogTemp: Display: D01_SIGNAL RIVAL_TARGET actor=BiellaRival_3 target=BiellaGamesCharacter_1 team=0
+[2026.09.05-02.25.46:087][853]LogTemp: Display: D01_030_TEST PASS phase=incoming_damage_recovery time=7.171
+[2026.09.05-02.25.46:088][853]LogTemp: Display: D01_030_TEST BEGIN phase=live_movement_before_defeat time=7.171
+[2026.09.05-02.25.46:094][854]LogTemp: Display: D01_SIGNAL RIVAL_TARGET actor=BiellaRival_3 target=BiellaDemoPawn_5 team=2
+[2026.09.05-02.25.46:095][854]LogTemp: Display: D01_SIGNAL RIVAL_PATH actor=BiellaRival_3 revision=1 points=4 length=1077.5 goal=V(X=400.00, Y=-950.00, Z=10.00)
+[2026.09.05-02.25.46:095][854]LogTemp: Display: D01_SIGNAL RIVAL_POSITION actor=BiellaRival_3 target=BiellaDemoPawn_5 mode=EDemo01RivalPositionState::Advance location=V(X=-650.00, Y=-950.00, Z=2.00) distance=1650.0
+[2026.09.05-02.25.46:103][855]LogTemp: Display: D01_SIGNAL RIVAL_PATH_INVALIDATED actor=BiellaRival_3 revision=1
+[2026.09.05-02.25.46:595][914]LogTemp: Display: D01_SIGNAL RIVAL_PATH actor=BiellaRival_3 revision=2 points=3 length=1050.8 goal=V(X=400.00, Y=-950.16, Z=10.00)
+[2026.09.05-02.25.46:812][940]LogTemp: Display: D01_SIGNAL DAMAGE target=BiellaRival_3 amount=39.0 health=0.0 tag=engine
+[2026.09.05-02.25.46:812][940]LogTemp: Display: D01_SIGNAL HIT_REACTION target=BiellaRival_3
+[2026.09.05-02.25.46:812][940]LogTemp: Display: D01_SIGNAL COMBAT_FEEDBACK target=BiellaRival_3 feedback=hit_flash
+[2026.09.05-02.25.46:812][940]LogTemp: Display: D01_SIGNAL DEFEAT actor=BiellaRival_3 reason=engine
+[2026.09.05-02.25.46:812][940]LogTemp: Display: D01_SIGNAL RIVAL_POSITION actor=BiellaRival_3 target=None mode=EDemo01RivalPositionState::Idle location=V(X=-589.47, Y=-953.82, Z=2.75) distance=-1.0
+[2026.09.05-02.25.46:812][940]LogTemp: Display: D01_030_TEST BEGIN phase=defeat_stop time=7.896
+[2026.09.05-02.25.48:012][ 84]LogTemp: Display: D01_030_TEST PASS phase=defeat_stop time=9.096
+[2026.09.05-02.25.48:012][ 85]LogTemp: Display: D01_030_TEST COMPLETE assertions=target_guards,parameter_guards,range_boundary,point_blank,cover,pawn_occlusion,missing_collision,muzzle_clearance,autonomous_cadence,weapon_flash,hit_flash,player_weapon,engine_damage,fatal_clamp,duplicate_damage,defeat_stop
+[2026.09.05-02.25.48:028][ 86]LogAutomationController: Display: Test Completed. Result={Success} Name={RivalCombat} Path={BiellaGames.Demo01.RivalCombat}
+[2026.09.05-02.25.48:028][ 86]LogAutomationController: BeginEvents: BiellaGames.Demo01.RivalCombat
+[2026.09.05-02.25.48:028][ 86]LogAutomationController: EndEvents: BiellaGames.Demo01.RivalCombat
+[2026.09.05-02.25.48:029][ 86]LogAutomationController: Sending StopTestSession to 01A06F62C17D773AA85AC1C3E53474AB
+[2026.09.05-02.25.48:037][ 87]LogAutomationWorker: Received StopTestSession from 01A06F62C1837FE3A4822407E830EF84
+[2026.09.05-02.25.48:037][ 88]LogAutomationCommandLine: Shutting down. GIsCriticalError=0
+[2026.09.05-02.25.48:037][ 88]LogAutomationCommandLine: Display: **** TEST COMPLETE. EXIT CODE: 0 ****
+[2026.09.05-02.25.48:037][ 88]LogCore: FUnixPlatformMisc::RequestExit(bForce=false, ReturnCode=0, CallSite=<NoCallSiteInfo>)
+[2026.09.05-02.25.48:037][ 88]LogCore: FUnixPlatformMisc::RequestExit(0, <NoCallSiteInfo>)
+[2026.09.05-02.25.48:037][ 88]LogGenericPlatformMisc: FPlatformMisc::RequestExit(0, <NoCallSiteInfo>)
+[2026.09.05-02.25.48:037][ 88]LogCore: Engine exit requested (reason: GenericPlatform RequestExit)
+[2026.09.05-02.25.48:037][ 88]LogAutomationCommandLine: Display: ...Automation Test Queue Empty 1 tests performed.
+[2026.09.05-02.25.48:037][ 88]LogCore: Engine exit requested (reason: EngineExit() was called; note: exit was already requested)
+[2026.09.05-02.25.48:037][ 88]LogStaticMesh: Abandoning remaining async distance field tasks for shutdown
+[2026.09.05-02.25.48:038][ 88]LogStaticMesh: Abandoning remaining async card representation tasks for shutdown
+[2026.09.05-02.25.48:038][ 88]LogInit: Display: PreExit Game.
+[2026.09.05-02.25.48:038][ 88]LogWorld: BeginTearingDown for /Game/Maps/BiellaGameplayMap
+[2026.09.05-02.25.48:038][ 88]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance
+[2026.09.05-02.25.48:039][ 88]LogWorld: UWorld::CleanupWorld for BiellaGameplayMap_Recovered, bSessionEnded=true, bCleanupResources=true
+[2026.09.05-02.25.48:039][ 88]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2026.09.05-02.25.48:041][ 88]LogRuntimeTelemetry: Recording EnginePreExit events
+[2026.09.05-02.25.48:043][ 88]LogSlate: Window 'BiellaGames (64-bit Development SF_VULKAN_SM5) ' being destroyed
+[2026.09.05-02.25.48:043][ 88]LogSlate: Slate User Destroyed.  User Index 0, Is Virtual User: 0
+[2026.09.05-02.25.48:043][ 88]LogExit: Preparing to exit.
+[2026.09.05-02.25.48:169][ 88]LogUObjectHash: Compacting FUObjectHashTables data took   1.01ms
+[2026.09.05-02.25.48:171][ 88]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PostWrite): 0 .ref files found, 0 referenced binaries
+[2026.09.05-02.25.48:171][ 88]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 0 total binaries, 0 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.09.05-02.25.48:171][ 88]LogEditorDataStorage: Deinitializing
+[2026.09.05-02.25.48:171][ 88]LogEditorDataStorage: De-initializing TEDS Compatibility.
+[2026.09.05-02.25.48:171][ 88]LogEditorDataStorage: De-initialized TEDS Compatibility.
+[2026.09.05-02.25.48:171][ 88]LogEditorDataStorage: De-initializing TEDS Core.
+[2026.09.05-02.25.48:171][ 88]LogEditorDataStorage: Resetting TEDS Core.
+[2026.09.05-02.25.48:171][ 88]LogEditorDataStorage: Reset TEDS Core.
+[2026.09.05-02.25.48:171][ 88]LogEditorDataStorage: De-initialized TEDS Core.
+[2026.09.05-02.25.48:189][ 88]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2026.09.05-02.25.48:190][ 88]LogDemo: Cleaned up 0 splitscreen connections, owner deletion: enabled
+[2026.09.05-02.25.48:196][ 88]LogExit: Game engine shut down
+[2026.09.05-02.25.48:230][ 88]LogEditorDataStorage: Destroyed TEDS Core.
+[2026.09.05-02.25.48:230][ 88]LogEditorDataStorage: Destroyed TEDS Compatibility.
+[2026.09.05-02.25.48:232][ 88]LogEditorDataStorage: Destroyed TEDS Core.
+[2026.09.05-02.25.48:232][ 88]LogEditorDataStorage: Destroyed TEDS Compatibility.
+[2026.09.05-02.25.48:279][ 88]LogExit: Object subsystem successfully closed.
+[2026.09.05-02.25.48:369][ 88]LogShaderCompilers: Display: Exiting ShaderCompilingThread
+[2026.09.05-02.25.48:400][ 88]LogChaosDD: Chaos Debug Draw Shutdown
+[2026.09.05-02.25.48:428][ 88]LogEOSShared: Shutdown EOS_Shutdown Result=[EOS_Success]
+[2026.09.05-02.25.48:434][ 88]LogNFORDenoise: NFORDenoise function shutting down
+[2026.09.05-02.25.48:437][ 88]LogPakFile: Destroying PakPlatformFile
+[2026.09.05-02.25.48:448][ 88]LogExit: Exiting.
+Shutdown handler: cleanup.
+Opening shared memory
+Shared memory doesn't exist, checking legacy lock file
+Checking for a '/tmp/UnrealTraceServer.pid' lock file
+Forking process
+Opening shared memory
+Starting the store
+Reading settings from '/home/unreal/UnrealEngine/UnrealTrace/Settings.ini'
+
+Unable to open settings file /home/unreal/UnrealEngine/UnrealTrace/Settings.ini.
+
+Store settings (/home/unreal/UnrealEngine/UnrealTrace/Settings.ini):
+ - Store port: 1989
+ - Recorder port: 1981
+ - Thread count: 0
+ - Sponsored mode: 1
+ - Directory: '/home/unreal/UnrealEngine/UnrealTrace/Store/001'
+Signalling parent 1384072
+Terminating server, no sponsors or connections active.
+Listening cancelled, closing port...
+Listening cancelled, closing port...
+Received signal 15
+Daemon is exiting without errors.

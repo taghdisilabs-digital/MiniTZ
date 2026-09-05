@@ -10,6 +10,9 @@
 #include "Components/StaticMeshComponent.h"
 #include "NavigationSystem.h"
 #include "NavigationData.h"
+#include "Engine/StaticMesh.h"
+#include "Materials/MaterialInstanceDynamic.h"
+#include "UObject/ConstructorHelpers.h"
 
 ABiellaRival::ABiellaRival()
 {
@@ -21,6 +24,17 @@ ABiellaRival::ABiellaRival()
     // traversability data on every step (which would invalidate its own path).
     Collision->SetCanEverAffectNavigation(false);
     BodyMesh->SetCanEverAffectNavigation(false);
+    WeaponMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
+    WeaponMesh->SetupAttachment(Collision.Get());
+    WeaponMesh->SetRelativeLocation(FVector(55.0f, 0.0f, 35.0f));
+    WeaponMesh->SetRelativeScale3D(FVector(0.7f, 0.16f, 0.16f));
+    WeaponMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    WeaponMesh->SetCanEverAffectNavigation(false);
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> WeaponCube(TEXT("/Engine/BasicShapes/Cube.Cube"));
+    if (WeaponCube.Succeeded())
+    {
+        WeaponMesh->SetStaticMesh(WeaponCube.Object);
+    }
     if (PawnMovement)
     {
         PawnMovement->MaxSpeed = MovementSpeed;
@@ -30,8 +44,15 @@ ABiellaRival::ABiellaRival()
 void ABiellaRival::BeginPlay()
 {
     Super::BeginPlay();
+    UMaterialInterface* BaseMaterial = LoadObject<UMaterialInterface>(
+        nullptr, TEXT("/Engine/BasicShapes/BasicShapeMaterial.BasicShapeMaterial"));
+    WeaponMaterial = UMaterialInstanceDynamic::Create(BaseMaterial, this);
+    WeaponMesh->SetMaterial(0, WeaponMaterial);
+    WeaponMaterial->SetVectorParameterValue(TEXT("BaseColor"), FLinearColor(0.12f, 0.12f, 0.14f));
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL RIVAL_READY actor=%s health=%.1f speed=%.1f"),
         *GetName(), MaxHealth, MovementSpeed);
+    UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL RIVAL_WEAPON_READY actor=%s range=%.1f damage=%.1f cooldown=%.2f"),
+        *GetName(), WeaponRange, WeaponDamage, WeaponCooldown);
 }
 
 void ABiellaRival::SetPreferredTarget(ABiellaDemoPawn* Target)
@@ -80,6 +101,14 @@ void ABiellaRival::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
     WeaponCooldownRemaining = FMath::Max(0.0f, WeaponCooldownRemaining - DeltaTime);
+    if (WeaponFlashRemaining > 0.0f)
+    {
+        WeaponFlashRemaining = FMath::Max(0.0f, WeaponFlashRemaining - DeltaTime);
+        if (WeaponFlashRemaining <= 0.0f && WeaponMaterial)
+        {
+            WeaponMaterial->SetVectorParameterValue(TEXT("BaseColor"), FLinearColor(0.12f, 0.12f, 0.14f));
+        }
+    }
     if (IsDefeated())
     {
         ClearNavigationPath();
@@ -314,23 +343,50 @@ void ABiellaRival::UpdatePositioning(float DeltaTime)
 
 bool ABiellaRival::FireAtTarget(ABiellaDemoPawn* Target)
 {
-    if (!Target || Target->IsDefeated() || IsDefeated() ||
-        WeaponCooldownRemaining > 0.0f || !GetWorld())
+    if (!IsValid(Target) || Target == this || Target->GetTeam() == GetTeam() ||
+        Target->IsDefeated() || IsDefeated() || WeaponCooldownRemaining > 0.0f || !GetWorld() ||
+        !FMath::IsFinite(WeaponRange) || WeaponRange <= 0.0f ||
+        !FMath::IsFinite(WeaponDamage) || WeaponDamage <= 0.0f ||
+        !FMath::IsFinite(WeaponCooldown) || WeaponCooldown <= 0.0f ||
+        FVector::DistSquared(GetActorLocation(), Target->GetActorLocation()) > FMath::Square(WeaponRange))
     {
         return false;
     }
-    const FVector Start = GetActorLocation() + FVector(0.0f, 0.0f, 50.0f);
     const FVector End = Target->GetActorLocation();
+    WeaponMesh->SetWorldRotation((End - WeaponMesh->GetComponentLocation()).Rotation());
+    const FVector Start = WeaponMesh->GetComponentLocation() + WeaponMesh->GetForwardVector() * 35.0f;
     FCollisionQueryParams TraceParams(SCENE_QUERY_STAT(Demo01RivalTrace), true, this);
     FHitResult Hit;
-    const bool bTraceHit = GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_Visibility, TraceParams);
-    if (bTraceHit && Hit.GetActor() != Target)
+    // Check the barrel's clearance as well: an extended muzzle cannot bypass
+    // nearby cover between the pawn and the origin of the shot.
+    const bool bBarrelHit = GetWorld()->LineTraceSingleByChannel(Hit,
+        GetActorLocation() + FVector(0, 0, 35), Start, ECC_Visibility, TraceParams);
+    // At close range the target can intersect the barrel segment itself.
+    // Preserve that first hit instead of shooting past it or rejecting it.
+    if ((!bBarrelHit && !GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_Visibility, TraceParams)) ||
+        Hit.GetActor() != Target)
     {
         return false;
     }
-    const float Applied = Target->ApplyDemoDamage(WeaponDamage, this, TEXT("rival_fire"));
     WeaponCooldownRemaining = WeaponCooldown;
-    UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL RIVAL_FIRE owner=%s target=%s hit=%s damage=%.1f"),
-        *GetName(), *Target->GetName(), Applied > 0.0f ? TEXT("true") : TEXT("false"), Applied);
+    const float Applied = Target->ApplyDemoDamage(WeaponDamage, this, TEXT("rival_fire"));
+    WeaponFlashRemaining = 0.08f;
+    if (WeaponMaterial)
+    {
+        WeaponMaterial->SetVectorParameterValue(TEXT("BaseColor"), FLinearColor(1.0f, 0.65f, 0.08f));
+    }
+    UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL RIVAL_FIRE owner=%s target=%s hit=%s damage=%.1f muzzle=%s impact=%s time=%.3f"),
+        *GetName(), *Target->GetName(), Applied > 0.0f ? TEXT("true") : TEXT("false"), Applied,
+        *Start.ToCompactString(), *Hit.ImpactPoint.ToCompactString(), GetWorld()->GetTimeSeconds());
     return Applied > 0.0f;
+}
+
+void ABiellaRival::Defeat(const FString& Reason)
+{
+    Super::Defeat(Reason);
+    ClearNavigationPath();
+    CurrentTarget = nullptr;
+    SetPositionState(EDemo01RivalPositionState::Idle);
+    WeaponFlashRemaining = 0.0f;
+    WeaponMesh->SetVisibility(false);
 }
