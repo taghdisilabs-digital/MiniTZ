@@ -93,7 +93,7 @@ The receipt must not become another queue, task ledger, mutable memory file, or 
 ## Production-map task sizing
 A production task should be the smallest unit with its own meaningful acceptance/evidence boundary. Do not split setup, implementation, validation, and documentation into separate tasks when they exist only to deliver one inseparable result. Split when one result can be independently accepted or rejected without invalidating its neighbor.
 
-## Fifteen concrete improvement tasks
+## Twenty concrete improvement tasks
 
 ### Phase 1
 1. **Authority resolver** — derive Project/lane/task and exact current Git/Drive/runtime identities from existing sources.
@@ -119,6 +119,39 @@ A production task should be the smallest unit with its own meaningful acceptance
 13. **Context efficiency telemetry** — measure initial context size, expansions, repeated reads, and useful-source ratio.
 14. **Execution efficiency telemetry** — measure retries, fallback/routing outcomes, reuse, validation failures, and task duration.
 15. **Evidence-based task-pattern learning** — version successful packet/task patterns and routing lessons without modifying Project authority or universal invariants silently.
+
+## AAA-challenger control surface
+The private `/control/` console is the operator surface for the same production truth; it must not become another workflow, scheduler, queue, state authority, or task ledger. Its job is to make the current canonical production state understandable in seconds and to make solo-founder AAA-challenger production visibly credible.
+
+### Information architecture
+Use four primary sections only: **Control**, **Work**, **Outputs**, and **System**. `Website`, `Engine`, and `Games` are project context selectors, not a second navigation hierarchy. Remove primary pages whose information belongs inside these four sections: Live dialog becomes the Control command composer; Capabilities & Run becomes task-local actions; milestones become production-map progress; files and visuals become Outputs; services, workers, hardware, model/API state, and context controls become System.
+
+### Automatic liveness and progress
+The console continuously reads the existing gateway/controller/feeder state so Mahdi never needs to ask whether production is active. The persistent header and Control view show `ACTIVE`, `WAITING`, `STALE`, `STOPPED`, or `ERROR`, plus current Project, section, exact task, model/reasoning, task/section progress, next task, last heartbeat, last evidence update, current Git identity, and Drive publication/readback state where relevant. A stale heartbeat must display `STALE`; the UI must never infer `ACTIVE` from an old status value. This is observability of existing state, not a new heartbeat authority.
+
+### Control view
+The default view answers, in order: **what is being built, what exact task is active, how far production has progressed, what model/resource is executing it, what happens next, and what current evidence proves progress**. Show one dominant current-task block, one production-map progress surface, latest validated evidence/output, and a compact recent-activity stream. Routine healthy infrastructure is visually quiet.
+
+### Work view
+Render the unified section/task graph from canonical production state. Show one row per canonical semantic task. Overlapping source task IDs appear as aliases/evidence behind that row, never as duplicate executable work. Completed tasks stay collapsed by default; current and blocked work get visual priority.
+
+### Outputs view
+Unify source, builds/packages, visuals/media, and evidence under one output browser with filters such as `All | Source | Builds | Visuals | Evidence`. Games should foreground real runtime screenshots, validated gameplay captures, environments, characters, VFX/UI, and packaged builds. Metadata is secondary to the production artifact, but exact identity/digest/status remains available. Generated visuals remain `GENERATED_DRAFT` until explicitly accepted.
+
+### System view
+Combine GPU/CPU/memory, Codex model availability/reasoning, API/provider health, workers, services, context limits, and failure state. Show exceptions and constraints first. Healthy systems should not dominate the operator screen. Codex usage/reset remains Mahdi-controlled; the UI may report observed availability but must never redeem/reset usage.
+
+### AAA-challenger visual standard
+Replace the generic neon AI/SaaS dashboard language with a restrained professional production-workstation language: near-black/graphite foundation, thin neutral separators, minimal elevation, one primary active-state accent, success/warning/error colors only for real state, stronger typography hierarchy, dense but readable technical metadata, and almost no decorative glow/gradient. Use actual project imagery and validated artifacts wherever visual context helps. The Games control surface should visually communicate `one founder -> one production system -> real editable work -> real builds -> measurable quality/progress`, not "AI dashboard" aesthetics.
+
+Operator presentation is production-dense and fast. A proof/showcase presentation may use the same underlying data and artifacts for investor/external proof, but it is only another presentation of the same state and must not create a second workflow or evidence source.
+
+### Control-surface implementation tasks
+16. **Unified control projection** — project the same canonical task/section/evidence/system state into one frontend payload without a second state store.
+17. **Four-section information architecture** — rebuild navigation/rendering around Control, Work, Outputs, and System and remove duplicated status surfaces.
+18. **Automatic liveness** — expose heartbeat/freshness/current-task/model/progress/evidence timestamps and classify ACTIVE/WAITING/STALE/STOPPED/ERROR from current observed state.
+19. **AAA-challenger visual system** — replace generic neon dashboard styling with the production-workstation hierarchy above and make real project artifacts first-class.
+20. **Browser qualification** — verify desktop/mobile readability, task/progress comprehension, stale-state behavior, artifact inspection, accessibility, and that no control view invents or duplicates production authority.
 
 ## Non-negotiable integration constraints
 - Do not replace `biella-codex` or add another public controller.
