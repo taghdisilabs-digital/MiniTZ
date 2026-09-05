@@ -15,8 +15,8 @@ repository:
   branch: main
   canonical_checkout: /root/biella/repos/biella-engine
   structure: ONE_REPOSITORY_MONOREPO
-  implementation_commit: 4a95e0fd829378beac6c6977f5ca5baec031446e
-  implementation_tree: bed66704f847ad73915503f526384243c55fb389
+  implementation_commit: f69bcd04fa1b8cd27704c67338eb5cc562eb1403
+  implementation_tree: 115beb43a7db4a7b953b2eb17d56854e67501242
   github_readback: VERIFIED_EXACT_MAIN_AND_REQUIRED_PATHS
   active_remote_branches: [main]
   historical_branch_refs: 15_REMOTE_ARCHIVE_TAGS
@@ -30,8 +30,10 @@ active_execution:
   consolidation_state: COMPLETE_VERIFIED
 
   runner: READY
-  runner_implementation_commit: 266133a53b145341074d82f277fcfc409aea7a0a
-  runner_implementation_tree: 7a43b59c96fdd2c5b847bb64258085ad1ee30d39
+  runner_implementation_commit: d9f4360a4430cd663f37c064db42d803917aea64
+  runner_implementation_tree: f233e4e212625aaa9ca06685f3d3b8c32e0886cc
+  runner_service_commit: f0521d0df75db5352fb6e9cd12ee67cdf309e7de
+  controller_auth_fix_commit: 51f5712542de016a429a4450bf1884ac649e03b7
 games:
   project_path: projects/biella-games
   production_source: projects/biella-games/docs/PRODUCTION.md
@@ -47,6 +49,11 @@ games:
   navigation_evidence: projects/biella-games/Build/Demo01/D01-029-acceptance.md
   combat_qualification: D01_030_WEAPON_COLLISION_DAMAGE_RESPONSE_BUILD_AND_LIVE_RUNTIME_PASS
   combat_evidence: projects/biella-games/Build/Demo01/D01-030-acceptance.md
+  shared_interaction_qualification: D01_031_SIX_DIRECTED_DAMAGE_EDGES_30_120_FPS_PASS
+  shared_interaction_evidence: projects/biella-games/Build/Demo01/D01-031-acceptance.md
+  pressure_state_qualification: D01_032_AUTHORITATIVE_PRESSURE_TRANSITIONS_PASS
+  pressure_state_evidence: projects/biella-games/Build/Demo01/D01-032-acceptance.md
+  d01_033_recovery_checkpoint: 6582d4bcbc5a86dc87495a21e9f4f4c6187b8fc7
   task_boundary: D01-033_PENDING
 
 engine_numbered_execution:
