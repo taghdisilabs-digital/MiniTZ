@@ -1,0 +1,246 @@
+{
+  "task_id": "D01-42",
+  "result": "PASS",
+  "scope": "One task only; local implementation/qualification; Auto Feeder owns publication and canonical transition",
+  "tested_source_head": "7ed59aca9a60569132ea6e638f94359305112845",
+  "runtime_validation": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-runs/20260905T084808.324250Z/validation.json",
+    "sha256": "7acd7f2e09c5f5c96ed0d0bcabaeab555300d12da5e976ff6ada1134391de4e2",
+    "bytes": 53860
+  },
+  "predecessor_validation": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-qualified-predecessor/20260905T084808.360613Z-nullrhi-02df4931/validation.json",
+    "sha256": "cbfe6a5674b761676705101f0f6d1973726590bb58a9256adf42b275fa5b96f4",
+    "bytes": 41099
+  },
+  "exact_semantic_comparison": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-qualified-timeline-comparison.json",
+    "sha256": "a7ed273e6eb3f223411ecbea582b2baea25c520d34caafe007d63a3f425bce90",
+    "bytes": 6810
+  },
+  "build": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-editor-build-gas.log",
+    "sha256": "438bc5b584b0877e74eee0b93b7ce5cdd08f3b96ae83c3805bd64d261ac34211",
+    "bytes": 2431
+  },
+  "audio_import_readback": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-audio-assets.json",
+    "sha256": "b14094f78026fe76bdf599899d84122636948d9f5ba5b211f57d317083cca3d3",
+    "bytes": 3146
+  },
+  "vfx_provenance": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-vfx-README.md",
+    "sha256": "30508fa5016ba0abb6ebf61db70aab467548f3382973a433ecd255c0afe246ac",
+    "bytes": 7466
+  },
+  "structure": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-structural-verifier.log",
+    "sha256": "0ed1b6c234ff76cb04196dbbadea56034ddb3125cb210d4715e0422b0d1fa861",
+    "bytes": 53
+  },
+  "rendered_phases": [
+    "fresh_assets",
+    "confirmed_spatial_combat",
+    "rejected_events_silent",
+    "particles_rendered",
+    "melee_and_dense_combat",
+    "dense_rendered_tick",
+    "damage_bounded",
+    "pressure_transition_only",
+    "success_once",
+    "restart_reset",
+    "failure_once",
+    "lifecycle_drained"
+  ],
+  "particle_samples": [
+    {
+      "cue": 0,
+      "live_particles": 5
+    },
+    {
+      "cue": 1,
+      "live_particles": 11
+    },
+    {
+      "cue": 0,
+      "live_particles": 5
+    },
+    {
+      "cue": 1,
+      "live_particles": 11
+    }
+  ],
+  "dense_tick": [
+    "effects=24 particles=192 game_delta_ms=16.667 wall_delta_ms=8.268 frame_delta_ms=16.667"
+  ],
+  "mixed_audio": [
+    {
+      "path": "/root/biella/artifacts/games/D01-042/20260905T084808.324250Z/combat.wav",
+      "sha256": "415d301953d8ea5904cc144d8fdf69109a1d7de79602b2f27504d6b8f6311134",
+      "bytes": 131116,
+      "sample_rate": 48000,
+      "channels": 2,
+      "pcm_bits": 16,
+      "frames": 32768,
+      "clipped_samples": 0,
+      "duration_seconds": 0.6827,
+      "peak": 0.056885,
+      "rms": 0.007938,
+      "audible_seconds": 0.2912,
+      "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+    },
+    {
+      "path": "/root/biella/artifacts/games/D01-042/20260905T084808.324250Z/hurt.wav",
+      "sha256": "725bfa868ab222e15c073b40550589348affb4f7cd13d68bea3fd28e3a730041",
+      "bytes": 61484,
+      "sample_rate": 48000,
+      "channels": 2,
+      "pcm_bits": 16,
+      "frames": 15360,
+      "clipped_samples": 0,
+      "duration_seconds": 0.32,
+      "peak": 0.213989,
+      "rms": 0.035878,
+      "audible_seconds": 0.1731,
+      "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+    },
+    {
+      "path": "/root/biella/artifacts/games/D01-042/20260905T084808.324250Z/pressure.wav",
+      "sha256": "cfe0c745535af79010c1561e274bc989895a33e3267c916e1b3f3a49c9c6cdd3",
+      "bytes": 122924,
+      "sample_rate": 48000,
+      "channels": 2,
+      "pcm_bits": 16,
+      "frames": 30720,
+      "clipped_samples": 0,
+      "duration_seconds": 0.64,
+      "peak": 0.124481,
+      "rms": 0.025421,
+      "audible_seconds": 0.4936,
+      "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+    },
+    {
+      "path": "/root/biella/artifacts/games/D01-042/20260905T084808.324250Z/success.wav",
+      "sha256": "74a48a08a25d2353e33903057864cce5c98cd4d5aaea0900d1457680ee0fbb22",
+      "bytes": 159788,
+      "sample_rate": 48000,
+      "channels": 2,
+      "pcm_bits": 16,
+      "frames": 39936,
+      "clipped_samples": 0,
+      "duration_seconds": 0.832,
+      "peak": 0.069824,
+      "rms": 0.01816,
+      "audible_seconds": 0.643,
+      "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+    },
+    {
+      "path": "/root/biella/artifacts/games/D01-042/20260905T084808.324250Z/failure.wav",
+      "sha256": "2006fc84e982b8f2bb7b511ed6249f1408e01be43dbed21ba2261a378d939783",
+      "bytes": 176172,
+      "sample_rate": 48000,
+      "channels": 2,
+      "pcm_bits": 16,
+      "frames": 44032,
+      "clipped_samples": 0,
+      "duration_seconds": 0.9173,
+      "peak": 0.12442,
+      "rms": 0.021313,
+      "audible_seconds": 0.7855,
+      "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+    }
+  ],
+  "committed_capture_copies": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-captures/combat.png",
+      "sha256": "c760be3786aa9345aa73d70b0fc9e800941e5fc1352dd2e84799f804d378af64",
+      "bytes": 747611
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-captures/hurt.png",
+      "sha256": "6933b2e37530d9a6725f8b3b14bb21fa40c8fc0afbfd9ed46f04fabea9d3ef10",
+      "bytes": 745354
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-captures/pressure.png",
+      "sha256": "3b2b58075f5fbd26c4f2334a997ce27beff7a02232037b81920faface422800c",
+      "bytes": 817459
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-captures/success.png",
+      "sha256": "5dc2e2401ffdc7d75adeb6583bbd940eeb9e2f6fde36648f5e528447ae121bb1",
+      "bytes": 231362
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-captures/failure.png",
+      "sha256": "5a7d13f338c6496bf6516fcd187b5433d2de5294ca1477bcde2c2c5358fae3eb",
+      "bytes": 204232
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-captures/dense_combat.png",
+      "sha256": "eb41d403f6dacbfb61310b4a9f8cef13772c7785ef00e2ceca6227c003893ec4",
+      "bytes": 747045
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-captures/combat.wav",
+      "sha256": "415d301953d8ea5904cc144d8fdf69109a1d7de79602b2f27504d6b8f6311134",
+      "bytes": 131116
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-captures/hurt.wav",
+      "sha256": "725bfa868ab222e15c073b40550589348affb4f7cd13d68bea3fd28e3a730041",
+      "bytes": 61484
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-captures/pressure.wav",
+      "sha256": "cfe0c745535af79010c1561e274bc989895a33e3267c916e1b3f3a49c9c6cdd3",
+      "bytes": 122924
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-captures/success.wav",
+      "sha256": "74a48a08a25d2353e33903057864cce5c98cd4d5aaea0900d1457680ee0fbb22",
+      "bytes": 159788
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-captures/failure.wav",
+      "sha256": "2006fc84e982b8f2bb7b511ed6249f1408e01be43dbed21ba2261a378d939783",
+      "bytes": 176172
+    }
+  ],
+  "capture_status": "GENERATED_DRAFT",
+  "protected_source_hashes": [
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/03_BIELLA_CURRENT_STATE.md",
+      "sha256": "422e3466c5d990150563eb621909b736a3f095269d0d75e597dadba2b0bbe8ef",
+      "bytes": 5386
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+      "sha256": "6ea76146e0859ff11821c0db3357e318218fb7743405570e480dba391ff09ee0",
+      "bytes": 786
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/docs/PRODUCTION.md",
+      "sha256": "0c9a3aa78a1dc8fd95c730f03dfa29ea4ba5856357e9dd6a0b2223f0884fea96",
+      "bytes": 13953
+    }
+  ],
+  "limits": [
+    "Unreal Linux development/runtime qualification; no Windows package or release qualification claimed.",
+    "Fixed 1/60 simulation step isolates short-lived effects from synchronous screenshot stalls; not native FPS/performance qualification.",
+    "Mixer recordings are actual UE software master-submix PCM, not microphone/speaker measurements.",
+    "Normal depth-tested effects can be occluded by geometry; impact sparks/dust are subtle in stills.",
+    "Existing Recast map-registration and Vulkan shutdown-allocation warnings remain recorded; predecessor logs show the same warnings."
+  ],
+  "retained_attempts": [
+    "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-runs/20260905T081651.721785Z/validation.json",
+    "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-runs/20260905T081751.130466Z/validation.json",
+    "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-runs/20260905T082332.005833Z/validation.json",
+    "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-runs/20260905T082557.798045Z/validation.json",
+    "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-runs/20260905T082921.833085Z/validation.json",
+    "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-runs/20260905T083847.402035Z/validation.json",
+    "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-runs/20260905T084403.419146Z/validation.json",
+    "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-runs/20260905T084808.324250Z/validation.json"
+  ],
+  "visual_review": "Root and independent asset author decoded final combat/dense frames: visible warm player barrel flare and bounded warm dense burst, clear targets/reticle/HUD; impact particles validated through real native simulation/material attributes."
+}

@@ -1,0 +1,78 @@
+{
+  "task_id": "D01-42",
+  "status": "GENERATED_DRAFT",
+  "source": "Original deterministic synthesis; no third-party samples",
+  "format": "48000 Hz mono signed PCM16 WAV",
+  "generator": "generate_feedback_audio.py",
+  "generator_sha256": "29aae52d7f8718ab3d017f971b21d8a194cededdeff82ece11a82048998d3792",
+  "resource_route": {
+    "capability": "audio",
+    "providers": []
+  },
+  "cues": {
+    "S_ShotA": {
+      "kind": "shot",
+      "duration_seconds": 0.24,
+      "target_peak_dbfs": -9.5,
+      "seed": 401,
+      "asset_path": "/Game/Feedback/Audio/S_ShotA",
+      "sha256": "4ed22e04e1d3a2a2844c24ed182dbee6f4fc2a377893bec0678c95908562397a"
+    },
+    "S_ShotB": {
+      "kind": "shot",
+      "duration_seconds": 0.255,
+      "target_peak_dbfs": -9.5,
+      "seed": 817,
+      "asset_path": "/Game/Feedback/Audio/S_ShotB",
+      "sha256": "55a72ab0698c37305c8712d14ee1f83c3821f9f58097e08389eb52c4e7fdfb26"
+    },
+    "S_ShotC": {
+      "kind": "shot",
+      "duration_seconds": 0.225,
+      "target_peak_dbfs": -9.5,
+      "seed": 129,
+      "asset_path": "/Game/Feedback/Audio/S_ShotC",
+      "sha256": "f498e18cf250104643a57c6b037a3ee4d1fdf0f3eff83f203d06961e5844ee9d"
+    },
+    "S_Impact": {
+      "kind": "impact",
+      "duration_seconds": 0.18,
+      "target_peak_dbfs": -12.0,
+      "seed": 613,
+      "asset_path": "/Game/Feedback/Audio/S_Impact",
+      "sha256": "62821d82efb7e8ea8d41fbe988063e7401d9770615eb03a34a75263d23f03027"
+    },
+    "S_Hurt": {
+      "kind": "hurt",
+      "duration_seconds": 0.26,
+      "target_peak_dbfs": -12.0,
+      "seed": 721,
+      "asset_path": "/Game/Feedback/Audio/S_Hurt",
+      "sha256": "81c7911f66407cc054c3b6f2c213420d4003a1aef85238865fd350cccadc15d9"
+    },
+    "S_Pressure": {
+      "kind": "pressure",
+      "duration_seconds": 0.58,
+      "target_peak_dbfs": -15.0,
+      "seed": 314,
+      "asset_path": "/Game/Feedback/Audio/S_Pressure",
+      "sha256": "75ec051b0e9c6e203861ed0ae070fff28c1342bb8ec2e8960a85018a5dd153b4"
+    },
+    "S_Success": {
+      "kind": "success",
+      "duration_seconds": 0.78,
+      "target_peak_dbfs": -14.0,
+      "seed": 811,
+      "asset_path": "/Game/Feedback/Audio/S_Success",
+      "sha256": "c7f9358ca9cdcdebbe43655e573bce5fa88a4735293dcc9c5fa52b87fc2f177a"
+    },
+    "S_Failure": {
+      "kind": "failure",
+      "duration_seconds": 0.86,
+      "target_peak_dbfs": -14.0,
+      "seed": 917,
+      "asset_path": "/Game/Feedback/Audio/S_Failure",
+      "sha256": "8e040ef15d951674f7bf943792f8e33da2cf5d77f2ef0654c6177fabf7edeea1"
+    }
+  }
+}

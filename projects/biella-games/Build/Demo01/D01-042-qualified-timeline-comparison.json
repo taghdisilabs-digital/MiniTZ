@@ -1,0 +1,231 @@
+{
+  "task_id": "D01-39",
+  "result": "PASS",
+  "scenario": "demo01_core_v1",
+  "trace_sha256": "438cd2e30b6f67f2fe6319a51451dfd0046264638ef8065e5acbb4b74b49a7af",
+  "comparison": "ordered event + all fields + relative restart; session/sequence/map/timestamps excluded",
+  "runs": [
+    {
+      "capture": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-040-qualified-playtest/20260905T074646.072976Z-nullrhi-89d623f8/run-01.telemetry.jsonl",
+      "session": "01A07088-E078-7C81-907B-4AF47E4651BD",
+      "records": 72,
+      "scenario_events": 56,
+      "seed": 1337,
+      "restart_count": 2,
+      "event_counts": {
+        "arena_pressure": 1,
+        "checkpoint": 7,
+        "damage": 15,
+        "defeat": 3,
+        "fixture": 2,
+        "input": 9,
+        "objective_activated": 2,
+        "objective_progress": 2,
+        "objective_success": 1,
+        "phase": 4,
+        "restart_requested": 2,
+        "scenario_begin": 1,
+        "scenario_complete": 1,
+        "weapon_fire": 6
+      },
+      "checkpoints": [
+        {
+          "ammo": "60",
+          "health": "100.000",
+          "infected_remaining": "2",
+          "name": "active_baseline",
+          "objective_progress": "0",
+          "phase": "Active",
+          "pressure": "0.000",
+          "pressure_revision": "0",
+          "restart_relative": "0",
+          "target_count": "2"
+        },
+        {
+          "ammo": "60",
+          "health": "100.000",
+          "infected_remaining": "2",
+          "name": "movement",
+          "objective_progress": "0",
+          "phase": "Active",
+          "pressure": "0.000",
+          "pressure_revision": "0",
+          "restart_relative": "0",
+          "target_count": "2"
+        },
+        {
+          "ammo": "57",
+          "health": "100.000",
+          "infected_remaining": "1",
+          "name": "first_infected_defeated",
+          "objective_progress": "1",
+          "phase": "Active",
+          "pressure": "20.000",
+          "pressure_revision": "1",
+          "restart_relative": "0",
+          "target_count": "2"
+        },
+        {
+          "ammo": "54",
+          "health": "100.000",
+          "infected_remaining": "0",
+          "name": "success",
+          "objective_progress": "2",
+          "phase": "Success",
+          "pressure": "20.000",
+          "pressure_revision": "1",
+          "restart_relative": "0",
+          "target_count": "2"
+        },
+        {
+          "ammo": "60",
+          "health": "100.000",
+          "infected_remaining": "2",
+          "name": "restart_after_success",
+          "objective_progress": "0",
+          "phase": "Active",
+          "pressure": "0.000",
+          "pressure_revision": "0",
+          "restart_relative": "1",
+          "target_count": "2"
+        },
+        {
+          "ammo": "60",
+          "health": "0.000",
+          "infected_remaining": "2",
+          "name": "failure",
+          "objective_progress": "0",
+          "phase": "Failure",
+          "pressure": "0.000",
+          "pressure_revision": "0",
+          "restart_relative": "1",
+          "target_count": "2"
+        },
+        {
+          "ammo": "60",
+          "health": "100.000",
+          "infected_remaining": "2",
+          "name": "restart_after_failure",
+          "objective_progress": "0",
+          "phase": "Active",
+          "pressure": "0.000",
+          "pressure_revision": "0",
+          "restart_relative": "2",
+          "target_count": "2"
+        }
+      ],
+      "wall_seconds": 2.359640076989308
+    },
+    {
+      "capture": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-qualified-predecessor/20260905T084808.360613Z-nullrhi-02df4931/run-01.telemetry.jsonl",
+      "session": "01A070C1-100E-75A3-A256-78304ABA192D",
+      "records": 72,
+      "scenario_events": 56,
+      "seed": 1337,
+      "restart_count": 2,
+      "event_counts": {
+        "arena_pressure": 1,
+        "checkpoint": 7,
+        "damage": 15,
+        "defeat": 3,
+        "fixture": 2,
+        "input": 9,
+        "objective_activated": 2,
+        "objective_progress": 2,
+        "objective_success": 1,
+        "phase": 4,
+        "restart_requested": 2,
+        "scenario_begin": 1,
+        "scenario_complete": 1,
+        "weapon_fire": 6
+      },
+      "checkpoints": [
+        {
+          "ammo": "60",
+          "health": "100.000",
+          "infected_remaining": "2",
+          "name": "active_baseline",
+          "objective_progress": "0",
+          "phase": "Active",
+          "pressure": "0.000",
+          "pressure_revision": "0",
+          "restart_relative": "0",
+          "target_count": "2"
+        },
+        {
+          "ammo": "60",
+          "health": "100.000",
+          "infected_remaining": "2",
+          "name": "movement",
+          "objective_progress": "0",
+          "phase": "Active",
+          "pressure": "0.000",
+          "pressure_revision": "0",
+          "restart_relative": "0",
+          "target_count": "2"
+        },
+        {
+          "ammo": "57",
+          "health": "100.000",
+          "infected_remaining": "1",
+          "name": "first_infected_defeated",
+          "objective_progress": "1",
+          "phase": "Active",
+          "pressure": "20.000",
+          "pressure_revision": "1",
+          "restart_relative": "0",
+          "target_count": "2"
+        },
+        {
+          "ammo": "54",
+          "health": "100.000",
+          "infected_remaining": "0",
+          "name": "success",
+          "objective_progress": "2",
+          "phase": "Success",
+          "pressure": "20.000",
+          "pressure_revision": "1",
+          "restart_relative": "0",
+          "target_count": "2"
+        },
+        {
+          "ammo": "60",
+          "health": "100.000",
+          "infected_remaining": "2",
+          "name": "restart_after_success",
+          "objective_progress": "0",
+          "phase": "Active",
+          "pressure": "0.000",
+          "pressure_revision": "0",
+          "restart_relative": "1",
+          "target_count": "2"
+        },
+        {
+          "ammo": "60",
+          "health": "0.000",
+          "infected_remaining": "2",
+          "name": "failure",
+          "objective_progress": "0",
+          "phase": "Failure",
+          "pressure": "0.000",
+          "pressure_revision": "0",
+          "restart_relative": "1",
+          "target_count": "2"
+        },
+        {
+          "ammo": "60",
+          "health": "100.000",
+          "infected_remaining": "2",
+          "name": "restart_after_failure",
+          "objective_progress": "0",
+          "phase": "Active",
+          "pressure": "0.000",
+          "pressure_revision": "0",
+          "restart_relative": "2",
+          "target_count": "2"
+        }
+      ],
+      "wall_seconds": 2.350204198010033
+    }
+  ]
+}

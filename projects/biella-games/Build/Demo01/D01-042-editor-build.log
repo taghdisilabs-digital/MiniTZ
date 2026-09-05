@@ -1,0 +1,47 @@
+Setting up bundled DotNet SDK
+Running command : dotnet Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll BiellaGamesEditor Linux Development -Project=/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject -WaitMutex -NoUBA -NoHotReloadFromIDE -NoUBTMakefiles -gather
+Starting shared memory files at 1
+Log file: /home/unreal/.config/Epic/UnrealBuildTool/Log.txt
+Determining max actions to execute in parallel (15 physical cores, 15 logical cores)
+  Executing up to 15 processes, one per physical core
+UbaStorageServer - FileMapping backing: memfd
+UbaSessionServer - Disable remote execution (remote sessions will finish current processes)
+Invalidating makefile for BiellaGamesEditor (source file added)
+Unhandled exception: IOException: Permission denied
+Wrapped by UnauthorizedAccessException: Access to the path '/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGameplayFeedback.h' is denied.
+   at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirError)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, UnixFileMode openPermissions, Int64& fileLength, UnixFileMode& filePermissions, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at EpicGames.Core.FileReference.ReadAllText(FileReference location, Encoding encoding)
+   at EpicGames.Core.FileReference.ReadAllText(FileReference location)
+   at UnrealBuildTool.SourceFileMetadataCache.<>c__DisplayClass19_0.<GetHeaderFileInfo>b__0(FileItem HeaderFile)
+   at UnrealBuildTool.SourceFileMetadataCache.<>c__DisplayClass19_1.<GetHeaderFileInfo>b__1(FileItem _)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.AddOrUpdate(TKey key, Func`2 addValueFactory, Func`3 updateValueFactory)
+   at UnrealBuildTool.SourceFileMetadataCache.GetHeaderFileInfo(FileItem HeaderFile)
+   at UnrealBuildTool.SourceFileMetadataCache.ContainsReflectionMarkup(FileItem HeaderFile)
+   at UnrealBuildTool.UHTExecution.SetupUObjectModuleHeader(UHTModuleInfo ModuleInfo, FileItem HeaderFile, SourceFileMetadataCache MetadataCache)
+   at UnrealBuildTool.UHTExecution.<>c__DisplayClass12_1.<SetupUObjectModule>b__0()
+   at UnrealBuildBase.ParallelQueue.<Drain>g__WorkerLoop|1_0()
+--- End of stack trace from previous location ---
+   at UnrealBuildBase.ParallelQueue.Drain(Int32 helperCount, Boolean useTasks)
+   at UnrealBuildTool.UHTExecution.SetupUObjectModules(IEnumerable`1 ModulesToGenerateHeadersFor, UnrealTargetPlatform Platform, ProjectDescriptor ProjectDescriptor, List`1 UObjectModules, List`1 UObjectModuleHeaders, DirectoryReference ExecutableDirectory, EGeneratedCodeVersion GeneratedCodeVersion, SourceFileMetadataCache MetadataCache)
+   at UnrealBuildTool.UEBuildTarget.BuildMakefile1(BuildConfiguration BuildConfiguration, TargetDescriptor TargetDescriptor, ILogger Logger, SourceFileMetadataCache MetadataCache)
+   at UnrealBuildTool.BuildMode.<>c__DisplayClass25_6.<CreateMakefiles>b__5(List`1 intermediateFolderGroup)
+   at UnrealBuildBase.Parallel2.<>c__DisplayClass0_0`1.<ForEach>g__WorkerLoop|0()
+--- End of stack trace from previous location ---
+   at UnrealBuildBase.Parallel2.ForEach[TSource](IEnumerable`1 source, Action`1 body, Int32 helperCount, Boolean useTasks)
+   at UnrealBuildTool.BuildMode.<>c__DisplayClass25_1.<CreateMakefiles>b__2(KeyValuePair`2 kv)
+   at UnrealBuildBase.Parallel2.<>c__DisplayClass0_0`1.<ForEach>g__WorkerLoop|0()
+--- End of stack trace from previous location ---
+   at UnrealBuildBase.Parallel2.ForEach[TSource](IEnumerable`1 source, Action`1 body, Int32 helperCount, Boolean useTasks)
+   at UnrealBuildTool.BuildMode.CreateMakefiles(BuildConfiguration buildConfiguration, List`1 descriptors, ISourceFileWorkingSet workingSet, ILogger logger, Boolean runInitScripts, Boolean skipPreBuildTargets, List`1 outTasks, CppDependencyCache cppDependencyCache, FileHashCache fileHashCache)
+   at UnrealBuildTool.BuildMode.ExecuteAsync(CommandLineArguments Arguments, ILogger Logger)
+   at UnrealBuildTool.BuildMode.ExecuteAsync(CommandLineArguments Arguments, ILogger Logger)
+   at UnrealBuildTool.UnrealBuildTool.Main(String[] ArgumentsArray)
+
+Result: Failed (OtherCompilationError)
+Total execution time: 4.32 seconds
+Trace written to file /home/unreal/.config/Epic/UnrealBuildTool/Trace.uba with size 2.0kb

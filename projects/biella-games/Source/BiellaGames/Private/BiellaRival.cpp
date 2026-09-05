@@ -1,6 +1,7 @@
 // Copyright Biella Games. All Rights Reserved.
 
 #include "BiellaRival.h"
+#include "BiellaGameplayFeedback.h"
 
 #include "Engine/World.h"
 #include "GameFramework/FloatingPawnMovement.h"
@@ -369,6 +370,13 @@ bool ABiellaRival::FireAtTarget(ABiellaDemoPawn* Target)
     }
     WeaponCooldownRemaining = WeaponCooldown;
     const float Applied = Target->ApplyDemoDamage(WeaponDamage, this, TEXT("rival_fire"));
+    if (Applied > 0.0f)
+    {
+        if (UBiellaGameplayFeedback* Feedback = UBiellaGameplayFeedback::Get(GetWorld()))
+        {
+            Feedback->ConfirmedShot(Start, Hit);
+        }
+    }
     WeaponFlashRemaining = 0.08f;
     if (WeaponMaterial)
     {

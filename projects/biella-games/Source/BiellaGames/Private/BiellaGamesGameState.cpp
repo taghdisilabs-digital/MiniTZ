@@ -3,6 +3,7 @@
 #include "BiellaGamesGameState.h"
 
 #include "BiellaPlaytestTelemetry.h"
+#include "BiellaGameplayFeedback.h"
 #include "Net/UnrealNetwork.h"
 
 ABiellaGamesGameState::ABiellaGamesGameState()
@@ -54,6 +55,10 @@ void ABiellaGamesGameState::ResetState()
     bPlayerAlive = true;
     Phase = EDemo01Phase::Intro;
     ObjectiveText = TEXT("Enter the arena.");
+    if (UBiellaGameplayFeedback* Feedback = UBiellaGameplayFeedback::Get(GetWorld()))
+    {
+        Feedback->ResetFeedback();
+    }
     OnArenaPressureChanged.Broadcast(*this);
 }
 
@@ -66,6 +71,11 @@ void ABiellaGamesGameState::SetPhase(EDemo01Phase NewPhase, const FString& NewOb
         static_cast<int32>(Phase), *ObjectiveText);
     if (HasAuthority() && PreviousPhase != Phase)
     {
+        if (UBiellaGameplayFeedback* Feedback = UBiellaGameplayFeedback::Get(GetWorld()))
+        {
+            if (Phase == EDemo01Phase::Success) { Feedback->StateCue(EBiellaFeedbackCue::Success); }
+            if (Phase == EDemo01Phase::Failure) { Feedback->StateCue(EBiellaFeedbackCue::Failure); }
+        }
         UBiellaPlaytestTelemetry::Record(GetWorld(), TEXT("phase"), {
             {TEXT("previous"), StaticEnum<EDemo01Phase>()->GetNameStringByValue(static_cast<int64>(PreviousPhase))},
             {TEXT("current"), StaticEnum<EDemo01Phase>()->GetNameStringByValue(static_cast<int64>(Phase))},
@@ -137,6 +147,13 @@ bool ABiellaGamesGameState::SetArenaPressure(float NewPressure, const FString& R
         {TEXT("revision"), FString::FromInt(ArenaPressureRevision)},
         {TEXT("reason"), ArenaPressureReason}});
     OnArenaPressureChanged.Broadcast(*this);
+    if (PreviousState != ArenaPressureState && ArenaPressureState != EDemo01ArenaPressureState::Inactive)
+    {
+        if (UBiellaGameplayFeedback* Feedback = UBiellaGameplayFeedback::Get(GetWorld()))
+        {
+            Feedback->StateCue(EBiellaFeedbackCue::Pressure);
+        }
+    }
     return true;
 }
 

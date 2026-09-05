@@ -1,0 +1,106 @@
+D01-42 VFX author; bounded unmodified matching log lines
+date: 2026-09-05 UTC
+raw_log_sha256: 5f78acd99a39792effa8872fd0e4c28587a3eea4dc66054bd16f94173d388335
+invocation (project/script paths resolved absolute in execution): runuser -u unreal -- xvfb-run -a -s "-screen 0 1280x720x24" /opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor BiellaGames.uproject -ExecutePythonScript=Content/Python/build_demo_feedback_vfx.py -EnablePlugins=PythonScriptPlugin,CascadeToNiagaraConverter -unattended -nullrhi -nosound -nop4 -stdout -FullStdOutLogOutput
+process_exit_code: 139
+
+1786: [2026.09.05-08.14.20:379][  2]LogFileHelpers: Saving Package: /Game/Feedback/NS_Muzzle
+1790: [2026.09.05-08.14.20:498][  2]LogNiagara: Compiling System NiagaraSystem /Game/Feedback/NS_Muzzle.NS_Muzzle took 0.554391 sec (time since issued).
+1796: [2026.09.05-08.14.21:133][  2]LogNiagara: Compiling System NiagaraSystem /Game/Feedback/NS_Muzzle.NS_Muzzle took 0.751990 sec (time since issued).
+1797: [2026.09.05-08.14.21:199][  2]LogSavePackage: Moving output files for package: /Game/Feedback/NS_Muzzle
+1798: [2026.09.05-08.14.21:199][  2]LogSavePackage: Moving '../../../../../../root/biella/repos/biella-engine/projects/biella-games/Saved/NS_Muzzle01A070A203E870508D3FB3E922DE0742.tmp' to '../../../../../../root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/NS_Muzzle.uasset'
+1802: [2026.09.05-08.14.21:212][  2]LogPython: D01_042_VFX ASSET {"emitters": [{"color": [5.0, 2.8, 0.9, 0.9], "count": 1, "lifetime": 0.075, "name": "WarmCore", "size": [13.0, 8.0], "velocity": [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]}, {"color": [3.0, 1.8, 0.65, 0.8], "count": 4, "lifetime": 0.12, "name": "MuzzleSparks", "size": [2.5, 2.5], "velocity": [[110.0, -45.0, -35.0], [220.0, 45.0, 35.0]]}], "forward_axis": "+X", "local_space": true, "maximum_particle_lifetime": 0.12, "path": "/Game/Feedback/NS_Muzzle.NS_Muzzle", "status": "GENERATED_DRAFT", "total_burst_particles": 5}
+1808: [2026.09.05-08.14.21:456][  2]LogFileHelpers: Saving Package: /Game/Feedback/NS_Impact
+1812: [2026.09.05-08.14.21:575][  2]LogNiagara: Compiling System NiagaraSystem /Game/Feedback/NS_Impact.NS_Impact took 0.361328 sec (time since issued).
+1815: [2026.09.05-08.14.22:167][  2]LogNiagara: Compiling System NiagaraSystem /Game/Feedback/NS_Impact.NS_Impact took 0.708891 sec (time since issued).
+1817: [2026.09.05-08.14.22:238][  2]LogSavePackage: Moving output files for package: /Game/Feedback/NS_Impact
+1818: [2026.09.05-08.14.22:238][  2]LogSavePackage: Moving '../../../../../../root/biella/repos/biella-engine/projects/biella-games/Saved/NS_Impact01A070A207F27705B2E858FFED753272.tmp' to '../../../../../../root/biella/repos/biella-engine/projects/biella-games/Content/Feedback/NS_Impact.uasset'
+1822: [2026.09.05-08.14.22:250][  2]LogPython: D01_042_VFX ASSET {"emitters": [{"color": [2.5, 2.0, 1.3, 0.9], "count": 6, "lifetime": 0.24, "name": "SurfaceSparks", "size": [2.0, 2.0], "velocity": [[45.0, -80.0, -80.0], [140.0, 80.0, 80.0]]}, {"color": [0.32, 0.3, 0.27, 0.22], "count": 5, "lifetime": 0.36, "name": "SurfaceDust", "size": [10.0, 10.0], "velocity": [[20.0, -28.0, -28.0], [45.0, 28.0, 28.0]]}], "forward_axis": "+X", "local_space": true, "maximum_particle_lifetime": 0.36, "path": "/Game/Feedback/NS_Impact.NS_Impact", "status": "GENERATED_DRAFT", "total_burst_particles": 11}
+1823: [2026.09.05-08.14.22:250][  2]LogPython: D01_042_VFX PASS saved Niagara assets and depth-tested material
+1877: [2026.09.05-08.14.23:853][  3]LogExit: Exiting.
+1878: free(): invalid pointer
+1879: Signal 6 caught.
+1880: Segmentation fault (core dumped)
+
+--- Final color-module and modest-size authoring in empty moduleless temporary Content ---
+raw_log_sha256: 53dd1d4d55f1344cd1d6f44794e0b0a538b3d707a59a9fe6533c606361157ee3
+process_exit_code: 139
+1811: [2026.09.05-08.37.01:273][  2]LogFileHelpers: Saving Package: /Game/Feedback/M_FeedbackParticle
+1816: [2026.09.05-08.37.01:276][  2]LogSavePackage: Moving output files for package: /Game/Feedback/M_FeedbackParticle
+1817: [2026.09.05-08.37.01:276][  2]LogSavePackage: Moving '../../../../../../tmp/biella-d01-042-vfx-candidate/Saved/M_FeedbackParticle01A070B6C4DA78D3A29AF045530C7A00.tmp' to '../../../../../../tmp/biella-d01-042-vfx-candidate/Content/Feedback/M_FeedbackParticle.uasset'
+1827: [2026.09.05-08.37.01:694][  2]LogFileHelpers: Saving Package: /Game/Feedback/NS_Muzzle
+1831: [2026.09.05-08.37.01:759][  2]LogNiagara: Compiling System NiagaraSystem /Game/Feedback/NS_Muzzle.NS_Muzzle took 0.469777 sec (time since issued).
+1836: [2026.09.05-08.37.02:244][  2]LogNiagara: Compiling System NiagaraSystem /Game/Feedback/NS_Muzzle.NS_Muzzle took 0.547805 sec (time since issued).
+1838: [2026.09.05-08.37.02:321][  2]LogSavePackage: Moving output files for package: /Game/Feedback/NS_Muzzle
+1839: [2026.09.05-08.37.02:321][  2]LogSavePackage: Moving '../../../../../../tmp/biella-d01-042-vfx-candidate/Saved/NS_Muzzle01A070B6C8C47E90A72014225B114747.tmp' to '../../../../../../tmp/biella-d01-042-vfx-candidate/Content/Feedback/NS_Muzzle.uasset'
+1843: [2026.09.05-08.37.02:333][  2]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.12, "authored_total_burst_particles": 5, "authoring_spec": [{"color": [5.0, 2.8, 0.9, 0.9], "count": 1, "lifetime": 0.075, "name": "WarmCore", "size": [20.0, 12.0], "velocity": [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]}, {"color": [3.0, 1.8, 0.65, 0.8], "count": 4, "lifetime": 0.12, "name": "MuzzleSparks", "size": [3.5, 3.5], "velocity": [[110.0, -45.0, -35.0], [220.0, 45.0, 35.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Muzzle.NS_Muzzle", "status": "GENERATED_DRAFT"}
+1849: [2026.09.05-08.37.02:596][  2]LogFileHelpers: Saving Package: /Game/Feedback/NS_Impact
+1853: [2026.09.05-08.37.02:662][  2]LogNiagara: Compiling System NiagaraSystem /Game/Feedback/NS_Impact.NS_Impact took 0.326235 sec (time since issued).
+1856: [2026.09.05-08.37.03:250][  2]LogNiagara: Compiling System NiagaraSystem /Game/Feedback/NS_Impact.NS_Impact took 0.652137 sec (time since issued).
+1857: [2026.09.05-08.37.03:326][  2]LogSavePackage: Moving output files for package: /Game/Feedback/NS_Impact
+1858: [2026.09.05-08.37.03:326][  2]LogSavePackage: Moving '../../../../../../tmp/biella-d01-042-vfx-candidate/Saved/NS_Impact01A070B6CCB37535A2ABD1AFE929F5E7.tmp' to '../../../../../../tmp/biella-d01-042-vfx-candidate/Content/Feedback/NS_Impact.uasset'
+1862: [2026.09.05-08.37.03:338][  2]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.36, "authored_total_burst_particles": 11, "authoring_spec": [{"color": [2.5, 2.0, 1.3, 0.9], "count": 6, "lifetime": 0.24, "name": "SurfaceSparks", "size": [3.5, 3.5], "velocity": [[45.0, -80.0, -80.0], [140.0, 80.0, 80.0]]}, {"color": [0.32, 0.3, 0.27, 0.22], "count": 5, "lifetime": 0.36, "name": "SurfaceDust", "size": [12.0, 12.0], "velocity": [[20.0, -28.0, -28.0], [45.0, 28.0, 28.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Impact.NS_Impact", "status": "GENERATED_DRAFT"}
+1863: [2026.09.05-08.37.03:338][  2]LogPython: D01_042_VFX PASS saved Niagara assets and depth-tested material
+1918: [2026.09.05-08.37.05:316][  3]LogExit: Exiting.
+1919: free(): invalid pointer
+1920: Signal 6 caught.
+1921: Segmentation fault (core dumped)
+
+--- FINAL gas-extension candidate helper run; 2026-09-05 08:42 UTC ---
+command: python3 Content/Python/run_demo_feedback_vfx_authoring.py --rebuild
+helper_exit_code: 0
+raw_combined_log_sha256: d08117b433c1ae6d2fed0ade70c78af70c069d7404744e04524104abbfb60e5f
+1812: [2026.09.05-08.42.16:926][  2]LogFileHelpers: Saving Package: /Game/Feedback/M_FeedbackParticle
+1817: [2026.09.05-08.42.16:929][  2]LogSavePackage: Moving output files for package: /Game/Feedback/M_FeedbackParticle
+1818: [2026.09.05-08.42.16:929][  2]LogSavePackage: Moving '../../../../../../tmp/biella-d01-042-vfx-authoring-68aqe4tj/Saved/M_FeedbackParticle01A070BB95DF7D9AB7382944701E6753.tmp' to '../../../../../../tmp/biella-d01-042-vfx-authoring-68aqe4tj/Content/Feedback/M_FeedbackParticle.uasset'
+1828: [2026.09.05-08.42.17:356][  2]LogFileHelpers: Saving Package: /Game/Feedback/NS_Muzzle
+1832: [2026.09.05-08.42.17:423][  2]LogNiagara: Compiling System NiagaraSystem /Game/Feedback/NS_Muzzle.NS_Muzzle took 0.480898 sec (time since issued).
+1837: [2026.09.05-08.42.17:957][  2]LogNiagara: Compiling System NiagaraSystem /Game/Feedback/NS_Muzzle.NS_Muzzle took 0.598408 sec (time since issued).
+1838: [2026.09.05-08.42.18:035][  2]LogSavePackage: Moving output files for package: /Game/Feedback/NS_Muzzle
+1839: [2026.09.05-08.42.18:036][  2]LogSavePackage: Moving '../../../../../../tmp/biella-d01-042-vfx-authoring-68aqe4tj/Saved/NS_Muzzle01A070BB9A077C4198D3473DA8DA9B5C.tmp' to '../../../../../../tmp/biella-d01-042-vfx-authoring-68aqe4tj/Content/Feedback/NS_Muzzle.uasset'
+1843: [2026.09.05-08.42.18:048][  2]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.12, "authored_total_burst_particles": 5, "authoring_spec": [{"color": [5.0, 2.8, 0.9, 0.9], "count": 1, "lifetime": 0.075, "name": "WarmCore", "offset": [20.0, 0.0, 0.0], "size": [20.0, 12.0], "velocity": [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]}, {"color": [3.0, 1.8, 0.65, 0.8], "count": 4, "lifetime": 0.12, "name": "MuzzleSparks", "offset": [8.0, 0.0, 0.0], "size": [3.5, 3.5], "velocity": [[110.0, -45.0, -35.0], [220.0, 45.0, 35.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Muzzle.NS_Muzzle", "status": "GENERATED_DRAFT"}
+1849: [2026.09.05-08.42.18:315][  2]LogFileHelpers: Saving Package: /Game/Feedback/NS_Impact
+1853: [2026.09.05-08.42.18:383][  2]LogNiagara: Compiling System NiagaraSystem /Game/Feedback/NS_Impact.NS_Impact took 0.331660 sec (time since issued).
+1856: [2026.09.05-08.42.18:903][  2]LogNiagara: Compiling System NiagaraSystem /Game/Feedback/NS_Impact.NS_Impact took 0.586022 sec (time since issued).
+1857: [2026.09.05-08.42.18:955][  2]LogSavePackage: Moving output files for package: /Game/Feedback/NS_Impact
+1858: [2026.09.05-08.42.18:955][  2]LogSavePackage: Moving '../../../../../../tmp/biella-d01-042-vfx-authoring-68aqe4tj/Saved/NS_Impact01A070BB9DA7704A8062281A0C669DF9.tmp' to '../../../../../../tmp/biella-d01-042-vfx-authoring-68aqe4tj/Content/Feedback/NS_Impact.uasset'
+1862: [2026.09.05-08.42.18:967][  2]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.36, "authored_total_burst_particles": 11, "authoring_spec": [{"color": [2.5, 2.0, 1.3, 0.9], "count": 6, "lifetime": 0.24, "name": "SurfaceSparks", "size": [3.5, 3.5], "velocity": [[45.0, -80.0, -80.0], [140.0, 80.0, 80.0]]}, {"color": [0.32, 0.3, 0.27, 0.22], "count": 5, "lifetime": 0.36, "name": "SurfaceDust", "size": [12.0, 12.0], "velocity": [[20.0, -28.0, -28.0], [45.0, 28.0, 28.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Impact.NS_Impact", "status": "GENERATED_DRAFT"}
+1863: [2026.09.05-08.42.18:967][  2]LogPython: D01_042_VFX PASS saved Niagara assets and depth-tested material
+1918: [2026.09.05-08.42.20:704][  3]LogExit: Exiting.
+1919: free(): invalid pointer
+1920: Signal 6 caught.
+1921: Segmentation fault (core dumped)
+1922: D01_042_VFX_AUTHOR_PROCESS_EXIT=139
+
+--- Rejected initializer offset runtime evidence ---
+source: Build/Demo01/D01-042-runs/20260905T084403.419146Z/feedback.stdout.log
+sha256: c0f73b0b1b0f26be90524542cfd162831ae7b6c68ea73f8e8bdb3beabfb41b90
+2219: [2026.09.05-08.44.23:376][787]LogTemp: Display: D01_042_TEST ATTR cue=0 source=rival emitter=WarmCore count=1 local=1 first=V(0) size=20.000,12.000 color=5.000,2.800,0.900,0.900 lifetime=0.0750 age=0.2222 component=V(X=-374.84, Y=-518.22, Z=35.41) bounds_origin=V(X=-374.84, Y=-518.22, Z=35.41) bounds_extent=V(X=31.08, Y=30.75, Z=22.98) centroid=V(X=-374.84, Y=-518.22, Z=35.41) max_distance_cm=0.000 projected=1 screen=809.110,261.496
+2221: [2026.09.05-08.44.23:376][787]LogTemp: Display: D01_042_TEST ATTR cue=0 source=rival emitter=MuzzleSparks count=4 local=1 first=V(X=3.63, Y=-0.28, Z=0.09) size=3.500,3.500 color=3.000,1.800,0.650,0.800 lifetime=0.1200 age=0.1389 component=V(X=-374.84, Y=-518.22, Z=35.41) bounds_origin=V(X=-374.84, Y=-518.22, Z=35.41) bounds_extent=V(X=31.08, Y=30.75, Z=22.98) centroid=V(X=-377.52, Y=-520.21, Z=35.45) max_distance_cm=3.643 projected=1 screen=808.351,261.725
+2229: [2026.09.05-08.44.23:376][787]LogTemp: Display: D01_042_TEST ATTR cue=0 source=player emitter=WarmCore count=1 local=1 first=V(0) size=20.000,12.000 color=5.000,2.800,0.900,0.900 lifetime=0.0750 age=0.2222 component=V(X=-910.00, Y=-855.00, Z=37.00) bounds_origin=V(X=-910.00, Y=-855.00, Z=37.00) bounds_extent=V(X=25.07, Y=23.96, Z=23.21) centroid=V(X=-910.00, Y=-855.00, Z=37.00) max_distance_cm=0.000 projected=1 screen=591.579,353.438
+2231: [2026.09.05-08.44.23:376][787]LogTemp: Display: D01_042_TEST ATTR cue=0 source=player emitter=MuzzleSparks count=4 local=1 first=V(X=3.07, Y=0.40, Z=0.02) size=3.500,3.500 color=3.000,1.800,0.650,0.800 lifetime=0.1200 age=0.1389 component=V(X=-910.00, Y=-855.00, Z=37.00) bounds_origin=V(X=-910.00, Y=-855.00, Z=37.00) bounds_extent=V(X=25.07, Y=23.96, Z=23.21) centroid=V(X=-907.20, Y=-855.18, Z=36.92) max_distance_cm=3.111 projected=1 screen=591.602,352.617
+
+--- FINAL assets with ineffective initializer offsets removed; 2026-09-05 08:46 UTC ---
+command: python3 Content/Python/run_demo_feedback_vfx_authoring.py --rebuild
+helper_exit_code: 0
+raw_combined_log_sha256: 9f9f7d43caac76e9652e2cda871d019ee7bed5fc17bf7439f17ce9714704f6e4
+1813: [2026.09.05-08.46.21:733][  2]LogFileHelpers: Saving Package: /Game/Feedback/M_FeedbackParticle
+1818: [2026.09.05-08.46.21:736][  2]LogSavePackage: Moving output files for package: /Game/Feedback/M_FeedbackParticle
+1819: [2026.09.05-08.46.21:736][  2]LogSavePackage: Moving '../../../../../../tmp/biella-d01-042-vfx-authoring-z57jo1li/Saved/M_FeedbackParticle01A070BF52277C738B48472D70BF5A21.tmp' to '../../../../../../tmp/biella-d01-042-vfx-authoring-z57jo1li/Content/Feedback/M_FeedbackParticle.uasset'
+1829: [2026.09.05-08.46.22:185][  2]LogFileHelpers: Saving Package: /Game/Feedback/NS_Muzzle
+1833: [2026.09.05-08.46.22:253][  2]LogNiagara: Compiling System NiagaraSystem /Game/Feedback/NS_Muzzle.NS_Muzzle took 0.502724 sec (time since issued).
+1838: [2026.09.05-08.46.22:838][  2]LogNiagara: Compiling System NiagaraSystem /Game/Feedback/NS_Muzzle.NS_Muzzle took 0.649731 sec (time since issued).
+1839: [2026.09.05-08.46.22:916][  2]LogSavePackage: Moving output files for package: /Game/Feedback/NS_Muzzle
+1840: [2026.09.05-08.46.22:916][  2]LogSavePackage: Moving '../../../../../../tmp/biella-d01-042-vfx-authoring-z57jo1li/Saved/NS_Muzzle01A070BF56977224B7FB8626C3FA8ACC.tmp' to '../../../../../../tmp/biella-d01-042-vfx-authoring-z57jo1li/Content/Feedback/NS_Muzzle.uasset'
+1844: [2026.09.05-08.46.22:928][  2]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.12, "authored_total_burst_particles": 5, "authoring_spec": [{"color": [5.0, 2.8, 0.9, 0.9], "count": 1, "lifetime": 0.075, "name": "WarmCore", "size": [20.0, 12.0], "velocity": [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]}, {"color": [3.0, 1.8, 0.65, 0.8], "count": 4, "lifetime": 0.12, "name": "MuzzleSparks", "size": [3.5, 3.5], "velocity": [[110.0, -45.0, -35.0], [220.0, 45.0, 35.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Muzzle.NS_Muzzle", "status": "GENERATED_DRAFT"}
+1850: [2026.09.05-08.46.23:193][  2]LogFileHelpers: Saving Package: /Game/Feedback/NS_Impact
+1854: [2026.09.05-08.46.23:260][  2]LogNiagara: Compiling System NiagaraSystem /Game/Feedback/NS_Impact.NS_Impact took 0.328699 sec (time since issued).
+1857: [2026.09.05-08.46.23:795][  2]LogNiagara: Compiling System NiagaraSystem /Game/Feedback/NS_Impact.NS_Impact took 0.599900 sec (time since issued).
+1858: [2026.09.05-08.46.23:868][  2]LogSavePackage: Moving output files for package: /Game/Feedback/NS_Impact
+1859: [2026.09.05-08.46.23:868][  2]LogSavePackage: Moving '../../../../../../tmp/biella-d01-042-vfx-authoring-z57jo1li/Saved/NS_Impact01A070BF5A517B85B3F0B906C4AF17BE.tmp' to '../../../../../../tmp/biella-d01-042-vfx-authoring-z57jo1li/Content/Feedback/NS_Impact.uasset'
+1863: [2026.09.05-08.46.23:880][  2]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.36, "authored_total_burst_particles": 11, "authoring_spec": [{"color": [2.5, 2.0, 1.3, 0.9], "count": 6, "lifetime": 0.24, "name": "SurfaceSparks", "size": [3.5, 3.5], "velocity": [[45.0, -80.0, -80.0], [140.0, 80.0, 80.0]]}, {"color": [0.32, 0.3, 0.27, 0.22], "count": 5, "lifetime": 0.36, "name": "SurfaceDust", "size": [12.0, 12.0], "velocity": [[20.0, -28.0, -28.0], [45.0, 28.0, 28.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Impact.NS_Impact", "status": "GENERATED_DRAFT"}
+1864: [2026.09.05-08.46.23:880][  2]LogPython: D01_042_VFX PASS saved Niagara assets and depth-tested material
+1920: [2026.09.05-08.46.25:770][  3]LogExit: Exiting.
+1922: Signal 6 caught.
+1923: Segmentation fault (core dumped)
+1924: D01_042_VFX_AUTHOR_PROCESS_EXIT=139

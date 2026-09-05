@@ -1,6 +1,7 @@
 // Copyright Biella Games. All Rights Reserved.
 
 #include "BiellaGamesCharacter.h"
+#include "BiellaGameplayFeedback.h"
 
 #include "BiellaGamesGameModeBase.h"
 #include "BiellaPlaytestTelemetry.h"
@@ -58,7 +59,10 @@ ABiellaGamesCharacter::ABiellaGamesCharacter()
 
     WeaponMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
     WeaponMesh->SetupAttachment(Collision.Get());
-    WeaponMesh->SetRelativeLocation(FVector(55.0f, 0.0f, 35.0f));
+    // Keep the cosmetic barrel beside the torso so its event-driven muzzle
+    // flash is visible from the existing over-shoulder camera. The weapon mesh
+    // has no collision; the established camera trace still resolves every shot.
+    WeaponMesh->SetRelativeLocation(FVector(55.0f, 45.0f, 35.0f));
     WeaponMesh->SetRelativeScale3D(FVector(0.7f, 0.16f, 0.16f));
     WeaponMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     static ConstructorHelpers::FObjectFinder<UStaticMesh> WeaponCube(
@@ -294,6 +298,11 @@ bool ABiellaGamesCharacter::FireWeaponAt(ABiellaDemoPawn* Target, float DamageAm
     }
     --Ammo;
     FireCooldownRemaining = 0.25f;
+    if (UBiellaGameplayFeedback* Feedback = UBiellaGameplayFeedback::Get(GetWorld()))
+    {
+        const FVector Muzzle = WeaponMesh->GetComponentLocation() + WeaponMesh->GetForwardVector() * 35.0f;
+        Feedback->ConfirmedShot(Muzzle, Hit);
+    }
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL WEAPON_FIRE owner=%s target=%s hit=true damage=%.1f ammo=%d"),
         *GetName(), *Target->GetName(), Applied, Ammo);
     if (HasAuthority())

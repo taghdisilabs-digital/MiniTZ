@@ -1,0 +1,59 @@
+D01-42 VFX readback; bounded unmodified matching log lines
+date: 2026-09-05 UTC
+raw_log_sha256: f9f6a42eda1e43558dc16953095362fd4610094b5774162826447dcc85846941
+invocation (project/script paths resolved absolute in execution): runuser -u unreal -- /opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd BiellaGames.uproject -run=pythonscript -script=Content/Python/build_demo_feedback_vfx.py -EnablePlugins=PythonScriptPlugin -D01VerifyFeedbackVFX -unattended -nullrhi -nosound -nop4 -stdout -FullStdOutLogOutput
+process_exit_code: 0
+
+1638: [2026.09.05-08.15.35:774][  0]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.12, "authored_total_burst_particles": 5, "authoring_spec": [{"color": [5.0, 2.8, 0.9, 0.9], "count": 1, "lifetime": 0.075, "name": "WarmCore", "size": [13.0, 8.0], "velocity": [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]}, {"color": [3.0, 1.8, 0.65, 0.8], "count": 4, "lifetime": 0.12, "name": "MuzzleSparks", "size": [2.5, 2.5], "velocity": [[110.0, -45.0, -35.0], [220.0, 45.0, 35.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Muzzle.NS_Muzzle", "status": "GENERATED_DRAFT"}
+1639: [2026.09.05-08.15.35:774][  0]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.36, "authored_total_burst_particles": 11, "authoring_spec": [{"color": [2.5, 2.0, 1.3, 0.9], "count": 6, "lifetime": 0.24, "name": "SurfaceSparks", "size": [2.0, 2.0], "velocity": [[45.0, -80.0, -80.0], [140.0, 80.0, 80.0]]}, {"color": [0.32, 0.3, 0.27, 0.22], "count": 5, "lifetime": 0.36, "name": "SurfaceDust", "size": [10.0, 10.0], "velocity": [[20.0, -28.0, -28.0], [45.0, 28.0, 28.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Impact.NS_Impact", "status": "GENERATED_DRAFT"}
+1640: [2026.09.05-08.15.35:774][  0]LogPython: D01_042_VFX PASS saved Niagara assets and depth-tested material
+1644: [2026.09.05-08.15.35:774][  0]LogInit: Display: Success - 0 error(s), 0 warning(s)
+1679: [2026.09.05-08.15.36:182][  0]LogExit: Exiting.
+
+--- Fresh candidate readback before canonical copy ---
+raw_log_sha256: fa05f8ef0dc2c90ec2cfe4590081cf45ef44472b9e245aee67d017c9d7721b2d
+process_exit_code: 0
+1631: [2026.09.05-08.37.55:320][  0]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.12, "authored_total_burst_particles": 5, "authoring_spec": [{"color": [5.0, 2.8, 0.9, 0.9], "count": 1, "lifetime": 0.075, "name": "WarmCore", "size": [20.0, 12.0], "velocity": [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]}, {"color": [3.0, 1.8, 0.65, 0.8], "count": 4, "lifetime": 0.12, "name": "MuzzleSparks", "size": [3.5, 3.5], "velocity": [[110.0, -45.0, -35.0], [220.0, 45.0, 35.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Muzzle.NS_Muzzle", "status": "GENERATED_DRAFT"}
+1632: [2026.09.05-08.37.55:333][  0]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.36, "authored_total_burst_particles": 11, "authoring_spec": [{"color": [2.5, 2.0, 1.3, 0.9], "count": 6, "lifetime": 0.24, "name": "SurfaceSparks", "size": [3.5, 3.5], "velocity": [[45.0, -80.0, -80.0], [140.0, 80.0, 80.0]]}, {"color": [0.32, 0.3, 0.27, 0.22], "count": 5, "lifetime": 0.36, "name": "SurfaceDust", "size": [12.0, 12.0], "velocity": [[20.0, -28.0, -28.0], [45.0, 28.0, 28.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Impact.NS_Impact", "status": "GENERATED_DRAFT"}
+1633: [2026.09.05-08.37.55:333][  0]LogPython: D01_042_VFX PASS saved Niagara assets and depth-tested material
+1637: [2026.09.05-08.37.55:333][  0]LogInit: Display: Success - 0 error(s), 0 warning(s)
+1672: [2026.09.05-08.37.55:758][  0]LogExit: Exiting.
+
+--- Canonical BiellaGames project readback after copying exactly three assets ---
+raw_log_sha256: 41e0e13d55b42410607e4464e2c5a3ded173b97660ecd271760b80b74e8e2b83
+process_exit_code: 0
+1638: [2026.09.05-08.38.32:918][  0]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.12, "authored_total_burst_particles": 5, "authoring_spec": [{"color": [5.0, 2.8, 0.9, 0.9], "count": 1, "lifetime": 0.075, "name": "WarmCore", "size": [20.0, 12.0], "velocity": [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]}, {"color": [3.0, 1.8, 0.65, 0.8], "count": 4, "lifetime": 0.12, "name": "MuzzleSparks", "size": [3.5, 3.5], "velocity": [[110.0, -45.0, -35.0], [220.0, 45.0, 35.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Muzzle.NS_Muzzle", "status": "GENERATED_DRAFT"}
+1639: [2026.09.05-08.38.32:918][  0]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.36, "authored_total_burst_particles": 11, "authoring_spec": [{"color": [2.5, 2.0, 1.3, 0.9], "count": 6, "lifetime": 0.24, "name": "SurfaceSparks", "size": [3.5, 3.5], "velocity": [[45.0, -80.0, -80.0], [140.0, 80.0, 80.0]]}, {"color": [0.32, 0.3, 0.27, 0.22], "count": 5, "lifetime": 0.36, "name": "SurfaceDust", "size": [12.0, 12.0], "velocity": [[20.0, -28.0, -28.0], [45.0, 28.0, 28.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Impact.NS_Impact", "status": "GENERATED_DRAFT"}
+1640: [2026.09.05-08.38.32:918][  0]LogPython: D01_042_VFX PASS saved Niagara assets and depth-tested material
+1644: [2026.09.05-08.38.32:918][  0]LogInit: Display: Success - 0 error(s), 0 warning(s)
+1679: [2026.09.05-08.38.33:325][  0]LogExit: Exiting.
+
+--- FINAL gas-extension candidate helper run; 2026-09-05 08:42 UTC ---
+command: python3 Content/Python/run_demo_feedback_vfx_authoring.py --rebuild
+helper_exit_code: 0
+raw_combined_log_sha256: d08117b433c1ae6d2fed0ade70c78af70c069d7404744e04524104abbfb60e5f
+3547: [2026.09.05-08.42.41:780][  0]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.12, "authored_total_burst_particles": 5, "authoring_spec": [{"color": [5.0, 2.8, 0.9, 0.9], "count": 1, "lifetime": 0.075, "name": "WarmCore", "offset": [20.0, 0.0, 0.0], "size": [20.0, 12.0], "velocity": [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]}, {"color": [3.0, 1.8, 0.65, 0.8], "count": 4, "lifetime": 0.12, "name": "MuzzleSparks", "offset": [8.0, 0.0, 0.0], "size": [3.5, 3.5], "velocity": [[110.0, -45.0, -35.0], [220.0, 45.0, 35.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Muzzle.NS_Muzzle", "status": "GENERATED_DRAFT"}
+3548: [2026.09.05-08.42.41:793][  0]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.36, "authored_total_burst_particles": 11, "authoring_spec": [{"color": [2.5, 2.0, 1.3, 0.9], "count": 6, "lifetime": 0.24, "name": "SurfaceSparks", "size": [3.5, 3.5], "velocity": [[45.0, -80.0, -80.0], [140.0, 80.0, 80.0]]}, {"color": [0.32, 0.3, 0.27, 0.22], "count": 5, "lifetime": 0.36, "name": "SurfaceDust", "size": [12.0, 12.0], "velocity": [[20.0, -28.0, -28.0], [45.0, 28.0, 28.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Impact.NS_Impact", "status": "GENERATED_DRAFT"}
+3549: [2026.09.05-08.42.41:793][  0]LogPython: D01_042_VFX PASS saved Niagara assets and depth-tested material
+3553: [2026.09.05-08.42.41:793][  0]LogInit: Display: Success - 0 error(s), 0 warning(s)
+3588: [2026.09.05-08.42.42:127][  0]LogExit: Exiting.
+5221: [2026.09.05-08.42.52:195][  0]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.12, "authored_total_burst_particles": 5, "authoring_spec": [{"color": [5.0, 2.8, 0.9, 0.9], "count": 1, "lifetime": 0.075, "name": "WarmCore", "offset": [20.0, 0.0, 0.0], "size": [20.0, 12.0], "velocity": [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]}, {"color": [3.0, 1.8, 0.65, 0.8], "count": 4, "lifetime": 0.12, "name": "MuzzleSparks", "offset": [8.0, 0.0, 0.0], "size": [3.5, 3.5], "velocity": [[110.0, -45.0, -35.0], [220.0, 45.0, 35.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Muzzle.NS_Muzzle", "status": "GENERATED_DRAFT"}
+5222: [2026.09.05-08.42.52:195][  0]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.36, "authored_total_burst_particles": 11, "authoring_spec": [{"color": [2.5, 2.0, 1.3, 0.9], "count": 6, "lifetime": 0.24, "name": "SurfaceSparks", "size": [3.5, 3.5], "velocity": [[45.0, -80.0, -80.0], [140.0, 80.0, 80.0]]}, {"color": [0.32, 0.3, 0.27, 0.22], "count": 5, "lifetime": 0.36, "name": "SurfaceDust", "size": [12.0, 12.0], "velocity": [[20.0, -28.0, -28.0], [45.0, 28.0, 28.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Impact.NS_Impact", "status": "GENERATED_DRAFT"}
+5223: [2026.09.05-08.42.52:195][  0]LogPython: D01_042_VFX PASS saved Niagara assets and depth-tested material
+5227: [2026.09.05-08.42.52:196][  0]LogInit: Display: Success - 0 error(s), 0 warning(s)
+5262: [2026.09.05-08.42.52:695][  0]LogExit: Exiting.
+
+--- FINAL assets with ineffective initializer offsets removed; 2026-09-05 08:46 UTC ---
+command: python3 Content/Python/run_demo_feedback_vfx_authoring.py --rebuild
+helper_exit_code: 0
+raw_combined_log_sha256: 9f9f7d43caac76e9652e2cda871d019ee7bed5fc17bf7439f17ce9714704f6e4
+3549: [2026.09.05-08.46.47:224][  0]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.12, "authored_total_burst_particles": 5, "authoring_spec": [{"color": [5.0, 2.8, 0.9, 0.9], "count": 1, "lifetime": 0.075, "name": "WarmCore", "size": [20.0, 12.0], "velocity": [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]}, {"color": [3.0, 1.8, 0.65, 0.8], "count": 4, "lifetime": 0.12, "name": "MuzzleSparks", "size": [3.5, 3.5], "velocity": [[110.0, -45.0, -35.0], [220.0, 45.0, 35.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Muzzle.NS_Muzzle", "status": "GENERATED_DRAFT"}
+3550: [2026.09.05-08.46.47:237][  0]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.36, "authored_total_burst_particles": 11, "authoring_spec": [{"color": [2.5, 2.0, 1.3, 0.9], "count": 6, "lifetime": 0.24, "name": "SurfaceSparks", "size": [3.5, 3.5], "velocity": [[45.0, -80.0, -80.0], [140.0, 80.0, 80.0]]}, {"color": [0.32, 0.3, 0.27, 0.22], "count": 5, "lifetime": 0.36, "name": "SurfaceDust", "size": [12.0, 12.0], "velocity": [[20.0, -28.0, -28.0], [45.0, 28.0, 28.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Impact.NS_Impact", "status": "GENERATED_DRAFT"}
+3551: [2026.09.05-08.46.47:237][  0]LogPython: D01_042_VFX PASS saved Niagara assets and depth-tested material
+3555: [2026.09.05-08.46.47:237][  0]LogInit: Display: Success - 0 error(s), 0 warning(s)
+3590: [2026.09.05-08.46.47:688][  0]LogExit: Exiting.
+5197: [2026.09.05-08.46.58:609][  0]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.12, "authored_total_burst_particles": 5, "authoring_spec": [{"color": [5.0, 2.8, 0.9, 0.9], "count": 1, "lifetime": 0.075, "name": "WarmCore", "size": [20.0, 12.0], "velocity": [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]}, {"color": [3.0, 1.8, 0.65, 0.8], "count": 4, "lifetime": 0.12, "name": "MuzzleSparks", "size": [3.5, 3.5], "velocity": [[110.0, -45.0, -35.0], [220.0, 45.0, 35.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Muzzle.NS_Muzzle", "status": "GENERATED_DRAFT"}
+5198: [2026.09.05-08.46.58:609][  0]LogPython: D01_042_VFX ASSET {"authored_maximum_particle_lifetime": 0.36, "authored_total_burst_particles": 11, "authoring_spec": [{"color": [2.5, 2.0, 1.3, 0.9], "count": 6, "lifetime": 0.24, "name": "SurfaceSparks", "size": [3.5, 3.5], "velocity": [[45.0, -80.0, -80.0], [140.0, 80.0, 80.0]]}, {"color": [0.32, 0.3, 0.27, 0.22], "count": 5, "lifetime": 0.36, "name": "SurfaceDust", "size": [12.0, 12.0], "velocity": [[20.0, -28.0, -28.0], [45.0, 28.0, 28.0]]}], "forward_axis": "+X", "local_space": true, "path": "/Game/Feedback/NS_Impact.NS_Impact", "status": "GENERATED_DRAFT"}
+5199: [2026.09.05-08.46.58:609][  0]LogPython: D01_042_VFX PASS saved Niagara assets and depth-tested material
+5203: [2026.09.05-08.46.58:609][  0]LogInit: Display: Success - 0 error(s), 0 warning(s)
+5238: [2026.09.05-08.46.59:106][  0]LogExit: Exiting.

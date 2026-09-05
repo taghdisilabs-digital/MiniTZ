@@ -1,0 +1,94 @@
+{
+  "task_id": "D01-42",
+  "result": "PASS",
+  "assets": [
+    {
+      "asset": "/Game/Feedback/Audio/S_ShotA.S_ShotA",
+      "duration_seconds": 0.23999999463558197,
+      "channels": 1,
+      "sample_rate": 48000,
+      "encoding": "PCM",
+      "loading": "ForceInline",
+      "source_sha256": "4ed22e04e1d3a2a2844c24ed182dbee6f4fc2a377893bec0678c95908562397a",
+      "native_roundtrip_pcm": "PASS",
+      "status": "GENERATED_DRAFT"
+    },
+    {
+      "asset": "/Game/Feedback/Audio/S_ShotB.S_ShotB",
+      "duration_seconds": 0.2549999952316284,
+      "channels": 1,
+      "sample_rate": 48000,
+      "encoding": "PCM",
+      "loading": "ForceInline",
+      "source_sha256": "55a72ab0698c37305c8712d14ee1f83c3821f9f58097e08389eb52c4e7fdfb26",
+      "native_roundtrip_pcm": "PASS",
+      "status": "GENERATED_DRAFT"
+    },
+    {
+      "asset": "/Game/Feedback/Audio/S_ShotC.S_ShotC",
+      "duration_seconds": 0.22499999403953552,
+      "channels": 1,
+      "sample_rate": 48000,
+      "encoding": "PCM",
+      "loading": "ForceInline",
+      "source_sha256": "f498e18cf250104643a57c6b037a3ee4d1fdf0f3eff83f203d06961e5844ee9d",
+      "native_roundtrip_pcm": "PASS",
+      "status": "GENERATED_DRAFT"
+    },
+    {
+      "asset": "/Game/Feedback/Audio/S_Impact.S_Impact",
+      "duration_seconds": 0.18000000715255737,
+      "channels": 1,
+      "sample_rate": 48000,
+      "encoding": "PCM",
+      "loading": "ForceInline",
+      "source_sha256": "62821d82efb7e8ea8d41fbe988063e7401d9770615eb03a34a75263d23f03027",
+      "native_roundtrip_pcm": "PASS",
+      "status": "GENERATED_DRAFT"
+    },
+    {
+      "asset": "/Game/Feedback/Audio/S_Hurt.S_Hurt",
+      "duration_seconds": 0.25999999046325684,
+      "channels": 1,
+      "sample_rate": 48000,
+      "encoding": "PCM",
+      "loading": "ForceInline",
+      "source_sha256": "81c7911f66407cc054c3b6f2c213420d4003a1aef85238865fd350cccadc15d9",
+      "native_roundtrip_pcm": "PASS",
+      "status": "GENERATED_DRAFT"
+    },
+    {
+      "asset": "/Game/Feedback/Audio/S_Pressure.S_Pressure",
+      "duration_seconds": 0.5799999833106995,
+      "channels": 1,
+      "sample_rate": 48000,
+      "encoding": "PCM",
+      "loading": "ForceInline",
+      "source_sha256": "75ec051b0e9c6e203861ed0ae070fff28c1342bb8ec2e8960a85018a5dd153b4",
+      "native_roundtrip_pcm": "PASS",
+      "status": "GENERATED_DRAFT"
+    },
+    {
+      "asset": "/Game/Feedback/Audio/S_Success.S_Success",
+      "duration_seconds": 0.7799999713897705,
+      "channels": 1,
+      "sample_rate": 48000,
+      "encoding": "PCM",
+      "loading": "ForceInline",
+      "source_sha256": "c7f9358ca9cdcdebbe43655e573bce5fa88a4735293dcc9c5fa52b87fc2f177a",
+      "native_roundtrip_pcm": "PASS",
+      "status": "GENERATED_DRAFT"
+    },
+    {
+      "asset": "/Game/Feedback/Audio/S_Failure.S_Failure",
+      "duration_seconds": 0.8600000143051147,
+      "channels": 1,
+      "sample_rate": 48000,
+      "encoding": "PCM",
+      "loading": "ForceInline",
+      "source_sha256": "8e040ef15d951674f7bf943792f8e33da2cf5d77f2ef0654c6177fabf7edeea1",
+      "native_roundtrip_pcm": "PASS",
+      "status": "GENERATED_DRAFT"
+    }
+  ]
+}

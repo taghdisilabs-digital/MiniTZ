@@ -1,6 +1,7 @@
 // Copyright Biella Games. All Rights Reserved.
 
 #include "BiellaInfected.h"
+#include "BiellaGameplayFeedback.h"
 
 #include "BiellaGamesCharacter.h"
 #include "BiellaGamesGameState.h"
@@ -168,6 +169,13 @@ bool ABiellaInfected::TryMeleeTarget(ABiellaDemoPawn* Target)
         return false;
     }
     const float Applied = Target->ApplyDemoDamage(AttackDamage, this, TEXT("infected_melee"));
+    if (Applied > 0.0f)
+    {
+        if (UBiellaGameplayFeedback* Feedback = UBiellaGameplayFeedback::Get(GetWorld()))
+        {
+            Feedback->ConfirmedImpact(Hit);
+        }
+    }
     AttackCooldownRemaining = AttackCooldown;
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL INFECTED_MELEE attacker=%s target=%s hit=%s damage=%.1f impact=%s time=%.3f"),
         *GetName(), *Target->GetName(), Applied > 0.0f ? TEXT("true") : TEXT("false"), Applied,

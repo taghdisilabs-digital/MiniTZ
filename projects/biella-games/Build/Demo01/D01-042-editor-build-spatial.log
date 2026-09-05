@@ -1,0 +1,43 @@
+Setting up bundled DotNet SDK
+Running command : dotnet Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll BiellaGamesEditor Linux Development -Project=/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject -WaitMutex -NoUBA -NoHotReloadFromIDE -NoUBTMakefiles -gather
+Log file: /home/unreal/.config/Epic/UnrealBuildTool/Log.txt
+Determining max actions to execute in parallel (15 physical cores, 15 logical cores)
+  Executing up to 15 processes, one per physical core
+UbaStorageServer - FileMapping backing: memfd
+UbaSessionServer - Disable remote execution (remote sessions will finish current processes)
+Building BiellaGamesEditor...
+===== Toolchain Information =====
+Using ISPC compiler (/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/Intel/ISPC/bin/Linux/ispc)
+  Intel(r) Implicit SPMD Program Compiler (Intel(r) ISPC), 1.24.0 (build commit  @ 20240919, LLVM 18.1.6)
+Using Clang compiler 20.1.8 (/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin/clang++)
+  clang version 20.1.8 (github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261) Target: x86_64-unknown-linux-gnu Thread model: posix InstalledDir: /opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin
+Using Clang archiver (/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin/llvm-ar)
+  LLVM (http://llvm.org/):   LLVM version 20.1.8   Optimized build.
+Using toolchain located at '/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu'
+Using bundled libc++ standard C++ library.
+Compressing debug files
+=================================
+Using Unreal Build Accelerator local executor to run 2 action(s)
+  CPU 15 physical cores, 15 logical cores
+  Memory 86.31 GB physical, 3.83 GB/75.15 GB committed
+  UBA Storage capacity 40 GB
+[1/2] Compile Module.BiellaGames.cpp [NoUba]
+In file included from /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/UnrealEditor/Development/BiellaGames/Module.BiellaGames.cpp:35:
+/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaFeedbackTest.cpp:382:56: warning: 'GetData' is deprecated: Please update your code to use GetParticleData - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile. [-Wdeprecated-declarations]
+  382 |                 const FNiagaraDataSet& Data = Emitter->GetData();
+      |                                                        ^
+/opt/unreal/UE_5.8.2/Engine/Plugins/FX/Niagara/Source/Niagara/Classes/NiagaraEmitterInstance.h:210:2: note: 'GetData' has been explicitly marked deprecated here
+  210 |     UE_DEPRECATED(5.4, "Please update your code to use GetParticleData")
+      |     ^
+/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Core/Public/Misc/CoreMiscDefines.h:297:44: note: expanded from macro 'UE_DEPRECATED'
+  297 |     #define UE_DEPRECATED(Version, Message) [[deprecated(Message " - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.")]]
+      |                                               ^
+1 warning generated.
+[2/2] Link libUnrealEditor-BiellaGames.so [NoUba]
+
+Total time in Unreal Build Accelerator local executor: 18.72 seconds
+Output binary: /opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor
+
+Result: Succeeded
+Total execution time: 21.17 seconds
+Trace written to file /home/unreal/.config/Epic/UnrealBuildTool/Trace.uba with size 4.0kb

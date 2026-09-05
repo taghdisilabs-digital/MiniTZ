@@ -3,6 +3,7 @@
 #include "BiellaDemoPawn.h"
 
 #include "BiellaPlaytestTelemetry.h"
+#include "BiellaGameplayFeedback.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -153,6 +154,13 @@ float ABiellaDemoPawn::ApplyDemoDamage(float DamageAmount, AActor* DamageCauser,
     }
     const float Applied = FMath::Min(DamageAmount, Health);
     Health -= Applied;
+    if (Team == EDemo01Team::Player)
+    {
+        if (UBiellaGameplayFeedback* Feedback = UBiellaGameplayFeedback::Get(GetWorld()))
+        {
+            Feedback->PlayerHurt(GetActorLocation());
+        }
+    }
     const ABiellaDemoPawn* SourcePawn = Cast<ABiellaDemoPawn>(DamageCauser);
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL DAMAGE target=%s amount=%.1f health=%.1f tag=%s source=%s source_team=%d target_team=%d time=%.3f"),
         *GetName(), Applied, Health, *DamageTag, *GetNameSafe(DamageCauser),

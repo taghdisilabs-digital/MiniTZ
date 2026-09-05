@@ -1,0 +1,9 @@
+PASS S_ShotA duration=0.240s peak=-9.50dBFS rms=-30.71dBFS
+PASS S_ShotB duration=0.255s peak=-9.50dBFS rms=-30.26dBFS
+PASS S_ShotC duration=0.225s peak=-9.50dBFS rms=-31.11dBFS
+PASS S_Impact duration=0.180s peak=-12.00dBFS rms=-32.11dBFS
+PASS S_Hurt duration=0.260s peak=-12.00dBFS rms=-27.51dBFS
+PASS S_Pressure duration=0.580s peak=-15.00dBFS rms=-28.37dBFS
+PASS S_Success duration=0.780s peak=-14.00dBFS rms=-25.41dBFS
+PASS S_Failure duration=0.860s peak=-14.00dBFS rms=-24.61dBFS
+{"count": 8, "result": "PASS", "status": "GENERATED_DRAFT", "task_id": "D01-42"}
