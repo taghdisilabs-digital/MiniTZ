@@ -112,7 +112,7 @@ void ABiellaGamesGameModeBase::SpawnDemoActors()
         FActorSpawnParameters RivalParams;
         RivalParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
         RivalActor = GetWorld()->SpawnActor<ABiellaRival>(
-            ABiellaRival::StaticClass(), FVector(900.0f, 0.0f, 0.0f), FRotator::ZeroRotator, RivalParams);
+            ABiellaRival::StaticClass(), FVector(900.0f, 0.0f, 2.0f), FRotator::ZeroRotator, RivalParams);
     }
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL RIVAL_SPAWN actor=%s source=runtime"),
         RivalActor ? *RivalActor->GetName() : TEXT("None"));

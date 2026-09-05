@@ -1,0 +1,61 @@
+{
+  "task_id": "D01-029",
+  "base_commit": "b4bf397d9fa7c8bce1c9b045c9567264fd23cfa5",
+  "runtime": "UE 5.8.2 Linux Editor -game -nullrhi, canonical BiellaGameplayMap",
+  "resource_route": {
+    "capability": "game-ai-navigation",
+    "providers": [],
+    "execution": "local Unreal/Recast and deterministic runtime assertions"
+  },
+  "editor_build_exit": 0,
+  "automation_exit": 0,
+  "smoke_exit": 0,
+  "passed_phases": [
+    "detour",
+    "hold",
+    "retreat",
+    "dynamic_obstruction",
+    "occluded_combat_position",
+    "bounded_failure",
+    "route_reopened",
+    "no_target_stop",
+    "defeat_stop"
+  ],
+  "source_sha256": {
+    "Config/DefaultEngine.ini": "afb4417b2e79d66065552338d13eb3d7a685f1beb3000ac0a4a07de490060943",
+    "Config/DefaultGame.ini": "fb300de27bfba441548c8fe9f00347b20cacb4638759f43923f23b05d6213fea",
+    "Config/DefaultInput.ini": "e1b7a60e4da1acca28b8540ed7b2746551df9ae1ddc0056eb45a0932ed82ea78",
+    "Source/BiellaGames/BiellaGames.Build.cs": "33372d5eda3fd6874646cadd1cddc45962f7ef594440a035e217914457bed970",
+    "Source/BiellaGames/BiellaGames.cpp": "256382027fe5e6d492cbbdbf13dbf449a438b7063398ef5c80fc049fbaebf78c",
+    "Source/BiellaGames/BiellaGames.h": "30af2b68e6d8210e4ce4fbd26f6a2b8c3648cf2a1226d64b17c4f88c94fccdf1",
+    "Source/BiellaGames/Private/BasicWorldGeometry.cpp": "4ce1bdc0aa12dc33e45cba10043a10d4ded312aae0889b3e7ed62a35592fe983",
+    "Source/BiellaGames/Private/BiellaDemoPawn.cpp": "109e6aef077d1b20d9fbbbafaa7f5d25c3251a87ed96be1f4a2cffd91d0d2879",
+    "Source/BiellaGames/Private/BiellaGamesCharacter.cpp": "3a2b32bcce5aae6acc578091a619b259707205e01de0b5015f6aafbd63b46ccb",
+    "Source/BiellaGames/Private/BiellaGamesGameInstance.cpp": "908284a0b1d9e1ba1356a7d6b375e897706c22ec1906a289557f5f0dd21b3e7d",
+    "Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp": "83c14d7ae5f1e21eb26f0f39715e506ef01c1d30970de40e8e372b7db1169e1f",
+    "Source/BiellaGames/Private/BiellaGamesGameState.cpp": "3dcfde1ede9849cf797f23e2c824340723d8d8138e510f8a491b222ca63ed675",
+    "Source/BiellaGames/Private/BiellaGamesPlayerController.cpp": "ea67fa67b1772640f7eea8b7f00e0d353f5504709eef8f91b637f5447bc18da8",
+    "Source/BiellaGames/Private/BiellaInfected.cpp": "bc406257aa4ff6344951b18e227c57ec583d1090239397763c0b1061486efdb3",
+    "Source/BiellaGames/Private/BiellaRival.cpp": "b530f0f5564692f90cd6816b5a1b42e14e7fcdecce62702cb4aef11395b5c9ad",
+    "Source/BiellaGames/Private/Tests/BiellaRivalNavigationTest.cpp": "a4c9dc728b13e9454aa30a21ac9e13dc73208f7cf51b05e3d9ba03941ccbd6ac",
+    "Source/BiellaGames/Public/BasicWorldGeometry.h": "b13b1ea9959b50f5c46c18999af8e4bda68bef6cc406501381a03a5f0f6554bd",
+    "Source/BiellaGames/Public/BiellaDemoPawn.h": "565f199e035e481bc6a16f5914ee4778361d04e38a8072fe73ee09615a002260",
+    "Source/BiellaGames/Public/BiellaGamesCharacter.h": "c52779e653da520354a2ef14f8d7910bce26cdf46fe395924c1d0010765d0b1c",
+    "Source/BiellaGames/Public/BiellaGamesGameInstance.h": "a4cfbf5bf4b854096844eaa0b36cbd43d26d2e5ab3bcca1478e62f4d35dde63c",
+    "Source/BiellaGames/Public/BiellaGamesGameModeBase.h": "9389ee378915ed8c724362e399ce14cb527682b418edc825dc9f38077a291579",
+    "Source/BiellaGames/Public/BiellaGamesGameState.h": "9666d2256be0e7e07672a3e0bb4e81b2b090c8688ee2be05ca608ddfbc8c2014",
+    "Source/BiellaGames/Public/BiellaGamesPlayerController.h": "e5f05f88486028049dc4af59c4fe94cc5f0b4755814c942b8f23ab1a8a26dffd",
+    "Source/BiellaGames/Public/BiellaInfected.h": "a71155aab5359027d07318d33a0bed961d795f60fe56fbc20d65271a07d1cab0",
+    "Source/BiellaGames/Public/BiellaRival.h": "017ae23faee23958123f1d6ce8edb8ac0e152a888af3f488327fb1c70dbeb054",
+    "Source/BiellaGames.Target.cs": "4799f3aaff4fdbef67e6fd8c4bba578b08336aac195d7df0906fe4c3281ac13c",
+    "Source/BiellaGamesEditor.Target.cs": "8464660556e742c670c5178cdf7b713f6c47309e099e054fff4c5a10e726f085",
+    "BiellaGames.uproject": "717d96f26b873ae8a608e5dea862549a515b1c4cbd43ed36a31dd5a4151ce797",
+    "Content/Maps/BiellaGameplayMap.umap": "115cec2b94f83860965195ca89f088d91eb50a80e20023ba8e5bac22c3e002e6"
+  },
+  "editor_module_sha256": "661feb6b9e57461dfdf321267033b13588bf5f018784d31909ed8e31aed39246",
+  "evidence_sha256": {
+    "D01-029-editor-acceptance.log": "e3ae3e4d85fa96bd3fe6d98eb2a26d16eb61b753dc685d002d4fc0a01332c015",
+    "D01-029-acceptance-runtime.log": "c81d919501b70f81d5f50b7426b8f96a2722b67cdd65708fc58d34224b5f3bde",
+    "D01-029-smoke.log": "fcac7d996dc5681061f52893212360c8f7a81171b4c3176009e44756a7cbe45d"
+  }
+}

@@ -9,8 +9,8 @@ Engine: `/opt/unreal/UE_5.8.2`
 Execution rule: one current task; verify, execute, persist evidence, then advance
 Evidence rule: editable source plus task-derived build/runtime/package evidence
 Current section: `demo01`
-Current task: `D01-029`
-Progress: `28/50` Demo tasks complete
+Current task: `D01-030`
+Progress: `29/50` Demo tasks complete
 
 ## Section: demo01 | Demo 01 — first playable vertical slice | IN_PROGRESS
 
@@ -44,7 +44,7 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 - [x] D01-026 | medium | Add infected hit reaction and death | COMPLETE_ALREADY | shared pawn hit flash, HIT_REACTION, health zero, and DEFEAT apply to infected
 - [x] D01-027 | medium | Add rival contestant pawn/runtime actor | COMPLETE | ABiellaRival editable pawn; runtime spawn; D01_SIGNAL RIVAL_READY/RIVAL_SPAWN
 - [x] D01-028 | medium | Add rival perception and target selection | COMPLETE | runtime RIVAL_TARGET selected infected team=2; target retargets after defeat
-- [ ] D01-029 | hard | Add rival navigation and combat positioning | PENDING | real movement/position evidence
+- [x] D01-029 | hard | Add rival navigation and combat positioning | COMPLETE | dynamic Recast paths; advance/retreat/hold/LOS reposition; live obstruction/replan/recovery, collision and stop assertions PASS; Editor build + canonical encounter PASS; Build/Demo01/D01-029-acceptance.md and D01-029-validation.json
 - [ ] D01-030 | hard | Add rival weapon use and damage response | PENDING | rival combat evidence
 - [ ] D01-031 | hard | Prove shared player/rival/infected interaction | PENDING | cross-actor state evidence
 - [ ] D01-032 | medium | Add authoritative arena-pressure state | PENDING | pressure state source/runtime
@@ -99,4 +99,4 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 
 ## Migration checkpoint
 
-The automatic feeder and parallel production workers are stopped for monorepo/workspace consolidation. D01-001..D01-028 remain complete. D01-029 is the next task; its partial source/build/runtime evidence is preserved but it remains PENDING and must not be promoted without task-derived acceptance.
+The automatic feeder and parallel production workers are stopped for monorepo/workspace consolidation. D01-001..D01-028 remain complete. The preserved partial D01-029 source/build/runtime evidence remains intact. D01-029 was subsequently completed with current task-derived acceptance in Build/Demo01/D01-029-acceptance.md; D01-030 is next and has not been executed. The feeder remains stopped.

@@ -3,6 +3,7 @@
 #include "BasicWorldGeometry.h"
 
 #include "Components/DirectionalLightComponent.h"
+#include "Components/BoxComponent.h"
 #include "Components/LightComponent.h"
 #include "Components/PointLightComponent.h"
 #include "Components/SceneComponent.h"
@@ -14,6 +15,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "UObject/ConstructorHelpers.h"
+#include "NavigationSystem.h"
+#include "NavMesh/NavMeshBoundsVolume.h"
 
 ABasicWorldGeometry::ABasicWorldGeometry()
 {
@@ -93,7 +96,26 @@ void ABasicWorldGeometry::BuildArena()
     }
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL ARENA_READY pieces=%d floor=true walls=4 cover=3 lighting=true"),
         ArenaPieces.Num());
-    UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL NAVIGATION_READY mode=bounded_steering walkable_floor=true"));
+    // This runtime-built arena has no baked map navmesh. Recast consumes the
+    // same spawned collision meshes and updates tiles when obstacles change.
+    ANavMeshBoundsVolume* NavBounds = GetWorld()->SpawnActor<ANavMeshBoundsVolume>(
+        FVector(0.0f, 0.0f, 100.0f), FRotator::ZeroRotator);
+    if (NavBounds)
+    {
+        UBoxComponent* BoundsBox = NewObject<UBoxComponent>(NavBounds, TEXT("ArenaNavigationBounds"));
+        NavBounds->AddInstanceComponent(BoundsBox);
+        BoundsBox->SetupAttachment(NavBounds->GetRootComponent());
+        BoundsBox->SetBoxExtent(FVector(1600.0f, 1300.0f, 400.0f));
+        BoundsBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        BoundsBox->SetCanEverAffectNavigation(false);
+        BoundsBox->RegisterComponent();
+        if (UNavigationSystemV1* Navigation = FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld()))
+        {
+            Navigation->OnNavigationBoundsUpdated(NavBounds);
+            Navigation->GetDefaultNavDataInstance(FNavigationSystem::Create);
+            UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL NAVIGATION_CONFIGURED mode=recast_dynamic source=arena_collision"));
+        }
+    }
 }
 
 AStaticMeshActor* ABasicWorldGeometry::SpawnCube(const FVector& Location,
