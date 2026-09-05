@@ -357,3 +357,57 @@ def test_capsule_keeps_existing_task_memory_when_runtime_last_result_is_unrelate
     payload = json.loads(path.read_text())
     assert payload["summary"] == "preserved hypothesis"
     assert payload["evidence"] == ["runtime evidence"]
+
+
+def test_invoke_structured_streams_safe_codex_events(tmp_path: Path, monkeypatch):
+    fake = tmp_path / "stream.py"
+    output = tmp_path / "result.json"
+    fake.write_text(
+        "import json,os,time\n"
+        "print(json.dumps({'type':'thread.started','thread_id':'session-live'}), flush=True)\n"
+        "print(json.dumps({'type':'item.completed','item':{'type':'agent_message','text':'live progress'}}), flush=True)\n"
+        "time.sleep(0.05)\n"
+        "open(os.environ['OUT'],'w').write(json.dumps({'task_id':'D01-030','status':'CONTINUE','summary':'more','evidence':['partial']}))\n"
+    )
+    monkeypatch.setenv("OUT", str(output))
+    monkeypatch.setattr(runner.routing, "build_codex_command", lambda *_args, **_kwargs: [sys.executable, str(fake)])
+    runtime = tmp_path / "runtime.json"
+    telemetry = runner.initial_runtime()
+    journal = runner.production_events.ProductionEventJournal(tmp_path / "events.jsonl")
+    rc, _ = runner.invoke_structured(
+        "prompt", routing.Route("gpt-6-astra", "ultra"), tmp_path / "schema", output,
+        tmp_path / "stdout.log", tmp_path / "stderr.log", runtime, telemetry,
+        heartbeat_interval=0.01, event_journal=journal, session_task_id="D01-030", cwd=tmp_path,
+    )
+    assert rc == 0
+    entries = [json.loads(line) for line in (tmp_path / "events.jsonl").read_text().splitlines()]
+    assert any(item["type"] == "agent.message" and item.get("text") == "live progress" for item in entries)
+    assert telemetry["task_session_id"] == "session-live"
+
+
+def test_live_session_identity_is_persisted_before_child_finishes(tmp_path: Path, monkeypatch):
+    fake = tmp_path / "live_session.py"
+    output = tmp_path / "result.json"
+    fake.write_text(
+        "import json,os,time\n"
+        "print(json.dumps({'type':'thread.started','thread_id':'session-while-running'}), flush=True)\n"
+        "time.sleep(0.12)\n"
+        "open(os.environ['OUT'],'w').write(json.dumps({'task_id':'D01-030','status':'CONTINUE','summary':'more','evidence':['partial']}))\n"
+    )
+    monkeypatch.setenv("OUT", str(output))
+    monkeypatch.setattr(runner.routing, "build_codex_command", lambda *_args, **_kwargs: [sys.executable, str(fake)])
+    runtime = tmp_path / "runtime.json"
+    telemetry = runner.initial_runtime()
+    seen = []
+    def heartbeat(_at):
+        payload = runner.load_runtime(runtime)
+        if payload.get("child_pid"):
+            seen.append(payload.get("task_session_id"))
+    rc, _ = runner.invoke_structured(
+        "prompt", routing.Route("gpt-6-astra", "ultra"), tmp_path / "schema", output,
+        tmp_path / "stdout.log", tmp_path / "stderr.log", runtime, telemetry,
+        heartbeat_interval=0.01, on_heartbeat=heartbeat, session_task_id="D01-030", cwd=tmp_path,
+        event_journal=runner.production_events.ProductionEventJournal(tmp_path / "events.jsonl"),
+    )
+    assert rc == 0
+    assert "session-while-running" in seen

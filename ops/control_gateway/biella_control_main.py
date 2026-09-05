@@ -7,12 +7,12 @@ from pathlib import Path
 try:
     from .biella_control_assets import AssetCatalog, AssetRoot
     from .biella_control_gateway import AuthStore, EventHub, SessionStore, build_server
-    from .biella_control_runner import ProjectRunner
+    from .biella_control_runner import ProductionJournalTailer, ProjectRunner
     from .biella_control_state import WorkstationState
 except ImportError:
     from biella_control_assets import AssetCatalog, AssetRoot
     from biella_control_gateway import AuthStore, EventHub, SessionStore, build_server
-    from biella_control_runner import ProjectRunner
+    from biella_control_runner import ProductionJournalTailer, ProjectRunner
     from biella_control_state import WorkstationState
 
 
@@ -25,6 +25,7 @@ def main() -> int:
     games_project = repo / "projects" / "biella-games"
     website_project = repo / "website"
     ttl = int(os.environ.get("BIELLA_CONTROL_SESSION_TTL", "28800"))
+    production_runtime_root = Path(os.environ.get("BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT", "/mnt/biella-extra/biella-runtime/codex-production"))
 
     if not static_root.is_dir():
         raise SystemExit(f"control static root is missing: {static_root}")
@@ -46,11 +47,16 @@ def main() -> int:
             AssetRoot("games-content", games_project / "Content", "CURRENT_SOURCE"),
         ],
     })
-    runner = ProjectRunner(lane_workdirs={
-        "Website": website_project,
-        "Engine": repo,
-        "Games": games_project,
-    })
+    runner = ProjectRunner(
+        lane_workdirs={
+            "Website": website_project,
+            "Engine": repo,
+            "Games": games_project,
+        },
+        production_runtime_path=production_runtime_root / "runtime.json",
+    )
+    journal_tailer = ProductionJournalTailer(production_runtime_root / "events.jsonl", events.publish)
+    journal_tailer.start()
 
     server = build_server(
         host=host,
@@ -69,6 +75,7 @@ def main() -> int:
     except KeyboardInterrupt:
         pass
     finally:
+        journal_tailer.stop()
         server.server_close()
     return 0
 

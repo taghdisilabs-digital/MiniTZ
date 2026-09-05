@@ -14,6 +14,7 @@ from typing import Any, Callable, Mapping
 
 import biella_codex_routing as routing
 import biella_production_evidence as evidence
+import biella_production_events as production_events
 import biella_production_state as state
 import biella_task_packet as packets
 
@@ -194,12 +195,46 @@ def _helper_allowed(task_id: str) -> bool:
     return "*" in configured or task_id in configured
 
 
+def _drain_codex_events(path: Path, offset: int, journal: production_events.ProductionEventJournal | None, task_id: str | None, *, final: bool = False) -> tuple[int, str | None]:
+    if not path.exists():
+        return offset, None
+    try:
+        with path.open("rb") as handle:
+            handle.seek(offset)
+            data = handle.read()
+    except OSError:
+        return offset, None
+    if not data:
+        return offset, None
+    chunks = data.split(b"\n")
+    complete = chunks if final and chunks[-1] else chunks[:-1]
+    consumed = 0
+    session_id: str | None = None
+    for raw in complete:
+        consumed += len(raw) + 1
+        if not raw.strip():
+            continue
+        try:
+            item = json.loads(raw.decode("utf-8", errors="replace"))
+        except json.JSONDecodeError:
+            continue
+        if isinstance(item, dict):
+            if item.get("type") == "thread.started" and isinstance(item.get("thread_id"), str):
+                session_id = str(item["thread_id"])
+            if journal is not None and task_id:
+                journal.emit_codex(item, task_id)
+    if final and chunks[-1]:
+        consumed -= 1
+    return offset + consumed, session_id
+
+
 def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, output_path: Path,
                       stdout_path: Path, stderr_path: Path, runtime_path: Path,
                       telemetry: dict[str, Any], *, heartbeat_interval: float = 30.0,
                       on_heartbeat: Callable[[datetime], None] | None = None,
                       cwd: Path | None = None, resume_session_id: str | None = None,
-                      session_task_id: str | None = None, allow_helper: bool = False) -> tuple[int, str]:
+                      session_task_id: str | None = None, allow_helper: bool = False,
+                      event_journal: production_events.ProductionEventJournal | None = None) -> tuple[int, str]:
     if resume_session_id:
         cmd = routing.build_codex_resume_command(route, schema_path, output_path, resume_session_id, allow_helper=True) if allow_helper else routing.build_codex_resume_command(route, schema_path, output_path, resume_session_id)
     else:
@@ -212,7 +247,13 @@ def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, outp
         assert proc.stdin is not None
         proc.stdin.write(prompt); proc.stdin.close()
         next_beat = time.monotonic()
+        event_offset = 0
         while proc.poll() is None:
+            event_offset, live_session = _drain_codex_events(stdout_path, event_offset, event_journal, session_task_id)
+            if live_session and session_task_id and telemetry.get("task_session_id") != live_session:
+                telemetry["task_session_id"] = live_session
+                telemetry["session_task_id"] = session_task_id
+                _beat(runtime_path, telemetry)
             now_mono = time.monotonic()
             if now_mono >= next_beat:
                 observed = _beat(runtime_path, telemetry)
@@ -221,6 +262,10 @@ def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, outp
                 next_beat = now_mono + heartbeat_interval
             time.sleep(min(0.05, max(0.005, heartbeat_interval / 4)))
         rc = int(proc.returncode or 0)
+        event_offset, final_session = _drain_codex_events(stdout_path, event_offset, event_journal, session_task_id, final=True)
+        if final_session and session_task_id:
+            telemetry["task_session_id"] = final_session
+            telemetry["session_task_id"] = session_task_id
     telemetry["child_pid"] = None
     observed_session = resume_session_id or _extract_codex_session_id(stdout_path)
     if observed_session and session_task_id:
@@ -291,8 +336,10 @@ def _first_incomplete_section(production: state.ProductionState) -> state.Sectio
     return None
 
 
-def _persist_until_success(repo_root: Path, task_id: str, runtime_path: Path, telemetry: dict[str, Any], *, retry_seconds: float = 5.0) -> dict[str, str]:
+def _persist_until_success(repo_root: Path, task_id: str, runtime_path: Path, telemetry: dict[str, Any], *, retry_seconds: float = 5.0, event_journal: production_events.ProductionEventJournal | None = None) -> dict[str, str]:
     previous = telemetry.get("last_result") if isinstance(telemetry.get("last_result"), dict) else {}
+    if event_journal:
+        event_journal.emit("persistence.started", task_id=task_id, text="Persisting GitHub/Drive continuity")
     while True:
         try:
             identity = evidence.persist_continuity(repo_root, task_id)
@@ -302,6 +349,8 @@ def _persist_until_success(repo_root: Path, task_id: str, runtime_path: Path, te
                 "task_id": task_id, "status": "RECOVERING_PERSISTENCE",
                 "summary": str(exc), "evidence": list(previous.get("evidence", [])),
             }
+            if event_journal:
+                event_journal.emit("persistence.retry", task_id=task_id, status="RETRY", text=str(exc))
             _beat(runtime_path, telemetry)
             time.sleep(max(0.05, retry_seconds))
             continue
@@ -317,6 +366,8 @@ def _persist_until_success(repo_root: Path, task_id: str, runtime_path: Path, te
             "evidence": list(previous.get("evidence", [])), "continuity": identity,
             "derived_ledger": derived,
         }
+        if event_journal:
+            event_journal.emit("persistence.completed", task_id=task_id, status="COMPLETE", commit=identity.get("commit"), tree=identity.get("tree"))
         _beat(runtime_path, telemetry)
         return identity
 
@@ -329,10 +380,12 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
     section_schema_path = runtime_root / "section-plan-schema.json"
     schema_path.write_text(json.dumps(evidence.result_schema(), sort_keys=True) + "\n", encoding="utf-8")
     section_schema_path.write_text(json.dumps(packets.section_plan_schema(), sort_keys=True) + "\n", encoding="utf-8")
+    journal = production_events.ProductionEventJournal(runtime_root / "events.jsonl")
     lock = ProductionLock(runtime_root / "run.lock"); lock.acquire()
     try:
         telemetry = load_runtime(runtime_path)
         telemetry.update({"status": "RUNNING", "project": "biella-games", "pid": os.getpid(), "child_pid": None})
+        journal.emit("production.started", task_id=telemetry.get("task_id"), status="RUNNING", text="Biella production runner active")
         _beat(runtime_path, telemetry)
         catalog = routing.discover_catalog()
         while True:
@@ -343,10 +396,11 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 section = _first_incomplete_section(production)
                 if section is None:
                     telemetry.update({"status": "COMPLETE", "task_id": None, "child_pid": None, "active_model": None, "active_reasoning": None})
+                    journal.emit("production.completed", status="COMPLETE", text="All current production tasks complete")
                     _beat(runtime_path, telemetry); return 0
                 if section.id == "demo01" and section.tasks and all(t.status in {"COMPLETE", "COMPLETE_ALREADY"} for t in section.tasks):
                     state.mark_section_status(project_root, section.id, "COMPLETE")
-                    _persist_until_success(repo_root, f"SECTION-{section.id}", runtime_path, telemetry)
+                    _persist_until_success(repo_root, f"SECTION-{section.id}", runtime_path, telemetry, event_journal=journal)
                     continue
                 now = datetime.now(timezone.utc)
                 try:
@@ -357,13 +411,13 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 telemetry.update({"status": "RUNNING", "task_id": f"PLAN:{section.id}", "active_model": route.model, "active_reasoning": route.reasoning})
                 _beat(runtime_path, telemetry)
                 output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"PLAN-{section.id}-{route.model}")
-                rc, error_text = invoke_structured(packets.compile_section_packet(production, section, audit=bool(section.tasks)), route, section_schema_path, output, stdout, stderr, runtime_path, telemetry, heartbeat_interval=heartbeat_interval, cwd=project_root, session_task_id=f"PLAN:{section.id}")
+                rc, error_text = invoke_structured(packets.compile_section_packet(production, section, audit=bool(section.tasks)), route, section_schema_path, output, stdout, stderr, runtime_path, telemetry, heartbeat_interval=heartbeat_interval, cwd=project_root, session_task_id=f"PLAN:{section.id}", event_journal=journal)
                 if rc != 0:
                     _set_failure(telemetry, route, error_text, f"PLAN:{section.id}"); _beat(runtime_path, telemetry); continue
                 try:
                     plan = json.loads(output.read_text(encoding="utf-8"))
                     state.apply_section_plan(repo_root, project_root, section.id, plan)
-                    _persist_until_success(repo_root, f"PLAN-{section.id}", runtime_path, telemetry)
+                    _persist_until_success(repo_root, f"PLAN-{section.id}", runtime_path, telemetry, event_journal=journal)
                 except (OSError, json.JSONDecodeError, ValueError, KeyError) as exc:
                     _set_failure(telemetry, route, f"invalid section plan: {exc}", f"PLAN:{section.id}"); _beat(runtime_path, telemetry); continue
                 telemetry["last_result"] = {"task_id": None, "status": "SECTION_REFRESH", "summary": str(plan.get("summary", "")), "evidence": list(plan.get("evidence", [])), "model": route.model, "reasoning": route.reasoning}
@@ -386,20 +440,22 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                         "evidence": sorted(unexpected),
                     }
                 else:
-                    _persist_until_success(repo_root, f"RECONCILE-{task.id}", runtime_path, telemetry)
+                    _persist_until_success(repo_root, f"RECONCILE-{task.id}", runtime_path, telemetry, event_journal=journal)
             _beat(runtime_path, telemetry)
             output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"{task.id}-{route.model}")
             capsule_path = _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
             prompt = _task_prompt(repo_root, production, task, telemetry, capsule_path)
             resume_session_id = _resume_session_for(telemetry, task.id)
+            journal.emit("task.continued" if resume_session_id else "task.started", task_id=task.id, status="RUNNING", text=task.title, model=route.model, reasoning=route.reasoning)
             rc, error_text = invoke_structured(
                 prompt, route, schema_path, output, stdout, stderr, runtime_path, telemetry,
                 heartbeat_interval=heartbeat_interval, cwd=project_root,
                 resume_session_id=resume_session_id, session_task_id=task.id,
-                allow_helper=_helper_allowed(task.id),
+                allow_helper=_helper_allowed(task.id), event_journal=journal,
             )
             if rc != 0:
                 _set_failure(telemetry, route, error_text, task.id)
+                journal.emit("task.runtime_recovery", task_id=task.id, status=telemetry.get("status"), text=error_text[-1200:])
                 _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
                 _beat(runtime_path, telemetry); continue
             try:
@@ -410,6 +466,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 "task_id": result.task_id, "status": result.status, "summary": result.summary,
                 "evidence": list(result.evidence), "model": route.model, "reasoning": route.reasoning,
             }
+            journal.emit("task.completed" if result.status in {"COMPLETE", "COMPLETE_ALREADY"} else "task.continue", task_id=result.task_id, status=result.status, text=result.summary)
             _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
             try:
                 evidence.apply_result(repo_root, project_root, result, route)
@@ -419,7 +476,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 _beat(runtime_path, telemetry); time.sleep(1.0); continue
             if result.status in {"COMPLETE", "COMPLETE_ALREADY"}:
                 _clear_task_session(telemetry)
-                _persist_until_success(repo_root, result.task_id, runtime_path, telemetry)
+                _persist_until_success(repo_root, result.task_id, runtime_path, telemetry, event_journal=journal)
             _beat(runtime_path, telemetry)
             continue
     finally:

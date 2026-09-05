@@ -85,6 +85,18 @@ input:focus { border-color: #58636e; }
 .activity-list li { display: grid; grid-template-columns: 74px minmax(0,1fr); gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 11px; }
 .activity-list li:last-child { border-bottom: 0; }
 .activity-list time { color: var(--muted); }
+.live-dialog { margin-bottom: 14px; }
+.dialog-stream { max-height: min(46vh, 560px); min-height: 180px; overflow: auto; padding: 6px 14px; background: #0d1012; scroll-behavior: smooth; }
+.dialog-entry { padding: 10px 0; border-bottom: 1px solid var(--line-soft); }
+.dialog-entry:last-child { border-bottom: 0; }
+.dialog-meta { display: flex; gap: 9px; align-items: center; margin-bottom: 5px; color: var(--muted); font-size: 9px; text-transform: uppercase; letter-spacing: .06em; }
+.dialog-meta b { color: var(--text); min-width: 44px; }
+.dialog-meta span { margin-left: auto; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.dialog-text { white-space: pre-wrap; overflow-wrap: anywhere; font: 11px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #d8dde2; }
+.dialog-you .dialog-meta b { color: var(--active); }
+.dialog-biella .dialog-meta b { color: var(--good); }
+.dialog-tool .dialog-meta b { color: var(--warn); }
+.live-dialog .command-form { border-width: 1px 0 0; }
 .command-form { display: flex; gap: 8px; border: 1px solid var(--line); padding: 10px; background: var(--surface); }
 .command-form input { min-width: 0; }
 .task-list { border: 1px solid var(--line); background: var(--surface); }

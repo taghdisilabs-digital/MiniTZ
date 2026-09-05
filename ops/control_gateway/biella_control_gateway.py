@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+from collections import deque
 import hashlib
 import hmac
 import json
@@ -16,6 +17,12 @@ from http.cookies import SimpleCookie
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlparse
+
+
+try:
+    from .biella_control_runner import DialogBusy
+except ImportError:
+    from biella_control_runner import DialogBusy
 
 LANES = ("Website", "Engine", "Games")
 SESSION_COOKIE = "biella_control_session"
@@ -109,15 +116,28 @@ class SessionStore:
 
 
 class EventHub:
-    def __init__(self):
+    def __init__(self, history_limit: int = 500):
         self._subscribers: dict[str, list[queue.Queue]] = {lane: [] for lane in LANES}
+        self._history: dict[str, deque] = {lane: deque(maxlen=history_limit) for lane in LANES}
+        self._next_id: dict[str, int] = {lane: 1 for lane in LANES}
         self._lock = threading.Lock()
 
     def subscribe(self, lane: str) -> queue.Queue:
-        channel: queue.Queue = queue.Queue(maxsize=100)
+        channel: queue.Queue = queue.Queue(maxsize=500)
         with self._lock:
             self._subscribers[lane].append(channel)
         return channel
+
+    def subscribe_with_replay(self, lane: str, after_id: int = 0) -> tuple[queue.Queue, list[dict[str, object]]]:
+        channel: queue.Queue = queue.Queue(maxsize=500)
+        with self._lock:
+            replay = [dict(item) for item in self._history[lane] if int(item.get("event_id", 0)) > after_id]
+            self._subscribers[lane].append(channel)
+        return channel, replay
+
+    def replay(self, lane: str, after_id: int = 0) -> list[dict[str, object]]:
+        with self._lock:
+            return [dict(item) for item in self._history[lane] if int(item.get("event_id", 0)) > after_id]
 
     def unsubscribe(self, lane: str, channel: queue.Queue) -> None:
         with self._lock:
@@ -126,10 +146,15 @@ class EventHub:
 
     def publish(self, lane: str, event: dict[str, object]) -> None:
         with self._lock:
+            event_id = self._next_id[lane]
+            self._next_id[lane] += 1
+            event["event_id"] = event_id
+            recorded = dict(event)
+            self._history[lane].append(recorded)
             targets = list(self._subscribers.get(lane, []))
         for target in targets:
             try:
-                target.put_nowait(event)
+                target.put_nowait(dict(recorded))
             except queue.Full:
                 pass
 
@@ -268,21 +293,33 @@ class ControlHandler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def _handle_events(self, lane: str) -> None:
-        channel = self.server.events.subscribe(lane)
+        try:
+            after_id = int(self.headers.get("Last-Event-ID", "0") or 0)
+        except ValueError:
+            after_id = 0
+        channel, replay = self.server.events.subscribe_with_replay(lane, after_id)
         self.send_response(HTTPStatus.OK)
         self.send_header("Content-Type", "text/event-stream; charset=utf-8")
         self.send_header("Cache-Control", "no-cache, no-transform")
         self.send_header("Connection", "keep-alive")
         self._security_headers()
         self.end_headers()
+
+        def send_event(event: dict[str, object]) -> None:
+            payload = json.dumps(event, separators=(",", ":")).encode()
+            event_id = int(event.get("event_id", 0) or 0)
+            if event_id:
+                self.wfile.write(f"id: {event_id}\n".encode())
+            self.wfile.write(b"data: " + payload + b"\n\n")
+
         try:
-            self.wfile.write(b'data: {"text":"Live stream connected"}\n\n')
+            self.wfile.write(b'data: {"type":"stream.connected","text":"Live stream connected"}\n\n')
+            for event in replay:
+                send_event(event)
             self.wfile.flush()
             while True:
                 try:
-                    event = channel.get(timeout=15)
-                    payload = json.dumps(event, separators=(",", ":")).encode()
-                    self.wfile.write(b"data: " + payload + b"\n\n")
+                    send_event(channel.get(timeout=15))
                 except queue.Empty:
                     self.wfile.write(b": ping\n\n")
                 self.wfile.flush()
@@ -393,6 +430,9 @@ class ControlHandler(BaseHTTPRequestHandler):
                 return
             try:
                 dialog_id = self.server.runner.start_dialog(lane, message, self.server.events.publish)
+            except DialogBusy as exc:
+                self._json(HTTPStatus.CONFLICT, {"error": "dialog_busy", "detail": str(exc)})
+                return
             except ValueError:
                 self._json(HTTPStatus.CONFLICT, {"error": "lane_workspace_unavailable"})
                 return

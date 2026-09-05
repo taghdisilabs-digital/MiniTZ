@@ -58,6 +58,14 @@ class ControlConsoleContractTests(unittest.TestCase):
             self.assertIn(token, app)
         self.assertIn("projection", app)
 
+    def test_control_view_renders_persistent_live_task_dialog(self):
+        app = (CONTROL / "app.js").read_text(encoding="utf-8")
+        css = (CONTROL / "styles.css").read_text(encoding="utf-8")
+        for token in ("Live task dialog", "dialog-stream", "dialog.operator", "agent.message", "tool.started", "task.completed"):
+            self.assertIn(token, app)
+        self.assertIn("event.lastEventId", app)
+        self.assertIn("live-dialog", css)
+
     def test_build_copies_the_private_console(self):
         build = (ROOT / "scripts" / "build.mjs").read_text(encoding="utf-8")
         self.assertIn("src", build)

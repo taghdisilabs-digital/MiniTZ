@@ -211,3 +211,12 @@ class EventHubTest(unittest.TestCase):
             engine.get(timeout=0.05)
         hub.unsubscribe("Website", website)
         hub.unsubscribe("Engine", engine)
+
+    def test_event_hub_assigns_ids_and_replays_after_cursor(self):
+        hub = EventHub()
+        hub.publish("Games", {"type":"task.started","text":"D02-01"})
+        hub.publish("Games", {"type":"tool.started","text":"Unreal"})
+        replay = hub.replay("Games", after_id=1)
+        self.assertEqual(len(replay), 1)
+        self.assertEqual(replay[0]["event_id"], 2)
+        self.assertEqual(replay[0]["type"], "tool.started")

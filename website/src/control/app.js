@@ -7,6 +7,7 @@ const state = {
   assets: [],
   events: [],
   eventSource: null,
+  lastEventId: "",
   loading: false,
 };
 
@@ -81,10 +82,54 @@ function progress(c) {
   return `<div class="progress-block"><div class="progress-copy"><b>${done} / ${total}</b><span>${pct.toFixed(0)}%</span></div><div class="progress-track"><span style="width:${pct}%"></span></div></div>`;
 }
 
+const DIALOG_EVENT_TYPES = new Set([
+  "dialog.operator", "dialog.queued", "dialog.started", "dialog.agent", "dialog.failed",
+  "agent.message", "agent.reasoning_summary", "tool.started", "tool.completed",
+  "task.started", "task.continued", "task.continue", "task.completed", "task.runtime_recovery",
+  "persistence.started", "persistence.retry", "persistence.completed",
+  "turn.started", "turn.completed", "production.started", "production.completed"
+]);
+
 function currentTaskTitle() {
   const id = control().current_task;
   const item = (work().tasks || []).find((task) => task.id === id);
   return item?.title || id || "No task is currently executing";
+}
+
+function dialogRole(event) {
+  if (event.type === "dialog.operator") return "YOU";
+  if (String(event.type || "").startsWith("agent.") || event.type === "dialog.agent") return "BIELLA";
+  if (String(event.type || "").startsWith("tool.")) return "TOOL";
+  return "SYSTEM";
+}
+
+function dialogText(event) {
+  if (event.text) return String(event.text);
+  if (event.type === "turn.completed" && event.usage) {
+    const cached = Number(event.usage.cached_input_tokens || 0);
+    const input = Number(event.usage.input_tokens || 0);
+    return `Turn complete · input ${input.toLocaleString()} · cached ${cached.toLocaleString()}`;
+  }
+  return event.status || event.type || "event";
+}
+
+function renderDialogEvents() {
+  const entries = state.events.filter((event) => DIALOG_EVENT_TYPES.has(event.type)).slice(-120);
+  if (!entries.length) return `<div class="empty-state">No live task events yet.</div>`;
+  return entries.map((event) => `
+    <div class="dialog-entry dialog-${esc(dialogRole(event).toLowerCase())}">
+      <div class="dialog-meta"><b>${esc(dialogRole(event))}</b><time>${esc(formatTime(event.time || ""))}</time><span>${esc(event.task_id || "")}</span></div>
+      <div class="dialog-text">${esc(dialogText(event))}</div>
+    </div>`).join("");
+}
+
+function shouldRefreshProjection(event) {
+  return new Set(["task.started", "task.completed", "persistence.completed", "production.completed"]).has(event.type);
+}
+
+function scrollDialogToEnd() {
+  const stream = document.getElementById("dialog-stream");
+  if (stream) stream.scrollTop = stream.scrollHeight;
 }
 
 function renderControl() {
@@ -109,10 +154,15 @@ function renderControl() {
         <div><span>Git</span><b class="mono">${esc(short(c.commit))}</b></div>
       </div>
     </article>
+    <article class="panel live-dialog">
+      <header><b>Live task dialog</b><span>${esc(c.current_task || "idle")} · real-time</span></header>
+      <div id="dialog-stream" class="dialog-stream">${renderDialogEvents()}</div>
+      ${composer}
+    </article>
     <div class="split-grid">
       <article class="panel"><header><b>Production map</b><span>${sections.length} sections</span></header><div class="section-list">${sections.map((s) => `<div class="section-row"><span>${esc(s.id)}</span><b>${Number(s.completed || 0)}/${Number(s.total || 0)}</b>${badge(s.status)}</div>`).join("") || empty("No section data")}</div></article>
       <article class="panel"><header><b>Recent activity</b><span>live stream</span></header><ul class="activity-list">${activity}</ul></article>
-    </div>${composer}`;
+    </div>`;
 }
 
 function renderWork() {
@@ -166,6 +216,7 @@ function render() {
   else viewRoot.innerHTML = renderSystem();
   updateLiveStrip();
   bindViewActions();
+  scrollDialogToEnd();
 }
 
 function bindViewActions() {
@@ -199,12 +250,14 @@ function connectEvents() {
   if (state.eventSource) state.eventSource.close();
   const eventPath = state.config?.event_path || "/events";
   state.eventSource = new EventSource(apiPath(eventPath) + "?lane=" + encodeURIComponent(state.lane));
-  state.eventSource.onmessage = (message) => {
+  state.eventSource.onmessage = (event) => {
     let parsed;
-    try { parsed = JSON.parse(message.data); } catch { parsed = {text: message.data}; }
-    state.events.push(Object.assign({time: new Date().toLocaleTimeString()}, parsed));
-    if (state.events.length > 100) state.events.shift();
-    if (state.view === "control") render();
+    try { parsed = JSON.parse(event.data); } catch { parsed = {text: event.data}; }
+    state.lastEventId = event.lastEventId || state.lastEventId;
+    state.events.push(Object.assign({time: new Date().toISOString()}, parsed));
+    if (state.events.length > 500) state.events.shift();
+    if (shouldRefreshProjection(parsed)) loadData();
+    else if (state.view === "control") render();
   };
 }
 
@@ -214,8 +267,13 @@ async function sendCommand(event) {
   const input = document.getElementById("command-input");
   const message = input?.value.trim();
   if (!message) return;
-  await request("dialog", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({lane: state.lane, message})});
-  input.value = "";
+  try {
+    await request("dialog", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({lane: state.lane, message})});
+    input.value = "";
+  } catch (error) {
+    errorBanner.textContent = error.message;
+    errorBanner.classList.remove("hidden");
+  }
 }
 
 async function signOut() {

@@ -83,6 +83,76 @@ class ProjectRunnerTest(unittest.TestCase):
         self.assertIn("shared /root/.codex", prompt)
         self.assertIn("Operator message:\ncontinue", prompt)
 
+    def test_games_dialog_queues_into_active_production_session(self):
+        runtime = Path(self.tmp.name) / "runtime.json"
+        runtime.write_text('{"status":"RUNNING","task_id":"D02-01","session_task_id":"D02-01","task_session_id":"session-d02"}')
+        runner = ProjectRunner(
+            lane_workdirs={"Website": self.website, "Engine": self.engine, "Games": self.games},
+            runtime_env_loader=lambda: {},
+            exec_command=self.capture,
+            background=lambda fn: fn(),
+            production_runtime_path=runtime,
+            production_active=lambda: True,
+        )
+        runner.start_dialog("Games", "focus nav readiness", self.publish)
+        argv = self.capture.calls[-1][0]
+        self.assertIn("queue", argv)
+        self.assertIn("--thread", argv)
+        self.assertIn("session-d02", argv)
+        self.assertNotIn("exec", argv)
+        kinds = [event[1].get("type") for event in self.events]
+        self.assertIn("dialog.operator", kinds)
+        self.assertIn("dialog.queued", kinds)
+
+    def test_standalone_dialog_is_single_flight_per_lane(self):
+        pending = []
+        runner = ProjectRunner(
+            lane_workdirs={"Website": self.website, "Engine": self.engine, "Games": self.games},
+            runtime_env_loader=lambda: {},
+            exec_command=self.capture,
+            background=lambda fn: pending.append(fn),
+            production_active=lambda: False,
+        )
+        runner.start_dialog("Website", "first", self.publish)
+        with self.assertRaisesRegex(Exception, "dialog already active"):
+            runner.start_dialog("Website", "second", self.publish)
+        pending[0]()
+        runner.start_dialog("Website", "third", self.publish)
+
+
+    def test_production_journal_tailer_replays_existing_events(self):
+        journal = Path(self.tmp.name) / "events.jsonl"
+        journal.write_text('{"seq":1,"lane":"Games","type":"task.started","text":"D02-01"}\n')
+        from ops.control_gateway.biella_control_runner import ProductionJournalTailer
+        tailer = ProductionJournalTailer(journal, self.publish, poll_seconds=0.01)
+        tailer.start()
+        import time
+        deadline = time.time() + 1
+        while time.time() < deadline and not any(event[1].get("type") == "task.started" for event in self.events):
+            time.sleep(0.01)
+        tailer.stop()
+        self.assertTrue(any(event[0] == "Games" and event[1].get("text") == "D02-01" for event in self.events))
+
+
+    def test_games_standalone_dialog_shares_production_run_lock(self):
+        import fcntl
+        runtime = Path(self.tmp.name) / "prod" / "runtime.json"
+        runtime.parent.mkdir()
+        lock_path = runtime.parent / "run.lock"
+        handle = lock_path.open("a+")
+        fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        try:
+            runner = ProjectRunner(
+                lane_workdirs={"Website": self.website, "Engine": self.engine, "Games": self.games},
+                runtime_env_loader=lambda: {}, exec_command=self.capture, background=lambda fn: fn(),
+                production_runtime_path=runtime, production_active=lambda: False,
+            )
+            with self.assertRaisesRegex(Exception, "production or dialog active"):
+                runner.start_dialog("Games", "standalone", self.publish)
+        finally:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+            handle.close()
+
 
 if __name__ == "__main__":
     unittest.main()
