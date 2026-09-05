@@ -4,6 +4,7 @@
 
 #include "BiellaGameplayHUD.h"
 #include "BiellaGamesGameModeBase.h"
+#include "BiellaGamesGameState.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "InputCoreTypes.h"
 
@@ -42,10 +43,32 @@ void ABiellaGamesPlayerController::EndPlay(const EEndPlayReason::Type EndPlayRea
 void ABiellaGamesPlayerController::PlayerTick(float DeltaTime)
 {
     Super::PlayerTick(DeltaTime);
+    UpdateTerminalInputState();
     if (GameplayHUD)
     {
         GameplayHUD->RefreshFromRuntime();
     }
+}
+
+void ABiellaGamesPlayerController::UpdateTerminalInputState()
+{
+    const ABiellaGamesGameState* State = GetWorld() ?
+        GetWorld()->GetGameState<ABiellaGamesGameState>() : nullptr;
+    const bool bTerminal = State &&
+        (State->Phase == EDemo01Phase::Success || State->Phase == EDemo01Phase::Failure);
+    if (bTerminal == bTerminalInputActive)
+    {
+        return;
+    }
+
+    bTerminalInputActive = bTerminal;
+    SetIgnoreMoveInput(bTerminal);
+    SetIgnoreLookInput(bTerminal);
+    UE_LOG(LogTemp, Display,
+        TEXT("D01_SIGNAL TERMINAL_INPUT_STATE terminal=%s movement=%s look=%s restart_key=R"),
+        bTerminal ? TEXT("true") : TEXT("false"),
+        bTerminal ? TEXT("ignored") : TEXT("enabled"),
+        bTerminal ? TEXT("ignored") : TEXT("enabled"));
 }
 
 void ABiellaGamesPlayerController::SetupInputComponent()

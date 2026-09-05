@@ -13,6 +13,7 @@ class UBorder;
 class UCanvasPanel;
 class UProgressBar;
 class UTextBlock;
+enum class EDemo01Phase : uint8;
 
 UCLASS()
 class BIELLAGAMES_API UBiellaGameplayHUD : public UUserWidget
@@ -45,8 +46,21 @@ public:
     UFUNCTION(BlueprintPure, Category="Demo01|HUD")
     FString GetDisplayedObjectiveText() const { return DisplayedObjectiveText; }
 
+    UFUNCTION(BlueprintPure, Category="Demo01|HUD|Terminal")
+    bool IsTerminalOverlayVisible() const { return bTerminalOverlayVisible; }
+
+    UFUNCTION(BlueprintPure, Category="Demo01|HUD|Terminal")
+    FString GetDisplayedTerminalTitle() const { return DisplayedTerminalTitle; }
+
+    UFUNCTION(BlueprintPure, Category="Demo01|HUD|Terminal")
+    FString GetDisplayedTerminalMessage() const { return DisplayedTerminalMessage; }
+
+    UFUNCTION(BlueprintPure, Category="Demo01|HUD|Terminal")
+    FString GetDisplayedRestartPrompt() const { return DisplayedRestartPrompt; }
+
 protected:
     void BuildLayout();
+    void UpdateTerminalOverlay(EDemo01Phase Phase, const FString& Objective);
 
     UPROPERTY(Transient)
     TObjectPtr<UCanvasPanel> RootCanvas;
@@ -75,6 +89,18 @@ protected:
     UPROPERTY(Transient)
     TObjectPtr<UTextBlock> CountdownText;
 
+    UPROPERTY(Transient)
+    TObjectPtr<UBorder> TerminalOverlay;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UTextBlock> TerminalTitle;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UTextBlock> TerminalMessage;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UTextBlock> RestartPrompt;
+
 private:
     TWeakObjectPtr<ABiellaGamesCharacter> Player;
     TWeakObjectPtr<ABiellaGamesGameState> GameState;
@@ -89,4 +115,8 @@ private:
     int32 DisplayedObjectiveTarget = -1;
     FString DisplayedObjectiveText;
     int32 DisplayedPhase = -1;
+    bool bTerminalOverlayVisible = false;
+    FString DisplayedTerminalTitle;
+    FString DisplayedTerminalMessage;
+    FString DisplayedRestartPrompt;
 };

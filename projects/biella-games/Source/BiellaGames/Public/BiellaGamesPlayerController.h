@@ -29,6 +29,10 @@ public:
     UBiellaGameplayHUD* GetGameplayHUD() const { return GameplayHUD; }
 
 private:
+    void UpdateTerminalInputState();
+
     UPROPERTY(Transient)
     TObjectPtr<UBiellaGameplayHUD> GameplayHUD;
+
+    bool bTerminalInputActive = false;
 };

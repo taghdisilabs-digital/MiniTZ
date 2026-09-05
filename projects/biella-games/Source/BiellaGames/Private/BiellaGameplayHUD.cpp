@@ -24,6 +24,9 @@ const FLinearColor HudAccentColor(0.16f, 0.82f, 1.0f, 1.0f);
 const FLinearColor HudSecondaryColor(0.62f, 0.70f, 0.78f, 1.0f);
 const FLinearColor HudWarningColor(1.0f, 0.55f, 0.16f, 1.0f);
 const FLinearColor HudSuccessColor(0.20f, 1.0f, 0.48f, 1.0f);
+const FLinearColor HudFailureColor(1.0f, 0.15f, 0.10f, 1.0f);
+const FLinearColor HudTerminalBackdropColor(0.002f, 0.006f, 0.012f, 0.84f);
+const FLinearColor HudTerminalCardColor(0.008f, 0.015f, 0.025f, 0.97f);
 
 UTextBlock* AddText(UWidgetTree* WidgetTree, UPanelWidget* Parent, const TCHAR* InitialText,
     int32 FontSize, const FLinearColor& Color)
@@ -185,6 +188,93 @@ void UBiellaGameplayHUD::BuildLayout()
         CanvasSlot->SetOffsets(FMargin(-12.0f, -14.0f, 12.0f, 14.0f));
         CanvasSlot->SetZOrder(20);
     }
+
+    TerminalOverlay = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass());
+    TerminalOverlay->SetBrushColor(HudTerminalBackdropColor);
+    TerminalOverlay->SetVisibility(ESlateVisibility::Collapsed);
+    if (UCanvasPanelSlot* CanvasSlot = RootCanvas->AddChildToCanvas(TerminalOverlay))
+    {
+        CanvasSlot->SetAnchors(FAnchors(0.0f, 0.0f, 1.0f, 1.0f));
+        CanvasSlot->SetOffsets(FMargin(0.0f));
+        CanvasSlot->SetZOrder(100);
+    }
+
+    UCanvasPanel* TerminalCanvas = WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass());
+    TerminalOverlay->SetContent(TerminalCanvas);
+
+    UBorder* TerminalCard = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass());
+    TerminalCard->SetBrushColor(HudTerminalCardColor);
+    TerminalCard->SetPadding(FMargin(42.0f, 34.0f, 42.0f, 34.0f));
+    if (UCanvasPanelSlot* CanvasSlot = TerminalCanvas->AddChildToCanvas(TerminalCard))
+    {
+        CanvasSlot->SetAnchors(FAnchors(0.5f, 0.5f));
+        CanvasSlot->SetAlignment(FVector2D(0.5f, 0.5f));
+        CanvasSlot->SetOffsets(FMargin(-330.0f, -170.0f, 330.0f, 170.0f));
+        CanvasSlot->SetZOrder(1);
+    }
+
+    UVerticalBox* TerminalStack = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
+    TerminalCard->SetContent(TerminalStack);
+    auto AddTerminalText = [this, TerminalStack](const TCHAR* InitialText, int32 FontSize,
+        const FLinearColor& Color) -> UTextBlock*
+    {
+        UTextBlock* Text = AddText(WidgetTree, TerminalStack, InitialText, FontSize, Color);
+        if (Text)
+        {
+            Text->SetJustification(ETextJustify::Center);
+            Text->SetAutoWrapText(true);
+        }
+        return Text;
+    };
+    AddTerminalText(TEXT("DEMO 01 // TERMINAL STATE"), 12, HudAccentColor);
+    TerminalTitle = AddTerminalText(TEXT("SUCCESS // ARENA CLEARED"), 34, HudSuccessColor);
+    AddVerticalPadding(TerminalTitle, FMargin(0.0f, 18.0f, 0.0f, 10.0f));
+    TerminalMessage = AddTerminalText(TEXT("Arena cleared."), 18, FLinearColor::White);
+    AddVerticalPadding(TerminalMessage, FMargin(0.0f, 0.0f, 0.0f, 24.0f));
+    RestartPrompt = AddTerminalText(TEXT("PRESS R TO RESTART"), 17, HudWarningColor);
+}
+
+void UBiellaGameplayHUD::UpdateTerminalOverlay(EDemo01Phase Phase, const FString& Objective)
+{
+    const bool bShouldShow = Phase == EDemo01Phase::Success || Phase == EDemo01Phase::Failure;
+    const bool bIsFailure = Phase == EDemo01Phase::Failure;
+    const FString Title = bShouldShow ?
+        (bIsFailure ? TEXT("FAILURE // YOU WERE DEFEATED") : TEXT("SUCCESS // ARENA CLEARED")) : TEXT("");
+    const FString Message = bShouldShow ? Objective : TEXT("");
+    const FString Prompt = bShouldShow ? TEXT("PRESS R TO RESTART") : TEXT("");
+
+    if (TerminalOverlay)
+    {
+        TerminalOverlay->SetVisibility(bShouldShow ? ESlateVisibility::Visible : ESlateVisibility::Collapsed);
+    }
+    if (TerminalTitle)
+    {
+        TerminalTitle->SetText(FText::FromString(Title));
+        TerminalTitle->SetColorAndOpacity(FSlateColor(bIsFailure ? HudFailureColor : HudSuccessColor));
+    }
+    if (TerminalMessage)
+    {
+        TerminalMessage->SetText(FText::FromString(Message));
+    }
+    if (RestartPrompt)
+    {
+        RestartPrompt->SetText(FText::FromString(Prompt));
+    }
+
+    const bool bChanged = bTerminalOverlayVisible != bShouldShow ||
+        DisplayedTerminalTitle != Title || DisplayedTerminalMessage != Message ||
+        DisplayedRestartPrompt != Prompt;
+    bTerminalOverlayVisible = bShouldShow;
+    DisplayedTerminalTitle = Title;
+    DisplayedTerminalMessage = Message;
+    DisplayedRestartPrompt = Prompt;
+
+    if (bChanged && bShouldShow)
+    {
+        UE_LOG(LogTemp, Display,
+            TEXT("D01_SIGNAL HUD_TERMINAL_OVERLAY phase=%s title=%s message=%s prompt=%s source=runtime"),
+            PhaseLabel(Phase), *Title, *Message, *Prompt);
+    }
 }
 
 void UBiellaGameplayHUD::RefreshFromRuntime()
@@ -212,6 +302,7 @@ void UBiellaGameplayHUD::RefreshFromRuntime()
     if (!Player.IsValid() || !GameState.IsValid())
     {
         bRuntimeBound = false;
+        UpdateTerminalOverlay(EDemo01Phase::Intro, TEXT(""));
         return;
     }
 
@@ -267,6 +358,7 @@ void UBiellaGameplayHUD::RefreshFromRuntime()
             GameState->Phase == EDemo01Phase::Success ? FSlateColor(HudSuccessColor) :
             FSlateColor(HudSecondaryColor));
     }
+    UpdateTerminalOverlay(GameState->Phase, Objective);
 
     const bool bChanged = !FMath::IsNearlyEqual(DisplayedHealth, Health, 0.01f) ||
         DisplayedAmmo != Ammo || DisplayedThreatCountdown != Remaining ||
