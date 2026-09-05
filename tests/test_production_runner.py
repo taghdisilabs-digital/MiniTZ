@@ -107,3 +107,22 @@ def test_runner_plans_and_audits_empty_next_section(tmp_path: Path, monkeypatch)
     assert state.find_task(production, "S2-001").status == "COMPLETE"
     assert next(s for s in production.sections if s.id == "stage2").status == "COMPLETE"
     assert calls["plan"] == 2
+
+
+def test_observed_limit_falls_back_to_next_eligible_model(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path); runtime_root = tmp_path / "runtime"
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {"gpt-6-astra": {"ultra"}, "gpt-5.6-terra": {"ultra"}})
+    used = []
+    def command(route, _schema, output, _cwd):
+        used.append(route.model)
+        if route.model == "gpt-6-astra":
+            return [sys.executable, "-c", "import sys; print('usage_limit_exceeded', file=sys.stderr); sys.exit(1)"]
+        payload = {"task_id": "D01-030", "status": "COMPLETE", "summary": "done", "evidence": ["runtime pass"]}
+        code = f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"
+        return [sys.executable, "-c", code]
+    monkeypatch.setattr(runner.routing, "build_codex_command", command)
+    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: {"commit": task_id, "tree": "t"})
+    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.02) == 0
+    assert used[:2] == ["gpt-6-astra", "gpt-5.6-terra"]
+    telemetry = runner.load_runtime(runtime_root / "runtime.json")
+    assert "gpt-6-astra" in telemetry["cooldowns"]

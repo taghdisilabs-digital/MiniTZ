@@ -27,10 +27,10 @@ active_execution:
   section: demo01
   state: PENDING
   execution_started: false
-  feeder: STOPPED_BY_OWNER
   controller: biella-codex
   consolidation_state: COMPLETE_VERIFIED
 
+  runner: READY
 games:
   project_path: projects/biella-games
   production_source: projects/biella-games/docs/PRODUCTION.md
@@ -46,7 +46,7 @@ games:
   navigation_evidence: projects/biella-games/Build/Demo01/D01-029-acceptance.md
   combat_qualification: D01_030_WEAPON_COLLISION_DAMAGE_RESPONSE_BUILD_AND_LIVE_RUNTIME_PASS
   combat_evidence: projects/biella-games/Build/Demo01/D01-030-acceptance.md
-  task_boundary: D01_031_PENDING_NOT_EXECUTED
+  task_boundary: D01-031_PENDING
 
 engine_numbered_execution:
   P4_01_through_P4_05: COMPLETE_REUSE_REQUIRED
@@ -61,8 +61,8 @@ resources:
   paid_allowed: true
   quota_probe_forbidden: true
   verified_live_operations: [Tavily_search, Exa_semantic_search, Groq_fast_llm]
-  configured_connected: [Cloudflare, Saturn, Groq, Cerebras, OpenRouter, Mistral, Tavily, Exa, Pinecone, Qdrant, Deepgram, AssemblyAI, ElevenLabs, StabilityAI, Neon, Pexels, Modal]
-  needs_locator: [Supabase, Upstash, Cloudinary]
+  configured_connected: [Cloudflare, Saturn, Groq, Cerebras, OpenRouter, Mistral, Tavily, Exa, Pinecone, Qdrant, Deepgram, AssemblyAI, ElevenLabs, StabilityAI, Supabase, Neon, Upstash, Cloudinary, Axiom, Pexels, Modal]
+  needs_locator: []
   restricted_or_unresolved: [Axiom, Endpoint]
 
 drive:

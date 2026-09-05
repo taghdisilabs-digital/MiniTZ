@@ -100,10 +100,18 @@ def _dirty_paths(repo_root: Path) -> set[str]:
     return paths
 
 
-def publish_drive_continuity(repo_root: Path, *, remote_root: str = "gdrive:Biella/CURRENT") -> None:
-    for relative in _CONTINUITY_PATHS[:2]:
+def drive_publications(repo_root: Path) -> tuple[tuple[str, str], ...]:
+    del repo_root
+    return (
+        ("docs/project-state/03_BIELLA_CURRENT_STATE.md", "gdrive:Biella/CURRENT/03_BIELLA_CURRENT_STATE.md"),
+        ("docs/project-state/04_BIELLA_ACTIVE_TASK.md", "gdrive:Biella/CURRENT/04_BIELLA_ACTIVE_TASK.md"),
+        ("projects/biella-games/docs/PRODUCTION.md", "gdrive:Biella/PROJECTS/GAMES/PRODUCTION.md"),
+    )
+
+
+def publish_drive_continuity(repo_root: Path) -> None:
+    for relative, target in drive_publications(Path(repo_root)):
         local = Path(repo_root) / relative
-        target = f"{remote_root}/{local.name}"
         subprocess.run(["rclone", "copyto", str(local), target], check=True, stdout=subprocess.DEVNULL)
         remote = subprocess.run(["rclone", "cat", target], check=True, capture_output=True).stdout
         local_digest = hashlib.sha256(local.read_bytes()).hexdigest()

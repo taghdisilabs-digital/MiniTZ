@@ -56,8 +56,7 @@ rm -f -- \
   "$INSTALL_DIR/biella-model.sh" \
   "$INSTALL_DIR/biella-luna.sh" \
   "$INSTALL_DIR/biella-astra.sh" \
-  "$INSTALL_DIR/biella-work-contract.md" \
-  "$INSTALL_DIR/biella_codex_feeder.py"
+  "$INSTALL_DIR/biella-work-contract.md"
 
 printf 'Installed unified Biella Codex controller under %s.\n' "$INSTALL_DIR"
 printf 'Only AI/production entrypoint: biella-codex\n'

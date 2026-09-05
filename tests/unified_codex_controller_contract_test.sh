@@ -20,7 +20,7 @@ grep -Fq 'cd /root' "$wrapper"
 grep -Fq 'BIELLA_PRODUCTION_RUNNER' "$wrapper"
 grep -Fq '"${1:-}" == "production"' "$wrapper"
 ! grep -Fq '"${1:-}" == "feed"' "$wrapper"
-! grep -Fq 'biella_codex_feeder.py' "$installer"
+if grep -Fq 'biella_codex_feeder.py' "$installer"; then echo 'legacy feeder installer reference remains' >&2; exit 1; fi
 grep -Fq 'biella_production_runner.py' "$installer"
 ! grep -Fq -- '--oss' "$wrapper"
 ! grep -Fq 'qwen3-coder-next:biella' "$wrapper"

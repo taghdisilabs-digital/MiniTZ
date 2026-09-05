@@ -43,3 +43,9 @@ def test_command_has_no_usage_or_reset(tmp_path: Path):
     assert "/usage" not in joined
     assert "reset" not in joined
     assert cmd[1:3] == ["--search", "exec"]
+
+
+def test_limit_retry_parser_uses_observed_provider_error():
+    observed = datetime(2026, 9, 5, tzinfo=timezone.utc)
+    retry = routing.limit_retry_at("usage_limit_exceeded: try again at Sep 7, 2026 5:05 PM UTC", observed)
+    assert retry > observed

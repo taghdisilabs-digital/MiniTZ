@@ -99,4 +99,4 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 
 ## Migration checkpoint
 
-The automatic feeder and parallel production workers are stopped for monorepo/workspace consolidation. D01-001..D01-028 remain complete. The preserved partial D01-029 source/build/runtime evidence remains intact. D01-029 was subsequently completed with current task-derived acceptance in Build/Demo01/D01-029-acceptance.md; D01-030 was subsequently completed with current task-derived acceptance in Build/Demo01/D01-030-acceptance.md. D01-031 is next and has not been executed. The feeder remains stopped.
+D01-001..D01-030 are durably complete. D01-031 is the current pending task. Canonical automatic execution is the monorepo-native `biella-codex production` runner, which derives work from 03/04 plus this Project file and keeps runtime state telemetry-only.

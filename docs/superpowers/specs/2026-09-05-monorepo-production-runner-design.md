@@ -11,7 +11,7 @@ Durable execution truth is limited to:
 - `docs/project-state/03_BIELLA_CURRENT_STATE.md` — global current execution state.
 - `docs/project-state/04_BIELLA_ACTIVE_TASK.md` — exact active task contract.
 - `projects/<project>/docs/PRODUCTION.md` — Project section/task map and durable Project completion evidence.
-- Git `main` and canonical Drive publication/readback remain source/publication evidence.
+- Git `main` and canonical Drive publication/readback remain source/publication evidence. Drive mirrors exact current 03/04 bytes under `Biella/CURRENT/` and the Project `PRODUCTION.md` under `Biella/PROJECTS/GAMES/PRODUCTION.md`; these mirrors never become a second execution authority.
 
 `runtime.json`, lock files, stdout/stderr logs, child PIDs, model cooldowns, timestamps, and attempt results are runtime telemetry/evidence only. They may never become a completion ledger or task authority.
 

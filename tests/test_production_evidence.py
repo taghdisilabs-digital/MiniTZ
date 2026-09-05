@@ -86,3 +86,10 @@ def test_persist_continuity_commits_and_pushes_exact_main(tmp_path: Path):
     remote_head = subprocess.check_output(["git", "--git-dir", str(remote), "rev-parse", "refs/heads/main"], text=True).strip()
     assert identity["commit"] == local == remote_head
     assert subprocess.check_output(["git", "-C", str(repo), "status", "--porcelain"], text=True) == ""
+
+
+def test_drive_publications_include_project_production():
+    targets = dict(evidence.drive_publications(Path("/repo")))
+    assert targets["docs/project-state/03_BIELLA_CURRENT_STATE.md"] == "gdrive:Biella/CURRENT/03_BIELLA_CURRENT_STATE.md"
+    assert targets["docs/project-state/04_BIELLA_ACTIVE_TASK.md"] == "gdrive:Biella/CURRENT/04_BIELLA_ACTIVE_TASK.md"
+    assert targets["projects/biella-games/docs/PRODUCTION.md"] == "gdrive:Biella/PROJECTS/GAMES/PRODUCTION.md"

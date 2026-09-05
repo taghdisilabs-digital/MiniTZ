@@ -1,22 +1,19 @@
 # Biella AI Production Map + Task Contract Design
 
 ## Status
-Research-grounded design for improving the existing Biella/Codex production feeder without creating a second scheduler, queue, memory, controller, or Project authority.
+Research-grounded design for improving the existing Biella/Codex production runner without creating a second scheduler, queue, memory, controller, or Project authority.
 
-## Initial design baseline — 2026-09-05 (superseded by current 03/04 during execution)
-- Canonical Engine checkout: `/root/biella/repos/biella-engine`.
-- Observed local/remote `main`: `6485b8c5fefe1cc2be41de57fe2e3d76c39931a1`.
-- Observed tree: `c083044227007ee35a3b501f618f3acbce515764`.
-- Worktree observed clean and tracking `origin/main`.
+## Current execution architecture
+- Canonical repository/checkout: `patrickminitz-web/biella-engine` at `/root/biella/repos/biella-engine`.
 - `biella-codex` is the only public AI/production controller.
-- Games feeder authority is `/root/biella/work/games-production.json`.
-- Feeder is `WAITING_DEMO_HANDOFF`; Demo 01 is 10/50 complete; current task is `D01-011`.
-- Demo execution remains externally owned until all Demo 01 tasks close; feeder must not execute Demo work during that ownership window.
+- Durable execution state is `docs/project-state/03_BIELLA_CURRENT_STATE.md`, `docs/project-state/04_BIELLA_ACTIVE_TASK.md`, and the active Project `projects/biella-games/docs/PRODUCTION.md`.
+- Runtime execution is owned by the monorepo-native `biella-codex production` runner; runtime JSON/logs are telemetry/evidence only.
+- Historical prior-executor architecture is retained in Git history/archive evidence and is not current routing authority.
 
 ## Research result
 The strongest shared pattern across current Biella source, Superpowers, and current Codex guidance is: give the agent a small navigable map, a bounded task contract, exact context pointers, executable validation, and durable evidence. Do not preload broad manuals or duplicate state.
 
-OpenAI's current Codex guidance favors issue-like prompts with concrete file/component pointers, persistent repository instructions through `AGENTS.md`, and well-scoped tasks. Current harness-engineering guidance explicitly favors a map over a monolithic instruction manual. Biella already implements the correct foundation through progressive context and a single feeder authority.
+OpenAI's current Codex guidance favors issue-like prompts with concrete file/component pointers, persistent repository instructions through `AGENTS.md`, and well-scoped tasks. Current harness-engineering guidance explicitly favors a map over a monolithic instruction manual. Biella already implements the correct foundation through progressive context and a single production authority.
 
 ## Design objective
 Turn each canonical production task into a compact, deterministic AI execution packet that maximizes useful model context and production power while minimizing repeated prose, stale context, rediscovery, and token waste.
@@ -102,11 +99,11 @@ A production task should be the smallest unit with its own meaningful acceptance
 
 ### Phase 2
 4. **Task-packet schema** — implement the ordered compact contract above with strict validation and `UNKNOWN` preservation.
-5. **Canonical-to-packet compiler** — compile existing feeder section tasks and Engine numbered tasks without creating a second queue.
+5. **Canonical-to-packet compiler** — compile existing Project production section tasks and Engine numbered tasks without creating a second queue.
 6. **Task lint** — reject ambiguous acceptance, missing write boundary, duplicate policy prose, invented dependencies, and missing stop conditions.
 
 ### Phase 3
-7. **Feeder packet injection** — pass the packet and bounded current context to fresh Codex task execution.
+7. **Runner packet injection** — pass the packet and bounded current context to fresh Codex task execution.
 8. **Demand context expansion** — add source only when a named unresolved fact blocks correct execution; record each expansion.
 9. **Dependency/concurrency classification** — derive safe parallel-ready nodes inside a task/section without allowing overlapping writes or cross-boundary execution.
 
@@ -127,7 +124,7 @@ The private `/control/` console is the operator surface for the same production 
 Use four primary sections only: **Control**, **Work**, **Outputs**, and **System**. `Website`, `Engine`, and `Games` are project context selectors, not a second navigation hierarchy. Remove primary pages whose information belongs inside these four sections: Live dialog becomes the Control command composer; Capabilities & Run becomes task-local actions; milestones become production-map progress; files and visuals become Outputs; services, workers, hardware, model/API state, and context controls become System.
 
 ### Automatic liveness and progress
-The console continuously reads the existing gateway/controller/feeder state so Mahdi never needs to ask whether production is active. The persistent header and Control view show `ACTIVE`, `WAITING`, `STALE`, `STOPPED`, or `ERROR`, plus current Project, section, exact task, model/reasoning, task/section progress, next task, last heartbeat, last evidence update, current Git identity, and Drive publication/readback state where relevant. A stale heartbeat must display `STALE`; the UI must never infer `ACTIVE` from an old status value. This is observability of existing state, not a new heartbeat authority.
+The console continuously reads the existing gateway/controller/production-runner state so Mahdi never needs to ask whether production is active. The persistent header and Control view show `ACTIVE`, `WAITING`, `STALE`, `STOPPED`, or `ERROR`, plus current Project, section, exact task, model/reasoning, task/section progress, next task, last heartbeat, last evidence update, current Git identity, and Drive publication/readback state where relevant. A stale heartbeat must display `STALE`; the UI must never infer `ACTIVE` from an old status value. This is observability of existing state, not a new heartbeat authority.
 
 ### Control view
 The default view answers, in order: **what is being built, what exact task is active, how far production has progressed, what model/resource is executing it, what happens next, and what current evidence proves progress**. Show one dominant current-task block, one production-map progress surface, latest validated evidence/output, and a compact recent-activity stream. Routine healthy infrastructure is visually quiet.
@@ -157,7 +154,7 @@ Operator presentation is production-dense and fast. A proof/showcase presentatio
 The approved durable Git authority is one repository: `patrickminitz-web/biella-engine`. The canonical checkout remains `/root/biella/repos/biella-engine`; there must be no second active repo under `/root/biella/repos/` after migration.
 
 ### Repository ownership
-- Reusable Engine kernel, capabilities, functions, APIs, providers, schemas, universal production knowledge, workstation/controller/feeder, website, and private control console live in the canonical repository.
+- Reusable Engine kernel, capabilities, functions, APIs, providers, schemas, universal production knowledge, workstation/controller/production runner, website, and private control console live in the canonical repository.
 - Biella Games remains a Project boundary inside `projects/biella-games/`: Unreal source, content/assets, Project requirements/canon, Games-specific evidence, and game-specific build/package logic stay Project-scoped.
 - Sharing a Git repository never promotes Games-specific semantics into Engine capabilities. Reuse still requires explicit semantic extraction/admission.
 - `capability_preparation` is migration input only. Reusable current material is normalized into Engine; dated research/registries remain reference/evidence; old repository policy files never become active instructions.
@@ -171,8 +168,8 @@ Before changing active routing for any source, commit/persist every dirty or div
 ### Semantic task deduplication
 New or migrated tasks are compared by objective, write boundary, dependencies, acceptance, and evidence. Exact duplicates become aliases; contained tasks are absorbed; partial overlap becomes shared core plus missing delta; implementation, qualification, and external-proof tasks remain separate when they establish distinct evidence. Completed tasks do not reopen without material invalidation evidence.
 
-### Feeder authority
-The feeder is an executor, not a Project state authority. Durable task/section progress comes from canonical Project/current-state documents in the repository and their Drive identities. Feeder runtime JSON/logs may contain ephemeral cooldowns, attempts, heartbeat, and observed model state only. They must not become a second completion ledger. The automated feeder remains stopped during this consolidation and is restarted only after the new single-repo state path is verified.
+### Production runner authority
+The production runner is an executor, not a Project state authority. Durable task/section progress comes from canonical Project/current-state documents in the repository and their Drive identities. Production runtime JSON/logs may contain ephemeral cooldowns, attempts, heartbeat, and observed model state only. They must not become a second completion ledger. The legacy feeder is retired. The monorepo production runner starts only from verified canonical state and resumes the earliest unfinished task.
 
 ### Workspace lifecycle
 Feature worktrees and branches are execution sandboxes, but their completed progress must remain recoverable. On completion, useful work is merged into canonical `main`; superseded worktrees/branches are deactivated from active routing and retained through durable commit/reference or archived snapshot. `/root/spark-biella-games`, `/root/biella/recovery`, `/root/biella/backups`, and similar recovery sources are never treated as active authority after supersession, but this consolidation does not delete them. Preserve all progress, evidence, and provenance unless Mahdi later explicitly authorizes deletion of a specific copy.
@@ -211,7 +208,7 @@ A credential without its required account/project locator is `NEEDS_LOCATOR`, no
 
 ## Non-negotiable integration constraints
 - Do not replace `biella-codex` or add another public controller.
-- Do not create a durable feeder queue/state/progress authority beside canonical current-state/Project task sources; feeder runtime state is non-authoritative execution telemetry only.
+- Do not create a durable runner queue/state/progress authority beside canonical 03/04/Project task sources; production runtime state is non-authoritative execution telemetry only.
 - Do not move global policy from scoped `AGENTS.md` into every task packet.
 - Do not let packet compilation reopen completed work without material invalidation evidence.
 - Do not let context optimization reduce semantic capability; it changes loading/routing, not what Biella can do.
