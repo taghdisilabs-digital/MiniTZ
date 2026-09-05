@@ -30,6 +30,43 @@ def compile_task_packet(repo_root: Path, production: ProductionState, task: Task
     )
 
 
+def _bounded_text(value: str, maximum: int) -> str:
+    value = str(value).strip()
+    return value if len(value) <= maximum else value[: maximum - 3] + "..."
+
+
+def build_task_memory_capsule(task: TaskRecord, project_root: Path, *, session_id: str | None,
+                              summary: str = "", evidence=(), dirty_paths=()) -> dict[str, object]:
+    paths = sorted(dict.fromkeys(_bounded_text(str(item), 240) for item in dirty_paths if str(item).strip()))
+    proof = [_bounded_text(str(item), 480) for item in evidence if str(item).strip()]
+    return {
+        "schema": "biella.task_memory/v1",
+        "task_id": task.id,
+        "task_class": task.task_class,
+        "title": _bounded_text(task.title, 240),
+        "project_root": str(Path(project_root)),
+        "session_id": session_id,
+        "summary": _bounded_text(summary, 3000),
+        "evidence": proof[:24],
+        "dirty_path_count": len(paths),
+        "dirty_paths": paths[:80],
+        "next_action": "Continue this task from preserved work; resolve the remaining validation/failure without redoing verified work.",
+    }
+
+
+def compile_resume_packet(task: TaskRecord, capsule_path: Path) -> str:
+    return (
+        "RESUME_EXISTING_TASK_SESSION\n"
+        f"TASK: {task.id} [{task.task_class}] {task.title}\n"
+        f"TASK_MEMORY: {Path(capsule_path)}\n"
+        "Continue the same task from existing session memory and the current worktree. Read TASK_MEMORY first, then only the files/evidence needed for the next decision. "
+        "The initial active contract and project authority remain in this session; re-read them only if current source indicates a material change. "
+        "Preserve all dirty/verified work; never reset, clean, stash, or restart the task. Keep full local tool/Unreal/Git/Drive/resource capability. "
+        "Prefer targeted local commands and bounded outputs over broad rereads. Commit this task implementation/evidence before COMPLETE; otherwise return CONTINUE with concise evidence. "
+        "Do not advance beyond this task or manage Codex quota/usage.\n"
+    )
+
+
 def section_plan_schema() -> dict[str, object]:
     classes = ["creation", "deep_memory", "hard", "hard_creation", "medium", "simple"]
     return {

@@ -80,3 +80,26 @@ def test_resume_command_reuses_existing_task_session(tmp_path: Path):
     assert "--disable multi_agent" in joined
     assert 'model_auto_compact_token_limit=96000' in joined
     assert "--json" in cmd
+
+
+def test_single_agent_default_keeps_full_model_and_tool_access(tmp_path: Path):
+    route = routing.Route("gpt-6-astra", "ultra")
+    cmd = routing.build_codex_command(route, tmp_path / "schema.json", tmp_path / "out.json", tmp_path / "project")
+    joined = " ".join(cmd)
+    assert "-m gpt-6-astra" in joined
+    assert 'model_reasoning_effort="ultra"' in joined
+    assert "--search" in cmd
+    assert "--dangerously-bypass-approvals-and-sandbox" in cmd
+    assert "--disable multi_agent" in joined
+    assert "tool_output_token_limit=12000" in joined
+
+
+def test_one_helper_mode_is_explicit_and_capped(tmp_path: Path):
+    route = routing.Route("gpt-6-astra", "ultra")
+    cmd = routing.build_codex_command(route, tmp_path / "schema.json", tmp_path / "out.json", tmp_path / "project", allow_helper=True)
+    joined = " ".join(cmd)
+    pairs = list(zip(cmd, cmd[1:]))
+    assert ("--enable", "multi_agent") in pairs
+    assert ("--disable", "multi_agent") not in pairs
+    assert "max_concurrent_threads_per_session=2" in joined
+    assert "max_depth=1" in joined

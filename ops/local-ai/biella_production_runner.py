@@ -127,16 +127,75 @@ def _clear_task_session(telemetry: dict[str, Any]) -> None:
     telemetry["session_task_id"] = None
 
 
+def _task_capsule_path(runtime_root: Path, task_id: str) -> Path:
+    safe_id = str(task_id).replace("/", "_")
+    return Path(runtime_root) / "task-memory" / f"{safe_id}.json"
+
+
+def _project_dirty_paths(repo_root: Path, project_root: Path) -> list[str]:
+    repo_root = Path(repo_root).resolve(); project_root = Path(project_root).resolve()
+    try:
+        prefix = project_root.relative_to(repo_root).as_posix().rstrip("/") + "/"
+    except ValueError:
+        return []
+    proc = subprocess.run(["git", "-C", str(repo_root), "status", "--porcelain", "--untracked-files=all"], text=True, capture_output=True, check=False)
+    if proc.returncode != 0:
+        return []
+    result: list[str] = []
+    for raw in proc.stdout.splitlines():
+        if len(raw) < 4:
+            continue
+        name = raw[3:].strip('"')
+        if " -> " in name:
+            name = name.split(" -> ", 1)[1].strip('"')
+        if name.startswith(prefix):
+            result.append(name[len(prefix):])
+    return sorted(dict.fromkeys(result))
+
+
+def _write_task_capsule(repo_root: Path, project_root: Path, runtime_root: Path, task: state.TaskRecord, telemetry: Mapping[str, Any]) -> Path:
+    previous = telemetry.get("last_result") if isinstance(telemetry.get("last_result"), dict) else {}
+    if previous.get("task_id") != task.id:
+        previous = {}
+    capsule = packets.build_task_memory_capsule(
+        task, project_root, session_id=_resume_session_for(telemetry, task.id),
+        summary=str(previous.get("summary", "")), evidence=previous.get("evidence", ()),
+        dirty_paths=_project_dirty_paths(repo_root, project_root),
+    )
+    capsule["last_status"] = previous.get("status")
+    capsule["updated_at"] = datetime.now(timezone.utc).isoformat()
+    path = _task_capsule_path(runtime_root, task.id)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(json.dumps(capsule, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+    os.replace(tmp, path)
+    return path
+
+
+def _task_prompt(repo_root: Path, production: state.ProductionState, task: state.TaskRecord, telemetry: Mapping[str, Any], capsule_path: Path) -> str:
+    if _resume_session_for(telemetry, task.id):
+        return packets.compile_resume_packet(task, capsule_path)
+    initial = packets.compile_task_packet(repo_root, production, task)
+    if capsule_path.exists():
+        initial += f"\nTASK_MEMORY: {capsule_path}\nRead this bounded recovery capsule before redoing any existing work.\n"
+    return initial
+
+
+def _helper_allowed(task_id: str) -> bool:
+    configured = {item.strip() for item in os.environ.get("BIELLA_CODEX_ONE_HELPER_TASKS", "").split(",") if item.strip()}
+    return "*" in configured or task_id in configured
+
+
 def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, output_path: Path,
                       stdout_path: Path, stderr_path: Path, runtime_path: Path,
                       telemetry: dict[str, Any], *, heartbeat_interval: float = 30.0,
                       on_heartbeat: Callable[[datetime], None] | None = None,
                       cwd: Path | None = None, resume_session_id: str | None = None,
-                      session_task_id: str | None = None) -> tuple[int, str]:
+                      session_task_id: str | None = None, allow_helper: bool = False) -> tuple[int, str]:
     if resume_session_id:
-        cmd = routing.build_codex_resume_command(route, schema_path, output_path, resume_session_id)
+        cmd = routing.build_codex_resume_command(route, schema_path, output_path, resume_session_id, allow_helper=True) if allow_helper else routing.build_codex_resume_command(route, schema_path, output_path, resume_session_id)
     else:
-        cmd = routing.build_codex_command(route, schema_path, output_path, cwd or Path("/root"))
+        cmd = routing.build_codex_command(route, schema_path, output_path, cwd or Path("/root"), allow_helper=True) if allow_helper else routing.build_codex_command(route, schema_path, output_path, cwd or Path("/root"))
     stdout_path.parent.mkdir(parents=True, exist_ok=True)
     with stdout_path.open("w", encoding="utf-8") as stdout, stderr_path.open("w", encoding="utf-8") as stderr:
         proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, text=True, stdout=stdout, stderr=stderr, env=os.environ.copy())
@@ -322,15 +381,19 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     _persist_until_success(repo_root, f"RECONCILE-{task.id}", runtime_path, telemetry)
             _beat(runtime_path, telemetry)
             output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"{task.id}-{route.model}")
-            prompt = packets.compile_task_packet(repo_root, production, task)
+            capsule_path = _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
+            prompt = _task_prompt(repo_root, production, task, telemetry, capsule_path)
             resume_session_id = _resume_session_for(telemetry, task.id)
             rc, error_text = invoke_structured(
                 prompt, route, schema_path, output, stdout, stderr, runtime_path, telemetry,
                 heartbeat_interval=heartbeat_interval, cwd=project_root,
                 resume_session_id=resume_session_id, session_task_id=task.id,
+                allow_helper=_helper_allowed(task.id),
             )
             if rc != 0:
-                _set_failure(telemetry, route, error_text, task.id); _beat(runtime_path, telemetry); continue
+                _set_failure(telemetry, route, error_text, task.id)
+                _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
+                _beat(runtime_path, telemetry); continue
             try:
                 result = evidence.parse_result(output, task.id)
             except ValueError as exc:
@@ -339,6 +402,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 "task_id": result.task_id, "status": result.status, "summary": result.summary,
                 "evidence": list(result.evidence), "model": route.model, "reasoning": route.reasoning,
             }
+            _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
             try:
                 evidence.apply_result(repo_root, project_root, result, route)
             except Exception as exc:

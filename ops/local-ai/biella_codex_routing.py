@@ -122,14 +122,17 @@ def earliest_cooldown_delay(cooldowns: Mapping[str, str], now: datetime) -> floa
     return min(waits) if waits else 60.0
 
 
-def _production_exec_args(route: Route, schema_path: Path, output_path: Path) -> list[str]:
+def _production_exec_args(route: Route, schema_path: Path, output_path: Path, *, allow_helper: bool = False) -> list[str]:
+    fanout = ["--enable", "multi_agent", "--disable", "multi_agent_v2"] if allow_helper else ["--disable", "multi_agent", "--disable", "multi_agent_v2"]
     return [
         "--dangerously-bypass-approvals-and-sandbox",
         "--dangerously-bypass-hook-trust",
-        "--disable", "multi_agent",
-        "--disable", "multi_agent_v2",
+        *fanout,
         "-c", 'shell_environment_policy.inherit="all"',
         "-c", 'model_auto_compact_token_limit=96000',
+        "-c", 'tool_output_token_limit=12000',
+        "-c", 'max_concurrent_threads_per_session=2',
+        "-c", 'max_depth=1',
         "-c", f'model_reasoning_effort="{route.reasoning}"',
         "-m", route.model,
         "--json",
@@ -138,21 +141,21 @@ def _production_exec_args(route: Route, schema_path: Path, output_path: Path) ->
     ]
 
 
-def build_codex_command(route: Route, schema_path: Path, output_path: Path, cwd: Path) -> list[str]:
+def build_codex_command(route: Route, schema_path: Path, output_path: Path, cwd: Path, *, allow_helper: bool = False) -> list[str]:
     codex_bin = os.environ.get("BIELLA_CODEX_BIN", "/usr/bin/codex")
     return [
         codex_bin, "--search", "exec",
-        *_production_exec_args(route, schema_path, output_path),
+        *_production_exec_args(route, schema_path, output_path, allow_helper=allow_helper),
         "-C", str(cwd),
         "-",
     ]
 
 
-def build_codex_resume_command(route: Route, schema_path: Path, output_path: Path, session_id: str) -> list[str]:
+def build_codex_resume_command(route: Route, schema_path: Path, output_path: Path, session_id: str, *, allow_helper: bool = False) -> list[str]:
     codex_bin = os.environ.get("BIELLA_CODEX_BIN", "/usr/bin/codex")
     return [
         codex_bin, "--search", "exec", "resume",
-        *_production_exec_args(route, schema_path, output_path),
+        *_production_exec_args(route, schema_path, output_path, allow_helper=allow_helper),
         session_id,
         "-",
     ]

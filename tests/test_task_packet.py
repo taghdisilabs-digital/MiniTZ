@@ -30,3 +30,35 @@ def test_packet_contains_exact_active_contract_and_resource_rule(tmp_path: Path)
     assert "/usage" not in packet
     assert "quota" in packet.lower()
     assert "auto feeder owns github/drive publication and canonical state transition" in packet.lower()
+
+
+def test_resume_packet_is_compact_delta_not_full_contract(tmp_path: Path):
+    task = state.TaskRecord("D02-01", "hard_creation", "Open-world streaming and continuity", "PENDING", (), "post_d01")
+    capsule = tmp_path / "D02-01.json"
+    packet = packets.compile_resume_packet(task, capsule)
+    assert "RESUME_EXISTING_TASK_SESSION" in packet
+    assert "D02-01" in packet
+    assert str(capsule) in packet
+    assert "--- ACTIVE CONTRACT ---" not in packet
+    assert len(packet.encode()) < 1800
+
+
+def test_task_memory_capsule_is_bounded_and_project_aware(tmp_path: Path):
+    repo = tmp_path / "repo"
+    project = repo / "projects/biella-games"
+    project.mkdir(parents=True)
+    (repo / ".git").mkdir()
+    task = state.TaskRecord("D02-01", "hard_creation", "Open-world streaming and continuity", "PENDING", (), "post_d01")
+    capsule = packets.build_task_memory_capsule(
+        task,
+        project,
+        session_id="session-d02",
+        summary="world streaming implementation partially validated",
+        evidence=["build pass", "runtime failed at nav readiness"],
+        dirty_paths=["Source/BiellaGames/Private/BiellaWorldContinuity.cpp", "tests/run_d02_01.py"],
+    )
+    assert capsule["task_id"] == "D02-01"
+    assert capsule["project_root"] == str(project)
+    assert capsule["session_id"] == "session-d02"
+    assert capsule["dirty_paths"] == ["Source/BiellaGames/Private/BiellaWorldContinuity.cpp", "tests/run_d02_01.py"]
+    assert len(__import__("json").dumps(capsule).encode()) < 8192

@@ -306,3 +306,36 @@ def test_runtime_persists_task_session_identity(tmp_path: Path):
     loaded = runner.load_runtime(runtime)
     assert loaded["task_session_id"] == "session-d02"
     assert loaded["session_task_id"] == "D02-01"
+
+
+def test_task_capsule_path_is_stable_per_task(tmp_path: Path):
+    assert runner._task_capsule_path(tmp_path, "D02-01") == tmp_path / "task-memory" / "D02-01.json"
+
+
+def test_resume_uses_delta_packet_when_session_exists(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    production = state.load_project_production(project)
+    task = state.find_task(production, "D01-030")
+    telemetry = runner.initial_runtime()
+    telemetry["task_session_id"] = "session-d01"
+    telemetry["session_task_id"] = task.id
+    capsule = runner._task_capsule_path(tmp_path / "runtime", task.id)
+    prompt = runner._task_prompt(repo, production, task, telemetry, capsule)
+    assert "RESUME_EXISTING_TASK_SESSION" in prompt
+    assert "--- ACTIVE CONTRACT ---" not in prompt
+
+
+def test_capsule_write_preserves_same_task_progress(tmp_path: Path):
+    repo, project = write_repo_fixture(tmp_path)
+    production = state.load_project_production(project)
+    task = state.find_task(production, "D01-030")
+    telemetry = runner.initial_runtime()
+    telemetry["task_session_id"] = "session-d01"
+    telemetry["session_task_id"] = task.id
+    telemetry["last_result"] = {"task_id": task.id, "status": "CONTINUE", "summary": "partial", "evidence": ["build pass"]}
+    path = runner._write_task_capsule(repo, project, tmp_path / "runtime", task, telemetry)
+    payload = json.loads(path.read_text())
+    assert payload["task_id"] == task.id
+    assert payload["session_id"] == "session-d01"
+    assert payload["summary"] == "partial"
+    assert payload["evidence"] == ["build pass"]
