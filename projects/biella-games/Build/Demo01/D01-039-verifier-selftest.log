@@ -1,0 +1,24 @@
+test_changed_health_rejected (__main__.self_test.<locals>.VerifierTests.test_changed_health_rejected) ... ok
+test_clock_regression_rejected (__main__.self_test.<locals>.VerifierTests.test_clock_regression_rejected) ... ok
+test_duplicate_sequence_rejected (__main__.self_test.<locals>.VerifierTests.test_duplicate_sequence_rejected) ... ok
+test_failure_marker_with_completion_rejected (__main__.self_test.<locals>.VerifierTests.test_failure_marker_with_completion_rejected) ... ok
+test_independent_sessions_allow_clock_and_restart_offsets (__main__.self_test.<locals>.VerifierTests.test_independent_sessions_allow_clock_and_restart_offsets) ... ok
+test_live_world_shutdown_clock_reset_rejected (__main__.self_test.<locals>.VerifierTests.test_live_world_shutdown_clock_reset_rejected) ... ok
+test_malformed_json_rejected (__main__.self_test.<locals>.VerifierTests.test_malformed_json_rejected) ... ok
+test_missing_completion_rejected (__main__.self_test.<locals>.VerifierTests.test_missing_completion_rejected) ... ok
+test_missing_sequence_rejected (__main__.self_test.<locals>.VerifierTests.test_missing_sequence_rejected) ... ok
+test_missing_successful_shot_rejected (__main__.self_test.<locals>.VerifierTests.test_missing_successful_shot_rejected) ... ok
+test_nonfinite_time_rejected (__main__.self_test.<locals>.VerifierTests.test_nonfinite_time_rejected) ... ok
+test_null_world_shutdown_clock_reset_allowed (__main__.self_test.<locals>.VerifierTests.test_null_world_shutdown_clock_reset_allowed) ... ok
+test_ordinary_event_null_world_clock_reset_rejected (__main__.self_test.<locals>.VerifierTests.test_ordinary_event_null_world_clock_reset_rejected) ... ok
+test_reordered_gameplay_events_rejected (__main__.self_test.<locals>.VerifierTests.test_reordered_gameplay_events_rejected) ... ok
+test_restart_baseline_damage_rejected (__main__.self_test.<locals>.VerifierTests.test_restart_baseline_damage_rejected) ... ok
+test_reused_session_rejected (__main__.self_test.<locals>.VerifierTests.test_reused_session_rejected) ... ok
+test_single_run_rejected (__main__.self_test.<locals>.VerifierTests.test_single_run_rejected) ... ok
+test_wall_clock_regression_on_restart_rejected (__main__.self_test.<locals>.VerifierTests.test_wall_clock_regression_on_restart_rejected) ... ok
+test_wrong_initial_ammunition_rejected (__main__.self_test.<locals>.VerifierTests.test_wrong_initial_ammunition_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.035s
+
+OK

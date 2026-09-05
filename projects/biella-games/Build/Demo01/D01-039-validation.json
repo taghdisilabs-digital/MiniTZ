@@ -1,0 +1,132 @@
+{
+  "task_id": "D01-39",
+  "result": "PASS",
+  "source_base_commit": "bf1b89dcf4eb6b2ada95fa28092f7517138ff171",
+  "scope": "Local implementation and evidence only; containing Git commit identifies result. Auto Feeder owns publication and canonical transition.",
+  "build": {
+    "result": "PASS",
+    "target": "BiellaGamesEditor Linux Development",
+    "log": {
+      "path": "projects/biella-games/Build/Demo01/D01-039-editor-build-qualified.log",
+      "sha256": "6098b8944aba5230010e169589e54c797a23075cec3fff52021951f7ec7646dc"
+    }
+  },
+  "runtime": {
+    "headless_seed_1337": {
+      "result": "PASS",
+      "manifest": {
+        "path": "projects/biella-games/Build/Demo01/D01-039-runs/20260905T071125.206199Z-nullrhi-09c5153b/validation.json",
+        "sha256": "4a61362c2339b78baf04a8c2f3b20ebf7ff54125ae326350b17347b8a361013b"
+      },
+      "runs": 2,
+      "seed": 1337,
+      "trace_sha256": "bd7cd9423274abb57357d990d94bfda7f2307cc5569fcf36f1445fea49a69756",
+      "scenario_events": [
+        56,
+        56
+      ]
+    },
+    "vulkan_seed_1337": {
+      "result": "PASS",
+      "manifest": {
+        "path": "projects/biella-games/Build/Demo01/D01-039-runs/20260905T071227.716362Z-vulkan-1cdb2330/validation.json",
+        "sha256": "8f3a3cb3818029a06538a24a13381ba1b61c2db41a5715909c37a8a6b606ec2a"
+      },
+      "runs": 2,
+      "seed": 1337,
+      "trace_sha256": "bd7cd9423274abb57357d990d94bfda7f2307cc5569fcf36f1445fea49a69756",
+      "scenario_events": [
+        56,
+        56
+      ]
+    },
+    "headless_seed_42": {
+      "result": "PASS",
+      "manifest": {
+        "path": "projects/biella-games/Build/Demo01/D01-039-runs/20260905T071440.953098Z-nullrhi-a142aeec/validation.json",
+        "sha256": "e1c1001c7647ccbf89510000dd7b669776562ae61331968819ea74dba1983f06"
+      },
+      "runs": 2,
+      "seed": 42,
+      "trace_sha256": "7468934fb85642ac75491daa618e64a8bee945ac5d1ff2f44c2a8fc9842a6638",
+      "scenario_events": [
+        56,
+        56
+      ]
+    }
+  },
+  "cross_renderer": {
+    "path": "projects/biella-games/Build/Demo01/D01-039-cross-renderer-validation.json",
+    "sha256": "ca389519e9e4eadace9615f1b60962e5116373fe75ce9d46af2f21f974b8860e"
+  },
+  "regressions": {
+    "result": "PASS",
+    "tests": [
+      "SharedInteraction",
+      "ObjectiveManager",
+      "TerminalOverlay"
+    ],
+    "telemetry": "disabled",
+    "manifest": {
+      "path": "projects/biella-games/Build/Demo01/D01-039-regressions-20260905T071252Z-0344b0aa/validation.json",
+      "sha256": "1fc9b00ead22fcc69109e0eac045edacf4703678a70b0a2e7ca8709fca489d20"
+    }
+  },
+  "verifier": {
+    "result": "PASS",
+    "adversarial_tests": 19,
+    "log": {
+      "path": "projects/biella-games/Build/Demo01/D01-039-verifier-selftest.log",
+      "sha256": "0bb339a4536fab3f17343af80177ceea61516b09409530728607d93de62baccc"
+    },
+    "source": {
+      "path": "projects/biella-games/tests/verify_d01_039.py",
+      "sha256": "159e65a23995bf5cbe5678b68fc2816ddd5d405872033838d403abcaa1c88926"
+    }
+  },
+  "structure": {
+    "result": "PASS",
+    "observed": "DEMO01_STRUCTURE_PASS completed=38/50 current=D01-39"
+  },
+  "protected_metadata_unchanged": [
+    {
+      "path": "docs/project-state/03_BIELLA_CURRENT_STATE.md",
+      "sha256": "1e6836a7e6107948948a4d1c845903b8a0629c095695c6e754459819b46b9422"
+    },
+    {
+      "path": "docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+      "sha256": "037f4620f8113f20c728a35d13461b24d0ac3b96245e6046b6d2a1b1845b4cc6"
+    },
+    {
+      "path": "projects/biella-games/docs/PRODUCTION.md",
+      "sha256": "b52664de5f61141ee666a26dc34b589590ab04b6b23cefe309294a8136e88112"
+    }
+  ],
+  "retained_failed_attempts": [
+    {
+      "evidence": {
+        "path": "projects/biella-games/Build/Demo01/D01-039-editor-build.log",
+        "sha256": "1ca57449d7a95f353c87d766378e3925adf1d80300fae3ba58988e37898ea233"
+      },
+      "cause": "New source files were mode600; made source readable by existing unreal build account, then build passed."
+    },
+    {
+      "evidence": {
+        "path": "projects/biella-games/Build/Demo01/D01-039-initial-runtime/events.jsonl",
+        "sha256": "a48f2923bccbe569f2b8e920d0cc4eb4bfe7523a417ab23b361023e176710cfb"
+      },
+      "cause": "Rival fired in first fresh-world actor tick before latent fixture freeze; pre-actor-tick fixture callback fixes contamination without health mutation."
+    },
+    {
+      "evidence": {
+        "path": "projects/biella-games/Build/Demo01/D01-039-runs/20260905T070908.955245Z-nullrhi-2063d0f5/validation.json",
+        "sha256": "bf05093febf7347dae5a6d6e89bb2f1f0e35b340c934df3424d87170774d70da"
+      },
+      "cause": "Root umask created inaccessible output ancestor; runner creates new ancestors755 and checks runtime write access."
+    }
+  ],
+  "limitations": [
+    "Controlled fixture semantic determinism at fixed60Hz; no general physics or rendered-frame determinism claim.",
+    "Linux editor-host runtime qualification; no package, native performance, soak, or manual visual acceptance claim."
+  ]
+}

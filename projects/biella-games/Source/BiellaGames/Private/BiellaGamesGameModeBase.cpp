@@ -8,6 +8,7 @@
 #include "BiellaRival.h"
 #include "BiellaGamesPlayerController.h"
 #include "BiellaDemoObjectiveManager.h"
+#include "BiellaPlaytestTelemetry.h"
 #include "EngineUtils.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
@@ -253,6 +254,10 @@ void ABiellaGamesGameModeBase::RequestRestart()
         TEXT("D01_SIGNAL RESTART_REQUESTED map=%s previous_phase=%d restart_count=%d authority=server"),
         *MapName, State ? static_cast<int32>(State->Phase) : -1,
         GameInstance ? GameInstance->RestartCount : -1);
+    UBiellaPlaytestTelemetry::Record(GetWorld(), TEXT("restart_requested"), {
+        {TEXT("previous_phase"), State ? StaticEnum<EDemo01Phase>()->GetNameStringByValue(static_cast<int64>(State->Phase)) : TEXT("none")},
+        {TEXT("restart_count"), FString::FromInt(GameInstance ? GameInstance->RestartCount : -1)},
+        {TEXT("map"), MapName}});
 
     // Reload the active map so every run-local actor, objective and replicated
     // state is reconstructed from the same authored starting conditions.

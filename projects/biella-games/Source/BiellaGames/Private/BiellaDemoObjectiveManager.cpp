@@ -7,6 +7,7 @@
 #include "BiellaGamesGameState.h"
 #include "BiellaInfected.h"
 #include "BiellaRival.h"
+#include "BiellaPlaytestTelemetry.h"
 #include "EngineUtils.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
@@ -77,6 +78,9 @@ void ABiellaDemoObjectiveManager::ActivateObjective()
     UE_LOG(LogTemp, Display,
         TEXT("D01_SIGNAL OBJECTIVE_ACTIVATED id=%s version=%d target=%d condition=infected_remaining_zero authority=server"),
         *ObjectiveId.ToString(), ObjectiveVersion, TargetCount);
+    UBiellaPlaytestTelemetry::Record(GetWorld(), TEXT("objective_activated"), {
+        {TEXT("id"), ObjectiveId.ToString()}, {TEXT("version"), FString::FromInt(ObjectiveVersion)},
+        {TEXT("target"), FString::FromInt(TargetCount)}});
     EvaluateObjective();
 }
 
@@ -87,6 +91,8 @@ void ABiellaDemoObjectiveManager::EvaluateObjective()
         return;
     }
 
+    const int32 PreviousTargetCount = TargetCount;
+    const int32 PreviousProgressCount = ProgressCount;
     RegisterCurrentInfected();
     int32 InfectedRemaining = 0;
     for (ABiellaInfected* Infected : TrackedInfected)
@@ -112,6 +118,14 @@ void ABiellaDemoObjectiveManager::EvaluateObjective()
     }
     MirrorGameState(InfectedRemaining, IsValid(Rival) && !Rival->IsDefeated(),
         IsValid(Player) && !Player->IsDefeated());
+    if (PreviousTargetCount != TargetCount || PreviousProgressCount != ProgressCount)
+    {
+        UBiellaPlaytestTelemetry::Record(GetWorld(), TEXT("objective_progress"), {
+            {TEXT("id"), ObjectiveId.ToString()}, {TEXT("progress"), FString::FromInt(ProgressCount)},
+            {TEXT("target"), FString::FromInt(TargetCount)},
+            {TEXT("remaining"), FString::FromInt(InfectedRemaining)},
+            {TEXT("state"), StaticEnum<EDemo01ObjectiveState>()->GetNameStringByValue(static_cast<int64>(ObjectiveState))}});
+    }
 
     ABiellaGamesGameState* State = GetWorld()->GetGameState<ABiellaGamesGameState>();
     if (ObjectiveState == EDemo01ObjectiveState::Active && State &&
@@ -127,6 +141,9 @@ void ABiellaDemoObjectiveManager::EvaluateObjective()
         UE_LOG(LogTemp, Display,
             TEXT("D01_SIGNAL OBJECTIVE_SUCCESS id=%s version=%d progress=%d/%d condition=infected_remaining_zero authority=server"),
             *ObjectiveId.ToString(), ObjectiveVersion, ProgressCount, TargetCount);
+        UBiellaPlaytestTelemetry::Record(GetWorld(), TEXT("objective_success"), {
+            {TEXT("id"), ObjectiveId.ToString()}, {TEXT("progress"), FString::FromInt(ProgressCount)},
+            {TEXT("target"), FString::FromInt(TargetCount)}});
     }
 }
 

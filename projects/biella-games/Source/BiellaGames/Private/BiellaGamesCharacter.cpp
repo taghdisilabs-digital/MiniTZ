@@ -3,6 +3,7 @@
 #include "BiellaGamesCharacter.h"
 
 #include "BiellaGamesGameModeBase.h"
+#include "BiellaPlaytestTelemetry.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -260,6 +261,13 @@ bool ABiellaGamesCharacter::FireWeaponAt(ABiellaDemoPawn* Target, float DamageAm
     {
         UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL WEAPON_BLOCKED target=%s blocker=%s"),
             *Target->GetName(), Hit.GetActor() ? *Hit.GetActor()->GetName() : TEXT("unknown"));
+        if (HasAuthority())
+        {
+            UBiellaPlaytestTelemetry::Record(GetWorld(), TEXT("weapon_blocked"), {
+                {TEXT("owner"), UBiellaPlaytestTelemetry::ActorId(this)},
+                {TEXT("target"), UBiellaPlaytestTelemetry::ActorId(Target)},
+                {TEXT("blocker"), UBiellaPlaytestTelemetry::ActorId(Hit.GetActor())}});
+        }
         return false;
     }
     const float Applied = Target->ApplyDemoDamage(DamageAmount, this, DamageTag);
@@ -271,6 +279,14 @@ bool ABiellaGamesCharacter::FireWeaponAt(ABiellaDemoPawn* Target, float DamageAm
     FireCooldownRemaining = 0.25f;
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL WEAPON_FIRE owner=%s target=%s hit=true damage=%.1f ammo=%d"),
         *GetName(), *Target->GetName(), Applied, Ammo);
+    if (HasAuthority())
+    {
+        UBiellaPlaytestTelemetry::Record(GetWorld(), TEXT("weapon_fire"), {
+            {TEXT("owner"), UBiellaPlaytestTelemetry::ActorId(this)},
+            {TEXT("target"), UBiellaPlaytestTelemetry::ActorId(Target)},
+            {TEXT("damage"), FString::Printf(TEXT("%.3f"), Applied)},
+            {TEXT("ammo"), FString::FromInt(Ammo)}});
+    }
     return true;
 }
 

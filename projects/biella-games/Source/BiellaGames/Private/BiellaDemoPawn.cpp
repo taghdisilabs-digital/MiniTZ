@@ -2,6 +2,7 @@
 
 #include "BiellaDemoPawn.h"
 
+#include "BiellaPlaytestTelemetry.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -85,6 +86,15 @@ float ABiellaDemoPawn::ApplyDemoDamage(float DamageAmount, AActor* DamageCauser,
         *GetName(), Applied, Health, *DamageTag, *GetNameSafe(DamageCauser),
         SourcePawn ? static_cast<int32>(SourcePawn->GetTeam()) : -1,
         static_cast<int32>(Team), GetWorld()->GetTimeSeconds());
+    if (HasAuthority())
+    {
+        UBiellaPlaytestTelemetry::Record(GetWorld(), TEXT("damage"), {
+            {TEXT("target"), UBiellaPlaytestTelemetry::ActorId(this)},
+            {TEXT("source"), UBiellaPlaytestTelemetry::ActorId(DamageCauser)},
+            {TEXT("amount"), FString::Printf(TEXT("%.3f"), Applied)},
+            {TEXT("health"), FString::Printf(TEXT("%.3f"), Health)},
+            {TEXT("tag"), DamageTag}});
+    }
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL HIT_REACTION target=%s"), *GetName());
     CombatFlashRemaining = 0.12f;
     SetDisplayColor(FLinearColor(1.0f, 0.03f, 0.02f));
@@ -143,4 +153,9 @@ void ABiellaDemoPawn::Defeat(const FString& Reason)
         Collision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     }
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL DEFEAT actor=%s reason=%s"), *GetName(), *Reason);
+    if (HasAuthority())
+    {
+        UBiellaPlaytestTelemetry::Record(GetWorld(), TEXT("defeat"), {
+            {TEXT("target"), UBiellaPlaytestTelemetry::ActorId(this)}, {TEXT("reason"), Reason}});
+    }
 }

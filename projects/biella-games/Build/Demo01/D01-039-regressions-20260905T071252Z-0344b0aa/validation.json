@@ -1,0 +1,121 @@
+{
+  "task_id": "D01-39",
+  "type": "predecessor_regression",
+  "status": "PASS",
+  "telemetry": "disabled: -BiellaTelemetry argument omitted",
+  "directory": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-039-regressions-20260905T071252Z-0344b0aa",
+  "runs": [
+    {
+      "test": "BiellaGames.Demo01.SharedInteraction",
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 28.179,
+      "command": [
+        "runuser",
+        "-u",
+        "unreal",
+        "--",
+        "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor",
+        "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+        "/Game/Maps/BiellaGameplayMap",
+        "-game",
+        "-nullrhi",
+        "-unattended",
+        "-nosound",
+        "-nosplash",
+        "-stdout",
+        "-FullStdOutLogOutput",
+        "-NoAsyncLoadingThread",
+        "-AbsLog=/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-039-regressions-20260905T071252Z-0344b0aa/SharedInteraction.log",
+        "-ExecCmds=Automation RunTests BiellaGames.Demo01.SharedInteraction; SoftQuit"
+      ],
+      "runtime_log": "Build/Demo01/D01-039-regressions-20260905T071252Z-0344b0aa/SharedInteraction.log",
+      "runtime_log_sha256": "3713f52be4aad9935fef49333710051632632ea13a8e6b8432cd7268079c24c1",
+      "stdout_log": "Build/Demo01/D01-039-regressions-20260905T071252Z-0344b0aa/SharedInteraction-stdout.log",
+      "stdout_log_sha256": "2937dfa59155264f85cccae8dea0026c0ac701a087fe257dd800d173826f5e9e",
+      "success_markers": [
+        "[2026.09.05-07.13.19:678][166]LogTemp: Display: D01_031_TEST COMPLETE edges=player_to_infected,player_to_rival,rival_to_infected,rival_to_player,infected_to_rival,infected_to_player input=enhanced ai=world_ticks",
+        "[2026.09.05-07.13.19:679][168]LogAutomationController: Display: Test Completed. Result={Success} Name={SharedInteraction} Path={BiellaGames.Demo01.SharedInteraction}"
+      ],
+      "errors": [],
+      "telemetry_option_present": false,
+      "telemetry_error_present": false
+    },
+    {
+      "test": "BiellaGames.Demo01.ObjectiveManager",
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 14.318,
+      "command": [
+        "runuser",
+        "-u",
+        "unreal",
+        "--",
+        "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor",
+        "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+        "/Game/Maps/BiellaGameplayMap",
+        "-game",
+        "-nullrhi",
+        "-unattended",
+        "-nosound",
+        "-nosplash",
+        "-stdout",
+        "-FullStdOutLogOutput",
+        "-NoAsyncLoadingThread",
+        "-AbsLog=/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-039-regressions-20260905T071252Z-0344b0aa/ObjectiveManager.log",
+        "-ExecCmds=Automation RunTests BiellaGames.Demo01.ObjectiveManager; SoftQuit"
+      ],
+      "runtime_log": "Build/Demo01/D01-039-regressions-20260905T071252Z-0344b0aa/ObjectiveManager.log",
+      "runtime_log_sha256": "59a8a8de3ea26d2a3c8a0f4863e10c52bda441239b78dade220093f0e5712b4b",
+      "stdout_log": "Build/Demo01/D01-039-regressions-20260905T071252Z-0344b0aa/ObjectiveManager-stdout.log",
+      "stdout_log_sha256": "13a5b34120f18a0f3f50efef88a4bec0d681bbaa93264656f0b82bb51272e301",
+      "success_markers": [
+        "[2026.09.05-07.13.33:939][ 29]LogTemp: Display: D01_034_TEST COMPLETE id=Demo01ClearArena version=1 condition=infected_remaining_zero target=2 progress=2 authority=server",
+        "[2026.09.05-07.13.33:940][ 31]LogAutomationController: Display: Test Completed. Result={Success} Name={ObjectiveManager} Path={BiellaGames.Demo01.ObjectiveManager}"
+      ],
+      "errors": [],
+      "telemetry_option_present": false,
+      "telemetry_error_present": false
+    },
+    {
+      "test": "BiellaGames.Demo01.TerminalOverlay",
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 14.52,
+      "command": [
+        "runuser",
+        "-u",
+        "unreal",
+        "--",
+        "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor",
+        "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+        "/Game/Maps/BiellaGameplayMap",
+        "-game",
+        "-nullrhi",
+        "-unattended",
+        "-nosound",
+        "-nosplash",
+        "-stdout",
+        "-FullStdOutLogOutput",
+        "-NoAsyncLoadingThread",
+        "-AbsLog=/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-039-regressions-20260905T071252Z-0344b0aa/TerminalOverlay.log",
+        "-ExecCmds=Automation RunTests BiellaGames.Demo01.TerminalOverlay; SoftQuit"
+      ],
+      "runtime_log": "Build/Demo01/D01-039-regressions-20260905T071252Z-0344b0aa/TerminalOverlay.log",
+      "runtime_log_sha256": "102e509350ed3cf408c5f85fbe40b07d4bb37fdc9ad80c6f5191f3bc9a627fb1",
+      "stdout_log": "Build/Demo01/D01-039-regressions-20260905T071252Z-0344b0aa/TerminalOverlay-stdout.log",
+      "stdout_log_sha256": "e41f77d8b3a154cc1a722d3c96eedd3fbc2304278f94947322599474e2dabda7",
+      "success_markers": [
+        "[2026.09.05-07.13.48:410][227]LogTemp: Display: D01_038_TEST COMPLETE success_overlay=true failure_overlay=true restart_input=R restart_count=2 active_reset=true source=authoritative_runtime",
+        "[2026.09.05-07.13.48:411][228]LogAutomationController: Display: Test Completed. Result={Success} Name={TerminalOverlay} Path={BiellaGames.Demo01.TerminalOverlay}"
+      ],
+      "errors": [],
+      "telemetry_option_present": false,
+      "telemetry_error_present": false
+    }
+  ],
+  "completed_utc": "2026-09-05T07:13:49.242847+00:00"
+}

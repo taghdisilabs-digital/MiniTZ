@@ -1,0 +1,43 @@
+{
+  "index": 1,
+  "command": [
+    "runuser",
+    "-u",
+    "unreal",
+    "--",
+    "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor",
+    "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+    "/Game/Maps/BiellaGameplayMap",
+    "-game",
+    "-nullrhi",
+    "-unattended",
+    "-nosound",
+    "-nosplash",
+    "-NoAsyncLoadingThread",
+    "-stdout",
+    "-FullStdOutLogOutput",
+    "-AbsLog=/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-039-runs/20260905T071440.953098Z-nullrhi-a142aeec/run-01.engine.log",
+    "-ExecCmds=Automation RunTests BiellaGames.Demo01.DeterministicPlaytest; SoftQuit",
+    "-BiellaTelemetry=/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-039-runs/20260905T071440.953098Z-nullrhi-a142aeec/run-01.telemetry.jsonl",
+    "-BiellaPlaytestSeed=42",
+    "-UseFixedTimeStep",
+    "-FPS=60"
+  ],
+  "capture_path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-039-runs/20260905T071440.953098Z-nullrhi-a142aeec/run-01.telemetry.jsonl",
+  "result": "AUTOMATION_PASS",
+  "pid": 1608463,
+  "returncode": 0,
+  "timed_out": false,
+  "timeout_seconds": 150,
+  "elapsed_seconds": 10.16,
+  "log": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-039-runs/20260905T071440.953098Z-nullrhi-a142aeec/run-01.stdout.log",
+    "sha256": "d989d8e027b31a749cd3309fac402bdae12d124b6664614033a4471fa393176c",
+    "bytes": 228042
+  },
+  "capture": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-039-runs/20260905T071440.953098Z-nullrhi-a142aeec/run-01.telemetry.jsonl",
+    "sha256": "cfabcee384dbf9dd0a68190d1a3016b0eb70db10636ff547f6215d621dac6cc5",
+    "bytes": 23899
+  }
+}

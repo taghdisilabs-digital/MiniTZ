@@ -2,6 +2,7 @@
 
 #include "BiellaGamesGameState.h"
 
+#include "BiellaPlaytestTelemetry.h"
 #include "Net/UnrealNetwork.h"
 
 ABiellaGamesGameState::ABiellaGamesGameState()
@@ -58,10 +59,18 @@ void ABiellaGamesGameState::ResetState()
 
 void ABiellaGamesGameState::SetPhase(EDemo01Phase NewPhase, const FString& NewObjective)
 {
+    const EDemo01Phase PreviousPhase = Phase;
     Phase = NewPhase;
     ObjectiveText = NewObjective;
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL PHASE phase=%d objective=%s"),
         static_cast<int32>(Phase), *ObjectiveText);
+    if (HasAuthority() && PreviousPhase != Phase)
+    {
+        UBiellaPlaytestTelemetry::Record(GetWorld(), TEXT("phase"), {
+            {TEXT("previous"), StaticEnum<EDemo01Phase>()->GetNameStringByValue(static_cast<int64>(PreviousPhase))},
+            {TEXT("current"), StaticEnum<EDemo01Phase>()->GetNameStringByValue(static_cast<int64>(Phase))},
+            {TEXT("objective"), ObjectiveText}});
+    }
 }
 
 void ABiellaGamesGameState::SetObjectiveText(const FString& NewObjective)
@@ -121,6 +130,12 @@ bool ABiellaGamesGameState::SetArenaPressure(float NewPressure, const FString& R
         *StaticEnum<EDemo01ArenaPressureState>()->GetNameStringByValue(
             static_cast<int64>(ArenaPressureState)),
         ArenaPressure, ArenaPressureRevision, *ArenaPressureReason);
+    UBiellaPlaytestTelemetry::Record(GetWorld(), TEXT("arena_pressure"), {
+        {TEXT("previous"), StaticEnum<EDemo01ArenaPressureState>()->GetNameStringByValue(static_cast<int64>(PreviousState))},
+        {TEXT("current"), StaticEnum<EDemo01ArenaPressureState>()->GetNameStringByValue(static_cast<int64>(ArenaPressureState))},
+        {TEXT("level"), FString::Printf(TEXT("%.3f"), ArenaPressure)},
+        {TEXT("revision"), FString::FromInt(ArenaPressureRevision)},
+        {TEXT("reason"), ArenaPressureReason}});
     OnArenaPressureChanged.Broadcast(*this);
     return true;
 }
