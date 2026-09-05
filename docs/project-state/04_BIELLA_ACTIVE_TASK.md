@@ -4,11 +4,11 @@
 schema: biella.active_task/v9
 
 task:
-  id: D01-49
+  id: D01-50
   project: Biella Games
   section: demo01
-  class: medium
-  title: Commit/push canonical source and verify GitHub readback
+  class: deep_memory
+  title: Publish Drive closure and verify exact readback
   status: PENDING
   runner: READY
 
@@ -18,7 +18,7 @@ task:
     - projects/biella-games/docs/PRODUCTION.md
 
   continuity:
-    completed_predecessor: D01-48
+    completed_predecessor: D01-49
     production_source: projects/biella-games/docs/PRODUCTION.md
 
   preserve:
@@ -26,5 +26,5 @@ task:
     - Engine P4-06 as INCOMPLETE_DEFERRED
     - one-repository/one-controller/one-Project-production-source architecture
 
-  stop: Execute only D01-49; validate and persist it before advancing.
+  stop: Execute only D01-50; validate and persist it before advancing.
 ```

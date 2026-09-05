@@ -1,5 +1,5 @@
 {
-  "current_task": "D01-49",
+  "current_task": "D01-50",
   "execution_authority": "current 03/04 + Project PRODUCTION.md",
   "registry_is_queue": false,
   "schema": "biella.d_task_ledger/v1",
@@ -1295,7 +1295,7 @@
         "D01-049"
       ],
       "program": "D01",
-      "status": "PENDING",
+      "status": "COMPLETE_ALREADY",
       "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D01-49",
       "title": "Commit/push canonical source and verify GitHub readback"

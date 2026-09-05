@@ -9,8 +9,8 @@ Engine: `/opt/unreal/UE_5.8.2`
 Execution rule: one current task; verify, execute, persist evidence, then advance
 Evidence rule: editable source plus task-derived build/runtime/package evidence
 Current section: `demo01`
-Current task: `D01-49`
-Progress: `48/50` Demo tasks complete
+Current task: `D01-50`
+Progress: `49/50` Demo tasks complete
 
 ## Section: demo01 | Demo 01 — first playable vertical slice | IN_PROGRESS
 
@@ -64,7 +64,7 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 - [x] D01-46 | medium | Package the playable build | COMPLETE | Package: /root/biella/artifacts/games/D01-46/BiellaGames-Linux-x64-D01-46.tar.zst; SHA256: c1085849f0919865a40191b9a40a5883be662b032766d4ef6620fa4f4b315bc8; Smoke test passed: pak mounted, Demo 01 reached world/HUD readiness, exited cleanly with no errors.; Local commit: 00c7243077403d9ebfb812318cd23a3a5b13641f; Protected state/production metadata unchanged; later tasks not advanced.
 - [x] D01-47 | medium | Launch clean package and capture run evidence | COMPLETE | Clean package launches passed via NullRHI and Vulkan/Xvfb; both returned PACKAGED_RC=0.; Package mounted and reached GAME_INSTANCE_READY, WORLD_READY, HUD_READY, and CONTROLLER_READY.; Evidence: [acceptance]( /root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-47-acceptance.md), runtime logs committed.; Local commit: 134a90f7d524bfb7f6a3a9d64b5f09cc2312f81e; worktree clean. Protected metadata unchanged.
 - [x] D01-48 | hard | Execute full end-to-end playable acceptance | COMPLETE | Local commit: 2e4c050d9ae3391fa64432d3c4d0e2426df93413; worktree clean.; Seven packaged runtime checks, independent evidence replay, and 41 verifier tests passed.; Verified success, AI-caused failure, both restarts, and 12 rendered frames plus five audio recordings.; [Acceptance report](/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-048-acceptance.md); Protected metadata unchanged; publication and advancement remain with the Auto Feeder.
-- [ ] D01-49 | medium | Commit/push canonical source and verify GitHub readback | PENDING | result commit/tree/paths
+- [x] D01-49 | medium | Commit/push canonical source and verify GitHub readback | COMPLETE_ALREADY | GitHub main readback: commit 9d4850e0616c90c3b2a181f71232e898b64cad44, tree 7b06627f2a1988749c8a8bf4d07acdc2849ad4f8.; GitHub API content readback matched local bytes for state, active task, PRODUCTION.md, D01-048 acceptance, and validation JSON.; Worktree is clean and main matches origin/main; no new commit was required.
 - [ ] D01-50 | deep_memory | Publish Drive closure and verify exact readback | PENDING | queue/evidence/package identities
 
 ## Remaining sections
