@@ -1,20 +1,21 @@
 # D01-46 packaging checkpoint
 
-Status: `CONTINUE` — cooked content is ready, but no current executable package was produced.
+Status: `COMPLETE` — current Linux playable build is packaged and smoke-validated.
 
-Source revision: `62b0a1e93d4e2d8e651ae4005244a55d9cb46f39`
+Source revision: local D01-46 task commit (see acceptance evidence and git history)
 Engine: `/opt/unreal/UE_5.8.2`
-Attempted target: `Linux x64 Development`
+Target: `Linux x64 Development`
 
 ## Evidence
 
-- Cook passed for the current project with `UnrealEditor-Cmd -run=Cook -TargetPlatform=Linux -nullrhi -NoZenStore -forcerecook`: 530 packages cooked, 0 errors, 3 warnings. Log: `D01-46-cook-nullrhi.log`.
-- UAT initialized successfully after using a task-scoped temporary directory, then stopped with `ExitCode=103 (Error_MissingExecutable)` because `Binaries/Linux/BiellaGames.target` is absent. Log: `D01-46-uat-stage-tmp.log`.
-- A current game-target build was attempted with UE 5.8.2 and isolated UBT state. It stops before compilation because the installed engine has no `UnrealGame` precompiled manifests, including `Launch`, `Core`, and `Engine`. Log: `D01-46-build-unreal-2.log`.
-- The only existing `BiellaGames` executable is a monolithic recovery artifact from an older source tree; its source paths and source file set differ from the current project, so it is not used as D01-46 output.
+- Source game-target build succeeded with UE 5.8.2 and produced `Binaries/Linux/BiellaGames` plus the matching receipt. Log: `D01-46-build-source-final13.log`.
+- Cook completed for the current project with `565/565` packages processed, `530` cooked, and `0` errors. Log: `D01-46-cook-legacy.log`.
+- UAT `BuildCookRun` staged the current executable and cooked content, created `BiellaGames-Linux.pak`, archived the Linux package, and exited with `ExitCode=0`. Log: `D01-46-package-uat-canonical.log`.
+- Final archive: `/root/biella/artifacts/games/D01-46/BiellaGames-Linux-x64-D01-46.tar.zst`; SHA256 `c1085849f0919865a40191b9a40a5883be662b032766d4ef6620fa4f4b315bc8`.
+- Exact-package smoke validation mounted the pak, reached the Demo 01 game instance/world/HUD readiness signals, exited with `SMOKE_RC=0`, and reported no error/fatal entries. Evidence: `D01-46-package-smoke.log`.
 
 ## Resume condition
 
-Produce `Binaries/Linux/BiellaGames` and its matching receipt from a UE installation with a supported game-target build (or a Windows x64 packaging host), then rerun UAT `BuildCookRun` against the already verified current source/cooked content and record the exact package digest.
+The current package and digest are recorded in `D01-46-acceptance.md`.
 
 Protected task/state/production metadata was not edited. D01-47 and later tasks were not advanced.

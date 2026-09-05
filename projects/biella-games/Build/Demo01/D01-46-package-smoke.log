@@ -1,0 +1,10 @@
+D01-46 package smoke validation (Linux x64 Development, -NullRHI -NoSound -ExecCmds=quit)
+Package: /root/biella/artifacts/games/D01-46/BiellaGames-Linux-x64-D01-46.tar.zst
+Result: SMOKE_RC=0
+LogPakFile: Display: Found Pak file ../../../BiellaGames/Content/Paks/BiellaGames-Linux.pak attempting to mount.
+LogTemp: Display: D01_SIGNAL GAME_INSTANCE_READY
+LogTemp: Display: D01_SIGNAL WORLD_READY source=map
+LogTemp: Display: D01_SIGNAL HUD_READY health=100.0 ammo=60 objective=Eliminate all infected. progress=0/2 phase=ACTIVE source=runtime
+LogExit: Exiting.
+Error/Fatal entries: none
+Expected navigation warnings remain from the authored nav-data configuration and do not prevent startup.

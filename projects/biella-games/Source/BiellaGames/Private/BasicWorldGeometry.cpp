@@ -139,10 +139,10 @@ void ABasicWorldGeometry::BuildArena()
     Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     // Both entry maps already own a sun. Reuse it instead of illuminating the
     // arena twice; only a fallback spawned by this actor belongs to its cleanup.
-    for (TActorIterator<ADirectionalLight> It(GetWorld()); It; ++It)
+    TActorIterator<ADirectionalLight> SunIt(GetWorld());
+    if (SunIt)
     {
-        SunLight = *It;
-        break;
+        SunLight = *SunIt;
     }
     if (!SunLight)
     {
@@ -228,7 +228,9 @@ AStaticMeshActor* ABasicWorldGeometry::SpawnCube(const FVector& Location,
     // static mobility for the completed arena piece.
     Mesh->SetMobility(EComponentMobility::Movable);
     Piece->SetActorScale3D(Scale);
+#if WITH_EDITOR
     Piece->SetActorLabel(Label);
+#endif
     Piece->Tags.Add(TEXT("D01ArenaPiece"));
     Mesh->SetStaticMesh(CubeMesh);
     Mesh->SetCollisionProfileName(TEXT("BlockAll"));
