@@ -95,3 +95,16 @@ def test_section_planner_never_creates_approval_gate_tasks():
     assert "do not create approval" in packet
     assert "owner-decision" in packet
     assert "executable missing work" in packet
+
+
+def test_task_packet_requires_final_delivery_publication_and_failure_ledger(tmp_path: Path):
+    repo = tmp_path / "repo"; (repo / "docs/project-state").mkdir(parents=True)
+    (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").write_text("task:\n  id: D02-01\n  project: Biella Games\n  section: post_d01\n  class: hard_creation\n  title: Streaming\n  status: PENDING\n")
+    task = state.TaskRecord("D02-01", "hard_creation", "Streaming", "PENDING", (), "post_d01")
+    production = state.ProductionState(Path("/repo/projects/biella-games"), "IN_PROGRESS", "post_d01", "D02-01", [state.SectionRecord("post_d01", "Continuation", "IN_PROGRESS", [task])])
+    packet = packets.compile_task_packet(repo, production, task).lower()
+    assert "final deliverable" in packet
+    assert "configured canonical destination" in packet
+    assert "verify exact remote identity" in packet
+    assert "failures.jsonl" in packet
+    assert "never invent a destination" in packet

@@ -93,13 +93,13 @@ def _http_json(method: str, url: str, headers: Mapping[str, str], body: Mapping[
 
 
 def _choose_provider(registry: Mapping[str, Any], capability: str, requested: str | None,
-                     env: Mapping[str, str]) -> str:
-    eligible = route_capability(registry, capability, env=env)
+                     env: Mapping[str, str], command_exists: Callable[[str], bool] | None = None) -> str:
+    eligible = route_capability(registry, capability, env=env, command_exists=command_exists)
     if requested:
         if requested not in registry["providers"]:
             raise ResourceError(f"unknown provider: {requested}")
         if requested not in eligible:
-            state = provider_state(registry["providers"][requested], env=env)
+            state = provider_state(registry["providers"][requested], env=env, command_exists=command_exists)
             raise ResourceError(f"provider {requested} unavailable for {capability}: {state}")
         return requested
     if not eligible:
@@ -182,15 +182,21 @@ def _bearer_key(provider_id: str) -> str:
 
 def run_fast_llm(registry: Mapping[str, Any], prompt: str, *, env: Mapping[str, str] | None = None,
                  provider: str | None = None, model: str | None = None, max_tokens: int = 512,
-                 transport: Transport = _http_json, timeout: float = 30.0) -> dict[str, Any]:
+                 transport: Transport = _http_json, timeout: float = 30.0,
+                 command_exists: Callable[[str], bool] | None = None) -> dict[str, Any]:
     env = env or os.environ
-    selected = _choose_provider(registry, "llm.fast", provider, env)
+    selected = _choose_provider(registry, "llm.fast", provider, env, command_exists=command_exists)
     definition = registry["providers"][selected]
     model_id = _model_for(selected, definition, env, model)
-    key_name = _bearer_key(selected)
     body = {"model": model_id, "messages": [{"role": "user", "content": prompt}], "max_tokens": max_tokens}
     started = time.monotonic()
-    payload = transport("POST", definition["chat_url"], {"Authorization": f"Bearer {env[key_name]}"}, body, timeout)
+    if selected == "ollama-qwen":
+        base = str(env.get("BIELLA_OLLAMA_URL", "")).strip().rstrip("/")
+        url = f"{base}/v1/chat/completions" if base else str(definition["chat_url"])
+        payload = transport("POST", url, {}, body, timeout)
+    else:
+        key_name = _bearer_key(selected)
+        payload = transport("POST", definition["chat_url"], {"Authorization": f"Bearer {env[key_name]}"}, body, timeout)
     try:
         text = payload["choices"][0]["message"]["content"]
     except (KeyError, IndexError, TypeError):

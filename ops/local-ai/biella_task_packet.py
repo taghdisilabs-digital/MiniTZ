@@ -26,6 +26,7 @@ def compile_task_packet(repo_root: Path, production: ProductionState, task: Task
         "Repair or reroute internal/provider/tool failures and return CONTINUE while useful work remains; owner direction is already authoritative and is never a blocking result. "
         "Resolve routine task needs autonomously: install/configure task-scoped dependencies, create missing local support files, use authorized Resources, and repair reversible environment/tool/provider issues when they are required by this task. "
         "Do not stop for confirmation, routine permission, design approval, or owner decision when the active task or prior owner direction already authorizes the work. If a genuinely destructive or irreversible external action is required and not already authorized, or a required authority/fact is truly unavailable, preserve progress, record the exact need, and return CONTINUE rather than inventing completion. "
+        "For every final deliverable, preserve the exact canonical local file and publish it to the configured canonical destination defined by current Project/task authority; verify exact remote identity and bytes/digest when supported. Never invent a destination. If publication is required but unavailable, keep the local file durably, record the failure in `/mnt/biella-extra/biella-runtime/codex-production/failures.jsonl`, and return CONTINUE until durable publication/readback succeeds. "
         "Commit this task's implementation/evidence locally before returning COMPLETE; the Auto Feeder owns GitHub/Drive publication and canonical state transition. "
         "Do not edit 03/04 task identity or Project PRODUCTION status/next-task metadata. "
         "Do not probe quota/balance, do not inspect or manage Codex usage/resets/credits, and do not advance beyond this task."
@@ -65,7 +66,7 @@ def compile_resume_packet(task: TaskRecord, capsule_path: Path) -> str:
         "The initial active contract and project authority remain in this session; re-read them only if current source indicates a material change. "
         "Preserve all dirty/verified work; never reset, clean, stash, or restart the task. Keep full local tool/Unreal/Git/Drive/resource capability. "
         "Prefer targeted local commands and bounded outputs over broad rereads. Resolve routine task needs autonomously, including install/configure task-scoped dependencies and reversible tool/environment repair. "
-        "Do not stop for confirmation or routine permission when this task is already authorized. Commit this task implementation/evidence before COMPLETE; otherwise return CONTINUE with concise evidence. "
+        "Do not stop for confirmation or routine permission when this task is already authorized. Final deliverables must remain at their canonical local path and be published/read back at any configured canonical destination; never invent a destination. Diagnose prior failures from `/mnt/biella-extra/biella-runtime/codex-production/failures.jsonl` when relevant. Commit this task implementation/evidence before COMPLETE; otherwise return CONTINUE with concise evidence. "
         "Do not advance beyond this task or manage Codex quota/usage.\n"
     )
 

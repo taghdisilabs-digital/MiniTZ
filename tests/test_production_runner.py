@@ -411,3 +411,8 @@ def test_live_session_identity_is_persisted_before_child_finishes(tmp_path: Path
     )
     assert rc == 0
     assert "session-while-running" in seen
+
+
+def test_codex_subagent_fanout_is_never_enabled_by_production(monkeypatch):
+    monkeypatch.setenv("BIELLA_CODEX_ONE_HELPER_TASKS", "*")
+    assert runner._helper_allowed("D02-01") is False

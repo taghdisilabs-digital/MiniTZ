@@ -171,6 +171,21 @@
         "NEON_API_KEY"
       ]
     },
+    "ollama-qwen": {
+      "capabilities": [
+        "llm.fast",
+        "llm.code",
+        "llm.reasoning",
+        "unreal.assist"
+      ],
+      "chat_url": "http://127.0.0.1:11434/v1/chat/completions",
+      "command": "ollama",
+      "cost_class": "local_compute",
+      "default_model": "qwen3-coder-next:biella",
+      "display_name": "Local Qwen (Ollama)",
+      "locator_env": [],
+      "required_env": []
+    },
     "openrouter": {
       "capabilities": [
         "llm.fast",
@@ -300,6 +315,9 @@
     "cache.ephemeral": [
       "upstash"
     ],
+    "code": [
+      "ollama-qwen"
+    ],
     "compute.remote": [
       "saturn",
       "modal"
@@ -313,6 +331,7 @@
       "cloudflare"
     ],
     "llm.code": [
+      "ollama-qwen",
       "mistral",
       "groq",
       "cerebras",
@@ -320,6 +339,15 @@
       "gemini"
     ],
     "llm.fast": [
+      "ollama-qwen",
+      "groq",
+      "cerebras",
+      "mistral",
+      "openrouter",
+      "gemini"
+    ],
+    "llm.reasoning": [
+      "ollama-qwen",
       "groq",
       "cerebras",
       "mistral",
@@ -332,6 +360,9 @@
     "observability.query": [
       "axiom"
     ],
+    "reasoning": [
+      "ollama-qwen"
+    ],
     "research.search": [
       "tavily",
       "exa"
@@ -342,6 +373,12 @@
     ],
     "research.visual": [
       "pexels"
+    ],
+    "unreal": [
+      "ollama-qwen"
+    ],
+    "unreal.assist": [
+      "ollama-qwen"
     ],
     "vector.search": [
       "qdrant",

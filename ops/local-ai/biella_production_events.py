@@ -36,11 +36,14 @@ def _last_seq(path: Path) -> int:
 
 
 class ProductionEventJournal:
-    def __init__(self, path: Path, *, max_bytes: int = 32 * 1024 * 1024):
+    def __init__(self, path: Path, *, max_bytes: int = 32 * 1024 * 1024, failure_path: Path | None = None):
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self.max_bytes = max(1024, int(max_bytes)) if max_bytes >= 1024 else int(max_bytes)
         self._seq = _last_seq(self.path)
+        self.failure_path = Path(failure_path) if failure_path is not None else None
+        if self.failure_path is not None:
+            self.failure_path.parent.mkdir(parents=True, exist_ok=True)
 
     def _rotate_if_needed(self) -> None:
         try:
@@ -81,6 +84,20 @@ class ProductionEventJournal:
                 event[key] = value
         with self.path.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(event, sort_keys=True, separators=(",", ":")) + "\n")
+        status_key = str(event.get("status") or "").upper()
+        type_key = str(event.get("type") or "").lower()
+        is_failure = status_key in {"FAILED", "ERROR", "RETRY"} or any(token in type_key for token in ("error", "failed", "retry", "recovery"))
+        if is_failure and self.failure_path is not None:
+            failure = {
+                "schema": "biella.failure_event/v1",
+                "seq": event["seq"], "time": event["time"], "lane": event["lane"],
+                "failure_type": event["type"], "status": event.get("status") or "FAILED",
+            }
+            for key in ("task_id", "text", "tool", "detail", "exit_code", "model", "reasoning"):
+                if key in event:
+                    failure[key] = event[key]
+            with self.failure_path.open("a", encoding="utf-8") as handle:
+                handle.write(json.dumps(failure, sort_keys=True, separators=(",", ":")) + "\n")
         return event
 
     def emit_codex(self, raw: Mapping[str, Any], task_id: str) -> dict[str, Any] | None:
@@ -159,12 +176,19 @@ def project_codex_event(raw: Mapping[str, Any], task_id: str) -> dict[str, Any] 
         command = item.get("command") or item.get("cmd") or "command"
         if isinstance(command, list):
             command = " ".join(str(part) for part in command)
-        return {
+        result = {
             "type": f"tool.{phase}",
             "tool": "shell",
             "text": _bounded(command, 1200),
             "status": str(item.get("status") or phase).upper(),
         }
+        if isinstance(item.get("exit_code"), int):
+            result["exit_code"] = int(item["exit_code"])
+        if result["status"] in {"FAILED", "ERROR"}:
+            detail = item.get("aggregated_output") or item.get("output") or item.get("stderr")
+            if detail:
+                result["detail"] = _bounded(detail, 2000)
+        return result
     if item_type in {"mcp_tool_call", "function_call", "custom_tool_call"}:
         name = item.get("name") or item.get("tool") or item.get("tool_name") or item_type
         return {

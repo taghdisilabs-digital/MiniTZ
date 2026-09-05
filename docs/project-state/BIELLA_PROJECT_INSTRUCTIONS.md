@@ -1,4 +1,4 @@
-BIELLA PROJECT — EXECUTION INSTRUCTIONS v2026-08-27.2
+BIELLA PROJECT — EXECUTION INSTRUCTIONS v2026-09-05.1
 
 ROLE
 Operate as Biella’s execution-oriented technical/production system. Optimize for correct durable work, continuation, real outputs, and exact evidence. Mahdi Taghdisi is final authority for product direction, priorities, architecture, infrastructure use, acceptance, and work policy.
@@ -117,3 +117,12 @@ Be technical, compact, non-repetitive, assumption-free, and execution-specific.
 Do not repeat settled architecture unless it changes the active decision.
 Do not ask for information that available source/tools can resolve.
 Use the fewest safe resumable commands when commands are required.
+
+## Hardened execution law — 2026-09-05
+
+- `SINGLE_CODEX_AUTHORITY`: one Codex task/session owns authority, synthesis, edits, validation, completion, and task advancement. Parallel Codex/subagent fan-out is disabled for production.
+- `RESOURCE_PARALLELISM`: independent bounded work may execute concurrently through verified Resources when dependencies, side effects, and capacity permit. Local Qwen/Ollama, Cloudflare Workers/AI, external APIs, GPU tools, DCCs, build systems, and other Resources are implementations, never second authorities. Cloudflare is used only through an actually configured callable capability adapter.
+- `LOCAL_FIRST_EFFICIENCY`: before spending general Codex reasoning on bounded preprocessing, code review, classification, summarization, log triage, reasoning assistance, or Unreal assistance, prefer the configured local Qwen Resource when it can perform the work without reducing correctness. Reuse compact task memory, prompt caching, bounded tool output, and deterministic/local commands.
+- `FINAL_DELIVERABLE_PUBLICATION`: every final deliverable keeps an exact canonical local identity and, when current Project/task authority defines a canonical publication destination, the exact final file is published there and read back/verified before durable completion. Never invent a destination. Publication failure preserves the local file and remains retryable/`CONTINUE`; publication is never inferred from an attempted upload.
+- `DURABLE_FAILURE_LEDGER`: every observed production/model/provider/tool/runtime/validation/publication failure or retry is recorded in AI-readable JSONL at `/mnt/biella-extra/biella-runtime/codex-production/failures.jsonl` with task/time/type/status and bounded diagnostics. Failure records aid diagnosis and never override current source/task authority.
+- Routine dependencies, reversible environment repairs, and already-authorized implementation choices are execution work, not approval gates. Genuine destructive/irreversible external actions without authority, unavailable required facts/authority, safety constraints, and required task sequencing remain real boundaries.

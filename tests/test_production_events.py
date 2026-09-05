@@ -52,3 +52,28 @@ def test_event_journal_rotates_without_losing_sequence(tmp_path: Path):
     assert path.with_name("events.previous.jsonl").exists()
     current = [json.loads(line) for line in path.read_text().splitlines()]
     assert current[-1]["seq"] == 3
+
+
+def test_failure_ledger_mirrors_failed_retry_and_error_events(tmp_path: Path):
+    events_path = tmp_path / "events.jsonl"
+    failures_path = tmp_path / "failures.jsonl"
+    journal = events.ProductionEventJournal(events_path, failure_path=failures_path)
+    journal.emit("tool.completed", task_id="D02-01", status="FAILED", text="runtime failed", tool="shell")
+    journal.emit("persistence.retry", task_id="D02-01", status="RETRY", text="drive unavailable")
+    journal.emit("agent.message", task_id="D02-01", status="COMPLETE", text="ok")
+    rows = [json.loads(line) for line in failures_path.read_text().splitlines()]
+    assert [row["failure_type"] for row in rows] == ["tool.completed", "persistence.retry"]
+    assert all(row["schema"] == "biella.failure_event/v1" for row in rows)
+    assert rows[0]["task_id"] == "D02-01"
+    assert rows[1]["status"] == "RETRY"
+
+
+def test_failed_command_projection_keeps_bounded_diagnostic_output():
+    event = events.project_codex_event({
+        "type":"item.completed",
+        "item":{"type":"command_execution","command":"python3 verify.py","status":"failed","exit_code":1,"aggregated_output":"ASSERT navigation failed"}
+    }, "D02-01")
+    assert event["type"] == "tool.completed"
+    assert event["status"] == "FAILED"
+    assert event["exit_code"] == 1
+    assert event["detail"] == "ASSERT navigation failed"

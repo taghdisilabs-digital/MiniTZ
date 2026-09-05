@@ -57,7 +57,7 @@ def test_capability_routing_prefers_specialized_configured_resources():
     env = configured_env()
     assert resource.route_capability(registry, "research.search", env=env)[:2] == ["tavily", "exa"]
     assert resource.route_capability(registry, "research.semantic", env=env)[0] == "exa"
-    assert resource.route_capability(registry, "llm.fast", env=env)[:3] == ["groq", "cerebras", "mistral"]
+    assert resource.route_capability(registry, "llm.fast", env=env)[:4] == ["ollama-qwen", "groq", "cerebras", "mistral"]
 
 
 def test_search_uses_tavily_and_compacts_provider_response():
@@ -88,7 +88,7 @@ def test_fast_llm_uses_observed_default_and_returns_compact_usage():
             "usage": {"prompt_tokens": 12, "completion_tokens": 4, "total_tokens": 16},
             "model": body["model"],
         }
-    result = resource.run_fast_llm(registry, "classify this", env=configured_env(), transport=transport)
+    result = resource.run_fast_llm(registry, "classify this", env=configured_env(), provider="groq", transport=transport)
     assert result["provider"] == "groq"
     assert result["model"] == "qwen/qwen3.8-27b"
     assert result["text"] == "compact result"
@@ -109,3 +109,29 @@ def test_gemini_is_routable_as_fast_llm_without_leaking_key():
     assert calls[0][1].endswith("/v1beta/openai/chat/completions")
     assert calls[0][2]["Authorization"] == "Bearer gemini-secret"
     assert "gemini-secret" not in json.dumps(result)
+
+
+def test_local_qwen_is_first_class_preferred_compute_resource():
+    registry = resource.load_registry(REGISTRY)
+    provider = registry["providers"]["ollama-qwen"]
+    assert provider["cost_class"] == "local_compute"
+    assert provider["default_model"] == "qwen3-coder-next:biella"
+    for capability in ("llm.fast", "llm.code", "llm.reasoning", "unreal.assist"):
+        assert resource.route_capability(registry, capability, env={}, command_exists=lambda command: command == "ollama")[0] == "ollama-qwen"
+
+
+def test_local_qwen_fast_llm_uses_local_openai_endpoint_without_secret():
+    registry = resource.load_registry(REGISTRY)
+    calls = []
+    def transport(method, url, headers, body, timeout):
+        calls.append((method, url, headers, body, timeout))
+        return {"choices": [{"message": {"content": "local result"}}], "model": body["model"], "usage": {"total_tokens": 9}}
+    result = resource.run_fast_llm(
+        registry, "review this bounded code", env={}, provider="ollama-qwen",
+        command_exists=lambda command: command == "ollama", transport=transport,
+    )
+    assert result["provider"] == "ollama-qwen"
+    assert result["model"] == "qwen3-coder-next:biella"
+    assert result["text"] == "local result"
+    assert calls[0][1] == "http://127.0.0.1:11434/v1/chat/completions"
+    assert calls[0][2] == {}

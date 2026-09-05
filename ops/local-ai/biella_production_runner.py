@@ -191,8 +191,8 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
 
 
 def _helper_allowed(task_id: str) -> bool:
-    configured = {item.strip() for item in os.environ.get("BIELLA_CODEX_ONE_HELPER_TASKS", "").split(",") if item.strip()}
-    return "*" in configured or task_id in configured
+    del task_id
+    return False
 
 
 def _drain_codex_events(path: Path, offset: int, journal: production_events.ProductionEventJournal | None, task_id: str | None, *, final: bool = False) -> tuple[int, str | None]:
@@ -380,7 +380,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
     section_schema_path = runtime_root / "section-plan-schema.json"
     schema_path.write_text(json.dumps(evidence.result_schema(), sort_keys=True) + "\n", encoding="utf-8")
     section_schema_path.write_text(json.dumps(packets.section_plan_schema(), sort_keys=True) + "\n", encoding="utf-8")
-    journal = production_events.ProductionEventJournal(runtime_root / "events.jsonl")
+    journal = production_events.ProductionEventJournal(runtime_root / "events.jsonl", failure_path=runtime_root / "failures.jsonl")
     lock = ProductionLock(runtime_root / "run.lock"); lock.acquire()
     try:
         telemetry = load_runtime(runtime_path)
