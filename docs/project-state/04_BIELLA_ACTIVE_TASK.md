@@ -4,13 +4,12 @@
 schema: biella.active_task/v9
 
 task:
-  id: D01-031
+  id: D01-032
   project: Biella Games
   section: demo01
-  class: hard
-  title: Prove shared player/rival/infected interaction
+  class: medium
+  title: Add authoritative arena-pressure state
   status: PENDING
-  execution_started: false
   runner: READY
 
   authority:
@@ -19,7 +18,7 @@ task:
     - projects/biella-games/docs/PRODUCTION.md
 
   continuity:
-    completed_predecessor: D01-030
+    completed_predecessor: D01-031
     production_source: projects/biella-games/docs/PRODUCTION.md
 
   preserve:
@@ -27,5 +26,5 @@ task:
     - Engine P4-06 as INCOMPLETE_DEFERRED
     - one-repository/one-controller/one-Project-production-source architecture
 
-  stop: Execute only D01-031; validate and persist it before advancing.
+  stop: Execute only D01-032; validate and persist it before advancing.
 ```

@@ -22,11 +22,10 @@ repository:
   historical_branch_refs: 15_REMOTE_ARCHIVE_TAGS
 
 active_execution:
-  id: D01-031
+  id: D01-032
   project: Biella Games
   section: demo01
   state: PENDING
-  execution_started: false
   controller: biella-codex
   consolidation_state: COMPLETE_VERIFIED
 
@@ -37,9 +36,9 @@ games:
   project_path: projects/biella-games
   production_source: projects/biella-games/docs/PRODUCTION.md
   section: demo01
-  completed_demo_tasks: 30
+  completed_demo_tasks: 31
   total_demo_tasks: 50
-  queued_successor: D01-031
+  queued_successor: D01-032
   latest_preservation_commit: f7e74205988cb48946e62efeffe5c5330ec6437b
   latest_preservation_tree: 1324b3dd942927352abaa2ef70a463cbdfca53db
   late_delta_import: 9_OF_9_CHANGED_PATHS_IMPORTED
@@ -48,7 +47,7 @@ games:
   navigation_evidence: projects/biella-games/Build/Demo01/D01-029-acceptance.md
   combat_qualification: D01_030_WEAPON_COLLISION_DAMAGE_RESPONSE_BUILD_AND_LIVE_RUNTIME_PASS
   combat_evidence: projects/biella-games/Build/Demo01/D01-030-acceptance.md
-  task_boundary: D01-031_PENDING
+  task_boundary: D01-032_PENDING
 
 engine_numbered_execution:
   P4_01_through_P4_05: COMPLETE_REUSE_REQUIRED
