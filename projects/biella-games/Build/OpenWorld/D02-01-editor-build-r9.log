@@ -1,0 +1,37 @@
+Setting up bundled DotNet SDK
+Running command : dotnet Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll BiellaGamesEditor Linux Development /root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject -WaitMutex -NoUBA -NoHotReloadFromIDE
+Log file: /home/unreal/.config/Epic/UnrealBuildTool/Log.txt
+Determining max actions to execute in parallel (15 physical cores, 15 logical cores)
+  Executing up to 15 processes, one per physical core
+UbaStorageServer - FileMapping backing: memfd
+UbaSessionServer - Disable remote execution (remote sessions will finish current processes)
+Building BiellaGamesEditor...
+===== Toolchain Information =====
+Using ISPC compiler (/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/Intel/ISPC/bin/Linux/ispc)
+  Intel(r) Implicit SPMD Program Compiler (Intel(r) ISPC), 1.24.0 (build commit  @ 20240919, LLVM 18.1.6)
+Using Clang compiler 20.1.8 (/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin/clang++)
+  clang version 20.1.8 (github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261) Target: x86_64-unknown-linux-gnu Thread model: posix InstalledDir: /opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin
+Using Clang archiver (/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin/llvm-ar)
+  LLVM (http://llvm.org/):   LLVM version 20.1.8   Optimized build.
+Using toolchain located at '/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu'
+Using bundled libc++ standard C++ library.
+Compressing debug files
+=================================
+Using Unreal Build Accelerator local executor to run 2 action(s)
+  CPU 15 physical cores, 15 logical cores
+  Memory 86.31 GB physical, 4.03 GB/75.15 GB committed
+  UBA Storage capacity 40 GB
+[1/2] Compile Module.BiellaGames.cpp [NoUba]
+In file included from /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/UnrealEditor/Development/BiellaGames/Module.BiellaGames.cpp:34:
+/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaWorldContinuity.cpp:289:62: error: 'RegisterNavData' is a protected member of 'UNavigationSystemV1'
+  289 |                 const bool bRegistered = Data && Navigation->RegisterNavData(Data) ==
+      |                                                              ^
+/opt/unreal/UE_5.8.2/Engine/Source/Runtime/NavigationSystem/Public/NavigationSystem.h:1331:51: note: declared protected here
+ 1331 |     NAVIGATIONSYSTEM_API virtual ERegistrationResult RegisterNavData(ANavigationData* NavData);
+      |                                                      ^
+1 error generated.
+Total time in Unreal Build Accelerator local executor: 10.67 seconds
+
+Result: Failed (OtherCompilationError)
+Total execution time: 13.31 seconds
+Trace written to file /home/unreal/.config/Epic/UnrealBuildTool/Trace.uba with size 4.4kb

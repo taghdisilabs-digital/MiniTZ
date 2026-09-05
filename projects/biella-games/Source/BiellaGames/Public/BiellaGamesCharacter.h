@@ -88,6 +88,8 @@ private:
     int32 Ammo = 60;
     float FireCooldownRemaining = 0.0f;
     bool bSprintHeld = false;
+protected:
+    // Continuation movement follows streamed floors without cancelling a jump.
     bool bJumping = false;
     float JumpElapsed = 0.0f;
     float JumpBaseZ = 0.0f;

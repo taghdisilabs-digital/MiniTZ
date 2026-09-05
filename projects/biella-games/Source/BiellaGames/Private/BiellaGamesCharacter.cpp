@@ -246,7 +246,7 @@ void ABiellaGamesCharacter::FireWeapon(const FInputActionValue& Value)
     for (AActor* Candidate : Candidates)
     {
         ABiellaDemoPawn* Pawn = Cast<ABiellaDemoPawn>(Candidate);
-        if (!IsValid(Pawn) || Pawn == this || Pawn->IsDefeated() || Pawn->GetTeam() == GetTeam())
+        if (!IsValid(Pawn) || Pawn == this || !Pawn->CanParticipateInCombat() || Pawn->GetTeam() == GetTeam())
         {
             continue;
         }
@@ -267,7 +267,7 @@ bool ABiellaGamesCharacter::FireWeaponAt(ABiellaDemoPawn* Target, float DamageAm
     const FString& DamageTag)
 {
     if (!IsValid(Target) || Target == this || Target->GetTeam() == GetTeam() ||
-        Target->IsDefeated() || IsDefeated() || FireCooldownRemaining > 0.0f ||
+        !Target->CanParticipateInCombat() || !CanParticipateInCombat() || FireCooldownRemaining > 0.0f ||
         Ammo <= 0 || !GetWorld() || !FMath::IsFinite(DamageAmount) || DamageAmount <= 0.0f)
     {
         return false;

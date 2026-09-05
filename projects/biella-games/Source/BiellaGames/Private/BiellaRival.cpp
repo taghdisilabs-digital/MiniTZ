@@ -86,7 +86,7 @@ ABiellaDemoPawn* ABiellaRival::ChooseTarget() const
     for (AActor* Candidate : Candidates)
     {
         ABiellaDemoPawn* Pawn = Cast<ABiellaDemoPawn>(Candidate);
-        if (!Pawn || Pawn == this || Pawn->IsDefeated())
+        if (!Pawn || Pawn == this || !Pawn->CanParticipateInCombat())
         {
             continue;
         }
@@ -123,7 +123,7 @@ void ABiellaRival::Tick(float DeltaTime)
         SetPositionState(EDemo01RivalPositionState::Idle);
         return;
     }
-    if (!IsValid(CurrentTarget) || CurrentTarget->IsDefeated() ||
+    if (!IsValid(CurrentTarget) || !CurrentTarget->CanParticipateInCombat() ||
         FVector::DistSquared(GetActorLocation(), CurrentTarget->GetActorLocation()) >
             FMath::Square(WeaponRange * 1.5f))
     {
@@ -352,7 +352,7 @@ void ABiellaRival::UpdatePositioning(float DeltaTime)
 bool ABiellaRival::FireAtTarget(ABiellaDemoPawn* Target)
 {
     if (!IsValid(Target) || Target == this || Target->GetTeam() == GetTeam() ||
-        Target->IsDefeated() || IsDefeated() || WeaponCooldownRemaining > 0.0f || !GetWorld() ||
+        !Target->CanParticipateInCombat() || !CanParticipateInCombat() || WeaponCooldownRemaining > 0.0f || !GetWorld() ||
         !FMath::IsFinite(WeaponRange) || WeaponRange <= 0.0f ||
         !FMath::IsFinite(WeaponDamage) || WeaponDamage <= 0.0f ||
         !FMath::IsFinite(WeaponCooldown) || WeaponCooldown <= 0.0f ||

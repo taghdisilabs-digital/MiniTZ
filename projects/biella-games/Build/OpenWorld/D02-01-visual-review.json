@@ -1,0 +1,39 @@
+{
+  "task_id": "D02-01",
+  "result": "PASS",
+  "status": "GENERATED_DRAFT",
+  "method": "Direct inspection of all six unedited runtime-07 PNGs with view_image, plus independent PNG decoding in verify_d02_01.py. Images are supporting runtime evidence, not standalone gameplay acceptance.",
+  "captures": [
+    {
+      "file": "Build/OpenWorld/runtime-07/captures/street_start.png",
+      "sha256": "93a72bbb010e48f2a5f63c9345ccb4a2a2314d026d6258c0da09ba34e79badee",
+      "observation": "Road, lane markings, native block masses, player/encounter and HUD are readable; no Preparing Shaders overlay or checkerboard substitute is visible."
+    },
+    {
+      "file": "Build/OpenWorld/runtime-07/captures/interior.png",
+      "sha256": "03bf544f5d4be2071a13c587a911eca7513aab590cb6900a7f16719167c804b9",
+      "observation": "Covered room floor and walls, player and HUD are visible under the authored movable light. Lighting is bright blockout presentation, not final art grading."
+    },
+    {
+      "file": "Build/OpenWorld/runtime-07/captures/terrace.png",
+      "sha256": "e34691904eb8d5f3a665517312a3b4b3170310f87a74e642a6d6f9d56ea78321",
+      "observation": "Raised floor and boundary rails remain visible with player and HUD after input-driven ramp traversal."
+    },
+    {
+      "file": "Build/OpenWorld/runtime-07/captures/distant_region.png",
+      "sha256": "39ce836e64d1b8b02f269ef6628291282c1fae4c9a0c05e268752d1e7532f025",
+      "observation": "Distant road, roadside masses, player and stable gameplay HUD remain rendered after native origin-cell unload."
+    },
+    {
+      "file": "Build/OpenWorld/runtime-07/captures/injury_return.png",
+      "sha256": "e4ecfb9998938aed07289d8d9dd58ed73ea717039a4eacde3aeba22996525974",
+      "observation": "Origin encounter presentation and HUD remain rendered after injured actor reconstruction."
+    },
+    {
+      "file": "Build/OpenWorld/runtime-07/captures/final_return.png",
+      "sha256": "dd1514c3d5d83d6388bde85382abdae1e6e0aed078f889ff5ca412f180284fec",
+      "observation": "Player and persistent encounter presentation remain readable after defeat reconstruction and relocation retry; HUD retains health 93 and ammo 58."
+    }
+  ],
+  "limits": "Connected streaming blockout only; no final city identity, horizon art, character art, lighting grade or AAA shipping visual acceptance."
+}

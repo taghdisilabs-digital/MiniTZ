@@ -1,6 +1,7 @@
 // Copyright Biella Games. All Rights Reserved.
 
 #include "BiellaDemoObjectiveManager.h"
+#include "BiellaWorldContinuity.h"
 
 #include "BiellaDemoPawn.h"
 #include "BiellaGamesCharacter.h"
@@ -154,7 +155,8 @@ void ABiellaDemoObjectiveManager::RegisterCurrentInfected()
     for (AActor* Actor : CurrentInfected)
     {
         ABiellaInfected* Infected = Cast<ABiellaInfected>(Actor);
-        if (IsValid(Infected) && !TrackedInfected.Contains(Infected))
+        if (IsValid(Infected) && !Infected->IsA<ABiellaStreamingInfected>() &&
+            !TrackedInfected.Contains(Infected))
         {
             TrackedInfected.Add(Infected);
             TargetCount = TrackedInfected.Num();

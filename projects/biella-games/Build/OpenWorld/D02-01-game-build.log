@@ -1,0 +1,28 @@
+Setting up bundled DotNet SDK
+Running command : dotnet Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll BiellaGames Linux Development /root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject -WaitMutex -NoUBA -NoHotReloadFromIDE
+Log file: /home/unreal/.config/Epic/UnrealBuildTool/Log.txt
+Determining max actions to execute in parallel (15 physical cores, 15 logical cores)
+  Executing up to 15 processes, one per physical core
+Failed to read makefile /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGames/Development/Makefile.bin: Access to the path '/root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGames/Development/Makefile.bin' is denied.
+UbaStorageServer - FileMapping backing: memfd
+Creating makefile for BiellaGames (couldn't read existing makefile)
+UbaSessionServer - Disable remote execution (remote sessions will finish current processes)
+Unable to read /root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/UnrealGame/Development/DependencyCache.bin. See log for additional information.
+Unhandled exception: IOException: Permission denied
+Wrapped by UnauthorizedAccessException: Access to the path '/opt/unreal/UE_5.8.2/Engine/Intermediate/Build/Linux/UnrealGame/Inc/CoreUObject/VerseVMBytecode' is denied.
+   at System.IO.FileSystem.CreateDirectory(String fullPath, UnixFileMode unixCreateMode)
+   at System.IO.Directory.CreateDirectory(String path)
+   at EpicGames.Core.DirectoryReference.CreateDirectory(DirectoryReference location)
+   at UnrealBuildTool.UEBuildTarget.RunCodeGen(BuildConfiguration BuildConfiguration, List`1 contexts, ILogger Logger)
+   at UnrealBuildTool.BuildMode.<>c__DisplayClass25_1.<CreateMakefiles>b__2(KeyValuePair`2 kv)
+   at UnrealBuildBase.Parallel2.<>c__DisplayClass0_0`1.<ForEach>g__WorkerLoop|0()
+--- End of stack trace from previous location ---
+   at UnrealBuildBase.Parallel2.ForEach[TSource](IEnumerable`1 source, Action`1 body, Int32 helperCount, Boolean useTasks)
+   at UnrealBuildTool.BuildMode.CreateMakefiles(BuildConfiguration buildConfiguration, List`1 descriptors, ISourceFileWorkingSet workingSet, ILogger logger, Boolean runInitScripts, Boolean skipPreBuildTargets, List`1 outTasks, CppDependencyCache cppDependencyCache, FileHashCache fileHashCache)
+   at UnrealBuildTool.BuildMode.ExecuteAsync(CommandLineArguments Arguments, ILogger Logger)
+   at UnrealBuildTool.BuildMode.ExecuteAsync(CommandLineArguments Arguments, ILogger Logger)
+   at UnrealBuildTool.UnrealBuildTool.Main(String[] ArgumentsArray)
+
+Result: Failed (OtherCompilationError)
+Total execution time: 2.09 seconds
+Trace written to file /home/unreal/.config/Epic/UnrealBuildTool/Trace.uba with size 1.8kb

@@ -75,7 +75,7 @@ void ABiellaInfected::ApplyArenaPressure(const ABiellaGamesGameState& State)
 void ABiellaInfected::SetPreferredTarget(ABiellaDemoPawn* Target)
 {
     CurrentTarget = !IsDefeated() && IsValid(Target) && Target != this &&
-        !Target->IsDefeated() && Target->GetTeam() != GetTeam() ? Target : nullptr;
+        Target->CanParticipateInCombat() && Target->GetTeam() != GetTeam() ? Target : nullptr;
     bChaseLogged = false;
 }
 
@@ -92,7 +92,7 @@ ABiellaDemoPawn* ABiellaInfected::ChooseTarget() const
     for (AActor* Candidate : Candidates)
     {
         ABiellaDemoPawn* Pawn = Cast<ABiellaDemoPawn>(Candidate);
-        if (!IsValid(Pawn) || Pawn == this || Pawn->IsDefeated() || Pawn->GetTeam() == GetTeam())
+        if (!IsValid(Pawn) || Pawn == this || !Pawn->CanParticipateInCombat() || Pawn->GetTeam() == GetTeam())
         {
             continue;
         }
@@ -115,7 +115,7 @@ void ABiellaInfected::Tick(float DeltaTime)
         return;
     }
     ABiellaDemoPawn* Target = CurrentTarget;
-    if (!IsValid(Target) || Target == this || Target->IsDefeated() || Target->GetTeam() == GetTeam() ||
+    if (!IsValid(Target) || Target == this || !Target->CanParticipateInCombat() || Target->GetTeam() == GetTeam() ||
         FVector::DistSquared(GetActorLocation(), Target->GetActorLocation()) > FMath::Square(AggroRange))
     {
         Target = ChooseTarget();
@@ -154,7 +154,7 @@ void ABiellaInfected::Tick(float DeltaTime)
 bool ABiellaInfected::TryMeleeTarget(ABiellaDemoPawn* Target)
 {
     if (!IsValid(Target) || Target == this || Target->GetTeam() == GetTeam() ||
-        Target->IsDefeated() || IsDefeated() || !GetWorld() || AttackCooldownRemaining > 0.0f ||
+        !Target->CanParticipateInCombat() || !CanParticipateInCombat() || !GetWorld() || AttackCooldownRemaining > 0.0f ||
         !FMath::IsFinite(AttackRange) || AttackRange <= 0.0f ||
         !FMath::IsFinite(AttackDamage) || AttackDamage <= 0.0f ||
         !FMath::IsFinite(AttackCooldown) || AttackCooldown <= 0.0f ||

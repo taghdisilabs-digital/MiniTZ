@@ -1,0 +1,46 @@
+{
+  "task_id": "D02-01",
+  "scope": "Bounded Python rejection checks; temporary copies only, original runtime evidence unchanged.",
+  "result": "PASS",
+  "checks": [
+    {
+      "check": "ordinary_log_control",
+      "result": "PASS"
+    },
+    {
+      "check": "observed_missing_instancing_usage",
+      "result": "PASS",
+      "observed_rejection": "Runtime substituted a fallback material instead of authored world/HLOD presentation"
+    },
+    {
+      "check": "legacy_instancing_usage_form",
+      "result": "PASS",
+      "observed_rejection": "Runtime substituted a fallback material instead of authored world/HLOD presentation"
+    },
+    {
+      "check": "fallback_substitution_form",
+      "result": "PASS",
+      "observed_rejection": "Runtime substituted a fallback material instead of authored world/HLOD presentation"
+    },
+    {
+      "check": "runtime06_rejected_by_new_required_event",
+      "result": "PASS",
+      "observed_rejection": "Missing observed initial_shaders_ready"
+    },
+    {
+      "check": "incorrect_reported_frame_percentile",
+      "result": "PASS",
+      "observed_rejection": "Incorrect p95 wall statistic"
+    },
+    {
+      "check": "player_health_discontinuity",
+      "result": "PASS",
+      "observed_rejection": "Player health changed during streaming"
+    },
+    {
+      "check": "missing_streamed_state_restoration",
+      "result": "PASS",
+      "observed_rejection": "Missing restores evidence"
+    }
+  ]
+}

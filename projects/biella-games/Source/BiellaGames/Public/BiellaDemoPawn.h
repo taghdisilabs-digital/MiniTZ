@@ -61,6 +61,12 @@ public:
     UFUNCTION(BlueprintCallable, Category="Demo01|Pawn")
     bool IsDefeated() const { return bDefeated; }
 
+    bool IsWorldDormant() const { return bWorldDormant; }
+    // RemovedFromWorld may retain the UObject through another actor's weak or
+    // strong target pointer. Its actor lifecycle still excludes it from combat.
+    bool CanParticipateInCombat() const { return HasActorBegunPlay() && !bDefeated && !bWorldDormant; }
+    void SetWorldDormant(bool bDormant);
+
     UFUNCTION(BlueprintCallable, Category="Demo01|Pawn")
     float GetHealth() const { return Health; }
 
@@ -88,6 +94,11 @@ protected:
     TObjectPtr<UMaterialInstanceDynamic> BodyMaterial;
 
     bool bDefeated = false;
+    bool bWorldDormant = false;
+    bool bBeforeDormancyHidden = false;
+    bool bBeforeDormancyCollision = false;
+    bool bBeforeDormancyTick = false;
+    bool bBeforeDormancyMovementTick = false;
     float CombatFlashRemaining = 0.0f;
     FLinearColor TeamDisplayColor = FLinearColor::White;
 };

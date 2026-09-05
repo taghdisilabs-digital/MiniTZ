@@ -1,0 +1,47 @@
+{
+  "task_id": "D02-01",
+  "result": "PASS",
+  "scope": "Non-editor Linux Development BiellaGames module compilation using exact UBT-generated unity source and compiler response; no full Game relink or new package qualification",
+  "returncode": 0,
+  "started_utc": "2026-09-05T22:53:47.788918+00:00",
+  "finished_utc": "2026-09-05T22:54:08.809579+00:00",
+  "command": [
+    "runuser",
+    "-u",
+    "unreal",
+    "--",
+    "/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin/clang++",
+    "@/root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGames/Development/BiellaGames/Module.BiellaGames.cpp.o.rsp"
+  ],
+  "working_directory": "/opt/unreal/UE_5.8.2/Engine/Source",
+  "installed_marker_restored": true,
+  "files": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGames/Development/BiellaGames/Module.BiellaGames.cpp.o.rsp",
+      "sha256": "5d5f507774f732624819138e3f0eb23d86436c85c2c73235b81aebb298f79d52",
+      "bytes": 3099
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGames/Development/BiellaGames/BiellaGames.Shared.rsp",
+      "sha256": "b6d27404b7d38143af67175f669360829c5dae8094a8ad9c522ef0c04a8c3f8d",
+      "bytes": 13686
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGames/Development/BiellaGames/Definitions.BiellaGames.h",
+      "sha256": "185be1f34d703350eb449c3cf09e11c40ecb540a4b0cd55c62f299441c693a79",
+      "bytes": 3166
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGames/Development/BiellaGames/Module.BiellaGames.cpp",
+      "sha256": "07ed1310b2b81a7a5e9ccfc82effa4b778bcdaa1f762b44a904bb706412e010d",
+      "bytes": 6687
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Intermediate/Build/Linux/x64/BiellaGames/Development/BiellaGames/Module.BiellaGames.cpp.o",
+      "sha256": "e792a052bfdc7197e7e16e617a8f801ba180bf518743e84217571da6621c748a",
+      "bytes": 7789352
+    }
+  ],
+  "input_archive": "Build/OpenWorld/game-module-inputs",
+  "full_game_link": "NOT_QUALIFIED: unrelated local engine source dependencies missing; optional rebuild stopped; see acceptance report"
+}

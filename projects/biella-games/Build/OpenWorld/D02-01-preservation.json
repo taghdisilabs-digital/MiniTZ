@@ -1,0 +1,59 @@
+{
+  "task_id": "D02-01",
+  "result": "PASS",
+  "starting_head": "361adc7e8486d493085372d1d1d22568c2423c9b",
+  "precommit_head": "fcc3957efc4ed0c79c42a0cde1eb29233e487d22",
+  "concurrent_head_changes": [
+    "docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md",
+    "docs/project-state/BIELLA_DURABLE_SOURCE_AND_SYNC_RULES.md",
+    "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md",
+    "ops/control_gateway/biella_control_gateway.py",
+    "ops/control_gateway/biella_control_main.py",
+    "ops/control_gateway/biella_control_runner.py",
+    "ops/local-ai/biella_codex_routing.py",
+    "ops/local-ai/biella_memory_compactor.py",
+    "ops/local-ai/biella_production_events.py",
+    "ops/local-ai/biella_production_runner.py",
+    "ops/local-ai/biella_task_packet.py",
+    "ops/local-ai/install-biella-ai.sh",
+    "ops/workstation/AGENTS.md",
+    "ops/workstation/biella-resource.py",
+    "ops/workstation/provider-registry.json",
+    "projects/biella-games/AGENTS.md",
+    "tests/test_codex_routing.py",
+    "tests/test_control_gateway.py",
+    "tests/test_control_runner.py",
+    "tests/test_execution_policy_law.py",
+    "tests/test_memory_compactor.py",
+    "tests/test_production_events.py",
+    "tests/test_production_runner.py",
+    "tests/test_resource_router.py",
+    "tests/test_task_packet.py",
+    "website/AGENTS.md",
+    "website/docs/CONTROL_CONSOLE_GATEWAY_CONTRACT.md",
+    "website/src/control/app.js",
+    "website/src/control/styles.css",
+    "website/tests/test_control_contracts.py"
+  ],
+  "protected": [
+    {
+      "path": "docs/project-state/03_BIELLA_CURRENT_STATE.md",
+      "sha256": "f1f0305077a6fd49be38d7209ba5eb297ba8f3f73835f0b011475f0dac463bf2",
+      "byte_equal_to_starting_head": true
+    },
+    {
+      "path": "docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+      "sha256": "37ddf9e7658ca3a3df288afc9068482e4968b8be79d1cfd13b3af0db337350d6",
+      "byte_equal_to_starting_head": true
+    },
+    {
+      "path": "projects/biella-games/docs/PRODUCTION.md",
+      "sha256": "959be0542bf7d024be8a157525626cdfe8c5612f4284d8ae2665d0d73c3e2880",
+      "byte_equal_to_starting_head": true
+    }
+  ],
+  "Engine_P4_06": "INCOMPLETE_DEFERRED",
+  "predecessor_preservation": "All previously tracked Content, Config and Build/Demo01 files remain unchanged against starting HEAD. New Content is confined to D02 map, external actors/objects, authoring script and OpenWorld assets.",
+  "concurrent_changes": "Concurrent controller, website and policy commits are preserved. The D02 commit explicitly stages only its implementation, assets, tests, documentation and evidence.",
+  "publication": "Latest resume requires configured canonical publication/readback. Destination is existing origin main (patrickminitz-web/biella-engine); exact commit/tree/path readback will follow commit. Canonical state transition remains owned by Auto Feeder. No Drive-maintained authority record is changed by this task."
+}

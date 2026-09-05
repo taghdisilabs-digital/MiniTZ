@@ -97,12 +97,15 @@ void ABiellaDemoPawn::BuildRolePresentation()
         UStaticMeshComponent* Detail = NewObject<UStaticMeshComponent>(this, FName(Name));
         AddInstanceComponent(Detail);
         Detail->SetupAttachment(Collision.Get());
+        // SetStaticMesh can queue navigation data before RegisterComponent.
+        // Exclude cosmetics first, or their initial identity transform leaves
+        // stale cube/sphere obstacles at the world origin.
+        Detail->SetCanEverAffectNavigation(false);
+        Detail->SetCollisionEnabled(ECollisionEnabled::NoCollision);
         Detail->SetStaticMesh(Mesh);
         Detail->SetRelativeLocation(Position);
         Detail->SetRelativeScale3D(Scale);
         Detail->SetRelativeRotation(Rotation);
-        Detail->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-        Detail->SetCanEverAffectNavigation(false);
         Detail->SetMaterial(0, Material);
         Detail->ComponentTags.Add(TEXT("D01RoleDetail"));
         Detail->RegisterComponent();
@@ -156,10 +159,37 @@ float ABiellaDemoPawn::TakeDamage(float DamageAmount, const FDamageEvent& Damage
     return ApplyDemoDamage(DamageAmount, DamageCauser, TEXT("engine"));
 }
 
+void ABiellaDemoPawn::SetWorldDormant(bool bDormant)
+{
+    if (bDormant == bWorldDormant) { return; }
+    bWorldDormant = bDormant;
+    if (bDormant)
+    {
+        bBeforeDormancyHidden = IsHidden();
+        bBeforeDormancyCollision = GetActorEnableCollision();
+        bBeforeDormancyTick = IsActorTickEnabled();
+        bBeforeDormancyMovementTick = PawnMovement->IsComponentTickEnabled();
+        SetActorHiddenInGame(true);
+        SetActorEnableCollision(false);
+        SetActorTickEnabled(false);
+        PawnMovement->StopMovementImmediately();
+        PawnMovement->SetComponentTickEnabled(false);
+    }
+    else
+    {
+        SetActorHiddenInGame(bBeforeDormancyHidden || IsDefeated());
+        SetActorEnableCollision(bBeforeDormancyCollision && !IsDefeated());
+        SetActorTickEnabled(bBeforeDormancyTick && !IsDefeated());
+        PawnMovement->SetComponentTickEnabled(bBeforeDormancyMovementTick && !IsDefeated());
+    }
+    UE_LOG(LogTemp, Display, TEXT("D02_STREAM ENCOUNTER_RESIDENCY actor=%s dormant=%d health=%.1f"),
+        *GetName(), bDormant, Health);
+}
+
 float ABiellaDemoPawn::ApplyDemoDamage(float DamageAmount, AActor* DamageCauser,
     const FString& DamageTag)
 {
-    if (bDefeated || !FMath::IsFinite(DamageAmount) || DamageAmount <= 0.0f)
+    if (!CanParticipateInCombat() || !FMath::IsFinite(DamageAmount) || DamageAmount <= 0.0f)
     {
         return 0.0f;
     }
@@ -218,6 +248,7 @@ void ABiellaDemoPawn::SetDisplayColor(const FLinearColor& Color)
 
 float ABiellaDemoPawn::MoveTowardLocation(const FVector& Target, float DeltaTime)
 {
+    if (!CanParticipateInCombat()) { return 0.0f; }
     const FVector FlatTarget(Target.X, Target.Y, GetActorLocation().Z);
     const FVector Offset = FlatTarget - GetActorLocation();
     if (Offset.IsNearlyZero())

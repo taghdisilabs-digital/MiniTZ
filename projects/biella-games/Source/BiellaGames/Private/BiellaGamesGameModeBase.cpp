@@ -1,4 +1,5 @@
 #include "BiellaGamesGameModeBase.h"
+#include "BiellaWorldContinuity.h"
 
 #include "BasicWorldGeometry.h"
 #include "BiellaGamesCharacter.h"
@@ -254,7 +255,8 @@ void ABiellaGamesGameModeBase::SpawnDemoActors()
     for (AActor* Actor : Existing)
     {
         if (ABiellaInfected* Infected = Cast<ABiellaInfected>(Actor);
-            IsValid(Infected) && !Infected->IsActorBeingDestroyed())
+            IsValid(Infected) && !Infected->IsActorBeingDestroyed() &&
+            !Infected->IsA<ABiellaStreamingInfected>())
         {
             InfectedActors.AddUnique(Infected);
             if (!Infected->ActorHasTag(TEXT("D01PressureReinforcement")))

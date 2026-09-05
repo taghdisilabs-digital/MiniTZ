@@ -29,7 +29,7 @@ protected:
 public:
     virtual void Tick(float DeltaTime) override;
     virtual void PostLogin(APlayerController* NewPlayer) override;
-    void SpawnBasicWorldGeometry();
+    virtual void SpawnBasicWorldGeometry();
     void SpawnDemoActors();
     void HandlePlayerDefeat(ABiellaGamesCharacter* Player, const FString& Reason);
     void RequestRestart();

@@ -1,0 +1,59 @@
+{
+  "task_id": "D02-01",
+  "result": "PASS",
+  "frames": 12362,
+  "wall_seconds": 166.04521261400077,
+  "visible_cell_loads": 51,
+  "visible_cell_unloads": 39,
+  "frame_wall_ms_p95": 15.713864006102085,
+  "frame_wall_ms_p99": 16.861061041709036,
+  "peak_process_resident_bytes": 2995851264,
+  "capture_status": "GENERATED_DRAFT",
+  "files": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/OpenWorld/runtime-07/streaming.json",
+      "size_bytes": 1142,
+      "sha256": "24f012db9a34a209db5b88ce1117c313cdeba3911a6f9fb73921cf00f3988e8d"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/OpenWorld/runtime-07/frames.csv",
+      "size_bytes": 1237497,
+      "sha256": "1ec84658c408203741e4ed2aa63b43195e4c1bececa79fe116533a29c633a5dd"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/OpenWorld/runtime-07/events.log",
+      "size_bytes": 7183,
+      "sha256": "06d85974296a4bfeb99ba15fd97fc911c65d8eec3176bf9b1c559ae0d0cf99a6"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/OpenWorld/runtime-07/captures/street_start.png",
+      "size_bytes": 953489,
+      "sha256": "93a72bbb010e48f2a5f63c9345ccb4a2a2314d026d6258c0da09ba34e79badee"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/OpenWorld/runtime-07/captures/interior.png",
+      "size_bytes": 815854,
+      "sha256": "03bf544f5d4be2071a13c587a911eca7513aab590cb6900a7f16719167c804b9"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/OpenWorld/runtime-07/captures/terrace.png",
+      "size_bytes": 889807,
+      "sha256": "e34691904eb8d5f3a665517312a3b4b3170310f87a74e642a6d6f9d56ea78321"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/OpenWorld/runtime-07/captures/distant_region.png",
+      "size_bytes": 893927,
+      "sha256": "39ce836e64d1b8b02f269ef6628291282c1fae4c9a0c05e268752d1e7532f025"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/OpenWorld/runtime-07/captures/injury_return.png",
+      "size_bytes": 910833,
+      "sha256": "e4ecfb9998938aed07289d8d9dd58ed73ea717039a4eacde3aeba22996525974"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/OpenWorld/runtime-07/captures/final_return.png",
+      "size_bytes": 911378,
+      "sha256": "dd1514c3d5d83d6388bde85382abdae1e6e0aed078f889ff5ca412f180284fec"
+    }
+  ]
+}
