@@ -1,0 +1,95 @@
+Setting up bundled DotNet SDK
+Running command : dotnet Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll BiellaGamesEditor Linux Development -Project=/root/biella/repos/biella-games/BiellaGames.uproject -WaitMutex -NoUBA -NoHotReloadFromIDE -NoUBTMakefiles
+Failed to create shm /uba_01 after getting lock-file /tmp/uba_shm_locks/01 (File exists)
+Log file: /home/unreal/.config/Epic/UnrealBuildTool/Log.txt
+Determining max actions to execute in parallel (15 physical cores, 15 logical cores)
+  Executing up to 15 processes, one per physical core
+Using 'git status' to determine working set for adaptive non-unity build (/root/biella/repos/biella-games).
+UbaStorageServer - FileMapping backing: memfd
+UbaSessionServer - Disable remote execution (remote sessions will finish current processes)
+Invalidating makefile for BiellaGamesEditor (source file added)
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Core/SharedDefinitions.Core.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Core/SharedPCH.Core.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Core/SharedPCH.Core.Cpp20.h.gch.rsp!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/CoreUObject/SharedDefinitions.CoreUObject.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/CoreUObject/SharedPCH.CoreUObject.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/CoreUObject/SharedPCH.CoreUObject.Cpp20.h.gch.rsp!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/CoreUObject/SharedDefinitions.CoreUObject.RTTI.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/CoreUObject/SharedPCH.CoreUObject.RTTI.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/CoreUObject/SharedPCH.CoreUObject.RTTI.Cpp20.h.gch.rsp!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Slate/SharedDefinitions.Slate.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Slate/SharedPCH.Slate.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Slate/SharedPCH.Slate.Cpp20.h.gch.rsp!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Engine/SharedDefinitions.Engine.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Engine/SharedPCH.Engine.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Engine/SharedPCH.Engine.Cpp20.h.gch.rsp!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Engine/SharedDefinitions.Engine.Project.ValApi.ValExpApi.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Engine/SharedPCH.Engine.Project.ValApi.ValExpApi.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/Engine/SharedPCH.Engine.Project.ValApi.ValExpApi.Cpp20.h.gch.rsp!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/UnrealEd/SharedDefinitions.UnrealEd.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/UnrealEd/SharedPCH.UnrealEd.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/UnrealEd/SharedPCH.UnrealEd.Cpp20.h.gch.rsp!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/UnrealEd/SharedDefinitions.UnrealEd.Project.ValApi.ValExpApi.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.h!
+FileHashCache - There is no partition covering path to /root/biella/repos/biella-games/Intermediate/Build/Linux/x64/BiellaGamesEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.h.gch.rsp!
+UHT compiled-in object format Default
+Building BiellaGamesEditor...
+===== Toolchain Information =====
+Using ISPC compiler (/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/Intel/ISPC/bin/Linux/ispc)
+  Intel(r) Implicit SPMD Program Compiler (Intel(r) ISPC), 1.24.0 (build commit  @ 20240919, LLVM 18.1.6)
+Using Clang compiler 20.1.8 (/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin/clang++)
+  clang version 20.1.8 (github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261) Target: x86_64-unknown-linux-gnu Thread model: posix InstalledDir: /opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin
+Using Clang archiver (/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin/llvm-ar)
+  LLVM (http://llvm.org/):   LLVM version 20.1.8   Optimized build.
+Using toolchain located at '/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu'
+Using bundled libc++ standard C++ library.
+Compressing debug files
+=================================
+Using Unreal Build Accelerator local executor to run 5 action(s)
+  CPU 15 physical cores, 15 logical cores
+  Memory 86.31 GB physical, 4.22 GB/75.15 GB committed
+  UBA Storage capacity 40 GB
+[1/5] Compile BiellaGamesCharacter.cpp [NoUba]
+/root/biella/repos/biella-games/Source/BiellaGames/Private/BiellaGamesCharacter.cpp:17:33: error: no viable conversion from 'TObjectPtr<UCapsuleComponent>' to 'USceneComponent *'
+   17 |     CameraBoom->SetupAttachment(Collision);
+      |                                 ^~~~~~~~~
+/opt/unreal/UE_5.8.2/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectPtr.h:722:28: note: candidate function
+  722 |     [[nodiscard]] FORCEINLINE operator T* () const 
+      |                               ^
+/opt/unreal/UE_5.8.2/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectPtr.h:728:37: note: explicit conversion function is not a candidate
+  728 |     [[nodiscard]] explicit FORCEINLINE operator U* () const 
+      |                                        ^
+/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Engine/Classes/Components/SceneComponent.h:734:51: note: passing argument to parameter 'InParent' here
+  734 |     ENGINE_API void SetupAttachment(USceneComponent* InParent, FName InSocketName = NAME_None);
+      |                                                      ^
+/root/biella/repos/biella-games/Source/BiellaGames/Private/BiellaGamesCharacter.cpp:27:33: error: no viable conversion from 'TObjectPtr<UCapsuleComponent>' to 'USceneComponent *'
+   27 |     WeaponMesh->SetupAttachment(Collision);
+      |                                 ^~~~~~~~~
+/opt/unreal/UE_5.8.2/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectPtr.h:722:28: note: candidate function
+  722 |     [[nodiscard]] FORCEINLINE operator T* () const 
+      |                               ^
+/opt/unreal/UE_5.8.2/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectPtr.h:728:37: note: explicit conversion function is not a candidate
+  728 |     [[nodiscard]] explicit FORCEINLINE operator U* () const 
+      |                                        ^
+/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Engine/Classes/Components/SceneComponent.h:734:51: note: passing argument to parameter 'InParent' here
+  734 |     ENGINE_API void SetupAttachment(USceneComponent* InParent, FName InSocketName = NAME_None);
+      |                                                      ^
+2 errors generated.
+[2/5] Compile BiellaDemoPawn.cpp [NoUba]
+/root/biella/repos/biella-games/Source/BiellaGames/Private/BiellaDemoPawn.cpp:31:5: error: a type specifier is required for all declarations
+   31 |     AutoPossessPlayer = EAutoReceiveInput::Disabled;
+      |     ^
+/root/biella/repos/biella-games/Source/BiellaGames/Private/BiellaDemoPawn.cpp:32:5: error: a type specifier is required for all declarations
+   32 |     AutoPossessAI = EAutoPossessAI::Disabled;
+      |     ^
+/root/biella/repos/biella-games/Source/BiellaGames/Private/BiellaDemoPawn.cpp:33:1: error: extraneous closing brace ('}')
+   33 | }
+      | ^
+3 errors generated.
+[3/5] Compile BiellaGamesGameModeBase.cpp [NoUba]
+[4/5] Compile Module.BiellaGames.gen.cpp [NoUba]
+Total time in Unreal Build Accelerator local executor: 2.66 seconds
+
+Result: Failed (OtherCompilationError)
+Total execution time: 10.70 seconds
+Trace written to file /home/unreal/.config/Epic/UnrealBuildTool/Trace.uba with size 7.1kb

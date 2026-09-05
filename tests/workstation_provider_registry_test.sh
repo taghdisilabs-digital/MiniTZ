@@ -4,6 +4,8 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CHECK="$ROOT_DIR/ops/workstation/biella-provider-check.sh"
 CONFIG="$ROOT_DIR/ops/workstation/biella-provider-configure.sh"
 INSTALL="$ROOT_DIR/ops/workstation/install-biella-workstation.sh"
+RESOURCE="$ROOT_DIR/ops/workstation/biella-resource.py"
+REGISTRY="$ROOT_DIR/ops/workstation/provider-registry.json"
 
 require_file() { [[ -f "$1" ]] || { echo "missing required artifact: $1" >&2; exit 1; }; }
 require_literal() {
@@ -14,7 +16,7 @@ require_literal() {
   }
 }
 
-for f in "$CHECK" "$CONFIG" "$INSTALL"; do require_file "$f"; done
+for f in "$CHECK" "$CONFIG" "$INSTALL" "$RESOURCE" "$REGISTRY"; do require_file "$f"; done
 for name in \
   CLOUDFLARE_API_TOKEN GROQ_API_KEY CEREBRAS_API_KEY OPENROUTER_API_KEY \
   MISTRAL_API_KEY TAVILY_API_KEY GEMINI_API_KEY BIELLA_GOOGLE_API_KEY EXA_API_KEY \
@@ -39,6 +41,11 @@ done
 
 require_literal "$INSTALL" 'biella-provider-configure'
 require_literal "$INSTALL" 'biella-provider-check'
+require_literal "$INSTALL" 'biella-resource.py'
+require_literal "$INSTALL" 'provider-registry.json'
+for literal in '"paid_allowed": true' '"free_credit_preferred": true' '"tavily"' '"exa"' '"groq"' '"cerebras"' '"deepgram"' '"stabilityai"' '"neon"' '"modal"'; do
+  require_literal "$REGISTRY" "$literal"
+done
 bash -n "$CHECK"
 bash -n "$CONFIG"
 echo 'workstation provider registry: PASS'

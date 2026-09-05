@@ -21,21 +21,20 @@ def main() -> int:
     port = int(os.environ.get("BIELLA_CONTROL_PORT", "8787"))
     static_root = Path(os.environ.get("BIELLA_CONTROL_STATIC_ROOT", "/var/lib/biella-control/site"))
     auth_file = Path(os.environ.get("BIELLA_CONTROL_AUTH_FILE", "/root/.config/biella-control/auth.json"))
-    engine_repo = Path(os.environ.get("BIELLA_CONTROL_ENGINE_REPO", "/root/biella/repos/biella-engine"))
-    games_repo = Path(os.environ.get("BIELLA_CONTROL_GAMES_REPO", "/root/biella/repos/biella-games"))
-    website_workdir = Path(os.environ.get("BIELLA_CONTROL_WEBSITE_WORKDIR", "/root/biella/worktrees/biella-control-live"))
-    website_ref = os.environ.get("BIELLA_CONTROL_WEBSITE_REF", "origin/website")
+    repo = Path(os.environ.get("BIELLA_CONTROL_REPO", "/root/biella/repos/biella-engine"))
+    games_project = repo / "projects" / "biella-games"
+    website_project = repo / "website"
     ttl = int(os.environ.get("BIELLA_CONTROL_SESSION_TTL", "28800"))
 
     if not static_root.is_dir():
         raise SystemExit(f"control static root is missing: {static_root}")
 
     events = EventHub()
-    state = WorkstationState(engine_repo=engine_repo, games_repo=games_repo, website_ref=website_ref)
+    state = WorkstationState(repo=repo)
     asset_catalog = AssetCatalog({
         "Website": [
             AssetRoot("website-generated", Path("/root/biella/artifacts/website"), "GENERATED_DRAFT"),
-            AssetRoot("website-build", website_workdir / "website" / "dist", "CURRENT_BUILD"),
+            AssetRoot("website-build", website_project / "dist", "CURRENT_BUILD"),
         ],
         "Engine": [
             AssetRoot("engine-generated", Path("/root/biella/artifacts/engine"), "GENERATED_DRAFT"),
@@ -43,16 +42,14 @@ def main() -> int:
         ],
         "Games": [
             AssetRoot("games-generated", Path("/root/biella/artifacts/games"), "GENERATED_DRAFT"),
-            AssetRoot("games-visual-output", games_repo / "visual_production" / "outputs", "GENERATED_DRAFT"),
-            AssetRoot("games-content", games_repo / "Content", "CURRENT_SOURCE"),
-            AssetRoot("games-recovery-visuals", Path("/root/spark-biella-games/visual_production/outputs"), "HISTORICAL_RECOVERY"),
-            AssetRoot("games-recovery-content", Path("/root/spark-biella-games/Content"), "HISTORICAL_RECOVERY"),
+            AssetRoot("games-visual-output", games_project / "visual_production" / "outputs", "GENERATED_DRAFT"),
+            AssetRoot("games-content", games_project / "Content", "CURRENT_SOURCE"),
         ],
     })
     runner = ProjectRunner(lane_workdirs={
-        "Website": website_workdir,
-        "Engine": engine_repo,
-        "Games": games_repo,
+        "Website": website_project,
+        "Engine": repo,
+        "Games": games_project,
     })
 
     server = build_server(

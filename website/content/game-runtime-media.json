@@ -1,0 +1,20 @@
+{
+  "schema": "biella.website.game-runtime-media/v1",
+  "lane": "BU-16_GAME_RUNTIME_MEDIA",
+  "status": "OWNER_DIRECTED_ACCEPTED_CONSUMPTION_RULE",
+  "acceptance_authority": "Mahdi Taghdisi",
+  "source_project": "patrickminitz-web/biella-engine",
+  "purpose": "Prevent concept art, generated imagery, trailers, fake HUDs, and non-runtime media from being presented as playable Biella Games evidence.",
+  "publish_gate": [
+    "status == ACCEPTED_RUNTIME_MEDIA",
+    "game_source_commit is exact and remotely readable",
+    "game_source_tree is exact and remotely readable",
+    "runtime_build_id identifies the running build/package",
+    "artifact_sha256 identifies exact media bytes",
+    "origin == REAL_GAME_RUNTIME_CAPTURE",
+    "acceptance_authority == Mahdi Taghdisi"
+  ],
+  "published_items": [],
+  "note": "No current game runtime capture qualifies yet. Empty publication is intentional and truthful.",
+  "source_project_path": "projects/biella-games"
+}

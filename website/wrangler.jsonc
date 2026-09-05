@@ -1,0 +1,9 @@
+{
+  "name": "biella-universe",
+  "compatibility_date": "2026-09-01",
+  "workers_dev": true,
+  "preview_urls": true,
+  "assets": {
+    "directory": "./dist"
+  }
+}

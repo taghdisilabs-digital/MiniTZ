@@ -1,0 +1,51 @@
+{
+  "schema": "biella.control-runtime/v1",
+  "api_base": "/v1/control",
+  "event_path": "/events",
+  "site_host": "control.biellagames.dev",
+  "lanes": [
+    {
+      "id": "Website",
+      "label": "Website",
+      "source": "patrickminitz-web/biella-engine:main#website"
+    },
+    {
+      "id": "Engine",
+      "label": "Engine",
+      "source": "patrickminitz-web/biella-engine:main"
+    },
+    {
+      "id": "Games",
+      "label": "Games",
+      "source": "patrickminitz-web/biella-engine:main#projects/biella-games"
+    }
+  ],
+  "write_authority": "existing Biella control gateway",
+  "operator_role": "operator",
+  "observer_role": "observer",
+  "permitted_actions": [
+    "read_current_state",
+    "send_dialog",
+    "run_approved_capability"
+  ],
+  "excluded_from_active_views": [
+    "legacy",
+    "historical",
+    "superseded",
+    "unverified"
+  ],
+  "local_services": {
+    "qwen": {
+      "endpoint": "http://127.0.0.1:11434",
+      "model": "qwen3-coder-next:biella"
+    },
+    "cloudflare": {
+      "purpose": "external ingress to the gateway",
+      "normal_path": "localhost"
+    },
+    "saturn": {
+      "purpose": "official API or MCP resources",
+      "credential_storage": "root-only runtime configuration"
+    }
+  }
+}

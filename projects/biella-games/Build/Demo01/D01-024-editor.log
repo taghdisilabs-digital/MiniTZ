@@ -1,0 +1,37 @@
+Setting up bundled DotNet SDK
+Running command : dotnet Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll BiellaGamesEditor Linux Development -Project=/root/biella/repos/biella-games/BiellaGames.uproject -WaitMutex -NoUBA -NoHotReloadFromIDE -NoUBTMakefiles
+Failed to create shm /uba_01 after getting lock-file /tmp/uba_shm_locks/01 (File exists)
+Log file: /home/unreal/.config/Epic/UnrealBuildTool/Log.txt
+Determining max actions to execute in parallel (15 physical cores, 15 logical cores)
+  Executing up to 15 processes, one per physical core
+Using 'git status' to determine working set for adaptive non-unity build (/root/biella/repos/biella-games).
+UbaStorageServer - FileMapping backing: memfd
+UbaSessionServer - Disable remote execution (remote sessions will finish current processes)
+UHT compiled-in object format Default
+Building BiellaGamesEditor...
+===== Toolchain Information =====
+Using ISPC compiler (/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/Intel/ISPC/bin/Linux/ispc)
+  Intel(r) Implicit SPMD Program Compiler (Intel(r) ISPC), 1.24.0 (build commit  @ 20240919, LLVM 18.1.6)
+Using Clang compiler 20.1.8 (/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin/clang++)
+  clang version 20.1.8 (github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261) Target: x86_64-unknown-linux-gnu Thread model: posix InstalledDir: /opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin
+Using Clang archiver (/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin/llvm-ar)
+  LLVM (http://llvm.org/):   LLVM version 20.1.8   Optimized build.
+Using toolchain located at '/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu'
+Using bundled libc++ standard C++ library.
+Compressing debug files
+=================================
+Using Unreal Build Accelerator local executor to run 4 action(s)
+  CPU 15 physical cores, 15 logical cores
+  Memory 86.31 GB physical, 4.23 GB/75.15 GB committed
+  UBA Storage capacity 40 GB
+[1/4] Compile BiellaInfected.cpp [NoUba]
+[2/4] Compile BiellaGamesGameModeBase.cpp [NoUba]
+[3/4] Compile Module.BiellaGames.gen.cpp [NoUba]
+[4/4] Link libUnrealEditor-BiellaGames.so [NoUba]
+
+Total time in Unreal Build Accelerator local executor: 3.04 seconds
+Output binary: /opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor
+
+Result: Succeeded
+Total execution time: 9.64 seconds
+Trace written to file /home/unreal/.config/Epic/UnrealBuildTool/Trace.uba with size 3.7kb

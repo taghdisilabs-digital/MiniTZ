@@ -1,0 +1,39 @@
+name: Website CI
+on:
+  push:
+    branches: [website, website-production]
+  pull_request:
+    branches: [website]
+permissions:
+  contents: read
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: website
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v5
+        with: { node-version: '22' }
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.13' }
+      - name: Bind exact source tree
+        run: echo "BIELLA_SOURCE_TREE=$(git rev-parse HEAD^{tree})" >> "$GITHUB_ENV"
+        working-directory: .
+      - run: npm run build
+        env:
+          BIELLA_SOURCE_COMMIT: ${{ github.sha }}
+          BIELLA_SOURCE_TREE: ${{ env.BIELLA_SOURCE_TREE }}
+          BIELLA_SOURCE_BRANCH: ${{ github.ref_name }}
+          BIELLA_DEPLOY_ENV: CI
+          BIELLA_DEPLOYMENT_STATUS: BUILD_QUALIFIED
+      - run: npm test
+      - run: python -m pip install 'playwright==1.57.0'
+      - run: python -m playwright install --with-deps chromium
+      - run: npm run test:browser
+      - uses: actions/upload-artifact@v4
+        with:
+          name: biella-website-dist-${{ github.sha }}
+          path: website/dist
+          if-no-files-found: error

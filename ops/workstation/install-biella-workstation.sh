@@ -31,6 +31,8 @@ install -o root -g root -m 755 \
   "$SOURCE_DIR/biella-lib.sh" \
   "$SOURCE_DIR/biella-provider-configure.sh" \
   "$SOURCE_DIR/biella-provider-check.sh" \
+  "$SOURCE_DIR/biella-resource.py" \
+  "$SOURCE_DIR/provider-registry.json" \
   "$INSTALL_DIR/"
 
 install -d -o root -g root -m 700 /root/.codex

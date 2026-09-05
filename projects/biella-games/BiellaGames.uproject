@@ -1,0 +1,13 @@
+{
+  "FileVersion": 3,
+  "EngineAssociation": "5.8",
+  "Category": "Games",
+  "Description": "Biella Games — Unreal Engine 5.8.2 C++ project bootstrap.",
+  "Modules": [
+    {
+      "Name": "BiellaGames",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ]
+}

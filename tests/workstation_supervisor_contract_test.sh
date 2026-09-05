@@ -31,7 +31,7 @@ forbid_literal() {
 }
 for f in "$CLI" "$LIB" "$INSTALLER" "$SERVICE" "$POLICY" "$PROVIDERS" "$CONFIGURER"; do require_file "$f"; done
 
-for cmd in up down status doctor providers configure modal logs cleanup; do
+for cmd in up down status doctor providers configure resource modal logs cleanup; do
   require_literal "$CLI" "$cmd"
 done
 for obsolete_case in 'agent)' 'work)' 'codex)' 'model)' 'luna)' 'astra)'; do
@@ -56,6 +56,9 @@ require_literal "$LIB" '/v1/responses'
 require_literal "$LIB" '30 * 1024 * 1024 * 1024'
 require_literal "$POLICY" 'Codex chooses local Qwen'
 require_literal "$POLICY" 'one external provider'
+require_literal "$POLICY" 'free/trial/prepaid'
+require_literal "$POLICY" 'paid external Resources'
+require_literal "$POLICY" 'biella resource route'
 require_literal "$POLICY" 'Never print secret values'
 require_literal "$INSTALLER" '/root/.codex/AGENTS.md'
 require_literal "$CLI" 'readlink -f'

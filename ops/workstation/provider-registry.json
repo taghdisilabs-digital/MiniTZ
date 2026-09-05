@@ -1,0 +1,358 @@
+{
+  "policy": {
+    "free_credit_preferred": true,
+    "one_provider_by_default": true,
+    "paid_allowed": true,
+    "quota_probe_forbidden": true
+  },
+  "providers": {
+    "assemblyai": {
+      "capabilities": [
+        "audio.transcribe",
+        "audio.analyze"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "AssemblyAI",
+      "locator_env": [],
+      "required_env": [
+        "ASSEMBLYAI_API_KEY"
+      ]
+    },
+    "axiom": {
+      "capabilities": [
+        "observability.query",
+        "observability.ingest"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "Axiom",
+      "locator_env": [],
+      "required_env": [
+        "AXIOM_API_TOKEN"
+      ]
+    },
+    "cerebras": {
+      "capabilities": [
+        "llm.fast"
+      ],
+      "chat_url": "https://api.cerebras.ai/v1/chat/completions",
+      "cost_class": "credit_or_paid",
+      "default_model": "qwen-3.8-27b",
+      "display_name": "Cerebras",
+      "locator_env": [],
+      "required_env": [
+        "CEREBRAS_API_KEY"
+      ]
+    },
+    "cloudflare": {
+      "capabilities": [
+        "edge.inference",
+        "image.generate",
+        "audio.speech"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "Cloudflare",
+      "locator_env": [
+        "CLOUDFLARE_ACCOUNT_ID"
+      ],
+      "required_env": [
+        "CLOUDFLARE_API_TOKEN"
+      ]
+    },
+    "cloudinary": {
+      "capabilities": [
+        "media.transform",
+        "media.delivery"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "Cloudinary",
+      "locator_env": [
+        "CLOUDINARY_CLOUD_NAME"
+      ],
+      "required_env": [
+        "CLOUDINARY_API_KEY",
+        "CLOUDINARY_API_SECRET"
+      ]
+    },
+    "deepgram": {
+      "capabilities": [
+        "audio.transcribe",
+        "audio.process"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "Deepgram",
+      "locator_env": [],
+      "required_env": [
+        "DEEPGRAM_API_KEY"
+      ]
+    },
+    "elevenlabs": {
+      "capabilities": [
+        "audio.speech"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "ElevenLabs",
+      "locator_env": [],
+      "required_env": [
+        "ELEVENLABS_API_KEY"
+      ]
+    },
+    "endpoint": {
+      "authority": "UNKNOWN_PROVIDER_SEMANTICS",
+      "capabilities": [
+        "custom.endpoint"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "Endpoint",
+      "locator_env": [
+        "ENDPOINT_URL"
+      ],
+      "required_env": [
+        "ENDPOINT_API_KEY"
+      ]
+    },
+    "exa": {
+      "capabilities": [
+        "research.semantic",
+        "research.search"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "Exa",
+      "locator_env": [],
+      "required_env": [
+        "EXA_API_KEY"
+      ],
+      "search_url": "https://api.exa.ai/search"
+    },
+    "groq": {
+      "capabilities": [
+        "llm.fast",
+        "audio.transcribe"
+      ],
+      "chat_url": "https://api.groq.com/openai/v1/chat/completions",
+      "cost_class": "credit_or_paid",
+      "default_model": "qwen/qwen3.8-27b",
+      "display_name": "Groq",
+      "locator_env": [],
+      "required_env": [
+        "GROQ_API_KEY"
+      ]
+    },
+    "mistral": {
+      "capabilities": [
+        "llm.fast",
+        "llm.code"
+      ],
+      "chat_url": "https://api.mistral.ai/v1/chat/completions",
+      "cost_class": "credit_or_paid",
+      "default_model": "mistral-small-latest",
+      "display_name": "Mistral",
+      "locator_env": [],
+      "required_env": [
+        "MISTRAL_API_KEY"
+      ]
+    },
+    "modal": {
+      "capabilities": [
+        "compute.remote"
+      ],
+      "command": "modal",
+      "cost_class": "credit_or_paid",
+      "display_name": "Modal",
+      "locator_env": [],
+      "required_env": []
+    },
+    "neon": {
+      "capabilities": [
+        "database.sql"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "Neon",
+      "locator_env": [],
+      "required_env": [
+        "NEON_API_KEY"
+      ]
+    },
+    "openrouter": {
+      "capabilities": [
+        "llm.fast",
+        "llm.fallback"
+      ],
+      "chat_url": "https://openrouter.ai/api/v1/chat/completions",
+      "cost_class": "credit_or_paid",
+      "default_model": null,
+      "display_name": "OpenRouter",
+      "locator_env": [],
+      "required_env": [
+        "OPENROUTER_API_KEY"
+      ]
+    },
+    "pexels": {
+      "capabilities": [
+        "research.visual"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "Pexels",
+      "locator_env": [],
+      "required_env": [
+        "PEXELS_API_KEY"
+      ]
+    },
+    "pinecone": {
+      "capabilities": [
+        "vector.search",
+        "vector.store"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "Pinecone",
+      "locator_env": [],
+      "required_env": [
+        "PINECONE_API_KEY"
+      ]
+    },
+    "qdrant": {
+      "capabilities": [
+        "vector.search",
+        "vector.store"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "Qdrant",
+      "locator_env": [
+        "QDRANT_URL"
+      ],
+      "required_env": [
+        "QDRANT_API_KEY"
+      ]
+    },
+    "saturn": {
+      "capabilities": [
+        "compute.remote"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "Saturn",
+      "locator_env": [
+        "SATURN_BASE_URL"
+      ],
+      "required_env": [
+        "SATURN_TOKEN"
+      ]
+    },
+    "stabilityai": {
+      "capabilities": [
+        "image.generate"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "Stability AI",
+      "locator_env": [],
+      "required_env": [
+        "STABILITY_API_KEY"
+      ]
+    },
+    "supabase": {
+      "capabilities": [
+        "database.sql",
+        "backend.project"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "Supabase",
+      "locator_env": [
+        "SUPABASE_URL"
+      ],
+      "required_env": [
+        "SUPABASE_PUBLISHABLE_KEY"
+      ]
+    },
+    "tavily": {
+      "capabilities": [
+        "research.search",
+        "web.crawl"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "Tavily",
+      "locator_env": [],
+      "required_env": [
+        "TAVILY_API_KEY"
+      ],
+      "search_url": "https://api.tavily.com/search"
+    },
+    "upstash": {
+      "capabilities": [
+        "cache.ephemeral"
+      ],
+      "cost_class": "credit_or_paid",
+      "display_name": "Upstash",
+      "locator_env": [
+        "UPSTASH_EMAIL"
+      ],
+      "required_env": [
+        "UPSTASH_API_KEY"
+      ]
+    }
+  },
+  "routes": {
+    "audio.speech": [
+      "elevenlabs",
+      "cloudflare"
+    ],
+    "audio.transcribe": [
+      "deepgram",
+      "assemblyai",
+      "groq"
+    ],
+    "cache.ephemeral": [
+      "upstash"
+    ],
+    "compute.remote": [
+      "saturn",
+      "modal"
+    ],
+    "custom.endpoint": [
+      "endpoint"
+    ],
+    "database.sql": [
+      "neon",
+      "supabase"
+    ],
+    "image.generate": [
+      "stabilityai",
+      "cloudflare"
+    ],
+    "llm.code": [
+      "mistral",
+      "groq",
+      "cerebras",
+      "openrouter"
+    ],
+    "llm.fast": [
+      "groq",
+      "cerebras",
+      "mistral",
+      "openrouter"
+    ],
+    "media.transform": [
+      "cloudinary"
+    ],
+    "observability.query": [
+      "axiom"
+    ],
+    "research.search": [
+      "tavily",
+      "exa"
+    ],
+    "research.semantic": [
+      "exa",
+      "tavily"
+    ],
+    "research.visual": [
+      "pexels"
+    ],
+    "vector.search": [
+      "qdrant",
+      "pinecone"
+    ],
+    "vector.store": [
+      "qdrant",
+      "pinecone"
+    ]
+  },
+  "schema": "biella.provider_registry/v1"
+}

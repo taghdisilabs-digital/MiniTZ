@@ -1,0 +1,63 @@
+name: CFNPC-01 Worker Verify Deploy Inference
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "cloudflare/npc-worker/**"
+      - ".github/workflows/cloudflare-npc-worker.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-deploy-infer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Contract tests
+        run: npm test --prefix cloudflare/npc-worker
+      - name: Deploy exact Worker source
+        id: deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          test -n "${CLOUDFLARE_API_TOKEN:-}" || { echo "::error::CLOUDFLARE_API_TOKEN is not configured"; exit 20; }
+          test -n "${CLOUDFLARE_ACCOUNT_ID:-}" || { echo "::error::CLOUDFLARE_ACCOUNT_ID is not configured"; exit 21; }
+          cd cloudflare/npc-worker
+          npx --yes wrangler@4.68.0 deploy 2>&1 | tee deploy.log
+          npx --yes wrangler@4.68.0 deployments status --json > deployment-status.json
+          npx --yes wrangler@4.68.0 versions list --json > versions.json
+          endpoint="$(grep -Eo 'https://[^[:space:]]+\.workers\.dev' deploy.log | tail -n 1 || true)"
+          test -n "$endpoint" || { echo "::error::workers.dev endpoint not found in deploy output"; exit 22; }
+          printf '%s\n' "$endpoint" > endpoint.txt
+          echo "endpoint=$endpoint" >> "$GITHUB_OUTPUT"
+      - name: Real Workers AI inference through deployed endpoint
+        env:
+          ENDPOINT: ${{ steps.deploy.outputs.endpoint }}
+        run: |
+          set -euo pipefail
+          curl --fail-with-body --silent --show-error \
+            -H 'content-type: application/json' \
+            -d '{"schema_version":"biella.npc-decision/v1","request_id":"github-actions-real-inference","npc_id":"rival-ci-001","npc_archetype":"rival_contestant","session_id":"ci-session","current_goal":"survive","perception":{"player_visible":true},"world_state":{"pressure":"low"},"memory_summary":{},"candidate_targets":["player-ci-001"],"allowed_intents":["pursue","evade","investigate"],"decision_context":{"purpose":"deployment qualification"}}' \
+            "$ENDPOINT/v1/npc/decision" > cloudflare/npc-worker/real-inference.json
+          node -e 'const fs=require("fs"); const x=JSON.parse(fs.readFileSync("cloudflare/npc-worker/real-inference.json","utf8")); if(x.schema_version!=="biella.npc-decision/v1") throw Error("schema"); if(x.model!=="@cf/nvidia/nemotron-3-120b-a12b") throw Error("model"); if(!x.decision||x.decision.decision_id!=="github-actions-real-inference") throw Error("decision_id"); if(!["pursue","evade","investigate"].includes(x.decision.intent)) throw Error("intent"); if(x.decision.target_ref!==null&&x.decision.target_ref!=="player-ci-001") throw Error("target"); console.log(JSON.stringify(x));'
+      - name: Publish qualification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfnpc-01-qualification-${{ github.sha }}
+          if-no-files-found: warn
+          path: |
+            cloudflare/npc-worker/deploy.log
+            cloudflare/npc-worker/deployment-status.json
+            cloudflare/npc-worker/versions.json
+            cloudflare/npc-worker/endpoint.txt
+            cloudflare/npc-worker/real-inference.json

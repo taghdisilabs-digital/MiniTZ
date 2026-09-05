@@ -3,7 +3,7 @@
 ## Status
 Research-grounded design for improving the existing Biella/Codex production feeder without creating a second scheduler, queue, memory, controller, or Project authority.
 
-## Live baseline — 2026-09-05
+## Initial design baseline — 2026-09-05 (superseded by current 03/04 during execution)
 - Canonical Engine checkout: `/root/biella/repos/biella-engine`.
 - Observed local/remote `main`: `6485b8c5fefe1cc2be41de57fe2e3d76c39931a1`.
 - Observed tree: `c083044227007ee35a3b501f618f3acbce515764`.
@@ -153,9 +153,65 @@ Operator presentation is production-dense and fast. A proof/showcase presentatio
 19. **AAA-challenger visual system** — replace generic neon dashboard styling with the production-workstation hierarchy above and make real project artifacts first-class.
 20. **Browser qualification** — verify desktop/mobile readability, task/progress comprehension, stale-state behavior, artifact inspection, accessibility, and that no control view invents or duplicates production authority.
 
+## One canonical repository and workspace
+The approved durable Git authority is one repository: `patrickminitz-web/biella-engine`. The canonical checkout remains `/root/biella/repos/biella-engine`; there must be no second active repo under `/root/biella/repos/` after migration.
+
+### Repository ownership
+- Reusable Engine kernel, capabilities, functions, APIs, providers, schemas, universal production knowledge, workstation/controller/feeder, website, and private control console live in the canonical repository.
+- Biella Games remains a Project boundary inside `projects/biella-games/`: Unreal source, content/assets, Project requirements/canon, Games-specific evidence, and game-specific build/package logic stay Project-scoped.
+- Sharing a Git repository never promotes Games-specific semantics into Engine capabilities. Reuse still requires explicit semantic extraction/admission.
+- `capability_preparation` is migration input only. Reusable current material is normalized into Engine; dated research/registries remain reference/evidence; old repository policy files never become active instructions.
+- AAA-SF remains a future blocked program and may be stored under a clearly future/reference namespace, never as a second live queue/controller.
+
+### Progress-preserving migration
+**Hard invariant: do not remove any progress done so far.** Progress includes source changes, completed tasks, partial work, commits, branches, worktrees, artifacts, test/build/runtime evidence, Drive records, recovery material, and provenance. Consolidation may change what is active, but not erase progress.
+
+Before changing active routing for any source, commit/persist every dirty or divergent lane that contains work. Import the newest verified source bytes and evidence into the canonical repository, validate them in the new path, and push/read back the canonical commit. Superseded copies are archived or deactivated from active selection but are not deleted by this migration. A migration must never reset a completed task, overwrite newer work with an older branch, discard historical progress, or infer that a divergent branch is useless from ancestry alone.
+
+### Semantic task deduplication
+New or migrated tasks are compared by objective, write boundary, dependencies, acceptance, and evidence. Exact duplicates become aliases; contained tasks are absorbed; partial overlap becomes shared core plus missing delta; implementation, qualification, and external-proof tasks remain separate when they establish distinct evidence. Completed tasks do not reopen without material invalidation evidence.
+
+### Feeder authority
+The feeder is an executor, not a Project state authority. Durable task/section progress comes from canonical Project/current-state documents in the repository and their Drive identities. Feeder runtime JSON/logs may contain ephemeral cooldowns, attempts, heartbeat, and observed model state only. They must not become a second completion ledger. The automated feeder remains stopped during this consolidation and is restarted only after the new single-repo state path is verified.
+
+### Workspace lifecycle
+Feature worktrees and branches are execution sandboxes, but their completed progress must remain recoverable. On completion, useful work is merged into canonical `main`; superseded worktrees/branches are deactivated from active routing and retained through durable commit/reference or archived snapshot. `/root/spark-biella-games`, `/root/biella/recovery`, `/root/biella/backups`, and similar recovery sources are never treated as active authority after supersession, but this consolidation does not delete them. Preserve all progress, evidence, and provenance unless Mahdi later explicitly authorizes deletion of a specific copy.
+
+### Unified Drive navigation
+Drive keeps one active Biella root. Active navigation is limited to `CURRENT`, `PROJECTS/GAMES`, `OUTPUTS`, and `ARCHIVE`. Preserve existing file IDs when moving/renaming canonicals. Current state and active task live under `CURRENT`; Games Project authority/evidence lives under `PROJECTS/GAMES`; generated/validated outputs live under `OUTPUTS`; superseded progress, recovery, backups, and provenance are moved or labeled under `ARCHIVE` rather than deleted. The active surface is simplified without erasing prior progress.
+
+## Cost-aware external Resource routing
+Mahdi explicitly authorizes use of already activated free tiers, trial credits, prepaid credits, and paid external services when they materially reduce completion time, Codex token use, compute cost, or improve task quality. Cost availability is a Resource property, never a reason to create another controller or workflow.
+
+### Routing invariant
+`biella-codex` remains the single controller. Before spending expensive general-model reasoning, execution should prefer the cheapest sufficient implementation in this order: deterministic/local tool; specialized connected API; fast/low-cost inference provider; high-reasoning Codex model when the task actually requires it. Quality/acceptance requirements override price. Paid use is allowed; there is no artificial prohibition on spending configured service credits.
+
+Provider/model identity remains replaceable `Resource` state. A task asks for semantic capabilities such as `research.search`, `llm.fast`, `audio.transcribe`, `audio.speech`, `image.generate`, `vector.search`, `database.sql`, `cache.ephemeral`, `media.transform`, `compute.remote`, or `observability.query`; routing selects a currently configured implementation.
+
+### Initial connected Resource map
+- Research: Tavily for fresh search/crawl; Exa for semantic/code/paper retrieval; Pexels for external visual-reference discovery only.
+- Fast inference: Groq, Cerebras, Mistral; OpenRouter for unique-model/fallback access; Cloudflare Workers AI when its model/runtime fits.
+- Retrieval: Qdrant and Pinecone as replaceable vector backends; do not duplicate the same durable knowledge into both without task evidence.
+- Audio: Deepgram for low-latency STT/audio processing, AssemblyAI for transcript/diarization analysis, ElevenLabs for production speech, Cloudflare audio adapters as an existing alternative.
+- Visual/media: Stability AI for generation when Project authority permits; Cloudinary for transforms/delivery once its account locator is resolved; Pexels remains reference input rather than canon.
+- Data: Neon for PostgreSQL tasks; Supabase for Project backend/auth/storage only when its project locator is resolved; Upstash for ephemeral cache/rate/coordination only, never canonical progress.
+- Compute: Saturn and Modal as remote compute Resources selected by task requirements.
+- Observability: Axiom when its configured token/permissions support the required query/ingest operation.
+
+### Resource registry and dispatcher
+Expose one compact machine-readable registry plus one `biella resource` dispatcher. The registry reports semantic capabilities, configured/connected/needs-locator/restricted state, cost preference (`free_credit_preferred`, `paid_allowed`), and safe provider metadata without credentials. The dispatcher owns provider-specific request formatting and response compaction so task agents do not repeatedly spend tokens reconstructing curl/API syntax or ingesting oversized provider responses.
+
+Initial executable dispatcher operations are deliberately high-leverage: `status`, `route <capability>`, `search` (Tavily/Exa), and `fast-llm` (Groq/Cerebras/Mistral/OpenRouter-compatible providers). Media/audio/vector/database providers are represented immediately in the registry and are added to the same dispatcher when an active task needs that operation; they must not become separate public controllers.
+
+### Cost and evidence
+Routing may use paid services automatically under Mahdi's authorization. Prefer existing free/trial/prepaid balance when observable, but never perform quota-probing calls solely to inspect balances. Record provider, semantic capability, operation, latency, model where applicable, and usage/cost fields when the provider returns them. Provider success is not task acceptance; outputs still require task-derived validation.
+
+### Missing locator rule
+A credential without its required account/project locator is `NEEDS_LOCATOR`, not `CONNECTED`. Search existing authorized configuration for the locator before asking Mahdi. Never infer a locator from a secret. Unknown service names such as the currently ambiguous `Endpoint` remain `UNKNOWN` until an exact configured provider/URL is observable.
+
 ## Non-negotiable integration constraints
 - Do not replace `biella-codex` or add another public controller.
-- Do not create another Games queue/state/progress authority beside `/root/biella/work/games-production.json`.
+- Do not create a durable feeder queue/state/progress authority beside canonical current-state/Project task sources; feeder runtime state is non-authoritative execution telemetry only.
 - Do not move global policy from scoped `AGENTS.md` into every task packet.
 - Do not let packet compilation reopen completed work without material invalidation evidence.
 - Do not let context optimization reduce semantic capability; it changes loading/routing, not what Biella can do.
@@ -164,9 +220,7 @@ Operator presentation is production-dense and fast. A proof/showcase presentatio
 - Do not use historical evidence as current authority.
 
 ## Current-state reconciliation rule
-The checked-in `03_BIELLA_CURRENT_STATE.md` and `04_BIELLA_ACTIVE_TASK.md` still record Engine numbered frontier P4-06, while newer current source also contains the unified workstation/control/feeder implementation and an active Games Demo production document. These facts are not merged into a synthetic claim. Engine numbered-frontier truth and current Games production-controller truth remain separate until authoritative continuity explicitly reconciles them.
-
-This design therefore does not declare P4-06 complete, Foundation complete, or Games Demo complete. It only improves how current and future tasks are described, loaded, executed, measured, and closed.
+Mahdi has now explicitly authorized repository/workflow consolidation. Preserve Engine P4-06 as `INCOMPLETE_DEFERRED`; do not claim it complete. Games Demo execution becomes the active Project frontier during consolidation, with the exact current Demo checkpoint reobserved before each state migration. The unified state must represent both facts without two competing active workflows.
 
 ## Success criteria
 The production-map improvement is successful when:

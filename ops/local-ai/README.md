@@ -23,19 +23,18 @@ Mahdi chooses Codex model/usage. After launch, Codex decides when to use local Q
 The feeder is an internal section of the same controller:
 
 ```bash
-biella-codex feed init
 biella-codex feed sync
 biella-codex feed status
 biella-codex feed start
 biella-codex feed stop
 ```
 
-The feeder has one active durable production document:
+Its one durable production source is:
 
 ```text
-/root/biella/work/games-production.json
+/root/biella/repos/biella-engine/projects/biella-games/docs/PRODUCTION.md
 ```
 
-That document contains Demo 01 plus Stage 2 through Stage 8 as sections, with task completion/evidence stored in the section itself. There is no separate active queue, state file, batch ledger, or model-specific project memory.
+That Project file contains Demo 01 plus Stage 2 through Stage 8, with task completion/evidence stored in each section. Feeder runtime state under `/mnt/biella-extra/biella-runtime/codex-feeder/biella-games-production/` is telemetry only and contains no durable completion ledger.
 
-While another controller owns Demo 01, the feeder can stay active in `WAITING_DEMO_HANDOFF`. It only syncs current Demo completion and performs no Demo task or Unreal launch. When Demo 01 is complete, the same service automatically continues into Stage 2.
+`feed start` resumes the earliest unfinished task from the canonical Project source. `feed stop` stops execution without changing completed Project work. There is no separate active queue, batch ledger, model-specific project memory, or `games-production.json` authority.

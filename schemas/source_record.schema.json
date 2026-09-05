@@ -1,0 +1,136 @@
+{
+  "$id": "https://biellagames.dev/schemas/capability-preparation/source-record/v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "cautions": {
+      "items": {
+        "maxLength": 500,
+        "minLength": 8,
+        "type": "string"
+      },
+      "maxItems": 16,
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "checked_at": {
+      "format": "date",
+      "type": "string"
+    },
+    "creator_or_org": {
+      "maxLength": 160,
+      "minLength": 2,
+      "type": "string"
+    },
+    "display_name": {
+      "maxLength": 240,
+      "minLength": 3,
+      "type": "string"
+    },
+    "domains": {
+      "items": {
+        "pattern": "^[a-z][a-z0-9_]+$",
+        "type": "string"
+      },
+      "maxItems": 32,
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "entity_kind": {
+      "pattern": "^[A-Z][A-Z0-9_]+$",
+      "type": "string"
+    },
+    "evidence_basis": {
+      "items": {
+        "maxLength": 500,
+        "minLength": 8,
+        "type": "string"
+      },
+      "maxItems": 12,
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "license_notes": {
+      "maxLength": 800,
+      "minLength": 8,
+      "type": "string"
+    },
+    "not_authoritative_for": {
+      "items": {
+        "maxLength": 300,
+        "minLength": 3,
+        "type": "string"
+      },
+      "maxItems": 12,
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "primary_urls": {
+      "items": {
+        "format": "uri",
+        "pattern": "^https://",
+        "type": "string"
+      },
+      "maxItems": 12,
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "recommended_use": {
+      "items": {
+        "maxLength": 500,
+        "minLength": 8,
+        "type": "string"
+      },
+      "maxItems": 12,
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "source_id": {
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$",
+      "type": "string"
+    },
+    "status": {
+      "const": "VERIFIED_RESEARCH_SOURCE"
+    },
+    "verification_level": {
+      "pattern": "^[A-Z][A-Z0-9_]+$",
+      "type": "string"
+    },
+    "verified_for": {
+      "items": {
+        "maxLength": 500,
+        "minLength": 8,
+        "type": "string"
+      },
+      "maxItems": 16,
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "source_id",
+    "display_name",
+    "creator_or_org",
+    "entity_kind",
+    "domains",
+    "primary_urls",
+    "evidence_basis",
+    "verified_for",
+    "cautions",
+    "recommended_use",
+    "not_authoritative_for",
+    "license_notes",
+    "verification_level",
+    "checked_at",
+    "status"
+  ],
+  "title": "Biella Capability Preparation Verified Research Source",
+  "type": "object"
+}

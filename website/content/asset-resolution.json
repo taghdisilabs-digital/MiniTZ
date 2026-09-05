@@ -1,0 +1,9 @@
+{
+  "schema": "biella.website.asset-resolution/v1",
+  "audit_date": "2026-09-01",
+  "requested_canonical_filenames": 50,
+  "exact_drive_filename_matches": 0,
+  "status": "SOURCE_BYTES_UNRESOLVED",
+  "drive_manifest_id": "11skZ-wCs4fX2dG2Q-OzXAjcFufFX33-8",
+  "rule": "Never promote UUID/generated-image candidates without actual content/digest match."
+}

@@ -1,0 +1,16 @@
+Setting up bundled DotNet SDK
+Running command : dotnet Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll BiellaGames Linux Development -Project=/root/biella/repos/biella-games/BiellaGames.uproject -WaitMutex -NoUBA
+Failed to create shm /uba_01 after getting lock-file /tmp/uba_shm_locks/01 (File exists)
+Log file: /home/unreal/.config/Epic/UnrealBuildTool/Log.txt
+Determining max actions to execute in parallel (15 physical cores, 15 logical cores)
+  Executing up to 15 processes, one per physical core
+Using 'git status' to determine working set for adaptive non-unity build (/root/biella/repos/biella-games).
+Creating makefile for BiellaGames (no existing makefile)
+UbaStorageServer - FileMapping backing: memfd
+UbaSessionServer - Disable remote execution (remote sessions will finish current processes)
+Unable to instantiate module 'UnrealEd': Unable to instantiate UnrealEd module for non-editor targets.
+(referenced via BiellaGames -> BiellaGames.Build.cs)
+
+Result: Failed (RulesError)
+Total execution time: 1.91 seconds
+Trace written to file /home/unreal/.config/Epic/UnrealBuildTool/Trace.uba with size 1.7kb

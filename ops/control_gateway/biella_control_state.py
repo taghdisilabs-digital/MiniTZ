@@ -48,19 +48,19 @@ def read_meminfo() -> dict[str, int]:
 
 
 class WorkstationState:
-    def __init__(self, *, engine_repo: Path, games_repo: Path,
-                 website_ref: str = "origin/website",
+    def __init__(self, *, repo: Path,
                  commands: CommandRunner = run_command,
                  http_json: Callable[[str], dict] = ollama_json,
                  meminfo: Callable[[], dict[str, int]] = read_meminfo):
-        self.engine_repo = Path(engine_repo)
-        self.games_repo = Path(games_repo)
-        self.website_ref = website_ref
+        self.repo = Path(repo)
+        self.games_project = self.repo / "projects" / "biella-games"
         self.commands = commands
         self.http_json = http_json
         self.meminfo = meminfo
 
     def payload(self, route: str, lane: str) -> dict[str, object]:
+        if route == "projection":
+            return self.projection(lane)
         if route == "overview":
             return self.overview(lane)
         if route == "capabilities":
@@ -78,11 +78,9 @@ class WorkstationState:
         raise KeyError(route)
 
     def _repo_ref(self, lane: str) -> tuple[Path, str]:
-        if lane == "Website":
-            return self.engine_repo, self.website_ref
-        if lane == "Engine":
-            return self.engine_repo, "HEAD"
-        return self.games_repo, "HEAD"
+        if lane not in {"Website", "Engine", "Games"}:
+            raise ValueError(f"unknown project context: {lane}")
+        return self.repo, "HEAD"
 
     def _commit_info(self, lane: str) -> dict[str, str]:
         repo, ref = self._repo_ref(lane)
@@ -105,8 +103,16 @@ class WorkstationState:
         paths = [line for line in output.splitlines() if line]
         if lane == "Website":
             paths = [path for path in paths if path.startswith("website/")]
+        elif lane == "Games":
+            paths = [path for path in paths if path.startswith("projects/biella-games/")]
         elif lane == "Engine":
-            paths = [path for path in paths if not path.startswith("website/") and not path.startswith(".github/workflows/website") and not path.startswith(".github/workflows/control-console")]
+            paths = [
+                path for path in paths
+                if not path.startswith("website/")
+                and not path.startswith("projects/biella-games/")
+                and not path.startswith(".github/workflows/website")
+                and not path.startswith(".github/workflows/control-console")
+            ]
         return paths[:limit]
 
     def overview(self, lane: str) -> dict[str, object]:
@@ -119,6 +125,93 @@ class WorkstationState:
             "commit": info["commit"],
             "updated_at": info["updated_at"],
         }
+
+    def _feeder_status(self) -> dict[str, object]:
+        rc, output = self.commands(["/usr/local/bin/biella-codex", "feed", "status"], None, 15)
+        if rc != 0:
+            return {"status": "ERROR", "current_task": None, "completed": 0, "total": 0}
+        try:
+            payload = json.loads(output)
+        except json.JSONDecodeError:
+            return {"status": "ERROR", "current_task": None, "completed": 0, "total": 0}
+        return payload if isinstance(payload, dict) else {"status": "ERROR", "current_task": None, "completed": 0, "total": 0}
+
+    def work(self, lane: str) -> dict[str, object]:
+        if lane != "Games":
+            return {"lane": lane, "current_task": None, "sections": [], "tasks": []}
+        path = self.games_project / "docs" / "PRODUCTION.md"
+        try:
+            lines = path.read_text(encoding="utf-8").splitlines()
+        except OSError:
+            return {"lane": lane, "current_task": None, "sections": [], "tasks": []}
+        current_task = None
+        sections: list[dict[str, object]] = []
+        tasks: list[dict[str, object]] = []
+        current_section: str | None = None
+        for raw in lines:
+            line = raw.strip()
+            if line.startswith("Current task:"):
+                value = line.split(":", 1)[1].strip().strip("`")
+                current_task = None if value in {"NONE", ""} else value
+                continue
+            if line.startswith("## Section:"):
+                parts = [part.strip() for part in line[len("## Section:"):].split("|")]
+                if len(parts) >= 3:
+                    current_section = parts[0]
+                    sections.append({"id": parts[0], "title": parts[1], "status": parts[2]})
+                continue
+            if line.startswith("- [") and " | " in line and current_section:
+                parts = [part.strip() for part in line.split("|")]
+                if len(parts) >= 5:
+                    head = parts[0]
+                    task_id = head.split()[-1]
+                    tasks.append({
+                        "id": task_id, "section": current_section, "class": parts[1],
+                        "title": parts[2], "status": parts[3], "evidence": parts[4],
+                    })
+        return {"lane": lane, "current_task": current_task, "sections": sections, "tasks": tasks}
+
+    def projection(self, lane: str) -> dict[str, object]:
+        info = self._commit_info(lane)
+        feeder = self._feeder_status()
+        control = {
+            "project": lane,
+            "status": feeder.get("status", "ERROR"),
+            "current_section": feeder.get("current_section"),
+            "current_task": feeder.get("current_task"),
+            "completed": feeder.get("completed", 0),
+            "total": feeder.get("total", 0),
+            "active_model": feeder.get("active_model"),
+            "active_reasoning": feeder.get("active_reasoning"),
+            "heartbeat_at": feeder.get("heartbeat_at"),
+            "sections": feeder.get("sections", []),
+            "commit": info["commit"],
+            "updated_at": info["updated_at"],
+        }
+        return {
+            "lane": lane,
+            "control": control,
+            "work": self.work(lane),
+            "outputs": self.files(lane),
+            "system": {
+                "services": self.services(lane).get("items", []),
+                "resources": self.resources(),
+                "hardware": self.hardware(lane),
+                "workers": self.workers(lane).get("items", []),
+            },
+        }
+
+
+    def resources(self) -> list[dict[str, object]]:
+        rc, output = self.commands(["/usr/local/bin/biella", "resource", "status"], None, 20)
+        if rc != 0:
+            return []
+        try:
+            payload = json.loads(output)
+        except json.JSONDecodeError:
+            return []
+        items = payload.get("providers", []) if isinstance(payload, dict) else []
+        return [item for item in items if isinstance(item, dict)]
 
     def capabilities(self, lane: str) -> dict[str, object]:
         descriptions = {

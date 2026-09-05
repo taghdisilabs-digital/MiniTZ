@@ -12,10 +12,7 @@ Environment=BIELLA_CONTROL_HOST=127.0.0.1
 Environment=BIELLA_CONTROL_PORT=8787
 Environment=BIELLA_CONTROL_STATIC_ROOT=/var/lib/biella-control/site
 Environment=BIELLA_CONTROL_AUTH_FILE=/root/.config/biella-control/auth.json
-Environment=BIELLA_CONTROL_ENGINE_REPO=/root/biella/repos/biella-engine
-Environment=BIELLA_CONTROL_GAMES_REPO=/root/biella/repos/biella-games
-Environment=BIELLA_CONTROL_WEBSITE_WORKDIR=/root/biella/worktrees/biella-control-live
-Environment=BIELLA_CONTROL_WEBSITE_REF=origin/website
+Environment=BIELLA_CONTROL_REPO=/root/biella/repos/biella-engine
 ExecStart=/usr/bin/python3 /usr/local/lib/biella-control/biella_control_main.py
 Restart=on-failure
 RestartSec=3

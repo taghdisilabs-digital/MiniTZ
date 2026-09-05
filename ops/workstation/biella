@@ -17,6 +17,7 @@ Commands:
   doctor     Run workstation diagnostics
   providers  Check configured external providers
   configure  Update provider credentials with hidden prompts
+  resource   Route/use configured Biella external Resources
   modal      Run Modal CLI with Biella environment
   logs       Show recent Biella service logs
   cleanup    Remove known temporary Biella runtime noise
@@ -61,6 +62,9 @@ case "$command_name" in
     ;;
   configure)
     exec "$SCRIPT_DIR/biella-provider-configure.sh" "$@"
+    ;;
+  resource)
+    exec python3 "$SCRIPT_DIR/biella-resource.py" "$@"
     ;;
   modal)
     biella_exec_or_fail modal "$@"

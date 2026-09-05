@@ -340,6 +340,7 @@ class ControlHandler(BaseHTTPRequestHandler):
             self._serve_asset(lane, root_id, relative_path)
             return
         route_map = {
+            "/v1/control/projection": "projection",
             "/v1/control/overview": "overview",
             "/v1/control/capabilities": "capabilities",
             "/v1/control/services": "services",

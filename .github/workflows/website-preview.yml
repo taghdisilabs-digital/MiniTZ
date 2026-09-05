@@ -1,0 +1,40 @@
+name: Website Preview Deployment
+on:
+  push:
+    branches: [website]
+permissions:
+  contents: read
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    environment: website-preview
+    defaults:
+      run:
+        working-directory: website
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v5
+        with: { node-version: '22' }
+      - name: Bind exact source tree
+        run: echo "BIELLA_SOURCE_TREE=$(git rev-parse HEAD^{tree})" >> "$GITHUB_ENV"
+        working-directory: .
+      - run: npm run build
+        env:
+          BIELLA_SOURCE_COMMIT: ${{ github.sha }}
+          BIELLA_SOURCE_TREE: ${{ env.BIELLA_SOURCE_TREE }}
+          BIELLA_SOURCE_BRANCH: website
+          BIELLA_DEPLOY_ENV: PREVIEW
+          BIELLA_DEPLOYMENT_STATUS: PREVIEW_VERSION_UPLOADED
+      - name: Upload version and capture preview identity
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN"
+          test -n "$CLOUDFLARE_ACCOUNT_ID"
+          npx --yes wrangler@4 versions upload --preview-alias website --message "BU-07 preview ${GITHUB_SHA}" 2>&1 | tee preview-deployment.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: website-preview-identity-${{ github.sha }}
+          path: website/preview-deployment.txt

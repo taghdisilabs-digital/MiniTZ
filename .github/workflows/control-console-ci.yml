@@ -1,0 +1,47 @@
+name: Biella Control Console CI
+on:
+  push:
+    branches:
+      - control-console-**
+  pull_request:
+    branches:
+      - website
+permissions:
+  contents: read
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: website
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Bind exact source metadata
+        run: |
+          echo "BIELLA_SOURCE_COMMIT=$GITHUB_SHA" >> "$GITHUB_ENV"
+          echo "BIELLA_SOURCE_TREE=$(git rev-parse HEAD^{tree})" >> "$GITHUB_ENV"
+          echo "BIELLA_SOURCE_BRANCH=$GITHUB_REF_NAME" >> "$GITHUB_ENV"
+          echo "BIELLA_DEPLOY_ENV=CI" >> "$GITHUB_ENV"
+          echo "BIELLA_DEPLOYMENT_STATUS=BUILD_QUALIFIED" >> "$GITHUB_ENV"
+        working-directory: .
+      - name: Build Website and Control Console
+        run: npm run build
+      - name: Run contract tests
+        run: npm test
+      - name: Install browser test runtime
+        run: python -m pip install "playwright==1.57.0"
+      - name: Install Chromium
+        run: python -m playwright install --with-deps chromium
+      - name: Run browser qualification
+        run: npm run test:browser
+      - uses: actions/upload-artifact@v4
+        with:
+          name: biella-control-console-dist
+          path: website/dist
+          if-no-files-found: error

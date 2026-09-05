@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101214">
+  <title>Biella Production Control</title>
+  <link rel="stylesheet" href="/control/styles.css">
+</head>
+<body>
+  <div class="console-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Biella home">
+        <span class="brand-mark">B</span>
+        <span><strong>BIELLA</strong><small>PRODUCTION CONTROL</small></span>
+      </a>
+      <div class="live-strip" aria-live="polite">
+        <span id="live-state" class="live-state live-unknown">UNKNOWN</span>
+        <span id="live-task">No task loaded</span>
+        <span id="live-heartbeat" class="muted">No heartbeat</span>
+        <button id="logout-button" class="button button-quiet hidden" type="button">Sign out</button>
+      </div>
+    </header>
+
+    <main id="login-view" class="auth-wrap">
+      <section class="auth-card" aria-labelledby="login-title">
+        <div class="eyebrow">PRIVATE PRODUCTION OPERATIONS</div>
+        <h1 id="login-title">Sign in to Biella</h1>
+        <p class="muted">Authenticated access to current production state, outputs, and system health.</p>        <form id="login-form" class="stack-form">
+          <label for="username">Username</label>
+          <input id="username" name="username" autocomplete="username" required>
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+          <button class="button button-primary" type="submit">Sign in</button>
+          <p id="login-message" class="form-message" role="status"></p>
+        </form>
+      </section>
+    </main>
+
+    <main id="app-view" class="app-wrap hidden">
+      <section class="console-heading">
+        <div>
+          <div class="eyebrow">CURRENT PRODUCTION</div>
+          <h1>Biella production control</h1>
+          <p class="muted">One repository. One production state. Current evidence only.</p>
+        </div>
+        <div class="heading-meta">
+          <span id="role-badge" class="access-label">Checking access</span>
+          <span id="last-sync" class="muted">Not synced</span>
+        </div>
+      </section>
+
+      <div class="context-bar">
+        <nav class="project-switcher" aria-label="Project context">
+          <button class="project-button" data-lane="Website" type="button">Website</button>
+          <button class="project-button" data-lane="Engine" type="button">Engine</button>          <button class="project-button active" data-lane="Games" type="button">Games</button>
+        </nav>
+        <nav class="primary-nav" aria-label="Control sections">
+          <button class="nav-button active" data-view="control" type="button">Control</button>
+          <button class="nav-button" data-view="work" type="button">Work</button>
+          <button class="nav-button" data-view="outputs" type="button">Outputs</button>
+          <button class="nav-button" data-view="system" type="button">System</button>
+        </nav>
+      </div>
+
+      <section class="content-panel">
+        <div id="view-root" aria-live="polite"></div>
+        <div id="error-banner" class="error-banner hidden" role="alert"></div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="/control/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# Unreal generated/build outputs
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+.vs/
+.vscode/
+*.VC.db
+*.sln
+
+# Local IDE/user files
+*.opensdf
+*.sdf
+*.suo
+*.user
+*.userprefs
