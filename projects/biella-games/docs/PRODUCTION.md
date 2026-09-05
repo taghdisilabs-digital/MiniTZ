@@ -8,11 +8,11 @@ Project path: `projects/biella-games`
 Engine: `/opt/unreal/UE_5.8.2`
 Execution rule: one current task; verify, execute, persist evidence, then advance
 Evidence rule: editable source plus task-derived build/runtime/package evidence
-Current section: `demo01`
-Current task: `NONE`
+Current section: `post_d01`
+Current task: `D02-01`
 Progress: `50/50` Demo tasks complete
 
-## Section: demo01 | Demo 01 — first playable vertical slice | IN_PROGRESS
+## Section: demo01 | Demo 01 — first playable vertical slice | COMPLETE
 
 Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74205988cb48946e62efeffe5c5330ec6437b` / tree `1324b3dd942927352abaa2ef70a463cbdfca53db` supersedes the earlier preservation floor for D01-027/028 progress.
 
