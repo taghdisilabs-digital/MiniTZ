@@ -42,12 +42,12 @@ Visual/media observability: when a Project task generates a visual/media candida
 ## Codex model routing
 
 Mahdi controls Codex account usage, quota resets, and any manual usage-tier decisions. Automation must not redeem or alter those limits.
-The internal `biella-codex production` runner may choose a Codex model for one bounded canonical task from observed task class and model availability; model selection does not create a second controller or memory authority.
+The Progressive Auto Feeder inside `biella-codex production` may choose a Codex model for one bounded canonical task from observed task class and model availability; model selection does not create a second controller or memory authority.
 Use `gpt-6-astra` with `ultra` reasoning for hard frontier work, deep Project-memory synthesis, authority reconciliation, difficult integration/acceptance, and hard creation decisions.
 Creation tasks never use low reasoning. Use at least high reasoning for creation; use xhigh/max/ultra when task risk, ambiguity, visual/product consequence, or integration depth warrants it.
 Short bounded tasks may prefer Luna with smaller reasoning effort, then fall back to another eligible Codex model when the preferred model returns an observed usage/rate-limit error.
 Never probe quota by spending a model call. Learn model availability only from normal task execution results and local model-catalog metadata.
-## Monorepo production runner
+## Progressive Auto Feeder
 
 Durable execution state is `docs/project-state/03_BIELLA_CURRENT_STATE.md`, `docs/project-state/04_BIELLA_ACTIVE_TASK.md`, and the active Project `projects/biella-games/docs/PRODUCTION.md`. The Project file contains ordered sections plus task status/evidence; do not create separate queue, state, batch, or progress-ledger authorities.
 Production runtime telemetry under `/mnt/biella-extra/biella-runtime/codex-production/` may record only liveness, project/task identity, PIDs, active model/reasoning, cooldowns, attempt sequence, last result, heartbeat, and update time. Runtime telemetry never overrides 03/04 or Project task completion.
@@ -55,4 +55,4 @@ Demo 01 is the first section. Preserve current canonical Demo completion and res
 After Demo 01, continue through the current accepted Games implementation sections from `projects/biella-games/docs/IMPLEMENTATION_SEQUENCE.md`. Empty sections are planned just-in-time with a bounded 20-50 task set, stored inside that same section of `PRODUCTION.md`.
 Use Astra Ultra for section planning/audit and deep-memory frontier resolution when available. Section planning must stay inside the current accepted section, avoid overlapping tasks, and never invent product scope from stale TODOs or historical evidence.
 After executing a section, audit that same section. Append only materially missing tasks to it; mark the section complete only with current implementation/runtime evidence. Then advance to the next section.
-When the production runner is stopped by Mahdi or for an authority migration, it executes nothing. Restart only from verified canonical state, then continue the earliest unfinished canonical task.
+Production is progressive by default. Owner direction is authoritative and is applied directly; it is never converted into a blocking result. Internal, provider, tool, model, publication, or process failures recover, reroute, retry, or resume from current task bytes and durable evidence without reopening completed work or requiring operator chat.

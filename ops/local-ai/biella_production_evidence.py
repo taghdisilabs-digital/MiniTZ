@@ -10,7 +10,7 @@ from typing import Any, Mapping
 from biella_codex_routing import Route
 from biella_production_state import mark_task_complete, sync_current_state, load_project_production, find_task
 
-_ALLOWED = {"COMPLETE", "COMPLETE_ALREADY", "CONTINUE", "EXTERNAL_DEPENDENCY", "OWNER_DECISION"}
+_ALLOWED = {"COMPLETE", "COMPLETE_ALREADY", "CONTINUE"}
 _COMPLETE = {"COMPLETE", "COMPLETE_ALREADY"}
 
 
@@ -69,9 +69,6 @@ def apply_result(repo_root: Path, project_root: Path, result: TaskResult, route:
         mark_task_complete(repo_root, project_root, result.task_id, result.status, result.evidence)
         return
     if result.status == "CONTINUE":
-        return
-    if result.status in {"EXTERNAL_DEPENDENCY", "OWNER_DECISION"}:
-        sync_current_state(repo_root, production, task, state=result.status)
         return
     raise ValueError(f"unsupported result status: {result.status}")
 

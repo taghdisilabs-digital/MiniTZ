@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,20 +20,23 @@ def test_consolidation_is_closed_and_games_frontier_is_current():
     state = STATE.read_text(encoding="utf-8")
     task = TASK.read_text(encoding="utf-8")
     production = PRODUCTION.read_text(encoding="utf-8")
+    current_match = re.search(r"^Current task: `([^`]+)`$", production, re.MULTILINE)
+    progress_match = re.search(r"^Progress: `(\d+)/50` Demo tasks complete$", production, re.MULTILINE)
+    assert current_match and progress_match
+    current_task = current_match.group(1)
+    completed = int(progress_match.group(1))
     assert "consolidation_state: COMPLETE_VERIFIED" in state
-    assert "id: D01-033" in state
-    assert "id: D01-033" in task
+    assert f"id: {current_task}" in state
+    assert f"id: {current_task}" in task
     assert "BIELLA-CONSOLIDATION-2026-09-05" not in task
-    assert "completed_demo_tasks: 32" in state
-    assert "queued_successor: D01-033" in state
+    assert f"completed_demo_tasks: {completed}" in state
+    assert f"queued_successor: {current_task}" in state
     assert "runner: READY" in state
     assert "feeder:" not in state
     assert "execution_started:" not in state
     assert "execution_started:" not in task
     assert "navigation_state: VERIFIED" in state
-    assert "Current task: `D01-033`" in production
-    assert "Progress: `32/50` Demo tasks complete" in production
-    assert production.count("- [x] D01-") == 32
+    assert production.count("- [x] D01-") == completed
     assert "latest_preservation_commit: f7e74205988cb48946e62efeffe5c5330ec6437b" in state
 
 

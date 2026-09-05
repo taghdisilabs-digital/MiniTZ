@@ -5,7 +5,6 @@ import argparse
 import fcntl
 import json
 import os
-import socket
 import subprocess
 import sys
 import time
@@ -81,25 +80,11 @@ def load_runtime(path: Path) -> dict[str, Any]:
 
 
 
-def _sd_notify(message: str) -> None:
-    address = os.environ.get("NOTIFY_SOCKET", "")
-    if not address:
-        return
-    if address.startswith("@"):
-        address = "\0" + address[1:]
-    try:
-        with socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM) as sock:
-            sock.connect(address)
-            sock.sendall(message.encode("utf-8"))
-    except OSError:
-        return
-
 def _beat(runtime_path: Path, telemetry: dict[str, Any], *, at: datetime | None = None) -> datetime:
     observed = at or datetime.now(timezone.utc)
     telemetry["heartbeat_at"] = observed.isoformat()
     telemetry["updated_at"] = observed.isoformat()
     save_runtime(runtime_path, telemetry)
-    _sd_notify("WATCHDOG=1")
     return observed
 
 
@@ -150,8 +135,8 @@ def _set_failure(telemetry: dict[str, Any], route: routing.Route, detail: str, t
     limited = routing.is_limit_error(detail)
     retry_at = routing.limit_retry_at(detail, observed) if limited else observed + timedelta(minutes=2)
     telemetry.setdefault("cooldowns", {})[route.model] = retry_at.isoformat()
-    telemetry["status"] = "WAITING_MODEL_AVAILABILITY" if limited else "ERROR"
-    telemetry["last_result"] = {"task_id": task_id, "status": "MODEL_COOLDOWN" if limited else "MODEL_RUNTIME_COOLDOWN", "summary": detail[-2000:], "evidence": [], "model": route.model, "reasoning": route.reasoning, "retry_at": retry_at.isoformat()}
+    telemetry["status"] = "RECOVERING_MODEL" if limited else "RECOVERING_RUNTIME"
+    telemetry["last_result"] = {"task_id": task_id, "status": "MODEL_RECOVERY" if limited else "RUNTIME_RECOVERY", "summary": detail[-2000:], "evidence": [], "model": route.model, "reasoning": route.reasoning, "retry_at": retry_at.isoformat()}
 
 
 def service_active() -> bool:
@@ -175,10 +160,6 @@ def production_status(repo_root: Path, project_root: Path, runtime_path: Path, *
                 pass
         if heartbeat is None or (now - heartbeat).total_seconds() > 90:
             liveness = "STALE"
-        elif telemetry.get("status") in {"WAITING", "WAITING_MODEL_AVAILABILITY", "EXTERNAL_DEPENDENCY", "OWNER_DECISION"}:
-            liveness = "WAITING"
-        elif telemetry.get("status") in {"ERROR", "FAILED"}:
-            liveness = "ERROR"
         else:
             liveness = "ACTIVE"
     sections = []
@@ -199,6 +180,30 @@ def _first_incomplete_section(production: state.ProductionState) -> state.Sectio
         if section.status not in {"COMPLETE", "COMPLETE_ALREADY"}:
             return section
     return None
+
+
+def _persist_until_success(repo_root: Path, task_id: str, runtime_path: Path, telemetry: dict[str, Any], *, retry_seconds: float = 5.0) -> dict[str, str]:
+    previous = telemetry.get("last_result") if isinstance(telemetry.get("last_result"), dict) else {}
+    while True:
+        try:
+            identity = evidence.persist_continuity(repo_root, task_id)
+        except Exception as exc:
+            telemetry["status"] = "RECOVERING_PERSISTENCE"
+            telemetry["last_result"] = {
+                "task_id": task_id, "status": "RECOVERING_PERSISTENCE",
+                "summary": str(exc), "evidence": list(previous.get("evidence", [])),
+            }
+            _beat(runtime_path, telemetry)
+            time.sleep(max(0.05, retry_seconds))
+            continue
+        telemetry["status"] = "RUNNING"
+        telemetry["last_result"] = {
+            "task_id": task_id, "status": "RECOVERED_PERSISTENCE",
+            "summary": "Canonical Git/Drive publication recovered.",
+            "evidence": list(previous.get("evidence", [])), "continuity": identity,
+        }
+        _beat(runtime_path, telemetry)
+        return identity
 
 
 def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, heartbeat_interval: float = 30.0) -> int:
@@ -226,13 +231,13 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     _beat(runtime_path, telemetry); return 0
                 if section.id == "demo01" and section.tasks and all(t.status in {"COMPLETE", "COMPLETE_ALREADY"} for t in section.tasks):
                     state.mark_section_status(project_root, section.id, "COMPLETE")
-                    evidence.persist_continuity(repo_root, f"SECTION-{section.id}")
+                    _persist_until_success(repo_root, f"SECTION-{section.id}", runtime_path, telemetry)
                     continue
                 now = datetime.now(timezone.utc)
                 try:
                     route = routing.select_route("deep_memory", catalog, telemetry.get("cooldowns", {}), now)
                 except RuntimeError:
-                    telemetry.update({"status": "WAITING_MODEL_AVAILABILITY", "task_id": f"PLAN:{section.id}", "active_model": None, "active_reasoning": None})
+                    telemetry.update({"status": "RECOVERING_MODEL", "task_id": f"PLAN:{section.id}", "active_model": None, "active_reasoning": None})
                     _beat(runtime_path, telemetry); time.sleep(min(60.0, max(1.0, routing.earliest_cooldown_delay(telemetry.get("cooldowns", {}), now)))); catalog = routing.discover_catalog(); continue
                 telemetry.update({"status": "RUNNING", "task_id": f"PLAN:{section.id}", "active_model": route.model, "active_reasoning": route.reasoning})
                 _beat(runtime_path, telemetry)
@@ -243,7 +248,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 try:
                     plan = json.loads(output.read_text(encoding="utf-8"))
                     state.apply_section_plan(repo_root, project_root, section.id, plan)
-                    evidence.persist_continuity(repo_root, f"PLAN-{section.id}")
+                    _persist_until_success(repo_root, f"PLAN-{section.id}", runtime_path, telemetry)
                 except (OSError, json.JSONDecodeError, ValueError, KeyError) as exc:
                     _set_failure(telemetry, route, f"invalid section plan: {exc}", f"PLAN:{section.id}"); _beat(runtime_path, telemetry); continue
                 telemetry["last_result"] = {"task_id": None, "status": "SECTION_REFRESH", "summary": str(plan.get("summary", "")), "evidence": list(plan.get("evidence", [])), "model": route.model, "reasoning": route.reasoning}
@@ -252,14 +257,13 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             try:
                 route = routing.select_route(task.task_class, catalog, telemetry.get("cooldowns", {}), now)
             except RuntimeError:
-                telemetry.update({"status": "WAITING_MODEL_AVAILABILITY", "task_id": task.id, "active_model": None, "active_reasoning": None})
+                telemetry.update({"status": "RECOVERING_MODEL", "task_id": task.id, "active_model": None, "active_reasoning": None})
                 _beat(runtime_path, telemetry)
                 time.sleep(min(60.0, max(1.0, routing.earliest_cooldown_delay(telemetry.get("cooldowns", {}), now))))
                 catalog = routing.discover_catalog(); continue
             telemetry.update({"status": "RUNNING", "task_id": task.id, "active_model": route.model, "active_reasoning": route.reasoning})
             if evidence.continuity_changes(repo_root):
-                evidence.persist_continuity(repo_root, f"RECONCILE-{task.id}")
-            evidence.assert_clean_task_workspace(repo_root)
+                _persist_until_success(repo_root, f"RECONCILE-{task.id}", runtime_path, telemetry)
             _beat(runtime_path, telemetry)
             output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"{task.id}-{route.model}")
             prompt = packets.compile_task_packet(repo_root, production, task)
@@ -276,19 +280,14 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             }
             try:
                 evidence.apply_result(repo_root, project_root, result, route)
-                if result.status in {"COMPLETE", "COMPLETE_ALREADY", "EXTERNAL_DEPENDENCY", "OWNER_DECISION"}:
-                    identity = evidence.persist_continuity(repo_root, result.task_id)
-                    telemetry["last_result"]["continuity"] = identity
             except Exception as exc:
-                telemetry["status"] = "ERROR"
-                telemetry["last_result"] = {"task_id": task.id, "status": "PERSISTENCE_ERROR", "summary": str(exc), "evidence": list(result.evidence), "model": route.model, "reasoning": route.reasoning}
-                _beat(runtime_path, telemetry); return 3
+                telemetry["status"] = "RECOVERING_INTERNAL"
+                telemetry["last_result"] = {"task_id": task.id, "status": "RECOVERING_INTERNAL", "summary": str(exc), "evidence": list(result.evidence), "model": route.model, "reasoning": route.reasoning}
+                _beat(runtime_path, telemetry); time.sleep(1.0); continue
+            if result.status in {"COMPLETE", "COMPLETE_ALREADY"}:
+                _persist_until_success(repo_root, result.task_id, runtime_path, telemetry)
             _beat(runtime_path, telemetry)
-            if result.status in {"COMPLETE", "COMPLETE_ALREADY", "CONTINUE"}:
-                continue
-            telemetry["status"] = result.status
-            telemetry["active_model"] = None; telemetry["active_reasoning"] = None
-            _beat(runtime_path, telemetry); return 2
+            continue
     finally:
         lock.release()
 
@@ -316,19 +315,10 @@ def start_production(repo_root: Path, project_root: Path, runtime_root: Path) ->
     print(json.dumps({"unit": UNIT_NAME, "status": "STARTED"}, sort_keys=True)); return 0
 
 
-def stop_production(runtime_root: Path) -> int:
-    rc = subprocess.run(["systemctl", "stop", UNIT_NAME], check=False).returncode
-    runtime_path = Path(runtime_root) / "runtime.json"
-    telemetry = load_runtime(runtime_path)
-    telemetry.update({"status": "STOPPED", "pid": None, "child_pid": None, "active_model": None, "active_reasoning": None})
-    _beat(runtime_path, telemetry)
-    return rc
-
-
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="biella-codex production")
     sub = parser.add_subparsers(dest="command", required=True)
-    for name in ("sync", "run", "start", "status", "stop"):
+    for name in ("sync", "run", "start", "status"):
         sub.add_parser(name)
     return parser
 
@@ -346,8 +336,6 @@ def main(argv=None) -> int:
     if args.command == "sync":
         state.resolve_current_task(repo_root, project_root)
         print(json.dumps(production_status(repo_root, project_root, runtime_root / "runtime.json"), sort_keys=True)); return 0
-    if args.command == "stop":
-        return stop_production(runtime_root)
     raise AssertionError(args.command)
 
 

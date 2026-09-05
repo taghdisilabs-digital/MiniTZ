@@ -18,15 +18,14 @@ biella-codex
 
 Mahdi chooses Codex model/usage. After launch, Codex decides when to use local Qwen/Ollama, L40S GPU, Unreal, GitHub, Drive, Cloudflare, Saturn, Modal, configured APIs, shell/build tools, and other project resources.
 
-## Monorepo production runner
+## Progressive Auto Feeder
 
-The production runner is an internal section of the same controller:
+The Auto Feeder is the progressive production section of the same controller:
 
 ```bash
 biella-codex production sync
 biella-codex production status
 biella-codex production start
-biella-codex production stop
 ```
 
 Durable execution state is:
@@ -39,4 +38,4 @@ Durable execution state is:
 
 Runtime telemetry under `/mnt/biella-extra/biella-runtime/codex-production/` contains only liveness, current attempt/model/PIDs, cooldowns, last result, and heartbeat. It is not a completion ledger.
 
-`production start` reconstructs the earliest unfinished canonical task, executes one bounded writer at a time, refreshes heartbeat during long Codex attempts, validates structured evidence, advances 03/04 plus Project state, and continues. Empty later sections are planned/audited just-in-time inside the same Project `PRODUCTION.md`. There is no separate active queue, batch ledger, model-specific project memory, or mutable progress authority.
+`production start` reconstructs the earliest unfinished canonical task, resumes any existing in-flight task bytes, executes one bounded writer at a time, refreshes heartbeat during long Codex attempts, validates structured evidence, retries publication until durable, advances 03/04 plus Project state, and continues automatically. Empty later sections are planned/audited just-in-time inside the same Project `PRODUCTION.md`. There is no separate active queue, batch ledger, model-specific project memory, or mutable progress authority.

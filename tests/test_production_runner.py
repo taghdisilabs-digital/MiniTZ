@@ -148,25 +148,61 @@ def test_start_production_uses_persistent_systemd_unit(tmp_path: Path, monkeypat
     assert calls == [["systemctl", "start", "biella-codex-production.service"]]
 
 
-def test_persistent_production_unit_is_enabled_restartable_contract():
+def test_persistent_production_unit_is_enabled_resume_contract():
     unit = (LOCAL_AI / "biella-codex-production.service").read_text()
     assert "ExecStart=/usr/local/bin/biella-codex production run" in unit
     assert "Restart=on-failure" in unit
-    assert "RestartPreventExitStatus=2" in unit
-    assert "RestartPreventExitStatus=2 3" not in unit
+    assert "RestartSec=10" in unit
+    assert "RestartPreventExitStatus=" not in unit
+    assert "WatchdogSec=" not in unit
+    assert "NotifyAccess=" not in unit
     assert "WantedBy=multi-user.target" in unit
 
 
-def test_runtime_heartbeat_notifies_systemd_watchdog(tmp_path: Path, monkeypatch):
-    observed = []
-    monkeypatch.setattr(runner, "_sd_notify", lambda message: observed.append(message))
+
+def test_public_cli_has_no_stop_command():
+    parser = runner._parser()
+    choices = parser._subparsers._group_actions[0].choices
+    assert "stop" not in choices
+
+
+def test_status_stays_active_during_model_recovery(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime = tmp_path / "runtime.json"
+    payload = runner.initial_runtime()
+    payload["status"] = "RECOVERING_MODEL"
+    payload["heartbeat_at"] = datetime.now(timezone.utc).isoformat()
+    runner.save_runtime(runtime, payload)
+    monkeypatch.setattr(runner, "service_active", lambda: True)
+    assert runner.production_status(repo, project, runtime)["status"] == "ACTIVE"
+
+
+def test_runner_does_not_reject_dirty_inflight_workspace():
+    source = MODULE.read_text()
+    assert "assert_clean_task_workspace(repo_root)" not in source
+
+
+def test_task_result_schema_has_no_terminal_blockers():
+    allowed = set(runner.evidence.result_schema()["properties"]["status"]["enum"])
+    assert allowed == {"COMPLETE", "COMPLETE_ALREADY", "CONTINUE"}
+
+
+def test_persistence_failure_retries_without_runner_exit(tmp_path: Path, monkeypatch):
+    runtime = tmp_path / "runtime.json"
     telemetry = runner.initial_runtime()
-    runner._beat(tmp_path / "runtime.json", telemetry)
-    assert observed == ["WATCHDOG=1"]
+    telemetry.update({"status": "RUNNING", "task_id": "D01-033"})
+    calls = {"n": 0}
 
+    def persist(_repo, _task_id):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            raise RuntimeError("temporary push failure")
+        return {"commit": "c", "tree": "t"}
 
-def test_persistent_unit_has_same_process_watchdog_contract():
-    unit = (LOCAL_AI / "biella-codex-production.service").read_text()
-    assert "WatchdogSec=120" in unit
-    assert "NotifyAccess=main" in unit
-    assert "Restart=on-failure" in unit
+    monkeypatch.setattr(runner.evidence, "persist_continuity", persist)
+    monkeypatch.setattr(runner.time, "sleep", lambda _seconds: None)
+    result = runner._persist_until_success(tmp_path, "D01-033", runtime, telemetry)
+    assert result == {"commit": "c", "tree": "t"}
+    assert calls["n"] == 2
+    assert telemetry["status"] == "RUNNING"
+    assert telemetry["last_result"]["status"] == "RECOVERED_PERSISTENCE"
