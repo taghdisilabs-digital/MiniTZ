@@ -13,6 +13,12 @@
 
 ABiellaDemoPawn::ABiellaDemoPawn()
 {
+    static ConstructorHelpers::FObjectFinder<UMaterialInterface> MaterialFinder(
+        TEXT("/Game/Materials/M_DemoReadability.M_DemoReadability"));
+    PresentationMaterial = MaterialFinder.Object;
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> SphereFinder(
+        TEXT("/Engine/BasicShapes/Sphere.Sphere"));
+    RoleSphereMesh = SphereFinder.Object;
     PrimaryActorTick.bCanEverTick = true;
     Collision = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Collision"));
     SetRootComponent(Collision.Get());
@@ -30,6 +36,7 @@ ABiellaDemoPawn::ABiellaDemoPawn()
     BodyMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BodyMesh"));
     BodyMesh->SetupAttachment(Collision.Get());
     BodyMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    BodyMesh->SetCanEverAffectNavigation(false);
 
     static ConstructorHelpers::FObjectFinder<UStaticMesh> CubeMesh(
         TEXT("/Engine/BasicShapes/Cube.Cube"));
@@ -51,6 +58,71 @@ void ABiellaDemoPawn::BeginPlay()
         Team == EDemo01Team::Rival ? FLinearColor(1.0f, 0.45f, 0.08f) :
         FLinearColor(0.65f, 0.08f, 0.1f);
     SetDisplayColor(TeamDisplayColor);
+    BuildRolePresentation();
+}
+
+void ABiellaDemoPawn::BuildRolePresentation()
+{
+    // A streamed actor may receive BeginPlay again on the same instance.
+    for (UStaticMeshComponent* Detail : RoleDetails)
+    {
+        if (IsValid(Detail)) { Detail->DestroyComponent(); }
+    }
+    RoleDetails.Reset();
+    // Role recognition survives lighting changes and color-vision differences:
+    // player = one band + round head; rival = two bands + square helmet;
+    // infected = crossed marks + narrow torso. These remain blockout meshes.
+    UStaticMesh* Cube = LoadObject<UStaticMesh>(nullptr, TEXT("/Engine/BasicShapes/Cube.Cube"));
+    UStaticMesh* Sphere = RoleSphereMesh;
+    UMaterialInterface* Base = PresentationMaterial;
+    if (!Cube || !Sphere || !Base) { return; }
+    UMaterialInstanceDynamic* MarkMaterial = UMaterialInstanceDynamic::Create(Base, this);
+    MarkMaterial->SetVectorParameterValue(TEXT("BaseColor"), FLinearColor(0.88f, 0.91f, 0.87f));
+    MarkMaterial->SetScalarParameterValue(TEXT("ReadabilityFill"), 0.12f);
+    auto AddDetail = [this](const TCHAR* Name, UStaticMesh* Mesh, const FVector& Position,
+        const FVector& Scale, const FRotator& Rotation, UMaterialInterface* Material)
+    {
+        UStaticMeshComponent* Detail = NewObject<UStaticMeshComponent>(this, FName(Name));
+        AddInstanceComponent(Detail);
+        Detail->SetupAttachment(Collision.Get());
+        Detail->SetStaticMesh(Mesh);
+        Detail->SetRelativeLocation(Position);
+        Detail->SetRelativeScale3D(Scale);
+        Detail->SetRelativeRotation(Rotation);
+        Detail->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        Detail->SetCanEverAffectNavigation(false);
+        Detail->SetMaterial(0, Material);
+        Detail->ComponentTags.Add(TEXT("D01RoleDetail"));
+        Detail->RegisterComponent();
+        RoleDetails.Add(Detail);
+    };
+    const float Width = Team == EDemo01Team::Rival ? 0.66f :
+        Team == EDemo01Team::Infected ? 0.44f : 0.55f;
+    BodyMesh->SetRelativeScale3D(FVector(0.48f, Width, 1.25f));
+    AddDetail(TEXT("RoleHead"), Team == EDemo01Team::Rival ? Cube : Sphere,
+        FVector(0, 0, 75), FVector(0.26f), FRotator::ZeroRotator, BodyMaterial);
+    AddDetail(TEXT("LeftBoot"), Cube, FVector(3, -15, -74),
+        FVector(0.43f, 0.20f, 0.25f), FRotator::ZeroRotator, BodyMaterial);
+    AddDetail(TEXT("RightBoot"), Cube, FVector(3, 15, -74),
+        FVector(0.43f, 0.20f, 0.25f), FRotator::ZeroRotator, BodyMaterial);
+    if (Team == EDemo01Team::Infected)
+    {
+        // Marks wrap across front/back of the narrow torso, not a through-wall label.
+        AddDetail(TEXT("RoleCrossA"), Cube, FVector(0, 0, 28),
+            FVector(0.50f, 0.09f, 0.52f), FRotator(0, 0, 42), MarkMaterial);
+        AddDetail(TEXT("RoleCrossB"), Cube, FVector(0, 0, 28),
+            FVector(0.50f, 0.09f, 0.52f), FRotator(0, 0, -42), MarkMaterial);
+    }
+    else
+    {
+        AddDetail(TEXT("RoleBandA"), Cube, FVector(0, 0, 34),
+            FVector(0.50f, Width + 0.02f, 0.12f), FRotator::ZeroRotator, MarkMaterial);
+        if (Team == EDemo01Team::Rival)
+        {
+            AddDetail(TEXT("RoleBandB"), Cube, FVector(0, 0, 10),
+                FVector(0.50f, Width + 0.02f, 0.12f), FRotator::ZeroRotator, MarkMaterial);
+        }
+    }
 }
 
 void ABiellaDemoPawn::Tick(float DeltaTime)
@@ -104,7 +176,9 @@ float ABiellaDemoPawn::ApplyDemoDamage(float DamageAmount, AActor* DamageCauser,
         Defeat(DamageTag);
     }
     return Applied;
-}void ABiellaDemoPawn::SetDisplayColor(const FLinearColor& Color)
+}
+
+void ABiellaDemoPawn::SetDisplayColor(const FLinearColor& Color)
 {
     if (!BodyMesh)
     {
@@ -112,8 +186,8 @@ float ABiellaDemoPawn::ApplyDemoDamage(float DamageAmount, AActor* DamageCauser,
     }
     if (!BodyMaterial)
     {
-        UMaterialInterface* BaseMaterial = LoadObject<UMaterialInterface>(
-            nullptr, TEXT("/Engine/BasicShapes/BasicShapeMaterial.BasicShapeMaterial"));
+        UMaterialInterface* BaseMaterial = PresentationMaterial;
+        if (!BaseMaterial) { return; }
         BodyMaterial = UMaterialInstanceDynamic::Create(BaseMaterial, this);
         BodyMesh->SetMaterial(0, BodyMaterial);
     }
@@ -147,6 +221,10 @@ void ABiellaDemoPawn::Defeat(const FString& Reason)
     if (BodyMesh)
     {
         BodyMesh->SetVisibility(false);
+    }
+    for (UStaticMeshComponent* Detail : RoleDetails)
+    {
+        if (Detail) { Detail->SetVisibility(false); }
     }
     if (Collision)
     {

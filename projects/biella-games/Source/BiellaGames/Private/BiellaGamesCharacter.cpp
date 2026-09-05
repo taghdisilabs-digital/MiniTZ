@@ -14,6 +14,7 @@
 #include "Engine/World.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "Kismet/GameplayStatics.h"
+#include "Materials/MaterialInstanceDynamic.h"
 #include "CollisionQueryParams.h"
 #include "GameFramework/PlayerController.h"
 #include "InputAction.h"
@@ -36,6 +37,9 @@ ABiellaGamesCharacter::ABiellaGamesCharacter()
     CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
     CameraBoom->SetupAttachment(Collision.Get());
     CameraBoom->TargetArmLength = 520.0f;
+    // Keep the aiming lane beside the silhouette while retaining the same
+    // collision-tested arm and possessed third-person camera.
+    CameraBoom->SocketOffset = FVector(0.0f, 90.0f, 55.0f);
     CameraBoom->SetRelativeRotation(FRotator(-18.0f, 0.0f, 0.0f));
     CameraBoom->bDoCollisionTest = true;
     CameraBoom->ProbeSize = 12.0f;
@@ -43,6 +47,14 @@ ABiellaGamesCharacter::ABiellaGamesCharacter()
     FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
     FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
     FollowCamera->bUsePawnControlRotation = false;
+    // This bounded arena has fixed daylight. Stable exposure preserves role
+    // colors and pressure changes when dark walls enter the camera histogram.
+    FollowCamera->PostProcessSettings.bOverride_AutoExposureMethod = true;
+    FollowCamera->PostProcessSettings.AutoExposureMethod = AEM_Manual;
+    FollowCamera->PostProcessSettings.bOverride_AutoExposureApplyPhysicalCameraExposure = true;
+    FollowCamera->PostProcessSettings.AutoExposureApplyPhysicalCameraExposure = false;
+    FollowCamera->PostProcessSettings.bOverride_AutoExposureBias = true;
+    FollowCamera->PostProcessSettings.AutoExposureBias = 0.0f;
 
     WeaponMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
     WeaponMesh->SetupAttachment(Collision.Get());
@@ -60,6 +72,11 @@ ABiellaGamesCharacter::ABiellaGamesCharacter()
 void ABiellaGamesCharacter::BeginPlay()
 {
     Super::BeginPlay();
+    if (UMaterialInterface* Base = PresentationMaterial)
+    {
+        UMaterialInstanceDynamic* Material = WeaponMesh->CreateDynamicMaterialInstance(0, Base);
+        Material->SetVectorParameterValue(TEXT("BaseColor"), FLinearColor(0.035f, 0.045f, 0.055f));
+    }
     EnsureInputActions();
     if (APlayerController* PC = Cast<APlayerController>(GetController()))
     {

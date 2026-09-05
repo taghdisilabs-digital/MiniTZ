@@ -59,6 +59,7 @@ public:
     FString GetDisplayedRestartPrompt() const { return DisplayedRestartPrompt; }
 
 protected:
+    virtual TSharedRef<SWidget> RebuildWidget() override;
     void BuildLayout();
     void UpdateTerminalOverlay(EDemo01Phase Phase, const FString& Objective);
 

@@ -9,10 +9,13 @@
 #include "Components/PointLightComponent.h"
 #include "Components/SceneComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/SkyLightComponent.h"
 #include "Engine/DirectionalLight.h"
 #include "Engine/PointLight.h"
+#include "Engine/SkyLight.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/StaticMeshActor.h"
+#include "EngineUtils.h"
 #include "Kismet/GameplayStatics.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "UObject/ConstructorHelpers.h"
@@ -21,6 +24,9 @@
 
 ABasicWorldGeometry::ABasicWorldGeometry()
 {
+    static ConstructorHelpers::FObjectFinder<UMaterialInterface> MaterialFinder(
+        TEXT("/Game/Materials/M_DemoReadability.M_DemoReadability"));
+    PresentationMaterial = MaterialFinder.Object;
     PrimaryActorTick.bCanEverTick = false;
     SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("ArenaRoot")));
     static ConstructorHelpers::FObjectFinder<UStaticMesh> CubeFinder(
@@ -56,7 +62,7 @@ void ABasicWorldGeometry::EndPlay(const EEndPlayReason::Type EndPlayReason)
     {
         if (IsValid(Piece)) { Piece->Destroy(); }
     }
-    if (IsValid(SunLight)) { SunLight->Destroy(); }
+    if (bOwnsSunLight && IsValid(SunLight)) { SunLight->Destroy(); }
     if (IsValid(PressureLight)) { PressureLight->Destroy(); }
     if (IsValid(NavigationBounds)) { NavigationBounds->Destroy(); }
     // Streaming can call BeginPlay again on this same actor instance. Its
@@ -64,6 +70,7 @@ void ABasicWorldGeometry::EndPlay(const EEndPlayReason::Type EndPlayReason)
     // authoritative pressure snapshot on the next BeginPlay.
     ArenaPieces.Reset();
     SunLight = nullptr;
+    bOwnsSunLight = false;
     PressureLight = nullptr;
     NavigationBounds = nullptr;
     PressureState.Reset();
@@ -100,9 +107,11 @@ void ABasicWorldGeometry::BuildArena()
     bBuilt = true;
     Tags.Add(TEXT("D01ArenaBuilt"));
 
-    const FLinearColor FloorColor(0.035f, 0.09f, 0.10f);
-    const FLinearColor WallColor(0.08f, 0.18f, 0.20f);
-    const FLinearColor CoverColor(0.12f, 0.28f, 0.25f);
+    // Low-chroma environment separates the actor role palette from navigable
+    // surfaces. Cover caps expose their silhouette against the far wall.
+    const FLinearColor FloorColor(0.105f, 0.13f, 0.15f);
+    const FLinearColor WallColor(0.17f, 0.22f, 0.25f);
+    const FLinearColor CoverColor(0.055f, 0.075f, 0.09f);
     SpawnCube(FVector(0.0f, 0.0f, -100.0f), FVector(32.0f, 26.0f, 0.25f),
         FloorColor, TEXT("ArenaFloor"));
     SpawnCube(FVector(0.0f, 1300.0f, 250.0f), FVector(32.0f, 0.25f, 3.5f),
@@ -118,15 +127,37 @@ void ABasicWorldGeometry::BuildArena()
     SpawnCube(FVector(600.0f, -500.0f, 70.0f), FVector(2.5f, 1.4f, 1.4f),
         CoverColor, TEXT("ArenaEastCover"));
     SpawnCube(FVector(-600.0f, 500.0f, 70.0f), FVector(2.5f, 1.4f, 1.4f),
-        CoverColor, TEXT("ArenaWestCover"));    FActorSpawnParameters Params;
+        CoverColor, TEXT("ArenaWestCover"));
+    const FLinearColor CapColor(0.48f, 0.52f, 0.49f);
+    SpawnCube(FVector(0, 0, 139), FVector(3.52f, 3.52f, 0.06f),
+        CapColor, TEXT("CenterCoverCap"), false);
+    SpawnCube(FVector(600, -500, 139), FVector(2.52f, 1.42f, 0.06f),
+        CapColor, TEXT("EastCoverCap"), false);
+    SpawnCube(FVector(-600, 500, 139), FVector(2.52f, 1.42f, 0.06f),
+        CapColor, TEXT("WestCoverCap"), false);
+    FActorSpawnParameters Params;
     Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-    SunLight = GetWorld()->SpawnActor<ADirectionalLight>(
-        ADirectionalLight::StaticClass(), FVector(0.0f, 0.0f, 900.0f),
-        FRotator(-48.0f, -32.0f, 0.0f), Params);
+    // Both entry maps already own a sun. Reuse it instead of illuminating the
+    // arena twice; only a fallback spawned by this actor belongs to its cleanup.
+    for (TActorIterator<ADirectionalLight> It(GetWorld()); It; ++It)
+    {
+        SunLight = *It;
+        break;
+    }
+    if (!SunLight)
+    {
+        SunLight = GetWorld()->SpawnActor<ADirectionalLight>(
+            ADirectionalLight::StaticClass(), FVector(0.0f, 0.0f, 900.0f),
+            FRotator(-48.0f, -32.0f, 0.0f), Params);
+        bOwnsSunLight = true;
+    }
     if (SunLight && SunLight->GetLightComponent())
     {
+        SunLight->GetLightComponent()->SetMobility(EComponentMobility::Movable);
         SunLight->GetLightComponent()->SetIntensity(5.0f);
         SunLight->GetLightComponent()->SetLightColor(FLinearColor(0.78f, 0.88f, 1.0f));
+        UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL READABILITY_SUN source=%s mobility=movable intensity=5"),
+            bOwnsSunLight ? TEXT("runtime_fallback") : TEXT("authored_map"));
     }
     PressureLight = GetWorld()->SpawnActor<APointLight>(
         APointLight::StaticClass(), FVector(0.0f, 0.0f, 430.0f),
@@ -147,6 +178,12 @@ void ABasicWorldGeometry::BuildArena()
     }
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL ARENA_READY pieces=%d floor=true walls=4 cover=3 lighting=true"),
         ArenaPieces.Num());
+    // Scene capture works without inventing sky/weather content. Recapture
+    // after the navigable arena exists, including after reconstruction.
+    for (TActorIterator<ASkyLight> It(GetWorld()); It; ++It)
+    {
+        if (USkyLightComponent* Sky = It->GetLightComponent()) { Sky->RecaptureSky(); }
+    }
     // This runtime-built arena has no baked map navmesh. Recast consumes the
     // same spawned collision meshes and updates tiles when obstacles change.
     ANavMeshBoundsVolume* NavBounds = GetWorld()->SpawnActor<ANavMeshBoundsVolume>(
@@ -171,7 +208,7 @@ void ABasicWorldGeometry::BuildArena()
 }
 
 AStaticMeshActor* ABasicWorldGeometry::SpawnCube(const FVector& Location,
-    const FVector& Scale, const FLinearColor& Color, const FString& Label)
+    const FVector& Scale, const FLinearColor& Color, const FString& Label, bool bBlocking)
 {
     if (!GetWorld() || !CubeMesh)
     {
@@ -195,8 +232,13 @@ AStaticMeshActor* ABasicWorldGeometry::SpawnCube(const FVector& Location,
     Piece->Tags.Add(TEXT("D01ArenaPiece"));
     Mesh->SetStaticMesh(CubeMesh);
     Mesh->SetCollisionProfileName(TEXT("BlockAll"));
-    if (UMaterialInterface* Base = LoadObject<UMaterialInterface>(
-        nullptr, TEXT("/Engine/BasicShapes/BasicShapeMaterial.BasicShapeMaterial")))
+    if (!bBlocking)
+    {
+        Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        Mesh->SetCanEverAffectNavigation(false);
+        Piece->Tags.Add(TEXT("D01ReadabilityTrim"));
+    }
+    if (UMaterialInterface* Base = PresentationMaterial)
     {
         UMaterialInstanceDynamic* Material = UMaterialInstanceDynamic::Create(Base, Piece);
         Material->SetVectorParameterValue(TEXT("BaseColor"), Color);

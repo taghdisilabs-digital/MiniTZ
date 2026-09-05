@@ -11,6 +11,7 @@ class ADirectionalLight;
 class APointLight;
 class UStaticMesh;
 class UMaterialInstanceDynamic;
+class UMaterialInterface;
 class ABiellaGamesGameState;
 
 UCLASS()
@@ -33,7 +34,10 @@ protected:
     void SetPressureLevel(float Pressure);
     void BuildArena();
     AStaticMeshActor* SpawnCube(const FVector& Location, const FVector& Scale,
-        const FLinearColor& Color, const FString& Label);
+        const FLinearColor& Color, const FString& Label, bool bBlocking = true);
+
+    UPROPERTY()
+    TObjectPtr<UMaterialInterface> PresentationMaterial;
 
     UPROPERTY()
     TObjectPtr<UStaticMesh> CubeMesh;
@@ -51,6 +55,7 @@ protected:
 
     float PressureLevel = 0.0f;
     bool bBuilt = false;
+    bool bOwnsSunLight = false;
     int32 AppliedPressureRevision = INDEX_NONE;
     TWeakObjectPtr<ABiellaGamesGameState> PressureState;
 };

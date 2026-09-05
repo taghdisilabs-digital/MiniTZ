@@ -1,0 +1,638 @@
+{
+  "/Game/Maps/BiellaGameplayMap": {
+    "actors": [
+      {
+        "class": "/Script/BiellaGames.BasicWorldGeometry",
+        "components": [
+          {
+            "class": "/Script/Engine.SceneComponent",
+            "location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "name": "ArenaRoot",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        ],
+        "label": "BiellaWorldGeometry",
+        "location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "name": "BasicWorldGeometry_0",
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "class": "/Script/Engine.DirectionalLight",
+        "components": [
+          {
+            "class": "/Script/Engine.ArrowComponent",
+            "collision_enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+            "collision_profile": "NoCollision",
+            "location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "name": "ArrowComponent0",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          {
+            "class": "/Script/Engine.BillboardComponent",
+            "collision_enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+            "collision_profile": "NoCollision",
+            "location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "name": "BillboardComponent_0",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "class": "/Script/Engine.DirectionalLightComponent",
+            "location": [
+              0.0,
+              0.0,
+              1000.0
+            ],
+            "name": "LightComponent0",
+            "rotation": [
+              -29.999999999999996,
+              -1.8362941015152856e-15,
+              -45.0
+            ],
+            "scale": [
+              2.5,
+              2.5,
+              2.5
+            ]
+          }
+        ],
+        "label": "BiellaDirectionalLight",
+        "location": [
+          0.0,
+          0.0,
+          1000.0
+        ],
+        "name": "DirectionalLight_0",
+        "rotation": [
+          -29.999999999999996,
+          -1.8362941015152856e-15,
+          -45.0
+        ],
+        "scale": [
+          2.5,
+          2.5,
+          2.5
+        ]
+      },
+      {
+        "class": "/Script/Engine.PlayerStart",
+        "components": [
+          {
+            "class": "/Script/Engine.ArrowComponent",
+            "collision_enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+            "collision_profile": "NoCollision",
+            "location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "name": "Arrow",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          {
+            "class": "/Script/Engine.CapsuleComponent",
+            "collision_enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+            "collision_profile": "NoCollision",
+            "location": [
+              0.0,
+              0.0,
+              150.0
+            ],
+            "name": "CollisionCapsule",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          {
+            "class": "/Script/Engine.BillboardComponent",
+            "collision_enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+            "collision_profile": "NoCollision",
+            "location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "name": "Sprite",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          {
+            "class": "/Script/Engine.BillboardComponent",
+            "collision_enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+            "collision_profile": "NoCollision",
+            "location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "name": "Sprite2",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        ],
+        "label": "BiellaPlayerStart",
+        "location": [
+          0.0,
+          0.0,
+          150.0
+        ],
+        "name": "PlayerStart_0",
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "class": "/Script/Engine.SkyLight",
+        "components": [
+          {
+            "class": "/Script/Engine.BillboardComponent",
+            "collision_enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+            "collision_profile": "NoCollision",
+            "location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "name": "BillboardComponent_0",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "class": "/Script/Engine.SkyLightComponent",
+            "location": [
+              0.0,
+              0.0,
+              800.0
+            ],
+            "name": "SkyLightComponent0",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          {
+            "class": "/Script/Engine.BillboardComponent",
+            "collision_enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+            "collision_profile": "NoCollision",
+            "location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "name": "Sprite",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        ],
+        "label": "BiellaSkyLight",
+        "location": [
+          0.0,
+          0.0,
+          800.0
+        ],
+        "name": "SkyLight_0",
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ],
+    "original_sha256": "115cec2b94f83860965195ca89f088d91eb50a80e20023ba8e5bac22c3e002e6"
+  },
+  "/Game/Maps/BiellaGameplayMap_Recovered": {
+    "actors": [
+      {
+        "class": "/Script/BiellaGames.BasicWorldGeometry",
+        "components": [
+          {
+            "class": "/Script/Engine.SceneComponent",
+            "location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "name": "ArenaRoot",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        ],
+        "label": "BiellaWorldGeometry",
+        "location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "name": "BasicWorldGeometry_0",
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "class": "/Script/Engine.DirectionalLight",
+        "components": [
+          {
+            "class": "/Script/Engine.ArrowComponent",
+            "collision_enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+            "collision_profile": "NoCollision",
+            "location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "name": "ArrowComponent0",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          {
+            "class": "/Script/Engine.BillboardComponent",
+            "collision_enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+            "collision_profile": "NoCollision",
+            "location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "name": "BillboardComponent_0",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "class": "/Script/Engine.DirectionalLightComponent",
+            "location": [
+              0.0,
+              0.0,
+              1000.0
+            ],
+            "name": "LightComponent0",
+            "rotation": [
+              -29.999999999999996,
+              -1.8362941015152856e-15,
+              -45.0
+            ],
+            "scale": [
+              2.5,
+              2.5,
+              2.5
+            ]
+          }
+        ],
+        "label": "BiellaDirectionalLight",
+        "location": [
+          0.0,
+          0.0,
+          1000.0
+        ],
+        "name": "DirectionalLight_0",
+        "rotation": [
+          -29.999999999999996,
+          -1.8362941015152856e-15,
+          -45.0
+        ],
+        "scale": [
+          2.5,
+          2.5,
+          2.5
+        ]
+      },
+      {
+        "class": "/Script/Engine.PlayerStart",
+        "components": [
+          {
+            "class": "/Script/Engine.ArrowComponent",
+            "collision_enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+            "collision_profile": "NoCollision",
+            "location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "name": "Arrow",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          {
+            "class": "/Script/Engine.CapsuleComponent",
+            "collision_enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+            "collision_profile": "NoCollision",
+            "location": [
+              0.0,
+              0.0,
+              150.0
+            ],
+            "name": "CollisionCapsule",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          {
+            "class": "/Script/Engine.BillboardComponent",
+            "collision_enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+            "collision_profile": "NoCollision",
+            "location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "name": "Sprite",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          {
+            "class": "/Script/Engine.BillboardComponent",
+            "collision_enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+            "collision_profile": "NoCollision",
+            "location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "name": "Sprite2",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        ],
+        "label": "BiellaPlayerStart",
+        "location": [
+          0.0,
+          0.0,
+          150.0
+        ],
+        "name": "PlayerStart_0",
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "class": "/Script/Engine.SkyLight",
+        "components": [
+          {
+            "class": "/Script/Engine.BillboardComponent",
+            "collision_enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+            "collision_profile": "NoCollision",
+            "location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "name": "BillboardComponent_0",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "class": "/Script/Engine.SkyLightComponent",
+            "location": [
+              0.0,
+              0.0,
+              800.0
+            ],
+            "name": "SkyLightComponent0",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          {
+            "class": "/Script/Engine.BillboardComponent",
+            "collision_enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+            "collision_profile": "NoCollision",
+            "location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "name": "Sprite",
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        ],
+        "label": "BiellaSkyLight",
+        "location": [
+          0.0,
+          0.0,
+          800.0
+        ],
+        "name": "SkyLight_0",
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ],
+    "original_sha256": "115cec2b94f83860965195ca89f088d91eb50a80e20023ba8e5bac22c3e002e6"
+  }
+}

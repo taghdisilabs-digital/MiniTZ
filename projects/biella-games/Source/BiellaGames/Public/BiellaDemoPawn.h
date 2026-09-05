@@ -9,6 +9,8 @@
 class UCapsuleComponent;
 class UStaticMeshComponent;
 class UMaterialInstanceDynamic;
+class UMaterialInterface;
+class UStaticMesh;
 class UFloatingPawnMovement;
 
 UENUM(BlueprintType)
@@ -69,6 +71,18 @@ public:
     virtual void Defeat(const FString& Reason);
 
 protected:
+    // A CDO hard reference makes the editable Project material discoverable by cooking.
+    UPROPERTY()
+    TObjectPtr<UMaterialInterface> PresentationMaterial;
+
+    UPROPERTY()
+    TObjectPtr<UStaticMesh> RoleSphereMesh;
+
+    // Cosmetic meshes share the pawn lifetime but never alter hit/traversal geometry.
+    void BuildRolePresentation();
+    UPROPERTY()
+    TArray<TObjectPtr<UStaticMeshComponent>> RoleDetails;
+
     UPROPERTY()
     TObjectPtr<UMaterialInstanceDynamic> BodyMaterial;
 

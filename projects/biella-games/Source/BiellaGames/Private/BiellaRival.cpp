@@ -44,8 +44,7 @@ ABiellaRival::ABiellaRival()
 void ABiellaRival::BeginPlay()
 {
     Super::BeginPlay();
-    UMaterialInterface* BaseMaterial = LoadObject<UMaterialInterface>(
-        nullptr, TEXT("/Engine/BasicShapes/BasicShapeMaterial.BasicShapeMaterial"));
+    UMaterialInterface* BaseMaterial = PresentationMaterial;
     WeaponMaterial = UMaterialInstanceDynamic::Create(BaseMaterial, this);
     WeaponMesh->SetMaterial(0, WeaponMaterial);
     WeaponMaterial->SetVectorParameterValue(TEXT("BaseColor"), FLinearColor(0.12f, 0.12f, 0.14f));

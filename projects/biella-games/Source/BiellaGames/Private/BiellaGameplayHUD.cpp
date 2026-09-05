@@ -29,14 +29,14 @@ const FLinearColor HudTerminalBackdropColor(0.002f, 0.006f, 0.012f, 0.84f);
 const FLinearColor HudTerminalCardColor(0.008f, 0.015f, 0.025f, 0.97f);
 
 UTextBlock* AddText(UWidgetTree* WidgetTree, UPanelWidget* Parent, const TCHAR* InitialText,
-    int32 FontSize, const FLinearColor& Color)
+    int32 FontSize, const FLinearColor& Color, const FName Name = NAME_None)
 {
     if (!WidgetTree || !Parent)
     {
         return nullptr;
     }
 
-    UTextBlock* Text = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass());
+    UTextBlock* Text = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), Name);
     Text->SetText(FText::FromString(InitialText));
     FSlateFontInfo Font = Text->GetFont();
     Font.Size = FontSize;
@@ -53,19 +53,26 @@ UTextBlock* AddText(UWidgetTree* WidgetTree, UPanelWidget* Parent, const TCHAR* 
     return Text;
 }
 
-UBorder* AddCard(UWidgetTree* WidgetTree, UCanvasPanel* Canvas, const FMargin& Offsets)
+UBorder* AddCard(UWidgetTree* WidgetTree, UCanvasPanel* Canvas, const FName Name,
+    const FVector2D& Anchor, const FVector2D& Alignment,
+    const FVector2D& Position, const FVector2D& Size)
 {
     if (!WidgetTree || !Canvas)
     {
         return nullptr;
     }
 
-    UBorder* Card = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass());
+    UBorder* Card = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass(), Name);
     Card->SetBrushColor(HudPanelColor);
+    Card->SetPadding(FMargin(18.0f, 14.0f));
     if (UCanvasPanelSlot* CanvasSlot = Canvas->AddChildToCanvas(Card))
     {
-        CanvasSlot->SetAnchors(FAnchors(0.0f, 0.0f));
-        CanvasSlot->SetOffsets(Offsets);
+        // Non-stretched canvas slots use a position and a positive size,
+        // not left/top/right/bottom inset margins.
+        CanvasSlot->SetAnchors(FAnchors(Anchor.X, Anchor.Y));
+        CanvasSlot->SetAlignment(Alignment);
+        CanvasSlot->SetPosition(Position);
+        CanvasSlot->SetSize(Size);
         CanvasSlot->SetZOrder(10);
     }
     return Card;
@@ -92,10 +99,18 @@ const TCHAR* PhaseLabel(EDemo01Phase Phase)
 }
 }
 
+TSharedRef<SWidget> UBiellaGameplayHUD::RebuildWidget()
+{
+    // Initialize is idempotent and creates the native WidgetTree. The tree must
+    // exist before Super chooses its Slate root; NativeConstruct runs later.
+    Initialize();
+    BuildLayout();
+    return Super::RebuildWidget();
+}
+
 void UBiellaGameplayHUD::NativeConstruct()
 {
     Super::NativeConstruct();
-    BuildLayout();
     RefreshFromRuntime();
 }
 
@@ -112,85 +127,110 @@ void UBiellaGameplayHUD::BuildLayout()
         return;
     }
 
-    RootCanvas = WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass());
+    RootCanvas = WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass(), TEXT("HudRoot"));
     WidgetTree->RootWidget = RootCanvas;
+    RootCanvas->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 
-    UBorder* ObjectiveCard = AddCard(WidgetTree, RootCanvas,
-        FMargin(32.0f, 28.0f, 450.0f, 178.0f));
+    UBorder* ObjectiveCard = AddCard(WidgetTree, RootCanvas, TEXT("ObjectiveCard"),
+        FVector2D::ZeroVector, FVector2D::ZeroVector,
+        FVector2D(32.0f, 28.0f), FVector2D(480.0f, 200.0f));
     if (ObjectiveCard)
     {
         UVerticalBox* Stack = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
         ObjectiveCard->SetContent(Stack);
-        AddText(WidgetTree, Stack, TEXT("OBJECTIVE // DEMO 01"), 12, HudAccentColor);
+        AddText(WidgetTree, Stack, TEXT("OBJECTIVE // DEMO 01"), 14, HudAccentColor,
+            TEXT("ObjectiveLabel"));
         ObjectiveText = AddText(WidgetTree, Stack, TEXT("Waiting for objective..."), 22,
-            FLinearColor::White);
+            FLinearColor::White, TEXT("ObjectiveText"));
+        ObjectiveText->SetAutoWrapText(true);
         ObjectiveProgressText = AddText(WidgetTree, Stack, TEXT("PROGRESS 00 / 00"), 14,
-            HudSecondaryColor);
-        PhaseText = AddText(WidgetTree, Stack, TEXT("INTRO"), 12, HudSuccessColor);
-        AddVerticalPadding(ObjectiveText, FMargin(0.0f, 10.0f, 0.0f, 5.0f));
+            HudSecondaryColor, TEXT("ObjectiveProgressText"));
+        PhaseText = AddText(WidgetTree, Stack, TEXT("INTRO"), 14, HudSuccessColor,
+            TEXT("PhaseText"));
+        AddVerticalPadding(ObjectiveText, FMargin(0.0f, 8.0f, 0.0f, 8.0f));
     }
 
-    UBorder* StatusCard = AddCard(WidgetTree, RootCanvas,
-        FMargin(-350.0f, 28.0f, -32.0f, 270.0f));
+    UBorder* StatusCard = AddCard(WidgetTree, RootCanvas, TEXT("StatusCard"),
+        FVector2D(1.0f, 0.0f), FVector2D(1.0f, 0.0f),
+        FVector2D(-32.0f, 28.0f), FVector2D(280.0f, 246.0f));
     if (StatusCard)
     {
-        if (UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(StatusCard->Slot))
-        {
-            CanvasSlot->SetAnchors(FAnchors(1.0f, 0.0f));
-            CanvasSlot->SetAlignment(FVector2D(0.0f, 0.0f));
-        }
         UVerticalBox* Stack = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
         StatusCard->SetContent(Stack);
-        AddText(WidgetTree, Stack, TEXT("PLAYER STATUS"), 12, HudAccentColor);
-        AddText(WidgetTree, Stack, TEXT("HEALTH"), 11, HudSecondaryColor);
+        AddText(WidgetTree, Stack, TEXT("PLAYER STATUS"), 14, HudAccentColor,
+            TEXT("StatusLabel"));
+        AddText(WidgetTree, Stack, TEXT("HEALTH"), 14, HudSecondaryColor, TEXT("HealthLabel"));
 
         USizeBox* HealthBarSize = WidgetTree->ConstructWidget<USizeBox>(USizeBox::StaticClass());
         HealthBarSize->SetHeightOverride(12.0f);
-        HealthBar = WidgetTree->ConstructWidget<UProgressBar>(UProgressBar::StaticClass());
+        HealthBar = WidgetTree->ConstructWidget<UProgressBar>(UProgressBar::StaticClass(), TEXT("HealthBar"));
         HealthBar->SetPercent(1.0f);
         HealthBar->SetFillColorAndOpacity(HudSuccessColor);
         HealthBarSize->AddChild(HealthBar);
         Stack->AddChild(HealthBarSize);
         AddVerticalPadding(HealthBarSize, FMargin(0.0f, 3.0f, 0.0f, 6.0f));
 
-        HealthText = AddText(WidgetTree, Stack, TEXT("100 / 100"), 24, FLinearColor::White);
-        AmmoText = AddText(WidgetTree, Stack, TEXT("AMMO 60"), 19, HudWarningColor);
-        ThreatsText = AddText(WidgetTree, Stack, TEXT("THREATS 02"), 14, HudSecondaryColor);
+        HealthText = AddText(WidgetTree, Stack, TEXT("100 / 100"), 24, FLinearColor::White,
+            TEXT("HealthText"));
+        AmmoText = AddText(WidgetTree, Stack, TEXT("AMMO 60"), 20, HudWarningColor,
+            TEXT("AmmoText"));
+        ThreatsText = AddText(WidgetTree, Stack, TEXT("THREATS 02"), 14, HudSecondaryColor,
+            TEXT("ThreatsText"));
     }
 
-    UBorder* CountdownCard = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass());
-    CountdownCard->SetBrushColor(HudPanelColor);
-    if (UCanvasPanelSlot* CanvasSlot = RootCanvas->AddChildToCanvas(CountdownCard))
-    {
-        CanvasSlot->SetAnchors(FAnchors(0.5f, 1.0f));
-        CanvasSlot->SetAlignment(FVector2D(0.5f, 1.0f));
-        CanvasSlot->SetOffsets(FMargin(-150.0f, -92.0f, 150.0f, -30.0f));
-        CanvasSlot->SetZOrder(10);
-    }
+    UBorder* CountdownCard = AddCard(WidgetTree, RootCanvas, TEXT("CountdownCard"),
+        FVector2D(0.5f, 1.0f), FVector2D(0.5f, 1.0f),
+        FVector2D(0.0f, -28.0f), FVector2D(320.0f, 92.0f));
     UVerticalBox* CountdownStack = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
     CountdownCard->SetContent(CountdownStack);
-    AddText(WidgetTree, CountdownStack, TEXT("THREAT COUNTDOWN"), 11, HudWarningColor);
+    UTextBlock* CountdownLabel = AddText(WidgetTree, CountdownStack, TEXT("THREAT COUNTDOWN"),
+        14, HudWarningColor, TEXT("CountdownLabel"));
+    CountdownLabel->SetJustification(ETextJustify::Center);
     CountdownText = AddText(WidgetTree, CountdownStack, TEXT("02 TARGETS REMAIN"), 20,
-        FLinearColor::White);
+        FLinearColor::White, TEXT("CountdownText"));
+    CountdownText->SetJustification(ETextJustify::Center);
 
-    UTextBlock* Crosshair = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass());
-    Crosshair->SetText(FText::FromString(TEXT("+")));
-    FSlateFontInfo CrosshairFont = Crosshair->GetFont();
-    CrosshairFont.Size = 22;
-    Crosshair->SetFont(CrosshairFont);
-    Crosshair->SetColorAndOpacity(FSlateColor(HudAccentColor));
-    Crosshair->SetJustification(ETextJustify::Center);
-    Crosshair->SetShadowOffset(FVector2D(1.0f, 1.0f));
+    // Geometry keeps the sight centered independently of font bearings. Dark
+    // backing preserves the cyan strokes against both sky and shadowed cover.
+    UCanvasPanel* Crosshair = WidgetTree->ConstructWidget<UCanvasPanel>(
+        UCanvasPanel::StaticClass(), TEXT("Crosshair"));
+    Crosshair->SetVisibility(ESlateVisibility::HitTestInvisible);
     if (UCanvasPanelSlot* CanvasSlot = RootCanvas->AddChildToCanvas(Crosshair))
     {
         CanvasSlot->SetAnchors(FAnchors(0.5f, 0.5f));
         CanvasSlot->SetAlignment(FVector2D(0.5f, 0.5f));
-        CanvasSlot->SetOffsets(FMargin(-12.0f, -14.0f, 12.0f, 14.0f));
+        CanvasSlot->SetPosition(FVector2D::ZeroVector);
+        CanvasSlot->SetSize(FVector2D(24.0f, 24.0f));
         CanvasSlot->SetZOrder(20);
     }
+    auto AddSightStroke = [this, Crosshair](const FVector2D& Position,
+        const FVector2D& Size, const FLinearColor& Color, const int32 ZOrder)
+    {
+        UBorder* Stroke = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass());
+        Stroke->SetBrushColor(Color);
+        Stroke->SetPadding(FMargin(0.0f));
+        UCanvasPanelSlot* Slot = Crosshair->AddChildToCanvas(Stroke);
+        Slot->SetAnchors(FAnchors(0.5f, 0.5f));
+        Slot->SetAlignment(FVector2D(0.5f, 0.5f));
+        Slot->SetPosition(Position);
+        Slot->SetSize(Size);
+        Slot->SetZOrder(ZOrder);
+    };
+    for (const float Direction : {-1.0f, 1.0f})
+    {
+        AddSightStroke(FVector2D(Direction * 7.0f, 0.0f), FVector2D(8.0f, 4.0f),
+            FLinearColor::Black, 0);
+        AddSightStroke(FVector2D(0.0f, Direction * 7.0f), FVector2D(4.0f, 8.0f),
+            FLinearColor::Black, 0);
+        AddSightStroke(FVector2D(Direction * 7.0f, 0.0f), FVector2D(6.0f, 2.0f),
+            HudAccentColor, 1);
+        AddSightStroke(FVector2D(0.0f, Direction * 7.0f), FVector2D(2.0f, 6.0f),
+            HudAccentColor, 1);
+    }
 
-    TerminalOverlay = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass());
+    TerminalOverlay = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass(), TEXT("TerminalOverlay"));
     TerminalOverlay->SetBrushColor(HudTerminalBackdropColor);
+    TerminalOverlay->SetPadding(FMargin(0.0f));
     TerminalOverlay->SetVisibility(ESlateVisibility::Collapsed);
     if (UCanvasPanelSlot* CanvasSlot = RootCanvas->AddChildToCanvas(TerminalOverlay))
     {
@@ -202,23 +242,25 @@ void UBiellaGameplayHUD::BuildLayout()
     UCanvasPanel* TerminalCanvas = WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass());
     TerminalOverlay->SetContent(TerminalCanvas);
 
-    UBorder* TerminalCard = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass());
+    UBorder* TerminalCard = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass(), TEXT("TerminalCard"));
     TerminalCard->SetBrushColor(HudTerminalCardColor);
-    TerminalCard->SetPadding(FMargin(42.0f, 34.0f, 42.0f, 34.0f));
+    TerminalCard->SetPadding(FMargin(36.0f, 30.0f));
+    TerminalCard->SetVerticalAlignment(VAlign_Center);
     if (UCanvasPanelSlot* CanvasSlot = TerminalCanvas->AddChildToCanvas(TerminalCard))
     {
         CanvasSlot->SetAnchors(FAnchors(0.5f, 0.5f));
         CanvasSlot->SetAlignment(FVector2D(0.5f, 0.5f));
-        CanvasSlot->SetOffsets(FMargin(-330.0f, -170.0f, 330.0f, 170.0f));
+        CanvasSlot->SetPosition(FVector2D::ZeroVector);
+        CanvasSlot->SetSize(FVector2D(760.0f, 340.0f));
         CanvasSlot->SetZOrder(1);
     }
 
     UVerticalBox* TerminalStack = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
     TerminalCard->SetContent(TerminalStack);
     auto AddTerminalText = [this, TerminalStack](const TCHAR* InitialText, int32 FontSize,
-        const FLinearColor& Color) -> UTextBlock*
+        const FLinearColor& Color, const FName Name) -> UTextBlock*
     {
-        UTextBlock* Text = AddText(WidgetTree, TerminalStack, InitialText, FontSize, Color);
+        UTextBlock* Text = AddText(WidgetTree, TerminalStack, InitialText, FontSize, Color, Name);
         if (Text)
         {
             Text->SetJustification(ETextJustify::Center);
@@ -226,12 +268,15 @@ void UBiellaGameplayHUD::BuildLayout()
         }
         return Text;
     };
-    AddTerminalText(TEXT("DEMO 01 // TERMINAL STATE"), 12, HudAccentColor);
-    TerminalTitle = AddTerminalText(TEXT("SUCCESS // ARENA CLEARED"), 34, HudSuccessColor);
+    AddTerminalText(TEXT("DEMO 01 // TERMINAL STATE"), 14, HudAccentColor, TEXT("TerminalLabel"));
+    TerminalTitle = AddTerminalText(TEXT("SUCCESS // ARENA CLEARED"), 28, HudSuccessColor,
+        TEXT("TerminalTitle"));
     AddVerticalPadding(TerminalTitle, FMargin(0.0f, 18.0f, 0.0f, 10.0f));
-    TerminalMessage = AddTerminalText(TEXT("Arena cleared."), 18, FLinearColor::White);
+    TerminalMessage = AddTerminalText(TEXT("Arena cleared."), 18, FLinearColor::White,
+        TEXT("TerminalMessage"));
     AddVerticalPadding(TerminalMessage, FMargin(0.0f, 0.0f, 0.0f, 24.0f));
-    RestartPrompt = AddTerminalText(TEXT("PRESS R TO RESTART"), 17, HudWarningColor);
+    RestartPrompt = AddTerminalText(TEXT("PRESS R TO RESTART"), 18, HudWarningColor,
+        TEXT("RestartPrompt"));
 }
 
 void UBiellaGameplayHUD::UpdateTerminalOverlay(EDemo01Phase Phase, const FString& Objective)

@@ -1,0 +1,285 @@
+{
+  "task_id": "D01-40",
+  "result": "PASS_EXPECTED_MAP_IDENTITY_CHANGE",
+  "current_runs_exact_match": {
+    "task_id": "D01-39",
+    "result": "PASS",
+    "scenario": "demo01_core_v1",
+    "trace_sha256": "438cd2e30b6f67f2fe6319a51451dfd0046264638ef8065e5acbb4b74b49a7af",
+    "comparison": "ordered event + all fields + relative restart; session/sequence/map/timestamps excluded",
+    "runs": [
+      {
+        "capture": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-040-qualified-playtest/20260905T074646.072976Z-nullrhi-89d623f8/run-01.telemetry.jsonl",
+        "session": "01A07088-E078-7C81-907B-4AF47E4651BD",
+        "records": 72,
+        "scenario_events": 56,
+        "seed": 1337,
+        "restart_count": 2,
+        "event_counts": {
+          "arena_pressure": 1,
+          "checkpoint": 7,
+          "damage": 15,
+          "defeat": 3,
+          "fixture": 2,
+          "input": 9,
+          "objective_activated": 2,
+          "objective_progress": 2,
+          "objective_success": 1,
+          "phase": 4,
+          "restart_requested": 2,
+          "scenario_begin": 1,
+          "scenario_complete": 1,
+          "weapon_fire": 6
+        },
+        "checkpoints": [
+          {
+            "ammo": "60",
+            "health": "100.000",
+            "infected_remaining": "2",
+            "name": "active_baseline",
+            "objective_progress": "0",
+            "phase": "Active",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "0",
+            "target_count": "2"
+          },
+          {
+            "ammo": "60",
+            "health": "100.000",
+            "infected_remaining": "2",
+            "name": "movement",
+            "objective_progress": "0",
+            "phase": "Active",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "0",
+            "target_count": "2"
+          },
+          {
+            "ammo": "57",
+            "health": "100.000",
+            "infected_remaining": "1",
+            "name": "first_infected_defeated",
+            "objective_progress": "1",
+            "phase": "Active",
+            "pressure": "20.000",
+            "pressure_revision": "1",
+            "restart_relative": "0",
+            "target_count": "2"
+          },
+          {
+            "ammo": "54",
+            "health": "100.000",
+            "infected_remaining": "0",
+            "name": "success",
+            "objective_progress": "2",
+            "phase": "Success",
+            "pressure": "20.000",
+            "pressure_revision": "1",
+            "restart_relative": "0",
+            "target_count": "2"
+          },
+          {
+            "ammo": "60",
+            "health": "100.000",
+            "infected_remaining": "2",
+            "name": "restart_after_success",
+            "objective_progress": "0",
+            "phase": "Active",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "1",
+            "target_count": "2"
+          },
+          {
+            "ammo": "60",
+            "health": "0.000",
+            "infected_remaining": "2",
+            "name": "failure",
+            "objective_progress": "0",
+            "phase": "Failure",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "1",
+            "target_count": "2"
+          },
+          {
+            "ammo": "60",
+            "health": "100.000",
+            "infected_remaining": "2",
+            "name": "restart_after_failure",
+            "objective_progress": "0",
+            "phase": "Active",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "2",
+            "target_count": "2"
+          }
+        ],
+        "wall_seconds": 2.359640076989308
+      },
+      {
+        "capture": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-040-qualified-playtest/20260905T074646.072976Z-nullrhi-89d623f8/run-02.telemetry.jsonl",
+        "session": "01A07089-0803-7FC3-9AFF-AE5478A3C6F9",
+        "records": 72,
+        "scenario_events": 56,
+        "seed": 1337,
+        "restart_count": 2,
+        "event_counts": {
+          "arena_pressure": 1,
+          "checkpoint": 7,
+          "damage": 15,
+          "defeat": 3,
+          "fixture": 2,
+          "input": 9,
+          "objective_activated": 2,
+          "objective_progress": 2,
+          "objective_success": 1,
+          "phase": 4,
+          "restart_requested": 2,
+          "scenario_begin": 1,
+          "scenario_complete": 1,
+          "weapon_fire": 6
+        },
+        "checkpoints": [
+          {
+            "ammo": "60",
+            "health": "100.000",
+            "infected_remaining": "2",
+            "name": "active_baseline",
+            "objective_progress": "0",
+            "phase": "Active",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "0",
+            "target_count": "2"
+          },
+          {
+            "ammo": "60",
+            "health": "100.000",
+            "infected_remaining": "2",
+            "name": "movement",
+            "objective_progress": "0",
+            "phase": "Active",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "0",
+            "target_count": "2"
+          },
+          {
+            "ammo": "57",
+            "health": "100.000",
+            "infected_remaining": "1",
+            "name": "first_infected_defeated",
+            "objective_progress": "1",
+            "phase": "Active",
+            "pressure": "20.000",
+            "pressure_revision": "1",
+            "restart_relative": "0",
+            "target_count": "2"
+          },
+          {
+            "ammo": "54",
+            "health": "100.000",
+            "infected_remaining": "0",
+            "name": "success",
+            "objective_progress": "2",
+            "phase": "Success",
+            "pressure": "20.000",
+            "pressure_revision": "1",
+            "restart_relative": "0",
+            "target_count": "2"
+          },
+          {
+            "ammo": "60",
+            "health": "100.000",
+            "infected_remaining": "2",
+            "name": "restart_after_success",
+            "objective_progress": "0",
+            "phase": "Active",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "1",
+            "target_count": "2"
+          },
+          {
+            "ammo": "60",
+            "health": "0.000",
+            "infected_remaining": "2",
+            "name": "failure",
+            "objective_progress": "0",
+            "phase": "Failure",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "1",
+            "target_count": "2"
+          },
+          {
+            "ammo": "60",
+            "health": "100.000",
+            "infected_remaining": "2",
+            "name": "restart_after_failure",
+            "objective_progress": "0",
+            "phase": "Active",
+            "pressure": "0.000",
+            "pressure_revision": "0",
+            "restart_relative": "2",
+            "target_count": "2"
+          }
+        ],
+        "wall_seconds": 2.2811232449894305
+      }
+    ]
+  },
+  "predecessor": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-039-runs/20260905T071227.716362Z-vulkan-1cdb2330/run-01.telemetry.jsonl",
+    "sha256": "1d38d3fc0bc830b4bc437d2acde4c070903fe188c7bccb83d1cb869d3b62e5c6",
+    "bytes": 26585
+  },
+  "changes": [
+    {
+      "event_index": 34,
+      "current": {
+        "event": "restart_requested",
+        "restart_relative": 1,
+        "fields": {
+          "map": "BiellaGameplayMap",
+          "previous_phase": "Success",
+          "restart_count": "1"
+        }
+      },
+      "predecessor": {
+        "event": "restart_requested",
+        "restart_relative": 1,
+        "fields": {
+          "map": "BiellaGameplayMap_Recovered",
+          "previous_phase": "Success",
+          "restart_count": "1"
+        }
+      }
+    },
+    {
+      "event_index": 52,
+      "current": {
+        "event": "restart_requested",
+        "restart_relative": 2,
+        "fields": {
+          "map": "BiellaGameplayMap",
+          "previous_phase": "Failure",
+          "restart_count": "2"
+        }
+      },
+      "predecessor": {
+        "event": "restart_requested",
+        "restart_relative": 2,
+        "fields": {
+          "map": "BiellaGameplayMap_Recovered",
+          "previous_phase": "Failure",
+          "restart_count": "2"
+        }
+      }
+    }
+  ],
+  "explanation": "Native saves corrected the two maps sharing the recovered package identity. Restart now reports the canonical map name; all other ordered semantic events/fields remain identical. The unmodified strict predecessor verifier correctly rejects this identity difference."
+}
