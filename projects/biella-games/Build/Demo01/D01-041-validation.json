@@ -1,0 +1,160 @@
+{
+  "task_id": "D01-41",
+  "result": "PASS",
+  "boundary": "Local visual index and allowlisted inspector-root exposure only; generated media remains unaccepted.",
+  "source_revision": {
+    "current_commit": "194dd0986607fcce3158263a2783351eff7366f1",
+    "current_tree": "62d1e8909bc89dffb9643d3495378fb5ab990902",
+    "producer_commit": "600fdda86b6f1b1845966a7d24312eada9593548"
+  },
+  "index": {
+    "path": "projects/biella-games/Build/Demo01/D01-041-visual-index.json",
+    "sha256": "bb53a5236af73eaaefe04549d110db32eba42868744c218887e2bf0a9ee815db",
+    "capture_count": 12,
+    "status": "GENERATED_DRAFT",
+    "owner_accepted": false
+  },
+  "inspection": {
+    "lane": "Games",
+    "root_id": "games-generated",
+    "source_class": "GENERATED_DRAFT",
+    "catalog_count": 20,
+    "indexed_count": 12,
+    "all_indexed_assets_resolved": true,
+    "all_indexed_bytes_read_back": true,
+    "scan_truncated": false
+  },
+  "assets": [
+    {
+      "project_path": "Build/Demo01/D01-040-captures/1280x720/active_06m_1280x720.png",
+      "inspector_path": "D01-040/20260905T074436.187564Z/1280x720/active_06m_1280x720.png",
+      "sha256": "6c907f0edb80b4afd5077d17cd318214c35d18e809dd0dc13c93fb136b135037",
+      "size_bytes": 744223,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "project_path": "Build/Demo01/D01-040-captures/1280x720/active_12m_1280x720.png",
+      "inspector_path": "D01-040/20260905T074436.187564Z/1280x720/active_12m_1280x720.png",
+      "sha256": "b5feef705eb994ded34bbd4f346d277dfc97811c150cf43bd84b4557db1eceba",
+      "size_bytes": 734194,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "project_path": "Build/Demo01/D01-040-captures/1280x720/active_20m_1280x720.png",
+      "inspector_path": "D01-040/20260905T074436.187564Z/1280x720/active_20m_1280x720.png",
+      "sha256": "b17572f01d97e99ca4cb5222430f4db72997b81d4316f5af171281addac8b780",
+      "size_bytes": 731001,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "project_path": "Build/Demo01/D01-040-captures/1280x720/low_health_pressure_100_1280x720.png",
+      "inspector_path": "D01-040/20260905T074436.187564Z/1280x720/low_health_pressure_100_1280x720.png",
+      "sha256": "5e762d586cb5cc5677d079f888eee6f7c0318d31ee1ae6ffcd99014c32bb836a",
+      "size_bytes": 743678,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "project_path": "Build/Demo01/D01-040-captures/1280x720/success_1280x720.png",
+      "inspector_path": "D01-040/20260905T074436.187564Z/1280x720/success_1280x720.png",
+      "sha256": "9f205aa164155be8410000dd881db6d3bdd22a5edb685b5edd764c89255bb6b6",
+      "size_bytes": 240642,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "project_path": "Build/Demo01/D01-040-captures/1280x720/failure_1280x720.png",
+      "inspector_path": "D01-040/20260905T074436.187564Z/1280x720/failure_1280x720.png",
+      "sha256": "3559f5f16eef82b00cdd097ef6c864e821f35528cd1f19fe46ccef6de77576cc",
+      "size_bytes": 204961,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "project_path": "Build/Demo01/D01-040-captures/1920x1080/active_06m_1920x1080.png",
+      "inspector_path": "D01-040/20260905T074436.187564Z/1920x1080/active_06m_1920x1080.png",
+      "sha256": "519048d089811576319df06960e9620c30cae5a37bb9319a8884f26379a00b91",
+      "size_bytes": 1623293,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "project_path": "Build/Demo01/D01-040-captures/1920x1080/active_12m_1920x1080.png",
+      "inspector_path": "D01-040/20260905T074436.187564Z/1920x1080/active_12m_1920x1080.png",
+      "sha256": "4f119677281aedda13759ff86b188ea3b29de9afd50d54abbfb6d5443b599bc5",
+      "size_bytes": 1604993,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "project_path": "Build/Demo01/D01-040-captures/1920x1080/active_20m_1920x1080.png",
+      "inspector_path": "D01-040/20260905T074436.187564Z/1920x1080/active_20m_1920x1080.png",
+      "sha256": "a0cc71df52ec220b14aa7e73fc0d200dce72b50e81fe6bbef7d0675bde0a47e7",
+      "size_bytes": 1598949,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "project_path": "Build/Demo01/D01-040-captures/1920x1080/low_health_pressure_100_1920x1080.png",
+      "inspector_path": "D01-040/20260905T074436.187564Z/1920x1080/low_health_pressure_100_1920x1080.png",
+      "sha256": "ec01f751df5b4012ed3d35a8f3399fd1a5c3d863894100c01c8e7b97e211eccf",
+      "size_bytes": 1620573,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "project_path": "Build/Demo01/D01-040-captures/1920x1080/success_1920x1080.png",
+      "inspector_path": "D01-040/20260905T074436.187564Z/1920x1080/success_1920x1080.png",
+      "sha256": "05cfdfc4bd5bb992ea19acc344af1601ccc8b90047ce9eb1e477d6dac9e9b0f7",
+      "size_bytes": 492863,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "project_path": "Build/Demo01/D01-040-captures/1920x1080/failure_1920x1080.png",
+      "inspector_path": "D01-040/20260905T074436.187564Z/1920x1080/failure_1920x1080.png",
+      "sha256": "ec9308d9a80b48c5b5da35359baad49d41678166c8b2b6888f663810819e1455",
+      "size_bytes": 415736,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "external_metadata": {
+    "path": "/root/biella/artifacts/games/D01-040/metadata.json",
+    "sha256": "f1ed80498c4d5ca31e6e8febd2cd4323d431862252bdcc8db3a6b5bfdb0eb14b",
+    "status": "GENERATED_DRAFT"
+  },
+  "protected_files": {
+    "docs/project-state/03_BIELLA_CURRENT_STATE.md": "6c10144daaaf97c63995bb8b01703cf6b3031e10025a4fe60144cb3612a596f8",
+    "docs/project-state/04_BIELLA_ACTIVE_TASK.md": "f3571326c51f650fe2a3205645523240c54cb96bd0dfa7c3d73fa4a9a295408f",
+    "projects/biella-games/docs/PRODUCTION.md": "9ed965970dede69c42c5f6b7bc8083a2269b2edc8d3a532ebeb5403e2e36da9d"
+  },
+  "validated_at": "2026-09-05T08:03:32.381943+00:00"
+}
