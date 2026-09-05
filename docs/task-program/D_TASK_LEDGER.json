@@ -1,5 +1,5 @@
 {
-  "current_task": null,
+  "current_task": "D02-01",
   "execution_authority": "current 03/04 + Project PRODUCTION.md",
   "registry_is_queue": false,
   "schema": "biella.d_task_ledger/v1",

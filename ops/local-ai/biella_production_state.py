@@ -295,6 +295,10 @@ def resolve_current_task(repo_root: Path, project_root: Path) -> TaskRecord | No
             write_active_task(repo_root, current, predecessor=_previous_completed_task(production, current.id))
             sync_current_state(repo_root, production, current)
         return current
+    if active.id == "NONE":
+        write_active_task(repo_root, current, predecessor=_previous_completed_task(production, current.id))
+        sync_current_state(repo_root, production, current)
+        return current
     try:
         previous = find_task(production, active.id)
     except KeyError as exc:

@@ -154,3 +154,19 @@ def test_resolve_rewrites_legacy_active_and_state_ids_immediately(tmp_path: Path
     assert "  id: D01-030" not in active_text
     assert "  id: D01-30" in state_text
     assert "  id: D01-030" not in state_text
+
+
+def test_resolve_none_active_pointer_advances_to_project_successor(tmp_path: Path):
+    repo, project = write_fixture(tmp_path, active_id="NONE", project_id="D02-01")
+    path = project / "docs/PRODUCTION.md"
+    text = path.read_text(encoding="utf-8")
+    text = text.replace("- [ ] D01-030 | hard | Current task | PENDING | current evidence", "- [x] D01-030 | hard | Current task | COMPLETE | current evidence")
+    text = text.replace("- [ ] D01-031 | hard | Next task | PENDING | next evidence", "- [x] D01-031 | hard | Next task | COMPLETE | next evidence")
+    text = text.replace("## Section: demo01 | Demo | IN_PROGRESS", "## Section: demo01 | Demo | COMPLETE")
+    text += "\n## Section: post_d01 | Continuation | PENDING\n\n- [ ] D02-01 | hard_creation | Open-world streaming and continuity | PENDING | ready\n"
+    path.write_text(text, encoding="utf-8")
+
+    resolved = state.resolve_current_task(repo, project)
+
+    assert resolved.id == "D02-01"
+    assert state.load_active_task(repo).id == "D02-01"
