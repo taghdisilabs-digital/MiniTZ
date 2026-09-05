@@ -21,6 +21,11 @@ sys.modules[spec.name] = runner
 spec.loader.exec_module(runner)
 
 
+@pytest.fixture(autouse=True)
+def isolate_derived_drive_publication(monkeypatch):
+    monkeypatch.setattr(runner.evidence, "publish_derived_task_ledger", lambda _repo: None)
+
+
 def test_long_child_keeps_runtime_heartbeat_fresh(tmp_path: Path, monkeypatch):
     fake = tmp_path / "slow.py"; output = tmp_path / "result.json"
     fake.write_text("import json,os,time\ntime.sleep(0.14)\nopen(os.environ['OUT'],'w').write(json.dumps({'task_id':'T','status':'COMPLETE','summary':'ok','evidence':['pass']}))\n")
@@ -73,7 +78,7 @@ def test_run_completes_canonical_task_and_exits(tmp_path: Path, monkeypatch):
     persisted = []
     monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: persisted.append(task_id) or {"commit": "c", "tree": "t"})
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.02) == 0
-    assert persisted == ["D01-030", "SECTION-demo01"]
+    assert persisted == ["D01-30", "SECTION-demo01"]
     production = state.load_project_production(project)
     assert state.find_task(production, "D01-030").status == "COMPLETE"
     assert state.load_active_task(repo).id == "NONE"
@@ -206,3 +211,38 @@ def test_persistence_failure_retries_without_runner_exit(tmp_path: Path, monkeyp
     assert calls["n"] == 2
     assert telemetry["status"] == "RUNNING"
     assert telemetry["last_result"]["status"] == "RECOVERED_PERSISTENCE"
+
+
+def test_section_planner_emits_canonical_d_series_ids(tmp_path: Path):
+    repo = tmp_path / "repo"
+    project = repo / "projects/biella-games"
+    (repo / "docs/project-state").mkdir(parents=True)
+    (project / "docs").mkdir(parents=True)
+    (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").write_text("active_execution:\n  id: NONE\n  state: READY\n")
+    (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").write_text("task:\n  id: NONE\n  project: Biella Games\n  section: NONE\n  class: NONE\n  title: No active Project task\n  status: COMPLETE\n")
+    (project / "docs/PRODUCTION.md").write_text("# P\n\nStatus: `IN_PROGRESS`\nCurrent section: `stage2`\nCurrent task: `NONE`\n\n## Section: demo01 | Demo | COMPLETE\n\n- [x] D01-50 | deep_memory | Close demo | COMPLETE | pass\n\n## Section: stage2 | Expansion | PENDING_UNPLANNED\n")
+    state.apply_section_plan(repo, project, "stage2", {"section_id": "stage2", "complete": False, "summary": "planned", "evidence": [], "tasks": [{"class": "simple", "title": "Implement streaming continuity"}]})
+    production = state.load_project_production(project)
+    task = next(s.tasks[0] for s in production.sections if s.id == "stage2")
+    assert task.id == "D02-01"
+    assert "S2-001" not in (project / "docs/PRODUCTION.md").read_text()
+
+
+def test_derived_ledger_failure_never_blocks_critical_persistence(tmp_path: Path, monkeypatch):
+    runtime = tmp_path / "runtime.json"
+    telemetry = runner.initial_runtime()
+    telemetry.update({"status": "RUNNING", "task_id": "D01-37"})
+    monkeypatch.setattr(
+        runner.evidence,
+        "persist_continuity",
+        lambda _repo, _task_id: {"commit": "c", "tree": "t"},
+    )
+    monkeypatch.setattr(
+        runner.evidence,
+        "publish_derived_task_ledger",
+        lambda _repo: (_ for _ in ()).throw(RuntimeError("drive temporarily unavailable")),
+    )
+    result = runner._persist_until_success(tmp_path, "D01-37", runtime, telemetry)
+    assert result == {"commit": "c", "tree": "t"}
+    assert telemetry["status"] == "RUNNING"
+    assert telemetry["last_result"]["derived_ledger"]["status"] == "PENDING_RETRY"

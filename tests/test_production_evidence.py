@@ -49,14 +49,14 @@ def test_complete_updates_project_and_active_task(tmp_path: Path):
     result = evidence.TaskResult("D01-030", "COMPLETE", "done", ("runtime pass",))
     evidence.apply_result(repo, project, result, routing.Route("gpt-6-astra", "ultra"))
     assert state.find_task(state.load_project_production(project), "D01-030").status == "COMPLETE"
-    assert state.load_active_task(repo).id == "D01-031"
+    assert state.load_active_task(repo).id == "D01-31"
 
 
 def test_continue_does_not_advance(tmp_path: Path):
     repo, project = fixture(tmp_path)
     result = evidence.TaskResult("D01-030", "CONTINUE", "more work", ("partial",))
     evidence.apply_result(repo, project, result, routing.Route("gpt-6-astra", "ultra"))
-    assert state.load_active_task(repo).id == "D01-030"
+    assert state.load_active_task(repo).id == "D01-30"
 
 
 def test_continue_does_not_dirty_durable_state(tmp_path: Path):
@@ -93,3 +93,21 @@ def test_drive_publications_include_project_production():
     assert targets["docs/project-state/03_BIELLA_CURRENT_STATE.md"] == "gdrive:Biella/CURRENT/03_BIELLA_CURRENT_STATE.md"
     assert targets["docs/project-state/04_BIELLA_ACTIVE_TASK.md"] == "gdrive:Biella/CURRENT/04_BIELLA_ACTIVE_TASK.md"
     assert targets["projects/biella-games/docs/PRODUCTION.md"] == "gdrive:Biella/PROJECTS/GAMES/PRODUCTION.md"
+
+
+def test_result_accepts_legacy_alias_for_canonical_expected(tmp_path: Path):
+    path = write_result(tmp_path / "result.json", "D01-030", "COMPLETE", ["runtime pass"])
+    result = evidence.parse_result(path, "D01-30")
+    assert result.task_id == "D01-30"
+
+
+def test_derived_ledger_publication_is_not_part_of_critical_drive_targets():
+    critical = dict(evidence.drive_publications(Path("/repo")))
+    derived = dict(evidence.derived_drive_publications(Path("/repo")))
+    assert "docs/task-program/D_TASK_LEDGER.json" not in critical
+    assert derived["docs/task-program/D_TASK_LEDGER.json"] == "gdrive:Biella/D_TASK_PROGRAM/D_TASK_LEDGER.json"
+    assert derived["docs/task-program/D_TASK_MANIFEST.json"] == "gdrive:Biella/D_TASK_PROGRAM/D_TASK_MANIFEST.json"
+
+
+def test_generated_task_ledger_is_allowed_continuity_output():
+    assert "docs/task-program/D_TASK_LEDGER.json" in evidence._CONTINUITY_PATHS

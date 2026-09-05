@@ -5,6 +5,9 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Sequence
 
+import biella_task_ids as task_ids
+import biella_task_ledger as task_ledger
+
 _COMPLETE = {"COMPLETE", "COMPLETE_ALREADY"}
 _SECTION_RE = re.compile(r"^## Section: (?P<id>[A-Za-z0-9_-]+) \| (?P<title>.+?) \| (?P<status>[A-Z_]+)$")
 _TASK_RE = re.compile(r"^- \[(?P<done>[xX ])\] (?P<id>[A-Z0-9-]+) \| (?P<class>[a-z_]+) \| (?P<title>.+?) \| (?P<status>[A-Z_]+) \|\s*(?P<evidence>.*)$")
@@ -71,7 +74,7 @@ def load_project_production(project_root: Path) -> ProductionState:
             value = _unquote(line.split(":", 1)[1]); current_section = None if value in {"", "NONE", "null"} else value
             continue
         if line.startswith("Current task:"):
-            value = _unquote(line.split(":", 1)[1]); current_task = None if value in {"", "NONE", "null"} else value
+            value = _unquote(line.split(":", 1)[1]); current_task = None if value in {"", "NONE", "null"} else task_ids.canonical_task_id(value)
             continue
         match = _SECTION_RE.match(line)
         if match:
@@ -85,7 +88,7 @@ def load_project_production(project_root: Path) -> ProductionState:
                 task_status = "COMPLETE"
             evidence = match.group("evidence").strip()
             section.tasks.append(TaskRecord(
-                match.group("id"), match.group("class"), match.group("title").strip(),
+                task_ids.canonical_task_id(match.group("id")), match.group("class"), match.group("title").strip(),
                 task_status, (evidence,) if evidence else (), section.id,
             ))
     if not sections:
@@ -94,9 +97,10 @@ def load_project_production(project_root: Path) -> ProductionState:
 
 
 def find_task(production: ProductionState, task_id: str) -> TaskRecord:
+    canonical = task_ids.canonical_task_id(task_id)
     for section in production.sections:
         for task in section.tasks:
-            if task.id == task_id:
+            if task.id == canonical:
                 return task
     raise KeyError(task_id)
 
@@ -136,6 +140,12 @@ def sync_project_metadata(project_root: Path) -> ProductionState:
                 section = candidate.id
                 break
     lines = path.read_text(encoding="utf-8").splitlines()
+    for index, raw in enumerate(lines):
+        match = _TASK_RE.match(raw.strip())
+        if match:
+            canonical = task_ids.canonical_task_id(match.group("id"))
+            if canonical != match.group("id"):
+                lines[index] = raw.replace(match.group("id"), canonical, 1)
     _replace_meta(lines, "Current section:", section)
     _replace_meta(lines, "Current task:", task.id if task else None)
     demo = next((candidate for candidate in production.sections if candidate.id == "demo01"), None)
@@ -170,7 +180,7 @@ def load_active_task(repo_root: Path) -> ActiveTask:
     required = ("id", "project", "section", "class", "title", "status")
     missing = [key for key in required if key not in values]
     if missing: raise ValueError(f"active task missing fields: {','.join(missing)}")
-    return ActiveTask(values["id"], values["project"], values["section"], values["class"], values["title"], values["status"])
+    return ActiveTask(task_ids.canonical_task_id(values["id"]), values["project"], values["section"], values["class"], values["title"], values["status"])
 
 
 def write_active_task(repo_root: Path, task: TaskRecord | None, *, project: str = "Biella Games", predecessor: str | None = None) -> None:
@@ -243,10 +253,28 @@ def sync_current_state(repo_root: Path, production: ProductionState, task: TaskR
         "task_boundary": f"{task_id}_{state}",
     })
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    task_ledger.sync_task_ledger(repo_root, production)
+
+
+def _block_field(text: str, block: str, field: str) -> str | None:
+    in_block = False
+    prefix = f"  {field}:"
+    for raw in text.splitlines():
+        if raw == f"{block}:":
+            in_block = True
+            continue
+        if not in_block:
+            continue
+        if raw and not raw.startswith(" "):
+            break
+        if raw.startswith(prefix):
+            return _unquote(raw.split(":", 1)[1])
+    return None
 
 
 def resolve_current_task(repo_root: Path, project_root: Path) -> TaskRecord | None:
     production = sync_project_metadata(project_root)
+    task_ledger.sync_task_ledger(repo_root, production)
     current = next_task(production)
     active = load_active_task(repo_root)
     if current is None:
@@ -259,7 +287,11 @@ def resolve_current_task(repo_root: Path, project_root: Path) -> TaskRecord | No
         state_text = current_state_path(repo_root).read_text(encoding="utf-8") if current_state_path(repo_root).exists() else ""
         legacy_active = "feeder:" in active_text or "execution_started:" in active_text
         legacy_state = "feeder:" in state_text or "execution_started:" in state_text
-        if legacy_active or legacy_state:
+        raw_active_id = _block_field(active_text, "task", "id")
+        raw_state_id = _block_field(state_text, "active_execution", "id")
+        alias_active = bool(raw_active_id and task_ids.canonical_task_id(raw_active_id) != raw_active_id)
+        alias_state = bool(raw_state_id and task_ids.canonical_task_id(raw_state_id) != raw_state_id)
+        if legacy_active or legacy_state or alias_active or alias_state:
             write_active_task(repo_root, current, predecessor=_previous_completed_task(production, current.id))
             sync_current_state(repo_root, production, current)
         return current
@@ -277,15 +309,16 @@ def resolve_current_task(repo_root: Path, project_root: Path) -> TaskRecord | No
 def mark_task_complete(repo_root: Path, project_root: Path, task_id: str, status: str, evidence: Sequence[str]) -> ProductionState:
     if status not in _COMPLETE:
         raise ValueError("completion status required")
+    canonical_id = task_ids.canonical_task_id(task_id)
     path = production_path(project_root)
     lines = path.read_text(encoding="utf-8").splitlines()
     found = False
     for index, raw in enumerate(lines):
         match = _TASK_RE.match(raw.strip())
-        if not match or match.group("id") != task_id:
+        if not match or task_ids.canonical_task_id(match.group("id")) != canonical_id:
             continue
         rendered = "; ".join(str(item).strip() for item in evidence if str(item).strip())
-        lines[index] = f"- [x] {task_id} | {match.group('class')} | {match.group('title').strip()} | {status} | {rendered}"
+        lines[index] = f"- [x] {canonical_id} | {match.group('class')} | {match.group('title').strip()} | {status} | {rendered}"
         found = True
         break
     if not found:
@@ -293,7 +326,7 @@ def mark_task_complete(repo_root: Path, project_root: Path, task_id: str, status
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     production = sync_project_metadata(project_root)
     successor = next_task(production)
-    write_active_task(repo_root, successor, predecessor=task_id)
+    write_active_task(repo_root, successor, predecessor=canonical_id)
     sync_current_state(repo_root, production, successor, state="PENDING" if successor else "COMPLETE")
     return production
 
@@ -332,13 +365,7 @@ def apply_section_plan(repo_root: Path, project_root: Path, section_id: str, pla
         return production
 
     existing_titles = {re.sub(r"\s+", " ", task.title.strip().lower()) for task in section.tasks}
-    prefix_match = re.search(r"(\d+)$", section_id)
-    prefix = f"S{prefix_match.group(1)}" if prefix_match else section_id.upper()
-    next_number = 1
-    for task in section.tasks:
-        match = re.match(re.escape(prefix) + r"-(\d+)$", task.id)
-        if match:
-            next_number = max(next_number, int(match.group(1)) + 1)
+    existing_ids = [task.id for item in production.sections for task in item.tasks]
     additions: list[str] = []
     for raw in plan.get("tasks", []):
         if not isinstance(raw, dict):
@@ -349,8 +376,10 @@ def apply_section_plan(repo_root: Path, project_root: Path, section_id: str, pla
         normalized = re.sub(r"\s+", " ", title.lower())
         if not title or normalized in existing_titles:
             continue
-        additions.append(f"- [ ] {prefix}-{next_number:03d} | {task_class} | {title} | PENDING | ")
-        existing_titles.add(normalized); next_number += 1
+        task_id = task_ids.next_task_id(section_id, existing_ids)
+        additions.append(f"- [ ] {task_id} | {task_class} | {title} | PENDING | ")
+        existing_ids.append(task_id)
+        existing_titles.add(normalized)
     if not additions:
         raise ValueError("section plan returned no unique tasks")
 

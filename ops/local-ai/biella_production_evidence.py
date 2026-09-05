@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from biella_codex_routing import Route
+import biella_task_ids as task_ids
 from biella_production_state import mark_task_complete, sync_current_state, load_project_production, find_task
 
 _ALLOWED = {"COMPLETE", "COMPLETE_ALREADY", "CONTINUE"}
@@ -44,9 +45,11 @@ def parse_result(path: Path, expected_task_id: str) -> TaskResult:
         raise ValueError(f"invalid structured result: {exc}") from exc
     if not isinstance(raw, Mapping):
         raise ValueError("structured result must be an object")
-    task_id = str(raw.get("task_id", ""))
-    if task_id != expected_task_id:
-        raise ValueError(f"task_id mismatch: expected {expected_task_id}, got {task_id}")
+    raw_task_id = str(raw.get("task_id", ""))
+    task_id = task_ids.canonical_task_id(raw_task_id)
+    expected_canonical = task_ids.canonical_task_id(expected_task_id)
+    if task_id != expected_canonical:
+        raise ValueError(f"task_id mismatch: expected {expected_canonical}, got {raw_task_id}")
     status = str(raw.get("status", ""))
     if status not in _ALLOWED:
         raise ValueError(f"unsupported result status: {status}")
@@ -77,6 +80,7 @@ _CONTINUITY_PATHS = (
     "docs/project-state/03_BIELLA_CURRENT_STATE.md",
     "docs/project-state/04_BIELLA_ACTIVE_TASK.md",
     "projects/biella-games/docs/PRODUCTION.md",
+    "docs/task-program/D_TASK_LEDGER.json",
 )
 
 
@@ -106,15 +110,31 @@ def drive_publications(repo_root: Path) -> tuple[tuple[str, str], ...]:
     )
 
 
-def publish_drive_continuity(repo_root: Path) -> None:
-    for relative, target in drive_publications(Path(repo_root)):
+def derived_drive_publications(repo_root: Path) -> tuple[tuple[str, str], ...]:
+    del repo_root
+    return (
+        ("docs/task-program/D_TASK_MANIFEST.json", "gdrive:Biella/D_TASK_PROGRAM/D_TASK_MANIFEST.json"),
+        ("docs/task-program/D_TASK_LEDGER.json", "gdrive:Biella/D_TASK_PROGRAM/D_TASK_LEDGER.json"),
+    )
+
+
+def _publish_exact_files(repo_root: Path, publications: tuple[tuple[str, str], ...]) -> None:
+    for relative, target in publications:
         local = Path(repo_root) / relative
+        if not local.exists():
+            continue
         subprocess.run(["rclone", "copyto", str(local), target], check=True, stdout=subprocess.DEVNULL)
         remote = subprocess.run(["rclone", "cat", target], check=True, capture_output=True).stdout
-        local_digest = hashlib.sha256(local.read_bytes()).hexdigest()
-        remote_digest = hashlib.sha256(remote).hexdigest()
-        if local_digest != remote_digest:
+        if hashlib.sha256(local.read_bytes()).hexdigest() != hashlib.sha256(remote).hexdigest():
             raise RuntimeError(f"Drive readback digest mismatch for {local.name}")
+
+
+def publish_drive_continuity(repo_root: Path) -> None:
+    _publish_exact_files(Path(repo_root), drive_publications(Path(repo_root)))
+
+
+def publish_derived_task_ledger(repo_root: Path) -> None:
+    _publish_exact_files(Path(repo_root), derived_drive_publications(Path(repo_root)))
 
 
 def persist_continuity(repo_root: Path, task_id: str, *, publish_drive: bool = True) -> dict[str, str]:

@@ -3,7 +3,9 @@ import importlib.util
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-MODULE = ROOT / "ops/local-ai/biella_production_state.py"
+LOCAL_AI = ROOT / "ops/local-ai"
+sys.path.insert(0, str(LOCAL_AI))
+MODULE = LOCAL_AI / "biella_production_state.py"
 spec = importlib.util.spec_from_file_location("biella_production_state", MODULE)
 assert spec and spec.loader
 state = importlib.util.module_from_spec(spec)
@@ -33,16 +35,16 @@ def write_fixture(root: Path, *, active_id: str, project_id: str, d01_029: str =
 def test_resolve_current_task_requires_active_and_project_to_agree(tmp_path: Path):
     repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
     resolved = state.resolve_current_task(repo, project)
-    assert resolved.id == "D01-030"
+    assert resolved.id == "D01-30"
     assert resolved.task_class == "hard"
 
 
 def test_completed_project_task_repairs_stale_active_pointer(tmp_path: Path):
     repo, project = write_fixture(tmp_path, active_id="D01-029", project_id="D01-030")
     resolved = state.resolve_current_task(repo, project)
-    assert resolved.id == "D01-030"
+    assert resolved.id == "D01-30"
     active = state.load_active_task(repo)
-    assert active.id == "D01-030"
+    assert active.id == "D01-30"
 
 
 def test_mark_complete_advances_project_and_active_task(tmp_path: Path):
@@ -50,8 +52,8 @@ def test_mark_complete_advances_project_and_active_task(tmp_path: Path):
     state.mark_task_complete(repo, project, "D01-030", "COMPLETE", ["runtime pass"])
     production = state.load_project_production(project)
     assert state.find_task(production, "D01-030").status == "COMPLETE"
-    assert production.current_task == "D01-031"
-    assert state.load_active_task(repo).id == "D01-031"
+    assert production.current_task == "D01-31"
+    assert state.load_active_task(repo).id == "D01-31"
 
 
 def test_no_legacy_json_state_is_created(tmp_path: Path):
@@ -67,7 +69,7 @@ def test_resolve_migrates_legacy_feeder_fields_to_runner(tmp_path: Path):
     p03.write_text(p03.read_text().replace("  state: READY\n", "  state: READY\n  feeder: STOPPED_BY_OWNER\n"))
     p04.write_text(p04.read_text().replace("  status: PENDING\n", "  status: PENDING\n  feeder: STOPPED_BY_OWNER\n"))
     resolved = state.resolve_current_task(repo, project)
-    assert resolved.id == "D01-030"
+    assert resolved.id == "D01-30"
     assert "feeder:" not in p03.read_text()
     assert "feeder:" not in p04.read_text()
     assert "runner:" in p03.read_text()
@@ -88,7 +90,7 @@ def test_resolve_migrates_execution_started_out_of_durable_state(tmp_path: Path)
     p03.write_text(p03.read_text().replace("  state: READY\n", "  state: READY\n  execution_started: false\n"))
     p04.write_text(p04.read_text().replace("  status: PENDING\n", "  status: PENDING\n  execution_started: false\n"))
     resolved = state.resolve_current_task(repo, project)
-    assert resolved.id == "D01-030"
+    assert resolved.id == "D01-30"
     assert "execution_started:" not in p03.read_text()
     assert "execution_started:" not in p04.read_text()
 
@@ -102,3 +104,53 @@ def test_sync_project_metadata_updates_demo_progress_from_task_rows(tmp_path: Pa
     state.sync_project_metadata(project)
     updated = path.read_text(encoding="utf-8")
     assert "Progress: `1/3` Demo tasks complete" in updated
+
+
+def test_legacy_d01_ids_resolve_to_canonical_two_digit_identity(tmp_path: Path):
+    repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
+    production = state.load_project_production(project)
+    assert production.current_task == "D01-30"
+    assert state.find_task(production, "D01-030").id == "D01-30"
+    assert state.find_task(production, "D01-30").id == "D01-30"
+    assert state.load_active_task(repo).id == "D01-30"
+
+
+def test_mark_complete_accepts_canonical_id_for_legacy_d01_row(tmp_path: Path):
+    repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
+    state.mark_task_complete(repo, project, "D01-30", "COMPLETE", ["runtime pass"])
+    text = (project / "docs/PRODUCTION.md").read_text(encoding="utf-8")
+    assert "- [x] D01-30 | hard | Current task | COMPLETE | runtime pass" in text
+    assert state.load_active_task(repo).id == "D01-31"
+
+
+def test_sync_project_metadata_normalizes_legacy_task_rows_in_place(tmp_path: Path):
+    _repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
+    state.sync_project_metadata(project)
+    text = (project / "docs/PRODUCTION.md").read_text(encoding="utf-8")
+    assert "Current task: `D01-30`" in text
+    assert "- [x] D01-29 | hard | Prior task | COMPLETE | prior evidence" in text
+    assert "- [ ] D01-30 | hard | Current task | PENDING | current evidence" in text
+    assert "D01-029" not in text
+    assert "D01-030" not in text
+
+
+def test_resolve_current_task_refreshes_derived_task_ledger(tmp_path: Path):
+    repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
+    resolved = state.resolve_current_task(repo, project)
+    ledger_path = repo / "docs/task-program/D_TASK_LEDGER.json"
+    assert resolved.id == "D01-30"
+    assert ledger_path.exists()
+    text = ledger_path.read_text(encoding="utf-8")
+    assert '"current_task": "D01-30"' in text
+    assert '"registry_is_queue": false' in text
+
+
+def test_resolve_rewrites_legacy_active_and_state_ids_immediately(tmp_path: Path):
+    repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
+    state.resolve_current_task(repo, project)
+    active_text = (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").read_text(encoding="utf-8")
+    state_text = (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_text(encoding="utf-8")
+    assert "  id: D01-30" in active_text
+    assert "  id: D01-030" not in active_text
+    assert "  id: D01-30" in state_text
+    assert "  id: D01-030" not in state_text

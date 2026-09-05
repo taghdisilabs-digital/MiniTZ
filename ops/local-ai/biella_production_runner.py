@@ -196,11 +196,17 @@ def _persist_until_success(repo_root: Path, task_id: str, runtime_path: Path, te
             _beat(runtime_path, telemetry)
             time.sleep(max(0.05, retry_seconds))
             continue
+        derived = {"status": "SYNCED"}
+        try:
+            evidence.publish_derived_task_ledger(repo_root)
+        except Exception as exc:
+            derived = {"status": "PENDING_RETRY", "error": str(exc)}
         telemetry["status"] = "RUNNING"
         telemetry["last_result"] = {
             "task_id": task_id, "status": "RECOVERED_PERSISTENCE",
             "summary": "Canonical Git/Drive publication recovered.",
             "evidence": list(previous.get("evidence", [])), "continuity": identity,
+            "derived_ledger": derived,
         }
         _beat(runtime_path, telemetry)
         return identity
