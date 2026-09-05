@@ -55,6 +55,14 @@ void ABiellaRival::BeginPlay()
         *GetName(), WeaponRange, WeaponDamage, WeaponCooldown);
 }
 
+void ABiellaRival::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+    CurrentTarget = nullptr;
+    ClearNavigationPath();
+    WeaponMaterial = nullptr;
+    Super::EndPlay(EndPlayReason);
+}
+
 void ABiellaRival::SetPreferredTarget(ABiellaDemoPawn* Target)
 {
     CurrentTarget = Target;

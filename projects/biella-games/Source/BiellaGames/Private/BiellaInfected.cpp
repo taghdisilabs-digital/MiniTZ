@@ -44,6 +44,7 @@ void ABiellaInfected::EndPlay(const EEndPlayReason::Type EndPlayReason)
         State->OnArenaPressureChanged.RemoveAll(this);
     }
     PressureState.Reset();
+    CurrentTarget = nullptr;
     Super::EndPlay(EndPlayReason);
 }
 

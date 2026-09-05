@@ -49,6 +49,7 @@ public:
 private:
     void ApplyArenaPressure(const ABiellaGamesGameState& State);
     void TrySpawnPressureReinforcements();
+    void CleanupRetiredInfected();
     TWeakObjectPtr<ABiellaGamesGameState> PressureState;
     TWeakObjectPtr<ABiellaInfected> PressureReinforcements[2];
     bool bPressureSlotUsed[2] = { false, false };

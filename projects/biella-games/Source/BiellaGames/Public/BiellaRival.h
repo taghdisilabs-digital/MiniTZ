@@ -22,6 +22,7 @@ public:
     ABiellaRival();
 
     virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
     virtual void Tick(float DeltaTime) override;
     virtual void Defeat(const FString& Reason) override;
 

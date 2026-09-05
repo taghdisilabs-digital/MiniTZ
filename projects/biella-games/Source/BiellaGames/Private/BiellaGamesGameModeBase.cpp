@@ -30,11 +30,33 @@ void ABiellaGamesGameModeBase::BeginPlay()
     SpawnDemoActors();
     if (HasAuthority() && GetWorld())
     {
-        FActorSpawnParameters ObjectiveParams;
-        ObjectiveParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-        ObjectiveManager = GetWorld()->SpawnActor<ABiellaDemoObjectiveManager>(
-            ABiellaDemoObjectiveManager::StaticClass(), FVector::ZeroVector,
-            FRotator::ZeroRotator, ObjectiveParams);
+        TArray<AActor*> ExistingObjectives;
+        UGameplayStatics::GetAllActorsOfClass(GetWorld(),
+            ABiellaDemoObjectiveManager::StaticClass(), ExistingObjectives);
+        for (AActor* Actor : ExistingObjectives)
+        {
+            if (ABiellaDemoObjectiveManager* Existing = Cast<ABiellaDemoObjectiveManager>(Actor))
+            {
+                if (!IsValid(ObjectiveManager))
+                {
+                    ObjectiveManager = Existing;
+                }
+                else if (Existing != ObjectiveManager)
+                {
+                    // There is one authoritative objective per match. Remove
+                    // stale duplicates left by a repeated lifecycle entry.
+                    Existing->Destroy();
+                }
+            }
+        }
+        if (!IsValid(ObjectiveManager))
+        {
+            FActorSpawnParameters ObjectiveParams;
+            ObjectiveParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+            ObjectiveManager = GetWorld()->SpawnActor<ABiellaDemoObjectiveManager>(
+                ABiellaDemoObjectiveManager::StaticClass(), FVector::ZeroVector,
+                FRotator::ZeroRotator, ObjectiveParams);
+        }
     }
     if (ABiellaGamesGameState* State = GetWorld()->GetGameState<ABiellaGamesGameState>())
     {
@@ -48,7 +70,8 @@ void ABiellaGamesGameModeBase::BeginPlay()
 void ABiellaGamesGameModeBase::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
-    if (GetWorld()->GetTimeSeconds() >= NextPressureSpawnAttempt)
+    CleanupRetiredInfected();
+    if (GetWorld() && GetWorld()->GetTimeSeconds() >= NextPressureSpawnAttempt)
     {
         TrySpawnPressureReinforcements();
     }
@@ -60,6 +83,19 @@ void ABiellaGamesGameModeBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
     {
         PressureState->OnArenaPressureChanged.RemoveAll(this);
     }
+    PressureState.Reset();
+    for (TWeakObjectPtr<ABiellaInfected>& Reinforcement : PressureReinforcements)
+    {
+        Reinforcement.Reset();
+    }
+    InfectedActors.Reset();
+    RivalActor = nullptr;
+    ObjectiveManager = nullptr;
+    bPressureSlotUsed[0] = bPressureSlotUsed[1] = false;
+    PressureReinforcementCount = 0;
+    NextPressureSpawnAttempt = 0.0f;
+    bPlayerFailureHandled = false;
+    bRestartRequested = false;
     Super::EndPlay(EndPlayReason);
 }
 
@@ -114,6 +150,7 @@ void ABiellaGamesGameModeBase::TrySpawnPressureReinforcements()
         ABiellaInfected* Infected = GetWorld()->SpawnActor<ABiellaInfected>(
             ABiellaInfected::StaticClass(), Location, FRotator::ZeroRotator, Params);
         if (!Infected) { continue; }
+        Infected->Tags.AddUnique(TEXT("D01PressureReinforcement"));
         InfectedActors.Add(Infected);
         PressureReinforcements[Slot] = Infected;
         bPressureSlotUsed[Slot] = true;
@@ -122,6 +159,33 @@ void ABiellaGamesGameModeBase::TrySpawnPressureReinforcements()
             TEXT("D01_SIGNAL PRESSURE_SPAWN id=%s revision=%d level=%.1f slot=%d actor=%s count=%d location=%s authority=server"),
             *State.ArenaPressureId.ToString(), State.GetArenaPressureRevision(), State.ArenaPressure,
             Slot, *Infected->GetName(), PressureReinforcementCount, *Location.ToCompactString());
+    }
+}
+
+void ABiellaGamesGameModeBase::CleanupRetiredInfected()
+{
+    for (int32 Index = InfectedActors.Num() - 1; Index >= 0; --Index)
+    {
+        ABiellaInfected* Infected = InfectedActors[Index].Get();
+        if (!IsValid(Infected))
+        {
+            InfectedActors.RemoveAtSwap(Index);
+            continue;
+        }
+        if (!Infected->ActorHasTag(TEXT("D01PressureReinforcement")) ||
+            !Infected->IsDefeated())
+        {
+            continue;
+        }
+
+        for (TWeakObjectPtr<ABiellaInfected>& Reinforcement : PressureReinforcements)
+        {
+            if (Reinforcement == Infected) { Reinforcement.Reset(); }
+        }
+        UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL INFECTED_RETIRE actor=%s reason=defeated pressure_slot_reserved=true"),
+            *Infected->GetName());
+        Infected->Destroy();
+        InfectedActors.RemoveAtSwap(Index);
     }
 }
 
@@ -186,11 +250,17 @@ void ABiellaGamesGameModeBase::SpawnDemoActors()
     TArray<AActor*> Existing;
     UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABiellaInfected::StaticClass(), Existing);
     InfectedActors.Reset();
+    int32 EncounterActorCount = 0;
     for (AActor* Actor : Existing)
     {
-        if (ABiellaInfected* Infected = Cast<ABiellaInfected>(Actor))
+        if (ABiellaInfected* Infected = Cast<ABiellaInfected>(Actor);
+            IsValid(Infected) && !Infected->IsActorBeingDestroyed())
         {
-            InfectedActors.Add(Infected);
+            InfectedActors.AddUnique(Infected);
+            if (!Infected->ActorHasTag(TEXT("D01PressureReinforcement")))
+            {
+                ++EncounterActorCount;
+            }
         }
     }
     if (InfectedActors.Num() > 0)
@@ -202,7 +272,8 @@ void ABiellaGamesGameModeBase::SpawnDemoActors()
         FVector(520.0f, 260.0f, 0.0f),
         FVector(520.0f, -260.0f, 0.0f)
     };
-    for (int32 Index = 0; Index < UE_ARRAY_COUNT(SpawnLocations); ++Index)
+    const int32 RequiredEncounterActors = UE_ARRAY_COUNT(SpawnLocations);
+    for (int32 Index = EncounterActorCount; Index < RequiredEncounterActors; ++Index)
     {
         FActorSpawnParameters Params;
         Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;

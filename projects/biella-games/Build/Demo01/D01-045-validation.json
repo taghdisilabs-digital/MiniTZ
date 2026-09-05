@@ -1,0 +1,64 @@
+{
+  "task_id": "D01-45",
+  "result": "PASS",
+  "scope": "BOUNDED_DEMO01_LIFECYCLE_RUNTIME",
+  "engine": "UE 5.8.2",
+  "build": {
+    "target": "BiellaGamesEditor Linux Development",
+    "result": "Succeeded",
+    "binary": "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor",
+    "log": {
+      "path": "Build/Demo01/D01-045-editor-build.log",
+      "sha256": "8733766ad5f7d2c095f8accfae93c1827e777f1424e8e497fc8a9cb9ecebf9a9"
+    }
+  },
+  "runtime": {
+    "automation": "BiellaGames.Demo01.LifecycleCleanup",
+    "result": "Success",
+    "exit_code": 0,
+    "signals": {
+      "spawn_idempotent": true,
+      "encounter_infected_before": 2,
+      "encounter_infected_after_repeated_spawn": 2,
+      "objective_managers": 1,
+      "pressure_reinforcement_tagged": true,
+      "pressure_reinforcement_defeated": true,
+      "pressure_reinforcement_retired": true,
+      "pressure_slot_refilled": false,
+      "restarted_encounter_infected": 2,
+      "restarted_pressure_infected": 0,
+      "restarted_pressure_state": "Inactive"
+    },
+    "engine_log": {
+      "path": "Build/Demo01/D01-045-lifecycle.engine.log",
+      "sha256": "fe3065955c19e91815eab2081a0f9a19c25d0d01a7755e2234464426712d532e"
+    },
+    "stdout_log": {
+      "path": "Build/Demo01/D01-045-lifecycle.stdout.log",
+      "sha256": "743a7ec8abd29668d0661e589aa244a14e1fbebe1e5bd6baefb004a260d531b3"
+    }
+  },
+  "predecessor_regression": {
+    "task_id": "D01-39",
+    "runs": 2,
+    "renderer": "nullrhi",
+    "result": "PASS",
+    "validation": "Build/Demo01/D01-045-predecessor-regression/20260905T101807.313841Z-nullrhi-5fc16f99/validation.json"
+  },
+  "source_sha256": {
+    "Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp": "c60157e548844950fba65f02ddc300ab16b13cf3c7c54655753113e38cda29e8",
+    "Source/BiellaGames/Private/BiellaDemoPawn.cpp": "437bec97fd7651422e501aea599a222b2cec8f79e141182e6791021aff1d4d32",
+    "Source/BiellaGames/Private/BiellaInfected.cpp": "bdb53c82006fa7957913e3633f25f28a3ad18a8c0dd97a1dd761d68b4d5acba0",
+    "Source/BiellaGames/Private/BiellaRival.cpp": "2bd3cbcad6aee368772d231ab007a013ca3caea9c173f80dcde532e0c799262c",
+    "Source/BiellaGames/Private/Tests/BiellaLifecycleCleanupTest.cpp": "1a46b43830cb294720640ee951da38352a49ab680dae0f54cccd0c319d6d3f79"
+  },
+  "protected_authority_sha256": {
+    "docs/project-state/03_BIELLA_CURRENT_STATE.md": "26049ead457cd102f666d401a5eae7da6c27e0d271041d085a05ea3cb3c024c4",
+    "docs/project-state/04_BIELLA_ACTIVE_TASK.md": "124e0fde42ac1b0d588e43bbd1670bc882e370358c85526c474004394720ea11",
+    "projects/biella-games/docs/PRODUCTION.md": "7354dc9d8efa9fd94eab82397938f4652bae66fed17b416dcb47d86afa94325a"
+  },
+  "limitations": [
+    "This proves bounded Demo 01 runtime lifecycle behavior, not a shipping-platform or full-content leak qualification.",
+    "Known predecessor navigation/shutdown warning signatures remain disclosed in the runtime logs."
+  ]
+}

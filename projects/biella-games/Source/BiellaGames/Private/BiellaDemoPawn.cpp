@@ -62,6 +62,17 @@ void ABiellaDemoPawn::BeginPlay()
     BuildRolePresentation();
 }
 
+void ABiellaDemoPawn::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+    for (UStaticMeshComponent* Detail : RoleDetails)
+    {
+        if (IsValid(Detail)) { Detail->DestroyComponent(); }
+    }
+    RoleDetails.Reset();
+    BodyMaterial = nullptr;
+    Super::EndPlay(EndPlayReason);
+}
+
 void ABiellaDemoPawn::BuildRolePresentation()
 {
     // A streamed actor may receive BeginPlay again on the same instance.
