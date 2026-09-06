@@ -38,7 +38,7 @@ games:
   project_path: projects/biella-games
   production_source: projects/biella-games/docs/PRODUCTION.md
   section: demo01
-  completed_demo_tasks: 59
+  completed_demo_tasks: 50
   total_demo_tasks: 50
   queued_successor: D03-01
   latest_preservation_commit: f7e74205988cb48946e62efeffe5c5330ec6437b

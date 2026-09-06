@@ -120,6 +120,13 @@ def completed_count(production: ProductionState) -> int:
     return sum(task.status in _COMPLETE for section in production.sections for task in section.tasks)
 
 
+def completed_demo_count(production: ProductionState) -> int:
+    demo = next((section for section in production.sections if section.id == "demo01"), None)
+    if demo is None:
+        return 0
+    return sum(task.status in _COMPLETE for task in demo.tasks)
+
+
 def _replace_meta(lines: list[str], prefix: str, value: str | None) -> None:
     rendered = f"{prefix} `{value if value is not None else 'NONE'}`"
     for index, line in enumerate(lines):
@@ -248,7 +255,7 @@ def sync_current_state(repo_root: Path, production: ProductionState, task: TaskR
         "state": state, "runner": "READY" if task else "STOPPED",
     })
     _update_yaml_block(lines, "games", {
-        "completed_demo_tasks": str(completed_count(production)),
+        "completed_demo_tasks": str(completed_demo_count(production)),
         "queued_successor": task_id,
         "task_boundary": f"{task_id}_{state}",
     })

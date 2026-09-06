@@ -117,43 +117,43 @@ Canonical IDs: `D##-##`. Dependency edges are authoritative; legacy IDs are alia
 
 | Task | Title | Status | Depends on | Legacy alias |
 |---|---|---|---|---|
-| `D02-01` | Open-world streaming and continuity | `PENDING_UNPLANNED` | D01-50 | `GAME-20-WORLD-STREAMING` |
-| `D02-02` | Population and encounter scaling | `PENDING_UNPLANNED` | D02-01 | `GAME-21-POPULATION-SCALING` |
-| `D02-03` | Vehicle runtime when explicitly approved | `PENDING_UNPLANNED` | D02-01 | `GAME-22-VEHICLES` |
-| `D02-04` | Deeper interaction, destruction, and environment state | `PENDING_UNPLANNED` | D02-01 | `GAME-23-INTERACTION-DESTRUCTION` |
+| `D02-01` | Open-world streaming and continuity | `PENDING` | D01-50 | `GAME-20-WORLD-STREAMING` |
+| `D02-02` | Population and encounter scaling | `PENDING` | D02-01 | `GAME-21-POPULATION-SCALING` |
+| `D02-03` | Vehicle runtime when explicitly approved | `PENDING` | D02-01 | `GAME-22-VEHICLES` |
+| `D02-04` | Deeper interaction, destruction, and environment state | `PENDING` | D02-01 | `GAME-23-INTERACTION-DESTRUCTION` |
 
 ## D03 — Biella Games Stage 3 — production quality
 
 | Task | Title | Status | Depends on | Legacy alias |
 |---|---|---|---|---|
-| `D03-01` | Production rendering, animation, VFX, and audio quality | `PENDING_UNPLANNED` | D02-01, D02-02, D02-04 | `GAME-30-PRODUCTION-QUALITY` |
+| `D03-01` | Production rendering, animation, VFX, and audio quality | `PENDING` | D02-01, D02-02, D02-04 | `GAME-30-PRODUCTION-QUALITY` |
 
 ## D04 — Biella Games Stage 4 — content multiplication
 
 | Task | Title | Status | Depends on | Legacy alias |
 |---|---|---|---|---|
-| `D04-01` | Data-driven content system multiplication | `PENDING_UNPLANNED` | D03-01 | `GAME-40-CONTENT-MULTIPLICATION` |
+| `D04-01` | Data-driven content system multiplication | `PENDING` | D03-01 | `GAME-40-CONTENT-MULTIPLICATION` |
 
 ## D05 — Biella Games Stage 5 — UI/settings/localization/accessibility
 
 | Task | Title | Status | Depends on | Legacy alias |
 |---|---|---|---|---|
-| `D05-01` | UI, settings, localization, and accessibility | `PENDING_UNPLANNED` | D04-01 | `GAME-50-UI-ACCESSIBILITY` |
+| `D05-01` | UI, settings, localization, and accessibility | `PENDING` | D04-01 | `GAME-50-UI-ACCESSIBILITY` |
 
 ## D06 — Biella Games Stage 6 — cinematics/presentation
 
 | Task | Title | Status | Depends on | Legacy alias |
 |---|---|---|---|---|
-| `D06-01` | Cinematic and presentation integration | `PENDING_UNPLANNED` | D04-01 | `GAME-60-CINEMATICS` |
+| `D06-01` | Cinematic and presentation integration | `PENDING` | D04-01 | `GAME-60-CINEMATICS` |
 
 ## D07 — Biella Games Stage 7 — performance/stability/scalability
 
 | Task | Title | Status | Depends on | Legacy alias |
 |---|---|---|---|---|
-| `D07-01` | Full performance, stability, and scalability qualification | `PENDING_UNPLANNED` | D03-01, D04-01, D05-01, D06-01 | `GAME-70-PERFORMANCE-QUALIFICATION` |
+| `D07-01` | Full performance, stability, and scalability qualification | `PENDING` | D03-01, D04-01, D05-01, D06-01 | `GAME-70-PERFORMANCE-QUALIFICATION` |
 
 ## D08 — Biella Games Stage 8 — delivery/release candidate
 
 | Task | Title | Status | Depends on | Legacy alias |
 |---|---|---|---|---|
-| `D08-01` | Delivery, update, and release-candidate qualification | `PENDING_UNPLANNED` | D07-01 | `GAME-80-RELEASE-CANDIDATE` |
+| `D08-01` | Delivery, update, and release-candidate qualification | `PENDING` | D07-01 | `GAME-80-RELEASE-CANDIDATE` |

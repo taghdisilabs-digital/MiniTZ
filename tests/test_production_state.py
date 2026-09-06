@@ -170,3 +170,22 @@ def test_resolve_none_active_pointer_advances_to_project_successor(tmp_path: Pat
 
     assert resolved.id == "D02-01"
     assert state.load_active_task(repo).id == "D02-01"
+
+
+def test_sync_current_state_demo_count_excludes_completed_post_d01_tasks(tmp_path: Path):
+    repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D02-01")
+    production_path = project / "docs/PRODUCTION.md"
+    text = production_path.read_text(encoding="utf-8")
+    text = text.replace("- [ ] D01-030 | hard | Current task | PENDING | current evidence", "- [x] D01-030 | hard | Current task | COMPLETE | current evidence")
+    text = text.replace("- [ ] D01-031 | hard | Next task | PENDING | next evidence", "- [x] D01-031 | hard | Next task | COMPLETE | next evidence")
+    text = text.replace("## Section: demo01 | Demo | IN_PROGRESS", "## Section: demo01 | Demo | COMPLETE")
+    text += "\n## Section: post_d01 | Continuation | IN_PROGRESS\n\n- [x] D02-01 | hard | Post task | COMPLETE | pass\n- [ ] D02-02 | hard | Current post task | PENDING |\n"
+    production_path.write_text(text, encoding="utf-8")
+    state_path = repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md"
+    state_path.write_text(state_path.read_text() + "games:\n  completed_demo_tasks: 0\n  total_demo_tasks: 3\n  queued_successor: D02-02\n")
+    production = state.load_project_production(project)
+    current = state.find_task(production, "D02-02")
+    state.sync_current_state(repo, production, current)
+    current_text = state_path.read_text(encoding="utf-8")
+    assert "completed_demo_tasks: 3" in current_text
+    assert "completed_demo_tasks: 4" not in current_text

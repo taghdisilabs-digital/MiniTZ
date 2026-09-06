@@ -1,11 +1,14 @@
 # Biella Games Demo 01 Production Queue
 
+Status: `LEGACY_CONTINUITY_ONLY`
+Current canonical project path: `/root/biella/repos/biella-engine/projects/biella-games`
+This file preserves D01 bootstrap history only. Current execution authority is `docs/project-state/03_BIELLA_CURRENT_STATE.md`, `04_BIELLA_ACTIVE_TASK.md`, and `projects/biella-games/docs/PRODUCTION.md`.
 > **Superseded execution checkpoint:** canonical active production state is `docs/PRODUCTION.md`. This file is retained as migration/evidence history and must not route new execution.
 
 Status: IN_PROGRESS
 Authority: Mahdi Taghdisi
 Project: Biella Games
-Canonical repository: /root/biella/repos/biella-games
+Historical pre-monorepo repository observed during D01 bootstrap: /root/biella/repos/biella-games
 GitHub authority: patrickminitz-web/biella-games @ 71762b8f1e0e3f999f5a621559f1c63b6e5b56bb
 Recovered workspace: /root/spark-biella-games (recovery input; not canonical authority)
 Drive authority: BIELLA_GAMES_SPARK_PRODUCTION / 1SgvztxBMthMRbr6BPS-n9OXa2RYyXXDb
@@ -17,7 +20,7 @@ Current task: D01-029
 Last checkpoint: D01-028 COMPLETE
 
 ## Tasks
-- [x] D01-001 | Resolve live canonical Games execution root | COMPLETE_ALREADY | /root/biella/repos/biella-games observed
+- [x] D01-001 | Resolve live canonical Games execution root | COMPLETE_ALREADY | historical pre-monorepo observation: /root/biella/repos/biella-games
 - [x] D01-002 | Verify GitHub authority and engine-repository separation | COMPLETE_ALREADY | repo metadata + main SHA/tree observed
 - [x] D01-003 | Verify current Games Drive authority root and paths | COMPLETE_ALREADY | BIELLA_GAMES_SPARK_PRODUCTION observed
 - [x] D01-004 | Verify UE 5.8.2, Unreal work, recovery material, and runtime host | COMPLETE_ALREADY | L40S, /opt/unreal/UE_5.8.2, Spark files observed

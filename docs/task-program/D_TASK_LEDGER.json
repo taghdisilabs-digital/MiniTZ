@@ -1997,9 +1997,7 @@
       "title": "Cloudflare Production Launch and Final Website Qualification"
     },
     {
-      "depends_on": [
-        "DYNAMIC_CURRENT_PREDECESSOR_SET"
-      ],
+      "depends_on": [],
       "legacy_aliases": [
         "AAA-SF-001"
       ],
@@ -2475,7 +2473,7 @@
       "status": "PENDING",
       "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D20-01",
-      "title": "Select second production scenario from approved systems"
+      "title": "Select second production scenario from current accepted systems"
     },
     {
       "depends_on": [
@@ -2514,7 +2512,7 @@
       "status": "PENDING",
       "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D20-04",
-      "title": "Produce alternate approved arena-pressure sequence"
+      "title": "Produce alternate arena-pressure sequence from current accepted systems"
     },
     {
       "depends_on": [
