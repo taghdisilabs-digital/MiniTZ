@@ -1,5 +1,5 @@
 {
-  "current_task": "D02-02",
+  "current_task": "D02-03",
   "execution_authority": "current 03/04 + Project PRODUCTION.md",
   "registry_is_queue": false,
   "schema": "biella.d_task_ledger/v1",
@@ -1334,7 +1334,7 @@
         "GAME-21-POPULATION-SCALING"
       ],
       "program": "D02",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D02-02",
       "title": "Population and encounter scaling"
