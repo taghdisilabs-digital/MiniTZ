@@ -34,6 +34,7 @@ def main():
     parser.add_argument('--verify-feature-level', choices=('sm5', 'sm6'), help='Require observed native renderer capabilities')
     parser.add_argument('--verify-architecture', action='store_true', help='Require all six authored street meshes and their platform-specific proxies')
     parser.add_argument('--trace', action='store_true')
+    parser.add_argument('--loading-screen', choices=('enabled', 'disabled'), help='Verify native startup lifecycle and independently capture the X11 display')
     args = parser.parse_args()
     if args.verify_architecture and (args.scenario != 'surfaces' or not args.verify_feature_level):
         parser.error('--verify-architecture requires surfaces and --verify-feature-level')
@@ -57,9 +58,12 @@ def main():
               'verify_d03_01_reconstruction.py', 'verify_d03_01_surfaces.py', 'verify_d02_04.py',
               'run_d01_048.py', 'run_d02_01.py', 'run_d01_039.py', 'run_d01_042.py',
               'verify_d03_01_shader_platform.py', 'verify_d03_01_architecture.py')]
+    if args.loading_screen:
+        inputs.extend(PROJECT/'tests'/name for name in ('d03_01_loading_display.py', 'verify_d03_01_loading_display.py'))
     report = dict(task_id='D03-01', result='FAIL', revision=source_revision(),
                   stage=file_identity(args.stage.resolve()/'validation.json'), profile=args.profile,
                   scenario=args.scenario, phase=args.phase, state=str(state), trace=args.trace,
+                  loading_screen=args.loading_screen,
                   feature_level_request=args.feature_level,
                   feature_level_expected=args.verify_feature_level,
                   architecture_required=args.verify_architecture,
@@ -90,6 +94,11 @@ def main():
                    'xvfb-run', '-a', '-s', '-screen 0 1280x720x24']
         if args.trace:
             command += ['strace', '-f', '-qq', '-e', 'trace=file', '-o', '/tmp/evidence/file-access.log']
+        if args.loading_screen:
+            # Bind before bwrap's command delimiter, then run capture inside Xvfb.
+            delimiter = command.index('--')
+            command[delimiter:delimiter] = ['--ro-bind', str(PROJECT/'tests/d03_01_loading_display.py'), '/tmp/loading-display.py']
+            command += ['python3', '/tmp/loading-display.py']
         command += ['/tmp/package/BiellaGames.sh', '/Game/Maps/BiellaOpenWorldMap', '-vulkan', '-NoVSync',
                     '-windowed', '-ResX=1280', '-ResY=720', '-unattended', '-AudioMixer', '-nosplash',
                     '-stdout', '-FullStdOutLogOutput', '-UserDir=/tmp/state/user/',
@@ -99,6 +108,10 @@ def main():
                     f'-ExecCmds=t.MaxFPS {0 if surface else 60},r.VSync 0,r.MotionBlurQuality 0,Automation RunTests {native}; SoftQuit']
         if args.feature_level:
             command.append(f'-{args.feature_level}')
+        if args.loading_screen:
+            command.append('-BiellaLoadingOutput=/tmp/evidence')
+            if args.loading_screen == 'disabled':
+                command.append('-NoLoadingScreen')
         write_json(out/'command.json', command)
         report['runtime'] = launch(command, extraction, out/'runtime.stdout.log', 360)
         log = (out/'runtime.stdout.log').read_text(errors='replace')
@@ -106,6 +119,21 @@ def main():
         assert '**** TEST COMPLETE. EXIT CODE: 0 ****' in log, 'Native completion missing'
         assert re.search(r'Result=\{Success\}.*Name=\{' + native.rsplit('.', 1)[-1] + r'\}', log), 'Native scenario failed'
         assert not runtime_has_task_error(log), 'Runtime error'
+        if args.loading_screen == 'enabled':
+            assert log.count('D03_LOADING_START version=1') == 1, 'Exactly one loading screen must play'
+            stops = re.findall(r'D03_LOADING_STOP version=1 engine_finished=(\d+) ready=(\d+) exit=(\d+) pending=(\d+) render_ticks=(\d+) elapsed_s=([\d.]+) max_render_gap_s=([\d.]+)', log)
+            assert len(stops) == 1 and stops[0][:4] == ('1', '1', '0', '0'), 'Invalid loading handoff'
+            assert int(stops[0][4]) >= 3, 'No sustained native loading rendering'
+            assert log.index('D03_LOADING_STOP') < log.index('Result={Success}'), 'Gameplay did not follow startup'
+            report['loading'] = dict(render_ticks=int(stops[0][4]), elapsed_seconds=float(stops[0][5]),
+                                     max_render_gap_seconds=float(stops[0][6]), pending_at_stop=0)
+            assert (out/'loading-render-ticks.csv').is_file(), 'Missing native loading telemetry'
+        elif args.loading_screen == 'disabled':
+            assert 'D03_LOADING_DISABLED version=1' in log and 'D03_LOADING_START' not in log and 'D03_LOADING_STOP' not in log, 'Disabled control still played screen'
+            assert not (out/'loading-render-ticks.csv').exists(), 'Disabled control has loading telemetry'
+        if args.loading_screen:
+            from verify_d03_01_loading_display import verify as verify_display
+            report['loading_display'] = verify_display(out, args.loading_screen == 'enabled')
         reject_material_fallbacks(log)
         assert f'D03_RENDER_PROFILE version=1 requested={args.profile} selected={args.profile}' in log, 'Profile diagnostic missing'
         probe = json.loads((out/'isolation-probe.json').read_text())

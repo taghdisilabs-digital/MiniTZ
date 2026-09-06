@@ -1,0 +1,9 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T18:59:36.707739+00:00",
+  "type": "loading_visual_validation",
+  "status": "REPAIRING",
+  "diagnostics": "No distinct activity segment in decoded loading frames",
+  "evidence": "Build/Presentation/loading-runtime-cold-04",
+  "expected_rejection": true
+}

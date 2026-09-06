@@ -1,0 +1,41 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "revision": {
+    "head": "7a2634de84d7ed783eebff62b262103c7a50db32",
+    "head_tree": "a8f103494841326d266089cb8afb2e4054d185ab",
+    "project_status": [
+      " M BiellaGames.uproject",
+      "?? Build/Presentation/loading-assist-01/",
+      "?? Build/Presentation/loading-build-01/",
+      "?? Build/Presentation/loading-build-02/",
+      "?? Build/Presentation/loading-plan-01.md",
+      "?? Source/BiellaLoadingScreen/"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "marker_before": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "started": "2026-09-06T18:38:46.198520+00:00",
+  "returncode": 0,
+  "binary": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames",
+    "sha256": "3d805adaddb33c31c0b89be65762454d2f000e9caacc2b7b077afaf717a28d48",
+    "bytes": 298975808
+  },
+  "receipt": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames.target",
+    "sha256": "7da8030a25e23d3976e834f2554ef35a869d9133100f3a7da197b666c115d023",
+    "bytes": 106593
+  },
+  "marker_after": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "inputs_unchanged": true,
+  "elapsed_seconds": 90.1571042080177
+}

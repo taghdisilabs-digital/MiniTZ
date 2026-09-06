@@ -1,0 +1,169 @@
+{
+  "schema": "biella.presentation_increment/v1",
+  "task_id": "D03-01",
+  "time": "2026-09-06T19:19:29.523350+00:00",
+  "task_status": "CONTINUE",
+  "increment": "Native engine-preload presentation",
+  "parent_commit": "7a2634de84d7ed783eebff62b262103c7a50db32",
+  "implementation": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+      "sha256": "c52bdb54f26885db840fa6c0db266fe0f2fdf918f5c5df3af0b76cb4f733b9a6",
+      "bytes": 390
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaLoadingScreen/BiellaLoadingScreen.Build.cs",
+      "sha256": "a3f09c1e9f8a9f8faefbbfa1a77dc4d2c0d742c928a3f21f0fa2fabc7c6ce62d",
+      "bytes": 349
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaLoadingScreen/Private/BiellaLoadingScreen.cpp",
+      "sha256": "6ff501aa5763f88d0920106633ed7920b9de7416d2e6fb5f40f934b5ae1a27de",
+      "bytes": 7964
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/stage_d03_01_loading.py",
+      "sha256": "7c7e05d126492d87c01445486ff49a327b8b91e4411ffdfae17fc8f27f0163dc",
+      "bytes": 9158
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_loading_display.py",
+      "sha256": "c464ff22a974ce1f9afdb131c3fc78a6ad3617e22d0a47978446414e3c5847f6",
+      "bytes": 3018
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_loading_display.py",
+      "sha256": "cdf56822c527d562ae3bc01a8b6022919d04a8b47f304983665332befbb9b774",
+      "bytes": 4650
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_package.py",
+      "sha256": "ec9f52d4f59d52cea8b9666f6da8cd3480f222467f83743143237580eec2862c",
+      "bytes": 13299
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_loading.py",
+      "sha256": "19ac8e28d0af4813d5a52d698754140149e133bb575209a63882a4b3d3c94c16",
+      "bytes": 6613
+    }
+  ],
+  "archive": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-loading-candidate-05.tar.zst",
+    "sha256": "a42cc2924442fa4e1b528581c3308bc17cc1b92f5e247a07143f7f26f1f437f6",
+    "bytes": 481488626
+  },
+  "binary": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames",
+    "sha256": "dc30d01badbb618ebfab82cf903d2a03b0f432a8952034862dabce25301f0265",
+    "bytes": 298979904
+  },
+  "build": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/loading-build-03/result.json",
+    "sha256": "f15415288d9198839e10258d129ae5f3b630a89c22c506db43c5ff1c5747d105",
+    "bytes": 2258
+  },
+  "stage": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/loading-stage-05/validation.json",
+    "sha256": "e61f5d2c82ef9d307918d1ea01aad7447a19b5335c3296b40fbe3fad07f54a48",
+    "bytes": 1195306
+  },
+  "series": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/loading-series-01.json",
+    "sha256": "7d539c1dcc90a3193dd68853ca2f5045c97aeeef80cab7518baa8a314c5d755c",
+    "bytes": 1077273
+  },
+  "visual_review": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/loading-visual-review-01.json",
+    "sha256": "89729bb3feebedc5997f3c6dc13192e05419c541c73e239d74db7dee0f5f5477",
+    "bytes": 4190
+  },
+  "progress": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/D03-01-loading-progress.md",
+    "sha256": "18d78d73fbaefd349a78e03ddfb655a25a443ae020893277b301aa70e151c53a",
+    "bytes": 4939
+  },
+  "native_runs": 5,
+  "native_scenario_frames": 6531,
+  "captured_display_frames": 594,
+  "checked_identities": 4107,
+  "measurements": [
+    {
+      "name": "cold-05",
+      "frames": 1185,
+      "loading": {
+        "render_ticks": 17,
+        "elapsed_seconds": 0.685078,
+        "max_render_gap_seconds": 0.370537,
+        "pending_at_stop": 0
+      },
+      "captured_frames": 122,
+      "first_scene_seconds": 5.7,
+      "trailing_static_loading_seconds": 2.0,
+      "last_loading_to_scene_seconds": 1.0
+    },
+    {
+      "name": "warm-01",
+      "frames": 1405,
+      "loading": {
+        "render_ticks": 18,
+        "elapsed_seconds": 0.646892,
+        "max_render_gap_seconds": 0.333021,
+        "pending_at_stop": 0
+      },
+      "captured_frames": 107,
+      "first_scene_seconds": 3.3,
+      "trailing_static_loading_seconds": 0.3,
+      "last_loading_to_scene_seconds": 0.1
+    },
+    {
+      "name": "disabled-01",
+      "frames": 1183,
+      "loading": null,
+      "captured_frames": 125,
+      "first_scene_seconds": 5.8,
+      "trailing_static_loading_seconds": 0.0,
+      "last_loading_to_scene_seconds": null
+    },
+    {
+      "name": "sm5-01",
+      "frames": 1310,
+      "loading": {
+        "render_ticks": 15,
+        "elapsed_seconds": 0.62712,
+        "max_render_gap_seconds": 0.36079,
+        "pending_at_stop": 0
+      },
+      "captured_frames": 110,
+      "first_scene_seconds": 4.9,
+      "trailing_static_loading_seconds": 0.9,
+      "last_loading_to_scene_seconds": 1.5
+    },
+    {
+      "name": "environment-01",
+      "frames": 1448,
+      "loading": {
+        "render_ticks": 18,
+        "elapsed_seconds": 0.813422,
+        "max_render_gap_seconds": 0.476314,
+        "pending_at_stop": 0
+      },
+      "captured_frames": 130,
+      "first_scene_seconds": 6.5,
+      "trailing_static_loading_seconds": 2.4,
+      "last_loading_to_scene_seconds": 1.0
+    }
+  ],
+  "scope": "Engine-preload lifecycle and visible activity with same-package regressions; full startup readiness remains OPEN.",
+  "cook": "Unchanged previously qualified SM5/SM6 cook reused with exact bytes; no fresh full-cook claim.",
+  "publication_owner": "Auto Feeder",
+  "remote_publication_claimed": false,
+  "limitations": [
+    "owner acceptance",
+    "Shipping or cross-hardware qualification",
+    "audible mix",
+    "fine temporal quality",
+    "startup latency improvement",
+    "First-scene handoff gaps and trailing unchanged loading frames remain.",
+    "Final art, broader VFX/audio and native temporal quality remain D03-01 work."
+  ]
+}

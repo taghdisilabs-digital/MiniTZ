@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/tmp/probe.py", line 30, in <module>
+    main()
+  File "/tmp/probe.py", line 14, in main
+    cwd=os.getcwd(), package_readable=Path('/tmp/package/BiellaGames.sh').is_file(),
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 894, in is_file
+    return S_ISREG(self.stat().st_mode)
+                   ^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 842, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: '/tmp/package/BiellaGames.sh'

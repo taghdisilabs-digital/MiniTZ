@@ -1,0 +1,157 @@
+{
+  "schema": "biella.loading_display/v2",
+  "frames": 110,
+  "loading_frames": [
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34
+  ],
+  "world_frames": [
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109
+  ],
+  "indicator_samples": [
+    {
+      "frame": 21,
+      "x": 679.5,
+      "width": 94
+    },
+    {
+      "frame": 22,
+      "x": 679.5,
+      "width": 94
+    },
+    {
+      "frame": 23,
+      "x": 679.5,
+      "width": 94
+    },
+    {
+      "frame": 24,
+      "x": 518.5,
+      "width": 94
+    },
+    {
+      "frame": 25,
+      "x": 494.5,
+      "width": 94
+    },
+    {
+      "frame": 26,
+      "x": 490.5,
+      "width": 94
+    },
+    {
+      "frame": 27,
+      "x": 490.5,
+      "width": 94
+    },
+    {
+      "frame": 28,
+      "x": 490.5,
+      "width": 94
+    },
+    {
+      "frame": 29,
+      "x": 490.5,
+      "width": 94
+    },
+    {
+      "frame": 30,
+      "x": 490.5,
+      "width": 94
+    },
+    {
+      "frame": 31,
+      "x": 490.5,
+      "width": 94
+    },
+    {
+      "frame": 32,
+      "x": 490.5,
+      "width": 94
+    },
+    {
+      "frame": 33,
+      "x": 490.5,
+      "width": 94
+    },
+    {
+      "frame": 34,
+      "x": 490.5,
+      "width": 94
+    }
+  ],
+  "max_title_delta": 0.11759259551763535,
+  "trailing_static_loading_seconds": 0.9,
+  "scope": "Lossy X11 10Hz fixture-specific screening; excludes HUD-only frames; scene candidates require visual review; no continuous-loading or first-frame-readiness acceptance"
+}

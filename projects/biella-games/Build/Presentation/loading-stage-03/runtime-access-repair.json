@@ -1,0 +1,12 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "reason": "Readback preserved 0700 archive modes but copy/extraction owned by root; assign only fresh task extraction to runtime user",
+  "uid": 1001,
+  "members_unchanged": 34,
+  "archive_unchanged": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-loading-candidate-03.tar.zst",
+    "sha256": "65a0ae9f4caeb5ec2abc4a260e617255f55c1b95e4666a616d8bae13f7da83db",
+    "bytes": 481165862
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "schema": "biella.presentation_visual_review/v1",
+  "task_id": "D03-01",
+  "time": "2026-09-06T19:19:29.523350+00:00",
+  "result": "PASS_BOUNDED",
+  "capture_status": "GENERATED_DRAFT",
+  "frames": [
+    {
+      "path": "/root/biella/artifacts/games/D03-01/loading-cold05-frame121.png",
+      "sha256": "23ea653b09814dab236441fbf60047484403c8cc0144e0e7a103a65eadee59fc",
+      "bytes": 415726
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/loading-cold05-frame22.png",
+      "sha256": "c9695880bacdabafdcce9272f6e4c6dce14112fffa2fce2f74c4c72dce86a3e2",
+      "bytes": 15280
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/loading-cold05-frame27.png",
+      "sha256": "c8f645df5938b53cb8428b6af25e5975f85ac5f0da4fd3e6b75c7b1d85f9942a",
+      "bytes": 14285
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/loading-cold05-frame48.png",
+      "sha256": "3500bff95b05c04545b2632fbdc68a72994ce2f830684da0081795c06001b1c9",
+      "bytes": 88111
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/loading-cold05-frame60.png",
+      "sha256": "6a3cb21525ec69fa4327fda241d08250074a34c8bfd800980988a71962316cdc",
+      "bytes": 322853
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/loading-cold05-frame90.png",
+      "sha256": "d264baa511fcf3305ce3eaf391631eefc5f785440a8d8c54f781aa683fb86654",
+      "bytes": 386031
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/loading-warm-01-frame24.png",
+      "sha256": "2ee54f72095e1fa97921b90efb10b3cf27773c71214b3956ce46c51a8fa0c815",
+      "bytes": 15134
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/loading-warm-01-frame30.png",
+      "sha256": "b010b162ec79e86fc59335c71574aa0d8c97290db4ddde752827d4af9ec0045a",
+      "bytes": 14333
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/loading-warm-01-frame40.png",
+      "sha256": "1e18e295ebcab36a70c6b709fb288877a303c3625b48c4d206f9ba3defe98b1b",
+      "bytes": 337187
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/loading-disabled-01-frame65.png",
+      "sha256": "b9c844c134ebd95c65a7dc6e9e5f084de79ffce9e2af5edad6ac956fb20a9a5c",
+      "bytes": 342060
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/loading-sm5-01-frame21.png",
+      "sha256": "fa91efaa48fb222aabe58085267d98da2b7f924c9c006b8ca5fa70a97f958aa5",
+      "bytes": 15331
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/loading-sm5-01-frame54.png",
+      "sha256": "9fd62331616386eeeb794ac225e299dad0f4ecf9ebb571066f9934b964b0d379",
+      "bytes": 313462
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/loading-environment-01-frame24.png",
+      "sha256": "c9695880bacdabafdcce9272f6e4c6dce14112fffa2fce2f74c4c72dce86a3e2",
+      "bytes": 15280
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/loading-environment-01-frame70.png",
+      "sha256": "836cf4e033b6284c2494dd70baf93b278fe0d779d5a0bf9936516d4f38cc1c01",
+      "bytes": 333800
+    }
+  ],
+  "observations": [
+    "Warm frames 24 and 30 show the same centered title/text with the cyan segment at visibly different positions; cold frames 22 and 27 provide the corresponding cold comparison.",
+    "Cold frame 48 has HUD over a dark unrendered scene and is rejected as world readiness; frame 60 shows the player, street, buildings, enemies and HUD. The v2 heuristic first detects a candidate at frame 57.",
+    "Warm frame 40, disabled frame 65, SM5 frame 54 and environment frame 70 show actual gameplay with a readable player silhouette, enemies and HUD. Prototype mannequins, sparse architecture and black world edges remain visible.",
+    "SM5 frame 21 and environment frame 24 show the same loading composition. Native/capture negative control contains no loading screen.",
+    "Captured trailing unchanged-indicator intervals and loading-to-scene gaps remain open. Native callbacks do not prove continuously presented motion or scene readiness."
+  ],
+  "full_startup_readiness": "OPEN",
+  "no_claims": [
+    "owner acceptance",
+    "Shipping or cross-hardware qualification",
+    "audible mix",
+    "fine temporal quality",
+    "startup latency improvement"
+  ]
+}

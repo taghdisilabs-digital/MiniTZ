@@ -1,0 +1,22 @@
+[
+  "bwrap",
+  "--ro-bind",
+  "/",
+  "/",
+  "--dev-bind",
+  "/dev",
+  "/dev",
+  "--tmpfs",
+  "/tmp",
+  "--bind",
+  "/mnt/biella-extra/biella-runtime/d03-01-loading-package-03/patch",
+  "/tmp/patch",
+  "--",
+  "runuser",
+  "-u",
+  "unreal",
+  "--",
+  "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealPak",
+  "/tmp/patch/BiellaGames-Loading_P.pak",
+  "-Create=/tmp/patch/response.txt"
+]

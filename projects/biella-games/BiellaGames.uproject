@@ -5,6 +5,11 @@
   "Description": "Biella Games — Unreal Engine 5.8.2 C++ project bootstrap.",
   "Modules": [
     {
+      "Name": "BiellaLoadingScreen",
+      "Type": "Runtime",
+      "LoadingPhase": "PreLoadingScreen"
+    },
+    {
       "Name": "BiellaGames",
       "Type": "Runtime",
       "LoadingPhase": "Default"

@@ -1,0 +1,31 @@
+{
+  "task_id": "D03-01",
+  "result": "FAIL",
+  "revision": {
+    "head": "7a2634de84d7ed783eebff62b262103c7a50db32",
+    "head_tree": "a8f103494841326d266089cb8afb2e4054d185ab",
+    "project_status": [
+      " M BiellaGames.uproject",
+      "?? Build/Presentation/loading-assist-01/",
+      "?? Build/Presentation/loading-build-01/",
+      "?? Build/Presentation/loading-plan-01.md",
+      "?? Source/BiellaLoadingScreen/"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "marker_before": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "started": "2026-09-06T18:37:51.356614+00:00",
+  "returncode": 6,
+  "error": "Native game build failed; inspect build.log",
+  "marker_after": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "inputs_unchanged": true,
+  "elapsed_seconds": 8.19661032903241
+}

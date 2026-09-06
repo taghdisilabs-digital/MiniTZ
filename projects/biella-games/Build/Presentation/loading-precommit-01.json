@@ -1,0 +1,26 @@
+{
+  "schema": "biella.precommit_validation/v1",
+  "task_id": "D03-01",
+  "time": "2026-09-06T19:20:19.310157+00:00",
+  "result": "PASS",
+  "parent_commit": "7a2634de84d7ed783eebff62b262103c7a50db32",
+  "tracked_changes": [
+    "projects/biella-games/BiellaGames.uproject",
+    "projects/biella-games/tests/run_d03_01_package.py"
+  ],
+  "manifest": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/loading-evidence-manifest-01.json",
+    "sha256": "8cbfd1b198d566a789965c546742793273ee580107415ae3d83f8ebb60472cff",
+    "bytes": 110272
+  },
+  "preserved_evidence_files": 433,
+  "preserved_evidence_bytes": 301986063,
+  "visual_frames": 14,
+  "checks": [
+    "Five-run native series PASS; exact build/source/archive/pak lineage verified by series.",
+    "Implementation, archive, receipts, manifest evidence and decoded visual frame identities rechecked.",
+    "Only intended tracked source changes; 03/04, Project status and all predecessor tracked evidence unchanged.",
+    "Task remains CONTINUE; full startup/production quality not claimed.",
+    "Tracked implementation diff whitespace check passed."
+  ]
+}

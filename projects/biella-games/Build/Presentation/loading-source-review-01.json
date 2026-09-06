@@ -1,0 +1,66 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T19:01:45.754196+00:00",
+  "route": {
+    "capability": "unreal",
+    "provider": "ollama-qwen",
+    "prior_assistance": "loading-assist-01",
+    "assessment": "Optional assistance proposed unsupported OnStart/API details; not used. Native installed source and exact runtime evidence govern implementation."
+  },
+  "references": [
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/PreLoadScreen/Public/PreLoadScreenBase.h",
+      "sha256": "8f214fd5dc02ce3b0069134b2f31cd5cedab14284ada7192273ceb0fb16d631b",
+      "bytes": 3292,
+      "use": "Preloading interface and atomic engine-complete signal"
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/PreLoadScreen/Private/PreLoadScreenManager.cpp",
+      "sha256": "861920df5acfeb826e02fc9238e0c8e4112dd9cac51b02a108198940f6d01bcc",
+      "bytes": 24315,
+      "use": "Registration, callback lifetime, joined shutdown, supported disabling"
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Slate/Private/Widgets/Notifications/SProgressBar.cpp",
+      "sha256": "3a39298d3d88f50dbfee7e89213ad7cf56c6d8e0f5377122a4b6a0d0e0fc56e4",
+      "bytes": 16703,
+      "use": "Default marquee shifts a repeated texture; at 3px the capture lacked a distinct moving segment"
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Slate/Public/Widgets/Layout/SSpacer.h",
+      "sha256": "80a5ac05333998a1a9f7e3460d90850b4f125c06433c9f75b06ee40964fc317d",
+      "bytes": 1735,
+      "use": "Native leaf-widget paint signature"
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RHI/Private/PipelineStateCache.cpp",
+      "sha256": "68aa36ca0f972d19f90f08a2f3150df1f4310a7750f77a7e8fc7fdd2ae607a40",
+      "bytes": 194057,
+      "use": "Native active-precompile count"
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Launch/Private/LaunchEngineLoop.cpp",
+      "sha256": "f23b201a530fb87af894aac9f76ce090fab42fe4dccc92267e044f5b6d6cae1d",
+      "bytes": 236996,
+      "use": "Engine preloading completion precedes map load and first playable frame"
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/PakFile/Private/IPlatformFilePak.cpp",
+      "sha256": "d32bc52258cfd36915fe963af728e9e148df2ec65c72e9df4de725f4dd3a453e",
+      "bytes": 227732,
+      "use": "Missing paired IoStore container prevents standalone descriptor pak mounting"
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Developer/PakFileUtilities/Private/PakFileUtilities.cpp",
+      "sha256": "2d51f67e5712c61b6660da2667dfa3f2a966ac2d003ad08ab267d2167163ec09",
+      "bytes": 234050,
+      "use": "Native extraction path behavior and pak creation"
+    }
+  ],
+  "review": [
+    "Slate indicator reads monotonic time in paint; no game-state/UObject access or game-thread attribute mutation.",
+    "Native engine-complete plus currently active pipeline tasks controls handoff; later first-world pipeline work remains possible.",
+    "No minimum display time, fake percent, file-cache activation, or PSO scheduler override.",
+    "Runtime candidate reuses qualified cooked content after input and archive readback checks; it is not a fresh full cook."
+  ]
+}
