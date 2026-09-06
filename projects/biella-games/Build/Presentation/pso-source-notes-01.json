@@ -1,0 +1,122 @@
+{
+  "task_id": "D03-01",
+  "sources": [
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/VulkanRHI/Private/VulkanRHI.cpp",
+        "sha256": "8602d774524bc5146ed02e6575e7af6fef3001216e93226f99acef55347de9e2",
+        "bytes": 86132
+      },
+      "lines": [
+        104,
+        462
+      ],
+      "finding": "Vulkan compatibility gate defaults off with runtime PSO precaching; -psocache cannot override GRHISupportsPipelineFileCache."
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RHI/Private/PipelineFileCache.cpp",
+        "sha256": "7b5c888f76d3b75ec5c2f02dde458838e2806d6a9879730f47c8f987367170fa",
+        "bytes": 161694
+      },
+      "lines": [
+        1873,
+        2293,
+        3096,
+        3171
+      ],
+      "finding": "The -logpso flag deletes the existing writable user cache. User cache filename includes SF_VULKAN_SM6. Logging CVars can preserve the seed."
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RHI/Private/PipelineStateCache.cpp",
+        "sha256": "68aa36ca0f972d19f90f08a2f3150df1f4310a7750f77a7e8fc7fdd2ae607a40",
+        "bytes": 194057
+      },
+      "lines": [
+        300,
+        1634,
+        3925,
+        4030
+      ],
+      "finding": "Runtime creation counter excludes initializers with bFromPSOFileCache or bPSOPrecache. Zero does not imply no Vulkan creation work."
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/VulkanRHI/Private/VulkanPipeline.cpp",
+        "sha256": "9d189107d167682b8834aaa6aa0eef765183939f463c3999172c215a5b212270",
+        "bytes": 133574
+      },
+      "lines": [
+        59,
+        613,
+        693,
+        723,
+        2034,
+        2878,
+        2945,
+        3113
+      ],
+      "finding": "Vulkan emits at >1ms; analysis filters >20ms. Graphics outer duration contains key-CS duration; count outer only. Compute duration includes CreateComputePipeline and its shared GlobalPSOCache acquisition. Completion callback saves cache then acquires GlobalPSOCache exclusively and merges."
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RenderCore/Private/ShaderPipelineCache.cpp",
+        "sha256": "23e47228beae4ba30438e04d77392b40752451eaa5e6480f15a5beebe0685317",
+        "bytes": 89798
+      },
+      "lines": [
+        380,
+        914,
+        977,
+        1945,
+        2201
+      ],
+      "finding": "CVar SaveBoundPSOLog permits user-cache loading. Precompile completion log precedes completion delegate; it does not measure the complete Vulkan callback duration."
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Engine/Private/DeviceProfiles/DeviceProfileManager.cpp",
+        "sha256": "40f1bd95e9dbee2ad3b090e8e27f3d38e0d23eb700027e21d3d0261490a0bdbd",
+        "bytes": 70783
+      },
+      "lines": [
+        739
+      ],
+      "finding": "DPCVars startup overrides apply readonly compatibility/logging settings without project config mutation."
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Editor/UnrealEd/Private/Commandlets/ShaderPipelineCacheToolsCommandlet.cpp",
+        "sha256": "fe7f2f20f9eeaf2cc270b7c17d7ac92ae335e47a2be4cf2a11c218093b950917",
+        "bytes": 109382
+      },
+      "lines": [
+        400,
+        2965
+      ],
+      "finding": "Native Dump commandlet reads descriptions and precache classifications from the exact recording."
+    }
+  ],
+  "resource_routing": {
+    "command": "biella resource route unreal",
+    "observed_providers": [
+      "ollama-qwen"
+    ],
+    "reuse": "Prior bounded optional Qwen timeout and recovery preserved in package-sm6-resource-review-01. Deterministic native execution and exact installed engine source resolve this experiment; no new provider request needed."
+  },
+  "observations": [
+    "Seeded cold03: completion callback entered17:43:39.717, cache saved17:43:42.780, no jobs remaining17:44:02.852, engine initialized17:44:03.406.",
+    "Native dump:66 descriptions,63graphics/3compute,43Missed/23Precached; classifications are recording-time metadata.",
+    "Seeded environment: Runtime counter0 while one Vulkan graphics creation186.892ms ends after test start."
+  ],
+  "inferences": [
+    "Large startup delay occurs across the cache completion/save/merge path while broad precaching is active. Exact causal lock/GPU time is not isolated by logs; do not patch the engine based on this inference."
+  ],
+  "limits": [
+    "Not production cold-launch acceptance.",
+    "Worker duration may include waits and overlap; never sum as wall stalls.",
+    "Only one Linux Development host and this exact package/shader lineage.",
+    "Raw recorded cache is GENERATED_DRAFT; no cache or new CVar enabled in shipped game."
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "observed_utc": "2026-09-06T17:47:53.899788+00:00",
+  "original_receipt": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-recording-dump-01/result.json",
+    "sha256": "32ea86b25b88c017d20dd99a1343c4fd1f07a4e0cb6ae14e5a1ab9ff996180ae",
+    "bytes": 2088
+  },
+  "process_exit_log": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-recording-dump-01/stdout.log",
+    "sha256": "496209573ece97a2999b1dac1d6b026a937e356ac70d5e70d4f9156c8a2686ef",
+    "bytes": 302105
+  },
+  "prefix_unchanged": true,
+  "final_log": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-recording-dump-01/stdout.log",
+    "sha256": "9a88fcdc553de87da9805bc3addd25ab33e634bd52c3d8c7ece3a293be90b6af",
+    "bytes": 302875
+  },
+  "append_bytes": 770,
+  "append_sha256": "7863e951923423179330cfe46d319de7e30b551c3464e6799a5908ec4fa64e4b",
+  "diagnostic": "Child UnrealTraceServer inherited stdout; 770-byte daemon startup/shutdown append after parent process exit. Exact original prefix unchanged. Preserve receipt and raw final bytes."
+}

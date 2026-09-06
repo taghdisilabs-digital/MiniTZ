@@ -1,0 +1,28 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T17:57:35.664228+00:00",
+  "status": "GENERATED_DRAFT",
+  "method": "Direct inspection of two original 1280x720 runtime PNGs",
+  "images": [
+    {
+      "image": {
+        "path": "Build/Presentation/pso-seeded-cold-03/captures/static_007.png",
+        "bytes": 990660,
+        "sha256": "fabd1cd145b89902213ac027d40a5b9b2bc8c156c46cc99eff37aeb2b770e758"
+      },
+      "observations": "The skeletal player, road markings, facade relief and HUD are readable. Repeated architecture, sparse road dressing and open black world edges remain unfinished presentation."
+    },
+    {
+      "image": {
+        "path": "Build/Presentation/pso-seeded-environment-01/captures/panel_destroyed.png",
+        "bytes": 1015688,
+        "sha256": "0d6be34248ab490961961d9045a949e17c823dee42500848cbbc7d85baa89805"
+      },
+      "observations": "The destroyed panel, orange hazard floor and switch are distinct in the playable street. The scene still uses simple geometry and sparse surface detail; this is not final production art."
+    }
+  ],
+  "limits": [
+    "Static inspection cannot accept motion, temporal stability, startup smoothness or audio.",
+    "No game asset or art source changed in this experiment."
+  ]
+}

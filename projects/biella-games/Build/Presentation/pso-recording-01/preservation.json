@@ -1,0 +1,98 @@
+{
+  "task_id": "D03-01",
+  "status": "GENERATED_DRAFT",
+  "copies": [
+    {
+      "run": "pso-capture-cold-02",
+      "source": {
+        "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-capture-02/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077C992D379B4911838C3A1E29249.rec.upipelinecache",
+        "sha256": "c27735aaee29b1e257a6f5a7db5c29cc607ffc858fc52536ccc8c5b448e67900",
+        "bytes": 27941
+      },
+      "canonical": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-recording-01/pso-capture-cold-02/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077C992D379B4911838C3A1E29249.rec.upipelinecache",
+        "sha256": "c27735aaee29b1e257a6f5a7db5c29cc607ffc858fc52536ccc8c5b448e67900",
+        "bytes": 27941
+      }
+    },
+    {
+      "run": "pso-capture-cold-03",
+      "source": {
+        "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-capture-03/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077CD664F7E85921810E5B774AECB.rec.upipelinecache",
+        "sha256": "dbe73972b612e612600ece099a858d5219c1b57ff65a6df2a79aabc068671f61",
+        "bytes": 27941
+      },
+      "canonical": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-recording-01/pso-capture-cold-03/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077CD664F7E85921810E5B774AECB.rec.upipelinecache",
+        "sha256": "dbe73972b612e612600ece099a858d5219c1b57ff65a6df2a79aabc068671f61",
+        "bytes": 27941
+      }
+    },
+    {
+      "run": "pso-seeded-cold-01",
+      "source": {
+        "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-01/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077CAA33F781994CE987CBC63B954.rec.upipelinecache",
+        "sha256": "9385fd258bec20fb55487ba3b40fd1ee79529dbecde8b443c83450791c72be7c",
+        "bytes": 27941
+      },
+      "canonical": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-recording-01/pso-seeded-cold-01/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077CAA33F781994CE987CBC63B954.rec.upipelinecache",
+        "sha256": "9385fd258bec20fb55487ba3b40fd1ee79529dbecde8b443c83450791c72be7c",
+        "bytes": 27941
+      }
+    },
+    {
+      "run": "pso-seeded-cold-02",
+      "source": {
+        "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-02/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077CBC9127E6B9579888AF8AC65F2.rec.upipelinecache",
+        "sha256": "e3ae2d1b4a4b8b7b06fefb26d80ba9d0db3e61a6adcb31bf2f06e2d3e35ae1aa",
+        "bytes": 27384
+      },
+      "canonical": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-recording-01/pso-seeded-cold-02/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077CBC9127E6B9579888AF8AC65F2.rec.upipelinecache",
+        "sha256": "e3ae2d1b4a4b8b7b06fefb26d80ba9d0db3e61a6adcb31bf2f06e2d3e35ae1aa",
+        "bytes": 27384
+      }
+    },
+    {
+      "run": "pso-seeded-cold-03",
+      "source": {
+        "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-03/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077D193997A06A26F5B81533CB28F.rec.upipelinecache",
+        "sha256": "7f2d197300920ce6c39f74869e2668bb0555082c1e3e27dfe1702debdffcfc04",
+        "bytes": 27384
+      },
+      "canonical": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-recording-01/pso-seeded-cold-03/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077D193997A06A26F5B81533CB28F.rec.upipelinecache",
+        "sha256": "7f2d197300920ce6c39f74869e2668bb0555082c1e3e27dfe1702debdffcfc04",
+        "bytes": 27384
+      }
+    },
+    {
+      "run": "pso-seeded-environment-01",
+      "source": {
+        "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-environment-01/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077D4A47379DA90EE73C6FC5FC681.rec.upipelinecache",
+        "sha256": "0de184f9fece2466c588ddda1db4e850100b8b74d87078624b4dde6f9be0cacb",
+        "bytes": 27823
+      },
+      "canonical": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-recording-01/pso-seeded-environment-01/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077D4A47379DA90EE73C6FC5FC681.rec.upipelinecache",
+        "sha256": "0de184f9fece2466c588ddda1db4e850100b8b74d87078624b4dde6f9be0cacb",
+        "bytes": 27823
+      }
+    },
+    {
+      "run": "pso-empty-environment-01",
+      "source": {
+        "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-empty-environment-01/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077D60A5974FA81BC7BD401B917F1.rec.upipelinecache",
+        "sha256": "da4043a11f7c77153e00c44874fff4a4ac27d2593857e73eef6ede3ff227e883",
+        "bytes": 27941
+      },
+      "canonical": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-recording-01/pso-empty-environment-01/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077D60A5974FA81BC7BD401B917F1.rec.upipelinecache",
+        "sha256": "da4043a11f7c77153e00c44874fff4a4ac27d2593857e73eef6ede3ff227e883",
+        "bytes": 27941
+      }
+    }
+  ],
+  "scope": "Exact portable PSO description recordings from the qualified archive; no driver binary cache is published or shipped."
+}

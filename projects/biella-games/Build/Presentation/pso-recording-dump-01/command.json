@@ -1,0 +1,17 @@
+[
+  "runuser",
+  "-u",
+  "unreal",
+  "--",
+  "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+  "-run=ShaderPipelineCacheTools",
+  "Dump",
+  "/mnt/biella-extra/biella-runtime/d03-01-pso-capture-02/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077C992D379B4911838C3A1E29249.rec.upipelinecache",
+  "-nullrhi",
+  "-unattended",
+  "-nosound",
+  "-stdout",
+  "-FullStdOutLogOutput",
+  "-AbsLog=/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-recording-dump-01/engine.log",
+  "-UserDir=/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-recording-dump-01/user/"
+]

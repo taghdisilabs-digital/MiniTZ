@@ -1,0 +1,48 @@
+{
+  "task_id": "D03-01",
+  "recording": {
+    "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-capture-02/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077C992D379B4911838C3A1E29249.rec.upipelinecache",
+    "sha256": "c27735aaee29b1e257a6f5a7db5c29cc607ffc858fc52536ccc8c5b448e67900",
+    "bytes": 27941
+  },
+  "editor": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+    "sha256": "7e54a59c2740d66003656e7a8f33d11e7348bb97d33483e98f05fedd0784284a",
+    "bytes": 450848
+  },
+  "runtime": {
+    "command": [
+      "runuser",
+      "-u",
+      "unreal",
+      "--",
+      "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+      "-run=ShaderPipelineCacheTools",
+      "Dump",
+      "/mnt/biella-extra/biella-runtime/d03-01-pso-capture-02/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077C992D379B4911838C3A1E29249.rec.upipelinecache",
+      "-nullrhi",
+      "-unattended",
+      "-nosound",
+      "-stdout",
+      "-FullStdOutLogOutput",
+      "-AbsLog=/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-recording-dump-01/engine.log",
+      "-UserDir=/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-recording-dump-01/user/"
+    ],
+    "cwd": "/root/biella/repos/biella-engine/projects/biella-games",
+    "pid": 2450265,
+    "returncode": 0,
+    "timed_out": false,
+    "timeout_seconds": 90,
+    "elapsed_seconds": 11.615,
+    "log": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-recording-dump-01/stdout.log",
+      "sha256": "496209573ece97a2999b1dac1d6b026a937e356ac70d5e70d4f9156c8a2686ef",
+      "bytes": 302105
+    }
+  },
+  "recording_after": {
+    "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-capture-02/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077C992D379B4911838C3A1E29249.rec.upipelinecache",
+    "sha256": "c27735aaee29b1e257a6f5a7db5c29cc607ffc858fc52536ccc8c5b448e67900",
+    "bytes": 27941
+  }
+}

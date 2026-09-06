@@ -1,0 +1,61 @@
+{
+  "schema": "biella.presentation_increment/v1",
+  "task_id": "D03-01",
+  "time": "2026-09-06T17:57:35.664228+00:00",
+  "task_status": "CONTINUE",
+  "increment": "Native PSO description capture and isolated cold replay",
+  "parent_commit": "9ee92cbea90bac467bab1324f05ee9c5a7bb2a12",
+  "game_changes": false,
+  "archive": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-sm6-package-01.tar.zst",
+    "sha256": "057eff4cec157e002d9ea3b735bb9e41c9a7bc66853ad4a338e86d498cc58d8e",
+    "bytes": 481060250
+  },
+  "implementation": [
+    {
+      "path": "tests/run_d03_01_pso_capture.py",
+      "bytes": 9359,
+      "sha256": "0de703073256ab8ccdccf5734b39110e6768159b61434faf667186eb55835429"
+    },
+    {
+      "path": "tests/verify_d03_01_pso_capture.py",
+      "bytes": 11807,
+      "sha256": "40da285427f3739b55aa4d647b8cf3e78af1653c1c97d148860a395217073c21"
+    }
+  ],
+  "series": "Build/Presentation/pso-capture-series-precommit-01.json",
+  "native_runs": 8,
+  "capture_replay_passes": 6,
+  "diagnosed_failures": 2,
+  "frames": 9732,
+  "captures": 268,
+  "recording": {
+    "entries": 66,
+    "kinds": {
+      "graphics": 63,
+      "compute": 3
+    },
+    "classifications": {
+      "Precached": 23,
+      "Missed": 43
+    },
+    "identity": {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-capture-02/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077C992D379B4911838C3A1E29249.rec.upipelinecache",
+      "sha256": "c27735aaee29b1e257a6f5a7db5c29cc607ffc858fc52536ccc8c5b448e67900",
+      "bytes": 27941
+    }
+  },
+  "recording_preservation": "Build/Presentation/pso-recording-01/preservation.json",
+  "source_notes": "Build/Presentation/pso-source-notes-01.json",
+  "visual_review": "Build/Presentation/pso-visual-review-01.json",
+  "resource_provider": "ollama-qwen",
+  "resource_use": "Route checked; reuse previous timeout diagnosis and exact local native/source validation.",
+  "limitations": [
+    "26-second seeded initialization remains unacceptable as production completion evidence.",
+    "Zero Runtime counter excludes precache work; seeded environment still logs a 186.892 ms Vulkan creation after test start.",
+    "Single Linux Development SM6 host/package; no Shipping, cross-hardware, fine temporal or audible audio acceptance.",
+    "Art remains unfinished; recording and images remain GENERATED_DRAFT."
+  ],
+  "publication_owner": "Auto Feeder",
+  "remote_publication_claimed": false
+}

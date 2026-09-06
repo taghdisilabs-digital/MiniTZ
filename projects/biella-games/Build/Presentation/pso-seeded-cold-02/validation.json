@@ -1,0 +1,1140 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "revision": {
+    "head": "9ee92cbea90bac467bab1324f05ee9c5a7bb2a12",
+    "head_tree": "d141a965fc5b7f47ccc9937a15b52ce6386b0d72",
+    "project_status": [
+      "?? Build/Presentation/pso-capture-cold-01/",
+      "?? Build/Presentation/pso-capture-cold-02/",
+      "?? Build/Presentation/pso-capture-plan-01.json",
+      "?? Build/Presentation/pso-seeded-cold-01/",
+      "?? Build/Presentation/pso-seeded-cold-02/",
+      "?? tests/run_d03_01_pso_capture.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "baseline": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-sm6-tsr-cold-01/validation.json",
+    "sha256": "79102f4f2791867ae04cdd3bcedf4bf70a31973347f345ac4ff705061e3a638a",
+    "bytes": 286587
+  },
+  "stage": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-sm6-stage-01/validation.json",
+    "sha256": "a538f50a33e317854e705e38d777fbab0478e87c250f394eca486d17abad0714",
+    "bytes": 20529
+  },
+  "archive": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-sm6-package-01.tar.zst",
+    "sha256": "057eff4cec157e002d9ea3b735bb9e41c9a7bc66853ad4a338e86d498cc58d8e",
+    "bytes": 481060250
+  },
+  "state": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-02",
+  "state_before": [],
+  "inputs_before": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_package.py",
+      "sha256": "54b36643f21b0918ff0c2db250c94c0e99c9772ec8e9b05bb702e2913c8b67a9",
+      "bytes": 10915
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_package_isolation_probe.py",
+      "sha256": "1dd068ab83238fd7cdbc7a13ebb5887e7c6f7ca4e4a8e82b32eaf4dc710f522e",
+      "bytes": 1561
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_reconstruction.py",
+      "sha256": "817cd34cf1830029b582417737891181ea915f1d5cc57cc9672d8d106a8dbfc5",
+      "bytes": 2655
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_surfaces.py",
+      "sha256": "28e0dbb3a5e4e6a0a86d2a1e5090d663cf34042322f74092c2bdeafd0cff5657",
+      "bytes": 4658
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py",
+      "sha256": "3dc712f5342117fd6b693d9ae2183a4785316ce54e97f108d2d75b1f6c8d9eaa",
+      "bytes": 3419
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_048.py",
+      "sha256": "244a00703f2105cad67af2bf520b3b4b59e068862873da3b9a016fbad4738e09",
+      "bytes": 9002
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+      "sha256": "331528af104d262d1c4926228f894b63f9cb6ead502d4d916cd56129c59c62a7",
+      "bytes": 10991
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_039.py",
+      "sha256": "9df5e5188444a8dba455768ceed3915c44796a6e9897dd89a1e96d7147b610e8",
+      "bytes": 9977
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_042.py",
+      "sha256": "e33a0217afd1be480091c9e5639a8cb0237cc27b601434fa8adfcdcd6c373fd9",
+      "bytes": 9820
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_shader_platform.py",
+      "sha256": "1644cd87a3cbb579078763847034d6f9a466ce9855336038c432e6f4caf24880",
+      "bytes": 2970
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_architecture.py",
+      "sha256": "456b4f9b8e494528003da483584ba4345287b381ad8ac1cfa9ba4b3593cc9451",
+      "bytes": 2387
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_pso_capture.py",
+      "sha256": "b4143b5a6ec1ab0434fa5b388a6ae8fa8647c72bfbd24b006e5d1bdb381ff151",
+      "bytes": 8952
+    }
+  ],
+  "capture_status": "GENERATED_DRAFT",
+  "scope": "Same Linux Development SM6/TSR archive, fresh isolated user/driver caches; PSO descriptions only may be seeded. OS page cache not flushed; no production stutter acceptance.",
+  "package_before": [
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/BiellaGames/Binaries/Linux/BiellaGames",
+      "sha256": "72cb697cc2d9402c48d68659d3498b8266d8332ad014e5bae162d89cd829e04f",
+      "bytes": 298959360
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.pak",
+      "sha256": "ae95c0d2feb995db10e9c2347a27c689e755390eee60f0f59a6eb9c0475a1f5b",
+      "bytes": 11068084
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.ucas",
+      "sha256": "03eb2320190615769620b301684807363a90bdbf451d07015e7fc6c47d5187fd",
+      "bytes": 316525696
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.utoc",
+      "sha256": "0abd6ad9c6a7de300caa5c7c3b4b86fb03fdd449e7f7aa6f930428526a9bc2b0",
+      "bytes": 262504
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/BiellaGames/Content/Paks/global.ucas",
+      "sha256": "1d9631d0495adcea4e08f421291ba1d31375b85fac0d436270fa7d80ec7726ff",
+      "bytes": 3203520
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/BiellaGames/Content/Paks/global.utoc",
+      "sha256": "459adccc121b57e96a7e97a741dc878f96ebdf562a72be61349d398d80aaa4f3",
+      "bytes": 782
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/BiellaGames.sh",
+      "sha256": "0f758fc1d431fca29cae27ecf35820d9ea70864532c0959f2d578e5216f68c46",
+      "bytes": 258
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so",
+      "sha256": "51aec15c714c5d96969f6a7608cdefc5c163e7fec0b2e0974ec1382380d11c5e",
+      "bytes": 23
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so.2",
+      "sha256": "ed3698c20005885c61a20f04ba772e329f67855713f5fecb26152a8f949ad280",
+      "bytes": 9715408
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_api_dump.json",
+      "sha256": "4616e485e4dacaa8c1ef365fed23d2c117e8848148720a7acea70c96cb975179",
+      "bytes": 12512
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_crash_diagnostic.json",
+      "sha256": "77b6e62bc24994b056e316aa0bd5e056e8ff0dfa377ef1e0ec5b291a181b6a88",
+      "bytes": 9170
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_gfxreconstruct.json",
+      "sha256": "93065b7975a70a250569bfce2ee655bf6bc188a7844204d2c37700a770afb02e",
+      "bytes": 26755
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_profiles.json",
+      "sha256": "88deb508a3d16131cd747335063826a31f237e024f396542c05908b44760b895",
+      "bytes": 69029
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_shader_object.json",
+      "sha256": "1c6dd4b56db0e2dc4a7eb1e44e7ad933f399685436c644add05dadf4258e6b1d",
+      "bytes": 4356
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_synchronization2.json",
+      "sha256": "307c8b906289b7a3329fb44137dd3af595d91f26e5bde9cff1b4280801a45139",
+      "bytes": 1860
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_validation.json",
+      "sha256": "328861629130912c27f1db4f2be4fa3d64608ca7edf6f3d886c09cb5856834cc",
+      "bytes": 94443
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_api_dump.so",
+      "sha256": "1b9871125c6f9afb2b0f09adbe3af3049a20837dca80ccea5d642be4dec31474",
+      "bytes": 109065264
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_crash_diagnostic.so",
+      "sha256": "99dda3ecafd809f0de42453536a2ea6299ac6216db9352e301065542e6685fbf",
+      "bytes": 13228088
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_gfxreconstruct.so",
+      "sha256": "2e8397383a72eb200e99a560a2b58947b8a0dc6cef3d1fe67245674df0d9e546",
+      "bytes": 99440744
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_profiles.so",
+      "sha256": "e2e9422a15730cd14904a0d27bbd7d463b5598fc7ffa1744d14fc47ce0dc87bf",
+      "bytes": 2226960
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_shader_object.so",
+      "sha256": "da3db6756cccaf502dab09a3de0cece49168654f7735612bb51f7555ef9f7cda",
+      "bytes": 4174536
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_synchronization2.so",
+      "sha256": "daa4bf2da5600deeff440b4c98fc3d68ba04121fdbb2f21d3463126c8d0a2c99",
+      "bytes": 5290240
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_validation.so",
+      "sha256": "cbecbd0d82217a789a3c3e1493cc60cb7cc036df8f22a0501af9b8ca23342e81",
+      "bytes": 37821704
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libvulkan.so",
+      "sha256": "d59b6a2b184887fb6eddea3dd754bd2f5b59abc647577c3cd71bb530213ebbb0",
+      "bytes": 4210872
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Config/StagedBuild_BiellaGames.ini",
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "bytes": 3
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Content/Renderer/TessellationTable.bin",
+      "sha256": "edc4f3b628a139c5e185bbaeca661c95c1f427368d3b92892c5cff36c56dd941",
+      "bytes": 259568
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c",
+      "bytes": 22146944
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so.1.24",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c",
+      "bytes": 22146944
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Manifest_NonUFSFiles_Linux.txt",
+      "sha256": "66d10a6fd4878f26929f2381ebf840823fcadb692a288d3de4f7c1fe3f893abc",
+      "bytes": 2105
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Manifest_UFSFiles_Linux.txt",
+      "sha256": "48ca2c90bd2535e22ba9c9e86883c7e736314224d1e74ac1f930516de3817610",
+      "bytes": 227370
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/NOTICES.txt",
+      "sha256": "ba49ae5586f817b36a2772269f71f899cb1f54b5f2720fad951319edd5e140b8",
+      "bytes": 111
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/ThirdPartyNotices/libsamplerate-COPYING.txt",
+      "sha256": "2c1f76ce2effdddb425018405d5690c0b1ab4e6976e35296b0a6db65c5e1a55d",
+      "bytes": 1334
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/ThirdPartyNotices/mimalloc-LICENSE.txt",
+      "sha256": "d9f5607dce0f93055be57077d1b9545e5b14d5814d8c99d6e1d0a5eff2f74c89",
+      "bytes": 1091
+    }
+  ],
+  "seed": {
+    "source": {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-capture-02/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077C992D379B4911838C3A1E29249.rec.upipelinecache",
+      "sha256": "c27735aaee29b1e257a6f5a7db5c29cc607ffc858fc52536ccc8c5b448e67900",
+      "bytes": 27941
+    },
+    "copied": {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-02/user/Saved/BiellaGames_SF_VULKAN_SM6.upipelinecache",
+      "sha256": "c27735aaee29b1e257a6f5a7db5c29cc607ffc858fc52536ccc8c5b448e67900",
+      "bytes": 27941
+    }
+  },
+  "state_at_launch": [
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-02/user/Saved/BiellaGames_SF_VULKAN_SM6.upipelinecache",
+      "sha256": "c27735aaee29b1e257a6f5a7db5c29cc607ffc858fc52536ccc8c5b448e67900",
+      "bytes": 27941
+    }
+  ],
+  "baseline_command": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-sm6-tsr-cold-01/command.json",
+    "sha256": "30cae39c85abe20760e024785b02e3da7bb6ed6a8258740b3816e4de02561715",
+    "bytes": 1981
+  },
+  "runtime": {
+    "command": [
+      "bwrap",
+      "--die-with-parent",
+      "--ro-bind",
+      "/",
+      "/",
+      "--dev-bind",
+      "/dev",
+      "/dev",
+      "--tmpfs",
+      "/root",
+      "--tmpfs",
+      "/opt",
+      "--tmpfs",
+      "/home",
+      "--tmpfs",
+      "/mnt",
+      "--tmpfs",
+      "/tmp",
+      "--chmod",
+      "1777",
+      "/tmp",
+      "--tmpfs",
+      "/var/tmp",
+      "--chmod",
+      "1777",
+      "/var/tmp",
+      "--tmpfs",
+      "/var/cache",
+      "--tmpfs",
+      "/run",
+      "--unshare-pid",
+      "--proc",
+      "/proc",
+      "--unshare-net",
+      "--unshare-ipc",
+      "--ro-bind",
+      "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux",
+      "/tmp/package",
+      "--bind",
+      "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-02",
+      "/tmp/state",
+      "--bind",
+      "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-02/home",
+      "/home/unreal",
+      "--bind",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-seeded-cold-02",
+      "/tmp/evidence",
+      "--ro-bind",
+      "/root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_package_isolation_probe.py",
+      "/tmp/probe.py",
+      "--chdir",
+      "/tmp/package",
+      "--",
+      "runuser",
+      "-u",
+      "unreal",
+      "--",
+      "env",
+      "SDL_AUDIODRIVER=dummy",
+      "XDG_CACHE_HOME=/tmp/state/xdg-cache",
+      "XDG_CONFIG_HOME=/tmp/state/xdg-config",
+      "python3",
+      "/tmp/probe.py",
+      "xvfb-run",
+      "-a",
+      "-s",
+      "-screen 0 1280x720x24",
+      "/tmp/package/BiellaGames.sh",
+      "/Game/Maps/BiellaOpenWorldMap",
+      "-vulkan",
+      "-NoVSync",
+      "-windowed",
+      "-ResX=1280",
+      "-ResY=720",
+      "-unattended",
+      "-AudioMixer",
+      "-nosplash",
+      "-stdout",
+      "-FullStdOutLogOutput",
+      "-UserDir=/tmp/state/user/",
+      "-AbsLog=/tmp/evidence/runtime.engine.log",
+      "-BiellaPresentationOutput=/tmp/evidence",
+      "-BiellaRenderProfile=ProductionTSR",
+      "-BiellaRenderReadback=/tmp/evidence/native-views.csv",
+      "-LogCmds=LogPSOHitching Verbose,LogShaderLibrary Verbose,LogVulkanRHI Verbose",
+      "-ExecCmds=t.MaxFPS 0,r.VSync 0,r.MotionBlurQuality 0,Automation RunTests BiellaGames.D03.Surfaces; SoftQuit",
+      "-psocache",
+      "-DPCVars=r.ShaderPipelineCache.LogPSO=1,r.ShaderPipelineCache.SaveBoundPSOLog=1,r.Vulkan.EnablePSOFileCacheWhenPrecachingActive=1"
+    ],
+    "cwd": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback",
+    "pid": 2450071,
+    "returncode": 0,
+    "timed_out": false,
+    "timeout_seconds": 360,
+    "elapsed_seconds": 56.236,
+    "log": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-seeded-cold-02/runtime.stdout.log",
+      "sha256": "52b32218439032c186d3cfb3f2d1ed03325543b93c6c5f2c1a6f042212f754d3",
+      "bytes": 884804
+    }
+  },
+  "native_views": {
+    "observed_views": 1591,
+    "joined_scenario_frames": 1247,
+    "joined_views": 1247,
+    "missing_frames": [],
+    "multiple_view_frames": 0,
+    "first_frame": 334.0,
+    "last_frame": 1580.0,
+    "expected": {
+      "aa": 4,
+      "requested_aa": 4,
+      "screen_percentage": 100,
+      "temporal_upsampling": 1,
+      "dynamic_res": 0,
+      "gi": 1,
+      "reflections": 1,
+      "vsm": 1,
+      "nanite": 1,
+      "ray_tracing": 0,
+      "external_upscaler": 0,
+      "width": 1280,
+      "height": 720,
+      "tsr_supported": 1
+    },
+    "scope": "Constructed game-thread views plus requested renderer cvars; no generated frames or hardware compatibility claim"
+  },
+  "shader_platform": {
+    "result": "PASS",
+    "feature_level": "sm6",
+    "expected": {
+      "feature_sm6": 1,
+      "nanite_supported": 1,
+      "nanite_enabled": 1,
+      "vsm_enabled": 1,
+      "lumen_supported": 1
+    },
+    "reconstruction": {
+      "observed_views": 1591,
+      "joined_scenario_frames": 1247,
+      "joined_views": 1247,
+      "missing_frames": [],
+      "multiple_view_frames": 0,
+      "first_frame": 334.0,
+      "last_frame": 1580.0,
+      "expected": {
+        "aa": 4,
+        "requested_aa": 4,
+        "screen_percentage": 100,
+        "temporal_upsampling": 1,
+        "dynamic_res": 0,
+        "gi": 1,
+        "reflections": 1,
+        "vsm": 1,
+        "nanite": 1,
+        "ray_tracing": 0,
+        "external_upscaler": 0,
+        "width": 1280,
+        "height": 720,
+        "tsr_supported": 1
+      },
+      "scope": "Constructed game-thread views plus requested renderer cvars; no generated frames or hardware compatibility claim"
+    },
+    "scope": "Native game-view feature level and renderer eligibility; primitive proxy counts do not establish visible-pixel coverage",
+    "primitives": {
+      "loaded_components": 167,
+      "nanite_data": 10,
+      "nanite_proxies": 6,
+      "mesh_assets": [
+        "/Engine/BasicShapes/Cube.Cube",
+        "/Engine/BasicShapes/Cylinder.Cylinder",
+        "/Engine/BasicShapes/Sphere.Sphere",
+        "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+        "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+        "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+        "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+        "/Game/OpenWorld/Architecture/SM_StreetBlock_04.SM_StreetBlock_04",
+        "/Game/OpenWorld/Architecture/SM_StreetBlock_05.SM_StreetBlock_05",
+        "/Game/Vehicles/OffroadCar/SM_Offroad_Body.SM_Offroad_Body",
+        "/Game/Vehicles/OffroadCar/SM_Offroad_Tire.SM_Offroad_Tire",
+        "/Game/Vehicles/Presentation/SM_DriverSteeringWheel.SM_DriverSteeringWheel"
+      ]
+    }
+  },
+  "architecture": {
+    "result": "PASS",
+    "feature_level": "sm6",
+    "buildings": [
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/E4NTLHGQRW7WSJD367Y83CQJY.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616304382.StaticMeshComponent0",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+        "nanite_data": "1",
+        "nanite_proxy": "1"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/2246L7J56SWT3CJ7TDECQUKJJ.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616309390.StaticMeshComponent0",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+        "nanite_data": "1",
+        "nanite_proxy": "1"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/6KIDQ8DFTHQYWAPBTVM821GBW.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616314397.StaticMeshComponent0",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+        "nanite_data": "1",
+        "nanite_proxy": "1"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/DF8HFWLRNPD550N0XGMPOK5GF.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616319404.StaticMeshComponent0",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+        "nanite_data": "1",
+        "nanite_proxy": "1"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_16925a08babfcd64.HLODInstancedStaticMeshComponent_2",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+        "nanite_data": "1",
+        "nanite_proxy": "0"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_51f83a065cb9dbfe.HLODInstancedStaticMeshComponent_2",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+        "nanite_data": "1",
+        "nanite_proxy": "0"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_6b763bbda5e31321.HLODInstancedStaticMeshComponent_2",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_05.SM_StreetBlock_05",
+        "nanite_data": "1",
+        "nanite_proxy": "1"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_b25b234280b48d0f.HLODInstancedStaticMeshComponent_2",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_04.SM_StreetBlock_04",
+        "nanite_data": "1",
+        "nanite_proxy": "1"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_91d1606ca22e01d0.HLODInstancedStaticMeshComponent_2",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+        "nanite_data": "1",
+        "nanite_proxy": "0"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_ad8a26dfe033840b.HLODInstancedStaticMeshComponent_2",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+        "nanite_data": "1",
+        "nanite_proxy": "0"
+      }
+    ],
+    "nanite_proxies": 6,
+    "zero_proxy_rows": 4,
+    "scope": "Loaded mesh data and native proxies; visible appearance requires captured runtime review"
+  },
+  "verification": {
+    "frames": 1247,
+    "costs": {
+      "stationary": {
+        "frames": 260,
+        "wall_p50_ms": 13.683132,
+        "wall_p95_ms": 15.207152599999999,
+        "gpu_p50_ms": 6.1635
+      },
+      "camera_pan": {
+        "frames": 291,
+        "wall_p50_ms": 11.643548,
+        "wall_p95_ms": 15.074548,
+        "gpu_p50_ms": 6.248
+      }
+    },
+    "static_mean_abs_delta_255": [
+      0.46976056694984436,
+      0.47402849793434143,
+      0.4666464030742645,
+      0.45641419291496277,
+      0.4486190676689148,
+      0.4500810205936432,
+      0.4468938112258911,
+      0.4543337821960449,
+      0.45349031686782837
+    ],
+    "pan_mean_abs_delta_255": [
+      5.485888481140137,
+      5.338011264801025,
+      5.13746976852417,
+      4.657256126403809,
+      4.470205307006836,
+      4.192562103271484,
+      3.9047293663024902,
+      3.770258903503418,
+      3.6506893634796143,
+      3.5229310989379883,
+      3.3486075401306152,
+      3.344856023788452,
+      3.311903953552246,
+      3.2445132732391357,
+      3.3137269020080566,
+      3.286376476287842,
+      3.525846242904663,
+      3.4515480995178223,
+      3.3827154636383057,
+      3.8757190704345703,
+      4.380549907684326,
+      4.7568206787109375,
+      4.883286476135254,
+      0.5010409355163574,
+      0.4736762046813965,
+      0.4571303427219391,
+      0.45299914479255676,
+      0.4511125683784485,
+      0.45300057530403137,
+      0.4504231810569763,
+      0.4490494728088379
+    ],
+    "captures": [
+      {
+        "name": "static_000",
+        "sha256": "aef54c2aae8834762572657521dd2ed05e92f65d39dab7344fca91350ffb0c4d",
+        "bytes": 991716
+      },
+      {
+        "name": "static_001",
+        "sha256": "a69130b8f5deed87870a2dd07f537b42746ed2a84c07db1021c4345bb979e4a2",
+        "bytes": 991345
+      },
+      {
+        "name": "static_002",
+        "sha256": "ea6af9f5f977cf7b69a92f91609a7ada28ea4afc7c05ce81fbd06f94f1b1ca54",
+        "bytes": 990458
+      },
+      {
+        "name": "static_003",
+        "sha256": "4b352b5aa5f2d46c5e7f7b09f1e1829562108234b577a3c1d2930ee4cd78f66a",
+        "bytes": 990515
+      },
+      {
+        "name": "static_004",
+        "sha256": "395028367788fef9bf0b75a2fc6ef6dd12e5c663593dd63bb14d9d0fa0e675c7",
+        "bytes": 990742
+      },
+      {
+        "name": "static_005",
+        "sha256": "8cde1d203db77a0b4cdf3349446fef828ec8d9974c277cdbfe3a3825d1df05c2",
+        "bytes": 991261
+      },
+      {
+        "name": "static_006",
+        "sha256": "35e1a8745876aa6782b9c99aa274f97e685433ba808027fffdd6858a9bd10af6",
+        "bytes": 990185
+      },
+      {
+        "name": "static_007",
+        "sha256": "73eefce0ccfaf9b13b9d48c4ac86deed92fe35d089401b4428b6769ebcf13d04",
+        "bytes": 991334
+      },
+      {
+        "name": "static_008",
+        "sha256": "c47f3fbeaa4d3ea405260f2f0ef228be6f7d83e5b6a3d02c7650bb0f91d8e83c",
+        "bytes": 991485
+      },
+      {
+        "name": "static_009",
+        "sha256": "5f81aa7b81ba50910c768dca6cd6a098446bbc523ffc450e86e758bb4e5dcf9b",
+        "bytes": 990989
+      },
+      {
+        "name": "pan_000",
+        "sha256": "384feea011860202c1852265e402bb8742f22a03fefc289b0063ea2d4bb5fe1a",
+        "bytes": 997186
+      },
+      {
+        "name": "pan_001",
+        "sha256": "420e880fe33d892de24b7e8291d8f9dbc4b97aff52e84d06c9d164d54eb9e1ac",
+        "bytes": 1008906
+      },
+      {
+        "name": "pan_002",
+        "sha256": "bf18843e61c94c53953f44c1b31e48c1cceefbff1a7645c080b6134ea1c86f25",
+        "bytes": 1012778
+      },
+      {
+        "name": "pan_003",
+        "sha256": "2aba1d3296e9d7ca77f150f4e160a42d110db52312d5939f9133e170fc09aaa8",
+        "bytes": 1012471
+      },
+      {
+        "name": "pan_004",
+        "sha256": "f5ac8f4cc20bedc02f227cfd38ea19b1be3afc7f0a7f44f01d2d7a410880d667",
+        "bytes": 1016819
+      },
+      {
+        "name": "pan_005",
+        "sha256": "cb975876fc10840a80e5ad86556004fe532b89014a91466b89519df56dd96970",
+        "bytes": 1017935
+      },
+      {
+        "name": "pan_006",
+        "sha256": "f30cf9699e9998009d654a8e884d518a6a904874160a34e36f1385bf0150d1c5",
+        "bytes": 1015470
+      },
+      {
+        "name": "pan_007",
+        "sha256": "52db6dd795e6b520e1afafbf9a3953301e2bf4f35023f396b32a4da59ceca6b9",
+        "bytes": 1017949
+      },
+      {
+        "name": "pan_008",
+        "sha256": "4dbdb442b78d612bdfa3e6c165e003e24f0df1543f54fda40dfb74bd79104029",
+        "bytes": 1018211
+      },
+      {
+        "name": "pan_009",
+        "sha256": "2aeab6f46af955646d0d70bf4a076639de022c6bffb1908d22d385f703c5f7a5",
+        "bytes": 1017466
+      },
+      {
+        "name": "pan_010",
+        "sha256": "6a97d68c8a34d199e5408347bd0ec94ff7330c8fe4f7af410879ca723b9de315",
+        "bytes": 1018030
+      },
+      {
+        "name": "pan_011",
+        "sha256": "067f1512f02078f4ddc102723d0863ef7e1a2519277ef219a64b85342ea0886b",
+        "bytes": 1014532
+      },
+      {
+        "name": "pan_012",
+        "sha256": "913cd76c72bee370149d96894555e0faf91d7485f6e7c5996ac411a1c2860cc1",
+        "bytes": 1022005
+      },
+      {
+        "name": "pan_013",
+        "sha256": "16b9953a7c55a99c6ca234db29cd1f9d3bf29dacb65cdf8797e3753589e1a0ab",
+        "bytes": 1022932
+      },
+      {
+        "name": "pan_014",
+        "sha256": "04bfdd1c31fa011c2ed9c220f05b732c6c885636868f7851b0a4974f376e6bae",
+        "bytes": 1020279
+      },
+      {
+        "name": "pan_015",
+        "sha256": "6c60a4f931257c42d07f3b81b42122ab95c85ef9b9c14a82436c93b505c0fc2a",
+        "bytes": 1022829
+      },
+      {
+        "name": "pan_016",
+        "sha256": "242b11e7c73f9e6ca4faf0b023f06424ea0e384735e3121a83446f6d74c4fb59",
+        "bytes": 1022500
+      },
+      {
+        "name": "pan_017",
+        "sha256": "a47cf8fbe9e3ccc0532a44601104c51e44e7bc4163a9f9847b646f02d37252ee",
+        "bytes": 1023813
+      },
+      {
+        "name": "pan_018",
+        "sha256": "66392774c434a85913490b78692d1195b1bc1f7c7f0c514dac4e128c150bbcbc",
+        "bytes": 1027788
+      },
+      {
+        "name": "pan_019",
+        "sha256": "c3a9dd5c0b4f0f2f1d8d699b6f3a47820e83fc36368c3ef845c09484e794a996",
+        "bytes": 1031840
+      },
+      {
+        "name": "pan_020",
+        "sha256": "471d0bb0a97cd0b110bf2b30b2f9f99c7e84ac9937c0c4a9f0d1932d9d0d0c82",
+        "bytes": 1036446
+      },
+      {
+        "name": "pan_021",
+        "sha256": "06781f6ade3baaafc23d78037d2a9ffc204560e285631e64c89b8d0f6d908022",
+        "bytes": 1032253
+      },
+      {
+        "name": "pan_022",
+        "sha256": "bd1bacf53b230b20df74f299a750c86ea341665ed9bfd656a666066a4684d7b5",
+        "bytes": 1023342
+      },
+      {
+        "name": "pan_023",
+        "sha256": "e3f9727d7475e3b08e9be2c82ed9587c4fd4a41a9cfa9c79312f5193eb69f17c",
+        "bytes": 1026654
+      },
+      {
+        "name": "pan_024",
+        "sha256": "da561a13dbd4c5e426b28adb26381df6ddf18c2c7cf7a3a04a0d9be001905e30",
+        "bytes": 1018516
+      },
+      {
+        "name": "pan_025",
+        "sha256": "1c3d35445719b7f27de8837bbe5a10dbfdce46060591a148020590c5c0a98de9",
+        "bytes": 1012095
+      },
+      {
+        "name": "pan_026",
+        "sha256": "b89caeebe73c2ce738c8dec6de9b55e8cd2074a994f5f5f8c9e0dc35e28eea07",
+        "bytes": 1009482
+      },
+      {
+        "name": "pan_027",
+        "sha256": "89b9b3b5ce4e543b386cb32fcf44c8255ed3c71ea80704d49ca224d48dc87b68",
+        "bytes": 1008108
+      },
+      {
+        "name": "pan_028",
+        "sha256": "10087ca7280781e7ebbcb0e36c295913c0b83bdd94156082f92b5ea3eedcd74d",
+        "bytes": 1006255
+      },
+      {
+        "name": "pan_029",
+        "sha256": "bf1e0dfa082618b60fa315d02a0137a046c49530bb6e2a6d4aee2e65e06fbc9b",
+        "bytes": 1005172
+      },
+      {
+        "name": "pan_030",
+        "sha256": "7b9139b8bc6e512faf8234ba3c7629d630732f9cc92d524528c39bf532ab957b",
+        "bytes": 1005818
+      },
+      {
+        "name": "pan_031",
+        "sha256": "a17c7888885cfc352a9d9fbe3d0c942832e7e16ae0c6cced024267d961616632",
+        "bytes": 1004825
+      },
+      {
+        "name": "walk_end",
+        "sha256": "c489a2c8e05deb21f9df97f2caf9d7a559aedf66661a639ca3f30d2c2fc86ed1",
+        "bytes": 1031418
+      }
+    ],
+    "scope": "Same Linux Development SM6/TSR archive, fresh isolated user/driver caches; PSO descriptions only may be seeded. OS page cache not flushed; no production stutter acceptance.; gross pixel-delta screening only"
+  },
+  "pso_hitches": [],
+  "pso_observations": [
+    "LogCsvProfiler: Display: Metadata set : commandline=\"\" BiellaGames /Game/Maps/BiellaOpenWorldMap -vulkan -NoVSync -windowed -ResX=1280 -ResY=720 -unattended -AudioMixer -nosplash -stdout -FullStdOutLogOutput -UserDir=/tmp/state/user/ -AbsLog=/tmp/evidence/runtime.engine.log -BiellaPresentationOutput=/tmp/evidence -BiellaRenderProfile=ProductionTSR -BiellaRenderReadback=/tmp/evidence/native-views.csv -LogCmds=\"LogPSOHitching Verbose,LogShaderLibrary Verbose,LogVulkanRHI Verbose\" -ExecCmds=\"t.MaxFPS 0,r.VSync 0,r.MotionBlurQuality 0,Automation RunTests BiellaGames.D03.Surfaces; SoftQuit\" -psocache -DPCVars=r.ShaderPipelineCache.LogPSO=1,r.ShaderPipelineCache.SaveBoundPSOLog=1,r.Vulkan.EnablePSOFileCacheWhenPrecachingActive=1\"\"",
+    "LogInit: Command Line: /Game/Maps/BiellaOpenWorldMap -vulkan -NoVSync -windowed -ResX=1280 -ResY=720 -unattended -AudioMixer -nosplash -stdout -FullStdOutLogOutput -UserDir=/tmp/state/user/ -AbsLog=/tmp/evidence/runtime.engine.log -BiellaPresentationOutput=/tmp/evidence -BiellaRenderProfile=ProductionTSR -BiellaRenderReadback=/tmp/evidence/native-views.csv -LogCmds=\"LogPSOHitching Verbose,LogShaderLibrary Verbose,LogVulkanRHI Verbose\" -ExecCmds=\"t.MaxFPS 0,r.VSync 0,r.MotionBlurQuality 0,Automation RunTests BiellaGames.D03.Surfaces; SoftQuit\" -psocache -DPCVars=r.ShaderPipelineCache.LogPSO=1,r.ShaderPipelineCache.SaveBoundPSOLog=1,r.Vulkan.EnablePSOFileCacheWhenPrecachingActive=1",
+    "[2026.09.06-17.37.17:965][  0]LogDeviceProfileManager: Setting CommandLine Device Profile CVar: [[r.ShaderPipelineCache.LogPSO:1]]",
+    "[2026.09.06-17.37.17:965][  0]LogConfig: Set CVar [[r.ShaderPipelineCache.LogPSO:1]]",
+    "[2026.09.06-17.37.17:965][  0]LogDeviceProfileManager: Setting CommandLine Device Profile CVar: [[r.ShaderPipelineCache.SaveBoundPSOLog:1]]",
+    "[2026.09.06-17.37.17:965][  0]LogConfig: Set CVar [[r.ShaderPipelineCache.SaveBoundPSOLog:1]]",
+    "[2026.09.06-17.37.18:962][  0]LogVulkanRHI: Display: FVulkanPipelineStateCacheManager: Binary pipeline cache '/tmp/state/user/Saved/VulkanPSO.cache.10de.26b9' not found.",
+    "[2026.09.06-17.37.19:122][  0]LogRHI: Could not open FPipelineCacheFile: ../../../BiellaGames/Content/PipelineCaches/Linux/BiellaGames_SF_VULKAN_SM6.stable.upipelinecache",
+    "[2026.09.06-17.37.19:122][  0]LogRHI: Could not open FPipelineCacheFile: ../../../BiellaGames/Content/PipelineCaches/Linux/BiellaGames_SF_VULKAN_SM6.stable.upipelinecache",
+    "[2026.09.06-17.37.19:122][  0]LogRHI: Base name for record PSOs is /tmp/state/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077CBC9127E6B9579888AF8AC65F2.rec.upipelinecache",
+    "[2026.09.06-17.37.19:122][  0]LogRHI: FPipelineCacheFile: GarbageCollectUserCache() Begin",
+    "[2026.09.06-17.37.19:122][  0]LogRHI: FPipelineCacheFile: GarbageCollectUserCache() End",
+    "[2026.09.06-17.37.19:123][  0]LogRHI: FPipelineCacheFile Header Game Version: 56702186",
+    "[2026.09.06-17.37.19:123][  0]LogRHI: FPipelineCacheFile Header Engine Data Version: 31",
+    "[2026.09.06-17.37.19:123][  0]LogRHI: FPipelineCacheFile Header TOC Offset: 20672",
+    "[2026.09.06-17.37.19:123][  0]LogRHI: FPipelineCacheFile File Size: 27941 Bytes",
+    "[2026.09.06-17.37.19:123][  0]LogRHI: Opened FPipelineCacheFile: /tmp/state/user/Saved/BiellaGames_SF_VULKAN_SM6.upipelinecache (GUID: 01A077CA171A70E5ACC9F4440EE36BDD) with 66 entries.",
+    "[2026.09.06-17.37.19:123][  0]LogRHI: Display: FPipelineCacheFile User cache [key:BiellaGames_usr] opened 'BiellaGames'=1, filename BiellaGames, guid 01A077CA171A70E5ACC9F4440EE36BDD. ",
+    "[2026.09.06-17.37.19:123][  0]LogRHI: FShaderPipelineCache::BeginNextPrecompileCacheTask() - BiellaGames_usr begining compile.",
+    "[2026.09.06-17.37.19:123][  0]LogVulkanRHI: FVulkanPipelineStateCacheManager::OnShaderPipelineCacheOpened BiellaGames_usr 66 01A077CA171A70E5ACC9F4440EE36BDD",
+    "[2026.09.06-17.37.19:123][  0]LogRHI: Display: FShaderPipelineCache starting pipeline cache 'BiellaGames_usr' and enqueued 66 tasks for precompile. (cache contains 66, 66 eligible, 0 had missing shaders. 0 already compiled). BatchSize 500 and BatchTime 16.000000.",
+    "[2026.09.06-17.37.19:123][  0]LogRHI: Could not open FPipelineCacheFile: ../../../BiellaGames/Content/PipelineCaches/Linux/BiellaGames_SF_VULKAN_SM6.stable.upipelinecache",
+    "[2026.09.06-17.37.20:132][  0]LogRHI: Warning: FShaderPipelineCache BiellaGames_usr completed 66 tasks in 0.08s (0.10s wall time since intial open).",
+    "[2026.09.06-17.37.20:132][  0]LogVulkanRHI: FVulkanPipelineStateCacheManager::OnShaderPipelineCachePrecompilationComplete",
+    "[2026.09.06-17.37.23:499][  0]LogVulkanRHI: Display: FVulkanPipelineStateCacheManager: Saved device pipeline cache file '/tmp/state/user/Saved/VulkanProgramBinaryCache/VulkanPSO_01A077CA171A70E5ACC9F4440EE36BDD.10de.26b9', 12637188 bytes",
+    "[2026.09.06-17.37.43:679][  0]LogRHI: FShaderPipelineCache::BeginNextPrecompileCacheTask() - Finished, no jobs remaining.",
+    "[2026.09.06-17.37.44:179][  0]LogRHI: Display: ShaderPipelineCache: Paused Batching. 1",
+    "[2026.09.06-17.37.44:180][  0]LogRHI: Display: ShaderPipelineCache: Resumed Batching. 0",
+    "[2026.09.06-17.37.44:180][  0]LogRHI: Display: ShaderPipelineCache: Batching Resumed.",
+    "[2026.09.06-17.37.44:181][  0]LogLoad: (Engine Initialization) Total time: 26.48 seconds",
+    "[2026.09.06-17.38.12:897][584]LogRHI: FPipelineFileCacheManager BoundPSOsOnly saved 64 total, 64 new, 2 removed, 0 cons .upipelinecache (took   2.54ms): /tmp/state/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077CBC9127E6B9579888AF8AC65F2.rec.upipelinecache."
+  ],
+  "recordings": [
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-02/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077CBC9127E6B9579888AF8AC65F2.rec.upipelinecache",
+      "sha256": "e3ae2d1b4a4b8b7b06fefb26d80ba9d0db3e61a6adcb31bf2f06e2d3e35ae1aa",
+      "bytes": 27384
+    }
+  ],
+  "state_after": [
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-02/home/.config/Epic/NotAllowedUnattendedBugReports",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-02/home/.config/Epic/UnrealEngine/5.8/Saved/Config/Linux/Manifest.ini",
+      "sha256": "e706d6c7c899d8d28e83512d7f29946334086c4a6eaf56f790bf0010e7df1e9c",
+      "bytes": 22
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-02/user/Saved/BiellaGames_SF_VULKAN_SM6.upipelinecache",
+      "sha256": "c27735aaee29b1e257a6f5a7db5c29cc607ffc858fc52536ccc8c5b448e67900",
+      "bytes": 27941
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-02/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077CBC9127E6B9579888AF8AC65F2.rec.upipelinecache",
+      "sha256": "e3ae2d1b4a4b8b7b06fefb26d80ba9d0db3e61a6adcb31bf2f06e2d3e35ae1aa",
+      "bytes": 27384
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-02/user/Saved/Config/CrashReportClient/UECC-Linux-01A077CBC3FF7D4CBF18BD8A9D3A0BCD/CrashReportClient.ini",
+      "sha256": "b85bb31b225042d5175a8b4240162c29c5dfc294686e1926528fd0ab00346ac4",
+      "bytes": 256
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-02/user/Saved/Config/Linux/GameUserSettings.ini",
+      "sha256": "1bece9165c83e37cc208622493193a60a51b8d1b62678de56bc56233133b7f88",
+      "bytes": 1327
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-02/user/Saved/VulkanProgramBinaryCache/VulkanPSO_01A077CA171A70E5ACC9F4440EE36BDD.10de.26b9",
+      "sha256": "2383dc4b5ab6fd55984184372797f2e810576573a65dab9fd8e7b81f42b85ac9",
+      "bytes": 12637188
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-02/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+      "sha256": "16bef0743a5e54302d429be87dae1fdfb48ab126a5e7c0fd6cf23df1fbea1a6f",
+      "bytes": 114401720
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-seeded-02/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+      "sha256": "21ffd836c28dd2bdc9a6339accb043c7276916c5c56ab01f693090e98a0f3c96",
+      "bytes": 159424
+    }
+  ],
+  "package_after": [
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/BiellaGames/Binaries/Linux/BiellaGames",
+      "sha256": "72cb697cc2d9402c48d68659d3498b8266d8332ad014e5bae162d89cd829e04f",
+      "bytes": 298959360
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.pak",
+      "sha256": "ae95c0d2feb995db10e9c2347a27c689e755390eee60f0f59a6eb9c0475a1f5b",
+      "bytes": 11068084
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.ucas",
+      "sha256": "03eb2320190615769620b301684807363a90bdbf451d07015e7fc6c47d5187fd",
+      "bytes": 316525696
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.utoc",
+      "sha256": "0abd6ad9c6a7de300caa5c7c3b4b86fb03fdd449e7f7aa6f930428526a9bc2b0",
+      "bytes": 262504
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/BiellaGames/Content/Paks/global.ucas",
+      "sha256": "1d9631d0495adcea4e08f421291ba1d31375b85fac0d436270fa7d80ec7726ff",
+      "bytes": 3203520
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/BiellaGames/Content/Paks/global.utoc",
+      "sha256": "459adccc121b57e96a7e97a741dc878f96ebdf562a72be61349d398d80aaa4f3",
+      "bytes": 782
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/BiellaGames.sh",
+      "sha256": "0f758fc1d431fca29cae27ecf35820d9ea70864532c0959f2d578e5216f68c46",
+      "bytes": 258
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so",
+      "sha256": "51aec15c714c5d96969f6a7608cdefc5c163e7fec0b2e0974ec1382380d11c5e",
+      "bytes": 23
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so.2",
+      "sha256": "ed3698c20005885c61a20f04ba772e329f67855713f5fecb26152a8f949ad280",
+      "bytes": 9715408
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_api_dump.json",
+      "sha256": "4616e485e4dacaa8c1ef365fed23d2c117e8848148720a7acea70c96cb975179",
+      "bytes": 12512
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_crash_diagnostic.json",
+      "sha256": "77b6e62bc24994b056e316aa0bd5e056e8ff0dfa377ef1e0ec5b291a181b6a88",
+      "bytes": 9170
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_gfxreconstruct.json",
+      "sha256": "93065b7975a70a250569bfce2ee655bf6bc188a7844204d2c37700a770afb02e",
+      "bytes": 26755
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_profiles.json",
+      "sha256": "88deb508a3d16131cd747335063826a31f237e024f396542c05908b44760b895",
+      "bytes": 69029
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_shader_object.json",
+      "sha256": "1c6dd4b56db0e2dc4a7eb1e44e7ad933f399685436c644add05dadf4258e6b1d",
+      "bytes": 4356
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_synchronization2.json",
+      "sha256": "307c8b906289b7a3329fb44137dd3af595d91f26e5bde9cff1b4280801a45139",
+      "bytes": 1860
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_validation.json",
+      "sha256": "328861629130912c27f1db4f2be4fa3d64608ca7edf6f3d886c09cb5856834cc",
+      "bytes": 94443
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_api_dump.so",
+      "sha256": "1b9871125c6f9afb2b0f09adbe3af3049a20837dca80ccea5d642be4dec31474",
+      "bytes": 109065264
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_crash_diagnostic.so",
+      "sha256": "99dda3ecafd809f0de42453536a2ea6299ac6216db9352e301065542e6685fbf",
+      "bytes": 13228088
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_gfxreconstruct.so",
+      "sha256": "2e8397383a72eb200e99a560a2b58947b8a0dc6cef3d1fe67245674df0d9e546",
+      "bytes": 99440744
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_profiles.so",
+      "sha256": "e2e9422a15730cd14904a0d27bbd7d463b5598fc7ffa1744d14fc47ce0dc87bf",
+      "bytes": 2226960
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_shader_object.so",
+      "sha256": "da3db6756cccaf502dab09a3de0cece49168654f7735612bb51f7555ef9f7cda",
+      "bytes": 4174536
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_synchronization2.so",
+      "sha256": "daa4bf2da5600deeff440b4c98fc3d68ba04121fdbb2f21d3463126c8d0a2c99",
+      "bytes": 5290240
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_validation.so",
+      "sha256": "cbecbd0d82217a789a3c3e1493cc60cb7cc036df8f22a0501af9b8ca23342e81",
+      "bytes": 37821704
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libvulkan.so",
+      "sha256": "d59b6a2b184887fb6eddea3dd754bd2f5b59abc647577c3cd71bb530213ebbb0",
+      "bytes": 4210872
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Config/StagedBuild_BiellaGames.ini",
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "bytes": 3
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Content/Renderer/TessellationTable.bin",
+      "sha256": "edc4f3b628a139c5e185bbaeca661c95c1f427368d3b92892c5cff36c56dd941",
+      "bytes": 259568
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c",
+      "bytes": 22146944
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so.1.24",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c",
+      "bytes": 22146944
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Manifest_NonUFSFiles_Linux.txt",
+      "sha256": "66d10a6fd4878f26929f2381ebf840823fcadb692a288d3de4f7c1fe3f893abc",
+      "bytes": 2105
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/Manifest_UFSFiles_Linux.txt",
+      "sha256": "48ca2c90bd2535e22ba9c9e86883c7e736314224d1e74ac1f930516de3817610",
+      "bytes": 227370
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/NOTICES.txt",
+      "sha256": "ba49ae5586f817b36a2772269f71f899cb1f54b5f2720fad951319edd5e140b8",
+      "bytes": 111
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/ThirdPartyNotices/libsamplerate-COPYING.txt",
+      "sha256": "2c1f76ce2effdddb425018405d5690c0b1ab4e6976e35296b0a6db65c5e1a55d",
+      "bytes": 1334
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/archive-readback/Linux/ThirdPartyNotices/mimalloc-LICENSE.txt",
+      "sha256": "d9f5607dce0f93055be57077d1b9545e5b14d5814d8c99d6e1d0a5eff2f74c89",
+      "bytes": 1091
+    }
+  ],
+  "inputs_after": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_package.py",
+      "sha256": "54b36643f21b0918ff0c2db250c94c0e99c9772ec8e9b05bb702e2913c8b67a9",
+      "bytes": 10915
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_package_isolation_probe.py",
+      "sha256": "1dd068ab83238fd7cdbc7a13ebb5887e7c6f7ca4e4a8e82b32eaf4dc710f522e",
+      "bytes": 1561
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_reconstruction.py",
+      "sha256": "817cd34cf1830029b582417737891181ea915f1d5cc57cc9672d8d106a8dbfc5",
+      "bytes": 2655
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_surfaces.py",
+      "sha256": "28e0dbb3a5e4e6a0a86d2a1e5090d663cf34042322f74092c2bdeafd0cff5657",
+      "bytes": 4658
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py",
+      "sha256": "3dc712f5342117fd6b693d9ae2183a4785316ce54e97f108d2d75b1f6c8d9eaa",
+      "bytes": 3419
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_048.py",
+      "sha256": "244a00703f2105cad67af2bf520b3b4b59e068862873da3b9a016fbad4738e09",
+      "bytes": 9002
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+      "sha256": "331528af104d262d1c4926228f894b63f9cb6ead502d4d916cd56129c59c62a7",
+      "bytes": 10991
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_039.py",
+      "sha256": "9df5e5188444a8dba455768ceed3915c44796a6e9897dd89a1e96d7147b610e8",
+      "bytes": 9977
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_042.py",
+      "sha256": "e33a0217afd1be480091c9e5639a8cb0237cc27b601434fa8adfcdcd6c373fd9",
+      "bytes": 9820
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_shader_platform.py",
+      "sha256": "1644cd87a3cbb579078763847034d6f9a466ce9855336038c432e6f4caf24880",
+      "bytes": 2970
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_architecture.py",
+      "sha256": "456b4f9b8e494528003da483584ba4345287b381ad8ac1cfa9ba4b3593cc9451",
+      "bytes": 2387
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_pso_capture.py",
+      "sha256": "b4143b5a6ec1ab0434fa5b388a6ae8fa8647c72bfbd24b006e5d1bdb381ff151",
+      "bytes": 8952
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "task_id": "D03-01",
+  "status": "EXPERIMENT_IN_PROGRESS",
+  "unchanged_archive": "057eff4cec157e002d9ea3b735bb9e41c9a7bc66853ad4a338e86d498cc58d8e",
+  "source_commit": "9ee92cbea90bac467bab1324f05ee9c5a7bb2a12",
+  "sources": [
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/VulkanRHI/Private/VulkanRHI.cpp",
+      "bytes": 86132,
+      "sha256": "8602d774524bc5146ed02e6575e7af6fef3001216e93226f99acef55347de9e2"
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RHI/Private/PipelineFileCache.cpp",
+      "bytes": 161694,
+      "sha256": "7b5c888f76d3b75ec5c2f02dde458838e2806d6a9879730f47c8f987367170fa"
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RenderCore/Private/ShaderPipelineCache.cpp",
+      "bytes": 89798,
+      "sha256": "23e47228beae4ba30438e04d77392b40752451eaa5e6480f15a5beebe0685317"
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Engine/Private/DeviceProfiles/DeviceProfileManager.cpp",
+      "bytes": 70783,
+      "sha256": "40f1bd95e9dbee2ad3b090e8e27f3d38e0d23eb700027e21d3d0261490a0bdbd"
+    }
+  ],
+  "hypothesis": "Recorded PSO descriptions can reduce first-use compilation with fresh driver caches. Compare enabled-empty and enabled-seeded launches before production integration.",
+  "observations": [
+    "pso-capture-cold-01: native gameplay PASS but no recording; log Vulkan PSO Precaching=1, PipelineFileCache=0.",
+    "VulkanRHI.cpp:104-109/463: EnablePSOFileCacheWhenPrecachingActive defaults false; explicit startup setting supports both systems.",
+    "PipelineFileCache.cpp:3096/3171: -psocache cannot override GRHISupportsPipelineFileCache=false.",
+    "ShaderPipelineCache.cpp:1796/977: destructor closes user cache and saves BoundPSOsOnly under -logpso.",
+    "DeviceProfileManager.cpp:739: DPCVars parses explicit startup console overrides."
+  ],
+  "next_steps": [
+    "Fresh enabled capture",
+    "Fresh driver state seeded only with recorded PSO descriptions",
+    "Compare native cache loading, precompile and runtime timings; preserve functional visibility",
+    "Integrate only if evidence supports it; loading gate may be required"
+  ],
+  "scope": "Bounded measurement harness; no production code/config/content change, no task completion, no cold/warm baseline rerun"
+}

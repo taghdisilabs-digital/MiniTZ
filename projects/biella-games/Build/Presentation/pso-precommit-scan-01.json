@@ -1,0 +1,25 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T17:58:14.107169+00:00",
+  "result": "PASS",
+  "scope": "New PSO text artifacts only; raw native logs preserved. Token-pattern scan is bounded and not a universal secret detector.",
+  "candidate_files": 384,
+  "candidate_bytes": 290967971,
+  "text_files": 109,
+  "scanned_bytes": 19645771,
+  "patterns": [
+    "private_key",
+    "google_access_token",
+    "github_token",
+    "bearer_value",
+    "provider_key"
+  ],
+  "findings": [],
+  "whitespace_findings": [],
+  "compiled_python": [
+    "tests/run_d03_01_pso_capture.py",
+    "tests/verify_d03_01_pso_capture.py"
+  ],
+  "all_changes_project_local": true,
+  "tracked_files_unchanged": true
+}

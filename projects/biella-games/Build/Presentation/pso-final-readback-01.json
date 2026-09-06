@@ -1,0 +1,35 @@
+{
+  "schema": "biella.presentation_readback/v1",
+  "task_id": "D03-01",
+  "task_status": "CONTINUE",
+  "result": "PASS",
+  "time": "2026-09-06T17:59:00.386112+00:00",
+  "parent_commit": "9ee92cbea90bac467bab1324f05ee9c5a7bb2a12",
+  "series": {
+    "path": "Build/Presentation/pso-capture-series-precommit-01.json",
+    "bytes": 145502,
+    "sha256": "9693d57ff18951feee2388556764686dfceb6f607e2077a3a934e457fffff664"
+  },
+  "checked_series_identities": 516,
+  "previous_manifest": {
+    "path": "Build/Presentation/D03-01-sm6-package-file-manifest.json",
+    "bytes": 58084,
+    "sha256": "94a670081511896c673f09bdf5d9ed130308ed50c64462fef18cb94e5a5edeac"
+  },
+  "unchanged_predecessor_files": 284,
+  "engine_sources_checked": 7,
+  "native_runs": 8,
+  "successful_native_scenarios": 8,
+  "capture_replay_passes": 6,
+  "diagnosed_capture_replay_failures": 2,
+  "frames": 9732,
+  "captures": 268,
+  "scan": {
+    "path": "Build/Presentation/pso-precommit-scan-01.json",
+    "bytes": 690,
+    "sha256": "ca12c87e306b8fda0b8cfbe5bcb70ac9c2206d0793dc6eb6dfd9b2186606a04c"
+  },
+  "publication_owner": "Auto Feeder",
+  "remote_publication_claimed": false,
+  "scope": "Local replay/readback only. No D03 completion or production startup acceptance."
+}
