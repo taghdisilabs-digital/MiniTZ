@@ -30,7 +30,12 @@ class WebsiteContractTests(unittest.TestCase):
     def test_bu07_scaffold_has_real_entrypoint_build_and_governance(self):
         required = ['src/index.html','src/styles.css','src/app.js','src/live/index.html','src/live/styles.css','src/live/app.js','scripts/build.mjs','package.json','AGENTS.md','wrangler.jsonc','content/website-visual-assets.csv','content/asset-resolution.json','content/game-runtime-media.json']
         for rel in required: self.assertTrue((ROOT / rel).is_file(), rel)
-        self.assertIn('/live/', (ROOT / 'src/index.html').read_text())
+        index = (ROOT / 'src/index.html').read_text()
+        app = (ROOT / 'src/app.js').read_text()
+        self.assertIn('/live/', index)
+        self.assertIn('READ-ONLY VPS SHOWCASE', index)
+        self.assertIn('/live-api/snapshot', app)
+        self.assertNotIn('POST', app)
         self.assertIn('resolve(dist,"live")', (ROOT / 'scripts/build.mjs').read_text())
 
 if __name__ == '__main__': unittest.main()
