@@ -1,0 +1,71 @@
+{
+  "schema": "biella.presentation_visual_review/v1",
+  "task_id": "D03-01",
+  "time": "2026-09-06T19:56:17.454164+00:00",
+  "result": "PASS_BOUNDED",
+  "capture_status": "GENERATED_DRAFT",
+  "frames": [
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-cold01-frame50.png",
+      "sha256": "7a115d842d053df347ae2efa8d907bc79ca8baed4182e474f5ab7cf2aaba8681",
+      "bytes": 13228
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-cold01-frame63.png",
+      "sha256": "fd218849d6627ffff5104f1c37e70cbd5e652a419db481997bcc170e30ddfd0d",
+      "bytes": 13282
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-cold01-frame64.png",
+      "sha256": "aa506ca5994c722cd43529f14f1ca7d8b04d6af3a7de2612f3404b5af7e45d2f",
+      "bytes": 250832
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-disabled01-frame50.png",
+      "sha256": "3500bff95b05c04545b2632fbdc68a72994ce2f830684da0081795c06001b1c9",
+      "bytes": 88111
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-sm501-frame52.png",
+      "sha256": "8894183ae73cdb0d03864f439d7ee886a3eb7cffab251292c01cd92b15b815f7",
+      "bytes": 13283
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-sm501-frame53.png",
+      "sha256": "95dc5b1dc5d8198383af8f049f8bdd1cc6919b479023d5e9327c90827befcf10",
+      "bytes": 241564
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-environment01-frame64.png",
+      "sha256": "a186409e39df24dcac60c6b4015854ac0fa94fe92f30603b212faece2f5836cd",
+      "bytes": 13226
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-environment01-frame65.png",
+      "sha256": "a6584be6340334e226e6a3652e9862186a81dcf21bb7757c155eb8316f18854e",
+      "bytes": 250735
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-warm02-frame33.png",
+      "sha256": "b3cb8fb77476efa064004bdd0ccfe4c1a6a5b0d446d779dc495b482f44456667",
+      "bytes": 13140
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-warm02-frame34.png",
+      "sha256": "5bce53686bb9346d35663b385a2f691947458424669a8a9a3bd5dfb0f97bb347",
+      "bytes": 250907
+    }
+  ],
+  "observations": [
+    "Cold frames 50/63 cover world preparation; frame64 shows real world and player/HUD.",
+    "Disabled frame50 shows HUD/sky with dark unrendered world; the missing-scene negative is visually supported.",
+    "SM5 frames52/53 and environment64/65 show loader immediately followed by world at the sampled boundary.",
+    "Warm retry33/34 similarly shows loader then scene.",
+    "Prototype mannequins, sparse architecture and black outer edges remain; final art is not accepted."
+  ],
+  "limitations": [
+    "10 Hz lossy display capture; no assertion for unsampled instants or later gameplay.",
+    "An internal approximately 2.1-second cold indicator freeze remains.",
+    "No audible-mix or native frame-time benchmark from instrumented dummy-audio capture."
+  ]
+}

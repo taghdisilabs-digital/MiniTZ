@@ -1,0 +1,242 @@
+{
+  "schema": "biella.presentation_increment/v1",
+  "task_id": "D03-01",
+  "time": "2026-09-06T19:56:17.454164+00:00",
+  "task_status": "CONTINUE",
+  "increment": "First-world startup handoff",
+  "parent_commit": "c456c0d43e6d9de67849f52a4d6ae6c439f5c881",
+  "implementation": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/BiellaGames.Build.cs",
+      "sha256": "be8419037965b74073d162d0216c97d157ee1b3f8a7ba3590687a51a6ffcbd3c",
+      "bytes": 835
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/BiellaGames.cpp",
+      "sha256": "54b8d66c0f2e977e06fabe795eb3191580656d3963824a2321fef929358d9455",
+      "bytes": 535
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaStartupPresentation.h",
+      "sha256": "74697cceea7db61b65a953f04237c0d5516e1b0e9e0ca9b1d9f922116983ddab",
+      "bytes": 845
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaStartupPresentation.cpp",
+      "sha256": "be4f46a8c4fd4abe638134f6805e0eded8d79624b6e0cb76503072e37ea1f721",
+      "bytes": 5535
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaLoadingScreen/BiellaLoadingScreen.Build.cs",
+      "sha256": "b1a44179b2c03acf8a1b167c98305efe5509987f5d04a3a9fae4f4d650d9d2f4",
+      "bytes": 405
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaLoadingScreen/Private/BiellaLoadingScreen.cpp",
+      "sha256": "d53b796ee964ab42aed370e8ac00411734bd2417954bc59f6fe8ac7469c06769",
+      "bytes": 4649
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaLoadingScreen/Private/BiellaLoadingWidget.cpp",
+      "sha256": "d1118c4dfd4ae55b8ebe717d119cef8aa973af648cffc14ebc4b4efa554ff23e",
+      "bytes": 3474
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaLoadingScreen/Public/BiellaLoadingWidget.h",
+      "sha256": "156ace268a76b3fd89ec90eca1ee9efbdf99f10a47baac7de484f9c23209ab84",
+      "bytes": 220
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_package.py",
+      "sha256": "973c596140aee718da989c436c5990196256cab004d58b28d42b3ece79c420a0",
+      "bytes": 14278
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_handoff.py",
+      "sha256": "f59491dd6910d600c5d20d11c67f876643ea375044b78a5dd4cf6ae8cdedc599",
+      "bytes": 2849
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_handoff_series.py",
+      "sha256": "634781c4998a2ebe7161609ea5fda8ba3ccd2d6406c3ad387b531972d6a84dc2",
+      "bytes": 8421
+    }
+  ],
+  "archive": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-handoff-candidate-01.tar.zst",
+    "sha256": "655c314d2d552749f7ece123e4183c5467d655e00c6faebacf3b425046272859",
+    "bytes": 481443287
+  },
+  "binary": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames",
+    "sha256": "b86b7cf1f290bf63a5f7a085f441bf8c4aefdc1feafad67908077c63ca52d594",
+    "bytes": 298988096
+  },
+  "build": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-build-01/result.json",
+    "sha256": "cb251156da47d5cb1caed4e677e012787e3114819546d157a6f7d6bc500e8bfa",
+    "bytes": 1967
+  },
+  "stage": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-stage-01/validation.json",
+    "sha256": "24d2b5c148d4bcfe31b1fd284a19ccc53e314805b183189b42dcbeb01d16a030",
+    "bytes": 1195306
+  },
+  "series": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-series-01.json",
+    "sha256": "ee12f79e421b5ff07fd79579e2fef30d4f5325c721eb0a420f5681a8a37ed754",
+    "bytes": 1083519
+  },
+  "visual_review": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-visual-review-01.json",
+    "sha256": "bf3701973ce6ba8c2f80d063c7d6a846f08e4eba1c7c8fd204c2a1c99288cf6c",
+    "bytes": 2996
+  },
+  "source_review": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-source-review-01.json",
+    "sha256": "cc44b109f777873c3bd577fb6d14b1813e31e4c3c2ff0216d18c3aa21f864a71",
+    "bytes": 5460
+  },
+  "progress": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/D03-01-handoff-progress.md",
+    "sha256": "f265aae88b065e9fa577e5af30d9ddf44ad96f0a206c2b83917119bd5c85f5ab",
+    "bytes": 5032
+  },
+  "native_runs": 5,
+  "native_scenario_frames": 6211,
+  "captured_display_frames": 596,
+  "checked_identities": 4123,
+  "measurements": [
+    {
+      "name": "cold-01",
+      "scenario_frames": 1112,
+      "captured_frames": 125,
+      "handoff": {
+        "task_id": "D03-01",
+        "result": "PASS",
+        "display": {
+          "first_scene_frame": 64,
+          "last_loading_frame": 63,
+          "exposed_non_scene_frames": []
+        },
+        "native": {
+          "reason": "ready",
+          "frame": 10,
+          "submissions": 2,
+          "pending": 0,
+          "missing_proxies": 0,
+          "meshes": 91,
+          "elapsed_s": 3.415571
+        },
+        "scope": "Startup handoff fixture; RHI submission fence is not GPU/display completion; screenshots require review"
+      },
+      "first_loading_frame": 23,
+      "last_loading_frame": 63,
+      "first_scene_frame": 64,
+      "trailing_static_loading_seconds": 0.1
+    },
+    {
+      "name": "warm-02",
+      "scenario_frames": 1327,
+      "captured_frames": 108,
+      "handoff": {
+        "task_id": "D03-01",
+        "result": "PASS",
+        "display": {
+          "first_scene_frame": 34,
+          "last_loading_frame": 33,
+          "exposed_non_scene_frames": []
+        },
+        "native": {
+          "reason": "ready",
+          "frame": 4,
+          "submissions": 2,
+          "pending": 0,
+          "missing_proxies": 0,
+          "meshes": 91,
+          "elapsed_s": 0.40939
+        },
+        "scope": "Startup handoff fixture; RHI submission fence is not GPU/display completion; screenshots require review"
+      },
+      "first_loading_frame": 24,
+      "last_loading_frame": 33,
+      "first_scene_frame": 34,
+      "trailing_static_loading_seconds": 0.2
+    },
+    {
+      "name": "disabled-01",
+      "scenario_frames": 1098,
+      "captured_frames": 126,
+      "handoff": null,
+      "first_loading_frame": 23,
+      "last_loading_frame": 49,
+      "first_scene_frame": 60,
+      "trailing_static_loading_seconds": 2.1
+    },
+    {
+      "name": "sm5-01",
+      "scenario_frames": 1231,
+      "captured_frames": 112,
+      "handoff": {
+        "task_id": "D03-01",
+        "result": "PASS",
+        "display": {
+          "first_scene_frame": 53,
+          "last_loading_frame": 52,
+          "exposed_non_scene_frames": []
+        },
+        "native": {
+          "reason": "ready",
+          "frame": 93,
+          "submissions": 2,
+          "pending": 0,
+          "missing_proxies": 0,
+          "meshes": 91,
+          "elapsed_s": 2.61555
+        },
+        "scope": "Startup handoff fixture; RHI submission fence is not GPU/display completion; screenshots require review"
+      },
+      "first_loading_frame": 21,
+      "last_loading_frame": 52,
+      "first_scene_frame": 53,
+      "trailing_static_loading_seconds": 0.1
+    },
+    {
+      "name": "environment-01",
+      "scenario_frames": 1443,
+      "captured_frames": 125,
+      "handoff": {
+        "task_id": "D03-01",
+        "result": "PASS",
+        "display": {
+          "first_scene_frame": 65,
+          "last_loading_frame": 64,
+          "exposed_non_scene_frames": []
+        },
+        "native": {
+          "reason": "ready",
+          "frame": 7,
+          "submissions": 2,
+          "pending": 0,
+          "missing_proxies": 0,
+          "meshes": 91,
+          "elapsed_s": 3.33236
+        },
+        "scope": "Startup handoff fixture; RHI submission fence is not GPU/display completion; screenshots require review"
+      },
+      "first_loading_frame": 24,
+      "last_loading_frame": 64,
+      "first_scene_frame": 65,
+      "trailing_static_loading_seconds": 0.1
+    }
+  ],
+  "scope": "Exact handoff build/package lineage and independent 10 Hz display/native scenarios; full production presentation remains OPEN",
+  "publication_owner": "Auto Feeder",
+  "remote_publication_claimed": false,
+  "limitations": [
+    "10 Hz lossy display capture; no assertion for unsampled instants or later gameplay.",
+    "An internal approximately 2.1-second cold indicator freeze remains.",
+    "No audible-mix or native frame-time benchmark from instrumented dummy-audio capture.",
+    "D03 final art, additional VFX/audio and broader temporal/native performance remain OPEN."
+  ]
+}

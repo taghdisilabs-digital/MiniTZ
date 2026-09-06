@@ -1,0 +1,51 @@
+{
+  "task_id": "D03-01",
+  "capture_status": "GENERATED_DRAFT",
+  "source": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/loading-display.mp4",
+    "sha256": "e4f9c77011ad67497cee902c7ed186c9d90e66ec8f0741e325ac27bb53aa87b3",
+    "bytes": 1532909
+  },
+  "frames": [
+    {
+      "frame": 64,
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/loading-display.mp4",
+        "-vf",
+        "select=eq(n\\,64)",
+        "-frames:v",
+        "1",
+        "/root/biella/artifacts/games/D03-01/handoff-environment01-frame64.png"
+      ],
+      "identity": {
+        "path": "/root/biella/artifacts/games/D03-01/handoff-environment01-frame64.png",
+        "sha256": "a186409e39df24dcac60c6b4015854ac0fa94fe92f30603b212faece2f5836cd",
+        "bytes": 13226
+      }
+    },
+    {
+      "frame": 65,
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/loading-display.mp4",
+        "-vf",
+        "select=eq(n\\,65)",
+        "-frames:v",
+        "1",
+        "/root/biella/artifacts/games/D03-01/handoff-environment01-frame65.png"
+      ],
+      "identity": {
+        "path": "/root/biella/artifacts/games/D03-01/handoff-environment01-frame65.png",
+        "sha256": "a6584be6340334e226e6a3652e9862186a81dcf21bb7757c155eb8316f18854e",
+        "bytes": 250735
+      }
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "task_id": "D03-01",
+  "result": "FAIL",
+  "revision": {
+    "head": "c456c0d43e6d9de67849f52a4d6ae6c439f5c881",
+    "head_tree": "a176f75b8b8fca448923d2d7960de800303d56d5",
+    "project_status": [
+      " M Source/BiellaGames/BiellaGames.Build.cs",
+      " M Source/BiellaGames/BiellaGames.cpp",
+      " M Source/BiellaLoadingScreen/BiellaLoadingScreen.Build.cs",
+      " M Source/BiellaLoadingScreen/Private/BiellaLoadingScreen.cpp",
+      " M tests/run_d03_01_package.py",
+      "?? Build/Presentation/handoff-assist-01/",
+      "?? Build/Presentation/handoff-build-01/",
+      "?? Build/Presentation/handoff-cold01-frames-01.json",
+      "?? Build/Presentation/handoff-control-fallback-frames-01.json",
+      "?? Build/Presentation/handoff-design-01.json",
+      "?? Build/Presentation/handoff-negative-before-01.json",
+      "?? Build/Presentation/handoff-negative-disabled-01.json",
+      "?? Build/Presentation/handoff-runtime-cold-01/",
+      "?? Build/Presentation/handoff-runtime-disabled-01/",
+      "?? Build/Presentation/handoff-runtime-environment-01/",
+      "?? Build/Presentation/handoff-runtime-sm5-01/",
+      "?? Build/Presentation/handoff-stage-01/",
+      "?? Source/BiellaGames/Private/BiellaStartupPresentation.cpp",
+      "?? Source/BiellaGames/Private/BiellaStartupPresentation.h",
+      "?? Source/BiellaLoadingScreen/Private/BiellaLoadingWidget.cpp",
+      "?? Source/BiellaLoadingScreen/Public/",
+      "?? tests/verify_d03_01_handoff.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "stage": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-stage-01/validation.json",
+    "sha256": "24d2b5c148d4bcfe31b1fd284a19ccc53e314805b183189b42dcbeb01d16a030",
+    "bytes": 1195306
+  },
+  "profile": "ProductionTSR",
+  "scenario": "surfaces",
+  "phase": "warm",
+  "state": "/mnt/biella-extra/biella-runtime/d03-01-handoff-cold-01",
+  "trace": false,
+  "loading_screen": "enabled",
+  "startup_handoff": "enabled",
+  "feature_level_request": null,
+  "feature_level_expected": "sm6",
+  "architecture_required": true,
+  "capture_status": "GENERATED_DRAFT",
+  "state_before": [
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-handoff-cold-01/home/.config/Epic/NotAllowedUnattendedBugReports",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-handoff-cold-01/home/.config/Epic/UnrealEngine/5.8/Saved/Config/Linux/Manifest.ini",
+      "sha256": "e706d6c7c899d8d28e83512d7f29946334086c4a6eaf56f790bf0010e7df1e9c",
+      "bytes": 22
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-handoff-cold-01/user/Saved/Config/CrashReportClient/UECC-Linux-01A0783B8B0F7A61BEF86F3C4C723ADC/CrashReportClient.ini",
+      "sha256": "b85bb31b225042d5175a8b4240162c29c5dfc294686e1926528fd0ab00346ac4",
+      "bytes": 256
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-handoff-cold-01/user/Saved/Config/Linux/GameUserSettings.ini",
+      "sha256": "1bece9165c83e37cc208622493193a60a51b8d1b62678de56bc56233133b7f88",
+      "bytes": 1327
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-handoff-cold-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+      "sha256": "0475dd34990ed198a806e62ba7b396f6364f674836e8915b3554e0a4f8d6bff5",
+      "bytes": 115126746
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-handoff-cold-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+      "sha256": "f86beccff953b35c5a179ae704da3c187fbe7448e27a0e7135215eb005fad6b2",
+      "bytes": 159424
+    }
+  ],
+  "inaccessible_host_roots": [
+    "/opt/unreal/UE_5.8.2",
+    "/root/biella/repos/biella-engine/projects/biella-games",
+    "/home/unreal",
+    "/mnt/biella-extra/biella-runtime/d03-01-handoff-package-01"
+  ],
+  "inputs_before": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_package.py",
+      "sha256": "973c596140aee718da989c436c5990196256cab004d58b28d42b3ece79c420a0",
+      "bytes": 14278
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_package_isolation_probe.py",
+      "sha256": "1dd068ab83238fd7cdbc7a13ebb5887e7c6f7ca4e4a8e82b32eaf4dc710f522e",
+      "bytes": 1561
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_reconstruction.py",
+      "sha256": "817cd34cf1830029b582417737891181ea915f1d5cc57cc9672d8d106a8dbfc5",
+      "bytes": 2655
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_surfaces.py",
+      "sha256": "28e0dbb3a5e4e6a0a86d2a1e5090d663cf34042322f74092c2bdeafd0cff5657",
+      "bytes": 4658
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py",
+      "sha256": "3dc712f5342117fd6b693d9ae2183a4785316ce54e97f108d2d75b1f6c8d9eaa",
+      "bytes": 3419
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_048.py",
+      "sha256": "244a00703f2105cad67af2bf520b3b4b59e068862873da3b9a016fbad4738e09",
+      "bytes": 9002
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+      "sha256": "331528af104d262d1c4926228f894b63f9cb6ead502d4d916cd56129c59c62a7",
+      "bytes": 10991
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_039.py",
+      "sha256": "9df5e5188444a8dba455768ceed3915c44796a6e9897dd89a1e96d7147b610e8",
+      "bytes": 9977
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_042.py",
+      "sha256": "e33a0217afd1be480091c9e5639a8cb0237cc27b601434fa8adfcdcd6c373fd9",
+      "bytes": 9820
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_shader_platform.py",
+      "sha256": "1644cd87a3cbb579078763847034d6f9a466ce9855336038c432e6f4caf24880",
+      "bytes": 2970
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_architecture.py",
+      "sha256": "456b4f9b8e494528003da483584ba4345287b381ad8ac1cfa9ba4b3593cc9451",
+      "bytes": 2387
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_loading_display.py",
+      "sha256": "c464ff22a974ce1f9afdb131c3fc78a6ad3617e22d0a47978446414e3c5847f6",
+      "bytes": 3018
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_loading_display.py",
+      "sha256": "cdf56822c527d562ae3bc01a8b6022919d04a8b47f304983665332befbb9b774",
+      "bytes": 4650
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_handoff.py",
+      "sha256": "f59491dd6910d600c5d20d11c67f876643ea375044b78a5dd4cf6ae8cdedc599",
+      "bytes": 2849
+    }
+  ],
+  "archive": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-handoff-candidate-01.tar.zst",
+    "sha256": "655c314d2d552749f7ece123e4183c5467d655e00c6faebacf3b425046272859",
+    "bytes": 481443287
+  },
+  "scope": "Linux Development packaged Vulkan, task-isolated user caches; OS page cache is not flushed; no generated frames or cross-hardware claim"
+}

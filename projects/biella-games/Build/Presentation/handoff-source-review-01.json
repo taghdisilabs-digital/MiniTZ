@@ -1,0 +1,116 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T19:56:17.454164+00:00",
+  "result": "PASS_BOUNDED",
+  "implementation": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/BiellaGames.Build.cs",
+      "sha256": "be8419037965b74073d162d0216c97d157ee1b3f8a7ba3590687a51a6ffcbd3c",
+      "bytes": 835
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/BiellaGames.cpp",
+      "sha256": "54b8d66c0f2e977e06fabe795eb3191580656d3963824a2321fef929358d9455",
+      "bytes": 535
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaStartupPresentation.h",
+      "sha256": "74697cceea7db61b65a953f04237c0d5516e1b0e9e0ca9b1d9f922116983ddab",
+      "bytes": 845
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaStartupPresentation.cpp",
+      "sha256": "be4f46a8c4fd4abe638134f6805e0eded8d79624b6e0cb76503072e37ea1f721",
+      "bytes": 5535
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaLoadingScreen/BiellaLoadingScreen.Build.cs",
+      "sha256": "b1a44179b2c03acf8a1b167c98305efe5509987f5d04a3a9fae4f4d650d9d2f4",
+      "bytes": 405
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaLoadingScreen/Private/BiellaLoadingScreen.cpp",
+      "sha256": "d53b796ee964ab42aed370e8ac00411734bd2417954bc59f6fe8ac7469c06769",
+      "bytes": 4649
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaLoadingScreen/Private/BiellaLoadingWidget.cpp",
+      "sha256": "d1118c4dfd4ae55b8ebe717d119cef8aa973af648cffc14ebc4b4efa554ff23e",
+      "bytes": 3474
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaLoadingScreen/Public/BiellaLoadingWidget.h",
+      "sha256": "156ace268a76b3fd89ec90eca1ee9efbdf99f10a47baac7de484f9c23209ab84",
+      "bytes": 220
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_package.py",
+      "sha256": "973c596140aee718da989c436c5990196256cab004d58b28d42b3ece79c420a0",
+      "bytes": 14278
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_handoff.py",
+      "sha256": "f59491dd6910d600c5d20d11c67f876643ea375044b78a5dd4cf6ae8cdedc599",
+      "bytes": 2849
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_handoff_series.py",
+      "sha256": "634781c4998a2ebe7161609ea5fda8ba3ccd2d6406c3ad387b531972d6a84dc2",
+      "bytes": 8421
+    }
+  ],
+  "engine_refs": [
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Launch/Private/LaunchEngineLoop.cpp",
+        "bytes": 236996,
+        "sha256": "f23b201a530fb87af894aac9f76ce090fab42fe4dccc92267e044f5b6d6cae1d"
+      },
+      "finding": "4878-4951: initial map loads before preloader wait; rendering enabled and init-complete broadcast precede world ticks"
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Engine/Private/UnrealClient.cpp",
+        "bytes": 92262,
+        "sha256": "7039772fd95146755a06907cc24a3a26275b190f438086647c86f68fa2d6ffe2"
+      },
+      "finding": "1870: viewport event after canvas flush, before end frame; event is enqueue only"
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RenderCore/Public/RenderCommandFence.h",
+        "bytes": 1579,
+        "sha256": "ca64bcbf7735783dc27507eb0223047b69e40306effc276247ed650180f2948b"
+      },
+      "finding": "RHIThread enum contract: prior parallel translation and submission, not GPU/display"
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RenderCore/Private/RenderingThread.cpp",
+        "bytes": 75004,
+        "sha256": "ef3986e6939dcaece048fc0f1514b8477fae3f6b48584d53ee1edd146a8b36ce"
+      },
+      "finding": "977-1068: RHI fence submits prior commands and polls task completion"
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RHI/Private/PipelineStateCache.cpp",
+        "bytes": 194057,
+        "sha256": "68aa36ca0f972d19f90f08a2f3150df1f4310a7750f77a7e8fc7fdd2ae607a40"
+      },
+      "finding": "GetNumActivePipelinePrecompileTasks returns currently active count, not future work"
+    }
+  ],
+  "findings": [
+    "Viewport callback is treated as enqueue-only; readiness is checked again after a nonblocking RHI submission fence.",
+    "Two submissions are required, world/proxy/precompile changes reset readiness, and delegates are removed on finish/shutdown.",
+    "Visible registered asset-bearing components are inspected; hidden and assetless components do not block readiness.",
+    "The shared Slate layout preserves existing preloader artwork; it adds no game assets or cook dependencies.",
+    "No gameplay input, simulation, possession, world or asset source was changed."
+  ],
+  "limitations": [
+    "RHI submission does not mean GPU/display completion; independent display observations cover only the tested fixture.",
+    "The overlay ticks/paints with the game viewport and cannot guarantee movement through game/render-thread stalls.",
+    "30-second fallback is polled on game frames, not a hard real-time deadline."
+  ]
+}

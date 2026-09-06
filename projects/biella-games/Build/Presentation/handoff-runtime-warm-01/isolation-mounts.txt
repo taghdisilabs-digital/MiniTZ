@@ -1,0 +1,57 @@
+1114 969 8:1 / / ro,nosuid,nodev,relatime master:1 - ext4 /dev/sda1 rw,discard,errors=remount-ro,commit=30
+1115 1114 0:5 / /dev ro,nosuid,nodev,relatime master:2 - devtmpfs udev rw,size=45231136k,nr_inodes=11307784,mode=755,inode64
+1116 1115 0:24 / /dev/pts ro,nosuid,nodev,noexec,relatime master:3 - devpts devpts rw,gid=5,mode=620,ptmxmode=000
+1117 1115 0:26 / /dev/shm ro,nosuid,nodev master:4 - tmpfs tmpfs rw,inode64
+1118 1115 0:32 / /dev/hugepages ro,nosuid,nodev,relatime master:14 - hugetlbfs hugetlbfs rw,pagesize=2M
+1119 1115 0:20 / /dev/mqueue ro,nosuid,nodev,noexec,relatime master:15 - mqueue mqueue rw
+1120 1114 0:25 / /run ro,nosuid,nodev,noexec,relatime master:5 - tmpfs tmpfs rw,size=9050152k,mode=755,inode64
+1121 1120 0:27 / /run/lock ro,nosuid,nodev,noexec,relatime master:6 - tmpfs tmpfs rw,size=5120k,inode64
+1122 1120 0:25 /snapd/ns /run/snapd/ns ro,nosuid,nodev,noexec,relatime - tmpfs tmpfs rw,size=9050152k,mode=755,inode64
+1123 1120 0:55 / /run/user/1000 ro,nosuid,nodev,relatime master:376 - tmpfs tmpfs rw,size=9050148k,nr_inodes=2262537,mode=700,uid=1000,gid=1000,inode64
+1124 1120 0:4 net:[4026531840] /run/docker/netns/default ro,nosuid,nodev master:374 - nsfs nsfs rw
+1125 1114 0:22 / /sys ro,nosuid,nodev,noexec,relatime master:7 - sysfs sysfs rw
+1126 1125 0:6 / /sys/kernel/security ro,nosuid,nodev,noexec,relatime master:8 - securityfs securityfs rw
+1127 1125 0:28 / /sys/fs/cgroup ro,nosuid,nodev,noexec,relatime master:9 - cgroup2 cgroup2 rw,nsdelegate,memory_recursiveprot
+1128 1125 0:29 / /sys/fs/pstore ro,nosuid,nodev,noexec,relatime master:10 - pstore pstore rw
+1129 1125 0:30 / /sys/fs/bpf ro,nosuid,nodev,noexec,relatime master:11 - bpf bpf rw,mode=700
+1130 1125 0:7 / /sys/kernel/debug ro,nosuid,nodev,noexec,relatime master:16 - debugfs debugfs rw
+1131 1130 0:12 / /sys/kernel/debug/tracing ro,nosuid,nodev,noexec,relatime master:384 - tracefs tracefs rw
+1132 1125 0:12 / /sys/kernel/tracing ro,nosuid,nodev,noexec,relatime master:17 - tracefs tracefs rw
+1133 1125 0:33 / /sys/fs/fuse/connections ro,nosuid,nodev,noexec,relatime master:18 - fusectl fusectl rw
+1134 1125 0:21 / /sys/kernel/config ro,nosuid,nodev,noexec,relatime master:19 - configfs configfs rw
+1135 1114 0:23 / /proc ro,nosuid,nodev,noexec,relatime master:12 - proc proc rw
+1136 1135 0:31 / /proc/sys/fs/binfmt_misc rw,relatime master:13 - autofs systemd-1 rw,fd=32,pgrp=0,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=5820
+1137 1136 0:35 / /proc/sys/fs/binfmt_misc ro,nosuid,nodev,noexec,relatime master:56 - binfmt_misc binfmt_misc rw
+1138 1114 7:0 / /snap/core22/2437 ro,nosuid,nodev,relatime master:20 - squashfs /dev/loop0 ro,errors=continue,threads=single
+1139 1114 7:1 / /snap/canonical-livepatch/414 ro,nosuid,nodev,relatime master:21 - squashfs /dev/loop1 ro,errors=continue,threads=single
+1140 1114 7:2 / /snap/core24/1643 ro,nosuid,nodev,relatime master:22 - squashfs /dev/loop2 ro,errors=continue,threads=single
+1141 1114 7:3 / /snap/gh/751 ro,nosuid,nodev,relatime master:23 - squashfs /dev/loop3 ro,errors=continue,threads=single
+1142 1114 7:4 / /snap/snapd/27710 ro,nosuid,nodev,relatime master:24 - squashfs /dev/loop4 ro,errors=continue,threads=single
+1143 1114 259:0 / /boot ro,nosuid,nodev,relatime master:34 - ext4 /dev/sda16 rw
+1144 1143 8:15 / /boot/efi ro,nosuid,nodev,relatime master:54 - vfat /dev/sda15 rw,fmask=0077,dmask=0077,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro
+1145 1114 8:1 / /mnt/biella-production ro,nosuid,nodev,relatime master:340 - ext4 /dev/sda1 rw,discard,errors=remount-ro,commit=30
+1146 1114 8:16 / /mnt/biella-extra ro,nosuid,nodev,relatime master:366 - ext4 /dev/sdb rw
+1147 1114 7:5 / /root/attached-storage ro,nosuid,nodev,noatime master:458 - ext4 /dev/loop5 rw
+1148 1115 0:5 / /dev rw,nosuid,relatime master:2 - devtmpfs udev rw,size=45231136k,nr_inodes=11307784,mode=755,inode64
+1149 1148 0:24 / /dev/pts rw,nosuid,noexec,relatime master:3 - devpts devpts rw,gid=5,mode=620,ptmxmode=000
+1150 1148 0:26 / /dev/shm rw,nosuid,nodev master:4 - tmpfs tmpfs rw,inode64
+1151 1148 0:32 / /dev/hugepages rw,nosuid,nodev,relatime master:14 - hugetlbfs hugetlbfs rw,pagesize=2M
+1152 1148 0:20 / /dev/mqueue rw,nosuid,nodev,noexec,relatime master:15 - mqueue mqueue rw
+1153 1114 0:57 / /root rw,nosuid,nodev,relatime - tmpfs tmpfs rw,mode=755,inode64
+1154 1114 0:58 / /opt rw,nosuid,nodev,relatime - tmpfs tmpfs rw,mode=755,inode64
+1155 1114 0:59 / /home rw,nosuid,nodev,relatime - tmpfs tmpfs rw,mode=755,inode64
+1156 1114 0:60 / /mnt rw,nosuid,nodev,relatime - tmpfs tmpfs rw,mode=755,inode64
+1157 1114 0:61 / /tmp rw,nosuid,nodev,relatime - tmpfs tmpfs rw,mode=755,inode64
+1158 1114 0:62 / /var/tmp rw,nosuid,nodev,relatime - tmpfs tmpfs rw,mode=755,inode64
+1159 1114 0:63 / /var/cache rw,nosuid,nodev,relatime - tmpfs tmpfs rw,mode=755,inode64
+1160 1120 0:64 / /run rw,nosuid,nodev,relatime - tmpfs tmpfs rw,mode=755,inode64
+1161 1135 0:65 / /proc rw,nosuid,nodev,noexec,relatime - proc proc rw
+1162 1161 0:65 /sysrq-trigger /proc/sysrq-trigger ro,nosuid,nodev,noexec,relatime - proc proc rw
+1163 1161 0:65 /irq /proc/irq ro,nosuid,nodev,noexec,relatime - proc proc rw
+1164 1161 0:65 /bus /proc/bus ro,nosuid,nodev,noexec,relatime - proc proc rw
+1165 1157 8:16 /biella-runtime/d03-01-handoff-package-01/archive-readback/Linux /tmp/package ro,nosuid,nodev,relatime master:366 - ext4 /dev/sdb rw
+1166 1157 8:16 /biella-runtime/d03-01-handoff-cold-01 /tmp/state rw,nosuid,nodev,relatime master:366 - ext4 /dev/sdb rw
+1167 1155 8:16 /biella-runtime/d03-01-handoff-cold-01/home /home/unreal rw,nosuid,nodev,relatime master:366 - ext4 /dev/sdb rw
+1168 1157 8:1 /root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-01 /tmp/evidence rw,nosuid,nodev,relatime master:1 - ext4 /dev/sda1 rw,discard,errors=remount-ro,commit=30
+1169 1157 8:1 /root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_package_isolation_probe.py /tmp/probe.py ro,nosuid,nodev,relatime master:1 - ext4 /dev/sda1 rw,discard,errors=remount-ro,commit=30
+1170 1157 8:1 /root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_loading_display.py /tmp/loading-display.py ro,nosuid,nodev,relatime master:1 - ext4 /dev/sda1 rw,discard,errors=remount-ro,commit=30

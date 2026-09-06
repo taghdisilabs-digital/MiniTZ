@@ -1,0 +1,47 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "revision": {
+    "head": "c456c0d43e6d9de67849f52a4d6ae6c439f5c881",
+    "head_tree": "a176f75b8b8fca448923d2d7960de800303d56d5",
+    "project_status": [
+      " M Source/BiellaGames/BiellaGames.Build.cs",
+      " M Source/BiellaGames/BiellaGames.cpp",
+      " M Source/BiellaLoadingScreen/BiellaLoadingScreen.Build.cs",
+      " M Source/BiellaLoadingScreen/Private/BiellaLoadingScreen.cpp",
+      "?? Build/Presentation/handoff-assist-01/",
+      "?? Build/Presentation/handoff-build-01/",
+      "?? Build/Presentation/handoff-negative-before-01.json",
+      "?? Source/BiellaGames/Private/BiellaStartupPresentation.cpp",
+      "?? Source/BiellaGames/Private/BiellaStartupPresentation.h",
+      "?? Source/BiellaLoadingScreen/Private/BiellaLoadingWidget.cpp",
+      "?? Source/BiellaLoadingScreen/Public/",
+      "?? tests/verify_d03_01_handoff.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "marker_before": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "started": "2026-09-06T19:36:26.663299+00:00",
+  "returncode": 0,
+  "binary": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames",
+    "sha256": "b86b7cf1f290bf63a5f7a085f441bf8c4aefdc1feafad67908077c63ca52d594",
+    "bytes": 298988096
+  },
+  "receipt": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames.target",
+    "sha256": "7da8030a25e23d3976e834f2554ef35a869d9133100f3a7da197b666c115d023",
+    "bytes": 106593
+  },
+  "marker_after": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "inputs_unchanged": true,
+  "elapsed_seconds": 113.07951954402961
+}

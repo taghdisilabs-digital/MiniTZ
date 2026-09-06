@@ -35,7 +35,10 @@ def main():
     parser.add_argument('--verify-architecture', action='store_true', help='Require all six authored street meshes and their platform-specific proxies')
     parser.add_argument('--trace', action='store_true')
     parser.add_argument('--loading-screen', choices=('enabled', 'disabled'), help='Verify native startup lifecycle and independently capture the X11 display')
+    parser.add_argument('--startup-handoff', choices=('enabled', 'disabled'), help='Verify the first-world overlay, or disable only that overlay as a same-binary control')
     args = parser.parse_args()
+    if args.startup_handoff and args.loading_screen != 'enabled':
+        parser.error('--startup-handoff requires --loading-screen enabled')
     if args.verify_architecture and (args.scenario != 'surfaces' or not args.verify_feature_level):
         parser.error('--verify-architecture requires surfaces and --verify-feature-level')
     out, state = args.output.resolve(), args.state.resolve()
@@ -60,10 +63,13 @@ def main():
               'verify_d03_01_shader_platform.py', 'verify_d03_01_architecture.py')]
     if args.loading_screen:
         inputs.extend(PROJECT/'tests'/name for name in ('d03_01_loading_display.py', 'verify_d03_01_loading_display.py'))
+    if args.startup_handoff:
+        inputs.append(PROJECT/'tests/verify_d03_01_handoff.py')
     report = dict(task_id='D03-01', result='FAIL', revision=source_revision(),
                   stage=file_identity(args.stage.resolve()/'validation.json'), profile=args.profile,
                   scenario=args.scenario, phase=args.phase, state=str(state), trace=args.trace,
                   loading_screen=args.loading_screen,
+                  startup_handoff=args.startup_handoff,
                   feature_level_request=args.feature_level,
                   feature_level_expected=args.verify_feature_level,
                   architecture_required=args.verify_architecture,
@@ -112,6 +118,8 @@ def main():
             command.append('-BiellaLoadingOutput=/tmp/evidence')
             if args.loading_screen == 'disabled':
                 command.append('-NoLoadingScreen')
+        if args.startup_handoff == 'disabled':
+            command.append('-BiellaNoStartupOverlay')
         write_json(out/'command.json', command)
         report['runtime'] = launch(command, extraction, out/'runtime.stdout.log', 360)
         log = (out/'runtime.stdout.log').read_text(errors='replace')
@@ -160,6 +168,11 @@ def main():
         report['pso_observations'] = [line for line in log.splitlines() if re.search(
             r'LogPSOHitching:|pipeline cache|PipelineCache|PSOPrecach|ShaderLibrary|Engine Initialization', line, re.I)]
         report['pso_measurement_scope'] = 'Engine LogPSOHitching Verbose records runtime PSO creations exceeding its 20ms threshold; not all pipeline creation costs'
+        if args.startup_handoff == 'enabled':
+            from verify_d03_01_handoff import verify as verify_handoff
+            report['startup_handoff_verification'] = verify_handoff(out)
+        elif args.startup_handoff == 'disabled':
+            assert 'D03_HANDOFF_DISABLED version=1' in log and 'D03_HANDOFF_START' not in log and 'D03_HANDOFF_END' not in log, 'Disabled handoff control still played overlay'
         report['result'] = 'PASS'
     except (AssertionError, OSError, KeyError, ValueError, subprocess.SubprocessError) as error:
         report['error'] = str(error)

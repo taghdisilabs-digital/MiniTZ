@@ -1,0 +1,64 @@
+{
+  "task_id": "D03-01",
+  "status": "IMPLEMENTED_AWAITING_RUNTIME",
+  "base_commit": "c456c0d43e6d9de67849f52a4d6ae6c439f5c881",
+  "problem": "Nine captured non-scene frames exposed after engine preloader; baseline loading-runtime-cold-05 frames 48-56",
+  "decision": "Reuse exact Slate artwork over the real game viewport while gameplay and scene rendering continue. Remove after two RHI submissions, visible asset-bearing mesh proxies, player/world readiness and zero currently active pipeline precompiles.",
+  "degraded_path": "30-second timeout or lost viewport/exit removes cosmetic overlay with explicit non-ready reason. No input or simulation changes.",
+  "source_correction": "Historical loading-source-review-01 wording that completion precedes map load is incorrect; map loads before preloader wait but world rendering follows.",
+  "acceptance": [
+    "Existing cold05 is rejected by new gap test",
+    "Native exact-source build and archive readback",
+    "Fresh isolated cold SM6 and SM5 captures show continuous loader-to-scene handoff",
+    "Same-binary overlay-disabled control preserves gameplay and removes native handoff events",
+    "Direct frame review supplements fixture-specific pixel classification"
+  ],
+  "limitations": [
+    "RHI fence is not GPU completion or display proof",
+    "No guarantee against later shader creation or temporal convergence",
+    "Only startup; no loading overlay for later map travel",
+    "Captures remain GENERATED_DRAFT"
+  ],
+  "engine_refs": [
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Launch/Private/LaunchEngineLoop.cpp",
+        "bytes": 236996,
+        "sha256": "f23b201a530fb87af894aac9f76ce090fab42fe4dccc92267e044f5b6d6cae1d"
+      },
+      "finding": "4878-4951: initial map loads before preloader wait; rendering enabled and init-complete broadcast precede world ticks"
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Engine/Private/UnrealClient.cpp",
+        "bytes": 92262,
+        "sha256": "7039772fd95146755a06907cc24a3a26275b190f438086647c86f68fa2d6ffe2"
+      },
+      "finding": "1870: viewport event after canvas flush, before end frame; event is enqueue only"
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RenderCore/Public/RenderCommandFence.h",
+        "bytes": 1579,
+        "sha256": "ca64bcbf7735783dc27507eb0223047b69e40306effc276247ed650180f2948b"
+      },
+      "finding": "RHIThread enum contract: prior parallel translation and submission, not GPU/display"
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RenderCore/Private/RenderingThread.cpp",
+        "bytes": 75004,
+        "sha256": "ef3986e6939dcaece048fc0f1514b8477fae3f6b48584d53ee1edd146a8b36ce"
+      },
+      "finding": "977-1068: RHI fence submits prior commands and polls task completion"
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RHI/Private/PipelineStateCache.cpp",
+        "bytes": 194057,
+        "sha256": "68aa36ca0f972d19f90f08a2f3150df1f4310a7750f77a7e8fc7fdd2ae607a40"
+      },
+      "finding": "GetNumActivePipelinePrecompileTasks returns currently active count, not future work"
+    }
+  ]
+}

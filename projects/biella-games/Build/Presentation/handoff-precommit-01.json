@@ -1,0 +1,29 @@
+{
+  "schema": "biella.precommit_validation/v1",
+  "task_id": "D03-01",
+  "time": "2026-09-06T19:56:45.522457+00:00",
+  "result": "PASS",
+  "parent_commit": "c456c0d43e6d9de67849f52a4d6ae6c439f5c881",
+  "tracked_changes": [
+    "Source/BiellaGames/BiellaGames.Build.cs",
+    "Source/BiellaGames/BiellaGames.cpp",
+    "Source/BiellaLoadingScreen/BiellaLoadingScreen.Build.cs",
+    "Source/BiellaLoadingScreen/Private/BiellaLoadingScreen.cpp",
+    "tests/run_d03_01_package.py"
+  ],
+  "manifest": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-evidence-manifest-01.json",
+    "sha256": "c2a9bb559b23343b8f191699568a4b2f2cd03f17ba610aec902bac2b1780c768",
+    "bytes": 78109
+  },
+  "preserved_evidence_files": 309,
+  "preserved_evidence_bytes": 202240071,
+  "visual_frames": 10,
+  "checks": [
+    "All manifest and implementation identities read back exactly",
+    "Native handoff series PASS from matching source and package",
+    "Python AST parse PASS",
+    "git diff --check PASS",
+    "Only five intended tracked files changed; no task/state metadata changed"
+  ]
+}

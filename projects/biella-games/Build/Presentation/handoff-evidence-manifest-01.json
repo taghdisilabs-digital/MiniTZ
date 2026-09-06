@@ -1,0 +1,1553 @@
+{
+  "schema": "biella.evidence_manifest/v1",
+  "task_id": "D03-01",
+  "time": "2026-09-06T19:56:17.454164+00:00",
+  "scope": "Exact first-world handoff evidence, including interrupted and rejected attempts; identities are not pass claims.",
+  "files": [
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-cold01-frame23.png",
+      "sha256": "98a94e7983876cf6f2d272e61f2e8a990293b79b05068a5799b14169b87843c5",
+      "bytes": 15663
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-cold01-frame50.png",
+      "sha256": "7a115d842d053df347ae2efa8d907bc79ca8baed4182e474f5ab7cf2aaba8681",
+      "bytes": 13228
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-cold01-frame63.png",
+      "sha256": "fd218849d6627ffff5104f1c37e70cbd5e652a419db481997bcc170e30ddfd0d",
+      "bytes": 13282
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-cold01-frame64.png",
+      "sha256": "aa506ca5994c722cd43529f14f1ca7d8b04d6af3a7de2612f3404b5af7e45d2f",
+      "bytes": 250832
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-cold01-frame90.png",
+      "sha256": "6bddf94e8e01a6cd160879c87ee919f10fd00a6d4cd364b7b279319659b2e1c4",
+      "bytes": 367821
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-disabled01-frame49.png",
+      "sha256": "9b55e2961a5d614b3dcca3e09f7afb74345379521a37151800f312f2c68aecdb",
+      "bytes": 13227
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-disabled01-frame50.png",
+      "sha256": "3500bff95b05c04545b2632fbdc68a72994ce2f830684da0081795c06001b1c9",
+      "bytes": 88111
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-disabled01-frame59.png",
+      "sha256": "e8cd5f37d60538037fc7c7a7e6d3e17900df65d1b24f0b8e64a302c4213ef982",
+      "bytes": 155559
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-disabled01-frame60.png",
+      "sha256": "2007967d86036313a7d4da58471f83378d8114a7a60f0af83b5cc2dd9634c111",
+      "bytes": 289886
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-environment01-frame64.png",
+      "sha256": "a186409e39df24dcac60c6b4015854ac0fa94fe92f30603b212faece2f5836cd",
+      "bytes": 13226
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-environment01-frame65.png",
+      "sha256": "a6584be6340334e226e6a3652e9862186a81dcf21bb7757c155eb8316f18854e",
+      "bytes": 250735
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-sm501-frame52.png",
+      "sha256": "8894183ae73cdb0d03864f439d7ee886a3eb7cffab251292c01cd92b15b815f7",
+      "bytes": 13283
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-sm501-frame53.png",
+      "sha256": "95dc5b1dc5d8198383af8f049f8bdd1cc6919b479023d5e9327c90827befcf10",
+      "bytes": 241564
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-warm02-frame33.png",
+      "sha256": "b3cb8fb77476efa064004bdd0ccfe4c1a6a5b0d446d779dc495b482f44456667",
+      "bytes": 13140
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/handoff-warm02-frame34.png",
+      "sha256": "5bce53686bb9346d35663b385a2f691947458424669a8a9a3bd5dfb0f97bb347",
+      "bytes": 250907
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/D03-01-handoff-increment.json",
+      "sha256": "1b26973b5828c3c21d5931c997b2d0d5910a6578e0453e9fc9c7bb27f558b64d",
+      "bytes": 9032
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/D03-01-handoff-progress.md",
+      "sha256": "f265aae88b065e9fa577e5af30d9ddf44ad96f0a206c2b83917119bd5c85f5ab",
+      "bytes": 5032
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-assist-01/prompt.txt",
+      "sha256": "b32567b97f2820c6ebc22dbe8d65c3c3866322cb1a6004fca43f9ff46b16c443",
+      "bytes": 1282
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-assist-01/response.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-assist-01/result.json",
+      "sha256": "4df3c40721050354ac95ebe12e3f9ebbea47048f1477eec3537b780be2153325",
+      "bytes": 44
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-assist-01/stderr.txt",
+      "sha256": "b3ca29692a27cfaa6b24db08c884e67996f01de4669f8c0a013548bd4f17a137",
+      "bytes": 70
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-build-01/build.log",
+      "sha256": "0bd425d8addb37228b5c8e5ae01fd4652e5afc20667bc4a93dd6d0cc864711a5",
+      "bytes": 2774
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-build-01/command.json",
+      "sha256": "85af5cedfb5e5502f590e804dd784f1c8a5fc6eef895aad93fb18ef5fd53bef5",
+      "bytes": 277
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-build-01/inputs-after.json",
+      "sha256": "f9e3690a1891629b9efdb5c793a1632c81dbae2d9dd73b3bd71ddac5e424e069",
+      "bytes": 21101
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-build-01/inputs-before.json",
+      "sha256": "f9e3690a1891629b9efdb5c793a1632c81dbae2d9dd73b3bd71ddac5e424e069",
+      "bytes": 21101
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-build-01/result.json",
+      "sha256": "cb251156da47d5cb1caed4e677e012787e3114819546d157a6f7d6bc500e8bfa",
+      "bytes": 1967
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-cold01-frames-01.json",
+      "sha256": "d6dce862ed35245be8077d2c8c1c900c0825f760b372d39f0084cc3e6f2979e5",
+      "bytes": 1030
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-control-fallback-frames-01.json",
+      "sha256": "8e605396563c266390498d2dfd8fb9017c7ee06275564bd82852dca1fd61d8b8",
+      "bytes": 5650
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-design-01.json",
+      "sha256": "4992cd46bf1bcac08051debc361fef35fdf1bc86ed4ab8bb57b882dd6db3af71",
+      "bytes": 3286
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-environment-frames-01.json",
+      "sha256": "db61177bb20436fbbb386f6127a6e7e8309cb2034712edfafe78e8c986d9366b",
+      "bytes": 1632
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-negative-before-01.json",
+      "sha256": "387b539192f84fa40ce28ca70d7fd0944b8720c9f9829d96c26211b851ddbb90",
+      "bytes": 138
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-negative-disabled-01.json",
+      "sha256": "ac04b8accde2347b4d66b8807f5a2a89faed0244f01954bca7c589f6dd1327a0",
+      "bytes": 142
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_000.png",
+      "sha256": "e62f5c1620fe0f46ea08c4f9264edf9d01dd035a1cd70b25d7224c81dac503b9",
+      "bytes": 998603
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_001.png",
+      "sha256": "124c68e5a79622944f0ddc9e1fa36990f96f5d119e33536b68995af997647a8d",
+      "bytes": 1006872
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_002.png",
+      "sha256": "d748327aabfec6d537c816b98cc4544fed1c51cf9dd5b91f1412dac141af8a5f",
+      "bytes": 1011183
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_003.png",
+      "sha256": "7f7df1fa373495b503718c7054969e74a16bc15cc751f5be4dbfef748f2f6f1f",
+      "bytes": 1012432
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_004.png",
+      "sha256": "7926149d8e412335117bb5ddf0d978fbfd9b099ad24b8b17d01d9fc49db0fe30",
+      "bytes": 1017018
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_005.png",
+      "sha256": "a79e85193291fa1a19d59592bbc8909a70d5a218159ad5ceb7d80320a6e87801",
+      "bytes": 1019212
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_006.png",
+      "sha256": "47d1600440684d988a85a67d492f5d7bc0fc583dc6be0fa9389ad5df282c18f0",
+      "bytes": 1019775
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_007.png",
+      "sha256": "5cbc323416f090f17402a6c4f7ca91ca182254aca083a5a56645cce4376ddc1f",
+      "bytes": 1018263
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_008.png",
+      "sha256": "d3a5906906646456fbef0fb112924d1af08cfd965b8ee3207247218beab5fea0",
+      "bytes": 1014086
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_009.png",
+      "sha256": "3ae88e4581074161250669c7406a3390a8a9b0711130c7448bf1cade2586557e",
+      "bytes": 1015734
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_010.png",
+      "sha256": "c8b00fc95c1bb383fbd87ff5631fe953ba7a785aa69c7726c3c0cfbe036f7779",
+      "bytes": 1020061
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_011.png",
+      "sha256": "585e09712333185e92160d629faed718877b7e06d54f6f7e381ee6357816965e",
+      "bytes": 1018245
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_012.png",
+      "sha256": "f384c468f6856aa883ee3e99c44541ddfbd5fd0c0bdbba72ab006308846a2a08",
+      "bytes": 1023365
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_013.png",
+      "sha256": "32c32658c1043c7c382e2b15a163e7c0874931a539092951d94ab78be901fb3c",
+      "bytes": 1022334
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_014.png",
+      "sha256": "f47e02d26d2e8bb9b0a114c3b587012148f554bb4629df74af1a746bc32894da",
+      "bytes": 1019818
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_015.png",
+      "sha256": "b7dcf0b76735f497906457b0ca74a125703ed886f8ef08f40f7810dd43950608",
+      "bytes": 1022991
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_016.png",
+      "sha256": "4023b72c9d1fc1093ef21f6b18fdfbc703e493a4b55aa5fb4ea6f815d59e206b",
+      "bytes": 1026255
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_017.png",
+      "sha256": "63f6397e2d7d07e63e4ffa5175fab346200154f24d8c13d032feff5dd54eace0",
+      "bytes": 1028831
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_018.png",
+      "sha256": "d1e27ba701b1a0daa50a42fb314109030274b7cea294dc9e0ec5dd2f4073fcf4",
+      "bytes": 1030135
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_019.png",
+      "sha256": "36c18c5d0aa9096bdb497f21ed102fd7fb6c7132b469c85d1b4f497a1251152a",
+      "bytes": 1029843
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_020.png",
+      "sha256": "99cab0c7db75d4b03a4df16486a59107f39e51cc8a29ffa97f8f837e164ad087",
+      "bytes": 1031416
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_021.png",
+      "sha256": "8d5bc10598f09e58283e9bc3fb1e53fbfcad387521167282d8a2a19326183ea8",
+      "bytes": 1026848
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_022.png",
+      "sha256": "78f2ac1ed6e23cbd3ff941f54881a3900c1c98d4c60e152129da5083d7e9e840",
+      "bytes": 1023845
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_023.png",
+      "sha256": "30bd4ba9924c7ae9cb9eab3ba7efbf3257faf9e40c2bd5cdb922a3e0e3159a43",
+      "bytes": 1017173
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_024.png",
+      "sha256": "fa14146e8f1bdb3e431a86749c39eeb92654c291b1256f0e3db88f78b48ada52",
+      "bytes": 1012581
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_025.png",
+      "sha256": "07f469072f00cabba02e344a92a9e97308a20e746972911dec67876a9e20c63a",
+      "bytes": 1008183
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_026.png",
+      "sha256": "86fccbda638b8c9ba18b6b0c56ca977063dea3967eba5326d4b3bb09c37f417f",
+      "bytes": 1006585
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_027.png",
+      "sha256": "d95930ed04349fd122494077cd89ba5c7403ce437e70bbc5a32dcbf014df0601",
+      "bytes": 1006613
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_028.png",
+      "sha256": "5bd4c51cc8d8f728d3fe9e3815057fcb2f02c3c5116978c8edbb1d55b430ca82",
+      "bytes": 1004452
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_029.png",
+      "sha256": "ed297b70da12da03e506b9bd6db5904ee261530ffdeaace804f3276063280ba3",
+      "bytes": 1004646
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_030.png",
+      "sha256": "f1cdd3c46ef8bcd246df8bd78e34ddb184672cec9f4a338cf96279554fd5dada",
+      "bytes": 1004278
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/pan_031.png",
+      "sha256": "f421e0c57753ac77c8f932026d1a3328d0de819bc632ed7cdcad7b37a1f11f60",
+      "bytes": 1003833
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/static_000.png",
+      "sha256": "a5d5771fde44bc862354f753cd16c91adfbffa7efdc00baf6d83a832b3d91709",
+      "bytes": 989560
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/static_001.png",
+      "sha256": "3da6eb86b7dce368fd264ad8d49e76d616cf1bf7199ecfb8fb1a3f65ea4571df",
+      "bytes": 988260
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/static_002.png",
+      "sha256": "1dbed99f28319a29c0f13d44bc9f0dd91ef0e208c5c26aa5f178d10a5ff55ade",
+      "bytes": 988084
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/static_003.png",
+      "sha256": "3005444811b1bc0577ad5a093edf2cb30b30d83d593be533326a10a1a7e1bb87",
+      "bytes": 988739
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/static_004.png",
+      "sha256": "a305865e73af224fa02fd0701c5b6d6c6b04f9c45e82b067e247cfa3673abf94",
+      "bytes": 988282
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/static_005.png",
+      "sha256": "1cb0c30a9fda098f48058e67354ab3e74565c1c90240cd616775cb50da6b3690",
+      "bytes": 988168
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/static_006.png",
+      "sha256": "b2ff22af45af1fb13bb1010d470cee58c46a6a28971b43a84804e99ce3241b29",
+      "bytes": 989035
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/static_007.png",
+      "sha256": "eb1d89cfe34816d70754e245e52c24732715f65dc15d715315ab098da90b919d",
+      "bytes": 988107
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/static_008.png",
+      "sha256": "5c3910bd06147ee1bf531c3202816fb25d70214dd6beb813b6944a13d79b3d32",
+      "bytes": 988326
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/static_009.png",
+      "sha256": "f6785e0dfad675078dcfcddee09183507a57e15d46328754b89820b3a26572f8",
+      "bytes": 989114
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures/walk_end.png",
+      "sha256": "f2c9a5246fec0cfe5c8cb89a3e9359a01cc252a59974b4708ad3b8d2413089ad",
+      "bytes": 1035685
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/captures.csv",
+      "sha256": "bc603846d4e53a291b0a80f11d654f755b8716c6e23b32d0923d6e9eb45def7a",
+      "bytes": 1445
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/command.json",
+      "sha256": "924df0d539a8fbd99f7a9e59a7b4236be23ee1b1c7caaf7bc074f5b4abeef03e",
+      "bytes": 2173
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/frames.csv",
+      "sha256": "4e3ddd2cdebc8f054a7949427dc478bce67606e9bd9ee7ea81a2ff07c4f4c9e2",
+      "bytes": 114459
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/isolation-mounts.txt",
+      "sha256": "0aafaa80185e697f02c35be8d3112827dbcd05826c70557003adb930880af852",
+      "bytes": 6270
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/isolation-probe.json",
+      "sha256": "6c4a4ff45103fc4c8e4e98a39bcf884d125da6dacb0611d45773ac7f85a4b89e",
+      "bytes": 1198
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/loading-display-analysis-v2.json",
+      "sha256": "6e89b049a5e39bf6e321ebee9c9f6cf8652b5d3d58442a6975120ea1b274f9f2",
+      "bytes": 4025
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/loading-display.ffmpeg.log",
+      "sha256": "57e052edffc559d4c65322094893c8ca81a262009e2a3b9727c6ed34aef08bb7",
+      "bytes": 104
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/loading-display.json",
+      "sha256": "e9ea2cc5a80c14295a99e59082496f0203f179ee0d3dbfabcdda6ceb92dd129f",
+      "bytes": 1540
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/loading-display.mp4",
+      "sha256": "9637941dbf3e25d0c1d483266d403f76195ed69578cd5d5bef789dd038d82cc5",
+      "bytes": 1548574
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/loading-render-ticks.csv",
+      "sha256": "551909c37d3b1d64b7202048b95a53073fd3c3a0f790761efb8446b4558c148f",
+      "bytes": 243
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/native-views.csv",
+      "sha256": "5549b2744806f004988643d9e9a0866ff1898acaf803f57ab031a8c4d5d8d7c6",
+      "bytes": 73533
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/render-primitives.csv",
+      "sha256": "b169eb6c6b1e060328c3e7556b73e736327b78488dba70b4377a56e4d37a384e",
+      "bytes": 29752
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/result.json",
+      "sha256": "d3c2770844368bbeeddc016a58c7db8ecc8637f6fa738c828d476cfad4488424",
+      "bytes": 121
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/runtime.engine.log",
+      "sha256": "21f54ea71b07e1250450ff9e03c51f8aac521dc19ef42a72968bc026bc077e51",
+      "bytes": 978905
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/runtime.stdout.log",
+      "sha256": "aeb0495dc8bde5b18b9827722b3d7f031a61062e7023fb08e56f8484bfb2d6d8",
+      "bytes": 969812
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/validation.json",
+      "sha256": "74862bf2bb8bd0d875773c08483d15376e35f277a5f9308f7ad63a8d013d145c",
+      "bytes": 295641
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_000.png",
+      "sha256": "d52cbf969a772b305cd7d575b0633ca93045d2862303266f73cb8b3ef4129308",
+      "bytes": 999761
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_001.png",
+      "sha256": "122f51327d04d4394646d02845bce9d979c6db7418e83e4c52d76c4c51b4c3ef",
+      "bytes": 1006365
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_002.png",
+      "sha256": "21b0599d8fcf71a9001bbf192431bc3738b705b29f61eac4af9399becfd8cc21",
+      "bytes": 1012151
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_003.png",
+      "sha256": "da6e033f9ed22230e8ef8cdfe4ab6ae03b0512993169222ae87764587a6f9ecc",
+      "bytes": 1012888
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_004.png",
+      "sha256": "5d861598ed3ecad929815fc0cda9cc35f5b23cb05e5870f06bf50565309ed279",
+      "bytes": 1013947
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_005.png",
+      "sha256": "0db510fb7252c1f6a56c42565d7c345dd686ef97e87eca062e593a191498448a",
+      "bytes": 1019154
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_006.png",
+      "sha256": "1de1089f6f2f536a41cb85437009c65a5fb6ed693b2d61470bf1610212880129",
+      "bytes": 1020246
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_007.png",
+      "sha256": "baaee840db22bc605112b61cb5bf700e426bcb7d9759ebb741ef73d9eb1b68cb",
+      "bytes": 1017594
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_008.png",
+      "sha256": "b5caddbe72a0a7b4fa54c35b6a2735fda345d3bcdd5ec639837a296016d6c2a1",
+      "bytes": 1018047
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_009.png",
+      "sha256": "9b94a133219640d490f79133980042dd90fdfaa7fff752b506b2cbddb2753803",
+      "bytes": 1013035
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_010.png",
+      "sha256": "a6931a8774b9045fc1b361324a0d0245ad461804cd3ef5c1ad277771b6ea17f8",
+      "bytes": 1018554
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_011.png",
+      "sha256": "c8ae182db90b41851ccf31afc3723996c6d756a90b9938d28272b9f69516cf90",
+      "bytes": 1022014
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_012.png",
+      "sha256": "b5287945546369d386a0ebab6d9b9137f0bd917f7b8f001c7cad9156be6da211",
+      "bytes": 1021149
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_013.png",
+      "sha256": "c0bc215b92fae101f0d32c13411f74d480470d21257f810b065183588487e7da",
+      "bytes": 1023769
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_014.png",
+      "sha256": "11e0420a505665791ef6e3a8ee9f8003651a2fb656991f739cc8a024f9ea5298",
+      "bytes": 1020184
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_015.png",
+      "sha256": "f4e52091bc9fba334a809ae5173049b5b8c72b277a26528e490725257fe68edd",
+      "bytes": 1019476
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_016.png",
+      "sha256": "03a0b349219a2f47365c440c95d69f2b4c2ff479c304644a9c6214828f250deb",
+      "bytes": 1023766
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_017.png",
+      "sha256": "1da990f12276301b67504eef92c458f58578bc4f234c2d3b2b50fab8517c8eb9",
+      "bytes": 1028815
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_018.png",
+      "sha256": "6313ec4a9776186f0f7177894e63593e102d75ca8cb29ea25dce508f1334b12b",
+      "bytes": 1034023
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_019.png",
+      "sha256": "cdf46459ffda53011b91daabb7223ad369b8e54c114a993076323c7b81f7632a",
+      "bytes": 1031907
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_020.png",
+      "sha256": "a5f614570f099f36089b2be3b372782afc0ee8255f400b0cbc702f6744bcf606",
+      "bytes": 1022825
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_021.png",
+      "sha256": "ebce03e0f262b5bfae8243ada746e1f9556576dab128a5eb14a96ecf24ce5b05",
+      "bytes": 1025561
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_022.png",
+      "sha256": "9110fe6da0c2b836c47425d6d445c2f0ff0008080ad1639744a76949fa8350e7",
+      "bytes": 1016737
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_023.png",
+      "sha256": "b93ad2e4598d9df1672aa0321109de21dab1d1d918557124e6940607804e7dd5",
+      "bytes": 1011776
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_024.png",
+      "sha256": "3e67ec3b822d76ed2fc2bfeca89c8e5dd354b92737461e92af97c9d736b98f38",
+      "bytes": 1008288
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_025.png",
+      "sha256": "3094dda90d8ce83635f2052652bb34ecd21a5beac5da56a121d419e73ebb27fb",
+      "bytes": 1007694
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_026.png",
+      "sha256": "e9e3bf6c00eec864156f85d345f9c73ecde94c116387017cd9a793f7d3ae3d6e",
+      "bytes": 1005886
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_027.png",
+      "sha256": "48f418b51c873044a8ed0597bd0655f3f6ee928c2eabbcc2b41f1ff6a425316c",
+      "bytes": 1005947
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_028.png",
+      "sha256": "46c116cdde21392839c5c5ad5f895d3d6b511f98655865146536c0d26bed92e2",
+      "bytes": 1004819
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_029.png",
+      "sha256": "32141610e79f0b42decffa6299cc6ad76d1755ebca2bef2a0bb4b46b3e467b96",
+      "bytes": 1004759
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_030.png",
+      "sha256": "50233b195fb71dd0d10fc43e96fda269eb12e7565415b2945d888073b87ab776",
+      "bytes": 1005138
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/pan_031.png",
+      "sha256": "7fb2874a368f9bb274109069330b9141df02ea0467e79785bf42f890bf07ce94",
+      "bytes": 1004136
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/static_000.png",
+      "sha256": "9b6deb23f80153718985a7635f56be159a887d0906f265fb540ed8e747b4e2e0",
+      "bytes": 988195
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/static_001.png",
+      "sha256": "436b1713a271c23ebbedee1e30566c7864c1d4177ce00fa8852c541da8ad6117",
+      "bytes": 988733
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/static_002.png",
+      "sha256": "b02c995a4280b35222d75cd236c434b73800d9867f8591bf1b29bf81e6743d25",
+      "bytes": 989648
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/static_003.png",
+      "sha256": "766d26d99e93bebbbb2de84318753fe76eb59ed7316b578aa821a4e6ee5e7981",
+      "bytes": 988696
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/static_004.png",
+      "sha256": "40896b25acc8c5d464b85f553e7f196ea4f533cb976282c9e08610950d6acb58",
+      "bytes": 987794
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/static_005.png",
+      "sha256": "13709d7b7bdbfa0c96e17184eda38203a57e83227a92b59dc8bf8f6b6fdf94e8",
+      "bytes": 988389
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/static_006.png",
+      "sha256": "dbe7cc92aef3908cb82b73feca4299a645fc1c5a7dc93f8c6dde8050d0bb83c2",
+      "bytes": 988698
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/static_007.png",
+      "sha256": "ce2376cff59c7c6e5dd534a974b0ef89c5b479af5e2f53fd9a88a6949d12e0a9",
+      "bytes": 988702
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/static_008.png",
+      "sha256": "5ae3835c77e9a4e1b83cb4365fd7b3cc52008ba5aa4bb3629a7af8664573ce7f",
+      "bytes": 988502
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/static_009.png",
+      "sha256": "6f656245c45648e05798bbfb6a3391f4541ab1f6161d6c91a1bc69462b317e7b",
+      "bytes": 988218
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures/walk_end.png",
+      "sha256": "0d42af4c1fa6f4c52d2b4d47dca6607e2dbe1d1060ba84f904f4bb6b89b17e21",
+      "bytes": 1035861
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/captures.csv",
+      "sha256": "92ae21a499db173f27e7676278b5493dd950e27bbbded81bebfdb049fbad5db0",
+      "bytes": 1446
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/command.json",
+      "sha256": "4639d2f72af9231af5f798ee14ac461df0d6bff7eab28d3e0a8c4a26d27b782d",
+      "bytes": 2214
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/frames.csv",
+      "sha256": "66785737bc86d75c2b5bec95d5fb20be2b7d244ecfe0c8ada7c96863c8ea1fb7",
+      "bytes": 112985
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/isolation-mounts.txt",
+      "sha256": "c82c697b12963d388a358af446d5c5ee19d7ddcc84974939948216aee0ac4632",
+      "bytes": 6282
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/isolation-probe.json",
+      "sha256": "255c616d168a253d9941e137c8866b4a534284bac9c30a7baca41f320e291c80",
+      "bytes": 1229
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/loading-display-analysis-v2.json",
+      "sha256": "9354cbe9f936238084a2538fe519b8c08e4f957ba440852ffd206e89b2fb37a6",
+      "bytes": 2984
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/loading-display.ffmpeg.log",
+      "sha256": "c2f7b93fdc347e1b19eaa1fd7c512c1d4088f26d605a4b77840c534e88f8186b",
+      "bytes": 104
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/loading-display.json",
+      "sha256": "769410243af1f583b1a55734aa958b9d5dfafe935e8b69384d9a842172738004",
+      "bytes": 1572
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/loading-display.mp4",
+      "sha256": "bc00f2e643394c5e0d7c19f1e22bee67a0799cba9b40a3a3771232c9f5e1b42e",
+      "bytes": 1786237
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/loading-render-ticks.csv",
+      "sha256": "c295b647165ba0a7bb6c223121bb1723ac21d0e57d7b239291fdff720d1e508e",
+      "bytes": 258
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/native-views.csv",
+      "sha256": "bec7d717452bb48998bdd79c3107a966c6d37dc8ca7debe9edd52462e842605f",
+      "bytes": 73643
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/render-primitives.csv",
+      "sha256": "bc67289c239135571676bd34ec6fabfa3d66e1aa3856d2841e5dc8dec1264676",
+      "bytes": 29752
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/result.json",
+      "sha256": "e3fd4ddc303d42939a2e8559c583ad60c40da57c83b0b88def626b91a2cad9a8",
+      "bytes": 121
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/runtime.engine.log",
+      "sha256": "03a3202f8e5524a9571d20d067241483650c80b7d166e48d3171bb9b2782cea7",
+      "bytes": 970384
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/runtime.stdout.log",
+      "sha256": "68fae08e4e9d7a653242583b6647a0ef99831dfda4cbce6726fc136f902044d0",
+      "bytes": 961400
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/validation.json",
+      "sha256": "1e5297841a1b719e373daca9d31d9d45b320cffd371ad033b12aea0379a91804",
+      "bytes": 289225
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/captures/hazard_active.png",
+      "sha256": "e7e2d5ded29359493ab8c235adfe159785123f58a2f2776f79def12f3fef7ede",
+      "bytes": 1068308
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/captures/panel_damaged.png",
+      "sha256": "f0f6d9c773cdaec953b7359843f312ded3f435b65d08cd63739049a57588063f",
+      "bytes": 1014687
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/captures/panel_destroyed.png",
+      "sha256": "9a7b1c8b6ab288e106cf8507bd5f287ed9536c7032061c5733ae06a3219d7b87",
+      "bytes": 1016792
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/captures/stream_return.png",
+      "sha256": "4f7049c0fe2da20dbcaf5788b32de49f14b42069e1113ac384ac4d0b0072ee34",
+      "bytes": 1026858
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/captures/switch_safe.png",
+      "sha256": "86917f8361014742aaab590e14f93e34289090c036d193636dc7560764b1e334",
+      "bytes": 1018254
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/command.json",
+      "sha256": "21c1bc75b30a85bcb51c51cb6e95427ce38b532da868a2ff6298a2ceeb8be715",
+      "bytes": 2197
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/events.log",
+      "sha256": "c825319f040b1b1cc319bacc5e1a5e8a46db839547dee0ecee6e11df74b2e6d7",
+      "bytes": 1703
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/frames.csv",
+      "sha256": "b1d146876cf24f9856ead82f361da1b23245efe58385d513600e4e5bcaf57be6",
+      "bytes": 163739
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/isolation-mounts.txt",
+      "sha256": "23965cde80f1ea78de37beb736e790672db9233866cc0d7848813cbeeb021a05",
+      "bytes": 6291
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/isolation-probe.json",
+      "sha256": "d46fab593d1e77f38ee19615f657b8666d6646fa0aca80bf4ce12ec0f8beaf68",
+      "bytes": 1201
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/loading-display-analysis-v2.json",
+      "sha256": "8c6a2efe7394e53f8c67dc6ae5c5ad8293e706767c692f96db17d67c2daad3e9",
+      "bytes": 4017
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/loading-display.ffmpeg.log",
+      "sha256": "5ec3702a250a2e84bb59ad519f33715c00f3fcd3b91fd5783855b6b66be4620c",
+      "bytes": 104
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/loading-display.json",
+      "sha256": "acf66ac8c0198da394d492f00d3df083bf5432a54c1af54edbdbfd45f1d20225",
+      "bytes": 1542
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/loading-display.mp4",
+      "sha256": "e4f9c77011ad67497cee902c7ed186c9d90e66ec8f0741e325ac27bb53aa87b3",
+      "bytes": 1532909
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/loading-render-ticks.csv",
+      "sha256": "bf0e6d112907aedf9d078cc617bd1c1729ef3943501699bf1a68a3ccd5a9258a",
+      "bytes": 243
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/native-views.csv",
+      "sha256": "a0bebebd443f0d82ea5873d172c8e55e80ef4a699e949c993ebf33b8415fbb1d",
+      "bytes": 92508
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/result.json",
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321",
+      "bytes": 84
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/runtime.engine.log",
+      "sha256": "c895983a2ff8340afa20c6200193a6b9c52d1b2852c098f173aece56b71dbabd",
+      "bytes": 1015752
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/runtime.stdout.log",
+      "sha256": "5d0b71e5ae6d05de6522d0f9144ca4d6be79bee5693e58f52db05c4aabf99997",
+      "bytes": 1006413
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-environment-01/validation.json",
+      "sha256": "faef6e216a85970e2c5d1247f08260c38babeb2ba1f6f1dad810deb800214f39",
+      "bytes": 274502
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_000.png",
+      "sha256": "65f9f5f57a75cd678395fcabcf4c9bb9433fa9a5017c2757673b1a927d75a6b5",
+      "bytes": 899606
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_001.png",
+      "sha256": "84ee8d82c78ef45254da2a3f63989b528b603bbae7e0f945582e5e7d36962023",
+      "bytes": 897750
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_002.png",
+      "sha256": "475c38b50ab9f08bcaa2e7df6b34be62fb2eda69a3d2f8f248c6deb61d3dc287",
+      "bytes": 897262
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_003.png",
+      "sha256": "62facbccf996e9588d855ccb1ea7a296ab0954bc6de4a7c9c63949621822a645",
+      "bytes": 893332
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_004.png",
+      "sha256": "221392cdd986a7740a96ce72946537db37d3afd32323216a1171598cf43e65c7",
+      "bytes": 896655
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_005.png",
+      "sha256": "af53b326e1ad302f83ec11a94d5f0fbefec75f3fd605991e1c30eac6c35e3525",
+      "bytes": 897126
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_006.png",
+      "sha256": "adbbc26f44ca57a507bfc9df7561607b5a2ece8c0fce3b8ddfbca7c6a8801e6a",
+      "bytes": 901850
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_007.png",
+      "sha256": "f4861544ccc4fd223405e10756f719e95f25fe0e098b7f1d3997cdb90253fb37",
+      "bytes": 895623
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_008.png",
+      "sha256": "d3b26c73656e3ade021f2758f300e29cf1ce31d80745db4e14efbd404adbba61",
+      "bytes": 893289
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_009.png",
+      "sha256": "e0af5884b01e38b53e968555ecad5c8140ad942931338b508eedf7355bfc4c2a",
+      "bytes": 892242
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_010.png",
+      "sha256": "c6fe83a2212092eaa734977ab869ae830961ad84b8cf183d21b4bac5b464dfbc",
+      "bytes": 894747
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_011.png",
+      "sha256": "f5a34842f3366904e78b1dda0f837c09aad2a16edf45a75c2449bfe5d4c73d1a",
+      "bytes": 892419
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_012.png",
+      "sha256": "7eb3ee8c996195822afb9aec00c682b2848b00788ca0b33032e38ebf61bcda68",
+      "bytes": 894847
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_013.png",
+      "sha256": "193033e06371dcdc5df6923b7e649716d3811cf0a235a3689a8322bcafa558d2",
+      "bytes": 898765
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_014.png",
+      "sha256": "210cc91c3262b995be307b3761affe0816d1558a5963d27f3ddeb60bde60391d",
+      "bytes": 901722
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_015.png",
+      "sha256": "8b83dc81b6ad62f356279de423b8b9bd31edf77f5d9fa66e21a912de6422c5c1",
+      "bytes": 896995
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_016.png",
+      "sha256": "9080f482c61bcad881f6cede8162ad81e0ff2869a4423f0f9285c7238dd0ea29",
+      "bytes": 899587
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_017.png",
+      "sha256": "6bbf247e5ddcf3743f5303e437d66ba488c88ddaf3b46014748687c73cbc0054",
+      "bytes": 899182
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_018.png",
+      "sha256": "5cbc058cd1594e283a998c5d31b53df45a87378340d7b1cfe42b519d9e04713a",
+      "bytes": 902897
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_019.png",
+      "sha256": "63df5dd5057fa0584e62a979883d83a7d87c63b981bd79a1bf38dd1bfe4ae02d",
+      "bytes": 901207
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_020.png",
+      "sha256": "eb5ee0a188e5da3638a8e7f69193dd00f29c53ba49223a76c3aef606a42d1780",
+      "bytes": 906758
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_021.png",
+      "sha256": "0a3fd13cf9fb54edac77f06b5374036c8b559babef3d94bef0e6bcc47203114b",
+      "bytes": 910209
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_022.png",
+      "sha256": "4a88628e58f4efa20dee35c025290c2bf1642dcc6f9a6597c5b32e59e31abd4f",
+      "bytes": 909358
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_023.png",
+      "sha256": "d20c26b4a670fa5a38ddfe319f4c6b14904daf617b91380944bedf46a8e42a67",
+      "bytes": 903293
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_024.png",
+      "sha256": "f79e8a9efb3cbc4383bbeed664274503a9e3558d7359d794aa7e603d1352e7a2",
+      "bytes": 900850
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_025.png",
+      "sha256": "c6b875d8d9a00a94f52d7deca35c4a481e57c4dd615912747562505805bbbd9d",
+      "bytes": 902926
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_026.png",
+      "sha256": "fc37cd7a193c6f39b0456b2d1433de4ae9c777b7681a4de07e2ff040f74eff83",
+      "bytes": 904887
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_027.png",
+      "sha256": "87fa6324b1ec9bb52b31246a0ab52dcbfad7d49f758dac2337d962e4dac38049",
+      "bytes": 902509
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_028.png",
+      "sha256": "5ded59e075938f21a548083ffe2b10e9d6ac68f3f4cf54f098ded612db4460b3",
+      "bytes": 906128
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_029.png",
+      "sha256": "9f04507c561ea8e2d1875b55ada4411c2108f8723e2aee5cb32bdb9d8f667b74",
+      "bytes": 906139
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_030.png",
+      "sha256": "79d9aadc16efc879b80f29aa71dddaf5ace8da9f3d31446fc05846aedf09ec33",
+      "bytes": 907739
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/pan_031.png",
+      "sha256": "1d900d3bb6f027c7e99370c6faf49c24e408c97837a0f61fb31fdf1823b2d811",
+      "bytes": 904432
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/static_000.png",
+      "sha256": "1db790d108172e9b349b445e83ad4622decaebb9bcdde24befa9189ca712f51e",
+      "bytes": 894188
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/static_001.png",
+      "sha256": "eb0b5540c36f113213fcc03a22fe45870209233d432f6792429b4b77f5b8bd0c",
+      "bytes": 893687
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/static_002.png",
+      "sha256": "b8fb4ff38bfc4b241cc5f046861543b99a2410d5317237c96d01c26d2b05b2db",
+      "bytes": 890820
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/static_003.png",
+      "sha256": "fdae2d9367619c32d5b4c2fca44b71816a3cf3214286adfc340a61b8aad231ec",
+      "bytes": 894710
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/static_004.png",
+      "sha256": "44397684843c871b7fa3a01100fd2c5031382813eb289de597dcb9a828cea699",
+      "bytes": 895422
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/static_005.png",
+      "sha256": "0641f55fc40be8991483312b2ee31c3239dc5ac17ad2b2638c7ef478875d0e89",
+      "bytes": 896470
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/static_006.png",
+      "sha256": "3f5ec035bd0b530dd74e177146a3a247b3be4aa3a7d17b4febe1567a6d0b59e3",
+      "bytes": 891261
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/static_007.png",
+      "sha256": "048b4c2c2b71578c4ebc47c4ac215515a9f282b6124b3b28e83c37702947109c",
+      "bytes": 894516
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/static_008.png",
+      "sha256": "661dbb1fe724b6a23499e27c672baec916ba27823dc686afca9dc8f6099be425",
+      "bytes": 895116
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/static_009.png",
+      "sha256": "0b74c34f4397e7dcde8c13f25d214f4d3a710642351b4ba27c6bab29c3153973",
+      "bytes": 897136
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures/walk_end.png",
+      "sha256": "32116f65028b2f10a6290ab1750fc0830e40034a19dbe180acade8d932a52b39",
+      "bytes": 910483
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/captures.csv",
+      "sha256": "e6a366920b49f4416a6b7669dbd19970ddb22fa5cb0fddf2834f1e95fde2d2af",
+      "bytes": 1447
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/command.json",
+      "sha256": "cf7dc802526e8073e7e4117bc41c88dfe87a5f5e68256a02ff4adbf781b9d397",
+      "bytes": 2176
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/frames.csv",
+      "sha256": "ea0b38800f7e07cec0ba935dcc254e148b7ffb145df4c1a3f18212155ed1f112",
+      "bytes": 126752
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/isolation-mounts.txt",
+      "sha256": "5d265ce55d397190e1401c9912156030dfad9338698ee6c6455d800ee54a20c5",
+      "bytes": 6267
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/isolation-probe.json",
+      "sha256": "82540f872a889fff7b339a729c7fbdbb4278db650ff60b228b8f5bbe78aeeb18",
+      "bytes": 1206
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/loading-display-analysis-v2.json",
+      "sha256": "52b2cb484ecbab835442b97b05fba9ea3650f3c2c169ec9d9f79b71eaff4f269",
+      "bytes": 3313
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/loading-display.ffmpeg.log",
+      "sha256": "2493115f9046991492fcb478cacdf655a5a771b3d02e3ff2b5f7c1e1fdf0829a",
+      "bytes": 104
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/loading-display.json",
+      "sha256": "a70b8ef3ef3597ed556d5b20a7545a8e7ed01210580ae69fc61a227b0e5e4a0d",
+      "bytes": 1547
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/loading-display.mp4",
+      "sha256": "d50c0b71648568dc9dda51fc710168e08ebe7ba1d0a0b0c6306e07894c5baab2",
+      "bytes": 1635430
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/loading-render-ticks.csv",
+      "sha256": "25112aab59f1433e3bb0052191466c3558786d5c6f3b4166348d9eeaa0758986",
+      "bytes": 228
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/native-views.csv",
+      "sha256": "0ed7cf478c078a031dd973bbdc51cbde97ecdd05327edb1c1af742e257d56472",
+      "bytes": 87283
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/render-primitives.csv",
+      "sha256": "9e668ef2913657b5a1b6bd2a0e141503a02b9befa81a2097e19763b2bbdc84e8",
+      "bytes": 29752
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/result.json",
+      "sha256": "576bf4c7339567727f886489915711fa26fca43f88c988f52d8e434cd88870a1",
+      "bytes": 121
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/runtime.engine.log",
+      "sha256": "f541019bf2d0aa58f5f15c7b1ecb8132465bef2ace285cef9561c101be711ae9",
+      "bytes": 798176
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/runtime.stdout.log",
+      "sha256": "4823c9e89948377709f4443093dcb02bb35bd36b5e3eac44f22045b6146578c9",
+      "bytes": 790724
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/validation.json",
+      "sha256": "5131e21817648e6149aec230a772b7b902296e108d6c61f5911758e4614a2739",
+      "bytes": 220190
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-01/command.json",
+      "sha256": "b45b01517b5f531480df08b36842d8ff7a839ee52c3d22019f120fd340ff4d28",
+      "bytes": 2173
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-01/isolation-mounts.txt",
+      "sha256": "6529478438427a9fd04fe9494cbc64c065051b2f7d89dd4313f26ddf1c73a2d8",
+      "bytes": 6270
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-01/isolation-probe.json",
+      "sha256": "6c4a4ff45103fc4c8e4e98a39bcf884d125da6dacb0611d45773ac7f85a4b89e",
+      "bytes": 1198
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-01/loading-display.ffmpeg.log",
+      "sha256": "01ec11804a3e8aa83bc0f0cfd31ad31d04ccf60dba1c759f1f227a486b17adda",
+      "bytes": 104
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-01/loading-display.mp4",
+      "sha256": "6ef6f9c50cefe41488d846efd8601d39937b2ebb38540e3c6a9c6d3123e092ec",
+      "bytes": 1912081
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-01/loading-render-ticks.csv",
+      "sha256": "e1ec2a12b3b84be83094242060cf2be909ff11567ba78e88b9e92e01925b54d1",
+      "bytes": 288
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-01/runtime.engine.log",
+      "sha256": "c74beb12b7d6b1f87cec8ea4b9d49700711bdee87d08d43065a5c3b7109a2eb9",
+      "bytes": 628797
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-01/runtime.stdout.log",
+      "sha256": "013038db6cf8bac6bef9dbefc7f0893e8edd944eccc90cab06bab03f7f6b8e0c",
+      "bytes": 622674
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-01/validation.json",
+      "sha256": "d5b7a4bd6c3f3029491106e681d78897f62dc3a3ec37be6c56b7e27d6be770c1",
+      "bytes": 7502
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_000.png",
+      "sha256": "5d4b0ffd4378fba443ba934679d4515c36892045cfa385bfb1de6f54614c9850",
+      "bytes": 997785
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_001.png",
+      "sha256": "665ad41ea3f56889fb024bc91833340f242fac75330f7451f9164ae49c0395a7",
+      "bytes": 1004446
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_002.png",
+      "sha256": "324d920af7272247df01122beafdf9b6da740c84a6ba41f8c515a304aeb5f6a9",
+      "bytes": 1012172
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_003.png",
+      "sha256": "718357502783d8b14d6386921f5195fdfebc258efeba51ad732d319cdd1e537d",
+      "bytes": 1015827
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_004.png",
+      "sha256": "0916a5d5b38d05a5a044fc585a06f91e7cdad9aca321d433243ed99d52b6d00b",
+      "bytes": 1013219
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_005.png",
+      "sha256": "ae3e9b4b763c0a23b1d01312b23949bf899ebca548614baf4911de207dd04128",
+      "bytes": 1018583
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_006.png",
+      "sha256": "78532ceae73fbef3e34ee41d9ef8a45d6a5e77f516198836fb36e3a76f8953ea",
+      "bytes": 1018936
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_007.png",
+      "sha256": "03f0bbf27dfb947dac405baa88a8e67c526d84f485a712131f88af1cc082584e",
+      "bytes": 1014768
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_008.png",
+      "sha256": "6905b841937259d7b7bd2a26e4cb015d21b487a91178f8ccd729e69949dbfeb8",
+      "bytes": 1016330
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_009.png",
+      "sha256": "84240e512ae7d38acfdf3af775f92e8aa25ac7327a9f8c62019b82d44e592d57",
+      "bytes": 1017469
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_010.png",
+      "sha256": "2462b091afa7ba636c41e9a6693e8d7582aac847435e25b6094e2fbe4f073ea8",
+      "bytes": 1017917
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_011.png",
+      "sha256": "7a1d61f0936bc146a84517e6a5b356595b8a84f71316318e05e635a18b6c8538",
+      "bytes": 1019621
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_012.png",
+      "sha256": "3e60ed73b4fd47e41b26cd5a0d352b0266cda65e19ad2a545cecb0fcd2daa0b4",
+      "bytes": 1018752
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_013.png",
+      "sha256": "da5d1db3b0c9e53b671686c60fa1963830676e9854a43b4b2102fee67c8ee92f",
+      "bytes": 1022384
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_014.png",
+      "sha256": "fa20925a2dfe1aca18742f0a80a63e8919651a7401f185e59d3fe918c9b68da0",
+      "bytes": 1023477
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_015.png",
+      "sha256": "ce7fe2618ae0a895155b7b0297c6980822435cdd12cf8b8d3302ce2ddd0c3b81",
+      "bytes": 1020147
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_016.png",
+      "sha256": "a3cc89f6e1ead6e2bdb22fad9d7b9227ecf1f87e0778ab1f8c5e80b3bb5b8211",
+      "bytes": 1022525
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_017.png",
+      "sha256": "ad2397632f806e96a0b6306ebe4dd6b467b1268c21c7a285c9f76b944746d9c3",
+      "bytes": 1024777
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_018.png",
+      "sha256": "0d633e1872f025af144d4b0c18b6cc09faef7edc43d096352d7d5637f3d4dd4e",
+      "bytes": 1024103
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_019.png",
+      "sha256": "f996396453dbe3f76b8bf9b8b3b658bfc150db0491df773e727b71b96bf07d3d",
+      "bytes": 1031755
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_020.png",
+      "sha256": "d24864102ccf2c602f4c3de5c9d94675df3099c897f82dade5abe4a444e92085",
+      "bytes": 1035965
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_021.png",
+      "sha256": "37a76ee34a2c1833a6c6b9d66ebfca2b027d3c8a527dd57b4a3a149c6dbc7c51",
+      "bytes": 1031320
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_022.png",
+      "sha256": "ec635b5e9415fa6e73e2a8ada12d37bf92c104964415ae7fecadcf29e732af51",
+      "bytes": 1026888
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_023.png",
+      "sha256": "a09f3b3f3ed1635b95970e6af88019ea6f64ce022865efbd357142b4924fd184",
+      "bytes": 1024093
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_024.png",
+      "sha256": "8b7059da34f09af08145ac292db91a18c1a2bfbefffb9b3e69796718c5c5721a",
+      "bytes": 1014816
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_025.png",
+      "sha256": "0d8e0e7c6c9b4b8d318d2b9e8541a42771e7013dcef93dc3c5738cac72dbf656",
+      "bytes": 1011484
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_026.png",
+      "sha256": "21dd68def90556e8bca902afcd96409131a0c60d4c9bba1fd07322beba90ee77",
+      "bytes": 1007275
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_027.png",
+      "sha256": "0b81260225506fcfd2fb87698379dc29c170c98b48652d3c445472c2184e466c",
+      "bytes": 1007622
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_028.png",
+      "sha256": "c2c48ef5cc4e1fb8444b26187551cfca2352c8f51137eb063c8bafe3be66b907",
+      "bytes": 1005701
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_029.png",
+      "sha256": "ccf8c33b7614891aeace9d6f05d5429680de4da4df05792ce20e09a51ee3a427",
+      "bytes": 1004201
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_030.png",
+      "sha256": "42161b37a4ac627eef2a3c4c478b7c14abb87f6eca880c87da428b0b00c42b5b",
+      "bytes": 1004190
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/pan_031.png",
+      "sha256": "1b2d05c75e97ca569093c9d4942a811a3485e95ddb0b315ffa0d18288c3a57b6",
+      "bytes": 1004541
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/static_000.png",
+      "sha256": "2b02ab252011b2ead1aa355911ef9ca464ef97e041c74efd403040980e43b8e7",
+      "bytes": 988139
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/static_001.png",
+      "sha256": "8d5aef260e3d18d184c6eb76db327301bd21cdda9e6f04a197d5b15f51fb8010",
+      "bytes": 988363
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/static_002.png",
+      "sha256": "5af30e5d019ff6beba50f24e06906db5a310201ad8b912d6d1c9d5ade437993c",
+      "bytes": 989023
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/static_003.png",
+      "sha256": "23a8683886f3c7aa585ea6fa9d656b760b6f64d4f3c6b349c3e34a108cfbcbdf",
+      "bytes": 988593
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/static_004.png",
+      "sha256": "51f29e80ff516276a41514d7764cb2954de71c9de818981c119c67e44a7cc5e9",
+      "bytes": 988873
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/static_005.png",
+      "sha256": "1d7504b190ee8e1f0db352da34691e911bef6398f033b680d6cbebbce826326d",
+      "bytes": 988053
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/static_006.png",
+      "sha256": "ff6687cfaba0db00b89d9a0a684149a4adde488c415d3f03dbd0b2cbdd0fc467",
+      "bytes": 988262
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/static_007.png",
+      "sha256": "7142180387100cd515c2256acf4fb2c8661e3a5765c64e3c1c891482d2f41a3f",
+      "bytes": 988722
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/static_008.png",
+      "sha256": "d52a8a87c0c2b5e1bd7d387b2c27c10df303733fa5776a4c0011ebd06e178317",
+      "bytes": 988218
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/static_009.png",
+      "sha256": "9989758d63b876e00854f91fb0d48be6274c636460854e6a8e195655d3f438ab",
+      "bytes": 988797
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures/walk_end.png",
+      "sha256": "942f5035da8160514f8889e9724ff8cb01ccd6ecb64746dcbba496b62bfb1a46",
+      "bytes": 1033524
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/captures.csv",
+      "sha256": "3bc02e4036dad644e8f5cc351726c9e3ac3387cba415eb583d7011c140b1c927",
+      "bytes": 1446
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/command.json",
+      "sha256": "45e3933bbb6af9a36fd19e87c6a48c0d2019ea8dc52b1b4fbc9b18d5cf92d87a",
+      "bytes": 2173
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/frames.csv",
+      "sha256": "8e05c0b4ec0247d7c05291ba734c16662b25101887ff030ab5ed9ed2fa2da232",
+      "bytes": 136693
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/isolation-mounts.txt",
+      "sha256": "93a75887747e90fa6ac44c89c367737af39969119bb77e6f576000168ccfef01",
+      "bytes": 6270
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/isolation-probe.json",
+      "sha256": "6c4a4ff45103fc4c8e4e98a39bcf884d125da6dacb0611d45773ac7f85a4b89e",
+      "bytes": 1198
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/loading-display-analysis-v2.json",
+      "sha256": "b933e23fddb3ac99251412941d23c036305d75a3de36657ad78f9d59b08f61a8",
+      "bytes": 1741
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/loading-display.ffmpeg.log",
+      "sha256": "541e7d2feabe7d4d55a39afb686052a9647d960c8b34776c236932d334292f51",
+      "bytes": 104
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/loading-display.json",
+      "sha256": "2db652c0b5167afabcfb2542f14e3b8baba08c8405b32595a59fb799627a7917",
+      "bytes": 1539
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/loading-display.mp4",
+      "sha256": "f6571d4dbacad9767e0f227ee9bb3bcc4bcb17adc88b379995e78c3198f25748",
+      "bytes": 2022818
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/loading-render-ticks.csv",
+      "sha256": "ad7f4376829f22dc89fe75d54e5687db33e1e934c5058bdbadaeafc938267350",
+      "bytes": 243
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/native-views.csv",
+      "sha256": "d37ef494c9090ef5e622081ead3ec273ad9b63f38549fa9281ce4d49da99bcb0",
+      "bytes": 94873
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/render-primitives.csv",
+      "sha256": "0400a1fd485504ab2f625d05420226e39eef18ba03574156430f91a983f914de",
+      "bytes": 29752
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/result.json",
+      "sha256": "86eba2dbba86b467e0ad07ceaa0cdf8143b261264cf75c6cbc3f390ff8fe13d4",
+      "bytes": 121
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/runtime.engine.log",
+      "sha256": "65904ae3a8e9f669a2b825d18faeb0a9c67c1c7ec6d8b4a98488a1ae206a50bf",
+      "bytes": 658374
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/runtime.stdout.log",
+      "sha256": "4effa0d7ed4a057df753e7756bd5d17996b207920cc8130e6d61eb0cb6e60f38",
+      "bytes": 651905
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-warm-02/validation.json",
+      "sha256": "e92e24db7a3def1dc99840011d195494b5cd6ad8a9c6172911fd7484076baf45",
+      "bytes": 84152
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-series-01.json",
+      "sha256": "ee12f79e421b5ff07fd79579e2fef30d4f5325c721eb0a420f5681a8a37ed754",
+      "bytes": 1083519
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-source-review-01.json",
+      "sha256": "cc44b109f777873c3bd577fb6d14b1813e31e4c3c2ff0216d18c3aa21f864a71",
+      "bytes": 5460
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-stage-01/base-extract-command.json",
+      "sha256": "272cdd820f6bf720404af02e3a90a506b81d0c1cc7c3b64c4ffb20f344916e86",
+      "bytes": 708
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-stage-01/base-extract.log",
+      "sha256": "4b08eefc58f4bcac1f750f218a91d8ef05f26c13432403f5c25b7ce8cf49c656",
+      "bytes": 387242
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-stage-01/pak-create-command.json",
+      "sha256": "cbef60e57909e7e9c9998c10af095babaa8bf15c46cadb57c6ccef59bdf39eeb",
+      "bytes": 723
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-stage-01/pak-create.log",
+      "sha256": "28f0082f25b33174822ae83f0ce9c2749d40260a68987535918df4029a80d97e",
+      "bytes": 14759
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-stage-01/pak-readback-command.json",
+      "sha256": "a40a281ed2b44d31cfdb3b8dc65f1d548c7fd141589e494c2216d6df354b6a30",
+      "bytes": 871
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-stage-01/pak-readback.log",
+      "sha256": "4dcad9bae890ff9cbe3459812c06f21af117fb13357946a0cf840c509781d90e",
+      "bytes": 394941
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-stage-01/validation.json",
+      "sha256": "24d2b5c148d4bcfe31b1fd284a19ccc53e314805b183189b42dcbeb01d16a030",
+      "bytes": 1195306
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-visual-review-01.json",
+      "sha256": "bf3701973ce6ba8c2f80d063c7d6a846f08e4eba1c7c8fd204c2a1c99288cf6c",
+      "bytes": 2996
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-warm-frames-01.json",
+      "sha256": "00d73d27e8194a46ea9a893917ff7a606d3ce43e49f0a8d0aa8cd4babf3a2682",
+      "bytes": 1583
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-warm-recovery-01.json",
+      "sha256": "e2c9a8ae6d0ea7d6de10e800baecf969318e4a39774ccade8c243fb2c2652dc4",
+      "bytes": 5489
+    }
+  ]
+}

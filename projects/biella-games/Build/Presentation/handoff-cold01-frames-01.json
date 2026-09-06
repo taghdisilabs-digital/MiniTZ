@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/root/biella/artifacts/games/D03-01/handoff-cold01-frame23.png",
+    "frame": 23,
+    "bytes": 15663,
+    "sha256": "98a94e7983876cf6f2d272e61f2e8a990293b79b05068a5799b14169b87843c5"
+  },
+  {
+    "path": "/root/biella/artifacts/games/D03-01/handoff-cold01-frame50.png",
+    "frame": 50,
+    "bytes": 13228,
+    "sha256": "7a115d842d053df347ae2efa8d907bc79ca8baed4182e474f5ab7cf2aaba8681"
+  },
+  {
+    "path": "/root/biella/artifacts/games/D03-01/handoff-cold01-frame63.png",
+    "frame": 63,
+    "bytes": 13282,
+    "sha256": "fd218849d6627ffff5104f1c37e70cbd5e652a419db481997bcc170e30ddfd0d"
+  },
+  {
+    "path": "/root/biella/artifacts/games/D03-01/handoff-cold01-frame64.png",
+    "frame": 64,
+    "bytes": 250832,
+    "sha256": "aa506ca5994c722cd43529f14f1ca7d8b04d6af3a7de2612f3404b5af7e45d2f"
+  },
+  {
+    "path": "/root/biella/artifacts/games/D03-01/handoff-cold01-frame90.png",
+    "frame": 90,
+    "bytes": 367821,
+    "sha256": "6bddf94e8e01a6cd160879c87ee919f10fd00a6d4cd364b7b279319659b2e1c4"
+  }
+]

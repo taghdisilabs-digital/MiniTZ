@@ -1,0 +1,162 @@
+{
+  "task_id": "D03-01",
+  "capture_status": "GENERATED_DRAFT",
+  "frames": [
+    {
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/loading-display.mp4",
+        "bytes": 1786237,
+        "sha256": "bc00f2e643394c5e0d7c19f1e22bee67a0799cba9b40a3a3771232c9f5e1b42e"
+      },
+      "frame_index": 49,
+      "output": {
+        "path": "/root/biella/artifacts/games/D03-01/handoff-disabled01-frame49.png",
+        "bytes": 13227,
+        "sha256": "9b55e2961a5d614b3dcca3e09f7afb74345379521a37151800f312f2c68aecdb"
+      },
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-i",
+        "Build/Presentation/handoff-runtime-disabled-01/loading-display.mp4",
+        "-vf",
+        "select=eq(n\\,49)",
+        "-frames:v",
+        "1",
+        "/root/biella/artifacts/games/D03-01/handoff-disabled01-frame49.png"
+      ],
+      "operation": "Decode exact recorded frame; no visual alteration"
+    },
+    {
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/loading-display.mp4",
+        "bytes": 1786237,
+        "sha256": "bc00f2e643394c5e0d7c19f1e22bee67a0799cba9b40a3a3771232c9f5e1b42e"
+      },
+      "frame_index": 50,
+      "output": {
+        "path": "/root/biella/artifacts/games/D03-01/handoff-disabled01-frame50.png",
+        "bytes": 88111,
+        "sha256": "3500bff95b05c04545b2632fbdc68a72994ce2f830684da0081795c06001b1c9"
+      },
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-i",
+        "Build/Presentation/handoff-runtime-disabled-01/loading-display.mp4",
+        "-vf",
+        "select=eq(n\\,50)",
+        "-frames:v",
+        "1",
+        "/root/biella/artifacts/games/D03-01/handoff-disabled01-frame50.png"
+      ],
+      "operation": "Decode exact recorded frame; no visual alteration"
+    },
+    {
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/loading-display.mp4",
+        "bytes": 1786237,
+        "sha256": "bc00f2e643394c5e0d7c19f1e22bee67a0799cba9b40a3a3771232c9f5e1b42e"
+      },
+      "frame_index": 59,
+      "output": {
+        "path": "/root/biella/artifacts/games/D03-01/handoff-disabled01-frame59.png",
+        "bytes": 155559,
+        "sha256": "e8cd5f37d60538037fc7c7a7e6d3e17900df65d1b24f0b8e64a302c4213ef982"
+      },
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-i",
+        "Build/Presentation/handoff-runtime-disabled-01/loading-display.mp4",
+        "-vf",
+        "select=eq(n\\,59)",
+        "-frames:v",
+        "1",
+        "/root/biella/artifacts/games/D03-01/handoff-disabled01-frame59.png"
+      ],
+      "operation": "Decode exact recorded frame; no visual alteration"
+    },
+    {
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-disabled-01/loading-display.mp4",
+        "bytes": 1786237,
+        "sha256": "bc00f2e643394c5e0d7c19f1e22bee67a0799cba9b40a3a3771232c9f5e1b42e"
+      },
+      "frame_index": 60,
+      "output": {
+        "path": "/root/biella/artifacts/games/D03-01/handoff-disabled01-frame60.png",
+        "bytes": 289886,
+        "sha256": "2007967d86036313a7d4da58471f83378d8114a7a60f0af83b5cc2dd9634c111"
+      },
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-i",
+        "Build/Presentation/handoff-runtime-disabled-01/loading-display.mp4",
+        "-vf",
+        "select=eq(n\\,60)",
+        "-frames:v",
+        "1",
+        "/root/biella/artifacts/games/D03-01/handoff-disabled01-frame60.png"
+      ],
+      "operation": "Decode exact recorded frame; no visual alteration"
+    },
+    {
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/loading-display.mp4",
+        "bytes": 1635430,
+        "sha256": "d50c0b71648568dc9dda51fc710168e08ebe7ba1d0a0b0c6306e07894c5baab2"
+      },
+      "frame_index": 52,
+      "output": {
+        "path": "/root/biella/artifacts/games/D03-01/handoff-sm501-frame52.png",
+        "bytes": 13283,
+        "sha256": "8894183ae73cdb0d03864f439d7ee886a3eb7cffab251292c01cd92b15b815f7"
+      },
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-i",
+        "Build/Presentation/handoff-runtime-sm5-01/loading-display.mp4",
+        "-vf",
+        "select=eq(n\\,52)",
+        "-frames:v",
+        "1",
+        "/root/biella/artifacts/games/D03-01/handoff-sm501-frame52.png"
+      ],
+      "operation": "Decode exact recorded frame; no visual alteration"
+    },
+    {
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-sm5-01/loading-display.mp4",
+        "bytes": 1635430,
+        "sha256": "d50c0b71648568dc9dda51fc710168e08ebe7ba1d0a0b0c6306e07894c5baab2"
+      },
+      "frame_index": 53,
+      "output": {
+        "path": "/root/biella/artifacts/games/D03-01/handoff-sm501-frame53.png",
+        "bytes": 241564,
+        "sha256": "95dc5b1dc5d8198383af8f049f8bdd1cc6919b479023d5e9327c90827befcf10"
+      },
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-i",
+        "Build/Presentation/handoff-runtime-sm5-01/loading-display.mp4",
+        "-vf",
+        "select=eq(n\\,53)",
+        "-frames:v",
+        "1",
+        "/root/biella/artifacts/games/D03-01/handoff-sm501-frame53.png"
+      ],
+      "operation": "Decode exact recorded frame; no visual alteration"
+    }
+  ]
+}
