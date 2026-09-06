@@ -1,0 +1,20 @@
+[
+  "runuser",
+  "-u",
+  "unreal",
+  "--",
+  "env",
+  "BIELLA_D03_GROUND_REPORT=/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-author-01/probe.json",
+  "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+  "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+  "-run=pythonscript",
+  "-script=/root/biella/repos/biella-engine/projects/biella-games/Content/Python/author_ground_support.py",
+  "-EnablePlugins=PythonScriptPlugin",
+  "-unattended",
+  "-nullrhi",
+  "-nosound",
+  "-nop4",
+  "-stdout",
+  "-FullStdOutLogOutput",
+  "-D03ProbeGroundSupport"
+]

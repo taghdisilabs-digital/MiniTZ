@@ -1,0 +1,8 @@
+{
+  "task_id": "D03-01",
+  "authority": "NON_AUTHORITATIVE_ASSISTANCE",
+  "returncode": 2,
+  "elapsed_seconds": 30.170604509999976,
+  "source": "/root/biella/repos/biella-engine/projects/biella-games/Content/Python/author_ground_support.py",
+  "sha256": "58bc501d74dd2ac92220f4acfed613c196e135789ef239011dcbed82884d2451"
+}

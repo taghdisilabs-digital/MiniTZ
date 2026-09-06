@@ -1,0 +1,98 @@
+Begin Map Name=/Temp/Diff/GroundAuthored
+   Begin Level NAME=PersistentLevel
+      Begin Actor Class=/Script/Engine.Brush Name=Brush_0 Archetype="/Script/Engine.Brush'/Script/Engine.Default__Brush'" ActorFolderPath="None" ExportPath="/Script/Engine.Brush'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.Brush_0'"
+         Begin Object Class=/Script/Engine.BrushComponent Name="BrushComponent0" Archetype="/Script/Engine.BrushComponent'/Script/Engine.Default__Brush:BrushComponent0'" ExportPath="/Script/Engine.BrushComponent'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.Brush_0.BrushComponent0'"
+         End Object
+         Begin Object Name="BrushComponent0" ExportPath="/Script/Engine.BrushComponent'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.Brush_0.BrushComponent0'"
+            Brush="/Script/Engine.Model'Brush'"
+         End Object
+         bNotForClientOrServer=True
+         Brush="/Script/Engine.Model'Brush'"
+         BrushComponent="BrushComponent0"
+         bHidden=False
+         SpawnCollisionHandlingMethod=AlwaysSpawn
+         RootComponent="BrushComponent0"
+         ActorLabel="Brush0"
+      End Actor
+      Begin Actor Class=/Script/Engine.WorldSettings Name=WorldSettings Archetype="/Script/Engine.WorldSettings'/Script/Engine.Default__WorldSettings'" ActorFolderPath="None" ExportPath="/Script/Engine.WorldSettings'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings'"
+         Begin Object Class=/Script/NavigationSystem.NavigationSystemModuleConfig Name="NavigationSystemModuleConfig_0" ExportPath="/Script/NavigationSystem.NavigationSystemModuleConfig'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings.NavigationSystemModuleConfig_0'"
+         End Object
+         Begin Object Class=/Script/Engine.WorldPartition Name="WorldPartition_0" ExportPath="/Script/Engine.WorldPartition'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings.WorldPartition_0'"
+            Begin Object Class=/Script/Engine.WorldPartitionRuntimeHashSet Name="WorldPartitionRuntimeHashSet_0" ExportPath="/Script/Engine.WorldPartitionRuntimeHashSet'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings.WorldPartition_0.WorldPartitionRuntimeHashSet_0'"
+               Begin Object Class=/Script/Engine.RuntimePartitionLHGrid Name="RuntimePartitionLHGrid_0" ExportPath="/Script/Engine.RuntimePartitionLHGrid'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings.WorldPartition_0.WorldPartitionRuntimeHashSet_0.RuntimePartitionLHGrid_0'"
+               End Object
+               Begin Object Class=/Script/Engine.RuntimePartitionLHGrid Name="RuntimePartitionLHGrid_1" ExportPath="/Script/Engine.RuntimePartitionLHGrid'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings.WorldPartition_0.WorldPartitionRuntimeHashSet_0.RuntimePartitionLHGrid_1'"
+               End Object
+               Begin Object Class=/Script/Engine.RuntimePartitionPersistent Name="RuntimePartitionPersistent_1" ExportPath="/Script/Engine.RuntimePartitionPersistent'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings.WorldPartition_0.WorldPartitionRuntimeHashSet_0.RuntimePartitionPersistent_1'"
+               End Object
+               Begin Object Class=/Script/Engine.RuntimePartitionPersistent Name="RuntimePartitionPersistent_0" ExportPath="/Script/Engine.RuntimePartitionPersistent'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings.WorldPartition_0.WorldPartitionRuntimeHashSet_0.RuntimePartitionPersistent_0'"
+               End Object
+            End Object
+            Begin Object Class=/Script/Engine.WorldPartitionEditorSpatialHash Name="WorldPartitionEditorSpatialHash_0" ExportPath="/Script/Engine.WorldPartitionEditorSpatialHash'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings.WorldPartition_0.WorldPartitionEditorSpatialHash_0'"
+            End Object
+         End Object
+         Begin Object Name="NavigationSystemModuleConfig_0" ExportPath="/Script/NavigationSystem.NavigationSystemModuleConfig'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings.NavigationSystemModuleConfig_0'"
+            bAutoSpawnMissingNavData=True
+            NavigationSystemClass="/Script/NavigationSystem.NavigationSystemV1"
+         End Object
+         Begin Object Name="WorldPartition_0" ExportPath="/Script/Engine.WorldPartition'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings.WorldPartition_0'"
+            Begin Object Name="WorldPartitionRuntimeHashSet_0" ExportPath="/Script/Engine.WorldPartitionRuntimeHashSet'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings.WorldPartition_0.WorldPartitionRuntimeHashSet_0'"
+               Begin Object Name="RuntimePartitionLHGrid_0" ExportPath="/Script/Engine.RuntimePartitionLHGrid'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings.WorldPartition_0.WorldPartitionRuntimeHashSet_0.RuntimePartitionLHGrid_0'"
+                  CellSize=4000
+                  bIs2D=True
+                  Name="MainPartition"
+                  bBlockOnSlowStreaming=True
+                  BoundsMethod=UseContent
+                  LoadingRange=5000
+                  DebugColor=(R=0.930146,G=0.419408,B=0.710742,A=1.000000)
+               End Object
+               Begin Object Name="RuntimePartitionLHGrid_1" ExportPath="/Script/Engine.RuntimePartitionLHGrid'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings.WorldPartition_0.WorldPartitionRuntimeHashSet_0.RuntimePartitionLHGrid_1'"
+                  CellSize=8000
+                  bIs2D=True
+                  Name="HLODLayer_Instanced"
+                  bClientOnlyVisible=True
+                  LoadingRange=60000
+                  DebugColor=(R=0.674987,G=0.924384,B=0.958586,A=1.000000)
+                  HLODIndex=0
+               End Object
+               Begin Object Name="RuntimePartitionPersistent_1" ExportPath="/Script/Engine.RuntimePartitionPersistent'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings.WorldPartition_0.WorldPartitionRuntimeHashSet_0.RuntimePartitionPersistent_1'"
+                  bClientOnlyVisible=True
+                  LoadingRange=0
+                  DebugColor=(R=0.388723,G=0.908443,B=0.217092,A=1.000000)
+               End Object
+               Begin Object Name="RuntimePartitionPersistent_0" ExportPath="/Script/Engine.RuntimePartitionPersistent'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings.WorldPartition_0.WorldPartitionRuntimeHashSet_0.RuntimePartitionPersistent_0'"
+                  bClientOnlyVisible=True
+                  LoadingRange=0
+                  DebugColor=(R=0.501120,G=0.998356,B=0.719138,A=1.000000)
+               End Object
+               RuntimePartitions(0)=(Name="MainPartition",MainLayer="/Script/Engine.RuntimePartitionLHGrid'RuntimePartitionLHGrid_0'",HLODSetups=((Name="HLODLayer_Instanced",HLODLayers=("/Script/Engine.HLODLayer'/Game/OpenWorld/HLOD/HLOD_Continuation.HLOD_Continuation'"),PartitionLayer="/Script/Engine.RuntimePartitionLHGrid'RuntimePartitionLHGrid_1'"),(PartitionLayer="/Script/Engine.RuntimePartitionPersistent'RuntimePartitionPersistent_0'",bIsSpatiallyLoaded=False)))
+            End Object
+            Begin Object Name="WorldPartitionEditorSpatialHash_0" ExportPath="/Script/Engine.WorldPartitionEditorSpatialHash'/Temp/Diff/GroundAuthored.BiellaOpenWorldMap:PersistentLevel.WorldSettings.WorldPartition_0.WorldPartitionEditorSpatialHash_0'"
+            End Object
+            EditorHash="/Script/Engine.WorldPartitionEditorSpatialHash'WorldPartitionEditorSpatialHash_0'"
+            RuntimeHash="/Script/Engine.WorldPartitionRuntimeHashSet'WorldPartitionRuntimeHashSet_0'"
+            DefaultHLODLayer="/Script/Engine.HLODLayer'/Game/OpenWorld/HLOD/HLOD_Continuation.HLOD_Continuation'"
+         End Object
+         bForceNoPrecomputedLighting=True
+         bIncludeGridSizeInNameForFoliageActors=True
+         bIncludeGridSizeInNameForPartitionedActors=True
+         NavigationSystemConfig="/Script/NavigationSystem.NavigationSystemModuleConfig'NavigationSystemModuleConfig_0'"
+         WorldPartition="/Script/Engine.WorldPartition'WorldPartition_0'"
+         DefaultGameMode="/Script/CoreUObject.Class'/Script/BiellaGames.BiellaOpenWorldGameMode'"
+         LightmassSettings=()
+         BookmarkArray(0)=None
+         BookmarkArray(1)=None
+         BookmarkArray(2)=None
+         BookmarkArray(3)=None
+         BookmarkArray(4)=None
+         BookmarkArray(5)=None
+         BookmarkArray(6)=None
+         BookmarkArray(7)=None
+         BookmarkArray(8)=None
+         BookmarkArray(9)=None
+         ActorLabel="WorldSettings"
+      End Actor
+   End Level
+Begin Surface
+End Surface
+End Map

@@ -1,0 +1,2310 @@
+{
+  "result": "PASS",
+  "mode": "author",
+  "source_sha256": "c8cae5399b17d48138e4a3cd526d1fef9618de02c8ec190533fc62bb6f65e4f8",
+  "existing_actors": {
+    "WorldDataLayers": {
+      "guid": "01A073540EC379EB85DCB63B8CC06234",
+      "cls": "/Script/Engine.WorldDataLayers",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [],
+      "spatial": false,
+      "meshes": []
+    },
+    "D02_PlayerStart": {
+      "guid": "01A0735CC0EF7340B352D5CB692630D5",
+      "cls": "/Script/Engine.PlayerStart",
+      "location": [
+        0.0,
+        0.0,
+        88.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation"
+      ],
+      "spatial": false,
+      "meshes": []
+    },
+    "D02_Continuity_Atmosphere": {
+      "guid": "01A07386078775D5AF324445F50255B5",
+      "cls": "/Script/Engine.SkyAtmosphere",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation"
+      ],
+      "spatial": false,
+      "meshes": []
+    },
+    "D02_Continuity_Sky": {
+      "guid": "01A0735CC0F275A1A6A01FCE3A00BF50",
+      "cls": "/Script/Engine.SkyLight",
+      "location": [
+        10000.0,
+        0.0,
+        2000.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation"
+      ],
+      "spatial": false,
+      "meshes": []
+    },
+    "WorldPartitionMiniMap": {
+      "guid": "01A073540EC678A7A869833E65F6B96B",
+      "cls": "/Script/Engine.WorldPartitionMiniMap",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [],
+      "spatial": false,
+      "meshes": []
+    },
+    "D02_Continuity_Sun": {
+      "guid": "01A0735CC0F079ECA1A94CC64E94445C",
+      "cls": "/Script/Engine.DirectionalLight",
+      "location": [
+        10000.0,
+        0.0,
+        2000.0
+      ],
+      "scale": [
+        2.5,
+        2.5,
+        2.5
+      ],
+      "rotation": [
+        -48.00000000000001,
+        -31.999999999999993,
+        2.376632193504663e-15
+      ],
+      "tags": [
+        "D02Continuation"
+      ],
+      "spatial": false,
+      "meshes": []
+    },
+    "D02_Region_05_Stripe_2": {
+      "guid": "01A0735CC0E370659CEED436552FE8D4",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        20500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region05"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Terrace_WestRail": {
+      "guid": "01A0735CC0EC7DF58C74BA960DCA8667",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        9025.0,
+        3500.0,
+        460.0
+      ],
+      "scale": [
+        0.5,
+        10.0,
+        1.2
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Terrace"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Region_04_Floor": {
+      "guid": "01A0735CC0DA7052974C6285CA642381",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        16000.0,
+        0.0,
+        -50.0
+      ],
+      "scale": [
+        40.0,
+        32.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region04",
+        "D02StreetFloor"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Street.MI_Street"
+          ]
+        }
+      ]
+    },
+    "D02_Region_01_Stripe_1": {
+      "guid": "01A0735CC0CE7417A2632C4FF793D2AC",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        3500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region01"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_04_Stripe_3": {
+      "guid": "01A0735CC0DE778C8F01F7333C827A1B",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        17500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region04"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_02_Stripe_3": {
+      "guid": "01A0735CC0D476E9915BF4CF60972CF0",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        9500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region02"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_05_Floor": {
+      "guid": "01A0735CC0E076D590E6EC2811280A54",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        20000.0,
+        0.0,
+        -50.0
+      ],
+      "scale": [
+        40.0,
+        32.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region05",
+        "D02StreetFloor"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Street.MI_Street"
+          ]
+        }
+      ]
+    },
+    "D02_Region_05_SouthEdge": {
+      "guid": "01A0735CC0E07D549908C149A3DD6A55",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        20000.0,
+        -1575.0,
+        35.0
+      ],
+      "scale": [
+        40.0,
+        0.5,
+        0.7
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region05"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Region_00_Stripe_0": {
+      "guid": "01A0735CC0C8751394F93D1F78A122DE",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        -1500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region00"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Interior_DoorEast": {
+      "guid": "01A0735CC0E97B0BB837F9329A68C216",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        8600.0,
+        1500.0,
+        300.0
+      ],
+      "scale": [
+        8.0,
+        0.5,
+        6.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Interior"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Region_00_SouthEdge": {
+      "guid": "01A0735CC0C775A694231C1A86DEF2D1",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        -1575.0,
+        35.0
+      ],
+      "scale": [
+        40.0,
+        0.5,
+        0.7
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region00"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Region_01_NorthEdge": {
+      "guid": "01A0735CC0D07D34B31AF5FF85772E51",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        4000.0,
+        1575.0,
+        35.0
+      ],
+      "scale": [
+        40.0,
+        0.5,
+        0.7
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region01"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Region_00_Stripe_3": {
+      "guid": "01A0735CC0CA7D9D8844ED8337E8717A",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        1500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region00"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_01_Stripe_2": {
+      "guid": "01A0735CC0CE7976A1C8D8C39E49B2EF",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        4500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region01"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_05_Stripe_1": {
+      "guid": "01A0735CC0E2757883764EAA9BB79AE3",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        19500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region05"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Interior_Floor": {
+      "guid": "01A0735CC0E5737E858E4A07AD79810C",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        8000.0,
+        2250.0,
+        -50.0
+      ],
+      "scale": [
+        20.0,
+        15.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Interior"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Interior.MI_Interior"
+          ]
+        }
+      ]
+    },
+    "D02_Region_05_Stripe_0": {
+      "guid": "01A0735CC0E17592BAAD2E8E301C8E69",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        18500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region05"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_00_Stripe_2": {
+      "guid": "01A0735CC0C970B984C6296D0815C824",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region00"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_00_NorthEdge": {
+      "guid": "01A0735CC0CA7D909789B6D732833DEE",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        1575.0,
+        35.0
+      ],
+      "scale": [
+        40.0,
+        0.5,
+        0.7
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region00"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Region_02_Stripe_2": {
+      "guid": "01A0735CC0D47AF99E4B5B57ABBF9915",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        8500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region02"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Interior_Back": {
+      "guid": "01A0735CC0E67807A55E0DAE7E231ED7",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        8000.0,
+        3025.0,
+        300.0
+      ],
+      "scale": [
+        21.0,
+        0.5,
+        6.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Interior"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Region_00_Stripe_1": {
+      "guid": "01A0735CC0C8789DA337A02356680119",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        -500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region00"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_02_Stripe_1": {
+      "guid": "01A0735CC0D37A18B298DE7ECAA69BD2",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        7500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region02"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_00_Floor": {
+      "guid": "01A0735CC0C67BDA8FAB011954ACE889",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        0.0,
+        -50.0
+      ],
+      "scale": [
+        40.0,
+        32.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region00",
+        "D02StreetFloor"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Street.MI_Street"
+          ]
+        }
+      ]
+    },
+    "D02_Region_01_Block": {
+      "guid": "01A0735CC0D07DC8AF5AE45A1C17A6F2",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        4000.0,
+        -2400.0,
+        650.0
+      ],
+      "scale": [
+        16.0,
+        14.0,
+        13.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region01"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+            "/Game/OpenWorld/Materials/MIC_FacadeZinc.MIC_FacadeZinc",
+            "/Game/OpenWorld/Materials/MIC_FacadeSealedGlazing.MIC_FacadeSealedGlazing",
+            "/Game/OpenWorld/Materials/MIC_FacadePaintedFrame.MIC_FacadePaintedFrame",
+            "/Game/OpenWorld/Materials/MIC_FacadeTerracotta.MIC_FacadeTerracotta"
+          ]
+        }
+      ]
+    },
+    "D02_Continuity_Infected": {
+      "guid": "01A0735CC0ED7F62BAC8BA2DFD913051",
+      "cls": "/Script/BiellaGames.BiellaStreamingInfected",
+      "location": [
+        1000.0,
+        600.0,
+        90.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuity",
+        "D02Continuation",
+        "D02PersistentEntity"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "BodyMesh",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "Custom",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ]
+        }
+      ]
+    },
+    "D02_Terrace_BackRail": {
+      "guid": "01A0735CC0EB7A0D9C134AB1F3CEC5ED",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        10000.0,
+        3975.0,
+        460.0
+      ],
+      "scale": [
+        20.0,
+        0.5,
+        1.2
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Terrace"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Region_03_SouthEdge": {
+      "guid": "01A0735CC0D674FEA977E7041204C815",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        12000.0,
+        -1575.0,
+        35.0
+      ],
+      "scale": [
+        40.0,
+        0.5,
+        0.7
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region03"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Interior_Roof": {
+      "guid": "01A0735CC0E97F28ABFC37F42BA10981",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        8000.0,
+        2250.0,
+        675.0
+      ],
+      "scale": [
+        21.0,
+        15.5,
+        0.5
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Interior"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Region_05_NorthEdge": {
+      "guid": "01A0735CC0E47BE59BB487E33AA4819F",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        20000.0,
+        1575.0,
+        35.0
+      ],
+      "scale": [
+        40.0,
+        0.5,
+        0.7
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region05"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Region_02_Block": {
+      "guid": "01A0735CC0D574A389D09B255414A631",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        8000.0,
+        -2400.0,
+        700.0
+      ],
+      "scale": [
+        16.0,
+        14.0,
+        14.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region02"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+            "/Game/OpenWorld/Materials/MIC_FacadeZinc.MIC_FacadeZinc",
+            "/Game/OpenWorld/Materials/MIC_FacadeSealedGlazing.MIC_FacadeSealedGlazing",
+            "/Game/OpenWorld/Materials/MIC_FacadePaintedFrame.MIC_FacadePaintedFrame",
+            "/Game/OpenWorld/Materials/MIC_FacadeTerracotta.MIC_FacadeTerracotta"
+          ]
+        }
+      ]
+    },
+    "D02_Region_01_SouthEdge": {
+      "guid": "01A0735CC0CC757B81512ED864813B87",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        4000.0,
+        -1575.0,
+        35.0
+      ],
+      "scale": [
+        40.0,
+        0.5,
+        0.7
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region01"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Region_04_Stripe_0": {
+      "guid": "01A0735CC0DC77199BBE1449CA163AF1",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        14500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region04"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_04_Stripe_1": {
+      "guid": "01A0735CC0DC7CD78E98E03DC9BCE0EC",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        15500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region04"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_03_Floor": {
+      "guid": "01A0735CC0D67206A8CADC0FB9AA9704",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        12000.0,
+        0.0,
+        -50.0
+      ],
+      "scale": [
+        40.0,
+        32.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region03",
+        "D02StreetFloor"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Street.MI_Street"
+          ]
+        }
+      ]
+    },
+    "D02_Region_04_SouthEdge": {
+      "guid": "01A0735CC0DB7A239395D4202B325499",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        16000.0,
+        -1575.0,
+        35.0
+      ],
+      "scale": [
+        40.0,
+        0.5,
+        0.7
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region04"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Interior_West": {
+      "guid": "01A0735CC0E773B2874B553C90F3250E",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        6975.0,
+        2250.0,
+        300.0
+      ],
+      "scale": [
+        0.5,
+        15.0,
+        6.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Interior"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Interior_East": {
+      "guid": "01A0735CC0E77E94B67FBF22FDD4EA7C",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        9025.0,
+        2250.0,
+        300.0
+      ],
+      "scale": [
+        0.5,
+        15.0,
+        6.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Interior"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Region_00_Block": {
+      "guid": "01A0735CC0CB7E2186FE8DC7A9F2F293",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        -2400.0,
+        600.0
+      ],
+      "scale": [
+        16.0,
+        14.0,
+        12.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region00"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+            "/Game/OpenWorld/Materials/MIC_FacadeZinc.MIC_FacadeZinc",
+            "/Game/OpenWorld/Materials/MIC_FacadeSealedGlazing.MIC_FacadeSealedGlazing",
+            "/Game/OpenWorld/Materials/MIC_FacadePaintedFrame.MIC_FacadePaintedFrame",
+            "/Game/OpenWorld/Materials/MIC_FacadeTerracotta.MIC_FacadeTerracotta"
+          ]
+        }
+      ]
+    },
+    "D02_Region_01_Stripe_0": {
+      "guid": "01A0735CC0CD79138CE916CBD05D107E",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        2500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region01"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_02_Floor": {
+      "guid": "01A0735CC0D17B4C886A2E158BD5EA7D",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        8000.0,
+        0.0,
+        -50.0
+      ],
+      "scale": [
+        40.0,
+        32.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region02",
+        "D02StreetFloor"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Street.MI_Street"
+          ]
+        }
+      ]
+    },
+    "D02_Region_01_Stripe_3": {
+      "guid": "01A0735CC0CF785FA48BA736DD2D73DB",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        5500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region01"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_03_Stripe_2": {
+      "guid": "01A0735CC0D873A49BEB7AF77D0A6C4E",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        12500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region03"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_05_Stripe_3": {
+      "guid": "01A0735CC0E377EDAE7ECA156F747417",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        21500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region05"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_04_NorthEdge": {
+      "guid": "01A0735CC0DE783ABC0666C42D87E536",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        16000.0,
+        1575.0,
+        35.0
+      ],
+      "scale": [
+        40.0,
+        0.5,
+        0.7
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region04"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Region_02_Stripe_0": {
+      "guid": "01A0735CC0D27D34B4125F516B551FD6",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        6500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region02"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_03_Stripe_3": {
+      "guid": "01A0735CC0D977B9A04AA94552F0E3A5",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        13500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region03"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_04_Stripe_2": {
+      "guid": "01A0735CC0DD7ADB8E0BF12E4DDA70FE",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        16500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region04"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Region_03_Stripe_1": {
+      "guid": "01A0735CC0D8705BB7514029C438166F",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        11500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region03"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Terrace_Floor": {
+      "guid": "01A0735CC0EB7B74A7EF22F76E53C943",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        10000.0,
+        3500.0,
+        350.0
+      ],
+      "scale": [
+        20.0,
+        10.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Terrace"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Interior.MI_Interior"
+          ]
+        }
+      ]
+    },
+    "D02_Region_04_Block": {
+      "guid": "01A0735CC0DF7261812C3349A7796EA6",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        16000.0,
+        -2400.0,
+        800.0
+      ],
+      "scale": [
+        16.0,
+        14.0,
+        16.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region04"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_04.SM_StreetBlock_04",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+            "/Game/OpenWorld/Materials/MIC_FacadeZinc.MIC_FacadeZinc",
+            "/Game/OpenWorld/Materials/MIC_FacadeSealedGlazing.MIC_FacadeSealedGlazing",
+            "/Game/OpenWorld/Materials/MIC_FacadePaintedFrame.MIC_FacadePaintedFrame",
+            "/Game/OpenWorld/Materials/MIC_FacadeTerracotta.MIC_FacadeTerracotta"
+          ]
+        }
+      ]
+    },
+    "D02_Region_01_Floor": {
+      "guid": "01A0735CC0CC7F1F8A3CD023F7373E62",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        4000.0,
+        0.0,
+        -50.0
+      ],
+      "scale": [
+        40.0,
+        32.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region01",
+        "D02StreetFloor"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Street.MI_Street"
+          ]
+        }
+      ]
+    },
+    "D02_Terrace_EastRail": {
+      "guid": "01A0735CC0ED799180BF2D51689E6759",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        10975.0,
+        3500.0,
+        460.0
+      ],
+      "scale": [
+        0.5,
+        10.0,
+        1.2
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Terrace"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Region_03_Stripe_0": {
+      "guid": "01A0735CC0D774EBA7119B6DCC116060",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        10500.0,
+        -250.0,
+        1.5
+      ],
+      "scale": [
+        4.0,
+        0.12,
+        0.03
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region03"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "NoCollision",
+          "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+          ]
+        }
+      ]
+    },
+    "D02_Terrace_Ramp": {
+      "guid": "01A0735CC0EA7E61A7B9FE57F20FB276",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        10000.0,
+        2003.9223227027637,
+        180.3883864861816
+      ],
+      "scale": [
+        4.0,
+        20.396078054371138,
+        0.4
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -11.309932708740236
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Ramp"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Interior.MI_Interior"
+          ]
+        }
+      ]
+    },
+    "D02_Region_02_SouthEdge": {
+      "guid": "01A0735CC0D277A1A85505AE9B5CEEDF",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        8000.0,
+        -1575.0,
+        35.0
+      ],
+      "scale": [
+        40.0,
+        0.5,
+        0.7
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region02"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Region_05_Block": {
+      "guid": "01A0735CC0E57EF1B1D675E77EC6C0A7",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        20000.0,
+        -2400.0,
+        850.0
+      ],
+      "scale": [
+        16.0,
+        14.0,
+        17.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region05"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_05.SM_StreetBlock_05",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+            "/Game/OpenWorld/Materials/MIC_FacadeZinc.MIC_FacadeZinc",
+            "/Game/OpenWorld/Materials/MIC_FacadeSealedGlazing.MIC_FacadeSealedGlazing",
+            "/Game/OpenWorld/Materials/MIC_FacadePaintedFrame.MIC_FacadePaintedFrame",
+            "/Game/OpenWorld/Materials/MIC_FacadeTerracotta.MIC_FacadeTerracotta"
+          ]
+        }
+      ]
+    },
+    "D02_Interior_DoorWest": {
+      "guid": "01A0735CC0E87B8982EA7A2841C88D5B",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        7400.0,
+        1500.0,
+        300.0
+      ],
+      "scale": [
+        8.0,
+        0.5,
+        6.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Interior"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Engine/BasicShapes/Cube.Cube",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+          ]
+        }
+      ]
+    },
+    "D02_Region_03_Block": {
+      "guid": "01A0735CC0DA70849F7BD2359259FDEA",
+      "cls": "/Script/Engine.StaticMeshActor",
+      "location": [
+        12000.0,
+        -2400.0,
+        750.0
+      ],
+      "scale": [
+        16.0,
+        14.0,
+        15.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Region03"
+      ],
+      "spatial": true,
+      "meshes": [
+        {
+          "name": "StaticMeshComponent0",
+          "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+          "collision": "BlockAll",
+          "enabled": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>",
+          "materials": [
+            "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+            "/Game/OpenWorld/Materials/MIC_FacadeZinc.MIC_FacadeZinc",
+            "/Game/OpenWorld/Materials/MIC_FacadeSealedGlazing.MIC_FacadeSealedGlazing",
+            "/Game/OpenWorld/Materials/MIC_FacadePaintedFrame.MIC_FacadePaintedFrame",
+            "/Game/OpenWorld/Materials/MIC_FacadeTerracotta.MIC_FacadeTerracotta"
+          ]
+        }
+      ]
+    },
+    "D02_Interior_Light": {
+      "guid": "01A07386078870D4803AD9A367E071D2",
+      "cls": "/Script/Engine.PointLight",
+      "location": [
+        8000.0,
+        2250.0,
+        520.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": [
+        "D02Continuation",
+        "D02Interior",
+        "D02InteriorLight"
+      ],
+      "spatial": true,
+      "meshes": []
+    }
+  },
+  "ground": {
+    "guid": "01A078957EDD7FB7B8DD8F0B6F3B666C",
+    "cls": "/Script/Engine.StaticMeshActor",
+    "location": [
+      10000.0,
+      0.0,
+      -58.0
+    ],
+    "scale": [
+      1200.0,
+      1000.0,
+      1.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tags": [
+      "D03GroundSupport",
+      "D03GeneratedDraft"
+    ],
+    "spatial": false,
+    "meshes": [
+      {
+        "name": "StaticMeshComponent0",
+        "mesh": "/Engine/BasicShapes/Cube.Cube",
+        "collision": "NoCollision",
+        "enabled": "<CollisionEnabled.NO_COLLISION: 0>",
+        "materials": [
+          "/Game/OpenWorld/Materials/MI_GroundSupport.MI_GroundSupport"
+        ]
+      }
+    ]
+  },
+  "ground_package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/7/FB/1IJTPLTQE7QKVNBK0XIGE7",
+  "no_collision": true,
+  "no_navigation": true,
+  "always_loaded": true,
+  "hlod_excluded": true,
+  "status": "GENERATED_DRAFT"
+}

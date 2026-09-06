@@ -1,0 +1,352 @@
+Review only for concrete correctness bugs. D03-01 cosmetic ground support, never collision/navigation. Runtime TSR/TAA and environment passed; hidden negative gate rejects only visibility and exits cleanly. All 219 prior assets exact except bounded audited map postload metadata; 66 actor invariants unchanged. Pixel checks validate two margins only; no final-art claim. Report at most 3 actionable findings with code location, or no findings. Do not suggest scope expansion. Non-authoritative review input.
+
+FILE Content/Python/author_ground_support.py
+"""Add/read back bounded cosmetic ground in the existing world without rewriting its actors."""
+import hashlib
+import json
+import os
+from pathlib import Path
+import unreal
+
+PROJECT = Path(unreal.Paths.project_dir()).resolve()
+SOURCE = PROJECT / 'SourceAssets/Architecture/ground-support.json'
+SPEC = json.loads(SOURCE.read_text())
+COMMAND = unreal.SystemLibrary.get_command_line()
+VERIFY = '-D03VerifyGroundSupport' in COMMAND
+PROBE = '-D03ProbeGroundSupport' in COMMAND
+REPORT = Path(os.environ['BIELLA_D03_GROUND_REPORT'])
+LIB = unreal.EditorAssetLibrary
+MATERIALS = unreal.MaterialEditingLibrary
+LEVEL = unreal.get_editor_subsystem(unreal.LevelEditorSubsystem)
+ACTORS = unreal.get_editor_subsystem(unreal.EditorActorSubsystem)
+
+
+def vec(v):
+    return [float(v.x), float(v.y), float(v.z)]
+
+
+def invariant(a):
+    r = a.get_actor_rotation()
+    meshes = []
+    for c in a.get_components_by_class(unreal.StaticMeshComponent):
+        meshes.append(dict(name=c.get_name(), mesh=c.static_mesh.get_path_name() if c.static_mesh else None,
+            collision=str(c.get_collision_profile_name()), enabled=str(c.get_collision_enabled()),
+            materials=[c.get_material(i).get_path_name() if c.get_material(i) else None
+                       for i in range(c.get_num_materials())]))
+    return dict(guid=unreal.GuidLibrary.conv_guid_to_string(a.get_editor_property('actor_guid')),
+        cls=a.get_class().get_path_name(), location=vec(a.get_actor_location()),
+        scale=vec(a.get_actor_scale3d()), rotation=[r.pitch,r.yaw,r.roll], tags=[str(t) for t in a.tags],
+        spatial=a.get_editor_property('is_spatially_loaded'), meshes=meshes)
+
+
+assert LEVEL.load_level('/Game/Maps/BiellaOpenWorldMap')
+wp = unreal.WorldPartitionBlueprintLibrary
+wp.load_actors([d.guid for d in wp.get_actor_descs()])
+actors = {a.get_actor_label():a for a in ACTORS.get_all_level_actors()}
+old = {label:invariant(a) for label,a in actors.items() if label != SPEC['label']}
+ground = actors.get(SPEC['label'])
+if PROBE:
+    REPORT.write_text(json.dumps(dict(result='PASS', mode='probe', ground_present=ground is not None,
+        existing_actors=old, source_sha256=hashlib.sha256(SOURCE.read_bytes()).hexdigest()),indent=2)+'\n')
+    unreal.log('D03_GROUND COMPLETE probe')
+else:
+    master = LIB.load_asset('/Game/OpenWorld/Materials/M_ProductionSurface')
+    assert isinstance(master, unreal.Material)
+    material = LIB.load_asset(SPEC['material']) if LIB.does_asset_exist(SPEC['material']) else None
+    if not material:
+        assert not VERIFY, 'Ground material missing'
+        folder,name = SPEC['material'].rsplit('/',1)
+        material = unreal.AssetToolsHelpers.get_asset_tools().create_asset(name,folder,
+            unreal.MaterialInstanceConstant,unreal.MaterialInstanceConstantFactoryNew())
+    parameters = dict(Roughness=SPEC['roughness'], DetailScale=SPEC['detail_scale'], ReliefCm=SPEC['relief_cm'])
+    if not VERIFY:
+        MATERIALS.set_material_instance_parent(material,master)
+        MATERIALS.set_material_instance_vector_parameter_value(material,'BaseColor',unreal.LinearColor(*SPEC['base_color']))
+        for name,value in parameters.items():
+            MATERIALS.set_material_instance_scalar_parameter_value(material,name,value)
+        LIB.set_metadata_tag(material,'D03.Status','GENERATED_DRAFT')
+        LIB.set_metadata_tag(material,'D03.SourceSHA256',hashlib.sha256(SOURCE.read_bytes()).hexdigest())
+        assert LIB.save_loaded_asset(material)
+    assert material.get_editor_property('parent') == master
+    for name,value in parameters.items():
+        assert abs(MATERIALS.get_material_instance_scalar_parameter_value(material,name)-value)<1e-5
+    color = MATERIALS.get_material_instance_vector_parameter_value(material,'BaseColor')
+    assert all(abs(a-b)<1e-5 for a,b in zip((color.r,color.g,color.b,color.a),SPEC['base_color']))
+    if not ground:
+        assert not VERIFY, 'Ground actor missing'
+        ground = ACTORS.spawn_actor_from_class(unreal.StaticMeshActor,unreal.Vector(*SPEC['location_cm']))
+        ground.set_actor_label(SPEC['label'])
+    mesh = LIB.load_asset(SPEC['mesh'])
+    c = ground.static_mesh_component
+    if not VERIFY:
+        ground.modify(); c.modify()
+        ground.set_actor_location(unreal.Vector(*SPEC['location_cm']),False,False)
+        ground.set_actor_rotation(unreal.Rotator(),False)
+        ground.set_actor_scale3d(unreal.Vector(*[v/100 for v in SPEC['size_cm']]))
+        ground.set_editor_property('is_spatially_loaded',False)
+        ground.set_editor_property('enable_auto_lod_generation',False)
+        ground.set_editor_property('tags',['D03GroundSupport','D03GeneratedDraft'])
+        c.set_static_mesh(mesh)
+        c.set_material(0,material)
+        c.set_collision_profile_name('NoCollision')
+        c.set_editor_property('can_ever_affect_navigation',False)
+        c.set_editor_property('cast_shadow',False)
+        c.set_editor_property('mobility',unreal.ComponentMobility.STATIC)
+        assert LEVEL.save_current_level()
+        assert unreal.EditorLoadingAndSavingUtils.save_dirty_packages(True,True)
+    assert vec(ground.get_actor_location()) == SPEC['location_cm']
+    assert vec(ground.get_actor_scale3d()) == [v/100 for v in SPEC['size_cm']]
+    assert not ground.get_editor_property('is_spatially_loaded')
+    assert not ground.get_editor_property('enable_auto_lod_generation')
+    assert c.static_mesh == mesh and c.get_material(0) == material
+    assert c.get_collision_enabled() == unreal.CollisionEnabled.NO_COLLISION
+    assert not c.get_editor_property('can_ever_affect_navigation') and not c.get_editor_property('cast_shadow')
+    after = {label:invariant(a) for label,a in actors.items() if label != SPEC['label']}
+    assert after == old, 'Existing actor invariants changed'
+    desc = next(d for d in wp.get_actor_descs() if str(d.label) == SPEC['label'])
+    assert '/__ExternalActors__/' in str(desc.actor_package)
+    REPORT.write_text(json.dumps(dict(result='PASS', mode='readback' if VERIFY else 'author',
+        source_sha256=hashlib.sha256(SOURCE.read_bytes()).hexdigest(), existing_actors=after,
+        ground=invariant(ground), ground_package=str(desc.actor_package), no_collision=True,
+        no_navigation=True, always_loaded=True, hlod_excluded=True, status='GENERATED_DRAFT'),indent=2)+'\n')
+    unreal.log('D03_GROUND COMPLETE')
+
+FILE tests/verify_d03_01_ground_map.py
+#!/usr/bin/env python3
+"""Audit the bounded ground map resave; never rewrite source assets or prior receipts."""
+import argparse
+from collections import Counter
+import difflib
+import hashlib
+import json
+from pathlib import Path
+import re
+import subprocess
+from run_d01_039 import PROJECT, file_identity, write_json
+
+
+def normalized_export(path, map_name):
+    lines = path.read_text().replace(map_name, 'GroundMap').splitlines()
+    retained, persistent = [], []
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        if line.strip().startswith('Begin Object ') and 'Name="RuntimePartitionPersistent_' in line:
+            block = [line.strip()]
+            i += 1
+            while lines[i].strip() != 'End Object':
+                block.append(lines[i].strip())
+                i += 1
+            # These are the only allowed regenerated object types/properties.
+            if len(block) > 1:
+                assert block[1:3] == ['bClientOnlyVisible=True', 'LoadingRange=0']
+                assert len(block) == 4 and re.fullmatch(r'DebugColor=\(R=[0-9.]+,G=[0-9.]+,B=[0-9.]+,A=1.000000\)', block[3])
+                persistent.append('definition:client-only,zero-range')
+            else:
+                assert 'Class=/Script/Engine.RuntimePartitionPersistent ' in line
+                persistent.append('declaration:RuntimePartitionPersistent')
+        else:
+            retained.append(re.sub(r'RuntimePartitionPersistent_[01]', 'RuntimePartitionPersistent_GENERATED', line))
+        i += 1
+    assert Counter(persistent) == Counter({'definition:client-only,zero-range': 2, 'declaration:RuntimePartitionPersistent': 2})
+    return '\n'.join(retained), persistent
+
+
+def verify(audit, author):
+    baseline = audit/'GroundBaseline.umap'
+    authored = audit/'GroundAuthored.umap'
+    current = PROJECT/'Content/Maps/BiellaOpenWorldMap.umap'
+    receipt = json.loads((author/'validation.json').read_text())
+    before = receipt['before']
+    map_key = str(current.relative_to(PROJECT))
+    assert file_identity(baseline)['sha256'] == before[map_key]['sha256']
+    assert authored.read_bytes() == current.read_bytes(), 'Current map differs from audited copy'
+    assert len(baseline.read_bytes()) == len(authored.read_bytes()) == 13330
+    # Exact observed binary delta: package saved hash, generated export references,
+    # DateModified metadata, and regenerated partition debug color. No broad ignore.
+    allowed = [(24,44), (4965,4966), (6085,6086), (7061,7070), (10365,10381)]
+    delta = [i for i,(a,b) in enumerate(zip(baseline.read_bytes(),authored.read_bytes())) if a != b]
+    assert delta and all(any(lo <= i < hi for lo,hi in allowed) for i in delta), delta
+    x, px = normalized_export(audit/'GroundBaseline.umap.t3d', 'GroundBaseline')
+    y, py = normalized_export(audit/'GroundAuthored.umap.t3d', 'GroundAuthored')
+    assert x == y and px == py, '\n'.join(difflib.unified_diff(x.splitlines(),y.splitlines()))
+    after = {str(p.relative_to(PROJECT)):file_identity(p) for p in sorted((PROJECT/'Content').rglob('*'))
+             if p.is_file() and p.suffix in ('.uasset','.umap')}
+    assert [k for k,v in before.items() if after.get(k) != v] == [map_key]
+    expected_new = ['Content/OpenWorld/Materials/MI_GroundSupport.uasset',
+                    'Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/FB/1IJTPLTQE7QKVNBK0XIGE7.uasset']
+    assert sorted(set(after)-set(before)) == expected_new
+    probe = json.loads((author/'probe.json').read_text())
+    saved = json.loads((author/'author.json').read_text())
+    readback = json.loads((author/'readback.json').read_text())
+    assert probe['existing_actors'] == saved['existing_actors'] == readback['existing_actors']
+    assert saved['ground'] == readback['ground']
+    process = json.loads((audit/'process.json').read_text())
+    assert process['returncode'] == 0 and not process['timed_out']
+    engine = Path('/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Engine/Private/WorldPartition/RuntimeHashSet')
+    refs = [engine/'WorldPartitionRuntimeHashSet.cpp', engine/'RuntimePartition.cpp']
+    return dict(task_id='D03-01', result='PASS', baseline=file_identity(baseline), authored=file_identity(authored),
+                current_map=file_identity(current), changed_byte_offsets=delta,
+                normalized_export_sha256=hashlib.sha256(x.encode()).hexdigest(),
+                preexisting_assets_unchanged_except_map=len(before)-1, new_assets=expected_new,
+                existing_actor_invariants=len(probe['existing_actors']), engine_sources={str(p):file_identity(p) for p in refs},
+                normalization='Only generated RuntimePartitionPersistent declarations/definitions, name references and debug colors; all retained export lines equal in order.',
+                limitations='DiffAssets exports map-owned objects after PostLoad. External actors are instead checked by exact asset bytes and editor readback. Temp external-folder scan warnings are expected for copied maps. This does not qualify a cooked package.')
+
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--audit',type=Path,required=True)
+    parser.add_argument('--author',type=Path,required=True)
+    parser.add_argument('--output',type=Path,required=True)
+    args=parser.parse_args()
+    assert not args.output.exists(), 'Use fresh evidence output'
+    report=verify(args.audit.resolve(),args.author.resolve())
+    write_json(args.output,report)
+    print(json.dumps({k:report[k] for k in ('result','preexisting_assets_unchanged_except_map','existing_actor_invariants')}))
+
+
+if __name__=='__main__':main()
+
+DIFF
+diff --git a/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaPresentationTest.cpp b/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaPresentationTest.cpp
+index b6e634c..5202b7e 100644
+--- a/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaPresentationTest.cpp
++++ b/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaPresentationTest.cpp
+@@ -105,6 +105,7 @@ public:
+             }
+             SurfaceCount=Materials.Num();
+             Test->TestTrue(TEXT("Loaded playable world uses multiple production surfaces"),SurfaceCount>=3);
++            if (FParse::Param(FCommandLine::Get(),TEXT("BiellaVerifyGroundSupport"))) { CheckGround(); }
+             Next(2);
+         }
+         else if (Phase==2 && Age>4) { Next(3); }
+@@ -133,10 +134,59 @@ public:
+             Test->TestTrue(TEXT("Real W input traverses rendered world"),WalkDistance>200);
+             Capture(TEXT("walk_end")); Next(8);
+         }
+-        else if (Phase==8 && Age>1 && !FScreenshotRequest::IsScreenshotRequested()) { return Finish(true,TEXT("")); }
++        else if (Phase==8 && Age>1 && !FScreenshotRequest::IsScreenshotRequested())
++        {
++            // Delayed until after captures so the hidden-support negative control
++            // retains the same native camera sequence for a visual comparison.
++            if (bGroundChecked) { Test->TestTrue(TEXT("Ground support remains visible"),bGroundVisible); }
++            return Finish(true,TEXT(""));
++        }
+         return false;
+     }
+ private:
++    void CheckGround()
++    {
++        bGroundChecked=true;
++        AActor* Ground=nullptr;
++        int32 Count=0;
++        for (TActorIterator<AActor> It(World.Get());It;++It)
++        { if (It->ActorHasTag(TEXT("D03GroundSupport"))) { Ground=*It; ++Count; } }
++        Test->TestEqual(TEXT("Exactly one ground support actor is loaded"),Count,1);
++        auto* Mesh=Ground ? Ground->FindComponentByClass<UStaticMeshComponent>() : nullptr;
++        if (!Mesh || !Mesh->GetStaticMesh()) { Test->AddError(TEXT("Ground support mesh missing")); return; }
++        if (FParse::Param(FCommandLine::Get(),TEXT("BiellaHideGroundSupport")))
++        {
++            Ground->SetActorHiddenInGame(true);
++            // This one deliberate fixture failure must occur. Leave the external
++            // ground/capture acceptance gate unchanged, and let Vulkan shut down
++            // normally (Automation SoftQuit marks unexpected failures critical).
++            Test->AddExpectedErrorPlain(TEXT("Ground support remains visible"),EAutomationExpectedErrorFlags::Contains,1);
++        }
++        bGroundVisible=!Ground->IsHidden() && Mesh->IsVisible() && Mesh->GetSceneProxy();
++        const bool NoCollision=Mesh->GetCollisionEnabled()==ECollisionEnabled::NoCollision;
++        const bool NoNavigation=!Mesh->CanEverAffectNavigation();
++        Test->TestTrue(TEXT("Cosmetic ground has no collision"),NoCollision);
++        Test->TestTrue(TEXT("Cosmetic ground has no navigation influence"),NoNavigation);
++        bool RaysIgnoreGround=true;
++        for (const auto& Point : {FVector(6000,-4000,0),FVector(6000,5000,0),FVector(-5000,0,0),FVector(25000,0,0)})
++        {
++            FHitResult Hit;
++            World->LineTraceSingleByChannel(Hit,Point+FVector(0,0,200),Point-FVector(0,0,300),ECC_Visibility);
++            RaysIgnoreGround &= Hit.GetActor()!=Ground;
++        }
++        FHitResult Floor;
++        const bool FloorHit=World->LineTraceSingleByChannel(Floor,FVector(6500,-1000,200),FVector(6500,-1000,-300),ECC_Visibility);
++        const bool ExistingFloor=FloorHit && Floor.GetActor()!=Ground && FMath::Abs(Floor.ImpactPoint.Z)<1;
++        Test->TestTrue(TEXT("Gameplay traces ignore cosmetic ground"),RaysIgnoreGround);
++        Test->TestTrue(TEXT("Existing street floor retains collision"),ExistingFloor);
++        const auto Bounds=Mesh->Bounds;
++        const auto* Material=Mesh->GetMaterial(0);
++        GroundJson=FString::Printf(TEXT("{\"count\":%d,\"visible\":%s,\"no_collision\":%s,\"no_navigation\":%s,\"rays_ignore_ground\":%s,\"existing_floor_collision\":%s,\"mesh\":\"%s\",\"material\":\"%s\",\"center_cm\":[%.3f,%.3f,%.3f],\"extent_cm\":[%.3f,%.3f,%.3f]}\n"),
++            Count,bGroundVisible ? TEXT("true") : TEXT("false"),NoCollision ? TEXT("true") : TEXT("false"),
++            NoNavigation ? TEXT("true") : TEXT("false"),RaysIgnoreGround ? TEXT("true") : TEXT("false"),ExistingFloor ? TEXT("true") : TEXT("false"),
++            *Mesh->GetStaticMesh()->GetPathName(),Material ? *Material->GetPathName() : TEXT(""),
++            Bounds.Origin.X,Bounds.Origin.Y,Bounds.Origin.Z,Bounds.BoxExtent.X,Bounds.BoxExtent.Y,Bounds.BoxExtent.Z);
++    }
+     // Controlled repeatability fixture: population AI is frozen, geometry,
+     // streaming, lighting, camera, movement and render paths remain native.
+     void BeforeTick(UWorld* W,ELevelTick,float)
+@@ -190,15 +240,18 @@ private:
+         Saved &= FFileHelper::SaveStringToFile(CaptureCsv,*FPaths::Combine(Output,TEXT("captures.csv")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
+         Saved &= FFileHelper::SaveStringToFile(Result,*FPaths::Combine(Output,TEXT("result.json")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
+         Saved &= FFileHelper::SaveStringToFile(PrimitiveCsv,*FPaths::Combine(Output,TEXT("render-primitives.csv")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
++        if (bGroundChecked) { Saved &= FFileHelper::SaveStringToFile(GroundJson,*FPaths::Combine(Output,TEXT("ground.json")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM); }
+         if (!Good || !Saved) { Test->AddError(FString(TEXT("presentation_evidence_failed: "))+Error); }
+         return true;
+     }
+     FAutomationTestBase* Test;
+     FString Output,Csv,CaptureCsv=TEXT("name,frame,sim_time,yaw\n");
+     FString PrimitiveCsv=TEXT("component,mesh,nanite_data,nanite_proxy\n");
++    FString GroundJson=TEXT("{}");
+     double Started,PhaseStart=0,LastWall=0,LastShot=-1,WalkDistance=0;
+     int32 Phase=0,ShotIndex=0,SurfaceCount=0;
+     bool bReload=false,bFinished=false,bShotThisFrame=false;
++    bool bGroundChecked=false,bGroundVisible=false;
+     FVector WalkStart;
+     FDelegateHandle TickHandle,FrameHandle;
+     TWeakObjectPtr<UWorld> World,OldWorld;
+diff --git a/projects/biella-games/tests/run_d03_01_reconstruction.py b/projects/biella-games/tests/run_d03_01_reconstruction.py
+index 6af1069..d751547 100644
+--- a/projects/biella-games/tests/run_d03_01_reconstruction.py
++++ b/projects/biella-games/tests/run_d03_01_reconstruction.py
+@@ -20,6 +20,7 @@ def main():
+     parser.add_argument('--feature-level', choices=('sm5', 'sm6'), help='Force an RHI feature level; omitted uses project preference')
+     parser.add_argument('--verify-feature-level', choices=('sm5', 'sm6'), help='Require observed renderer capabilities')
+     parser.add_argument('--timeout', type=int, default=250, help='Process timeout including initial shader compilation')
++    parser.add_argument('--ground-control', choices=('visible','hidden'), help='Require cosmetic ground; hidden is a native negative control with captures')
+     args = parser.parse_args()
+     out = args.output.resolve()
+     assert not out.exists(), 'Use a fresh output directory'
+@@ -27,6 +28,7 @@ def main():
+     ensure_runtime_output(out, account)
+     expected = 'ProductionTSR' if args.profile == 'ProductionTSR' else 'NativeTAA'
+     surface = args.scenario == 'surfaces'
++    assert not args.ground_control or surface, 'Ground control uses the surfaces scenario'
+     native_test = 'BiellaGames.D03.Surfaces' if surface else 'BiellaGames.D02.Environment'
+     output_arg = 'BiellaPresentationOutput' if surface else 'BiellaEnvironmentOutput'
+     protected = [PROJECT.parents[1]/'docs/project-state/03_BIELLA_CURRENT_STATE.md',
+@@ -40,6 +42,7 @@ def main():
+     report = dict(task_id='D03-01', result='FAIL', revision=source_revision(), profile=args.profile,
+                   expected_profile=expected, scenario=args.scenario, override_fxaa=args.override_fxaa,
+                   feature_level=args.feature_level, verify_feature_level=args.verify_feature_level,
++                  ground_control=args.ground_control,
+                   capture_status='GENERATED_DRAFT', identities_before=inputs(),
+                   protected_before=[file_identity(path) for path in protected],
+                   cache_scope='Existing Development DDC; not cold-cache, PSO or package qualification')
+@@ -56,6 +59,9 @@ def main():
+                f'-ExecCmds=t.MaxFPS {0 if surface else 60},r.VSync 0,r.MotionBlurQuality 0{override},Automation RunTests {native_test}; SoftQuit']
+         if args.feature_level:
+             cmd.append(f'-{args.feature_level}')
++        if args.ground_control:
++            cmd.append('-BiellaVerifyGroundSupport')
++            if args.ground_control == 'hidden': cmd.append('-BiellaHideGroundSupport')
+         write_json(out/'command.json', cmd)
+         report['runtime'] = monitor(cmd, out, args.timeout)
+         log = (out/'runtime.stdout.log').read_text(errors='replace')
+@@ -76,6 +82,10 @@ def main():
+         if surface:
+             from verify_d03_01_surfaces import verify
+             report['verification'] = verify(out, 4 if expected == 'ProductionTSR' else 2, 100)
++            if args.ground_control:
++                ground=json.loads((out/'ground.json').read_text())
++                assert ground['count']==1 and all(ground[k] for k in ('visible','no_collision','no_navigation','rays_ignore_ground','existing_floor_collision')), 'Ground runtime invariants failed'
++                report['ground']=ground
+         else:
+             from verify_d02_04 import verify
+             report['verification'] = verify(out)

@@ -105,6 +105,7 @@ public:
             }
             SurfaceCount=Materials.Num();
             Test->TestTrue(TEXT("Loaded playable world uses multiple production surfaces"),SurfaceCount>=3);
+            if (FParse::Param(FCommandLine::Get(),TEXT("BiellaVerifyGroundSupport"))) { CheckGround(); }
             Next(2);
         }
         else if (Phase==2 && Age>4) { Next(3); }
@@ -133,10 +134,59 @@ public:
             Test->TestTrue(TEXT("Real W input traverses rendered world"),WalkDistance>200);
             Capture(TEXT("walk_end")); Next(8);
         }
-        else if (Phase==8 && Age>1 && !FScreenshotRequest::IsScreenshotRequested()) { return Finish(true,TEXT("")); }
+        else if (Phase==8 && Age>1 && !FScreenshotRequest::IsScreenshotRequested())
+        {
+            // Delayed until after captures so the hidden-support negative control
+            // retains the same native camera sequence for a visual comparison.
+            if (bGroundChecked) { Test->TestTrue(TEXT("Ground support remains visible"),bGroundVisible); }
+            return Finish(true,TEXT(""));
+        }
         return false;
     }
 private:
+    void CheckGround()
+    {
+        bGroundChecked=true;
+        AActor* Ground=nullptr;
+        int32 Count=0;
+        for (TActorIterator<AActor> It(World.Get());It;++It)
+        { if (It->ActorHasTag(TEXT("D03GroundSupport"))) { Ground=*It; ++Count; } }
+        Test->TestEqual(TEXT("Exactly one ground support actor is loaded"),Count,1);
+        auto* Mesh=Ground ? Ground->FindComponentByClass<UStaticMeshComponent>() : nullptr;
+        if (!Mesh || !Mesh->GetStaticMesh()) { Test->AddError(TEXT("Ground support mesh missing")); return; }
+        if (FParse::Param(FCommandLine::Get(),TEXT("BiellaHideGroundSupport")))
+        {
+            Ground->SetActorHiddenInGame(true);
+            // This one deliberate fixture failure must occur. Leave the external
+            // ground/capture acceptance gate unchanged, and let Vulkan shut down
+            // normally (Automation SoftQuit marks unexpected failures critical).
+            Test->AddExpectedErrorPlain(TEXT("Ground support remains visible"),EAutomationExpectedErrorFlags::Contains,1);
+        }
+        bGroundVisible=!Ground->IsHidden() && Mesh->IsVisible() && Mesh->GetSceneProxy();
+        const bool NoCollision=Mesh->GetCollisionEnabled()==ECollisionEnabled::NoCollision;
+        const bool NoNavigation=!Mesh->CanEverAffectNavigation();
+        Test->TestTrue(TEXT("Cosmetic ground has no collision"),NoCollision);
+        Test->TestTrue(TEXT("Cosmetic ground has no navigation influence"),NoNavigation);
+        bool RaysIgnoreGround=true;
+        for (const auto& Point : {FVector(6000,-4000,0),FVector(6000,5000,0),FVector(-5000,0,0),FVector(25000,0,0)})
+        {
+            FHitResult Hit;
+            World->LineTraceSingleByChannel(Hit,Point+FVector(0,0,200),Point-FVector(0,0,300),ECC_Visibility);
+            RaysIgnoreGround &= Hit.GetActor()!=Ground;
+        }
+        FHitResult Floor;
+        const bool FloorHit=World->LineTraceSingleByChannel(Floor,FVector(6500,-1000,200),FVector(6500,-1000,-300),ECC_Visibility);
+        const bool ExistingFloor=FloorHit && Floor.GetActor()!=Ground && FMath::Abs(Floor.ImpactPoint.Z)<1;
+        Test->TestTrue(TEXT("Gameplay traces ignore cosmetic ground"),RaysIgnoreGround);
+        Test->TestTrue(TEXT("Existing street floor retains collision"),ExistingFloor);
+        const auto Bounds=Mesh->Bounds;
+        const auto* Material=Mesh->GetMaterial(0);
+        GroundJson=FString::Printf(TEXT("{\"count\":%d,\"visible\":%s,\"no_collision\":%s,\"no_navigation\":%s,\"rays_ignore_ground\":%s,\"existing_floor_collision\":%s,\"mesh\":\"%s\",\"material\":\"%s\",\"center_cm\":[%.3f,%.3f,%.3f],\"extent_cm\":[%.3f,%.3f,%.3f]}\n"),
+            Count,bGroundVisible ? TEXT("true") : TEXT("false"),NoCollision ? TEXT("true") : TEXT("false"),
+            NoNavigation ? TEXT("true") : TEXT("false"),RaysIgnoreGround ? TEXT("true") : TEXT("false"),ExistingFloor ? TEXT("true") : TEXT("false"),
+            *Mesh->GetStaticMesh()->GetPathName(),Material ? *Material->GetPathName() : TEXT(""),
+            Bounds.Origin.X,Bounds.Origin.Y,Bounds.Origin.Z,Bounds.BoxExtent.X,Bounds.BoxExtent.Y,Bounds.BoxExtent.Z);
+    }
     // Controlled repeatability fixture: population AI is frozen, geometry,
     // streaming, lighting, camera, movement and render paths remain native.
     void BeforeTick(UWorld* W,ELevelTick,float)
@@ -190,15 +240,18 @@ private:
         Saved &= FFileHelper::SaveStringToFile(CaptureCsv,*FPaths::Combine(Output,TEXT("captures.csv")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
         Saved &= FFileHelper::SaveStringToFile(Result,*FPaths::Combine(Output,TEXT("result.json")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
         Saved &= FFileHelper::SaveStringToFile(PrimitiveCsv,*FPaths::Combine(Output,TEXT("render-primitives.csv")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
+        if (bGroundChecked) { Saved &= FFileHelper::SaveStringToFile(GroundJson,*FPaths::Combine(Output,TEXT("ground.json")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM); }
         if (!Good || !Saved) { Test->AddError(FString(TEXT("presentation_evidence_failed: "))+Error); }
         return true;
     }
     FAutomationTestBase* Test;
     FString Output,Csv,CaptureCsv=TEXT("name,frame,sim_time,yaw\n");
     FString PrimitiveCsv=TEXT("component,mesh,nanite_data,nanite_proxy\n");
+    FString GroundJson=TEXT("{}");
     double Started,PhaseStart=0,LastWall=0,LastShot=-1,WalkDistance=0;
     int32 Phase=0,ShotIndex=0,SurfaceCount=0;
     bool bReload=false,bFinished=false,bShotThisFrame=false;
+    bool bGroundChecked=false,bGroundVisible=false;
     FVector WalkStart;
     FDelegateHandle TickHandle,FrameHandle;
     TWeakObjectPtr<UWorld> World,OldWorld;

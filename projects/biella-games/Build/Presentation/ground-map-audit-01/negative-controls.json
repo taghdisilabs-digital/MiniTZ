@@ -1,0 +1,37 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "source": {
+    "path": "Build/Presentation/ground-map-audit-01/GroundAuthored.umap.t3d",
+    "sha256": "4f6b6dc79784bc513013179ce667c0d89a76203a6b56fa970c64861332f13d90",
+    "bytes": 8945
+  },
+  "verifier": {
+    "path": "tests/verify_d03_01_ground_map.py",
+    "sha256": "feecae8d9ce5268db8945d1b002a408e5e98148d7cb511bb00459e7504dafa87",
+    "bytes": 5628
+  },
+  "cases": [
+    {
+      "case": "loading_range",
+      "rejected": true
+    },
+    {
+      "case": "client_visibility",
+      "rejected": true
+    },
+    {
+      "case": "extra_partition_property",
+      "rejected": true
+    },
+    {
+      "case": "partition_class",
+      "rejected": true
+    },
+    {
+      "case": "world_property",
+      "rejected": true
+    }
+  ],
+  "method": "Temporary T3D mutations; actual map and raw exports untouched."
+}

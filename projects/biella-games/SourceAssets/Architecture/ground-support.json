@@ -1,0 +1,14 @@
+{
+  "task_id": "D03-01",
+  "status": "GENERATED_DRAFT",
+  "label": "D03_GroundSupport",
+  "mesh": "/Engine/BasicShapes/Cube.Cube",
+  "location_cm": [10000, 0, -58],
+  "size_cm": [120000, 100000, 100],
+  "material": "/Game/OpenWorld/Materials/MI_GroundSupport",
+  "base_color": [0.15, 0.13, 0.10, 1],
+  "roughness": 0.94,
+  "detail_scale": 0.9,
+  "relief_cm": 0.08,
+  "purpose": "Lit ground support under exposed existing-world margins; cosmetic, nonspatial, no collision or navigation. Existing playable floors remain authoritative. Not terrain or final environment acceptance."
+}

@@ -1,0 +1,49 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "reviewer": "single authoritative Codex session",
+  "scope": [
+    "Content/Python/author_ground_support.py",
+    "tests/verify_d03_01_ground_map.py",
+    "tests/verify_d03_01_ground.py",
+    "Source/BiellaGames/Private/Tests/BiellaPresentationTest.cpp",
+    "tests/run_d03_01_reconstruction.py"
+  ],
+  "findings": [],
+  "basis": [
+    "Authoring and independent readback assert cosmetic flags and exact recipe/material values. Existing actors preserved by exact old asset bytes and 66 actor invariants.",
+    "Map exception is bounded by exact binary offsets plus ordered native export comparison. Five mutated exports rejected.",
+    "Hidden control registers only its deliberate visibility assertion, captures unchanged camera sequence, exits normally, and is independently rejected externally.",
+    "Visible state is sampled at initial check; captured pixel evidence supports only tested camera margins. No claim of continuous visibility, final art, cold cache, or full loading-module runtime identity."
+  ],
+  "resource_review": {
+    "status": "UNAVAILABLE_TIMEOUT",
+    "attempts": [
+      "ground-review-01",
+      "ground-review-02"
+    ],
+    "disposition": "Both optional local reviews timed out at approximately 30 seconds; no provider review verdict claimed. Direct source and task evidence review completed."
+  },
+  "source_identities": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Python/author_ground_support.py",
+      "sha256": "58bc501d74dd2ac92220f4acfed613c196e135789ef239011dcbed82884d2451"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_ground_map.py",
+      "sha256": "feecae8d9ce5268db8945d1b002a408e5e98148d7cb511bb00459e7504dafa87"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_ground.py",
+      "sha256": "477f1bfd588679460f109e1ae433a64a86c044b56939263bb6ef67db62aa4ca3"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaPresentationTest.cpp",
+      "sha256": "1bc47bdbe28f4c024ab2eb2955188c3b4170a335d82fa82bb7e11300509838d1"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_reconstruction.py",
+      "sha256": "0e38328f1c53a1e16f75f6980bf6d4e86f55930ed925eb6e6d4efb628bc68572"
+    }
+  ]
+}

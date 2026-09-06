@@ -1,0 +1,81 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "baseline": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-map-audit-01/GroundBaseline.umap",
+    "sha256": "17abe16d7cb4c111d77658231fc330d7c8d8603278fe6dbd9b148c63c0042d96",
+    "bytes": 13330
+  },
+  "authored": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-map-audit-01/GroundAuthored.umap",
+    "sha256": "5aa72a66492ec13ac2ba460bba391b0370003852ab2a413a27c051c95f2a4908",
+    "bytes": 13330
+  },
+  "current_map": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Maps/BiellaOpenWorldMap.umap",
+    "sha256": "5aa72a66492ec13ac2ba460bba391b0370003852ab2a413a27c051c95f2a4908",
+    "bytes": 13330
+  },
+  "changed_byte_offsets": [
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    4965,
+    6085,
+    7061,
+    7062,
+    7064,
+    7065,
+    7067,
+    7068,
+    10365,
+    10366,
+    10367,
+    10368,
+    10369,
+    10370,
+    10371,
+    10373,
+    10374,
+    10375,
+    10376
+  ],
+  "normalized_export_sha256": "80f53c0cc8774c2e48a3906131e62bf130b5bae9186c670cf13635ce55a89a99",
+  "preexisting_assets_unchanged_except_map": 219,
+  "new_assets": [
+    "Content/OpenWorld/Materials/MI_GroundSupport.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/FB/1IJTPLTQE7QKVNBK0XIGE7.uasset"
+  ],
+  "existing_actor_invariants": 66,
+  "engine_sources": {
+    "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Engine/Private/WorldPartition/RuntimeHashSet/WorldPartitionRuntimeHashSet.cpp": {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Engine/Private/WorldPartition/RuntimeHashSet/WorldPartitionRuntimeHashSet.cpp",
+      "sha256": "5ae8f6f3b7d5ab100521a6a97a9d43169ea4776f54937db05a1a40cc441c7874",
+      "bytes": 53412
+    },
+    "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Engine/Private/WorldPartition/RuntimeHashSet/RuntimePartition.cpp": {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Engine/Private/WorldPartition/RuntimeHashSet/RuntimePartition.cpp",
+      "sha256": "672de7c23711dbaa50481fe3ce9f6b68db628d7ab5ec0e2d5bdd6facb1cacfd8",
+      "bytes": 3150
+    }
+  },
+  "normalization": "Only generated RuntimePartitionPersistent declarations/definitions, name references and debug colors; all retained export lines equal in order.",
+  "limitations": "DiffAssets exports map-owned objects after PostLoad. External actors are instead checked by exact asset bytes and editor readback. Temp external-folder scan warnings are expected for copied maps. This does not qualify a cooked package."
+}

@@ -1,0 +1,18 @@
+[
+  "runuser",
+  "-u",
+  "unreal",
+  "--",
+  "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+  "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+  "-run=DiffAssets",
+  "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-map-audit-01/GroundBaseline.umap",
+  "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-map-audit-01/GroundAuthored.umap",
+  "DiffCmd=/usr/bin/true {1} {2}",
+  "-unattended",
+  "-nullrhi",
+  "-nosound",
+  "-nop4",
+  "-stdout",
+  "-FullStdOutLogOutput"
+]

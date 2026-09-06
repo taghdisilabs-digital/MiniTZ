@@ -1,0 +1,30 @@
+{
+  "command": [
+    "runuser",
+    "-u",
+    "unreal",
+    "--",
+    "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+    "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+    "-run=DiffAssets",
+    "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-map-audit-01/GroundBaseline.umap",
+    "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-map-audit-01/GroundAuthored.umap",
+    "DiffCmd=/usr/bin/true {1} {2}",
+    "-unattended",
+    "-nullrhi",
+    "-nosound",
+    "-nop4",
+    "-stdout",
+    "-FullStdOutLogOutput"
+  ],
+  "pid": 2503815,
+  "returncode": 0,
+  "timed_out": false,
+  "timeout_seconds": 120,
+  "elapsed_seconds": 11.811,
+  "log": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-map-audit-01/runtime.log",
+    "sha256": "59d48226ee70a293460a112ca50cc718a46053b746c8e7cfc2888a335e4c270e",
+    "bytes": 241231
+  }
+}

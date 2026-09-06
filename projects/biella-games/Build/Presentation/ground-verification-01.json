@@ -1,0 +1,809 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "capture_status": "GENERATED_DRAFT",
+  "inputs": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-tsr-01/validation.json",
+      "sha256": "b9013a2167cf2ab2162595a520fb1ec9242cd1f24df8b933f20416f1e312059a",
+      "bytes": 195885
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-tsr-01/result.json",
+      "sha256": "40807db182120c233cf4502ac294c1f8c357931a8e70cfa0e8f82ad81110b2bd",
+      "bytes": 121
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-tsr-01/ground.json",
+      "sha256": "dc5be4729a1da8e493f54f99e95222c52166a4247a84b999abae4433446cdeb7",
+      "bytes": 317
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-taa-01/validation.json",
+      "sha256": "01d94cf45fcca9b8bc61d98ae27b4b6517fa15cc28542a0ac94de99f0e663d85",
+      "bytes": 195856
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-taa-01/result.json",
+      "sha256": "f5292d67b39cf303f8b5337cc9ed809dfefba263d51ba3337a80932f2673cde8",
+      "bytes": 121
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-taa-01/ground.json",
+      "sha256": "dc5be4729a1da8e493f54f99e95222c52166a4247a84b999abae4433446cdeb7",
+      "bytes": 317
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-hidden-01/validation.json",
+      "sha256": "4c4bedafaab9d28b8a94c16533385652ddd24a12058fac9bd57bbb8d781a1afd",
+      "bytes": 195586
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-hidden-01/result.json",
+      "sha256": "65f950474f38aa376f6adb63d2b056572e3d1f51f2aff29d8e5213b6e317d14d",
+      "bytes": 121
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-hidden-01/ground.json",
+      "sha256": "39737ca23d1e7282e8e2ca0b3822e3350a659fb37dcf8e98c0b9bb15e9d1fa5a",
+      "bytes": 318
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-environment-01/validation.json",
+      "sha256": "74845fc1e4a8be242e4650e160f30265c067639d8382e2ce8812f2133716aeee",
+      "bytes": 187322
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-environment-01/result.json",
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321",
+      "bytes": 84
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-build-04/validation.json",
+      "sha256": "efce446640282f9abc71c0c1881b5aaa35a546bdad9f3cc5ebe96e089ac1500c",
+      "bytes": 48574
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-readback-02/validation.json",
+      "sha256": "a43c73d0c7371c7656c7ac1b09d48f6dc89a8b183f9d55948cf45f126244e1e2",
+      "bytes": 150572
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-map-audit-01/verification.json",
+      "sha256": "584e74fde087621749cfd88805ca995711886bb36a3433bfabeba00d90af20e6",
+      "bytes": 2713
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-tsr-01/frames.csv",
+      "sha256": "58e4dd84446a80bc765efa2f0d1fd1601adb007343af5c9e2d4372849f8461d5",
+      "bytes": 118748
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-tsr-01/captures.csv",
+      "sha256": "9e149d564386ace4b5c9f4594ca3a0b05a449e7485511c26728455a62952531a",
+      "bytes": 1456
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-taa-01/frames.csv",
+      "sha256": "3e7c919faf295c14eb2c510567e87429422867b9fe485e271025e31254b37129",
+      "bytes": 128750
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-taa-01/captures.csv",
+      "sha256": "c44736cbdf0f13596c5406fcd75261772b2791748ea62b41292f68c89853a80b",
+      "bytes": 1456
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-hidden-01/frames.csv",
+      "sha256": "b611e4e9f069b5a938f829c431f7d605e93ce52a468d525d4436d153e1a8b630",
+      "bytes": 121232
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-hidden-01/captures.csv",
+      "sha256": "aa45aa3cbb1ab08535d667c57b95f75122d4539a981223ecbae0bba53ee824dc",
+      "bytes": 1455
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-tsr-01/captures/static_000.png",
+      "sha256": "47d5034e89f81a992267d7af80ae3ff1b013bdee289ccd7ee636ea2737aee532",
+      "bytes": 1002506
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-taa-01/captures/static_000.png",
+      "sha256": "c6f6e2720df477667af702d9028b2daf2276c5811939271fb9579aab4a48167d",
+      "bytes": 908207
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-hidden-01/captures/static_000.png",
+      "sha256": "acfe2bf85c9410adcd896611cc6411acc6db10ac9bdf4b9a225de59178739635",
+      "bytes": 989274
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-tsr-01/captures/static_001.png",
+      "sha256": "fc7760d1826eed5c26a9c55a781e8d69a0ec0fd57997015f77f3bf64ff791a26",
+      "bytes": 1001058
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-taa-01/captures/static_001.png",
+      "sha256": "5ed27dbf41135165f9ef1e7b2336cc1c53a6cb36011e138af5ca97efa03be69b",
+      "bytes": 912617
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-hidden-01/captures/static_001.png",
+      "sha256": "ca9974ac90811d565e23ee53d62daea6a3047f4ca5ea7564f99249544b78220c",
+      "bytes": 989341
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-tsr-01/captures/static_002.png",
+      "sha256": "a480dcad8599b5f3f201b297234321db3659ad20b856b8a033472ff6ee31c09e",
+      "bytes": 1000801
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-taa-01/captures/static_002.png",
+      "sha256": "0774b232fee8fbfb15a3410197761419f4f9480264670f12a3f95e9ba79eec4b",
+      "bytes": 905001
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-hidden-01/captures/static_002.png",
+      "sha256": "f7e96a2bac793637d8c88132b15d517e72c49370d4404c6f85ea500020b22dc8",
+      "bytes": 988718
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-tsr-01/captures/static_003.png",
+      "sha256": "b6b1dcb72a77b2099f9fcc533e3fac16567758df4fe83c31f87c1920aff75d28",
+      "bytes": 1000291
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-taa-01/captures/static_003.png",
+      "sha256": "8cb32fa4eadbfa79b85504bb7c8d0412c0579eda7264ad7d22a56249751e070d",
+      "bytes": 909925
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-hidden-01/captures/static_003.png",
+      "sha256": "127b4850bc66f50be7dccec26f758aff6e3a730514986291d32cd252dece387e",
+      "bytes": 988513
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-tsr-01/captures/static_004.png",
+      "sha256": "82aa81daf01d657522be325925f88d40f511fbcb4e33de42c98ed4015ae9f9e0",
+      "bytes": 1000594
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-taa-01/captures/static_004.png",
+      "sha256": "1a27050b75d8850e7ec12b0c5b05a2f4f525492961bda509cdb64e87d80987c0",
+      "bytes": 908269
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-hidden-01/captures/static_004.png",
+      "sha256": "467fff8b897ff8a2fa36ef497418c09b490afdf639ed6e41a3d5583e9fff8b4a",
+      "bytes": 988929
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-tsr-01/captures/static_005.png",
+      "sha256": "ba5058cd94234e9ce895c6c4b9368f0fcbe93f167c61e7751616de051028e6f7",
+      "bytes": 1000215
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-taa-01/captures/static_005.png",
+      "sha256": "4d280984fcb4e123f8e990969ecba70b5a6c77e4260a5d334e4a2c3a3aceb21b",
+      "bytes": 911803
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-hidden-01/captures/static_005.png",
+      "sha256": "05458cdf779b8c4c91722fe6c69d96e051a9e9070aa7ddc3e1c5ae566ae67996",
+      "bytes": 988614
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-tsr-01/captures/static_006.png",
+      "sha256": "5defcea496497ea92e5be4ca9fe375a94b17cb6d264bb0bb3daff93172ba969a",
+      "bytes": 1000367
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-taa-01/captures/static_006.png",
+      "sha256": "e79804ec7e3cb2a6d2b431bd56c0605f28ede207763e2d30e67fe12e6a84072b",
+      "bytes": 904367
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-hidden-01/captures/static_006.png",
+      "sha256": "5a53a00278241bcc8ba7cca8cab9914748ff313349370f9f25eb6d08d6479e7c",
+      "bytes": 988340
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-tsr-01/captures/static_007.png",
+      "sha256": "92a49140575ec3cd909de69e1d5122f7b54ef1658c46c81e7a9ec610e45a50d3",
+      "bytes": 1001482
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-taa-01/captures/static_007.png",
+      "sha256": "6801a758b15e094b72932631216724d1dd9cd165369993e525469e617e7767b8",
+      "bytes": 910317
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-hidden-01/captures/static_007.png",
+      "sha256": "96ec8fc5827f0e6e245ec0b3e78e31b65512039369459caa38efb56eae7ea8c9",
+      "bytes": 989214
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-tsr-01/captures/static_008.png",
+      "sha256": "8c64af42a535756668715b148b0a9216ee65b47c2d4cc23f0180281368ebfac8",
+      "bytes": 1001335
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-taa-01/captures/static_008.png",
+      "sha256": "02054299883fa3ad644030eff97c73ed38cbdbbae5969310279c1044b6600151",
+      "bytes": 907550
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-hidden-01/captures/static_008.png",
+      "sha256": "4a0268191bb08dd072019ba104473afa0505d64805088bb5afd5e5e31248b347",
+      "bytes": 989062
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-tsr-01/captures/static_009.png",
+      "sha256": "76c6a0565d2da87d3682fa0c7b94b9f4f8235adc6471187204cc27099cf2ae55",
+      "bytes": 999576
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-taa-01/captures/static_009.png",
+      "sha256": "d6e512e17a0e8c1cd319e779d314a73ec58d468f657e23585d0ed080c15dd958",
+      "bytes": 897910
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-hidden-01/captures/static_009.png",
+      "sha256": "ea27c81f0925a9248d07fdfb9e3520318ea51a2e90a0d47da440574d91651b65",
+      "bytes": 989613
+    }
+  ],
+  "native_source_files": 93,
+  "loaded_editor_binaries": 1,
+  "build_and_current_only_binaries": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/libUnrealEditor-BiellaLoadingScreen.so",
+      "sha256": "5fa77a8ce32724d39f99a5bb3a61a13598a965c87fd98bfb996730f586ad7438",
+      "bytes": 452720
+    }
+  ],
+  "matched_static_poses": 10,
+  "regions_xyxy": {
+    "left_margin": [
+      10,
+      282,
+      130,
+      316
+    ],
+    "far_margin": [
+      840,
+      169,
+      930,
+      179
+    ]
+  },
+  "unchanged_street_region_xyxy": [
+    700,
+    420,
+    900,
+    560
+  ],
+  "pixel_checks": [
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_000",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.31576538085938,
+      "street_mad_255": 0.5345476269721985
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_000",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.24259185791016,
+      "street_mad_255": 0.5345476269721985
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_000",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.4384765625,
+      "street_mad_255": 0.5470238327980042
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_000",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.18629455566406,
+      "street_mad_255": 0.5470238327980042
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_001",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.30506896972656,
+      "street_mad_255": 0.5338571667671204
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_001",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.26592254638672,
+      "street_mad_255": 0.5338571667671204
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_001",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.45155334472656,
+      "street_mad_255": 0.5438452363014221
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_001",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.21888732910156,
+      "street_mad_255": 0.5438452363014221
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_002",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.30220794677734,
+      "street_mad_255": 0.5364166498184204
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_002",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.25407409667969,
+      "street_mad_255": 0.5364166498184204
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_002",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.41070556640625,
+      "street_mad_255": 0.5460357069969177
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_002",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.20333099365234,
+      "street_mad_255": 0.5460357069969177
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_003",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.30449676513672,
+      "street_mad_255": 0.5352976322174072
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_003",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.27777862548828,
+      "street_mad_255": 0.5352976322174072
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_003",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.41029357910156,
+      "street_mad_255": 0.5465595126152039
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_003",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.23851776123047,
+      "street_mad_255": 0.5465595126152039
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_004",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.30538940429688,
+      "street_mad_255": 0.5334761738777161
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_004",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.2388916015625,
+      "street_mad_255": 0.5334761738777161
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_004",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.44574737548828,
+      "street_mad_255": 0.5445713996887207
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_004",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.18962860107422,
+      "street_mad_255": 0.5445713996887207
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_005",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.2981185913086,
+      "street_mad_255": 0.5333333611488342
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_005",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.25074005126953,
+      "street_mad_255": 0.5333333611488342
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_005",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.46021270751953,
+      "street_mad_255": 0.5430238246917725
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_005",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.21778106689453,
+      "street_mad_255": 0.5430238246917725
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_006",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.29419708251953,
+      "street_mad_255": 0.5341309309005737
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_006",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.24962615966797,
+      "street_mad_255": 0.5341309309005737
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_006",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.41862487792969,
+      "street_mad_255": 0.5471904873847961
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_006",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.2196273803711,
+      "street_mad_255": 0.5471904873847961
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_007",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.2968978881836,
+      "street_mad_255": 0.5369762182235718
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_007",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.27073669433594,
+      "street_mad_255": 0.5369762182235718
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_007",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.41854095458984,
+      "street_mad_255": 0.5448452234268188
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_007",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.25,
+      "street_mad_255": 0.5448452234268188
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_008",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.30253601074219,
+      "street_mad_255": 0.5327857136726379
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_008",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.24370574951172,
+      "street_mad_255": 0.5327857136726379
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_008",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.4481201171875,
+      "street_mad_255": 0.5456071496009827
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_008",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.20185089111328,
+      "street_mad_255": 0.5456071496009827
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_009",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.3021240234375,
+      "street_mad_255": 0.5322976112365723
+    },
+    {
+      "run": "ground-tsr-01",
+      "capture": "static_009",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.25740814208984,
+      "street_mad_255": 0.5322976112365723
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_009",
+      "region": "left_margin",
+      "black_fraction_hidden": 1.0,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 87.44599914550781,
+      "street_mad_255": 0.5458571314811707
+    },
+    {
+      "run": "ground-taa-01",
+      "capture": "static_009",
+      "region": "far_margin",
+      "black_fraction_hidden": 0.9822222222222222,
+      "black_fraction_visible": 0.0,
+      "mean_rgb_gain_255": 103.21703338623047,
+      "street_mad_255": 0.5458571314811707
+    }
+  ],
+  "map_audit": {
+    "task_id": "D03-01",
+    "result": "PASS",
+    "baseline": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-map-audit-01/GroundBaseline.umap",
+      "sha256": "17abe16d7cb4c111d77658231fc330d7c8d8603278fe6dbd9b148c63c0042d96",
+      "bytes": 13330
+    },
+    "authored": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-map-audit-01/GroundAuthored.umap",
+      "sha256": "5aa72a66492ec13ac2ba460bba391b0370003852ab2a413a27c051c95f2a4908",
+      "bytes": 13330
+    },
+    "current_map": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Maps/BiellaOpenWorldMap.umap",
+      "sha256": "5aa72a66492ec13ac2ba460bba391b0370003852ab2a413a27c051c95f2a4908",
+      "bytes": 13330
+    },
+    "changed_byte_offsets": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      4965,
+      6085,
+      7061,
+      7062,
+      7064,
+      7065,
+      7067,
+      7068,
+      10365,
+      10366,
+      10367,
+      10368,
+      10369,
+      10370,
+      10371,
+      10373,
+      10374,
+      10375,
+      10376
+    ],
+    "normalized_export_sha256": "80f53c0cc8774c2e48a3906131e62bf130b5bae9186c670cf13635ce55a89a99",
+    "preexisting_assets_unchanged_except_map": 219,
+    "new_assets": [
+      "Content/OpenWorld/Materials/MI_GroundSupport.uasset",
+      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/FB/1IJTPLTQE7QKVNBK0XIGE7.uasset"
+    ],
+    "existing_actor_invariants": 66,
+    "engine_sources": {
+      "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Engine/Private/WorldPartition/RuntimeHashSet/WorldPartitionRuntimeHashSet.cpp": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Engine/Private/WorldPartition/RuntimeHashSet/WorldPartitionRuntimeHashSet.cpp",
+        "sha256": "5ae8f6f3b7d5ab100521a6a97a9d43169ea4776f54937db05a1a40cc441c7874",
+        "bytes": 53412
+      },
+      "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Engine/Private/WorldPartition/RuntimeHashSet/RuntimePartition.cpp": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Engine/Private/WorldPartition/RuntimeHashSet/RuntimePartition.cpp",
+        "sha256": "672de7c23711dbaa50481fe3ce9f6b68db628d7ab5ec0e2d5bdd6facb1cacfd8",
+        "bytes": 3150
+      }
+    },
+    "normalization": "Only generated RuntimePartitionPersistent declarations/definitions, name references and debug colors; all retained export lines equal in order.",
+    "limitations": "DiffAssets exports map-owned objects after PostLoad. External actors are instead checked by exact asset bytes and editor readback. Temp external-folder scan warnings are expected for copied maps. This does not qualify a cooked package."
+  },
+  "negative_control": "Hidden ground: expected native visibility assertion consumed, process exits 0; external ground gate rejects solely visibility. Matched images reproduce black margins.",
+  "costs": {
+    "ground-tsr-01": {
+      "stationary": {
+        "frames": 260,
+        "wall_p50_ms": 13.856966499999999,
+        "wall_p95_ms": 16.06828915,
+        "gpu_p50_ms": 6.3815
+      },
+      "camera_pan": {
+        "frames": 238,
+        "wall_p50_ms": 14.807053,
+        "wall_p95_ms": 16.4884605,
+        "gpu_p50_ms": 6.496
+      }
+    },
+    "ground-taa-01": {
+      "stationary": {
+        "frames": 269,
+        "wall_p50_ms": 13.264901,
+        "wall_p95_ms": 14.9529296,
+        "gpu_p50_ms": 3.617
+      },
+      "camera_pan": {
+        "frames": 255,
+        "wall_p50_ms": 13.688939,
+        "wall_p95_ms": 15.0824973,
+        "gpu_p50_ms": 3.657
+      }
+    },
+    "ground-hidden-01": {
+      "stationary": {
+        "frames": 249,
+        "wall_p50_ms": 14.110247,
+        "wall_p95_ms": 15.4829974,
+        "gpu_p50_ms": 6.132
+      },
+      "camera_pan": {
+        "frames": 240,
+        "wall_p50_ms": 14.5487465,
+        "wall_p95_ms": 16.24211005,
+        "gpu_p50_ms": 6.234500000000001
+      }
+    }
+  },
+  "environment": {
+    "frames": 1445,
+    "hazard_drops": {
+      "health": 18.001999999999995,
+      "rival_health": 15.001000000000005,
+      "infected_health": 15.000999999999998
+    },
+    "hazard_seconds": 1.4834597859999998,
+    "median_frame_ms": 16.713415,
+    "captures": [
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-environment-01/captures/switch_safe.png",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-environment-01/captures/panel_damaged.png",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-environment-01/captures/panel_destroyed.png",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-environment-01/captures/hazard_active.png",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-environment-01/captures/stream_return.png"
+    ],
+    "scope": "Development Linux Vulkan causal evidence; no shipping or frame-rate qualification"
+  },
+  "limitations": [
+    "Two margin regions at one fixed camera; finite ground edge remains visible at the distant horizon.",
+    "Loading module exact bytes verified at build and now, and runtime loading confirmed in logs; older runtime harness did not hash that module before/after each run.",
+    "Existing DDC/editor Development Vulkan, 1280x720, native variable timing, no generated frames. Not a cold cook/package or performance qualification.",
+    "Gross stability and direct visual inspection do not establish fine temporal quality or final art acceptance."
+  ],
+  "canonical_visual_manifest": {
+    "path": "/root/biella/artifacts/games/D03-01/ground-visual-review-01/manifest.json",
+    "sha256": "5d03e8c9992c3e413f67f0c839295c3067832b078885bd706b9dc334cec6d37a",
+    "bytes": 4971
+  },
+  "verifier": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_ground.py",
+    "sha256": "477f1bfd588679460f109e1ae433a64a86c044b56939263bb6ef67db62aa4ca3",
+    "bytes": 9926
+  }
+}

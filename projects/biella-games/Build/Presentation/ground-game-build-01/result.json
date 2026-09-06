@@ -1,0 +1,68 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "revision": {
+    "head": "ed36b0e47879a58b04fc92b828577a24a89058d8",
+    "head_tree": "35be897bfbb9fb7dfdeabc0814dbc19451dc667a",
+    "project_status": [
+      " M Content/Maps/BiellaOpenWorldMap.umap",
+      " M Source/BiellaGames/Private/Tests/BiellaPresentationTest.cpp",
+      " M Source/BiellaLoadingScreen/BiellaLoadingScreen.Build.cs",
+      " M tests/run_d03_01_reconstruction.py",
+      "?? Build/Presentation/D03-01-ground-plan.md",
+      "?? Build/Presentation/ground-assist-01/",
+      "?? Build/Presentation/ground-assist-02/",
+      "?? Build/Presentation/ground-author-01/",
+      "?? Build/Presentation/ground-build-01/",
+      "?? Build/Presentation/ground-build-02/",
+      "?? Build/Presentation/ground-build-03/",
+      "?? Build/Presentation/ground-build-04/",
+      "?? Build/Presentation/ground-environment-01/",
+      "?? Build/Presentation/ground-game-build-01/",
+      "?? Build/Presentation/ground-hidden-01/",
+      "?? Build/Presentation/ground-map-audit-01/",
+      "?? Build/Presentation/ground-missing-01/",
+      "?? Build/Presentation/ground-missing-02/",
+      "?? Build/Presentation/ground-probe-01/",
+      "?? Build/Presentation/ground-readback-02/",
+      "?? Build/Presentation/ground-review-01/",
+      "?? Build/Presentation/ground-review-02/",
+      "?? Build/Presentation/ground-taa-01/",
+      "?? Build/Presentation/ground-tsr-01/",
+      "?? Build/Presentation/ground-verification-01.json",
+      "?? Content/OpenWorld/Materials/MI_GroundSupport.uasset",
+      "?? Content/Python/author_ground_support.py",
+      "?? Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/FB/",
+      "?? SourceAssets/Architecture/ground-support.json",
+      "?? tests/author_d03_01_ground.py",
+      "?? tests/build_d03_01_editor.py",
+      "?? tests/verify_d03_01_ground.py",
+      "?? tests/verify_d03_01_ground_map.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "marker_before": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "started": "2026-09-06T21:47:23.112704+00:00",
+  "returncode": 0,
+  "binary": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames",
+    "sha256": "8f675b0afec7b63939ea34b2ff9ebe962f729ad24f30e7d741e64eba158a5786",
+    "bytes": 298996288
+  },
+  "receipt": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames.target",
+    "sha256": "7da8030a25e23d3976e834f2554ef35a869d9133100f3a7da197b666c115d023",
+    "bytes": 106593
+  },
+  "marker_after": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "inputs_unchanged": true,
+  "elapsed_seconds": 107.97556907101534
+}

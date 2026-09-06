@@ -7,7 +7,7 @@ public class BiellaLoadingScreen : ModuleRules
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
         PublicDependencyModuleNames.AddRange(new[] { "Core", "SlateCore" });
         PrivateDependencyModuleNames.AddRange(new[] {
-            "Slate", "PreLoadScreen", "RHI"
+            "CoreUObject", "Slate", "PreLoadScreen", "RHI"
         });
     }
 }
