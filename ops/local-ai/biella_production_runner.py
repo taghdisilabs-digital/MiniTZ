@@ -286,6 +286,27 @@ def _assist_unresolved_paths(text: str, project_root: Path | None) -> list[str]:
     return sorted(set(missing))
 
 
+def _assist_invented_failure_claim(text: str, failures: list[Mapping[str, Any]]) -> str | None:
+    """Return the unsupported failure claim when a clean projection is made negative."""
+    if failures:
+        return None
+    for raw in str(text or "").splitlines():
+        line = raw.strip()
+        if not line:
+            continue
+        lower = line.lower()
+        if re.search(r"\bretry\s+(?:the\s+)?(?:failing|failed)\b", lower):
+            return line
+        match = re.search(r"likely\s+failure\s+cause(?:\s+if\s+any)?\s*:\s*(.+)$", line, re.IGNORECASE)
+        if not match:
+            match = re.search(r"(?:^|[()0-9. -])failure(?:\s+cause)?\s*:\s*(.+)$", line, re.IGNORECASE)
+        if match:
+            claim = match.group(1).strip()
+            if not re.match(r"^(?:none|n/?a|not applicable|no (?:unresolved )?failure|no failure)(?:\b|\s|[.;,-])", claim, re.IGNORECASE):
+                return line
+    return None
+
+
 def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_path: Path, journal: production_events.ProductionEventJournal | None = None, *, project_root: Path | None = None) -> Path | None:
     try:
         projection = json.loads(Path(projection_path).read_text(encoding="utf-8"))
@@ -306,14 +327,23 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
     if path.exists():
         try:
             cached = json.loads(path.read_text(encoding="utf-8"))
-            missing = _assist_unresolved_paths(str(cached.get("text") or ""), project_root)
+            cached_text = str(cached.get("text") or "")
+            missing = _assist_unresolved_paths(cached_text, project_root)
+            invented = _assist_invented_failure_claim(cached_text, list(meaningful.get("failures") or []))
         except (OSError, json.JSONDecodeError):
             missing = ["invalid cached assist"]
-        if not missing:
+            invented = None
+        if not missing and not invented:
             return path
-        rejected_path.write_text(json.dumps({"reason":"ungrounded_paths","paths":missing}, sort_keys=True) + "\n", encoding="utf-8")
+        if invented:
+            rejection = {"reason":"ungrounded_failure_claim","claim":invented}
+            recovery_text = "Rejected cached local assist with invented failure claim: " + invented
+        else:
+            rejection = {"reason":"ungrounded_paths","paths":missing}
+            recovery_text = "Rejected cached local assist with ungrounded paths: " + ", ".join(missing)
+        rejected_path.write_text(json.dumps(rejection, sort_keys=True) + "\n", encoding="utf-8")
         if journal is not None:
-            journal.emit("resource.local_assist_recovery", task_id=task_id, status="RECOVERED", text="Rejected cached local assist with ungrounded paths: " + ", ".join(missing), provider="ollama-qwen")
+            journal.emit("resource.local_assist_recovery", task_id=task_id, status="RECOVERED", text=recovery_text, provider="ollama-qwen")
         return None
     task_class = str((meaningful.get("task_memory") or {}).get("task_class") or "")
     if task_class == "simple" and not meaningful.get("failures"):
@@ -323,7 +353,8 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
         "Use the compact task state below to reduce general Codex reasoning. Return a concise technical assist: "
         "(1) next smallest action, (2) likely failure cause if any, (3) exact files/tests/tools to inspect or run, "
         "(4) reusable verified pattern if supported. Mention only file/asset paths literally supported by the input; never invent a path, API, symbol, test, or command target. "
-        "If there is no unresolved failure, do not manufacture a likely failure cause. Do not repeat the whole input and do not propose task advancement.\n\n"
+        "If the failures list is empty, section (2) MUST be exactly 'Likely failure cause if any: NONE' and section (1) must not imply retry/repair of a failure. "
+        "Do not manufacture failure state, stale-cache/race claims, or negative status from absent evidence. Do not repeat the whole input and do not propose task advancement.\n\n"
         + canonical[:12000]
     )
     argv = [
@@ -350,11 +381,18 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
         return None
     assist_text = str(payload.get("text") or "")
     missing_paths = _assist_unresolved_paths(assist_text, project_root)
-    if missing_paths:
+    invented_failure = _assist_invented_failure_claim(assist_text, list(meaningful.get("failures") or []))
+    if missing_paths or invented_failure:
         rejected_path.parent.mkdir(parents=True, exist_ok=True)
-        rejected_path.write_text(json.dumps({"reason":"ungrounded_paths","paths":missing_paths}, sort_keys=True) + "\n", encoding="utf-8")
+        if invented_failure:
+            rejection = {"reason":"ungrounded_failure_claim","claim":invented_failure}
+            recovery_text = "Rejected local assist with invented failure claim: " + invented_failure
+        else:
+            rejection = {"reason":"ungrounded_paths","paths":missing_paths}
+            recovery_text = "Rejected local assist with ungrounded paths: " + ", ".join(missing_paths)
+        rejected_path.write_text(json.dumps(rejection, sort_keys=True) + "\n", encoding="utf-8")
         if journal is not None:
-            journal.emit("resource.local_assist_recovery", task_id=task_id, status="RECOVERED", text="Rejected local assist with ungrounded paths: " + ", ".join(missing_paths), provider="ollama-qwen")
+            journal.emit("resource.local_assist_recovery", task_id=task_id, status="RECOVERED", text=recovery_text, provider="ollama-qwen")
         return None
     result = {
         "schema": "biella.local_resource_assist/v1",

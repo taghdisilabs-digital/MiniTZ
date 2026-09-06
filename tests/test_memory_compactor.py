@@ -142,3 +142,16 @@ def test_failure_after_recovery_checkpoint_becomes_active_again(tmp_path: Path):
     projection = json.loads(result.projection_path.read_text())
     assert len(projection["failures"]) == 1
     assert projection["failures"][0]["detail"] == "new blocker"
+
+
+def test_raw_tool_failure_alone_remains_lossless_but_never_becomes_active_prompt_blocker(tmp_path: Path):
+    repo, project, runtime = fixture(tmp_path)
+    raw = {"schema":"biella.failure_event/v1","seq":9,"time":"now","failure_type":"tool.completed",
+           "status":"FAILED","task_id":"T2","tool":"shell","exit_code":1,"detail":"rg no match"}
+    (runtime / "failures.jsonl").write_text(json.dumps(raw)+"\n")
+    result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
+    index = json.loads(result.index_path.read_text())
+    projection = json.loads(result.projection_path.read_text())
+    assert projection["failures"] == []
+    failure_texts = [index["content"][ref]["text"] for ref in index["categories"]["failure"]]
+    assert any('"failure_type":"tool.completed"' in text and 'rg no match' in text for text in failure_texts)

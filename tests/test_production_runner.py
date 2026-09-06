@@ -574,3 +574,30 @@ def test_local_resource_assist_accepts_existing_project_and_unreal_asset_paths(t
     monkeypatch.setattr(runner.subprocess,"run",lambda argv,**kwargs: subprocess.CompletedProcess(argv,0,stdout=json.dumps({"provider":"ollama-qwen","model":"qwen","text":text,"usage":{}}),stderr=""))
     path=runner._ensure_local_resource_assist(tmp_path,"D02-03",projection,project_root=project)
     assert path and json.loads(path.read_text())["text"]==text
+
+
+def test_local_assist_rejects_invented_failure_when_projection_has_no_failure(tmp_path: Path, monkeypatch):
+    project = tmp_path / "repo/projects/biella-games"
+    project.mkdir(parents=True)
+    projection = tmp_path / "memory/current-task.json"; projection.parent.mkdir(parents=True)
+    projection.write_text(json.dumps({
+        "task_id":"D02-04","task_memory":{"task_class":"hard_creation","summary":"clean boundary","next_action":"implement task"},
+        "failures":[],"capabilities":{},"verified_actions":[]
+    }))
+    calls=[]
+    bogus = "(1) Next smallest action: Retry the failing operation.\n(2) Likely failure cause if any: State inconsistency due to stale cache.\n(3) Exact files/tests/tools to inspect or run: none.\n(4) Reusable verified pattern: preserve state."
+    def fake_run(argv, **kwargs):
+        calls.append(argv)
+        return subprocess.CompletedProcess(argv,0,stdout=json.dumps({"provider":"ollama-qwen","model":"qwen","text":bogus,"usage":{}}),stderr="")
+    monkeypatch.setattr(runner.subprocess,"run",fake_run)
+    journal=runner.production_events.ProductionEventJournal(tmp_path/"events.jsonl",failure_path=tmp_path/"failures.jsonl")
+    assert runner._ensure_local_resource_assist(tmp_path,"D02-04",projection,journal,project_root=project) is None
+    assert len(calls)==1
+    assert runner._ensure_local_resource_assist(tmp_path,"D02-04",projection,journal,project_root=project) is None
+    assert len(calls)==1
+    rejected=list((tmp_path/"memory/local-assist").glob("D02-04-*.rejected"))
+    assert len(rejected)==1
+    payload=json.loads(rejected[0].read_text())
+    assert payload["reason"]=="ungrounded_failure_claim"
+    events=[json.loads(line) for line in (tmp_path/"events.jsonl").read_text().splitlines()]
+    assert any(e["type"]=="resource.local_assist_recovery" and "invented failure" in e.get("text","").lower() for e in events)

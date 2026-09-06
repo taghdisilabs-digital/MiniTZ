@@ -256,28 +256,25 @@ _RESOLVED_FAILURE_STATUSES = {"RECOVERED", "REPAIRED", "RESOLVED", "PASS", "COMP
 
 
 def _active_failure_projection(failures: list[Mapping[str, Any]]) -> list[Mapping[str, Any]]:
-    """Keep raw failure history losslessly in the full index, but project blockers, not shell noise.
+    """Project semantic blockers only; preserve raw tool exits in lossless history.
 
-    Generic tool.completed failures remain in failures.jsonl/compacted-memory.json.  The
-    bounded current-task prompt prefers explicit semantic failures.  If no semantic
-    failure exists, retain at most the two newest unresolved raw tool failures so an
-    otherwise-unclassified tool break is still visible.
+    ``tool.completed`` failures remain in failures.jsonl and the full compacted index,
+    but never compete for bounded active-prompt space. A meaningful build/runtime/tool
+    problem is carried by the task capsule and/or an explicit semantic failure record.
+    Recovery checkpoints clear prior semantic blockers without deleting raw history.
     """
     semantic: list[Mapping[str, Any]] = []
-    raw_tools: list[Mapping[str, Any]] = []
     for row in failures:
         status = str(row.get("status") or "").upper()
         if status in _RESOLVED_FAILURE_STATUSES:
             if bool(row.get("resolve_prior")):
                 semantic.clear()
-                raw_tools.clear()
             continue
         failure_type = str(row.get("failure_type") or row.get("type") or "")
         if failure_type == "tool.completed":
-            raw_tools.append(row)
             continue
         semantic.append(row)
-    return semantic[-20:] if semantic else raw_tools[-2:]
+    return semantic[-20:]
 
 
 def _projection(index: Mapping[str, Any], *, current_task_id: str | None,
