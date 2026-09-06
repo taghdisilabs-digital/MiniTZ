@@ -4,11 +4,11 @@
 schema: biella.active_task/v9
 
 task:
-  id: D02-03
+  id: D02-04
   project: Biella Games
   section: post_d01
   class: hard_creation
-  title: Vehicle runtime when explicitly approved
+  title: Deeper interaction, destruction, and environment state
   status: PENDING
   runner: READY
 
@@ -18,7 +18,7 @@ task:
     - projects/biella-games/docs/PRODUCTION.md
 
   continuity:
-    completed_predecessor: D02-02
+    completed_predecessor: D02-03
     production_source: projects/biella-games/docs/PRODUCTION.md
 
   preserve:
@@ -26,5 +26,5 @@ task:
     - Engine P4-06 as INCOMPLETE_DEFERRED
     - one-repository/one-controller/one-Project-production-source architecture
 
-  stop: Execute only D02-03; validate and persist it before advancing.
+  stop: Execute only D02-04; validate and persist it before advancing.
 ```

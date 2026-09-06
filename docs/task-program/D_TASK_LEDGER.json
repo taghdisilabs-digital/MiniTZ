@@ -1,5 +1,5 @@
 {
-  "current_task": "D02-03",
+  "current_task": "D02-04",
   "execution_authority": "current 03/04 + Project PRODUCTION.md",
   "registry_is_queue": false,
   "schema": "biella.d_task_ledger/v1",
@@ -1347,7 +1347,7 @@
         "GAME-22-VEHICLES"
       ],
       "program": "D02",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D02-03",
       "title": "Vehicle runtime when explicitly approved"

@@ -9,7 +9,7 @@ Engine: `/opt/unreal/UE_5.8.2`
 Execution rule: one current task; verify, execute, persist evidence, then advance
 Evidence rule: editable source plus task-derived build/runtime/package evidence
 Current section: `post_d01`
-Current task: `D02-03`
+Current task: `D02-04`
 Progress: `50/50` Demo tasks complete
 
 ## Section: demo01 | Demo 01 — first playable vertical slice | COMPLETE
@@ -73,7 +73,7 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 
 - [x] D02-01 | hard_creation | Open-world streaming and continuity | COMPLETE | Committed and published through 50836a1; GitHub readback verified.; Vulkan traversal: 779.53 m, 51 loads, 39 unloads; continuity and D01 regressions passed.; Editor build and non-editor module compilation passed. Full Game relink remains unqualified.; [Acceptance evidence](/root/biella/repos/biella-engine/projects/biella-games/Build/OpenWorld/D02-01-acceptance.md)
 - [x] D02-02 | hard_creation | Population and encounter scaling | COMPLETE | Local commit: 40b84585dc7b1d4cac867e052eb833b8e3fb489d; 160 files read back exactly.; Passed: 4/8/12-actor Vulkan runs, streaming/shared gameplay regressions, and 11 negative controls. Maximum frame hitches of 626–732 ms remain documented.; [Acceptance evidence](/root/biella/repos/biella-engine/projects/biella-games/Build/Population/D02-02-acceptance.md)
-- [ ] D02-03 | hard_creation | Vehicle runtime when explicitly approved | PENDING | registry_status=PENDING_UNPLANNED
+- [x] D02-03 | hard_creation | Vehicle runtime when explicitly approved | COMPLETE | Commit: b042a2fd3d07a7ef40d0ff86647736ac3969ac2c; clean worktree.; Vehicle runtime and four regression replays passed.; Eight tests passed; twelve corrupted evidence controls rejected.; 107 committed files verified; protected task metadata unchanged.; Acceptance: projects/biella-games/Build/Vehicles/D02-03-acceptance.md
 - [ ] D02-04 | hard_creation | Deeper interaction, destruction, and environment state | PENDING | registry_status=PENDING_UNPLANNED
 - [ ] D03-01 | hard_creation | Production rendering, animation, VFX, and audio quality | PENDING | registry_status=PENDING_UNPLANNED
 - [ ] D04-01 | hard_creation | Data-driven content system multiplication | PENDING | registry_status=PENDING_UNPLANNED
