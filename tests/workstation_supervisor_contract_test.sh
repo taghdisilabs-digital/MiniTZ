@@ -6,6 +6,8 @@ CLI="$ROOT_DIR/ops/workstation/biella"
 LIB="$ROOT_DIR/ops/workstation/biella-lib.sh"
 INSTALLER="$ROOT_DIR/ops/workstation/install-biella-workstation.sh"
 SERVICE="$ROOT_DIR/ops/workstation/biella-ollama.service"
+RESIDENCY="$ROOT_DIR/ops/workstation/biella-qwen-residency.sh"
+RESIDENCY_SERVICE="$ROOT_DIR/ops/workstation/biella-qwen-residency.service"
 POLICY="$ROOT_DIR/ops/workstation/AGENTS.md"
 PROVIDERS="$ROOT_DIR/ops/workstation/biella-provider-check.sh"
 CONFIGURER="$ROOT_DIR/ops/workstation/biella-provider-configure.sh"
@@ -29,7 +31,7 @@ forbid_literal() {
     exit 1
   }
 }
-for f in "$CLI" "$LIB" "$INSTALLER" "$SERVICE" "$POLICY" "$PROVIDERS" "$CONFIGURER"; do require_file "$f"; done
+for f in "$CLI" "$LIB" "$INSTALLER" "$SERVICE" "$RESIDENCY" "$RESIDENCY_SERVICE" "$POLICY" "$PROVIDERS" "$CONFIGURER"; do require_file "$f"; done
 
 for cmd in up down status doctor providers configure resource modal logs cleanup; do
   require_literal "$CLI" "$cmd"

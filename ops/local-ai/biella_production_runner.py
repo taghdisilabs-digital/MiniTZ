@@ -286,6 +286,32 @@ def _assist_unresolved_paths(text: str, project_root: Path | None) -> list[str]:
     return sorted(set(missing))
 
 
+def _assist_clean_task_out_of_scope_paths(text: str, meaningful: Mapping[str, Any], project_root: Path | None) -> list[str]:
+    """Reject path suggestions not already present in a clean task's bounded input."""
+    if meaningful.get("failures") or project_root is None:
+        return []
+    project_root = Path(project_root)
+    supported = json.dumps(meaningful, sort_keys=True, ensure_ascii=False)
+    unsupported: list[str] = []
+    for token in re.findall(r"`([^`\n]+)`", str(text or "")):
+        candidate = token.strip().strip('"\'')
+        if not candidate or "://" in candidate or any(ch in candidate for ch in "*?{}"):
+            continue
+        if " " in candidate or not ("/" in candidate or candidate.lower().endswith(_ASSIST_FILE_SUFFIXES)):
+            continue
+        candidate = candidate.split("::", 1)[0]
+        variants = {candidate}
+        path = Path(candidate)
+        if path.is_absolute():
+            try:
+                variants.add(str(path.relative_to(project_root)))
+            except ValueError:
+                pass
+        if not any(variant and variant in supported for variant in variants):
+            unsupported.append(candidate)
+    return sorted(set(unsupported))
+
+
 def _hydrate_assist_verified_actions(projection: Mapping[str, Any], runtime_root: Path) -> list[dict[str, str]]:
     actions = projection.get("verified_actions")
     if not isinstance(actions, list):
@@ -378,13 +404,15 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
             cached = json.loads(path.read_text(encoding="utf-8"))
             cached_text = str(cached.get("text") or "")
             missing = _assist_unresolved_paths(cached_text, project_root)
+            out_of_scope = _assist_clean_task_out_of_scope_paths(cached_text, meaningful, project_root)
             invented = _assist_invented_failure_claim(cached_text, list(meaningful.get("failures") or []))
             verified_claim = _assist_ungrounded_verified_action_claim(cached_text, list(meaningful.get("verified_actions") or []))
         except (OSError, json.JSONDecodeError):
             missing = ["invalid cached assist"]
+            out_of_scope = []
             invented = None
             verified_claim = None
-        if not missing and not invented and not verified_claim:
+        if not missing and not out_of_scope and not invented and not verified_claim:
             return path
         if verified_claim:
             rejection = {"reason":"ungrounded_verified_action_claim","claim":verified_claim}
@@ -392,6 +420,9 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
         elif invented:
             rejection = {"reason":"ungrounded_failure_claim","claim":invented}
             recovery_text = "Rejected cached local assist with invented failure claim: " + invented
+        elif out_of_scope:
+            rejection = {"reason":"out_of_scope_paths","paths":out_of_scope}
+            recovery_text = "Rejected cached local assist with paths outside current clean-task input: " + ", ".join(out_of_scope)
         else:
             rejection = {"reason":"ungrounded_paths","paths":missing}
             recovery_text = "Rejected cached local assist with ungrounded paths: " + ", ".join(missing)
@@ -436,9 +467,10 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
         return None
     assist_text = str(payload.get("text") or "")
     missing_paths = _assist_unresolved_paths(assist_text, project_root)
+    out_of_scope_paths = _assist_clean_task_out_of_scope_paths(assist_text, meaningful, project_root)
     invented_failure = _assist_invented_failure_claim(assist_text, list(meaningful.get("failures") or []))
     verified_claim = _assist_ungrounded_verified_action_claim(assist_text, list(meaningful.get("verified_actions") or []))
-    if missing_paths or invented_failure or verified_claim:
+    if missing_paths or out_of_scope_paths or invented_failure or verified_claim:
         rejected_path.parent.mkdir(parents=True, exist_ok=True)
         if verified_claim:
             rejection = {"reason":"ungrounded_verified_action_claim","claim":verified_claim}
@@ -446,6 +478,9 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
         elif invented_failure:
             rejection = {"reason":"ungrounded_failure_claim","claim":invented_failure}
             recovery_text = "Rejected local assist with invented failure claim: " + invented_failure
+        elif out_of_scope_paths:
+            rejection = {"reason":"out_of_scope_paths","paths":out_of_scope_paths}
+            recovery_text = "Rejected local assist with paths outside current clean-task input: " + ", ".join(out_of_scope_paths)
         else:
             rejection = {"reason":"ungrounded_paths","paths":missing_paths}
             recovery_text = "Rejected local assist with ungrounded paths: " + ", ".join(missing_paths)

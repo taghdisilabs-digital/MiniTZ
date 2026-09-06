@@ -569,7 +569,7 @@ def test_local_resource_assist_accepts_existing_project_and_unreal_asset_paths(t
     (project / "Content/Vehicle/Audio").mkdir(parents=True)
     (project / "Content/Vehicle/Audio/S_VehicleEngine.uasset").write_bytes(b"asset")
     projection = tmp_path / "memory/current-task.json"; projection.parent.mkdir(parents=True)
-    projection.write_text(json.dumps({"task_id":"D02-03","task_memory":{"task_class":"hard_creation","summary":"x"},"failures":[],"capabilities":{}}))
+    projection.write_text(json.dumps({"task_id":"D02-03","task_memory":{"task_class":"hard_creation","summary":"Inspect tests/real_test.py and /Game/Vehicle/Audio/S_VehicleEngine for the current task"},"failures":[],"capabilities":{}}))
     text="Inspect `tests/real_test.py` and `/Game/Vehicle/Audio/S_VehicleEngine`."
     monkeypatch.setattr(runner.subprocess,"run",lambda argv,**kwargs: subprocess.CompletedProcess(argv,0,stdout=json.dumps({"provider":"ollama-qwen","model":"qwen","text":text,"usage":{}}),stderr=""))
     path=runner._ensure_local_resource_assist(tmp_path,"D02-03",projection,project_root=project)
@@ -669,3 +669,40 @@ def test_no_failure_local_assist_omits_cross_task_verified_actions(tmp_path: Pat
     assert len(prompts)==1
     assert 'Unrelated predecessor acceptance' not in prompts[0]
     assert '"verified_actions":[]' in prompts[0]
+
+
+def test_clean_local_assist_rejects_existing_but_unmentioned_predecessor_path(tmp_path: Path, monkeypatch):
+    project = tmp_path / "repo/projects/biella-games"
+    old = project / "Build/Demo01/D01-040-acceptance.md"
+    old.parent.mkdir(parents=True)
+    old.write_text("old predecessor")
+    projection = tmp_path / "memory/current-task.json"; projection.parent.mkdir(parents=True)
+    projection.write_text(json.dumps({
+        "task_id":"D03-01",
+        "task_memory":{"task_class":"hard_creation","summary":"Stage 3 current task","next_action":"inspect current rendering source"},
+        "failures":[],"capabilities":{},"verified_actions":[]
+    }))
+    text=f"(1) Inspect `{old}`.\n(2) Likely failure cause if any: NONE\n(3) Exact files/tests/tools to inspect or run: `{old}`\n(4) Reusable verified pattern if supported: NONE"
+    monkeypatch.setattr(runner.subprocess,"run",lambda argv,**kwargs: subprocess.CompletedProcess(argv,0,stdout=json.dumps({"provider":"ollama-qwen","model":"qwen","text":text,"usage":{}}),stderr=""))
+    journal=runner.production_events.ProductionEventJournal(tmp_path/"events.jsonl",failure_path=tmp_path/"failures.jsonl")
+    assert runner._ensure_local_resource_assist(tmp_path,"D03-01",projection,journal,project_root=project) is None
+    rejected=list((tmp_path/"memory/local-assist").glob("D03-01-*.rejected"))
+    assert len(rejected)==1
+    assert json.loads(rejected[0].read_text())["reason"]=="out_of_scope_paths"
+
+
+def test_clean_local_assist_accepts_path_present_in_current_task_memory(tmp_path: Path, monkeypatch):
+    project = tmp_path / "repo/projects/biella-games"
+    current = project / "Config/DefaultEngine.ini"
+    current.parent.mkdir(parents=True)
+    current.write_text("[Renderer]")
+    projection = tmp_path / "memory/current-task.json"; projection.parent.mkdir(parents=True)
+    projection.write_text(json.dumps({
+        "task_id":"D03-01",
+        "task_memory":{"task_class":"hard_creation","summary":"Inspect Config/DefaultEngine.ini for Stage 3 rendering state","next_action":"bound first change"},
+        "failures":[],"capabilities":{},"verified_actions":[]
+    }))
+    text="(1) Inspect `Config/DefaultEngine.ini`.\n(2) Likely failure cause if any: NONE\n(3) Exact files/tests/tools to inspect or run: `Config/DefaultEngine.ini`\n(4) Reusable verified pattern if supported: NONE"
+    monkeypatch.setattr(runner.subprocess,"run",lambda argv,**kwargs: subprocess.CompletedProcess(argv,0,stdout=json.dumps({"provider":"ollama-qwen","model":"qwen","text":text,"usage":{}}),stderr=""))
+    path=runner._ensure_local_resource_assist(tmp_path,"D03-01",projection,project_root=project)
+    assert path and json.loads(path.read_text())["text"]==text

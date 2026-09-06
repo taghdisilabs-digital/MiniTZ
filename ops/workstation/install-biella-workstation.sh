@@ -32,16 +32,19 @@ install -o root -g root -m 755 \
   "$SOURCE_DIR/biella-provider-configure.sh" \
   "$SOURCE_DIR/biella-provider-check.sh" \
   "$SOURCE_DIR/biella-resource.py" \
+  "$SOURCE_DIR/biella-qwen-residency.sh" \
   "$SOURCE_DIR/provider-registry.json" \
   "$INSTALL_DIR/"
 
 install -d -o root -g root -m 700 /root/.codex
 install -o root -g root -m 644 "$SOURCE_DIR/AGENTS.md" /root/.codex/AGENTS.md
 install -o root -g root -m 644 "$SOURCE_DIR/biella-ollama.service" /etc/systemd/system/biella-ollama.service
+install -o root -g root -m 644 "$SOURCE_DIR/biella-qwen-residency.service" /etc/systemd/system/biella-qwen-residency.service
 
 if command -v systemctl >/dev/null 2>&1; then
   systemctl daemon-reload
   systemctl enable biella-ollama.service >/dev/null
+  systemctl enable biella-qwen-residency.service >/dev/null
 fi
 
 ensure_link "$CLI_LINK" "$INSTALL_DIR/biella"
