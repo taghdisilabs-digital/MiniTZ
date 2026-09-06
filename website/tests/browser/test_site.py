@@ -12,6 +12,20 @@ DIST = ROOT / 'dist'
 assert (DIST / 'index.html').is_file()
 assert json.loads((DIST / 'deployment.json').read_text())['schema'] == 'biella.website.deployment/v1'
 snapshot = json.loads((DIST / 'data' / 'investor-snapshot.json').read_text())
+live = {
+    'schema': 'biella.public_live_snapshot/v1',
+    'mode': 'READ_ONLY_OBSERVER',
+    'connection': {'state': 'LIVE'},
+    'production': {
+        'task_id': snapshot['active_task']['id'],
+        'task_title': snapshot['active_task']['title'],
+        'state': 'WAITING',
+        'progress': {
+            'completed': snapshot['program']['completed_tasks'],
+            'total': snapshot['program']['total_tasks'],
+        },
+    },
+}
 
 def free_port():
     with closing(socket.socket()) as s:
@@ -30,13 +44,15 @@ try:
         browser = p.chromium.launch(headless=True)
         for viewport in ({'width': 1440, 'height': 900}, {'width': 390, 'height': 844}):
             page = browser.new_page(viewport=viewport)
+            page.route('**/live-api/snapshot', lambda route: route.fulfill(status=200, content_type='application/json', body=json.dumps(live)))
             response = page.goto(f'http://127.0.0.1:{port}/', wait_until='networkidle')
             assert response and response.ok
             assert page.locator('h1').inner_text() == 'One founder. One execution system. Real products.'
             assert page.locator('[data-live="first-playable"]').inner_text() == f"First playable {snapshot['first_playable']['completed_tasks']}/{snapshot['first_playable']['total_tasks']}"
             assert page.locator('[data-live="program-complete"]').inner_text() == f"Program {snapshot['program']['completed_tasks']}/{snapshot['program']['total_tasks']}"
-            assert page.locator('[data-live="active-task"]').inner_text() == f"Executing {snapshot['active_task']['id']}"
+            assert page.locator('[data-live="active-task"]').inner_text() == f"{snapshot['active_task']['id']} · WAITING"
             assert snapshot['active_task']['id'] in page.locator('[data-live="program-line"]').inner_text()
+            assert page.locator('[data-home-live-state]').inner_text() == 'READ_ONLY_OBSERVER · LIVE · WAITING'
             assert page.evaluate('document.documentElement.scrollWidth <= document.documentElement.clientWidth')
             page.close()
         browser.close()
