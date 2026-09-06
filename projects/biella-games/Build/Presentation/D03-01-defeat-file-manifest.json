@@ -1,0 +1,821 @@
+{
+  "schema": "biella.file_manifest/v1",
+  "task_id": "D03-01",
+  "increment": "cosmetic defeat pose handoff and static-world ragdoll contact",
+  "time": "2026-09-06T11:53:34.118711+00:00",
+  "task_status": "CONTINUE",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "excludes_self": true,
+  "files": [
+    {
+      "path": "Build/Presentation/D03-01-defeat-final-readback-01.json",
+      "kind": "file",
+      "bytes": 15101,
+      "sha256": "78f399a204f1c155685913cb59475124ca35554694b04d772479bcdeebeeffff"
+    },
+    {
+      "path": "Build/Presentation/D03-01-defeat-increment.json",
+      "kind": "file",
+      "bytes": 2239,
+      "sha256": "e96096cc5f1dca5c287ae84a0079e750f62141d2dbc989430ca30fcc1639bdef"
+    },
+    {
+      "path": "Build/Presentation/D03-01-defeat-preservation.json",
+      "kind": "file",
+      "bytes": 8662,
+      "sha256": "95cb1b96b573bd03cd974952f7a6dbd092c1c28f79f00c52fce68b0e846c787c"
+    },
+    {
+      "path": "Build/Presentation/D03-01-defeat-progress.md",
+      "kind": "file",
+      "bytes": 5786,
+      "sha256": "ba126bf8dfe3034ca53e043a00ecf03485cc2c74a682fae7558e6e51fed61596"
+    },
+    {
+      "path": "Build/Presentation/defeat-action-regression-01/captures/baseline.png",
+      "kind": "file",
+      "bytes": 960641,
+      "sha256": "b50d49e3d60911378e8595f8dad94ef1a184d9f1b3e8f1eb809d2c8f3b96b053"
+    },
+    {
+      "path": "Build/Presentation/defeat-action-regression-01/captures/fire.png",
+      "kind": "file",
+      "bytes": 961668,
+      "sha256": "e056749dfc3aa9c88b79edc36f1d24161b69366bce9f8d088be9b09a9ec609fd"
+    },
+    {
+      "path": "Build/Presentation/defeat-action-regression-01/captures/hit.png",
+      "kind": "file",
+      "bytes": 963071,
+      "sha256": "13e34606b362e85a8bce52d207bcd4eda335d240acf36efab2b023796aa8a7ee"
+    },
+    {
+      "path": "Build/Presentation/defeat-action-regression-01/captures/jump.png",
+      "kind": "file",
+      "bytes": 989012,
+      "sha256": "a5268acd416381fccac19fccff0cc55c7eea4cc5a84efa83a02064cef67a3c97"
+    },
+    {
+      "path": "Build/Presentation/defeat-action-regression-01/captures/overlap.png",
+      "kind": "file",
+      "bytes": 962491,
+      "sha256": "4bf167f6560c2231ffd86a61d39cac0269295b3b8ac705a46d0c50a77e031b44"
+    },
+    {
+      "path": "Build/Presentation/defeat-action-regression-01/captures/rival_shot.png",
+      "kind": "file",
+      "bytes": 962617,
+      "sha256": "bd9b160f7d17cf1adf9aa86ad625bf0baa135b6e7b7edf8a04d342101bfbeb68"
+    },
+    {
+      "path": "Build/Presentation/defeat-action-regression-01/checks.csv",
+      "kind": "file",
+      "bytes": 218,
+      "sha256": "1fda660fc01f0a6ca3d48b4f5887ecea4652baa42d2abbc9c526533882700504"
+    },
+    {
+      "path": "Build/Presentation/defeat-action-regression-01/poses.csv",
+      "kind": "file",
+      "bytes": 91428,
+      "sha256": "6abd4f7b3285a3c01544b86a75441f0dc7ccbc882d2b48dbc77b9f8f182084f5"
+    },
+    {
+      "path": "Build/Presentation/defeat-action-regression-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8912,
+      "sha256": "53a4d023231c4cec9ccf40903d70dbd5c6c29219e3ce384b34ed4582d7bd9565"
+    },
+    {
+      "path": "Build/Presentation/defeat-action-regression-01/result.json",
+      "kind": "file",
+      "bytes": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd"
+    },
+    {
+      "path": "Build/Presentation/defeat-action-regression-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 307149,
+      "sha256": "6b7424bbad7703b75b11fd7058219127dfacf4166e918978585b7185bf7ea080"
+    },
+    {
+      "path": "Build/Presentation/defeat-action-regression-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 307212,
+      "sha256": "8ca268c874a8caf79eca11896a822c0c577a046c2e1d99b6f14968010e337807"
+    },
+    {
+      "path": "Build/Presentation/defeat-action-regression-01/validation.json",
+      "kind": "file",
+      "bytes": 153199,
+      "sha256": "aa723f6eb8f717479ab264a7cc6eb39a07c3282ec620657d634576983fb050d6"
+    },
+    {
+      "path": "Build/Presentation/defeat-animation-regression-01/captures/backward.png",
+      "kind": "file",
+      "bytes": 998020,
+      "sha256": "c7acaa248509ff2219cd346db3f731f45fc99d2241e9e4d18d32292fd61c990d"
+    },
+    {
+      "path": "Build/Presentation/defeat-animation-regression-01/captures/dismount.png",
+      "kind": "file",
+      "bytes": 990970,
+      "sha256": "da4bd91b123566bfc90ca96fd0348d9f6877995348b94ffdde1f0e4f685f7662"
+    },
+    {
+      "path": "Build/Presentation/defeat-animation-regression-01/captures/forward.png",
+      "kind": "file",
+      "bytes": 984464,
+      "sha256": "cd7a57ba93202386adbbd4da0283ecf651e6f8085c1cd9f4aaf9c31ebd26b935"
+    },
+    {
+      "path": "Build/Presentation/defeat-animation-regression-01/captures/idle.png",
+      "kind": "file",
+      "bytes": 953303,
+      "sha256": "ca62a9df4001fe43bf17625e5117ed08f99ddbadfc13a13a310b8546e94f1b4d"
+    },
+    {
+      "path": "Build/Presentation/defeat-animation-regression-01/captures/jump.png",
+      "kind": "file",
+      "bytes": 1009464,
+      "sha256": "f1702d2a702e5fad83ba183e0114c2b74aa87789dd3e4dcad8e168cd344d378e"
+    },
+    {
+      "path": "Build/Presentation/defeat-animation-regression-01/captures/land.png",
+      "kind": "file",
+      "bytes": 944699,
+      "sha256": "76592d38875940a928eade376d88716f03e7f09fb43e1b12d79f3efd289a0a6c"
+    },
+    {
+      "path": "Build/Presentation/defeat-animation-regression-01/captures/npc_gaits.png",
+      "kind": "file",
+      "bytes": 993527,
+      "sha256": "d6da5942416cabd18436819ad99d83f8b3173778b416ce7b930219eac4c8c6dd"
+    },
+    {
+      "path": "Build/Presentation/defeat-animation-regression-01/captures/right.png",
+      "kind": "file",
+      "bytes": 998422,
+      "sha256": "d5ab53c4b9c2ec693f1fd2434a20c82ad3d9d0d171c2d85c60d223c9f06eadaa"
+    },
+    {
+      "path": "Build/Presentation/defeat-animation-regression-01/captures/seat.png",
+      "kind": "file",
+      "bytes": 985219,
+      "sha256": "610097fc69f73588b949b7fc402468dd10f380902da0498d58acf7f1d9790f57"
+    },
+    {
+      "path": "Build/Presentation/defeat-animation-regression-01/poses.csv",
+      "kind": "file",
+      "bytes": 78122,
+      "sha256": "8ee3222c23d8fd9e4f409a95211e5e3a51d855fb2e929141326de00191a0ea49"
+    },
+    {
+      "path": "Build/Presentation/defeat-animation-regression-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8913,
+      "sha256": "61b8c1c4d17b78f48696096f27a40c41c011b23b8012e2105b78681a4bdcafb1"
+    },
+    {
+      "path": "Build/Presentation/defeat-animation-regression-01/result.json",
+      "kind": "file",
+      "bytes": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd"
+    },
+    {
+      "path": "Build/Presentation/defeat-animation-regression-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 358974,
+      "sha256": "d686ecece53c4f94a5e35e9f4ed062dfe325c17f1eccd54e5a2b018106be9746"
+    },
+    {
+      "path": "Build/Presentation/defeat-animation-regression-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 358702,
+      "sha256": "86305e6d95a459123cfcf756e65e76a66a9b21ee831e26d5f57bf980d64ce6ad"
+    },
+    {
+      "path": "Build/Presentation/defeat-animation-regression-01/torso-fit.txt",
+      "kind": "file",
+      "bytes": 390,
+      "sha256": "4b9369e1d508cfe3c995fc8b85e54b58f9de8a8d978b1787f765d8b03b0c7558"
+    },
+    {
+      "path": "Build/Presentation/defeat-animation-regression-01/validation.json",
+      "kind": "file",
+      "bytes": 151761,
+      "sha256": "e31c6bfd10bd767d7ab504ce48523649253ce45f88b7b1470bc9bd335fc9138d"
+    },
+    {
+      "path": "Build/Presentation/defeat-assets-01/command.json",
+      "kind": "file",
+      "bytes": 602,
+      "sha256": "f436121c68708d06eee75105a347417ccacefc1308898b23efd49dbdf4ba2f03"
+    },
+    {
+      "path": "Build/Presentation/defeat-assets-01/readback.log",
+      "kind": "file",
+      "bytes": 216369,
+      "sha256": "8eb8fb81268070ea2e2b3567e155ad75081c2035b92e869d8d2bcebcf9fb5245"
+    },
+    {
+      "path": "Build/Presentation/defeat-assets-01/result.json",
+      "kind": "file",
+      "bytes": 20,
+      "sha256": "64da3fbb3555e0d78965e343077ff5412c0cd772c0ae59aaed17a016715b41ee"
+    },
+    {
+      "path": "Build/Presentation/defeat-assets-02/command.json",
+      "kind": "file",
+      "bytes": 602,
+      "sha256": "7d5ec48da928e651b591cf719ecc51b146f94ac85c86b44efbef1838cd0a70d7"
+    },
+    {
+      "path": "Build/Presentation/defeat-assets-02/readback.json",
+      "kind": "file",
+      "bytes": 7568,
+      "sha256": "a334c64500d5feeb56cc9d3535f0cdf94133493c64008dbbd3c7dda7582212a7"
+    },
+    {
+      "path": "Build/Presentation/defeat-assets-02/readback.log",
+      "kind": "file",
+      "bytes": 215507,
+      "sha256": "1e3ce641b00a5131c9573992c5102f795417bf1bfbfdf5f6f5cc78882dee0f13"
+    },
+    {
+      "path": "Build/Presentation/defeat-assets-02/result.json",
+      "kind": "file",
+      "bytes": 18,
+      "sha256": "df4d721d233a2334088d2d2e0110346ae9e509ff46bf0b379fbcfa85c715af4d"
+    },
+    {
+      "path": "Build/Presentation/defeat-build-01/build.log",
+      "kind": "file",
+      "bytes": 10680,
+      "sha256": "4d0cfac6dcc748bd26eacc1b5b10d487e8cfaf2aa9bdaea5e90b9b0c9e14245d"
+    },
+    {
+      "path": "Build/Presentation/defeat-build-01/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/defeat-build-01/result.json",
+      "kind": "file",
+      "bytes": 86,
+      "sha256": "3e5651d553fcb8d5be28ec64f806c3477ca699c87837e7abd62bfce71c08222b"
+    },
+    {
+      "path": "Build/Presentation/defeat-build-02/build.log",
+      "kind": "file",
+      "bytes": 5364,
+      "sha256": "ae609a11323d56b83096fc96a2d033fe43e9088185aa9e4b6b824d07eadec019"
+    },
+    {
+      "path": "Build/Presentation/defeat-build-02/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/defeat-build-02/result.json",
+      "kind": "file",
+      "bytes": 86,
+      "sha256": "6b35d4e3517b5701154319ce1084f5853ee27d728e90f209c45211fd66bd14a4"
+    },
+    {
+      "path": "Build/Presentation/defeat-build-readback-01/build.log",
+      "kind": "file",
+      "bytes": 884,
+      "sha256": "4254d25a4f057e0229d981cc190e4c8283e0076d76cc4cfebc28ed860efda384"
+    },
+    {
+      "path": "Build/Presentation/defeat-build-readback-01/validation.json",
+      "kind": "file",
+      "bytes": 147344,
+      "sha256": "dd2304b60fb902912eb06a9e08f5f84a80907065258d3ded5a0debebdfecd827"
+    },
+    {
+      "path": "Build/Presentation/defeat-candidates-01/candidate-provenance.json",
+      "kind": "file",
+      "bytes": 1991,
+      "sha256": "a1c833cc76ff6ae9160ce45d48833a5532021e0707a4aa7a90efe38028c91702"
+    },
+    {
+      "path": "Build/Presentation/defeat-candidates-01/command.json",
+      "kind": "file",
+      "bytes": 605,
+      "sha256": "f1a5f6b3521c0683bb4aa83e997510e4ba63ab9b480c51b5e531ab3a241da7fd"
+    },
+    {
+      "path": "Build/Presentation/defeat-candidates-01/readback.json",
+      "kind": "file",
+      "bytes": 14574,
+      "sha256": "7d265e77e84236a598ea68920bd239322be1f6933e50b04e7218113248fcc546"
+    },
+    {
+      "path": "Build/Presentation/defeat-candidates-01/readback.log",
+      "kind": "file",
+      "bytes": 215977,
+      "sha256": "19a99f0e0b9b47e7ada53ad257b1499a6d5181f064c2ee308a7787d72a5f51fe"
+    },
+    {
+      "path": "Build/Presentation/defeat-candidates-01/result.json",
+      "kind": "file",
+      "bytes": 63,
+      "sha256": "e1c14fae2e3ef19016aad89715345122ea7e7afb1c98830fe8fdf758bb7fd7c2"
+    },
+    {
+      "path": "Build/Presentation/defeat-design-01/controller-review.json",
+      "kind": "file",
+      "bytes": 727,
+      "sha256": "1ab245e63c57bc99a6a9f4dd919b1d6538419913b29d12be1d1c3db59cfc1649"
+    },
+    {
+      "path": "Build/Presentation/defeat-design-01/request.json",
+      "kind": "file",
+      "bytes": 880,
+      "sha256": "565b94645813d901acdd12f814d48a82445672f8b713cdb13d6d341ed49fc66c"
+    },
+    {
+      "path": "Build/Presentation/defeat-design-01/response.txt",
+      "kind": "file",
+      "bytes": 2638,
+      "sha256": "27b208b31f2ccfb7722e182bd4422ce4027840866912c31624223c97ad7882bf"
+    },
+    {
+      "path": "Build/Presentation/defeat-design-01/result.json",
+      "kind": "file",
+      "bytes": 18,
+      "sha256": "df4d721d233a2334088d2d2e0110346ae9e509ff46bf0b379fbcfa85c715af4d"
+    },
+    {
+      "path": "Build/Presentation/defeat-design-01/route.json",
+      "kind": "file",
+      "bytes": 62,
+      "sha256": "37d6239c117e9d57bcd11d21c2b5ba207b4729099590b832eaaf57f4e3bb479a"
+    },
+    {
+      "path": "Build/Presentation/defeat-design-01/stderr.txt",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Build/Presentation/defeat-disabled-01/captures/falling.png",
+      "kind": "file",
+      "bytes": 952298,
+      "sha256": "dd87260dd30fd36240900c7e19046780502e29132c3a09eff03a37e758a41893"
+    },
+    {
+      "path": "Build/Presentation/defeat-disabled-01/captures/live.png",
+      "kind": "file",
+      "bytes": 962894,
+      "sha256": "07b4e825f93a6ce40fe6a68b8cee3ea66735b0f8d626c66fe7018e6d90b6518e"
+    },
+    {
+      "path": "Build/Presentation/defeat-disabled-01/captures/settled.png",
+      "kind": "file",
+      "bytes": 951679,
+      "sha256": "c136314cfff283a7b0be35f260f5643691706d53d6a79d26d77541ed765bf654"
+    },
+    {
+      "path": "Build/Presentation/defeat-disabled-01/poses.csv",
+      "kind": "file",
+      "bytes": 13617,
+      "sha256": "5d45b22776761c6ba8cada8896fcc5502dee1c12258b58d27662588b8d14b95d"
+    },
+    {
+      "path": "Build/Presentation/defeat-disabled-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8701,
+      "sha256": "24997f8cc4c994d51b0d261a51ad21a917f72ac27119d5dec977ffb1a4afd3cc"
+    },
+    {
+      "path": "Build/Presentation/defeat-disabled-01/result.json",
+      "kind": "file",
+      "bytes": 272,
+      "sha256": "703cf703e9ca4cd1a717507aac349b9a322cc3e4d7bbd618b1e5799a83cc237e"
+    },
+    {
+      "path": "Build/Presentation/defeat-disabled-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 302283,
+      "sha256": "7abea23f1c61b094a8d18cec1d2b8f49439914c70a5c583080500e35d4c9c0d0"
+    },
+    {
+      "path": "Build/Presentation/defeat-disabled-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 302378,
+      "sha256": "3c952d36e76c7815d82bef5267f85697affbc46c6eb24489b5708e4582193571"
+    },
+    {
+      "path": "Build/Presentation/defeat-disabled-01/validation.json",
+      "kind": "file",
+      "bytes": 152162,
+      "sha256": "c2330844f9f05bbcf898ee41ca8915109dfa4208b7f6ddfcef2b467bdd1f5ce6"
+    },
+    {
+      "path": "Build/Presentation/defeat-environment-regression-01/captures/hazard_active.png",
+      "kind": "file",
+      "bytes": 1041415,
+      "sha256": "822125da0f54f933b603766469a7870ffafc3453307f911d558648a7027ad042"
+    },
+    {
+      "path": "Build/Presentation/defeat-environment-regression-01/captures/panel_damaged.png",
+      "kind": "file",
+      "bytes": 979484,
+      "sha256": "09b38a73455acb3f3a950e78b47c5ed12d77f6e64de0bd989f89aca5d347761c"
+    },
+    {
+      "path": "Build/Presentation/defeat-environment-regression-01/captures/panel_destroyed.png",
+      "kind": "file",
+      "bytes": 981154,
+      "sha256": "11f3b2798839d47909a27450c50c7025b5c0c11f7d2577ca93a05890c1c2d672"
+    },
+    {
+      "path": "Build/Presentation/defeat-environment-regression-01/captures/stream_return.png",
+      "kind": "file",
+      "bytes": 991481,
+      "sha256": "5799cf77dc4b378c44785c7b3a3279d975d300a53d923d9b65acd8e76ffd770d"
+    },
+    {
+      "path": "Build/Presentation/defeat-environment-regression-01/captures/switch_safe.png",
+      "kind": "file",
+      "bytes": 990370,
+      "sha256": "6e7b2cc5a9208c93d3c4de7531450e21ffe8c8c26a58f152d4ee12e8d39f6055"
+    },
+    {
+      "path": "Build/Presentation/defeat-environment-regression-01/events.log",
+      "kind": "file",
+      "bytes": 1703,
+      "sha256": "9b0fbd5f7e8868f16e6d896edd2e7794ac0bb280b30480a70fad2019efdd8734"
+    },
+    {
+      "path": "Build/Presentation/defeat-environment-regression-01/frames.csv",
+      "kind": "file",
+      "bytes": 165816,
+      "sha256": "e56938a9ff8e1227b0d54b9f810d6dbada738232f14444206783a67eb8d9d31b"
+    },
+    {
+      "path": "Build/Presentation/defeat-environment-regression-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 10888,
+      "sha256": "9e06dbb9190c279f5668a1f27606cad8ebe5ac9a42e702b3c40bf275ed606d2d"
+    },
+    {
+      "path": "Build/Presentation/defeat-environment-regression-01/result.json",
+      "kind": "file",
+      "bytes": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "path": "Build/Presentation/defeat-environment-regression-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 434874,
+      "sha256": "fe88e338bac72bbd2566695ee63c722bd6d0c17b08634860674f4fde724d1243"
+    },
+    {
+      "path": "Build/Presentation/defeat-environment-regression-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 434093,
+      "sha256": "c6b68b4680d6c42256e4094a177a7b77084346644ce60df1f4daa34ef1955a59"
+    },
+    {
+      "path": "Build/Presentation/defeat-environment-regression-01/validation.json",
+      "kind": "file",
+      "bytes": 153261,
+      "sha256": "06b43998d4fdde14392a8780e18b5f8fc69654668df9588a3899c9c06f30b742"
+    },
+    {
+      "path": "Build/Presentation/defeat-feedback-regression-01/captures/combat.png",
+      "kind": "file",
+      "bytes": 751886,
+      "sha256": "06fc625dbd24039d6ee4b34deed9198f6429033fdbaad6e56325d77fac5f5abf"
+    },
+    {
+      "path": "Build/Presentation/defeat-feedback-regression-01/captures/combat.wav",
+      "kind": "file",
+      "bytes": 135212,
+      "sha256": "33913f447ea7f48d141b1b27fb0ff4574094bac484166f14a821947b2e0e3847"
+    },
+    {
+      "path": "Build/Presentation/defeat-feedback-regression-01/captures/dense_combat.png",
+      "kind": "file",
+      "bytes": 754406,
+      "sha256": "1d1e13c846a900ec3f8f2e44190ab16a5f741a2da11e3500228d4250c9ea69d4"
+    },
+    {
+      "path": "Build/Presentation/defeat-feedback-regression-01/captures/failure.png",
+      "kind": "file",
+      "bytes": 201679,
+      "sha256": "1991e28121d024c1d1ee1a4ded3c0af736783633e64659bf14c4c89a5db0074b"
+    },
+    {
+      "path": "Build/Presentation/defeat-feedback-regression-01/captures/failure.wav",
+      "kind": "file",
+      "bytes": 176172,
+      "sha256": "3f19cff1322d9fa0e1c40732482d34647f13d4577a30bd50f531eda68cea6699"
+    },
+    {
+      "path": "Build/Presentation/defeat-feedback-regression-01/captures/hurt.png",
+      "kind": "file",
+      "bytes": 753624,
+      "sha256": "216fb9ba0da926404268f31543f25c1c57fefe184fd1ac4efa01d903f761310b"
+    },
+    {
+      "path": "Build/Presentation/defeat-feedback-regression-01/captures/hurt.wav",
+      "kind": "file",
+      "bytes": 65580,
+      "sha256": "750c314cc835dee988bbc545de9d4b42a358296b1746293df9d5ed524cdd9fb0"
+    },
+    {
+      "path": "Build/Presentation/defeat-feedback-regression-01/captures/pressure.png",
+      "kind": "file",
+      "bytes": 859448,
+      "sha256": "a6678f01498cc05d0c3eb2b71f416058549d1918d9f7f63c9eb9a8d85730cd45"
+    },
+    {
+      "path": "Build/Presentation/defeat-feedback-regression-01/captures/pressure.wav",
+      "kind": "file",
+      "bytes": 122924,
+      "sha256": "cfe0c745535af79010c1561e274bc989895a33e3267c916e1b3f3a49c9c6cdd3"
+    },
+    {
+      "path": "Build/Presentation/defeat-feedback-regression-01/captures/success.png",
+      "kind": "file",
+      "bytes": 237353,
+      "sha256": "3db6ef03301a755fb1865484c6d68bc87ac37b568b16908cdc3b9ce312b79710"
+    },
+    {
+      "path": "Build/Presentation/defeat-feedback-regression-01/captures/success.wav",
+      "kind": "file",
+      "bytes": 159788,
+      "sha256": "74a48a08a25d2353e33903057864cce5c98cd4d5aaea0900d1457680ee0fbb22"
+    },
+    {
+      "path": "Build/Presentation/defeat-feedback-regression-01/feedback.engine.log",
+      "kind": "file",
+      "bytes": 361618,
+      "sha256": "ff552b20fbced5c54b3dd06a70a04ab94e9c78f05219bd4814013eea93a63075"
+    },
+    {
+      "path": "Build/Presentation/defeat-feedback-regression-01/feedback.stdout.log",
+      "kind": "file",
+      "bytes": 361317,
+      "sha256": "55068a154462c3eb3a0474a74025b00a7317a36ca4ad82f270591b2cad6a7eb9"
+    },
+    {
+      "path": "Build/Presentation/defeat-feedback-regression-01/validation.json",
+      "kind": "file",
+      "bytes": 70815,
+      "sha256": "2950444958ff73246b56c2f0d20334387ac0f48a7a9e583bc5336fd0f0fd6f96"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-01/captures/live.png",
+      "kind": "file",
+      "bytes": 962409,
+      "sha256": "77d763e983df8835894e5c4ae37f93e21b46d46e47e33d88986b7d41cb09fa42"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-01/poses.csv",
+      "kind": "file",
+      "bytes": 5504,
+      "sha256": "0bf48307f239d26bf8e64f065a0227eed37ac9b6fa54ff279419ac1bd4bb3b11"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 9015,
+      "sha256": "fd1899c2eedef92d3254095dbe0ca44ef5af35527cbd575c2e7204286eecfb44"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-01/result.json",
+      "kind": "file",
+      "bytes": 162,
+      "sha256": "0ad419df2d94a54274f8f2ce5ddb86326ea5504bca05c7fc856be453d9b01bbe"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-01/runtime.engine-CRC.log",
+      "kind": "file",
+      "bytes": 13392,
+      "sha256": "5417f7aa9778364e16f8b257aa390e22a4383f62b977f4ba7f984a0bc5d35f3c"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 314963,
+      "sha256": "db17534c46c5f09634be87cae5c4ce3ff1feb50bda9f26e4473b6284b3610ddb"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 328658,
+      "sha256": "727fde1bc5781df33cb31863a4a212ad5d53eaac593125dfe5c89065c88e4c41"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-01/validation.json",
+      "kind": "file",
+      "bytes": 146910,
+      "sha256": "20327cd0a950fbe406a16c9bb06c438a084bdca36f8c08c413855ff11c614913"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-02/captures/falling.png",
+      "kind": "file",
+      "bytes": 958812,
+      "sha256": "dbee7ae09e110b30926c3a35afb604876e0d08f82e5659d5aa62250f84b8a38b"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-02/captures/live.png",
+      "kind": "file",
+      "bytes": 960002,
+      "sha256": "3971b124a5fb62572f2b8537f780789dadfc499eb0349d3dd8b366c4208dec25"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-02/captures/settled.png",
+      "kind": "file",
+      "bytes": 953011,
+      "sha256": "cc34165e27f92b9b0816efce02bb990318621288c751527d288edb3d85b0abec"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-02/poses.csv",
+      "kind": "file",
+      "bytes": 14588,
+      "sha256": "042f99be5484a5cde85e3e1ea12abb80cc767e4998a65bb45136a6196569a666"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-02/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8572,
+      "sha256": "17a09523e1d1e1a79f29150bf292946939949b7aa6a5c41dd5132efc9f4e208f"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-02/result.json",
+      "kind": "file",
+      "bytes": 279,
+      "sha256": "769daedf03cbf2517ad991b58d848a5c527f2e8bd52e013553a348d3b17eecca"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-02/runtime.engine.log",
+      "kind": "file",
+      "bytes": 301987,
+      "sha256": "77b1609e32473cb8c23331c65a33c038946154d432fc78794c9be276a7b7d266"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-02/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 302084,
+      "sha256": "83b0378e285a116f83ffc8ff322ad7aac0f3978bccd41bb2d0ee55543a4d45d2"
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-02/validation.json",
+      "kind": "file",
+      "bytes": 152051,
+      "sha256": "dbd8b8a4f57918227c670f4aa152924363d21d3ba94c7b28bf2df12047d51ca5"
+    },
+    {
+      "path": "Build/Presentation/defeat-translation-01/command.json",
+      "kind": "file",
+      "bytes": 607,
+      "sha256": "14f4b94676f6fc8a75efd568d806f5d344dff56362361b71026ecbab46638776"
+    },
+    {
+      "path": "Build/Presentation/defeat-translation-01/readback.json",
+      "kind": "file",
+      "bytes": 5265,
+      "sha256": "2599f3ff41c3c9a01870b20ff9afdb1944fc67af56cbc7b49380a28eadfe72a6"
+    },
+    {
+      "path": "Build/Presentation/defeat-translation-01/readback.log",
+      "kind": "file",
+      "bytes": 215349,
+      "sha256": "b182f8a53e5b9f6552698018de1f29e286e7b4c06045eb35beb330161ae63340"
+    },
+    {
+      "path": "Build/Presentation/defeat-translation-01/result.json",
+      "kind": "file",
+      "bytes": 63,
+      "sha256": "6ad2988f06bee797386b0bf8911567db811beb5ff3471647f41ac2198fbbc2d9"
+    },
+    {
+      "path": "Build/Presentation/defeat-visual-review-01.json",
+      "kind": "file",
+      "bytes": 1567,
+      "sha256": "7fd03018828723db6db66a03fbd1a6e536b106d66e1aff6b20ca8211b5168323"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Death/MM_Death_Back_01.uasset",
+      "kind": "file",
+      "bytes": 308880,
+      "sha256": "fdee63c4a4dc23076dda04b32eb8505bcd41fb791e574a264026c43e700bf923"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Death/MM_Death_Front_01.uasset",
+      "kind": "file",
+      "bytes": 308516,
+      "sha256": "c9daa694dda4639b106a29401712b03376344b301b6161955a92ba64ea60ae6d"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Death/MM_Death_Front_02.uasset",
+      "kind": "file",
+      "bytes": 314751,
+      "sha256": "dda4f9d6a4c8fc3bf79458d4d2f490965ff01401256e90fdf98a938a58c61986"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Death/MM_Death_Front_03.uasset",
+      "kind": "file",
+      "bytes": 277478,
+      "sha256": "bf3a411d465002756eb1a19cdb2bef63b75a57a9fab7ce121ee71941e010d2cc"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Death/MM_Death_Left_01.uasset",
+      "kind": "file",
+      "bytes": 283231,
+      "sha256": "712a25024fe931bd518fff6c935b82bc0ee2070a77caef63edd0d6fc7ff66508"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Death/MM_Death_Right_01.uasset",
+      "kind": "file",
+      "bytes": 302339,
+      "sha256": "7968e7e1bc3d8e33c3f0d8479e6753d011ced0e05a831eb7f10e28ceb536b9a4"
+    },
+    {
+      "path": "Content/Python/inspect_defeat_animation.py",
+      "kind": "file",
+      "bytes": 1787,
+      "sha256": "8a8b1b2668f3fad33f3ef7753731ef9745bcc64a3def491a11b8d135ae376f4b"
+    },
+    {
+      "path": "Content/Python/probe_defeat_candidates.py",
+      "kind": "file",
+      "bytes": 1314,
+      "sha256": "f4db169846e41e1b105f7fb0eff2dfadb74774476dc5f071a087026766bb488a"
+    },
+    {
+      "path": "Content/Python/probe_defeat_translation.py",
+      "kind": "file",
+      "bytes": 1207,
+      "sha256": "9c0f9e7789707ce3443bed48ebd35e55cbfe4fe68e216ccb39d8913c32cb50a3"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaDefeatAnimInstance.cpp",
+      "kind": "file",
+      "bytes": 2917,
+      "sha256": "e077e28f6dae5a317dedcd18607e495af55ef43ed621a7050ba3a82e67dbb36a"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaDemoPawn.cpp",
+      "kind": "file",
+      "bytes": 21877,
+      "sha256": "527d8ebd2e42041a732897b9a7a0194002b3a74376ac62f13b33763e4768c910"
+    },
+    {
+      "path": "Source/BiellaGames/Private/Tests/BiellaDefeatTest.cpp",
+      "kind": "file",
+      "bytes": 15899,
+      "sha256": "2c0380862120c62141229bf070fd460c36f44e964d2aa7dd4798f792e2192819"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaDefeatAnimInstance.h",
+      "kind": "file",
+      "bytes": 942,
+      "sha256": "012f5582233cfd1cb4c804c4d9b1b2f1f8ff7eacae6a3021aa73fa4acec089fa"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaDemoPawn.h",
+      "kind": "file",
+      "bytes": 4537,
+      "sha256": "9d302a72f09c7dab3274939909c7b0960df3b3dcf709fe5311fcb8864f6ef28b"
+    },
+    {
+      "path": "SourceAssets/Characters/UE58Defeat.provenance.json",
+      "kind": "file",
+      "bytes": 8360,
+      "sha256": "73a4721675524fed7257911a156a1bc3b11d9daedfd3fbcc118c751bbf8f2333"
+    },
+    {
+      "path": "SourceAssets/Characters/UE58DefeatPhysics.provenance.json",
+      "kind": "file",
+      "bytes": 8004,
+      "sha256": "306c41f51ecbb4e9333e597428191b91c1e9c8dbac2963c5cb1f198b3453d669"
+    },
+    {
+      "path": "tests/import_d03_01_defeat_resources.py",
+      "kind": "file",
+      "bytes": 2490,
+      "sha256": "af2ea265cb41c9be6caf99388ddb4d2059e42353ad713ae0c644eaa960244b37"
+    },
+    {
+      "path": "tests/run_d03_01_defeat.py",
+      "kind": "file",
+      "bytes": 5627,
+      "sha256": "0859ab383dec48f993643e4a2edd4c465286beee2a6cc7b07e41094371b33c9e"
+    },
+    {
+      "path": "tests/verify_d03_01_defeat.py",
+      "kind": "file",
+      "bytes": 6987,
+      "sha256": "cab737a515a02480a6bd3e43821f2a6e8e1fb7b4928fa4d23d064ab3a5792e45"
+    }
+  ]
+}

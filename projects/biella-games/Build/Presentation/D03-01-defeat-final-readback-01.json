@@ -1,0 +1,346 @@
+{
+  "task_id": "D03-01",
+  "task_status": "CONTINUE",
+  "result": "PASS",
+  "time": "2026-09-06T11:51:20.051910+00:00",
+  "inputs": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-runtime-02/validation.json",
+      "sha256": "dbd8b8a4f57918227c670f4aa152924363d21d3ba94c7b28bf2df12047d51ca5",
+      "bytes": 152051
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-disabled-01/validation.json",
+      "sha256": "c2330844f9f05bbcf898ee41ca8915109dfa4208b7f6ddfcef2b467bdd1f5ce6",
+      "bytes": 152162
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-action-regression-01/validation.json",
+      "sha256": "aa723f6eb8f717479ab264a7cc6eb39a07c3282ec620657d634576983fb050d6",
+      "bytes": 153199
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-animation-regression-01/validation.json",
+      "sha256": "e31c6bfd10bd767d7ab504ce48523649253ce45f88b7b1470bc9bd335fc9138d",
+      "bytes": 151761
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-environment-regression-01/validation.json",
+      "sha256": "06b43998d4fdde14392a8780e18b5f8fc69654668df9588a3899c9c06f30b742",
+      "bytes": 153261
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-feedback-regression-01/validation.json",
+      "sha256": "2950444958ff73246b56c2f0d20334387ac0f48a7a9e583bc5336fd0f0fd6f96",
+      "bytes": 70815
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-build-readback-01/validation.json",
+      "sha256": "dd2304b60fb902912eb06a9e08f5f84a80907065258d3ded5a0debebdfecd827",
+      "bytes": 147344
+    }
+  ],
+  "captures": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-runtime-02/captures/falling.png",
+      "sha256": "dbee7ae09e110b30926c3a35afb604876e0d08f82e5659d5aa62250f84b8a38b",
+      "bytes": 958812
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-runtime-02/captures/live.png",
+      "sha256": "3971b124a5fb62572f2b8537f780789dadfc499eb0349d3dd8b366c4208dec25",
+      "bytes": 960002
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-runtime-02/captures/settled.png",
+      "sha256": "cc34165e27f92b9b0816efce02bb990318621288c751527d288edb3d85b0abec",
+      "bytes": 953011
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-disabled-01/captures/falling.png",
+      "sha256": "dd87260dd30fd36240900c7e19046780502e29132c3a09eff03a37e758a41893",
+      "bytes": 952298
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-disabled-01/captures/live.png",
+      "sha256": "07b4e825f93a6ce40fe6a68b8cee3ea66735b0f8d626c66fe7018e6d90b6518e",
+      "bytes": 962894
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-disabled-01/captures/settled.png",
+      "sha256": "c136314cfff283a7b0be35f260f5643691706d53d6a79d26d77541ed765bf654",
+      "bytes": 951679
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-action-regression-01/captures/baseline.png",
+      "sha256": "b50d49e3d60911378e8595f8dad94ef1a184d9f1b3e8f1eb809d2c8f3b96b053",
+      "bytes": 960641
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-action-regression-01/captures/fire.png",
+      "sha256": "e056749dfc3aa9c88b79edc36f1d24161b69366bce9f8d088be9b09a9ec609fd",
+      "bytes": 961668
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-action-regression-01/captures/hit.png",
+      "sha256": "13e34606b362e85a8bce52d207bcd4eda335d240acf36efab2b023796aa8a7ee",
+      "bytes": 963071
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-action-regression-01/captures/jump.png",
+      "sha256": "a5268acd416381fccac19fccff0cc55c7eea4cc5a84efa83a02064cef67a3c97",
+      "bytes": 989012
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-action-regression-01/captures/overlap.png",
+      "sha256": "4bf167f6560c2231ffd86a61d39cac0269295b3b8ac705a46d0c50a77e031b44",
+      "bytes": 962491
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-action-regression-01/captures/rival_shot.png",
+      "sha256": "bd9b160f7d17cf1adf9aa86ad625bf0baa135b6e7b7edf8a04d342101bfbeb68",
+      "bytes": 962617
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-animation-regression-01/captures/backward.png",
+      "sha256": "c7acaa248509ff2219cd346db3f731f45fc99d2241e9e4d18d32292fd61c990d",
+      "bytes": 998020
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-animation-regression-01/captures/dismount.png",
+      "sha256": "da4bd91b123566bfc90ca96fd0348d9f6877995348b94ffdde1f0e4f685f7662",
+      "bytes": 990970
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-animation-regression-01/captures/forward.png",
+      "sha256": "cd7a57ba93202386adbbd4da0283ecf651e6f8085c1cd9f4aaf9c31ebd26b935",
+      "bytes": 984464
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-animation-regression-01/captures/idle.png",
+      "sha256": "ca62a9df4001fe43bf17625e5117ed08f99ddbadfc13a13a310b8546e94f1b4d",
+      "bytes": 953303
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-animation-regression-01/captures/jump.png",
+      "sha256": "f1702d2a702e5fad83ba183e0114c2b74aa87789dd3e4dcad8e168cd344d378e",
+      "bytes": 1009464
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-animation-regression-01/captures/land.png",
+      "sha256": "76592d38875940a928eade376d88716f03e7f09fb43e1b12d79f3efd289a0a6c",
+      "bytes": 944699
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-animation-regression-01/captures/npc_gaits.png",
+      "sha256": "d6da5942416cabd18436819ad99d83f8b3173778b416ce7b930219eac4c8c6dd",
+      "bytes": 993527
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-animation-regression-01/captures/right.png",
+      "sha256": "d5ab53c4b9c2ec693f1fd2434a20c82ad3d9d0d171c2d85c60d223c9f06eadaa",
+      "bytes": 998422
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-animation-regression-01/captures/seat.png",
+      "sha256": "610097fc69f73588b949b7fc402468dd10f380902da0498d58acf7f1d9790f57",
+      "bytes": 985219
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-environment-regression-01/captures/hazard_active.png",
+      "sha256": "822125da0f54f933b603766469a7870ffafc3453307f911d558648a7027ad042",
+      "bytes": 1041415
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-environment-regression-01/captures/panel_damaged.png",
+      "sha256": "09b38a73455acb3f3a950e78b47c5ed12d77f6e64de0bd989f89aca5d347761c",
+      "bytes": 979484
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-environment-regression-01/captures/panel_destroyed.png",
+      "sha256": "11f3b2798839d47909a27450c50c7025b5c0c11f7d2577ca93a05890c1c2d672",
+      "bytes": 981154
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-environment-regression-01/captures/stream_return.png",
+      "sha256": "5799cf77dc4b378c44785c7b3a3279d975d300a53d923d9b65acd8e76ffd770d",
+      "bytes": 991481
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-environment-regression-01/captures/switch_safe.png",
+      "sha256": "6e7b2cc5a9208c93d3c4de7531450e21ffe8c8c26a58f152d4ee12e8d39f6055",
+      "bytes": 990370
+    }
+  ],
+  "common_input_identities": 289,
+  "feedback_common_identities": 106,
+  "feedback": {
+    "log": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-feedback-regression-01/feedback.stdout.log",
+      "sha256": "55068a154462c3eb3a0474a74025b00a7317a36ca4ad82f270591b2cad6a7eb9",
+      "bytes": 361317
+    },
+    "log_finalization": {
+      "closed": true,
+      "elapsed_seconds": 0.014237819996196777,
+      "timeout_seconds": 45,
+      "observed_writers": [],
+      "remaining_writers": []
+    },
+    "original_log_prefix": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-feedback-regression-01/feedback.stdout.log",
+      "sha256": "57824b151b89ef15b0f2d24b9863888957ac3dcc099bcb8a3b13b95c698bee62",
+      "bytes": 360547
+    },
+    "late_suffix_bytes": 770,
+    "phases": [
+      "fresh_assets",
+      "confirmed_spatial_combat",
+      "rejected_events_silent",
+      "particles_rendered",
+      "melee_and_dense_combat",
+      "dense_rendered_tick",
+      "damage_bounded",
+      "pressure_transition_only",
+      "success_once",
+      "restart_reset",
+      "failure_once",
+      "lifecycle_drained"
+    ],
+    "audio": [
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-feedback-regression-01/captures/combat.wav",
+        "sha256": "33913f447ea7f48d141b1b27fb0ff4574094bac484166f14a821947b2e0e3847",
+        "bytes": 135212,
+        "sample_rate": 48000,
+        "channels": 2,
+        "pcm_bits": 16,
+        "frames": 33792,
+        "clipped_samples": 0,
+        "duration_seconds": 0.704,
+        "peak": 0.07431,
+        "rms": 0.010009,
+        "audible_seconds": 0.2652,
+        "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-feedback-regression-01/captures/hurt.wav",
+        "sha256": "750c314cc835dee988bbc545de9d4b42a358296b1746293df9d5ed524cdd9fb0",
+        "bytes": 65580,
+        "sample_rate": 48000,
+        "channels": 2,
+        "pcm_bits": 16,
+        "frames": 16384,
+        "clipped_samples": 0,
+        "duration_seconds": 0.3413,
+        "peak": 0.213989,
+        "rms": 0.034738,
+        "audible_seconds": 0.1731,
+        "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-feedback-regression-01/captures/pressure.wav",
+        "sha256": "cfe0c745535af79010c1561e274bc989895a33e3267c916e1b3f3a49c9c6cdd3",
+        "bytes": 122924,
+        "sample_rate": 48000,
+        "channels": 2,
+        "pcm_bits": 16,
+        "frames": 30720,
+        "clipped_samples": 0,
+        "duration_seconds": 0.64,
+        "peak": 0.124481,
+        "rms": 0.025421,
+        "audible_seconds": 0.4936,
+        "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-feedback-regression-01/captures/success.wav",
+        "sha256": "74a48a08a25d2353e33903057864cce5c98cd4d5aaea0900d1457680ee0fbb22",
+        "bytes": 159788,
+        "sample_rate": 48000,
+        "channels": 2,
+        "pcm_bits": 16,
+        "frames": 39936,
+        "clipped_samples": 0,
+        "duration_seconds": 0.832,
+        "peak": 0.069824,
+        "rms": 0.01816,
+        "audible_seconds": 0.643,
+        "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-feedback-regression-01/captures/failure.wav",
+        "sha256": "3f19cff1322d9fa0e1c40732482d34647f13d4577a30bd50f531eda68cea6699",
+        "bytes": 176172,
+        "sample_rate": 48000,
+        "channels": 2,
+        "pcm_bits": 16,
+        "frames": 44032,
+        "clipped_samples": 0,
+        "duration_seconds": 0.9173,
+        "peak": 0.07785,
+        "rms": 0.019988,
+        "audible_seconds": 0.7858,
+        "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+      }
+    ]
+  },
+  "positive": {
+    "success": true,
+    "error": "",
+    "falling_frames": 110,
+    "head_drop": 136.485282,
+    "pelvis_drop": 75.768962,
+    "root_drift": 0.0,
+    "initial_pose_error": 0.0,
+    "hold_head_drift": 0.763638,
+    "hold_pelvis_drift": 1.473622,
+    "floor_z": 0.0,
+    "settled_head_z": 14.621672,
+    "settled_pelvis_z": 16.098423
+  },
+  "disabled": {
+    "success": true,
+    "error": "",
+    "falling_frames": 0,
+    "head_drop": 0.0,
+    "pelvis_drop": 0.0,
+    "root_drift": 0.0,
+    "initial_pose_error": 0.0,
+    "hold_head_drift": 0.0,
+    "hold_pelvis_drift": 0.0,
+    "floor_z": 0.0,
+    "settled_head_z": 0.0,
+    "settled_pelvis_z": 0.0
+  },
+  "pose_frames": 258,
+  "disabled_pose_frames": 251,
+  "assets": [
+    {
+      "provenance": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Characters/UE58Defeat.provenance.json",
+        "sha256": "73a4721675524fed7257911a156a1bc3b11d9daedfd3fbcc118c751bbf8f2333",
+        "bytes": 8360
+      },
+      "exact_source_and_local_entries": 24
+    },
+    {
+      "provenance": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Characters/UE58DefeatPhysics.provenance.json",
+        "sha256": "306c41f51ecbb4e9333e597428191b91c1e9c8dbac2963c5cb1f198b3453d669",
+        "bytes": 8004
+      },
+      "exact_source_and_local_entries": 23
+    },
+    {
+      "provenance": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/defeat-candidates-01/candidate-provenance.json",
+        "sha256": "a1c833cc76ff6ae9160ce45d48833a5532021e0707a4aa7a90efe38028c91702",
+        "bytes": 1991
+      },
+      "exact_source_and_local_entries": 6
+    }
+  ],
+  "capture_status": "GENERATED_DRAFT",
+  "limitations": "Native on-foot Manny integration and representative static road contact. Other directional/seated/vehicle actions, final art, crowd/LOD/platform costs, native frame-time, shader/PSO, supported renderer fallback and packaged play remain D03 work. The cvar control qualifies this cosmetic layer only."
+}

@@ -1,0 +1,11 @@
+{
+  "task_id": "D03-01",
+  "status": "ADVISORY_REVIEWED_NOT_ACCEPTANCE",
+  "accepted": [
+    "Separate cosmetic mesh ownership can preserve existing immediate defeat gameplay and character-mesh cancellation."
+  ],
+  "rejected": [
+    "Provider gave nonexistent pose/montage/physics/networking APIs, impossible non-ticking animation and same-frame destruction. None will be used."
+  ],
+  "decision": "Use installed Epic full-body death clip after exact dependency/metadata readback. SnapshotPose and FAnimNode_PoseSnapshot are verified in installed UE headers. Cosmetic component will be pawn-owned, noncolliding, bounded lifetime, removed on dormancy/EndPlay; blend captured pose to sequence. Native proof remains required."
+}

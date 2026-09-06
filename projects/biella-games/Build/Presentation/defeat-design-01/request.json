@@ -1,0 +1,5 @@
+{
+  "capability": "unreal.assist",
+  "provider": "ollama-qwen",
+  "prompt": "Bounded Unreal 5.8 animation advice, max 300 words. Existing C++ pawn defeat immediately disables gameplay collision, hides and tick-disables its skeletal mesh, clears aim/fire/hit and removes combat eligibility. Existing native regressions prove that. Need cosmetic visible defeat without delaying gameplay. Installed Epic Manny full-body death clips exist but metadata uninspected. Compare a separate noncolliding cosmetic skeletal component, snapshot of actual pre-defeat pose -> death sequence with short blend, versus keeping existing mesh alive during death. Must not create gameplay-authority corpse, persistent spawning, root-motion capsule drift or dormant/streamed orphan. Suggest minimal ownership/lifetime and 3 tests; cite only APIs you are sure of; no asset facts or acceptance claims."
+}

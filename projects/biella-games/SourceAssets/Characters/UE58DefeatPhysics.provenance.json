@@ -1,0 +1,148 @@
+{
+  "task_id": "D03-01",
+  "provider": "Installed Epic Unreal Engine 5.8.2 TemplateResources",
+  "status": "INTEGRATION_RESOURCE_NOT_FINAL_CHARACTER_ART",
+  "roots": [
+    "Rigs/PA_Mannequin"
+  ],
+  "files": [
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Materials/M_Mannequin.uasset",
+      "local": "Content/Characters/Mannequins/Materials/M_Mannequin.uasset",
+      "bytes": 59292,
+      "sha256": "d7ffe412d906380bd5bd4462f464b2a1fe48fdb79b9077f29bd0f958a782035c"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Materials/Manny/MI_Manny_01_New.uasset",
+      "local": "Content/Characters/Mannequins/Materials/Manny/MI_Manny_01_New.uasset",
+      "bytes": 17963,
+      "sha256": "9f1e4ed382304d020b750c81505140fc1de4d339b0909430adb5380a6bb89b65"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Materials/Manny/MI_Manny_02_New.uasset",
+      "local": "Content/Characters/Mannequins/Materials/Manny/MI_Manny_02_New.uasset",
+      "bytes": 18706,
+      "sha256": "26389db06f0b7928b487494bef3320d6b0e6bccd58193bccedd67c2c89132a46"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Materials/Quinn/MI_Quinn_01.uasset",
+      "local": "Content/Characters/Mannequins/Materials/Quinn/MI_Quinn_01.uasset",
+      "bytes": 11184,
+      "sha256": "62a3050ef24b823f9fe84ac5d9c477099494982d35dafcc3d8078f32b0d4a865"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Materials/Quinn/MI_Quinn_02.uasset",
+      "local": "Content/Characters/Mannequins/Materials/Quinn/MI_Quinn_02.uasset",
+      "bytes": 10718,
+      "sha256": "6aec77489fdfab0e1ea299de60fbd4f332face4495bbbd20b97fb0308bb9c5b4"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Meshes/SKM_Manny_Simple.uasset",
+      "local": "Content/Characters/Mannequins/Meshes/SKM_Manny_Simple.uasset",
+      "bytes": 15825101,
+      "sha256": "be9f011191ee1887b97cd13bce09886a6066c2fd62c619991070ec142184e1bf"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Meshes/SKM_Quinn_Simple.uasset",
+      "local": "Content/Characters/Mannequins/Meshes/SKM_Quinn_Simple.uasset",
+      "bytes": 16252577,
+      "sha256": "1ef45d92507a76d74a5e06737f94cad40eb7d5f5769dfbb63f7f74e784a178c6"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Meshes/SK_Mannequin.uasset",
+      "local": "Content/Characters/Mannequins/Meshes/SK_Mannequin.uasset",
+      "bytes": 191198,
+      "sha256": "22029d47455f24471195b26a0e04a1e1389f27d6a924e88c9f46a0f600c9a530"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Rigs/CR_Mannequin_Body.uasset",
+      "local": "Content/Characters/Mannequins/Rigs/CR_Mannequin_Body.uasset",
+      "bytes": 17057558,
+      "sha256": "57f84458a160c35b77f0442d2af41054e41e021ebbb496c2c76dea76d1d89580"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Rigs/PA_Mannequin.uasset",
+      "local": "Content/Characters/Mannequins/Rigs/PA_Mannequin.uasset",
+      "bytes": 301538,
+      "sha256": "c0ceaf003947088ff076555b81a46e5ccb11149c94025eb2a9e74263fbaa0d67"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Textures/Manny/T_Manny_01_BN.uasset",
+      "local": "Content/Characters/Mannequins/Textures/Manny/T_Manny_01_BN.uasset",
+      "bytes": 1422785,
+      "sha256": "2f623209571ecbd8185b5b463786be033c3284190b4fc7b249e8d1d2ed995fd8"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Textures/Manny/T_Manny_01_D.uasset",
+      "local": "Content/Characters/Mannequins/Textures/Manny/T_Manny_01_D.uasset",
+      "bytes": 699555,
+      "sha256": "6ae0f4f9908c30ecc9aedf1ebb442e4983e526a7832ec791542064c7853f9999"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Textures/Manny/T_Manny_01_MRA.uasset",
+      "local": "Content/Characters/Mannequins/Textures/Manny/T_Manny_01_MRA.uasset",
+      "bytes": 712594,
+      "sha256": "3e42e888aed8aefff68da7d7dda4f177c5647b19473e4e913f61375c1319abd8"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Textures/Manny/T_Manny_02_BN.uasset",
+      "local": "Content/Characters/Mannequins/Textures/Manny/T_Manny_02_BN.uasset",
+      "bytes": 20999487,
+      "sha256": "c9575d21c9e2872b3358c0efb9e202535ce2efce94c338b9d3bd04cb9831e353"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Textures/Manny/T_Manny_02_D.uasset",
+      "local": "Content/Characters/Mannequins/Textures/Manny/T_Manny_02_D.uasset",
+      "bytes": 1036712,
+      "sha256": "474728713232c6833f55c041548f555bc62c5c49e74082a5d16e68a5ce488cfe"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Textures/Manny/T_Manny_02_MRA.uasset",
+      "local": "Content/Characters/Mannequins/Textures/Manny/T_Manny_02_MRA.uasset",
+      "bytes": 1059559,
+      "sha256": "6697972eaf2dfe201923dba6a302f024b0ef4c4e46b4ecf578178717098e8277"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Textures/Quinn/T_Quinn_01_D.uasset",
+      "local": "Content/Characters/Mannequins/Textures/Quinn/T_Quinn_01_D.uasset",
+      "bytes": 674768,
+      "sha256": "04e5ed207b7df0d2ad1bbc668916bcf170545fc2a72875e49ec99c6e2667002f"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Textures/Quinn/T_Quinn_01_MRA.uasset",
+      "local": "Content/Characters/Mannequins/Textures/Quinn/T_Quinn_01_MRA.uasset",
+      "bytes": 791597,
+      "sha256": "0988d4d9f25597224910e1043591cb2a089a8607a4fe4a63cbc68f3eb2ab473e"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Textures/Quinn/T_Quinn_01_N.uasset",
+      "local": "Content/Characters/Mannequins/Textures/Quinn/T_Quinn_01_N.uasset",
+      "bytes": 1263741,
+      "sha256": "10fbe9ac3e18e0a890d19756d3470ca372a1aeaffefbe9a22d6b0e6182293551"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Textures/Quinn/T_Quinn_02_D.uasset",
+      "local": "Content/Characters/Mannequins/Textures/Quinn/T_Quinn_02_D.uasset",
+      "bytes": 943331,
+      "sha256": "f0ccb2f465894c6f9ff4dd142351ed33186c5f861283a75f3e08d1531a253c49"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Textures/Quinn/T_Quinn_02_MRA.uasset",
+      "local": "Content/Characters/Mannequins/Textures/Quinn/T_Quinn_02_MRA.uasset",
+      "bytes": 974099,
+      "sha256": "9f7e495cbe0430aed7084b5508f87186f98346eb04f003734c9b378891da7887"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Textures/Quinn/T_Quinn_02_N.uasset",
+      "local": "Content/Characters/Mannequins/Textures/Quinn/T_Quinn_02_N.uasset",
+      "bytes": 1524635,
+      "sha256": "0bc26466e9fdc954cc276bb6ac1350e22c3dabbe1b54b6bf78ed5ae2e339d9fc"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Textures/Shared/T_UE_Logo_M.uasset",
+      "local": "Content/Characters/Mannequins/Textures/Shared/T_UE_Logo_M.uasset",
+      "bytes": 59927,
+      "sha256": "34e6fa3414c04a86b7a5287e5569ea9d6e53c319d6e7dbfc8b09dab5b70611a6"
+    }
+  ]
+}

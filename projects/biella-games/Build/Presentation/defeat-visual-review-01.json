@@ -1,0 +1,28 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T11:48:58.466129+00:00",
+  "capture_status": "GENERATED_DRAFT",
+  "review_method": "Direct native image inspection with view_image in the same task session; preserved through session recovery summary",
+  "result": "REPRESENTATIVE_POSES_READABLE",
+  "captures": [
+    {
+      "path": "Build/Presentation/defeat-runtime-02/captures/live.png",
+      "bytes": 960002,
+      "sha256": "3971b124a5fb62572f2b8537f780789dadfc499eb0349d3dd8b366c4208dec25",
+      "observation": "Blue player and orange rival remain readable in the existing playable road. Rival stands before the authoritative lethal shot."
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-02/captures/falling.png",
+      "bytes": 958812,
+      "sha256": "dbee7ae09e110b30926c3a35afb604876e0d08f82e5659d5aa62250f84b8a38b",
+      "observation": "Orange rival bends and collapses through the animated reaction into physics. Role attachments remain aligned in the inspected frame."
+    },
+    {
+      "path": "Build/Presentation/defeat-runtime-02/captures/settled.png",
+      "bytes": 953011,
+      "sha256": "cc34165e27f92b9b0816efce02bb990318621288c751527d288edb3d85b0abec",
+      "observation": "Orange rival lies against the road after the fall; no obvious floating or detached role geometry in this inspected frame."
+    }
+  ],
+  "limitations": "Individual captures support native measurements and do not establish motion, frame-time, crowd/LOD or final art acceptance. Existing world, weapon and character remain integration/blockout resources."
+}

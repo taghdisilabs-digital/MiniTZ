@@ -1,0 +1,38 @@
+[
+  {
+    "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Anims/Death/MM_Death_Back_01.uasset",
+    "local": "Content/Characters/Mannequins/Anims/Death/MM_Death_Back_01.uasset",
+    "sha256": "fdee63c4a4dc23076dda04b32eb8505bcd41fb791e574a264026c43e700bf923",
+    "bytes": 308880
+  },
+  {
+    "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Anims/Death/MM_Death_Front_01.uasset",
+    "local": "Content/Characters/Mannequins/Anims/Death/MM_Death_Front_01.uasset",
+    "sha256": "c9daa694dda4639b106a29401712b03376344b301b6161955a92ba64ea60ae6d",
+    "bytes": 308516
+  },
+  {
+    "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Anims/Death/MM_Death_Front_02.uasset",
+    "local": "Content/Characters/Mannequins/Anims/Death/MM_Death_Front_02.uasset",
+    "sha256": "dda4f9d6a4c8fc3bf79458d4d2f490965ff01401256e90fdf98a938a58c61986",
+    "bytes": 314751
+  },
+  {
+    "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Anims/Death/MM_Death_Front_03.uasset",
+    "local": "Content/Characters/Mannequins/Anims/Death/MM_Death_Front_03.uasset",
+    "sha256": "bf3a411d465002756eb1a19cdb2bef63b75a57a9fab7ce121ee71941e010d2cc",
+    "bytes": 277478
+  },
+  {
+    "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Anims/Death/MM_Death_Left_01.uasset",
+    "local": "Content/Characters/Mannequins/Anims/Death/MM_Death_Left_01.uasset",
+    "sha256": "712a25024fe931bd518fff6c935b82bc0ee2070a77caef63edd0d6fc7ff66508",
+    "bytes": 283231
+  },
+  {
+    "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/High/Characters/Content/Mannequins/Anims/Death/MM_Death_Right_01.uasset",
+    "local": "Content/Characters/Mannequins/Anims/Death/MM_Death_Right_01.uasset",
+    "sha256": "7968e7e1bc3d8e33c3f0d8479e6753d011ced0e05a831eb7f10e28ceb536b9a4",
+    "bytes": 302339
+  }
+]

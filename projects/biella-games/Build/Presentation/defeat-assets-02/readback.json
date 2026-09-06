@@ -1,0 +1,229 @@
+{
+  "result": "PASS",
+  "assets": [
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Death/MM_Death_Front_01",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/RigVM",
+        "/Script/ControlRig",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings"
+      ],
+      "length": 1.100000023841858,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": false
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Materials/M_Mannequin",
+      "cls": "Material",
+      "dependencies": [
+        "/Engine/Functions/Engine_MaterialFunctions01/Opacity/CameraDepthFade",
+        "/Engine/Functions/Engine_MaterialFunctions02/Utility/BreakOutFloat2Components",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_BN",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_D",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_MRA",
+        "/Game/Characters/Mannequins/Textures/Shared/T_UE_Logo_M",
+        "/Engine/Functions/Engine_MaterialFunctions01/Texturing/ScaleUVsByCenter"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Materials/Manny/MI_Manny_01_New",
+      "cls": "MaterialInstanceConstant",
+      "dependencies": [
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_BN",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_D",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_MRA",
+        "/Game/Characters/Mannequins/Materials/M_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Materials/Manny/MI_Manny_02_New",
+      "cls": "MaterialInstanceConstant",
+      "dependencies": [
+        "/Game/Characters/Mannequins/Materials/Manny/MI_Manny_01_New",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_02_BN",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_02_D",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_02_MRA",
+        "/Game/Characters/Mannequins/Textures/Shared/T_UE_Logo_M"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Materials/Quinn/MI_Quinn_01",
+      "cls": "MaterialInstanceConstant",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Game/Characters/Mannequins/Materials/M_Mannequin",
+        "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_01_N",
+        "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_01_MRA",
+        "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_01_D"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Materials/Quinn/MI_Quinn_02",
+      "cls": "MaterialInstanceConstant",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_02_MRA",
+        "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_02_D",
+        "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_02_N",
+        "/Game/Characters/Mannequins/Materials/Quinn/MI_Quinn_01"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple",
+      "cls": "SkeletalMesh",
+      "dependencies": [
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin",
+        "/Game/Characters/Mannequins/Rigs/CR_Mannequin_Body",
+        "/Game/Characters/Mannequins/Materials/Manny/MI_Manny_01_New",
+        "/Game/Characters/Mannequins/Materials/Manny/MI_Manny_02_New",
+        "/Game/Characters/Mannequins/Rigs/PA_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+      "cls": "SkeletalMesh",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MeshDescription",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin",
+        "/Game/Characters/Mannequins/Rigs/CR_Mannequin_Body",
+        "/Game/Characters/Mannequins/Rigs/PA_Mannequin",
+        "/Game/Characters/Mannequins/Materials/Quinn/MI_Quinn_02",
+        "/Game/Characters/Mannequins/Materials/Quinn/MI_Quinn_01"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Meshes/SK_Mannequin",
+      "cls": "Skeleton",
+      "dependencies": [
+        "/Script/Engine",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Rigs/CR_Mannequin_Body",
+      "cls": "ControlRigBlueprint",
+      "dependencies": [
+        "/Script/CoreUObject",
+        "/Script/AnimationCore",
+        "/Script/RigVM",
+        "/Script/ControlRigDeveloper",
+        "/Script/ControlRig",
+        "/Script/RigVMDeveloper",
+        "/Script/ControlRigSpline",
+        "/ControlRig/Controls/DefaultGizmoLibraryNormalized",
+        "/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Rigs/PA_Mannequin",
+      "cls": "PhysicsAsset",
+      "dependencies": [
+        "/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_BN",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_D",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_MRA",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_02_BN",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_02_D",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_02_MRA",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_01_D",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_01_MRA",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_01_N",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_02_D",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_02_MRA",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_02_N",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Shared/T_UE_Logo_M",
+      "cls": "Texture2D",
+      "dependencies": []
+    }
+  ]
+}

@@ -13,6 +13,7 @@ class UMaterialInstanceDynamic;
 class UMaterialInterface;
 class UStaticMesh;
 class UFloatingPawnMovement;
+class UPhysicsAsset;
 
 UENUM(BlueprintType)
 enum class EDemo01Team : uint8
@@ -82,6 +83,7 @@ public:
     virtual void Defeat(const FString& Reason);
     // Retain the existing fitted seat until the skeletal vehicle pose is qualified.
     void SetSeatedPresentation(bool bSeated);
+    USkeletalMeshComponent* GetDefeatPresentation() const { return DefeatMesh; }
 
 protected:
     // A CDO hard reference makes the editable Project material discoverable by cooking.
@@ -103,6 +105,14 @@ protected:
     UPROPERTY()
     TArray<TObjectPtr<UMaterialInstanceDynamic>> CharacterMaterials;
     void RefreshCharacterPresentation();
+    void StartDefeatPresentation();
+    void StartDefeatPhysics();
+    void ClearDefeatPresentation();
+    UPROPERTY() TObjectPtr<UPhysicsAsset> DefeatPhysicsAsset;
+    UPROPERTY(Transient) TObjectPtr<USkeletalMeshComponent> DefeatMesh;
+    UPROPERTY(Transient) TArray<TObjectPtr<UStaticMeshComponent>> DefeatRoleDetails;
+    FTimerHandle DefeatPresentationTimer;
+    FTimerHandle DefeatPhysicsTimer;
     bool bSeatedPresentation = false;
 
     bool bDefeated = false;

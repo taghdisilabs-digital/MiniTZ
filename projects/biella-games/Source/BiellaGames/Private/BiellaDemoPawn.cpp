@@ -5,6 +5,7 @@
 #include "BiellaPlaytestTelemetry.h"
 #include "BiellaGameplayFeedback.h"
 #include "BiellaCharacterAnimInstance.h"
+#include "BiellaDefeatAnimInstance.h"
 #include "AnimationRuntime.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -15,9 +16,17 @@
 #include "GameFramework/FloatingPawnMovement.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "UObject/ConstructorHelpers.h"
+#include "HAL/IConsoleManager.h"
+#include "TimerManager.h"
+#include "PhysicsEngine/PhysicsAsset.h"
+
+static TAutoConsoleVariable<int32> CVarBiellaDefeatPresentation(TEXT("biella.Animation.Defeat"),1,
+    TEXT("Enable bounded cosmetic defeat presentation (0 disables)."),ECVF_Scalability);
 
 ABiellaDemoPawn::ABiellaDemoPawn()
 {
+    static ConstructorHelpers::FObjectFinder<UPhysicsAsset> DefeatPhysics(TEXT("/Game/Characters/Mannequins/Rigs/PA_Mannequin"));
+    DefeatPhysicsAsset=DefeatPhysics.Object;
     static ConstructorHelpers::FObjectFinder<UMaterialInterface> MaterialFinder(
         TEXT("/Game/Materials/M_DemoReadability.M_DemoReadability"));
     PresentationMaterial = MaterialFinder.Object;
@@ -75,6 +84,7 @@ ABiellaDemoPawn::ABiellaDemoPawn()
 void ABiellaDemoPawn::BeginPlay()
 {
     Super::BeginPlay();
+    ClearDefeatPresentation();
     Health = MaxHealth;
     bDefeated = false;
     TeamDisplayColor = Team == EDemo01Team::Player ? FLinearColor(0.08f, 0.55f, 1.0f) :
@@ -93,6 +103,7 @@ void ABiellaDemoPawn::BeginPlay()
 
 void ABiellaDemoPawn::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
+    ClearDefeatPresentation();
     for (UStaticMeshComponent* Detail : SkeletalRoleDetails)
     {
         if (IsValid(Detail)) { Detail->DestroyComponent(); }
@@ -221,6 +232,7 @@ void ABiellaDemoPawn::BuildRolePresentation()
 
 void ABiellaDemoPawn::Tick(float DeltaTime)
 {
+    if (DefeatMesh && !CVarBiellaDefeatPresentation.GetValueOnGameThread()) { ClearDefeatPresentation(); }
     Super::Tick(DeltaTime);
     if (CombatFlashRemaining > 0.0f)
     {
@@ -244,6 +256,7 @@ void ABiellaDemoPawn::SetWorldDormant(bool bDormant)
     bWorldDormant = bDormant;
     if (bDormant)
     {
+        ClearDefeatPresentation();
         bBeforeDormancyHidden = IsHidden();
         bBeforeDormancyCollision = GetActorEnableCollision();
         bBeforeDormancyTick = IsActorTickEnabled();
@@ -370,6 +383,7 @@ void ABiellaDemoPawn::Defeat(const FString& Reason)
     {
         return;
     }
+    StartDefeatPresentation();
     bDefeated = true;
     RefreshCharacterPresentation();
     Health = 0.0f;
@@ -391,4 +405,83 @@ void ABiellaDemoPawn::Defeat(const FString& Reason)
         UBiellaPlaytestTelemetry::Record(GetWorld(), TEXT("defeat"), {
             {TEXT("target"), UBiellaPlaytestTelemetry::ActorId(this)}, {TEXT("reason"), Reason}});
     }
+}
+
+void ABiellaDemoPawn::StartDefeatPresentation()
+{
+    ClearDefeatPresentation();
+    if (!CVarBiellaDefeatPresentation.GetValueOnGameThread() || bWorldDormant || bSeatedPresentation ||
+        !CharacterMesh || !CharacterMesh->IsVisible() || !CharacterMesh->GetSkeletalMeshAsset() || !DefeatPhysicsAsset) { return; }
+    FPoseSnapshot Pose; CharacterMesh->SnapshotPose(Pose);
+    if (!Pose.bIsValid) { return; }
+    DefeatMesh=NewObject<USkeletalMeshComponent>(this);
+    AddInstanceComponent(DefeatMesh);
+    DefeatMesh->SetCanEverAffectNavigation(false);
+    DefeatMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    DefeatMesh->SetGenerateOverlapEvents(false);
+    DefeatMesh->SetupAttachment(Collision);
+    // Cosmetic pose stays at the defeat transform even if gameplay moves its root.
+    DefeatMesh->SetAbsolute(true,true,true);
+    DefeatMesh->SetWorldTransform(CharacterMesh->GetComponentTransform());
+    DefeatMesh->SetSkeletalMeshAsset(CharacterMesh->GetSkeletalMeshAsset());
+    DefeatMesh->SetPhysicsAsset(DefeatPhysicsAsset);
+    DefeatMesh->SetVisibility(false);
+    DefeatMesh->SetAnimInstanceClass(UBiellaDefeatAnimInstance::StaticClass());
+    DefeatMesh->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
+    DefeatMesh->RegisterComponent();
+    auto* Anim=Cast<UBiellaDefeatAnimInstance>(DefeatMesh->GetAnimInstance());
+    if (!Anim || !Anim->StartFromPose(Pose)) { ClearDefeatPresentation(); return; }
+    for (int32 Index=0; Index<CharacterMesh->GetNumMaterials(); ++Index)
+    {
+        DefeatMesh->SetMaterial(Index,CharacterMesh->GetMaterial(Index));
+        if (auto* Material=DefeatMesh->CreateDynamicMaterialInstance(Index))
+        { Material->SetVectorParameterValue(TEXT("Paint Tint"),TeamDisplayColor); }
+    }
+    for (const UStaticMeshComponent* Source:SkeletalRoleDetails)
+    {
+        if (!IsValid(Source)) { continue; }
+        auto* Detail=NewObject<UStaticMeshComponent>(this); AddInstanceComponent(Detail);
+        Detail->SetCanEverAffectNavigation(false); Detail->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        Detail->SetupAttachment(DefeatMesh,Source->GetAttachSocketName());
+        Detail->SetStaticMesh(Source->GetStaticMesh()); Detail->SetRelativeTransform(Source->GetRelativeTransform());
+        for (int32 Index=0; Index<Source->GetNumMaterials(); ++Index) { Detail->SetMaterial(Index,Source->GetMaterial(Index)); }
+        Detail->RegisterComponent(); DefeatRoleDetails.Add(Detail);
+    }
+    // Publish the actual captured pose before the first visible frame.
+    DefeatMesh->TickAnimation(0,false); DefeatMesh->RefreshBoneTransforms(); DefeatMesh->SetVisibility(true,true);
+    GetWorldTimerManager().SetTimer(DefeatPhysicsTimer,this,&ABiellaDemoPawn::StartDefeatPhysics,.18f,false);
+    GetWorldTimerManager().SetTimer(DefeatPresentationTimer,this,&ABiellaDemoPawn::ClearDefeatPresentation,
+        FMath::Clamp(Anim->GetSequenceLength()+2.f,2.f,6.f),false);
+}
+
+void ABiellaDemoPawn::StartDefeatPhysics()
+{
+    if (!IsValid(DefeatMesh) || !CVarBiellaDefeatPresentation.GetValueOnGameThread() || bWorldDormant)
+    { ClearDefeatPresentation(); return; }
+    // Query-free world contact: bullets, pawns and navigation retain authoritative state.
+    DefeatMesh->SetCollisionObjectType(ECC_WorldDynamic);
+    DefeatMesh->SetCollisionResponseToAllChannels(ECR_Ignore);
+    DefeatMesh->SetCollisionResponseToChannel(ECC_WorldStatic,ECR_Block);
+    DefeatMesh->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+    DefeatMesh->bPauseAnims=true;
+    DefeatMesh->SetAllBodiesSimulatePhysics(true);
+    DefeatMesh->SetSimulatePhysics(true);
+    DefeatMesh->SetAllBodiesPhysicsBlendWeight(1.f);
+    DefeatMesh->WakeAllRigidBodies();
+}
+
+void ABiellaDemoPawn::ClearDefeatPresentation()
+{
+    if (GetWorld())
+    {
+        GetWorldTimerManager().ClearTimer(DefeatPresentationTimer);
+        GetWorldTimerManager().ClearTimer(DefeatPhysicsTimer);
+    }
+    for (UStaticMeshComponent* Detail:DefeatRoleDetails)
+    {
+        if (IsValid(Detail)) { RemoveInstanceComponent(Detail); Detail->DestroyComponent(); }
+    }
+    DefeatRoleDetails.Reset();
+    if (IsValid(DefeatMesh)) { RemoveInstanceComponent(DefeatMesh); DefeatMesh->DestroyComponent(); }
+    DefeatMesh=nullptr;
 }

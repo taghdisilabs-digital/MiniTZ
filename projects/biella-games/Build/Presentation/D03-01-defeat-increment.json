@@ -1,0 +1,50 @@
+{
+  "schema": "biella.d03_01.defeat_increment/v1",
+  "task_id": "D03-01",
+  "increment": "cosmetic defeat pose handoff and static-world ragdoll contact",
+  "implementation_status": "IMPLEMENTED_VALIDATED",
+  "task_status": "CONTINUE",
+  "created_at": "2026-09-06T11:52:50.251501+00:00",
+  "parent_commit": "5d04d9c804358b3f044ed1b6fecb809596d14723",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "implementation": [
+    "Source/BiellaGames/Private/BiellaDemoPawn.cpp",
+    "Source/BiellaGames/Public/BiellaDemoPawn.h",
+    "Source/BiellaGames/Private/BiellaDefeatAnimInstance.cpp",
+    "Source/BiellaGames/Public/BiellaDefeatAnimInstance.h"
+  ],
+  "validation_sources": [
+    "Source/BiellaGames/Private/Tests/BiellaDefeatTest.cpp",
+    "tests/run_d03_01_defeat.py",
+    "tests/verify_d03_01_defeat.py",
+    "tests/import_d03_01_defeat_resources.py",
+    "Content/Python/inspect_defeat_animation.py",
+    "Content/Python/probe_defeat_translation.py",
+    "Content/Python/probe_defeat_candidates.py"
+  ],
+  "native_build": "Build/Presentation/defeat-build-02/result.json",
+  "build_readback": "Build/Presentation/defeat-build-readback-01/validation.json",
+  "readback": "Build/Presentation/D03-01-defeat-final-readback-01.json",
+  "progress": "Build/Presentation/D03-01-defeat-progress.md",
+  "preservation": "Build/Presentation/D03-01-defeat-preservation.json",
+  "manifest": "Build/Presentation/D03-01-defeat-file-manifest.json",
+  "asset_provenance": [
+    "SourceAssets/Characters/UE58Defeat.provenance.json",
+    "SourceAssets/Characters/UE58DefeatPhysics.provenance.json",
+    "Build/Presentation/defeat-candidates-01/candidate-provenance.json"
+  ],
+  "publication": {
+    "owner": "Auto Feeder",
+    "local_commit_required": true,
+    "remote_publication_claimed": false,
+    "canonical_state_transition_claimed": false
+  },
+  "remaining": [
+    "Other directional and interaction animation",
+    "Skeletal vehicle and seated presentation",
+    "Production world, lighting, character and weapon art",
+    "Broader VFX/audio coverage",
+    "Crowd/LOD, platform and native frame-time qualification",
+    "Clean shader/material/PSO launch, supported rendering fallback and packaged play"
+  ]
+}
