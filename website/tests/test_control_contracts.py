@@ -17,10 +17,16 @@ class ControlConsoleContractTests(unittest.TestCase):
         for path in required:
             self.assertTrue(path.is_file(), path)
 
-    def test_control_console_has_four_primary_sections_and_project_contexts(self):
+    def test_control_console_is_one_observer_surface_with_four_views(self):
         html = (CONTROL / "index.html").read_text(encoding="utf-8")
-        for label in ("Website", "Engine", "Games", "Control", "Work", "Outputs", "System"):
+        app = (CONTROL / "app.js").read_text(encoding="utf-8")
+        for label in ("Control", "Work", "Outputs", "System"):
             self.assertIn(label, html)
+        for forbidden in ("project-switcher", "project-button", 'data-lane="Website"', 'data-lane="Engine"', 'data-lane="Games"'):
+            self.assertNotIn(forbidden, html)
+        for removed_label in (">Website<", ">Engine<", ">Games<"):
+            self.assertNotIn(removed_label, html)
+        self.assertNotIn("project-button", app)
         for obsolete in ("Live dialog", "Capabilities & Run", "Connected services", "Milestones", "Hardware & API usage", "Running workers", "Current files", "Visuals / Assets"):
             self.assertNotIn(obsolete, html)
         self.assertEqual(html.count('data-view="control"'), 1)
@@ -36,6 +42,7 @@ class ControlConsoleContractTests(unittest.TestCase):
         self.assertEqual(config["schema"], "biella.control-runtime/v1")
         self.assertEqual(config["api_base"], "/v1/control")
         self.assertEqual(config["mode"], "READ_ONLY_OBSERVER")
+        self.assertEqual(config["lanes"], [{"id": "Games", "label": "Current Production", "source": "patrickminitz-web/biella-engine:main#projects/biella-games"}])
         self.assertEqual(config["write_authority"], "NONE_READ_ONLY_OBSERVER")
         self.assertEqual(config["permitted_actions"], ["read_current_state", "read_live_events", "read_assets"])
         self.assertIn("/session", app)

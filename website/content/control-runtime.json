@@ -5,18 +5,8 @@
   "site_host": "control.biellagames.dev",
   "lanes": [
     {
-      "id": "Website",
-      "label": "Website",
-      "source": "patrickminitz-web/biella-engine:main#website"
-    },
-    {
-      "id": "Engine",
-      "label": "Engine",
-      "source": "patrickminitz-web/biella-engine:main"
-    },
-    {
       "id": "Games",
-      "label": "Games",
+      "label": "Current Production",
       "source": "patrickminitz-web/biella-engine:main#projects/biella-games"
     }
   ],

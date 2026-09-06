@@ -33,8 +33,10 @@ try:
             assert response and response.ok
             assert page.locator("#login-title").inner_text() == "Sign in to Biella"
             body = page.content()
-            for label in ("Website", "Engine", "Games", "Control", "Work", "Outputs", "System"):
+            for label in ("Control", "Work", "Outputs", "System"):
                 assert label in body
+            for removed in (">Website<", ">Engine<", ">Games<"):
+                assert removed not in body
             assert page.evaluate("document.documentElement.scrollWidth <= document.documentElement.clientWidth")
             page.close()
         browser.close()

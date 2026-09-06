@@ -56,7 +56,7 @@ function updateLiveStrip() {
   const status = normalizedLiveState();
   liveState.textContent = status;
   liveState.className = "live-state live-" + status.toLowerCase();
-  liveTask.textContent = c.current_task ? `${state.lane} · ${c.current_task}` : `${state.lane} · no active task`;
+  liveTask.textContent = c.current_task ? c.current_task : "No active task";
   liveHeartbeat.textContent = c.heartbeat_at ? `Heartbeat ${formatTime(c.heartbeat_at)}` : "No active heartbeat";
 }
 
@@ -137,7 +137,7 @@ function renderControl() {
     ? state.events.slice(-8).reverse().map((e) => `<li><time>${esc(e.time || "")}</time><span>${esc(e.text || e.status || JSON.stringify(e))}</span></li>`).join("")
     : `<li class="muted">No recent event stream entries.</li>`;
   return `
-    <div class="section-heading"><div><span class="eyebrow">NOW</span><h2>${esc(state.lane)} production</h2></div>${badge(normalizedLiveState())}</div>
+    <div class="section-heading"><div><span class="eyebrow">NOW</span><h2>Current production</h2></div>${badge(normalizedLiveState())}</div>
     <article class="current-work">
       <div class="task-identity"><span>${esc(c.current_section || "No section")}</span><strong>${esc(c.current_task || "IDLE")}</strong></div>
       <h3>${esc(currentTaskTitle())}</h3>
@@ -203,7 +203,6 @@ function renderSystem() {
 
 function render() {
   document.querySelectorAll(".nav-button").forEach((b) => b.classList.toggle("active", b.dataset.view === state.view));
-  document.querySelectorAll(".project-button").forEach((b) => b.classList.toggle("active", b.dataset.lane === state.lane));
   if (state.view === "control") viewRoot.innerHTML = renderControl();
   else if (state.view === "work") viewRoot.innerHTML = renderWork();
   else if (state.view === "outputs") viewRoot.innerHTML = renderOutputs();
@@ -272,7 +271,6 @@ loginForm.addEventListener("submit", async (event) => {
 });
 logoutButton.addEventListener("click", signOut);
 document.querySelectorAll(".nav-button").forEach((button) => button.addEventListener("click", () => { state.view = button.dataset.view; render(); }));
-document.querySelectorAll(".project-button").forEach((button) => button.addEventListener("click", async () => { state.lane = button.dataset.lane; state.events = []; await loadData(); connectEvents(); }));
 
 async function bootstrap() {
   try {

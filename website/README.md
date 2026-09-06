@@ -10,11 +10,7 @@ The website consumes Engine and Games evidence. It never substitutes website vis
 
 ## Private control console
 
-The Website branch now contains a private /control/ browser console for the three Biella lanes:
-
-- Website
-- Engine
-- Games
+The canonical website contains a private `/control/` browser observer for the one current production context. It no longer splits the observer into Website / Engine / Games sections.
 
 It provides read-only current production state, live task activity, outputs, services/resources, hardware, workers, and source identity. It reads through the existing `/v1/control` gateway contract and does not invent project state. Dialog and capability-run routes return `405 control_read_only` for every authenticated role, so opening or using the console as an observer cannot steer production.
 

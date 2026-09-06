@@ -6,11 +6,7 @@ Status: implementation contract for the private control console.
 
 The console is a browser client for the existing Biella control gateway. It is not a second gateway, a shell, or an independent execution manager. The gateway remains the authority for authentication, authorization, and current-state reads. The browser console is an observer and has no production-write authority.
 
-The console serves three lanes:
-
-- Website
-- Engine
-- Games
+The console serves one current production context. The former Website / Engine / Games selector is not part of the observer UI. The gateway may retain internal lane identifiers for compatibility, but the browser must not present three separate production sections.
 
 The console reads current data only. Legacy, historical, superseded, and unverified records are excluded from the active response contract.
 
