@@ -1,0 +1,1088 @@
+{
+  "task_id": "D03-01",
+  "task_status": "CONTINUE",
+  "increment": "ground package qualification",
+  "result": "PASS",
+  "parent_commit": "01429b124d6b78c2c576299f82edb5aaa87167e8",
+  "entries": [
+    {
+      "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-ground-candidate-01.tar.zst",
+      "sha256": "9f2b59d9220bbc760d617de63cbace9a58fef4db62fbaa8acc245f1ff4bab373",
+      "bytes": 481133192
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-environment-hazard_active.png",
+      "sha256": "d11dafd74ce90c0c29e28807ab4436f799aed124d2fa2fbfe814629bd2081efc",
+      "bytes": 1070855
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-environment-stream_return.png",
+      "sha256": "09f20f513bd7806c06acc1e5d29a5274ba90eb0fce73259356941d0e4e2ee808",
+      "bytes": 1027986
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-hidden-pan_015.png",
+      "sha256": "9afceb193837e756a832323693f6a673fc23b1a7a4dc9165d7f4d554dc121b5a",
+      "bytes": 1021583
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-hidden-static_009.png",
+      "sha256": "10361dfa3266b8b88cd594d940a6487d420878e7e945a11cd9bb67a549abcc2f",
+      "bytes": 989721
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-hidden-walk_end.png",
+      "sha256": "0d708aefea64f60c3685891234eb04218cca34cf7048f95ed6cfc29e3005a00d",
+      "bytes": 1035883
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-taa-pan_015.png",
+      "sha256": "3cd84ff546478f3f5f71a697603c9ef7572b0fbad2b0673c990d930c6711fdc2",
+      "bytes": 915773
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-taa-static_009.png",
+      "sha256": "797eaaec4ff015ed5dc75411e7181376736eaacc64afbb2bfc7f487d30d6d2c7",
+      "bytes": 908033
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-taa-walk_end.png",
+      "sha256": "3f92997a832c33579edfd1bedfb90ba335090cd62cc70f8985a141f32a1c4d3e",
+      "bytes": 910026
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-tsr-pan_015.png",
+      "sha256": "a6970c433a38064afe69f915da839ddbe4cecf8ef0d637e015e509d78059822f",
+      "bytes": 1027435
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-tsr-static_009.png",
+      "sha256": "99a5269a269e234cbcc893c5f1a076ced298a7ae82117a52726d59ce7bd7dc58",
+      "bytes": 1000131
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-tsr-walk_end.png",
+      "sha256": "5373a42d232369dc46e766523a89b9ed8f1312e64fbab5def150b54c8f97b9fe",
+      "bytes": 1035491
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/manifest.json",
+      "sha256": "e0b9d4531224f079437f5f3dffde1a28bbf05c8380491701c946e6d597ed708b",
+      "bytes": 6320
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/D03-01-ground-increment.json",
+      "sha256": "2dfc6c750e03be72f35d6a63622e43cbe4005387c43a389fe28ed73005cc6ab0",
+      "bytes": 68839
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/D03-01-ground-package-progress.md",
+      "sha256": "f81fa6bc1686f0c76a50f0c444c68660803aef5cf7e8aab4af2a343589c05515",
+      "bytes": 4421
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-build-04/validation.json",
+      "sha256": "efce446640282f9abc71c0c1881b5aaa35a546bdad9f3cc5ebe96e089ac1500c",
+      "bytes": 48574
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-cook-01/command.json",
+      "sha256": "2b256c9e63f9b3203a0fb1f44532c6271d78a45c0e26ff157d863c1a9ce36ff2",
+      "bytes": 594
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-cook-01/cook.engine.log",
+      "sha256": "55d7c7536909c76c5b000c93e2f2c17c4b423bb4d7f5850fde11b43c31c1c9ae",
+      "bytes": 480518
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-cook-01/cook.stdout.log",
+      "sha256": "9a5fd83bd32d297b4e431d2a611f8ad38db75373352315665b22b7a5173e0070",
+      "bytes": 499862
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-cook-01/validation.json",
+      "sha256": "6fa941ad12308221f92117827e619c900f3ac9024eb9fa242c4f0031558add46",
+      "bytes": 9948476
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-cook-config-repair-01/validation.json",
+      "sha256": "2200f75c00d7a48722332b3abb6eefc4392b3dec999c65fd49a8ac4f6496ea28",
+      "bytes": 1496
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-game-build-01/inputs-after.json",
+      "sha256": "f1a9dcbee518fe5e072b23fd7553fecb6de485ac918a3f56150f132d16981621",
+      "bytes": 21578
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-game-build-01/inputs-before.json",
+      "sha256": "f1a9dcbee518fe5e072b23fd7553fecb6de485ac918a3f56150f132d16981621",
+      "bytes": 21578
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-game-build-01/result.json",
+      "sha256": "a44350ccb9d3891a1457ff5a3b56b2cf459e7a5dfed673571eba0a30a14f0d0d",
+      "bytes": 2968
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-environment-01/captures/hazard_active.png",
+      "sha256": "d11dafd74ce90c0c29e28807ab4436f799aed124d2fa2fbfe814629bd2081efc",
+      "bytes": 1070855
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-environment-01/captures/panel_damaged.png",
+      "sha256": "c2c8e35633bc2f228f0d3a1a9788bd2f98dcb3c488ec9b7cd1b9f0439fc3e77a",
+      "bytes": 1014846
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-environment-01/captures/panel_destroyed.png",
+      "sha256": "4445435e71811fb50c5e4fe864b61eda89cd3d9bb17dfdeb259f6f49e5b05ec3",
+      "bytes": 1016579
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-environment-01/captures/stream_return.png",
+      "sha256": "09f20f513bd7806c06acc1e5d29a5274ba90eb0fce73259356941d0e4e2ee808",
+      "bytes": 1027986
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-environment-01/captures/switch_safe.png",
+      "sha256": "dc838e2862447d88807ea953c4e9db99a0f9ea706466ad52340dad10168dd5ab",
+      "bytes": 1019830
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-environment-01/command.json",
+      "sha256": "75c0531468ddbc350fa72a297a32ca681861d177b16614a3bd252f5085ee7af5",
+      "bytes": 2001
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-environment-01/events.log",
+      "sha256": "380c39dd28165c0acb2035e680824f476d36156b22f98b2e8f1aa5ab6155e4cb",
+      "bytes": 1703
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-environment-01/frames.csv",
+      "sha256": "c6c6851bf0e996e78449892f06c9017ab649addb9d274ef2f91b42d23a4957bb",
+      "bytes": 162965
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-environment-01/isolation-mounts.txt",
+      "sha256": "79bcb59d3180e2c6d41ef4ceaa3d0fbb8063a9be11b6a59248778de18856a17b",
+      "bytes": 6088
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-environment-01/isolation-probe.json",
+      "sha256": "28021418f4cf3d4a1cf0576e277cbb7e63fd30143f4237485afb0415e3beed3e",
+      "bytes": 1125
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-environment-01/native-views.csv",
+      "sha256": "adf3c1c10b0a60d6153ee467e43807bbaf7cfa4982b3d1285bc0f79d47d90567",
+      "bytes": 92123
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-environment-01/result.json",
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321",
+      "bytes": 84
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-environment-01/runtime.engine.log",
+      "sha256": "b9ef657ed3a2e5dfd8a191ca3e126a65f4f38653595f7b462f3887c4f663984b",
+      "bytes": 1033919
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-environment-01/runtime.stdout.log",
+      "sha256": "4d4c2399a6cad9de1592325aec641fb7f88d21460795dad2c303ea5ebc3f40fc",
+      "bytes": 1024494
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-environment-01/validation.json",
+      "sha256": "21cb3dd17f722d37a0c895ce0bb4ffeb2849ead8bc8cb2764783ee35fb2141ab",
+      "bytes": 263887
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_000.png",
+      "sha256": "04c884ea27ab27b82f20a7902b5d57266fe956d8081cbb21d9f39f9099ad15ee",
+      "bytes": 998091
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_001.png",
+      "sha256": "094f3bda3460e703c77e8be4fff3e4be572a0a703368e6921f620f13a7a1fc7f",
+      "bytes": 1007929
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_002.png",
+      "sha256": "07b27fdd0aaec52b59f5e48afb44a5621cb0e1b46b2ad02c8c00efff5c8b9072",
+      "bytes": 1009155
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_003.png",
+      "sha256": "f5854f147a8db19eaa10cfcdfc994c32171fe5c2fcc2a6fa3cc214c0dbd8fd1b",
+      "bytes": 1014515
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_004.png",
+      "sha256": "6cd58c2f1fed45197189b9d6fda0066b77ec002bde3c868bd9839ac3390e04bf",
+      "bytes": 1013825
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_005.png",
+      "sha256": "304b1c1000481369a2bbcb85c37f7498d8f76fe76050686c4d20ee505c777375",
+      "bytes": 1013593
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_006.png",
+      "sha256": "c2ca7dda42adfd6bde5e336ffb1c40efa4f1d60ccd835bcaa735f681da6b2115",
+      "bytes": 1017384
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_007.png",
+      "sha256": "e0707b98780cf69a912bb62f3f757a688847150787e84a85feac3662c5c5caf0",
+      "bytes": 1018614
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_008.png",
+      "sha256": "20a9b0e16d8124cfb6bdd5c118d10bcf823af3d023745148e78541ae5b81c15a",
+      "bytes": 1017215
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_009.png",
+      "sha256": "61afbe17288531e80fa4813eb4c02e47de9eacb31defb784d884d558c892b3e3",
+      "bytes": 1018036
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_010.png",
+      "sha256": "f27bc1922fc9ffc98190e1398c5d336e1ed669cea236369a904bea24c5464173",
+      "bytes": 1014003
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_011.png",
+      "sha256": "ce141f42697477856d67d203ca027c66ea7200e5eb1e987f17a15161c0da0613",
+      "bytes": 1019336
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_012.png",
+      "sha256": "57d1794e5b6d958404d13ad605f4ff49f88fb7b664fc62fce4d0a17d9044703d",
+      "bytes": 1024099
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_013.png",
+      "sha256": "74b16ce36894c7b33b1d25663f89e1b3add0415f5b3293e79f26bee4f84f927a",
+      "bytes": 1022516
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_014.png",
+      "sha256": "2ce85afdf4825bf36f5157987ded89f236e076982ab2772e2191de4f9109a180",
+      "bytes": 1022320
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_015.png",
+      "sha256": "9afceb193837e756a832323693f6a673fc23b1a7a4dc9165d7f4d554dc121b5a",
+      "bytes": 1021583
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_016.png",
+      "sha256": "8c34b3cc8efe910160b248e99b2d680085d514ddce00f352aafa198b6f10d7a3",
+      "bytes": 1020174
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_017.png",
+      "sha256": "54d4e2824db7faef3f0fac04e7d57f45c8e627296ed6631e05cfd6678e981ac4",
+      "bytes": 1026857
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_018.png",
+      "sha256": "91ef13d2e75627a39296d48d6a580299c19ed63b200ed2846f5e8fe0951f146b",
+      "bytes": 1030245
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_019.png",
+      "sha256": "29ca0b2bea31b81a8eb388258038dd89d01fb269113a72e845e037453a14d0a3",
+      "bytes": 1034557
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_020.png",
+      "sha256": "fe23833f1bf89ea9ee6feb242734f67ed082dac8e0c807c5de32125bbc389223",
+      "bytes": 1031230
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_021.png",
+      "sha256": "5210d422dacebd48f341f8df3c5f3dd67ff733d27c1302b13b21fa397af53816",
+      "bytes": 1021423
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_022.png",
+      "sha256": "5d7f4b610ad535cde1035ed381dc43b4fa5ae94eefac6cc7172f3cdd5a96793b",
+      "bytes": 1025902
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_023.png",
+      "sha256": "28421c5e49224fc5886cca01fc67699dfc0584feb5df104a794e6562d2087639",
+      "bytes": 1017078
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_024.png",
+      "sha256": "6ed2efc3c5df2017127c013da2ad6e7cb173ce78fdf7ec0418040c62ac8999fb",
+      "bytes": 1011340
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_025.png",
+      "sha256": "14bc51839d50eeca08055398d918af0e6cbccb65ea168f0637c81db2549d3c9e",
+      "bytes": 1008127
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_026.png",
+      "sha256": "75c11847d55957797e58fed5dbb6f01a6297637d6bd1890ba1eed687017c4093",
+      "bytes": 1006980
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_027.png",
+      "sha256": "e38231d59fa298f42d83e9d44076b16ba9bb671759af926be127e8fcf738e3ba",
+      "bytes": 1005408
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_028.png",
+      "sha256": "54d233fdb9b0892d8bfef739a47f8497514337278be9168eb6c79dcd1fdb0a13",
+      "bytes": 1005461
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_029.png",
+      "sha256": "1d77e05f68c46dd28c07e783e5ac13ab202077d598fa3dc0226bbbd15e083f7f",
+      "bytes": 1005294
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_030.png",
+      "sha256": "ffcfa604e151b0312f33df0e1d4e9f71e7c5fe6a9d86636962915a6d7cfba97a",
+      "bytes": 1004333
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/pan_031.png",
+      "sha256": "9ab9dc07c91e033c9d20e1ba08aafd28df4ce2ed87ad5edf8db9dac2cf9e082a",
+      "bytes": 1004055
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/static_000.png",
+      "sha256": "a21da428402713de19464e77004d3969388b0d6a0eec1578aea3fd2c22a1ca65",
+      "bytes": 990760
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/static_001.png",
+      "sha256": "b1ee868256c45d04e1bf36b17e00c452f49df8816003d43a172acac10b4aaeb2",
+      "bytes": 989913
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/static_002.png",
+      "sha256": "7973d5eaec95d421bfadee99826be158cfca0d21f0c5f222b407a71d0365623a",
+      "bytes": 989693
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/static_003.png",
+      "sha256": "5657bc23a6820525339ece8b5ddcd166dddd70887017a0f7194c60cdd8b1ee73",
+      "bytes": 990469
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/static_004.png",
+      "sha256": "1bdb75d643d243597897e425c5be4c4baff470ac35c352a9a6dea9b64770e7b0",
+      "bytes": 990630
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/static_005.png",
+      "sha256": "075b8028b100e9d1f8c67af1c8ff1c566225c0d0a0695188f9c38b08dd20837e",
+      "bytes": 988673
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/static_006.png",
+      "sha256": "e58b63c8a00059cc1efcf026aea1070469e4105d78f15e36f25f3482c27859d5",
+      "bytes": 990069
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/static_007.png",
+      "sha256": "72f8fcfb00878e8e20220ace37b301101d4eadd32c21faa2f6e5aac9f2453ad0",
+      "bytes": 990977
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/static_008.png",
+      "sha256": "b29181e47f5fa99f07708b1550997a1f05b9fa88dc2791528f0f1b232580d712",
+      "bytes": 990334
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/static_009.png",
+      "sha256": "10361dfa3266b8b88cd594d940a6487d420878e7e945a11cd9bb67a549abcc2f",
+      "bytes": 989721
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures/walk_end.png",
+      "sha256": "0d708aefea64f60c3685891234eb04218cca34cf7048f95ed6cfc29e3005a00d",
+      "bytes": 1035883
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/captures.csv",
+      "sha256": "fe78bac50da77f38accf2909c181af569a733eb4dcdf8eef54f9f179e9c0f2f7",
+      "bytes": 1446
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/command.json",
+      "sha256": "236b957deaf4077c164d885b134dee61b9ce46f14045d7caef588b55c951c5a5",
+      "bytes": 2045
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/frames.csv",
+      "sha256": "a73a21fb43beae2908797e0ae7163b362e126314044eb2ea1305e716260d5553",
+      "bytes": 112026
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/ground.json",
+      "sha256": "39737ca23d1e7282e8e2ca0b3822e3350a659fb37dcf8e98c0b9bb15e9d1fa5a",
+      "bytes": 318
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/isolation-mounts.txt",
+      "sha256": "56e8835b033b21f03c60122bb68a0567ee3f02eba14707ae42bdb36309e2639f",
+      "bytes": 6073
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/isolation-probe.json",
+      "sha256": "7318a01fe42f4b26f8446bc77888871df523fd6497f2ba4eb02f7b6a4a19a70f",
+      "bytes": 1188
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/native-views.csv",
+      "sha256": "5c378f75e902c1da6f395c57719a78d7d3b134b350a5478820338517e393ae52",
+      "bytes": 73148
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/render-primitives.csv",
+      "sha256": "768da8f2d792d69503131b93c694dcb8c2220a1435ccc6cd52c75f0d7beea026",
+      "bytes": 29927
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/result.json",
+      "sha256": "94b5b1aae351799a53e7a7df361fe63dd6bcadbd5c865987c32ef723525c9273",
+      "bytes": 121
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/runtime.engine.log",
+      "sha256": "a294dd4e14f0c1f8560d3bbffbc309297ce38a2635da103d8a128054891b08c1",
+      "bytes": 968603
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/runtime.stdout.log",
+      "sha256": "338179dc50f3aa01a1f7e6e696c23d35649950e21df2d384b4322efa086dc999",
+      "bytes": 959633
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-hidden-01/validation.json",
+      "sha256": "4c262edb10dd32419edcdf73b47b5fa3910364e5353a71bd44fbb72b42411806",
+      "bytes": 282550
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-review-disposition-01.json",
+      "sha256": "4b4eedc83e34930ba564586c27c214f7d6d9ed0f3e32b78c33c07b4e7807f4c1",
+      "bytes": 2302
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_000.png",
+      "sha256": "aa96cefaac6c2125ba6936ea3e629ec877232a9c773bd499ed6ceeb8c884212a",
+      "bytes": 922711
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_001.png",
+      "sha256": "1ed167a0051f62648c5ae5828374acf55a1c932e39a332def157afbee91c474b",
+      "bytes": 923645
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_002.png",
+      "sha256": "66b0d8724b639e03682d8d1863418918461255da89b8e1b5d94ac9416e6c25a0",
+      "bytes": 919996
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_003.png",
+      "sha256": "9aa7b32f06f41629be5635287e91ef4ce283bef60bd2028aa84c3118ee75184a",
+      "bytes": 926140
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_004.png",
+      "sha256": "7ee8c2915c485ad40f8adb498a9ce6a19fd7fcfba6bbe100cac57a839dcbc296",
+      "bytes": 919639
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_005.png",
+      "sha256": "b8ea7e8f8f6e785754b92784433170f2b086748f321fad18c9399c8913193e3c",
+      "bytes": 924674
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_006.png",
+      "sha256": "69bd875db2345d78dca693f2b65f199a7ffd0103d80416d672631d65b2346952",
+      "bytes": 922207
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_007.png",
+      "sha256": "cded4d4306c237d16cdcfa1950f5dce7ccbefa6ff99482b3fb7c3768f1ff302e",
+      "bytes": 924819
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_008.png",
+      "sha256": "a416dcdc6b739d6e81c0f2cc022fe7eb5f8011e2d93e288cf210c52cb6f35940",
+      "bytes": 911663
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_009.png",
+      "sha256": "4c03fb72cb55f5ccb157facf33f5808a352bdbd7797fd7bcf13ba819cf43a6a6",
+      "bytes": 915829
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_010.png",
+      "sha256": "5a44271dade0333d92744cf372a59143eff706ce6981ded1b9ff8a778a03a250",
+      "bytes": 911077
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_011.png",
+      "sha256": "c0455ec87e5529c499cb30fe60edcff282c9b8342b0170db49ed07884bfcfec2",
+      "bytes": 915684
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_012.png",
+      "sha256": "0496c648bca3043bd2eb318b2742a45144b0bf24cb9ffeb07241e15c37c53582",
+      "bytes": 904361
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_013.png",
+      "sha256": "42fc06c7c20d7365753b102cd65752b1300ddb901c29c090c026e01a25a56dd7",
+      "bytes": 912508
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_014.png",
+      "sha256": "b7fc5ffaa6fab6b5852bef5d4f17961d4220d02c9a7e7d61dafee6074fe34710",
+      "bytes": 912343
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_015.png",
+      "sha256": "3cd84ff546478f3f5f71a697603c9ef7572b0fbad2b0673c990d930c6711fdc2",
+      "bytes": 915773
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_016.png",
+      "sha256": "710132ea4c74fe41167adada447c2a27c44ea140cb5a2f2596836da35b85478e",
+      "bytes": 908321
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_017.png",
+      "sha256": "9d9e6799042946187d31516b756dab92c601703524360c05defdec9611fac6a2",
+      "bytes": 911580
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_018.png",
+      "sha256": "48331f72ab57a342f023a2441b845510de4128ac268d62f06985a217432f7f3b",
+      "bytes": 911642
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_019.png",
+      "sha256": "094fda930bd29e8ff302fe9610cfe3046413fa60f24560ce745d3a2f6f2246bc",
+      "bytes": 916483
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_020.png",
+      "sha256": "76d1c6fef759683eed61172467794c049db1b026a9b3b5c0b2f702717f5304c0",
+      "bytes": 908912
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_021.png",
+      "sha256": "3542324e40e0583c337e7b08d39c26623b62ec95c88488ababdf23e63dc4ec92",
+      "bytes": 919356
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_022.png",
+      "sha256": "773e2a0e925d54644f5c4047258cddfebe99f4494b7734cb4c41be270eed10db",
+      "bytes": 915273
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_023.png",
+      "sha256": "a73b74f1fd46b6e1d664075a4afea43c4b5e7e91d83432ba69e9ba303f66084c",
+      "bytes": 915313
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_024.png",
+      "sha256": "d54fccb723541d74cb7f911cb320e1d7b45d46494d268a25bf4e6ddb080688c3",
+      "bytes": 904939
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_025.png",
+      "sha256": "dfc36ef62829b2a2c0c9b15bc69008bb9454e65d9d9ad90d8870d62788373eb0",
+      "bytes": 909032
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_026.png",
+      "sha256": "37ed933e4f81454b0e65dff35d992b1795dfe813a2c9c8310bc9ec3803ff1506",
+      "bytes": 909263
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_027.png",
+      "sha256": "cccad4853f4d7ea4bf32809e185fa644812735f9b838bfd47e19b413a1bca100",
+      "bytes": 915449
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_028.png",
+      "sha256": "1ddac9dd078a84e5d85118001de0009b1e0dfffb546d17a98c9db3ef82ed8477",
+      "bytes": 907676
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_029.png",
+      "sha256": "fe53fd9435af842797546dce3eb830ddfb777019042e00fc5cb7b545c9ebf040",
+      "bytes": 914097
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_030.png",
+      "sha256": "a4eaade2e6bdd62614f9f86f7de222227c467f59e435b108b5a19d27b2073689",
+      "bytes": 911973
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/pan_031.png",
+      "sha256": "ddfaa4878b7879c66b986207f9cc83917039d53ef14f9bcb8466d407a748588b",
+      "bytes": 917128
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/static_000.png",
+      "sha256": "a36f881cc98cc60f031614f19121dcca4292cefa0db22b1d65ec1530c95eb168",
+      "bytes": 910641
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/static_001.png",
+      "sha256": "1d1b5f33ace67893a000ba2bb9928f90aacc153088fd1329d539e1e795147be5",
+      "bytes": 908013
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/static_002.png",
+      "sha256": "0edf94a3c05c0e65d201165a0958c69d51354616b4723dba3cbb113248529745",
+      "bytes": 912781
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/static_003.png",
+      "sha256": "0688cbc7f7a659c6e990ca36ea2d30f61ed56e8f02922cb33ce28359a3d325a6",
+      "bytes": 904879
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/static_004.png",
+      "sha256": "31d691560a4461442c176513187e527996ab4af4df0a4cdfc37384ada7bfa149",
+      "bytes": 910891
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/static_005.png",
+      "sha256": "d4f408545d1b0b8ee26c2a4e264591f125b1ff5db38ee7f228d576ef8c6d76be",
+      "bytes": 907503
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/static_006.png",
+      "sha256": "0ae3e34b6fa98a5f6e5bf6670d427c8b72846171e9f4d85e1c45c947dfb15346",
+      "bytes": 912936
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/static_007.png",
+      "sha256": "426fcaa02d30a0396ee817b60b6276284a7eb57ec457d5f9f8b7301e95be9dc2",
+      "bytes": 904468
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/static_008.png",
+      "sha256": "d2e440cbb01edc136514d395ddaeb77cc72f28be725b2b4911f99b89d542219c",
+      "bytes": 910585
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/static_009.png",
+      "sha256": "797eaaec4ff015ed5dc75411e7181376736eaacc64afbb2bfc7f487d30d6d2c7",
+      "bytes": 908033
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures/walk_end.png",
+      "sha256": "3f92997a832c33579edfd1bedfb90ba335090cd62cc70f8985a141f32a1c4d3e",
+      "bytes": 910026
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/captures.csv",
+      "sha256": "446eafe96b1c6d55ee6e0cb8424bff6a3cd2607c6a9dadf0731c466acc9121f8",
+      "bytes": 1444
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/command.json",
+      "sha256": "4ec39347a8201b14937cfeba16d00b7344607e560361727f2de7d2d961979ea8",
+      "bytes": 2002
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/frames.csv",
+      "sha256": "bc98e03964cc554cb3587a67096b6b84c2331156b13cca7c30c4affba78339e3",
+      "bytes": 131597
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/ground.json",
+      "sha256": "dc5be4729a1da8e493f54f99e95222c52166a4247a84b999abae4433446cdeb7",
+      "bytes": 317
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/isolation-mounts.txt",
+      "sha256": "692994ea4519d73e52054bb6950ffc4583f53f8b0e36e7f7d13e6bc97c43a7cf",
+      "bytes": 6064
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/isolation-probe.json",
+      "sha256": "5f2e9a9845c76dbc000839889b59b19c49067c16d47ab652452e43f7b3a40afe",
+      "bytes": 1152
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/native-views.csv",
+      "sha256": "f958b0dcfa2c48601296f9af3f2a139ae45ef91c873de33111028d1687783c86",
+      "bytes": 90418
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/render-primitives.csv",
+      "sha256": "779e10e8b9e98e344dbbb823a60ff56a0ed845d31b55fe6102116906cf2431e0",
+      "bytes": 29927
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/result.json",
+      "sha256": "1058e301abb131209139ca9622396a17a6a253749288b67b070b82e423314b51",
+      "bytes": 121
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/runtime.engine.log",
+      "sha256": "6fbfe2e67d83fb7eafd2c00b465f1693bfa84ba513a268a6879554a54edf2cb6",
+      "bytes": 806009
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/runtime.stdout.log",
+      "sha256": "8fb34bc524612e01500b794684cacb8e06eee6a9ef09239deff1f539f186e0aa",
+      "bytes": 798444
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-taa-01/validation.json",
+      "sha256": "e948cc64f2e37d54b384f33df997774666350ea547b36d55138b741aa6ec60fa",
+      "bytes": 214322
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_000.png",
+      "sha256": "ddb64d16dfad32affd0130bc156e4899ee108e5bf3c30f1f8dc5c5392ecd8d14",
+      "bytes": 1024028
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_001.png",
+      "sha256": "7ee84c0d12469a71e1614c68b039b17725bfc8bf71fba762953e5e932e024310",
+      "bytes": 1033621
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_002.png",
+      "sha256": "a0b63bc572aab0b4def87fc61dea548b9539c39b72396e549925d9ea0d163b68",
+      "bytes": 1034713
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_003.png",
+      "sha256": "672ded6404e5fdef966ee8e5d3d565f64f09366151f1ad9a450161fad7fa90ed",
+      "bytes": 1034160
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_004.png",
+      "sha256": "3f5fd32feacb3c830eff42fa09c9cefb616c06d4c56dabbef77cea4e6175a4fd",
+      "bytes": 1037604
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_005.png",
+      "sha256": "fec616163676d61a290716681379e9940ee22802d3d2cda0e8cebf24d0bc6699",
+      "bytes": 1037903
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_006.png",
+      "sha256": "6ba4f32f1e8a9c8ce2e106687eeb654ff733501b0a2ee2ab59dfdef9d79ba611",
+      "bytes": 1035698
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_007.png",
+      "sha256": "d625074635e3755fb32dec1180fd748fb9bd5edb0093fc5377d45d6078dd92e6",
+      "bytes": 1034028
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_008.png",
+      "sha256": "a6b5693013b3676f1426655f8c252bfaa350bd470773cf94673cc8ca1a26974a",
+      "bytes": 1026670
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_009.png",
+      "sha256": "5d29efc9c9852a5b6ae211d26dd17b9955b5ef5cdfd4ed93bb8fb6778a0dcbed",
+      "bytes": 1027476
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_010.png",
+      "sha256": "06d51932a88b18e267a07f58b6faa5f3cc2af03ee209fa6de97e62a6e678f078",
+      "bytes": 1030057
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_011.png",
+      "sha256": "dfdbba950c89791778d3fcb33fb831fdaa038004a51eb72844b3f3ab908bedb8",
+      "bytes": 1026143
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_012.png",
+      "sha256": "6eaea066935eb5f63ac0fd64263c0e2bf0d7259b18b8ff2a1461c452e7430672",
+      "bytes": 1031243
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_013.png",
+      "sha256": "60385a045db5d43d8045450cadc98662dbe2db7e9395a87254222da55a7e38aa",
+      "bytes": 1028940
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_014.png",
+      "sha256": "199670cb7ecd8e33b893c865eab489cc8a3bc11e5bae66b95769a13312b45dc0",
+      "bytes": 1025295
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_015.png",
+      "sha256": "a6970c433a38064afe69f915da839ddbe4cecf8ef0d637e015e509d78059822f",
+      "bytes": 1027435
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_016.png",
+      "sha256": "a13e096d1574fdbd019d1f0aad144f1aa13ff12b9d54776ff64d792aa525f109",
+      "bytes": 1030876
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_017.png",
+      "sha256": "67bf38b8634bc915bd5bc4b0e5fc702196fdc6c3f88f7355bebdfb5347f105cb",
+      "bytes": 1030073
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_018.png",
+      "sha256": "004d45cab8a6e91387657bc091dc505e5a2e96dccaa9f52633e36aa7d6953679",
+      "bytes": 1034423
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_019.png",
+      "sha256": "2a0518b2966f24190fb43d9086e1d699cf4712e7827ee04f12fc9b5666821c2f",
+      "bytes": 1029552
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_020.png",
+      "sha256": "2713bb5a051020edb9fb9d93ca8779c207b190bbb45c216431b91afaa80a0c23",
+      "bytes": 1028808
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_021.png",
+      "sha256": "92b0217df426e5ca722156fb3e72a9ec830d916092f3a1ea8c961b702c3a6706",
+      "bytes": 1027844
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_022.png",
+      "sha256": "37d2dea27037bcebde81d9a5e0ca647164a05ef83258b7d8869e3cad905c3f03",
+      "bytes": 1015354
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_023.png",
+      "sha256": "b67b1ff7b5830cba7b75649ca1d4a01ea5a51b5daeb1c59ef6a0db43784649c7",
+      "bytes": 1012558
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_024.png",
+      "sha256": "8bba9d116f28cca48e323374ce416699b5471516ef3fd2d75d40fd587781bc01",
+      "bytes": 1008614
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_025.png",
+      "sha256": "231d7b5803b1c34073f81b6838ef41e897c5d6d1f3254fc6e39433b3df40fe89",
+      "bytes": 1005902
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_026.png",
+      "sha256": "eed78975951771af961ef5b09cd1d4e66f895a7217b08f872a41bd8086e3c8f0",
+      "bytes": 1004958
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_027.png",
+      "sha256": "a89fe8e82d28050919227173e33b26db03ff9752bc6354aff3da0d797e6b2074",
+      "bytes": 1005892
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_028.png",
+      "sha256": "d7060842d585c76abe8161d642b6d347be19a25557fa96e98046960a4a288e57",
+      "bytes": 1004310
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_029.png",
+      "sha256": "5b85cad1e524f8039d6dcf3d7a1d65b18045e2e25bd1d00fb0eeed604b7d29bb",
+      "bytes": 1004346
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_030.png",
+      "sha256": "71caa934d9a787ed3f125ff6eb363ab99be7508154bc63a68be90803bd23f7da",
+      "bytes": 1003906
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/pan_031.png",
+      "sha256": "8b2717c416a06a5339d44ed994ec839a9b304ff26d6544e7834d59f44d5221ac",
+      "bytes": 1003911
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/static_000.png",
+      "sha256": "9aa8658eb3aa2dda03ffd0cd9013df03fe25a1f47fdc5b6044dc3d25e74d6094",
+      "bytes": 1001655
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/static_001.png",
+      "sha256": "1ec3874b17586424c90d13792d2521241fbd7ee3425008775dcd72a20329efb7",
+      "bytes": 1000439
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/static_002.png",
+      "sha256": "494d304a6cc680b1ca7bde468cc7efd629e09967f7c52aaee9f42f5468aba548",
+      "bytes": 999243
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/static_003.png",
+      "sha256": "0a1d437e0be682c3186877723f4c1d5aa06afa4a590fdd332a8a2e9bb3c9d8da",
+      "bytes": 1000584
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/static_004.png",
+      "sha256": "ba23de0944d5e796da1b132560cda3fc205306bf5400add5a3eb25301fe23c8c",
+      "bytes": 1000664
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/static_005.png",
+      "sha256": "c2f4bf0f7e37f501cecf0eac29976662b0574fb49325e04c47b98dc08b6dc058",
+      "bytes": 999827
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/static_006.png",
+      "sha256": "7bf320684c6531216ba15d13624888d64c1c4acab125c0cf5646136cdbf9f498",
+      "bytes": 999632
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/static_007.png",
+      "sha256": "0a42d4f78f8db7b6434a33d1cdbb925b0a8b6c4cabde67802693bea8e577ff83",
+      "bytes": 999717
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/static_008.png",
+      "sha256": "ec6dbc665f56e960e898b8228d943a39ebc853f22d46e8fd2c0e3c847865c48f",
+      "bytes": 1000438
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/static_009.png",
+      "sha256": "99a5269a269e234cbcc893c5f1a076ced298a7ae82117a52726d59ce7bd7dc58",
+      "bytes": 1000131
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures/walk_end.png",
+      "sha256": "5373a42d232369dc46e766523a89b9ed8f1312e64fbab5def150b54c8f97b9fe",
+      "bytes": 1035491
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/captures.csv",
+      "sha256": "a03e0e0c3b5fcd6b1a9f5093423d372dc89476d89a6b6c8d83519b7f3097f1d8",
+      "bytes": 1446
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/command.json",
+      "sha256": "d1e570c8b90d2327dd1ca9f6ec33976e9838d78d0865923f7da7fb803d61a666",
+      "bytes": 2006
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/frames.csv",
+      "sha256": "d14ebf2ff031e90a0af4b747950517fa44bba0f8148b7b910393f41a1241126c",
+      "bytes": 109746
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/ground.json",
+      "sha256": "dc5be4729a1da8e493f54f99e95222c52166a4247a84b999abae4433446cdeb7",
+      "bytes": 317
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/isolation-mounts.txt",
+      "sha256": "278d419a1717e96b2a8f69f7ed37efa17136b2ae29cc972bc337e5d110a62221",
+      "bytes": 6064
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/isolation-probe.json",
+      "sha256": "5e173d3b460643f972379a4ee690423dc014c2bc6ca4827d221ff4562ac88a42",
+      "bytes": 1156
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/native-views.csv",
+      "sha256": "fba83e1a24553411c2a5b7545257dea66d4db2b4573d1b18dd4507c5825bd11e",
+      "bytes": 70178
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/render-primitives.csv",
+      "sha256": "59e5d6c321723024cae25e76653773b52c9a659ff912f0e4f525f2ce7e9f6cd7",
+      "bytes": 29927
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/result.json",
+      "sha256": "384b0732b267c28a3e89c0c04f0b9f1c511d90bce9dc629a1518fa9a3cc8d266",
+      "bytes": 121
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/runtime.engine.log",
+      "sha256": "700017a770d48cfe27dd61c2945b035802bb98dc523302fa7cd394c4ce3280a2",
+      "bytes": 970875
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/runtime.stdout.log",
+      "sha256": "9945fa8efed35e5cfb95cc7e9c6688fe9a0f79f0f82938784770d2889cf3b5e2",
+      "bytes": 961875
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-tsr-01/validation.json",
+      "sha256": "25814b5f5c314486e7d589b47661d6193e5ff3ddda78ce5b11019ce4b0cd82c2",
+      "bytes": 284431
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-verification-01.json",
+      "sha256": "8906741920b9db99b68b5dd5ddc4e268218776eb6a16ae5632d8bcbc3471f869",
+      "bytes": 272931
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-visual-review-01.json",
+      "sha256": "d264544b7e34a008f3f8cc2dfcfeb1c28ff9d9787ae8c7f0fff2a7e062534057",
+      "bytes": 3528
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-stage-01/validation.json",
+      "sha256": "231b8521575b2318b93c83f9d9fb1db53b088a6b942a381a80e779e9d2fcd244",
+      "bytes": 1040
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-stage-02/command.json",
+      "sha256": "516198e9cce6d1a738a0f0e5710d913fc183a369b850eca3f157b8b8c53efcde",
+      "bytes": 952
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-stage-02/stage.log",
+      "sha256": "6ad95532fecb6ad29e4b3ff8c5f1c5ad91c9ac73597d9ebd05552a6ce7490db5",
+      "bytes": 75881
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-stage-02/validation.json",
+      "sha256": "b19547b5ad37967029d353e764f3a29e87e58381c0ef18999836f74d06dc6d2a",
+      "bytes": 20357
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/cook_d03_01_package.py",
+      "sha256": "61bddcb83518da12e80f9fd7bd580b8a5b7bf623102fb962d78e2f9465688625",
+      "bytes": 7487
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_package.py",
+      "sha256": "0f50a7affc2e16b3889816cd302c91e545750dea2f01998b4d203f3a216f17a9",
+      "bytes": 16236
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_ground_package.py",
+      "sha256": "3b8fe22f16acb7d7ec2b446801963b93015df8bdaf02a5708305ff4374189430",
+      "bytes": 12893
+    }
+  ],
+  "count": 214,
+  "bytes": 644802686,
+  "publication": "Canonical local bytes retained. Auto Feeder owns GitHub/Drive publication and task transition; no remote claim.",
+  "limitations": [
+    "Linux Development Vulkan at 1280x720, native variable timing, no generated frames; one workstation.",
+    "Fresh cook DDC and task-isolated runtime caches; OS page cache is not flushed.",
+    "Two ground margin regions at matched static poses; finite distant horizon and sparse world art remain.",
+    "Does not establish fine temporal quality, acceptable startup motion, final frame-time budget, or D03 completion."
+  ]
+}

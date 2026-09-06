@@ -1,0 +1,65 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T22:52:07.812324+00:00",
+  "result": "PASS_WITH_LIMITATIONS",
+  "status": "GENERATED_DRAFT",
+  "reviewer": "single authoritative Codex session",
+  "method": "Direct inspection of seven exact native packaged-runtime PNGs; quantitative matched-pose evidence in aggregate.",
+  "inspected": [
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-tsr-static_009.png",
+      "sha256": "99a5269a269e234cbcc893c5f1a076ced298a7ae82117a52726d59ce7bd7dc58",
+      "bytes": 1000131
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-tsr-walk_end.png",
+      "sha256": "5373a42d232369dc46e766523a89b9ed8f1312e64fbab5def150b54c8f97b9fe",
+      "bytes": 1035491
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-taa-static_009.png",
+      "sha256": "797eaaec4ff015ed5dc75411e7181376736eaacc64afbb2bfc7f487d30d6d2c7",
+      "bytes": 908033
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-taa-pan_015.png",
+      "sha256": "3cd84ff546478f3f5f71a697603c9ef7572b0fbad2b0673c990d930c6711fdc2",
+      "bytes": 915773
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-hidden-static_009.png",
+      "sha256": "10361dfa3266b8b88cd594d940a6487d420878e7e945a11cd9bb67a549abcc2f",
+      "bytes": 989721
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-environment-hazard_active.png",
+      "sha256": "d11dafd74ce90c0c29e28807ab4436f799aed124d2fa2fbfe814629bd2081efc",
+      "bytes": 1070855
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/ground-package-environment-stream_return.png",
+      "sha256": "09f20f513bd7806c06acc1e5d29a5274ba90eb0fce73259356941d0e4e2ee808",
+      "bytes": 1027986
+    }
+  ],
+  "visual_manifest": {
+    "path": "/root/biella/artifacts/games/D03-01/ground-package-visual-review-01/manifest.json",
+    "sha256": "e0b9d4531224f079437f5f3dffde1a28bbf05c8380491701c946e6d597ed708b",
+    "bytes": 6320
+  },
+  "aggregate": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-verification-01.json",
+    "sha256": "8906741920b9db99b68b5dd5ddc4e268218776eb6a16ae5632d8bcbc3471f869",
+    "bytes": 272931
+  },
+  "findings": [
+    "Neutral brown ground fills the large left sidewalk and far/right road-margin voids in both profiles. The same-binary hidden control restores black margins while matched foreground street, player and HUD remain substantially unchanged.",
+    "TSR retains sharper character, shadow and building detail; TAA has softer edges and shadows in the inspected stills.",
+    "Walk-end locomotion, player silhouette, interaction prompt, health and objective HUD remain readable. The active shared hazard shows three affected actors over the orange striped floor; stream-return preserves the visible player and hazard."
+  ],
+  "limitations": [
+    "A thin black distant horizon strip remains near image row 154. Open margins and sparse world art are unfinished.",
+    "Still-image inspection does not establish fine temporal stability, final AAA art acceptance, or audio mix quality.",
+    "These runs did not qualify loading-screen/startup motion; the earlier cold-start static-display failure remains open."
+  ]
+}

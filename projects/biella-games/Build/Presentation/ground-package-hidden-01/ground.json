@@ -1,0 +1,1 @@
+{"count":1,"visible":false,"no_collision":true,"no_navigation":true,"rays_ignore_ground":true,"existing_floor_collision":true,"mesh":"/Engine/BasicShapes/Cube.Cube","material":"/Game/OpenWorld/Materials/MI_GroundSupport.MI_GroundSupport","center_cm":[10000.000,0.000,-58.000],"extent_cm":[60000.000,50000.000,50.000]}

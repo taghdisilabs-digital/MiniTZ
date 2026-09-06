@@ -1,0 +1,24 @@
+{
+  "task_id": "D03-01",
+  "result": "FAIL",
+  "revision": {
+    "head": "01429b124d6b78c2c576299f82edb5aaa87167e8",
+    "head_tree": "9ff6024535a506127e6a113fd7fe5397c447fa40",
+    "project_status": [
+      " M tests/cook_d03_01_package.py",
+      " M tests/run_d03_01_package.py",
+      "?? Build/Presentation/ground-cook-01/",
+      "?? tests/verify_d03_01_ground_package.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "cook": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-cook-01/validation.json",
+    "sha256": "6fa941ad12308221f92117827e619c900f3ac9024eb9fa242c4f0031558add46",
+    "bytes": 9948476
+  },
+  "destination": "/mnt/biella-extra/biella-runtime/d03-01-ground-package-01/ground-stage-01-archive",
+  "capture_status": "GENERATED_DRAFT",
+  "error": "Cook input/output changed: /mnt/biella-extra/biella-runtime/d03-01-ground-package-01/project/Config/DefaultEngine.ini",
+  "elapsed_seconds": 0.0010844130301848054
+}

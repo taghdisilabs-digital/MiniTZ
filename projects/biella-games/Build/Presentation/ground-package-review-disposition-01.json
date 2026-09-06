@@ -1,0 +1,39 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T22:52:07.812324+00:00",
+  "result": "PASS",
+  "reviewer": "single authoritative Codex session",
+  "source_identities": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/cook_d03_01_package.py",
+      "sha256": "61bddcb83518da12e80f9fd7bd580b8a5b7bf623102fb962d78e2f9465688625",
+      "bytes": 7487
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_package.py",
+      "sha256": "0f50a7affc2e16b3889816cd302c91e545750dea2f01998b4d203f3a216f17a9",
+      "bytes": 16236
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_ground_package.py",
+      "sha256": "3b8fe22f16acb7d7ec2b446801963b93015df8bdaf02a5708305ff4374189430",
+      "bytes": 12893
+    }
+  ],
+  "basis": [
+    "Exact source/build lineage is checked before cooking; all modules named by the current UnrealEditor.modules manifest are copied and byte-verified. Both gameplay and loading modules are covered.",
+    "The ground flag is surfaces-only; visible state requires cosmetic collision/navigation invariants, material and bounds. Hidden mode deliberately fails visibility after native success and preserves the captured control result.",
+    "The aggregate checks current source, native binary, cook snapshot, safe configuration repair, stage/archive extraction and four isolated runtime identities. Ten matched static camera poses yield forty ground-region checks with an existing-street comparison.",
+    "The known generated cook configuration is restored only through the existing bounded repair verifier. Raw private side-effect configuration and token contents are excluded from repository evidence."
+  ],
+  "findings": [],
+  "validation": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/ground-package-verification-01.json",
+    "sha256": "8906741920b9db99b68b5dd5ddc4e268218776eb6a16ae5632d8bcbc3471f869",
+    "bytes": 272931
+  },
+  "scope_limits": [
+    "Review accepts this bounded package qualification, not D03 completion or owner art acceptance.",
+    "Prior optional local review timeouts do not supply a provider verdict. No repeat provider request was needed for this persisted direct review."
+  ]
+}

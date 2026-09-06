@@ -33,6 +33,7 @@ def main():
     parser.add_argument('--feature-level', choices=('sm5', 'sm6'), help='Force a Vulkan feature level; omitted uses project preference')
     parser.add_argument('--verify-feature-level', choices=('sm5', 'sm6'), help='Require observed native renderer capabilities')
     parser.add_argument('--verify-architecture', action='store_true', help='Require all six authored street meshes and their platform-specific proxies')
+    parser.add_argument('--ground-control', choices=('visible', 'hidden'), help='Require cosmetic ground; hidden is a same-binary negative control with captures')
     parser.add_argument('--trace', action='store_true')
     parser.add_argument('--loading-screen', choices=('enabled', 'disabled'), help='Verify native startup lifecycle and independently capture the X11 display')
     parser.add_argument('--startup-handoff', choices=('enabled', 'disabled'), help='Verify the first-world overlay, or disable only that overlay as a same-binary control')
@@ -44,6 +45,8 @@ def main():
         parser.error('--automatic-pso-wait requires enabled loading and startup handoff')
     if args.verify_architecture and (args.scenario != 'surfaces' or not args.verify_feature_level):
         parser.error('--verify-architecture requires surfaces and --verify-feature-level')
+    if args.ground_control and args.scenario != 'surfaces':
+        parser.error('--ground-control requires surfaces')
     out, state = args.output.resolve(), args.state.resolve()
     assert not out.exists(), 'Fresh evidence required'
     account = pwd.getpwnam('unreal')
@@ -79,6 +82,7 @@ def main():
                   feature_level_request=args.feature_level,
                   feature_level_expected=args.verify_feature_level,
                   architecture_required=args.verify_architecture,
+                  ground_control=args.ground_control,
                   capture_status='GENERATED_DRAFT', state_before=members(state),
                   inaccessible_host_roots=[str(p) for p in original],
                   inputs_before=[file_identity(f) for f in inputs], archive=stage['archive'],
@@ -120,6 +124,10 @@ def main():
                     f'-ExecCmds=t.MaxFPS {0 if surface else 60},r.VSync 0,r.MotionBlurQuality 0,Automation RunTests {native}; SoftQuit']
         if args.feature_level:
             command.append(f'-{args.feature_level}')
+        if args.ground_control:
+            command.append('-BiellaVerifyGroundSupport')
+            if args.ground_control == 'hidden':
+                command.append('-BiellaHideGroundSupport')
         if args.loading_screen:
             command.append('-BiellaLoadingOutput=/tmp/evidence')
             if args.loading_screen == 'disabled':
@@ -183,6 +191,13 @@ def main():
             report['startup_handoff_verification'] = verify_handoff(out)
         elif args.startup_handoff == 'disabled':
             assert 'D03_HANDOFF_DISABLED version=1' in log and 'D03_HANDOFF_START' not in log and 'D03_HANDOFF_END' not in log, 'Disabled handoff control still played overlay'
+        if args.ground_control:
+            ground = json.loads((out/'ground.json').read_text())
+            report['ground'] = ground
+            assert ground['count'] == 1 and all(ground[k] is True for k in (
+                'visible', 'no_collision', 'no_navigation', 'rays_ignore_ground', 'existing_floor_collision')), 'Ground runtime invariants failed'
+            assert ground['material'] == '/Game/OpenWorld/Materials/MI_GroundSupport.MI_GroundSupport', 'Ground material differs'
+            assert ground['center_cm'] == [10000, 0, -58] and ground['extent_cm'] == [60000, 50000, 50], 'Ground dimensions differ'
         report['result'] = 'PASS'
     except (AssertionError, OSError, KeyError, ValueError, subprocess.SubprocessError) as error:
         report['error'] = str(error)

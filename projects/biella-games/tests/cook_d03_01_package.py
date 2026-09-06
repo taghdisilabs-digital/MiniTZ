@@ -29,6 +29,7 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--workspace', type=Path, required=True)
     parser.add_argument('--game-build', type=Path, required=True)
+    parser.add_argument('--editor-build', type=Path, help='Require exact source and module bytes from an editor build receipt')
     args = parser.parse_args()
     out, work = args.output.resolve(), args.workspace.resolve()
     assert not out.exists() and not work.exists(), 'Fresh output and workspace required'
@@ -53,6 +54,15 @@ def main():
         assert build['binary'] == file_identity(PROJECT/'Binaries/Linux/BiellaGames'), 'Game binary differs from build'
         assert json.loads((args.game_build/'inputs-after.json').read_text()) == [
             file_identity(f) for f in sorted((PROJECT/'Source').rglob('*')) if f.is_file()], 'Game build source differs'
+        if args.editor_build:
+            editor_build = json.loads((args.editor_build/'validation.json').read_text())
+            assert editor_build['result'] == 'PASS' and editor_build['returncode'] == 0
+            assert editor_build['inputs_before'] == editor_build['inputs_after']
+            assert [r for r in editor_build['inputs_after'] if '/Source/' in r['path']] == [
+                file_identity(f) for f in sorted((PROJECT/'Source').rglob('*')) if f.is_file()], 'Editor build source differs'
+            for record in editor_build['binaries']:
+                assert file_identity(Path(record['path'])) == record, 'Editor build output differs'
+            report['editor_build'] = file_identity(args.editor_build/'validation.json')
         for f in source:
             dest = snapshot/f.relative_to(PROJECT)
             dest.parent.mkdir(parents=True, exist_ok=True)
@@ -60,9 +70,13 @@ def main():
             assert file_identity(f)['sha256'] == file_identity(dest)['sha256'], f'Snapshot mismatch: {f}'
         binaries = snapshot/'Binaries/Linux'
         binaries.mkdir(parents=True)
-        for name in ('BiellaGames', 'BiellaGames.target', 'libUnrealEditor-BiellaGames.so',
-                     'UnrealEditor.modules', 'BiellaGamesEditor.target'):
+        module_manifest = json.loads((PROJECT/'Binaries/Linux/UnrealEditor.modules').read_text())
+        module_names = list(module_manifest['Modules'].values())
+        assert module_names and all(Path(name).name == name and name.endswith('.so') for name in module_names)
+        for name in ('BiellaGames', 'BiellaGames.target', 'UnrealEditor.modules', 'BiellaGamesEditor.target', *module_names):
             shutil.copy2(PROJECT/'Binaries/Linux'/name, binaries/name)
+            assert file_identity(PROJECT/'Binaries/Linux'/name)['sha256'] == file_identity(binaries/name)['sha256']
+        report['editor_modules'] = [file_identity(PROJECT/'Binaries/Linux'/name) for name in module_names]
         report['snapshot_inputs'] = [file_identity(snapshot/f.relative_to(PROJECT)) for f in source]
         report['snapshot_binaries'] = [file_identity(f) for f in sorted(binaries.iterdir())]
         subprocess.run(['chown', '-R', f'{account.pw_uid}:{account.pw_gid}', str(work)], check=True)
@@ -89,6 +103,9 @@ def main():
         report['inputs_after'] = [file_identity(f) for f in project_inputs()]
         if report['inputs_before'] != report['inputs_after']:
             report.update(result='FAIL', error='Project inputs changed during cook')
+        for record in report.get('editor_modules', []):
+            if file_identity(Path(record['path'])) != record:
+                report.update(result='FAIL', error='Editor module changed during cook')
         report['elapsed_seconds'] = time.monotonic()-start
         report['cache_after'] = [file_identity(f) for f in sorted(cache.rglob('*')) if f.is_file()]
         write_json(out/'validation.json', report)
