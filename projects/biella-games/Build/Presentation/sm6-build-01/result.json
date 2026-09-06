@@ -1,0 +1,26 @@
+{
+  "task_id": "D03-01",
+  "revision": {
+    "head": "c6f12d589a2d22d86739523f92fe1bf4b933ef57",
+    "head_tree": "f5ad4ab0bc2a6636a53ac597d8e9203d42d489dd",
+    "project_status": [
+      " M Config/DefaultEngine.ini",
+      " M Source/BiellaGames/Private/BiellaRenderProfile.cpp",
+      " M Source/BiellaGames/Private/Tests/BiellaPresentationTest.cpp",
+      " M tests/run_d03_01_reconstruction.py",
+      "?? Build/Presentation/sm6-build-01/",
+      "?? Build/Presentation/sm6-design-01/",
+      "?? tests/verify_d03_01_shader_platform.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "returncode": 0,
+  "elapsed_seconds": 54.61479700199561,
+  "inputs_unchanged": true,
+  "result": "PASS",
+  "module": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/libUnrealEditor-BiellaGames.so",
+    "sha256": "5354cd383cdf65e46c761e839e311d6003fa5a0a42cef82fb007e5055345b3a5",
+    "bytes": 2319856
+  }
+}

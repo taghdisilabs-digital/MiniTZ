@@ -1,0 +1,20 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "cause": "Native editor module was root-owned mode 0700; runtime dlopen was denied",
+  "mode_before": "0o700",
+  "mode_after": "0o755",
+  "before": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/libUnrealEditor-BiellaGames.so",
+    "sha256": "5354cd383cdf65e46c761e839e311d6003fa5a0a42cef82fb007e5055345b3a5",
+    "bytes": 2319856
+  },
+  "after": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/libUnrealEditor-BiellaGames.so",
+    "sha256": "5354cd383cdf65e46c761e839e311d6003fa5a0a42cef82fb007e5055345b3a5",
+    "bytes": 2319856
+  },
+  "unreal_readable": true,
+  "failed_run": "Build/Presentation/sm6-default-tsr-01",
+  "repair": "chmod 0755 exact generated module only"
+}

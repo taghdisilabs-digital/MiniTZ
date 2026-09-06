@@ -1,0 +1,213 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "runs": [
+    {
+      "output": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm6-default-tsr-02",
+      "feature_level": "sm6",
+      "profile": "ProductionTSR",
+      "scenario": "surfaces",
+      "frames": 1289,
+      "captures": 43,
+      "primitives": {
+        "loaded_components": 163,
+        "nanite_data": 0,
+        "nanite_proxies": 0,
+        "mesh_assets": [
+          "/Engine/BasicShapes/Cube.Cube",
+          "/Engine/BasicShapes/Cylinder.Cylinder",
+          "/Engine/BasicShapes/Sphere.Sphere",
+          "/Engine/EditorMeshes/MatineeCam_SM.MatineeCam_SM",
+          "/Game/Vehicles/OffroadCar/SM_Offroad_Body.SM_Offroad_Body",
+          "/Game/Vehicles/OffroadCar/SM_Offroad_Tire.SM_Offroad_Tire",
+          "/Game/Vehicles/Presentation/SM_DriverSteeringWheel.SM_DriverSteeringWheel"
+        ]
+      },
+      "costs": {
+        "stationary": {
+          "frames": 278,
+          "wall_p50_ms": 12.7031145,
+          "wall_p95_ms": 14.395061299999997,
+          "gpu_p50_ms": 4.56
+        },
+        "camera_pan": {
+          "frames": 274,
+          "wall_p50_ms": 12.6004215,
+          "wall_p95_ms": 14.417164849999999,
+          "gpu_p50_ms": 4.611
+        }
+      }
+    },
+    {
+      "output": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm6-default-taa-01",
+      "feature_level": "sm6",
+      "profile": "NativeTAA",
+      "scenario": "surfaces",
+      "frames": 1465,
+      "captures": 43,
+      "primitives": {
+        "loaded_components": 163,
+        "nanite_data": 0,
+        "nanite_proxies": 0,
+        "mesh_assets": [
+          "/Engine/BasicShapes/Cube.Cube",
+          "/Engine/BasicShapes/Cylinder.Cylinder",
+          "/Engine/BasicShapes/Sphere.Sphere",
+          "/Engine/EditorMeshes/MatineeCam_SM.MatineeCam_SM",
+          "/Game/Vehicles/OffroadCar/SM_Offroad_Body.SM_Offroad_Body",
+          "/Game/Vehicles/OffroadCar/SM_Offroad_Tire.SM_Offroad_Tire",
+          "/Game/Vehicles/Presentation/SM_DriverSteeringWheel.SM_DriverSteeringWheel"
+        ]
+      },
+      "costs": {
+        "stationary": {
+          "frames": 288,
+          "wall_p50_ms": 12.339068000000001,
+          "wall_p95_ms": 14.005148499999999,
+          "gpu_p50_ms": 4.1585
+        },
+        "camera_pan": {
+          "frames": 283,
+          "wall_p50_ms": 12.323182,
+          "wall_p95_ms": 13.871609799999998,
+          "gpu_p50_ms": 4.18
+        }
+      }
+    },
+    {
+      "output": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm5-fallback-tsr-01",
+      "feature_level": "sm5",
+      "profile": "ProductionTSR",
+      "scenario": "surfaces",
+      "frames": 1271,
+      "captures": 43,
+      "primitives": {
+        "loaded_components": 163,
+        "nanite_data": 0,
+        "nanite_proxies": 0,
+        "mesh_assets": [
+          "/Engine/BasicShapes/Cube.Cube",
+          "/Engine/BasicShapes/Cylinder.Cylinder",
+          "/Engine/BasicShapes/Sphere.Sphere",
+          "/Engine/EditorMeshes/MatineeCam_SM.MatineeCam_SM",
+          "/Game/Vehicles/OffroadCar/SM_Offroad_Body.SM_Offroad_Body",
+          "/Game/Vehicles/OffroadCar/SM_Offroad_Tire.SM_Offroad_Tire",
+          "/Game/Vehicles/Presentation/SM_DriverSteeringWheel.SM_DriverSteeringWheel"
+        ]
+      },
+      "costs": {
+        "stationary": {
+          "frames": 263,
+          "wall_p50_ms": 13.310202,
+          "wall_p95_ms": 14.939009699999996,
+          "gpu_p50_ms": 3.642
+        },
+        "camera_pan": {
+          "frames": 272,
+          "wall_p50_ms": 13.000340999999999,
+          "wall_p95_ms": 15.00798995,
+          "gpu_p50_ms": 3.69
+        }
+      }
+    },
+    {
+      "output": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm5-fallback-taa-01",
+      "feature_level": "sm5",
+      "profile": "NativeTAA",
+      "scenario": "surfaces",
+      "frames": 1348,
+      "captures": 43,
+      "primitives": {
+        "loaded_components": 163,
+        "nanite_data": 0,
+        "nanite_proxies": 0,
+        "mesh_assets": [
+          "/Engine/BasicShapes/Cube.Cube",
+          "/Engine/BasicShapes/Cylinder.Cylinder",
+          "/Engine/BasicShapes/Sphere.Sphere",
+          "/Engine/EditorMeshes/MatineeCam_SM.MatineeCam_SM",
+          "/Game/Vehicles/OffroadCar/SM_Offroad_Body.SM_Offroad_Body",
+          "/Game/Vehicles/OffroadCar/SM_Offroad_Tire.SM_Offroad_Tire",
+          "/Game/Vehicles/Presentation/SM_DriverSteeringWheel.SM_DriverSteeringWheel"
+        ]
+      },
+      "costs": {
+        "stationary": {
+          "frames": 295,
+          "wall_p50_ms": 11.959143,
+          "wall_p95_ms": 14.101620100000003,
+          "gpu_p50_ms": 3.29
+        },
+        "camera_pan": {
+          "frames": 269,
+          "wall_p50_ms": 12.995906,
+          "wall_p95_ms": 14.608683,
+          "gpu_p50_ms": 3.302
+        }
+      }
+    },
+    {
+      "output": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm6-environment-tsr-01",
+      "feature_level": "sm6",
+      "profile": "ProductionTSR",
+      "scenario": "environment",
+      "frames": 1450,
+      "captures": 5,
+      "primitives": null,
+      "costs": null
+    },
+    {
+      "output": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm5-environment-taa-01",
+      "feature_level": "sm5",
+      "profile": "NativeTAA",
+      "scenario": "environment",
+      "frames": 1459,
+      "captures": 5,
+      "primitives": null,
+      "costs": null
+    }
+  ],
+  "controls": [
+    {
+      "output": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm6-default-tsr-02",
+      "claimed_level": "sm5",
+      "result": "EXPECTED_REJECTION",
+      "diagnostic": "Runtime capability mismatch: feature_sm6=0"
+    },
+    {
+      "output": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm6-default-taa-01",
+      "claimed_level": "sm5",
+      "result": "EXPECTED_REJECTION",
+      "diagnostic": "Runtime capability mismatch: feature_sm6=0"
+    },
+    {
+      "output": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm5-fallback-tsr-01",
+      "claimed_level": "sm6",
+      "result": "EXPECTED_REJECTION",
+      "diagnostic": "Runtime capability mismatch: feature_sm6=1"
+    },
+    {
+      "output": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm5-fallback-taa-01",
+      "claimed_level": "sm6",
+      "result": "EXPECTED_REJECTION",
+      "diagnostic": "Runtime capability mismatch: feature_sm6=1"
+    },
+    {
+      "output": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm6-environment-tsr-01",
+      "claimed_level": "sm5",
+      "result": "EXPECTED_REJECTION",
+      "diagnostic": "Runtime capability mismatch: feature_sm6=0"
+    },
+    {
+      "output": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm5-environment-taa-01",
+      "claimed_level": "sm6",
+      "result": "EXPECTED_REJECTION",
+      "diagnostic": "Runtime capability mismatch: feature_sm6=1"
+    }
+  ],
+  "current_inputs": 332,
+  "build_inputs": 90,
+  "total_frames": 8282,
+  "total_captures": 182,
+  "scope": "One Linux Vulkan Development editor build, native runtime; no SM6 package or cold-cache qualification"
+}

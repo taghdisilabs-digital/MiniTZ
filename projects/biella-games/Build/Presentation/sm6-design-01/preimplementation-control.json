@@ -1,0 +1,6 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "control": "existing SM5 evidence cannot satisfy new SM6 observation gate",
+  "expected_rejection": "Missing runtime capability observation: feature_sm6"
+}

@@ -1,0 +1,1349 @@
+{
+  "schema": "biella.d03_01.sm6_file_manifest/v1",
+  "task_id": "D03-01",
+  "task_status": "CONTINUE",
+  "files": [
+    {
+      "path": "Build/Presentation/D03-01-sm6-final-readback-01.json",
+      "sha256": "ff612c063f85fda2791285a75c75fe12a47ec3de6ca55df508f9ddd3a5ad4adc",
+      "bytes": 88473
+    },
+    {
+      "path": "Build/Presentation/D03-01-sm6-increment.json",
+      "sha256": "9692f64e8c5cee633f45d69a2dc896cf11bb5e299c50d24cbdca88f3384112c0",
+      "bytes": 3664
+    },
+    {
+      "path": "Build/Presentation/D03-01-sm6-progress.md",
+      "sha256": "1512715978c8259f18b9aeb324071a1eafc73519d585d3a3fade3410db7af672",
+      "bytes": 7650
+    },
+    {
+      "path": "Build/Presentation/sm5-environment-taa-01/captures/hazard_active.png",
+      "sha256": "1fa8465048d0e43ea7387ad19aa0a115a036f19aef4a5530a08d9817879c08df",
+      "bytes": 978402
+    },
+    {
+      "path": "Build/Presentation/sm5-environment-taa-01/captures/panel_damaged.png",
+      "sha256": "fe4feee6354716cb1a1df0c432de27546cb9571a2ce7e16ce4b2470f6ac8784b",
+      "bytes": 904052
+    },
+    {
+      "path": "Build/Presentation/sm5-environment-taa-01/captures/panel_destroyed.png",
+      "sha256": "9e8addbda9309ab4e6162addb8c33ca8208625c203e189e7dd2012d593eaf2d6",
+      "bytes": 902151
+    },
+    {
+      "path": "Build/Presentation/sm5-environment-taa-01/captures/stream_return.png",
+      "sha256": "6b3f498e0009e519fd5ec3e2c2970e3870c6f0eb17b3af3209e075640bb69426",
+      "bytes": 902592
+    },
+    {
+      "path": "Build/Presentation/sm5-environment-taa-01/captures/switch_safe.png",
+      "sha256": "c717b1aaf3ac3635c41a5277884648b05a640674fe0c3a70108e62eaa46502d0",
+      "bytes": 893927
+    },
+    {
+      "path": "Build/Presentation/sm5-environment-taa-01/command.json",
+      "sha256": "ba41d3559084a4270a8f2dd6d46d4eaccb506eea88673b4a919cf2a7925c4b0c",
+      "bytes": 1046
+    },
+    {
+      "path": "Build/Presentation/sm5-environment-taa-01/events.log",
+      "sha256": "15a55e3ffea68b51a09ddae5ab4418f1e5ff75d28e4ff83b6ece6fae7b94a294",
+      "bytes": 1703
+    },
+    {
+      "path": "Build/Presentation/sm5-environment-taa-01/frames.csv",
+      "sha256": "7bb5c91857e24bcf8b4126305e79d1dd74cd8ce15725471cc05ef7abd1fd204a",
+      "bytes": 165924
+    },
+    {
+      "path": "Build/Presentation/sm5-environment-taa-01/native-views.csv",
+      "sha256": "844a6c88af192bd2a349d5454cc42f0cc8152f8fa8792a16b8ab7487fce9bd7e",
+      "bytes": 113619
+    },
+    {
+      "path": "Build/Presentation/sm5-environment-taa-01/process-memory.jsonl",
+      "sha256": "b3b3ff1aa66ca0f234ab12b2d259054a2b5680ef333039d8d55a214556358624",
+      "bytes": 10897
+    },
+    {
+      "path": "Build/Presentation/sm5-environment-taa-01/result.json",
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321",
+      "bytes": 84
+    },
+    {
+      "path": "Build/Presentation/sm5-environment-taa-01/runtime.engine.log",
+      "sha256": "79eeafb4c9e27f5be6d2ea6299cb1b9495e23c31bdfb79be042299883cd31aa5",
+      "bytes": 442075
+    },
+    {
+      "path": "Build/Presentation/sm5-environment-taa-01/runtime.stdout.log",
+      "sha256": "8c6055063f985e188339c5944641a99674ebeede7ff6a3e57009c55340fcfe0d",
+      "bytes": 441252
+    },
+    {
+      "path": "Build/Presentation/sm5-environment-taa-01/validation.json",
+      "sha256": "454b6809cf47fd31bea0b64c3cc3b5e73681f692f9466a4e8c34ba1360b24965",
+      "bytes": 175474
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_000.png",
+      "sha256": "87bede2c3ddc374efcc59d0f92771f8a6fa59d4e87ce5173bfd89ffc95f48e7a",
+      "bytes": 841115
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_001.png",
+      "sha256": "3746227d460f477f284e9e7b10b9200b48a1c3e8e325c866c3d28d532f344703",
+      "bytes": 842642
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_002.png",
+      "sha256": "4aa355fcab45b1d3418987899e8ebbc85dbe25994fef81046bb779889ffc07f0",
+      "bytes": 843745
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_003.png",
+      "sha256": "97ddf32b5dc62825d8a392000be26dd8881627d42046be1d0388f39f20a32cf3",
+      "bytes": 845578
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_004.png",
+      "sha256": "1a7e329051ce2af43f35d90c69a53be6abaf141d9e8e3369d6384a7e199e1b31",
+      "bytes": 841295
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_005.png",
+      "sha256": "1f10e420886179783f5f5f9ba52bfe57bded3019ba8c5a2a7d8924930b7650a5",
+      "bytes": 846086
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_006.png",
+      "sha256": "c39817da322badbc4a46e81b80b2190e0589b0c3ca202916a4ff9525fb8fc71b",
+      "bytes": 846980
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_007.png",
+      "sha256": "af0124cf6296fa7af3d32d218bc710814ea6913d086a109c613414319fb44835",
+      "bytes": 847278
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_008.png",
+      "sha256": "6dbc8d5b51b4d1ca221febb9ff7b6abaacfe88cc756c4ee26a28b84f23ffd866",
+      "bytes": 840844
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_009.png",
+      "sha256": "11951c891cea26ba6caa19c6b6e76661f616f9676589f14c17adf3d5dee3af41",
+      "bytes": 845613
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_010.png",
+      "sha256": "f546988b84d815cc1efe993a7867e9f3b2f0809035de5ce15e716476c54a0301",
+      "bytes": 846323
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_011.png",
+      "sha256": "dc63c5824c2333f33fd811e27b3b5b609cac090808c78b0e2bb3711dad8bbd85",
+      "bytes": 852332
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_012.png",
+      "sha256": "e7f7ca547ae5b24533dada306a37abd08c2486e915edbcbd060665d21f01b7f6",
+      "bytes": 850341
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_013.png",
+      "sha256": "677267c258f84891c00f4d7eb3464c13fd4bdc185d805f2614a827e9a9e7c49e",
+      "bytes": 856837
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_014.png",
+      "sha256": "019dc67d48d6aa07e415cacafe424bff756cd77371bdec9f56e466c242b6eee8",
+      "bytes": 861812
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_015.png",
+      "sha256": "20d7df2479ec5b3eb71f3ef448ade09357689a11d3ba4b6297cea3e262de5671",
+      "bytes": 869528
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_016.png",
+      "sha256": "fecfaa20403a24b80f501d54a74c88167db796eb0603f557ed256ae6ccad794a",
+      "bytes": 865745
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_017.png",
+      "sha256": "fccddda8fe4addb6c3254604b9be299aff29a8801e341f0e5711e689bce8e5ff",
+      "bytes": 866477
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_018.png",
+      "sha256": "9995630218a6a30133fefd31530c88823e8ba7576472eeea07f30f21ba14c9c3",
+      "bytes": 865880
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_019.png",
+      "sha256": "c1361ebb84230b6bd9f72081786eace57ad21bf1d0b34a062add4db45a6610f2",
+      "bytes": 869972
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_020.png",
+      "sha256": "f58e5b851b83ddcd5b76e0286c23a93e4cd55d6a88f3034940bfced11bdc05c9",
+      "bytes": 869104
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_021.png",
+      "sha256": "46f4639a8a082bd82db28fddbdeb04f63b3f25680df788ec851844fef814bf7d",
+      "bytes": 869385
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_022.png",
+      "sha256": "c8e0464cb0a943adf3969c4f63cb3fd15aac0b8270ba3ea730bac77ca340d0d1",
+      "bytes": 873975
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_023.png",
+      "sha256": "04f9ceda709fe06e1c820443ecf32382b0479849ffc413656e6e5934593f358c",
+      "bytes": 877667
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_024.png",
+      "sha256": "a64e4378d716a4dc4e79071d3f3401c1c1b837bf8851da1b1d70554f4b7d9559",
+      "bytes": 873519
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_025.png",
+      "sha256": "f18e7e025b0e9318b99c1b7a6ab9c05aac7314dce9adc2306c5a3098da62594b",
+      "bytes": 875178
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_026.png",
+      "sha256": "49924a885ec91c18b558204bd8101d661dab05c88620ed34ae8e1d410c96b065",
+      "bytes": 874547
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_027.png",
+      "sha256": "e4da6be189297a0727e5297e55240e2851b087006459fcc2bb34b2ca6571c2bc",
+      "bytes": 876695
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_028.png",
+      "sha256": "ed45e37cca25f9d36484a08e823ef63648d8d6f4221cc0444a2b52909094f5e6",
+      "bytes": 873494
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_029.png",
+      "sha256": "a6b0d04493c25c5c839659e0b90d119e8b8addfa4503c3e32f75fbe5ac0d0cb5",
+      "bytes": 875701
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_030.png",
+      "sha256": "59118eebaa4e5a7205c955dd9b79eeb2dc7aa4dd3d1959e0e70d2f93c61f56cc",
+      "bytes": 878484
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/pan_031.png",
+      "sha256": "647f581ea0f704e0e46838011a52ab9302c4fd3b9f06bc95477e3d15227a0a2c",
+      "bytes": 879106
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/static_000.png",
+      "sha256": "05d9d782445618b03c0d428988bf3028c1bb70cdf336d10d3efa2fdf10055649",
+      "bytes": 857338
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/static_001.png",
+      "sha256": "1f175472e304c08707fe88960e0903bdb79e08e0fadd2a18ab4f4a8e3b477f59",
+      "bytes": 860097
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/static_002.png",
+      "sha256": "21186e416d819943b75b57f4c81d9c104e5049523ffd011fd1b5562de0c75712",
+      "bytes": 853942
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/static_003.png",
+      "sha256": "d1dbf25d8597c76d78421de3212023b2cd2ffc1fbba9708cd90784a8d4bde17c",
+      "bytes": 857128
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/static_004.png",
+      "sha256": "1441516017284d997aebaba05d48543c6d8dd1bacb02866c7cb18b2935e525c6",
+      "bytes": 856635
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/static_005.png",
+      "sha256": "0d099a97643fb4080fdcf508c4b3cd27b350e148bfd9d44fa474446aec6fc558",
+      "bytes": 859273
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/static_006.png",
+      "sha256": "84ba1d196ee1c8d166f1ec155957c0aa807a7163dc0b25c833f73afd2254054a",
+      "bytes": 853140
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/static_007.png",
+      "sha256": "b6d21ff1a1af302605832fed99e60c719e2635a192abb21b7fb486e6671f0985",
+      "bytes": 865950
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/static_008.png",
+      "sha256": "4b9bc0146006686d2671c79beae46e755d66a799ca01c725a28f6e032919fcb2",
+      "bytes": 861582
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/static_009.png",
+      "sha256": "692a282ef809fcc148e1593579b323331fadfd856628270919e120b38ca90bc8",
+      "bytes": 867663
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures/walk_end.png",
+      "sha256": "daf7d01b0eeaa0960a63d529f519f3e9295569dbb42e95d301c67570c1b9f204",
+      "bytes": 859854
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/captures.csv",
+      "sha256": "e80f2ea3749dbae163e0a8ea16dc782e1052e2ee4496548c18098fa129e4ec52",
+      "bytes": 1456
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/command.json",
+      "sha256": "cdf227dbb41ff0320d6d7ba72d99412e89da18d4b4b03e90fbe894914adf2367",
+      "bytes": 1034
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/frames.csv",
+      "sha256": "7c1110554ab5af23e80c1916e747f9a0c59fadbbe553515c6c94692118a76645",
+      "bytes": 139194
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/native-views.csv",
+      "sha256": "e3d90d902affd5446f51988585a1025df4c54054ba208ea4dab24dcb9afc6767",
+      "bytes": 115379
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/process-memory.jsonl",
+      "sha256": "2cf4957508b36da4da1446afae5df1ea9c241da6057094dacc506b378482274e",
+      "bytes": 10099
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/render-primitives.csv",
+      "sha256": "28719894147ea4bc806ef53bc6802de140e2baefd3c504963daf24ba1157d265",
+      "bytes": 27189
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/result.json",
+      "sha256": "3838f0eb010e0774fad55f6b102aaaaabb07dbad87461658f65641f3bb625805",
+      "bytes": 121
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/runtime.engine.log",
+      "sha256": "14842d97c8cc5febe0840149455bc0f018e1ab79cf8741dde1d00ac351935c86",
+      "bytes": 360138
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/runtime.stdout.log",
+      "sha256": "dd27321fa676f02593a0894f8aa865fbac026d4a8af2ab988de9a64b02131c63",
+      "bytes": 359855
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-taa-01/validation.json",
+      "sha256": "9ff1c1b062d192dabcc9c36cea24d5af42b552d2090ecac68c24e569690e252f",
+      "bytes": 183105
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_000.png",
+      "sha256": "6f167dfd8367c01784299c25064f8ac6ec02f32021405fda39a878ff4535043a",
+      "bytes": 940081
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_001.png",
+      "sha256": "f2a8a188a1fc2e5da3b38fd6b608f8ae0718c23c657ae280f956f70d510577b4",
+      "bytes": 953009
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_002.png",
+      "sha256": "9e0917fb0a4f83b2a3c72d63e2f8ddaabe5dfe2903e091527f45b3e654913e9d",
+      "bytes": 961090
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_003.png",
+      "sha256": "260e10cbd8c9aa772542aba50fabf002533282c9d84af5f8fa325d7d3ab655e1",
+      "bytes": 962513
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_004.png",
+      "sha256": "e20f56b5f30cc668052535a2c94d74fafed6160ceaa8d554c8e45b261c81f592",
+      "bytes": 963413
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_005.png",
+      "sha256": "a51721697416e7842f4ad61c610895e84e5e36d670bed84aaf0cddf9631abda5",
+      "bytes": 962668
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_006.png",
+      "sha256": "15500be6094f63ba2de394e7d3b3ddfe6f77843204acbe53d5424aa67e6c22dc",
+      "bytes": 966322
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_007.png",
+      "sha256": "4d94710f336af6783b724cf2da676e837063692bb06aa8c8a8e939422293002b",
+      "bytes": 968182
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_008.png",
+      "sha256": "775e70255bb4bee7022658f44351f82201e49edbcbd55ff0e6e5959f2ae569a0",
+      "bytes": 966462
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_009.png",
+      "sha256": "ae54deec0d182172027e0d8374495b37421a42da26fb62f1dbbb0c0b30e411d9",
+      "bytes": 971313
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_010.png",
+      "sha256": "24f9e7b9fa8b4a6672cfec70d594ffd0b0b2c43e730e87c76d674cf54afcbef5",
+      "bytes": 971245
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_011.png",
+      "sha256": "74284c8824cd24f326c2d5dceb9a0a87b068959e1895abf2510a113cb1dcac5a",
+      "bytes": 971386
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_012.png",
+      "sha256": "dfeeee0276738171de09b3fbb4ffedf84fab83473eeeaa9c01dbad40436aadc1",
+      "bytes": 978520
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_013.png",
+      "sha256": "a3930f3a3a8b91f7c95e7a6b9a9d88cb7bd6fef9e52fd26b44581ea49fafac0e",
+      "bytes": 986464
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_014.png",
+      "sha256": "df59cc34f108977a42a634b7777bd7c4831f0846952ac0f5714711d914451cc0",
+      "bytes": 991771
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_015.png",
+      "sha256": "6e6a309198ac385ac7778d8bb098d6e583d596e71675683bb668e0050eb049f7",
+      "bytes": 992250
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_016.png",
+      "sha256": "217858493650afad599bb7e83f56dba73430c4ef532cae91067d55262757691d",
+      "bytes": 987707
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_017.png",
+      "sha256": "dc34e20537e7ff5a28a06fe2958b3a4514571eebe788375358771fbaab84cf99",
+      "bytes": 988013
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_018.png",
+      "sha256": "3a1c9466e7ad39f5e1b850329c1a2f5cbf5685954466b3b6f6c9f9cee875862c",
+      "bytes": 990197
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_019.png",
+      "sha256": "10973acd984d4ec30701de4ad32f9f0ce211eb04f02c6cb3c6d40e46cce2559f",
+      "bytes": 990859
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_020.png",
+      "sha256": "80e74a83d85c2c24f9eb520d63a82994ec2b92e2286cf3ce05627e287425ea17",
+      "bytes": 992840
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_021.png",
+      "sha256": "cd15437e3187ca76c9f1ae4ccdd00a3dbad5d72798537e72fcccac919fbbd095",
+      "bytes": 996554
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_022.png",
+      "sha256": "85d8b8e51397323cf2c94ad9c29d2e4dbc2b89ce3498b2352d90a9cad6c681bb",
+      "bytes": 997021
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_023.png",
+      "sha256": "d38eeb54f0b9cf344eb2a86d9a249470e12888c17887c94a3609260e13c1dc3b",
+      "bytes": 999500
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_024.png",
+      "sha256": "441da391c76027d8aa7d95a766d8bacad31dbeaa74930306a45274be47c1f119",
+      "bytes": 999722
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_025.png",
+      "sha256": "7eadebf97bfbcda623be57adb2482327a06552852f7d9a6758014918c6ea9bf2",
+      "bytes": 1001226
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_026.png",
+      "sha256": "d2498fec5a4f0c63f3816bc61f51860622cdaa8e313fbe185777a9604c2ba65f",
+      "bytes": 1001593
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_027.png",
+      "sha256": "f6bd37f52b517df6087a1ec716993f9ee8e62d543914c9276163cbd48e99302a",
+      "bytes": 991466
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_028.png",
+      "sha256": "0ecdd83b6c1f0f396f051c57b1b848ae272ad246d5080f36ac23a5f56683838a",
+      "bytes": 985388
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_029.png",
+      "sha256": "9f8f56d8df16a35b0de59f6ad059a9f8f46f5840b5cb33f2ef5cf92fd0c4fb0a",
+      "bytes": 983191
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_030.png",
+      "sha256": "a36e7393114221b7b138838dec8ed0e7e407867e73d3bf14b9a3072b23a31f47",
+      "bytes": 979168
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/pan_031.png",
+      "sha256": "af2db2310915941a37da0c1c5654af00a01c7ffc62c5924039838b69171caa5d",
+      "bytes": 979338
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/static_000.png",
+      "sha256": "3bb59b6c6ed5dcbacd691112fc2bf9149e083653bfb76e2ab0b5629f67a348c9",
+      "bytes": 948964
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/static_001.png",
+      "sha256": "46d24cb68d71ae2f13f151fca08fd9c8c1547e7b64787f0a7db1292575f6ec22",
+      "bytes": 948287
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/static_002.png",
+      "sha256": "7746acc61b455959cae6193a7e726da2611101f6214af71fd7e7e940bbd8451f",
+      "bytes": 949440
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/static_003.png",
+      "sha256": "ffb81ee49c858d99e90da8e8b8b1ff3afb8392371952dbfb12cd2ea439577744",
+      "bytes": 948081
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/static_004.png",
+      "sha256": "df94ee9328394493bb1f4fdc26a97cb4f5108d5530e0fd9e8d1a446bb05a6da2",
+      "bytes": 948136
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/static_005.png",
+      "sha256": "ac9ba3698557a94d61db400d01fdcb59a0eab7813d3abbf682fa3da00fa3c859",
+      "bytes": 948314
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/static_006.png",
+      "sha256": "d41bf9f0a094eddeaf68a8654adccd1a86f44de057d634843893a8fa8d6cd09b",
+      "bytes": 947695
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/static_007.png",
+      "sha256": "585f05e4e170a9db593968e505e72496702da3023aca98c12922e4008a0041a0",
+      "bytes": 948404
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/static_008.png",
+      "sha256": "5bf96ef7e451ae862d90a9e07502bf4adff6cd6bbad78223e4ecd3822f57e2f3",
+      "bytes": 948888
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/static_009.png",
+      "sha256": "b5d5f34176f02384e77418ff57c372f7a7a1bbeddbc7b7dfa652306b27402459",
+      "bytes": 948330
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures/walk_end.png",
+      "sha256": "426fffcac1c51861d6e90db667bf51d58199957eb8758efb8765dbbf7d1c6103",
+      "bytes": 989297
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/captures.csv",
+      "sha256": "de03a49f6be165b31d9f373c00f45e0524193b1b0c86da740bf838d6a72f95c6",
+      "bytes": 1456
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/command.json",
+      "sha256": "abde47586d9c7bc3c5eeda2163b30422d8acfe525320a5c5c025745bc92153d1",
+      "bytes": 1038
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/frames.csv",
+      "sha256": "1808b2433b8efbe7292a2b44072c42143d0a4d4d4947227de840f08cd7db5da4",
+      "bytes": 131300
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/native-views.csv",
+      "sha256": "0727f6cada7aabb1839d2266c5310ec742133f6dcf264ad094065b6555260ba6",
+      "bytes": 107294
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/process-memory.jsonl",
+      "sha256": "06c60f7b965155a12ad2bce2f0841cca05ab4ac4dfa087cef4f5a3fce6441cb0",
+      "bytes": 10015
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/render-primitives.csv",
+      "sha256": "28719894147ea4bc806ef53bc6802de140e2baefd3c504963daf24ba1157d265",
+      "bytes": 27189
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/result.json",
+      "sha256": "6157ce974cde95f8210135dd9536a216f8a1067ccbc8268949f7f3fa7160ee21",
+      "bytes": 121
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/runtime.engine.log",
+      "sha256": "5c2c9b707ec8827f52495a47ff0a4896f9d169b647a45baea8cf12bf4fde43a1",
+      "bytes": 360903
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/runtime.stdout.log",
+      "sha256": "696bc10e0683c1d85ae5dee0616e5ce6bf44c4d8b7fe9b3f810c379357675902",
+      "bytes": 360616
+    },
+    {
+      "path": "Build/Presentation/sm5-fallback-tsr-01/validation.json",
+      "sha256": "8bbf387e3f3ac46242ead7210afd582de11b49664fb10e5d568371e9385a8acd",
+      "bytes": 183079
+    },
+    {
+      "path": "Build/Presentation/sm6-build-01/build.log",
+      "sha256": "ee6903c0bb46257cb361a3f432cad163f0bf7dcb9f7c3043846e366e5ea101b6",
+      "bytes": 11454
+    },
+    {
+      "path": "Build/Presentation/sm6-build-01/command.json",
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1",
+      "bytes": 225
+    },
+    {
+      "path": "Build/Presentation/sm6-build-01/inputs-after.json",
+      "sha256": "f5b7bb9ba47bac490bbe355307decf3d19a8d2f5b5ff87c8deb4a05904e2266c",
+      "bytes": 20689
+    },
+    {
+      "path": "Build/Presentation/sm6-build-01/inputs-before.json",
+      "sha256": "f5b7bb9ba47bac490bbe355307decf3d19a8d2f5b5ff87c8deb4a05904e2266c",
+      "bytes": 20689
+    },
+    {
+      "path": "Build/Presentation/sm6-build-01/result.json",
+      "sha256": "7946593209aef58a819a15d50ccc0ebf721943acc0dfb9d3f1e626926694cea5",
+      "bytes": 991
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_000.png",
+      "sha256": "e2d343709deb570033559f025bedfffc9b27650df1f4916b1c157d02bfc13026",
+      "bytes": 854743
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_001.png",
+      "sha256": "454511843b94b0d133b8879c9b531cfddfc1c21ec70d1832e65d23c13e60f696",
+      "bytes": 845111
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_002.png",
+      "sha256": "9f423e61847b13ec11327ebf00ff2f321100df640152622027ab29afdf421fc1",
+      "bytes": 851148
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_003.png",
+      "sha256": "c8e53656b9fc95f93de22d8792f14dce2d0a0722fb3acbfc31cc2f3aea132f40",
+      "bytes": 848897
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_004.png",
+      "sha256": "bec22c741197ee82c8a2a0a251710d261dc65747fb8d899316f87e0456c8c3ca",
+      "bytes": 853630
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_005.png",
+      "sha256": "b334386f8fbb5b21801c3b2a19674767de6ff95c4f25f1d17c1100e7f0f026d9",
+      "bytes": 846128
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_006.png",
+      "sha256": "b10745fda5ef05d4810e6a88e8a84a512916748f4e9a9a78c220f66517ce1445",
+      "bytes": 853839
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_007.png",
+      "sha256": "6cdbf1d0d9260d30796174db8d62eed4902d18783a9b4109497bbca35292258f",
+      "bytes": 850665
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_008.png",
+      "sha256": "52b2faa6953393ea8be08a257d0ba1dcf3533cf5e13e75cadfbacf60a2c96dbc",
+      "bytes": 852938
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_009.png",
+      "sha256": "20064d0391169dcef8a3832796b3833ddc8b27f0fb27dc5d1974a42b72fd6d81",
+      "bytes": 846916
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_010.png",
+      "sha256": "79504f3681e4d74fd261f4678a19a4310c789127657326fba224aa74570b016c",
+      "bytes": 854276
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_011.png",
+      "sha256": "29b30a85a7f1240b3e93db5a642961327b0f1ba7ea2498a74f416364e5448056",
+      "bytes": 852555
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_012.png",
+      "sha256": "ff254aaaf700523a23b1b1fc32a500e099aa8375e15f411597ff569d228f6cd8",
+      "bytes": 861817
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_013.png",
+      "sha256": "894721390907a95b7fdcbaaef33fa8eba9142fdbeaa0975cd58cf3503f3fa8e4",
+      "bytes": 856924
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_014.png",
+      "sha256": "727158581912673f79993d1f9963cc5dff8848a4e3476cd276f3bbcb65119cf8",
+      "bytes": 868000
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_015.png",
+      "sha256": "d961f3e7070cc59df33c7a85f447c2367ef43c28da61d5f2cff163100c25cd3d",
+      "bytes": 870329
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_016.png",
+      "sha256": "71fb9211fbcb745f56cc4f975e14c6155ca117519293cbd5972f0a37bd0d95f7",
+      "bytes": 877640
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_017.png",
+      "sha256": "f41d4766db5d8b921a337a70dc0b89dc3d26ab64ba1548f9f7f8f4c63a31d706",
+      "bytes": 867230
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_018.png",
+      "sha256": "165895aae5ace92781987191f88399e3c12e29cd900d033714ff0ceddd0f5100",
+      "bytes": 871366
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_019.png",
+      "sha256": "0559f5937198d699588c423925d95ad2373601670d15d0d5980fdb083138314b",
+      "bytes": 871632
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_020.png",
+      "sha256": "7f78d86e9c986e3ab866362a97bc251dcd3855de024f808790cc7fde5552c9f1",
+      "bytes": 879394
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_021.png",
+      "sha256": "17029030735375a8dcf33535afdf96ecd0808cb3c20694d62d504f62a039a416",
+      "bytes": 871037
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_022.png",
+      "sha256": "f468f6166e0f1beba5ef56e3ebc4a006df7d142fdea3b369ecae53f0368383f1",
+      "bytes": 880757
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_023.png",
+      "sha256": "a836c4d4a33d3d7f4b6d6ddea7fff9a33d74dee761ed075cb4d55d5c2185f8cd",
+      "bytes": 883297
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_024.png",
+      "sha256": "72e5053c945b8cc7b8d276922a090b26af14fb8f2b199e396879099c89ce3026",
+      "bytes": 885777
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_025.png",
+      "sha256": "ef0c5dca77de3274108c0bd2aceb3f54f59d6d3ba12fa46c98ef3cd795772c05",
+      "bytes": 876766
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_026.png",
+      "sha256": "7d65f68e321dbe60f9cc4f3a54a0fa640864307297cb4042e09bb63964d2f5cd",
+      "bytes": 882392
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_027.png",
+      "sha256": "54be2c679f4a510864d7a7af8b33221859a3ed4575239aab463908c1aa8f174d",
+      "bytes": 879533
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_028.png",
+      "sha256": "67e7bfa9957abdabb14b911c6d9a4247d2dc3e2cd32fe16e900e5b10e37ae324",
+      "bytes": 885450
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_029.png",
+      "sha256": "20491902fcdf710f5c25aebb0be9f80100cc1a7284008668410f5dc6dcf8d538",
+      "bytes": 877499
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_030.png",
+      "sha256": "c804ba617e760bbfea4dc7f774821ca1e088830028c6046bfd1fea785430e6fd",
+      "bytes": 884847
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/pan_031.png",
+      "sha256": "1f92144dbaf1ff67e2671bacd6a6c393441ed412181e59fc40947dc42de21545",
+      "bytes": 883850
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/static_000.png",
+      "sha256": "099778c45916dd6b20cf99d23d56d8434bb663543337f6b4eaf463b07be5a3bc",
+      "bytes": 851826
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/static_001.png",
+      "sha256": "2d4f3f4784f8f30c61e2b0b3539197895f756458d61cb40d9efb0cba4db28997",
+      "bytes": 855372
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/static_002.png",
+      "sha256": "2789f44cffed0cce688bcf8da21571218f45460835fc9a6ff01bd062ddbdb9a1",
+      "bytes": 866390
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/static_003.png",
+      "sha256": "e420d9ff6fb35a4c2dc8e28fe7ad313693bc8935d1b606f55a5c4eff4b9f2ee0",
+      "bytes": 858447
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/static_004.png",
+      "sha256": "2b2ab8cb9913e68e1e633778d3f2faef7618dbaa8bdaba7a710fba4bd7ea8580",
+      "bytes": 854025
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/static_005.png",
+      "sha256": "b16bb5e1a61e1cdc7b3e23f0e9314b1d44784bfc4a29d125f2e5da3b39ddd42e",
+      "bytes": 865566
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/static_006.png",
+      "sha256": "1708a54ccffc7d25ff699ec9b5c826c25dd398bb9eebe4d4c4976d07bba9d576",
+      "bytes": 857614
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/static_007.png",
+      "sha256": "ec03e2fc81a72bfbd889a50de0d528ef85a1daf537201f1d9c17efd0765f48c4",
+      "bytes": 860077
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/static_008.png",
+      "sha256": "5369a5af0bafb78d6f3e5843e5956da2fea3e1c2646037d47a9c3441f375c2a2",
+      "bytes": 866097
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/static_009.png",
+      "sha256": "e2861276f6c1e9c4224c4a183b3ddd7c8e7174857e9a9f633e7d2a141892cd55",
+      "bytes": 863382
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures/walk_end.png",
+      "sha256": "ecb41a2d78cd1dc02806cc601f906acf52fd6f13d91fa91c2a2a6da293790e06",
+      "bytes": 857581
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/captures.csv",
+      "sha256": "22b7720a2a61d3015709abf4cc60c379e40b0fa2d085a9ee2ccae30d42194032",
+      "bytes": 1457
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/command.json",
+      "sha256": "8df0b6c07d643e8dc5c24ca7291634d9487234a224259fb53c923b25592108fa",
+      "bytes": 1021
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/frames.csv",
+      "sha256": "a3ca384e86d6261c6b2ee610be93e84c5a4decc90035c9369404973fadff8dca",
+      "bytes": 150752
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/native-views.csv",
+      "sha256": "2c52c36758c652df7498b98dd611c6295efff0857b4fd08430d14c5727c66f9a",
+      "bytes": 124894
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/process-memory.jsonl",
+      "sha256": "a7c51288cd219583189b4aceae438b5cb1504e0e2b27c2dd2a909601902942f3",
+      "bytes": 10237
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/render-primitives.csv",
+      "sha256": "28719894147ea4bc806ef53bc6802de140e2baefd3c504963daf24ba1157d265",
+      "bytes": 27189
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/result.json",
+      "sha256": "6f9574cca9f6a3cb707950fb26c9442b8f613fc4dafff7632f4a7f16c1b51318",
+      "bytes": 121
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/runtime.engine.log",
+      "sha256": "cc090c3c3216f92b9f70ede3bedc3ab92f50429b717183d46a7e24da8e8a6410",
+      "bytes": 364685
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/runtime.stdout.log",
+      "sha256": "688e839cd598381760d72768cf2ec31de8e78bba195915cef01d885cef5eb1a6",
+      "bytes": 364371
+    },
+    {
+      "path": "Build/Presentation/sm6-default-taa-01/validation.json",
+      "sha256": "576b81c36f99051ae165f04a79291a330546682b09aa88608a3f06eb44b04063",
+      "bytes": 183050
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-01/command.json",
+      "sha256": "09941a4fe9da951505a8e986e029300ffa564fee52bdf8e21827610d4af6d27e",
+      "bytes": 1025
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-01/process-memory.jsonl",
+      "sha256": "e6fbd140d152c69a5747ae9c28a9bc7fe608637587bc54c98b19930fa0d02348",
+      "bytes": 44417
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-01/runtime.engine.log",
+      "sha256": "403b8b73b80dc894b441b0ff68681b42e9afd4ff7368a5284fa81741025a9a55",
+      "bytes": 187218
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-01/runtime.stdout.log",
+      "sha256": "ee9b7ada0c362a1eedc1b95a5483f8c113d50179704410afcff117c3fcbfe58a",
+      "bytes": 188145
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-01/validation.json",
+      "sha256": "2635dfd3364d2d02d071462767bae2ed87ee3d6eb66fef0c15bac08c0bae2d15",
+      "bytes": 172091
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_000.png",
+      "sha256": "2d282e12a552d8f1867ba5d006be39ad1e4424736d10157ad13aaed04b89a2ce",
+      "bytes": 941128
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_001.png",
+      "sha256": "b9eb5fe34d98d7c5b96dc4fb03f87b8cb463b68932d999a6d45f6e6cfcce3f27",
+      "bytes": 953041
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_002.png",
+      "sha256": "6b93b3c34627db0a16563219c8db83dc10d6865a2c658faeab9a5396d0b9f906",
+      "bytes": 956238
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_003.png",
+      "sha256": "5fcf70361b2b82a5c8a2888a0d8b6e3d33d6d305525b7f9efff59a6fe053a26c",
+      "bytes": 962521
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_004.png",
+      "sha256": "ef6ab310ee3cd43a4d94bcb1ac85ca2bd9f25899b0eddc033d3ba92c40daea3b",
+      "bytes": 962964
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_005.png",
+      "sha256": "6d2f94b9950c763faf6df55cebe56febf9f49970b0335c142f2b6a13ea2dc321",
+      "bytes": 962657
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_006.png",
+      "sha256": "3ec053038abdee2ab9b5c8f323d624cb9733d4722dc59ee970b0b381d3174a32",
+      "bytes": 965797
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_007.png",
+      "sha256": "14f55ed4338d310d92e08d19562261550c255fea808312206560a3dca828c7e0",
+      "bytes": 964405
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_008.png",
+      "sha256": "e80b28ed390e261b01c1bb2d368a05f1cc8417e78ff241cf7ac35c336aa2c72e",
+      "bytes": 962891
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_009.png",
+      "sha256": "9d3d67c52f6ad296b106ebbad75edf7417c84d25929807bd4b05a49990daa64c",
+      "bytes": 969406
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_010.png",
+      "sha256": "36254ebff2298fd34a70517b5583e40724c31f6a4dd624d5fe6e16e353443c56",
+      "bytes": 970788
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_011.png",
+      "sha256": "2cdc1c165fbab115b88474d88ef3435359b8aed7da7fb067463071c5aa800dff",
+      "bytes": 975938
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_012.png",
+      "sha256": "d5b7e64e47fb92306f6f79eb97d5683d58d5aa3e4610d001b0a9121788da3c62",
+      "bytes": 979614
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_013.png",
+      "sha256": "4665dfaaeef2aa3d21d9e0ebf5a96e5ee7b7685d7bbc88a1d373ea500343ae24",
+      "bytes": 981573
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_014.png",
+      "sha256": "0d473ba4a7880e6cf22ac8cc76b0f35b68c69b2bf9dbd7d2a649c968be4c6c64",
+      "bytes": 988570
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_015.png",
+      "sha256": "76a5220c2a43e3458d13812140ead43479d0a091b5ac186efe1641a5dd3f9932",
+      "bytes": 990285
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_016.png",
+      "sha256": "8cad1d2e8b202a78e41a58bef025ac4bfe8b05ba7cc27f77508cc2587767f14d",
+      "bytes": 984576
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_017.png",
+      "sha256": "05e7cd72ed7df3f4b7cd35f1c378a1ecbfa7f54f3daaec96548fbd4ed6284e3d",
+      "bytes": 987369
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_018.png",
+      "sha256": "81eea88ade922cf003d265e74b4e834fc9b5b003beb793015d3323d33dffb8f5",
+      "bytes": 988633
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_019.png",
+      "sha256": "3372b7d999d6678ebaf30da4fdc2b90b5e71ba27d5fdcf7cd9cc7093ff0c80e9",
+      "bytes": 988717
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_020.png",
+      "sha256": "92328e6dd43071a0c54862ffe6d7100ecbbd2dae3bc78ab9722c3c272f191155",
+      "bytes": 994694
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_021.png",
+      "sha256": "10a685e483770197c1fee5470b2b74db82ebbe96356a268b22c76b473f10c26f",
+      "bytes": 1001446
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_022.png",
+      "sha256": "50535eab9c7b62a7c21549cb2125ec1bf47abd49872104024a7476fdb48a0876",
+      "bytes": 999825
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_023.png",
+      "sha256": "7df8eebd806658d8d259c4d9ffef595a350fed691b7ed09c1412ffae4f89e4eb",
+      "bytes": 1000032
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_024.png",
+      "sha256": "755ee27b67ac25ce6dd38fdd81843901b807751a61fbf3c7cb455d13185952a8",
+      "bytes": 995868
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_025.png",
+      "sha256": "83f6f946776612a4ab190ceba00749d29ce609337d73af02791da5abf54e69ad",
+      "bytes": 998194
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_026.png",
+      "sha256": "c8c7b767925f87a3347f86fa33bb6fd447495492e82ca1485e3f6fc27b0a5ba5",
+      "bytes": 989693
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_027.png",
+      "sha256": "46e92cb674e61109bad75a7f14b4de7f7f1bc4191e03f1cf16c3d92a3b0ec98d",
+      "bytes": 983433
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_028.png",
+      "sha256": "a146ae26875c065eb04d708a810cfdbc6f79e68d15cd166a8debe2c7ad69f170",
+      "bytes": 979801
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_029.png",
+      "sha256": "81ba74633d3d692ea2b4a901e8415ac15c364d202894d6f8fda51f1fa698d4a6",
+      "bytes": 978965
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_030.png",
+      "sha256": "6e4871a9db1b5572ede4e53c5b0e8d2b7bd47bd587c2ce258cb8a9c6039f6d4c",
+      "bytes": 976065
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/pan_031.png",
+      "sha256": "6217b6c84e29d08870c6303a587503fd50362ff93907fb5185fb0cadfafbd342",
+      "bytes": 975865
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/static_000.png",
+      "sha256": "1bf6ffcffb4eba26b1bf486449dc16dc339f71f27b188d1c4e5c5774f40eb7b7",
+      "bytes": 946713
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/static_001.png",
+      "sha256": "51516ce254d5dc16184d04d560817766e4895760acdb814cd71bc70d49bfed04",
+      "bytes": 946692
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/static_002.png",
+      "sha256": "475c92e14c5dac4a7e70bdcd72eb11a66d353466ad75a094051837e7e272027a",
+      "bytes": 947159
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/static_003.png",
+      "sha256": "e41bcfa680b7f5e09b0abd265934efcaf66ae66533ca38cc4d2e31fad03bcd8c",
+      "bytes": 946405
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/static_004.png",
+      "sha256": "138c5fcb456b651b8bc97dbac52d831bc54fd1b4a840c33e15a435255d167a97",
+      "bytes": 945704
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/static_005.png",
+      "sha256": "e5db60514d5044db588d9eb4613a6c1373adb81a4542fd52d029a7dd0544f50b",
+      "bytes": 946784
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/static_006.png",
+      "sha256": "fa28e1fe279778dd1c9977ad79b304cfa158f8cb700592c10329511fb87eb9e2",
+      "bytes": 946371
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/static_007.png",
+      "sha256": "1703b33951835346f0dc8a0e4242c6020814f8ed7126c84ffb6cf36a724b4ee5",
+      "bytes": 946663
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/static_008.png",
+      "sha256": "bafec6880b61788a4f0e545cbe03bcf82d3e75149bc4ebaa475d4dcf5efe444d",
+      "bytes": 946537
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/static_009.png",
+      "sha256": "9eeb3673350524ba9ec74506cecb94a215b8219fe623c148c7be42069c7547c5",
+      "bytes": 946519
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures/walk_end.png",
+      "sha256": "8ad84ce0deb6a664239faf6f0d1d9b5787d4c46530497d7a0158bccb17abe367",
+      "bytes": 984362
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/captures.csv",
+      "sha256": "7c14ca246ad85446ad46d97b387fa55e7c087cb1f7991a7ecb8172b734556fb1",
+      "bytes": 1456
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/command.json",
+      "sha256": "070b4b58d33a6eb1fcafd06817b67f37ac856d47c529596f55945d597e655446",
+      "bytes": 1025
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/frames.csv",
+      "sha256": "1331414efa74e0892f0c6d2196175d12da286fd651555b66d5313be423fffed5",
+      "bytes": 133283
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/native-views.csv",
+      "sha256": "5b6296050a0060b99b60790b1289f4054ca8329eff9188dd7a69220dfe4b78d5",
+      "bytes": 113399
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/process-memory.jsonl",
+      "sha256": "ba315eaaa029fe7898ce455b465a02a0b87f78f698b05badf461b94a498d7ce7",
+      "bytes": 13978
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/render-primitives.csv",
+      "sha256": "28719894147ea4bc806ef53bc6802de140e2baefd3c504963daf24ba1157d265",
+      "bytes": 27189
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/result.json",
+      "sha256": "0cdc05e5073457c1b16230253df23e2556f44faad845c3b24c3e1ea22ddb30a6",
+      "bytes": 121
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/runtime.engine.log",
+      "sha256": "29a885815ff17986e1eaa17b005403ea844a6c7ddb6517e78381f6ca137511cc",
+      "bytes": 365689
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/runtime.stdout.log",
+      "sha256": "78a2a87799886322f8d869e5f76fe29051027aa49764785d995421ab4e30e748",
+      "bytes": 369014
+    },
+    {
+      "path": "Build/Presentation/sm6-default-tsr-02/validation.json",
+      "sha256": "0f72ab1f023a0d17d9911989e217ec621047a3d9970b59ae8614600c94bcf672",
+      "bytes": 182998
+    },
+    {
+      "path": "Build/Presentation/sm6-design-01/design.json",
+      "sha256": "0c791abf4125a3621872186261bd186b548f84ef99357dd3c0539781a4570931",
+      "bytes": 2747
+    },
+    {
+      "path": "Build/Presentation/sm6-design-01/preimplementation-control.json",
+      "sha256": "2e0546fef309a8d232ac1ee127e2ed02cc7a8eb1e1b0a71a8d245b3cbf2452fc",
+      "bytes": 203
+    },
+    {
+      "path": "Build/Presentation/sm6-environment-tsr-01/captures/hazard_active.png",
+      "sha256": "0ace684a5d22d6f9de15646add59fafb8d68568adce3809b057dd32b22552cd7",
+      "bytes": 1035838
+    },
+    {
+      "path": "Build/Presentation/sm6-environment-tsr-01/captures/panel_damaged.png",
+      "sha256": "61ca572dc0858a1072bf4176db28776676ec6a238082b2762927247f90f15797",
+      "bytes": 975666
+    },
+    {
+      "path": "Build/Presentation/sm6-environment-tsr-01/captures/panel_destroyed.png",
+      "sha256": "42f00766a4c9ee8744a0a7898d9e6ba5e1e8e0a682862bcbc33d94caea7ed36c",
+      "bytes": 977339
+    },
+    {
+      "path": "Build/Presentation/sm6-environment-tsr-01/captures/stream_return.png",
+      "sha256": "6979df30fcda001348e5eb7bd8caed70c2482fbb89694b2c1add732b86cbeb8e",
+      "bytes": 988171
+    },
+    {
+      "path": "Build/Presentation/sm6-environment-tsr-01/captures/switch_safe.png",
+      "sha256": "a789a1461d3ff80903d264ced8a29ac8e49e6210c9e46a102342280663c5d581",
+      "bytes": 987932
+    },
+    {
+      "path": "Build/Presentation/sm6-environment-tsr-01/command.json",
+      "sha256": "053e697a4f5b2053fc096fd79283e601df36c70a69a79f5c50d7954122197ecd",
+      "bytes": 1040
+    },
+    {
+      "path": "Build/Presentation/sm6-environment-tsr-01/events.log",
+      "sha256": "f08d18095758b2ba2a80a9826eeacb74e92329fa9677b644f9b0cf36f79b4093",
+      "bytes": 1703
+    },
+    {
+      "path": "Build/Presentation/sm6-environment-tsr-01/frames.csv",
+      "sha256": "c441251af386bd5c0688e50c661d89475b2ef783760dbea7cbd34cfe2859e208",
+      "bytes": 164890
+    },
+    {
+      "path": "Build/Presentation/sm6-environment-tsr-01/native-views.csv",
+      "sha256": "ca1eaec080672e266c848f9cd2eaf21d22c42622e4cb38916f3dbb86e4c5cd0d",
+      "bytes": 113069
+    },
+    {
+      "path": "Build/Presentation/sm6-environment-tsr-01/process-memory.jsonl",
+      "sha256": "35d949315d60676c4a623c915b79522f389fe0c316fbd1e97d5f6cc43894ac8c",
+      "bytes": 10902
+    },
+    {
+      "path": "Build/Presentation/sm6-environment-tsr-01/result.json",
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321",
+      "bytes": 84
+    },
+    {
+      "path": "Build/Presentation/sm6-environment-tsr-01/runtime.engine.log",
+      "sha256": "670703bc30c348daf08cd9e3468b16325baf54c657bb46133daad3720ddf69fa",
+      "bytes": 436405
+    },
+    {
+      "path": "Build/Presentation/sm6-environment-tsr-01/runtime.stdout.log",
+      "sha256": "6ea91eaee849cf0084c51bfda42fd9b5dead7bdec33fcc4c3a8fa1924766af58",
+      "bytes": 435617
+    },
+    {
+      "path": "Build/Presentation/sm6-environment-tsr-01/validation.json",
+      "sha256": "9d833b1e2f05978abe6fa012b2a654ca1bb43c45408ba768373bfe6198b2f977",
+      "bytes": 175414
+    },
+    {
+      "path": "Build/Presentation/sm6-permission-repair-01/validation.json",
+      "sha256": "5c033b37e2c6e1082eaa174b50b5eb2b348e3d593a98cedeab70ff5146096c30",
+      "bytes": 797
+    },
+    {
+      "path": "Build/Presentation/sm6-precommit-scan-01.json",
+      "sha256": "29d14520fe20948aca9db868b06417c540ca5c3a8fa549aa65e6c3da88880b83",
+      "bytes": 385
+    },
+    {
+      "path": "Build/Presentation/sm6-preservation-01.json",
+      "sha256": "d2fee2cb3b6792ee945ebb9678220566954c3996c2dd76014d919e2a4f4db19e",
+      "bytes": 845
+    },
+    {
+      "path": "Build/Presentation/sm6-series-01.json",
+      "sha256": "a25e3cffcc06d2f4c0e847e5cae7e6c160a61ae5cb8327f212b75c629df6fca0",
+      "bytes": 7333
+    },
+    {
+      "path": "Build/Presentation/sm6-visual-review-01.json",
+      "sha256": "59184cdcf82d4ba07325e8806ee7b35d2ba3a1bbbfd4f987142de8ad3d40729e",
+      "bytes": 2650
+    },
+    {
+      "path": "Config/DefaultEngine.ini",
+      "sha256": "c4a398aa3f045d254abe9f8381f7e4d89f07dbed7dca17a5e4d070401d649ce4",
+      "bytes": 1700
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaRenderProfile.cpp",
+      "sha256": "ef70d09055928a0483d92740a6f68556537c9e0187d7ba27d32b7d7c9e69a64c",
+      "bytes": 5462
+    },
+    {
+      "path": "Source/BiellaGames/Private/Tests/BiellaPresentationTest.cpp",
+      "sha256": "2b55662911465122cf87ac8248ae3681e457e081d5fe6ea816bdf8253e99a80d",
+      "bytes": 11435
+    },
+    {
+      "path": "docs/RECONSTRUCTION_PROFILES.md",
+      "sha256": "c973240eef16628b37c131191590c5ee435b22309a736b8bf4ffadcf0eeeb3cb",
+      "bytes": 4953
+    },
+    {
+      "path": "tests/run_d03_01_reconstruction.py",
+      "sha256": "01bec038760b3154532051d6586bbf86a144cb4194f913b3d884762fa42fb98f",
+      "bytes": 6796
+    },
+    {
+      "path": "tests/verify_d03_01_shader_platform.py",
+      "sha256": "1644cd87a3cbb579078763847034d6f9a466ce9855336038c432e6f4caf24880",
+      "bytes": 2970
+    },
+    {
+      "path": "tests/verify_d03_01_shader_series.py",
+      "sha256": "61278799501a93def79a4d44d4797f0b543e49612025bee27c0837bad79c1311",
+      "bytes": 6035
+    }
+  ],
+  "manifest_self_excluded": true,
+  "publication_owner": "Auto Feeder",
+  "external_previous_canonical_artifact": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-package-01.tar.zst",
+    "sha256": "06510221abdcfa88e7fbb73dcbf31bb34de839101649aa83ffde2c3c1722b14a",
+    "bytes": 371811200
+  }
+}

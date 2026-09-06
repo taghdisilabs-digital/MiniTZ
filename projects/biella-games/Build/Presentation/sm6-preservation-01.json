@@ -1,0 +1,18 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "time": "2026-09-06T15:40:47.729461+00:00",
+  "parent_commit": "c6f12d589a2d22d86739523f92fe1bf4b933ef57",
+  "previous_manifest": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/D03-01-package-file-manifest.json",
+    "sha256": "cf326c75a4d0fc4927de5ea8f35d415a9137febd657b7134a652a6bf475b0fbb",
+    "bytes": 71153
+  },
+  "previous_manifest_files_verified": 364,
+  "canonical_archive": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-package-01.tar.zst",
+    "sha256": "06510221abdcfa88e7fbb73dcbf31bb34de839101649aa83ffde2c3c1722b14a",
+    "bytes": 371811200
+  },
+  "scope": "Previous package evidence, helpers and canonical archive are byte-exact; this does not requalify the old package against new SM6 source."
+}

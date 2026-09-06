@@ -1,0 +1,43 @@
+{
+  "task_id": "D03-01",
+  "status": "BOUNDED_VISUAL_REVIEW",
+  "capture_status": "GENERATED_DRAFT",
+  "reviewed_at": "2026-09-06T15:42:34.086303+00:00",
+  "images": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm6-default-tsr-02/captures/static_009.png",
+      "sha256": "9eeb3673350524ba9ec74506cecb94a215b8219fe623c148c7be42069c7547c5",
+      "bytes": 946519,
+      "observation": "SM6 static sample retains the character, road markings, curb and HUD. Character shadow has sharper detail than the matching SM5 sample. Gray blockout buildings and empty black world margins remain."
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm5-fallback-tsr-01/captures/static_009.png",
+      "sha256": "b5d5f34176f02384e77418ff57c372f7a7a1bbeddbc7b7dfa652306b27402459",
+      "bytes": 948330,
+      "observation": "SM5 fallback retains the same gameplay view and HUD. Character shadow is softer; geometry and character visibility remain intact in this sample."
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm6-default-tsr-02/captures/pan_024.png",
+      "sha256": "755ee27b67ac25ce6dd38fdd81843901b807751a61fbf3c7cb455d13185952a8",
+      "bytes": 995868,
+      "observation": "SM6 pan sample retains the player silhouette, lane markings, curb and workshop entrance. The sparse blockout and black margins remain visible."
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm6-default-taa-01/captures/pan_016.png",
+      "sha256": "71fb9211fbcb745f56cc4f975e14c6155ca117519293cbd5972f0a37bd0d95f7",
+      "bytes": 877640,
+      "observation": "NativeTAA SM6 pan sample keeps the character, lane markings, curb and HUD readable; edge sharpness differs from TSR and this single image does not qualify motion ghosting."
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/sm6-environment-tsr-01/captures/hazard_active.png",
+      "sha256": "0ace684a5d22d6f9de15646add59fafb8d68568adce3809b057dd32b22552cd7",
+      "bytes": 1035838,
+      "observation": "Active orange floor hazard, three red hit-flash characters and health70 are distinct in the actual environment gameplay scenario."
+    }
+  ],
+  "limits": [
+    "Direct inspection of selected native PNGs; not a continuous perceptual ghosting or disocclusion test.",
+    "Eligibility flags are not Nanite geometry integration; zero loaded Nanite proxies were observed.",
+    "No final art approval or package/other-hardware qualification."
+  ]
+}

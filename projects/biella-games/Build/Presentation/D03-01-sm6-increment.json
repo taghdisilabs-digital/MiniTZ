@@ -1,0 +1,65 @@
+{
+  "schema": "biella.d03_01.sm6_increment/v1",
+  "task_id": "D03-01",
+  "increment": "Linux SM6 default and explicit SM5 fallback with native renderer observation",
+  "implementation_status": "IMPLEMENTED_VALIDATED_BOUNDED",
+  "task_status": "CONTINUE",
+  "created_at": "2026-09-06T15:49:00.665672+00:00",
+  "parent_commit": "c6f12d589a2d22d86739523f92fe1bf4b933ef57",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "implementation": [
+    "Config/DefaultEngine.ini",
+    "Source/BiellaGames/Private/BiellaRenderProfile.cpp",
+    "Source/BiellaGames/Private/Tests/BiellaPresentationTest.cpp",
+    "tests/run_d03_01_reconstruction.py",
+    "tests/verify_d03_01_shader_platform.py",
+    "tests/verify_d03_01_shader_series.py",
+    "docs/RECONSTRUCTION_PROFILES.md"
+  ],
+  "native_build": "Build/Presentation/sm6-build-01/result.json",
+  "native_module": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/libUnrealEditor-BiellaGames.so",
+    "sha256": "5354cd383cdf65e46c761e839e311d6003fa5a0a42cef82fb007e5055345b3a5",
+    "bytes": 2319856
+  },
+  "positive": [
+    "Build/Presentation/sm6-default-tsr-02/validation.json",
+    "Build/Presentation/sm6-default-taa-01/validation.json",
+    "Build/Presentation/sm5-fallback-tsr-01/validation.json",
+    "Build/Presentation/sm5-fallback-taa-01/validation.json",
+    "Build/Presentation/sm6-environment-tsr-01/validation.json",
+    "Build/Presentation/sm5-environment-taa-01/validation.json"
+  ],
+  "positive_frames": 8282,
+  "captures": 182,
+  "same_runtime_input_identities": 332,
+  "same_build_input_identities": 90,
+  "series": "Build/Presentation/sm6-series-01.json",
+  "opposite_platform_negative_controls": 6,
+  "preimplementation_control": "Build/Presentation/sm6-design-01/preimplementation-control.json",
+  "failed_launch": "Build/Presentation/sm6-default-tsr-01/validation.json",
+  "permission_repair": "Build/Presentation/sm6-permission-repair-01/validation.json",
+  "preservation": "Build/Presentation/sm6-preservation-01.json",
+  "previous_package_files_preserved": 365,
+  "visual_review": "Build/Presentation/sm6-visual-review-01.json",
+  "precommit_scan": "Build/Presentation/sm6-precommit-scan-01.json",
+  "readback": "Build/Presentation/D03-01-sm6-final-readback-01.json",
+  "progress": "Build/Presentation/D03-01-sm6-progress.md",
+  "manifest": "Build/Presentation/D03-01-sm6-file-manifest.json",
+  "media_status": "GENERATED_DRAFT",
+  "publication": {
+    "owner": "Auto Feeder",
+    "local_commit_required": true,
+    "remote_publication_claimed": false,
+    "canonical_state_transition_claimed": false
+  },
+  "scope": "One Linux Vulkan Development editor build, native runtime; no SM6 package or cold-cache qualification",
+  "remaining": [
+    "Integrate representative authored production geometry with Nanite and verify loaded proxies plus actual runtime visibility; the current 163-component static-mesh snapshot has zero Nanite data/proxies.",
+    "Build/cook/stage and independently qualify a fresh SM6 package from its exact current source; retain the preserved SM5 package and evidence.",
+    "Resolve and measure cold runtime PSO stutter; the previous SM5 package reports 235/223 events above 20 ms and maxima 346/319 ms, with no application pipeline cache.",
+    "Qualify fine motion ghosting/disocclusion beyond gross image deltas and selected PNG review.",
+    "Complete production world/lighting/character/weapon/vehicle art and remaining animation, VFX/audio, LOD and crowd presentation coverage.",
+    "Broader hardware/platform, automatic hardware fallback and Shipping qualification remain untested."
+  ]
+}

@@ -17,6 +17,9 @@ def main():
     parser.add_argument('--profile', choices=('ProductionTSR', 'NativeTAA', 'InvalidFixture'), required=True)
     parser.add_argument('--scenario', choices=('surfaces', 'environment'), default='surfaces')
     parser.add_argument('--override-fxaa', action='store_true', help='Negative control: console overrides the selected AA')
+    parser.add_argument('--feature-level', choices=('sm5', 'sm6'), help='Force an RHI feature level; omitted uses project preference')
+    parser.add_argument('--verify-feature-level', choices=('sm5', 'sm6'), help='Require observed renderer capabilities')
+    parser.add_argument('--timeout', type=int, default=250, help='Process timeout including initial shader compilation')
     args = parser.parse_args()
     out = args.output.resolve()
     assert not out.exists(), 'Use a fresh output directory'
@@ -31,11 +34,12 @@ def main():
 
     def inputs():
         return identities(DEFAULT_EDITOR) + [file_identity(path) for path in (
-            Path(__file__), PROJECT/'tests/verify_d03_01_reconstruction.py',
+            Path(__file__), PROJECT/'tests/verify_d03_01_reconstruction.py', PROJECT/'tests/verify_d03_01_shader_platform.py',
             PROJECT/'tests/verify_d03_01_surfaces.py', PROJECT/'tests/verify_d02_04.py')]
 
     report = dict(task_id='D03-01', result='FAIL', revision=source_revision(), profile=args.profile,
                   expected_profile=expected, scenario=args.scenario, override_fxaa=args.override_fxaa,
+                  feature_level=args.feature_level, verify_feature_level=args.verify_feature_level,
                   capture_status='GENERATED_DRAFT', identities_before=inputs(),
                   protected_before=[file_identity(path) for path in protected],
                   cache_scope='Existing Development DDC; not cold-cache, PSO or package qualification')
@@ -50,8 +54,10 @@ def main():
                f'-AbsLog={out/"runtime.engine.log"}', f'-{output_arg}={out}',
                f'-BiellaRenderProfile={args.profile}', f'-BiellaRenderReadback={out/"native-views.csv"}',
                f'-ExecCmds=t.MaxFPS {0 if surface else 60},r.VSync 0,r.MotionBlurQuality 0{override},Automation RunTests {native_test}; SoftQuit']
+        if args.feature_level:
+            cmd.append(f'-{args.feature_level}')
         write_json(out/'command.json', cmd)
-        report['runtime'] = monitor(cmd, out, 250)
+        report['runtime'] = monitor(cmd, out, args.timeout)
         log = (out/'runtime.stdout.log').read_text(errors='replace')
         assert report['runtime']['returncode'] == 0 and not report['runtime']['timed_out'], 'Unreal process failed'
         assert report['runtime']['log_finalization']['closed'], 'Runtime log still open'
@@ -64,6 +70,9 @@ def main():
             assert 'D03_RENDER_PROFILE_INVALID requested=InvalidFixture fallback=NativeTAA' in log, 'Invalid-profile fallback diagnostic missing'
         from verify_d03_01_reconstruction import verify as verify_views
         report['native_views'] = verify_views(out, expected)
+        if args.verify_feature_level:
+            from verify_d03_01_shader_platform import verify as verify_platform
+            report['shader_platform'] = verify_platform(out, args.verify_feature_level, expected)
         if surface:
             from verify_d03_01_surfaces import verify
             report['verification'] = verify(out, 4 if expected == 'ProductionTSR' else 2, 100)

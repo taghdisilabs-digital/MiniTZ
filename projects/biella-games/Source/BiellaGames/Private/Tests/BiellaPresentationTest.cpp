@@ -3,6 +3,9 @@
 #include "BiellaWorldContinuity.h"
 #include "BiellaPopulation.h"
 #include "Components/MeshComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Engine/StaticMesh.h"
+#include "PrimitiveSceneProxy.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "GameFramework/PlayerController.h"
 #include "Engine/Engine.h"
@@ -78,14 +81,25 @@ public:
             for (TActorIterator<AActor> It(World.Get()); It; ++It)
             {
                 TInlineComponentArray<UMeshComponent*> Meshes; It->GetComponents(Meshes);
-                for (auto* Mesh:Meshes) for (int32 Slot=0; Slot<Mesh->GetNumMaterials(); ++Slot)
+                for (auto* Mesh:Meshes)
                 {
+                    // One snapshot before measured phases. This records loaded
+                    // proxies, not visibility or their final pixel contribution.
+                    if (auto* Static=Cast<UStaticMeshComponent>(Mesh); Static && Static->GetStaticMesh())
+                    {
+                        const auto* Proxy=Static->GetSceneProxy();
+                        PrimitiveCsv+=FString::Printf(TEXT("\"%s\",\"%s\",%d,%d\n"),*Static->GetPathName(),
+                            *Static->GetStaticMesh()->GetPathName(),Static->GetStaticMesh()->HasValidNaniteData(),Proxy && Proxy->IsNaniteMesh());
+                    }
+                    for (int32 Slot=0; Slot<Mesh->GetNumMaterials(); ++Slot)
+                    {
                     auto* Mat=Mesh->GetMaterial(Slot);
                     if (Mat && Mat->GetPathName().StartsWith(TEXT("/Game/OpenWorld/Materials/MI_")))
                     {
                         Materials.Add(Mat->GetPathName());
                         Test->TestEqual(TEXT("Live world surface uses authored master"),Mat->GetMaterial()->GetPathName(),
                             FString(TEXT("/Game/OpenWorld/Materials/M_ProductionSurface.M_ProductionSurface")));
+                    }
                     }
                 }
             }
@@ -175,11 +189,13 @@ private:
         bool Saved=FFileHelper::SaveStringToFile(Csv,*FPaths::Combine(Output,TEXT("frames.csv")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
         Saved &= FFileHelper::SaveStringToFile(CaptureCsv,*FPaths::Combine(Output,TEXT("captures.csv")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
         Saved &= FFileHelper::SaveStringToFile(Result,*FPaths::Combine(Output,TEXT("result.json")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
+        Saved &= FFileHelper::SaveStringToFile(PrimitiveCsv,*FPaths::Combine(Output,TEXT("render-primitives.csv")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
         if (!Good || !Saved) { Test->AddError(FString(TEXT("presentation_evidence_failed: "))+Error); }
         return true;
     }
     FAutomationTestBase* Test;
     FString Output,Csv,CaptureCsv=TEXT("name,frame,sim_time,yaw\n");
+    FString PrimitiveCsv=TEXT("component,mesh,nanite_data,nanite_proxy\n");
     double Started,PhaseStart=0,LastWall=0,LastShot=-1,WalkDistance=0;
     int32 Phase=0,ShotIndex=0,SurfaceCount=0;
     bool bReload=false,bFinished=false,bShotThisFrame=false;

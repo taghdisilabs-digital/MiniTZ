@@ -1,0 +1,62 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T15:24:34.369604+00:00",
+  "baseline_commit": "c6f12d589a2d22d86739523f92fe1bf4b933ef57",
+  "resource_route": {
+    "capability": "unreal",
+    "providers": [
+      "ollama-qwen"
+    ],
+    "choice": "Deterministic local engine APIs and native runtime; optional helper timeout already observed, no repeat required"
+  },
+  "scope": "Linux SM6 default plus inherited SM5 fallback; native per-view eligibility and loaded primitive observation",
+  "steps": [
+    "Add Linux SM6 targeted RHI while preserving inherited SM5",
+    "Extend opt-in native view readback and surface primitive snapshot",
+    "Incremental editor build, default SM6 runtime and explicit SM5 fallback",
+    "Inspect actual mesh/proxy coverage; do not infer Nanite pixel contribution from settings",
+    "Preserve measured native timing/captures and source identities; commit bounded increment"
+  ],
+  "limits": [
+    "Existing SM5 package remains exact; new SM6 package qualification still required",
+    "No change to collision, gameplay or task identity",
+    "No claim of art completion, cold PSO resolution, or hardware matrix coverage"
+  ],
+  "source_refs": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Config/DefaultEngine.ini",
+      "sha256": "0c3f7739d7f5dfbb1c1a2ac5426a749680181e8e4299b32cb05a52988b3419b0",
+      "bytes": 1540
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaRenderProfile.cpp",
+      "sha256": "e38e3e1af671cacf136be940f2d2522e59a437d75b9d646f2fd331534f506db1",
+      "bytes": 4479
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaPresentationTest.cpp",
+      "sha256": "6b95e3f5374674f04841fe0fcec6a619c24a2bec42bfa96e3a3af36be0cc5961",
+      "bytes": 10385
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_reconstruction.py",
+      "sha256": "9813aaa2c7f15b0e5c2eb6bbc632f978830c41f56fc49173853f07bde8042555",
+      "bytes": 5964
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RHI/Private/Linux/LinuxDynamicRHI.cpp",
+      "sha256": "6cecfade58c74cd51261e96ed84942cc3531883fa5ca28e6debafb121e18dc14",
+      "bytes": 8497
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RenderCore/Private/RenderUtils.cpp",
+      "sha256": "a6c9ac81ffd37d7414df7716141b5b8acb89edd7fb97905d2ebb691ca67f2ccd",
+      "bytes": 107426
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Config/VulkanPC/DataDrivenPlatformInfo.ini",
+      "sha256": "3490908c45723ab10428939d2edbfafd792129b9f38c6d29d2d9e0eaff15118e",
+      "bytes": 7307
+    }
+  ]
+}

@@ -9,6 +9,7 @@
 #include "Misc/Parse.h"
 #include "Misc/Paths.h"
 #include "RenderUtils.h"
+#include "RHIStrings.h"
 #include "SceneInterface.h"
 #include "SceneView.h"
 #include "SceneViewExtension.h"
@@ -34,7 +35,7 @@ public:
     FBiellaRenderReadback(const FAutoRegister& Register,UGameInstance* InInstance,FString InPath)
         : FSceneViewExtensionBase(Register),Instance(InInstance),Path(MoveTemp(InPath))
     {
-        Csv=TEXT("frame,view,aa,requested_aa,screen_percentage,temporal_upsampling,dynamic_res,gi,reflections,vsm,nanite,ray_tracing,tsr_supported,external_upscaler,width,height\n");
+        Csv=TEXT("frame,view,aa,requested_aa,screen_percentage,temporal_upsampling,dynamic_res,gi,reflections,vsm,nanite,ray_tracing,tsr_supported,external_upscaler,width,height,feature_sm6,nanite_supported,nanite_enabled,vsm_enabled,lumen_supported\n");
     }
     ~FBiellaRenderReadback() override
     {
@@ -48,17 +49,28 @@ public:
         int32 Index=0;
         for (const FSceneView* View:Family.Views)
         {
-            Csv+=FString::Printf(TEXT("%llu,%d,%d,%.0f,%.2f,%.0f,%.0f,%.0f,%.0f,%.0f,%.0f,%.0f,%d,%d,%d,%d\n"),
+            const EShaderPlatform Platform=View->GetShaderPlatform();
+            if (!bReportedPlatform)
+            {
+                UE_LOG(LogTemp,Display,TEXT("D03_RENDER_CAPABILITIES version=1 shader_platform=%s feature_sm6=%d nanite_supported=%d nanite_enabled=%d vsm_enabled=%d lumen_supported=%d"),
+                    *LegacyShaderPlatformToShaderFormat(Platform).ToString(),View->GetFeatureLevel()==ERHIFeatureLevel::SM6,
+                    DoesPlatformSupportNanite(Platform),UseNanite(Platform),UseVirtualShadowMaps(Platform),DoesPlatformSupportLumenGI(Platform));
+                bReportedPlatform=true;
+            }
+            Csv+=FString::Printf(TEXT("%llu,%d,%d,%.0f,%.2f,%.0f,%.0f,%.0f,%.0f,%.0f,%.0f,%.0f,%d,%d,%d,%d,%d,%d,%d,%d,%d\n"),
                 static_cast<unsigned long long>(GFrameCounter),Index++,int32(View->AntiAliasingMethod),
                 CVar(TEXT("r.AntiAliasingMethod")),CVar(TEXT("r.ScreenPercentage")),CVar(TEXT("r.TemporalAA.Upsampling")),
                 CVar(TEXT("r.DynamicRes.OperationMode")),CVar(TEXT("r.DynamicGlobalIlluminationMethod")),CVar(TEXT("r.ReflectionMethod")),
                 CVar(TEXT("r.Shadow.Virtual.Enable")),CVar(TEXT("r.Nanite")),CVar(TEXT("r.RayTracing")),SupportsTSR(View->GetShaderPlatform()),
-                Family.GetTemporalUpscalerInterface()!=nullptr,View->UnscaledViewRect.Width(),View->UnscaledViewRect.Height());
+                Family.GetTemporalUpscalerInterface()!=nullptr,View->UnscaledViewRect.Width(),View->UnscaledViewRect.Height(),
+                View->GetFeatureLevel()==ERHIFeatureLevel::SM6,DoesPlatformSupportNanite(Platform),UseNanite(Platform),
+                UseVirtualShadowMaps(Platform),DoesPlatformSupportLumenGI(Platform));
         }
     }
 private:
     TWeakObjectPtr<UGameInstance> Instance;
     FString Path,Csv;
+    bool bReportedPlatform=false;
 };
 }
 
