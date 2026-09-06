@@ -1,0 +1,8 @@
+[Unit]
+Description=Watch Biella main revisions for Website evidence refresh
+[Path]
+PathChanged=/root/biella/repos/biella-engine/.git/refs/heads/main
+PathChanged=/root/biella/repos/biella-engine/.git/refs/remotes/origin/main
+Unit=biella-website-live-deploy.service
+[Install]
+WantedBy=multi-user.target

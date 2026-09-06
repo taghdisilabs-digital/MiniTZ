@@ -1,0 +1,13 @@
+[Unit]
+Description=Biella Public Website Static Origin
+After=network-online.target
+Wants=network-online.target
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/python3 /usr/local/lib/biella-website/static_server.py
+Restart=always
+RestartSec=2
+NoNewPrivileges=true
+[Install]
+WantedBy=multi-user.target

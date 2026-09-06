@@ -1,0 +1,14 @@
+[Unit]
+Description=Biella Public Website Cloudflare Tunnel
+After=network-online.target biella-public-site.service
+Wants=network-online.target
+Requires=biella-public-site.service
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/cloudflared tunnel --no-autoupdate --config /etc/cloudflared/biella-public.yml run
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+[Install]
+WantedBy=multi-user.target

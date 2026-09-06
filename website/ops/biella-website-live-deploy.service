@@ -1,0 +1,7 @@
+[Unit]
+Description=Biella Website Evidence-Bound Live Deploy
+After=network-online.target
+[Service]
+Type=oneshot
+User=root
+ExecStart=/usr/bin/python3 /usr/local/lib/biella-website/deploy_live.py

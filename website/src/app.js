@@ -1,1 +1,12 @@
-const text=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value};async function loadJson(url){const response=await fetch(url,{cache:'no-store'});if(!response.ok)throw new Error(`${url}: ${response.status}`);return response.json()}Promise.all([loadJson('./data/website-visual-assets.json'),loadJson('./data/game-runtime-media.json'),loadJson('./deployment.json')]).then(([assets,media,deployment])=>{const migrated=assets.assets.filter(a=>a.migration_status==='MIGRATED_VERIFIED').length;text('asset-count',`${migrated} / ${assets.assets.length} migrated verified`);text('runtime-media-count',`${media.published_items.length} accepted runtime captures`);const identity=deployment.source_commit==='LOCAL_UNPUBLISHED'?'Local build':`Source ${deployment.source_commit.slice(0,12)}`;text('deployment-status',`${identity} · ${deployment.environment} · ${deployment.deployment_status}`)}).catch(error=>{text('deployment-status',`Evidence data unavailable: ${error.message}`)});
+const set=(key,value)=>document.querySelectorAll(`[data-live="${key}"]`).forEach(el=>el.textContent=value);
+async function refresh(){
+  const response=await fetch('./data/investor-snapshot.json',{cache:'no-store'});
+  if(!response.ok) throw new Error(`snapshot ${response.status}`);
+  const s=await response.json();
+  set('first-playable',`First playable ${s.first_playable.completed_tasks}/${s.first_playable.total_tasks}`);
+  set('program-complete',`Program ${s.program.completed_tasks}/${s.program.total_tasks}`);
+  set('active-task',`Executing ${s.active_task.id}`);
+  set('program-line',`${s.program.completed_tasks} of ${s.program.total_tasks} completion-class tasks · ${s.active_task.id} ${s.active_task.title}`);
+}
+refresh().catch(()=>{});
+setInterval(refresh,60000);
