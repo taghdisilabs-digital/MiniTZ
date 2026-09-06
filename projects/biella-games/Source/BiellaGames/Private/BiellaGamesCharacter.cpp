@@ -17,6 +17,7 @@
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
 #include "Engine/DamageEvents.h"
+#include "BiellaCharacterAnimInstance.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "Kismet/GameplayStatics.h"
 #include "Materials/MaterialInstanceDynamic.h"
@@ -280,6 +281,7 @@ void ABiellaGamesCharacter::FireWeapon(const FInputActionValue& Value)
             FPointDamageEvent Damage(34.0f,EnvironmentHit,AimDirection,nullptr);
             const float Applied=Site->TakeDamage(34.0f,Damage,GetController(),this);
             --Ammo; FireCooldownRemaining=0.25f;
+            if (auto* Anim=Cast<UBiellaCharacterAnimInstance>(CharacterMesh->GetAnimInstance())) { Anim->NotifyConfirmedShot(); }
             if (auto* Feedback=UBiellaGameplayFeedback::Get(GetWorld())) { Feedback->ConfirmedShot(Muzzle,EnvironmentHit); }
             UE_LOG(LogTemp,Display,TEXT("D02_ENV SHOT owner=%s part=%s applied=%.2f ammo=%d"),
                 *GetName(),*GetNameSafe(EnvironmentHit.GetComponent()),Applied,Ammo);
@@ -345,6 +347,7 @@ bool ABiellaGamesCharacter::FireWeaponAt(ABiellaDemoPawn* Target, float DamageAm
     }
     --Ammo;
     FireCooldownRemaining = 0.25f;
+    if (auto* Anim=Cast<UBiellaCharacterAnimInstance>(CharacterMesh->GetAnimInstance())) { Anim->NotifyConfirmedShot(); }
     if (UBiellaGameplayFeedback* Feedback = UBiellaGameplayFeedback::Get(GetWorld()))
     {
         const FVector Muzzle = WeaponMesh->GetComponentLocation() + WeaponMesh->GetForwardVector() * 35.0f;

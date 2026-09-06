@@ -1,6 +1,8 @@
 // Copyright Biella Games. All Rights Reserved.
 
 #include "BiellaRival.h"
+#include "BiellaCharacterAnimInstance.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "BiellaGameplayFeedback.h"
 
 #include "Engine/World.h"
@@ -380,6 +382,7 @@ bool ABiellaRival::FireAtTarget(ABiellaDemoPawn* Target)
     const float Applied = Target->ApplyDemoDamage(WeaponDamage, this, TEXT("rival_fire"));
     if (Applied > 0.0f)
     {
+        if (auto* Anim=Cast<UBiellaCharacterAnimInstance>(CharacterMesh->GetAnimInstance())) { Anim->NotifyConfirmedShot(); }
         if (UBiellaGameplayFeedback* Feedback = UBiellaGameplayFeedback::Get(GetWorld()))
         {
             Feedback->ConfirmedShot(Start, Hit);

@@ -1,0 +1,46 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T11:07:28.024098+00:00",
+  "status": "REVIEWED",
+  "capture_status": "GENERATED_DRAFT",
+  "method": "Direct inspection of six original 1280x720 native PNGs",
+  "captures": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/action-runtime-02/captures/baseline.png",
+      "sha256": "613ddd4c97d1b6253618e80dd7f6154a5f177e091fe184644027b45959c4d1e7",
+      "bytes": 960196
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/action-runtime-02/captures/fire.png",
+      "sha256": "d2751b342ef4dd31ee851bc064fb47480f3ce8b4ba5708e17df474b0d4bbe52b",
+      "bytes": 960501
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/action-runtime-02/captures/hit.png",
+      "sha256": "7e3f591627865e2432b14a2e3e4919642b934f1e58699b6d6b2f294f2fb24e29",
+      "bytes": 962604
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/action-runtime-02/captures/jump.png",
+      "sha256": "a6baa6737e6c3296a6d734010f676096cfab6eeb006214070b0bcc23020c3529",
+      "bytes": 991633
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/action-runtime-02/captures/overlap.png",
+      "sha256": "2597f20755b28eb8cddbae9fa18f93829bbbb2af051f21f12f5b37fdebf6876b",
+      "bytes": 962967
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/action-runtime-02/captures/rival_shot.png",
+      "sha256": "3dfa9b3348c7fb113ed727cbb2ff713b409563635ab2584271cc4e417b2b8e69",
+      "bytes": 962645
+    }
+  ],
+  "observations": [
+    "Baseline and fire retain the grounded rifle stance and readable target/HUD; the firing change is subtle at the captured late event instant, with full pose-window measurements in checks.csv.",
+    "Hit/overlap show a small upper-body/head response without visible lower-body collapse. Actual HUD health/ammunition agree with the gameplay assertions.",
+    "Jump returns to authored full-body pose with reactions cancelled. Rival shot frame contains the existing visible spatial muzzle feedback.",
+    "World, box-shaped weapon, Manny rig and team-color art remain integration assets. The frozen rival retains its damage-flash color because actor tick is intentionally suspended in this fixture."
+  ],
+  "limits": "Stills establish native integration and framing, not full temporal, shipping-performance, sound-design or final-art acceptance. Pose CSV provides the bounded motion evidence. No owner acceptance inferred."
+}

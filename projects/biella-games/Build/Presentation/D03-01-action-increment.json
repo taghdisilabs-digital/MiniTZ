@@ -1,0 +1,46 @@
+{
+  "schema": "biella.d03_01.action_increment/v1",
+  "task_id": "D03-01",
+  "increment": "confirmed-shot and applied-hit upper-body actions",
+  "implementation_status": "IMPLEMENTED_VALIDATED",
+  "task_status": "CONTINUE",
+  "created_at": "2026-09-06T11:17:59.988741+00:00",
+  "baseline_commit": "be000ce6c42c21a87e176e3bb89ac3a7f30283f9",
+  "parent_commit": "cf66172df892931f5573a70f4883b885a29631bf",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "implementation": [
+    "Source/BiellaGames/Public/BiellaCharacterAnimInstance.h",
+    "Source/BiellaGames/Private/BiellaCharacterAnimInstance.cpp",
+    "Source/BiellaGames/Private/BiellaUpperBodyActions.h",
+    "Source/BiellaGames/Private/BiellaUpperBodyActions.cpp",
+    "Source/BiellaGames/Private/BiellaDemoPawn.cpp",
+    "Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+    "Source/BiellaGames/Private/BiellaRival.cpp"
+  ],
+  "validation_sources": [
+    "Source/BiellaGames/Private/Tests/BiellaActionTest.cpp",
+    "tests/run_d03_01_actions.py",
+    "tests/verify_d03_01_actions.py",
+    "tests/run_d03_01_audio_mix.py"
+  ],
+  "native_build": "Build/Presentation/action-build-03/result.json",
+  "readback": "Build/Presentation/D03-01-action-final-readback-02.json",
+  "progress": "Build/Presentation/D03-01-action-progress.md",
+  "preservation": "Build/Presentation/D03-01-action-preservation.json",
+  "manifest": "Build/Presentation/D03-01-action-file-manifest.json",
+  "asset_provenance": "SourceAssets/Characters/UE58Mannequin.provenance.json",
+  "publication": {
+    "owner": "Auto Feeder",
+    "local_commit_required": true,
+    "remote_publication_claimed": false,
+    "canonical_state_transition_claimed": false
+  },
+  "remaining": [
+    "Other gameplay action and defeat animation",
+    "Skeletal vehicle presentation",
+    "Production world, lighting, character and weapon art",
+    "Broader VFX/audio coverage",
+    "Crowd/LOD, directional movement, platform and native frame-time qualification",
+    "Clean shader/material/PSO launch, supported fallback and packaged play"
+  ]
+}

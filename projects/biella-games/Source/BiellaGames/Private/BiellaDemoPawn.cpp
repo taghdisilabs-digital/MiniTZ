@@ -275,6 +275,7 @@ float ABiellaDemoPawn::ApplyDemoDamage(float DamageAmount, AActor* DamageCauser,
     }
     const float Applied = FMath::Min(DamageAmount, Health);
     Health -= Applied;
+    if (auto* Anim=Cast<UBiellaCharacterAnimInstance>(CharacterMesh->GetAnimInstance())) { Anim->NotifyAppliedHit(); }
     if (Team == EDemo01Team::Player)
     {
         if (UBiellaGameplayFeedback* Feedback = UBiellaGameplayFeedback::Get(GetWorld()))

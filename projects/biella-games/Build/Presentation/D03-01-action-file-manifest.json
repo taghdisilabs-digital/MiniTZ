@@ -1,0 +1,863 @@
+{
+  "schema": "biella.file_manifest/v1",
+  "task_id": "D03-01",
+  "increment": "confirmed-shot and applied-hit upper-body actions",
+  "time": "2026-09-06T11:17:59.988741+00:00",
+  "task_status": "CONTINUE",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "excludes_self": true,
+  "files": [
+    {
+      "path": "Build/Presentation/D03-01-action-final-readback-02.json",
+      "kind": "file",
+      "bytes": 18789,
+      "sha256": "84aff4b2fc52b66969097e04ac9fe6c0ff416b2c36651a9791a34da1367463e3"
+    },
+    {
+      "path": "Build/Presentation/D03-01-action-final-readback.json",
+      "kind": "file",
+      "bytes": 162,
+      "sha256": "0049b97874b9292e759504673a4f813f1b8fa88bf397dbd5714b00890e16d5e0"
+    },
+    {
+      "path": "Build/Presentation/D03-01-action-increment.json",
+      "kind": "file",
+      "bytes": 2092,
+      "sha256": "9da5606ee9e4c3b560448c37be815553c442d2f3da4301e4ae235f551fc3f852"
+    },
+    {
+      "path": "Build/Presentation/D03-01-action-preservation.json",
+      "kind": "file",
+      "bytes": 7812,
+      "sha256": "acc0e3acbe58423b9be8e19f8e439411266b3d3443abc5f18c26b26614006d4b"
+    },
+    {
+      "path": "Build/Presentation/D03-01-action-progress.md",
+      "kind": "file",
+      "bytes": 6160,
+      "sha256": "b5b3e160ac5d132cce5b9acf02250d7eb763c0446e73bc3f95aaf4f8a2249242"
+    },
+    {
+      "path": "Build/Presentation/action-aim-regression-01/captures/after_seat.png",
+      "kind": "file",
+      "bytes": 969099,
+      "sha256": "43d6807adcbe039c26a5acc1a8dbc3b0b8a9e59effa47c11969f515d0b97ee73"
+    },
+    {
+      "path": "Build/Presentation/action-aim-regression-01/captures/down.png",
+      "kind": "file",
+      "bytes": 918688,
+      "sha256": "229460d1e5144cd5de64638e47aa6bcc1801944b283e03557b2b243c7edef6db"
+    },
+    {
+      "path": "Build/Presentation/action-aim-regression-01/captures/jump.png",
+      "kind": "file",
+      "bytes": 946197,
+      "sha256": "a884265fabb13a9e5f922788fea272b15de952d5f13a49858c5a72d39b25b3f4"
+    },
+    {
+      "path": "Build/Presentation/action-aim-regression-01/captures/level.png",
+      "kind": "file",
+      "bytes": 954687,
+      "sha256": "96cdaa3f3c1b94c3d49998748540f09b83aea3e14f6fce0be32bbde3ea66d197"
+    },
+    {
+      "path": "Build/Presentation/action-aim-regression-01/captures/moving.png",
+      "kind": "file",
+      "bytes": 952198,
+      "sha256": "2aab6e6f75a51719506b516abc00596ff648f967d4cb8362114516213f54eac4"
+    },
+    {
+      "path": "Build/Presentation/action-aim-regression-01/captures/up_turned.png",
+      "kind": "file",
+      "bytes": 938776,
+      "sha256": "45bf24b880dad6a121cee6fe9f0605b82950d5db03a1025f82244caf07287586"
+    },
+    {
+      "path": "Build/Presentation/action-aim-regression-01/checks.csv",
+      "kind": "file",
+      "bytes": 451,
+      "sha256": "ca95d1ea240f514a68f393976e344edc200a93a6ed39a1489adeb15fb1adea92"
+    },
+    {
+      "path": "Build/Presentation/action-aim-regression-01/poses.csv",
+      "kind": "file",
+      "bytes": 140390,
+      "sha256": "8f4dd786ecdd510b65968e5e9f79b023c3f05757366ba96bd18041733752bd3a"
+    },
+    {
+      "path": "Build/Presentation/action-aim-regression-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8691,
+      "sha256": "8fa86963022a0c3e3de7e886d34ea80f6319194bc9bcb428aba8b7bf8f5ece69"
+    },
+    {
+      "path": "Build/Presentation/action-aim-regression-01/result.json",
+      "kind": "file",
+      "bytes": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd"
+    },
+    {
+      "path": "Build/Presentation/action-aim-regression-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 297267,
+      "sha256": "a8482fe4890c59e3d4b0e1fc12aa2f69def268a0c9658dd7e01cbd61d9e357c6"
+    },
+    {
+      "path": "Build/Presentation/action-aim-regression-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 297398,
+      "sha256": "4154ca179225b1cb12118c422ea5b14b5e535400659a2a0404f8cabb3b8077a5"
+    },
+    {
+      "path": "Build/Presentation/action-aim-regression-01/validation.json",
+      "kind": "file",
+      "bytes": 146945,
+      "sha256": "9f87ebb78a1cf1dc0199fb08e4bcdaf577cb7ad01dd3f4bddf271e289f55a982"
+    },
+    {
+      "path": "Build/Presentation/action-animation-regression-01/captures/backward.png",
+      "kind": "file",
+      "bytes": 995326,
+      "sha256": "a07057817d50c7765cb735b64f3161da2246b5c12addee2aeb9f8b097580c245"
+    },
+    {
+      "path": "Build/Presentation/action-animation-regression-01/captures/dismount.png",
+      "kind": "file",
+      "bytes": 990304,
+      "sha256": "8dec49db02f6c697744ddf9d0b5684699a0d4106b847828cbcda44335023cc84"
+    },
+    {
+      "path": "Build/Presentation/action-animation-regression-01/captures/forward.png",
+      "kind": "file",
+      "bytes": 984688,
+      "sha256": "e7c363369463a9ec6351a2fbf2298073f4e3cea0a76c1bb43c0b60521b6ff884"
+    },
+    {
+      "path": "Build/Presentation/action-animation-regression-01/captures/idle.png",
+      "kind": "file",
+      "bytes": 953183,
+      "sha256": "8e069ed0b8455c98d5901eb144380c549445ddebb16e8e8421ce8439a838eee0"
+    },
+    {
+      "path": "Build/Presentation/action-animation-regression-01/captures/jump.png",
+      "kind": "file",
+      "bytes": 1004985,
+      "sha256": "c51ee48682affc4e7049076e4b0940cfe9582294a80044a03ab99c504804e9e0"
+    },
+    {
+      "path": "Build/Presentation/action-animation-regression-01/captures/land.png",
+      "kind": "file",
+      "bytes": 944142,
+      "sha256": "4f9c179abc69de23557f0786be435151ac3f445e1aea3c45761ebce86de8690c"
+    },
+    {
+      "path": "Build/Presentation/action-animation-regression-01/captures/npc_gaits.png",
+      "kind": "file",
+      "bytes": 995246,
+      "sha256": "13249e68136704a59319330b51302d09408c442fdf7295eccada3e3d4fe81a73"
+    },
+    {
+      "path": "Build/Presentation/action-animation-regression-01/captures/right.png",
+      "kind": "file",
+      "bytes": 999159,
+      "sha256": "ae7ce376cef12687d444d5ab0d8901253dead9608538e998c23559abc30112cd"
+    },
+    {
+      "path": "Build/Presentation/action-animation-regression-01/captures/seat.png",
+      "kind": "file",
+      "bytes": 984503,
+      "sha256": "f130f47d30f125d769916c15c22e003ca95cf9f98439952384a887b619316f33"
+    },
+    {
+      "path": "Build/Presentation/action-animation-regression-01/poses.csv",
+      "kind": "file",
+      "bytes": 74237,
+      "sha256": "ce66b7fde88d9368cd510da45e36a800ef12bc6d623a613814edf5f0cb71800a"
+    },
+    {
+      "path": "Build/Presentation/action-animation-regression-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8920,
+      "sha256": "f798e4d47384430cc10649630aaa26c70daf8a33f012f11e8b2df9bebfdd2083"
+    },
+    {
+      "path": "Build/Presentation/action-animation-regression-01/result.json",
+      "kind": "file",
+      "bytes": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd"
+    },
+    {
+      "path": "Build/Presentation/action-animation-regression-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 357263,
+      "sha256": "a272fd0c3bdfc2863bfcae1f1237108ddaa7f1c67f469c102082a8b163b9ad71"
+    },
+    {
+      "path": "Build/Presentation/action-animation-regression-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 357003,
+      "sha256": "dd0edd2b040f04c85a0750ffdfc84715e69108bf1a236854d8c4943cd35f7229"
+    },
+    {
+      "path": "Build/Presentation/action-animation-regression-01/torso-fit.txt",
+      "kind": "file",
+      "bytes": 390,
+      "sha256": "3caa9a9542f7be2b57fbfadcf020e78fb96ad0dd6d17e3652a670718d98c39d7"
+    },
+    {
+      "path": "Build/Presentation/action-animation-regression-01/validation.json",
+      "kind": "file",
+      "bytes": 145618,
+      "sha256": "cf5a377d2fe70796d4c89323163cd8e235eee46a6627f0cf6506c927a88daacb"
+    },
+    {
+      "path": "Build/Presentation/action-audio-regression-01/combat.wav",
+      "kind": "file",
+      "bytes": 307244,
+      "sha256": "610be9203dd98f59f0e8ac61787b39a7caa1a124df3b042449c7246a55fac448"
+    },
+    {
+      "path": "Build/Presentation/action-audio-regression-01/critical.wav",
+      "kind": "file",
+      "bytes": 331820,
+      "sha256": "2fc85d51e9ac05d222162e869e3c123afaea6410ae7d9d131a9cdc12f77393ea"
+    },
+    {
+      "path": "Build/Presentation/action-audio-regression-01/mixed.png",
+      "kind": "file",
+      "bytes": 749735,
+      "sha256": "9be0c42761d76a7c3c4e29efcb097a6eebf3f4247043cb5abac54c9b17c77278"
+    },
+    {
+      "path": "Build/Presentation/action-audio-regression-01/mixed.wav",
+      "kind": "file",
+      "bytes": 356396,
+      "sha256": "bee978a61713ddb1ec2c8a85e49d043c0e6841118199323a1316b6a434db216b"
+    },
+    {
+      "path": "Build/Presentation/action-audio-regression-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 6266,
+      "sha256": "ef458584a02cb868bfb0e91cb817286250859d953e3dfbd39470a429cf4c4687"
+    },
+    {
+      "path": "Build/Presentation/action-audio-regression-01/release.csv",
+      "kind": "file",
+      "bytes": 441,
+      "sha256": "bb82d11c20b983cfa3e5e08620cc12386a6c4f9de4aa062ed17b8cb7ae8d9b4a"
+    },
+    {
+      "path": "Build/Presentation/action-audio-regression-01/result.json",
+      "kind": "file",
+      "bytes": 17,
+      "sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4"
+    },
+    {
+      "path": "Build/Presentation/action-audio-regression-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 298915,
+      "sha256": "37823cc3bdb4591492f63fa03166b8bea53fc010941098dbc61db68ef286f9a3"
+    },
+    {
+      "path": "Build/Presentation/action-audio-regression-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 299038,
+      "sha256": "10cc6c7b3013d9281462481744f8bbef2763be906efd61a9e2269887dff78964"
+    },
+    {
+      "path": "Build/Presentation/action-audio-regression-01/validation.json",
+      "kind": "file",
+      "bytes": 148066,
+      "sha256": "17b284ec93a5f84841a7e51d029ca4b99a2cf84fff687fcc07ac6d139515f4b2"
+    },
+    {
+      "path": "Build/Presentation/action-build-01/build.log",
+      "kind": "file",
+      "bytes": 9700,
+      "sha256": "2235390ea7c2995dfb2d0fa61efde71fbfd4542e504a8b783d3e70c010815746"
+    },
+    {
+      "path": "Build/Presentation/action-build-01/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/action-build-01/result.json",
+      "kind": "file",
+      "bytes": 132,
+      "sha256": "df9a0e8c9fe8f4714f635fd05f63cda05d8d30181b28bef5b33296479711d2d0"
+    },
+    {
+      "path": "Build/Presentation/action-build-02/build.log",
+      "kind": "file",
+      "bytes": 3680,
+      "sha256": "3d38f394e85c7a0b3f670085188eec8e759211b5b3d55b38f73faa404d172de0"
+    },
+    {
+      "path": "Build/Presentation/action-build-02/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/action-build-02/result.json",
+      "kind": "file",
+      "bytes": 131,
+      "sha256": "daf6ec88aa321668c83886c47aaa047d0f6d25a7637db3eecabcb27df988905e"
+    },
+    {
+      "path": "Build/Presentation/action-build-03/build.log",
+      "kind": "file",
+      "bytes": 3680,
+      "sha256": "6cf0d91837eb74ddaf0de95f1349d4a1290fd7e617d345791a0c2daf5b6d8716"
+    },
+    {
+      "path": "Build/Presentation/action-build-03/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/action-build-03/result.json",
+      "kind": "file",
+      "bytes": 131,
+      "sha256": "5fa2948afa08704784c16ca5733fbb02b2d44ea2e4b68e5bcc5e6c384db3c42c"
+    },
+    {
+      "path": "Build/Presentation/action-design-01/controller-review.json",
+      "kind": "file",
+      "bytes": 1077,
+      "sha256": "6a55792b8164cf9efbaa2f3a0a0f77f2b5e03b608c047c701b1fd00969256109"
+    },
+    {
+      "path": "Build/Presentation/action-design-01/request.json",
+      "kind": "file",
+      "bytes": 1111,
+      "sha256": "f42f5ee45ba0750a047ccbb63994ebc5fb1e1b183944bba6cc6445a33b68ac75"
+    },
+    {
+      "path": "Build/Presentation/action-design-01/response.txt",
+      "kind": "file",
+      "bytes": 2240,
+      "sha256": "8594b37cbe11b6df77a34582c7297575b27683839aceeedfd2b2edcbfe95badb"
+    },
+    {
+      "path": "Build/Presentation/action-design-01/route.json",
+      "kind": "file",
+      "bytes": 76,
+      "sha256": "622463ccc0acdf823be8c6f7fe0178505f1fd49657d98b434a96053e8df28163"
+    },
+    {
+      "path": "Build/Presentation/action-design-01/stderr.txt",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-01/captures/baseline.png",
+      "kind": "file",
+      "bytes": 960716,
+      "sha256": "66d350c98e3138d4438302d9346abe22706b462620b8c58f9d725bb2fc1d6597"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-01/captures/fire.png",
+      "kind": "file",
+      "bytes": 961590,
+      "sha256": "6e2a92e9300e50e18d9dffe35068f97a686497cead5eff0a8e4eb65fdbda5b59"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-01/captures/hit.png",
+      "kind": "file",
+      "bytes": 962836,
+      "sha256": "c1592fed3ccdeecbe27679b617ccaeda61b6c161924bc24934ffc0800cd16d6a"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-01/captures/jump.png",
+      "kind": "file",
+      "bytes": 990388,
+      "sha256": "4371d03c1a2593c15a7c0894b933e888e6ac9c6d974e94741554f5284ef70b27"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-01/captures/overlap.png",
+      "kind": "file",
+      "bytes": 963278,
+      "sha256": "510aac75523a06b963d23520bd6fe25a50270a86f93f0eff6b48095072b15a3b"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-01/captures/rival_shot.png",
+      "kind": "file",
+      "bytes": 962999,
+      "sha256": "73aeaf1358a1c0815bf4baee7c4c7d78417ed87f2a09de520466890e0d3db00d"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-01/checks.csv",
+      "kind": "file",
+      "bytes": 218,
+      "sha256": "476983d5fdab718422f0ec376de46585fd5ed6f5f0d0e147d002702d2fc05626"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-01/poses.csv",
+      "kind": "file",
+      "bytes": 89660,
+      "sha256": "bc327082de0ae372361da9f773def0e81ee0aeba840cfaf605d16c8f3dffff1e"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8915,
+      "sha256": "bfac6ad4da19421a39ad5e2496082dcc178b08ece41383587ad2fd56534b8ccc"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-01/result.json",
+      "kind": "file",
+      "bytes": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 307260,
+      "sha256": "73f423289261d15b0949ac64a7d475e7a83dd0ec69567fbd234c39437fdfa6be"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 307322,
+      "sha256": "f3dd20fb923ab2883074c913553c9a9b9d359fb3bae2924ddbac284d631c681c"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-01/validation.json",
+      "kind": "file",
+      "bytes": 146892,
+      "sha256": "f2b3153b8960054f3161a12a0f327d04dad44279a49eb155c7359a0eb0de531b"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-baseline-01/captures/baseline.png",
+      "kind": "file",
+      "bytes": 960404,
+      "sha256": "5281a9463f8f01b3dfe31c69c69835b6cf612f2a7cce48ca2f7872e9a3bec3ee"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-baseline-01/captures/fire.png",
+      "kind": "file",
+      "bytes": 961241,
+      "sha256": "22d20fd70d45c385750ea5420483c74ef3897a90a75c85264144f99893c00512"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-baseline-01/checks.csv",
+      "kind": "file",
+      "bytes": 89,
+      "sha256": "792c5ee47dc1df3ef8ada33b9b1383f01afb345e5f12c74f54fff96baa4aa9ac"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-baseline-01/poses.csv",
+      "kind": "file",
+      "bytes": 1598,
+      "sha256": "8947f823e27e5aa5d1d20c9015ce82c98f090608ab7e82aa5131ca32a3e9e8cb"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-baseline-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8472,
+      "sha256": "60e1e2288df067eaa78dd21c0965fe6deb19d679f7d47e3cb125ad1ad1b1843b"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-baseline-01/result.json",
+      "kind": "file",
+      "bytes": 45,
+      "sha256": "18ddd5dce43af77febd6476d5abe9aeb378542618bdb054f16b56586163216b3"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-baseline-01/runtime.engine-CRC.log",
+      "kind": "file",
+      "bytes": 13432,
+      "sha256": "d465e69174ad2bc86beaeadd2b7217df318c583335fe609788de629ba7deff05"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-baseline-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 311138,
+      "sha256": "3a4ab4d52e4c58fec76899c10777cd9af6bf0c4f209e56e64f28d89d49d50a48"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-baseline-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 324868,
+      "sha256": "1d85f71d9e9440a4fee816e988a6c0a8158f7a7baa08e7d089797c4bcca52383"
+    },
+    {
+      "path": "Build/Presentation/action-disabled-baseline-01/validation.json",
+      "kind": "file",
+      "bytes": 144457,
+      "sha256": "723abf6e6d92012c257efd7ec5e52fb58727459e471422bb3934073d150bb751"
+    },
+    {
+      "path": "Build/Presentation/action-environment-regression-01/captures/hazard_active.png",
+      "kind": "file",
+      "bytes": 1040068,
+      "sha256": "abf8567fa55a92fbbaf3dc45fb464825de2360f833a7abdd0c9da336c49663b4"
+    },
+    {
+      "path": "Build/Presentation/action-environment-regression-01/captures/panel_damaged.png",
+      "kind": "file",
+      "bytes": 980436,
+      "sha256": "20f4b6e5daf7372d5dbabdfca8907597810afa25c50bfc2fd9c542d33abc6568"
+    },
+    {
+      "path": "Build/Presentation/action-environment-regression-01/captures/panel_destroyed.png",
+      "kind": "file",
+      "bytes": 979858,
+      "sha256": "7e2f11687bb738ffea1040805b88c38e09f9643a050e5b807286d276369220c5"
+    },
+    {
+      "path": "Build/Presentation/action-environment-regression-01/captures/stream_return.png",
+      "kind": "file",
+      "bytes": 990681,
+      "sha256": "310be87dd17122853593740a045d2f75fc679e1da7e894d89785541e7267c366"
+    },
+    {
+      "path": "Build/Presentation/action-environment-regression-01/captures/switch_safe.png",
+      "kind": "file",
+      "bytes": 988719,
+      "sha256": "217869d5fb489ebccd303c4ac1f80136491fb088eed5c2631fd2f017021461c3"
+    },
+    {
+      "path": "Build/Presentation/action-environment-regression-01/events.log",
+      "kind": "file",
+      "bytes": 1703,
+      "sha256": "d6312d49dd4ee213cd0983860380205c442921e824f033d8c93d3ffcd5cfcd71"
+    },
+    {
+      "path": "Build/Presentation/action-environment-regression-01/frames.csv",
+      "kind": "file",
+      "bytes": 165355,
+      "sha256": "04723d0d427f2068433cba8acdf6060d2ad1c8e6f64e047ac3b1d3cde513b8b2"
+    },
+    {
+      "path": "Build/Presentation/action-environment-regression-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 10675,
+      "sha256": "aec6ba085e79dece29be3462958411014d0563fb9eceb8cc859dcba2a18cc85f"
+    },
+    {
+      "path": "Build/Presentation/action-environment-regression-01/result.json",
+      "kind": "file",
+      "bytes": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "path": "Build/Presentation/action-environment-regression-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 434188,
+      "sha256": "90cd65b620568b4a5e98eb1edd6fd2f82a1e4290bffd3ee4d01e7e186b5e4c4d"
+    },
+    {
+      "path": "Build/Presentation/action-environment-regression-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 433412,
+      "sha256": "ed256e52c7335a362e9852ca4ec4b2fafb34ce7927298d9f070057599d2885a7"
+    },
+    {
+      "path": "Build/Presentation/action-environment-regression-01/validation.json",
+      "kind": "file",
+      "bytes": 147110,
+      "sha256": "332215e8a0743e6926f262cceec1007bdf6b031db2eeaeeb7bda1ee328e73846"
+    },
+    {
+      "path": "Build/Presentation/action-feedback-regression-01/captures/combat.png",
+      "kind": "file",
+      "bytes": 753424,
+      "sha256": "53bc9b6f6d177601a238abeee7ab591f2fff28d7f5f38d256de7d46286485af2"
+    },
+    {
+      "path": "Build/Presentation/action-feedback-regression-01/captures/combat.wav",
+      "kind": "file",
+      "bytes": 127020,
+      "sha256": "0b9d426c30e8423a5288cecb6d5da06ef9f5e4ce8e98bc8509a0fa039a56ff42"
+    },
+    {
+      "path": "Build/Presentation/action-feedback-regression-01/captures/dense_combat.png",
+      "kind": "file",
+      "bytes": 753577,
+      "sha256": "d022ba3499fae44dbdd1aefeec7237d7be37f199a45fc4fda3e96117a4ca4133"
+    },
+    {
+      "path": "Build/Presentation/action-feedback-regression-01/captures/failure.png",
+      "kind": "file",
+      "bytes": 198990,
+      "sha256": "4d4e0882d83203fe0f8bb9cc37f7213c5183389bc3b45089e44e6eec1072085e"
+    },
+    {
+      "path": "Build/Presentation/action-feedback-regression-01/captures/failure.wav",
+      "kind": "file",
+      "bytes": 180268,
+      "sha256": "22e2eac61aed0631985aee684366228927b0ed529069298927ca1e2f8adc349f"
+    },
+    {
+      "path": "Build/Presentation/action-feedback-regression-01/captures/hurt.png",
+      "kind": "file",
+      "bytes": 755339,
+      "sha256": "1bff58d449bde147f92c204ad2a7a83466f288789a0071a870464e36862ce171"
+    },
+    {
+      "path": "Build/Presentation/action-feedback-regression-01/captures/hurt.wav",
+      "kind": "file",
+      "bytes": 65580,
+      "sha256": "db169322e93f06dc21be8b701c44e3c3827bb05a8cf4302d544eb4440414b438"
+    },
+    {
+      "path": "Build/Presentation/action-feedback-regression-01/captures/pressure.png",
+      "kind": "file",
+      "bytes": 859555,
+      "sha256": "8373e10557cdea819d5a7f03be32a87c6ad0f62649d7711ac78daa769b59f856"
+    },
+    {
+      "path": "Build/Presentation/action-feedback-regression-01/captures/pressure.wav",
+      "kind": "file",
+      "bytes": 118828,
+      "sha256": "d15046c1c1eb90427eefe68ab210253ab495b011757c339f32635651266eb0ac"
+    },
+    {
+      "path": "Build/Presentation/action-feedback-regression-01/captures/success.png",
+      "kind": "file",
+      "bytes": 236663,
+      "sha256": "5f182e31d3ed9d4e4fcf569aabe15a28f21e0c7a06ac2bc1a90b92124402cbee"
+    },
+    {
+      "path": "Build/Presentation/action-feedback-regression-01/captures/success.wav",
+      "kind": "file",
+      "bytes": 155692,
+      "sha256": "e352639a6a2adff147226d585dcf10769b132ff04e01ae879c27770b60bdf175"
+    },
+    {
+      "path": "Build/Presentation/action-feedback-regression-01/feedback.engine.log",
+      "kind": "file",
+      "bytes": 361516,
+      "sha256": "01a79e4a87e53086e7febdd81f1720038b368f23520250f2be64f741c3357899"
+    },
+    {
+      "path": "Build/Presentation/action-feedback-regression-01/feedback.stdout.log",
+      "kind": "file",
+      "bytes": 361216,
+      "sha256": "656ba0c4ad9f5913e9db0317728b8164e48fe8f3a7ce2d2634d50db65b71e83d"
+    },
+    {
+      "path": "Build/Presentation/action-feedback-regression-01/validation.json",
+      "kind": "file",
+      "bytes": 69219,
+      "sha256": "9af85083724cb460914a6adc939afa8fd9134f107c4e230e42e7301d57354d9c"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-01/captures/baseline.png",
+      "kind": "file",
+      "bytes": 960574,
+      "sha256": "fd9d9b3957d3d9d5ceab4413ae55949892b78beaf28aadc3b9f8b261d3f54968"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-01/captures/fire.png",
+      "kind": "file",
+      "bytes": 960802,
+      "sha256": "8d35f9462a2e76c6b3b8a141909792fafc4f89ff2079183eb29695fb760c3fd5"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-01/checks.csv",
+      "kind": "file",
+      "bytes": 89,
+      "sha256": "52bf4e18f264bf2c54994745dbb4dc11e69bf5810b86b4fc3d7339689fd1b736"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-01/poses.csv",
+      "kind": "file",
+      "bytes": 1600,
+      "sha256": "f0bd1e38686a454a32e1127f2a5b8ff3ad260379df3a2d0f737110648f4f049c"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8473,
+      "sha256": "ddd28525fd80bdd56d0223c59e7e33a3450a1c7a3f6216ff7dc69cc10fa9dec0"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-01/result.json",
+      "kind": "file",
+      "bytes": 45,
+      "sha256": "18ddd5dce43af77febd6476d5abe9aeb378542618bdb054f16b56586163216b3"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-01/runtime.engine-CRC.log",
+      "kind": "file",
+      "bytes": 13422,
+      "sha256": "774732070e092a4cd9d7526b5a5ac43be7d79cab2d6865fb9101a1b3c0afe7da"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 310977,
+      "sha256": "a02c8e7b7de3a15cd70ad25963b3669073fded47fc095228d9bdc6e82b48f97b"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 324697,
+      "sha256": "f30cad0906346167a005119399d65acc644b16accc0784c38e08d064970c4caa"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-01/validation.json",
+      "kind": "file",
+      "bytes": 144346,
+      "sha256": "4e4072f6b0add8e38d16d3ffd4074b33017dd74fdb2c3a3ab746942bfb1e4dba"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-02/captures/baseline.png",
+      "kind": "file",
+      "bytes": 960196,
+      "sha256": "613ddd4c97d1b6253618e80dd7f6154a5f177e091fe184644027b45959c4d1e7"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-02/captures/fire.png",
+      "kind": "file",
+      "bytes": 960501,
+      "sha256": "d2751b342ef4dd31ee851bc064fb47480f3ce8b4ba5708e17df474b0d4bbe52b"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-02/captures/hit.png",
+      "kind": "file",
+      "bytes": 962604,
+      "sha256": "7e3f591627865e2432b14a2e3e4919642b934f1e58699b6d6b2f294f2fb24e29"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-02/captures/jump.png",
+      "kind": "file",
+      "bytes": 991633,
+      "sha256": "a6baa6737e6c3296a6d734010f676096cfab6eeb006214070b0bcc23020c3529"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-02/captures/overlap.png",
+      "kind": "file",
+      "bytes": 962967,
+      "sha256": "2597f20755b28eb8cddbae9fa18f93829bbbb2af051f21f12f5b37fdebf6876b"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-02/captures/rival_shot.png",
+      "kind": "file",
+      "bytes": 962645,
+      "sha256": "3dfa9b3348c7fb113ed727cbb2ff713b409563635ab2584271cc4e417b2b8e69"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-02/checks.csv",
+      "kind": "file",
+      "bytes": 218,
+      "sha256": "bbaca9fc04cf168b71cb492895ee146d40951fce5ca4a9083c4627350d17f26b"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-02/poses.csv",
+      "kind": "file",
+      "bytes": 90040,
+      "sha256": "e49ef400fac20cbb1d55b3d2364d1f9649b56fdab8aaf392cc3b4433fd99d497"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-02/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8910,
+      "sha256": "b9b3dc8b9b7738af0ff32110ffd5a3a5f5bc29f317944c632d5f5a4289e6afba"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-02/result.json",
+      "kind": "file",
+      "bytes": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-02/runtime.engine.log",
+      "kind": "file",
+      "bytes": 307355,
+      "sha256": "ded58fca856c363f98ffb0913a6d3214577c46b6a4a700edfd9730d9e0e8e991"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-02/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 307416,
+      "sha256": "e9d1461188313ef18e4a943718f7bb5f13319e80efc63949d4ee88d11290259c"
+    },
+    {
+      "path": "Build/Presentation/action-runtime-02/validation.json",
+      "kind": "file",
+      "bytes": 146736,
+      "sha256": "15365c28cfa76786ef53f27398587bbb6d96e047ca5378a3e182b1cae145f179"
+    },
+    {
+      "path": "Build/Presentation/action-visual-review-01.json",
+      "kind": "file",
+      "bytes": 2658,
+      "sha256": "5abd7d0d059b77b2ef35b5f1c18852f6ff2d498c4ec942e9d788e47b019e65a7"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaCharacterAnimInstance.cpp",
+      "kind": "file",
+      "bytes": 12468,
+      "sha256": "bace3e3d167dde2331bb7a759817d55cd6e67b347194fcd214d9ca1e4076c487"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaDemoPawn.cpp",
+      "kind": "file",
+      "bytes": 16849,
+      "sha256": "481a0dfb702c688f9bd0d55fb9bd15a3b4674cdeb627cde77e3f4a505f867e5e"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+      "kind": "file",
+      "bytes": 19854,
+      "sha256": "6d3d108b1137ebf46fd26de13f67e0f7a5dba7d8874c407a55ee553f0cbb7497"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaRival.cpp",
+      "kind": "file",
+      "bytes": 17060,
+      "sha256": "b23c654ce6c2865e6f23f180d44f8cb6e597f9146de64f4767b8d25cc9965194"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaUpperBodyActions.cpp",
+      "kind": "file",
+      "bytes": 2012,
+      "sha256": "02e361625c82c493b1856e5a6e7872e01a122684957e799e9fb47598892587e8"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaUpperBodyActions.h",
+      "kind": "file",
+      "bytes": 733,
+      "sha256": "a23e161e4d689a43a666d2f24197e0f37d202ab52495960bd81a2119e5ae8a52"
+    },
+    {
+      "path": "Source/BiellaGames/Private/Tests/BiellaActionTest.cpp",
+      "kind": "file",
+      "bytes": 16845,
+      "sha256": "3d7d2fa64ac9019f6ca4d1cebf8fb49c26fca03bbc4cf284bbcb5d83b94e3b6e"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaCharacterAnimInstance.h",
+      "kind": "file",
+      "bytes": 2374,
+      "sha256": "19fa3a47763b7852cb44ab8b52c432609b25adc4fd1b19a01c97d54044a836e0"
+    },
+    {
+      "path": "tests/run_d03_01_actions.py",
+      "kind": "file",
+      "bytes": 5716,
+      "sha256": "b46b747d847897604fdd741117954bf729288c8e62a8fcd0283d27c6fafbd842"
+    },
+    {
+      "path": "tests/run_d03_01_audio_mix.py",
+      "kind": "file",
+      "bytes": 5195,
+      "sha256": "bae7a049bec026096d4e6c332a597ca0e8fed7164a52e3331e6e0e66e5e24f93"
+    },
+    {
+      "path": "tests/verify_d03_01_actions.py",
+      "kind": "file",
+      "bytes": 7284,
+      "sha256": "5a4f79817c234b692f3dfada3ce9c164e72853381ed0e21bbac0d3ae52cfc330"
+    }
+  ]
+}

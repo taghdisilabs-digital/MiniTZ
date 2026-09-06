@@ -1,0 +1,17 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T10:57:19.478462+00:00",
+  "resource_status": "ADVISORY_REVIEWED",
+  "accepted": [
+    "Place recoil/hit after aiming and restrict additive bones to the spine branch.",
+    "Drive one-shot times from actual world time and cancel on invalid gameplay state."
+  ],
+  "not_adopted": [
+    "Qwen suggested nonexistent proxy/enum APIs and invalid authority checks; local Engine APIs and existing pawn lifecycle are used.",
+    "No arbitrary 0.1-second stale threshold: existing motion discontinuity boundary and real clip durations are used.",
+    "Asset additive type is required: prior exact readback identifies mesh-space fire and local-space hit."
+  ],
+  "asset_metadata_source": "Build/Presentation/animation-assets-01/readback.json",
+  "implementation": "Existing native graph gains a masked additive node, confirmed-shot hooks in player/rival, and applied-hit hook in base pawn. Rapid hits do not restart an active clip; no queue. Defeat still immediately hides the live mesh and cancels actions.",
+  "validation_pending": true
+}

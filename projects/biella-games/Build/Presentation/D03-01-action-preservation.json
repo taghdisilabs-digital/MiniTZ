@@ -1,0 +1,151 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T11:11:11.860560+00:00",
+  "result": "PASS",
+  "manifests": [
+    {
+      "manifest": {
+        "path": "Build/Presentation/D03-01-file-manifest.json",
+        "bytes": 98675,
+        "sha256": "4ee276408814eff8db31c5e2e30b2fe1d8ab98dcd8522f4fa9e2dbaa8d174bc8"
+      },
+      "commit": "ffdd4babd2196151ad33a85b2fd2a0db28b5dd90",
+      "entries": 457,
+      "unchanged_entries": 457,
+      "manifest_bytes_preserved": true
+    },
+    {
+      "manifest": {
+        "path": "Build/Presentation/D03-01-animation-file-manifest.json",
+        "bytes": 65356,
+        "sha256": "d912822aa51c4e4d818888dcc23c0e8d8a095623d0a464ee5174a4272c5ebdcd"
+      },
+      "commit": "8ca4e800eb6d99561b51cb6352005b4fcdec3cde",
+      "entries": 289,
+      "unchanged_entries": 283,
+      "manifest_bytes_preserved": true
+    },
+    {
+      "manifest": {
+        "path": "Build/Presentation/D03-01-audio-file-manifest.json",
+        "bytes": 27421,
+        "sha256": "18381a394adf195b751d20663da0020188c9302ad6e7d930f22754a74fcaf9d9"
+      },
+      "commit": "1898b568bf6c6dceae9dcf6aa66ef7a45a6f6e1d",
+      "entries": 128,
+      "unchanged_entries": 127,
+      "manifest_bytes_preserved": true
+    },
+    {
+      "manifest": {
+        "path": "Build/Presentation/D03-01-contact-file-manifest.json",
+        "bytes": 27920,
+        "sha256": "7ce354965344baf76391968d2e7cba391f758e78c96d2bba2a92a0e14c393840"
+      },
+      "commit": "4f61d0f0b6516f25a95c78a86bf84823539a227c",
+      "entries": 129,
+      "unchanged_entries": 127,
+      "manifest_bytes_preserved": true
+    },
+    {
+      "manifest": {
+        "path": "Build/Presentation/D03-01-aim-file-manifest.json",
+        "bytes": 27095,
+        "sha256": "523227db9be2d3a1b692eaffb5412281c18847501a8665e10589017c231919a9"
+      },
+      "commit": "be000ce6c42c21a87e176e3bb89ac3a7f30283f9",
+      "entries": 126,
+      "unchanged_entries": 123,
+      "manifest_bytes_preserved": true
+    }
+  ],
+  "total_entries": 1129,
+  "unchanged_entries": 1117,
+  "authorized_source_extensions": [
+    {
+      "path": "Source/BiellaGames/BiellaGames.Build.cs",
+      "previous_commit": "8ca4e800eb6d99561b51cb6352005b4fcdec3cde",
+      "previous_sha256": "0076397a3ba035cd92656c45382b6d99167f05a0f2cecfd639e776a61e772df8",
+      "current_sha256": "78b13a1c847ae4fa44c02ad2d34cb756ddefb416080c4626a9f28f1c04b1834d",
+      "reason": "Authorized action integration or preserved contact/aim/continuity extensions; original exact bytes remain in prior commit"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaCharacterAnimInstance.cpp",
+      "previous_commit": "8ca4e800eb6d99561b51cb6352005b4fcdec3cde",
+      "previous_sha256": "f051ee85c37a6cb288d77c016e8960b3aa50d93d00c4fc293ad234ce6786e767",
+      "current_sha256": "bace3e3d167dde2331bb7a759817d55cd6e67b347194fcd214d9ca1e4076c487",
+      "reason": "Authorized action integration or preserved contact/aim/continuity extensions; original exact bytes remain in prior commit"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaDemoPawn.cpp",
+      "previous_commit": "8ca4e800eb6d99561b51cb6352005b4fcdec3cde",
+      "previous_sha256": "4a6b8ce69dd7f2ca5278324e6ffea97c63c5dfdfd8abf5170daf33e8fe833e35",
+      "current_sha256": "481a0dfb702c688f9bd0d55fb9bd15a3b4674cdeb627cde77e3f4a505f867e5e",
+      "reason": "Authorized action integration or preserved contact/aim/continuity extensions; original exact bytes remain in prior commit"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+      "previous_commit": "8ca4e800eb6d99561b51cb6352005b4fcdec3cde",
+      "previous_sha256": "3788d2e4bb66a054359d1ebd7ae5a3c90387d69a14436447464f01192db2e55b",
+      "current_sha256": "6d3d108b1137ebf46fd26de13f67e0f7a5dba7d8874c407a55ee553f0cbb7497",
+      "reason": "Authorized action integration or preserved contact/aim/continuity extensions; original exact bytes remain in prior commit"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaCharacterAnimInstance.h",
+      "previous_commit": "8ca4e800eb6d99561b51cb6352005b4fcdec3cde",
+      "previous_sha256": "afb2a2de60cbf981487c9a854721b4031a56a3c113fe6454b6aa5842a38abb2e",
+      "current_sha256": "19fa3a47763b7852cb44ab8b52c432609b25adc4fd1b19a01c97d54044a836e0",
+      "reason": "Authorized action integration or preserved contact/aim/continuity extensions; original exact bytes remain in prior commit"
+    },
+    {
+      "path": "tests/run_d03_01_animation.py",
+      "previous_commit": "8ca4e800eb6d99561b51cb6352005b4fcdec3cde",
+      "previous_sha256": "7d2fa797f85ec51c2eb7934fa384c71718e1a1f76c52e39f45230b95bec72535",
+      "current_sha256": "8590d82d5c7a90ecd6b5610641e57624683426cbabf9d19c4187110ae95680fe",
+      "reason": "Authorized action integration or preserved contact/aim/continuity extensions; original exact bytes remain in prior commit"
+    },
+    {
+      "path": "tests/run_d03_01_audio_mix.py",
+      "previous_commit": "1898b568bf6c6dceae9dcf6aa66ef7a45a6f6e1d",
+      "previous_sha256": "336d2786c6e96420ecd0c4eb6a26ea098082aa8539a33749d44ac1da34d52917",
+      "current_sha256": "bae7a049bec026096d4e6c332a597ca0e8fed7164a52e3331e6e0e66e5e24f93",
+      "reason": "Authorized action integration or preserved contact/aim/continuity extensions; original exact bytes remain in prior commit"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaCharacterAnimInstance.cpp",
+      "previous_commit": "4f61d0f0b6516f25a95c78a86bf84823539a227c",
+      "previous_sha256": "909f6a82730d177c4c352f8c74f0202cf8329ccbe7e1b3dbc175a43031799203",
+      "current_sha256": "bace3e3d167dde2331bb7a759817d55cd6e67b347194fcd214d9ca1e4076c487",
+      "reason": "Authorized action integration or preserved contact/aim/continuity extensions; original exact bytes remain in prior commit"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaCharacterAnimInstance.h",
+      "previous_commit": "4f61d0f0b6516f25a95c78a86bf84823539a227c",
+      "previous_sha256": "93e5bdf623add7c16cd337ebd44a625806ac054b77a3618e118ba0a78e1b7743",
+      "current_sha256": "19fa3a47763b7852cb44ab8b52c432609b25adc4fd1b19a01c97d54044a836e0",
+      "reason": "Authorized action integration or preserved contact/aim/continuity extensions; original exact bytes remain in prior commit"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaCharacterAnimInstance.cpp",
+      "previous_commit": "be000ce6c42c21a87e176e3bb89ac3a7f30283f9",
+      "previous_sha256": "a75d0b314a4fa1b82b5846e5af57709d57d8c254ee27d513f52f6bee3dd99834",
+      "current_sha256": "bace3e3d167dde2331bb7a759817d55cd6e67b347194fcd214d9ca1e4076c487",
+      "reason": "Authorized action integration or preserved contact/aim/continuity extensions; original exact bytes remain in prior commit"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+      "previous_commit": "be000ce6c42c21a87e176e3bb89ac3a7f30283f9",
+      "previous_sha256": "ebb7223d5a4d53e9d1e483c3ba5617cd21330f91be319c109a6e98e22536ef0f",
+      "current_sha256": "6d3d108b1137ebf46fd26de13f67e0f7a5dba7d8874c407a55ee553f0cbb7497",
+      "reason": "Authorized action integration or preserved contact/aim/continuity extensions; original exact bytes remain in prior commit"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaCharacterAnimInstance.h",
+      "previous_commit": "be000ce6c42c21a87e176e3bb89ac3a7f30283f9",
+      "previous_sha256": "b6427077f02637f4b3b8e49217f4b0e988058d69344f42fb4ec9567f4da0e0fd",
+      "current_sha256": "19fa3a47763b7852cb44ab8b52c432609b25adc4fd1b19a01c97d54044a836e0",
+      "reason": "Authorized action integration or preserved contact/aim/continuity extensions; original exact bytes remain in prior commit"
+    }
+  ],
+  "original_source_bytes_preserved_in_commits": true
+}

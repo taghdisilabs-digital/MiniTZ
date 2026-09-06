@@ -1,0 +1,5 @@
+{
+  "capability": "unreal.assist",
+  "provider": "ollama-qwen",
+  "prompt": "Bounded UE 5.8 native animation implementation advice, at most 300 words. Existing native AnimInstanceProxy: locomotion blendspace -> jump blend -> foot IK -> camera aim spine correction. Manny integration assets already include MM_Rifle_Fire and MM_HitReact_Front_Lgt_01 (need inspect additive metadata). Gameplay successfully applied damage and confirmed player shots are authoritative C++ events. Need bounded additive fire/hit layer AFTER aim so aim solver does not cancel recoil, keeping pelvis/legs unchanged. Possible graph: SequenceEvaluator_Standalone events plus ApplyAdditive then upper-body mask. One-shot world-time sample, no queues, reset events on dormant/seat/defeat and teleport. Existing defeat hides/tick-disables mesh immediately; do not change that in this bounded fire/hit increment. Recommend simplest native nodes and event sampling guard against stale replay after dormancy/CVar/reduced tick. Identify 3 independent runtime validation checks. No invented asset facts, gameplay changes or task acceptance."
+}

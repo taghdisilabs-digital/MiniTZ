@@ -1,0 +1,6 @@
+{
+  "capability": "unreal.assist",
+  "providers": [
+    "ollama-qwen"
+  ]
+}
