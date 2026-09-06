@@ -107,7 +107,6 @@ class GatewayTest(unittest.TestCase):
             auth_store=AuthStore(auth_file),
             sessions=SessionStore(ttl_seconds=3600),
             state=FakeState(),
-            runner=self.runner,
             assets=self.assets,
             events=EventHub(),
             live=self.live,
@@ -164,23 +163,26 @@ class GatewayTest(unittest.TestCase):
         self.assertIn("SameSite=Strict", value)
         self.assertTrue(cookie.startswith("biella_control_session="))
 
-    def test_observer_cannot_write(self):
-        cookie, _ = self.login("patrick", "observer-pass")
-        status, _, body = self.request("POST", "/v1/control/dialog", {"lane": "Engine", "message": "hello"}, cookie)
-        self.assertEqual(status, 403)
-        status, _, body = self.request("POST", "/v1/control/runs", {"lane": "Engine", "capability_id": "workstation.status"}, cookie)
-        self.assertEqual(status, 403)
+    def test_control_write_routes_are_read_only_for_every_authenticated_role(self):
+        for username, password in (("patrick", "observer-pass"), ("mahdi", "operator-pass")):
+            cookie, _ = self.login(username, password)
+            for path, body in (
+                ("/v1/control/dialog", {"lane": "Engine", "message": "hello"}),
+                ("/v1/control/runs", {"lane": "Engine", "capability_id": "workstation.status", "auto_run": True}),
+            ):
+                status, _, result = self.request("POST", path, body, cookie)
+                self.assertEqual(status, 405)
+                self.assertEqual(result["error"], "control_read_only")
+        self.assertEqual(self.runner.dialog_calls, [])
+        self.assertEqual(self.runner.run_calls, [])
 
-    def test_operator_can_read_and_run_only_approved_capabilities(self):
+    def test_operator_can_read_without_triggering_runner(self):
         cookie, _ = self.login("mahdi", "operator-pass")
         status, _, body = self.request("GET", "/v1/control/overview?lane=Engine", cookie=cookie)
         self.assertEqual(status, 200)
         self.assertEqual(body["lane"], "Engine")
-        status, _, body = self.request("POST", "/v1/control/runs", {"lane": "Engine", "capability_id": "workstation.status", "auto_run": True}, cookie)
-        self.assertEqual(status, 200)
-        self.assertEqual(body["run_id"], "run-1")
-        status, _, body = self.request("POST", "/v1/control/runs", {"lane": "Engine", "capability_id": "shell.exec"}, cookie)
-        self.assertEqual(status, 400)
+        self.assertEqual(self.runner.dialog_calls, [])
+        self.assertEqual(self.runner.run_calls, [])
 
     def test_invalid_lane_and_generic_command_route_are_rejected(self):
         cookie, _ = self.login("mahdi", "operator-pass")
@@ -188,13 +190,6 @@ class GatewayTest(unittest.TestCase):
         self.assertEqual(status, 400)
         status, _, body = self.request("POST", "/v1/control/command", {"command": "id"}, cookie)
         self.assertEqual(status, 404)
-
-    def test_operator_dialog_is_project_scoped(self):
-        cookie, _ = self.login("mahdi", "operator-pass")
-        status, _, body = self.request("POST", "/v1/control/dialog", {"lane": "Website", "message": "inspect current source"}, cookie)
-        self.assertEqual(status, 202)
-        self.assertEqual(body["dialog_id"], "dialog-1")
-        self.assertEqual(self.runner.dialog_calls, [("Website", "inspect current source")])
 
     def test_public_live_snapshot_and_asset_are_read_only_without_control_auth(self):
         status, _, body = self.request("GET", "/live-api/snapshot")

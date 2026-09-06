@@ -111,6 +111,7 @@ PROJECT_BOUNDARY
 A Project owns its requirements, source/assets, brand, visual/content canon, preferences, acceptance, and outputs.
 Biella Engine owns reusable execution mechanisms.
 Project surfaces such as biellagames.dev may consume Engine mechanisms but may not create a second universal scheduler, memory, routing, object store, model layer, browser layer, validation framework, or learning system.
+Website/control surfaces are observers, never Engine authority or execution triggers. Page open/close, navigation, polling, media interaction, sign-in/logout, and other UI/session events may change only website/gateway-local state; they must never start, stop, pause, resume, message, route, or otherwise mutate Engine/production execution.
 
 OUTPUT
 Be technical, compact, non-repetitive, assumption-free, and execution-specific.
@@ -128,4 +129,5 @@ Use the fewest safe resumable commands when commands are required.
 
 - `LOSSLESS_MEMORY_COMPACTION`: raw authority, evidence, artifacts, task records, and failure records are never rewritten or deleted by compression. The compactor creates rebuildable derivative JSON/JSON.GZ indexes with exact source digests, content-addressed unique records, equivalence groups that retain every exact variant and provenance, and a bounded current-task projection. Compaction failure is an optimization failure only and must never stall, reset, fail, kill, or advance a task.
 - `VERIFIED_ACTION_MEMORY`: instructions, tasks, verified actions, failures, capabilities, task IDs, and task classes are categorized separately. Only evidence from `COMPLETE`/`COMPLETE_ALREADY` work is promoted as a verified action. Cross-task comparison may identify equivalent/reusable patterns, but conflicting or unique content, source refs, task-specific facts, and capabilities are preserved rather than collapsed.
+- `WEBSITE_CONTROL_OBSERVER_ONLY`: public/private website and control surfaces may read current state, events, assets and health, and may maintain gateway authentication/session state, but must not invoke Engine/Codex/production actions. UI lifecycle or interaction is never a Task/Run/Graph/Node trigger.
 - Routine dependencies, reversible environment repairs, and already-authorized implementation choices are execution work, not approval gates. Genuine destructive/irreversible external actions without authority, unavailable required facts/authority, safety constraints, and required task sequencing remain real boundaries.

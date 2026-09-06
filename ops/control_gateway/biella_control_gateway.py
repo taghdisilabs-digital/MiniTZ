@@ -19,10 +19,6 @@ from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlparse
 
 
-try:
-    from .biella_control_runner import DialogBusy
-except ImportError:
-    from biella_control_runner import DialogBusy
 
 LANES = ("Website", "Engine", "Games")
 SESSION_COOKIE = "biella_control_session"
@@ -162,13 +158,12 @@ class EventHub:
 class ControlHTTPServer(ThreadingHTTPServer):
     daemon_threads = True
 
-    def __init__(self, address, handler, *, static_root, auth_store, sessions, state, runner, assets, events, live=None):
+    def __init__(self, address, handler, *, static_root, auth_store, sessions, state, assets, events, live=None):
         super().__init__(address, handler)
         self.static_root = Path(static_root).resolve()
         self.auth_store = auth_store
         self.sessions = sessions
         self.state = state
-        self.runner = runner
         self.assets = assets
         self.events = events
         self.live = live
@@ -510,54 +505,22 @@ class ControlHandler(BaseHTTPRequestHandler):
             cookie = f"{SESSION_COOKIE}=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0"
             self._json(HTTPStatus.OK, {"logged_out": True}, [("Set-Cookie", cookie)])
             return
-        if path == "/v1/control/dialog":
-            if not self._require_session(write=True):
+        if path in {"/v1/control/dialog", "/v1/control/runs"}:
+            if not self._require_session():
                 return
-            body = self._read_json()
-            lane = self._lane(body.get("lane"))
-            message = str(body.get("message", "")).strip()
-            if not lane or not message or len(message) > 12000:
-                self._json(HTTPStatus.BAD_REQUEST, {"error": "invalid_dialog"})
-                return
-            try:
-                dialog_id = self.server.runner.start_dialog(lane, message, self.server.events.publish)
-            except DialogBusy as exc:
-                self._json(HTTPStatus.CONFLICT, {"error": "dialog_busy", "detail": str(exc)})
-                return
-            except ValueError:
-                self._json(HTTPStatus.CONFLICT, {"error": "lane_workspace_unavailable"})
-                return
-            self._json(HTTPStatus.ACCEPTED, {"dialog_id": dialog_id, "status": "ACCEPTED"})
-            return
-        if path == "/v1/control/runs":
-            if not self._require_session(write=True):
-                return
-            body = self._read_json()
-            lane = self._lane(body.get("lane"))
-            capability_id = str(body.get("capability_id", ""))
-            auto_run = bool(body.get("auto_run", False))
-            if not lane or capability_id not in APPROVED_CAPABILITIES:
-                self._json(HTTPStatus.BAD_REQUEST, {"error": "unapproved_capability"})
-                return
-            try:
-                result = self.server.runner.run_capability(lane, capability_id, auto_run, self.server.events.publish)
-            except ValueError:
-                self._json(HTTPStatus.CONFLICT, {"error": "lane_workspace_unavailable"})
-                return
-            self._json(HTTPStatus.OK, result)
+            self._json(HTTPStatus.METHOD_NOT_ALLOWED, {"error": "control_read_only"})
             return
         self._json(HTTPStatus.NOT_FOUND, {"error": "not_found"})
 
 
 def build_server(*, host: str, port: int, static_root: Path, auth_store: AuthStore,
-                 sessions: SessionStore, state, runner, assets, events: EventHub, live=None) -> ControlHTTPServer:
+                 sessions: SessionStore, state, assets, events: EventHub, live=None) -> ControlHTTPServer:
     return ControlHTTPServer(
         (host, port), ControlHandler,
         static_root=static_root,
         auth_store=auth_store,
         sessions=sessions,
         state=state,
-        runner=runner,
         assets=assets,
         events=events,
         live=live,

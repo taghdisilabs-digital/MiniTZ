@@ -8,13 +8,13 @@ try:
     from .biella_control_assets import AssetCatalog, AssetRoot
     from .biella_control_gateway import AuthStore, EventHub, SessionStore, build_server
     from .biella_live_projection import LiveProjection
-    from .biella_control_runner import ProductionJournalTailer, ProjectRunner
+    from .biella_control_runner import ProductionJournalTailer
     from .biella_control_state import WorkstationState
 except ImportError:
     from biella_control_assets import AssetCatalog, AssetRoot
     from biella_control_gateway import AuthStore, EventHub, SessionStore, build_server
     from biella_live_projection import LiveProjection
-    from biella_control_runner import ProductionJournalTailer, ProjectRunner
+    from biella_control_runner import ProductionJournalTailer
     from biella_control_state import WorkstationState
 
 
@@ -51,14 +51,6 @@ def main() -> int:
         ],
     })
     live = LiveProjection(repo=repo, runtime_root=production_runtime_root, assets=asset_catalog)
-    runner = ProjectRunner(
-        lane_workdirs={
-            "Website": website_project,
-            "Engine": repo,
-            "Games": games_project,
-        },
-        production_runtime_path=production_runtime_root / "runtime.json",
-    )
     journal_tailer = ProductionJournalTailer(production_runtime_root / "events.jsonl", events.publish)
     journal_tailer.start()
 
@@ -69,7 +61,6 @@ def main() -> int:
         auth_store=AuthStore(auth_file),
         sessions=SessionStore(ttl_seconds=ttl),
         state=state,
-        runner=runner,
         assets=asset_catalog,
         events=events,
         live=live,

@@ -96,9 +96,6 @@ input:focus { border-color: #58636e; }
 .dialog-you .dialog-meta b { color: var(--active); }
 .dialog-biella .dialog-meta b { color: var(--good); }
 .dialog-tool .dialog-meta b { color: var(--warn); }
-.live-dialog .command-form { border-width: 1px 0 0; }
-.command-form { display: flex; gap: 8px; border: 1px solid var(--line); padding: 10px; background: var(--surface); }
-.command-form input { min-width: 0; }
 .task-list { border: 1px solid var(--line); background: var(--surface); }
 .task-row { display: grid; grid-template-columns: 86px minmax(0,1fr) auto; gap: 14px; align-items: center; padding: 12px 14px; border-bottom: 1px solid var(--line-soft); }
 .task-row:last-child { border-bottom: 0; }
@@ -143,6 +140,5 @@ input:focus { border-color: #58636e; }
   .task-row { grid-template-columns: 72px minmax(0,1fr); }
   .task-row .status-tag { grid-column: 2; }
   .asset-grid { grid-template-columns: 1fr; }
-  .command-form { flex-direction: column; }
   .source-list > div { display: grid; }
 }

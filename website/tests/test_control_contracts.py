@@ -58,11 +58,13 @@ class ControlConsoleContractTests(unittest.TestCase):
             self.assertIn(token, app)
         self.assertIn("projection", app)
 
-    def test_control_view_renders_persistent_live_task_dialog(self):
+    def test_control_view_is_observer_only_and_keeps_live_event_history(self):
         app = (CONTROL / "app.js").read_text(encoding="utf-8")
         css = (CONTROL / "styles.css").read_text(encoding="utf-8")
-        for token in ("Live task dialog", "dialog-stream", "dialog.operator", "agent.message", "tool.started", "task.completed"):
+        for token in ("Live task activity", "dialog-stream", "dialog.operator", "agent.message", "tool.started", "task.completed"):
             self.assertIn(token, app)
+        for forbidden in ("command-form", "command-input", "Direct Biella", 'request("dialog"', 'request("runs"'):
+            self.assertNotIn(forbidden, app)
         self.assertIn("event.lastEventId", app)
         self.assertIn("live-dialog", css)
 

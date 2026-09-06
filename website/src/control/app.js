@@ -42,10 +42,6 @@ async function request(path, options = {}) {
   return response.status === 204 ? {} : response.json();
 }
 
-function role() {
-  return String(state.session?.role || state.session?.user?.role || "observer").toLowerCase();
-}
-function canWrite() { return role() === "operator" || role() === "admin"; }
 function control() { return state.projection?.control || {}; }
 function work() { return state.projection?.work || {sections: [], tasks: []}; }
 function system() { return state.projection?.system || {services: [], resources: [], workers: [], hardware: {}}; }
@@ -140,7 +136,6 @@ function renderControl() {
   const activity = state.events.length
     ? state.events.slice(-8).reverse().map((e) => `<li><time>${esc(e.time || "")}</time><span>${esc(e.text || e.status || JSON.stringify(e))}</span></li>`).join("")
     : `<li class="muted">No recent event stream entries.</li>`;
-  const composer = canWrite() ? `<form id="command-form" class="command-form"><input id="command-input" aria-label="Direct Biella" placeholder="Direct Biella…" required><button class="button" type="submit">Send</button></form>` : "";
   return `
     <div class="section-heading"><div><span class="eyebrow">NOW</span><h2>${esc(state.lane)} production</h2></div>${badge(normalizedLiveState())}</div>
     <article class="current-work">
@@ -155,9 +150,8 @@ function renderControl() {
       </div>
     </article>
     <article class="panel live-dialog">
-      <header><b>Live task dialog</b><span>${esc(c.current_task || "idle")} · real-time</span></header>
+      <header><b>Live task activity</b><span>${esc(c.current_task || "idle")} · read only</span></header>
       <div id="dialog-stream" class="dialog-stream">${renderDialogEvents()}</div>
-      ${composer}
     </article>
     <div class="split-grid">
       <article class="panel"><header><b>Production map</b><span>${sections.length} sections</span></header><div class="section-list">${sections.map((s) => `<div class="section-row"><span>${esc(s.id)}</span><b>${Number(s.completed || 0)}/${Number(s.total || 0)}</b>${badge(s.status)}</div>`).join("") || empty("No section data")}</div></article>
@@ -215,13 +209,7 @@ function render() {
   else if (state.view === "outputs") viewRoot.innerHTML = renderOutputs();
   else viewRoot.innerHTML = renderSystem();
   updateLiveStrip();
-  bindViewActions();
   scrollDialogToEnd();
-}
-
-function bindViewActions() {
-  const form = document.getElementById("command-form");
-  if (form) form.addEventListener("submit", sendCommand);
 }
 
 async function loadData() {
@@ -261,21 +249,6 @@ function connectEvents() {
   };
 }
 
-async function sendCommand(event) {
-  event.preventDefault();
-  if (!canWrite()) return;
-  const input = document.getElementById("command-input");
-  const message = input?.value.trim();
-  if (!message) return;
-  try {
-    await request("dialog", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({lane: state.lane, message})});
-    input.value = "";
-  } catch (error) {
-    errorBanner.textContent = error.message;
-    errorBanner.classList.remove("hidden");
-  }
-}
-
 async function signOut() {
   try { await request("session/logout", {method: "POST"}); } catch {}
   state.eventSource?.close();
@@ -286,7 +259,7 @@ async function signOut() {
 async function openConsole(session) {
   state.session = session;
   loginView.classList.add("hidden"); appView.classList.remove("hidden"); logoutButton.classList.remove("hidden");
-  roleBadge.textContent = canWrite() ? "Operator" : "Observer";
+  roleBadge.textContent = "Read only";
   await loadData(); connectEvents();
 }
 
