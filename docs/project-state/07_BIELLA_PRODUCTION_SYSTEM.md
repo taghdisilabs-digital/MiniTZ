@@ -15,6 +15,13 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 - Recovery is limited to the smallest invalidated boundary.
 - No approval/reviewer/owner-decision gate is created for already-authorized work.
 
+## Single ChatGPT management channel
+- Exactly one owner-designated Biella ChatGPT conversation is the current human management channel. The conversation in which Mahdi explicitly designates or replaces that role is current; Project membership alone never grants authority.
+- Every other ChatGPT conversation/thread is `RETIRED_FROM_CURRENT_BIELLA_AUTHORITY`: it may remain historical evidence, but it may not steer production, own task/session state, start/stop/advance work, or become a parallel controller.
+- The management conversation is a control/decision interface only, never an executor or liveness dependency. Closing, reloading, logging out, or losing that browser conversation has zero effect on production.
+- Production remains `systemd -> Biella controller -> persistent Codex task/session -> tasks`. Codex execution-session IDs are production continuity and are not ChatGPT conversation threads.
+- No ChatGPT conversation ID is invented or stored when the platform does not expose one.
+
 ## Continuous ordered progression
 - The canonical Project `PRODUCTION.md` list is the ordered source; there is no second mutable queue.
 - Select the earliest unfinished canonical task.

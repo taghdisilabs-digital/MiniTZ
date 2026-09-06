@@ -6,7 +6,7 @@ Date: 2026-09-05
 
 - **GitHub** = durable code/source history and durable copies of accepted architecture/execution specifications required to rebuild/operate the project.
 - **Google Drive** = live operator/project documents, current-state registers, prompt pack, migration ledgers, and chronological continuity.
-- **ChatGPT Project context / chat history** = interactive continuity, intent, prior decisions, and evidence-location context; it is not current-state authority when a fact may have changed.
+- **ChatGPT management conversation** = exactly one owner-designated current human management channel; all other ChatGPT conversations/threads are `RETIRED_FROM_CURRENT_BIELLA_AUTHORITY` and may be used only as historical continuity/evidence. ChatGPT is never production liveness or execution state.
 - **Worker/VPS/local workspace** = execution copy; disposable unless its outputs have been promoted durably.
 - **Cache** = disposable optimization only.
 
