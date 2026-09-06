@@ -34,6 +34,7 @@ class WebsiteContractTests(unittest.TestCase):
         app = (ROOT / 'src/app.js').read_text()
         self.assertIn('/live/', index)
         self.assertIn('READ-ONLY VPS SHOWCASE', index)
+        self.assertLessEqual(index.count('<section'), 3)
         self.assertIn('/live-api/snapshot', app)
         self.assertNotIn('POST', app)
         self.assertIn('resolve(dist,"live")', (ROOT / 'scripts/build.mjs').read_text())
