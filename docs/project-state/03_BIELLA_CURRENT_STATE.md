@@ -1,10 +1,11 @@
 # 03 - BIELLA CURRENT STATE
 
 ```yaml
-schema: biella.current_state/v7
+schema: biella.current_state/v9
 state_class: VOLATILE
 update_rule: replace_stale_values; do_not_append_history
-observed_date: 2026-09-05
+observed_date: 2026-09-06
+observed_at_utc: 2026-09-06T07:52:10+00:00
 
 authority:
   if_conflict: [CURRENT_EXECUTION_STATE, CURRENT_GITHUB_SOURCE, CURRENT_CANONICAL_DRIVE, VERIFIED_HISTORICAL_EVIDENCE, REFERENCE_OR_PLAN, INFERENCE]
@@ -15,21 +16,36 @@ repository:
   branch: main
   canonical_checkout: /root/biella/repos/biella-engine
   structure: ONE_REPOSITORY_MONOREPO
-  implementation_commit: f69bcd04fa1b8cd27704c67338eb5cc562eb1403
-  implementation_tree: 115beb43a7db4a7b953b2eb17d56854e67501242
-  github_readback: VERIFIED_EXACT_MAIN_AND_REQUIRED_PATHS
+  implementation_commit: 77b5bd68a749116ef30d280200336d71cdc60934
+  implementation_tree: e82c1036094a6ec4bcd26386444a2761c857e523
+  github_readback: REMOTE_BEHIND_LOCAL_BY_6_COMMITS
   active_remote_branches: [main]
+  origin_main_commit: 559a113ae0df2de344f19438548b7bb02738aac6
+  origin_main_tree: 76f493e370d3bc8962734e19ceb455b7d84bdcb8
+  local_ahead_origin_main: 6
+  worktree_state: DIRTY_PRESERVED_UNRELATED
+  dirty_path_count: 7
   historical_branch_refs: 15_REMOTE_ARCHIVE_TAGS
 
 active_execution:
   id: D03-01
   project: Biella Games
   section: post_d01
-  state: PENDING
+  state: PAUSED_BY_OPERATOR
   controller: biella-codex
+  runner_process_state: RUNNING
+  runner_pid: 2126038
+  codex_child_pid: 2151726
+  codex_child_process_state: T_PAUSED
+  runtime_telemetry_status: RUNNING
+  telemetry_resolution: ACTUAL_PROCESS_STATE_OUTRANKS_CONTROLLER_TELEMETRY
+  task_session_id: 01a07480-2c40-7d03-b649-d3f72807cc3e
+  public_live_state: WAITING
+  public_live_mode: READ_ONLY_OBSERVER
+  task_memory_status: CONTINUE
   consolidation_state: COMPLETE_VERIFIED
 
-  runner: READY
+  runner: RUNNING
   runner_implementation_commit: d9f4360a4430cd663f37c064db42d803917aea64
   runner_implementation_tree: f233e4e212625aaa9ca06685f3d3b8c32e0886cc
   runner_service_commit: f0521d0df75db5352fb6e9cd12ee67cdf309e7de
@@ -40,6 +56,10 @@ games:
   section: demo01
   completed_demo_tasks: 50
   total_demo_tasks: 50
+  production_completed_tasks: 59
+  production_total_tasks: 168
+  production_progress_percent: 35.1
+  current_task: D03-01
   queued_successor: D03-01
   latest_preservation_commit: f7e74205988cb48946e62efeffe5c5330ec6437b
   latest_preservation_tree: 1324b3dd942927352abaa2ef70a463cbdfca53db
@@ -54,7 +74,7 @@ games:
   pressure_state_qualification: D01_032_AUTHORITATIVE_PRESSURE_TRANSITIONS_PASS
   pressure_state_evidence: projects/biella-games/Build/Demo01/D01-032-acceptance.md
   d01_033_recovery_checkpoint: 6582d4bcbc5a86dc87495a21e9f4f4c6187b8fc7
-  task_boundary: D03-01_PENDING
+  task_boundary: D03-01_PAUSED
 
 engine_numbered_execution:
   P4_01_through_P4_05: COMPLETE_REUSE_REQUIRED
@@ -94,7 +114,12 @@ control:
   url: https://control.biellagames.dev/control/
   source: website/src/control
   views: [Control, Work, Outputs, System]
-  public_readback: VERIFIED_HTTP_200_EXACT_INSTALLED_INDEX
+  public_readback: VERIFIED_HTTP_200_GET
+  public_live_url: https://biellagames.dev/live/
+  public_live_snapshot_url: https://biellagames.dev/live-api/snapshot
+  public_live_mode: READ_ONLY_OBSERVER
+  website_control_engine_reaction: FORBIDDEN
+  authenticated_control_write_routes: DISABLED_405_CONTROL_READ_ONLY
 
 workspace:
   active_repo_roots: [/root/biella/repos/biella-engine]
