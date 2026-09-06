@@ -11,6 +11,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 DIST = ROOT / 'dist'
 assert (DIST / 'index.html').is_file()
 assert json.loads((DIST / 'deployment.json').read_text())['schema'] == 'biella.website.deployment/v1'
+snapshot = json.loads((DIST / 'data' / 'investor-snapshot.json').read_text())
 
 def free_port():
     with closing(socket.socket()) as s:
@@ -31,9 +32,11 @@ try:
             page = browser.new_page(viewport=viewport)
             response = page.goto(f'http://127.0.0.1:{port}/', wait_until='networkidle')
             assert response and response.ok
-            assert page.locator('h1').inner_text().startswith('Build the product surface')
-            assert page.locator('#runtime-media-count').inner_text() == '0 accepted runtime captures'
-            assert page.locator('#asset-count').inner_text() == '0 / 50 migrated verified'
+            assert page.locator('h1').inner_text() == 'One founder. One execution system. Real products.'
+            assert page.locator('[data-live="first-playable"]').inner_text() == f"First playable {snapshot['first_playable']['completed_tasks']}/{snapshot['first_playable']['total_tasks']}"
+            assert page.locator('[data-live="program-complete"]').inner_text() == f"Program {snapshot['program']['completed_tasks']}/{snapshot['program']['total_tasks']}"
+            assert page.locator('[data-live="active-task"]').inner_text() == f"Executing {snapshot['active_task']['id']}"
+            assert snapshot['active_task']['id'] in page.locator('[data-live="program-line"]').inner_text()
             assert page.evaluate('document.documentElement.scrollWidth <= document.documentElement.clientWidth')
             page.close()
         browser.close()
