@@ -191,6 +191,13 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
         prompt = packets.compile_task_packet(repo_root, production, task)
         if capsule_path.exists():
             prompt += f"\nTASK_MEMORY: {capsule_path}\nRead this bounded recovery capsule before redoing any existing work.\n"
+    guide_path = Path(production.project_root) / "docs" / "task-guides" / f"{task.id}.md"
+    if guide_path.exists():
+        prompt += (
+            f"\nTASK_GUIDE: {guide_path}\n"
+            "Read TASK_GUIDE before broad source search. It contains prepared source-backed objective, accepted decisions, existing entry points, authorized project-local names, first bounded implementation, and required evidence for this exact task. "
+            "Use it to avoid naming/discovery stalls. It does not override current source, exact runtime evidence, or Project authority.\n"
+        )
     if projection_path and Path(projection_path).exists():
         prompt += (
             f"\nMEMORY_PROJECTION: {projection_path}\n"
@@ -796,7 +803,6 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 time.sleep(min(5.0, max(0.5, routing.earliest_cooldown_delay(telemetry.get("cooldowns", {}), now))))
                 catalog = routing.discover_catalog(); continue
             telemetry.update({"status": "RUNNING", "task_id": task.id, "active_model": route.model, "active_reasoning": route.reasoning})
-            state.mark_task_running(repo_root, production, task)
             if evidence.continuity_changes(repo_root):
                 unexpected = evidence.unexpected_dirty_paths(repo_root)
                 if unexpected:

@@ -418,6 +418,27 @@ def test_codex_subagent_fanout_is_never_enabled_by_production(monkeypatch):
     assert runner._helper_allowed("D02-01") is False
 
 
+def test_task_prompt_injects_prepared_task_guide_for_new_and_resumed_turns(tmp_path: Path):
+    repo, project = write_repo_fixture(tmp_path)
+    production = state.load_project_production(project)
+    task = state.find_task(production, "D01-030")
+    guide = project / "docs/task-guides" / f"{task.id}.md"
+    guide.parent.mkdir(parents=True)
+    guide.write_text("# prepared guide\n", encoding="utf-8")
+    capsule = runner._task_capsule_path(tmp_path / "runtime", task.id)
+
+    fresh = runner._task_prompt(repo, production, task, runner.initial_runtime(), capsule)
+    assert f"TASK_GUIDE: {guide}" in fresh
+    assert "Read TASK_GUIDE before broad source search" in fresh
+
+    telemetry = runner.initial_runtime()
+    telemetry["task_session_id"] = "session-d01"
+    telemetry["session_task_id"] = task.id
+    resumed = runner._task_prompt(repo, production, task, telemetry, capsule)
+    assert "RESUME_EXISTING_TASK_SESSION" in resumed
+    assert f"TASK_GUIDE: {guide}" in resumed
+
+
 def test_task_prompt_references_compacted_memory_projection(tmp_path: Path):
     repo, project = write_repo_fixture(tmp_path)
     production = state.load_project_production(project)
