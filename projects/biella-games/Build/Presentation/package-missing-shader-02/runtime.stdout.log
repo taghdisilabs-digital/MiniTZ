@@ -1,0 +1,99 @@
+chmod: changing permissions of '/tmp/package/BiellaGames/Binaries/Linux/BiellaGames': Read-only file system
+Increasing per-process limit of core file size to infinity.
+LogInit: Running DelayedAutoRegister Phase StartOfEnginePreInit
+LogCore: Display: UTS: The Unreal Trace Server binary is not available ('../../../Engine/Binaries/Linux/UnrealTraceServer')
+LogTrace: Initializing trace...
+LogTrace: Finished trace initialization.
+LogCsvProfiler: Display: Metadata set : platform="Linux"
+LogCsvProfiler: Display: Metadata set : config="Development"
+LogCsvProfiler: Display: Metadata set : buildversion="++UE5+Release-5.8-CL-56702186"
+LogCsvProfiler: Display: Metadata set : engineversion="5.8.2-56702186+++UE5+Release-5.8"
+LogCsvProfiler: Display: Metadata set : enginereleaseversion="5.8.2"
+LogCsvProfiler: Display: Metadata set : os="Ubuntu 24.04.4 LTS 6.8.0-138-generic"
+LogCsvProfiler: Display: Metadata set : cpu="AuthenticAMD|AMD EPYC 9124 16-Core Processor"
+LogCsvProfiler: Display: Metadata set : pgoenabled="0"
+LogCsvProfiler: Display: Metadata set : pgoprofilingenabled="0"
+LogCsvProfiler: Display: Metadata set : ltoenabled="0"
+LogCsvProfiler: Display: Metadata set : asan="0"
+LogCsvProfiler: Display: Metadata set : mergedmodules="0"
+LogCsvProfiler: Display: Metadata set : compacttset="0"
+LogCsvProfiler: Display: Metadata set : commandline="" BiellaGames /Game/Maps/BiellaOpenWorldMap -vulkan -NoVSync -windowed -ResX=1280 -ResY=720 -unattended -AudioMixer -nosplash -stdout -FullStdOutLogOutput -UserDir=/tmp/state/user/ -AbsLog=/tmp/evidence/runtime.engine.log -BiellaPresentationOutput=/tmp/evidence -BiellaRenderProfile=ProductionTSR -BiellaRenderReadback=/tmp/evidence/native-views.csv -LogCmds="LogPSOHitching Verbose,LogShaderLibrary Verbose,LogVulkanRHI Verbose" -ExecCmds="t.MaxFPS 0,r.VSync 0,r.MotionBlurQuality 0,Automation RunTests BiellaGames.D03.Surfaces; SoftQuit"""
+LogCsvProfiler: Display: Metadata set : loginid="3da9d2f3021f461a93a81e6b23a2b4d7-000003e9"
+LogCsvProfiler: Display: Metadata set : llm="0"
+LogPakFile: Initializing PakPlatformFile
+LogIoDispatcher: Display: Mounted container '../../../BiellaGames/Content/Paks/global.utoc', Id='ffffffffffffffff', Order=0, Slot=0, Options=(None), Flags=(), HasSoftRefs=False
+LogPakFile: Display: Initialized I/O dispatcher file backend. Mounted the global container: ../../../BiellaGames/Content/Paks/global.utoc
+LogPakFile: Display: Found Pak file ../../../BiellaGames/Content/Paks/BiellaGames-Linux.pak attempting to mount.
+LogPakFile: Display: Mounting pak file ../../../BiellaGames/Content/Paks/BiellaGames-Linux.pak.
+LogPakFile: Warning: IoStore container "../../../BiellaGames/Content/Paks/BiellaGames-Linux.utoc" not found
+LogCsvProfiler: Display: Metadata set : zenstreaming="0"
+LogInit: Running DelayedAutoRegister Phase FileSystemReady
+LogProjectManager: Error: Failed to open descriptor file ../../../BiellaGames/BiellaGames.uproject
+Message dialog closed, result: Ok, title: Message, text: Failed to open descriptor file ../../../BiellaGames/BiellaGames.uproject
+LogInit: Warning: Could not find a valid project file, the engine will exit now.
+LogInit: Running DelayedAutoRegister Phase TaskGraphSystemReady
+LogStats: Stats thread started at 0.110027
+LogInit: Running DelayedAutoRegister Phase StatSystemReady
+LogCsvProfiler: Display: Metadata set : systemresolution.resx="1280"
+LogCsvProfiler: Display: Metadata set : systemresolution.resy="720"
+Failed to find symbol file, expected location:
+"/tmp/package/BiellaGames/Binaries/Linux/BiellaGames.sym"
+Fatal error: [File:./Runtime/Core/Private/Internationalization/ICUInternationalization.cpp] [Line: 161] 
+ICU data directory was not discovered:
+../../../BiellaGames/Content/Internationalization
+../../../Engine/Content/Internationalization
+LogCore: Error: appError called: Fatal error: [File:./Runtime/Core/Private/Internationalization/ICUInternationalization.cpp] [Line: 161] 
+ICU data directory was not discovered:
+../../../BiellaGames/Content/Internationalization
+../../../Engine/Content/Internationalization
+0x00000000051d4cea BiellaGames!UnknownFunction(0x4fd4ce9)
+0x00000000052382ef BiellaGames!UnknownFunction(0x50382ee)
+0x0000000005228e13 BiellaGames!UnknownFunction(0x5028e12)
+0x000000000ce03ef7 BiellaGames!UnknownFunction(0xcc03ef6)
+0x000000000cdfa577 BiellaGames!UnknownFunction(0xcbfa576)
+0x000000000cdf4e4a BiellaGames!UnknownFunction(0xcbf4e49)
+0x000000000cd5cf29 BiellaGames!UnknownFunction(0xcb5cf28)
+0x00007f9d1b62a1ca libc.so.6!UnknownFunction(0x2a1c9)
+0x00007f9d1b62a28b libc.so.6!__libc_start_main(+0x8a)
+0x0000000004f0d02a BiellaGames!_start(+0x29)
+
+
+
+
+Signal 11 caught.
+Malloc Size=262146 LargeMemoryPoolOffset=262162 
+Malloc Size=262146 LargeMemoryPoolOffset=524338 
+CommonUnixCrashHandler: Signal=11
+LogCore: === Critical error: ===
+Unhandled Exception: SIGSEGV: invalid attempt to write memory at address 0x0000000000000003
+
+LogCore: Fatal error: [File:./Runtime/Core/Private/Internationalization/ICUInternationalization.cpp] [Line: 161] 
+ICU data directory was not discovered:
+../../../BiellaGames/Content/Internationalization
+../../../Engine/Content/Internationalization
+0x00000000051d4cea BiellaGames!UnknownFunction(0x4fd4ce9)
+0x00000000052382ef BiellaGames!UnknownFunction(0x50382ee)
+0x0000000005228e13 BiellaGames!UnknownFunction(0x5028e12)
+0x000000000ce03ef7 BiellaGames!UnknownFunction(0xcc03ef6)
+0x000000000cdfa577 BiellaGames!UnknownFunction(0xcbfa576)
+0x000000000cdf4e4a BiellaGames!UnknownFunction(0xcbf4e49)
+0x000000000cd5cf29 BiellaGames!UnknownFunction(0xcb5cf28)
+0x00007f9d1b62a1ca libc.so.6!UnknownFunction(0x2a1c9)
+0x00007f9d1b62a28b libc.so.6!__libc_start_main(+0x8a)
+0x0000000004f0d02a BiellaGames!_start(+0x29)
+
+
+
+0x00000000051d4cea BiellaGames!UnknownFunction(0x4fd4ce9)
+0x00000000052382ef BiellaGames!UnknownFunction(0x50382ee)
+0x0000000005228e13 BiellaGames!UnknownFunction(0x5028e12)
+0x000000000ce03ef7 BiellaGames!UnknownFunction(0xcc03ef6)
+0x000000000cdfa577 BiellaGames!UnknownFunction(0xcbfa576)
+0x000000000cdf4e4a BiellaGames!UnknownFunction(0xcbf4e49)
+0x000000000cd5cf29 BiellaGames!UnknownFunction(0xcb5cf28)
+0x00007f9d1b62a1ca libc.so.6!UnknownFunction(0x2a1c9)
+0x00007f9d1b62a28b libc.so.6!__libc_start_main(+0x8a)
+0x0000000004f0d02a BiellaGames!_start(+0x29)
+
+Engine crash handling finished; re-raising signal 11 for the default handler. Good bye.
+Segmentation fault (core dumped)

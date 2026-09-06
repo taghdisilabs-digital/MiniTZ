@@ -1,0 +1,12 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "time": "2026-09-06T15:15:08.919045+00:00",
+  "files_scanned": 362,
+  "utf8_files": 178,
+  "binary_files": 184,
+  "known_generated_secret_matches": 0,
+  "private_key_or_bearer_matches": 0,
+  "private_sources_read_without_disclosure": 2,
+  "scope": "Exact generated local credentials plus private-key/provider/bearer patterns; not a general secret-detection completeness claim."
+}

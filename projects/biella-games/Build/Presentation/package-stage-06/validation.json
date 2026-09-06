@@ -1,0 +1,44 @@
+{
+  "task_id": "D03-01",
+  "result": "FAIL",
+  "revision": {
+    "head": "5540538b22cab63b094f9ba4c2070af88427adf6",
+    "head_tree": "fa23a7babfb933404fb31b2e5e64167cce2a7c1b",
+    "project_status": [
+      "?? Build/Presentation/package-build-01/",
+      "?? Build/Presentation/package-build-02/",
+      "?? Build/Presentation/package-build-03/",
+      "?? Build/Presentation/package-cook-01/",
+      "?? Build/Presentation/package-cook-config-repair-01/",
+      "?? Build/Presentation/package-design-01/",
+      "?? Build/Presentation/package-stage-01/",
+      "?? Build/Presentation/package-stage-02/",
+      "?? Build/Presentation/package-stage-03/",
+      "?? Build/Presentation/package-stage-04/",
+      "?? Build/Presentation/package-stage-05/",
+      "?? Build/Presentation/package-toolchain-01/",
+      "?? Build/Presentation/package-toolchain-02/",
+      "?? tests/build_d03_01_game.py",
+      "?? tests/cook_d03_01_package.py",
+      "?? tests/d03_01_package_isolation_probe.py",
+      "?? tests/repair_d03_01_cook_config.py",
+      "?? tests/repair_d03_01_engine_dependencies.py",
+      "?? tests/run_d03_01_package.py",
+      "?? tests/stage_d03_01_package.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "cook": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-cook-01/validation.json",
+    "sha256": "2df117498a310216b4c83159aa2ca5edb7163d9fc7d2e4fda155822bd6fe79ef",
+    "bytes": 4706412
+  },
+  "destination": "/mnt/biella-extra/biella-runtime/d03-01-package-01/package-stage-06-archive",
+  "capture_status": "GENERATED_DRAFT",
+  "uat_temporary": "/mnt/biella-extra/biella-runtime/d03-01-package-01/package-stage-06-tmp",
+  "zen_data": "/mnt/biella-extra/biella-runtime/d03-01-package-01/cook-ddc/Zen",
+  "stage_directory": "/mnt/biella-extra/biella-runtime/d03-01-package-01/package-stage-06-staged",
+  "returncode": 1,
+  "error": "UAT stage failed; inspect stage.log",
+  "elapsed_seconds": 29.801948718959466
+}

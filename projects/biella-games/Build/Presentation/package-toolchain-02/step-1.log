@@ -1,0 +1,73 @@
+[  1%] Building C object src/CMakeFiles/samplerate.dir/samplerate.c.o
+[  7%] Building C object src/CMakeFiles/samplerate.dir/src_zoh.c.o
+[  7%] Building C object src/CMakeFiles/samplerate.dir/src_sinc.c.o
+[  7%] Building C object src/CMakeFiles/samplerate.dir/src_linear.c.o
+[  8%] Linking C static library libsamplerate.a
+[  8%] Built target samplerate
+[ 10%] Building C object tests/CMakeFiles/downsample_test.dir/downsample_test.c.o
+[ 12%] Building C object tests/CMakeFiles/misc_test.dir/misc_test.c.o
+[ 14%] Building C object tests/CMakeFiles/clone_test.dir/clone_test.c.o
+[ 16%] Building C object tests/CMakeFiles/termination_test.dir/termination_test.c.o
+[ 17%] Building C object tests/CMakeFiles/callback_hang_test.dir/callback_hang_test.c.o
+[ 19%] Building C object tests/CMakeFiles/simple_test.dir/simple_test.c.o
+[ 21%] Building C object tests/CMakeFiles/reset_test.dir/reset_test.c.o
+[ 23%] Building C object tests/CMakeFiles/callback_test.dir/callback_test.c.o
+[ 25%] Building C object tests/CMakeFiles/downsample_test.dir/util.c.o
+[ 26%] Building C object tests/CMakeFiles/simple_test.dir/util.c.o
+[ 28%] Building C object tests/CMakeFiles/clone_test.dir/util.c.o
+[ 30%] Building C object tests/CMakeFiles/misc_test.dir/util.c.o
+[ 32%] Building C object tests/CMakeFiles/callback_test.dir/util.c.o
+[ 33%] Building C object tests/CMakeFiles/reset_test.dir/util.c.o
+[ 35%] Building C object tests/CMakeFiles/callback_hang_test.dir/util.c.o
+[ 37%] Building C object tests/CMakeFiles/termination_test.dir/util.c.o
+[ 39%] Linking C executable clone_test
+[ 41%] Linking C executable downsample_test
+[ 42%] Linking C executable callback_test
+[ 44%] Linking C executable misc_test
+[ 46%] Linking C executable termination_test
+[ 48%] Linking C executable callback_hang_test
+[ 50%] Linking C executable simple_test
+[ 51%] Linking C executable reset_test
+[ 51%] Built target downsample_test
+[ 51%] Built target misc_test
+[ 51%] Built target clone_test
+[ 51%] Built target callback_hang_test
+[ 53%] Building C object tests/CMakeFiles/nullptr_test.dir/nullptr_test.c.o
+[ 53%] Built target termination_test
+[ 55%] Building C object tests/CMakeFiles/varispeed_test.dir/varispeed_test.c.o
+[ 57%] Building C object tests/CMakeFiles/varispeed_test.dir/calc_snr.c.o
+[ 57%] Built target callback_test
+[ 57%] Built target reset_test
+[ 58%] Building C object tests/CMakeFiles/multi_channel_test.dir/multi_channel_test.c.o
+[ 58%] Built target simple_test
+[ 60%] Building C object tests/CMakeFiles/float_short_test.dir/float_short_test.c.o
+[ 62%] Building C object tests/CMakeFiles/snr_bw_test.dir/snr_bw_test.c.o
+[ 66%] Building C object tests/CMakeFiles/nullptr_test.dir/util.c.o
+[ 66%] Building C object tests/CMakeFiles/throughput_test.dir/throughput_test.c.o
+[ 67%] Building C object tests/CMakeFiles/varispeed_test.dir/util.c.o
+[ 69%] Building C object tests/CMakeFiles/multichan_throughput_test.dir/multichan_throughput_test.c.o
+[ 71%] Building C object tests/CMakeFiles/multichan_throughput_test.dir/util.c.o
+[ 73%] Building C object tests/CMakeFiles/snr_bw_test.dir/calc_snr.c.o
+[ 75%] Linking C executable float_short_test
+[ 76%] Building C object tests/CMakeFiles/throughput_test.dir/util.c.o
+[ 78%] Building C object tests/CMakeFiles/snr_bw_test.dir/util.c.o
+[ 80%] Building C object tests/CMakeFiles/multi_channel_test.dir/calc_snr.c.o
+[ 82%] Building C object tests/CMakeFiles/multi_channel_test.dir/util.c.o
+[ 83%] Linking C executable nullptr_test
+[ 85%] Linking C executable varispeed_test
+[ 87%] Linking C executable multichan_throughput_test
+[ 87%] Built target float_short_test
+[ 91%] Building C object tests/CMakeFiles/src-evaluate.dir/util.c.o
+[ 91%] Building C object tests/CMakeFiles/src-evaluate.dir/src-evaluate.c.o
+[ 92%] Linking C executable throughput_test
+[ 92%] Built target nullptr_test
+[ 92%] Built target varispeed_test
+[ 94%] Building C object tests/CMakeFiles/src-evaluate.dir/calc_snr.c.o
+[ 96%] Linking C executable multi_channel_test
+[ 98%] Linking C executable snr_bw_test
+[ 98%] Built target multichan_throughput_test
+[100%] Linking C executable src-evaluate
+[100%] Built target throughput_test
+[100%] Built target multi_channel_test
+[100%] Built target snr_bw_test
+[100%] Built target src-evaluate

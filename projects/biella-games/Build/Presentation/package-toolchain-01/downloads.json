@@ -1,0 +1,16 @@
+[
+  {
+    "name": "mimalloc-v2.0.0.tar.gz",
+    "url": "https://codeload.github.com/microsoft/mimalloc/tar.gz/refs/tags/v2.0.0",
+    "sha256": "f6d01c178f8094a0d986642ca7fed632997a5606ddc619619225f2f8688d9232",
+    "bytes": 909032,
+    "result": "PASS"
+  },
+  {
+    "name": "libsamplerate-0.2.2.tar.gz",
+    "url": "https://codeload.github.com/libsndfile/libsamplerate/tar.gz/refs/tags/0.2.2",
+    "sha256": "16e881487f184250deb4fcb60432d7556ab12cb58caea71ef23960aec6c0405a",
+    "bytes": 3954784,
+    "result": "PASS"
+  }
+]

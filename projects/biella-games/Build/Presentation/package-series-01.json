@@ -1,0 +1,308 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "profiles": {
+    "ProductionTSR": {
+      "cold": {
+        "receipt": {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-tsr-cold-01/validation.json",
+          "sha256": "c113822100cdf8b7e57e84daa86a400f38d65363c6e8dca3a31ff72c7f929589",
+          "bytes": 215829
+        },
+        "frames": 1289,
+        "captures": 43,
+        "native_views": 1289,
+        "shader_libraries": {
+          "Global": 6431,
+          "BiellaGames": 1475
+        },
+        "engine_initialization_seconds": 3.23,
+        "pso_hitches_over_20ms": 235,
+        "pso_max_creation_ms": 346.25,
+        "pso_by_kind": {
+          "graphics": 79,
+          "compute": 156
+        },
+        "driver_cache_files": [
+          {
+            "path": "/mnt/biella-extra/biella-runtime/d03-01-package-tsr-state-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+            "sha256": "1b3e7c7ac317943f0e8b98cb256e34096fc6e671792837598a2896d5e7f0799c",
+            "bytes": 70227965
+          },
+          {
+            "path": "/mnt/biella-extra/biella-runtime/d03-01-package-tsr-state-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+            "sha256": "b42599a4a863af3cfa81957161b33664b1b76ad6619a1f722b793ed1765a35de",
+            "bytes": 156160
+          }
+        ],
+        "costs": {
+          "stationary": {
+            "frames": 285,
+            "wall_p50_ms": 12.275718,
+            "wall_p95_ms": 14.901316,
+            "gpu_p50_ms": 3.659
+          },
+          "camera_pan": {
+            "frames": 254,
+            "wall_p50_ms": 13.703075,
+            "wall_p95_ms": 15.585371749999998,
+            "gpu_p50_ms": 3.7135
+          }
+        },
+        "native_pso_observations": [
+          "[2026.09.06-14.46.31:274][  0]LogVulkanRHI: Display: FVulkanPipelineStateCacheManager: Binary pipeline cache '/tmp/state/user/Saved/VulkanPSO.cache.10de.26b9' not found."
+        ]
+      },
+      "warm": {
+        "receipt": {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-tsr-warm-01/validation.json",
+          "sha256": "ef7b63123c6277acc6338ef02a63f801aa0e93a42ced9132980a735e483c0d53",
+          "bytes": 70733
+        },
+        "frames": 1277,
+        "captures": 43,
+        "native_views": 1277,
+        "shader_libraries": {
+          "Global": 6431,
+          "BiellaGames": 1475
+        },
+        "engine_initialization_seconds": 2.31,
+        "pso_hitches_over_20ms": 1,
+        "pso_max_creation_ms": 22.47,
+        "pso_by_kind": {
+          "graphics": 1,
+          "compute": 0
+        },
+        "driver_cache_files": [
+          {
+            "path": "/mnt/biella-extra/biella-runtime/d03-01-package-tsr-state-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+            "sha256": "1b3e7c7ac317943f0e8b98cb256e34096fc6e671792837598a2896d5e7f0799c",
+            "bytes": 70227965
+          },
+          {
+            "path": "/mnt/biella-extra/biella-runtime/d03-01-package-tsr-state-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+            "sha256": "b42599a4a863af3cfa81957161b33664b1b76ad6619a1f722b793ed1765a35de",
+            "bytes": 156160
+          }
+        ],
+        "costs": {
+          "stationary": {
+            "frames": 282,
+            "wall_p50_ms": 12.950672,
+            "wall_p95_ms": 14.343166399999998,
+            "gpu_p50_ms": 3.6635
+          },
+          "camera_pan": {
+            "frames": 260,
+            "wall_p50_ms": 13.4194075,
+            "wall_p95_ms": 15.11713345,
+            "gpu_p50_ms": 3.7195
+          }
+        },
+        "native_pso_observations": [
+          "[2026.09.06-14.47.38:859][  0]LogVulkanRHI: Display: FVulkanPipelineStateCacheManager: Binary pipeline cache '/tmp/state/user/Saved/VulkanPSO.cache.10de.26b9' not found."
+        ]
+      },
+      "environment": {
+        "receipt": {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-tsr-environment-01/validation.json",
+          "sha256": "c207216b5a5e422fb76a3839283f5671a5fefb8eddffb9fc3fe822f237d32fcf",
+          "bytes": 69078
+        },
+        "frames": 1473,
+        "captures": 5,
+        "native_views": 1473,
+        "shader_libraries": {
+          "Global": 6431,
+          "BiellaGames": 1475
+        },
+        "engine_initialization_seconds": 2.34,
+        "pso_hitches_over_20ms": 9,
+        "pso_max_creation_ms": 32.02,
+        "pso_by_kind": {
+          "graphics": 3,
+          "compute": 6
+        },
+        "driver_cache_files": [
+          {
+            "path": "/mnt/biella-extra/biella-runtime/d03-01-package-tsr-state-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+            "sha256": "1b3e7c7ac317943f0e8b98cb256e34096fc6e671792837598a2896d5e7f0799c",
+            "bytes": 70227965
+          },
+          {
+            "path": "/mnt/biella-extra/biella-runtime/d03-01-package-tsr-state-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+            "sha256": "b42599a4a863af3cfa81957161b33664b1b76ad6619a1f722b793ed1765a35de",
+            "bytes": 156160
+          }
+        ],
+        "costs": null,
+        "native_pso_observations": [
+          "[2026.09.06-14.50.31:605][  0]LogVulkanRHI: Display: FVulkanPipelineStateCacheManager: Binary pipeline cache '/tmp/state/user/Saved/VulkanPSO.cache.10de.26b9' not found."
+        ]
+      }
+    },
+    "NativeTAA": {
+      "cold": {
+        "receipt": {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-taa-cold-01/validation.json",
+          "sha256": "1685507f5d4f719586322bddf6308e38dd7e3e9e1579580fe7b968fa30676675",
+          "bytes": 207256
+        },
+        "frames": 1296,
+        "captures": 43,
+        "native_views": 1296,
+        "shader_libraries": {
+          "Global": 6431,
+          "BiellaGames": 1475
+        },
+        "engine_initialization_seconds": 3.22,
+        "pso_hitches_over_20ms": 223,
+        "pso_max_creation_ms": 319.72,
+        "pso_by_kind": {
+          "graphics": 73,
+          "compute": 150
+        },
+        "driver_cache_files": [
+          {
+            "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+            "sha256": "4c537a8c7b90c3269a6e7e8c7622aef71435b1e29d4aa60e0b9b7ed7b6198346",
+            "bytes": 70379359
+          },
+          {
+            "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+            "sha256": "ea8217b0229f33d7379f59f32c4dc8471a9aaa03a8a5e8792e82a1adbc08e449",
+            "bytes": 156192
+          }
+        ],
+        "costs": {
+          "stationary": {
+            "frames": 296,
+            "wall_p50_ms": 11.586287,
+            "wall_p95_ms": 14.4049495,
+            "gpu_p50_ms": 3.3465
+          },
+          "camera_pan": {
+            "frames": 249,
+            "wall_p50_ms": 13.82501,
+            "wall_p95_ms": 15.4915076,
+            "gpu_p50_ms": 3.363
+          }
+        },
+        "native_pso_observations": [
+          "[2026.09.06-14.48.35:630][  0]LogVulkanRHI: Display: FVulkanPipelineStateCacheManager: Binary pipeline cache '/tmp/state/user/Saved/VulkanPSO.cache.10de.26b9' not found."
+        ]
+      },
+      "warm": {
+        "receipt": {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-taa-warm-01/validation.json",
+          "sha256": "b4f88ad925da61880cc901bb8ffd3eebf3dbeb14a653b14fb3387d73dbdb2f7d",
+          "bytes": 76243
+        },
+        "frames": 1331,
+        "captures": 43,
+        "native_views": 1331,
+        "shader_libraries": {
+          "Global": 6431,
+          "BiellaGames": 1475
+        },
+        "engine_initialization_seconds": 2.35,
+        "pso_hitches_over_20ms": 9,
+        "pso_max_creation_ms": 28.31,
+        "pso_by_kind": {
+          "graphics": 0,
+          "compute": 9
+        },
+        "driver_cache_files": [
+          {
+            "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+            "sha256": "4c537a8c7b90c3269a6e7e8c7622aef71435b1e29d4aa60e0b9b7ed7b6198346",
+            "bytes": 70379359
+          },
+          {
+            "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+            "sha256": "ea8217b0229f33d7379f59f32c4dc8471a9aaa03a8a5e8792e82a1adbc08e449",
+            "bytes": 156192
+          }
+        ],
+        "costs": {
+          "stationary": {
+            "frames": 281,
+            "wall_p50_ms": 12.908401,
+            "wall_p95_ms": 14.598857,
+            "gpu_p50_ms": 3.305
+          },
+          "camera_pan": {
+            "frames": 283,
+            "wall_p50_ms": 12.345988,
+            "wall_p95_ms": 13.951323899999998,
+            "gpu_p50_ms": 3.314
+          }
+        },
+        "native_pso_observations": [
+          "[2026.09.06-14.49.55:607][  0]LogVulkanRHI: Display: FVulkanPipelineStateCacheManager: Binary pipeline cache '/tmp/state/user/Saved/VulkanPSO.cache.10de.26b9' not found."
+        ]
+      },
+      "environment": {
+        "receipt": {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-taa-environment-01/validation.json",
+          "sha256": "85d468eb8cc7e8c94afe4a80fed1f62eb08fdec315fe2305835eebcb47dfe70c",
+          "bytes": 67605
+        },
+        "frames": 1476,
+        "captures": 5,
+        "native_views": 1476,
+        "shader_libraries": {
+          "Global": 6431,
+          "BiellaGames": 1475
+        },
+        "engine_initialization_seconds": 2.33,
+        "pso_hitches_over_20ms": 6,
+        "pso_max_creation_ms": 25.53,
+        "pso_by_kind": {
+          "graphics": 1,
+          "compute": 5
+        },
+        "driver_cache_files": [
+          {
+            "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+            "sha256": "4c537a8c7b90c3269a6e7e8c7622aef71435b1e29d4aa60e0b9b7ed7b6198346",
+            "bytes": 70379359
+          },
+          {
+            "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+            "sha256": "ea8217b0229f33d7379f59f32c4dc8471a9aaa03a8a5e8792e82a1adbc08e449",
+            "bytes": 156192
+          }
+        ],
+        "costs": null,
+        "native_pso_observations": [
+          "[2026.09.06-14.51.49:665][  0]LogVulkanRHI: Display: FVulkanPipelineStateCacheManager: Binary pipeline cache '/tmp/state/user/Saved/VulkanPSO.cache.10de.26b9' not found."
+        ]
+      }
+    }
+  },
+  "input": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_package_series.py",
+    "sha256": "60e928ac714807d1d0e616616d29c46c4c8a829fccf5fa52c91f719000a96253",
+    "bytes": 4881
+  },
+  "scope": "Linux Development Vulkan SM5; one host; fresh user/driver caches, not flushed OS pages; no generated frames",
+  "negative": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-missing-shader-04/validation.json",
+    "sha256": "c1ef12934b4f468ff46b70546f4480c28a219bd62c90c437a8957b3b0b4b1221",
+    "bytes": 993491
+  },
+  "archive": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-package-01.tar.zst",
+    "sha256": "06510221abdcfa88e7fbb73dcbf31bb34de839101649aa83ffde2c3c1722b14a",
+    "bytes": 371811200
+  },
+  "limitations": [
+    "Vulkan SM5 does not execute Nanite despite requested r.Nanite=1; SM6 production qualification remains.",
+    "PSO event durations may overlap across workers and are not additive frame stalls.",
+    "Cold runtime PSO hitches remain; functional PASS does not accept production stutter.",
+    "PipelineFileCache=0 and VulkanPSO.cache absent; observed warm acceleration uses driver cache files.",
+    "Gross image delta checks and selected captures do not establish fine ghosting/disocclusion quality.",
+    "Development executable, not Shipping, Windows, broad hardware, final art or complete D03 acceptance."
+  ]
+}

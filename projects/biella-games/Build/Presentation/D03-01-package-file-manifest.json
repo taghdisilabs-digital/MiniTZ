@@ -1,0 +1,1834 @@
+{
+  "schema": "biella.d03_01.package_file_manifest/v1",
+  "task_id": "D03-01",
+  "task_status": "CONTINUE",
+  "files": [
+    {
+      "path": "Build/Presentation/D03-01-package-final-readback-01.json",
+      "bytes": 718290,
+      "sha256": "81c586d72d2a14d446363dfc977d59bf3ad47f61074dc3bee1b3fbe94fa59bf2"
+    },
+    {
+      "path": "Build/Presentation/D03-01-package-increment.json",
+      "bytes": 3712,
+      "sha256": "aebc6f7caf05d834c629400aa8ef762fba7ccd864dddab1f96e0a763166f72be"
+    },
+    {
+      "path": "Build/Presentation/D03-01-package-preservation.json",
+      "bytes": 982,
+      "sha256": "c628244ae684f3f2c0caaaeacf513c731032110d910189064ec50198ecb666a7"
+    },
+    {
+      "path": "Build/Presentation/D03-01-package-progress.md",
+      "bytes": 8196,
+      "sha256": "c9d992cff1496e13fe52e99fd3935011fc4bdb980c45e6d8caa86adfd92b9b95"
+    },
+    {
+      "path": "Build/Presentation/package-build-01/build.log",
+      "bytes": 153640,
+      "sha256": "68e97c02b872f577dc2ff99bbf4701f90b60c54e900af1ccbc861ce942443e8a"
+    },
+    {
+      "path": "Build/Presentation/package-build-01/command.json",
+      "bytes": 219,
+      "sha256": "df6d8613edc4fcc57b4e04a20e97cc95fcb8488b9532a666591a67f1a77d5204"
+    },
+    {
+      "path": "Build/Presentation/package-build-01/inputs-after.json",
+      "bytes": 19688,
+      "sha256": "a42c00fd3553790e5717b12f2d855e691a3f13fa26c5eff331fb25a65a0c2c49"
+    },
+    {
+      "path": "Build/Presentation/package-build-01/inputs-before.json",
+      "bytes": 19688,
+      "sha256": "a42c00fd3553790e5717b12f2d855e691a3f13fa26c5eff331fb25a65a0c2c49"
+    },
+    {
+      "path": "Build/Presentation/package-build-01/result.json",
+      "bytes": 133,
+      "sha256": "b334fffeeaa780363d44e82d08a99f4470a996e4e00f581ac20955777744e4fe"
+    },
+    {
+      "path": "Build/Presentation/package-build-01/revision.json",
+      "bytes": 327,
+      "sha256": "ca0dff7e28254c72163697b8ccedcfccffb6add1dbe49a6044df5198a1dc206f"
+    },
+    {
+      "path": "Build/Presentation/package-build-02/build.log",
+      "bytes": 35467,
+      "sha256": "af819a8c1b8e207b2ba17daee148b899dcc6902f8f09a77b21e7f88eccde0ccf"
+    },
+    {
+      "path": "Build/Presentation/package-build-02/command.json",
+      "bytes": 277,
+      "sha256": "85af5cedfb5e5502f590e804dd784f1c8a5fc6eef895aad93fb18ef5fd53bef5"
+    },
+    {
+      "path": "Build/Presentation/package-build-02/inputs-after.json",
+      "bytes": 19688,
+      "sha256": "a42c00fd3553790e5717b12f2d855e691a3f13fa26c5eff331fb25a65a0c2c49"
+    },
+    {
+      "path": "Build/Presentation/package-build-02/inputs-before.json",
+      "bytes": 19688,
+      "sha256": "a42c00fd3553790e5717b12f2d855e691a3f13fa26c5eff331fb25a65a0c2c49"
+    },
+    {
+      "path": "Build/Presentation/package-build-02/result.json",
+      "bytes": 1067,
+      "sha256": "7ed0f4d3d928268a07a8bef7e3cef23204245a0ff0ed511869cf1a3acdc805d7"
+    },
+    {
+      "path": "Build/Presentation/package-build-03/build.log",
+      "bytes": 3144,
+      "sha256": "726e5bf891964553be7dd9776e9cd7826d7ee91c27af432213faabfa518633b2"
+    },
+    {
+      "path": "Build/Presentation/package-build-03/command.json",
+      "bytes": 277,
+      "sha256": "85af5cedfb5e5502f590e804dd784f1c8a5fc6eef895aad93fb18ef5fd53bef5"
+    },
+    {
+      "path": "Build/Presentation/package-build-03/inputs-after.json",
+      "bytes": 19688,
+      "sha256": "a42c00fd3553790e5717b12f2d855e691a3f13fa26c5eff331fb25a65a0c2c49"
+    },
+    {
+      "path": "Build/Presentation/package-build-03/inputs-before.json",
+      "bytes": 19688,
+      "sha256": "a42c00fd3553790e5717b12f2d855e691a3f13fa26c5eff331fb25a65a0c2c49"
+    },
+    {
+      "path": "Build/Presentation/package-build-03/result.json",
+      "bytes": 1802,
+      "sha256": "a40590b0336b474c74d2df27fa9992af03bcae018693c14854e118ee7474e292"
+    },
+    {
+      "path": "Build/Presentation/package-cook-01/command.json",
+      "bytes": 581,
+      "sha256": "54740de4868127d3973c41ca7ee4cad0eee660137da946a99f603b30d739272c"
+    },
+    {
+      "path": "Build/Presentation/package-cook-01/cook.engine.log",
+      "bytes": 404126,
+      "sha256": "1b47466a1db7146c5f13ec842d504d7c81ea1bcdf82a0c48e012366da877e339"
+    },
+    {
+      "path": "Build/Presentation/package-cook-01/cook.stdout.log",
+      "bytes": 413915,
+      "sha256": "559b66906069f0d6c4417b58e26b41e4f4f65e5aad0bddb362372e9777550cba"
+    },
+    {
+      "path": "Build/Presentation/package-cook-01/validation.json",
+      "bytes": 4706412,
+      "sha256": "2df117498a310216b4c83159aa2ca5edb7163d9fc7d2e4fda155822bd6fe79ef"
+    },
+    {
+      "path": "Build/Presentation/package-cook-config-repair-01/validation.json",
+      "bytes": 1476,
+      "sha256": "f2dd59678832b29c5606227927445722390ffd38d70e508c01c97d263425f5ca"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/cook-stage-boundary.json",
+      "bytes": 753,
+      "sha256": "05e3a456d70ba07a212f80d7f4f1e0d8fa5cb296220bf6f5a001d28938195f48"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/isolation-probe-check-01/command.json",
+      "bytes": 1376,
+      "sha256": "de83bc2a6f12e1e7eb054a80650de5f61c2dd1043a624645c9665f27fd6b2b82"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/isolation-probe-check-01/fixture-package/BiellaGames.sh",
+      "bytes": 10,
+      "sha256": "a8076d3d28d21e02012b20eaf7dbf75409a6277134439025f282e368e3305abf"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/isolation-probe-check-01/output.log",
+      "bytes": 51,
+      "sha256": "408d958bffb08cbaf5c4f01b08608f2ad3d08e9e7d9021f5bf49ce023e24f433"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/isolation-probe-check-01/result.json",
+      "bytes": 110,
+      "sha256": "6d43c28e37419599e313f1ceaa246443411ec75170261436f6e0bcb7e5bc6110"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/isolation-probe-check-02/command.json",
+      "bytes": 1400,
+      "sha256": "415b926bd8a9f78c62c43753464f04145ff8ae0d60c27b9d78b5781e9d0d0511"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/isolation-probe-check-02/fixture-package/BiellaGames.sh",
+      "bytes": 10,
+      "sha256": "a8076d3d28d21e02012b20eaf7dbf75409a6277134439025f282e368e3305abf"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/isolation-probe-check-02/output.log",
+      "bytes": 71,
+      "sha256": "0c9c6b3e2efed63c67016465a613a2a132f2633d1079fc72fbbf0de21e40a2af"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/isolation-probe-check-02/result.json",
+      "bytes": 110,
+      "sha256": "f16b78a4edece44c4eb6b7f8429e3b9355c9171fba7e66036d43aea60130ce1e"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/isolation-probe-check-03/command.json",
+      "bytes": 1400,
+      "sha256": "74fbd24749ff71d8bcde5150723ec8202d769b9c1bdb0a019d102922a4cc9962"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/isolation-probe-check-03/fixture-package/BiellaGames.sh",
+      "bytes": 10,
+      "sha256": "a8076d3d28d21e02012b20eaf7dbf75409a6277134439025f282e368e3305abf"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/isolation-probe-check-03/isolation-mounts.txt",
+      "bytes": 6412,
+      "sha256": "0a09ceb166df42baea9b0f6d8b09c51d923fb1bcfc538243038ead35e8a99f83"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/isolation-probe-check-03/isolation-probe.json",
+      "bytes": 435,
+      "sha256": "3a5ecaa90ea656522cc4e1ae9218ca9803ffaec96e812b0a5eb67482f089b582"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/isolation-probe-check-03/output.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/isolation-probe-check-03/result.json",
+      "bytes": 110,
+      "sha256": "fad06bb6b2ef15697a772e4e33443dbed3fd2d517972ff9690da4adc7dd5e363"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/plan.md",
+      "bytes": 1455,
+      "sha256": "7d0cc49f4fe2f6ca57ff1d02ec675eaef5a36d69057e047f3447dc00e58e683a"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/provider-retry.stderr.log",
+      "bytes": 70,
+      "sha256": "b3ca29692a27cfaa6b24db08c884e67996f01de4669f8c0a013548bd4f17a137"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/provider.stderr.log",
+      "bytes": 219,
+      "sha256": "9001424ce71212ddab56a4f8e869205c1fb6a2654672cccdd40aaca84ed3cfd3"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/request.txt",
+      "bytes": 606,
+      "sha256": "6eb8ffb5a23a5361026990f28137b76f7731c6eb0bbe265338a155f7f2b96ec6"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/resource-review.json",
+      "bytes": 215,
+      "sha256": "b7104ead00d022f31d96e3833080825b362222c5687e5e5fc536d5b3c5a922ae"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/response-retry.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/response.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/result.json",
+      "bytes": 56,
+      "sha256": "59d63ab85e36795503193eec066aa2ff5a6b7bfde2a50dcbb02ca2975b052320"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/route.json",
+      "bytes": 61,
+      "sha256": "3f7f9abb00003af080613b0a1063c0d8e7d786c9d5380cca2469e2588068624b"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/shader-platform-scope.json",
+      "bytes": 1105,
+      "sha256": "616c7c920fe4a7e097d9ef049878cbdcacbf0b2caaf4704d4f141807c136d4f1"
+    },
+    {
+      "path": "Build/Presentation/package-design-01/zen-stage-environment-diagnosis.json",
+      "bytes": 653,
+      "sha256": "11fbf73b6000cc8cc53891f527ea812db3a9485b25e4eb878bd5bb388c186fde"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-01/command.json",
+      "bytes": 1963,
+      "sha256": "a29fbe685a19a445062a92b60ab1fe40b284ee556f50694812783b8370f624ea"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-01/runtime.stdout.log",
+      "bytes": 686,
+      "sha256": "a232eee9b23b4a9f0ef5e4c723f4f2838c040435f03ad3fa5b2c92ac93318a1f"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-01/validation.json",
+      "bytes": 30674,
+      "sha256": "55f64495b9acecefafaa19d2cb17af350fcb46ae363bfb9b55a1684e92f6baa6"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-02/command.json",
+      "bytes": 1963,
+      "sha256": "9b752fa533c0ea260690e7adf2b58d63fdf082e9ca7d93f0288bf15bbb826b0e"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-02/isolation-mounts.txt",
+      "bytes": 6063,
+      "sha256": "47f0e301e8519ca22d84a9a1617c3ad95c4dba61ed88abbe428647cc0c827888"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-02/isolation-probe.json",
+      "bytes": 1110,
+      "sha256": "bfe04bbcd07277a63611cfc6e111cd99d134058c88bd4fb9a0965a8bbedecff7"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-02/runtime.stdout.log",
+      "bytes": 6387,
+      "sha256": "19f1bcc16eb705b8bf8e80029b210cdada0b7e1c60ab8a0e99d0db6047d26439"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-02/validation.json",
+      "bytes": 30677,
+      "sha256": "2961e7c2d8acfaa5a4b5e57d9fb1f85b65ee1ab25dc6bef1cd0ef45676eb7e25"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-03/extract-original.log",
+      "bytes": 479964,
+      "sha256": "bf4df7e7be6a226a83d23e5c1567cbabe909bae77f59540c8bcc05acd2884645"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-03/extract-repacked.log",
+      "bytes": 13400,
+      "sha256": "78b06cd3d509a8fd8a0fd0edc71d29da486fe6753650e51a56ca6c28d3f8b717"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-03/negative_runner_source.py",
+      "bytes": 9010,
+      "sha256": "3db7b904206ac8ea44c948e3a9e41cd65d3c06f3d07e23ae01815df664cd51b4"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-03/repack.log",
+      "bytes": 14664,
+      "sha256": "adff9357250fa5ef15eff8c566e12ba2efae40a4bf884fa6f033df7669429420"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-03/validation.json",
+      "bytes": 27320,
+      "sha256": "a3269a877a89f0bded941d8abac229dcabe00151da7d4658be9b779c71dba9fe"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-04/command.json",
+      "bytes": 1963,
+      "sha256": "b3d548a747eecfd0c84c46b4ffc902ee49a43937366873981d5caaabb033c6a7"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-04/extract-original.log",
+      "bytes": 479844,
+      "sha256": "37d5a1e3b3713c0f6f8347272c7049feccecb0827f6cf83e3c42627d92b41241"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-04/extract-repacked.log",
+      "bytes": 493825,
+      "sha256": "1849cabfff2141b03671766623f84af2fc58cedc138c7908c95fe730e8cb8e5f"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-04/isolation-mounts.txt",
+      "bytes": 6063,
+      "sha256": "59490269daab1228616fc08c7c17a382019eae21dc3cdbcdda36d5753dd543e0"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-04/isolation-probe.json",
+      "bytes": 1110,
+      "sha256": "bfe04bbcd07277a63611cfc6e111cd99d134058c88bd4fb9a0965a8bbedecff7"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-04/repack.log",
+      "bytes": 15174,
+      "sha256": "670b48bcf9df906d820e9db9bc09e5bfad463241fffcf6fa93ac3f0c4ac5c4a3"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-04/runtime.engine.log",
+      "bytes": 126929,
+      "sha256": "48d3b5f5b0231e9e29e018aa3aa5b04c8e3eec59fed67a406dd39a18561e8730"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-04/runtime.stdout.log",
+      "bytes": 125788,
+      "sha256": "79b124365375eafce9fd9025d86655d512c04ed0406ac48ad2ad0497805f2f4f"
+    },
+    {
+      "path": "Build/Presentation/package-missing-shader-04/validation.json",
+      "bytes": 993491,
+      "sha256": "c1ef12934b4f468ff46b70546f4480c28a219bd62c90c437a8957b3b0b4b1221"
+    },
+    {
+      "path": "Build/Presentation/package-precommit-scan-01.json",
+      "bytes": 427,
+      "sha256": "0d92daa48911843b16ca70c4868ce5abe8354f560752d7d19f1ffeff4e618e67"
+    },
+    {
+      "path": "Build/Presentation/package-series-01.json",
+      "bytes": 12819,
+      "sha256": "66c099b3db6ec31eecc993730c5b92f995d7a32b8c665a30d98a063b28e1d360"
+    },
+    {
+      "path": "Build/Presentation/package-shader-fixture-01/command.json",
+      "bytes": 332,
+      "sha256": "3434bb3add45b47f6510a10e7161070945adc9abf333af5b38aa74bf99faa81e"
+    },
+    {
+      "path": "Build/Presentation/package-shader-fixture-01/extract.log",
+      "bytes": 12586,
+      "sha256": "6f1073af017d12a910b331d46ada3946cbd0a4d4d05cfa9458945abeb98fb74e"
+    },
+    {
+      "path": "Build/Presentation/package-shader-fixture-01/result.json",
+      "bytes": 92,
+      "sha256": "b7f0db769bfc4f05cfc273faf604425c613fc97e7cdd0507bb38a83eb206f729"
+    },
+    {
+      "path": "Build/Presentation/package-shader-fixture-02/command.json",
+      "bytes": 280,
+      "sha256": "7f976e21965ead4fa4b952fdc14867459913c9346f5bedf1e2dc8e590943f03e"
+    },
+    {
+      "path": "Build/Presentation/package-shader-fixture-02/extract.log",
+      "bytes": 13915,
+      "sha256": "20c7ef94ab653b35e68db9b41cce42089ecdeddc816869b135293eee75e0566f"
+    },
+    {
+      "path": "Build/Presentation/package-shader-fixture-02/result.json",
+      "bytes": 92,
+      "sha256": "37b99efaa4a86a0cbafa197aabadd45e6bb6579612beb5c481d3f633e3687f32"
+    },
+    {
+      "path": "Build/Presentation/package-stage-01/validation.json",
+      "bytes": 1457,
+      "sha256": "7a7ea735c4e4a4a33578e5d7c40f3a3f199074c7e2cea9374d28fbe0917484f3"
+    },
+    {
+      "path": "Build/Presentation/package-stage-02/command.json",
+      "bytes": 496,
+      "sha256": "5710e1d0421be1202079d785a30006664ad1c71cb174a635061c5c3b8a7c88a5"
+    },
+    {
+      "path": "Build/Presentation/package-stage-02/stage.log",
+      "bytes": 5288,
+      "sha256": "d0e82d744baf3a9f8b02088066847e1075d4a5156cd99de310b1a7db3208de6e"
+    },
+    {
+      "path": "Build/Presentation/package-stage-02/validation.json",
+      "bytes": 1555,
+      "sha256": "a01f405c1c60b59b68094a8ec3a7b1095ec12a96a29f3cfb2dea0523b54d092e"
+    },
+    {
+      "path": "Build/Presentation/package-stage-03/command.json",
+      "bytes": 589,
+      "sha256": "bba982e9a2564eb9a9e48428418a9d2ac8e7274d574cb33f64dba267e83fe5be"
+    },
+    {
+      "path": "Build/Presentation/package-stage-03/stage.log",
+      "bytes": 23322,
+      "sha256": "b36e278aefd08372d9341e7643f1b1f7ce12b90ad93df5553a5428b910e6b15a"
+    },
+    {
+      "path": "Build/Presentation/package-stage-03/validation.json",
+      "bytes": 1698,
+      "sha256": "533dba9fcd8510be515f15ddde77dc30d47ef99ace4f954ca6cc30440d4d8ec0"
+    },
+    {
+      "path": "Build/Presentation/package-stage-04/validation.json",
+      "bytes": 218,
+      "sha256": "50f3b3175b784f5bb026d77936a476182442124fe33c23ec71c6b756a2526879"
+    },
+    {
+      "path": "Build/Presentation/package-stage-05/command.json",
+      "bytes": 794,
+      "sha256": "abc01c0f8a4d23b3b2b6d7f757e316d27e30ae2e07c355d6c8037152c7f1470d"
+    },
+    {
+      "path": "Build/Presentation/package-stage-05/stage.log",
+      "bytes": 23534,
+      "sha256": "fa44831dc81716d82e31fe5f7cade427a1d91c31ac3471a40a105c355064b4e7"
+    },
+    {
+      "path": "Build/Presentation/package-stage-05/validation.json",
+      "bytes": 1990,
+      "sha256": "7758f2ef962c4fc74013dc3fc411519351a6aeea654c0fda64a5070d4dfb6743"
+    },
+    {
+      "path": "Build/Presentation/package-stage-06/command.json",
+      "bytes": 794,
+      "sha256": "df23744df344117afb2128233048677ace6cc678fa278cc16d73060ff5049ae7"
+    },
+    {
+      "path": "Build/Presentation/package-stage-06/stage.log",
+      "bytes": 27884,
+      "sha256": "f26561d139c4fb8dfbaef109f6ebc1190916ba71fe71dd34ceff2cb7c80025e0"
+    },
+    {
+      "path": "Build/Presentation/package-stage-06/validation.json",
+      "bytes": 2039,
+      "sha256": "06c33e86a3b0decdfc25321dd1ca95b85a77954b8d2137bd0fd83cb91eeeedb0"
+    },
+    {
+      "path": "Build/Presentation/package-stage-07/command.json",
+      "bytes": 914,
+      "sha256": "e64e9fbb464ca36cc2d03d443fb9ec013a9f621c1929f3435d49e67e1b5296bb"
+    },
+    {
+      "path": "Build/Presentation/package-stage-07/stage.log",
+      "bytes": 73583,
+      "sha256": "1484ac98fa79da8d418919ea25a7b2b7228ffb2dbabae58141487635ecb259e5"
+    },
+    {
+      "path": "Build/Presentation/package-stage-07/validation.json",
+      "bytes": 20619,
+      "sha256": "4c78648123a979fbc3d6bb62243fa9c28e2f5a5c75711643d4deb49514e94f58"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures.csv",
+      "bytes": 1446,
+      "sha256": "3c6d94d4c961a81c0562870f32e1192fcf8f9cd95a54fac824243b3ac4c2583c"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_000.png",
+      "bytes": 845587,
+      "sha256": "96144aaedea0a88d5bab3068cbdb0e0b9472e9bab84c06d07623d0676a3f633d"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_001.png",
+      "bytes": 841049,
+      "sha256": "8476d6432f39e5fc510059348c1ffa1a93f029ac6ddf0975c0be299aecdaad31"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_002.png",
+      "bytes": 845255,
+      "sha256": "8422d0c61181c7d1fb6e593abff6d29d057c81bfb61e8ad9571b6b8ebe2cf591"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_003.png",
+      "bytes": 844756,
+      "sha256": "534efa2abd7a99f202288259ff16b42bb457b9b8b3ed339606502795664c93b6"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_004.png",
+      "bytes": 845597,
+      "sha256": "039d818ab3171c5ed499af6e554b7118f21822229f93e6c433370b05e97fb7d2"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_005.png",
+      "bytes": 842910,
+      "sha256": "84565db1803c5edec80fe795e8ca8e87730444d74aa48de362dc67ba6cea6d60"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_006.png",
+      "bytes": 847025,
+      "sha256": "6d0009bf51a2b1179040c4738228641bac62de117b9f7130d7d7f0af968d4f21"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_007.png",
+      "bytes": 845711,
+      "sha256": "67bf90866a7d0628e2da66a7c0c275560aa6cc855947032417e624d3a64e9d76"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_008.png",
+      "bytes": 844902,
+      "sha256": "fe716172dde372d2f21befa578d94545078bc8462191d48c215e2d567e149045"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_009.png",
+      "bytes": 844503,
+      "sha256": "4c8359f377824a63547b5f16cb705037e4160aedd905a0139c9588379b858b0e"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_010.png",
+      "bytes": 847556,
+      "sha256": "8bf54805baecd74317ef1cf5d0056dec9c22ac3c17b6b586010eadc918b6210a"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_011.png",
+      "bytes": 852571,
+      "sha256": "10209d6e4a85d500d412d8375dc502b83fa1f0007d67ae69a14c0cc8bf0b31c9"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_012.png",
+      "bytes": 855054,
+      "sha256": "bc9bd511545f3ebfbe180e556874832224624ed03c3cc5d79c5920ba109516aa"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_013.png",
+      "bytes": 858637,
+      "sha256": "09a7a1663a4d17b04a65e9af78c60811d534a7706ba487c0381d7b08bd0610af"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_014.png",
+      "bytes": 865611,
+      "sha256": "b3b1fa476b844ac7ef72ee116270252e343dc21571f0eceae67025f6ee426581"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_015.png",
+      "bytes": 867102,
+      "sha256": "91bfe96bb83bcfed243c9f4abf8543d6ba07d5c93f687b233df384551e17fc51"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_016.png",
+      "bytes": 868110,
+      "sha256": "30bae4bfde33834d6a1aabb4a92ee588d505881c11a03c770411f639faa45014"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_017.png",
+      "bytes": 862328,
+      "sha256": "d2eda6d29f02ca3e88808a89a361cdf1a73e7a29ba4fca57c7872d5434d19c16"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_018.png",
+      "bytes": 865757,
+      "sha256": "91db591b9bc24e423f66f20f952f7b03757be9ae2440bff7cf49e8ab2eb02a9a"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_019.png",
+      "bytes": 869394,
+      "sha256": "5fe0abe759e283b833046002aa1bb163c14f91f99e2be39da0ee21c3cfe53118"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_020.png",
+      "bytes": 869724,
+      "sha256": "71d480d154a7a31c708b25458ee74463186f356029a360e8ac5392dfeef985ae"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_021.png",
+      "bytes": 872568,
+      "sha256": "fb200b753c9687bbd1d693cbb821ac6019e1991c019749190cde5b955807d349"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_022.png",
+      "bytes": 876201,
+      "sha256": "7f566bf089cf94927c5a9673273ba26b2089cb99a8c85854846c1466acaa0112"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_023.png",
+      "bytes": 874716,
+      "sha256": "95250a883477acbfbe051e4b24cad77798f076dd6df4d2b8653d2da8dc0355b8"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_024.png",
+      "bytes": 875539,
+      "sha256": "1db0b10842ce1464b4ff6310406a37c2bdf8432a9e7c50ff403d59c60b25a94f"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_025.png",
+      "bytes": 872501,
+      "sha256": "5b5b16965d296e5f501615a4ae615a0c0e59997dcf6946bd58d2baedabc864be"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_026.png",
+      "bytes": 876024,
+      "sha256": "36954207c5900a119b5df1ca901aadf5ac6570046bd495eb9f25bb0c506b89bf"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_027.png",
+      "bytes": 877631,
+      "sha256": "630e1931c6bacec682d0090911de6b40719a229d490c61eca151143d749538aa"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_028.png",
+      "bytes": 879657,
+      "sha256": "7ce4c963c562e199290975eaabc375b47eb95e657ec6b0bd7e7eb343c8d5247b"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_029.png",
+      "bytes": 876028,
+      "sha256": "bc7364a89602d9ebec717b1373376837c797701caf0551d34605c830f4da622f"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_030.png",
+      "bytes": 877457,
+      "sha256": "4ef2ff793122fd866a66fd41c620c8eaac95146d7800f44b976e9730b3a44c3f"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/pan_031.png",
+      "bytes": 878800,
+      "sha256": "7f894c094fe7b5f2b3d143dca7e780d5b95d4837120a67b2f508586969981c5a"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/static_000.png",
+      "bytes": 857126,
+      "sha256": "9ba694c6a8d264d5cf6d771489bfa9318b021bb7cec495820750db7d2465f64f"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/static_001.png",
+      "bytes": 859384,
+      "sha256": "a7f1bf3d68acf23e736649c858ba033028c3b7e03351331e44598c7e4730202e"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/static_002.png",
+      "bytes": 853413,
+      "sha256": "05c44e2d938e957a3ebcf66e6e4505f54130345bb658b2c1af8b72c3ef48d603"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/static_003.png",
+      "bytes": 857090,
+      "sha256": "54490da78f222b2d2c89065f7977caadcc13fbd12a426504a0e14402bb19ae78"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/static_004.png",
+      "bytes": 862325,
+      "sha256": "141a43f45512377274fb47052800c587b42ed877fe20d6a4a6abcafacb1bb884"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/static_005.png",
+      "bytes": 867082,
+      "sha256": "bf8a8d3f83b739edded4638a706fd2fbdad613e3c19282b832ea537757ddb884"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/static_006.png",
+      "bytes": 859428,
+      "sha256": "214a93f0aa53f5732f97c0c62899d6deb5f04baf2a3196662c462588f8d79ce0"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/static_007.png",
+      "bytes": 866462,
+      "sha256": "f6bd5efa5e392aec668f6b668625d61fed76176e288478d83b56fcc9541e36ea"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/static_008.png",
+      "bytes": 861783,
+      "sha256": "1f73fbc942e247021caf2e18d87e3bcc074afbbbffaa8d354cc73e82f2954ddf"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/static_009.png",
+      "bytes": 867170,
+      "sha256": "fd96d5d524071830db94a5fac16c093943695794d79eae7c09623fd6e70c52c8"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/captures/walk_end.png",
+      "bytes": 864034,
+      "sha256": "43af89878dbd19d7c039816afdb72c71a08d033bc74818d1611df5940f11bde4"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/command.json",
+      "bytes": 1949,
+      "sha256": "1aa7cebc60e2fe6853d88bd68e705ebdd772da64d8cc1bab45a7c8cfbcc1cbb8"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/frames.csv",
+      "bytes": 133506,
+      "sha256": "5e904491c86c68246bb49d6c6e2c15a723c824580e4d448978804804329c4e9c"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/isolation-mounts.txt",
+      "bytes": 6053,
+      "sha256": "ef724d3e52bf0e7ff904b06f1b1dcf469ee6120a25d495aea73ca4564927afb8"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/isolation-probe.json",
+      "bytes": 1106,
+      "sha256": "fc66c3318d803df2cf35eb51c5b43e3154e51c772a9eef8001d37e80eadade34"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/native-views.csv",
+      "bytes": 75267,
+      "sha256": "50b960321c890cb63c8f8f113d3fd7118d08542101d98c3e691b4c1122fb0c24"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/result.json",
+      "bytes": 121,
+      "sha256": "ab3ebb348602f9ce1174d0b634c987a284fb94d87280e0a244f8d65d27ab0925"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/runtime.engine.log",
+      "bytes": 794945,
+      "sha256": "6aad22dae4e1df1fea69ff6dd76101a720907e25196377077f09e0e690133336"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/runtime.stdout.log",
+      "bytes": 787518,
+      "sha256": "183c5bd385e8b6d97cbf21131f9214dda0ad63cf2937183dd62b7e0e39c47c6f"
+    },
+    {
+      "path": "Build/Presentation/package-taa-cold-01/validation.json",
+      "bytes": 207256,
+      "sha256": "1685507f5d4f719586322bddf6308e38dd7e3e9e1579580fe7b968fa30676675"
+    },
+    {
+      "path": "Build/Presentation/package-taa-environment-01/captures/hazard_active.png",
+      "bytes": 965785,
+      "sha256": "5c9d7bde043caa10dbc6fbe14ea1c85e6d40f0f67a7c21dfb604ba9d35d37384"
+    },
+    {
+      "path": "Build/Presentation/package-taa-environment-01/captures/panel_damaged.png",
+      "bytes": 889329,
+      "sha256": "d47623087630d2078850623444865cbaad7aea32b246da32f6228d1c4d9710fe"
+    },
+    {
+      "path": "Build/Presentation/package-taa-environment-01/captures/panel_destroyed.png",
+      "bytes": 900590,
+      "sha256": "f072b79e10ebf7a4f96c00718d50a6556d8d7dcf52d804ff1f742df4d8d22a8c"
+    },
+    {
+      "path": "Build/Presentation/package-taa-environment-01/captures/stream_return.png",
+      "bytes": 897970,
+      "sha256": "de4606df795c2940dd99e3ed66229c0ef32fe8bcb9ca66e5037714d8821f1923"
+    },
+    {
+      "path": "Build/Presentation/package-taa-environment-01/captures/switch_safe.png",
+      "bytes": 899746,
+      "sha256": "1fc6cf979a41b36d610c7861dcc15f43e7aa042a371eed52180feaa288055c8f"
+    },
+    {
+      "path": "Build/Presentation/package-taa-environment-01/command.json",
+      "bytes": 1959,
+      "sha256": "d85874044719a5cd5456f58ce5f437c6b0f06701da84e49143a2f3edc4309f8c"
+    },
+    {
+      "path": "Build/Presentation/package-taa-environment-01/events.log",
+      "bytes": 1703,
+      "sha256": "3de2929a24d682ec622e169a01f5185dd6c859537540efc549d7fc40453926ba"
+    },
+    {
+      "path": "Build/Presentation/package-taa-environment-01/frames.csv",
+      "bytes": 167617,
+      "sha256": "d93fe547920ba8a686777ca5cdde0d325b466e2cbe301476bb54aa90771cfdaa"
+    },
+    {
+      "path": "Build/Presentation/package-taa-environment-01/isolation-mounts.txt",
+      "bytes": 6060,
+      "sha256": "13ea7f4fb4533f8ad6ea224dc55d8863e6590af00c950de1c796428e78d02256"
+    },
+    {
+      "path": "Build/Presentation/package-taa-environment-01/isolation-probe.json",
+      "bytes": 1109,
+      "sha256": "407505f152bacfb21f4c6e540cf2925c33b092590c056b6bb2abc78bc85e752a"
+    },
+    {
+      "path": "Build/Presentation/package-taa-environment-01/native-views.csv",
+      "bytes": 80172,
+      "sha256": "362b10982ecda65a18feca1de180c8ce693dfce1ac3a9807434f4bcef6049029"
+    },
+    {
+      "path": "Build/Presentation/package-taa-environment-01/result.json",
+      "bytes": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "path": "Build/Presentation/package-taa-environment-01/runtime.engine.log",
+      "bytes": 631975,
+      "sha256": "3e62a1ee4f7319111103d9e350955a978f3add01672ce06a06120298d0f9c45d"
+    },
+    {
+      "path": "Build/Presentation/package-taa-environment-01/runtime.stdout.log",
+      "bytes": 626030,
+      "sha256": "48ee729844180425031eb4412a596b8046a963b35b1bae1e9bf281c0111219f3"
+    },
+    {
+      "path": "Build/Presentation/package-taa-environment-01/validation.json",
+      "bytes": 67605,
+      "sha256": "85d468eb8cc7e8c94afe4a80fed1f62eb08fdec315fe2305835eebcb47dfe70c"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures.csv",
+      "bytes": 1446,
+      "sha256": "d7e5f059d987fa29e58e3c4cd654064554a712c4a7edbf215944bc40728b7ac0"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_000.png",
+      "bytes": 840880,
+      "sha256": "7361410fb64feb4e19848257fa8d1af8b147294c7344fcfdf6029ecd580635f8"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_001.png",
+      "bytes": 843837,
+      "sha256": "aa6f0c8850be6fddc816dc4a1b9ec5158a949f17cc610a64ca00c75ac6516545"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_002.png",
+      "bytes": 844452,
+      "sha256": "289f981ea6a5ae4943f9b774613e1f389405c22bf7e15ca0f583a13867ba7773"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_003.png",
+      "bytes": 845446,
+      "sha256": "eac3035458e987a99742f3a982283a1fc85ff2696f00a19376911098d1c0d325"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_004.png",
+      "bytes": 840567,
+      "sha256": "13d1e10fea0782402076193560b54b627565a7da5ee4606c29878a7376b9b55c"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_005.png",
+      "bytes": 844966,
+      "sha256": "d5856db652d745a3cefb03e5b6aee1dbf09fa9ff839df7610ee8c29130190925"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_006.png",
+      "bytes": 845769,
+      "sha256": "38e70d1f68c28db4c8bd2902ca38556d15383ad91731732347a18b9506daa7b6"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_007.png",
+      "bytes": 846828,
+      "sha256": "8e0cfd672af035a84fb2e479bf531e4cccf8b335f693d5954e5fcb9671ef2a43"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_008.png",
+      "bytes": 841259,
+      "sha256": "0dbf5d12c4abd3daaaeb4fe2679b2561a5e59de2afcc1e213fad02be02b251cd"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_009.png",
+      "bytes": 846149,
+      "sha256": "05b7d597f852b292bf5316e02b24d3d407970418c4aa00c8b58ecb5f2b5796d5"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_010.png",
+      "bytes": 848784,
+      "sha256": "ce08c57b187fe81c60b2e6bde5f855086022abbc35486966d51951c03c486403"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_011.png",
+      "bytes": 855883,
+      "sha256": "05ac96a6c8dd8f80096443e4cae9385965c81c2ff204c62d4eaf96e34a780bfb"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_012.png",
+      "bytes": 852368,
+      "sha256": "981bda0f3001d87c13b766875f58bb4dec8fa330e044620a0506e17df4748c27"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_013.png",
+      "bytes": 860488,
+      "sha256": "32d4ea2be24bd151399b904a2eb67f4b775f9f32c356c0dec9d5a03b737c3f7b"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_014.png",
+      "bytes": 865757,
+      "sha256": "6f757ef93c0cbbcab57b7a923b355b407783a860c41ae578480e70fb84e94384"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_015.png",
+      "bytes": 870297,
+      "sha256": "af6ed802e08d37ad573ab26fa420d75114ab362710d716c6780d8adc60f63ea1"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_016.png",
+      "bytes": 863746,
+      "sha256": "9f293719c82db9236d171f43f6c0a9f2a48907730520c069ca21ebac492db3a8"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_017.png",
+      "bytes": 864497,
+      "sha256": "3e0889c7dd36667ee9fa90c18bed46993f768f89fcb8e71ca08212f5ed31b44e"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_018.png",
+      "bytes": 865896,
+      "sha256": "fb8550d516aeb8c1207b65000d5ee1d8ccbbb9a228b505c2eba66c077e26ad72"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_019.png",
+      "bytes": 870555,
+      "sha256": "1e9582a41fc1d56bf66980923c4044011830d8ba549d29deeb7e3bd85e9370c7"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_020.png",
+      "bytes": 867540,
+      "sha256": "89ca5f7c02498df6d0f285af77e80a751b007cd5dcf2e27b086cbbbe24ef21b1"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_021.png",
+      "bytes": 870792,
+      "sha256": "625841e2e13419724b4d53e879ad9aa88648c729f4350891b7214f812e8a2898"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_022.png",
+      "bytes": 877367,
+      "sha256": "bd94cacd0a4fd71f3080f694cc646916a7cbaae598d99856203ee352300af41c"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_023.png",
+      "bytes": 877302,
+      "sha256": "05f2dc65accf63aca4f391aeb241bc4e412455e3957f51e07c2763a46f06246b"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_024.png",
+      "bytes": 874791,
+      "sha256": "fee056e43db0335cf8711ab51b0c732a6e225b6012f660a864d85125d1aeeeba"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_025.png",
+      "bytes": 873785,
+      "sha256": "88eed21981e9c51e5c60e1ec86ac8ee6f86e7de97abe8e262073e9cc162691fd"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_026.png",
+      "bytes": 874950,
+      "sha256": "a89ecd393167a40756e9dab5f9be67a2fbd4cc605514f515374040fb896881e4"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_027.png",
+      "bytes": 877535,
+      "sha256": "cf8fed6631ba70249632209436f675e679602c99f3a956c63f4cc8ec8ce91447"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_028.png",
+      "bytes": 873910,
+      "sha256": "dba0791e53bc780913af825863cf327a5d1f93655e4d8891d19eda5daa8ff44d"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_029.png",
+      "bytes": 875837,
+      "sha256": "4b813adcc9b03674a48806444e30bb54051424467632bfafe9c37c89f1683cdd"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_030.png",
+      "bytes": 877967,
+      "sha256": "74ff79152a7a564239f292a54e9bb5c58880e8a05183eea33eaa288091ab4c00"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/pan_031.png",
+      "bytes": 879657,
+      "sha256": "442d3827056b6e124c6eb7b02c2d98dffbe5d6487519a93bbe394fb015719e95"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/static_000.png",
+      "bytes": 856974,
+      "sha256": "d8af410ed95b0832f8746dad6a7e5c8b575590328e5bf130c000c39b78a6e414"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/static_001.png",
+      "bytes": 857335,
+      "sha256": "a2b3c51baad75defbdd63097e4ca9d6af6f20e5137a8c4be9b6d9ead8fff86b4"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/static_002.png",
+      "bytes": 860260,
+      "sha256": "8a99a7b1f3781c92dc12941ae49eff0d12fb4b9b91508b3cfbc777eca514439f"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/static_003.png",
+      "bytes": 853677,
+      "sha256": "fceb365923a9489d43cbadae327da1785838057e005c89bf802b46b5c7224e75"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/static_004.png",
+      "bytes": 856757,
+      "sha256": "8ded7cb50f992c53c7b1497c3f3f683c9280ea1fdba1122911da2b62aebd8932"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/static_005.png",
+      "bytes": 856965,
+      "sha256": "a61e52a9cc519b8895c4e3aaca1643be57fc7176ab9222fd620728e35353848f"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/static_006.png",
+      "bytes": 859445,
+      "sha256": "f601fbabe801ccdfc19a20100519537d92bed98b0bab5b0209a538da7ae25e1d"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/static_007.png",
+      "bytes": 852954,
+      "sha256": "8d3342ce47c17dcfb539aeda44efd1611b82ae341247ce18d6a34b67d6bd5d81"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/static_008.png",
+      "bytes": 856306,
+      "sha256": "548774225684cac9c89b59888a2fcc62bc1f6a95215d5ca5b9cfd5040e4a0da3"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/static_009.png",
+      "bytes": 856340,
+      "sha256": "2b45d7382f09ff401ca8afd14afc58b3c0c869b8416b268c8a2efe9785450f69"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/captures/walk_end.png",
+      "bytes": 864738,
+      "sha256": "18d1a08c3c40e1b502cf93c81d24e0d44fcc7312389f7b2b41ff1d87aa03f436"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/command.json",
+      "bytes": 1949,
+      "sha256": "42eb51c81fe92ea28accb0e551e500e4197e12c34c0b11dc3700af0adc14ff0e"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/frames.csv",
+      "bytes": 137124,
+      "sha256": "304f59a2f1f9575ad4f50387080bcf040ad91cad2c00b3d75ceb0588d9ca7a19"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/isolation-mounts.txt",
+      "bytes": 6053,
+      "sha256": "4ed44118b4627bd8e4aca7f8e554a6df975ac94eb68f5d38a49f15b444aeb529"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/isolation-probe.json",
+      "bytes": 1106,
+      "sha256": "fc66c3318d803df2cf35eb51c5b43e3154e51c772a9eef8001d37e80eadade34"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/native-views.csv",
+      "bytes": 77292,
+      "sha256": "a202d92684a7a55c446b51cd64f6c5ce3915f79ec201d52a3ebaa4dcd8d4d0cb"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/result.json",
+      "bytes": 121,
+      "sha256": "fe08f61fc9b1cc95964b6cfa658e080dd4b9ea10b4778ba7a9d72ff6329125d1"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/runtime.engine.log",
+      "bytes": 562681,
+      "sha256": "69877c253c52644d01331c70989fd1ac99419bbcacb2c747ed7f06059a22375d"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/runtime.stdout.log",
+      "bytes": 557239,
+      "sha256": "d52cd5c31075f5059ed8f774e4d8ece0197c76b6fd2e3e1f5a6aa8265bcde34c"
+    },
+    {
+      "path": "Build/Presentation/package-taa-warm-01/validation.json",
+      "bytes": 76243,
+      "sha256": "b4f88ad925da61880cc901bb8ffd3eebf3dbeb14a653b14fb3387d73dbdb2f7d"
+    },
+    {
+      "path": "Build/Presentation/package-toolchain-01/downloads.json",
+      "bytes": 525,
+      "sha256": "c3a3a3474b20d53fc50779af517c1c641849564364cdb162d3f2ed7f5e32dfe5"
+    },
+    {
+      "path": "Build/Presentation/package-toolchain-01/libsamplerate-0.2.2.tar.gz",
+      "bytes": 3954784,
+      "sha256": "16e881487f184250deb4fcb60432d7556ab12cb58caea71ef23960aec6c0405a"
+    },
+    {
+      "path": "Build/Presentation/package-toolchain-01/mimalloc-existing-comparison.json",
+      "bytes": 700,
+      "sha256": "61d911b0c6fad31ca2aad190531859e1dc2d8d1d23b2a95b98b571e83fa93b6d"
+    },
+    {
+      "path": "Build/Presentation/package-toolchain-01/mimalloc-v2.0.0.tar.gz",
+      "bytes": 909032,
+      "sha256": "f6d01c178f8094a0d986642ca7fed632997a5606ddc619619225f2f8688d9232"
+    },
+    {
+      "path": "Build/Presentation/package-toolchain-02/UElibSampleRate.Build.cs.after",
+      "bytes": 784,
+      "sha256": "b615b9aaf05ca32ffd2e64b382b73a2e4f5bb427c48442a9a0a69baccf905fe3"
+    },
+    {
+      "path": "Build/Presentation/package-toolchain-02/UElibSampleRate.Build.cs.before",
+      "bytes": 385,
+      "sha256": "f5d27dab311cf7badda3599644ffe16195484a98627002c46d0a04b22c708652"
+    },
+    {
+      "path": "Build/Presentation/package-toolchain-02/commands.json",
+      "bytes": 1242,
+      "sha256": "31b51acc5628720728b91b19867f861976b5452f9c51e5176143bc2b3646c1f2"
+    },
+    {
+      "path": "Build/Presentation/package-toolchain-02/libsamplerate-COPYING.txt",
+      "bytes": 1334,
+      "sha256": "2c1f76ce2effdddb425018405d5690c0b1ab4e6976e35296b0a6db65c5e1a55d"
+    },
+    {
+      "path": "Build/Presentation/package-toolchain-02/mimalloc-LICENSE.txt",
+      "bytes": 1091,
+      "sha256": "d9f5607dce0f93055be57077d1b9545e5b14d5814d8c99d6e1d0a5eff2f74c89"
+    },
+    {
+      "path": "Build/Presentation/package-toolchain-02/step-0.log",
+      "bytes": 2204,
+      "sha256": "b7cacf13b7dd77592f9d78308630b27c0b20a7b5da89c1c591b8012d4ec14846"
+    },
+    {
+      "path": "Build/Presentation/package-toolchain-02/step-1.log",
+      "bytes": 4230,
+      "sha256": "d7213e1b5ce1771044ba037fbc9122417dcafc2cce5ba2602aadbedea8504bcc"
+    },
+    {
+      "path": "Build/Presentation/package-toolchain-02/step-2.log",
+      "bytes": 1605,
+      "sha256": "4978882224a1c894e467b69c0a5fa20c47d50a0cdd7550976be00751b9942db9"
+    },
+    {
+      "path": "Build/Presentation/package-toolchain-02/validation.json",
+      "bytes": 8836,
+      "sha256": "765ef41dfdacc529f234418a4e6661946df6aa019383ff69b2d39a0e178c470c"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures.csv",
+      "bytes": 1446,
+      "sha256": "746228969c0c3c41a191ce8fcbdd4f079a1817ef131f077d5d8ba9a331829a47"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_000.png",
+      "bytes": 941354,
+      "sha256": "8e1f3529cd62c79794a73802f35c3caedfa61b10be1ae9c79b6ef6db73bd6e0c"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_001.png",
+      "bytes": 953443,
+      "sha256": "d56b392d975f083281f7d91acf2fda027e8a83b2738e8f9bd4aa9c6679b031f5"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_002.png",
+      "bytes": 960120,
+      "sha256": "31e7e517d70ac803ad9153c60c5c8fabb4d2c523fa251cc2deb1ceff334ef63e"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_003.png",
+      "bytes": 961753,
+      "sha256": "e7b0a18561be87874a69f01a1ed133af873761c4e4afb5ea3a9837e4a563a3a6"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_004.png",
+      "bytes": 960591,
+      "sha256": "5c6e152aacbbbfaadcbf9aba345bdb6a689fc374b66d94aed18fb8ca39a04166"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_005.png",
+      "bytes": 965694,
+      "sha256": "5e6539ea42ed709d2024a3fb198058bb1dd5f76954b82c5eff3d2fe2698a15fc"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_006.png",
+      "bytes": 967936,
+      "sha256": "6cd78965084920a547c3419fa9ee8e87a90ca964b04e793337e860ec3e072dea"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_007.png",
+      "bytes": 968004,
+      "sha256": "95e51b7cea82913be7f154bd5e2abfc7d2bfb5e248e1be8087a2f75e820e464f"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_008.png",
+      "bytes": 970163,
+      "sha256": "4fe148428bcf03a3765878783ab0f794789354a88e42f25820f5acb900d21bd2"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_009.png",
+      "bytes": 968097,
+      "sha256": "5048b5e0ff8224653c298f5eec72bc1b13e0dffe9bca0aa44fcdc21886c1e541"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_010.png",
+      "bytes": 972028,
+      "sha256": "c268af0bfbdca1fadc321b2ca5b48c053934c4cc3bb724aa744413833c229003"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_011.png",
+      "bytes": 976668,
+      "sha256": "82efc8b6072d35a8ff09cf09c457a31921500ed8bd8673ed03d09fcc2e33c89b"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_012.png",
+      "bytes": 980215,
+      "sha256": "fd596eff51c89d7cd4616caf35012aff93f827aaeccab908dfb750c96e2510a6"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_013.png",
+      "bytes": 989585,
+      "sha256": "26c8b0db1dc22f2264ac20cf52eb071c067ba9ef5ea3fa4cc492d413243739b3"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_014.png",
+      "bytes": 989254,
+      "sha256": "bbb54dca7035355999c24d71671f1606084e44336c341ad43554fad510d300d8"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_015.png",
+      "bytes": 984802,
+      "sha256": "4e113ac97046845a80cea054bb79002af731ec28410ed9d7b9ce5f28e1a3d527"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_016.png",
+      "bytes": 987689,
+      "sha256": "d67afaf6968326cf02d10968208d7c738e55015cda4461347d06f230d3031748"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_017.png",
+      "bytes": 991683,
+      "sha256": "3c69257174a305c8f4456a6780e9de64dd6ead434c1525869bdc0ef71c166334"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_018.png",
+      "bytes": 994115,
+      "sha256": "de71571507cba8a8eace4743d970daf73085d101b03e6fe803adbb1f086082cd"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_019.png",
+      "bytes": 994057,
+      "sha256": "53fc07a6366944d1a262bb9fc8e783673f17e2b8c88fdd316498b8c956bf04dc"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_020.png",
+      "bytes": 995312,
+      "sha256": "e5d9c97b20a4485cce6ef4e42d133d1860ce5db5215d044809cbcb915532f37c"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_021.png",
+      "bytes": 998742,
+      "sha256": "847a0743668e0990a8735d92e7471870126cdc4c91f81c6b94a7ae8a91f907df"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_022.png",
+      "bytes": 1000598,
+      "sha256": "84721b3547c6f7f50c9189a0023204f4023217d6e59adc3ea9aae8d8a6334a96"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_023.png",
+      "bytes": 995270,
+      "sha256": "81db34a0c8bfb18e37fb1b297f460ba340b89331e7c4398057248e0b4ab17727"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_024.png",
+      "bytes": 999269,
+      "sha256": "009b9e87cd97a9637fc3ce6afccae4697575b18eca0a6d2f4114fff0c15a5ae1"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_025.png",
+      "bytes": 988575,
+      "sha256": "d0a8c44ed276666b14cfd41434b41629f6b8d90f492005b542194e149abcb221"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_026.png",
+      "bytes": 982085,
+      "sha256": "755a11b69d6c81ff8eec71ccc524fce6c8e03eee939da0ea7cbecddbaf55ffd5"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_027.png",
+      "bytes": 977854,
+      "sha256": "c956c9bc4fd1550e83f1b5e689ff429838502d977f5f9a6d66d861407729e50b"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_028.png",
+      "bytes": 978519,
+      "sha256": "97b589e6f8688acbf74cc362e1d33f2302a509c5792e63dac4708848a0611c8e"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_029.png",
+      "bytes": 978183,
+      "sha256": "3c9ff4268c9d1df888aecf2742ff2d6cd830f6fb16ca7404adc5fc71168b68eb"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_030.png",
+      "bytes": 975586,
+      "sha256": "a5f3397973858f4bd73155c7044de415b18a958e5293b966b60e0df7eb331b12"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/pan_031.png",
+      "bytes": 975021,
+      "sha256": "8de3e62eb7f4649a8bab86ff8960ad0450eb2155735be50cb9e15bed32d61443"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/static_000.png",
+      "bytes": 947941,
+      "sha256": "826c4f377d57b286548c62166962edbd640ef83cbb413d35737a51def47b4f6d"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/static_001.png",
+      "bytes": 947270,
+      "sha256": "38e8f2c7b96cede701d9cfaee42b512e977ba666dcd1878affc6630637ff3ce6"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/static_002.png",
+      "bytes": 947425,
+      "sha256": "a1c80a30f078864d21d49e710efacf76631560241824c5d7475c7267cde965e5"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/static_003.png",
+      "bytes": 947623,
+      "sha256": "75063a2c7fe016b4a547b823fc4483d924bd8e1d360f9752dedd2af10226fb9e"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/static_004.png",
+      "bytes": 948248,
+      "sha256": "e744bab4807eeef776755afdf77caa8c0bc6dd8e5c667e8caa8a1fdf11b332af"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/static_005.png",
+      "bytes": 947690,
+      "sha256": "40f591e0a29d288cdb6b66482ae2e483a44fe0e48426f720f2c44e90b9494ca3"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/static_006.png",
+      "bytes": 946719,
+      "sha256": "3d627c89f6cf290f2c471be46560bfc8f0def186c667148c80ad9ceb62833c45"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/static_007.png",
+      "bytes": 946779,
+      "sha256": "6c8d0627a536be1a454258b7b812da3f737803823146381440c2bc9c42c6c642"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/static_008.png",
+      "bytes": 948072,
+      "sha256": "fc1974c97d1379bdc0c67b93ed7850c6c1e9cfc50a1e65a75035163411c00bf3"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/static_009.png",
+      "bytes": 947842,
+      "sha256": "427bd427479e0028cb7b6739577a168e43b04b8925d2cc99ccd1ead646040a28"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/captures/walk_end.png",
+      "bytes": 987199,
+      "sha256": "51b4d67e67ef73c741eff64d4830a20bb96038145a5692c27a4137d8b5cc3b06"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/command.json",
+      "bytes": 1953,
+      "sha256": "63eb865ab662d3a13ae9f76a47d3f5abaac3a020cee98f642149673677c8b44e"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/frames.csv",
+      "bytes": 132812,
+      "sha256": "b9f79a6ce19586230333d2fbd117617648481703fb7abfb6f994610157493d4d"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/isolation-mounts.txt",
+      "bytes": 6053,
+      "sha256": "13a127724874b5c3731e206cb528888a7b3aa53d78edd5202a9e98c300ca28aa"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/isolation-probe.json",
+      "bytes": 1110,
+      "sha256": "bfe04bbcd07277a63611cfc6e111cd99d134058c88bd4fb9a0965a8bbedecff7"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/native-views.csv",
+      "bytes": 74457,
+      "sha256": "0f39a337531621798d5058d1850ca3dedbabe56d3a4dcc7f6bf77a6eb092f82e"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/result.json",
+      "bytes": 121,
+      "sha256": "3f454f7185c888c5da243a69ea7b6c9b00078a0c94855c0214202ba3c303778b"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/runtime.engine.log",
+      "bytes": 804466,
+      "sha256": "37dd945484a7a4b4e2eefee31bbe83899f7a5fbb0ff1e3b666cd3c3106bab7e0"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/runtime.stdout.log",
+      "bytes": 796932,
+      "sha256": "dbd272d8f3efb4db83719ce4213bd16001c9b387f45e2e86beadc7a8f67d635d"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-cold-01/validation.json",
+      "bytes": 215829,
+      "sha256": "c113822100cdf8b7e57e84daa86a400f38d65363c6e8dca3a31ff72c7f929589"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-environment-01/captures/hazard_active.png",
+      "bytes": 1040606,
+      "sha256": "b7631b5b67571a404501d663ec3ee91229eed79f6406282dece3311f9c4b477c"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-environment-01/captures/panel_damaged.png",
+      "bytes": 979618,
+      "sha256": "4a40170c56d7aeb4a100ef27fdf4560924d5fe8f483d618d2ff6701cf6ecca5c"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-environment-01/captures/panel_destroyed.png",
+      "bytes": 980200,
+      "sha256": "1f88b5e02d59660069de69b075431ed28493e48e97679a113d508e840dbfbf96"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-environment-01/captures/stream_return.png",
+      "bytes": 991703,
+      "sha256": "aa4fc8fca695952ff224685863de37fc885566f62fd193d172e558eb350950d6"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-environment-01/captures/switch_safe.png",
+      "bytes": 988439,
+      "sha256": "d966724fbcdc301b64bd5a8e13b002d1de793e2b81be5d203f4fc1c871f8fe79"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-environment-01/command.json",
+      "bytes": 1963,
+      "sha256": "7b800d70a569cb5887debffc15b874a91fd95bf9cd5860db96f61be013dc648f"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-environment-01/events.log",
+      "bytes": 1703,
+      "sha256": "c2db8ca36852d3ca4735aa0bd0215c7b0a82a893184f1cb8e2c4f6510dee6650"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-environment-01/frames.csv",
+      "bytes": 167267,
+      "sha256": "5b5fabb0a15656872c82e9691c7dd0d3141d619f0c2953f09c2afb23985304ed"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-environment-01/isolation-mounts.txt",
+      "bytes": 6060,
+      "sha256": "ef42497418945eed0e2be25c3414dcb797f451564580b5359199c7b131c115cf"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-environment-01/isolation-probe.json",
+      "bytes": 1113,
+      "sha256": "d7451014fa8440f56f10a515f132d9cc9af2eae812c621ad3eff66629865ae1f"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-environment-01/native-views.csv",
+      "bytes": 79992,
+      "sha256": "bac764d08fb439980d22e4b675a4ee97c9aaa85a7c66c9525fbd9f26d016b5fa"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-environment-01/result.json",
+      "bytes": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-environment-01/runtime.engine.log",
+      "bytes": 632621,
+      "sha256": "68f22f66705d9cf5f99ad331ce603b0bf743519dcf3963205367e470898c594b"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-environment-01/runtime.stdout.log",
+      "bytes": 626686,
+      "sha256": "bdbca68362c13b64856d672f40d8711a5c85d391f003001954373638f6bbc148"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-environment-01/validation.json",
+      "bytes": 69078,
+      "sha256": "c207216b5a5e422fb76a3839283f5671a5fefb8eddffb9fc3fe822f237d32fcf"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures.csv",
+      "bytes": 1446,
+      "sha256": "4e3d8e071a1b5675a291af60af77c9e5152ef265ad28eeb5092354e7986ba480"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_000.png",
+      "bytes": 940663,
+      "sha256": "79f4ec9ddac2b972a329ff7716d095ed8d711d131bdc99ce75e727245ca248ba"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_001.png",
+      "bytes": 954090,
+      "sha256": "524e18270b03450048d5ae6e5a7aba2f96328bf0e1983cc6e3c6608564d7a4ff"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_002.png",
+      "bytes": 957239,
+      "sha256": "77d3f030931bedc45e14fd0f579dcad6608bf3b490498e416caef13f74ba2d80"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_003.png",
+      "bytes": 963777,
+      "sha256": "7dd469d0d32eeceee5e9f1c741eda8736ba99585c890994218a1c62190f45667"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_004.png",
+      "bytes": 964233,
+      "sha256": "2b891923e79174546d4f29280b51243544ad3b8439cfa8a918f698014b323dbd"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_005.png",
+      "bytes": 965237,
+      "sha256": "3880516c6f940602f63199120df58a5ce73082f1147ad540d5467fe09ec21265"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_006.png",
+      "bytes": 967423,
+      "sha256": "82e805ce7dd9aeb3a9a01bab1e5b331e34e675a2044a8ad30b0c8dbeb0837ea3"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_007.png",
+      "bytes": 964096,
+      "sha256": "95e2a85a360948611af97e9a70f7ec8cde12b5a459954f235970363d9747937f"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_008.png",
+      "bytes": 968440,
+      "sha256": "f40a6f9c207fca7e42b705a497725015b506af07178ddc5867edf90610bae8bd"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_009.png",
+      "bytes": 972077,
+      "sha256": "eb0889f95c40c1a21c5b8252e7a165c6c48b975049b6c0972c11122c08d3c933"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_010.png",
+      "bytes": 970636,
+      "sha256": "417648fa6fb9d7f0c6cc2c45e02a568358209e06c7f54ad99c5467dad5f9e9a7"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_011.png",
+      "bytes": 975590,
+      "sha256": "70b513e0e49ce7f2cb15030514f55866137f63a7d218be5f3d3e52a2ba33feb7"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_012.png",
+      "bytes": 979351,
+      "sha256": "c7d86a2409bbb9f4cd8a494abb9762018e35d5f0f596d9c86544dfa32ca8d61e"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_013.png",
+      "bytes": 983168,
+      "sha256": "7c694d79662c431969944894e9f8cd2f0e81380e6c02164d0ca2c1f58a5d83c8"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_014.png",
+      "bytes": 990682,
+      "sha256": "74c9befe38bc943718d6dd67ed155b935ea5c974d4fa60a1827bb82d494b8abc"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_015.png",
+      "bytes": 992535,
+      "sha256": "eba664394cf13f0c7e6e1704bd620e198f0d7e62bf9e5de034eae5bede2f6753"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_016.png",
+      "bytes": 991227,
+      "sha256": "99fa5a6ad241f0d6ad3587579fad2fc40c46bc763620934cdad18380ac3fd9ad"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_017.png",
+      "bytes": 990580,
+      "sha256": "7624f9f7f5e8694c88b036d8ee28d363f1da1af77e8503f80f6c96783315f0e6"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_018.png",
+      "bytes": 989551,
+      "sha256": "908af901197b76a76c52cfa5e67479162fa430b0dfd6255c883bcc3af8b209c9"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_019.png",
+      "bytes": 993259,
+      "sha256": "2e154582036235a81cb2559cb62a38db04ce4fb4f7faafa272f978f88876827e"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_020.png",
+      "bytes": 995232,
+      "sha256": "aadef8ca30954052eff1646643c388405681d65bbd267f1cecfb3602e567be80"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_021.png",
+      "bytes": 996709,
+      "sha256": "327e0a33c2d2b0c1ea3a2847ca01856bb51e70facc77de46f949d95d8b8d7432"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_022.png",
+      "bytes": 997306,
+      "sha256": "b4ad98de21ca30d6d1a80ca7887308de13fdbf6c3b7e8b074c6c4dedad8a4263"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_023.png",
+      "bytes": 997163,
+      "sha256": "23684377f565d76c420be088355f94bcd8188bc5537d35f5fe98a9660bd2cc42"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_024.png",
+      "bytes": 996275,
+      "sha256": "25b7fda6568b0e915d5fda3efc546fcd03a28ae0d9f015a53643809644c2cd5c"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_025.png",
+      "bytes": 999784,
+      "sha256": "04678dbac2d11e0ddffb659a42cade824291c0de895860df8a621072bb9cd29e"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_026.png",
+      "bytes": 992292,
+      "sha256": "81b84601da9bc9baed5c9ca8922ecf594880b25b7b8c7dc94e2b0eda5ad373b0"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_027.png",
+      "bytes": 985149,
+      "sha256": "db905ab61f6ac8e07fab6220dde609bb702606550d37c92c327d6eebaec0cd9d"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_028.png",
+      "bytes": 981869,
+      "sha256": "0785c0cea7df89b70e4d41b11aad96eec542faac395da94a0b08239430efc6dd"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_029.png",
+      "bytes": 979986,
+      "sha256": "583f76b8c28d772d563252024673913d6f081bbede6606d6d377712b6be4806f"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_030.png",
+      "bytes": 978448,
+      "sha256": "4cecce1e52f5604c29d66869f4188e77632c2bdbc5eac938a0fb0b4fa1684d48"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/pan_031.png",
+      "bytes": 977249,
+      "sha256": "6deb3fb9b95909322833a5b834fec0563666932de458ec3aa1d941b570106673"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/static_000.png",
+      "bytes": 951036,
+      "sha256": "991fa4d7dcdfc8768b0b47bb7c21c4f2e5460a3c8e22a9c06a6500f66bea7006"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/static_001.png",
+      "bytes": 951847,
+      "sha256": "b908fdd8ddb3b5e0575715a49a4fae2afb4be463f38ceb4a2aaebb3e6c96e3d0"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/static_002.png",
+      "bytes": 951021,
+      "sha256": "855718b2c1d1e698e583ad6f3e59c03d9f4b4c7d5a808c9154f02e546efb8b67"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/static_003.png",
+      "bytes": 951591,
+      "sha256": "a616a0946e29f4f9c6ab592445882afb862905bdd4fba352eeb28164dba3056b"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/static_004.png",
+      "bytes": 950978,
+      "sha256": "cb4c207a28b136f908308f0d1857022740bf3373c1761626c0d5f4f99e892f43"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/static_005.png",
+      "bytes": 950994,
+      "sha256": "1b1c01102a9183fb5ea89bcfc8cd6222d181cc026b65eb398456dacc391d0c7a"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/static_006.png",
+      "bytes": 951334,
+      "sha256": "2039add2c376a9a1488295530f076992984be0fc08435293985533312213c27d"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/static_007.png",
+      "bytes": 950650,
+      "sha256": "dbfc82a14efdf481b7118ac204bfa47b4db82f3d1ac45197b4724344b20af1db"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/static_008.png",
+      "bytes": 950784,
+      "sha256": "0b8592fef30774a4af23c5005cbfc757aab46a45731d8b4fb1426bbab9a88430"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/static_009.png",
+      "bytes": 950981,
+      "sha256": "ee676b27b1dbca116947d1657a4b18716ac4a363143bb0b7a78cfccb9231f10d"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/captures/walk_end.png",
+      "bytes": 983737,
+      "sha256": "9d22e8b1b85698da0c10740656d9e34b47a9b6704a546fe49543040cca296f22"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/command.json",
+      "bytes": 1953,
+      "sha256": "00f4337492dc2ea155094379ea7ec8b927e1d8361982bb7c96a53343d6f46101"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/frames.csv",
+      "bytes": 131634,
+      "sha256": "97ce57712250308192d2420f53a4e8363d7530acbebe6feaa250f17aa21d740f"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/isolation-mounts.txt",
+      "bytes": 6053,
+      "sha256": "ff362329f273006104b0258df6a6b86b7a031fc9fd000d88addbf3bc742499da"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/isolation-probe.json",
+      "bytes": 1110,
+      "sha256": "bfe04bbcd07277a63611cfc6e111cd99d134058c88bd4fb9a0965a8bbedecff7"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/native-views.csv",
+      "bytes": 73737,
+      "sha256": "f87a2e84133d08d38a2d13c6b67430608246a0fa79f76750e822fdb83b49608d"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/result.json",
+      "bytes": 121,
+      "sha256": "6e909489c5c0c6c73840ab9347338267b872027db0725ed95f9e5780d12b3784"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/runtime.engine.log",
+      "bytes": 559987,
+      "sha256": "194074f2ac83f49dd64f172db30f452586222db9270ffe2de0dfc62cbccdd882"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/runtime.stdout.log",
+      "bytes": 554570,
+      "sha256": "c8edbeaa04c26625d877e269b05a8007d087499df614a1acc22222b6b0149362"
+    },
+    {
+      "path": "Build/Presentation/package-tsr-warm-01/validation.json",
+      "bytes": 70733,
+      "sha256": "ef7b63123c6277acc6338ef02a63f801aa0e93a42ced9132980a735e483c0d53"
+    },
+    {
+      "path": "Build/Presentation/package-visual-review-01.json",
+      "bytes": 2234,
+      "sha256": "006037bca0941018a98c4d0415d4fbe89e88f1b2f97e80eb0aa8e9c994b050cf"
+    },
+    {
+      "path": "tests/build_d03_01_game.py",
+      "bytes": 3975,
+      "sha256": "622056da472b1c2369ab9a029f50c3185b874ce2b7b67afb6cd7fb7ee3e86d4d"
+    },
+    {
+      "path": "tests/cook_d03_01_package.py",
+      "bytes": 5948,
+      "sha256": "c6e7bd7c0f560d31e8e15fca26e5de6b946b86b497f6fc3730a1a65b4c0af5bb"
+    },
+    {
+      "path": "tests/d03_01_package_isolation_probe.py",
+      "bytes": 1561,
+      "sha256": "1dd068ab83238fd7cdbc7a13ebb5887e7c6f7ca4e4a8e82b32eaf4dc710f522e"
+    },
+    {
+      "path": "tests/negative_d03_01_package.py",
+      "bytes": 9161,
+      "sha256": "494f5a105fc5a0f80d0a75c5814d2462d1d0dc5024adac87f30ac6b4673d905d"
+    },
+    {
+      "path": "tests/repair_d03_01_cook_config.py",
+      "bytes": 4388,
+      "sha256": "0463b4a37bc6bbc696093129eef979b8ffa36c4835754ba70265895729c2835e"
+    },
+    {
+      "path": "tests/repair_d03_01_engine_dependencies.py",
+      "bytes": 6023,
+      "sha256": "a690795e3acd7fef938b029e03a954db41fa399f5f4422807d7bbb8ef66708be"
+    },
+    {
+      "path": "tests/run_d03_01_package.py",
+      "bytes": 9518,
+      "sha256": "87a59d51fe07dfa0253b3911f86e02c04dcc96c12043752c89401a418904a1b1"
+    },
+    {
+      "path": "tests/stage_d03_01_package.py",
+      "bytes": 6659,
+      "sha256": "a79c4420237b980eedcd0eb3331676cd00e14d80b876a893cff2f4e6b56935f9"
+    },
+    {
+      "path": "tests/verify_d03_01_package_lineage.py",
+      "bytes": 7152,
+      "sha256": "f1f88c26576b097745101d7e0f92d550c610b07aa796ce826f5621c66048a1b6"
+    },
+    {
+      "path": "tests/verify_d03_01_package_series.py",
+      "bytes": 4881,
+      "sha256": "60e928ac714807d1d0e616616d29c46c4c8a829fccf5fa52c91f719000a96253"
+    }
+  ],
+  "manifest_self_excluded": true,
+  "publication_owner": "Auto Feeder",
+  "external_canonical_artifact": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-package-01.tar.zst",
+    "sha256": "06510221abdcfa88e7fbb73dcbf31bb34de839101649aa83ffde2c3c1722b14a",
+    "bytes": 371811200
+  }
+}

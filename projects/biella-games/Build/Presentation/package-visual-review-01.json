@@ -1,0 +1,37 @@
+{
+  "task_id": "D03-01",
+  "status": "BOUNDED_VISUAL_REVIEW",
+  "capture_status": "GENERATED_DRAFT",
+  "reviewed_at": "2026-09-06T15:08:39.603412+00:00",
+  "images": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-tsr-cold-01/captures/static_000.png",
+      "bytes": 947941,
+      "sha256": "826c4f377d57b286548c62166962edbd640ef83cbb413d35737a51def47b4f6d",
+      "observation": "Player, HUD, road and curb remain readable; simple gray buildings and black empty world margins remain visible."
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-tsr-environment-01/captures/hazard_active.png",
+      "bytes": 1040606,
+      "sha256": "b7631b5b67571a404501d663ec3ee91229eed79f6406282dece3311f9c4b477c",
+      "observation": "Orange floor hazard and red character hit flash remain distinct; health70 and hazard state readable in the shared playable scene."
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-taa-cold-01/captures/pan_016.png",
+      "bytes": 868110,
+      "sha256": "30bae4bfde33834d6a1aabb4a92ee588d505881c11a03c770411f639faa45014",
+      "observation": "NativeTAA pan sample retains player silhouette, curb, lane marks, shadow and legible HUD; buildings remain blockout with exposed empty margins."
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-taa-environment-01/captures/stream_return.png",
+      "bytes": 897970,
+      "sha256": "de4606df795c2940dd99e3ed66229c0ef32fe8bcb9ca66e5037714d8821f1923",
+      "observation": "Returning streamed hazard presents orange powered bars and switch, destroyed panel/debris, active interaction prompt and health64/ammo58; scene remains blockout."
+    }
+  ],
+  "limits": [
+    "Selected native still captures and gross frame-delta measurements do not establish fine ghosting, disocclusion, particles/reflections, high-speed camera or final art acceptance.",
+    "All runs use Linux Development Vulkan SM5 at1280x720 on onehost; no generatedframes.",
+    "Requested Nanite/VSM console values are not evidence those paths execute on SM5."
+  ]
+}

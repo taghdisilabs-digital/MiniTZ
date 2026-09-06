@@ -1,0 +1,1201 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "revision": {
+    "head": "5540538b22cab63b094f9ba4c2070af88427adf6",
+    "head_tree": "fa23a7babfb933404fb31b2e5e64167cce2a7c1b",
+    "project_status": [
+      "?? Build/Presentation/package-build-01/",
+      "?? Build/Presentation/package-build-02/",
+      "?? Build/Presentation/package-build-03/",
+      "?? Build/Presentation/package-cook-01/",
+      "?? Build/Presentation/package-cook-config-repair-01/",
+      "?? Build/Presentation/package-design-01/",
+      "?? Build/Presentation/package-stage-01/",
+      "?? Build/Presentation/package-stage-02/",
+      "?? Build/Presentation/package-stage-03/",
+      "?? Build/Presentation/package-stage-04/",
+      "?? Build/Presentation/package-stage-05/",
+      "?? Build/Presentation/package-stage-06/",
+      "?? Build/Presentation/package-stage-07/",
+      "?? Build/Presentation/package-taa-cold-01/",
+      "?? Build/Presentation/package-toolchain-01/",
+      "?? Build/Presentation/package-toolchain-02/",
+      "?? Build/Presentation/package-tsr-cold-01/",
+      "?? Build/Presentation/package-tsr-warm-01/",
+      "?? tests/build_d03_01_game.py",
+      "?? tests/cook_d03_01_package.py",
+      "?? tests/d03_01_package_isolation_probe.py",
+      "?? tests/negative_d03_01_package.py",
+      "?? tests/repair_d03_01_cook_config.py",
+      "?? tests/repair_d03_01_engine_dependencies.py",
+      "?? tests/run_d03_01_package.py",
+      "?? tests/stage_d03_01_package.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "stage": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-stage-07/validation.json",
+    "sha256": "4c78648123a979fbc3d6bb62243fa9c28e2f5a5c75711643d4deb49514e94f58",
+    "bytes": 20619
+  },
+  "profile": "NativeTAA",
+  "scenario": "surfaces",
+  "phase": "warm",
+  "state": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01",
+  "trace": false,
+  "capture_status": "GENERATED_DRAFT",
+  "state_before": [
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/home/.config/Epic/NotAllowedUnattendedBugReports",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/home/.config/Epic/UnrealEngine/5.8/Saved/Config/Linux/Manifest.ini",
+      "sha256": "e706d6c7c899d8d28e83512d7f29946334086c4a6eaf56f790bf0010e7df1e9c",
+      "bytes": 22
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/user/Saved/Config/CrashReportClient/UECC-Linux-01A077314D0F76F1BBB6FF6A2642509A/CrashReportClient.ini",
+      "sha256": "b85bb31b225042d5175a8b4240162c29c5dfc294686e1926528fd0ab00346ac4",
+      "bytes": 256
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/user/Saved/Config/Linux/GameUserSettings.ini",
+      "sha256": "1bece9165c83e37cc208622493193a60a51b8d1b62678de56bc56233133b7f88",
+      "bytes": 1327
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+      "sha256": "4c537a8c7b90c3269a6e7e8c7622aef71435b1e29d4aa60e0b9b7ed7b6198346",
+      "bytes": 70379359
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+      "sha256": "ea8217b0229f33d7379f59f32c4dc8471a9aaa03a8a5e8792e82a1adbc08e449",
+      "bytes": 156192
+    }
+  ],
+  "inaccessible_host_roots": [
+    "/opt/unreal/UE_5.8.2",
+    "/root/biella/repos/biella-engine/projects/biella-games",
+    "/home/unreal",
+    "/mnt/biella-extra/biella-runtime/d03-01-package-01"
+  ],
+  "inputs_before": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_package.py",
+      "sha256": "87a59d51fe07dfa0253b3911f86e02c04dcc96c12043752c89401a418904a1b1",
+      "bytes": 9518
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_package_isolation_probe.py",
+      "sha256": "1dd068ab83238fd7cdbc7a13ebb5887e7c6f7ca4e4a8e82b32eaf4dc710f522e",
+      "bytes": 1561
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_reconstruction.py",
+      "sha256": "817cd34cf1830029b582417737891181ea915f1d5cc57cc9672d8d106a8dbfc5",
+      "bytes": 2655
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_surfaces.py",
+      "sha256": "28e0dbb3a5e4e6a0a86d2a1e5090d663cf34042322f74092c2bdeafd0cff5657",
+      "bytes": 4658
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py",
+      "sha256": "3dc712f5342117fd6b693d9ae2183a4785316ce54e97f108d2d75b1f6c8d9eaa",
+      "bytes": 3419
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_048.py",
+      "sha256": "244a00703f2105cad67af2bf520b3b4b59e068862873da3b9a016fbad4738e09",
+      "bytes": 9002
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+      "sha256": "331528af104d262d1c4926228f894b63f9cb6ead502d4d916cd56129c59c62a7",
+      "bytes": 10991
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_039.py",
+      "sha256": "9df5e5188444a8dba455768ceed3915c44796a6e9897dd89a1e96d7147b610e8",
+      "bytes": 9977
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_042.py",
+      "sha256": "e33a0217afd1be480091c9e5639a8cb0237cc27b601434fa8adfcdcd6c373fd9",
+      "bytes": 9820
+    }
+  ],
+  "archive": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-package-01.tar.zst",
+    "sha256": "06510221abdcfa88e7fbb73dcbf31bb34de839101649aa83ffde2c3c1722b14a",
+    "bytes": 371811200
+  },
+  "scope": "Linux Development packaged Vulkan, task-isolated user caches; OS page cache is not flushed; no generated frames or cross-hardware claim",
+  "package_before": [
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/BiellaGames/Binaries/Linux/BiellaGames",
+      "sha256": "2e48ab1a23259011b015710231f335bc277ca8eb058e3552340fb2ae67b12e7a",
+      "bytes": 298959360
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.pak",
+      "sha256": "0729e5e07eee5c66bfe53a545ea95c6b974879695b3ec5c58e2619ab3a5c7a75",
+      "bytes": 10437766
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.ucas",
+      "sha256": "58a6acb7daa0320e14618ded43dad80d6b017275cc0a02c12d2c6f487d357d96",
+      "bytes": 189973840
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.utoc",
+      "sha256": "76607e7157d8c7f8c6b0a629f577e09217a8547d7819de5bf695175e11c527f6",
+      "bytes": 174971
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/BiellaGames/Content/Paks/global.ucas",
+      "sha256": "1d9631d0495adcea4e08f421291ba1d31375b85fac0d436270fa7d80ec7726ff",
+      "bytes": 3203520
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/BiellaGames/Content/Paks/global.utoc",
+      "sha256": "459adccc121b57e96a7e97a741dc878f96ebdf562a72be61349d398d80aaa4f3",
+      "bytes": 782
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/BiellaGames.sh",
+      "sha256": "0f758fc1d431fca29cae27ecf35820d9ea70864532c0959f2d578e5216f68c46",
+      "bytes": 258
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so",
+      "sha256": "51aec15c714c5d96969f6a7608cdefc5c163e7fec0b2e0974ec1382380d11c5e",
+      "bytes": 23
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so.2",
+      "sha256": "ed3698c20005885c61a20f04ba772e329f67855713f5fecb26152a8f949ad280",
+      "bytes": 9715408
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_api_dump.json",
+      "sha256": "4616e485e4dacaa8c1ef365fed23d2c117e8848148720a7acea70c96cb975179",
+      "bytes": 12512
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_crash_diagnostic.json",
+      "sha256": "77b6e62bc24994b056e316aa0bd5e056e8ff0dfa377ef1e0ec5b291a181b6a88",
+      "bytes": 9170
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_gfxreconstruct.json",
+      "sha256": "93065b7975a70a250569bfce2ee655bf6bc188a7844204d2c37700a770afb02e",
+      "bytes": 26755
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_profiles.json",
+      "sha256": "88deb508a3d16131cd747335063826a31f237e024f396542c05908b44760b895",
+      "bytes": 69029
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_shader_object.json",
+      "sha256": "1c6dd4b56db0e2dc4a7eb1e44e7ad933f399685436c644add05dadf4258e6b1d",
+      "bytes": 4356
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_synchronization2.json",
+      "sha256": "307c8b906289b7a3329fb44137dd3af595d91f26e5bde9cff1b4280801a45139",
+      "bytes": 1860
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_validation.json",
+      "sha256": "328861629130912c27f1db4f2be4fa3d64608ca7edf6f3d886c09cb5856834cc",
+      "bytes": 94443
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_api_dump.so",
+      "sha256": "1b9871125c6f9afb2b0f09adbe3af3049a20837dca80ccea5d642be4dec31474",
+      "bytes": 109065264
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_crash_diagnostic.so",
+      "sha256": "99dda3ecafd809f0de42453536a2ea6299ac6216db9352e301065542e6685fbf",
+      "bytes": 13228088
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_gfxreconstruct.so",
+      "sha256": "2e8397383a72eb200e99a560a2b58947b8a0dc6cef3d1fe67245674df0d9e546",
+      "bytes": 99440744
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_profiles.so",
+      "sha256": "e2e9422a15730cd14904a0d27bbd7d463b5598fc7ffa1744d14fc47ce0dc87bf",
+      "bytes": 2226960
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_shader_object.so",
+      "sha256": "da3db6756cccaf502dab09a3de0cece49168654f7735612bb51f7555ef9f7cda",
+      "bytes": 4174536
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_synchronization2.so",
+      "sha256": "daa4bf2da5600deeff440b4c98fc3d68ba04121fdbb2f21d3463126c8d0a2c99",
+      "bytes": 5290240
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_validation.so",
+      "sha256": "cbecbd0d82217a789a3c3e1493cc60cb7cc036df8f22a0501af9b8ca23342e81",
+      "bytes": 37821704
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libvulkan.so",
+      "sha256": "d59b6a2b184887fb6eddea3dd754bd2f5b59abc647577c3cd71bb530213ebbb0",
+      "bytes": 4210872
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Config/StagedBuild_BiellaGames.ini",
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "bytes": 3
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Content/Renderer/TessellationTable.bin",
+      "sha256": "edc4f3b628a139c5e185bbaeca661c95c1f427368d3b92892c5cff36c56dd941",
+      "bytes": 259568
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c",
+      "bytes": 22146944
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so.1.24",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c",
+      "bytes": 22146944
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Manifest_NonUFSFiles_Linux.txt",
+      "sha256": "1ba3446823c56e2ca94ac85fd67d5f3b06f2c9f373cab6479ca566e73309a475",
+      "bytes": 2105
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Manifest_UFSFiles_Linux.txt",
+      "sha256": "be735bb0583a6864e352c943143615d259335e54be7db350634d6b8937d4e462",
+      "bytes": 225315
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/NOTICES.txt",
+      "sha256": "ba49ae5586f817b36a2772269f71f899cb1f54b5f2720fad951319edd5e140b8",
+      "bytes": 111
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/ThirdPartyNotices/libsamplerate-COPYING.txt",
+      "sha256": "2c1f76ce2effdddb425018405d5690c0b1ab4e6976e35296b0a6db65c5e1a55d",
+      "bytes": 1334
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/ThirdPartyNotices/mimalloc-LICENSE.txt",
+      "sha256": "d9f5607dce0f93055be57077d1b9545e5b14d5814d8c99d6e1d0a5eff2f74c89",
+      "bytes": 1091
+    }
+  ],
+  "runtime": {
+    "command": [
+      "bwrap",
+      "--die-with-parent",
+      "--ro-bind",
+      "/",
+      "/",
+      "--dev-bind",
+      "/dev",
+      "/dev",
+      "--tmpfs",
+      "/root",
+      "--tmpfs",
+      "/opt",
+      "--tmpfs",
+      "/home",
+      "--tmpfs",
+      "/mnt",
+      "--tmpfs",
+      "/tmp",
+      "--chmod",
+      "1777",
+      "/tmp",
+      "--tmpfs",
+      "/var/tmp",
+      "--chmod",
+      "1777",
+      "/var/tmp",
+      "--tmpfs",
+      "/var/cache",
+      "--tmpfs",
+      "/run",
+      "--unshare-pid",
+      "--proc",
+      "/proc",
+      "--unshare-net",
+      "--unshare-ipc",
+      "--ro-bind",
+      "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux",
+      "/tmp/package",
+      "--bind",
+      "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01",
+      "/tmp/state",
+      "--bind",
+      "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/home",
+      "/home/unreal",
+      "--bind",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-taa-warm-01",
+      "/tmp/evidence",
+      "--ro-bind",
+      "/root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_package_isolation_probe.py",
+      "/tmp/probe.py",
+      "--chdir",
+      "/tmp/package",
+      "--",
+      "runuser",
+      "-u",
+      "unreal",
+      "--",
+      "env",
+      "SDL_AUDIODRIVER=dummy",
+      "XDG_CACHE_HOME=/tmp/state/xdg-cache",
+      "XDG_CONFIG_HOME=/tmp/state/xdg-config",
+      "python3",
+      "/tmp/probe.py",
+      "xvfb-run",
+      "-a",
+      "-s",
+      "-screen 0 1280x720x24",
+      "/tmp/package/BiellaGames.sh",
+      "/Game/Maps/BiellaOpenWorldMap",
+      "-vulkan",
+      "-NoVSync",
+      "-windowed",
+      "-ResX=1280",
+      "-ResY=720",
+      "-unattended",
+      "-AudioMixer",
+      "-nosplash",
+      "-stdout",
+      "-FullStdOutLogOutput",
+      "-UserDir=/tmp/state/user/",
+      "-AbsLog=/tmp/evidence/runtime.engine.log",
+      "-BiellaPresentationOutput=/tmp/evidence",
+      "-BiellaRenderProfile=NativeTAA",
+      "-BiellaRenderReadback=/tmp/evidence/native-views.csv",
+      "-LogCmds=LogPSOHitching Verbose,LogShaderLibrary Verbose,LogVulkanRHI Verbose",
+      "-ExecCmds=t.MaxFPS 0,r.VSync 0,r.MotionBlurQuality 0,Automation RunTests BiellaGames.D03.Surfaces; SoftQuit"
+    ],
+    "cwd": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback",
+    "pid": 2384121,
+    "returncode": 0,
+    "timed_out": false,
+    "timeout_seconds": 360,
+    "elapsed_seconds": 31.132,
+    "log": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-taa-warm-01/runtime.stdout.log",
+      "sha256": "d52cd5c31075f5059ed8f774e4d8ece0197c76b6fd2e3e1f5a6aa8265bcde34c",
+      "bytes": 557239
+    }
+  },
+  "native_views": {
+    "observed_views": 1739,
+    "joined_scenario_frames": 1331,
+    "joined_views": 1331,
+    "missing_frames": [],
+    "multiple_view_frames": 0,
+    "first_frame": 398.0,
+    "last_frame": 1728.0,
+    "expected": {
+      "aa": 2,
+      "requested_aa": 2,
+      "screen_percentage": 100,
+      "temporal_upsampling": 0,
+      "dynamic_res": 0,
+      "gi": 1,
+      "reflections": 1,
+      "vsm": 1,
+      "nanite": 1,
+      "ray_tracing": 0,
+      "external_upscaler": 0,
+      "width": 1280,
+      "height": 720
+    },
+    "scope": "Constructed game-thread views plus requested renderer cvars; no generated frames or hardware compatibility claim"
+  },
+  "verification": {
+    "frames": 1331,
+    "costs": {
+      "stationary": {
+        "frames": 281,
+        "wall_p50_ms": 12.908401,
+        "wall_p95_ms": 14.598857,
+        "gpu_p50_ms": 3.305
+      },
+      "camera_pan": {
+        "frames": 283,
+        "wall_p50_ms": 12.345988,
+        "wall_p95_ms": 13.951323899999998,
+        "gpu_p50_ms": 3.314
+      }
+    },
+    "static_mean_abs_delta_255": [
+      0.4703117907047272,
+      0.464581161737442,
+      0.47288772463798523,
+      0.4442824125289917,
+      0.45845484733581543,
+      0.4525889754295349,
+      0.45700955390930176,
+      0.4401613175868988,
+      0.45777270197868347
+    ],
+    "pan_mean_abs_delta_255": [
+      2.6897308826446533,
+      2.438488245010376,
+      2.4342875480651855,
+      2.2376229763031006,
+      2.225054979324341,
+      2.223708152770996,
+      2.2165820598602295,
+      2.269561529159546,
+      2.3181097507476807,
+      2.5763309001922607,
+      2.3492918014526367,
+      2.2528834342956543,
+      2.3073322772979736,
+      2.3035075664520264,
+      2.289679527282715,
+      2.2902865409851074,
+      2.409520387649536,
+      2.5145182609558105,
+      2.6907565593719482,
+      2.715298652648926,
+      2.645155429840088,
+      2.99770188331604,
+      3.721426486968994,
+      3.7835590839385986,
+      4.428344249725342,
+      3.450269937515259,
+      0.4653168320655823,
+      0.46243417263031006,
+      0.4466775059700012,
+      0.4616948664188385,
+      0.4525376260280609
+    ],
+    "captures": [
+      {
+        "name": "static_000",
+        "sha256": "d8af410ed95b0832f8746dad6a7e5c8b575590328e5bf130c000c39b78a6e414",
+        "bytes": 856974
+      },
+      {
+        "name": "static_001",
+        "sha256": "a2b3c51baad75defbdd63097e4ca9d6af6f20e5137a8c4be9b6d9ead8fff86b4",
+        "bytes": 857335
+      },
+      {
+        "name": "static_002",
+        "sha256": "8a99a7b1f3781c92dc12941ae49eff0d12fb4b9b91508b3cfbc777eca514439f",
+        "bytes": 860260
+      },
+      {
+        "name": "static_003",
+        "sha256": "fceb365923a9489d43cbadae327da1785838057e005c89bf802b46b5c7224e75",
+        "bytes": 853677
+      },
+      {
+        "name": "static_004",
+        "sha256": "8ded7cb50f992c53c7b1497c3f3f683c9280ea1fdba1122911da2b62aebd8932",
+        "bytes": 856757
+      },
+      {
+        "name": "static_005",
+        "sha256": "a61e52a9cc519b8895c4e3aaca1643be57fc7176ab9222fd620728e35353848f",
+        "bytes": 856965
+      },
+      {
+        "name": "static_006",
+        "sha256": "f601fbabe801ccdfc19a20100519537d92bed98b0bab5b0209a538da7ae25e1d",
+        "bytes": 859445
+      },
+      {
+        "name": "static_007",
+        "sha256": "8d3342ce47c17dcfb539aeda44efd1611b82ae341247ce18d6a34b67d6bd5d81",
+        "bytes": 852954
+      },
+      {
+        "name": "static_008",
+        "sha256": "548774225684cac9c89b59888a2fcc62bc1f6a95215d5ca5b9cfd5040e4a0da3",
+        "bytes": 856306
+      },
+      {
+        "name": "static_009",
+        "sha256": "2b45d7382f09ff401ca8afd14afc58b3c0c869b8416b268c8a2efe9785450f69",
+        "bytes": 856340
+      },
+      {
+        "name": "pan_000",
+        "sha256": "7361410fb64feb4e19848257fa8d1af8b147294c7344fcfdf6029ecd580635f8",
+        "bytes": 840880
+      },
+      {
+        "name": "pan_001",
+        "sha256": "aa6f0c8850be6fddc816dc4a1b9ec5158a949f17cc610a64ca00c75ac6516545",
+        "bytes": 843837
+      },
+      {
+        "name": "pan_002",
+        "sha256": "289f981ea6a5ae4943f9b774613e1f389405c22bf7e15ca0f583a13867ba7773",
+        "bytes": 844452
+      },
+      {
+        "name": "pan_003",
+        "sha256": "eac3035458e987a99742f3a982283a1fc85ff2696f00a19376911098d1c0d325",
+        "bytes": 845446
+      },
+      {
+        "name": "pan_004",
+        "sha256": "13d1e10fea0782402076193560b54b627565a7da5ee4606c29878a7376b9b55c",
+        "bytes": 840567
+      },
+      {
+        "name": "pan_005",
+        "sha256": "d5856db652d745a3cefb03e5b6aee1dbf09fa9ff839df7610ee8c29130190925",
+        "bytes": 844966
+      },
+      {
+        "name": "pan_006",
+        "sha256": "38e70d1f68c28db4c8bd2902ca38556d15383ad91731732347a18b9506daa7b6",
+        "bytes": 845769
+      },
+      {
+        "name": "pan_007",
+        "sha256": "8e0cfd672af035a84fb2e479bf531e4cccf8b335f693d5954e5fcb9671ef2a43",
+        "bytes": 846828
+      },
+      {
+        "name": "pan_008",
+        "sha256": "0dbf5d12c4abd3daaaeb4fe2679b2561a5e59de2afcc1e213fad02be02b251cd",
+        "bytes": 841259
+      },
+      {
+        "name": "pan_009",
+        "sha256": "05b7d597f852b292bf5316e02b24d3d407970418c4aa00c8b58ecb5f2b5796d5",
+        "bytes": 846149
+      },
+      {
+        "name": "pan_010",
+        "sha256": "ce08c57b187fe81c60b2e6bde5f855086022abbc35486966d51951c03c486403",
+        "bytes": 848784
+      },
+      {
+        "name": "pan_011",
+        "sha256": "05ac96a6c8dd8f80096443e4cae9385965c81c2ff204c62d4eaf96e34a780bfb",
+        "bytes": 855883
+      },
+      {
+        "name": "pan_012",
+        "sha256": "981bda0f3001d87c13b766875f58bb4dec8fa330e044620a0506e17df4748c27",
+        "bytes": 852368
+      },
+      {
+        "name": "pan_013",
+        "sha256": "32d4ea2be24bd151399b904a2eb67f4b775f9f32c356c0dec9d5a03b737c3f7b",
+        "bytes": 860488
+      },
+      {
+        "name": "pan_014",
+        "sha256": "6f757ef93c0cbbcab57b7a923b355b407783a860c41ae578480e70fb84e94384",
+        "bytes": 865757
+      },
+      {
+        "name": "pan_015",
+        "sha256": "af6ed802e08d37ad573ab26fa420d75114ab362710d716c6780d8adc60f63ea1",
+        "bytes": 870297
+      },
+      {
+        "name": "pan_016",
+        "sha256": "9f293719c82db9236d171f43f6c0a9f2a48907730520c069ca21ebac492db3a8",
+        "bytes": 863746
+      },
+      {
+        "name": "pan_017",
+        "sha256": "3e0889c7dd36667ee9fa90c18bed46993f768f89fcb8e71ca08212f5ed31b44e",
+        "bytes": 864497
+      },
+      {
+        "name": "pan_018",
+        "sha256": "fb8550d516aeb8c1207b65000d5ee1d8ccbbb9a228b505c2eba66c077e26ad72",
+        "bytes": 865896
+      },
+      {
+        "name": "pan_019",
+        "sha256": "1e9582a41fc1d56bf66980923c4044011830d8ba549d29deeb7e3bd85e9370c7",
+        "bytes": 870555
+      },
+      {
+        "name": "pan_020",
+        "sha256": "89ca5f7c02498df6d0f285af77e80a751b007cd5dcf2e27b086cbbbe24ef21b1",
+        "bytes": 867540
+      },
+      {
+        "name": "pan_021",
+        "sha256": "625841e2e13419724b4d53e879ad9aa88648c729f4350891b7214f812e8a2898",
+        "bytes": 870792
+      },
+      {
+        "name": "pan_022",
+        "sha256": "bd94cacd0a4fd71f3080f694cc646916a7cbaae598d99856203ee352300af41c",
+        "bytes": 877367
+      },
+      {
+        "name": "pan_023",
+        "sha256": "05f2dc65accf63aca4f391aeb241bc4e412455e3957f51e07c2763a46f06246b",
+        "bytes": 877302
+      },
+      {
+        "name": "pan_024",
+        "sha256": "fee056e43db0335cf8711ab51b0c732a6e225b6012f660a864d85125d1aeeeba",
+        "bytes": 874791
+      },
+      {
+        "name": "pan_025",
+        "sha256": "88eed21981e9c51e5c60e1ec86ac8ee6f86e7de97abe8e262073e9cc162691fd",
+        "bytes": 873785
+      },
+      {
+        "name": "pan_026",
+        "sha256": "a89ecd393167a40756e9dab5f9be67a2fbd4cc605514f515374040fb896881e4",
+        "bytes": 874950
+      },
+      {
+        "name": "pan_027",
+        "sha256": "cf8fed6631ba70249632209436f675e679602c99f3a956c63f4cc8ec8ce91447",
+        "bytes": 877535
+      },
+      {
+        "name": "pan_028",
+        "sha256": "dba0791e53bc780913af825863cf327a5d1f93655e4d8891d19eda5daa8ff44d",
+        "bytes": 873910
+      },
+      {
+        "name": "pan_029",
+        "sha256": "4b813adcc9b03674a48806444e30bb54051424467632bfafe9c37c89f1683cdd",
+        "bytes": 875837
+      },
+      {
+        "name": "pan_030",
+        "sha256": "74ff79152a7a564239f292a54e9bb5c58880e8a05183eea33eaa288091ab4c00",
+        "bytes": 877967
+      },
+      {
+        "name": "pan_031",
+        "sha256": "442d3827056b6e124c6eb7b02c2d98dffbe5d6487519a93bbe394fb015719e95",
+        "bytes": 879657
+      },
+      {
+        "name": "walk_end",
+        "sha256": "18d1a08c3c40e1b502cf93c81d24e0d44fcc7312389f7b2b41ff1d87aa03f436",
+        "bytes": 864738
+      }
+    ],
+    "scope": "Linux Development packaged Vulkan, task-isolated user caches; OS page cache is not flushed; no generated frames or cross-hardware claim; gross pixel-delta screening only; engine whole-frame GPU timings"
+  },
+  "pso_hitches": [
+    {
+      "kind": "compute",
+      "milliseconds": 20.03,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/\"DistanceFields\"/\"GlobalDistanceFieldUpdate\"/UpdateGlobalDistanceField/Update Movable"
+    },
+    {
+      "kind": "compute",
+      "milliseconds": 21.42,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/\"DistanceFields\"/\"GlobalDistanceFieldUpdate\"/UpdateGlobalDistanceField/Update MostlyStatic"
+    },
+    {
+      "kind": "compute",
+      "milliseconds": 22.56,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/\"DistanceFields\"/\"GlobalDistanceFieldUpdate\"/UpdateGlobalDistanceField"
+    },
+    {
+      "kind": "compute",
+      "milliseconds": 21.67,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/\"DistanceFields\"/\"GlobalDistanceFieldUpdate\"/UpdateGlobalDistanceField/Update MostlyStatic"
+    },
+    {
+      "kind": "compute",
+      "milliseconds": 24.92,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/\"DistanceFields\"/\"GlobalDistanceFieldUpdate\"/UpdateGlobalDistanceField/Update Movable/Coarse Clipmap"
+    },
+    {
+      "kind": "compute",
+      "milliseconds": 24.88,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/\"DistanceFields\"/\"GlobalDistanceFieldUpdate\"/UpdateGlobalDistanceField/Update MostlyStatic"
+    },
+    {
+      "kind": "compute",
+      "milliseconds": 25.23,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/\"DistanceFields\"/\"GlobalDistanceFieldUpdate\"/UpdateGlobalDistanceField/Update MostlyStatic"
+    },
+    {
+      "kind": "compute",
+      "milliseconds": 26.8,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/DiffuseIndirectAndAO/LumenScreenProbeGather"
+    },
+    {
+      "kind": "compute",
+      "milliseconds": 28.31,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/DiffuseIndirectAndAO/TranslucencyVolumeLighting"
+    }
+  ],
+  "pso_observations": [
+    "LogCsvProfiler: Display: Metadata set : commandline=\"\" BiellaGames /Game/Maps/BiellaOpenWorldMap -vulkan -NoVSync -windowed -ResX=1280 -ResY=720 -unattended -AudioMixer -nosplash -stdout -FullStdOutLogOutput -UserDir=/tmp/state/user/ -AbsLog=/tmp/evidence/runtime.engine.log -BiellaPresentationOutput=/tmp/evidence -BiellaRenderProfile=NativeTAA -BiellaRenderReadback=/tmp/evidence/native-views.csv -LogCmds=\"LogPSOHitching Verbose,LogShaderLibrary Verbose,LogVulkanRHI Verbose\" -ExecCmds=\"t.MaxFPS 0,r.VSync 0,r.MotionBlurQuality 0,Automation RunTests BiellaGames.D03.Surfaces; SoftQuit\"\"\"",
+    "LogHAL: Log category LogShaderLibrary verbosity has been raised to Verbose.",
+    "LogInit: Command Line: /Game/Maps/BiellaOpenWorldMap -vulkan -NoVSync -windowed -ResX=1280 -ResY=720 -unattended -AudioMixer -nosplash -stdout -FullStdOutLogOutput -UserDir=/tmp/state/user/ -AbsLog=/tmp/evidence/runtime.engine.log -BiellaPresentationOutput=/tmp/evidence -BiellaRenderProfile=NativeTAA -BiellaRenderReadback=/tmp/evidence/native-views.csv -LogCmds=\"LogPSOHitching Verbose,LogShaderLibrary Verbose,LogVulkanRHI Verbose\" -ExecCmds=\"t.MaxFPS 0,r.VSync 0,r.MotionBlurQuality 0,Automation RunTests BiellaGames.D03.Surfaces; SoftQuit\"",
+    "[2026.09.06-14.49.55:607][  0]LogVulkanRHI: Display: FVulkanPipelineStateCacheManager: Binary pipeline cache '/tmp/state/user/Saved/VulkanPSO.cache.10de.26b9' not found.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Display: Using IoDispatcher for shader code library Global. Total 6431 unique shaders.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Display: Cooked Context: Loaded Shared Shader Library Global",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: OpenShaderCode('Global'): Components=(-1)",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Display: Logical shader library 'Global' has been created as a monolithic library, components 1",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Global_SC and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Global_SC and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Global_SC', but could not find it neither as a monolithic library nor as a chunked one.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Paper2D and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Paper2D', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ACLPlugin and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ACLPlugin', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: AnimatorKit and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'AnimatorKit', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ControlRig and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ControlRig', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ControlRigModules and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ControlRigModules', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ControlRigSpline and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ControlRigSpline', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: DeformerGraph and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'DeformerGraph', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: EaseCurveTool and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'EaseCurveTool', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: IKRig and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'IKRig', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: PhysicsControl and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'PhysicsControl', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: RigLogic and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'RigLogic', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: SkeletalMeshModelingTools and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'SkeletalMeshModelingTools', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: TweeningUtils and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'TweeningUtils', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: AudioInsights and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'AudioInsights', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: AudioInsightsRuntime and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'AudioInsightsRuntime', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: AudioModulationInsights and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'AudioModulationInsights', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: BaseMaterial and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'BaseMaterial', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: GameplayCameras and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'GameplayCameras', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ChaosVD and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ChaosVD', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Dataflow and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Dataflow', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: AnimationSharing and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'AnimationSharing', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ConcertSyncClient and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ConcertSyncClient', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: NamingTokens and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'NamingTokens', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: BlueprintHeaderView and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'BlueprintHeaderView', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ConsoleVariables and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ConsoleVariables', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: GeometryMode and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'GeometryMode', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: MaterialAssetWizard and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'MaterialAssetWizard', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: LightMixer and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'LightMixer', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ObjectMixer and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ObjectMixer', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: SpeedTreeImporter and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'SpeedTreeImporter', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: UMGWidgetPreview and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'UMGWidgetPreview', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: UVEditor and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'UVEditor', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: DatasmithContent and native library not supported.",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Tried to open shader library 'DatasmithContent', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:631][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: GLTFExporter and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'GLTFExporter', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Scribble and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Scribble', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Buoyancy and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Buoyancy', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ChaosCaching and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ChaosCaching', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ChaosNiagara and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ChaosNiagara', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ChaosSolverPlugin and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ChaosSolverPlugin', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ControlRigPhysics and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ControlRigPhysics', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: EditorDataStorage and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'EditorDataStorage', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: EditorDataStorageFeatures and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'EditorDataStorageFeatures', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: EditorTRSGizmo and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'EditorTRSGizmo', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: FullBodyIK and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'FullBodyIK', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: GeometryCollectionPlugin and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'GeometryCollectionPlugin', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: GeometryDataflow and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'GeometryDataflow', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: PythonScriptPlugin and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'PythonScriptPlugin', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ToolPresets and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ToolPresets', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Water and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Water', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Cascade and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Cascade', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Niagara and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Niagara', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: NiagaraPreviewContent and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'NiagaraPreviewContent', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: NiagaraSimCaching and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'NiagaraSimCaching', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: InterchangeAssets and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'InterchangeAssets', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Interchange and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Interchange', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: MediaCompositing and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'MediaCompositing', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: MediaPlate and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'MediaPlate', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: MetaHumanSDK and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'MetaHumanSDK', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: SequencerScripting and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'SequencerScripting', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Mutable and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Mutable', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: NNEDenoiser and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'NNEDenoiser', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: PCG and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'PCG', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: AutomatedPerfTestTools and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'AutomatedPerfTestTools', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: AudioSynesthesia and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'AudioSynesthesia', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: AudioWidgets and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'AudioWidgets', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: GeometryProcessing and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'GeometryProcessing', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: HairStrands and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'HairStrands', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: MeshModelingToolset and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'MeshModelingToolset', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Metasound and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Metasound', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: PropertyBindingUtils and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'PropertyBindingUtils', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: StateTree and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'StateTree', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Synthesis and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Synthesis', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: WaveTable and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'WaveTable', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: TraceUtilities and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'TraceUtilities', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: InterchangeAxfAssets and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'InterchangeAxfAssets', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Takes and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Takes', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Landmass and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Landmass', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ResonanceAudio and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ResonanceAudio', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: RigVM and native library not supported.",
+    "[2026.09.06-14.49.55:632][  0]LogShaderLibrary: Verbose: Tried to open shader library 'RigVM', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-14.49.55:764][  0]LogShaderLibrary: Display: Using IoDispatcher for shader code library BiellaGames. Total 1475 unique shaders.",
+    "[2026.09.06-14.49.55:764][  0]LogShaderLibrary: Display: Cooked Context: Loaded Shared Shader Library BiellaGames",
+    "[2026.09.06-14.49.55:764][  0]LogShaderLibrary: Verbose: OpenShaderCode('BiellaGames'): Components=(-1)",
+    "[2026.09.06-14.49.55:764][  0]LogShaderLibrary: Display: Logical shader library 'BiellaGames' has been created as a monolithic library, components 1",
+    "[2026.09.06-14.49.55:764][  0]LogShaderLibrary: Display: Tried to open again shader library 'BiellaGames', but could not find new components for it (existing components: 1).",
+    "[2026.09.06-14.49.56:749][  0]LogPSOHitching: Verbose: Runtime compute PSO creation hitch (20.03 msec) for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/\"DistanceFields\"/\"GlobalDistanceFieldUpdate\"/UpdateGlobalDistanceField/Update Movable",
+    "[2026.09.06-14.49.56:750][  0]LogPSOHitching: Verbose: Runtime compute PSO creation hitch (21.42 msec) for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/\"DistanceFields\"/\"GlobalDistanceFieldUpdate\"/UpdateGlobalDistanceField/Update MostlyStatic",
+    "[2026.09.06-14.49.56:750][  0]LogPSOHitching: Verbose: Runtime compute PSO creation hitch (22.56 msec) for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/\"DistanceFields\"/\"GlobalDistanceFieldUpdate\"/UpdateGlobalDistanceField",
+    "[2026.09.06-14.49.56:754][  0]LogPSOHitching: Verbose: Runtime compute PSO creation hitch (21.67 msec) for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/\"DistanceFields\"/\"GlobalDistanceFieldUpdate\"/UpdateGlobalDistanceField/Update MostlyStatic",
+    "[2026.09.06-14.49.56:755][  0]LogPSOHitching: Verbose: Runtime compute PSO creation hitch (24.92 msec) for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/\"DistanceFields\"/\"GlobalDistanceFieldUpdate\"/UpdateGlobalDistanceField/Update Movable/Coarse Clipmap",
+    "[2026.09.06-14.49.56:757][  0]LogPSOHitching: Verbose: Runtime compute PSO creation hitch (24.88 msec) for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/\"DistanceFields\"/\"GlobalDistanceFieldUpdate\"/UpdateGlobalDistanceField/Update MostlyStatic",
+    "[2026.09.06-14.49.56:757][  0]LogPSOHitching: Verbose: Runtime compute PSO creation hitch (25.23 msec) for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/\"DistanceFields\"/\"GlobalDistanceFieldUpdate\"/UpdateGlobalDistanceField/Update MostlyStatic",
+    "[2026.09.06-14.49.56:812][  0]LogPSOHitching: Verbose: Runtime compute PSO creation hitch (26.80 msec) for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/DiffuseIndirectAndAO/LumenScreenProbeGather",
+    "[2026.09.06-14.49.56:816][  0]LogPSOHitching: Verbose: Runtime compute PSO creation hitch (28.31 msec) for Resource  in Pass Unknown (precache status: Too Late) - Breadcrumbs: SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/DiffuseIndirectAndAO/TranslucencyVolumeLighting",
+    "[2026.09.06-14.49.56:948][  0]LogRHI: Display: ShaderPipelineCache: Paused Batching. 1",
+    "[2026.09.06-14.49.56:949][  0]LogRHI: Display: ShaderPipelineCache: Resumed Batching. 0",
+    "[2026.09.06-14.49.56:949][  0]LogRHI: Display: ShaderPipelineCache: Batching Resumed.",
+    "[2026.09.06-14.49.56:950][  0]LogLoad: (Engine Initialization) Total time: 2.35 seconds",
+    "[2026.09.06-14.50.24:796][732]LogShaderLibrary: Display: Closing logical shader library 'Global' with 1 components",
+    "[2026.09.06-14.50.24:816][732]LogShaderLibrary: Display: Closing logical shader library 'BiellaGames' with 1 components"
+  ],
+  "pso_measurement_scope": "Engine LogPSOHitching Verbose records runtime PSO creations exceeding its 20ms threshold; not all pipeline creation costs",
+  "state_after": [
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/home/.config/Epic/NotAllowedUnattendedBugReports",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/home/.config/Epic/UnrealEngine/5.8/Saved/Config/Linux/Manifest.ini",
+      "sha256": "e706d6c7c899d8d28e83512d7f29946334086c4a6eaf56f790bf0010e7df1e9c",
+      "bytes": 22
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/user/Saved/Config/CrashReportClient/UECC-Linux-01A077314D0F76F1BBB6FF6A2642509A/CrashReportClient.ini",
+      "sha256": "b85bb31b225042d5175a8b4240162c29c5dfc294686e1926528fd0ab00346ac4",
+      "bytes": 256
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/user/Saved/Config/CrashReportClient/UECC-Linux-01A07732852E74E881452F4CCED6D6A3/CrashReportClient.ini",
+      "sha256": "b85bb31b225042d5175a8b4240162c29c5dfc294686e1926528fd0ab00346ac4",
+      "bytes": 256
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/user/Saved/Config/Linux/GameUserSettings.ini",
+      "sha256": "1bece9165c83e37cc208622493193a60a51b8d1b62678de56bc56233133b7f88",
+      "bytes": 1327
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+      "sha256": "4c537a8c7b90c3269a6e7e8c7622aef71435b1e29d4aa60e0b9b7ed7b6198346",
+      "bytes": 70379359
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-taa-state-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+      "sha256": "ea8217b0229f33d7379f59f32c4dc8471a9aaa03a8a5e8792e82a1adbc08e449",
+      "bytes": 156192
+    }
+  ],
+  "package_after": [
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/BiellaGames/Binaries/Linux/BiellaGames",
+      "sha256": "2e48ab1a23259011b015710231f335bc277ca8eb058e3552340fb2ae67b12e7a",
+      "bytes": 298959360
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.pak",
+      "sha256": "0729e5e07eee5c66bfe53a545ea95c6b974879695b3ec5c58e2619ab3a5c7a75",
+      "bytes": 10437766
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.ucas",
+      "sha256": "58a6acb7daa0320e14618ded43dad80d6b017275cc0a02c12d2c6f487d357d96",
+      "bytes": 189973840
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.utoc",
+      "sha256": "76607e7157d8c7f8c6b0a629f577e09217a8547d7819de5bf695175e11c527f6",
+      "bytes": 174971
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/BiellaGames/Content/Paks/global.ucas",
+      "sha256": "1d9631d0495adcea4e08f421291ba1d31375b85fac0d436270fa7d80ec7726ff",
+      "bytes": 3203520
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/BiellaGames/Content/Paks/global.utoc",
+      "sha256": "459adccc121b57e96a7e97a741dc878f96ebdf562a72be61349d398d80aaa4f3",
+      "bytes": 782
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/BiellaGames.sh",
+      "sha256": "0f758fc1d431fca29cae27ecf35820d9ea70864532c0959f2d578e5216f68c46",
+      "bytes": 258
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so",
+      "sha256": "51aec15c714c5d96969f6a7608cdefc5c163e7fec0b2e0974ec1382380d11c5e",
+      "bytes": 23
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so.2",
+      "sha256": "ed3698c20005885c61a20f04ba772e329f67855713f5fecb26152a8f949ad280",
+      "bytes": 9715408
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_api_dump.json",
+      "sha256": "4616e485e4dacaa8c1ef365fed23d2c117e8848148720a7acea70c96cb975179",
+      "bytes": 12512
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_crash_diagnostic.json",
+      "sha256": "77b6e62bc24994b056e316aa0bd5e056e8ff0dfa377ef1e0ec5b291a181b6a88",
+      "bytes": 9170
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_gfxreconstruct.json",
+      "sha256": "93065b7975a70a250569bfce2ee655bf6bc188a7844204d2c37700a770afb02e",
+      "bytes": 26755
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_profiles.json",
+      "sha256": "88deb508a3d16131cd747335063826a31f237e024f396542c05908b44760b895",
+      "bytes": 69029
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_shader_object.json",
+      "sha256": "1c6dd4b56db0e2dc4a7eb1e44e7ad933f399685436c644add05dadf4258e6b1d",
+      "bytes": 4356
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_synchronization2.json",
+      "sha256": "307c8b906289b7a3329fb44137dd3af595d91f26e5bde9cff1b4280801a45139",
+      "bytes": 1860
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_validation.json",
+      "sha256": "328861629130912c27f1db4f2be4fa3d64608ca7edf6f3d886c09cb5856834cc",
+      "bytes": 94443
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_api_dump.so",
+      "sha256": "1b9871125c6f9afb2b0f09adbe3af3049a20837dca80ccea5d642be4dec31474",
+      "bytes": 109065264
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_crash_diagnostic.so",
+      "sha256": "99dda3ecafd809f0de42453536a2ea6299ac6216db9352e301065542e6685fbf",
+      "bytes": 13228088
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_gfxreconstruct.so",
+      "sha256": "2e8397383a72eb200e99a560a2b58947b8a0dc6cef3d1fe67245674df0d9e546",
+      "bytes": 99440744
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_profiles.so",
+      "sha256": "e2e9422a15730cd14904a0d27bbd7d463b5598fc7ffa1744d14fc47ce0dc87bf",
+      "bytes": 2226960
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_shader_object.so",
+      "sha256": "da3db6756cccaf502dab09a3de0cece49168654f7735612bb51f7555ef9f7cda",
+      "bytes": 4174536
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_synchronization2.so",
+      "sha256": "daa4bf2da5600deeff440b4c98fc3d68ba04121fdbb2f21d3463126c8d0a2c99",
+      "bytes": 5290240
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_validation.so",
+      "sha256": "cbecbd0d82217a789a3c3e1493cc60cb7cc036df8f22a0501af9b8ca23342e81",
+      "bytes": 37821704
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libvulkan.so",
+      "sha256": "d59b6a2b184887fb6eddea3dd754bd2f5b59abc647577c3cd71bb530213ebbb0",
+      "bytes": 4210872
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Config/StagedBuild_BiellaGames.ini",
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "bytes": 3
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Content/Renderer/TessellationTable.bin",
+      "sha256": "edc4f3b628a139c5e185bbaeca661c95c1f427368d3b92892c5cff36c56dd941",
+      "bytes": 259568
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c",
+      "bytes": 22146944
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so.1.24",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c",
+      "bytes": 22146944
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Manifest_NonUFSFiles_Linux.txt",
+      "sha256": "1ba3446823c56e2ca94ac85fd67d5f3b06f2c9f373cab6479ca566e73309a475",
+      "bytes": 2105
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/Manifest_UFSFiles_Linux.txt",
+      "sha256": "be735bb0583a6864e352c943143615d259335e54be7db350634d6b8937d4e462",
+      "bytes": 225315
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/NOTICES.txt",
+      "sha256": "ba49ae5586f817b36a2772269f71f899cb1f54b5f2720fad951319edd5e140b8",
+      "bytes": 111
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/ThirdPartyNotices/libsamplerate-COPYING.txt",
+      "sha256": "2c1f76ce2effdddb425018405d5690c0b1ab4e6976e35296b0a6db65c5e1a55d",
+      "bytes": 1334
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/archive-readback/Linux/ThirdPartyNotices/mimalloc-LICENSE.txt",
+      "sha256": "d9f5607dce0f93055be57077d1b9545e5b14d5814d8c99d6e1d0a5eff2f74c89",
+      "bytes": 1091
+    }
+  ],
+  "inputs_after": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_package.py",
+      "sha256": "87a59d51fe07dfa0253b3911f86e02c04dcc96c12043752c89401a418904a1b1",
+      "bytes": 9518
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_package_isolation_probe.py",
+      "sha256": "1dd068ab83238fd7cdbc7a13ebb5887e7c6f7ca4e4a8e82b32eaf4dc710f522e",
+      "bytes": 1561
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_reconstruction.py",
+      "sha256": "817cd34cf1830029b582417737891181ea915f1d5cc57cc9672d8d106a8dbfc5",
+      "bytes": 2655
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_surfaces.py",
+      "sha256": "28e0dbb3a5e4e6a0a86d2a1e5090d663cf34042322f74092c2bdeafd0cff5657",
+      "bytes": 4658
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py",
+      "sha256": "3dc712f5342117fd6b693d9ae2183a4785316ce54e97f108d2d75b1f6c8d9eaa",
+      "bytes": 3419
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_048.py",
+      "sha256": "244a00703f2105cad67af2bf520b3b4b59e068862873da3b9a016fbad4738e09",
+      "bytes": 9002
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+      "sha256": "331528af104d262d1c4926228f894b63f9cb6ead502d4d916cd56129c59c62a7",
+      "bytes": 10991
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_039.py",
+      "sha256": "9df5e5188444a8dba455768ceed3915c44796a6e9897dd89a1e96d7147b610e8",
+      "bytes": 9977
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_042.py",
+      "sha256": "e33a0217afd1be480091c9e5639a8cb0237cc27b601434fa8adfcdcd6c373fd9",
+      "bytes": 9820
+    }
+  ]
+}

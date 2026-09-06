@@ -1,0 +1,3 @@
+usage: biella resource [-h] [--registry REGISTRY]
+                       {status,route,search,fast-llm} ...
+biella resource: error: unrecognized arguments: --prompt-file Build/Presentation/package-design-01/request.txt

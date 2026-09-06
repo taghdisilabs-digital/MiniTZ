@@ -1,0 +1,4 @@
+{
+  "result": "OPTIONAL_ASSIST_UNAVAILABLE",
+  "diagnostics": "Retry with supported --prompt argv returned provider TimeoutError. Continue using exact installed engine source and prior verified package evidence."
+}

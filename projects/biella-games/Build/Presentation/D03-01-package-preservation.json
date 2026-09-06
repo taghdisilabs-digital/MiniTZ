@@ -1,0 +1,28 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T15:14:38.108754+00:00",
+  "result": "PASS",
+  "parent_commit": "5540538b22cab63b094f9ba4c2070af88427adf6",
+  "manifest": {
+    "path": "Build/Presentation/D03-01-reconstruction-file-manifest.json",
+    "sha256": "63d65d540a3789e8e06f3f2ad4cf7e810ae1a425d2ada3e9020cb23a7a2c7f0d",
+    "bytes": 63489
+  },
+  "entries": 318,
+  "unchanged_entries": 318,
+  "manifest_bytes_preserved": true,
+  "canonical_source_content_config_plugins_unchanged": true,
+  "production_and_03_04_unchanged": true,
+  "python_syntax_checked": [
+    "tests/build_d03_01_game.py",
+    "tests/cook_d03_01_package.py",
+    "tests/d03_01_package_isolation_probe.py",
+    "tests/negative_d03_01_package.py",
+    "tests/repair_d03_01_cook_config.py",
+    "tests/repair_d03_01_engine_dependencies.py",
+    "tests/run_d03_01_package.py",
+    "tests/stage_d03_01_package.py",
+    "tests/verify_d03_01_package_lineage.py",
+    "tests/verify_d03_01_package_series.py"
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "added_files": [
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/alloc-aligned.c",
+      "sha256": "a1055798891e1ed814f5129bb9ca560d89c0b78aa73a5fe9a5dcef9066d788d5",
+      "bytes": 9811
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/alloc-override-osx.c",
+      "sha256": "e9832746e95066377d316580ea26358b2ca10186d03734a70bedd1f916165cd3",
+      "bytes": 8106
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/alloc-override.c",
+      "sha256": "ed3992645bbd0d704ad95001d48967ae5b5e962f1496db5e0809880490823f81",
+      "bytes": 12497
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/alloc-posix.c",
+      "sha256": "2427fc0691ad9180730655e28235f566b7be194dc8ec4ce079b6e09e1766115d",
+      "bytes": 5400
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/alloc.c",
+      "sha256": "94b99b7d4b42ae8788ce63e6f2ed15cfed86e3ef60bf39842e83c3f89877fa33",
+      "bytes": 31700
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/arena.c",
+      "sha256": "9020b8056d9949a41952cf00e6396c7eb23482fb4e4255c12769cd6cd2a9e687",
+      "bytes": 19021
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/bitmap.c",
+      "sha256": "bca714a2aa18af45989b7ee7e1a562847b37a1ad7d1a946fc63dc677b80a8d3b",
+      "bytes": 16819
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/heap.c",
+      "sha256": "2605e8991d24c7400d70d42fa6cdb05d6e307b50f704f9e3cfa0e3a87ee0f47f",
+      "bytes": 19159
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/init.c",
+      "sha256": "f21abe542d49719e826230a066a059c8f1468ad617d63cf8fccfd7d24df73623",
+      "bytes": 22211
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/options.c",
+      "sha256": "cf0aada24dec7ba23d94e161c27fe4f8295ab2efdb6dac992073583ab8d4ea3f",
+      "bytes": 19031
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/os.c",
+      "sha256": "d8c47432fa6b092baabb28e66fa0042cfa991584b6c3b035cfbe247a44f2789d",
+      "bytes": 47039
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/page-queue.c",
+      "sha256": "f11c9d8611e3fc82deb4f1723adb64f5f3f90e1a742d2072f0c1fae7504e22b3",
+      "bytes": 11481
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/page.c",
+      "sha256": "06dbf5b24ef13838bfed9abd84d6690a0985ae36d570788172c6fa48e1aaf332",
+      "bytes": 33572
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/random.c",
+      "sha256": "982f664a392f05c82503d61c32aef0d3c39d109c947b62feaeaf75761728632b",
+      "bytes": 11614
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/region.c",
+      "sha256": "e0b47d5d7044780cf46ab5b472825d4f96a6fec96eff14ddf20ad57b7669d7c6",
+      "bytes": 20856
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/segment-cache.c",
+      "sha256": "40467fb703e000af02efd889c687e1f7cc83df4c6717983733ddf1f237756421",
+      "bytes": 13022
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/segment.c",
+      "sha256": "9ed527dcfa626df416b8dd644ffa0130739c49f10aa885b1f31a3f8239314302",
+      "bytes": 59286
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/static.c",
+      "sha256": "e10543aa1f8f92a6fa8b05cf1184f1ade202e19b47957044d48395c44774c006",
+      "bytes": 1169
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/stats.c",
+      "sha256": "f39ea18096e92802783ca4f6b95b68c02168f5bfe78980d2e48748453af94757",
+      "bytes": 21287
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/libSampleRate/D03Linux/samplerate.h",
+      "sha256": "dfe5f4107782bcf6e9b8421a9e7c4772e19446a4c18727c73b22286d3fbb6626",
+      "bytes": 4971
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/libSampleRate/D03Linux/libsamplerate.a",
+      "sha256": "5fc4a17151b8069b7479342ff9b958790e6516b06430644518978d747157c381",
+      "bytes": 1509640
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/libSampleRate/D03Linux/COPYING",
+      "sha256": "2c1f76ce2effdddb425018405d5690c0b1ab4e6976e35296b0a6db65c5e1a55d",
+      "bytes": 1334
+    }
+  ],
+  "mimalloc_existing_before": [
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/include/mimalloc-atomic.h",
+      "sha256": "816a862e7adfe4638eb5cccab2c9751d3fddfea11314e4ab90c1034d7c2e2723",
+      "bytes": 14964
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/include/mimalloc-internal.h",
+      "sha256": "9c940428e16b0021c0292c900b6cdd6ab441c7cf20484e3eb8cc71d6a164712a",
+      "bytes": 39122
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/include/mimalloc-new-delete.h",
+      "sha256": "53fc1ce1fd282d1fb577b8ffffa46ac4d3a48c1ffd715852763258c0a9cd9254",
+      "bytes": 2996
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/include/mimalloc-override.h",
+      "sha256": "46ded69050746b366682c0845becfb17c3adb251f8413029a2211f3c6ceb03c9",
+      "bytes": 3058
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/include/mimalloc-types.h",
+      "sha256": "80dee6a95aebb212ddc9322e824a7866a55d0d324d685c03dd9280f3537b7a64",
+      "bytes": 21890
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/include/mimalloc.h",
+      "sha256": "e259d1fde0416dc557369cc6d4b542a06fbe854486e6ebb72b029263965707d6",
+      "bytes": 29358
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/bitmap.h",
+      "sha256": "d4aa2f27d820e7fdbd4fe04840622f8a12d59ff1fa865d187da2e99842117848",
+      "bytes": 5342
+    }
+  ],
+  "rules_before": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/libSampleRate/UElibSampleRate.Build.cs",
+    "sha256": "f5d27dab311cf7badda3599644ffe16195484a98627002c46d0a04b22c708652",
+    "bytes": 385
+  },
+  "rules_after": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/libSampleRate/UElibSampleRate.Build.cs",
+    "sha256": "b615b9aaf05ca32ffd2e64b382b73a2e4f5bb427c48442a9a0a69baccf905fe3",
+    "bytes": 784
+  },
+  "mimalloc_existing_after": [
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/include/mimalloc-atomic.h",
+      "sha256": "816a862e7adfe4638eb5cccab2c9751d3fddfea11314e4ab90c1034d7c2e2723",
+      "bytes": 14964
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/include/mimalloc-internal.h",
+      "sha256": "9c940428e16b0021c0292c900b6cdd6ab441c7cf20484e3eb8cc71d6a164712a",
+      "bytes": 39122
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/include/mimalloc-new-delete.h",
+      "sha256": "53fc1ce1fd282d1fb577b8ffffa46ac4d3a48c1ffd715852763258c0a9cd9254",
+      "bytes": 2996
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/include/mimalloc-override.h",
+      "sha256": "46ded69050746b366682c0845becfb17c3adb251f8413029a2211f3c6ceb03c9",
+      "bytes": 3058
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/include/mimalloc-types.h",
+      "sha256": "80dee6a95aebb212ddc9322e824a7866a55d0d324d685c03dd9280f3537b7a64",
+      "bytes": 21890
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/include/mimalloc.h",
+      "sha256": "e259d1fde0416dc557369cc6d4b542a06fbe854486e6ebb72b029263965707d6",
+      "bytes": 29358
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/mimalloc/2.0.0/src/bitmap.h",
+      "sha256": "d4aa2f27d820e7fdbd4fe04840622f8a12d59ff1fa865d187da2e99842117848",
+      "bytes": 5342
+    }
+  ],
+  "licenses": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-toolchain-02/mimalloc-LICENSE.txt",
+      "sha256": "d9f5607dce0f93055be57077d1b9545e5b14d5814d8c99d6e1d0a5eff2f74c89",
+      "bytes": 1091
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-toolchain-02/libsamplerate-COPYING.txt",
+      "sha256": "2c1f76ce2effdddb425018405d5690c0b1ab4e6976e35296b0a6db65c5e1a55d",
+      "bytes": 1334
+    }
+  ]
+}

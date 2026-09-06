@@ -1,0 +1,37 @@
+[
+  {
+    "path": "include/mimalloc-internal.h",
+    "upstream_exists": true,
+    "identical": false
+  },
+  {
+    "path": "include/mimalloc-atomic.h",
+    "upstream_exists": true,
+    "identical": false
+  },
+  {
+    "path": "include/mimalloc-types.h",
+    "upstream_exists": true,
+    "identical": true
+  },
+  {
+    "path": "include/mimalloc-override.h",
+    "upstream_exists": true,
+    "identical": true
+  },
+  {
+    "path": "include/mimalloc-new-delete.h",
+    "upstream_exists": true,
+    "identical": true
+  },
+  {
+    "path": "include/mimalloc.h",
+    "upstream_exists": true,
+    "identical": false
+  },
+  {
+    "path": "src/bitmap.h",
+    "upstream_exists": true,
+    "identical": true
+  }
+]

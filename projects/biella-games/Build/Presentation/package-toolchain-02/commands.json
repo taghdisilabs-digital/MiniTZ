@@ -1,0 +1,33 @@
+[
+  [
+    "cmake",
+    "-S",
+    "/mnt/biella-extra/biella-runtime/d03-01-toolchain-02/libsamplerate-0.2.2",
+    "-B",
+    "/mnt/biella-extra/biella-runtime/d03-01-toolchain-02/samplerate-build",
+    "-DCMAKE_C_COMPILER=/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin/clang",
+    "-DCMAKE_SYSROOT=/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu",
+    "-DCMAKE_FIND_ROOT_PATH=/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu",
+    "-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY",
+    "-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY",
+    "-DCMAKE_C_FLAGS=-fPIC",
+    "-DCMAKE_BUILD_TYPE=Release",
+    "-DBUILD_SHARED_LIBS=OFF",
+    "-DBUILD_TESTING=ON",
+    "-DLIBSAMPLERATE_EXAMPLES=OFF",
+    "-DLIBSAMPLERATE_INSTALL=OFF"
+  ],
+  [
+    "cmake",
+    "--build",
+    "/mnt/biella-extra/biella-runtime/d03-01-toolchain-02/samplerate-build",
+    "-j",
+    "8"
+  ],
+  [
+    "ctest",
+    "--test-dir",
+    "/mnt/biella-extra/biella-runtime/d03-01-toolchain-02/samplerate-build",
+    "--output-on-failure"
+  ]
+]

@@ -1,0 +1,24 @@
+{
+  "uid": 1001,
+  "gid": 1001,
+  "hidden_path_exists": {
+    "/opt/unreal": false,
+    "/root/biella": false,
+    "/mnt/biella-extra": false,
+    "/home/unreal/.cache/UnrealEngine": false
+  },
+  "cwd": "/tmp/package",
+  "package_readable": true,
+  "state_writable": true,
+  "package_writable": false,
+  "network_interfaces": [
+    "lo"
+  ],
+  "command": [
+    "xvfb-run",
+    "-a",
+    "sh",
+    "-c",
+    "xdpyinfo >/dev/null"
+  ]
+}

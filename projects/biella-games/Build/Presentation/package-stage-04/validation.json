@@ -1,0 +1,6 @@
+{
+  "task_id": "D03-01",
+  "result": "FAIL",
+  "error": "Prior failed UAT created archive destination before writing output. Preserve it and use a fresh per-attempt archive directory.",
+  "native_uat_started": false
+}

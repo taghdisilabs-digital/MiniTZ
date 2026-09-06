@@ -1,0 +1,5 @@
+{
+  "result": "FAIL",
+  "returncode": 1,
+  "scope": "Fixture namespace and X11 only; no game runtime claim"
+}

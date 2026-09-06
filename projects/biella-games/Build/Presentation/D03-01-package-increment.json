@@ -1,0 +1,70 @@
+{
+  "schema": "biella.d03_01.package_increment/v1",
+  "task_id": "D03-01",
+  "increment": "isolated Linux SM5 Development package and shader-cache qualification",
+  "implementation_status": "IMPLEMENTED_VALIDATED_BOUNDED",
+  "task_status": "CONTINUE",
+  "created_at": "2026-09-06T15:15:45.904296+00:00",
+  "parent_commit": "5540538b22cab63b094f9ba4c2070af88427adf6",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "implementation": [
+    "tests/build_d03_01_game.py",
+    "tests/cook_d03_01_package.py",
+    "tests/d03_01_package_isolation_probe.py",
+    "tests/negative_d03_01_package.py",
+    "tests/repair_d03_01_cook_config.py",
+    "tests/repair_d03_01_engine_dependencies.py",
+    "tests/run_d03_01_package.py",
+    "tests/stage_d03_01_package.py",
+    "tests/verify_d03_01_package_lineage.py",
+    "tests/verify_d03_01_package_series.py"
+  ],
+  "native_build": "Build/Presentation/package-build-03/result.json",
+  "dependency_repair": "Build/Presentation/package-toolchain-02/validation.json",
+  "cook": "Build/Presentation/package-cook-01/validation.json",
+  "cook_snapshot_repair": "Build/Presentation/package-cook-config-repair-01/validation.json",
+  "stage": "Build/Presentation/package-stage-07/validation.json",
+  "canonical_archive": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-package-01.tar.zst",
+    "sha256": "06510221abdcfa88e7fbb73dcbf31bb34de839101649aa83ffde2c3c1722b14a",
+    "bytes": 371811200
+  },
+  "archive_members": 33,
+  "positive": [
+    "Build/Presentation/package-tsr-cold-01/validation.json",
+    "Build/Presentation/package-tsr-warm-01/validation.json",
+    "Build/Presentation/package-tsr-environment-01/validation.json",
+    "Build/Presentation/package-taa-cold-01/validation.json",
+    "Build/Presentation/package-taa-warm-01/validation.json",
+    "Build/Presentation/package-taa-environment-01/validation.json"
+  ],
+  "positive_frames": 8142,
+  "captures": 182,
+  "series": "Build/Presentation/package-series-01.json",
+  "negative": "Build/Presentation/package-missing-shader-04/validation.json",
+  "negative_preserved_logical_files": 1728,
+  "readback": "Build/Presentation/D03-01-package-final-readback-01.json",
+  "readback_identities": 2534,
+  "preservation": "Build/Presentation/D03-01-package-preservation.json",
+  "precommit_scan": "Build/Presentation/package-precommit-scan-01.json",
+  "progress": "Build/Presentation/D03-01-package-progress.md",
+  "manifest": "Build/Presentation/D03-01-package-file-manifest.json",
+  "visual_review": "Build/Presentation/package-visual-review-01.json",
+  "media_status": "GENERATED_DRAFT",
+  "publication": {
+    "owner": "Auto Feeder",
+    "local_commit_required": true,
+    "remote_publication_claimed": false,
+    "canonical_state_transition_claimed": false
+  },
+  "scope": "Linux Development Vulkan SM5; one host; fresh user/driver caches, not flushed OS pages; no generated frames",
+  "remaining": [
+    "Vulkan SM5 does not execute Nanite despite requested r.Nanite=1; SM6 production qualification remains.",
+    "PSO event durations may overlap across workers and are not additive frame stalls.",
+    "Cold runtime PSO hitches remain; functional PASS does not accept production stutter.",
+    "PipelineFileCache=0 and VulkanPSO.cache absent; observed warm acceleration uses driver cache files.",
+    "Gross image delta checks and selected captures do not establish fine ghosting/disocclusion quality.",
+    "Development executable, not Shipping, Windows, broad hardware, final art or complete D03 acceptance.",
+    "Final production world/lighting/character/weapon/vehicle art and broader VFX/audio/animation/LOD/crowd integration."
+  ]
+}

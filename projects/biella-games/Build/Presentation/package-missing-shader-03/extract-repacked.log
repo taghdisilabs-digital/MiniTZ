@@ -1,0 +1,149 @@
+LogInit: Running DelayedAutoRegister Phase StartOfEnginePreInit
+LogTrace: Initializing trace...
+LogTrace: Finished trace initialization.
+LogTrace: Display: Control listening on port 1985
+LogModuleManager: InternalLoadLibrary: 'PakFile' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-PakFile.so')
+LogModuleManager: InternalLoadLibrary: 'RSA' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-RSA.so')
+LogModuleManager: InternalLoadLibrary: 'SandboxFile' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-SandboxFile.so')
+LogInit: Running DelayedAutoRegister Phase FileSystemReady
+LogInit: Running DelayedAutoRegister Phase TaskGraphSystemReady
+LogInit: Running DelayedAutoRegister Phase StatSystemReady
+LogModuleManager: InternalLoadLibrary: 'CoreUObject' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-CoreUObject.so')
+LogInit: Session CrashGUID >====================================================
+         Session CrashGUID >   UECC-Linux-01A0773C66A3785A85A7ABE654EAAD14
+         Session CrashGUID >====================================================
+LogUnixPlatformFile: Warning: create dir('/opt/unreal/UE_5.8.2/Engine/Programs/UnrealPak/Saved/Config/') failed: errno=13 (Permission denied)
+LogUnixPlatformFile: Warning: create dir('/opt/unreal/UE_5.8.2/Engine/Programs/UnrealPak/Saved/Config/') failed: errno=13 (Permission denied)
+LogUnixPlatformFile: Warning: create dir('/opt/unreal/UE_5.8.2/Engine/Programs/UnrealPak/Saved/Config/') failed: errno=13 (Permission denied)
+LogUnixPlatformFile: Warning: create dir('/opt/unreal/UE_5.8.2/Engine/Programs/UnrealPak/Saved/Config/') failed: errno=13 (Permission denied)
+LogConfig: No local boot hotfix file found at: [../../../Engine/Programs/UnrealPak/Saved/PersistentDownloadDir/HotfixForNextBoot.txt]
+LogInit: Running DelayedAutoRegister Phase IniSystemReady
+LogPluginManager: Mounting Engine plugin PlatformCrypto
+LogPluginManager: Mounting Engine plugin TcpMessaging
+LogModuleManager: InternalLoadLibrary: 'PlatformCrypto' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PlatformCrypto/Binaries/Linux/libUnrealPak-PlatformCrypto.so')
+LogModuleManager: InternalLoadLibrary: 'PlatformCryptoTypes' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PlatformCrypto/Binaries/Linux/libUnrealPak-PlatformCryptoTypes.so')
+LogModuleManager: InternalLoadLibrary: 'PlatformCryptoContext' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PlatformCrypto/Binaries/Linux/libUnrealPak-PlatformCryptoContext.so')
+LogInit: Running DelayedAutoRegister Phase EarliestPossiblePluginsLoaded
+LogInit: ExecutableName: UnrealPak
+LogInit: Build: ++UE5+Release-5.8-CL-56702186
+LogInit: Platform=LinuxEditor
+LogInit: MachineId=3da9d2f3021f461a93a81e6b23a2b4d7-000003e9
+LogInit: DeviceId=
+LogInit: Engine Version: 5.8.2-56702186+++UE5+Release-5.8
+LogInit: Compatible Engine Version: 5.8.0-55116800+++UE5+Release-5.8
+LogInit: Net CL: 55116800
+LogInit: OS: Ubuntu 24.04.4 LTS (6.8.0-138-generic), CPU: AMD EPYC 9124 16-Core Processor, GPU: NVIDIA L40S (NVIDIA UNIX x86_64 Kernel Module  580.178.04  Tue Jul  7 12:38:21 UTC 2026)
+LogInit: CPU Model ID: 19111, microcode revision: a101148
+LogInit: Compiled (64-bit): Aug  7 2026 15:10:39
+LogInit: Architecture: x64
+LogInit: Compiled with Clang: 20.1.8 (github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+LogInit: Build Configuration: Development
+LogInit: Branch Name: ++UE5+Release-5.8
+LogInit: Command Line: /mnt/biella-extra/biella-runtime/d03-01-package-negative-03/rebuilt/BiellaGames-Linux.pak -Extract /mnt/biella-extra/biella-runtime/d03-01-package-negative-03/repacked-readback -unattended -nopak
+LogInit: Base Directory: /opt/unreal/UE_5.8.2/Engine/Binaries/Linux/
+LogInit: Allocator: Mimalloc
+LogInit: Installed Engine Build: 1
+LogInit: This binary is optimized with LTO: no, PGO: no, instrumented for PGO data collection: no
+LogDevObjectVersion: Number of dev versions registered: 35
+LogDevObjectVersion:   Dev-Blueprints (B0D832E4-1F89-4F0D-ACCF-7EB736FD4AA2): 10
+LogDevObjectVersion:   Dev-Build (E1C64328-A22C-4D53-A36C-8E866417BD8C): 0
+LogDevObjectVersion:   Dev-Core (375EC13C-06E4-48FB-B500-84F0262A717E): 4
+LogDevObjectVersion:   Dev-Editor (E4B068ED-F494-42E9-A231-DA0B2E46BB41): 40
+LogDevObjectVersion:   Dev-Framework (CFFC743F-43B0-4480-9391-14DF171D2073): 37
+LogDevObjectVersion:   Dev-Mobile (B02B49B5-BB20-44E9-A304-32B752E40360): 3
+LogDevObjectVersion:   Dev-Networking (A4E4105C-59A1-49B5-A7C5-40C4547EDFEE): 0
+LogDevObjectVersion:   Dev-Online (39C831C9-5AE6-47DC-9A44-9C173E1C8E7C): 0
+LogDevObjectVersion:   Dev-Physics (78F01B33-EBEA-4F98-B9B4-84EACCB95AA2): 20
+LogDevObjectVersion:   Dev-Platform (6631380F-2D4D-43E0-8009-CF276956A95A): 0
+LogDevObjectVersion:   Dev-Rendering (12F88B9F-8875-4AFC-A67C-D90C383ABD29): 49
+LogDevObjectVersion:   Dev-Sequencer (7B5AE74C-D270-4C10-A958-57980B212A5A): 13
+LogDevObjectVersion:   Dev-VR (D7296918-1DD6-4BDD-9DE2-64A83CC13884): 3
+LogDevObjectVersion:   Dev-LoadTimes (C2A15278-BFE7-4AFE-6C17-90FF531DF755): 1
+LogDevObjectVersion:   Private-Geometry (6EACA3D4-40EC-4CC1-B786-8BED09428FC5): 3
+LogDevObjectVersion:   Dev-AnimPhys (29E575DD-E0A3-4627-9D10-D276232CDCEA): 17
+LogDevObjectVersion:   Dev-Anim (AF43A65D-7FD3-4947-9873-3E8ED9C1BB05): 15
+LogDevObjectVersion:   Dev-ReflectionCapture (6B266CEC-1EC7-4B8F-A30B-E4D90942FC07): 1
+LogDevObjectVersion:   Dev-Automation (0DF73D61-A23F-47EA-B727-89E90C41499A): 1
+LogDevObjectVersion:   FortniteMain (601D1886-AC64-4F84-AA16-D3DE0DEAC7D6): 268
+LogDevObjectVersion:   FortniteValkyrie (8DBC2C5B-54A7-43E0-A768-FCBB7DA29060): 8
+LogDevObjectVersion:   FortniteSeason (5B4C06B7-2463-4AF8-805B-BF70CDF5D0DD): 15
+LogDevObjectVersion:   FortniteRelease (E7086368-6B23-4C58-8439-1B7016265E91): 20
+LogDevObjectVersion:   Dev-Enterprise (9DFFBCD6-494F-0158-E221-12823C92A888): 11
+LogDevObjectVersion:   Dev-Niagara (F2AED0AC-9AFE-416F-8664-AA7FFA26D6FC): 1
+LogDevObjectVersion:   Dev-Destruction (174F1F0B-B4C6-45A5-B13F-2EE8D0FB917D): 10
+LogDevObjectVersion:   Dev-Physics-Ext (35F94A83-E258-406C-A318-09F59610247C): 41
+LogDevObjectVersion:   Dev-PhysicsMaterial-Chaos (B68FC16E-8B1B-42E2-B453-215C058844FE): 1
+LogDevObjectVersion:   Dev-CineCamera (B2E18506-4273-CFC2-A54E-F4BB758BBA07): 1
+LogDevObjectVersion:   Dev-VirtualProduction (64F58936-FD1B-42BA-BA96-7289D5D0FA4E): 1
+LogDevObjectVersion:   UE5-Main (697DD581-E64F-41AB-AA4A-51ECBEB7B628): 123
+LogDevObjectVersion:   UE5-Release (D89B5E42-24BD-4D46-8412-ACA8DF641779): 68
+LogDevObjectVersion:   UE5-SpecialProject (59DA5D52-1232-4948-B878-597870B8E98B): 9
+LogDevObjectVersion:   Dev-MediaFramework (6F0ED827-A609-4895-9C91-998D90180EA4): 2
+LogDevObjectVersion:   Dev-NaniteResearch (30D58BE3-95EA-4282-A6E3-B159D8EBB06A): 1
+LogInit: Presizing for max 100000 objects, including 0 objects not considered by GC.
+LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: false, Async Post Load: false, Multithreaded: false
+LogInit: Object subsystem initialized
+LogConfig: Applying CVar settings from Section [Startup] File [../../../Engine/Config/ConsoleVariables.ini]
+LogConfig: CVar [[p.chaos.AllowCreatePhysxBodies:1]] deferred - dummy variable created
+LogConfig: CVar [[fx.SkipVectorVMBackendOptimizations:1]] deferred - dummy variable created
+LogConfig: Applying CVar settings from Section [Startup_Linux] File [../../../Engine/Config/ConsoleVariables.ini]
+LogConfig: Applying CVar settings from Section [ConsoleVariables] File [Engine]
+LogConfig: Set CVar [[g.TimeoutForBlockOnRenderFence:60000]]
+LogConfig: Set CVar [[memory.MemoryPressureCriticalThresholdPercent:10]]
+[2026.09.06-15.00.42:458][  0]LogInit: Unix hardware info:
+[2026.09.06-15.00.42:458][  0]LogInit:  - we are not the first instance of this executable
+[2026.09.06-15.00.42:458][  0]LogInit:  - this process' id (pid) is 2385884, parent process' id (ppid) is 2385883
+[2026.09.06-15.00.42:458][  0]LogInit:  - we are not running under debugger
+[2026.09.06-15.00.42:458][  0]LogInit:  - machine network name is 'biella-l40s-worker'
+[2026.09.06-15.00.42:458][  0]LogInit:  - user name is 'unreal' (unreal)
+[2026.09.06-15.00.42:458][  0]LogInit:  - we're logged in locally
+[2026.09.06-15.00.42:458][  0]LogInit:  - we're running with rendering
+[2026.09.06-15.00.42:458][  0]LogInit:  - CPU: AuthenticAMD 'AMD EPYC 9124 16-Core Processor' (signature: 0xA10F11)
+[2026.09.06-15.00.42:458][  0]LogInit:  - Number of physical cores available for the process: 15
+[2026.09.06-15.00.42:458][  0]LogInit:  - Number of logical cores available for the process: 15
+[2026.09.06-15.00.42:458][  0]LogInit:  - GPU Brand Info: NVIDIA L40S (NVIDIA UNIX x86_64 Kernel Module  580.178.04  Tue Jul  7 12:38:21 UTC 2026)
+[2026.09.06-15.00.42:458][  0]LogInit:  - Memory allocator used: Mimalloc
+[2026.09.06-15.00.42:458][  0]LogInit:  - This is an internal build.
+[2026.09.06-15.00.42:458][  0]LogCore: Skipped benchmarking clocks because the engine is running in a standalone program mode - CLOCK_MONOTONIC will be used.
+[2026.09.06-15.00.42:458][  0]LogInit: Unix-specific commandline switches:
+[2026.09.06-15.00.42:458][  0]LogInit:  -ansimalloc - use malloc()/free() from libc (useful for tools like valgrind and electric fence)
+[2026.09.06-15.00.42:458][  0]LogInit:  -jemalloc - use jemalloc for all memory allocation
+[2026.09.06-15.00.42:458][  0]LogInit:  -binnedmalloc - use binned malloc  for all memory allocation
+[2026.09.06-15.00.42:458][  0]LogInit:  -filemapcachesize=NUMBER - set the size for case-sensitive file mapping cache
+[2026.09.06-15.00.42:458][  0]LogInit:  -useksm - uses kernel same-page mapping (KSM) for mapped memory (OFF)
+[2026.09.06-15.00.42:458][  0]LogInit:  -ksmmergeall - marks all mmap'd memory pages suitable for KSM (OFF)
+[2026.09.06-15.00.42:458][  0]LogInit:  -preloadmodulesymbols - Loads the main module symbols file into memory (OFF)
+[2026.09.06-15.00.42:458][  0]LogInit:  -sigdfl=SIGNAL - Allows a specific signal to be set to its default handler rather then ignoring the signal
+[2026.09.06-15.00.42:458][  0]LogInit:  -crashhandlerstacksize - Allows setting crash handler stack sizes (204800)
+[2026.09.06-15.00.42:458][  0]LogInit:  -noexclusivelockonwrite - disables marking files created by the engine as exclusive locked while the engine has them opened
+[2026.09.06-15.00.42:458][  0]LogInit:  -httpproxy=ADDRESS:PORT - redirects HTTP requests to a proxy (only supported if compiled with libcurl)
+[2026.09.06-15.00.42:458][  0]LogInit:  -reuseconn - allow libcurl to reuse HTTP connections (only matters if compiled with libcurl)
+[2026.09.06-15.00.42:458][  0]LogInit:  -virtmemkb=NUMBER - sets process virtual memory (address space) limit (overrides VirtualMemoryLimitInKB value from .ini)
+[2026.09.06-15.00.42:458][  0]LogInit:  -allowsyscallfilterfile=PATH_TO_FILE - sets up a system call filter allow list. any invalid syscall in this list *will* cause a crash
+[2026.09.06-15.00.42:458][  0]LogInit:  - Physical RAM available (not considering process quota): 87 GB (88380 MB, 90501504 KB, 92673540096 bytes)
+[2026.09.06-15.00.42:458][  0]LogInit:  - VirtualMemoryAllocator pools will grow at scale 1
+[2026.09.06-15.00.42:458][  0]LogInit:  - MemoryRangeDecommit() will be a no-op (re-run with -vmapoolevict to change)
+[2026.09.06-15.00.42:458][  0]LogInit:  - PageSize 4096
+[2026.09.06-15.00.42:458][  0]LogInit:  - BinnedPageSize 65536
+[2026.09.06-15.00.42:473][  0]LogAssetRegistry: ActiveMountsLoading is disabled.
+[2026.09.06-15.00.42:473][  0]LogAssetRegistry: FAssetRegistry took 0.0002 seconds to start up
+[2026.09.06-15.00.42:474][  0]LogModuleManager: InternalLoadLibrary: 'TelemetryUtils' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-TelemetryUtils.so')
+[2026.09.06-15.00.42:475][  0]LogUObjectArray: 877 objects as part of root set at end of initial load.
+[2026.09.06-15.00.42:475][  0]LogUObjectArray: CloseDisregardForGC: 0/0 objects in disregard for GC pool
+[2026.09.06-15.00.42:477][  0]LogInit: Using OS detected language ().
+[2026.09.06-15.00.42:477][  0]LogInit: Using OS detected locale ().
+[2026.09.06-15.00.42:477][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the language.
+[2026.09.06-15.00.42:477][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the locale.
+[2026.09.06-15.00.42:478][  0]LogInit: Using OS detected language ().
+[2026.09.06-15.00.42:478][  0]LogInit: Using OS detected locale ().
+[2026.09.06-15.00.42:478][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the language.
+[2026.09.06-15.00.42:478][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the locale.
+[2026.09.06-15.00.42:478][  0]LogPakFile: Display: ProjectDir: ../../../Engine/Programs/UnrealPak/
+[2026.09.06-15.00.42:478][  0]LogPakFile: Display: Using command line for crypto configuration
+[2026.09.06-15.00.42:478][  0]LogPakFile: Finished extracting 0 (including 0 errors).
+[2026.09.06-15.00.42:478][  0]LogPakFile: Display: UnrealPak executed in 0.000689 seconds
+[2026.09.06-15.00.42:478][  0]LogCore: Engine exit requested (reason: UnrealPak Exiting)
+[2026.09.06-15.00.42:478][  0]LogExit: Preparing to exit.
+[2026.09.06-15.00.42:480][  0]LogExit: Object subsystem successfully closed.
+[2026.09.06-15.00.42:481][  0]LogPakFile: Destroying PakPlatformFile
+[2026.09.06-15.00.42:484][  0]LogExit: Exiting.

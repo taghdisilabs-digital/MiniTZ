@@ -1,0 +1,13 @@
+{
+  "task_id": "D03-01",
+  "result": "SOURCE_DIAGNOSIS",
+  "source": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Core/Private/Unix/UnixPlatformMisc.cpp",
+  "sha256": "47c8db4fabe10f084acb41d15e516721fa66b800faab009983745542f22bce4c",
+  "lines": [
+    282,
+    287
+  ],
+  "cause": "FUnixPlatformMisc::GetEnvironmentVariable replaces hyphens with underscores before secure_getenv. Hyphenated UE-ZenSubprocessDataPath was ignored on Linux.",
+  "repair": "Set UE_ZenSubprocessDataPath to the existing cook-ddc/Zen directory; assert actual UnrealPak log selection.",
+  "preservation": "No recook, cooked data mutation, or canonical source/config changes."
+}

@@ -1,0 +1,45 @@
+
+Running AutomationTool...
+
+Setting up bundled DotNet SDK
+Start UAT Interactively: dotnet AutomationTool.dll BuildCookRun -project=/mnt/biella-extra/biella-runtime/d03-01-package-01/project/BiellaGames.uproject -noP4 -platform=Linux -clientconfig=Development -skipbuild -skipcook -stage -pak -iostore -zenstore -nodebuginfo -archive -archivedirectory=/mnt/biella-extra/biella-runtime/d03-01-package-01/uat-package -utf8output
+/opt/unreal/UE_5.8.2/Engine/Binaries/ThirdParty/DotNet/10.0/linux-x64/dotnet
+Starting AutomationTool...
+Parsing command line: BuildCookRun -project=/mnt/biella-extra/biella-runtime/d03-01-package-01/project/BiellaGames.uproject -noP4 -platform=Linux -clientconfig=Development -skipbuild -skipcook -stage -pak -iostore -zenstore -nodebuginfo -archive -archivedirectory=/mnt/biella-extra/biella-runtime/d03-01-package-01/uat-package -utf8output
+Initializing script modules...
+Total script module initialization time: 0.48 s.
+Using /opt/unreal/UE_5.8.2/Engine/Binaries/ThirdParty/DotNet/10.0/linux-x64/dotnet
+Failed to delete file /tmp/UAT/+opt+unreal+UE_5.8.2/Rules/UATRules-c480fdb5ab913946393ccda1f34d31daManifest.json in 10 attempts.
+Exception in System.Private.CoreLib: Access to the path '/tmp/UAT/+opt+unreal+UE_5.8.2/Rules/UATRules-c480fdb5ab913946393ccda1f34d31daManifest.json' is denied.
+Stacktrace:    at System.IO.FileSystem.DeleteFile(String fullPath)
+   at AutomationTool.InternalUtils.SafeDeleteFile(String Path, Boolean bQuiet) in /mnt/horde/++UE5/Sync/Engine/Source/Programs/AutomationTool/AutomationUtils/Utils.cs:line 132InnerException in : Permission denied
+Stacktrace: 
+Failed to delete file '/tmp/UAT/+opt+unreal+UE_5.8.2/Rules/UATRules-c480fdb5ab913946393ccda1f34d31daManifest.json'
+Failed to delete file /tmp/UAT/+opt+unreal+UE_5.8.2/Rules/UATRules-c480fdb5ab913946393ccda1f34d31da.pdb in 10 attempts.
+Exception in System.Private.CoreLib: Access to the path '/tmp/UAT/+opt+unreal+UE_5.8.2/Rules/UATRules-c480fdb5ab913946393ccda1f34d31da.pdb' is denied.
+Stacktrace:    at System.IO.FileSystem.DeleteFile(String fullPath)
+   at AutomationTool.InternalUtils.SafeDeleteFile(String Path, Boolean bQuiet) in /mnt/horde/++UE5/Sync/Engine/Source/Programs/AutomationTool/AutomationUtils/Utils.cs:line 132InnerException in : Permission denied
+Stacktrace: 
+Failed to delete file '/tmp/UAT/+opt+unreal+UE_5.8.2/Rules/UATRules-c480fdb5ab913946393ccda1f34d31da.pdb'
+Failed to delete file /tmp/UAT/+opt+unreal+UE_5.8.2/Rules/UATRules-c480fdb5ab913946393ccda1f34d31da.dll in 10 attempts.
+Exception in System.Private.CoreLib: Access to the path '/tmp/UAT/+opt+unreal+UE_5.8.2/Rules/UATRules-c480fdb5ab913946393ccda1f34d31da.dll' is denied.
+Stacktrace:    at System.IO.FileSystem.DeleteFile(String fullPath)
+   at AutomationTool.InternalUtils.SafeDeleteFile(String Path, Boolean bQuiet) in /mnt/horde/++UE5/Sync/Engine/Source/Programs/AutomationTool/AutomationUtils/Utils.cs:line 132InnerException in : Permission denied
+Stacktrace: 
+Failed to delete file '/tmp/UAT/+opt+unreal+UE_5.8.2/Rules/UATRules-c480fdb5ab913946393ccda1f34d31da.dll'
+Executing commands...
+Setting up ProjectParams for /mnt/biella-extra/biella-runtime/d03-01-package-01/project/BiellaGames.uproject
+System.UnauthorizedAccessException: Access to the path '/tmp/UAT/+opt+unreal+UE_5.8.2/Rules/UATRules-0c82cbb0114a271799659c592b85c61c.dll' is denied.
+ ---> System.IO.IOException: Permission denied
+   --- End of inner exception stack trace ---
+   at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirError)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, UnixFileMode openPermissions, Int64& fileLength, UnixFileMode& filePermissions, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.File.Open(String path, FileMode mode)
+   at EpicGames.Core.FileReference.Open(FileReference location, FileMode mode) in /mnt/horde/++UE5/Sync/Engine/Source/Programs/Shared/EpicGames.Core/FileReference.cs:line 382
+   at UnrealBuildTool.DynamicCompilation.CompileAssemblyAsync(FileReference OutputAssemblyPath, IEnumerable`1 SourceFileNames, ILogger Logger, IEnumerable`1 ReferencedAssembies, IEnumerable`1 PreprocessorDefines, Boolean TreatWarningsAsErrors) in /mnt/horde/++UE5/Sync/Engine/Source/Programs/UnrealBuildTool/System/DynamicCompilation.cs:line 298
+   at UnrealBuildTool.DynamicCompilation.CompileAndLoadAssemblyAsync(FileReference OutputAssemblyPath, IEnumerable`1 SourceFileNames, ILogger Logger, IEnumerable`1 ReferencedAssembies, IEnumerable`1 PreprocessorDefines, Boolean DoNotCompile, Boolean ForceCompile, Boolean TreatWarningsAsErrors) in /mnt/horde/++UE5/Sync/Engine/Source/Programs/UnrealBuildTool/System/DynamicCompilation.cs:line 380
+(see /home/unreal/Library/Logs/Unreal Engine/LocalBuildLogs/Log.txt for full exception trace)
+AutomationTool executed for 0h 0m 28s
+AutomationTool exiting with ExitCode=1 (Error_Unknown)
+RunUAT ERROR: AutomationTool was unable to run successfully. Exited with code: 1

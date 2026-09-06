@@ -1,0 +1,32 @@
+Internal ctest changing into directory: /mnt/biella-extra/biella-runtime/d03-01-toolchain-02/samplerate-build
+Test project /mnt/biella-extra/biella-runtime/d03-01-toolchain-02/samplerate-build
+      Start  1: misc_test
+ 1/13 Test  #1: misc_test ........................   Passed    0.00 sec
+      Start  2: termination_test
+ 2/13 Test  #2: termination_test .................   Passed    0.08 sec
+      Start  3: callback_hang_test
+ 3/13 Test  #3: callback_hang_test ...............   Passed    0.00 sec
+      Start  4: downsample_test
+ 4/13 Test  #4: downsample_test ..................   Passed    0.01 sec
+      Start  5: simple_test
+ 5/13 Test  #5: simple_test ......................   Passed    0.04 sec
+      Start  6: callback_test
+ 6/13 Test  #6: callback_test ....................   Passed    0.02 sec
+      Start  7: reset_test
+ 7/13 Test  #7: reset_test .......................   Passed    0.00 sec
+      Start  8: clone_test
+ 8/13 Test  #8: clone_test .......................   Passed    0.02 sec
+      Start  9: nullptr_test
+ 9/13 Test  #9: nullptr_test .....................   Passed    0.01 sec
+      Start 10: multi_channel_test
+10/13 Test #10: multi_channel_test ...............   Passed    0.45 sec
+      Start 11: varispeed_test
+11/13 Test #11: varispeed_test ...................   Passed    1.25 sec
+      Start 12: float_short_test
+12/13 Test #12: float_short_test .................   Passed    0.00 sec
+      Start 13: snr_bw_test
+13/13 Test #13: snr_bw_test ......................   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 13
+
+Total Test time (real) =   1.90 sec

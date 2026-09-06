@@ -1,0 +1,10 @@
+{
+  "task_id": "D03-01",
+  "decision": "Continue the existing initially-empty-DDC cook using observed default ZenStore. Stage with explicit -iostore -zenstore; do not restart or recook to legacy.",
+  "evidence": [
+    "package-cook-01/cook.stdout.log: ZenStoreWriter creates task-specific fresh cook output",
+    "Engine/Source/Editor/UnrealEd/Private/Commandlets/CookCommandlet.cpp:425-427: ZenStore effective packaging setting unless SkipZenStore",
+    "Engine/Source/Programs/AutomationTool/Scripts/CopyBuildToStagingDirectory.Automation.cs:6414: Zen manifest requires IoStore staging"
+  ],
+  "note": "Zen cooked store is packaging input, distinct from DDC graph (Local). Packaged runtime will have no access to either service or original source."
+}

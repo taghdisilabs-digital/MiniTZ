@@ -1,0 +1,46 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "revision": {
+    "head": "5540538b22cab63b094f9ba4c2070af88427adf6",
+    "head_tree": "fa23a7babfb933404fb31b2e5e64167cce2a7c1b",
+    "project_status": [
+      "?? Build/Presentation/package-build-01/",
+      "?? Build/Presentation/package-build-02/",
+      "?? Build/Presentation/package-build-03/",
+      "?? Build/Presentation/package-design-01/",
+      "?? Build/Presentation/package-toolchain-01/",
+      "?? Build/Presentation/package-toolchain-02/",
+      "?? tests/build_d03_01_game.py",
+      "?? tests/cook_d03_01_package.py",
+      "?? tests/d03_01_package_isolation_probe.py",
+      "?? tests/repair_d03_01_engine_dependencies.py",
+      "?? tests/stage_d03_01_package.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "marker_before": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "started": "2026-09-06T14:17:44.946521+00:00",
+  "returncode": 0,
+  "binary": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames",
+    "sha256": "2e48ab1a23259011b015710231f335bc277ca8eb058e3552340fb2ae67b12e7a",
+    "bytes": 298959360
+  },
+  "receipt": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames.target",
+    "sha256": "7da8030a25e23d3976e834f2554ef35a869d9133100f3a7da197b666c115d023",
+    "bytes": 106593
+  },
+  "marker_after": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "inputs_unchanged": true,
+  "elapsed_seconds": 111.95237204199657
+}

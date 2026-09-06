@@ -1,0 +1,27 @@
+{
+  "task_id": "D03-01",
+  "source": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Config/VulkanPC/DataDrivenPlatformInfo.ini",
+    "sha256": "3490908c45723ab10428939d2edbfafd792129b9f38c6d29d2d9e0eaff15118e"
+  },
+  "platforms": {
+    "ShaderPlatform VULKAN_SM5": {
+      "MaxFeatureLevel": "SM5",
+      "ShaderFormat": "SF_VULKAN_SM5",
+      "bSupportsNanite": "false",
+      "bSupportsLumenGI": "true",
+      "bSupportsGen5TemporalAA": "true",
+      "bSupportsRayTracing": "false"
+    },
+    "ShaderPlatform VULKAN_SM6": {
+      "MaxFeatureLevel": "SM6",
+      "ShaderFormat": "SF_VULKAN_SM6",
+      "bSupportsNanite": "true",
+      "bSupportsLumenGI": "true",
+      "bSupportsGen5TemporalAA": "true",
+      "bSupportsRayTracing": "true"
+    }
+  },
+  "observation": "Current cook and prior reconstruction runtime both target VULKAN_SM5. Configuration CVars alone do not prove executed Nanite/VSM passes.",
+  "scope": "Qualify exact existing SM5 package and gameplay visibility. Full D03 still requires production SM6/Nanite rendering qualification; preserve this evidence as fallback/baseline coverage."
+}

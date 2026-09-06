@@ -1,0 +1,32 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "cook": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-cook-01/validation.json",
+    "sha256": "2df117498a310216b4c83159aa2ca5edb7163d9fc7d2e4fda155822bd6fe79ef",
+    "bytes": 4706412
+  },
+  "before": {
+    "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/project/Config/DefaultEngine.ini",
+    "sha256": "8ff8ba4e9278ef330b78a9754dd7a15f25a7f9df6963306f3b48f0187232ddf3",
+    "bytes": 1913
+  },
+  "private_backup": {
+    "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/cook-side-effects/DefaultEngine.ini",
+    "sha256": "8ff8ba4e9278ef330b78a9754dd7a15f25a7f9df6963306f3b48f0187232ddf3",
+    "bytes": 1913
+  },
+  "engine_source": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AndroidFileServer/Source/AndroidFileServerEditor/Private/AndroidFileServerRuntimeSettings.cpp",
+    "sha256": "db36ace337b0f3a7f393e3e380a2576d2178c2d7fe650dbab3b7f0fd56e765ae",
+    "bytes": 1125
+  },
+  "reason": "PostInitProperties appends Android editor defaults; Linux content and canonical project unchanged",
+  "appended_section": "/Script/AndroidFileServerEditor.AndroidFileServerRuntimeSettings",
+  "generated_token_value_recorded": false,
+  "after": {
+    "path": "/mnt/biella-extra/biella-runtime/d03-01-package-01/project/Config/DefaultEngine.ini",
+    "sha256": "0c3f7739d7f5dfbb1c1a2ac5426a749680181e8e4299b32cb05a52988b3419b0",
+    "bytes": 1540
+  }
+}

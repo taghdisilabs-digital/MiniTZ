@@ -1,0 +1,26 @@
+// Copyright Epic Games, Inc. All Rights Reserved.
+
+using UnrealBuildTool;
+
+public class UELibSampleRate : ModuleRules
+{
+	public UELibSampleRate(ReadOnlyTargetRules Target) : base(Target)
+	{
+		IWYUSupport = IWYUSupport.None;
+		// D03-01: source distributions omit libsamplerate headers/objects.
+		// Link the verified static Linux dependency built with this engine SDK.
+		if (Target.Platform == UnrealTargetPlatform.Linux)
+		{
+			PublicSystemIncludePaths.Add(System.IO.Path.Combine(ModuleDirectory, "D03Linux"));
+			PublicAdditionalLibraries.Add(System.IO.Path.Combine(ModuleDirectory, "D03Linux", "libsamplerate.a"));
+		}
+
+
+        PrivateDependencyModuleNames.AddRange(
+                new string[]
+                {
+                    "Core"
+                }
+            );
+	}
+}

@@ -1,0 +1,11 @@
+[
+  "runuser",
+  "-u",
+  "unreal",
+  "--",
+  "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealPak",
+  "/mnt/biella-extra/biella-runtime/d03-01-shader-fixture-02/source.pak",
+  "-Extract",
+  "/mnt/biella-extra/biella-runtime/d03-01-shader-fixture-02/extracted",
+  "-unattended"
+]
