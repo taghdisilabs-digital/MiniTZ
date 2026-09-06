@@ -28,7 +28,7 @@ def compile_task_packet(repo_root: Path, production: ProductionState, task: Task
         "Do not stop for confirmation, routine permission, design approval, or owner decision when the active task or prior owner direction already authorizes the work. If a genuinely destructive or irreversible external action is required and not already authorized, or a required authority/fact is truly unavailable, preserve progress, record the exact need, and return CONTINUE rather than inventing completion. "
         "For every final deliverable, preserve the exact canonical local file and publish it to the configured canonical destination defined by current Project/task authority; verify exact remote identity and bytes/digest when supported. Never invent a destination. If publication is required but unavailable, keep the local file durably, record the failure in `/mnt/biella-extra/biella-runtime/codex-production/failures.jsonl`, and return CONTINUE until durable publication/readback succeeds. "
         "Commit this task's implementation/evidence locally before returning COMPLETE; the Auto Feeder owns GitHub/Drive publication and canonical state transition. "
-        "Do not edit 03/04 task identity or Project PRODUCTION status/next-task metadata. "
+        "Do not edit 03/04 task identity or Project PRODUCTION status/next-task metadata. Never use exact 03/04 byte identity as a gameplay/runtime validation gate because those files are volatile continuity state. "
         "Do not probe quota/balance, do not inspect or manage Codex usage/resets/credits, and do not advance beyond this task."
     )
 

@@ -15,7 +15,7 @@ PUBLIC_ROOT_LANES = {
     "games-visual-output": "Games",
     "website-generated": "Website",
 }
-STALE_AFTER_SECONDS = 25
+STALE_AFTER_SECONDS = 75
 
 
 def _read_json(path: Path) -> dict[str, object]:

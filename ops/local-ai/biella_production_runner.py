@@ -735,9 +735,34 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 production = state.load_project_production(project_root)
                 section = _first_incomplete_section(production)
                 if section is None:
-                    telemetry.update({"status": "COMPLETE", "task_id": None, "child_pid": None, "active_model": None, "active_reasoning": None})
-                    journal.emit("production.completed", status="COMPLETE", text="All current production tasks complete")
-                    _beat(runtime_path, telemetry); return 0
+                    if os.environ.get("BIELLA_CONTINUOUS_IDLE", "0") != "1":
+                        telemetry.update({"status": "COMPLETE", "task_id": None, "child_pid": None, "active_model": None, "active_reasoning": None})
+                        journal.emit("production.completed", status="COMPLETE", text="All current production tasks complete")
+                        _beat(runtime_path, telemetry); return 0
+                    projects_dir = repo_root / "projects"
+                    projects = sorted(p.name for p in projects_dir.iterdir() if p.is_dir()) if projects_dir.exists() else []
+                    registry_path = repo_root / "ops/workstation/provider-registry.json"
+                    capabilities = []
+                    try:
+                        registry = json.loads(registry_path.read_text(encoding="utf-8"))
+                        capabilities = sorted((registry.get("routes") or {}).keys())
+                    except (OSError, json.JSONDecodeError):
+                        pass
+                    discovery = {
+                        "schema": "biella.opportunity_discovery/v1",
+                        "status": "REQUEST_NEW_TASK",
+                        "projects": projects,
+                        "registered_capabilities": capabilities,
+                        "generated_at": datetime.now(timezone.utc).isoformat(),
+                        "authority": "READ_ONLY_DISCOVERY_NO_TASK_INVENTION",
+                    }
+                    discovery_path = runtime_root / "opportunity-discovery.json"
+                    discovery_path.write_text(json.dumps(discovery, sort_keys=True) + "\n", encoding="utf-8")
+                    prior = telemetry.get("status")
+                    telemetry.update({"status": "WAITING_FOR_TASK", "task_id": None, "child_pid": None, "active_model": None, "active_reasoning": None, "last_result": discovery})
+                    if prior != "WAITING_FOR_TASK":
+                        journal.emit("production.awaiting_task", status="WAITING_FOR_TASK", text="Canonical task list exhausted; owner task requested and current projects/capabilities inventoried read-only.")
+                    _beat(runtime_path, telemetry); time.sleep(5.0); catalog = routing.discover_catalog(); continue
                 if section.id == "demo01" and section.tasks and all(t.status in {"COMPLETE", "COMPLETE_ALREADY"} for t in section.tasks):
                     state.mark_section_status(project_root, section.id, "COMPLETE")
                     _persist_until_success(repo_root, f"SECTION-{section.id}", runtime_path, telemetry, event_journal=journal)
@@ -747,7 +772,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     route = routing.select_route("deep_memory", catalog, telemetry.get("cooldowns", {}), now)
                 except RuntimeError:
                     telemetry.update({"status": "RECOVERING_MODEL", "task_id": f"PLAN:{section.id}", "active_model": None, "active_reasoning": None})
-                    _beat(runtime_path, telemetry); time.sleep(min(60.0, max(1.0, routing.earliest_cooldown_delay(telemetry.get("cooldowns", {}), now)))); catalog = routing.discover_catalog(); continue
+                    _beat(runtime_path, telemetry); time.sleep(min(5.0, max(0.5, routing.earliest_cooldown_delay(telemetry.get("cooldowns", {}), now)))); catalog = routing.discover_catalog(); continue
                 telemetry.update({"status": "RUNNING", "task_id": f"PLAN:{section.id}", "active_model": route.model, "active_reasoning": route.reasoning})
                 _beat(runtime_path, telemetry)
                 output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"PLAN-{section.id}-{route.model}")
@@ -768,9 +793,10 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             except RuntimeError:
                 telemetry.update({"status": "RECOVERING_MODEL", "task_id": task.id, "active_model": None, "active_reasoning": None})
                 _beat(runtime_path, telemetry)
-                time.sleep(min(60.0, max(1.0, routing.earliest_cooldown_delay(telemetry.get("cooldowns", {}), now))))
+                time.sleep(min(5.0, max(0.5, routing.earliest_cooldown_delay(telemetry.get("cooldowns", {}), now))))
                 catalog = routing.discover_catalog(); continue
             telemetry.update({"status": "RUNNING", "task_id": task.id, "active_model": route.model, "active_reasoning": route.reasoning})
+            state.mark_task_running(repo_root, production, task)
             if evidence.continuity_changes(repo_root):
                 unexpected = evidence.unexpected_dirty_paths(repo_root)
                 if unexpected:
@@ -785,7 +811,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"{task.id}-{route.model}")
             capsule_path = _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
             projection_path = _refresh_memory_projection(repo_root, project_root, runtime_root, task.id, journal)
-            local_assist_path = _ensure_local_resource_assist(runtime_root, task.id, projection_path, journal, project_root=project_root) if projection_path else None
+            local_assist_path = None  # Optional local AI remains available on demand inside the authoritative task; never block turn start.
             prompt = _task_prompt(repo_root, production, task, telemetry, capsule_path, projection_path, local_assist_path)
             resume_session_id = _resume_session_for(telemetry, task.id)
             journal.emit("task.continued" if resume_session_id else "task.started", task_id=task.id, status="RUNNING", text=task.title, model=route.model, reasoning=route.reasoning)

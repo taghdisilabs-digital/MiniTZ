@@ -279,6 +279,16 @@ def _block_field(text: str, block: str, field: str) -> str | None:
     return None
 
 
+
+def mark_task_running(repo_root: Path, production: ProductionState, task: TaskRecord) -> None:
+    active_path = active_task_path(repo_root)
+    if active_path.exists():
+        lines = active_path.read_text(encoding="utf-8").splitlines()
+        _update_yaml_block(lines, "task", {"status": "RUNNING", "runner": "RUNNING"})
+        active_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    sync_current_state(repo_root, production, task, state="RUNNING")
+
+
 def resolve_current_task(repo_root: Path, project_root: Path) -> TaskRecord | None:
     production = sync_project_metadata(project_root)
     task_ledger.sync_task_ledger(repo_root, production)
