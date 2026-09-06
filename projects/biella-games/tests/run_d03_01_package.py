@@ -30,8 +30,13 @@ def main():
     parser.add_argument('--phase', choices=('cold', 'warm'), required=True)
     parser.add_argument('--profile', choices=('ProductionTSR', 'NativeTAA'), required=True)
     parser.add_argument('--scenario', choices=('surfaces', 'environment'), default='surfaces')
+    parser.add_argument('--feature-level', choices=('sm5', 'sm6'), help='Force a Vulkan feature level; omitted uses project preference')
+    parser.add_argument('--verify-feature-level', choices=('sm5', 'sm6'), help='Require observed native renderer capabilities')
+    parser.add_argument('--verify-architecture', action='store_true', help='Require all six authored street meshes and their platform-specific proxies')
     parser.add_argument('--trace', action='store_true')
     args = parser.parse_args()
+    if args.verify_architecture and (args.scenario != 'surfaces' or not args.verify_feature_level):
+        parser.error('--verify-architecture requires surfaces and --verify-feature-level')
     out, state = args.output.resolve(), args.state.resolve()
     assert not out.exists(), 'Fresh evidence required'
     account = pwd.getpwnam('unreal')
@@ -50,10 +55,14 @@ def main():
     original = [Path('/opt/unreal/UE_5.8.2'), PROJECT, Path('/home/unreal'), Path(stage['destination']).parent]
     inputs = [PROJECT/'tests'/name for name in ('run_d03_01_package.py', 'd03_01_package_isolation_probe.py',
               'verify_d03_01_reconstruction.py', 'verify_d03_01_surfaces.py', 'verify_d02_04.py',
-              'run_d01_048.py', 'run_d02_01.py', 'run_d01_039.py', 'run_d01_042.py')]
+              'run_d01_048.py', 'run_d02_01.py', 'run_d01_039.py', 'run_d01_042.py',
+              'verify_d03_01_shader_platform.py', 'verify_d03_01_architecture.py')]
     report = dict(task_id='D03-01', result='FAIL', revision=source_revision(),
                   stage=file_identity(args.stage.resolve()/'validation.json'), profile=args.profile,
                   scenario=args.scenario, phase=args.phase, state=str(state), trace=args.trace,
+                  feature_level_request=args.feature_level,
+                  feature_level_expected=args.verify_feature_level,
+                  architecture_required=args.verify_architecture,
                   capture_status='GENERATED_DRAFT', state_before=members(state),
                   inaccessible_host_roots=[str(p) for p in original],
                   inputs_before=[file_identity(f) for f in inputs], archive=stage['archive'],
@@ -88,6 +97,8 @@ def main():
                     f'-BiellaRenderProfile={args.profile}', '-BiellaRenderReadback=/tmp/evidence/native-views.csv',
                     '-LogCmds=LogPSOHitching Verbose,LogShaderLibrary Verbose,LogVulkanRHI Verbose',
                     f'-ExecCmds=t.MaxFPS {0 if surface else 60},r.VSync 0,r.MotionBlurQuality 0,Automation RunTests {native}; SoftQuit']
+        if args.feature_level:
+            command.append(f'-{args.feature_level}')
         write_json(out/'command.json', command)
         report['runtime'] = launch(command, extraction, out/'runtime.stdout.log', 360)
         log = (out/'runtime.stdout.log').read_text(errors='replace')
@@ -110,6 +121,12 @@ def main():
         else:
             from verify_d02_04 import verify
             report['verification'] = verify(out)
+        if args.verify_feature_level:
+            from verify_d03_01_shader_platform import verify as verify_platform
+            report['shader_platform'] = verify_platform(out, args.verify_feature_level, args.profile)
+        if args.verify_architecture:
+            from verify_d03_01_architecture import verify as verify_architecture
+            report['architecture'] = verify_architecture(out, args.verify_feature_level)
         report['pso_hitches'] = [dict(kind=m[0], milliseconds=float(m[1]), diagnostic=m[2]) for m in re.findall(
             r'Runtime (graphics|compute) PSO creation hitch \(([\d.]+) msec\)([^\n]*)', log)]
         report['pso_observations'] = [line for line in log.splitlines() if re.search(

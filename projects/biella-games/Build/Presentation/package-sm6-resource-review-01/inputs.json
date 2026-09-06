@@ -1,0 +1,10 @@
+[
+  {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_package.py",
+    "sha256": "54b36643f21b0918ff0c2db250c94c0e99c9772ec8e9b05bb702e2913c8b67a9"
+  },
+  {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_sm6_package.py",
+    "sha256": "1e60004eae90574c0e07b732c2bbb99163ef580bd48c8ebf547910ec5c096ecd"
+  }
+]

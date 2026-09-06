@@ -1,0 +1,28 @@
+{
+  "task_id": "D03-01",
+  "status": "SOURCE_OBSERVATION_ONLY",
+  "sources": [
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/VulkanRHI/Private/VulkanPipeline.cpp",
+      "bytes": 133574,
+      "sha256": "9d189107d167682b8834aaa6aa0eef765183939f463c3999172c215a5b212270"
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RHI/Private/PipelineFileCache.cpp",
+      "bytes": 161694,
+      "sha256": "7b5c888f76d3b75ec5c2f02dde458838e2806d6a9879730f47c8f987367170fa"
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RenderCore/Private/ShaderPipelineCache.cpp",
+      "bytes": 89798,
+      "sha256": "23e47228beae4ba30438e04d77392b40752451eaa5e6480f15a5beebe0685317"
+    }
+  ],
+  "observations": [
+    "VulkanPipeline.cpp:565 loads default driver pipeline cache when FPipelineFileCacheManager is disabled; absent VulkanPSO.cache alone is not a missing shader library.",
+    "VulkanPipeline.cpp:588 Save invokes SavePSOCache when PipelineFileCacheManager is disabled.",
+    "PipelineFileCache.cpp:113/120 define separate r.ShaderPipelineCache.Enabled and LogPSO controls; no project change made here.",
+    "Current package native PSO observations must determine whether old SM5 stutter persists on default SM6."
+  ],
+  "next_boundary": "After current exact package baseline, diagnose measured PSO behavior against these local engine sources; do not infer smoothness from shader cook or functional PASS."
+}

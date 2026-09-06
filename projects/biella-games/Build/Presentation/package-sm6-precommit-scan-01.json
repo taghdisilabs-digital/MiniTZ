@@ -1,0 +1,23 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T17:25:10.757234+00:00",
+  "result": "PASS",
+  "scope": "Task changed/new text artifacts only; bounded token-pattern scan, Python syntax and scoped whitespace check; raw native logs preserved",
+  "text_files": 101,
+  "scanned_bytes": 25814567,
+  "patterns": [
+    "private_key",
+    "google_access_token",
+    "github_token",
+    "bearer_value",
+    "provider_key"
+  ],
+  "findings": [],
+  "compiled_python": [
+    "tests/negative_d03_01_package.py",
+    "tests/run_d03_01_package.py",
+    "tests/verify_d03_01_sm6_package.py"
+  ],
+  "diff_check_returncode": 0,
+  "all_changes_project_local": true
+}

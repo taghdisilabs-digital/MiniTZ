@@ -1,0 +1,71 @@
+{
+  "schema": "biella.presentation_readback/v1",
+  "task_id": "D03-01",
+  "task_status": "CONTINUE",
+  "result": "PASS",
+  "time": "2026-09-06T17:25:10.757234+00:00",
+  "parent_commit": "d5d695da5933a417f5c996278d67829dcbfbd14d",
+  "series": {
+    "path": "Build/Presentation/package-sm6-series-precommit-01.json",
+    "bytes": 716043,
+    "sha256": "f6cc62c855c82a39e4e67a7c80e7f578bff8679f7898234774a188a01a2b195c"
+  },
+  "exact_series_identities": 2551,
+  "positive_frames": 7696,
+  "captures": 182,
+  "previous_manifests": [
+    {
+      "path": "Build/Presentation/D03-01-architecture-file-manifest.json",
+      "bytes": 58386,
+      "sha256": "7eb04ac2b938e69e4a1606606f156fba41f040515639e54f720c246e250d71b2"
+    },
+    {
+      "path": "Build/Presentation/D03-01-package-file-manifest.json",
+      "bytes": 71153,
+      "sha256": "cf326c75a4d0fc4927de5ea8f35d415a9137febd657b7134a652a6bf475b0fbb"
+    }
+  ],
+  "unchanged_previous_file_observations": 654,
+  "authorized_source_evolutions": [
+    {
+      "previous": {
+        "path": "tests/negative_d03_01_package.py",
+        "bytes": 9161,
+        "sha256": "494f5a105fc5a0f80d0a75c5814d2462d1d0dc5024adac87f30ac6b4673d905d"
+      },
+      "current": {
+        "path": "tests/negative_d03_01_package.py",
+        "bytes": 9774,
+        "sha256": "53a423249cb0e0599dcd780327699cd0c13e454e6b9cab4771720c9018489fd4"
+      },
+      "reason": "Authorized feature-level package harness extension; prior source retained exactly in parent Git commit"
+    },
+    {
+      "previous": {
+        "path": "tests/run_d03_01_package.py",
+        "bytes": 9518,
+        "sha256": "87a59d51fe07dfa0253b3911f86e02c04dcc96c12043752c89401a418904a1b1"
+      },
+      "current": {
+        "path": "tests/run_d03_01_package.py",
+        "bytes": 10915,
+        "sha256": "54b36643f21b0918ff0c2db250c94c0e99c9772ec8e9b05bb702e2913c8b67a9"
+      },
+      "reason": "Authorized feature-level package harness extension; prior source retained exactly in parent Git commit"
+    }
+  ],
+  "preserved_previous_archive": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-package-01.tar.zst",
+    "bytes": 371811200,
+    "sha256": "06510221abdcfa88e7fbb73dcbf31bb34de839101649aa83ffde2c3c1722b14a"
+  },
+  "canonical_archive": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-sm6-package-01.tar.zst",
+    "sha256": "057eff4cec157e002d9ea3b735bb9e41c9a7bc66853ad4a338e86d498cc58d8e",
+    "bytes": 481060250
+  },
+  "reviewed_images": 9,
+  "publication_owner": "Auto Feeder",
+  "remote_publication_claimed": false,
+  "scope": "Exact runtime replay and file readback; two intentionally extended harnesses retain their previous exact source in parent commit. No final D03 quality acceptance."
+}

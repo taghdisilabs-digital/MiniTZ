@@ -1,0 +1,85 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T17:22:53.707836+00:00",
+  "status": "GENERATED_DRAFT",
+  "method": "Direct visual inspection of these nine actual native-runtime PNG files",
+  "images": [
+    {
+      "file": {
+        "path": "Build/Presentation/package-sm6-tsr-cold-01/captures/pan_000.png",
+        "bytes": 999123,
+        "sha256": "194d7217934a3921bf44c1b8b4fc8d376faa8d7b522ef0aad6ab4bcde410d969"
+      },
+      "observation": "Authored industrial facade, road, blue skeletal player and HUD readable."
+    },
+    {
+      "file": {
+        "path": "Build/Presentation/package-sm6-tsr-cold-01/captures/pan_016.png",
+        "bytes": 1026829,
+        "sha256": "d383b2cb7c7ec0bf6a7a24fd8b5c8974cc83927b5c5df6a55f7dcdc9111ccbde"
+      },
+      "observation": "Facade window frames and roof edges remain identifiable from the rotated camera."
+    },
+    {
+      "file": {
+        "path": "Build/Presentation/package-sm6-tsr-cold-01/captures/walk_end.png",
+        "bytes": 1035094,
+        "sha256": "a20cab171ed915296f0063b96c90113dd4936d76e45b3895e994927eab7d0dca"
+      },
+      "observation": "Player and street geometry remain readable after the runtime walk."
+    },
+    {
+      "file": {
+        "path": "Build/Presentation/package-sm6-tsr-environment-01/captures/hazard_active.png",
+        "bytes": 1067698,
+        "sha256": "aa4a4095c33400f3eaa21d3bfeba958d2a14b5b5a1cc47f4e68a338fbd79c70a"
+      },
+      "observation": "Orange energized floor and red threat silhouettes are visible."
+    },
+    {
+      "file": {
+        "path": "Build/Presentation/package-sm6-tsr-environment-01/captures/panel_destroyed.png",
+        "bytes": 1016460,
+        "sha256": "67b056a3d54d134a77ddf50171148e1b58434f6efa5858b425b5df5d70282edb"
+      },
+      "observation": "Destroyed panel leaves a visible opening and debris; player, switch and live-floor cues remain clear."
+    },
+    {
+      "file": {
+        "path": "Build/Presentation/package-sm5-fallback-taa-cold-01/captures/pan_016.png",
+        "bytes": 902196,
+        "sha256": "861aee49a3d43994f598b6a7d27c90421a3336168d20b6941837aeeae24c5cc9"
+      },
+      "observation": "Fallback facade, blue player and HUD remain readable; shading differs from SM6."
+    },
+    {
+      "file": {
+        "path": "Build/Presentation/package-sm5-fallback-taa-cold-01/captures/walk_end.png",
+        "bytes": 906334,
+        "sha256": "bfca02bfa45d6f4fd3f203ae9fde1d1916574fa9418ba70ee0c43ee47e12abba"
+      },
+      "observation": "Fallback walk retains visible player and street surfaces."
+    },
+    {
+      "file": {
+        "path": "Build/Presentation/package-sm5-fallback-taa-environment-01/captures/hazard_active.png",
+        "bytes": 995406,
+        "sha256": "d6682159468a595682b8d0bcbc8141107f1cbd45c3c0b8adc535c4f209bd21e6"
+      },
+      "observation": "Fallback energized orange floor and three red threats remain clearly visible with health feedback."
+    },
+    {
+      "file": {
+        "path": "Build/Presentation/package-sm5-fallback-taa-environment-01/captures/panel_destroyed.png",
+        "bytes": 922518,
+        "sha256": "66be1e1db7eedf7fcaeee897a30a4ff3d070e63c6b696ad69d09cec5a6ec4c7d"
+      },
+      "observation": "Fallback destroyed panel opening, debris, blue player, switch and live-floor warning remain visible."
+    }
+  ],
+  "limitations": [
+    "Sparse industrial strip, unbuilt surroundings, generic mannequin presentation and simple remaining structures are unfinished world art.",
+    "Selected stills do not establish fine temporal, ghosting, disocclusion or animation-cadence quality.",
+    "No claim that all 182 captures were visually inspected; their runtime/content checks are recorded separately."
+  ]
+}

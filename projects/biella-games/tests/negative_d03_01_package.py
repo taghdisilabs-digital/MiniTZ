@@ -14,7 +14,7 @@ from run_d01_048 import launch
 from run_d03_01_package import members
 
 
-def withhold_global_cache(package, workspace, out, account):
+def withhold_global_cache(package, workspace, out, account, feature_level='sm5'):
     """Repack only loose pak entries; preserve all IoStore containers verbatim."""
     tool = Path('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealPak')
     pak = package/'BiellaGames/Content/Paks/BiellaGames-Linux.pak'
@@ -38,7 +38,8 @@ def withhold_global_cache(package, workspace, out, account):
     extracted = workspace/'extracted'
     extraction = extract(saved, extracted, 'extract-original')
     before = members(extracted)
-    target = extracted/'Engine/GlobalShaderCache-VULKAN_SM5.bin'
+    assert feature_level in ('sm5', 'sm6'), 'Unknown shader cache platform'
+    target = extracted/f'Engine/GlobalShaderCache-VULKAN_{feature_level.upper()}.bin'
     assert target.is_file(), 'Exact global shader cache missing from original pak'
     withheld = original/target.name
     target.rename(withheld)
@@ -74,6 +75,7 @@ def main():
     parser.add_argument('--positive', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--workspace', type=Path, required=True)
+    parser.add_argument('--feature-level', choices=('sm5', 'sm6'), default='sm5')
     args = parser.parse_args()
     out, workspace = args.output.resolve(), args.workspace.resolve()
     assert not out.exists() and not workspace.exists(), 'Fresh control evidence/workspace required'
@@ -82,9 +84,12 @@ def main():
     ensure_runtime_output(workspace, account)
     positive = json.loads((args.positive/'validation.json').read_text())
     assert positive['result'] == 'PASS', 'Requires qualified positive package run'
+    if positive.get('feature_level_expected'):
+        assert positive['feature_level_expected'] == args.feature_level, 'Control differs from observed positive platform'
     stage = json.loads(Path(positive['stage']['path']).read_text())
     extraction = Path(stage['archive_readback'])
     report = dict(task_id='D03-01', result='FAIL', control='missing_global_shader_cache',
+                  feature_level=args.feature_level,
                   positive=file_identity(args.positive.resolve()/'validation.json'),
                   input=file_identity(Path(__file__).resolve()), archive=stage['archive'],
                   canonical_before=members(extraction))
@@ -101,7 +106,7 @@ def main():
         report['copy_before'] = members(package)
         expected = [(str(Path(x['path']).relative_to(extraction/'Linux')), x['sha256']) for x in stage['readback_members']]
         assert [(str(Path(x['path']).relative_to(package)), x['sha256']) for x in report['copy_before']] == expected, 'Control copy differs before mutation'
-        report['mutation'] = withhold_global_cache(package, workspace, out, account)
+        report['mutation'] = withhold_global_cache(package, workspace, out, account, args.feature_level)
         report['copy_after'] = members(package)
         changed = [before['path'] for before, after in zip(report['copy_before'], report['copy_after'])
                    if before != after]
@@ -122,6 +127,7 @@ def main():
             r'Failed to initialize ShaderCodeLibrary|Global shader library.*missing|Failed to open.*shader|global shader cache.*missing|GlobalShaderCache.*missing', line, re.I)]
         assert not report['runtime']['timed_out'] and report['runtime']['returncode'] != 0, 'Missing cache was not rejected promptly'
         assert report['failure_diagnostics'], 'Missing cache lacks a specific shader diagnostic'
+        assert f'GlobalShaderCache-VULKAN_{args.feature_level.upper()}.bin' in '\n'.join(report['failure_diagnostics']), 'Diagnostic does not identify the withheld cache'
         assert '**** TEST COMPLETE. EXIT CODE: 0 ****' not in log, 'Damaged package incorrectly passed gameplay'
         probe = json.loads((out/'isolation-probe.json').read_text())
         assert not any(probe['hidden_path_exists'].values()) and not probe['package_writable'], 'Control isolation failed'

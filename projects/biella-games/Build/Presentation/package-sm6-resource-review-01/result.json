@@ -1,0 +1,9 @@
+{
+  "task_id": "D03-01",
+  "result": "RESOURCE_FAILURE",
+  "returncode": 2,
+  "elapsed_seconds": 30.17715527897235,
+  "authority": "non-authoritative assistance; source and runtime must validate",
+  "diagnostics": "Configured ollama-qwen adapter returned provider request failed: TimeoutError after 30.18 seconds.",
+  "recovery": "Optional review omitted; continue source inspection, syntax checks and authoritative native/runtime validation."
+}

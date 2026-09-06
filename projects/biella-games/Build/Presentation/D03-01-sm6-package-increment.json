@@ -1,0 +1,673 @@
+{
+  "schema": "biella.presentation_increment/v1",
+  "task_id": "D03-01",
+  "task_status": "CONTINUE",
+  "result": "PASS_BOUNDED_INCREMENT",
+  "time": "2026-09-06T17:22:53.707836+00:00",
+  "increment": "Isolated default SM6/Nanite/TSR package and explicit SM5/TAA fallback",
+  "asset_status": "GENERATED_DRAFT",
+  "parent_commit": "d5d695da5933a417f5c996278d67829dcbfbd14d",
+  "editable_harnesses": [
+    {
+      "path": "tests/run_d03_01_package.py",
+      "bytes": 10915,
+      "sha256": "54b36643f21b0918ff0c2db250c94c0e99c9772ec8e9b05bb702e2913c8b67a9"
+    },
+    {
+      "path": "tests/negative_d03_01_package.py",
+      "bytes": 9774,
+      "sha256": "53a423249cb0e0599dcd780327699cd0c13e454e6b9cab4771720c9018489fd4"
+    },
+    {
+      "path": "tests/verify_d03_01_sm6_package.py",
+      "bytes": 11341,
+      "sha256": "7f2fe5bdfbc449515710f03b4c3f48963d3249d078ab68774088f7e52db6e77e"
+    }
+  ],
+  "native_build": {
+    "binary": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames",
+      "sha256": "72cb697cc2d9402c48d68659d3498b8266d8332ad014e5bae162d89cd829e04f",
+      "bytes": 298959360
+    },
+    "receipt": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames.target",
+      "sha256": "7da8030a25e23d3976e834f2554ef35a869d9133100f3a7da197b666c115d023",
+      "bytes": 106593
+    },
+    "inputs": 85,
+    "elapsed_seconds": 109.45022807596251
+  },
+  "cook": {
+    "elapsed_seconds": 1376.2090693659848,
+    "empty_ddc_before": true,
+    "canonical_inputs": 329,
+    "compiled_shaders": 21898,
+    "cooked_packages": 679,
+    "incrementally_skipped": 0,
+    "platform_skipped": 35,
+    "errors": 0,
+    "warnings": 0
+  },
+  "archive": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-sm6-package-01.tar.zst",
+    "sha256": "057eff4cec157e002d9ea3b735bb9e41c9a7bc66853ad4a338e86d498cc58d8e",
+    "bytes": 481060250
+  },
+  "archive_members": 33,
+  "frames": 7696,
+  "captures": 182,
+  "generated_frames": 0,
+  "runs": {
+    "package-sm6-tsr-cold-01": {
+      "receipt": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-sm6-tsr-cold-01/validation.json",
+        "sha256": "79102f4f2791867ae04cdd3bcedf4bf70a31973347f345ac4ff705061e3a638a",
+        "bytes": 286587
+      },
+      "feature_level": "sm6",
+      "profile": "ProductionTSR",
+      "frames": 1096,
+      "captures": 43,
+      "native_views": 1096,
+      "shader_libraries": {
+        "Global": 8887,
+        "BiellaGames": 2009
+      },
+      "engine_initialization_seconds": 5.26,
+      "pso_hitches_over_20ms": 344,
+      "pso_max_creation_ms": 927.78,
+      "pso_by_kind": {
+        "graphics": 71,
+        "compute": 273
+      },
+      "driver_cache_files": [
+        {
+          "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/runtime-sm6-tsr/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+          "sha256": "c57097eb928bb8648ebc38a3388185a6f7b8b2ed670f5ea85b870d5e805bde46",
+          "bytes": 114662719
+        },
+        {
+          "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/runtime-sm6-tsr/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+          "sha256": "18e17c91e77a3570592e618b7331a0c246c667eae6c561f78cbeaf8177a2afc4",
+          "bytes": 159424
+        }
+      ],
+      "costs": {
+        "stationary": {
+          "frames": 234,
+          "wall_p50_ms": 14.8550235,
+          "wall_p95_ms": 19.1055952,
+          "gpu_p50_ms": 6.224
+        },
+        "camera_pan": {
+          "frames": 220,
+          "wall_p50_ms": 15.4563865,
+          "wall_p95_ms": 19.2103055,
+          "gpu_p50_ms": 6.319
+        }
+      },
+      "facade": {
+        "result": "PASS",
+        "feature_level": "sm6",
+        "buildings": [
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/E4NTLHGQRW7WSJD367Y83CQJY.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616304382.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/2246L7J56SWT3CJ7TDECQUKJJ.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616309390.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/6KIDQ8DFTHQYWAPBTVM821GBW.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616314397.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/DF8HFWLRNPD550N0XGMPOK5GF.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616319404.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_16925a08babfcd64.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_51f83a065cb9dbfe.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_6b763bbda5e31321.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_05.SM_StreetBlock_05",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_b25b234280b48d0f.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_04.SM_StreetBlock_04",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_91d1606ca22e01d0.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_ad8a26dfe033840b.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          }
+        ],
+        "nanite_proxies": 6,
+        "zero_proxy_rows": 4,
+        "scope": "Loaded mesh data and native proxies; visible appearance requires captured runtime review"
+      },
+      "native_pso_observations": [
+        "[2026.09.06-17.12.33:947][  0]LogVulkanRHI: Display: FVulkanPipelineStateCacheManager: Binary pipeline cache '/tmp/state/user/Saved/VulkanPSO.cache.10de.26b9' not found."
+      ]
+    },
+    "package-sm6-tsr-warm-01": {
+      "receipt": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-sm6-tsr-warm-01/validation.json",
+        "sha256": "6fe6674b388b8b1dcbaf8b0b5d6ec3f8774c0e2ea0aac5badbb9a0e74635ab29",
+        "bytes": 84999
+      },
+      "feature_level": "sm6",
+      "profile": "ProductionTSR",
+      "frames": 1151,
+      "captures": 43,
+      "native_views": 1151,
+      "shader_libraries": {
+        "Global": 8887,
+        "BiellaGames": 2009
+      },
+      "engine_initialization_seconds": 2.81,
+      "pso_hitches_over_20ms": 13,
+      "pso_max_creation_ms": 36.54,
+      "pso_by_kind": {
+        "graphics": 4,
+        "compute": 9
+      },
+      "driver_cache_files": [
+        {
+          "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/runtime-sm6-tsr/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+          "sha256": "c57097eb928bb8648ebc38a3388185a6f7b8b2ed670f5ea85b870d5e805bde46",
+          "bytes": 114662719
+        },
+        {
+          "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/runtime-sm6-tsr/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+          "sha256": "18e17c91e77a3570592e618b7331a0c246c667eae6c561f78cbeaf8177a2afc4",
+          "bytes": 159424
+        }
+      ],
+      "costs": {
+        "stationary": {
+          "frames": 247,
+          "wall_p50_ms": 14.129908,
+          "wall_p95_ms": 15.8754867,
+          "gpu_p50_ms": 6.172
+        },
+        "camera_pan": {
+          "frames": 254,
+          "wall_p50_ms": 13.9934485,
+          "wall_p95_ms": 15.830400800000001,
+          "gpu_p50_ms": 6.246
+        }
+      },
+      "facade": {
+        "result": "PASS",
+        "feature_level": "sm6",
+        "buildings": [
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/E4NTLHGQRW7WSJD367Y83CQJY.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616304382.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/2246L7J56SWT3CJ7TDECQUKJJ.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616309390.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/6KIDQ8DFTHQYWAPBTVM821GBW.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616314397.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/DF8HFWLRNPD550N0XGMPOK5GF.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616319404.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_16925a08babfcd64.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_51f83a065cb9dbfe.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_6b763bbda5e31321.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_05.SM_StreetBlock_05",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_b25b234280b48d0f.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_04.SM_StreetBlock_04",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_91d1606ca22e01d0.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_ad8a26dfe033840b.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          }
+        ],
+        "nanite_proxies": 6,
+        "zero_proxy_rows": 4,
+        "scope": "Loaded mesh data and native proxies; visible appearance requires captured runtime review"
+      },
+      "native_pso_observations": [
+        "[2026.09.06-17.13.15:114][  0]LogVulkanRHI: Display: FVulkanPipelineStateCacheManager: Binary pipeline cache '/tmp/state/user/Saved/VulkanPSO.cache.10de.26b9' not found."
+      ]
+    },
+    "package-sm6-tsr-environment-01": {
+      "receipt": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-sm6-tsr-environment-01/validation.json",
+        "sha256": "5c5059a4e8a822f5bef1fde9b93a515c7706a050d1d75440453c78cd850800b3",
+        "bytes": 68382
+      },
+      "feature_level": "sm6",
+      "profile": "ProductionTSR",
+      "frames": 1464,
+      "captures": 5,
+      "native_views": 1464,
+      "shader_libraries": {
+        "Global": 8887,
+        "BiellaGames": 2009
+      },
+      "engine_initialization_seconds": 2.8,
+      "pso_hitches_over_20ms": 4,
+      "pso_max_creation_ms": 30.75,
+      "pso_by_kind": {
+        "graphics": 2,
+        "compute": 2
+      },
+      "driver_cache_files": [
+        {
+          "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/runtime-sm6-tsr/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+          "sha256": "00d09f58d8a182136640ab05b53d5038fd3188400c646e4b8c25760efe639707",
+          "bytes": 114746957
+        },
+        {
+          "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/runtime-sm6-tsr/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+          "sha256": "9acdaaed9e2a7b0c30135dc74deadf3e3d633abf4a4636ea1758b2dcdcb30f23",
+          "bytes": 159456
+        }
+      ],
+      "costs": null,
+      "facade": null,
+      "native_pso_observations": [
+        "[2026.09.06-17.13.53:059][  0]LogVulkanRHI: Display: FVulkanPipelineStateCacheManager: Binary pipeline cache '/tmp/state/user/Saved/VulkanPSO.cache.10de.26b9' not found."
+      ]
+    },
+    "package-sm5-fallback-taa-cold-01": {
+      "receipt": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-sm5-fallback-taa-cold-01/validation.json",
+        "sha256": "3ba3e260af44595e0859a3d66155569f1bd795ab247424db672dd21244cbba05",
+        "bytes": 211447
+      },
+      "feature_level": "sm5",
+      "profile": "NativeTAA",
+      "frames": 1298,
+      "captures": 43,
+      "native_views": 1298,
+      "shader_libraries": {
+        "Global": 6431,
+        "BiellaGames": 1480
+      },
+      "engine_initialization_seconds": 3.06,
+      "pso_hitches_over_20ms": 217,
+      "pso_max_creation_ms": 318.07,
+      "pso_by_kind": {
+        "graphics": 70,
+        "compute": 147
+      },
+      "driver_cache_files": [
+        {
+          "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/runtime-sm5-fallback-taa/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+          "sha256": "3c777f22e8f38a64fda6753fed54773c5ea5c922fca5d4a4fa5079307581ff67",
+          "bytes": 70118883
+        },
+        {
+          "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/runtime-sm5-fallback-taa/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+          "sha256": "c819fe3b91d8da25cd0d7a4c9a720399e1f34d9b37717aa2b448f373a1a62733",
+          "bytes": 156256
+        }
+      ],
+      "costs": {
+        "stationary": {
+          "frames": 297,
+          "wall_p50_ms": 11.802615,
+          "wall_p95_ms": 15.00413,
+          "gpu_p50_ms": 3.394
+        },
+        "camera_pan": {
+          "frames": 264,
+          "wall_p50_ms": 12.9422795,
+          "wall_p95_ms": 14.6617207,
+          "gpu_p50_ms": 3.409
+        }
+      },
+      "facade": {
+        "result": "PASS",
+        "feature_level": "sm5",
+        "buildings": [
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/E4NTLHGQRW7WSJD367Y83CQJY.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616304382.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/2246L7J56SWT3CJ7TDECQUKJJ.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616309390.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/6KIDQ8DFTHQYWAPBTVM821GBW.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616314397.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/DF8HFWLRNPD550N0XGMPOK5GF.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616319404.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_16925a08babfcd64.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_51f83a065cb9dbfe.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_6b763bbda5e31321.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_05.SM_StreetBlock_05",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_b25b234280b48d0f.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_04.SM_StreetBlock_04",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_91d1606ca22e01d0.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_ad8a26dfe033840b.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          }
+        ],
+        "nanite_proxies": 0,
+        "zero_proxy_rows": 10,
+        "scope": "Loaded mesh data and native proxies; visible appearance requires captured runtime review"
+      },
+      "native_pso_observations": [
+        "[2026.09.06-17.14.31:302][  0]LogVulkanRHI: Display: FVulkanPipelineStateCacheManager: Binary pipeline cache '/tmp/state/user/Saved/VulkanPSO.cache.10de.26b9' not found."
+      ]
+    },
+    "package-sm5-fallback-taa-warm-01": {
+      "receipt": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-sm5-fallback-taa-warm-01/validation.json",
+        "sha256": "989560b6fe0dae5c6471542f8afcfc2a345fb59152ac9d5150996bc0447841f2",
+        "bytes": 81755
+      },
+      "feature_level": "sm5",
+      "profile": "NativeTAA",
+      "frames": 1230,
+      "captures": 43,
+      "native_views": 1230,
+      "shader_libraries": {
+        "Global": 6431,
+        "BiellaGames": 1480
+      },
+      "engine_initialization_seconds": 2.42,
+      "pso_hitches_over_20ms": 6,
+      "pso_max_creation_ms": 30.4,
+      "pso_by_kind": {
+        "graphics": 4,
+        "compute": 2
+      },
+      "driver_cache_files": [
+        {
+          "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/runtime-sm5-fallback-taa/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+          "sha256": "3c777f22e8f38a64fda6753fed54773c5ea5c922fca5d4a4fa5079307581ff67",
+          "bytes": 70118883
+        },
+        {
+          "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/runtime-sm5-fallback-taa/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+          "sha256": "c819fe3b91d8da25cd0d7a4c9a720399e1f34d9b37717aa2b448f373a1a62733",
+          "bytes": 156256
+        }
+      ],
+      "costs": {
+        "stationary": {
+          "frames": 289,
+          "wall_p50_ms": 12.220563,
+          "wall_p95_ms": 13.504372,
+          "gpu_p50_ms": 3.397
+        },
+        "camera_pan": {
+          "frames": 259,
+          "wall_p50_ms": 13.658916,
+          "wall_p95_ms": 14.886529,
+          "gpu_p50_ms": 3.412
+        }
+      },
+      "facade": {
+        "result": "PASS",
+        "feature_level": "sm5",
+        "buildings": [
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/E4NTLHGQRW7WSJD367Y83CQJY.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616304382.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/2246L7J56SWT3CJ7TDECQUKJJ.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616309390.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/6KIDQ8DFTHQYWAPBTVM821GBW.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616314397.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/DF8HFWLRNPD550N0XGMPOK5GF.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616319404.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_16925a08babfcd64.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_51f83a065cb9dbfe.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_6b763bbda5e31321.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_05.SM_StreetBlock_05",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_b25b234280b48d0f.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_04.SM_StreetBlock_04",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_91d1606ca22e01d0.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_ad8a26dfe033840b.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          }
+        ],
+        "nanite_proxies": 0,
+        "zero_proxy_rows": 10,
+        "scope": "Loaded mesh data and native proxies; visible appearance requires captured runtime review"
+      },
+      "native_pso_observations": [
+        "[2026.09.06-17.15.08:333][  0]LogVulkanRHI: Display: FVulkanPipelineStateCacheManager: Binary pipeline cache '/tmp/state/user/Saved/VulkanPSO.cache.10de.26b9' not found."
+      ]
+    },
+    "package-sm5-fallback-taa-environment-01": {
+      "receipt": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-sm5-fallback-taa-environment-01/validation.json",
+        "sha256": "4cf6a48be5a3a68a172ac59adaccf20ea270c987469132ecbf5a9296fcb669dc",
+        "bytes": 69837
+      },
+      "feature_level": "sm5",
+      "profile": "NativeTAA",
+      "frames": 1457,
+      "captures": 5,
+      "native_views": 1457,
+      "shader_libraries": {
+        "Global": 6431,
+        "BiellaGames": 1480
+      },
+      "engine_initialization_seconds": 2.5,
+      "pso_hitches_over_20ms": 6,
+      "pso_max_creation_ms": 28.69,
+      "pso_by_kind": {
+        "graphics": 0,
+        "compute": 6
+      },
+      "driver_cache_files": [
+        {
+          "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/runtime-sm5-fallback-taa/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+          "sha256": "3c777f22e8f38a64fda6753fed54773c5ea5c922fca5d4a4fa5079307581ff67",
+          "bytes": 70118883
+        },
+        {
+          "path": "/mnt/biella-extra/biella-runtime/d03-01-package-sm6-01/runtime-sm5-fallback-taa/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+          "sha256": "c819fe3b91d8da25cd0d7a4c9a720399e1f34d9b37717aa2b448f373a1a62733",
+          "bytes": 156256
+        }
+      ],
+      "costs": null,
+      "facade": null,
+      "native_pso_observations": [
+        "[2026.09.06-17.15.44:546][  0]LogVulkanRHI: Display: FVulkanPipelineStateCacheManager: Binary pipeline cache '/tmp/state/user/Saved/VulkanPSO.cache.10de.26b9' not found."
+      ]
+    }
+  },
+  "negative": {
+    "receipt": {
+      "path": "Build/Presentation/package-sm6-missing-shader-01/validation.json",
+      "bytes": 1009700,
+      "sha256": "5c72f3a0117560f6a3d51cd9c0715d835ccd9db8bcb55670b8346bc46ea623a0"
+    },
+    "withheld": "Engine/GlobalShaderCache-VULKAN_SM6.bin",
+    "preserved_logical_files": 1731,
+    "returncode": 1,
+    "elapsed_seconds": 1.923
+  },
+  "evidence": [
+    {
+      "path": "Build/Presentation/package-sm6-series-01.json",
+      "bytes": 716043,
+      "sha256": "b30b125aead42fa3d2b72b3f24c5cd5d51ced004fc7fa3e9c02620a84fcd7239"
+    },
+    {
+      "path": "Build/Presentation/package-sm6-visual-review-01.json",
+      "bytes": 3706,
+      "sha256": "5a14ff10134e0145f59ade4085008c101e1a247229a489fedc397a2796ce30df"
+    },
+    {
+      "path": "Build/Presentation/package-sm6-pso-source-notes-01.json",
+      "bytes": 1461,
+      "sha256": "f2846ca9e28691211346cad169c5774dcf910575d1c1fdde9549788e008fb591"
+    },
+    {
+      "path": "Build/Presentation/package-sm6-resource-review-01/result.json",
+      "bytes": 446,
+      "sha256": "a4d9fc602162eaf5483ade92dfcf34f449e83ef361eea641330a8f588466e519"
+    }
+  ],
+  "limitations": [
+    "PSO creation events may overlap and are not additive wall-frame stalls; functional PASS does not accept cold stutter.",
+    "OS page cache was not flushed. One host, no Shipping or cross-hardware qualification.",
+    "Gross pixel deltas do not establish fine temporal, ghosting or disocclusion quality.",
+    "SDL dummy audio; no new audible-mix qualification. Final art and complete D03 acceptance remain."
+  ],
+  "remaining": [
+    "Cold PSO creation and player-visible launch smoothness.",
+    "Fine temporal quality and broader motion/transition coverage.",
+    "Production world, lighting, character, weapon and vehicle art; broader VFX/audio coverage."
+  ],
+  "publication_owner": "Auto Feeder",
+  "remote_publication_claimed": false
+}
