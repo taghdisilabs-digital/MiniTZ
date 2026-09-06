@@ -1,0 +1,49 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T10:20:01.402695+00:00",
+  "status": "GENERATED_DRAFT",
+  "review": "Direct inspection of unmodified native captures.",
+  "observations": [
+    "Player upper-body and mounted barrel follow camera elevation; native world-space measurements establish exact alignment beyond camera-relative screenshots.",
+    "Moving capture shows an evaluated gait; jump releases aim, seat exit reacquires on-foot aim.",
+    "No explosive spine deformation as in preserved failed runtime01. Lower-body support remains present.",
+    "Existing Manny integration rig, box weapon and blockout world are clearly unfinished art; these captures do not accept final production appearance."
+  ],
+  "captures": [
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/level.png",
+      "bytes": 954472,
+      "sha256": "d1c5114f76e395a3c6f8f7458cfd1dd3ed73ad9753855bdd5ec58b340b210db8"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/down.png",
+      "bytes": 919089,
+      "sha256": "48abccb2d6ec4c22dbba72fa5639b0674f585c7568e066e686f3288f3e4bb432"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/up_turned.png",
+      "bytes": 938821,
+      "sha256": "6c52020d2a4fc527a134aa30372fb962217a9019f473ea041fa6fc7f33493cdd"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/moving.png",
+      "bytes": 954060,
+      "sha256": "97135dbfe964267ba655fcf4b0aa3edbc743295aa25c29b86714555966e8b276"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/jump.png",
+      "bytes": 949019,
+      "sha256": "81a8b86bf78d7b36a256b27879e25e34acee2d3e7557b0f47869f81de24145c9"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/after_seat.png",
+      "bytes": 969613,
+      "sha256": "7a595b9860e71eba82716017fc1080b37b845451c0a91901a83b00359e0e187b"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-01/captures/down.png",
+      "bytes": 919347,
+      "sha256": "c58760f2a2e5c978110601b77a5ad5a43c11de66ada441728c4b3a6e2252236d"
+    }
+  ]
+}

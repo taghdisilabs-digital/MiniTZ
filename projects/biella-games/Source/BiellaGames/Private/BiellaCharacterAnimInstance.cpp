@@ -3,8 +3,11 @@
 #include "BiellaDemoPawn.h"
 #include "BiellaGamesCharacter.h"
 #include "BiellaFootPlacement.h"
+#include "BiellaUpperBodyAim.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "AnimationRuntime.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
 #include "HAL/IConsoleManager.h"
 #include "Animation/AnimInstanceProxy.h"
@@ -18,6 +21,8 @@
 
 static TAutoConsoleVariable<int32> CVarBiellaFootPlacement(TEXT("biella.Animation.FootPlacement"),1,
     TEXT("Enable bounded cosmetic foot contact correction (0 disables)."),ECVF_Scalability);
+static TAutoConsoleVariable<int32> CVarBiellaUpperBodyAim(TEXT("biella.Animation.UpperBodyAim"),1,
+    TEXT("Enable cosmetic player camera-pitch aiming (0 retains authored pose)."),ECVF_Scalability);
 
 // Standalone nodes need no Blueprint constant table. Gameplay UObjects are
 // read only by PreUpdate on the game thread; workers consume the copied sample.
@@ -28,6 +33,7 @@ struct FBiellaCharacterAnimProxy : FAnimInstanceProxy
     FAnimNode_SequenceEvaluator_Standalone Jump;
     FAnimNode_TwoWayBlend Root;
     FBiellaFootPlacement Contact;
+    FBiellaUpperBodyAim Aim;
     FBiellaAnimationSample Sample;
     virtual void Initialize(UAnimInstance* Instance) override
     {
@@ -36,15 +42,17 @@ struct FBiellaCharacterAnimProxy : FAnimInstanceProxy
         Jump.SetSequence(Anim->JumpSequence); Jump.SetTeleportToExplicitTime(true); Jump.SetShouldLoop(false);
         Root.A.SetLinkNode(&Ground); Root.B.SetLinkNode(&Jump);
         Contact.Input.SetLinkNode(&Root);
+        Aim.Input.SetLinkNode(&Contact);
         FAnimInstanceProxy::Initialize(Instance);
     }
-    virtual FAnimNode_Base* GetCustomRootNode() override { return &Contact; }
+    virtual FAnimNode_Base* GetCustomRootNode() override { return &Aim; }
     virtual void PreUpdate(UAnimInstance* Instance,float DeltaSeconds) override
     {
         FAnimInstanceProxy::PreUpdate(Instance,DeltaSeconds);
         auto* Anim=CastChecked<UBiellaCharacterAnimInstance>(Instance);
         Anim->CaptureGameplay(DeltaSeconds); Sample=Anim->Sample;
         Contact.Sample=Sample;
+        Aim.Sample=Sample;
         Ground.SetBlendSpace(Sample.bArmed ? Anim->RifleLocomotion : Anim->UnarmedLocomotion);
     }
     virtual void Update(float) override
@@ -87,6 +95,26 @@ void UBiellaCharacterAnimInstance::CaptureGameplay(float DeltaSeconds)
     const bool bJumping=Player && Player->IsGameplayJumping();
     if (bJumping) { Sample.JumpPhase=Player->GetGameplayJumpPhase(); }
     Sample.JumpWeight=FMath::FInterpConstantTo(Sample.JumpWeight,bJumping ? 1.0f : 0.0f,DeltaSeconds,10);
+    if (Player && Player->CameraBoom && Player->WeaponMesh && Sample.bArmed && !bJumping && Sample.JumpWeight<=0 &&
+        CVarBiellaUpperBodyAim.GetValueOnGameThread())
+    {
+        // The boom target is the actual on-foot look state without waiting for
+        // camera attachment propagation. No animation result changes that state.
+        const FVector Direction=Player->GetActorTransform().InverseTransformVectorNoScale(Player->CameraBoom->GetTargetRotation().Vector());
+        const float Pitch=FMath::Clamp(FMath::RadiansToDegrees(FMath::Atan2(Direction.Z,Direction.Size2D())),-55.f,12.f);
+        if (bDiscontinuity) { Sample.AimPitch=Pitch; Sample.AimWeight=0; }
+        else
+        {
+            Sample.AimPitch=FMath::FInterpConstantTo(Sample.AimPitch,Pitch,DeltaSeconds,120);
+            Sample.AimWeight=FMath::FInterpConstantTo(Sample.AimWeight,1.f,DeltaSeconds,6);
+        }
+        const FTransform Mesh=GetSkelMeshComponent()->GetComponentTransform();
+        Sample.AimForward=Mesh.InverseTransformVectorNoScale(Player->GetActorForwardVector());
+        Sample.AimRight=Mesh.InverseTransformVectorNoScale(Player->GetActorRightVector());
+        Sample.AimUp=Mesh.InverseTransformVectorNoScale(Player->GetActorUpVector());
+        Sample.WeaponForward=Player->WeaponMesh->GetRelativeTransform().GetRotation().GetAxisX();
+    }
+    else { Sample.AimPitch=0; Sample.AimWeight=0; }
     CaptureFootContacts(DeltaSeconds,bDiscontinuity || bJumping || Sample.JumpWeight>0);
 }
 

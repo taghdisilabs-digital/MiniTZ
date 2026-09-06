@@ -1,0 +1,767 @@
+{
+  "schema": "biella.file_manifest/v1",
+  "task_id": "D03-01",
+  "increment": "upper-body aim",
+  "time": "2026-09-06T10:28:46.398154+00:00",
+  "task_status": "CONTINUE",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "excludes_self": true,
+  "files": [
+    {
+      "path": "Build/Presentation/D03-01-aim-final-readback.json",
+      "kind": "file",
+      "bytes": 8358,
+      "sha256": "4f91931377319185d5f85e945b61133bf25286b184e1360bdaa4a3f400098c50"
+    },
+    {
+      "path": "Build/Presentation/D03-01-aim-increment.json",
+      "kind": "file",
+      "bytes": 1795,
+      "sha256": "078d8ce401feb8718f274feb0a3e686c9bf12eb9c8fdcdc1ec4d2c5f9e6fed80"
+    },
+    {
+      "path": "Build/Presentation/D03-01-aim-preservation.json",
+      "kind": "file",
+      "bytes": 5109,
+      "sha256": "f784317adaf262a143f90f3dd97d57d3c0b84e4a989bf3bf8bd4fe997a0ec5c1"
+    },
+    {
+      "path": "Build/Presentation/D03-01-aim-progress.md",
+      "kind": "file",
+      "bytes": 5520,
+      "sha256": "85b1437e586b2ddf27e89d1542e12588bef29f1854de436cd4d600138bbba723"
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/backward.png",
+      "kind": "file",
+      "bytes": 993765,
+      "sha256": "938734dd1e056749e37d08ae7eb5a40725a9b2c825e58eff3d89e9156cfb1f43"
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/dismount.png",
+      "kind": "file",
+      "bytes": 990503,
+      "sha256": "6b5e64ce696d9adbfd7ace1a2df3664e901a710c7998f52820de1e624ec81c61"
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/forward.png",
+      "kind": "file",
+      "bytes": 978402,
+      "sha256": "432521a5b2bf477bbcdad280d48fd5c98858870f58936bee009344c668cc0625"
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/idle.png",
+      "kind": "file",
+      "bytes": 953751,
+      "sha256": "2bf1345394f09bbc372f4943d785f508464142ced914504a4f9d89317ee5ea18"
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/jump.png",
+      "kind": "file",
+      "bytes": 1006730,
+      "sha256": "d59de3e5474e3f3a28e1ba2bed655b45a74ffdfd5c467c599fbe3c354631302a"
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/land.png",
+      "kind": "file",
+      "bytes": 945151,
+      "sha256": "5631bcddcf391d612a66814d4b90a9c63bac9bd54dca6ec8f11190d71a59b78b"
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/npc_gaits.png",
+      "kind": "file",
+      "bytes": 991215,
+      "sha256": "f6eac265bdbfd97ddb128042d81a014ca86f6bf9b1342d3fb7c942ded1dbbee5"
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/right.png",
+      "kind": "file",
+      "bytes": 997940,
+      "sha256": "4c8a831ab2378c2495ba47505991c303b9a5a7c284bfb89b529c3b94ccd84187"
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/seat.png",
+      "kind": "file",
+      "bytes": 985559,
+      "sha256": "7e7dd05f6e9e436a412b51adaaaa19044ddab2430bffaffac76b38c5cecdc741"
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/poses.csv",
+      "kind": "file",
+      "bytes": 75223,
+      "sha256": "693d4fabb3911da66258b3921091e5d07f21051400e3869eeb39308450306490"
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8915,
+      "sha256": "1c51db43fe3414ce5a637f27026639f89518a6ee38364900d442b4725395f413"
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/result.json",
+      "kind": "file",
+      "bytes": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd"
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 360960,
+      "sha256": "91e2e001ebca24ba875ec370e86588cd333735b13ea78ff608ed0a7437f75d76"
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 360675,
+      "sha256": "29966ba70a325fb101925a7525d1f2f9a5b5fd6fe0fac21051c9a3d4823cbe2f"
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/torso-fit.txt",
+      "kind": "file",
+      "bytes": 390,
+      "sha256": "f1fa742248f0d7fbd5f050f804e3255fec843b5c25a8a7c6b4197de643a120ac"
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/validation.json",
+      "kind": "file",
+      "bytes": 144074,
+      "sha256": "69e7635ddbc5c350c21c4e4e8bb8519b19796d36ce726d7a9102bbbc05551b1c"
+    },
+    {
+      "path": "Build/Presentation/aim-build-01/build.log",
+      "kind": "file",
+      "bytes": 10182,
+      "sha256": "5b3404b9ae8c108a94e031e6dbda8ff28737fe0bbf82e7674ff125626f368ed6"
+    },
+    {
+      "path": "Build/Presentation/aim-build-01/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/aim-build-01/result.json",
+      "kind": "file",
+      "bytes": 111,
+      "sha256": "992437580a8d7bd628e324a6ef465e77d17d6967d621b8727f9474cb85cd599a"
+    },
+    {
+      "path": "Build/Presentation/aim-build-02/build.log",
+      "kind": "file",
+      "bytes": 3627,
+      "sha256": "cc6628c3273bd1ec1b215dd7a88cf80f712c5e8a9ecf6bdcc68e130580db91c7"
+    },
+    {
+      "path": "Build/Presentation/aim-build-02/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/aim-build-02/result.json",
+      "kind": "file",
+      "bytes": 111,
+      "sha256": "7c0b09b8e565fa4f2ff7d5d32ee682f8a270e5f43fcb44581ebadd95550f87fa"
+    },
+    {
+      "path": "Build/Presentation/aim-build-03/build.log",
+      "kind": "file",
+      "bytes": 3986,
+      "sha256": "49f9c963fbeb56f0124ae81170d3bce967d8f130cb8227102932a024101b2734"
+    },
+    {
+      "path": "Build/Presentation/aim-build-03/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/aim-build-03/result.json",
+      "kind": "file",
+      "bytes": 111,
+      "sha256": "6383abec9ee73f0d95c8e837e9579fea067677c73de6d860c58b6b78f70892a3"
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/captures/after_seat.png",
+      "kind": "file",
+      "bytes": 718752,
+      "sha256": "07aa576f7de6f9cef8db339d8ba7690c8e3c4631dfdbe780d6ac59b015f35505"
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/captures/flat.png",
+      "kind": "file",
+      "bytes": 636157,
+      "sha256": "158d260fa1a912af29018d112429af03e71056bbc63828e6118481b164062634"
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/captures/jump.png",
+      "kind": "file",
+      "bytes": 618704,
+      "sha256": "ef224e991cbb56ea85b982513f6002e2e2869e7f1aae3a0c14abf3d01f3ee3bd"
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/captures/missing_one_support.png",
+      "kind": "file",
+      "bytes": 561239,
+      "sha256": "c517320c2e34fad8e24d3736072580f5dcf6dead56cb91dffd4f6301f1d35858"
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/captures/moving.png",
+      "kind": "file",
+      "bytes": 629635,
+      "sha256": "e052f2909899b2d536855f22bff07793bbffb5e32fbaa34c2ea6fc1abb20b6f9"
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/captures/slope_negative.png",
+      "kind": "file",
+      "bytes": 593165,
+      "sha256": "0a8c088eeae32f893d57a0f9da26c9f408e63157dcd26ac73dae5b54f62d6220"
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/captures/slope_positive.png",
+      "kind": "file",
+      "bytes": 689927,
+      "sha256": "156b39707c43ca1fbe6b33daebfcc54916abea58ab59522ce8c1ab7b049989d7"
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/captures/split_levels.png",
+      "kind": "file",
+      "bytes": 640666,
+      "sha256": "44145b1ce5b6de27c1d3ec561e9b260945ea03f135e5464d0572ad5f8acf023d"
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/checks.csv",
+      "kind": "file",
+      "bytes": 1336,
+      "sha256": "a90967b0e1ad5a67ac29da52e44dd62f837c4a86ba59fb211ef8e608a85ad194"
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/poses.csv",
+      "kind": "file",
+      "bytes": 218692,
+      "sha256": "0340057f2f7dfa4fea5efed08f59c6db69222754787ce3099704144f94df4def"
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8692,
+      "sha256": "60531ac7b8abc5351e1dad9a83e3da77c28aa8fa97f043d93813dd7b56daf5d3"
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/result.json",
+      "kind": "file",
+      "bytes": 77,
+      "sha256": "66b04c67dbe87bf0f069786f1b56dd68010451b11fdbd70806aa9d44e75f9672"
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 274337,
+      "sha256": "322911079a0b927b6e09d874d15884b89cfb19c79420247e6422e4f36dad7d0a"
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 274622,
+      "sha256": "fd682a1db37a655a6f80cd3a0bd0d3fa2cb5d30bca9ecba2d1a06c5116cbdac6"
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/validation.json",
+      "kind": "file",
+      "bytes": 145971,
+      "sha256": "7547f80937b8f50b4840a8f472ab7bd432f1e7c2bcbd2467ad3cefe8ff18985a"
+    },
+    {
+      "path": "Build/Presentation/aim-design-01/controller-review.json",
+      "kind": "file",
+      "bytes": 685,
+      "sha256": "5c0e737bf25237ec9ede15250712d353bfde5366ee04a8d6d21b81df3a9e0253"
+    },
+    {
+      "path": "Build/Presentation/aim-design-01/request.json",
+      "kind": "file",
+      "bytes": 1077,
+      "sha256": "5f186017da551517e6b4e93e44c77ddfad72a843762b69fe59bcdb6a0a9867c1"
+    },
+    {
+      "path": "Build/Presentation/aim-design-01/response.txt",
+      "kind": "file",
+      "bytes": 2375,
+      "sha256": "c650ae07621f31839e3b27bb78d78a5aba759cf25d77d6421d5e3a58ef2fde6f"
+    },
+    {
+      "path": "Build/Presentation/aim-design-01/route.json",
+      "kind": "file",
+      "bytes": 62,
+      "sha256": "37d6239c117e9d57bcd11d21c2b5ba207b4729099590b832eaaf57f4e3bb479a"
+    },
+    {
+      "path": "Build/Presentation/aim-design-01/stderr.txt",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-01/captures/down.png",
+      "kind": "file",
+      "bytes": 919347,
+      "sha256": "c58760f2a2e5c978110601b77a5ad5a43c11de66ada441728c4b3a6e2252236d"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-01/captures/level.png",
+      "kind": "file",
+      "bytes": 955046,
+      "sha256": "103d039634081c6562bbb6b59029e7f76f2882346419795cf2cb74cae4690a5f"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-01/captures/up_turned.png",
+      "kind": "file",
+      "bytes": 939712,
+      "sha256": "267c19cb0ea1ab58d518928c82a5cad8ff539b92b55910072b233774fc4cd96e"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-01/checks.csv",
+      "kind": "file",
+      "bytes": 227,
+      "sha256": "e67fdb53c450811662391540c5fe2e71868dd97182cd8549780f810be5819828"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-01/poses.csv",
+      "kind": "file",
+      "bytes": 44242,
+      "sha256": "c0b244abb6e3008edd3a7b4403867ac4a2c58357002cc41e9aca652c3609ddc6"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 6934,
+      "sha256": "92a8f56c2f6e25c80f1dbdd3eddf5ae199f1a15b7f4bd05554633b279fed2dff"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-01/result.json",
+      "kind": "file",
+      "bytes": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 289356,
+      "sha256": "bc8a31e66d28c64978881ea886649d9c0312c8266b8fa19f024408700b811a82"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 289542,
+      "sha256": "e24e8f3333a699bde2085a1d451fd3aca1bd715d860d8f718286fba17f12c375"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-01/validation.json",
+      "kind": "file",
+      "bytes": 144563,
+      "sha256": "dafb99327b3845791b16430389890dea7d1414595bd20f20416cb26b5d0831f1"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-baseline-01/captures/down.png",
+      "kind": "file",
+      "bytes": 917903,
+      "sha256": "cf94a243eb140fe1d38eb6f406fafa0b1cd09ddd4e95f2ba6d7015f80f9010c2"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-baseline-01/captures/level.png",
+      "kind": "file",
+      "bytes": 953988,
+      "sha256": "83660ddc34eebd24221becaecdfff6a9453a56a8ec8df2b2b4a76aeae949287a"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-baseline-01/captures/up_turned.png",
+      "kind": "file",
+      "bytes": 939420,
+      "sha256": "39c86de2a26b858f0ab4f9075563e9af87ba07b8dfa1bf5c2ca299d2a60b1c43"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-baseline-01/checks.csv",
+      "kind": "file",
+      "bytes": 235,
+      "sha256": "6202232f1850bfa7850388ffc7175f3d3bf54bd98e499bd85ad4ee726275eca7"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-baseline-01/poses.csv",
+      "kind": "file",
+      "bytes": 49209,
+      "sha256": "d7753ba61e034565af90f8e8ba1b431c3f684f91e2ed893c2a734edf5da2763c"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-baseline-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 6709,
+      "sha256": "4b492dac887f47eeda4eed796dfea53612b1604d1251e2073e219c449146ea26"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-baseline-01/result.json",
+      "kind": "file",
+      "bytes": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-baseline-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 289382,
+      "sha256": "262e1c2b9e2728b7481442a72360fd4dc82a9695562bc428b5ce95634a8bff6c"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-baseline-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 289568,
+      "sha256": "0542438e9667c4d21c40c15c66a045299a3264a35b08096f0f289cd28fe1b2f1"
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-baseline-01/validation.json",
+      "kind": "file",
+      "bytes": 144313,
+      "sha256": "0390ebf0228f58133c3f8f54183082424d159dbec07a38096004c3e2bbe4ffa6"
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/captures/hazard_active.png",
+      "kind": "file",
+      "bytes": 1040850,
+      "sha256": "53d32675cee62233ae490724e21cfad94b7654c179e4a917bfe64e79cce5973c"
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/captures/panel_damaged.png",
+      "kind": "file",
+      "bytes": 979085,
+      "sha256": "bee9c8cdb40d1e8a1864572e7f2da1b503de701891fb0c2b8a8a1859b9f9f583"
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/captures/panel_destroyed.png",
+      "kind": "file",
+      "bytes": 980384,
+      "sha256": "74101c3be78710a5addf3bf2160a6b09e73a157bfdca10eb91f92b5dde06c32d"
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/captures/stream_return.png",
+      "kind": "file",
+      "bytes": 992249,
+      "sha256": "a439a3243e56658f11663201544a18041da02056277af3735e3e2e646edfbd6b"
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/captures/switch_safe.png",
+      "kind": "file",
+      "bytes": 989251,
+      "sha256": "a7debaf084791956afd89d6aa70452092aecc9980f39144df8235b3e22139cd4"
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/events.log",
+      "kind": "file",
+      "bytes": 1703,
+      "sha256": "e46c31785983587056e022faa78d4665021f6b4b4a4df119efaa572cfd1da9a7"
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/frames.csv",
+      "kind": "file",
+      "bytes": 165119,
+      "sha256": "d1d687977e7e633489f9aef21250c12608311cfffb65ff6a7a7c75baeac253f5"
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 10673,
+      "sha256": "f4dd946ff2e4b6a8950629de1db0bb1339272df40cb343b5c8134456f2cde77d"
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/result.json",
+      "kind": "file",
+      "bytes": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 435838,
+      "sha256": "31d21b24eefb52abc40ad1bc63a9585f67f76adf121b8422cf45a5b5130624cf"
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 435053,
+      "sha256": "d8f2566c7f39df906e7237f261fc0516a5c7adf5ae1c756cc2fa1778f3efd4fc"
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/validation.json",
+      "kind": "file",
+      "bytes": 145576,
+      "sha256": "47f992c0ef4602f59356ce00a8fbf816c1d9b19d3b5be2d9847dc1da3604bf2e"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-01/captures/level.png",
+      "kind": "file",
+      "bytes": 955242,
+      "sha256": "371c070ecb38a804513ba27a8b3cad927eb2028aa36e2d09d08f9953b4ead697"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-01/checks.csv",
+      "kind": "file",
+      "bytes": 116,
+      "sha256": "33db4b208201c9753f9b159ba9c0685ff845b9a2e0c5e01bed335ecd9142e163"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-01/poses.csv",
+      "kind": "file",
+      "bytes": 13224,
+      "sha256": "d8b0c2f63e2ed2a33b591d2c4eb7b3061db479dca5f4024ec563dd819d1b8422"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8785,
+      "sha256": "2a5d3d91437b57fe887dc646b40b3685915bdfbb43461d67fca83be065f91c57"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-01/result.json",
+      "kind": "file",
+      "bytes": 45,
+      "sha256": "18ddd5dce43af77febd6476d5abe9aeb378542618bdb054f16b56586163216b3"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-01/runtime.engine-CRC.log",
+      "kind": "file",
+      "bytes": 13419,
+      "sha256": "41eb9b6f901275b32f637558c0930c624922ce78840001e3d50825a64b674da3"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 308182,
+      "sha256": "8bb4da3ce2c24f9b9d139c9e7798adb44193c5ea58db8c0b186c2f9f7fb1b60e"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 321918,
+      "sha256": "4747e57fae5c19ee8297dc3e027698d2a18a38514edff9089fe1d1094f22c558"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-01/validation.json",
+      "kind": "file",
+      "bytes": 142656,
+      "sha256": "b3ab3c2a1759dec9d2ccf17583cfdf2ce31e8d0bf15e712392787ff76ce3f8e0"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-02/captures/after_seat.png",
+      "kind": "file",
+      "bytes": 969981,
+      "sha256": "a42625f94dfb1e7d6846adf35990b1a3247dbd3f72f1947da8555304e4d79a3d"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-02/captures/down.png",
+      "kind": "file",
+      "bytes": 919589,
+      "sha256": "231c047ce65a16a6d244b026dd4207b45871597f8157eaa3a74535849b32bcfc"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-02/captures/jump.png",
+      "kind": "file",
+      "bytes": 941510,
+      "sha256": "9cf45e33d914b549bb50b3cc396d024b1e4b0386a73db5ae31aaa4e62a8b6894"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-02/captures/level.png",
+      "kind": "file",
+      "bytes": 953391,
+      "sha256": "af0dc4f13219eb091edc7795fdad172ab8c0bcb06c53a7d9f86744e15ae532c1"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-02/captures/moving.png",
+      "kind": "file",
+      "bytes": 953676,
+      "sha256": "e4cfd2087b886fc51e3f4153351dae2c20dcd48db47fdd1c668d43e5371b97ca"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-02/captures/up_turned.png",
+      "kind": "file",
+      "bytes": 939458,
+      "sha256": "8ce1ce2b0932e5f8216fc718dc7e93ef694868f47ad2d0f33f3a67108b967094"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-02/checks.csv",
+      "kind": "file",
+      "bytes": 451,
+      "sha256": "f270e339a8764ca6b6b0bde517d601f1b6cc89359abb442df195683ddc5135fe"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-02/poses.csv",
+      "kind": "file",
+      "bytes": 135584,
+      "sha256": "1b7764a5aabfe419a5591b90f8f6cbb1e8c34c23ea8c81fc631417dbb9ad78a9"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-02/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8694,
+      "sha256": "163b09c7152a9247a67aaa9aa7fef9575410b57832380aff105a633fb263f7b0"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-02/result.json",
+      "kind": "file",
+      "bytes": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-02/runtime.engine.log",
+      "kind": "file",
+      "bytes": 297519,
+      "sha256": "87f9cd21c7e165c14ec13578bc12badc82444b265bfcb405c24c0b007d106de0"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-02/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 297648,
+      "sha256": "e5ada4ef6d0528c3ded44b3357915b9fa2777e53effa615b2d47eb759a63696a"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-02/validation.json",
+      "kind": "file",
+      "bytes": 142877,
+      "sha256": "35fcbd54694c426689cc160909cefe3ee6e9718bd31c214cf85cef6bd18257df"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/after_seat.png",
+      "kind": "file",
+      "bytes": 969613,
+      "sha256": "7a595b9860e71eba82716017fc1080b37b845451c0a91901a83b00359e0e187b"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/down.png",
+      "kind": "file",
+      "bytes": 919089,
+      "sha256": "48abccb2d6ec4c22dbba72fa5639b0674f585c7568e066e686f3288f3e4bb432"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/jump.png",
+      "kind": "file",
+      "bytes": 949019,
+      "sha256": "81a8b86bf78d7b36a256b27879e25e34acee2d3e7557b0f47869f81de24145c9"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/level.png",
+      "kind": "file",
+      "bytes": 954472,
+      "sha256": "d1c5114f76e395a3c6f8f7458cfd1dd3ed73ad9753855bdd5ec58b340b210db8"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/moving.png",
+      "kind": "file",
+      "bytes": 954060,
+      "sha256": "97135dbfe964267ba655fcf4b0aa3edbc743295aa25c29b86714555966e8b276"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/up_turned.png",
+      "kind": "file",
+      "bytes": 938821,
+      "sha256": "6c52020d2a4fc527a134aa30372fb962217a9019f473ea041fa6fc7f33493cdd"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/checks.csv",
+      "kind": "file",
+      "bytes": 451,
+      "sha256": "b13c1edd902b84a4d2f815025cdd99cf153b78356c0f9f9d3bce4f65b5742f45"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/poses.csv",
+      "kind": "file",
+      "bytes": 142808,
+      "sha256": "8fb51e43b9802ddb1c7e84556682e133ca632ebb9f94bf1848d6e2b4ea2fb9dd"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8699,
+      "sha256": "8a9873d8899a0fb5567efb5f3aac616e269dc6981a8d585e6a7c875d0b594259"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/result.json",
+      "kind": "file",
+      "bytes": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/runtime.engine.log",
+      "kind": "file",
+      "bytes": 297224,
+      "sha256": "bd2d1e2bc5e646b564eb816d4c9814af5ff3991a38adf8dfe5c1ad4e28d3b342"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 297355,
+      "sha256": "3bfab7867d3081b70b3e87997f30f8833fa85e0a0194458bdc96b14d825047cd"
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/validation.json",
+      "kind": "file",
+      "bytes": 145158,
+      "sha256": "8693b1cc17da41b3ae53f8b07cd9b999ac7af66fefe528cdf33351339c4a6f3c"
+    },
+    {
+      "path": "Build/Presentation/aim-visual-review-01.json",
+      "kind": "file",
+      "bytes": 2068,
+      "sha256": "7790a9b58702f5c5e8fb40adf9616c8c201c6494e3cc32ac649a17f6f55fc410"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaCharacterAnimInstance.cpp",
+      "kind": "file",
+      "bytes": 9218,
+      "sha256": "a75d0b314a4fa1b82b5846e5af57709d57d8c254ee27d513f52f6bee3dd99834"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+      "kind": "file",
+      "bytes": 19561,
+      "sha256": "ebb7223d5a4d53e9d1e483c3ba5617cd21330f91be319c109a6e98e22536ef0f"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaUpperBodyAim.cpp",
+      "kind": "file",
+      "bytes": 2617,
+      "sha256": "ae99308dd4209a36bde8eb6fd83bb0651f7e362187b5272a2e90a1ed133fcb38"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaUpperBodyAim.h",
+      "kind": "file",
+      "bytes": 717,
+      "sha256": "0b14455d663362ab735b13cb5604a5ea1cb8c62b94038159f40b6664ac4ef04c"
+    },
+    {
+      "path": "Source/BiellaGames/Private/Tests/BiellaAimTest.cpp",
+      "kind": "file",
+      "bytes": 13344,
+      "sha256": "9f95774b60aa809d591e6bc653908e4a8efae0f5a9e218899e7fb44d57569024"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaCharacterAnimInstance.h",
+      "kind": "file",
+      "bytes": 1933,
+      "sha256": "b6427077f02637f4b3b8e49217f4b0e988058d69344f42fb4ec9567f4da0e0fd"
+    },
+    {
+      "path": "tests/run_d02_04.py",
+      "kind": "file",
+      "bytes": 4165,
+      "sha256": "dfff91c4b730b3e218d6e4241430bf755d0d571f97ec03ebaa2d4dae11b570c6"
+    },
+    {
+      "path": "tests/run_d03_01_aim.py",
+      "kind": "file",
+      "bytes": 5858,
+      "sha256": "76dbb52c7a64e98981401b4673e36a29b5d7b5df7b70a5c1e693b2e2bbfe64f8"
+    },
+    {
+      "path": "tests/verify_d03_01_aim.py",
+      "kind": "file",
+      "bytes": 5989,
+      "sha256": "9f3e5e8df316147e3c64794f47d1fc376911fe3d8fa0f4a69407bc8caf6dcefa"
+    }
+  ]
+}

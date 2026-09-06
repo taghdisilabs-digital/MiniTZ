@@ -1,0 +1,15 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T10:09:25.008565+00:00",
+  "resource_status": "ADVISORY_REVIEWED",
+  "accepted": [
+    "Uncorrected per-frame graph evaluation avoids accumulated pose drift.",
+    "Use consistent copied mesh-space axes and validate world-space weapon/camera alignment.",
+    "Verify gait and cancellation through the native runtime."
+  ],
+  "not_adopted": [
+    "Suggested default pitch limits, example authored offsets and joint mobility numbers are not Project facts; existing gameplay limits and the real evaluated rig remain the inputs.",
+    "No new yaw guards or controls; on-foot yaw already rotates the actor."
+  ],
+  "validation_pending": true
+}

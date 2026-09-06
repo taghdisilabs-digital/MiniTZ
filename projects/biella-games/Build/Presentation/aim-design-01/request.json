@@ -1,0 +1,5 @@
+{
+  "capability": "unreal.assist",
+  "provider": "ollama-qwen",
+  "prompt": "Bounded UE5.8 Manny native animation review, maximum 350 words, no task acceptance. Existing graph: unarmed/rifle locomotion blendspace plus jump, then cosmetic foot IK. Proposed on-foot player aim node after foot IK distributes camera pitch across spine_01 through spine_05, keeps pelvis/legs and actor/capsule untouched. Game thread samples camera forward into actor-local pitch, smooths with bounded speed, copies mesh-space actor right axis to worker. Disable upper-body aim during jump, dormancy, seat, defeat; CVar negative control. Rifle hand/weapon is attached hand_r with local X barrel axis. Need current authored hand-forward elevation compensation to align final barrel pitch with camera direction; preserve yaw/roll from authored pose. Evaluate uncorrected graph each frame to avoid accumulation. Explain sign/space pitfalls and meaningful independent runtime checks for aim, locomotion preservation and gameplay cancellation. Do not propose new controls or rewrite combat selection."
+}

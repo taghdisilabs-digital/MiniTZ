@@ -1,0 +1,42 @@
+{
+  "schema": "biella.d03_01.aim_increment/v1",
+  "task_id": "D03-01",
+  "increment": "camera-driven upper-body aim and corrected weapon attachment",
+  "implementation_status": "IMPLEMENTED_VALIDATED",
+  "task_status": "CONTINUE",
+  "created_at": "2026-09-06T10:28:46.398154+00:00",
+  "baseline_commit": "4f61d0f0b6516f25a95c78a86bf84823539a227c",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "implementation": [
+    "Source/BiellaGames/Public/BiellaCharacterAnimInstance.h",
+    "Source/BiellaGames/Private/BiellaCharacterAnimInstance.cpp",
+    "Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+    "Source/BiellaGames/Private/BiellaUpperBodyAim.h",
+    "Source/BiellaGames/Private/BiellaUpperBodyAim.cpp"
+  ],
+  "validation_sources": [
+    "Source/BiellaGames/Private/Tests/BiellaAimTest.cpp",
+    "tests/run_d03_01_aim.py",
+    "tests/verify_d03_01_aim.py",
+    "tests/run_d02_04.py"
+  ],
+  "native_build": "Build/Presentation/aim-build-03/result.json",
+  "readback": "Build/Presentation/D03-01-aim-final-readback.json",
+  "progress": "Build/Presentation/D03-01-aim-progress.md",
+  "preservation": "Build/Presentation/D03-01-aim-preservation.json",
+  "manifest": "Build/Presentation/D03-01-aim-file-manifest.json",
+  "publication": {
+    "owner": "Auto Feeder",
+    "local_commit_required": true,
+    "remote_publication_claimed": false,
+    "canonical_state_transition_claimed": false
+  },
+  "remaining": [
+    "Action/hit/defeat animation layers",
+    "Skeletal vehicle presentation",
+    "Production world, lighting, character and weapon art",
+    "Broader VFX/audio coverage",
+    "Crowd/LOD, directional aim, platform and native frame-time qualification",
+    "Clean shader/material/PSO launch, supported fallback and packaged play"
+  ]
+}

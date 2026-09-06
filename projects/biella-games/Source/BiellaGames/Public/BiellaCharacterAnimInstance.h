@@ -18,6 +18,9 @@ struct FBiellaAnimationSample
 {
     FVector LocalVelocity=FVector::ZeroVector;
     float Direction=0, Speed=0, JumpPhase=0, JumpWeight=0;
+    float AimPitch=0, AimWeight=0;
+    FVector AimForward=FVector::ForwardVector, AimRight=FVector::RightVector, AimUp=FVector::UpVector;
+    FVector WeaponForward=FVector::ForwardVector;
     bool bArmed=false;
     FTransform MeshToWorld=FTransform::Identity;
     FBiellaFootContact Feet[2];

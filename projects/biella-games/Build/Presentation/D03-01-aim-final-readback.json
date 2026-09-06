@@ -1,0 +1,223 @@
+{
+  "task_id": "D03-01",
+  "task_status": "CONTINUE",
+  "result": "PASS",
+  "time": "2026-09-06T10:24:08.955381+00:00",
+  "inputs": [
+    {
+      "path": "Build/Presentation/aim-runtime-03/validation.json",
+      "sha256": "8693b1cc17da41b3ae53f8b07cd9b999ac7af66fefe528cdf33351339c4a6f3c",
+      "bytes": 145158
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-01/validation.json",
+      "sha256": "dafb99327b3845791b16430389890dea7d1414595bd20f20416cb26b5d0831f1",
+      "bytes": 144563
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/validation.json",
+      "sha256": "7547f80937b8f50b4840a8f472ab7bd432f1e7c2bcbd2467ad3cefe8ff18985a",
+      "bytes": 145971
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/validation.json",
+      "sha256": "69e7635ddbc5c350c21c4e4e8bb8519b19796d36ce726d7a9102bbbc05551b1c",
+      "bytes": 144074
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/validation.json",
+      "sha256": "47f992c0ef4602f59356ce00a8fbf816c1d9b19d3b5be2d9847dc1da3604bf2e",
+      "bytes": 145576
+    }
+  ],
+  "common_input_identities": 274,
+  "captures": [
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/after_seat.png",
+      "sha256": "7a595b9860e71eba82716017fc1080b37b845451c0a91901a83b00359e0e187b",
+      "bytes": 969613
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/down.png",
+      "sha256": "48abccb2d6ec4c22dbba72fa5639b0674f585c7568e066e686f3288f3e4bb432",
+      "bytes": 919089
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/jump.png",
+      "sha256": "81a8b86bf78d7b36a256b27879e25e34acee2d3e7557b0f47869f81de24145c9",
+      "bytes": 949019
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/level.png",
+      "sha256": "d1c5114f76e395a3c6f8f7458cfd1dd3ed73ad9753855bdd5ec58b340b210db8",
+      "bytes": 954472
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/moving.png",
+      "sha256": "97135dbfe964267ba655fcf4b0aa3edbc743295aa25c29b86714555966e8b276",
+      "bytes": 954060
+    },
+    {
+      "path": "Build/Presentation/aim-runtime-03/captures/up_turned.png",
+      "sha256": "6c52020d2a4fc527a134aa30372fb962217a9019f473ea041fa6fc7f33493cdd",
+      "bytes": 938821
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-01/captures/down.png",
+      "sha256": "c58760f2a2e5c978110601b77a5ad5a43c11de66ada441728c4b3a6e2252236d",
+      "bytes": 919347
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-01/captures/level.png",
+      "sha256": "103d039634081c6562bbb6b59029e7f76f2882346419795cf2cb74cae4690a5f",
+      "bytes": 955046
+    },
+    {
+      "path": "Build/Presentation/aim-disabled-01/captures/up_turned.png",
+      "sha256": "267c19cb0ea1ab58d518928c82a5cad8ff539b92b55910072b233774fc4cd96e",
+      "bytes": 939712
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/captures/after_seat.png",
+      "sha256": "07aa576f7de6f9cef8db339d8ba7690c8e3c4631dfdbe780d6ac59b015f35505",
+      "bytes": 718752
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/captures/flat.png",
+      "sha256": "158d260fa1a912af29018d112429af03e71056bbc63828e6118481b164062634",
+      "bytes": 636157
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/captures/jump.png",
+      "sha256": "ef224e991cbb56ea85b982513f6002e2e2869e7f1aae3a0c14abf3d01f3ee3bd",
+      "bytes": 618704
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/captures/missing_one_support.png",
+      "sha256": "c517320c2e34fad8e24d3736072580f5dcf6dead56cb91dffd4f6301f1d35858",
+      "bytes": 561239
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/captures/moving.png",
+      "sha256": "e052f2909899b2d536855f22bff07793bbffb5e32fbaa34c2ea6fc1abb20b6f9",
+      "bytes": 629635
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/captures/slope_negative.png",
+      "sha256": "0a8c088eeae32f893d57a0f9da26c9f408e63157dcd26ac73dae5b54f62d6220",
+      "bytes": 593165
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/captures/slope_positive.png",
+      "sha256": "156b39707c43ca1fbe6b33daebfcc54916abea58ab59522ce8c1ab7b049989d7",
+      "bytes": 689927
+    },
+    {
+      "path": "Build/Presentation/aim-contact-regression-01/captures/split_levels.png",
+      "sha256": "44145b1ce5b6de27c1d3ec561e9b260945ea03f135e5464d0572ad5f8acf023d",
+      "bytes": 640666
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/backward.png",
+      "sha256": "938734dd1e056749e37d08ae7eb5a40725a9b2c825e58eff3d89e9156cfb1f43",
+      "bytes": 993765
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/dismount.png",
+      "sha256": "6b5e64ce696d9adbfd7ace1a2df3664e901a710c7998f52820de1e624ec81c61",
+      "bytes": 990503
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/forward.png",
+      "sha256": "432521a5b2bf477bbcdad280d48fd5c98858870f58936bee009344c668cc0625",
+      "bytes": 978402
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/idle.png",
+      "sha256": "2bf1345394f09bbc372f4943d785f508464142ced914504a4f9d89317ee5ea18",
+      "bytes": 953751
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/jump.png",
+      "sha256": "d59de3e5474e3f3a28e1ba2bed655b45a74ffdfd5c467c599fbe3c354631302a",
+      "bytes": 1006730
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/land.png",
+      "sha256": "5631bcddcf391d612a66814d4b90a9c63bac9bd54dca6ec8f11190d71a59b78b",
+      "bytes": 945151
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/npc_gaits.png",
+      "sha256": "f6eac265bdbfd97ddb128042d81a014ca86f6bf9b1342d3fb7c942ded1dbbee5",
+      "bytes": 991215
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/right.png",
+      "sha256": "4c8a831ab2378c2495ba47505991c303b9a5a7c284bfb89b529c3b94ccd84187",
+      "bytes": 997940
+    },
+    {
+      "path": "Build/Presentation/aim-animation-regression-01/captures/seat.png",
+      "sha256": "7e7dd05f6e9e436a412b51adaaaa19044ddab2430bffaffac76b38c5cecdc741",
+      "bytes": 985559
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/captures/hazard_active.png",
+      "sha256": "53d32675cee62233ae490724e21cfad94b7654c179e4a917bfe64e79cce5973c",
+      "bytes": 1040850
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/captures/panel_damaged.png",
+      "sha256": "bee9c8cdb40d1e8a1864572e7f2da1b503de701891fb0c2b8a8a1859b9f9f583",
+      "bytes": 979085
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/captures/panel_destroyed.png",
+      "sha256": "74101c3be78710a5addf3bf2160a6b09e73a157bfdca10eb91f92b5dde06c32d",
+      "bytes": 980384
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/captures/stream_return.png",
+      "sha256": "a439a3243e56658f11663201544a18041da02056277af3735e3e2e646edfbd6b",
+      "bytes": 992249
+    },
+    {
+      "path": "Build/Presentation/aim-environment-regression-01/captures/switch_safe.png",
+      "sha256": "a7debaf084791956afd89d6aa70452092aecc9980f39144df8235b3e22139cd4",
+      "bytes": 989251
+    }
+  ],
+  "aim_pose_frames": 1032,
+  "settled_windows": [
+    {
+      "phase": 2,
+      "frames": 39,
+      "max_pitch_error_degrees": 0.0,
+      "max_barrel_step_degrees": 0.0
+    },
+    {
+      "phase": 3,
+      "frames": 35,
+      "max_pitch_error_degrees": 0.0,
+      "max_barrel_step_degrees": 0.0
+    },
+    {
+      "phase": 4,
+      "frames": 40,
+      "max_pitch_error_degrees": 0.0,
+      "max_barrel_step_degrees": 0.0
+    },
+    {
+      "phase": 5,
+      "frames": 44,
+      "max_pitch_error_degrees": 0.0,
+      "max_barrel_step_degrees": 0.0
+    }
+  ],
+  "max_check_pitch_error_degrees": 2e-06,
+  "max_check_ray_angle_degrees": 2e-06,
+  "disabled_max_pitch_error_degrees": 56.952484,
+  "capture_status": "GENERATED_DRAFT",
+  "limitations": "Native integration fixtures with population frozen, existing Manny rig and blockout weapon/world. Settled pose stability is not shipping frame-time, package, PSO, final art, or full D03 qualification."
+}

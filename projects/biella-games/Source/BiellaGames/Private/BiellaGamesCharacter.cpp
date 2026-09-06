@@ -65,7 +65,10 @@ ABiellaGamesCharacter::ABiellaGamesCharacter()
     WeaponMesh->SetupAttachment(CharacterMesh.Get(),TEXT("hand_r"));
     // The cosmetic barrel follows the evaluated hand pose. It has no collision;
     // the established camera trace still resolves every shot.
-    WeaponMesh->SetRelativeLocation(FVector(20.0f, 0.0f, 0.0f));
+    // Manny's rifle grip points along hand-local -X. Orient the prop's +X
+    // barrel out of the grip; this is also the axis sampled by upper-body aim.
+    WeaponMesh->SetRelativeLocation(FVector(-20.0f, 0.0f, 0.0f));
+    WeaponMesh->SetRelativeRotation(FRotator(0.0f, 180.0f, 0.0f));
     WeaponMesh->SetRelativeScale3D(FVector(0.7f, 0.16f, 0.16f));
     WeaponMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     static ConstructorHelpers::FObjectFinder<UStaticMesh> WeaponCube(
