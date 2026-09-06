@@ -2,6 +2,7 @@
 #include "BiellaWorldContinuity.h"
 #include "BiellaPopulation.h"
 #include "BiellaVehicle.h"
+#include "BiellaEnvironmentSite.h"
 
 #include "Components/CapsuleComponent.h"
 #include "Components/BoxComponent.h"
@@ -334,6 +335,9 @@ void ABiellaOpenWorldGameMode::BeginPlay()
         Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
         GetWorld()->SpawnActor<ABiellaVehicle>(ABiellaVehicle::StaticClass(),
             GetDefault<ABiellaVehicle>()->InitialLocation,FRotator::ZeroRotator,Params);
+        Params.Name=TEXT("D02Environment01");
+        GetWorld()->SpawnActor<ABiellaEnvironmentSite>(ABiellaEnvironmentSite::StaticClass(),
+            FVector(6500,700,0),FRotator::ZeroRotator,Params);
     }
     // The first slice used a floor at -88cm. Keep its actors and objective,
     // placing the same initial encounter above this map's street datum.

@@ -1,0 +1,6 @@
+{
+  "prompt": "Unreal 5.8 diagnostic assistance. Three movable cube panels width120 each, centers Y=-124,0,124. Height210, bottom5. A header spans Y=430 at Z230..260. Dynamic Recast agent radius48 height176 cellsize10 cellheight5. Center panel destroyed: SetCanEverAffectNavigation(false), collision ignore Pawn/worlddynamic then SetSimulatePhysics(true). Capsule38 sweep crosses center successfully but nav path still detours, identical length1393 after2seconds. Can removal leave stale nav? Give 3 likely source-grounded hypotheses and minimal diagnostic tests, no broad redesign.",
+  "stdout": "",
+  "stderr": "{\"error\": \"provider request failed: TimeoutError\", \"status\": \"ERROR\"}\n",
+  "returncode": 2
+}

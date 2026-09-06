@@ -1,0 +1,7 @@
+test_corrupt_evidence_rejected (test_verify_d02_04.EnvironmentEvidenceTests.test_corrupt_evidence_rejected) ... ok
+test_native_baseline (test_verify_d02_04.EnvironmentEvidenceTests.test_native_baseline) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.424s
+
+OK

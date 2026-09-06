@@ -1,0 +1,227 @@
+{
+  "task_id": "D02-04",
+  "time": "2026-09-06T02:09:47.456692+00:00",
+  "result": "PASS",
+  "runs": [
+    {
+      "run": "D02-04-acceptance-30",
+      "report": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-30/validation.json",
+        "sha256": "d7fc1833731253800258f96b396d4c35222893e1f7cf1ff45d115b1ceb55535e",
+        "bytes": 102279
+      },
+      "result": "PASS",
+      "replay": {
+        "frames": 730,
+        "hazard_drops": {
+          "health": 19.201000000000008,
+          "rival_health": 16.0,
+          "infected_health": 16.0
+        },
+        "hazard_seconds": 1.466704254,
+        "median_frame_ms": 33.336842000000004,
+        "captures": [
+          "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-30/captures/switch_safe.png",
+          "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-30/captures/panel_damaged.png",
+          "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-30/captures/panel_destroyed.png",
+          "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-30/captures/hazard_active.png",
+          "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-30/captures/stream_return.png"
+        ],
+        "scope": "Development Linux Vulkan causal evidence; no shipping or frame-rate qualification"
+      },
+      "navigation_cm": [
+        [
+          "1428.346",
+          "520.000"
+        ]
+      ],
+      "stdout": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-30/runtime.stdout.log",
+        "sha256": "1dfc4d440efa164117bd4ec9d1cdb2abe6744326a832ea1f9d7aaef571f2f58a",
+        "bytes": 384778
+      }
+    },
+    {
+      "run": "D02-04-acceptance-120",
+      "report": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-120/validation.json",
+        "sha256": "9d31b0bcaf95300c413e0e6024739e2668f8ead73b202e1f375a808be6765f91",
+        "bytes": 102323
+      },
+      "result": "PASS",
+      "replay": {
+        "frames": 2018,
+        "hazard_drops": {
+          "health": 15.314999999999998,
+          "rival_health": 15.361000000000004,
+          "infected_health": 15.360999999999997
+        },
+        "hazard_seconds": 1.4894154370000001,
+        "median_frame_ms": 12.318507499999999,
+        "captures": [
+          "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-120/captures/switch_safe.png",
+          "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-120/captures/panel_damaged.png",
+          "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-120/captures/panel_destroyed.png",
+          "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-120/captures/hazard_active.png",
+          "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-120/captures/stream_return.png"
+        ],
+        "scope": "Development Linux Vulkan causal evidence; no shipping or frame-rate qualification"
+      },
+      "navigation_cm": [
+        [
+          "1428.346",
+          "520.000"
+        ]
+      ],
+      "stdout": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-120/runtime.stdout.log",
+        "sha256": "1a96b1c76734b23fe9b98e239a0877444385bb7ac075b749f52f5467a57f7e31",
+        "bytes": 433688
+      }
+    },
+    {
+      "run": "D02-04-vehicle-regression",
+      "report": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-vehicle-regression/validation.json",
+        "sha256": "59769f575a85155628a5e840c611ff4bf9e825536160b6a0a51169e4fff3c78d",
+        "bytes": 104974
+      },
+      "result": "PASS",
+      "replay": {
+        "result": "PASS",
+        "all_frames": {
+          "frames": 2253,
+          "wall_seconds": 39.209625997,
+          "p50_ms": 16.888333,
+          "p95_ms": 20.257948,
+          "p99_ms": 21.521356,
+          "max_ms": 753.648656,
+          "peak_resident_bytes": 3014643712.0
+        },
+        "driving": {
+          "frames": 561,
+          "wall_seconds": 9.353916401000001,
+          "p50_ms": 16.826602,
+          "p95_ms": 20.104284,
+          "p99_ms": 21.152707,
+          "max_ms": 22.505208,
+          "peak_resident_bytes": 3001270272.0
+        },
+        "distance_cm": 6488.197099999999,
+        "max_speed_kmh": 48.30479999999999,
+        "collision_health": 60.0,
+        "audio": {
+          "seconds": 18.688,
+          "rate": 48000,
+          "channels": 6,
+          "rms": 0.016820018736047822
+        },
+        "files": [
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-vehicle-regression/result.json",
+            "size_bytes": 84,
+            "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-vehicle-regression/frames.csv",
+            "size_bytes": 402834,
+            "sha256": "9754edd4751492f42b8a5e536b64162f176e7777c8b78f59b710f4667d645cd8"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-vehicle-regression/events.log",
+            "size_bytes": 1656,
+            "sha256": "2cae0b718d3c6efe8d123b0c4757a05624a9e44d59aa77534f4028e85fb8f1a1"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-vehicle-regression/runtime.stdout.log",
+            "size_bytes": 403457,
+            "sha256": "8a1e5bbb01d99a13afacd1d2b47b496064806669608ad3a6a89cc75314e68f80"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-vehicle-regression/runtime.engine.log",
+            "size_bytes": 404072,
+            "sha256": "7098b22a70aad1995291f3fe7f76ad9e7a7dd5fdfd7fa134b88c04499e1bdb68"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-vehicle-regression/captures/approach.png",
+            "size_bytes": 959771,
+            "sha256": "e2e58f389b18e4a9f88b3c9ec947184ca29018be8b20e389107c0e92e8d40745"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-vehicle-regression/captures/driving.png",
+            "size_bytes": 927920,
+            "sha256": "c0845f6d5c12c2c9bb15491afb10fd5dacc3cb292d00cd9320fcf4229829ddff"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-vehicle-regression/captures/impact.png",
+            "size_bytes": 919068,
+            "sha256": "5e2a43279d9112b42f3e9da68c1eee398dcb8b645e0f6f585f3a9ff20f316cd9"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-vehicle-regression/captures/exited.png",
+            "size_bytes": 941529,
+            "sha256": "109e8f5fc8f80f1767fdc5e6456beb2b4b37b2fc719a72257a315196d7a699b7"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-vehicle-regression/captures/disabled.png",
+            "size_bytes": 269660,
+            "sha256": "3fc9d68382eb50c9da624053497e34d422b71c2118aa79c21595b45012b868c2"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-vehicle-regression/vehicle.wav",
+            "size_bytes": 10764332,
+            "sha256": "2da5b1c485eda2e8aa597a5a49cb6f871b96c4778b9f324a562eb99196f244dc"
+          }
+        ]
+      },
+      "navigation_cm": [],
+      "stdout": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-vehicle-regression/runtime.stdout.log",
+        "sha256": "8a1e5bbb01d99a13afacd1d2b47b496064806669608ad3a6a89cc75314e68f80",
+        "bytes": 403457
+      }
+    },
+    {
+      "run": "D02-04-shared-regression",
+      "report": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-shared-regression/validation.json",
+        "sha256": "1d96eecb9eb234cf76818e61ab654993d79793141adb5da83a661ce87f43a099",
+        "bytes": 102369
+      },
+      "result": "PASS",
+      "replay": {
+        "log": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-shared-regression/runtime.stdout.log",
+        "result": "PASS",
+        "phases": 10,
+        "damage_events": 20,
+        "damage_edges": {
+          "infected_to_player": 4,
+          "rival_to_infected": 4,
+          "player_to_infected": 3,
+          "rival_to_player": 5,
+          "infected_to_rival": 1,
+          "player_to_rival": 3
+        },
+        "defeats": 4,
+        "duration_seconds": 13.479,
+        "minimum_cadence_seconds": {
+          "infected": 0.854,
+          "rival": 0.903,
+          "player": 0.355
+        }
+      },
+      "navigation_cm": [],
+      "stdout": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-shared-regression/runtime.stdout.log",
+        "sha256": "daafc61da0f5cad35bae06cb97af9c7b638e26473701e250e4b6f84e7dbd99c4",
+        "bytes": 296126
+      }
+    }
+  ],
+  "verifier": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py",
+    "sha256": "3dc712f5342117fd6b693d9ae2183a4785316ce54e97f108d2d75b1f6c8d9eaa",
+    "bytes": 3419
+  },
+  "scope": "Native Development Linux Vulkan mechanics. No shipping hardware/performance, disk save, network, final-art or owner acceptance claim."
+}

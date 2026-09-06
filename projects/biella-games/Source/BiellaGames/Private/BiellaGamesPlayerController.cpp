@@ -2,6 +2,7 @@
 
 #include "BiellaGamesPlayerController.h"
 #include "BiellaVehicle.h"
+#include "BiellaEnvironmentSite.h"
 #include "BiellaGamesCharacter.h"
 #include "EngineUtils.h"
 
@@ -89,15 +90,17 @@ void ABiellaGamesPlayerController::SetupInputComponent()
         InputComponent->BindKey(EKeys::R, IE_Pressed, this,
             &ABiellaGamesPlayerController::RestartDemo);
         InputComponent->BindKey(EKeys::E, IE_Pressed, this,
-            &ABiellaGamesPlayerController::InteractVehicle);
+            &ABiellaGamesPlayerController::InteractWorld);
     }
 }
 
-void ABiellaGamesPlayerController::InteractVehicle()
+void ABiellaGamesPlayerController::InteractWorld()
 {
     auto* P=Cast<ABiellaGamesCharacter>(GetPawn());
     if (!P || P->IsDefeated() || IsPaused() || IsMoveInputIgnored()) { return; }
     if (P->GetVehicle()) { P->GetVehicle()->TryExit(); return; }
+    for (TActorIterator<ABiellaEnvironmentSite> It(GetWorld());It;++It)
+    { if (It->TryInteract(P)) { return; } }
     ABiellaVehicle* Nearest=nullptr;
     double Distance=320;
     for (TActorIterator<ABiellaVehicle> It(GetWorld());It;++It)

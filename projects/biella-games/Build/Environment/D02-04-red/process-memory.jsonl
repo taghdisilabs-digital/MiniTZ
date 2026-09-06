@@ -1,0 +1,10 @@
+{"utc": "2026-09-06T01:41:12.063004+00:00", "elapsed_seconds": 0.0005825639818795025, "unreal": []}
+{"utc": "2026-09-06T01:41:13.087656+00:00", "elapsed_seconds": 1.0133941799867898, "unreal": [{"pid": 2085632, "name": "UnrealEditor", "state": "R", "start_ticks": 30568718, "rss_kib": 520068, "peak_rss_kib": 520068}]}
+{"utc": "2026-09-06T01:41:14.112180+00:00", "elapsed_seconds": 2.038933696981985, "unreal": [{"pid": 2085632, "name": "UnrealEditor", "state": "R", "start_ticks": 30568718, "rss_kib": 548540, "peak_rss_kib": 548540}]}
+{"utc": "2026-09-06T01:41:15.135592+00:00", "elapsed_seconds": 3.0621865739813074, "unreal": [{"pid": 2085632, "name": "UnrealEditor", "state": "R", "start_ticks": 30568718, "rss_kib": 930140, "peak_rss_kib": 930140}]}
+{"utc": "2026-09-06T01:41:16.149640+00:00", "elapsed_seconds": 4.086201669008005, "unreal": [{"pid": 2085632, "name": "UnrealEditor", "state": "S", "start_ticks": 30568718, "rss_kib": 1176892, "peak_rss_kib": 1176892}]}
+{"utc": "2026-09-06T01:41:17.170565+00:00", "elapsed_seconds": 5.1000105569837615, "unreal": [{"pid": 2085632, "name": "UnrealEditor", "state": "R", "start_ticks": 30568718, "rss_kib": 1291728, "peak_rss_kib": 1291728}]}
+{"utc": "2026-09-06T01:41:18.195331+00:00", "elapsed_seconds": 6.121954136004206, "unreal": [{"pid": 2085632, "name": "UnrealEditor", "state": "R", "start_ticks": 30568718, "rss_kib": 1430684, "peak_rss_kib": 1437152}]}
+{"utc": "2026-09-06T01:41:19.206282+00:00", "elapsed_seconds": 7.145284425001591, "unreal": [{"pid": 2085632, "name": "UnrealEditor", "state": "R", "start_ticks": 30568718, "rss_kib": 1624864, "peak_rss_kib": 1635024}]}
+{"utc": "2026-09-06T01:41:20.229233+00:00", "elapsed_seconds": 8.156140487990342, "unreal": [{"pid": 2085632, "name": "UnrealEditor", "state": "R", "start_ticks": 30568718, "rss_kib": 1840004, "peak_rss_kib": 1840004}]}
+{"utc": "2026-09-06T01:41:21.252756+00:00", "elapsed_seconds": 9.179424206959084, "unreal": []}

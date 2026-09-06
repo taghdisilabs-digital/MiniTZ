@@ -1,0 +1,49 @@
+{
+  "task_id": "D02-04",
+  "time": "2026-09-06T02:09:47.456692+00:00",
+  "status": "GENERATED_DRAFT",
+  "review_method": "Direct visual inspection of original native1280x720PNG files; no image editing.",
+  "captures": [
+    {
+      "identity": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-30/captures/switch_safe.png",
+        "sha256": "5f500f46c6c56a0c20041d8073bef1e2f66cfe30f8ffb0c9c70f6418f5479962",
+        "bytes": 964273
+      },
+      "observation": "Three intact panels; green switch; HUD offers Restore power and describes safe bay. Camera is settled. Upper-right HUD partially overlaps the far sign."
+    },
+    {
+      "identity": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-30/captures/panel_damaged.png",
+        "sha256": "4ca264e9e00fe119d83452c5e81ab17ceb0e0501d451f116822d8a4cd0b5e72a",
+        "bytes": 958177
+      },
+      "observation": "Center panel changes to orange while remaining upright; side panels unchanged; ammunition59. DANGER/LIVE FLOOR sign and live markings visible."
+    },
+    {
+      "identity": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-30/captures/panel_destroyed.png",
+        "sha256": "320c1cc51ac33a4cfa517145c90eb8fd6797d4faa84a370591c2096ee8723b77",
+        "bytes": 959301
+      },
+      "observation": "Actual center mesh lies detached behind a clear opening; two side panels and frame remain; ammunition58. Live floor and switch are visible."
+    },
+    {
+      "identity": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-30/captures/hazard_active.png",
+        "sha256": "0dd2707d83915f58ab50e1bb473fa0bf6aada4735d7b586995af157d9c56dfc4",
+        "bytes": 987526
+      },
+      "observation": "Player, rival and infected stand on orange floor strips; shared hurt feedback visible and player health71. Clear native scene without fixture relocation blur."
+    },
+    {
+      "identity": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-30/captures/stream_return.png",
+        "sha256": "b005721e1f42c9a8fa9381ac75fe48fa9513e6d7ce42a2aec97c535f22f533b1",
+        "bytes": 968819
+      },
+      "observation": "Same open barrier and detached panel after actual terrain unload/return; orange switch/live floor and Cut power prompt remain; ammunition58. Upper HUD partly overlaps sign."
+    }
+  ],
+  "limits": "Development gameplay geometry and effects. Owner acceptance not inferred.120-cap captures decoded by independent verifier; direct visual review uses30-cap originals."
+}

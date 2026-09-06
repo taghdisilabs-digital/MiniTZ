@@ -2,6 +2,7 @@
 
 #include "BiellaGamesCharacter.h"
 #include "BiellaVehicle.h"
+#include "BiellaEnvironmentSite.h"
 #include "BiellaGameplayFeedback.h"
 
 #include "BiellaGamesGameModeBase.h"
@@ -14,6 +15,7 @@
 #include "Engine/LocalPlayer.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
+#include "Engine/DamageEvents.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "Kismet/GameplayStatics.h"
 #include "Materials/MaterialInstanceDynamic.h"
@@ -255,6 +257,31 @@ void ABiellaGamesCharacter::FireWeapon(const FInputActionValue& Value)
             UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL WEAPON_DRY ammo=0"));
         }
         return;
+    }
+    // Resolve environmental geometry through the actual aiming ray before
+    // the established enemy selection path. Cover between barrel and impact
+    // also blocks the shot, even when the shoulder camera can see past it.
+    FHitResult EnvironmentHit;
+    const FVector AimStart=FollowCamera->GetComponentLocation();
+    const FVector AimDirection=FollowCamera->GetForwardVector();
+    FCollisionQueryParams AimQuery(SCENE_QUERY_STAT(EnvironmentWeapon),true,this);
+    if (GetWorld()->LineTraceSingleByChannel(EnvironmentHit,AimStart,AimStart+AimDirection*5000,ECC_Visibility,AimQuery))
+    {
+        if (auto* Site=Cast<ABiellaEnvironmentSite>(EnvironmentHit.GetActor()))
+        {
+            if (!CanParticipateInCombat()) { return; }
+            const FVector Muzzle=WeaponMesh->GetComponentLocation();
+            FHitResult BarrelHit;
+            if (GetWorld()->LineTraceSingleByChannel(BarrelHit,Muzzle,EnvironmentHit.ImpactPoint,ECC_Visibility,AimQuery) &&
+                BarrelHit.GetComponent()!=EnvironmentHit.GetComponent()) { return; }
+            FPointDamageEvent Damage(34.0f,EnvironmentHit,AimDirection,nullptr);
+            const float Applied=Site->TakeDamage(34.0f,Damage,GetController(),this);
+            --Ammo; FireCooldownRemaining=0.25f;
+            if (auto* Feedback=UBiellaGameplayFeedback::Get(GetWorld())) { Feedback->ConfirmedShot(Muzzle,EnvironmentHit); }
+            UE_LOG(LogTemp,Display,TEXT("D02_ENV SHOT owner=%s part=%s applied=%.2f ammo=%d"),
+                *GetName(),*GetNameSafe(EnvironmentHit.GetComponent()),Applied,Ammo);
+            return;
+        }
     }
     TArray<AActor*> Candidates;
     UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABiellaDemoPawn::StaticClass(), Candidates);

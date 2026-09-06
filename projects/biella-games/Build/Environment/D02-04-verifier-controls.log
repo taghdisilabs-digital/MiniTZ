@@ -1,0 +1,49 @@
+test_corrupt_evidence_rejected (test_verify_d02_04.EnvironmentEvidenceTests.test_corrupt_evidence_rejected) ... /root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py:14: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/d02-04-negative-7mh6cl30/frames.csv' mode='r' encoding='UTF-8'>
+  rows=[{k:float(v) for k,v in r.items()} for r in csv.DictReader((out/'frames.csv').open())]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py:14: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/d02-04-negative-j93ibzzw/frames.csv' mode='r' encoding='UTF-8'>
+  rows=[{k:float(v) for k,v in r.items()} for r in csv.DictReader((out/'frames.csv').open())]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py:14: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/d02-04-negative-8daqtllu/frames.csv' mode='r' encoding='UTF-8'>
+  rows=[{k:float(v) for k,v in r.items()} for r in csv.DictReader((out/'frames.csv').open())]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py:14: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/d02-04-negative-28uyrqas/frames.csv' mode='r' encoding='UTF-8'>
+  rows=[{k:float(v) for k,v in r.items()} for r in csv.DictReader((out/'frames.csv').open())]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py:14: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/d02-04-negative-8yyttnph/frames.csv' mode='r' encoding='UTF-8'>
+  rows=[{k:float(v) for k,v in r.items()} for r in csv.DictReader((out/'frames.csv').open())]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py:14: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/d02-04-negative-0wz31_as/frames.csv' mode='r' encoding='UTF-8'>
+  rows=[{k:float(v) for k,v in r.items()} for r in csv.DictReader((out/'frames.csv').open())]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py:14: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/d02-04-negative-5ee4nkmp/frames.csv' mode='r' encoding='UTF-8'>
+  rows=[{k:float(v) for k,v in r.items()} for r in csv.DictReader((out/'frames.csv').open())]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py:14: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/d02-04-negative-8xtda8mu/frames.csv' mode='r' encoding='UTF-8'>
+  rows=[{k:float(v) for k,v in r.items()} for r in csv.DictReader((out/'frames.csv').open())]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py:14: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/d02-04-negative-igszxl3l/frames.csv' mode='r' encoding='UTF-8'>
+  rows=[{k:float(v) for k,v in r.items()} for r in csv.DictReader((out/'frames.csv').open())]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py:14: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/d02-04-negative-11ejwa9i/frames.csv' mode='r' encoding='UTF-8'>
+  rows=[{k:float(v) for k,v in r.items()} for r in csv.DictReader((out/'frames.csv').open())]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py:14: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/d02-04-negative-l5s_m_qc/frames.csv' mode='r' encoding='UTF-8'>
+  rows=[{k:float(v) for k,v in r.items()} for r in csv.DictReader((out/'frames.csv').open())]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py:14: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/d02-04-negative-2ldan902/frames.csv' mode='r' encoding='UTF-8'>
+  rows=[{k:float(v) for k,v in r.items()} for r in csv.DictReader((out/'frames.csv').open())]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py:14: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/d02-04-negative-3qeapxpj/frames.csv' mode='r' encoding='UTF-8'>
+  rows=[{k:float(v) for k,v in r.items()} for r in csv.DictReader((out/'frames.csv').open())]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_native_baseline (test_verify_d02_04.EnvironmentEvidenceTests.test_native_baseline) ... /root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py:14: ResourceWarning: unclosed file <_io.TextIOWrapper name='/root/biella/repos/biella-engine/projects/biella-games/Build/Environment/D02-04-acceptance-30/frames.csv' mode='r' encoding='UTF-8'>
+  rows=[{k:float(v) for k,v in r.items()} for r in csv.DictReader((out/'frames.csv').open())]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.429s
+
+OK

@@ -5,6 +5,7 @@
 #include "BiellaDemoObjectiveManager.h"
 #include "BiellaGamesCharacter.h"
 #include "BiellaVehicle.h"
+#include "BiellaEnvironmentSite.h"
 #include "EngineUtils.h"
 #include "BiellaGamesGameState.h"
 #include "Blueprint/WidgetTree.h"
@@ -399,6 +400,11 @@ void UBiellaGameplayHUD::RefreshFromRuntime()
                 if (FVector::Dist(It->GetActorLocation(),Player->GetActorLocation())<320)
                 { Hint=It->GetHealth()>0 ? TEXT("E Drive vehicle") : TEXT("Vehicle disabled"); break; }
             }
+        }
+        if (Player.IsValid() && !Player->GetVehicle())
+        {
+            for (TActorIterator<ABiellaEnvironmentSite> It(GetWorld());It;++It)
+            { const FString Prompt=It->GetInteractionPrompt(Player.Get()); if (!Prompt.IsEmpty()) { Hint=Prompt; break; } }
         }
         VehiclePrompt->SetText(FText::FromString(Hint));
         VehiclePrompt->SetVisibility(Hint.IsEmpty() ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible);
