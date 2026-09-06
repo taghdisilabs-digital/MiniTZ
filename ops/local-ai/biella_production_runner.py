@@ -555,6 +555,61 @@ def _drain_codex_events(path: Path, offset: int, journal: production_events.Prod
     return offset + consumed, session_id
 
 
+_PERSISTENT_CODEX_DESCENDANT_MARKERS = (
+    "codex --search exec",
+    "codex-code-mode-host",
+    "saturn-mcp",
+    "mcp/server.mjs",
+)
+
+
+def _has_productive_descendant(root_pid: int) -> bool:
+    """Return true when Codex owns a real local command/build/test descendant.
+
+    Long-lived Codex/MCP helper processes do not count as task progress. This is
+    intentionally process-local: remote model waiting with no active tool remains
+    eligible for bounded executor rotation.
+    """
+    proc = subprocess.run(
+        ["ps", "-eo", "pid=,ppid=,args="], text=True, capture_output=True, check=False
+    )
+    if proc.returncode != 0:
+        return True  # fail open: never rotate merely because process inspection failed
+    rows: dict[int, tuple[int, str]] = {}
+    for raw in proc.stdout.splitlines():
+        parts = raw.strip().split(None, 2)
+        if len(parts) < 3:
+            continue
+        try:
+            pid, ppid = int(parts[0]), int(parts[1])
+        except ValueError:
+            continue
+        rows[pid] = (ppid, parts[2])
+    descendants: set[int] = set()
+    changed = True
+    while changed:
+        changed = False
+        for pid, (ppid, _cmd) in rows.items():
+            if pid in descendants:
+                continue
+            if ppid == root_pid or ppid in descendants:
+                descendants.add(pid); changed = True
+    for pid in descendants:
+        cmd = rows[pid][1]
+        if any(marker in cmd for marker in _PERSISTENT_CODEX_DESCENDANT_MARKERS):
+            continue
+        return True
+    return False
+
+
+def _stall_seconds() -> float:
+    raw = os.environ.get("BIELLA_CODEX_STALL_SECONDS", "180")
+    try:
+        return max(0.05, float(raw))
+    except ValueError:
+        return 180.0
+
+
 def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, output_path: Path,
                       stdout_path: Path, stderr_path: Path, runtime_path: Path,
                       telemetry: dict[str, Any], *, heartbeat_interval: float = 30.0,
@@ -575,8 +630,14 @@ def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, outp
         proc.stdin.write(prompt); proc.stdin.close()
         next_beat = time.monotonic()
         event_offset = 0
+        last_progress = time.monotonic()
+        stall_seconds = _stall_seconds()
+        next_stall_check = last_progress + min(5.0, max(0.25, stall_seconds / 4.0))
         while proc.poll() is None:
+            previous_offset = event_offset
             event_offset, live_session = _drain_codex_events(stdout_path, event_offset, event_journal, session_task_id)
+            if event_offset > previous_offset:
+                last_progress = time.monotonic()
             if live_session and session_task_id and telemetry.get("task_session_id") != live_session:
                 telemetry["task_session_id"] = live_session
                 telemetry["session_task_id"] = session_task_id
@@ -587,6 +648,23 @@ def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, outp
                 if on_heartbeat:
                     on_heartbeat(observed)
                 next_beat = now_mono + heartbeat_interval
+            if now_mono >= next_stall_check:
+                idle_for = now_mono - last_progress
+                if idle_for >= stall_seconds and not _has_productive_descendant(proc.pid):
+                    detail = f"Codex executor produced no event output for {idle_for:.1f}s with no productive local descendant; rotating preserved task/session."
+                    if event_journal is not None and session_task_id:
+                        event_journal.emit(
+                            "task.executor_stall_recovery", task_id=session_task_id,
+                            status="RECOVERING", text=detail, model=route.model, reasoning=route.reasoning,
+                        )
+                    stderr.write("BIELLA_EXECUTOR_STALL_ROTATION: " + detail + "\n"); stderr.flush()
+                    proc.terminate()
+                    try:
+                        proc.wait(timeout=5)
+                    except subprocess.TimeoutExpired:
+                        proc.kill(); proc.wait(timeout=5)
+                    break
+                next_stall_check = now_mono + min(5.0, max(0.25, stall_seconds / 4.0))
             time.sleep(min(0.05, max(0.005, heartbeat_interval / 4)))
         rc = int(proc.returncode or 0)
         event_offset, final_session = _drain_codex_events(stdout_path, event_offset, event_journal, session_task_id, final=True)

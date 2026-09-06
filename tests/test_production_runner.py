@@ -26,6 +26,45 @@ def isolate_derived_drive_publication(monkeypatch):
     monkeypatch.setattr(runner.evidence, "publish_derived_task_ledger", lambda _repo: None)
 
 
+def test_invoke_structured_rotates_idle_executor_without_productive_descendant(tmp_path: Path, monkeypatch):
+    fake = tmp_path / "idle.py"; output = tmp_path / "result.json"
+    fake.write_text("import time\ntime.sleep(5)\n")
+    monkeypatch.setenv("BIELLA_CODEX_STALL_SECONDS", "0.08")
+    monkeypatch.setattr(routing, "build_codex_command", lambda *_args, **_kwargs: [sys.executable, str(fake)])
+    monkeypatch.setattr(runner, "_has_productive_descendant", lambda _pid: False)
+    runtime = tmp_path / "runtime.json"; telemetry = runner.initial_runtime()
+    journal = runner.production_events.ProductionEventJournal(tmp_path / "events.jsonl", failure_path=tmp_path / "failures.jsonl")
+    rc, detail = runner.invoke_structured(
+        "prompt", routing.Route("gpt-6-astra", "ultra"), tmp_path / "schema", output,
+        tmp_path / "stdout.log", tmp_path / "stderr.log", runtime, telemetry,
+        heartbeat_interval=0.01, event_journal=journal, session_task_id="D03-01", cwd=tmp_path,
+    )
+    assert rc != 0
+    assert "BIELLA_EXECUTOR_STALL_ROTATION" in detail
+    events = [json.loads(line) for line in (tmp_path / "events.jsonl").read_text().splitlines()]
+    assert any(e["type"] == "task.executor_stall_recovery" for e in events)
+
+
+def test_invoke_structured_does_not_rotate_when_productive_descendant_exists(tmp_path: Path, monkeypatch):
+    fake = tmp_path / "slow_valid.py"; output = tmp_path / "result.json"
+    fake.write_text(
+        "import json,os,time\n"
+        "time.sleep(0.14)\n"
+        "open(os.environ['OUT'],'w').write(json.dumps({'task_id':'T','status':'CONTINUE','summary':'ok','evidence':['pass']}))\n"
+    )
+    monkeypatch.setenv("OUT", str(output))
+    monkeypatch.setenv("BIELLA_CODEX_STALL_SECONDS", "0.05")
+    monkeypatch.setattr(routing, "build_codex_command", lambda *_args, **_kwargs: [sys.executable, str(fake)])
+    monkeypatch.setattr(runner, "_has_productive_descendant", lambda _pid: True)
+    telemetry = runner.initial_runtime()
+    rc, detail = runner.invoke_structured(
+        "prompt", routing.Route("gpt-6-astra", "ultra"), tmp_path / "schema", output,
+        tmp_path / "stdout.log", tmp_path / "stderr.log", tmp_path / "runtime.json", telemetry,
+        heartbeat_interval=0.01, cwd=tmp_path,
+    )
+    assert rc == 0, detail
+
+
 def test_long_child_keeps_runtime_heartbeat_fresh(tmp_path: Path, monkeypatch):
     fake = tmp_path / "slow.py"; output = tmp_path / "result.json"
     fake.write_text("import json,os,time\ntime.sleep(0.14)\nopen(os.environ['OUT'],'w').write(json.dumps({'task_id':'T','status':'COMPLETE','summary':'ok','evidence':['pass']}))\n")
