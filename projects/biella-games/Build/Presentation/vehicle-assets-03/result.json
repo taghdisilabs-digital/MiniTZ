@@ -1,0 +1,10 @@
+{
+  "task_id": "D03-01",
+  "returncode": 139,
+  "elapsed_seconds": 67.57924522802932,
+  "script": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Python/inspect_vehicle_rig.py",
+    "sha256": "e73bbe60a486ab4424112d937771667f6c4014c88b5260d24fc0a98d9199757e",
+    "bytes": 2967
+  }
+}

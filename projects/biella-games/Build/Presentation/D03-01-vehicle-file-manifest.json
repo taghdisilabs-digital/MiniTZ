@@ -1,0 +1,899 @@
+{
+  "schema": "biella.file_manifest/v1",
+  "task_id": "D03-01",
+  "increment": "skeletal vehicle exterior and rigid body/tire integration",
+  "time": "2026-09-06T12:43:21.709046+00:00",
+  "task_status": "CONTINUE",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "excludes_self": true,
+  "files": [
+    {
+      "path": "Build/Presentation/D03-01-vehicle-final-readback-01.json",
+      "kind": "file",
+      "bytes": 15829,
+      "sha256": "c310f05044c6b2bd9f2bf959a642b981b9915f0120912696ee0a77ff4441ce12"
+    },
+    {
+      "path": "Build/Presentation/D03-01-vehicle-increment.json",
+      "kind": "file",
+      "bytes": 2109,
+      "sha256": "00c30a295272173a65b3f8b4f96b4a18c6e8dec4b9f54432271019b335ca65d1"
+    },
+    {
+      "path": "Build/Presentation/D03-01-vehicle-preservation.json",
+      "kind": "file",
+      "bytes": 8547,
+      "sha256": "9f2cb98710cdc66a41bbdd5126c8349f6678214db4e9224a651940dd9c5f1c96"
+    },
+    {
+      "path": "Build/Presentation/D03-01-vehicle-progress.md",
+      "kind": "file",
+      "bytes": 7010,
+      "sha256": "edd29e4d50d02c7f3901fbf5033d707278ffa6bf7b6da7b3b7e78e2d94226f4e"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-01/command.json",
+      "kind": "file",
+      "bytes": 599,
+      "sha256": "33d5dcf5b3d9e84fc619d0fef9e9d5dc88d5cf7384db907c1fed4039e11ab71e"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-01/engine.log",
+      "kind": "file",
+      "bytes": 215306,
+      "sha256": "3f7bf4949bf31c967378997a0e72d3ceec92aa7e432557e7fe999def89c0c493"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-01/readback.json",
+      "kind": "file",
+      "bytes": 19481,
+      "sha256": "1f921f2af1f24974cdf2fe163a47c6543224b0fc7191b44d918962fdaec0ebed"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-01/result.json",
+      "kind": "file",
+      "bytes": 249,
+      "sha256": "9d25c974fbff20cf20025a9ccc8d2267f85afb103486a954f4b6a1b965dd300c"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-02/command.json",
+      "kind": "file",
+      "bytes": 599,
+      "sha256": "20830ab19e4e5b5c43108c5be5b8be4d0029745c3ef3750fc665fa4606bea1e4"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-02/engine.log",
+      "kind": "file",
+      "bytes": 215365,
+      "sha256": "96797694a681b722a79d28280762ba49648be0daf9400bc99e226f0f3d49627c"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-02/readback.json",
+      "kind": "file",
+      "bytes": 19907,
+      "sha256": "214d64113864ddb195f9bef76486001a3332553fec0c2032053f8eded8060ee5"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-02/result.json",
+      "kind": "file",
+      "bytes": 312,
+      "sha256": "a20a23adff3bb6e89204d6ab60c09ae46de2aa93bb96f27cfeefd20a17c7355a"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-03/command.json",
+      "kind": "file",
+      "bytes": 599,
+      "sha256": "7737c43a99a4e64afae4ce525935cd71de94730a6fce2d1837b39dc9cd39e15e"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-03/engine.log",
+      "kind": "file",
+      "bytes": 236120,
+      "sha256": "46889a20acbfbab57f8c9883640b1cab9441a894ce6a3fb99f8b3e5ee32ff89a"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-03/result.json",
+      "kind": "file",
+      "bytes": 314,
+      "sha256": "fadf9a6eca88823a02abbb62fb08596d25c8eb2bd4833d2789892dc59276c3a8"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-04/command.json",
+      "kind": "file",
+      "bytes": 642,
+      "sha256": "170f71a148026e6df486a1f0bcfa4c0733df649a487d30f1b7b3fa794c4e08af"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-04/engine.log",
+      "kind": "file",
+      "bytes": 236139,
+      "sha256": "0262a9898e53bb23bbc4acb8b34bac6e26674b6196ad7166bc2952438b983c02"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-04/readback.json",
+      "kind": "file",
+      "bytes": 24366,
+      "sha256": "def1d85bed216cc8e0aa64f5c6fe18efa28e6bbefc5a60640142493b4ece2af8"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-04/result.json",
+      "kind": "file",
+      "bytes": 315,
+      "sha256": "863b17052c33e2919e140966e5e2069f7a0e41a4c06d5a42b7029f8229216981"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-05/command.json",
+      "kind": "file",
+      "bytes": 599,
+      "sha256": "81845fe0352901a4a0ff03cb169b6a26cbe295707fcf6ac205c22c6d66ac9558"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-05/engine.log",
+      "kind": "file",
+      "bytes": 216123,
+      "sha256": "a99388184b5d4f9a620b73d707043911565789fd568fca60b797b66f5779b398"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-05/readback.json",
+      "kind": "file",
+      "bytes": 31090,
+      "sha256": "8d76367bf4f53b176efdd19946248df436a3c5c3941c98e14d0888714f814f33"
+    },
+    {
+      "path": "Build/Presentation/vehicle-assets-05/result.json",
+      "kind": "file",
+      "bytes": 313,
+      "sha256": "9136b621889a27a2a5e5ef81213c99b6cbd8a4d232dbda33c5294b2e8f9e4c54"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-01/build.log",
+      "kind": "file",
+      "bytes": 10514,
+      "sha256": "2c02dcd82ef25bedf6d403deda2daa94588fecb5ca5dd2e5e4e76c474aa740ad"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-01/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-01/inputs-after.json",
+      "kind": "file",
+      "bytes": 14325,
+      "sha256": "1c0a953540e20d0bb11f82df8b3a6d2260cd2297e0c4763fc039922e4b681743"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-01/inputs-before.json",
+      "kind": "file",
+      "bytes": 14325,
+      "sha256": "1c0a953540e20d0bb11f82df8b3a6d2260cd2297e0c4763fc039922e4b681743"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-01/result.json",
+      "kind": "file",
+      "bytes": 114,
+      "sha256": "464e1edb0d0bb044a55f18d38c565f9427cee21f2568fcd653700687b292cfe8"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-02/build.log",
+      "kind": "file",
+      "bytes": 3760,
+      "sha256": "419c98b2800868fd1acd7403028f3f13aec211494bf39c9a9e2b4bf0cc31136e"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-02/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-02/inputs-after.json",
+      "kind": "file",
+      "bytes": 14325,
+      "sha256": "491f8bcb2052766710ce54a5e03bafd4dddf1280e649ed639e675479b6eab072"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-02/inputs-before.json",
+      "kind": "file",
+      "bytes": 14325,
+      "sha256": "491f8bcb2052766710ce54a5e03bafd4dddf1280e649ed639e675479b6eab072"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-02/result.json",
+      "kind": "file",
+      "bytes": 113,
+      "sha256": "18c25527050390fae6ac549946710999d4b5202a85b6c621985217992b5a16d7"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-03/build.log",
+      "kind": "file",
+      "bytes": 4512,
+      "sha256": "1943b141207bb9e95f5ef8ba9b5057206f08e5cef4ee50e444a9d7dc6a550935"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-03/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-03/inputs-after.json",
+      "kind": "file",
+      "bytes": 14325,
+      "sha256": "056e2d2612548a68dd6d6a47971f66affdd77e94dfc94417a79e6ffee800ae98"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-03/inputs-before.json",
+      "kind": "file",
+      "bytes": 14325,
+      "sha256": "056e2d2612548a68dd6d6a47971f66affdd77e94dfc94417a79e6ffee800ae98"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-03/result.json",
+      "kind": "file",
+      "bytes": 114,
+      "sha256": "f4357671d1def8c4edc50f461bc025ca4467eb78fe82fdb0b5bea3933f6bf88b"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-04/build.log",
+      "kind": "file",
+      "bytes": 3760,
+      "sha256": "3f6f8d151298169cf2f37226de5474346d3ffa0ff0b90018d8596157e7379522"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-04/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-04/inputs-after.json",
+      "kind": "file",
+      "bytes": 14325,
+      "sha256": "a6dbe6c8a99891099823f8e6d11552f2ff6d17e1ddcc4ecff1cd0dae025a030a"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-04/inputs-before.json",
+      "kind": "file",
+      "bytes": 14325,
+      "sha256": "a6dbe6c8a99891099823f8e6d11552f2ff6d17e1ddcc4ecff1cd0dae025a030a"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-04/result.json",
+      "kind": "file",
+      "bytes": 113,
+      "sha256": "7d04768910c7481b43958cf023b302ae05487a18109a3d1293464f391f72aeda"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-05/build.log",
+      "kind": "file",
+      "bytes": 3760,
+      "sha256": "27ccaa26295271f25e02ea2483b4cd8b1986d63fb6e303d9ed5895cd5d41c2e4"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-05/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-05/inputs-after.json",
+      "kind": "file",
+      "bytes": 14325,
+      "sha256": "f3b659aca064239adb1ba94b376e2e1e47ad90763e742a672bf1fe56e583b90b"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-05/inputs-before.json",
+      "kind": "file",
+      "bytes": 14325,
+      "sha256": "f3b659aca064239adb1ba94b376e2e1e47ad90763e742a672bf1fe56e583b90b"
+    },
+    {
+      "path": "Build/Presentation/vehicle-build-05/result.json",
+      "kind": "file",
+      "bytes": 113,
+      "sha256": "6e05cdb270342d118104daeca11c02e4f85c0723e1c6a070ba5fe8181cdfc1f1"
+    },
+    {
+      "path": "Build/Presentation/vehicle-design-01/controller-review.json",
+      "kind": "file",
+      "bytes": 839,
+      "sha256": "d28f69a4c773e888ed36a122d5dd7bc955e80e7e2e975b5cfdeaae31a084f712"
+    },
+    {
+      "path": "Build/Presentation/vehicle-design-01/request.json",
+      "kind": "file",
+      "bytes": 815,
+      "sha256": "8b162e31012a3c3ba2b2a1d7f4344ec2de947fe415625d2d9f311151638c93cd"
+    },
+    {
+      "path": "Build/Presentation/vehicle-design-01/response.json",
+      "kind": "file",
+      "bytes": 3264,
+      "sha256": "b3228a74bb5d502d56b7cbc74e3236d831e401aa9a6f21d17d86a4f02ea60704"
+    },
+    {
+      "path": "Build/Presentation/vehicle-design-01/result.json",
+      "kind": "file",
+      "bytes": 18,
+      "sha256": "df4d721d233a2334088d2d2e0110346ae9e509ff46bf0b379fbcfa85c715af4d"
+    },
+    {
+      "path": "Build/Presentation/vehicle-design-01/stderr.txt",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Build/Presentation/vehicle-disabled-01/captures/approach.png",
+      "kind": "file",
+      "bytes": 976807,
+      "sha256": "ae7d314bcba59b02f8bf80d1df919b56388bda2b9e5b198a3d82649f4fff6c29"
+    },
+    {
+      "path": "Build/Presentation/vehicle-disabled-01/captures/disabled.png",
+      "kind": "file",
+      "bytes": 270047,
+      "sha256": "f0e9cba408413be9af17be888cb13df369f6d5a3442b7a8a483ee87500ded3af"
+    },
+    {
+      "path": "Build/Presentation/vehicle-disabled-01/captures/driving.png",
+      "kind": "file",
+      "bytes": 962291,
+      "sha256": "48da0bd78fb162e818522df7dcc3ea64d30355dc055976306c3c672dd2cbd716"
+    },
+    {
+      "path": "Build/Presentation/vehicle-disabled-01/captures/exited.png",
+      "kind": "file",
+      "bytes": 949991,
+      "sha256": "d5f721285f261907da4ac746ba094936a93501b6412b81a6eacea650ac22744d"
+    },
+    {
+      "path": "Build/Presentation/vehicle-disabled-01/captures/impact.png",
+      "kind": "file",
+      "bytes": 943950,
+      "sha256": "998f0a12c5eecc133896288713b41976a59e2a85d1b95e9e4c8aea19cb43b3a6"
+    },
+    {
+      "path": "Build/Presentation/vehicle-disabled-01/events.log",
+      "kind": "file",
+      "bytes": 1656,
+      "sha256": "2b6f378d17df476f4788b715073d2d5e32f5f69787af61da2123d1d42426d8f8"
+    },
+    {
+      "path": "Build/Presentation/vehicle-disabled-01/frames.csv",
+      "kind": "file",
+      "bytes": 403194,
+      "sha256": "745affd2f5f16930aac07c6b4db241038ff9ce6ffe8112c45a2c1e5b4b04b22e"
+    },
+    {
+      "path": "Build/Presentation/vehicle-disabled-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 13756,
+      "sha256": "f26ca69a6d4ec71eaf5ff322f1a8a213fd3fce73ddf48bc629dedda952827d64"
+    },
+    {
+      "path": "Build/Presentation/vehicle-disabled-01/result.json",
+      "kind": "file",
+      "bytes": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "path": "Build/Presentation/vehicle-disabled-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 393989,
+      "sha256": "561648c5b7809ab7053626c9ca6f4707059aeb7bc0c6636e993a79984ee529bf"
+    },
+    {
+      "path": "Build/Presentation/vehicle-disabled-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 393439,
+      "sha256": "f2b3c8072d42e321c8e734396d34035a9870aebef4bc7cb4e507def280d26794"
+    },
+    {
+      "path": "Build/Presentation/vehicle-disabled-01/validation.json",
+      "kind": "file",
+      "bytes": 172141,
+      "sha256": "a189ead628d7ec927301e8e57da30832c6c5b360b3c25c8f999aa9b765e1b351"
+    },
+    {
+      "path": "Build/Presentation/vehicle-disabled-01/vehicle-pose.csv",
+      "kind": "file",
+      "bytes": 267179,
+      "sha256": "7cd177338af1ed152e83705686e5acb6464f1f02243cd2b5f475b26b7c911b1b"
+    },
+    {
+      "path": "Build/Presentation/vehicle-disabled-01/vehicle.wav",
+      "kind": "file",
+      "bytes": 10788908,
+      "sha256": "cddd236e3b5800d1279a16f6f42902761617bad6e20df98c5a20418d2e955784"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-01/captures/approach.png",
+      "kind": "file",
+      "bytes": 995565,
+      "sha256": "a53e155de215e35094881ba9433d6b638acc0ef03a91975c61f1ad643b0cff00"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-01/captures/driving.png",
+      "kind": "file",
+      "bytes": 964783,
+      "sha256": "d672a75687facdef9dfa4b4b6114c1cdf56fa0955eb32a8035adeea63c2a3864"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-01/captures/impact.png",
+      "kind": "file",
+      "bytes": 952491,
+      "sha256": "b44331deb6c350f3d2c1ff7059fc35228ea4c642b776626417f78867ea5c18c6"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-01/events.log",
+      "kind": "file",
+      "bytes": 884,
+      "sha256": "bcad207f551c4fd218246342ee2e29bcd0cc7e53a9adc272d2c9bc4f9bae6c43"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-01/frames.csv",
+      "kind": "file",
+      "bytes": 209813,
+      "sha256": "69299f08da1a56e7088c3467e2fc6c9e6e2fd3f14fd7d1be6e5330b385dc6636"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 12097,
+      "sha256": "60fd5bf61388118220bb7006906de6022354ddcc48e25f2ddb8f8b7fc77e5bf7"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-01/result.json",
+      "kind": "file",
+      "bytes": 101,
+      "sha256": "84174d0b487bc8dc9594baf1f88657b95333407a272643220190c4b01206bd5c"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-01/runtime.engine-CRC.log",
+      "kind": "file",
+      "bytes": 13423,
+      "sha256": "b2410fb235076d6b0c86340256f8e757f6fbfa5bc88c6cec1ccae1345083b766"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 395891,
+      "sha256": "1f3df9d745538997adf8f78e629a3153ee21d41c55fccb7ac95878f3c401f731"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 412655,
+      "sha256": "3cd64c5d9f4a2d4bd58ab321bfe1afb4083a1bdecb2aa96e63cd1d7f39dd7323"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-01/validation.json",
+      "kind": "file",
+      "bytes": 163068,
+      "sha256": "81cd36c35a3d228ae862dc9922c72b671bfa173ef3c88faedf0147a147e7eeba"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-01/vehicle-pose.csv",
+      "kind": "file",
+      "bytes": 85440,
+      "sha256": "7684e8f9c3a55ffb77ecd72b232ca8ffc0675c8a43ffc25ed488a644aceae8a9"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-01/vehicle.wav",
+      "kind": "file",
+      "bytes": 9695276,
+      "sha256": "22484882db2469906a5d576de101dc2a143f1ad68358360aaaf0023a863b30d9"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-02/captures/approach.png",
+      "kind": "file",
+      "bytes": 1010491,
+      "sha256": "d5dcb6ef1bf94298af8591a42ec469111f80c8bb3319e5733654cc2985599039"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-02/captures/disabled.png",
+      "kind": "file",
+      "bytes": 276563,
+      "sha256": "c4c003cf09550e3f9e5205c5d18557b282af3f5ebf23f57016435d8b9f34dc4e"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-02/captures/driving.png",
+      "kind": "file",
+      "bytes": 953369,
+      "sha256": "4d61646c5e8c9831ce783314231f2cd9bb049b258861ac23ff4b84af23b39182"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-02/captures/exited.png",
+      "kind": "file",
+      "bytes": 970381,
+      "sha256": "beb9f98c404fbe9b14c05a9c1f4ed7f686b5d95fa0fb4e4810486d896e7df434"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-02/captures/impact.png",
+      "kind": "file",
+      "bytes": 937172,
+      "sha256": "fd949372b22c6a0e28fe711093e50524ae0aa960fb43ffde9789593495944b8a"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-02/events.log",
+      "kind": "file",
+      "bytes": 1656,
+      "sha256": "14b5f31134e24ae12b33a1e3793b081cb5e770e031ea6cf839828b85b4188743"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-02/frames.csv",
+      "kind": "file",
+      "bytes": 401937,
+      "sha256": "1619490bf4731856feab37a3af2b802643614630496119c80be9c25aa97f5170"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-02/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 13638,
+      "sha256": "56a9d715cdf0b5a3f02cb9d32473710a34cc848dca3fc62fa31c754f535603e6"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-02/result.json",
+      "kind": "file",
+      "bytes": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-02/runtime.engine.log",
+      "kind": "file",
+      "bytes": 398379,
+      "sha256": "a2f7234f9b7bb9ed5d3479fa3fb423752ee0041bce5be22eeb876dea50218316"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-02/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 400536,
+      "sha256": "3ff497e708af8016ed2321faeae1d8ec8e0176898094107902ae82511ad8b0f4"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-02/validation.json",
+      "kind": "file",
+      "bytes": 171907,
+      "sha256": "fc5f304564167a6ec26cbbe9200a10977f386dd23d1a6402e382bc34373a235a"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-02/vehicle-pose.csv",
+      "kind": "file",
+      "bytes": 272642,
+      "sha256": "73abb53ff5322f771555e38abb8393d41a5fb66a7d05fc649b2a3c84dda65281"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-02/vehicle.wav",
+      "kind": "file",
+      "bytes": 10752044,
+      "sha256": "23d47622f611aa7397419b8ba5c8e354efafd63244feb9a4c033f3826ffc90ba"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-03/captures/approach.png",
+      "kind": "file",
+      "bytes": 1010762,
+      "sha256": "fdd7e9b4727bc269ea53d6b8f09d0477f4d66b8b6e6b095ec096099b735cbfbb"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-03/captures/disabled.png",
+      "kind": "file",
+      "bytes": 276117,
+      "sha256": "56f2fd6e9d9f9a5b2412607bc37f0089d4ef0b8ae19236f0162c60f6dcc03748"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-03/captures/driving.png",
+      "kind": "file",
+      "bytes": 953872,
+      "sha256": "2fad9826f20fbdc33eac8c165dc2ef40b524c15f0f9cb8c49a72c89d8960aa1e"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-03/captures/exited.png",
+      "kind": "file",
+      "bytes": 972184,
+      "sha256": "26be0b61ea03c08bf41169e8b80024662fa7826b67947aa2025be840ed9e1767"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-03/captures/impact.png",
+      "kind": "file",
+      "bytes": 944580,
+      "sha256": "09f6cb61e8cacf5aa80308b7f0b3670498445776828f9438818520130a207eb8"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-03/events.log",
+      "kind": "file",
+      "bytes": 1656,
+      "sha256": "2c6200479b669c9ac1a246f1e93ffe194ed3d6075ac8a8dc5b8fea159d54dcc4"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-03/frames.csv",
+      "kind": "file",
+      "bytes": 402446,
+      "sha256": "1ce218c12cf416aecbf03ac11c222df5bee821dd0ee062cfd89afa3338cb7b49"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-03/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 13642,
+      "sha256": "ae9cf5fe0afab87de88ea77034441009bd8d01bc836570a195ea5db64cad31de"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-03/result.json",
+      "kind": "file",
+      "bytes": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-03/runtime.engine.log",
+      "kind": "file",
+      "bytes": 396156,
+      "sha256": "d679f709a7dbeff6a2dd35ecb3324c4cf7a5d25a2d1419a0c86b291babc07cd7"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-03/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 395595,
+      "sha256": "157264e49452d0bae3c9b90a6e8daf18452c105de133cfc683c7441845f1f440"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-03/validation.json",
+      "kind": "file",
+      "bytes": 171987,
+      "sha256": "9b6502705a31e918d3524008ae6ce3b6016d428abcbd9b77735c6fa26a2bb308"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-03/vehicle-pose.csv",
+      "kind": "file",
+      "bytes": 273019,
+      "sha256": "6fb954f1923e46595a0de158e205c9e86a24cb5315b0e3552c8eec7a0c0dee76"
+    },
+    {
+      "path": "Build/Presentation/vehicle-runtime-03/vehicle.wav",
+      "kind": "file",
+      "bytes": 10764332,
+      "sha256": "22f474027a46f679b4ed707283715a5b3e73501dee6fdbd1bc1923fe2517a58c"
+    },
+    {
+      "path": "Build/Presentation/vehicle-visual-review-01.json",
+      "kind": "file",
+      "bytes": 1427,
+      "sha256": "bcbbea8f784e7a440aaf9d3ba7c2c3e8c203ca055ec23a094e0abe69ec64ad4f"
+    },
+    {
+      "path": "Content/Python/inspect_vehicle_rig.py",
+      "kind": "file",
+      "bytes": 3082,
+      "sha256": "6a80b1821ccde7cb9fc94659555b51a4f84b341b688b3f11a00110b095eac8ee"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/MI_OffroadCar_Lights.uasset",
+      "kind": "file",
+      "bytes": 8996,
+      "sha256": "67a54c5c419bae2ed953ee0d56b99569aaeeb89c56f612d343a6de4ca1b4d6bb"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/MI_OffroadCar_Main.uasset",
+      "kind": "file",
+      "bytes": 16922,
+      "sha256": "aa3107fa5abaf82211097a8cd3fec37197f04de17f12ece552d3b33a751bd048"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/MI_OffroadCar_Seats.uasset",
+      "kind": "file",
+      "bytes": 13456,
+      "sha256": "c443b55a6dfc927926681ddc9dc82a4506a1fb14dbda339cefeb225eff4a23aa"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/MI_OffroadCar_Suspension.uasset",
+      "kind": "file",
+      "bytes": 16139,
+      "sha256": "9a6e64fb07c41c0563573515ed785db76926ff4e5831fa5eeaafa8e92bae3617"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/MI_OffroadCar_Wheel.uasset",
+      "kind": "file",
+      "bytes": 14279,
+      "sha256": "681740bcfdd25953ef97114d1000d9ddaac86a1d26e2d038146ed439b499fb8b"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/M_OffroadCar_Wheel.uasset",
+      "kind": "file",
+      "bytes": 28085,
+      "sha256": "2b832dea8500b051e49cd18bce0b87e4403e2007ce315b1b21667fdd3e7f5328"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Body_D.uasset",
+      "kind": "file",
+      "bytes": 1055677,
+      "sha256": "c4d13241d0cfb1e401e7ed0d146d133484326b5ee0cc1c6449c41b84d3042e19"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Body_MRA.uasset",
+      "kind": "file",
+      "bytes": 966989,
+      "sha256": "62e50e1f9102c430cca5734a92c8179adc18f7ea73d7ea1508000da8f29b35cc"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Seats_D.uasset",
+      "kind": "file",
+      "bytes": 657733,
+      "sha256": "f6dc76b13cc45c8988a56f27d1242baccc00bb3b418950cfe4940764c268aa8d"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Seats_MRA.uasset",
+      "kind": "file",
+      "bytes": 469338,
+      "sha256": "ddfa819c3bede7bb2df736edcb21106f8285d2797af3979dbf94f3bab3f7a6a5"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Seats_N.uasset",
+      "kind": "file",
+      "bytes": 1137510,
+      "sha256": "80a7cddac69735db73f3edc3f3b9c395fe1eb0ce7ea0a5685408873e4167c29b"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Sus_D.uasset",
+      "kind": "file",
+      "bytes": 995798,
+      "sha256": "fab72a7ebb1cc1af44b5ba9a6f647e1bd034068140573751a50617708eecbd42"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Sus_MRA.uasset",
+      "kind": "file",
+      "bytes": 675408,
+      "sha256": "4f6fffd9bc1a9d0fb2af31fd216add978fa623e8968132ab457aa975576cd39b"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Sus_N.uasset",
+      "kind": "file",
+      "bytes": 1173678,
+      "sha256": "9cb362aaa6b690cdfebd1f1afb727d8fab942b3d5ec7028469fb5466fe86d4c3"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_D.uasset",
+      "kind": "file",
+      "bytes": 1067629,
+      "sha256": "a69046823108e0b4dcf5df98c0db053f3b1769a36c89c7cc8daf83e104bb7145"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_N.uasset",
+      "kind": "file",
+      "bytes": 2226551,
+      "sha256": "e1cdc26df949c83cb5b7494fc3e08eccfb58877c39f9653af716205135c72200"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_RMA.uasset",
+      "kind": "file",
+      "bytes": 1786545,
+      "sha256": "2e77a27994c06fa42b7503ec6d9b5fe700d2ba2eca3bae5afe7f4e4ebbe594f0"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/Materials/Textures/T_Offroad_Body_N.uasset",
+      "kind": "file",
+      "bytes": 1291789,
+      "sha256": "eddd3e2c626b38c492c4e358d498cf7d57c9b25510ebfa82dd49a506e3802264"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/SKM_Offroad.uasset",
+      "kind": "file",
+      "bytes": 8905356,
+      "sha256": "286b2ddb6094603f7cf689b9b6a1bf6269d52068468fd1c1cfdef659c2e4ccea"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/SKM_Offroad_PhysicsAsset.uasset",
+      "kind": "file",
+      "bytes": 15876,
+      "sha256": "41ad56e18d9d6eae85c70a5fecfbe58fca3f19bdf8aa93c5f247b2792994eda8"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/SKM_Offroad_Skeleton.uasset",
+      "kind": "file",
+      "bytes": 15833,
+      "sha256": "9d2cfba43ca61e1060a4a6a2ff2578c26d2cfcd9959dc5d45c1a450634b8349c"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/SM_Offroad_Body.uasset",
+      "kind": "file",
+      "bytes": 2835903,
+      "sha256": "30273c0d1d5d6786f7c5c8abf4c3eb8cca4ecee00af0437d3cc7533d6ac263d4"
+    },
+    {
+      "path": "Content/Vehicles/OffroadCar/SM_Offroad_Tire.uasset",
+      "kind": "file",
+      "bytes": 872928,
+      "sha256": "fa6b0da9cd211ef7535c41f9af9facb023edfafb154d4e3b5bac5b49547a47c0"
+    },
+    {
+      "path": "Content/Vehicles/SportsCar/Materials/M_SportsCarBase.uasset",
+      "kind": "file",
+      "bytes": 33804,
+      "sha256": "fe532f3a813078c06d8b7af9690e4d18295623af9e430c2a87303cda4017f650"
+    },
+    {
+      "path": "Content/Vehicles/SportsCar/Materials/M_SportsCar_Lights.uasset",
+      "kind": "file",
+      "bytes": 18156,
+      "sha256": "78f1cba4d16df99171d1c44777cf0e35d4427dce8088f0bb4803c6e34726f984"
+    },
+    {
+      "path": "Content/Vehicles/SportsCar/Materials/Textures/T_SportsCar_Body_BotN.uasset",
+      "kind": "file",
+      "bytes": 559302,
+      "sha256": "1ed05ffb599f7aaad6d8be32060b8b3ed184e3f7d97aef1f9a47900a429c5c82"
+    },
+    {
+      "path": "Content/Vehicles/SportsCar/Materials/Textures/T_SportsCar_Body_D.uasset",
+      "kind": "file",
+      "bytes": 733351,
+      "sha256": "7effd0cc8d1453f082e7b8a75a4e2eae4f4f8abc90817db06d2867d6354a9633"
+    },
+    {
+      "path": "Content/Vehicles/SportsCar/Materials/Textures/T_SportsCar_Body_MRA.uasset",
+      "kind": "file",
+      "bytes": 889570,
+      "sha256": "27181bf95b9ed2587798f73a4531c89622672177e602635c5522f4da6f07871a"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaVehicle.cpp",
+      "kind": "file",
+      "bytes": 24461,
+      "sha256": "b10acb95e7bf15a8092c5f56087a01baf2ff4c8f44d6f990c754e87df2de578a"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaVehiclePresentation.cpp",
+      "kind": "file",
+      "bytes": 5160,
+      "sha256": "acd8804341ef412b81f7882a2058aec76e8e8000f404d8bdb579d8e0f0071fea"
+    },
+    {
+      "path": "Source/BiellaGames/Private/Tests/BiellaVehicleTest.cpp",
+      "kind": "file",
+      "bytes": 33550,
+      "sha256": "b91acec8526852fe1ed28907cf8c2bdea497d45156ff450c2754ff48a40e49ec"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaVehicle.h",
+      "kind": "file",
+      "bytes": 5212,
+      "sha256": "1735d7aec671a8285c3b92579592858c318ba31ddb399fe14656017124dad611"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaVehiclePresentation.h",
+      "kind": "file",
+      "bytes": 955,
+      "sha256": "dfa4af7eccf68bb32da889eb021b01a2f6a0f258f2be4a65bb0061f8dcc1889e"
+    },
+    {
+      "path": "SourceAssets/Vehicles/UE58Offroad.provenance.json",
+      "kind": "file",
+      "bytes": 7256,
+      "sha256": "f6afe10b8730d3d93df504c1d7cd488b43abb115f9a44a658d5769b9ce9b53cf"
+    },
+    {
+      "path": "SourceAssets/Vehicles/UE58OffroadParts.provenance.json",
+      "kind": "file",
+      "bytes": 8740,
+      "sha256": "53bfac2a360a33fa042f5a4529d8b74ab1e2e0b86bff58c07dfff2aa99d44799"
+    },
+    {
+      "path": "tests/import_d03_01_vehicle_resources.py",
+      "kind": "file",
+      "bytes": 2572,
+      "sha256": "a3b07fcbd5dadbda4260f16d4929060b40c9fd8a7d80f51c87f5927046c7608a"
+    },
+    {
+      "path": "tests/run_d03_01_vehicle.py",
+      "kind": "file",
+      "bytes": 4214,
+      "sha256": "d039857fe31022d423a6fb8cf915b05aa82d44216d1ea3400dcfb7e97f5c176b"
+    },
+    {
+      "path": "tests/verify_d03_01_vehicle.py",
+      "kind": "file",
+      "bytes": 3393,
+      "sha256": "624b246833d8465f45221c43f5996d9cae60fc0f1137310457d27c77f1e76dca"
+    }
+  ]
+}

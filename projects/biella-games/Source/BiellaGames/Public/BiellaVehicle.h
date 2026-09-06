@@ -14,6 +14,7 @@ class UAudioComponent;
 class USoundBase;
 class UMaterialInstanceDynamic;
 class ABiellaGamesCharacter;
+class UBiellaVehiclePresentation;
 
 // One bounded match-local vehicle. Chaos owns rigid-body integration/contact;
 // four suspension rays supply tire forces, never kinematic driving transforms.
@@ -45,6 +46,10 @@ public:
     bool IsBraking() const { return bBrakeInput; }
     float GetWheelTravel(int32 Index) const { return WheelTravel[Index]; }
     float GetWheelSpin() const { return WheelSpin; }
+    FVector GetWheelCenter(int32 Index) const { return WheelMount[Index]-FVector(0,0,WheelTravel[Index]); }
+    UBiellaVehiclePresentation* GetSkeletalPresentation() const { return PresentationMesh; }
+    UStaticMeshComponent* GetPresentationBody() const { return PresentationBody; }
+    UStaticMeshComponent* GetPresentationTire(int32 Index) const { return PresentationTires[Index]; }
     int32 GetHoldCount() const { return Holds; }
     FName GetLastRejection() const { return LastRejection; }
     UPROPERTY(VisibleAnywhere) TObjectPtr<UBoxComponent> Chassis;
@@ -62,12 +67,18 @@ private:
         UPrimitiveComponent* OtherComponent, FVector Impulse, const FHitResult& Hit);
     void SetHeld(bool Value);
     void UpdatePresentation(float DeltaTime);
+    void UpdateDamagePresentation();
     bool HasTerrain(FVector Offset) const;
     bool Reject(FName Reason);
     void RestoreDriver(FVector At);
     UPROPERTY() TArray<TObjectPtr<UStaticMeshComponent>> Wheels;
+    UPROPERTY(VisibleAnywhere) TObjectPtr<UBiellaVehiclePresentation> PresentationMesh;
+    UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> PresentationBody;
+    UPROPERTY() TArray<TObjectPtr<UStaticMeshComponent>> PresentationTires;
+    UPROPERTY() TArray<TObjectPtr<UStaticMeshComponent>> FallbackParts;
     UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> BrakeMaterial;
     UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> BodyMaterial;
+    UPROPERTY() TArray<TObjectPtr<UMaterialInstanceDynamic>> RigPaint;
     UPROPERTY() TArray<TObjectPtr<USpotLightComponent>> Headlights;
     UPROPERTY() TArray<TObjectPtr<UStaticMeshComponent>> Details;
     UPROPERTY() TObjectPtr<USoundBase> EngineSound;

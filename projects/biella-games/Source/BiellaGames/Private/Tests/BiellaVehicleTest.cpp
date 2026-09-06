@@ -1,6 +1,7 @@
 // Copyright Biella Games. All Rights Reserved.
 #if WITH_DEV_AUTOMATION_TESTS
 #include "BiellaVehicle.h"
+#include "BiellaVehiclePresentation.h"
 #include "BiellaWorldContinuity.h"
 #include "BiellaPopulation.h"
 #include "BiellaGamesGameState.h"
@@ -16,6 +17,9 @@
 #include "DynamicRHI.h"
 #include "Engine/Engine.h"
 #include "Engine/StaticMeshActor.h"
+#include "Engine/StaticMesh.h"
+#include "Engine/SkeletalMesh.h"
+#include "Materials/MaterialInstanceDynamic.h"
 #include "Engine/World.h"
 #include "Engine/DamageEvents.h"
 #include "EngineUtils.h"
@@ -23,6 +27,7 @@
 #include "GameFramework/PlayerController.h"
 #include "HAL/FileManager.h"
 #include "HAL/PlatformMemory.h"
+#include "HAL/IConsoleManager.h"
 #include "InputKeyEventArgs.h"
 #include "InputActionValue.h"
 #include "Kismet/GameplayStatics.h"
@@ -51,6 +56,10 @@ public:
         TickHandle=FWorldDelegates::OnWorldTickStart.AddRaw(this,&FVehicleScenario::BeforeTick);
         FrameHandle=FCoreDelegates::OnEndFrame.AddRaw(this,&FVehicleScenario::Frame);
         Csv=TEXT("frame,wall_seconds,wall_ms,sim_ms,phase,x,y,z,yaw,roll,pitch,speed,velocity,contacts,travel,spin,throttle,steering,brake,held,dormant,health,impacts,driver,player_health,ammo,audio,resident_bytes\n");
+        bPresentation=FParse::Param(FCommandLine::Get(),TEXT("BiellaVehiclePresentation"));
+        bPresentationDisabled=FParse::Param(FCommandLine::Get(),TEXT("BiellaVehiclePresentationDisabled"));
+        PoseCsv=TEXT("frame,phase,rig_visible,dormant,updates,wheel_error,axle_error,spin_error,link_error,root_error,paint_error,body_visible,cosmetic_collision,rigid_visible,rigid_center_error,rigid_axle_error,rigid_spin_error,rigid_radius_error,rigid_body_error\n");
+        if (bPresentation) { IConsoleManager::Get().FindConsoleVariable(TEXT("biella.Vehicle.SkeletalPresentation"))->Set(bPresentationDisabled ? 0:1,ECVF_SetByCode); }
     }
     ~FVehicleScenario()
     {
@@ -79,6 +88,13 @@ public:
                 auto* P=Cast<ABiellaStreamingCharacter>(W->GetFirstPlayerController()->GetPawn());
                 Check(P && P!=Player.Get() && !P->GetVehicle() && P->GetHealth()==100 && P->GetAmmo()==60,TEXT("Restart creates clean player"));
                 Check(!OldAudio.IsValid() || !OldAudio->IsPlaying(),TEXT("Old engine audio stopped on teardown"));
+                if (bPresentation)
+                {
+                    Check(!OldRig.IsValid() || !OldRig->IsRegistered(),TEXT("Old cosmetic rig unregistered on restart"));
+                    Check(New && New->GetSkeletalPresentation()->IsRigReady(),TEXT("Restart creates a ready independent rig"));
+                    Check(PoseFrames>300 && (bPresentationDisabled || (VisibleFrames>200 && MaxWheelError<.1 && MaxAxleError<.1 && MaxSpinError<.1 && MaxLinkError<.1)),TEXT("Evaluated rig follows wheel and suspension state"));
+                    Check(FallbackFrames>10 && DormantFrames>10,TEXT("Fallback and dormant presentation sampled"));
+                }
                 Event(TEXT("restart_clean")); return Finish(true,TEXT(""));
             }
             return false;
@@ -170,8 +186,11 @@ public:
             Capture(TEXT("driving")); Key(EKeys::W,false); Key(EKeys::SpaceBar,true);
             BrakeAt=Car->GetActorLocation(); Next(7,TEXT("brake"));
         }
-        else if (Phase==7 && Age>1.5)
+        else if (Phase==7)
         {
+            if (bPresentation && !bPresentationDisabled && Age>.4 && !FScreenshotRequest::IsScreenshotRequested())
+            { IConsoleManager::Get().FindConsoleVariable(TEXT("biella.Vehicle.SkeletalPresentation"))->Set(0,ECVF_SetByCode); }
+            if (Age<=1.5) { return false; }
             Check(FMath::Abs(Car->GetSpeed())<30 && FVector::Dist(BrakeAt,Car->GetActorLocation())<1000,TEXT("Brake stops chassis within bounded distance"));
             ReverseAt=Car->GetActorLocation(); Key(EKeys::SpaceBar,false); Key(EKeys::S,true); Next(8,TEXT("reverse"));
         }
@@ -267,7 +286,7 @@ public:
             Capture(TEXT("disabled")); Key(EKeys::W,false); Next(20,TEXT("restart_wait"));
         }
         else if (Phase==20 && Age>1 && !FScreenshotRequest::IsScreenshotRequested())
-        { OldAudio=Car->EngineAudio; Key(EKeys::R,true); Next(30,TEXT("restart_key")); }
+        { OldAudio=Car->EngineAudio; OldRig=Car->GetSkeletalPresentation(); Key(EKeys::R,true); Next(30,TEXT("restart_key")); }
         return false;
     }
 private:
@@ -292,7 +311,12 @@ private:
         for (TActorIterator<ABiellaDemoPawn> It(W);It;++It)
         { if (!It->IsA<ABiellaStreamingCharacter>()) { It->SetActorTickEnabled(false); It->PawnMovement->SetComponentTickEnabled(false); } }
     }
-    void Next(int32 P,const TCHAR* Name) { Phase=P; PhaseStart=World->GetTimeSeconds(); Event(Name); }
+    void Next(int32 P,const TCHAR* Name)
+    {
+        Phase=P; PhaseStart=World->GetTimeSeconds(); Event(Name);
+        if (bPresentation && !bPresentationDisabled && P==8)
+        { IConsoleManager::Get().FindConsoleVariable(TEXT("biella.Vehicle.SkeletalPresentation"))->Set(1,ECVF_SetByCode); }
+    }
     void Event(const TCHAR* Name)
     {
         const FString E=FString::Printf(TEXT("D02_VEHICLE_TEST event=%s phase=%d time=%.6f\n"),Name,Phase,FPlatformTime::Seconds()-Started);
@@ -307,6 +331,98 @@ private:
         Csv+=FString::Printf(TEXT("%llu,%.9f,%.6f,%.6f,%d,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%d,%.4f,%.4f,%.3f,%.3f,%d,%d,%d,%.4f,%d,%d,%.3f,%d,%d,%llu\n"),
             static_cast<unsigned long long>(GFrameCounter),Now-Started,(Now-LastWall)*1000,FApp::GetDeltaTime()*1000,Phase,At.X,At.Y,At.Z,R.Yaw,R.Roll,R.Pitch,Car->GetSpeed(),Car->Chassis->GetPhysicsLinearVelocity().Size(),Car->GetContactCount(),Car->GetWheelTravel(0),Car->GetWheelSpin(),Car->GetThrottle(),Car->GetSteering(),Car->IsBraking(),Car->IsHeld(),Car->IsParkedDormant(),Car->GetHealth(),Car->GetImpactCount(),Car->GetDriver()!=nullptr,Player->GetHealth(),Player->GetAmmo(),Car->EngineAudio->IsPlaying(),static_cast<unsigned long long>(FPlatformMemory::GetStats().UsedPhysical));
         LastWall=Now;
+        if (bPresentation) { SamplePresentation(); }
+    }
+    void SamplePresentation()
+    {
+        auto* Rig=Car->GetSkeletalPresentation();
+        const bool Visible=Rig && Rig->IsVisible();
+        double WheelError=0, AxleError=0, SpinError=0, LinkError=0;
+        double RigidCenterError=0, RigidAxleError=0, RigidSpinError=0, RigidRadiusError=0, RigidBodyError=0;
+        auto* RigBody=Car->GetPresentationBody();
+        int32 RigidVisible=RigBody->IsVisible() ? 1:0;
+        bool CosmeticCollision=Rig->GetCollisionEnabled()!=ECollisionEnabled::NoCollision || Rig->CanEverAffectNavigation();
+        for (int32 I=-1;I<4;++I)
+        {
+            auto* Part=I<0 ? RigBody:Car->GetPresentationTire(I);
+            if (I>=0 && Part->IsVisible()) { ++RigidVisible; }
+            CosmeticCollision |= Part->GetCollisionEnabled()!=ECollisionEnabled::NoCollision || Part->CanEverAffectNavigation();
+            Check(Part->GetStaticMesh() && Part->IsRegistered() && Part->IsRenderStateCreated(),TEXT("Rigid vehicle parts have registered render geometry"));
+            Check(Part->GetAttachParent()==Rig && Part->GetAttachSocketName()==(I<0 ? FName(TEXT("OffroadCar")):UBiellaVehiclePresentation::WheelBone(I)),TEXT("Rigid parts attach to the evaluated rig"));
+        }
+        Check(RigidVisible==(Visible ? 5:0),TEXT("Body and all tires follow rig visibility"));
+        if (Visible)
+        {
+            ++VisibleFrames;
+            const FTransform BodyLocal=RigBody->GetComponentTransform().GetRelativeTransform(Rig->GetComponentTransform());
+            RigidBodyError=BodyLocal.GetLocation().Size()+BodyLocal.GetRotation().AngularDistance(FQuat::Identity)+(BodyLocal.GetScale3D()-FVector::OneVector).Size();
+            for (int32 I=0;I<4;++I)
+            {
+                auto* Tire=Car->GetPresentationTire(I);
+                const FTransform TireLocal=Tire->GetComponentTransform().GetRelativeTransform(Car->GetActorTransform());
+                const auto Bounds=Tire->GetStaticMesh()->GetBounds();
+                RigidCenterError=FMath::Max(RigidCenterError,FVector::Dist(TireLocal.TransformPosition(Bounds.Origin),Car->GetWheelCenter(I)));
+                const FQuat Steer=FRotator(0,I<2 ? Car->GetSteering()*28:0,0).Quaternion();
+                const FQuat ExpectedRotation=Steer*FQuat(FVector::RightVector,FMath::DegreesToRadians(Car->GetWheelSpin()));
+                auto Angle=[](const FVector& A,const FVector& B) { return FMath::RadiansToDegrees(FMath::Acos(FMath::Clamp(FVector::DotProduct(A,B),-1.,1.))); };
+                RigidAxleError=FMath::Max(RigidAxleError,Angle(TireLocal.GetRotation().RotateVector(FVector::RightVector),ExpectedRotation.RotateVector(FVector::RightVector)));
+                RigidSpinError=FMath::Max(RigidSpinError,Angle(TireLocal.GetRotation().RotateVector(FVector::UpVector),ExpectedRotation.RotateVector(FVector::UpVector)));
+                RigidRadiusError=FMath::Max(RigidRadiusError,FMath::Abs(FMath::Max(Bounds.BoxExtent.X,Bounds.BoxExtent.Z)*TireLocal.GetScale3D().X-38.));
+                const FTransform Wheel=Rig->GetBoneTransformByName(UBiellaVehiclePresentation::WheelBone(I),EBoneSpaces::ComponentSpace);
+                WheelError=FMath::Max(WheelError,FVector::Dist(Rig->GetRelativeTransform().TransformPosition(Wheel.GetLocation()),Car->GetWheelCenter(I)));
+                const FVector Axis=Wheel.GetRotation().RotateVector(FVector::RightVector);
+                const FVector Expected=FRotator(0,I<2 ? Car->GetSteering()*28 : 0,0).RotateVector(-FVector::RightVector);
+                AxleError=FMath::Max(AxleError,FMath::RadiansToDegrees(FMath::Acos(FMath::Clamp(FVector::DotProduct(Axis,Expected),-1.,1.))));
+                const auto& Ref=Rig->GetSkinnedAsset()->GetRefSkeleton();
+                int32 BoneIndex=Ref.FindBoneIndex(UBiellaVehiclePresentation::WheelBone(I));
+                FTransform Reference=Ref.GetRefBonePose()[BoneIndex];
+                while ((BoneIndex=Ref.GetParentIndex(BoneIndex))>=0) { Reference*=Ref.GetRefBonePose()[BoneIndex]; }
+                // Remove the authored orientation, including the rear-left
+                // wheel's distinct basis, then observe the actual spoke vector.
+                const FQuat Delta=Wheel.GetRotation()*Reference.GetRotation().Inverse();
+                const FVector Spoke=Delta.RotateVector(FVector::UpVector);
+                const FVector ExpectedSpoke=FRotator(0,I<2 ? Car->GetSteering()*28 : 0,0).RotateVector(
+                    FQuat(FVector::RightVector,FMath::DegreesToRadians(Car->GetWheelSpin())).RotateVector(FVector::UpVector));
+                SpinError=FMath::Max(SpinError,FMath::RadiansToDegrees(FMath::Acos(FMath::Clamp(FVector::DotProduct(Spoke,ExpectedSpoke),-1.,1.))));
+                const TCHAR* Suffixes[4]={TEXT("FL"),TEXT("FR"),TEXT("BL"),TEXT("BR")};
+                auto Point=[&](const TCHAR* Prefix) { return Rig->GetBoneLocationByName(FName(*FString::Printf(TEXT("%s_%s"),Prefix,Suffixes[I])),EBoneSpaces::ComponentSpace); };
+                LinkError=FMath::Max(LinkError,FVector::Dist(Point(TEXT("LowerControlArm_End")),Point(TEXT("HUB"))));
+                LinkError=FMath::Max(LinkError,FVector::Dist(Point(TEXT("UpperControlArm_End")),Point(I<2 ? TEXT("HUB_Upper") : TEXT("HUB_Upper_Mnt"))));
+                LinkError=FMath::Max(LinkError,FVector::Dist(Point(TEXT("SpringDamper_End")),Point(TEXT("SpringDamper_Mount"))));
+            }
+            MaxWheelError=FMath::Max(MaxWheelError,WheelError); MaxAxleError=FMath::Max(MaxAxleError,AxleError); MaxSpinError=FMath::Max(MaxSpinError,SpinError); MaxLinkError=FMath::Max(MaxLinkError,LinkError);
+            Check(FMath::Max3(RigidCenterError,RigidAxleError,RigidSpinError)<.1 && RigidRadiusError<.01 && RigidBodyError<.01,TEXT("Rendered tire centers, axes, spin, radius and body follow authoritative vehicle state"));
+        }
+        bool BodyVisible=false;
+        TArray<UStaticMeshComponent*> Parts; Car->GetComponents(Parts);
+        for (auto* Part:Parts) { if (Part->GetName()==TEXT("Body")) { BodyVisible=Part->IsVisible(); } }
+        const bool Dormant=Car->IsParkedDormant();
+        if (Dormant) { ++DormantFrames; }
+        if (BodyVisible) { ++FallbackFrames; }
+        const double RootError=Rig->GetBoneLocationByName(TEXT("OffroadCar"),EBoneSpaces::ComponentSpace).Size();
+        double PaintError=0;
+        const FLinearColor ExpectedPaint=FLinearColor(.12,.24,.18)*(.25f+.75f*Car->GetHealth()/100);
+        for (int32 I:{0,2})
+        {
+            auto* M=Cast<UMaterialInstanceDynamic>(Rig->GetMaterial(I));
+            if (!Check(M!=nullptr,TEXT("Rig owns dynamic paint material"))) { continue; }
+            PaintError=FMath::Max(PaintError,double(FLinearColor::Dist(M->K2_GetVectorParameterValue(TEXT("Paint Tint")),ExpectedPaint)));
+        }
+        for (int32 I:{0,3})
+        {
+            auto* M=Cast<UMaterialInstanceDynamic>(RigBody->GetMaterial(I));
+            if (!Check(M!=nullptr,TEXT("Body owns dynamic paint material"))) { continue; }
+            PaintError=FMath::Max(PaintError,double(FLinearColor::Dist(M->K2_GetVectorParameterValue(TEXT("Paint Tint")),ExpectedPaint)));
+        }
+        Check(PaintError<.001,TEXT("Rig paint follows authoritative damage"));
+        Check(!CosmeticCollision && RootError<.01,TEXT("Cosmetic rig preserves collision/navigation/root authority"));
+        Check(!(Visible && BodyVisible) && (!Dormant || (!Visible && !BodyVisible)),TEXT("Exclusive representation and dormant hiding"));
+        if (bPresentationDisabled) { Check(!Visible,TEXT("Disabled negative control keeps rig hidden")); }
+        if (Dormant && bWasDormant) { Check(Rig->GetPoseUpdates()==LastPoseUpdates,TEXT("Dormancy stops rig evaluation")); }
+        LastPoseUpdates=Rig->GetPoseUpdates(); bWasDormant=Dormant;
+        ++PoseFrames;
+        PoseCsv+=FString::Printf(TEXT("%llu,%d,%d,%d,%llu,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%d,%d,%d,%.6f,%.6f,%.6f,%.6f,%.6f\n"),
+            static_cast<unsigned long long>(GFrameCounter),Phase,Visible,Dormant,static_cast<unsigned long long>(LastPoseUpdates),WheelError,AxleError,SpinError,LinkError,RootError,PaintError,BodyVisible,CosmeticCollision,RigidVisible,RigidCenterError,RigidAxleError,RigidSpinError,RigidRadiusError,RigidBodyError);
     }
     bool Finish(bool Good,const TCHAR* Error)
     {
@@ -316,6 +432,7 @@ private:
         bool Saved=FFileHelper::SaveStringToFile(Csv,*FPaths::Combine(Output,TEXT("frames.csv")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
         Saved &= FFileHelper::SaveStringToFile(Events,*FPaths::Combine(Output,TEXT("events.log")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
         Saved &= FFileHelper::SaveStringToFile(Result,*FPaths::Combine(Output,TEXT("result.json")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
+        if (bPresentation) { Saved &= FFileHelper::SaveStringToFile(PoseCsv,*FPaths::Combine(Output,TEXT("vehicle-pose.csv")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM); }
         if (!Good || !Saved) { Test->AddError(FString(TEXT("vehicle_evidence_failed: "))+Error); }
         return true;
     }
@@ -324,6 +441,11 @@ private:
     float SavedHealth=0,InitialYaw=0,TurnYaw=0,ParkedHealth=0;
     bool bReload=false,bFinished=false,bRecording=false;
     bool bSupportTested=false;
+    bool bPresentation=false,bPresentationDisabled=false,bWasDormant=false;
+    FString PoseCsv;
+    int32 PoseFrames=0,VisibleFrames=0,FallbackFrames=0,DormantFrames=0;
+    double MaxWheelError=0,MaxAxleError=0,MaxSpinError=0,MaxLinkError=0;
+    uint64 LastPoseUpdates=0;
     float SupportRemovedAt=0;
     FVector Start,BrakeAt,ReverseAt,WallAt,WalkAt,ParkedAt;
     FDelegateHandle TickHandle,FrameHandle;
@@ -332,6 +454,7 @@ private:
     TWeakObjectPtr<ABiellaStreamingCharacter> Player;
     TWeakObjectPtr<ABiellaVehicle> Car;
     TWeakObjectPtr<UAudioComponent> OldAudio;
+    TWeakObjectPtr<UBiellaVehiclePresentation> OldRig;
     TWeakObjectPtr<AStaticMeshActor> Obstacle;
     TArray<TWeakObjectPtr<AStaticMeshActor>> Blockers;
     TWeakObjectPtr<UPrimitiveComponent> MissingFloor;

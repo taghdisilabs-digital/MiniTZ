@@ -1,0 +1,20 @@
+{
+  "task_id": "D03-01",
+  "resource": "ollama-qwen",
+  "role": "Non-authoritative bounded assistance",
+  "response_sha256": "b3228a74bb5d502d56b7cbc74e3236d831e401aa9a6f21d17d86a4f02ea60704",
+  "accepted": [
+    "Render-only owner-driven skeletal mapping avoids duplicating driving physics."
+  ],
+  "rejected": [
+    "Suggested bone names including pelvis do not match the installed vehicle; 49 actual native bones used.",
+    "Claim that native AnimInstance requires a Blueprint wrapper is not a valid engine limitation.",
+    "Truncated provider code and guessed APIs are not implementation evidence."
+  ],
+  "validation": [
+    "vehicle-assets-01/readback.json",
+    "vehicle-assets-02/readback.json",
+    "Installed PoseableMeshComponent/SkinnedMeshComponent declarations",
+    "Native build and runtime required independently"
+  ]
+}

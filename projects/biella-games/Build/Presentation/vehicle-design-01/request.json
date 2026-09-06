@@ -1,0 +1,5 @@
+{
+  "capability": "unreal.assist",
+  "provider": "ollama-qwen",
+  "prompt": "Bounded non-authoritative Unreal assistance for D03-01. Existing vehicle is an AActor with one Chaos-simulated UBoxComponent root. Four raycast wheels at (130,-85),(130,85),(-130,-85),(-130,85), suspension travel 0..60cm, radius38cm. Existing authoritative controls/chassis/contact must stay unchanged. Want render-only installed Epic Offroad skeletal mesh driven by these four wheel positions, steering and spin. Local UE5.8 native C++ can use a custom AnimInstanceProxy or PoseableMesh. Give compact design tradeoffs and 5 concrete native validation checks incl skin/reference mapping, cosmetic collision isolation, temporal update order, fallback and lifecycle. Do not invent Unreal APIs. No final vehicle-art choice is being made."
+}

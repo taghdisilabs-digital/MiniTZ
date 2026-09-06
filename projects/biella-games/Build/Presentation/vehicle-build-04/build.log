@@ -1,0 +1,33 @@
+Setting up bundled DotNet SDK
+Running command : dotnet Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll BiellaGamesEditor Linux Development -Project=/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject -WaitMutex
+Log file: /root/.config/Epic/UnrealBuildTool/Log.txt
+Determining max actions to execute in parallel (15 physical cores, 15 logical cores)
+  Executing up to 15 processes, one per physical core
+UbaStorageServer - FileMapping backing: memfd
+UbaServer - Listening on 0.0.0.0:1345
+Building BiellaGamesEditor...
+===== Toolchain Information =====
+Using ISPC compiler (/opt/unreal/UE_5.8.2/Engine/Source/ThirdParty/Intel/ISPC/bin/Linux/ispc)
+  Intel(r) Implicit SPMD Program Compiler (Intel(r) ISPC), 1.24.0 (build commit  @ 20240919, LLVM 18.1.6)
+Using Clang compiler 20.1.8 (/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin/clang++)
+  clang version 20.1.8 (github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261) Target: x86_64-unknown-linux-gnu Thread model: posix InstalledDir: /opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin
+Using Clang archiver (/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu/bin/llvm-ar)
+  LLVM (http://llvm.org/):   LLVM version 20.1.8   Optimized build.
+Using toolchain located at '/opt/unreal/UE_5.8.2/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v26_clang-20.1.8-rockylinux8/x86_64-unknown-linux-gnu'
+Using bundled libc++ standard C++ library.
+Compressing debug files
+[Adaptive Build] Excluded from BiellaGames unity file: BiellaGames.cpp, BiellaGamesGameState.cpp, BiellaEnvironmentSite.cpp, BiellaPlaytestTelemetry.cpp, BiellaWorldAuthoring.cpp, BiellaGamesGameInstance.cpp, BasicWorldGeometry.cpp, ThirdPartyNanosvg.cpp, BiellaUpperBodyActions.cpp, BiellaCharacterAnimInstance.cpp, BiellaGameplayHUD.cpp, BiellaWorldContinuity.cpp, ThirdPartyAHEasing.cpp, BiellaInfected.cpp, BiellaDemoObjectiveManager.cpp, BiellaVehiclePresentation.cpp, BiellaGamesGameModeBase.cpp, BiellaVehicle.cpp, BiellaGameplayFeedback.cpp, BiellaDefeatAnimInstance.cpp, BiellaRival.cpp, BiellaGamesPlayerController.cpp, BiellaPopulation.cpp, BiellaFootPlacement.cpp, BiellaGamesCharacter.cpp, BiellaUpperBodyAim.cpp, BiellaDemoPawn.cpp, BiellaAnimationTest.cpp, BiellaPopulationTest.cpp, BiellaDefeatTest.cpp, BiellaRestartResetTest.cpp, BiellaFootContactTest.cpp, BiellaPresentationTest.cpp, BiellaEnvironmentTest.cpp, BiellaNativePerformanceTest.cpp, BiellaDeterministicPlaytest.cpp, BiellaActionTest.cpp, BiellaRivalNavigationTest.cpp, BiellaAimTest.cpp, BiellaFailureStateTest.cpp, BiellaRivalCombatTest.cpp, BiellaSharedInteractionTest.cpp, BiellaLifecycleCleanupTest.cpp, BiellaWorldStreamingTest.cpp, BiellaDemoObjectiveTest.cpp, BiellaFeedbackTest.cpp, BiellaArenaPressureTest.cpp, BiellaTerminalOverlayTest.cpp, BiellaVehicleTest.cpp, BiellaPressureResponsesTest.cpp, BiellaAudioMixTest.cpp, BiellaVisualReadabilityTest.cpp, BiellaGameplayHUDTest.cpp
+=================================
+Using Unreal Build Accelerator local executor to run 2 action(s)
+  CPU 15 physical cores, 15 logical cores
+  Memory 86.31 GB physical, 13.38 GB/75.15 GB committed
+  UBA Storage capacity 40 GB
+[1/2] Compile BiellaVehicle.cpp
+[2/2] Link libUnrealEditor-BiellaGames.so
+
+Total time in Unreal Build Accelerator local executor: 5.49 seconds
+Output binary: /opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor
+
+Result: Succeeded
+Total execution time: 8.07 seconds
+Trace written to file /root/.config/Epic/UnrealBuildTool/Trace.uba with size 4.6kb

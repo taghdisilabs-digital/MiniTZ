@@ -1,5 +1,8 @@
 // Copyright Biella Games. All Rights Reserved.
 #include "BiellaVehicle.h"
+#include "BiellaVehiclePresentation.h"
+#include "Engine/SkeletalMesh.h"
+#include "HAL/IConsoleManager.h"
 #include "Engine/DamageEvents.h"
 #include "BiellaGamesCharacter.h"
 #include "BiellaGamesGameState.h"
@@ -21,6 +24,9 @@
 #include "UObject/ConstructorHelpers.h"
 #include "WorldPartition/WorldPartitionSubsystem.h"
 
+static TAutoConsoleVariable<int32> CVarBiellaVehicleRig(TEXT("biella.Vehicle.SkeletalPresentation"),1,
+    TEXT("Enable the cosmetic vehicle rig; 0 retains the existing primitive fallback."),ECVF_Scalability);
+
 ABiellaVehicle::ABiellaVehicle()
 {
     PrimaryActorTick.bCanEverTick = true;
@@ -35,6 +41,28 @@ ABiellaVehicle::ABiellaVehicle()
     Chassis->BodyInstance.bUseCCD = true;
     Chassis->SetLinearDamping(0.15f);
     Chassis->SetAngularDamping(1.5f);
+    PresentationMesh=CreateDefaultSubobject<UBiellaVehiclePresentation>(TEXT("VehiclePresentation"));
+    PresentationMesh->SetupAttachment(Chassis);
+    PresentationMesh->SetRelativeScale3D(FVector(.75));
+    PresentationMesh->SetRelativeLocation(FVector(-12.375,0,-86));
+    static ConstructorHelpers::FObjectFinder<USkeletalMesh> Rig(TEXT("/Game/Vehicles/OffroadCar/SKM_Offroad"));
+    PresentationMesh->SetSkinnedAssetAndUpdate(Rig.Object);
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> RigBody(TEXT("/Game/Vehicles/OffroadCar/SM_Offroad_Body"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> RigTire(TEXT("/Game/Vehicles/OffroadCar/SM_Offroad_Tire"));
+    PresentationBody=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PresentationBody"));
+    PresentationBody->SetupAttachment(PresentationMesh,TEXT("OffroadCar"));
+    PresentationBody->SetStaticMesh(RigBody.Object);
+    PresentationBody->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    PresentationBody->SetCanEverAffectNavigation(false);
+    for (int32 I=0;I<4;++I)
+    {
+        auto* Tire=CreateDefaultSubobject<UStaticMeshComponent>(*FString::Printf(TEXT("PresentationTire%d"),I));
+        Tire->SetupAttachment(PresentationMesh,UBiellaVehiclePresentation::WheelBone(I));
+        Tire->SetStaticMesh(RigTire.Object);
+        Tire->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        Tire->SetCanEverAffectNavigation(false);
+        PresentationTires.Add(Tire);
+    }
     CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("VehicleCameraArm"));
     CameraBoom->SetupAttachment(Chassis);
     CameraBoom->TargetArmLength = 750;
@@ -69,6 +97,23 @@ void ABiellaVehicle::BeginPlay()
     Chassis->SetCenterOfMass(FVector(0,0,-20));
     Chassis->OnComponentHit.AddDynamic(this,&ABiellaVehicle::OnChassisHit);
     GetWorld()->GetSubsystem<UWorldPartitionSubsystem>()->RegisterStreamingSourceProvider(this);
+    UStaticMesh* TireMesh=PresentationTires[0]->GetStaticMesh();
+    if (TireMesh && PresentationBody->GetStaticMesh() &&
+        PresentationMesh->InitializeRig(FMath::Max(TireMesh->GetBounds().BoxExtent.X,TireMesh->GetBounds().BoxExtent.Z)))
+    {
+        for (int32 I=0;I<4;++I)
+        {
+            // The rigid mesh is X-forward/Z-up. Cancel each bone's authored
+            // basis (rear-left differs) before applying runtime steer and spin.
+            const FQuat Basis=PresentationMesh->GetWheelReferenceRotation(I).Inverse();
+            PresentationTires[I]->SetRelativeRotation(Basis);
+            PresentationTires[I]->SetRelativeLocation(Basis.RotateVector(-TireMesh->GetBounds().Origin));
+        }
+    }
+    for (int32 Index:{0,2})
+    { if (auto* M=PresentationMesh->CreateDynamicMaterialInstance(Index)) { RigPaint.Add(M); } }
+    for (int32 Index:{0,3})
+    { if (auto* M=PresentationBody->CreateDynamicMaterialInstance(Index)) { RigPaint.Add(M); } }
     UStaticMesh* Cube = LoadObject<UStaticMesh>(nullptr,TEXT("/Engine/BasicShapes/Cube.Cube"));
     UStaticMesh* Cylinder = LoadObject<UStaticMesh>(nullptr,TEXT("/Engine/BasicShapes/Cylinder.Cylinder"));
     UMaterialInterface* Base = LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Materials/M_DemoReadability.M_DemoReadability"));
@@ -96,6 +141,8 @@ void ABiellaVehicle::BeginPlay()
         Part->SetMaterial(0,M);
         Part->SetCullDistance(14000);
         Part->RegisterComponent();
+        // Lamps remain shared runtime feedback; body/wheels have a CVar fallback.
+        if (!FString(Name).StartsWith(TEXT("Brake"))) { FallbackParts.Add(Part); }
         if (FString(Name)!=TEXT("Body") && !FString(Name).StartsWith(TEXT("Wheel"))) { Details.Add(Part); }
         return Part;
     };
@@ -317,6 +364,7 @@ float ABiellaVehicle::TakeDamage(float Amount,const FDamageEvent& Event,AControl
 {
     if (!FMath::IsFinite(Amount) || Amount<=0) { return 0; }
     const float Applied=FMath::Min(Amount,Health); Health-=Applied;
+    UpdateDamagePresentation();
     if (Health<=0) { SetControls(0,0,true); }
     UE_LOG(LogTemp,Display,TEXT("D02_VEHICLE DAMAGE amount=%.3f health=%.3f source=%s"),Applied,Health,*GetNameSafe(Causer));
     return Applied;
@@ -344,11 +392,36 @@ void ABiellaVehicle::UpdatePresentation(float Dt)
     }
     const auto* PC=GetWorld()->GetFirstPlayerController();
     const float ViewDistance=PC && PC->GetPawn() ? FVector::Dist(PC->GetPawn()->GetActorLocation(),GetActorLocation()) : BIG_NUMBER;
-    for (const auto& Detail:Details) { Detail->SetVisibility(!bParkedDormant && ViewDistance<3500); }
-    BodyMaterial->SetVectorParameterValue(TEXT("BaseColor"),FLinearColor(0.12,0.24,0.18)*(0.25f+0.75f*Health/100));
+    const bool bRig=CVarBiellaVehicleRig.GetValueOnGameThread()!=0 && PresentationMesh->IsRigReady();
+    PresentationMesh->SetVisibility(bRig && !bParkedDormant);
+    PresentationBody->SetVisibility(bRig && !bParkedDormant);
+    for (const auto& Tire:PresentationTires) { Tire->SetVisibility(bRig && !bParkedDormant); }
+    if (bRig && !bParkedDormant)
+    {
+        FVector Centers[4]; for (int32 I=0;I<4;++I) { Centers[I]=GetWheelCenter(I); }
+        PresentationMesh->ApplyWheelPose(Centers,SteeringInput,WheelSpin);
+    }
+    for (const auto& Part:FallbackParts) { Part->SetVisibility(!bRig && !bParkedDormant); }
+    for (const auto& Detail:Details)
+    {
+        const bool bLamp=Detail->GetName().StartsWith(TEXT("Brake"));
+        Detail->SetVisibility(!bParkedDormant && ViewDistance<3500 && (!bRig || bLamp));
+        if (bLamp)
+        {
+            const float Side=Detail->GetName()==TEXT("BrakeLeft") ? -1.f:1.f;
+            Detail->SetRelativeLocation(bRig ? PresentationMesh->GetRelativeTransform().TransformPosition(FVector(-174,Side*64,110)) : FVector(-182,Side*55,20));
+            Detail->SetRelativeScale3D(bRig ? FVector(.04,.18,.08):FVector(.04,.30,.12));
+        }
+    }
+    UpdateDamagePresentation();
     BrakeMaterial->SetScalarParameterValue(TEXT("ReadabilityFill"),bBrakeInput ? 1.5f : 0.08f);
     const bool Running=Driver.IsValid() && !Driver->IsDefeated() && Health>0 && !bParkedDormant;
-    for (const auto& Lamp:Headlights) { Lamp->SetVisibility(Running && ViewDistance<3500); }
+    for (int32 I=0;I<Headlights.Num();++I)
+    {
+        const float Side=I==0 ? -1.f:1.f;
+        Headlights[I]->SetRelativeLocation(bRig ? PresentationMesh->GetRelativeTransform().TransformPosition(FVector(192,Side*62,115)) : FVector(185,Side*52,25));
+        Headlights[I]->SetVisibility(Running && ViewDistance<3500);
+    }
     if (Running)
     {
         const float SpeedAlpha=FMath::Clamp(FMath::Abs(GetSpeed())/FMath::Max(MaximumSpeed,1.0f),0.0f,1.0f);
@@ -357,6 +430,13 @@ void ABiellaVehicle::UpdatePresentation(float Dt)
         if (!EngineAudio->IsPlaying()) { EngineAudio->Play(); }
     }
     else if (EngineAudio->IsPlaying()) { EngineAudio->Stop(); }
+}
+
+void ABiellaVehicle::UpdateDamagePresentation()
+{
+    const FLinearColor Color=FLinearColor(.12,.24,.18)*(.25f+.75f*Health/100);
+    if (BodyMaterial) { BodyMaterial->SetVectorParameterValue(TEXT("BaseColor"),Color); }
+    for (const auto& M:RigPaint) { M->SetVectorParameterValue(TEXT("Paint Tint"),Color); }
 }
 
 void ABiellaVehicle::EndPlay(const EEndPlayReason::Type Reason)

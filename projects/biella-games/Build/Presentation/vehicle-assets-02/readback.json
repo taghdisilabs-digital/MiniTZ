@@ -1,0 +1,877 @@
+{
+  "result": "PASS",
+  "assets": [
+    {
+      "path": "/Game/Vehicles/OffroadCar/Materials/MI_OffroadCar_Main",
+      "cls": "MaterialInstanceConstant",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Game/Vehicles/SportsCar/Materials/M_SportsCarBase",
+        "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Body_MRA",
+        "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Body_D",
+        "/Game/Vehicles/OffroadCar/Materials/Textures/T_Offroad_Body_N"
+      ]
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/Materials/MI_OffroadCar_Suspension",
+      "cls": "MaterialInstanceConstant",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Game/Vehicles/SportsCar/Materials/M_SportsCarBase",
+        "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Sus_N",
+        "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Sus_D",
+        "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Sus_MRA"
+      ]
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/Materials/MI_OffroadCar_Wheel",
+      "cls": "MaterialInstanceConstant",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Game/Vehicles/OffroadCar/Materials/M_OffroadCar_Wheel",
+        "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_RMA",
+        "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_N",
+        "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_D"
+      ]
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/Materials/M_OffroadCar_Wheel",
+      "cls": "Material",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_RMA",
+        "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_N",
+        "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_D"
+      ]
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Body_D",
+      "cls": "Texture2D",
+      "dependencies": []
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Body_MRA",
+      "cls": "Texture2D",
+      "dependencies": []
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Sus_D",
+      "cls": "Texture2D",
+      "dependencies": []
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Sus_MRA",
+      "cls": "Texture2D",
+      "dependencies": []
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Sus_N",
+      "cls": "Texture2D",
+      "dependencies": []
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_D",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_N",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_RMA",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/Materials/Textures/T_Offroad_Body_N",
+      "cls": "Texture2D",
+      "dependencies": []
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/SKM_Offroad",
+      "cls": "SkeletalMesh",
+      "dependencies": [
+        "/Game/Vehicles/OffroadCar/SKM_Offroad_PhysicsAsset",
+        "/Game/Vehicles/OffroadCar/SKM_Offroad_Skeleton",
+        "/Game/Vehicles/OffroadCar/Materials/MI_OffroadCar_Wheel",
+        "/Game/Vehicles/OffroadCar/Materials/MI_OffroadCar_Suspension",
+        "/Game/Vehicles/OffroadCar/Materials/MI_OffroadCar_Main"
+      ]
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/SKM_Offroad_PhysicsAsset",
+      "cls": "PhysicsAsset",
+      "dependencies": [
+        "/Game/Vehicles/OffroadCar/SKM_Offroad"
+      ]
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/SKM_Offroad_Skeleton",
+      "cls": "Skeleton",
+      "dependencies": [
+        "/Game/Vehicles/OffroadCar/SKM_Offroad"
+      ]
+    },
+    {
+      "path": "/Game/Vehicles/SportsCar/Materials/M_SportsCarBase",
+      "cls": "Material",
+      "dependencies": [
+        "/Script/Engine",
+        "/Game/Vehicles/SportsCar/Materials/Textures/T_SportsCar_Body_BotN",
+        "/Game/Vehicles/SportsCar/Materials/Textures/T_SportsCar_Body_D",
+        "/Game/Vehicles/SportsCar/Materials/Textures/T_SportsCar_Body_MRA"
+      ]
+    },
+    {
+      "path": "/Game/Vehicles/SportsCar/Materials/Textures/T_SportsCar_Body_BotN",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Vehicles/SportsCar/Materials/Textures/T_SportsCar_Body_D",
+      "cls": "Texture2D",
+      "dependencies": []
+    },
+    {
+      "path": "/Game/Vehicles/SportsCar/Materials/Textures/T_SportsCar_Body_MRA",
+      "cls": "Texture2D",
+      "dependencies": []
+    }
+  ],
+  "bones": [
+    {
+      "name": "OffroadCar",
+      "parent": "None",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "PhysWheel_FR",
+      "parent": "OffroadCar",
+      "location": [
+        168.1999969482422,
+        124.0999984741211,
+        51.10000228881836
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        1.0,
+        -6.123234262925839e-17
+      ]
+    },
+    {
+      "name": "PhysWheel_FL",
+      "parent": "OffroadCar",
+      "location": [
+        168.1999969482422,
+        -124.0999984741211,
+        51.10000228881836
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        1.0,
+        -6.123234262925839e-17
+      ]
+    },
+    {
+      "name": "PhysWheel_BR",
+      "parent": "OffroadCar",
+      "location": [
+        -135.1999969482422,
+        139.8000030517578,
+        50.79999923706055
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        1.0,
+        -6.123234262925839e-17
+      ]
+    },
+    {
+      "name": "PhysWheel_BL",
+      "parent": "OffroadCar",
+      "location": [
+        -135.1999969482422,
+        -139.8000030517578,
+        50.79999923706055
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        1.0,
+        -6.123234262925839e-17
+      ]
+    },
+    {
+      "name": "UpperControlArm_FR",
+      "parent": "OffroadCar",
+      "location": [
+        168.1999969482422,
+        44.900001525878906,
+        84.9000015258789
+      ],
+      "rotation": [
+        0.9777245412320588,
+        0.0,
+        0.0,
+        0.209892166296316
+      ]
+    },
+    {
+      "name": "UpperControlArm_End_FR",
+      "parent": "UpperControlArm_FR",
+      "location": [
+        168.19998168945312,
+        100.00000865819133,
+        60.0999973880499
+      ],
+      "rotation": [
+        -4.37113938541652e-08,
+        -1.3112308114870392e-07,
+        -0.9999999999999905,
+        -6.561053824713133e-15
+      ]
+    },
+    {
+      "name": "LowerControlArm_FR",
+      "parent": "OffroadCar",
+      "location": [
+        168.1999969482422,
+        44.79999923706055,
+        56.20000076293945
+      ],
+      "rotation": [
+        0.9926114017744254,
+        0.0,
+        0.0,
+        0.12133674244601386
+      ]
+    },
+    {
+      "name": "SpringDamper_Mount_FR",
+      "parent": "LowerControlArm_FR",
+      "location": [
+        168.19998168945312,
+        85.40000087755823,
+        47.29999866270192
+      ],
+      "rotation": [
+        -0.7071067289926147,
+        0.0,
+        0.0,
+        0.7071068333804766
+      ]
+    },
+    {
+      "name": "LowerControlArm_End_FR",
+      "parent": "LowerControlArm_FR",
+      "location": [
+        168.19998168945312,
+        100.00000204277855,
+        42.49999464333178
+      ],
+      "rotation": [
+        4.3711393427092134e-08,
+        2.1430711431207296e-07,
+        -0.9999999999999762,
+        -8.403954240144026e-15
+      ]
+    },
+    {
+      "name": "SpringDamper_FR",
+      "parent": "OffroadCar",
+      "location": [
+        168.2010040283203,
+        44.900001525878906,
+        99.0
+      ],
+      "rotation": [
+        0.8941991705176054,
+        3.3782041409241853e-14,
+        7.61542450521424e-06,
+        0.4476693460441888
+      ]
+    },
+    {
+      "name": "SpringDamper_End_FR",
+      "parent": "SpringDamper_FR",
+      "location": [
+        168.19998168953128,
+        85.40001488606818,
+        47.29999754519133
+      ],
+      "rotation": [
+        0.7071067203408453,
+        -4.962197755088304e-13,
+        8.258703802738422e-12,
+        -0.7071068420322445
+      ]
+    },
+    {
+      "name": "HUB_FR",
+      "parent": "OffroadCar",
+      "location": [
+        168.1999969482422,
+        100.0,
+        42.5
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        1.0,
+        -6.123234262925839e-17
+      ]
+    },
+    {
+      "name": "HUB_Upper_FR",
+      "parent": "HUB_FR",
+      "location": [
+        168.1999969482422,
+        100.0,
+        60.10000228881836
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -1.0,
+        6.123234262925839e-17
+      ]
+    },
+    {
+      "name": "VisWheel_FR",
+      "parent": "HUB_FR",
+      "location": [
+        168.1999969482422,
+        124.0999984741211,
+        51.10000228881836
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -1.0,
+        6.123234262925839e-17
+      ]
+    },
+    {
+      "name": "UpperControlArm_FL",
+      "parent": "OffroadCar",
+      "location": [
+        168.1999969482422,
+        -44.900001525878906,
+        84.9000015258789
+      ],
+      "rotation": [
+        -0.20989219478570484,
+        0.0,
+        0.0,
+        -0.9777245351161237
+      ]
+    },
+    {
+      "name": "UpperControlArm_End_FL",
+      "parent": "UpperControlArm_FL",
+      "location": [
+        168.1999969482422,
+        -99.99999629654846,
+        60.10000710052249
+      ],
+      "rotation": [
+        1.95625556122568e-17,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "LowerControlArm_FL",
+      "parent": "OffroadCar",
+      "location": [
+        168.1999969482422,
+        -44.79999923706055,
+        56.20000076293945
+      ],
+      "rotation": [
+        -0.12133673510512527,
+        0.0,
+        0.0,
+        -0.9926114026717752
+      ]
+    },
+    {
+      "name": "SpringDamper_Mount_FL",
+      "parent": "LowerControlArm_FL",
+      "location": [
+        168.19998168945312,
+        -85.40000102517126,
+        47.29999932757565
+      ],
+      "rotation": [
+        -0.7071068386099064,
+        0.0,
+        0.0,
+        0.7071067237631841
+      ]
+    },
+    {
+      "name": "LowerControlArm_End_FL",
+      "parent": "LowerControlArm_FL",
+      "location": [
+        168.19998168945312,
+        -100.00000224541613,
+        42.49999545979829
+      ],
+      "rotation": [
+        7.395531231921322e-09,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "SpringDamper_FL",
+      "parent": "OffroadCar",
+      "location": [
+        168.2010040283203,
+        -44.900001525878906,
+        99.0
+      ],
+      "rotation": [
+        -0.44766922687503197,
+        -1.2475694541940746e-13,
+        -3.8125630428214116e-06,
+        -0.8941992302024062
+      ]
+    },
+    {
+      "name": "SpringDamper_End_FL",
+      "parent": "SpringDamper_FL",
+      "location": [
+        168.19998168939063,
+        -85.39998926037836,
+        47.29999790726444
+      ],
+      "rotation": [
+        -0.707106802995433,
+        -1.2934464913210773e-12,
+        5.521338710915911e-12,
+        0.7071067593776614
+      ]
+    },
+    {
+      "name": "HUB_FL",
+      "parent": "OffroadCar",
+      "location": [
+        168.1999969482422,
+        -100.0,
+        42.5
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        1.0,
+        -6.123234262925839e-17
+      ]
+    },
+    {
+      "name": "HUB_Upper_FL",
+      "parent": "HUB_FL",
+      "location": [
+        168.1999969482422,
+        -100.0,
+        60.10000228881836
+      ],
+      "rotation": [
+        -8.659560515050746e-17,
+        0.7071068109888686,
+        8.659560480949788e-17,
+        0.7071067513842253
+      ]
+    },
+    {
+      "name": "VisWheel_FL",
+      "parent": "HUB_FL",
+      "location": [
+        168.1999969482422,
+        -124.10000610351562,
+        51.10000228881836
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -1.0,
+        6.123234262925839e-17
+      ]
+    },
+    {
+      "name": "LowerControlArm_BL",
+      "parent": "OffroadCar",
+      "location": [
+        -123.5,
+        -77.40082550048828,
+        58.400001525878906
+      ],
+      "rotation": [
+        -0.19946624869670765,
+        0.04354320954973591,
+        0.1376296169444435,
+        -0.9692137499399689
+      ]
+    },
+    {
+      "name": "LowerControlArm_End_BL",
+      "parent": "LowerControlArm_BL",
+      "location": [
+        -135.19999811980807,
+        -118.80082105922375,
+        39.69999952845885
+      ],
+      "rotation": [
+        -0.7071067140064848,
+        1.493284956799457e-08,
+        -3.731395878392441e-08,
+        0.7071068483666028
+      ]
+    },
+    {
+      "name": "SpringDamper_Mount_BL",
+      "parent": "LowerControlArm_BL",
+      "location": [
+        -140.30633658896286,
+        -98.82255675359986,
+        51.6030531232005
+      ],
+      "rotation": [
+        -0.7071067676744469,
+        4.867185381118855e-08,
+        3.123406103200388e-09,
+        0.7071067946986462
+      ]
+    },
+    {
+      "name": "HUB_BL",
+      "parent": "OffroadCar",
+      "location": [
+        -135.1999969482422,
+        -118.8010025024414,
+        39.70000076293945
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        -1.0
+      ]
+    },
+    {
+      "name": "VisWheel_BL",
+      "parent": "HUB_BL",
+      "location": [
+        -135.1999969482422,
+        -139.8000030517578,
+        50.79999923706055
+      ],
+      "rotation": [
+        -0.7071068109888686,
+        -4.3297798624554794e-17,
+        0.7071067513842253,
+        -4.3297801933277165e-17
+      ]
+    },
+    {
+      "name": "HUB_Upper_Mnt_BL",
+      "parent": "HUB_BL",
+      "location": [
+        -135.1999969482422,
+        -118.80081939697266,
+        62.23590087890625
+      ],
+      "rotation": [
+        0.0,
+        0.7071067513842253,
+        0.0,
+        0.7071068109888686
+      ]
+    },
+    {
+      "name": "UpperControlArm_BL",
+      "parent": "OffroadCar",
+      "location": [
+        -120.9000015258789,
+        -74.40082550048828,
+        99.0999984741211
+      ],
+      "rotation": [
+        -0.32414150898398403,
+        0.05145813629556777,
+        0.1467521667575413,
+        -0.9331388663615612
+      ]
+    },
+    {
+      "name": "UpperControlArm_End_BL",
+      "parent": "UpperControlArm_BL",
+      "location": [
+        -135.19999795377242,
+        -118.80081028742845,
+        62.23589591267064
+      ],
+      "rotation": [
+        4.066075329212104e-08,
+        0.7071067406104005,
+        6.273730818184829e-08,
+        0.7071068217626885
+      ]
+    },
+    {
+      "name": "SpringDamper_BL",
+      "parent": "OffroadCar",
+      "location": [
+        -125.52708435058594,
+        -69.5841293334961,
+        117.85865020751953
+      ],
+      "rotation": [
+        -0.5365497910018237,
+        -1.0060396667571541e-07,
+        0.11968498329190935,
+        -0.8353381510204743
+      ]
+    },
+    {
+      "name": "SpringDamper_End_BL",
+      "parent": "SpringDamper_BL",
+      "location": [
+        -140.3063207053889,
+        -98.82258270089683,
+        51.60304894184591
+      ],
+      "rotation": [
+        -0.7071068110277473,
+        2.381424629716023e-08,
+        -4.290621492819558e-08,
+        0.7071067513453447
+      ]
+    },
+    {
+      "name": "LowerControlArm_BR",
+      "parent": "OffroadCar",
+      "location": [
+        -123.5,
+        78.0999984741211,
+        58.400001525878906
+      ],
+      "rotation": [
+        0.9701878413709217,
+        0.12798146884057596,
+        -0.002628268670020192,
+        0.20578967003530146
+      ]
+    },
+    {
+      "name": "LowerControlArm_End_BR",
+      "parent": "LowerControlArm_BR",
+      "location": [
+        -135.1999815710205,
+        119.49999389332339,
+        39.700004796926855
+      ],
+      "rotation": [
+        -0.7071066472420925,
+        -3.9447510144421233e-07,
+        -3.1985970970894827e-07,
+        0.7071069151307948
+      ]
+    },
+    {
+      "name": "SpringDamper_Mount_BR",
+      "parent": "LowerControlArm_BR",
+      "location": [
+        -140.30632995664135,
+        99.521728207914,
+        51.60305992788233
+      ],
+      "rotation": [
+        -0.7071066794675038,
+        -4.1699810260018e-07,
+        -3.5431210195337523e-07,
+        0.7071068829053649
+      ]
+    },
+    {
+      "name": "HUB_BR",
+      "parent": "OffroadCar",
+      "location": [
+        -135.1999969482422,
+        119.5,
+        39.70000076293945
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        1.0,
+        -6.123234262925839e-17
+      ]
+    },
+    {
+      "name": "VisWheel_BR",
+      "parent": "HUB_BR",
+      "location": [
+        -135.1999969482422,
+        139.8000030517578,
+        50.79999923706055
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -1.0,
+        6.123234262925839e-17
+      ]
+    },
+    {
+      "name": "HUB_Upper_Mnt_BR",
+      "parent": "HUB_BR",
+      "location": [
+        -135.1999969482422,
+        119.5,
+        62.23590087890625
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -1.0,
+        6.123234262925839e-17
+      ]
+    },
+    {
+      "name": "UpperControlArm_BR",
+      "parent": "OffroadCar",
+      "location": [
+        -120.9000015258789,
+        75.0999984741211,
+        99.0999984741211
+      ],
+      "rotation": [
+        0.9336729927126767,
+        0.1429824276148282,
+        0.04063085589079772,
+        0.3258218863457549
+      ]
+    },
+    {
+      "name": "UpperControlArm_End_BR",
+      "parent": "UpperControlArm_BR",
+      "location": [
+        -135.19999400965216,
+        119.49999132479834,
+        62.235897942528354
+      ],
+      "rotation": [
+        1.2346800984386336e-08,
+        5.884715408629307e-08,
+        -0.9999999999999981,
+        9.70447452085243e-09
+      ]
+    },
+    {
+      "name": "SpringDamper_BR",
+      "parent": "OffroadCar",
+      "location": [
+        -125.52708435058594,
+        70.28330993652344,
+        117.85865020751953
+      ],
+      "rotation": [
+        -0.815300643209762,
+        -9.92954251869379e-09,
+        0.18186435098190068,
+        -0.549736499628395
+      ]
+    },
+    {
+      "name": "SpringDamper_End_BR",
+      "parent": "SpringDamper_BR",
+      "location": [
+        -140.30634951850593,
+        99.5217399293003,
+        51.603045053855
+      ],
+      "rotation": [
+        -0.7071068174700926,
+        5.07880508510139e-07,
+        -2.6330849348804586e-07,
+        0.7071067449027693
+      ]
+    },
+    {
+      "name": "Root",
+      "parent": "OffroadCar",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.7071067811865476,
+        0.0,
+        0.0,
+        -0.7071067811865476
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "path": "/Game/Vehicles/OffroadCar/Materials/MI_OffroadCar_Suspension.MI_OffroadCar_Suspension",
+      "vectors": [
+        "Paint Tint"
+      ],
+      "scalars": [
+        "MetalPaintMetallic",
+        "EmissivePower"
+      ]
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/Materials/MI_OffroadCar_Wheel.MI_OffroadCar_Wheel",
+      "vectors": [],
+      "scalars": [
+        "Roughness Min",
+        "Roughness Max"
+      ]
+    },
+    {
+      "path": "/Game/Vehicles/OffroadCar/Materials/MI_OffroadCar_Main.MI_OffroadCar_Main",
+      "vectors": [
+        "Paint Tint"
+      ],
+      "scalars": [
+        "MetalPaintMetallic",
+        "EmissivePower"
+      ]
+    }
+  ]
+}

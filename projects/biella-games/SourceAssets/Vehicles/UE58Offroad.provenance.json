@@ -1,0 +1,130 @@
+{
+  "task_id": "D03-01",
+  "provider": "Installed Epic Unreal Engine 5.8.2 TemplateResources",
+  "status": "INTEGRATION_RESOURCE_NOT_FINAL_VEHICLE_ART",
+  "roots": [
+    "OffroadCar/SKM_Offroad"
+  ],
+  "files": [
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/OffroadCar/Materials/MI_OffroadCar_Main.uasset",
+      "local": "Content/Vehicles/OffroadCar/Materials/MI_OffroadCar_Main.uasset",
+      "bytes": 16922,
+      "sha256": "aa3107fa5abaf82211097a8cd3fec37197f04de17f12ece552d3b33a751bd048"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/OffroadCar/Materials/MI_OffroadCar_Suspension.uasset",
+      "local": "Content/Vehicles/OffroadCar/Materials/MI_OffroadCar_Suspension.uasset",
+      "bytes": 16139,
+      "sha256": "9a6e64fb07c41c0563573515ed785db76926ff4e5831fa5eeaafa8e92bae3617"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/OffroadCar/Materials/MI_OffroadCar_Wheel.uasset",
+      "local": "Content/Vehicles/OffroadCar/Materials/MI_OffroadCar_Wheel.uasset",
+      "bytes": 14279,
+      "sha256": "681740bcfdd25953ef97114d1000d9ddaac86a1d26e2d038146ed439b499fb8b"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/OffroadCar/Materials/M_OffroadCar_Wheel.uasset",
+      "local": "Content/Vehicles/OffroadCar/Materials/M_OffroadCar_Wheel.uasset",
+      "bytes": 28085,
+      "sha256": "2b832dea8500b051e49cd18bce0b87e4403e2007ce315b1b21667fdd3e7f5328"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/OffroadCar/Materials/Textures/T_OffroadCar_Body_D.uasset",
+      "local": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Body_D.uasset",
+      "bytes": 1055677,
+      "sha256": "c4d13241d0cfb1e401e7ed0d146d133484326b5ee0cc1c6449c41b84d3042e19"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/OffroadCar/Materials/Textures/T_OffroadCar_Body_MRA.uasset",
+      "local": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Body_MRA.uasset",
+      "bytes": 966989,
+      "sha256": "62e50e1f9102c430cca5734a92c8179adc18f7ea73d7ea1508000da8f29b35cc"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/OffroadCar/Materials/Textures/T_OffroadCar_Sus_D.uasset",
+      "local": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Sus_D.uasset",
+      "bytes": 995798,
+      "sha256": "fab72a7ebb1cc1af44b5ba9a6f647e1bd034068140573751a50617708eecbd42"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/OffroadCar/Materials/Textures/T_OffroadCar_Sus_MRA.uasset",
+      "local": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Sus_MRA.uasset",
+      "bytes": 675408,
+      "sha256": "4f6fffd9bc1a9d0fb2af31fd216add978fa623e8968132ab457aa975576cd39b"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/OffroadCar/Materials/Textures/T_OffroadCar_Sus_N.uasset",
+      "local": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Sus_N.uasset",
+      "bytes": 1173678,
+      "sha256": "9cb362aaa6b690cdfebd1f1afb727d8fab942b3d5ec7028469fb5466fe86d4c3"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_D.uasset",
+      "local": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_D.uasset",
+      "bytes": 1067629,
+      "sha256": "a69046823108e0b4dcf5df98c0db053f3b1769a36c89c7cc8daf83e104bb7145"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_N.uasset",
+      "local": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_N.uasset",
+      "bytes": 2226551,
+      "sha256": "e1cdc26df949c83cb5b7494fc3e08eccfb58877c39f9653af716205135c72200"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_RMA.uasset",
+      "local": "Content/Vehicles/OffroadCar/Materials/Textures/T_OffroadCar_Wheels_RMA.uasset",
+      "bytes": 1786545,
+      "sha256": "2e77a27994c06fa42b7503ec6d9b5fe700d2ba2eca3bae5afe7f4e4ebbe594f0"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/OffroadCar/Materials/Textures/T_Offroad_Body_N.uasset",
+      "local": "Content/Vehicles/OffroadCar/Materials/Textures/T_Offroad_Body_N.uasset",
+      "bytes": 1291789,
+      "sha256": "eddd3e2c626b38c492c4e358d498cf7d57c9b25510ebfa82dd49a506e3802264"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/OffroadCar/SKM_Offroad.uasset",
+      "local": "Content/Vehicles/OffroadCar/SKM_Offroad.uasset",
+      "bytes": 8905356,
+      "sha256": "286b2ddb6094603f7cf689b9b6a1bf6269d52068468fd1c1cfdef659c2e4ccea"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/OffroadCar/SKM_Offroad_PhysicsAsset.uasset",
+      "local": "Content/Vehicles/OffroadCar/SKM_Offroad_PhysicsAsset.uasset",
+      "bytes": 15876,
+      "sha256": "41ad56e18d9d6eae85c70a5fecfbe58fca3f19bdf8aa93c5f247b2792994eda8"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/OffroadCar/SKM_Offroad_Skeleton.uasset",
+      "local": "Content/Vehicles/OffroadCar/SKM_Offroad_Skeleton.uasset",
+      "bytes": 15833,
+      "sha256": "9d2cfba43ca61e1060a4a6a2ff2578c26d2cfcd9959dc5d45c1a450634b8349c"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/SportsCar/Materials/M_SportsCarBase.uasset",
+      "local": "Content/Vehicles/SportsCar/Materials/M_SportsCarBase.uasset",
+      "bytes": 33804,
+      "sha256": "fe532f3a813078c06d8b7af9690e4d18295623af9e430c2a87303cda4017f650"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/SportsCar/Materials/Textures/T_SportsCar_Body_BotN.uasset",
+      "local": "Content/Vehicles/SportsCar/Materials/Textures/T_SportsCar_Body_BotN.uasset",
+      "bytes": 559302,
+      "sha256": "1ed05ffb599f7aaad6d8be32060b8b3ed184e3f7d97aef1f9a47900a429c5c82"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/SportsCar/Materials/Textures/T_SportsCar_Body_D.uasset",
+      "local": "Content/Vehicles/SportsCar/Materials/Textures/T_SportsCar_Body_D.uasset",
+      "bytes": 733351,
+      "sha256": "7effd0cc8d1453f082e7b8a75a4e2eae4f4f8abc90817db06d2867d6354a9633"
+    },
+    {
+      "source": "/opt/unreal/UE_5.8.2/Templates/TemplateResources/Standard/Vehicles/Content/SportsCar/Materials/Textures/T_SportsCar_Body_MRA.uasset",
+      "local": "Content/Vehicles/SportsCar/Materials/Textures/T_SportsCar_Body_MRA.uasset",
+      "bytes": 889570,
+      "sha256": "27181bf95b9ed2587798f73a4531c89622672177e602635c5522f4da6f07871a"
+    }
+  ]
+}

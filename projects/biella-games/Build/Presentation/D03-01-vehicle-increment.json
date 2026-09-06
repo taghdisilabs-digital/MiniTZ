@@ -1,0 +1,47 @@
+{
+  "schema": "biella.d03_01.vehicle_increment/v1",
+  "task_id": "D03-01",
+  "increment": "skeletal vehicle exterior and rigid body/tire integration",
+  "implementation_status": "IMPLEMENTED_VALIDATED",
+  "task_status": "CONTINUE",
+  "created_at": "2026-09-06T12:39:55.705933+00:00",
+  "parent_commit": "ece5b32ecf729f81ed24094a137644045c88acee",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "implementation": [
+    "Source/BiellaGames/Private/BiellaVehicle.cpp",
+    "Source/BiellaGames/Public/BiellaVehicle.h",
+    "Source/BiellaGames/Private/BiellaVehiclePresentation.cpp",
+    "Source/BiellaGames/Public/BiellaVehiclePresentation.h"
+  ],
+  "validation_sources": [
+    "Source/BiellaGames/Private/Tests/BiellaVehicleTest.cpp",
+    "tests/run_d03_01_vehicle.py",
+    "tests/verify_d03_01_vehicle.py",
+    "tests/import_d03_01_vehicle_resources.py",
+    "Content/Python/inspect_vehicle_rig.py"
+  ],
+  "native_build": "Build/Presentation/vehicle-build-05/result.json",
+  "positive": "Build/Presentation/vehicle-runtime-03/validation.json",
+  "disabled": "Build/Presentation/vehicle-disabled-01/validation.json",
+  "readback": "Build/Presentation/D03-01-vehicle-final-readback-01.json",
+  "progress": "Build/Presentation/D03-01-vehicle-progress.md",
+  "preservation": "Build/Presentation/D03-01-vehicle-preservation.json",
+  "manifest": "Build/Presentation/D03-01-vehicle-file-manifest.json",
+  "asset_provenance": [
+    "SourceAssets/Vehicles/UE58Offroad.provenance.json",
+    "SourceAssets/Vehicles/UE58OffroadParts.provenance.json"
+  ],
+  "publication": {
+    "owner": "Auto Feeder",
+    "local_commit_required": true,
+    "remote_publication_claimed": false,
+    "canonical_state_transition_claimed": false
+  },
+  "remaining": [
+    "Seated driver pose and seat fit; other directional/interaction animation",
+    "Final production world/lighting/character/weapon/vehicle art",
+    "Broader VFX/audio coverage",
+    "Crowd/LOD costs and native frame-time qualification",
+    "Clean shader/material/PSO launch, supported rendering fallback and packaged play"
+  ]
+}

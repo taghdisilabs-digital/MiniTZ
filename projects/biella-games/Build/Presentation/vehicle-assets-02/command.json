@@ -1,0 +1,19 @@
+[
+  "runuser",
+  "-u",
+  "unreal",
+  "--",
+  "env",
+  "BIELLA_D03_VEHICLE_REPORT=/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-assets-02/readback.json",
+  "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+  "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+  "-run=pythonscript",
+  "-script=/root/biella/repos/biella-engine/projects/biella-games/Content/Python/inspect_vehicle_rig.py",
+  "-EnablePlugins=PythonScriptPlugin",
+  "-unattended",
+  "-nullrhi",
+  "-nosound",
+  "-nop4",
+  "-stdout",
+  "-FullStdOutLogOutput"
+]

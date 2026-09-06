@@ -1,0 +1,29 @@
+{
+  "task_id": "D03-01",
+  "status": "EXTERIOR_INTEGRATION_REVIEWED",
+  "capture_status": "GENERATED_DRAFT",
+  "images": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/captures/approach.png",
+      "sha256": "fdd7e9b4727bc269ea53d6b8f09d0477f4d66b8b6e6b095ec096099b735cbfbb",
+      "bytes": 1010762
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/captures/driving.png",
+      "sha256": "2fad9826f20fbdc33eac8c165dc2ef40b524c15f0f9cb8c49a72c89d8960aa1e",
+      "bytes": 953872
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/captures/impact.png",
+      "sha256": "09f6cb61e8cacf5aa80308b7f0b3670498445776828f9438818520130a207eb8",
+      "bytes": 944580
+    }
+  ],
+  "observations": [
+    "Suspension, rigid body and four tires render on the existing playable road with matching olive paint and visible material detail.",
+    "Repositioned brake markers sit on the rear frame; prior outboard oversized blocks repaired.",
+    "Driving and collision views retain the new exterior and actual gameplay feedback.",
+    "Seated driver visibly uses the prior floating blockout; it is not qualified by this exterior increment.",
+    "World remains visibly blockout; images are not final art or full D03 acceptance."
+  ]
+}

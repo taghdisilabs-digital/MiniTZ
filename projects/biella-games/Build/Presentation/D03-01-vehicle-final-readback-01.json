@@ -1,0 +1,365 @@
+{
+  "task_id": "D03-01",
+  "task_status": "CONTINUE",
+  "result": "PASS",
+  "time": "2026-09-06T12:38:06.800986+00:00",
+  "common_input_identities": 323,
+  "native_build": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-build-05/result.json",
+    "sha256": "6e05cdb270342d118104daeca11c02e4f85c0723e1c6a070ba5fe8181cdfc1f1",
+    "bytes": 113
+  },
+  "build_source_files": 81,
+  "build_source_matches_runtime": true,
+  "module": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/libUnrealEditor-BiellaGames.so",
+    "sha256": "5b8491e92989a18fdcbbbed81afbcb8d4d3a19ec5d2b7fd92c219debfb58aca7",
+    "bytes": 2270264
+  },
+  "runtimes": [
+    {
+      "report": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/validation.json",
+        "sha256": "9b6502705a31e918d3524008ae6ce3b6016d428abcbd9b77735c6fa26a2bb308",
+        "bytes": 171987
+      },
+      "pose": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/vehicle-pose.csv",
+        "sha256": "6fb954f1923e46595a0de158e205c9e86a24cb5315b0e3552c8eec7a0c0dee76",
+        "bytes": 273019
+      },
+      "verification": {
+        "result": "PASS",
+        "driving": {
+          "result": "PASS",
+          "all_frames": {
+            "frames": 2257,
+            "wall_seconds": 38.940142505999994,
+            "p50_ms": 16.828556,
+            "p95_ms": 20.163368,
+            "p99_ms": 21.329473,
+            "max_ms": 767.556377,
+            "peak_resident_bytes": 3155202048.0
+          },
+          "driving": {
+            "frames": 561,
+            "wall_seconds": 9.351386490000001,
+            "p50_ms": 16.730745,
+            "p95_ms": 20.27321,
+            "p99_ms": 21.275171,
+            "max_ms": 23.996189,
+            "peak_resident_bytes": 3132854272.0
+          },
+          "distance_cm": 6488.9054,
+          "max_speed_kmh": 48.3049512,
+          "collision_health": 60.0,
+          "audio": {
+            "seconds": 18.688,
+            "rate": 48000,
+            "channels": 6,
+            "rms": 0.01682627344342898
+          },
+          "files": [
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/result.json",
+              "size_bytes": 84,
+              "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/frames.csv",
+              "size_bytes": 402446,
+              "sha256": "1ce218c12cf416aecbf03ac11c222df5bee821dd0ee062cfd89afa3338cb7b49"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/events.log",
+              "size_bytes": 1656,
+              "sha256": "2c6200479b669c9ac1a246f1e93ffe194ed3d6075ac8a8dc5b8fea159d54dcc4"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/runtime.stdout.log",
+              "size_bytes": 395595,
+              "sha256": "157264e49452d0bae3c9b90a6e8daf18452c105de133cfc683c7441845f1f440"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/runtime.engine.log",
+              "size_bytes": 396156,
+              "sha256": "d679f709a7dbeff6a2dd35ecb3324c4cf7a5d25a2d1419a0c86b291babc07cd7"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/captures/approach.png",
+              "size_bytes": 1010762,
+              "sha256": "fdd7e9b4727bc269ea53d6b8f09d0477f4d66b8b6e6b095ec096099b735cbfbb"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/captures/driving.png",
+              "size_bytes": 953872,
+              "sha256": "2fad9826f20fbdc33eac8c165dc2ef40b524c15f0f9cb8c49a72c89d8960aa1e"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/captures/impact.png",
+              "size_bytes": 944580,
+              "sha256": "09f6cb61e8cacf5aa80308b7f0b3670498445776828f9438818520130a207eb8"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/captures/exited.png",
+              "size_bytes": 972184,
+              "sha256": "26be0b61ea03c08bf41169e8b80024662fa7826b67947aa2025be840ed9e1767"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/captures/disabled.png",
+              "size_bytes": 276117,
+              "sha256": "56f2fd6e9d9f9a5b2412607bc37f0089d4ef0b8ae19236f0162c60f6dcc03748"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/vehicle.wav",
+              "size_bytes": 10764332,
+              "sha256": "22f474027a46f679b4ed707283715a5b3e73501dee6fdbd1bc1923fe2517a58c"
+            }
+          ]
+        },
+        "pose_frames": 2257,
+        "visible_frames": 1895,
+        "fallback_frames": 66.0,
+        "dormant_frames": 296.0,
+        "max_errors": {
+          "wheel_error": 0.0,
+          "axle_error": 2e-06,
+          "spin_error": 3e-06,
+          "link_error": 0.0,
+          "root_error": 0.0,
+          "paint_error": 0.0,
+          "rigid_center_error": 0.0,
+          "rigid_axle_error": 1e-06,
+          "rigid_spin_error": 6e-06,
+          "rigid_radius_error": 0.0,
+          "rigid_body_error": 0.0
+        },
+        "measurement_scope": "Actual native frames with 60fps cap, streaming, readback and captures included; not clean performance or PSO qualification"
+      }
+    },
+    {
+      "report": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/validation.json",
+        "sha256": "a189ead628d7ec927301e8e57da30832c6c5b360b3c25c8f999aa9b765e1b351",
+        "bytes": 172141
+      },
+      "pose": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/vehicle-pose.csv",
+        "sha256": "7cd177338af1ed152e83705686e5acb6464f1f02243cd2b5f475b26b7c911b1b",
+        "bytes": 267179
+      },
+      "verification": {
+        "result": "EXPECTED_NEGATIVE_CONTROL",
+        "driving": {
+          "result": "PASS",
+          "all_frames": {
+            "frames": 2255,
+            "wall_seconds": 38.931832089000004,
+            "p50_ms": 16.784707,
+            "p95_ms": 20.035896,
+            "p99_ms": 21.330273,
+            "max_ms": 763.856802,
+            "peak_resident_bytes": 3161956352.0
+          },
+          "driving": {
+            "frames": 561,
+            "wall_seconds": 9.352732302,
+            "p50_ms": 16.771067,
+            "p95_ms": 19.923963,
+            "p99_ms": 20.982356,
+            "max_ms": 22.437126,
+            "peak_resident_bytes": 3131637760.0
+          },
+          "distance_cm": 6491.009099999999,
+          "max_speed_kmh": 48.312216,
+          "collision_health": 60.0,
+          "audio": {
+            "seconds": 18.730666666666668,
+            "rate": 48000,
+            "channels": 6,
+            "rms": 0.01682305935335154
+          },
+          "files": [
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/result.json",
+              "size_bytes": 84,
+              "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/frames.csv",
+              "size_bytes": 403194,
+              "sha256": "745affd2f5f16930aac07c6b4db241038ff9ce6ffe8112c45a2c1e5b4b04b22e"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/events.log",
+              "size_bytes": 1656,
+              "sha256": "2b6f378d17df476f4788b715073d2d5e32f5f69787af61da2123d1d42426d8f8"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/runtime.stdout.log",
+              "size_bytes": 393439,
+              "sha256": "f2b3c8072d42e321c8e734396d34035a9870aebef4bc7cb4e507def280d26794"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/runtime.engine.log",
+              "size_bytes": 393989,
+              "sha256": "561648c5b7809ab7053626c9ca6f4707059aeb7bc0c6636e993a79984ee529bf"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/captures/approach.png",
+              "size_bytes": 976807,
+              "sha256": "ae7d314bcba59b02f8bf80d1df919b56388bda2b9e5b198a3d82649f4fff6c29"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/captures/driving.png",
+              "size_bytes": 962291,
+              "sha256": "48da0bd78fb162e818522df7dcc3ea64d30355dc055976306c3c672dd2cbd716"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/captures/impact.png",
+              "size_bytes": 943950,
+              "sha256": "998f0a12c5eecc133896288713b41976a59e2a85d1b95e9e4c8aea19cb43b3a6"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/captures/exited.png",
+              "size_bytes": 949991,
+              "sha256": "d5f721285f261907da4ac746ba094936a93501b6412b81a6eacea650ac22744d"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/captures/disabled.png",
+              "size_bytes": 270047,
+              "sha256": "f0e9cba408413be9af17be888cb13df369f6d5a3442b7a8a483ee87500ded3af"
+            },
+            {
+              "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/vehicle.wav",
+              "size_bytes": 10788908,
+              "sha256": "cddd236e3b5800d1279a16f6f42902761617bad6e20df98c5a20418d2e955784"
+            }
+          ]
+        },
+        "pose_frames": 2255,
+        "visible_frames": 0,
+        "fallback_frames": 1959.0,
+        "dormant_frames": 296.0,
+        "max_errors": {
+          "wheel_error": 0.0,
+          "axle_error": 0.0,
+          "spin_error": 0.0,
+          "link_error": 0.0,
+          "root_error": 0.0,
+          "paint_error": 0.0,
+          "rigid_center_error": 0.0,
+          "rigid_axle_error": 0.0,
+          "rigid_spin_error": 0.0,
+          "rigid_radius_error": 0.0,
+          "rigid_body_error": 0.0
+        },
+        "measurement_scope": "Actual native frames with 60fps cap, streaming, readback and captures included; not clean performance or PSO qualification"
+      }
+    }
+  ],
+  "captures": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/captures/approach.png",
+      "sha256": "fdd7e9b4727bc269ea53d6b8f09d0477f4d66b8b6e6b095ec096099b735cbfbb",
+      "bytes": 1010762,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/captures/disabled.png",
+      "sha256": "56f2fd6e9d9f9a5b2412607bc37f0089d4ef0b8ae19236f0162c60f6dcc03748",
+      "bytes": 276117,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/captures/driving.png",
+      "sha256": "2fad9826f20fbdc33eac8c165dc2ef40b524c15f0f9cb8c49a72c89d8960aa1e",
+      "bytes": 953872,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/captures/exited.png",
+      "sha256": "26be0b61ea03c08bf41169e8b80024662fa7826b67947aa2025be840ed9e1767",
+      "bytes": 972184,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-runtime-03/captures/impact.png",
+      "sha256": "09f6cb61e8cacf5aa80308b7f0b3670498445776828f9438818520130a207eb8",
+      "bytes": 944580,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/captures/approach.png",
+      "sha256": "ae7d314bcba59b02f8bf80d1df919b56388bda2b9e5b198a3d82649f4fff6c29",
+      "bytes": 976807,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/captures/disabled.png",
+      "sha256": "f0e9cba408413be9af17be888cb13df369f6d5a3442b7a8a483ee87500ded3af",
+      "bytes": 270047,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/captures/driving.png",
+      "sha256": "48da0bd78fb162e818522df7dcc3ea64d30355dc055976306c3c672dd2cbd716",
+      "bytes": 962291,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/captures/exited.png",
+      "sha256": "d5f721285f261907da4ac746ba094936a93501b6412b81a6eacea650ac22744d",
+      "bytes": 949991,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-disabled-01/captures/impact.png",
+      "sha256": "998f0a12c5eecc133896288713b41976a59e2a85d1b95e9e4c8aea19cb43b3a6",
+      "bytes": 943950,
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "assets": [
+    {
+      "provenance": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Vehicles/UE58Offroad.provenance.json",
+        "sha256": "f6afe10b8730d3d93df504c1d7cd488b43abb115f9a44a658d5769b9ce9b53cf",
+        "bytes": 7256
+      },
+      "entries": 20,
+      "exact_source_and_local_readback": true
+    },
+    {
+      "provenance": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Vehicles/UE58OffroadParts.provenance.json",
+        "sha256": "53bfac2a360a33fa042f5a4529d8b74ab1e2e0b86bff58c07dfff2aa99d44799",
+        "bytes": 8740
+      },
+      "entries": 24,
+      "exact_source_and_local_readback": true
+    }
+  ],
+  "unique_asset_files": 28,
+  "native_asset_probe": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/vehicle-assets-05/readback.json",
+    "sha256": "8d76367bf4f53b176efdd19946248df436a3c5c3941c98e14d0888714f814f33",
+    "bytes": 31090
+  },
+  "capture_status": "GENERATED_DRAFT",
+  "limitations": [
+    "Installed resource integration, not final vehicle art",
+    "Seated driver remains blockout fallback",
+    "Native capped driving frames include streaming and captures; no clean frame-time/PSO/package qualification"
+  ]
+}
