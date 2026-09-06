@@ -1,0 +1,27 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T16:43:06.843671+00:00",
+  "result": "PASS",
+  "command": [
+    "git",
+    "diff",
+    "--cached",
+    "--check",
+    "--",
+    "*.py",
+    "*.hlsl",
+    "*.md",
+    "*.json"
+  ],
+  "returncode": 0,
+  "diagnostics": "",
+  "recovered_failure": {
+    "task_id": "D03-01",
+    "time": "2026-09-06T16:43:06.843671+00:00",
+    "type": "precommit_validation_scope",
+    "status": "CONTINUE",
+    "diagnostics": "Unrestricted git diff --cached --check rejected whitespace and CRLF in newly staged native Unreal logs/CSV evidence. This is an inappropriate source-style gate on exact raw evidence. Commit was not executed; index and evidence are preserved.",
+    "action": "Scope whitespace validation to editable Python/HLSL/Markdown/JSON. Retain raw engine logs and CSV bytes unchanged."
+  },
+  "raw_evidence_changed": false
+}

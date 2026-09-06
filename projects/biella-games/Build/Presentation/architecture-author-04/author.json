@@ -1,0 +1,483 @@
+{
+  "result": "PASS",
+  "mode": "author",
+  "source_manifest_sha256": "c56eb4249294e9fb290d8d6ed0cd55c9a7ea270f26344ac230fbeac2b238ed0e",
+  "meshes": [
+    {
+      "asset": "/Game/OpenWorld/Architecture/SM_StreetBlock_00",
+      "source_sha256": "64d60dead94a054819a36c6e77709ee3e6254ec2c2ac6efa9d2cd4b1060e827e",
+      "extent": [
+        50.000003814697266,
+        50.000003814697266,
+        50.0
+      ],
+      "collision_size": [
+        100.00000762939453,
+        100.00000762939453,
+        100.0
+      ],
+      "fallback_triangles": 71252,
+      "nanite": true,
+      "fallback_percent": 1,
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ]
+    },
+    {
+      "asset": "/Game/OpenWorld/Architecture/SM_StreetBlock_01",
+      "source_sha256": "aa2c4cc0972f1ff911e23a50d3fef34deafca95456860d9e096bd2733d4049df",
+      "extent": [
+        50.000003814697266,
+        50.000003814697266,
+        50.0
+      ],
+      "collision_size": [
+        100.00000762939453,
+        100.00000762939453,
+        100.0
+      ],
+      "fallback_triangles": 71252,
+      "nanite": true,
+      "fallback_percent": 1,
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ]
+    },
+    {
+      "asset": "/Game/OpenWorld/Architecture/SM_StreetBlock_02",
+      "source_sha256": "6cb35c1b738500c3ce9e6b9bb64d7a45601b98f1b798894425ca5bd6117138fb",
+      "extent": [
+        50.000003814697266,
+        50.000003814697266,
+        50.0
+      ],
+      "collision_size": [
+        100.00000762939453,
+        100.00000762939453,
+        100.0
+      ],
+      "fallback_triangles": 71252,
+      "nanite": true,
+      "fallback_percent": 1,
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ]
+    },
+    {
+      "asset": "/Game/OpenWorld/Architecture/SM_StreetBlock_03",
+      "source_sha256": "57a1f3a5660f763eacff1b71cd77e3661af342159ba45b931ca0bbc4ef336038",
+      "extent": [
+        50.000003814697266,
+        50.000003814697266,
+        50.0
+      ],
+      "collision_size": [
+        100.00000762939453,
+        100.00000762939453,
+        100.0
+      ],
+      "fallback_triangles": 90428,
+      "nanite": true,
+      "fallback_percent": 1,
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ]
+    },
+    {
+      "asset": "/Game/OpenWorld/Architecture/SM_StreetBlock_04",
+      "source_sha256": "1ec567684e254e3ba44f62c89f3080f5eed66adaa74d9bed9f44487b5896902a",
+      "extent": [
+        50.000003814697266,
+        50.000003814697266,
+        50.0
+      ],
+      "collision_size": [
+        100.00000762939453,
+        100.00000762939453,
+        100.0
+      ],
+      "fallback_triangles": 90428,
+      "nanite": true,
+      "fallback_percent": 1,
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ]
+    },
+    {
+      "asset": "/Game/OpenWorld/Architecture/SM_StreetBlock_05",
+      "source_sha256": "b11f422d6a603241b7b0e7e3ad132ad9154d79ea198dbda17c4b5fc7891952f3",
+      "extent": [
+        50.000003814697266,
+        50.000003814697266,
+        50.0
+      ],
+      "collision_size": [
+        100.00000762939453,
+        100.00000762939453,
+        100.0
+      ],
+      "fallback_triangles": 90428,
+      "nanite": true,
+      "fallback_percent": 1,
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "label": "D02_Region_00_Block",
+      "before": {
+        "guid": "<Struct 'Guid' (0x633f5ae4850) {}>",
+        "location": [
+          0.0,
+          -2400.0,
+          600.0
+        ],
+        "scale": [
+          16.0,
+          14.0,
+          12.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tags": [
+          "D02Continuation",
+          "D02Region00"
+        ],
+        "spatial": true,
+        "hlod": "/Game/OpenWorld/HLOD/HLOD_Continuation.HLOD_Continuation",
+        "collision": "BlockAll"
+      },
+      "after": {
+        "guid": "<Struct 'Guid' (0x633f5ae4850) {}>",
+        "location": [
+          0.0,
+          -2400.0,
+          600.0
+        ],
+        "scale": [
+          16.0,
+          14.0,
+          12.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tags": [
+          "D02Continuation",
+          "D02Region00"
+        ],
+        "spatial": true,
+        "hlod": "/Game/OpenWorld/HLOD/HLOD_Continuation.HLOD_Continuation",
+        "collision": "BlockAll"
+      },
+      "previous_mesh": "/Engine/BasicShapes/Cube.Cube",
+      "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00"
+    },
+    {
+      "label": "D02_Region_01_Block",
+      "before": {
+        "guid": "<Struct 'Guid' (0x633f5ae1150) {}>",
+        "location": [
+          4000.0,
+          -2400.0,
+          650.0
+        ],
+        "scale": [
+          16.0,
+          14.0,
+          13.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tags": [
+          "D02Continuation",
+          "D02Region01"
+        ],
+        "spatial": true,
+        "hlod": "/Game/OpenWorld/HLOD/HLOD_Continuation.HLOD_Continuation",
+        "collision": "BlockAll"
+      },
+      "after": {
+        "guid": "<Struct 'Guid' (0x633f5ae1150) {}>",
+        "location": [
+          4000.0,
+          -2400.0,
+          650.0
+        ],
+        "scale": [
+          16.0,
+          14.0,
+          13.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tags": [
+          "D02Continuation",
+          "D02Region01"
+        ],
+        "spatial": true,
+        "hlod": "/Game/OpenWorld/HLOD/HLOD_Continuation.HLOD_Continuation",
+        "collision": "BlockAll"
+      },
+      "previous_mesh": "/Engine/BasicShapes/Cube.Cube",
+      "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01"
+    },
+    {
+      "label": "D02_Region_02_Block",
+      "before": {
+        "guid": "<Struct 'Guid' (0x633f5ae2a50) {}>",
+        "location": [
+          8000.0,
+          -2400.0,
+          700.0
+        ],
+        "scale": [
+          16.0,
+          14.0,
+          14.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tags": [
+          "D02Continuation",
+          "D02Region02"
+        ],
+        "spatial": true,
+        "hlod": "/Game/OpenWorld/HLOD/HLOD_Continuation.HLOD_Continuation",
+        "collision": "BlockAll"
+      },
+      "after": {
+        "guid": "<Struct 'Guid' (0x633f5ae2a50) {}>",
+        "location": [
+          8000.0,
+          -2400.0,
+          700.0
+        ],
+        "scale": [
+          16.0,
+          14.0,
+          14.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tags": [
+          "D02Continuation",
+          "D02Region02"
+        ],
+        "spatial": true,
+        "hlod": "/Game/OpenWorld/HLOD/HLOD_Continuation.HLOD_Continuation",
+        "collision": "BlockAll"
+      },
+      "previous_mesh": "/Engine/BasicShapes/Cube.Cube",
+      "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02"
+    },
+    {
+      "label": "D02_Region_03_Block",
+      "before": {
+        "guid": "<Struct 'Guid' (0x633f5ae6b50) {}>",
+        "location": [
+          12000.0,
+          -2400.0,
+          750.0
+        ],
+        "scale": [
+          16.0,
+          14.0,
+          15.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tags": [
+          "D02Continuation",
+          "D02Region03"
+        ],
+        "spatial": true,
+        "hlod": "/Game/OpenWorld/HLOD/HLOD_Continuation.HLOD_Continuation",
+        "collision": "BlockAll"
+      },
+      "after": {
+        "guid": "<Struct 'Guid' (0x633f5ae6b50) {}>",
+        "location": [
+          12000.0,
+          -2400.0,
+          750.0
+        ],
+        "scale": [
+          16.0,
+          14.0,
+          15.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tags": [
+          "D02Continuation",
+          "D02Region03"
+        ],
+        "spatial": true,
+        "hlod": "/Game/OpenWorld/HLOD/HLOD_Continuation.HLOD_Continuation",
+        "collision": "BlockAll"
+      },
+      "previous_mesh": "/Engine/BasicShapes/Cube.Cube",
+      "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03"
+    },
+    {
+      "label": "D02_Region_04_Block",
+      "before": {
+        "guid": "<Struct 'Guid' (0x633f5ae5250) {}>",
+        "location": [
+          16000.0,
+          -2400.0,
+          800.0
+        ],
+        "scale": [
+          16.0,
+          14.0,
+          16.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tags": [
+          "D02Continuation",
+          "D02Region04"
+        ],
+        "spatial": true,
+        "hlod": "/Game/OpenWorld/HLOD/HLOD_Continuation.HLOD_Continuation",
+        "collision": "BlockAll"
+      },
+      "after": {
+        "guid": "<Struct 'Guid' (0x633f5ae5250) {}>",
+        "location": [
+          16000.0,
+          -2400.0,
+          800.0
+        ],
+        "scale": [
+          16.0,
+          14.0,
+          16.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tags": [
+          "D02Continuation",
+          "D02Region04"
+        ],
+        "spatial": true,
+        "hlod": "/Game/OpenWorld/HLOD/HLOD_Continuation.HLOD_Continuation",
+        "collision": "BlockAll"
+      },
+      "previous_mesh": "/Engine/BasicShapes/Cube.Cube",
+      "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_04.SM_StreetBlock_04"
+    },
+    {
+      "label": "D02_Region_05_Block",
+      "before": {
+        "guid": "<Struct 'Guid' (0x633f5ae6150) {}>",
+        "location": [
+          20000.0,
+          -2400.0,
+          850.0
+        ],
+        "scale": [
+          16.0,
+          14.0,
+          17.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tags": [
+          "D02Continuation",
+          "D02Region05"
+        ],
+        "spatial": true,
+        "hlod": "/Game/OpenWorld/HLOD/HLOD_Continuation.HLOD_Continuation",
+        "collision": "BlockAll"
+      },
+      "after": {
+        "guid": "<Struct 'Guid' (0x633f5ae6150) {}>",
+        "location": [
+          20000.0,
+          -2400.0,
+          850.0
+        ],
+        "scale": [
+          16.0,
+          14.0,
+          17.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tags": [
+          "D02Continuation",
+          "D02Region05"
+        ],
+        "spatial": true,
+        "hlod": "/Game/OpenWorld/HLOD/HLOD_Continuation.HLOD_Continuation",
+        "collision": "BlockAll"
+      },
+      "previous_mesh": "/Engine/BasicShapes/Cube.Cube",
+      "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_05.SM_StreetBlock_05"
+    }
+  ]
+}

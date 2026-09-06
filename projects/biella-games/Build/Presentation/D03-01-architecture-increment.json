@@ -1,0 +1,345 @@
+{
+  "schema": "biella.presentation_increment/v1",
+  "task_id": "D03-01",
+  "task_status": "CONTINUE",
+  "increment": "Six authored street facades with Nanite and explicit SM5 fallback",
+  "result": "PASS_BOUNDED_INCREMENT",
+  "asset_status": "GENERATED_DRAFT",
+  "time": "2026-09-06T16:40:21.687144+00:00",
+  "parent_commit": "00c133dcce321df9787e62dd90be28fdd1a42dbd",
+  "editable_sources": [
+    {
+      "path": "SourceAssets/Architecture/SM_StreetBlock_00.fbx",
+      "sha256": "64d60dead94a054819a36c6e77709ee3e6254ec2c2ac6efa9d2cd4b1060e827e",
+      "bytes": 1188348
+    },
+    {
+      "path": "SourceAssets/Architecture/SM_StreetBlock_01.fbx",
+      "sha256": "aa2c4cc0972f1ff911e23a50d3fef34deafca95456860d9e096bd2733d4049df",
+      "bytes": 1214444
+    },
+    {
+      "path": "SourceAssets/Architecture/SM_StreetBlock_02.fbx",
+      "sha256": "6cb35c1b738500c3ce9e6b9bb64d7a45601b98f1b798894425ca5bd6117138fb",
+      "bytes": 1235580
+    },
+    {
+      "path": "SourceAssets/Architecture/SM_StreetBlock_03.fbx",
+      "sha256": "57a1f3a5660f763eacff1b71cd77e3661af342159ba45b931ca0bbc4ef336038",
+      "bytes": 1557948
+    },
+    {
+      "path": "SourceAssets/Architecture/SM_StreetBlock_04.fbx",
+      "sha256": "1ec567684e254e3ba44f62c89f3080f5eed66adaa74d9bed9f44487b5896902a",
+      "bytes": 1455500
+    },
+    {
+      "path": "SourceAssets/Architecture/SM_StreetBlock_05.fbx",
+      "sha256": "b11f422d6a603241b7b0e7e3ad132ad9154d79ea198dbda17c4b5fc7891952f3",
+      "bytes": 1485740
+    },
+    {
+      "path": "SourceAssets/Architecture/StreetBlocks.blend",
+      "sha256": "865ab33d0b0f71f512a252eea8eac208accb313a64a94595b8c73d1071dcca64",
+      "bytes": 6226100
+    },
+    {
+      "path": "SourceAssets/Architecture/build_street_blocks.py",
+      "sha256": "3d621b120e471278fb124782131d52c9aa577faeeb3befa1ab942c71fd46740e",
+      "bytes": 7199
+    },
+    {
+      "path": "SourceAssets/Architecture/street-blocks.json",
+      "sha256": "c56eb4249294e9fb290d8d6ed0cd55c9a7ea270f26344ac230fbeac2b238ed0e",
+      "bytes": 3936
+    }
+  ],
+  "native_module": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/libUnrealEditor-BiellaGames.so",
+    "sha256": "5354cd383cdf65e46c761e839e311d6003fa5a0a42cef82fb007e5055345b3a5",
+    "bytes": 2319856
+  },
+  "runtime_input_count": 344,
+  "unchanged_native_build_inputs": 90,
+  "saved_content_assets": 220,
+  "authored_meshes": 6,
+  "facade_hlods": 6,
+  "native_frames": 5352,
+  "captures": 96,
+  "generated_frames": 0,
+  "runs": [
+    {
+      "name": "architecture-sm6-tsr-02",
+      "feature_level": "sm6",
+      "profile": "ProductionTSR",
+      "scenario": "surfaces",
+      "frames": 1187,
+      "validation": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/validation.json",
+        "sha256": "f94e2aff35a26f92fa7476ceafe00111ebde94bf57b9c956afe73aac89125c26",
+        "bytes": 192347
+      },
+      "capture_count": 43,
+      "measurements": {
+        "frames": 1187,
+        "costs": {
+          "stationary": {
+            "frames": 250,
+            "wall_p50_ms": 14.104181,
+            "wall_p95_ms": 16.518741499999997,
+            "gpu_p50_ms": 6.1555
+          },
+          "camera_pan": {
+            "frames": 256,
+            "wall_p50_ms": 13.798058000000001,
+            "wall_p95_ms": 15.50156075,
+            "gpu_p50_ms": 6.228
+          }
+        },
+        "static_mean_abs_delta_255": [
+          0.9657631516456604,
+          0.9662883281707764,
+          0.4633724093437195,
+          0.4494487941265106,
+          0.4504752457141876,
+          0.4487687945365906,
+          0.44691333174705505,
+          0.4521983563899994,
+          0.4548097550868988
+        ],
+        "pan_mean_abs_delta_255": [
+          5.627781391143799,
+          5.247747898101807,
+          5.036362648010254,
+          4.572990417480469,
+          4.402148246765137,
+          4.155139446258545,
+          3.889411211013794,
+          3.7477691173553467,
+          3.5664823055267334,
+          3.450868844985962,
+          3.5175514221191406,
+          3.2737817764282227,
+          3.2458701133728027,
+          3.189347505569458,
+          3.4771461486816406,
+          3.601212501525879,
+          3.498791217803955,
+          3.4398372173309326,
+          3.327000141143799,
+          3.9244987964630127,
+          4.276904582977295,
+          4.54268217086792,
+          5.292098522186279,
+          0.5102915167808533,
+          0.4671788215637207,
+          0.4631083607673645,
+          0.44973161816596985,
+          0.4520276188850403,
+          0.45049911737442017,
+          0.44632160663604736,
+          0.46085721254348755
+        ],
+        "scope": "Development Vulkan at 1280x720, uncapped, existing DDC. Pixel deltas screen for gross instability; visual review still required. GPU timings are engine whole-frame measurements."
+      }
+    },
+    {
+      "name": "architecture-sm5-taa-01",
+      "feature_level": "sm5",
+      "profile": "NativeTAA",
+      "scenario": "surfaces",
+      "frames": 1278,
+      "validation": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/validation.json",
+        "sha256": "5c0c6a447435fad12234f88e1d9e4e922457ab6ce2b5726229a74d33d309d59b",
+        "bytes": 192367
+      },
+      "capture_count": 43,
+      "measurements": {
+        "frames": 1278,
+        "costs": {
+          "stationary": {
+            "frames": 262,
+            "wall_p50_ms": 13.36596,
+            "wall_p95_ms": 14.943331,
+            "gpu_p50_ms": 3.386
+          },
+          "camera_pan": {
+            "frames": 275,
+            "wall_p50_ms": 12.705148,
+            "wall_p95_ms": 14.6219717,
+            "gpu_p50_ms": 3.405
+          }
+        },
+        "static_mean_abs_delta_255": [
+          0.9526360034942627,
+          0.9255736470222473,
+          0.5200940370559692,
+          0.4657291769981384,
+          0.4706901013851166,
+          0.4522106349468231,
+          0.47306641936302185,
+          0.46471571922302246,
+          0.4510727822780609
+        ],
+        "pan_mean_abs_delta_255": [
+          5.129968166351318,
+          4.753406524658203,
+          4.458035945892334,
+          3.959981918334961,
+          3.8463895320892334,
+          3.6285886764526367,
+          3.4159910678863525,
+          3.3137571811676025,
+          3.1247518062591553,
+          3.0372722148895264,
+          2.9938831329345703,
+          2.808772325515747,
+          2.810483932495117,
+          2.7973501682281494,
+          2.787257671356201,
+          2.717158555984497,
+          2.8537731170654297,
+          2.866203784942627,
+          3.091168165206909,
+          3.130195379257202,
+          2.9741110801696777,
+          3.073796272277832,
+          3.786426544189453,
+          3.794914722442627,
+          4.233527183532715,
+          4.516484260559082,
+          0.47354382276535034,
+          0.44757306575775146,
+          0.46416160464286804,
+          0.4505200982093811,
+          0.4573459327220917
+        ],
+        "scope": "Development Vulkan at 1280x720, uncapped, existing DDC. Pixel deltas screen for gross instability; visual review still required. GPU timings are engine whole-frame measurements."
+      }
+    },
+    {
+      "name": "architecture-environment-sm6-01",
+      "feature_level": "sm6",
+      "profile": "ProductionTSR",
+      "scenario": "environment",
+      "frames": 1446,
+      "validation": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm6-01/validation.json",
+        "sha256": "269c3c88fc1192d2e4735f0ba31e43be6f6e8531b4050319472dd68bfa0ee085",
+        "bytes": 184254
+      },
+      "capture_count": 5,
+      "measurements": {
+        "frames": 1446,
+        "hazard_drops": {
+          "health": 18.01899999999999,
+          "rival_health": 15.004999999999995,
+          "infected_health": 15.005000000000003
+        },
+        "hazard_seconds": 1.4848853309999999,
+        "median_frame_ms": 16.690926,
+        "scope": "Development Linux Vulkan causal evidence; no shipping or frame-rate qualification"
+      }
+    },
+    {
+      "name": "architecture-environment-sm5-01",
+      "feature_level": "sm5",
+      "profile": "NativeTAA",
+      "scenario": "environment",
+      "frames": 1441,
+      "validation": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm5-01/validation.json",
+        "sha256": "7cfeb7f30f90eeeccc5e8664fe5c2073e8fa70e148e0d29d47db2f868b17bf36",
+        "bytes": 184332
+      },
+      "capture_count": 5,
+      "measurements": {
+        "frames": 1441,
+        "hazard_drops": {
+          "health": 18.004999999999995,
+          "rival_health": 15.004999999999995,
+          "infected_health": 15.005000000000003
+        },
+        "hazard_seconds": 1.483735118,
+        "median_frame_ms": 16.910413,
+        "scope": "Development Linux Vulkan causal evidence; no shipping or frame-rate qualification"
+      }
+    }
+  ],
+  "negative_checks": {
+    "facade": 4,
+    "opposite_native_platform": 4,
+    "synthetic_observations": false
+  },
+  "preservation": {
+    "previous_checkpoint_files": 268,
+    "previous_package_qualified_for_new_assets": false,
+    "engine_p4_06": "INCOMPLETE_DEFERRED",
+    "task_metadata_changed": false
+  },
+  "evidence": [
+    {
+      "path": "Build/Presentation/D03-01-architecture-progress.md",
+      "sha256": "79bfbfc04c7cc3a4ef4f4fc851f800f9e6d75ec94afd8d2a0111f71ae59605f6",
+      "bytes": 6505
+    },
+    {
+      "path": "Build/Presentation/architecture-blender-readback-01/validation.json",
+      "sha256": "98e1b152974b772100e72324623c8f2429289ca89a2b3cc345c707a91f110106",
+      "bytes": 2295
+    },
+    {
+      "path": "Build/Presentation/architecture-author-07/validation.json",
+      "sha256": "75602c9c5236b881c001dfe5821a3ba64bcac04934dac1312ad092056dfaa52c",
+      "bytes": 119741
+    },
+    {
+      "path": "Build/Presentation/architecture-hlod-02/validation.json",
+      "sha256": "0924086363fc506dd5ffe39f251b14585416f2e6d3b55503d150dda6cf16701f",
+      "bytes": 119428
+    },
+    {
+      "path": "Build/Presentation/architecture-series-01.json",
+      "sha256": "5158de6929b9f8bc522681576e84397031ddeb4754ad3879cd1ad54c298ee542",
+      "bytes": 57584
+    },
+    {
+      "path": "Build/Presentation/architecture-series-precommit-01.json",
+      "sha256": "304fdeeace2cbfde411476475993d0f93eb9f23b078b6b1081a894e978a2990f",
+      "bytes": 57584
+    },
+    {
+      "path": "Build/Presentation/architecture-build-lineage-01.json",
+      "sha256": "04c7dbd84ee6004eb1587e63cee38cb2c0838df796e6d96aa4bd6a8011a6ae93",
+      "bytes": 21840
+    },
+    {
+      "path": "Build/Presentation/architecture-negative-readback-01.json",
+      "sha256": "95a363bbdea10e69806100936a32330fd8daa5baff9f58b0e79911b828e17831",
+      "bytes": 1804
+    },
+    {
+      "path": "Build/Presentation/architecture-visual-review-01.json",
+      "sha256": "ac5efe02dd958d126d50ebabda8e21ba6998999ebf2b239e1b9eeeeb788f0ad8",
+      "bytes": 2432
+    },
+    {
+      "path": "Build/Presentation/architecture-preservation-01.json",
+      "sha256": "87b4fd2593c0de72291051d48577e479feb23dd13736425807611acbfd19ae0a",
+      "bytes": 3085
+    }
+  ],
+  "publication": {
+    "owner": "Auto Feeder",
+    "remote_publication_claimed": false,
+    "canonical_local_root": "/root/biella/repos/biella-engine/projects/biella-games",
+    "postcommit_readback": "/root/biella/artifacts/games/D03-01/architecture-git-readback-01.json"
+  },
+  "remaining": [
+    "Fresh SM6 package containing the current source and assets, with clean shader/PSO launch evidence",
+    "Fine motion and temporal qualification",
+    "Remaining production world, lighting, character, weapon, vehicle, animation, VFX/audio and crowd presentation"
+  ],
+  "scope": "Native Linux Vulkan Development editor, existing caches, same source/module/content. Representative facade integration and forced SM5 fallback; no cold package or final art acceptance."
+}

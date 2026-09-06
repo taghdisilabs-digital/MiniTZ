@@ -13,6 +13,7 @@ Native World Partition owns loading; Python never runs in gameplay.
 import json
 import math
 import hashlib
+import os
 from pathlib import Path
 
 import unreal
@@ -175,15 +176,26 @@ def actor(label, cls, location, rotation=(0, 0, 0), spatial=True, tags=()):
 def box(label, center, size, material="Wall", tags=(), rotation=(0, 0, 0), collision=True):
     result = actor(label, unreal.StaticMeshActor, center, rotation, tags=tags)
     mesh = result.static_mesh_component
+    # D03 replaces only the six building visuals. Retain normalized bounds and
+    # the original actor/collision contract when D02 authoring is replayed.
+    native_mesh = cube
+    if label.startswith("D02_Region_") and label.endswith("_Block"):
+        facade_path = ROOT + "/Architecture/SM_StreetBlock_" + label.split("_")[2]
+        if LIB.does_asset_exist(facade_path):
+            native_mesh = LIB.load_asset(facade_path)
     if not VERIFY:
         result.set_actor_scale3d(unreal.Vector(*(value / 100.0 for value in size)))
-        mesh.set_static_mesh(cube)
+        mesh.set_static_mesh(native_mesh)
         mesh.set_mobility(unreal.ComponentMobility.STATIC)
-        mesh.set_material(0, materials[material])
+        if native_mesh == cube:
+            mesh.set_material(0, materials[material])
+        else:
+            for slot in range(len(native_mesh.get_editor_property("static_materials"))):
+                mesh.set_material(slot, native_mesh.get_material(slot))
         mesh.set_collision_profile_name("BlockAll" if collision else "NoCollision")
         result.set_editor_property("hlod_layer", hlod)
         result.set_editor_property("enable_auto_lod_generation", True)
-    require(mesh.get_editor_property("static_mesh") == cube, label + ": missing native mesh")
+    require(mesh.get_editor_property("static_mesh") == native_mesh, label + ": missing native mesh")
     scale = result.get_actor_scale3d()
     require(max(abs(scale.x-size[0]/100), abs(scale.y-size[1]/100), abs(scale.z-size[2]/100)) < .001,
             label + ": collision geometry dimensions changed")
@@ -191,6 +203,9 @@ def box(label, center, size, material="Wall", tags=(), rotation=(0, 0, 0), colli
     require(max(abs(actual_rotation.pitch-rotation[0]), abs(actual_rotation.yaw-rotation[1]),
                 abs(actual_rotation.roll-rotation[2])) < .001, label + ": surface rotation changed")
     require(mesh.get_material(0) == materials[material], label + ": material changed")
+    if native_mesh != cube:
+        for slot in range(len(native_mesh.get_editor_property("static_materials"))):
+            require(mesh.get_material(slot) == native_mesh.get_material(slot), label + ": facade material changed")
     require(str(mesh.get_collision_profile_name()) == ("BlockAll" if collision else "NoCollision"),
             label + ": collision profile changed")
     require(result.get_editor_property("hlod_layer") == hlod, label + ": missing HLOD assignment")
@@ -340,6 +355,8 @@ report = {
     "scope": "Editable continuity blockout; no city identity, shipping scale or final visual-quality acceptance",
 }
 output = PROJECT / "Build/OpenWorld" / ("D02-01-map-readback.json" if VERIFY else "D02-01-map-authoring.json")
+if VERIFY and os.environ.get("BIELLA_WORLD_READBACK_REPORT"):
+    output = Path(os.environ["BIELLA_WORLD_READBACK_REPORT"])
 output.parent.mkdir(parents=True, exist_ok=True)
 output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
 unreal.log("D02_OPEN_WORLD PASS " + json.dumps(report, sort_keys=True))

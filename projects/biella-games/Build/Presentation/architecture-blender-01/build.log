@@ -1,0 +1,10 @@
+/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Architecture/build_street_blocks.py:30: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat.use_nodes = True
+Blender 5.0.1 (hash a3db93c5b259 built 2025-12-16 01:30:59)
+Traceback (most recent call last):
+  File "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Architecture/build_street_blocks.py", line 127, in <module>
+    assert all(abs(a+50) < .002 for a in minimum), minimum
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [-800.0, -700.0, -600.0]
+
+Blender quit

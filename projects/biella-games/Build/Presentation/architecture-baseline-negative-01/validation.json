@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "control": "pre-implementation zero-Nanite baseline rejected",
+  "diagnostic": "Missing authored building geometry",
+  "source": "Build/Presentation/sm6-default-tsr-02/render-primitives.csv"
+}

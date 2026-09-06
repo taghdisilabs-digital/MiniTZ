@@ -1,0 +1,138 @@
+{
+  "result": "PASS",
+  "blender": "5.0.1",
+  "assets": [
+    {
+      "mesh": "SM_StreetBlock_00",
+      "triangles": 71252,
+      "vertices": 36384,
+      "min": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "max": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ]
+    },
+    {
+      "mesh": "SM_StreetBlock_01",
+      "triangles": 71252,
+      "vertices": 36384,
+      "min": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "max": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ]
+    },
+    {
+      "mesh": "SM_StreetBlock_02",
+      "triangles": 71252,
+      "vertices": 36384,
+      "min": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "max": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ]
+    },
+    {
+      "mesh": "SM_StreetBlock_03",
+      "triangles": 90428,
+      "vertices": 46176,
+      "min": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "max": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ]
+    },
+    {
+      "mesh": "SM_StreetBlock_04",
+      "triangles": 90428,
+      "vertices": 46176,
+      "min": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "max": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ]
+    },
+    {
+      "mesh": "SM_StreetBlock_05",
+      "triangles": 90428,
+      "vertices": 46176,
+      "min": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "max": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ]
+    }
+  ]
+}

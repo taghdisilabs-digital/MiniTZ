@@ -1,0 +1,69 @@
+{
+  "result": "PASS",
+  "feature_level": "sm5",
+  "buildings": [
+    {
+      "component": "/Game/Maps/BiellaOpenWorldMap/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_16925a08babfcd64.HLODInstancedStaticMeshComponent_2",
+      "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+      "nanite_data": "1",
+      "nanite_proxy": "0"
+    },
+    {
+      "component": "/Game/Maps/BiellaOpenWorldMap/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_51f83a065cb9dbfe.HLODInstancedStaticMeshComponent_2",
+      "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+      "nanite_data": "1",
+      "nanite_proxy": "0"
+    },
+    {
+      "component": "/Game/Maps/BiellaOpenWorldMap/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_b25b234280b48d0f.HLODInstancedStaticMeshComponent_2",
+      "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_04.SM_StreetBlock_04",
+      "nanite_data": "1",
+      "nanite_proxy": "0"
+    },
+    {
+      "component": "/Game/Maps/BiellaOpenWorldMap/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_6b763bbda5e31321.HLODInstancedStaticMeshComponent_2",
+      "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_05.SM_StreetBlock_05",
+      "nanite_data": "1",
+      "nanite_proxy": "0"
+    },
+    {
+      "component": "/Game/Maps/BiellaOpenWorldMap/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_ad8a26dfe033840b.HLODInstancedStaticMeshComponent_2",
+      "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+      "nanite_data": "1",
+      "nanite_proxy": "0"
+    },
+    {
+      "component": "/Game/Maps/BiellaOpenWorldMap/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_91d1606ca22e01d0.HLODInstancedStaticMeshComponent_2",
+      "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+      "nanite_data": "1",
+      "nanite_proxy": "0"
+    },
+    {
+      "component": "/Game/Maps/BiellaOpenWorldMap/2246L7J56SWT3CJ7TDECQUKJJ.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616309390.StaticMeshComponent0",
+      "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+      "nanite_data": "1",
+      "nanite_proxy": "0"
+    },
+    {
+      "component": "/Game/Maps/BiellaOpenWorldMap/E4NTLHGQRW7WSJD367Y83CQJY.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616304382.StaticMeshComponent0",
+      "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+      "nanite_data": "1",
+      "nanite_proxy": "0"
+    },
+    {
+      "component": "/Game/Maps/BiellaOpenWorldMap/6KIDQ8DFTHQYWAPBTVM821GBW.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616314397.StaticMeshComponent0",
+      "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+      "nanite_data": "1",
+      "nanite_proxy": "0"
+    },
+    {
+      "component": "/Game/Maps/BiellaOpenWorldMap/DF8HFWLRNPD550N0XGMPOK5GF.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616319404.StaticMeshComponent0",
+      "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+      "nanite_data": "1",
+      "nanite_proxy": "0"
+    }
+  ],
+  "nanite_proxies": 0,
+  "zero_proxy_rows": 10,
+  "scope": "Loaded mesh data and native proxies; visible appearance requires captured runtime review"
+}

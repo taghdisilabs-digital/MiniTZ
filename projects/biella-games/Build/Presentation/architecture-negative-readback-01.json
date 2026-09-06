@@ -1,0 +1,45 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "time": "2026-09-06T16:30:57.472426+00:00",
+  "verifier_sha256": "456b4f9b8e494528003da483584ba4345287b381ad8ac1cfa9ba4b3593cc9451",
+  "controls": [
+    {
+      "name": "preimplementation_geometry",
+      "source": "Build/Presentation/sm6-default-tsr-02/render-primitives.csv",
+      "sha256": "28719894147ea4bc806ef53bc6802de140e2baefd3c504963daf24ba1157d265",
+      "bytes": 27189,
+      "claimed_feature_level": "sm6",
+      "result": "EXPECTED_REJECTION",
+      "diagnostic": "Missing authored building geometry"
+    },
+    {
+      "name": "missing_material_usage",
+      "source": "Build/Presentation/architecture-sm6-tsr-01/render-primitives.csv",
+      "sha256": "451dd8d3bdf01fc45b5463e98a056012987cece4dbf4cb642efe685a226b4c57",
+      "bytes": 28740,
+      "claimed_feature_level": "sm6",
+      "result": "EXPECTED_REJECTION",
+      "diagnostic": "Missing per-building Nanite proxy"
+    },
+    {
+      "name": "sm5_claimed_as_nanite",
+      "source": "Build/Presentation/architecture-sm5-taa-01/render-primitives.csv",
+      "sha256": "4411f3c8e8b07f3ee5f47b23ae658e172064142a751c279bb82fa040d72e10ff",
+      "bytes": 28719,
+      "claimed_feature_level": "sm6",
+      "result": "EXPECTED_REJECTION",
+      "diagnostic": "Missing per-building Nanite proxy"
+    },
+    {
+      "name": "sm6_claimed_as_fallback",
+      "source": "Build/Presentation/architecture-sm6-tsr-02/render-primitives.csv",
+      "sha256": "84ca5c5a821a3ccdb737c22905dac361212205f1c84574641724d635109aff2c",
+      "bytes": 28719,
+      "claimed_feature_level": "sm5",
+      "result": "EXPECTED_REJECTION",
+      "diagnostic": "SM5 unexpectedly has Nanite proxy"
+    }
+  ],
+  "scope": "Read-only negative replay against unmodified native observations; no fabricated CSV rows"
+}

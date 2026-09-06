@@ -1,0 +1,1248 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "time": "2026-09-06T16:33:34.938724+00:00",
+  "runs": [
+    {
+      "name": "architecture-sm6-tsr-02",
+      "feature_level": "sm6",
+      "profile": "ProductionTSR",
+      "scenario": "surfaces",
+      "validation": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/validation.json",
+        "sha256": "f94e2aff35a26f92fa7476ceafe00111ebde94bf57b9c956afe73aac89125c26",
+        "bytes": 192347
+      },
+      "frames": 1187,
+      "captures": [
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_000.png",
+          "sha256": "c87ac2a9b051e7756225a18294205416d7f56833a66932bf100bb444375cfd37",
+          "bytes": 996302
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_001.png",
+          "sha256": "d0f95bd447479ffc15b527136b33d49c6d4cd74ac7e8f3746c0be33b0cad013e",
+          "bytes": 1004965
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_002.png",
+          "sha256": "bb6cf77ee6783939a40db4c03a8d4297239296a420a3b2358cfa13a25c2c4326",
+          "bytes": 1012056
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_003.png",
+          "sha256": "e913b52c136fdbe201c8aca5833f8bb28f55438ed8a6e5d21578df4c722ad65a",
+          "bytes": 1013414
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_004.png",
+          "sha256": "10e36762c21ee84750c8cace7b26d91a0cbc27dcb9e1832c29f725e8d3178c70",
+          "bytes": 1016598
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_005.png",
+          "sha256": "7d27e37725b171ccc894785f6aaa565989256939f7bb5896e3909dd806bb50fe",
+          "bytes": 1015003
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_006.png",
+          "sha256": "6709a8c536561e621a73d508e7aca906982fe827aa90e50be354387600857a25",
+          "bytes": 1017306
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_007.png",
+          "sha256": "8234e5647b180addae231899a503aac5d06820f19ea019d8ef078ccc9bf0735d",
+          "bytes": 1018119
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_008.png",
+          "sha256": "d25ca700d2da95bd5c9131ca2557486dfe458d49b8d03123be834ad5423d743a",
+          "bytes": 1015331
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_009.png",
+          "sha256": "abb25072d7b3bbdbccd379b5eae5fe52dfbeec8696ab260bdde0d2982d6ffc97",
+          "bytes": 1017593
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_010.png",
+          "sha256": "5ee0c2807b2a8e853a74f2c41c6c8eef7e32559c86214d81e28ed56dd7611ac8",
+          "bytes": 1016115
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_011.png",
+          "sha256": "d4748e6a099d331dc1676119921894ef1bedd0e89e9b205de5fe2f1799936572",
+          "bytes": 1015119
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_012.png",
+          "sha256": "83f7c2257a8806280a82103a3e2faef6dfbe91374f7adc58581c366892a0fb70",
+          "bytes": 1020198
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_013.png",
+          "sha256": "897696f9109d97f4a6676ded313eaa968ef41cb48890e93c5517a9f8155376ec",
+          "bytes": 1024714
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_014.png",
+          "sha256": "647d7eadf86d515c85be81735a49bc4587176e7c14ec6bca23588601369c70d4",
+          "bytes": 1024932
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_015.png",
+          "sha256": "207378dc19006e66b87b8bf85763a2dfc2313ee5bf850ebb97493b736f0bb648",
+          "bytes": 1024444
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_016.png",
+          "sha256": "fb665ea492fd3f4230c247b38667671312f535ec4ea5d9b3b38f1a71da097210",
+          "bytes": 1018578
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_017.png",
+          "sha256": "48a0c5531eb0ff495c69f08486f9e44e08315fa0eb0387d2ca661c050e641f44",
+          "bytes": 1024518
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_018.png",
+          "sha256": "df0b391bf0e2d8198b86257a6716f37920efdf8acaeeb72d5921b5977112e5be",
+          "bytes": 1026770
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_019.png",
+          "sha256": "9e6c8e8cfb7dcd8fc9f7248061e816605d2ecf725afeb6430fec95c024f3b5a3",
+          "bytes": 1027905
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_020.png",
+          "sha256": "83c05c54757c924634b538d4aeca8731a80cf55cf1c4c177533221bd1e2c4433",
+          "bytes": 1035431
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_021.png",
+          "sha256": "7ec04505eda2d2c9cde1374c1d718c098531e6884decbd4e3ee85d1b7c81ab66",
+          "bytes": 1031485
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_022.png",
+          "sha256": "7ce53e1f0f514fc098e37581d1bcea472c32a37c7db5da9b9d1fd0c726ef461c",
+          "bytes": 1024093
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_023.png",
+          "sha256": "71ba4c08b695a283f7b39be4a8cb5945773024ad44306b611a8b71699f098aff",
+          "bytes": 1026160
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_024.png",
+          "sha256": "569f17a3af570f755f9b9fe0cc89ddac8300cffa65ab1ef03733347aca0db346",
+          "bytes": 1016843
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_025.png",
+          "sha256": "0cca60f38d23da7a401c8393bdc59547de38dc6a94162786cd8bd837a045e099",
+          "bytes": 1011792
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_026.png",
+          "sha256": "77becea3f907e716e28c47a61497bda06c2bf42c8ab53586b2ce1d2b8381ee79",
+          "bytes": 1008446
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_027.png",
+          "sha256": "1c14a546c0a6bcc0e8fb0bdd23c0a2bf02b9dba24a95377f66ab5603b247ae1e",
+          "bytes": 1006686
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_028.png",
+          "sha256": "8d59fb5ea2b84429cb1700d5ef4e70c82d3d586aa017a7dccf1cfc2e4684799c",
+          "bytes": 1005690
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_029.png",
+          "sha256": "a00c3bf745b5e715ebadc2b24447041e737c0ab2f59f09888e5bcda9c5e45f42",
+          "bytes": 1005836
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_030.png",
+          "sha256": "b73b79880370e8cd66c0c19706857f11fc4dde027a40bf3cfd42dd67a76e176b",
+          "bytes": 1003935
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/pan_031.png",
+          "sha256": "20b459c658436944a15e2e85cfd00d02ce106f55d1fd04d0015a4c185afda0c9",
+          "bytes": 1004870
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/static_000.png",
+          "sha256": "52d0929de0e86fe42f4ca4fc3bc0a64e3757702fb28507c32d59a8c75f0a80e0",
+          "bytes": 992520
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/static_001.png",
+          "sha256": "5256c12c3d14a15df3177a1bd69faa5def061c2ab915e137968d2ca55433d586",
+          "bytes": 991593
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/static_002.png",
+          "sha256": "24a0fe989e705303bb713f77a926e95162b55b14ebe6f86ab7caa1fbb852c49d",
+          "bytes": 992035
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/static_003.png",
+          "sha256": "12fb236b14a20d1e5139ef8142b73c6d366f1463f6e33c3b2c912c9a145caa3b",
+          "bytes": 991080
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/static_004.png",
+          "sha256": "a42d82f4c2de49c867db6351a7d42b7a9e9f4a6266d2a7c7e3543ea289024bfd",
+          "bytes": 990682
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/static_005.png",
+          "sha256": "59f7eb230f6c2a687b81017dd57d8c40fac08fed452c6c092c17f56cb9002e80",
+          "bytes": 992222
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/static_006.png",
+          "sha256": "48349d08ab4818de299435f41e1e9f07c5743ed34ea4c89331a4f2f68db39ddc",
+          "bytes": 991951
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/static_007.png",
+          "sha256": "c1d534d633ad27414465fb288b4a0b38bdff277e9b8571dc9af9b04636815d2b",
+          "bytes": 991814
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/static_008.png",
+          "sha256": "cfddc55c28a02077f87b1bce8bebf258e00f40dd7e7479d10f1720469307a961",
+          "bytes": 991245
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/static_009.png",
+          "sha256": "474fa34bf53941b0b6794778c937f5529e68ff511ccc2d06cee4b3a906cf9709",
+          "bytes": 990639
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/captures/walk_end.png",
+          "sha256": "5559cb875a64532dff78eacc5b7be49ac82061a783ce4d2cfc68a1e19ea0c9e2",
+          "bytes": 1030634
+        }
+      ],
+      "measurements": {
+        "frames": 1187,
+        "costs": {
+          "stationary": {
+            "frames": 250,
+            "wall_p50_ms": 14.104181,
+            "wall_p95_ms": 16.518741499999997,
+            "gpu_p50_ms": 6.1555
+          },
+          "camera_pan": {
+            "frames": 256,
+            "wall_p50_ms": 13.798058000000001,
+            "wall_p95_ms": 15.50156075,
+            "gpu_p50_ms": 6.228
+          }
+        },
+        "static_mean_abs_delta_255": [
+          0.9657631516456604,
+          0.9662883281707764,
+          0.4633724093437195,
+          0.4494487941265106,
+          0.4504752457141876,
+          0.4487687945365906,
+          0.44691333174705505,
+          0.4521983563899994,
+          0.4548097550868988
+        ],
+        "pan_mean_abs_delta_255": [
+          5.627781391143799,
+          5.247747898101807,
+          5.036362648010254,
+          4.572990417480469,
+          4.402148246765137,
+          4.155139446258545,
+          3.889411211013794,
+          3.7477691173553467,
+          3.5664823055267334,
+          3.450868844985962,
+          3.5175514221191406,
+          3.2737817764282227,
+          3.2458701133728027,
+          3.189347505569458,
+          3.4771461486816406,
+          3.601212501525879,
+          3.498791217803955,
+          3.4398372173309326,
+          3.327000141143799,
+          3.9244987964630127,
+          4.276904582977295,
+          4.54268217086792,
+          5.292098522186279,
+          0.5102915167808533,
+          0.4671788215637207,
+          0.4631083607673645,
+          0.44973161816596985,
+          0.4520276188850403,
+          0.45049911737442017,
+          0.44632160663604736,
+          0.46085721254348755
+        ],
+        "scope": "Development Vulkan at 1280x720, uncapped, existing DDC. Pixel deltas screen for gross instability; visual review still required. GPU timings are engine whole-frame measurements."
+      },
+      "native_views": {
+        "observed_views": 1846,
+        "joined_scenario_frames": 1187,
+        "joined_views": 1187,
+        "missing_frames": [],
+        "multiple_view_frames": 0,
+        "first_frame": 649.0,
+        "last_frame": 1835.0,
+        "expected": {
+          "aa": 4,
+          "requested_aa": 4,
+          "screen_percentage": 100,
+          "temporal_upsampling": 1,
+          "dynamic_res": 0,
+          "gi": 1,
+          "reflections": 1,
+          "vsm": 1,
+          "nanite": 1,
+          "ray_tracing": 0,
+          "external_upscaler": 0,
+          "width": 1280,
+          "height": 720,
+          "tsr_supported": 1
+        },
+        "scope": "Constructed game-thread views plus requested renderer cvars; no generated frames or hardware compatibility claim"
+      },
+      "shader_platform": {
+        "result": "PASS",
+        "feature_level": "sm6",
+        "expected": {
+          "feature_sm6": 1,
+          "nanite_supported": 1,
+          "nanite_enabled": 1,
+          "vsm_enabled": 1,
+          "lumen_supported": 1
+        },
+        "reconstruction": {
+          "observed_views": 1846,
+          "joined_scenario_frames": 1187,
+          "joined_views": 1187,
+          "missing_frames": [],
+          "multiple_view_frames": 0,
+          "first_frame": 649.0,
+          "last_frame": 1835.0,
+          "expected": {
+            "aa": 4,
+            "requested_aa": 4,
+            "screen_percentage": 100,
+            "temporal_upsampling": 1,
+            "dynamic_res": 0,
+            "gi": 1,
+            "reflections": 1,
+            "vsm": 1,
+            "nanite": 1,
+            "ray_tracing": 0,
+            "external_upscaler": 0,
+            "width": 1280,
+            "height": 720,
+            "tsr_supported": 1
+          },
+          "scope": "Constructed game-thread views plus requested renderer cvars; no generated frames or hardware compatibility claim"
+        },
+        "scope": "Native game-view feature level and renderer eligibility; primitive proxy counts do not establish visible-pixel coverage",
+        "primitives": {
+          "loaded_components": 169,
+          "nanite_data": 10,
+          "nanite_proxies": 6,
+          "mesh_assets": [
+            "/Engine/BasicShapes/Cube.Cube",
+            "/Engine/BasicShapes/Cylinder.Cylinder",
+            "/Engine/BasicShapes/Sphere.Sphere",
+            "/Engine/EditorMeshes/MatineeCam_SM.MatineeCam_SM",
+            "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+            "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+            "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+            "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+            "/Game/OpenWorld/Architecture/SM_StreetBlock_04.SM_StreetBlock_04",
+            "/Game/OpenWorld/Architecture/SM_StreetBlock_05.SM_StreetBlock_05",
+            "/Game/Vehicles/OffroadCar/SM_Offroad_Body.SM_Offroad_Body",
+            "/Game/Vehicles/OffroadCar/SM_Offroad_Tire.SM_Offroad_Tire",
+            "/Game/Vehicles/Presentation/SM_DriverSteeringWheel.SM_DriverSteeringWheel"
+          ]
+        }
+      },
+      "architecture": {
+        "result": "PASS",
+        "feature_level": "sm6",
+        "buildings": [
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_16925a08babfcd64.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_51f83a065cb9dbfe.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_b25b234280b48d0f.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_04.SM_StreetBlock_04",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_6b763bbda5e31321.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_05.SM_StreetBlock_05",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_ad8a26dfe033840b.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_91d1606ca22e01d0.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/2246L7J56SWT3CJ7TDECQUKJJ.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616309390.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/E4NTLHGQRW7WSJD367Y83CQJY.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616304382.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/6KIDQ8DFTHQYWAPBTVM821GBW.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616314397.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/DF8HFWLRNPD550N0XGMPOK5GF.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616319404.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+            "nanite_data": "1",
+            "nanite_proxy": "1"
+          }
+        ],
+        "nanite_proxies": 6,
+        "zero_proxy_rows": 4,
+        "scope": "Loaded mesh data and native proxies; visible appearance requires captured runtime review"
+      },
+      "raw": [
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/result.json",
+          "sha256": "fea1844769a11575b297ec3e861a9824cd3a522c7f6c608c00712e309c4d0290",
+          "bytes": 121
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/frames.csv",
+          "sha256": "3ff941529f204c4c384621af577fc452193a149a11be4d8823c185692d2d0bf0",
+          "bytes": 122720
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/native-views.csv",
+          "sha256": "d73a87dbcf2e3848e2dd29fb7046989af1bc396fc8beb826a863795a56e4db14",
+          "bytes": 100639
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm6-tsr-02/runtime.stdout.log",
+          "sha256": "11d063146b6607d23c12d59e37d113a220720b613226e65f911e6c629c6e034e",
+          "bytes": 362224
+        }
+      ]
+    },
+    {
+      "name": "architecture-sm5-taa-01",
+      "feature_level": "sm5",
+      "profile": "NativeTAA",
+      "scenario": "surfaces",
+      "validation": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/validation.json",
+        "sha256": "5c0c6a447435fad12234f88e1d9e4e922457ab6ce2b5726229a74d33d309d59b",
+        "bytes": 192367
+      },
+      "frames": 1278,
+      "captures": [
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_000.png",
+          "sha256": "4f9fc6916226db28b123a7ba645b49d412f7f429bb884b82114dfb7505e409c3",
+          "bytes": 898991
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_001.png",
+          "sha256": "7f2f2730e03f5927684dd7f5a8bca1cab48339a63b764351b593f1af2f53d205",
+          "bytes": 897564
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_002.png",
+          "sha256": "f87f0d36a16133c5e656d444cf0d643923f9188b675647ffeb02b62f4a08407c",
+          "bytes": 897854
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_003.png",
+          "sha256": "8bfbf7cd3e4574ded4786126740a9d9899c5056ecd97d3fa795a88ce771c68d4",
+          "bytes": 892287
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_004.png",
+          "sha256": "799ad52ed5725ad028e550e981d7d5e7233ca9afa110cbf203dcefc4de456e8b",
+          "bytes": 896372
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_005.png",
+          "sha256": "7d220420a31267a95319516e69c7b8a521790d7815c491acba5472631e9e2ead",
+          "bytes": 897030
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_006.png",
+          "sha256": "3c3461f3d807b396a7dd501f1228d7333c5d95bcc84166dccb65819f2791e04c",
+          "bytes": 900764
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_007.png",
+          "sha256": "67376eb9189256ca56fd7381a3abc394126422ecd2bc7ca8b1257aca04ff4bd0",
+          "bytes": 895339
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_008.png",
+          "sha256": "401b540d877371bdaeecd81af4ccb467888dfbf3a664c88a9cc0e219fa8ae949",
+          "bytes": 894511
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_009.png",
+          "sha256": "135728375e4f93b30503d7dd1ce39d06a788718596188f40a1be5e424796bc52",
+          "bytes": 892489
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_010.png",
+          "sha256": "b8c8276c047b78fb4467500d7696544bde886cf25f9121fd3964bd41a1de3cbf",
+          "bytes": 894472
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_011.png",
+          "sha256": "e7e20dc0dccedc64dba844fa9c7fe9249ec146a3fc449eac291be5ea9d50eb6c",
+          "bytes": 889897
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_012.png",
+          "sha256": "fd1f6aa72df5df9a89f2caee17b959eb0e80eb1e47d07bf76badff52cd04d323",
+          "bytes": 894199
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_013.png",
+          "sha256": "bb615adbf39adf5ec01230b9448af296e3693fea869f19b90a09161197fc41ab",
+          "bytes": 894752
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_014.png",
+          "sha256": "d199bd3bdc72718a6e39cae457efc8a12d34b40a40d206f5655b65857527db05",
+          "bytes": 901546
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_015.png",
+          "sha256": "8fa941b739b1e722905e92e26140d24d57a593bef5f6f14396a14ba84e92e370",
+          "bytes": 898366
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_016.png",
+          "sha256": "831b99664f333e25225baf0a42457d6276dfb5d7e4bf73f851ffc6fa649275fe",
+          "bytes": 900632
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_017.png",
+          "sha256": "5b3aa13a90f5f10e7b1ff960aac5c2e74fbb0d1f241155f48b326a281bd0b19d",
+          "bytes": 898790
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_018.png",
+          "sha256": "dec4de1a502d268e0240705651a77be092625e5dc41a76e6354c54bf89820900",
+          "bytes": 901371
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_019.png",
+          "sha256": "3feb9f0b88996787df02b20fc804e7254450e5dc98be2fa12b6de93d7bf002ad",
+          "bytes": 902010
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_020.png",
+          "sha256": "6a3c80c23e54656b40768c5eeedc7fd5b66b125525f03aae4faf427fd6f04d67",
+          "bytes": 901212
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_021.png",
+          "sha256": "f2a303e6d37b7ca4573b5a113041f7873f8e0af420e0b2a909fcd655f50920d5",
+          "bytes": 904135
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_022.png",
+          "sha256": "f3c5124b6881ae5fe43302b82f395396563b68f0ffe170c7fb2b4702e39e5222",
+          "bytes": 910396
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_023.png",
+          "sha256": "21bcbc6f46f77b080f5350dbbc027d591fa7d97748e769a006ed1ca71e04d058",
+          "bytes": 908280
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_024.png",
+          "sha256": "8a3919aeb085d034963f91c87725baa1a09df911c780025bb02d8635793d94c3",
+          "bytes": 906629
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_025.png",
+          "sha256": "5b9655a578a05b3aafdfc0fa803639ac565669bb8a8d208f2c2cc73c6243d677",
+          "bytes": 903660
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_026.png",
+          "sha256": "a1fcdea4fc36a706c0940d92a35bd930844bc82d31d2c651af2acf115481d5b9",
+          "bytes": 903955
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_027.png",
+          "sha256": "e1015608c60ddc674493ed7ada4f72c7d2a518408e6153047cfa9aba4841c2a5",
+          "bytes": 901161
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_028.png",
+          "sha256": "f3a1a76dcbf8c1da098b54892d90913fe4b37af14a961a278988654437d3d8d0",
+          "bytes": 903823
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_029.png",
+          "sha256": "6b7422a07dadda8cea1db0fdeaa682649638a8de97b768664e36d1b884c83c93",
+          "bytes": 907343
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_030.png",
+          "sha256": "4cbee0bdec76b9a528f1e74b917dd871ac6648eb2176b50c75300602635015b9",
+          "bytes": 907386
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/pan_031.png",
+          "sha256": "d76e1c0edf04ff3ee3bb73355f14750176e32f6f0a4278bd874dfe26b859747b",
+          "bytes": 903620
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/static_000.png",
+          "sha256": "3f738f8c79dbbb2bb34e5e639702de9457924aab991595e66fb7732002c2b88c",
+          "bytes": 896312
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/static_001.png",
+          "sha256": "f0d9225b21188510c8b9910cc10d9d88df5d7d4e29b18294931e5fcb8c39e587",
+          "bytes": 890736
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/static_002.png",
+          "sha256": "9e12da34cc5b024fcf5c915b0678d40e34344bb260d0b3d692a5075ee429dba5",
+          "bytes": 894621
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/static_003.png",
+          "sha256": "b38047d555098ecbdaa7dad4b14dcb6b21c3b6305bb257b07ebe3b0cd5ffe91d",
+          "bytes": 893976
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/static_004.png",
+          "sha256": "d11028cf18a8fc39cd03d0760bc437a9fada5138c481ef550d18eff798f5ada3",
+          "bytes": 896485
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/static_005.png",
+          "sha256": "def33b75909690c77d3b98b8ace4a07e51d6cca7c26f6048918401c459a0bc14",
+          "bytes": 890226
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/static_006.png",
+          "sha256": "0375703d6c9a9f7985275f0932b772ac6f949ba4068243bc62edaed3df167298",
+          "bytes": 893709
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/static_007.png",
+          "sha256": "1147f616625e193d364d2b5e4a26a603cb160d7437b6f7e0e3928a58aa6f09d7",
+          "bytes": 894202
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/static_008.png",
+          "sha256": "7948ef3309eebd74445c0d09ce1e9640af8d70e3ca17a1978f249d0fb086f914",
+          "bytes": 904276
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/static_009.png",
+          "sha256": "6d435d4a83863f74591a54851b884c09ce90d069b7da406ca11712bb55c8667e",
+          "bytes": 896376
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/captures/walk_end.png",
+          "sha256": "a97c0631c5dd2f75992b82e72ec7dcedae257cecdffef6f0ed0f571ba8c86ade",
+          "bytes": 913532
+        }
+      ],
+      "measurements": {
+        "frames": 1278,
+        "costs": {
+          "stationary": {
+            "frames": 262,
+            "wall_p50_ms": 13.36596,
+            "wall_p95_ms": 14.943331,
+            "gpu_p50_ms": 3.386
+          },
+          "camera_pan": {
+            "frames": 275,
+            "wall_p50_ms": 12.705148,
+            "wall_p95_ms": 14.6219717,
+            "gpu_p50_ms": 3.405
+          }
+        },
+        "static_mean_abs_delta_255": [
+          0.9526360034942627,
+          0.9255736470222473,
+          0.5200940370559692,
+          0.4657291769981384,
+          0.4706901013851166,
+          0.4522106349468231,
+          0.47306641936302185,
+          0.46471571922302246,
+          0.4510727822780609
+        ],
+        "pan_mean_abs_delta_255": [
+          5.129968166351318,
+          4.753406524658203,
+          4.458035945892334,
+          3.959981918334961,
+          3.8463895320892334,
+          3.6285886764526367,
+          3.4159910678863525,
+          3.3137571811676025,
+          3.1247518062591553,
+          3.0372722148895264,
+          2.9938831329345703,
+          2.808772325515747,
+          2.810483932495117,
+          2.7973501682281494,
+          2.787257671356201,
+          2.717158555984497,
+          2.8537731170654297,
+          2.866203784942627,
+          3.091168165206909,
+          3.130195379257202,
+          2.9741110801696777,
+          3.073796272277832,
+          3.786426544189453,
+          3.794914722442627,
+          4.233527183532715,
+          4.516484260559082,
+          0.47354382276535034,
+          0.44757306575775146,
+          0.46416160464286804,
+          0.4505200982093811,
+          0.4573459327220917
+        ],
+        "scope": "Development Vulkan at 1280x720, uncapped, existing DDC. Pixel deltas screen for gross instability; visual review still required. GPU timings are engine whole-frame measurements."
+      },
+      "native_views": {
+        "observed_views": 2123,
+        "joined_scenario_frames": 1278,
+        "joined_views": 1278,
+        "missing_frames": [],
+        "multiple_view_frames": 0,
+        "first_frame": 835.0,
+        "last_frame": 2112.0,
+        "expected": {
+          "aa": 2,
+          "requested_aa": 2,
+          "screen_percentage": 100,
+          "temporal_upsampling": 0,
+          "dynamic_res": 0,
+          "gi": 1,
+          "reflections": 1,
+          "vsm": 1,
+          "nanite": 1,
+          "ray_tracing": 0,
+          "external_upscaler": 0,
+          "width": 1280,
+          "height": 720
+        },
+        "scope": "Constructed game-thread views plus requested renderer cvars; no generated frames or hardware compatibility claim"
+      },
+      "shader_platform": {
+        "result": "PASS",
+        "feature_level": "sm5",
+        "expected": {
+          "feature_sm6": 0,
+          "nanite_supported": 0,
+          "nanite_enabled": 0,
+          "vsm_enabled": 0,
+          "lumen_supported": 1
+        },
+        "reconstruction": {
+          "observed_views": 2123,
+          "joined_scenario_frames": 1278,
+          "joined_views": 1278,
+          "missing_frames": [],
+          "multiple_view_frames": 0,
+          "first_frame": 835.0,
+          "last_frame": 2112.0,
+          "expected": {
+            "aa": 2,
+            "requested_aa": 2,
+            "screen_percentage": 100,
+            "temporal_upsampling": 0,
+            "dynamic_res": 0,
+            "gi": 1,
+            "reflections": 1,
+            "vsm": 1,
+            "nanite": 1,
+            "ray_tracing": 0,
+            "external_upscaler": 0,
+            "width": 1280,
+            "height": 720
+          },
+          "scope": "Constructed game-thread views plus requested renderer cvars; no generated frames or hardware compatibility claim"
+        },
+        "scope": "Native game-view feature level and renderer eligibility; primitive proxy counts do not establish visible-pixel coverage",
+        "primitives": {
+          "loaded_components": 169,
+          "nanite_data": 10,
+          "nanite_proxies": 0,
+          "mesh_assets": [
+            "/Engine/BasicShapes/Cube.Cube",
+            "/Engine/BasicShapes/Cylinder.Cylinder",
+            "/Engine/BasicShapes/Sphere.Sphere",
+            "/Engine/EditorMeshes/MatineeCam_SM.MatineeCam_SM",
+            "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+            "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+            "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+            "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+            "/Game/OpenWorld/Architecture/SM_StreetBlock_04.SM_StreetBlock_04",
+            "/Game/OpenWorld/Architecture/SM_StreetBlock_05.SM_StreetBlock_05",
+            "/Game/Vehicles/OffroadCar/SM_Offroad_Body.SM_Offroad_Body",
+            "/Game/Vehicles/OffroadCar/SM_Offroad_Tire.SM_Offroad_Tire",
+            "/Game/Vehicles/Presentation/SM_DriverSteeringWheel.SM_DriverSteeringWheel"
+          ]
+        }
+      },
+      "architecture": {
+        "result": "PASS",
+        "feature_level": "sm5",
+        "buildings": [
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_16925a08babfcd64.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_51f83a065cb9dbfe.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_b25b234280b48d0f.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_04.SM_StreetBlock_04",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_6b763bbda5e31321.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_05.SM_StreetBlock_05",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_ad8a26dfe033840b.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_91d1606ca22e01d0.HLODInstancedStaticMeshComponent_2",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/2246L7J56SWT3CJ7TDECQUKJJ.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616309390.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/E4NTLHGQRW7WSJD367Y83CQJY.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616304382.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/6KIDQ8DFTHQYWAPBTVM821GBW.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616314397.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          },
+          {
+            "component": "/Game/Maps/BiellaOpenWorldMap/DF8HFWLRNPD550N0XGMPOK5GF.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616319404.StaticMeshComponent0",
+            "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+            "nanite_data": "1",
+            "nanite_proxy": "0"
+          }
+        ],
+        "nanite_proxies": 0,
+        "zero_proxy_rows": 10,
+        "scope": "Loaded mesh data and native proxies; visible appearance requires captured runtime review"
+      },
+      "raw": [
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/result.json",
+          "sha256": "2ffea07bd01b826667f2e1bc19d8df0b79b0751afab447e19110595a1293686f",
+          "bytes": 121
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/frames.csv",
+          "sha256": "2602a3ca4e46e4f4386a8b64925b2a946a115b62ff310d73f3fbfc8769eb027b",
+          "bytes": 132191
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/native-views.csv",
+          "sha256": "cc0ec736e7ea4504f064857ad587f62ea830397cf47663baa1c36720cc2d959e",
+          "bytes": 115874
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-sm5-taa-01/runtime.stdout.log",
+          "sha256": "1ed15c27b8af6fec6287ddead10484f28e18a2dde613cabd5bd13e58ddffce84",
+          "bytes": 366420
+        }
+      ]
+    },
+    {
+      "name": "architecture-environment-sm6-01",
+      "feature_level": "sm6",
+      "profile": "ProductionTSR",
+      "scenario": "environment",
+      "validation": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm6-01/validation.json",
+        "sha256": "269c3c88fc1192d2e4735f0ba31e43be6f6e8531b4050319472dd68bfa0ee085",
+        "bytes": 184254
+      },
+      "frames": 1446,
+      "captures": [
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm6-01/captures/hazard_active.png",
+          "sha256": "c877092044746203db3f9511042d9df52a34b9c590420da9ed8ce067a1b1ec51",
+          "bytes": 1066934
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm6-01/captures/panel_damaged.png",
+          "sha256": "e194746bdec23679a30c995f5a0dd939b70fef08f65e7bf2ed324346fd0ceb85",
+          "bytes": 1014873
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm6-01/captures/panel_destroyed.png",
+          "sha256": "370b520a4d873946980af5bbb0fae7554537f5fda55a5026a9460fb4c6916388",
+          "bytes": 1016316
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm6-01/captures/stream_return.png",
+          "sha256": "8f88961a4068af84a3e40834a701ccc13dd29ea9ec25101cc2769000e1525cf0",
+          "bytes": 1027115
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm6-01/captures/switch_safe.png",
+          "sha256": "705654621909491f8642195643d838293cdeeb72d9547d29018fab1e9c3bcda3",
+          "bytes": 1019771
+        }
+      ],
+      "measurements": {
+        "frames": 1446,
+        "hazard_drops": {
+          "health": 18.01899999999999,
+          "rival_health": 15.004999999999995,
+          "infected_health": 15.005000000000003
+        },
+        "hazard_seconds": 1.4848853309999999,
+        "median_frame_ms": 16.690926,
+        "scope": "Development Linux Vulkan causal evidence; no shipping or frame-rate qualification"
+      },
+      "native_views": {
+        "observed_views": 2065,
+        "joined_scenario_frames": 1446,
+        "joined_views": 1446,
+        "missing_frames": [],
+        "multiple_view_frames": 0,
+        "first_frame": 600.0,
+        "last_frame": 2045.0,
+        "expected": {
+          "aa": 4,
+          "requested_aa": 4,
+          "screen_percentage": 100,
+          "temporal_upsampling": 1,
+          "dynamic_res": 0,
+          "gi": 1,
+          "reflections": 1,
+          "vsm": 1,
+          "nanite": 1,
+          "ray_tracing": 0,
+          "external_upscaler": 0,
+          "width": 1280,
+          "height": 720,
+          "tsr_supported": 1
+        },
+        "scope": "Constructed game-thread views plus requested renderer cvars; no generated frames or hardware compatibility claim"
+      },
+      "shader_platform": {
+        "result": "PASS",
+        "feature_level": "sm6",
+        "expected": {
+          "feature_sm6": 1,
+          "nanite_supported": 1,
+          "nanite_enabled": 1,
+          "vsm_enabled": 1,
+          "lumen_supported": 1
+        },
+        "reconstruction": {
+          "observed_views": 2065,
+          "joined_scenario_frames": 1446,
+          "joined_views": 1446,
+          "missing_frames": [],
+          "multiple_view_frames": 0,
+          "first_frame": 600.0,
+          "last_frame": 2045.0,
+          "expected": {
+            "aa": 4,
+            "requested_aa": 4,
+            "screen_percentage": 100,
+            "temporal_upsampling": 1,
+            "dynamic_res": 0,
+            "gi": 1,
+            "reflections": 1,
+            "vsm": 1,
+            "nanite": 1,
+            "ray_tracing": 0,
+            "external_upscaler": 0,
+            "width": 1280,
+            "height": 720,
+            "tsr_supported": 1
+          },
+          "scope": "Constructed game-thread views plus requested renderer cvars; no generated frames or hardware compatibility claim"
+        },
+        "scope": "Native game-view feature level and renderer eligibility; primitive proxy counts do not establish visible-pixel coverage"
+      },
+      "architecture": null,
+      "raw": [
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm6-01/result.json",
+          "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321",
+          "bytes": 84
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm6-01/frames.csv",
+          "sha256": "2a8c49929cc9cb1689643623baa5712f37b584443b642e791ea6cf38ff68c6bf",
+          "bytes": 164420
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm6-01/native-views.csv",
+          "sha256": "23d4b30c54d476c6f87399b1486470173a3b1531d498b2afb47ca91f99f16510",
+          "bytes": 112684
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm6-01/runtime.stdout.log",
+          "sha256": "72690bce4587779e3b942559129cdaecd1c10413cd99cf279d90915273a7d6f1",
+          "bytes": 423426
+        }
+      ]
+    },
+    {
+      "name": "architecture-environment-sm5-01",
+      "feature_level": "sm5",
+      "profile": "NativeTAA",
+      "scenario": "environment",
+      "validation": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm5-01/validation.json",
+        "sha256": "7cfeb7f30f90eeeccc5e8664fe5c2073e8fa70e148e0d29d47db2f868b17bf36",
+        "bytes": 184332
+      },
+      "frames": 1441,
+      "captures": [
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm5-01/captures/hazard_active.png",
+          "sha256": "1e7c38cb0d5dc994762e0f0cceec0feb5951fe76d4137cfd27b9b16b4a7281d0",
+          "bytes": 997795
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm5-01/captures/panel_damaged.png",
+          "sha256": "d73632cefed6a39df0f1503bcd54d77acea95c93c34f8d9205f647fda060dc34",
+          "bytes": 922537
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm5-01/captures/panel_destroyed.png",
+          "sha256": "7c1fca50a8b79271d117478be512222dd29ff9606c83614cd69f7809feaa4f52",
+          "bytes": 926843
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm5-01/captures/stream_return.png",
+          "sha256": "d18f2c7b0faddc6e45f182ab48d325c6c1ecbec6280096dba32842531c9b7a79",
+          "bytes": 938627
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm5-01/captures/switch_safe.png",
+          "sha256": "2f1f593824d243034a41225f35bcc30d322ce7cc9be250938530708b10c8f406",
+          "bytes": 928938
+        }
+      ],
+      "measurements": {
+        "frames": 1441,
+        "hazard_drops": {
+          "health": 18.004999999999995,
+          "rival_health": 15.004999999999995,
+          "infected_health": 15.005000000000003
+        },
+        "hazard_seconds": 1.483735118,
+        "median_frame_ms": 16.910413,
+        "scope": "Development Linux Vulkan causal evidence; no shipping or frame-rate qualification"
+      },
+      "native_views": {
+        "observed_views": 2065,
+        "joined_scenario_frames": 1441,
+        "joined_views": 1441,
+        "missing_frames": [],
+        "multiple_view_frames": 0,
+        "first_frame": 604.0,
+        "last_frame": 2044.0,
+        "expected": {
+          "aa": 2,
+          "requested_aa": 2,
+          "screen_percentage": 100,
+          "temporal_upsampling": 0,
+          "dynamic_res": 0,
+          "gi": 1,
+          "reflections": 1,
+          "vsm": 1,
+          "nanite": 1,
+          "ray_tracing": 0,
+          "external_upscaler": 0,
+          "width": 1280,
+          "height": 720
+        },
+        "scope": "Constructed game-thread views plus requested renderer cvars; no generated frames or hardware compatibility claim"
+      },
+      "shader_platform": {
+        "result": "PASS",
+        "feature_level": "sm5",
+        "expected": {
+          "feature_sm6": 0,
+          "nanite_supported": 0,
+          "nanite_enabled": 0,
+          "vsm_enabled": 0,
+          "lumen_supported": 1
+        },
+        "reconstruction": {
+          "observed_views": 2065,
+          "joined_scenario_frames": 1441,
+          "joined_views": 1441,
+          "missing_frames": [],
+          "multiple_view_frames": 0,
+          "first_frame": 604.0,
+          "last_frame": 2044.0,
+          "expected": {
+            "aa": 2,
+            "requested_aa": 2,
+            "screen_percentage": 100,
+            "temporal_upsampling": 0,
+            "dynamic_res": 0,
+            "gi": 1,
+            "reflections": 1,
+            "vsm": 1,
+            "nanite": 1,
+            "ray_tracing": 0,
+            "external_upscaler": 0,
+            "width": 1280,
+            "height": 720
+          },
+          "scope": "Constructed game-thread views plus requested renderer cvars; no generated frames or hardware compatibility claim"
+        },
+        "scope": "Native game-view feature level and renderer eligibility; primitive proxy counts do not establish visible-pixel coverage"
+      },
+      "architecture": null,
+      "raw": [
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm5-01/result.json",
+          "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321",
+          "bytes": 84
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm5-01/frames.csv",
+          "sha256": "05a6ade3c567c1ff7925a8e7624c72ad8b34eccdd33773b5a49197c71c86e482",
+          "bytes": 163851
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm5-01/native-views.csv",
+          "sha256": "a15c426b5feb35655d5cc9733827756b18bedf648bbe665b929c3d7c11eb70d3",
+          "bytes": 112684
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/architecture-environment-sm5-01/runtime.stdout.log",
+          "sha256": "638b0dbf4482e8c8feb7d7343845b09dd72db69fa782645f6dfc78856c8611ef",
+          "bytes": 443100
+        }
+      ]
+    }
+  ],
+  "opposite_platform_controls": [
+    {
+      "run": "architecture-sm6-tsr-02",
+      "claimed_feature_level": "sm5",
+      "result": "EXPECTED_REJECTION",
+      "diagnostic": "Runtime capability mismatch: feature_sm6=0"
+    },
+    {
+      "run": "architecture-sm5-taa-01",
+      "claimed_feature_level": "sm6",
+      "result": "EXPECTED_REJECTION",
+      "diagnostic": "Runtime capability mismatch: feature_sm6=1"
+    },
+    {
+      "run": "architecture-environment-sm6-01",
+      "claimed_feature_level": "sm5",
+      "result": "EXPECTED_REJECTION",
+      "diagnostic": "Runtime capability mismatch: feature_sm6=0"
+    },
+    {
+      "run": "architecture-environment-sm5-01",
+      "claimed_feature_level": "sm6",
+      "result": "EXPECTED_REJECTION",
+      "diagnostic": "Runtime capability mismatch: feature_sm6=1"
+    }
+  ],
+  "runtime_input_count": 344,
+  "unchanged_build_input_count": 90,
+  "current_content_assets": 220,
+  "native_module": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/libUnrealEditor-BiellaGames.so",
+    "sha256": "5354cd383cdf65e46c761e839e311d6003fa5a0a42cef82fb007e5055345b3a5",
+    "bytes": 2319856
+  },
+  "authored_meshes": 6,
+  "facade_hlods": 6,
+  "frames": 5352,
+  "captures": 96,
+  "scope": "Native Linux Vulkan Development editor, existing caches, same source/module/content. Representative facade integration and forced SM5 fallback; no cold package or final art acceptance."
+}

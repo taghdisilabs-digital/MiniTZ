@@ -1,0 +1,527 @@
+{
+  "actors": [
+    {
+      "label": "D02_Region_00_Floor",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/6/LH/VFNFOMY7W4AX1ANEITF02Z",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_00_SouthEdge",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/3N/NQ2OMLJG5G2HDAC8VBPMLF",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_00_Stripe_0",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/3/JG/13WQ2LABLKZQ1QUFPA2B84",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_00_Stripe_1",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/6/96/NHWXF5PJ70OMK6ZWJSFYQZ",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_00_Stripe_2",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/5/DY/ZA9CIYS4ERTG2KZR3IBPZJ",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_00_Stripe_3",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/C3/NK7RQMHD8H4HG3MRH2FXP1",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_00_NorthEdge",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/5/JP/UTBHFVP5X00N2GNL8AAGC0",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_00_Block",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/A/0K/HKX32EKD1NWSED5MNRVPQS",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_01_Floor",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/D/GS/POHMRMPJG17YV5NEWA7R6C",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_01_SouthEdge",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/8/IW/GHM2W1RO9TYJBIOS1SLU42",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_01_Stripe_0",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/A/7J/B0B72O5AF6MU5855WA18S4",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_01_Stripe_1",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/0/TF/M84WUTUE6WASIFHHUCDZNE",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_01_Stripe_2",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/CI/HWQT51H5WF3VMBMD2L783H",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_01_Stripe_3",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/A/9I/RNOJE0G4YM8LENOFX9OQQ4",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_01_NorthEdge",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/73/7N4C23H1TUM0R25IY6B2D7",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_01_Block",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/6/OF/1FOAZ4TNBPK5W55ZHRLUJP",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_02_Floor",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/A/8B/ZYMW6EHHEW32TEQDALZBK0",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_02_SouthEdge",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/D/VJ/MA2RX36D9EZLTXIEYYEL32",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_02_Stripe_0",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/B/QY/H2ORX7E5P8RIC8ZAHVUVPZ",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_02_Stripe_1",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/6/AA/002QTQQYWNDZG5VQN4V1FD",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_02_Stripe_2",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/6/20/EYZL24649FTGEL3CA7I06L",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_02_Stripe_3",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/2/JJ/QMT2NPQ6PM0D96MS9MP9CT",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_02_Block",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/8/BU/DIV0H0YOGJO7KISFC0VEQ2",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_03_Floor",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/9/CJ/ZWPFR5C1OY67D284Z5PJFI",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_03_SouthEdge",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/7/OD/7WD9F6PNZ47KVC0P1QI9K7",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_03_Stripe_0",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/D/PZ/26859T6HLZU1PEFOK0J7G5",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_03_Stripe_1",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/C/XV/23H7JEE582Z4NUPMVZXIA7",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_03_Stripe_2",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/A/FL/UNBE0J92WZAJP8TJBJJPC3",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_03_Stripe_3",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/B/VZ/0PL4TSRMPDZB4AZ13NFFHI",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_03_Block",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/E/VR/8M7H7O3XP7DVDBZY9TS9I5",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_04_Floor",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/0/SC/YTXU3KD499ABDYX6S9P88G",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_04_SouthEdge",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/9/IN/73Z5XAAK77POMDNV6IJ1X3",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_04_Stripe_0",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/8/LQ/YX4E187UPCXSNR99CC2QT3",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_04_Stripe_1",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/8/SS/UADNFK4JQ17MCQVIK9IFHQ",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_04_Stripe_2",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/C/WS/GUOTZHEJFA5ALN214QAQ6S",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_04_Stripe_3",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/1/KL/NEAQDZSC54EPAAYYF6PISD",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_04_NorthEdge",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/B/IL/MRJUT3HX8IIH37TFBJ49R4",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_04_Block",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/D/6M/CSR4JAORICXR2LP9CEI3U7",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_05_Floor",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/2/MZ/PLSMVGIF2D890CJ15OYEYG",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_05_SouthEdge",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/2/WE/47JTDDXO6OQE5KD4KLD1H2",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_05_Stripe_0",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/5/4E/Q8RGSFZN0ENJQXSGMDGH4T",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_05_Stripe_1",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/EU/CEW8L2LA9IIVWR9QYUS1ZO",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_05_Stripe_2",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/0/01/BPFRY7ZGPGXAQZACC5YPI6",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_05_Stripe_3",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/B/IB/EIP7OGBUKU9QJ3COM0G7IO",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_05_NorthEdge",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/8/66/G8MYV62TUTT8XPU20E1YSW",
+      "spatial": true
+    },
+    {
+      "label": "D02_Region_05_Block",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/E/10/KMD5DYYD35GWHLFVKL91VM",
+      "spatial": true
+    },
+    {
+      "label": "D02_Interior_Floor",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/Y5/8B9KKCHO66OLOB8ZXTY4ED",
+      "spatial": true
+    },
+    {
+      "label": "D02_Interior_Back",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/6/6R/WTO08A5NAS2A4KKMBTLF8C",
+      "spatial": true
+    },
+    {
+      "label": "D02_Interior_West",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/9/MO/N53GEA3MYFDQ8NY2N51SXZ",
+      "spatial": true
+    },
+    {
+      "label": "D02_Interior_East",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/9/XQ/A81CIRKVMGQW9M11WGFTSG",
+      "spatial": true
+    },
+    {
+      "label": "D02_Interior_DoorWest",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/E/6O/ZHV798ZWDXI4J4SJS2XHT7",
+      "spatial": true
+    },
+    {
+      "label": "D02_Interior_DoorEast",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/1T/O40B8WS8BP35VZSJEO02LP",
+      "spatial": true
+    },
+    {
+      "label": "D02_Interior_Roof",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/7/V2/CQF0QGUO9N4HFEDEW3GNBG",
+      "spatial": true
+    },
+    {
+      "label": "D02_Terrace_Ramp",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/D/QB/EOO9JLBMVV51BVVOGMHLC9",
+      "spatial": true
+    },
+    {
+      "label": "D02_Terrace_Floor",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/D/4K/MBWQZAEKN0CPGHNUHXCZVX",
+      "spatial": true
+    },
+    {
+      "label": "D02_Terrace_BackRail",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/7/HL/NF6R0UBKZK7642L7TS7TXX",
+      "spatial": true
+    },
+    {
+      "label": "D02_Terrace_WestRail",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/0/PE/UGKZR4GMUF3AJR61LNH9TX",
+      "spatial": true
+    },
+    {
+      "label": "D02_Terrace_EastRail",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/D/JR/9J7EAI2OGB8I9M3ESJECC4",
+      "spatial": true
+    },
+    {
+      "label": "D02_Continuity_Infected",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/7/9M/040TSZVYP0NJEMG95KUWB2",
+      "spatial": true
+    },
+    {
+      "label": "D02_PlayerStart",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/2/6C/ZO4Z3SKSSKOYR74MVOIN9D",
+      "spatial": false
+    },
+    {
+      "label": "D02_Continuity_Sun",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/C/4X/OAGDK0V5RO71D75MQR71A5",
+      "spatial": false
+    },
+    {
+      "label": "D02_Continuity_Sky",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/5/G9/15YJDXZ9FKHCBOIFFZ4GWS",
+      "spatial": false
+    },
+    {
+      "label": "D02_Continuity_Atmosphere",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/3/ZD/9EEF3OCZJ0CW6P9M42MYEZ",
+      "spatial": false
+    },
+    {
+      "label": "D02_Interior_Light",
+      "package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/F/19/X6BYEWCT1X4KMSG4E70PKS",
+      "spatial": true
+    }
+  ],
+  "bBlockOnSlowStreaming": true,
+  "built_hlod_geometry": [
+    {
+      "actor": "HLOD_Continuation/BiellaOpenWorldMap_MainPartition_L0_X-1_Y-1_d2D85691C",
+      "instances": 2,
+      "materials": [
+        "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+      ]
+    },
+    {
+      "actor": "HLOD_Continuation/BiellaOpenWorldMap_MainPartition_L0_X3_Y0_d2D85691C",
+      "instances": 1,
+      "materials": [
+        "/Game/OpenWorld/Materials/MI_Street.MI_Street"
+      ]
+    },
+    {
+      "actor": "HLOD_Continuation/BiellaOpenWorldMap_MainPartition_L0_X3_Y-1_d2D85691C",
+      "instances": 6,
+      "materials": [
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+        "/Game/OpenWorld/Materials/MI_Route.MI_Route",
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+        "/Game/OpenWorld/Materials/MIC_FacadeZinc.MIC_FacadeZinc",
+        "/Game/OpenWorld/Materials/MIC_FacadeSealedGlazing.MIC_FacadeSealedGlazing",
+        "/Game/OpenWorld/Materials/MIC_FacadePaintedFrame.MIC_FacadePaintedFrame",
+        "/Game/OpenWorld/Materials/MIC_FacadeTerracotta.MIC_FacadeTerracotta"
+      ]
+    },
+    {
+      "actor": "HLOD_Continuation/BiellaOpenWorldMap_MainPartition_L0_X1_Y0_d2D85691C",
+      "instances": 4,
+      "materials": [
+        "/Game/OpenWorld/Materials/MI_Street.MI_Street",
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+      ]
+    },
+    {
+      "actor": "HLOD_Continuation/BiellaOpenWorldMap_MainPartition_L0_X4_Y-1_d2D85691C",
+      "instances": 6,
+      "materials": [
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+        "/Game/OpenWorld/Materials/MIC_FacadeZinc.MIC_FacadeZinc",
+        "/Game/OpenWorld/Materials/MIC_FacadeSealedGlazing.MIC_FacadeSealedGlazing",
+        "/Game/OpenWorld/Materials/MIC_FacadePaintedFrame.MIC_FacadePaintedFrame",
+        "/Game/OpenWorld/Materials/MIC_FacadeTerracotta.MIC_FacadeTerracotta",
+        "/Game/OpenWorld/Materials/MI_Route.MI_Route"
+      ]
+    },
+    {
+      "actor": "HLOD_Continuation/BiellaOpenWorldMap_MainPartition_L0_X0_Y-1_d2D85691C",
+      "instances": 6,
+      "materials": [
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+        "/Game/OpenWorld/Materials/MI_Route.MI_Route",
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+        "/Game/OpenWorld/Materials/MIC_FacadeZinc.MIC_FacadeZinc",
+        "/Game/OpenWorld/Materials/MIC_FacadeSealedGlazing.MIC_FacadeSealedGlazing",
+        "/Game/OpenWorld/Materials/MIC_FacadePaintedFrame.MIC_FacadePaintedFrame",
+        "/Game/OpenWorld/Materials/MIC_FacadeTerracotta.MIC_FacadeTerracotta"
+      ]
+    },
+    {
+      "actor": "HLOD_Continuation/BiellaOpenWorldMap_MainPartition_L0_X0_Y0_d2D85691C",
+      "instances": 2,
+      "materials": [
+        "/Game/OpenWorld/Materials/MI_Street.MI_Street",
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+      ]
+    },
+    {
+      "actor": "HLOD_Continuation/BiellaOpenWorldMap_MainPartition_L0_X5_Y-1_d2D85691C",
+      "instances": 4,
+      "materials": [
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+        "/Game/OpenWorld/Materials/MI_Route.MI_Route",
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+        "/Game/OpenWorld/Materials/MIC_FacadeZinc.MIC_FacadeZinc",
+        "/Game/OpenWorld/Materials/MIC_FacadeSealedGlazing.MIC_FacadeSealedGlazing",
+        "/Game/OpenWorld/Materials/MIC_FacadePaintedFrame.MIC_FacadePaintedFrame",
+        "/Game/OpenWorld/Materials/MIC_FacadeTerracotta.MIC_FacadeTerracotta"
+      ]
+    },
+    {
+      "actor": "HLOD_Continuation/BiellaOpenWorldMap_MainPartition_L0_X5_Y0_d2D85691C",
+      "instances": 2,
+      "materials": [
+        "/Game/OpenWorld/Materials/MI_Street.MI_Street",
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+      ]
+    },
+    {
+      "actor": "HLOD_Continuation/BiellaOpenWorldMap_MainPartition_L0_X1_Y-1_d2D85691C",
+      "instances": 6,
+      "materials": [
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+        "/Game/OpenWorld/Materials/MI_Route.MI_Route",
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+        "/Game/OpenWorld/Materials/MIC_FacadeZinc.MIC_FacadeZinc",
+        "/Game/OpenWorld/Materials/MIC_FacadeSealedGlazing.MIC_FacadeSealedGlazing",
+        "/Game/OpenWorld/Materials/MIC_FacadePaintedFrame.MIC_FacadePaintedFrame",
+        "/Game/OpenWorld/Materials/MIC_FacadeTerracotta.MIC_FacadeTerracotta"
+      ]
+    },
+    {
+      "actor": "HLOD_Continuation/BiellaOpenWorldMap_MainPartition_L0_X2_Y0_d2D85691C",
+      "instances": 11,
+      "materials": [
+        "/Game/OpenWorld/Materials/MI_Street.MI_Street",
+        "/Game/OpenWorld/Materials/MI_Interior.MI_Interior",
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+      ]
+    },
+    {
+      "actor": "HLOD_Continuation/BiellaOpenWorldMap_MainPartition_L0_X2_Y-1_d2D85691C",
+      "instances": 6,
+      "materials": [
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+        "/Game/OpenWorld/Materials/MI_Route.MI_Route",
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+        "/Game/OpenWorld/Materials/MIC_FacadeZinc.MIC_FacadeZinc",
+        "/Game/OpenWorld/Materials/MIC_FacadeSealedGlazing.MIC_FacadeSealedGlazing",
+        "/Game/OpenWorld/Materials/MIC_FacadePaintedFrame.MIC_FacadePaintedFrame",
+        "/Game/OpenWorld/Materials/MIC_FacadeTerracotta.MIC_FacadeTerracotta"
+      ]
+    },
+    {
+      "actor": "HLOD_Continuation/BiellaOpenWorldMap_MainPartition_L0_X4_Y0_d2D85691C",
+      "instances": 2,
+      "materials": [
+        "/Game/OpenWorld/Materials/MI_Street.MI_Street",
+        "/Game/OpenWorld/Materials/MI_Wall.MI_Wall"
+      ]
+    }
+  ],
+  "cell_size_cm": 4000,
+  "data_layer": "/Game/OpenWorld/DataLayers/DL_Continuation.DL_Continuation",
+  "demo_material_sha256_preserved": "4fdf1b6ad04d0bb32f515a5547df6b7f455e599bec6ee8d012307b7d2f4c8b59",
+  "hlod_layer": "/Game/OpenWorld/HLOD/HLOD_Continuation.HLOD_Continuation",
+  "hlod_loading_range_cm": 60000,
+  "initial_runtime_state": "Activated",
+  "instancing_material": "/Game/OpenWorld/Materials/M_ProductionSurface.M_ProductionSurface",
+  "instancing_usage_verified": true,
+  "interior_waypoint": [
+    8000,
+    2300,
+    88
+  ],
+  "lighting": {
+    "atmosphere_sun_light": true,
+    "interior_light": {
+      "attenuation_radius_cm": 2600.0,
+      "casts_shadows": true,
+      "inverse_square_falloff": true,
+      "location_cm": [
+        8000,
+        2250,
+        520
+      ],
+      "lumens": 12000.0,
+      "source_radius_cm": 20.0,
+      "spatial": true
+    },
+    "native_atmosphere": "D02_Continuity_Atmosphere",
+    "sky_intensity": 1.0,
+    "sky_real_time_capture": true,
+    "sun_lux": 5.0
+  },
+  "loading_range_cm": 5000,
+  "map": "/Game/Maps/BiellaOpenWorldMap",
+  "ramp_surface_endpoints": [
+    [
+      10000,
+      1000,
+      0
+    ],
+    [
+      10000,
+      3000,
+      400
+    ]
+  ],
+  "read_only": true,
+  "result": "PASS",
+  "runtime_hash": "/Script/Engine.WorldPartitionRuntimeHashSet",
+  "scope": "Editable continuity blockout; no city identity, shipping scale or final visual-quality acceptance",
+  "street_centers_x_cm": [
+    0,
+    4000,
+    8000,
+    12000,
+    16000,
+    20000
+  ],
+  "street_surface_z_cm": 0,
+  "task": "D02-01",
+  "terrace_waypoint": [
+    10000,
+    3400,
+    488
+  ],
+  "world_partition": "/Script/Engine.WorldPartition"
+}

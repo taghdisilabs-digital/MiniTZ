@@ -1,0 +1,1474 @@
+{
+  "schema": "biella.task_file_manifest/v1",
+  "task_id": "D03-01",
+  "task_status": "CONTINUE",
+  "files": [
+    {
+      "path": "Build/Presentation/D03-01-architecture-increment.json",
+      "sha256": "a9617a6c94a0034b5409c79b97b903db0ee3541013342d18a2042e0dece35539",
+      "bytes": 12106
+    },
+    {
+      "path": "Build/Presentation/D03-01-architecture-progress.md",
+      "sha256": "79bfbfc04c7cc3a4ef4f4fc851f800f9e6d75ec94afd8d2a0111f71ae59605f6",
+      "bytes": 6505
+    },
+    {
+      "path": "Build/Presentation/architecture-author-01/author.log",
+      "sha256": "8e1e0f03409d430f4d3a4ce93a896260901d51faa25b6244ff7aa8892fa6baf6",
+      "bytes": 216868
+    },
+    {
+      "path": "Build/Presentation/architecture-author-01/validation.json",
+      "sha256": "6c508ef27653f4ab24355b9803e4bc4f3cfb30fa5952ae645d4a6ab56f96e328",
+      "bytes": 113188
+    },
+    {
+      "path": "Build/Presentation/architecture-author-02/author.log",
+      "sha256": "7d3575b3d78da608b530718216cf0f43572c5d41ecc2fdcc019da7724a9776a9",
+      "bytes": 224616
+    },
+    {
+      "path": "Build/Presentation/architecture-author-02/validation.json",
+      "sha256": "349e6d7dffb141a5972258d8363feded40dd64ff06bace055d8fbb6241bf6e43",
+      "bytes": 114654
+    },
+    {
+      "path": "Build/Presentation/architecture-author-03/author.log",
+      "sha256": "37a8633ac2cc1e4bfc08950b1f8f7570416730ad37414bca6c62f2858b23452e",
+      "bytes": 257636
+    },
+    {
+      "path": "Build/Presentation/architecture-author-03/validation.json",
+      "sha256": "594e7cd284bb29ab4759d96e47e83f74d038221028a463f15658b1d747310e7d",
+      "bytes": 117360
+    },
+    {
+      "path": "Build/Presentation/architecture-author-04/author.json",
+      "sha256": "866eb0a3ccd711b81cd9981e260d7b108717cc1691fe293418b010c241c5d85b",
+      "bytes": 11305
+    },
+    {
+      "path": "Build/Presentation/architecture-author-04/author.log",
+      "sha256": "72206f196069253e00959cc7aa2d7d3fe7e9196380efedf41da3d05e47d9f74d",
+      "bytes": 234829
+    },
+    {
+      "path": "Build/Presentation/architecture-author-04/readback.log",
+      "sha256": "f280dea8ab3b1e1de59952859810e90ddebf21822bc2cc206468c652f49d724d",
+      "bytes": 218915
+    },
+    {
+      "path": "Build/Presentation/architecture-author-04/validation.json",
+      "sha256": "f9c46733ef80b02ee3e0568791901ebce2dde0fd081b1004c0f3f172bac7e14e",
+      "bytes": 119781
+    },
+    {
+      "path": "Build/Presentation/architecture-author-05/author.json",
+      "sha256": "c9e5246ef6b9c49f578fc79d4cd49b9767c0094113dc93b10d6e463cf56d650e",
+      "bytes": 11305
+    },
+    {
+      "path": "Build/Presentation/architecture-author-05/author.log",
+      "sha256": "847288ddb21c2d6cbcaa7ca814f06810329c059172f70c8271ec5b2bc37b7b90",
+      "bytes": 239578
+    },
+    {
+      "path": "Build/Presentation/architecture-author-05/readback.json",
+      "sha256": "af36f6cd6d310bc1d12e2eef539c9183b4d0686a59b73471411b1c9ff7fadcdc",
+      "bytes": 11517
+    },
+    {
+      "path": "Build/Presentation/architecture-author-05/readback.log",
+      "sha256": "a47cc8756b24f52ddddcbabe4ab564f09400927cfffedc6877ba76cd59b16fdd",
+      "bytes": 217440
+    },
+    {
+      "path": "Build/Presentation/architecture-author-05/validation.json",
+      "sha256": "20c84a441e6279e2a589fb8d7afc1c70b743a35e96ba675213b4c66c93c9a531",
+      "bytes": 119776
+    },
+    {
+      "path": "Build/Presentation/architecture-author-06/author.json",
+      "sha256": "9181e348f2aa44841ed5a13395b4ddde03768cc848d867d93310d75f3cfffec7",
+      "bytes": 11491
+    },
+    {
+      "path": "Build/Presentation/architecture-author-06/author.log",
+      "sha256": "3224bc07fe7f571533ce63d4f976c1c643778485a26f78d9455511d034e278d3",
+      "bytes": 239578
+    },
+    {
+      "path": "Build/Presentation/architecture-author-06/readback.json",
+      "sha256": "4c66056a32c2ee8ff9ce8659901c3aaaa4e035c1edb91b8ebf2b1f318e55c05b",
+      "bytes": 11493
+    },
+    {
+      "path": "Build/Presentation/architecture-author-06/readback.log",
+      "sha256": "bb93f5c0e25f42f7a28edf95a38ae46f4e110d0f0071513e56d5ae5bfecc8e5d",
+      "bytes": 217441
+    },
+    {
+      "path": "Build/Presentation/architecture-author-06/validation.json",
+      "sha256": "4c839e1a8d3d2507960a4fb538ce24d173110bb754f49979b327cb17f6821a27",
+      "bytes": 119741
+    },
+    {
+      "path": "Build/Presentation/architecture-author-07/author.json",
+      "sha256": "9181e348f2aa44841ed5a13395b4ddde03768cc848d867d93310d75f3cfffec7",
+      "bytes": 11491
+    },
+    {
+      "path": "Build/Presentation/architecture-author-07/author.log",
+      "sha256": "33d0042496a14531002e3b4da5468d8bdaf9a161d0c97153fc13ee3de4b5a0e5",
+      "bytes": 240523
+    },
+    {
+      "path": "Build/Presentation/architecture-author-07/readback.json",
+      "sha256": "4c66056a32c2ee8ff9ce8659901c3aaaa4e035c1edb91b8ebf2b1f318e55c05b",
+      "bytes": 11493
+    },
+    {
+      "path": "Build/Presentation/architecture-author-07/readback.log",
+      "sha256": "59f306ccad3fa41dee6dc01454d57eb4c82fdfa8046f16695b34ea8932208b61",
+      "bytes": 217441
+    },
+    {
+      "path": "Build/Presentation/architecture-author-07/validation.json",
+      "sha256": "75602c9c5236b881c001dfe5821a3ba64bcac04934dac1312ad092056dfaa52c",
+      "bytes": 119741
+    },
+    {
+      "path": "Build/Presentation/architecture-baseline-negative-01/validation.json",
+      "sha256": "911654c1c212ba74dff7113841f40c15d0ba15af8769612c44fd3d24e42709e2",
+      "bytes": 217
+    },
+    {
+      "path": "Build/Presentation/architecture-blender-01/build.log",
+      "sha256": "35ec4ba335ceb610859aaecf3c413884333d0c19ae3a767a5fd7718352ce9df6",
+      "bytes": 608
+    },
+    {
+      "path": "Build/Presentation/architecture-blender-02/build.log",
+      "sha256": "d8dad05a41bef236cbcf70c5a2f81a63c890f908696b29e73472da087e78a210",
+      "bytes": 1310
+    },
+    {
+      "path": "Build/Presentation/architecture-blender-readback-01/readback.log",
+      "sha256": "5cad13141329e57fb39c0149290fb0c11807a9f12b51b5bc9ff8f324d68464a3",
+      "bytes": 248
+    },
+    {
+      "path": "Build/Presentation/architecture-blender-readback-01/validation.json",
+      "sha256": "98e1b152974b772100e72324623c8f2429289ca89a2b3cc345c707a91f110106",
+      "bytes": 2295
+    },
+    {
+      "path": "Build/Presentation/architecture-build-lineage-01.json",
+      "sha256": "04c7dbd84ee6004eb1587e63cee38cb2c0838df796e6d96aa4bd6a8011a6ae93",
+      "bytes": 21840
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm5-01/captures/hazard_active.png",
+      "sha256": "1e7c38cb0d5dc994762e0f0cceec0feb5951fe76d4137cfd27b9b16b4a7281d0",
+      "bytes": 997795
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm5-01/captures/panel_damaged.png",
+      "sha256": "d73632cefed6a39df0f1503bcd54d77acea95c93c34f8d9205f647fda060dc34",
+      "bytes": 922537
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm5-01/captures/panel_destroyed.png",
+      "sha256": "7c1fca50a8b79271d117478be512222dd29ff9606c83614cd69f7809feaa4f52",
+      "bytes": 926843
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm5-01/captures/stream_return.png",
+      "sha256": "d18f2c7b0faddc6e45f182ab48d325c6c1ecbec6280096dba32842531c9b7a79",
+      "bytes": 938627
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm5-01/captures/switch_safe.png",
+      "sha256": "2f1f593824d243034a41225f35bcc30d322ce7cc9be250938530708b10c8f406",
+      "bytes": 928938
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm5-01/command.json",
+      "sha256": "769814bfe70812495dc6a6dc7d8fd2e3903c47b35ec1c10681b2a6f495c01861",
+      "bytes": 1073
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm5-01/events.log",
+      "sha256": "56366a90b6195ddae75f59526919bdfca63849d7438befa858d9e6de91e24c92",
+      "bytes": 1703
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm5-01/frames.csv",
+      "sha256": "05a6ade3c567c1ff7925a8e7624c72ad8b34eccdd33773b5a49197c71c86e482",
+      "bytes": 163851
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm5-01/native-views.csv",
+      "sha256": "a15c426b5feb35655d5cc9733827756b18bedf648bbe665b929c3d7c11eb70d3",
+      "bytes": 112684
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm5-01/process-memory.jsonl",
+      "sha256": "b57273860abc632a2c3a9596539e692f89eeeedda0ee8c735d60e0b7613b6ca4",
+      "bytes": 10896
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm5-01/result.json",
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321",
+      "bytes": 84
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm5-01/runtime.engine.log",
+      "sha256": "ee0be91bb7daf4a06c852a07e5a3551d646785dd761ee3781bb951ddfb5a6357",
+      "bytes": 443935
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm5-01/runtime.stdout.log",
+      "sha256": "638b0dbf4482e8c8feb7d7343845b09dd72db69fa782645f6dfc78856c8611ef",
+      "bytes": 443100
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm5-01/validation.json",
+      "sha256": "7cfeb7f30f90eeeccc5e8664fe5c2073e8fa70e148e0d29d47db2f868b17bf36",
+      "bytes": 184332
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm6-01/captures/hazard_active.png",
+      "sha256": "c877092044746203db3f9511042d9df52a34b9c590420da9ed8ce067a1b1ec51",
+      "bytes": 1066934
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm6-01/captures/panel_damaged.png",
+      "sha256": "e194746bdec23679a30c995f5a0dd939b70fef08f65e7bf2ed324346fd0ceb85",
+      "bytes": 1014873
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm6-01/captures/panel_destroyed.png",
+      "sha256": "370b520a4d873946980af5bbb0fae7554537f5fda55a5026a9460fb4c6916388",
+      "bytes": 1016316
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm6-01/captures/stream_return.png",
+      "sha256": "8f88961a4068af84a3e40834a701ccc13dd29ea9ec25101cc2769000e1525cf0",
+      "bytes": 1027115
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm6-01/captures/switch_safe.png",
+      "sha256": "705654621909491f8642195643d838293cdeeb72d9547d29018fab1e9c3bcda3",
+      "bytes": 1019771
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm6-01/command.json",
+      "sha256": "6d918a54ceff09e8b60314232e9e7800470ccfaafc2082002d32086240a9635a",
+      "bytes": 1067
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm6-01/events.log",
+      "sha256": "ac21f620bd32790e040e11439638a3a31297985d609d1d957795816f19cea6a5",
+      "bytes": 1703
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm6-01/frames.csv",
+      "sha256": "2a8c49929cc9cb1689643623baa5712f37b584443b642e791ea6cf38ff68c6bf",
+      "bytes": 164420
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm6-01/native-views.csv",
+      "sha256": "23d4b30c54d476c6f87399b1486470173a3b1531d498b2afb47ca91f99f16510",
+      "bytes": 112684
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm6-01/process-memory.jsonl",
+      "sha256": "7e34f7294a77fdc128122e4c8e6ca8fd0a877879ae6e1543adbfe2f6977108e7",
+      "bytes": 10987
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm6-01/result.json",
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321",
+      "bytes": 84
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm6-01/runtime.engine.log",
+      "sha256": "f1b46cea4d1444cc7031288ad0c094b057aafd534b3aae8d89c384574543e013",
+      "bytes": 424129
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm6-01/runtime.stdout.log",
+      "sha256": "72690bce4587779e3b942559129cdaecd1c10413cd99cf279d90915273a7d6f1",
+      "bytes": 423426
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm6-01/validation.json",
+      "sha256": "269c3c88fc1192d2e4735f0ba31e43be6f6e8531b4050319472dd68bfa0ee085",
+      "bytes": 184254
+    },
+    {
+      "path": "Build/Presentation/architecture-final-readback-01.json",
+      "sha256": "ebf35e0dbd4b3e1a7db96acc3cee10e267f0b494bbcb3bd73fec1f9803a3495d",
+      "bytes": 61862
+    },
+    {
+      "path": "Build/Presentation/architecture-hlod-01/hlod.engine.log",
+      "sha256": "e56e380aaaa6ae3b8f50f1961839bcb84bbd6fa73e37c2804482e425937b6c48",
+      "bytes": 237635
+    },
+    {
+      "path": "Build/Presentation/architecture-hlod-01/hlod.log",
+      "sha256": "061f12ead51964e7f8fd165ec32e9c86eaf0db6bd72a52e1848e98c570a21c13",
+      "bytes": 238347
+    },
+    {
+      "path": "Build/Presentation/architecture-hlod-01/readback.log",
+      "sha256": "3fc506162c90a32be3f2c266434e121ffad674832848db6017d7faf7ff6c74f0",
+      "bytes": 231996
+    },
+    {
+      "path": "Build/Presentation/architecture-hlod-01/validation.json",
+      "sha256": "872fa9d68814c9ebe86f99fb454897501f51f51d37d079c0755b8062a5e729dd",
+      "bytes": 118024
+    },
+    {
+      "path": "Build/Presentation/architecture-hlod-01/world.json",
+      "sha256": "ca26fbd424d264583b89e51ec9fdc15bbc887fa2460e715f3fc0facda4f0da52",
+      "bytes": 18310
+    },
+    {
+      "path": "Build/Presentation/architecture-hlod-02/hlod.engine.log",
+      "sha256": "e7a6231c0eb25c52adcaa2a4dac8ee2a248aa7d7541a624ca90aa9ad5fea4b55",
+      "bytes": 234009
+    },
+    {
+      "path": "Build/Presentation/architecture-hlod-02/hlod.log",
+      "sha256": "a1b55b8022c704ed6cc11a67dd0fa60cf458074244b08f835b40592b53b91c9d",
+      "bytes": 234752
+    },
+    {
+      "path": "Build/Presentation/architecture-hlod-02/readback.log",
+      "sha256": "43cc3828c89c9258d8ef879ae5216cdf91875e59f8b35939947393036b7793d9",
+      "bytes": 232205
+    },
+    {
+      "path": "Build/Presentation/architecture-hlod-02/surfaces.json",
+      "sha256": "00b15a3ccb8093aa68516713698823e6df681dc9e1485b9b24e655e9795e1e9d",
+      "bytes": 1895
+    },
+    {
+      "path": "Build/Presentation/architecture-hlod-02/surfaces.log",
+      "sha256": "9efdcf91741b446e49a8fee4582b0f8283a1257762667bdff8314c4b39ebf918",
+      "bytes": 216073
+    },
+    {
+      "path": "Build/Presentation/architecture-hlod-02/validation.json",
+      "sha256": "0924086363fc506dd5ffe39f251b14585416f2e6d3b55503d150dda6cf16701f",
+      "bytes": 119428
+    },
+    {
+      "path": "Build/Presentation/architecture-hlod-02/world.json",
+      "sha256": "bf6e50b5b57f4754cc7c5d7ccc39104c23ee1f04b63edbd73977eedad58541c5",
+      "bytes": 18310
+    },
+    {
+      "path": "Build/Presentation/architecture-negative-readback-01.json",
+      "sha256": "95a363bbdea10e69806100936a32330fd8daa5baff9f58b0e79911b828e17831",
+      "bytes": 1804
+    },
+    {
+      "path": "Build/Presentation/architecture-precommit-scan-01.json",
+      "sha256": "7873061e056ed815cc24e9a39f3af522802ced03e121c4d4909cd6c5ca2e0073",
+      "bytes": 913
+    },
+    {
+      "path": "Build/Presentation/architecture-preservation-01.json",
+      "sha256": "87b4fd2593c0de72291051d48577e479feb23dd13736425807611acbfd19ae0a",
+      "bytes": 3085
+    },
+    {
+      "path": "Build/Presentation/architecture-series-01.json",
+      "sha256": "5158de6929b9f8bc522681576e84397031ddeb4754ad3879cd1ad54c298ee542",
+      "bytes": 57584
+    },
+    {
+      "path": "Build/Presentation/architecture-series-precommit-01.json",
+      "sha256": "304fdeeace2cbfde411476475993d0f93eb9f23b078b6b1081a894e978a2990f",
+      "bytes": 57584
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/architecture-readback-01.json",
+      "sha256": "3d652d74e6736340ab782d1250f0a936b884a610f4c439eeb1ffc5a42a8b9563",
+      "bytes": 3529
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures.csv",
+      "sha256": "9236218c753d3069cb67ca249dc344ebe6105d0548a1d285236490d3d30d962a",
+      "bytes": 1455
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_000.png",
+      "sha256": "4f9fc6916226db28b123a7ba645b49d412f7f429bb884b82114dfb7505e409c3",
+      "bytes": 898991
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_001.png",
+      "sha256": "7f2f2730e03f5927684dd7f5a8bca1cab48339a63b764351b593f1af2f53d205",
+      "bytes": 897564
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_002.png",
+      "sha256": "f87f0d36a16133c5e656d444cf0d643923f9188b675647ffeb02b62f4a08407c",
+      "bytes": 897854
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_003.png",
+      "sha256": "8bfbf7cd3e4574ded4786126740a9d9899c5056ecd97d3fa795a88ce771c68d4",
+      "bytes": 892287
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_004.png",
+      "sha256": "799ad52ed5725ad028e550e981d7d5e7233ca9afa110cbf203dcefc4de456e8b",
+      "bytes": 896372
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_005.png",
+      "sha256": "7d220420a31267a95319516e69c7b8a521790d7815c491acba5472631e9e2ead",
+      "bytes": 897030
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_006.png",
+      "sha256": "3c3461f3d807b396a7dd501f1228d7333c5d95bcc84166dccb65819f2791e04c",
+      "bytes": 900764
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_007.png",
+      "sha256": "67376eb9189256ca56fd7381a3abc394126422ecd2bc7ca8b1257aca04ff4bd0",
+      "bytes": 895339
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_008.png",
+      "sha256": "401b540d877371bdaeecd81af4ccb467888dfbf3a664c88a9cc0e219fa8ae949",
+      "bytes": 894511
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_009.png",
+      "sha256": "135728375e4f93b30503d7dd1ce39d06a788718596188f40a1be5e424796bc52",
+      "bytes": 892489
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_010.png",
+      "sha256": "b8c8276c047b78fb4467500d7696544bde886cf25f9121fd3964bd41a1de3cbf",
+      "bytes": 894472
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_011.png",
+      "sha256": "e7e20dc0dccedc64dba844fa9c7fe9249ec146a3fc449eac291be5ea9d50eb6c",
+      "bytes": 889897
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_012.png",
+      "sha256": "fd1f6aa72df5df9a89f2caee17b959eb0e80eb1e47d07bf76badff52cd04d323",
+      "bytes": 894199
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_013.png",
+      "sha256": "bb615adbf39adf5ec01230b9448af296e3693fea869f19b90a09161197fc41ab",
+      "bytes": 894752
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_014.png",
+      "sha256": "d199bd3bdc72718a6e39cae457efc8a12d34b40a40d206f5655b65857527db05",
+      "bytes": 901546
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_015.png",
+      "sha256": "8fa941b739b1e722905e92e26140d24d57a593bef5f6f14396a14ba84e92e370",
+      "bytes": 898366
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_016.png",
+      "sha256": "831b99664f333e25225baf0a42457d6276dfb5d7e4bf73f851ffc6fa649275fe",
+      "bytes": 900632
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_017.png",
+      "sha256": "5b3aa13a90f5f10e7b1ff960aac5c2e74fbb0d1f241155f48b326a281bd0b19d",
+      "bytes": 898790
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_018.png",
+      "sha256": "dec4de1a502d268e0240705651a77be092625e5dc41a76e6354c54bf89820900",
+      "bytes": 901371
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_019.png",
+      "sha256": "3feb9f0b88996787df02b20fc804e7254450e5dc98be2fa12b6de93d7bf002ad",
+      "bytes": 902010
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_020.png",
+      "sha256": "6a3c80c23e54656b40768c5eeedc7fd5b66b125525f03aae4faf427fd6f04d67",
+      "bytes": 901212
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_021.png",
+      "sha256": "f2a303e6d37b7ca4573b5a113041f7873f8e0af420e0b2a909fcd655f50920d5",
+      "bytes": 904135
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_022.png",
+      "sha256": "f3c5124b6881ae5fe43302b82f395396563b68f0ffe170c7fb2b4702e39e5222",
+      "bytes": 910396
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_023.png",
+      "sha256": "21bcbc6f46f77b080f5350dbbc027d591fa7d97748e769a006ed1ca71e04d058",
+      "bytes": 908280
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_024.png",
+      "sha256": "8a3919aeb085d034963f91c87725baa1a09df911c780025bb02d8635793d94c3",
+      "bytes": 906629
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_025.png",
+      "sha256": "5b9655a578a05b3aafdfc0fa803639ac565669bb8a8d208f2c2cc73c6243d677",
+      "bytes": 903660
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_026.png",
+      "sha256": "a1fcdea4fc36a706c0940d92a35bd930844bc82d31d2c651af2acf115481d5b9",
+      "bytes": 903955
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_027.png",
+      "sha256": "e1015608c60ddc674493ed7ada4f72c7d2a518408e6153047cfa9aba4841c2a5",
+      "bytes": 901161
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_028.png",
+      "sha256": "f3a1a76dcbf8c1da098b54892d90913fe4b37af14a961a278988654437d3d8d0",
+      "bytes": 903823
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_029.png",
+      "sha256": "6b7422a07dadda8cea1db0fdeaa682649638a8de97b768664e36d1b884c83c93",
+      "bytes": 907343
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_030.png",
+      "sha256": "4cbee0bdec76b9a528f1e74b917dd871ac6648eb2176b50c75300602635015b9",
+      "bytes": 907386
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_031.png",
+      "sha256": "d76e1c0edf04ff3ee3bb73355f14750176e32f6f0a4278bd874dfe26b859747b",
+      "bytes": 903620
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/static_000.png",
+      "sha256": "3f738f8c79dbbb2bb34e5e639702de9457924aab991595e66fb7732002c2b88c",
+      "bytes": 896312
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/static_001.png",
+      "sha256": "f0d9225b21188510c8b9910cc10d9d88df5d7d4e29b18294931e5fcb8c39e587",
+      "bytes": 890736
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/static_002.png",
+      "sha256": "9e12da34cc5b024fcf5c915b0678d40e34344bb260d0b3d692a5075ee429dba5",
+      "bytes": 894621
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/static_003.png",
+      "sha256": "b38047d555098ecbdaa7dad4b14dcb6b21c3b6305bb257b07ebe3b0cd5ffe91d",
+      "bytes": 893976
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/static_004.png",
+      "sha256": "d11028cf18a8fc39cd03d0760bc437a9fada5138c481ef550d18eff798f5ada3",
+      "bytes": 896485
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/static_005.png",
+      "sha256": "def33b75909690c77d3b98b8ace4a07e51d6cca7c26f6048918401c459a0bc14",
+      "bytes": 890226
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/static_006.png",
+      "sha256": "0375703d6c9a9f7985275f0932b772ac6f949ba4068243bc62edaed3df167298",
+      "bytes": 893709
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/static_007.png",
+      "sha256": "1147f616625e193d364d2b5e4a26a603cb160d7437b6f7e0e3928a58aa6f09d7",
+      "bytes": 894202
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/static_008.png",
+      "sha256": "7948ef3309eebd74445c0d09ce1e9640af8d70e3ca17a1978f249d0fb086f914",
+      "bytes": 904276
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/static_009.png",
+      "sha256": "6d435d4a83863f74591a54851b884c09ce90d069b7da406ca11712bb55c8667e",
+      "bytes": 896376
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/walk_end.png",
+      "sha256": "a97c0631c5dd2f75992b82e72ec7dcedae257cecdffef6f0ed0f571ba8c86ade",
+      "bytes": 913532
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/command.json",
+      "sha256": "11dcf706982d1fb07bf173e412bf8186fae1705ea901246ef033a32ad5807566",
+      "bytes": 1046
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/frames.csv",
+      "sha256": "2602a3ca4e46e4f4386a8b64925b2a946a115b62ff310d73f3fbfc8769eb027b",
+      "bytes": 132191
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/native-views.csv",
+      "sha256": "cc0ec736e7ea4504f064857ad587f62ea830397cf47663baa1c36720cc2d959e",
+      "bytes": 115874
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/process-memory.jsonl",
+      "sha256": "0ffaf3a82a8929f944175b0ec82316e17b20e6fed432204648048027600b728a",
+      "bytes": 10109
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/render-primitives.csv",
+      "sha256": "4411f3c8e8b07f3ee5f47b23ae658e172064142a751c279bb82fa040d72e10ff",
+      "bytes": 28719
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/result.json",
+      "sha256": "2ffea07bd01b826667f2e1bc19d8df0b79b0751afab447e19110595a1293686f",
+      "bytes": 121
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/runtime.engine.log",
+      "sha256": "b102d25323e6a22cc89b63bffe0dc6dc844fc144e8d58cfbe903addc84401638",
+      "bytes": 366742
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/runtime.stdout.log",
+      "sha256": "1ed15c27b8af6fec6287ddead10484f28e18a2dde613cabd5bd13e58ddffce84",
+      "bytes": 366420
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/validation.json",
+      "sha256": "5c0c6a447435fad12234f88e1d9e4e922457ab6ce2b5726229a74d33d309d59b",
+      "bytes": 192367
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures.csv",
+      "sha256": "0660a15b5ec07cd154a394115e64e9b76a6eeaf45e5818d4a6809a274bbfde42",
+      "bytes": 1457
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_000.png",
+      "sha256": "462396990b5c4c0f42fc69785860796d404dc2e330b1d2690400215ae167aecb",
+      "bytes": 997249
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_001.png",
+      "sha256": "35e88ab7f0fcd97ca1b142ad092d964f1907c6717335db7ecb84d10db34d3712",
+      "bytes": 1004169
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_002.png",
+      "sha256": "a1074861a8adff7d2cb1bb694ba0ad37778e9a9c741e0604c3046a650700a9a7",
+      "bytes": 1011076
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_003.png",
+      "sha256": "17daf47ea0481eae706277071418b9b5045f0cd106b46fef91a278e08c67e7b7",
+      "bytes": 1015014
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_004.png",
+      "sha256": "bd4daf17c5a15638417dfdd2e579f43cda9b6b5220c6d7eec234b92ebaa9eb61",
+      "bytes": 1014138
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_005.png",
+      "sha256": "8d9e2262407b541f6ea072d5fff4cabd2799131440dea239204ef60995116027",
+      "bytes": 1018516
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_006.png",
+      "sha256": "1b46646e0adadf2e119daef874b764f0b8d71740c4de8d6911f55cc6bebb2ce4",
+      "bytes": 1018054
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_007.png",
+      "sha256": "85c1a716cb7d4ce52d134ed3c5c66612dd1b58e5a3a5c82f82b53f5ee2f26d98",
+      "bytes": 1015987
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_008.png",
+      "sha256": "14b09bd2a6324b4aaafe6ea98f33f2705826487bfa62e14e360eeeafde163a35",
+      "bytes": 1017647
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_009.png",
+      "sha256": "b5d1f11eda669773c12abb454f6f37ebd237f3ef92a5f211ddd34f76b8a56abb",
+      "bytes": 1018495
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_010.png",
+      "sha256": "2deff77e0114ee68f946e07f728433c8b6909a6de9d6a71ed14b939383b3e68e",
+      "bytes": 1018112
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_011.png",
+      "sha256": "e23286c7c28cd8d72a07a8505483455084459126267a7dc75aca6e4a7d11bacd",
+      "bytes": 1017520
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_012.png",
+      "sha256": "743cd751710733c7e4afd76e3751217360818b6bc654442011d5af53e87c226f",
+      "bytes": 1015261
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_013.png",
+      "sha256": "ff7f1036fb41735a0959f4eeff73e600508a2984b1674222caad236b76bbaa15",
+      "bytes": 1022244
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_014.png",
+      "sha256": "2139e9fd18d7a1441a8c4c12509a660ddf3d9039b68e6647c1b1de94694cae60",
+      "bytes": 1023923
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_015.png",
+      "sha256": "3d9627c36b2fc6fbfa7cf92a266be8658636f03125ef4d11e93d5618a0965d7f",
+      "bytes": 1020897
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_016.png",
+      "sha256": "ad124c62da828f3bead5cba8f82170120bcfa983ef2924442557aaf4c5cd2e30",
+      "bytes": 1022901
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_017.png",
+      "sha256": "3c00198534ee3e466b4cc644cf863384bdc9b69a8f6acf7100eb260373597142",
+      "bytes": 1023029
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_018.png",
+      "sha256": "068f0cc44ed5944a07d05e0cb31e74e61875a091d4f607c2f08c8946c5825a67",
+      "bytes": 1023321
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_019.png",
+      "sha256": "912ba795bca66e82a18f93d7ecf947db15624bc36ed24c7481b4b45042eb1a93",
+      "bytes": 1026373
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_020.png",
+      "sha256": "1c60088f905f68f48feb7c368c1591cdf283fa312cf6b8d85cfecf8e5622ad21",
+      "bytes": 1034176
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_021.png",
+      "sha256": "79a854ea1c21bc0842068c6875fbd5f76e009aeec962bfd17a797ea532647477",
+      "bytes": 1035395
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_022.png",
+      "sha256": "bb6eedd969a1a461e06a841f4b3f6c598970f9a6898a0dd33c6dbaabfc7155ab",
+      "bytes": 1031442
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_023.png",
+      "sha256": "3ffcc32cfacc7954c600f33336175ba3524c306b6f0a391e3b0f18fdcd3dba6d",
+      "bytes": 1024010
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_024.png",
+      "sha256": "4bbc4123b699d767be8f357dfc5b1b85f238e1d4cd902096f23bf3343805d7a9",
+      "bytes": 1027416
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_025.png",
+      "sha256": "3a70d4c11aa1ad87c80e446a77e741b4c79677690a19555d12399cf2c0d15574",
+      "bytes": 1018051
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_026.png",
+      "sha256": "14f108e707125512b16f1241f57436a66cb1c2a42e1023a37eece1f0994b1525",
+      "bytes": 1012383
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_027.png",
+      "sha256": "5237cdd0658167432bd09dad511eb41ceb5698d287c8c4d5febb17b5a3deaea6",
+      "bytes": 1009380
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_028.png",
+      "sha256": "33493e14e36215100319b3ee583686be47a845c9b212ea2e22c21350ddc03ac1",
+      "bytes": 1008488
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_029.png",
+      "sha256": "881ec61a109cc6be04c3e60d5b33d05bfe6e7ef6a0b72cf6aca2b58b5504e798",
+      "bytes": 1005711
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_030.png",
+      "sha256": "b31946e590d5f3c4ce9d72ea142331cf6e8c48e72b6c56d4084076d2cc5690da",
+      "bytes": 1005246
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/pan_031.png",
+      "sha256": "67631f8eda2555e26618fa0b9b7c6a1e4ec74a0ca1c2e233881d38c0214ae634",
+      "bytes": 1005177
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/static_000.png",
+      "sha256": "0f2aedfa217dff1f6fe9242a3eb47dabee169ea1f9ee5eb344eef45b617eea83",
+      "bytes": 991184
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/static_001.png",
+      "sha256": "c349a50406743331c19a3c012b2a2475deeaeac5edb19abd8e1cc8a6dba446c2",
+      "bytes": 990779
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/static_002.png",
+      "sha256": "67c4f40dbd71893470c790b03e06ec3479caf49010ca8441f99e8b0b73a295bb",
+      "bytes": 991381
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/static_003.png",
+      "sha256": "070d5a9a7aee829fdd6cc3274d3da87f50dcdbd3de3518821a82a18160aa32d7",
+      "bytes": 991113
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/static_004.png",
+      "sha256": "5fd914f1cdf53e7b13085d16773e9ee8898407bc5d606b68556bb25565f0e2ef",
+      "bytes": 991007
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/static_005.png",
+      "sha256": "62243988fca8b595781b26a299556c79b350a80f55470ba1e69aebdfb6e87e75",
+      "bytes": 991118
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/static_006.png",
+      "sha256": "6487e30e8e363234b4d4c4e63b95d59fb056542f35e0dde062a1ce0de29ac661",
+      "bytes": 990915
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/static_007.png",
+      "sha256": "05b07c80bd3af9880bdfb1a28f4e48cd1df0f592c530af360997493f515f811b",
+      "bytes": 990438
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/static_008.png",
+      "sha256": "ee6814bf71ee3da00425305d03c6893d00e99399a413b455f4015a95b28ea82b",
+      "bytes": 991329
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/static_009.png",
+      "sha256": "105d05ca450ff326b0ee7d7acc1a223c901be44e4f19353c381f9ab3b8c54bf0",
+      "bytes": 990743
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/captures/walk_end.png",
+      "sha256": "6e867842ff2d2ba60ca9f2de84e42dd7f32064427f5c270cff7571dcc82b501e",
+      "bytes": 1025775
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/command.json",
+      "sha256": "c002a1b8fc68752100a26bc7eae1101513f495e0eec2a67032a415984d38d505",
+      "bytes": 1040
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/frames.csv",
+      "sha256": "03a69d14ae16d434914f086ce37047091afe567b8e246d6e2ad9aa9371b59114",
+      "bytes": 127361
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/native-views.csv",
+      "sha256": "8dc2d0672c605d57fde3887cf626f93e3f1a633482e28a948731e468cb7bd0cd",
+      "bytes": 105039
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/process-memory.jsonl",
+      "sha256": "f5254c7dc0d1b84b3c2846f5c88871fa71eec6d99ac8e55e6ec43db97fdea772",
+      "bytes": 10551
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/render-primitives.csv",
+      "sha256": "451dd8d3bdf01fc45b5463e98a056012987cece4dbf4cb642efe685a226b4c57",
+      "bytes": 28740
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/result.json",
+      "sha256": "935f315515f40d0cc3e3573e1efac2f9befca868c8ae22dd3ecffa71807351eb",
+      "bytes": 121
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/runtime.engine.log",
+      "sha256": "5eb5d1aeff2a3d37428ece3e1762595c339532d0c3bd54c87a06ecac92b669bf",
+      "bytes": 369556
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/runtime.stdout.log",
+      "sha256": "8ce9dda46d4d3819f21a724e3ec9fca2f04bad3e33f95c3c38cef251d3f1deb3",
+      "bytes": 370127
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-01/validation.json",
+      "sha256": "9950d55f98f0746be2ea3cd563a7ad1b4e07e3aac7731048d9f4da61ed638e6b",
+      "bytes": 180925
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/architecture-readback-01.json",
+      "sha256": "8881678522a526a87b4d31e0ff60c0b33e68d497e537e8d7bc1ba0c0ad2c54ea",
+      "bytes": 3528
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/architecture.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures.csv",
+      "sha256": "00cf815c3111c819dddc4b0b848276521ad9cce47f0d6c1fe4596e227f59aa04",
+      "bytes": 1456
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_000.png",
+      "sha256": "c87ac2a9b051e7756225a18294205416d7f56833a66932bf100bb444375cfd37",
+      "bytes": 996302
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_001.png",
+      "sha256": "d0f95bd447479ffc15b527136b33d49c6d4cd74ac7e8f3746c0be33b0cad013e",
+      "bytes": 1004965
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_002.png",
+      "sha256": "bb6cf77ee6783939a40db4c03a8d4297239296a420a3b2358cfa13a25c2c4326",
+      "bytes": 1012056
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_003.png",
+      "sha256": "e913b52c136fdbe201c8aca5833f8bb28f55438ed8a6e5d21578df4c722ad65a",
+      "bytes": 1013414
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_004.png",
+      "sha256": "10e36762c21ee84750c8cace7b26d91a0cbc27dcb9e1832c29f725e8d3178c70",
+      "bytes": 1016598
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_005.png",
+      "sha256": "7d27e37725b171ccc894785f6aaa565989256939f7bb5896e3909dd806bb50fe",
+      "bytes": 1015003
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_006.png",
+      "sha256": "6709a8c536561e621a73d508e7aca906982fe827aa90e50be354387600857a25",
+      "bytes": 1017306
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_007.png",
+      "sha256": "8234e5647b180addae231899a503aac5d06820f19ea019d8ef078ccc9bf0735d",
+      "bytes": 1018119
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_008.png",
+      "sha256": "d25ca700d2da95bd5c9131ca2557486dfe458d49b8d03123be834ad5423d743a",
+      "bytes": 1015331
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_009.png",
+      "sha256": "abb25072d7b3bbdbccd379b5eae5fe52dfbeec8696ab260bdde0d2982d6ffc97",
+      "bytes": 1017593
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_010.png",
+      "sha256": "5ee0c2807b2a8e853a74f2c41c6c8eef7e32559c86214d81e28ed56dd7611ac8",
+      "bytes": 1016115
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_011.png",
+      "sha256": "d4748e6a099d331dc1676119921894ef1bedd0e89e9b205de5fe2f1799936572",
+      "bytes": 1015119
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_012.png",
+      "sha256": "83f7c2257a8806280a82103a3e2faef6dfbe91374f7adc58581c366892a0fb70",
+      "bytes": 1020198
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_013.png",
+      "sha256": "897696f9109d97f4a6676ded313eaa968ef41cb48890e93c5517a9f8155376ec",
+      "bytes": 1024714
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_014.png",
+      "sha256": "647d7eadf86d515c85be81735a49bc4587176e7c14ec6bca23588601369c70d4",
+      "bytes": 1024932
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_015.png",
+      "sha256": "207378dc19006e66b87b8bf85763a2dfc2313ee5bf850ebb97493b736f0bb648",
+      "bytes": 1024444
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_016.png",
+      "sha256": "fb665ea492fd3f4230c247b38667671312f535ec4ea5d9b3b38f1a71da097210",
+      "bytes": 1018578
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_017.png",
+      "sha256": "48a0c5531eb0ff495c69f08486f9e44e08315fa0eb0387d2ca661c050e641f44",
+      "bytes": 1024518
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_018.png",
+      "sha256": "df0b391bf0e2d8198b86257a6716f37920efdf8acaeeb72d5921b5977112e5be",
+      "bytes": 1026770
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_019.png",
+      "sha256": "9e6c8e8cfb7dcd8fc9f7248061e816605d2ecf725afeb6430fec95c024f3b5a3",
+      "bytes": 1027905
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_020.png",
+      "sha256": "83c05c54757c924634b538d4aeca8731a80cf55cf1c4c177533221bd1e2c4433",
+      "bytes": 1035431
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_021.png",
+      "sha256": "7ec04505eda2d2c9cde1374c1d718c098531e6884decbd4e3ee85d1b7c81ab66",
+      "bytes": 1031485
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_022.png",
+      "sha256": "7ce53e1f0f514fc098e37581d1bcea472c32a37c7db5da9b9d1fd0c726ef461c",
+      "bytes": 1024093
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_023.png",
+      "sha256": "71ba4c08b695a283f7b39be4a8cb5945773024ad44306b611a8b71699f098aff",
+      "bytes": 1026160
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_024.png",
+      "sha256": "569f17a3af570f755f9b9fe0cc89ddac8300cffa65ab1ef03733347aca0db346",
+      "bytes": 1016843
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_025.png",
+      "sha256": "0cca60f38d23da7a401c8393bdc59547de38dc6a94162786cd8bd837a045e099",
+      "bytes": 1011792
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_026.png",
+      "sha256": "77becea3f907e716e28c47a61497bda06c2bf42c8ab53586b2ce1d2b8381ee79",
+      "bytes": 1008446
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_027.png",
+      "sha256": "1c14a546c0a6bcc0e8fb0bdd23c0a2bf02b9dba24a95377f66ab5603b247ae1e",
+      "bytes": 1006686
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_028.png",
+      "sha256": "8d59fb5ea2b84429cb1700d5ef4e70c82d3d586aa017a7dccf1cfc2e4684799c",
+      "bytes": 1005690
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_029.png",
+      "sha256": "a00c3bf745b5e715ebadc2b24447041e737c0ab2f59f09888e5bcda9c5e45f42",
+      "bytes": 1005836
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_030.png",
+      "sha256": "b73b79880370e8cd66c0c19706857f11fc4dde027a40bf3cfd42dd67a76e176b",
+      "bytes": 1003935
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_031.png",
+      "sha256": "20b459c658436944a15e2e85cfd00d02ce106f55d1fd04d0015a4c185afda0c9",
+      "bytes": 1004870
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/static_000.png",
+      "sha256": "52d0929de0e86fe42f4ca4fc3bc0a64e3757702fb28507c32d59a8c75f0a80e0",
+      "bytes": 992520
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/static_001.png",
+      "sha256": "5256c12c3d14a15df3177a1bd69faa5def061c2ab915e137968d2ca55433d586",
+      "bytes": 991593
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/static_002.png",
+      "sha256": "24a0fe989e705303bb713f77a926e95162b55b14ebe6f86ab7caa1fbb852c49d",
+      "bytes": 992035
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/static_003.png",
+      "sha256": "12fb236b14a20d1e5139ef8142b73c6d366f1463f6e33c3b2c912c9a145caa3b",
+      "bytes": 991080
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/static_004.png",
+      "sha256": "a42d82f4c2de49c867db6351a7d42b7a9e9f4a6266d2a7c7e3543ea289024bfd",
+      "bytes": 990682
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/static_005.png",
+      "sha256": "59f7eb230f6c2a687b81017dd57d8c40fac08fed452c6c092c17f56cb9002e80",
+      "bytes": 992222
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/static_006.png",
+      "sha256": "48349d08ab4818de299435f41e1e9f07c5743ed34ea4c89331a4f2f68db39ddc",
+      "bytes": 991951
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/static_007.png",
+      "sha256": "c1d534d633ad27414465fb288b4a0b38bdff277e9b8571dc9af9b04636815d2b",
+      "bytes": 991814
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/static_008.png",
+      "sha256": "cfddc55c28a02077f87b1bce8bebf258e00f40dd7e7479d10f1720469307a961",
+      "bytes": 991245
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/static_009.png",
+      "sha256": "474fa34bf53941b0b6794778c937f5529e68ff511ccc2d06cee4b3a906cf9709",
+      "bytes": 990639
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/walk_end.png",
+      "sha256": "5559cb875a64532dff78eacc5b7be49ac82061a783ce4d2cfc68a1e19ea0c9e2",
+      "bytes": 1030634
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/command.json",
+      "sha256": "feef51308ea94f4572b1368bf7c14b328b6675d3194564d1410820a700fb0bd0",
+      "bytes": 1040
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/frames.csv",
+      "sha256": "3ff941529f204c4c384621af577fc452193a149a11be4d8823c185692d2d0bf0",
+      "bytes": 122720
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/native-views.csv",
+      "sha256": "d73a87dbcf2e3848e2dd29fb7046989af1bc396fc8beb826a863795a56e4db14",
+      "bytes": 100639
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/process-memory.jsonl",
+      "sha256": "b4d265ece494cfa7b18027c961d7b7d142f7e3bb0d4abbd3dbae80064ea9e276",
+      "bytes": 10456
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/render-primitives.csv",
+      "sha256": "84ca5c5a821a3ccdb737c22905dac361212205f1c84574641724d635109aff2c",
+      "bytes": 28719
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/result.json",
+      "sha256": "fea1844769a11575b297ec3e861a9824cd3a522c7f6c608c00712e309c4d0290",
+      "bytes": 121
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/runtime.engine.log",
+      "sha256": "7147d6a8f1b645c6187c0dbaae062f1f2aee14a118b23d543e2af098de00caa5",
+      "bytes": 358856
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/runtime.stdout.log",
+      "sha256": "11d063146b6607d23c12d59e37d113a220720b613226e65f911e6c629c6e034e",
+      "bytes": 362224
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/validation.json",
+      "sha256": "f94e2aff35a26f92fa7476ceafe00111ebde94bf57b9c956afe73aac89125c26",
+      "bytes": 192347
+    },
+    {
+      "path": "Build/Presentation/architecture-staged-check-01.json",
+      "sha256": "99c0d63edf2a32e62192caad82ada3201a9763002a897922d44f68cc3d71b1b7",
+      "bytes": 866
+    },
+    {
+      "path": "Build/Presentation/architecture-visual-review-01.json",
+      "sha256": "ac5efe02dd958d126d50ebabda8e21ba6998999ebf2b239e1b9eeeeb788f0ad8",
+      "bytes": 2432
+    },
+    {
+      "path": "Content/Maps/BiellaOpenWorldMap.umap",
+      "sha256": "17abe16d7cb4c111d77658231fc330d7c8d8603278fe6dbd9b148c63c0042d96",
+      "bytes": 13330
+    },
+    {
+      "path": "Content/OpenWorld/Architecture/SM_StreetBlock_00.uasset",
+      "sha256": "a4df43244272e3807b3272a2b8bc3425f02f8c2071c21ee19b9bb3764684b5f4",
+      "bytes": 1374096
+    },
+    {
+      "path": "Content/OpenWorld/Architecture/SM_StreetBlock_01.uasset",
+      "sha256": "5805d8cfee3f9772277ce0e201b1ee8e40e3bab19fca391d533dfbab8c9e4504",
+      "bytes": 1395046
+    },
+    {
+      "path": "Content/OpenWorld/Architecture/SM_StreetBlock_02.uasset",
+      "sha256": "fc6e272b101a6184b10d198a7f6cacebce49ff42f4ebe31a08d52c96ac84cc09",
+      "bytes": 1424467
+    },
+    {
+      "path": "Content/OpenWorld/Architecture/SM_StreetBlock_03.uasset",
+      "sha256": "3d13597574d74cf0366af74d02fe048caf42b8956e357d3c4da4d653add2bd56",
+      "bytes": 1744462
+    },
+    {
+      "path": "Content/OpenWorld/Architecture/SM_StreetBlock_04.uasset",
+      "sha256": "260a45323ee51603ba3d870d6d28de506c27c3d8223fc55b524319f6164543f0",
+      "bytes": 1637170
+    },
+    {
+      "path": "Content/OpenWorld/Architecture/SM_StreetBlock_05.uasset",
+      "sha256": "7bffbb79f8451c068d46c503b43781cb3714ef6626f1e2dc59a835be45ba5d7c",
+      "bytes": 1644842
+    },
+    {
+      "path": "Content/OpenWorld/Materials/MIC_FacadePaintedFrame.uasset",
+      "sha256": "689271ada1d068564727878d90ca33a8a389db3561ffc3e942d0ce68cb6caaf5",
+      "bytes": 4544
+    },
+    {
+      "path": "Content/OpenWorld/Materials/MIC_FacadeSealedGlazing.uasset",
+      "sha256": "856620fa2722e7b7cea7c752279c46e450bc98696de1b96998e5402947764ed7",
+      "bytes": 4549
+    },
+    {
+      "path": "Content/OpenWorld/Materials/MIC_FacadeTerracotta.uasset",
+      "sha256": "5e42636b5e9f81a7ce283fd75b67c6dcae6dd45682717f8b69af3eabcaa2a396",
+      "bytes": 4534
+    },
+    {
+      "path": "Content/OpenWorld/Materials/MIC_FacadeZinc.uasset",
+      "sha256": "e8625986aa8ed1db57530e5d4021c43e7634ecfe35c70029ca9fc5b49f771e80",
+      "bytes": 4504
+    },
+    {
+      "path": "Content/OpenWorld/Materials/M_FacadeFinish.uasset",
+      "sha256": "c9447bf3a2336c2f78fdc6eedce79cc514350d92487237d435861eb377a1e6b8",
+      "bytes": 6783
+    },
+    {
+      "path": "Content/OpenWorld/Materials/M_ProductionSurface.uasset",
+      "sha256": "9a260b6a103e863f4c1a92a3163757405b821276298db60c6663f5b292fb1b3c",
+      "bytes": 17543
+    },
+    {
+      "path": "Content/Python/author_open_world.py",
+      "sha256": "e8ec9e3031f4117b3c75bc3c537865d25846c19d2c9b58c3505bab80739cf927",
+      "bytes": 20451
+    },
+    {
+      "path": "Content/Python/build_production_surfaces.py",
+      "sha256": "4b4f4a74ee6c2a3a5888c752634724a8d755def082913bf1a83a2630c664b33c",
+      "bytes": 9572
+    },
+    {
+      "path": "Content/Python/import_street_blocks.py",
+      "sha256": "d5c543004dfb7c636d52ebe7dde9e07d997914d26c9617dbd0d4ddf313ff2650",
+      "bytes": 10639
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/1/63/0MSCL1K5XDQVWDFJVJSU6I.uasset",
+      "sha256": "3bfd5ba9bf78c7cf0d32a73da903b00bbb85abc4439f35c1dc93962c3dfffecd",
+      "bytes": 18903
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/7G/YP5SWC5MSWO9X499M7LHBC.uasset",
+      "sha256": "b731772fc96bfe5ff34c310a4b1955c2f500de50c1d4da0321c1e57be826eb49",
+      "bytes": 17095
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/5/4E/OVGYXM1X9567RU6N4CW4W2.uasset",
+      "sha256": "adec93833e421cb6e3c19c9164e014c4cb9150fb42466d875e07cf5d86385255",
+      "bytes": 32783
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/1G/AN3WAJ6PKO8QEHRARONVW0.uasset",
+      "sha256": "ba1a78ff5c5d0d571d5c0681b68c4faf795d35cc9206cb3c7f1e18378000a1ae",
+      "bytes": 25130
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/OF/1FOAZ4TNBPK5W55ZHRLUJP.uasset",
+      "sha256": "bed985d28f90a61bdfc3da399a42369214e8e57da7f5774ba36580fdf52a0c9d",
+      "bytes": 5229
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/EA/ZHVGOM45EW800RTCBZQHUN.uasset",
+      "sha256": "fd897fa3591ff1b356e559340818a599e938051c7d118f5acff6fa9546655cbd",
+      "bytes": 32783
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/8/BU/DIV0H0YOGJO7KISFC0VEQ2.uasset",
+      "sha256": "059f161abd3682553950ae785414a377d65ecf808a40003a6c975e0f9e4a23ec",
+      "bytes": 5229
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/A/0K/HKX32EKD1NWSED5MNRVPQS.uasset",
+      "sha256": "505d27863691a404096427a84d95941d3748d176bf3f4d0b00a7ae08bbe4ac79",
+      "bytes": 5229
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/B/T8/TTS9Q5AH37FKAWPKPUNUAE.uasset",
+      "sha256": "6c08a46a6581e0e719b23757f75c7af22941ee590a1e50cf8a122107f37c32a9",
+      "bytes": 32777
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/0M/OH0G3NFP2VUG0KSU84C3D3.uasset",
+      "sha256": "f56597d65d5ef2f78510c399ef17ec0373ae00d0f00b918e75955c7f5e2e5ea8",
+      "bytes": 21476
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/6M/CSR4JAORICXR2LP9CEI3U7.uasset",
+      "sha256": "7c1058c2e307dbcbe63fdbaead76e1b90bcc04752da761c4a64916ef1e10d205",
+      "bytes": 5229
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/DU/O4T0WKU95IR99HYBB1P3K3.uasset",
+      "sha256": "a3ed48d2e7ef0f2d940e39de7eea585af94e2947186f1a14b53b245ed180bdc1",
+      "bytes": 29140
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/HC/Z5CBF6CSG29ZCGHEJO11B6.uasset",
+      "sha256": "83ca8b2c98dc28ac02d31424d1b0d34b6414d23186702d638082a05e4b2677c7",
+      "bytes": 21485
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/K7/9W9CT2C1XTT17XE2NXULZK.uasset",
+      "sha256": "9de38344c6bc32d6803d0f08136dc12749e2dc2f5c58e42c86e032844b5f4b1f",
+      "bytes": 32777
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/WX/XORGCMGT8G4KZLFGD9AIJD.uasset",
+      "sha256": "bd549210dbe6e045869e465e3ece5ec786c23e65e4163ba1104338015c6ef49d",
+      "bytes": 40444
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/X8/KR0MA47DR8QXY8WPAHW9J0.uasset",
+      "sha256": "0006f284e3e47c95d661d437b6d1be9abb685104adc4487b04d46988856f87fd",
+      "bytes": 32779
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/10/KMD5DYYD35GWHLFVKL91VM.uasset",
+      "sha256": "7c8c1148eba517543f498e9a66708e8d73e18e480ef071d81644303ad3c394eb",
+      "bytes": 5229
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/D0/IACNFRK4FTEHBMCZJ36N5K.uasset",
+      "sha256": "ce94eb5aa1ef95d938dd9103762b5376ecb939d161e15682bd77554652c1a8b2",
+      "bytes": 21485
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/VR/8M7H7O3XP7DVDBZY9TS9I5.uasset",
+      "sha256": "28a43520c143e0a7d677dc870a46553008459c64bb79f3a0ea501ec90e8dab85",
+      "bytes": 5229
+    },
+    {
+      "path": "SourceAssets/Architecture/SM_StreetBlock_00.fbx",
+      "sha256": "64d60dead94a054819a36c6e77709ee3e6254ec2c2ac6efa9d2cd4b1060e827e",
+      "bytes": 1188348
+    },
+    {
+      "path": "SourceAssets/Architecture/SM_StreetBlock_01.fbx",
+      "sha256": "aa2c4cc0972f1ff911e23a50d3fef34deafca95456860d9e096bd2733d4049df",
+      "bytes": 1214444
+    },
+    {
+      "path": "SourceAssets/Architecture/SM_StreetBlock_02.fbx",
+      "sha256": "6cb35c1b738500c3ce9e6b9bb64d7a45601b98f1b798894425ca5bd6117138fb",
+      "bytes": 1235580
+    },
+    {
+      "path": "SourceAssets/Architecture/SM_StreetBlock_03.fbx",
+      "sha256": "57a1f3a5660f763eacff1b71cd77e3661af342159ba45b931ca0bbc4ef336038",
+      "bytes": 1557948
+    },
+    {
+      "path": "SourceAssets/Architecture/SM_StreetBlock_04.fbx",
+      "sha256": "1ec567684e254e3ba44f62c89f3080f5eed66adaa74d9bed9f44487b5896902a",
+      "bytes": 1455500
+    },
+    {
+      "path": "SourceAssets/Architecture/SM_StreetBlock_05.fbx",
+      "sha256": "b11f422d6a603241b7b0e7e3ad132ad9154d79ea198dbda17c4b5fc7891952f3",
+      "bytes": 1485740
+    },
+    {
+      "path": "SourceAssets/Architecture/StreetBlocks.blend",
+      "sha256": "865ab33d0b0f71f512a252eea8eac208accb313a64a94595b8c73d1071dcca64",
+      "bytes": 6226100
+    },
+    {
+      "path": "SourceAssets/Architecture/build_street_blocks.py",
+      "sha256": "3d621b120e471278fb124782131d52c9aa577faeeb3befa1ab942c71fd46740e",
+      "bytes": 7199
+    },
+    {
+      "path": "SourceAssets/Architecture/street-blocks.json",
+      "sha256": "c56eb4249294e9fb290d8d6ed0cd55c9a7ea270f26344ac230fbeac2b238ed0e",
+      "bytes": 3936
+    },
+    {
+      "path": "tests/author_d03_01_architecture.py",
+      "sha256": "11ea0b51366bb07c65fb9365f10354dd8ae7376029d327dd0755cbf507f4facd",
+      "bytes": 3236
+    },
+    {
+      "path": "tests/build_d03_01_architecture_hlod.py",
+      "sha256": "c85139f011e0a8df436d75b6c7398e2474abbe246c60a3783ce048c3e6a2a9f4",
+      "bytes": 4347
+    },
+    {
+      "path": "tests/verify_d03_01_architecture.py",
+      "sha256": "456b4f9b8e494528003da483584ba4345287b381ad8ac1cfa9ba4b3593cc9451",
+      "bytes": 2387
+    },
+    {
+      "path": "tests/verify_d03_01_architecture_series.py",
+      "sha256": "6b8cd7de65a88ddd32ef31390edf716fecd5776f63b3a18eb6ba81de031032da",
+      "bytes": 6874
+    },
+    {
+      "path": "tests/verify_d03_01_blender.py",
+      "sha256": "34c9c2572632b79f29d057395976ae7bd21f1d871c3876efc2eec912b105701d",
+      "bytes": 1662
+    }
+  ],
+  "manifest_self_excluded": true,
+  "publication_owner": "Auto Feeder",
+  "external_previous_canonical_artifact": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-package-01.tar.zst",
+    "sha256": "06510221abdcfa88e7fbb73dcbf31bb34de839101649aa83ffde2c3c1722b14a",
+    "bytes": 371811200
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "schema": "biella.street_blocks/v1",
+  "status": "GENERATED_DRAFT",
+  "source": "build_street_blocks.py",
+  "source_sha256": "3d621b120e471278fb124782131d52c9aa577faeeb3befa1ab942c71fd46740e",
+  "provenance": "Project-authored parametric mesh, Blender; no third-party geometry or textures",
+  "blender": "5.0.1",
+  "assets": [
+    {
+      "mesh": "SM_StreetBlock_00",
+      "physical_dimensions_cm": [
+        1600,
+        1400,
+        1200
+      ],
+      "normalized_min": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "normalized_max": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "triangles": 71252,
+      "vertices": 36384,
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ],
+      "fbx": "SM_StreetBlock_00.fbx",
+      "sha256": "64d60dead94a054819a36c6e77709ee3e6254ec2c2ac6efa9d2cd4b1060e827e"
+    },
+    {
+      "mesh": "SM_StreetBlock_01",
+      "physical_dimensions_cm": [
+        1600,
+        1400,
+        1300
+      ],
+      "normalized_min": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "normalized_max": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "triangles": 71252,
+      "vertices": 36384,
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ],
+      "fbx": "SM_StreetBlock_01.fbx",
+      "sha256": "aa2c4cc0972f1ff911e23a50d3fef34deafca95456860d9e096bd2733d4049df"
+    },
+    {
+      "mesh": "SM_StreetBlock_02",
+      "physical_dimensions_cm": [
+        1600,
+        1400,
+        1400
+      ],
+      "normalized_min": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "normalized_max": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "triangles": 71252,
+      "vertices": 36384,
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ],
+      "fbx": "SM_StreetBlock_02.fbx",
+      "sha256": "6cb35c1b738500c3ce9e6b9bb64d7a45601b98f1b798894425ca5bd6117138fb"
+    },
+    {
+      "mesh": "SM_StreetBlock_03",
+      "physical_dimensions_cm": [
+        1600,
+        1400,
+        1500
+      ],
+      "normalized_min": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "normalized_max": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "triangles": 90428,
+      "vertices": 46176,
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ],
+      "fbx": "SM_StreetBlock_03.fbx",
+      "sha256": "57a1f3a5660f763eacff1b71cd77e3661af342159ba45b931ca0bbc4ef336038"
+    },
+    {
+      "mesh": "SM_StreetBlock_04",
+      "physical_dimensions_cm": [
+        1600,
+        1400,
+        1600
+      ],
+      "normalized_min": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "normalized_max": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "triangles": 90428,
+      "vertices": 46176,
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ],
+      "fbx": "SM_StreetBlock_04.fbx",
+      "sha256": "1ec567684e254e3ba44f62c89f3080f5eed66adaa74d9bed9f44487b5896902a"
+    },
+    {
+      "mesh": "SM_StreetBlock_05",
+      "physical_dimensions_cm": [
+        1600,
+        1400,
+        1700
+      ],
+      "normalized_min": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "normalized_max": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "triangles": 90428,
+      "vertices": 46176,
+      "material_slots": [
+        "Concrete",
+        "Zinc",
+        "SealedGlazing",
+        "PaintedFrame",
+        "Terracotta"
+      ],
+      "fbx": "SM_StreetBlock_05.fbx",
+      "sha256": "b11f422d6a603241b7b0e7e3ad132ad9154d79ea198dbda17c4b5fc7891952f3"
+    }
+  ]
+}

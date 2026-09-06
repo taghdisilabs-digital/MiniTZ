@@ -1,0 +1,44 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T16:38:59.481221+00:00",
+  "result": "REVIEWED_WITH_LIMITS",
+  "asset_status": "GENERATED_DRAFT",
+  "method": "Direct inspection of these exact, unmodified native runtime PNGs",
+  "images": [
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_005.png",
+      "sha256": "7d27e37725b171ccc894785f6aaa565989256939f7bb5896e3909dd806bb50fe",
+      "bytes": 1015003,
+      "observation": "SM6 TSR: recessed windows, piers, terracotta bands, base and canopy are visible; player, road, curb and HUD remain readable."
+    },
+    {
+      "path": "Build/Presentation/architecture-sm5-taa-01/captures/pan_005.png",
+      "sha256": "7d220420a31267a95319516e69c7b8a521790d7815c491acba5472631e9e2ead",
+      "bytes": 897030,
+      "observation": "Explicit SM5 TAA: matching facade geometry and finishes; player, road, curb and HUD remain readable with softer shadows."
+    },
+    {
+      "path": "Build/Presentation/architecture-sm6-tsr-02/captures/pan_018.png",
+      "sha256": "df0b391bf0e2d8198b86257a6716f37920efdf8acaeeb72d5921b5977112e5be",
+      "bytes": 1026770,
+      "observation": "SM6 camera pan: facades extend along the left side of the existing street; the player, road and curb remain distinct. The workshop on the right remains a gray blockout."
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm6-01/captures/stream_return.png",
+      "sha256": "8f88961a4068af84a3e40834a701ccc13dd29ea9ec25101cc2769000e1525cf0",
+      "bytes": 1027115,
+      "observation": "SM6 after streaming return: facades, orange hazard strips, switch, destroyed-panel debris, player and HUD are visible."
+    },
+    {
+      "path": "Build/Presentation/architecture-environment-sm5-01/captures/stream_return.png",
+      "sha256": "d18f2c7b0faddc6e45f182ab48d325c6c1ecbec6280096dba32842531c9b7a79",
+      "bytes": 938627,
+      "observation": "SM5 after streaming return: facade, hazard strips, switch, debris and player remain visible. Shadows are softer and the existing threat-counter text is cramped."
+    }
+  ],
+  "limits": [
+    "Selected stills and gross pixel-delta checks do not establish continuous fine ghosting/disocclusion quality.",
+    "Gray unfinished workshop geometry, empty dark world margins and existing UI spacing remain visible.",
+    "This is representative runtime integration, not final art acceptance or a cold packaged build."
+  ]
+}

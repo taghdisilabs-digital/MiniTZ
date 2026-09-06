@@ -1,0 +1,45 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "time": "2026-09-06T16:34:39.182874+00:00",
+  "parent_commit": "00c133dcce321df9787e62dd90be28fdd1a42dbd",
+  "previous_manifest": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/D03-01-sm6-file-manifest.json",
+    "sha256": "8376a26b5fb74f7e90b4d614d88f3642a7f662e19b075ad8e33bf32f6b1ebc9b",
+    "bytes": 52215
+  },
+  "previous_manifest_entries_verified": 267,
+  "previous_manifest_exact_committed_bytes": true,
+  "canonical_archive": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-package-01.tar.zst",
+    "sha256": "06510221abdcfa88e7fbb73dcbf31bb34de839101649aa83ffde2c3c1722b14a",
+    "bytes": 371811200
+  },
+  "protected_metadata_diff": "EMPTY",
+  "intentional_tracked_changes": [
+    "Content/Maps/BiellaOpenWorldMap.umap",
+    "Content/OpenWorld/Materials/M_ProductionSurface.uasset",
+    "Content/Python/author_open_world.py",
+    "Content/Python/build_production_surfaces.py",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/1/63/0MSCL1K5XDQVWDFJVJSU6I.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/7G/YP5SWC5MSWO9X499M7LHBC.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/5/4E/OVGYXM1X9567RU6N4CW4W2.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/1G/AN3WAJ6PKO8QEHRARONVW0.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/OF/1FOAZ4TNBPK5W55ZHRLUJP.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/EA/ZHVGOM45EW800RTCBZQHUN.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/8/BU/DIV0H0YOGJO7KISFC0VEQ2.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/A/0K/HKX32EKD1NWSED5MNRVPQS.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/B/T8/TTS9Q5AH37FKAWPKPUNUAE.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/0M/OH0G3NFP2VUG0KSU84C3D3.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/6M/CSR4JAORICXR2LP9CEI3U7.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/DU/O4T0WKU95IR99HYBB1P3K3.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/HC/Z5CBF6CSG29ZCGHEJO11B6.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/K7/9W9CT2C1XTT17XE2NXULZK.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/WX/XORGCMGT8G4KZLFGD9AIJD.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/D/X8/KR0MA47DR8QXY8WPAHW9J0.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/10/KMD5DYYD35GWHLFVKL91VM.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/D0/IACNFRK4FTEHBMCZJ36N5K.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/VR/8M7H7O3XP7DVDBZY9TS9I5.uasset"
+  ],
+  "scope": "All previous SM6 checkpoint files and its manifest remain exact. Existing world and material authoring are intentionally changed for six facades; 19 external actor packages cover six buildings and 13 rebuilt HLODs. Prior package remains bound to its old source, not this new content."
+}

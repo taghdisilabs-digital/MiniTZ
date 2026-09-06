@@ -1,0 +1,29 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T16:40:53.184160+00:00",
+  "result": "PASS",
+  "scope": "Task changed/new text artifacts only; bounded pattern scan, Python syntax and whitespace verification",
+  "text_files": 106,
+  "scanned_bytes": 11795115,
+  "patterns": [
+    "private_key",
+    "google_access_token",
+    "github_token",
+    "bearer_value",
+    "provider_key"
+  ],
+  "findings": [],
+  "compiled_python": [
+    "Content/Python/author_open_world.py",
+    "Content/Python/build_production_surfaces.py",
+    "Content/Python/import_street_blocks.py",
+    "SourceAssets/Architecture/build_street_blocks.py",
+    "tests/author_d03_01_architecture.py",
+    "tests/build_d03_01_architecture_hlod.py",
+    "tests/verify_d03_01_architecture.py",
+    "tests/verify_d03_01_architecture_series.py",
+    "tests/verify_d03_01_blender.py"
+  ],
+  "diff_check_returncode": 0,
+  "all_changes_project_local": true
+}
