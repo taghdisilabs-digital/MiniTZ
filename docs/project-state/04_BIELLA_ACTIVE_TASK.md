@@ -1,7 +1,7 @@
 # 04 - BIELLA ACTIVE TASK
 
 ```yaml
-schema: biella.active_task/v10
+schema: biella.active_task/v11
 
 task:
   id: D03-01
@@ -9,36 +9,62 @@ task:
   section: post_d01
   class: hard_creation
   title: Production rendering, animation, VFX, and audio quality
-  status: PAUSED
+  status: RUNNING
   runner: RUNNING
 
   authority:
-    - Mahdi Taghdisi current product/execution authority
+    - Mahdi Taghdisi latest explicit instruction, 2026-09-06
+    - current observed execution state
     - docs/project-state/03_BIELLA_CURRENT_STATE.md
     - projects/biella-games/docs/PRODUCTION.md
 
   continuity:
     completed_predecessor: D02-04
     production_source: projects/biella-games/docs/PRODUCTION.md
+    task_session_id: 01a07480-2c40-7d03-b649-d3f72807cc3e
+    attempt: 42
+    runner_pid: 2126038
+    codex_child_pid: 2228063
+    model: gpt-6-astra
+    reasoning: ultra
+    current_increment: FOOT_CONTACT_CORRECTION_IN_PROGRESS
+    last_verified_increment_commit: 1898b568bf6c6dceae9dcf6aa66ef7a45a6f6e1d
 
   preserve:
-    - all completed predecessor tasks and their evidence
+    - all completed predecessor tasks and exact evidence
+    - all verified D03-01 rendering, animation, readability, and audio/VFX increments
+    - current D03-01 foot-contact implementation, tests, diagnostics, and outputs
+    - current task/session identity and task memory
     - Engine P4-06 as INCOMPLETE_DEFERRED
-    - one-repository/one-controller/one-Project-production-source architecture
+    - one-repository/one-controller/one-current-task architecture
+    - unrelated source/configuration without mutation
 
   execution_directive:
-    authority: Mahdi Taghdisi latest explicit instruction, 2026-09-06
-    mode: PAUSED_CURRENT_D03_01_SESSION_PRESERVE_STATE
-    resume_session: 01a07480-2c40-7d03-b649-d3f72807cc3e
-    pause_authority: Mahdi Taghdisi explicit instruction, 2026-09-06
-    observed_pause: Codex child PID 2151726 state T; production runner PID 2126038 remains running
-    preservation: Reuse all valid existing implementation, assets, analysis and evidence; do not restart.
-    owner_progress_report: D03-01 was almost done; verify and reuse satisfying work without fabricating completion.
-    task_sources: projects/biella-games/docs/IMPLEMENTATION_SEQUENCE.md Stage 3 and its current runtime contracts 04,14,16,20,21,37,39,46,49
-    exclusion: No historical recovery, P0-P4 execution, task renumbering, queue reconstruction, or unrelated infrastructure work.
-    execution: Do not resume execution until Mahdi explicitly asks; preserve all current D03-01 implementation, commits, session identity, task memory and evidence.
-    progression: Preserve D03-01 through D08-01 order; advance only after current task real durable closure.
-    token_policy: ops/workstation/AGENTS.md Owner-directed token efficiency; 98 percent is a measured nonblocking target.
+    mode: CONTINUE_CURRENT_D03_01_SESSION_FROM_PRESERVED_STATE
+    preservation: Reuse every valid existing output; never restart, rollback, or redo verified work without material invalidation.
+    current_scope: Finish the remaining D03-01 work and task-derived validation only.
+    recovery: On failure, repair/rerun only the smallest invalidated boundary and preserve unaffected verified work.
+    volatile_state_rule: Never use 03/04 byte identity as a gameplay/runtime validation gate; they are volatile observer/continuity state.
+    local_ai_rule: Local Qwen is optional on-demand assistance and must never block the authoritative Codex turn.
+    progression: After D03-01 durable closure, automatically advance to the earliest unfinished task in projects/biella-games/docs/PRODUCTION.md and continue in canonical file order.
+    continuous_queue: Continue one task at a time through every unfinished canonical task until the current list is exhausted.
+    no_intertask_stop: Do not stop merely because a task completed, a model/session changed, a viewer opened/closed, or an optional Resource failed.
+    no_skip: Do not skip an earlier unfinished canonical task unless Mahdi explicitly changes priority/order.
+    no_redo: Do not rerun completed/verified work unless material input/source/artifact/validation/contract/authority is invalidated.
+    list_exhausted: Request a new task from Mahdi; absent a new task, perform bounded read-only discovery over current projects and registered capabilities.
 
-  stop: D03-01 is paused; do not execute or advance while paused. On explicit resume, continue this same session/task from preserved state.
+  ordered_queue:
+    source: projects/biella-games/docs/PRODUCTION.md
+    current: D03-01
+    completed: 59
+    total: 168
+    selection_rule: EARLIEST_UNFINISHED_IN_CANONICAL_ORDER
+    concurrency: ONE_AUTHORITATIVE_TASK_WITH_SAFE_RESOURCE_PARALLELISM
+
+  observer_surfaces:
+    public_live: READ_ONLY
+    private_control: READ_ONLY
+    opening_closing_reconnecting: MUST_NOT_SIGNAL_OR_INTERRUPT_ENGINE
+
+  stop: Continue automatically after durable closure. Stop only for a genuine required dependency/authority boundary or exhausted list with no authorized next work.
 ```
