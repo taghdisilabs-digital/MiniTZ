@@ -1,0 +1,301 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T20:47:18.531359+00:00",
+  "result": "REVIEWED_WITH_OPEN_GAPS",
+  "capture_status": "GENERATED_DRAFT",
+  "extractions": [
+    {
+      "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/extraction.json",
+      "sha256": "47d00ed217d88e91736a0075f931dff4c38959e62f704dea066e15db106afb99",
+      "bytes": 12197
+    },
+    {
+      "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/extraction-supplement.json",
+      "sha256": "00cba8adcb3c18eee995de3d6064082a6b9294d791ba45c0ec47184b9804919b",
+      "bytes": 6205
+    }
+  ],
+  "frames": [
+    {
+      "case": "default-01",
+      "frame": 30,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/default-01-frame-0030.png",
+        "sha256": "04688d458dff7d2058df7b27ec294bce958c65cb7e5af5d08edf8382c9fef773",
+        "bytes": 14466
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-default-01/loading-display.mp4",
+        "sha256": "048f3be7570b29c2e38bc12d1cb29e81b64855a59fbc2d0ff85d3c11058dfd9f",
+        "bytes": 1614115
+      },
+      "directly_reviewed": true
+    },
+    {
+      "case": "default-01",
+      "frame": 50,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/default-01-frame-0050.png",
+        "sha256": "841f63288f1ac495d83c3bef09b267abbfe4c64ece7563a7bd527e8862edc9c0",
+        "bytes": 13343
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-default-01/loading-display.mp4",
+        "sha256": "048f3be7570b29c2e38bc12d1cb29e81b64855a59fbc2d0ff85d3c11058dfd9f",
+        "bytes": 1614115
+      },
+      "directly_reviewed": true
+    },
+    {
+      "case": "default-01",
+      "frame": 63,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/default-01-frame-0063.png",
+        "sha256": "ab92d22ee93371bd968e086cbdc74b3d5cb0e4a474e5f895da4309fe3b33b8f3",
+        "bytes": 13163
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-default-01/loading-display.mp4",
+        "sha256": "048f3be7570b29c2e38bc12d1cb29e81b64855a59fbc2d0ff85d3c11058dfd9f",
+        "bytes": 1614115
+      },
+      "directly_reviewed": true
+    },
+    {
+      "case": "default-01",
+      "frame": 64,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/default-01-frame-0064.png",
+        "sha256": "0fc39a388f6261d9ff0fbeebcfcc6860b459592355b70f84f65a09bc0bbab487",
+        "bytes": 250731
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-default-01/loading-display.mp4",
+        "sha256": "048f3be7570b29c2e38bc12d1cb29e81b64855a59fbc2d0ff85d3c11058dfd9f",
+        "bytes": 1614115
+      },
+      "directly_reviewed": true
+    },
+    {
+      "case": "warm-01",
+      "frame": 33,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/warm-01-frame-0033.png",
+        "sha256": "e999c46de293cc9eaf2b83df98dd4f33fbaa8756c35e6cf69be963d21b579d04",
+        "bytes": 13353
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-warm-01/loading-display.mp4",
+        "sha256": "f178a319239973c753404ac1fae2706b0203c910411c80e499d3f3b60fd87970",
+        "bytes": 1872977
+      },
+      "directly_reviewed": false
+    },
+    {
+      "case": "warm-01",
+      "frame": 34,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/warm-01-frame-0034.png",
+        "sha256": "d4f243119b90e6b8a94a54e06a44d23397a59df27ebbfc12e6fa6aee6bcb1c6d",
+        "bytes": 253801
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-warm-01/loading-display.mp4",
+        "sha256": "f178a319239973c753404ac1fae2706b0203c910411c80e499d3f3b60fd87970",
+        "bytes": 1872977
+      },
+      "directly_reviewed": true
+    },
+    {
+      "case": "sm5-01",
+      "frame": 51,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/sm5-01-frame-0051.png",
+        "sha256": "68306c6acc53879c8eaab1cff06b4819f657213a0644cd383e0a85188c64db5e",
+        "bytes": 13317
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-sm5-01/loading-display.mp4",
+        "sha256": "ab0afcdc10b8ceb3d5d36220ad70869b7ffc1720160303fe466e41bb8d98cd48",
+        "bytes": 1466362
+      },
+      "directly_reviewed": false
+    },
+    {
+      "case": "sm5-01",
+      "frame": 52,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/sm5-01-frame-0052.png",
+        "sha256": "ed1711590a2e81bf2906c99c91e551ed5a7c7224ec3723e14229687ce0062dab",
+        "bytes": 243224
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-sm5-01/loading-display.mp4",
+        "sha256": "ab0afcdc10b8ceb3d5d36220ad70869b7ffc1720160303fe466e41bb8d98cd48",
+        "bytes": 1466362
+      },
+      "directly_reviewed": true
+    },
+    {
+      "case": "cold-01",
+      "frame": 263,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/cold-01-frame-0263.png",
+        "sha256": "6be1a9a48e2bbae73f09fae37579b412814a329585ccc25485a60add7be98e01",
+        "bytes": 12094
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-cold-01/loading-display.mp4",
+        "sha256": "b82121e9260284fe8be37c6d05c16a0a94b32720c27cdf32ef368e2ae27f0074",
+        "bytes": 2119979
+      },
+      "directly_reviewed": true
+    },
+    {
+      "case": "cold-01",
+      "frame": 276,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/cold-01-frame-0276.png",
+        "sha256": "514bc40486a8f53e0231924ac03802f073474b616261ab0f86cfa7c0d10c598f",
+        "bytes": 11435
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-cold-01/loading-display.mp4",
+        "sha256": "b82121e9260284fe8be37c6d05c16a0a94b32720c27cdf32ef368e2ae27f0074",
+        "bytes": 2119979
+      },
+      "directly_reviewed": true
+    },
+    {
+      "case": "cold-01",
+      "frame": 278,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/cold-01-frame-0278.png",
+        "sha256": "718fbf6942f295b4a4ebc0ee0665c700e04adcb0b6b458749bbd29d4a027cb15",
+        "bytes": 11569
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-cold-01/loading-display.mp4",
+        "sha256": "b82121e9260284fe8be37c6d05c16a0a94b32720c27cdf32ef368e2ae27f0074",
+        "bytes": 2119979
+      },
+      "directly_reviewed": false
+    },
+    {
+      "case": "cold-01",
+      "frame": 279,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/cold-01-frame-0279.png",
+        "sha256": "ab635fd8adcd2d02487fd48e7aae15d84d1eff07b0b9b343c168902ef7bf8136",
+        "bytes": 253541
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-cold-01/loading-display.mp4",
+        "sha256": "b82121e9260284fe8be37c6d05c16a0a94b32720c27cdf32ef368e2ae27f0074",
+        "bytes": 2119979
+      },
+      "directly_reviewed": true
+    },
+    {
+      "case": "environment-01",
+      "frame": 65,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/environment-01-frame-0065.png",
+        "sha256": "d15cf07da84a6ed055bf2cf27b67e7a739c984e7cfa7b7da3909335602d12ace",
+        "bytes": 13260
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-environment-01/loading-display.mp4",
+        "sha256": "1a4bd78da6a68cc55bb3336bc9f5ae1e122139316d9ca7e41942d13ba828144e",
+        "bytes": 1509845
+      },
+      "directly_reviewed": true
+    },
+    {
+      "case": "environment-01",
+      "frame": 66,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/environment-01-frame-0066.png",
+        "sha256": "d6aeb6a401273982716c7508ee3448a8d4ad86943662adf530b6eb90d82227b4",
+        "bytes": 252019
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-environment-01/loading-display.mp4",
+        "sha256": "1a4bd78da6a68cc55bb3336bc9f5ae1e122139316d9ca7e41942d13ba828144e",
+        "bytes": 1509845
+      },
+      "directly_reviewed": true
+    },
+    {
+      "case": "optin-01",
+      "frame": 254,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/optin-01-frame-0254.png",
+        "sha256": "3da873b103d438e52e6385435ee79dc5d3c5e1686a4294f22708870f9d8d6718",
+        "bytes": 11514
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-optin-01/loading-display.mp4",
+        "sha256": "f9d66bbead725e42345321d3dc0f82f98afe1a65e2b63fce1b4fdcafbd02f061",
+        "bytes": 2051554
+      },
+      "directly_reviewed": true
+    },
+    {
+      "case": "optin-01",
+      "frame": 264,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/optin-01-frame-0264.png",
+        "sha256": "fba674e5cd5c9635073f66b57b89a3c6d4ea25be763ce3ca8b02a68be95b8bac",
+        "bytes": 11460
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-optin-01/loading-display.mp4",
+        "sha256": "f9d66bbead725e42345321d3dc0f82f98afe1a65e2b63fce1b4fdcafbd02f061",
+        "bytes": 2051554
+      },
+      "directly_reviewed": true
+    },
+    {
+      "case": "optin-01",
+      "frame": 268,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/optin-01-frame-0268.png",
+        "sha256": "2a6ab4dfda40c538c99a6a4a762221b6ab629e251bf923a61a3ea471d237696f",
+        "bytes": 11377
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-optin-01/loading-display.mp4",
+        "sha256": "f9d66bbead725e42345321d3dc0f82f98afe1a65e2b63fce1b4fdcafbd02f061",
+        "bytes": 2051554
+      },
+      "directly_reviewed": true
+    },
+    {
+      "case": "optin-01",
+      "frame": 269,
+      "image": {
+        "path": "/root/biella/artifacts/games/D03-01/automatic-pso-visual-review-01/optin-01-frame-0269.png",
+        "sha256": "beb68622af60854ec8c13db832dc3bb65dbd173dc19d02186c2d345835a0d545",
+        "bytes": 252468
+      },
+      "source": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-optin-01/loading-display.mp4",
+        "sha256": "f9d66bbead725e42345321d3dc0f82f98afe1a65e2b63fce1b4fdcafbd02f061",
+        "bytes": 2051554
+      },
+      "directly_reviewed": true
+    }
+  ],
+  "observations": [
+    "Directly reviewed 15 of 18 decoded full-resolution frames. Extraction alone is not a review.",
+    "Default, warm, SM5 fallback, environment and opt-in scene samples show the existing playable world, HUD, characters and road. Reviewed last-loader samples show the full preparation screen.",
+    "Default frames 30 and 50 show the same activity segment position. Candidate-01 full-wait frames 263 and 276 do too. Final opt-in frames 254 and 264 repeat this defect. The full sampled sequence is measured separately in automatic-pso-series-01.json.",
+    "World art still has prototype mannequin characters, sparse structures and black outer edges. These captures do not qualify final production art."
+  ],
+  "limitations": [
+    "Independent X11 capture at 10 Hz, lossy MP4, decoded unchanged to PNG. No continuous-motion or native frame-time acceptance.",
+    "Dummy audio provides no audible-mix evidence.",
+    "Automatic counters may reach zero before new world requests; no GPU-completion guarantee."
+  ]
+}

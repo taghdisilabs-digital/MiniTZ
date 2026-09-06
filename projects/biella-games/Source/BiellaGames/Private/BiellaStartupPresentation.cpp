@@ -10,7 +10,7 @@
 #include "Misc/App.h"
 #include "Misc/CommandLine.h"
 #include "Misc/CoreDelegates.h"
-#include "PipelineStateCache.h"
+#include "BiellaStartupPipelines.h"
 #include "UnrealClient.h"
 #include "Widgets/Layout/SBox.h"
 
@@ -77,7 +77,7 @@ void FBiellaStartupPresentation::OnViewportRendered(FViewport* Viewport)
     if (!Widget || !Client || Client->Viewport != Viewport || !FViewport::IsGameRenderingEnabled()) return;
     if (bFencePending) return;
     UWorld* World = Client->GetWorld();
-    if (!InspectWorld(World) || PipelineStateCache::GetNumActivePipelinePrecompileTasks() != 0)
+    if (!InspectWorld(World) || ReadBiellaStartupPipelines().Pending() != 0)
     {
         Submissions = 0;
         return;
@@ -101,7 +101,7 @@ void FBiellaStartupPresentation::Tick()
     if (!bFencePending || !SubmissionFence.IsFenceComplete()) return;
     bFencePending = false;
     if (Client->GetWorld() != SubmittedWorld.Get() || !InspectWorld(Client->GetWorld()) ||
-        PipelineStateCache::GetNumActivePipelinePrecompileTasks() != 0)
+        ReadBiellaStartupPipelines().Pending() != 0)
     {
         Submissions = 0;
         return;
@@ -112,9 +112,12 @@ void FBiellaStartupPresentation::Tick()
 void FBiellaStartupPresentation::Finish(const TCHAR* Reason)
 {
     if (!Widget) return;
-    UE_LOG(LogBiellaStartup, Display, TEXT("D03_HANDOFF_END version=1 reason=%s frame=%llu submissions=%u pending=%d missing_proxies=%d meshes=%d elapsed_s=%.6f"),
-        Reason, GFrameCounter, Submissions, PipelineStateCache::GetNumActivePipelinePrecompileTasks(),
+    const FBiellaStartupPipelines Pipelines = ReadBiellaStartupPipelines();
+    UE_LOG(LogBiellaStartup, Display, TEXT("D03_HANDOFF_END version=1 reason=%s frame=%llu submissions=%u pending=%llu missing_proxies=%d meshes=%d elapsed_s=%.6f"),
+        Reason, GFrameCounter, Submissions, Pipelines.Pending(),
         MissingProxies, Meshes, FPlatformTime::Seconds() - Started);
+    UE_LOG(LogBiellaStartup, Display, TEXT("D03_AUTOMATIC_PSO_HANDOFF version=1 wait=%d file_cache=%d automatic=%u"),
+        Pipelines.bWaitForAutomatic, Pipelines.FileCache, Pipelines.Automatic);
     FCoreDelegates::OnBeginFrame.Remove(FrameHandle);
     UGameViewportClient::OnViewportRendered().Remove(RenderedHandle);
     if (UGameViewportClient* Client = Target.Get()) Client->RemoveViewportWidgetContent(Widget.ToSharedRef());

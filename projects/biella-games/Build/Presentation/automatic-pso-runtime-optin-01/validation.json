@@ -1,0 +1,3091 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "revision": {
+    "head": "719a5b36e2bbf86b5c1e4f0a515b2e245920462f",
+    "head_tree": "b2cf40772e8cad5ab00920d1b1aa6da083140bec",
+    "project_status": [
+      " M Source/BiellaGames/Private/BiellaStartupPresentation.cpp",
+      " M Source/BiellaLoadingScreen/Private/BiellaLoadingScreen.cpp",
+      " M tests/run_d03_01_package.py",
+      "?? Build/Presentation/automatic-pso-assist-01/",
+      "?? Build/Presentation/automatic-pso-build-01/",
+      "?? Build/Presentation/automatic-pso-build-02/",
+      "?? Build/Presentation/automatic-pso-design-01.json",
+      "?? Build/Presentation/automatic-pso-negative-before-01.json",
+      "?? Build/Presentation/automatic-pso-negative-before-02.json",
+      "?? Build/Presentation/automatic-pso-runtime-cold-01/",
+      "?? Build/Presentation/automatic-pso-runtime-default-01/",
+      "?? Build/Presentation/automatic-pso-runtime-disabled-01/",
+      "?? Build/Presentation/automatic-pso-runtime-environment-01/",
+      "?? Build/Presentation/automatic-pso-runtime-sm5-01/",
+      "?? Build/Presentation/automatic-pso-runtime-warm-01/",
+      "?? Build/Presentation/automatic-pso-stage-01/",
+      "?? Build/Presentation/automatic-pso-stage-02/",
+      "?? Source/BiellaLoadingScreen/Private/BiellaStartupPipelines.cpp",
+      "?? Source/BiellaLoadingScreen/Public/BiellaStartupPipelines.h",
+      "?? tests/verify_d03_01_automatic_pso.py",
+      "?? tests/verify_d03_01_automatic_pso_series.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "stage": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-stage-02/validation.json",
+    "sha256": "4f12c85eee452a655c571fb08d2659f6fca1b3caa29a9571f551d14687cea631",
+    "bytes": 1216318
+  },
+  "profile": "ProductionTSR",
+  "scenario": "surfaces",
+  "phase": "cold",
+  "state": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-optin-01",
+  "trace": false,
+  "loading_screen": "enabled",
+  "startup_handoff": "enabled",
+  "automatic_pso_wait": "enabled",
+  "feature_level_request": "sm6",
+  "feature_level_expected": "sm6",
+  "architecture_required": true,
+  "capture_status": "GENERATED_DRAFT",
+  "state_before": [],
+  "inaccessible_host_roots": [
+    "/opt/unreal/UE_5.8.2",
+    "/root/biella/repos/biella-engine/projects/biella-games",
+    "/home/unreal",
+    "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02"
+  ],
+  "inputs_before": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_package.py",
+      "sha256": "4b1df5e6553f150a93d256bb59a4b5bf597a8b3a91824907d8718675daa909c5",
+      "bytes": 15083
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_package_isolation_probe.py",
+      "sha256": "1dd068ab83238fd7cdbc7a13ebb5887e7c6f7ca4e4a8e82b32eaf4dc710f522e",
+      "bytes": 1561
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_reconstruction.py",
+      "sha256": "817cd34cf1830029b582417737891181ea915f1d5cc57cc9672d8d106a8dbfc5",
+      "bytes": 2655
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_surfaces.py",
+      "sha256": "28e0dbb3a5e4e6a0a86d2a1e5090d663cf34042322f74092c2bdeafd0cff5657",
+      "bytes": 4658
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py",
+      "sha256": "3dc712f5342117fd6b693d9ae2183a4785316ce54e97f108d2d75b1f6c8d9eaa",
+      "bytes": 3419
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_048.py",
+      "sha256": "244a00703f2105cad67af2bf520b3b4b59e068862873da3b9a016fbad4738e09",
+      "bytes": 9002
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+      "sha256": "331528af104d262d1c4926228f894b63f9cb6ead502d4d916cd56129c59c62a7",
+      "bytes": 10991
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_039.py",
+      "sha256": "9df5e5188444a8dba455768ceed3915c44796a6e9897dd89a1e96d7147b610e8",
+      "bytes": 9977
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_042.py",
+      "sha256": "e33a0217afd1be480091c9e5639a8cb0237cc27b601434fa8adfcdcd6c373fd9",
+      "bytes": 9820
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_shader_platform.py",
+      "sha256": "1644cd87a3cbb579078763847034d6f9a466ce9855336038c432e6f4caf24880",
+      "bytes": 2970
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_architecture.py",
+      "sha256": "456b4f9b8e494528003da483584ba4345287b381ad8ac1cfa9ba4b3593cc9451",
+      "bytes": 2387
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_loading_display.py",
+      "sha256": "c464ff22a974ce1f9afdb131c3fc78a6ad3617e22d0a47978446414e3c5847f6",
+      "bytes": 3018
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_loading_display.py",
+      "sha256": "cdf56822c527d562ae3bc01a8b6022919d04a8b47f304983665332befbb9b774",
+      "bytes": 4650
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_handoff.py",
+      "sha256": "f59491dd6910d600c5d20d11c67f876643ea375044b78a5dd4cf6ae8cdedc599",
+      "bytes": 2849
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_automatic_pso.py",
+      "sha256": "6c00b9f2927b085954ad8f7aaa6038323e2fbaa764c35c06c0da594a97570889",
+      "bytes": 4361
+    }
+  ],
+  "archive": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-automatic-pso-candidate-02.tar.zst",
+    "sha256": "c85bb02bd03c496cb71372816722246ddd952eeb7fe755f7c5aaa785e7b12240",
+    "bytes": 481426583
+  },
+  "scope": "Linux Development packaged Vulkan, task-isolated user caches; OS page cache is not flushed; no generated frames or cross-hardware claim",
+  "package_before": [
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/BiellaGames/Binaries/Linux/BiellaGames",
+      "sha256": "ec6d757a733edfa94a74e9b73b955e6beb3f656a0edfe7a4c1c1a57afd6695c1",
+      "bytes": 298992192
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.pak",
+      "sha256": "a790a56d8d5253acb4b251d44408627866c924793be4d358c88cde696c59e174",
+      "bytes": 30344607
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.ucas",
+      "sha256": "03eb2320190615769620b301684807363a90bdbf451d07015e7fc6c47d5187fd",
+      "bytes": 316525696
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.utoc",
+      "sha256": "0abd6ad9c6a7de300caa5c7c3b4b86fb03fdd449e7f7aa6f930428526a9bc2b0",
+      "bytes": 262504
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/BiellaGames/Content/Paks/global.ucas",
+      "sha256": "1d9631d0495adcea4e08f421291ba1d31375b85fac0d436270fa7d80ec7726ff",
+      "bytes": 3203520
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/BiellaGames/Content/Paks/global.utoc",
+      "sha256": "459adccc121b57e96a7e97a741dc878f96ebdf562a72be61349d398d80aaa4f3",
+      "bytes": 782
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/BiellaGames.sh",
+      "sha256": "0f758fc1d431fca29cae27ecf35820d9ea70864532c0959f2d578e5216f68c46",
+      "bytes": 258
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so",
+      "sha256": "51aec15c714c5d96969f6a7608cdefc5c163e7fec0b2e0974ec1382380d11c5e",
+      "bytes": 23
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so.2",
+      "sha256": "ed3698c20005885c61a20f04ba772e329f67855713f5fecb26152a8f949ad280",
+      "bytes": 9715408
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_api_dump.json",
+      "sha256": "4616e485e4dacaa8c1ef365fed23d2c117e8848148720a7acea70c96cb975179",
+      "bytes": 12512
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_crash_diagnostic.json",
+      "sha256": "77b6e62bc24994b056e316aa0bd5e056e8ff0dfa377ef1e0ec5b291a181b6a88",
+      "bytes": 9170
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_gfxreconstruct.json",
+      "sha256": "93065b7975a70a250569bfce2ee655bf6bc188a7844204d2c37700a770afb02e",
+      "bytes": 26755
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_profiles.json",
+      "sha256": "88deb508a3d16131cd747335063826a31f237e024f396542c05908b44760b895",
+      "bytes": 69029
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_shader_object.json",
+      "sha256": "1c6dd4b56db0e2dc4a7eb1e44e7ad933f399685436c644add05dadf4258e6b1d",
+      "bytes": 4356
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_synchronization2.json",
+      "sha256": "307c8b906289b7a3329fb44137dd3af595d91f26e5bde9cff1b4280801a45139",
+      "bytes": 1860
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_validation.json",
+      "sha256": "328861629130912c27f1db4f2be4fa3d64608ca7edf6f3d886c09cb5856834cc",
+      "bytes": 94443
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_api_dump.so",
+      "sha256": "1b9871125c6f9afb2b0f09adbe3af3049a20837dca80ccea5d642be4dec31474",
+      "bytes": 109065264
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_crash_diagnostic.so",
+      "sha256": "99dda3ecafd809f0de42453536a2ea6299ac6216db9352e301065542e6685fbf",
+      "bytes": 13228088
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_gfxreconstruct.so",
+      "sha256": "2e8397383a72eb200e99a560a2b58947b8a0dc6cef3d1fe67245674df0d9e546",
+      "bytes": 99440744
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_profiles.so",
+      "sha256": "e2e9422a15730cd14904a0d27bbd7d463b5598fc7ffa1744d14fc47ce0dc87bf",
+      "bytes": 2226960
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_shader_object.so",
+      "sha256": "da3db6756cccaf502dab09a3de0cece49168654f7735612bb51f7555ef9f7cda",
+      "bytes": 4174536
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_synchronization2.so",
+      "sha256": "daa4bf2da5600deeff440b4c98fc3d68ba04121fdbb2f21d3463126c8d0a2c99",
+      "bytes": 5290240
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_validation.so",
+      "sha256": "cbecbd0d82217a789a3c3e1493cc60cb7cc036df8f22a0501af9b8ca23342e81",
+      "bytes": 37821704
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libvulkan.so",
+      "sha256": "d59b6a2b184887fb6eddea3dd754bd2f5b59abc647577c3cd71bb530213ebbb0",
+      "bytes": 4210872
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Config/StagedBuild_BiellaGames.ini",
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "bytes": 3
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Content/Renderer/TessellationTable.bin",
+      "sha256": "edc4f3b628a139c5e185bbaeca661c95c1f427368d3b92892c5cff36c56dd941",
+      "bytes": 259568
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c",
+      "bytes": 22146944
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so.1.24",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c",
+      "bytes": 22146944
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Manifest_NonUFSFiles_Linux.txt",
+      "sha256": "66d10a6fd4878f26929f2381ebf840823fcadb692a288d3de4f7c1fe3f893abc",
+      "bytes": 2105
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Manifest_UFSFiles_Linux.txt",
+      "sha256": "48ca2c90bd2535e22ba9c9e86883c7e736314224d1e74ac1f930516de3817610",
+      "bytes": 227370
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/NOTICES.txt",
+      "sha256": "ba49ae5586f817b36a2772269f71f899cb1f54b5f2720fad951319edd5e140b8",
+      "bytes": 111
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/ThirdPartyNotices/libsamplerate-COPYING.txt",
+      "sha256": "2c1f76ce2effdddb425018405d5690c0b1ab4e6976e35296b0a6db65c5e1a55d",
+      "bytes": 1334
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/ThirdPartyNotices/mimalloc-LICENSE.txt",
+      "sha256": "d9f5607dce0f93055be57077d1b9545e5b14d5814d8c99d6e1d0a5eff2f74c89",
+      "bytes": 1091
+    }
+  ],
+  "runtime": {
+    "command": [
+      "bwrap",
+      "--die-with-parent",
+      "--ro-bind",
+      "/",
+      "/",
+      "--dev-bind",
+      "/dev",
+      "/dev",
+      "--tmpfs",
+      "/root",
+      "--tmpfs",
+      "/opt",
+      "--tmpfs",
+      "/home",
+      "--tmpfs",
+      "/mnt",
+      "--tmpfs",
+      "/tmp",
+      "--chmod",
+      "1777",
+      "/tmp",
+      "--tmpfs",
+      "/var/tmp",
+      "--chmod",
+      "1777",
+      "/var/tmp",
+      "--tmpfs",
+      "/var/cache",
+      "--tmpfs",
+      "/run",
+      "--unshare-pid",
+      "--proc",
+      "/proc",
+      "--unshare-net",
+      "--unshare-ipc",
+      "--ro-bind",
+      "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux",
+      "/tmp/package",
+      "--bind",
+      "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-optin-01",
+      "/tmp/state",
+      "--bind",
+      "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-optin-01/home",
+      "/home/unreal",
+      "--bind",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-optin-01",
+      "/tmp/evidence",
+      "--ro-bind",
+      "/root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_package_isolation_probe.py",
+      "/tmp/probe.py",
+      "--chdir",
+      "/tmp/package",
+      "--ro-bind",
+      "/root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_loading_display.py",
+      "/tmp/loading-display.py",
+      "--",
+      "runuser",
+      "-u",
+      "unreal",
+      "--",
+      "env",
+      "SDL_AUDIODRIVER=dummy",
+      "XDG_CACHE_HOME=/tmp/state/xdg-cache",
+      "XDG_CONFIG_HOME=/tmp/state/xdg-config",
+      "python3",
+      "/tmp/probe.py",
+      "xvfb-run",
+      "-a",
+      "-s",
+      "-screen 0 1280x720x24",
+      "python3",
+      "/tmp/loading-display.py",
+      "/tmp/package/BiellaGames.sh",
+      "/Game/Maps/BiellaOpenWorldMap",
+      "-vulkan",
+      "-NoVSync",
+      "-windowed",
+      "-ResX=1280",
+      "-ResY=720",
+      "-unattended",
+      "-AudioMixer",
+      "-nosplash",
+      "-stdout",
+      "-FullStdOutLogOutput",
+      "-UserDir=/tmp/state/user/",
+      "-AbsLog=/tmp/evidence/runtime.engine.log",
+      "-BiellaPresentationOutput=/tmp/evidence",
+      "-BiellaRenderProfile=ProductionTSR",
+      "-BiellaRenderReadback=/tmp/evidence/native-views.csv",
+      "-LogCmds=LogPSOHitching Verbose,LogShaderLibrary Verbose,LogVulkanRHI Verbose",
+      "-ExecCmds=t.MaxFPS 0,r.VSync 0,r.MotionBlurQuality 0,Automation RunTests BiellaGames.D03.Surfaces; SoftQuit",
+      "-sm6",
+      "-BiellaLoadingOutput=/tmp/evidence",
+      "-BiellaWaitForAutomaticPSOs"
+    ],
+    "cwd": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback",
+    "pid": 2489969,
+    "returncode": 0,
+    "timed_out": false,
+    "timeout_seconds": 360,
+    "elapsed_seconds": 56.391,
+    "log": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-optin-01/runtime.stdout.log",
+      "sha256": "f7db6126c24ea79d0c427736f4dd97c775777c243c8f7fbbbbc6c1ed17f51dcb",
+      "bytes": 876831
+    }
+  },
+  "loading": {
+    "render_ticks": 1293,
+    "elapsed_seconds": 23.104186,
+    "max_render_gap_seconds": 0.482276,
+    "pending_at_stop": 0
+  },
+  "loading_display": {
+    "schema": "biella.loading_display/v2",
+    "frames": 340,
+    "loading_frames": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150,
+      151,
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      158,
+      159,
+      160,
+      161,
+      162,
+      163,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172,
+      173,
+      174,
+      175,
+      176,
+      177,
+      178,
+      179,
+      180,
+      181,
+      182,
+      183,
+      184,
+      185,
+      186,
+      187,
+      188,
+      189,
+      190,
+      191,
+      192,
+      193,
+      194,
+      195,
+      196,
+      197,
+      198,
+      199,
+      200,
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215,
+      216,
+      217,
+      218,
+      219,
+      220,
+      221,
+      222,
+      223,
+      224,
+      225,
+      226,
+      227,
+      228,
+      229,
+      230,
+      231,
+      232,
+      233,
+      234,
+      235,
+      236,
+      237,
+      238,
+      239,
+      240,
+      241,
+      242,
+      243,
+      244,
+      245,
+      246,
+      247,
+      248,
+      249,
+      250,
+      251,
+      252,
+      253,
+      254,
+      255,
+      256,
+      257,
+      258,
+      259,
+      260,
+      261,
+      262,
+      263,
+      264,
+      265,
+      266,
+      267,
+      268
+    ],
+    "world_frames": [
+      269,
+      270,
+      271,
+      272,
+      273,
+      274,
+      275,
+      276,
+      277,
+      278,
+      279,
+      280,
+      281,
+      282,
+      283,
+      284,
+      285,
+      286,
+      287,
+      288,
+      289,
+      290,
+      291,
+      292,
+      293,
+      294,
+      295,
+      296,
+      297,
+      298,
+      299,
+      300,
+      301,
+      302,
+      303,
+      304,
+      305,
+      306,
+      307,
+      308,
+      309,
+      310,
+      311,
+      312,
+      313,
+      314,
+      315,
+      316,
+      317,
+      318,
+      320,
+      321,
+      322,
+      323,
+      324,
+      325,
+      326,
+      327,
+      328,
+      329,
+      330,
+      331,
+      332,
+      333,
+      334,
+      335,
+      336,
+      337,
+      338,
+      339
+    ],
+    "indicator_samples": [
+      {
+        "frame": 24,
+        "x": 597.5,
+        "width": 94
+      },
+      {
+        "frame": 25,
+        "x": 597.5,
+        "width": 94
+      },
+      {
+        "frame": 26,
+        "x": 597.5,
+        "width": 94
+      },
+      {
+        "frame": 27,
+        "x": 597.5,
+        "width": 94
+      },
+      {
+        "frame": 28,
+        "x": 784.5,
+        "width": 94
+      },
+      {
+        "frame": 29,
+        "x": 787.5,
+        "width": 94
+      },
+      {
+        "frame": 30,
+        "x": 772.5,
+        "width": 94
+      },
+      {
+        "frame": 31,
+        "x": 748.5,
+        "width": 94
+      },
+      {
+        "frame": 32,
+        "x": 709.5,
+        "width": 94
+      },
+      {
+        "frame": 33,
+        "x": 663.5,
+        "width": 94
+      },
+      {
+        "frame": 34,
+        "x": 621.5,
+        "width": 94
+      },
+      {
+        "frame": 35,
+        "x": 573.5,
+        "width": 94
+      },
+      {
+        "frame": 36,
+        "x": 534.5,
+        "width": 94
+      },
+      {
+        "frame": 37,
+        "x": 510.5,
+        "width": 94
+      },
+      {
+        "frame": 38,
+        "x": 493.0,
+        "width": 95
+      },
+      {
+        "frame": 39,
+        "x": 492.5,
+        "width": 94
+      },
+      {
+        "frame": 40,
+        "x": 505.0,
+        "width": 95
+      },
+      {
+        "frame": 41,
+        "x": 532.0,
+        "width": 95
+      },
+      {
+        "frame": 42,
+        "x": 571.5,
+        "width": 94
+      },
+      {
+        "frame": 43,
+        "x": 616.5,
+        "width": 94
+      },
+      {
+        "frame": 44,
+        "x": 656.0,
+        "width": 95
+      },
+      {
+        "frame": 45,
+        "x": 703.0,
+        "width": 95
+      },
+      {
+        "frame": 46,
+        "x": 745.5,
+        "width": 94
+      },
+      {
+        "frame": 47,
+        "x": 770.5,
+        "width": 94
+      },
+      {
+        "frame": 48,
+        "x": 786.5,
+        "width": 94
+      },
+      {
+        "frame": 49,
+        "x": 787.5,
+        "width": 94
+      },
+      {
+        "frame": 50,
+        "x": 773.5,
+        "width": 94
+      },
+      {
+        "frame": 51,
+        "x": 749.5,
+        "width": 94
+      },
+      {
+        "frame": 52,
+        "x": 710.5,
+        "width": 94
+      },
+      {
+        "frame": 53,
+        "x": 665.5,
+        "width": 94
+      },
+      {
+        "frame": 54,
+        "x": 617.5,
+        "width": 94
+      },
+      {
+        "frame": 55,
+        "x": 571.5,
+        "width": 94
+      },
+      {
+        "frame": 56,
+        "x": 538.5,
+        "width": 94
+      },
+      {
+        "frame": 57,
+        "x": 508.5,
+        "width": 94
+      },
+      {
+        "frame": 58,
+        "x": 493.5,
+        "width": 94
+      },
+      {
+        "frame": 59,
+        "x": 492.5,
+        "width": 94
+      },
+      {
+        "frame": 60,
+        "x": 507.5,
+        "width": 94
+      },
+      {
+        "frame": 61,
+        "x": 531.5,
+        "width": 94
+      },
+      {
+        "frame": 62,
+        "x": 568.5,
+        "width": 94
+      },
+      {
+        "frame": 63,
+        "x": 614.5,
+        "width": 94
+      },
+      {
+        "frame": 64,
+        "x": 663.5,
+        "width": 94
+      },
+      {
+        "frame": 65,
+        "x": 702.5,
+        "width": 94
+      },
+      {
+        "frame": 66,
+        "x": 743.5,
+        "width": 94
+      },
+      {
+        "frame": 67,
+        "x": 772.5,
+        "width": 94
+      },
+      {
+        "frame": 68,
+        "x": 785.5,
+        "width": 94
+      },
+      {
+        "frame": 69,
+        "x": 786.5,
+        "width": 94
+      },
+      {
+        "frame": 70,
+        "x": 774.5,
+        "width": 94
+      },
+      {
+        "frame": 71,
+        "x": 747.5,
+        "width": 94
+      },
+      {
+        "frame": 72,
+        "x": 708.5,
+        "width": 94
+      },
+      {
+        "frame": 73,
+        "x": 662.5,
+        "width": 94
+      },
+      {
+        "frame": 74,
+        "x": 615.5,
+        "width": 94
+      },
+      {
+        "frame": 75,
+        "x": 576.5,
+        "width": 94
+      },
+      {
+        "frame": 76,
+        "x": 536.5,
+        "width": 94
+      },
+      {
+        "frame": 77,
+        "x": 506.5,
+        "width": 94
+      },
+      {
+        "frame": 78,
+        "x": 493.5,
+        "width": 94
+      },
+      {
+        "frame": 79,
+        "x": 491.5,
+        "width": 94
+      },
+      {
+        "frame": 80,
+        "x": 507.5,
+        "width": 94
+      },
+      {
+        "frame": 81,
+        "x": 531.5,
+        "width": 94
+      },
+      {
+        "frame": 82,
+        "x": 569.5,
+        "width": 94
+      },
+      {
+        "frame": 83,
+        "x": 615.5,
+        "width": 94
+      },
+      {
+        "frame": 84,
+        "x": 657.5,
+        "width": 94
+      },
+      {
+        "frame": 85,
+        "x": 703.5,
+        "width": 94
+      },
+      {
+        "frame": 86,
+        "x": 744.5,
+        "width": 94
+      },
+      {
+        "frame": 87,
+        "x": 769.5,
+        "width": 94
+      },
+      {
+        "frame": 88,
+        "x": 785.5,
+        "width": 94
+      },
+      {
+        "frame": 89,
+        "x": 787.5,
+        "width": 94
+      },
+      {
+        "frame": 90,
+        "x": 772.5,
+        "width": 94
+      },
+      {
+        "frame": 91,
+        "x": 744.5,
+        "width": 94
+      },
+      {
+        "frame": 92,
+        "x": 706.5,
+        "width": 94
+      },
+      {
+        "frame": 93,
+        "x": 668.5,
+        "width": 94
+      },
+      {
+        "frame": 94,
+        "x": 618.5,
+        "width": 94
+      },
+      {
+        "frame": 95,
+        "x": 572.5,
+        "width": 94
+      },
+      {
+        "frame": 96,
+        "x": 538.5,
+        "width": 94
+      },
+      {
+        "frame": 97,
+        "x": 508.5,
+        "width": 94
+      },
+      {
+        "frame": 98,
+        "x": 492.5,
+        "width": 94
+      },
+      {
+        "frame": 99,
+        "x": 492.5,
+        "width": 94
+      },
+      {
+        "frame": 100,
+        "x": 504.0,
+        "width": 95
+      },
+      {
+        "frame": 101,
+        "x": 532.5,
+        "width": 94
+      },
+      {
+        "frame": 102,
+        "x": 572.0,
+        "width": 95
+      },
+      {
+        "frame": 103,
+        "x": 610.5,
+        "width": 94
+      },
+      {
+        "frame": 104,
+        "x": 659.5,
+        "width": 94
+      },
+      {
+        "frame": 105,
+        "x": 704.5,
+        "width": 94
+      },
+      {
+        "frame": 106,
+        "x": 744.5,
+        "width": 94
+      },
+      {
+        "frame": 107,
+        "x": 769.5,
+        "width": 94
+      },
+      {
+        "frame": 108,
+        "x": 786.5,
+        "width": 94
+      },
+      {
+        "frame": 109,
+        "x": 787.5,
+        "width": 94
+      },
+      {
+        "frame": 110,
+        "x": 774.5,
+        "width": 94
+      },
+      {
+        "frame": 111,
+        "x": 746.5,
+        "width": 94
+      },
+      {
+        "frame": 112,
+        "x": 707.5,
+        "width": 94
+      },
+      {
+        "frame": 113,
+        "x": 667.5,
+        "width": 94
+      },
+      {
+        "frame": 114,
+        "x": 619.5,
+        "width": 94
+      },
+      {
+        "frame": 115,
+        "x": 570.5,
+        "width": 94
+      },
+      {
+        "frame": 116,
+        "x": 537.5,
+        "width": 94
+      },
+      {
+        "frame": 117,
+        "x": 507.5,
+        "width": 94
+      },
+      {
+        "frame": 118,
+        "x": 492.5,
+        "width": 94
+      },
+      {
+        "frame": 119,
+        "x": 491.5,
+        "width": 94
+      },
+      {
+        "frame": 120,
+        "x": 505.0,
+        "width": 95
+      },
+      {
+        "frame": 121,
+        "x": 533.5,
+        "width": 94
+      },
+      {
+        "frame": 122,
+        "x": 572.5,
+        "width": 94
+      },
+      {
+        "frame": 123,
+        "x": 610.5,
+        "width": 94
+      },
+      {
+        "frame": 124,
+        "x": 659.5,
+        "width": 94
+      },
+      {
+        "frame": 125,
+        "x": 706.5,
+        "width": 94
+      },
+      {
+        "frame": 126,
+        "x": 744.5,
+        "width": 94
+      },
+      {
+        "frame": 127,
+        "x": 770.5,
+        "width": 94
+      },
+      {
+        "frame": 128,
+        "x": 786.5,
+        "width": 94
+      },
+      {
+        "frame": 129,
+        "x": 787.5,
+        "width": 94
+      },
+      {
+        "frame": 130,
+        "x": 773.5,
+        "width": 94
+      },
+      {
+        "frame": 131,
+        "x": 743.5,
+        "width": 94
+      },
+      {
+        "frame": 132,
+        "x": 710.5,
+        "width": 94
+      },
+      {
+        "frame": 133,
+        "x": 665.5,
+        "width": 94
+      },
+      {
+        "frame": 134,
+        "x": 616.5,
+        "width": 94
+      },
+      {
+        "frame": 135,
+        "x": 571.5,
+        "width": 94
+      },
+      {
+        "frame": 136,
+        "x": 538.5,
+        "width": 94
+      },
+      {
+        "frame": 137,
+        "x": 508.5,
+        "width": 94
+      },
+      {
+        "frame": 138,
+        "x": 492.5,
+        "width": 94
+      },
+      {
+        "frame": 139,
+        "x": 492.5,
+        "width": 94
+      },
+      {
+        "frame": 140,
+        "x": 504.0,
+        "width": 95
+      },
+      {
+        "frame": 141,
+        "x": 531.0,
+        "width": 95
+      },
+      {
+        "frame": 142,
+        "x": 572.5,
+        "width": 94
+      },
+      {
+        "frame": 143,
+        "x": 610.5,
+        "width": 94
+      },
+      {
+        "frame": 144,
+        "x": 659.5,
+        "width": 94
+      },
+      {
+        "frame": 145,
+        "x": 705.5,
+        "width": 94
+      },
+      {
+        "frame": 146,
+        "x": 744.5,
+        "width": 94
+      },
+      {
+        "frame": 147,
+        "x": 772.5,
+        "width": 94
+      },
+      {
+        "frame": 148,
+        "x": 785.5,
+        "width": 94
+      },
+      {
+        "frame": 149,
+        "x": 786.5,
+        "width": 94
+      },
+      {
+        "frame": 150,
+        "x": 771.5,
+        "width": 94
+      },
+      {
+        "frame": 151,
+        "x": 748.5,
+        "width": 94
+      },
+      {
+        "frame": 152,
+        "x": 711.5,
+        "width": 94
+      },
+      {
+        "frame": 153,
+        "x": 664.5,
+        "width": 94
+      },
+      {
+        "frame": 154,
+        "x": 615.5,
+        "width": 94
+      },
+      {
+        "frame": 155,
+        "x": 575.5,
+        "width": 94
+      },
+      {
+        "frame": 156,
+        "x": 536.0,
+        "width": 95
+      },
+      {
+        "frame": 157,
+        "x": 507.5,
+        "width": 94
+      },
+      {
+        "frame": 158,
+        "x": 493.5,
+        "width": 94
+      },
+      {
+        "frame": 159,
+        "x": 491.5,
+        "width": 94
+      },
+      {
+        "frame": 160,
+        "x": 506.5,
+        "width": 94
+      },
+      {
+        "frame": 161,
+        "x": 534.0,
+        "width": 95
+      },
+      {
+        "frame": 162,
+        "x": 566.5,
+        "width": 94
+      },
+      {
+        "frame": 163,
+        "x": 613.5,
+        "width": 94
+      },
+      {
+        "frame": 164,
+        "x": 661.5,
+        "width": 94
+      },
+      {
+        "frame": 165,
+        "x": 707.5,
+        "width": 94
+      },
+      {
+        "frame": 166,
+        "x": 740.5,
+        "width": 94
+      },
+      {
+        "frame": 167,
+        "x": 770.5,
+        "width": 94
+      },
+      {
+        "frame": 168,
+        "x": 786.5,
+        "width": 94
+      },
+      {
+        "frame": 169,
+        "x": 787.5,
+        "width": 94
+      },
+      {
+        "frame": 170,
+        "x": 774.5,
+        "width": 94
+      },
+      {
+        "frame": 171,
+        "x": 747.5,
+        "width": 94
+      },
+      {
+        "frame": 172,
+        "x": 709.5,
+        "width": 94
+      },
+      {
+        "frame": 173,
+        "x": 664.5,
+        "width": 94
+      },
+      {
+        "frame": 174,
+        "x": 623.5,
+        "width": 94
+      },
+      {
+        "frame": 175,
+        "x": 574.5,
+        "width": 94
+      },
+      {
+        "frame": 176,
+        "x": 534.5,
+        "width": 94
+      },
+      {
+        "frame": 177,
+        "x": 506.5,
+        "width": 94
+      },
+      {
+        "frame": 178,
+        "x": 493.0,
+        "width": 95
+      },
+      {
+        "frame": 179,
+        "x": 492.5,
+        "width": 94
+      },
+      {
+        "frame": 180,
+        "x": 504.5,
+        "width": 94
+      },
+      {
+        "frame": 181,
+        "x": 531.0,
+        "width": 95
+      },
+      {
+        "frame": 182,
+        "x": 570.5,
+        "width": 94
+      },
+      {
+        "frame": 183,
+        "x": 616.5,
+        "width": 94
+      },
+      {
+        "frame": 184,
+        "x": 664.5,
+        "width": 94
+      },
+      {
+        "frame": 185,
+        "x": 702.5,
+        "width": 94
+      },
+      {
+        "frame": 186,
+        "x": 742.5,
+        "width": 94
+      },
+      {
+        "frame": 187,
+        "x": 771.5,
+        "width": 94
+      },
+      {
+        "frame": 188,
+        "x": 786.5,
+        "width": 94
+      },
+      {
+        "frame": 189,
+        "x": 787.5,
+        "width": 94
+      },
+      {
+        "frame": 190,
+        "x": 772.5,
+        "width": 94
+      },
+      {
+        "frame": 191,
+        "x": 745.5,
+        "width": 94
+      },
+      {
+        "frame": 192,
+        "x": 708.5,
+        "width": 94
+      },
+      {
+        "frame": 193,
+        "x": 661.5,
+        "width": 94
+      },
+      {
+        "frame": 194,
+        "x": 621.5,
+        "width": 94
+      },
+      {
+        "frame": 195,
+        "x": 575.5,
+        "width": 94
+      },
+      {
+        "frame": 196,
+        "x": 534.5,
+        "width": 94
+      },
+      {
+        "frame": 197,
+        "x": 508.5,
+        "width": 94
+      },
+      {
+        "frame": 198,
+        "x": 492.5,
+        "width": 94
+      },
+      {
+        "frame": 199,
+        "x": 491.5,
+        "width": 94
+      },
+      {
+        "frame": 200,
+        "x": 505.0,
+        "width": 95
+      },
+      {
+        "frame": 201,
+        "x": 533.0,
+        "width": 95
+      },
+      {
+        "frame": 202,
+        "x": 571.5,
+        "width": 94
+      },
+      {
+        "frame": 203,
+        "x": 616.5,
+        "width": 94
+      },
+      {
+        "frame": 204,
+        "x": 657.5,
+        "width": 94
+      },
+      {
+        "frame": 205,
+        "x": 705.5,
+        "width": 94
+      },
+      {
+        "frame": 206,
+        "x": 744.5,
+        "width": 94
+      },
+      {
+        "frame": 207,
+        "x": 769.5,
+        "width": 94
+      },
+      {
+        "frame": 208,
+        "x": 786.5,
+        "width": 94
+      },
+      {
+        "frame": 209,
+        "x": 786.5,
+        "width": 94
+      },
+      {
+        "frame": 210,
+        "x": 774.0,
+        "width": 95
+      },
+      {
+        "frame": 211,
+        "x": 745.0,
+        "width": 95
+      },
+      {
+        "frame": 212,
+        "x": 711.5,
+        "width": 94
+      },
+      {
+        "frame": 213,
+        "x": 666.5,
+        "width": 94
+      },
+      {
+        "frame": 214,
+        "x": 619.5,
+        "width": 94
+      },
+      {
+        "frame": 215,
+        "x": 572.5,
+        "width": 94
+      },
+      {
+        "frame": 216,
+        "x": 533.5,
+        "width": 94
+      },
+      {
+        "frame": 217,
+        "x": 509.5,
+        "width": 94
+      },
+      {
+        "frame": 218,
+        "x": 493.5,
+        "width": 94
+      },
+      {
+        "frame": 219,
+        "x": 492.5,
+        "width": 94
+      },
+      {
+        "frame": 220,
+        "x": 506.5,
+        "width": 94
+      },
+      {
+        "frame": 221,
+        "x": 534.5,
+        "width": 94
+      },
+      {
+        "frame": 222,
+        "x": 566.5,
+        "width": 94
+      },
+      {
+        "frame": 223,
+        "x": 610.5,
+        "width": 94
+      },
+      {
+        "frame": 224,
+        "x": 659.5,
+        "width": 94
+      },
+      {
+        "frame": 225,
+        "x": 704.5,
+        "width": 94
+      },
+      {
+        "frame": 226,
+        "x": 743.5,
+        "width": 94
+      },
+      {
+        "frame": 227,
+        "x": 769.5,
+        "width": 94
+      },
+      {
+        "frame": 228,
+        "x": 785.5,
+        "width": 94
+      },
+      {
+        "frame": 229,
+        "x": 786.5,
+        "width": 94
+      },
+      {
+        "frame": 230,
+        "x": 772.5,
+        "width": 94
+      },
+      {
+        "frame": 231,
+        "x": 748.0,
+        "width": 95
+      },
+      {
+        "frame": 232,
+        "x": 708.5,
+        "width": 94
+      },
+      {
+        "frame": 233,
+        "x": 662.5,
+        "width": 94
+      },
+      {
+        "frame": 234,
+        "x": 614.5,
+        "width": 94
+      },
+      {
+        "frame": 235,
+        "x": 575.5,
+        "width": 94
+      },
+      {
+        "frame": 236,
+        "x": 533.5,
+        "width": 94
+      },
+      {
+        "frame": 237,
+        "x": 508.5,
+        "width": 94
+      },
+      {
+        "frame": 238,
+        "x": 492.5,
+        "width": 94
+      },
+      {
+        "frame": 239,
+        "x": 492.5,
+        "width": 94
+      },
+      {
+        "frame": 240,
+        "x": 504.5,
+        "width": 94
+      },
+      {
+        "frame": 241,
+        "x": 531.5,
+        "width": 94
+      },
+      {
+        "frame": 242,
+        "x": 572.0,
+        "width": 95
+      },
+      {
+        "frame": 243,
+        "x": 609.5,
+        "width": 94
+      },
+      {
+        "frame": 244,
+        "x": 662.0,
+        "width": 95
+      },
+      {
+        "frame": 245,
+        "x": 707.5,
+        "width": 94
+      },
+      {
+        "frame": 246,
+        "x": 739.5,
+        "width": 94
+      },
+      {
+        "frame": 247,
+        "x": 770.5,
+        "width": 94
+      },
+      {
+        "frame": 248,
+        "x": 786.5,
+        "width": 94
+      },
+      {
+        "frame": 249,
+        "x": 787.5,
+        "width": 94
+      },
+      {
+        "frame": 250,
+        "x": 774.0,
+        "width": 95
+      },
+      {
+        "frame": 251,
+        "x": 745.5,
+        "width": 94
+      },
+      {
+        "frame": 252,
+        "x": 706.5,
+        "width": 94
+      },
+      {
+        "frame": 253,
+        "x": 661.5,
+        "width": 94
+      },
+      {
+        "frame": 254,
+        "x": 646.5,
+        "width": 94
+      },
+      {
+        "frame": 255,
+        "x": 646.5,
+        "width": 94
+      },
+      {
+        "frame": 256,
+        "x": 646.5,
+        "width": 94
+      },
+      {
+        "frame": 257,
+        "x": 646.5,
+        "width": 94
+      },
+      {
+        "frame": 258,
+        "x": 646.5,
+        "width": 94
+      },
+      {
+        "frame": 259,
+        "x": 646.5,
+        "width": 94
+      },
+      {
+        "frame": 260,
+        "x": 646.5,
+        "width": 94
+      },
+      {
+        "frame": 261,
+        "x": 646.5,
+        "width": 94
+      },
+      {
+        "frame": 262,
+        "x": 646.5,
+        "width": 94
+      },
+      {
+        "frame": 263,
+        "x": 646.5,
+        "width": 94
+      },
+      {
+        "frame": 264,
+        "x": 646.5,
+        "width": 94
+      },
+      {
+        "frame": 265,
+        "x": 617.5,
+        "width": 94
+      },
+      {
+        "frame": 266,
+        "x": 617.5,
+        "width": 94
+      },
+      {
+        "frame": 267,
+        "x": 752.5,
+        "width": 94
+      },
+      {
+        "frame": 268,
+        "x": 781.5,
+        "width": 94
+      }
+    ],
+    "max_title_delta": 0.11759259551763535,
+    "trailing_static_loading_seconds": 0.1,
+    "scope": "Lossy X11 10Hz fixture-specific screening; excludes HUD-only frames; scene candidates require visual review; no continuous-loading or first-frame-readiness acceptance",
+    "indicator_span_pixels": 296.0,
+    "last_loading_to_first_world_seconds": 0.1
+  },
+  "native_views": {
+    "observed_views": 1791,
+    "joined_scenario_frames": 1396,
+    "joined_views": 1396,
+    "missing_frames": [],
+    "multiple_view_frames": 0,
+    "first_frame": 17244.0,
+    "last_frame": 18639.0,
+    "expected": {
+      "aa": 4,
+      "requested_aa": 4,
+      "screen_percentage": 100,
+      "temporal_upsampling": 1,
+      "dynamic_res": 0,
+      "gi": 1,
+      "reflections": 1,
+      "vsm": 1,
+      "nanite": 1,
+      "ray_tracing": 0,
+      "external_upscaler": 0,
+      "width": 1280,
+      "height": 720,
+      "tsr_supported": 1
+    },
+    "scope": "Constructed game-thread views plus requested renderer cvars; no generated frames or hardware compatibility claim"
+  },
+  "verification": {
+    "frames": 1396,
+    "costs": {
+      "stationary": {
+        "frames": 303,
+        "wall_p50_ms": 11.425341,
+        "wall_p95_ms": 14.069455999999999,
+        "gpu_p50_ms": 6.167
+      },
+      "camera_pan": {
+        "frames": 306,
+        "wall_p50_ms": 11.177676000000002,
+        "wall_p95_ms": 13.23310075,
+        "gpu_p50_ms": 6.2295
+      }
+    },
+    "static_mean_abs_delta_255": [
+      0.4721108078956604,
+      0.46688294410705566,
+      0.4645594656467438,
+      0.4547916650772095,
+      0.44610026478767395,
+      0.4551424980163574,
+      0.4554159343242645,
+      0.4481843113899231,
+      0.44779008626937866
+    ],
+    "pan_mean_abs_delta_255": [
+      5.558551788330078,
+      5.644033432006836,
+      5.016488075256348,
+      4.557868957519531,
+      4.389259338378906,
+      4.116794109344482,
+      3.9121556282043457,
+      4.02379035949707,
+      3.98789644241333,
+      3.497636079788208,
+      3.553511381149292,
+      3.516356945037842,
+      3.428218364715576,
+      3.2471606731414795,
+      3.6411385536193848,
+      3.522894859313965,
+      3.319343090057373,
+      3.3903212547302246,
+      4.7076416015625,
+      4.333413124084473,
+      5.819497108459473,
+      2.375962018966675,
+      0.5006922483444214,
+      0.4668561816215515,
+      0.4562304615974426,
+      0.4555266201496124,
+      0.4473647177219391,
+      0.452462375164032,
+      0.4533940851688385,
+      0.44289061427116394,
+      0.4601316452026367
+    ],
+    "captures": [
+      {
+        "name": "static_000",
+        "sha256": "80bfe9eb67d4fc05d2f542a7933fe918d83d1a5b335888783ea7906745d533d3",
+        "bytes": 990291
+      },
+      {
+        "name": "static_001",
+        "sha256": "e1f73ef3da5fa89bfc5a0c65b76ce36f14b03527d98b6544fe0bd90676ffb955",
+        "bytes": 990822
+      },
+      {
+        "name": "static_002",
+        "sha256": "e78a4c74293e260a4cc20399dbb6eb8b2a328cc8ad884c0e5299de36291fa2ce",
+        "bytes": 990927
+      },
+      {
+        "name": "static_003",
+        "sha256": "931df3663c0d1b8e886c6fcd8b1780022aacc2d10e48ad805f8ddb7d6ce8dd94",
+        "bytes": 990270
+      },
+      {
+        "name": "static_004",
+        "sha256": "61a4cf73e5e2d68300c65f722c02edef4a28c1d77562253313cd2220affdd7cb",
+        "bytes": 990332
+      },
+      {
+        "name": "static_005",
+        "sha256": "66c535183ee39162ece56ac17f5b81253ac41fcc31f62d836d9c11b9aea8908b",
+        "bytes": 991158
+      },
+      {
+        "name": "static_006",
+        "sha256": "2482d9eba3684326b8c597bbc1962aed6736c2735e41339587c26c9487f9406d",
+        "bytes": 990676
+      },
+      {
+        "name": "static_007",
+        "sha256": "c30aebe0cc9d0f014b1daec1d31ca21c344d5072ec281262a9ac2531aa08ee5d",
+        "bytes": 989218
+      },
+      {
+        "name": "static_008",
+        "sha256": "ad18cd2cef55ad86a67e0407244ca71bab2c956bb04ec4a1e2274e12860c24c8",
+        "bytes": 990934
+      },
+      {
+        "name": "static_009",
+        "sha256": "f6ab2bd68c830f27081ebb7976ef6bbf7fe02cb60bc686f426634941c1559844",
+        "bytes": 991567
+      },
+      {
+        "name": "pan_000",
+        "sha256": "c3861259a2fa5e0cc878801105f4a2d75f62e5b845f99a109e866d2f19f5401b",
+        "bytes": 997818
+      },
+      {
+        "name": "pan_001",
+        "sha256": "2c033d427c56e252a9cc9f867c2eab6e414658e2e2435802b68bff25ac8f48fa",
+        "bytes": 1005481
+      },
+      {
+        "name": "pan_002",
+        "sha256": "1c6b976767488872c04c6dd08ee72519f370b9fc27f6eb7243969823008ff6ad",
+        "bytes": 1010470
+      },
+      {
+        "name": "pan_003",
+        "sha256": "4dee7999d6429d18ff831d01df0df54d54a558fb33d32b19ea19c58cb85728a9",
+        "bytes": 1013978
+      },
+      {
+        "name": "pan_004",
+        "sha256": "6e16861bb32d3bd21efe0c8d83fbe921a24427c8085c48671247a062228ae14f",
+        "bytes": 1014000
+      },
+      {
+        "name": "pan_005",
+        "sha256": "83d587902c8017c74722e7ba2ef2ecea0f42dceac2cb343fa9328c2216a6454a",
+        "bytes": 1018360
+      },
+      {
+        "name": "pan_006",
+        "sha256": "d8c10b4caa5dcbd087cf72fa63a313a6df6c3eb612a0548b8d8b0669b4df6ab8",
+        "bytes": 1018804
+      },
+      {
+        "name": "pan_007",
+        "sha256": "b814fe1498042df3b5922d7686fb843e914cd1984f16c8961e1bd960a175a6cc",
+        "bytes": 1014582
+      },
+      {
+        "name": "pan_008",
+        "sha256": "cf855652bf93f20317753b4c9d3c73ed306e67bd7485d8f8fa67802f1877e8c4",
+        "bytes": 1017225
+      },
+      {
+        "name": "pan_009",
+        "sha256": "e59115cca3aa9ee58dd0c36378d7df8280236aa3c770692267e6d79bb5529a4f",
+        "bytes": 1017234
+      },
+      {
+        "name": "pan_010",
+        "sha256": "b10b3a1d88ebe1f5467c28393fc5768acf26e2e7ac5cbd389892653d1e165ae7",
+        "bytes": 1017207
+      },
+      {
+        "name": "pan_011",
+        "sha256": "c507dcf4d7140ddfc0ba152adad1eebe4306a623156a03ac808501d904d9f7dc",
+        "bytes": 1020007
+      },
+      {
+        "name": "pan_012",
+        "sha256": "8cb055255fe9ece14fcc8ae41a506c922fe4974fc2f7b52dd83eba10a407a88a",
+        "bytes": 1018304
+      },
+      {
+        "name": "pan_013",
+        "sha256": "be32dd722bc310142419ce2c28119bb25b052b246a9cf2676a9b20f26266d983",
+        "bytes": 1021686
+      },
+      {
+        "name": "pan_014",
+        "sha256": "e246a3f81ec18ddef18b51b19004b250376dfb3fb4efabd695a9c664d20dccdd",
+        "bytes": 1023387
+      },
+      {
+        "name": "pan_015",
+        "sha256": "f030ec13e8dd5ce3658921b8e061eee9da8f3b20371a8437131a632555eb3bc0",
+        "bytes": 1019723
+      },
+      {
+        "name": "pan_016",
+        "sha256": "649b6d469a63b2ff37b07cc40e3a4db9c0f6d66b08c5b9846e06c03f658b1a33",
+        "bytes": 1025068
+      },
+      {
+        "name": "pan_017",
+        "sha256": "3d636d7fdf581ff63baa79f1769e83aa159c016a0d50a5211b9709fc343b878c",
+        "bytes": 1025407
+      },
+      {
+        "name": "pan_018",
+        "sha256": "2121342128095f6d88fcb3e71f811696e164e644490dbe482eb0491bf74c126a",
+        "bytes": 1027059
+      },
+      {
+        "name": "pan_019",
+        "sha256": "a4cd6cff37415beb7e82a4a8bd1b1621192375f333591ef887dd678f3c3426ed",
+        "bytes": 1032008
+      },
+      {
+        "name": "pan_020",
+        "sha256": "66db36d5fd4e4c7a9c371093972cfdae41233b1e691ef0786b59f12dcf0b4b6a",
+        "bytes": 1029749
+      },
+      {
+        "name": "pan_021",
+        "sha256": "253e1d7a1a3504c94ff51d121c61fed12c9de93fbebb58b0d1448517a533c49b",
+        "bytes": 1025195
+      },
+      {
+        "name": "pan_022",
+        "sha256": "fb6eb7970ca7e575365056249950566456c6edae15f548feb0acf661bd2c0962",
+        "bytes": 1027743
+      },
+      {
+        "name": "pan_023",
+        "sha256": "ec546b72a7ff661e8d8304b70e43320dba6af85962001ba020ce8cfa2c739b36",
+        "bytes": 1015258
+      },
+      {
+        "name": "pan_024",
+        "sha256": "f980651f803869dcaf9da960f21f324275cb716814646908c14553d82e8202e8",
+        "bytes": 1011517
+      },
+      {
+        "name": "pan_025",
+        "sha256": "74287e5a36cfd4b5d2995a06722337b709cd9b2faef8e269246e74110aaf385f",
+        "bytes": 1008349
+      },
+      {
+        "name": "pan_026",
+        "sha256": "02de7e39e85a5cc844494668c100cac7cf8ceb84c7cbf6992d52cca08ad5711d",
+        "bytes": 1006042
+      },
+      {
+        "name": "pan_027",
+        "sha256": "2218734bd94f8078a87e7317dca8b9816b90f33ddc2db57b1da4f0df9f765c29",
+        "bytes": 1006353
+      },
+      {
+        "name": "pan_028",
+        "sha256": "7069e9af7557479ee23d5f3ea116473092976db12cf4bccf19c73f773a1a2ca7",
+        "bytes": 1006436
+      },
+      {
+        "name": "pan_029",
+        "sha256": "1d713869165ab86833dfb6708ce43a694e3c7ef8d0bfdff1df6070b84b2c375d",
+        "bytes": 1004130
+      },
+      {
+        "name": "pan_030",
+        "sha256": "4e01e4026938b92dad6eae7885a3e4c34f79d6c2c03ab08b3fb5d6ab7a954008",
+        "bytes": 1004799
+      },
+      {
+        "name": "pan_031",
+        "sha256": "f208f2d368175fb9e5c74f80bd87270804ad849c3efaf325f3ec9adf616e0ef5",
+        "bytes": 1004446
+      },
+      {
+        "name": "walk_end",
+        "sha256": "70d1d4b01c8b2263c174d7a2a2ab3fdfef9d6de4d5b0e164288dca984263f259",
+        "bytes": 1034722
+      }
+    ],
+    "scope": "Linux Development packaged Vulkan, task-isolated user caches; OS page cache is not flushed; no generated frames or cross-hardware claim; gross pixel-delta screening only; engine whole-frame GPU timings"
+  },
+  "shader_platform": {
+    "result": "PASS",
+    "feature_level": "sm6",
+    "expected": {
+      "feature_sm6": 1,
+      "nanite_supported": 1,
+      "nanite_enabled": 1,
+      "vsm_enabled": 1,
+      "lumen_supported": 1
+    },
+    "reconstruction": {
+      "observed_views": 1791,
+      "joined_scenario_frames": 1396,
+      "joined_views": 1396,
+      "missing_frames": [],
+      "multiple_view_frames": 0,
+      "first_frame": 17244.0,
+      "last_frame": 18639.0,
+      "expected": {
+        "aa": 4,
+        "requested_aa": 4,
+        "screen_percentage": 100,
+        "temporal_upsampling": 1,
+        "dynamic_res": 0,
+        "gi": 1,
+        "reflections": 1,
+        "vsm": 1,
+        "nanite": 1,
+        "ray_tracing": 0,
+        "external_upscaler": 0,
+        "width": 1280,
+        "height": 720,
+        "tsr_supported": 1
+      },
+      "scope": "Constructed game-thread views plus requested renderer cvars; no generated frames or hardware compatibility claim"
+    },
+    "scope": "Native game-view feature level and renderer eligibility; primitive proxy counts do not establish visible-pixel coverage",
+    "primitives": {
+      "loaded_components": 167,
+      "nanite_data": 10,
+      "nanite_proxies": 6,
+      "mesh_assets": [
+        "/Engine/BasicShapes/Cube.Cube",
+        "/Engine/BasicShapes/Cylinder.Cylinder",
+        "/Engine/BasicShapes/Sphere.Sphere",
+        "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+        "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+        "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+        "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+        "/Game/OpenWorld/Architecture/SM_StreetBlock_04.SM_StreetBlock_04",
+        "/Game/OpenWorld/Architecture/SM_StreetBlock_05.SM_StreetBlock_05",
+        "/Game/Vehicles/OffroadCar/SM_Offroad_Body.SM_Offroad_Body",
+        "/Game/Vehicles/OffroadCar/SM_Offroad_Tire.SM_Offroad_Tire",
+        "/Game/Vehicles/Presentation/SM_DriverSteeringWheel.SM_DriverSteeringWheel"
+      ]
+    }
+  },
+  "architecture": {
+    "result": "PASS",
+    "feature_level": "sm6",
+    "buildings": [
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/E4NTLHGQRW7WSJD367Y83CQJY.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616304382.StaticMeshComponent0",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+        "nanite_data": "1",
+        "nanite_proxy": "1"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/2246L7J56SWT3CJ7TDECQUKJJ.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616309390.StaticMeshComponent0",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+        "nanite_data": "1",
+        "nanite_proxy": "1"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/6KIDQ8DFTHQYWAPBTVM821GBW.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616314397.StaticMeshComponent0",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+        "nanite_data": "1",
+        "nanite_proxy": "1"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/DF8HFWLRNPD550N0XGMPOK5GF.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616319404.StaticMeshComponent0",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+        "nanite_data": "1",
+        "nanite_proxy": "1"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_16925a08babfcd64.HLODInstancedStaticMeshComponent_2",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_03.SM_StreetBlock_03",
+        "nanite_data": "1",
+        "nanite_proxy": "0"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/4AAYUJMXGO66WP79CYXK0NY28.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_51f83a065cb9dbfe.HLODInstancedStaticMeshComponent_2",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_02.SM_StreetBlock_02",
+        "nanite_data": "1",
+        "nanite_proxy": "0"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_6b763bbda5e31321.HLODInstancedStaticMeshComponent_2",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_05.SM_StreetBlock_05",
+        "nanite_data": "1",
+        "nanite_proxy": "1"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/7EH6Q7CV50I4HCBEHSE2MU8EH.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_b25b234280b48d0f.HLODInstancedStaticMeshComponent_2",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_04.SM_StreetBlock_04",
+        "nanite_data": "1",
+        "nanite_proxy": "1"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_91d1606ca22e01d0.HLODInstancedStaticMeshComponent_2",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_01.SM_StreetBlock_01",
+        "nanite_data": "1",
+        "nanite_proxy": "0"
+      },
+      {
+        "component": "/Game/Maps/BiellaOpenWorldMap/_Generated_/CZCJEFLAC61WAOFNN7FYLXDZ3.BiellaOpenWorldMap:PersistentLevel.HLOD_Continuation_ad8a26dfe033840b.HLODInstancedStaticMeshComponent_2",
+        "mesh": "/Game/OpenWorld/Architecture/SM_StreetBlock_00.SM_StreetBlock_00",
+        "nanite_data": "1",
+        "nanite_proxy": "0"
+      }
+    ],
+    "nanite_proxies": 6,
+    "zero_proxy_rows": 4,
+    "scope": "Loaded mesh data and native proxies; visible appearance requires captured runtime review"
+  },
+  "pso_hitches": [
+    {
+      "kind": "graphics",
+      "milliseconds": 40.37,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: RenderGraphExecute - Slate/SlateUI Title = BiellaGames (64-bit Development SF_VULKAN_SM6) "
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 56.28,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: RenderGraphExecute - Slate/SlateUI Title = BiellaGames (64-bit Development SF_VULKAN_SM6) "
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 25.32,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Precached) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/PrePass DDM_AllOpaqueNoVelocity (Forced by Nanite)/ParallelDraw (Index: 0, Num: 2)"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 23.67,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Precached) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/Nanite::VisBuffer/Nanite::DrawGeometry/NoOcclusionPass"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 25.09,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Precached) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/Nanite::VisBuffer/Nanite::DrawGeometry/NoOcclusionPass"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 26.48,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Precached) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/Nanite::VisBuffer/Nanite::DrawGeometry/NoOcclusionPass"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 27.02,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Precached) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/Nanite::VisBuffer/Nanite::DrawGeometry/NoOcclusionPass"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 37.65,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Precached) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/Nanite::VisBuffer/Nanite::DrawGeometry/NoOcclusionPass"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 39.27,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/NaniteBasePass/Nanite::EmitDepthTargets"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 30.15,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/LumenSceneUpdate: 240 card captures 0.164M texels"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 45.24,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/HZB/BeginOcclusionTests/BeginOcclusionTests/ViewOcclusionTests 0/BeginOcclusionTests"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 21.87,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/LumenSceneUpdate: 240 card captures 0.164M texels/Nanite::LumenMeshCapturePass"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 23.71,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Precached) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/ShadowDepths/RenderVirtualShadowMaps(Nanite)/Nanite::DrawGeometry/NoOcclusionPass"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 59.28,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/CaptureConvolveSkyEnvMap/Capture Face=0"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 47.82,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/LumenSceneUpdate: 240 card captures 0.164M texels/CopyCardsToSurfaceCache"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 20.14,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Precached) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/Lights/DirectLighting/UnbatchedLights/BiellaOpenWorldMap.D02_Continuity_Sun"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 57.85,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/LumenSceneUpdate: 240 card captures 0.164M texels/CopyCardsToSurfaceCache"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 56.17,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/LumenSceneUpdate: 240 card captures 0.164M texels/CopyCardsToSurfaceCache"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 38.39,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/DiffuseIndirectAndAO"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 41.37,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/Lights/DirectLighting/UnbatchedLights/BiellaOpenWorldMap.D02_Continuity_Sun/ShadowProjectionOnOpaque/DistanceFieldShadows/BeginRayTracedDistanceFieldShadow/CullDistanceFieldObjectsForLight MeshSDF"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 52.61,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/Lights/DirectLighting/UnbatchedLights/BiellaOpenWorldMap.D02_Continuity_Sun/ShadowProjectionOnOpaque/DistanceFieldShadows/BeginRayTracedDistanceFieldShadow/CullDistanceFieldObjectsForLight MeshSDF"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 90.98,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/LumenSceneUpdate: 240 card captures 0.164M texels/CopyCardsToSurfaceCache"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 127.99,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/CaptureConvolveSkyEnvMap/Capture Face=0/Capture Sky Raw"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 58.04,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/SkyAtmosphere"
+    },
+    {
+      "kind": "compute",
+      "milliseconds": 56.58,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/PostProcessing"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 82.81,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/TranslucencyLightingVolume/InjectTranslucencyLightingVolume(View=0)"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 202.18,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/NaniteBasePass/Nanite::EmitDepthTargets"
+    },
+    {
+      "kind": "compute",
+      "milliseconds": 757.79,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/Lights/DirectLighting/VirtualShadowMapProjectionMaskBits"
+    },
+    {
+      "kind": "compute",
+      "milliseconds": 873.65,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/Lights/DirectLighting/UnbatchedLights/BiellaOpenWorldMap.D02_Continuity_Sun/ShadowProjectionOnOpaque"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 28.39,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16857/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/LumenSceneUpdate: 47 card captures 0.164M texels/CopyCardsToSurfaceCache"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 29.06,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 17243/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/PostProcessing"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 52.47,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 17243/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/LumenSceneUpdate: 64 card captures 0.053M texels"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 21.45,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 18096/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/PrePass DDM_AllOpaqueNoVelocity (Forced by Nanite)/ParallelDraw (Index: 0, Num: 1)"
+    },
+    {
+      "kind": "graphics",
+      "milliseconds": 41.68,
+      "diagnostic": " for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 18096/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/BasePass/ParallelDraw (Index: 0, Num: 1)"
+    }
+  ],
+  "pso_observations": [
+    "LogCsvProfiler: Display: Metadata set : commandline=\"\" BiellaGames /Game/Maps/BiellaOpenWorldMap -vulkan -NoVSync -windowed -ResX=1280 -ResY=720 -unattended -AudioMixer -nosplash -stdout -FullStdOutLogOutput -UserDir=/tmp/state/user/ -AbsLog=/tmp/evidence/runtime.engine.log -BiellaPresentationOutput=/tmp/evidence -BiellaRenderProfile=ProductionTSR -BiellaRenderReadback=/tmp/evidence/native-views.csv -LogCmds=\"LogPSOHitching Verbose,LogShaderLibrary Verbose,LogVulkanRHI Verbose\" -ExecCmds=\"t.MaxFPS 0,r.VSync 0,r.MotionBlurQuality 0,Automation RunTests BiellaGames.D03.Surfaces; SoftQuit\" -sm6 -BiellaLoadingOutput=/tmp/evidence -BiellaWaitForAutomaticPSOs\"\"",
+    "LogHAL: Log category LogShaderLibrary verbosity has been raised to Verbose.",
+    "LogInit: Command Line: /Game/Maps/BiellaOpenWorldMap -vulkan -NoVSync -windowed -ResX=1280 -ResY=720 -unattended -AudioMixer -nosplash -stdout -FullStdOutLogOutput -UserDir=/tmp/state/user/ -AbsLog=/tmp/evidence/runtime.engine.log -BiellaPresentationOutput=/tmp/evidence -BiellaRenderProfile=ProductionTSR -BiellaRenderReadback=/tmp/evidence/native-views.csv -LogCmds=\"LogPSOHitching Verbose,LogShaderLibrary Verbose,LogVulkanRHI Verbose\" -ExecCmds=\"t.MaxFPS 0,r.VSync 0,r.MotionBlurQuality 0,Automation RunTests BiellaGames.D03.Surfaces; SoftQuit\" -sm6 -BiellaLoadingOutput=/tmp/evidence -BiellaWaitForAutomaticPSOs",
+    "[2026.09.06-20.37.12:342][  0]LogVulkanRHI: Display: FVulkanPipelineStateCacheManager: Binary pipeline cache '/tmp/state/user/Saved/VulkanPSO.cache.10de.26b9' not found.",
+    "[2026.09.06-20.37.12:366][  0]LogShaderLibrary: Display: Using IoDispatcher for shader code library Global. Total 8887 unique shaders.",
+    "[2026.09.06-20.37.12:366][  0]LogShaderLibrary: Display: Cooked Context: Loaded Shared Shader Library Global",
+    "[2026.09.06-20.37.12:366][  0]LogShaderLibrary: Verbose: OpenShaderCode('Global'): Components=(-1)",
+    "[2026.09.06-20.37.12:366][  0]LogShaderLibrary: Display: Logical shader library 'Global' has been created as a monolithic library, components 1",
+    "[2026.09.06-20.37.12:366][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Global_SC and native library not supported.",
+    "[2026.09.06-20.37.12:366][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Global_SC and native library not supported.",
+    "[2026.09.06-20.37.12:366][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Global_SC', but could not find it neither as a monolithic library nor as a chunked one.",
+    "[2026.09.06-20.37.12:366][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Paper2D and native library not supported.",
+    "[2026.09.06-20.37.12:366][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Paper2D', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:366][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ACLPlugin and native library not supported.",
+    "[2026.09.06-20.37.12:366][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ACLPlugin', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:366][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: AnimatorKit and native library not supported.",
+    "[2026.09.06-20.37.12:366][  0]LogShaderLibrary: Verbose: Tried to open shader library 'AnimatorKit', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:366][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ControlRig and native library not supported.",
+    "[2026.09.06-20.37.12:366][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ControlRig', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:366][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ControlRigModules and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ControlRigModules', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ControlRigSpline and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ControlRigSpline', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: DeformerGraph and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'DeformerGraph', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: EaseCurveTool and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'EaseCurveTool', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: IKRig and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'IKRig', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: PhysicsControl and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'PhysicsControl', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: RigLogic and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'RigLogic', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: SkeletalMeshModelingTools and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'SkeletalMeshModelingTools', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: TweeningUtils and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'TweeningUtils', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: AudioInsights and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'AudioInsights', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: AudioInsightsRuntime and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'AudioInsightsRuntime', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: AudioModulationInsights and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'AudioModulationInsights', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: BaseMaterial and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'BaseMaterial', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: GameplayCameras and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'GameplayCameras', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ChaosVD and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ChaosVD', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Dataflow and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Dataflow', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: AnimationSharing and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'AnimationSharing', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ConcertSyncClient and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ConcertSyncClient', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: NamingTokens and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'NamingTokens', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: BlueprintHeaderView and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'BlueprintHeaderView', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ConsoleVariables and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ConsoleVariables', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: GeometryMode and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'GeometryMode', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: MaterialAssetWizard and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'MaterialAssetWizard', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: LightMixer and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'LightMixer', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ObjectMixer and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ObjectMixer', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: SpeedTreeImporter and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'SpeedTreeImporter', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: DatasmithContent and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'DatasmithContent', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: GLTFExporter and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'GLTFExporter', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Scribble and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Scribble', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Buoyancy and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: UMGWidgetPreview and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Buoyancy', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'UMGWidgetPreview', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ChaosCaching and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ChaosCaching', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ChaosNiagara and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ChaosNiagara', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ChaosSolverPlugin and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ChaosSolverPlugin', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: UVEditor and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ControlRigPhysics and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ControlRigPhysics', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'UVEditor', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: EditorDataStorage and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'EditorDataStorage', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: EditorDataStorageFeatures and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'EditorDataStorageFeatures', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: EditorTRSGizmo and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: GeometryCollectionPlugin and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'EditorTRSGizmo', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'GeometryCollectionPlugin', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: GeometryDataflow and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'GeometryDataflow', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: FullBodyIK and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'FullBodyIK', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: InterchangeAxfAssets and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'InterchangeAxfAssets', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Landmass and native library not supported.",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Landmass', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:367][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Niagara and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Niagara', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: NiagaraPreviewContent and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'NiagaraPreviewContent', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: NiagaraSimCaching and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'NiagaraSimCaching', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: InterchangeAssets and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'InterchangeAssets', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Interchange and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Interchange', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: PythonScriptPlugin and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: MediaCompositing and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'PythonScriptPlugin', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'MediaCompositing', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: MediaPlate and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'MediaPlate', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ToolPresets and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: MetaHumanSDK and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'MetaHumanSDK', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ToolPresets', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: SequencerScripting and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'SequencerScripting', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Mutable and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Mutable', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: NNEDenoiser and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'NNEDenoiser', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: AutomatedPerfTestTools and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'AutomatedPerfTestTools', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: AudioSynesthesia and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'AudioSynesthesia', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: AudioWidgets and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: PCG and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'AudioWidgets', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'PCG', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: GeometryProcessing and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'GeometryProcessing', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Metasound and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Metasound', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: PropertyBindingUtils and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'PropertyBindingUtils', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: HairStrands and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: ResonanceAudio and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'ResonanceAudio', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'HairStrands', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: RigVM and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'RigVM', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: StateTree and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'StateTree', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Synthesis and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Synthesis', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: MeshModelingToolset and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: WaveTable and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'WaveTable', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'MeshModelingToolset', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: TraceUtilities and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'TraceUtilities', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Takes and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Takes', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Water and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Water', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Cooked Context: No Shared Shader Library for: Cascade and native library not supported.",
+    "[2026.09.06-20.37.12:368][  0]LogShaderLibrary: Verbose: Tried to open shader library 'Cascade', but could not find it (only tried to open it as a monolithic library).",
+    "[2026.09.06-20.37.12:482][  0]LogShaderLibrary: Display: Using IoDispatcher for shader code library BiellaGames. Total 2009 unique shaders.",
+    "[2026.09.06-20.37.12:482][  0]LogShaderLibrary: Display: Cooked Context: Loaded Shared Shader Library BiellaGames",
+    "[2026.09.06-20.37.12:482][  0]LogShaderLibrary: Verbose: OpenShaderCode('BiellaGames'): Components=(-1)",
+    "[2026.09.06-20.37.12:482][  0]LogShaderLibrary: Display: Logical shader library 'BiellaGames' has been created as a monolithic library, components 1",
+    "[2026.09.06-20.37.12:482][  0]LogShaderLibrary: Display: Tried to open again shader library 'BiellaGames', but could not find new components for it (existing components: 1).",
+    "[2026.09.06-20.37.12:979][  0]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (40.37 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: RenderGraphExecute - Slate/SlateUI Title = BiellaGames (64-bit Development SF_VULKAN_SM6) ",
+    "[2026.09.06-20.37.12:995][  0]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (56.28 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: RenderGraphExecute - Slate/SlateUI Title = BiellaGames (64-bit Development SF_VULKAN_SM6) ",
+    "[2026.09.06-20.37.36:016][856]LogRHI: Display: ShaderPipelineCache: Paused Batching. 1",
+    "[2026.09.06-20.37.36:017][856]LogRHI: Display: ShaderPipelineCache: Resumed Batching. 0",
+    "[2026.09.06-20.37.36:017][856]LogRHI: Display: ShaderPipelineCache: Batching Resumed.",
+    "[2026.09.06-20.37.36:018][856]LogLoad: (Engine Initialization) Total time: 24.95 seconds",
+    "[2026.09.06-20.37.36:222][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (25.32 msec) for Resource  in Pass Unknown (precache status: Precached) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/PrePass DDM_AllOpaqueNoVelocity (Forced by Nanite)/ParallelDraw (Index: 0, Num: 2)",
+    "[2026.09.06-20.37.36:225][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (23.67 msec) for Resource  in Pass Unknown (precache status: Precached) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/Nanite::VisBuffer/Nanite::DrawGeometry/NoOcclusionPass",
+    "[2026.09.06-20.37.36:225][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (25.09 msec) for Resource  in Pass Unknown (precache status: Precached) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/Nanite::VisBuffer/Nanite::DrawGeometry/NoOcclusionPass",
+    "[2026.09.06-20.37.36:225][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (26.48 msec) for Resource  in Pass Unknown (precache status: Precached) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/Nanite::VisBuffer/Nanite::DrawGeometry/NoOcclusionPass",
+    "[2026.09.06-20.37.36:228][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (27.02 msec) for Resource  in Pass Unknown (precache status: Precached) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/Nanite::VisBuffer/Nanite::DrawGeometry/NoOcclusionPass",
+    "[2026.09.06-20.37.36:236][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (37.65 msec) for Resource  in Pass Unknown (precache status: Precached) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/Nanite::VisBuffer/Nanite::DrawGeometry/NoOcclusionPass",
+    "[2026.09.06-20.37.36:240][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (39.27 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/NaniteBasePass/Nanite::EmitDepthTargets",
+    "[2026.09.06-20.37.36:244][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (30.15 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/LumenSceneUpdate: 240 card captures 0.164M texels",
+    "[2026.09.06-20.37.36:246][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (45.24 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/HZB/BeginOcclusionTests/BeginOcclusionTests/ViewOcclusionTests 0/BeginOcclusionTests",
+    "[2026.09.06-20.37.36:251][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (21.87 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/LumenSceneUpdate: 240 card captures 0.164M texels/Nanite::LumenMeshCapturePass",
+    "[2026.09.06-20.37.36:270][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (23.71 msec) for Resource  in Pass Unknown (precache status: Precached) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/ShadowDepths/RenderVirtualShadowMaps(Nanite)/Nanite::DrawGeometry/NoOcclusionPass",
+    "[2026.09.06-20.37.36:271][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (59.28 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/CaptureConvolveSkyEnvMap/Capture Face=0",
+    "[2026.09.06-20.37.36:277][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (47.82 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/LumenSceneUpdate: 240 card captures 0.164M texels/CopyCardsToSurfaceCache",
+    "[2026.09.06-20.37.36:291][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (20.14 msec) for Resource  in Pass Unknown (precache status: Precached) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/Lights/DirectLighting/UnbatchedLights/BiellaOpenWorldMap.D02_Continuity_Sun",
+    "[2026.09.06-20.37.36:292][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (57.85 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/LumenSceneUpdate: 240 card captures 0.164M texels/CopyCardsToSurfaceCache",
+    "[2026.09.06-20.37.36:292][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (56.17 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/LumenSceneUpdate: 240 card captures 0.164M texels/CopyCardsToSurfaceCache",
+    "[2026.09.06-20.37.36:296][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (38.39 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/DiffuseIndirectAndAO",
+    "[2026.09.06-20.37.36:302][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (41.37 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/Lights/DirectLighting/UnbatchedLights/BiellaOpenWorldMap.D02_Continuity_Sun/ShadowProjectionOnOpaque/DistanceFieldShadows/BeginRayTracedDistanceFieldShadow/CullDistanceFieldObjectsForLight MeshSDF",
+    "[2026.09.06-20.37.36:316][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (52.61 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/Lights/DirectLighting/UnbatchedLights/BiellaOpenWorldMap.D02_Continuity_Sun/ShadowProjectionOnOpaque/DistanceFieldShadows/BeginRayTracedDistanceFieldShadow/CullDistanceFieldObjectsForLight MeshSDF",
+    "[2026.09.06-20.37.36:325][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (90.98 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/LumenSceneUpdate: 240 card captures 0.164M texels/CopyCardsToSurfaceCache",
+    "[2026.09.06-20.37.36:329][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (127.99 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/CaptureConvolveSkyEnvMap/Capture Face=0/Capture Sky Raw",
+    "[2026.09.06-20.37.36:344][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (58.04 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/SkyAtmosphere",
+    "[2026.09.06-20.37.36:348][856]LogPSOHitching: Verbose: Runtime compute PSO creation hitch (56.58 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/PostProcessing",
+    "[2026.09.06-20.37.36:360][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (82.81 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/TranslucencyLightingVolume/InjectTranslucencyLightingVolume(View=0)",
+    "[2026.09.06-20.37.36:402][856]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (202.18 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/NaniteBasePass/Nanite::EmitDepthTargets",
+    "[2026.09.06-20.37.37:018][856]LogPSOHitching: Verbose: Runtime compute PSO creation hitch (757.79 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/Lights/DirectLighting/VirtualShadowMapProjectionMaskBits",
+    "[2026.09.06-20.37.37:143][856]LogPSOHitching: Verbose: Runtime compute PSO creation hitch (873.65 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16856/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/RenderDeferredLighting/Lights/DirectLighting/UnbatchedLights/BiellaOpenWorldMap.D02_Continuity_Sun/ShadowProjectionOnOpaque",
+    "[2026.09.06-20.37.37:318][859]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (28.39 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 16857/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/LumenSceneUpdate: 47 card captures 0.164M texels/CopyCardsToSurfaceCache",
+    "[2026.09.06-20.37.42:472][243]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (29.06 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 17243/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/PostProcessing",
+    "[2026.09.06-20.37.42:758][245]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (52.47 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 17243/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/LumenSceneUpdate: 64 card captures 0.053M texels",
+    "[2026.09.06-20.37.54:239][ 98]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (21.45 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 18096/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/PrePass DDM_AllOpaqueNoVelocity (Forced by Nanite)/ParallelDraw (Index: 0, Num: 1)",
+    "[2026.09.06-20.37.54:259][ 98]LogPSOHitching: Verbose: Runtime graphics PSO creation hitch (41.68 msec) for Resource  in Pass Unknown (precache status: Missed) - Breadcrumbs: Frame 18096/SceneRender - ViewFamilies/RenderGraphExecute - /ViewFamilies/Scene/BasePass/ParallelDraw (Index: 0, Num: 1)",
+    "[2026.09.06-20.38.05:824][643]LogShaderLibrary: Display: Closing logical shader library 'Global' with 1 components",
+    "[2026.09.06-20.38.05:864][643]LogShaderLibrary: Display: Closing logical shader library 'BiellaGames' with 1 components"
+  ],
+  "pso_measurement_scope": "Engine LogPSOHitching Verbose records runtime PSO creations exceeding its 20ms threshold; not all pipeline creation costs",
+  "startup_handoff_verification": {
+    "task_id": "D03-01",
+    "result": "PASS",
+    "display": {
+      "first_scene_frame": 269,
+      "last_loading_frame": 268,
+      "exposed_non_scene_frames": []
+    },
+    "native": {
+      "reason": "ready",
+      "frame": 16869,
+      "submissions": 2,
+      "pending": 0,
+      "missing_proxies": 0,
+      "meshes": 91,
+      "elapsed_s": 1.48851
+    },
+    "scope": "Startup handoff fixture; RHI submission fence is not GPU/display completion; screenshots require review"
+  },
+  "state_after": [
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-optin-01/home/.config/Epic/NotAllowedUnattendedBugReports",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-optin-01/home/.config/Epic/UnrealEngine/5.8/Saved/Config/Linux/Manifest.ini",
+      "sha256": "e706d6c7c899d8d28e83512d7f29946334086c4a6eaf56f790bf0010e7df1e9c",
+      "bytes": 22
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-optin-01/user/Saved/Config/CrashReportClient/UECC-Linux-01A07870759B70819E3335E81042C1CE/CrashReportClient.ini",
+      "sha256": "b85bb31b225042d5175a8b4240162c29c5dfc294686e1926528fd0ab00346ac4",
+      "bytes": 256
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-optin-01/user/Saved/Config/Linux/GameUserSettings.ini",
+      "sha256": "1bece9165c83e37cc208622493193a60a51b8d1b62678de56bc56233133b7f88",
+      "bytes": 1327
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-optin-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.bin",
+      "sha256": "ace3d01a787067400bc79bdde8399aca64895d87cf92fc5ea902620f55847a8b",
+      "bytes": 117216265
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-optin-01/xdg-cache/nvidia/GLCache/cbf24f4f4b87062dd1a7781c9011fa81/c1b32cbe11b32b11/2a30707763d9ac5b.toc",
+      "sha256": "74db3c9c7cf83132255600caabd1156f7f0e6cfbac1b29ae0245ceb8be773451",
+      "bytes": 159424
+    }
+  ],
+  "package_after": [
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/BiellaGames/Binaries/Linux/BiellaGames",
+      "sha256": "ec6d757a733edfa94a74e9b73b955e6beb3f656a0edfe7a4c1c1a57afd6695c1",
+      "bytes": 298992192
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.pak",
+      "sha256": "a790a56d8d5253acb4b251d44408627866c924793be4d358c88cde696c59e174",
+      "bytes": 30344607
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.ucas",
+      "sha256": "03eb2320190615769620b301684807363a90bdbf451d07015e7fc6c47d5187fd",
+      "bytes": 316525696
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.utoc",
+      "sha256": "0abd6ad9c6a7de300caa5c7c3b4b86fb03fdd449e7f7aa6f930428526a9bc2b0",
+      "bytes": 262504
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/BiellaGames/Content/Paks/global.ucas",
+      "sha256": "1d9631d0495adcea4e08f421291ba1d31375b85fac0d436270fa7d80ec7726ff",
+      "bytes": 3203520
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/BiellaGames/Content/Paks/global.utoc",
+      "sha256": "459adccc121b57e96a7e97a741dc878f96ebdf562a72be61349d398d80aaa4f3",
+      "bytes": 782
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/BiellaGames.sh",
+      "sha256": "0f758fc1d431fca29cae27ecf35820d9ea70864532c0959f2d578e5216f68c46",
+      "bytes": 258
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so",
+      "sha256": "51aec15c714c5d96969f6a7608cdefc5c163e7fec0b2e0974ec1382380d11c5e",
+      "bytes": 23
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so.2",
+      "sha256": "ed3698c20005885c61a20f04ba772e329f67855713f5fecb26152a8f949ad280",
+      "bytes": 9715408
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_api_dump.json",
+      "sha256": "4616e485e4dacaa8c1ef365fed23d2c117e8848148720a7acea70c96cb975179",
+      "bytes": 12512
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_crash_diagnostic.json",
+      "sha256": "77b6e62bc24994b056e316aa0bd5e056e8ff0dfa377ef1e0ec5b291a181b6a88",
+      "bytes": 9170
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_gfxreconstruct.json",
+      "sha256": "93065b7975a70a250569bfce2ee655bf6bc188a7844204d2c37700a770afb02e",
+      "bytes": 26755
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_profiles.json",
+      "sha256": "88deb508a3d16131cd747335063826a31f237e024f396542c05908b44760b895",
+      "bytes": 69029
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_shader_object.json",
+      "sha256": "1c6dd4b56db0e2dc4a7eb1e44e7ad933f399685436c644add05dadf4258e6b1d",
+      "bytes": 4356
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_synchronization2.json",
+      "sha256": "307c8b906289b7a3329fb44137dd3af595d91f26e5bde9cff1b4280801a45139",
+      "bytes": 1860
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_validation.json",
+      "sha256": "328861629130912c27f1db4f2be4fa3d64608ca7edf6f3d886c09cb5856834cc",
+      "bytes": 94443
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_api_dump.so",
+      "sha256": "1b9871125c6f9afb2b0f09adbe3af3049a20837dca80ccea5d642be4dec31474",
+      "bytes": 109065264
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_crash_diagnostic.so",
+      "sha256": "99dda3ecafd809f0de42453536a2ea6299ac6216db9352e301065542e6685fbf",
+      "bytes": 13228088
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_gfxreconstruct.so",
+      "sha256": "2e8397383a72eb200e99a560a2b58947b8a0dc6cef3d1fe67245674df0d9e546",
+      "bytes": 99440744
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_profiles.so",
+      "sha256": "e2e9422a15730cd14904a0d27bbd7d463b5598fc7ffa1744d14fc47ce0dc87bf",
+      "bytes": 2226960
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_shader_object.so",
+      "sha256": "da3db6756cccaf502dab09a3de0cece49168654f7735612bb51f7555ef9f7cda",
+      "bytes": 4174536
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_synchronization2.so",
+      "sha256": "daa4bf2da5600deeff440b4c98fc3d68ba04121fdbb2f21d3463126c8d0a2c99",
+      "bytes": 5290240
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_validation.so",
+      "sha256": "cbecbd0d82217a789a3c3e1493cc60cb7cc036df8f22a0501af9b8ca23342e81",
+      "bytes": 37821704
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libvulkan.so",
+      "sha256": "d59b6a2b184887fb6eddea3dd754bd2f5b59abc647577c3cd71bb530213ebbb0",
+      "bytes": 4210872
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Config/StagedBuild_BiellaGames.ini",
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "bytes": 3
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Content/Renderer/TessellationTable.bin",
+      "sha256": "edc4f3b628a139c5e185bbaeca661c95c1f427368d3b92892c5cff36c56dd941",
+      "bytes": 259568
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c",
+      "bytes": 22146944
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so.1.24",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c",
+      "bytes": 22146944
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Manifest_NonUFSFiles_Linux.txt",
+      "sha256": "66d10a6fd4878f26929f2381ebf840823fcadb692a288d3de4f7c1fe3f893abc",
+      "bytes": 2105
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/Manifest_UFSFiles_Linux.txt",
+      "sha256": "48ca2c90bd2535e22ba9c9e86883c7e736314224d1e74ac1f930516de3817610",
+      "bytes": 227370
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/NOTICES.txt",
+      "sha256": "ba49ae5586f817b36a2772269f71f899cb1f54b5f2720fad951319edd5e140b8",
+      "bytes": 111
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/ThirdPartyNotices/libsamplerate-COPYING.txt",
+      "sha256": "2c1f76ce2effdddb425018405d5690c0b1ab4e6976e35296b0a6db65c5e1a55d",
+      "bytes": 1334
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d03-01-automatic-pso-package-02/archive-readback/Linux/ThirdPartyNotices/mimalloc-LICENSE.txt",
+      "sha256": "d9f5607dce0f93055be57077d1b9545e5b14d5814d8c99d6e1d0a5eff2f74c89",
+      "bytes": 1091
+    }
+  ],
+  "inputs_after": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_package.py",
+      "sha256": "4b1df5e6553f150a93d256bb59a4b5bf597a8b3a91824907d8718675daa909c5",
+      "bytes": 15083
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_package_isolation_probe.py",
+      "sha256": "1dd068ab83238fd7cdbc7a13ebb5887e7c6f7ca4e4a8e82b32eaf4dc710f522e",
+      "bytes": 1561
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_reconstruction.py",
+      "sha256": "817cd34cf1830029b582417737891181ea915f1d5cc57cc9672d8d106a8dbfc5",
+      "bytes": 2655
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_surfaces.py",
+      "sha256": "28e0dbb3a5e4e6a0a86d2a1e5090d663cf34042322f74092c2bdeafd0cff5657",
+      "bytes": 4658
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_04.py",
+      "sha256": "3dc712f5342117fd6b693d9ae2183a4785316ce54e97f108d2d75b1f6c8d9eaa",
+      "bytes": 3419
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_048.py",
+      "sha256": "244a00703f2105cad67af2bf520b3b4b59e068862873da3b9a016fbad4738e09",
+      "bytes": 9002
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+      "sha256": "331528af104d262d1c4926228f894b63f9cb6ead502d4d916cd56129c59c62a7",
+      "bytes": 10991
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_039.py",
+      "sha256": "9df5e5188444a8dba455768ceed3915c44796a6e9897dd89a1e96d7147b610e8",
+      "bytes": 9977
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d01_042.py",
+      "sha256": "e33a0217afd1be480091c9e5639a8cb0237cc27b601434fa8adfcdcd6c373fd9",
+      "bytes": 9820
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_shader_platform.py",
+      "sha256": "1644cd87a3cbb579078763847034d6f9a466ce9855336038c432e6f4caf24880",
+      "bytes": 2970
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_architecture.py",
+      "sha256": "456b4f9b8e494528003da483584ba4345287b381ad8ac1cfa9ba4b3593cc9451",
+      "bytes": 2387
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/d03_01_loading_display.py",
+      "sha256": "c464ff22a974ce1f9afdb131c3fc78a6ad3617e22d0a47978446414e3c5847f6",
+      "bytes": 3018
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_loading_display.py",
+      "sha256": "cdf56822c527d562ae3bc01a8b6022919d04a8b47f304983665332befbb9b774",
+      "bytes": 4650
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_handoff.py",
+      "sha256": "f59491dd6910d600c5d20d11c67f876643ea375044b78a5dd4cf6ae8cdedc599",
+      "bytes": 2849
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_automatic_pso.py",
+      "sha256": "6c00b9f2927b085954ad8f7aaa6038323e2fbaa764c35c06c0da594a97570889",
+      "bytes": 4361
+    }
+  ]
+}

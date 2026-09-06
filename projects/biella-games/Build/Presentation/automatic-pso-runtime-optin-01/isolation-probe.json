@@ -1,0 +1,47 @@
+{
+  "uid": 1001,
+  "gid": 1001,
+  "hidden_path_exists": {
+    "/opt/unreal": false,
+    "/root/biella": false,
+    "/mnt/biella-extra": false,
+    "/home/unreal/.cache/UnrealEngine": false
+  },
+  "cwd": "/tmp/package",
+  "package_readable": true,
+  "state_writable": true,
+  "package_writable": false,
+  "network_interfaces": [
+    "lo"
+  ],
+  "command": [
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1280x720x24",
+    "python3",
+    "/tmp/loading-display.py",
+    "/tmp/package/BiellaGames.sh",
+    "/Game/Maps/BiellaOpenWorldMap",
+    "-vulkan",
+    "-NoVSync",
+    "-windowed",
+    "-ResX=1280",
+    "-ResY=720",
+    "-unattended",
+    "-AudioMixer",
+    "-nosplash",
+    "-stdout",
+    "-FullStdOutLogOutput",
+    "-UserDir=/tmp/state/user/",
+    "-AbsLog=/tmp/evidence/runtime.engine.log",
+    "-BiellaPresentationOutput=/tmp/evidence",
+    "-BiellaRenderProfile=ProductionTSR",
+    "-BiellaRenderReadback=/tmp/evidence/native-views.csv",
+    "-LogCmds=LogPSOHitching Verbose,LogShaderLibrary Verbose,LogVulkanRHI Verbose",
+    "-ExecCmds=t.MaxFPS 0,r.VSync 0,r.MotionBlurQuality 0,Automation RunTests BiellaGames.D03.Surfaces; SoftQuit",
+    "-sm6",
+    "-BiellaLoadingOutput=/tmp/evidence",
+    "-BiellaWaitForAutomaticPSOs"
+  ]
+}

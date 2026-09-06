@@ -1,0 +1,38 @@
+{
+  "task_id": "D03-01",
+  "status": "IMPLEMENTED_AWAITING_NATIVE_VALIDATION",
+  "source_basis": [
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RHI/Private/PipelineStateCache.cpp",
+      "bytes": 194057,
+      "sha256": "68aa36ca0f972d19f90f08a2f3150df1f4310a7750f77a7e8fc7fdd2ae607a40"
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RHI/Public/PipelineStateCache.h",
+      "bytes": 14550,
+      "sha256": "0333244114b94a923918cbbd3a89e2dbadb99c07a4977adb6d05984231e4d507"
+    }
+  ],
+  "facts": {
+    "file_cache_counter": "PipelineStateCache.cpp:3653,3686-3698: GetNumActivePipelinePrecompileTasks increments only bFromPSOFileCache",
+    "automatic_counter": "5167-5175: NumActivePrecacheRequests sums graphics+compute; 2909-2925 atomic counts, filtered by max priority settings, default 0",
+    "observed_package": "handoff-runtime-cold-01: Vulkan PSO Precaching=1, PipelineFileCache=0; early first-world compute PSOs Too Late"
+  },
+  "change": "Shared snapshot waits on file-cache + automatic counters in preloader and first-world overlay; preserve submission fence and all gameplay. Separate telemetry and same-binary automatic-wait bypass.",
+  "validation_plan": [
+    "Native incremental build and exact unchanged-cook archive readback",
+    "Fresh cold SM6 positive and same-binary automatic-wait bypass; independent display screening rejects >=1s static segment",
+    "Warm reuse plus cold SM5 fallback and environment affected boundary",
+    "Exact source, candidate, runtime and Git evidence readback"
+  ],
+  "limits": [
+    "Counters are separate atomic observations, not future-enqueue or GPU completion barriers",
+    "Priority-filter defaults must read back as 0 in qualification",
+    "No new PSO scheduling, retention or engine changes",
+    "10Hz display cannot qualify continuous motion or native frame times"
+  ],
+  "resource_review": {
+    "path": "automatic-pso-assist-01/response.txt",
+    "disposition": "Retain non-atomic and future-work caveats. Reject unverified FPrecachePSOJob and FFRAGMENTSHADERHLSL names, spin-delay recommendation and disabled-precaching hard-failure advice. No suggested engine API or delay adopted."
+  }
+}

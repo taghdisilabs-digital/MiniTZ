@@ -1,0 +1,90 @@
+{
+  "task_id": "D03-01",
+  "result": "FAIL",
+  "observations": {
+    "native": {
+      "start": [
+        [
+          0,
+          0,
+          1108,
+          1,
+          0,
+          0
+        ]
+      ],
+      "stop": [
+        [
+          0,
+          0,
+          5336
+        ]
+      ],
+      "handoff": [
+        [
+          0,
+          0,
+          4166
+        ]
+      ]
+    },
+    "sampled_max_automatic": 5513,
+    "sampled_max_file_cache": 0,
+    "pipeline_sample_count": 16,
+    "longest_static_seconds": 3.0,
+    "longest_static_frames": [
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59
+    ],
+    "unmeasured_loading_frames": [],
+    "first_scene_frame": 63,
+    "evidence": [
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-disabled-01/runtime.engine.log",
+        "sha256": "7166f94c9914f7851b13ef9a8a07c1ea27d950388cc7150b6e4e2bb72e7a75a1",
+        "bytes": 975991
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-disabled-01/loading-display.mp4",
+        "sha256": "2224199a0297cf539fb0aa5cef88f0f730e66829e9df5ffd6133ff0cab82cee4",
+        "bytes": 1501401
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-disabled-01/loading-display-analysis-v2.json",
+        "sha256": "c2f5656a2a87b3cf49c238d825a4ade50891347bcc9d2392c8c6bd319ac5c3b1",
+        "bytes": 4006
+      }
+    ]
+  },
+  "scope": "Both configured PSO counters and rejection of >=1s static indicator at 10Hz; not continuous-motion or native frame-time acceptance",
+  "error": "Automatic wait bypassed or outstanding PSOs at release"
+}

@@ -1,0 +1,50 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "revision": {
+    "head": "719a5b36e2bbf86b5c1e4f0a515b2e245920462f",
+    "head_tree": "b2cf40772e8cad5ab00920d1b1aa6da083140bec",
+    "project_status": [
+      " M Source/BiellaGames/Private/BiellaStartupPresentation.cpp",
+      " M Source/BiellaLoadingScreen/Private/BiellaLoadingScreen.cpp",
+      " M tests/run_d03_01_package.py",
+      "?? Build/Presentation/automatic-pso-assist-01/",
+      "?? Build/Presentation/automatic-pso-build-01/",
+      "?? Build/Presentation/automatic-pso-build-02/",
+      "?? Build/Presentation/automatic-pso-design-01.json",
+      "?? Build/Presentation/automatic-pso-negative-before-01.json",
+      "?? Build/Presentation/automatic-pso-negative-before-02.json",
+      "?? Build/Presentation/automatic-pso-runtime-cold-01/",
+      "?? Build/Presentation/automatic-pso-runtime-disabled-01/",
+      "?? Build/Presentation/automatic-pso-stage-01/",
+      "?? Source/BiellaLoadingScreen/Private/BiellaStartupPipelines.cpp",
+      "?? Source/BiellaLoadingScreen/Public/BiellaStartupPipelines.h",
+      "?? tests/verify_d03_01_automatic_pso.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "marker_before": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "started": "2026-09-06T20:27:16.991689+00:00",
+  "returncode": 0,
+  "binary": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames",
+    "sha256": "ec6d757a733edfa94a74e9b73b955e6beb3f656a0edfe7a4c1c1a57afd6695c1",
+    "bytes": 298992192
+  },
+  "receipt": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames.target",
+    "sha256": "7da8030a25e23d3976e834f2554ef35a869d9133100f3a7da197b666c115d023",
+    "bytes": 106593
+  },
+  "marker_after": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "inputs_unchanged": true,
+  "elapsed_seconds": 105.55233856401173
+}

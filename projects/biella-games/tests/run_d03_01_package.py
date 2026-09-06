@@ -36,9 +36,12 @@ def main():
     parser.add_argument('--trace', action='store_true')
     parser.add_argument('--loading-screen', choices=('enabled', 'disabled'), help='Verify native startup lifecycle and independently capture the X11 display')
     parser.add_argument('--startup-handoff', choices=('enabled', 'disabled'), help='Verify the first-world overlay, or disable only that overlay as a same-binary control')
+    parser.add_argument('--automatic-pso-wait', choices=('enabled', 'disabled', 'default'), help='Observe both startup PSO counters; enabled opts into the diagnostic wait, disabled forces bypass, default adds no policy flag')
     args = parser.parse_args()
     if args.startup_handoff and args.loading_screen != 'enabled':
         parser.error('--startup-handoff requires --loading-screen enabled')
+    if args.automatic_pso_wait and (args.loading_screen != 'enabled' or args.startup_handoff != 'enabled'):
+        parser.error('--automatic-pso-wait requires enabled loading and startup handoff')
     if args.verify_architecture and (args.scenario != 'surfaces' or not args.verify_feature_level):
         parser.error('--verify-architecture requires surfaces and --verify-feature-level')
     out, state = args.output.resolve(), args.state.resolve()
@@ -65,11 +68,14 @@ def main():
         inputs.extend(PROJECT/'tests'/name for name in ('d03_01_loading_display.py', 'verify_d03_01_loading_display.py'))
     if args.startup_handoff:
         inputs.append(PROJECT/'tests/verify_d03_01_handoff.py')
+    if args.automatic_pso_wait:
+        inputs.append(PROJECT/'tests/verify_d03_01_automatic_pso.py')
     report = dict(task_id='D03-01', result='FAIL', revision=source_revision(),
                   stage=file_identity(args.stage.resolve()/'validation.json'), profile=args.profile,
                   scenario=args.scenario, phase=args.phase, state=str(state), trace=args.trace,
                   loading_screen=args.loading_screen,
                   startup_handoff=args.startup_handoff,
+                  automatic_pso_wait=args.automatic_pso_wait,
                   feature_level_request=args.feature_level,
                   feature_level_expected=args.verify_feature_level,
                   architecture_required=args.verify_architecture,
@@ -120,6 +126,10 @@ def main():
                 command.append('-NoLoadingScreen')
         if args.startup_handoff == 'disabled':
             command.append('-BiellaNoStartupOverlay')
+        if args.automatic_pso_wait == 'enabled':
+            command.append('-BiellaWaitForAutomaticPSOs')
+        elif args.automatic_pso_wait == 'disabled':
+            command.append('-BiellaSkipAutomaticPSOWait')
         write_json(out/'command.json', command)
         report['runtime'] = launch(command, extraction, out/'runtime.stdout.log', 360)
         log = (out/'runtime.stdout.log').read_text(errors='replace')

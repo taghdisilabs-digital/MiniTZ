@@ -1,0 +1,116 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T20:47:18.531359+00:00",
+  "result": "PASS_WITH_DOCUMENTED_LIMITS",
+  "scope": "Bounded local source review and native evidence reconciliation; no second production authority",
+  "source": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaLoadingScreen/Public/BiellaStartupPipelines.h",
+      "sha256": "57958465a08ebc192fd80aed32598e5306f1f70efbf127455f15e17c83ea4aeb",
+      "bytes": 489
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaLoadingScreen/Private/BiellaStartupPipelines.cpp",
+      "sha256": "8cc409f59f5454e76d830fb72b18627bb5fc63578f0872aacd55010b6549725c",
+      "bytes": 875
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaLoadingScreen/Private/BiellaLoadingScreen.cpp",
+      "sha256": "09450b08948bd8794692e7f31e7a55a44c9894895d2b6b185a82cb01ae5137dd",
+      "bytes": 6347
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaStartupPresentation.cpp",
+      "sha256": "8af7ba88cc3c9463b33bd7412437df50a739dd67307b2321066e341262f67858",
+      "bytes": 5739
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d03_01_package.py",
+      "sha256": "4b1df5e6553f150a93d256bb59a4b5bf597a8b3a91824907d8718675daa909c5",
+      "bytes": 15083
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_automatic_pso.py",
+      "sha256": "6c00b9f2927b085954ad8f7aaa6038323e2fbaa764c35c06c0da594a97570889",
+      "bytes": 4361
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d03_01_automatic_pso_series.py",
+      "sha256": "57e30a5c65ec9b3db30093c2fde6f6aa0a73a65eaa8cc52bfcd3ed7a41a3d3ce",
+      "bytes": 10252
+    }
+  ],
+  "engine_basis": [
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RHI/Private/PipelineStateCache.cpp",
+      "bytes": 194057,
+      "sha256": "68aa36ca0f972d19f90f08a2f3150df1f4310a7750f77a7e8fc7fdd2ae607a40"
+    },
+    {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RHI/Public/PipelineStateCache.h",
+      "bytes": 14550,
+      "sha256": "0333244114b94a923918cbbd3a89e2dbadb99c07a4977adb6d05984231e4d507"
+    }
+  ],
+  "resource_review": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-assist-01/prompt.txt",
+      "sha256": "1cb9475ca4f11e1e8aefb24baac91fd6c5932f6399b2ab55f1b33737f230d95d",
+      "bytes": 1073
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-assist-01/receipt.json",
+      "sha256": "c7b78573a912ee8c35412664f7c79209c12a5e910c323b4c50915e2d6cca02ab",
+      "bytes": 157
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-assist-01/response.txt",
+      "sha256": "47eb503b221cb1619138c8b4778119528345cb976cac2806440a3e5d5b30b7c2",
+      "bytes": 3210
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-assist-01/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "findings": [
+    {
+      "topic": "Counter mismatch",
+      "disposition": "Separate automatic graphics/compute observations from bFromPSOFileCache tasks. Never interpret file-cache zero as automatic work complete."
+    },
+    {
+      "topic": "Production policy",
+      "disposition": "Final binary defaults to the prior file-cache-only wait. Automatic waiting requires BiellaWaitForAutomaticPSOs. BiellaSkipAutomaticPSOWait takes precedence; no change to compilation scheduling."
+    },
+    {
+      "topic": "Concurrency and bounds",
+      "disposition": "Counters are independent atomic observations, not an atomic snapshot or future-enqueue barrier. C++ function-local static initializes the command-line policy once. uint64 policy sum avoids uint32 addition overflow. Existing preload completion latch and exit behavior remain."
+    },
+    {
+      "topic": "Cosmetic boundary",
+      "disposition": "Existing hit-test-invisible overlay, world/proxy checks, two RHI submissions and game-frame-polled timeout remain. No gameplay state, collision, possession or input changes."
+    },
+    {
+      "topic": "Telemetry overhead",
+      "disposition": "Only output-enabled fixtures retain per-render samples (65,536 cap); ordinary launches log three lifecycle observations. Read-only automatic counter is additionally observed by readiness checks."
+    },
+    {
+      "topic": "Validation separation",
+      "disposition": "Native scenarios/package/handoff PASS remain separate from failed full-wait and sampled-motion gates. Warm state chain is exact. Both final modes use the same candidate-02 binary. Historical candidate-01 source snapshots are preserved and compared to each other, not misrepresented as current source."
+    },
+    {
+      "topic": "Causal limit",
+      "disposition": "The source comment associating the remaining stall with newly requested world PSOs is an inference. The experiment proves added delay and residual stall, not an isolated causal attribution. No engine fix is claimed."
+    },
+    {
+      "topic": "Local Qwen",
+      "disposition": "Retain non-atomic and future-work caveats. Reject unverified FPrecachePSOJob and FFRAGMENTSHADERHLSL names, spin-delay recommendation and disabled-precaching hard-failure advice. No suggested engine API or delay adopted."
+    }
+  ],
+  "validation": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-series-01.json",
+    "sha256": "679ee694d18a7ec58eaf4c9e231082bcc11466c85e47129ee6bfcdd7a1ba7ee7",
+    "bytes": 2113151
+  }
+}

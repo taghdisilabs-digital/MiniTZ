@@ -2,7 +2,8 @@
 #include "Modules/ModuleManager.h"
 #include "PreLoadScreenBase.h"
 #include "PreLoadScreenManager.h"
-#include "PipelineStateCache.h"
+#include "BiellaStartupPipelines.h"
+#include "HAL/IConsoleManager.h"
 #include "CoreGlobals.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
@@ -31,7 +32,7 @@ public:
         // Read from game, Slate and render threads. Latch completion: later world
         // activity may queue new PSOs, but must not reopen a finished startup screen.
         if (IsEngineExitRequested() || bReady.Load()) return true;
-        if (bIsEngineLoadingFinished.Load() && PipelineStateCache::GetNumActivePipelinePrecompileTasks() == 0)
+        if (bIsEngineLoadingFinished.Load() && ReadBiellaStartupPipelines().Pending() == 0)
         {
             bReady.Store(true);
             return true;
@@ -44,6 +45,15 @@ public:
         FPreLoadScreenBase::OnPlay(TargetWindow);
         Started = FPlatformTime::Seconds();
         UE_LOG(LogBiellaLoading, Display, TEXT("D03_LOADING_START version=1"));
+        const FBiellaStartupPipelines Pipelines = ReadBiellaStartupPipelines();
+        auto CVarValue = [](const TCHAR* Name) {
+            const IConsoleVariable* Variable = IConsoleManager::Get().FindConsoleVariable(Name);
+            return Variable ? Variable->GetInt() : -1;
+        };
+        UE_LOG(LogBiellaLoading, Display, TEXT("D03_AUTOMATIC_PSO_START version=1 wait=%d file_cache=%d automatic=%u enabled=%d min_priority=%d task_threshold=%d"),
+            Pipelines.bWaitForAutomatic, Pipelines.FileCache, Pipelines.Automatic,
+            CVarValue(TEXT("r.PSOPrecaching")), CVarValue(TEXT("r.PSOPrecaching.MinPriorityForActivePrecacheRequests")),
+            CVarValue(TEXT("r.PSOPrecaching.TaskPriorityThreshold")));
     }
 
     virtual void RenderTick(FRHICommandListImmediate&, float) override
@@ -54,15 +64,21 @@ public:
         if (LastRender > 0) MaxRenderGap = FMath::Max(MaxRenderGap, Now - LastRender);
         LastRender = Now;
         ++RenderTicks;
-        if (!OutputDirectory.IsEmpty() && Samples.Num() < 65536) Samples.Add(Now - Started);
+        if (!OutputDirectory.IsEmpty() && Samples.Num() < 65536)
+        {
+            Samples.Add(Now - Started);
+            PipelineSamples.Add(ReadBiellaStartupPipelines());
+        }
     }
 
     virtual void OnStop() override
     {
         const double Elapsed = FPlatformTime::Seconds() - Started;
-        const int32 Pending = PipelineStateCache::GetNumActivePipelinePrecompileTasks();
-        UE_LOG(LogBiellaLoading, Display, TEXT("D03_LOADING_STOP version=1 engine_finished=%d ready=%d exit=%d pending=%d render_ticks=%llu elapsed_s=%.6f max_render_gap_s=%.6f"),
-            bIsEngineLoadingFinished.Load(), bReady.Load(), IsEngineExitRequested(), Pending, RenderTicks, Elapsed, MaxRenderGap);
+        const FBiellaStartupPipelines Pipelines = ReadBiellaStartupPipelines();
+        UE_LOG(LogBiellaLoading, Display, TEXT("D03_LOADING_STOP version=1 engine_finished=%d ready=%d exit=%d pending=%llu render_ticks=%llu elapsed_s=%.6f max_render_gap_s=%.6f"),
+            bIsEngineLoadingFinished.Load(), bReady.Load(), IsEngineExitRequested(), Pipelines.Pending(), RenderTicks, Elapsed, MaxRenderGap);
+        UE_LOG(LogBiellaLoading, Display, TEXT("D03_AUTOMATIC_PSO_STOP version=1 wait=%d file_cache=%d automatic=%u"),
+            Pipelines.bWaitForAutomatic, Pipelines.FileCache, Pipelines.Automatic);
         if (!OutputDirectory.IsEmpty())
         {
             IFileManager::Get().MakeDirectory(*OutputDirectory, true);
@@ -71,16 +87,23 @@ public:
                 Csv += FString::Printf(TEXT("%d,%.9f\n"), Index, Samples[Index]);
             if (!FFileHelper::SaveStringToFile(Csv, *FPaths::Combine(OutputDirectory, TEXT("loading-render-ticks.csv"))))
                 UE_LOG(LogBiellaLoading, Warning, TEXT("D03_LOADING_TELEMETRY_WRITE_FAILED"));
+            FString PipelineCsv(TEXT("render_tick,elapsed_seconds,file_cache,automatic\n"));
+            for (int32 Index = 0; Index < Samples.Num(); ++Index)
+                PipelineCsv += FString::Printf(TEXT("%d,%.9f,%d,%u\n"), Index, Samples[Index],
+                    PipelineSamples[Index].FileCache, PipelineSamples[Index].Automatic);
+            if (!FFileHelper::SaveStringToFile(PipelineCsv, *FPaths::Combine(OutputDirectory, TEXT("loading-pso-samples.csv"))))
+                UE_LOG(LogBiellaLoading, Warning, TEXT("D03_LOADING_TELEMETRY_WRITE_FAILED"));
         }
     }
 
-    virtual void CleanUp() override { Widget.Reset(); Samples.Reset(); }
+    virtual void CleanUp() override { Widget.Reset(); Samples.Reset(); PipelineSamples.Reset(); }
 
 private:
     TSharedPtr<SWidget> Widget;
     mutable TAtomic<bool> bReady{false};
     FString OutputDirectory;
     TArray<double> Samples;
+    TArray<FBiellaStartupPipelines> PipelineSamples;
     double Started = 0, LastRender = 0, MaxRenderGap = 0;
     uint64 RenderTicks = 0;
 };

@@ -1,0 +1,59 @@
+{
+  "task_id": "D03-01",
+  "result": "FAIL",
+  "observations": {
+    "native": {
+      "start": [],
+      "stop": [],
+      "handoff": []
+    },
+    "sampled_max_automatic": 0,
+    "sampled_max_file_cache": 0,
+    "pipeline_sample_count": 0,
+    "longest_static_seconds": 2.0,
+    "longest_static_frames": [
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50
+    ],
+    "unmeasured_loading_frames": [],
+    "first_scene_frame": 64,
+    "evidence": [
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/runtime.engine.log",
+        "sha256": "21f54ea71b07e1250450ff9e03c51f8aac521dc19ef42a72968bc026bc077e51",
+        "bytes": 978905
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/loading-display.mp4",
+        "sha256": "9637941dbf3e25d0c1d483266d403f76195ed69578cd5d5bef789dd038d82cc5",
+        "bytes": 1548574
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/handoff-runtime-cold-01/loading-display-analysis-v2.json",
+        "sha256": "6e89b049a5e39bf6e321ebee9c9f6cf8652b5d3d58442a6975120ea1b274f9f2",
+        "bytes": 4025
+      }
+    ]
+  },
+  "scope": "Both configured PSO counters and rejection of >=1s static indicator at 10Hz; not continuous-motion or native frame-time acceptance",
+  "error": "Missing or repeated separate-counter telemetry"
+}

@@ -1,0 +1,92 @@
+{
+  "task_id": "D03-01",
+  "result": "FAIL",
+  "observations": {
+    "native": {
+      "start": [
+        [
+          1,
+          0,
+          1043,
+          1,
+          0,
+          0
+        ]
+      ],
+      "stop": [
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "handoff": [
+        [
+          1,
+          0,
+          0
+        ]
+      ]
+    },
+    "sampled_max_automatic": 5469,
+    "sampled_max_file_cache": 0,
+    "pipeline_sample_count": 1286,
+    "longest_static_seconds": 1.3,
+    "longest_static_frames": [
+      263,
+      264,
+      265,
+      266,
+      267,
+      268,
+      269,
+      270,
+      271,
+      272,
+      273,
+      274,
+      275,
+      276
+    ],
+    "unmeasured_loading_frames": [],
+    "first_scene_frame": 279,
+    "evidence": [
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-cold-01/runtime.engine.log",
+        "sha256": "ce89089af4ab1a063dfb9cc62d125b9775a2d811818122b65b73c85c3a28702c",
+        "bytes": 885939
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-cold-01/loading-display.mp4",
+        "sha256": "b82121e9260284fe8be37c6d05c16a0a94b32720c27cdf32ef368e2ae27f0074",
+        "bytes": 2119979
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/automatic-pso-runtime-cold-01/loading-display-analysis-v2.json",
+        "sha256": "73a582775c9f5075b339ed2f7f91d477285b113493169fedba656eba39900c7f",
+        "bytes": 20858
+      }
+    ]
+  },
+  "scope": "Both configured PSO counters and rejection of >=1s static indicator at 10Hz; not continuous-motion or native frame-time acceptance",
+  "handoff": {
+    "task_id": "D03-01",
+    "result": "PASS",
+    "display": {
+      "first_scene_frame": 279,
+      "last_loading_frame": 278,
+      "exposed_non_scene_frames": []
+    },
+    "native": {
+      "reason": "ready",
+      "frame": 16882,
+      "submissions": 2,
+      "pending": 0,
+      "missing_proxies": 0,
+      "meshes": 91,
+      "elapsed_s": 1.51582
+    },
+    "scope": "Startup handoff fixture; RHI submission fence is not GPU/display completion; screenshots require review"
+  },
+  "error": "Indicator static for at least one second"
+}
