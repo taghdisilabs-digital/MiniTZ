@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Biella Live — Production Theatre</title>
+  <meta name="description" content="Watch Biella build in real time: current task, model, tools, validation, runtime output and system activity directly from the production VPS.">
+  <link rel="stylesheet" href="/live/styles.css">
+  <script type="module" src="/live/app.js"></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="ambient ambient-a" aria-hidden="true"></div>
+  <div class="ambient ambient-b" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Biella home"><strong>BIELLA</strong><span>LIVE PRODUCTION</span></a>
+    <div class="top-status">
+      <span class="connection-dot" data-connection-dot></span>
+      <strong data-connection>CONNECTING</strong>
+      <span class="divider"></span>
+      <span data-clock>--:--:--</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="theatre" aria-labelledby="task-title">
+      <div class="visual-shell">
+        <div class="visual-grid" aria-hidden="true"></div>
+        <div class="background-stack" data-background-stack aria-hidden="true"></div>
+        <div class="stage" data-stage>
+          <div class="stage-empty">
+            <span class="stage-mark">B</span>
+            <p>Resolving current production output…</p>
+          </div>
+        </div>
+        <div class="stage-overlay">
+          <div>
+            <span class="micro">CURRENT OUTPUT</span>
+            <strong data-stage-name>WAITING FOR VPS SNAPSHOT</strong>
+          </div>
+          <span class="source-chip" data-stage-source>LIVE SOURCE</span>
+        </div>
+        <div class="scanline" aria-hidden="true"></div>
+      </div>
+
+      <aside class="telemetry">
+        <div class="state-row">
+          <span class="state-pill" data-production-state>CONNECTING</span>
+          <span class="task-id" data-task-id>—</span>
+        </div>
+        <p class="micro">CURRENT TASK</p>
+        <h1 id="task-title" data-task-title>Loading production state</h1>
+        <p class="task-summary" data-task-summary>Reading the VPS controller directly.</p>
+
+        <div class="operation-block">
+          <span class="micro">CURRENT OPERATION</span>
+          <strong data-operation>Waiting for event stream</strong>
+          <span class="operation-meta" data-operation-meta>—</span>
+        </div>
+
+        <div class="progress-block">
+          <div class="progress-head"><span>PROGRAM PROGRESS</span><strong data-progress-label>—</strong></div>
+          <div class="progress-track"><span data-progress-bar></span></div>
+        </div>
+
+        <dl class="stats">
+          <div><dt>MODEL</dt><dd data-model>—</dd></div>
+          <div><dt>REASONING</dt><dd data-reasoning>—</dd></div>
+          <div><dt>HEARTBEAT</dt><dd data-heartbeat>—</dd></div>
+          <div><dt>TASK ELAPSED</dt><dd data-elapsed>—</dd></div>
+          <div><dt>CURRENT COMMIT</dt><dd data-commit>—</dd></div>
+          <div><dt>VALIDATION</dt><dd data-validation>—</dd></div>
+        </dl>
+      </aside>
+    </section>
+
+    <section class="system-strip" aria-label="Live production resources">
+      <div class="system-cell"><span>GPU</span><strong data-gpu-name>—</strong><small data-gpu-load>—</small></div>
+      <div class="meter-cell"><span>GPU ACTIVITY</span><div class="meter"><i data-gpu-meter></i></div><strong data-gpu-percent>—</strong></div>
+      <div class="meter-cell"><span>VRAM</span><div class="meter"><i data-vram-meter></i></div><strong data-vram>—</strong></div>
+      <div class="system-cell"><span>HOST LOAD</span><strong data-host-load>—</strong><small data-host-ram>—</small></div>
+    </section>
+
+    <section class="live-grid">
+      <div class="feed-panel">
+        <div class="section-head">
+          <div><p class="micro">PRODUCTION FEED</p><h2>Biella is building</h2></div>
+          <span class="feed-pulse">STREAMING</span>
+        </div>
+        <div class="feed" data-feed aria-live="polite"></div>
+      </div>
+
+      <aside class="showcase-panel">
+        <div class="section-head">
+          <div><p class="micro">SHOWCASE</p><h2>Recent outputs</h2></div>
+          <span class="showcase-count" data-showcase-count>0</span>
+        </div>
+        <p class="showcase-copy">Selected current task evidence and recent VPS-produced visuals rotate here as production advances.</p>
+        <div class="showcase" data-showcase></div>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <span>VPS → /live-api/snapshot + SSE</span>
+    <a href="/">biellagames.dev</a>
+  </footer>
+</body>
+</html>

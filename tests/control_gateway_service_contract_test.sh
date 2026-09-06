@@ -3,13 +3,14 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DIR="$ROOT/ops/control_gateway"
 MAIN="$DIR/biella_control_main.py"
+LIVE="$DIR/biella_live_projection.py"
 SERVICE="$DIR/biella-control-gateway.service"
 INSTALLER="$DIR/install-biella-control-gateway.sh"
 AUTH_WRAPPER="$DIR/biella-control-auth"
 TUNNEL_TOKEN_WRAPPER="$DIR/biella-control-cloudflare-token"
 TUNNEL_CONFIG="$DIR/configure-biella-control-tunnel.sh"
 
-for f in "$MAIN" "$SERVICE" "$INSTALLER" "$AUTH_WRAPPER" "$TUNNEL_TOKEN_WRAPPER" "$TUNNEL_CONFIG"; do
+for f in "$MAIN" "$LIVE" "$SERVICE" "$INSTALLER" "$AUTH_WRAPPER" "$TUNNEL_TOKEN_WRAPPER" "$TUNNEL_CONFIG"; do
   [[ -f "$f" ]] || { echo "missing control gateway artifact: $f" >&2; exit 1; }
 done
 
@@ -18,6 +19,9 @@ forbid() { ! grep -Fq -- "$2" "$1" || { echo "forbidden literal in $1: $2" >&2; 
 
 require "$MAIN" '127.0.0.1'
 require "$MAIN" '8787'
+require "$MAIN" 'games-presentation'
+require "$LIVE" '/live-api/asset'
+require "$LIVE" 'STALE_AFTER_SECONDS'
 require "$MAIN" '/var/lib/biella-control/site'
 require "$MAIN" '/root/.config/biella-control/auth.json'
 require "$MAIN" '/root/biella/repos/biella-engine'

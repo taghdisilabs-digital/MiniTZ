@@ -162,7 +162,7 @@ class EventHub:
 class ControlHTTPServer(ThreadingHTTPServer):
     daemon_threads = True
 
-    def __init__(self, address, handler, *, static_root, auth_store, sessions, state, runner, assets, events):
+    def __init__(self, address, handler, *, static_root, auth_store, sessions, state, runner, assets, events, live=None):
         super().__init__(address, handler)
         self.static_root = Path(static_root).resolve()
         self.auth_store = auth_store
@@ -171,6 +171,7 @@ class ControlHTTPServer(ThreadingHTTPServer):
         self.runner = runner
         self.assets = assets
         self.events = events
+        self.live = live
 
 
 class ControlHandler(BaseHTTPRequestHandler):
@@ -292,6 +293,75 @@ class ControlHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _serve_live_asset(self, root_id: str, relative_path: str) -> None:
+        if self.server.live is None:
+            self._json(HTTPStatus.NOT_FOUND, {"error": "live_unavailable"})
+            return
+        try:
+            _, candidate = self.server.live.resolve_public_asset(root_id, relative_path)
+            body = candidate.read_bytes()
+        except (ValueError, OSError):
+            self._json(HTTPStatus.NOT_FOUND, {"error": "asset_not_found"})
+            return
+        mime = mimetypes.guess_type(candidate.name)[0] or "application/octet-stream"
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", mime)
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Content-Disposition", f'inline; filename="{candidate.name}"')
+        self.send_header("Cache-Control", "public, max-age=15, must-revalidate")
+        self._security_headers()
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _handle_live_events(self) -> None:
+        if self.server.live is None:
+            self._json(HTTPStatus.NOT_FOUND, {"error": "live_unavailable"})
+            return
+        try:
+            after_id = int(self.headers.get("Last-Event-ID", "0") or 0)
+        except ValueError:
+            after_id = 0
+        lane = "Games"
+        channel, replay = self.server.events.subscribe_with_replay(lane, after_id)
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", "text/event-stream; charset=utf-8")
+        self.send_header("Cache-Control", "no-cache, no-transform")
+        self.send_header("Connection", "keep-alive")
+        self.send_header("X-Accel-Buffering", "no")
+        self._security_headers()
+        self.end_headers()
+
+        def send_event(event: dict[str, object]) -> None:
+            safe = self.server.live.sanitize_event(event)
+            if not safe:
+                return
+            payload = json.dumps(safe, separators=(",", ":")).encode()
+            event_id = int(event.get("event_id", 0) or 0)
+            if event_id:
+                self.wfile.write(f"id: {event_id}\n".encode())
+            self.wfile.write(b"data: " + payload + b"\n\n")
+
+        try:
+            connected = {
+                "event_id": 0, "seq": 0, "time": "", "task_id": "",
+                "category": "BIELLA", "state": "CONNECTED", "text": "Live stream connected",
+            }
+            self.wfile.write(b"data: " + json.dumps(connected, separators=(",", ":")).encode() + b"\n\n")
+            for event in replay:
+                send_event(event)
+            self.wfile.flush()
+            while True:
+                try:
+                    send_event(channel.get(timeout=10))
+                except queue.Empty:
+                    heartbeat = self.server.live.heartbeat_event()
+                    self.wfile.write(b"data: " + json.dumps(heartbeat, separators=(",", ":")).encode() + b"\n\n")
+                self.wfile.flush()
+        except (BrokenPipeError, ConnectionResetError):
+            pass
+        finally:
+            self.server.events.unsubscribe(lane, channel)
+
     def _handle_events(self, lane: str) -> None:
         try:
             after_id = int(self.headers.get("Last-Event-ID", "0") or 0)
@@ -330,6 +400,24 @@ class ControlHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
         parsed = urlparse(self.path)
         path = parsed.path
+        if path == "/live-api/snapshot":
+            if self.server.live is None:
+                self._json(HTTPStatus.NOT_FOUND, {"error": "live_unavailable"})
+            else:
+                self._json(HTTPStatus.OK, self.server.live.snapshot())
+            return
+        if path == "/live-api/events":
+            self._handle_live_events()
+            return
+        if path == "/live-api/asset":
+            query = parse_qs(parsed.query)
+            root_id = str((query.get("root_id") or [""])[0])
+            relative_path = str((query.get("path") or [""])[0])
+            if not root_id or not relative_path:
+                self._json(HTTPStatus.BAD_REQUEST, {"error": "invalid_asset_request"})
+                return
+            self._serve_live_asset(root_id, relative_path)
+            return
         if path == "/v1/control/session":
             session = self._session()
             if not session:
@@ -459,7 +547,7 @@ class ControlHandler(BaseHTTPRequestHandler):
 
 
 def build_server(*, host: str, port: int, static_root: Path, auth_store: AuthStore,
-                 sessions: SessionStore, state, runner, assets, events: EventHub) -> ControlHTTPServer:
+                 sessions: SessionStore, state, runner, assets, events: EventHub, live=None) -> ControlHTTPServer:
     return ControlHTTPServer(
         (host, port), ControlHandler,
         static_root=static_root,
@@ -469,4 +557,5 @@ def build_server(*, host: str, port: int, static_root: Path, auth_store: AuthSto
         runner=runner,
         assets=assets,
         events=events,
+        live=live,
     )

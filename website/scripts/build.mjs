@@ -9,6 +9,7 @@ await rm(dist,{recursive:true,force:true});
 await mkdir(resolve(dist,"data"),{recursive:true});
 for(const file of["index.html","styles.css","app.js"])await cp(resolve(root,"src",file),resolve(dist,file));
 await cp(resolve(root,"src","control"),resolve(dist,"control"),{recursive:true});
+await cp(resolve(root,"src","live"),resolve(dist,"live"),{recursive:true});
 await cp(resolve(root,"src","investors"),resolve(dist,"investors"),{recursive:true});
 await cp(resolve(root,"reference","investor-deck-v1"),resolve(dist,"investors","reference"),{recursive:true});
 for(const file of["game-runtime-media.json","asset-resolution.json","control-runtime.json","investor-deck-manifest.json"])await cp(resolve(root,"content",file),resolve(dist,"data",file));

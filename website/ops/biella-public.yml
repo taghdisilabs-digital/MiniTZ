@@ -1,0 +1,14 @@
+tunnel: c85d7183-b9d4-4c1a-8b37-cf7e8fb24c62
+credentials-file: /etc/cloudflared/c85d7183-b9d4-4c1a-8b37-cf7e8fb24c62.json
+ingress:
+  - hostname: biellagames.dev
+    path: ^/live-api/.*
+    service: http://127.0.0.1:8787
+  - hostname: biellagames.dev
+    service: http://127.0.0.1:8790
+  - hostname: www.biellagames.dev
+    path: ^/live-api/.*
+    service: http://127.0.0.1:8787
+  - hostname: www.biellagames.dev
+    service: http://127.0.0.1:8790
+  - service: http_status:404

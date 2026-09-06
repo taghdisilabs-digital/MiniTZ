@@ -7,11 +7,13 @@ from pathlib import Path
 try:
     from .biella_control_assets import AssetCatalog, AssetRoot
     from .biella_control_gateway import AuthStore, EventHub, SessionStore, build_server
+    from .biella_live_projection import LiveProjection
     from .biella_control_runner import ProductionJournalTailer, ProjectRunner
     from .biella_control_state import WorkstationState
 except ImportError:
     from biella_control_assets import AssetCatalog, AssetRoot
     from biella_control_gateway import AuthStore, EventHub, SessionStore, build_server
+    from biella_live_projection import LiveProjection
     from biella_control_runner import ProductionJournalTailer, ProjectRunner
     from biella_control_state import WorkstationState
 
@@ -42,11 +44,13 @@ def main() -> int:
             AssetRoot("engine-builds", Path("/mnt/biella-extra/biella-runtime/builds"), "CURRENT_BUILD"),
         ],
         "Games": [
+            AssetRoot("games-presentation", games_project / "Build" / "Presentation", "TASK_EVIDENCE"),
             AssetRoot("games-generated", Path("/root/biella/artifacts/games"), "GENERATED_DRAFT"),
             AssetRoot("games-visual-output", games_project / "visual_production" / "outputs", "GENERATED_DRAFT"),
             AssetRoot("games-content", games_project / "Content", "CURRENT_SOURCE"),
         ],
     })
+    live = LiveProjection(repo=repo, runtime_root=production_runtime_root, assets=asset_catalog)
     runner = ProjectRunner(
         lane_workdirs={
             "Website": website_project,
@@ -68,6 +72,7 @@ def main() -> int:
         runner=runner,
         assets=asset_catalog,
         events=events,
+        live=live,
     )
     print(f"Biella control gateway listening on http://{host}:{port}", flush=True)
     try:

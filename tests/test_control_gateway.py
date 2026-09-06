@@ -39,6 +39,27 @@ class FakeRunner:
         return {"run_id": "run-1", "status": "COMPLETE"}
 
 
+class FakeLive:
+    def __init__(self, preview: Path):
+        self.preview = preview
+
+    def snapshot(self):
+        return {"schema": "biella.public_live_snapshot/v1", "connection": {"state": "LIVE"}, "production": {"task_id": "D03-01"}}
+
+    def resolve_public_asset(self, root_id, relative_path):
+        if root_id != "test" or relative_path != "preview.png":
+            raise ValueError("asset unavailable")
+        return "Games", self.preview
+
+    @staticmethod
+    def sanitize_event(event):
+        return dict(event)
+
+    @staticmethod
+    def heartbeat_event():
+        return {"category": "BIELLA", "state": "HEARTBEAT", "text": "heartbeat"}
+
+
 class FakeAssets:
     def __init__(self, preview: Path):
         self.preview = preview
@@ -78,6 +99,7 @@ class GatewayTest(unittest.TestCase):
         self.preview = root / "preview.png"
         self.preview.write_bytes(b"\x89PNG\r\npreview")
         self.assets = FakeAssets(self.preview)
+        self.live = FakeLive(self.preview)
         self.server = build_server(
             host="127.0.0.1",
             port=0,
@@ -88,6 +110,7 @@ class GatewayTest(unittest.TestCase):
             runner=self.runner,
             assets=self.assets,
             events=EventHub(),
+            live=self.live,
         )
         self.thread = threading.Thread(target=self.server.serve_forever, daemon=True)
         self.thread.start()
@@ -172,6 +195,18 @@ class GatewayTest(unittest.TestCase):
         self.assertEqual(status, 202)
         self.assertEqual(body["dialog_id"], "dialog-1")
         self.assertEqual(self.runner.dialog_calls, [("Website", "inspect current source")])
+
+    def test_public_live_snapshot_and_asset_are_read_only_without_control_auth(self):
+        status, _, body = self.request("GET", "/live-api/snapshot")
+        self.assertEqual(status, 200)
+        self.assertEqual(body["connection"]["state"], "LIVE")
+        self.assertEqual(body["production"]["task_id"], "D03-01")
+        status, headers, body = self.request("GET", "/live-api/asset?root_id=test&path=preview.png")
+        self.assertEqual(status, 200)
+        self.assertEqual(body, b"\x89PNG\r\npreview")
+        self.assertTrue(any(k.lower() == "content-type" and v == "image/png" for k, v in headers))
+        status, _, body = self.request("GET", "/live-api/asset?root_id=test&path=../secret")
+        self.assertEqual(status, 404)
 
     def test_assets_require_auth_and_return_allowlisted_preview(self):
         status, _, body = self.request("GET", "/v1/control/assets?lane=Games")
