@@ -531,3 +531,46 @@ def test_stale_resume_rotates_session_and_retries_same_astra_route(tmp_path: Pat
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
     assert used[:2] == [("resume", "gpt-6-astra", "stale-session"), ("new", "gpt-6-astra", None)]
     assert all(model != "gpt-5.6-terra" for _kind, model, _session in used)
+
+
+def test_local_resource_assist_rejects_hallucinated_file_paths_and_caches_rejection(tmp_path: Path, monkeypatch):
+    project = tmp_path / "repo/projects/biella-games"
+    project.mkdir(parents=True)
+    (project / "tests").mkdir()
+    (project / "tests/real_test.py").write_text("pass\n")
+    projection = tmp_path / "memory/current-task.json"
+    projection.parent.mkdir(parents=True)
+    projection.write_text(json.dumps({
+        "task_id":"D02-03","task_memory":{"task_class":"hard_creation","summary":"verified","next_action":"finalize"},
+        "failures":[],"capabilities":{},"verified_actions":[]
+    }))
+    calls=[]
+    def fake_run(argv, **kwargs):
+        calls.append(argv)
+        return subprocess.CompletedProcess(argv, 0, stdout=json.dumps({
+            "provider":"ollama-qwen","model":"qwen3-coder-next:biella",
+            "text":"Inspect `Backends/Vehicle/invented.cpp` then run `tests/real_test.py`.","usage":{"total_tokens":10}
+        }), stderr="")
+    monkeypatch.setattr(runner.subprocess, "run", fake_run)
+    journal=runner.production_events.ProductionEventJournal(tmp_path/"events.jsonl", failure_path=tmp_path/"failures.jsonl")
+    assert runner._ensure_local_resource_assist(tmp_path,"D02-03",projection,journal,project_root=project) is None
+    assert len(calls)==1
+    # Same meaningful projection reuses the rejection marker instead of calling Qwen again.
+    assert runner._ensure_local_resource_assist(tmp_path,"D02-03",projection,journal,project_root=project) is None
+    assert len(calls)==1
+    events=[json.loads(line) for line in (tmp_path/"events.jsonl").read_text().splitlines()]
+    assert any(e["type"]=="resource.local_assist_recovery" and e["status"]=="RECOVERED" for e in events)
+
+
+def test_local_resource_assist_accepts_existing_project_and_unreal_asset_paths(tmp_path: Path, monkeypatch):
+    project = tmp_path / "repo/projects/biella-games"
+    (project / "tests").mkdir(parents=True)
+    (project / "tests/real_test.py").write_text("pass\n")
+    (project / "Content/Vehicle/Audio").mkdir(parents=True)
+    (project / "Content/Vehicle/Audio/S_VehicleEngine.uasset").write_bytes(b"asset")
+    projection = tmp_path / "memory/current-task.json"; projection.parent.mkdir(parents=True)
+    projection.write_text(json.dumps({"task_id":"D02-03","task_memory":{"task_class":"hard_creation","summary":"x"},"failures":[],"capabilities":{}}))
+    text="Inspect `tests/real_test.py` and `/Game/Vehicle/Audio/S_VehicleEngine`."
+    monkeypatch.setattr(runner.subprocess,"run",lambda argv,**kwargs: subprocess.CompletedProcess(argv,0,stdout=json.dumps({"provider":"ollama-qwen","model":"qwen","text":text,"usage":{}}),stderr=""))
+    path=runner._ensure_local_resource_assist(tmp_path,"D02-03",projection,project_root=project)
+    assert path and json.loads(path.read_text())["text"]==text

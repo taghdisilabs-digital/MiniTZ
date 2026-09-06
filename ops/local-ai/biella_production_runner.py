@@ -6,6 +6,7 @@ import fcntl
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -253,7 +254,39 @@ def _assist_projection_payload(projection: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_path: Path, journal: production_events.ProductionEventJournal | None = None) -> Path | None:
+_ASSIST_FILE_SUFFIXES = (".cpp", ".cc", ".c", ".h", ".hpp", ".py", ".md", ".json", ".ini", ".yaml", ".yml", ".uasset", ".umap", ".wav", ".png")
+
+
+def _assist_unresolved_paths(text: str, project_root: Path | None) -> list[str]:
+    if project_root is None:
+        return []
+    project_root = Path(project_root)
+    repo_root = project_root.parents[1] if len(project_root.parents) > 1 else project_root
+    missing: list[str] = []
+    for token in re.findall(r"`([^`\n]+)`", str(text or "")):
+        candidate = token.strip().strip('"\'')
+        if not candidate or "://" in candidate or any(ch in candidate for ch in "*?{}"):
+            continue
+        # Ignore command snippets/symbols; validate only path-like spans.
+        if " " in candidate or not ("/" in candidate or candidate.lower().endswith(_ASSIST_FILE_SUFFIXES)):
+            continue
+        candidate = candidate.split("::", 1)[0]
+        if candidate.startswith("/Game/"):
+            rel = candidate[len("/Game/"):].strip("/")
+            base = project_root / "Content" / rel
+            if base.exists() or any(Path(str(base) + ext).exists() for ext in (".uasset", ".umap")):
+                continue
+            missing.append(candidate); continue
+        path = Path(candidate)
+        if path.is_absolute():
+            if not path.exists(): missing.append(candidate)
+            continue
+        if not (project_root / path).exists() and not (repo_root / path).exists():
+            missing.append(candidate)
+    return sorted(set(missing))
+
+
+def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_path: Path, journal: production_events.ProductionEventJournal | None = None, *, project_root: Path | None = None) -> Path | None:
     try:
         projection = json.loads(Path(projection_path).read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
@@ -267,8 +300,21 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
     digest = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
     safe_task = str(task_id).replace("/", "_")
     path = Path(runtime_root) / "memory" / "local-assist" / f"{safe_task}-{digest[:20]}.json"
+    rejected_path = path.with_suffix(path.suffix + ".rejected")
+    if rejected_path.exists():
+        return None
     if path.exists():
-        return path
+        try:
+            cached = json.loads(path.read_text(encoding="utf-8"))
+            missing = _assist_unresolved_paths(str(cached.get("text") or ""), project_root)
+        except (OSError, json.JSONDecodeError):
+            missing = ["invalid cached assist"]
+        if not missing:
+            return path
+        rejected_path.write_text(json.dumps({"reason":"ungrounded_paths","paths":missing}, sort_keys=True) + "\n", encoding="utf-8")
+        if journal is not None:
+            journal.emit("resource.local_assist_recovery", task_id=task_id, status="RECOVERED", text="Rejected cached local assist with ungrounded paths: " + ", ".join(missing), provider="ollama-qwen")
+        return None
     task_class = str((meaningful.get("task_memory") or {}).get("task_class") or "")
     if task_class == "simple" and not meaningful.get("failures"):
         return None
@@ -276,7 +322,8 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
         "You are Biella's bounded local Qwen execution assistant. Do not decide authority or completion. "
         "Use the compact task state below to reduce general Codex reasoning. Return a concise technical assist: "
         "(1) next smallest action, (2) likely failure cause if any, (3) exact files/tests/tools to inspect or run, "
-        "(4) reusable verified pattern if supported. Do not invent facts, do not repeat the whole input, and do not propose task advancement.\n\n"
+        "(4) reusable verified pattern if supported. Mention only file/asset paths literally supported by the input; never invent a path, API, symbol, test, or command target. "
+        "If there is no unresolved failure, do not manufacture a likely failure cause. Do not repeat the whole input and do not propose task advancement.\n\n"
         + canonical[:12000]
     )
     argv = [
@@ -301,13 +348,21 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
         if journal is not None:
             journal.emit("resource.local_assist_failed", task_id=task_id, status="ERROR", text="Local assist returned invalid JSON", provider="ollama-qwen")
         return None
+    assist_text = str(payload.get("text") or "")
+    missing_paths = _assist_unresolved_paths(assist_text, project_root)
+    if missing_paths:
+        rejected_path.parent.mkdir(parents=True, exist_ok=True)
+        rejected_path.write_text(json.dumps({"reason":"ungrounded_paths","paths":missing_paths}, sort_keys=True) + "\n", encoding="utf-8")
+        if journal is not None:
+            journal.emit("resource.local_assist_recovery", task_id=task_id, status="RECOVERED", text="Rejected local assist with ungrounded paths: " + ", ".join(missing_paths), provider="ollama-qwen")
+        return None
     result = {
         "schema": "biella.local_resource_assist/v1",
         "task_id": task_id,
         "projection_content_sha256": digest,
         "provider": payload.get("provider"),
         "model": payload.get("model"),
-        "text": payload.get("text"),
+        "text": assist_text,
         "usage": payload.get("usage") or {},
         "created_at": datetime.now(timezone.utc).isoformat(),
         "authority": "NON_AUTHORITATIVE_RESOURCE_ASSIST",
@@ -598,7 +653,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"{task.id}-{route.model}")
             capsule_path = _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
             projection_path = _refresh_memory_projection(repo_root, project_root, runtime_root, task.id, journal)
-            local_assist_path = _ensure_local_resource_assist(runtime_root, task.id, projection_path, journal) if projection_path else None
+            local_assist_path = _ensure_local_resource_assist(runtime_root, task.id, projection_path, journal, project_root=project_root) if projection_path else None
             prompt = _task_prompt(repo_root, production, task, telemetry, capsule_path, projection_path, local_assist_path)
             resume_session_id = _resume_session_for(telemetry, task.id)
             journal.emit("task.continued" if resume_session_id else "task.started", task_id=task.id, status="RUNNING", text=task.title, model=route.model, reasoning=route.reasoning)
