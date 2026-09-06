@@ -335,6 +335,7 @@ class LiveProjection:
                 continue
             seen.add(key)
             result.append(item)
+        result.sort(key=lambda item: (str(item.get("modified_at") or ""), str(item.get("path") or "")), reverse=True)
         return result
 
     @staticmethod

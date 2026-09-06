@@ -4,7 +4,7 @@ Status: implementation contract for the private control console.
 
 ## Purpose
 
-The console is a browser client for the existing Biella control gateway. It is not a second gateway, a shell, or an independent execution manager. The gateway remains the authority for authentication, authorization, current state, capability approval, and writes.
+The console is a browser client for the existing Biella control gateway. It is not a second gateway, a shell, or an independent execution manager. The gateway remains the authority for authentication, authorization, and current-state reads. The browser console is an observer and has no production-write authority.
 
 The console serves three lanes:
 
@@ -31,27 +31,27 @@ The browser calls same-origin endpoints below. The deployed ingress may use cont
 - GET /v1/control/workers?lane=...
 - GET /v1/control/files?lane=...
 - GET /v1/control/events?lane=...
-- POST /v1/control/dialog
-- POST /v1/control/runs
+- POST /v1/control/dialog → 405 `control_read_only`
+- POST /v1/control/runs → 405 `control_read_only`
 
 The event endpoint is Server-Sent Events. Each event should be JSON when possible, with text or message fields suitable for the live dialog.
 
 ## Access roles
 
-The server must enforce these roles:
+The server keeps authenticated account roles for identity, but both roles are observer-only at the production boundary:
 
-- operator: may read current state, send live dialog messages, and run approved capabilities.
-- observer: may read current state and live events. Dialog writes and capability runs must be rejected by the server.
+- operator: may read current state, outputs, system health, and live events.
+- observer: may read current state, outputs, system health, and live events.
 
-The UI hides disabled actions for observers for clarity, but that is only a usability layer. The server remains authoritative.
+Dialog writes and capability runs are rejected by the server for every authenticated role. The UI exposes no production command composer or run action. Login/logout changes only the browser session and must not signal production.
 
 The requested operator and observer accounts must be created in the gateway's protected credential store. Passwords must never be committed to GitHub, Drive, the Site source, browser code, or deployment metadata. Rotate any credential that has been pasted into a chat or terminal transcript before production.
 
-## Run boundary
+## Observer boundary
 
-The console submits a lane, capability_id, and auto_run flag. The gateway must validate that the capability is approved for the selected lane and must reject arbitrary commands, paths, or unapproved services.
+Opening, closing, refreshing, changing lane/view, reconnecting SSE, signing in, or signing out must not start, resume, interrupt, steer, or advance production. The console may only read the existing state/event/asset projection. `/v1/control/dialog` and `/v1/control/runs` remain explicit read-only boundary rejections and must never reach a runner.
 
-The local Qwen service is reached only through its local runtime path. Cloudflare is external ingress around the gateway and does not sit between Codex and local inference. Saturn is connected through its official API or MCP resources, not by treating a token as an inference endpoint.
+Cloudflare is external ingress around the gateway. The observer surface does not invoke local Qwen, Codex, Saturn, providers, tools, or production capabilities.
 
 ## Current-state response shape
 

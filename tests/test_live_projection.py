@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -66,15 +67,19 @@ class LiveProjectionTest(unittest.TestCase):
         self.assertEqual(status["active_model"], "model-a")
 
     def test_current_task_evidence_resolves_to_public_stage_asset(self):
+        newer = self.capture.parent / "newer.png"
+        newer.write_bytes(b"\x89PNG\r\nnewer-frame")
+        os.utime(self.capture, (1000, 1000))
+        os.utime(newer, (2000, 2000))
         validation = self.presentation / "current" / "validation.json"
-        validation.write_text(json.dumps({"result": "PASS", "captures": [{"path": str(self.capture)}]}))
+        validation.write_text(json.dumps({"result": "PASS", "captures": [{"path": str(self.capture)}, {"path": str(newer)}]}))
         memory = {
             "task_id": "D03-01",
             "current_increment": {"validation": "Build/Presentation/current/validation.json"},
         }
         stage = self.live._stage(memory)
         self.assertIsNotNone(stage["primary"])
-        self.assertEqual(stage["primary"]["name"], "frame.png")
+        self.assertEqual(stage["primary"]["name"], "newer.png")
         self.assertTrue(stage["primary"]["url"].startswith("/live-api/asset?"))
 
     def test_public_asset_resolution_is_preview_only_and_root_bounded(self):

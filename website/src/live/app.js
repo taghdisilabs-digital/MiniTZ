@@ -104,7 +104,7 @@ async function fetchSnapshot(){
 function connect(){
   if(state.source)state.source.close();setConnection('CONNECTING');
   const source=new EventSource('/live-api/events');state.source=source;
-  source.onopen=()=>{setConnection('LIVE');fetchSnapshot();};
+  source.onopen=()=>{setConnection('RECONNECTING');fetchSnapshot();};
   source.onmessage=(message)=>{
     let event;try{event=JSON.parse(message.data)}catch{return}
     if(event.state==='HEARTBEAT'){state.lastHeartbeat=event.heartbeat_at||state.lastHeartbeat;updateSystem(event.system||{});if(state.lastHeartbeat&&((Date.now()-Date.parse(state.lastHeartbeat))/1000)<=state.staleAfter)setConnection('LIVE');return;}

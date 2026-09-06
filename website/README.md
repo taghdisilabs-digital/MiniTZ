@@ -1,6 +1,6 @@
 # Biella Universe Website
 
-Real Website Project workspace for biellagames.dev, isolated on the website branch of patrickminitz-web/biella-engine so Engine main execution is not mutated by website work.
+Real Website Project workspace for biellagames.dev under `website/` in the canonical patrickminitz-web/biella-engine monorepo.
 
 Build: npm run build
 Contract tests: npm test
@@ -16,6 +16,6 @@ The Website branch now contains a private /control/ browser console for the thre
 - Engine
 - Games
 
-It provides Overview, Live dialog, Capabilities & Run, Connected services, Milestones, Hardware & API usage, Running workers, and Current files. It reads through the existing /v1/control gateway contract and does not invent project state. The operator and observer roles are enforced by that gateway.
+It provides read-only current production state, live task activity, outputs, services/resources, hardware, workers, and source identity. It reads through the existing `/v1/control` gateway contract and does not invent project state. Dialog and capability-run routes return `405 control_read_only` for every authenticated role, so opening or using the console as an observer cannot steer production.
 
-The intended Cloudflare hostname is control.biellagames.dev. The existing public biellagames.dev site remains the public Website surface.
+The private observer hostname is control.biellagames.dev. The public biellagames.dev site includes the read-only `/live/` production theatre and periodic homepage showcase; neither public surface is a production input.

@@ -20,13 +20,13 @@
       "source": "patrickminitz-web/biella-engine:main#projects/biella-games"
     }
   ],
-  "write_authority": "existing Biella control gateway",
+  "write_authority": "NONE_READ_ONLY_OBSERVER",
   "operator_role": "operator",
   "observer_role": "observer",
   "permitted_actions": [
     "read_current_state",
-    "send_dialog",
-    "run_approved_capability"
+    "read_live_events",
+    "read_assets"
   ],
   "excluded_from_active_views": [
     "legacy",
@@ -47,5 +47,6 @@
       "purpose": "official API or MCP resources",
       "credential_storage": "root-only runtime configuration"
     }
-  }
+  },
+  "mode": "READ_ONLY_OBSERVER"
 }
