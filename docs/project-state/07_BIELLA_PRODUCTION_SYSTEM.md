@@ -49,5 +49,3 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 - GitHub/Drive publication uses canonical destinations and remote readback where required.
 - Publication failure preserves local work and remains `CONTINUE`; it never fabricates completion.
 
-## Drift rule
-When current execution/GitHub/Drive evidence materially disagrees with this record, follow `08_BIELLA_PROJECT_SOURCE_DRIFT_RULE.md`.
