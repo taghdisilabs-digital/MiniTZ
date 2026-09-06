@@ -1,0 +1,32 @@
+{
+  "task_id": "D02-03",
+  "created_utc": "2026-09-06T01:13:47.862620+00:00",
+  "result": "PASS",
+  "status": "GENERATED_DRAFT",
+  "native_roundtrip_pcm": "PASS",
+  "source": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Audio/Vehicle/S_VehicleEngine.wav",
+    "bytes": 192044,
+    "sha256": "ea00641e855d89341a91e709c23ad4a911346bc4ec41726bc6a56582df408020"
+  },
+  "generator": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Audio/Vehicle/generate_vehicle_audio.py",
+    "bytes": 1616,
+    "sha256": "b67a55b2a076f180a34ca1186fa4f1a1cfaec554c3ba668047a99404cc560ff9"
+  },
+  "native_asset": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Vehicle/Audio/S_VehicleEngine.uasset",
+    "bytes": 37582,
+    "sha256": "14a3919f9e371c2a72336b944bf20d742fdfa81760826b275636e740615c44b4"
+  },
+  "native_export": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/audio-native-readback/S_VehicleEngine.wav",
+    "bytes": 192044,
+    "sha256": "ea00641e855d89341a91e709c23ad4a911346bc4ec41726bc6a56582df408020"
+  },
+  "asset_import_report": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/D02-03-audio-asset.json",
+    "bytes": 264,
+    "sha256": "7d8ca85ae0eb02aea0c17b800d4859bee40344ca7a4898a3c2daf32f6bbefbd0"
+  }
+}

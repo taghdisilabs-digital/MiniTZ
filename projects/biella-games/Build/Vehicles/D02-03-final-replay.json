@@ -1,0 +1,415 @@
+{
+  "task_id": "D02-03",
+  "created_utc": "2026-09-06T01:13:47.862620+00:00",
+  "result": "PASS",
+  "runs": [
+    {
+      "run": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix",
+      "original_result": "PASS",
+      "original_error": null,
+      "runtime_log": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/runtime.stdout.log",
+        "bytes": 397066,
+        "sha256": "d638e3aab46ab78d0752d37dbe9364531177bb4b8703f76cc3ade82dc3a0cc05"
+      },
+      "verification": {
+        "result": "PASS",
+        "all_frames": {
+          "frames": 2256,
+          "wall_seconds": 38.685176042,
+          "p50_ms": 16.936763,
+          "p95_ms": 20.232846,
+          "p99_ms": 21.504824,
+          "max_ms": 539.67849,
+          "peak_resident_bytes": 3025035264.0
+        },
+        "driving": {
+          "frames": 561,
+          "wall_seconds": 9.354927600000002,
+          "p50_ms": 16.893522,
+          "p95_ms": 19.860338,
+          "p99_ms": 21.660026,
+          "max_ms": 24.452708,
+          "peak_resident_bytes": 3007553536.0
+        },
+        "distance_cm": 6495.8982,
+        "max_speed_kmh": 48.388939199999996,
+        "collision_health": 60.0,
+        "audio": {
+          "seconds": 18.688,
+          "rate": 48000,
+          "channels": 6,
+          "rms": 0.016828921167754935
+        },
+        "files": [
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/result.json",
+            "size_bytes": 84,
+            "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/frames.csv",
+            "size_bytes": 403131,
+            "sha256": "1c67bac426dc1ee480ce4575864a505bd390638efcfbc5669c9dcb1b4deec7bb"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/events.log",
+            "size_bytes": 1656,
+            "sha256": "fcd9ec32ab4443bf7ea419172707fc6b924e1609224b03e0310a58b49f8f4040"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/runtime.stdout.log",
+            "size_bytes": 397066,
+            "sha256": "d638e3aab46ab78d0752d37dbe9364531177bb4b8703f76cc3ade82dc3a0cc05"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/runtime.engine.log",
+            "size_bytes": 397631,
+            "sha256": "0f8920b02e817fa47eda52d75c4f706726ccdf6e011f4998c5ad4f48399be530"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/captures/approach.png",
+            "size_bytes": 959483,
+            "sha256": "83069667a5e59ba3b60d0fbd8d281bae3597f429fba64b0abfdfee78da131595"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/captures/driving.png",
+            "size_bytes": 929670,
+            "sha256": "dea6006d89a0512fb5c8ea138e7743b8894555b7530841bbb7790ee07dba35cf"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/captures/impact.png",
+            "size_bytes": 918024,
+            "sha256": "1247b9ae3eea76d11acbee94a4983bea3e3c327835c31cbb39c91b9460eec99d"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/captures/exited.png",
+            "size_bytes": 941916,
+            "sha256": "2f1a819e6934b1c3d9490d69b0df45be7d44097b95d6e33e3e20a4c5b92e3242"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/captures/disabled.png",
+            "size_bytes": 270173,
+            "sha256": "f4886f57df87d7fceff665d2ea61ced6bef35e87e3c5f344960fc0bb2eea4a97"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/vehicle.wav",
+            "size_bytes": 10764332,
+            "sha256": "b6204aa1024cfa43d33377d733bfec89ce57506d232d330375819a5feef94db2"
+          }
+        ]
+      },
+      "independent_peak_rss_kib": 2936388,
+      "accepted_startup_diagnostic_lines": []
+    },
+    {
+      "run": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix",
+      "original_result": "PASS",
+      "original_error": null,
+      "runtime_log": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/runtime.stdout.log",
+        "bytes": 419438,
+        "sha256": "c3b9e05c97103e03c49aa888440022b49aa2f8e44972cc09d7a9a866786fb51b"
+      },
+      "verification": {
+        "result": "PASS",
+        "count": 4,
+        "initial_rivals": 1,
+        "initial_infected": 3,
+        "combat_duration_seconds": 20.011633,
+        "all_frames": {
+          "frames": 2834,
+          "wall_seconds": 34.855009381,
+          "p50_ms": 12.158608,
+          "p95_ms": 13.906196,
+          "p99_ms": 15.264936,
+          "max_ms": 722.941431,
+          "peak_resident_bytes": 2991206400.0
+        },
+        "combat_frames": {
+          "frames": 1599,
+          "wall_seconds": 20.01130996,
+          "p50_ms": 12.2112,
+          "p95_ms": 13.739762,
+          "p99_ms": 14.837957,
+          "max_ms": 722.941431,
+          "peak_resident_bytes": 2990194688.0
+        },
+        "at_least_75_percent_active": {
+          "frames": 646,
+          "wall_seconds": 8.483019373,
+          "p50_ms": 12.330671,
+          "p95_ms": 14.137752,
+          "p99_ms": 15.339728,
+          "max_ms": 722.941431,
+          "peak_resident_bytes": 2990194688.0
+        },
+        "active_end": 1,
+        "max_overlap_pairs": 0.0,
+        "natural_damage_events": 22,
+        "natural_damage_sources": [
+          "D02Pop_Street03_00",
+          "D02Pop_Street03_01",
+          "D02Pop_Street03_02",
+          "D02Pop_Street03_03"
+        ],
+        "natural_damage_targets": [
+          "D02Pop_Street03_00",
+          "D02Pop_Street03_01",
+          "D02Pop_Street03_02",
+          "D02Pop_Street03_03"
+        ],
+        "files": [
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/result.json",
+            "size_bytes": 134,
+            "sha256": "e18fd977facb59f096783ae194beec8979710928f5a093d702c75a40178127b4"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/frames.csv",
+            "size_bytes": 204134,
+            "sha256": "6a24faf389c84327082fdbd59db6201af6d81da0900960da191698909d6123f2"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/events.log",
+            "size_bytes": 1229,
+            "sha256": "5f48f31d6d79d5c1c7d5426f3d2a3e067042349c138868549768d7c1b9f98cd0"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/runtime.stdout.log",
+            "size_bytes": 419438,
+            "sha256": "c3b9e05c97103e03c49aa888440022b49aa2f8e44972cc09d7a9a866786fb51b"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/runtime.engine.log",
+            "size_bytes": 420107,
+            "sha256": "452e2c73a4bebd3a6319d68b532f5bf94af9b4105b29168e913f11950357ff2c"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/captures/dense_start.png",
+            "size_bytes": 941389,
+            "sha256": "5c04535c7f17a1071d4dd02ce4b515d952c5d92ffb0e0869870386631e344bfb"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/captures/combat_result.png",
+            "size_bytes": 929806,
+            "sha256": "2385b7650e478340b9b7876b3418edc825875351b64136ee4549fb9fc5005b24"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/captures/navigation_result.png",
+            "size_bytes": 954828,
+            "sha256": "814c76a5adb0224eb79d8cb5e178394f7b26ec6231a2df3f057c2cf34292dd23"
+          }
+        ],
+        "capture_status": "GENERATED_DRAFT"
+      },
+      "independent_peak_rss_kib": 2921044,
+      "accepted_startup_diagnostic_lines": []
+    },
+    {
+      "run": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-shared-rootfix",
+      "original_result": "PASS",
+      "original_error": null,
+      "runtime_log": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-shared-rootfix/runtime.stdout.log",
+        "bytes": 296055,
+        "sha256": "3f17b00250c42aef529cfe42ae24cd48ced1104359925db2038897261b34a3bd"
+      },
+      "verification": {
+        "log": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-shared-rootfix/runtime.stdout.log",
+        "result": "PASS",
+        "phases": 10,
+        "damage_events": 20,
+        "damage_edges": {
+          "infected_to_player": 4,
+          "rival_to_infected": 4,
+          "player_to_infected": 3,
+          "rival_to_player": 5,
+          "infected_to_rival": 1,
+          "player_to_rival": 3
+        },
+        "defeats": 4,
+        "duration_seconds": 13.494,
+        "minimum_cadence_seconds": {
+          "infected": 0.852,
+          "rival": 0.902,
+          "player": 0.351
+        }
+      },
+      "independent_peak_rss_kib": 2824432,
+      "accepted_startup_diagnostic_lines": []
+    },
+    {
+      "run": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix",
+      "original_result": "FAIL",
+      "original_error": "Unreal reported an error, failed assertion, or ensure",
+      "runtime_log": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/runtime.stdout.log",
+        "bytes": 416408,
+        "sha256": "8a079c1261e0359dbbd2dd506a2bbf5166a92365e45daa9e3e8138525ec060f0"
+      },
+      "verification": {
+        "task_id": "D02-01",
+        "result": "PASS",
+        "frames": 13586,
+        "wall_seconds": 165.8046168779838,
+        "visible_cell_loads": 51,
+        "visible_cell_unloads": 39,
+        "frame_wall_ms_p95": 14.084349968470633,
+        "frame_wall_ms_p99": 15.261066029779613,
+        "peak_process_resident_bytes": 3010945024,
+        "capture_status": "GENERATED_DRAFT",
+        "files": [
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/streaming.json",
+            "size_bytes": 1143,
+            "sha256": "20fbbf30b20b398d52c3fd956735f9e0601d84fd1ba62cdfd8315cae2b7eeb3c"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/frames.csv",
+            "size_bytes": 1360264,
+            "sha256": "a9c877c8e9f254e8ed5d84aaae8531cadf1f0e86be3a4aeec57885364f8fd518"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/events.log",
+            "size_bytes": 7186,
+            "sha256": "b4aaaff8b8a22c150a3d18e50a1959831ea8866e7c1fc4710b636c64fd143149"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/captures/street_start.png",
+            "size_bytes": 956671,
+            "sha256": "25831fd5f52caf1310bbb89b3e52cfe387f05ef719d7b0141d9355ed340ea4f1"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/captures/interior.png",
+            "size_bytes": 815980,
+            "sha256": "5119f0364f8e6305091900be338cc8014d8d78eadcf7bc8045bbbd733ff57da7"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/captures/terrace.png",
+            "size_bytes": 889923,
+            "sha256": "348e6cec462be7608cfd83216acab05c5a38fd097474cf1fcca575fd8a4205c1"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/captures/distant_region.png",
+            "size_bytes": 897330,
+            "sha256": "89c17d37db9bd86d41b362836b53b7b8eebccc1eb599c135d2b5fe211c0b4d2b"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/captures/injury_return.png",
+            "size_bytes": 910441,
+            "sha256": "9562be01883ec144e35f41cb9c288772bf4f12601c27f6c4423cdf8e372fd46e"
+          },
+          {
+            "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/captures/final_return.png",
+            "size_bytes": 913682,
+            "sha256": "db223f3fcf3569098d836593c237fd0ec86a62329997337240d66f734eab3443"
+          }
+        ]
+      },
+      "independent_peak_rss_kib": 2940328,
+      "accepted_startup_diagnostic_lines": [
+        "[2026.09.06-00.45.54:423][  0]LogClass: Error: StructProperty FDataflowToolNodeSnapshot::Date is not initialized properly even though its struct probably has a custom default constructor. Non deterministic fields should use UPROPERTY(Meta = (IgnoreForMemberInitializationTest)) to avoid errors from this test. Module:DataflowNodes File:Public/Dataflow/DataflowToolNode.h",
+        "[2026.09.06-00.45.54:434][  0]LogAutomationTest: Error: LogClass: StructProperty FDataflowToolNodeSnapshot::Date is not initialized properly even though its struct probably has a custom default constructor. Non deterministic fields should use UPROPERTY(Meta = (IgnoreForMemberInitializationTest)) to avoid errors from this test. Module:DataflowNodes File:Public/Dataflow/DataflowToolNode.h"
+      ]
+    },
+    {
+      "run": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-runs/20260906T004514.998286Z",
+      "result": "PASS",
+      "phases": [
+        "fresh_assets",
+        "confirmed_spatial_combat",
+        "rejected_events_silent",
+        "particles_rendered",
+        "melee_and_dense_combat",
+        "dense_rendered_tick",
+        "damage_bounded",
+        "pressure_transition_only",
+        "success_once",
+        "restart_reset",
+        "failure_once",
+        "lifecycle_drained"
+      ],
+      "audio": [
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-feedback-captures/combat.wav",
+          "sha256": "33913f447ea7f48d141b1b27fb0ff4574094bac484166f14a821947b2e0e3847",
+          "bytes": 135212,
+          "sample_rate": 48000,
+          "channels": 2,
+          "pcm_bits": 16,
+          "frames": 33792,
+          "clipped_samples": 0,
+          "duration_seconds": 0.704,
+          "peak": 0.07431,
+          "rms": 0.010009,
+          "audible_seconds": 0.2652,
+          "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-feedback-captures/hurt.wav",
+          "sha256": "3caabe8c115f9500a0a9b2c85449015f743981a528130aa28bf19001c374d687",
+          "bytes": 65580,
+          "sample_rate": 48000,
+          "channels": 2,
+          "pcm_bits": 16,
+          "frames": 16384,
+          "clipped_samples": 0,
+          "duration_seconds": 0.3413,
+          "peak": 0.213989,
+          "rms": 0.034738,
+          "audible_seconds": 0.1731,
+          "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-feedback-captures/pressure.wav",
+          "sha256": "cfe0c745535af79010c1561e274bc989895a33e3267c916e1b3f3a49c9c6cdd3",
+          "bytes": 122924,
+          "sample_rate": 48000,
+          "channels": 2,
+          "pcm_bits": 16,
+          "frames": 30720,
+          "clipped_samples": 0,
+          "duration_seconds": 0.64,
+          "peak": 0.124481,
+          "rms": 0.025421,
+          "audible_seconds": 0.4936,
+          "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-feedback-captures/success.wav",
+          "sha256": "74a48a08a25d2353e33903057864cce5c98cd4d5aaea0900d1457680ee0fbb22",
+          "bytes": 159788,
+          "sample_rate": 48000,
+          "channels": 2,
+          "pcm_bits": 16,
+          "frames": 39936,
+          "clipped_samples": 0,
+          "duration_seconds": 0.832,
+          "peak": 0.069824,
+          "rms": 0.01816,
+          "audible_seconds": 0.643,
+          "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+        },
+        {
+          "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-feedback-captures/failure.wav",
+          "sha256": "2006fc84e982b8f2bb7b511ed6249f1408e01be43dbed21ba2261a378d939783",
+          "bytes": 176172,
+          "sample_rate": 48000,
+          "channels": 2,
+          "pcm_bits": 16,
+          "frames": 44032,
+          "clipped_samples": 0,
+          "duration_seconds": 0.9173,
+          "peak": 0.12442,
+          "rms": 0.021313,
+          "audible_seconds": 0.7855,
+          "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+        }
+      ],
+      "decoded_frames": 6,
+      "timing_note": "Fixed simulation delta protects short effects from screenshot readback stalls; wall measurements are not shipping performance acceptance."
+    }
+  ],
+  "note": "Original streaming wrapper FAIL is preserved. Its exact two startup Dataflow diagnostic lines are the only excluded errors; clean automation/runtime/independent streaming checks pass with the narrowed filter."
+}

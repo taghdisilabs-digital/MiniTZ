@@ -1,0 +1,8 @@
+{
+  "task_id": "D02-03",
+  "result": "PASS",
+  "asset": "/Game/Vehicle/Audio/S_VehicleEngine.S_VehicleEngine",
+  "source_sha256": "ea00641e855d89341a91e709c23ad4a911346bc4ec41726bc6a56582df408020",
+  "native_roundtrip_pcm": "PASS",
+  "status": "GENERATED_DRAFT"
+}

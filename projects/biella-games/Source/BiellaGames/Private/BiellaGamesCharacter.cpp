@@ -1,6 +1,7 @@
 // Copyright Biella Games. All Rights Reserved.
 
 #include "BiellaGamesCharacter.h"
+#include "BiellaVehicle.h"
 #include "BiellaGameplayFeedback.h"
 
 #include "BiellaGamesGameModeBase.h"
@@ -107,7 +108,7 @@ void ABiellaGamesCharacter::BeginPlay()
 void ABiellaGamesCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
-    if (IsDefeated())
+    if (IsDefeated() || GetVehicle())
     {
         return;
     }
@@ -163,31 +164,31 @@ void ABiellaGamesCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 
 void ABiellaGamesCharacter::MoveForward(const FInputActionValue& Value)
 {
-    if (IsDefeated()) { return; }
+    if (IsDefeated() || GetVehicle()) { return; }
     AddMovementInput(GetActorForwardVector(), Value.Get<float>() * (bSprintHeld ? 1.35f : 1.0f));
 }
 
 void ABiellaGamesCharacter::MoveBackward(const FInputActionValue& Value)
 {
-    if (IsDefeated()) { return; }
+    if (IsDefeated() || GetVehicle()) { return; }
     AddMovementInput(-GetActorForwardVector(), Value.Get<float>() * (bSprintHeld ? 1.35f : 1.0f));
 }
 
 void ABiellaGamesCharacter::MoveRight(const FInputActionValue& Value)
 {
-    if (IsDefeated()) { return; }
+    if (IsDefeated() || GetVehicle()) { return; }
     AddMovementInput(GetActorRightVector(), Value.Get<float>() * (bSprintHeld ? 1.35f : 1.0f));
 }
 
 void ABiellaGamesCharacter::MoveLeft(const FInputActionValue& Value)
 {
-    if (IsDefeated()) { return; }
+    if (IsDefeated() || GetVehicle()) { return; }
     AddMovementInput(-GetActorRightVector(), Value.Get<float>() * (bSprintHeld ? 1.35f : 1.0f));
 }
 
 void ABiellaGamesCharacter::JumpStarted(const FInputActionValue& Value)
 {
-    if (!IsDefeated() && !bJumping)
+    if (!IsDefeated() && !GetVehicle() && !bJumping)
     {
         bJumping = true;
         JumpElapsed = 0.0f;
@@ -199,11 +200,25 @@ void ABiellaGamesCharacter::JumpStarted(const FInputActionValue& Value)
 void ABiellaGamesCharacter::LookYaw(const FInputActionValue& Value)
 {
     const float DeltaYaw = Value.Get<float>() * 0.8f;
+    if (auto* V=GetVehicle())
+    {
+        auto R=V->CameraBoom->GetRelativeRotation();
+        R.Yaw=FMath::Clamp(R.Yaw+DeltaYaw,-100.0f,100.0f);
+        V->CameraBoom->SetRelativeRotation(R);
+        return;
+    }
     AddActorLocalRotation(FRotator(0.0f, DeltaYaw, 0.0f));
 }
 
 void ABiellaGamesCharacter::LookPitch(const FInputActionValue& Value)
 {
+    if (auto* V=GetVehicle())
+    {
+        auto R=V->CameraBoom->GetRelativeRotation();
+        R.Pitch=FMath::Clamp(R.Pitch+Value.Get<float>()*0.6f,-50.0f,5.0f);
+        V->CameraBoom->SetRelativeRotation(R);
+        return;
+    }
     if (!CameraBoom)
     {
         return;
@@ -219,6 +234,7 @@ void ABiellaGamesCharacter::JumpEnded(const FInputActionValue& Value)
 
 void ABiellaGamesCharacter::SprintStarted(const FInputActionValue& Value)
 {
+    if (GetVehicle()) { return; }
     if (IsDefeated()) { return; }
     bSprintHeld = true;
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL SPRINT_STARTED"));
@@ -231,6 +247,7 @@ void ABiellaGamesCharacter::SprintEnded(const FInputActionValue& Value)
 
 void ABiellaGamesCharacter::FireWeapon(const FInputActionValue& Value)
 {
+    if (GetVehicle()) { return; }
     if (IsDefeated() || FireCooldownRemaining > 0.0f || Ammo <= 0)
     {
         if (Ammo <= 0)
@@ -374,4 +391,42 @@ void ABiellaGamesCharacter::EnsureInputActions()
     InputContext->MapKey(JumpAction.Get(), EKeys::SpaceBar);
     InputContext->MapKey(SprintAction.Get(), EKeys::LeftShift);
     InputContext->MapKey(RestartAction.Get(), EKeys::R);
+}
+
+void ABiellaGamesCharacter::MountVehicle(ABiellaVehicle* InVehicle)
+{
+    Vehicle=InVehicle;
+    bJumping=false; bSprintHeld=false;
+    PawnMovement->StopMovementImmediately();
+    ConsumeMovementInputVector();
+    PawnMovement->SetComponentTickEnabled(false);
+    SetActorEnableCollision(false);
+    AttachToActor(InVehicle,FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+    SetActorRelativeLocation(FVector(-20,-38,76));
+    WeaponMesh->SetVisibility(false);
+    // Match the existing editable blockout character to the actual seat state.
+    TArray<UStaticMeshComponent*> Meshes; GetComponents(Meshes);
+    for (auto* Mesh:Meshes)
+    {
+        StandingPose.Add(Mesh,Mesh->GetRelativeTransform());
+        if (Mesh==BodyMesh)
+        { Mesh->SetRelativeScale3D(FVector(0.48,0.55,0.65)); Mesh->SetRelativeLocation(FVector(0,0,0)); }
+        else if (Mesh->GetName().Contains(TEXT("Boot")))
+        { auto P=Mesh->GetRelativeLocation(); P.X=32; P.Z=-32; Mesh->SetRelativeLocation(P); }
+        else if (Mesh->GetName().Contains(TEXT("RoleHead")))
+        { Mesh->SetRelativeLocation(FVector(0,0,48)); }
+    }
+}
+
+void ABiellaGamesCharacter::DismountVehicle(FVector At)
+{
+    DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+    Vehicle.Reset();
+    SetActorLocationAndRotation(At,FRotator(0,GetActorRotation().Yaw,0),false,nullptr,ETeleportType::TeleportPhysics);
+    for (const auto& Pose:StandingPose) { if (Pose.Key.IsValid()) { Pose.Key->SetRelativeTransform(Pose.Value); } }
+    StandingPose.Reset();
+    WeaponMesh->SetVisibility(!IsDefeated());
+    SetActorEnableCollision(!IsDefeated());
+    PawnMovement->StopMovementImmediately();
+    PawnMovement->SetComponentTickEnabled(!IsDefeated());
 }

@@ -1,0 +1,2 @@
+D02-01 evidence: /root/biella/artifacts/games/D02-03/regression-streaming-rootfix/validation.json
+{"task_id": "D02-01", "result": "FAIL", "error": "Unreal reported an error, failed assertion, or ensure", "validation": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/validation.json"}

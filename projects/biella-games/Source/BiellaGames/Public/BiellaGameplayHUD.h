@@ -85,6 +85,9 @@ protected:
     TObjectPtr<UTextBlock> AmmoText;
 
     UPROPERTY(Transient)
+    TObjectPtr<UTextBlock> VehiclePrompt;
+
+    UPROPERTY(Transient)
     TObjectPtr<UTextBlock> ThreatsText;
 
     UPROPERTY(Transient)

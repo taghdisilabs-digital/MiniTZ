@@ -1,0 +1,26 @@
+{
+  "task_id": "D02-03",
+  "created_utc": "2026-09-06T01:13:47.862620+00:00",
+  "result": "PASS",
+  "recorded": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-runs/20260906T004514.998286Z/feedback.stdout.log",
+    "sha256": "fc19f6f8c36bc7f773a9438568d8fa0cd51bc5b8d55b3e60ef6fa622403ab6cf",
+    "bytes": 359642
+  },
+  "final": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-runs/20260906T004514.998286Z/feedback.stdout.log",
+    "bytes": 360412,
+    "sha256": "00300c0387711bc55fdc2b4b93842d68b698264f1fd5afd59665fe03554dbfa3"
+  },
+  "recorded_prefix_sha256_matches": true,
+  "appended_bytes": 770,
+  "appended_text": "Opening shared memory\nShared memory doesn't exist, checking legacy lock file\nChecking for a '/tmp/UnrealTraceServer.pid' lock file\nForking process\nOpening shared memory\nStarting the store\nReading settings from '/home/unreal/UnrealEngine/UnrealTrace/Settings.ini'\n\nUnable to open settings file /home/unreal/UnrealEngine/UnrealTrace/Settings.ini.\n\nStore settings (/home/unreal/UnrealEngine/UnrealTrace/Settings.ini):\n - Store port: 1989\n - Recorder port: 1981\n - Thread count: 0\n - Sponsored mode: 1\n - Directory: '/home/unreal/UnrealEngine/UnrealTrace/Store/001'\nSignalling parent 2066685\nTerminating server, no sponsors or connections active.\nListening cancelled, closing port...\nListening cancelled, closing port...\nReceived signal 15\nDaemon is exiting without errors.\n",
+  "log_finalization": {
+    "closed": true,
+    "elapsed_seconds": 0.014515803020913154,
+    "timeout_seconds": 45,
+    "observed_writers": [],
+    "remaining_writers": []
+  },
+  "note": "UnrealTraceServer appended startup/shutdown after original runner identity capture. Original report unchanged; replay uses closed final log."
+}

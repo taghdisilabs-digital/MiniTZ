@@ -11,6 +11,7 @@ class UCameraComponent;
 class UStaticMeshComponent;
 class UInputAction;
 class UInputMappingContext;
+class ABiellaVehicle;
 struct FInputActionValue;
 
 UCLASS()
@@ -41,6 +42,9 @@ public:
     void FireWeapon(const FInputActionValue& Value);
     bool FireWeaponAt(ABiellaDemoPawn* Target, float DamageAmount, const FString& DamageTag);
     int32 GetAmmo() const { return Ammo; }
+    ABiellaVehicle* GetVehicle() const { return Vehicle.Get(); }
+    void MountVehicle(ABiellaVehicle* InVehicle);
+    void DismountVehicle(FVector At);
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Demo01|Input")
     TObjectPtr<UInputMappingContext> InputContext;
@@ -85,6 +89,8 @@ public:
     TObjectPtr<UStaticMeshComponent> WeaponMesh;
 
 private:
+    TWeakObjectPtr<ABiellaVehicle> Vehicle;
+    TMap<TWeakObjectPtr<UStaticMeshComponent>, FTransform> StandingPose;
     int32 Ammo = 60;
     float FireCooldownRemaining = 0.0f;
     bool bSprintHeld = false;

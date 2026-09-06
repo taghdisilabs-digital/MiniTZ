@@ -1,0 +1,115 @@
+{
+  "task_id": "D02-03",
+  "created_utc": "2026-09-06T01:13:47.862620+00:00",
+  "result": "PASS",
+  "baseline": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/D02-03-preservation-before.json",
+    "bytes": 137428,
+    "sha256": "191fd2ddd023e5308d624e5a34bfa5dc2b7b227cf43a2ff5dd560c2d40b817ad"
+  },
+  "baseline_commit": "2942432b5ec0ec897c779141c2c4e382a113a9e5",
+  "original_files_checked": 1030,
+  "unchanged": 1021,
+  "expected_integration_changes": [
+    {
+      "path": "Config/DefaultGame.ini",
+      "before_sha256": "68e399da0f7469cf9330114d423fab5fb59be14777bcc79e4950d0c2ec1940a3",
+      "current": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Config/DefaultGame.ini",
+        "bytes": 1254,
+        "sha256": "1c7d471353e16f0a308029b8a5e333aeef1fcaef21cd2a35a0b5b9da964e081b"
+      }
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGameplayHUD.cpp",
+      "before_sha256": "563164d170c3f2f5cb2c750ce8558e986741cc0e3171fe362c7a66a353a2ae81",
+      "current": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGameplayHUD.cpp",
+        "bytes": 19429,
+        "sha256": "1d4256617bed722615359154c8253be6658508bb074a0e69a178c1649bea914e"
+      }
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+      "before_sha256": "0a656f1f942a590127a80e8964c4a8f31581733b20df05a3a970003ef638b328",
+      "current": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+        "bytes": 17618,
+        "sha256": "35483ba3e5ec042bd0ab3b3d13b2187c0aac3e9d3e03467cf3b030f9d7992590"
+      }
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGamesPlayerController.cpp",
+      "before_sha256": "84703f60b0e9f010686e71c59bb7f3176f0c48fea6c8c9fd5d9c7351bc76bfae",
+      "current": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaGamesPlayerController.cpp",
+        "bytes": 3935,
+        "sha256": "6787822df2dbf8b3c9d396277507a702de4c0b6fbb23fee4dfd6e9a047981390"
+      }
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaWorldContinuity.cpp",
+      "before_sha256": "f7d9a7ab7380e9b81c9c102966fea9c04ff338136112e2b4d31e6a10b66864cd",
+      "current": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/BiellaWorldContinuity.cpp",
+        "bytes": 16727,
+        "sha256": "8855b4260321c3b8ac01fe1d2d837adb7b51c9616f82721c1c9b12345124c355"
+      }
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaGameplayHUD.h",
+      "before_sha256": "b1ad3808378a9b205104049fc8a1cff32380c340b8cb7e4161500a74853f9f88",
+      "current": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGameplayHUD.h",
+        "bytes": 3862,
+        "sha256": "00d43a1b59ea7c9f8063e2f2b97630610fe85c4360d1d0816cbcb4518611913e"
+      }
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaGamesCharacter.h",
+      "before_sha256": "b0eb709ae18be65d8b796290e4ad3ad68b1e5979776f8c5d2a8810f80e9d14db",
+      "current": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesCharacter.h",
+        "bytes": 3727,
+        "sha256": "abfb7045e3bc7d2254cb6f0721b9ee9a199073f1ac46a036335390a0ca02685a"
+      }
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaGamesPlayerController.h",
+      "before_sha256": "1c40f6542e9274cdfd5df5171a276aa02a907b822b893103df21b9cc28c32148",
+      "current": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Public/BiellaGamesPlayerController.h",
+        "bytes": 947,
+        "sha256": "d54c7c0e0e2f8e0c624d1443643db01f6171a56e904a55c870179ea12fc56ea4"
+      }
+    },
+    {
+      "path": "tests/run_d02_01.py",
+      "before_sha256": "afa5b79881adfda19d10489513f125e1e966630d91a843f65a4c0a8fcdee4677",
+      "current": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+        "bytes": 10991,
+        "sha256": "331528af104d262d1c4926228f894b63f9cb6ead502d4d916cd56129c59c62a7"
+      }
+    }
+  ],
+  "protected": [
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/03_BIELLA_CURRENT_STATE.md",
+      "sha256": "f2ee8cb0ca853380a83b1fbafb42926d5f0853df26fab9450c217cd35627c0a1",
+      "bytes": 5388
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+      "sha256": "2e9010b5ab43c0091b5657911f22b989a16d453f3d0a43cc294d5564a831d8b5",
+      "bytes": 786
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/docs/PRODUCTION.md",
+      "sha256": "ee5b0b4daee70ba4c29e4bfc210c84ebdd905e75a5c4e0dd6d54e5ae8597a5c3",
+      "bytes": 28917
+    }
+  ],
+  "path_resolution": "The two docs/project-state baseline keys refer to the repository root, not the Games subtree.",
+  "boundary": "No 03/04 identities or PRODUCTION status/next-task metadata edited; no completed predecessor reopened; Engine P4-06 remains INCOMPLETE_DEFERRED."
+}

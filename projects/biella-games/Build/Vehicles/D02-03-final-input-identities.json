@@ -1,0 +1,206 @@
+{
+  "task_id": "D02-03",
+  "created_utc": "2026-09-06T01:13:47.862620+00:00",
+  "result": "PASS",
+  "reports": [
+    {
+      "report": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/validation.json",
+        "bytes": 103184,
+        "sha256": "e3ce869d808bd89d043a77206831d240ab8eb021761c408fdab5dcec61b7561c"
+      },
+      "original_result": "PASS",
+      "groups": [
+        {
+          "group": "identities",
+          "count": 190,
+          "before_after_equal": true,
+          "matches_current": 189,
+          "deltas": [
+            {
+              "recorded": {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+                "sha256": "afa5b79881adfda19d10489513f125e1e966630d91a843f65a4c0a8fcdee4677",
+                "bytes": 9797
+              },
+              "current": {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+                "bytes": 10991,
+                "sha256": "331528af104d262d1c4926228f894b63f9cb6ead502d4d916cd56129c59c62a7"
+              },
+              "reason": "Only post-process error classification changed; imported identities/monitor/material checks and runtime command construction remain unchanged."
+            }
+          ]
+        },
+        {
+          "group": "protected",
+          "count": 3,
+          "before_after_equal": true,
+          "matches_current": 3,
+          "deltas": []
+        }
+      ]
+    },
+    {
+      "report": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/validation.json",
+        "bytes": 103159,
+        "sha256": "cb7f973ccbe7a148ec8520d9cf08d7f9b9900ede5eacb6317414429640ee40fb"
+      },
+      "original_result": "PASS",
+      "groups": [
+        {
+          "group": "identities",
+          "count": 190,
+          "before_after_equal": true,
+          "matches_current": 189,
+          "deltas": [
+            {
+              "recorded": {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+                "sha256": "afa5b79881adfda19d10489513f125e1e966630d91a843f65a4c0a8fcdee4677",
+                "bytes": 9797
+              },
+              "current": {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+                "bytes": 10991,
+                "sha256": "331528af104d262d1c4926228f894b63f9cb6ead502d4d916cd56129c59c62a7"
+              },
+              "reason": "Only post-process error classification changed; imported identities/monitor/material checks and runtime command construction remain unchanged."
+            }
+          ]
+        },
+        {
+          "group": "protected",
+          "count": 3,
+          "before_after_equal": true,
+          "matches_current": 3,
+          "deltas": []
+        }
+      ]
+    },
+    {
+      "report": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-shared-rootfix/validation.json",
+        "bytes": 101053,
+        "sha256": "06ab5c64f8912f60eb95bd37618c5db9198ce332f6f1251d3ba32cfd4ac5f0a3"
+      },
+      "original_result": "PASS",
+      "groups": [
+        {
+          "group": "identities",
+          "count": 188,
+          "before_after_equal": true,
+          "matches_current": 187,
+          "deltas": [
+            {
+              "recorded": {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+                "sha256": "afa5b79881adfda19d10489513f125e1e966630d91a843f65a4c0a8fcdee4677",
+                "bytes": 9797
+              },
+              "current": {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+                "bytes": 10991,
+                "sha256": "331528af104d262d1c4926228f894b63f9cb6ead502d4d916cd56129c59c62a7"
+              },
+              "reason": "Only post-process error classification changed; imported identities/monitor/material checks and runtime command construction remain unchanged."
+            }
+          ]
+        },
+        {
+          "group": "protected",
+          "count": 3,
+          "before_after_equal": true,
+          "matches_current": 3,
+          "deltas": []
+        },
+        {
+          "group": "tooling",
+          "count": 3,
+          "before_after_equal": true,
+          "matches_current": 3,
+          "deltas": []
+        }
+      ]
+    },
+    {
+      "report": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/validation.json",
+        "bytes": 99564,
+        "sha256": "5c893248f9b459c5c03d6d0ab80c5ce215f08067b0b5b9b4f50496d7fd11f937"
+      },
+      "original_result": "FAIL",
+      "groups": [
+        {
+          "group": "identities",
+          "count": 188,
+          "before_after_equal": true,
+          "matches_current": 187,
+          "deltas": [
+            {
+              "recorded": {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+                "sha256": "afa5b79881adfda19d10489513f125e1e966630d91a843f65a4c0a8fcdee4677",
+                "bytes": 9797
+              },
+              "current": {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+                "bytes": 10991,
+                "sha256": "331528af104d262d1c4926228f894b63f9cb6ead502d4d916cd56129c59c62a7"
+              },
+              "reason": "Only post-process error classification changed; imported identities/monitor/material checks and runtime command construction remain unchanged."
+            }
+          ]
+        },
+        {
+          "group": "protected",
+          "count": 3,
+          "before_after_equal": true,
+          "matches_current": 3,
+          "deltas": []
+        }
+      ]
+    },
+    {
+      "report": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Demo01/D01-042-runs/20260906T004514.998286Z/validation.json",
+        "bytes": 59822,
+        "sha256": "8f009f3321ca06e3210116bf01bbeb17377d2581db2c0816489c81b31e5ecbfd"
+      },
+      "original_result": "PASS",
+      "groups": [
+        {
+          "group": "identities",
+          "count": 100,
+          "before_after_equal": true,
+          "matches_current": 100,
+          "deltas": []
+        },
+        {
+          "group": "protected",
+          "count": 3,
+          "before_after_equal": true,
+          "matches_current": 3,
+          "deltas": []
+        }
+      ]
+    }
+  ],
+  "unchanged_runtime_helpers": [
+    "identities",
+    "monitor",
+    "reject_material_fallbacks",
+    "command assignment"
+  ],
+  "module": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/libUnrealEditor-BiellaGames.so",
+    "bytes": 1732472,
+    "sha256": "da58356b6988929a0e73f9a5178a6768a6174e521856719c8ef40dd1751bbbe8"
+  },
+  "filter": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d02_01.py",
+    "bytes": 10991,
+    "sha256": "331528af104d262d1c4926228f894b63f9cb6ead502d4d916cd56129c59c62a7"
+  }
+}

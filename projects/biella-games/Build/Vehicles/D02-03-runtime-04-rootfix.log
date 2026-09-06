@@ -1,0 +1,6 @@
+{
+  "task_id": "D02-03",
+  "result": "FAIL",
+  "output": "/root/biella/artifacts/games/D02-03/runtime-04-rootfix",
+  "error": "Unreal process failed"
+}

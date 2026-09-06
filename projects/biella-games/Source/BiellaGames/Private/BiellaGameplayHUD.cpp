@@ -4,6 +4,8 @@
 
 #include "BiellaDemoObjectiveManager.h"
 #include "BiellaGamesCharacter.h"
+#include "BiellaVehicle.h"
+#include "EngineUtils.h"
 #include "BiellaGamesGameState.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
@@ -183,6 +185,7 @@ void UBiellaGameplayHUD::BuildLayout()
         FVector2D(0.0f, -28.0f), FVector2D(320.0f, 92.0f));
     UVerticalBox* CountdownStack = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
     CountdownCard->SetContent(CountdownStack);
+    VehiclePrompt=AddText(WidgetTree,CountdownStack,TEXT(""),14,HudWarningColor,TEXT("VehiclePrompt"));
     UTextBlock* CountdownLabel = AddText(WidgetTree, CountdownStack, TEXT("THREAT COUNTDOWN"),
         14, HudWarningColor, TEXT("CountdownLabel"));
     CountdownLabel->SetJustification(ETextJustify::Center);
@@ -375,7 +378,30 @@ void UBiellaGameplayHUD::RefreshFromRuntime()
     }
     if (AmmoText)
     {
-        AmmoText->SetText(FText::FromString(FString::Printf(TEXT("AMMO %02d"), Ammo)));
+        const auto* V=Player->GetVehicle();
+        AmmoText->SetText(FText::FromString(V ? FString::Printf(TEXT("%02.0f km/h  CAR %.0f%%"),FMath::Abs(V->GetSpeed())*0.036f,V->GetHealth()) : FString::Printf(TEXT("AMMO %02d"), Ammo)));
+    }
+    if (VehiclePrompt)
+    {
+        FString Hint;
+        if (Player.IsValid() && Player->GetVehicle())
+        {
+            const auto* V=Player->GetVehicle();
+            Hint=V->IsHeld() ? TEXT("Waiting for road collision") : TEXT("W/S Drive / reverse | A/D Steer | SPACE Brake | E Exit");
+            if (V->GetHealth()<=0) { Hint=TEXT("Vehicle disabled | Stop, then E to exit"); }
+            else if (V->GetLastRejection()==TEXT("exit_obstructed")) { Hint=TEXT("Exit blocked | Move to a clear space"); }
+            else if (V->GetLastRejection()==TEXT("exit_speed_or_roll")) { Hint=TEXT("Stop upright before exiting"); }
+        }
+        else if (Player.IsValid())
+        {
+            for (TActorIterator<ABiellaVehicle> It(GetWorld());It;++It)
+            {
+                if (FVector::Dist(It->GetActorLocation(),Player->GetActorLocation())<320)
+                { Hint=It->GetHealth()>0 ? TEXT("E Drive vehicle") : TEXT("Vehicle disabled"); break; }
+            }
+        }
+        VehiclePrompt->SetText(FText::FromString(Hint));
+        VehiclePrompt->SetVisibility(Hint.IsEmpty() ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible);
     }
     if (ThreatsText)
     {

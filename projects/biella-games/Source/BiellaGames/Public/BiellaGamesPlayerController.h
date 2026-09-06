@@ -24,6 +24,7 @@ protected:
 
 public:
     void RestartDemo();
+    void InteractVehicle();
 
     UFUNCTION(BlueprintPure, Category="Demo01|HUD")
     UBiellaGameplayHUD* GetGameplayHUD() const { return GameplayHUD; }

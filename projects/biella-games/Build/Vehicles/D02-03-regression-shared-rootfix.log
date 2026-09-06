@@ -1,0 +1,7 @@
+{
+  "task_id": "D02-01",
+  "suite": "BiellaGames.Demo01.SharedInteraction",
+  "result": "PASS",
+  "validation": "/root/biella/artifacts/games/D02-03/regression-shared-rootfix/validation.json",
+  "error": null
+}

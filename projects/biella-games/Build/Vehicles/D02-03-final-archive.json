@@ -1,0 +1,322 @@
+{
+  "task_id": "D02-03",
+  "created_utc": "2026-09-06T01:13:00.418904+00:00",
+  "result": "PASS",
+  "files": [
+    {
+      "source": "/root/biella/artifacts/games/D02-03/runtime-05-rootfix/captures/approach.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/captures/approach.png",
+      "bytes": 959483,
+      "sha256": "83069667a5e59ba3b60d0fbd8d281bae3597f429fba64b0abfdfee78da131595"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/runtime-05-rootfix/captures/disabled.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/captures/disabled.png",
+      "bytes": 270173,
+      "sha256": "f4886f57df87d7fceff665d2ea61ced6bef35e87e3c5f344960fc0bb2eea4a97"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/runtime-05-rootfix/captures/driving.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/captures/driving.png",
+      "bytes": 929670,
+      "sha256": "dea6006d89a0512fb5c8ea138e7743b8894555b7530841bbb7790ee07dba35cf"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/runtime-05-rootfix/captures/exited.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/captures/exited.png",
+      "bytes": 941916,
+      "sha256": "2f1a819e6934b1c3d9490d69b0df45be7d44097b95d6e33e3e20a4c5b92e3242"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/runtime-05-rootfix/captures/impact.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/captures/impact.png",
+      "bytes": 918024,
+      "sha256": "1247b9ae3eea76d11acbee94a4983bea3e3c327835c31cbb39c91b9460eec99d"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/runtime-05-rootfix/events.log",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/events.log",
+      "bytes": 1656,
+      "sha256": "fcd9ec32ab4443bf7ea419172707fc6b924e1609224b03e0310a58b49f8f4040"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/runtime-05-rootfix/frames.csv",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/frames.csv",
+      "bytes": 403131,
+      "sha256": "1c67bac426dc1ee480ce4575864a505bd390638efcfbc5669c9dcb1b4deec7bb"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/runtime-05-rootfix/process-memory.jsonl",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/process-memory.jsonl",
+      "bytes": 13316,
+      "sha256": "5398860e391666a933d2c988053e04e398a9c3fea40aea4ec353aace13199c4c"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/runtime-05-rootfix/result.json",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/result.json",
+      "bytes": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/runtime-05-rootfix/runtime.engine.log",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/runtime.engine.log",
+      "bytes": 397631,
+      "sha256": "0f8920b02e817fa47eda52d75c4f706726ccdf6e011f4998c5ad4f48399be530"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/runtime-05-rootfix/runtime.stdout.log",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/runtime.stdout.log",
+      "bytes": 397066,
+      "sha256": "d638e3aab46ab78d0752d37dbe9364531177bb4b8703f76cc3ade82dc3a0cc05"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/runtime-05-rootfix/validation.json",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/validation.json",
+      "bytes": 103184,
+      "sha256": "e3ce869d808bd89d043a77206831d240ab8eb021761c408fdab5dcec61b7561c"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/runtime-05-rootfix/vehicle.wav",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/vehicle.wav",
+      "bytes": 10764332,
+      "sha256": "b6204aa1024cfa43d33377d733bfec89ce57506d232d330375819a5feef94db2"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-pop4-rootfix/captures/combat_result.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/captures/combat_result.png",
+      "bytes": 929806,
+      "sha256": "2385b7650e478340b9b7876b3418edc825875351b64136ee4549fb9fc5005b24"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-pop4-rootfix/captures/dense_start.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/captures/dense_start.png",
+      "bytes": 941389,
+      "sha256": "5c04535c7f17a1071d4dd02ce4b515d952c5d92ffb0e0869870386631e344bfb"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-pop4-rootfix/captures/navigation_result.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/captures/navigation_result.png",
+      "bytes": 954828,
+      "sha256": "814c76a5adb0224eb79d8cb5e178394f7b26ec6231a2df3f057c2cf34292dd23"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-pop4-rootfix/events.log",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/events.log",
+      "bytes": 1229,
+      "sha256": "5f48f31d6d79d5c1c7d5426f3d2a3e067042349c138868549768d7c1b9f98cd0"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-pop4-rootfix/frames.csv",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/frames.csv",
+      "bytes": 204134,
+      "sha256": "6a24faf389c84327082fdbd59db6201af6d81da0900960da191698909d6123f2"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-pop4-rootfix/process-memory.jsonl",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/process-memory.jsonl",
+      "bytes": 12223,
+      "sha256": "bcf5af0f9937d216ef5cf590ec5b4c8f0387d59d76cee6b3c7173cdde8dcc7d8"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-pop4-rootfix/result.json",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/result.json",
+      "bytes": 134,
+      "sha256": "e18fd977facb59f096783ae194beec8979710928f5a093d702c75a40178127b4"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-pop4-rootfix/runtime.engine.log",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/runtime.engine.log",
+      "bytes": 420107,
+      "sha256": "452e2c73a4bebd3a6319d68b532f5bf94af9b4105b29168e913f11950357ff2c"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-pop4-rootfix/runtime.stdout.log",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/runtime.stdout.log",
+      "bytes": 419438,
+      "sha256": "c3b9e05c97103e03c49aa888440022b49aa2f8e44972cc09d7a9a866786fb51b"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-pop4-rootfix/validation.json",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-pop4-rootfix/validation.json",
+      "bytes": 103159,
+      "sha256": "cb7f973ccbe7a148ec8520d9cf08d7f9b9900ede5eacb6317414429640ee40fb"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-shared-rootfix/process-memory.jsonl",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-shared-rootfix/process-memory.jsonl",
+      "bytes": 7689,
+      "sha256": "b282057deb3a0a84af5cedc6fe3f3b4c4af1a090bd7b0a6acce418acf1c17740"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-shared-rootfix/runtime.engine.log",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-shared-rootfix/runtime.engine.log",
+      "bytes": 295886,
+      "sha256": "ead549c2959b9327eb9d60081969983bc474e56b133eff50bab92549cc43e2b3"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-shared-rootfix/runtime.stdout.log",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-shared-rootfix/runtime.stdout.log",
+      "bytes": 296055,
+      "sha256": "3f17b00250c42aef529cfe42ae24cd48ced1104359925db2038897261b34a3bd"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-shared-rootfix/validation.json",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-shared-rootfix/validation.json",
+      "bytes": 101053,
+      "sha256": "06ab5c64f8912f60eb95bd37618c5db9198ce332f6f1251d3ba32cfd4ac5f0a3"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/captures/distant_region.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/captures/distant_region.png",
+      "bytes": 897330,
+      "sha256": "89c17d37db9bd86d41b362836b53b7b8eebccc1eb599c135d2b5fe211c0b4d2b"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/captures/final_return.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/captures/final_return.png",
+      "bytes": 913682,
+      "sha256": "db223f3fcf3569098d836593c237fd0ec86a62329997337240d66f734eab3443"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/captures/injury_return.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/captures/injury_return.png",
+      "bytes": 910441,
+      "sha256": "9562be01883ec144e35f41cb9c288772bf4f12601c27f6c4423cdf8e372fd46e"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/captures/interior.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/captures/interior.png",
+      "bytes": 815980,
+      "sha256": "5119f0364f8e6305091900be338cc8014d8d78eadcf7bc8045bbbd733ff57da7"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/captures/street_start.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/captures/street_start.png",
+      "bytes": 956671,
+      "sha256": "25831fd5f52caf1310bbb89b3e52cfe387f05ef719d7b0141d9355ed340ea4f1"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/captures/terrace.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/captures/terrace.png",
+      "bytes": 889923,
+      "sha256": "348e6cec462be7608cfd83216acab05c5a38fd097474cf1fcca575fd8a4205c1"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/events.log",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/events.log",
+      "bytes": 7186,
+      "sha256": "b4aaaff8b8a22c150a3d18e50a1959831ea8866e7c1fc4710b636c64fd143149"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/frames.csv",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/frames.csv",
+      "bytes": 1360264,
+      "sha256": "a9c877c8e9f254e8ed5d84aaae8531cadf1f0e86be3a4aeec57885364f8fd518"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/process-memory.jsonl",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/process-memory.jsonl",
+      "bytes": 40656,
+      "sha256": "f5e3145275a9aa6682e10a327cead27fea0a9377b31a447a8f08ab5eec87af11"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/runtime.engine.log",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/runtime.engine.log",
+      "bytes": 417022,
+      "sha256": "aa5902912f1552b145669abfa34104474e3c0b07f39899f290b3caba84bdc02d"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/runtime.stdout.log",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/runtime.stdout.log",
+      "bytes": 416408,
+      "sha256": "8a079c1261e0359dbbd2dd506a2bbf5166a92365e45daa9e3e8138525ec060f0"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/streaming.json",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/streaming.json",
+      "bytes": 1143,
+      "sha256": "20fbbf30b20b398d52c3fd956735f9e0601d84fd1ba62cdfd8315cae2b7eeb3c"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/validation.json",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-streaming-rootfix/validation.json",
+      "bytes": 99564,
+      "sha256": "5c893248f9b459c5c03d6d0ab80c5ce215f08067b0b5b9b4f50496d7fd11f937"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D01-042/20260906T004514.998286Z/combat.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-feedback-captures/combat.png",
+      "bytes": 746995,
+      "sha256": "9eea5b3d8d6bb9c383e31f4a90c347cefa2fce1cc95cc0f78658070736bdc52a"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D01-042/20260906T004514.998286Z/combat.wav",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-feedback-captures/combat.wav",
+      "bytes": 135212,
+      "sha256": "33913f447ea7f48d141b1b27fb0ff4574094bac484166f14a821947b2e0e3847"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D01-042/20260906T004514.998286Z/dense_combat.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-feedback-captures/dense_combat.png",
+      "bytes": 746649,
+      "sha256": "c98dc1d4ebb861fdb6162fcb8e20cbedadc1cbc893e4aced7f39b49d3da6a21c"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D01-042/20260906T004514.998286Z/failure.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-feedback-captures/failure.png",
+      "bytes": 204564,
+      "sha256": "8dfeee5de772ff37349e50f47f5bf7c10acfe6e0ee9442946cd730d0663e057b"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D01-042/20260906T004514.998286Z/failure.wav",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-feedback-captures/failure.wav",
+      "bytes": 176172,
+      "sha256": "2006fc84e982b8f2bb7b511ed6249f1408e01be43dbed21ba2261a378d939783"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D01-042/20260906T004514.998286Z/hurt.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-feedback-captures/hurt.png",
+      "bytes": 745891,
+      "sha256": "6ee83bec61c75251ccc87967c7b993f6eedba9d2543242a0f7ce1935bf361cdb"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D01-042/20260906T004514.998286Z/hurt.wav",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-feedback-captures/hurt.wav",
+      "bytes": 65580,
+      "sha256": "3caabe8c115f9500a0a9b2c85449015f743981a528130aa28bf19001c374d687"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D01-042/20260906T004514.998286Z/pressure.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-feedback-captures/pressure.png",
+      "bytes": 818115,
+      "sha256": "a0fd204be31a69efc9558062cad70179f6839dff327018b69e3499e5a231a92c"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D01-042/20260906T004514.998286Z/pressure.wav",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-feedback-captures/pressure.wav",
+      "bytes": 122924,
+      "sha256": "cfe0c745535af79010c1561e274bc989895a33e3267c916e1b3f3a49c9c6cdd3"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D01-042/20260906T004514.998286Z/success.png",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-feedback-captures/success.png",
+      "bytes": 233114,
+      "sha256": "3395799f18e8d995e6de89aeeb0e6fd5f1a7f1b6cc18c6ea8d14a97052aed381"
+    },
+    {
+      "source": "/root/biella/artifacts/games/D01-042/20260906T004514.998286Z/success.wav",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/regression-feedback-captures/success.wav",
+      "bytes": 159788,
+      "sha256": "74a48a08a25d2353e33903057864cce5c98cd4d5aaea0900d1457680ee0fbb22"
+    },
+    {
+      "source": "/root/biella/repos/biella-engine/projects/biella-games/Saved/D02-03/AudioReadback/S_VehicleEngine.wav",
+      "canonical_local": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/audio-native-readback/S_VehicleEngine.wav",
+      "bytes": 192044,
+      "sha256": "ea00641e855d89341a91e709c23ad4a911346bc4ec41726bc6a56582df408020"
+    }
+  ],
+  "file_count": 52,
+  "total_bytes": 32860114,
+  "publication": "Canonical local copies for Auto Feeder publication; remote publication not claimed."
+}

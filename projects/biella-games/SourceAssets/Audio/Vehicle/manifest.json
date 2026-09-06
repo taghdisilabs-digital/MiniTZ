@@ -1,0 +1,10 @@
+{
+  "task_id": "D02-03",
+  "status": "GENERATED_DRAFT",
+  "source": "Original deterministic synthesis; no third-party samples",
+  "format": "48000 Hz mono signed PCM16 WAV",
+  "duration_seconds": 2.0,
+  "asset_path": "/Game/Vehicle/Audio/S_VehicleEngine",
+  "source_sha256": "ea00641e855d89341a91e709c23ad4a911346bc4ec41726bc6a56582df408020",
+  "generator_sha256": "b67a55b2a076f180a34ca1186fa4f1a1cfaec554c3ba668047a99404cc560ff9"
+}

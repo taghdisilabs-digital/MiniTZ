@@ -1,6 +1,7 @@
 // Copyright Biella Games. All Rights Reserved.
 #include "BiellaWorldContinuity.h"
 #include "BiellaPopulation.h"
+#include "BiellaVehicle.h"
 
 #include "Components/CapsuleComponent.h"
 #include "Components/BoxComponent.h"
@@ -183,7 +184,7 @@ void ABiellaStreamingCharacter::SetTraversalReady(bool bReady, FName Reason)
 
 bool ABiellaStreamingCharacter::RequestRelocation(FVector Destination)
 {
-    if (Destination.ContainsNaN() || bRelocationPending || IsDefeated()) { return false; }
+    if (Destination.ContainsNaN() || bRelocationPending || IsDefeated() || GetVehicle()) { return false; }
     RelocationDestination = Destination;
     RelocationStart = FPlatformTime::Seconds();
     bRelocationPending = true;
@@ -193,6 +194,7 @@ bool ABiellaStreamingCharacter::RequestRelocation(FVector Destination)
 
 void ABiellaStreamingCharacter::Tick(float DeltaTime)
 {
+    if (GetVehicle()) { return; } // The attached pawn follows Chaos, never floor-snaps the chassis.
     Super::Tick(DeltaTime);
     if (IsDefeated())
     {
@@ -327,6 +329,11 @@ void ABiellaOpenWorldGameMode::BeginPlay()
     if (HasAuthority())
     {
         GetWorld()->SpawnActor<ABiellaPopulationDirector>();
+        FActorSpawnParameters Params;
+        Params.Name=TEXT("D02Vehicle01");
+        Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+        GetWorld()->SpawnActor<ABiellaVehicle>(ABiellaVehicle::StaticClass(),
+            GetDefault<ABiellaVehicle>()->InitialLocation,FRotator::ZeroRotator,Params);
     }
     // The first slice used a floor at -88cm. Keep its actors and objective,
     // placing the same initial encounter above this map's street datum.

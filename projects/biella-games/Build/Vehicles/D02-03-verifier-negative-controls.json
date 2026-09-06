@@ -1,0 +1,70 @@
+{
+  "task_id": "D02-03",
+  "time": "2026-09-06T01:14:28.635289+00:00",
+  "result": "PASS",
+  "baseline": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix",
+  "baseline_result": "PASS",
+  "controls": [
+    {
+      "control": "missing_engine_frame",
+      "result": "REJECTED",
+      "diagnostic": "Missing engine frame"
+    },
+    {
+      "control": "nonphysical_transform_jump",
+      "result": "REJECTED",
+      "diagnostic": "Vehicle transform jumped beyond physical velocity"
+    },
+    {
+      "control": "lost_wheel_contact",
+      "result": "REJECTED",
+      "diagnostic": "Lost suspension contact during normal driving"
+    },
+    {
+      "control": "player_state_corruption",
+      "result": "REJECTED",
+      "diagnostic": "Player state changed during driving/streaming"
+    },
+    {
+      "control": "parked_simulation_active",
+      "result": "REJECTED",
+      "diagnostic": "Parked simulation stayed active"
+    },
+    {
+      "control": "missing_streaming_hold",
+      "result": "REJECTED",
+      "diagnostic": "Missing terrain did not hold and resume"
+    },
+    {
+      "control": "silent_mixed_audio",
+      "result": "REJECTED",
+      "diagnostic": "Silent or clipped vehicle audio"
+    },
+    {
+      "control": "blank_capture",
+      "result": "REJECTED",
+      "diagnostic": "Invalid runtime capture"
+    },
+    {
+      "control": "missing_drive_input",
+      "result": "REJECTED",
+      "diagnostic": "Real input event missing: W"
+    },
+    {
+      "control": "missing_rival_collision_damage",
+      "result": "REJECTED",
+      "diagnostic": "Physical NPC damage missing for team 1"
+    },
+    {
+      "control": "missing_lifecycle_event",
+      "result": "REJECTED",
+      "diagnostic": "Missing, duplicate or reordered lifecycle event"
+    },
+    {
+      "control": "fixed_timestep_claim",
+      "result": "REJECTED",
+      "diagnostic": "Runtime renderer/time invalid"
+    }
+  ],
+  "original_evidence": "Unchanged; each corruption used an independent temporary copy."
+}

@@ -21,6 +21,32 @@ from run_d01_043 import finalize_log, process_members
 from verify_d02_01 import require, verify
 
 
+def runtime_has_task_error(log: str) -> bool:
+    """Ignore only the observed engine diagnostic before D02 execution begins."""
+    if re.search(r"Result=\{Fail\}|Fatal error:|Assertion failed:|Ensure condition failed:", log):
+        return True
+    markers = [position for token in ("D02_STREAM WORLD_READY", "D02_01_TEST event=")
+               if (position := log.find(token)) >= 0]
+    boundary = min(markers) if markers else 0
+    known_startup_error = (
+        "StructProperty FDataflowToolNodeSnapshot::Date is not initialized properly "
+        "even though its struct probably has a custom default constructor. "
+        "Non deterministic fields should use UPROPERTY(Meta = (IgnoreForMemberInitializationTest)) "
+        "to avoid errors from this test. Module:DataflowNodes File:Public/Dataflow/DataflowToolNode.h"
+    )
+    offset = 0
+    for line in log.splitlines(keepends=True):
+        error = re.search(r"\bError:", line)
+        if error:
+            message = line[error.end():].strip()
+            if message.startswith("LogClass: "):
+                message = message[len("LogClass: "):]
+            if offset >= boundary or message != known_startup_error:
+                return True
+        offset += len(line)
+    return False
+
+
 def reject_material_fallbacks(log):
     require(not re.search(
         r"missing(?: the)? usage flag (?:bUsedWith)?InstancedStaticMeshes|"
@@ -134,8 +160,8 @@ def main():
         log = (output / "runtime.stdout.log").read_text(errors="replace")
         require("**** TEST COMPLETE. EXIT CODE: 0 ****" in log, "Unreal completion marker missing")
         require(re.search(r"Result=\{Success\}.*Name=\{WorldStreaming\}", log), "WorldStreaming automation did not pass")
-        require(not re.search(r"Result=\{Fail\}|Fatal error:|Assertion failed:|Ensure condition failed:|\bError:", log),
-                "Unreal reported an error, failed assertion, or ensure")
+        require(not runtime_has_task_error(log),
+                "Unreal reported a task-window error, failed assertion, or ensure")
         reject_material_fallbacks(log)
         report["verification"] = verify(output)
         memory = [json.loads(line) for line in (output / "process-memory.jsonl").read_text().splitlines()]

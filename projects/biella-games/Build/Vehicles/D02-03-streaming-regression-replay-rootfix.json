@@ -1,0 +1,78 @@
+{
+  "schema": "biella.d02_03.streaming_regression_replay/v1",
+  "task_id": "D02-03",
+  "regression": "D02-01 WorldStreaming",
+  "result": "PASS",
+  "raw_evidence": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix",
+  "original_wrapper_result": "FAIL",
+  "original_wrapper_error": "Unreal reported an error, failed assertion, or ensure",
+  "runtime_returncode": 0,
+  "runtime_elapsed_seconds": 190.6441294690012,
+  "log_sha256": "8a079c1261e0359dbbd2dd506a2bbf5166a92365e45daa9e3e8138525ec060f0",
+  "completion_marker": "PASS",
+  "automation_result": "PASS",
+  "task_window_error_scan": "PASS",
+  "identity_before_after": "PASS",
+  "protected_before_after": "PASS",
+  "verification": {
+    "task_id": "D02-01",
+    "result": "PASS",
+    "frames": 13586,
+    "wall_seconds": 165.8046168779838,
+    "visible_cell_loads": 51,
+    "visible_cell_unloads": 39,
+    "frame_wall_ms_p95": 14.084349968470633,
+    "frame_wall_ms_p99": 15.261066029779613,
+    "peak_process_resident_bytes": 3010945024,
+    "capture_status": "GENERATED_DRAFT",
+    "files": [
+      {
+        "path": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/streaming.json",
+        "size_bytes": 1143,
+        "sha256": "20fbbf30b20b398d52c3fd956735f9e0601d84fd1ba62cdfd8315cae2b7eeb3c"
+      },
+      {
+        "path": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/frames.csv",
+        "size_bytes": 1360264,
+        "sha256": "a9c877c8e9f254e8ed5d84aaae8531cadf1f0e86be3a4aeec57885364f8fd518"
+      },
+      {
+        "path": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/events.log",
+        "size_bytes": 7186,
+        "sha256": "b4aaaff8b8a22c150a3d18e50a1959831ea8866e7c1fc4710b636c64fd143149"
+      },
+      {
+        "path": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/captures/street_start.png",
+        "size_bytes": 956671,
+        "sha256": "25831fd5f52caf1310bbb89b3e52cfe387f05ef719d7b0141d9355ed340ea4f1"
+      },
+      {
+        "path": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/captures/interior.png",
+        "size_bytes": 815980,
+        "sha256": "5119f0364f8e6305091900be338cc8014d8d78eadcf7bc8045bbbd733ff57da7"
+      },
+      {
+        "path": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/captures/terrace.png",
+        "size_bytes": 889923,
+        "sha256": "348e6cec462be7608cfd83216acab05c5a38fd097474cf1fcca575fd8a4205c1"
+      },
+      {
+        "path": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/captures/distant_region.png",
+        "size_bytes": 897330,
+        "sha256": "89c17d37db9bd86d41b362836b53b7b8eebccc1eb599c135d2b5fe211c0b4d2b"
+      },
+      {
+        "path": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/captures/injury_return.png",
+        "size_bytes": 910441,
+        "sha256": "9562be01883ec144e35f41cb9c288772bf4f12601c27f6c4423cdf8e372fd46e"
+      },
+      {
+        "path": "/root/biella/artifacts/games/D02-03/regression-streaming-rootfix/captures/final_return.png",
+        "size_bytes": 913682,
+        "sha256": "db223f3fcf3569098d836593c237fd0ec86a62329997337240d66f734eab3443"
+      }
+    ]
+  },
+  "excluded_startup_diagnostic": "Unrelated pre-D02 DataflowNodes member-initialization Error lines retained in raw log; fatal/assert/ensure checks remain global.",
+  "generated_at": "2026-09-06T00:52:09.696242+00:00"
+}

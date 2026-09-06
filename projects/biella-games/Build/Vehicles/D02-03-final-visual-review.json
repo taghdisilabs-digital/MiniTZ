@@ -1,0 +1,64 @@
+{
+  "task_id": "D02-03",
+  "created_utc": "2026-09-06T01:13:47.862620+00:00",
+  "result": "PASS",
+  "status": "GENERATED_DRAFT",
+  "captures": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/captures/approach.png",
+      "bytes": 959483,
+      "sha256": "83069667a5e59ba3b60d0fbd8d281bae3597f429fba64b0abfdfee78da131595",
+      "decoded_dimensions": [
+        1280,
+        720
+      ],
+      "visually_inspected_original": true,
+      "observation": "On-foot cyan blockout character beside green wheeled blockout car; nearby E prompt visible."
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/captures/driving.png",
+      "bytes": 929670,
+      "sha256": "dea6006d89a0512fb5c8ea138e7743b8894555b7530841bbb7790ee07dba35cf",
+      "decoded_dimensions": [
+        1280,
+        720
+      ],
+      "visually_inspected_original": true,
+      "observation": "Seated driver, road and vehicle follow camera visible; HUD shows 48 km/h and 100% vehicle health."
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/captures/impact.png",
+      "bytes": 918024,
+      "sha256": "1247b9ae3eea76d11acbee94a4983bea3e3c327835c31cbb39c91b9460eec99d",
+      "decoded_dimensions": [
+        1280,
+        720
+      ],
+      "visually_inspected_original": true,
+      "observation": "Physical test wall ahead, darker damaged car, lit rear lamps; HUD shows 9 km/h and 60% vehicle health."
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/captures/exited.png",
+      "bytes": 941916,
+      "sha256": "2f1a819e6934b1c3d9490d69b0df45be7d44097b95d6e33e3e20a4c5b92e3242",
+      "decoded_dimensions": [
+        1280,
+        720
+      ],
+      "visually_inspected_original": true,
+      "observation": "Restored on-foot character beside damaged car; health 73 and ammunition 60 retained."
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Vehicles/runtime-05-rootfix/captures/disabled.png",
+      "bytes": 270173,
+      "sha256": "f4886f57df87d7fceff665d2ea61ced6bef35e87e3c5f344960fc0bb2eea4a97",
+      "decoded_dimensions": [
+        1280,
+        720
+      ],
+      "visually_inspected_original": true,
+      "observation": "Failure overlay covers much of the car; HUD/overlay shows depleted player/vehicle state and restart control. Lifecycle telemetry supplies mechanical proof."
+    }
+  ],
+  "limits": "Runtime blockout presentation, primitive vehicle/world/characters and undeveloped surroundings. No AAA visual acceptance is inferred."
+}

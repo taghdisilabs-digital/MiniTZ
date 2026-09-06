@@ -1,6 +1,9 @@
 // Copyright Biella Games. All Rights Reserved.
 
 #include "BiellaGamesPlayerController.h"
+#include "BiellaVehicle.h"
+#include "BiellaGamesCharacter.h"
+#include "EngineUtils.h"
 
 #include "BiellaGameplayHUD.h"
 #include "BiellaGamesGameModeBase.h"
@@ -44,6 +47,13 @@ void ABiellaGamesPlayerController::PlayerTick(float DeltaTime)
 {
     Super::PlayerTick(DeltaTime);
     UpdateTerminalInputState();
+    if (auto* P=Cast<ABiellaGamesCharacter>(GetPawn()); P && P->GetVehicle())
+    {
+        const bool Active=!IsMoveInputIgnored() && !IsPaused() && !P->IsDefeated();
+        P->GetVehicle()->SetControls(Active ? float(IsInputKeyDown(EKeys::W))-float(IsInputKeyDown(EKeys::S)) : 0,
+            Active ? float(IsInputKeyDown(EKeys::D))-float(IsInputKeyDown(EKeys::A)) : 0,
+            !Active || IsInputKeyDown(EKeys::SpaceBar));
+    }
     if (GameplayHUD)
     {
         GameplayHUD->RefreshFromRuntime();
@@ -78,7 +88,24 @@ void ABiellaGamesPlayerController::SetupInputComponent()
     {
         InputComponent->BindKey(EKeys::R, IE_Pressed, this,
             &ABiellaGamesPlayerController::RestartDemo);
+        InputComponent->BindKey(EKeys::E, IE_Pressed, this,
+            &ABiellaGamesPlayerController::InteractVehicle);
     }
+}
+
+void ABiellaGamesPlayerController::InteractVehicle()
+{
+    auto* P=Cast<ABiellaGamesCharacter>(GetPawn());
+    if (!P || P->IsDefeated() || IsPaused() || IsMoveInputIgnored()) { return; }
+    if (P->GetVehicle()) { P->GetVehicle()->TryExit(); return; }
+    ABiellaVehicle* Nearest=nullptr;
+    double Distance=320;
+    for (TActorIterator<ABiellaVehicle> It(GetWorld());It;++It)
+    {
+        const double D=FVector::Dist(It->GetActorLocation(),P->GetActorLocation());
+        if (D<Distance) { Nearest=*It; Distance=D; }
+    }
+    if (Nearest) { Nearest->TryEnter(P); }
 }
 
 void ABiellaGamesPlayerController::RestartDemo()
