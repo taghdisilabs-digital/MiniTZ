@@ -109,3 +109,36 @@ def test_projection_keeps_raw_tool_failures_in_full_index_but_not_active_prompt(
     assert any('"status":"RECOVERED"' in text for text in failure_texts)
     assert all(row.get("failure_type") != "tool.completed" for row in projection["failures"])
     assert all(str(row.get("status", "")).upper() not in {"RECOVERED", "REPAIRED", "RESOLVED", "PASS", "COMPLETED"} for row in projection["failures"])
+
+
+def test_recovery_checkpoint_clears_prior_active_failures_without_deleting_raw_history(tmp_path: Path):
+    repo, project, runtime = fixture(tmp_path)
+    with (runtime / "failures.jsonl").open("a") as handle:
+        handle.write(json.dumps({
+            "schema":"biella.failure_event/v1","seq":4,"time":"resolved","failure_type":"task.recovery",
+            "status":"RECOVERED","task_id":"T2","resolve_prior":True,"detail":"root cause fixed"
+        })+"\n")
+    result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
+    index = json.loads(result.index_path.read_text())
+    projection = json.loads(result.projection_path.read_text())
+    assert projection["failures"] == []
+    failure_texts = [index["content"][ref]["text"] for ref in index["categories"]["failure"]]
+    assert any('"detail":"nav failed"' in text for text in failure_texts)
+    assert any('"resolve_prior":true' in text for text in failure_texts)
+
+
+def test_failure_after_recovery_checkpoint_becomes_active_again(tmp_path: Path):
+    repo, project, runtime = fixture(tmp_path)
+    with (runtime / "failures.jsonl").open("a") as handle:
+        handle.write(json.dumps({
+            "schema":"biella.failure_event/v1","seq":4,"time":"resolved","failure_type":"task.recovery",
+            "status":"RECOVERED","task_id":"T2","resolve_prior":True
+        })+"\n")
+        handle.write(json.dumps({
+            "schema":"biella.failure_event/v1","seq":5,"time":"after","failure_type":"runtime_validation",
+            "status":"CONTINUE","task_id":"T2","detail":"new blocker"
+        })+"\n")
+    result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
+    projection = json.loads(result.projection_path.read_text())
+    assert len(projection["failures"]) == 1
+    assert projection["failures"][0]["detail"] == "new blocker"

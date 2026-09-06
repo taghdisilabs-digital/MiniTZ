@@ -268,6 +268,9 @@ def _active_failure_projection(failures: list[Mapping[str, Any]]) -> list[Mappin
     for row in failures:
         status = str(row.get("status") or "").upper()
         if status in _RESOLVED_FAILURE_STATUSES:
+            if bool(row.get("resolve_prior")):
+                semantic.clear()
+                raw_tools.clear()
             continue
         failure_type = str(row.get("failure_type") or row.get("type") or "")
         if failure_type == "tool.completed":
