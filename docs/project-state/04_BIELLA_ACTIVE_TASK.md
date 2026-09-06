@@ -26,5 +26,17 @@ task:
     - Engine P4-06 as INCOMPLETE_DEFERRED
     - one-repository/one-controller/one-Project-production-source architecture
 
+  execution_directive:
+    authority: Mahdi Taghdisi latest explicit instruction, 2026-09-06
+    mode: CONTINUE_CURRENT_D03_01_SESSION_FROM_PRESERVED_STATE
+    resume_session: 01a07480-2c40-7d03-b649-d3f72807cc3e
+    preservation: Reuse all valid existing implementation, assets, analysis and evidence; do not restart.
+    owner_progress_report: D03-01 was almost done; verify and reuse satisfying work without fabricating completion.
+    task_sources: projects/biella-games/docs/IMPLEMENTATION_SEQUENCE.md Stage 3 and its current runtime contracts 04,14,16,20,21,37,39,46,49
+    exclusion: No historical recovery, P0-P4 execution, task renumbering, queue reconstruction, or unrelated infrastructure work.
+    execution: Finish only missing D03-01 implementation and task-derived validation; autonomously recover routine failures.
+    progression: Preserve D03-01 through D08-01 order; advance only after current task real durable closure.
+    token_policy: ops/workstation/AGENTS.md Owner-directed token efficiency; 98 percent is a measured nonblocking target.
+
   stop: Execute only D03-01; validate and persist it before advancing.
 ```

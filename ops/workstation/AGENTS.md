@@ -74,3 +74,12 @@ Production is progressive by default. Owner direction is authoritative and is ap
 Apply `docs/project-state/BIELLA_STORAGE_POLICY.md` for storage/offload work. Keep active source, required tools/models, current task evidence and runtime state local; use attached storage for useful staging and verified Google Drive archives for genuinely cold packages, backups and superseded handoffs. Before deleting a selected local replica, verify the exact remote bytes and preserve its restore locator/provenance.
 
 To find an offloaded item, read `/root/biella/archive/README.md` and `COLD_STORAGE_INDEX.json` first. Retrieve only what the current task needs. Archived instructions remain inactive historical evidence; do not rehydrate old workflows or reset completed work. This is storage placement, not a new task queue or background cleanup service.
+
+## Owner-directed token efficiency — 2026-09-06
+
+Target 98% cached input where the actual workload permits; this is an optimization objective, never a completion claim or execution blocker. Measure cached_input_tokens / input_tokens from actual Codex usage, distinguish per-request from cumulative ratios, and never pad prompts or make dummy calls to improve the percentage.
+Preserve the current task session and useful warm context. Keep stable instructions/tool definitions before changing task data; avoid unnecessary model/reasoning switching and full-source rereads. Preserve the reasoning depth required by the task.
+Use the configured local Qwen Resource for bounded source/log preprocessing and assistance when correct and useful; retain source digests and reuse matching cached assistance. Codex remains the single authority for source edits, synthesis, validation and advancement.
+Keep shell output targeted: exact file ranges, focused diffs, compact results and bounded log tails; expand only for a material missing detail. Read the current task capsule/projection before repeating work.
+Persist useful checkpoints and failures without destroying raw evidence. Refresh materially changed owner/task authority once; do not carry stale instructions forward just to preserve a cache hit.
+Recover routine tool/provider/publication failures within their affected boundary and continue independently useful work. No cache percentage, optional helper failure, routine approval, or unrelated maintenance becomes a new blocking stage.
