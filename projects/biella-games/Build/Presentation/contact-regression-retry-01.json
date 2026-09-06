@@ -1,0 +1,8 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T09:52:26.408250+00:00",
+  "type": "animation_regression_host_pause",
+  "status": "RETRY",
+  "diagnostics": "contact-animation-regression-01: monitor last sample at elapsed33.665s/09:41:25, engine frame560 stalls until09:50:06; AudioMixer reports520s hardware wait; watchdog resumes after budget, terminates process group, X11 connection then lost. No native contact/animation assertion preceding interruption. Host/process suspension inferred, precise external cause unknown. Retry unchanged source/build.",
+  "evidence": "Build/Presentation/contact-animation-regression-01"
+}

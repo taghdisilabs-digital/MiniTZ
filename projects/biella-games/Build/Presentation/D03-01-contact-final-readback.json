@@ -1,0 +1,84 @@
+{
+  "task_id": "D03-01",
+  "task_status": "CONTINUE",
+  "result": "PASS",
+  "time": "2026-09-06T09:53:18.111017+00:00",
+  "common_input_identities": 271,
+  "inputs": [
+    {
+      "path": "Build/Presentation/contact-runtime-04/validation.json",
+      "sha256": "dafdfad413749644d33ef9a71fc7ac4f97cc1e12c8312feaf8798e92e6f15cb3",
+      "bytes": 144540
+    },
+    {
+      "path": "Build/Presentation/contact-disabled-01/validation.json",
+      "sha256": "98dcedd8ba6749f0ca8843e790aad20552aa86ce8940711fbea5b133f5dd5f40",
+      "bytes": 143640
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/validation.json",
+      "sha256": "0493564b25b8f4f985b31e56e840561ff3fa99ab5764dee69ac9d3f9051c7663",
+      "bytes": 142913
+    }
+  ],
+  "settled_windows": [
+    {
+      "phase": 1,
+      "frames": 65,
+      "max_sole_error_cm": 0.0,
+      "max_ankle_step_cm": 0.0
+    },
+    {
+      "phase": 2,
+      "frames": 57,
+      "max_sole_error_cm": 0.0045,
+      "max_ankle_step_cm": 0.002100000000041291
+    },
+    {
+      "phase": 3,
+      "frames": 58,
+      "max_sole_error_cm": 0.0111,
+      "max_ankle_step_cm": 0.0018999999999778083
+    },
+    {
+      "phase": 4,
+      "frames": 58,
+      "max_sole_error_cm": 0.0097,
+      "max_ankle_step_cm": 0.0013999999999896318
+    },
+    {
+      "phase": 10,
+      "frames": 8,
+      "max_sole_error_cm": 0.0,
+      "max_ankle_step_cm": 0.0
+    },
+    {
+      "phase": 12,
+      "frames": 8,
+      "max_sole_error_cm": 0.0,
+      "max_ankle_step_cm": 0.0
+    },
+    {
+      "phase": 15,
+      "frames": 12,
+      "max_sole_error_cm": 0.0,
+      "max_ankle_step_cm": 0.0
+    },
+    {
+      "phase": 17,
+      "frames": 15,
+      "max_sole_error_cm": 0.0,
+      "max_ankle_step_cm": 0.0
+    }
+  ],
+  "max_qualified_sole_error_cm": 0.002631,
+  "max_qualified_normal_error_degrees": 0.783074,
+  "disabled_split_error_cm": [
+    12.682162,
+    11.282937
+  ],
+  "contact_pose_frames": 1392,
+  "animation_regression_pose_frames": 986,
+  "capture_status": "GENERATED_DRAFT",
+  "limitations": "Cosmetic integration fixture on the canonical gameplay map. Settled pose windows are not shipping frame-time qualification; raw screenshot stalls are retained. No final art or full D03 completion claim."
+}

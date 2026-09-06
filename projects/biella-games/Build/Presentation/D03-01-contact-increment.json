@@ -1,0 +1,42 @@
+{
+  "schema": "biella.d03_01.contact_increment/v1",
+  "task_id": "D03-01",
+  "increment": "bounded cosmetic terrain foot contact",
+  "implementation_status": "IMPLEMENTED_VALIDATED",
+  "task_status": "CONTINUE",
+  "created_at": "2026-09-06T09:57:56.640331+00:00",
+  "baseline_commit": "0b6311ea83287d0212afd4745257ce10ed2a7933",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "implementation": [
+    "Source/BiellaGames/BiellaGames.Build.cs",
+    "Source/BiellaGames/Public/BiellaCharacterAnimInstance.h",
+    "Source/BiellaGames/Private/BiellaCharacterAnimInstance.cpp",
+    "Source/BiellaGames/Private/BiellaFootPlacement.h",
+    "Source/BiellaGames/Private/BiellaFootPlacement.cpp"
+  ],
+  "validation_sources": [
+    "Source/BiellaGames/Private/Tests/BiellaFootContactTest.cpp",
+    "tests/run_d03_01_contact.py",
+    "tests/run_d03_01_animation.py",
+    "tests/verify_d03_01_contact.py"
+  ],
+  "native_build": "Build/Presentation/contact-build-06/result.json",
+  "readback": "Build/Presentation/D03-01-contact-final-readback.json",
+  "progress": "Build/Presentation/D03-01-contact-progress.md",
+  "preservation": "Build/Presentation/D03-01-contact-preservation.json",
+  "manifest": "Build/Presentation/D03-01-contact-file-manifest.json",
+  "publication": {
+    "owner": "Auto Feeder",
+    "local_commit_required": true,
+    "remote_publication_claimed": false,
+    "canonical_state_transition_claimed": false
+  },
+  "remaining": [
+    "Aim/action/hit/defeat animation layers",
+    "Skeletal vehicle presentation",
+    "Production world, lighting, character and weapon art",
+    "Broader VFX/audio coverage",
+    "Crowd/LOD, dynamic terrain and platform/performance qualification",
+    "Clean shader/material/PSO launch, supported fallback and packaged play"
+  ]
+}

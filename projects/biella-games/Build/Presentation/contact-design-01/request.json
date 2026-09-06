@@ -1,0 +1,5 @@
+{
+  "provider": "ollama-qwen",
+  "capability": "unreal.assist",
+  "prompt": "Bounded Unreal 5.8 C++ animation design review, not task acceptance. Current Biella cosmetic Manny rig has a native FAnimInstanceProxy driving blendspace + jump. Pawn uses custom floating movement, mesh root at capsule bottom, scale .95, rotation yaw -90. Plan: new native pose node evaluates existing locomotion, traces only on game thread PreUpdate using previous foot XY to static collision within 20cm of mesh base; copies surface point/normal to worker. Node projects current uncorrected foot onto sampled plane with calibrated sole offset, preserves swing height, solves two-bone leg without stretching, lowers pelvis for small downhill gaps. Smooth hit plane and weight, reject slope>35deg and deep ledges, instantly disable/reset on jump/teleport/dormancy/seating/defeat. Never move actor/capsule. Need compact critique of stability, foot orientation, invalidation, and meaningful runtime negative controls. Maximum 600 words."
+}

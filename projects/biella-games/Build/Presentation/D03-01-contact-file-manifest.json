@@ -1,0 +1,785 @@
+{
+  "schema": "biella.file_manifest/v1",
+  "task_id": "D03-01",
+  "increment": "terrain foot contact",
+  "time": "2026-09-06T09:57:56.640331+00:00",
+  "task_status": "CONTINUE",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "excludes_self": true,
+  "files": [
+    {
+      "path": "Build/Presentation/D03-01-contact-final-readback.json",
+      "kind": "file",
+      "bytes": 2254,
+      "sha256": "cf12d77f73a6ac4da46822a67bb134111645ba809b581a5fec11155caed8e61d"
+    },
+    {
+      "path": "Build/Presentation/D03-01-contact-increment.json",
+      "kind": "file",
+      "bytes": 1809,
+      "sha256": "21ce8b529f22e3d814e3d6bc9846e0019e13be4a071ab10082fb6694f2d8f8ec"
+    },
+    {
+      "path": "Build/Presentation/D03-01-contact-preservation.json",
+      "kind": "file",
+      "bytes": 3133,
+      "sha256": "2a175322170cfb316d27b9c440aa891f7302927a7c110398b78a9a22f512f415"
+    },
+    {
+      "path": "Build/Presentation/D03-01-contact-progress.md",
+      "kind": "file",
+      "bytes": 4954,
+      "sha256": "c9d5623303ad466091b1321c29089073517fdd99c9dea4423a7a6765c192a403"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-01/captures/backward.png",
+      "kind": "file",
+      "bytes": 995162,
+      "sha256": "00bc7fde1fd4bd3da4eb75557f3f0d370e7d783b57946c4576b1412944c1c812"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-01/captures/forward.png",
+      "kind": "file",
+      "bytes": 990022,
+      "sha256": "22b33f9145bdd4fa0763619cdedbc9c296d85526712376d685dbf895cd30fdaf"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-01/captures/idle.png",
+      "kind": "file",
+      "bytes": 950735,
+      "sha256": "96f2c1071a130c6442fe1018c2c1a64fd2040e2c7d0973f63f1c7e741aee1c45"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-01/captures/jump.png",
+      "kind": "file",
+      "bytes": 1003460,
+      "sha256": "4e6e7bcf30b4c866cac00b0ab608cbace27c55ca86b1d52dac4ab3c5ca743578"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-01/captures/land.png",
+      "kind": "file",
+      "bytes": 945481,
+      "sha256": "63d403c216fa32c4db756b1bd873bedf2b65e331cdb1ad6164839079091a7944"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-01/captures/right.png",
+      "kind": "file",
+      "bytes": 999897,
+      "sha256": "e26e01f601ad0852ccb86e59770458ee776fd68ae86248fb3fe6fafc9c5a3a58"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 7371,
+      "sha256": "f066b764ada448ae51350b0fa9fbcbc7888c635d5814da71701796eacdf006ec"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-01/runtime.engine-CRC.log",
+      "kind": "file",
+      "bytes": 13443,
+      "sha256": "f966a0cdfec9653d4a34cdfe04f29da6cfaa8154ca0ce771dc6baf42808d12aa"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 347325,
+      "sha256": "5e863e0f5e853a80af6d9083c2d5f0b75291b5ff0833f243590a4b4ac509d6bf"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 360663,
+      "sha256": "903f76510555b94420ce0605eb5f0fa691b89fb67202e1be5f7433098e86718b"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-01/torso-fit.txt",
+      "kind": "file",
+      "bytes": 384,
+      "sha256": "7f80ce17df0c8c8f2eeb5b1ab327a99e5925e2050dfd0e64e47021331ddcc4c7"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-01/validation.json",
+      "kind": "file",
+      "bytes": 73405,
+      "sha256": "93c29092676fbd7561e392fbd168a04ae3ae9f17b429dbd0e25006343b1d4448"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/captures/backward.png",
+      "kind": "file",
+      "bytes": 993601,
+      "sha256": "de59f47d39760feec22f0db2986896d03b631fd5a509bab0021175976d7e5fcb"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/captures/dismount.png",
+      "kind": "file",
+      "bytes": 990534,
+      "sha256": "2d949a965f6eb85070bdc59610e7415605169365435f958549375da0c22da5a0"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/captures/forward.png",
+      "kind": "file",
+      "bytes": 985700,
+      "sha256": "6ffb46df5909297e4afdfd1fd67d34f1832f00b8edd08ce6dbbb975525a8f521"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/captures/idle.png",
+      "kind": "file",
+      "bytes": 950783,
+      "sha256": "2a9b7e3805045eac2960ede3679c4d8f74e5b529d12dcfc174a6b5769ee66d2e"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/captures/jump.png",
+      "kind": "file",
+      "bytes": 1004354,
+      "sha256": "307471b837643ddd237ae4b3dc68dddc9d838c4a348099c0eb8b6efcccf51353"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/captures/land.png",
+      "kind": "file",
+      "bytes": 946472,
+      "sha256": "da39606fa22dda6ef689a9c72b083135e2f5bfd0ae0d7d15e0bb15734aeac3d2"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/captures/npc_gaits.png",
+      "kind": "file",
+      "bytes": 995146,
+      "sha256": "e81909fd38556fa27dce8410b300aefc1a9368df305074480b6eb4584717716e"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/captures/right.png",
+      "kind": "file",
+      "bytes": 1000930,
+      "sha256": "4ac00ddaf9dd4e2ae14a80a186887bb700bd8f2b7d8d24bb2dc7aa2c0b8da5a9"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/captures/seat.png",
+      "kind": "file",
+      "bytes": 987611,
+      "sha256": "d76c7257cc02ad5c8b48cc7efcd8f543ad9363c9b4fc4223364c88ce294ea81e"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/poses.csv",
+      "kind": "file",
+      "bytes": 70704,
+      "sha256": "1451090e3ef0dd585aa94bcedf12f0bfd57f64ab63ac8e14f2085a68c467c24d"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 9011,
+      "sha256": "e2c912f2c1d85fc7e0ccc3a944c0aa015641a48dd334cf3b5e06d055db1fe0c3"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/result.json",
+      "kind": "file",
+      "bytes": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/runtime.engine.log",
+      "kind": "file",
+      "bytes": 359930,
+      "sha256": "9e5bfb91becd5f25500e0312e3286c5890c520f67c156dcc661c804389d42f07"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 359653,
+      "sha256": "8624cf5833b95eef976f63b7ff403f45fddbdf7fb9ee9662113edb13e5b88400"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/torso-fit.txt",
+      "kind": "file",
+      "bytes": 384,
+      "sha256": "ec298d9aec75ab1a954875ca15d3f30a68e95251f4e74611a7082049619a7b22"
+    },
+    {
+      "path": "Build/Presentation/contact-animation-regression-02/validation.json",
+      "kind": "file",
+      "bytes": 142913,
+      "sha256": "0493564b25b8f4f985b31e56e840561ff3fa99ab5764dee69ac9d3f9051c7663"
+    },
+    {
+      "path": "Build/Presentation/contact-build-01/build.log",
+      "kind": "file",
+      "bytes": 9027,
+      "sha256": "6946579ac56e34fe0ea30fa5fd88b46b510a789d6b14aa93d814f30f3f034540"
+    },
+    {
+      "path": "Build/Presentation/contact-build-01/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/contact-build-01/result.json",
+      "kind": "file",
+      "bytes": 68,
+      "sha256": "3d8748c1aa46035886e471b0fbeffc2b386959bae06c0d1c6ac03f1c90629bca"
+    },
+    {
+      "path": "Build/Presentation/contact-build-02/build.log",
+      "kind": "file",
+      "bytes": 8863,
+      "sha256": "b8343a658fd5dadb2328974e88391f8ba753ca5893deae13b4be1418f9f91109"
+    },
+    {
+      "path": "Build/Presentation/contact-build-02/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/contact-build-02/result.json",
+      "kind": "file",
+      "bytes": 68,
+      "sha256": "ee2d75c5e6010cf3d69506b98e16c330957d32a42b72ea68680968f0b77791e1"
+    },
+    {
+      "path": "Build/Presentation/contact-build-03/build.log",
+      "kind": "file",
+      "bytes": 3316,
+      "sha256": "93c097e859234e34b5ea80a40d2fb90949988570f4899406ca8eeb236f595662"
+    },
+    {
+      "path": "Build/Presentation/contact-build-03/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/contact-build-04/build.log",
+      "kind": "file",
+      "bytes": 1133,
+      "sha256": "4f6b6487fd678b36f97c4473e95206a6adc9a6de64b880d498363ceb234f7643"
+    },
+    {
+      "path": "Build/Presentation/contact-build-04/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/contact-build-04/result.json",
+      "kind": "file",
+      "bytes": 68,
+      "sha256": "7d320c19d52e6fdfa4f23fec2382217996a8b264d788a1f2541dbe36e763a055"
+    },
+    {
+      "path": "Build/Presentation/contact-build-05/build.log",
+      "kind": "file",
+      "bytes": 3592,
+      "sha256": "398786be14e89f265e149c4ff3b9b7dd601cd972bc74c390ad7f608c73f5244a"
+    },
+    {
+      "path": "Build/Presentation/contact-build-05/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/contact-build-05/result.json",
+      "kind": "file",
+      "bytes": 111,
+      "sha256": "e6d77dfffc1b3fc1fd9571d71936bf67500f74948156af5d1e55ad9b34a0169c"
+    },
+    {
+      "path": "Build/Presentation/contact-build-06/build.log",
+      "kind": "file",
+      "bytes": 3592,
+      "sha256": "8f88b88e482f9752f3c4bbd2c4e1b7927729f6ef7bd5261fdc9d19e813e2f6bf"
+    },
+    {
+      "path": "Build/Presentation/contact-build-06/command.json",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/Presentation/contact-build-06/result.json",
+      "kind": "file",
+      "bytes": 111,
+      "sha256": "e8ff478bee448d19d0589944102e2fe4b2ecfb3e1708b9dd208b96753fe9a604"
+    },
+    {
+      "path": "Build/Presentation/contact-design-01/failure.txt",
+      "kind": "file",
+      "bytes": 28,
+      "sha256": "1ce3294e949428aece4920f7caaa22eba9603ae4d3223d2ab9e5279880cfb1ab"
+    },
+    {
+      "path": "Build/Presentation/contact-design-01/request.json",
+      "kind": "file",
+      "bytes": 1015,
+      "sha256": "077bc9cc0b7099665a67623bdbb66c98ead42a42106abe8de50d4170b9522286"
+    },
+    {
+      "path": "Build/Presentation/contact-design-01/response.txt",
+      "kind": "file",
+      "bytes": 70,
+      "sha256": "b3ca29692a27cfaa6b24db08c884e67996f01de4669f8c0a013548bd4f17a137"
+    },
+    {
+      "path": "Build/Presentation/contact-design-01/route.json",
+      "kind": "file",
+      "bytes": 62,
+      "sha256": "37d6239c117e9d57bcd11d21c2b5ba207b4729099590b832eaaf57f4e3bb479a"
+    },
+    {
+      "path": "Build/Presentation/contact-disabled-01/captures/flat.png",
+      "kind": "file",
+      "bytes": 635387,
+      "sha256": "81eca4b2fea57dc0185b8f900b06a459386648a1b3d6906691f19031c79801f3"
+    },
+    {
+      "path": "Build/Presentation/contact-disabled-01/captures/slope_negative.png",
+      "kind": "file",
+      "bytes": 594819,
+      "sha256": "41572e096e5e8b10374cfbed8659d84b50c1ae7f21954e651bbbf922f96c7e00"
+    },
+    {
+      "path": "Build/Presentation/contact-disabled-01/captures/slope_positive.png",
+      "kind": "file",
+      "bytes": 689707,
+      "sha256": "d35ebff17cf7256fd43f98785c8136b4499173a9a3e98ee32ce747b96ca425da"
+    },
+    {
+      "path": "Build/Presentation/contact-disabled-01/captures/split_levels.png",
+      "kind": "file",
+      "bytes": 643079,
+      "sha256": "89d574a463a5116789e1e7ce10dd90a4c252d0d91e00c9a6eee6269f5f71dd1d"
+    },
+    {
+      "path": "Build/Presentation/contact-disabled-01/checks.csv",
+      "kind": "file",
+      "bytes": 489,
+      "sha256": "83ba0d954ac04334b076e486de8476e66cd9f337f10d0dcc3e83bf8b1e74a352"
+    },
+    {
+      "path": "Build/Presentation/contact-disabled-01/poses.csv",
+      "kind": "file",
+      "bytes": 76181,
+      "sha256": "4abeabe897a2d10c00b0543226e38cb272d9f36fdccc1173d474ac492f6b131a"
+    },
+    {
+      "path": "Build/Presentation/contact-disabled-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 6587,
+      "sha256": "7d1586c47e916d20c23a10bd8d73b42373c7f900dbe4696c09d6ab227010efd6"
+    },
+    {
+      "path": "Build/Presentation/contact-disabled-01/result.json",
+      "kind": "file",
+      "bytes": 76,
+      "sha256": "f5a662b58b3c90ad80e53254121b608433c77297061cf7a505475477116d14be"
+    },
+    {
+      "path": "Build/Presentation/contact-disabled-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 271303,
+      "sha256": "81d8f1413bf1394fc2623165a1ef4d55c5ea4ce93cf357adbdaf455a4aef97e9"
+    },
+    {
+      "path": "Build/Presentation/contact-disabled-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 271611,
+      "sha256": "22c35b4ec9cfde16bb864d7ef4261dd293466dab8d59e6e42eeb1b2ac2b5c74b"
+    },
+    {
+      "path": "Build/Presentation/contact-disabled-01/validation.json",
+      "kind": "file",
+      "bytes": 143640,
+      "sha256": "98dcedd8ba6749f0ca8843e790aad20552aa86ce8940711fbea5b133f5dd5f40"
+    },
+    {
+      "path": "Build/Presentation/contact-recovery-01.json",
+      "kind": "file",
+      "bytes": 1771,
+      "sha256": "c6386085c275c4effdc4e853f1d838527afb7c7290903753b99483d192938caa"
+    },
+    {
+      "path": "Build/Presentation/contact-regression-retry-01.json",
+      "kind": "file",
+      "bytes": 624,
+      "sha256": "f4df2a540334904ecc17b3af7ac480969fcbb4662c1b95847db65b27303fe400"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-01/captures/flat.png",
+      "kind": "file",
+      "bytes": 633894,
+      "sha256": "eb6f91031dece62d443c6a261eebdfabfdb094cc603db2bb95eb4989531631a9"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-01/captures/jump.png",
+      "kind": "file",
+      "bytes": 570087,
+      "sha256": "6c14e22bbe1dc3282cb4f5a2028030ccf2d2a33168876443b58d4e41e87548e9"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-01/captures/missing_one_support.png",
+      "kind": "file",
+      "bytes": 606731,
+      "sha256": "f9c820d5e0c73acc481c055e3e682396b593d7e9ba064c496d61e41e53856070"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-01/captures/slope_negative.png",
+      "kind": "file",
+      "bytes": 601063,
+      "sha256": "778e56e8fd9b90973c502d3fe659632258fe52910c5d53ed3ccc7189a22662c2"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-01/captures/slope_positive.png",
+      "kind": "file",
+      "bytes": 548497,
+      "sha256": "10688674a390f30c0bfd7a1c1e21dcbcc644e49590ae6c99d0604285023d9b8d"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-01/captures/split_levels.png",
+      "kind": "file",
+      "bytes": 600926,
+      "sha256": "8e655afa977a9b708b0b4a7485a08a3526debac7b44934f229a8083751003901"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-01/checks.csv",
+      "kind": "file",
+      "bytes": 695,
+      "sha256": "4f21fcb213b56df3ef47cf9f997071b28603f91fb3078ff2b7cd2c2149df9410"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-01/poses.csv",
+      "kind": "file",
+      "bytes": 78937,
+      "sha256": "b1bcf83b157b221f7b965eab3e3f9fbac0d81d44293479c7741185627b1bf5c7"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 9015,
+      "sha256": "9c055a9d8f120f9a8b8b4bbe9f82e7e0c7dfb162ea28c018aec1bb5e19346251"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-01/result.json",
+      "kind": "file",
+      "bytes": 78,
+      "sha256": "c54f3015bdd559920b1078f8c353968c510aaf9191dd45b0281378550a6bbdc9"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-01/runtime.engine-CRC.log",
+      "kind": "file",
+      "bytes": 13423,
+      "sha256": "f38c76156c8d5bab17a680fe60f669b4b7f2b006160995d23f25954910925fc4"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 275339,
+      "sha256": "65ae72e54dc20467c0bc1bbe977b8c1c7249e794c87c4f2ee02269e13503d3ae"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 289285,
+      "sha256": "c63e6a1e7dc279b42e1f55b0ba6e78363e9f791dcb0040c7f574d63babd63dac"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-01/validation.json",
+      "kind": "file",
+      "bytes": 142171,
+      "sha256": "6887696d824e51992025d505fc6c6a4728e09b8fa44798112f36ee4bf78d8961"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-02/captures/flat.png",
+      "kind": "file",
+      "bytes": 635844,
+      "sha256": "874cadb228264d4b861517873b6132b5d133549da2a7c17bee6628b9acd586a3"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-02/captures/jump.png",
+      "kind": "file",
+      "bytes": 572187,
+      "sha256": "3159e7f4f343ac8f2e0c878491380557a275f6a3b4f2a3cb2a5692f65e99fdf8"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-02/captures/missing_one_support.png",
+      "kind": "file",
+      "bytes": 606725,
+      "sha256": "8ee64a852e577a37589266dcf55c6933a5363f3da76c97b76f994d530da441a3"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-02/captures/moving.png",
+      "kind": "file",
+      "bytes": 611516,
+      "sha256": "0dbe7773b7732c4b841db58ca22c7a7e2c4ea011f1a8a5fb8838813418a3a874"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-02/captures/slope_negative.png",
+      "kind": "file",
+      "bytes": 603131,
+      "sha256": "16388dbb7f9846e3a6e9504c2313c7ad1d8e43269ec537ab98d2ee15945146f7"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-02/captures/slope_positive.png",
+      "kind": "file",
+      "bytes": 545461,
+      "sha256": "a74c8ce03d35b098c144e2d178fcb045e4a6228c89e68679d430c01e91b43390"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-02/captures/split_levels.png",
+      "kind": "file",
+      "bytes": 602106,
+      "sha256": "658a85876550942247138d78003ab67d571f547c5633a6376a87cd90cabbffc5"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-02/checks.csv",
+      "kind": "file",
+      "bytes": 1230,
+      "sha256": "a02857df0ac6f085955b122c5434116109853f8a02b0484d499524dea90a580c"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-02/poses.csv",
+      "kind": "file",
+      "bytes": 144947,
+      "sha256": "5e72bd82a6149d7c7973707d60ce28676c06bdc5005a70b2f81ba3e5c5de626c"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-02/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 10242,
+      "sha256": "96050abfdb542f8dfa4d4108844a3fa1b9ba1a1635f39cdb155e413dbf0e3db6"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-02/result.json",
+      "kind": "file",
+      "bytes": 78,
+      "sha256": "c54f3015bdd559920b1078f8c353968c510aaf9191dd45b0281378550a6bbdc9"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-02/runtime.engine-CRC.log",
+      "kind": "file",
+      "bytes": 13423,
+      "sha256": "ee299c19f189cd396df087c40550a79512cb06ca6ed27ae60e1e22363b943ddd"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-02/runtime.engine.log",
+      "kind": "file",
+      "bytes": 276988,
+      "sha256": "a9ddaba364e49cf1a683411facad5f5a0ec6e037106dcaf76270e0f5ce6201be"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-02/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 290921,
+      "sha256": "cfdcddcd5ea741a2d68ffa427f2317bc7324b1e207c77d742f0717425f3ba81a"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-02/validation.json",
+      "kind": "file",
+      "bytes": 141472,
+      "sha256": "da17712e16612c424f813fa608d8821a8fe8b943085a071cb12aac789fa21401"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-03/captures/flat.png",
+      "kind": "file",
+      "bytes": 635043,
+      "sha256": "b275fc1faa7b63acc7144abd2ae93dec249697cba523f44fab0cd4507001d2df"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-03/checks.csv",
+      "kind": "file",
+      "bytes": 330,
+      "sha256": "1a53d7f083578287708d75fd4f386eca107522a8e5d50e1a6de8e19c3ab230d6"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-03/poses.csv",
+      "kind": "file",
+      "bytes": 21752,
+      "sha256": "0bbb8bbfe8237c1417559bfc35ed321db8d4558fe296c081f3112b1940999b80"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-03/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8475,
+      "sha256": "cefa4fb99bc48051ec718530a7011d710fced3d643410de7f7028efbd833608e"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-03/result.json",
+      "kind": "file",
+      "bytes": 78,
+      "sha256": "c54f3015bdd559920b1078f8c353968c510aaf9191dd45b0281378550a6bbdc9"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-03/runtime.engine-CRC.log",
+      "kind": "file",
+      "bytes": 13423,
+      "sha256": "b007a1ac5f4ebc1501b63cd263d1b0560f262a9d4f01821a9b1db7830b7f680f"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-03/runtime.engine.log",
+      "kind": "file",
+      "bytes": 273543,
+      "sha256": "3bfedb66b69a38eda2c1c35b3c6321492a5e92206f55815e2d6c20782174e04d"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-03/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 287503,
+      "sha256": "58ab6083489e28469f38f8db90c3678e71327a3b57e8763052a7112538e73102"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-03/validation.json",
+      "kind": "file",
+      "bytes": 141629,
+      "sha256": "172705b73c5a1c5da02c980527bb95f31f43ff06e6bdb006957464ef88ed3142"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-04/captures/after_seat.png",
+      "kind": "file",
+      "bytes": 715327,
+      "sha256": "0e9c3fb16d5381c0f6f41ade96aee8eb250f2322916dd676ed9459e42180a203"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-04/captures/flat.png",
+      "kind": "file",
+      "bytes": 635132,
+      "sha256": "ed6adf3d29f592b7c744b1ebe31a5ad8f52362d958178605d35c1727fcb0360c"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-04/captures/jump.png",
+      "kind": "file",
+      "bytes": 616252,
+      "sha256": "ea05593c95a31d7adb3d279d29d38e286372f0d6e51ab34034253bac91527c1f"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-04/captures/missing_one_support.png",
+      "kind": "file",
+      "bytes": 558958,
+      "sha256": "443db58ce6a87043e449991be7f4ce8cf35cb00c1f3191ac2665a46e0f2826c1"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-04/captures/moving.png",
+      "kind": "file",
+      "bytes": 636412,
+      "sha256": "6d1d2ebd9fd8b2a2dbfbeab07f546f0fcb4ebfb75c5835b43ed086bb4b1a9325"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-04/captures/slope_negative.png",
+      "kind": "file",
+      "bytes": 589322,
+      "sha256": "6c52984f1cba1a480744c1426d93721bcf1b157dc46cb73be0071ac7bfd7a17d"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-04/captures/slope_positive.png",
+      "kind": "file",
+      "bytes": 688495,
+      "sha256": "124f0174820b46c49777fb2715952319bd58508e1cf5149546f4eb66022ab021"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-04/captures/split_levels.png",
+      "kind": "file",
+      "bytes": 640196,
+      "sha256": "e40f5d99fa3994cf45811f255fb73397ae8449cf9b21d0662adadcbc17c19a33"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-04/checks.csv",
+      "kind": "file",
+      "bytes": 1336,
+      "sha256": "843ca6cccf88a8dfab9caec4edf569647e2bc25b2f134319d658fea8372ca535"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-04/poses.csv",
+      "kind": "file",
+      "bytes": 207180,
+      "sha256": "8503c6bed85dd5a0a25334c0ac105a4994fa0fb6f4c9c284fb3fcbf617ee6d9c"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-04/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 8697,
+      "sha256": "b897cdfd9cfbdf687ddfeaa40b6ca01af0268233a01d3a9914f8e4a423f1962e"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-04/result.json",
+      "kind": "file",
+      "bytes": 77,
+      "sha256": "66b04c67dbe87bf0f069786f1b56dd68010451b11fdbd70806aa9d44e75f9672"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-04/runtime.engine.log",
+      "kind": "file",
+      "bytes": 274016,
+      "sha256": "9e0343d75fdc00dec7c8ad4a1e90cf15d8fa533fe7fb08b9d83bb6a2b3481a27"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-04/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 274303,
+      "sha256": "cae23f3512b2e20b53a564104efb6e461ba579374147e826e73ce95cd24c8fb3"
+    },
+    {
+      "path": "Build/Presentation/contact-runtime-04/validation.json",
+      "kind": "file",
+      "bytes": 144540,
+      "sha256": "dafdfad413749644d33ef9a71fc7ac4f97cc1e12c8312feaf8798e92e6f15cb3"
+    },
+    {
+      "path": "Build/Presentation/contact-visual-review-01.json",
+      "kind": "file",
+      "bytes": 1935,
+      "sha256": "4fbacda7f911d38ac37476ec6fa7dc27b85024ce44fc0d15a661b10c0d879397"
+    },
+    {
+      "path": "Source/BiellaGames/BiellaGames.Build.cs",
+      "kind": "file",
+      "bytes": 812,
+      "sha256": "78b13a1c847ae4fa44c02ad2d34cb756ddefb416080c4626a9f28f1c04b1834d"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaCharacterAnimInstance.cpp",
+      "kind": "file",
+      "bytes": 7401,
+      "sha256": "909f6a82730d177c4c352f8c74f0202cf8329ccbe7e1b3dbc175a43031799203"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaFootPlacement.cpp",
+      "kind": "file",
+      "bytes": 4324,
+      "sha256": "2225f01bedf7780973e7847bdc089f2e647ea2a977f8195898afeb39163317d0"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaFootPlacement.h",
+      "kind": "file",
+      "bytes": 722,
+      "sha256": "0e98080224139aee072849d6079d6847f9c71413dc6107ae980bbd787d16ec21"
+    },
+    {
+      "path": "Source/BiellaGames/Private/Tests/BiellaFootContactTest.cpp",
+      "kind": "file",
+      "bytes": 16346,
+      "sha256": "41450d779479b11f72e6ff822425867195b0422c920bf3410203ff96aff105f3"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaCharacterAnimInstance.h",
+      "kind": "file",
+      "bytes": 1745,
+      "sha256": "93e5bdf623add7c16cd337ebd44a625806ac054b77a3618e118ba0a78e1b7743"
+    },
+    {
+      "path": "tests/run_d03_01_animation.py",
+      "kind": "file",
+      "bytes": 4955,
+      "sha256": "8590d82d5c7a90ecd6b5610641e57624683426cbabf9d19c4187110ae95680fe"
+    },
+    {
+      "path": "tests/run_d03_01_contact.py",
+      "kind": "file",
+      "bytes": 5565,
+      "sha256": "9773590e96311d658d9527a189821d48f478447dce6fd669a11ac91dd2760ca1"
+    },
+    {
+      "path": "tests/verify_d03_01_contact.py",
+      "kind": "file",
+      "bytes": 5697,
+      "sha256": "9d3760ecc0399c1d4211b77d95dc19f908805931b1880e37e622e86b5d401ef0"
+    }
+  ]
+}

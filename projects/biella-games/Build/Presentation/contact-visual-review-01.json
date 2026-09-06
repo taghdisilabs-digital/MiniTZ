@@ -1,0 +1,50 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T09:57:56.640331+00:00",
+  "reviewer": "single Codex controller",
+  "method": "Direct inspection of unmodified native 1280x720 runtime PNG captures",
+  "capture_status": "GENERATED_DRAFT",
+  "observations": [
+    {
+      "capture": {
+        "path": "Build/Presentation/contact-runtime-04/captures/slope_positive.png",
+        "kind": "file",
+        "bytes": 688495,
+        "sha256": "124f0174820b46c49777fb2715952319bd58508e1cf5149546f4eb66022ab021"
+      },
+      "observation": "Both feet follow the sloped support in the native third-person view."
+    },
+    {
+      "capture": {
+        "path": "Build/Presentation/contact-runtime-04/captures/split_levels.png",
+        "kind": "file",
+        "bytes": 640196,
+        "sha256": "e40f5d99fa3994cf45811f255fb73397ae8449cf9b21d0662adadcbc17c19a33"
+      },
+      "observation": "Feet contact the separate support heights with cosmetic pelvis adjustment."
+    },
+    {
+      "capture": {
+        "path": "Build/Presentation/contact-runtime-04/captures/after_seat.png",
+        "kind": "file",
+        "bytes": 715327,
+        "sha256": "0e9c3fb16d5381c0f6f41ade96aee8eb250f2322916dd676ed9459e42180a203"
+      },
+      "observation": "Standing foot contact resumes after the native vehicle exit."
+    },
+    {
+      "capture": {
+        "path": "Build/Presentation/contact-disabled-01/captures/split_levels.png",
+        "kind": "file",
+        "bytes": 643079,
+        "sha256": "89d574a463a5116789e1e7ce10dd90a4c252d0d91e00c9a6eee6269f5f71dd1d"
+      },
+      "observation": "Disabled pose visibly penetrates one split support and floats above the other."
+    }
+  ],
+  "limitations": [
+    "Manny is an integration rig, not final character art.",
+    "Primitive world, weapon and vehicle presentation remain unfinished.",
+    "Screenshots support native assertions and cannot establish gameplay or frame-time acceptance alone."
+  ]
+}

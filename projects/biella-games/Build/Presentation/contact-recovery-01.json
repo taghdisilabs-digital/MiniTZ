@@ -1,0 +1,37 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T09:36:39.933589+00:00",
+  "diagnoses": [
+    {
+      "attempt": "contact-runtime-01",
+      "failure": "Landing capsule +12.717cm, sole error 23.96cm",
+      "cause": "Inserted BlockAll split pad depenetrated floating gameplay capsule",
+      "repair": "Test pads ignore Pawn response while retaining WorldStatic object traces; production collision unchanged",
+      "verified": "contact-runtime-02 landing capsule 1088, sole error 0"
+    },
+    {
+      "attempt": "contact-runtime-02",
+      "failure": "Vehicle TryEnter rejected distance_speed_or_residency",
+      "cause": "Fixture entered immediately after SpawnActor, while ABiellaVehicle bHeld defaults true until terrain tick",
+      "repair": "Use existing animation regression pattern: native terrain readiness and settle delay; pad supports all four wheels",
+      "status": "PENDING_VALIDATION"
+    },
+    {
+      "attempt": "contact-build-03",
+      "failure": "Session interrupted after native link output; result wrapper did not finish",
+      "repair": "Preserved raw log; incremental contact-build-04 returned success, zero actions"
+    },
+    {
+      "boundary": "capture fixture",
+      "failure": "Disabled tilted pad remained rendered over split pads; screenshots requested before same-frame geometry mutations",
+      "repair": "Hide disabled pads; wait two native frames for screenshot consumption before terrain mutation; closer native third-person camera",
+      "status": "PENDING_VALIDATION"
+    },
+    {
+      "boundary": "contact validation runner",
+      "failure": "Later image/readback exception could leave early PASS result",
+      "repair": "Exception handler always resets result to FAIL",
+      "status": "PENDING_VALIDATION"
+    }
+  ]
+}
