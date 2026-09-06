@@ -428,7 +428,10 @@ def refresh_compacted_memory(repo_root: Path, project_root: Path, runtime_root: 
                 row = json.loads(raw)
             except json.JSONDecodeError:
                 continue
-            if isinstance(row, Mapping) and (not current_task_id or row.get("task_id") in {None, current_task_id}):
+            if not isinstance(row, Mapping):
+                continue
+            failure_task_id = row.get("task_id") or row.get("task")
+            if not current_task_id or failure_task_id == current_task_id:
                 failures.append(row)
 
     projection = _projection(

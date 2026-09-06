@@ -155,3 +155,21 @@ def test_raw_tool_failure_alone_remains_lossless_but_never_becomes_active_prompt
     assert projection["failures"] == []
     failure_texts = [index["content"][ref]["text"] for ref in index["categories"]["failure"]]
     assert any('"failure_type":"tool.completed"' in text and 'rg no match' in text for text in failure_texts)
+
+
+def test_projection_excludes_cross_task_legacy_task_key_failures(tmp_path: Path):
+    repo, project, runtime = fixture(tmp_path)
+    with (runtime / "failures.jsonl").open("a") as handle:
+        handle.write(json.dumps({
+            "time":"old","type":"build","status":"repairing","task":"OTHER-01",
+            "diagnostic":"old task failure must not enter current prompt"
+        })+"\n")
+        handle.write(json.dumps({
+            "time":"current","type":"runtime_validation","status":"CONTINUE","task":"T2",
+            "diagnostics":"current task blocker"
+        })+"\n")
+    result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
+    projection = json.loads(result.projection_path.read_text())
+    details = json.dumps(projection["failures"])
+    assert "old task failure" not in details
+    assert "current task blocker" in details
