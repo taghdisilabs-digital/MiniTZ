@@ -63,6 +63,8 @@ class InvestorDeckTests(unittest.TestCase):
         self.assertNotIn('website-fundraising-overlay', deployer)
         self.assertNotIn('codex', deployer.lower())
         self.assertNotIn('ollama', deployer.lower())
+        service = (ROOT/'ops/biella-website-live-deploy.service').read_text()
+        self.assertIn('RequiresMountsFor=/mnt/biella-extra', service)
 
     def test_visual_reference_manifest_is_exact_and_non_authoritative_for_metrics(self):
         manifest = json.loads((ROOT/'content/investor-deck-manifest.json').read_text())

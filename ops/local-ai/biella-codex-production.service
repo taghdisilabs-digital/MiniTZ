@@ -1,4 +1,5 @@
 [Unit]
+RequiresMountsFor=/mnt/biella-extra
 Description=Biella Canonical Production Runner
 After=network-online.target biella-ollama.service biella-qwen-residency.service
 Requires=biella-ollama.service

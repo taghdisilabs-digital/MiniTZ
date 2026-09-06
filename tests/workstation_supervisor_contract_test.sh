@@ -101,6 +101,7 @@ PRODUCTION_SERVICE="$ROOT_DIR/ops/local-ai/biella-codex-production.service"
 require_file "$PRODUCTION_SERVICE"
 require_literal "$PRODUCTION_SERVICE" 'After=network-online.target biella-ollama.service biella-qwen-residency.service'
 require_literal "$PRODUCTION_SERVICE" 'ExecStartPre=/usr/local/lib/biella-workstation/biella-qwen-ready.sh'
+require_literal "$PRODUCTION_SERVICE" 'RequiresMountsFor=/mnt/biella-extra'
 require_file "$ROOT_DIR/ops/workstation/biella-qwen-ready.sh"
 require_literal "$ROOT_DIR/ops/workstation/biella-qwen-ready.sh" '/api/ps'
 require_literal "$ROOT_DIR/ops/workstation/biella-qwen-ready.sh" 'qwen3-coder-next:biella'

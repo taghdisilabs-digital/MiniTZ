@@ -1,4 +1,5 @@
 [Unit]
+RequiresMountsFor=/mnt/biella-extra
 Description=Biella Private Control Gateway
 After=network-online.target biella-ollama.service
 Wants=network-online.target
