@@ -6,6 +6,8 @@
 #include "Engine/GameInstance.h"
 #include "BiellaGamesGameInstance.generated.h"
 
+class FSceneViewExtensionBase;
+
 UCLASS()
 class BIELLAGAMES_API UBiellaGamesGameInstance : public UGameInstance
 {
@@ -18,5 +20,8 @@ public:
     int32 RestartCount = 0;
 
     virtual void Init() override;
+    virtual void Shutdown() override;
     void RecordRestart();
+private:
+    TSharedPtr<FSceneViewExtensionBase,ESPMode::ThreadSafe> RenderReadback;
 };

@@ -1,0 +1,5 @@
+{
+  "capability": "unreal.assist",
+  "provider": "ollama-qwen",
+  "prompt": "Bounded Unreal 5.8 design review. Canonical default is Deferred Nanite Lumen VSM TSR; preserve it. Add an explicit NativeTAA reconstruction fallback at 100 percent resolution, selected only with -BiellaRenderProfile=NativeTAA, plus ProductionTSR option. Unreal RenderUtils.h exposes SupportsTSR(GMaxRHIShaderPlatform). Apply on GameInstance Init before first world; if TSR requested but unsupported choose TAA with diagnostic. No gameplay/scalability changes; existing tests that directly set AA without the option must retain authority. Need observe actual View.AntiAliasingMethod (engine may fall back further), cvars, quality frame identities, stationary and moving native captures, gameplay interaction/shooting/streaming regression. Give at most 450 tokens of concrete pitfalls and validations; do not invent APIs or task acceptance."
+}

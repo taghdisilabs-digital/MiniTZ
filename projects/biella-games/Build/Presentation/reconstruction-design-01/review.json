@@ -1,0 +1,16 @@
+{
+  "task_id": "D03-01",
+  "status": "VALIDATED_WITH_REJECTIONS",
+  "source": "response.txt",
+  "accepted": [
+    "Verify actual constructed-view AA independently of requested cvars",
+    "Preserve explicit console overrides and test native movement/streaming under fallback"
+  ],
+  "rejected": [
+    "Unsupported suggested APIs/cvars and enum: ERenderProfile, View.TemporalAAParams, View.GlobalData.MotionVectorBuffer, r.AA Method, r.AntiAliasing.Method are not used; local installed Engine source defines actual interface",
+    "Do not disable temporal AA for NativeTAA; that would defeat this fallback",
+    "No evidence that TSR shifts GFrameCounter or requires profile parsing before GameInstance init; independent launch processes and runtime observation verify timing",
+    "Fallback remains diagnostic, not silent"
+  ],
+  "authority": "Installed UE 5.8.2 source plus runtime validation; resource suggestions are non-authoritative"
+}

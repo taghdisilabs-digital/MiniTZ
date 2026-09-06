@@ -1,0 +1,49 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T13:46:01.700237+00:00",
+  "result": "REVIEWED_BOUNDED",
+  "capture_status": "GENERATED_DRAFT",
+  "inspected": [
+    {
+      "path": "Build/Presentation/reconstruction-taa-01/captures/static_009.png",
+      "bytes": 859648,
+      "sha256": "2bc817c436be3908eaacd59069b19f4b81a8fdb53f2d8038bb4566c2005ce670"
+    },
+    {
+      "path": "Build/Presentation/reconstruction-taa-01/captures/pan_020.png",
+      "bytes": 876490,
+      "sha256": "8002995108138401ef16a467338f0ca3c9b30a6f340120858a6bb971df0af9b7"
+    },
+    {
+      "path": "Build/Presentation/reconstruction-tsr-02/captures/static_009.png",
+      "bytes": 952316,
+      "sha256": "8130ca42dd593e119346f49febb17bec740c1bbad1cf6d814e5d39b3fb6ed7a4"
+    },
+    {
+      "path": "Build/Presentation/reconstruction-tsr-02/captures/pan_020.png",
+      "bytes": 991663,
+      "sha256": "8f01ee8a65d6f2ba4408df411597e63c4af0d59d9c0d688601f479ea0c35c0c4"
+    },
+    {
+      "path": "Build/Presentation/reconstruction-environment-taa-01/captures/panel_destroyed.png",
+      "bytes": 896366,
+      "sha256": "1ff90c1dbc227cd7381dfcfa2dffbb323f37f8e59e16084089dd21c6beaa951b"
+    },
+    {
+      "path": "Build/Presentation/reconstruction-environment-taa-01/captures/hazard_active.png",
+      "bytes": 975805,
+      "sha256": "e01293766d6dbfeea240fca4f6df52c7363b4685cb699dec33294b78be21591a"
+    }
+  ],
+  "observations": [
+    "Both profiles show the shared skeletal player, road, curb edges, building silhouettes, shadow and unchanged readable HUD.",
+    "Inspected stationary and moving-camera captures contain recognizable rendered world surfaces; no blank or substituted-material frame is visible.",
+    "TAA retains gameplay visibility at the tested location. Captures are phase-comparable; native camera sampling is not byte-identical between launches.",
+    "Existing empty black surroundings and coarse blockout structures remain visible and do not meet final production art/lighting quality.",
+    "NativeTAA environment captures show the opened/destroyed panel, physical slab, illuminated live-floor strips, player/NPC silhouettes, damage tint and readable ammunition/health HUD. These observations agree with the two-shot and shared-hazard runtime assertions."
+  ],
+  "limits": [
+    "Direct inspection covers the six listed images; all captures from qualified scenarios are decoded and measured by the independent verifiers.",
+    "Single-frame inspection and gross temporal-delta tests do not qualify fine ghosting, all disocclusions, particles, reflections, high-speed motion or final art."
+  ]
+}

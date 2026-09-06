@@ -1,0 +1,185 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "time": "2026-09-06T13:43:07.101852+00:00",
+  "positive_replay": {
+    "observed_views": 2051,
+    "joined_scenario_frames": 1326,
+    "joined_views": 1326,
+    "missing_frames": [],
+    "multiple_view_frames": 0,
+    "first_frame": 715.0,
+    "last_frame": 2040.0,
+    "expected": {
+      "aa": 2,
+      "requested_aa": 2,
+      "screen_percentage": 100,
+      "temporal_upsampling": 0,
+      "dynamic_res": 0,
+      "gi": 1,
+      "reflections": 1,
+      "vsm": 1,
+      "nanite": 1,
+      "ray_tracing": 0,
+      "external_upscaler": 0,
+      "width": 1280,
+      "height": 720
+    },
+    "scope": "Constructed game-thread views plus requested renderer cvars; no generated frames or hardware compatibility claim"
+  },
+  "source_inputs": [
+    {
+      "path": "Build/Presentation/reconstruction-taa-01/native-views.csv",
+      "bytes": 91332,
+      "sha256": "1ccbe4dad02c48fe6928a98a705d078c007a2ef8e1f090f1f9a9394925c5ddba"
+    },
+    {
+      "path": "Build/Presentation/reconstruction-taa-01/frames.csv",
+      "bytes": 137016,
+      "sha256": "473b34b39879d5e7f54ca0223e46fd045a013d54f2a95124bf83bb191cf9e810"
+    },
+    {
+      "path": "Build/Presentation/reconstruction-taa-01/validation.json",
+      "bytes": 180749,
+      "sha256": "ba827a3d12eb239eabcbf51969c5960e7e0d3844cb709215d41ddc18c95a0b60"
+    }
+  ],
+  "verifier": {
+    "path": "tests/verify_d03_01_reconstruction.py",
+    "bytes": 2655,
+    "sha256": "817cd34cf1830029b582417737891181ea915f1d5cc57cc9672d8d106a8dbfc5"
+  },
+  "controls": [
+    {
+      "name": "actual_aa",
+      "result": "EXPECTED_REJECTION",
+      "row": 1385,
+      "mutation": [
+        "aa",
+        "4"
+      ],
+      "diagnostic": "Native view invariant failed: aa=2"
+    },
+    {
+      "name": "requested_aa",
+      "result": "EXPECTED_REJECTION",
+      "row": 1385,
+      "mutation": [
+        "requested_aa",
+        "4"
+      ],
+      "diagnostic": "Native view invariant failed: requested_aa=2"
+    },
+    {
+      "name": "resolution",
+      "result": "EXPECTED_REJECTION",
+      "row": 1385,
+      "mutation": [
+        "screen_percentage",
+        "67"
+      ],
+      "diagnostic": "Native view invariant failed: screen_percentage=100"
+    },
+    {
+      "name": "temporal_upscale",
+      "result": "EXPECTED_REJECTION",
+      "row": 1385,
+      "mutation": [
+        "temporal_upsampling",
+        "1"
+      ],
+      "diagnostic": "Native view invariant failed: temporal_upsampling=0"
+    },
+    {
+      "name": "dynamic_resolution",
+      "result": "EXPECTED_REJECTION",
+      "row": 1385,
+      "mutation": [
+        "dynamic_res",
+        "1"
+      ],
+      "diagnostic": "Native view invariant failed: dynamic_res=0"
+    },
+    {
+      "name": "lumen_gi",
+      "result": "EXPECTED_REJECTION",
+      "row": 1385,
+      "mutation": [
+        "gi",
+        "0"
+      ],
+      "diagnostic": "Native view invariant failed: gi=1"
+    },
+    {
+      "name": "lumen_reflections",
+      "result": "EXPECTED_REJECTION",
+      "row": 1385,
+      "mutation": [
+        "reflections",
+        "0"
+      ],
+      "diagnostic": "Native view invariant failed: reflections=1"
+    },
+    {
+      "name": "virtual_shadows",
+      "result": "EXPECTED_REJECTION",
+      "row": 1385,
+      "mutation": [
+        "vsm",
+        "0"
+      ],
+      "diagnostic": "Native view invariant failed: vsm=1"
+    },
+    {
+      "name": "nanite",
+      "result": "EXPECTED_REJECTION",
+      "row": 1385,
+      "mutation": [
+        "nanite",
+        "0"
+      ],
+      "diagnostic": "Native view invariant failed: nanite=1"
+    },
+    {
+      "name": "external_upscaler",
+      "result": "EXPECTED_REJECTION",
+      "row": 1385,
+      "mutation": [
+        "external_upscaler",
+        "1"
+      ],
+      "diagnostic": "Native view invariant failed: external_upscaler=0"
+    },
+    {
+      "name": "nonfinite",
+      "result": "EXPECTED_REJECTION",
+      "row": 1385,
+      "mutation": [
+        "aa",
+        "nan"
+      ],
+      "diagnostic": "Nonfinite native view state"
+    },
+    {
+      "name": "missing_view",
+      "result": "EXPECTED_REJECTION",
+      "row": 1385,
+      "mutation": "missing_view",
+      "diagnostic": "Scenario frames without native view: [1378.0]"
+    },
+    {
+      "name": "unordered_views",
+      "result": "EXPECTED_REJECTION",
+      "row": 1385,
+      "mutation": "unordered_views",
+      "diagnostic": "Unordered native views"
+    }
+  ],
+  "scope": "Offline evidence corruption sensitivity; does not simulate unsupported hardware or claim rendered negative controls",
+  "replay_source": {
+    "path": "Build/Presentation/reconstruction-controls-01/replay.py",
+    "sha256": "f60021932da999aeb6fa4080f01bee3af0f71ff004e698d1e2e15e4c689a6f37",
+    "bytes": 2184,
+    "usage": "Run from project root after selecting a fresh out path in editable script; original evidence directory is create-only."
+  }
+}

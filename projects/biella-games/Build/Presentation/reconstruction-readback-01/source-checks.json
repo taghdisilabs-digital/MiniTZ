@@ -1,0 +1,22 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "time": "2026-09-06T13:50:03.842412+00:00",
+  "python_syntax_files": [
+    "tests/run_d03_01_reconstruction.py",
+    "tests/verify_d03_01_reconstruction.py",
+    "Build/Presentation/reconstruction-readback-01/finalize.py",
+    "Build/Presentation/reconstruction-readback-01/preserve.py",
+    "Build/Presentation/reconstruction-controls-01/replay.py"
+  ],
+  "new_editable_whitespace_files": [
+    "tests/run_d03_01_reconstruction.py",
+    "tests/verify_d03_01_reconstruction.py",
+    "Build/Presentation/reconstruction-readback-01/finalize.py",
+    "Build/Presentation/reconstruction-readback-01/preserve.py",
+    "Build/Presentation/reconstruction-controls-01/replay.py",
+    "Source/BiellaGames/Private/BiellaRenderProfile.cpp",
+    "Source/BiellaGames/Private/BiellaRenderProfile.h",
+    "docs/RECONSTRUCTION_PROFILES.md"
+  ]
+}

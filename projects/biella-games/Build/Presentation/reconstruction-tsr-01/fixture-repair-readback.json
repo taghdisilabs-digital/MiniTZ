@@ -1,0 +1,31 @@
+{
+  "task_id": "D03-01",
+  "result": "FIXTURE_REPLAY_PASS",
+  "verification": {
+    "observed_views": 2061,
+    "joined_scenario_frames": 1327,
+    "joined_views": 1327,
+    "missing_frames": [],
+    "multiple_view_frames": 0,
+    "first_frame": 724.0,
+    "last_frame": 2050.0,
+    "expected": {
+      "aa": 4,
+      "requested_aa": 4,
+      "screen_percentage": 100,
+      "temporal_upsampling": 1,
+      "dynamic_res": 0,
+      "gi": 1,
+      "reflections": 1,
+      "vsm": 1,
+      "nanite": 1,
+      "ray_tracing": 0,
+      "external_upscaler": 0,
+      "width": 1280,
+      "height": 720,
+      "tsr_supported": 1
+    },
+    "scope": "Constructed game-thread views plus requested renderer cvars; no generated frames or hardware compatibility claim"
+  },
+  "diagnostic": "Four view families at frame 0 and five at 723 during loading; no duplicate scenario frames. Preserve all view rows and validate every joined view. Fresh positive run follows with repaired verifier."
+}

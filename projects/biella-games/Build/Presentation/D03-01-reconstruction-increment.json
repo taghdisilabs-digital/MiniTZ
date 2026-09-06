@@ -1,0 +1,47 @@
+{
+  "schema": "biella.d03_01.reconstruction_increment/v1",
+  "task_id": "D03-01",
+  "increment": "explicit reconstruction profiles and supported native-TAA fallback",
+  "implementation_status": "IMPLEMENTED_VALIDATED_BOUNDED",
+  "task_status": "CONTINUE",
+  "created_at": "2026-09-06T13:52:58.787767+00:00",
+  "parent_commit": "6ab06eb0de3d73259552d82c37016a6b3fd415d2",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "implementation": [
+    "Source/BiellaGames/Private/BiellaGamesGameInstance.cpp",
+    "Source/BiellaGames/Public/BiellaGamesGameInstance.h",
+    "Source/BiellaGames/Private/BiellaRenderProfile.cpp",
+    "Source/BiellaGames/Private/BiellaRenderProfile.h",
+    "tests/run_d03_01_reconstruction.py",
+    "tests/verify_d03_01_reconstruction.py",
+    "docs/RECONSTRUCTION_PROFILES.md"
+  ],
+  "native_build": "Build/Presentation/reconstruction-build-01/result.json",
+  "positive": [
+    "Build/Presentation/reconstruction-tsr-02/validation.json",
+    "Build/Presentation/reconstruction-taa-01/validation.json",
+    "Build/Presentation/reconstruction-environment-tsr-01/validation.json",
+    "Build/Presentation/reconstruction-environment-taa-01/validation.json",
+    "Build/Presentation/reconstruction-invalid-01/validation.json"
+  ],
+  "negative": "Build/Presentation/reconstruction-override-01/negative-readback.json",
+  "controls": "Build/Presentation/reconstruction-controls-01/result.json",
+  "readback": "Build/Presentation/D03-01-reconstruction-final-readback-01.json",
+  "preservation": "Build/Presentation/D03-01-reconstruction-preservation.json",
+  "progress": "Build/Presentation/D03-01-reconstruction-progress.md",
+  "manifest": "Build/Presentation/D03-01-reconstruction-file-manifest.json",
+  "visual_review": "Build/Presentation/reconstruction-visual-review-01.json",
+  "positive_frames": 6955,
+  "publication": {
+    "owner": "Auto Feeder",
+    "local_commit_required": true,
+    "remote_publication_claimed": false,
+    "canonical_state_transition_claimed": false
+  },
+  "remaining": [
+    "Clean shader/material/PSO launch and packaged qualification",
+    "Final production world/lighting/character/weapon/vehicle art",
+    "Broader VFX/audio and remaining animation/LOD/crowd coverage",
+    "Unavailable-TSR hardware path and wider temporal/hardware qualification"
+  ]
+}

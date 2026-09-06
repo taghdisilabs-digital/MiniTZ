@@ -1,0 +1,314 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T13:51:03.147033+00:00",
+  "result": "EXPECTED_NEGATIVE_CONTROL",
+  "diagnostic": "Native view invariant failed: aa=4",
+  "actual_view_aa": 1,
+  "requested_cvar_aa": 1,
+  "profile_diagnostic": "ProductionTSR",
+  "joined_views": 1421,
+  "native_scenario_success": true,
+  "scenario_replay": {
+    "frames": 1421,
+    "costs": {
+      "stationary": {
+        "frames": 344,
+        "wall_p50_ms": 9.781090500000001,
+        "wall_p95_ms": 12.84571035,
+        "gpu_p50_ms": 3.202
+      },
+      "camera_pan": {
+        "frames": 281,
+        "wall_p50_ms": 12.563891,
+        "wall_p95_ms": 14.013302,
+        "gpu_p50_ms": 3.268
+      }
+    },
+    "static_mean_abs_delta_255": [
+      0.9690465927124023,
+      0.9690755009651184,
+      0.48093822598457336,
+      0.4504716396331787,
+      0.4492744505405426,
+      0.4513982832431793,
+      0.4407110810279846,
+      0.4474276602268219,
+      0.4499218761920929
+    ],
+    "pan_mean_abs_delta_255": [
+      2.848762273788452,
+      2.481555223464966,
+      2.348557472229004,
+      2.178358554840088,
+      2.2024500370025635,
+      2.1410250663757324,
+      2.1113317012786865,
+      2.260545492172241,
+      2.250333547592163,
+      2.2918879985809326,
+      2.2847888469696045,
+      2.3264777660369873,
+      2.250821113586426,
+      2.2909772396087646,
+      2.3405966758728027,
+      2.3169023990631104,
+      2.4118785858154297,
+      2.383164167404175,
+      2.591721534729004,
+      2.7656335830688477,
+      2.7443888187408447,
+      2.774756908416748,
+      3.108308792114258,
+      3.8518424034118652,
+      3.8957457542419434,
+      4.692686080932617,
+      2.59480619430542,
+      0.4575701653957367,
+      0.44902560114860535,
+      0.4538281261920929,
+      0.4606705605983734
+    ],
+    "captures": [
+      {
+        "name": "static_000",
+        "sha256": "26c43b3fc70d6a229bea412a9f2982ae3aca12a3d088707842741f8aeb161e4c",
+        "bytes": 914633
+      },
+      {
+        "name": "static_001",
+        "sha256": "0e784febc0dc3056e4417b2f346372522ef63a0cad5bd594b48fd2856c0c9555",
+        "bytes": 914018
+      },
+      {
+        "name": "static_002",
+        "sha256": "a23b28ef06a71e37c7f33cc6afa9039e3f071449505d58b7e6988da9a09142c5",
+        "bytes": 914466
+      },
+      {
+        "name": "static_003",
+        "sha256": "15a40792b28b85b554fc10e3006200777cf2b2a456833d970ac0921d4c4a4c8c",
+        "bytes": 914465
+      },
+      {
+        "name": "static_004",
+        "sha256": "a8c90d32847bb102b5ac117a7d5a5b83439d4ea85da1230dea6b72844647a389",
+        "bytes": 914130
+      },
+      {
+        "name": "static_005",
+        "sha256": "9904a459333cbe6bb4a43791d174d4f7112cd8e0327d9c24fb1e28082940db8f",
+        "bytes": 914578
+      },
+      {
+        "name": "static_006",
+        "sha256": "5a1e542bbf57e4b384e4f28bd3d25640166d13cd60f52fd8d7d50421fa6d8902",
+        "bytes": 914020
+      },
+      {
+        "name": "static_007",
+        "sha256": "819a3fe7e18d59ca03d15fdb25c9ecfccec972181f4d55786dddce2f95c99304",
+        "bytes": 913546
+      },
+      {
+        "name": "static_008",
+        "sha256": "88ecb1cf4f7e6b5d68eba939b995a7fcea438742da976f0ee08d19a54c69fa53",
+        "bytes": 914567
+      },
+      {
+        "name": "static_009",
+        "sha256": "68a728704588f666e72b93fda79f887aeb3118c50522fdc2927c6a4272890409",
+        "bytes": 914752
+      },
+      {
+        "name": "pan_000",
+        "sha256": "61b4e6e42adc6c0c610f9e5b8f123d25e43d1c9ea9c66e303e36841c21f3fbf8",
+        "bytes": 902659
+      },
+      {
+        "name": "pan_001",
+        "sha256": "c6f14705e6a25457a1a07bed797864d4b7a131de0ea977236618ce6dee5ccd82",
+        "bytes": 898040
+      },
+      {
+        "name": "pan_002",
+        "sha256": "76b31180074f30bc13f9bcf38b1e1f201095f05da653aeed6301e0575c1866f9",
+        "bytes": 897722
+      },
+      {
+        "name": "pan_003",
+        "sha256": "a61891c0e65b51394043c5c7084468a9e2669c19eaa8a8ec7e3c622ee3bc7dfd",
+        "bytes": 897491
+      },
+      {
+        "name": "pan_004",
+        "sha256": "38207445acbc4b6eb6aa306db664a74d6be2ec26009a4748b5efdbf893de4bd3",
+        "bytes": 896811
+      },
+      {
+        "name": "pan_005",
+        "sha256": "059030f267d087489a8f719ae9cda79aa5fb899b18f516bd5c2b51fd3db4730c",
+        "bytes": 897599
+      },
+      {
+        "name": "pan_006",
+        "sha256": "28677853206a4e6e5a355009633e18edf6272fd1dc355421e4bca764a738db77",
+        "bytes": 898133
+      },
+      {
+        "name": "pan_007",
+        "sha256": "e98f443f4e4847f6ed7c6e162805ae6efd8184ffded811eb591acd85be5515d6",
+        "bytes": 898224
+      },
+      {
+        "name": "pan_008",
+        "sha256": "aef8b21a22c9b9ab312e5b2cd52951c932f10c7b0a9fc94faad63ae576e6b0d1",
+        "bytes": 894778
+      },
+      {
+        "name": "pan_009",
+        "sha256": "a279293b8bcb24fcbc4f59991f104e443be320a4a9435ea0e732e7c98503cad2",
+        "bytes": 897078
+      },
+      {
+        "name": "pan_010",
+        "sha256": "a698ab46837451b220c85aceca00e0adf9aeae1c58da036b87d26996db0c709b",
+        "bytes": 898401
+      },
+      {
+        "name": "pan_011",
+        "sha256": "2772ce5def85e915ecf8b4e10e7ffea6c6e9f9be3a681955aa595fea7f38fcab",
+        "bytes": 899138
+      },
+      {
+        "name": "pan_012",
+        "sha256": "623c3879e3da4ff24d5fc08963b270b4cad8114329316a6d3352ab0943646a4a",
+        "bytes": 905210
+      },
+      {
+        "name": "pan_013",
+        "sha256": "4cd4a13515d90f26f1ee3e771bb83036f784849e5f470bd284177cff67cf9c38",
+        "bytes": 906080
+      },
+      {
+        "name": "pan_014",
+        "sha256": "d0ee92c908768989af24a20f74d0b7e3981c7814447f2ef441b5e26fa598d4fc",
+        "bytes": 915691
+      },
+      {
+        "name": "pan_015",
+        "sha256": "a76586b92e2863a904baea338ac19699cac8718b656554e7ed9d0523f0906f39",
+        "bytes": 919308
+      },
+      {
+        "name": "pan_016",
+        "sha256": "7cc0444cbd46a84f41d17c884e1552573ea3c62e3137277d0dc6c992198c4d5f",
+        "bytes": 920949
+      },
+      {
+        "name": "pan_017",
+        "sha256": "2b1ba38081ef113148b6f10d2cac76b27576d2e134ac1569e6b0845af30b589a",
+        "bytes": 918556
+      },
+      {
+        "name": "pan_018",
+        "sha256": "691d20f00c448acc37e2c84cc62749e77c57565686a185ffa3593c10df16e581",
+        "bytes": 917416
+      },
+      {
+        "name": "pan_019",
+        "sha256": "eee6d7d826bdbbd0a41d3306e9596a9bab05eeafb3a8531280504db8ddf296f9",
+        "bytes": 919128
+      },
+      {
+        "name": "pan_020",
+        "sha256": "7fdcd2156169b2976d32b32049973a696edb813ab9e45f13414bb44d2eb011d2",
+        "bytes": 923043
+      },
+      {
+        "name": "pan_021",
+        "sha256": "b1e682b08067d7f180205217f9e7b277e7d41bbfe804339f43a08380b6a09bc6",
+        "bytes": 924398
+      },
+      {
+        "name": "pan_022",
+        "sha256": "25d7da02c0e34098dabfd1681b42dc587be95cf1b76a87ecdfbb6d3c0dd42b04",
+        "bytes": 926948
+      },
+      {
+        "name": "pan_023",
+        "sha256": "4d4e68fd451d52c0b816daa04d7a6877efe429e6329a1a6b2c3ea69f93cab8d6",
+        "bytes": 933440
+      },
+      {
+        "name": "pan_024",
+        "sha256": "f6c00b59722f0fc187ab9593afd5b246597ce598b4dc8efc9721bd102e8fc40f",
+        "bytes": 930324
+      },
+      {
+        "name": "pan_025",
+        "sha256": "81d60f4c87e9899441d9ee3c9c5070b4bb823efcbcba73d0e04f28ce29de4347",
+        "bytes": 929200
+      },
+      {
+        "name": "pan_026",
+        "sha256": "62f730a42d12c995d2dbd997304e01176cf286bf73592fccce392f7e929a3ed4",
+        "bytes": 929978
+      },
+      {
+        "name": "pan_027",
+        "sha256": "574dc75cd5f4adbca2cda3da26ccd6aed1a905fe455e3c1cb64387582fa19936",
+        "bytes": 931299
+      },
+      {
+        "name": "pan_028",
+        "sha256": "c519ccfdb8ef85adcd18e6f6ddf2bc06f30d3d265a81c3802e57e01c01455a59",
+        "bytes": 933096
+      },
+      {
+        "name": "pan_029",
+        "sha256": "c068bbf4cf9c951bf121a017e2a2b28fc50e5c5c2104040a037ae844272cccd1",
+        "bytes": 935759
+      },
+      {
+        "name": "pan_030",
+        "sha256": "3fd2ecec98ce9b31af26f054968c8d81e2ea4dd79282308d786947f714899b8f",
+        "bytes": 938070
+      },
+      {
+        "name": "pan_031",
+        "sha256": "3b71093e6a14c72128bdc702869ed42327b52f5f0b0511a7bda2d78307cdcee3",
+        "bytes": 939810
+      },
+      {
+        "name": "walk_end",
+        "sha256": "b1d91eb88a53eb9d3c64dbf2e17626666c187314cad33523674e1be697620ea8",
+        "bytes": 917618
+      }
+    ],
+    "scope": "Development Vulkan at 1280x720, uncapped, existing DDC. Pixel deltas screen for gross instability; visual review still required. GPU timings are engine whole-frame measurements."
+  },
+  "inputs_unchanged": true,
+  "inputs": [
+    {
+      "path": "Build/Presentation/reconstruction-override-01/validation.json",
+      "bytes": 172400,
+      "sha256": "b3dae82ea79206b1de8ac14b8f3418340da768eab79d2b23e08f1d51d470ee8d"
+    },
+    {
+      "path": "Build/Presentation/reconstruction-override-01/native-views.csv",
+      "bytes": 96417,
+      "sha256": "d273a7265bc431281cc7182be426540608a41ed4366ba11813081a0b98f3c3b5"
+    },
+    {
+      "path": "Build/Presentation/reconstruction-override-01/frames.csv",
+      "bytes": 146250,
+      "sha256": "ec2d6005b2c0474d90408c43440b053e7187d6252567eba800903a494aa563e2"
+    },
+    {
+      "path": "Build/Presentation/reconstruction-override-01/runtime.stdout.log",
+      "bytes": 363191,
+      "sha256": "17e71cc18ac2378fb49b560307794102537187930d617ecc11babc5eab47217f"
+    }
+  ],
+  "meaning": "Explicit console AA override remains effective; verifier rejects a profile diagnostic that disagrees with constructed native views."
+}
