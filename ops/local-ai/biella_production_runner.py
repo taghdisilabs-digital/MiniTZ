@@ -362,7 +362,10 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
     if not isinstance(projection, Mapping):
         return None
     meaningful = _assist_projection_payload(projection)
-    meaningful["verified_actions"] = _hydrate_assist_verified_actions(projection, Path(runtime_root))
+    hydrated_actions = _hydrate_assist_verified_actions(projection, Path(runtime_root))
+    # Cross-task verified patterns are useful for diagnosing an actual semantic
+    # blocker, but on a clean task they can anchor local Qwen on unrelated work.
+    meaningful["verified_actions"] = hydrated_actions if meaningful.get("failures") else []
     canonical = json.dumps(meaningful, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
     digest = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
     safe_task = str(task_id).replace("/", "_")

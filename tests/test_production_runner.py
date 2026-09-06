@@ -609,7 +609,8 @@ def test_local_assist_hydrates_bare_verified_action_refs_from_full_index(tmp_pat
     ref = "sha256:" + "a" * 64
     projection.write_text(json.dumps({
         "task_id":"D02-04","task_memory":{"task_class":"hard_creation","summary":"x"},
-        "failures":[],"capabilities":{},"verified_actions":[ref],"full_index":"memory/compacted-memory.json"
+        "failures":[{"failure_type":"runtime_validation","status":"CONTINUE","detail":"real blocker"}],
+        "capabilities":{},"verified_actions":[ref],"full_index":"memory/compacted-memory.json"
     }))
     (tmp_path/"memory/compacted-memory.json").write_text(json.dumps({"content":{ref:{"text":"Local commit: exact-verified-commit"}}}))
     prompts=[]
@@ -645,3 +646,26 @@ def test_local_assist_rejects_semantic_relabel_of_verified_action_ref(tmp_path: 
     rejected=list((tmp_path/"memory/local-assist").glob("D02-04-*.rejected"))
     assert len(rejected)==1
     assert json.loads(rejected[0].read_text())["reason"]=="ungrounded_verified_action_claim"
+
+
+def test_no_failure_local_assist_omits_cross_task_verified_actions(tmp_path: Path, monkeypatch):
+    project = tmp_path / "repo/projects/biella-games"; project.mkdir(parents=True)
+    projection = tmp_path / "memory/current-task.json"; projection.parent.mkdir(parents=True)
+    ref = "sha256:" + "c" * 64
+    projection.write_text(json.dumps({
+        "task_id":"D02-04","task_memory":{"task_class":"hard_creation","summary":"inspect Build/Environment","next_action":"implement D02-04"},
+        "failures":[],"capabilities":{},"verified_actions":[ref],"full_index":"memory/compacted-memory.json"
+    }))
+    (tmp_path/"memory/compacted-memory.json").write_text(json.dumps({"content":{ref:{"text":"Unrelated predecessor acceptance"}}}))
+    prompts=[]
+    def fake_run(argv, **kwargs):
+        prompt=argv[argv.index('--prompt')+1]; prompts.append(prompt)
+        return subprocess.CompletedProcess(argv,0,stdout=json.dumps({
+            "provider":"ollama-qwen","model":"qwen",
+            "text":"(1) Inspect current task capsule.\n(2) Likely failure cause if any: NONE\n(3) Exact files/tests/tools to inspect or run: none\n(4) Reusable verified pattern if supported: NONE","usage":{}
+        }),stderr="")
+    monkeypatch.setattr(runner.subprocess,"run",fake_run)
+    assert runner._ensure_local_resource_assist(tmp_path,"D02-04",projection,project_root=project)
+    assert len(prompts)==1
+    assert 'Unrelated predecessor acceptance' not in prompts[0]
+    assert '"verified_actions":[]' in prompts[0]
