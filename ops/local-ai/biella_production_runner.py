@@ -193,10 +193,12 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
             prompt += f"\nTASK_MEMORY: {capsule_path}\nRead this bounded recovery capsule before redoing any existing work.\n"
     guide_path = Path(production.project_root) / "docs" / "task-guides" / f"{task.id}.md"
     if guide_path.exists():
+        guide_text = guide_path.read_text(encoding="utf-8")[:12000]
         prompt += (
             f"\nTASK_GUIDE: {guide_path}\n"
-            "Read TASK_GUIDE before broad source search. It contains prepared source-backed objective, accepted decisions, existing entry points, authorized project-local names, first bounded implementation, and required evidence for this exact task. "
+            "Read TASK_GUIDE before broad source search. The complete bounded guide content is embedded below so no extra lookup is required. "
             "Use it to avoid naming/discovery stalls. It does not override current source, exact runtime evidence, or Project authority.\n"
+            "--- TASK GUIDE CONTENT ---\n" + guide_text + "\n--- END TASK GUIDE CONTENT ---\n"
         )
     if projection_path and Path(projection_path).exists():
         prompt += (

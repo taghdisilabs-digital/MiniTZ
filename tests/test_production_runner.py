@@ -430,6 +430,8 @@ def test_task_prompt_injects_prepared_task_guide_for_new_and_resumed_turns(tmp_p
     fresh = runner._task_prompt(repo, production, task, runner.initial_runtime(), capsule)
     assert f"TASK_GUIDE: {guide}" in fresh
     assert "Read TASK_GUIDE before broad source search" in fresh
+    assert "# prepared guide" in fresh
+    assert "--- TASK GUIDE CONTENT ---" in fresh
 
     telemetry = runner.initial_runtime()
     telemetry["task_session_id"] = "session-d01"
@@ -437,6 +439,7 @@ def test_task_prompt_injects_prepared_task_guide_for_new_and_resumed_turns(tmp_p
     resumed = runner._task_prompt(repo, production, task, telemetry, capsule)
     assert "RESUME_EXISTING_TASK_SESSION" in resumed
     assert f"TASK_GUIDE: {guide}" in resumed
+    assert "# prepared guide" in resumed
 
 
 def test_task_prompt_references_compacted_memory_projection(tmp_path: Path):
