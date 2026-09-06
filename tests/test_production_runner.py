@@ -486,3 +486,48 @@ def test_local_resource_assist_failure_is_non_blocking_and_recorded(tmp_path: Pa
     assert runner._ensure_local_resource_assist(tmp_path, "D02-01", projection, journal) is None
     failures = [json.loads(line) for line in (tmp_path / "failures.jsonl").read_text().splitlines()]
     assert failures[-1]["failure_type"] == "resource.local_assist_failed"
+
+
+def test_runtime_failure_does_not_cooldown_model():
+    telemetry = runner.initial_runtime()
+    route = routing.Route("gpt-6-astra", "ultra")
+    runner._set_failure(telemetry, route, "ActiveTurnOutputSchemaMismatch", "D01-030")
+    assert telemetry["status"] == "RECOVERING_RUNTIME"
+    assert "gpt-6-astra" not in telemetry.get("cooldowns", {})
+    assert telemetry["last_result"]["status"] == "RUNTIME_RECOVERY"
+
+
+def test_stale_resume_schema_error_is_classified_for_session_rotation():
+    assert runner._is_stale_resume_error("turn/start failed: ActiveTurnOutputSchemaMismatch (code -32603)")
+    assert not runner._is_stale_resume_error("usage_limit_exceeded")
+    assert not runner._is_stale_resume_error("ordinary build failure")
+
+
+def test_stale_resume_rotates_session_and_retries_same_astra_route(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime_root = tmp_path / "runtime"
+    runtime_root.mkdir()
+    production = state.load_project_production(project)
+    task = state.find_task(production, "D01-030")
+    telemetry = runner.initial_runtime()
+    telemetry["task_session_id"] = "stale-session"
+    telemetry["session_task_id"] = task.id
+    runner.save_runtime(runtime_root / "runtime.json", telemetry)
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {
+        "gpt-6-astra": {"ultra"}, "gpt-5.6-terra": {"ultra"}
+    })
+    used = []
+    def resume_command(route, _schema, _output, session_id, **_kwargs):
+        used.append(("resume", route.model, session_id))
+        return [sys.executable, "-c", "import sys; print('ActiveTurnOutputSchemaMismatch', file=sys.stderr); sys.exit(1)"]
+    def new_command(route, _schema, output, _cwd, **_kwargs):
+        used.append(("new", route.model, None))
+        payload = {"task_id":"D01-030","status":"COMPLETE","summary":"done","evidence":["pass"]}
+        code = f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"
+        return [sys.executable, "-c", code]
+    monkeypatch.setattr(runner.routing, "build_codex_resume_command", resume_command)
+    monkeypatch.setattr(runner.routing, "build_codex_command", new_command)
+    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: {"commit":task_id,"tree":"t"})
+    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
+    assert used[:2] == [("resume", "gpt-6-astra", "stale-session"), ("new", "gpt-6-astra", None)]
+    assert all(model != "gpt-5.6-terra" for _kind, model, _session in used)

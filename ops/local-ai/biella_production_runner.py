@@ -415,13 +415,35 @@ def _attempt_paths(runtime_root: Path, telemetry: dict[str, Any], stem: str) -> 
     return attempts / f"{base}.result.json", attempts / f"{base}.stdout.log", attempts / f"{base}.stderr.log"
 
 
+def _is_stale_resume_error(detail: str) -> bool:
+    text = str(detail or "")
+    return any(marker in text for marker in (
+        "ActiveTurnOutputSchemaMismatch",
+        "ActiveTurnInputMismatch",
+        "session not found",
+        "thread not found",
+    ))
+
+
 def _set_failure(telemetry: dict[str, Any], route: routing.Route, detail: str, task_id: str) -> None:
     observed = datetime.now(timezone.utc)
     limited = routing.is_limit_error(detail)
-    retry_at = routing.limit_retry_at(detail, observed) if limited else observed + timedelta(minutes=2)
-    telemetry.setdefault("cooldowns", {})[route.model] = retry_at.isoformat()
-    telemetry["status"] = "RECOVERING_MODEL" if limited else "RECOVERING_RUNTIME"
-    telemetry["last_result"] = {"task_id": task_id, "status": "MODEL_RECOVERY" if limited else "RUNTIME_RECOVERY", "summary": detail[-2000:], "evidence": [], "model": route.model, "reasoning": route.reasoning, "retry_at": retry_at.isoformat()}
+    result = {
+        "task_id": task_id,
+        "status": "MODEL_RECOVERY" if limited else "RUNTIME_RECOVERY",
+        "summary": detail[-2000:], "evidence": [],
+        "model": route.model, "reasoning": route.reasoning,
+    }
+    if limited:
+        retry_at = routing.limit_retry_at(detail, observed)
+        telemetry.setdefault("cooldowns", {})[route.model] = retry_at.isoformat()
+        result["retry_at"] = retry_at.isoformat()
+        telemetry["status"] = "RECOVERING_MODEL"
+    else:
+        # Runtime/session/tooling failure is not evidence that the model is unavailable.
+        # Keep the preferred authority route eligible instead of silently falling back.
+        telemetry["status"] = "RECOVERING_RUNTIME"
+    telemetry["last_result"] = result
 
 
 def service_active() -> bool:
@@ -587,6 +609,24 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 allow_helper=_helper_allowed(task.id), event_journal=journal,
             )
             if rc != 0:
+                if resume_session_id and _is_stale_resume_error(error_text):
+                    stale_session_id = resume_session_id
+                    _clear_task_session(telemetry)
+                    telemetry["status"] = "RECOVERING_SESSION"
+                    # Keep the task capsule's verified summary/evidence intact.  This
+                    # recovery record is controller state, not replacement task memory.
+                    telemetry["last_result"] = {
+                        "task_id": f"SESSION:{task.id}", "status": "SESSION_RECOVERY",
+                        "summary": error_text[-1200:], "evidence": [],
+                        "model": route.model, "reasoning": route.reasoning,
+                    }
+                    journal.emit(
+                        "task.session_recovery", task_id=task.id, status="RECOVERED",
+                        text="Stale interrupted Codex session rotated; task bytes and compact memory preserved.",
+                        stale_session_id=stale_session_id, model=route.model, reasoning=route.reasoning,
+                    )
+                    _beat(runtime_path, telemetry)
+                    continue
                 _set_failure(telemetry, route, error_text, task.id)
                 journal.emit("task.runtime_recovery", task_id=task.id, status=telemetry.get("status"), text=error_text[-1200:])
                 _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
