@@ -57,10 +57,15 @@ def fixture(tmp_path: Path):
         "task_id":"T2","task_class":"hard_creation","summary":"partial world work",
         "evidence":["editor build pass"],"session_id":"sess","dirty_paths":["a.cpp"]
     }))
-    (runtime / "failures.jsonl").write_text(json.dumps({
-        "schema":"biella.failure_event/v1","seq":1,"time":"now","failure_type":"tool.completed",
-        "status":"FAILED","task_id":"T2","text":"verify","detail":"nav failed"
-    })+"\n")
+    failures = [
+        {"schema":"biella.failure_event/v1","seq":1,"time":"now","failure_type":"tool.completed",
+         "status":"FAILED","task_id":"T2","tool":"shell","exit_code":1,"text":"rg optional path","detail":"no match"},
+        {"schema":"biella.failure_event/v1","seq":2,"time":"later","failure_type":"bounded_search",
+         "status":"RECOVERED","task_id":"T2","detail":"bounded search recovered"},
+        {"schema":"biella.failure_event/v1","seq":3,"time":"latest","failure_type":"runtime_validation",
+         "status":"CONTINUE","task_id":"T2","detail":"nav failed"},
+    ]
+    (runtime / "failures.jsonl").write_text("".join(json.dumps(row)+"\n" for row in failures))
     return repo, project, runtime
 
 
@@ -87,7 +92,20 @@ def test_projection_is_bounded_project_aware_and_preserves_refs(tmp_path: Path):
     projection = json.loads(result.projection_path.read_text())
     assert projection["task_id"] == "T2"
     assert projection["task_memory"]["summary"] == "partial world work"
+    assert [row["failure_type"] for row in projection["failures"]] == ["runtime_validation"]
     assert projection["failures"][0]["detail"] == "nav failed"
     assert projection["capabilities"]["llm.code"] == ["local"]
     assert projection["source_refs"]
     assert result.projection_path.stat().st_size <= 12000
+
+
+def test_projection_keeps_raw_tool_failures_in_full_index_but_not_active_prompt(tmp_path: Path):
+    repo, project, runtime = fixture(tmp_path)
+    result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
+    index = json.loads(result.index_path.read_text())
+    projection = json.loads(result.projection_path.read_text())
+    failure_texts = [index["content"][ref]["text"] for ref in index["categories"]["failure"]]
+    assert any('"failure_type":"tool.completed"' in text for text in failure_texts)
+    assert any('"status":"RECOVERED"' in text for text in failure_texts)
+    assert all(row.get("failure_type") != "tool.completed" for row in projection["failures"])
+    assert all(str(row.get("status", "")).upper() not in {"RECOVERED", "REPAIRED", "RESOLVED", "PASS", "COMPLETED"} for row in projection["failures"])

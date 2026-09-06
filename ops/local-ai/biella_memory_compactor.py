@@ -252,6 +252,31 @@ def _source_files(repo_root: Path, project_root: Path, runtime_root: Path) -> li
     return [path for path in candidates if path.is_file()]
 
 
+_RESOLVED_FAILURE_STATUSES = {"RECOVERED", "REPAIRED", "RESOLVED", "PASS", "COMPLETED"}
+
+
+def _active_failure_projection(failures: list[Mapping[str, Any]]) -> list[Mapping[str, Any]]:
+    """Keep raw failure history losslessly in the full index, but project blockers, not shell noise.
+
+    Generic tool.completed failures remain in failures.jsonl/compacted-memory.json.  The
+    bounded current-task prompt prefers explicit semantic failures.  If no semantic
+    failure exists, retain at most the two newest unresolved raw tool failures so an
+    otherwise-unclassified tool break is still visible.
+    """
+    semantic: list[Mapping[str, Any]] = []
+    raw_tools: list[Mapping[str, Any]] = []
+    for row in failures:
+        status = str(row.get("status") or "").upper()
+        if status in _RESOLVED_FAILURE_STATUSES:
+            continue
+        failure_type = str(row.get("failure_type") or row.get("type") or "")
+        if failure_type == "tool.completed":
+            raw_tools.append(row)
+            continue
+        semantic.append(row)
+    return semantic[-20:] if semantic else raw_tools[-2:]
+
+
 def _projection(index: Mapping[str, Any], *, current_task_id: str | None,
                 task_memory: Mapping[str, Any] | None, failures: list[Mapping[str, Any]],
                 maximum_chars: int) -> dict[str, Any]:
@@ -278,7 +303,7 @@ def _projection(index: Mapping[str, Any], *, current_task_id: str | None,
         "task_id": current_task_id,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "task_memory": dict(task_memory or {}),
-        "failures": failures[-20:],
+        "failures": _active_failure_projection(failures),
         "capabilities": dict(index.get("capabilities", {})),
         "instruction_refs": list(categories.get("instruction", [])),
         "verified_actions": [
