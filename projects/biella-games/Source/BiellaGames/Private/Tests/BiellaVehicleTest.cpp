@@ -1,6 +1,9 @@
 // Copyright Biella Games. All Rights Reserved.
 #if WITH_DEV_AUTOMATION_TESTS
 #include "BiellaVehicle.h"
+#include "BiellaCharacterAnimInstance.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "BiellaVehiclePresentation.h"
 #include "BiellaWorldContinuity.h"
 #include "BiellaPopulation.h"
@@ -58,6 +61,10 @@ public:
         Csv=TEXT("frame,wall_seconds,wall_ms,sim_ms,phase,x,y,z,yaw,roll,pitch,speed,velocity,contacts,travel,spin,throttle,steering,brake,held,dormant,health,impacts,driver,player_health,ammo,audio,resident_bytes\n");
         bPresentation=FParse::Param(FCommandLine::Get(),TEXT("BiellaVehiclePresentation"));
         bPresentationDisabled=FParse::Param(FCommandLine::Get(),TEXT("BiellaVehiclePresentationDisabled"));
+        bDriver=FParse::Param(FCommandLine::Get(),TEXT("BiellaDriverPresentation"));
+        bDriverDisabled=FParse::Param(FCommandLine::Get(),TEXT("BiellaDriverPresentationDisabled"));
+        if (bDriver) { IConsoleManager::Get().FindConsoleVariable(TEXT("biella.Animation.DriverPose"))->Set(bDriverDisabled ? 0:1,ECVF_SetByCode); }
+        DriverCsv=TEXT("frame,phase,mounted,alive,enabled,stable,visible,blockout,seated,pelvis_error,feet_error,hands_error,length_error,root_error,wheel_visible,wheel_collision,action_weight,steering,grip_error,wheel_expected\n");
         PoseCsv=TEXT("frame,phase,rig_visible,dormant,updates,wheel_error,axle_error,spin_error,link_error,root_error,paint_error,body_visible,cosmetic_collision,rigid_visible,rigid_center_error,rigid_axle_error,rigid_spin_error,rigid_radius_error,rigid_body_error\n");
         if (bPresentation) { IConsoleManager::Get().FindConsoleVariable(TEXT("biella.Vehicle.SkeletalPresentation"))->Set(bPresentationDisabled ? 0:1,ECVF_SetByCode); }
     }
@@ -95,6 +102,12 @@ public:
                     Check(PoseFrames>300 && (bPresentationDisabled || (VisibleFrames>200 && MaxWheelError<.1 && MaxAxleError<.1 && MaxSpinError<.1 && MaxLinkError<.1)),TEXT("Evaluated rig follows wheel and suspension state"));
                     Check(FallbackFrames>10 && DormantFrames>10,TEXT("Fallback and dormant presentation sampled"));
                 }
+                if (bDriver)
+                {
+                    Check(DriverFrames>300 && (bDriverDisabled || SeatedFrames>200),TEXT("Driver pose evaluated across actual driving"));
+                    Check(DriverFallbackFrames>10 && DriverExitFrames>10 && DriverDefeatFrames>10,TEXT("Driver fallback exit and defeat observed"));
+                    Check(P && !P->GetVehicle() && !Cast<UBiellaCharacterAnimInstance>(P->CharacterMesh->GetAnimInstance())->GetPresentationSample().bSeated,TEXT("Restart clears seat pose"));
+                }
                 Event(TEXT("restart_clean")); return Finish(true,TEXT(""));
             }
             return false;
@@ -131,6 +144,24 @@ public:
         }
         else if (Phase==2 && Age>0.35)
         {
+            if (bDriver)
+            {
+                if (!bDriverCamera)
+                {
+                    Car->CameraBoom->TargetArmLength=230; Car->CameraBoom->SocketOffset=FVector(0,0,50);
+                    Car->CameraBoom->SetRelativeRotation(FRotator(-10,65,0)); bDriverCamera=true;
+                }
+                if (Age>.8 && !bDriverCaptured) { Capture(TEXT("cockpit")); bDriverCaptured=true; }
+                if (Age>1.2 && !FScreenshotRequest::IsScreenshotRequested() && !bDriverFrontCamera)
+                {
+                    Car->CameraBoom->TargetArmLength=180; Car->CameraBoom->SocketOffset=FVector(0,0,25);
+                    Car->CameraBoom->SetRelativeRotation(FRotator(-8,135,0)); bDriverFrontCamera=true;
+                }
+                if (Age>1.65 && !bDriverFrontCaptured) { Capture(TEXT("cockpit_front")); bDriverFrontCaptured=true; }
+                if (Age<2.2 || FScreenshotRequest::IsScreenshotRequested()) { return false; }
+                Car->CameraBoom->TargetArmLength=750; Car->CameraBoom->SocketOffset=FVector(0,0,180);
+                Car->CameraBoom->SetRelativeRotation(FRotator(-14,0,0));
+            }
             Key(EKeys::E,false);
             Check(Car->GetDriver()==Player.Get() && Player->GetVehicle()==Car.Get() && PC->GetPawn()==Player.Get(),TEXT("E mounts existing possessed player"));
             Check(!Player->GetActorEnableCollision() && !Player->PawnMovement->IsComponentTickEnabled(),TEXT("Walking physics suspended while mounted"));
@@ -332,6 +363,82 @@ private:
             static_cast<unsigned long long>(GFrameCounter),Now-Started,(Now-LastWall)*1000,FApp::GetDeltaTime()*1000,Phase,At.X,At.Y,At.Z,R.Yaw,R.Roll,R.Pitch,Car->GetSpeed(),Car->Chassis->GetPhysicsLinearVelocity().Size(),Car->GetContactCount(),Car->GetWheelTravel(0),Car->GetWheelSpin(),Car->GetThrottle(),Car->GetSteering(),Car->IsBraking(),Car->IsHeld(),Car->IsParkedDormant(),Car->GetHealth(),Car->GetImpactCount(),Car->GetDriver()!=nullptr,Player->GetHealth(),Player->GetAmmo(),Car->EngineAudio->IsPlaying(),static_cast<unsigned long long>(FPlatformMemory::GetStats().UsedPhysical));
         LastWall=Now;
         if (bPresentation) { SamplePresentation(); }
+        if (bDriver) { SampleDriver(); }
+    }
+    void SampleDriver()
+    {
+        auto* Mesh=Player->CharacterMesh.Get();
+        auto* Anim=Cast<UBiellaCharacterAnimInstance>(Mesh->GetAnimInstance());
+        if (!Check(Anim!=nullptr,TEXT("Driver retains shared animation instance"))) { return; }
+        const auto& Sample=Anim->GetPresentationSample();
+        const bool Mounted=Player->GetVehicle()==Car.Get(), Alive=!Player->IsDefeated();
+        const bool Enabled=Mounted && Alive && Player->IsSkeletalDriverEnabled();
+        const bool WheelExpected=Car->IsCockpitReady() && !Car->IsParkedDormant();
+        const int32 State=int32(Mounted)+2*int32(Alive)+4*int32(Enabled)+8*int32(WheelExpected);
+        StableDriverFrames=State==LastDriverState ? StableDriverFrames+1:0; LastDriverState=State;
+        const bool Stable=StableDriverFrames>=2;
+        double PelvisError=0,FeetError=0,HandsError=0,LengthError=0,RootError=0,GripError=0;
+        auto* Wheel=Car->GetSteeringWheel();
+        const bool WheelCollision=Wheel->GetCollisionEnabled()!=ECollisionEnabled::NoCollision || Wheel->CanEverAffectNavigation();
+        const float Actions=Sample.AimWeight+Sample.FireWeight+Sample.HitWeight+Sample.JumpWeight+Sample.Feet[0].Weight+Sample.Feet[1].Weight;
+        if (Stable)
+        {
+            Check(!WheelCollision && Wheel->GetStaticMesh() && Wheel->IsRenderStateCreated(),TEXT("Cockpit wheel is registered cosmetic geometry"));
+            Check(Wheel->IsVisible()==WheelExpected,TEXT("Cockpit follows vehicle fallback and dormancy"));
+            if (Mounted)
+            {
+                Check(Mesh->IsVisible()==Enabled && Player->BodyMesh->IsVisible()==(Alive && !Enabled),TEXT("Mounted driver has exactly one active representation"));
+                Check(Sample.bSeated==Enabled && !Player->WeaponMesh->IsVisible() && Actions==0,TEXT("Seat state cancels on-foot layers and weapon"));
+                Check(!Player->GetActorEnableCollision() && !Player->PawnMovement->IsComponentTickEnabled(),TEXT("Pose never restores mounted collision or locomotion"));
+                RootError=FVector::Dist(Player->GetRootComponent()->GetRelativeLocation(),FVector(-20,-38,76));
+                RootError+=Player->GetRootComponent()->GetRelativeRotation().Quaternion().AngularDistance(FQuat::Identity);
+                RootError+=FVector::Dist(Mesh->GetRelativeLocation(),FVector(0,0,-88));
+                Check(RootError<.001,TEXT("Seated pose preserves gameplay attachment and mesh origin"));
+                if (Enabled)
+                {
+                    auto InCar=[&](FName Bone) { return Car->GetActorTransform().InverseTransformPosition(Mesh->GetBoneLocation(Bone)); };
+                    PelvisError=FVector::Dist(InCar(TEXT("pelvis")),FVector(-4.875,-24.75,-23));
+                    const FName Ends[]={TEXT("foot_l"),TEXT("foot_r"),TEXT("hand_l"),TEXT("hand_r")};
+                    const auto& Ref=Mesh->GetSkeletalMeshAsset()->GetRefSkeleton();
+                    for (int32 I=0;I<4;++I)
+                    {
+                        const float Side=I%2==0 ? -1.f:1.f;
+                        const FVector Target=I<2 ? FVector(65,-24.75+Side*12,-38) : Wheel->GetRelativeTransform().TransformPosition(FVector(-9,Side*16.5,0));
+                        const double Error=FVector::Dist(InCar(Ends[I]),Target);
+                        if (I<2) { FeetError=FMath::Max(FeetError,Error); } else { HandsError=FMath::Max(HandsError,Error); }
+                        int32 Bone=Ref.FindBoneIndex(Ends[I]);
+                        for (int32 J=0;J<2;++J)
+                        {
+                            const int32 Parent=Ref.GetParentIndex(Bone);
+                            const double Actual=FVector::Dist(Mesh->GetBoneLocation(Ref.GetBoneName(Bone),EBoneSpaces::ComponentSpace),Mesh->GetBoneLocation(Ref.GetBoneName(Parent),EBoneSpaces::ComponentSpace));
+                            LengthError=FMath::Max(LengthError,FMath::Abs(Actual-Ref.GetRefBonePose()[Bone].GetLocation().Size())); Bone=Parent;
+                        }
+                    }
+                    for (const TCHAR* Side:{TEXT("l"),TEXT("r")})
+                    {
+                        auto InWheel=[&](const TCHAR* Prefix) { return Wheel->GetComponentTransform().InverseTransformPosition(Mesh->GetBoneLocation(FName(*FString::Printf(TEXT("%s_%s"),Prefix,Side)))); };
+                        const FVector Outer=InWheel(TEXT("middle_01")),Inner=InWheel(TEXT("middle_03")),Thumb=InWheel(TEXT("thumb_03"));
+                        const double OuterRadius=FVector2D(Outer.Y,Outer.Z).Size(),InnerRadius=FVector2D(Inner.Y,Inner.Z).Size();
+                        // Physical rim radius is 14 cm: curled fingers must
+                        // span its outer and inner edges, with the thumb above.
+                        for (double Error:{16.-OuterRadius,OuterRadius-19.,9.-InnerRadius,InnerRadius-14.,FMath::Abs(Outer.X)-5.,FMath::Abs(Inner.X)-5.,2.5-Thumb.Z})
+                        { GripError=FMath::Max(GripError,Error); }
+                    }
+                    Check(GripError<.001,TEXT("Evaluated fingers curl around both moving rim grips with thumbs above"));
+                    if (FMath::Max3(PelvisError,FeetError,HandsError)>=.5 || LengthError>=.05)
+                    { UE_LOG(LogTemp,Error,TEXT("D03_DRIVER_CONTACT pelvis=%.4f feet=%.4f hands=%.4f length=%.4f"),PelvisError,FeetError,HandsError,LengthError); }
+                    Check(FMath::Max3(PelvisError,FeetError,HandsError)<.5 && LengthError<.05,TEXT("Evaluated driver reaches seat footwell and moving wheel without limb stretching"));
+                    ++SeatedFrames;
+                }
+                else if (Alive) { ++DriverFallbackFrames; }
+                else { ++DriverDefeatFrames; }
+            }
+            else { Check(!Sample.bSeated,TEXT("Dismount clears seated pose")); if (Phase==13) { ++DriverExitFrames; } }
+        }
+        ++DriverFrames;
+        DriverCsv+=FString::Printf(TEXT("%llu,%d,%d,%d,%d,%d,%d,%d,%d,%.6f,%.6f,%.6f,%.6f,%.6f,%d,%d,%.6f,%.6f,%.6f,%d\n"),
+            static_cast<unsigned long long>(GFrameCounter),Phase,Mounted,Alive,Enabled,Stable,Mesh->IsVisible(),Player->BodyMesh->IsVisible(),Sample.bSeated,
+            PelvisError,FeetError,HandsError,LengthError,RootError,Wheel->IsVisible(),WheelCollision,Actions,Car->GetSteering(),GripError,WheelExpected);
     }
     void SamplePresentation()
     {
@@ -433,6 +540,7 @@ private:
         Saved &= FFileHelper::SaveStringToFile(Events,*FPaths::Combine(Output,TEXT("events.log")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
         Saved &= FFileHelper::SaveStringToFile(Result,*FPaths::Combine(Output,TEXT("result.json")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
         if (bPresentation) { Saved &= FFileHelper::SaveStringToFile(PoseCsv,*FPaths::Combine(Output,TEXT("vehicle-pose.csv")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM); }
+        if (bDriver) { Saved &= FFileHelper::SaveStringToFile(DriverCsv,*FPaths::Combine(Output,TEXT("driver-pose.csv")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM); }
         if (!Good || !Saved) { Test->AddError(FString(TEXT("vehicle_evidence_failed: "))+Error); }
         return true;
     }
@@ -442,6 +550,9 @@ private:
     bool bReload=false,bFinished=false,bRecording=false;
     bool bSupportTested=false;
     bool bPresentation=false,bPresentationDisabled=false,bWasDormant=false;
+    bool bDriver=false,bDriverDisabled=false,bDriverCamera=false,bDriverCaptured=false,bDriverFrontCamera=false,bDriverFrontCaptured=false;
+    int32 DriverFrames=0,SeatedFrames=0,DriverFallbackFrames=0,DriverExitFrames=0,DriverDefeatFrames=0,LastDriverState=-1,StableDriverFrames=0;
+    FString DriverCsv;
     FString PoseCsv;
     int32 PoseFrames=0,VisibleFrames=0,FallbackFrames=0,DormantFrames=0;
     double MaxWheelError=0,MaxAxleError=0,MaxSpinError=0,MaxLinkError=0;

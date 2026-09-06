@@ -1,0 +1,56 @@
+{
+  "schema": "biella.d03_01.seat_increment/v1",
+  "task_id": "D03-01",
+  "increment": "skeletal driver seat and moving steering-wheel grip",
+  "implementation_status": "IMPLEMENTED_VALIDATED",
+  "task_status": "CONTINUE",
+  "created_at": "2026-09-06T13:28:20.086953+00:00",
+  "parent_commit": "00de0861185ab2c09c2593512bfe951ffc9d4266",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "implementation": [
+    "Source/BiellaGames/Private/BiellaCharacterAnimInstance.cpp",
+    "Source/BiellaGames/Public/BiellaCharacterAnimInstance.h",
+    "Source/BiellaGames/Private/BiellaDriverPose.cpp",
+    "Source/BiellaGames/Private/BiellaDriverPose.h",
+    "Source/BiellaGames/Private/BiellaDemoPawn.cpp",
+    "Source/BiellaGames/Public/BiellaDemoPawn.h",
+    "Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+    "Source/BiellaGames/Private/BiellaWorldContinuity.cpp",
+    "Source/BiellaGames/Private/BiellaVehicle.cpp",
+    "Source/BiellaGames/Public/BiellaVehicle.h"
+  ],
+  "validation_sources": [
+    "Source/BiellaGames/Private/Tests/BiellaVehicleTest.cpp",
+    "Source/BiellaGames/Private/Tests/BiellaAnimationTest.cpp",
+    "Source/BiellaGames/Private/Tests/BiellaAimTest.cpp",
+    "Source/BiellaGames/Private/Tests/BiellaActionTest.cpp",
+    "tests/run_d03_01_driver.py",
+    "tests/verify_d03_01_driver.py"
+  ],
+  "native_build": "Build/Presentation/seat-build-06/result.json",
+  "positive": "Build/Presentation/seat-runtime-05/validation.json",
+  "disabled": "Build/Presentation/seat-disabled-02/validation.json",
+  "affected_regressions": [
+    "Build/Presentation/seat-animation-01/validation.json",
+    "Build/Presentation/seat-aim-01/validation.json",
+    "Build/Presentation/seat-actions-01/validation.json"
+  ],
+  "asset_provenance": "SourceAssets/Vehicles/DriverSteeringWheel.provenance.json",
+  "asset_readback": "Build/Presentation/seat-readback-01/result.json",
+  "readback": "Build/Presentation/D03-01-seat-final-readback-01.json",
+  "progress": "Build/Presentation/D03-01-seat-progress.md",
+  "preservation": "Build/Presentation/D03-01-seat-preservation.json",
+  "manifest": "Build/Presentation/D03-01-seat-file-manifest.json",
+  "publication": {
+    "owner": "Auto Feeder",
+    "local_commit_required": true,
+    "remote_publication_claimed": false,
+    "canonical_state_transition_claimed": false
+  },
+  "remaining": [
+    "Other directional/interaction animation and transition/LOD/crowd qualification",
+    "Final production world/lighting/character/weapon/vehicle art",
+    "Broader VFX/audio coverage",
+    "Native frame-time qualification, clean shader/material/PSO launch, supported rendering fallback and packaged play"
+  ]
+}

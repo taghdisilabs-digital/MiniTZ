@@ -22,7 +22,10 @@ struct FBiellaAnimationSample
     float FireTime=0, FireWeight=0, HitTime=0, HitWeight=0;
     FVector AimForward=FVector::ForwardVector, AimRight=FVector::RightVector, AimUp=FVector::UpVector;
     FVector WeaponForward=FVector::ForwardVector;
-    bool bArmed=false;
+    bool bArmed=false, bSeated=false;
+    FVector SeatPelvis=FVector::ZeroVector, SeatFeet[2]{}, SeatHands[2]{}, SeatBends[4]{};
+    FQuat SeatHandRotation[2]{FQuat::Identity,FQuat::Identity};
+    FVector SeatRight=FVector::RightVector;
     FTransform MeshToWorld=FTransform::Identity;
     FBiellaFootContact Feet[2];
     float SoleHeight[2]={0,0};

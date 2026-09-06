@@ -128,7 +128,7 @@ public:
         { Test->TestTrue(TEXT("Native vehicle accepts player"),Vehicle->TryEnter(Player.Get())); Next(12); }
         else if (Phase==12 && Age>.4)
         {
-            Test->TestFalse(TEXT("Seat cancels on-foot mesh"),Mesh->IsVisible() || Mesh->IsComponentTickEnabled());
+            Test->TestTrue(TEXT("Seat evaluates driver pose"),Mesh->IsVisible() && Mesh->IsComponentTickEnabled() && Anim->GetPresentationSample().bSeated);
             Test->TestEqual(TEXT("Seat clears aim sample"),Anim->GetPresentationSample().AimWeight,0.f);
             Test->TestTrue(TEXT("Native vehicle exit succeeds"),Vehicle->TryExit()); Next(13);
         }

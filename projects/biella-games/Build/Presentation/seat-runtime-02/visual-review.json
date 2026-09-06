@@ -1,0 +1,11 @@
+{
+  "task_id": "D03-01",
+  "result": "NEEDS_REVISION",
+  "status": "GENERATED_DRAFT",
+  "capture": "captures/cockpit_front.png",
+  "findings": [
+    "Native seat-runtime-02 passed driving, contact and fallback assertions.",
+    "Front-quarter inspection reveals open hands hanging below the wheel: wrist point contact alone is insufficient."
+  ],
+  "next_action": "Orient mirrored palms to moving wheel and curl fingers from saved reference; validate physical rim span and inspect fresh capture."
+}

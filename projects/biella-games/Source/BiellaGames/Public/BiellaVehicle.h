@@ -50,6 +50,8 @@ public:
     UBiellaVehiclePresentation* GetSkeletalPresentation() const { return PresentationMesh; }
     UStaticMeshComponent* GetPresentationBody() const { return PresentationBody; }
     UStaticMeshComponent* GetPresentationTire(int32 Index) const { return PresentationTires[Index]; }
+    bool IsCockpitReady() const;
+    UStaticMeshComponent* GetSteeringWheel() const { return SteeringWheel; }
     int32 GetHoldCount() const { return Holds; }
     FName GetLastRejection() const { return LastRejection; }
     UPROPERTY(VisibleAnywhere) TObjectPtr<UBoxComponent> Chassis;
@@ -72,6 +74,7 @@ private:
     bool Reject(FName Reason);
     void RestoreDriver(FVector At);
     UPROPERTY() TArray<TObjectPtr<UStaticMeshComponent>> Wheels;
+    UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> SteeringWheel;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UBiellaVehiclePresentation> PresentationMesh;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> PresentationBody;
     UPROPERTY() TArray<TObjectPtr<UStaticMeshComponent>> PresentationTires;
@@ -86,6 +89,7 @@ private:
     FVector StreamingTarget = FVector::ZeroVector, EntryLocation = FVector::ZeroVector;
     FVector WheelMount[4] = {FVector(130,-85,0), FVector(130,85,0), FVector(-130,-85,0), FVector(-130,85,0)};
     float WheelTravel[4] = {60,60,60,60};
+    float CockpitSteer = 0;
     float ThrottleInput = 0, SteeringInput = 0, Health = 100, WheelSpin = 0;
     float LastImpactTime = -10, RejectionUntil = 0;
     bool bBrakeInput = true, bHeld = true, bParkedDormant = false;

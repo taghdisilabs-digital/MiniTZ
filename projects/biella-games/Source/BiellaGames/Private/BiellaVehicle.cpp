@@ -63,6 +63,14 @@ ABiellaVehicle::ABiellaVehicle()
         Tire->SetCanEverAffectNavigation(false);
         PresentationTires.Add(Tire);
     }
+    SteeringWheel=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SteeringWheel"));
+    SteeringWheel->SetupAttachment(Chassis);
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> CockpitWheel(TEXT("/Game/Vehicles/Presentation/SM_DriverSteeringWheel"));
+    SteeringWheel->SetStaticMesh(CockpitWheel.Object);
+    SteeringWheel->SetRelativeLocation(FVector(32,-24.75,14));
+    SteeringWheel->SetRelativeRotation(FRotator(30,0,0));
+    SteeringWheel->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    SteeringWheel->SetCanEverAffectNavigation(false);
     CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("VehicleCameraArm"));
     CameraBoom->SetupAttachment(Chassis);
     CameraBoom->TargetArmLength = 750;
@@ -127,6 +135,7 @@ void ABiellaVehicle::BeginPlay()
     BodyMaterial = Material(FLinearColor(0.12,0.24,0.18));
     auto* Body = BodyMaterial.Get();
     auto* Dark = Material(FLinearColor(0.018,0.022,0.026));
+    SteeringWheel->SetMaterial(0,Dark);
     BrakeMaterial = Material(FLinearColor(0.4,0.01,0.008));
     auto Add = [this](const TCHAR* Name,UStaticMesh* Mesh,FVector At,FVector Scale,UMaterialInterface* M)
     {
@@ -381,6 +390,9 @@ void ABiellaVehicle::OnChassisHit(UPrimitiveComponent*,AActor* Other,UPrimitiveC
     UE_LOG(LogTemp,Display,TEXT("D02_VEHICLE IMPACT other=%s impulse=%.3f delta_v=%.3f health=%.3f"),*Other->GetName(),Impulse.Size(),DeltaV,Health);
 }
 
+bool ABiellaVehicle::IsCockpitReady() const
+{ return CVarBiellaVehicleRig.GetValueOnGameThread()!=0 && PresentationMesh->IsRigReady() && SteeringWheel->GetStaticMesh(); }
+
 void ABiellaVehicle::UpdatePresentation(float Dt)
 {
     WheelSpin=FMath::Fmod(WheelSpin+FMath::RadiansToDegrees(GetSpeed()/38)*Dt,360.0f);
@@ -395,6 +407,9 @@ void ABiellaVehicle::UpdatePresentation(float Dt)
     const bool bRig=CVarBiellaVehicleRig.GetValueOnGameThread()!=0 && PresentationMesh->IsRigReady();
     PresentationMesh->SetVisibility(bRig && !bParkedDormant);
     PresentationBody->SetVisibility(bRig && !bParkedDormant);
+    CockpitSteer=FMath::FInterpConstantTo(CockpitSteer,SteeringInput*55,Dt,180);
+    SteeringWheel->SetRelativeRotation(FRotator(30,0,0).Quaternion()*FQuat(FVector::ForwardVector,FMath::DegreesToRadians(CockpitSteer)));
+    SteeringWheel->SetVisibility(bRig && !bParkedDormant);
     for (const auto& Tire:PresentationTires) { Tire->SetVisibility(bRig && !bParkedDormant); }
     if (bRig && !bParkedDormant)
     {

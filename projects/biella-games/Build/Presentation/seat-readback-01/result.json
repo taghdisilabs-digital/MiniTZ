@@ -1,0 +1,79 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "asset_before": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Vehicles/Presentation/SM_DriverSteeringWheel.uasset",
+    "bytes": 96571,
+    "sha256": "7477ca925e279c31148ab0df6c192e7970ec27f9d9773a159e6616da98301a6b"
+  },
+  "runtime": {
+    "command": [
+      "runuser",
+      "-u",
+      "unreal",
+      "--",
+      "env",
+      "BIELLA_D03_SEAT_REPORT=/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-readback-01/readback.json",
+      "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+      "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+      "-run=pythonscript",
+      "-script=/root/biella/repos/biella-engine/projects/biella-games/Content/Python/import_driver_wheel.py",
+      "-EnablePlugins=PythonScriptPlugin",
+      "-unattended",
+      "-nullrhi",
+      "-nosound",
+      "-nop4",
+      "-stdout",
+      "-FullStdOutLogOutput",
+      "-ExecCmds=Interchange.FeatureFlags.Import.FBX 0",
+      "-D03VerifyDriverWheel"
+    ],
+    "returncode": 0,
+    "timed_out": false,
+    "elapsed_seconds": 15.481175913999323,
+    "timeout_seconds": 90,
+    "log": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-readback-01/runtime.stdout.log",
+      "sha256": "c6785d470010539a5229537bbe193bebffce56aca167a3812f3a96e21210bce4",
+      "bytes": 215159
+    },
+    "log_finalization": {
+      "closed": true,
+      "elapsed_seconds": 3.49690746399574,
+      "timeout_seconds": 45,
+      "observed_writers": [
+        {
+          "pid": 2352679,
+          "fd": "1"
+        },
+        {
+          "pid": 2352679,
+          "fd": "2"
+        }
+      ],
+      "remaining_writers": []
+    },
+    "observed_engine_processes": []
+  },
+  "asset_after": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Vehicles/Presentation/SM_DriverSteeringWheel.uasset",
+    "bytes": 96571,
+    "sha256": "7477ca925e279c31148ab0df6c192e7970ec27f9d9773a159e6616da98301a6b"
+  },
+  "readback": {
+    "result": "PASS",
+    "mode": "readback",
+    "asset": "/Game/Vehicles/Presentation/SM_DriverSteeringWheel.SM_DriverSteeringWheel",
+    "extent": [
+      1.5000003576278687,
+      15.350000381469727,
+      15.350000381469727
+    ],
+    "origin": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "material_slots": 1
+  }
+}

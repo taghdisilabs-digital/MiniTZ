@@ -140,10 +140,10 @@ public:
         }
         else if (Phase==15 && Age>0.6)
         {
-            Test->TestFalse(TEXT("Seat cancels on-foot rig"),Mesh->IsVisible() || Mesh->IsComponentTickEnabled());
-            Test->TestTrue(TEXT("Seat preserves fitted predecessor body"),Player->BodyMesh->IsVisible());
+            Test->TestTrue(TEXT("Seat evaluates skeletal driver"),Mesh->IsVisible() && Mesh->IsComponentTickEnabled() && Cast<UBiellaCharacterAnimInstance>(Mesh->GetAnimInstance())->GetPresentationSample().bSeated);
+            Test->TestFalse(TEXT("Seat replaces fitted predecessor body"),Player->BodyMesh->IsVisible());
             Test->TestFalse(TEXT("Seat hides held weapon"),Player->WeaponMesh->IsVisible());
-            CheckInsignia(Player.Get(),false); Capture(TEXT("seat")); Next(16);
+            CheckInsignia(Player.Get(),true); Capture(TEXT("seat")); Next(16);
         }
         else if (Phase==16 && Age>0.4)
         {

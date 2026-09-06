@@ -170,7 +170,12 @@ public:
             CheckQuiet(TEXT("seat_cancelled"),false); Next(19);
         }
         else if (Phase==19 && Age>.2)
-        { Test->TestFalse(TEXT("Seat suspends skeletal tick"),Mesh->IsComponentTickEnabled()); Test->TestTrue(TEXT("Native vehicle exit succeeds"),Vehicle->TryExit()); Next(20); }
+        {
+            Test->TestTrue(TEXT("Seat evaluates driver pose"),Mesh->IsVisible() && Mesh->IsComponentTickEnabled() && Anim->GetPresentationSample().bSeated);
+            Test->TestEqual(TEXT("Seat keeps shot reaction cancelled"),Anim->GetPresentationSample().FireWeight,0.f);
+            Test->TestEqual(TEXT("Seat keeps hit reaction cancelled"),Anim->GetPresentationSample().HitWeight,0.f);
+            Test->TestTrue(TEXT("Native vehicle exit succeeds"),Vehicle->TryExit()); Next(20);
+        }
         else if (Phase==20 && Age>.8) { CheckQuiet(TEXT("dismount_no_replay")); Next(21); }
         else if (Phase==21 && Age>.12)
         {

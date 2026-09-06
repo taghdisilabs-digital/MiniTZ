@@ -195,8 +195,8 @@ bool ABiellaStreamingCharacter::RequestRelocation(FVector Destination)
 
 void ABiellaStreamingCharacter::Tick(float DeltaTime)
 {
+    Super::Tick(DeltaTime); // Shared presentation still ticks while mounted.
     if (GetVehicle()) { return; } // The attached pawn follows Chaos, never floor-snaps the chassis.
-    Super::Tick(DeltaTime);
     if (IsDefeated())
     {
         if (bRelocationPending)

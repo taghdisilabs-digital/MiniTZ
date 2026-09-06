@@ -1,0 +1,609 @@
+{
+  "schema": "biella.d03_01.seat_readback/v1",
+  "task_id": "D03-01",
+  "task_status": "CONTINUE",
+  "result": "PASS",
+  "time": "2026-09-06T13:26:24.646058+00:00",
+  "common_input_identities": 325,
+  "unique_input_identities": 332,
+  "all_inputs_match_current_bytes": true,
+  "build_source_files": 83,
+  "build_source_matches_runtime": true,
+  "native_build": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-build-06/result.json",
+    "bytes": 113,
+    "sha256": "7ed099df0b620e2e662a9b3a3a1cc3e6172a2e334ea82a617cf4805d2f6a0bb7"
+  },
+  "module": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/libUnrealEditor-BiellaGames.so",
+    "bytes": 2305184,
+    "sha256": "966c07505d67ec0b36ad7ed8b3c82d65bacb02c93c2d928acfe62854916f127f"
+  },
+  "runtimes": [
+    {
+      "report": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/validation.json",
+        "bytes": 176245,
+        "sha256": "b6e8d38a76e6e0f915dad56f27ac91563de3f21bb44a752eca82d44fcc485655"
+      },
+      "result": "PASS",
+      "log_closed": true,
+      "verification": {
+        "result": "PASS",
+        "vehicle": {
+          "result": "PASS",
+          "driving": {
+            "result": "PASS",
+            "all_frames": {
+              "frames": 2343,
+              "wall_seconds": 40.711710583,
+              "p50_ms": 16.797229,
+              "p95_ms": 19.771314,
+              "p99_ms": 21.329317,
+              "max_ms": 744.510368,
+              "peak_resident_bytes": 3165298688.0
+            },
+            "driving": {
+              "frames": 559,
+              "wall_seconds": 9.346708498,
+              "p50_ms": 16.800081,
+              "p95_ms": 19.394006,
+              "p99_ms": 21.041651,
+              "max_ms": 40.832776,
+              "peak_resident_bytes": 3138834432.0
+            },
+            "distance_cm": 6479.7286,
+            "max_speed_kmh": 48.2716332,
+            "collision_health": 60.0,
+            "audio": {
+              "seconds": 18.688,
+              "rate": 48000,
+              "channels": 6,
+              "rms": 0.01681413462539328
+            },
+            "files": [
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/result.json",
+                "size_bytes": 84,
+                "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/frames.csv",
+                "size_bytes": 417826,
+                "sha256": "8423ef61704816c9555e0b879a2b6b2c814ab0cc3676f30eeae599ce58a70376"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/events.log",
+                "size_bytes": 1659,
+                "sha256": "13ffddf8c83dd438acf87c3004389f5430c3489a1cce7d8bb8e0e00e4f13b2f7"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/runtime.stdout.log",
+                "size_bytes": 396004,
+                "sha256": "3398c3019ab9f32b8df82524c5bd2bfef6370f55b381311bf8188a3abae1d839"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/runtime.engine.log",
+                "size_bytes": 396603,
+                "sha256": "aaba11fc71e253b4b476d9254aeb1678d632c1e7cc796bc02da04d84d684c35f"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/captures/approach.png",
+                "size_bytes": 1010406,
+                "sha256": "674986af8ed37edd9f2b25ebdc4ccfd37eaf4857c52e80b972280df944258725"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/captures/driving.png",
+                "size_bytes": 948369,
+                "sha256": "376b0f585dcc67f971fcb2c4ea9e5a683038c4e8dc78b351663332094e6535d2"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/captures/impact.png",
+                "size_bytes": 943414,
+                "sha256": "a5d43d62f423965ca89421727e5271ea6ecac0cbea57463e0d8de418d26ab2d6"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/captures/exited.png",
+                "size_bytes": 971305,
+                "sha256": "bd76f083e65741165f898621233fe526db318dc1eb1ccb6b2e27743c6e70360a"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/captures/disabled.png",
+                "size_bytes": 274808,
+                "sha256": "5b302d5eb4262b91a5430131c26e9054fd8c7c1d14306899f8970b81b7fc7def"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/vehicle.wav",
+                "size_bytes": 10764332,
+                "sha256": "49293d6beafa791f9f58895c7484af05d10f6005bd816d94af5264a35788cdf9"
+              }
+            ]
+          },
+          "pose_frames": 2343,
+          "visible_frames": 1982,
+          "fallback_frames": 66.0,
+          "dormant_frames": 295.0,
+          "max_errors": {
+            "wheel_error": 0.0,
+            "axle_error": 2e-06,
+            "spin_error": 3e-06,
+            "link_error": 0.0,
+            "root_error": 0.0,
+            "paint_error": 0.0,
+            "rigid_center_error": 0.0,
+            "rigid_axle_error": 1e-06,
+            "rigid_spin_error": 6e-06,
+            "rigid_radius_error": 0.0,
+            "rigid_body_error": 0.0
+          },
+          "measurement_scope": "Actual native frames with 60fps cap, streaming, readback and captures included; not clean performance or PSO qualification"
+        },
+        "driver_frames": 2343,
+        "seated_frames": 1456,
+        "fallback_frames": 64,
+        "max_errors": {
+          "pelvis_error": 0.0,
+          "feet_error": 0.0,
+          "hands_error": 0.0,
+          "length_error": 7.6e-05,
+          "grip_error": 0.0
+        }
+      }
+    },
+    {
+      "report": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/validation.json",
+        "bytes": 176232,
+        "sha256": "ab55dadbf6d5d4a4764a6b0c85c18b77dbee8e71e38f8e8517ca6895923a1d08"
+      },
+      "result": "EXPECTED_NEGATIVE_CONTROL",
+      "log_closed": true,
+      "verification": {
+        "result": "EXPECTED_NEGATIVE_CONTROL",
+        "vehicle": {
+          "result": "PASS",
+          "driving": {
+            "result": "PASS",
+            "all_frames": {
+              "frames": 2350,
+              "wall_seconds": 40.648681402,
+              "p50_ms": 16.857342,
+              "p95_ms": 20.200542,
+              "p99_ms": 21.611833,
+              "max_ms": 633.239304,
+              "peak_resident_bytes": 3157897216.0
+            },
+            "driving": {
+              "frames": 561,
+              "wall_seconds": 9.347573220000001,
+              "p50_ms": 16.805381,
+              "p95_ms": 20.011858,
+              "p99_ms": 21.527992,
+              "max_ms": 23.987334,
+              "peak_resident_bytes": 3137736704.0
+            },
+            "distance_cm": 6489.7955999999995,
+            "max_speed_kmh": 48.3076548,
+            "collision_health": 60.0,
+            "audio": {
+              "seconds": 18.688,
+              "rate": 48000,
+              "channels": 6,
+              "rms": 0.016819691962413886
+            },
+            "files": [
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/result.json",
+                "size_bytes": 84,
+                "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/frames.csv",
+                "size_bytes": 418870,
+                "sha256": "c5b21634cf83e1dd2d695477aad46b714991274006990b352ef69d56101118b9"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/events.log",
+                "size_bytes": 1658,
+                "sha256": "5e8e6003933dbee9bbbbdac808efd5c7286ab0a097f684294476e0215e1a24a9"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/runtime.stdout.log",
+                "size_bytes": 404887,
+                "sha256": "aaed07a9c709cbe86bec053f1af1f7b9b9fa8add730999d15c30169757e09bab"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/runtime.engine.log",
+                "size_bytes": 405511,
+                "sha256": "f998cc4d3c63df04cde837e64520812286eaa37fb1699d944a80ff220faa8669"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/captures/approach.png",
+                "size_bytes": 1011287,
+                "sha256": "139d5ffce7e7df4bfb47b166be95c8cda6728280091685f443e669b0155d1c41"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/captures/driving.png",
+                "size_bytes": 955288,
+                "sha256": "6983b9defdaa5f05535ece0282741112cba55dc61d801bffe4038bbd3870b948"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/captures/impact.png",
+                "size_bytes": 944086,
+                "sha256": "1327285d8e3abcd4514310a69af5a05fcf96103186844cc93515f4bfb02b7c9c"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/captures/exited.png",
+                "size_bytes": 974232,
+                "sha256": "ef172f3702b5984a426663fdfc892503f64a9bad51e1bd0d8684a7b9dbd5fec5"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/captures/disabled.png",
+                "size_bytes": 275610,
+                "sha256": "c16160d983b9f97f258dff28d4334322bf97d7f1742025b6980f80b14a7a69e6"
+              },
+              {
+                "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/vehicle.wav",
+                "size_bytes": 10764332,
+                "sha256": "e64b58d53c2f8eeb9a5a6eb6fc555573d3697ee2e9b391086763e075732487f4"
+              }
+            ]
+          },
+          "pose_frames": 2350,
+          "visible_frames": 1988,
+          "fallback_frames": 66.0,
+          "dormant_frames": 296.0,
+          "max_errors": {
+            "wheel_error": 0.0,
+            "axle_error": 2e-06,
+            "spin_error": 3e-06,
+            "link_error": 0.0,
+            "root_error": 0.0,
+            "paint_error": 0.0,
+            "rigid_center_error": 0.0,
+            "rigid_axle_error": 1e-06,
+            "rigid_spin_error": 6e-06,
+            "rigid_radius_error": 0.0,
+            "rigid_body_error": 0.0
+          },
+          "measurement_scope": "Actual native frames with 60fps cap, streaming, readback and captures included; not clean performance or PSO qualification"
+        },
+        "driver_frames": 2350,
+        "seated_frames": 0,
+        "fallback_frames": 1522,
+        "max_errors": {
+          "pelvis_error": 0,
+          "feet_error": 0,
+          "hands_error": 0,
+          "length_error": 0,
+          "grip_error": 0
+        }
+      }
+    },
+    {
+      "report": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-animation-01/validation.json",
+        "bytes": 170938,
+        "sha256": "8a2cf50127b59b57f6ee13462a500db9231b1d1d85ac08aaf2689e06a028b18f"
+      },
+      "result": "PASS",
+      "log_closed": true,
+      "pose_frames": 1002
+    },
+    {
+      "report": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-aim-01/validation.json",
+        "bytes": 172313,
+        "sha256": "acf337c2b2b5766d1b0bb3fb1f3e85e6bb1721ce5eb27ba783d805af0b53ad88"
+      },
+      "result": "PASS",
+      "log_closed": true,
+      "pose_frames": 954
+    },
+    {
+      "report": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-actions-01/validation.json",
+        "bytes": 172426,
+        "sha256": "610d919372ff5b696872587caa20e2dc2c22b71c7a1b2546caf9acdc8fc552a2"
+      },
+      "result": "PASS",
+      "log_closed": true,
+      "pose_frames": 943
+    }
+  ],
+  "captures": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/captures/approach.png",
+      "bytes": 1010406,
+      "sha256": "674986af8ed37edd9f2b25ebdc4ccfd37eaf4857c52e80b972280df944258725",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/captures/cockpit.png",
+      "bytes": 1050747,
+      "sha256": "86f192519acba451bf59c95d79b91573b2a120cca735aa12819d8d6136663e0e",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/captures/cockpit_front.png",
+      "bytes": 1040484,
+      "sha256": "54e9b063937eef55b70d3b0e2d6d317e028ca08a4be1c3776c692626aea4a83b",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/captures/disabled.png",
+      "bytes": 274808,
+      "sha256": "5b302d5eb4262b91a5430131c26e9054fd8c7c1d14306899f8970b81b7fc7def",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/captures/driving.png",
+      "bytes": 948369,
+      "sha256": "376b0f585dcc67f971fcb2c4ea9e5a683038c4e8dc78b351663332094e6535d2",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/captures/exited.png",
+      "bytes": 971305,
+      "sha256": "bd76f083e65741165f898621233fe526db318dc1eb1ccb6b2e27743c6e70360a",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-runtime-05/captures/impact.png",
+      "bytes": 943414,
+      "sha256": "a5d43d62f423965ca89421727e5271ea6ecac0cbea57463e0d8de418d26ab2d6",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/captures/approach.png",
+      "bytes": 1011287,
+      "sha256": "139d5ffce7e7df4bfb47b166be95c8cda6728280091685f443e669b0155d1c41",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/captures/cockpit.png",
+      "bytes": 1043670,
+      "sha256": "9347465a37ccb87ba4438e582185accdbe1c87252935f7186354f256e1de4552",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/captures/cockpit_front.png",
+      "bytes": 1002966,
+      "sha256": "3acf1dfc7756c10f55f4ea0bc3c7c45a37bd21fa39999d3503c941ba5d503ef6",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/captures/disabled.png",
+      "bytes": 275610,
+      "sha256": "c16160d983b9f97f258dff28d4334322bf97d7f1742025b6980f80b14a7a69e6",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/captures/driving.png",
+      "bytes": 955288,
+      "sha256": "6983b9defdaa5f05535ece0282741112cba55dc61d801bffe4038bbd3870b948",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/captures/exited.png",
+      "bytes": 974232,
+      "sha256": "ef172f3702b5984a426663fdfc892503f64a9bad51e1bd0d8684a7b9dbd5fec5",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-disabled-02/captures/impact.png",
+      "bytes": 944086,
+      "sha256": "1327285d8e3abcd4514310a69af5a05fcf96103186844cc93515f4bfb02b7c9c",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-animation-01/captures/backward.png",
+      "bytes": 994341,
+      "sha256": "e6ce3f8a5c8cb42adeceea78f72d94510bccbd868c32a182b3301b5839066706",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-animation-01/captures/dismount.png",
+      "bytes": 1021508,
+      "sha256": "a5c36eadf81441fe52848e88a79b1c3d548feec00eff17b29a2092de7fa632a2",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-animation-01/captures/forward.png",
+      "bytes": 979452,
+      "sha256": "7da63974123388db2e33f98a32430f5cb73f60749d3219642948f3a41d7699fa",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-animation-01/captures/idle.png",
+      "bytes": 953548,
+      "sha256": "549eea3cf862f0d0ee65d85d476847efd249f0b4f4bf8204de2657e0f244d889",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-animation-01/captures/jump.png",
+      "bytes": 1005757,
+      "sha256": "1afbb8508e43a050b72432c0d753296486c9d9a7664366792204cd7af0f3a316",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-animation-01/captures/land.png",
+      "bytes": 945759,
+      "sha256": "23f2740fe03d0d147f7ff0825fad442d9b619581f1fe25c9aaddb71d71a42c3b",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-animation-01/captures/npc_gaits.png",
+      "bytes": 1024365,
+      "sha256": "f5de1de99fbca27b54bab91b68bef47f63772384eab96ee955319f4760b26d53",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-animation-01/captures/right.png",
+      "bytes": 996321,
+      "sha256": "925921232097ececcdef253f5c55469b7099a20048b833e8c97e80f68fd4e77f",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-animation-01/captures/seat.png",
+      "bytes": 994893,
+      "sha256": "434a4789d51719176e9b812e6a6c610539189e45f0a7247fb66e4ba54a511e70",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-aim-01/captures/after_seat.png",
+      "bytes": 999328,
+      "sha256": "24250c95153fb5c441c5c04b99b54f4ffb12fe2459e8e257d2c03bbdf6a0c65d",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-aim-01/captures/down.png",
+      "bytes": 918995,
+      "sha256": "a8add37744aaad4edab92bedc33a5b17fb9bc2235e0993eac2971234d3f9320a",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-aim-01/captures/jump.png",
+      "bytes": 944782,
+      "sha256": "d044d4b65d1ffd022aa3911c0e0ccb36d89247c4f22914a436327640f452ddf0",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-aim-01/captures/level.png",
+      "bytes": 954234,
+      "sha256": "563a5c1ff8b0a1da530db0727c781d9aa7f2e4ddd3f4acefcee57b3cf32bb2bb",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-aim-01/captures/moving.png",
+      "bytes": 955332,
+      "sha256": "7d977d99cd4216c6adae769481bb40f694607e87a03360180fea7a244e9ff6d5",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-aim-01/captures/up_turned.png",
+      "bytes": 938949,
+      "sha256": "70c09cc4c0d45b85b50364958458d3cc1512c15130754a2740f0a7d70eb58090",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-actions-01/captures/baseline.png",
+      "bytes": 959633,
+      "sha256": "620d5dc17871fffed79af9de8e03efec176e385f59098cfc145d17699e376c75",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-actions-01/captures/fire.png",
+      "bytes": 961788,
+      "sha256": "91a9ccc15d84cd0090e25c8da5d764b5e1c0c91732ba2c7271bceff6677c73e9",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-actions-01/captures/hit.png",
+      "bytes": 962753,
+      "sha256": "b4d95a4d8f91a9f29df35f922db322fca28d37c8e5f152a1b228fbe1fbda3989",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-actions-01/captures/jump.png",
+      "bytes": 983712,
+      "sha256": "ad073cfe87f7e4b1620afde74c697d1626937ea28ede4cd0c559a534cac13978",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-actions-01/captures/overlap.png",
+      "bytes": 963303,
+      "sha256": "789aa93a93982f9957ec7484e026ef81cc0802a615392c7d2df398ce3c42717b",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-actions-01/captures/rival_shot.png",
+      "bytes": 963350,
+      "sha256": "e6cfb6417b576214b13f660dbe0cfafaa0021154f48dcffab52ad78d6c74fcca",
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "asset_provenance": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Vehicles/DriverSteeringWheel.provenance.json",
+    "bytes": 1312,
+    "sha256": "fa332945522d096f9053b02d03b33e996d52241bc88b7f054dd00e842b54bd19"
+  },
+  "asset_inputs": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Vehicles/build_steering_wheel.py",
+      "bytes": 1539,
+      "sha256": "d22ea9d113594147fbfc5cd2f7ff9c779fc2ac78c87cb09ee1d668846cfdb9ba"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Vehicles/DriverSteeringWheel.blend",
+      "bytes": 107811,
+      "sha256": "593b9154e8c3a1355a49bbe849753b85a1eb18f6857ae4ccc81457e6ee2132ab"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Vehicles/DriverSteeringWheel.fbx",
+      "bytes": 32188,
+      "sha256": "8ba2124109529bd458c264e4a943b74fca2ff8a506bc9a84bad2ecfa6a228ef0"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Python/import_driver_wheel.py",
+      "bytes": 1952,
+      "sha256": "11293e687b6ce284385caae4bf7016573a3784395dc201b3816b1be8d8336eba"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Vehicles/Presentation/SM_DriverSteeringWheel.uasset",
+      "bytes": 96571,
+      "sha256": "7477ca925e279c31148ab0df6c192e7970ec27f9d9773a159e6616da98301a6b"
+    }
+  ],
+  "native_asset_readback": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/seat-readback-01/result.json",
+    "bytes": 2415,
+    "sha256": "48f286b3f2d75d58b35b4b327336edacf52725a9116cfa1568cb00403c6293c5"
+  },
+  "preservation": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/D03-01-seat-preservation.json",
+    "bytes": 13708,
+    "sha256": "59165f3c20663e286210092377c8d288df4ae93b067df03645bdf3a1feec5232"
+  },
+  "capture_status": "GENERATED_DRAFT",
+  "limitations": [
+    "Capped native integration frames include streaming, readback and capture costs; no clean performance, PSO or packaged qualification.",
+    "Project-authored wheel is GENERATED_DRAFT; installed character and vehicle are integration resources, not final art.",
+    "Existing playable world still contains blockout art; full D03-01 remains open."
+  ]
+}

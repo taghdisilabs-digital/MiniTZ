@@ -1,0 +1,37 @@
+{
+  "task_id": "D03-01",
+  "status": "GENERATED_DRAFT",
+  "origin": "Project-authored procedural Blender mesh; no external image or mesh generator",
+  "tool": "Blender 5.0.1",
+  "unit": "centimeter",
+  "axis": "X steering axis; YZ rim",
+  "source_geometry": "Build/Presentation/seat-geometry-02/readback.json",
+  "native_import": "Build/Presentation/seat-import-02/readback.json",
+  "inputs": [
+    {
+      "path": "SourceAssets/Vehicles/build_steering_wheel.py",
+      "sha256": "d22ea9d113594147fbfc5cd2f7ff9c779fc2ac78c87cb09ee1d668846cfdb9ba",
+      "bytes": 1539
+    },
+    {
+      "path": "SourceAssets/Vehicles/DriverSteeringWheel.blend",
+      "sha256": "593b9154e8c3a1355a49bbe849753b85a1eb18f6857ae4ccc81457e6ee2132ab",
+      "bytes": 107811
+    },
+    {
+      "path": "SourceAssets/Vehicles/DriverSteeringWheel.fbx",
+      "sha256": "8ba2124109529bd458c264e4a943b74fca2ff8a506bc9a84bad2ecfa6a228ef0",
+      "bytes": 32188
+    },
+    {
+      "path": "Content/Python/import_driver_wheel.py",
+      "sha256": "11293e687b6ce284385caae4bf7016573a3784395dc201b3816b1be8d8336eba",
+      "bytes": 1952
+    },
+    {
+      "path": "Content/Vehicles/Presentation/SM_DriverSteeringWheel.uasset",
+      "sha256": "7477ca925e279c31148ab0df6c192e7970ec27f9d9773a159e6616da98301a6b",
+      "bytes": 96571
+    }
+  ]
+}

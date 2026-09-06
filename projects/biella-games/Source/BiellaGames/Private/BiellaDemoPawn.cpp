@@ -5,6 +5,8 @@
 #include "BiellaPlaytestTelemetry.h"
 #include "BiellaGameplayFeedback.h"
 #include "BiellaCharacterAnimInstance.h"
+#include "BiellaGamesCharacter.h"
+#include "BiellaVehicle.h"
 #include "BiellaDefeatAnimInstance.h"
 #include "AnimationRuntime.h"
 #include "Components/CapsuleComponent.h"
@@ -19,6 +21,9 @@
 #include "HAL/IConsoleManager.h"
 #include "TimerManager.h"
 #include "PhysicsEngine/PhysicsAsset.h"
+
+static TAutoConsoleVariable<int32> CVarBiellaDriverPose(TEXT("biella.Animation.DriverPose"),1,
+    TEXT("Enable cosmetic skeletal seated driver (0 retains seated blockout)."),ECVF_Scalability);
 
 static TAutoConsoleVariable<int32> CVarBiellaDefeatPresentation(TEXT("biella.Animation.Defeat"),1,
     TEXT("Enable bounded cosmetic defeat presentation (0 disables)."),ECVF_Scalability);
@@ -232,6 +237,7 @@ void ABiellaDemoPawn::BuildRolePresentation()
 
 void ABiellaDemoPawn::Tick(float DeltaTime)
 {
+    if (bSeatedPresentation && !bDefeated && !bWorldDormant && CharacterMesh->IsVisible()!=IsSkeletalDriverEnabled()) { RefreshCharacterPresentation(); }
     if (DefeatMesh && !CVarBiellaDefeatPresentation.GetValueOnGameThread()) { ClearDefeatPresentation(); }
     Super::Tick(DeltaTime);
     if (CombatFlashRemaining > 0.0f)
@@ -321,6 +327,12 @@ float ABiellaDemoPawn::ApplyDemoDamage(float DamageAmount, AActor* DamageCauser,
     return Applied;
 }
 
+bool ABiellaDemoPawn::IsSkeletalDriverEnabled() const
+{
+    const auto* Player=Cast<ABiellaGamesCharacter>(this);
+    return CVarBiellaDriverPose.GetValueOnGameThread()!=0 && Player && Player->GetVehicle() && Player->GetVehicle()->IsCockpitReady();
+}
+
 void ABiellaDemoPawn::SetSeatedPresentation(bool bSeated)
 {
     bSeatedPresentation=bSeated;
@@ -330,16 +342,17 @@ void ABiellaDemoPawn::SetSeatedPresentation(bool bSeated)
 void ABiellaDemoPawn::RefreshCharacterPresentation()
 {
     const bool Active=!bDefeated && !bWorldDormant;
-    CharacterMesh->SetVisibility(Active && !bSeatedPresentation);
-    CharacterMesh->SetComponentTickEnabled(Active && !bSeatedPresentation);
+    const bool Skeletal=Active && (!bSeatedPresentation || IsSkeletalDriverEnabled());
+    CharacterMesh->SetVisibility(Skeletal);
+    CharacterMesh->SetComponentTickEnabled(Skeletal);
     if (auto* Anim=Cast<UBiellaCharacterAnimInstance>(CharacterMesh->GetAnimInstance())) { Anim->ResetMotionSample(); }
-    BodyMesh->SetVisibility(Active && bSeatedPresentation);
+    BodyMesh->SetVisibility(Active && !Skeletal);
     for (UStaticMeshComponent* Detail:RoleDetails)
     {
-        Detail->SetVisibility(Active && bSeatedPresentation);
+        Detail->SetVisibility(Active && !Skeletal);
     }
     for (UStaticMeshComponent* Detail:SkeletalRoleDetails)
-    { Detail->SetVisibility(Active && !bSeatedPresentation); }
+    { Detail->SetVisibility(Skeletal); }
 }
 
 void ABiellaDemoPawn::SetDisplayColor(const FLinearColor& Color)

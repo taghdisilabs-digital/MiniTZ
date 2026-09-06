@@ -83,6 +83,7 @@ public:
     virtual void Defeat(const FString& Reason);
     // Retain the existing fitted seat until the skeletal vehicle pose is qualified.
     void SetSeatedPresentation(bool bSeated);
+    bool IsSkeletalDriverEnabled() const;
     USkeletalMeshComponent* GetDefeatPresentation() const { return DefeatMesh; }
 
 protected:

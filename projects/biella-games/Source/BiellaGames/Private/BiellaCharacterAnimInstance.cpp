@@ -3,6 +3,8 @@
 #include "BiellaDemoPawn.h"
 #include "BiellaGamesCharacter.h"
 #include "BiellaFootPlacement.h"
+#include "BiellaDriverPose.h"
+#include "BiellaVehicle.h"
 #include "BiellaUpperBodyAim.h"
 #include "BiellaUpperBodyActions.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -39,6 +41,7 @@ struct FBiellaCharacterAnimProxy : FAnimInstanceProxy
     FBiellaFootPlacement Contact;
     FBiellaUpperBodyAim Aim;
     FBiellaUpperBodyActions Actions;
+    FBiellaDriverPose Driver;
     FBiellaAnimationSample Sample;
     virtual void Initialize(UAnimInstance* Instance) override
     {
@@ -51,9 +54,10 @@ struct FBiellaCharacterAnimProxy : FAnimInstanceProxy
         Contact.Input.SetLinkNode(&Root);
         Aim.Input.SetLinkNode(&Contact);
         Actions.Input.SetLinkNode(&Aim); Actions.Fire.SetLinkNode(&Fire); Actions.Hit.SetLinkNode(&Hit);
+        Driver.Input.SetLinkNode(&Actions);
         FAnimInstanceProxy::Initialize(Instance);
     }
-    virtual FAnimNode_Base* GetCustomRootNode() override { return &Actions; }
+    virtual FAnimNode_Base* GetCustomRootNode() override { return &Driver; }
     virtual void PreUpdate(UAnimInstance* Instance,float DeltaSeconds) override
     {
         FAnimInstanceProxy::PreUpdate(Instance,DeltaSeconds);
@@ -61,7 +65,7 @@ struct FBiellaCharacterAnimProxy : FAnimInstanceProxy
         Anim->CaptureGameplay(DeltaSeconds); Sample=Anim->Sample;
         Contact.Sample=Sample;
         Aim.Sample=Sample;
-        Actions.Sample=Sample;
+        Actions.Sample=Sample; Driver.Sample=Sample;
         Ground.SetBlendSpace(Sample.bArmed ? Anim->RifleLocomotion : Anim->UnarmedLocomotion);
     }
     virtual void Update(float) override
@@ -128,7 +132,32 @@ void UBiellaCharacterAnimInstance::CaptureGameplay(float DeltaSeconds)
 {
     const auto* Pawn=Cast<ABiellaDemoPawn>(TryGetPawnOwner());
     const auto* Player=Cast<ABiellaGamesCharacter>(Pawn);
-    if (!Pawn || !Pawn->CanParticipateInCombat() || (Player && Player->GetVehicle())) { ResetMotionSample(); return; }
+    if (!Pawn || !Pawn->CanParticipateInCombat()) { ResetMotionSample(); return; }
+    if (Player && Player->GetVehicle())
+    {
+        ResetMotionSample();
+        Sample.bSeated=Pawn->IsSkeletalDriverEnabled();
+        if (!Sample.bSeated) { return; }
+        const auto* Car=Player->GetVehicle();
+        // Both transforms are attachment-local. Chassis motion cancels out,
+        // avoiding a frame of hand/foot lag during the later Chaos step.
+        const FTransform MeshToCar=GetSkelMeshComponent()->GetRelativeTransform()*Player->GetRootComponent()->GetRelativeTransform();
+        Sample.SeatPelvis=MeshToCar.InverseTransformPosition(FVector(-4.875,-24.75,-23));
+        Sample.SeatRight=MeshToCar.InverseTransformVectorNoScale(FVector::RightVector);
+        for (int32 I=0;I<2;++I)
+        {
+            const float Side=I==0 ? -1.f:1.f;
+            Sample.SeatFeet[I]=MeshToCar.InverseTransformPosition(FVector(65,-24.75+Side*12,-38));
+            const FTransform Wheel=Car->GetSteeringWheel()->GetRelativeTransform();
+            // Wrists sit behind the rim; the palm and curled fingers straddle
+            // it. The mirrored Manny hand axes keep both thumbs on top.
+            Sample.SeatHands[I]=MeshToCar.InverseTransformPosition(Wheel.TransformPosition(FVector(-9,Side*16.5,0)));
+            Sample.SeatHandRotation[I]=MeshToCar.InverseTransformRotation(Wheel.GetRotation()*FQuat(I==0 ? FVector::ForwardVector:FVector::UpVector,PI));
+            Sample.SeatBends[I]=MeshToCar.InverseTransformPosition(FVector(45,-24.75+Side*13,5));
+            Sample.SeatBends[I+2]=MeshToCar.InverseTransformPosition(FVector(8,-24.75+Side*38,0));
+        }
+        return;
+    }
     const double Now=Pawn->GetWorld()->GetTimeSeconds(), Elapsed=Now-PreviousTime;
     const FVector Position=Pawn->GetActorLocation(), Delta=Position-PreviousLocation;
     const bool bDiscontinuity=PreviousTime<0 || Elapsed>=0.25 || Delta.Size()>Pawn->MovementSpeed*FMath::Max(0.0,Elapsed)*2+10;

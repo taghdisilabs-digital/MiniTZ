@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "mode": "readback",
+  "asset": "/Game/Vehicles/Presentation/SM_DriverSteeringWheel.SM_DriverSteeringWheel",
+  "extent": [
+    1.5000003576278687,
+    15.350000381469727,
+    15.350000381469727
+  ],
+  "origin": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "material_slots": 1
+}

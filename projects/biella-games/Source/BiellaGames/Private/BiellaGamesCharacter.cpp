@@ -429,6 +429,7 @@ void ABiellaGamesCharacter::EnsureInputActions()
 void ABiellaGamesCharacter::MountVehicle(ABiellaVehicle* InVehicle)
 {
     Vehicle=InVehicle;
+    CharacterMesh->AddTickPrerequisiteActor(InVehicle);
     SetSeatedPresentation(true);
     bJumping=false; bSprintHeld=false;
     PawnMovement->StopMovementImmediately();
@@ -455,6 +456,7 @@ void ABiellaGamesCharacter::MountVehicle(ABiellaVehicle* InVehicle)
 void ABiellaGamesCharacter::DismountVehicle(FVector At)
 {
     DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+    if (Vehicle.IsValid()) { CharacterMesh->RemoveTickPrerequisiteActor(Vehicle.Get()); }
     Vehicle.Reset();
     SetSeatedPresentation(false);
     SetActorLocationAndRotation(At,FRotator(0,GetActorRotation().Yaw,0),false,nullptr,ETeleportType::TeleportPhysics);

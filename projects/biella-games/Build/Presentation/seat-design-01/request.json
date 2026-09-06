@@ -1,0 +1,5 @@
+{
+  "capability": "unreal.assist",
+  "provider": "ollama-qwen",
+  "prompt": "Bounded source-backed design assistance. Existing UE5.8 native AnimInstanceProxy evaluates Ground BlendSpace -> Jump -> cosmetic foot IK -> upper-body aim/actions, with immutable game-thread sample. Authoritative mount attaches pawn to Chaos vehicle, disables pawn collision/movement, then currently hides skeletal mesh and shows blockout. Need native cosmetic seated driver, same rig, pelvis at vehicle seat, feet to footwell and hands steering. Must preserve capsule/root/movement authority, no seated fire/hit/jump/foot traces. Suggest compact robust pose approach, required endpoint/switch/dismount validations and pitfalls, no invented APIs. Use existing TwoBoneIK and FCSPose bone edits. This is an integration increment, not final art."
+}

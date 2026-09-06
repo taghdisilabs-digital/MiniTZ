@@ -1,0 +1,1471 @@
+{
+  "schema": "biella.file_manifest/v1",
+  "task_id": "D03-01",
+  "increment": "seated skeletal driver",
+  "created_at": "2026-09-06T13:28:20.086953+00:00",
+  "base_commit": "00de0861185ab2c09c2593512bfe951ffc9d4266",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "excludes": [
+    "Build/Presentation/D03-01-seat-file-manifest.json (self)"
+  ],
+  "files": [
+    {
+      "path": "Build/Presentation/D03-01-seat-final-readback-01.json",
+      "bytes": 25886,
+      "sha256": "0e1d6f58353083d4a7e4c573904d178c95188f99c7f186d396996bbb5a84e425",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/D03-01-seat-increment.json",
+      "bytes": 2692,
+      "sha256": "f224922ed9abf4186c12d782b4d314d0cd0b44913f65553fa5ef35f03374bd05",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/D03-01-seat-preservation.json",
+      "bytes": 13708,
+      "sha256": "59165f3c20663e286210092377c8d288df4ae93b067df03645bdf3a1feec5232",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/D03-01-seat-progress.md",
+      "bytes": 6357,
+      "sha256": "155cb1329afd3fec3020ec1585f7b226711c7f8ad4e1799833d472631611b7ba",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-actions-01/captures/baseline.png",
+      "bytes": 959633,
+      "sha256": "620d5dc17871fffed79af9de8e03efec176e385f59098cfc145d17699e376c75",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-actions-01/captures/fire.png",
+      "bytes": 961788,
+      "sha256": "91a9ccc15d84cd0090e25c8da5d764b5e1c0c91732ba2c7271bceff6677c73e9",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-actions-01/captures/hit.png",
+      "bytes": 962753,
+      "sha256": "b4d95a4d8f91a9f29df35f922db322fca28d37c8e5f152a1b228fbe1fbda3989",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-actions-01/captures/jump.png",
+      "bytes": 983712,
+      "sha256": "ad073cfe87f7e4b1620afde74c697d1626937ea28ede4cd0c559a534cac13978",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-actions-01/captures/overlap.png",
+      "bytes": 963303,
+      "sha256": "789aa93a93982f9957ec7484e026ef81cc0802a615392c7d2df398ce3c42717b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-actions-01/captures/rival_shot.png",
+      "bytes": 963350,
+      "sha256": "e6cfb6417b576214b13f660dbe0cfafaa0021154f48dcffab52ad78d6c74fcca",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-actions-01/checks.csv",
+      "bytes": 218,
+      "sha256": "6369506ff12d9f40625f6111c2edd113d2e1a049be0eaf89bf8d3885a5d3bd17",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-actions-01/poses.csv",
+      "bytes": 88332,
+      "sha256": "83d76dbfd8f5d4fc64672f215af4a974fe031e36ea2c3fd7010c042219fcf71f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-actions-01/process-memory.jsonl",
+      "bytes": 9010,
+      "sha256": "663adb1b88274c1035dca9e105c0da3ab4d35c59f7e7b9bdaf4ccadf8b7dd40f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-actions-01/result.json",
+      "bytes": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-actions-01/runtime.engine.log",
+      "bytes": 307363,
+      "sha256": "dea4f4f81c0b3b7abcf9d6e03b5bcd616e7c2dc6e3d0cd80e62667079b25acdd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-actions-01/runtime.stdout.log",
+      "bytes": 307424,
+      "sha256": "eadc16e8a6113a9b1f49054978b70ee3a52b29b82f1fa65f4d925b8c0b2b9d69",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-actions-01/validation.json",
+      "bytes": 172426,
+      "sha256": "610d919372ff5b696872587caa20e2dc2c22b71c7a1b2546caf9acdc8fc552a2",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-aim-01/captures/after_seat.png",
+      "bytes": 999328,
+      "sha256": "24250c95153fb5c441c5c04b99b54f4ffb12fe2459e8e257d2c03bbdf6a0c65d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-aim-01/captures/down.png",
+      "bytes": 918995,
+      "sha256": "a8add37744aaad4edab92bedc33a5b17fb9bc2235e0993eac2971234d3f9320a",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-aim-01/captures/jump.png",
+      "bytes": 944782,
+      "sha256": "d044d4b65d1ffd022aa3911c0e0ccb36d89247c4f22914a436327640f452ddf0",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-aim-01/captures/level.png",
+      "bytes": 954234,
+      "sha256": "563a5c1ff8b0a1da530db0727c781d9aa7f2e4ddd3f4acefcee57b3cf32bb2bb",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-aim-01/captures/moving.png",
+      "bytes": 955332,
+      "sha256": "7d977d99cd4216c6adae769481bb40f694607e87a03360180fea7a244e9ff6d5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-aim-01/captures/up_turned.png",
+      "bytes": 938949,
+      "sha256": "70c09cc4c0d45b85b50364958458d3cc1512c15130754a2740f0a7d70eb58090",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-aim-01/checks.csv",
+      "bytes": 451,
+      "sha256": "a0cafe811f2b5932a991cdd6f654ff36d1c76bf0ad9d24060ee4b903967df982",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-aim-01/poses.csv",
+      "bytes": 132078,
+      "sha256": "c9ea6c38171f4a2a88f25e2089585865c9f0e20ad990fcd863ddcd675ada4095",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-aim-01/process-memory.jsonl",
+      "bytes": 8695,
+      "sha256": "961ced499343611c5d79b193ccbca23ee6c19851fbd1e59c8e1a7764bbd1c320",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-aim-01/result.json",
+      "bytes": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-aim-01/runtime.engine.log",
+      "bytes": 297332,
+      "sha256": "99c91ac662a5139370bbeea48c9fc6aa4dbe0abb58ad62abb118b98dc8b2fbf6",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-aim-01/runtime.stdout.log",
+      "bytes": 297462,
+      "sha256": "9cd0f4ffc336011d28be0a978ffb599a36d0b1cfc36b80b90126ac0983d0ea93",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-aim-01/validation.json",
+      "bytes": 172313,
+      "sha256": "acf337c2b2b5766d1b0bb3fb1f3e85e6bb1721ce5eb27ba783d805af0b53ad88",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-animation-01/captures/backward.png",
+      "bytes": 994341,
+      "sha256": "e6ce3f8a5c8cb42adeceea78f72d94510bccbd868c32a182b3301b5839066706",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-animation-01/captures/dismount.png",
+      "bytes": 1021508,
+      "sha256": "a5c36eadf81441fe52848e88a79b1c3d548feec00eff17b29a2092de7fa632a2",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-animation-01/captures/forward.png",
+      "bytes": 979452,
+      "sha256": "7da63974123388db2e33f98a32430f5cb73f60749d3219642948f3a41d7699fa",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-animation-01/captures/idle.png",
+      "bytes": 953548,
+      "sha256": "549eea3cf862f0d0ee65d85d476847efd249f0b4f4bf8204de2657e0f244d889",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-animation-01/captures/jump.png",
+      "bytes": 1005757,
+      "sha256": "1afbb8508e43a050b72432c0d753296486c9d9a7664366792204cd7af0f3a316",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-animation-01/captures/land.png",
+      "bytes": 945759,
+      "sha256": "23f2740fe03d0d147f7ff0825fad442d9b619581f1fe25c9aaddb71d71a42c3b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-animation-01/captures/npc_gaits.png",
+      "bytes": 1024365,
+      "sha256": "f5de1de99fbca27b54bab91b68bef47f63772384eab96ee955319f4760b26d53",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-animation-01/captures/right.png",
+      "bytes": 996321,
+      "sha256": "925921232097ececcdef253f5c55469b7099a20048b833e8c97e80f68fd4e77f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-animation-01/captures/seat.png",
+      "bytes": 994893,
+      "sha256": "434a4789d51719176e9b812e6a6c610539189e45f0a7247fb66e4ba54a511e70",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-animation-01/poses.csv",
+      "bytes": 72092,
+      "sha256": "def0872e6719e289dd619fe8ac498bec34d3b42d05c53e3ae7f3b277c28c28be",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-animation-01/process-memory.jsonl",
+      "bytes": 8913,
+      "sha256": "ef892f81ce37f7e2258a8793aab024163d0edfa80aec33d10467a3a1a1db3f13",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-animation-01/result.json",
+      "bytes": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-animation-01/runtime.engine.log",
+      "bytes": 361230,
+      "sha256": "bc590c8eb05018ca7114f145cf7462a948ed7c8803a86c507848b22a0af818b6",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-animation-01/runtime.stdout.log",
+      "bytes": 360943,
+      "sha256": "cefa88726e2bbaccec189c59bcc82c7b4c6dd516cb6b3267a454a54818aed026",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-animation-01/torso-fit.txt",
+      "bytes": 390,
+      "sha256": "fe7b4ad8a5a8de715b9a2afa7e63df1ab6f820b98555b782752255ef8b229cc5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-animation-01/validation.json",
+      "bytes": 170938,
+      "sha256": "8a2cf50127b59b57f6ee13462a500db9231b1d1d85ac08aaf2689e06a028b18f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-01/build.log",
+      "bytes": 11104,
+      "sha256": "d51d7df536a7b57a07eb81d0624dcf75ef449ae1bb74a728c96bc8cad300ceb3",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-01/command.json",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-01/inputs-after.json",
+      "bytes": 14666,
+      "sha256": "e9dba1725ba2a32f782e57cf70d1c46dc452fb849b33fb8ea1a9d9274055a4ee",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-01/inputs-before.json",
+      "bytes": 14666,
+      "sha256": "e9dba1725ba2a32f782e57cf70d1c46dc452fb849b33fb8ea1a9d9274055a4ee",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-01/result.json",
+      "bytes": 114,
+      "sha256": "490b591da0daa124d0e6307c500d42cecf4adbf213cd66808bd1c5f981ba998a",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-02/build.log",
+      "bytes": 3787,
+      "sha256": "64a94c7c959e07c936436c75fe90bc2b26975fd2d4c363d98e333dc4c9fc1287",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-02/command.json",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-02/inputs-after.json",
+      "bytes": 14666,
+      "sha256": "d388c62c6fc0983e23c0a201f93563bc578622eb88c30555629a5078fb70f7a4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-02/inputs-before.json",
+      "bytes": 14666,
+      "sha256": "d388c62c6fc0983e23c0a201f93563bc578622eb88c30555629a5078fb70f7a4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-02/result.json",
+      "bytes": 114,
+      "sha256": "12c267bb83dc5ccbf14fece78b7be4007a2c808b60e0e1d7f3c27c244e989d20",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-03/build.log",
+      "bytes": 3827,
+      "sha256": "dd26c511be4aae6bece29ed9ea220aafc918842523acfa99f1d3de412e318bce",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-03/command.json",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-03/inputs-after.json",
+      "bytes": 14666,
+      "sha256": "578b259aeecf349acf3be1fce992ca74021a5522927a6d356526be80ad86712d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-03/inputs-before.json",
+      "bytes": 14666,
+      "sha256": "578b259aeecf349acf3be1fce992ca74021a5522927a6d356526be80ad86712d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-03/result.json",
+      "bytes": 112,
+      "sha256": "4e440aa195f3b7d4e1db1b560c9a3d54d3a0192ac86d3c1377ba44b171a4d26c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-04/build.log",
+      "bytes": 4365,
+      "sha256": "38ea52ac0e1bd445ffeb8c12816747215d04edc00764245db98db8d74c5a0d51",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-04/command.json",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-04/inputs-after.json",
+      "bytes": 14666,
+      "sha256": "18420cf5c807bd6fea47a0b509df47650453c68183fe34646e7c04283e51f0a0",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-04/inputs-before.json",
+      "bytes": 14666,
+      "sha256": "18420cf5c807bd6fea47a0b509df47650453c68183fe34646e7c04283e51f0a0",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-04/result.json",
+      "bytes": 114,
+      "sha256": "dcbd020857b4c934608f04cbd57445d1415be3e8f266ee46a69588b11830aae3",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-05/build.log",
+      "bytes": 3817,
+      "sha256": "5e9dad8f4b7855305755b58ad2340beee3dfda3b5246dfed047fd2752a7da0c2",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-05/command.json",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-05/inputs-after.json",
+      "bytes": 14666,
+      "sha256": "02c9b01cff4baeabb8b8a600b47722891c044ff45ec5edc04a16dbd64b9ea961",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-05/inputs-before.json",
+      "bytes": 14666,
+      "sha256": "02c9b01cff4baeabb8b8a600b47722891c044ff45ec5edc04a16dbd64b9ea961",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-05/result.json",
+      "bytes": 113,
+      "sha256": "020d450396d7d8affbdf0edd6270a165053292389895d7d492a20956d43cba19",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-06/build.log",
+      "bytes": 3786,
+      "sha256": "8751b287e4dd9693cbdad3e04f023380949e6a96429d8b2f82a1c86cbcc1597f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-06/command.json",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-06/inputs-after.json",
+      "bytes": 14666,
+      "sha256": "711bd9807b5c18b8f639b8fac1a761d5ca0be3dd555f6df14283075dd21b1aba",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-06/inputs-before.json",
+      "bytes": 14666,
+      "sha256": "711bd9807b5c18b8f639b8fac1a761d5ca0be3dd555f6df14283075dd21b1aba",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-build-06/result.json",
+      "bytes": 113,
+      "sha256": "7ed099df0b620e2e662a9b3a3a1cc3e6172a2e334ea82a617cf4805d2f6a0bb7",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-design-01/request.json",
+      "bytes": 823,
+      "sha256": "edf6b5a0a1c1d9d7c9ecfe100333df91a2ff7c138dbc16d3970fea9e2d94a1d7",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-design-01/response.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-design-01/result.json",
+      "bytes": 62,
+      "sha256": "c335b7e845c9e2b4e62df304347a4e26595676c34653d764b96166c721f7c27f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-design-01/stderr.txt",
+      "bytes": 70,
+      "sha256": "b3ca29692a27cfaa6b24db08c884e67996f01de4669f8c0a013548bd4f17a137",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-01/captures/approach.png",
+      "bytes": 1011944,
+      "sha256": "922ff516e107481a6bee8cf154e6af67008d29bdc60b3fe66235267e361761fd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-01/captures/cockpit.png",
+      "bytes": 1045173,
+      "sha256": "467183031ada0d77324f5987ba794c35cb1e6be9b773201a4d6dc88929369d4f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-01/captures/cockpit_front.png",
+      "bytes": 1003251,
+      "sha256": "41857ff4609aee820832bc67744891be7973556802d933c9a4fa556ca09dbd2f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-01/captures/driving.png",
+      "bytes": 954066,
+      "sha256": "4ef0d178768f7ada2da25a0ffa533bf457b55d7443a78a1a5e4b1ace2ecffefc",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-01/driver-pose.csv",
+      "bytes": 83329,
+      "sha256": "d2cf1ea1f8ce65544562ed53d0ba7a16733ee1bed2466696b58f26d884e35ee5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-01/events.log",
+      "bytes": 641,
+      "sha256": "b78dfe21b83fbc1fef47d45ae26797c582d7eb2b0f335ec28c0f27d3ff3feca7",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-01/frames.csv",
+      "bytes": 152472,
+      "sha256": "e18cd1f92cc39a5f600270c2867a6ccf5a670d37cc6480b392554fe229acadd0",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-01/process-memory.jsonl",
+      "bytes": 10991,
+      "sha256": "3ed4fe26e9afb48d94c2e5eb3df9ee4b72ad91e9629706011b83e57dad22f2cf",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-01/result.json",
+      "bytes": 101,
+      "sha256": "84174d0b487bc8dc9594baf1f88657b95333407a272643220190c4b01206bd5c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-01/runtime.engine-CRC.log",
+      "bytes": 13421,
+      "sha256": "d0ac07a9001a62088656c1108e6d613d942f67860b2fd5c2cc51f2090e848711",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-01/runtime.engine.log",
+      "bytes": 386968,
+      "sha256": "59ce848bde5bfdca8c9de38e9d634540dbd008f2382a369e2336a005c8939a6c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-01/runtime.stdout.log",
+      "bytes": 400181,
+      "sha256": "cda658c8934feea59133f6e40d9c1dd9ad82f623bad009181af093df6f8891bd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-01/validation.json",
+      "bytes": 171211,
+      "sha256": "026cd7309d31c678db2180a8e176082f581403dabda64704e38d162c6cbf993c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-01/vehicle-pose.csv",
+      "bytes": 103062,
+      "sha256": "9d47f54012f93545cde3e5801177827b0c62ce4cca0c66a9aa06fb979ce948cd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-01/vehicle.wav",
+      "bytes": 5677100,
+      "sha256": "976a60add27c532a78d4ae55e95e77ca14a75338400237b76e647997ca2202b5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/captures/approach.png",
+      "bytes": 1011287,
+      "sha256": "139d5ffce7e7df4bfb47b166be95c8cda6728280091685f443e669b0155d1c41",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/captures/cockpit.png",
+      "bytes": 1043670,
+      "sha256": "9347465a37ccb87ba4438e582185accdbe1c87252935f7186354f256e1de4552",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/captures/cockpit_front.png",
+      "bytes": 1002966,
+      "sha256": "3acf1dfc7756c10f55f4ea0bc3c7c45a37bd21fa39999d3503c941ba5d503ef6",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/captures/disabled.png",
+      "bytes": 275610,
+      "sha256": "c16160d983b9f97f258dff28d4334322bf97d7f1742025b6980f80b14a7a69e6",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/captures/driving.png",
+      "bytes": 955288,
+      "sha256": "6983b9defdaa5f05535ece0282741112cba55dc61d801bffe4038bbd3870b948",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/captures/exited.png",
+      "bytes": 974232,
+      "sha256": "ef172f3702b5984a426663fdfc892503f64a9bad51e1bd0d8684a7b9dbd5fec5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/captures/impact.png",
+      "bytes": 944086,
+      "sha256": "1327285d8e3abcd4514310a69af5a05fcf96103186844cc93515f4bfb02b7c9c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/driver-pose.csv",
+      "bytes": 233717,
+      "sha256": "7254a94372a9d2249808a2a64a4c14cc04dd52c1f4764acb92223d3a6d880ad6",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/events.log",
+      "bytes": 1658,
+      "sha256": "5e8e6003933dbee9bbbbdac808efd5c7286ab0a097f684294476e0215e1a24a9",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/frames.csv",
+      "bytes": 418870,
+      "sha256": "c5b21634cf83e1dd2d695477aad46b714991274006990b352ef69d56101118b9",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/process-memory.jsonl",
+      "bytes": 14059,
+      "sha256": "77b079887644dc8d6098909ace22656d2be905f7cc0d7f4dd72583766c80c7ab",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/result.json",
+      "bytes": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/runtime.engine.log",
+      "bytes": 405511,
+      "sha256": "f998cc4d3c63df04cde837e64520812286eaa37fb1699d944a80ff220faa8669",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/runtime.stdout.log",
+      "bytes": 404887,
+      "sha256": "aaed07a9c709cbe86bec053f1af1f7b9b9fa8add730999d15c30169757e09bab",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/validation.json",
+      "bytes": 176232,
+      "sha256": "ab55dadbf6d5d4a4764a6b0c85c18b77dbee8e71e38f8e8517ca6895923a1d08",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/vehicle-pose.csv",
+      "bytes": 284268,
+      "sha256": "bd78aec29c8740d5739df2db8723d5375b6febddbe1c540ba54158aeab6d384d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-disabled-02/vehicle.wav",
+      "bytes": 10764332,
+      "sha256": "e64b58d53c2f8eeb9a5a6eb6fc555573d3697ee2e9b391086763e075732487f4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-geometry-01/command.json",
+      "bytes": 462,
+      "sha256": "92741b499cab379ed97104ad649753e410a31f3719ea8d337a3adf42b26db736",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-geometry-01/engine.log",
+      "bytes": 216523,
+      "sha256": "baa81655119b45afb6fc3b74ade2551bf622215a5cd6d07d9087828e4aef4e7b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-geometry-01/inspect.py",
+      "bytes": 1123,
+      "sha256": "3afbfa179aed4701643d6f0645efaddcacf0ba418341dbfc23d7a915a792986d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-geometry-01/result.json",
+      "bytes": 64,
+      "sha256": "624218fb5ba44655d6b2501d35ea27ff4180b3557a0bfdb93d2b3a2cbff78353",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-geometry-02/body.obj",
+      "bytes": 10728140,
+      "sha256": "4a2ad3588efa0f5cd515ccbaa5101677fbc786f66c47fb4c4b98a95e4331edfa",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-geometry-02/body_Internal.obj",
+      "bytes": 6185318,
+      "sha256": "550642c86bf8dcb3703dd56d72eea95f21b94d7127b5117153734c1ffccb7b87",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-geometry-02/body_UV1.obj",
+      "bytes": 11083864,
+      "sha256": "f028b2850d25b9a8c1eec44c52c029fec04b2c553faae1511a5f1e9d0db5e5de",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-geometry-02/command.json",
+      "bytes": 580,
+      "sha256": "b0d9b315f01d08579d6a1bfc17ce0c079942c101f859b59bafe8a84d1966fbea",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-geometry-02/driver-geometry.png",
+      "bytes": 112363,
+      "sha256": "a0ff7ce854d5220a56cbbdc618d5a324741fbb4829a693534201d57dd4c77a7f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-geometry-02/engine.log",
+      "bytes": 215237,
+      "sha256": "283cb9af744941aac5b70b7c21597eca4002febaff2d3611ba43d4a5d80e7baa",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-geometry-02/readback.json",
+      "bytes": 28476,
+      "sha256": "9ae8a04e355c7b0a46d33f412b844e3522ec4ed05e100b6ecfcf5dae49979d0c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-geometry-02/result.json",
+      "bytes": 62,
+      "sha256": "0a95614592d222d8a8f6c2f48d7bb6603fe8c745a498c6170158f797ac9e7d34",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-import-01/command.json",
+      "bytes": 646,
+      "sha256": "5a181cecaa72fad1e861b9cfe7adcfa95c3b5cf5322e8bfe377b3da281d24a22",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-import-01/engine.log",
+      "bytes": 227032,
+      "sha256": "077b24583d2710419e3aa040b31b23da4e4ca6c3889f041db47571aee79b4933",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-import-01/result.json",
+      "bytes": 78,
+      "sha256": "c3fa463f0bdff30d90c6e4e22b60b385deb05246b8b446f03e08ce32018fdd80",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-import-02/command.json",
+      "bytes": 646,
+      "sha256": "5f9a3297047d2532dc25812550b9bad0b23f9d20ab7d37d2d98c93a6cc800bf3",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-import-02/engine.log",
+      "bytes": 218607,
+      "sha256": "55484b0056fb5eb8767541def5a4580991c602fce7bef8871843a0ee5e68218a",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-import-02/readback.json",
+      "bytes": 289,
+      "sha256": "e4f3929d836ab6be12fd7ad89911affbd1a481fc8cbfef3c7719badbb85f63f6",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-import-02/result.json",
+      "bytes": 75,
+      "sha256": "10e468349d17ea172ea87a7e840b9fdaf23707e0776b1c89a465b7cfdc4c5eed",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-readback-01/command.json",
+      "bytes": 675,
+      "sha256": "2f0fd212caa8022b0ea671ca9fac837f32ec07941c9010f34b7745f040084d7e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-readback-01/process-memory.jsonl",
+      "bytes": 1159,
+      "sha256": "ace6befa5e763e3de0d9163e970421a670d558fc4fecf4df7ae77ed3a3d9e9f2",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-readback-01/readback.json",
+      "bytes": 291,
+      "sha256": "c922d64015bf8fcd069dedd4df37d22c5722b5520a15bf105c7aaeb89006e6b5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-readback-01/result.json",
+      "bytes": 2415,
+      "sha256": "48f286b3f2d75d58b35b4b327336edacf52725a9116cfa1568cb00403c6293c5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-readback-01/runtime.stdout.log",
+      "bytes": 215159,
+      "sha256": "c6785d470010539a5229537bbe193bebffce56aca167a3812f3a96e21210bce4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-01/captures/approach.png",
+      "bytes": 1011332,
+      "sha256": "194c87fb35c1de23057c727e06db5495aaac16968ed7344f0de8c133e5d113a3",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-01/captures/cockpit.png",
+      "bytes": 1050280,
+      "sha256": "9c000179421b234fe975b5d8ecdad03e7b9618d3566f59688aad700734c52451",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-01/captures/driving.png",
+      "bytes": 950279,
+      "sha256": "d2e8d0acd7543fce8d2727cfbd90c87aa9f683748b9f98f6640d9d0b35877a12",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-01/driver-pose.csv",
+      "bytes": 72222,
+      "sha256": "b757ebde00fbd7d4fa4e9bd391bf48bc67539232ae76f5d7baa09c33ae833a2d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-01/events.log",
+      "bytes": 638,
+      "sha256": "539c656739e722d4cc5c19737bda607277f8dd7fead6d94dac13495e8d1e6eb7",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-01/frames.csv",
+      "bytes": 146866,
+      "sha256": "0c26d1ea11bc6336d5dd5dcda9cef43da50d12048481cfe8f1573ac9382b0832",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-01/process-memory.jsonl",
+      "bytes": 10900,
+      "sha256": "87591a9127cd095cb22a9b4e6b26b947c9d45f6c5e49d27623a4ad5ac7812af8",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-01/result.json",
+      "bytes": 101,
+      "sha256": "84174d0b487bc8dc9594baf1f88657b95333407a272643220190c4b01206bd5c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-01/runtime.engine-CRC.log",
+      "bytes": 13420,
+      "sha256": "70f13ef2558678ac05faecaa76226788732f8ae2ef339a1de84ec104c8b885c5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-01/runtime.engine.log",
+      "bytes": 386910,
+      "sha256": "3f68a30669c92c93c111aa4ce15ee09d8de76f2f0eeaf63f267a33c15f1189ad",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-01/runtime.stdout.log",
+      "bytes": 400121,
+      "sha256": "53ca202b3302eb99dcb95cae5e9fb239d1aa614cf51fa147b2c6ddafd669ccad",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-01/validation.json",
+      "bytes": 170640,
+      "sha256": "0937a0552e6ee9cd7f34501cd96a2a3bc9437f2a1a120f9d9fcee237beee052e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-01/vehicle-pose.csv",
+      "bytes": 98499,
+      "sha256": "415d80871b5e4b27459da9aa3d1138afd91c8ae370159a68b1de55bdfeb4d11a",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-01/vehicle.wav",
+      "bytes": 5689388,
+      "sha256": "1dd03e3b189babfb8516929ee167de87d2d2ddf61fd39cbfc84fa01f0abfa50a",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/captures/approach.png",
+      "bytes": 1011315,
+      "sha256": "37b628ad5835d96b683442fdd213add16493da478ff0dfc9e7a9e5e36122a516",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/captures/cockpit.png",
+      "bytes": 1050910,
+      "sha256": "d615bfa7eff1a54b43282db87c93b7a5e88ace52b75c941c8635f6a7f447a815",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/captures/cockpit_front.png",
+      "bytes": 1039768,
+      "sha256": "d2fedb0ab8b1638e66dc752fe21dcf2b1d2cd38bf1667eecdba1bbf72fed72a5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/captures/disabled.png",
+      "bytes": 275162,
+      "sha256": "12acc8f6bbc0c61c7d2cc6fe89ad0b92a5c43e96a77a7dda3a62b384e57f4b27",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/captures/driving.png",
+      "bytes": 952353,
+      "sha256": "9a5986b0ccee125936c6a7f4a0bb0c50f1a0a0ddf3ecc7cf5fb07bbb9191cb66",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/captures/exited.png",
+      "bytes": 971939,
+      "sha256": "251764aea870709ce3f268d31564128f02c7470b468fb7a5aca1c01ffef41d3b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/captures/impact.png",
+      "bytes": 943938,
+      "sha256": "f011aabbb978071af3ad660ca4a6b7bbf771fabb2d1936e967b9698294fdec48",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/driver-pose.csv",
+      "bytes": 208111,
+      "sha256": "5b848c2b461167a9796d966b74663d9ffb41e9a3ff2ef1e245d44295a45ebff6",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/events.log",
+      "bytes": 1659,
+      "sha256": "430152b201d423f133e88d05be8f53031ae33a01e81b5e120cba25a69c74d97f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/frames.csv",
+      "bytes": 419544,
+      "sha256": "b2d187b213b3c31c90ab517183550ea093969e29c2b7d63dadda6ce100efbf7e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/process-memory.jsonl",
+      "bytes": 14200,
+      "sha256": "57a40f163f8f34b515139b1a12bcbffec7d202e684077e580ef636d96ac19e25",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/result.json",
+      "bytes": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/runtime.engine.log",
+      "bytes": 398672,
+      "sha256": "26ce3b3a6b47fe7f900c707e74c82cfc57edd08d50cef8e0e6e16313f3c563d9",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/runtime.stdout.log",
+      "bytes": 398091,
+      "sha256": "5040b714ccae0556b55b0c01b1f6dec2f9b2683b806eaf3cb84a1bb7f1bac41b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/validation.json",
+      "bytes": 175658,
+      "sha256": "31149cec78ec26b17573803d00fb9e94f644d31f566c277457f7420fd9dc8ec5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/vehicle-pose.csv",
+      "bytes": 284637,
+      "sha256": "9218e91e3d600f899eb1b20dc6531a9c07c2cf12cbbe1911f3e05b8cf54d2a47",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/vehicle.wav",
+      "bytes": 10764332,
+      "sha256": "8af55372e0122c67a826224f7952b46b69a263a7b761b428c062bfcf684b5d8c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-02/visual-review.json",
+      "bytes": 499,
+      "sha256": "9ffa31d2c7864f3e2f78177f5a66bd254c238310f36d228c95815256900f38da",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/captures/approach.png",
+      "bytes": 1010956,
+      "sha256": "20dc271f9b5a6f3e96e67ed790379081476cd4109c6a39009700e699bfb7f91e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/captures/cockpit.png",
+      "bytes": 1051569,
+      "sha256": "bcff3513a2a4460640f971ec9cd993ab8a9918fe40ec8ec05c93b4d72009fb06",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/captures/cockpit_front.png",
+      "bytes": 1039464,
+      "sha256": "78abc0a3e6938ff87bf5e37ce94f67eece6480abd9620ce356b01d2a3b3e461e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/captures/disabled.png",
+      "bytes": 276312,
+      "sha256": "1f3540fbab68ad253f4340d687b2746d446999ae5f95c3b5af49a42a746c3d66",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/captures/driving.png",
+      "bytes": 951515,
+      "sha256": "fa9df37e9dd64edbaa90edd4c087b48fcd3b1c7c5878d3cd9159b60c5f895ba3",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/captures/exited.png",
+      "bytes": 971011,
+      "sha256": "1f696e33c93d37caf1e881ee8a6f76a0d325937e4db9a6be2219e47d76c130ff",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/captures/impact.png",
+      "bytes": 941631,
+      "sha256": "6c379059b9da0783e6e60ff5944ddd43751c84f0e3587ae1aa835e918824f7d8",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/driver-pose.csv",
+      "bytes": 228810,
+      "sha256": "ce095d5fcb51d9cb4ba4d907fa4943c652406398f93471e8c395f86b70778a67",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/events.log",
+      "bytes": 1659,
+      "sha256": "19df576445ab0db10db638a766bc57fc5f5f407c6776fd2f1a60a77d73ea00c0",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/frames.csv",
+      "bytes": 418403,
+      "sha256": "cdc803e30c06414aee95fe7910496b563d76e60d288ec696a6c2429980f65970",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/process-memory.jsonl",
+      "bytes": 14201,
+      "sha256": "7f0c5d06709c2304796adbb0fc9d69438b3073fdb4f1528201cdd2f1b1d4e69b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/result.json",
+      "bytes": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/runtime.engine.log",
+      "bytes": 400070,
+      "sha256": "bef8b1f26a154c5791f8821bf0698f8ef2779a4bbadaac6a7e15f57153f04081",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/runtime.stdout.log",
+      "bytes": 399483,
+      "sha256": "b2abd6c910873a699d916245692554d9de5f172d58c04cf024b21381be35dae2",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/validation.json",
+      "bytes": 175786,
+      "sha256": "3b458b2b21954f72731e670fcd95e69f5812bf4261054b32f0c471c300d91c56",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/vehicle-pose.csv",
+      "bytes": 284028,
+      "sha256": "8d033bc793f50e01c05ffc6256917ccb66deea4853383aedb4af92d2be0066ff",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-03/vehicle.wav",
+      "bytes": 10752044,
+      "sha256": "e78c0316406a15e57ef37f1c27beb298c6a6e30152fd2a06636e0b47bf2ead3d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/captures/approach.png",
+      "bytes": 1011834,
+      "sha256": "09528aef12d19f2ed5f67861bfd1d5ed8da05086eb1d57224f17c13e6db3cb11",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/captures/cockpit.png",
+      "bytes": 1051981,
+      "sha256": "f6eeb568668646ae303a2b1ab87560cfef72179caf35d0a4b2f84c6e98801a7a",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/captures/cockpit_front.png",
+      "bytes": 1040051,
+      "sha256": "1813a0e82f5f874d13f98c1f4dc3d71d52e549d98bb8b7a3293d9634b586f2a8",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/captures/disabled.png",
+      "bytes": 275463,
+      "sha256": "44ed2c92a463aee536694586ca202d47170ee1b3f44185a58c2fbb25c2f6ae45",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/captures/driving.png",
+      "bytes": 952310,
+      "sha256": "8c4f5493f250237192c60b59be5a340feedaf4d15bb5ef27c601525408c4b845",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/captures/exited.png",
+      "bytes": 972051,
+      "sha256": "8a5dffb7b67578c03e7438015187013f7cb8189e9aa5b8d5eb71d49bbae57ef5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/captures/impact.png",
+      "bytes": 942517,
+      "sha256": "03602598f424048807162acf11e65292350692c6f477a113feccc46b0fde2fa5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/driver-pose.csv",
+      "bytes": 229200,
+      "sha256": "ebf348cb3fa2f3b78a1774fc93ac1ddc8de5b729ad7dc5643f9b1d1b30c1cd13",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/events.log",
+      "bytes": 1658,
+      "sha256": "2505e5aac1746c8dea79309d486f796c39f7e6cc1f63e771054cbdfac1735239",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/frames.csv",
+      "bytes": 419212,
+      "sha256": "a8afd9473ec42f70dbd4381b021e6048a0b4bd315c1dfd66b5b4354ac3e54940",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/process-memory.jsonl",
+      "bytes": 14076,
+      "sha256": "9acedfbf678aec23a3dcdec5d87dafec3cbbc2bf332828d344a7107eaf5ae389",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/result.json",
+      "bytes": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/runtime.engine.log",
+      "bytes": 402993,
+      "sha256": "4d0a2d8fbf7dedf32f543ccc63e5d75fadcc91331b7ee65a0a8bfbb048e31347",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/runtime.stdout.log",
+      "bytes": 402385,
+      "sha256": "83d44b59084094deb65fd25174f904f0bd7f7889dee1b1e6d06d01a38f21a496",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/validation.json",
+      "bytes": 176008,
+      "sha256": "a54023e46a4e3b072b76059145cdf8ad0e6b5e35f0988eb03b32e2264c26644d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/vehicle-pose.csv",
+      "bytes": 284514,
+      "sha256": "0861de94b10b3e7cc80ce0a2051493801df9c05b13668e32c7c3d2258d78c830",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-04/vehicle.wav",
+      "bytes": 10776620,
+      "sha256": "fc5765157200a1b847c2b0a9023b9675229e76d1b831c5f79a440b89e2acc8c5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/captures/approach.png",
+      "bytes": 1010406,
+      "sha256": "674986af8ed37edd9f2b25ebdc4ccfd37eaf4857c52e80b972280df944258725",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/captures/cockpit.png",
+      "bytes": 1050747,
+      "sha256": "86f192519acba451bf59c95d79b91573b2a120cca735aa12819d8d6136663e0e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/captures/cockpit_front.png",
+      "bytes": 1040484,
+      "sha256": "54e9b063937eef55b70d3b0e2d6d317e028ca08a4be1c3776c692626aea4a83b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/captures/disabled.png",
+      "bytes": 274808,
+      "sha256": "5b302d5eb4262b91a5430131c26e9054fd8c7c1d14306899f8970b81b7fc7def",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/captures/driving.png",
+      "bytes": 948369,
+      "sha256": "376b0f585dcc67f971fcb2c4ea9e5a683038c4e8dc78b351663332094e6535d2",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/captures/exited.png",
+      "bytes": 971305,
+      "sha256": "bd76f083e65741165f898621233fe526db318dc1eb1ccb6b2e27743c6e70360a",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/captures/impact.png",
+      "bytes": 943414,
+      "sha256": "a5d43d62f423965ca89421727e5271ea6ecac0cbea57463e0d8de418d26ab2d6",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/driver-pose.csv",
+      "bytes": 233025,
+      "sha256": "278ef050c11e20afa79f80ba979c6661fd731138edd6460c9d9ecda9c76d0c37",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/events.log",
+      "bytes": 1659,
+      "sha256": "13ffddf8c83dd438acf87c3004389f5430c3489a1cce7d8bb8e0e00e4f13b2f7",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/frames.csv",
+      "bytes": 417826,
+      "sha256": "8423ef61704816c9555e0b879a2b6b2c814ab0cc3676f30eeae599ce58a70376",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/process-memory.jsonl",
+      "bytes": 13977,
+      "sha256": "aad8f9c1700c751032e9aca5e277848ac9f746dfd888a89687c040525044395c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/result.json",
+      "bytes": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/runtime.engine.log",
+      "bytes": 396603,
+      "sha256": "aaba11fc71e253b4b476d9254aeb1678d632c1e7cc796bc02da04d84d684c35f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/runtime.stdout.log",
+      "bytes": 396004,
+      "sha256": "3398c3019ab9f32b8df82524c5bd2bfef6370f55b381311bf8188a3abae1d839",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/validation.json",
+      "bytes": 176245,
+      "sha256": "b6e8d38a76e6e0f915dad56f27ac91563de3f21bb44a752eca82d44fcc485655",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/vehicle-pose.csv",
+      "bytes": 283422,
+      "sha256": "b31328efcf9e58203b14b699bf0a7d239bd21613f322e5b3f8bb293eb0ecada6",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/vehicle.wav",
+      "bytes": 10764332,
+      "sha256": "49293d6beafa791f9f58895c7484af05d10f6005bd816d94af5264a35788cdf9",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/seat-visual-review-01.json",
+      "bytes": 1697,
+      "sha256": "3e52533450fb45816f88696ecfc74c7d238bee0658adfea4b77df2878d830e9d",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Python/import_driver_wheel.py",
+      "bytes": 1952,
+      "sha256": "11293e687b6ce284385caae4bf7016573a3784395dc201b3816b1be8d8336eba",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Python/inspect_driver_fit.py",
+      "bytes": 1076,
+      "sha256": "77cfd71c59b59fcab887b060fb950c788e10f2be28d22875b607cbfcfcf7611a",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Vehicles/Presentation/SM_DriverSteeringWheel.uasset",
+      "bytes": 96571,
+      "sha256": "7477ca925e279c31148ab0df6c192e7970ec27f9d9773a159e6616da98301a6b",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaCharacterAnimInstance.cpp",
+      "bytes": 14189,
+      "sha256": "eb2d4c46302d5af9758e1bec8ab7fff8f11254d2e9df6bad7812158fbb5c98f3",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaDemoPawn.cpp",
+      "bytes": 22540,
+      "sha256": "f9d7a22e54f01d5c30af888ce6571b1f34ccb8b782b60b91e8b1a03bdc02b525",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaDriverPose.cpp",
+      "bytes": 3888,
+      "sha256": "c480a63c248e4fb0f3a15c8281cfa962bffdb31701eee345b9cbf73153d6bf72",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaDriverPose.h",
+      "bytes": 849,
+      "sha256": "fbb888979c546189e3806144ae2a9fed4417cf475c79c18d0cb9f6ca102a51f0",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+      "bytes": 20000,
+      "sha256": "53b80cd39204f413acf9206420f6669ae719579ed6ed01e7d72dce69bc33d853",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaVehicle.cpp",
+      "bytes": 25518,
+      "sha256": "30a8206801b6a9f6bf757f0e68c869c17bfbbb4645a4c8bbd6d3b23f4b95bd5f",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaWorldContinuity.cpp",
+      "bytes": 17015,
+      "sha256": "51df4ea55e9f63c838f65b6a0148c116019cb7fcca6a3ce7b89b3cc10e22594c",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/Tests/BiellaActionTest.cpp",
+      "bytes": 17171,
+      "sha256": "ca8606c04a430da51a0314438b00c3f9c6040d66c17587ce913fd802c6885361",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/Tests/BiellaAimTest.cpp",
+      "bytes": 13385,
+      "sha256": "e03d040aa572da3206abeaf016120519311fab6b30cc0e8abc3b82395b7544a9",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/Tests/BiellaAnimationTest.cpp",
+      "bytes": 16485,
+      "sha256": "38237ec4f9f35676a5790daaf60856097a3ce2b48db1560b6a2a9bf54f11ecab",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/Tests/BiellaVehicleTest.cpp",
+      "bytes": 42828,
+      "sha256": "26e6bc071492283628138479cd9530e06975ad66c7f1b0b1b27d939aba57af17",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaCharacterAnimInstance.h",
+      "bytes": 2588,
+      "sha256": "7f6d9bee84369152dfa541b96bec873491e4df4760f6647d11f812fa416df1ca",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaDemoPawn.h",
+      "bytes": 4579,
+      "sha256": "6b229cb6d7ad8d352f340d10aff881c124945d29e3da318d855e163727e768d0",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaVehicle.h",
+      "bytes": 5429,
+      "sha256": "f8be28c4258926155d7d97ea066519b70af5ab2e944b0127838ed546e3bed865",
+      "kind": "file"
+    },
+    {
+      "path": "SourceAssets/Vehicles/DriverSteeringWheel.blend",
+      "bytes": 107811,
+      "sha256": "593b9154e8c3a1355a49bbe849753b85a1eb18f6857ae4ccc81457e6ee2132ab",
+      "kind": "file"
+    },
+    {
+      "path": "SourceAssets/Vehicles/DriverSteeringWheel.fbx",
+      "bytes": 32188,
+      "sha256": "8ba2124109529bd458c264e4a943b74fca2ff8a506bc9a84bad2ecfa6a228ef0",
+      "kind": "file"
+    },
+    {
+      "path": "SourceAssets/Vehicles/DriverSteeringWheel.provenance.json",
+      "bytes": 1312,
+      "sha256": "fa332945522d096f9053b02d03b33e996d52241bc88b7f054dd00e842b54bd19",
+      "kind": "file"
+    },
+    {
+      "path": "SourceAssets/Vehicles/build_steering_wheel.py",
+      "bytes": 1539,
+      "sha256": "d22ea9d113594147fbfc5cd2f7ff9c779fc2ac78c87cb09ee1d668846cfdb9ba",
+      "kind": "file"
+    },
+    {
+      "path": "tests/run_d03_01_driver.py",
+      "bytes": 4268,
+      "sha256": "7b01e5f8a24ea8162c6ed3ab87305711d765f4c2d7444fc2919c126660445230",
+      "kind": "file"
+    },
+    {
+      "path": "tests/verify_d03_01_driver.py",
+      "bytes": 3484,
+      "sha256": "a84e862c4a8ddebb041ff5df56d9c4809c99d289f6ed798ea75a5ece95742e9f",
+      "kind": "file"
+    }
+  ]
+}

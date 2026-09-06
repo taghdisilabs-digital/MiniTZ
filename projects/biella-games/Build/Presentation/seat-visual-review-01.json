@@ -1,0 +1,30 @@
+{
+  "task_id": "D03-01",
+  "time": "2026-09-06T13:28:20.086953+00:00",
+  "result": "PASS_BOUNDED_DRIVER_FIT",
+  "status": "GENERATED_DRAFT",
+  "evidence": [
+    {
+      "path": "Build/Presentation/seat-runtime-05/captures/cockpit_front.png",
+      "bytes": 1040484,
+      "sha256": "54e9b063937eef55b70d3b0e2d6d317e028ca08a4be1c3776c692626aea4a83b"
+    },
+    {
+      "path": "Build/Presentation/seat-runtime-05/captures/cockpit.png",
+      "bytes": 1050747,
+      "sha256": "86f192519acba451bf59c95d79b91573b2a120cca735aa12819d8d6136663e0e"
+    }
+  ],
+  "observations": [
+    "Front cockpit capture shows a seated skeletal driver with bent knees and elbows, both hands gripping the wheel, and fingers curled around its rim.",
+    "Rear cockpit capture shows the torso inside the driver seat and shoulders below the roll cage; no duplicate blockout driver is visible.",
+    "The live objective, health, vehicle and input HUD remain legible in both native 1280x720 views.",
+    "Native final-bone telemetry independently verifies pelvis, footwell and moving wheel contacts during both steering directions."
+  ],
+  "limits": [
+    "Feet and seat contacts are partly occluded in these views; contact coordinates are additionally checked by native telemetry.",
+    "Character and vehicle are installed Unreal integration resources; the project-authored wheel and all captures remain GENERATED_DRAFT.",
+    "The playable world still contains blockout structures and unfinished lighting. These views do not establish final production art acceptance."
+  ],
+  "supersedes_visual_finding": "seat-runtime-02/visual-review.json records the rejected hanging-hand pose; raw earlier evidence remains intact."
+}
