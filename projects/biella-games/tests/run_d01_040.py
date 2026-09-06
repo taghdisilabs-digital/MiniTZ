@@ -19,10 +19,11 @@ from run_d01_039 import PROJECT, DEFAULT_EDITOR, file_identity, identities, runt
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--resolution", choices=("1280x720", "1920x1080", "both"), default="both")
+    parser.add_argument("--output", type=Path, help="Fresh directory for a later task's regression evidence and captures")
     args = parser.parse_args()
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
-    evidence = PROJECT / "Build/Demo01/D01-040-runs" / stamp
-    captures = Path("/root/biella/artifacts/games/D01-040") / stamp
+    evidence = args.output.resolve() if args.output else PROJECT / "Build/Demo01/D01-040-runs" / stamp
+    captures = evidence / "captures" if args.output else Path("/root/biella/artifacts/games/D01-040") / stamp
     account = pwd.getpwnam("unreal")
     for folder in (evidence, captures):
         missing = []

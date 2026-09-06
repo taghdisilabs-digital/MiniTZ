@@ -37,6 +37,8 @@ public:
     void LookPitch(const FInputActionValue& Value);
     void JumpStarted(const FInputActionValue& Value);
     void JumpEnded(const FInputActionValue& Value);
+    bool IsGameplayJumping() const { return bJumping; }
+    float GetGameplayJumpPhase() const { return FMath::Clamp(JumpElapsed / 0.8f, 0.0f, 1.0f); }
     void SprintStarted(const FInputActionValue& Value);
     void SprintEnded(const FInputActionValue& Value);
     void FireWeapon(const FInputActionValue& Value);

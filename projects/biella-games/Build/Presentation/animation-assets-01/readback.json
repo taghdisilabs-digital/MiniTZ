@@ -1,0 +1,1362 @@
+{
+  "result": "PASS",
+  "assets": [
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/HitReact/MM_HitReact_Front_Lgt_01",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Bwd",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Bwd_Left",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultRecorderBoneCompression",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Bwd_Right",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultRecorderBoneCompression",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Fwd",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Fwd_Left",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultRecorderBoneCompression",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Fwd_Right",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultRecorderBoneCompression",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Left",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Right",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/MF_Rifle_Idle_ADS",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/MM_Rifle_Fire",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Bwd",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Bwd_Left",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultRecorderBoneCompression",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Bwd_Right",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultRecorderBoneCompression",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Fwd",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Fwd_Left",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultRecorderBoneCompression",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Fwd_Right",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultRecorderBoneCompression",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Left",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Right",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/BS_Idle_Walk_Run",
+      "cls": "BlendSpace",
+      "dependencies": [
+        "/Script/Engine",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin",
+        "/Game/Characters/Mannequins/Anims/Unarmed/MM_Idle",
+        "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Fwd",
+        "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Bwd_Right",
+        "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Left",
+        "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Fwd_Right",
+        "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Bwd_Left",
+        "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Fwd_Left",
+        "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Bwd",
+        "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Right",
+        "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Bwd_Right",
+        "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Fwd_Right",
+        "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Fwd_Left",
+        "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Fwd",
+        "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Left",
+        "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Bwd",
+        "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Right",
+        "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Bwd_Left"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Bwd",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Bwd_Left",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultRecorderBoneCompression",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Bwd_Right",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultRecorderBoneCompression",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Fwd",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Fwd_Left",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultRecorderBoneCompression",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Fwd_Right",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultRecorderBoneCompression",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Left",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Right",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jump/MM_Fall_Loop",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jump/MM_Jump",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jump/MM_Land",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/MM_Idle",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Bwd",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Bwd_Left",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultRecorderBoneCompression",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Bwd_Right",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultRecorderBoneCompression",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Fwd",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Fwd_Left",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultRecorderBoneCompression",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Fwd_Right",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultRecorderBoneCompression",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Left",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Engine/Animation/DefaultAnimCurveCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Right",
+      "cls": "AnimSequence",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MovieScene",
+        "/Script/MovieSceneTracks",
+        "/Script/AnimationModifiers",
+        "/Script/ControlRig",
+        "/Script/RigVM",
+        "/Script/AnimationData",
+        "/ACLPlugin/ACLAnimCurveCompressionSettings",
+        "/Engine/Animation/DefaultVariableFrameStrippingSettings",
+        "/Engine/Animation/DefaultAnimBoneCompressionSettings",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Materials/M_Mannequin",
+      "cls": "Material",
+      "dependencies": [
+        "/Engine/Functions/Engine_MaterialFunctions01/Opacity/CameraDepthFade",
+        "/Engine/Functions/Engine_MaterialFunctions02/Utility/BreakOutFloat2Components",
+        "/Engine/Functions/Engine_MaterialFunctions01/Texturing/ScaleUVsByCenter",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_BN",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_MRA",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_D",
+        "/Game/Characters/Mannequins/Textures/Shared/T_UE_Logo_M"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Materials/Manny/MI_Manny_01_New",
+      "cls": "MaterialInstanceConstant",
+      "dependencies": [
+        "/Game/Characters/Mannequins/Materials/M_Mannequin",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_BN",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_MRA",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_D"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Materials/Manny/MI_Manny_02_New",
+      "cls": "MaterialInstanceConstant",
+      "dependencies": [
+        "/Game/Characters/Mannequins/Materials/Manny/MI_Manny_01_New",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_02_D",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_02_MRA",
+        "/Game/Characters/Mannequins/Textures/Manny/T_Manny_02_BN",
+        "/Game/Characters/Mannequins/Textures/Shared/T_UE_Logo_M"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Materials/Quinn/MI_Quinn_01",
+      "cls": "MaterialInstanceConstant",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Game/Characters/Mannequins/Materials/M_Mannequin",
+        "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_01_N",
+        "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_01_MRA",
+        "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_01_D"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Materials/Quinn/MI_Quinn_02",
+      "cls": "MaterialInstanceConstant",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Game/Characters/Mannequins/Materials/Quinn/MI_Quinn_01",
+        "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_02_MRA",
+        "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_02_D",
+        "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_02_N"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple",
+      "cls": "SkeletalMesh",
+      "dependencies": [
+        "/Game/Characters/Mannequins/Rigs/CR_Mannequin_Body",
+        "/Game/Characters/Mannequins/Rigs/PA_Mannequin",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin",
+        "/Game/Characters/Mannequins/Materials/Manny/MI_Manny_01_New",
+        "/Game/Characters/Mannequins/Materials/Manny/MI_Manny_02_New"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple",
+      "cls": "SkeletalMesh",
+      "dependencies": [
+        "/Script/Engine",
+        "/Script/UnrealEd",
+        "/Script/MeshDescription",
+        "/Game/Characters/Mannequins/Rigs/CR_Mannequin_Body",
+        "/Game/Characters/Mannequins/Rigs/PA_Mannequin",
+        "/Game/Characters/Mannequins/Meshes/SK_Mannequin",
+        "/Game/Characters/Mannequins/Materials/Quinn/MI_Quinn_02",
+        "/Game/Characters/Mannequins/Materials/Quinn/MI_Quinn_01"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Meshes/SK_Mannequin",
+      "cls": "Skeleton",
+      "dependencies": [
+        "/Script/Engine",
+        "/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple",
+        "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Rigs/CR_Mannequin_Body",
+      "cls": "ControlRigBlueprint",
+      "dependencies": [
+        "/Script/CoreUObject",
+        "/Script/AnimationCore",
+        "/Script/ControlRigDeveloper",
+        "/Script/ControlRig",
+        "/Script/RigVMDeveloper",
+        "/Script/RigVM",
+        "/Script/ControlRigSpline",
+        "/ControlRig/Controls/DefaultGizmoLibraryNormalized",
+        "/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Rigs/PA_Mannequin",
+      "cls": "PhysicsAsset",
+      "dependencies": [
+        "/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_BN",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_D",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_MRA",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_02_BN",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_02_D",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_02_MRA",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_01_D",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_01_MRA",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_01_N",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_02_D",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_02_MRA",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Quinn/T_Quinn_02_N",
+      "cls": "Texture2D",
+      "dependencies": [
+        "/Script/Engine"
+      ]
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Textures/Shared/T_UE_Logo_M",
+      "cls": "Texture2D",
+      "dependencies": []
+    }
+  ],
+  "sequences": [
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/HitReact/MM_HitReact_Front_Lgt_01",
+      "length": 0.699999988079071,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_LOCAL_SPACE_BASE: 1>",
+      "root_motion": false
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Bwd",
+      "length": 1.7999999523162842,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Bwd_Left",
+      "length": 1.7999999523162842,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Bwd_Right",
+      "length": 1.7999999523162842,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Fwd",
+      "length": 1.5333333015441895,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Fwd_Left",
+      "length": 1.5333333015441895,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Fwd_Right",
+      "length": 1.5333333015441895,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Left",
+      "length": 0.46666666865348816,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Right",
+      "length": 1.0666667222976685,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/MF_Rifle_Idle_ADS",
+      "length": 8.0,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": false
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/MM_Rifle_Fire",
+      "length": 0.5333333611488342,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_ROTATION_OFFSET_MESH_SPACE: 2>",
+      "root_motion": false
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Bwd",
+      "length": 1.2000000476837158,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Bwd_Left",
+      "length": 1.1333333253860474,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Bwd_Right",
+      "length": 1.1333333253860474,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Fwd",
+      "length": 1.5333333015441895,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Fwd_Left",
+      "length": 1.5333333015441895,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Fwd_Right",
+      "length": 1.5333333015441895,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Left",
+      "length": 1.2333333492279053,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Right",
+      "length": 1.5,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Bwd",
+      "length": 1.5,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Bwd_Left",
+      "length": 1.5,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Bwd_Right",
+      "length": 1.5,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Fwd",
+      "length": 1.7666666507720947,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Fwd_Left",
+      "length": 1.7666666507720947,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Fwd_Right",
+      "length": 1.7666666507720947,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Left",
+      "length": 1.5333333015441895,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Right",
+      "length": 1.7333333492279053,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jump/MM_Fall_Loop",
+      "length": 3.0,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": false
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jump/MM_Jump",
+      "length": 0.8666666746139526,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": false
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Jump/MM_Land",
+      "length": 0.8666666746139526,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": false
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/MM_Idle",
+      "length": 7.566666603088379,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": false
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Bwd",
+      "length": 2.133333444595337,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Bwd_Left",
+      "length": 2.133333444595337,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Bwd_Right",
+      "length": 2.133333444595337,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Fwd",
+      "length": 1.5,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Fwd_Left",
+      "length": 1.5,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Fwd_Right",
+      "length": 1.5,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Left",
+      "length": 1.5333333015441895,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    },
+    {
+      "path": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Right",
+      "length": 1.5333333015441895,
+      "skeleton": "/Game/Characters/Mannequins/Meshes/SK_Mannequin.SK_Mannequin",
+      "additive": "<AdditiveAnimationType.AAT_NONE: 0>",
+      "root_motion": true
+    }
+  ],
+  "blend_samples": [
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Fwd.MF_Unarmed_Walk_Fwd",
+      "value": "<Struct 'Vector' (0x8c3d0298c88) {x: 0.000000, y: 300.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Fwd_Left.MF_Unarmed_Walk_Fwd_Left",
+      "value": "<Struct 'Vector' (0x8c3d0298cc8) {x: -45.000000, y: 300.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Left.MF_Unarmed_Walk_Left",
+      "value": "<Struct 'Vector' (0x8c3d02969c8) {x: -90.000000, y: 300.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Fwd_Right.MF_Unarmed_Walk_Fwd_Right",
+      "value": "<Struct 'Vector' (0x8c3d0295948) {x: 45.000000, y: 300.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Right.MF_Unarmed_Walk_Right",
+      "value": "<Struct 'Vector' (0x8c3d0298f88) {x: 90.000000, y: 300.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Bwd.MF_Unarmed_Walk_Bwd",
+      "value": "<Struct 'Vector' (0x8c3d0292608) {x: -180.000000, y: 300.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Bwd.MF_Unarmed_Walk_Bwd",
+      "value": "<Struct 'Vector' (0x8c3d029cc48) {x: 180.000000, y: 300.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Bwd_Left.MF_Unarmed_Walk_Bwd_Left",
+      "value": "<Struct 'Vector' (0x8c3d0294d08) {x: -135.000000, y: 300.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Bwd_Right.MF_Unarmed_Walk_Bwd_Right",
+      "value": "<Struct 'Vector' (0x8c3d0296088) {x: 135.000000, y: 300.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Fwd.MF_Unarmed_Jog_Fwd",
+      "value": "<Struct 'Vector' (0x8c3d0290888) {x: 0.000000, y: 600.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Fwd_Left.MF_Unarmed_Jog_Fwd_Left",
+      "value": "<Struct 'Vector' (0x8c3d029b608) {x: -45.000000, y: 600.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Fwd_Right.MF_Unarmed_Jog_Fwd_Right",
+      "value": "<Struct 'Vector' (0x8c3d029e388) {x: 45.000000, y: 600.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Left.MF_Unarmed_Jog_Left",
+      "value": "<Struct 'Vector' (0x8c3d0295188) {x: -90.000000, y: 600.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Right.MF_Unarmed_Jog_Right",
+      "value": "<Struct 'Vector' (0x8c3d029d188) {x: 90.000000, y: 600.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Bwd.MF_Unarmed_Jog_Bwd",
+      "value": "<Struct 'Vector' (0x8c3d0296508) {x: 180.000000, y: 600.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Bwd.MF_Unarmed_Jog_Bwd",
+      "value": "<Struct 'Vector' (0x8c3d029d908) {x: -180.000000, y: 600.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Bwd_Left.MF_Unarmed_Jog_Bwd_Left",
+      "value": "<Struct 'Vector' (0x8c3d029be08) {x: -135.000000, y: 600.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Bwd_Right.MF_Unarmed_Jog_Bwd_Right",
+      "value": "<Struct 'Vector' (0x8c3d0291dc8) {x: 135.000000, y: 600.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/MM_Idle.MM_Idle",
+      "value": "<Struct 'Vector' (0x8c3d0291788) {x: 0.000000, y: 0.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/MM_Idle.MM_Idle",
+      "value": "<Struct 'Vector' (0x8c3d029b188) {x: 45.000000, y: 0.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/MM_Idle.MM_Idle",
+      "value": "<Struct 'Vector' (0x8c3d0295b08) {x: 90.000000, y: 0.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/MM_Idle.MM_Idle",
+      "value": "<Struct 'Vector' (0x8c3d0297ec8) {x: 135.000000, y: 0.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/MM_Idle.MM_Idle",
+      "value": "<Struct 'Vector' (0x8c3d0294b88) {x: 180.000000, y: 0.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/MM_Idle.MM_Idle",
+      "value": "<Struct 'Vector' (0x8c3d029e188) {x: -45.000000, y: 0.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/MM_Idle.MM_Idle",
+      "value": "<Struct 'Vector' (0x8c3d0296b48) {x: -90.000000, y: 0.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/MM_Idle.MM_Idle",
+      "value": "<Struct 'Vector' (0x8c3d0296548) {x: -135.000000, y: 0.000000, z: 0.000000}>",
+      "rate": 1.0
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Unarmed/MM_Idle.MM_Idle",
+      "value": "<Struct 'Vector' (0x8c3d0290bc8) {x: -180.000000, y: 0.000000, z: 0.000000}>",
+      "rate": 1.0
+    }
+  ],
+  "blend_parameters": "[{}, {}, {}]",
+  "material_vector_parameters": [
+    "Paint Tint",
+    "LogoTint",
+    "Blend Offset"
+  ]
+}

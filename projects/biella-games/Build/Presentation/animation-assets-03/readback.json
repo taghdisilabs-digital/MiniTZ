@@ -1,0 +1,196 @@
+{
+  "result": "PASS",
+  "mode": "readback",
+  "target": "/Game/Characters/Presentation/BS_RifleLocomotion",
+  "samples": [
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Fwd.MF_Rifle_Walk_Fwd",
+      "direction": 0.0,
+      "speed": 300.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Fwd_Left.MF_Rifle_Walk_Fwd_Left",
+      "direction": -45.0,
+      "speed": 300.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Left.MF_Rifle_Walk_Left",
+      "direction": -90.0,
+      "speed": 300.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Fwd_Right.MF_Rifle_Walk_Fwd_Right",
+      "direction": 45.0,
+      "speed": 300.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Right.MF_Rifle_Walk_Right",
+      "direction": 90.0,
+      "speed": 300.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Bwd.MF_Rifle_Walk_Bwd",
+      "direction": -180.0,
+      "speed": 300.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Bwd.MF_Rifle_Walk_Bwd",
+      "direction": 180.0,
+      "speed": 300.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Bwd_Left.MF_Rifle_Walk_Bwd_Left",
+      "direction": -135.0,
+      "speed": 300.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Bwd_Right.MF_Rifle_Walk_Bwd_Right",
+      "direction": 135.0,
+      "speed": 300.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Fwd.MF_Rifle_Jog_Fwd",
+      "direction": 0.0,
+      "speed": 600.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Fwd_Left.MF_Rifle_Jog_Fwd_Left",
+      "direction": -45.0,
+      "speed": 600.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Fwd_Right.MF_Rifle_Jog_Fwd_Right",
+      "direction": 45.0,
+      "speed": 600.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Left.MF_Rifle_Jog_Left",
+      "direction": -90.0,
+      "speed": 600.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Right.MF_Rifle_Jog_Right",
+      "direction": 90.0,
+      "speed": 600.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Bwd.MF_Rifle_Jog_Bwd",
+      "direction": 180.0,
+      "speed": 600.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Bwd.MF_Rifle_Jog_Bwd",
+      "direction": -180.0,
+      "speed": 600.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Bwd_Left.MF_Rifle_Jog_Bwd_Left",
+      "direction": -135.0,
+      "speed": 600.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Bwd_Right.MF_Rifle_Jog_Bwd_Right",
+      "direction": 135.0,
+      "speed": 600.0,
+      "rate": 1.0,
+      "root_motion": true
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/MF_Rifle_Idle_ADS.MF_Rifle_Idle_ADS",
+      "direction": 0.0,
+      "speed": 0.0,
+      "rate": 1.0,
+      "root_motion": false
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/MF_Rifle_Idle_ADS.MF_Rifle_Idle_ADS",
+      "direction": 45.0,
+      "speed": 0.0,
+      "rate": 1.0,
+      "root_motion": false
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/MF_Rifle_Idle_ADS.MF_Rifle_Idle_ADS",
+      "direction": 90.0,
+      "speed": 0.0,
+      "rate": 1.0,
+      "root_motion": false
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/MF_Rifle_Idle_ADS.MF_Rifle_Idle_ADS",
+      "direction": 135.0,
+      "speed": 0.0,
+      "rate": 1.0,
+      "root_motion": false
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/MF_Rifle_Idle_ADS.MF_Rifle_Idle_ADS",
+      "direction": 180.0,
+      "speed": 0.0,
+      "rate": 1.0,
+      "root_motion": false
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/MF_Rifle_Idle_ADS.MF_Rifle_Idle_ADS",
+      "direction": -45.0,
+      "speed": 0.0,
+      "rate": 1.0,
+      "root_motion": false
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/MF_Rifle_Idle_ADS.MF_Rifle_Idle_ADS",
+      "direction": -90.0,
+      "speed": 0.0,
+      "rate": 1.0,
+      "root_motion": false
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/MF_Rifle_Idle_ADS.MF_Rifle_Idle_ADS",
+      "direction": -135.0,
+      "speed": 0.0,
+      "rate": 1.0,
+      "root_motion": false
+    },
+    {
+      "animation": "/Game/Characters/Mannequins/Anims/Rifle/MF_Rifle_Idle_ADS.MF_Rifle_Idle_ADS",
+      "direction": -180.0,
+      "speed": 0.0,
+      "rate": 1.0,
+      "root_motion": false
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "schema": "biella.presentation_increment/v1",
+  "task_id": "D03-01",
+  "increment": "shared skeletal locomotion, jump, lifecycle and character shadow readability",
+  "increment_validation": "PASS",
+  "task_status": "CONTINUE",
+  "capture_status": "GENERATED_DRAFT",
+  "created_at": "2026-09-06T06:47:42.720615+00:00",
+  "baseline_commit": "ffdd4babd2196151ad33a85b2fd2a0db28b5dd90",
+  "report": "Build/Presentation/D03-01-animation-progress.md",
+  "evidence": [
+    {
+      "path": "Build/Presentation/animation-green-build-06/build.log",
+      "sha256": "ae83f7d30cd59cadc0b9088567a1bcac6e726d0add93c2c99840d8475c788412"
+    },
+    {
+      "path": "Build/Presentation/animation-assets-01/readback.json",
+      "sha256": "eb52f27753bff2e3859e96cca060f09970db51a3dfdd794f03cfe72a05410e43"
+    },
+    {
+      "path": "Build/Presentation/animation-assets-03/readback.json",
+      "sha256": "0a5d6bd26bd311364bc31147576277f0fedb9a678991830dcf8c5bd4fe506c10"
+    },
+    {
+      "path": "Build/Presentation/animation-material-02/readback.json",
+      "sha256": "61f62a123068262cb368191d722e7e92273d15784eb1af2382c7a09c64549b53"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/validation.json",
+      "sha256": "bc49357f39fc1cf9b71484d1873e3b08151270d587cfdfbe099f9150cddbab96"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-02/validation.json",
+      "sha256": "76cd9403490fff345b406a6e29fb22e7674795e28b93a05e17e5e3334dd7bfe3"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/validation.json",
+      "sha256": "17467105367da91fe58383a15dc4cfc660e30ff57fc753b7d02313352a17e751"
+    },
+    {
+      "path": "Build/Presentation/animation-material-01/shadow-red.json",
+      "sha256": "284f5ed4817c34bf5edf3d404184bde83ab9f2b1d44621d849cf7a26f768e1ac"
+    },
+    {
+      "path": "Build/Presentation/animation-material-02/shadow-green.json",
+      "sha256": "314ea0a7ae8bf887cd5a214ca0e64b889970eb9ee0903627752f15b207cf9d48"
+    },
+    {
+      "path": "Build/Presentation/D03-01-animation-final-readback.json",
+      "sha256": "5a5c46b6cc1ff60d8fb3f7e9fcfb37212afd452f22ab09208a8d7fb8d1c67cb4"
+    },
+    {
+      "path": "Build/Presentation/D03-01-animation-preservation.json",
+      "sha256": "d6279155e6504dc935fb045dcb723d55dc50b9d24d0091b5f15b7d10906c97e0"
+    },
+    {
+      "path": "Build/Presentation/animation-review-01/controller-review.md",
+      "sha256": "30df54bbaf4e85eee026a33c3c97749e960b73937cf220212b88819665ba36c8"
+    },
+    {
+      "path": "Build/Presentation/D03-01-animation-progress.md",
+      "sha256": "cb8fd1dcbbcde7bf456514683a29ca97af2c6c5cca6f04b9f83ebf8ddbc9ac86"
+    }
+  ],
+  "remaining": [
+    "Production world/rendering art and lighting",
+    "Final character/weapon art, IK, aim/action/hit/defeat and skeletal vehicle presentation",
+    "Broader transition, LOD and crowd qualification",
+    "Production VFX and audio",
+    "Launch-platform qualification"
+  ],
+  "publication": {
+    "owner": "Auto Feeder",
+    "local_identity": "Canonical Project paths plus exact animation file manifest",
+    "remote_publication_claimed": false
+  },
+  "preserves": [
+    "Completed predecessor evidence",
+    "Rendering increment ffdd4bab",
+    "Engine P4-06 INCOMPLETE_DEFERRED",
+    "One repository, controller and Project production source",
+    "03/04 and Project PRODUCTION metadata"
+  ]
+}

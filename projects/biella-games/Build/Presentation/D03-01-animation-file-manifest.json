@@ -1,0 +1,1748 @@
+{
+  "schema": "biella.deliverable_file_manifest/v1",
+  "task_id": "D03-01",
+  "increment": "skeletal animation and character readability",
+  "task_status": "CONTINUE",
+  "created_at": "2026-09-06T06:51:17.348552+00:00",
+  "baseline_commit": "ffdd4babd2196151ad33a85b2fd2a0db28b5dd90",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "digest_rule": "SHA-256 of exact regular file bytes or UTF-8 symlink target text; this manifest excludes itself",
+  "file_count": 289,
+  "total_bytes": 199785543,
+  "files": [
+    {
+      "path": "Build/Presentation/D03-01-animation-final-readback.json",
+      "size": 1101,
+      "sha256": "5a5c46b6cc1ff60d8fb3f7e9fcfb37212afd452f22ab09208a8d7fb8d1c67cb4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/D03-01-animation-increment.json",
+      "size": 3398,
+      "sha256": "90834fa752ccdad6c04f75142ea89edee4d3dda563a71810a843570c6ed44296",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/D03-01-animation-preservation.json",
+      "size": 1857,
+      "sha256": "d6279155e6504dc935fb045dcb723d55dc50b9d24d0091b5f15b7d10906c97e0",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/D03-01-animation-progress.md",
+      "size": 6528,
+      "sha256": "cb8fd1dcbbcde7bf456514683a29ca97af2c6c5cca6f04b9f83ebf8ddbc9ac86",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-assets-01/author-source.py",
+      "size": 2295,
+      "sha256": "42d5188b8881f982b50da5d209cd37803388b90190f1c4b03d7b6873503b66a8",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-assets-01/author.log",
+      "size": 218538,
+      "sha256": "5207b058c244adb3f6701b78bf6b69dde6f2e4b98608a11a33cff07cd9cbe6d0",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-assets-01/diagnostic.log",
+      "size": 217943,
+      "sha256": "2ece11ab437d3e089eb97ce85f7e825862f3e9e6448172b864dedac1ec2c6ecd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-assets-01/readback.json",
+      "size": 52610,
+      "sha256": "eb52f27753bff2e3859e96cca060f09970db51a3dfdd794f03cfe72a05410e43",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-assets-01/readback.log",
+      "size": 224306,
+      "sha256": "c7c856146d15a781c0498202dc140843444cac71f52cdcb62943052fc2f122ad",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-assets-01/rejected/BS_RifleLocomotion.uasset",
+      "size": 49337,
+      "sha256": "e1b3ca4ec6e1eb0a3b5eae0365c64c2a55aa652e426b91aaae280d46d937796b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-assets-01/rejected/build_production_locomotion.py",
+      "size": 2295,
+      "sha256": "42d5188b8881f982b50da5d209cd37803388b90190f1c4b03d7b6873503b66a8",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-assets-02/author.log",
+      "size": 217872,
+      "sha256": "b95024678c02d36cd424fab8ce2b355afe1058055cee5cb119290a525145b7b9",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-assets-03/readback.json",
+      "size": 5784,
+      "sha256": "0a5d6bd26bd311364bc31147576277f0fedb9a678991830dcf8c5bd4fe506c10",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-assets-03/readback.log",
+      "size": 214959,
+      "sha256": "d53592acd0019443dc2acfa0da81203d90bcff4db66661ebce1a293f30224d9d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-design-01/design.md",
+      "size": 1946,
+      "sha256": "2cb1d4157101a7290623bcff5b30e9fb9c722b9bdf85837a72a3d520db4380d9",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-design-01/request.json",
+      "size": 8446,
+      "sha256": "610e9826dc6c314f5752da3b6b478f1dd912de6a874bbb5be89fd2e4702d9621",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-design-01/response.json",
+      "size": 133,
+      "sha256": "4aa1f053d016c9daaa4900c20b09c9ac5a9cb6c72468a59205ca93b0fc3eef5d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-01/captures/hazard_active.png",
+      "size": 1040470,
+      "sha256": "f42f61f49fafbc765727640d2fa1b53557881428fdf5a482a8eee05fcb1621ce",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-01/captures/panel_damaged.png",
+      "size": 978453,
+      "sha256": "7f03b616521b8aeb788ec4c14367d5c8922eac354aaf48aa17b0853ec0f5b5f5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-01/captures/panel_destroyed.png",
+      "size": 979956,
+      "sha256": "5082825ea454cb998d9705bde62f6ef7b1232a96198cc303a96d0cc218bc277a",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-01/captures/stream_return.png",
+      "size": 991793,
+      "sha256": "19865441cbbaaecde7cdc07f960898d8391eef506c3c495a296c7064b9f175c4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-01/captures/switch_safe.png",
+      "size": 986534,
+      "sha256": "eb7817cec01c9241babb825c110406c778a9fe819e7af17ab7871d5cd33ecb30",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-01/events.log",
+      "size": 1703,
+      "sha256": "ac40181a9097f412f70caed523524a8200a7cb9fdaae214648b00a0be653e2a9",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-01/frames.csv",
+      "size": 163869,
+      "sha256": "0e0c9a358f479ed55d471980d998762b1b14674d922c0f9343197b554e9f16a5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-01/process-memory.jsonl",
+      "size": 10675,
+      "sha256": "4a0e110bbad8d2e8edc437e83ceaf63f8e4d6d77c7b6a2b29445b652e1d2b424",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-01/result.json",
+      "size": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-01/runtime.engine.log",
+      "size": 426217,
+      "sha256": "50c7592de9890e665f5f17f0222332095a15d1553345580a5945f6acb90e48fc",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-01/runtime.stdout.log",
+      "size": 425493,
+      "sha256": "f88a7dd4c247b423e4e43345a797dc9cfafcfb8370213de40f4c8e8699315f12",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-01/validation.json",
+      "size": 140794,
+      "sha256": "86a52866e24843f77f6cd37011cab1f136ba92f22f5bb69adc7730874135773f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-02/captures/hazard_active.png",
+      "size": 1038718,
+      "sha256": "f9d50afe1a14c54ac7aa37f0dad045bc6ec545e079f97ac352c2a450a11540b1",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-02/captures/panel_damaged.png",
+      "size": 979455,
+      "sha256": "3d9c3a7cf8f72084eed28bfd68fe4250e020d711604ad6b68e29c27b909e22b4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-02/captures/panel_destroyed.png",
+      "size": 979658,
+      "sha256": "118bfb24f8fdb3c9e7bb36fcdf51e975a35a1ad5aae37239935c3f0131602b54",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-02/captures/stream_return.png",
+      "size": 991431,
+      "sha256": "8d8a2c34af20e3460cd228ae90e1da11bc88b242e813e93d0293fe56474ca497",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-02/captures/switch_safe.png",
+      "size": 986284,
+      "sha256": "f993baef7c7e53b6aa91fb47d225a2031a60655284a79feda3712539728f1c5e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-02/events.log",
+      "size": 1703,
+      "sha256": "174e2b7b115fb4f870c31d3f9c0ac66245db0fe3f2f77b647762562a19594a03",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-02/frames.csv",
+      "size": 165584,
+      "sha256": "2584f1d2334962b336438e0f7dba8ef9f1bbce287159e5710c786cbe1d4fdf24",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-02/process-memory.jsonl",
+      "size": 10675,
+      "sha256": "d02cb5785ef745eeb878b71c5fefda2677eec96d3b90cb2d1f5d84ba3d14ac70",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-02/result.json",
+      "size": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-02/runtime.engine.log",
+      "size": 435517,
+      "sha256": "1f67ef652243dae65af195287aa15e0c0b0b4f9cefe2beb0656dc47629e52382",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-02/runtime.stdout.log",
+      "size": 434727,
+      "sha256": "b136c9302523563b88265ed34d49d9fcbad1efd3924cc9bea50990ccf44d212b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-02/validation.json",
+      "size": 143569,
+      "sha256": "76cd9403490fff345b406a6e29fb22e7674795e28b93a05e17e5e3334dd7bfe3",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-build-01/build.log",
+      "size": 3514,
+      "sha256": "00aba9a42a7e7c4a0e8d5b850800aa5cea190b7f6b7e27693d20cba4f0929e69",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-runtime-01/captures/backward.png",
+      "size": 994483,
+      "sha256": "8f1124cbee62128c17dba3222c402a34c73bfcd9fa21863fec4311290aec18e0",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-runtime-01/captures/dismount.png",
+      "size": 990333,
+      "sha256": "d7758c3a704ebee3aefcd634dd34427cf1a56cb4ce7b26d9a9bdc4c4b2e54aee",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-runtime-01/captures/forward.png",
+      "size": 988127,
+      "sha256": "6720989d4be379e3631fd9540832102858a6e8adc5d9b62e2be7ea5451511439",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-runtime-01/captures/idle.png",
+      "size": 951789,
+      "sha256": "8859a767be4fd641649da4c146219bc1fd3f672f9388d41bb813ebb90c0c2d27",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-runtime-01/captures/jump.png",
+      "size": 1003523,
+      "sha256": "c4059ed4df7c5d9f788143071a48045277d09e79dd576e5f9829c33b28ddd8b7",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-runtime-01/captures/land.png",
+      "size": 945285,
+      "sha256": "df5b2192cd004278147d35725fff08e3c78c2779c595f4219936041221224036",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-runtime-01/captures/npc_gaits.png",
+      "size": 996080,
+      "sha256": "39ef0127c341f0ea10717d559ca59bfb6df69947cdaad7770077b83c9085b2fb",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-runtime-01/captures/right.png",
+      "size": 999908,
+      "sha256": "e85e73d81d8e7395df8df7e2521d6d92dfa8b812829ccd603af26e0bfc3889af",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-runtime-01/captures/seat.png",
+      "size": 985325,
+      "sha256": "f8bf177733af9f5b03183f792bcf68cff2e53dd47ec54e4b2c4a5b17c463e22f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-runtime-01/poses.csv",
+      "size": 71297,
+      "sha256": "ce8cca7d9524780f28014c1cb85931fa842e1f5501c56cff52b60793af818e67",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-runtime-01/process-memory.jsonl",
+      "size": 8914,
+      "sha256": "ccb1281fb1c7dd631122fcee2d78fa8ad476354e0609ae0ada93fc73271d5334",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-runtime-01/result.json",
+      "size": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-runtime-01/runtime.engine.log",
+      "size": 361318,
+      "sha256": "37e9f7602096c0908c506deecc1271dce74f5cd16ac596f4913877119de4394e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-runtime-01/runtime.stdout.log",
+      "size": 361033,
+      "sha256": "958211227ee41ad71bb49ccbc2658a75f528ebdc6b5e91ba958283718d703a6b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-runtime-01/torso-fit.txt",
+      "size": 384,
+      "sha256": "720edd6cff0508c9110af343cfd9a8e82a5d5290ddd83b42030d7d0b509ce9f7",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-fit-runtime-01/validation.json",
+      "size": 139191,
+      "sha256": "fb1c2e785622fb5fdeb4e40195431eca4e56e4160e86c287ba4ec8c9fe460e65",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-green-build-01/build.log",
+      "size": 18982,
+      "sha256": "63618be3f97ff7c8dc86020db1beda9f52d10e7089b6924ca6d66983a25b1f70",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-green-build-02/build.log",
+      "size": 3555,
+      "sha256": "a33140160c926fe638cba022cdc6954fad6138427dae645b11a0ec00f39de4a6",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-green-build-03/build.log",
+      "size": 4954,
+      "sha256": "b553de3f4b35358edc50803b942674d63e55779ba41e1b21bedbf039514742f1",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-green-build-04/build.log",
+      "size": 3509,
+      "sha256": "02752138d5c27df9b4e831a66d55dfeffc277331c4decd6693e8e401b19855d1",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-green-build-05/build.log",
+      "size": 3555,
+      "sha256": "899150fb657c9d1987db4ee3e58620f5e68049f709a8a659c503463a8f06a077",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-green-build-06/build.log",
+      "size": 3522,
+      "sha256": "ae83f7d30cd59cadc0b9088567a1bcac6e726d0add93c2c99840d8475c788412",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-01/author.json",
+      "size": 1131,
+      "sha256": "ffb121563862cb59088ebb0031c9370ba60936e81227b79d5b2e4b66b200da53",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-01/author.log",
+      "size": 218270,
+      "sha256": "15dd6a3909517fa640ddf8ea11248c8ca083bd80daf56a9148832d92da8ea7d8",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-01/design-addendum.md",
+      "size": 852,
+      "sha256": "95dbbcfd43d80e4ecfde36af038f3620a72fe70ab659d8f68c8e9d2b4c3fdf94",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-01/inspect-retry.log",
+      "size": 214873,
+      "sha256": "23021ff95ba558ccd127454f4bfdc9568cf3ef7d5ee895abccbad5f10c431ed9",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-01/inspect.log",
+      "size": 216450,
+      "sha256": "e17a3f6bf1db99132c702d475c0cf657caeee517e04e7fad4d64fd4d461732f9",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-01/inspect.py",
+      "size": 1018,
+      "sha256": "80612a7e6a0400dde9bb2bf1007aed1327732beb370f51548bd203a5292d07a2",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-01/inspection.json",
+      "size": 1168,
+      "sha256": "8cf66076f6b593c10cb55bcc1017885fca41bd36bc178a90a8943e3b33ae547d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-01/readback.json",
+      "size": 1133,
+      "sha256": "3600f58543d17d41ee57ed179a287b973ebdd50468e92209be2b0bf219c7ad25",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-01/readback.log",
+      "size": 215008,
+      "sha256": "09ba2c933ae879d056f123409c1277f52756d2bd5b46deae12287e5bfb0db9ce",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-01/rejected-fill035/MI_Character_01.uasset",
+      "size": 7769,
+      "sha256": "47a83a40f3b4f783975dd152069a27df3582c71cc7c38819f6fb8e596508eaa5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-01/rejected-fill035/MI_Character_02.uasset",
+      "size": 9521,
+      "sha256": "b84e59b2b1cd8c6f55cd25b66cf005bff92423e50a3a1f4b84ca113973c53fe9",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-01/rejected-fill035/M_CharacterReadability.uasset",
+      "size": 49984,
+      "sha256": "defc052b0b8f4c48cac88395ffe55eaff9514f6c367823105a24888da48d6dfb",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-01/rejected-fill035/build_production_character_material.py",
+      "size": 5335,
+      "sha256": "6d2e9ef8a66df13fee992acb39cf4984ed3ba5fe77b4f6a5456bba3d7e6f15d3",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-01/shadow-candidate-01.json",
+      "size": 1409,
+      "sha256": "c1d05bba4d756527b1ac200b8b2f6096b1d9d585e9de3e0e38ab9337a9046e6d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-01/shadow-red.json",
+      "size": 1418,
+      "sha256": "284f5ed4817c34bf5edf3d404184bde83ab9f2b1d44621d849cf7a26f768e1ac",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-02/author.json",
+      "size": 1134,
+      "sha256": "cadc7af8ba16c9c45e567bb02c4419912fdbc99c1db3d51998edeb816322acd0",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-02/author.log",
+      "size": 216798,
+      "sha256": "c01c642b06630e64c062d7d2f08c3d7b47166ddb84a0d6661f92cc476f086b55",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-02/readback.json",
+      "size": 1131,
+      "sha256": "61f62a123068262cb368191d722e7e92273d15784eb1af2382c7a09c64549b53",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-02/readback.log",
+      "size": 215008,
+      "sha256": "3c90d5d35dde6d28d102dcd4fa55da399a13512b8073ad69dda9d43f4baf9b9b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-material-02/shadow-green.json",
+      "size": 1404,
+      "sha256": "314ea0a7ae8bf887cd5a214ca0e64b889970eb9ee0903627752f15b207cf9d48",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/1280x720.engine.log",
+      "size": 289911,
+      "sha256": "4c9340616b8862ce173418f2e589e1b5bcd82d09fb42527a4090cb1f64d02f26",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/1280x720.stdout.log",
+      "size": 290115,
+      "sha256": "c116ae08cb9d317e21549ef7edc04e5c4c4ee428d95e784d701dea17337dd49d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/1920x1080.engine.log",
+      "size": 290114,
+      "sha256": "44a6101ee84a03523b8921e1e6ed3bc506d4fc91e37e3f52faa12e0243e7cc7c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/1920x1080.stdout.log",
+      "size": 289307,
+      "sha256": "16e69f258462e730d89ae1d1338b751dd6c69a27f0884f419585bbf1c9c00beb",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/captures/1280x720/active_06m_1280x720.png",
+      "size": 741582,
+      "sha256": "de5ee9be3991c0fe87df413bfbd4dc2a2f4033768ca5df6f17f470e07f540a24",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/captures/1280x720/active_12m_1280x720.png",
+      "size": 728630,
+      "sha256": "079177fb49b92b611bc717a6db9fbda2dece74bc1ee708cd987101d37cd445a7",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/captures/1280x720/active_20m_1280x720.png",
+      "size": 724913,
+      "sha256": "580d06393674ffa9b715095ae1b0746d0d4b8ae7879364958763dfbba8fcbe82",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/captures/1280x720/failure_1280x720.png",
+      "size": 197833,
+      "sha256": "efec6f24b304905e4d4d5dac69d324b404ae7ffc9b9abb533b02610a8e14060f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/captures/1280x720/low_health_pressure_100_1280x720.png",
+      "size": 740260,
+      "sha256": "c759c2b64dfa15a6399fe6e3c9c628870e4e171e1ed259a570edb1148587f272",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/captures/1280x720/success_1280x720.png",
+      "size": 241425,
+      "sha256": "184962be740d87ffa2959868fa265626f8dcefbe278100bd27986463cea9c08d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/captures/1920x1080/active_06m_1920x1080.png",
+      "size": 1612915,
+      "sha256": "6ed266e93f9c747e7cd13b30d217788a9109e573c2e066fbbd2b1e91dba7dda4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/captures/1920x1080/active_12m_1920x1080.png",
+      "size": 1580827,
+      "sha256": "98ed85058de66e383ebb3538155d9ee731e54fc82d1943f34207bebdc8a1daac",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/captures/1920x1080/active_20m_1920x1080.png",
+      "size": 1581260,
+      "sha256": "f701660df97424d0e59853837b8bf2641ea3d7fb1e4a16617b834669757f2d1e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/captures/1920x1080/failure_1920x1080.png",
+      "size": 401618,
+      "sha256": "02cc1f905445e861b96ab3f226224c88ddffa3d8aa092d24a0374323f62a42ac",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/captures/1920x1080/low_health_pressure_100_1920x1080.png",
+      "size": 1607227,
+      "sha256": "bf2f44edd95692fac47cb2a130f1b8d040c77c9164304157cc93fcf596c2740d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/captures/1920x1080/success_1920x1080.png",
+      "size": 498066,
+      "sha256": "35f22f21c5ddbdbd5ea1ee8a8e53bff917c270453ca2c18ca8f96f306a30d483",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-01/validation.json",
+      "size": 53854,
+      "sha256": "6f7669598dc1f9798044334b511fb4a2d861ffd2671923aa09f738174e4dd8de",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/1280x720.engine.log",
+      "size": 289895,
+      "sha256": "ad9cf7e81c22ec182e95f8cb565e30385fbd1f84e5ff1bb5c5a56d8349efe77b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/1280x720.stdout.log",
+      "size": 290069,
+      "sha256": "ff405e9c3e375a8f445cad4d673a7c05c8334dc1d8b8350f1c5cbe40e4cbcd83",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/1920x1080.engine.log",
+      "size": 290377,
+      "sha256": "4089f4a5febe4e33615b6c9129599cd59243667cb09ef01fb35b8ab201ef1da5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/1920x1080.stdout.log",
+      "size": 289598,
+      "sha256": "c781ac2ad8a78c40af994f12f8db495da3784f3af91f180bb2604feaafb56f11",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/captures/1280x720/active_06m_1280x720.png",
+      "size": 747545,
+      "sha256": "c21ad5a3bf7e036bade18adfa71396464cd05f0d2721e04ace14a81869c16c7e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/captures/1280x720/active_12m_1280x720.png",
+      "size": 733846,
+      "sha256": "053cf5a7f3931ab55b24052c07d14aca7232492f0b3b1c98e38d9ee1e632d9ac",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/captures/1280x720/active_20m_1280x720.png",
+      "size": 731414,
+      "sha256": "16d372955e6b602335294afa8502b6e1fd764aff4ce3e9269435acfc75c06ba0",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/captures/1280x720/failure_1280x720.png",
+      "size": 197914,
+      "sha256": "86a056e3dfbe62e9392f23ab2b03c3f21c96d47307ee47bc7b36654acddd6868",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/captures/1280x720/low_health_pressure_100_1280x720.png",
+      "size": 746178,
+      "sha256": "15040c95ffbf2ee00d2e3d34f89765d4a6b7ee9307f1311e73cabd3b8d67c536",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/captures/1280x720/success_1280x720.png",
+      "size": 243427,
+      "sha256": "ad5c99a1d6cf7b87489f91b18c670020fa208db831721ccb73a9c255cec9e707",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/captures/1920x1080/active_06m_1920x1080.png",
+      "size": 1623447,
+      "sha256": "5138738911ab4ff1c89feb25c4ef74e8b2d2ae49c5b5b87ea16eed819240abbf",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/captures/1920x1080/active_12m_1920x1080.png",
+      "size": 1594988,
+      "sha256": "9f67c2b33eaf4429ed1c52eceed9a42253940fe8ac0c6f87c1ee486541e907e6",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/captures/1920x1080/active_20m_1920x1080.png",
+      "size": 1589282,
+      "sha256": "802d4c38aa99d353ccca688880186c4271d7643a97131a699567216ba8c879e2",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/captures/1920x1080/failure_1920x1080.png",
+      "size": 401478,
+      "sha256": "6464a77be3a48691549a2ade0d5a491daed50c9566a3c227edc27aa30cdb61e0",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/captures/1920x1080/low_health_pressure_100_1920x1080.png",
+      "size": 1621480,
+      "sha256": "a1236ea072ba09781976a95989d957811325738abf4a598ed2968b551faaede4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/captures/1920x1080/success_1920x1080.png",
+      "size": 502552,
+      "sha256": "93fa22d4c8f33e83b931a9ddda10b3456517af7cee013c95ddec9849a89e8708",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-02/validation.json",
+      "size": 54137,
+      "sha256": "390d46fbdd2bacbf3e846a280eb97524d75f25cbdf2462fb6d2579cd76428484",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/1280x720.engine.log",
+      "size": 289284,
+      "sha256": "b0c8d23dfd87576e00272041df244aa4363e179b9cc19bc03c679d219869e5fe",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/1280x720.stdout.log",
+      "size": 288508,
+      "sha256": "7e3500e887df61c7dcff71976004f8952bd97da98b77eee9038b9980c40e5ca9",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/1920x1080.engine.log",
+      "size": 290071,
+      "sha256": "5206b7ea19dde1c55724c3814a8099b113b5608dd1c8bfaca123d5e189efb0c7",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/1920x1080.stdout.log",
+      "size": 289294,
+      "sha256": "e15295969580adc762287a4f0eebea3312565628793c94846ae59246a22e12ea",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/captures/1280x720/active_06m_1280x720.png",
+      "size": 753165,
+      "sha256": "cde9683b86caaae9b4a93957065f9897b0fa91889230d3be4e5d572f92029e7e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/captures/1280x720/active_12m_1280x720.png",
+      "size": 740011,
+      "sha256": "e86a692fe715d068b29510da8a44a90a5968dcc30a0d082513e97002528f1ba2",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/captures/1280x720/active_20m_1280x720.png",
+      "size": 736753,
+      "sha256": "eed9756a9a74744eda1c8cfe8a3a49f01b0f8ca1c99958633da872f478f2b4ba",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/captures/1280x720/failure_1280x720.png",
+      "size": 198045,
+      "sha256": "b914e6cae2d5187280a8fbbfd28d7eab56d7c2ac2878a70633df782b6fd493bf",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/captures/1280x720/low_health_pressure_100_1280x720.png",
+      "size": 750769,
+      "sha256": "f5f8f71882d35334408a934114f2bb58e768eddbe186000ac29102a8a18d983c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/captures/1280x720/success_1280x720.png",
+      "size": 243060,
+      "sha256": "bdd4c8f9549fd667da1521f1a0b5363e97797d73ec7370c746f8eaa379046d82",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/captures/1920x1080/active_06m_1920x1080.png",
+      "size": 1636375,
+      "sha256": "f71aab444eae8cabd014238420e069bd1babb4bd32866a65d2ca1e5e76ef8b81",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/captures/1920x1080/active_12m_1920x1080.png",
+      "size": 1610686,
+      "sha256": "2d1fea8dae9286d8a52dfc103f3f7fb7510bab068289ce6829c908e854619dbb",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/captures/1920x1080/active_20m_1920x1080.png",
+      "size": 1601575,
+      "sha256": "f876c70a5f7bd8110dd8daa3edcd7d563bf37bf798fb61474cbc4fcf42c926e1",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/captures/1920x1080/failure_1920x1080.png",
+      "size": 401760,
+      "sha256": "415422d94a7d0eafe19ed5f8f0bc533027fb5120a3c9478af26f69294f6c8fda",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/captures/1920x1080/low_health_pressure_100_1920x1080.png",
+      "size": 1629015,
+      "sha256": "a71d990aea162742fda72c5db293fa8582dfa9d28ff42f56a79e5c389f0e3f6e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/captures/1920x1080/success_1920x1080.png",
+      "size": 500608,
+      "sha256": "d185501fa1cdfff2dede495a6f5f8fb42066552de45234e446e6a4b7d78f7d6c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/validation.json",
+      "size": 54316,
+      "sha256": "17467105367da91fe58383a15dc4cfc660e30ff57fc753b7d02313352a17e751",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-red-01/build.log",
+      "size": 8752,
+      "sha256": "0fc141a0fb0387d86a08ac05db906e9b05954a36d815ed1d4e7a5f44674e62fc",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-red-runtime-01/poses.csv",
+      "size": 57,
+      "sha256": "3a7502f57f45eb2054f65db03e7141377fe47bd950dae32c835a971c3385b9c6",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-red-runtime-01/process-memory.jsonl",
+      "size": 8036,
+      "sha256": "337b4f5f93c08bd76e43d38876d0d9a6f769c1656141d83dfa0303189a12e647",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-red-runtime-01/result.json",
+      "size": 63,
+      "sha256": "37b39595d61d9f40ac57c1272b5a7015d6bb9e7ced9a5e4d45edeb18c496a4da",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-red-runtime-01/runtime.engine-CRC.log",
+      "size": 13429,
+      "sha256": "e424d97d252a1230f9ba488580b25ebc02cc69680821c60bfddf32592084d3e8",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-red-runtime-01/runtime.engine.log",
+      "size": 367466,
+      "sha256": "c9af7b01052b10d11bd11a1841e17bbdf31bb0ab1611b7babd55316066383f02",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-red-runtime-01/runtime.stdout.log",
+      "size": 380830,
+      "sha256": "18a53764c6399ba5e3b237c47d94cbf111346ff8da17235d52718400221be4e1",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-red-runtime-01/validation.json",
+      "size": 102482,
+      "sha256": "a22f380a30fdc5ea5a56f44306d6db1249064188c5f95135bda240a2014ab701",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-review-01/controller-review.md",
+      "size": 2853,
+      "sha256": "30df54bbaf4e85eee026a33c3c97749e960b73937cf220212b88819665ba36c8",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-review-01/request.json",
+      "size": 5400,
+      "sha256": "bd32a50feca012926a79c78a26644fa1f2a3c944e6a6f6628662297a4e8ac0e2",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-review-01/response.json",
+      "size": 174,
+      "sha256": "aad8bba0e58834e49b5b9662d9b4512f07f8373c6115f43542bcd28b1173f834",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-01/captures/backward.png",
+      "size": 999670,
+      "sha256": "dade5ee171f7489d4f5dbc0ec70b80cdf0bd9a27263bd871d6bc2f98f73e8210",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-01/captures/forward.png",
+      "size": 981151,
+      "sha256": "29504a5553333e5c1fc4a1d570590470fc7b6e48128815ce5e2da5da966f129c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-01/captures/idle.png",
+      "size": 953989,
+      "sha256": "5814318bf41235a01ad0af285d0f2c25ce8cf9607e45dc949e9356f2467346c6",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-01/captures/jump.png",
+      "size": 1006742,
+      "sha256": "4aae5347e40f876cfabe81d0f596995f04ec834ff5aa2da986ebb625c85b182b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-01/captures/land.png",
+      "size": 946441,
+      "sha256": "b315fcb906ef7db4cc682635d96b620a59dc5db90e00e952819918afe0f57dba",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-01/captures/right.png",
+      "size": 999654,
+      "sha256": "348ca2945bfe442e1508040244a85b12dffef90604793512a43f213635badd64",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-01/poses.csv",
+      "size": 38897,
+      "sha256": "6d008e87dd3dbd7e55391e2245b7f2b8a33f07f885fc37d98eb5c5bc78a12044",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-01/process-memory.jsonl",
+      "size": 7472,
+      "sha256": "ae55bf890463a99370efdd3625a1d3738310f0556b0f34d78526f072f6aa7eec",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-01/result.json",
+      "size": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-01/runtime.engine.log",
+      "size": 361275,
+      "sha256": "ba74121b6c6b704ea9aa376dc820cc3120d547d69d4cc3a4f00cfeea72301058",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-01/runtime.stdout.log",
+      "size": 366390,
+      "sha256": "fb92143f17ff88447cc6493b230e4bdce70bf97f397d3214a7ff373155d3b55e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-01/validation.json",
+      "size": 138743,
+      "sha256": "0776b8c3b755db7552b42a91b47ac4842b35ddcdb94183648f731f4398f8a93d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-02/captures/backward.png",
+      "size": 998885,
+      "sha256": "85f1567d0b71b01294014a5a081a6be05e3ad86e95183af0926bf2008e8e2a8b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-02/captures/dismount.png",
+      "size": 989002,
+      "sha256": "9e30763d4da6f5da60240ec1d06976c4007dc30a150f6e46f818b3924238fa39",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-02/captures/forward.png",
+      "size": 987059,
+      "sha256": "6c212b4d1c88c039e1937c8edbe040fa9046f60d6fa7eb13d438ac693d48e3a7",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-02/captures/idle.png",
+      "size": 951386,
+      "sha256": "964dd30fbe2dc45fba8dc03cf3b978aeaf0c360b22686c9adbc51a0b41870c41",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-02/captures/jump.png",
+      "size": 1006377,
+      "sha256": "2d55dfb28d5668b6eb18defe4c028400c4ade2434bce3774a9395f7dd669514c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-02/captures/land.png",
+      "size": 944232,
+      "sha256": "4e5733d8fbcd03086e4607ccf02cf68ac8c058aed7443e27dcce63c8d1ed8175",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-02/captures/npc_gaits.png",
+      "size": 993173,
+      "sha256": "9dadb05ce04f70f28c8d8f14f3697f3beaf9ee3880d389bc822d0809efc4bd0c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-02/captures/right.png",
+      "size": 1000022,
+      "sha256": "6402cdce147493798b58b8c9838543432131fcef5b41f6e82e8118170276b62d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-02/captures/seat.png",
+      "size": 981748,
+      "sha256": "8769e7df0e905a0fc6f3cac681adfe00aff97c1be9c626505341246b5a16c300",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-02/poses.csv",
+      "size": 77467,
+      "sha256": "95a62298f22c8a005f087577b5fe60c2e2e323c9deda25570aebb2edf7dc17c2",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-02/process-memory.jsonl",
+      "size": 8917,
+      "sha256": "21f00bb491cbeb3ef8fe0ccdd9b9f6c7763306bb79f761d5232fdc96fcd84021",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-02/result.json",
+      "size": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-02/runtime.engine.log",
+      "size": 363068,
+      "sha256": "98dd283ce3ced8b81025f7f6129ef50bd5605fef2bdd7a24420459e13a5db3b4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-02/runtime.stdout.log",
+      "size": 362743,
+      "sha256": "e66112a1a0a80c38b3e4b34c49786c49853ea3e28b97119d19aa4ff188179b15",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-02/validation.json",
+      "size": 139072,
+      "sha256": "7d6a75a3e778095941b6a996a96a0a18dc9af60957e16b66f3c90030969aabdc",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-03/captures/backward.png",
+      "size": 993018,
+      "sha256": "b268c6832eadf07847ed82f5f171c82f7023520f2453c2c2c2a194df97a6baa3",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-03/captures/dismount.png",
+      "size": 988807,
+      "sha256": "544963bd135cb7fa591b61d6d624d717baae1571500bb3ebbd10686f642d4ff0",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-03/captures/forward.png",
+      "size": 984086,
+      "sha256": "23d240c408a72ef0535b37c471415946bd815c7a533f933aace3bb0c3ae63ea8",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-03/captures/idle.png",
+      "size": 951549,
+      "sha256": "845756f8593e29dd85e7bde69ae553649fa9ebf984195fdba0ebac879c1ee848",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-03/captures/jump.png",
+      "size": 1004941,
+      "sha256": "e7b08061c34db3dccb20004dc7512225d8e08cca2f7eedc0beaf24dbf5af11a7",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-03/captures/land.png",
+      "size": 943910,
+      "sha256": "184f8f31a56988da9d8bbe384ce17924ca0361d25483d6d739ac862517bba6dd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-03/captures/npc_gaits.png",
+      "size": 991860,
+      "sha256": "df7c549c455b27989837f66d57d8fdd061fe759f98874e950cfe8fba706a02f9",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-03/captures/right.png",
+      "size": 1000051,
+      "sha256": "35a7b8797e71ddb8ad2eed0b60fe437890cc8789e1640680d09c0fc3a93cfb55",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-03/captures/seat.png",
+      "size": 984817,
+      "sha256": "1f0bf737083fa21486e5cef14ec68199420e4debb9d1e05c99f1224fce1a25bb",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-03/poses.csv",
+      "size": 78177,
+      "sha256": "0eec279b759790fe95a36d4f6961de0b70ff010d9374756c226734d9d229cb34",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-03/process-memory.jsonl",
+      "size": 9129,
+      "sha256": "47aaad4187b91bcf188fcf816feafc24421fce3be22e0eac5bf544a870986399",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-03/result.json",
+      "size": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-03/runtime.engine.log",
+      "size": 362761,
+      "sha256": "841b828371505b1d7f5e4786b814b0b65bb8eddb0da64503d87a18b6d28e8b9d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-03/runtime.stdout.log",
+      "size": 362466,
+      "sha256": "4fcea4fef4f4915c516a3851e5730c16f60cf2eee30abb5aeb2998299037aaab",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-03/torso-fit.txt",
+      "size": 384,
+      "sha256": "acec8516c3246897b3fdabc588065fe310629c050994d9956a587f9f72e064b7",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-03/validation.json",
+      "size": 139295,
+      "sha256": "06b479c7a21ce49f27af7a0e3b466c64eb23cd6831862170631a1619d6630202",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/captures/backward.png",
+      "size": 993761,
+      "sha256": "9f79a2670b65cd6fc06a3b571dcb0d626b59668f26198162d3fee4a103125e98",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/captures/dismount.png",
+      "size": 989613,
+      "sha256": "a8fa21d90af972a66bb603bdded412a14d3bb3efef87d2d5f50cc8f54454dd19",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/captures/forward.png",
+      "size": 987081,
+      "sha256": "932f0fa6542eb826607ec6c739493cb9899adf3d6b73536df452ab12f359bd3f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/captures/idle.png",
+      "size": 952350,
+      "sha256": "d2c2915b5ff6183c770894ff73f3ca6d62015af63ebcc94828a40bef793e3774",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/captures/jump.png",
+      "size": 1004696,
+      "sha256": "edc784bd60f810adb6c6f5f2005a77cf1561a932a0ec008f7cc27e8aaa8a0b66",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/captures/land.png",
+      "size": 944658,
+      "sha256": "e30d83aa81971ec27eff6376b812da22a820af562d5b4460cd9f2aece7aef395",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/captures/npc_gaits.png",
+      "size": 993347,
+      "sha256": "28f94d2b6c6dfacd82d71de909cb37ddac6041027b210fd5addde6c3bad0f77c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/captures/right.png",
+      "size": 1002228,
+      "sha256": "d1913d46fcd0081a9d06f991022e5eb8876bd2b1c205b1badb4939b6cbb69fdf",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/captures/seat.png",
+      "size": 986191,
+      "sha256": "f53682d2b92528d92470240367b1e7227e0528a89c4d48d62b97660908e41dc8",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/poses.csv",
+      "size": 69715,
+      "sha256": "00d3864edd9a6431512b4d6047d515584b018747a6055288d8ab6a0be6ed882a",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/process-memory.jsonl",
+      "size": 8912,
+      "sha256": "9267c5d222f02b29f3726fc914e2d68e4cf0acbd41e84d46bb6a5c3859036229",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/result.json",
+      "size": 28,
+      "sha256": "8b04e81f64bf7a747f01210ea8ff8ece05e8cf1aea504bb5992ab2928122b0fd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/runtime.engine.log",
+      "size": 363004,
+      "sha256": "c4a9c4069e26581962b255650c2851d5f2e5f59d684a0e8f1f558aefe7b65e11",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/runtime.stdout.log",
+      "size": 362678,
+      "sha256": "4c02c174a3c5c5d8a8ec8341d9163c3ef63f2efa987c0a29b4d8e81c5ff5e3be",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/torso-fit.txt",
+      "size": 384,
+      "sha256": "bd725b18050833b64ac064805ca52ab8ef3b6da9efe2a98cbed901c9b4c8ed88",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/animation-runtime-04/validation.json",
+      "size": 141998,
+      "sha256": "bc49357f39fc1cf9b71484d1873e3b08151270d587cfdfbe099f9150cddbab96",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/HitReact/MM_HitReact_Front_Lgt_01.uasset",
+      "size": 224756,
+      "sha256": "ae8728f698434dd1e63978d5d92c5984d086d7ee39ce618598122b6fa87dc820",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Bwd.uasset",
+      "size": 582054,
+      "sha256": "0fd489f5c8d4d63e84f8a25c2db46c3ae54eae828212b2a32622726e593b5d3c",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Bwd_Left.uasset",
+      "size": 458365,
+      "sha256": "c3939c4aa298e6be0834256ef6f642cff0465a40d676ec7e464aaf504b44f729",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Bwd_Right.uasset",
+      "size": 458272,
+      "sha256": "907cb106c1c466aac0b38753b7551af73a09c082a652c82c43df5418eb33b089",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Fwd.uasset",
+      "size": 516328,
+      "sha256": "287d39883a65ccf6f89d91c7ca13b23184f04ae6eb5cc3867dd7ef7cfb35ec1c",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Fwd_Left.uasset",
+      "size": 384314,
+      "sha256": "4103ea6388d484e8f71cd30b955c3c954750d922a0c030bf3d902bdb3e02c13d",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Fwd_Right.uasset",
+      "size": 384322,
+      "sha256": "2ca8d8ec88d086d4cb6027a2eefdde258142587bca40e98dee021abe9c8824f8",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Left.uasset",
+      "size": 296415,
+      "sha256": "4feaf1bd5b370e28f5dce611b28d955bbf84bbeb72b7e22972a0e143022621a7",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/Jog/MF_Rifle_Jog_Right.uasset",
+      "size": 420984,
+      "sha256": "e3c5cae5448dbb8c4e3bda5406202a8e55b08247695082270e1fef3dbdd6e533",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/MF_Rifle_Idle_ADS.uasset",
+      "size": 1700234,
+      "sha256": "cfa32b19207a25546bb5bc2dde8454dc633cc27c3de45747e941756e23da5d4d",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/MM_Rifle_Fire.uasset",
+      "size": 184600,
+      "sha256": "1c5b983bd6c09431c83866f772ccf13871ad9626426c86cc08a0c87c150555f7",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Bwd.uasset",
+      "size": 449720,
+      "sha256": "e1400dc7a7bfca224e0aa7796e5c230236ad634c808b2a1540cbad8903fa897b",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Bwd_Left.uasset",
+      "size": 332682,
+      "sha256": "8d535eb181e756f56974efae068f34da050747fd8836fe2bb5f0c693f51325c2",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Bwd_Right.uasset",
+      "size": 332577,
+      "sha256": "6e0bd9b3ba2e982ac9ffd60a643dab78cf886d194a26af518170a02dc4f3eac0",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Fwd.uasset",
+      "size": 490267,
+      "sha256": "540a6a77c48027e13be84d483c6afd18d82fb115b7532334597ebefe2249ecd0",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Fwd_Left.uasset",
+      "size": 384794,
+      "sha256": "f7797a7841cb86c3dc9e68dcdf968e538c9a7335abb1b0d9db95e0983b2226d7",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Fwd_Right.uasset",
+      "size": 384793,
+      "sha256": "787c7b69a054c6f2850503c016a2ef2fade7ad0941375c8e521c3534bf695d12",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Left.uasset",
+      "size": 453120,
+      "sha256": "a99d18722e504801616e1c0c495711c43c2d82c4465f7f388cdae8a45502bd1e",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Rifle/Walk/MF_Rifle_Walk_Right.uasset",
+      "size": 510650,
+      "sha256": "2c2c12d6a959d69c96962ca340bdfe984942df621ee2ff7e7e955662ddaee52a",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/BS_Idle_Walk_Run.uasset",
+      "size": 52333,
+      "sha256": "bc71af8768b569695d4bcb69c79867f998e085693f5e8230854d228de359f5bb",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Bwd.uasset",
+      "size": 483265,
+      "sha256": "1f6e9448f0e0737f506d9e8f11b8d661d6d65c818f0e3160938f1e24082b16c3",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Bwd_Left.uasset",
+      "size": 417528,
+      "sha256": "e6e68e6cf4175f85c0e16a60f80335a1fab3f8c76a014d02bc0cd18aabe3314a",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Bwd_Right.uasset",
+      "size": 417530,
+      "sha256": "ee3137ff2b7d2cb721c935e2de91d55479e20f030ff230e9f912f6b70658c399",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Fwd.uasset",
+      "size": 531789,
+      "sha256": "0ccbe851f85a6d4cd7c6438c219cb6af8e281784107b5be8e9b052e4df3069cb",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Fwd_Left.uasset",
+      "size": 466995,
+      "sha256": "12ee5a11f277af90429980f120026f430ae1e438f6eae42c10222e175f9dbe12",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Fwd_Right.uasset",
+      "size": 467310,
+      "sha256": "66a7561d60453794864edd7e0c55487817068b6b66e31e179c98b9f2bab4c76b",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Left.uasset",
+      "size": 487864,
+      "sha256": "f7842445f0c2b2f8d3cd9d43b9f58bc3ea888adeb1e161398b492097358431bd",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Jog/MF_Unarmed_Jog_Right.uasset",
+      "size": 521907,
+      "sha256": "208f642310d9627d12a5125889b480e051a1f1fc5397a10b83975903a0c59aea",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Jump/MM_Fall_Loop.uasset",
+      "size": 925351,
+      "sha256": "408be742c63adffe8c6c1d22442e99ea34a7618cd33c6e78e0eed3d7db877433",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Jump/MM_Jump.uasset",
+      "size": 403730,
+      "sha256": "252cbf69b07b797d3c3c6177d3ae9df17e9873f4872c4fa040c0d441dc3b3cef",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Jump/MM_Land.uasset",
+      "size": 410017,
+      "sha256": "a00de25a6beca56ff6d8077081531e5cef238c92825b6c184351d0aa99ef3fcb",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/MM_Idle.uasset",
+      "size": 1436554,
+      "sha256": "11ee7fdeb84db89c1a66785b43b9bfc1415782122b8ac229517f4c5125d9cb0d",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Bwd.uasset",
+      "size": 606821,
+      "sha256": "ae0c2ee1c1178fd1b9493f6c327e52d10a3d6bbde29eae54dcb07c13a27dcf46",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Bwd_Left.uasset",
+      "size": 537758,
+      "sha256": "7c25a8eebb9883085ac8f82de3c83fc34fd19b02567f17fafde9dd60c09cf3e5",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Bwd_Right.uasset",
+      "size": 537632,
+      "sha256": "8c71b9bbf7b15d75cacddbeb8827e22888cfa63a359ecbc0e017aec822d1a522",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Fwd.uasset",
+      "size": 475783,
+      "sha256": "c74b2fc0cb651c4924804b364e534856a1b44dee818127c408dc055e4bda5ed9",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Fwd_Left.uasset",
+      "size": 411535,
+      "sha256": "a7d8ff5a55eb0c445da2c74b2fd9460b6a3aff0db206be9e99aed319158d5770",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Fwd_Right.uasset",
+      "size": 411529,
+      "sha256": "67d3d4fed066023a14220277f5598db83f19efee97de908b1397b0ae998e5599",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Left.uasset",
+      "size": 486552,
+      "sha256": "81500e4fcdd9ae9aa6433e652e67dea8f9dd9fa7b9ef1714e29f6ab0a1bb9d97",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Anims/Unarmed/Walk/MF_Unarmed_Walk_Right.uasset",
+      "size": 491934,
+      "sha256": "f5922b4e632351353224b32f719af97e85512ab4f6553b15315cf14ad04f675f",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Materials/M_Mannequin.uasset",
+      "size": 59292,
+      "sha256": "d7ffe412d906380bd5bd4462f464b2a1fe48fdb79b9077f29bd0f958a782035c",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Materials/Manny/MI_Manny_01_New.uasset",
+      "size": 17963,
+      "sha256": "9f1e4ed382304d020b750c81505140fc1de4d339b0909430adb5380a6bb89b65",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Materials/Manny/MI_Manny_02_New.uasset",
+      "size": 18706,
+      "sha256": "26389db06f0b7928b487494bef3320d6b0e6bccd58193bccedd67c2c89132a46",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Materials/Quinn/MI_Quinn_01.uasset",
+      "size": 11184,
+      "sha256": "62a3050ef24b823f9fe84ac5d9c477099494982d35dafcc3d8078f32b0d4a865",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Materials/Quinn/MI_Quinn_02.uasset",
+      "size": 10718,
+      "sha256": "6aec77489fdfab0e1ea299de60fbd4f332face4495bbbd20b97fb0308bb9c5b4",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Meshes/SKM_Manny_Simple.uasset",
+      "size": 15825101,
+      "sha256": "be9f011191ee1887b97cd13bce09886a6066c2fd62c619991070ec142184e1bf",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Meshes/SKM_Quinn_Simple.uasset",
+      "size": 16252577,
+      "sha256": "1ef45d92507a76d74a5e06737f94cad40eb7d5f5769dfbb63f7f74e784a178c6",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Meshes/SK_Mannequin.uasset",
+      "size": 191198,
+      "sha256": "22029d47455f24471195b26a0e04a1e1389f27d6a924e88c9f46a0f600c9a530",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Rigs/CR_Mannequin_Body.uasset",
+      "size": 17057558,
+      "sha256": "57f84458a160c35b77f0442d2af41054e41e021ebbb496c2c76dea76d1d89580",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Rigs/PA_Mannequin.uasset",
+      "size": 301538,
+      "sha256": "c0ceaf003947088ff076555b81a46e5ccb11149c94025eb2a9e74263fbaa0d67",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Textures/Manny/T_Manny_01_BN.uasset",
+      "size": 1422785,
+      "sha256": "2f623209571ecbd8185b5b463786be033c3284190b4fc7b249e8d1d2ed995fd8",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Textures/Manny/T_Manny_01_D.uasset",
+      "size": 699555,
+      "sha256": "6ae0f4f9908c30ecc9aedf1ebb442e4983e526a7832ec791542064c7853f9999",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Textures/Manny/T_Manny_01_MRA.uasset",
+      "size": 712594,
+      "sha256": "3e42e888aed8aefff68da7d7dda4f177c5647b19473e4e913f61375c1319abd8",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Textures/Manny/T_Manny_02_BN.uasset",
+      "size": 20999487,
+      "sha256": "c9575d21c9e2872b3358c0efb9e202535ce2efce94c338b9d3bd04cb9831e353",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Textures/Manny/T_Manny_02_D.uasset",
+      "size": 1036712,
+      "sha256": "474728713232c6833f55c041548f555bc62c5c49e74082a5d16e68a5ce488cfe",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Textures/Manny/T_Manny_02_MRA.uasset",
+      "size": 1059559,
+      "sha256": "6697972eaf2dfe201923dba6a302f024b0ef4c4e46b4ecf578178717098e8277",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Textures/Quinn/T_Quinn_01_D.uasset",
+      "size": 674768,
+      "sha256": "04e5ed207b7df0d2ad1bbc668916bcf170545fc2a72875e49ec99c6e2667002f",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Textures/Quinn/T_Quinn_01_MRA.uasset",
+      "size": 791597,
+      "sha256": "0988d4d9f25597224910e1043591cb2a089a8607a4fe4a63cbc68f3eb2ab473e",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Textures/Quinn/T_Quinn_01_N.uasset",
+      "size": 1263741,
+      "sha256": "10fbe9ac3e18e0a890d19756d3470ca372a1aeaffefbe9a22d6b0e6182293551",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Textures/Quinn/T_Quinn_02_D.uasset",
+      "size": 943331,
+      "sha256": "f0ccb2f465894c6f9ff4dd142351ed33186c5f861283a75f3e08d1531a253c49",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Textures/Quinn/T_Quinn_02_MRA.uasset",
+      "size": 974099,
+      "sha256": "9f7e495cbe0430aed7084b5508f87186f98346eb04f003734c9b378891da7887",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Textures/Quinn/T_Quinn_02_N.uasset",
+      "size": 1524635,
+      "sha256": "0bc26466e9fdc954cc276bb6ac1350e22c3dabbe1b54b6bf78ed5ae2e339d9fc",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Mannequins/Textures/Shared/T_UE_Logo_M.uasset",
+      "size": 59927,
+      "sha256": "34e6fa3414c04a86b7a5287e5569ea9d6e53c319d6e7dbfc8b09dab5b70611a6",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Presentation/BS_RifleLocomotion.uasset",
+      "size": 49259,
+      "sha256": "90333af2e00d9da0b260e1a1ccb87638c46743706bf779c36fa0e5c3773e7c1d",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Presentation/MI_Character_01.uasset",
+      "size": 7769,
+      "sha256": "47a83a40f3b4f783975dd152069a27df3582c71cc7c38819f6fb8e596508eaa5",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Presentation/MI_Character_02.uasset",
+      "size": 9521,
+      "sha256": "b84e59b2b1cd8c6f55cd25b66cf005bff92423e50a3a1f4b84ca113973c53fe9",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Characters/Presentation/M_CharacterReadability.uasset",
+      "size": 49984,
+      "sha256": "2085f6348fcb95953ebe6b8df9d976b41ec3e94face8baa191213de605c77322",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Python/build_production_character_material.py",
+      "size": 6191,
+      "sha256": "2bf822bbb4c2dc2bf0e4d6409d32ab7fc050e1bf8ae5d7a54ad755b08c3f6708",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Python/build_production_locomotion.py",
+      "size": 2499,
+      "sha256": "f980ab818bbbad70139650ab9e70ff866a2b33335b72818f9522b415c22094e4",
+      "kind": "file"
+    },
+    {
+      "path": "Content/Python/inspect_production_animation.py",
+      "size": 2365,
+      "sha256": "8c536420685709dc2f0bb21e594674e6fc71d5f13a27a7e0c45b25576f6be998",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/BiellaGames.Build.cs",
+      "size": 795,
+      "sha256": "0076397a3ba035cd92656c45382b6d99167f05a0f2cecfd639e776a61e772df8",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaCharacterAnimInstance.cpp",
+      "size": 4633,
+      "sha256": "f051ee85c37a6cb288d77c016e8960b3aa50d93d00c4fc293ad234ce6786e767",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaDemoPawn.cpp",
+      "size": 16730,
+      "sha256": "4a6b8ce69dd7f2ca5278324e6ffea97c63c5dfdfd8abf5170daf33e8fe833e35",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+      "size": 19338,
+      "sha256": "3788d2e4bb66a054359d1ebd7ae5a3c90387d69a14436447464f01192db2e55b",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/Tests/BiellaAnimationTest.cpp",
+      "size": 16385,
+      "sha256": "756ab7fbfb832023cf21db3eb8d7ae2ed0c4c22e813d433a74a78fd9ef99e1ec",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/Tests/BiellaVisualReadabilityTest.cpp",
+      "size": 29951,
+      "sha256": "61403654368847640fcc9ca45661211c5e76bfed844388a8ec33466d8675db4c",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaCharacterAnimInstance.h",
+      "size": 1446,
+      "sha256": "afb2a2de60cbf981487c9a854721b4031a56a3c113fe6454b6aa5842a38abb2e",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaDemoPawn.h",
+      "size": 4034,
+      "sha256": "c2f3a1848e8515e9141b597c6cda5caff712db4d610812f214c9877f465a26ae",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaGamesCharacter.h",
+      "size": 3879,
+      "sha256": "ce320c581ddb070d646e2e61f52f92d87609308647cc31d2a277f0adde60fda7",
+      "kind": "file"
+    },
+    {
+      "path": "SourceAssets/Characters/UE58Mannequin.provenance.json",
+      "size": 23268,
+      "sha256": "f4bc8c9c47bd9eee8c553405a63dd18a33e4ee20816c152509b4c6a028e4e8d6",
+      "kind": "file"
+    },
+    {
+      "path": "tests/import_d03_01_character_resources.py",
+      "size": 2439,
+      "sha256": "80d9d6a6799bba17ddaaef72c62e5988657bc33b31b19221b9108ddf858a2f95",
+      "kind": "file"
+    },
+    {
+      "path": "tests/run_d01_040.py",
+      "size": 6080,
+      "sha256": "7e62d51720cdcebb6782cf8f44122ee353afedf9f7baa02eb05b612f192f4ae4",
+      "kind": "file"
+    },
+    {
+      "path": "tests/run_d03_01_animation.py",
+      "size": 4743,
+      "sha256": "7d2fa797f85ec51c2eb7934fa384c71718e1a1f76c52e39f45230b95bec72535",
+      "kind": "file"
+    },
+    {
+      "path": "tests/verify_d03_01_shadow.py",
+      "size": 2553,
+      "sha256": "5a1b5a8a9f41802db50199e7df77b940f04d1ef8607984aa57960887b1ae034b",
+      "kind": "file"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "time": "2026-09-06T06:44:41.943202+00:00",
+  "baseline_commit": "ffdd4babd2196151ad33a85b2fd2a0db28b5dd90",
+  "previous_rendering_manifest": {
+    "path": "Build/Presentation/D03-01-file-manifest.json",
+    "sha256": "4ee276408814eff8db31c5e2e30b2fe1d8ab98dcd8522f4fa9e2dbaa8d174bc8",
+    "verified_entries": 457
+  },
+  "installed_resource_provenance": {
+    "path": "SourceAssets/Characters/UE58Mannequin.provenance.json",
+    "sha256": "f4bc8c9c47bd9eee8c553405a63dd18a33e4ee20816c152509b4c6a028e4e8d6",
+    "exact_source_and_local_files": 63
+  },
+  "allowed_modified_preexisting_files": [
+    "Source/BiellaGames/BiellaGames.Build.cs",
+    "Source/BiellaGames/Private/BiellaDemoPawn.cpp",
+    "Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+    "Source/BiellaGames/Private/Tests/BiellaVisualReadabilityTest.cpp",
+    "Source/BiellaGames/Public/BiellaDemoPawn.h",
+    "Source/BiellaGames/Public/BiellaGamesCharacter.h",
+    "tests/run_d01_040.py"
+  ],
+  "no_other_tracked_changes": true,
+  "protected_authority": [
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/03_BIELLA_CURRENT_STATE.md",
+      "sha256": "8c2be726bb495eba368e0d789b22461f36c0f091bc9e4641ffdbc7dd7ddce5d2"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+      "sha256": "d6705eac78e27590a867b31e792b875d86f1480dd67c4f12363bd952359658ff"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/docs/PRODUCTION.md",
+      "sha256": "3b8a7c15a73e65abff1c61b1e133b521db0dc8d6363da8582bf564a2118f3801"
+    }
+  ],
+  "note": "Current-source implementation changes are allowed; all prior rendering evidence, maps, config and task authority remain exact. Untracked task outputs are inventoried in the separate final manifest."
+}

@@ -14,6 +14,7 @@
 #include "Components/PanelWidget.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "Components/TextBlock.h"
 #include "CollisionQueryParams.h"
 #include "Engine/Engine.h"
@@ -463,18 +464,37 @@ private:
                 return false;
             }
             TArray<UStaticMeshComponent*> Components;
+            if (!It->CharacterMesh) { Test->AddError(TEXT("Missing live character mesh")); return false; }
+            for (int32 Slot=0; Slot<It->CharacterMesh->GetNumMaterials(); ++Slot)
+            {
+                const auto* CharacterMaterial=It->CharacterMesh->GetMaterial(Slot);
+                float CharacterFill=0;
+                if (!CharacterMaterial || !CharacterMaterial->GetScalarParameterValue(
+                    FHashedMaterialParameterInfo(TEXT("CharacterReadabilityFill")),CharacterFill) ||
+                    CharacterFill<0.02f || CharacterFill>0.12f)
+                { Test->AddError(TEXT("Character material lacks bounded shadow readability")); return false; }
+            }
             It->GetComponents<UStaticMeshComponent>(Components);
             int32 RoleDetails = 0;
+            int32 Insignia = 0;
             TSet<FName> Names;
             for (UStaticMeshComponent* Mesh : Components)
             {
+                if (Mesh->ComponentHasTag(TEXT("D03RoleInsignia")))
+                {
+                    ++Insignia;
+                    if (!Mesh->GetStaticMesh() || Mesh->GetAttachParent()!=It->CharacterMesh ||
+                        Mesh->GetAttachSocketName()!=TEXT("spine_05") || Mesh->CanEverAffectNavigation() ||
+                        Mesh->GetCollisionEnabled()!=ECollisionEnabled::NoCollision || Mesh->IsVisible()==It->IsDefeated())
+                    { Test->AddError(TEXT("Skeletal role insignia violates attachment, collision or lifecycle visibility")); return false; }
+                }
                 if (!Mesh->ComponentHasTag(TEXT("D01RoleDetail"))) { continue; }
                 ++RoleDetails;
                 Names.Add(Mesh->GetFName());
                 if (!Mesh->GetStaticMesh() || Mesh->GetCollisionEnabled() != ECollisionEnabled::NoCollision ||
-                    Mesh->CanEverAffectNavigation() || Mesh->IsVisible() == It->IsDefeated())
+                    Mesh->CanEverAffectNavigation() || Mesh->IsVisible())
                 {
-                    Test->AddError(TEXT("Role detail is missing its mesh, changes collision/navigation or has incorrect defeat visibility"));
+                    Test->AddError(TEXT("Retained seated role detail is invalid or leaks into on-foot presentation"));
                     return false;
                 }
             }
@@ -484,7 +504,9 @@ private:
                 !Names.Contains(TEXT("RoleHead")) || !Names.Contains(TEXT("LeftBoot")) || !Names.Contains(TEXT("RightBoot")) ||
                 (bInfected && (!Names.Contains(TEXT("RoleCrossA")) || !Names.Contains(TEXT("RoleCrossB")))) ||
                 (!bInfected && !Names.Contains(TEXT("RoleBandA"))) || (bRival && !Names.Contains(TEXT("RoleBandB"))) ||
-                It->BodyMesh->IsVisible() == It->IsDefeated())
+                It->BodyMesh->IsVisible() || !It->CharacterMesh ||
+                It->CharacterMesh->IsVisible()==It->IsDefeated() ||
+                Insignia!=(It->GetTeam()==EDemo01Team::Player ? 2 : 4))
             {
                 Test->AddError(TEXT("Pawn role/defeat presentation does not match its runtime team"));
                 return false;

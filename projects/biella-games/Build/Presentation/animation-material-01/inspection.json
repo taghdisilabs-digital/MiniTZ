@@ -1,0 +1,34 @@
+{
+  "scalar_parameters": {
+    "MetalPaintMetallic": 0.0,
+    "MetalPaintRoughness": 0.0,
+    "LogoPosX": 0.0,
+    "LogoPosY": 0.0,
+    "LogoScale": 0.5,
+    "EmissivePower": 0.0,
+    "Scale": 99.14159393310547,
+    "Head Cutout": 16.40704345703125
+  },
+  "use_material_attributes": false,
+  "inputs": {
+    "MP_BASE_COLOR": {
+      "class": "MaterialExpressionLinearInterpolate",
+      "path": "/Game/Characters/Mannequins/Materials/M_Mannequin.M_Mannequin:MaterialExpressionLinearInterpolate_4"
+    },
+    "MP_EMISSIVE_COLOR": {
+      "class": "MaterialExpressionStaticSwitchParameter",
+      "path": "/Game/Characters/Mannequins/Materials/M_Mannequin.M_Mannequin:MaterialExpressionStaticSwitchParameter_0"
+    },
+    "MP_MATERIAL_ATTRIBUTES": null
+  },
+  "slots": [
+    {
+      "material": "/Game/Characters/Mannequins/Materials/Manny/MI_Manny_01_New.MI_Manny_01_New",
+      "parent": "/Game/Characters/Mannequins/Materials/M_Mannequin.M_Mannequin"
+    },
+    {
+      "material": "/Game/Characters/Mannequins/Materials/Manny/MI_Manny_02_New.MI_Manny_02_New",
+      "parent": "/Game/Characters/Mannequins/Materials/Manny/MI_Manny_01_New.MI_Manny_01_New"
+    }
+  ]
+}

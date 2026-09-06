@@ -4,8 +4,12 @@
 
 #include "BiellaPlaytestTelemetry.h"
 #include "BiellaGameplayFeedback.h"
+#include "BiellaCharacterAnimInstance.h"
+#include "AnimationRuntime.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Engine/SkeletalMesh.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
 #include "GameFramework/FloatingPawnMovement.h"
@@ -46,6 +50,24 @@ ABiellaDemoPawn::ABiellaDemoPawn()
         BodyMesh->SetStaticMesh(CubeMesh.Object);
     }
     BodyMesh->SetRelativeScale3D(FVector(0.55f, 0.55f, 1.25f));
+    CharacterMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh"));
+    CharacterMesh->SetupAttachment(Collision.Get());
+    CharacterMesh->SetCanEverAffectNavigation(false);
+    CharacterMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    static ConstructorHelpers::FObjectFinder<USkeletalMesh> Rig(TEXT("/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple"));
+    CharacterMesh->SetSkeletalMeshAsset(Rig.Object);
+    static ConstructorHelpers::FObjectFinder<UMaterialInterface> CharacterMaterial01(
+        TEXT("/Game/Characters/Presentation/MI_Character_01"));
+    static ConstructorHelpers::FObjectFinder<UMaterialInterface> CharacterMaterial02(
+        TEXT("/Game/Characters/Presentation/MI_Character_02"));
+    CharacterMesh->SetMaterial(0, CharacterMaterial01.Object);
+    CharacterMesh->SetMaterial(1, CharacterMaterial02.Object);
+    CharacterMesh->SetRelativeLocation(FVector(0,0,-88));
+    CharacterMesh->SetRelativeRotation(FRotator(0,-90,0));
+    CharacterMesh->SetRelativeScale3D(FVector(0.95));
+    CharacterMesh->SetAnimInstanceClass(UBiellaCharacterAnimInstance::StaticClass());
+    CharacterMesh->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::OnlyTickPoseWhenRendered;
+    CharacterMesh->bEnableUpdateRateOptimizations=true;
     AutoPossessPlayer = EAutoReceiveInput::Disabled;
     AutoPossessAI = EAutoPossessAI::Disabled;
 }
@@ -60,30 +82,48 @@ void ABiellaDemoPawn::BeginPlay()
         FLinearColor(0.65f, 0.08f, 0.1f);
     SetDisplayColor(TeamDisplayColor);
     BuildRolePresentation();
+    CharacterMesh->AddTickPrerequisiteActor(this);
+    CharacterMesh->AddTickPrerequisiteComponent(PawnMovement);
+    CharacterMaterials.Reset();
+    for (int32 Index=0; Index<CharacterMesh->GetNumMaterials(); ++Index)
+    { CharacterMaterials.Add(CharacterMesh->CreateDynamicMaterialInstance(Index)); }
+    SetDisplayColor(TeamDisplayColor);
+    RefreshCharacterPresentation();
 }
 
 void ABiellaDemoPawn::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
+    for (UStaticMeshComponent* Detail : SkeletalRoleDetails)
+    {
+        if (IsValid(Detail)) { Detail->DestroyComponent(); }
+    }
+    SkeletalRoleDetails.Reset();
     for (UStaticMeshComponent* Detail : RoleDetails)
     {
         if (IsValid(Detail)) { Detail->DestroyComponent(); }
     }
     RoleDetails.Reset();
     BodyMaterial = nullptr;
+    CharacterMaterials.Reset();
     Super::EndPlay(EndPlayReason);
 }
 
 void ABiellaDemoPawn::BuildRolePresentation()
 {
     // A streamed actor may receive BeginPlay again on the same instance.
+    for (UStaticMeshComponent* Detail : SkeletalRoleDetails)
+    {
+        if (IsValid(Detail)) { Detail->DestroyComponent(); }
+    }
+    SkeletalRoleDetails.Reset();
     for (UStaticMeshComponent* Detail : RoleDetails)
     {
         if (IsValid(Detail)) { Detail->DestroyComponent(); }
     }
     RoleDetails.Reset();
     // Role recognition survives lighting changes and color-vision differences:
-    // player = one band + round head; rival = two bands + square helmet;
-    // infected = crossed marks + narrow torso. These remain blockout meshes.
+    // One band identifies the player, two the rival, and a cross the infected.
+    // Preserve the existing blockout meshes for the fitted seat fallback.
     UStaticMesh* Cube = LoadObject<UStaticMesh>(nullptr, TEXT("/Engine/BasicShapes/Cube.Cube"));
     UStaticMesh* Sphere = RoleSphereMesh;
     UMaterialInterface* Base = PresentationMaterial;
@@ -91,6 +131,45 @@ void ABiellaDemoPawn::BuildRolePresentation()
     UMaterialInstanceDynamic* MarkMaterial = UMaterialInstanceDynamic::Create(Base, this);
     MarkMaterial->SetVectorParameterValue(TEXT("BaseColor"), FLinearColor(0.88f, 0.91f, 0.87f));
     MarkMaterial->SetScalarParameterValue(TEXT("ReadabilityFill"), 0.12f);
+    const FName TorsoBone(TEXT("spine_05"));
+    const auto* Rig=CharacterMesh->GetSkeletalMeshAsset();
+    if (!ensure(Rig)) { return; }
+    const FReferenceSkeleton& Skeleton=Rig->GetRefSkeleton();
+    const int32 TorsoIndex=Skeleton.FindBoneIndex(TorsoBone);
+    if (ensure(TorsoIndex!=INDEX_NONE))
+    {
+        const FTransform Torso=FAnimationRuntime::GetComponentSpaceTransformRefPose(Skeleton,TorsoIndex);
+        auto AddInsignia = [this,Cube,MarkMaterial,Torso,TorsoBone](int32 Face,int32 Stripe,float Height,float Pitch)
+        {
+            auto* Detail=NewObject<UStaticMeshComponent>(this,*FString::Printf(TEXT("TorsoInsignia_%d_%d"),Face,Stripe));
+            AddInstanceComponent(Detail);
+            Detail->SetupAttachment(CharacterMesh.Get(),TorsoBone);
+            Detail->SetCanEverAffectNavigation(false);
+            Detail->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            Detail->SetStaticMesh(Cube);
+            // Reference-pose coordinates fit a small mark to each torso face;
+            // convert once to bone space so every evaluated pose carries it.
+            // Native reference-vertex readback: torso surface Y spans -14.39
+            // to +16.33 cm; these thin plates overlap that surface slightly.
+            const FVector Position=Torso.GetLocation()+FVector(0,Face<0 ? -15.4f : 16.3f,Height);
+            const FTransform Mark(FRotator(Pitch,0,0),Position,FVector(0.22f,0.018f,0.04f));
+            Detail->SetRelativeTransform(Mark.GetRelativeTransform(Torso));
+            Detail->SetMaterial(0,MarkMaterial);
+            Detail->ComponentTags.Add(TEXT("D03RoleInsignia"));
+            Detail->RegisterComponent();
+            SkeletalRoleDetails.Add(Detail);
+        };
+        for (int32 Face : {-1,1})
+        {
+            if (Team==EDemo01Team::Infected)
+            { AddInsignia(Face,0,-4,42); AddInsignia(Face,1,-4,-42); }
+            else
+            {
+                AddInsignia(Face,0,0,0);
+                if (Team==EDemo01Team::Rival) { AddInsignia(Face,1,-9,0); }
+            }
+        }
+    }
     auto AddDetail = [this](const TCHAR* Name, UStaticMesh* Mesh, const FVector& Position,
         const FVector& Scale, const FRotator& Rotation, UMaterialInterface* Material)
     {
@@ -182,6 +261,7 @@ void ABiellaDemoPawn::SetWorldDormant(bool bDormant)
         SetActorTickEnabled(bBeforeDormancyTick && !IsDefeated());
         PawnMovement->SetComponentTickEnabled(bBeforeDormancyMovementTick && !IsDefeated());
     }
+    RefreshCharacterPresentation();
     UE_LOG(LogTemp, Display, TEXT("D02_STREAM ENCOUNTER_RESIDENCY actor=%s dormant=%d health=%.1f"),
         *GetName(), bDormant, Health);
 }
@@ -227,8 +307,31 @@ float ABiellaDemoPawn::ApplyDemoDamage(float DamageAmount, AActor* DamageCauser,
     return Applied;
 }
 
+void ABiellaDemoPawn::SetSeatedPresentation(bool bSeated)
+{
+    bSeatedPresentation=bSeated;
+    RefreshCharacterPresentation();
+}
+
+void ABiellaDemoPawn::RefreshCharacterPresentation()
+{
+    const bool Active=!bDefeated && !bWorldDormant;
+    CharacterMesh->SetVisibility(Active && !bSeatedPresentation);
+    CharacterMesh->SetComponentTickEnabled(Active && !bSeatedPresentation);
+    if (auto* Anim=Cast<UBiellaCharacterAnimInstance>(CharacterMesh->GetAnimInstance())) { Anim->ResetMotionSample(); }
+    BodyMesh->SetVisibility(Active && bSeatedPresentation);
+    for (UStaticMeshComponent* Detail:RoleDetails)
+    {
+        Detail->SetVisibility(Active && bSeatedPresentation);
+    }
+    for (UStaticMeshComponent* Detail:SkeletalRoleDetails)
+    { Detail->SetVisibility(Active && !bSeatedPresentation); }
+}
+
 void ABiellaDemoPawn::SetDisplayColor(const FLinearColor& Color)
 {
+    for (UMaterialInstanceDynamic* Material : CharacterMaterials)
+    { if (Material) { Material->SetVectorParameterValue(TEXT("Paint Tint"), Color); } }
     if (!BodyMesh)
     {
         return;
@@ -267,6 +370,7 @@ void ABiellaDemoPawn::Defeat(const FString& Reason)
         return;
     }
     bDefeated = true;
+    RefreshCharacterPresentation();
     Health = 0.0f;
     if (BodyMesh)
     {

@@ -8,6 +8,7 @@
 
 class UCapsuleComponent;
 class UStaticMeshComponent;
+class USkeletalMeshComponent;
 class UMaterialInstanceDynamic;
 class UMaterialInterface;
 class UStaticMesh;
@@ -40,6 +41,9 @@ public:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Demo01|Pawn")
     TObjectPtr<UStaticMeshComponent> BodyMesh;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Presentation")
+    TObjectPtr<USkeletalMeshComponent> CharacterMesh;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Demo01|Pawn")
     TObjectPtr<UFloatingPawnMovement> PawnMovement;
@@ -76,6 +80,8 @@ public:
     void SetDisplayColor(const FLinearColor& Color);
     virtual float MoveTowardLocation(const FVector& Target, float DeltaTime);
     virtual void Defeat(const FString& Reason);
+    // Retain the existing fitted seat until the skeletal vehicle pose is qualified.
+    void SetSeatedPresentation(bool bSeated);
 
 protected:
     // A CDO hard reference makes the editable Project material discoverable by cooking.
@@ -89,9 +95,15 @@ protected:
     void BuildRolePresentation();
     UPROPERTY()
     TArray<TObjectPtr<UStaticMeshComponent>> RoleDetails;
+    UPROPERTY()
+    TArray<TObjectPtr<UStaticMeshComponent>> SkeletalRoleDetails;
 
     UPROPERTY()
     TObjectPtr<UMaterialInstanceDynamic> BodyMaterial;
+    UPROPERTY()
+    TArray<TObjectPtr<UMaterialInstanceDynamic>> CharacterMaterials;
+    void RefreshCharacterPresentation();
+    bool bSeatedPresentation = false;
 
     bool bDefeated = false;
     bool bWorldDormant = false;

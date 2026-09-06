@@ -10,6 +10,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Engine/LocalPlayer.h"
@@ -61,11 +62,10 @@ ABiellaGamesCharacter::ABiellaGamesCharacter()
     FollowCamera->PostProcessSettings.AutoExposureBias = 0.0f;
 
     WeaponMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
-    WeaponMesh->SetupAttachment(Collision.Get());
-    // Keep the cosmetic barrel beside the torso so its event-driven muzzle
-    // flash is visible from the existing over-shoulder camera. The weapon mesh
-    // has no collision; the established camera trace still resolves every shot.
-    WeaponMesh->SetRelativeLocation(FVector(55.0f, 45.0f, 35.0f));
+    WeaponMesh->SetupAttachment(CharacterMesh.Get(),TEXT("hand_r"));
+    // The cosmetic barrel follows the evaluated hand pose. It has no collision;
+    // the established camera trace still resolves every shot.
+    WeaponMesh->SetRelativeLocation(FVector(20.0f, 0.0f, 0.0f));
     WeaponMesh->SetRelativeScale3D(FVector(0.7f, 0.16f, 0.16f));
     WeaponMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     static ConstructorHelpers::FObjectFinder<UStaticMesh> WeaponCube(
@@ -423,6 +423,7 @@ void ABiellaGamesCharacter::EnsureInputActions()
 void ABiellaGamesCharacter::MountVehicle(ABiellaVehicle* InVehicle)
 {
     Vehicle=InVehicle;
+    SetSeatedPresentation(true);
     bJumping=false; bSprintHeld=false;
     PawnMovement->StopMovementImmediately();
     ConsumeMovementInputVector();
@@ -449,6 +450,7 @@ void ABiellaGamesCharacter::DismountVehicle(FVector At)
 {
     DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
     Vehicle.Reset();
+    SetSeatedPresentation(false);
     SetActorLocationAndRotation(At,FRotator(0,GetActorRotation().Yaw,0),false,nullptr,ETeleportType::TeleportPhysics);
     for (const auto& Pose:StandingPose) { if (Pose.Key.IsValid()) { Pose.Key->SetRelativeTransform(Pose.Value); } }
     StandingPose.Reset();

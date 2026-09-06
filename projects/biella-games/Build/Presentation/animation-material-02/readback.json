@@ -1,0 +1,27 @@
+{
+  "result": "PASS",
+  "mode": "readback",
+  "material": "/Game/Characters/Presentation/M_CharacterReadability",
+  "fill": 0.1,
+  "surface_inputs_preserved": true,
+  "instances": [
+    {
+      "asset": "/Game/Characters/Presentation/MI_Character_01",
+      "parent": "/Game/Characters/Presentation/M_CharacterReadability.M_CharacterReadability",
+      "textures": {
+        "BNormal": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_BN.T_Manny_01_BN",
+        "Base Texture": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_D.T_Manny_01_D",
+        "MRA": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_01_MRA.T_Manny_01_MRA"
+      }
+    },
+    {
+      "asset": "/Game/Characters/Presentation/MI_Character_02",
+      "parent": "/Game/Characters/Presentation/MI_Character_01.MI_Character_01",
+      "textures": {
+        "BNormal": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_02_BN.T_Manny_02_BN",
+        "Base Texture": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_02_D.T_Manny_02_D",
+        "MRA": "/Game/Characters/Mannequins/Textures/Manny/T_Manny_02_MRA.T_Manny_02_MRA"
+      }
+    }
+  ]
+}

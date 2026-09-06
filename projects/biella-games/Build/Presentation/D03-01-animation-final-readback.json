@@ -1,0 +1,29 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "time": "2026-09-06T06:46:32.122319+00:00",
+  "scope": "Final animation increment runtime evidence identities, process completion and current input readback",
+  "reports": [
+    {
+      "path": "Build/Presentation/animation-runtime-04/validation.json",
+      "sha256": "bc49357f39fc1cf9b71484d1873e3b08151270d587cfdfbe099f9150cddbab96",
+      "result": "PASS",
+      "current_runtime_and_authority_identities_verified": 271,
+      "runtime_runs": 1
+    },
+    {
+      "path": "Build/Presentation/animation-environment-regression-02/validation.json",
+      "sha256": "76cd9403490fff345b406a6e29fb22e7674795e28b93a05e17e5e3334dd7bfe3",
+      "result": "PASS",
+      "current_runtime_and_authority_identities_verified": 272,
+      "runtime_runs": 1
+    },
+    {
+      "path": "Build/Presentation/animation-readability-regression-03/validation.json",
+      "sha256": "17467105367da91fe58383a15dc4cfc660e30ff57fc753b7d02313352a17e751",
+      "result": "PASS",
+      "current_runtime_and_authority_identities_verified": 82,
+      "runtime_runs": 2
+    }
+  ]
+}
