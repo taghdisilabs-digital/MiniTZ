@@ -1,0 +1,78 @@
+{
+  "schema": "biella.presentation_increment/v1",
+  "task_id": "D03-01",
+  "time": "2026-09-06T18:23:48.972766+00:00",
+  "task_status": "CONTINUE",
+  "increment": "Controlled native PSO scheduling comparison",
+  "parent_commit": "54063684d6ad73506cca3c559a145a64243eb365",
+  "game_changes": false,
+  "archive": {
+    "path": "/root/biella/artifacts/games/D03-01/BiellaGames-Linux-Development-D03-01-sm6-package-01.tar.zst",
+    "sha256": "057eff4cec157e002d9ea3b735bb9e41c9a7bc66853ad4a338e86d498cc58d8e",
+    "bytes": 481060250
+  },
+  "seed": {
+    "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-capture-02/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077C992D379B4911838C3A1E29249.rec.upipelinecache",
+    "sha256": "c27735aaee29b1e257a6f5a7db5c29cc607ffc858fc52536ccc8c5b448e67900",
+    "bytes": 27941
+  },
+  "implementation": [
+    {
+      "path": "tests/run_d03_01_pso_capture.py",
+      "bytes": 10018,
+      "sha256": "d5ddde9c39210a87b0adaa62a916d83b3a550cce2c7cf0064884748a3bcaef00"
+    },
+    {
+      "path": "tests/verify_d03_01_pso_scheduling.py",
+      "bytes": 8434,
+      "sha256": "cd3cb45d4768ea2c29dbf674e7ea1923854ea91b232f74303a62381dc4c49020"
+    }
+  ],
+  "series": "Build/Presentation/pso-scheduling-series-01.json",
+  "native_runs": 2,
+  "frames": 2285,
+  "captures": 86,
+  "checked_identities": 255,
+  "measurements": {
+    "pso-scheduling-legacy-cold-01": {
+      "engine_initialization_seconds": 25.6,
+      "callback": {
+        "timestamps": {
+          "callback": "2026.09.06-18.05.59:051",
+          "saved": "2026.09.06-18.06.00:815",
+          "finished": "2026.09.06-18.06.20:206"
+        },
+        "callback_to_saved_seconds": 1.764,
+        "saved_to_finished_seconds": 19.391,
+        "callback_to_finished_seconds": 21.155,
+        "scope": "Observed wall intervals, not isolated driver/lock costs; do not sum worker creation durations."
+      }
+    },
+    "pso-scheduling-pool-cold-01": {
+      "engine_initialization_seconds": 26.46,
+      "callback": {
+        "timestamps": {
+          "callback": "2026.09.06-18.09.00:398",
+          "saved": "2026.09.06-18.09.03:695",
+          "finished": "2026.09.06-18.09.24:023"
+        },
+        "callback_to_saved_seconds": 3.297,
+        "saved_to_finished_seconds": 20.328,
+        "callback_to_finished_seconds": 23.625,
+        "scope": "Observed wall intervals, not isolated driver/lock costs; do not sum worker creation durations."
+      }
+    }
+  },
+  "decision": "Retain native default; alternate scheduler not accepted as a startup optimization.",
+  "recording_preservation": "Build/Presentation/pso-scheduling-recordings-01/preservation.json",
+  "source_notes": "Build/Presentation/pso-scheduling-source-notes-01.json",
+  "visual_review": "Build/Presentation/pso-scheduling-visual-review-01.json",
+  "limitations": [
+    "Single matched pair on one Linux Development SM6 host/package; startup remains about 26 seconds.",
+    "Runtime counter excludes precache work; lower Vulkan intervals overlap and can include waits.",
+    "No generated frames or audible-mix acceptance; no Shipping, cross-hardware or fine temporal acceptance.",
+    "Final world/character art and broader VFX/audio qualification remain; media and recordings remain GENERATED_DRAFT."
+  ],
+  "publication_owner": "Auto Feeder",
+  "remote_publication_claimed": false
+}

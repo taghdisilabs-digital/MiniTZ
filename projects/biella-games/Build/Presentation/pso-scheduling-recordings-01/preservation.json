@@ -1,0 +1,32 @@
+{
+  "task_id": "D03-01",
+  "classification": "GENERATED_DRAFT",
+  "copies": [
+    {
+      "run": "pso-scheduling-legacy-cold-01",
+      "source": {
+        "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-scheduling-legacy-01/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077E5FC3E7EC189BCC25BB26B80D6.rec.upipelinecache",
+        "sha256": "35f9692734fc273a78b4d2994210bb939c8698b099a0a8dfa51992fb118792ad",
+        "bytes": 26396
+      },
+      "canonical": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-scheduling-recordings-01/pso-scheduling-legacy-cold-01/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077E5FC3E7EC189BCC25BB26B80D6.rec.upipelinecache",
+        "sha256": "35f9692734fc273a78b4d2994210bb939c8698b099a0a8dfa51992fb118792ad",
+        "bytes": 26396
+      }
+    },
+    {
+      "run": "pso-scheduling-pool-cold-01",
+      "source": {
+        "path": "/mnt/biella-extra/biella-runtime/d03-01-pso-scheduling-pool-01/user/Saved/CollectedPSOs/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077E8C82A7B1F94CEA110AF0331C0.rec.upipelinecache",
+        "sha256": "178ebac1abec47701f603df71a4531a3449e175b615e564fd2716889516dba79",
+        "bytes": 27266
+      },
+      "canonical": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-scheduling-recordings-01/pso-scheduling-pool-cold-01/++UE5+Release-5.8-CL-56702186-BiellaGames_SF_VULKAN_SM6_01A077E8C82A7B1F94CEA110AF0331C0.rec.upipelinecache",
+        "sha256": "178ebac1abec47701f603df71a4531a3449e175b615e564fd2716889516dba79",
+        "bytes": 27266
+      }
+    }
+  ]
+}

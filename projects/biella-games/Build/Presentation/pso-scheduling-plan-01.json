@@ -1,0 +1,38 @@
+{
+  "task_id": "D03-01",
+  "classification": "GENERATED_DRAFT",
+  "hypothesis": "The native default submits bundled PSOs through the precache pool. Switch only UsePrecachingThreadPool to zero to measure the alternate file-cache dispatch path and completion/save/merge interval.",
+  "source": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RenderCore/Private/ShaderPipelineCache.cpp",
+    "sha256": "23e47228beae4ba30438e04d77392b40752451eaa5e6480f15a5beebe0685317",
+    "bytes": 89798
+  },
+  "lines": [
+    312,
+    319,
+    814,
+    1198,
+    1243,
+    1726
+  ],
+  "native_default": 1,
+  "baseline": "pso-seeded-cold-03",
+  "experiment": "pso-scheduling-legacy-cold-01",
+  "controls": [
+    "Identical SM6 archive and seed",
+    "Fresh isolated state; only PSO description seeded",
+    "All launch settings retained except one startup CVar",
+    "No concurrent heavy local work; OS page cache not flushed"
+  ],
+  "acceptance": [
+    "Native surface and view/material/gameplay validation passes",
+    "Seed opened, compatibility gate and override observed in native log",
+    "Exact package and previous verifier identities unchanged",
+    "Report initialization, callback timing, Runtime and lower Vulkan creation costs separately",
+    "If startup improves, validate affected environment scenario and explicit pool=1 control"
+  ],
+  "limits": [
+    "Not a production setting or engine patch",
+    "No assertion of Shipping, cross-hardware or fine temporal quality"
+  ]
+}

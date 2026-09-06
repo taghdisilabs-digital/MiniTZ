@@ -1,0 +1,69 @@
+{
+  "task_id": "D03-01",
+  "sources": [
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/RenderCore/Private/ShaderPipelineCache.cpp",
+        "sha256": "23e47228beae4ba30438e04d77392b40752451eaa5e6480f15a5beebe0685317",
+        "bytes": 89798
+      },
+      "lines": [
+        312,
+        319,
+        814,
+        1198,
+        1243,
+        1726
+      ],
+      "finding": "UsePrecachingThreadPool defaults to one. Zero dispatches recorded graphics/compute through the alternate file-cache path. Both paths invoke the completion delegate."
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/VulkanRHI/Private/VulkanPipeline.cpp",
+        "sha256": "9d189107d167682b8834aaa6aa0eef765183939f463c3999172c215a5b212270",
+        "bytes": 133574
+      },
+      "lines": [
+        693,
+        723
+      ],
+      "finding": "Completion saves the device cache, then acquires the global/current cache exclusively and merges. Observed intervals do not isolate driver work from waits."
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/Launch/Private/LaunchEngineLoop.cpp",
+        "sha256": "f23b201a530fb87af894aac9f76ce090fab42fe4dccc92267e044f5b6d6cae1d",
+        "bytes": 236996
+      },
+      "lines": [
+        3508,
+        3668,
+        3798,
+        3813
+      ],
+      "finding": "Early module registration precedes opening the game pipeline cache; engine-loading screen playback follows PreLoadingScreen module loading."
+    },
+    {
+      "identity": {
+        "path": "/opt/unreal/UE_5.8.2/Engine/Source/Runtime/PreLoadScreen/Private/PreLoadSlateThreading.cpp",
+        "sha256": "c570ca014f78da2360e181edf160ff775bff64d25aa128afd53478081cd7034d",
+        "bytes": 8873
+      },
+      "lines": [
+        237,
+        242,
+        247
+      ],
+      "finding": "The Slate synchronization thread enqueues render-thread work. Adding a spinner alone cannot establish responsiveness across a blocked render-thread interval."
+    }
+  ],
+  "resource_routing": {
+    "command": "biella resource route unreal",
+    "providers": [
+      "ollama-qwen"
+    ],
+    "decision": "Reused native source and deterministic runtime validation; prior optional Qwen timeout preserved. No new provider request was necessary."
+  },
+  "decision": "Retain native default. Alternate scheduler is not accepted as a startup optimization. Do not enable the experimental seed or compatibility setting in production.",
+  "next_boundary": "Measure a supported preparation/loading path that remains responsive during expensive native work. Existing engine preload screen shares render-thread dependency; source inspection is not runtime responsiveness proof."
+}

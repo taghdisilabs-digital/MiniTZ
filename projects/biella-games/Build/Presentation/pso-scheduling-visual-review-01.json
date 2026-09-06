@@ -1,0 +1,17 @@
+{
+  "task_id": "D03-01",
+  "classification": "GENERATED_DRAFT",
+  "frame": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/pso-scheduling-pool-cold-01/captures/static_007.png",
+    "sha256": "8827b8aa22958e724761cd4d8e60638883bcd6aa1311c232c0df7ba34e92fc67",
+    "bytes": 990360
+  },
+  "method": "Direct inspection of original native runtime PNG",
+  "observations": [
+    "Readable skeletal player, health/ammo/objective HUD, PBR roadway and facade relief.",
+    "Sparse repeated architecture, exposed black world edges and prototype character/art remain unfinished."
+  ],
+  "limits": [
+    "Still image does not establish motion/temporal quality or responsive startup."
+  ]
+}

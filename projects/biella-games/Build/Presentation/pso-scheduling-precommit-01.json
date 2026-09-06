@@ -1,0 +1,35 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "time": "2026-09-06T18:24:43.736645+00:00",
+  "parent_commit": "54063684d6ad73506cca3c559a145a64243eb365",
+  "series_checked_identities": 255,
+  "native_source_identities": 4,
+  "visual_identity_verified": true,
+  "predecessor_unchanged": 385,
+  "authorized_runner_change": {
+    "before": {
+      "path": "tests/run_d03_01_pso_capture.py",
+      "bytes": 9359,
+      "sha256": "0de703073256ab8ccdccf5734b39110e6768159b61434faf667186eb55835429"
+    },
+    "after": {
+      "path": "tests/run_d03_01_pso_capture.py",
+      "bytes": 10018,
+      "sha256": "d5ddde9c39210a87b0adaa62a916d83b3a550cce2c7cf0064884748a3bcaef00"
+    }
+  },
+  "predecessor_runner_git_object_verified": true,
+  "syntax_checked": [
+    "tests/run_d03_01_pso_capture.py",
+    "tests/verify_d03_01_pso_scheduling.py"
+  ],
+  "secret_scan": {
+    "scope": "Bounded common secret-shaped token patterns; does not assert exhaustive secret detection.",
+    "files": 33,
+    "bytes": 4480995,
+    "result": "CLEAR"
+  },
+  "native_reruns": 0,
+  "game_rebuild_required": false
+}
