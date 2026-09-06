@@ -286,6 +286,51 @@ def _assist_unresolved_paths(text: str, project_root: Path | None) -> list[str]:
     return sorted(set(missing))
 
 
+def _hydrate_assist_verified_actions(projection: Mapping[str, Any], runtime_root: Path) -> list[dict[str, str]]:
+    actions = projection.get("verified_actions")
+    if not isinstance(actions, list):
+        return []
+    content: Mapping[str, Any] = {}
+    full_index = str(projection.get("full_index") or "").strip()
+    if full_index:
+        path = Path(full_index)
+        if not path.is_absolute():
+            path = Path(runtime_root) / path
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(payload, Mapping) and isinstance(payload.get("content"), Mapping):
+                content = payload["content"]
+        except (OSError, json.JSONDecodeError):
+            content = {}
+    hydrated: list[dict[str, str]] = []
+    for item in actions:
+        ref = ""
+        text = ""
+        if isinstance(item, str):
+            ref = item
+        elif isinstance(item, Mapping):
+            ref = str(item.get("content_ref") or "")
+            text = str(item.get("text") or "").strip()
+        if ref and not text:
+            row = content.get(ref) if isinstance(content, Mapping) else None
+            if isinstance(row, Mapping):
+                text = str(row.get("text") or "").strip()
+        if ref and text:
+            hydrated.append({"content_ref": ref, "text": text})
+    return hydrated
+
+
+def _assist_ungrounded_verified_action_claim(text: str, verified_actions: list[Mapping[str, Any]]) -> str | None:
+    exact = {str(row.get("content_ref") or ""): str(row.get("text") or "") for row in verified_actions if isinstance(row, Mapping)}
+    for line in str(text or "").splitlines():
+        refs = re.findall(r"sha256:[0-9a-fA-F]{64}", line)
+        for ref in refs:
+            expected = exact.get(ref)
+            if not expected or expected not in line:
+                return line.strip()
+    return None
+
+
 def _assist_invented_failure_claim(text: str, failures: list[Mapping[str, Any]]) -> str | None:
     """Return the unsupported failure claim when a clean projection is made negative."""
     if failures:
@@ -317,6 +362,7 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
     if not isinstance(projection, Mapping):
         return None
     meaningful = _assist_projection_payload(projection)
+    meaningful["verified_actions"] = _hydrate_assist_verified_actions(projection, Path(runtime_root))
     canonical = json.dumps(meaningful, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
     digest = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
     safe_task = str(task_id).replace("/", "_")
@@ -330,12 +376,17 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
             cached_text = str(cached.get("text") or "")
             missing = _assist_unresolved_paths(cached_text, project_root)
             invented = _assist_invented_failure_claim(cached_text, list(meaningful.get("failures") or []))
+            verified_claim = _assist_ungrounded_verified_action_claim(cached_text, list(meaningful.get("verified_actions") or []))
         except (OSError, json.JSONDecodeError):
             missing = ["invalid cached assist"]
             invented = None
-        if not missing and not invented:
+            verified_claim = None
+        if not missing and not invented and not verified_claim:
             return path
-        if invented:
+        if verified_claim:
+            rejection = {"reason":"ungrounded_verified_action_claim","claim":verified_claim}
+            recovery_text = "Rejected cached local assist with ungrounded verified-action claim: " + verified_claim
+        elif invented:
             rejection = {"reason":"ungrounded_failure_claim","claim":invented}
             recovery_text = "Rejected cached local assist with invented failure claim: " + invented
         else:
@@ -354,6 +405,7 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
         "(1) next smallest action, (2) likely failure cause if any, (3) exact files/tests/tools to inspect or run, "
         "(4) reusable verified pattern if supported. Mention only file/asset paths literally supported by the input; never invent a path, API, symbol, test, or command target. "
         "If the failures list is empty, section (2) MUST be exactly 'Likely failure cause if any: NONE' and section (1) must not imply retry/repair of a failure. "
+        "If citing a verified_action content_ref, include its exact corresponding text verbatim on the same line; do not paraphrase or assign additional meaning to a hash. "
         "Do not manufacture failure state, stale-cache/race claims, or negative status from absent evidence. Do not repeat the whole input and do not propose task advancement.\n\n"
         + canonical[:12000]
     )
@@ -382,9 +434,13 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
     assist_text = str(payload.get("text") or "")
     missing_paths = _assist_unresolved_paths(assist_text, project_root)
     invented_failure = _assist_invented_failure_claim(assist_text, list(meaningful.get("failures") or []))
-    if missing_paths or invented_failure:
+    verified_claim = _assist_ungrounded_verified_action_claim(assist_text, list(meaningful.get("verified_actions") or []))
+    if missing_paths or invented_failure or verified_claim:
         rejected_path.parent.mkdir(parents=True, exist_ok=True)
-        if invented_failure:
+        if verified_claim:
+            rejection = {"reason":"ungrounded_verified_action_claim","claim":verified_claim}
+            recovery_text = "Rejected local assist with ungrounded verified-action claim: " + verified_claim
+        elif invented_failure:
             rejection = {"reason":"ungrounded_failure_claim","claim":invented_failure}
             recovery_text = "Rejected local assist with invented failure claim: " + invented_failure
         else:
