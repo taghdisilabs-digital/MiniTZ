@@ -1,0 +1,782 @@
+{
+  "schema": "biella.file_manifest/v1",
+  "task_id": "D03-01",
+  "increment": "critical cue combat ducking",
+  "task_status": "CONTINUE",
+  "created_at": "2026-09-06T08:50:39.782335+00:00",
+  "baseline_commit": "4ad7080a6327dea6efdd6a0c08c2630afa940cce",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "digest_rule": "SHA256 of exact file bytes; this manifest excludes itself; raw logs/captures retained unchanged",
+  "file_count": 128,
+  "total_bytes": 23725243,
+  "files": [
+    {
+      "path": "Build/Presentation/D03-01-audio-final-readback.json",
+      "size": 3481,
+      "sha256": "8e19e710aee7e94766fc4f922f8f9a74d06f96e1963d456818215d95034c242f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/D03-01-audio-increment.json",
+      "size": 1450,
+      "sha256": "04ee3dde563ec2564c2817ae4fdb599013ce7b44b6b595fe3ca78c7ce532d90c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/D03-01-audio-preservation.json",
+      "size": 912,
+      "sha256": "34396b49d8e3aa2fd8224481091367f6020490d6787db98dcc9083d67d9d2847",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/D03-01-audio-progress.md",
+      "size": 6839,
+      "sha256": "d52c1abbf0645e395ee104433a5c53d0fc87c86ab1ae06a2d6656c4e2d830988",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-design-01/design.md",
+      "size": 1861,
+      "sha256": "b024d29d44dab3f72f3a8ce9a2e7217108010e1217ecf64a09ec1f50c143942e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-design-01/request.json",
+      "size": 808,
+      "sha256": "0b04df2c68bd7364e2c3d45f9914362734f4d3bdaf283e40136277de72fe16bb",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-design-01/response.txt",
+      "size": 1413,
+      "sha256": "15b193f0d32c75dd1383ca99137a5ed9e74181f80c2bb849d0ac7ff87493d50f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-design-01/routes.json",
+      "size": 273,
+      "sha256": "e2fc8f5ebefa2bbeb82165e78af670788ab4f0e2c4b766e685a8fd3431f5db9d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-diagnostics-01/diagnosis.md",
+      "size": 1249,
+      "sha256": "53a2f3992253ac3f120b09bb91e20455b326cf21ccc41c46182c2651d73109f7",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-diagnostics-01/early-capture-test.cpp",
+      "size": 12089,
+      "sha256": "26166de63cb0bf1fb8746126ff5330d3a7783ff952186c97569bb92af073a9ff",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-diagnostics-01/independent-alignment-verifier.py",
+      "size": 2618,
+      "sha256": "78d94122955983cd14e03c13eecfea0d02843d25632d668acb04eebc00ba017d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-diagnostics-01/nrt-runner.py",
+      "size": 5230,
+      "sha256": "670e7595602d5cb2d0815a72c13fd64037145447fb865ad094fb7de2ae3260e5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-diagnostics-01/request.json",
+      "size": 944,
+      "sha256": "91bdd5e4dde8b836e4ceb5a77dc55953338e5cc6d6fda71594c0b11c8cfb2a43",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-diagnostics-01/residual-alignment.json",
+      "size": 371,
+      "sha256": "fd7733a174424fb50031a9695bd3c8480dbc0cfc122136fdd7192aa73283d747",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-diagnostics-01/response.txt",
+      "size": 2015,
+      "sha256": "b8262b446b5212cd6d8f81950e868b8f6d79214b841af034375166d46c1055bc",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-diagnostics-01/route.json",
+      "size": 62,
+      "sha256": "37d6239c117e9d57bcd11d21c2b5ba207b4729099590b832eaaf57f4e3bb479a",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-diagnostics-01/sdl-mix.json",
+      "size": 1228,
+      "sha256": "ee5b6259cbb68a04a70c2a4234412921b2757a69ba8e52c6a51a189f40cccf74",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-diagnostics-01/validator-controls-01.json",
+      "size": 3685,
+      "sha256": "429115e1787216c357ff651cdb4cf7a708e9ff096f34d58df6f4eaaed56e88c3",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-feedback-regression-01/captures/combat.png",
+      "size": 751034,
+      "sha256": "f9ea02b4a71fbebc970a1ba6709c7a974e1fd2b7d49731b971f9d107cab19447",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-feedback-regression-01/captures/combat.wav",
+      "size": 135212,
+      "sha256": "33913f447ea7f48d141b1b27fb0ff4574094bac484166f14a821947b2e0e3847",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-feedback-regression-01/captures/dense_combat.png",
+      "size": 752256,
+      "sha256": "925f98a126064d48747f5d12b6b8e896a79f7e76f3f2dc182cacf931d735f2d1",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-feedback-regression-01/captures/failure.png",
+      "size": 198999,
+      "sha256": "e8f4bb27cd212344c6fa997231de36f797624431f3e973de3c5af0adc5cf7ef4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-feedback-regression-01/captures/failure.wav",
+      "size": 180268,
+      "sha256": "22e2eac61aed0631985aee684366228927b0ed529069298927ca1e2f8adc349f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-feedback-regression-01/captures/hurt.png",
+      "size": 749797,
+      "sha256": "8ce53673a617895bd497ceb3d7a872f72fa8ea10c2de9e879d4e46c4217095f0",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-feedback-regression-01/captures/hurt.wav",
+      "size": 69676,
+      "sha256": "02f3ab71d446a17800baac8586b352c429d9e8e26764bc351e7abcb1434bd8c2",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-feedback-regression-01/captures/pressure.png",
+      "size": 819810,
+      "sha256": "c12bdf0f41ddb46f3ef186ce720609b032772aa839d6e5764e463f7f1c098079",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-feedback-regression-01/captures/pressure.wav",
+      "size": 122924,
+      "sha256": "cfe0c745535af79010c1561e274bc989895a33e3267c916e1b3f3a49c9c6cdd3",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-feedback-regression-01/captures/success.png",
+      "size": 236315,
+      "sha256": "0219ae2069f5c7ea5b0c226750563430ef45c51c40f8001fc307ff24faed1150",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-feedback-regression-01/captures/success.wav",
+      "size": 155692,
+      "sha256": "e352639a6a2adff147226d585dcf10769b132ff04e01ae879c27770b60bdf175",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-feedback-regression-01/feedback.engine.log",
+      "size": 361422,
+      "sha256": "5f1e8335c622598b29869c75c4548184e9a4009db6d1d0aaedbab31436e66448",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-feedback-regression-01/feedback.stdout.log",
+      "size": 361123,
+      "sha256": "03b6d32cd4ccbf3f94c406c3e9e02a3c53d85e8fa8917f20cdc8ea18e1a51d79",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-feedback-regression-01/validation.json",
+      "size": 64491,
+      "sha256": "b1289183877c07b8ccc900643439b677450797114917ad3c532d35983a776f82",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-finalization-01/03_BIELLA_CURRENT_STATE.md",
+      "size": 6417,
+      "sha256": "f2e7bed07ca3e204e78fa2b32a52bb161f6d70904d79aade99970e87774a85bc",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-finalization-01/04_BIELLA_ACTIVE_TASK.md",
+      "size": 2135,
+      "sha256": "1919a4ae1997e3c49a2b3be20cdaa5d75d59b0a44c7815b2e93988e0ed8daffd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-finalization-01/authority-reconciliation.json",
+      "size": 2650,
+      "sha256": "da7f1cca22f1ece3377c2f0ce2a26d8eb150e3926a08ee557552ade66cb7f0c9",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-finalization-01/regression-log-finalization.json",
+      "size": 1902,
+      "sha256": "e6f558ce71cd4608720f90f5bfc4d3d3f1fa498d7a87799a535da6c9a264ff7a",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-finalization-01/validator-controls.json",
+      "size": 3685,
+      "sha256": "334fc582f59d44be9e80c1d8d2f75f41530d9f802f04a51bd04caa5087267c71",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-green-build-01/build.log",
+      "size": 4129,
+      "sha256": "46a74516a8aac79a4f4700261100d327996598254af1c16f9db75b7366561490",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-build-01/build.log",
+      "size": 8807,
+      "sha256": "8252993c95c64580346d75573a856321a7706bf5000c00abda305ee636c9fafc",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-build-02/build.log",
+      "size": 3537,
+      "sha256": "7f844df4ce568322774683fb0191e1d3a102c832a848b831eab889b645fa704c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-build-03/build.log",
+      "size": 3536,
+      "sha256": "17f869780655a8db47fb9a4ab6c18b497e3ecc41e0efb1a45d027d4235864ed0",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-01/process-memory.jsonl",
+      "size": 1950,
+      "sha256": "c6be8ffff80bf3932de9baf363f2be968c16904a978da8398694372a63679573",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-01/runtime.engine.log",
+      "size": 184227,
+      "sha256": "bca1495dda170d07645507c2cc224a6ae0b43c3aab7012a6c71f435626879b4e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-01/runtime.stdout.log",
+      "size": 185169,
+      "sha256": "4ab9c7b3c05dcc916d4c9c7065925f78e17d5e6d29dd84a6b0bd5ee30952191d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-01/validation.json",
+      "size": 71884,
+      "sha256": "93d2d2991c9afc2a497f83f8dcb23dedcdcd3d5a33f6577350a9eb03da86ce6e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-02/combat.wav",
+      "size": 61484,
+      "sha256": "5b30503ed77cc57b7cef0b40ab4bbeb3fa3fce58374626dc26444e326eac5ae5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-02/critical.wav",
+      "size": 122924,
+      "sha256": "d3e940ba24a7a536c3241f2fb3c15f81edbd76bddc2606b7240d97d275b73283",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-02/mixed.png",
+      "size": 746765,
+      "sha256": "a01a7cea99a07c5505eca490f2a462fb86387c668513139e1422b6a1c548b82d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-02/mixed.wav",
+      "size": 127020,
+      "sha256": "f626b077631dba4fef9317c7d99a712647a69e71fd88daf53aa088b0adffd44c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-02/process-memory.jsonl",
+      "size": 20661,
+      "sha256": "7de2fe0a176eeab7ca39b44300c5e235d01071dfa76a89be7ad20f97271379d3",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-02/release.csv",
+      "size": 243,
+      "sha256": "4ed548f1788b8be7eb40b1ea56c4dc15c470a312a21732ab282800369dcce652",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-02/result.json",
+      "size": 18,
+      "sha256": "195bdb67bbdc7d85fd8736ec1ace799e6e7d53f09b91267ecdff3e03cef6df5b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-02/runtime.engine-CRC.log",
+      "size": 13425,
+      "sha256": "246a277b5b009651e0d664ddd00b2df513c3319fd093c6c497eb0c30dac3e3dc",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-02/runtime.engine.log",
+      "size": 328708,
+      "sha256": "6eddffd52e60a31933ba90acc1283e3ebbc8c27d4ed0f3778afceb69708d5683",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-02/runtime.stdout.log",
+      "size": 342330,
+      "sha256": "6c828bb1552f0cf85eb1e1cccbdf68e728b8c83b8612a5b90f95932f0071ce62",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-02/validation.json",
+      "size": 72277,
+      "sha256": "d485d736381580b79fa0b417a129989deade9c624144d9c00245a4e373fdd809",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-03/combat.wav",
+      "size": 65580,
+      "sha256": "4d330050bc7963a04e6f5066ac0e3f62ae34856583c5bd61eebd3210a3caf241",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-03/critical.wav",
+      "size": 122924,
+      "sha256": "d3e940ba24a7a536c3241f2fb3c15f81edbd76bddc2606b7240d97d275b73283",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-03/mixed.png",
+      "size": 746876,
+      "sha256": "3c4ef2420814f10a2e3c08c38583095f345477da0b173243858662d69fb01985",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-03/mixed.wav",
+      "size": 118828,
+      "sha256": "ded7b454311965d62540714f10d9220d88a1f70fbfed7ea047279dbae2a3e26b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-03/process-memory.jsonl",
+      "size": 6047,
+      "sha256": "8267081a83b2ac91fe35b97167f466ede717a61df087c5ee38e6e22fa4960881",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-03/release.csv",
+      "size": 243,
+      "sha256": "4ed548f1788b8be7eb40b1ea56c4dc15c470a312a21732ab282800369dcce652",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-03/result.json",
+      "size": 17,
+      "sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-03/runtime.engine.log",
+      "size": 299098,
+      "sha256": "57537198aeecece78e4fbee7e80b99ab516ba96c8369fea2b2421fb160287f15",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-03/runtime.stdout.log",
+      "size": 299222,
+      "sha256": "bf95a4ce9d24b62814b8ff91930af821bead4e037406ec10d0914ac06910c86e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-03/validation.json",
+      "size": 72184,
+      "sha256": "54a131bda675adf08699ed7457b305148d02bd9c16e739fafda834b6c4a8c31d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-04/combat.wav",
+      "size": 331820,
+      "sha256": "b4c07026ccd126a7dbf9fd486ae0415c24784c8954260a7063c0dd2e76758811",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-04/critical.wav",
+      "size": 331820,
+      "sha256": "2fc85d51e9ac05d222162e869e3c123afaea6410ae7d9d131a9cdc12f77393ea",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-04/mixed.png",
+      "size": 746952,
+      "sha256": "51245fe0c45786cf1cfc0f67e3913b1313210f6177b56e3b0d7a189cbb7694b2",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-04/mixed.wav",
+      "size": 774188,
+      "sha256": "466d68246ea510d78ffca046e666f66dcb210630a47c9fbcfecbb377d2c20df3",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-04/process-memory.jsonl",
+      "size": 6148,
+      "sha256": "db827878216cce37967815d618cb9227da8acae33f77cc5726f789ed53ac17ef",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-04/release.csv",
+      "size": 441,
+      "sha256": "2a39135082ff66f65aaf071402174cee758f6fe6a37dc46ea8c293846e46906c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-04/result.json",
+      "size": 17,
+      "sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-04/runtime.engine.log",
+      "size": 299044,
+      "sha256": "e549b19ea6ee68f4585466a2a40e55a5603124d816506d2e6be245ae95908e5f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-04/runtime.stdout.log",
+      "size": 299168,
+      "sha256": "db1866444c96ecd8a94e2e720e8cba0536a913c64eaef93cebb080dcd95d50c3",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-04/validation.json",
+      "size": 72362,
+      "sha256": "a88f8b392b8ecd5895d73647eb4846d9a038a0d6d79ca26bd182a12b7cd0aa22",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-05/combat.wav",
+      "size": 331820,
+      "sha256": "0d323d762b9299e285bf98d092ac2804bc31acfdcdf332159afc3bd991d82d53",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-05/critical.wav",
+      "size": 344108,
+      "sha256": "317b9b03e29bd5cbcd986adb707b173ed75e7441b97f6ea3eea63ce983fb41c7",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-05/mixed.png",
+      "size": 748122,
+      "sha256": "65fc2632011babfa2a5aea52acefbbad0a972bbc71961ab77afd6405f3d7cfb3",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-05/mixed.wav",
+      "size": 786476,
+      "sha256": "0c6dfe19d371cf8bd7a8a3ab6df4805b8da3b26fa9958ff7b7bd72073ba970d5",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-05/process-memory.jsonl",
+      "size": 6145,
+      "sha256": "fc822f6f1281bd0a8ee723ea341b55dd26324d57ab09cf053bfe3bcfebd76518",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-05/release.csv",
+      "size": 441,
+      "sha256": "2a39135082ff66f65aaf071402174cee758f6fe6a37dc46ea8c293846e46906c",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-05/result.json",
+      "size": 17,
+      "sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-05/runtime.engine.log",
+      "size": 298951,
+      "sha256": "c9396d3a9df7125a2d206598954fb0e2d08dc1e075db8c51b37073c7c20c5676",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-05/runtime.stdout.log",
+      "size": 299074,
+      "sha256": "bde6eefd3c28975df19ac0c7e88dbc45e56d1aa9357395ad6bf789ce7fd2ba7d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-05/validation.json",
+      "size": 143005,
+      "sha256": "a2b50c858c9759738c5a9f3faf0bee614445172bf0b62e29c2ddda12a39e44ef",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-review-01/controller-review.md",
+      "size": 2144,
+      "sha256": "2047ca47e5989e37f12d3598b6d52b40d542f1199ecbda7e23d135fae9185ad4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-review-01/request.json",
+      "size": 4056,
+      "sha256": "6b9b07e0c75f8ff15bad59f86afe98f7b09f40bc0482459cbd467df0f3c2a98e",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-review-01/response.txt",
+      "size": 70,
+      "sha256": "b3ca29692a27cfaa6b24db08c884e67996f01de4669f8c0a013548bd4f17a137",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-review-01/route.json",
+      "size": 62,
+      "sha256": "37d6239c117e9d57bcd11d21c2b5ba207b4729099590b832eaaf57f4e3bb479a",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-01/combat.wav",
+      "size": 331820,
+      "sha256": "b4c07026ccd126a7dbf9fd486ae0415c24784c8954260a7063c0dd2e76758811",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-01/critical.wav",
+      "size": 356396,
+      "sha256": "6cd29338836d63ef9fbd1605e4f21d2aa3eec443a9fb7fe457f4b55c7ffc5243",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-01/mixed.png",
+      "size": 748293,
+      "sha256": "3eb95c8c8102078c8579525c6da18466c7219dd4bba3dca5dfb6bd1434b976fd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-01/mixed.wav",
+      "size": 749612,
+      "sha256": "8126bef109927a6b94ff3ad54dd08822b8ad19fa6b5f1f642b6302f9c969ecdd",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-01/process-memory.jsonl",
+      "size": 6489,
+      "sha256": "857e1f67aca89c26ce1267d610d4497cde825392e2703034c439e407e0b26940",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-01/release.csv",
+      "size": 441,
+      "sha256": "bb82d11c20b983cfa3e5e08620cc12386a6c4f9de4aa062ed17b8cb7ae8d9b4a",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-01/result.json",
+      "size": 17,
+      "sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-01/runtime.engine.log",
+      "size": 298994,
+      "sha256": "cf813476d3a50a7521bb682c5473a6f025bab0f4f42f749f0482e603f83c22b8",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-01/runtime.stdout.log",
+      "size": 299116,
+      "sha256": "9d8074d433b917334c6918eff1d9c19b08902ef52bd83b216c0c085b1514ab3f",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-01/validation.json",
+      "size": 143328,
+      "sha256": "7c5a72e62549cc6c7a2c41df37cbb3ee96b933a7224e2a3e2ebb50f7c3ba0cf8",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-02/combat.wav",
+      "size": 331820,
+      "sha256": "b4c07026ccd126a7dbf9fd486ae0415c24784c8954260a7063c0dd2e76758811",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-02/critical.wav",
+      "size": 356396,
+      "sha256": "6cd29338836d63ef9fbd1605e4f21d2aa3eec443a9fb7fe457f4b55c7ffc5243",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-02/mixed.png",
+      "size": 748706,
+      "sha256": "30041c76cd1cbf3297fefe349065a696722b415d489389f798809990c19c25b3",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-02/mixed.wav",
+      "size": 761900,
+      "sha256": "0b52c24bfaa08329beedde5d4b0f3b766ab1de76184c86c494d4708b2c9709b0",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-02/process-memory.jsonl",
+      "size": 6270,
+      "sha256": "5d043217f29c7b81e92fa4b6cdea29d00aba87a00b3065b9096f3dac22c0a034",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-02/release.csv",
+      "size": 441,
+      "sha256": "bb82d11c20b983cfa3e5e08620cc12386a6c4f9de4aa062ed17b8cb7ae8d9b4a",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-02/result.json",
+      "size": 17,
+      "sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-02/runtime.engine.log",
+      "size": 299138,
+      "sha256": "8214ef4b9ac48cb3c24a5ce1f6bf4df372e6439196ba41927cfb2317a5677f4d",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-02/runtime.stdout.log",
+      "size": 299259,
+      "sha256": "e6bc075466cd763ee85679b1afc05c16e86e0e807d3072457d354c8568c22493",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-02/validation.json",
+      "size": 143305,
+      "sha256": "10e84d4cb980521972f7098d199bdcee438894317c51dd1c2b54b3f6ce594452",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-03/combat.wav",
+      "size": 331820,
+      "sha256": "b4c07026ccd126a7dbf9fd486ae0415c24784c8954260a7063c0dd2e76758811",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-03/critical.wav",
+      "size": 331820,
+      "sha256": "2fc85d51e9ac05d222162e869e3c123afaea6410ae7d9d131a9cdc12f77393ea",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-03/mixed.png",
+      "size": 748425,
+      "sha256": "d38eb164cb1b8a34adcb1d327b7ca7f9e964c09d12e0ee094f5e9ae3c9b91a3b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-03/mixed.wav",
+      "size": 749612,
+      "sha256": "9286ce82ff0bb3c4bdee0cc206f9713fd48a63e62fd9160da267ceba5e2349dc",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-03/process-memory.jsonl",
+      "size": 6052,
+      "sha256": "07d3fb581d799a1139e4f07ae2da9e5228f1ab285ec467429a9975953432781b",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-03/release.csv",
+      "size": 441,
+      "sha256": "bb82d11c20b983cfa3e5e08620cc12386a6c4f9de4aa062ed17b8cb7ae8d9b4a",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-03/result.json",
+      "size": 17,
+      "sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-03/runtime.engine.log",
+      "size": 299079,
+      "sha256": "a59de7169963fdb319f71de874056b1529c7b773e0c25e3ce232d4639eed11f8",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-03/runtime.stdout.log",
+      "size": 299201,
+      "sha256": "f6cb232ea57994d00688d4de1b6eb7f2ff6be22f79006649c4c37f3cf2064102",
+      "kind": "file"
+    },
+    {
+      "path": "Build/Presentation/audio-runtime-03/validation.json",
+      "size": 143505,
+      "sha256": "d2ffcca5baf3d54f3eaa5f688dcaa8b03afd84f219e0607c9263432caf6b88e8",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGameplayFeedback.cpp",
+      "size": 12274,
+      "sha256": "42150222a9be544d74c72e986dbd4d81dd9057cfaf5786b1eeff4c68efd168a3",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Private/Tests/BiellaAudioMixTest.cpp",
+      "size": 12100,
+      "sha256": "1b6a101636b8e8d1d787046c4f3e1b86b4d05079e84f28768c90aa3359f2fc9f",
+      "kind": "file"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaGameplayFeedback.h",
+      "size": 3081,
+      "sha256": "d0512a5eb4ad980f22cc309d9712393a40b009eec8c7b05878169704476551d8",
+      "kind": "file"
+    },
+    {
+      "path": "tests/check_d03_01_audio_evidence.py",
+      "size": 2841,
+      "sha256": "0cbcfe4e433deb17737420c919c482163c21d67a4d0a0295254a1ef8538f2e39",
+      "kind": "file"
+    },
+    {
+      "path": "tests/run_d01_042.py",
+      "size": 9820,
+      "sha256": "e33a0217afd1be480091c9e5639a8cb0237cc27b601434fa8adfcdcd6c373fd9",
+      "kind": "file"
+    },
+    {
+      "path": "tests/run_d03_01_audio_mix.py",
+      "size": 4984,
+      "sha256": "336d2786c6e96420ecd0c4eb6a26ea098082aa8539a33749d44ac1da34d52917",
+      "kind": "file"
+    },
+    {
+      "path": "tests/verify_d03_01_audio_increment.py",
+      "size": 6038,
+      "sha256": "3e92b12719d246b26ab582773a9b103a07aec3f004c6e5fa3466900cd102c929",
+      "kind": "file"
+    },
+    {
+      "path": "tests/verify_d03_01_audio_mix.py",
+      "size": 3475,
+      "sha256": "8b8512d654818950f44918da5f1548fdb1ebe66b96bdbce60aaa05641b727a61",
+      "kind": "file"
+    }
+  ]
+}

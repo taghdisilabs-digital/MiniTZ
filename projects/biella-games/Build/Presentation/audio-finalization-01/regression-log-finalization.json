@@ -1,0 +1,25 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "original": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/audio-feedback-regression-01/feedback.stdout.log",
+    "sha256": "61a9fe6d4e1a0e164947564bae710cedee79e4a837c0842867e0365197feea8b",
+    "bytes": 360353
+  },
+  "final": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/audio-feedback-regression-01/feedback.stdout.log",
+    "sha256": "03b6d32cd4ccbf3f94c406c3e9e02a3c53d85e8fa8917f20cdc8ea18e1a51d79",
+    "bytes": 361123
+  },
+  "finalization": {
+    "closed": true,
+    "elapsed_seconds": 0.014197179989423603,
+    "timeout_seconds": 45,
+    "observed_writers": [],
+    "remaining_writers": []
+  },
+  "prefix_matches": true,
+  "appended_bytes": 770,
+  "appended_text": "Opening shared memory\nShared memory doesn't exist, checking legacy lock file\nChecking for a '/tmp/UnrealTraceServer.pid' lock file\nForking process\nOpening shared memory\nStarting the store\nReading settings from '/home/unreal/UnrealEngine/UnrealTrace/Settings.ini'\n\nUnable to open settings file /home/unreal/UnrealEngine/UnrealTrace/Settings.ini.\n\nStore settings (/home/unreal/UnrealEngine/UnrealTrace/Settings.ini):\n - Store port: 1989\n - Recorder port: 1981\n - Thread count: 0\n - Sponsored mode: 1\n - Directory: '/home/unreal/UnrealEngine/UnrealTrace/Store/001'\nSignalling parent 2223974\nTerminating server, no sponsors or connections active.\nListening cancelled, closing port...\nListening cancelled, closing port...\nReceived signal 15\nDaemon is exiting without errors.\n",
+  "decision": "Original regression runtime exited successfully. UnrealTraceServer inherited stdout and appended shutdown diagnostics after the legacy runner hashed it. The original prefix and captures are exact. Rehash only after all log writers close; preserve original report and full raw log."
+}

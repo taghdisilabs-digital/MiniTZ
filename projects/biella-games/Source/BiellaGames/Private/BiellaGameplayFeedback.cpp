@@ -15,6 +15,8 @@ namespace
 {
 const TCHAR* CueNames[] = {TEXT("shot"), TEXT("impact"), TEXT("hurt"),
     TEXT("pressure"), TEXT("success"), TEXT("failure")};
+constexpr float CriticalCombatGain = 0.25f;
+constexpr float CombatReleaseSeconds = 0.20f;
 }
 
 UBiellaGameplayFeedback::UBiellaGameplayFeedback()
@@ -233,10 +235,18 @@ void UBiellaGameplayFeedback::Prune()
 void UBiellaGameplayFeedback::BalanceVoices()
 {
     int32 CombatCount = 0;
-    for (const auto& Voice : Voices) { CombatCount += !Voice.bCritical; }
+    bool bHasCritical = false;
+    for (const auto& Voice : Voices)
+    {
+        CombatCount += !Voice.bCritical;
+        bHasCritical |= Voice.bCritical;
+    }
+    // Include the newly registered critical voice before Play submits its onset.
+    // Existing and newly born combat share the same world-owned envelope.
+    if (bHasCritical) { CombatDuckingGain = CriticalCombatGain; }
     // Authored combat peaks <= -9.5 dBFS; cap aggregate gain at three normal
     // voices so a same-frame burst leaves headroom for two critical cues.
-    const float CombatGain = FMath::Min(1.0f, 3.0f / FMath::Max(1, CombatCount));
+    const float CombatGain = CombatDuckingGain * FMath::Min(1.0f, 3.0f / FMath::Max(1, CombatCount));
     for (const auto& Voice : Voices)
     {
         Voice.Component->SetVolumeMultiplier(Voice.BaseVolume * (Voice.bCritical ? 1.0f : CombatGain));
@@ -247,6 +257,14 @@ void UBiellaGameplayFeedback::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
     Prune();
+    if (CombatDuckingGain < 1.0f && !Voices.ContainsByPredicate(
+        [](const FBiellaFeedbackVoice& Voice) { return Voice.bCritical; }))
+    {
+        // Release in game time only after the last critical voice has drained.
+        CombatDuckingGain = FMath::Min(1.0f, CombatDuckingGain +
+            FMath::Max(0.0f, DeltaTime) * (1.0f - CriticalCombatGain) / CombatReleaseSeconds);
+        BalanceVoices();
+    }
 }
 
 TStatId UBiellaGameplayFeedback::GetStatId() const
@@ -287,6 +305,7 @@ void UBiellaGameplayFeedback::ResetFeedback()
     for (const auto& E : Effects) { if (IsValid(E.Component)) { E.Component->DestroyComponent(); } }
     Voices.Reset();
     Effects.Reset();
+    CombatDuckingGain = 1.0f;
     for (int32 I = 0; I < 6; ++I)
     {
         LastAudio[I].Reset(); LastEffects[I].Reset();

@@ -1,0 +1,6 @@
+{
+  "task_id": "D03-01",
+  "provider": "ollama-qwen",
+  "max_tokens": 500,
+  "prompt": "Bounded Unreal 5.8 audio review: existing world subsystem has TArray combat/critical UAudioComponent voices, critical group reserves 2 voices, combat 12, BalanceVoices caps combat aggregate gain at 3 voices. Add critical cue ducking: immediately multiply combat by 0.25 before critical Play; recover linearly over 0.20 seconds once critical voices drain; critical volume unchanged, new combat inherits duck. Reset clears gain. Native test actual FireWeaponAt + SetArenaPressure records combat-only, critical-only and simultaneous mixer WAV; compare measured mixture against aligned solo waveforms, native component gains and release. Name max 3 concrete lifecycle or audio measurement pitfalls. No code or questions."
+}

@@ -75,12 +75,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--editor", type=Path, default=DEFAULT_EDITOR)
     parser.add_argument("--timeout", type=float, default=150)
+    parser.add_argument("--output", type=Path, help="Fresh evidence directory for a scoped regression")
+    parser.add_argument("--captures", type=Path, help="Fresh capture directory; default location is unchanged")
     args = parser.parse_args()
     if not 0 < args.timeout <= 150:
         parser.error("--timeout must be between zero and 150 seconds")
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
-    evidence = PROJECT / "Build/Demo01/D01-042-runs" / stamp
-    captures = Path("/root/biella/artifacts/games/D01-042") / stamp
+    evidence = (args.output or PROJECT / "Build/Demo01/D01-042-runs" / stamp).resolve()
+    captures = (args.captures or Path("/root/biella/artifacts/games/D01-042") / stamp).resolve()
     account = pwd.getpwnam("unreal") if os.geteuid() == 0 else pwd.getpwuid(os.geteuid())
     ensure_runtime_output(evidence, account)
     ensure_runtime_output(captures, account)

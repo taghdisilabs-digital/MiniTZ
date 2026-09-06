@@ -1,0 +1,111 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "red": {
+    "recordings": [
+      {
+        "path": "Build/Presentation/audio-red-runtime-05/combat.wav",
+        "sha256": "0d323d762b9299e285bf98d092ac2804bc31acfdcdf332159afc3bd991d82d53",
+        "frames": 27648,
+        "peak": 0.15655517578125,
+        "rms": 0.0035284359354832277,
+        "sample_rate": 48000,
+        "channels": 6
+      },
+      {
+        "path": "Build/Presentation/audio-red-runtime-05/critical.wav",
+        "sha256": "317b9b03e29bd5cbcd986adb707b173ed75e7441b97f6ea3eea63ce983fb41c7",
+        "frames": 28672,
+        "peak": 0.062225341796875,
+        "rms": 0.0075931270074018654,
+        "sample_rate": 48000,
+        "channels": 6
+      },
+      {
+        "path": "Build/Presentation/audio-red-runtime-05/mixed.wav",
+        "sha256": "0c6dfe19d371cf8bd7a8a3ab6df4805b8da3b26fa9958ff7b7bd72073ba970d5",
+        "frames": 65536,
+        "peak": 0.178802490234375,
+        "rms": 0.0055608412168184195,
+        "sample_rate": 48000,
+        "channels": 6
+      }
+    ],
+    "combat_gain": 0.9752695422396191,
+    "critical_gain": 0.9980386175673178,
+    "relative_residual": 0.06074991546503622,
+    "combat_lag_samples": 0,
+    "critical_lag_samples": 4,
+    "method": "Least-squares gain fit against time-aligned native solo recordings; raw capture bytes unchanged"
+  },
+  "green": {
+    "recordings": [
+      {
+        "path": "Build/Presentation/audio-runtime-03/combat.wav",
+        "sha256": "b4c07026ccd126a7dbf9fd486ae0415c24784c8954260a7063c0dd2e76758811",
+        "frames": 27648,
+        "peak": 0.15655517578125,
+        "rms": 0.003528406988914716,
+        "sample_rate": 48000,
+        "channels": 6
+      },
+      {
+        "path": "Build/Presentation/audio-runtime-03/critical.wav",
+        "sha256": "2fc85d51e9ac05d222162e869e3c123afaea6410ae7d9d131a9cdc12f77393ea",
+        "frames": 27648,
+        "peak": 0.062225341796875,
+        "rms": 0.007732349532009957,
+        "sample_rate": 48000,
+        "channels": 6
+      },
+      {
+        "path": "Build/Presentation/audio-runtime-03/mixed.wav",
+        "sha256": "9286ce82ff0bb3c4bdee0cc206f9713fd48a63e62fd9160da267ceba5e2349dc",
+        "frames": 62464,
+        "peak": 0.073394775390625,
+        "rms": 0.00518896258057398,
+        "sample_rate": 48000,
+        "channels": 6
+      }
+    ],
+    "combat_gain": 0.24377352536533226,
+    "critical_gain": 0.9999177166629196,
+    "relative_residual": 0.017569382960975745,
+    "combat_lag_samples": 0,
+    "critical_lag_samples": 1,
+    "method": "Least-squares gain fit against time-aligned native solo recordings; raw capture bytes unchanged"
+  },
+  "negative_controls": [
+    {
+      "name": "actual unducked native baseline",
+      "rejected": true,
+      "reason": "Mixer output does not contain the requested combat ducking"
+    },
+    {
+      "name": "combat absent; critical alone",
+      "rejected": true,
+      "reason": "Mixer output does not contain the requested combat ducking"
+    },
+    {
+      "name": "critical gain incorrectly halved",
+      "rejected": true,
+      "reason": "Solo waveform fit does not establish clean critical gain"
+    },
+    {
+      "name": "silent mixer output",
+      "rejected": true,
+      "reason": "Silent or clipping runtime recording"
+    },
+    {
+      "name": "clipped mixer output",
+      "rejected": true,
+      "reason": "Silent or clipping runtime recording"
+    },
+    {
+      "name": "uncorrelated contamination invalidates source fit",
+      "rejected": true,
+      "reason": "Solo waveform fit does not establish clean critical gain"
+    }
+  ],
+  "scope": "Validator controls; synthetic mutations are not gameplay evidence"
+}

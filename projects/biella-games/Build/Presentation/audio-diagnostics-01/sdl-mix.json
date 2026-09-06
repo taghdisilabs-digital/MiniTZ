@@ -1,0 +1,37 @@
+{
+  "recordings": [
+    {
+      "path": "Build/Presentation/audio-red-runtime-04/combat.wav",
+      "sha256": "b4c07026ccd126a7dbf9fd486ae0415c24784c8954260a7063c0dd2e76758811",
+      "frames": 27648,
+      "peak": 0.15655517578125,
+      "rms": 0.003528406988914716,
+      "sample_rate": 48000,
+      "channels": 6
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-04/critical.wav",
+      "sha256": "2fc85d51e9ac05d222162e869e3c123afaea6410ae7d9d131a9cdc12f77393ea",
+      "frames": 27648,
+      "peak": 0.062225341796875,
+      "rms": 0.007732349532009957,
+      "sample_rate": 48000,
+      "channels": 6
+    },
+    {
+      "path": "Build/Presentation/audio-red-runtime-04/mixed.wav",
+      "sha256": "466d68246ea510d78ffca046e666f66dcb210630a47c9fbcfecbb377d2c20df3",
+      "frames": 64512,
+      "peak": 0.136749267578125,
+      "rms": 0.005563428661267473,
+      "sample_rate": 48000,
+      "channels": 6
+    }
+  ],
+  "combat_gain": 0.8851219852943162,
+  "critical_gain": 0.010054877770679788,
+  "relative_residual": 0.9294238099201108,
+  "combat_lag_samples": 0,
+  "critical_lag_samples": -707,
+  "method": "Least-squares gain fit against time-aligned native solo recordings; raw capture bytes unchanged"
+}

@@ -1,0 +1,133 @@
+﻿Log file open, 09/06/26 08:27:17
+LogInit: Running DelayedAutoRegister Phase StartOfEnginePreInit
+LogInit: Running DelayedAutoRegister Phase FileSystemReady
+LogInit: Running DelayedAutoRegister Phase TaskGraphSystemReady
+LogInit: Running DelayedAutoRegister Phase StatSystemReady
+LogICUInternationalization: ICU TimeZone Detection - Raw Offset: +0:00, Platform Override: ''
+LogConfig: No local boot hotfix file found at: [/home/unreal/.config/Epic/CrashReportClient/Saved/PersistentDownloadDir/HotfixForNextBoot.txt]
+LogInit: Running DelayedAutoRegister Phase IniSystemReady
+LogInit: Running DelayedAutoRegister Phase EarliestPossiblePluginsLoaded
+LogInit: ExecutableName: CrashReportClientEditor
+LogInit: Build: ++UE5+Release-5.8-CL-56702186
+LogInit: Platform=Linux
+LogInit: MachineId=3da9d2f3021f461a93a81e6b23a2b4d7-000003e9
+LogInit: DeviceId=
+LogInit: Engine Version: 5.8.2-56702186+++UE5+Release-5.8
+LogInit: Compatible Engine Version: 5.8.0-55116800+++UE5+Release-5.8
+LogInit: Net CL: 55116800
+LogInit: OS: Ubuntu 24.04.4 LTS (6.8.0-138-generic), CPU: AMD EPYC 9124 16-Core Processor, GPU: NVIDIA L40S (NVIDIA UNIX x86_64 Kernel Module  580.178.04  Tue Jul  7 12:38:21 UTC 2026)
+LogInit: CPU Model ID: 19111, microcode revision: a101148
+LogInit: Compiled (64-bit): Aug  7 2026 15:13:49
+LogInit: Architecture: x64
+LogInit: Compiled with Clang: 20.1.8 (github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+LogInit: Build Configuration: Shipping
+LogInit: Branch Name: ++UE5+Release-5.8
+LogInit: Command Line:  -Abslog="/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/audio-red-runtime-02/runtime.engine-CRC.log" -Unattended "/root/biella/repos/biella-engine/projects/biella-games/Saved/Crashes/crashinfo-BiellaGames-pid-2213659-01A075D436D47530B7E109FEE5D38DA0/"
+LogInit: Base Directory: /opt/unreal/UE_5.8.2/Engine/Binaries/Linux/
+LogInit: Allocator: Mimalloc
+LogInit: Installed Engine Build: 1
+LogInit: This binary is optimized with LTO: no, PGO: no, instrumented for PGO data collection: no
+LogInit: Presizing for max 2097152 objects, including 1 objects not considered by GC.
+LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: true, Async Post Load: true, Multithreaded: false
+LogInit: Object subsystem initialized
+[2026.09.06-08.27.17:295][  0]LogConfig: Applying CVar settings from Section [ConsoleVariables] File [Engine]
+[2026.09.06-08.27.17:295][  0]LogConfig: Set CVar [[memory.MemoryPressureCriticalThresholdPercent:10]]
+[2026.09.06-08.27.17:295][  0]LogInit: Unix hardware info:
+[2026.09.06-08.27.17:295][  0]LogInit:  - we are the first instance of this executable
+[2026.09.06-08.27.17:295][  0]LogInit:  - this process' id (pid) is 2214892, parent process' id (ppid) is 2213659
+[2026.09.06-08.27.17:295][  0]LogInit:  - we are not running under debugger
+[2026.09.06-08.27.17:295][  0]LogInit:  - machine network name is 'biella-l40s-worker'
+[2026.09.06-08.27.17:296][  0]LogInit:  - user name is 'unreal' (unreal)
+[2026.09.06-08.27.17:296][  0]LogInit:  - we're logged in locally
+[2026.09.06-08.27.17:296][  0]LogInit:  - we're running with rendering
+[2026.09.06-08.27.17:296][  0]LogInit:  - CPU: AuthenticAMD 'AMD EPYC 9124 16-Core Processor' (signature: 0xA10F11)
+[2026.09.06-08.27.17:296][  0]LogInit:  - Number of physical cores available for the process: 15
+[2026.09.06-08.27.17:296][  0]LogInit:  - Number of logical cores available for the process: 15
+[2026.09.06-08.27.17:296][  0]LogInit:  - GPU Brand Info: NVIDIA L40S (NVIDIA UNIX x86_64 Kernel Module  580.178.04  Tue Jul  7 12:38:21 UTC 2026)
+[2026.09.06-08.27.17:296][  0]LogInit:  - Memory allocator used: Mimalloc
+[2026.09.06-08.27.17:296][  0]LogInit:  - This is an internal build.
+[2026.09.06-08.27.17:296][  0]LogCore: Skipped benchmarking clocks because the engine is running in a standalone program mode - CLOCK_MONOTONIC will be used.
+[2026.09.06-08.27.17:296][  0]LogInit: Unix-specific commandline switches:
+[2026.09.06-08.27.17:296][  0]LogInit:  -ansimalloc - use malloc()/free() from libc (useful for tools like valgrind and electric fence)
+[2026.09.06-08.27.17:296][  0]LogInit:  -jemalloc - use jemalloc for all memory allocation
+[2026.09.06-08.27.17:296][  0]LogInit:  -binnedmalloc - use binned malloc  for all memory allocation
+[2026.09.06-08.27.17:296][  0]LogInit:  -filemapcachesize=NUMBER - set the size for case-sensitive file mapping cache
+[2026.09.06-08.27.17:296][  0]LogInit:  -useksm - uses kernel same-page mapping (KSM) for mapped memory (OFF)
+[2026.09.06-08.27.17:296][  0]LogInit:  -ksmmergeall - marks all mmap'd memory pages suitable for KSM (OFF)
+[2026.09.06-08.27.17:296][  0]LogInit:  -preloadmodulesymbols - Loads the main module symbols file into memory (OFF)
+[2026.09.06-08.27.17:296][  0]LogInit:  -sigdfl=SIGNAL - Allows a specific signal to be set to its default handler rather then ignoring the signal
+[2026.09.06-08.27.17:296][  0]LogInit:  -crashhandlerstacksize - Allows setting crash handler stack sizes (204800)
+[2026.09.06-08.27.17:296][  0]LogInit:  -noexclusivelockonwrite - disables marking files created by the engine as exclusive locked while the engine has them opened
+[2026.09.06-08.27.17:296][  0]LogInit:  -httpproxy=ADDRESS:PORT - redirects HTTP requests to a proxy (only supported if compiled with libcurl)
+[2026.09.06-08.27.17:296][  0]LogInit:  -reuseconn - allow libcurl to reuse HTTP connections (only matters if compiled with libcurl)
+[2026.09.06-08.27.17:296][  0]LogInit:  -virtmemkb=NUMBER - sets process virtual memory (address space) limit (overrides VirtualMemoryLimitInKB value from .ini)
+[2026.09.06-08.27.17:296][  0]LogInit:  -allowsyscallfilterfile=PATH_TO_FILE - sets up a system call filter allow list. any invalid syscall in this list *will* cause a crash
+[2026.09.06-08.27.17:296][  0]LogInit:  - Physical RAM available (not considering process quota): 87 GB (88380 MB, 90501504 KB, 92673540096 bytes)
+[2026.09.06-08.27.17:296][  0]LogInit:  - VirtualMemoryAllocator pools will grow at scale 1
+[2026.09.06-08.27.17:296][  0]LogInit:  - MemoryRangeDecommit() will be a no-op (re-run with -vmapoolevict to change)
+[2026.09.06-08.27.17:296][  0]LogInit:  - PageSize 4096
+[2026.09.06-08.27.17:296][  0]LogInit:  - BinnedPageSize 65536
+[2026.09.06-08.27.17:299][  0]LogUObjectArray: 593 objects as part of root set at end of initial load.
+[2026.09.06-08.27.17:299][  0]LogUObjectArray: 0 objects are not in the root set, but can never be destroyed because they are in the DisregardForGC set.
+[2026.09.06-08.27.17:299][  0]LogUObjectArray: CloseDisregardForGC: 593/593 objects in disregard for GC pool
+[2026.09.06-08.27.17:300][  0]LogInit: Using OS detected language (en-US-POSIX).
+[2026.09.06-08.27.17:300][  0]LogInit: Using OS detected locale (en-US-POSIX).
+[2026.09.06-08.27.17:300][  0]LogTextLocalizationManager: No specific localization for 'en-US-POSIX' exists, so 'en' will be used for the language.
+[2026.09.06-08.27.17:345][  0]LogInit: Using OS detected language (en-US-POSIX).
+[2026.09.06-08.27.17:345][  0]LogInit: Using OS detected locale (en-US-POSIX).
+[2026.09.06-08.27.17:345][  0]LogTextLocalizationManager: No localization for 'en-US-POSIX' exists, so 'en' will be used for the language.
+[2026.09.06-08.27.17:345][  0]LogTextLocalizationManager: No localization for 'en-US-POSIX' exists, so 'en' will be used for the locale.
+[2026.09.06-08.27.17:346][  0]LogPackageLocalizationCache: Processed 2 localized package path(s) for 1 prioritized culture(s) in 0.000035 seconds
+[2026.09.06-08.27.17:346][  0]LogModuleManager: StartProcessingNewlyLoadedObjects
+[2026.09.06-08.27.17:355][  0]LogInit: Using libcurl 8.15.0
+[2026.09.06-08.27.17:355][  0]LogInit:  - built for x86_64-unknown-linux-gnu
+[2026.09.06-08.27.17:355][  0]LogInit:  - supports SSL with OpenSSL/1.1.1t
+[2026.09.06-08.27.17:355][  0]LogInit:  - supports HTTP deflate (compression) using libz 1.3
+[2026.09.06-08.27.17:355][  0]LogInit:  - other features:
+[2026.09.06-08.27.17:355][  0]LogInit:      CURL_VERSION_SSL
+[2026.09.06-08.27.17:355][  0]LogInit:      CURL_VERSION_LIBZ
+[2026.09.06-08.27.17:355][  0]LogInit:      CURL_VERSION_IPV6
+[2026.09.06-08.27.17:355][  0]LogInit:      CURL_VERSION_ASYNCHDNS
+[2026.09.06-08.27.17:355][  0]LogInit:      CURL_VERSION_LARGEFILE
+[2026.09.06-08.27.17:356][  0]LogInit:      CURL_VERSION_TLSAUTH_SRP
+[2026.09.06-08.27.17:356][  0]LogInit:      CURL_VERSION_HTTP2
+[2026.09.06-08.27.17:356][  0]LogInit:  CurlRequestOptions (configurable via config and command line):
+[2026.09.06-08.27.17:356][  0]LogInit:  - bVerifyPeer = false  - Libcurl will NOT verify peer certificate
+[2026.09.06-08.27.17:356][  0]LogInit:  - bUseHttpProxy = false  - Libcurl will NOT use HTTP proxy
+[2026.09.06-08.27.17:356][  0]LogInit:  - CVarHttpReuseConnectionEnabled = true  - Libcurl will reuse connections
+[2026.09.06-08.27.17:356][  0]LogInit:  - MaxHostConnections = 16  - Libcurl will limit the number of connections to a host
+[2026.09.06-08.27.17:356][  0]LogInit:  - LocalHostAddr = Default
+[2026.09.06-08.27.17:356][  0]LogInit:  - BufferSize = 65536
+[2026.09.06-08.27.17:356][  0]LogInit: CreateHttpThread using FCurlMultiPollEventLoopHttpThread
+[2026.09.06-08.27.17:356][  0]LogInit: Creating http thread with maximum 251 concurrent requests
+[2026.09.06-08.27.17:356][  0]LogAnalytics: Display: [CrashReporter.Release] AnalyticsET::StartSession ( APIServer = https://datarouter.ol.epicgames.com/datarouter/api/v1/public/data. AppVersion = ++UE5+Release-5.8-CL-56702186 )
+[2026.09.06-08.27.17:358][  0]CrashReportCoreLog: Display: Applying project settings from '/root/biella/repos/biella-engine/projects/biella-games/Saved/Crashes/crashinfo-BiellaGames-pid-2213659-01A075D436D47530B7E109FEE5D38DA0/CrashReportClient.ini'.
+[2026.09.06-08.27.17:358][  0]CrashReportCoreLog: CrashReportClientVersion=1.0
+[2026.09.06-08.27.17:358][  0]CrashReportCoreLog: CrashReportReceiver disabled
+[2026.09.06-08.27.17:358][  0]CrashReportCoreLog: DataRouterUrl: https://datarouter.ol.epicgames.com/datarouter/api/v1/public/data
+[2026.09.06-08.27.17:359][  0]CrashReportCoreLog: Initial state = Unknown UploadState value
+[2026.09.06-08.27.17:359][  0]CrashReportCoreLog: Initial state = Unknown UploadState value
+[2026.09.06-08.27.17:359][  0]LogCrashDebugHelper: DepotName: //UE5/Release-5.8
+[2026.09.06-08.27.17:359][  0]LogCrashDebugHelper: BuiltFromCL: 56702186
+[2026.09.06-08.27.17:359][  0]LogCrashDebugHelper: EngineVersion: 5.8.2-56702186+++UE5+Release-5.8
+[2026.09.06-08.27.17:359][  0]LogCrashDebugHelper: BuildVersion: ++UE5+Release-5.8-CL-56702186
+[2026.09.06-08.27.18:332][  0]CrashReportCoreLog: Got 4 pending files to upload from 'crashinfo-BiellaGames-pid-2213659-01A075D436D47530B7E109FEE5D38DA0'
+[2026.09.06-08.27.18:332][  0]CrashReportCoreLog: State change from Ready to SendingFiles
+[2026.09.06-08.27.18:332][  0]CrashReportCoreLog: CompressAndSendData have 4 pending files
+[2026.09.06-08.27.18:332][  0]CrashReportCoreLog: CompressAndSendData compressing 256 bytes ('/root/biella/repos/biella-engine/projects/biella-games/Saved/Crashes/crashinfo-BiellaGames-pid-2213659-01A075D436D47530B7E109FEE5D38DA0/CrashReportClient.ini')
+[2026.09.06-08.27.18:332][  0]CrashReportCoreLog: CompressAndSendData compressing 65983 bytes ('/root/biella/repos/biella-engine/projects/biella-games/Saved/Crashes/crashinfo-BiellaGames-pid-2213659-01A075D436D47530B7E109FEE5D38DA0/CrashContext.runtime-xml')
+[2026.09.06-08.27.18:332][  0]CrashReportCoreLog: CompressAndSendData compressing 328708 bytes ('/root/biella/repos/biella-engine/projects/biella-games/Saved/Crashes/crashinfo-BiellaGames-pid-2213659-01A075D436D47530B7E109FEE5D38DA0/runtime.engine.log')
+[2026.09.06-08.27.18:333][  0]CrashReportCoreLog: CompressAndSendData compressing 1425 bytes ('/root/biella/repos/biella-engine/projects/biella-games/Saved/Crashes/crashinfo-BiellaGames-pid-2213659-01A075D436D47530B7E109FEE5D38DA0/Diagnostics.txt')
+[2026.09.06-08.27.18:346][  0]CrashReportCoreLog: Sending HTTP request: https://datarouter.ol.epicgames.com/datarouter/api/v1/public/data?AppID=CrashReporter&AppVersion=5.8.2-56702186%2B%2B%2BUE5%2BRelease-5.8&AppEnvironment=Release&UploadType=crashreports&UserID=3da9d2f3021f461a93a81e6b23a2b4d7-000003e9%7C%7C3da9d2f3021f461a93a81e6b23a2b4d7, Payload size: 51277
+[2026.09.06-08.27.18:934][  0]CrashReportCoreLog: OnProcessRequestComplete(), State=SendingFiles Response=204 ConnectedSuccesfully=1
+[2026.09.06-08.27.18:934][  0]CrashReportCoreLog: All uploads done
+[2026.09.06-08.27.18:934][  0]CrashReportCoreLog: State change from SendingFiles to Finished
+[2026.09.06-08.27.19:370][  0]CrashReportCoreLog: Final state (Receiver) = Finished
+[2026.09.06-08.27.19:370][  0]CrashReportCoreLog: Final state (Receiver) = Unknown UploadState value
+[2026.09.06-08.27.19:370][  0]LogAnalytics: Display: [CrashReporter.Release] AnalyticsET::EndSession
+[2026.09.06-08.27.19:370][  0]LogCore: Engine exit requested (reason: CrashReportClientApp RequestExit)
+[2026.09.06-08.27.19:370][  0]LogExit: Preparing to exit.
+[2026.09.06-08.27.19:372][  0]LogExit: Object subsystem successfully closed.
+[2026.09.06-08.27.19:875][  0]LogPakFile: Destroying PakPlatformFile
+[2026.09.06-08.27.19:878][  0]LogExit: Exiting.
+[2026.09.06-08.27.19:887][  0]Log file closed, 09/06/26 08:27:19

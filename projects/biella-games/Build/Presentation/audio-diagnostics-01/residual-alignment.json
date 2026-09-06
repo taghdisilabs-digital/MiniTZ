@@ -1,0 +1,20 @@
+{
+  "audio-red-runtime-05": {
+    "combat_lag": 0,
+    "critical_lag": 4,
+    "gains": [
+      0.9752695422396191,
+      0.9980386175673178
+    ],
+    "residual": 0.06074991546503622
+  },
+  "audio-runtime-01": {
+    "combat_lag": 0,
+    "critical_lag": 1,
+    "gains": [
+      0.2437736714345954,
+      0.9999146941542579
+    ],
+    "residual": 0.01670759096380479
+  }
+}

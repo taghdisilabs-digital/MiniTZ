@@ -1,0 +1,36 @@
+{
+  "schema": "biella.d03_01.audio_increment/v1",
+  "task_id": "D03-01",
+  "increment": "critical cue combat ducking",
+  "implementation_status": "IMPLEMENTED_VALIDATED",
+  "task_status": "CONTINUE",
+  "baseline_commit": "4ad7080a6327dea6efdd6a0c08c2630afa940cce",
+  "created_at": "2026-09-06T08:50:39.740923+00:00",
+  "canonical_project_root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "implementation": [
+    "Source/BiellaGames/Private/BiellaGameplayFeedback.cpp",
+    "Source/BiellaGames/Public/BiellaGameplayFeedback.h"
+  ],
+  "validation": "Build/Presentation/D03-01-audio-final-readback.json",
+  "progress": "Build/Presentation/D03-01-audio-progress.md",
+  "combat_gain": 0.24377352536533226,
+  "critical_gain": 0.9999177166629196,
+  "relative_residual": 0.017569382960975745,
+  "native_gameplay_assertions": "PASS",
+  "existing_audio_vfx_regression": "PASS",
+  "negative_controls": 6,
+  "previous_manifest_entries_preserved": 746,
+  "publication": {
+    "owner": "Auto Feeder",
+    "local_commit_required": true,
+    "remote_publication_claimed": false,
+    "canonical_state_transition_claimed": false
+  },
+  "remaining": [
+    "Production world/rendering art and lighting",
+    "Final character and weapon art",
+    "Terrain foot placement/IK, aim/action/hit/defeat layers",
+    "Skeletal vehicle presentation and broader transitions/LOD/crowds",
+    "Production VFX/audio coverage and launch-platform qualification"
+  ]
+}

@@ -84,4 +84,5 @@ private:
     int32 EventCounts[6] = {};
     int32 PeakAudio = 0;
     int32 PeakEffects = 0;
+    float CombatDuckingGain = 1.0f;
 };

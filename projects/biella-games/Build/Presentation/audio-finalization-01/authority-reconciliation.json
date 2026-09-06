@@ -1,0 +1,49 @@
+{
+  "task_id": "D03-01",
+  "result": "RECONCILED_TRANSIENT_AUTHORITY_CHANGE",
+  "time": "2026-09-06T08:46:21.267184+00:00",
+  "changed": [
+    {
+      "before": {
+        "path": "/root/biella/repos/biella-engine/docs/project-state/03_BIELLA_CURRENT_STATE.md",
+        "sha256": "f2e7bed07ca3e204e78fa2b32a52bb161f6d70904d79aade99970e87774a85bc",
+        "bytes": 6417
+      },
+      "transient_after": {
+        "path": "/root/biella/repos/biella-engine/docs/project-state/03_BIELLA_CURRENT_STATE.md",
+        "sha256": "cc494d511cdbe94f7af866021f853d8fae1de339bb659714ba0316cd8cf8a400",
+        "bytes": 3982
+      },
+      "current": {
+        "path": "/root/biella/repos/biella-engine/docs/project-state/03_BIELLA_CURRENT_STATE.md",
+        "bytes": 6417,
+        "sha256": "f2e7bed07ca3e204e78fa2b32a52bb161f6d70904d79aade99970e87774a85bc"
+      },
+      "current_snapshot": "Build/Presentation/audio-finalization-01/03_BIELLA_CURRENT_STATE.md"
+    },
+    {
+      "before": {
+        "path": "/root/biella/repos/biella-engine/docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+        "sha256": "1919a4ae1997e3c49a2b3be20cdaa5d75d59b0a44c7815b2e93988e0ed8daffd",
+        "bytes": 2135
+      },
+      "transient_after": {
+        "path": "/root/biella/repos/biella-engine/docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+        "sha256": "cf011c040b0f785d764d020ce6b6caad6af19995c49eb324b09cceec906c2101",
+        "bytes": 3595
+      },
+      "current": {
+        "path": "/root/biella/repos/biella-engine/docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+        "bytes": 2135,
+        "sha256": "1919a4ae1997e3c49a2b3be20cdaa5d75d59b0a44c7815b2e93988e0ed8daffd"
+      },
+      "current_snapshot": "Build/Presentation/audio-finalization-01/04_BIELLA_ACTIVE_TASK.md"
+    }
+  ],
+  "unchanged_project_production": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/docs/PRODUCTION.md",
+    "sha256": "3b8a7c15a73e65abff1c61b1e133b521db0dc8d6363da8582bf564a2118f3801",
+    "bytes": 29094
+  },
+  "decision": "03/04 changed externally during runtime-03 then returned byte-for-byte to their pre-run state. The transient records were read and retained D03-01. Their raw bytes are not available locally; validation retains their exact observed hashes. Current records match the recorded before hashes and HEAD. The latest explicit RESUME_EXISTING_TASK_SESSION instruction remains authoritative over their earlier paused directive. Game inputs and PRODUCTION unchanged. Preserve original FAIL; separately revalidate native result, mixer, current inputs and current authority. This controller did not edit or restore 03/04; execute only D03-01."
+}

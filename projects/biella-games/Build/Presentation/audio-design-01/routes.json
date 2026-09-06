@@ -1,0 +1,20 @@
+[
+  {
+    "capability": "audio",
+    "providers": []
+  },
+  {
+    "capability": "audio.sfx",
+    "providers": []
+  },
+  {
+    "capability": "audio.generate",
+    "providers": []
+  },
+  {
+    "capability": "unreal.assist",
+    "providers": [
+      "ollama-qwen"
+    ]
+  }
+]

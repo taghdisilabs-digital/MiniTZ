@@ -1,0 +1,83 @@
+{
+  "task_id": "D03-01",
+  "increment": "critical cue combat ducking",
+  "result": "PASS",
+  "task_status": "CONTINUE",
+  "verified_at": "2026-09-06T08:48:31.078794+00:00",
+  "mix": {
+    "recordings": [
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/audio-runtime-03/combat.wav",
+        "sha256": "b4c07026ccd126a7dbf9fd486ae0415c24784c8954260a7063c0dd2e76758811",
+        "frames": 27648,
+        "peak": 0.15655517578125,
+        "rms": 0.003528406988914716,
+        "sample_rate": 48000,
+        "channels": 6
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/audio-runtime-03/critical.wav",
+        "sha256": "2fc85d51e9ac05d222162e869e3c123afaea6410ae7d9d131a9cdc12f77393ea",
+        "frames": 27648,
+        "peak": 0.062225341796875,
+        "rms": 0.007732349532009957,
+        "sample_rate": 48000,
+        "channels": 6
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/audio-runtime-03/mixed.wav",
+        "sha256": "9286ce82ff0bb3c4bdee0cc206f9713fd48a63e62fd9160da267ceba5e2349dc",
+        "frames": 62464,
+        "peak": 0.073394775390625,
+        "rms": 0.00518896258057398,
+        "sample_rate": 48000,
+        "channels": 6
+      }
+    ],
+    "combat_gain": 0.24377352536533226,
+    "critical_gain": 0.9999177166629196,
+    "relative_residual": 0.017569382960975745,
+    "combat_lag_samples": 0,
+    "critical_lag_samples": 1,
+    "method": "Least-squares gain fit against time-aligned native solo recordings; raw capture bytes unchanged"
+  },
+  "release_samples": 24,
+  "current_input_identity_counts": {
+    "native": 270,
+    "regression": 108
+  },
+  "final_capture_identities": 14,
+  "predecessor_manifests": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/D03-01-file-manifest.json",
+      "sha256": "4ee276408814eff8db31c5e2e30b2fe1d8ab98dcd8522f4fa9e2dbaa8d174bc8",
+      "verified_entries": 457
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/D03-01-animation-file-manifest.json",
+      "sha256": "d912822aa51c4e4d818888dcc23c0e8d8a095623d0a464ee5174a4272c5ebdcd",
+      "verified_entries": 289
+    }
+  ],
+  "protected_current": [
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/03_BIELLA_CURRENT_STATE.md",
+      "sha256": "f2e7bed07ca3e204e78fa2b32a52bb161f6d70904d79aade99970e87774a85bc",
+      "bytes": 6417
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+      "sha256": "1919a4ae1997e3c49a2b3be20cdaa5d75d59b0a44c7815b2e93988e0ed8daffd",
+      "bytes": 2135
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/docs/PRODUCTION.md",
+      "sha256": "3b8a7c15a73e65abff1c61b1e133b521db0dc8d6363da8582bf564a2118f3801",
+      "bytes": 29094
+    }
+  ],
+  "native_report_admission": "Only transient authority hash change invalidated runtime-03. Original FAIL retained. Same task authority reconciled; native success, clean runtime, mixer, source/build/assets and current authority rechecked here.",
+  "regression_report": "audio-feedback-regression-01/validation.json",
+  "negative_controls": 6,
+  "limitations": "Software mixer, fixed game delta, SDL dummy device; no speaker, packaged-build or launch-platform qualification. No final art or full D03 acceptance."
+}

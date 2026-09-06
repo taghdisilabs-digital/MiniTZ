@@ -1,0 +1,23 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "verified_at": "2026-09-06T08:49:51.437153+00:00",
+  "predecessors": [
+    {
+      "commit": "ffdd4babd2196151ad33a85b2fd2a0db28b5dd90",
+      "manifest": "Build/Presentation/D03-01-file-manifest.json",
+      "manifest_sha256": "4ee276408814eff8db31c5e2e30b2fe1d8ab98dcd8522f4fa9e2dbaa8d174bc8",
+      "verified_entries": 457,
+      "manifest_matches_committed_bytes": true
+    },
+    {
+      "commit": "8ca4e800eb6d99561b51cb6352005b4fcdec3cde",
+      "manifest": "Build/Presentation/D03-01-animation-file-manifest.json",
+      "manifest_sha256": "d912822aa51c4e4d818888dcc23c0e8d8a095623d0a464ee5174a4272c5ebdcd",
+      "verified_entries": 289,
+      "manifest_matches_committed_bytes": true
+    }
+  ],
+  "current_entry_hashes_verified_by": "D03-01-audio-final-readback.json",
+  "authority_reconciliation": "audio-finalization-01/authority-reconciliation.json"
+}
