@@ -58,16 +58,37 @@ class LiveProjection:
         return result.returncode, (result.stdout or result.stderr or "").strip()
 
     def _production_status(self) -> dict[str, object]:
-        rc, output = self._run(["/usr/local/bin/biella-codex", "production", "status"], 12)
-        if rc == 0:
-            try:
-                value = json.loads(output)
-            except json.JSONDecodeError:
-                value = None
-            if isinstance(value, dict):
-                return value
+        # Public live observation must never invoke or message the production controller.
+        # Read only the controller's already-written runtime file plus canonical Project state.
         runtime = _read_json(self.runtime_path)
-        return runtime if runtime else {"status": "ERROR"}
+        production_path = self.games_project / "docs" / "PRODUCTION.md"
+        current_section = None
+        current_task = None
+        completed = 0
+        total = 0
+        try:
+            lines = production_path.read_text(encoding="utf-8").splitlines()
+        except OSError:
+            lines = []
+        for raw in lines:
+            line = raw.strip()
+            if line.startswith("Current section:"):
+                current_section = line.split(":", 1)[1].strip().strip("`") or None
+            elif line.startswith("Current task:"):
+                value = line.split(":", 1)[1].strip().strip("`")
+                current_task = value if value and value != "NONE" else None
+            elif line.startswith("- [") and " | " in line:
+                total += 1
+                if line.startswith("- [x]"):
+                    completed += 1
+        if not runtime and not lines:
+            return {"status": "ERROR", "current_task": None, "completed": 0, "total": 0}
+        result = dict(runtime)
+        result["current_section"] = current_section
+        result["current_task"] = str(runtime.get("task_id") or current_task or "UNKNOWN")
+        result["completed"] = completed
+        result["total"] = total
+        return result
 
     def _git_info(self) -> dict[str, str]:
         rc_commit, commit = self._run(["git", "-C", str(self.repo), "rev-parse", "HEAD"])
@@ -441,6 +462,7 @@ class LiveProjection:
         production_state = self._production_state(status=status, runtime=runtime, current=current, heartbeat_age=heartbeat_age)
         return {
             "schema": "biella.public_live_snapshot/v1",
+            "mode": "READ_ONLY_OBSERVER",
             "generated_at": now.isoformat(),
             "connection": {
                 "state": "LIVE" if heartbeat_age is not None and heartbeat_age <= STALE_AFTER_SECONDS else "STALE",

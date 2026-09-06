@@ -46,6 +46,25 @@ class LiveProjectionTest(unittest.TestCase):
         self.assertEqual(test_event["state"], "RUNNING")
         self.assertNotIn("python3", test_event["text"])
 
+    def test_production_status_reads_runtime_and_project_file_without_controller_call(self):
+        (self.game / "docs").mkdir(parents=True)
+        (self.game / "docs" / "PRODUCTION.md").write_text(
+            "Current section: `post_d01`\nCurrent task: `D03-01`\n"
+            "- [x] D02-04 | hard | done | COMPLETE | evidence\n"
+            "- [ ] D03-01 | hard_creation | live | PENDING | registry_status=PENDING\n"
+        )
+        (self.runtime / "runtime.json").write_text(json.dumps({
+            "status": "RUNNING", "task_id": "D03-01", "active_model": "model-a",
+            "active_reasoning": "high", "heartbeat_at": "2026-09-06T07:00:00+00:00"
+        }))
+        self.live._run = lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("controller/process command must not be invoked"))
+        status = self.live._production_status()
+        self.assertEqual(status["current_task"], "D03-01")
+        self.assertEqual(status["current_section"], "post_d01")
+        self.assertEqual(status["completed"], 1)
+        self.assertEqual(status["total"], 2)
+        self.assertEqual(status["active_model"], "model-a")
+
     def test_current_task_evidence_resolves_to_public_stage_asset(self):
         validation = self.presentation / "current" / "validation.json"
         validation.write_text(json.dumps({"result": "PASS", "captures": [{"path": str(self.capture)}]}))

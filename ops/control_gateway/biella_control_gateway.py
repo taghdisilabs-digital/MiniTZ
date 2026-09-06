@@ -486,6 +486,9 @@ class ControlHandler(BaseHTTPRequestHandler):
         self._serve_static(path)
     def do_POST(self) -> None:
         path = urlparse(self.path).path
+        if path.startswith("/live-api/"):
+            self._json(HTTPStatus.METHOD_NOT_ALLOWED, {"error": "live_api_read_only"})
+            return
         if path == "/v1/control/session":
             body = self._read_json()
             username = str(body.get("username", ""))

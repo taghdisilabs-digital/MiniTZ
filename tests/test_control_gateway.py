@@ -208,6 +208,11 @@ class GatewayTest(unittest.TestCase):
         status, _, body = self.request("GET", "/live-api/asset?root_id=test&path=../secret")
         self.assertEqual(status, 404)
 
+    def test_public_live_api_rejects_writes(self):
+        status, _, body = self.request("POST", "/live-api/snapshot", {"anything": "ignored"})
+        self.assertEqual(status, 405)
+        self.assertEqual(body["error"], "live_api_read_only")
+
     def test_assets_require_auth_and_return_allowlisted_preview(self):
         status, _, body = self.request("GET", "/v1/control/assets?lane=Games")
         self.assertEqual(status, 401)
