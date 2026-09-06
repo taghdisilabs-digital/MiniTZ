@@ -89,7 +89,7 @@ def main():
         link.symlink_to(release)
         os.replace(link,CURRENT)
         receipt={'schema':'biella.website.live-deploy/v1','source_commit':head,'source_tree':tree,'active_task':active,'program':snap['program'],'deployed_at':datetime.now(timezone.utc).isoformat(),'investor_page_sha256':sha(release/'investors/index.html'),'snapshot_sha256':sha(release/'data/investor-snapshot.json'),'status':'DEPLOYED_LOCAL_ORIGIN'}
-        write(RECEIPT,receipt); write(STATE,{**state,'last_seen_commit':head,'last_deployed_commit':head,'last_overlay_digest':overlay,'last_status':'DEPLOYED','updated_at':receipt['deployed_at']})
+        write(RECEIPT,receipt); write(STATE,{**state,'last_seen_commit':head,'last_deployed_commit':head,'last_status':'DEPLOYED','updated_at':receipt['deployed_at']})
         releases=sorted((p for p in RELEASES.iterdir() if p.is_dir()),key=lambda p:p.stat().st_mtime,reverse=True)
         for old in releases[5:]: shutil.rmtree(old,ignore_errors=True)
         return 0

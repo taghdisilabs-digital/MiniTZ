@@ -56,6 +56,8 @@ class InvestorDeckTests(unittest.TestCase):
 
     def test_live_deploy_source_is_in_single_repo_and_has_no_external_copy_overlay(self):
         deployer = (ROOT/'ops/deploy_live.py').read_text()
+        self.assertNotIn('last_overlay_digest', deployer)
+        self.assertNotRegex(deployer, r'\boverlay\b')
         self.assertIn("REPO=Path('/root/biella/repos/biella-engine')", deployer)
         self.assertIn('FUNDRAISING_COPY', deployer)
         self.assertNotIn('website-fundraising-overlay', deployer)
