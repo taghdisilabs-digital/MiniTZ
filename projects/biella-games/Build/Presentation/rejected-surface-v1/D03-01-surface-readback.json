@@ -1,0 +1,64 @@
+{
+  "result": "PASS",
+  "mode": "readback",
+  "source_sha256": "10e0efff03a64f0f7fca42c36357da9f9b54ec86613671aa9ef5451cf7323efd",
+  "master": "/Game/OpenWorld/Materials/M_ProductionSurface.M_ProductionSurface",
+  "instances": [
+    {
+      "asset": "/Game/OpenWorld/Materials/MI_Street.MI_Street",
+      "roughness": 0.88,
+      "detail_scale": 1.4,
+      "relief_cm": 0.12
+    },
+    {
+      "asset": "/Game/OpenWorld/Materials/MI_Wall.MI_Wall",
+      "roughness": 0.76,
+      "detail_scale": 1.0,
+      "relief_cm": 0.09
+    },
+    {
+      "asset": "/Game/OpenWorld/Materials/MI_Route.MI_Route",
+      "roughness": 0.67,
+      "detail_scale": 0.65,
+      "relief_cm": 0.035
+    },
+    {
+      "asset": "/Game/OpenWorld/Materials/MI_Interior.MI_Interior",
+      "roughness": 0.82,
+      "detail_scale": 0.8,
+      "relief_cm": 0.06
+    }
+  ],
+  "saved_graph": {
+    "base_color": [
+      "MaterialExpressionCustom",
+      "MaterialExpressionLinearInterpolate",
+      "MaterialExpressionMultiply",
+      "MaterialExpressionScalarParameter",
+      "MaterialExpressionScalarParameter",
+      "MaterialExpressionVectorParameter",
+      "MaterialExpressionVertexNormalWS",
+      "MaterialExpressionWorldPosition"
+    ],
+    "roughness": [
+      "MaterialExpressionAdd",
+      "MaterialExpressionClamp",
+      "MaterialExpressionCustom",
+      "MaterialExpressionMultiply",
+      "MaterialExpressionScalarParameter",
+      "MaterialExpressionScalarParameter",
+      "MaterialExpressionScalarParameter",
+      "MaterialExpressionSubtract",
+      "MaterialExpressionVertexNormalWS",
+      "MaterialExpressionWorldPosition"
+    ],
+    "normal": [
+      "MaterialExpressionCustom",
+      "MaterialExpressionScalarParameter",
+      "MaterialExpressionScalarParameter",
+      "MaterialExpressionVertexNormalWS",
+      "MaterialExpressionWorldPosition"
+    ]
+  },
+  "candidate_status": "GENERATED_DRAFT"
+}

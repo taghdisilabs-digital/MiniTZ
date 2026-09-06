@@ -1,0 +1,21 @@
+{
+  "head": "559a113ae0df2de344f19438548b7bb02738aac6",
+  "sources": [
+    {
+      "path": "Source/BiellaGames/Private/BiellaGameplayFeedback.cpp",
+      "sha256": "9db2596c4b37cf09cfb4e2b2ce3f60dc9f0b327bc651e13ba1dd93c6e62312a4"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
+      "sha256": "2e2b28fb962fdaa5d73cbc7142dec7885c19f160d7ae33ba5651b2a7acfc3dd9"
+    },
+    {
+      "path": "Content/Python/author_open_world.py",
+      "sha256": "5f5e44d0922fa806565934b10b63b4dcd6572e336a1bd8127fdcf94f2ca93a82"
+    },
+    {
+      "path": "Config/DefaultEngine.ini",
+      "sha256": "c4fb1836db4e4805336cbb820ffc2b49ccb943138a1e5211879a3ab8a9dd1076"
+    }
+  ]
+}

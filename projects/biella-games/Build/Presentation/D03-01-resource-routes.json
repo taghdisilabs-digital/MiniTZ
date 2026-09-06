@@ -1,0 +1,16 @@
+{
+  "task_id": "D03-01",
+  "routes": [
+    {
+      "capability": "unreal.assist",
+      "provider": "ollama-qwen",
+      "evidence": "D03-01-resource-request.json",
+      "disposition": "bounded material advice retained; unsupported recommendations rejected; native authoring and runtime decide"
+    },
+    {
+      "capability": "animation",
+      "providers": [],
+      "disposition": "No configured specialized animation adapter; installed Unreal template assets located for next implementation step; none imported"
+    }
+  ]
+}

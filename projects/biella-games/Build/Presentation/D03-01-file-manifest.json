@@ -1,0 +1,2782 @@
+{
+  "schema": "biella.file_manifest/v1",
+  "task_id": "D03-01",
+  "scope": "Rendering increment including retained attempts; not full task completion",
+  "root": "/root/biella/repos/biella-engine/projects/biella-games",
+  "entry_count": 457,
+  "digest_rule": "Regular file bytes; symlink target text bytes, matching Git blob identity. Manifest excludes itself.",
+  "files": [
+    {
+      "path": "Build/Presentation/D03-01-baseline.json",
+      "kind": "file",
+      "bytes": 696,
+      "sha256": "acbdee560b8c5ce726a326789084a55c1253a3c6a6ec973122deb7dde17996da"
+    },
+    {
+      "path": "Build/Presentation/D03-01-build-01.log",
+      "kind": "file",
+      "bytes": 8731,
+      "sha256": "b97a5e09057c824330472df270881bc442cc987c0f4626d4191c911c3b7d2c26"
+    },
+    {
+      "path": "Build/Presentation/D03-01-build-02.log",
+      "kind": "file",
+      "bytes": 8739,
+      "sha256": "fd344075c10abc34fd9e381b71b4bea77c7cd676488edb3ad80c6b7339627ab7"
+    },
+    {
+      "path": "Build/Presentation/D03-01-failures.jsonl",
+      "kind": "file",
+      "bytes": 17811,
+      "sha256": "e545f7ac94d0c8f97f727f019d93cd0a499c641bb5c22e0f376a6c90c5d60ed4"
+    },
+    {
+      "path": "Build/Presentation/D03-01-local-material-assist.json",
+      "kind": "file",
+      "bytes": 2620,
+      "sha256": "d807a13555c387cc2c17f316527b026f16e0623876a0cd0f7d6a3c94971b177c"
+    },
+    {
+      "path": "Build/Presentation/D03-01-preservation-after.json",
+      "kind": "file",
+      "bytes": 1888,
+      "sha256": "1abc82a496eb0004e068c2b226f02bc815222d85dbecb82984ac2c40a240b315"
+    },
+    {
+      "path": "Build/Presentation/D03-01-preservation-before.json",
+      "kind": "file",
+      "bytes": 214871,
+      "sha256": "c0a1bb2cd8736acba5a0a406d2ee31470efe51f6c0276a85e59a4917c3d86e4d"
+    },
+    {
+      "path": "Build/Presentation/D03-01-progress.md",
+      "kind": "file",
+      "bytes": 9172,
+      "sha256": "e4bbdee8f947d4f6615fa58da0d62f38085bdd23583f3febb5be2e0faa678171"
+    },
+    {
+      "path": "Build/Presentation/D03-01-rendering-increment.json",
+      "kind": "file",
+      "bytes": 4128,
+      "sha256": "fdd42aed22b4bb33b14ee0546c60c0f975e297af0304191bcc4afe7c8faa16db"
+    },
+    {
+      "path": "Build/Presentation/D03-01-resource-request.json",
+      "kind": "file",
+      "bytes": 1428,
+      "sha256": "1bee904e00552181b112962a1a14507901df167f1a883bd3e145a205a0a6d61e"
+    },
+    {
+      "path": "Build/Presentation/D03-01-resource-routes.json",
+      "kind": "file",
+      "bytes": 530,
+      "sha256": "aa15210934b47e1342582a0526fb73752778c9cb6d18e10edea6ed434a20af76"
+    },
+    {
+      "path": "Build/Presentation/D03-01-surface-author-01.log",
+      "kind": "file",
+      "bytes": 216095,
+      "sha256": "9f67bb2d0db84416a17c8c8323bf30780f5c429e5eb6d70a4e191e25c0d01e78"
+    },
+    {
+      "path": "Build/Presentation/D03-01-surface-author-02.log",
+      "kind": "file",
+      "bytes": 218236,
+      "sha256": "3cb02350444d425eb1f3883e48d8ee6f7ec3166dec8c5d55d90b6b6008bb8352"
+    },
+    {
+      "path": "Build/Presentation/D03-01-surface-author-03.log",
+      "kind": "file",
+      "bytes": 218227,
+      "sha256": "eb94df879cbfc43d4f95e996c0498c7183274828eeca31c8819a0f8afb0bc655"
+    },
+    {
+      "path": "Build/Presentation/D03-01-surface-author-04.log",
+      "kind": "file",
+      "bytes": 137676,
+      "sha256": "9ae1c5cde542c6b40813e6515c832e843fd27c4178c5b37dcc88f2f130a61b00"
+    },
+    {
+      "path": "Build/Presentation/D03-01-surface-author-05.log",
+      "kind": "file",
+      "bytes": 220703,
+      "sha256": "88ee5bca583a5f4d093159c3ea603318637051376dff326c2968dd8c08d8ab1d"
+    },
+    {
+      "path": "Build/Presentation/D03-01-surface-author.json",
+      "kind": "file",
+      "bytes": 885,
+      "sha256": "a370c36b69a6a6834c39dd96259ebe83364b9f8cabacc7b8c7a1d341b032816d"
+    },
+    {
+      "path": "Build/Presentation/D03-01-surface-readback-01.log",
+      "kind": "file",
+      "bytes": 216233,
+      "sha256": "37a6306bf0dcc8c00a308b6f2d4ab23f5e1f5e2ef93c9c93468d563492d93fba"
+    },
+    {
+      "path": "Build/Presentation/D03-01-surface-readback.json",
+      "kind": "file",
+      "bytes": 1895,
+      "sha256": "ee514d82eb9ec1102c769b9dc2caa9ae8c46bf11edfe5dff244af151e6a721d6"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures.csv",
+      "kind": "file",
+      "bytes": 1456,
+      "sha256": "48502fd21d7002c463bfa5021f5f75067ebb26ab936696e8c816782f25c13bc1"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_000.png",
+      "kind": "file",
+      "bytes": 851070,
+      "sha256": "be3382fb07ae1261bcf976935f2c4f750a401642eb21ec279433f41d4e5b0367"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_001.png",
+      "kind": "file",
+      "bytes": 872364,
+      "sha256": "f5ffe22c58771f424724517c4b3fb3000f07ee504837d5ced6b65b7599179f69"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_002.png",
+      "kind": "file",
+      "bytes": 841566,
+      "sha256": "d3754249f9c08259140ef6a06187fd5bbb3508a49b18a1d561cb0cef3b65c0d4"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_003.png",
+      "kind": "file",
+      "bytes": 854734,
+      "sha256": "54bed2d188aecd3297a9e37182de70188c7c058be988b3cc0a2ab7d7188d5d4f"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_004.png",
+      "kind": "file",
+      "bytes": 850373,
+      "sha256": "a4e958892c33a803a4df301f7290ac29fddc9b437301c2046fa18cb89faa7ca1"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_005.png",
+      "kind": "file",
+      "bytes": 873998,
+      "sha256": "9977db3be03042f4293c95898eb82624ca09685145017dcdc195f17aaa136a3c"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_006.png",
+      "kind": "file",
+      "bytes": 844127,
+      "sha256": "40e3229ca9f80a614c1259686f9c5928e66ca1de329a332188522c4de7ea7b4c"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_007.png",
+      "kind": "file",
+      "bytes": 858019,
+      "sha256": "4394a329933b839b303a4ff39009ff17a527585461f181e8e97dc8fce5c453b3"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_008.png",
+      "kind": "file",
+      "bytes": 850131,
+      "sha256": "3de80c5f20550af0933a6d93b5f606e76cb3d00ff698e45aebf1c48490479734"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_009.png",
+      "kind": "file",
+      "bytes": 874827,
+      "sha256": "c05b8694ce890eb964751e6881ae7939a223480b0b997f1478dc24a50767369f"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_010.png",
+      "kind": "file",
+      "bytes": 845945,
+      "sha256": "1a1885890681cc4598289239d28705c7a3424a86e5481e59e33e855805852dcb"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_011.png",
+      "kind": "file",
+      "bytes": 862026,
+      "sha256": "702b2715b859ceeda205bf6e332b12ed760bd831594e4ff6c12fc029e28d5cfd"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_012.png",
+      "kind": "file",
+      "bytes": 861791,
+      "sha256": "866420c03d439c132d89b1b8ba8066cc8a8ee60dccd51fa15239a4a9a13c8021"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_013.png",
+      "kind": "file",
+      "bytes": 887928,
+      "sha256": "b4e9a8b9ad6a784c76e91139a601bf466cc6817986102e6f7dcba2a0d4851092"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_014.png",
+      "kind": "file",
+      "bytes": 862662,
+      "sha256": "43f1909efd9815c15417035099c8088a52b289d2da93e3f013ad2148483211d3"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_015.png",
+      "kind": "file",
+      "bytes": 879706,
+      "sha256": "62bad4b69089eba60ae087b09016b5a10460afd4881d81de35170b40f23c8dd3"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_016.png",
+      "kind": "file",
+      "bytes": 871878,
+      "sha256": "56b2d0d67e4d2dae0672b80e556971f543f953e2f3cda013d4b6ad10874972b3"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_017.png",
+      "kind": "file",
+      "bytes": 891953,
+      "sha256": "0bf000f4965c87bd954362796d5235c9fafd1e494fdaafd297d030d619033e0e"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_018.png",
+      "kind": "file",
+      "bytes": 862806,
+      "sha256": "ff740d6f1feb242450a392b9ef7cdab4e164dfdd08d702a5c0e965af7ea95a18"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_019.png",
+      "kind": "file",
+      "bytes": 882330,
+      "sha256": "3604713527fc08b56763a354602742cd71d03a91f75742d35fd3323f13c5450e"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_020.png",
+      "kind": "file",
+      "bytes": 878557,
+      "sha256": "6be3f33b326b9e83cf3ee2f87942235a1f7871fe3de719858c524dd06fc3409f"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_021.png",
+      "kind": "file",
+      "bytes": 900929,
+      "sha256": "669d22c2f70f83bc5672c77aad157e832390aa871ec0e116f800ddddd86bc2f0"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_022.png",
+      "kind": "file",
+      "bytes": 875564,
+      "sha256": "b919d40fc4b2af99844e5f00b5783d4d402827ef998be4445be4c1d18101058a"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_023.png",
+      "kind": "file",
+      "bytes": 887247,
+      "sha256": "7394f5e978dc65f7dd440d30267d0b66ebe9fe15f4c54b72b32c82d3b413901d"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_024.png",
+      "kind": "file",
+      "bytes": 885129,
+      "sha256": "ae67a21fe8ef9ab35ac3cfcea05efcc9bcb2fed11ac8b9da93ea6ba9200b37bc"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_025.png",
+      "kind": "file",
+      "bytes": 902342,
+      "sha256": "ff045e3adee3e7ba56ffd7d8fcbccae0e76f0b199b60e3cfabd299ae6a9905ea"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_026.png",
+      "kind": "file",
+      "bytes": 871686,
+      "sha256": "3660e2db77e8ec137935a9235c9b6223936477b701a7dea50f2e6d0073600a36"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_027.png",
+      "kind": "file",
+      "bytes": 886122,
+      "sha256": "e1e2aad3dd141a0630adefbdfd2d5e206c15c65d4e2dd686c1dad3b64e4cd2d2"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_028.png",
+      "kind": "file",
+      "bytes": 884075,
+      "sha256": "5702628907182461ba5a1a0f14cf213eb1077523e3b40c2b7b945a21a1a25e7d"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_029.png",
+      "kind": "file",
+      "bytes": 906000,
+      "sha256": "103e1b72edf6ebab15fec2c78697888eac919b8d046af1d87c2e12b77ce89c3e"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_030.png",
+      "kind": "file",
+      "bytes": 874336,
+      "sha256": "90ca726c33e45f220981f82ec6b2f953af92ca2fa97b7fb63e5a0bb8e00603c1"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/pan_031.png",
+      "kind": "file",
+      "bytes": 889517,
+      "sha256": "0cc372800248d246bf779e6bb7b632610532ecf1e859d6871d466bb0e4894ded"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/static_000.png",
+      "kind": "file",
+      "bytes": 851183,
+      "sha256": "1ca57a3835541e8a45aff520889185216ce9e96e72f8de628ab0045d72065acb"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/static_001.png",
+      "kind": "file",
+      "bytes": 866870,
+      "sha256": "55901378f3e05870338a86e46b7348f63e948bf25f525a877e972e194901819c"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/static_002.png",
+      "kind": "file",
+      "bytes": 838026,
+      "sha256": "c6b9ec1e9be3cb1634fcfc1b2417326d11386d16359f3afefd6fd5bfa822ee5f"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/static_003.png",
+      "kind": "file",
+      "bytes": 868750,
+      "sha256": "ec95fb256bd0ae58f2c6e450eb42815f99fcb19a5fbad92215249a3aefc02ddf"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/static_004.png",
+      "kind": "file",
+      "bytes": 860229,
+      "sha256": "1beda4efd6937bf0e633b0b663281819b9ce241af1990370ccb375c7d3650898"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/static_005.png",
+      "kind": "file",
+      "bytes": 868320,
+      "sha256": "14d9eeb0fbdbf01297396e89fc8a94ca2529dd5f1a03625865b0bc97f754a837"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/static_006.png",
+      "kind": "file",
+      "bytes": 838358,
+      "sha256": "aa2590108f36be59da10c991ac8b9d39da9f764e78e994e39f420196c1b13b6c"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/static_007.png",
+      "kind": "file",
+      "bytes": 851697,
+      "sha256": "b75043e4d5f9638e30e9ed96c30bae649303ffa9f49da797ec6a9beb5d758472"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/static_008.png",
+      "kind": "file",
+      "bytes": 865930,
+      "sha256": "3448e4473610003d546181b0546400b97b592832e7dd04bd95a6795d35d8169d"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/static_009.png",
+      "kind": "file",
+      "bytes": 860600,
+      "sha256": "b88499d572cefd294c8e9bb19b794486576db39bf4150c9966243cbd3c061186"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/captures/walk_end.png",
+      "kind": "file",
+      "bytes": 875450,
+      "sha256": "d2045d7205f40fd08b138d7f809c63fc8e1745ad384e681f4806dec2daaabbd0"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/frames.csv",
+      "kind": "file",
+      "bytes": 143991,
+      "sha256": "aa680d40414db0464aeda6c99d9c7a37866c3c3a278cee3c57b5854e5ac73905"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 9793,
+      "sha256": "e40096d01ba576333b1262abf9977cc0e9aee6696cb5a6589dd4b0bcf61afb4a"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/result.json",
+      "kind": "file",
+      "bytes": 121,
+      "sha256": "2d0e4ac8f38e646e82d66d1c3fa8967126c7e6590502a45f6011dfe5cb2c5679"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 361510,
+      "sha256": "330c4ce2a953b11178bf24e224fc2497a1dff97efe4e0ce214c8cf46e4d5c56b"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 361215,
+      "sha256": "1bf5ff5716482c2a00574343e168155ba5e8746da04b5dc8de301b037385f2df"
+    },
+    {
+      "path": "Build/Presentation/clarity-taa100-01/validation.json",
+      "kind": "file",
+      "bytes": 111915,
+      "sha256": "360eceac93a2b94495b8a55077ba9ba92ebcb541c729313fa5892df42de1262c"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures.csv",
+      "kind": "file",
+      "bytes": 1456,
+      "sha256": "6cc3e52090dcd3794b23a5f50b47601dd2bb2980c882b2cc07f2ae94c83b26a1"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_000.png",
+      "kind": "file",
+      "bytes": 938316,
+      "sha256": "fcd826ea1f62d02dad6f9968cbb770b642594b2e9ecb8b791ef37a5f2572e3d2"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_001.png",
+      "kind": "file",
+      "bytes": 952653,
+      "sha256": "a5be54adbf1a5699dcf493ed60c55a980c782af348b334e0eb8fa336677856fc"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_002.png",
+      "kind": "file",
+      "bytes": 954984,
+      "sha256": "42d1fe76bb108390014fa9269267d52209254581a6e4a78de228d6f18a4a9dc2"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_003.png",
+      "kind": "file",
+      "bytes": 958634,
+      "sha256": "afa8cc4e77b1a0d9b4614cb2f3ec5a4cefc8b7e0f49a0ffb8b1bb331e6920998"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_004.png",
+      "kind": "file",
+      "bytes": 959125,
+      "sha256": "70c9d9a5ebaeecff918b564b370df9a881d6a21144a1d40caba8f84b1f091f5f"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_005.png",
+      "kind": "file",
+      "bytes": 959011,
+      "sha256": "43c0af06d2796911fad56af9f21ccfee763a92501ef77bb91f16bcd4bdbafae9"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_006.png",
+      "kind": "file",
+      "bytes": 964118,
+      "sha256": "5b411001238f55b1e49b0fc397b77ae1bd3d48cedc98487499c4fc8a3df7313e"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_007.png",
+      "kind": "file",
+      "bytes": 966722,
+      "sha256": "fcf13e7a3068cb23355b32c46c59a5a7f4c3d331bfb551ad20534cbb5cb07849"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_008.png",
+      "kind": "file",
+      "bytes": 965835,
+      "sha256": "27b76b03c69f92440befe1c16ee8b7d10d3ddb725a635ce41c647d46dea4d705"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_009.png",
+      "kind": "file",
+      "bytes": 967812,
+      "sha256": "bfd8b5011ad091aa80ded056a628342beccc6485c9f46e9a2d56e4e0e1c1a674"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_010.png",
+      "kind": "file",
+      "bytes": 966421,
+      "sha256": "3e9171b4211ede1dd382a59292939661bfbf893c51af3b339385764ca3714017"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_011.png",
+      "kind": "file",
+      "bytes": 971353,
+      "sha256": "6669aa7db2236936107d3138fb8cf3020e3ac0bc618d557187ebd3667457d1c2"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_012.png",
+      "kind": "file",
+      "bytes": 975564,
+      "sha256": "fba0c5ca78ddd4fa68da4f87e2be8ac01c2d42e90aedaca6a23ada12107a7dcd"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_013.png",
+      "kind": "file",
+      "bytes": 979040,
+      "sha256": "03cf21f158c401664e54a4c17530b72e07aeb91b5a4c4b937bfbe8797ad65459"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_014.png",
+      "kind": "file",
+      "bytes": 984641,
+      "sha256": "af738a8af994c2d06126e9821d04cfe447d5d49266480189591417ddaa062ff4"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_015.png",
+      "kind": "file",
+      "bytes": 985641,
+      "sha256": "e5ea784846f3f847cf6128d6c09df6724c3895b9782370c28be9ee5066486061"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_016.png",
+      "kind": "file",
+      "bytes": 981610,
+      "sha256": "52eb341d5de541e1413d488f5b692d579a5afa2db32afc6646d71daaf1edb1a1"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_017.png",
+      "kind": "file",
+      "bytes": 983302,
+      "sha256": "98aced137f75c8a49c772b7b45d450d49245e766312997fc493b35e6601d0c9d"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_018.png",
+      "kind": "file",
+      "bytes": 988215,
+      "sha256": "162fb1a6e1c26616e4053af901862018ab075fe606fac6d7d4a34829b33c3ab4"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_019.png",
+      "kind": "file",
+      "bytes": 990235,
+      "sha256": "1212107cb3566ebd53f2e3c5be7a9cc4a38822e37ea8bc242baae4f0cb891662"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_020.png",
+      "kind": "file",
+      "bytes": 992369,
+      "sha256": "776ee45a0cc6be408269c1b8be4f6e9024bf3fc84897b31e0fd46d2756b4f39a"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_021.png",
+      "kind": "file",
+      "bytes": 992113,
+      "sha256": "f77a18df2895012c3b576f8400ace83c5a33eade654dc9143d57bbb8ce98af6c"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_022.png",
+      "kind": "file",
+      "bytes": 998075,
+      "sha256": "8e05bcdc41c91db07b9825b5bb3f37049ab837f46503454f1d7ffdd0f5432687"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_023.png",
+      "kind": "file",
+      "bytes": 997577,
+      "sha256": "64f64019a8ebac7e6fd1c6e2b0e61ea5c903718a0cd243c9b532491d621d199c"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_024.png",
+      "kind": "file",
+      "bytes": 992027,
+      "sha256": "043d6653bf6b52ccb6dcebdb8986014994f0f8220dc6efe13e029fc8344a947b"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_025.png",
+      "kind": "file",
+      "bytes": 995541,
+      "sha256": "0c481e1bb6083f3a5ad33589062b18aa03ff2fb48563f47b655c02857c446955"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_026.png",
+      "kind": "file",
+      "bytes": 996439,
+      "sha256": "163c9a93f7dd7073000432c144aa4c44706ecb121e548454717e2a01c6748df2"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_027.png",
+      "kind": "file",
+      "bytes": 985334,
+      "sha256": "f5c34db182a58acf9ff86aab5930192226500d56600055a21a266d07742fccec"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_028.png",
+      "kind": "file",
+      "bytes": 980628,
+      "sha256": "62976cffe6ae72f698f9726cdcdbac46d039db8f87c91b16e9b165978e56affe"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_029.png",
+      "kind": "file",
+      "bytes": 976606,
+      "sha256": "2a56cf3a495f939d09c33caa405eff6c8be499b9efe8400c88a8e187a8dac632"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_030.png",
+      "kind": "file",
+      "bytes": 975839,
+      "sha256": "cad8cd3a64a3b9eebcdff1403558020e06b71be8d7239466e317ccde85d720f5"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/pan_031.png",
+      "kind": "file",
+      "bytes": 974973,
+      "sha256": "e747d8415bf169d80782ed4948f6ca9b40537cb8fd5e40e204b274f2eba42979"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/static_000.png",
+      "kind": "file",
+      "bytes": 944495,
+      "sha256": "bae088e60a22568c145ffa83761ec8fb88e99e6f3776214210ee93fd2edc015c"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/static_001.png",
+      "kind": "file",
+      "bytes": 945222,
+      "sha256": "a469ef9cc64aa9c4984b19578debcfdc75de221ddfc42d43927c0519ef049fc3"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/static_002.png",
+      "kind": "file",
+      "bytes": 943638,
+      "sha256": "02cd5f250894e7930905dee27496ad466268914c836cac65d79b9b6ea069d7aa"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/static_003.png",
+      "kind": "file",
+      "bytes": 943657,
+      "sha256": "317b5e0dfd0689ee218d1954e351d9a2db08a9cb61580179cea396e52bae3c9d"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/static_004.png",
+      "kind": "file",
+      "bytes": 944305,
+      "sha256": "adb68ccfabf1d1cf11f1a8add367d72833072f738492bfba4e9218aa7fc955cf"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/static_005.png",
+      "kind": "file",
+      "bytes": 944244,
+      "sha256": "eb92716d806adfb3e974f1819e27e2a0b5a2ac363907c7122e98fa2efbd6b4b5"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/static_006.png",
+      "kind": "file",
+      "bytes": 943731,
+      "sha256": "1516a2dff515611a52ca2b040263fd070c42ffb9b8ba09114c087f03cc6a848f"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/static_007.png",
+      "kind": "file",
+      "bytes": 944426,
+      "sha256": "2e886a13f9f1e322c33d113ecab8f5017290bf6b7fecc9abe4075fce67c4ef07"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/static_008.png",
+      "kind": "file",
+      "bytes": 944569,
+      "sha256": "f180fba7e16e4f544a1dc4d0d8d2b3f9adfc1c0e15c58a3f8fc20b1d8321cbbe"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/static_009.png",
+      "kind": "file",
+      "bytes": 945008,
+      "sha256": "57fcb9dfa62f2db0480b50352b573b1715ad9b63688383c07e6cd17425174f07"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/captures/walk_end.png",
+      "kind": "file",
+      "bytes": 981479,
+      "sha256": "f8df0298bc603250526f478ae0884e095adb81b9dbb564dd845b92c2ec57bb5c"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/frames.csv",
+      "kind": "file",
+      "bytes": 138012,
+      "sha256": "6a973f189df9ee8ce6e5977a5a7fee9ef487ce0171b8a5c4de8d839d0a55017f"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 10013,
+      "sha256": "a367646ddfe4f29b56ef5c29c8973b5f52325482674f77dd5836e120c548e206"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/result.json",
+      "kind": "file",
+      "bytes": 121,
+      "sha256": "35864e807a5f85b93ac6172edc8b2eaecbb5ce61c6ea0429189fa9755f8476d4"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 361470,
+      "sha256": "20d8884e615636a2d0314567d039a194fbd5499b3f022b4a390a938994ab8ecd"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 361175,
+      "sha256": "601266c3242bcb050c3fe31a68f50ef88d327fd5a7c8b183d5923eb34d7458cf"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr100-01/validation.json",
+      "kind": "file",
+      "bytes": 111941,
+      "sha256": "cb594a17b1405d2d38239da44d702bc4dd40fa36c80c1056e2099f38cc23ad69"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures.csv",
+      "kind": "file",
+      "bytes": 1456,
+      "sha256": "b2f3c705c59cd065d984214dec37f2409f5195f88703139196ce4efab92dc71f"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_000.png",
+      "kind": "file",
+      "bytes": 930559,
+      "sha256": "d89ee4b34f7cceffd2745764474489db3b3169a4fd3e48f557934da7d24ad2b3"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_001.png",
+      "kind": "file",
+      "bytes": 945590,
+      "sha256": "4d2645c6e5567774982794b57d8a8c5dd98470205ce230f19afc1ebe1fbf35e5"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_002.png",
+      "kind": "file",
+      "bytes": 952263,
+      "sha256": "7985ebca547ae66a5da47ffbdb245574f71e52aed12ebd716607c59dc5232c9a"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_003.png",
+      "kind": "file",
+      "bytes": 955572,
+      "sha256": "f6099a3ec46814fbc59cbd725548f384d7cacd77d7f450d5e3e56112fd012165"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_004.png",
+      "kind": "file",
+      "bytes": 958436,
+      "sha256": "81c7bb753ca5459d10d7904306081c3879a1eec3766c2070ca3860bed1be204d"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_005.png",
+      "kind": "file",
+      "bytes": 962032,
+      "sha256": "1ff6b01ef67898d0977e1df4c28d05ce04c151ef7e880ba797c25c2cdd06feb3"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_006.png",
+      "kind": "file",
+      "bytes": 965782,
+      "sha256": "7baa215b9e9f7b771bba4db0ff220d551e5a2e05115ee6258850af20f076a3c2"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_007.png",
+      "kind": "file",
+      "bytes": 967945,
+      "sha256": "ef2dc3bed52731adf90e2ff04642fc8da81a91191f2a82a7743dbc02b6faae5b"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_008.png",
+      "kind": "file",
+      "bytes": 968654,
+      "sha256": "a74c6da66a56558601292f2dfe11f46c1747d946db71208a311ca167f2813d06"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_009.png",
+      "kind": "file",
+      "bytes": 972080,
+      "sha256": "503863298cdd98f805a6e46bee0d8ee56d465f59e11ca8e90a836cef8199f7d6"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_010.png",
+      "kind": "file",
+      "bytes": 974571,
+      "sha256": "71e2086d2fc1330fe8cb320922c281d7669381c1b96ddfc5692bbb0c101e9966"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_011.png",
+      "kind": "file",
+      "bytes": 978374,
+      "sha256": "fbc481b7915e186174d31a639933e4b8ea99ea6985df404f8f92596b4229c277"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_012.png",
+      "kind": "file",
+      "bytes": 983264,
+      "sha256": "14649c094de92da07388be670d5ac15f55159409ad8acccf9fc36af8dd3b7147"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_013.png",
+      "kind": "file",
+      "bytes": 990520,
+      "sha256": "5d0966754a5054b7fda5bcf27e8ad48181f027f0797e01cf616a47d2f867bde4"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_014.png",
+      "kind": "file",
+      "bytes": 993723,
+      "sha256": "69b540fd10ab659d925334921701dfad5db23fb6b7e72d20470ee15e5ec97e6f"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_015.png",
+      "kind": "file",
+      "bytes": 993035,
+      "sha256": "2c2b310e4463fc5ffb79358a02808a3f7907d450a96c57cd4dd31c417509cbdd"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_016.png",
+      "kind": "file",
+      "bytes": 993624,
+      "sha256": "a5073c8c9cb1a1884b4edbf7dd7d3d544cb22f391aacee0858420281c552e760"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_017.png",
+      "kind": "file",
+      "bytes": 992327,
+      "sha256": "ee91241b58f3b62bbf3c74136fc87146bce139a2ab25792c391fd77186b0ab80"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_018.png",
+      "kind": "file",
+      "bytes": 996731,
+      "sha256": "11a449631c9369849758b9d4eed40116e2ec2e2a0041d633867b59c4d6dcb653"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_019.png",
+      "kind": "file",
+      "bytes": 997843,
+      "sha256": "2303a126fbb387d780d7aafd754d74b73c0dc05183d65f83b973e81b5349dee7"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_020.png",
+      "kind": "file",
+      "bytes": 998721,
+      "sha256": "b2944bb635e0f08fb10ea374ee711f27c15fecbe38b6f3e1324dc89d1e01b742"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_021.png",
+      "kind": "file",
+      "bytes": 1002701,
+      "sha256": "10ad5fda9af171585249d654725d443b11dee4b5543bd7f2586657c481f0d536"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_022.png",
+      "kind": "file",
+      "bytes": 1004576,
+      "sha256": "6114307b248814e86c006096090a295f50cbee593af68fbcd65712f3512eb48b"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_023.png",
+      "kind": "file",
+      "bytes": 1005959,
+      "sha256": "a799002010d7f2147cd59fde600a6e9d6d0fea6f513bf7a3c9a51d64881dfa73"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_024.png",
+      "kind": "file",
+      "bytes": 1003247,
+      "sha256": "f9edbcb0113457f4db6b833575d52b6f5f6639b9502027bcc05d33ad66cb4b2c"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_025.png",
+      "kind": "file",
+      "bytes": 1005465,
+      "sha256": "6f0551f86771adadd3675fa3357efea510f4b72ad4a14e4ae6c5ab4e222c2531"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_026.png",
+      "kind": "file",
+      "bytes": 997625,
+      "sha256": "c7101ceb6c435783de88838e887bb9b876188eef8f8eba23b598bb7637e7b17f"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_027.png",
+      "kind": "file",
+      "bytes": 992129,
+      "sha256": "e86a7be63846a6ceb9d3e8e1ad622179fa61e0528242bfcf9d568edb65cdc229"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_028.png",
+      "kind": "file",
+      "bytes": 987592,
+      "sha256": "45fe35377baf1a5fe0ae75e0c9c014a9d72aec558880ca0d9e5f4f3694c7abce"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_029.png",
+      "kind": "file",
+      "bytes": 984302,
+      "sha256": "a016538f3fdaeca36b62c249ebedbe2eeee8a915a1f7181338680d838b19e166"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_030.png",
+      "kind": "file",
+      "bytes": 981922,
+      "sha256": "bab55c80cdf45410bda553188d78d6dbdfcfd117fa3e2b3f76dd8e2e3fdf3145"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/pan_031.png",
+      "kind": "file",
+      "bytes": 980317,
+      "sha256": "7af5b5f0a0d53189ae4e5e907467feabf9eeaa4f0a2f6013275e8e116e008df6"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/static_000.png",
+      "kind": "file",
+      "bytes": 936380,
+      "sha256": "8ffe43576d38c6c85d43b959628109f206cc1d03e2d3684f171c16da6d646578"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/static_001.png",
+      "kind": "file",
+      "bytes": 936987,
+      "sha256": "cc546f0aba9279804f6256fd384b5f6f09a279a57d7773a99ab2c2decefdee41"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/static_002.png",
+      "kind": "file",
+      "bytes": 937658,
+      "sha256": "c52fbcf96fda797a820a89d1b9573b26e91ae1555a2fe8af2bd6e6c1dfb2a5c3"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/static_003.png",
+      "kind": "file",
+      "bytes": 936315,
+      "sha256": "9146f9e801dc9f19bdf17e82034a1d6b460f21d77dd0dba3dffae103416478c0"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/static_004.png",
+      "kind": "file",
+      "bytes": 936450,
+      "sha256": "55841ada5fdafe612019a929562c0b11fbb8684a581977a780f6af79c83c1f53"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/static_005.png",
+      "kind": "file",
+      "bytes": 937485,
+      "sha256": "40734aa985060195f9178628e426b5ba5c0ab711611585e1ebd9916a52bf0723"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/static_006.png",
+      "kind": "file",
+      "bytes": 937133,
+      "sha256": "d02ac86712f011ad847b8073431449bd4ee7f7843ee4d2cb8ca273e92b75e8cc"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/static_007.png",
+      "kind": "file",
+      "bytes": 935836,
+      "sha256": "55f7125ef55bed9262fc0a12e43a266516856f2411771c8c69a290b33ba49bfb"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/static_008.png",
+      "kind": "file",
+      "bytes": 936513,
+      "sha256": "6290f2e9b1cb305b1ea609308d0c77101911361b82e66172fcbbbf53da549033"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/static_009.png",
+      "kind": "file",
+      "bytes": 936489,
+      "sha256": "a4050239e5a4f7779c931b297ebafc438c5ad5e544093cdc9b9e9404bb96735b"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/captures/walk_end.png",
+      "kind": "file",
+      "bytes": 1003442,
+      "sha256": "338bf96921c80faf2150144bc592619a0b9f21cbf2b86a04ceba48896aa568d6"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/frames.csv",
+      "kind": "file",
+      "bytes": 141467,
+      "sha256": "3bcc3a5e2c3cb2d3d5db258625af660d76458afcb94b7d88fe5718280026568a"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 9795,
+      "sha256": "4f4d66e464d5bd5c6250a176ecc7cc81a0c44d4b88a8633294f5bb503a5b95fb"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/result.json",
+      "kind": "file",
+      "bytes": 121,
+      "sha256": "3e5f71ad14a90a7ac64be08fff18b2cf1c02e4a9fbe1f213a516e4372caa98fc"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 360985,
+      "sha256": "99fb15826498796780da04c463e72231f11b0f957b4088c3a3dcbb51c155a798"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 360693,
+      "sha256": "709ef6bd75fc0e4b03046da963ca5976474675621b1c1c24bf75f833e88a7a8a"
+    },
+    {
+      "path": "Build/Presentation/clarity-tsr67-01/validation.json",
+      "kind": "file",
+      "bytes": 111907,
+      "sha256": "e03228e1d7c643688fd203d3937665485e6457f5218d1a4b2d8e5a3c1adeeb07"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-01/captures/hazard_active.png",
+      "kind": "file",
+      "bytes": 981752,
+      "sha256": "1075486050c25aef9e0f9053ac40db10456ff16d8f032ac88df17036b5f21d72"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-01/captures/panel_damaged.png",
+      "kind": "file",
+      "bytes": 973152,
+      "sha256": "932ed608681a684085b3a2b1d131fa424fe9746cae5e657538d2f4c9f9a7ee1f"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-01/captures/panel_destroyed.png",
+      "kind": "file",
+      "bytes": 973698,
+      "sha256": "f0d2dbc5e9f7f6ae878a9fa1396cc5051a0b623141a03a1d745a350245c75a9a"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-01/captures/stream_return.png",
+      "kind": "file",
+      "bytes": 984713,
+      "sha256": "cbcfcb031eca0a4d3c855994136988389ad7a2b9bf6353e95757948434846b1f"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-01/captures/switch_safe.png",
+      "kind": "file",
+      "bytes": 981092,
+      "sha256": "e20f55fa13f4e1971ec74ff369298afda8904a80a9a1e90c7d24906ae80b009d"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-01/events.log",
+      "kind": "file",
+      "bytes": 1703,
+      "sha256": "3502e5e5e523ce061072bb09c6cee623b5405f5f11dde6ad69edee1b2cca4802"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-01/frames.csv",
+      "kind": "file",
+      "bytes": 165590,
+      "sha256": "bde34b6d77d0395fdf43e5974257b323de171c27234583118eb87ff6005c4b2b"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 10456,
+      "sha256": "bb26e38b598ed9c720fb7d46386888ccb8fa5b2612001b1ac102c87964d612cc"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-01/result.json",
+      "kind": "file",
+      "bytes": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 441119,
+      "sha256": "be49dfc288184854e3e86360978525dae9f4a87ecfe6f9f70f2b1b931064f778"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 440284,
+      "sha256": "0c36a66dbe26cc746dd2d867e095852b11a0021ae5487c014d7e95416bc6ecd1"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-01/validation.json",
+      "kind": "file",
+      "bytes": 103778,
+      "sha256": "ea2f77e0b052d81d15847ce3bd4c770a1ebd68dd2719c2438c24d9a862ef4569"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-02/captures/hazard_active.png",
+      "kind": "file",
+      "bytes": 982236,
+      "sha256": "4cc94aa80ee2e51f31a6788fa66d0dbc48039b68bc1150024216d5b9215c4917"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-02/captures/panel_damaged.png",
+      "kind": "file",
+      "bytes": 972771,
+      "sha256": "a60920dc6eaef464f50e710ada4e60fb300f21ced26f44a969b9fe6e66e1ed41"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-02/captures/panel_destroyed.png",
+      "kind": "file",
+      "bytes": 973029,
+      "sha256": "63b998954599d757c6efc511ea23051fbd289827a7cfec81ccc3e0afcefeb4a9"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-02/captures/stream_return.png",
+      "kind": "file",
+      "bytes": 984106,
+      "sha256": "2e97dd29bdae5f63d8beddbd1be5ca141f4515849fcc375b622a2a30b226e7ff"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-02/captures/switch_safe.png",
+      "kind": "file",
+      "bytes": 980420,
+      "sha256": "7b8d77f6bc71511a0538610b3003d1f61630d82608093537816cbfc5e2709b1b"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-02/events.log",
+      "kind": "file",
+      "bytes": 1703,
+      "sha256": "20495f7bf6bf670a2ca1a606bd535276a526ed5e3fe04364280afa4d72ea73dc"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-02/frames.csv",
+      "kind": "file",
+      "bytes": 165585,
+      "sha256": "dcc48a391532b20f60deefd5af1b473cdd64354965d37984deb787b7fb357aad"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-02/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 10550,
+      "sha256": "c4d67e6480e343a3e3211026356d6ca3aec38ccec8415ea4cbee7d6c1db7f05c"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-02/result.json",
+      "kind": "file",
+      "bytes": 84,
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-02/runtime.engine.log",
+      "kind": "file",
+      "bytes": 421403,
+      "sha256": "93a318bcc4f2125af76b80064d6e69af7ecddd5ffbcfa48b78b476900d8977f9"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-02/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 420701,
+      "sha256": "1e946f511c10eee45d9361943a7a7d339f658d169af85a45c548e2951fb256fd"
+    },
+    {
+      "path": "Build/Presentation/environment-regression-02/validation.json",
+      "kind": "file",
+      "bytes": 103843,
+      "sha256": "29de02904b547cf13bcabe0a270275970d6ff96b2b30c08b1757d1514ab41fb9"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/frame_order/captures",
+      "kind": "symlink",
+      "target": "../../tsr100-01/captures",
+      "bytes": 24,
+      "sha256": "50043471a273866c9eeb6b26c4f710f1c6426936d6da69b11c20b7a227c1c83c"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/frame_order/captures.csv",
+      "kind": "symlink",
+      "target": "../../tsr100-01/captures.csv",
+      "bytes": 28,
+      "sha256": "f415c74e4b46d2fa62c6cfbf8697008187efefa022e5dbc20fc4f17a6558e1ff"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/frame_order/frames.csv",
+      "kind": "file",
+      "bytes": 115465,
+      "sha256": "57456787717ba7311e6fbd8d1908fe3c7db34ab2b9a81299ab33b00e9906384e"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/frame_order/result.json",
+      "kind": "symlink",
+      "target": "../../tsr100-01/result.json",
+      "bytes": 27,
+      "sha256": "b3b3fac3806d0dce08390826694abeb61a11d39fb074c6b903a7b9d2ecb3207c"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/frozen_camera/captures",
+      "kind": "symlink",
+      "target": "../../tsr100-01/captures",
+      "bytes": 24,
+      "sha256": "50043471a273866c9eeb6b26c4f710f1c6426936d6da69b11c20b7a227c1c83c"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/frozen_camera/captures.csv",
+      "kind": "file",
+      "bytes": 1164,
+      "sha256": "76ea96672660c5de41088d2a39fad794b5996095f8b812c46b9f0f25063df432"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/frozen_camera/frames.csv",
+      "kind": "symlink",
+      "target": "../../tsr100-01/frames.csv",
+      "bytes": 26,
+      "sha256": "f5da0d06746f9fd2de47259bff76a4161a5d5b6adc14c99dcc88a3207350c59c"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/frozen_camera/result.json",
+      "kind": "symlink",
+      "target": "../../tsr100-01/result.json",
+      "bytes": 27,
+      "sha256": "b3b3fac3806d0dce08390826694abeb61a11d39fb074c6b903a7b9d2ecb3207c"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/no_gpu_time/captures",
+      "kind": "symlink",
+      "target": "../../tsr100-01/captures",
+      "bytes": 24,
+      "sha256": "50043471a273866c9eeb6b26c4f710f1c6426936d6da69b11c20b7a227c1c83c"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/no_gpu_time/captures.csv",
+      "kind": "symlink",
+      "target": "../../tsr100-01/captures.csv",
+      "bytes": 28,
+      "sha256": "f415c74e4b46d2fa62c6cfbf8697008187efefa022e5dbc20fc4f17a6558e1ff"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/no_gpu_time/frames.csv",
+      "kind": "file",
+      "bytes": 106316,
+      "sha256": "9688d6689bb41457582abd9f830f13130d22dd41d2273c89b227b1c0a115e24c"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/no_gpu_time/result.json",
+      "kind": "symlink",
+      "target": "../../tsr100-01/result.json",
+      "bytes": 27,
+      "sha256": "b3b3fac3806d0dce08390826694abeb61a11d39fb074c6b903a7b9d2ecb3207c"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/result.json",
+      "kind": "file",
+      "bytes": 601,
+      "sha256": "7ae149abac60c002a516dc2531daf3b0756f018139140b6fa93e0e1a5d196731"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/wrong_aa/captures",
+      "kind": "symlink",
+      "target": "../../tsr100-01/captures",
+      "bytes": 24,
+      "sha256": "50043471a273866c9eeb6b26c4f710f1c6426936d6da69b11c20b7a227c1c83c"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/wrong_aa/captures.csv",
+      "kind": "symlink",
+      "target": "../../tsr100-01/captures.csv",
+      "bytes": 28,
+      "sha256": "f415c74e4b46d2fa62c6cfbf8697008187efefa022e5dbc20fc4f17a6558e1ff"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/wrong_aa/frames.csv",
+      "kind": "file",
+      "bytes": 115463,
+      "sha256": "214d99c74e148ecea1f548f60935f0a49ac88871c80ad3cf002ecb3531e94bab"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-01/wrong_aa/result.json",
+      "kind": "symlink",
+      "target": "../../tsr100-01/result.json",
+      "bytes": 27,
+      "sha256": "b3b3fac3806d0dce08390826694abeb61a11d39fb074c6b903a7b9d2ecb3207c"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/fixed_timestep/captures",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/captures",
+      "bytes": 32,
+      "sha256": "99e0bf3876851d2c4e6753eb6ab7c990b3af75f801a27ec7c3a8c84ecc570813"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/fixed_timestep/captures.csv",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/captures.csv",
+      "bytes": 36,
+      "sha256": "a6b914bcee035bdd7b1c2df25e79772f34003d2df1421ec29674b4119670c3ab"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/fixed_timestep/frames.csv",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/frames.csv",
+      "bytes": 34,
+      "sha256": "298d3e6ed37ae495d413f30041fded62a7c9f28016af5d9f51c4246b01c6cc5e"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/fixed_timestep/result.json",
+      "kind": "file",
+      "bytes": 149,
+      "sha256": "ba63d1def0e021a1d2eab06a4cc0c567d1a140c596687c26aab8be64af153d21"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/frame_order/captures",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/captures",
+      "bytes": 32,
+      "sha256": "99e0bf3876851d2c4e6753eb6ab7c990b3af75f801a27ec7c3a8c84ecc570813"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/frame_order/captures.csv",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/captures.csv",
+      "bytes": 36,
+      "sha256": "a6b914bcee035bdd7b1c2df25e79772f34003d2df1421ec29674b4119670c3ab"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/frame_order/frames.csv",
+      "kind": "file",
+      "bytes": 139350,
+      "sha256": "51cdde044dbbada685ba619ef27cf598847dd8dc091673854ba9bb32cad8b66c"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/frame_order/result.json",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/result.json",
+      "bytes": 35,
+      "sha256": "1d61f0f1db5fd0e60cfcdf130ccf3a3156ed0dbea24a8f172beda0b55912e1bb"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/frozen_camera/captures",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/captures",
+      "bytes": 32,
+      "sha256": "99e0bf3876851d2c4e6753eb6ab7c990b3af75f801a27ec7c3a8c84ecc570813"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/frozen_camera/captures.csv",
+      "kind": "file",
+      "bytes": 1164,
+      "sha256": "0976a0b3673e29e11922d773127fad7bb17addf10f57a5192d4b6274421e97c7"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/frozen_camera/frames.csv",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/frames.csv",
+      "bytes": 34,
+      "sha256": "298d3e6ed37ae495d413f30041fded62a7c9f28016af5d9f51c4246b01c6cc5e"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/frozen_camera/result.json",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/result.json",
+      "bytes": 35,
+      "sha256": "1d61f0f1db5fd0e60cfcdf130ccf3a3156ed0dbea24a8f172beda0b55912e1bb"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/motion_blur_mask/captures",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/captures",
+      "bytes": 32,
+      "sha256": "99e0bf3876851d2c4e6753eb6ab7c990b3af75f801a27ec7c3a8c84ecc570813"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/motion_blur_mask/captures.csv",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/captures.csv",
+      "bytes": 36,
+      "sha256": "a6b914bcee035bdd7b1c2df25e79772f34003d2df1421ec29674b4119670c3ab"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/motion_blur_mask/frames.csv",
+      "kind": "file",
+      "bytes": 139348,
+      "sha256": "fdcf9b38c8708d8e0cdddb7788d377c9c3d569440f44c4334265196d8062a68d"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/motion_blur_mask/result.json",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/result.json",
+      "bytes": 35,
+      "sha256": "1d61f0f1db5fd0e60cfcdf130ccf3a3156ed0dbea24a8f172beda0b55912e1bb"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/no_gpu_time/captures",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/captures",
+      "bytes": 32,
+      "sha256": "99e0bf3876851d2c4e6753eb6ab7c990b3af75f801a27ec7c3a8c84ecc570813"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/no_gpu_time/captures.csv",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/captures.csv",
+      "bytes": 36,
+      "sha256": "a6b914bcee035bdd7b1c2df25e79772f34003d2df1421ec29674b4119670c3ab"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/no_gpu_time/frames.csv",
+      "kind": "file",
+      "bytes": 129991,
+      "sha256": "19cdf939a3a3667be13d9ce412c4a684297c6871642331b1ec905f007ee9a7ff"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/no_gpu_time/result.json",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/result.json",
+      "bytes": 35,
+      "sha256": "1d61f0f1db5fd0e60cfcdf130ccf3a3156ed0dbea24a8f172beda0b55912e1bb"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/result.json",
+      "kind": "file",
+      "bytes": 888,
+      "sha256": "478a6109a73a22522974a3eec5ea3771216aac8ef07af9e00e3ede829a69155f"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/wrong_aa/captures",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/captures",
+      "bytes": 32,
+      "sha256": "99e0bf3876851d2c4e6753eb6ab7c990b3af75f801a27ec7c3a8c84ecc570813"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/wrong_aa/captures.csv",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/captures.csv",
+      "bytes": 36,
+      "sha256": "a6b914bcee035bdd7b1c2df25e79772f34003d2df1421ec29674b4119670c3ab"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/wrong_aa/frames.csv",
+      "kind": "file",
+      "bytes": 139348,
+      "sha256": "0aa102b7d12b4886082b651d116a10eb2cf9cfa9ae28dca1f34e66a0d5a6ca88"
+    },
+    {
+      "path": "Build/Presentation/negative-verifier-02/wrong_aa/result.json",
+      "kind": "symlink",
+      "target": "../../clarity-tsr100-01/result.json",
+      "bytes": 35,
+      "sha256": "1d61f0f1db5fd0e60cfcdf130ccf3a3156ed0dbea24a8f172beda0b55912e1bb"
+    },
+    {
+      "path": "Build/Presentation/rejected-surface-v1/D03-01-surface-author.json",
+      "kind": "file",
+      "bytes": 885,
+      "sha256": "a370c36b69a6a6834c39dd96259ebe83364b9f8cabacc7b8c7a1d341b032816d"
+    },
+    {
+      "path": "Build/Presentation/rejected-surface-v1/D03-01-surface-readback.json",
+      "kind": "file",
+      "bytes": 1895,
+      "sha256": "ee514d82eb9ec1102c769b9dc2caa9ae8c46bf11edfe5dff244af151e6a721d6"
+    },
+    {
+      "path": "Build/Presentation/rejected-surface-v1/ProductionSurface.hlsl",
+      "kind": "file",
+      "bytes": 1199,
+      "sha256": "10e0efff03a64f0f7fca42c36357da9f9b54ec86613671aa9ef5451cf7323efd"
+    },
+    {
+      "path": "Build/Presentation/surface-v2-author/author.json",
+      "kind": "file",
+      "bytes": 1893,
+      "sha256": "bfb241ff7e89bd56d699da0f9f730f73333b11c13801428ad1f4d89eec62996b"
+    },
+    {
+      "path": "Build/Presentation/surface-v2-author/author.log",
+      "kind": "file",
+      "bytes": 221352,
+      "sha256": "1b86a3cb43728b36b4b3d2eba547d3d2c35e04b383118cb033a830f1839268f9"
+    },
+    {
+      "path": "Build/Presentation/surface-v2-author/readback.json",
+      "kind": "file",
+      "bytes": 1895,
+      "sha256": "00b15a3ccb8093aa68516713698823e6df681dc9e1485b9b24e655e9795e1e9d"
+    },
+    {
+      "path": "Build/Presentation/surface-v2-author/readback.log",
+      "kind": "file",
+      "bytes": 215256,
+      "sha256": "63e868457ae86e49a587c8a05b2016cdf4329e38c6de44d10f40c55d18a7895a"
+    },
+    {
+      "path": "Build/Presentation/surface-v2-author/validation.json",
+      "kind": "file",
+      "bytes": 4061,
+      "sha256": "92f01baa7090baea3d68973ea05c78c3f6cb99fa81c1d238a1c16829008e7005"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures.csv",
+      "kind": "file",
+      "bytes": 1456,
+      "sha256": "bbd55734a3c438cc4fed765098487c157abc03ae0da90c91b2e6c8ea20ed0eac"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_000.png",
+      "kind": "file",
+      "bytes": 863529,
+      "sha256": "57dfdcbcf6d7ea1c9fcadaf2569d7d7b2809d416f4c8a469b10a145f6cc9fd55"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_001.png",
+      "kind": "file",
+      "bytes": 862080,
+      "sha256": "185eac56e3e1848bb0287116ab773fe4f55339f91eae4799f8f408a4a587bb33"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_002.png",
+      "kind": "file",
+      "bytes": 867719,
+      "sha256": "a881f90339a81381285868a7fbd1efd455559cecf5d0b9f817fe9dc44b19c93f"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_003.png",
+      "kind": "file",
+      "bytes": 862490,
+      "sha256": "7c4a4a38d164b52e1f31f921afd202a825f07f75a0080d797b7acb43756d006d"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_004.png",
+      "kind": "file",
+      "bytes": 863588,
+      "sha256": "b2dd02cf1aa160f80eb4a205e31d484935231c38d498fee1342cd1e075f304f0"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_005.png",
+      "kind": "file",
+      "bytes": 870087,
+      "sha256": "9162e6b07319a8fadadab7a5b5dbe0011697791b9fdce3144595ffa672dbc68a"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_006.png",
+      "kind": "file",
+      "bytes": 875170,
+      "sha256": "f42a18282cfd2d43adb87ca63ce8a1b62bc98278b20446dc7160fe58cbaf873b"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_007.png",
+      "kind": "file",
+      "bytes": 869048,
+      "sha256": "0b9b9cca48dfe6ac8763291ad85afa51320a4d36eddcb45db83809ddf6718550"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_008.png",
+      "kind": "file",
+      "bytes": 878252,
+      "sha256": "df1ae5b26648570f1c99eb97260136fd269c22402dca7e94535ba89082068677"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_009.png",
+      "kind": "file",
+      "bytes": 876102,
+      "sha256": "05d29335ffdf94b679c3949922c5f6605f612248d70e4457ba6c7008be2513a5"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_010.png",
+      "kind": "file",
+      "bytes": 873732,
+      "sha256": "017c2ccba3316f57845b2486c8380299d75295c53abba67208340885fe9046d7"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_011.png",
+      "kind": "file",
+      "bytes": 875495,
+      "sha256": "e7ca61f747789d154246200856894027b66d64e66090e071cb6451445f735a84"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_012.png",
+      "kind": "file",
+      "bytes": 888548,
+      "sha256": "0dc8d0010a2c67acaa4b4a0e7dce3b7011032f93426835880141b400320b1246"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_013.png",
+      "kind": "file",
+      "bytes": 887723,
+      "sha256": "7581369649eeaf4b1b8b2adc5c6d057a9144578cd92312bcd19335af63e14d63"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_014.png",
+      "kind": "file",
+      "bytes": 893638,
+      "sha256": "4cf3598f15af5d98d8273c5598e65c37d43a1458adc840279b6aaefcabc41a3e"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_015.png",
+      "kind": "file",
+      "bytes": 899746,
+      "sha256": "4063f38de0dc21752ee3a01fdb4d873cbbac54219ff4aab7de880e37f834a6b5"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_016.png",
+      "kind": "file",
+      "bytes": 895626,
+      "sha256": "1a7279bdc1ba1970ed0f96773ee6359ae9a879d2d2c18c9228cb7d11ebb6251a"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_017.png",
+      "kind": "file",
+      "bytes": 892639,
+      "sha256": "501468d6e20ff25d647bfb844d7064a84ae616ff42cecc111334ed50e47bef48"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_018.png",
+      "kind": "file",
+      "bytes": 897871,
+      "sha256": "4d287a2fc2f3570040a95e1bbb3cb668b41f49c2af66d774e61e17ea0ff61dd9"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_019.png",
+      "kind": "file",
+      "bytes": 898367,
+      "sha256": "9b8ed9543209dceba0296a0e018ade11705d94d0329192fde6a1d2a4a4eb6097"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_020.png",
+      "kind": "file",
+      "bytes": 899492,
+      "sha256": "29faece71e3c27d8cf5dbf63f77100abf0abd5ee90068d212760783972a18367"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_021.png",
+      "kind": "file",
+      "bytes": 912552,
+      "sha256": "da5281a869be7777661d0fb47adf7996dcf166ac26e5f474b479571e56f01f86"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_022.png",
+      "kind": "file",
+      "bytes": 910606,
+      "sha256": "010d0eef1c63c9aa80dd51e0ab7a84790f6a91e00a954066474b3ed209a6abbb"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_023.png",
+      "kind": "file",
+      "bytes": 916052,
+      "sha256": "82022ae1f7dfbb73c5da7e0a9a3dc80cb3149aeb4a313591e2b30d3c54ec4792"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_024.png",
+      "kind": "file",
+      "bytes": 911113,
+      "sha256": "d20b59d50d07a88c3a82b957f1de1766a5b6cb71ce3c5f6cf2c4f02cb782df3d"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_025.png",
+      "kind": "file",
+      "bytes": 913019,
+      "sha256": "69b743ce3ea791a8055e7727736ca2747f6f9ceb90cc9429e4add04cd7d3002c"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_026.png",
+      "kind": "file",
+      "bytes": 890674,
+      "sha256": "5ec20a0cb1d8167d15615abbe5e3cb67d0d62f891e31d17f12d431a22724f7e9"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_027.png",
+      "kind": "file",
+      "bytes": 896774,
+      "sha256": "52c574bffe6c7a1543a2473176e2df7fc450ccf4bf3a9f9b9a50f8a4529e0e0a"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_028.png",
+      "kind": "file",
+      "bytes": 904437,
+      "sha256": "b406c4bbb96030542e5c86abc809ae47373a0085ec8987dab7391466d789854a"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_029.png",
+      "kind": "file",
+      "bytes": 906634,
+      "sha256": "6ba28978844ec3475b500987e136d38b0efb328ff8d905874636dc4ed9e2ad2d"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_030.png",
+      "kind": "file",
+      "bytes": 904312,
+      "sha256": "a460bc28136a4f5ce56735d02afc83b25ddbeab7a18e56a5fa8685a99bca585b"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/pan_031.png",
+      "kind": "file",
+      "bytes": 898552,
+      "sha256": "7faf00b8bdf43ad65ea84e6cda4751d6ab461e631dcc16abfabf4d3f9142a44e"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/static_000.png",
+      "kind": "file",
+      "bytes": 876588,
+      "sha256": "e155f8caeb4ee8befaf22c635f5a1bdeccd604640be959e23b777c8724217a21"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/static_001.png",
+      "kind": "file",
+      "bytes": 883498,
+      "sha256": "975734f88738948b8882d4f70830597947db589b4487e0190ec2f35c15609044"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/static_002.png",
+      "kind": "file",
+      "bytes": 884424,
+      "sha256": "4ca21959a3f966353298fc65368a23dd555e1c0f970ece50470d61ddbb0cf513"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/static_003.png",
+      "kind": "file",
+      "bytes": 884023,
+      "sha256": "d956d07a2274a31a603f258adec6fe3cb268613f4ac59954ea4197ad530aee92"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/static_004.png",
+      "kind": "file",
+      "bytes": 875880,
+      "sha256": "338d1fdeae93b6d2f606bd624dfd94aa12977c75b219122cdd6d7e2faf8e3c9d"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/static_005.png",
+      "kind": "file",
+      "bytes": 882570,
+      "sha256": "a0e06a92039f5f8c7d25be35e5dd3fc1d7da6d52527c11043b554eb507434b1a"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/static_006.png",
+      "kind": "file",
+      "bytes": 883582,
+      "sha256": "d5b64341c5541baf438a51066b314506f17382b3ef8c5e46c03dcd7dcfd1e26e"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/static_007.png",
+      "kind": "file",
+      "bytes": 883878,
+      "sha256": "4c983da93f9ac4b16713e7deb27b0e90ed19fd40afddd9db0069e5cfb8530f25"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/static_008.png",
+      "kind": "file",
+      "bytes": 876212,
+      "sha256": "b3e7d19ad5ad9655768d60a7e56e1b99e26c0a3af7d298eb06e9b39d892cc07d"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/static_009.png",
+      "kind": "file",
+      "bytes": 882607,
+      "sha256": "9c7e79ab3514fbc5a61dcdb166d066498861ca4ae989420c75cd2c57d491e3bb"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/captures/walk_end.png",
+      "kind": "file",
+      "bytes": 870840,
+      "sha256": "dc1b921c10fb95721404c7a4d50eb3e9421dfde3c1a1c61d8d9e795258f83b4f"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/frames.csv",
+      "kind": "file",
+      "bytes": 121025,
+      "sha256": "a1350705c00c55548ad848a03919144086d4b53514228aff9e94bbc0c58bbcca"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 9795,
+      "sha256": "30b5ce5dc5590c92647e315cf5cfa5e0ed6d17d8d664cdd870f82ab1d64bbbef"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/result.json",
+      "kind": "file",
+      "bytes": 121,
+      "sha256": "d0eb0d9940015d11ea911c8d3d163639cd2876a3d3f654a24b6e70ea66dc19ae"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 360934,
+      "sha256": "2cbaa554fbcd1f23623636df525ea40e0788a5f4b1d474cb2208a22b411dd264"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 360644,
+      "sha256": "0b0c8c03ad5dc2e3b05340f3136fa46bfb2666d803d3be6bc8fe7d869d99e9c2"
+    },
+    {
+      "path": "Build/Presentation/taa100-01/validation.json",
+      "kind": "file",
+      "bytes": 111833,
+      "sha256": "7c81378f63dad92632bb16cca5e1147451491d994f8a92f71b9416b0ea691890"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures.csv",
+      "kind": "file",
+      "bytes": 1456,
+      "sha256": "367d519eb75bb9d8a25cef27a4424c5c45dd6e068d81b8cc3ed0475ea808d14b"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_000.png",
+      "kind": "file",
+      "bytes": 946015,
+      "sha256": "85769018ad587e30bbed08cae1140e53c82a633fbe79cfde233a2382edd9c1b7"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_001.png",
+      "kind": "file",
+      "bytes": 894184,
+      "sha256": "514327fe3510b091340418e27a93de1709e4bbe6b21fda64e0934790d5517fb0"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_002.png",
+      "kind": "file",
+      "bytes": 897014,
+      "sha256": "df8bf5e641ae07bc4245f2ae9aa8dff617ecef6484897a279ea2bf15969be039"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_003.png",
+      "kind": "file",
+      "bytes": 899461,
+      "sha256": "8c911d6ba2f318a915eaf0ef3e59df433ee94876b91ca2ed336801837459d669"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_004.png",
+      "kind": "file",
+      "bytes": 902081,
+      "sha256": "99d541b9a1a5dca92939da0c24eda8239de3ed4bf9c09e5d61388df6e105d90b"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_005.png",
+      "kind": "file",
+      "bytes": 907440,
+      "sha256": "fd19e3aa98a1e5aa35ee440e189095b0024f1c87020f28bc19df7f3e2dd61139"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_006.png",
+      "kind": "file",
+      "bytes": 909942,
+      "sha256": "671fff133901453a8bed8a91c895c5703515aed2979fbf091054cc3e84e002d9"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_007.png",
+      "kind": "file",
+      "bytes": 911234,
+      "sha256": "071051b49ecded66aa35f92ade53456ec61d5abb069011b8d783d10ef4246a2a"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_008.png",
+      "kind": "file",
+      "bytes": 911020,
+      "sha256": "fe2c0b4f319f4c1038a416e7b711e88e91ec135a7780561ecfd38f129169a227"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_009.png",
+      "kind": "file",
+      "bytes": 913708,
+      "sha256": "4c7b970843874c76a98560e5288d0aa45e03eb27c17dcd573f85b8275188701c"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_010.png",
+      "kind": "file",
+      "bytes": 913403,
+      "sha256": "a6b620ef6cb2ee2dde8095f41a38f63d92c9d146eaca5dbb727d7344809d6a29"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_011.png",
+      "kind": "file",
+      "bytes": 915835,
+      "sha256": "996223f0fedd163121e1ee4555ebdbd74ec134410b467ca748234074e75ebb52"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_012.png",
+      "kind": "file",
+      "bytes": 924755,
+      "sha256": "3f3f34cf8e41aa929b1a1cbe74b65aa3045ef522c66af49657a9d137216169d9"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_013.png",
+      "kind": "file",
+      "bytes": 927196,
+      "sha256": "605786e58a56b9601b3600f765f40b69c091cd8f0e0a0f50e0e29a614d1e80e5"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_014.png",
+      "kind": "file",
+      "bytes": 930008,
+      "sha256": "709faea7aea5aca4334be49cccb74eb6a8dae884a75ed45f2d55084e24dacd87"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_015.png",
+      "kind": "file",
+      "bytes": 939176,
+      "sha256": "02f034525df89e5cbc62ef7b93eeabb42602a667038887762daef140741aee0f"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_016.png",
+      "kind": "file",
+      "bytes": 934843,
+      "sha256": "8bb4711230e3ec19a7ee2c57f0f4cdbd5b8b9ce23ac8f37d6ee239165b02d5a5"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_017.png",
+      "kind": "file",
+      "bytes": 931333,
+      "sha256": "7e4cdcb1b72cd051d54cd6bb65a09948f83f34cb6a78b7334cee8f3c8b94d5ad"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_018.png",
+      "kind": "file",
+      "bytes": 929061,
+      "sha256": "43d1fd2cff242e9afcad311b229c77ba1e4a0ee6b68a307ed9f40c932017f3fd"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_019.png",
+      "kind": "file",
+      "bytes": 929196,
+      "sha256": "ad0311101673a787bf250093e3f8a9e186cfa70d37e132827092517e5d8f69b7"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_020.png",
+      "kind": "file",
+      "bytes": 934974,
+      "sha256": "03fbae699bc6fb20a65370d20dcee942ffeac7276d3a6e53e3f0425118950db0"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_021.png",
+      "kind": "file",
+      "bytes": 933205,
+      "sha256": "fe133295d1bf200cdaea55e2727f01487bd79c3429b3c9869f42e8407470fb6b"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_022.png",
+      "kind": "file",
+      "bytes": 948186,
+      "sha256": "d105592c20f6a7da5e2c82d5c8bbf9a435eac8a4489ee6a1a41494b9b6c9f8d8"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_023.png",
+      "kind": "file",
+      "bytes": 952512,
+      "sha256": "fe1af10a4d77d01a98f51a2a852ba434f7a540634d830617f7a38ffa4ae75c16"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_024.png",
+      "kind": "file",
+      "bytes": 947118,
+      "sha256": "23533f98d652973a9c986ad986100a04974e99bf75d7021c2e8024fd3b158160"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_025.png",
+      "kind": "file",
+      "bytes": 944702,
+      "sha256": "4ef9ba66b0559b1c216734fb46f1b5942709300a1a89b37ba49111089e2bfc7d"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_026.png",
+      "kind": "file",
+      "bytes": 938868,
+      "sha256": "f9a4450b44b1c928795b89adab390f394306fbc7b78baab010fdb8f268e2070c"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_027.png",
+      "kind": "file",
+      "bytes": 1029592,
+      "sha256": "9dd6226d46a11ebf49b9fc81a108566a2cab49c55aaaa1de6aac3e51491293c6"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_028.png",
+      "kind": "file",
+      "bytes": 1024079,
+      "sha256": "d3e781b51924b5462dc4109f9a5bc2a8a71f36e1ee6c63cb618e5b94cabd68a2"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_029.png",
+      "kind": "file",
+      "bytes": 1021814,
+      "sha256": "968777d9a9910830aaf823a0b56844df3a99dff8e997d75241f5cac612c877b0"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_030.png",
+      "kind": "file",
+      "bytes": 1020664,
+      "sha256": "9b0907ccb38f3f59844aeea31d5b8da5926bfcaeecb77a56adc330c1a085c3b6"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/pan_031.png",
+      "kind": "file",
+      "bytes": 1019378,
+      "sha256": "94d306b86aa36ec4b3245aad5a8df3ee59cf4142bb3197024151acda077bfbd0"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/static_000.png",
+      "kind": "file",
+      "bytes": 1002845,
+      "sha256": "c71bd0b1dfe39286dc81cc59f92f5e5dbb6d76e0d1e36b0eb40376a4b8a9c517"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/static_001.png",
+      "kind": "file",
+      "bytes": 1004081,
+      "sha256": "245bb19ff131a7ed3029b4f8d2677a182fdda218fb1bc3e22305c4591b29f631"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/static_002.png",
+      "kind": "file",
+      "bytes": 1005263,
+      "sha256": "16e0d2f90aa3b90433998a8c66e3c39236e37ddbd34fbaef1acae4f39871f9d2"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/static_003.png",
+      "kind": "file",
+      "bytes": 1004096,
+      "sha256": "9abf1a4be91e6283e74f09faa623f3a3dcb26eaf8411db4d33e56eef793cf20f"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/static_004.png",
+      "kind": "file",
+      "bytes": 1004428,
+      "sha256": "5f6edeedec4e0628b02a417c48af098e21867bbfcd5f6dc50280d1aaa36a7b9e"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/static_005.png",
+      "kind": "file",
+      "bytes": 1003690,
+      "sha256": "ad1645c7d80ad1dc52f07f5fefdae04a9c618579231c43ac67fce347c1c91530"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/static_006.png",
+      "kind": "file",
+      "bytes": 1003957,
+      "sha256": "0f6d6da38f2ebe9343a85453d74b07c43316c2e71eb8018a7dbbcf4dc6559c09"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/static_007.png",
+      "kind": "file",
+      "bytes": 1005021,
+      "sha256": "ffcfa6e56167ce0e42c7f6cd4d1c05074a2279db6cabf2a7fe10cc74ebbb0a5d"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/static_008.png",
+      "kind": "file",
+      "bytes": 1003989,
+      "sha256": "6117e2b93d0865789accbf79e99299d542568d5fc664f1ce6c16be11b7469361"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/static_009.png",
+      "kind": "file",
+      "bytes": 1004891,
+      "sha256": "17391f0efe75c82ac65c8cfa52b1b78669684697449f6d24542aec7055e2e8ac"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/captures/walk_end.png",
+      "kind": "file",
+      "bytes": 955329,
+      "sha256": "9fe74c6a0c98174b5d585eb964ff790c67f67aec0fe094c5a54de6809369fcae"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/frames.csv",
+      "kind": "file",
+      "bytes": 114157,
+      "sha256": "68edf9f881bc40d7b961a720cc5a14a5cf9eb2487a1698a3c36bb238b368cc95"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 10019,
+      "sha256": "4a0d717d8a96d3a32ee0bb79494d755810dfe3a6bb88a163ed6dc27beb51f46d"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/result.json",
+      "kind": "file",
+      "bytes": 121,
+      "sha256": "8695a729a604995fa6e6e537d3ba5fe4dcb1d20b08c530200ebec7b32814ff8b"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 360160,
+      "sha256": "749794588219809a4d23a28ea9c4afb93af4a61dca87f3adbf5810c124c4106a"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 360718,
+      "sha256": "18a2008c3ba4f5f72b8c41313207f2fee6e2622ed1ce67fc7ac41fe9a7a41e89"
+    },
+    {
+      "path": "Build/Presentation/tsr100-01/validation.json",
+      "kind": "file",
+      "bytes": 111673,
+      "sha256": "34bcffc29db9a7c86c7ce2c5b77274f30e23b2ea4b65cd1fc926f58a90cfbd5b"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures.csv",
+      "kind": "file",
+      "bytes": 1456,
+      "sha256": "b7f059758514980630455ccff028e642b71ac5011921e510335ae433d130de1f"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_000.png",
+      "kind": "file",
+      "bytes": 899244,
+      "sha256": "c42e01d04d55ce7dc5822f80288df78b166d8bab6a5d9c692ffe342deb7fe1d1"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_001.png",
+      "kind": "file",
+      "bytes": 871879,
+      "sha256": "cacdb5d56ae41033e454ec2c24c591ee3eeccb5d1c027facdf06b2b7f925fe3c"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_002.png",
+      "kind": "file",
+      "bytes": 877868,
+      "sha256": "f50c24b1ec435d08f0e23031bb5f99b18206a0396c4af860cd9ac5e121aab109"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_003.png",
+      "kind": "file",
+      "bytes": 878554,
+      "sha256": "22b2fb4e36223c36c838b869e0c67e4664cb2d7b2bf46d2df1979fc9b01b2c34"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_004.png",
+      "kind": "file",
+      "bytes": 880055,
+      "sha256": "6e47d86832dd218338b454ab12b4b288a4c94e378b1fd82845ef3bc7abfb928d"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_005.png",
+      "kind": "file",
+      "bytes": 884960,
+      "sha256": "a93b7f34fcae9827c98c58c2dc4c69baf0cc5370bb20079faa15210938bebb3e"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_006.png",
+      "kind": "file",
+      "bytes": 889999,
+      "sha256": "07a393327a0030899a2afa81d9bad678987886c2505a23f94897807d8d884413"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_007.png",
+      "kind": "file",
+      "bytes": 890031,
+      "sha256": "61aace58b3f1e8591a79085ebac2f9a054dab9e8f0f36aceac8f041abd159c63"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_008.png",
+      "kind": "file",
+      "bytes": 887215,
+      "sha256": "cf39d69eb7e6bbece242cdc23944bcb96bef1eacc2f8036571dd247585243960"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_009.png",
+      "kind": "file",
+      "bytes": 890426,
+      "sha256": "c6b3af4276c7c32e78139f37c2b5ff21c1c4843b790d5f2eaf407d7580d44937"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_010.png",
+      "kind": "file",
+      "bytes": 889640,
+      "sha256": "72039078209de999b9f4d580802f2ba889b264c19fda2c079620a735bcc3a472"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_011.png",
+      "kind": "file",
+      "bytes": 891153,
+      "sha256": "5c1aea6d1b7b5d36569056c562c072788a66b126f90db39befdf435d09021ea3"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_012.png",
+      "kind": "file",
+      "bytes": 894677,
+      "sha256": "b12da728e7a3c7d5441fb62623dbf6c6b312a08036b47460484c18975e5fc2b3"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_013.png",
+      "kind": "file",
+      "bytes": 901748,
+      "sha256": "eaff3167f14fcd97cc4625741c681dd86b65f121a0ce8e89d27b81cacfc557e9"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_014.png",
+      "kind": "file",
+      "bytes": 903302,
+      "sha256": "5c35d575da151d4619f5c7cbdce3712988e88b936db31d7210ca301e0c1bca55"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_015.png",
+      "kind": "file",
+      "bytes": 909166,
+      "sha256": "c337cff205d3f624431cbc2c603039c7e634b03c4b111dca38f34b9e3e65a1ac"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_016.png",
+      "kind": "file",
+      "bytes": 911836,
+      "sha256": "7b026da8a21a35470081fc353b342a600a725987518386f3d1e360762f3fc813"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_017.png",
+      "kind": "file",
+      "bytes": 907318,
+      "sha256": "e1dd5ec25f6e8f82c7c2c847b12757ab803b6420a5901aa5284ce7a4ee8dbaf9"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_018.png",
+      "kind": "file",
+      "bytes": 907757,
+      "sha256": "1768322b052af3e4c51f87dab5f0f840571b2dc0097be72f655c15c7b71d62e8"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_019.png",
+      "kind": "file",
+      "bytes": 909789,
+      "sha256": "ab5e404c2f0518e8c471a1a22eecb03131bd5fabf3834891dd603541bb908695"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_020.png",
+      "kind": "file",
+      "bytes": 913468,
+      "sha256": "281dffda9531c2ec420687bd1942741a322923471a85293609d6200959e82865"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_021.png",
+      "kind": "file",
+      "bytes": 918934,
+      "sha256": "b2975960709e78c134a988ea0e137adf603fa6d2e42d65eaa24ed89473eed646"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_022.png",
+      "kind": "file",
+      "bytes": 924180,
+      "sha256": "3a04bc2234e980704039c154884d9fad3877f8ec0eaac47043a73f38deda1b39"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_023.png",
+      "kind": "file",
+      "bytes": 929055,
+      "sha256": "41864edca3203bb0d3ded76365781f704b01ce939e4dd2e44f0d53b85c3672fe"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_024.png",
+      "kind": "file",
+      "bytes": 926491,
+      "sha256": "c0c7c878c000dcf7552e8b34cd31314ea994f0369d373f894a0654afb770d849"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_025.png",
+      "kind": "file",
+      "bytes": 922138,
+      "sha256": "2a1ad89441bdf2655990ddf4d5184369ba1b380d51f660a08b05e46c4428ca2e"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_026.png",
+      "kind": "file",
+      "bytes": 919967,
+      "sha256": "97a9284f3ab7a0dcc4452311dbd32a28029725cd9e0b5da17edfc7dbb2c081c5"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_027.png",
+      "kind": "file",
+      "bytes": 932101,
+      "sha256": "c80d6f5dd94320317d86e2c9af46876471bcb180f814dd699495f5eee328b763"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_028.png",
+      "kind": "file",
+      "bytes": 987315,
+      "sha256": "95c02b1ced048f34e63053fcf694171e39c7ab6c4dc03fee33f6ad73822af40b"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_029.png",
+      "kind": "file",
+      "bytes": 983826,
+      "sha256": "5e8b64f7d668ce22420486496cd7a55374eecdd652821b5bf28ed51a042e92d6"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_030.png",
+      "kind": "file",
+      "bytes": 978349,
+      "sha256": "94cad1d7fcdeac205bf10f3f21155a694e19a221829efdbb9cebfe3799a5c14e"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/pan_031.png",
+      "kind": "file",
+      "bytes": 977836,
+      "sha256": "62734bbbf4e31517505e863e4168624b3cb08109e835d3522ba32f6eeac9993d"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/static_000.png",
+      "kind": "file",
+      "bytes": 944597,
+      "sha256": "17cea18ef9b2f56e96893e2d56219c02e8e4d7a43f1d5c7824112cd52662c405"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/static_001.png",
+      "kind": "file",
+      "bytes": 943950,
+      "sha256": "3fbce79906b95b5e4cb1d5834b74a485b0edff11ada20a7a393bdf09a7ef7bad"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/static_002.png",
+      "kind": "file",
+      "bytes": 944436,
+      "sha256": "dea815e0811d20393965af32ddc3633385fab87e26946bb630b1d13e031bdaa0"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/static_003.png",
+      "kind": "file",
+      "bytes": 944493,
+      "sha256": "d90089a1a4a5e32e9da9c7aeea971c8229aa29b6f3b6bd9c9188fe2e43caf114"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/static_004.png",
+      "kind": "file",
+      "bytes": 944723,
+      "sha256": "ad4bb5f676dd5e67e91acf4b044f307696b5ac7c5072b319d17cbcec265f2e44"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/static_005.png",
+      "kind": "file",
+      "bytes": 944498,
+      "sha256": "98053f44869a896abc56c19039afa24ce18ce563fb80d6dd3e3c6576b9b3dbab"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/static_006.png",
+      "kind": "file",
+      "bytes": 944638,
+      "sha256": "1aa2dc60f7c6d032cccf450d1a632ad2c77f82c00c30108d6b4c8d33cc9a4728"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/static_007.png",
+      "kind": "file",
+      "bytes": 945132,
+      "sha256": "406ac96095941e520ca0a92627e7f44d24c9dd09353fca372be06ad8f1ccf29c"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/static_008.png",
+      "kind": "file",
+      "bytes": 943328,
+      "sha256": "0207330f00c1fd891c7af6e2431bd4f3790ead8ed02e4c596c178d747ec73f74"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/static_009.png",
+      "kind": "file",
+      "bytes": 943936,
+      "sha256": "a4e48e84a952aa56b58580ea2aa37b845538c2eacf655bba24c26bffc878faaf"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/captures/walk_end.png",
+      "kind": "file",
+      "bytes": 923617,
+      "sha256": "20b90e190b5a9dcb006b3f9cecd3599a0f1db5798069d0d416cc84abfde94aec"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/frames.csv",
+      "kind": "file",
+      "bytes": 121087,
+      "sha256": "5df0c8a8425942ee56214cc571905dc518f4f4f656768f89aa9769bec67e0ecf"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 9791,
+      "sha256": "ad6aa124f400675a224958bcdaea69153659f94700d802e0b26c7440852ee099"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/result.json",
+      "kind": "file",
+      "bytes": 121,
+      "sha256": "5714b92ab088a6ff0a7a55812ed9130bc60dfc82561847d6368bfb1386b330d0"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/runtime.engine.log",
+      "kind": "file",
+      "bytes": 358081,
+      "sha256": "64c1a7a9791e80d3736a12e5ab6834989ab6c93381788be70afa24269bdf4682"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 359629,
+      "sha256": "851652f497181e7ebc2a0f741229b57c983b4d4ceb076095c08e894e0f0e7191"
+    },
+    {
+      "path": "Build/Presentation/tsr100-02/validation.json",
+      "kind": "file",
+      "bytes": 111865,
+      "sha256": "bcf87654b5da5dcd967e244ae8d3fb01b1a4d9c961af72b27a2a466d515c8fcb"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures.csv",
+      "kind": "file",
+      "bytes": 1456,
+      "sha256": "83bc9e3e772c7f45af698293a7e7bd72f9d3c873e5315496e2122865afd7de43"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_000.png",
+      "kind": "file",
+      "bytes": 893224,
+      "sha256": "31ea1ab49654080bd73c84fee544737898a782bab173f3b4d972c5249e62f3fe"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_001.png",
+      "kind": "file",
+      "bytes": 872089,
+      "sha256": "92c0ab15304b94eb1d0c3ef0c7d8d877613e2f947583a8ccea62481b7cce976d"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_002.png",
+      "kind": "file",
+      "bytes": 870427,
+      "sha256": "c751c17bc3d701038733e6df7d122446eb55e78eec882fc1369feb67dbf568a7"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_003.png",
+      "kind": "file",
+      "bytes": 876255,
+      "sha256": "8534c15cc44e9213b7eafca87ae014403a89cc435f2f205dac573eb4f519966e"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_004.png",
+      "kind": "file",
+      "bytes": 880507,
+      "sha256": "64f9b7cbb79aa03a8007861e06117811796f86f3629915a36f22271317b63520"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_005.png",
+      "kind": "file",
+      "bytes": 884711,
+      "sha256": "8cd8d9daa259b82eb73372718480f1bef5c59fd321579ce60216e9103b06fd68"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_006.png",
+      "kind": "file",
+      "bytes": 889521,
+      "sha256": "ca13197ac852e51c660b570380c68572f1ac83e77b118cc2fec4cdff2257a1ff"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_007.png",
+      "kind": "file",
+      "bytes": 887731,
+      "sha256": "85d0a4a6df868384836827f12adbd4eec2bc30f712c3579cb1b4a2d1d732f3f1"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_008.png",
+      "kind": "file",
+      "bytes": 890338,
+      "sha256": "dfa20616686d257e8a9c367d734de460721451b2fb23e76a00e87e258e8eebf8"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_009.png",
+      "kind": "file",
+      "bytes": 889947,
+      "sha256": "ae17873b7196f03dbd05e5e6c50c8c7654af300da5bf1eaa0344c0165ee1f0d4"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_010.png",
+      "kind": "file",
+      "bytes": 890417,
+      "sha256": "71c31dd169fa8d60e4c6b5c01f5d8ed22e5c686d42ed54d4c99593011637c12b"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_011.png",
+      "kind": "file",
+      "bytes": 891321,
+      "sha256": "2f2dcefeafb14020efe4f0ce85125ac9aa93ad8d2f37345e386ddb9a6e526f79"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_012.png",
+      "kind": "file",
+      "bytes": 896503,
+      "sha256": "b806c65cb19e79a95dd19d2207d717606771ca93c99833ce62f6a6ea9b4c6722"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_013.png",
+      "kind": "file",
+      "bytes": 900744,
+      "sha256": "73d75b037cd282a2b3a04af1dcec1c855995b5bb6a854e7290e0935bd85ef6be"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_014.png",
+      "kind": "file",
+      "bytes": 902058,
+      "sha256": "32e52961c73c22aa85266e5ee69d43ef361c0604c0e0ed87eea6fd4092a394f1"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_015.png",
+      "kind": "file",
+      "bytes": 910505,
+      "sha256": "f22d0ecd219dba68c11a6b70148fcc1dbba346a1a5c57ca5f1eab6f35a8b4274"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_016.png",
+      "kind": "file",
+      "bytes": 911912,
+      "sha256": "0eaa967894934b09ed7701c9a77c3a22ad8e30873be42b3d956f3bc1e480ac57"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_017.png",
+      "kind": "file",
+      "bytes": 908049,
+      "sha256": "24909e0b2854dfd76175c312f2e5d735fc79571fc638f60d42940ef7dcd0d839"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_018.png",
+      "kind": "file",
+      "bytes": 907798,
+      "sha256": "86a117491337faafa2bccc977fd15b448dfde6a7f4603d7ccb2ff89eb73ab68b"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_019.png",
+      "kind": "file",
+      "bytes": 909948,
+      "sha256": "126624e68d89ee84be1dd1cb2a34cc93bd9e51f59a0ed91e24c90d4e2ce6f6ff"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_020.png",
+      "kind": "file",
+      "bytes": 914487,
+      "sha256": "02bf7d7327fcb7170999bde6c821cc072c2b3cd14f3f90861bad6cef5a070940"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_021.png",
+      "kind": "file",
+      "bytes": 918964,
+      "sha256": "e4ffbd122a6348130bd540dcba1918afb3275afc2800221b693c4cb6ca06ac0e"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_022.png",
+      "kind": "file",
+      "bytes": 924465,
+      "sha256": "769ccc6639523c2035b085d289b35f42f9911e08d7a5ceb4938ffdfe946c4cea"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_023.png",
+      "kind": "file",
+      "bytes": 929337,
+      "sha256": "ed52b1d12474bc474833eceb30f2b457aad54bf8ccdec8ff05ea56ee7c7be5e3"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_024.png",
+      "kind": "file",
+      "bytes": 926376,
+      "sha256": "f06eb205108a917d833442c3e8c824ce56f9d33ecc2d7f1a99924a2df14b7619"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_025.png",
+      "kind": "file",
+      "bytes": 922087,
+      "sha256": "d0604f882d1963162c1fe31e82197f4690388be7d66453f054597ee84d34c75d"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_026.png",
+      "kind": "file",
+      "bytes": 919288,
+      "sha256": "96ec9cd45eedf9c44e304cbd07af945a9fc31a89c906b587fea30078ff2ade45"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_027.png",
+      "kind": "file",
+      "bytes": 963855,
+      "sha256": "d4719e82410423f206da76aeb590f8e8076bc0c4d6bf3b9808b9a3df8c2d0750"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_028.png",
+      "kind": "file",
+      "bytes": 1001082,
+      "sha256": "c08b9f9e4fa6e2d5221df6e52e39c99f7aaf4fbac3bf6d82646564ebe5a66f2c"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_029.png",
+      "kind": "file",
+      "bytes": 995158,
+      "sha256": "5eb18569258187974f6bea3f5650815a6dbb3d0ce82aa18c3cfcdad9573ed4ce"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_030.png",
+      "kind": "file",
+      "bytes": 991681,
+      "sha256": "3f17f895280278041bc4f5cba48d9e0cfd5e4f834803dbb13732d9d01b80c0bd"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/pan_031.png",
+      "kind": "file",
+      "bytes": 987933,
+      "sha256": "72d1ce0d12509cd38edbe9efa41493eab8faa2541dbd81f89de6c1c9ad749ee9"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/static_000.png",
+      "kind": "file",
+      "bytes": 933826,
+      "sha256": "c27e2d2c3e8db1297cbd76c616e23a5e5772d63e1d40308b1841e09fea914d1b"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/static_001.png",
+      "kind": "file",
+      "bytes": 935014,
+      "sha256": "8ea533a5fcdd310d33475e74c518497218d8651b123d7ae9c59bfed56d637f4d"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/static_002.png",
+      "kind": "file",
+      "bytes": 934223,
+      "sha256": "56183a3bc292763068d8bdc4cb5eedbab4b898ebb535d2fb4e45a7ccb6920597"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/static_003.png",
+      "kind": "file",
+      "bytes": 934460,
+      "sha256": "4e2548374cf52dd559798f176490e5b1aedfd70879118d271f7d7631754b5816"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/static_004.png",
+      "kind": "file",
+      "bytes": 933714,
+      "sha256": "cda7d1e1836ebba8f29f12b49692227af9393997d7643c4d2c74f849e21b7f7b"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/static_005.png",
+      "kind": "file",
+      "bytes": 934782,
+      "sha256": "21e341b6c8273691732025706b321b2d5a225d22e83a8b505b09d9ff85ae4d6d"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/static_006.png",
+      "kind": "file",
+      "bytes": 934941,
+      "sha256": "3a505b065f0fea532dd0168bac9205eb8381d79a6a93e7dc515fa81f77f82a60"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/static_007.png",
+      "kind": "file",
+      "bytes": 933766,
+      "sha256": "1ed277207c8f89f19495aed0dce3c9d096e0d68972859bb3dd0b179c73f0e69f"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/static_008.png",
+      "kind": "file",
+      "bytes": 933423,
+      "sha256": "e9874674736a9a80539f372370c81bf88a4126978ccf994964a3ae9ef42c3e20"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/static_009.png",
+      "kind": "file",
+      "bytes": 933949,
+      "sha256": "06e3db7aa35d4daf23ece79d786086116db638a96fb54077f668d67856ae5c29"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/captures/walk_end.png",
+      "kind": "file",
+      "bytes": 935842,
+      "sha256": "9790e58e9f3693226381c84e9269b10ff2df4b1f9c38afe589747d0edd599ab4"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/frames.csv",
+      "kind": "file",
+      "bytes": 132596,
+      "sha256": "f9d4d8d13183dbd60cc281e45d3ce111b083909561a16ea84471f6b9789cd144"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/process-memory.jsonl",
+      "kind": "file",
+      "bytes": 9791,
+      "sha256": "89a8a554ab7b230d712d5c83709fdc14f6b7175443679bd0a5dcec524f7be3d1"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/result.json",
+      "kind": "file",
+      "bytes": 121,
+      "sha256": "48fc19f464fe5c881ffec9e2c1ad38328741398db85b76d56f198e05505bcb35"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/runtime.engine.log",
+      "kind": "file",
+      "bytes": 359111,
+      "sha256": "45ca5eb24e406855bf879773ab19a863390c89864ec6d3056e4a26dab53b6cae"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/runtime.stdout.log",
+      "kind": "file",
+      "bytes": 358831,
+      "sha256": "d303d2630738a83f1f3ee0138d902ed7f36c30bbb171ef4012fc80bb2f96f8de"
+    },
+    {
+      "path": "Build/Presentation/tsr67-01/validation.json",
+      "kind": "file",
+      "bytes": 111717,
+      "sha256": "320406a7573d079dbe6fb5c14f44648a3770491ba23774261df81a9d08a290b0"
+    },
+    {
+      "path": "Build/Presentation/verify_d03_01_surfaces_v1.py",
+      "kind": "file",
+      "bytes": 4489,
+      "sha256": "67cddd6f4a2b235e2af6c70812234a7911ebc7c1a5c762a4a989292a93a6996c"
+    },
+    {
+      "path": "Config/DefaultEngine.ini",
+      "kind": "file",
+      "bytes": 1540,
+      "sha256": "0c3f7739d7f5dfbb1c1a2ac5426a749680181e8e4299b32cb05a52988b3419b0"
+    },
+    {
+      "path": "Content/OpenWorld/Materials/MI_Interior.uasset",
+      "kind": "file",
+      "bytes": 4947,
+      "sha256": "2f6601f03b1036d95a41c36d96f3a45009d4bfca0fc259b0d7ced8d6ab8865fe"
+    },
+    {
+      "path": "Content/OpenWorld/Materials/MI_Route.uasset",
+      "kind": "file",
+      "bytes": 4932,
+      "sha256": "0c71f6ca9e05cca25eb8436fde83265fa64f02c083eb0f19c76bce38ed566afc"
+    },
+    {
+      "path": "Content/OpenWorld/Materials/MI_Street.uasset",
+      "kind": "file",
+      "bytes": 4937,
+      "sha256": "bc39ebb733a76261b0ab319ce4be863dfb8b1fcc09672284c5e053de1b78d524"
+    },
+    {
+      "path": "Content/OpenWorld/Materials/MI_Wall.uasset",
+      "kind": "file",
+      "bytes": 4927,
+      "sha256": "bc19d496b324c24eb70dd8c57413d475c9b1d0590cfd5fac8d5d5bb62191532b"
+    },
+    {
+      "path": "Content/OpenWorld/Materials/M_ProductionSurface.uasset",
+      "kind": "file",
+      "bytes": 17494,
+      "sha256": "56a2e71ae6d6d0e75962b0e59be1a9f3d18c60b837070566d2135482123d063c"
+    },
+    {
+      "path": "Content/Python/author_open_world.py",
+      "kind": "file",
+      "bytes": 19433,
+      "sha256": "1c28adc6aed5719f38d6910570bb85b334703bbf7c215d4bdbd33477da718146"
+    },
+    {
+      "path": "Content/Python/build_production_surfaces.py",
+      "kind": "file",
+      "bytes": 9380,
+      "sha256": "06864a906318b18be959a176f112d09c836937f939308a028070733ee80f6e0a"
+    },
+    {
+      "path": "Source/BiellaGames/Private/Tests/BiellaPresentationTest.cpp",
+      "kind": "file",
+      "bytes": 10385,
+      "sha256": "6b95e3f5374674f04841fe0fcec6a619c24a2bec42bfa96e3a3af36be0cc5961"
+    },
+    {
+      "path": "SourceAssets/Materials/ProductionSurface.hlsl",
+      "kind": "file",
+      "bytes": 2009,
+      "sha256": "660133c53ff235b5ad5b3e0c72dc85626d07af6ca5c0534f35a4f16409b515f2"
+    },
+    {
+      "path": "tests/author_d03_01_surfaces.py",
+      "kind": "file",
+      "bytes": 2899,
+      "sha256": "e5bcb9a222fba572bf2f7be898b53c918b83adaec2ed16eb8bad42fb7a5816ca"
+    },
+    {
+      "path": "tests/run_d03_01_surfaces.py",
+      "kind": "file",
+      "bytes": 4516,
+      "sha256": "798ca779c1754ba0facba0bc440373018b74bad735e6cbdbc1733b4c36260e55"
+    },
+    {
+      "path": "tests/verify_d03_01_surfaces.py",
+      "kind": "file",
+      "bytes": 4658,
+      "sha256": "28e0dbb3a5e4e6a0a86d2a1e5090d663cf34042322f74092c2bdeafd0cff5657"
+    }
+  ]
+}

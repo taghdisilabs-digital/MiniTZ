@@ -1,0 +1,118 @@
+{
+  "schema": "biella.d03_rendering_increment/v1",
+  "task_id": "D03-01",
+  "task_result": "CONTINUE",
+  "increment_validation": "PASS",
+  "full_task_accepted": false,
+  "created_at": "2026-09-06T05:48:43.960133+00:00",
+  "progress_report": "Build/Presentation/D03-01-progress.md",
+  "scope": "Filtered playable-world materials and native clarity evidence only",
+  "generated_asset_status": "GENERATED_DRAFT",
+  "source": {
+    "path": "SourceAssets/Materials/ProductionSurface.hlsl",
+    "sha256": "660133c53ff235b5ad5b3e0c72dc85626d07af6ca5c0534f35a4f16409b515f2"
+  },
+  "native_build": "Build/Presentation/D03-01-build-02.log",
+  "profiles": [
+    {
+      "profile": "tsr100",
+      "validation": "Build/Presentation/clarity-tsr100-01/validation.json",
+      "result": "PASS",
+      "frames": 1337,
+      "costs": {
+        "stationary": {
+          "frames": 273,
+          "wall_p50_ms": 12.904529,
+          "wall_p95_ms": 14.253108000000001,
+          "gpu_p50_ms": 3.142
+        },
+        "camera_pan": {
+          "frames": 304,
+          "wall_p50_ms": 11.6102805,
+          "wall_p95_ms": 14.275899849999997,
+          "gpu_p50_ms": 3.4785000000000004
+        }
+      },
+      "surface_count": 4,
+      "walk_cm": 1014.882,
+      "captures": 43,
+      "stationary_max_mean_abs_delta_255": 0.4325730502605438,
+      "pan_median_mean_abs_delta_255": 2.4857211112976074
+    },
+    {
+      "profile": "taa100",
+      "validation": "Build/Presentation/clarity-taa100-01/validation.json",
+      "result": "PASS",
+      "frames": 1395,
+      "costs": {
+        "stationary": {
+          "frames": 296,
+          "wall_p50_ms": 11.9236975,
+          "wall_p95_ms": 13.56803175,
+          "gpu_p50_ms": 2.792
+        },
+        "camera_pan": {
+          "frames": 272,
+          "wall_p50_ms": 12.823133,
+          "wall_p95_ms": 14.59308935,
+          "gpu_p50_ms": 3.101
+        }
+      },
+      "surface_count": 4,
+      "walk_cm": 1015.29,
+      "captures": 43,
+      "stationary_max_mean_abs_delta_255": 0.44642144441604614,
+      "pan_median_mean_abs_delta_255": 2.3420472145080566
+    },
+    {
+      "profile": "tsr67",
+      "validation": "Build/Presentation/clarity-tsr67-01/validation.json",
+      "result": "PASS",
+      "frames": 1382,
+      "costs": {
+        "stationary": {
+          "frames": 299,
+          "wall_p50_ms": 11.722895,
+          "wall_p95_ms": 12.917416,
+          "gpu_p50_ms": 2.799
+        },
+        "camera_pan": {
+          "frames": 293,
+          "wall_p50_ms": 12.055901,
+          "wall_p95_ms": 13.596216,
+          "gpu_p50_ms": 3.158
+        }
+      },
+      "surface_count": 4,
+      "walk_cm": 1023.168,
+      "captures": 43,
+      "stationary_max_mean_abs_delta_255": 0.41853082180023193,
+      "pan_median_mean_abs_delta_255": 2.473350763320923
+    }
+  ],
+  "checks": {
+    "native_asset_readback": "Build/Presentation/surface-v2-author/validation.json",
+    "final_gameplay_regression": "Build/Presentation/environment-regression-02/validation.json",
+    "negative_controls": "Build/Presentation/negative-verifier-02/result.json",
+    "preservation": "Build/Presentation/D03-01-preservation-after.json"
+  },
+  "scope_limits": [
+    "Linux Development Vulkan, NVIDIA L40S, 1280x720; existing DDC",
+    "Population AI frozen in surface fixture; real world rendering, streaming and pawn input",
+    "Whole-frame timings from separate uncapped windows; no shipping or isolated-material cost claim",
+    "Pixel deltas are gross stability gates, not artistic or complete temporal-quality acceptance"
+  ],
+  "remaining": [
+    "Production skeletal character and gameplay-driven animation integration",
+    "Production world assets, lighting and atmosphere fidelity",
+    "Production VFX and audio event presentation and lifecycle validation",
+    "Material/shader/PSO clean-launch, cold/warm, packaged and supported fallback qualification"
+  ],
+  "publication": {
+    "canonical_local_evidence": "Build/Presentation/",
+    "external_owner": "Auto Feeder per active instruction",
+    "external_publication_claimed": false
+  },
+  "authority_changed": false,
+  "task_advanced": false
+}

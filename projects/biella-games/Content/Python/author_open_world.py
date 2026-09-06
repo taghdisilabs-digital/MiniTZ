@@ -119,11 +119,9 @@ layer = AUTHORING.continuation_data_layer(world, layer_asset, VERIFY)
 require(layer is not None, "Cannot create runtime data layer")
 check_property(layer, "initial_runtime_state", unreal.DataLayerRuntimeState.ACTIVATED)
 
-parent_path = ROOT + "/Materials/M_Continuation"
+parent_path = ROOT + "/Materials/M_ProductionSurface"
 parent_material = LIB.load_asset(parent_path) if LIB.does_asset_exist(parent_path) else None
-if parent_material is None:
-    require(not VERIFY, "Missing continuation instancing material")
-    parent_material = LIB.duplicate_asset("/Game/Materials/M_DemoReadability", parent_path)
+require(parent_material is not None, "Run build_production_surfaces.py before world authoring")
 if not VERIFY:
     MATERIALS.set_base_material_usage(parent_material, INSTANCE_USAGE, True)
     require(not MATERIALS.recompile_material(parent_material), "Continuation material compiler errors")

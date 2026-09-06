@@ -1,0 +1,36 @@
+{
+  "result": "PASS",
+  "source": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/clarity-tsr100-01",
+  "cases": [
+    {
+      "case": "wrong_aa",
+      "rejected": true,
+      "reason": "Requested quality path not active"
+    },
+    {
+      "case": "no_gpu_time",
+      "rejected": true,
+      "reason": "Missing native wall/GPU timings"
+    },
+    {
+      "case": "frame_order",
+      "rejected": true,
+      "reason": "Nonmonotonic native frame identity"
+    },
+    {
+      "case": "frozen_camera",
+      "rejected": true,
+      "reason": "Camera trajectory missing"
+    },
+    {
+      "case": "motion_blur_mask",
+      "rejected": true,
+      "reason": "Blur, dynamic resolution or pacing obscures the comparison"
+    },
+    {
+      "case": "fixed_timestep",
+      "rejected": true,
+      "reason": "Native variable-step Vulkan result required"
+    }
+  ]
+}

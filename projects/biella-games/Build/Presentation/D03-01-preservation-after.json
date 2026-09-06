@@ -1,0 +1,47 @@
+{
+  "task_id": "D03-01",
+  "scope": "Preservation of pre-task tracked files and authority",
+  "baseline_head": "559a113ae0df2de344f19438548b7bb02738aac6",
+  "baseline_file_count": 1262,
+  "unchanged_file_count": 1256,
+  "changed": [
+    {
+      "path": "Config/DefaultEngine.ini",
+      "before": "c4fb1836db4e4805336cbb820ffc2b49ccb943138a1e5211879a3ab8a9dd1076",
+      "after": "0c3f7739d7f5dfbb1c1a2ac5426a749680181e8e4299b32cb05a52988b3419b0"
+    },
+    {
+      "path": "Content/OpenWorld/Materials/MI_Interior.uasset",
+      "before": "0b0f69c127eb861a6fb5efc9a587ac9bd0348dfc75cf8a2ef7d6fc3c16fc40c7",
+      "after": "2f6601f03b1036d95a41c36d96f3a45009d4bfca0fc259b0d7ced8d6ab8865fe"
+    },
+    {
+      "path": "Content/OpenWorld/Materials/MI_Route.uasset",
+      "before": "57d2fd61dc9ce842dab12ce7e68b88cb902b2257a9f559a7bf8e642fa2fc2681",
+      "after": "0c71f6ca9e05cca25eb8436fde83265fa64f02c083eb0f19c76bce38ed566afc"
+    },
+    {
+      "path": "Content/OpenWorld/Materials/MI_Street.uasset",
+      "before": "11190d502fdffad7c706207b759284fbbb144b2128b61ab4f434e243037aef93",
+      "after": "bc39ebb733a76261b0ab319ce4be863dfb8b1fcc09672284c5e053de1b78d524"
+    },
+    {
+      "path": "Content/OpenWorld/Materials/MI_Wall.uasset",
+      "before": "f3fa17ce033a59d69c9a666a50737c081310dd39044c7262822736b04b2ad738",
+      "after": "bc19d496b324c24eb70dd8c57413d475c9b1d0590cfd5fac8d5d5bb62191532b"
+    },
+    {
+      "path": "Content/Python/author_open_world.py",
+      "before": "5f5e44d0922fa806565934b10b63b4dcd6572e336a1bd8127fdcf94f2ca93a82",
+      "after": "1c28adc6aed5719f38d6910570bb85b334703bbf7c215d4bdbd33477da718146"
+    }
+  ],
+  "missing": [],
+  "unexpected_changes": [],
+  "protected_paths": [
+    "../../docs/project-state/03_BIELLA_CURRENT_STATE.md",
+    "../../docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+    "docs/PRODUCTION.md"
+  ],
+  "result": "PASS"
+}

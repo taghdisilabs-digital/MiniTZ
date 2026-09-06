@@ -1,0 +1,21 @@
+{
+  "sources": [
+    {
+      "path": "Source/BiellaGames/Private/BiellaGameplayFeedback.cpp",
+      "sha256": "9db2596c4b37cf09cfb4e2b2ce3f60dc9f0b327bc651e13ba1dd93c6e62312a4"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
+      "sha256": "2e2b28fb962fdaa5d73cbc7142dec7885c19f160d7ae33ba5651b2a7acfc3dd9"
+    },
+    {
+      "path": "Content/Python/author_open_world.py",
+      "sha256": "5f5e44d0922fa806565934b10b63b4dcd6572e336a1bd8127fdcf94f2ca93a82"
+    },
+    {
+      "path": "Config/DefaultEngine.ini",
+      "sha256": "c4fb1836db4e4805336cbb820ffc2b49ccb943138a1e5211879a3ab8a9dd1076"
+    }
+  ],
+  "prompt": "Bounded Unreal 5.8 C++ and material authoring advice. Non-authoritative. Current gameplay is functional blockout, /Game/OpenWorld/Materials/M_Continuation is lit opaque BaseColor/Roughness with artificial emissive fill; four material instances Street, Wall, Route, Interior, all static world or HLOD cube geometry. Goal D03 production presentation needs PBR material detail, shader stability, temporal motion evidence plus native frame timings, preserving gameplay/geometry. Suggest smallest concrete native material graph upgrade with no new external texture/mesh licenses and no expensive per-pixel procedural noise; specify pitfalls to verify. Provide at most 8 compact bullets. Animation/VFX/audio are remaining separate work within D03; do not claim AAA completion."
+}

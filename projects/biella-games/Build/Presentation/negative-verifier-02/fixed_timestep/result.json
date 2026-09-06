@@ -1,0 +1,9 @@
+{
+  "success": true,
+  "rhi": "Vulkan",
+  "fixed_timestep": true,
+  "benchmark": false,
+  "surface_count": 4,
+  "walk_cm": 1014.882,
+  "error": ""
+}

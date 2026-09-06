@@ -1,0 +1,107 @@
+{
+  "task_id": "D03-01",
+  "result": "PASS",
+  "runs": [
+    {
+      "command": [
+        "runuser",
+        "-u",
+        "unreal",
+        "--",
+        "env",
+        "BIELLA_D03_SURFACE_REPORT=/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/surface-v2-author/author.json",
+        "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+        "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+        "-run=pythonscript",
+        "-script=/root/biella/repos/biella-engine/projects/biella-games/Content/Python/build_production_surfaces.py",
+        "-EnablePlugins=PythonScriptPlugin",
+        "-unattended",
+        "-nullrhi",
+        "-nosound",
+        "-nop4",
+        "-stdout",
+        "-FullStdOutLogOutput",
+        "-D03RebuildSurfaces"
+      ],
+      "pid": 2138629,
+      "returncode": 0,
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "elapsed_seconds": 10.901,
+      "log": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/surface-v2-author/author.log",
+        "sha256": "fde978dcfce0a8a4e10356f0b20221901db731fc20442190c19fd114a67b5fb9",
+        "bytes": 220582
+      }
+    },
+    {
+      "command": [
+        "runuser",
+        "-u",
+        "unreal",
+        "--",
+        "env",
+        "BIELLA_D03_SURFACE_REPORT=/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/surface-v2-author/readback.json",
+        "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+        "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+        "-run=pythonscript",
+        "-script=/root/biella/repos/biella-engine/projects/biella-games/Content/Python/build_production_surfaces.py",
+        "-EnablePlugins=PythonScriptPlugin",
+        "-unattended",
+        "-nullrhi",
+        "-nosound",
+        "-nop4",
+        "-stdout",
+        "-FullStdOutLogOutput",
+        "-D03VerifySurfaces"
+      ],
+      "pid": 2139733,
+      "returncode": 0,
+      "timed_out": false,
+      "timeout_seconds": 180,
+      "elapsed_seconds": 10.662,
+      "log": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/surface-v2-author/readback.log",
+        "sha256": "63e868457ae86e49a587c8a05b2016cdf4329e38c6de44d10f40c55d18a7895a",
+        "bytes": 215256
+      }
+    }
+  ],
+  "source": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Materials/ProductionSurface.hlsl",
+    "sha256": "660133c53ff235b5ad5b3e0c72dc85626d07af6ca5c0534f35a4f16409b515f2",
+    "bytes": 2009
+  },
+  "assets": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/OpenWorld/Materials/MI_Interior.uasset",
+      "sha256": "2f6601f03b1036d95a41c36d96f3a45009d4bfca0fc259b0d7ced8d6ab8865fe",
+      "bytes": 4947
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/OpenWorld/Materials/MI_Route.uasset",
+      "sha256": "0c71f6ca9e05cca25eb8436fde83265fa64f02c083eb0f19c76bce38ed566afc",
+      "bytes": 4932
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/OpenWorld/Materials/MI_Street.uasset",
+      "sha256": "bc39ebb733a76261b0ab319ce4be863dfb8b1fcc09672284c5e053de1b78d524",
+      "bytes": 4937
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/OpenWorld/Materials/MI_Wall.uasset",
+      "sha256": "bc19d496b324c24eb70dd8c57413d475c9b1d0590cfd5fac8d5d5bb62191532b",
+      "bytes": 4927
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/OpenWorld/Materials/M_Continuation.uasset",
+      "sha256": "79d8d8c73be294e1aeda7eb3e22c976bb3538d34cc88a61cdc36ae583b4d5f37",
+      "bytes": 7123
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/OpenWorld/Materials/M_ProductionSurface.uasset",
+      "sha256": "56a2e71ae6d6d0e75962b0e59be1a9f3d18c60b837070566d2135482123d063c",
+      "bytes": 17494
+    }
+  ]
+}
