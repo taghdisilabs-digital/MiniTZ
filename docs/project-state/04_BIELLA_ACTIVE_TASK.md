@@ -21,10 +21,10 @@ task:
   continuity:
     completed_predecessor: D02-04
     production_source: projects/biella-games/docs/PRODUCTION.md
-    observed_repository_head: ce55d5340dc192d08a1b78bf09cd237eab4098d9
-    observed_repository_tree: f8d01c597fc7173d52a24afde4c75ff759aded64
-    implementation_commit: ce55d5340dc192d08a1b78bf09cd237eab4098d9
-    implementation_tree: f8d01c597fc7173d52a24afde4c75ff759aded64
+    observed_repository_head: e59306509860c0bb53f47411aed0d07632d7ef01
+    observed_repository_tree: fdedeb4ccd6846f8d8f49c65e2f66c1336de9db8
+    implementation_commit: e59306509860c0bb53f47411aed0d07632d7ef01
+    implementation_tree: fdedeb4ccd6846f8d8f49c65e2f66c1336de9db8
     source_alignment_gate: VERIFIED_GITHUB_MAIN_PRE_EXECUTION_AND_POST_TURN_FAIL_CLOSED
     customer_handoff_mode: FIRST_CUSTOMER_CHECKPOINT_SLEEP_LAST_CUSTOMER_AUTOMATIC_RESTORE
     customer_resume_target: LOCAL_BIELLA_PRODUCTION_OLLAMA_QWEN_ACTIVE_ENABLED
@@ -40,10 +40,11 @@ task:
     project_cell_execution_model: ISOLATED_PROJECT_CELL
     adopted_project_cells: [feiz-english-institute, feiz-english-institute-v4]
     project_cell_engine_database: /mnt/biella-extra/biella-runtime/project-cells/engine.sqlite3
-    feiz_cell_checkpoint: chk_0b1dec11652f4a5b8238453512ddce6b
-    feiz_cell_checkpoint_sha256: a285d60f781cba64c3d459b600dfc6a8ceff78308619db4e32a645991c6538b9
-    feiz_v4_cell_checkpoint: chk_8c4ff6aed7844160a474957bcb3e3306
-    feiz_v4_cell_checkpoint_sha256: 59cd4679a0eb22962a1168a6549b779a2c9b0009df4603a3611c5b535febd52a
+    project_cell_engine_database_sha256: b0ea0710ddea4978907046d92d91c9b238b35a5ea3968dfa359f702d3793406b
+    feiz_cell_checkpoint: chk_b4b57e0f23e64cf38d6337a4fc07084c
+    feiz_cell_checkpoint_sha256: e7b096e356db0858ac7bae636ee276b47aa1f635ffa79af304e91c17b2faa1eb
+    feiz_v4_cell_checkpoint: chk_668852a9fc3e42a386c1abaef37ab385
+    feiz_v4_cell_checkpoint_sha256: 84e6e146344f63fe75d76bf00f0f95774691d451bb4b74fdd01b62807931d64c
     authoritative_persistent_task_session_id: null
     prior_invalidated_executor_session_id: 01a07931-fb65-7af1-830d-83afb2ee5d8d
     latest_bounded_fallback_session_id: 01a07a15-b528-7a43-afd7-e84ff3c1ccc9

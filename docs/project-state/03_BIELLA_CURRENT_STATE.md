@@ -5,8 +5,8 @@ schema: biella.current_state/v11
 state_class: VOLATILE
 update_rule: replace_stale_values; preserve_valid_progress_capabilities_evidence
 observed_date: 2026-09-07
-observed_at_utc: 2026-09-07T21:29:08+00:00
-observed_at_europe_amsterdam: 2026-09-07T23:29:08+02:00
+observed_at_utc: 2026-09-07T21:41:53+00:00
+observed_at_europe_amsterdam: 2026-09-07T23:41:53+02:00
 
 authority:
   if_conflict: [CURRENT_EXECUTION_STATE, CURRENT_GITHUB_SOURCE, CURRENT_CANONICAL_DRIVE, VERIFIED_HISTORICAL_EVIDENCE, REFERENCE_OR_PLAN, INFERENCE]
@@ -17,11 +17,11 @@ repository:
   repository: patrickminitz-web/biella-engine
   branch: main
   canonical_checkout: /root/biella/repos/biella-engine
-  observed_head_commit: ce55d5340dc192d08a1b78bf09cd237eab4098d9
-  observed_head_tree: f8d01c597fc7173d52a24afde4c75ff759aded64
-  github_main_readback_commit: ce55d5340dc192d08a1b78bf09cd237eab4098d9
-  implementation_commit: ce55d5340dc192d08a1b78bf09cd237eab4098d9
-  implementation_tree: f8d01c597fc7173d52a24afde4c75ff759aded64
+  observed_head_commit: e59306509860c0bb53f47411aed0d07632d7ef01
+  observed_head_tree: fdedeb4ccd6846f8d8f49c65e2f66c1336de9db8
+  github_main_readback_commit: e59306509860c0bb53f47411aed0d07632d7ef01
+  implementation_commit: e59306509860c0bb53f47411aed0d07632d7ef01
+  implementation_tree: fdedeb4ccd6846f8d8f49c65e2f66c1336de9db8
   source_alignment_gate: VERIFIED_GITHUB_MAIN_SAFE_FAST_FORWARD_OR_FAIL_CLOSED
   customer_handoff_mode: FIRST_CUSTOMER_CHECKPOINT_SLEEP_LAST_CUSTOMER_AUTOMATIC_RESTORE
   customer_resume_target: LOCAL_BIELLA_PRODUCTION_OLLAMA_QWEN_ACTIVE_ENABLED
@@ -79,6 +79,7 @@ active_execution:
 
 project_cells:
   engine_database: /mnt/biella-extra/biella-runtime/project-cells/engine.sqlite3
+  engine_database_sha256: b0ea0710ddea4978907046d92d91c9b238b35a5ea3968dfa359f702d3793406b
   native_project_count: 2
   execution_owner: BIELLA
   runtime_provider: PROJECT_SANDBOX_BROKER_REPLACEABLE_RESOURCE
@@ -88,31 +89,37 @@ project_cells:
   feiz-english-institute:
     state: RUNNING
     manifest: /mnt/biella-extra/biella-runtime/project-cells/feiz-english-institute/manifest.json
-    manifest_sha256: 46537efa0a13f34cc81b7748d20844e7a68a0a0a0e10c434d55cb74101e68204
+    manifest_sha256: e541476e973bdb7d2ce223aa5f943ef9f22e92f1391a9daa931e7035518699ac
     engine_project_ref: prj_b66f0432825e403c92395afacf9f8667
     engine_task_ref: task://prj_b66f0432825e403c92395afacf9f8667/tsk_fe78fe6054954ceb92d3b12ba55b75bb/1
     engine_run_ref: run://prj_b66f0432825e403c92395afacf9f8667/run_891c7420cc4e486db4684d4b298cf40b
     task_id: UNVERIFIED
     objective: UNVERIFIED
     acceptance: UNVERIFIED
-    checkpoint_id: chk_0b1dec11652f4a5b8238453512ddce6b
-    checkpoint_sha256: a285d60f781cba64c3d459b600dfc6a8ceff78308619db4e32a645991c6538b9
+    checkpoint_id: chk_b4b57e0f23e64cf38d6337a4fc07084c
+    checkpoint_sha256: e7b096e356db0858ac7bae636ee276b47aa1f635ffa79af304e91c17b2faa1eb
     repository_head: 58e153b7418a274259bca0e31fef4f1c84270890
+    task_envelope: /mnt/biella-extra/biella-runtime/project-cells/feiz-english-institute/task-envelope.json
+    task_envelope_sha256: 8929755dc92f0053a2c9c3e435ff52d43ad46bc5fa598494a0c609e0b4bcf6aa
+    run_projection_sha256: 88915cba0cd2be2a5d145ce636ca70ef28f945f978800ee708ef23553f87f9d1
     remote_requests: 0
     remote_responses: 0
   feiz-english-institute-v4:
     state: RUNNING
     manifest: /mnt/biella-extra/biella-runtime/project-cells/feiz-english-institute-v4/manifest.json
-    manifest_sha256: 0bd110cf74af53e07046743fdb10484f3cd47c7d344eb36de6f695db850f6997
+    manifest_sha256: ac86083819dec709b1031160b9b24f6ae8f1bced27f1192c347a5e1a1b76cbfc
     engine_project_ref: prj_4d45763d6d3641baa3d04ac1368300c9
     engine_task_ref: task://prj_4d45763d6d3641baa3d04ac1368300c9/tsk_607ebbdcbfcc4e47b390eb5c14191225/1
     engine_run_ref: run://prj_4d45763d6d3641baa3d04ac1368300c9/run_4e7c0a8c5d544d538f3c23a78c4dddd8
     task_id: UNVERIFIED
     objective: UNVERIFIED
     acceptance: UNVERIFIED
-    checkpoint_id: chk_8c4ff6aed7844160a474957bcb3e3306
-    checkpoint_sha256: 59cd4679a0eb22962a1168a6549b779a2c9b0009df4603a3611c5b535febd52a
+    checkpoint_id: chk_668852a9fc3e42a386c1abaef37ab385
+    checkpoint_sha256: 84e6e146344f63fe75d76bf00f0f95774691d451bb4b74fdd01b62807931d64c
     repository_head: 8080bceed5ca815a32b473ba50f88d2eafa5e083
+    task_envelope: /mnt/biella-extra/biella-runtime/project-cells/feiz-english-institute-v4/task-envelope.json
+    task_envelope_sha256: 1017b648343674c350f8ff3b7ad640d9e62c0b75d2b3b1f74269230e61ed547e
+    run_projection_sha256: 8e400c4ec146ec32e8ac3c24be67c966e6254a102b47153dfe65a3da024b395d
     remote_requests: 0
     remote_responses: 0
 
