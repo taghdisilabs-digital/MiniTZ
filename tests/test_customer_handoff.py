@@ -178,3 +178,18 @@ def test_workstation_installer_preserves_existing_ai_service_enablement():
     assert "qwen_enablement" in installer
     assert 'if [[ "$ollama_enablement" == "enabled" ]]' in installer
     assert 'if [[ "$qwen_enablement" == "enabled" ]]' in installer
+
+
+def test_resume_refuses_when_checkpointed_task_memory_changes(tmp_path: Path, monkeypatch):
+    repo = _git_repo(tmp_path); runtime = _runtime(tmp_path)
+    manager = handoff.BiellaCustomerHandoff(repo, runtime, tmp_path / "handoff")
+    monkeypatch.setattr(manager, "service_states", lambda: {
+        name: {"active": False, "enabled": "disabled"} for name in handoff.PROTECTED_SERVICES
+    })
+    monkeypatch.setattr(manager, "sleep_services", lambda: None)
+    manager.checkpoint()
+    (runtime / "task-memory/D03-01.json").write_text('{"task_id":"D03-01","session_id":"unexpected"}\n')
+    monkeypatch.setattr(manager, "running_customer_count", lambda: 0)
+    monkeypatch.setattr(manager, "verify_source_alignment", lambda: None)
+    with pytest.raises(handoff.HandoffError, match="runtime continuity"):
+        manager.resume()

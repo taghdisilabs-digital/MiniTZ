@@ -204,6 +204,10 @@ class BiellaCustomerHandoff:
         current = dirty_workspace_fingerprint(self.repo_root)
         if not expected or current != expected:
             raise HandoffError("Biella dirty worktree changed while customer checkpoint was held")
+        current_task, current_runtime = self._runtime_identity()
+        expected_runtime = checkpoint.get("runtime")
+        if current_task != checkpoint.get("task_id") or not isinstance(expected_runtime, dict) or current_runtime != expected_runtime:
+            raise HandoffError("Biella runtime continuity changed while customer checkpoint was held")
         self.verify_source_alignment()
         services = checkpoint.get("services")
         if not isinstance(services, dict):
