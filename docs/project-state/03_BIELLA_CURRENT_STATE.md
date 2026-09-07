@@ -17,12 +17,14 @@ repository:
   repository: patrickminitz-web/biella-engine
   branch: main
   canonical_checkout: /root/biella/repos/biella-engine
-  observed_head_commit: e2925cbc9932765357fcb04fe8a51a906c6d082f
-  observed_head_tree: 1c23782cd893414d3f9718519bca7389cf28c5e2
-  github_main_readback_commit: e2925cbc9932765357fcb04fe8a51a906c6d082f
-  implementation_commit: e2925cbc9932765357fcb04fe8a51a906c6d082f
-  implementation_tree: 1c23782cd893414d3f9718519bca7389cf28c5e2
+  observed_head_commit: cebd1260ed9d1215e0b04cc7fa9e05e27c0c58c0
+  observed_head_tree: 84bbf41283ac1db1414f20ebe6a992d92b6bce6a
+  github_main_readback_commit: cebd1260ed9d1215e0b04cc7fa9e05e27c0c58c0
+  implementation_commit: cebd1260ed9d1215e0b04cc7fa9e05e27c0c58c0
+  implementation_tree: 84bbf41283ac1db1414f20ebe6a992d92b6bce6a
   source_alignment_gate: VERIFIED_GITHUB_MAIN_SAFE_FAST_FORWARD_OR_FAIL_CLOSED
+  customer_handoff_mode: FIRST_CUSTOMER_CHECKPOINT_SLEEP_LAST_CUSTOMER_AUTOMATIC_RESTORE
+  customer_resume_target: LOCAL_BIELLA_PRODUCTION_OLLAMA_QWEN_ACTIVE_ENABLED
   production_runner_source: /root/biella/repos/biella-engine/ops/local-ai/biella_production_runner.py
   installer_sleep_preservation: VERIFIED_EXISTING_DISABLED_STATE_PRESERVED
   worktree_state: DIRTY_ACTIVE_TASK_ONLY
@@ -36,7 +38,7 @@ active_execution:
   id: D03-01
   project: Biella Games
   section: post_d01
-  state: SLEEPING_OWNER_REQUESTED
+  state: SLEEPING_CUSTOMER_RESOURCE_HELD
   controller: biella-codex
   controller_service_state: INACTIVE
   runner_process_state: STOPPED
@@ -91,8 +93,8 @@ continuation_policy:
   advance_after: CURRENT_TASK_DURABLE_CLOSURE
   completed_work_reuse: REQUIRED
   no_rollback_or_redo_without_invalidation: true
-  sleep_rule: DO_NOT_EXECUTE_OR_ADVANCE_UNTIL_MAHDI_EXPLICIT_WAKE_RESUME
-  resume_rule: START_FRESH_STRONG_EXECUTOR_FROM_CURRENT_TASK_MEMORY_GUIDE_AND_EXACT_PSO_LOADING_FRONTIER
+  sleep_rule: DO_NOT_EXECUTE_OR_ADVANCE_WHILE_ANY_EXTERNAL_CUSTOMER_RESOURCE_LEASE_IS_HELD; LAST_CUSTOMER_RELEASE_AUTOMATICALLY_RESTORES_BIELLA
+  resume_rule: LAST_CUSTOMER_RELEASE_RESTORES_LOCAL_SERVICES_AND_STARTS_FRESH_STRONG_EXECUTOR_FROM_CURRENT_TASK_MEMORY_GUIDE_AND_EXACT_PSO_LOADING_FRONTIER
   strong_route_authority: ASTRA_OR_LUNA_FULL_TASK_SYNTHESIS_AND_CLOSURE_WHEN_AVAILABLE
   bounded_outage_fallback: SPARK_THEN_QWEN_ONE_SMALL_TECHNICAL_OUTCOME_PER_FRESH_PACKET
   bounded_whole_task_completion: FORBIDDEN

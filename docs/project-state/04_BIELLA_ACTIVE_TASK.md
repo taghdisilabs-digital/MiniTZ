@@ -9,7 +9,7 @@ task:
   section: post_d01
   class: hard_creation
   title: Production rendering, animation, VFX, and audio quality
-  status: SLEEPING_OWNER_REQUESTED
+  status: SLEEPING_CUSTOMER_RESOURCE_HELD
   runner: SLEEPING
 
   authority:
@@ -21,11 +21,13 @@ task:
   continuity:
     completed_predecessor: D02-04
     production_source: projects/biella-games/docs/PRODUCTION.md
-    observed_repository_head: e2925cbc9932765357fcb04fe8a51a906c6d082f
-    observed_repository_tree: 1c23782cd893414d3f9718519bca7389cf28c5e2
-    implementation_commit: e2925cbc9932765357fcb04fe8a51a906c6d082f
-    implementation_tree: 1c23782cd893414d3f9718519bca7389cf28c5e2
+    observed_repository_head: cebd1260ed9d1215e0b04cc7fa9e05e27c0c58c0
+    observed_repository_tree: 84bbf41283ac1db1414f20ebe6a992d92b6bce6a
+    implementation_commit: cebd1260ed9d1215e0b04cc7fa9e05e27c0c58c0
+    implementation_tree: 84bbf41283ac1db1414f20ebe6a992d92b6bce6a
     source_alignment_gate: VERIFIED_GITHUB_MAIN_PRE_EXECUTION_AND_POST_TURN_FAIL_CLOSED
+    customer_handoff_mode: FIRST_CUSTOMER_CHECKPOINT_SLEEP_LAST_CUSTOMER_AUTOMATIC_RESTORE
+    customer_resume_target: LOCAL_BIELLA_PRODUCTION_OLLAMA_QWEN_ACTIVE_ENABLED
     authoritative_persistent_task_session_id: null
     prior_invalidated_executor_session_id: 01a07931-fb65-7af1-830d-83afb2ee5d8d
     latest_bounded_fallback_session_id: 01a07a15-b528-7a43-afd7-e84ff3c1ccc9
@@ -52,8 +54,8 @@ task:
     - unrelated source/configuration without mutation
 
   execution_directive:
-    mode: SLEEP_CURRENT_D03_01_PRESERVE_STATE
-    execution: Do not start production, invoke Codex, advance the queue, or mutate D03 until Mahdi explicitly requests wake/resume.
+    mode: SLEEP_D03_01_WHILE_EXTERNAL_CUSTOMER_RESOURCE_LEASE_HELD
+    execution: Do not start production, invoke Codex, advance the queue, or mutate D03 while any external customer resource lease is held. The last customer release automatically restores local Biella services and resumes this exact task under Mahdi latest instruction.
     resume: Start from current task memory plus task guide plus exact PSO/loading evidence. Do not reuse the invalidated context-blackhole session and do not trust the attempt-294 local-Qwen statement that task memory/projection were empty; direct file read proves both files exist and are non-empty.
     current_frontier: portable PSO seed plus native loading-display cold-start qualification
     task_guide: projects/biella-games/docs/task-guides/D03-01.md
@@ -99,5 +101,5 @@ task:
     prohibited_learning: [customer_brand, visual_guidance, copy, customer_rules, customer_source_bodies, customer_repository_identity]
     permitted_learning: SANITIZED_GENERIC_CODING_AND_ENGINEERING_METHODS_ONLY
 
-  stop: Production remains asleep by explicit owner request. Source-pack refresh does not wake production, change D03 evidence, or advance the queue.
+  stop: Production remains asleep only while external customer resource use is active. Last-customer release automatically restores local Biella services and resumes D03-01 from preserved task memory/evidence; source-pack refresh alone never changes task progress.
 ```
