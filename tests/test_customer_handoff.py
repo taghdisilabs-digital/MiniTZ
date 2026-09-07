@@ -141,6 +141,7 @@ def test_handoff_systemd_unit_exposes_only_fixed_root_owned_action():
     assert "Type=oneshot" in unit
     assert "RequiresMountsFor=/mnt/biella-extra" in unit
     assert "ExecStart=/usr/local/lib/biella-ai/biella_customer_handoff.py %i" in unit
+    assert "Environment=HOME=/root" in unit
     assert "TimeoutStartSec=3700" in unit
 
 
