@@ -252,3 +252,28 @@ def test_legacy_blanket_cooldowns_are_dropped_but_individual_cooldowns_survive()
     assert routing.reconcile_legacy_account_cooldowns(blanket) == {}
     individual = {"gpt-6-astra": until, "gpt-5.6-luna": "2026-09-11T10:00:00+00:00"}
     assert routing.reconcile_legacy_account_cooldowns(individual) == individual
+
+def test_owner_forced_reserve_max_is_used_when_catalog_supports_it(monkeypatch):
+    current = catalog()
+    current["gpt-reserve"] = {"low", "medium", "high", "xhigh", "max"}
+    monkeypatch.setenv("BIELLA_CODEX_FORCE_MODEL", "gpt-reserve")
+    monkeypatch.setenv("BIELLA_CODEX_FORCE_REASONING", "max")
+    assert routing.select_route("hard_creation", current, {}, NOW) == routing.Route("gpt-reserve", "max")
+
+
+def test_owner_forced_reasoning_fails_closed_when_model_does_not_support_it(monkeypatch):
+    current = catalog()
+    current["gpt-reserve"] = {"low", "medium", "high", "xhigh", "max"}
+    monkeypatch.setenv("BIELLA_CODEX_FORCE_MODEL", "gpt-reserve")
+    monkeypatch.setenv("BIELLA_CODEX_FORCE_REASONING", "ultra")
+    with __import__("pytest").raises(RuntimeError, match="forced Codex route"):
+        routing.select_route("hard_creation", current, {}, NOW)
+
+
+def test_owner_forced_model_respects_observed_cooldown(monkeypatch):
+    current = catalog()
+    current["gpt-reserve"] = {"max"}
+    monkeypatch.setenv("BIELLA_CODEX_FORCE_MODEL", "gpt-reserve")
+    monkeypatch.setenv("BIELLA_CODEX_FORCE_REASONING", "max")
+    with __import__("pytest").raises(RuntimeError, match="forced Codex route"):
+        routing.select_route("hard_creation", current, {"gpt-reserve": "2026-09-12T21:41:00+00:00"}, NOW)

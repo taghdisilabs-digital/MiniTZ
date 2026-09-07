@@ -87,6 +87,26 @@ def select_route(task_class: str, catalog: Mapping[str, set[str]], cooldowns: Ma
     if candidates is None:
         raise ValueError(f"unknown task class: {task_class}")
     excluded = excluded_models or set()
+    forced_model = os.environ.get("BIELLA_CODEX_FORCE_MODEL", "").strip()
+    forced_reasoning = os.environ.get("BIELLA_CODEX_FORCE_REASONING", "").strip()
+    if forced_model:
+        if forced_model in excluded or _cooling_down(forced_model, cooldowns, now):
+            raise RuntimeError(f"forced Codex route unavailable: {forced_model}")
+        levels = catalog.get(forced_model)
+        if not levels:
+            raise RuntimeError(f"forced Codex route unavailable: {forced_model}")
+        if forced_reasoning:
+            if forced_reasoning not in levels:
+                raise RuntimeError(f"forced Codex route unsupported: {forced_model}:{forced_reasoning}")
+            reasoning = forced_reasoning
+        else:
+            supported = [level for level in _REASONING_ORDER if level in levels]
+            if not supported:
+                raise RuntimeError(f"forced Codex route has no supported reasoning level: {forced_model}")
+            reasoning = supported[-1]
+        if task_class in {"creation", "hard_creation"} and reasoning_rank(reasoning) < reasoning_rank("high"):
+            raise RuntimeError(f"forced Codex route reasoning is below creation minimum: {forced_model}:{reasoning}")
+        return Route(forced_model, reasoning)
     for route in candidates:
         if route.model in excluded or _cooling_down(route.model, cooldowns, now):
             continue

@@ -970,6 +970,8 @@ def test_persistent_unit_aligns_source_before_qwen_and_runs_canonical_repo_runne
     assert qwen_pre in unit
     assert unit.index(source_pre) < unit.index(qwen_pre)
     assert "Environment=BIELLA_PRODUCTION_RUNNER=/root/biella/repos/biella-engine/ops/local-ai/biella_production_runner.py" in unit
+    assert "Environment=BIELLA_CODEX_FORCE_MODEL=gpt-reserve" in unit
+    assert "Environment=BIELLA_CODEX_FORCE_REASONING=max" in unit
 
 
 def test_installer_preserves_an_existing_disabled_production_service():
