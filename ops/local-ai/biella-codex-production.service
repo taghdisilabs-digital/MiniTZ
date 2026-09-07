@@ -1,9 +1,9 @@
 [Unit]
 RequiresMountsFor=/mnt/biella-extra
 Description=Biella Canonical Production Runner
-After=network-online.target biella-ollama.service biella-qwen-residency.service
+After=network-online.target docker.service project-sandbox-broker.service biella-ollama.service biella-qwen-residency.service
 Requires=biella-ollama.service
-Wants=network-online.target biella-qwen-residency.service
+Wants=network-online.target docker.service project-sandbox-broker.service biella-qwen-residency.service
 
 [Service]
 Type=simple
@@ -11,7 +11,9 @@ Environment=BIELLA_REPO_ROOT=/root/biella/repos/biella-engine
 Environment=BIELLA_PROJECT_ROOT=/root/biella/repos/biella-engine/projects/biella-games
 Environment=BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT=/mnt/biella-extra/biella-runtime/codex-production
 Environment=BIELLA_PRODUCTION_RUNNER=/root/biella/repos/biella-engine/ops/local-ai/biella_production_runner.py
+Environment=BIELLA_SOURCE_SYNC_INSTALLER=/root/biella/repos/biella-engine/ops/local-ai/install-biella-ai.sh
 Environment=BIELLA_CONTINUOUS_IDLE=1
+ExecCondition=/usr/local/lib/biella-ai/biella_customer_handoff.py guard-production
 ExecStartPre=/usr/local/lib/biella-ai/biella-production-source-sync.sh
 ExecStartPre=/usr/local/lib/biella-workstation/biella-qwen-ready.sh
 ExecStart=/usr/local/bin/biella-codex production run

@@ -7,6 +7,9 @@ readonly CLI_LINK="/usr/local/bin/biella"
 readonly CONFIG_LINK="/usr/local/bin/biella-provider-configure"
 readonly CHECK_LINK="/usr/local/bin/biella-provider-check"
 
+ollama_enablement="$(systemctl is-enabled biella-ollama.service 2>/dev/null || true)"
+qwen_enablement="$(systemctl is-enabled biella-qwen-residency.service 2>/dev/null || true)"
+
 [[ "$EUID" -eq 0 ]] || { printf 'Run workstation installer as root.\n' >&2; exit 1; }
 
 ensure_link() {
@@ -44,8 +47,16 @@ install -o root -g root -m 644 "$SOURCE_DIR/biella-qwen-residency.service" /etc/
 
 if command -v systemctl >/dev/null 2>&1; then
   systemctl daemon-reload
-  systemctl enable biella-ollama.service >/dev/null
-  systemctl enable biella-qwen-residency.service >/dev/null
+  if [[ "$ollama_enablement" == "enabled" ]]; then
+    systemctl enable biella-ollama.service >/dev/null
+  else
+    systemctl disable biella-ollama.service >/dev/null
+  fi
+  if [[ "$qwen_enablement" == "enabled" ]]; then
+    systemctl enable biella-qwen-residency.service >/dev/null
+  else
+    systemctl disable biella-qwen-residency.service >/dev/null
+  fi
 fi
 
 ensure_link "$CLI_LINK" "$INSTALL_DIR/biella"

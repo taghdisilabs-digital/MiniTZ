@@ -71,17 +71,28 @@ def compile_resume_packet(task: TaskRecord, capsule_path: Path) -> str:
     )
 
 
+def _bounded_file_content(path: Path | None, maximum: int) -> str:
+    if path is None or not Path(path).is_file():
+        return "NONE"
+    text = Path(path).read_text(encoding="utf-8", errors="replace").strip()
+    return text if len(text) <= maximum else text[: maximum - 1] + "…"
+
+
 def compile_bounded_fallback_packet(task: TaskRecord, capsule_path: Path, projection_path: Path | None, guide_path: Path | None) -> str:
     projection = str(Path(projection_path)) if projection_path else "NONE"
     guide = str(Path(guide_path)) if guide_path else "NONE"
+    memory_content = _bounded_file_content(Path(capsule_path), 6500)
+    guide_content = _bounded_file_content(Path(guide_path) if guide_path else None, 9000)
+    projection_content = _bounded_file_content(Path(projection_path) if projection_path else None, 8000)
     return (
         "BIELLA_BOUNDED_FALLBACK\n"
         f"TASK: {task.id} [{task.task_class}] {task.title}\n"
-        f"TASK_MEMORY: {Path(capsule_path)}\n"
-        f"MEMORY_PROJECTION: {projection}\n"
-        f"TASK_GUIDE: {guide}\n"
+        f"TASK_MEMORY: {Path(capsule_path)}\nMEMORY_PROJECTION: {projection}\nTASK_GUIDE: {guide}\n"
+        "--- TASK MEMORY CONTENT ---\n" + memory_content + "\n--- END TASK MEMORY CONTENT ---\n"
+        "--- TASK GUIDE CONTENT ---\n" + guide_content + "\n--- END TASK GUIDE CONTENT ---\n"
+        "--- MEMORY PROJECTION CONTENT ---\n" + projection_content + "\n--- END MEMORY PROJECTION CONTENT ---\n"
         "QUALITY ORDER: correctness/evidence > continuity > speed > token savings. Execute one bounded technical outcome only. "
-        "Read exact current source/evidence, not a broad history summary: read TASK_MEMORY, then TASK_GUIDE, then only the exact files required for that outcome; MEMORY_PROJECTION is derivative and never overrides current source. "
+        "Read exact current source/evidence when implementation detail is needed. The embedded TASK_MEMORY and TASK_GUIDE are the bounded current recovery context; MEMORY_PROJECTION is derivative and never overrides current source. "
         "Do not broad-reread history, redo verified work, reset/clean/stash/restart the task, or create a second queue/memory/workflow. "
         "Do not create planning/status/summary artifacts merely to show progress; create or change files only when the bounded technical outcome requires them. "
         "Prefer an executable bounded change plus its exact test/diagnostic over prose. If no useful bounded action can be completed from current evidence, return CONTINUE immediately with the exact blocker and do not repeat exploration. "

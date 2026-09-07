@@ -3,10 +3,17 @@ set -Eeuo pipefail
 
 readonly REPO_ROOT="${BIELLA_REPO_ROOT:-/root/biella/repos/biella-engine}"
 readonly REMOTE_REF="refs/remotes/origin/main"
+readonly BIELLA_SOURCE_SYNC_INSTALLER="${BIELLA_SOURCE_SYNC_INSTALLER:-}"
 
 fail() {
   printf 'Biella source alignment blocked: %s\n' "$*" >&2
   exit 75
+}
+
+refresh_installed_controller() {
+  [[ -z "$BIELLA_SOURCE_SYNC_INSTALLER" ]] && return 0
+  [[ -x "$BIELLA_SOURCE_SYNC_INSTALLER" ]] || fail "aligned controller installer missing: $BIELLA_SOURCE_SYNC_INSTALLER"
+  "$BIELLA_SOURCE_SYNC_INSTALLER" >/dev/null
 }
 
 [[ -d "$REPO_ROOT/.git" ]] || fail "canonical Git checkout missing at $REPO_ROOT"
@@ -18,11 +25,13 @@ local_head="$(git -C "$REPO_ROOT" rev-parse HEAD)"
 remote_head="$(git -C "$REPO_ROOT" rev-parse "$REMOTE_REF")"
 
 if [[ "$local_head" == "$remote_head" ]]; then
+  refresh_installed_controller
   printf 'Biella source aligned at %s\n' "$local_head"
   exit 0
 fi
 
 if git -C "$REPO_ROOT" merge-base --is-ancestor "$remote_head" "$local_head"; then
+  refresh_installed_controller
   printf 'Biella source has preserved local progress ahead of origin/main: %s\n' "$local_head"
   exit 0
 fi
@@ -71,4 +80,5 @@ PY
 git -C "$REPO_ROOT" merge --ff-only --quiet "$REMOTE_REF" || fail "safe fast-forward failed"
 new_head="$(git -C "$REPO_ROOT" rev-parse HEAD)"
 [[ "$new_head" == "$remote_head" ]] || fail "post-fast-forward HEAD does not match origin/main"
+refresh_installed_controller
 printf 'Biella source fast-forwarded safely to %s\n' "$new_head"

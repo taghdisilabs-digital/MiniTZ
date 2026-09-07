@@ -941,6 +941,33 @@ def _persist_until_success(repo_root: Path, task_id: str, runtime_path: Path, te
         return identity
 
 
+def _customer_pause_requested(runtime_root: Path) -> bool:
+    return (Path(runtime_root) / "customer-pause-request.json").is_file()
+
+
+def _acknowledge_customer_pause(repo_root: Path, project_root: Path, runtime_root: Path, runtime_path: Path, telemetry: dict[str, Any], journal: production_events.ProductionEventJournal) -> None:
+    production = state.load_project_production(project_root)
+    current = state.next_task(production)
+    task_id = current.id if current is not None else None
+    telemetry.update({
+        "status": "PAUSED_FOR_CUSTOMER", "task_id": task_id, "child_pid": None,
+        "active_model": None, "active_reasoning": None,
+    })
+    head = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD"], text=True).strip()
+    tree = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD^{tree}"], text=True).strip()
+    ack = {
+        "schema": "biella.customer_pause_ack/v1", "acknowledged_at": datetime.now(timezone.utc).isoformat(),
+        "task_id": task_id, "attempt": int(telemetry.get("attempt") or 0), "child_pid": None,
+        "task_session_id": telemetry.get("task_session_id"), "repo_head": head, "repo_tree": tree,
+    }
+    path = Path(runtime_root) / "customer-pause-ack.json"
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(json.dumps(ack, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+    os.replace(tmp, path)
+    journal.emit("production.customer_pause", task_id=task_id, status="PAUSED", text="Safe customer-resource checkpoint acknowledged")
+    _beat(runtime_path, telemetry)
+
+
 def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, heartbeat_interval: float = 30.0) -> int:
     repo_root = Path(repo_root); project_root = Path(project_root); runtime_root = Path(runtime_root)
     runtime_root.mkdir(parents=True, exist_ok=True)
@@ -953,11 +980,17 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
     lock = ProductionLock(runtime_root / "run.lock"); lock.acquire()
     try:
         telemetry = load_runtime(runtime_path)
+        reconciled_cooldowns = routing.reconcile_legacy_account_cooldowns(telemetry.get("cooldowns", {}))
+        if reconciled_cooldowns != dict(telemetry.get("cooldowns", {}) or {}):
+            telemetry["cooldowns"] = reconciled_cooldowns
         telemetry.update({"status": "RUNNING", "project": "biella-games", "pid": os.getpid(), "child_pid": None})
         journal.emit("production.started", task_id=telemetry.get("task_id"), status="RUNNING", text="Biella production runner active")
         _beat(runtime_path, telemetry)
         catalog: Mapping[str, set[str]] | None = None
         while True:
+            if _customer_pause_requested(runtime_root):
+                _acknowledge_customer_pause(repo_root, project_root, runtime_root, runtime_path, telemetry, journal)
+                return 0
             if not _guard_source_alignment(repo_root, runtime_path, telemetry, journal):
                 return SOURCE_REFRESH_EXIT
             if catalog is None:

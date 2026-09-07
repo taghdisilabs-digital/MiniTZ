@@ -32,6 +32,7 @@ install -o root -g root -m 755 \
   "$SOURCE_DIR/biella-saturn-probe.py" \
   "$SOURCE_DIR/biella-codex.sh" \
   "$SOURCE_DIR/biella-production-source-sync.sh" \
+  "$SOURCE_DIR/biella_customer_handoff.py" \
   "$SOURCE_DIR/biella_production_runner.py" \
   "$INSTALL_DIR/"
 install -o root -g root -m 644 \
@@ -45,6 +46,7 @@ install -o root -g root -m 644 \
   "$SOURCE_DIR/biella_production_evidence.py" \
   "$INSTALL_DIR/"
 install -o root -g root -m 644 "$SOURCE_DIR/biella-codex-production.service" "$PRODUCTION_UNIT"
+install -o root -g root -m 644 "$SOURCE_DIR/biella-customer-handoff@.service" /etc/systemd/system/biella-customer-handoff@.service
 systemctl daemon-reload
 if [[ "$production_unit_existed" -eq 0 || "$production_enablement" == "enabled" ]]; then
   systemctl enable biella-codex-production.service >/dev/null

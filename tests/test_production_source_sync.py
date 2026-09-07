@@ -79,3 +79,11 @@ def test_source_sync_allows_local_ahead_without_rewriting_history(tmp_path: Path
     completed = _sync(local)
     assert completed.returncode == 0, completed.stderr
     assert _run("git", "rev-parse", "HEAD", cwd=local).stdout.strip() == before
+
+
+def test_source_sync_can_refresh_installed_controller_from_aligned_checkout():
+    script = SCRIPT.read_text(encoding="utf-8")
+    unit = (ROOT / "ops/local-ai/biella-codex-production.service").read_text(encoding="utf-8")
+    assert "BIELLA_SOURCE_SYNC_INSTALLER" in script
+    assert '"$BIELLA_SOURCE_SYNC_INSTALLER"' in script
+    assert "Environment=BIELLA_SOURCE_SYNC_INSTALLER=/root/biella/repos/biella-engine/ops/local-ai/install-biella-ai.sh" in unit

@@ -33,6 +33,7 @@ _ACCOUNT_RECOVERY_ROUTES = (
     Route("gpt-5.6-luna", "max"),
     Route("gpt-5.3-codex-spark", "xhigh"),
 )
+_DISCOVERED_STRONG_RECOVERY_ROUTES = (Route("gpt-reserve", "max"),)
 _BOUNDED_FALLBACK_MODELS = {"gpt-5.3-codex-spark", _LOCAL_OSS_MODEL}
 
 
@@ -47,16 +48,21 @@ def bounded_fallback_models() -> tuple[str, ...]:
 def cloud_models() -> tuple[str, ...]:
     routes = [route for profile in _ROUTE_PROFILES.values() for route in profile]
     routes.extend(_ACCOUNT_RECOVERY_ROUTES)
+    routes.extend(_DISCOVERED_STRONG_RECOVERY_ROUTES)
     return tuple(dict.fromkeys(route.model for route in routes if route.provider == "openai"))
 
 
 def account_usage_cooldown_models(failed_model: str) -> tuple[str, ...]:
-    reserved = {"gpt-5.6-luna", "gpt-5.3-codex-spark"}
-    if failed_model == "gpt-5.6-luna":
-        reserved = {"gpt-5.3-codex-spark"}
-    elif failed_model == "gpt-5.3-codex-spark":
-        reserved = set()
-    return tuple(model for model in cloud_models() if model not in reserved)
+    return (str(failed_model),)
+
+
+def reconcile_legacy_account_cooldowns(cooldowns: Mapping[str, str]) -> dict[str, str]:
+    current = {str(model): str(until) for model, until in cooldowns.items()}
+    known = [model for model in current if model in set(cloud_models())]
+    values = {current[model] for model in known}
+    if len(known) >= 4 and len(values) == 1:
+        return {model: until for model, until in current.items() if model not in set(known)}
+    return current
 
 
 def reasoning_rank(effort: str) -> int:
@@ -89,7 +95,12 @@ def select_route(task_class: str, catalog: Mapping[str, set[str]], cooldowns: Ma
         if task_class in {"creation", "hard_creation"} and reasoning_rank(route.reasoning) < reasoning_rank("high"):
             continue
         return route
-    for route in _ACCOUNT_RECOVERY_ROUTES:
+    recovery_routes = (
+        _ACCOUNT_RECOVERY_ROUTES[0],
+        *_DISCOVERED_STRONG_RECOVERY_ROUTES,
+        *_ACCOUNT_RECOVERY_ROUTES[1:],
+    )
+    for route in recovery_routes:
         if route.model in excluded or _cooling_down(route.model, cooldowns, now):
             continue
         if route.model in catalog and route.reasoning in catalog[route.model]:

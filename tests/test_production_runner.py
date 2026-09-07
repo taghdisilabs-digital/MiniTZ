@@ -790,27 +790,25 @@ def test_local_provider_compatibility_failure_cools_local_route_without_hot_loop
     assert telemetry["last_result"]["status"] == "MODEL_RECOVERY"
 
 
-def test_account_usage_limit_reserves_luna_then_spark_before_local():
+def test_account_usage_limit_cools_only_the_observed_failed_model():
     telemetry = runner.initial_runtime()
     detail = "You've hit your usage limit. Visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Sep 12th, 2026 9:41 PM."
     expected = "2026-09-12T21:41:00+00:00"
 
-    runner._set_failure(telemetry, routing.Route("gpt-6-astra", "ultra"), detail, "D03-01")
+    for model, reasoning in (
+        ("gpt-6-astra", "ultra"),
+        ("gpt-5.6-terra", "ultra"),
+        ("gpt-5.6-sol", "ultra"),
+        ("gpt-5.6-luna", "max"),
+        ("gpt-5.3-codex-spark", "xhigh"),
+    ):
+        runner._set_failure(telemetry, routing.Route(model, reasoning), detail, "D03-01")
+        assert telemetry["cooldowns"].get(model) == expected
+    assert set(telemetry["cooldowns"]) == {
+        "gpt-6-astra", "gpt-5.6-terra", "gpt-5.6-sol",
+        "gpt-5.6-luna", "gpt-5.3-codex-spark",
+    }
     assert telemetry["status"] == "RECOVERING_MODEL"
-    assert telemetry["cooldowns"].get("gpt-5.6-luna") is None
-    assert telemetry["cooldowns"].get("gpt-5.3-codex-spark") is None
-    assert all(
-        telemetry["cooldowns"].get(model) == expected
-        for model in routing.cloud_models()
-        if model not in {"gpt-5.6-luna", "gpt-5.3-codex-spark"}
-    )
-
-    runner._set_failure(telemetry, routing.Route("gpt-5.6-luna", "max"), detail, "D03-01")
-    assert telemetry["cooldowns"].get("gpt-5.6-luna") == expected
-    assert telemetry["cooldowns"].get("gpt-5.3-codex-spark") is None
-
-    runner._set_failure(telemetry, routing.Route("gpt-5.3-codex-spark", "xhigh"), detail, "D03-01")
-    assert all(telemetry["cooldowns"].get(model) == expected for model in routing.cloud_models())
     assert telemetry["last_result"]["retry_at"] == expected
 
 
@@ -827,14 +825,23 @@ def test_account_usage_limit_fallback_sequence_reaches_bounded_local_route(tmp_p
     }
     telemetry = runner.initial_runtime()
     detail = "You've hit your usage limit. Visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Sep 12th, 2026 9:41 PM."
-    runner._set_failure(telemetry, routing.Route("gpt-6-astra", "ultra"), detail, task.id)
-    route, _packet = runner._select_task_route(task, catalog, telemetry["cooldowns"], datetime.now(timezone.utc), telemetry, repo, project)
-    assert route == routing.Route("gpt-5.6-luna", "max")
-    runner._set_failure(telemetry, route, detail, task.id)
-    route, _packet = runner._select_task_route(task, catalog, telemetry["cooldowns"], datetime.now(timezone.utc), telemetry, repo, project)
-    assert route == routing.Route("gpt-5.3-codex-spark", "xhigh")
-    runner._set_failure(telemetry, route, detail, task.id)
-    route, packet = runner._select_task_route(task, catalog, telemetry["cooldowns"], datetime.now(timezone.utc), telemetry, repo, project)
+    sequence = [
+        routing.Route("gpt-6-astra", "ultra"),
+        routing.Route("gpt-5.6-terra", "ultra"),
+        routing.Route("gpt-5.6-sol", "ultra"),
+        routing.Route("gpt-5.6-luna", "max"),
+        routing.Route("gpt-5.3-codex-spark", "xhigh"),
+    ]
+    for failed, expected_next in zip(sequence, sequence[1:]):
+        runner._set_failure(telemetry, failed, detail, task.id)
+        route, _packet = runner._select_task_route(
+            task, catalog, telemetry["cooldowns"], datetime.now(timezone.utc), telemetry, repo, project
+        )
+        assert route == expected_next
+    runner._set_failure(telemetry, sequence[-1], detail, task.id)
+    route, packet = runner._select_task_route(
+        task, catalog, telemetry["cooldowns"], datetime.now(timezone.utc), telemetry, repo, project
+    )
     assert route == routing.Route("qwen3-coder-next:biella", "none", "ollama")
     assert routing.is_bounded_fallback(route)
     assert packet
@@ -1002,3 +1009,27 @@ def test_source_alignment_failure_does_not_spin_persistence_retry(tmp_path: Path
 def test_installer_copies_source_sync_bootstrap():
     installer = (LOCAL_AI / "install-biella-ai.sh").read_text()
     assert '"$SOURCE_DIR/biella-production-source-sync.sh"' in installer
+
+
+def test_customer_pause_request_exits_at_safe_boundary_without_model_call(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    subprocess.run(["git", "init", "-q", "-b", "main", str(repo)], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.name", "Test"], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.email", "test@example.invalid"], check=True)
+    subprocess.run(["git", "-C", str(repo), "add", "."], check=True)
+    subprocess.run(["git", "-C", str(repo), "commit", "-qm", "base"], check=True)
+    runtime_root = tmp_path / "runtime"
+    runtime_root.mkdir(parents=True)
+    (runtime_root / "customer-pause-request.json").write_text(
+        '{"schema":"biella.customer_pause_request/v1"}\n'
+    )
+    monkeypatch.setattr(
+        runner.routing, "discover_catalog",
+        lambda: (_ for _ in ()).throw(AssertionError("model catalog must not be touched after pause request")),
+    )
+    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
+    runtime = runner.load_runtime(runtime_root / "runtime.json")
+    assert runtime["status"] == "PAUSED_FOR_CUSTOMER"
+    ack = json.loads((runtime_root / "customer-pause-ack.json").read_text())
+    assert ack["task_id"] == "D01-30"
+    assert ack["child_pid"] is None

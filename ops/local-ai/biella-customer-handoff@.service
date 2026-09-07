@@ -1,0 +1,15 @@
+[Unit]
+Description=Biella Customer Resource Handoff (%i)
+RequiresMountsFor=/mnt/biella-extra
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+Environment=BIELLA_REPO_ROOT=/root/biella/repos/biella-engine
+Environment=BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT=/mnt/biella-extra/biella-runtime/codex-production
+Environment=BIELLA_CUSTOMER_HANDOFF_ROOT=/mnt/biella-extra/biella-runtime/customer-handoff
+Environment=BIELLA_EXTERNAL_LESSON_SOURCE=/run/project-sandbox-broker/biella-lessons.json
+Environment=BIELLA_EXTERNAL_LESSON_INBOX=/root/biella/artifacts/external-lessons/inbox
+ExecStart=/usr/local/lib/biella-ai/biella_customer_handoff.py %i
+TimeoutStartSec=3700

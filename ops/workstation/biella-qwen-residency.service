@@ -4,6 +4,7 @@ After=biella-ollama.service
 Wants=biella-ollama.service
 
 [Service]
+ExecCondition=+/usr/local/lib/biella-ai/biella_customer_handoff.py guard-production
 Type=simple
 User=ollama
 Group=ollama

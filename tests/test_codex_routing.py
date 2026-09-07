@@ -228,3 +228,27 @@ def test_local_resume_command_preserves_session_with_ollama_and_no_plugins(tmp_p
     assert session_id in cmd
     assert "--disable plugins" in joined
     assert "--search" not in cmd
+
+
+def test_catalog_discovered_reserve_is_strong_recovery_before_bounded_fallback():
+    current = catalog()
+    current["gpt-reserve"] = {"low", "medium", "high", "xhigh", "max"}
+    until = "2026-09-12T21:41:00+00:00"
+    cooldowns = {model: until for model in catalog()}
+    route = routing.select_route("hard_creation", current, cooldowns, NOW)
+    assert route == routing.Route("gpt-reserve", "max")
+    assert not routing.is_bounded_fallback(route)
+
+
+def test_account_usage_cooldown_is_scoped_to_observed_failed_model():
+    assert routing.account_usage_cooldown_models("gpt-6-astra") == ("gpt-6-astra",)
+    assert routing.account_usage_cooldown_models("gpt-5.6-luna") == ("gpt-5.6-luna",)
+    assert routing.account_usage_cooldown_models("gpt-5.3-codex-spark") == ("gpt-5.3-codex-spark",)
+
+
+def test_legacy_blanket_cooldowns_are_dropped_but_individual_cooldowns_survive():
+    until = "2026-09-12T21:41:00+00:00"
+    blanket = {model: until for model in catalog()}
+    assert routing.reconcile_legacy_account_cooldowns(blanket) == {}
+    individual = {"gpt-6-astra": until, "gpt-5.6-luna": "2026-09-11T10:00:00+00:00"}
+    assert routing.reconcile_legacy_account_cooldowns(individual) == individual
