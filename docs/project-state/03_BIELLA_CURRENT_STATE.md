@@ -5,8 +5,8 @@ schema: biella.current_state/v11
 state_class: VOLATILE
 update_rule: replace_stale_values; preserve_valid_progress_capabilities_evidence
 observed_date: 2026-09-07
-observed_at_utc: 2026-09-07T21:41:53+00:00
-observed_at_europe_amsterdam: 2026-09-07T23:41:53+02:00
+observed_at_utc: 2026-09-07T22:05:35+00:00
+observed_at_europe_amsterdam: 2026-09-08T00:05:35+02:00
 
 authority:
   if_conflict: [CURRENT_EXECUTION_STATE, CURRENT_GITHUB_SOURCE, CURRENT_CANONICAL_DRIVE, VERIFIED_HISTORICAL_EVIDENCE, REFERENCE_OR_PLAN, INFERENCE]
@@ -17,17 +17,17 @@ repository:
   repository: patrickminitz-web/biella-engine
   branch: main
   canonical_checkout: /root/biella/repos/biella-engine
-  observed_head_commit: e59306509860c0bb53f47411aed0d07632d7ef01
-  observed_head_tree: fdedeb4ccd6846f8d8f49c65e2f66c1336de9db8
-  github_main_readback_commit: e59306509860c0bb53f47411aed0d07632d7ef01
-  implementation_commit: e59306509860c0bb53f47411aed0d07632d7ef01
-  implementation_tree: fdedeb4ccd6846f8d8f49c65e2f66c1336de9db8
+  observed_head_commit: 85cb956e3434ac363c2fbaa472a8f661c7eaf117
+  observed_head_tree: 655cce311debff38d93bf3a8a654d32d532d20ba
+  github_main_readback_commit: 85cb956e3434ac363c2fbaa472a8f661c7eaf117
+  implementation_commit: 85cb956e3434ac363c2fbaa472a8f661c7eaf117
+  implementation_tree: 655cce311debff38d93bf3a8a654d32d532d20ba
   source_alignment_gate: VERIFIED_GITHUB_MAIN_SAFE_FAST_FORWARD_OR_FAIL_CLOSED
   customer_handoff_mode: FIRST_CUSTOMER_CHECKPOINT_SLEEP_LAST_CUSTOMER_AUTOMATIC_RESTORE
   customer_resume_target: LOCAL_BIELLA_PRODUCTION_OLLAMA_QWEN_ACTIVE_ENABLED
-  customer_handoff_checkpoint: /mnt/biella-extra/biella-runtime/customer-handoff/active.json
-  customer_handoff_checkpoint_sha256: b8cf3a67307b78a6e15372b1ff27f08d43c022edd0d754babb56fda41e31ef1b
-  customer_handoff_running_customer_count: 2
+  customer_handoff_checkpoint: null
+  customer_handoff_checkpoint_sha256: null
+  customer_handoff_running_customer_count: 0
   legacy_blanket_cooldown_reconciliation: ARMED_ON_NEXT_PRODUCTION_START
   production_runner_source: /root/biella/repos/biella-engine/ops/local-ai/biella_production_runner.py
   installer_sleep_preservation: VERIFIED_EXISTING_DISABLED_STATE_PRESERVED
@@ -47,7 +47,7 @@ active_execution:
   id: D03-01
   project: Biella Games
   section: post_d01
-  state: SLEEPING_CUSTOMER_RESOURCE_HELD
+  state: RESUME_OWNER_REQUESTED
   controller: biella-codex
   controller_service_state: INACTIVE
   runner_process_state: STOPPED
@@ -58,20 +58,25 @@ active_execution:
   prior_invalidated_executor_session_id: 01a07931-fb65-7af1-830d-83afb2ee5d8d
   latest_bounded_fallback_session_id: 01a07a15-b528-7a43-afd7-e84ff3c1ccc9
   session_rotation_reason: CONTEXT_BLACKHOLE_AND_STALE_FRONTIER
-  latest_attempt: 294
+  latest_attempt: 295
   active_model: null
   active_reasoning: null
   current_increment: PORTABLE_PSO_SEED_AND_LOADING_DISPLAY_COLD_START_QUALIFICATION
   task_memory_status: CONTINUE
-  runtime_json_status: WAITING_FOR_STRONG_MODEL_STALE_WHILE_SERVICE_ASLEEP
+  runtime_json_status: READY_FOR_FRESH_GPT_RESERVE_MAX_SESSION
   no_progress_model: qwen3-coder-next:biella
   no_progress_packet_id: d8667b37c1e5713dd82876a90d5ea7edf4eefa9f874a182265833840d4c84d99
   bounded_fallback_open_defect: RECOVERED_SELF_CONTAINED_BOUNDED_PACKET_EMBEDS_TASK_MEMORY_GUIDE_AND_PROJECTION
   bounded_fallback_defect_effect: ATTEMPT_294_EMPTY_MEMORY_STATEMENT_INVALIDATED; FUTURE_BOUNDED_PACKETS_SELF_CONTAINED_AND_NO_PROGRESS_DEDUPLICATED
-  sleep_order: /mnt/biella-extra/biella-runtime/codex-production/memory/owner-sleep-order.json
-  sleep_order_sha256: 9b7f9fec7c9884b8339e1f0b805f4375d2da55dc853c2b992d981dcd92126345
-  task_memory_sha256: 412bc1ddcf2d0223f11d3e1df4f74cf2c1e20e3ebcde32312e7b35fcaab49f53
-  compact_projection_sha256: d6bad4fbffd1d68e8941c997bfccc02bac1463027f87f4c305b4303851d82178
+  superseded_sleep_order: /mnt/biella-extra/biella-runtime/codex-production/memory/owner-sleep-order.json
+  superseded_sleep_order_sha256: 9b7f9fec7c9884b8339e1f0b805f4375d2da55dc853c2b992d981dcd92126345
+  owner_resume_order: /mnt/biella-extra/biella-runtime/codex-production/memory/owner-resume-order.json
+  owner_resume_order_sha256: 8af95d146bfbc191b062657f6be6058b82033e57053a5c0f98d4f6a7a09e5de9
+  stale_owner_resume_session_id: 01a07de2-cfe7-7a52-a941-f0a0aa7f5bd5
+  forced_strong_route: gpt-reserve
+  forced_strong_reasoning: max
+  task_memory_sha256: 8fca27885e818c134a0815764b04a5a418a2c4c73a7ba2a90ff813c7935cb1fd
+  compact_projection_sha256: 02f688e832e0a3cff879d1ab156f11977e75ac8a38223a5ec34cdff4a5af8012
   bounded_session_identity_guard: VERIFIED_BOUNDED_EXECUTOR_SESSION_NEVER_PERSISTS
   session_derivative_recovery_status: RECOVERED
   session_derivative_recovery_backup: /mnt/biella-extra/biella-runtime/codex-production/recovery/20260907T170250Z-bounded-session-derivative-repair
@@ -87,7 +92,7 @@ project_cells:
   remote_assistance_role: REPLACEABLE_DELEGATED_SUBTASK_PROVIDER_NON_CANONICAL
   cross_project_state_leakage: FORBIDDEN
   feiz-english-institute:
-    state: RUNNING
+    state: PAUSED_OWNER_PREEMPTED_FOR_BIELLA_RESERVE
     manifest: /mnt/biella-extra/biella-runtime/project-cells/feiz-english-institute/manifest.json
     manifest_sha256: e541476e973bdb7d2ce223aa5f943ef9f22e92f1391a9daa931e7035518699ac
     engine_project_ref: prj_b66f0432825e403c92395afacf9f8667
@@ -96,8 +101,8 @@ project_cells:
     task_id: UNVERIFIED
     objective: UNVERIFIED
     acceptance: UNVERIFIED
-    checkpoint_id: chk_b4b57e0f23e64cf38d6337a4fc07084c
-    checkpoint_sha256: e7b096e356db0858ac7bae636ee276b47aa1f635ffa79af304e91c17b2faa1eb
+    checkpoint_id: chk_a26b612dabda492b9dcc704f7fa7a603
+    checkpoint_sha256: 0c359af4449ce7655a977bdfdb6c0ee895535e8daf07864bd1763c060d9162f8
     repository_head: 58e153b7418a274259bca0e31fef4f1c84270890
     task_envelope: /mnt/biella-extra/biella-runtime/project-cells/feiz-english-institute/task-envelope.json
     task_envelope_sha256: 8929755dc92f0053a2c9c3e435ff52d43ad46bc5fa598494a0c609e0b4bcf6aa
@@ -105,7 +110,7 @@ project_cells:
     remote_requests: 0
     remote_responses: 0
   feiz-english-institute-v4:
-    state: RUNNING
+    state: PAUSED_OWNER_PREEMPTED_FOR_BIELLA_RESERVE
     manifest: /mnt/biella-extra/biella-runtime/project-cells/feiz-english-institute-v4/manifest.json
     manifest_sha256: ac86083819dec709b1031160b9b24f6ae8f1bced27f1192c347a5e1a1b76cbfc
     engine_project_ref: prj_4d45763d6d3641baa3d04ac1368300c9
@@ -114,8 +119,8 @@ project_cells:
     task_id: UNVERIFIED
     objective: UNVERIFIED
     acceptance: UNVERIFIED
-    checkpoint_id: chk_668852a9fc3e42a386c1abaef37ab385
-    checkpoint_sha256: 84e6e146344f63fe75d76bf00f0f95774691d451bb4b74fdd01b62807931d64c
+    checkpoint_id: chk_c555f4e922484f86a175787da19550c0
+    checkpoint_sha256: 8efc43f5e9a58ce8ae7c4d16b2979c1f2a6401e237a8e41670446ee016574f7c
     repository_head: 8080bceed5ca815a32b473ba50f88d2eafa5e083
     task_envelope: /mnt/biella-extra/biella-runtime/project-cells/feiz-english-institute-v4/task-envelope.json
     task_envelope_sha256: 1017b648343674c350f8ff3b7ad640d9e62c0b75d2b3b1f74269230e61ed547e
@@ -131,7 +136,7 @@ games:
   production_completed_tasks: 59
   production_total_tasks: 168
   production_progress_percent: 35.1
-  task_boundary: D03-01_SLEEPING_CUSTOMER_RESOURCE_HELD
+  task_boundary: D03-01_RESUME_OWNER_REQUESTED_GPT_RESERVE_MAX
   current_frontier: portable_PSO_seed_plus_native_loading_display_cold_start
   qualification_retrieval_index: /root/biella/artifacts/games/D03-01/D03-01-qualification-retrieval-index.json
   qualification_retrieval_index_sha256: 158c8ea507739d6ad785355c243f46e0478b3f5fc74cfd1c8e9bb8eb27a27efe
@@ -149,8 +154,8 @@ continuation_policy:
   advance_after: CURRENT_TASK_DURABLE_CLOSURE
   completed_work_reuse: REQUIRED
   no_rollback_or_redo_without_invalidation: true
-  sleep_rule: DO_NOT_EXECUTE_OR_ADVANCE_WHILE_ANY_EXTERNAL_CUSTOMER_RESOURCE_LEASE_IS_HELD; LAST_CUSTOMER_RELEASE_AUTOMATICALLY_RESTORES_BIELLA
-  resume_rule: LAST_CUSTOMER_RELEASE_RESTORES_LOCAL_SERVICES_AND_STARTS_FRESH_STRONG_EXECUTOR_FROM_CURRENT_TASK_MEMORY_GUIDE_AND_EXACT_PSO_LOADING_FRONTIER
+  sleep_rule: NO_CUSTOMER_RESOURCE_LEASE_HELD; OWNER_RESUME_SUPERSEDES_PRIOR_SLEEP_ORDER
+  resume_rule: START_FRESH_GPT_RESERVE_MAX_EXECUTOR_FROM_CURRENT_TASK_MEMORY_GUIDE_AND_EXACT_PSO_LOADING_FRONTIER
   strong_route_authority: ASTRA_TERRA_SOL_LUNA_OR_CATALOG_DISCOVERED_GPT_RESERVE_FULL_TASK_SYNTHESIS_AND_CLOSURE
   bounded_outage_fallback: SPARK_THEN_QWEN_ONE_SMALL_TECHNICAL_OUTCOME_PER_FRESH_PACKET
   bounded_whole_task_completion: FORBIDDEN
@@ -162,7 +167,7 @@ continuation_policy:
 resources:
   provider_registry: ops/workstation/provider-registry.json
   provider_registry_sha256: c5c2f91f645b553b0164ade4ebfc3866649bb97e7ad82dbdbd7a9bc95781cb5d
-  local_qwen_service: INACTIVE_CUSTOMER_ISOLATION
+  local_qwen_service: ACTIVE_AVAILABLE_AS_NON_AUTHORITATIVE_RESOURCE
   local_qwen_identity: qwen3-coder-next:biella
   qwen_reasoning_protocol: NONE_COMPATIBILITY_MODE_NORMAL_MODEL_INFERENCE_REMAINS
   external_project_sandbox_broker: VERIFIED_REPLACEABLE_PROJECT_CELL_RUNTIME_RESOURCE

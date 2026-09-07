@@ -9,8 +9,8 @@ task:
   section: post_d01
   class: hard_creation
   title: Production rendering, animation, VFX, and audio quality
-  status: SLEEPING_CUSTOMER_RESOURCE_HELD
-  runner: SLEEPING
+  status: RESUME_OWNER_REQUESTED
+  runner: READY_TO_START
 
   authority:
     - Mahdi Taghdisi latest explicit instruction, 2026-09-07
@@ -21,16 +21,16 @@ task:
   continuity:
     completed_predecessor: D02-04
     production_source: projects/biella-games/docs/PRODUCTION.md
-    observed_repository_head: e59306509860c0bb53f47411aed0d07632d7ef01
-    observed_repository_tree: fdedeb4ccd6846f8d8f49c65e2f66c1336de9db8
-    implementation_commit: e59306509860c0bb53f47411aed0d07632d7ef01
-    implementation_tree: fdedeb4ccd6846f8d8f49c65e2f66c1336de9db8
+    observed_repository_head: 85cb956e3434ac363c2fbaa472a8f661c7eaf117
+    observed_repository_tree: 655cce311debff38d93bf3a8a654d32d532d20ba
+    implementation_commit: 85cb956e3434ac363c2fbaa472a8f661c7eaf117
+    implementation_tree: 655cce311debff38d93bf3a8a654d32d532d20ba
     source_alignment_gate: VERIFIED_GITHUB_MAIN_PRE_EXECUTION_AND_POST_TURN_FAIL_CLOSED
     customer_handoff_mode: FIRST_CUSTOMER_CHECKPOINT_SLEEP_LAST_CUSTOMER_AUTOMATIC_RESTORE
     customer_resume_target: LOCAL_BIELLA_PRODUCTION_OLLAMA_QWEN_ACTIVE_ENABLED
-    customer_handoff_checkpoint: /mnt/biella-extra/biella-runtime/customer-handoff/active.json
-    customer_handoff_checkpoint_sha256: b8cf3a67307b78a6e15372b1ff27f08d43c022edd0d754babb56fda41e31ef1b
-    customer_handoff_running_customer_count: 2
+    customer_handoff_checkpoint: null
+    customer_handoff_checkpoint_sha256: null
+    customer_handoff_running_customer_count: 0
     verified_external_broker_commit: cdb3c43071641e8e15979ad187b26517f5e6a9ab
     verified_external_broker_tree: 9826274a2518c48350e974e9cf34eb19bc4e820c
     external_broker_validation: 60_UNIT_PLUS_8_SUBTESTS_PLUS_9_HOST_ACCEPTANCE_PASS
@@ -41,25 +41,30 @@ task:
     adopted_project_cells: [feiz-english-institute, feiz-english-institute-v4]
     project_cell_engine_database: /mnt/biella-extra/biella-runtime/project-cells/engine.sqlite3
     project_cell_engine_database_sha256: b0ea0710ddea4978907046d92d91c9b238b35a5ea3968dfa359f702d3793406b
-    feiz_cell_checkpoint: chk_b4b57e0f23e64cf38d6337a4fc07084c
-    feiz_cell_checkpoint_sha256: e7b096e356db0858ac7bae636ee276b47aa1f635ffa79af304e91c17b2faa1eb
-    feiz_v4_cell_checkpoint: chk_668852a9fc3e42a386c1abaef37ab385
-    feiz_v4_cell_checkpoint_sha256: 84e6e146344f63fe75d76bf00f0f95774691d451bb4b74fdd01b62807931d64c
+    feiz_cell_checkpoint: chk_a26b612dabda492b9dcc704f7fa7a603
+    feiz_cell_checkpoint_sha256: 0c359af4449ce7655a977bdfdb6c0ee895535e8daf07864bd1763c060d9162f8
+    feiz_v4_cell_checkpoint: chk_c555f4e922484f86a175787da19550c0
+    feiz_v4_cell_checkpoint_sha256: 8efc43f5e9a58ce8ae7c4d16b2979c1f2a6401e237a8e41670446ee016574f7c
     authoritative_persistent_task_session_id: null
     prior_invalidated_executor_session_id: 01a07931-fb65-7af1-830d-83afb2ee5d8d
     latest_bounded_fallback_session_id: 01a07a15-b528-7a43-afd7-e84ff3c1ccc9
-    latest_attempt: 294
-    model: null
-    reasoning: null
+    latest_attempt: 295
+    model: gpt-reserve
+    reasoning: max
     current_increment: PORTABLE_PSO_SEED_AND_LOADING_DISPLAY_COLD_START_QUALIFICATION
     task_memory: /mnt/biella-extra/biella-runtime/codex-production/task-memory/D03-01.json
-    task_memory_sha256: 412bc1ddcf2d0223f11d3e1df4f74cf2c1e20e3ebcde32312e7b35fcaab49f53
-    compact_projection_sha256: d6bad4fbffd1d68e8941c997bfccc02bac1463027f87f4c305b4303851d82178
+    task_memory_sha256: 8fca27885e818c134a0815764b04a5a418a2c4c73a7ba2a90ff813c7935cb1fd
+    compact_projection_sha256: 02f688e832e0a3cff879d1ab156f11977e75ac8a38223a5ec34cdff4a5af8012
     bounded_session_identity_guard: VERIFIED_BOUNDED_EXECUTOR_SESSION_NEVER_PERSISTS
     session_derivative_recovery_status: RECOVERED
     session_derivative_recovery_backup: /mnt/biella-extra/biella-runtime/codex-production/recovery/20260907T170250Z-bounded-session-derivative-repair
-    sleep_order: /mnt/biella-extra/biella-runtime/codex-production/memory/owner-sleep-order.json
-    sleep_order_sha256: 9b7f9fec7c9884b8339e1f0b805f4375d2da55dc853c2b992d981dcd92126345
+    superseded_sleep_order: /mnt/biella-extra/biella-runtime/codex-production/memory/owner-sleep-order.json
+    superseded_sleep_order_sha256: 9b7f9fec7c9884b8339e1f0b805f4375d2da55dc853c2b992d981dcd92126345
+    owner_resume_order: /mnt/biella-extra/biella-runtime/codex-production/memory/owner-resume-order.json
+    owner_resume_order_sha256: 8af95d146bfbc191b062657f6be6058b82033e57053a5c0f98d4f6a7a09e5de9
+    stale_owner_resume_session_id: 01a07de2-cfe7-7a52-a941-f0a0aa7f5bd5
+    reserve_supported_reasoning: [low, medium, high, xhigh, max]
+    reserve_ultra_supported: false
 
   preserve:
     - all completed predecessor tasks and exact evidence
@@ -71,9 +76,9 @@ task:
     - unrelated source/configuration without mutation
 
   execution_directive:
-    mode: SLEEP_D03_01_WHILE_EXTERNAL_CUSTOMER_RESOURCE_LEASE_HELD
-    execution: Do not start production, invoke Codex, advance the queue, or mutate D03 while any external customer resource lease is held. The last customer release automatically restores local Biella services and resumes this exact task under Mahdi latest instruction.
-    resume: Start from current task memory plus task guide plus exact PSO/loading evidence. Do not reuse the invalidated context-blackhole session and do not trust the attempt-294 local-Qwen statement that task memory/projection were empty; direct file read proves both files exist and are non-empty.
+    mode: RUN_D03_01_OWNER_RESUMED_GPT_RESERVE_MAX
+    execution: Start production now on GPT-Reserve max. The prior sleep order is superseded by Mahdi latest instruction; no customer resource lease is held. Continue only D03-01 and preserve all verified/uncommitted PSO-loading work.
+    resume: Start a fresh strong session from current task memory plus task guide plus exact PSO/loading evidence. Do not reuse the stale attempt-295 session created from sleeping authority or the older invalidated context-blackhole session.
     current_frontier: portable PSO seed plus native loading-display cold-start qualification
     task_guide: projects/biella-games/docs/task-guides/D03-01.md
     retrieval_index: /root/biella/artifacts/games/D03-01/D03-01-qualification-retrieval-index.json
@@ -120,5 +125,5 @@ task:
     project_cell_execution_owner: BIELLA
     remote_assistance_provider: chatgpt_remote_REPLACEABLE_NON_CANONICAL
 
-  stop: Production remains asleep only while external customer resource use is active. Last-customer release automatically restores local Biella services and resumes D03-01 from preserved task memory/evidence; source-pack refresh alone never changes task progress.
+  stop: Owner resume is active. Customer cells are durably paused; production is authorized to run D03-01 on GPT-Reserve max until a new customer lease or newer owner instruction changes the state.
 ```
