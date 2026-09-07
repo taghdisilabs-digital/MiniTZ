@@ -9,11 +9,11 @@ task:
   section: post_d01
   class: hard_creation
   title: Production rendering, animation, VFX, and audio quality
-  status: RUNNING
-  runner: RUNNING
+  status: SLEEPING_OWNER_REQUESTED
+  runner: SLEEPING
 
   authority:
-    - Mahdi Taghdisi latest explicit instruction, 2026-09-06
+    - Mahdi Taghdisi latest explicit instruction, 2026-09-07
     - current observed execution state
     - docs/project-state/03_BIELLA_CURRENT_STATE.md
     - projects/biella-games/docs/PRODUCTION.md
@@ -21,37 +21,57 @@ task:
   continuity:
     completed_predecessor: D02-04
     production_source: projects/biella-games/docs/PRODUCTION.md
-    task_session_id: 01a07480-2c40-7d03-b649-d3f72807cc3e
-    attempt: 42
-    runner_pid: 2126038
-    codex_child_pid: 2228063
-    model: gpt-6-astra
-    reasoning: ultra
-    current_increment: FOOT_CONTACT_CORRECTION_IN_PROGRESS
-    last_verified_increment_commit: 1898b568bf6c6dceae9dcf6aa66ef7a45a6f6e1d
+    implementation_commit: e6c997b0097651b0265cf6b4663049bc2eb65b30
+    implementation_tree: ef26e47bfb606bd3e7a8b41f5249adb57203eee2
+    task_session_id: null
+    prior_invalidated_executor_session_id: 01a07931-fb65-7af1-830d-83afb2ee5d8d
+    session_rotation_reason: CONTEXT_BLACKHOLE_AND_STALE_FRONTIER
+    attempt: 293
+    model: null
+    reasoning: null
+    current_increment: PORTABLE_PSO_SEED_AND_LOADING_DISPLAY_COLD_START_QUALIFICATION
+    task_memory: /mnt/biella-extra/biella-runtime/codex-production/task-memory/D03-01.json
+    task_memory_sha256: 8b03e7c7b81b8ad5ed811aa9ff9c015ce9d5f2f9c615daeec7525bc6f4255074
+    sleep_order: /mnt/biella-extra/biella-runtime/codex-production/memory/owner-sleep-order.json
+    sleep_order_sha256: 9b7f9fec7c9884b8339e1f0b805f4375d2da55dc853c2b992d981dcd92126345
 
   preserve:
     - all completed predecessor tasks and exact evidence
-    - all verified D03-01 rendering, animation, readability, and audio/VFX increments
-    - current D03-01 foot-contact implementation, tests, diagnostics, and outputs
-    - current task/session identity and task memory
+    - all verified D03-01 increments including terrain contact, aim/action/hit/defeat, vehicle/seat, reconstruction, SM5/SM6 package/fallback, handoff, automatic-PSO observation and cosmetic ground/package qualification
+    - current uncommitted D03-01 PSO/loading experiment bytes and all failed/success evidence
     - Engine P4-06 as INCOMPLETE_DEFERRED
     - one-repository/one-controller/one-current-task architecture
     - unrelated source/configuration without mutation
 
   execution_directive:
-    mode: CONTINUE_CURRENT_D03_01_SESSION_FROM_PRESERVED_STATE
-    preservation: Reuse every valid existing output; never restart, rollback, or redo verified work without material invalidation.
-    current_scope: Finish the remaining D03-01 work and task-derived validation only.
-    recovery: On failure, repair/rerun only the smallest invalidated boundary and preserve unaffected verified work.
-    volatile_state_rule: Never use 03/04 byte identity as a gameplay/runtime validation gate; they are volatile observer/continuity state.
-    local_ai_rule: Local Qwen is optional on-demand assistance and must never block the authoritative Codex turn.
-    progression: After D03-01 durable closure, automatically advance to the earliest unfinished task in projects/biella-games/docs/PRODUCTION.md and continue in canonical file order.
-    continuous_queue: Continue one task at a time through every unfinished canonical task until the current list is exhausted.
-    no_intertask_stop: Do not stop merely because a task completed, a model/session changed, a viewer opened/closed, or an optional Resource failed.
-    no_skip: Do not skip an earlier unfinished canonical task unless Mahdi explicitly changes priority/order.
-    no_redo: Do not rerun completed/verified work unless material input/source/artifact/validation/contract/authority is invalidated.
-    list_exhausted: Request a new task from Mahdi; absent a new task, perform bounded read-only discovery over current projects and registered capabilities.
+    authority: Mahdi Taghdisi explicit sleep-and-fix instruction, 2026-09-07
+    mode: SLEEP_CURRENT_D03_01_PRESERVE_STATE
+    execution: Do not start production, invoke Codex, advance the queue, or mutate D03 until Mahdi explicitly requests wake/resume.
+    resume: Start a fresh executor session from current task memory, task guide, exact current source and PSO/loading evidence; do not reuse the invalidated context-blackhole session.
+    current_frontier: portable PSO seed plus native loading-display cold-start qualification
+    task_guide: projects/biella-games/docs/task-guides/D03-01.md
+    retrieval_index: /root/biella/artifacts/games/D03-01/D03-01-qualification-retrieval-index.json
+    owner_support: /root/biella/artifacts/games/D03-01/D03-01-owner-support-guide-01.json
+    preservation: Reuse every verified output; never restart, rollback, reset, clean, stash, or redo without material invalidation.
+    cold_start_acceptance: Preserve existing no-crash/lineage/handoff controls and longest sampled static interval <1.0s with no unmeasured loading frames; no threshold relaxation.
+    seeded_failure_precision: 68 seeded file-cache tasks completed before LoadMap; later FinishDestroy timeout remains the observed boundary and direct causal attribution is forbidden without isolation evidence.
+    diagnostic_gc_timeout: gc.MaxTimeForFinishDestroyGC=40 is diagnostic-only when matched and read back; never ship or qualify the override.
+    display_motion_precision: distinguish continuous widget paint/geometry progression, render submission, and actual presented/display motion.
+    progression: After real D03-01 durable closure, advance to earliest unfinished canonical task; never skip or invent order.
+
+  bounded_outage_fallback:
+    strong_routes: Astra/Luna retain full-task synthesis and closure authority when available.
+    bounded_routes: Spark then local Qwen may execute one small technical outcome per fresh executor packet when strong routes are unavailable from observed calls.
+    packet: retrieval-first current task memory + compact projection + task guide + exact needed source/evidence; no broad accumulated conversation replay.
+    sandbox: workspace-write rooted at the Biella Games Project; bounded routes cannot freely mutate controller/authority files.
+    whole_task_complete: FORBIDDEN
+    section_planning: FORBIDDEN
+    task_order_or_status_mutation: FORBIDDEN
+    git_commit_push_publish: FORBIDDEN_INSIDE_BOUNDED_PACKET
+    quality_order: [correctness_and_evidence, continuity, speed, token_savings]
+    no_progress_rule: If a bounded model changes no Project working bytes, do not call that same model on the same task/worktree/guide packet again; try another eligible bounded model once, otherwise wait without another model call for state/route change.
+    useless_artifact_rule: Do not create planning/status/summary artifacts merely to show progress.
+    acceptance_rule: A bounded increment may be verified, but D03 remains CONTINUE until the full task-specific acceptance contract is satisfied by appropriate evidence and strong-model/owner boundaries where required.
 
   ordered_queue:
     source: projects/biella-games/docs/PRODUCTION.md
@@ -66,5 +86,5 @@ task:
     private_control: READ_ONLY
     opening_closing_reconnecting: MUST_NOT_SIGNAL_OR_INTERRUPT_ENGINE
 
-  stop: Continue automatically after durable closure. Stop only for a genuine required dependency/authority boundary or exhausted list with no authorized next work.
+  stop: Production is sleeping by explicit owner request. Wake/resume only on Mahdi's explicit instruction; otherwise preserve state without model calls, queue advancement, token use, or generated busywork.
 ```
