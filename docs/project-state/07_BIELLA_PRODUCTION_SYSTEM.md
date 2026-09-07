@@ -35,6 +35,13 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 - Route cooldown polling is short and refreshes available routes rather than producing long dead intervals.
 - Quota/balance probing remains forbidden.
 
+## Bounded outage fallback
+- Strong Codex routes retain full-task synthesis/closure authority. When normal strong routes are unavailable from observed call outcomes, Spark and local Qwen may execute only one small task-scoped technical outcome at a time.
+- A bounded fallback turn uses a fresh executor session and a retrieval-first packet referencing current task memory, the compact projection, the task guide, and exact source/evidence. It does not resume or replace the preserved persistent task session and it never broad-rereads accumulated conversation history.
+- Quality order is correctness/evidence, continuity, speed, then token savings. Bounded fallback may make and validate an exact source/test/evidence increment but may not plan sections, change task order/status, lower acceptance, or declare the whole task `COMPLETE`/`COMPLETE_ALREADY`.
+- Bounded packets must not create planning/status/summary artifacts merely to show activity. If the model changes no Project working bytes, that exact model+task/worktree+guide packet is marked no-progress and is not called again until the packet identity changes; another eligible bounded model may be tried once, otherwise production waits without another model call for route/state change.
+- Packet/no-progress bookkeeping is derivative controller state, not a second queue, scheduler, memory system, or task authority. Exact/raw source and evidence remain canonical.
+
 ## Volatile state and validation
 - `03` and `04` are live continuity/observer records and may change while production remains valid.
 - Gameplay/runtime validators must not use exact byte identity of `03` or `04` as a correctness gate.

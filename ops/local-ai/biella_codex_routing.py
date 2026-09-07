@@ -33,6 +33,15 @@ _ACCOUNT_RECOVERY_ROUTES = (
     Route("gpt-5.6-luna", "max"),
     Route("gpt-5.3-codex-spark", "xhigh"),
 )
+_BOUNDED_FALLBACK_MODELS = {"gpt-5.3-codex-spark", _LOCAL_OSS_MODEL}
+
+
+def is_bounded_fallback(route: Route) -> bool:
+    return route.model in _BOUNDED_FALLBACK_MODELS
+
+
+def bounded_fallback_models() -> tuple[str, ...]:
+    return tuple(sorted(_BOUNDED_FALLBACK_MODELS))
 
 
 def cloud_models() -> tuple[str, ...]:
@@ -67,12 +76,13 @@ def _cooling_down(model: str, cooldowns: Mapping[str, str], now: datetime) -> bo
     return until > now
 
 
-def select_route(task_class: str, catalog: Mapping[str, set[str]], cooldowns: Mapping[str, str], now: datetime) -> Route:
+def select_route(task_class: str, catalog: Mapping[str, set[str]], cooldowns: Mapping[str, str], now: datetime, *, excluded_models: set[str] | None = None) -> Route:
     candidates = _ROUTE_PROFILES.get(task_class)
     if candidates is None:
         raise ValueError(f"unknown task class: {task_class}")
+    excluded = excluded_models or set()
     for route in candidates:
-        if _cooling_down(route.model, cooldowns, now):
+        if route.model in excluded or _cooling_down(route.model, cooldowns, now):
             continue
         if route.model not in catalog or route.reasoning not in catalog[route.model]:
             continue
@@ -80,12 +90,12 @@ def select_route(task_class: str, catalog: Mapping[str, set[str]], cooldowns: Ma
             continue
         return route
     for route in _ACCOUNT_RECOVERY_ROUTES:
-        if _cooling_down(route.model, cooldowns, now):
+        if route.model in excluded or _cooling_down(route.model, cooldowns, now):
             continue
         if route.model in catalog and route.reasoning in catalog[route.model]:
             return route
     local_model = os.environ.get("BIELLA_CODEX_LOCAL_MODEL", _LOCAL_OSS_MODEL)
-    if not _cooling_down(local_model, cooldowns, now) and local_model in catalog and "local" in catalog[local_model]:
+    if local_model not in excluded and not _cooling_down(local_model, cooldowns, now) and local_model in catalog and "local" in catalog[local_model]:
         return Route(local_model, "none", "ollama")
     raise RuntimeError(f"no eligible Codex model for {task_class}")
 
@@ -191,9 +201,9 @@ def local_model_catalog_path() -> Path:
 def _production_exec_args(route: Route, schema_path: Path, output_path: Path, *, allow_helper: bool = False) -> list[str]:
     fanout = ["--enable", "multi_agent", "--disable", "multi_agent_v2"] if allow_helper else ["--disable", "multi_agent", "--disable", "multi_agent_v2"]
     local = route.provider == "ollama"
+    execution_safety = ["--sandbox", "workspace-write"] if is_bounded_fallback(route) else ["--dangerously-bypass-approvals-and-sandbox", "--dangerously-bypass-hook-trust"]
     args = [
-        "--dangerously-bypass-approvals-and-sandbox",
-        "--dangerously-bypass-hook-trust",
+        *execution_safety,
         "--disable", "plugins",
         *fanout,
         "-c", 'shell_environment_policy.inherit="all"',

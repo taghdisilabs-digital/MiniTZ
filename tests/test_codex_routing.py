@@ -106,6 +106,25 @@ def test_one_helper_mode_is_explicit_and_capped(tmp_path: Path):
     assert "max_depth=1" in joined
 
 
+def test_bounded_fallback_routes_are_explicit_and_strong_routes_are_not():
+    assert routing.is_bounded_fallback(routing.Route("gpt-5.3-codex-spark", "xhigh"))
+    assert routing.is_bounded_fallback(routing.Route("qwen3-coder-next:biella", "none", "ollama"))
+    assert not routing.is_bounded_fallback(routing.Route("gpt-5.6-luna", "max"))
+    assert not routing.is_bounded_fallback(routing.Route("gpt-6-astra", "ultra"))
+
+
+def test_bounded_fallback_models_can_be_excluded_from_broad_planning():
+    current = {
+        "gpt-5.3-codex-spark": {"xhigh"},
+        "qwen3-coder-next:biella": {"local"},
+    }
+    with __import__("pytest").raises(RuntimeError):
+        routing.select_route(
+            "deep_memory", current, {}, NOW,
+            excluded_models=set(routing.bounded_fallback_models()),
+        )
+
+
 def test_local_provider_compatibility_error_parser_is_bounded_to_local_protocol_faults():
     assert routing.is_local_provider_compatibility_error('"qwen3-coder-next:biella" does not support thinking')
     assert routing.is_local_provider_compatibility_error("failed to decode models response: missing field `models`")
@@ -157,6 +176,18 @@ def test_local_oss_command_uses_non_reasoning_qwen_catalog_without_web_search_an
     assert 'tool_output_token_limit=4000' in joined
     assert 'model_reasoning_effort="none"' in joined
     assert f'model_catalog_json="{catalog_path}"' in joined
+    assert "--sandbox workspace-write" in joined
+    assert "--dangerously-bypass-approvals-and-sandbox" not in cmd
+
+
+def test_spark_bounded_fallback_uses_workspace_write_without_approval_bypass(tmp_path: Path):
+    cmd = routing.build_codex_command(
+        routing.Route("gpt-5.3-codex-spark", "xhigh"),
+        tmp_path / "schema.json", tmp_path / "out.json", tmp_path / "project",
+    )
+    joined = " ".join(cmd)
+    assert "--sandbox workspace-write" in joined
+    assert "--dangerously-bypass-approvals-and-sandbox" not in cmd
 
 
 def test_cloud_production_command_disables_plugins(tmp_path: Path):

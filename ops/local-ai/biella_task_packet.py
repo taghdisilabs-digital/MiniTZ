@@ -71,6 +71,25 @@ def compile_resume_packet(task: TaskRecord, capsule_path: Path) -> str:
     )
 
 
+def compile_bounded_fallback_packet(task: TaskRecord, capsule_path: Path, projection_path: Path | None, guide_path: Path | None) -> str:
+    projection = str(Path(projection_path)) if projection_path else "NONE"
+    guide = str(Path(guide_path)) if guide_path else "NONE"
+    return (
+        "BIELLA_BOUNDED_FALLBACK\n"
+        f"TASK: {task.id} [{task.task_class}] {task.title}\n"
+        f"TASK_MEMORY: {Path(capsule_path)}\n"
+        f"MEMORY_PROJECTION: {projection}\n"
+        f"TASK_GUIDE: {guide}\n"
+        "QUALITY ORDER: correctness/evidence > continuity > speed > token savings. Execute one bounded technical outcome only. "
+        "Read exact current source/evidence, not a broad history summary: read TASK_MEMORY, then TASK_GUIDE, then only the exact files required for that outcome; MEMORY_PROJECTION is derivative and never overrides current source. "
+        "Do not broad-reread history, redo verified work, reset/clean/stash/restart the task, or create a second queue/memory/workflow. "
+        "Do not create planning/status/summary artifacts merely to show progress; create or change files only when the bounded technical outcome requires them. "
+        "Prefer an executable bounded change plus its exact test/diagnostic over prose. If no useful bounded action can be completed from current evidence, return CONTINUE immediately with the exact blocker and do not repeat exploration. "
+        "Preserve all existing dirty/verified work. Do not edit task ordering, 03/04, Project production status, task guides, or project authority files. Do not git commit, push, publish, or manage/probe quota or credits. "
+        "Do not declare the whole task complete from this fallback packet; return CONTINUE with concise exact evidence even when the bounded increment itself passes.\n"
+    )
+
+
 def section_plan_schema() -> dict[str, object]:
     classes = ["creation", "deep_memory", "hard", "hard_creation", "medium", "simple"]
     return {

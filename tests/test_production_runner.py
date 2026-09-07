@@ -806,33 +806,30 @@ def test_account_usage_limit_reserves_luna_then_spark_before_local():
     assert telemetry["last_result"]["retry_at"] == expected
 
 
-def test_account_usage_limit_falls_back_to_local_codex_route(tmp_path: Path, monkeypatch):
-    repo, project = write_repo_fixture(tmp_path); runtime_root = tmp_path / "runtime"
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {
+def test_account_usage_limit_fallback_sequence_reaches_bounded_local_route(tmp_path: Path):
+    repo, project = write_repo_fixture(tmp_path)
+    task = state.find_task(state.load_project_production(project), "D01-030")
+    catalog = {
         "gpt-6-astra": {"ultra"},
         "gpt-5.6-terra": {"ultra"},
         "gpt-5.6-sol": {"ultra"},
         "gpt-5.6-luna": {"max"},
         "gpt-5.3-codex-spark": {"xhigh"},
         "qwen3-coder-next:biella": {"local"},
-    })
-    used = []
-    def command(route, _schema, output, _cwd):
-        used.append((route.model, route.provider))
-        if route.provider == "openai":
-            return [sys.executable, "-c", "import sys; print(\"You've hit your usage limit. Visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Sep 12th, 2026 9:41 PM.\", file=sys.stderr); sys.exit(1)"]
-        payload = {"task_id": "D01-030", "status": "COMPLETE", "summary": "done locally through Codex continuity", "evidence": ["runtime pass"]}
-        code = f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"
-        return [sys.executable, "-c", code]
-    monkeypatch.setattr(runner.routing, "build_codex_command", command)
-    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: {"commit": task_id, "tree": "t"})
-    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.02) == 0
-    assert used[:4] == [
-        ("gpt-6-astra", "openai"),
-        ("gpt-5.6-luna", "openai"),
-        ("gpt-5.3-codex-spark", "openai"),
-        ("qwen3-coder-next:biella", "ollama"),
-    ]
+    }
+    telemetry = runner.initial_runtime()
+    detail = "You've hit your usage limit. Visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Sep 12th, 2026 9:41 PM."
+    runner._set_failure(telemetry, routing.Route("gpt-6-astra", "ultra"), detail, task.id)
+    route, _packet = runner._select_task_route(task, catalog, telemetry["cooldowns"], datetime.now(timezone.utc), telemetry, repo, project)
+    assert route == routing.Route("gpt-5.6-luna", "max")
+    runner._set_failure(telemetry, route, detail, task.id)
+    route, _packet = runner._select_task_route(task, catalog, telemetry["cooldowns"], datetime.now(timezone.utc), telemetry, repo, project)
+    assert route == routing.Route("gpt-5.3-codex-spark", "xhigh")
+    runner._set_failure(telemetry, route, detail, task.id)
+    route, packet = runner._select_task_route(task, catalog, telemetry["cooldowns"], datetime.now(timezone.utc), telemetry, repo, project)
+    assert route == routing.Route("qwen3-coder-next:biella", "none", "ollama")
+    assert routing.is_bounded_fallback(route)
+    assert packet
 
 
 def test_cross_provider_compaction_resume_error_is_session_incompatible():
@@ -841,35 +838,44 @@ def test_cross_provider_compaction_resume_error_is_session_incompatible():
     assert not runner._is_resume_protocol_incompatible("ordinary native process failed")
 
 
-def test_local_fallback_rotates_only_incompatible_codex_session_and_keeps_task(tmp_path: Path, monkeypatch):
-    repo, project = write_repo_fixture(tmp_path); runtime_root = tmp_path / "runtime"
-    runtime_root.mkdir(parents=True)
-    existing = runner.initial_runtime()
-    existing.update({
-        "status": "RUNNING", "project": "biella-games", "task_id": "D01-030",
-        "task_session_id": "cloud-session-old", "session_task_id": "D01-30",
-        "cooldowns": {model: "2026-09-12T21:41:00+00:00" for model in routing.cloud_models()},
-        "last_result": {"task_id": "D01-030", "status": "CONTINUE", "summary": "preserved task work", "evidence": ["preserved-evidence"]},
-    })
-    runner.save_runtime(runtime_root / "runtime.json", existing)
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {"qwen3-coder-next:biella": {"local"}})
-    calls = []
-    def resume_command(route, _schema, _output, session_id, **_kw):
-        calls.append(("resume", route.provider, session_id))
-        return [sys.executable, "-c", "import sys; print('input[42]: unknown input item type: \"compaction\"', file=sys.stderr); sys.exit(1)"]
-    def new_command(route, _schema, output, _cwd, **_kw):
-        calls.append(("new", route.provider, None))
-        payload = {"task_id": "D01-030", "status": "COMPLETE", "summary": "continued from preserved task state", "evidence": ["preserved-evidence", "local-pass"]}
-        code = f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"
-        return [sys.executable, "-c", code]
-    monkeypatch.setattr(runner.routing, "build_codex_resume_command", resume_command)
-    monkeypatch.setattr(runner.routing, "build_codex_command", new_command)
-    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: {"commit": task_id, "tree": "t"})
-    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
-    assert calls[:2] == [("resume", "ollama", "cloud-session-old"), ("new", "ollama", None)]
-    production = state.load_project_production(project)
-    assert state.find_task(production, "D01-030").status == "COMPLETE"
-    events = [json.loads(line) for line in (runtime_root / "events.jsonl").read_text().splitlines()]
-    recovery = [event for event in events if event.get("type") == "task.session_recovery"]
-    assert recovery and recovery[-1].get("stale_session_id") == "cloud-session-old"
-    assert "provider-incompatible" in recovery[-1].get("text", "").lower()
+def test_bounded_fallback_uses_fresh_executor_without_replacing_persistent_session():
+    telemetry = runner.initial_runtime()
+    telemetry.update({"task_session_id": "persistent-session", "session_task_id": "D03-01"})
+    assert runner._resume_session_for_route(telemetry, "D03-01", routing.Route("gpt-5.6-luna", "max")) == "persistent-session"
+    assert runner._resume_session_for_route(telemetry, "D03-01", routing.Route("gpt-5.3-codex-spark", "xhigh")) is None
+    assert runner._resume_session_for_route(telemetry, "D03-01", routing.Route("qwen3-coder-next:biella", "none", "ollama")) is None
+    assert telemetry["task_session_id"] == "persistent-session"
+
+
+def test_bounded_fallback_result_can_never_close_whole_task():
+    complete = runner.evidence.TaskResult("D03-01", "COMPLETE", "bounded work says done", ("runtime pass",))
+    bounded = runner._normalize_result_for_route(complete, routing.Route("qwen3-coder-next:biella", "none", "ollama"))
+    assert bounded.status == "CONTINUE"
+    assert bounded.evidence == ("runtime pass",)
+    assert "bounded fallback" in bounded.summary.lower()
+    strong = runner._normalize_result_for_route(complete, routing.Route("gpt-6-astra", "ultra"))
+    assert strong == complete
+
+
+def test_bounded_no_progress_marker_blocks_only_same_packet_and_model():
+    telemetry = runner.initial_runtime()
+    qwen = routing.Route("qwen3-coder-next:biella", "none", "ollama")
+    spark = routing.Route("gpt-5.3-codex-spark", "xhigh")
+    runner._mark_bounded_no_progress(telemetry, qwen, "packet-a")
+    assert runner._bounded_no_progress_blocked(telemetry, qwen, "packet-a")
+    assert not runner._bounded_no_progress_blocked(telemetry, qwen, "packet-b")
+    assert not runner._bounded_no_progress_blocked(telemetry, spark, "packet-a")
+
+
+def test_bounded_workspace_fingerprint_changes_only_when_project_working_bytes_change(tmp_path: Path):
+    repo, project = write_repo_fixture(tmp_path)
+    subprocess.run(["git", "-C", str(repo), "init", "-q"], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.email", "test@example.com"], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.name", "Test"], check=True)
+    subprocess.run(["git", "-C", str(repo), "add", "."], check=True)
+    subprocess.run(["git", "-C", str(repo), "commit", "-qm", "base"], check=True)
+    first = runner._task_workspace_fingerprint(repo, project)
+    assert first == runner._task_workspace_fingerprint(repo, project)
+    (project / "bounded.txt").write_text("real bounded progress", encoding="utf-8")
+    second = runner._task_workspace_fingerprint(repo, project)
+    assert second != first

@@ -88,6 +88,27 @@ def test_resume_packet_keeps_autonomy_without_reinjecting_full_contract(tmp_path
     assert "return continue" in packet
 
 
+def test_bounded_fallback_packet_is_retrieval_first_quality_locked_and_small(tmp_path: Path):
+    task = state.TaskRecord("D03-01", "hard_creation", "Production quality", "PENDING", (), "post_d01")
+    packet = packets.compile_bounded_fallback_packet(
+        task,
+        tmp_path / "task-memory/D03-01.json",
+        tmp_path / "memory/current-task.json",
+        tmp_path / "docs/task-guides/D03-01.md",
+    )
+    lower = packet.lower()
+    assert "bounded_fallback" in lower
+    assert "one bounded technical outcome" in lower
+    assert "read exact current source/evidence" in lower
+    assert "do not declare the whole task complete" in lower
+    assert "do not create planning/status/summary artifacts merely to show progress" in lower
+    assert "do not git commit, push, publish" in lower
+    assert str(tmp_path / "task-memory/D03-01.json") in packet
+    assert str(tmp_path / "memory/current-task.json") in packet
+    assert str(tmp_path / "docs/task-guides/D03-01.md") in packet
+    assert len(packet.encode()) < 3000
+
+
 def test_section_planner_never_creates_approval_gate_tasks():
     task = state.TaskRecord("D02-01", "hard_creation", "Streaming", "PENDING", (), "post_d01")
     production = state.ProductionState(Path("/repo/projects/biella-games"), "IN_PROGRESS", "post_d01", "D02-01", [state.SectionRecord("post_d01", "Continuation", "IN_PROGRESS", [task])])

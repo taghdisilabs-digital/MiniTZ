@@ -26,6 +26,7 @@ _RUNTIME_KEYS = {
     "status", "project", "task_id", "attempt", "pid", "child_pid",
     "active_model", "active_reasoning", "cooldowns", "last_result",
     "heartbeat_at", "updated_at", "task_session_id", "session_task_id",
+    "bounded_no_progress",
 }
 
 
@@ -59,7 +60,7 @@ def initial_runtime() -> dict[str, Any]:
         "pid": None, "child_pid": None, "active_model": None,
         "active_reasoning": None, "cooldowns": {}, "last_result": None,
         "heartbeat_at": None, "updated_at": datetime.now(timezone.utc).isoformat(),
-        "task_session_id": None, "session_task_id": None,
+        "task_session_id": None, "session_task_id": None, "bounded_no_progress": {},
     }
 
 
@@ -67,6 +68,7 @@ def save_runtime(path: Path, runtime: Mapping[str, Any]) -> None:
     path = Path(path); path.parent.mkdir(parents=True, exist_ok=True)
     payload = {key: runtime.get(key) for key in _RUNTIME_KEYS}
     payload["cooldowns"] = dict(payload.get("cooldowns") or {})
+    payload["bounded_no_progress"] = dict(payload.get("bounded_no_progress") or {})
     payload["attempt"] = int(payload.get("attempt") or 0)
     tmp = path.with_suffix(path.suffix + ".tmp")
     tmp.write_text(json.dumps(payload, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
@@ -126,6 +128,39 @@ def _resume_session_for(telemetry: Mapping[str, Any], task_id: str) -> str | Non
     return str(raw) if isinstance(raw, str) and raw else None
 
 
+def _resume_session_for_route(telemetry: Mapping[str, Any], task_id: str, route: routing.Route) -> str | None:
+    if routing.is_bounded_fallback(route):
+        return None
+    return _resume_session_for(telemetry, task_id)
+
+
+def _normalize_result_for_route(result: evidence.TaskResult, route: routing.Route) -> evidence.TaskResult:
+    if not routing.is_bounded_fallback(route) or result.status == "CONTINUE":
+        return result
+    return evidence.TaskResult(
+        result.task_id,
+        "CONTINUE",
+        f"Bounded fallback completed its bounded work but cannot close the whole task. {result.summary}".strip(),
+        result.evidence,
+    )
+
+
+def _mark_bounded_no_progress(telemetry: dict[str, Any], route: routing.Route, packet_id: str) -> None:
+    markers = telemetry.setdefault("bounded_no_progress", {})
+    markers[route.model] = packet_id
+
+
+def _bounded_no_progress_blocked(telemetry: Mapping[str, Any], route: routing.Route, packet_id: str) -> bool:
+    markers = telemetry.get("bounded_no_progress") if isinstance(telemetry.get("bounded_no_progress"), Mapping) else {}
+    return bool(routing.is_bounded_fallback(route) and markers.get(route.model) == packet_id)
+
+
+def _clear_bounded_no_progress(telemetry: dict[str, Any], route: routing.Route) -> None:
+    markers = telemetry.get("bounded_no_progress")
+    if isinstance(markers, dict):
+        markers.pop(route.model, None)
+
+
 def _clear_task_session(telemetry: dict[str, Any]) -> None:
     telemetry["task_session_id"] = None
     telemetry["session_task_id"] = None
@@ -157,6 +192,51 @@ def _project_dirty_paths(repo_root: Path, project_root: Path) -> list[str]:
     return sorted(dict.fromkeys(result))
 
 
+def _task_workspace_fingerprint(repo_root: Path, project_root: Path) -> str:
+    repo_root = Path(repo_root).resolve(); project_root = Path(project_root).resolve()
+    digest = hashlib.sha256()
+    tree = subprocess.run(["git", "-C", str(repo_root), "rev-parse", "HEAD^{tree}"], text=True, capture_output=True, check=False)
+    digest.update((tree.stdout.strip() if tree.returncode == 0 else "UNKNOWN_TREE").encode())
+    for relative in _project_dirty_paths(repo_root, project_root):
+        digest.update(relative.encode()); digest.update(b"\0")
+        path = project_root / relative
+        if not path.exists():
+            digest.update(b"MISSING\0"); continue
+        if not path.is_file():
+            digest.update(b"NONFILE\0"); continue
+        digest.update(str(path.stat().st_size).encode()); digest.update(b"\0")
+        with path.open("rb") as handle:
+            for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+                digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _bounded_packet_id(repo_root: Path, project_root: Path, task: state.TaskRecord) -> str:
+    digest = hashlib.sha256()
+    digest.update(task.id.encode()); digest.update(b"\0")
+    digest.update(task.task_class.encode()); digest.update(b"\0")
+    digest.update(_task_workspace_fingerprint(repo_root, project_root).encode())
+    guide = Path(project_root) / "docs" / "task-guides" / f"{task.id}.md"
+    if guide.exists():
+        digest.update(hashlib.sha256(guide.read_bytes()).digest())
+    return digest.hexdigest()
+
+
+def _select_task_route(task: state.TaskRecord, catalog: Mapping[str, set[str]], cooldowns: Mapping[str, str], now: datetime, telemetry: Mapping[str, Any], repo_root: Path, project_root: Path) -> tuple[routing.Route | None, str | None]:
+    packet_id = _bounded_packet_id(repo_root, project_root, task)
+    excluded: set[str] = set()
+    while True:
+        try:
+            route = routing.select_route(task.task_class, catalog, cooldowns, now, excluded_models=excluded)
+        except RuntimeError:
+            return None, packet_id if excluded else None
+        if not routing.is_bounded_fallback(route):
+            return route, None
+        if not _bounded_no_progress_blocked(telemetry, route, packet_id):
+            return route, packet_id
+        excluded.add(route.model)
+
+
 def _write_task_capsule(repo_root: Path, project_root: Path, runtime_root: Path, task: state.TaskRecord, telemetry: Mapping[str, Any]) -> Path:
     path = _task_capsule_path(runtime_root, task.id)
     existing: Mapping[str, Any] = {}
@@ -184,14 +264,16 @@ def _write_task_capsule(repo_root: Path, project_root: Path, runtime_root: Path,
     return path
 
 
-def _task_prompt(repo_root: Path, production: state.ProductionState, task: state.TaskRecord, telemetry: Mapping[str, Any], capsule_path: Path, projection_path: Path | None = None, local_assist_path: Path | None = None) -> str:
+def _task_prompt(repo_root: Path, production: state.ProductionState, task: state.TaskRecord, telemetry: Mapping[str, Any], capsule_path: Path, projection_path: Path | None = None, local_assist_path: Path | None = None, route: routing.Route | None = None) -> str:
+    guide_path = Path(production.project_root) / "docs" / "task-guides" / f"{task.id}.md"
+    if route is not None and routing.is_bounded_fallback(route):
+        return packets.compile_bounded_fallback_packet(task, capsule_path, projection_path, guide_path if guide_path.exists() else None)
     if _resume_session_for(telemetry, task.id):
         prompt = packets.compile_resume_packet(task, capsule_path)
     else:
         prompt = packets.compile_task_packet(repo_root, production, task)
         if capsule_path.exists():
             prompt += f"\nTASK_MEMORY: {capsule_path}\nRead this bounded recovery capsule before redoing any existing work.\n"
-    guide_path = Path(production.project_root) / "docs" / "task-guides" / f"{task.id}.md"
     if guide_path.exists():
         guide_text = guide_path.read_text(encoding="utf-8")[:12000]
         prompt += (
@@ -616,6 +698,7 @@ def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, outp
                       on_heartbeat: Callable[[datetime], None] | None = None,
                       cwd: Path | None = None, resume_session_id: str | None = None,
                       session_task_id: str | None = None, allow_helper: bool = False,
+                      persist_session_identity: bool = True,
                       event_journal: production_events.ProductionEventJournal | None = None) -> tuple[int, str]:
     if resume_session_id:
         cmd = routing.build_codex_resume_command(route, schema_path, output_path, resume_session_id, allow_helper=True) if allow_helper else routing.build_codex_resume_command(route, schema_path, output_path, resume_session_id)
@@ -638,7 +721,7 @@ def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, outp
             event_offset, live_session = _drain_codex_events(stdout_path, event_offset, event_journal, session_task_id)
             if event_offset > previous_offset:
                 last_progress = time.monotonic()
-            if live_session and session_task_id and telemetry.get("task_session_id") != live_session:
+            if persist_session_identity and live_session and session_task_id and telemetry.get("task_session_id") != live_session:
                 telemetry["task_session_id"] = live_session
                 telemetry["session_task_id"] = session_task_id
                 _beat(runtime_path, telemetry)
@@ -873,7 +956,10 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     continue
                 now = datetime.now(timezone.utc)
                 try:
-                    route = routing.select_route("deep_memory", catalog, telemetry.get("cooldowns", {}), now)
+                    route = routing.select_route(
+                        "deep_memory", catalog, telemetry.get("cooldowns", {}), now,
+                        excluded_models=set(routing.bounded_fallback_models()),
+                    )
                 except RuntimeError:
                     telemetry.update({"status": "RECOVERING_MODEL", "task_id": f"PLAN:{section.id}", "active_model": None, "active_reasoning": None})
                     _beat(runtime_path, telemetry); time.sleep(min(5.0, max(0.5, routing.earliest_cooldown_delay(telemetry.get("cooldowns", {}), now)))); catalog = routing.discover_catalog(); continue
@@ -892,12 +978,21 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 telemetry["last_result"] = {"task_id": None, "status": "SECTION_REFRESH", "summary": str(plan.get("summary", "")), "evidence": list(plan.get("evidence", [])), "model": route.model, "reasoning": route.reasoning}
                 _beat(runtime_path, telemetry); continue
             now = datetime.now(timezone.utc)
-            try:
-                route = routing.select_route(task.task_class, catalog, telemetry.get("cooldowns", {}), now)
-            except RuntimeError:
-                telemetry.update({"status": "RECOVERING_MODEL", "task_id": task.id, "active_model": None, "active_reasoning": None})
+            route, bounded_packet_id = _select_task_route(
+                task, catalog, telemetry.get("cooldowns", {}), now, telemetry, repo_root, project_root
+            )
+            if route is None:
+                waiting_strong = bounded_packet_id is not None
+                target_status = "WAITING_FOR_STRONG_MODEL" if waiting_strong else "RECOVERING_MODEL"
+                prior_status = telemetry.get("status")
+                telemetry.update({"status": target_status, "task_id": task.id, "active_model": None, "active_reasoning": None})
+                if waiting_strong and prior_status != target_status:
+                    journal.emit(
+                        "task.awaiting_strong_model", task_id=task.id, status=target_status,
+                        text="Bounded fallback already produced no progress for this exact task/worktree packet; waiting without another model call until state or route availability changes.",
+                    )
                 _beat(runtime_path, telemetry)
-                time.sleep(min(5.0, max(0.5, routing.earliest_cooldown_delay(telemetry.get("cooldowns", {}), now))))
+                time.sleep(5.0)
                 catalog = routing.discover_catalog(); continue
             telemetry.update({"status": "RUNNING", "task_id": task.id, "active_model": route.model, "active_reasoning": route.reasoning})
             if evidence.continuity_changes(repo_root):
@@ -915,14 +1010,19 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             capsule_path = _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
             projection_path = _refresh_memory_projection(repo_root, project_root, runtime_root, task.id, journal)
             local_assist_path = None  # Optional local AI remains available on demand inside the authoritative task; never block turn start.
-            prompt = _task_prompt(repo_root, production, task, telemetry, capsule_path, projection_path, local_assist_path)
-            resume_session_id = _resume_session_for(telemetry, task.id)
-            journal.emit("task.continued" if resume_session_id else "task.started", task_id=task.id, status="RUNNING", text=task.title, model=route.model, reasoning=route.reasoning)
+            bounded_fallback = routing.is_bounded_fallback(route)
+            workspace_before = _task_workspace_fingerprint(repo_root, project_root) if bounded_fallback else None
+            prompt = _task_prompt(repo_root, production, task, telemetry, capsule_path, projection_path, local_assist_path, route=route)
+            resume_session_id = _resume_session_for_route(telemetry, task.id, route)
+            event_type = "task.bounded_fallback_started" if bounded_fallback else ("task.continued" if resume_session_id else "task.started")
+            journal.emit(event_type, task_id=task.id, status="RUNNING", text=task.title, model=route.model, reasoning=route.reasoning, bounded_packet_id=bounded_packet_id)
             rc, error_text = invoke_structured(
                 prompt, route, schema_path, output, stdout, stderr, runtime_path, telemetry,
                 heartbeat_interval=heartbeat_interval, cwd=project_root,
                 resume_session_id=resume_session_id, session_task_id=task.id,
-                allow_helper=_helper_allowed(task.id), event_journal=journal,
+                allow_helper=False if bounded_fallback else _helper_allowed(task.id),
+                persist_session_identity=not bounded_fallback,
+                event_journal=journal,
             )
             if rc != 0:
                 stale_resume = resume_session_id and _is_stale_resume_error(error_text)
@@ -959,6 +1059,19 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 result = evidence.parse_result(output, task.id)
             except ValueError as exc:
                 _set_failure(telemetry, route, str(exc), task.id); _beat(runtime_path, telemetry); continue
+            result = _normalize_result_for_route(result, route)
+            if bounded_fallback:
+                workspace_after = _task_workspace_fingerprint(repo_root, project_root)
+                if workspace_after == workspace_before:
+                    assert bounded_packet_id is not None
+                    _mark_bounded_no_progress(telemetry, route, bounded_packet_id)
+                    journal.emit(
+                        "task.bounded_no_progress", task_id=task.id, status="CONTINUE",
+                        text="Bounded fallback changed no project working bytes; this exact model/packet will not be called again until the task worktree or guide changes.",
+                        model=route.model, bounded_packet_id=bounded_packet_id,
+                    )
+                else:
+                    _clear_bounded_no_progress(telemetry, route)
             telemetry["last_result"] = {
                 "task_id": result.task_id, "status": result.status, "summary": result.summary,
                 "evidence": list(result.evidence), "model": route.model, "reasoning": route.reasoning,

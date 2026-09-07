@@ -253,6 +253,10 @@ def _source_files(repo_root: Path, project_root: Path, runtime_root: Path) -> li
 
 
 _RESOLVED_FAILURE_STATUSES = {"RECOVERED", "REPAIRED", "RESOLVED", "PASS", "COMPLETED"}
+_TRANSIENT_PROVIDER_FAILURE_RE = re.compile(
+    r"(?:you(?:'|’)?ve hit your usage limit|chatgpt\.com/codex/settings/usage|does not support thinking|failed to decode models response.*missing field [`']?models)",
+    re.I | re.S,
+)
 
 
 def _active_failure_projection(failures: list[Mapping[str, Any]]) -> list[Mapping[str, Any]]:
@@ -272,6 +276,9 @@ def _active_failure_projection(failures: list[Mapping[str, Any]]) -> list[Mappin
             continue
         failure_type = str(row.get("failure_type") or row.get("type") or "")
         if failure_type == "tool.completed":
+            continue
+        provider_text = "\n".join(str(row.get(key) or "") for key in ("text", "detail", "diagnostic", "message"))
+        if _TRANSIENT_PROVIDER_FAILURE_RE.search(provider_text):
             continue
         semantic.append(row)
     return semantic[-20:]
