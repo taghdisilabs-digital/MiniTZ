@@ -753,12 +753,12 @@ def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, outp
             time.sleep(min(0.05, max(0.005, heartbeat_interval / 4)))
         rc = int(proc.returncode or 0)
         event_offset, final_session = _drain_codex_events(stdout_path, event_offset, event_journal, session_task_id, final=True)
-        if final_session and session_task_id:
+        if persist_session_identity and final_session and session_task_id:
             telemetry["task_session_id"] = final_session
             telemetry["session_task_id"] = session_task_id
     telemetry["child_pid"] = None
     observed_session = resume_session_id or _extract_codex_session_id(stdout_path)
-    if observed_session and session_task_id:
+    if persist_session_identity and observed_session and session_task_id:
         telemetry["task_session_id"] = observed_session
         telemetry["session_task_id"] = session_task_id
     observed = _beat(runtime_path, telemetry)

@@ -855,6 +855,29 @@ def test_bounded_fallback_uses_fresh_executor_without_replacing_persistent_sessi
     assert telemetry["task_session_id"] == "persistent-session"
 
 
+def test_bounded_invoke_never_overwrites_persistent_session_identity(tmp_path: Path, monkeypatch):
+    fake = tmp_path / "bounded.py"
+    fake.write_text(
+        "import json\n"
+        "print(json.dumps({'type':'thread.started','thread_id':'bounded-fresh-session'}), flush=True)\n"
+    )
+    monkeypatch.setattr(
+        routing, "build_codex_command",
+        lambda *_args, **_kwargs: [sys.executable, str(fake)],
+    )
+    telemetry = runner.initial_runtime()
+    telemetry.update({"task_session_id": "persistent-strong-session", "session_task_id": "D03-01"})
+    rc, _detail = runner.invoke_structured(
+        "prompt", routing.Route("gpt-5.3-codex-spark", "xhigh"), tmp_path / "schema.json",
+        tmp_path / "result.json", tmp_path / "stdout.jsonl", tmp_path / "stderr.log",
+        tmp_path / "runtime.json", telemetry, heartbeat_interval=0.01, cwd=tmp_path,
+        session_task_id="D03-01", persist_session_identity=False,
+    )
+    assert rc == 0
+    assert telemetry["task_session_id"] == "persistent-strong-session"
+    assert telemetry["session_task_id"] == "D03-01"
+
+
 def test_bounded_fallback_result_can_never_close_whole_task():
     complete = runner.evidence.TaskResult("D03-01", "COMPLETE", "bounded work says done", ("runtime pass",))
     bounded = runner._normalize_result_for_route(complete, routing.Route("qwen3-coder-next:biella", "none", "ollama"))
