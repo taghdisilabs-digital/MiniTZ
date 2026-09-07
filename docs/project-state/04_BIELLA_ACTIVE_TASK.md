@@ -21,10 +21,10 @@ task:
   continuity:
     completed_predecessor: D02-04
     production_source: projects/biella-games/docs/PRODUCTION.md
-    observed_repository_head: 1d2ff3ea011cd7d4f3e1055480f5d53863c63e67
-    observed_repository_tree: 70fdc682659da468bff3956ece560180176dafbb
-    implementation_commit: 1d2ff3ea011cd7d4f3e1055480f5d53863c63e67
-    implementation_tree: 70fdc682659da468bff3956ece560180176dafbb
+    observed_repository_head: e2925cbc9932765357fcb04fe8a51a906c6d082f
+    observed_repository_tree: 1c23782cd893414d3f9718519bca7389cf28c5e2
+    implementation_commit: e2925cbc9932765357fcb04fe8a51a906c6d082f
+    implementation_tree: 1c23782cd893414d3f9718519bca7389cf28c5e2
     source_alignment_gate: VERIFIED_GITHUB_MAIN_PRE_EXECUTION_AND_POST_TURN_FAIL_CLOSED
     authoritative_persistent_task_session_id: null
     prior_invalidated_executor_session_id: 01a07931-fb65-7af1-830d-83afb2ee5d8d
@@ -34,8 +34,11 @@ task:
     reasoning: null
     current_increment: PORTABLE_PSO_SEED_AND_LOADING_DISPLAY_COLD_START_QUALIFICATION
     task_memory: /mnt/biella-extra/biella-runtime/codex-production/task-memory/D03-01.json
-    task_memory_sha256: e22c06478ef27dec78992aedf7840d087020b91b6563f6f00ae3eb8c1d667cae
-    compact_projection_sha256: b5c8094071a353cc4efcfd68fed84292215adf412ca5078680f7d53ef41cfb8e
+    task_memory_sha256: 412bc1ddcf2d0223f11d3e1df4f74cf2c1e20e3ebcde32312e7b35fcaab49f53
+    compact_projection_sha256: d6bad4fbffd1d68e8941c997bfccc02bac1463027f87f4c305b4303851d82178
+    bounded_session_identity_guard: VERIFIED_BOUNDED_EXECUTOR_SESSION_NEVER_PERSISTS
+    session_derivative_recovery_status: RECOVERED
+    session_derivative_recovery_backup: /mnt/biella-extra/biella-runtime/codex-production/recovery/20260907T170250Z-bounded-session-derivative-repair
     sleep_order: /mnt/biella-extra/biella-runtime/codex-production/memory/owner-sleep-order.json
     sleep_order_sha256: 9b7f9fec7c9884b8339e1f0b805f4375d2da55dc853c2b992d981dcd92126345
 

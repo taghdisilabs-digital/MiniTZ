@@ -5,8 +5,8 @@ schema: biella.current_state/v11
 state_class: VOLATILE
 update_rule: replace_stale_values; preserve_valid_progress_capabilities_evidence
 observed_date: 2026-09-07
-observed_at_utc: 2026-09-07T16:37:25+00:00
-observed_at_europe_amsterdam: 2026-09-07T18:37:25+02:00
+observed_at_utc: 2026-09-07T17:03:49+00:00
+observed_at_europe_amsterdam: 2026-09-07T19:03:49+02:00
 
 authority:
   if_conflict: [CURRENT_EXECUTION_STATE, CURRENT_GITHUB_SOURCE, CURRENT_CANONICAL_DRIVE, VERIFIED_HISTORICAL_EVIDENCE, REFERENCE_OR_PLAN, INFERENCE]
@@ -17,11 +17,11 @@ repository:
   repository: patrickminitz-web/biella-engine
   branch: main
   canonical_checkout: /root/biella/repos/biella-engine
-  observed_head_commit: 1d2ff3ea011cd7d4f3e1055480f5d53863c63e67
-  observed_head_tree: 70fdc682659da468bff3956ece560180176dafbb
-  github_main_readback_commit: 1d2ff3ea011cd7d4f3e1055480f5d53863c63e67
-  implementation_commit: 1d2ff3ea011cd7d4f3e1055480f5d53863c63e67
-  implementation_tree: 70fdc682659da468bff3956ece560180176dafbb
+  observed_head_commit: e2925cbc9932765357fcb04fe8a51a906c6d082f
+  observed_head_tree: 1c23782cd893414d3f9718519bca7389cf28c5e2
+  github_main_readback_commit: e2925cbc9932765357fcb04fe8a51a906c6d082f
+  implementation_commit: e2925cbc9932765357fcb04fe8a51a906c6d082f
+  implementation_tree: 1c23782cd893414d3f9718519bca7389cf28c5e2
   source_alignment_gate: VERIFIED_GITHUB_MAIN_SAFE_FAST_FORWARD_OR_FAIL_CLOSED
   production_runner_source: /root/biella/repos/biella-engine/ops/local-ai/biella_production_runner.py
   installer_sleep_preservation: VERIFIED_EXISTING_DISABLED_STATE_PRESERVED
@@ -59,8 +59,11 @@ active_execution:
   bounded_fallback_defect_effect: NO_PROJECT_BYTES_CHANGED_AND_REPEAT_BLOCKED_BY_NO_PROGRESS_CIRCUIT_BREAKER
   sleep_order: /mnt/biella-extra/biella-runtime/codex-production/memory/owner-sleep-order.json
   sleep_order_sha256: 9b7f9fec7c9884b8339e1f0b805f4375d2da55dc853c2b992d981dcd92126345
-  task_memory_sha256: e22c06478ef27dec78992aedf7840d087020b91b6563f6f00ae3eb8c1d667cae
-  compact_projection_sha256: b5c8094071a353cc4efcfd68fed84292215adf412ca5078680f7d53ef41cfb8e
+  task_memory_sha256: 412bc1ddcf2d0223f11d3e1df4f74cf2c1e20e3ebcde32312e7b35fcaab49f53
+  compact_projection_sha256: d6bad4fbffd1d68e8941c997bfccc02bac1463027f87f4c305b4303851d82178
+  bounded_session_identity_guard: VERIFIED_BOUNDED_EXECUTOR_SESSION_NEVER_PERSISTS
+  session_derivative_recovery_status: RECOVERED
+  session_derivative_recovery_backup: /mnt/biella-extra/biella-runtime/codex-production/recovery/20260907T170250Z-bounded-session-derivative-repair
 
 games:
   project_path: projects/biella-games
