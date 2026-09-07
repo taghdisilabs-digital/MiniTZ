@@ -707,9 +707,11 @@ def _is_resume_protocol_incompatible(detail: str) -> bool:
 def _set_failure(telemetry: dict[str, Any], route: routing.Route, detail: str, task_id: str) -> None:
     observed = datetime.now(timezone.utc)
     limited = routing.is_limit_error(detail)
+    local_compat = route.provider == "ollama" and routing.is_local_provider_compatibility_error(detail)
+    model_recovery = limited or local_compat
     result = {
         "task_id": task_id,
-        "status": "MODEL_RECOVERY" if limited else "RUNTIME_RECOVERY",
+        "status": "MODEL_RECOVERY" if model_recovery else "RUNTIME_RECOVERY",
         "summary": detail[-2000:], "evidence": [],
         "model": route.model, "reasoning": route.reasoning,
     }
@@ -717,10 +719,15 @@ def _set_failure(telemetry: dict[str, Any], route: routing.Route, detail: str, t
         retry_at = routing.limit_retry_at(detail, observed)
         cooldowns = telemetry.setdefault("cooldowns", {})
         if routing.is_account_usage_limit_error(detail):
-            for model in routing.cloud_models():
+            for model in routing.account_usage_cooldown_models(route.model):
                 cooldowns[model] = retry_at.isoformat()
         else:
             cooldowns[route.model] = retry_at.isoformat()
+        result["retry_at"] = retry_at.isoformat()
+        telemetry["status"] = "RECOVERING_MODEL"
+    elif local_compat:
+        retry_at = observed + timedelta(seconds=60)
+        telemetry.setdefault("cooldowns", {})[route.model] = retry_at.isoformat()
         result["retry_at"] = retry_at.isoformat()
         telemetry["status"] = "RECOVERING_MODEL"
     else:

@@ -29,10 +29,25 @@ _ROUTE_PROFILES: dict[str, tuple[Route, ...]] = {
 }
 
 _LOCAL_OSS_MODEL = "qwen3-coder-next:biella"
+_ACCOUNT_RECOVERY_ROUTES = (
+    Route("gpt-5.6-luna", "max"),
+    Route("gpt-5.3-codex-spark", "xhigh"),
+)
 
 
 def cloud_models() -> tuple[str, ...]:
-    return tuple(dict.fromkeys(route.model for routes in _ROUTE_PROFILES.values() for route in routes if route.provider == "openai"))
+    routes = [route for profile in _ROUTE_PROFILES.values() for route in profile]
+    routes.extend(_ACCOUNT_RECOVERY_ROUTES)
+    return tuple(dict.fromkeys(route.model for route in routes if route.provider == "openai"))
+
+
+def account_usage_cooldown_models(failed_model: str) -> tuple[str, ...]:
+    reserved = {"gpt-5.6-luna", "gpt-5.3-codex-spark"}
+    if failed_model == "gpt-5.6-luna":
+        reserved = {"gpt-5.3-codex-spark"}
+    elif failed_model == "gpt-5.3-codex-spark":
+        reserved = set()
+    return tuple(model for model in cloud_models() if model not in reserved)
 
 
 def reasoning_rank(effort: str) -> int:
@@ -64,14 +79,20 @@ def select_route(task_class: str, catalog: Mapping[str, set[str]], cooldowns: Ma
         if task_class in {"creation", "hard_creation"} and reasoning_rank(route.reasoning) < reasoning_rank("high"):
             continue
         return route
+    for route in _ACCOUNT_RECOVERY_ROUTES:
+        if _cooling_down(route.model, cooldowns, now):
+            continue
+        if route.model in catalog and route.reasoning in catalog[route.model]:
+            return route
     local_model = os.environ.get("BIELLA_CODEX_LOCAL_MODEL", _LOCAL_OSS_MODEL)
-    if local_model in catalog and "local" in catalog[local_model]:
-        return Route(local_model, "provider_default", "ollama")
+    if not _cooling_down(local_model, cooldowns, now) and local_model in catalog and "local" in catalog[local_model]:
+        return Route(local_model, "none", "ollama")
     raise RuntimeError(f"no eligible Codex model for {task_class}")
 
 
 _LIMIT_RE = re.compile(r"(?:usage_limit_exceeded|rate_limit_exceeded|usage limit|rate limit)", re.I)
 _ACCOUNT_USAGE_RE = re.compile(r"(?:you(?:'|’)?ve hit your usage limit|chatgpt\.com/codex/settings/usage)", re.I)
+_LOCAL_COMPAT_RE = re.compile(r"(?:does not support thinking|failed to decode models response.*missing field [`']?models)", re.I | re.S)
 _RETRY_RE = re.compile(r"(?:try again at|retry at|available at)\s+([A-Za-z]{3}\s+\d{1,2}(?:st|nd|rd|th)?,\s+\d{4}\s+\d{1,2}:\d{2}\s+[AP]M(?:\s+UTC)?)", re.I)
 
 
@@ -81,6 +102,10 @@ def is_limit_error(text: str) -> bool:
 
 def is_account_usage_limit_error(text: str) -> bool:
     return bool(_ACCOUNT_USAGE_RE.search(text))
+
+
+def is_local_provider_compatibility_error(text: str) -> bool:
+    return bool(_LOCAL_COMPAT_RE.search(text))
 
 
 def limit_retry_at(text: str, observed_at: datetime) -> datetime:
@@ -99,7 +124,7 @@ def limit_retry_at(text: str, observed_at: datetime) -> datetime:
 
 def fallback_catalog() -> dict[str, set[str]]:
     result: dict[str, set[str]] = {}
-    for routes in _ROUTE_PROFILES.values():
+    for routes in (*_ROUTE_PROFILES.values(), _ACCOUNT_RECOVERY_ROUTES):
         for route in routes:
             result.setdefault(route.model, set()).add(route.reasoning)
     return result
@@ -158,6 +183,11 @@ def earliest_cooldown_delay(cooldowns: Mapping[str, str], now: datetime) -> floa
     return min(waits) if waits else 60.0
 
 
+def local_model_catalog_path() -> Path:
+    configured = os.environ.get("BIELLA_CODEX_LOCAL_MODEL_CATALOG")
+    return Path(configured) if configured else Path(__file__).with_name("biella-qwen-codex-model-catalog.json")
+
+
 def _production_exec_args(route: Route, schema_path: Path, output_path: Path, *, allow_helper: bool = False) -> list[str]:
     fanout = ["--enable", "multi_agent", "--disable", "multi_agent_v2"] if allow_helper else ["--disable", "multi_agent", "--disable", "multi_agent_v2"]
     local = route.provider == "ollama"
@@ -174,7 +204,9 @@ def _production_exec_args(route: Route, schema_path: Path, output_path: Path, *,
     ]
     if route.provider == "openai":
         args += ["-c", f'model_reasoning_effort="{route.reasoning}"']
-    elif route.provider != "ollama":
+    elif route.provider == "ollama":
+        args += ["-c", 'model_reasoning_effort="none"']
+    else:
         raise ValueError(f"unsupported Codex provider: {route.provider}")
     args += [
         "-m", route.model,
@@ -190,7 +222,8 @@ def _provider_prefix(route: Route) -> list[str]:
     if route.provider == "openai":
         return [codex_bin, "--search"]
     if route.provider == "ollama":
-        return [codex_bin, "--oss", "--local-provider", "ollama"]
+        catalog = local_model_catalog_path()
+        return [codex_bin, "--oss", "--local-provider", "ollama", "-c", f'model_catalog_json="{catalog}"']
     raise ValueError(f"unsupported Codex provider: {route.provider}")
 
 

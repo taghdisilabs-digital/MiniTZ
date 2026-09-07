@@ -19,6 +19,7 @@ def catalog():
         "gpt-5.6-luna": {"medium", "high", "max"},
         "gpt-5.6-terra": {"medium", "high", "ultra"},
         "gpt-5.6-sol": {"medium", "high", "ultra"},
+        "gpt-5.3-codex-spark": {"high", "xhigh"},
     }
 
 
@@ -105,6 +106,12 @@ def test_one_helper_mode_is_explicit_and_capped(tmp_path: Path):
     assert "max_depth=1" in joined
 
 
+def test_local_provider_compatibility_error_parser_is_bounded_to_local_protocol_faults():
+    assert routing.is_local_provider_compatibility_error('"qwen3-coder-next:biella" does not support thinking')
+    assert routing.is_local_provider_compatibility_error("failed to decode models response: missing field `models`")
+    assert not routing.is_local_provider_compatibility_error("ordinary native process failed")
+
+
 def test_account_usage_retry_parser_accepts_ordinal_provider_date():
     observed = datetime(2026, 9, 6, 23, 40, tzinfo=timezone.utc)
     retry = routing.limit_retry_at(
@@ -122,11 +129,25 @@ def test_all_cloud_cooldowns_route_to_local_ollama_continuity():
     route = routing.select_route("hard_creation", current, cooldowns, NOW)
     assert route.model == "qwen3-coder-next:biella"
     assert route.provider == "ollama"
-    assert route.reasoning == "provider_default"
+    assert route.reasoning == "none"
 
 
-def test_local_oss_command_uses_ollama_without_web_search_and_disables_plugins(tmp_path: Path):
-    route = routing.Route("qwen3-coder-next:biella", "provider_default", "ollama")
+def test_account_recovery_routes_luna_then_spark_then_local_even_for_deep_memory():
+    current = catalog()
+    current["qwen3-coder-next:biella"] = {"local"}
+    until = "2026-09-12T21:41:00+00:00"
+    cooldowns = {model: until for model in routing.cloud_models() if model not in {"gpt-5.6-luna", "gpt-5.3-codex-spark"}}
+    assert routing.select_route("deep_memory", current, cooldowns, NOW) == routing.Route("gpt-5.6-luna", "max")
+    cooldowns["gpt-5.6-luna"] = until
+    assert routing.select_route("deep_memory", current, cooldowns, NOW) == routing.Route("gpt-5.3-codex-spark", "xhigh")
+    cooldowns["gpt-5.3-codex-spark"] = until
+    assert routing.select_route("deep_memory", current, cooldowns, NOW) == routing.Route("qwen3-coder-next:biella", "none", "ollama")
+
+
+def test_local_oss_command_uses_non_reasoning_qwen_catalog_without_web_search_and_disables_plugins(tmp_path: Path, monkeypatch):
+    catalog_path = tmp_path / "qwen-codex-model-catalog.json"
+    monkeypatch.setenv("BIELLA_CODEX_LOCAL_MODEL_CATALOG", str(catalog_path))
+    route = routing.Route("qwen3-coder-next:biella", "none", "ollama")
     cmd = routing.build_codex_command(route, tmp_path / "schema.json", tmp_path / "out.json", tmp_path / "project")
     joined = " ".join(cmd)
     assert cmd[1:4] == ["--oss", "--local-provider", "ollama"]
@@ -134,7 +155,8 @@ def test_local_oss_command_uses_ollama_without_web_search_and_disables_plugins(t
     assert "--disable plugins" in joined
     assert 'model_auto_compact_token_limit=12000' in joined
     assert 'tool_output_token_limit=4000' in joined
-    assert "model_reasoning_effort" not in joined
+    assert 'model_reasoning_effort="none"' in joined
+    assert f'model_catalog_json="{catalog_path}"' in joined
 
 
 def test_cloud_production_command_disables_plugins(tmp_path: Path):
@@ -166,7 +188,7 @@ def test_discover_catalog_includes_ready_local_ollama_model(monkeypatch):
 
 
 def test_local_resume_command_preserves_session_with_ollama_and_no_plugins(tmp_path: Path):
-    route = routing.Route("qwen3-coder-next:biella", "provider_default", "ollama")
+    route = routing.Route("qwen3-coder-next:biella", "none", "ollama")
     session_id = "01a07480-2c40-7d03-b649-d3f72807cc3e"
     cmd = routing.build_codex_resume_command(route, tmp_path / "schema.json", tmp_path / "out.json", session_id)
     joined = " ".join(cmd)

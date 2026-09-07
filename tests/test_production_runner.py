@@ -771,13 +771,37 @@ def test_clean_local_assist_accepts_path_present_in_current_task_memory(tmp_path
     assert path and json.loads(path.read_text())["text"]==text
 
 
-def test_account_usage_limit_cools_all_cloud_codex_models():
+def test_local_provider_compatibility_failure_cools_local_route_without_hot_loop():
     telemetry = runner.initial_runtime()
-    route = routing.Route("gpt-6-astra", "ultra")
-    detail = "You've hit your usage limit. Visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Sep 12th, 2026 9:41 PM."
-    runner._set_failure(telemetry, route, detail, "D03-01")
-    expected = "2026-09-12T21:41:00+00:00"
+    route = routing.Route("qwen3-coder-next:biella", "none", "ollama")
+    before = datetime.now(timezone.utc)
+    runner._set_failure(telemetry, route, '"qwen3-coder-next:biella" does not support thinking', "D03-01")
+    until = datetime.fromisoformat(telemetry["cooldowns"][route.model])
+    assert until > before
     assert telemetry["status"] == "RECOVERING_MODEL"
+    assert telemetry["last_result"]["status"] == "MODEL_RECOVERY"
+
+
+def test_account_usage_limit_reserves_luna_then_spark_before_local():
+    telemetry = runner.initial_runtime()
+    detail = "You've hit your usage limit. Visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Sep 12th, 2026 9:41 PM."
+    expected = "2026-09-12T21:41:00+00:00"
+
+    runner._set_failure(telemetry, routing.Route("gpt-6-astra", "ultra"), detail, "D03-01")
+    assert telemetry["status"] == "RECOVERING_MODEL"
+    assert telemetry["cooldowns"].get("gpt-5.6-luna") is None
+    assert telemetry["cooldowns"].get("gpt-5.3-codex-spark") is None
+    assert all(
+        telemetry["cooldowns"].get(model) == expected
+        for model in routing.cloud_models()
+        if model not in {"gpt-5.6-luna", "gpt-5.3-codex-spark"}
+    )
+
+    runner._set_failure(telemetry, routing.Route("gpt-5.6-luna", "max"), detail, "D03-01")
+    assert telemetry["cooldowns"].get("gpt-5.6-luna") == expected
+    assert telemetry["cooldowns"].get("gpt-5.3-codex-spark") is None
+
+    runner._set_failure(telemetry, routing.Route("gpt-5.3-codex-spark", "xhigh"), detail, "D03-01")
     assert all(telemetry["cooldowns"].get(model) == expected for model in routing.cloud_models())
     assert telemetry["last_result"]["retry_at"] == expected
 
@@ -789,6 +813,7 @@ def test_account_usage_limit_falls_back_to_local_codex_route(tmp_path: Path, mon
         "gpt-5.6-terra": {"ultra"},
         "gpt-5.6-sol": {"ultra"},
         "gpt-5.6-luna": {"max"},
+        "gpt-5.3-codex-spark": {"xhigh"},
         "qwen3-coder-next:biella": {"local"},
     })
     used = []
@@ -802,7 +827,12 @@ def test_account_usage_limit_falls_back_to_local_codex_route(tmp_path: Path, mon
     monkeypatch.setattr(runner.routing, "build_codex_command", command)
     monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: {"commit": task_id, "tree": "t"})
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.02) == 0
-    assert used[:2] == [("gpt-6-astra", "openai"), ("qwen3-coder-next:biella", "ollama")]
+    assert used[:4] == [
+        ("gpt-6-astra", "openai"),
+        ("gpt-5.6-luna", "openai"),
+        ("gpt-5.3-codex-spark", "openai"),
+        ("qwen3-coder-next:biella", "ollama"),
+    ]
 
 
 def test_cross_provider_compaction_resume_error_is_session_incompatible():
