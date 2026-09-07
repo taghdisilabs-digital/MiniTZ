@@ -21,13 +21,19 @@ task:
   continuity:
     completed_predecessor: D02-04
     production_source: projects/biella-games/docs/PRODUCTION.md
-    observed_repository_head: cebd1260ed9d1215e0b04cc7fa9e05e27c0c58c0
-    observed_repository_tree: 84bbf41283ac1db1414f20ebe6a992d92b6bce6a
-    implementation_commit: cebd1260ed9d1215e0b04cc7fa9e05e27c0c58c0
-    implementation_tree: 84bbf41283ac1db1414f20ebe6a992d92b6bce6a
+    observed_repository_head: ddc276fb7fc8e70a06813f45f19434fa9840c58c
+    observed_repository_tree: 543da142a139cad1c6aeb3e25a1bb2b7352e943d
+    implementation_commit: ddc276fb7fc8e70a06813f45f19434fa9840c58c
+    implementation_tree: 543da142a139cad1c6aeb3e25a1bb2b7352e943d
     source_alignment_gate: VERIFIED_GITHUB_MAIN_PRE_EXECUTION_AND_POST_TURN_FAIL_CLOSED
     customer_handoff_mode: FIRST_CUSTOMER_CHECKPOINT_SLEEP_LAST_CUSTOMER_AUTOMATIC_RESTORE
     customer_resume_target: LOCAL_BIELLA_PRODUCTION_OLLAMA_QWEN_ACTIVE_ENABLED
+    customer_handoff_checkpoint: /mnt/biella-extra/biella-runtime/customer-handoff/active.json
+    customer_handoff_checkpoint_sha256: b8cf3a67307b78a6e15372b1ff27f08d43c022edd0d754babb56fda41e31ef1b
+    customer_handoff_running_customer_count: 2
+    verified_external_broker_commit: cdb3c43071641e8e15979ad187b26517f5e6a9ab
+    verified_external_broker_tree: 9826274a2518c48350e974e9cf34eb19bc4e820c
+    external_broker_validation: 60_UNIT_PLUS_8_SUBTESTS_PLUS_9_HOST_ACCEPTANCE_PASS
     authoritative_persistent_task_session_id: null
     prior_invalidated_executor_session_id: 01a07931-fb65-7af1-830d-83afb2ee5d8d
     latest_bounded_fallback_session_id: 01a07a15-b528-7a43-afd7-e84ff3c1ccc9
@@ -72,13 +78,13 @@ task:
     progression: After real D03-01 durable closure, advance to earliest unfinished canonical task; never skip or invent order.
 
   bounded_outage_fallback:
-    strong_routes: Astra/Luna retain full-task synthesis and closure authority when available.
+    strong_routes: Astra/Terra/Sol/Luna and catalog-discovered gpt-reserve retain full-task synthesis and closure authority when available.
     bounded_routes: Spark then local Qwen may execute one small technical outcome per fresh executor packet when strong routes are unavailable from observed calls.
     quality_order: [correctness_and_evidence, continuity, speed, token_savings]
-    packet_contract: retrieval-first exact current task memory + compact projection + task guide + exact needed source/evidence; no broad accumulated conversation replay
-    current_open_defect: Attempt 294 local Qwen failed to consume referenced task memory/guide and made no project-byte progress.
-    current_defect_containment: no-progress ledger blocks another identical Qwen packet; do not spin or spend tokens on unchanged input.
-    required_repair_before_relying_on_local_tool_work: make bounded packet sufficiently self-contained or otherwise prove local Codex tool access against exact files; preserve strong-route acceptance authority.
+    packet_contract: SELF_CONTAINED retrieval-first embedded current task memory + task guide + compact projection with exact needed source/evidence references; no broad accumulated conversation replay
+    current_open_defect: RECOVERED. Attempt 294 empty-memory/tool-access statement remains historical failed evidence only; current bounded packets embed task memory, task guide, and compact projection content.
+    current_defect_containment: self-contained bounded packet plus no-progress ledger; unchanged bounded packets are deduplicated and cannot replace persistent strong-session identity.
+    required_repair_before_relying_on_local_tool_work: COMPLETE_SELF_CONTAINED_PACKET_VERIFIED_BY_TEST; local bounded work remains non-authoritative and strong-route acceptance authority is preserved.
     whole_task_complete: FORBIDDEN
     section_planning: FORBIDDEN
     task_order_or_status_mutation: FORBIDDEN

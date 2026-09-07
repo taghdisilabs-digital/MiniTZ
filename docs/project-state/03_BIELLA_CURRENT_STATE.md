@@ -5,8 +5,8 @@ schema: biella.current_state/v11
 state_class: VOLATILE
 update_rule: replace_stale_values; preserve_valid_progress_capabilities_evidence
 observed_date: 2026-09-07
-observed_at_utc: 2026-09-07T17:03:49+00:00
-observed_at_europe_amsterdam: 2026-09-07T19:03:49+02:00
+observed_at_utc: 2026-09-07T20:21:09+00:00
+observed_at_europe_amsterdam: 2026-09-07T22:21:09+02:00
 
 authority:
   if_conflict: [CURRENT_EXECUTION_STATE, CURRENT_GITHUB_SOURCE, CURRENT_CANONICAL_DRIVE, VERIFIED_HISTORICAL_EVIDENCE, REFERENCE_OR_PLAN, INFERENCE]
@@ -17,14 +17,18 @@ repository:
   repository: patrickminitz-web/biella-engine
   branch: main
   canonical_checkout: /root/biella/repos/biella-engine
-  observed_head_commit: cebd1260ed9d1215e0b04cc7fa9e05e27c0c58c0
-  observed_head_tree: 84bbf41283ac1db1414f20ebe6a992d92b6bce6a
-  github_main_readback_commit: cebd1260ed9d1215e0b04cc7fa9e05e27c0c58c0
-  implementation_commit: cebd1260ed9d1215e0b04cc7fa9e05e27c0c58c0
-  implementation_tree: 84bbf41283ac1db1414f20ebe6a992d92b6bce6a
+  observed_head_commit: ddc276fb7fc8e70a06813f45f19434fa9840c58c
+  observed_head_tree: 543da142a139cad1c6aeb3e25a1bb2b7352e943d
+  github_main_readback_commit: ddc276fb7fc8e70a06813f45f19434fa9840c58c
+  implementation_commit: ddc276fb7fc8e70a06813f45f19434fa9840c58c
+  implementation_tree: 543da142a139cad1c6aeb3e25a1bb2b7352e943d
   source_alignment_gate: VERIFIED_GITHUB_MAIN_SAFE_FAST_FORWARD_OR_FAIL_CLOSED
   customer_handoff_mode: FIRST_CUSTOMER_CHECKPOINT_SLEEP_LAST_CUSTOMER_AUTOMATIC_RESTORE
   customer_resume_target: LOCAL_BIELLA_PRODUCTION_OLLAMA_QWEN_ACTIVE_ENABLED
+  customer_handoff_checkpoint: /mnt/biella-extra/biella-runtime/customer-handoff/active.json
+  customer_handoff_checkpoint_sha256: b8cf3a67307b78a6e15372b1ff27f08d43c022edd0d754babb56fda41e31ef1b
+  customer_handoff_running_customer_count: 2
+  legacy_blanket_cooldown_reconciliation: ARMED_ON_NEXT_PRODUCTION_START
   production_runner_source: /root/biella/repos/biella-engine/ops/local-ai/biella_production_runner.py
   installer_sleep_preservation: VERIFIED_EXISTING_DISABLED_STATE_PRESERVED
   worktree_state: DIRTY_ACTIVE_TASK_ONLY
@@ -57,8 +61,8 @@ active_execution:
   runtime_json_status: WAITING_FOR_STRONG_MODEL_STALE_WHILE_SERVICE_ASLEEP
   no_progress_model: qwen3-coder-next:biella
   no_progress_packet_id: d8667b37c1e5713dd82876a90d5ea7edf4eefa9f874a182265833840d4c84d99
-  bounded_fallback_open_defect: LOCAL_QWEN_DID_NOT_CONSUME_REFERENCED_TASK_MEMORY_OR_GUIDE_ON_ATTEMPT_294
-  bounded_fallback_defect_effect: NO_PROJECT_BYTES_CHANGED_AND_REPEAT_BLOCKED_BY_NO_PROGRESS_CIRCUIT_BREAKER
+  bounded_fallback_open_defect: RECOVERED_SELF_CONTAINED_BOUNDED_PACKET_EMBEDS_TASK_MEMORY_GUIDE_AND_PROJECTION
+  bounded_fallback_defect_effect: ATTEMPT_294_EMPTY_MEMORY_STATEMENT_INVALIDATED; FUTURE_BOUNDED_PACKETS_SELF_CONTAINED_AND_NO_PROGRESS_DEDUPLICATED
   sleep_order: /mnt/biella-extra/biella-runtime/codex-production/memory/owner-sleep-order.json
   sleep_order_sha256: 9b7f9fec7c9884b8339e1f0b805f4375d2da55dc853c2b992d981dcd92126345
   task_memory_sha256: 412bc1ddcf2d0223f11d3e1df4f74cf2c1e20e3ebcde32312e7b35fcaab49f53
@@ -95,7 +99,7 @@ continuation_policy:
   no_rollback_or_redo_without_invalidation: true
   sleep_rule: DO_NOT_EXECUTE_OR_ADVANCE_WHILE_ANY_EXTERNAL_CUSTOMER_RESOURCE_LEASE_IS_HELD; LAST_CUSTOMER_RELEASE_AUTOMATICALLY_RESTORES_BIELLA
   resume_rule: LAST_CUSTOMER_RELEASE_RESTORES_LOCAL_SERVICES_AND_STARTS_FRESH_STRONG_EXECUTOR_FROM_CURRENT_TASK_MEMORY_GUIDE_AND_EXACT_PSO_LOADING_FRONTIER
-  strong_route_authority: ASTRA_OR_LUNA_FULL_TASK_SYNTHESIS_AND_CLOSURE_WHEN_AVAILABLE
+  strong_route_authority: ASTRA_TERRA_SOL_LUNA_OR_CATALOG_DISCOVERED_GPT_RESERVE_FULL_TASK_SYNTHESIS_AND_CLOSURE
   bounded_outage_fallback: SPARK_THEN_QWEN_ONE_SMALL_TECHNICAL_OUTCOME_PER_FRESH_PACKET
   bounded_whole_task_completion: FORBIDDEN
   bounded_section_planning: FORBIDDEN
@@ -111,9 +115,10 @@ resources:
   qwen_reasoning_protocol: NONE_COMPATIBILITY_MODE_NORMAL_MODEL_INFERENCE_REMAINS
   external_project_sandbox_broker: VERIFIED_SEPARATE_HOST_RESOURCE_NOT_BIELLA_ENGINE
   external_project_sandbox_repo: /root/project-sandbox-broker
-  external_project_sandbox_verified_commit: 769d4019ac33923ba3add1b0209cc25793a17587
+  external_project_sandbox_verified_commit: cdb3c43071641e8e15979ad187b26517f5e6a9ab
+  external_project_sandbox_verified_tree: 9826274a2518c48350e974e9cf34eb19bc4e820c
   external_project_sandbox_service: ACTIVE_LOOPBACK_127_0_0_1_8840
-  external_project_sandbox_validation: 44_UNIT_PLUS_9_HOST_ACCEPTANCE_PASS
+  external_project_sandbox_validation: 60_UNIT_PLUS_8_SUBTESTS_PLUS_9_HOST_ACCEPTANCE_PASS
   external_project_learning_firewall: GENERIC_CODING_ENGINEERING_LESSONS_ONLY_NO_BRAND_VISUAL_COPY_RULES_OR_CUSTOMER_SOURCE
 
 control:
