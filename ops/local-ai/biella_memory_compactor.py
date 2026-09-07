@@ -254,7 +254,7 @@ def _source_files(repo_root: Path, project_root: Path, runtime_root: Path) -> li
 
 _RESOLVED_FAILURE_STATUSES = {"RECOVERED", "REPAIRED", "RESOLVED", "PASS", "COMPLETED"}
 _TRANSIENT_PROVIDER_FAILURE_RE = re.compile(
-    r"(?:you(?:'|’)?ve hit your usage limit|chatgpt\.com/codex/settings/usage|does not support thinking|failed to decode models response.*missing field [`']?models)",
+    r"(?:you(?:'|’)?ve hit your usage limit|chatgpt\.com/codex/settings/usage|does not support thinking|failed to decode models response.*missing field [`']?models|unknown input item type:\s*[\\\"]?compaction)",
     re.I | re.S,
 )
 
