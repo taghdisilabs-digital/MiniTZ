@@ -699,6 +699,11 @@ def _is_stale_resume_error(detail: str) -> bool:
     ))
 
 
+def _is_resume_protocol_incompatible(detail: str) -> bool:
+    text = str(detail or "").lower()
+    return "unknown input item type" in text and "compaction" in text
+
+
 def _set_failure(telemetry: dict[str, Any], route: routing.Route, detail: str, task_id: str) -> None:
     observed = datetime.now(timezone.utc)
     limited = routing.is_limit_error(detail)
@@ -913,21 +918,29 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 allow_helper=_helper_allowed(task.id), event_journal=journal,
             )
             if rc != 0:
-                if resume_session_id and _is_stale_resume_error(error_text):
+                stale_resume = resume_session_id and _is_stale_resume_error(error_text)
+                incompatible_resume = resume_session_id and _is_resume_protocol_incompatible(error_text)
+                if stale_resume or incompatible_resume:
                     stale_session_id = resume_session_id
                     _clear_task_session(telemetry)
                     telemetry["status"] = "RECOVERING_SESSION"
-                    # Keep the task capsule's verified summary/evidence intact.  This
-                    # recovery record is controller state, not replacement task memory.
+                    # Rotate only the executor-session boundary. The canonical Task,
+                    # worktree, task-memory capsule, raw evidence, and failure history
+                    # remain untouched and drive the next fresh Codex session.
                     telemetry["last_result"] = {
                         "task_id": f"SESSION:{task.id}", "status": "SESSION_RECOVERY",
                         "summary": error_text[-1200:], "evidence": [],
                         "model": route.model, "reasoning": route.reasoning,
                     }
+                    recovery_text = (
+                        "Provider-incompatible Codex session rotated; task identity, worktree, task memory, and evidence preserved."
+                        if incompatible_resume else
+                        "Stale interrupted Codex session rotated; task bytes and compact memory preserved."
+                    )
                     journal.emit(
                         "task.session_recovery", task_id=task.id, status="RECOVERED",
-                        text="Stale interrupted Codex session rotated; task bytes and compact memory preserved.",
-                        stale_session_id=stale_session_id, model=route.model, reasoning=route.reasoning,
+                        text=recovery_text, stale_session_id=stale_session_id,
+                        model=route.model, reasoning=route.reasoning,
                     )
                     _beat(runtime_path, telemetry)
                     continue
