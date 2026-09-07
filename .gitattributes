@@ -1,0 +1,8 @@
+# Unreal runtime evidence is immutable raw output. Preserve exact bytes and do
+# not treat CRLF/trailing whitespace in these evidence formats as source errors.
+projects/biella-games/Build/Presentation/*.log -whitespace
+projects/biella-games/Build/Presentation/**/*.log -whitespace
+projects/biella-games/Build/Presentation/*.csv -whitespace
+projects/biella-games/Build/Presentation/**/*.csv -whitespace
+projects/biella-games/Build/Presentation/*.txt -whitespace
+projects/biella-games/Build/Presentation/**/*.txt -whitespace
