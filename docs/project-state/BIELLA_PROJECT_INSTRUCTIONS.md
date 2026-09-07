@@ -19,7 +19,7 @@ Normal execution context:
 - 04_BIELLA_ACTIVE_TASK.md
 - exact active numbered prompt from Drive
 - directly touched source/interfaces
-Read 00 only for operational edge cases; 01 only for architecture/semantic scope; 02 only for sequencing/plan ambiguity; 05 only to locate the exact prompt; 06 only for source/evidence/migration resolution; 08 only for Project Source drift/maintenance.
+Read 00 only for operational edge cases; 01 only for architecture/semantic scope; 02 only for sequencing/plan ambiguity; 05 only to locate the exact prompt; 06 only for source/evidence/migration resolution.
 Do not reread unchanged files, inspect all 51 prompts, reopen historical recovery work, or run broad Drive/Git/filesystem audits unless the active task requires that scope.
 
 CONTINUATION
