@@ -203,6 +203,17 @@ class GatewayTest(unittest.TestCase):
         status, _, body = self.request("GET", "/live-api/asset?root_id=test&path=../secret")
         self.assertEqual(status, 404)
 
+    def test_public_live_asset_supports_bounded_range_streaming(self):
+        conn = http.client.HTTPConnection("127.0.0.1", self.port, timeout=5)
+        conn.request("GET", "/live-api/asset?root_id=test&path=preview.png", headers={"Range": "bytes=1-4"})
+        response = conn.getresponse()
+        body = response.read()
+        self.assertEqual(response.status, 206)
+        self.assertEqual(response.getheader("Content-Range"), f"bytes 1-4/{self.preview.stat().st_size}")
+        self.assertEqual(response.getheader("Accept-Ranges"), "bytes")
+        self.assertEqual(body, self.preview.read_bytes()[1:5])
+        conn.close()
+
     def test_public_live_api_rejects_writes(self):
         status, _, body = self.request("POST", "/live-api/snapshot", {"anything": "ignored"})
         self.assertEqual(status, 405)

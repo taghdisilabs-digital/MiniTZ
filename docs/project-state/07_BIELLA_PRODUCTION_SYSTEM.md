@@ -82,6 +82,7 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 - `CONTINUE` means authorized work remains; `COMPLETE`/`COMPLETE_ALREADY` require task-appropriate evidence and durable source/output identity.
 
 ## Observer surfaces
+- `NO_PERMANENT_WEBSITE_AGENT`: current Website production facts are a deterministic read-only projection of canonical Biella runtime/evidence through `/live-api/snapshot` and `/live-api/events`. Website source/design changes require explicit Website work; task/model/progress/validation/artifact updates do not require an agent, Website commit, or redeploy. Projection caching/indexing may improve performance but never becomes execution authority.
 - Public `/live/` and private control are read-only observers.
 - Open/close/refresh/reconnect/login/logout must never signal, start, stop, pause, or advance production.
 - Stale detection must allow more time than the normal production heartbeat interval so a healthy runner does not falsely oscillate to STALE.

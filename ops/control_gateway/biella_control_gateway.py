@@ -267,26 +267,84 @@ class ControlHandler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
 
+    def _stream_file(self, candidate: Path, *, cache_control: str, disposition: str | None = None) -> None:
+        try:
+            size = candidate.stat().st_size
+        except OSError:
+            self._json(HTTPStatus.NOT_FOUND, {"error": "asset_not_found"})
+            return
+        start = 0
+        end = max(0, size - 1)
+        status = HTTPStatus.OK
+        raw_range = self.headers.get("Range", "").strip()
+        if raw_range:
+            if not raw_range.startswith("bytes=") or "," in raw_range:
+                self.send_response(HTTPStatus.REQUESTED_RANGE_NOT_SATISFIABLE)
+                self.send_header("Content-Range", f"bytes */{size}")
+                self.send_header("Content-Length", "0")
+                self.end_headers()
+                return
+            spec = raw_range[6:]
+            left, sep, right = spec.partition("-")
+            if not sep:
+                left = right = ""
+            try:
+                if left:
+                    start = int(left)
+                    end = int(right) if right else end
+                elif right:
+                    count = int(right)
+                    start = max(0, size - count)
+                else:
+                    raise ValueError
+            except ValueError:
+                start = size
+            if start < 0 or start >= size or end < start:
+                self.send_response(HTTPStatus.REQUESTED_RANGE_NOT_SATISFIABLE)
+                self.send_header("Content-Range", f"bytes */{size}")
+                self.send_header("Content-Length", "0")
+                self.end_headers()
+                return
+            end = min(end, size - 1)
+            status = HTTPStatus.PARTIAL_CONTENT
+        length = max(0, end - start + 1) if size else 0
+        mime = mimetypes.guess_type(candidate.name)[0] or "application/octet-stream"
+        self.send_response(status)
+        self.send_header("Content-Type", mime)
+        self.send_header("Content-Length", str(length))
+        self.send_header("Accept-Ranges", "bytes")
+        if status == HTTPStatus.PARTIAL_CONTENT:
+            self.send_header("Content-Range", f"bytes {start}-{end}/{size}")
+        if disposition:
+            self.send_header("Content-Disposition", disposition)
+        self.send_header("Cache-Control", cache_control)
+        self._security_headers()
+        self.end_headers()
+        if length <= 0:
+            return
+        try:
+            with candidate.open("rb") as handle:
+                handle.seek(start)
+                remaining = length
+                while remaining > 0:
+                    chunk = handle.read(min(1024 * 1024, remaining))
+                    if not chunk:
+                        break
+                    self.wfile.write(chunk)
+                    remaining -= len(chunk)
+        except (OSError, BrokenPipeError, ConnectionResetError):
+            return
+
     def _serve_asset(self, lane: str, root_id: str, relative_path: str) -> None:
         try:
             candidate = self.server.assets.resolve_asset(lane, root_id, relative_path)
         except ValueError:
             self._json(HTTPStatus.NOT_FOUND, {"error": "asset_not_found"})
             return
-        try:
-            body = candidate.read_bytes()
-        except OSError:
-            self._json(HTTPStatus.NOT_FOUND, {"error": "asset_not_found"})
-            return
-        mime = mimetypes.guess_type(candidate.name)[0] or "application/octet-stream"
-        self.send_response(HTTPStatus.OK)
-        self.send_header("Content-Type", mime)
-        self.send_header("Content-Length", str(len(body)))
-        self.send_header("Content-Disposition", f'inline; filename="{candidate.name}"')
-        self.send_header("Cache-Control", "private, max-age=60")
-        self._security_headers()
-        self.end_headers()
-        self.wfile.write(body)
+        self._stream_file(
+            candidate, cache_control="private, max-age=60",
+            disposition=f'inline; filename="{candidate.name}"',
+        )
 
     def _serve_live_asset(self, root_id: str, relative_path: str) -> None:
         if self.server.live is None:
@@ -294,19 +352,13 @@ class ControlHandler(BaseHTTPRequestHandler):
             return
         try:
             _, candidate = self.server.live.resolve_public_asset(root_id, relative_path)
-            body = candidate.read_bytes()
         except (ValueError, OSError):
             self._json(HTTPStatus.NOT_FOUND, {"error": "asset_not_found"})
             return
-        mime = mimetypes.guess_type(candidate.name)[0] or "application/octet-stream"
-        self.send_response(HTTPStatus.OK)
-        self.send_header("Content-Type", mime)
-        self.send_header("Content-Length", str(len(body)))
-        self.send_header("Content-Disposition", f'inline; filename="{candidate.name}"')
-        self.send_header("Cache-Control", "public, max-age=15, must-revalidate")
-        self._security_headers()
-        self.end_headers()
-        self.wfile.write(body)
+        self._stream_file(
+            candidate, cache_control="public, max-age=15, must-revalidate",
+            disposition=f'inline; filename="{candidate.name}"',
+        )
 
     def _handle_live_events(self) -> None:
         if self.server.live is None:

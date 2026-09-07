@@ -71,7 +71,7 @@ class AssetCatalog:
             raise ValueError("asset unavailable")
         return candidate
 
-    def _item(self, lane: str, root: AssetRoot, path: Path) -> dict[str, object]:
+    def _item(self, lane: str, root: AssetRoot, path: Path, *, include_digest: bool = True) -> dict[str, object]:
         stat = path.stat()
         rel = path.relative_to(root.path).as_posix()
         kind = asset_kind(path)
@@ -86,7 +86,7 @@ class AssetCatalog:
             "modified_at": datetime.fromtimestamp(stat.st_mtime, timezone.utc).isoformat(),
             "mime_type": mimetypes.guess_type(path.name)[0] or "application/octet-stream",
             "previewable": path.suffix.lower() in PREVIEWABLE,
-            "sha256": _sha256(path),
+            "sha256": _sha256(path) if include_digest else None,
         }
 
     def list_assets(self, lane: str, *, kind: str | None = None,

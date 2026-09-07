@@ -82,6 +82,31 @@ class LiveProjectionTest(unittest.TestCase):
         self.assertEqual(stage["primary"]["name"], "newer.png")
         self.assertTrue(stage["primary"]["url"].startswith("/live-api/asset?"))
 
+
+    def test_json_agent_message_projects_summary_not_raw_payload(self):
+        event = self.live.sanitize_event({
+            "type": "agent.message", "seq": 9, "task_id": "D03-01", "time": "2026-09-07T22:00:00+00:00",
+            "text": json.dumps({"status": "CONTINUE", "summary": "Stable-key cook is progressing normally.", "evidence": ["private/path"]}),
+        })
+        self.assertEqual(event["text"], "Stable-key cook is progressing normally.")
+        self.assertNotIn("evidence", event["text"])
+
+    def test_cached_snapshot_avoids_request_time_asset_scan_and_system_probe(self):
+        (self.game / "docs").mkdir(parents=True, exist_ok=True)
+        (self.game / "docs" / "PRODUCTION.md").write_text("Current section: `post_d01`\nCurrent task: `D03-01`\n- [ ] D03-01 | hard_creation | live | PENDING | evidence\n")
+        (self.runtime / "runtime.json").write_text(json.dumps({"status":"RUNNING","task_id":"D03-01","heartbeat_at":"2026-09-07T23:00:00+00:00"}))
+        (self.runtime / "task-memory" / "D03-01.json").write_text(json.dumps({"title":"Live task","summary":"Current work"}))
+        calls={"stage":0,"system":0}
+        original_stage=self.live._stage
+        self.live._stage=lambda memory: (calls.__setitem__("stage",calls["stage"]+1) or original_stage(memory))
+        self.live._system_activity=lambda: (calls.__setitem__("system",calls["system"]+1) or {"gpu":{},"host":{}})
+        self.live.refresh(force_assets=True, force_system=True)
+        before=dict(calls)
+        first=self.live.snapshot()
+        second=self.live.snapshot()
+        self.assertEqual(calls,before)
+        self.assertEqual(first,second)
+
     def test_public_asset_resolution_is_preview_only_and_root_bounded(self):
         lane, path = self.live.resolve_public_asset("games-presentation", "current/captures/frame.png")
         self.assertEqual(lane, "Games")

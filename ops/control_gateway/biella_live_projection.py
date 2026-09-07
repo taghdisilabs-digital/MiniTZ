@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import copy
 import json
 import os
 import re
 import subprocess
+import threading
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote
@@ -48,6 +51,21 @@ class LiveProjection:
         self.journal_path = self.runtime_root / "events.jsonl"
         self.runtime_path = self.runtime_root / "runtime.json"
         self.memory_root = self.runtime_root / "task-memory"
+        self._cache_lock = threading.RLock()
+        self._snapshot_cache: dict[str, object] | None = None
+        self._stage_cache: dict[str, object] | None = None
+        self._system_cache: dict[str, object] | None = None
+        self._git_cache: dict[str, str] | None = None
+        self._last_asset_refresh = 0.0
+        self._last_system_refresh = 0.0
+        self._last_git_refresh = 0.0
+        self._asset_dirty = True
+        self._refresh_seconds = 1.0
+        self._asset_refresh_seconds = 30.0
+        self._system_refresh_seconds = 2.0
+        self._git_refresh_seconds = 5.0
+        self._stop = threading.Event()
+        self._thread: threading.Thread | None = None
 
     @staticmethod
     def _run(argv: list[str], timeout: int = 8) -> tuple[int, str]:
@@ -178,6 +196,12 @@ class LiveProjection:
         when = str(event.get("time") or "")
         if event_type == "agent.message":
             text = str(event.get("text") or "Biella updated production state").strip()
+            try:
+                structured = json.loads(text)
+            except json.JSONDecodeError:
+                structured = None
+            if isinstance(structured, dict) and isinstance(structured.get("summary"), str):
+                text = structured["summary"].strip()
             text = text.replace("/root/biella/repos/biella-engine/", "")
             text = text.replace("/mnt/biella-extra/biella-runtime/", "runtime/")
             text = re.sub(r"\s+", " ", text)[:520]
@@ -302,7 +326,7 @@ class LiveProjection:
                 except ValueError:
                     continue
                 try:
-                    return self.assets._item(lane, root, candidate)
+                    return self.assets._item(lane, root, candidate, include_digest=False)
                 except OSError:
                     return None
         return None
@@ -367,7 +391,7 @@ class LiveProjection:
                     if path.suffix.lower() not in PREVIEWABLE_SUFFIXES:
                         continue
                     try:
-                        items.append(self.assets._item(lane, root, path))
+                        items.append(self.assets._item(lane, root, path, include_digest=False))
                     except OSError:
                         continue
         items.sort(key=lambda item: (str(item.get("modified_at") or ""), str(item.get("name") or "")), reverse=True)
@@ -440,8 +464,46 @@ class LiveProjection:
             return "WORKING"
         return "WAITING"
 
-    def snapshot(self) -> dict[str, object]:
+    def observe_event(self, event: dict[str, object]) -> None:
+        category = self._category(event)
+        raw = str(event.get("text") or "").lower()
+        if category in {"ARTIFACT", "RENDER"} or any(suffix in raw for suffix in PREVIEWABLE_SUFFIXES):
+            with self._cache_lock:
+                self._asset_dirty = True
+
+    def start(
+        self, *, refresh_seconds: float = 1.0, asset_refresh_seconds: float = 30.0,
+        system_refresh_seconds: float = 2.0, git_refresh_seconds: float = 5.0,
+    ) -> None:
+        self._refresh_seconds = max(0.2, float(refresh_seconds))
+        self._asset_refresh_seconds = max(2.0, float(asset_refresh_seconds))
+        self._system_refresh_seconds = max(1.0, float(system_refresh_seconds))
+        self._git_refresh_seconds = max(1.0, float(git_refresh_seconds))
+        self.refresh(force_assets=True, force_system=True, force_git=True)
+        if self._thread and self._thread.is_alive():
+            return
+        self._stop.clear()
+        self._thread = threading.Thread(target=self._refresh_loop, name="biella-live-projection", daemon=True)
+        self._thread.start()
+
+    def stop(self) -> None:
+        self._stop.set()
+        if self._thread:
+            self._thread.join(timeout=max(2.0, self._refresh_seconds * 3))
+
+    def _refresh_loop(self) -> None:
+        while not self._stop.wait(self._refresh_seconds):
+            try:
+                self.refresh()
+            except Exception:
+                # The observer never owns production. Keep serving the last valid projection.
+                continue
+
+    def refresh(
+        self, *, force_assets: bool = False, force_system: bool = False, force_git: bool = False,
+    ) -> dict[str, object]:
         now = datetime.now(timezone.utc)
+        mono = time.monotonic()
         status = self._production_status()
         runtime = _read_json(self.runtime_path)
         task_id = str(status.get("current_task") or status.get("task_id") or runtime.get("task_id") or "UNKNOWN")
@@ -455,13 +517,34 @@ class LiveProjection:
         started_at = self._task_started_at(task_id, events)
         started = _iso_time(started_at)
         elapsed = max(0, int((now - started).total_seconds())) if started else None
-        git = self._git_info()
+        with self._cache_lock:
+            asset_dirty_due = self._asset_dirty and mono - self._last_asset_refresh >= min(5.0, self._asset_refresh_seconds)
+            asset_due = force_assets or self._stage_cache is None or asset_dirty_due or mono - self._last_asset_refresh >= self._asset_refresh_seconds
+            system_due = force_system or self._system_cache is None or mono - self._last_system_refresh >= self._system_refresh_seconds
+            git_due = force_git or self._git_cache is None or mono - self._last_git_refresh >= self._git_refresh_seconds
+        if asset_due:
+            stage = self._stage(memory)
+        else:
+            with self._cache_lock:
+                stage = copy.deepcopy(self._stage_cache)
+        if system_due:
+            system = self._system_activity()
+        else:
+            with self._cache_lock:
+                system = copy.deepcopy(self._system_cache)
+        if git_due:
+            git = self._git_info()
+        else:
+            with self._cache_lock:
+                git = copy.deepcopy(self._git_cache)
         completed = int(status.get("completed") or 0)
         total = int(status.get("total") or 0)
         title = str(memory.get("title") or task_id)
-        summary = str(memory.get("summary") or (status.get("last_result") or {}).get("summary") or "")
+        summary = str(memory.get("summary") or "").strip()
+        if not summary or summary.lower().startswith(("invalid structured result", "missing structured result")):
+            summary = str((current or {}).get("text") or (status.get("last_result") or {}).get("summary") or "").strip()
         production_state = self._production_state(status=status, runtime=runtime, current=current, heartbeat_age=heartbeat_age)
-        return {
+        payload: dict[str, object] = {
             "schema": "biella.public_live_snapshot/v1",
             "mode": "READ_ONLY_OBSERVER",
             "generated_at": now.isoformat(),
@@ -486,26 +569,40 @@ class LiveProjection:
                 "latest_validation": self._latest_validation(task_id, events),
                 "commit": git,
             },
-            "stage": self._stage(memory),
-            "system": self._system_activity(),
+            "stage": stage,
+            "system": system,
         }
+        with self._cache_lock:
+            if asset_due:
+                self._stage_cache = copy.deepcopy(stage); self._last_asset_refresh = mono; self._asset_dirty = False
+            if system_due:
+                self._system_cache = copy.deepcopy(system); self._last_system_refresh = mono
+            if git_due:
+                self._git_cache = copy.deepcopy(git); self._last_git_refresh = mono
+            self._snapshot_cache = copy.deepcopy(payload)
+        return payload
+
+    def snapshot(self) -> dict[str, object]:
+        with self._cache_lock:
+            if self._snapshot_cache is not None:
+                return copy.deepcopy(self._snapshot_cache)
+        return self.refresh(force_assets=True, force_system=True, force_git=True)
 
     def heartbeat_event(self) -> dict[str, object]:
-        status = self._production_status()
-        runtime = _read_json(self.runtime_path)
-        heartbeat_at = str(status.get("heartbeat_at") or runtime.get("heartbeat_at") or "")
+        snapshot = self.snapshot()
+        production = snapshot.get("production") if isinstance(snapshot.get("production"), dict) else {}
+        heartbeat_at = str(production.get("heartbeat_at") or "")
         heartbeat_time = _iso_time(heartbeat_at)
         age = max(0.0, (datetime.now(timezone.utc) - heartbeat_time).total_seconds()) if heartbeat_time else None
-        task_id = str(status.get("current_task") or runtime.get("task_id") or "UNKNOWN")
         return {
             "event_id": 0,
             "seq": 0,
             "time": datetime.now(timezone.utc).isoformat(),
-            "task_id": task_id,
+            "task_id": str(production.get("task_id") or "UNKNOWN"),
             "category": "BIELLA",
             "state": "HEARTBEAT",
             "text": "Live production heartbeat",
             "heartbeat_at": heartbeat_at,
             "heartbeat_age_seconds": round(age, 1) if age is not None else None,
-            "system": self._system_activity(),
+            "system": copy.deepcopy(snapshot.get("system") or {}),
         }

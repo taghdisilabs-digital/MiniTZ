@@ -27,6 +27,9 @@ BU-16 may publish an item as real game media only when `content/game-runtime-med
 ## Website visual masters
 The 50 Website visual slots are not migrated merely because a manifest filename exists. `MIGRATED_VERIFIED` requires exact source bytes, Drive file ID/path, SHA-256, GitHub publication path, and remote readback. Never guess a UUID-named/generated image match from prose or filename similarity.
 
+## Deterministic live projection
+`NO_PERMANENT_WEBSITE_AGENT`: production facts are never maintained by a permanent Website agent. The static Website shell changes only through explicit Website source tasks; current task/model/reasoning/progress/validation/system telemetry and eligible artifacts come from the read-only `/live-api/snapshot` + `/live-api/events` projection generated from canonical Biella runtime/evidence. Runtime progress must not require Website commits or redeploys. The observer may cache/index projections for performance but may never become production authority or mutate execution.
+
 ## Execution
 `MINIMUM_INSPECTION -> TEST/RED -> IMPLEMENT -> BUILD -> TEST -> BROWSER_VALIDATE -> PERSIST -> REMOTE_READBACK -> UPDATE EVIDENCE`
 

@@ -33,7 +33,10 @@ class InvestorDeckTests(unittest.TestCase):
         self.assertIn('data-live="program-complete"', page)
         self.assertIn('investor-snapshot.json', app)
         self.assertIn('cache:\'no-store\'', app)
-        self.assertRegex(app, r'setInterval\([^,]+,\s*60000\)')
+        self.assertIn('/live-api/snapshot', app)
+        self.assertIn('/live-api/events', app)
+        self.assertIn('EventSource', app)
+        self.assertNotRegex(app, r'setInterval\([^,]+,\s*60000\)')
 
 
     def test_public_fundraising_copy_is_achievement_first_and_production_true(self):
@@ -80,7 +83,8 @@ class InvestorDeckTests(unittest.TestCase):
     def test_production_workflow_refreshes_after_durable_evidence_commits(self):
         workflow = (REPO/'.github/workflows/website-production.yml').read_text()
         self.assertIn('branches: [main]', workflow)
-        for source in ('docs/task-program/D_TASK_LEDGER.json','docs/project-state/03_BIELLA_CURRENT_STATE.md','docs/project-state/04_BIELLA_ACTIVE_TASK.md','projects/biella-games/docs/PRODUCTION.md'):
-            self.assertIn(source, workflow)
+        self.assertIn("'website/**'", workflow)
+        for source in ('docs/project-state/03_BIELLA_CURRENT_STATE.md','docs/project-state/04_BIELLA_ACTIVE_TASK.md','projects/biella-games/docs/PRODUCTION.md'):
+            self.assertNotIn(source, workflow)
 
 if __name__ == '__main__': unittest.main()

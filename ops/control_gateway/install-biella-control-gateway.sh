@@ -49,7 +49,8 @@ fi
 [[ -f "$SITE_ROOT/control/index.html" ]] || { echo 'no installed control site; provide --site-dir' >&2; exit 1; }
 install -o root -g root -m 644 "$SOURCE_DIR/biella-control-gateway.service" /etc/systemd/system/biella-control-gateway.service
 systemctl daemon-reload
-systemctl enable --now biella-control-gateway.service >/dev/null
+systemctl enable biella-control-gateway.service >/dev/null
+systemctl restart biella-control-gateway.service
 
 echo 'Installed Biella control gateway.'
 echo 'Local URL: http://127.0.0.1:8787/control/'

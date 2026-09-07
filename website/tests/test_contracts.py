@@ -36,6 +36,9 @@ class WebsiteContractTests(unittest.TestCase):
         self.assertIn('READ-ONLY VPS SHOWCASE', index)
         self.assertLessEqual(index.count('<section'), 3)
         self.assertIn('/live-api/snapshot', app)
+        self.assertIn('/live-api/events', app)
+        self.assertIn('EventSource', app)
+        self.assertNotIn('setInterval(refreshLive,60000)', app)
         self.assertNotIn('POST', app)
         self.assertIn('resolve(dist,"live")', (ROOT / 'scripts/build.mjs').read_text())
 

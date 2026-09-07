@@ -27,3 +27,12 @@ def test_realtime_upgrade_preserves_proof_without_preserving_duplicate_active_st
         assert "raw evidence" in text
         assert "replace" in text.lower()
         assert "duplicate active" in text.lower()
+
+
+def test_website_live_facts_are_deterministic_projection_not_permanent_agent():
+    production = PRODUCTION.read_text(encoding="utf-8")
+    website_agents = (ROOT / "website/AGENTS.md").read_text(encoding="utf-8")
+    for text in (production, website_agents):
+        assert "NO_PERMANENT_WEBSITE_AGENT" in text
+        assert "/live-api/snapshot" in text
+        assert "/live-api/events" in text

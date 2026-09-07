@@ -11,7 +11,7 @@ RECEIPT=Path('/mnt/biella-extra/website-live-deck/deployment.json')
 RELEASES=Path('/var/lib/biella-website/releases')
 CURRENT=Path('/var/lib/biella-website/current')
 LOCK=Path('/run/biella-website-live-deploy.lock')
-RELEVANT=('website/','.github/workflows/website-production.yml','docs/task-program/D_TASK_LEDGER.json','docs/project-state/03_BIELLA_CURRENT_STATE.md','docs/project-state/04_BIELLA_ACTIVE_TASK.md','projects/biella-games/docs/PRODUCTION.md')
+RELEVANT=('website/','.github/workflows/website-production.yml')
 
 def run(args,cwd=REPO,env=None):
     return subprocess.check_output(args,cwd=cwd,env=env,text=True,stderr=subprocess.STDOUT).strip()

@@ -51,7 +51,14 @@ def main() -> int:
         ],
     })
     live = LiveProjection(repo=repo, runtime_root=production_runtime_root, assets=asset_catalog)
-    journal_tailer = ProductionJournalTailer(production_runtime_root / "events.jsonl", events.publish)
+
+    def publish(lane: str, event: dict[str, object]) -> None:
+        events.publish(lane, event)
+        if lane == "Games":
+            live.observe_event(event)
+
+    live.start()
+    journal_tailer = ProductionJournalTailer(production_runtime_root / "events.jsonl", publish)
     journal_tailer.start()
 
     server = build_server(
@@ -72,6 +79,7 @@ def main() -> int:
         pass
     finally:
         journal_tailer.stop()
+        live.stop()
         server.server_close()
     return 0
 
