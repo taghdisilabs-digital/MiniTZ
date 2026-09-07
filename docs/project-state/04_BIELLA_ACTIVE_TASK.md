@@ -21,10 +21,10 @@ task:
   continuity:
     completed_predecessor: D02-04
     production_source: projects/biella-games/docs/PRODUCTION.md
-    observed_repository_head: ddc276fb7fc8e70a06813f45f19434fa9840c58c
-    observed_repository_tree: 543da142a139cad1c6aeb3e25a1bb2b7352e943d
-    implementation_commit: ddc276fb7fc8e70a06813f45f19434fa9840c58c
-    implementation_tree: 543da142a139cad1c6aeb3e25a1bb2b7352e943d
+    observed_repository_head: ce55d5340dc192d08a1b78bf09cd237eab4098d9
+    observed_repository_tree: f8d01c597fc7173d52a24afde4c75ff759aded64
+    implementation_commit: ce55d5340dc192d08a1b78bf09cd237eab4098d9
+    implementation_tree: f8d01c597fc7173d52a24afde4c75ff759aded64
     source_alignment_gate: VERIFIED_GITHUB_MAIN_PRE_EXECUTION_AND_POST_TURN_FAIL_CLOSED
     customer_handoff_mode: FIRST_CUSTOMER_CHECKPOINT_SLEEP_LAST_CUSTOMER_AUTOMATIC_RESTORE
     customer_resume_target: LOCAL_BIELLA_PRODUCTION_OLLAMA_QWEN_ACTIVE_ENABLED
@@ -34,6 +34,16 @@ task:
     verified_external_broker_commit: cdb3c43071641e8e15979ad187b26517f5e6a9ab
     verified_external_broker_tree: 9826274a2518c48350e974e9cf34eb19bc4e820c
     external_broker_validation: 60_UNIT_PLUS_8_SUBTESTS_PLUS_9_HOST_ACCEPTANCE_PASS
+    isolated_project_execution_bridge: docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml
+    isolated_project_execution_bridge_sha256: b92b77ee6a4a7791217b0346225f8a893c1b7dad27c8f5c56d467621aac9d7be
+    isolated_project_execution_bridge_drive_id: 1x35z0cZ-t3SM3Ma6mX5O4AMfFKnDcolv
+    project_cell_execution_model: ISOLATED_PROJECT_CELL
+    adopted_project_cells: [feiz-english-institute, feiz-english-institute-v4]
+    project_cell_engine_database: /mnt/biella-extra/biella-runtime/project-cells/engine.sqlite3
+    feiz_cell_checkpoint: chk_0b1dec11652f4a5b8238453512ddce6b
+    feiz_cell_checkpoint_sha256: a285d60f781cba64c3d459b600dfc6a8ceff78308619db4e32a645991c6538b9
+    feiz_v4_cell_checkpoint: chk_8c4ff6aed7844160a474957bcb3e3306
+    feiz_v4_cell_checkpoint_sha256: 59cd4679a0eb22962a1168a6549b779a2c9b0009df4603a3611c5b535febd52a
     authoritative_persistent_task_session_id: null
     prior_invalidated_executor_session_id: 01a07931-fb65-7af1-830d-83afb2ee5d8d
     latest_bounded_fallback_session_id: 01a07a15-b528-7a43-afd7-e84ff3c1ccc9
@@ -102,10 +112,12 @@ task:
 
   external_project_isolation:
     verified_neutral_broker: /root/project-sandbox-broker
-    role: SEPARATE_HOST_RESOURCE_NOT_BIELLA_PROJECT_OR_ENGINE_AUTHORITY
+    role: REPLACEABLE_PROJECT_CELL_RUNTIME_RESOURCE_NOT_TASK_OR_ENGINE_AUTHORITY
     shared_capabilities_allowed: generic_compute_gpu_software_and_explicit_resource_proxy_methods
     prohibited_learning: [customer_brand, visual_guidance, copy, customer_rules, customer_source_bodies, customer_repository_identity]
     permitted_learning: SANITIZED_GENERIC_CODING_AND_ENGINEERING_METHODS_ONLY
+    project_cell_execution_owner: BIELLA
+    remote_assistance_provider: chatgpt_remote_REPLACEABLE_NON_CANONICAL
 
   stop: Production remains asleep only while external customer resource use is active. Last-customer release automatically restores local Biella services and resumes D03-01 from preserved task memory/evidence; source-pack refresh alone never changes task progress.
 ```

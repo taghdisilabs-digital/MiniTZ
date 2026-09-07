@@ -5,8 +5,8 @@ schema: biella.current_state/v11
 state_class: VOLATILE
 update_rule: replace_stale_values; preserve_valid_progress_capabilities_evidence
 observed_date: 2026-09-07
-observed_at_utc: 2026-09-07T20:21:09+00:00
-observed_at_europe_amsterdam: 2026-09-07T22:21:09+02:00
+observed_at_utc: 2026-09-07T21:29:08+00:00
+observed_at_europe_amsterdam: 2026-09-07T23:29:08+02:00
 
 authority:
   if_conflict: [CURRENT_EXECUTION_STATE, CURRENT_GITHUB_SOURCE, CURRENT_CANONICAL_DRIVE, VERIFIED_HISTORICAL_EVIDENCE, REFERENCE_OR_PLAN, INFERENCE]
@@ -17,11 +17,11 @@ repository:
   repository: patrickminitz-web/biella-engine
   branch: main
   canonical_checkout: /root/biella/repos/biella-engine
-  observed_head_commit: ddc276fb7fc8e70a06813f45f19434fa9840c58c
-  observed_head_tree: 543da142a139cad1c6aeb3e25a1bb2b7352e943d
-  github_main_readback_commit: ddc276fb7fc8e70a06813f45f19434fa9840c58c
-  implementation_commit: ddc276fb7fc8e70a06813f45f19434fa9840c58c
-  implementation_tree: 543da142a139cad1c6aeb3e25a1bb2b7352e943d
+  observed_head_commit: ce55d5340dc192d08a1b78bf09cd237eab4098d9
+  observed_head_tree: f8d01c597fc7173d52a24afde4c75ff759aded64
+  github_main_readback_commit: ce55d5340dc192d08a1b78bf09cd237eab4098d9
+  implementation_commit: ce55d5340dc192d08a1b78bf09cd237eab4098d9
+  implementation_tree: f8d01c597fc7173d52a24afde4c75ff759aded64
   source_alignment_gate: VERIFIED_GITHUB_MAIN_SAFE_FAST_FORWARD_OR_FAIL_CLOSED
   customer_handoff_mode: FIRST_CUSTOMER_CHECKPOINT_SLEEP_LAST_CUSTOMER_AUTOMATIC_RESTORE
   customer_resume_target: LOCAL_BIELLA_PRODUCTION_OLLAMA_QWEN_ACTIVE_ENABLED
@@ -31,6 +31,11 @@ repository:
   legacy_blanket_cooldown_reconciliation: ARMED_ON_NEXT_PRODUCTION_START
   production_runner_source: /root/biella/repos/biella-engine/ops/local-ai/biella_production_runner.py
   installer_sleep_preservation: VERIFIED_EXISTING_DISABLED_STATE_PRESERVED
+  isolated_project_execution_bridge: docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml
+  isolated_project_execution_bridge_sha256: b92b77ee6a4a7791217b0346225f8a893c1b7dad27c8f5c56d467621aac9d7be
+  isolated_project_execution_bridge_drive_id: 1x35z0cZ-t3SM3Ma6mX5O4AMfFKnDcolv
+  project_cell_execution_model: ISOLATED_PROJECT_CELL
+  project_cell_runtime_command: /usr/local/bin/biella-project-cell
   worktree_state: DIRTY_ACTIVE_TASK_ONLY
   tracked_dirty_count: 1
   untracked_dirty_count: 75
@@ -71,6 +76,46 @@ active_execution:
   session_derivative_recovery_status: RECOVERED
   session_derivative_recovery_backup: /mnt/biella-extra/biella-runtime/codex-production/recovery/20260907T170250Z-bounded-session-derivative-repair
 
+
+project_cells:
+  engine_database: /mnt/biella-extra/biella-runtime/project-cells/engine.sqlite3
+  native_project_count: 2
+  execution_owner: BIELLA
+  runtime_provider: PROJECT_SANDBOX_BROKER_REPLACEABLE_RESOURCE
+  remote_assistance_provider: chatgpt_remote
+  remote_assistance_role: REPLACEABLE_DELEGATED_SUBTASK_PROVIDER_NON_CANONICAL
+  cross_project_state_leakage: FORBIDDEN
+  feiz-english-institute:
+    state: RUNNING
+    manifest: /mnt/biella-extra/biella-runtime/project-cells/feiz-english-institute/manifest.json
+    manifest_sha256: 46537efa0a13f34cc81b7748d20844e7a68a0a0a0e10c434d55cb74101e68204
+    engine_project_ref: prj_b66f0432825e403c92395afacf9f8667
+    engine_task_ref: task://prj_b66f0432825e403c92395afacf9f8667/tsk_fe78fe6054954ceb92d3b12ba55b75bb/1
+    engine_run_ref: run://prj_b66f0432825e403c92395afacf9f8667/run_891c7420cc4e486db4684d4b298cf40b
+    task_id: UNVERIFIED
+    objective: UNVERIFIED
+    acceptance: UNVERIFIED
+    checkpoint_id: chk_0b1dec11652f4a5b8238453512ddce6b
+    checkpoint_sha256: a285d60f781cba64c3d459b600dfc6a8ceff78308619db4e32a645991c6538b9
+    repository_head: 58e153b7418a274259bca0e31fef4f1c84270890
+    remote_requests: 0
+    remote_responses: 0
+  feiz-english-institute-v4:
+    state: RUNNING
+    manifest: /mnt/biella-extra/biella-runtime/project-cells/feiz-english-institute-v4/manifest.json
+    manifest_sha256: 0bd110cf74af53e07046743fdb10484f3cd47c7d344eb36de6f695db850f6997
+    engine_project_ref: prj_4d45763d6d3641baa3d04ac1368300c9
+    engine_task_ref: task://prj_4d45763d6d3641baa3d04ac1368300c9/tsk_607ebbdcbfcc4e47b390eb5c14191225/1
+    engine_run_ref: run://prj_4d45763d6d3641baa3d04ac1368300c9/run_4e7c0a8c5d544d538f3c23a78c4dddd8
+    task_id: UNVERIFIED
+    objective: UNVERIFIED
+    acceptance: UNVERIFIED
+    checkpoint_id: chk_8c4ff6aed7844160a474957bcb3e3306
+    checkpoint_sha256: 59cd4679a0eb22962a1168a6549b779a2c9b0009df4603a3611c5b535febd52a
+    repository_head: 8080bceed5ca815a32b473ba50f88d2eafa5e083
+    remote_requests: 0
+    remote_responses: 0
+
 games:
   project_path: projects/biella-games
   production_source: projects/biella-games/docs/PRODUCTION.md
@@ -79,7 +124,7 @@ games:
   production_completed_tasks: 59
   production_total_tasks: 168
   production_progress_percent: 35.1
-  task_boundary: D03-01_SLEEPING_OWNER_REQUESTED
+  task_boundary: D03-01_SLEEPING_CUSTOMER_RESOURCE_HELD
   current_frontier: portable_PSO_seed_plus_native_loading_display_cold_start
   qualification_retrieval_index: /root/biella/artifacts/games/D03-01/D03-01-qualification-retrieval-index.json
   qualification_retrieval_index_sha256: 158c8ea507739d6ad785355c243f46e0478b3f5fc74cfd1c8e9bb8eb27a27efe
@@ -113,7 +158,7 @@ resources:
   local_qwen_service: INACTIVE_CUSTOMER_ISOLATION
   local_qwen_identity: qwen3-coder-next:biella
   qwen_reasoning_protocol: NONE_COMPATIBILITY_MODE_NORMAL_MODEL_INFERENCE_REMAINS
-  external_project_sandbox_broker: VERIFIED_SEPARATE_HOST_RESOURCE_NOT_BIELLA_ENGINE
+  external_project_sandbox_broker: VERIFIED_REPLACEABLE_PROJECT_CELL_RUNTIME_RESOURCE
   external_project_sandbox_repo: /root/project-sandbox-broker
   external_project_sandbox_verified_commit: cdb3c43071641e8e15979ad187b26517f5e6a9ab
   external_project_sandbox_verified_tree: 9826274a2518c48350e974e9cf34eb19bc4e820c
