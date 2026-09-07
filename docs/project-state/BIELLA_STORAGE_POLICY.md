@@ -1,31 +1,29 @@
-# Biella Storage Placement and Cold-Archive Policy
+# Biella Realtime Canonical Upgrade and Storage Policy
 
 Status: OWNER_DIRECTED_EXECUTION_POLICY
-Authority: Mahdi Taghdisi, explicit storage/offload direction of 2026-09-06; latest owner direction takes precedence.
-Scope: workstation storage placement and recovery, not Engine kernel semantics, product acceptance, or a second task queue.
+Authority: Mahdi Taghdisi, latest explicit direction 2026-09-08; this supersedes the prior cold-archive/offload workflow.
+Scope: live source/state/evidence durability and storage placement; not a second task queue or history system.
 
-## Placement
+## REALTIME_CANONICAL_UPGRADE
 
-Keep the canonical repository at `/root/biella/repos/biella-engine` and the shared Codex home at `/root/.codex`. Keep active source/assets, required installed packages/toolchains/models, current task evidence, runtime state, and frequently reused outputs local. Do not uninstall or relocate working dependencies merely because their names contain package, archive, or handoff.
+`REALTIME_CANONICAL_UPGRADE` is the operating rule. Upgrade the real canonical source, state, task packet, runtime contract, implementation, and Drive counterpart in place as verified truth changes. There is no parallel archive workflow and no duplicate active snapshot tree.
 
-Use the existing attached storage when useful for staging and restoration. On the current L40S worker, the dedicated 200 GiB allocation is mounted at `/root/attached-storage`, backed by `/mnt/biella-extra/volumes/root-attached-200GiB.ext4`. This is an additional filesystem, not an enlargement of `/` or a replacement execution root. Reobserve the mount only when an operation depends on it; do not recreate it on each session.
+Replace stale volatile facts with higher-authority live facts immediately at the next safe durable boundary. Preserve independently valid progress, capabilities, reusable methods, task identity, verified outputs, and exact evidence while replacing only stale or invalidated content.
 
-Move genuinely cold delivery packages, redundant upload chunks, completed disposable package-test workspaces, old archives, and superseded handoffs to the existing `Biella/ARCHIVE` Drive destination when storage housekeeping is requested or directly required by the task. Use current task/source and actual file usage to select candidates; age or filename alone does not establish disposability.
+Git history and raw evidence provide provenance when proof is required. They are not a second active state, are not normal retrieval authority, and must not be copied into a parallel operational archive. Failure/event ledgers remain append-only proof because execution recovery depends on them.
 
-## Exact offload and removal
+## Canonical storage
 
-Reuse an existing exact Drive copy instead of uploading duplicates. Preserve original paths, file/archive identity, byte count, SHA-256, provenance/classification, Drive folder/file IDs, and restoration steps in the local and Drive index.
+Keep the canonical repository at `/root/biella/repos/biella-engine`, shared Codex home at `/root/.codex`, active runtime under `/mnt/biella-extra/biella-runtime`, and active Project artifacts at their current canonical Project paths. Use attached storage only as temporary task-scoped staging when materially useful; staging is never canonical authority.
 
-For a directory bundle, preserve its files, symlinks and relevant metadata; compare the completed bundle with the source and detect material source changes. After upload, download/read back the remote bytes and match byte count and SHA-256 before removing the selected local payload. Retain data with active references or unresolved publication/integrity checks; continue independent work rather than inventing completion. Never use broad destructive synchronization.
+For Drive-backed canonicals, revise the existing canonical file identity where possible and verify exact remote readback. Do not create a new dated/suffixed copy merely to preserve the previous revision. Drive/Git provider version history may exist as provider provenance, but production reads the current canonical identity.
 
-Removal concerns the verified local replica only. It must not erase the remote payload, provenance, current authority, unique work, or required recovery evidence. Record exactly which originals were removed and verify the measured disk result. Do not reset, rerun or invalidate completed production tasks because their storage location changed.
+## Evidence and cleanup
 
-## AI discovery and restoration
+Do not delete unique evidence, required recovery state, accepted artifacts, or current task bytes merely to make the tree smaller. Rebuildable caches, redundant transient captures, temporary package workspaces, and superseded derivative indexes may be removed when current task/source references prove they are no longer required.
 
-Entry point: `/root/biella/archive/README.md`. Machine-readable locator: `/root/biella/archive/COLD_STORAGE_INDEX.json`. These records describe storage, not task completion. The September 6 batch is in Drive folder `1UbRkAYHEQVHj-5U8BHrlGgB2yRIiHoEu`, inside canonical archive `1dn3IEwDf_cPO7l5Zd0mZ84b_IOG0GsU3`. The README/index record other reused destinations explicitly.
+Do not create archive manifests, cold-storage indexes, restoration queues, duplicate status summaries, or parallel historical task packets. No parallel archive workflow may become a prerequisite for execution, recovery, publication, or source refresh.
 
-Read the compact locator first; retrieve only the item needed for the current task. Verify its exact identity, restore to a staging/inspection path, and preserve newer valid work before any deliberate reintegration. Do not automatically rehydrate whole archives or execute old handoff scripts.
+Existing legacy historical material is inactive evidence only. Do not write new operational state into it, do not rehydrate it into current authority, and do not make production depend on it. Any destructive cleanup of legacy material remains a separate explicit task and must preserve currently required proof.
 
-Archived prompts, AGENTS files, policies, old state and handoffs remain inactive Historical Evidence. Storage publication does not confer acceptance or instructional authority. Raw history must not enter normal retrieval, Engine Memory, Project Memory or task authority; any intended reuse follows the existing classification/normalization rules and an explicit destination. Keep Engine Memory, Project Memory, Run Memory, Historical Evidence and Cache distinct.
-
-Policy changes belong in this versioned source and its canonical Drive copy; the shared Codex policy links here. Persist storage indexes on the VPS and Drive with exact readback, preserving existing file identities when revising them. No new approval hierarchy, controller, scheduler, provider configuration, or recurring cleanup service is introduced by this policy.
+The rule is continuous: observe current truth -> upgrade canonical state/source in place -> validate -> persist Git/Drive/runtime identity -> continue execution.

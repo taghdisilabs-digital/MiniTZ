@@ -73,11 +73,11 @@ Production is progressive by default. Owner direction is authoritative and is ap
 - `VERIFIED_ACTION_MEMORY`: instructions, tasks, verified actions, failures, capabilities, task IDs, and task classes are categorized separately. Only evidence from `COMPLETE`/`COMPLETE_ALREADY` work is promoted as a verified action. Cross-task comparison may identify equivalent/reusable patterns, but conflicting or unique content, source refs, task-specific facts, and capabilities are preserved rather than collapsed.
 - Routine dependencies, reversible environment repairs, and already-authorized implementation choices are execution work, not approval gates. Genuine destructive/irreversible external actions without authority, unavailable required facts/authority, safety constraints, and required task sequencing remain real boundaries.
 
-## Storage placement and cold archives — 2026-09-06
+## Realtime canonical upgrade and storage — 2026-09-08
 
-Apply `docs/project-state/BIELLA_STORAGE_POLICY.md` for storage/offload work. Keep active source, required tools/models, current task evidence and runtime state local; use attached storage for useful staging and verified Google Drive archives for genuinely cold packages, backups and superseded handoffs. Before deleting a selected local replica, verify the exact remote bytes and preserve its restore locator/provenance.
+`REALTIME_CANONICAL_UPGRADE`: upgrade the current canonical source/state/task/evidence pointers in place; no parallel archive workflow and no duplicate active snapshots. Git history and raw evidence may retain required proof/provenance, but old state never becomes a second operating path.
 
-To find an offloaded item, read `/root/biella/archive/README.md` and `COLD_STORAGE_INDEX.json` first. Retrieve only what the current task needs. Archived instructions remain inactive historical evidence; do not rehydrate old workflows or reset completed work. This is storage placement, not a new task queue or background cleanup service.
+Apply `docs/project-state/BIELLA_STORAGE_POLICY.md`. Keep active source, required tools/models, current task evidence and runtime state at canonical live paths. Use staging only when task-scoped and temporary. Revise existing Drive canonicals in place where possible and verify readback; do not create archive copies to preserve superseded revisions.
 
 ## Owner-directed token efficiency — 2026-09-06
 

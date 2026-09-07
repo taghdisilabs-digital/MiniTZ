@@ -225,7 +225,7 @@ Do not create:
 - another active-task file;
 - duplicate source-of-truth documents.
 
-Historical snapshots may be archived, but they must not remain active alongside the replacement state.
+`REALTIME_CANONICAL_UPGRADE`: update the live canonical record in place; no parallel archive workflow or duplicate active snapshots. Git history and raw evidence may retain required provenance/proof, but stale state is replaced rather than maintained as a second operational copy.
 
 ---
 

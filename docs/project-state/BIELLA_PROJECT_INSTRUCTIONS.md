@@ -108,7 +108,7 @@ Persist Task/Run/Graph/source identities/artifacts/evidence/checkpoints needed f
 After numbered-task durable closure update 03, replace/update 04, persist exact GitHub identity and required Drive continuity. Do not create redundant active status files.
 
 SOURCE_PACK_EVOLUTION
-Source-pack refresh is lossless for independently valid progress, capabilities, reusable methods, failures, evidence identities, and continuity. Replace stale volatile facts with higher-authority live facts; never drop useful verified capability merely to shorten or simplify a pack. Compaction may trim only rebuildable derivative context, never raw/canonical truth.
+`REALTIME_CANONICAL_UPGRADE`: source-pack/state refresh upgrades the existing live canonical records in place with no parallel archive workflow and no duplicate active snapshots. Refresh is lossless for independently valid progress, capabilities, reusable methods, failures, evidence identities, and continuity. Replace stale volatile facts with higher-authority live facts immediately at the next safe durable boundary. Git history and raw evidence may retain required provenance/proof; they never become duplicate active authority. Compaction may trim only rebuildable derivative context, never raw/canonical truth.
 
 PROJECT_BOUNDARY
 A Project owns its requirements, source/assets, brand, visual/content canon, preferences, acceptance, and outputs.

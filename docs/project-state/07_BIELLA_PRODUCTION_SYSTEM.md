@@ -70,6 +70,11 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 - Gameplay/runtime validators must not use exact byte identity of `03` or `04` as a correctness gate.
 - Stable project authority such as the active Project `PRODUCTION.md`, exact implementation inputs, artifacts, and task-derived evidence remain valid validation inputs.
 
+## Realtime canonical upgrade
+- `REALTIME_CANONICAL_UPGRADE`: production upgrades the current canonical source/state/task/evidence pointers in place at safe durable boundaries; there is no parallel archive workflow and no duplicate active state tree.
+- Git history and raw evidence may retain required proof/provenance, but production never starts from a stale archived snapshot when newer verified live state exists.
+- Derived/rebuildable temporary outputs may be discarded once no current task/source/evidence reference requires them; unique verified proof and active task bytes remain durable.
+
 ## Persistent continuation
 - Reinstalling/updating the controller preserves an already-disabled production service; owner/customer sleep is not silently re-enabled by the installer.
 - Preserve task identity, Codex session identity when available, current worktree, task memory, failures, verified outputs, and continuation state.

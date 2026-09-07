@@ -95,6 +95,6 @@ Do not fabricate that source from completion reports. Re-establish P0-01 from th
 - `VERIFIED_ACTION_MEMORY`: instructions, tasks, verified actions, failures, capabilities, task IDs, and task classes are categorized separately. Only evidence from `COMPLETE`/`COMPLETE_ALREADY` work is promoted as a verified action. Cross-task comparison may identify equivalent/reusable patterns, but conflicting or unique content, source refs, task-specific facts, and capabilities are preserved rather than collapsed.
 - Routine dependencies, reversible environment repairs, and already-authorized implementation choices are execution work, not approval gates. Genuine destructive/irreversible external actions without authority, unavailable required facts/authority, safety constraints, and required task sequencing remain real boundaries.
 
-## Storage placement and cold archives — 2026-09-06
+## Realtime canonical upgrade and storage — 2026-09-08
 
-The owner-directed offload policy is `BIELLA_STORAGE_POLICY.md` in this directory. It preserves active local dependencies, requires exact remote-byte verification before local-replica removal, and maintains on-demand AI-readable restoration indexes without promoting historical instructions into current authority.
+`REALTIME_CANONICAL_UPGRADE` supersedes the prior cold-archive/offload workflow. Update existing canonical Git/Drive/state identities in place at safe durable boundaries; no parallel archive workflow and no duplicate active snapshot tree. Git history and raw evidence may retain required proof/provenance. Rebuildable temporary data may be removed when no active source/task/evidence reference requires it.
