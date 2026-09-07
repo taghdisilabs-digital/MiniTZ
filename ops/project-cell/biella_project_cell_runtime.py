@@ -46,8 +46,13 @@ def _canonical_json(value: object) -> bytes:
     return (json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n").encode("utf-8")
 
 
+def _secure_dir(path: Path) -> None:
+    path.mkdir(parents=True, exist_ok=True, mode=0o700)
+    os.chmod(path, 0o700)
+
+
 def _atomic_json(path: Path, payload: object, *, mode: int = 0o600) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
+    _secure_dir(path.parent)
     encoded = _canonical_json(payload)
     fd, tmp_name = tempfile.mkstemp(prefix=path.name + ".", dir=str(path.parent))
     tmp = Path(tmp_name)
@@ -89,10 +94,10 @@ class ProjectCellRuntime:
         self.sandboxes_root = Path(sandboxes_root).resolve()
         self.engine_repo_root = Path(engine_repo_root).resolve()
         self.governing_contract = Path(governing_contract).resolve()
-        self.state_root.mkdir(parents=True, exist_ok=True)
+        _secure_dir(self.state_root)
         self.engine_database = self.state_root / "engine.sqlite3"
         self.engine_access_root = self.state_root / "engine-access"
-        self.engine_access_root.mkdir(parents=True, exist_ok=True, mode=0o700)
+        _secure_dir(self.engine_access_root)
 
     def cell_root(self, project_id: str) -> Path:
         return _safe_child(self.state_root, project_id)
@@ -154,6 +159,8 @@ class ProjectCellRuntime:
 
     def _engine_project(self, project_id: str) -> tuple[ProjectAccess, str]:
         store = ProjectStore(self.engine_database)
+        if self.engine_database.exists():
+            os.chmod(self.engine_database, 0o600)
         access_path = self.engine_access_root / f"{project_id}.json"
         if access_path.is_file():
             data = _read_json(access_path)
@@ -214,6 +221,7 @@ class ProjectCellRuntime:
             resource_hints={},
         )
         run = runs.create_run(access, task_ref=task.task_ref)
+        os.chmod(self.engine_database, 0o600)
         data = {
             "schema": "biella.project_cell_run_projection/v1",
             "project_id": project_id,

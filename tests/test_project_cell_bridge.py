@@ -283,3 +283,17 @@ def test_blocker_record_stays_in_originating_cell(tmp_path: Path, monkeypatch):
     payload = json.loads(path.read_text())
     assert payload["project_id"] == "site-a"
     assert payload["status"] == "OPEN"
+
+
+def test_project_cell_state_and_native_engine_database_are_root_only(tmp_path: Path, monkeypatch):
+    sandboxes = tmp_path / "sandboxes"; _sandbox_project(sandboxes, "site-a")
+    state_root = tmp_path / "cells"
+    manager = runtime.ProjectCellRuntime(state_root=state_root, sandboxes_root=sandboxes)
+    monkeypatch.setattr(manager, "container_status", lambda _project_id: {"exists":True,"running":True,"name":"psb-site-a","image":"worker:test"})
+    manager.adopt("site-a")
+    manager.checkpoint("site-a", task_id="UNVERIFIED", objective="UNVERIFIED")
+    assert state_root.stat().st_mode & 0o777 == 0o700
+    assert (state_root / "site-a").stat().st_mode & 0o777 == 0o700
+    assert (state_root / "site-a/checkpoints").stat().st_mode & 0o777 == 0o700
+    assert (state_root / "engine.sqlite3").stat().st_mode & 0o777 == 0o600
+    assert (state_root / "site-a/manifest.json").stat().st_mode & 0o777 == 0o600
