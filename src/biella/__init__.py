@@ -33,6 +33,15 @@ from .project import (
     ProjectScoped,
     ProjectStore,
 )
+from .project_cell import (
+    BlockerRecord,
+    ProjectCellCheckpoint,
+    ProjectCellContractError,
+    ProjectCellManifest,
+    RemoteAssistanceRequest,
+    RemoteAssistanceResponse,
+    TaskEnvelope,
+)
 from .capability import (
     Capability,
     CapabilityConflictError,
@@ -1051,6 +1060,13 @@ __all__ = [
     "ProjectScopeError",
     "ProjectScoped",
     "ProjectStore",
+    "ProjectCellContractError",
+    "ProjectCellManifest",
+    "TaskEnvelope",
+    "ProjectCellCheckpoint",
+    "BlockerRecord",
+    "RemoteAssistanceRequest",
+    "RemoteAssistanceResponse",
     "Capability",
     "CapabilityConflictError",
     "CapabilityContractError",

@@ -1,6 +1,6 @@
 # Biella Google Drive Live Manifest
 
-Date: 2026-08-31
+Date: 2026-09-07
 
 Drive project root ID: `1Z6_qwN9hfHIheXZ_9pYCG8dRDMuRN-l7`
 
@@ -70,8 +70,12 @@ Direct mutable authority:
 
 - `04_BIELLA_ACTIVE_TASK.md` — `1liutA8evH6rPjk-U4tgR13l_kqBrx-DF`
   - GitHub: `docs/project-state/04_BIELLA_ACTIVE_TASK.md`
-  - Schema: `biella.active_task/v6`
-  - Active task: `P3-05 — 3D Modeling and Scene Production Pack`
+  - Mutable execution pointer; current observed source/runtime outrank embedded historical metadata.
+- `BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml` — `1x35z0cZ-t3SM3Ma6mX5O4AMfFKnDcolv`
+  - GitHub: `docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml`
+  - SHA-256: `b92b77ee6a4a7791217b0346225f8a893c1b7dad27c8f5c56d467621aac9d7be`
+  - Status: `CANONICAL_MACHINE_EXECUTION_GUIDANCE`
+  - Role: Biella-owned `ISOLATED_PROJECT_CELL` execution/checkpoint/remote-assistance contract; current execution and Mahdi latest instruction remain higher authority for volatile state.
 
 Bounded support lanes:
 

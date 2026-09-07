@@ -241,6 +241,7 @@ def _source_files(repo_root: Path, project_root: Path, runtime_root: Path) -> li
     candidates = [
         repo_root / "docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md",
         repo_root / "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md",
+        repo_root / "docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml",
         repo_root / "docs/project-state/BIELLA_DURABLE_SOURCE_AND_SYNC_RULES.md",
         repo_root / "ops/workstation/AGENTS.md",
         repo_root / "ops/workstation/provider-registry.json",
@@ -385,6 +386,7 @@ def refresh_compacted_memory(repo_root: Path, project_root: Path, runtime_root: 
     policy_paths = {
         repo_root / "docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md",
         repo_root / "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md",
+        repo_root / "docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml",
         repo_root / "docs/project-state/BIELLA_DURABLE_SOURCE_AND_SYNC_RULES.md",
         repo_root / "ops/workstation/AGENTS.md",
         project_root / "AGENTS.md",

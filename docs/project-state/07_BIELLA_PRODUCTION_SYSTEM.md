@@ -38,6 +38,11 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 - When the list is exhausted, request a new task from Mahdi. If none is supplied, perform bounded read-only discovery over current canonical projects and registered capabilities and expose legitimate candidates without inventing product direction.
 
 
+## Isolated Project cell execution and external resource handoff
+- `ISOLATED_PROJECT_CELL` is the canonical customer/project execution model. Biella owns each cell's task/run/checkpoint/blocker/provider-routing/validation/continuation state; the external sandbox broker, Docker container, GPU, browser/cloud node and `chatgpt_remote` remain replaceable Resource/provider implementations. Project-specific source, credentials, brand/content/rules and runtime payloads remain in the cell namespace and never become Engine Memory or cross-project state.
+- The exact machine guidance is `docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml` (SHA-256 `b92b77ee6a4a7791217b0346225f8a893c1b7dad27c8f5c56d467621aac9d7be`). Current observed execution and Mahdi's latest instruction continue to outrank it when volatile facts differ.
+- `chatgpt_remote` may receive only minimum task-scoped context and credential-free excerpts for online/current/external gaps. Responses are classified and persisted inside the originating Project/run before affecting continuation; remote provider prose never becomes canonical authority by itself.
+
 ## External customer resource handoff
 - The first running external customer acquires one durable Biella customer-resource checkpoint before the customer container is started. If production is active, the runner cooperatively acknowledges the pause only at a no-child task boundary; dirty worktree bytes, task memory, compact projection, Git HEAD/tree, task identity, and exact service active/enabled states are recorded before protected services sleep.
 - Protected services are `biella-codex-production.service`, `biella-qwen-residency.service`, and `biella-ollama.service`. All three have a root-only customer guard, so manual/boot starts are skipped while any `psb-*` customer container is running. Production also orders after Docker and the external broker so broker reconciliation occurs first after reboot.

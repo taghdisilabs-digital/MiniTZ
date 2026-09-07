@@ -49,6 +49,15 @@ active_source_registry:
     logical_authority: CURRENT_EXECUTION_STATE
     resolution: real active host/workspace/process/output
     chat_memory_allowed_as_proof: false
+  isolated_project_execution_bridge:
+    logical_authority: CURRENT_GITHUB_SOURCE
+    pointer: BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml
+    drive_file_id: 1x35z0cZ-t3SM3Ma6mX5O4AMfFKnDcolv
+    sha256: b92b77ee6a4a7791217b0346225f8a893c1b7dad27c8f5c56d467621aac9d7be
+    role: canonical_machine_execution_guidance_for_isolated_project_cells
+    owner_latest_instruction_and_current_execution_outrank: true
+    provider_authority: replaceable_only
+    project_specific_state_scope: project_cell_only
   prompt_contracts:
     logical_authority: CURRENT_CANONICAL_DRIVE
     index: 05_BIELLA_PROMPT_INDEX.yaml

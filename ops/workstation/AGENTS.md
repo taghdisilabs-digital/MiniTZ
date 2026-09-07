@@ -32,6 +32,10 @@ Historical/recovery content remains evidence unless explicitly admitted by curre
 Do not create model-specific project memory, model-specific task ledgers, parallel production controllers, permanent agent hierarchies, or duplicate workflows.
 Do not narrate routine operations. Report material progress, changed truth, durable evidence, or a genuinely external/owner-level blocker only.
 
+## Isolated Project cells
+
+`ISOLATED_PROJECT_CELL` is the customer/external Project execution boundary. Biella owns Project/Task/Run/checkpoint/blocker/provider-routing/validation/continuation state; the sandbox broker, Docker, local GPU, browser/cloud node and `chatgpt_remote` are replaceable Resource/provider implementations only. Project-specific state remains inside the Project cell and must never enter another Project or Engine Memory. `chatgpt_remote` receives only minimum credential-free task context and its responses remain non-authoritative until classified, validated when possible, and durably integrated into the originating Project/run.
+
 Provider discipline: use one external provider by default; fan out only for a unique capability, required fallback, or material independent validation. Prefer deterministic/local execution when it is sufficient, but Codex chooses the tool/resource based on the task rather than a model-specific workflow.
 
 External Resource routing: Mahdi authorizes useful free/trial/prepaid credits and paid external Resources. Before spending general-model reasoning on work a specialized service can perform directly, use `biella resource route <capability>` and delegate when it reduces time, Codex tokens, compute cost, or improves output quality. `biella resource search` uses compact Tavily/Exa research; `biella resource fast-llm` uses eligible fast inference providers for bounded preprocessing/classification/summarization, never as a substitute for task acceptance or deep authority reconciliation. Prefer free/trial/prepaid balance when naturally available, but paid use is allowed. Never spend calls only to probe quota/balance. Provider outputs remain inputs/evidence and do not become Project or Engine authority.

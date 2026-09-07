@@ -4,6 +4,7 @@ set -Eeuo pipefail
 readonly SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly INSTALL_DIR="${BIELLA_AI_INSTALL_DIR:-/usr/local/lib/biella-ai}"
 readonly CODEX_LINK="/usr/local/bin/biella-codex"
+readonly PROJECT_CELL_LINK="/usr/local/bin/biella-project-cell"
 readonly MANAGED_PREFIX="$INSTALL_DIR/"
 readonly PRODUCTION_UNIT=/etc/systemd/system/biella-codex-production.service
 
@@ -26,6 +27,7 @@ remove_managed_link() {
 }
 
 install -d -o root -g root -m 755 "$INSTALL_DIR"
+install -o root -g root -m 755 "$SOURCE_DIR/../project-cell/biella-project-cell" "$INSTALL_DIR/biella-project-cell"
 install -o root -g root -m 755 \
   "$SOURCE_DIR/biella-ai-start.sh" \
   "$SOURCE_DIR/biella-saturn-mcp.sh" \
@@ -70,6 +72,15 @@ if [[ -e "$CODEX_LINK" || -L "$CODEX_LINK" ]]; then
   }
 else
   ln -s "$INSTALL_DIR/biella-codex.sh" "$CODEX_LINK"
+fi
+
+if [[ -e "$PROJECT_CELL_LINK" || -L "$PROJECT_CELL_LINK" ]]; then
+  [[ -L "$PROJECT_CELL_LINK" && "$(readlink "$PROJECT_CELL_LINK")" == "$INSTALL_DIR/biella-project-cell" ]] || {
+    printf 'Refusing to replace unrelated path: %s\n' "$PROJECT_CELL_LINK" >&2
+    exit 1
+  }
+else
+  ln -s "$INSTALL_DIR/biella-project-cell" "$PROJECT_CELL_LINK"
 fi
 
 rm -f -- \

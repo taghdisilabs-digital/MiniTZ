@@ -202,3 +202,20 @@ def test_projection_excludes_cross_task_legacy_task_key_failures(tmp_path: Path)
     details = json.dumps(projection["failures"])
     assert "old task failure" not in details
     assert "current task blocker" in details
+
+
+def test_bridge_contract_is_a_compacted_policy_source(tmp_path: Path):
+    repo, project, runtime = fixture(tmp_path)
+    bridge = repo / "docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml"
+    bridge.write_text(
+        'document:\n  id: "BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE"\n'
+        'execution_model:\n  model: "isolated_project_cell"\n'
+        'absolute_invariants:\n  - "BIELLA_OWNS_EXECUTION_STATE"\n',
+        encoding="utf-8",
+    )
+    result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
+    index = json.loads(result.index_path.read_text())
+    source_paths = {str(item["path"]) for item in index["sources"]}
+    assert any("BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml" in item for item in source_paths)
+    instructions = [index["content"][ref]["text"] for ref in index["categories"]["instruction"]]
+    assert any("isolated_project_cell" in item for item in instructions)

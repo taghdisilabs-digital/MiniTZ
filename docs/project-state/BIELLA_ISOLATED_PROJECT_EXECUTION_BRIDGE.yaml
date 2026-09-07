@@ -1,0 +1,1056 @@
+schema_version: "1.0"
+document:
+  id: "BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE"
+  title: "Biella — Isolated Project Execution + Checkpoint + ChatGPT Remote Assistance Contract"
+  status: "CANONICAL_MACHINE_EXECUTION_GUIDANCE"
+  format: "YAML"
+  scope:
+    - "Biella Engine orchestration"
+    - "isolated customer/project execution"
+    - "checkpoint-safe continuation"
+    - "local L40 execution"
+    - "remote ChatGPT assistance"
+    - "online capability bridging"
+    - "blocker/gap resolution"
+    - "durable state continuity"
+  objective: >
+    Keep every customer/project fully isolated while making that isolated project a
+    first-class executable workload inside Biella. Biella owns task execution,
+    scheduling, durability, project-state continuity, validation, and continuation.
+    ChatGPT Remote Assistance is a replaceable external capability provider that may
+    supply online research, connected-service access, reasoning, current documentation,
+    browser/cloud assistance, content generation, troubleshooting, and other capabilities
+    unavailable or inefficient locally. Remote assistance must never collapse project
+    isolation, become the sole durable memory, or replace Biella as execution authority.
+
+# =============================================================================
+# 0. AUTHORITY
+# =============================================================================
+
+authority:
+  precedence:
+    - rank: 1
+      source: "user_latest_explicit_instruction"
+    - rank: 2
+      source: "current_observed_project_runtime_and_source"
+    - rank: 3
+      source: "accepted_project_sources_and_artifacts"
+    - rank: 4
+      source: "project_execution_contract"
+    - rank: 5
+      source: "this_document"
+    - rank: 6
+      source: "historical_evidence_or_old_plans"
+  rules:
+    - "Biella is project-neutral infrastructure."
+    - "Customer/project identity, content, credentials, assets, preferences, and runtime state belong to that project only."
+    - "Historical material never becomes active behavior automatically."
+    - "Current source and observed runtime outrank stale plans after implementation begins."
+    - "Remote providers may advise or execute delegated work but never become canonical authority by themselves."
+    - "Generated output remains non-canonical until integrated into the project state according to the task contract."
+    - "If exact technical facts can be observed, observation outranks inference."
+    - "If a value cannot be verified, mark it UNVERIFIED instead of guessing."
+
+# =============================================================================
+# 1. CORE EXECUTION MODEL
+# =============================================================================
+
+execution_model:
+  engine: "Biella"
+  model: "isolated_project_cell"
+  definition: >
+    Every project runs as an isolated logical and filesystem/runtime cell under Biella.
+    Biella may schedule, pause, resume, checkpoint, inspect, validate, and continue the
+    project at any meaningful execution boundary without importing project-specific
+    behavior into the Biella kernel.
+  principles:
+    - "PROJECT_ISOLATION"
+    - "FORWARD_ONLY_CONTINUATION"
+    - "DURABLE_CHECKPOINTING"
+    - "PROVIDER_REPLACEABILITY"
+    - "LOCAL_FIRST_WHEN_EFFICIENT"
+    - "REMOTE_ASSIST_WHEN_USEFUL"
+    - "NO_CHAT_ONLY_STATE"
+    - "NO_CROSS_PROJECT_LEAKAGE"
+    - "OBSERVED_STATE_OVER_GUESSING"
+    - "CONCURRENT_EXECUTION_WHEN_DEPENDENCIES_ALLOW"
+    - "QUALITY_IS_NOT_REDUCED_FOR_SPEED"
+
+# =============================================================================
+# 2. ISOLATION MODEL
+# =============================================================================
+
+isolation:
+  unit: "project_cell"
+  required_boundaries:
+    filesystem:
+      rule: "Each project has its own canonical workspace root."
+      prohibit:
+        - "shared mutable source trees between projects"
+        - "writing customer assets into Biella engine source directories"
+        - "copying one customer's files into another customer's workspace"
+    repository:
+      rule: "Each project has its own repository or explicitly isolated source root."
+      prohibit:
+        - "cross-project branches in a shared customer repository unless intentionally designed"
+        - "using Biella Engine repository as customer application repository"
+    memory:
+      compartments:
+        engine_memory:
+          contains:
+            - "project-neutral execution intelligence"
+            - "provider capabilities"
+            - "generic orchestration knowledge"
+            - "generic validated production patterns"
+          must_not_contain:
+            - "customer proprietary content"
+            - "customer credentials"
+            - "customer-specific branding"
+            - "customer-specific product decisions"
+            - "customer files"
+        project_memory:
+          contains:
+            - "project decisions"
+            - "project architecture"
+            - "project accepted requirements"
+            - "project task history"
+            - "project asset registry"
+            - "project deployment facts"
+          namespace: "project_id"
+        run_memory:
+          contains:
+            - "current run observations"
+            - "active dependency graph"
+            - "temporary execution decisions"
+            - "current failures"
+            - "current provider responses"
+          namespace: "project_id/run_id"
+          durable_rule: "Meaningful results must be checkpointed before they become required for continuation."
+        historical_evidence:
+          contains:
+            - "old plans"
+            - "old screenshots"
+            - "previous implementations"
+            - "deprecated prompts"
+            - "migration evidence"
+          activation: "NEVER_AUTOMATIC"
+        cache:
+          contains:
+            - "derived temporary artifacts"
+            - "model cache"
+            - "build cache"
+            - "download cache"
+          authority: "NON_CANONICAL"
+    process:
+      rule: "Processes must be attributable to a project_id and run_id when project-specific."
+    environment:
+      rule: "Project environment values remain scoped to the project runtime."
+    logs:
+      rule: "Project logs must carry project_id and run_id."
+    generated_assets:
+      rule: "Generated assets remain inside project namespace until intentionally published/integrated."
+    remote_context:
+      rule: "Only the smallest task-scoped project context required for the delegated remote task is sent."
+  hard_invariants:
+    - "NO_PROJECT_A_WRITES_TO_PROJECT_B"
+    - "NO_PROJECT_A_MEMORY_PROMOTION_TO_ENGINE_MEMORY_WITHOUT_NORMALIZATION"
+    - "NO_RAW_CUSTOMER_PROMPT_PROMOTION_TO_BIELLA_KERNEL"
+    - "NO_CUSTOMER_CREDENTIAL_PROMOTION_TO_ENGINE_MEMORY"
+    - "NO_GENERATED_DRAFT_AUTOMATICALLY_BECOMES_ACCEPTED_CANON"
+    - "NO_REMOTE_PROVIDER_RESPONSE_IS_DURABLE_STATE_UNTIL_BIELLA_PERSISTS_IT"
+    - "NO_REMOTE_PROVIDER_CAN_REDEFINE_PROJECT_BOUNDARY"
+    - "NO_SHARED_TEMP_DIRECTORY_AS_CANONICAL_STORAGE"
+
+# =============================================================================
+# 3. PROJECT CELL MANIFEST
+# =============================================================================
+
+project_cell_manifest:
+  required_fields:
+    project_id: "string"
+    project_name: "string"
+    project_type: "string"
+    workspace_root: "absolute_path"
+    repository_root: "absolute_path_or_null"
+    canonical_artifact_root: "absolute_path"
+    project_memory_namespace: "string"
+    run_memory_namespace: "string"
+    cache_root: "absolute_path"
+    historical_evidence_root: "absolute_path_or_null"
+    deployment_targets: "list"
+    execution_nodes: "list"
+    provider_permissions: "map"
+    acceptance_authority: "string_or_role"
+  optional_fields:
+    source_registry: "path_or_uri"
+    asset_registry: "path_or_uri"
+    deployment_manifest: "path_or_uri"
+    browser_execution_profile: "named_runtime_reference"
+    local_model_registry: "path_or_uri"
+  validation:
+    - "workspace_root must not equal Biella Engine source root"
+    - "workspace_root must not equal another project workspace"
+    - "cache_root must not be canonical_artifact_root"
+    - "historical_evidence_root must be non-authoritative"
+    - "deployment targets must be explicit or UNKNOWN"
+    - "provider permissions must be project-scoped"
+
+# =============================================================================
+# 4. NODE / PROVIDER ROLES
+# =============================================================================
+
+providers:
+  local_execution:
+    provider_id: "local_compute"
+    preferred_role:
+      - "source inspection"
+      - "coding"
+      - "builds"
+      - "tests"
+      - "local inference"
+      - "asset processing"
+      - "durable project writes"
+      - "project-specific automation"
+    canonical_execution_node_preference:
+      customer_projects: "isolated local workspace on L40-class machine when configured"
+    rules:
+      - "Discover actual machine state; never invent paths, services, ports, models, GPU IDs, or commands."
+      - "Use current verified project workspace."
+      - "Persist meaningful outputs to project-scoped durable storage."
+
+  local_gpu:
+    provider_id: "local_gpu"
+    preferred_hardware: "NVIDIA L40 when actually present"
+    role:
+      - "image generation"
+      - "image editing"
+      - "upscaling"
+      - "segmentation"
+      - "local multimodal inference"
+      - "local LLM inference when supported"
+      - "CUDA media processing"
+    discovery_before_use:
+      required:
+        - "actual GPU model"
+        - "GPU count"
+        - "VRAM total/free"
+        - "utilization"
+        - "driver/runtime"
+        - "available model services"
+        - "actual model paths"
+    rules:
+      - "Batch compatible work."
+      - "Keep models warm when useful."
+      - "Run independent GPU tasks concurrently only if VRAM permits."
+      - "Never reduce canonical quality solely to finish faster."
+      - "If unavailable, continue independent work."
+
+  browser_cloud_node:
+    provider_id: "browser_cloud"
+    role:
+      - "browser-based deployment"
+      - "cloud dashboards"
+      - "authenticated web workflows"
+      - "uploads"
+      - "external service configuration"
+    rules:
+      - "Use the configured authenticated browser environment."
+      - "Do not copy credentials into project source or engine memory."
+      - "Record observed outcome, target, timestamp, and resulting identifiers where available."
+      - "Do not claim deployment/upload success without observed evidence."
+
+  chatgpt_remote:
+    provider_id: "chatgpt_remote"
+    role: "replaceable_remote_assistance_provider"
+    capabilities:
+      - "current web research"
+      - "current documentation lookup"
+      - "online information retrieval"
+      - "connected-app/connector reads and writes when explicitly available"
+      - "browser/cloud guidance or execution when available"
+      - "market/current pricing research"
+      - "content refinement"
+      - "translation/localization assistance"
+      - "reasoning over blockers"
+      - "debug assistance"
+      - "visual critique"
+      - "requirements normalization"
+      - "artifact generation when capability exists"
+      - "gap filling when local information is incomplete"
+    non_authority_rules:
+      - "ChatGPT Remote is not project memory."
+      - "ChatGPT Remote is not engine memory."
+      - "ChatGPT Remote is not canonical storage."
+      - "ChatGPT Remote cannot silently redefine requirements."
+      - "ChatGPT Remote cannot overwrite accepted project state by implication."
+      - "A remote answer becomes actionable only after Biella classifies it and integrates it into the current task."
+    availability_policy:
+      - "Remote connection is opportunistic, not a hard dependency for unrelated local work."
+      - "If unavailable, Biella continues all independent local work."
+      - "When connection returns, resume from the latest checkpoint delta rather than resending the entire project unless required."
+
+# =============================================================================
+# 5. BIELLA TASK OWNERSHIP
+# =============================================================================
+
+task_ownership:
+  owner: "Biella"
+  responsibilities:
+    - "accept task"
+    - "resolve project_id"
+    - "load project execution contract"
+    - "load smallest sufficient current project state"
+    - "construct dependency graph"
+    - "route work to local or remote providers"
+    - "preserve project isolation"
+    - "persist meaningful state"
+    - "checkpoint at safe boundaries"
+    - "validate outputs according to task/output contract"
+    - "resume from checkpoints"
+    - "report observed results"
+  remote_assistance_role:
+    type: "delegated_subtask_provider"
+    may:
+      - "answer scoped questions"
+      - "research online"
+      - "produce scoped artifacts"
+      - "suggest fixes"
+      - "perform supported remote actions"
+      - "fill knowledge gaps"
+    may_not:
+      - "own the global task state"
+      - "be the only holder of execution context"
+      - "write across project boundaries"
+      - "silently approve its own output as canonical"
+      - "block independent Biella work"
+
+# =============================================================================
+# 6. TASK ENVELOPE
+# =============================================================================
+
+task_envelope:
+  required:
+    task_id: "string"
+    project_id: "string"
+    run_id: "string"
+    objective: "string"
+    acceptance_contract: "structured"
+    current_checkpoint_id: "string_or_null"
+    allowed_scope: "structured"
+    forbidden_scope: "structured"
+  strongly_recommended:
+    target_routes: "list"
+    target_files: "list"
+    governing_sources: "list"
+    current_runtime_facts: "map"
+    known_good_state: "map"
+    blockers: "list"
+    dependencies: "list"
+    desired_outputs: "list"
+    deployment_required: "boolean"
+  provider_context:
+    rule: >
+      Provider context is derived from the task envelope and must contain only the
+      minimum information necessary for the delegated subtask.
+
+# =============================================================================
+# 7. CHECKPOINT SYSTEM
+# =============================================================================
+
+checkpointing:
+  objective: "Biella can safely pause, resume, transfer, or request remote help at any meaningful boundary."
+  checkpoint_frequency:
+    required_after:
+      - "meaningful source change"
+      - "accepted generated asset selection"
+      - "successful build milestone"
+      - "validated runtime behavior"
+      - "deployment result"
+      - "new blocker discovery"
+      - "remote provider result that affects future execution"
+      - "task dependency completion"
+    avoid:
+      - "checkpointing every trivial line edit"
+      - "keeping critical continuation facts only in chat"
+  checkpoint_schema:
+    checkpoint_id: "string"
+    project_id: "string"
+    run_id: "string"
+    task_id: "string"
+    timestamp: "RFC3339"
+    phase: "string"
+    objective: "string"
+    repo_state:
+      branch: "string_or_null"
+      commit: "string_or_null"
+      dirty_files: "list"
+    runtime_state:
+      running_services: "list"
+      observed_routes: "list"
+      observed_failures: "list"
+    completed:
+      items: "list"
+    in_progress:
+      items: "list"
+    blocked:
+      items: "list"
+    pending:
+      items: "list"
+    artifacts:
+      items:
+        - path: "string"
+          status: "string"
+          digest: "string_or_null"
+    decisions:
+      items: "list"
+    remote_assistance:
+      requests_sent: "list"
+      responses_integrated: "list"
+      responses_pending: "list"
+    next_actions:
+      items: "ordered_list"
+    do_not_repeat:
+      items: "list"
+    do_not_touch:
+      items: "list"
+  durability:
+    required: true
+    rule: "A checkpoint required for continuation must exist outside ephemeral chat/model context."
+
+# =============================================================================
+# 8. RESUME PROTOCOL
+# =============================================================================
+
+resume_protocol:
+  input: "latest_valid_checkpoint"
+  sequence:
+    - "Resolve project_id."
+    - "Verify workspace root."
+    - "Load latest checkpoint."
+    - "Compare checkpoint repo/runtime facts with current observed state."
+    - "If unchanged, continue directly."
+    - "If changed, reconcile only the delta."
+    - "Do not repeat completed work."
+    - "Do not reinstall/reconfigure verified dependencies unless current evidence requires it."
+    - "Resume the next unblocked dependency."
+  prohibition:
+    - "restart project discovery from zero without evidence"
+    - "recreate already accepted artifacts"
+    - "rerun expensive successful work without changed inputs"
+    - "revert to historical implementation"
+
+# =============================================================================
+# 9. REMOTE ASSISTANCE REQUEST PROTOCOL
+# =============================================================================
+
+remote_assistance_protocol:
+  trigger_conditions:
+    - id: "ONLINE_INFORMATION_REQUIRED"
+      examples:
+        - "current documentation"
+        - "current market data"
+        - "current product/service behavior"
+        - "fresh pricing"
+        - "current external API changes"
+    - id: "CONNECTED_SERVICE_REQUIRED"
+      examples:
+        - "Google Drive"
+        - "GitHub"
+        - "email"
+        - "calendar"
+        - "cloud service"
+    - id: "LOCAL_CAPABILITY_GAP"
+      examples:
+        - "no suitable local online access"
+        - "missing specialized reasoning capability"
+        - "missing current external information"
+    - id: "BLOCKER_REQUIRES_SECONDARY_ANALYSIS"
+      examples:
+        - "ambiguous external error"
+        - "vendor-specific behavior"
+        - "hard-to-find current workaround"
+    - id: "CONTENT_OR_LOCALIZATION_REVIEW"
+    - id: "VISUAL_OR_UX_CRITIQUE"
+    - id: "REMOTE_BROWSER_OR_UPLOAD_STEP"
+  do_not_trigger_for:
+    - "facts already verified locally"
+    - "work Biella can execute directly faster"
+    - "repeated explanation of a solved issue"
+    - "generic brainstorming that does not advance the active task"
+  request_schema:
+    request_id: "string"
+    project_id: "string"
+    run_id: "string"
+    task_id: "string"
+    checkpoint_id: "string"
+    request_type: "enum"
+    question_or_action: "string"
+    required_output: "structured"
+    current_verified_facts: "list"
+    relevant_files_or_snippets: "list"
+    blockers: "list"
+    constraints: "list"
+    do_not_assume: "list"
+    online_capabilities_allowed: "list"
+    return_format: "structured"
+  minimization:
+    - "Send only task-relevant context."
+    - "Prefer source snippets or explicit file references over whole workspace copies."
+    - "Do not send unrelated customer information."
+    - "Do not send credentials as conversational context."
+  expected_remote_response:
+    response_id: "string"
+    request_id: "string"
+    status: "SUCCESS|PARTIAL|BLOCKED|FAILED"
+    findings: "list"
+    actions_performed: "list"
+    artifacts: "list"
+    citations_or_sources: "list"
+    unresolved: "list"
+    suggested_next_actions: "list"
+    confidence_or_verification_state: "map"
+
+# =============================================================================
+# 10. REMOTE RESPONSE INTEGRATION
+# =============================================================================
+
+remote_response_integration:
+  sequence:
+    - "Verify response corresponds to active project_id/task_id/request_id."
+    - "Classify each returned item as FACT, RECOMMENDATION, GENERATED_DRAFT, ACTION_RESULT, or UNVERIFIED."
+    - "Do not promote recommendation to requirement automatically."
+    - "Do not promote generated draft to accepted artifact automatically."
+    - "Validate factual/action results when validation is available."
+    - "Persist useful result into project/run memory."
+    - "Update checkpoint."
+    - "Continue dependency graph."
+  classification:
+    FACT:
+      definition: "Externally or locally evidenced information."
+    RECOMMENDATION:
+      definition: "Advisory option; not binding."
+    GENERATED_DRAFT:
+      definition: "Generated content/artifact pending project integration/acceptance."
+    ACTION_RESULT:
+      definition: "Observed result of a supported remote action."
+    UNVERIFIED:
+      definition: "Useful possibility without sufficient evidence."
+  prohibition:
+    - "copy remote response wholesale into engine memory"
+    - "treat remote prose as canonical source"
+    - "allow remote result to alter another project"
+
+# =============================================================================
+# 11. ONLINE CAPABILITY BROKER
+# =============================================================================
+
+online_capability_broker:
+  owner: "Biella"
+  purpose: >
+    Let Biella borrow online capabilities without making online providers part of the
+    Biella kernel or project boundary.
+  capability_classes:
+    web_search:
+      provider_preference: ["chatgpt_remote"]
+    current_docs:
+      provider_preference: ["chatgpt_remote"]
+    connectors:
+      provider_preference: ["chatgpt_remote", "browser_cloud"]
+    browser_actions:
+      provider_preference: ["browser_cloud", "chatgpt_remote_when_supported"]
+    cloud_uploads:
+      provider_preference: ["browser_cloud", "connector_when_supported"]
+    market_research:
+      provider_preference: ["chatgpt_remote"]
+    remote_content_generation:
+      provider_preference: ["chatgpt_remote"]
+  routing_rules:
+    - "Select provider by actual capability availability."
+    - "Do not hard-code one vendor as permanent architecture."
+    - "Provider failure must not corrupt project state."
+    - "Provider timeout must return control to Biella."
+    - "Use online sources only when they materially improve correctness or execution."
+
+# =============================================================================
+# 12. GAP / BLOCKER HANDLING
+# =============================================================================
+
+blocker_system:
+  blocker_schema:
+    blocker_id: "string"
+    project_id: "string"
+    task_id: "string"
+    category: "enum"
+    description: "string"
+    observed_evidence: "list"
+    blocks: "list"
+    independent_work_remaining: "list"
+    suggested_provider: "string_or_null"
+    status: "OPEN|DELEGATED|RESOLVED|UNVERIFIED"
+  categories:
+    - "LOCAL_RUNTIME"
+    - "BUILD"
+    - "DEPENDENCY"
+    - "EXTERNAL_SERVICE"
+    - "ONLINE_INFORMATION"
+    - "CONTENT_GAP"
+    - "ASSET_GAP"
+    - "DEPLOYMENT"
+    - "UNKNOWN_REQUIREMENT"
+    - "TOOL_CAPABILITY"
+  rules:
+    - "A blocker only blocks the dependencies that actually depend on it."
+    - "Biella continues independent work immediately."
+    - "Delegate the blocker to ChatGPT Remote if online/current/external reasoning can help."
+    - "Do not stop the whole run for one optional blocked task."
+    - "Do not invent missing facts to remove a blocker."
+    - "Persist blocker state in checkpoint."
+
+# =============================================================================
+# 13. CONCURRENCY
+# =============================================================================
+
+concurrency:
+  scheduler: "dependency-aware"
+  permit_parallel:
+    - "independent coding tasks"
+    - "independent content tasks"
+    - "L40 generation while CPU coding continues"
+    - "online research while local builds run"
+    - "browser upload while unrelated local validation continues"
+    - "asset optimization while next asset generates"
+  prohibit_parallel:
+    - "conflicting writes to same file"
+    - "unsafe simultaneous builds to same output"
+    - "GPU jobs that exceed VRAM"
+    - "multiple actions against same external mutable state when order matters"
+  no_idle_waiting:
+    absolute: true
+    rule: >
+      When a build, test, generation, upload, remote request, or external operation is
+      waiting, Biella immediately executes any independent ready task.
+
+# =============================================================================
+# 14. PROJECT-SPECIFIC WORKSPACE INSIDE BIELLA
+# =============================================================================
+
+biella_project_embedding:
+  conceptual_model: >
+    Project isolation exists INSIDE the Biella execution model as a namespaced project cell.
+    The project is not merged into the Biella kernel. Biella knows how to operate the cell,
+    but project-specific intelligence and artifacts remain inside the cell.
+  allowed_biella_awareness:
+    - "project_id"
+    - "workspace location"
+    - "task graph"
+    - "provider needs"
+    - "resource requirements"
+    - "checkpoint state"
+    - "project memory reference"
+    - "execution health"
+  forbidden_kernel_promotion:
+    - "raw customer copy"
+    - "customer logo/assets"
+    - "customer credentials"
+    - "customer-specific design rules"
+    - "customer-only architecture"
+    - "customer-only workflows"
+  normalized_engine_learning:
+    allowed_if:
+      - "project-neutral"
+      - "generalizable"
+      - "not customer-identifying"
+      - "not a raw copied project rule"
+      - "intentionally classified as reusable engine intelligence"
+    examples:
+      - "generic checkpoint algorithm"
+      - "generic provider retry pattern"
+      - "generic build-cache strategy"
+      - "generic image-generation scheduling policy"
+
+# =============================================================================
+# 15. DURABLE STATE
+# =============================================================================
+
+durability:
+  hard_rule: >
+    Durable meaningful computation must not exist only in chat context, model memory,
+    RAM, GPU memory, cache, or temporary disk.
+  must_persist:
+    - "accepted source changes"
+    - "meaningful implementation decisions"
+    - "task dependency completion"
+    - "selected asset outputs"
+    - "deployment identifiers/results"
+    - "resolved blocker facts"
+    - "checkpoint state"
+  may_remain_ephemeral:
+    - "rejected generation candidates"
+    - "temporary logs after summarized"
+    - "intermediate caches"
+    - "temporary inference states"
+
+# =============================================================================
+# 16. VALIDATION MODEL
+# =============================================================================
+
+validation:
+  principle: "Validation derives from the task/output contract; no universal reviewer stage."
+  target:
+    - "affected files/components"
+    - "direct dependencies"
+    - "affected routes"
+    - "affected responsive states"
+    - "affected language states"
+    - "affected runtime behavior"
+  remote_validation:
+    allowed: true
+    role: "supplementary"
+  local_validation:
+    preferred_for:
+      - "build"
+      - "tests"
+      - "runtime behavior"
+      - "source correctness"
+  browser_validation:
+    preferred_for:
+      - "deployment state"
+      - "authenticated external service actions"
+      - "visual browser behavior"
+  rules:
+    - "Do not claim verification that was not observed."
+    - "Do not rerun unchanged expensive checks without reason."
+    - "Do not add a mandatory universal critic/reviewer phase."
+
+# =============================================================================
+# 17. FAILURE / RECOVERY
+# =============================================================================
+
+failure_recovery:
+  on_local_failure:
+    sequence:
+      - "capture exact error"
+      - "update blocker"
+      - "continue independent work"
+      - "delegate online/vendor-specific gap if useful"
+      - "make smallest corrective change"
+      - "rerun targeted failed check"
+      - "checkpoint resolution"
+  on_remote_failure:
+    sequence:
+      - "record failure/timeout"
+      - "continue local independent tasks"
+      - "retry only if still useful"
+      - "route to alternate provider if available"
+      - "never discard current local state"
+  on_connection_loss:
+    chatgpt_remote:
+      behavior:
+        - "Biella continues locally."
+        - "Latest checkpoint remains authoritative."
+        - "Pending remote requests remain retryable."
+        - "On reconnect send checkpoint delta."
+  on_process_crash:
+    behavior:
+      - "restore latest durable checkpoint"
+      - "verify actual repository/runtime delta"
+      - "continue from first incomplete dependency"
+  never:
+    - "restart whole project because remote provider disconnected"
+    - "revert project because one enhancement failed"
+    - "replace current project with historical snapshot"
+
+# =============================================================================
+# 18. DATA / CONTEXT ROUTING
+# =============================================================================
+
+context_routing:
+  default: "minimum_sufficient_context"
+  remote_packet:
+    include:
+      - "project_id pseudonymous identifier if enough"
+      - "task objective"
+      - "current checkpoint summary"
+      - "relevant source excerpts"
+      - "relevant error output"
+      - "required output contract"
+      - "specific online question/action"
+    exclude_by_default:
+      - "unrelated project files"
+      - "other customer data"
+      - "other project memory"
+      - "credentials"
+      - "unrelated private content"
+  result_persistence:
+    store_under: "project_id/run_id/task_id"
+  cross_project_reference:
+    allowed: false
+    exception: >
+      Only project-neutral normalized engine intelligence may be reused across projects.
+
+# =============================================================================
+# 19. CUSTOMER PROJECT EXECUTION PROFILE TEMPLATE
+# =============================================================================
+
+customer_project_profile_template:
+  project_class: "customer"
+  workspace:
+    isolation: "FULL"
+    preferred_compute: "local L40 machine when configured"
+  browser_operations:
+    preferred_node: "configured Windows/browser node when configured"
+  remote_assistance:
+    enabled: true
+    provider: "chatgpt_remote"
+  biella:
+    owns_task: true
+    owns_checkpoint: true
+    owns_persistence: true
+    owns_provider_routing: true
+  project_memory:
+    isolated: true
+  engine_memory:
+    project_specific_content_allowed: false
+  cross_customer_reuse:
+    source_code: false
+    content: false
+    branding: false
+    credentials: false
+    normalized_project_neutral_execution_patterns: true
+
+# =============================================================================
+# 20. BIELLA <-> CHATGPT REMOTE SESSION LOOP
+# =============================================================================
+
+remote_session_loop:
+  pseudocode:
+    - "1. Biella loads active project checkpoint."
+    - "2. Biella computes ready task nodes."
+    - "3. Biella executes locally executable nodes."
+    - "4. Biella identifies online/current/external capability gaps."
+    - "5. Biella sends minimum scoped request to ChatGPT Remote."
+    - "6. Biella continues independent local nodes without waiting."
+    - "7. ChatGPT Remote returns findings/actions/artifacts."
+    - "8. Biella classifies remote response."
+    - "9. Biella validates/integrates useful output."
+    - "10. Biella persists meaningful result."
+    - "11. Biella writes checkpoint."
+    - "12. Biella continues next ready nodes."
+    - "13. Repeat until task contract is satisfied or only real blockers remain."
+  invariant: "ChatGPT Remote assists the loop; Biella owns the loop."
+
+# =============================================================================
+# 21. CHECKPOINT-ANYWHERE HANDOFF
+# =============================================================================
+
+checkpoint_anywhere_handoff:
+  purpose: >
+    Allow a human, Biella local agent, ChatGPT Remote, browser node, or other provider
+    to enter or leave execution at a checkpoint without losing continuity.
+  handoff_packet:
+    required:
+      - "project_id"
+      - "run_id"
+      - "task_id"
+      - "checkpoint_id"
+      - "objective"
+      - "completed"
+      - "in_progress"
+      - "blocked"
+      - "pending"
+      - "current source/runtime facts"
+      - "required next action"
+      - "do_not_repeat"
+      - "do_not_touch"
+      - "acceptance contract"
+    optional:
+      - "relevant file refs"
+      - "relevant URLs"
+      - "relevant artifact refs"
+      - "provider-specific execution hints"
+  receiver_rules:
+    - "Do not restart discovery if handoff evidence remains valid."
+    - "Verify only facts that may have changed."
+    - "Continue from next dependency."
+    - "Persist new state before handing off again."
+
+# =============================================================================
+# 22. REMOTE ONLINE CAPABILITY USE CASES
+# =============================================================================
+
+remote_online_use_cases:
+  current_web_information:
+    route_to: "chatgpt_remote"
+    examples:
+      - "current prices"
+      - "latest API docs"
+      - "service outages"
+      - "current browser/service behavior"
+  external_account_data:
+    route_to: "chatgpt_remote_connector_or_browser_cloud"
+    examples:
+      - "Drive files"
+      - "GitHub state"
+      - "email"
+      - "calendar"
+      - "cloud dashboards"
+  deployment:
+    route_to: "browser_cloud_when_browser_auth_required"
+  public_research:
+    route_to: "chatgpt_remote"
+  local_generation:
+    route_to: "local_gpu"
+  source_editing:
+    route_to: "local_execution"
+  build_test:
+    route_to: "local_execution"
+  fallback:
+    rule: "If preferred provider unavailable, use next actually available provider without changing canonical project requirements."
+
+# =============================================================================
+# 23. PERFORMANCE / SPEED RULES
+# =============================================================================
+
+speed:
+  rules:
+    - "Cache verified environment facts for the run."
+    - "Do not rediscover unchanged project structure."
+    - "Maintain component/dependency ownership map."
+    - "Reuse running dev/model services."
+    - "Use incremental validation."
+    - "Batch coherent edits."
+    - "Use local L40 for suitable workloads."
+    - "Run online research concurrently with local execution."
+    - "Do not wait idly on remote responses."
+    - "Do not rerun expensive successful operations with unchanged inputs."
+    - "Prefer shared primitive fixes over repeated local patches."
+    - "Stop when the requested contract is satisfied."
+  equation: >
+    THROUGHPUT =
+      VERIFIED_STATE_REUSE
+      + DEPENDENCY_PARALLELISM
+      + LOCAL_ACCELERATION
+      + REMOTE_CAPABILITY_BORROWING
+      + TARGETED_VALIDATION
+      + DURABLE_CHECKPOINT_CONTINUITY
+      - REPEATED_DISCOVERY
+      - SERIAL_IDLE_TIME
+      - UNNECESSARY_REWORK
+
+# =============================================================================
+# 24. ANTI-LEAK / ANTI-CONTAMINATION
+# =============================================================================
+
+anti_contamination:
+  prohibited:
+    - "customer A brand copied into customer B"
+    - "customer A content copied into customer B"
+    - "customer task instructions becoming global Biella behavior"
+    - "old MiniTZ project-specific assumptions entering active Biella behavior"
+    - "remote provider personal preferences becoming project requirements"
+    - "generated experimental output becoming canonical without integration"
+    - "cache treated as source of truth"
+  project_neutrality_rule: >
+    Biella may learn HOW to execute better, but must not silently learn WHAT a specific
+    customer's product should be.
+
+# =============================================================================
+# 25. REPORTING
+# =============================================================================
+
+reporting:
+  task_completion:
+    include:
+      - "project_id"
+      - "task_id"
+      - "checkpoint_id"
+      - "changed"
+      - "preserved"
+      - "validated"
+      - "remote_assistance_used"
+      - "online_capabilities_used"
+      - "local_gpu_used"
+      - "deployment_actions"
+      - "unresolved_blockers"
+    prohibit:
+      - "claims unsupported by observed evidence"
+      - "long generic implementation diaries"
+      - "reporting internal speculation as fact"
+  remote_assistance_used:
+    fields:
+      - "provider"
+      - "request_id"
+      - "purpose"
+      - "result_classification"
+      - "integrated_result"
+      - "unresolved"
+
+# =============================================================================
+# 26. MACHINE DECISION RULES
+# =============================================================================
+
+decision_rules:
+  - condition: "task can be executed locally with verified state"
+    action: "EXECUTE_LOCAL"
+  - condition: "task requires current online information"
+    action: "DELEGATE_REMOTE_RESEARCH_AND_CONTINUE_INDEPENDENT_LOCAL_WORK"
+  - condition: "task requires browser-authenticated cloud action"
+    action: "ROUTE_TO_BROWSER_CLOUD"
+  - condition: "task benefits materially from local GPU"
+    action: "ROUTE_TO_LOCAL_GPU"
+  - condition: "remote provider unavailable"
+    action: "CONTINUE_LOCAL_READY_NODES"
+  - condition: "one dependency blocked"
+    action: "BLOCK_ONLY_DEPENDENT_NODES"
+  - condition: "checkpoint exists and state matches"
+    action: "RESUME_WITHOUT_REDISCOVERY"
+  - condition: "checkpoint conflicts with current observed state"
+    action: "RECONCILE_DELTA"
+  - condition: "historical source conflicts with current runtime"
+    action: "PREFER_CURRENT_RUNTIME"
+  - condition: "remote response is recommendation"
+    action: "DO_NOT_AUTO_PROMOTE"
+  - condition: "remote response is verified action result"
+    action: "PERSIST_AND_CONTINUE"
+  - condition: "generated artifact exists only in temp/cache"
+    action: "NOT_DURABLE_NOT_CANONICAL"
+  - condition: "project-specific rule proposed for engine memory"
+    action: "REJECT_UNLESS_NORMALIZED_PROJECT_NEUTRAL"
+
+# =============================================================================
+# 27. ABSOLUTE INVARIANTS
+# =============================================================================
+
+absolute_invariants:
+  - "BIELLA_OWNS_EXECUTION_STATE"
+  - "PROJECT_CELL_OWNS_PROJECT_STATE"
+  - "REMOTE_PROVIDER_OWNS_NO_CANONICAL_STATE"
+  - "NO_CROSS_PROJECT_WRITES"
+  - "NO_CROSS_PROJECT_MEMORY_LEAKAGE"
+  - "NO_CHAT_ONLY_DURABLE_STATE"
+  - "NO_GUESSING_RETRIEVABLE_TECHNICAL_FACTS"
+  - "NO_AUTOMATIC_HISTORICAL_REACTIVATION"
+  - "NO_AUTOMATIC_GENERATED_DRAFT_ACCEPTANCE"
+  - "NO_WHOLE_RUN_BLOCK_ON_SINGLE_INDEPENDENT_BLOCKER"
+  - "NO_QUALITY_REDUCTION_FOR_SPEED"
+  - "NO_REMOTE_DISCONNECT_CAUSES_PROJECT_RESTART"
+  - "NO_PROVIDER_IS_PERMANENTLY_HARD_CODED_INTO_BIELLA_CAPABILITY"
+  - "NO_CUSTOMER_SPECIFIC_BEHAVIOR_PROMOTED_TO_ENGINE_KERNEL_RAW"
+
+# =============================================================================
+# 28. FINAL OPERATING DIRECTIVE
+# =============================================================================
+
+final_directive:
+  machine_statement: >
+    EXECUTE_EACH_PROJECT_AS_AN_ISOLATED_BIELLA_CELL.
+    BIELLA_OWNS_TASKS_CHECKPOINTS_DURABILITY_AND_CONTINUATION.
+    USE_LOCAL_L40_AND_LOCAL_RUNTIME_FOR_PRODUCTION_EXECUTION.
+    USE_CHATGPT_REMOTE_AS_A_REPLACEABLE_ONLINE_CAPABILITY_AND_GAP_RESOLUTION_PROVIDER.
+    AT_ANY_CHECKPOINT_SEND_ONLY_THE_MINIMUM_REQUIRED_DELTA.
+    CONTINUE_ALL_INDEPENDENT_WORK_WHILE_REMOTE_ASSISTANCE_IS_PENDING.
+    CLASSIFY_VALIDATE_AND_PERSIST_REMOTE_RESULTS_BEFORE_THEY_AFFECT_CANONICAL_PROJECT_STATE.
+    NEVER_LEAK_PROJECT_STATE_ACROSS_PROJECTS.
+    NEVER_KEEP_MEANINGFUL_CONTINUATION_STATE_ONLY_IN_CHAT.
+    NEVER_RESTART_SETTLED_WORK_WITHOUT_EVIDENCE.
+    MOVE_FORWARD_FROM_THE_LATEST_VERIFIED_STATE.
