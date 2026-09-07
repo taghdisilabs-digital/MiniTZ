@@ -16,6 +16,7 @@ _REASONING_ORDER = ("low", "medium", "high", "xhigh", "max", "ultra")
 class Route:
     model: str
     reasoning: str
+    provider: str = "openai"
 
 
 _ROUTE_PROFILES: dict[str, tuple[Route, ...]] = {
@@ -26,6 +27,12 @@ _ROUTE_PROFILES: dict[str, tuple[Route, ...]] = {
     "deep_memory": (Route("gpt-6-astra", "ultra"), Route("gpt-5.6-terra", "ultra"), Route("gpt-5.6-sol", "ultra")),
     "hard_creation": (Route("gpt-6-astra", "ultra"), Route("gpt-5.6-terra", "ultra"), Route("gpt-5.6-sol", "ultra"), Route("gpt-5.6-luna", "max")),
 }
+
+_LOCAL_OSS_MODEL = "qwen3-coder-next:biella"
+
+
+def cloud_models() -> tuple[str, ...]:
+    return tuple(dict.fromkeys(route.model for routes in _ROUTE_PROFILES.values() for route in routes if route.provider == "openai"))
 
 
 def reasoning_rank(effort: str) -> int:
@@ -57,15 +64,23 @@ def select_route(task_class: str, catalog: Mapping[str, set[str]], cooldowns: Ma
         if task_class in {"creation", "hard_creation"} and reasoning_rank(route.reasoning) < reasoning_rank("high"):
             continue
         return route
+    local_model = os.environ.get("BIELLA_CODEX_LOCAL_MODEL", _LOCAL_OSS_MODEL)
+    if local_model in catalog and "local" in catalog[local_model]:
+        return Route(local_model, "provider_default", "ollama")
     raise RuntimeError(f"no eligible Codex model for {task_class}")
 
 
 _LIMIT_RE = re.compile(r"(?:usage_limit_exceeded|rate_limit_exceeded|usage limit|rate limit)", re.I)
-_RETRY_RE = re.compile(r"(?:try again at|retry at|available at)\s+([A-Za-z]{3}\s+\d{1,2},\s+\d{4}\s+\d{1,2}:\d{2}\s+[AP]M(?:\s+UTC)?)", re.I)
+_ACCOUNT_USAGE_RE = re.compile(r"(?:you(?:'|’)?ve hit your usage limit|chatgpt\.com/codex/settings/usage)", re.I)
+_RETRY_RE = re.compile(r"(?:try again at|retry at|available at)\s+([A-Za-z]{3}\s+\d{1,2}(?:st|nd|rd|th)?,\s+\d{4}\s+\d{1,2}:\d{2}\s+[AP]M(?:\s+UTC)?)", re.I)
 
 
 def is_limit_error(text: str) -> bool:
     return bool(_LIMIT_RE.search(text))
+
+
+def is_account_usage_limit_error(text: str) -> bool:
+    return bool(_ACCOUNT_USAGE_RE.search(text))
 
 
 def limit_retry_at(text: str, observed_at: datetime) -> datetime:
@@ -77,6 +92,7 @@ def limit_retry_at(text: str, observed_at: datetime) -> datetime:
     raw = match.group(1); is_utc = raw.upper().endswith(" UTC")
     if is_utc:
         raw = raw[:-4]
+    raw = re.sub(r"(?<=\d)(?:st|nd|rd|th)(?=,)", "", raw, flags=re.I)
     parsed = datetime.strptime(raw, "%b %d, %Y %I:%M %p")
     return parsed.replace(tzinfo=timezone.utc if is_utc else observed_at.tzinfo or timezone.utc)
 
@@ -89,23 +105,43 @@ def fallback_catalog() -> dict[str, set[str]]:
     return result
 
 
+def _discover_local_ollama_models() -> set[str]:
+    ollama_bin = os.environ.get("BIELLA_OLLAMA_BIN", "/usr/local/bin/ollama")
+    try:
+        proc = subprocess.run([ollama_bin, "list"], text=True, capture_output=True, check=False, timeout=3)
+    except (OSError, subprocess.TimeoutExpired):
+        return set()
+    if proc.returncode != 0:
+        return set()
+    models: set[str] = set()
+    for line in proc.stdout.splitlines()[1:]:
+        parts = line.split()
+        if parts:
+            models.add(parts[0])
+    return models
+
+
 def discover_catalog() -> dict[str, set[str]]:
     codex_bin = os.environ.get("BIELLA_CODEX_BIN", "/usr/bin/codex")
     proc = subprocess.run([codex_bin, "debug", "models"], text=True, capture_output=True, check=False)
-    if proc.returncode != 0:
-        return fallback_catalog()
-    try:
-        data = json.loads(proc.stdout)
-    except json.JSONDecodeError:
-        return fallback_catalog()
     result: dict[str, set[str]] = {}
-    for item in data.get("models", []) if isinstance(data, dict) else []:
-        if not isinstance(item, dict) or not isinstance(item.get("slug"), str):
-            continue
-        levels = {str(level.get("effort")) for level in item.get("supported_reasoning_levels", []) if isinstance(level, dict) and level.get("effort")}
-        if levels:
-            result[item["slug"]] = levels
-    return result or fallback_catalog()
+    if proc.returncode == 0:
+        try:
+            data = json.loads(proc.stdout)
+        except json.JSONDecodeError:
+            data = {}
+        for item in data.get("models", []) if isinstance(data, dict) else []:
+            if not isinstance(item, dict) or not isinstance(item.get("slug"), str):
+                continue
+            levels = {str(level.get("effort")) for level in item.get("supported_reasoning_levels", []) if isinstance(level, dict) and level.get("effort")}
+            if levels:
+                result[item["slug"]] = levels
+    if not result:
+        result = fallback_catalog()
+    local_model = os.environ.get("BIELLA_CODEX_LOCAL_MODEL", _LOCAL_OSS_MODEL)
+    if local_model in _discover_local_ollama_models():
+        result[local_model] = {"local"}
+    return result
 
 
 def earliest_cooldown_delay(cooldowns: Mapping[str, str], now: datetime) -> float:
@@ -124,27 +160,43 @@ def earliest_cooldown_delay(cooldowns: Mapping[str, str], now: datetime) -> floa
 
 def _production_exec_args(route: Route, schema_path: Path, output_path: Path, *, allow_helper: bool = False) -> list[str]:
     fanout = ["--enable", "multi_agent", "--disable", "multi_agent_v2"] if allow_helper else ["--disable", "multi_agent", "--disable", "multi_agent_v2"]
-    return [
+    local = route.provider == "ollama"
+    args = [
         "--dangerously-bypass-approvals-and-sandbox",
         "--dangerously-bypass-hook-trust",
+        "--disable", "plugins",
         *fanout,
         "-c", 'shell_environment_policy.inherit="all"',
-        "-c", 'model_auto_compact_token_limit=96000',
-        "-c", 'tool_output_token_limit=12000',
+        "-c", f'model_auto_compact_token_limit={12000 if local else 96000}',
+        "-c", f'tool_output_token_limit={4000 if local else 12000}',
         "-c", 'max_concurrent_threads_per_session=2',
         "-c", 'max_depth=1',
-        "-c", f'model_reasoning_effort="{route.reasoning}"',
+    ]
+    if route.provider == "openai":
+        args += ["-c", f'model_reasoning_effort="{route.reasoning}"']
+    elif route.provider != "ollama":
+        raise ValueError(f"unsupported Codex provider: {route.provider}")
+    args += [
         "-m", route.model,
         "--json",
         "--output-schema", str(schema_path),
         "-o", str(output_path),
     ]
+    return args
+
+
+def _provider_prefix(route: Route) -> list[str]:
+    codex_bin = os.environ.get("BIELLA_CODEX_BIN", "/usr/bin/codex")
+    if route.provider == "openai":
+        return [codex_bin, "--search"]
+    if route.provider == "ollama":
+        return [codex_bin, "--oss", "--local-provider", "ollama"]
+    raise ValueError(f"unsupported Codex provider: {route.provider}")
 
 
 def build_codex_command(route: Route, schema_path: Path, output_path: Path, cwd: Path, *, allow_helper: bool = False) -> list[str]:
-    codex_bin = os.environ.get("BIELLA_CODEX_BIN", "/usr/bin/codex")
     return [
-        codex_bin, "--search", "exec",
+        *_provider_prefix(route), "exec",
         *_production_exec_args(route, schema_path, output_path, allow_helper=allow_helper),
         "-C", str(cwd),
         "-",
@@ -152,9 +204,8 @@ def build_codex_command(route: Route, schema_path: Path, output_path: Path, cwd:
 
 
 def build_codex_resume_command(route: Route, schema_path: Path, output_path: Path, session_id: str, *, allow_helper: bool = False) -> list[str]:
-    codex_bin = os.environ.get("BIELLA_CODEX_BIN", "/usr/bin/codex")
     return [
-        codex_bin, "--search", "exec", "resume",
+        *_provider_prefix(route), "exec", "resume",
         *_production_exec_args(route, schema_path, output_path, allow_helper=allow_helper),
         session_id,
         "-",

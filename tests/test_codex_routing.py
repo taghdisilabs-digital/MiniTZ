@@ -103,3 +103,75 @@ def test_one_helper_mode_is_explicit_and_capped(tmp_path: Path):
     assert ("--disable", "multi_agent") not in pairs
     assert "max_concurrent_threads_per_session=2" in joined
     assert "max_depth=1" in joined
+
+
+def test_account_usage_retry_parser_accepts_ordinal_provider_date():
+    observed = datetime(2026, 9, 6, 23, 40, tzinfo=timezone.utc)
+    retry = routing.limit_retry_at(
+        "You've hit your usage limit. Visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Sep 12th, 2026 9:41 PM.",
+        observed,
+    )
+    assert retry == datetime(2026, 9, 12, 21, 41, tzinfo=timezone.utc)
+    assert routing.is_account_usage_limit_error("You've hit your usage limit. Visit https://chatgpt.com/codex/settings/usage")
+
+
+def test_all_cloud_cooldowns_route_to_local_ollama_continuity():
+    current = catalog()
+    current["qwen3-coder-next:biella"] = {"local"}
+    cooldowns = {model: "2026-09-12T21:41:00+00:00" for model in routing.cloud_models()}
+    route = routing.select_route("hard_creation", current, cooldowns, NOW)
+    assert route.model == "qwen3-coder-next:biella"
+    assert route.provider == "ollama"
+    assert route.reasoning == "provider_default"
+
+
+def test_local_oss_command_uses_ollama_without_web_search_and_disables_plugins(tmp_path: Path):
+    route = routing.Route("qwen3-coder-next:biella", "provider_default", "ollama")
+    cmd = routing.build_codex_command(route, tmp_path / "schema.json", tmp_path / "out.json", tmp_path / "project")
+    joined = " ".join(cmd)
+    assert cmd[1:4] == ["--oss", "--local-provider", "ollama"]
+    assert "--search" not in cmd
+    assert "--disable plugins" in joined
+    assert 'model_auto_compact_token_limit=12000' in joined
+    assert 'tool_output_token_limit=4000' in joined
+    assert "model_reasoning_effort" not in joined
+
+
+def test_cloud_production_command_disables_plugins(tmp_path: Path):
+    cmd = routing.build_codex_command(
+        routing.Route("gpt-6-astra", "ultra"),
+        tmp_path / "schema.json",
+        tmp_path / "out.json",
+        tmp_path / "project",
+    )
+    assert "--disable plugins" in " ".join(cmd)
+
+
+def test_discover_catalog_includes_ready_local_ollama_model(monkeypatch):
+    class Completed:
+        def __init__(self, returncode, stdout):
+            self.returncode = returncode
+            self.stdout = stdout
+            self.stderr = ""
+    def fake_run(cmd, **_kwargs):
+        if cmd[-2:] == ["debug", "models"]:
+            return Completed(0, '{"models":[{"slug":"gpt-6-astra","supported_reasoning_levels":[{"effort":"ultra"}]}]}')
+        if cmd[-1:] == ["list"]:
+            return Completed(0, "NAME ID SIZE MODIFIED\nqwen3-coder-next:biella abc 52GB now\n")
+        raise AssertionError(cmd)
+    monkeypatch.setattr(routing.subprocess, "run", fake_run)
+    current = routing.discover_catalog()
+    assert current["gpt-6-astra"] == {"ultra"}
+    assert current["qwen3-coder-next:biella"] == {"local"}
+
+
+def test_local_resume_command_preserves_session_with_ollama_and_no_plugins(tmp_path: Path):
+    route = routing.Route("qwen3-coder-next:biella", "provider_default", "ollama")
+    session_id = "01a07480-2c40-7d03-b649-d3f72807cc3e"
+    cmd = routing.build_codex_resume_command(route, tmp_path / "schema.json", tmp_path / "out.json", session_id)
+    joined = " ".join(cmd)
+    assert cmd[1:4] == ["--oss", "--local-provider", "ollama"]
+    assert "exec resume" in joined
+    assert session_id in cmd
+    assert "--disable plugins" in joined
+    assert "--search" not in cmd

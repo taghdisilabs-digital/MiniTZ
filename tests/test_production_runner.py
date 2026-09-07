@@ -769,3 +769,37 @@ def test_clean_local_assist_accepts_path_present_in_current_task_memory(tmp_path
     monkeypatch.setattr(runner.subprocess,"run",lambda argv,**kwargs: subprocess.CompletedProcess(argv,0,stdout=json.dumps({"provider":"ollama-qwen","model":"qwen","text":text,"usage":{}}),stderr=""))
     path=runner._ensure_local_resource_assist(tmp_path,"D03-01",projection,project_root=project)
     assert path and json.loads(path.read_text())["text"]==text
+
+
+def test_account_usage_limit_cools_all_cloud_codex_models():
+    telemetry = runner.initial_runtime()
+    route = routing.Route("gpt-6-astra", "ultra")
+    detail = "You've hit your usage limit. Visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Sep 12th, 2026 9:41 PM."
+    runner._set_failure(telemetry, route, detail, "D03-01")
+    expected = "2026-09-12T21:41:00+00:00"
+    assert telemetry["status"] == "RECOVERING_MODEL"
+    assert all(telemetry["cooldowns"].get(model) == expected for model in routing.cloud_models())
+    assert telemetry["last_result"]["retry_at"] == expected
+
+
+def test_account_usage_limit_falls_back_to_local_codex_route(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path); runtime_root = tmp_path / "runtime"
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {
+        "gpt-6-astra": {"ultra"},
+        "gpt-5.6-terra": {"ultra"},
+        "gpt-5.6-sol": {"ultra"},
+        "gpt-5.6-luna": {"max"},
+        "qwen3-coder-next:biella": {"local"},
+    })
+    used = []
+    def command(route, _schema, output, _cwd):
+        used.append((route.model, route.provider))
+        if route.provider == "openai":
+            return [sys.executable, "-c", "import sys; print(\"You've hit your usage limit. Visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Sep 12th, 2026 9:41 PM.\", file=sys.stderr); sys.exit(1)"]
+        payload = {"task_id": "D01-030", "status": "COMPLETE", "summary": "done locally through Codex continuity", "evidence": ["runtime pass"]}
+        code = f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"
+        return [sys.executable, "-c", code]
+    monkeypatch.setattr(runner.routing, "build_codex_command", command)
+    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: {"commit": task_id, "tree": "t"})
+    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.02) == 0
+    assert used[:2] == [("gpt-6-astra", "openai"), ("qwen3-coder-next:biella", "ollama")]

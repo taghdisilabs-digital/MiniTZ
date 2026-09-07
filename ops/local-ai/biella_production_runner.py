@@ -710,7 +710,12 @@ def _set_failure(telemetry: dict[str, Any], route: routing.Route, detail: str, t
     }
     if limited:
         retry_at = routing.limit_retry_at(detail, observed)
-        telemetry.setdefault("cooldowns", {})[route.model] = retry_at.isoformat()
+        cooldowns = telemetry.setdefault("cooldowns", {})
+        if routing.is_account_usage_limit_error(detail):
+            for model in routing.cloud_models():
+                cooldowns[model] = retry_at.isoformat()
+        else:
+            cooldowns[route.model] = retry_at.isoformat()
         result["retry_at"] = retry_at.isoformat()
         telemetry["status"] = "RECOVERING_MODEL"
     else:
