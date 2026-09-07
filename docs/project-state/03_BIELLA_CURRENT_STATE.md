@@ -5,8 +5,8 @@ schema: biella.current_state/v11
 state_class: VOLATILE
 update_rule: replace_stale_values; preserve_valid_progress_capabilities_evidence
 observed_date: 2026-09-07
-observed_at_utc: 2026-09-07T06:34:08+00:00
-observed_at_europe_amsterdam: 2026-09-07T08:34:08+02:00
+observed_at_utc: 2026-09-07T16:37:25+00:00
+observed_at_europe_amsterdam: 2026-09-07T18:37:25+02:00
 
 authority:
   if_conflict: [CURRENT_EXECUTION_STATE, CURRENT_GITHUB_SOURCE, CURRENT_CANONICAL_DRIVE, VERIFIED_HISTORICAL_EVIDENCE, REFERENCE_OR_PLAN, INFERENCE]
@@ -17,11 +17,14 @@ repository:
   repository: patrickminitz-web/biella-engine
   branch: main
   canonical_checkout: /root/biella/repos/biella-engine
-  observed_head_commit: e6c8f372fdd6eb5de00d8efe37d58cc37cd25e93
-  observed_head_tree: 8e85a31086e8f07ccd593627ee8041d6b888d223
-  github_main_readback_commit: e6c8f372fdd6eb5de00d8efe37d58cc37cd25e93
-  implementation_commit: e6c997b0097651b0265cf6b4663049bc2eb65b30
-  implementation_tree: ef26e47bfb606bd3e7a8b41f5249adb57203eee2
+  observed_head_commit: 1d2ff3ea011cd7d4f3e1055480f5d53863c63e67
+  observed_head_tree: 70fdc682659da468bff3956ece560180176dafbb
+  github_main_readback_commit: 1d2ff3ea011cd7d4f3e1055480f5d53863c63e67
+  implementation_commit: 1d2ff3ea011cd7d4f3e1055480f5d53863c63e67
+  implementation_tree: 70fdc682659da468bff3956ece560180176dafbb
+  source_alignment_gate: VERIFIED_GITHUB_MAIN_SAFE_FAST_FORWARD_OR_FAIL_CLOSED
+  production_runner_source: /root/biella/repos/biella-engine/ops/local-ai/biella_production_runner.py
+  installer_sleep_preservation: VERIFIED_EXISTING_DISABLED_STATE_PRESERVED
   worktree_state: DIRTY_ACTIVE_TASK_ONLY
   tracked_dirty_count: 1
   untracked_dirty_count: 75
@@ -98,7 +101,7 @@ continuation_policy:
 resources:
   provider_registry: ops/workstation/provider-registry.json
   provider_registry_sha256: c5c2f91f645b553b0164ade4ebfc3866649bb97e7ad82dbdbd7a9bc95781cb5d
-  local_qwen_service: ACTIVE_RESIDENT_WHILE_PRODUCTION_CONTROLLER_ASLEEP
+  local_qwen_service: INACTIVE_CUSTOMER_ISOLATION
   local_qwen_identity: qwen3-coder-next:biella
   qwen_reasoning_protocol: NONE_COMPATIBILITY_MODE_NORMAL_MODEL_INFERENCE_REMAINS
   external_project_sandbox_broker: VERIFIED_SEPARATE_HOST_RESOURCE_NOT_BIELLA_ENGINE
