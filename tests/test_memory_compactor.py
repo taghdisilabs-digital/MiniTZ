@@ -170,7 +170,7 @@ def test_projection_excludes_transient_provider_recovery_noise_but_keeps_raw_his
         })+"\n")
         handle.write(json.dumps({
             "seq":12,"time":"resume","failure_type":"agent.error","status":"FAILED","task_id":"T2",
-            "text":"input[42]: unknown input item type: compaction"
+            "text":r"Reconnecting... ({\\\"error\\\":{\\\"message\\\":\\\"input[42]: unknown input item type: \\\\\\\"compaction\\\\\\\"\\\"}})"
         })+"\n")
     result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
     index = json.loads(result.index_path.read_text())
@@ -178,12 +178,12 @@ def test_projection_excludes_transient_provider_recovery_noise_but_keeps_raw_his
     projected = json.dumps(projection["failures"]).lower()
     assert "usage limit" not in projected
     assert "does not support thinking" not in projected
-    assert "unknown input item type: compaction" not in projected
+    assert "unknown input item type" not in projected
     assert "nav failed" in projected
     failure_texts = [index["content"][ref]["text"].lower() for ref in index["categories"]["failure"]]
     assert any("usage limit" in text for text in failure_texts)
     assert any("does not support thinking" in text for text in failure_texts)
-    assert any("unknown input item type: compaction" in text for text in failure_texts)
+    assert any("unknown input item type" in text for text in failure_texts)
 
 
 def test_projection_excludes_cross_task_legacy_task_key_failures(tmp_path: Path):
