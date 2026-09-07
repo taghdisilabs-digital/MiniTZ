@@ -1,26 +1,27 @@
 # 03 - BIELLA CURRENT STATE
 
 ```yaml
-schema: biella.current_state/v10
+schema: biella.current_state/v11
 state_class: VOLATILE
-update_rule: replace_stale_values; do_not_append_history
+update_rule: replace_stale_values; preserve_valid_progress_capabilities_evidence
 observed_date: 2026-09-07
-observed_at_utc: 2026-09-07T02:41:27.192607+00:00
+observed_at_utc: 2026-09-07T06:34:08+00:00
+observed_at_europe_amsterdam: 2026-09-07T08:34:08+02:00
 
 authority:
   if_conflict: [CURRENT_EXECUTION_STATE, CURRENT_GITHUB_SOURCE, CURRENT_CANONICAL_DRIVE, VERIFIED_HISTORICAL_EVIDENCE, REFERENCE_OR_PLAN, INFERENCE]
   correction_rule: invalidate_only_conflicting_state; preserve_independently_valid_work
+  source_pack_evolution: LOSSLESS_VALID_STATE
 
 repository:
   repository: patrickminitz-web/biella-engine
   branch: main
   canonical_checkout: /root/biella/repos/biella-engine
-  structure: ONE_REPOSITORY_MONOREPO
+  observed_head_commit: e6c8f372fdd6eb5de00d8efe37d58cc37cd25e93
+  observed_head_tree: 8e85a31086e8f07ccd593627ee8041d6b888d223
+  github_main_readback_commit: e6c8f372fdd6eb5de00d8efe37d58cc37cd25e93
   implementation_commit: e6c997b0097651b0265cf6b4663049bc2eb65b30
   implementation_tree: ef26e47bfb606bd3e7a8b41f5249adb57203eee2
-  github_readback: EXACT_IMPLEMENTATION_MAIN
-  origin_main_implementation_commit: e6c997b0097651b0265cf6b4663049bc2eb65b30
-  local_ahead_implementation_commit: 0
   worktree_state: DIRTY_ACTIVE_TASK_ONLY
   tracked_dirty_count: 1
   untracked_dirty_count: 75
@@ -39,20 +40,24 @@ active_execution:
   runner_pid: null
   codex_child_pid: null
   codex_child_process_state: STOPPED
-  runtime_telemetry_status: SLEEPING_OWNER_REQUESTED
-  task_session_id: null
+  authoritative_persistent_task_session_id: null
   prior_invalidated_executor_session_id: 01a07931-fb65-7af1-830d-83afb2ee5d8d
-  executor_session_rotation_reason: CONTEXT_BLACKHOLE_AND_STALE_FRONTIER
-  attempt: 293
+  latest_bounded_fallback_session_id: 01a07a15-b528-7a43-afd7-e84ff3c1ccc9
+  session_rotation_reason: CONTEXT_BLACKHOLE_AND_STALE_FRONTIER
+  latest_attempt: 294
   active_model: null
   active_reasoning: null
-  heartbeat_at: 2026-09-07T02:11:54.781114+00:00
   current_increment: PORTABLE_PSO_SEED_AND_LOADING_DISPLAY_COLD_START_QUALIFICATION
   task_memory_status: CONTINUE
+  runtime_json_status: WAITING_FOR_STRONG_MODEL_STALE_WHILE_SERVICE_ASLEEP
+  no_progress_model: qwen3-coder-next:biella
+  no_progress_packet_id: d8667b37c1e5713dd82876a90d5ea7edf4eefa9f874a182265833840d4c84d99
+  bounded_fallback_open_defect: LOCAL_QWEN_DID_NOT_CONSUME_REFERENCED_TASK_MEMORY_OR_GUIDE_ON_ATTEMPT_294
+  bounded_fallback_defect_effect: NO_PROJECT_BYTES_CHANGED_AND_REPEAT_BLOCKED_BY_NO_PROGRESS_CIRCUIT_BREAKER
   sleep_order: /mnt/biella-extra/biella-runtime/codex-production/memory/owner-sleep-order.json
   sleep_order_sha256: 9b7f9fec7c9884b8339e1f0b805f4375d2da55dc853c2b992d981dcd92126345
-  task_memory_sha256: 8b03e7c7b81b8ad5ed811aa9ff9c015ce9d5f2f9c615daeec7525bc6f4255074
-  compact_projection_sha256: 14ad53fefdc20e0aee47b07aa5a1c2da22eaca3f358c891135c6b50402be44aa
+  task_memory_sha256: e22c06478ef27dec78992aedf7840d087020b91b6563f6f00ae3eb8c1d667cae
+  compact_projection_sha256: b5c8094071a353cc4efcfd68fed84292215adf412ca5078680f7d53ef41cfb8e
 
 games:
   project_path: projects/biella-games
@@ -71,39 +76,42 @@ games:
   unseeded_validation_sha256: ed1e4c9cfa92afae2fc754834dc36b60ed81f22fb8b01ee8f696f81819e0cba9
   seeded_validation_sha256: 1d1889667f0569ce19e951d5e66aeef1b3729da66363f8b4f3967fb7f8381f9d
   cold_start_motion_acceptance: longest_static_interval_lt_1_0s_and_no_unmeasured_loading_frames
+  verified_reuse_boundary: [terrain_contact, aim_action_hit_defeat, vehicle_seat, reconstruction, sm5_sm6_package_fallback, loading_handoff, automatic_pso_observation, cosmetic_ground_package]
 
 continuation_policy:
   queue_mode: CANONICAL_ORDER_CONTINUOUS
   active_task_count: ONE
   selection_rule: EARLIEST_UNFINISHED_IN_CANONICAL_ORDER
   advance_after: CURRENT_TASK_DURABLE_CLOSURE
-  stop_between_tasks: false
   completed_work_reuse: REQUIRED
   no_rollback_or_redo_without_invalidation: true
   sleep_rule: DO_NOT_EXECUTE_OR_ADVANCE_UNTIL_MAHDI_EXPLICIT_WAKE_RESUME
-  resume_rule: START_FRESH_EXECUTOR_FROM_CURRENT_TASK_MEMORY_AND_EXACT_PSO_LOADING_FRONTIER
+  resume_rule: START_FRESH_STRONG_EXECUTOR_FROM_CURRENT_TASK_MEMORY_GUIDE_AND_EXACT_PSO_LOADING_FRONTIER
   strong_route_authority: ASTRA_OR_LUNA_FULL_TASK_SYNTHESIS_AND_CLOSURE_WHEN_AVAILABLE
   bounded_outage_fallback: SPARK_THEN_QWEN_ONE_SMALL_TECHNICAL_OUTCOME_PER_FRESH_PACKET
   bounded_whole_task_completion: FORBIDDEN
   bounded_section_planning: FORBIDDEN
-  bounded_workspace: PROJECT_WORKSPACE_WRITE_SANDBOX
   bounded_same_packet_no_progress_recall: FORBIDDEN
   bounded_quality_order: [correctness_and_evidence, continuity, speed, token_savings]
   quota_probe_forbidden: true
 
 resources:
-  dispatcher: /usr/local/bin/biella resource
-  local_qwen: AVAILABLE_ON_DEMAND_BOUNDED_FALLBACK
+  provider_registry: ops/workstation/provider-registry.json
+  provider_registry_sha256: c5c2f91f645b553b0164ade4ebfc3866649bb97e7ad82dbdbd7a9bc95781cb5d
+  local_qwen_service: ACTIVE_RESIDENT_WHILE_PRODUCTION_CONTROLLER_ASLEEP
+  local_qwen_identity: qwen3-coder-next:biella
   qwen_reasoning_protocol: NONE_COMPATIBILITY_MODE_NORMAL_MODEL_INFERENCE_REMAINS
-  qwen_context_blackhole_old_session: INVALIDATED
-  eager_local_assist_before_every_codex_turn: DISABLED_NONBLOCKING
-  quota_probe_forbidden: true
+  external_project_sandbox_broker: VERIFIED_SEPARATE_HOST_RESOURCE_NOT_BIELLA_ENGINE
+  external_project_sandbox_repo: /root/project-sandbox-broker
+  external_project_sandbox_verified_commit: 769d4019ac33923ba3add1b0209cc25793a17587
+  external_project_sandbox_service: ACTIVE_LOOPBACK_127_0_0_1_8840
+  external_project_sandbox_validation: 44_UNIT_PLUS_9_HOST_ACCEPTANCE_PASS
+  external_project_learning_firewall: GENERIC_CODING_ENGINEERING_LESSONS_ONLY_NO_BRAND_VISUAL_COPY_RULES_OR_CUSTOMER_SOURCE
 
 control:
   public_live_url: https://biellagames.dev/live/
   public_live_snapshot_url: https://biellagames.dev/live-api/snapshot
   public_live_mode: READ_ONLY_OBSERVER
-  website_control_engine_reaction: FORBIDDEN
   authenticated_control_write_routes: DISABLED_405_CONTROL_READ_ONLY
 
 engine_numbered_execution:
@@ -112,7 +120,8 @@ engine_numbered_execution:
   FOUNDATION_COMPLETE: false
 
 workspace:
-  active_repo_roots: [/root/biella/repos/biella-engine]
+  active_biella_repo_roots: [/root/biella/repos/biella-engine]
   active_dirty_scope: D03-01_ONLY
+  external_project_roots_are_not_biella_roots: true
   historical_or_recovery_material_activation: FORBIDDEN_UNLESS_TASK_AUTHORIZES
 ```

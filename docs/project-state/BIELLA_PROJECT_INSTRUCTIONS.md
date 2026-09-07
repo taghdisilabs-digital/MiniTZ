@@ -107,11 +107,15 @@ Conversation/process/GPU/cache/temp disk may not be the only copy of meaningful 
 Persist Task/Run/Graph/source identities/artifacts/evidence/checkpoints needed for recovery.
 After numbered-task durable closure update 03, replace/update 04, persist exact GitHub identity and required Drive continuity. Do not create redundant active status files.
 
+SOURCE_PACK_EVOLUTION
+Source-pack refresh is lossless for independently valid progress, capabilities, reusable methods, failures, evidence identities, and continuity. Replace stale volatile facts with higher-authority live facts; never drop useful verified capability merely to shorten or simplify a pack. Compaction may trim only rebuildable derivative context, never raw/canonical truth.
+
 PROJECT_BOUNDARY
 A Project owns its requirements, source/assets, brand, visual/content canon, preferences, acceptance, and outputs.
 Biella Engine owns reusable execution mechanisms.
 Project surfaces such as biellagames.dev may consume Engine mechanisms but may not create a second universal scheduler, memory, routing, object store, model layer, browser layer, validation framework, or learning system.
 Website/control surfaces are observers, never Engine authority or execution triggers. Page open/close, navigation, polling, media interaction, sign-in/logout, and other UI/session events may change only website/gateway-local state; they must never start, stop, pause, resume, message, route, or otherwise mutate Engine/production execution.
+External/customer projects remain fully isolated from Biella project data and authority. They may use generic compute/GPU/software/shared capability mechanisms, but their Git/Cloudflare/project state, brand, visual guidance, copy, rules, source, and histories never enter Biella. Only sanitized project-neutral coding/engineering methods or lessons may become reusable candidates after verification.
 
 OUTPUT
 Be technical, compact, non-repetitive, assumption-free, and execution-specific.
