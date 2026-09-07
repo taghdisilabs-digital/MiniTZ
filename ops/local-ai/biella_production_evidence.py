@@ -15,6 +15,10 @@ _ALLOWED = {"COMPLETE", "COMPLETE_ALREADY", "CONTINUE"}
 _COMPLETE = {"COMPLETE", "COMPLETE_ALREADY"}
 
 
+class SourceAlignmentError(RuntimeError):
+    pass
+
+
 @dataclass(frozen=True)
 class TaskResult:
     task_id: str
@@ -101,6 +105,29 @@ def _dirty_paths(repo_root: Path) -> set[str]:
     return paths
 
 
+def assert_remote_source_current(repo_root: Path) -> dict[str, str]:
+    repo_root = Path(repo_root)
+    branch = _git(repo_root, "branch", "--show-current").stdout.strip()
+    if branch != "main":
+        raise SourceAlignmentError(f"canonical checkout is on branch {branch or 'DETACHED'}, expected main")
+    fetched = _git(repo_root, "fetch", "--quiet", "origin", "main", check=False)
+    if fetched.returncode != 0:
+        detail = (fetched.stderr or fetched.stdout or "fetch failed").strip()
+        raise SourceAlignmentError(f"cannot refresh origin/main: {detail}")
+    head = _git(repo_root, "rev-parse", "HEAD").stdout.strip()
+    tree = _git(repo_root, "rev-parse", "HEAD^{tree}").stdout.strip()
+    remote = _git(repo_root, "rev-parse", "refs/remotes/origin/main").stdout.strip()
+    if head == remote:
+        return {"state": "ALIGNED", "commit": head, "tree": tree, "remote_commit": remote}
+    remote_is_ancestor = _git(repo_root, "merge-base", "--is-ancestor", remote, head, check=False)
+    if remote_is_ancestor.returncode == 0:
+        return {"state": "LOCAL_AHEAD", "commit": head, "tree": tree, "remote_commit": remote}
+    local_is_ancestor = _git(repo_root, "merge-base", "--is-ancestor", head, remote, check=False)
+    if local_is_ancestor.returncode == 0:
+        raise SourceAlignmentError(f"VPS source behind origin/main: local {head}, remote {remote}")
+    raise SourceAlignmentError(f"local main diverged from origin/main: local {head}, remote {remote}")
+
+
 def drive_publications(repo_root: Path) -> tuple[tuple[str, str], ...]:
     del repo_root
     return (
@@ -139,6 +166,7 @@ def publish_derived_task_ledger(repo_root: Path) -> None:
 
 def persist_continuity(repo_root: Path, task_id: str, *, publish_drive: bool = True) -> dict[str, str]:
     repo_root = Path(repo_root)
+    assert_remote_source_current(repo_root)
     dirty = _dirty_paths(repo_root)
     allowed = {path for path in _CONTINUITY_PATHS if (repo_root / path).exists()}
     unexpected = dirty - allowed

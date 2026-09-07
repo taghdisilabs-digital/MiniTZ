@@ -22,11 +22,12 @@ import biella_production_state as state
 import biella_task_packet as packets
 
 UNIT_NAME = "biella-codex-production"
+SOURCE_REFRESH_EXIT = 75
 _RUNTIME_KEYS = {
     "status", "project", "task_id", "attempt", "pid", "child_pid",
     "active_model", "active_reasoning", "cooldowns", "last_result",
     "heartbeat_at", "updated_at", "task_session_id", "session_task_id",
-    "bounded_no_progress",
+    "bounded_no_progress", "source_alignment",
 }
 
 
@@ -61,6 +62,7 @@ def initial_runtime() -> dict[str, Any]:
         "active_reasoning": None, "cooldowns": {}, "last_result": None,
         "heartbeat_at": None, "updated_at": datetime.now(timezone.utc).isoformat(),
         "task_session_id": None, "session_task_id": None, "bounded_no_progress": {},
+        "source_alignment": None,
     }
 
 
@@ -852,7 +854,8 @@ def production_status(repo_root: Path, project_root: Path, runtime_path: Path, *
         "completed": state.completed_count(production), "total": sum(len(s.tasks) for s in production.sections),
         "active_model": telemetry.get("active_model"), "active_reasoning": telemetry.get("active_reasoning"),
         "cooldowns": telemetry.get("cooldowns") or {}, "heartbeat_at": telemetry.get("heartbeat_at"),
-        "last_result": telemetry.get("last_result"), "sections": sections,
+        "last_result": telemetry.get("last_result"), "source_alignment": telemetry.get("source_alignment"),
+        "sections": sections,
     }
 
 
@@ -863,6 +866,34 @@ def _first_incomplete_section(production: state.ProductionState) -> state.Sectio
     return None
 
 
+def _guard_source_alignment(
+    repo_root: Path, runtime_path: Path, telemetry: dict[str, Any],
+    journal: production_events.ProductionEventJournal, *, task_id: str | None = None,
+) -> bool:
+    try:
+        identity = evidence.assert_remote_source_current(repo_root)
+    except evidence.SourceAlignmentError as exc:
+        detail = str(exc)
+        telemetry["status"] = "WAITING_FOR_SOURCE_SYNC"
+        telemetry["active_model"] = None
+        telemetry["active_reasoning"] = None
+        telemetry["source_alignment"] = {"state": "BLOCKED", "detail": detail}
+        telemetry["last_result"] = {
+            "task_id": task_id or telemetry.get("task_id"),
+            "status": "WAITING_FOR_SOURCE_SYNC",
+            "summary": detail,
+            "evidence": [],
+        }
+        journal.emit(
+            "source.alignment_required", task_id=task_id or telemetry.get("task_id"),
+            status="WAITING_FOR_SOURCE_SYNC", text=detail,
+        )
+        _beat(runtime_path, telemetry)
+        return False
+    telemetry["source_alignment"] = identity
+    return True
+
+
 def _persist_until_success(repo_root: Path, task_id: str, runtime_path: Path, telemetry: dict[str, Any], *, retry_seconds: float = 5.0, event_journal: production_events.ProductionEventJournal | None = None) -> dict[str, str]:
     previous = telemetry.get("last_result") if isinstance(telemetry.get("last_result"), dict) else {}
     if event_journal:
@@ -870,6 +901,17 @@ def _persist_until_success(repo_root: Path, task_id: str, runtime_path: Path, te
     while True:
         try:
             identity = evidence.persist_continuity(repo_root, task_id)
+        except evidence.SourceAlignmentError as exc:
+            telemetry["status"] = "WAITING_FOR_SOURCE_SYNC"
+            telemetry["source_alignment"] = {"state": "BLOCKED", "detail": str(exc)}
+            telemetry["last_result"] = {
+                "task_id": task_id, "status": "WAITING_FOR_SOURCE_SYNC",
+                "summary": str(exc), "evidence": list(previous.get("evidence", [])),
+            }
+            if event_journal:
+                event_journal.emit("source.alignment_required", task_id=task_id, status="WAITING_FOR_SOURCE_SYNC", text=str(exc))
+            _beat(runtime_path, telemetry)
+            raise
         except Exception as exc:
             telemetry["status"] = "RECOVERING_PERSISTENCE"
             telemetry["last_result"] = {
@@ -914,8 +956,12 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
         telemetry.update({"status": "RUNNING", "project": "biella-games", "pid": os.getpid(), "child_pid": None})
         journal.emit("production.started", task_id=telemetry.get("task_id"), status="RUNNING", text="Biella production runner active")
         _beat(runtime_path, telemetry)
-        catalog = routing.discover_catalog()
+        catalog: Mapping[str, set[str]] | None = None
         while True:
+            if not _guard_source_alignment(repo_root, runtime_path, telemetry, journal):
+                return SOURCE_REFRESH_EXIT
+            if catalog is None:
+                catalog = routing.discover_catalog()
             production = state.sync_project_metadata(project_root)
             task = state.resolve_current_task(repo_root, project_root)
             if task is None:
@@ -969,6 +1015,8 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 rc, error_text = invoke_structured(packets.compile_section_packet(production, section, audit=bool(section.tasks)), route, section_schema_path, output, stdout, stderr, runtime_path, telemetry, heartbeat_interval=heartbeat_interval, cwd=project_root, session_task_id=f"PLAN:{section.id}", event_journal=journal)
                 if rc != 0:
                     _set_failure(telemetry, route, error_text, f"PLAN:{section.id}"); _beat(runtime_path, telemetry); continue
+                if not _guard_source_alignment(repo_root, runtime_path, telemetry, journal, task_id=f"PLAN:{section.id}"):
+                    return SOURCE_REFRESH_EXIT
                 try:
                     plan = json.loads(output.read_text(encoding="utf-8"))
                     state.apply_section_plan(repo_root, project_root, section.id, plan)
@@ -1055,6 +1103,8 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 journal.emit("task.runtime_recovery", task_id=task.id, status=telemetry.get("status"), text=error_text[-1200:])
                 _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
                 _beat(runtime_path, telemetry); continue
+            if not _guard_source_alignment(repo_root, runtime_path, telemetry, journal, task_id=task.id):
+                return SOURCE_REFRESH_EXIT
             try:
                 result = evidence.parse_result(output, task.id)
             except ValueError as exc:
@@ -1091,6 +1141,8 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 _persist_until_success(repo_root, result.task_id, runtime_path, telemetry, event_journal=journal)
             _beat(runtime_path, telemetry)
             continue
+    except evidence.SourceAlignmentError:
+        return SOURCE_REFRESH_EXIT
     finally:
         lock.release()
 

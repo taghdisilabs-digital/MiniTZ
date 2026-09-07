@@ -5,6 +5,14 @@ readonly SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly INSTALL_DIR="${BIELLA_AI_INSTALL_DIR:-/usr/local/lib/biella-ai}"
 readonly CODEX_LINK="/usr/local/bin/biella-codex"
 readonly MANAGED_PREFIX="$INSTALL_DIR/"
+readonly PRODUCTION_UNIT=/etc/systemd/system/biella-codex-production.service
+
+production_unit_existed=0
+production_enablement=unknown
+if [[ -e "$PRODUCTION_UNIT" || -L "$PRODUCTION_UNIT" ]]; then
+  production_unit_existed=1
+  production_enablement="$(systemctl is-enabled biella-codex-production.service 2>/dev/null || true)"
+fi
 
 [[ "$EUID" -eq 0 ]] || { printf 'Run the Biella AI installer as root.\n' >&2; exit 1; }
 
@@ -23,6 +31,7 @@ install -o root -g root -m 755 \
   "$SOURCE_DIR/biella-saturn-mcp.sh" \
   "$SOURCE_DIR/biella-saturn-probe.py" \
   "$SOURCE_DIR/biella-codex.sh" \
+  "$SOURCE_DIR/biella-production-source-sync.sh" \
   "$SOURCE_DIR/biella_production_runner.py" \
   "$INSTALL_DIR/"
 install -o root -g root -m 644 \
@@ -35,9 +44,13 @@ install -o root -g root -m 644 \
   "$SOURCE_DIR/biella_codex_routing.py" \
   "$SOURCE_DIR/biella_production_evidence.py" \
   "$INSTALL_DIR/"
-install -o root -g root -m 644 "$SOURCE_DIR/biella-codex-production.service" /etc/systemd/system/biella-codex-production.service
+install -o root -g root -m 644 "$SOURCE_DIR/biella-codex-production.service" "$PRODUCTION_UNIT"
 systemctl daemon-reload
-systemctl enable biella-codex-production.service >/dev/null
+if [[ "$production_unit_existed" -eq 0 || "$production_enablement" == "enabled" ]]; then
+  systemctl enable biella-codex-production.service >/dev/null
+else
+  systemctl disable biella-codex-production.service >/dev/null
+fi
 for obsolete in \
   /usr/local/bin/biella-ai-start \
   /usr/local/bin/biella-local-agent \

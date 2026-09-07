@@ -111,3 +111,46 @@ def test_derived_ledger_publication_is_not_part_of_critical_drive_targets():
 
 def test_generated_task_ledger_is_allowed_continuity_output():
     assert "docs/task-program/D_TASK_LEDGER.json" in evidence._CONTINUITY_PATHS
+
+
+def _source_pair(root: Path):
+    import subprocess
+    remote = root / "source-remote.git"
+    repo = root / "source-local"
+    other = root / "source-other"
+    subprocess.run(["git", "init", "-q", "--bare", str(remote)], check=True)
+    subprocess.run(["git", "init", "-q", "-b", "main", str(repo)], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.name", "Biella Test"], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.email", "test@example.invalid"], check=True)
+    (repo / "source.txt").write_text("base\n", encoding="utf-8")
+    subprocess.run(["git", "-C", str(repo), "add", "."], check=True)
+    subprocess.run(["git", "-C", str(repo), "commit", "-qm", "base"], check=True)
+    subprocess.run(["git", "-C", str(repo), "remote", "add", "origin", str(remote)], check=True)
+    subprocess.run(["git", "-C", str(repo), "push", "-q", "-u", "origin", "main"], check=True)
+    subprocess.run(["git", "clone", "-q", "-b", "main", str(remote), str(other)], check=True)
+    subprocess.run(["git", "-C", str(other), "config", "user.name", "Biella Test"], check=True)
+    subprocess.run(["git", "-C", str(other), "config", "user.email", "test@example.invalid"], check=True)
+    return repo, remote, other
+
+
+def test_remote_source_guard_allows_aligned_and_local_ahead(tmp_path: Path):
+    import subprocess
+    repo, _remote, _other = _source_pair(tmp_path)
+    aligned = evidence.assert_remote_source_current(repo)
+    assert aligned["state"] == "ALIGNED"
+    (repo / "local.txt").write_text("progress\n", encoding="utf-8")
+    subprocess.run(["git", "-C", str(repo), "add", "local.txt"], check=True)
+    subprocess.run(["git", "-C", str(repo), "commit", "-qm", "local progress"], check=True)
+    ahead = evidence.assert_remote_source_current(repo)
+    assert ahead["state"] == "LOCAL_AHEAD"
+
+
+def test_remote_source_guard_rejects_vps_behind_remote(tmp_path: Path):
+    import subprocess
+    repo, _remote, other = _source_pair(tmp_path)
+    (other / "source.txt").write_text("new\n", encoding="utf-8")
+    subprocess.run(["git", "-C", str(other), "add", "source.txt"], check=True)
+    subprocess.run(["git", "-C", str(other), "commit", "-qm", "new source"], check=True)
+    subprocess.run(["git", "-C", str(other), "push", "-q", "origin", "main"], check=True)
+    with pytest.raises(evidence.SourceAlignmentError, match="behind origin/main"):
+        evidence.assert_remote_source_current(repo)

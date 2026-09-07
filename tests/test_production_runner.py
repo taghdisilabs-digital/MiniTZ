@@ -26,6 +26,14 @@ def isolate_derived_drive_publication(monkeypatch):
     monkeypatch.setattr(runner.evidence, "publish_derived_task_ledger", lambda _repo: None)
 
 
+@pytest.fixture(autouse=True)
+def isolate_remote_source_guard(monkeypatch):
+    monkeypatch.setattr(
+        runner.evidence, "assert_remote_source_current",
+        lambda _repo: {"state": "ALIGNED", "commit": "test", "tree": "test", "remote_commit": "test"},
+    )
+
+
 def test_invoke_structured_rotates_idle_executor_without_productive_descendant(tmp_path: Path, monkeypatch):
     fake = tmp_path / "idle.py"; output = tmp_path / "result.json"
     fake.write_text("import time\ntime.sleep(5)\n")
@@ -879,3 +887,95 @@ def test_bounded_workspace_fingerprint_changes_only_when_project_working_bytes_c
     (project / "bounded.txt").write_text("real bounded progress", encoding="utf-8")
     second = runner._task_workspace_fingerprint(repo, project)
     assert second != first
+
+
+def test_runner_fail_closed_before_model_when_source_is_behind(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime_root = tmp_path / "runtime"
+    monkeypatch.setattr(
+        runner.evidence,
+        "assert_remote_source_current",
+        lambda _repo: (_ for _ in ()).throw(runner.evidence.SourceAlignmentError("VPS source behind origin/main")),
+    )
+    called = []
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: called.append("catalog") or {"gpt-6-astra": {"ultra"}})
+    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == runner.SOURCE_REFRESH_EXIT
+    assert called == []
+    telemetry = runner.load_runtime(runtime_root / "runtime.json")
+    assert telemetry["status"] == "WAITING_FOR_SOURCE_SYNC"
+
+
+def test_runner_rechecks_source_after_model_before_accepting_result(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime_root = tmp_path / "runtime"
+    checks = {"n": 0}
+
+    def guard(_repo):
+        checks["n"] += 1
+        if checks["n"] == 2:
+            raise runner.evidence.SourceAlignmentError("origin/main changed during task turn")
+        return {"state": "ALIGNED", "commit": "c", "tree": "t", "remote_commit": "c"}
+
+    monkeypatch.setattr(runner.evidence, "assert_remote_source_current", guard)
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {"gpt-6-astra": {"ultra"}})
+
+    def command(_route, _schema, output, _cwd):
+        payload = {"task_id": "D01-030", "status": "COMPLETE", "summary": "done", "evidence": ["runtime pass"]}
+        code = f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"
+        return [sys.executable, "-c", code]
+
+    monkeypatch.setattr(runner.routing, "build_codex_command", command)
+    persisted = []
+    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda *_args, **_kwargs: persisted.append(True) or {"commit": "c", "tree": "t"})
+    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == runner.SOURCE_REFRESH_EXIT
+    assert state.find_task(state.load_project_production(project), "D01-030").status == "PENDING"
+    assert persisted == []
+
+
+def test_persistent_unit_aligns_source_before_qwen_and_runs_canonical_repo_runner():
+    unit = (LOCAL_AI / "biella-codex-production.service").read_text()
+    source_pre = "ExecStartPre=/usr/local/lib/biella-ai/biella-production-source-sync.sh"
+    qwen_pre = "ExecStartPre=/usr/local/lib/biella-workstation/biella-qwen-ready.sh"
+    assert source_pre in unit
+    assert qwen_pre in unit
+    assert unit.index(source_pre) < unit.index(qwen_pre)
+    assert "Environment=BIELLA_PRODUCTION_RUNNER=/root/biella/repos/biella-engine/ops/local-ai/biella_production_runner.py" in unit
+
+
+def test_installer_preserves_an_existing_disabled_production_service():
+    installer = (LOCAL_AI / "install-biella-ai.sh").read_text()
+    assert "production_unit_existed" in installer
+    assert "production_enablement" in installer
+    assert "systemctl disable biella-codex-production.service" in installer
+
+
+def test_status_exposes_last_source_alignment_receipt(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime = tmp_path / "runtime.json"
+    payload = runner.initial_runtime()
+    payload["source_alignment"] = {"state": "ALIGNED", "commit": "abc", "tree": "def", "remote_commit": "abc"}
+    payload["heartbeat_at"] = datetime.now(timezone.utc).isoformat()
+    runner.save_runtime(runtime, payload)
+    monkeypatch.setattr(runner, "service_active", lambda: True)
+    assert runner.production_status(repo, project, runtime)["source_alignment"]["commit"] == "abc"
+
+
+def test_source_alignment_failure_does_not_spin_persistence_retry(tmp_path: Path, monkeypatch):
+    runtime = tmp_path / "runtime.json"
+    telemetry = runner.initial_runtime()
+    sleeps = []
+    monkeypatch.setattr(
+        runner.evidence,
+        "persist_continuity",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(runner.evidence.SourceAlignmentError("remote moved")),
+    )
+    monkeypatch.setattr(runner.time, "sleep", lambda seconds: sleeps.append(seconds))
+    with pytest.raises(runner.evidence.SourceAlignmentError):
+        runner._persist_until_success(tmp_path, "D03-01", runtime, telemetry)
+    assert sleeps == []
+    assert telemetry["status"] == "WAITING_FOR_SOURCE_SYNC"
+
+
+def test_installer_copies_source_sync_bootstrap():
+    installer = (LOCAL_AI / "install-biella-ai.sh").read_text()
+    assert '"$SOURCE_DIR/biella-production-source-sync.sh"' in installer

@@ -1,7 +1,7 @@
 # 07 — BIELLA PRODUCTION SYSTEM
 
 ```yaml
-schema: biella.production_system/v2
+schema: biella.production_system/v3
 mode: stable_reference
 source_of_truth: current_GitHub_source_plus_observed_runtime
 volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
@@ -21,6 +21,14 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 - The management conversation is a control/decision interface only, never an executor or liveness dependency. Closing, reloading, logging out, or losing that browser conversation has zero effect on production.
 - Production remains `systemd -> Biella controller -> persistent Codex task/session -> tasks`. Codex execution-session IDs are production continuity and are not ChatGPT conversation threads.
 - No ChatGPT conversation ID is invented or stored when the platform does not expose one.
+
+## Source alignment and fail-closed freshness
+- Before the persistent production service starts, `origin/main` is fetched and the canonical checkout is verified on `main`. If GitHub is ahead and its changed paths do not overlap preserved dirty work, the checkout is fast-forwarded without reset, clean, stash, rebase, or history rewrite.
+- Preserved local commits ahead of `origin/main` are valid in-flight task progress and are not rolled back. Divergence or any remote update overlapping dirty local work fails closed for reconciliation rather than guessing or overwriting bytes.
+- The systemd unit executes `biella_production_runner.py` directly from the aligned canonical repository, so a successful startup does not continue from an older copied controller implementation.
+- While production is running, the controller fetches/checks `origin/main` before selecting work and again after each model/section turn before accepting its result. If newer remote authority appears, no result or next-task transition is accepted; the runner exits for the systemd source-sync bootstrap to align and restart from current source.
+- Persistence performs the same remote-source guard before commit/push. Source drift exits to the alignment bootstrap instead of spinning a known-stale push retry. Temporary transport/publication failures still retry without losing task state.
+- Runtime status records the latest source-alignment receipt. `03` and `04` remain volatile observer/continuity records and their embedded historical Git identity fields are not execution freshness gates.
 
 ## Continuous ordered progression
 - The canonical Project `PRODUCTION.md` list is the ordered source; there is no second mutable queue.
@@ -48,6 +56,7 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 - Stable project authority such as the active Project `PRODUCTION.md`, exact implementation inputs, artifacts, and task-derived evidence remain valid validation inputs.
 
 ## Persistent continuation
+- Reinstalling/updating the controller preserves an already-disabled production service; owner/customer sleep is not silently re-enabled by the installer.
 - Preserve task identity, Codex session identity when available, current worktree, task memory, failures, verified outputs, and continuation state.
 - A pause/freeze/reconnect is not invalidation. Resume the same task/session where possible.
 - `CONTINUE` means authorized work remains; `COMPLETE`/`COMPLETE_ALREADY` require task-appropriate evidence and durable source/output identity.
