@@ -1,0 +1,50 @@
+{
+  "schema": "biella.hall_practical/v1",
+  "task_id": "D17-01",
+  "status": "GENERATED_DRAFT",
+  "provenance": "Biella-authored geometry; retained Biella ServiceBay materials",
+  "map": "/Game/Maps/BiellaOpenWorldMap",
+  "actor_label": "D17_Hall_Practical",
+  "origin_cm": [
+    8000,
+    2250,
+    520
+  ],
+  "collision": "NoCollision",
+  "mesh": "SM_HallPractical",
+  "source": "build_hall_practical.py",
+  "source_sha256": "1e465e3a70210417114358af72d5c118911c22fab6c11992efc8f51c7f831514",
+  "fbx": "SM_HallPractical.fbx",
+  "sha256": "8b81ebd452077448278c5a49ca598aa680ca9644602936e0ea73a05e007a84e8",
+  "blender": "5.0.1",
+  "editable_parts": 28,
+  "triangles": 11152,
+  "bounds_min": [
+    -27.0,
+    -27.0,
+    3.8499984741210938
+  ],
+  "bounds_max": [
+    27.0,
+    27.0,
+    131.0
+  ],
+  "material_slots": [
+    "Paint",
+    "Steel",
+    "Lamp"
+  ],
+  "export_y_reflected": true,
+  "outward_volume_preserved": true,
+  "light_label": "D02_Interior_Light",
+  "light_lumens": 1800.0,
+  "light_color_linear": [
+    1,
+    0.62,
+    0.28,
+    1
+  ],
+  "light_attenuation_cm": 2600.0,
+  "light_source_radius_cm": 20.0,
+  "scope": "Reduce the observed white interior wash and give the existing light a supported housing; preserve all existing geometry, collision and gameplay."
+}

@@ -1,13 +1,13 @@
 {
   "baseline_frame": "raw/entry-720-02/frame-13.png",
   "current_frames": [
-    "raw/hall-surfaces-720-01/frame-04.png",
-    "raw/hall-surfaces-720-01/frame-10.png",
-    "raw/hall-surfaces-720-01/frame-15.png",
-    "raw/hall-surfaces-1080-01/frame-07.png",
-    "raw/hall-surfaces-1080-01/frame-10.png"
+    "raw/hall-practical-720-01/frame-04.png",
+    "raw/hall-practical-720-01/frame-10.png",
+    "raw/hall-practical-720-01/frame-15.png",
+    "raw/hall-practical-1080-01/frame-07.png",
+    "raw/hall-practical-1080-01/frame-10.png"
   ],
-  "current_package_id": "c46e0b28a9e7f9b4db278a79a78f5a8f14135b886c57054b599a402b68b9bbaf",
+  "current_package_id": "cdb0fae14273c858988d8d6df978147b89c158f81612bc5202ef9fc835ee3d33",
   "excluded_current_frame": [],
   "floor_edge_material_validation": {
     "bytes": 9372,
@@ -20,19 +20,24 @@
     "path": "Build/AAA/D17-01/environment/hall-cladding-validation.json",
     "sha256": "e6a30388bf865aaa7fb05c546346d685820c396c8e5d025483177921f4c3995a"
   },
+  "hall_practical_validation": {
+    "bytes": 12765,
+    "path": "Build/AAA/D17-01/environment/hall-practical-validation.json",
+    "sha256": "a0282e7848f8f5b5f154242b7af49e0ea409fc68104eadd24ee47f15ab9a7152"
+  },
   "hall_surfaces_validation": {
     "bytes": 13228,
     "path": "Build/AAA/D17-01/environment/hall-surfaces-validation.json",
     "sha256": "5d249fe3fdcb4333418dda91b1caf917c3b494f3297ddef3b429681e612f6b1a"
   },
-  "improved_boundary": "Package-14 applies the retained weathered MI_ServicePaint material to six existing warehouse entrance, interior and soffit envelopes. Fresh native readback preserves their actor identities, transforms, mesh geometry, BlockAll collision and four-meter doorway; fitted cladding and native gameplay remain unchanged. The saved coating improves local dark surface continuity, but bright interior light response remains unresolved.",
+  "improved_boundary": "Package-15 adds an editable roof-mounted practical with a fitted plate, stem, driver, reflector, diffuser and conduit, and changes the retained interior point light from white 12000 lumens to warm 1800 lumens. Fresh native readback verifies roof contact, saved light settings and preserved preexisting actor identities. Native geometry, collision, navigation, gameplay and all material assets otherwise remain unchanged. Controlled Lit views show a warm local interior pool and a muted entrance face; scene-wide visual acceptance remains open.",
   "major_defects": [
     {
       "finding": "Blue/yellow/red mannequin presentation, primitive infected body and block-like weapon remain in the focal encounter.",
       "id": "focal_art"
     },
     {
-      "finding": "The warehouse has fitted cladding and matching dark envelope coating; the entrance interior still reads too bright under Lit lighting. The broad approach remains empty, distant facades repeat and dense vertical layers remain absent. Local coating does not close the scene-wide defect.",
+      "finding": "The hall now has fitted exterior cladding, coated envelopes and a supported warm practical. Interior floor/walls remain bare, the broad approach is empty, distant facades repeat, and dense vertical layers remain absent. This local repair does not close the scene-wide defect.",
       "id": "world_density"
     },
     {
@@ -44,12 +49,12 @@
       "id": "infection"
     },
     {
-      "finding": "Native cloud/fog and cooler sun/sky now establish an overcast base while warm service lamps remain readable. Uniform soft cloud bands, flat distant masses and the bright primitive interior still lack coherent scene-wide storm lighting and contrast. Temporal stability through the full route remains unqualified.",
+      "finding": "The local bright-white hall wash is corrected to warm 1800-lumen lighting, preserving readable bay lighting. Uniform soft cloud bands and flat distant masses still lack coherent scene-wide storm contrast. Temporal stability through the full route remains unqualified.",
       "id": "lighting"
     }
   ],
   "method": "Direct inspection of decoded frames from unedited normal-camera raw captures, plus explicitly separate editor and installed-package environment fixture frames; exact source/build/input/telemetry retained separately",
-  "next_action": "Read back the existing warehouse light and correct its unmotivated bright interior wash with a supported warm practical-light treatment, preserving all accepted geometry, collision and gameplay. Validate saved settings and the affected native runtime view before cooking.",
+  "next_action": "Author fitted service-hall interior wall/ceiling structure and floor service detail along the existing route, preserving original colliders, navigation and gameplay; reuse the saved practical and physical materials, then validate normal-camera traversal.",
   "panel_material_validation": {
     "bytes": 7455,
     "path": "Build/AAA/D17-01/environment/panel-material-validation.json",
@@ -67,7 +72,8 @@
     "environment/storm-editor-02/captures/switch_safe.png",
     "environment/storm-editor-02/captures/panel_destroyed.png",
     "environment/hall-editor-01/captures/switch_safe.png",
-    "environment/hall-editor-01/captures/panel_destroyed.png"
+    "environment/hall-editor-01/captures/panel_destroyed.png",
+    "environment/hall-surfaces-editor-01/captures/switch_safe.png"
   ],
   "previous_frames": [
     "raw/hud-720-01/frame-13.png",
@@ -113,7 +119,12 @@
     "raw/hall-720-01/frame-10.png",
     "raw/hall-720-01/frame-15.png",
     "raw/hall-1080-01/frame-07.png",
-    "raw/hall-1080-01/frame-10.png"
+    "raw/hall-1080-01/frame-10.png",
+    "raw/hall-surfaces-720-01/frame-04.png",
+    "raw/hall-surfaces-720-01/frame-10.png",
+    "raw/hall-surfaces-720-01/frame-15.png",
+    "raw/hall-surfaces-1080-01/frame-07.png",
+    "raw/hall-surfaces-1080-01/frame-10.png"
   ],
   "previous_packaged_frames": [
     "environment/runtime-03/captures/switch_safe.png",
@@ -135,7 +146,9 @@
     "environment/runtime-12/captures/switch_safe.png",
     "environment/runtime-12/captures/panel_destroyed.png",
     "environment/runtime-13/captures/switch_safe.png",
-    "environment/runtime-13/captures/panel_destroyed.png"
+    "environment/runtime-13/captures/panel_destroyed.png",
+    "environment/runtime-14/captures/switch_safe.png",
+    "environment/runtime-14/captures/panel_destroyed.png"
   ],
   "scope": "Preserves accepted mechanics evidence; rejects current final visual quality. Does not reopen predecessor task acceptance.",
   "service_bay_coordinate_defect": {
@@ -149,13 +162,14 @@
     "status": "FIXED_IN_CURRENT_ASSETS_AND_PACKAGE"
   },
   "service_bay_editor_frames": [
-    "environment/hall-surfaces-editor-01/captures/switch_safe.png"
+    "environment/hall-practical-editor-01/captures/switch_safe.png",
+    "environment/hall-practical-streaming-01/captures/interior.png"
   ],
-  "service_bay_editor_frames_scope": "Controlled native Lit Vulkan fixture; inspected saved hall surfaces and retained switch/hazard behavior. This does not establish ordinary-input route or final visual acceptance.",
-  "service_bay_limit": "Installed fixture verifies the fitted cladding and retained bay controls, panel physics, hazard and stream return. Bright interior light response, sparse surroundings, prototype focal art and other major groups remain.",
+  "service_bay_editor_frames_scope": "Controlled Lit Environment and WorldStreaming fixtures, including normal-camera traversal into the hall. These establish affected rendering/traversal regression only, not ordinary-input route or final visual acceptance.",
+  "service_bay_limit": "Installed fixture verifies retained bay switching, panel physics, electrical hazard and stream return. The warm local hall lighting is visible, but the lamp housing itself is outside the inspected views. Five major visual groups remain open.",
   "service_bay_packaged_frames": [
-    "environment/runtime-14/captures/switch_safe.png",
-    "environment/runtime-14/captures/panel_destroyed.png"
+    "environment/runtime-15/captures/switch_safe.png",
+    "environment/runtime-15/captures/panel_destroyed.png"
   ],
   "status": "REJECTED_CURRENT_CANDIDATE",
   "storm_lighting_validation": {
@@ -166,8 +180,8 @@
   "switch_material_validation": "environment/switch-material-validation.json",
   "task_id": "D17-01",
   "unproven": [
-    "The 1280x720 ordinary-input run reached native Failure after 15.019373 active seconds and 18 input actions; it recorded 2 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. The 1920x1080 ordinary-input run reached native Success after 8.711372 active seconds and 5 input actions; it recorded 0 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. Both have zero restarts and no captured audio. Neither establishes 600\u20131200 active seconds, the later route or the full evolving arena consequence. Historical outcomes retain their original package identity.",
-    "Interior, terrace and east-return beats were not reached before terminal state.",
+    "The 1280x720 ordinary-input run reached native Failure after 14.942013 active seconds and 18 input actions; it recorded 1 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. The 1920x1080 ordinary-input run reached native Success after 8.716786 active seconds and 5 input actions; it recorded 0 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. Both have zero restarts, zero arena-pressure events and no captured audio. Neither establishes 600\u20131200 active seconds, the later route or the full evolving arena consequence. Historical outcomes retain their original package identity.",
+    "The ordinary-input runs do not reach interior, terrace or east-return before terminal state; controlled traversal is separate evidence.",
     "HUD occlusion during required later dense-combat states remains unqualified.",
     "No final temporal-quality or raw audio qualification is claimed."
   ],

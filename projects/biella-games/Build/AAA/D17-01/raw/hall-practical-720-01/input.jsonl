@@ -1,0 +1,21 @@
+{"event": "capture_started", "elapsed_seconds": 3.1800009310245514e-06, "window": "2097243"}
+{"event": "input_sent", "elapsed_seconds": 0.016162434010766447, "planned_at": 0, "input_clock_seconds": 0.01615384395699948, "input": ["keydown", "w"], "intended_beat": "Advance from the native start state"}
+{"event": "input_sent", "elapsed_seconds": 0.14286019001156092, "planned_at": 0.1, "input_clock_seconds": 0.14285235002171248, "input": ["keydown", "Shift_L"], "intended_beat": "Use normal sprint control"}
+{"event": "input_sent", "elapsed_seconds": 0.26175425003748387, "planned_at": 0.2, "input_clock_seconds": 0.26174899900797755, "input": ["keydown", "a"], "intended_beat": "Pass left of initial encounter"}
+{"event": "input_sent", "elapsed_seconds": 2.2825149330310524, "planned_at": 2.2, "input_clock_seconds": 2.282508553005755, "input": ["keyup", "a"], "intended_beat": "Continue along the street"}
+{"event": "input_sent", "elapsed_seconds": 7.018022387987003, "planned_at": 7, "input_clock_seconds": 7.018016697023995, "input": ["keyup", "Shift_L"], "intended_beat": "Approach service bay at walking speed"}
+{"event": "input_sent", "elapsed_seconds": 13.058358642971143, "planned_at": 13, "input_clock_seconds": 13.058350043022074, "input": ["keyup", "w"], "intended_beat": "Turn approach toward the cabinet side"}
+{"event": "input_sent", "elapsed_seconds": 13.132208583992906, "planned_at": 13.1, "input_clock_seconds": 13.132197874016128, "input": ["keydown", "d"], "intended_beat": "Approach cabinet lateral coordinate"}
+{"event": "input_sent", "elapsed_seconds": 13.931149265030399, "planned_at": 13.9, "input_clock_seconds": 13.931142474990338, "input": ["keyup", "d"], "intended_beat": "Stop lateral input"}
+{"event": "input_sent", "elapsed_seconds": 14.060009627020918, "planned_at": 14, "input_clock_seconds": 14.060003536986187, "input": ["keydown", "w"], "intended_beat": "Approach west side of switch"}
+{"event": "input_sent", "elapsed_seconds": 15.25601062597707, "planned_at": 15.2, "input_clock_seconds": 15.256001775967889, "input": ["keyup", "w"], "intended_beat": "Stop before cabinet"}
+{"event": "input_sent", "elapsed_seconds": 15.333385584061034, "planned_at": 15.3, "input_clock_seconds": 15.333376933005638, "input": ["keydown", "e"], "intended_beat": "Attempt native switch interaction"}
+{"event": "input_sent", "elapsed_seconds": 15.561987377004698, "planned_at": 15.5, "input_clock_seconds": 15.561979896971025, "input": ["keyup", "e"], "intended_beat": "Release interaction"}
+{"event": "input_sent", "elapsed_seconds": 16.050420691026375, "planned_at": 16, "input_clock_seconds": 16.050413460005075, "input": ["keydown", "d"], "intended_beat": "Move from cabinet toward panels"}
+{"event": "input_sent", "elapsed_seconds": 16.69096285197884, "planned_at": 16.65, "input_clock_seconds": 16.69095732201822, "input": ["keyup", "d"], "intended_beat": "Stop aligned toward existing panel"}
+{"event": "input_sent", "elapsed_seconds": 17.053722720011137, "planned_at": 17, "input_clock_seconds": 17.053718570037745, "input": ["mousedown", "1"], "intended_beat": "Fire at destructible panel"}
+{"event": "input_sent", "elapsed_seconds": 17.112081352970563, "planned_at": 17.1, "input_clock_seconds": 17.112076433026232, "input": ["mouseup", "1"], "intended_beat": "Release trigger"}
+{"event": "input_sent", "elapsed_seconds": 17.536369811045006, "planned_at": 17.5, "input_clock_seconds": 17.53636419097893, "input": ["mousedown", "1"], "intended_beat": "Second shot at panel"}
+{"event": "input_sent", "elapsed_seconds": 17.647840613033623, "planned_at": 17.6, "input_clock_seconds": 17.64783614303451, "input": ["mouseup", "1"], "intended_beat": "Release trigger"}
+{"event": "native_terminal_observed", "elapsed_seconds": 17.698865649057552}
+{"event": "capture_finished", "elapsed_seconds": 26.352146947057918, "result": {"status": "CAPTURED", "reason": "native_terminal_state", "audio_capture": false, "input_delivery": "X11 keyboard/mouse", "world_mutation_or_automation_tests": false, "input_time_origin": "capture_started", "measured_input_run_seconds": 17.698917260044254, "actions_sent": 18, "game_alive_at_capture_end": true, "recorder_returncode": 255, "game_returncode": 0}}

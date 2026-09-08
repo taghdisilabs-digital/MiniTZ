@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/usr/local/bin/blender",
+    "--background",
+    "--python",
+    "SourceAssets/Environment/verify_hall_practical.py"
+  ],
+  "cwd": "/root/biella/repos/biella-engine/projects/biella-games",
+  "environment": {
+    "BIELLA_D17_PRACTICAL_GEOMETRY_REPORT": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/hall-practical-geometry-01/validation.json"
+  },
+  "returncode": 0,
+  "log": "Build/AAA/D17-01/environment/hall-practical-geometry-01/readback.log"
+}

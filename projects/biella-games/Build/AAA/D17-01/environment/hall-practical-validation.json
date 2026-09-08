@@ -1,0 +1,271 @@
+{
+  "asset_validation": {
+    "bytes": 128397,
+    "path": "Build/AAA/D17-01/environment/hall-practical-assets-01/validation.json",
+    "sha256": "1ac2c8758d78dfc7e996983640d8feede41bad336029542773a1281b2850d78d"
+  },
+  "candidate_status": "GENERATED_DRAFT",
+  "editor_validation": {
+    "bytes": 205994,
+    "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/validation.json",
+    "sha256": "085d14593705549af655dda5f00c2f0eb09817a3df93334243474cdeab140699"
+  },
+  "excluded_evidence": [],
+  "frame_review": {
+    "bytes": 6871,
+    "path": "Build/AAA/D17-01/environment/hall-practical-frame-review.json",
+    "sha256": "ded72f4e43a9ceafc6d24ecbe0e405ee90fab757c2afdcc9f8b4667a2d7a8888"
+  },
+  "geometry_validation": {
+    "bytes": 1820,
+    "path": "Build/AAA/D17-01/environment/hall-practical-geometry-01/validation.json",
+    "sha256": "592d3d0de875e9ab69bdd20e23e36faf1969851e8b2b928bdf90d243831ab25b"
+  },
+  "inspected_frames": [
+    {
+      "bytes": 276224,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/frame-04.png",
+      "sha256": "2ea34329d412ea384d8e0e6ea63b9fa9be0f8b38673e26ccae8fda473eb2296a"
+    },
+    {
+      "bytes": 293671,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/frame-10.png",
+      "sha256": "483b5bbfb62db72bfc744b4cc3d0d613ac6fc89614880d57a8ab9a9d0b40d53d"
+    },
+    {
+      "bytes": 286560,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/frame-15.png",
+      "sha256": "5faace89abeeca3b4ea702c9bdd3e728329424046c443dc367a2c3d91bf2852c"
+    },
+    {
+      "bytes": 543260,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/frame-07.png",
+      "sha256": "37fe311518633b2b361191951ebb5352f8b5095d0d7fd896b1d9b6c8f5beb13e"
+    },
+    {
+      "bytes": 550035,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/frame-10.png",
+      "sha256": "9e57d043aefdd8b1634f691f06a6edb00b4a50b4ca36817e0f303483f48dd361"
+    },
+    {
+      "bytes": 1033175,
+      "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/captures/switch_safe.png",
+      "sha256": "64328f9999ccfa31fa2c7883f9d89b58f76d46f527bd93c9611ff5957f2d3918"
+    },
+    {
+      "bytes": 960342,
+      "path": "Build/AAA/D17-01/environment/hall-practical-streaming-01/captures/interior.png",
+      "sha256": "3fb82f6ebe995cd59948209f41c67e80f5848bf7004f3e69d00c7ef1e9c8b475"
+    },
+    {
+      "bytes": 1031960,
+      "path": "Build/AAA/D17-01/environment/runtime-15/captures/switch_safe.png",
+      "sha256": "e0f5fffc83e8b8f0938bd68cad2e9191dee129b1bf63bf3d275209bc87c3e184"
+    },
+    {
+      "bytes": 1043586,
+      "path": "Build/AAA/D17-01/environment/runtime-15/captures/panel_destroyed.png",
+      "sha256": "5d01d6e7fc8eedb658134716fea95723c984d35aca43e496b10fe4959253ddb0"
+    },
+    {
+      "bytes": 1016710,
+      "path": "Build/AAA/D17-01/environment/hall-light-isolation-01/captures/switch_safe.png",
+      "sha256": "31e6769eaba7c6ad65d2d46f9a035f1ea73aeeb550d78e79e51d4865f3813721"
+    }
+  ],
+  "isolation_validation": {
+    "bytes": 204495,
+    "path": "Build/AAA/D17-01/environment/hall-light-isolation-01/validation.json",
+    "sha256": "5a4b1130cdc268333d33a5411d54e250980f5eda34369a1e5ff09f8aa31dbfa0"
+  },
+  "limits": [
+    "The 1280x720 ordinary-input run reached native Failure after 14.942013 active seconds and 18 input actions; it recorded 1 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. The 1920x1080 ordinary-input run reached native Success after 8.716786 active seconds and 5 input actions; it recorded 0 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. Both have zero restarts, zero arena-pressure events and no captured audio. Neither establishes 600\u20131200 active seconds, the later route or the full evolving arena consequence. Historical outcomes retain their original package identity.",
+    "The inspected normal-camera views do not show the lamp housing directly. Native geometry and roof-contact readback validate integration, without an appearance claim.",
+    "Controlled fixtures do not replace ordinary-input proof. The installed runtime log retains warnings; no warning-free runtime, shipping performance or final temporal/audio quality is claimed."
+  ],
+  "material_input_delta": [
+    "Content/Environment/ServiceHall/SM_HallPractical.uasset",
+    "Content/Maps/BiellaOpenWorldMap.umap",
+    "Content/Python/author_hall_practical.py",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/VG/O9PTS7W439JCNS61BKIWU8.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/F/19/X6BYEWCT1X4KMSG4E70PKS.uasset"
+  ],
+  "next_action": "Author fitted service-hall interior wall/ceiling structure and floor service detail along the existing route, preserving original colliders, navigation and gameplay; reuse the saved practical and physical materials, then validate normal-camera traversal.",
+  "observed": [
+    "The prior white entrance wash becomes muted warm brown in the current Lit editor and installed views; dark doorway cladding and the four-meter opening remain readable. Native readback confirms the retained point light at 1800 lumens with warm color.",
+    "The controlled WorldStreaming traversal enters the hall with the normal third-person camera. The interior shows a warm floor pool, cast player shadow, mottled back wall and dark ceiling/sides; large bare floor and wall areas remain. This fixture is separate from the ordinary-input runs.",
+    "The roof-mounted lamp housing is above or behind the inspected cameras and is not directly visible in those images. Its fitted roof support and geometry are established by fresh native and Blender readback, not by a claim of visual visibility.",
+    "Turning off all point lights in a pre-change diagnostic makes the entrance inner face nearly black. This identifies a point-light contribution; it is not single-light isolation. The diagnostic is not final gameplay appearance.",
+    "Ordinary gameplay views retain a cyan player, ochre rival and red infected in local combat, with prototype focal art, a broad empty approach, cloned distant facades and dominant HUD. No ordinary run reaches the service-hall interior.",
+    "The installed environment fixture retains power switching, panel destruction/physics, electrical-floor consequence and stream return. It is controlled regression evidence and does not establish ordinary-input encounter or 600\u20131200-second slice acceptance.",
+    "Five major visual groups remain open. Neither a fitted practical, a local lighting repair nor controlled traversal closes a whole scene-wide group."
+  ],
+  "ordinary_input_runs": [
+    {
+      "active_simulation_seconds": 14.942012830579188,
+      "audio_captured": false,
+      "capture_input_wall_seconds": 17.698917260044254,
+      "capture_video_seconds": 19.666,
+      "decoded_frames": 588,
+      "directory": "Build/AAA/D17-01/raw/hall-practical-720-01",
+      "electrical_floor_damage": [],
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "events": {
+        "damage": 51,
+        "defeat": 9,
+        "objective_activated": 1,
+        "objective_progress": 13,
+        "phase": 2,
+        "telemetry_ready": 1,
+        "telemetry_shutdown": 1,
+        "weapon_fire": 1
+      },
+      "input_actions": 18,
+      "namespace_file_verification": true,
+      "natural_pressure_observed": false,
+      "player_defeats": [
+        {
+          "reason": "infected_melee",
+          "target": "BiellaStreamingCharacter:1"
+        }
+      ],
+      "raw_video": {
+        "bytes": 1738416,
+        "path": "Build/AAA/D17-01/raw/hall-practical-720-01/raw-gameplay.mkv",
+        "sha256": "b432782b0eaa14a1eb26f5826870fb4e8f12c613e23e22dc2540997120307181"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "restart_count": 0,
+      "run": "hall-practical-720-01",
+      "session": "01A082C3-0B4A-7313-9BAA-0595A25136FA",
+      "terminal": "Failure",
+      "uninterrupted_duration_satisfied": false
+    },
+    {
+      "active_simulation_seconds": 8.716786465549376,
+      "audio_captured": false,
+      "capture_input_wall_seconds": 11.920483257970773,
+      "capture_video_seconds": 13.9,
+      "decoded_frames": 414,
+      "directory": "Build/AAA/D17-01/raw/hall-practical-1080-01",
+      "electrical_floor_damage": [],
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "events": {
+        "damage": 18,
+        "defeat": 2,
+        "objective_activated": 1,
+        "objective_progress": 2,
+        "objective_success": 1,
+        "phase": 2,
+        "telemetry_ready": 1,
+        "telemetry_shutdown": 1
+      },
+      "input_actions": 5,
+      "namespace_file_verification": true,
+      "natural_pressure_observed": false,
+      "player_defeats": [],
+      "raw_video": {
+        "bytes": 1397998,
+        "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/raw-gameplay.mkv",
+        "sha256": "8ea7740cccea73bf573cf538534ae60f2aac83365549e72c6476b2e9003e5479"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "restart_count": 0,
+      "run": "hall-practical-1080-01",
+      "session": "01A082C3-D3FE-7D81-9806-E8E0D3B58F99",
+      "terminal": "Success",
+      "uninterrupted_duration_satisfied": false
+    }
+  ],
+  "package_id": "cdb0fae14273c858988d8d6df978147b89c158f81612bc5202ef9fc835ee3d33",
+  "package_validation": {
+    "bytes": 18765,
+    "path": "Build/AAA/D17-01/environment/runtime-15/validation.json",
+    "sha256": "6256cefedc4a1b2c06b1e4331d40012a95fb7b440fa90a75549d95d453e76818"
+  },
+  "preservation": "Five package material inputs change: a new native lamp mesh, its new actor, retained interior light actor, map resave and lamp authoring script. All other source geometry, material assets, configuration and gameplay match package-14. The added mesh has no collision; existing hall geometry/collision remains exact.",
+  "previous_commit": "2c6c2913ad5ffea2779e8989fec076b60eaaf17c",
+  "result": "PASS_AFFECTED_LAYER",
+  "saved_readback": {
+    "bytes": 1657,
+    "path": "Build/AAA/D17-01/environment/hall-practical-assets-01/readback.json",
+    "sha256": "631545d524d4c3a8058db9ed080d19048cabc41970fe66c997ba31ccc2a32f4b"
+  },
+  "slice_acceptance": false,
+  "sources": [
+    {
+      "bytes": 5553,
+      "path": "SourceAssets/Environment/build_hall_practical.py",
+      "sha256": "1e465e3a70210417114358af72d5c118911c22fab6c11992efc8f51c7f831514"
+    },
+    {
+      "bytes": 114981,
+      "path": "SourceAssets/Environment/HallPractical.blend",
+      "sha256": "e2e6801e3879390acf213a40ad7fd622fc998a98e683693ce649ad639faea326"
+    },
+    {
+      "bytes": 210508,
+      "path": "SourceAssets/Environment/SM_HallPractical.fbx",
+      "sha256": "8b81ebd452077448278c5a49ca598aa680ca9644602936e0ea73a05e007a84e8"
+    },
+    {
+      "bytes": 1284,
+      "path": "SourceAssets/Environment/hall-practical.json",
+      "sha256": "5e677c958ea89c010c7b4875a61319f68d79408e205d6d8374fec59a18d59a3e"
+    },
+    {
+      "bytes": 2869,
+      "path": "SourceAssets/Environment/verify_hall_practical.py",
+      "sha256": "bac3fba3e3d70235c98eb074fedd32dbbfd28cc859c03bc8382e8b940f8a20e7"
+    },
+    {
+      "bytes": 8527,
+      "path": "Content/Python/author_hall_practical.py",
+      "sha256": "d3bb4fb4c9165d7d8e00f2e0710a49c8e80fe9f9dfd1d933e412610bee0b814d"
+    },
+    {
+      "bytes": 4318,
+      "path": "tests/author_d17_01_hall_practical.py",
+      "sha256": "68e7a959d5162c8e097c89c5584eb4f59f5dec48884d931ab31011c623eeec1b"
+    },
+    {
+      "bytes": 4728,
+      "path": "tests/diagnose_d17_01_floor.py",
+      "sha256": "8580aa28fbbf0ec5162445eb44ec90e7e10aae00379c47ae4bac96b3e2db1904"
+    },
+    {
+      "bytes": 296480,
+      "path": "Content/Environment/ServiceHall/SM_HallPractical.uasset",
+      "sha256": "0cff9ff8b0bce2e1e6111bf644a059655226b32030c0b1fe50f3f400c1f765c9"
+    },
+    {
+      "bytes": 13330,
+      "path": "Content/Maps/BiellaOpenWorldMap.umap",
+      "sha256": "dac9e6a78ac3071b5785d480ffcc1401d0f010cc2cd52c24f997da20b53098d5"
+    },
+    {
+      "bytes": 4495,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/VG/O9PTS7W439JCNS61BKIWU8.uasset",
+      "sha256": "a03487e6a14cde0412c41d78904feb474d763229ee7ee477ac6790e5b02fa6a5"
+    },
+    {
+      "bytes": 4420,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/F/19/X6BYEWCT1X4KMSG4E70PKS.uasset",
+      "sha256": "982c2088d79326cdac21c9567dd3160a6c4637e82eb00058c6ef7a89d5e39495"
+    }
+  ],
+  "streaming_validation": {
+    "bytes": 208135,
+    "path": "Build/AAA/D17-01/environment/hall-practical-streaming-01/validation.json",
+    "sha256": "3d0b14872bb3f31fc019529ee1d370652cf12f140ba5a1c8757bc85e3033bd09"
+  },
+  "task_id": "D17-01"
+}

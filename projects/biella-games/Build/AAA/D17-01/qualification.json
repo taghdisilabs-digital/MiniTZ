@@ -7,12 +7,12 @@
       "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
     },
     "observation": {
-      "active_simulation_seconds": 15.019373443850782,
+      "active_simulation_seconds": 14.942012830579188,
       "audio_captured": false,
-      "capture_input_wall_seconds": 17.772302913013846,
-      "capture_video_seconds": 19.766,
-      "decoded_frames": 591,
-      "directory": "Build/AAA/D17-01/raw/hall-surfaces-720-01",
+      "capture_input_wall_seconds": 17.698917260044254,
+      "capture_video_seconds": 19.666,
+      "decoded_frames": 588,
+      "directory": "Build/AAA/D17-01/raw/hall-practical-720-01",
       "electrical_floor_damage": [],
       "environment_panel_events": [],
       "environment_power_transitions": 0,
@@ -24,7 +24,7 @@
         "phase": 2,
         "telemetry_ready": 1,
         "telemetry_shutdown": 1,
-        "weapon_fire": 2
+        "weapon_fire": 1
       },
       "input_actions": 18,
       "namespace_file_verification": true,
@@ -36,17 +36,17 @@
         }
       ],
       "raw_video": {
-        "bytes": 1759976,
-        "path": "Build/AAA/D17-01/raw/hall-surfaces-720-01/raw-gameplay.mkv",
-        "sha256": "d210a56e4c53cf7927b74b487902792f43a4eec153ef2fdd5b2b124f2eaa9187"
+        "bytes": 1738416,
+        "path": "Build/AAA/D17-01/raw/hall-practical-720-01/raw-gameplay.mkv",
+        "sha256": "b432782b0eaa14a1eb26f5826870fb4e8f12c613e23e22dc2540997120307181"
       },
       "resolution": [
         1280,
         720
       ],
       "restart_count": 0,
-      "run": "hall-surfaces-720-01",
-      "session": "01A0828D-E946-7915-B1A8-8066258D3322",
+      "run": "hall-practical-720-01",
+      "session": "01A082C3-0B4A-7313-9BAA-0595A25136FA",
       "terminal": "Failure",
       "uninterrupted_duration_satisfied": false
     },
@@ -54,12 +54,12 @@
   },
   "current_raw_runs": [
     {
-      "active_simulation_seconds": 15.019373443850782,
+      "active_simulation_seconds": 14.942012830579188,
       "audio_captured": false,
-      "capture_input_wall_seconds": 17.772302913013846,
-      "capture_video_seconds": 19.766,
-      "decoded_frames": 591,
-      "directory": "Build/AAA/D17-01/raw/hall-surfaces-720-01",
+      "capture_input_wall_seconds": 17.698917260044254,
+      "capture_video_seconds": 19.666,
+      "decoded_frames": 588,
+      "directory": "Build/AAA/D17-01/raw/hall-practical-720-01",
       "electrical_floor_damage": [],
       "environment_panel_events": [],
       "environment_power_transitions": 0,
@@ -71,7 +71,7 @@
         "phase": 2,
         "telemetry_ready": 1,
         "telemetry_shutdown": 1,
-        "weapon_fire": 2
+        "weapon_fire": 1
       },
       "input_actions": 18,
       "namespace_file_verification": true,
@@ -83,27 +83,27 @@
         }
       ],
       "raw_video": {
-        "bytes": 1759976,
-        "path": "Build/AAA/D17-01/raw/hall-surfaces-720-01/raw-gameplay.mkv",
-        "sha256": "d210a56e4c53cf7927b74b487902792f43a4eec153ef2fdd5b2b124f2eaa9187"
+        "bytes": 1738416,
+        "path": "Build/AAA/D17-01/raw/hall-practical-720-01/raw-gameplay.mkv",
+        "sha256": "b432782b0eaa14a1eb26f5826870fb4e8f12c613e23e22dc2540997120307181"
       },
       "resolution": [
         1280,
         720
       ],
       "restart_count": 0,
-      "run": "hall-surfaces-720-01",
-      "session": "01A0828D-E946-7915-B1A8-8066258D3322",
+      "run": "hall-practical-720-01",
+      "session": "01A082C3-0B4A-7313-9BAA-0595A25136FA",
       "terminal": "Failure",
       "uninterrupted_duration_satisfied": false
     },
     {
-      "active_simulation_seconds": 8.711371905112173,
+      "active_simulation_seconds": 8.716786465549376,
       "audio_captured": false,
-      "capture_input_wall_seconds": 11.817918088054284,
-      "capture_video_seconds": 13.8,
-      "decoded_frames": 403,
-      "directory": "Build/AAA/D17-01/raw/hall-surfaces-1080-01",
+      "capture_input_wall_seconds": 11.920483257970773,
+      "capture_video_seconds": 13.9,
+      "decoded_frames": 414,
+      "directory": "Build/AAA/D17-01/raw/hall-practical-1080-01",
       "electrical_floor_damage": [],
       "environment_panel_events": [],
       "environment_power_transitions": 0,
@@ -122,26 +122,26 @@
       "natural_pressure_observed": false,
       "player_defeats": [],
       "raw_video": {
-        "bytes": 1448360,
-        "path": "Build/AAA/D17-01/raw/hall-surfaces-1080-01/raw-gameplay.mkv",
-        "sha256": "a28e2f1937f0150ea95b11234bdf7a5d2d516951ba0e23ec100532595349e155"
+        "bytes": 1397998,
+        "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/raw-gameplay.mkv",
+        "sha256": "8ea7740cccea73bf573cf538534ae60f2aac83365549e72c6476b2e9003e5479"
       },
       "resolution": [
         1920,
         1080
       ],
       "restart_count": 0,
-      "run": "hall-surfaces-1080-01",
-      "session": "01A08291-683E-7743-8D90-D3BE73E78F09",
+      "run": "hall-practical-1080-01",
+      "session": "01A082C3-D3FE-7D81-9806-E8E0D3B58F99",
       "terminal": "Success",
       "uninterrupted_duration_satisfied": false
     }
   ],
   "evidence_files": [
     {
-      "bytes": 3753,
+      "bytes": 4244,
       "path": "Build/AAA/D17-01/README.md",
-      "sha256": "b6c773bd1ff74c4265d3cefee358ed70aac15e4781b614a24c4aca2a87737d6e"
+      "sha256": "4aad283613eb75b14cd1dc6911fc67867538b0dfbc8048a7e6d17163fb5c56f9"
     },
     {
       "bytes": 587,
@@ -414,6 +414,26 @@
       "sha256": "82553a6ea8f369f43929254b14313bd719c22e965c1c4b86bb6d39a84237672a"
     },
     {
+      "bytes": 587,
+      "path": "Build/AAA/D17-01/build/cook-16/command.json",
+      "sha256": "b0d6b281146c245423fcafec53572bc9e29160cc7773e7c9227d2c4a44fd96c4"
+    },
+    {
+      "bytes": 269896,
+      "path": "Build/AAA/D17-01/build/cook-16/cook.engine.log",
+      "sha256": "94abdaaf3bf1faa44109d902f7b063366d6a68b3d0ae7b99e727be7b8fcda205"
+    },
+    {
+      "bytes": 269380,
+      "path": "Build/AAA/D17-01/build/cook-16/cook.stdout.log",
+      "sha256": "22d356aab4388dae0392ef3ff6069b22628bb1b223df64d8a19f0e51c36dcfb5"
+    },
+    {
+      "bytes": 19765611,
+      "path": "Build/AAA/D17-01/build/cook-16/validation.json",
+      "sha256": "e333e3f3839bfe6dccf4eb53416ad46e64a5b8e55a271b4c548add51089e185f"
+    },
+    {
       "bytes": 2409,
       "path": "Build/AAA/D17-01/build/cook-config-recovery-02.json",
       "sha256": "6c454fa84247b07f4867272adc6decdefd361cca0c60a58dba20c959a332240a"
@@ -472,6 +492,11 @@
       "bytes": 2409,
       "path": "Build/AAA/D17-01/build/cook-config-recovery-13.json",
       "sha256": "a888326e7e9be1ec394f36c82409a03381318c60da6458e2e42d5b91be41635a"
+    },
+    {
+      "bytes": 2409,
+      "path": "Build/AAA/D17-01/build/cook-config-recovery-14.json",
+      "sha256": "9fe69fd934df507264752cc0a9adf655c5ad9f1ec1a6a8533ebac7c7a20822d4"
     },
     {
       "bytes": 2463,
@@ -864,6 +889,21 @@
       "sha256": "a6f67bd832c0e9e8ad0d44e1c17b55d121700b0d86c846e9d852b8528215c255"
     },
     {
+      "bytes": 8669,
+      "path": "Build/AAA/D17-01/build/package-15/package-manifest.json",
+      "sha256": "b86fa7614e5bc6ac5584077b5f8a0119e0fadbd514f2f5e36155bdbb01d1c457"
+    },
+    {
+      "bytes": 78336,
+      "path": "Build/AAA/D17-01/build/package-15/source-build.json",
+      "sha256": "e4cad5206fcc10dd6fa3a8d5a2a22062d5258517aefdd0cf60473bba7386838a"
+    },
+    {
+      "bytes": 1652,
+      "path": "Build/AAA/D17-01/build/package-15/validation.json",
+      "sha256": "9745b0cabdfb3fe17bcff3f81ace2b13b21dd85ac06cbe22019d8429cb9468e5"
+    },
+    {
       "bytes": 1628,
       "path": "Build/AAA/D17-01/build/stage-02/validation.json",
       "sha256": "6745bf17b475473cd43198f465395eaf938cf7d946aec95d8cf5a0ec706cad5b"
@@ -1087,6 +1127,21 @@
       "bytes": 21164,
       "path": "Build/AAA/D17-01/build/stage-17/validation.json",
       "sha256": "a403900a4343e6bb479e953f059e6021cd4a48b9ea28799d25c8eb592229b5f6"
+    },
+    {
+      "bytes": 912,
+      "path": "Build/AAA/D17-01/build/stage-18/command.json",
+      "sha256": "2eada7c81731e303c7eedc5eebd089085145ebf5530bd9e02908234a1b308515"
+    },
+    {
+      "bytes": 75482,
+      "path": "Build/AAA/D17-01/build/stage-18/stage.log",
+      "sha256": "afabac6b7903117b24398ad34c16d55fd6ef52662d908403d9031ae68a3dc842"
+    },
+    {
+      "bytes": 21233,
+      "path": "Build/AAA/D17-01/build/stage-18/validation.json",
+      "sha256": "f14cf3da5d96930b28d5a3187add4d607cb4e10add59bb9d95c4a2928fc53760"
     },
     {
       "bytes": 1186,
@@ -2154,6 +2209,66 @@
       "sha256": "bb4f10666890c0380dacb4538c6206cddbbb03a8d410732aa67316dab62478f1"
     },
     {
+      "bytes": 1058340,
+      "path": "Build/AAA/D17-01/environment/hall-light-isolation-01/captures/hazard_active.png",
+      "sha256": "9b0c7c2b8fc16c2e9434a297e891951393bab90bf4c1f52bc0dc5b0d5c043e36"
+    },
+    {
+      "bytes": 1018746,
+      "path": "Build/AAA/D17-01/environment/hall-light-isolation-01/captures/panel_damaged.png",
+      "sha256": "8828f93025c59d15b4ad9857b85095f4ca3f4435e14842a7ba1c268d5ed34932"
+    },
+    {
+      "bytes": 1026564,
+      "path": "Build/AAA/D17-01/environment/hall-light-isolation-01/captures/panel_destroyed.png",
+      "sha256": "2d8373e97263a70207ca24d95c940649f61fea92bdb7c7688b9cd67514c84197"
+    },
+    {
+      "bytes": 1017795,
+      "path": "Build/AAA/D17-01/environment/hall-light-isolation-01/captures/stream_return.png",
+      "sha256": "9f51066c4222d31aa05e11f9a9c5e9337f0e4760920448b6b83a891f1d0aac3d"
+    },
+    {
+      "bytes": 1016710,
+      "path": "Build/AAA/D17-01/environment/hall-light-isolation-01/captures/switch_safe.png",
+      "sha256": "31e6769eaba7c6ad65d2d46f9a035f1ea73aeeb550d78e79e51d4865f3813721"
+    },
+    {
+      "bytes": 1703,
+      "path": "Build/AAA/D17-01/environment/hall-light-isolation-01/events.log",
+      "sha256": "b4740a26b14efccbc60b2a33ac03d103c49710e3cf2155dea72cbb0b12587a04"
+    },
+    {
+      "bytes": 163610,
+      "path": "Build/AAA/D17-01/environment/hall-light-isolation-01/frames.csv",
+      "sha256": "dc63a073cc21bd80a670d1d9d7130542a837b3c1f64c7a820fa178bfa56045a3"
+    },
+    {
+      "bytes": 11550,
+      "path": "Build/AAA/D17-01/environment/hall-light-isolation-01/process-memory.jsonl",
+      "sha256": "110e25eababcf6e451ff500000b763be1365fd9ef813bf2b8c87f415891e4cee"
+    },
+    {
+      "bytes": 84,
+      "path": "Build/AAA/D17-01/environment/hall-light-isolation-01/result.json",
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "bytes": 481230,
+      "path": "Build/AAA/D17-01/environment/hall-light-isolation-01/runtime.engine.log",
+      "sha256": "fe0cc60d60afd3cd9f56455eaa200e201243d14ceb2aa4cdf9f523468339af73"
+    },
+    {
+      "bytes": 480307,
+      "path": "Build/AAA/D17-01/environment/hall-light-isolation-01/runtime.stdout.log",
+      "sha256": "948a96c1b193d95a6650cdff75e2b258940330cb92d6104cd53a4c98846b5d8c"
+    },
+    {
+      "bytes": 204495,
+      "path": "Build/AAA/D17-01/environment/hall-light-isolation-01/validation.json",
+      "sha256": "5a4b1130cdc268333d33a5411d54e250980f5eda34369a1e5ff09f8aa31dbfa0"
+    },
+    {
       "bytes": 641,
       "path": "Build/AAA/D17-01/environment/hall-light-readback-01/command.json",
       "sha256": "2db203aa58c8032ad8d7d58693c81038395036ff1d6ba3dc1ae40bed83fc626a"
@@ -2177,6 +2292,206 @@
       "bytes": 124766,
       "path": "Build/AAA/D17-01/environment/hall-light-readback-01/validation.json",
       "sha256": "81ee224a1fc086409efa623e76c5fa432c9611487115a33a53db51366caefb17"
+    },
+    {
+      "bytes": 623,
+      "path": "Build/AAA/D17-01/environment/hall-practical-assets-01/author-command.json",
+      "sha256": "9baf35a1f6f2348e4b5015a9a32ec5bc2cc614da57ecf974c78fdfe154635fb8"
+    },
+    {
+      "bytes": 1658,
+      "path": "Build/AAA/D17-01/environment/hall-practical-assets-01/author.json",
+      "sha256": "44ce044cd41009247e6762ee06680aee5f4a34d0271d1c6db0e07fdc44b902be"
+    },
+    {
+      "bytes": 225082,
+      "path": "Build/AAA/D17-01/environment/hall-practical-assets-01/author.log",
+      "sha256": "9a07ceb04075a652e9008774e6eb46ffb19f9cb490a88b998dd02528b85628e6"
+    },
+    {
+      "bytes": 654,
+      "path": "Build/AAA/D17-01/environment/hall-practical-assets-01/readback-command.json",
+      "sha256": "af276d9ba3fef901615d56078453428cab2468efb1aab10a20c56e4382fd17e3"
+    },
+    {
+      "bytes": 1657,
+      "path": "Build/AAA/D17-01/environment/hall-practical-assets-01/readback.json",
+      "sha256": "631545d524d4c3a8058db9ed080d19048cabc41970fe66c997ba31ccc2a32f4b"
+    },
+    {
+      "bytes": 218052,
+      "path": "Build/AAA/D17-01/environment/hall-practical-assets-01/readback.log",
+      "sha256": "448510c72f5458aabe7b6a7d35ea863e75c42f671645cdc8d414971fe746cd83"
+    },
+    {
+      "bytes": 128397,
+      "path": "Build/AAA/D17-01/environment/hall-practical-assets-01/validation.json",
+      "sha256": "1ac2c8758d78dfc7e996983640d8feede41bad336029542773a1281b2850d78d"
+    },
+    {
+      "bytes": 1071360,
+      "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/captures/hazard_active.png",
+      "sha256": "7027f6abd479ec789b1d73a07ce94dc96aa79c31ec55741b110d78ed13eb2d7a"
+    },
+    {
+      "bytes": 1039808,
+      "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/captures/panel_damaged.png",
+      "sha256": "e9ca98d196da92913c596b3c04b389c4cf1c582033c7defdc42e7a6999c41323"
+    },
+    {
+      "bytes": 1044084,
+      "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/captures/panel_destroyed.png",
+      "sha256": "55fccfd14da212d822ee8a8f310db52066b1d8182cbe70281df8f38a2921ec4f"
+    },
+    {
+      "bytes": 1035190,
+      "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/captures/stream_return.png",
+      "sha256": "4378fd609f56c93276b1b43af1240fe24173d0b4e21a996b5aa67bd5f3c640b7"
+    },
+    {
+      "bytes": 1033175,
+      "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/captures/switch_safe.png",
+      "sha256": "64328f9999ccfa31fa2c7883f9d89b58f76d46f527bd93c9611ff5957f2d3918"
+    },
+    {
+      "bytes": 4358,
+      "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/diagnostic-runner.py",
+      "sha256": "efbfa9ffc01b94eb55ca4ca72d40e6a0be7a889557d17db3e0402bb5d1fef72c"
+    },
+    {
+      "bytes": 1703,
+      "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/events.log",
+      "sha256": "bd78d31d3f6ca62fc3c263f160edde3aae65bd00c3a6635d91279e4d4ffd22de"
+    },
+    {
+      "bytes": 162234,
+      "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/frames.csv",
+      "sha256": "b93325fcd607880d59e8fac97df285fc35eed633408e5abf504463d07724a01e"
+    },
+    {
+      "bytes": 11559,
+      "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/process-memory.jsonl",
+      "sha256": "19e1baafbe9058a0600593a9f1f03c2eafaea5b212a2db37a2bd9f4bceeacf7c"
+    },
+    {
+      "bytes": 84,
+      "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/result.json",
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "bytes": 499929,
+      "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/runtime.engine.log",
+      "sha256": "525d43791432989a9e0dd08006e5b74f15b2a4cb4709bbfff8e4943db64f0af6"
+    },
+    {
+      "bytes": 498882,
+      "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/runtime.stdout.log",
+      "sha256": "b80861ccaf913ac7edce28f9b4bdb96570d1de3f0aede40b0f2e350c855c71a2"
+    },
+    {
+      "bytes": 205994,
+      "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/validation.json",
+      "sha256": "085d14593705549af655dda5f00c2f0eb09817a3df93334243474cdeab140699"
+    },
+    {
+      "bytes": 6871,
+      "path": "Build/AAA/D17-01/environment/hall-practical-frame-review.json",
+      "sha256": "ded72f4e43a9ceafc6d24ecbe0e405ee90fab757c2afdcc9f8b4667a2d7a8888"
+    },
+    {
+      "bytes": 1712,
+      "path": "Build/AAA/D17-01/environment/hall-practical-geometry-01/blender.log",
+      "sha256": "3c3d440d4f2c9229141866c669f272ec78d01b60117c844c8c8268572e865185"
+    },
+    {
+      "bytes": 172,
+      "path": "Build/AAA/D17-01/environment/hall-practical-geometry-01/command.json",
+      "sha256": "cd9373f86038a9976746bfa37d429046c243bc063c2bc8651f690c111d8a4ede"
+    },
+    {
+      "bytes": 509,
+      "path": "Build/AAA/D17-01/environment/hall-practical-geometry-01/readback-command.json",
+      "sha256": "a1b116d75252976a0070302ea8cb97b3dfab82002d4a35e0f9894411edd09286"
+    },
+    {
+      "bytes": 255,
+      "path": "Build/AAA/D17-01/environment/hall-practical-geometry-01/readback.log",
+      "sha256": "4954e22e3e6daa25dcafdff5b4e204759ac790156a79d6d29947cca3b964f26e"
+    },
+    {
+      "bytes": 1820,
+      "path": "Build/AAA/D17-01/environment/hall-practical-geometry-01/validation.json",
+      "sha256": "592d3d0de875e9ab69bdd20e23e36faf1969851e8b2b928bdf90d243831ab25b"
+    },
+    {
+      "bytes": 916546,
+      "path": "Build/AAA/D17-01/environment/hall-practical-streaming-01/captures/distant_region.png",
+      "sha256": "bd91448e2bbb6ea9d86b3ef8775745cbd035a22925195011aad736adb5c6da95"
+    },
+    {
+      "bytes": 923289,
+      "path": "Build/AAA/D17-01/environment/hall-practical-streaming-01/captures/final_return.png",
+      "sha256": "c13a5d7c2f646df6c17b96ae23f658e152bf8887daca124b36ef2f0b01462cbf"
+    },
+    {
+      "bytes": 915927,
+      "path": "Build/AAA/D17-01/environment/hall-practical-streaming-01/captures/injury_return.png",
+      "sha256": "53cf981825488e5ad0529d6e4e775273fb209194605aefe4d183c658a06d893f"
+    },
+    {
+      "bytes": 960342,
+      "path": "Build/AAA/D17-01/environment/hall-practical-streaming-01/captures/interior.png",
+      "sha256": "3fb82f6ebe995cd59948209f41c67e80f5848bf7004f3e69d00c7ef1e9c8b475"
+    },
+    {
+      "bytes": 984398,
+      "path": "Build/AAA/D17-01/environment/hall-practical-streaming-01/captures/street_start.png",
+      "sha256": "776cde68543eb7e16b8417fd9c4cee0966364e37ec601013615df02b386dfdf6"
+    },
+    {
+      "bytes": 1004779,
+      "path": "Build/AAA/D17-01/environment/hall-practical-streaming-01/captures/terrace.png",
+      "sha256": "0f4c162e07829f5e2fcc53f6b47187151ff00397b4b184129d8b6992710e1667"
+    },
+    {
+      "bytes": 7187,
+      "path": "Build/AAA/D17-01/environment/hall-practical-streaming-01/events.log",
+      "sha256": "176a64cb5c94b2551a545ae4827ae91e4d547e054ffc0f7caff374bcf5b97b45"
+    },
+    {
+      "bytes": 987684,
+      "path": "Build/AAA/D17-01/environment/hall-practical-streaming-01/frames.csv",
+      "sha256": "2bc219de227c97f9483ff33cffed6cbd6467906fa8bfe6c90917a396a688b1e9"
+    },
+    {
+      "bytes": 41766,
+      "path": "Build/AAA/D17-01/environment/hall-practical-streaming-01/process-memory.jsonl",
+      "sha256": "39051b4c44f119fc4c511a7becd55e7e7021da7bdeff1a6233cc02dd6bc46a9b"
+    },
+    {
+      "bytes": 466685,
+      "path": "Build/AAA/D17-01/environment/hall-practical-streaming-01/runtime.engine.log",
+      "sha256": "2effc5e9b1dbfa02ab6d03b7784d5eb893269ddc224c6c08bae9d32ba62f1977"
+    },
+    {
+      "bytes": 465881,
+      "path": "Build/AAA/D17-01/environment/hall-practical-streaming-01/runtime.stdout.log",
+      "sha256": "c3d18c517631b1134d522eee1af98278fe1546771c3049489af3136f0943b307"
+    },
+    {
+      "bytes": 1156,
+      "path": "Build/AAA/D17-01/environment/hall-practical-streaming-01/streaming.json",
+      "sha256": "f5e7aa4284da2a627c9bfcf911aba923cf15b52b46dea1868bc816cf92d9d134"
+    },
+    {
+      "bytes": 208135,
+      "path": "Build/AAA/D17-01/environment/hall-practical-streaming-01/validation.json",
+      "sha256": "3d0b14872bb3f31fc019529ee1d370652cf12f140ba5a1c8757bc85e3033bd09"
+    },
+    {
+      "bytes": 12765,
+      "path": "Build/AAA/D17-01/environment/hall-practical-validation.json",
+      "sha256": "a0282e7848f8f5b5f154242b7af49e0ea409fc68104eadd24ee47f15ab9a7152"
     },
     {
       "bytes": 610,
@@ -3554,9 +3869,79 @@
       "sha256": "d03c75fc350a55af9421ace8fb1304954951e9bb83bc860f2196e9c701027d1a"
     },
     {
-      "bytes": 58752,
+      "bytes": 1063404,
+      "path": "Build/AAA/D17-01/environment/runtime-15/captures/hazard_active.png",
+      "sha256": "e50bee39e50ebfcbe480716f06770b9ae13fa5bf54d9250c22019d9d28e6223d"
+    },
+    {
+      "bytes": 1037435,
+      "path": "Build/AAA/D17-01/environment/runtime-15/captures/panel_damaged.png",
+      "sha256": "959d7a3b426fd156fd63c88bfbde778e51a82c391eea21d73920debcafa3408c"
+    },
+    {
+      "bytes": 1043586,
+      "path": "Build/AAA/D17-01/environment/runtime-15/captures/panel_destroyed.png",
+      "sha256": "5d01d6e7fc8eedb658134716fea95723c984d35aca43e496b10fe4959253ddb0"
+    },
+    {
+      "bytes": 1033529,
+      "path": "Build/AAA/D17-01/environment/runtime-15/captures/stream_return.png",
+      "sha256": "b9bb517b813c6cbd6902d7ea973fbadaa9f2f871f7b8bdc3e7101ef88360e503"
+    },
+    {
+      "bytes": 1031960,
+      "path": "Build/AAA/D17-01/environment/runtime-15/captures/switch_safe.png",
+      "sha256": "e0f5fffc83e8b8f0938bd68cad2e9191dee129b1bf63bf3d275209bc87c3e184"
+    },
+    {
+      "bytes": 1633,
+      "path": "Build/AAA/D17-01/environment/runtime-15/command.json",
+      "sha256": "92034c0ef681cb77c0cd85882bc1e95d32f33ff3d129782628e0c52dcb38172f"
+    },
+    {
+      "bytes": 624,
+      "path": "Build/AAA/D17-01/environment/runtime-15/d17-scope.json",
+      "sha256": "6e5c2569f5b5ca8578f0f695e4139b2da51c15579a82151133b158e92a703e58"
+    },
+    {
+      "bytes": 1703,
+      "path": "Build/AAA/D17-01/environment/runtime-15/events.log",
+      "sha256": "fa925a2fb9e1149e4eb7a12a7944112a380384db0354a400a64078e7a435b1e5"
+    },
+    {
+      "bytes": 160762,
+      "path": "Build/AAA/D17-01/environment/runtime-15/frames.csv",
+      "sha256": "dc0360e37e7c7cda6f9baa00553f14ea9fc44dcb258c8b6ccdfe1a44ede7ad6c"
+    },
+    {
+      "bytes": 87409,
+      "path": "Build/AAA/D17-01/environment/runtime-15/resources.jsonl",
+      "sha256": "964e314709af3e5c3b6bab2d357684c6d2d888631fc6b7f76f120732b819d720"
+    },
+    {
+      "bytes": 84,
+      "path": "Build/AAA/D17-01/environment/runtime-15/result.json",
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "bytes": 320617,
+      "path": "Build/AAA/D17-01/environment/runtime-15/runtime.engine.log",
+      "sha256": "970be7bcc9fdeece18e75d9cb575fbaa2f2bd343b6b25944b9e4fae118d7bdac"
+    },
+    {
+      "bytes": 318183,
+      "path": "Build/AAA/D17-01/environment/runtime-15/runtime.stdout.log",
+      "sha256": "cefc1590424bac1a87ac0316d150d468bd12819d4407c7ecedc900cab4c7cae3"
+    },
+    {
+      "bytes": 18765,
+      "path": "Build/AAA/D17-01/environment/runtime-15/validation.json",
+      "sha256": "6256cefedc4a1b2c06b1e4331d40012a95fb7b440fa90a75549d95d453e76818"
+    },
+    {
+      "bytes": 64304,
       "path": "Build/AAA/D17-01/environment/scope-findings.json",
-      "sha256": "03e19a35cd87563fda4141531ef558f68cc18c24f80e529667fe47ef88476a4d"
+      "sha256": "48e27d1c6deae8aaf9bd81b56adf35dc49c3df83daa2a05901fe52a07efe1016"
     },
     {
       "bytes": 605,
@@ -4777,6 +5162,236 @@
       "bytes": 2343,
       "path": "Build/AAA/D17-01/raw/hall-720-01/video.json",
       "sha256": "4bbb87257de1e54886c020e7c5bb3b597add08c459e9b981afe2c5d88505eb11"
+    },
+    {
+      "bytes": 300,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/capture-command.json",
+      "sha256": "3bf9938bdee4db34e0d0f2aaf3028fc22c2fe71c7468b892864d1abcd717292e"
+    },
+    {
+      "bytes": 104,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/capture.log",
+      "sha256": "0eb571bb35349c56cd1e55ef3b5769b4918281a54f6222588d987e9a87286ddd"
+    },
+    {
+      "bytes": 1715,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/command.json",
+      "sha256": "90381e18596ed08a48b0bc2c08bf90688160777c85fffa2cfb4ec1413c8aefe0"
+    },
+    {
+      "bytes": 322,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/execution.json",
+      "sha256": "1bcf305aa57d307b1c4cb70a5e21d7f4960ac05659aa686fafff0e1366747181"
+    },
+    {
+      "bytes": 218,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/exposed-package-verification.json",
+      "sha256": "15f5242a26a9f69a66e90880ab4ec34a8a0049d1d19b8398622eeadef0ae3b89"
+    },
+    {
+      "bytes": 26595,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/frame-04.png",
+      "sha256": "b414d03d9a995c77ab7fe185d204beae1c3eb0662da3bef8525be0587f7a90e9"
+    },
+    {
+      "bytes": 543260,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/frame-07.png",
+      "sha256": "37fe311518633b2b361191951ebb5352f8b5095d0d7fd896b1d9b6c8f5beb13e"
+    },
+    {
+      "bytes": 550035,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/frame-10.png",
+      "sha256": "9e57d043aefdd8b1634f691f06a6edb00b4a50b4ca36817e0f303483f48dd361"
+    },
+    {
+      "bytes": 2291,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/frame-extraction.json",
+      "sha256": "52d71af09ea801ffaa6f9f9e0e80254cc842ba19c1c4d1cafaef73d6c0d57ccd"
+    },
+    {
+      "bytes": 426,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/game-command.json",
+      "sha256": "b5d9bcfe0298fb49f02d622ed8cd9fdc826d17a19cc55242ad163f82313fc9ea"
+    },
+    {
+      "bytes": 2398,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/host.json",
+      "sha256": "fbc0ba53b5992c70290f1b41c69e31726a05a96f983e4db4030030bb590fda5f"
+    },
+    {
+      "bytes": 385,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/input-result.json",
+      "sha256": "56e3b68334af7517436d24b111a112b1393219e9b1d2e2eedd5587da789a56b8"
+    },
+    {
+      "bytes": 1633,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/input.jsonl",
+      "sha256": "971bfb9d8352872146ba83293bd305b56509de49acb80307057242bd75879d35"
+    },
+    {
+      "bytes": 608,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/inputs.json",
+      "sha256": "e4ca32f54fe3f078cfe11a2a21e740201a06e44a201a20f29ad198111ff85e4a"
+    },
+    {
+      "bytes": 913,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/observation.json",
+      "sha256": "77430a5443c225621900c80e73f45df5f521873ed26292d19981af0cae2adde9"
+    },
+    {
+      "bytes": 2629,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/package-verification.json",
+      "sha256": "d3f9b806d5f74507830c2696dd47dc7a718bf5da0b710ce4757dc7075e15353c"
+    },
+    {
+      "bytes": 1397998,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/raw-gameplay.mkv",
+      "sha256": "8ea7740cccea73bf573cf538534ae60f2aac83365549e72c6476b2e9003e5479"
+    },
+    {
+      "bytes": 7658,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/resolved-package.json",
+      "sha256": "2b4742305396b9cef0605465d45e69a8e73095e67154a9579210b534ec163749"
+    },
+    {
+      "bytes": 56546,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/resources.jsonl",
+      "sha256": "7dc4ed1e07f93aa2df964fc25d345701f271d55e2c4c79d010d8f05732e2665b"
+    },
+    {
+      "bytes": 187524,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/runtime.engine.log",
+      "sha256": "f07c2f234f16754df5501f0baade74b72136933af7d81318d40fb7e5480a6688"
+    },
+    {
+      "bytes": 185926,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/runtime.stdout.log",
+      "sha256": "783f7e5863e0a906c085b3723bbc05467a9b80dd50c81c064e018e23cc4bd77f"
+    },
+    {
+      "bytes": 9351,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/telemetry.jsonl",
+      "sha256": "a1d543f771fdec0f9c450eba224fc478981e9c532ebc02e20dedb269d1b999d6"
+    },
+    {
+      "bytes": 2367,
+      "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/video.json",
+      "sha256": "b4d708ef03ce93cbe50900dff3a77651b836a5f2bf8b31952aec50da668e8f38"
+    },
+    {
+      "bytes": 299,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/capture-command.json",
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "bytes": 104,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/capture.log",
+      "sha256": "32be7f8d3f4c3202ede01a4d2cc5d38b3e9d3919ad1dfefc5f2add7ffb2992de"
+    },
+    {
+      "bytes": 1709,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/command.json",
+      "sha256": "d0c401fa555ba64f7f6a1855fa8d3135dcb9e66ac0181594e00acbd5e3e043e0"
+    },
+    {
+      "bytes": 321,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/execution.json",
+      "sha256": "f0080c8e3b18e585f3214b80a8ec1a7d8bc3ac74b6e1836284ed59651f4bc120"
+    },
+    {
+      "bytes": 218,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/exposed-package-verification.json",
+      "sha256": "15f5242a26a9f69a66e90880ab4ec34a8a0049d1d19b8398622eeadef0ae3b89"
+    },
+    {
+      "bytes": 276224,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/frame-04.png",
+      "sha256": "2ea34329d412ea384d8e0e6ea63b9fa9be0f8b38673e26ccae8fda473eb2296a"
+    },
+    {
+      "bytes": 293671,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/frame-10.png",
+      "sha256": "483b5bbfb62db72bfc744b4cc3d0d613ac6fc89614880d57a8ab9a9d0b40d53d"
+    },
+    {
+      "bytes": 286560,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/frame-15.png",
+      "sha256": "5faace89abeeca3b4ea702c9bdd3e728329424046c443dc367a2c3d91bf2852c"
+    },
+    {
+      "bytes": 2286,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/frame-extraction.json",
+      "sha256": "cabc99d99a9201d7954960e5ff4214288ced2a8181c982fec664e57cd31204aa"
+    },
+    {
+      "bytes": 425,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/game-command.json",
+      "sha256": "68757b0e5c1ad0d026944a03037d1004a5196b1eaf9496935f65145de1bf40ae"
+    },
+    {
+      "bytes": 2398,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/host.json",
+      "sha256": "91d7194a5e385573de2b3ac4b5a2de0bd47690ddb0afa5fa469b584af7b8b10d"
+    },
+    {
+      "bytes": 386,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/input-result.json",
+      "sha256": "626f628af39aa9bff09e8f428313a4812599565940fe99d6eabec3e2d898a181"
+    },
+    {
+      "bytes": 4211,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/input.jsonl",
+      "sha256": "41aea47650a9e68b539af40949281e129da4ab606092bd9c9a0cfb6b3374ccc5"
+    },
+    {
+      "bytes": 608,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/inputs.json",
+      "sha256": "e4ca32f54fe3f078cfe11a2a21e740201a06e44a201a20f29ad198111ff85e4a"
+    },
+    {
+      "bytes": 909,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/observation.json",
+      "sha256": "b79b21b9d09899b0695825a131a8e94eb8590a5ad6d3fec78b8972e9ab672d78"
+    },
+    {
+      "bytes": 2572,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/package-verification.json",
+      "sha256": "ded07aa8458d8f0a837109dcf4714e0860b3029b72be6ca5c8291fcdae48950e"
+    },
+    {
+      "bytes": 1738416,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/raw-gameplay.mkv",
+      "sha256": "b432782b0eaa14a1eb26f5826870fb4e8f12c613e23e22dc2540997120307181"
+    },
+    {
+      "bytes": 7658,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/resolved-package.json",
+      "sha256": "2b4742305396b9cef0605465d45e69a8e73095e67154a9579210b534ec163749"
+    },
+    {
+      "bytes": 58714,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/resources.jsonl",
+      "sha256": "2df31680aa4bbb300d48b4ceaf4dd2d220237b61a017b08108c93a78b43b2aa6"
+    },
+    {
+      "bytes": 262596,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/runtime.engine.log",
+      "sha256": "688bec15cf5bc335c0a4ad59b3df66cda8c08e46b2719ddeda16d41a4497efa0"
+    },
+    {
+      "bytes": 260541,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/runtime.stdout.log",
+      "sha256": "382e7143b8d1a56e192a938ab4ee68f4a6f1eb64ddcae1374ddf96f7a28ff102"
+    },
+    {
+      "bytes": 26947,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/telemetry.jsonl",
+      "sha256": "ee4ff5be9a8cf516301aec7efde45936109a63c885233b1724094d7533ad1b8d"
+    },
+    {
+      "bytes": 2363,
+      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/video.json",
+      "sha256": "4842494cc49f9e7052a23c3ea388c45259b83e17c762e7a826e34ff679946811"
     },
     {
       "bytes": 300,
@@ -7784,9 +8399,9 @@
       "sha256": "6e2e8f5f5a6aca6d8e64882af83105744e4ec4e60405b2f602ffbc9f54a7368a"
     },
     {
-      "bytes": 36860,
+      "bytes": 40918,
       "path": "Build/AAA/D17-01/scenario.json",
-      "sha256": "567e7d128899b0284497b59b30af8a6627f7e328297d45df4fde8fa238843c7e"
+      "sha256": "8affce7c2f8d519531a99164ff1651f2b61d48e14c0f92d174a329c3028fe829"
     },
     {
       "bytes": 4167,
@@ -7809,9 +8424,9 @@
       "sha256": "b398185f2d3415fff96e6100d01dd0b002043c99b034f9759891b867a90042eb"
     },
     {
-      "bytes": 10711,
+      "bytes": 11605,
       "path": "Build/AAA/D17-01/visual-assessment.json",
-      "sha256": "b391bbf952a447176a42dda0b75c800d1a9b8fb6f5d95f1347c8443cbac868a0"
+      "sha256": "813b05e22f53d5f0f9e7ae70cc7bf4dcb8390b7b00df7f1a4d02769d6d790b44"
     }
   ],
   "evidence_integrity": "VERIFIED",
@@ -7900,14 +8515,17 @@
       "Content/Environment/ServiceBay/SM_ServiceGround.uasset",
       "Content/Environment/ServiceBay/SM_ServicePanel120.uasset",
       "Content/Environment/ServiceBay/SM_ServicePanel240.uasset",
+      "Content/Environment/ServiceHall/SM_HallPractical.uasset",
       "Content/Environment/ServiceHall/SM_ServiceHallCladding.uasset",
       "Content/Maps/BiellaOpenWorldMap.umap",
+      "Content/Python/author_hall_practical.py",
       "Content/Python/author_service_bay.py",
       "Content/Python/author_service_hall.py",
       "Content/Python/author_service_panel.py",
       "Content/Python/author_service_switch.py",
       "Content/Python/author_storm_lighting.py",
       "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/54/K1Z9VDR6A3UM9NRJ2SZ6CI.uasset",
+      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/VG/O9PTS7W439JCNS61BKIWU8.uasset",
       "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/Z3/IWZJG407GI7ATKMCJ0ORFZ.uasset",
       "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/1T/O40B8WS8BP35VZSJEO02LP.uasset",
       "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/SV/53Z03SIVN8RL07L77T5Z6P.uasset",
@@ -7918,11 +8536,22 @@
       "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/XQ/A81CIRKVMGQW9M11WGFTSG.uasset",
       "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/4X/OAGDK0V5RO71D75MQR71A5.uasset",
       "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/6O/ZHV798ZWDXI4J4SJS2XHT7.uasset",
+      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/F/19/X6BYEWCT1X4KMSG4E70PKS.uasset",
       "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
       "Source/BiellaGames/Private/BiellaGameplayHUD.cpp",
       "Source/BiellaGames/Public/BiellaEnvironmentSite.h"
     ],
     "editable_art": [
+      {
+        "bytes": 114981,
+        "path": "SourceAssets/Environment/HallPractical.blend",
+        "sha256": "e2e6801e3879390acf213a40ad7fd622fc998a98e683693ce649ad639faea326"
+      },
+      {
+        "bytes": 210508,
+        "path": "SourceAssets/Environment/SM_HallPractical.fbx",
+        "sha256": "8b81ebd452077448278c5a49ca598aa680ca9644602936e0ea73a05e007a84e8"
+      },
       {
         "bytes": 1071452,
         "path": "SourceAssets/Environment/SM_ServiceBayMetalwork.fbx",
@@ -7959,6 +8588,11 @@
         "sha256": "6526c284e5be9ed1f8736f314b378c62fba42329217204cbcf539e579f957ea4"
       },
       {
+        "bytes": 5553,
+        "path": "SourceAssets/Environment/build_hall_practical.py",
+        "sha256": "1e465e3a70210417114358af72d5c118911c22fab6c11992efc8f51c7f831514"
+      },
+      {
         "bytes": 15951,
         "path": "SourceAssets/Environment/build_service_bay.py",
         "sha256": "e34dae09560899baffc336d7019c5259cf06bd7c11da968986bf4e226fa1377d"
@@ -7967,6 +8601,11 @@
         "bytes": 8209,
         "path": "SourceAssets/Environment/build_service_hall.py",
         "sha256": "6d66c172f2efb6a894139bff1f7f2531fe88b0ff45aff7bd2bf25f108dc51340"
+      },
+      {
+        "bytes": 1284,
+        "path": "SourceAssets/Environment/hall-practical.json",
+        "sha256": "5e677c958ea89c010c7b4875a61319f68d79408e205d6d8374fec59a18d59a3e"
       },
       {
         "bytes": 2730,
@@ -7982,6 +8621,11 @@
         "bytes": 1200,
         "path": "SourceAssets/Environment/storm-lighting.json",
         "sha256": "ba08894a7b86ce6d311790d5f32bacd7b3aa727e5f9b626affa8f30ff4f66281"
+      },
+      {
+        "bytes": 2869,
+        "path": "SourceAssets/Environment/verify_hall_practical.py",
+        "sha256": "bac3fba3e3d70235c98eb074fedd32dbbfd28cc859c03bc8382e8b940f8a20e7"
       },
       {
         "bytes": 2271,
@@ -8020,9 +8664,9 @@
       "sha256": "24f8be7db990dd7873380d9c7e513c90c8319187a62e63855db0fd17f6e09fa2"
     },
     "environment_regression": {
-      "bytes": 18742,
-      "path": "Build/AAA/D17-01/environment/runtime-14/validation.json",
-      "sha256": "d03c75fc350a55af9421ace8fb1304954951e9bb83bc860f2196e9c701027d1a"
+      "bytes": 18765,
+      "path": "Build/AAA/D17-01/environment/runtime-15/validation.json",
+      "sha256": "6256cefedc4a1b2c06b1e4331d40012a95fb7b440fa90a75549d95d453e76818"
     },
     "floor_edge_material_delta": [
       "Content/Environment/ServiceBay/M_ServiceGround.uasset"
@@ -8055,11 +8699,27 @@
       "path": "Build/AAA/D17-01/environment/hall-cladding-validation.json",
       "sha256": "e6a30388bf865aaa7fb05c546346d685820c396c8e5d025483177921f4c3995a"
     },
+    "hall_practical_validation": {
+      "bytes": 12765,
+      "path": "Build/AAA/D17-01/environment/hall-practical-validation.json",
+      "sha256": "a0282e7848f8f5b5f154242b7af49e0ea409fc68104eadd24ee47f15ab9a7152"
+    },
     "hall_surfaces_asset_readback": {
       "bytes": 130026,
       "path": "Build/AAA/D17-01/environment/hall-surfaces-assets-02/validation.json",
       "sha256": "b7420cfedf8f8b3d37cbc5339c28d6440eb85ddd33f398da9d45acfa2a5f7ad0"
     },
+    "hall_surfaces_material_delta": [
+      "Content/Environment/ServiceHall/SM_ServiceHallCladding.uasset",
+      "Content/Maps/BiellaOpenWorldMap.umap",
+      "Content/Python/author_service_hall.py",
+      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/1T/O40B8WS8BP35VZSJEO02LP.uasset",
+      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/6R/WTO08A5NAS2A4KKMBTLF8C.uasset",
+      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/V2/CQF0QGUO9N4HFEDEW3GNBG.uasset",
+      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/MO/N53GEA3MYFDQ8NY2N51SXZ.uasset",
+      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/XQ/A81CIRKVMGQW9M11WGFTSG.uasset",
+      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/6O/ZHV798ZWDXI4J4SJS2XHT7.uasset"
+    ],
     "hall_surfaces_validation": {
       "bytes": 13228,
       "path": "Build/AAA/D17-01/environment/hall-surfaces-validation.json",
@@ -8086,11 +8746,11 @@
       "sha256": "0766f0771b87e1b09604069cf40dfc601d418194f10d2303f954efc9ef807217"
     },
     "source_manifest": {
-      "bytes": 77750,
-      "path": "Build/AAA/D17-01/build/package-14/source-build.json",
-      "sha256": "4cf4fdcbb347636612133412b8f64535ab9fc7e725519d77c7c5930170b137b0"
+      "bytes": 78336,
+      "path": "Build/AAA/D17-01/build/package-15/source-build.json",
+      "sha256": "e4cad5206fcc10dd6fa3a8d5a2a22062d5258517aefdd0cf60473bba7386838a"
     },
-    "source_material_digest": "d97daf66f5572eb88b169dcb564c514abf9d37acf93b097d4277a7260f0598b2",
+    "source_material_digest": "91ffbbaebccafa278436615239868aeee44a432215935db0bbf379a3043ce3eb",
     "storm_asset_readback": {
       "bytes": 126991,
       "path": "Build/AAA/D17-01/environment/storm-assets-01/validation.json",
@@ -8126,15 +8786,11 @@
       "Content/Python/author_service_bay.py"
     ],
     "visual_delta_from_previous_package": [
-      "Content/Environment/ServiceHall/SM_ServiceHallCladding.uasset",
+      "Content/Environment/ServiceHall/SM_HallPractical.uasset",
       "Content/Maps/BiellaOpenWorldMap.umap",
-      "Content/Python/author_service_hall.py",
-      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/1T/O40B8WS8BP35VZSJEO02LP.uasset",
-      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/6R/WTO08A5NAS2A4KKMBTLF8C.uasset",
-      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/V2/CQF0QGUO9N4HFEDEW3GNBG.uasset",
-      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/MO/N53GEA3MYFDQ8NY2N51SXZ.uasset",
-      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/XQ/A81CIRKVMGQW9M11WGFTSG.uasset",
-      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/6O/ZHV798ZWDXI4J4SJS2XHT7.uasset"
+      "Content/Python/author_hall_practical.py",
+      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/VG/O9PTS7W439JCNS61BKIWU8.uasset",
+      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/F/19/X6BYEWCT1X4KMSG4E70PKS.uasset"
     ],
     "visual_delta_from_sheath_package": [
       "Content/Environment/ServiceBay/MI_ServiceGrowth.uasset",
@@ -8159,11 +8815,11 @@
     ]
   },
   "index_generator": {
-    "bytes": 67180,
+    "bytes": 74093,
     "path": "tests/qualify_d17_01.py",
-    "sha256": "00c6b28734e47485061cf54cdee08e3d237c8979b139921a7dbbc7a59795dba2"
+    "sha256": "c045631e5144b34387c36cfce0b723c89a69d868d097e503c0535a44b70d7df7"
   },
-  "observed": "2026-09-08T20:08:23.047257+00:00",
+  "observed": "2026-09-08T20:58:26.631825+00:00",
   "owner_visual_contract": {
     "bytes": 6734,
     "path": "docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
@@ -8172,41 +8828,41 @@
   "package": {
     "configuration": "Development",
     "cook": {
-      "bytes": 19761331,
-      "path": "Build/AAA/D17-01/build/cook-15/validation.json",
-      "sha256": "82553a6ea8f369f43929254b14313bd719c22e965c1c4b86bb6d39a84237672a"
+      "bytes": 19765611,
+      "path": "Build/AAA/D17-01/build/cook-16/validation.json",
+      "sha256": "e333e3f3839bfe6dccf4eb53416ad46e64a5b8e55a271b4c548add51089e185f"
     },
     "exact_resolved_manifests": [
       {
         "bytes": 7658,
-        "path": "Build/AAA/D17-01/raw/hall-surfaces-720-01/resolved-package.json",
-        "sha256": "cb5e89fddd6e929302856730021eb0cfe3bae4e4a632d932d55005610ea122bc"
+        "path": "Build/AAA/D17-01/raw/hall-practical-720-01/resolved-package.json",
+        "sha256": "2b4742305396b9cef0605465d45e69a8e73095e67154a9579210b534ec163749"
       },
       {
         "bytes": 7658,
-        "path": "Build/AAA/D17-01/raw/hall-surfaces-1080-01/resolved-package.json",
-        "sha256": "cb5e89fddd6e929302856730021eb0cfe3bae4e4a632d932d55005610ea122bc"
+        "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/resolved-package.json",
+        "sha256": "2b4742305396b9cef0605465d45e69a8e73095e67154a9579210b534ec163749"
       }
     ],
     "format": "ELF64-x86_64",
     "install": {
       "bytes": 1652,
-      "path": "Build/AAA/D17-01/build/package-14/validation.json",
-      "sha256": "a6f67bd832c0e9e8ad0d44e1c17b55d121700b0d86c846e9d852b8528215c255"
+      "path": "Build/AAA/D17-01/build/package-15/validation.json",
+      "sha256": "9745b0cabdfb3fe17bcff3f81ace2b13b21dd85ac06cbe22019d8429cb9468e5"
     },
     "manifest": {
       "bytes": 8669,
-      "path": "Build/AAA/D17-01/build/package-14/package-manifest.json",
-      "sha256": "f341ded77b4393ea177c911d45a49f0523156ce6841752e4cf4d4a04cc336196"
+      "path": "Build/AAA/D17-01/build/package-15/package-manifest.json",
+      "sha256": "b86fa7614e5bc6ac5584077b5f8a0119e0fadbd514f2f5e36155bdbb01d1c457"
     },
-    "package_id": "c46e0b28a9e7f9b4db278a79a78f5a8f14135b886c57054b599a402b68b9bbaf",
-    "payload_files_digest": "c9794899776f91494a1c26de181e93515a0650fad30d8aaa500d058501fcb9e9",
+    "package_id": "cdb0fae14273c858988d8d6df978147b89c158f81612bc5202ef9fc835ee3d33",
+    "payload_files_digest": "77db966fd9583efe1d77e888e6167cd86f4286140140fe11fb35b0e00c2a326f",
     "platform": "Linux",
     "renderer": "Vulkan",
     "stage": {
-      "bytes": 21164,
-      "path": "Build/AAA/D17-01/build/stage-17/validation.json",
-      "sha256": "a403900a4343e6bb479e953f059e6021cd4a48b9ea28799d25c8eb592229b5f6"
+      "bytes": 21233,
+      "path": "Build/AAA/D17-01/build/stage-18/validation.json",
+      "sha256": "f14cf3da5d96930b28d5a3187add4d607cb4e10add59bb9d95c4a2928fc53760"
     }
   },
   "previous_coordinate_candidate": {
@@ -9517,6 +10173,99 @@
     ],
     "source_commit": "bf7c10031690ff43d045287b9f6a0433df0b57a1"
   },
+  "previous_surface_candidate": {
+    "package": {
+      "bytes": 8669,
+      "path": "Build/AAA/D17-01/build/package-14/package-manifest.json",
+      "sha256": "f341ded77b4393ea177c911d45a49f0523156ce6841752e4cf4d4a04cc336196"
+    },
+    "raw_runs": [
+      {
+        "active_simulation_seconds": 15.019373443850782,
+        "audio_captured": false,
+        "capture_input_wall_seconds": 17.772302913013846,
+        "capture_video_seconds": 19.766,
+        "decoded_frames": 591,
+        "directory": "Build/AAA/D17-01/raw/hall-surfaces-720-01",
+        "electrical_floor_damage": [],
+        "environment_panel_events": [],
+        "environment_power_transitions": 0,
+        "events": {
+          "damage": 51,
+          "defeat": 9,
+          "objective_activated": 1,
+          "objective_progress": 13,
+          "phase": 2,
+          "telemetry_ready": 1,
+          "telemetry_shutdown": 1,
+          "weapon_fire": 2
+        },
+        "input_actions": 18,
+        "namespace_file_verification": true,
+        "natural_pressure_observed": false,
+        "player_defeats": [
+          {
+            "reason": "infected_melee",
+            "target": "BiellaStreamingCharacter:1"
+          }
+        ],
+        "raw_video": {
+          "bytes": 1759976,
+          "path": "Build/AAA/D17-01/raw/hall-surfaces-720-01/raw-gameplay.mkv",
+          "sha256": "d210a56e4c53cf7927b74b487902792f43a4eec153ef2fdd5b2b124f2eaa9187"
+        },
+        "resolution": [
+          1280,
+          720
+        ],
+        "restart_count": 0,
+        "run": "hall-surfaces-720-01",
+        "session": "01A0828D-E946-7915-B1A8-8066258D3322",
+        "terminal": "Failure",
+        "uninterrupted_duration_satisfied": false
+      },
+      {
+        "active_simulation_seconds": 8.711371905112173,
+        "audio_captured": false,
+        "capture_input_wall_seconds": 11.817918088054284,
+        "capture_video_seconds": 13.8,
+        "decoded_frames": 403,
+        "directory": "Build/AAA/D17-01/raw/hall-surfaces-1080-01",
+        "electrical_floor_damage": [],
+        "environment_panel_events": [],
+        "environment_power_transitions": 0,
+        "events": {
+          "damage": 18,
+          "defeat": 2,
+          "objective_activated": 1,
+          "objective_progress": 2,
+          "objective_success": 1,
+          "phase": 2,
+          "telemetry_ready": 1,
+          "telemetry_shutdown": 1
+        },
+        "input_actions": 5,
+        "namespace_file_verification": true,
+        "natural_pressure_observed": false,
+        "player_defeats": [],
+        "raw_video": {
+          "bytes": 1448360,
+          "path": "Build/AAA/D17-01/raw/hall-surfaces-1080-01/raw-gameplay.mkv",
+          "sha256": "a28e2f1937f0150ea95b11234bdf7a5d2d516951ba0e23ec100532595349e155"
+        },
+        "resolution": [
+          1920,
+          1080
+        ],
+        "restart_count": 0,
+        "run": "hall-surfaces-1080-01",
+        "session": "01A08291-683E-7743-8D90-D3BE73E78F09",
+        "terminal": "Success",
+        "uninterrupted_duration_satisfied": false
+      }
+    ],
+    "source_commit": "2c6c2913ad5ffea2779e8989fec076b60eaaf17c"
+  },
   "previous_switch_candidate": {
     "package": {
       "bytes": 8669,
@@ -9683,19 +10432,20 @@
     "Package-11 confines apron moisture with a variable drying edge; geometry/native source are byte-identical, the saved material has fresh readback, and the rebuilt package passes installed environment regression",
     "Package-12 binds saved native cloud/fog actors and cooler sun/sky lighting; all geometry and native source are preserved, with fresh asset readback, cooked shaders, installed environment behavior and normal-camera raw captures",
     "Package-13 adds 976 editable fitted warehouse cladding parts, verified doorway clearance and preserved original colliders, with native saved readback, installed environment regression and raw gameplay captures",
-    "Package-14 coats the six existing warehouse envelopes with the retained physical material; original transforms, colliders and imported cladding dimensions/topology survive fresh-process readback, editor and installed environment regression"
+    "Package-14 coats the six existing warehouse envelopes with the retained physical material; original transforms, colliders and imported cladding dimensions/topology survive fresh-process readback, editor and installed environment regression",
+    "Package-15 adds an editable roof-mounted hall practical and saves warm 1800-lumen settings on the retained light; native geometry/readback, traversal, installed regression and ordinary captures are bound separately"
   ],
   "scenario": {
-    "bytes": 36860,
+    "bytes": 40918,
     "path": "Build/AAA/D17-01/scenario.json",
-    "sha256": "567e7d128899b0284497b59b30af8a6627f7e328297d45df4fde8fa238843c7e"
+    "sha256": "8affce7c2f8d519531a99164ff1651f2b61d48e14c0f92d174a329c3028fe829"
   },
   "schema": "biella.games.d17.qualification/v1",
-  "scope": "Canonical slice candidate, HUD correction, editable service-bay materials, native cloud/fog lighting and fitted warehouse cladding with coated entrance/interior/soffit; current Linux Development raw diagnostics and separately bound historical environment consequence",
+  "scope": "Canonical slice candidate, HUD correction, editable service-bay materials, native cloud/fog lighting, fitted warehouse cladding, coated envelopes and supported warm hall practical; current Linux Development raw diagnostics and separately bound historical environment consequence",
   "scope_findings": {
-    "bytes": 58752,
+    "bytes": 64304,
     "path": "Build/AAA/D17-01/environment/scope-findings.json",
-    "sha256": "03e19a35cd87563fda4141531ef558f68cc18c24f80e529667fe47ef88476a4d"
+    "sha256": "48e27d1c6deae8aaf9bd81b56adf35dc49c3df83daa2a05901fe52a07efe1016"
   },
   "status": "INCOMPLETE",
   "task_id": "D17-01",
@@ -9868,6 +10618,16 @@
           "active_seconds": 8.711371905112173,
           "run": "hall-surfaces-1080-01",
           "terminal": "Success"
+        },
+        {
+          "active_seconds": 14.942012830579188,
+          "run": "hall-practical-720-01",
+          "terminal": "Failure"
+        },
+        {
+          "active_seconds": 8.716786465549376,
+          "run": "hall-practical-1080-01",
+          "terminal": "Success"
         }
       ],
       "required": "600\u20131200 seconds of representative active gameplay with route beats"
@@ -9877,12 +10637,12 @@
       "next_action": "Reuse verified ordinary-input environment outcomes; qualify the full player+rival+infected encounter and remaining route without inventing pressure timing or rewiring the switch",
       "observed": {
         "current_raw_environment": {
-          "active_simulation_seconds": 15.019373443850782,
+          "active_simulation_seconds": 14.942012830579188,
           "audio_captured": false,
-          "capture_input_wall_seconds": 17.772302913013846,
-          "capture_video_seconds": 19.766,
-          "decoded_frames": 591,
-          "directory": "Build/AAA/D17-01/raw/hall-surfaces-720-01",
+          "capture_input_wall_seconds": 17.698917260044254,
+          "capture_video_seconds": 19.666,
+          "decoded_frames": 588,
+          "directory": "Build/AAA/D17-01/raw/hall-practical-720-01",
           "electrical_floor_damage": [],
           "environment_panel_events": [],
           "environment_power_transitions": 0,
@@ -9894,7 +10654,7 @@
             "phase": 2,
             "telemetry_ready": 1,
             "telemetry_shutdown": 1,
-            "weapon_fire": 2
+            "weapon_fire": 1
           },
           "input_actions": 18,
           "namespace_file_verification": true,
@@ -9906,17 +10666,17 @@
             }
           ],
           "raw_video": {
-            "bytes": 1759976,
-            "path": "Build/AAA/D17-01/raw/hall-surfaces-720-01/raw-gameplay.mkv",
-            "sha256": "d210a56e4c53cf7927b74b487902792f43a4eec153ef2fdd5b2b124f2eaa9187"
+            "bytes": 1738416,
+            "path": "Build/AAA/D17-01/raw/hall-practical-720-01/raw-gameplay.mkv",
+            "sha256": "b432782b0eaa14a1eb26f5826870fb4e8f12c613e23e22dc2540997120307181"
           },
           "resolution": [
             1280,
             720
           ],
           "restart_count": 0,
-          "run": "hall-surfaces-720-01",
-          "session": "01A0828D-E946-7915-B1A8-8066258D3322",
+          "run": "hall-practical-720-01",
+          "session": "01A082C3-0B4A-7313-9BAA-0595A25136FA",
           "terminal": "Failure",
           "uninterrupted_duration_satisfied": false
         },
@@ -10042,7 +10802,7 @@
     },
     {
       "id": "zero_major_visual_defects",
-      "next_action": "Read back the existing warehouse light and correct its unmotivated bright interior wash with a supported warm practical-light treatment, preserving all accepted geometry, collision and gameplay. Validate saved settings and the affected native runtime view before cooking.",
+      "next_action": "Author fitted service-hall interior wall/ceiling structure and floor service detail along the existing route, preserving original colliders, navigation and gameplay; reuse the saved practical and physical materials, then validate normal-camera traversal.",
       "observed": [
         "focal_art",
         "world_density",
@@ -10054,8 +10814,8 @@
     }
   ],
   "visual_assessment": {
-    "bytes": 10711,
+    "bytes": 11605,
     "path": "Build/AAA/D17-01/visual-assessment.json",
-    "sha256": "b391bbf952a447176a42dda0b75c800d1a9b8fb6f5d95f1347c8443cbac868a0"
+    "sha256": "813b05e22f53d5f0f9e7ae70cc7bf4dcb8390b7b00df7f1a4d02769d6d790b44"
   }
 }

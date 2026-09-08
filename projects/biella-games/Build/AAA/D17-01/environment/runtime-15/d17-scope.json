@@ -1,0 +1,15 @@
+{
+  "result": {
+    "output": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-15",
+    "package_id": "cdb0fae14273c858988d8d6df978147b89c158f81612bc5202ef9fc835ee3d33",
+    "result": "PASS",
+    "scenario": "environment"
+  },
+  "runner": {
+    "bytes": 3199,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/package_d17_01.py",
+    "sha256": "b8607ed632e08fc3bc2deb561ebe1c8f8e4670db62bd05fb1459cc1b4ad53635"
+  },
+  "scope": "Existing environment fixture: damage, physics, traversal, switch, hazard and streaming; not raw slice",
+  "task_id": "D17-01"
+}

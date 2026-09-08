@@ -1,0 +1,46 @@
+{
+  "binary": {
+    "bytes": 299185984,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/cdb0fae14273c858988d8d6df978147b89c158f81612bc5202ef9fc835ee3d33/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "784a93e01da177765c30a92d845254eb0b9b126a0bce8b8b39286914a4bd4900"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/cdb0fae14273c858988d8d6df978147b89c158f81612bc5202ef9fc835ee3d33/payload",
+  "manifest": {
+    "bytes": 8669,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/cdb0fae14273c858988d8d6df978147b89c158f81612bc5202ef9fc835ee3d33/manifest.json",
+    "sha256": "b86fa7614e5bc6ac5584077b5f8a0119e0fadbd514f2f5e36155bdbb01d1c457"
+  },
+  "package_id": "cdb0fae14273c858988d8d6df978147b89c158f81612bc5202ef9fc835ee3d33",
+  "platform": "Linux",
+  "scope": "Byte-verified Linux Development package; not visual acceptance or Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "2c6c2913ad5ffea2779e8989fec076b60eaaf17c",
+    "head_tree": "2028c4fbd32ed3733fc2ca9823e71d011693d030",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      " M Content/Maps/BiellaOpenWorldMap.umap",
+      " M Content/__ExternalActors__/Maps/BiellaOpenWorldMap/F/19/X6BYEWCT1X4KMSG4E70PKS.uasset",
+      " M tests/diagnose_d17_01_floor.py",
+      " M tests/qualify_d17_01.py",
+      "?? Build/AAA/D17-01/environment/hall-light-isolation-01/",
+      "?? Build/AAA/D17-01/environment/hall-practical-assets-01/",
+      "?? Build/AAA/D17-01/environment/hall-practical-editor-01/",
+      "?? Build/AAA/D17-01/environment/hall-practical-geometry-01/",
+      "?? Build/AAA/D17-01/environment/hall-practical-streaming-01/",
+      "?? Build/AAA/D17-01/environment/runtime-15/",
+      "?? Build/AAA/D17-01/raw/hall-practical-720-01/",
+      "?? Content/Environment/ServiceHall/SM_HallPractical.uasset",
+      "?? Content/Python/author_hall_practical.py",
+      "?? Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/VG/",
+      "?? SourceAssets/Environment/HallPractical.blend",
+      "?? SourceAssets/Environment/SM_HallPractical.fbx",
+      "?? SourceAssets/Environment/build_hall_practical.py",
+      "?? SourceAssets/Environment/hall-practical.json",
+      "?? SourceAssets/Environment/verify_hall_practical.py",
+      "?? tests/author_d17_01_hall_practical.py"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T20:43:31.759499+00:00"
+}

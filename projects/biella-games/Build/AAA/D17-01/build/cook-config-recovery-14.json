@@ -1,0 +1,58 @@
+{
+  "appended_keys": [
+    "bEnablePlugin",
+    "bAllowNetworkConnection",
+    "SecurityToken",
+    "bIncludeInShipping",
+    "bAllowExternalStartInShipping",
+    "bCompileAFSProject",
+    "bUseCompression",
+    "bLogFiles",
+    "bReportStats",
+    "ConnectionType",
+    "bUseManualIPAddress",
+    "ManualIPAddress"
+  ],
+  "appended_section": "[/Script/AndroidFileServerEditor.AndroidFileServerRuntimeSettings]",
+  "canonical_source": {
+    "bytes": 1794,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Config/DefaultEngine.ini",
+    "sha256": "623ad5acc704e865cd6e2bcdf69c43b9b4143e60e7adbc3b8253a794e3dd0792"
+  },
+  "cause": "UAndroidFileServerRuntimeSettings::PostInitProperties generates first-run config through TryUpdateDefaultConfigFile",
+  "changed_input": {
+    "bytes": 2167,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-16/project/Config/DefaultEngine.ini",
+    "sha256": "55a6b8cd280f5f45517c3e442237e28f9523923a8200b30604bef8b1ed90b326"
+  },
+  "cook": {
+    "bytes": 19765611,
+    "path": "Build/AAA/D17-01/build/cook-16/validation.json",
+    "sha256": "e333e3f3839bfe6dccf4eb53416ad46e64a5b8e55a271b4c548add51089e185f"
+  },
+  "engine_cause": {
+    "bytes": 1125,
+    "path": "/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AndroidFileServer/Source/AndroidFileServerEditor/Private/AndroidFileServerRuntimeSettings.cpp",
+    "sha256": "db36ace337b0f3a7f393e3e380a2576d2178c2d7fe650dbab3b7f0fd56e765ae"
+  },
+  "observed": "2026-09-08T20:35:09.997942+00:00",
+  "private_original": {
+    "bytes": 2167,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-16/cook-config-generated-original.ini",
+    "sha256": "55a6b8cd280f5f45517c3e442237e28f9523923a8200b30604bef8b1ed90b326"
+  },
+  "restored_input": {
+    "bytes": 1794,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-16/project/Config/DefaultEngine.ini",
+    "sha256": "623ad5acc704e865cd6e2bcdf69c43b9b4143e60e7adbc3b8253a794e3dd0792"
+  },
+  "result": "PASS",
+  "runner": {
+    "bytes": 3655,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/repair_d17_01_cook_config.py",
+    "sha256": "0934953e050bf57b64ed919a6973424378b4f1525f9224ac6b515867ed29f239"
+  },
+  "scope": "Linux cook temporary config restored to verified input bytes; all other snapshot inputs, binaries and cooked outputs match",
+  "task_id": "D17-01",
+  "verified_file_count": 439
+}

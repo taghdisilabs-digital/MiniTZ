@@ -1,0 +1,73 @@
+{
+  "duration_seconds": 19.666,
+  "frames": [
+    {
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "4",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-practical-720-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-practical-720-01/frame-04.png"
+      ],
+      "frame": {
+        "bytes": 276224,
+        "path": "Build/AAA/D17-01/raw/hall-practical-720-01/frame-04.png",
+        "sha256": "2ea34329d412ea384d8e0e6ea63b9fa9be0f8b38673e26ccae8fda473eb2296a"
+      },
+      "returncode": 0,
+      "timestamp_seconds": 4
+    },
+    {
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "10",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-practical-720-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-practical-720-01/frame-10.png"
+      ],
+      "frame": {
+        "bytes": 293671,
+        "path": "Build/AAA/D17-01/raw/hall-practical-720-01/frame-10.png",
+        "sha256": "483b5bbfb62db72bfc744b4cc3d0d613ac6fc89614880d57a8ab9a9d0b40d53d"
+      },
+      "returncode": 0,
+      "timestamp_seconds": 10
+    },
+    {
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "15",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-practical-720-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-practical-720-01/frame-15.png"
+      ],
+      "frame": {
+        "bytes": 286560,
+        "path": "Build/AAA/D17-01/raw/hall-practical-720-01/frame-15.png",
+        "sha256": "5faace89abeeca3b4ea702c9bdd3e728329424046c443dc367a2c3d91bf2852c"
+      },
+      "returncode": 0,
+      "timestamp_seconds": 15
+    }
+  ],
+  "source_video": {
+    "bytes": 1738416,
+    "path": "Build/AAA/D17-01/raw/hall-practical-720-01/raw-gameplay.mkv",
+    "sha256": "b432782b0eaa14a1eb26f5826870fb4e8f12c613e23e22dc2540997120307181"
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "diagnostic_frames": [
+    "environment/hall-light-isolation-01/captures/switch_safe.png"
+  ],
+  "editor_frames": [
+    "environment/hall-practical-editor-01/captures/switch_safe.png",
+    "environment/hall-practical-streaming-01/captures/interior.png"
+  ],
+  "excluded": [],
+  "observations": [
+    "The prior white entrance wash becomes muted warm brown in the current Lit editor and installed views; dark doorway cladding and the four-meter opening remain readable. Native readback confirms the retained point light at 1800 lumens with warm color.",
+    "The controlled WorldStreaming traversal enters the hall with the normal third-person camera. The interior shows a warm floor pool, cast player shadow, mottled back wall and dark ceiling/sides; large bare floor and wall areas remain. This fixture is separate from the ordinary-input runs.",
+    "The roof-mounted lamp housing is above or behind the inspected cameras and is not directly visible in those images. Its fitted roof support and geometry are established by fresh native and Blender readback, not by a claim of visual visibility.",
+    "Turning off all point lights in a pre-change diagnostic makes the entrance inner face nearly black. This identifies a point-light contribution; it is not single-light isolation. The diagnostic is not final gameplay appearance.",
+    "Ordinary gameplay views retain a cyan player, ochre rival and red infected in local combat, with prototype focal art, a broad empty approach, cloned distant facades and dominant HUD. No ordinary run reaches the service-hall interior.",
+    "The installed environment fixture retains power switching, panel destruction/physics, electrical-floor consequence and stream return. It is controlled regression evidence and does not establish ordinary-input encounter or 600\u20131200-second slice acceptance.",
+    "Five major visual groups remain open. Neither a fitted practical, a local lighting repair nor controlled traversal closes a whole scene-wide group."
+  ],
+  "ordinary_frames": [
+    "raw/hall-practical-720-01/frame-04.png",
+    "raw/hall-practical-720-01/frame-10.png",
+    "raw/hall-practical-720-01/frame-15.png",
+    "raw/hall-practical-1080-01/frame-07.png",
+    "raw/hall-practical-1080-01/frame-10.png"
+  ],
+  "package_frames": [
+    "environment/runtime-15/captures/switch_safe.png",
+    "environment/runtime-15/captures/panel_destroyed.png"
+  ],
+  "package_id": "cdb0fae14273c858988d8d6df978147b89c158f81612bc5202ef9fc835ee3d33",
+  "pixel_comparison": {
+    "method": "Unmodified PNG RGB means at identical Environment fixture viewpoints. BaseColor and all-point-lights-disabled views diagnose response only; disabling all point lights is not a single-light isolation.",
+    "rois": [
+      {
+        "comparison": {
+          "all_point_lights_disabled": {
+            "mean_rgb": [
+              0.10175438596491228,
+              0.10175438596491228,
+              0.10175438596491228
+            ],
+            "source": {
+              "bytes": 1016710,
+              "path": "Build/AAA/D17-01/environment/hall-light-isolation-01/captures/switch_safe.png",
+              "sha256": "31e6769eaba7c6ad65d2d46f9a035f1ea73aeeb550d78e79e51d4865f3813721"
+            }
+          },
+          "current_Lit": {
+            "mean_rgb": [
+              73.3719298245614,
+              54.59298245614035,
+              29.326315789473686
+            ],
+            "source": {
+              "bytes": 1033175,
+              "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/captures/switch_safe.png",
+              "sha256": "64328f9999ccfa31fa2c7883f9d89b58f76d46f527bd93c9611ff5957f2d3918"
+            }
+          },
+          "previous_BaseColor": {
+            "mean_rgb": [
+              69.42280701754386,
+              75.18070175438596,
+              77.08947368421053
+            ],
+            "source": {
+              "bytes": 365031,
+              "path": "Build/AAA/D17-01/environment/hall-surfaces-basecolor-01/captures/switch_safe.png",
+              "sha256": "c7ba661cc05ba617ad557777602be26b1bad7b324840c663b1d3c1c9dac614b6"
+            }
+          },
+          "previous_Lit": {
+            "mean_rgb": [
+              203.25087719298244,
+              205.6140350877193,
+              205.94912280701755
+            ],
+            "source": {
+              "bytes": 1041116,
+              "path": "Build/AAA/D17-01/environment/hall-surfaces-editor-01/captures/switch_safe.png",
+              "sha256": "3c1008753e592c9b09fc65851bbdead0905768ba74a810ec6d1a4ee53358df26"
+            }
+          }
+        },
+        "name": "entrance_inner_face",
+        "rectangle_xyxy_exclusive": [
+          927,
+          112,
+          942,
+          150
+        ]
+      },
+      {
+        "comparison": {
+          "all_point_lights_disabled": {
+            "mean_rgb": [
+              0.9322916666666666,
+              1.3541666666666667,
+              1.890625
+            ],
+            "source": {
+              "bytes": 1016710,
+              "path": "Build/AAA/D17-01/environment/hall-light-isolation-01/captures/switch_safe.png",
+              "sha256": "31e6769eaba7c6ad65d2d46f9a035f1ea73aeeb550d78e79e51d4865f3813721"
+            }
+          },
+          "current_Lit": {
+            "mean_rgb": [
+              15.859375,
+              12.010416666666666,
+              6.713541666666667
+            ],
+            "source": {
+              "bytes": 1033175,
+              "path": "Build/AAA/D17-01/environment/hall-practical-editor-01/captures/switch_safe.png",
+              "sha256": "64328f9999ccfa31fa2c7883f9d89b58f76d46f527bd93c9611ff5957f2d3918"
+            }
+          },
+          "previous_BaseColor": {
+            "mean_rgb": [
+              70.38020833333333,
+              74.59375,
+              75.86979166666667
+            ],
+            "source": {
+              "bytes": 365031,
+              "path": "Build/AAA/D17-01/environment/hall-surfaces-basecolor-01/captures/switch_safe.png",
+              "sha256": "c7ba661cc05ba617ad557777602be26b1bad7b324840c663b1d3c1c9dac614b6"
+            }
+          },
+          "previous_Lit": {
+            "mean_rgb": [
+              86.19791666666667,
+              94.15625,
+              95.58333333333333
+            ],
+            "source": {
+              "bytes": 1041116,
+              "path": "Build/AAA/D17-01/environment/hall-surfaces-editor-01/captures/switch_safe.png",
+              "sha256": "3c1008753e592c9b09fc65851bbdead0905768ba74a810ec6d1a4ee53358df26"
+            }
+          }
+        },
+        "name": "door_reveal",
+        "rectangle_xyxy_exclusive": [
+          908,
+          116,
+          914,
+          148
+        ]
+      }
+    ]
+  },
+  "reviewed": true,
+  "scope": "Affected warm practical and local lighting response only; not final visual or ordinary route acceptance",
+  "task_id": "D17-01"
+}

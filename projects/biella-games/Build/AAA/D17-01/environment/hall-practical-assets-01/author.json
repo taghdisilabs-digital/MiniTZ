@@ -1,0 +1,57 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "status": "GENERATED_DRAFT",
+  "read_only": false,
+  "spec_sha256": "5e677c958ea89c010c7b4875a61319f68d79408e205d6d8374fec59a18d59a3e",
+  "map": "/Game/Maps/BiellaOpenWorldMap",
+  "mesh": "/Game/Environment/ServiceHall/SM_HallPractical.SM_HallPractical",
+  "triangles": 11152,
+  "bounds_min": [
+    -27.0,
+    -27.0,
+    3.8499984741210938
+  ],
+  "bounds_max": [
+    27.0,
+    27.0,
+    131.0
+  ],
+  "materials": [
+    "Paint",
+    "Steel",
+    "Lamp"
+  ],
+  "collision_boxes": 0,
+  "preexisting_actor_identities_preserved": true,
+  "edited_actor_paths": {
+    "D17_Hall_Practical": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746D6FF02_1988719439",
+    "D02_Interior_Light": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.PointLight_UAID_FA163ECF0746EAFE02_1100163904"
+  },
+  "edited_actor_packages": [
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/2/VG/O9PTS7W439JCNS61BKIWU8",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/F/19/X6BYEWCT1X4KMSG4E70PKS"
+  ],
+  "light": {
+    "lumens": 1800.0,
+    "color_linear": [
+      1.0,
+      0.6172065734863281,
+      0.2788942754268646,
+      1.0
+    ],
+    "position_cm": [
+      8000,
+      2250,
+      520
+    ],
+    "source_radius_cm": 20.0,
+    "attenuation_cm": 2600.0
+  },
+  "support": {
+    "roof_path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616334427",
+    "soffit_z_cm": 650,
+    "housing_top_z_cm": 651.0
+  },
+  "scope": "Supported warm hall practical; no gameplay or whole-slice visual acceptance"
+}
