@@ -1,0 +1,44 @@
+{
+  "binary": {
+    "bytes": 299181888,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-install/versions/fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "42159b5d02226010eb1efa8768ea4ac582d4877cff01816a396fcac8d3b60c32"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d08-01-install/versions/fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c/payload",
+  "manifest": {
+    "bytes": 8665,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-install/versions/fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c/manifest.json",
+    "sha256": "48cedd56873c9abbc62c0708872066036733bfd4c3e58cd0cbebe5e1d5572770"
+  },
+  "package_id": "fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c",
+  "platform": "Linux",
+  "scope": "Byte-verified Linux Development package; not visual acceptance or Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "57190a294440c4dfa6deb9a9a50d23442c66fbc8",
+    "head_tree": "1450f6ea37ab745c57d229c8c67e0ed3b0b3c397",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      " M Build/AAA/D17-01/scenario.json",
+      " M Build/AAA/D17-01/visual-assessment.json",
+      " M Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
+      " M tests/build_d03_01_editor.py",
+      " M tests/cook_d03_01_package.py",
+      " M tests/qualify_d17_01.py",
+      " M tests/run_d02_04.py",
+      " M tests/run_d08_01_release.py",
+      " M tests/run_d17_01_slice.py",
+      " M tests/stage_d03_01_package.py",
+      "?? Build/AAA/D17-01/environment/",
+      "?? Build/AAA/D17-01/raw/route-rival-01/",
+      "?? Build/AAA/D17-01/rival-intercept-input.json",
+      "?? Content/Environment/",
+      "?? Content/Python/author_service_bay.py",
+      "?? SourceAssets/Environment/",
+      "?? tests/author_d17_01_service_bay.py",
+      "?? tests/package_d17_01.py"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T13:17:33.139054+00:00"
+}

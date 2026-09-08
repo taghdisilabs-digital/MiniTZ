@@ -1,0 +1,20 @@
+{"event": "capture_started", "elapsed_seconds": 4.340021405369043e-06, "window": "2097243"}
+{"event": "input_sent", "elapsed_seconds": 0.02283086400711909, "planned_at": 0, "input": ["keydown", "w"], "intended_beat": "advance through initial encounter"}
+{"event": "input_sent", "elapsed_seconds": 0.09051604801788926, "planned_at": 0.05, "input": ["keydown", "Shift_L"], "intended_beat": "sprint to rival with normal controls"}
+{"event": "input_sent", "elapsed_seconds": 1.8287554470007308, "planned_at": 1.8, "input": ["mousedown", "1"], "intended_beat": "engage nearest real opponent using accepted weapon selection"}
+{"event": "input_sent", "elapsed_seconds": 1.9367006639949977, "planned_at": 1.9, "input": ["mouseup", "1"], "intended_beat": "release trigger"}
+{"event": "input_sent", "elapsed_seconds": 2.2956303210230544, "planned_at": 2.25, "input": ["mousedown", "1"], "intended_beat": "engage nearest real opponent using accepted weapon selection"}
+{"event": "input_sent", "elapsed_seconds": 2.4011488370015286, "planned_at": 2.35, "input": ["mouseup", "1"], "intended_beat": "release trigger"}
+{"event": "input_sent", "elapsed_seconds": 2.7143077939981595, "planned_at": 2.7, "input": ["mousedown", "1"], "intended_beat": "engage nearest real opponent using accepted weapon selection"}
+{"event": "input_sent", "elapsed_seconds": 2.8215640680282377, "planned_at": 2.8, "input": ["mouseup", "1"], "intended_beat": "release trigger"}
+{"event": "input_sent", "elapsed_seconds": 3.1859448099858128, "planned_at": 3.15, "input": ["mousedown", "1"], "intended_beat": "engage nearest real opponent using accepted weapon selection"}
+{"event": "input_sent", "elapsed_seconds": 3.2941271130112, "planned_at": 3.25, "input": ["mouseup", "1"], "intended_beat": "release trigger"}
+{"event": "input_sent", "elapsed_seconds": 3.6557383660110645, "planned_at": 3.6, "input": ["mousedown", "1"], "intended_beat": "engage nearest real opponent using accepted weapon selection"}
+{"event": "input_sent", "elapsed_seconds": 3.7103658040286973, "planned_at": 3.7, "input": ["mouseup", "1"], "intended_beat": "release trigger"}
+{"event": "input_sent", "elapsed_seconds": 4.0769364919979125, "planned_at": 4.05, "input": ["mousedown", "1"], "intended_beat": "engage nearest real opponent using accepted weapon selection"}
+{"event": "input_sent", "elapsed_seconds": 4.182999021024443, "planned_at": 4.15, "input": ["mouseup", "1"], "intended_beat": "release trigger"}
+{"event": "input_sent", "elapsed_seconds": 8.044533188978676, "planned_at": 8, "input": ["keyup", "Shift_L"], "intended_beat": "continue through street population"}
+{"event": "input_sent", "elapsed_seconds": 12.032548458024394, "planned_at": 12, "input": ["keydown", "d"], "intended_beat": "approach service side of street"}
+{"event": "input_sent", "elapsed_seconds": 14.064260130980983, "planned_at": 14, "input": ["keyup", "d"], "intended_beat": "continue east"}
+{"event": "native_terminal_observed", "elapsed_seconds": 17.03111679200083}
+{"event": "capture_finished", "elapsed_seconds": 28.966870756004937, "result": {"status": "CAPTURED", "reason": "native_terminal_state", "audio_capture": false, "input_delivery": "X11 keyboard/mouse", "world_mutation_or_automation_tests": false, "measured_input_run_seconds": 17.03118364297552, "actions_sent": 17, "game_alive_at_capture_end": true, "recorder_returncode": 255, "game_returncode": 0}}

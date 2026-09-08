@@ -1,60 +1,83 @@
 # D17-01 — service circuit candidate
 
-**INCOMPLETE.** The editable candidate selects the existing open-world entry,
-Street01 population, service bay, interior, raised terrace and Street03 return.
-It binds the current owner visual direction in `scenario.json`. It does not yet
-provide the required 10–20 minutes of representative gameplay.
+**INCOMPLETE.** `scenario.json` binds the owner direction to the existing
+open-world entry, Street01 population, service bay, interior, raised terrace and
+Street03 return. A continuous 10–20 minute route, player-reachable arena-pressure
+consequence and zero-major-defect visuals are still unqualified.
 
-Three fresh packaged-game runs used ordinary X11 movement/fire input, normal
-third-person cameras and real-time simulation. Native objective success occurred
-after 34.10, 12.81 and 9.41 simulation seconds, respectively. Success disables
-movement/look, preventing the remaining route. The clips retain a two-second
-terminal tail, which is excluded from active-play duration. No pressure transition
-was observed. The first run's player shot and autonomous combat are recorded in
-its input log, gameplay telemetry and unedited video. Different AI outcomes in
-later runs are observations, not a claim that the HUD changed gameplay.
+The current authored layer replaces the service bay's plain panels with ribbed,
+beveled metalwork, cabinet louvers, hardware and mounted warm lamps. Editable
+Blender source, FBX exports, Unreal authoring code and saved runtime assets remain
+at `SourceAssets/Environment/`, `Content/Python/author_service_bay.py` and
+`Content/Environment/ServiceBay/`. Panel collision envelopes, damage, physics,
+switch interaction, hazards and streaming behavior are preserved. These assets
+remain a generated candidate, not owner-accepted final art.
 
-The sole native edit reduces the two upper HUD panels and removes their redundant
-status heading. The Linux Development build and the existing live HUD and
-localization/settings/accessibility regression tests pass. Those tests use
-fixtures and are kept separately from the raw captures. The compact HUD remains
-a partial improvement; placeholder characters, primitive sparse geometry, flat
-surfaces, missing infection takeover and absent storm/practical-light contrast
-still violate the final visual contract.
+Native game/editor builds and fresh saved-asset readback pass. The isolated cook,
+archive extraction, exact installed-member verification and packaged environment
+regression also pass. The environment fixture exercises actual damage, debris,
+traversal, switching, shared hazard and unload/reconstruction; its camera and
+actor placement are automated, so it is separate from raw slice evidence.
 
-`qualification.json` indexes exact editable inputs, build receipts, raw video,
-input, telemetry, regression evidence and the remaining criteria. Run
-`python3 tests/qualify_d17_01.py` from the Project root to recheck current evidence
-integrity and regenerate that index. This command reports incomplete acceptance;
-it cannot turn the recorded short runs into a qualified slice.
+The new Linux Development package is
+`1c539e9274baf5ba24ab603d2238dd0cef2069e5030dc8cc1e966622d50892a1`.
+`build/package-02/package-manifest.json` identifies all 34 installed members and
+the exact 481,750,430-byte archive at the canonical Games artifact path. Archive
+SHA-256 is `2fd394366130ae69770c6f7f9a3ab53e48ff5e322fc834012c25ef75cc9c04ad`.
+Both new raw runs expose this package without a native overlay. The stage-02
+failure remains recorded: an Unreal Android editor plugin appended first-run
+settings to the temporary cook config. `build/cook-config-recovery.json` records
+the scoped restoration to original input bytes and verification of all 421
+recorded inputs/binaries/cooked files. Stage-03 then passed using the same cook.
+Canonical configuration was unchanged.
 
-The two HUD captures use the unchanged installed D08 Linux Development payload
-with exactly one native executable overlaid read-only. Each run's
-`resolved-package.json` lists every exposed file; its namespace verification
-checks actual bytes and permissions before launch. `native-source.json` binds
-the build to editable source. All cooked content, configuration and reflected
-declarations match the baseline, so no recook was needed. No predecessor package
-was copied or renamed. The exact native delta is retained at the canonical
-artifact path recorded in the manifests. These are Linux diagnostics, with no
-Win64 Shipping claim. The capture rate is the recorder's rate, not measured game
-FPS. Raw clips have no audio track.
+`raw/service-720-01` and `raw/service-1080-01` contain unedited H.264/Matroska
+gameplay, X11 input logs, native telemetry and package verification. They use
+fresh processes/user state, normal third-person controls and real-time simulation,
+with no fixture, time dilation, actor reset or restart stitching. Success occurs
+at 32.21 and 8.70 active simulation seconds; the terminal tail is excluded. The
+720p frame at video time 13 seconds shows the new service bay during ordinary
+street traversal. It does not prove the switch/destruction or later route beats.
+The 1080p capture shows the real player/rival/infected encounter. Neither run
+records an arena-pressure transition. Raw videos have no audio; recording at
+30 fps is not evidence of native game frame rate.
 
-The baseline run predates the added namespace verification. It retains its exact
-base-install verification, game command, input, logs and video. Its original
-untracked harness version is identified by hash but is not recoverable as exact
-source; later HUD runs retain matching harness snapshots. This does not change
-the preserved baseline game package identity.
+The compact HUD improvement and its two live regression tests remain preserved
+from commit `57190a294440c4dfa6deb9a9a50d23442c66fbc8`. Historical raw runs bind
+their original D08 package or exact native overlay, not the new visual assets.
+The first raw run predates namespace verification and retains its original
+driver-hash recovery limitation. No predecessor evidence is relabeled as current.
 
-Resume D17-01 from these bytes. First resolve the selected route's early terminal
-and player-reachable pressure integration using existing gameplay/content; do
-not pad time, force pressure, reset actors or stitch restarts into proof. The next
-independent visual creation boundary is the existing service-bay approach:
-author its industrial surface, lighting and infection layer against the bound
-owner direction while preserving accepted collision and gameplay. Rebuild only
-affected inputs and capture the resulting normal gameplay. Both the continuous
-duration/interaction criterion and zero-major visual-defect criterion must pass
-before this task can close.
+`raw/route-rival-01` is an additional ordinary-input feasibility probe against
+the unchanged D08 package. Early sprint/fire input still produced success at
+14.01 simulation seconds. Telemetry shows population infected joining the
+objective, followed by rivals clearing the target set. This attempt does not
+prove that every possible route fails. `environment/scope-findings.json` preserves
+the causal source and telemetry: the inherited objective ends input at success;
+some streaming actors are excluded, while population infected can be registered.
+Contract 33 leaves pressure timing/escalation unspecified. No invented timer or
+switch-to-pressure connection has been added.
 
-Local persistence belongs to this task commit. The Auto Feeder owns the existing
-GitHub/Drive publication cursor and production-state transition; this record does
-not claim remote publication or advance production.
+Inspection against the hard visual requirements still finds five major groups:
+placeholder focal characters/weapons, sparse industrial density, insufficient wet
+material detail, absent organic invasion and absent cold storm lighting. The
+service bay also retains coarse mottling, whole-panel orange damage feedback and
+an unsupported switch cube. Fresh Blender/Unreal coordinate readback confirms
+that FBX import reflects the fixed metalwork across Y: the cabinet appears on the
+opposite side from its preserved collision and switch. The editable Blender file
+reopens with 88 separate mesh parts and 88 bevel modifiers.
+`environment/coordinate-readback-01/validation.json` records both facts. Existing
+gameplay proof does not waive the placement or other visual defects.
+
+Run `python3 tests/qualify_d17_01.py` from the Project root to verify exact current
+inputs and regenerate `qualification.json`. It indexes the real source, build,
+package and raw evidence and records incomplete acceptance. Resume visual work
+by correcting the FBX handedness and asymmetric cabinet placement, then the
+service-bay approach's wet surface, switch mounting and organic growth,
+preserving the validated collision/interaction envelopes. Establish any longer
+route or pressure trigger from accepted executable content; do not pad footage
+or alter mechanics to manufacture the required sequence.
+
+The task commit preserves local source/proof. The Auto Feeder owns configured
+GitHub/Drive publication and production-state transition. No remote publication,
+Win64 Shipping qualification, D17-01 completion or next-task advancement is claimed.

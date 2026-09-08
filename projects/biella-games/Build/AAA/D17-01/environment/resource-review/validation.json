@@ -1,0 +1,7 @@
+{
+  "task_id": "D17-01",
+  "resource_result": "TIMEOUT_NO_REVIEW_OUTPUT",
+  "disposition": "NONBLOCKING_REROUTED_TO_SOURCE_DIFF_AND_NATIVE_ENVIRONMENT_REGRESSION",
+  "authority": "No provider acceptance or source finding inferred",
+  "checks": "Runtime must prove unchanged damage/debris/traversal/switch/shared-hazard/dormancy/reconstruction; saved-asset readback already proves unit collision boxes and no collision on decorative metalwork."
+}

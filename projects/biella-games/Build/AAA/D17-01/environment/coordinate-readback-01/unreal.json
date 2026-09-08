@@ -1,0 +1,97 @@
+{
+  "task_id": "D17-01",
+  "result": "OBSERVED",
+  "meshes": [
+    {
+      "asset": "/Game/Environment/ServiceBay/SM_ServicePanel120.SM_ServicePanel120",
+      "bounds_origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -50.000003814697266,
+        -50.000003814697266,
+        -50.0
+      ],
+      "bounds_max": [
+        50.000003814697266,
+        50.000003814697266,
+        50.0
+      ],
+      "intended_min": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "intended_max": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "authored_coordinate_match": true,
+      "y_reflected_match": true
+    },
+    {
+      "asset": "/Game/Environment/ServiceBay/SM_ServicePanel240.SM_ServicePanel240",
+      "bounds_origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -50.000003814697266,
+        -50.000003814697266,
+        -50.0
+      ],
+      "bounds_max": [
+        50.000003814697266,
+        50.000003814697266,
+        50.0
+      ],
+      "intended_min": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "intended_max": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "authored_coordinate_match": true,
+      "y_reflected_match": true
+    },
+    {
+      "asset": "/Game/Environment/ServiceBay/SM_ServiceBayMetalwork.SM_ServiceBayMetalwork",
+      "bounds_origin": [
+        162.69998931884766,
+        33.75,
+        130.0
+      ],
+      "bounds_min": [
+        -204.6000213623047,
+        -275.0,
+        0.0
+      ],
+      "bounds_max": [
+        530.0,
+        342.5,
+        260.0
+      ],
+      "intended_min": [
+        -204.60000610351562,
+        -342.5,
+        0.0
+      ],
+      "intended_max": [
+        530.0,
+        275.0,
+        260.0
+      ],
+      "authored_coordinate_match": false,
+      "y_reflected_match": true
+    }
+  ],
+  "mutates_assets": false
+}

@@ -1,0 +1,235 @@
+{
+  "schema": "biella.d17.raw_input_plan/v1",
+  "task_id": "D17-01",
+  "scope": "Route feasibility only on preserved D08 Linux package while changed-content cook runs. Ordinary early engagement tests whether accepted player action can prevent immediate rival-caused success. Intended targets/route are not asserted outcomes; no source/mechanic or actor-state changes.",
+  "actions": [
+    {
+      "at": 0,
+      "input": [
+        "keydown",
+        "w"
+      ],
+      "beat": "advance through initial encounter"
+    },
+    {
+      "at": 0.05,
+      "input": [
+        "keydown",
+        "Shift_L"
+      ],
+      "beat": "sprint to rival with normal controls"
+    },
+    {
+      "at": 1.8,
+      "input": [
+        "mousedown",
+        "1"
+      ],
+      "beat": "engage nearest real opponent using accepted weapon selection"
+    },
+    {
+      "at": 1.9,
+      "input": [
+        "mouseup",
+        "1"
+      ],
+      "beat": "release trigger"
+    },
+    {
+      "at": 2.25,
+      "input": [
+        "mousedown",
+        "1"
+      ],
+      "beat": "engage nearest real opponent using accepted weapon selection"
+    },
+    {
+      "at": 2.35,
+      "input": [
+        "mouseup",
+        "1"
+      ],
+      "beat": "release trigger"
+    },
+    {
+      "at": 2.7,
+      "input": [
+        "mousedown",
+        "1"
+      ],
+      "beat": "engage nearest real opponent using accepted weapon selection"
+    },
+    {
+      "at": 2.8,
+      "input": [
+        "mouseup",
+        "1"
+      ],
+      "beat": "release trigger"
+    },
+    {
+      "at": 3.15,
+      "input": [
+        "mousedown",
+        "1"
+      ],
+      "beat": "engage nearest real opponent using accepted weapon selection"
+    },
+    {
+      "at": 3.25,
+      "input": [
+        "mouseup",
+        "1"
+      ],
+      "beat": "release trigger"
+    },
+    {
+      "at": 3.6,
+      "input": [
+        "mousedown",
+        "1"
+      ],
+      "beat": "engage nearest real opponent using accepted weapon selection"
+    },
+    {
+      "at": 3.7,
+      "input": [
+        "mouseup",
+        "1"
+      ],
+      "beat": "release trigger"
+    },
+    {
+      "at": 4.05,
+      "input": [
+        "mousedown",
+        "1"
+      ],
+      "beat": "engage nearest real opponent using accepted weapon selection"
+    },
+    {
+      "at": 4.15,
+      "input": [
+        "mouseup",
+        "1"
+      ],
+      "beat": "release trigger"
+    },
+    {
+      "at": 8,
+      "input": [
+        "keyup",
+        "Shift_L"
+      ],
+      "beat": "continue through street population"
+    },
+    {
+      "at": 12,
+      "input": [
+        "keydown",
+        "d"
+      ],
+      "beat": "approach service side of street"
+    },
+    {
+      "at": 14,
+      "input": [
+        "keyup",
+        "d"
+      ],
+      "beat": "continue east"
+    },
+    {
+      "at": 20,
+      "input": [
+        "keyup",
+        "w"
+      ],
+      "beat": "turn into existing environment approach"
+    },
+    {
+      "at": 20.1,
+      "input": [
+        "mousemove_relative",
+        "--",
+        "112",
+        "0"
+      ],
+      "beat": "look toward service-side structures"
+    },
+    {
+      "at": 20.4,
+      "input": [
+        "keydown",
+        "w"
+      ],
+      "beat": "traverse under normal camera"
+    },
+    {
+      "at": 28,
+      "input": [
+        "keyup",
+        "w"
+      ],
+      "beat": "inspect actual approach"
+    },
+    {
+      "at": 28.1,
+      "input": [
+        "keydown",
+        "e"
+      ],
+      "beat": "attempt prompted environment interaction if in reach"
+    },
+    {
+      "at": 28.3,
+      "input": [
+        "keyup",
+        "e"
+      ],
+      "beat": "release interaction"
+    },
+    {
+      "at": 29,
+      "input": [
+        "keydown",
+        "w"
+      ],
+      "beat": "continue navigable route"
+    },
+    {
+      "at": 40,
+      "input": [
+        "mousemove_relative",
+        "--",
+        "-112",
+        "0"
+      ],
+      "beat": "turn back along street"
+    },
+    {
+      "at": 55,
+      "input": [
+        "keydown",
+        "Shift_L"
+      ],
+      "beat": "continue moving through population"
+    },
+    {
+      "at": 90,
+      "input": [
+        "keyup",
+        "Shift_L"
+      ],
+      "beat": "inspect subsequent route while walking"
+    },
+    {
+      "at": 118,
+      "input": [
+        "keyup",
+        "w"
+      ],
+      "beat": "end bounded route feasibility probe"
+    }
+  ]
+}

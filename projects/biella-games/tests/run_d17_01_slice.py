@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""D17-01 raw route observation using the exact accepted installed package.
+"""D17-01 raw route observation using an exact verified installed package.
 
 This creates evidence, not an acceptance verdict. A short probe, terminal screen,
 or successful capture never qualifies the required 10–20 minute AAA slice.
@@ -75,7 +75,7 @@ def main():
             'binary': identity(directory / 'payload' / manifest['binary']),
             'configuration': manifest['configuration'], 'platform': manifest['platform'],
             'source_revision_at_capture': source_revision(),
-            'scope': 'unchanged accepted Linux Development package; not Win64 Shipping'})
+            'scope': 'Byte-verified Linux Development package; not visual acceptance or Win64 Shipping'})
         driver = PROJECT / 'tests/d17_01_raw_input.py'
         write(output / 'inputs.json', {'driver': identity(driver), 'plan': identity(args.plan),
                                       'runner': identity(Path(__file__))})

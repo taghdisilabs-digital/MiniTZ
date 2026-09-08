@@ -19,7 +19,7 @@ def members(root):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--task-id', choices=('D03-01', 'D08-01'), default='D03-01')
+    parser.add_argument('--task-id', choices=('D03-01', 'D08-01', 'D17-01'), default='D03-01')
     parser.add_argument('--cook', type=Path, required=True)
     parser.add_argument('--archive', type=Path, required=True)
     parser.add_argument('--dependencies', type=Path, required=True)

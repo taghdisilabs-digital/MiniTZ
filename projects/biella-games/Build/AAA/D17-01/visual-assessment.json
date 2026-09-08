@@ -1,16 +1,35 @@
 {
   "task_id": "D17-01",
   "status": "REJECTED_CURRENT_CANDIDATE",
-  "method": "Direct inspection of decoded frames from the task's unedited normal-camera runtime captures; source/build/input/telemetry retained separately",
+  "method": "Direct inspection of decoded frames from unedited normal-camera raw captures, plus explicitly separate editor and installed-package environment fixture frames; exact source/build/input/telemetry retained separately",
   "baseline_frame": "raw/entry-720-02/frame-13.png",
-  "current_frames": ["raw/hud-720-01/frame-13.png", "raw/hud-1080-01/frame-04.png"],
-  "improved_boundary": "Upper objective and status panels occupy less of the viewport; objective, health, ammunition and threats remain readable in inspected frames. Existing native behavior regressions passed.",
+  "current_frames": [
+    "raw/service-720-01/frame-13.png",
+    "raw/service-720-01/frame-25.png",
+    "raw/service-1080-01/frame-04.png"
+  ],
+  "improved_boundary": "Compact native HUD retained. Editor and installed-package fixtures show authored service-panel ribs/channels, cabinet louvers, and warm task lamps aligned with mounted housings. Existing panel damage, physics, traversal, power-switch, shared-hazard and streaming checks pass in the recooked package. This partial construction detail does not meet the final scene-wide visual bar. The normal-camera service-720-01 frame-13 also shows the authored service bay during street traversal, without fixture positioning; switch/destruction behavior there remains qualified only by the separate fixture.",
   "major_defects": [
-    {"id": "focal_art", "finding": "Blue/yellow/red mannequin presentation, primitive infected body and block-like weapon remain in the focal encounter."},
-    {"id": "world_density", "finding": "Broad empty road, repeated facades and box-shaped service structure lack dense industrial layers and authored depth."},
-    {"id": "materials", "finding": "Road and structures remain flat and dry-looking; wetness, wear, material separation and coherent reflected light are missing."},
-    {"id": "infection", "finding": "No visible organic infection invades engineered structures. Red actor colors do not satisfy this requirement."},
-    {"id": "lighting", "finding": "Clear daylight and exposed sky do not provide the required cold storm atmosphere with motivated warm practical task lights."}
+    {
+      "id": "focal_art",
+      "finding": "Blue/yellow/red mannequin presentation, primitive infected body and block-like weapon remain in the focal encounter."
+    },
+    {
+      "id": "world_density",
+      "finding": "The service bay gains authored construction detail, but the approach remains a broad empty road with repeated facades and primitive interior structure; dense vertical industrial layers are absent."
+    },
+    {
+      "id": "materials",
+      "finding": "Steel/paint/rubber separation is visible on the service bay, but coarse mottling, whole-panel orange damage feedback and the unsupported colored switch cube remain. Road and surrounding structures lack convincing wet wear, reflected light and material detail."
+    },
+    {
+      "id": "infection",
+      "finding": "No visible organic infection invades engineered structures. Red actor colors do not satisfy this requirement."
+    },
+    {
+      "id": "lighting",
+      "finding": "Two motivated warm task lamps now illuminate the panels, but clear daylight and exposed sky still lack the required cold storm atmosphere and coherent scene-wide lighting contrast."
+    }
   ],
   "unproven": [
     "No arena-pressure consequence was reached in a raw run.",
@@ -19,5 +38,24 @@
     "No final temporal-quality or raw audio qualification is claimed."
   ],
   "zero_major_defects": false,
-  "scope": "Preserves accepted mechanics evidence; rejects current final visual quality. Does not reopen predecessor task acceptance."
+  "scope": "Preserves accepted mechanics evidence; rejects current final visual quality. Does not reopen predecessor task acceptance.",
+  "service_bay_editor_frames": [
+    "environment/editor-runtime-01/captures/switch_safe.png",
+    "environment/editor-runtime-01/captures/panel_damaged.png"
+  ],
+  "service_bay_limit": "Editor and installed-package automation position actors/camera and drive states. These frames validate the affected layer only; they are not a raw canonical-slice run or final acceptance.",
+  "service_bay_packaged_frames": [
+    "environment/runtime-02/captures/switch_safe.png",
+    "environment/runtime-02/captures/panel_damaged.png"
+  ],
+  "previous_frames": [
+    "raw/hud-720-01/frame-13.png",
+    "raw/hud-1080-01/frame-04.png"
+  ],
+  "service_bay_coordinate_defect": {
+    "status": "CONFIRMED",
+    "evidence": "environment/coordinate-readback-01/validation.json",
+    "observed": "Imported fixed metalwork matches the Y-reflection of authored bounds. Cabinet authored at Y=-310 appears on the opposite side from its unchanged collision and switch.",
+    "next_action": "Correct the FBX handedness conversion, reimport and check asymmetric imported bounds; retain collision and switch coordinates, then qualify the changed package."
+  }
 }

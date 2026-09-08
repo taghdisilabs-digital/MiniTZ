@@ -183,15 +183,53 @@
     },
     {
       "path": "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
-      "sha256": "2e2b28fb962fdaa5d73cbc7142dec7885c19f160d7ae33ba5651b2a7acfc3dd9",
-      "bytes": 12306
+      "sha256": "758a71d3fdd1933601cfd69c303ede7a4660549deea3f8779f3928d57281e549",
+      "bytes": 14229
+    },
+    {
+      "path": "SourceAssets/Environment/build_service_bay.py",
+      "sha256": "34441393526c58c7072dc1b7c39654ee20eca868a4f2e7ee83f0dc5d6d949e71",
+      "bytes": 7707
+    },
+    {
+      "path": "SourceAssets/Environment/ServiceBay.blend",
+      "sha256": "9bcd8df6928659f659c2cfc32bae9d59fd0ae45da6c5976cc4a6bb6e8a53dc06",
+      "bytes": 134461
+    },
+    {
+      "path": "Content/Python/author_service_bay.py",
+      "sha256": "fc5ff9c48fa3fa0f09143e07ffdf4ad9e8bce500cf2f398c2fe04bf740be8933",
+      "bytes": 10604
     }
   ],
   "first_raw_run": "Build/AAA/D17-01/raw/entry-720-02/observation.json",
   "acceptance": "INCOMPLETE: observed native terminal prevents the duration/route contract; pressure consequence and zero-major visual quality are unproven or failing. Scenario timing is not proof.",
-  "current_native_build": "Build/AAA/D17-01/build/game-01/result.json",
-  "current_raw_runs": [
+  "current_native_build": "Build/AAA/D17-01/build/game-02/result.json",
+  "previous_raw_runs": [
     "Build/AAA/D17-01/raw/hud-720-01/observation.json",
     "Build/AAA/D17-01/raw/hud-1080-01/observation.json"
-  ]
+  ],
+  "current_raw_runs": [
+    "Build/AAA/D17-01/raw/service-720-01/observation.json",
+    "Build/AAA/D17-01/raw/service-1080-01/observation.json"
+  ],
+  "current_package_status": "Native game/editor builds, fresh asset readback, isolated cook, stage/archive exact readback, installation and packaged environment interaction regression PASS. Raw 720p/1080p diagnostic captures preserved; final slice acceptance remains INCOMPLETE.",
+  "scope_findings": "Build/AAA/D17-01/environment/scope-findings.json",
+  "current_package": {
+    "package_id": "1c539e9274baf5ba24ab603d2238dd0cef2069e5030dc8cc1e966622d50892a1",
+    "manifest": {
+      "path": "Build/AAA/D17-01/build/package-02/package-manifest.json",
+      "sha256": "d54c69e75a9792b8d3df714a1a5a4ab59def3a1210b34e5454d1aa00ca47a592",
+      "bytes": 8669
+    },
+    "archive": {
+      "bytes": 481750430,
+      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-02.tar.zst",
+      "sha256": "2fd394366130ae69770c6f7f9a3ab53e48ff5e322fc834012c25ef75cc9c04ad"
+    },
+    "source_material_digest": "7968dc8bab6d64dc0b892aec5f38003a30d441432ed1dd65383284d754fc3621",
+    "overlay": false
+  },
+  "route_feasibility_probe": "Build/AAA/D17-01/raw/route-rival-01/observation.json",
+  "observed_route_limits": "service-720-01 frame-13 shows the authored service bay from the normal moving camera; no normal-input switch or destruction beat is proven. Later interior/terrace/return beats remain unproven. Current raw runs end at 32.21046835085144 and 8.700799009704497 active simulation seconds."
 }

@@ -1,0 +1,24 @@
+{
+  "result": "PASS",
+  "format": "Blender native editable scene",
+  "blender": "5.0.1",
+  "source": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/ServiceBay.blend",
+  "source_sha256": "9bcd8df6928659f659c2cfc32bae9d59fd0ae45da6c5976cc4a6bb6e8a53dc06",
+  "mesh_objects": 88,
+  "editable_groups": {
+    "SM_ServiceBayMetalwork editable components": 55,
+    "SM_ServicePanel120 editable components": 14,
+    "SM_ServicePanel240 editable components": 19
+  },
+  "bevel_modifiers": 88,
+  "cabinet_location": [
+    -170.0,
+    -310.0,
+    80.0
+  ],
+  "cabinet_dimensions": [
+    65.0,
+    65.0,
+    160.0
+  ]
+}

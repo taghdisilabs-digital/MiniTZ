@@ -1,0 +1,17 @@
+{
+  "driver": {
+    "bytes": 7686,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/d17_01_raw_input.py",
+    "sha256": "73578de1303d53b6f90f8753f35ccdf92397eae0bc37f91d7213be865987811a"
+  },
+  "plan": {
+    "bytes": 4350,
+    "path": "Build/AAA/D17-01/rival-intercept-input.json",
+    "sha256": "6e2e8f5f5a6aca6d8e64882af83105744e4ec4e60405b2f602ffbc9f54a7368a"
+  },
+  "runner": {
+    "bytes": 8406,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d17_01_slice.py",
+    "sha256": "21c2a5878db2cd29670bf05b2904e1ec6f6520ee682bc66fac4839987b00777e"
+  }
+}

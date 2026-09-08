@@ -384,7 +384,7 @@ SCENARIOS = {
 }
 
 
-def launch_installed(root, state, output, scenario, settings_phase='read', timeout=360):
+def launch_installed(root, state, output, scenario, settings_phase='read', timeout=360, task_id='D08-01'):
     import pwd
     from run_d01_042 import ensure_runtime_output
     from run_d01_044 import host_identity, monitor
@@ -404,7 +404,7 @@ def launch_installed(root, state, output, scenario, settings_phase='read', timeo
             ensure_runtime_output(state / name, account)
     state_before = [identity(p) for p in sorted(state.rglob('*.ini'))]
     native, world, output_arg = SCENARIOS[scenario]
-    report = {'task_id': 'D08-01', 'result': 'FAIL', 'observed': now(), 'package_id': manifest['package_id'],
+    report = {'task_id': task_id, 'result': 'FAIL', 'observed': now(), 'package_id': manifest['package_id'],
               'manifest': identity(directory / 'manifest.json'), 'scenario': scenario, 'host': host_identity(),
               'orchestrator': identity(__file__),
               'state': str(state), 'settings_before': state_before,

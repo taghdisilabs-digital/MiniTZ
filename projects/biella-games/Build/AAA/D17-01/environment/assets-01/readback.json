@@ -1,0 +1,60 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "mode": "readback",
+  "source_sha256": "532a93a1bf108a737afc3f9f5a9dbc3e57ad02cb336001101f5c146955afe2a6",
+  "meshes": [
+    {
+      "asset": "/Game/Environment/ServiceBay/SM_ServicePanel120",
+      "source_sha256": "310de844ce9fd59a805877e3db1c787fd1550cb54b9944fc5953672cbfe64ba0",
+      "bounds_extent": [
+        50.000003814697266,
+        50.000003814697266,
+        50.0
+      ],
+      "collision_boxes": 1,
+      "triangles": 3016,
+      "materials": [
+        "Paint",
+        "Steel",
+        "Rubber"
+      ]
+    },
+    {
+      "asset": "/Game/Environment/ServiceBay/SM_ServicePanel240",
+      "source_sha256": "9d9e932262dad506a6038543c3a96f33d476e8e555a62c9abf2a1a0cc669be9a",
+      "bounds_extent": [
+        50.000003814697266,
+        50.000003814697266,
+        50.0
+      ],
+      "collision_boxes": 1,
+      "triangles": 3956,
+      "materials": [
+        "Paint",
+        "Steel",
+        "Rubber"
+      ]
+    },
+    {
+      "asset": "/Game/Environment/ServiceBay/SM_ServiceBayMetalwork",
+      "source_sha256": "b13e373fb7990801fc8d81e96ce62afcc0f4d154e4ca9b4a0d3146c4cbe63ea7",
+      "bounds_extent": [
+        367.30001068115234,
+        308.75,
+        130.0
+      ],
+      "collision_boxes": 0,
+      "triangles": 11492,
+      "materials": [
+        "Steel",
+        "Paint",
+        "Rubber",
+        "Lamp"
+      ]
+    }
+  ],
+  "master": "/Game/Environment/ServiceBay/M_ServiceMetal.M_ServiceMetal",
+  "status": "GENERATED_DRAFT",
+  "collision": "Panel boxes retain unit bounds; fixed dressing has no collision"
+}

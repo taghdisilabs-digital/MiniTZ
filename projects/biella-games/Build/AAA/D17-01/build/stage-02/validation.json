@@ -1,0 +1,38 @@
+{
+  "task_id": "D17-01",
+  "result": "FAIL",
+  "revision": {
+    "head": "57190a294440c4dfa6deb9a9a50d23442c66fbc8",
+    "head_tree": "1450f6ea37ab745c57d229c8c67e0ed3b0b3c397",
+    "project_status": [
+      " M Build/AAA/D17-01/scenario.json",
+      " M Build/AAA/D17-01/visual-assessment.json",
+      " M Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
+      " M tests/build_d03_01_editor.py",
+      " M tests/cook_d03_01_package.py",
+      " M tests/qualify_d17_01.py",
+      " M tests/run_d02_04.py",
+      " M tests/run_d08_01_release.py",
+      " M tests/run_d17_01_slice.py",
+      " M tests/stage_d03_01_package.py",
+      "?? Build/AAA/D17-01/environment/",
+      "?? Build/AAA/D17-01/raw/route-rival-01/",
+      "?? Build/AAA/D17-01/rival-intercept-input.json",
+      "?? Content/Environment/",
+      "?? Content/Python/author_service_bay.py",
+      "?? SourceAssets/Environment/",
+      "?? tests/author_d17_01_service_bay.py",
+      "?? tests/package_d17_01.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "cook": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/build/cook-02/validation.json",
+    "sha256": "12e4682314acc4e003d830cd6ba4c1531be8ddff699c2df91fb5c34e420b3a35",
+    "bytes": 9894480
+  },
+  "destination": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/stage-02-archive",
+  "capture_status": "GENERATED_DRAFT",
+  "error": "Cook input/output changed: /mnt/biella-extra/biella-runtime/d17-01/cook-service-02/project/Config/DefaultEngine.ini",
+  "elapsed_seconds": 0.0002078340039588511
+}

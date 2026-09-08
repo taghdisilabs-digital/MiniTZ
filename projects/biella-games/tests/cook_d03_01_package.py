@@ -27,7 +27,7 @@ def project_inputs():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--task-id', choices=('D03-01', 'D08-01'), default='D03-01')
+    parser.add_argument('--task-id', choices=('D03-01', 'D08-01', 'D17-01'), default='D03-01')
     parser.add_argument('--workspace', type=Path, required=True)
     parser.add_argument('--game-build', type=Path, required=True)
     parser.add_argument('--editor-build', type=Path, help='Require exact source and module bytes from an editor build receipt')

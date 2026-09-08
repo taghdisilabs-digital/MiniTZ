@@ -1,0 +1,46 @@
+{
+  "binary": {
+    "bytes": 299185984,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/1c539e9274baf5ba24ab603d2238dd0cef2069e5030dc8cc1e966622d50892a1/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "38403bd19aa32fb82ff8b9424213b96e451ede3de083065805f9343c8a88bde0"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/1c539e9274baf5ba24ab603d2238dd0cef2069e5030dc8cc1e966622d50892a1/payload",
+  "manifest": {
+    "bytes": 8669,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/1c539e9274baf5ba24ab603d2238dd0cef2069e5030dc8cc1e966622d50892a1/manifest.json",
+    "sha256": "d54c69e75a9792b8d3df714a1a5a4ab59def3a1210b34e5454d1aa00ca47a592"
+  },
+  "package_id": "1c539e9274baf5ba24ab603d2238dd0cef2069e5030dc8cc1e966622d50892a1",
+  "platform": "Linux",
+  "scope": "Byte-verified Linux Development package; not visual acceptance or Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "57190a294440c4dfa6deb9a9a50d23442c66fbc8",
+    "head_tree": "1450f6ea37ab745c57d229c8c67e0ed3b0b3c397",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      " M Build/AAA/D17-01/scenario.json",
+      " M Build/AAA/D17-01/visual-assessment.json",
+      " M Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
+      " M tests/build_d03_01_editor.py",
+      " M tests/cook_d03_01_package.py",
+      " M tests/qualify_d17_01.py",
+      " M tests/run_d02_04.py",
+      " M tests/run_d08_01_release.py",
+      " M tests/run_d17_01_slice.py",
+      " M tests/stage_d03_01_package.py",
+      "?? Build/AAA/D17-01/environment/",
+      "?? Build/AAA/D17-01/raw/route-rival-01/",
+      "?? Build/AAA/D17-01/raw/service-720-01/",
+      "?? Build/AAA/D17-01/rival-intercept-input.json",
+      "?? Content/Environment/",
+      "?? Content/Python/author_service_bay.py",
+      "?? SourceAssets/Environment/",
+      "?? tests/author_d17_01_service_bay.py",
+      "?? tests/package_d17_01.py",
+      "?? tests/repair_d17_01_cook_config.py"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T13:27:50.088701+00:00"
+}

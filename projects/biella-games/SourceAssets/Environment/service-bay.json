@@ -1,0 +1,85 @@
+{
+  "schema": "biella.service_bay.art/v1",
+  "status": "GENERATED_DRAFT",
+  "source": "build_service_bay.py",
+  "source_sha256": "34441393526c58c7072dc1b7c39654ee20eca868a4f2e7ee83f0dc5d6d949e71",
+  "provenance": "Biella-authored mesh; no third-party geometry or textures",
+  "blender": "5.0.1",
+  "assets": [
+    {
+      "mesh": "SM_ServicePanel120",
+      "fbx": "SM_ServicePanel120.fbx",
+      "sha256": "310de844ce9fd59a805877e3db1c787fd1550cb54b9944fc5953672cbfe64ba0",
+      "triangles": 3016,
+      "bounds_min": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "bounds_max": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "normalized_envelope_cm": [
+        12,
+        120,
+        210
+      ],
+      "material_slots": [
+        "Paint",
+        "Steel",
+        "Rubber"
+      ]
+    },
+    {
+      "mesh": "SM_ServicePanel240",
+      "fbx": "SM_ServicePanel240.fbx",
+      "sha256": "9d9e932262dad506a6038543c3a96f33d476e8e555a62c9abf2a1a0cc669be9a",
+      "triangles": 3956,
+      "bounds_min": [
+        -50.0,
+        -50.0,
+        -50.0
+      ],
+      "bounds_max": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "normalized_envelope_cm": [
+        12,
+        240,
+        210
+      ],
+      "material_slots": [
+        "Paint",
+        "Steel",
+        "Rubber"
+      ]
+    },
+    {
+      "mesh": "SM_ServiceBayMetalwork",
+      "fbx": "SM_ServiceBayMetalwork.fbx",
+      "sha256": "b13e373fb7990801fc8d81e96ce62afcc0f4d154e4ca9b4a0d3146c4cbe63ea7",
+      "triangles": 11492,
+      "bounds_min": [
+        -204.60000610351562,
+        -342.5,
+        0.0
+      ],
+      "bounds_max": [
+        530.0,
+        275.0,
+        260.0
+      ],
+      "normalized_envelope_cm": null,
+      "material_slots": [
+        "Steel",
+        "Paint",
+        "Rubber",
+        "Lamp"
+      ]
+    }
+  ]
+}

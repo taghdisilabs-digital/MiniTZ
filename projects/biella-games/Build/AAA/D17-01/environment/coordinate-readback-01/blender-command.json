@@ -1,0 +1,7 @@
+[
+  "/usr/local/bin/blender",
+  "--background",
+  "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/ServiceBay.blend",
+  "--python",
+  "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/coordinate-readback-01/inspect_blender.py"
+]

@@ -1,0 +1,184 @@
+{
+  "task_id": "D17-01",
+  "status": "UNMET_CRITERIA_RETAINED",
+  "sources": [
+    {
+      "path": "docs/runtime-contracts/AAA_TPP_RUNTIME_CONTRACTS_31_39.md",
+      "sha256": "bc690c5f971e4e38bb06a7834f5a1694ed64ace4dccd112b147d1c650aaae540",
+      "bytes": 18707
+    },
+    {
+      "path": "docs/DEMO_01_PACKAGED_ACCEPTANCE.md",
+      "sha256": "eb9ed35c5677d15a9a2c633ebcc52bfa3c520c34dadfa1e998fd72b8595fa21c",
+      "bytes": 3836
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp",
+      "sha256": "93b371b4f14ceb12f43d07dc6c7c51441a1ae148b857f1dab168f4c223433e35",
+      "bytes": 15319
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaDemoObjectiveManager.cpp",
+      "sha256": "c51037e42a20c8100519c0e3bbba6f6a4dd665bab401d9ac99107669540d729a",
+      "bytes": 6907
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGamesPlayerController.cpp",
+      "sha256": "7ce6872b8449f6bb39516a2927be1ae054978789f2f669779e165334f9e59bbd",
+      "bytes": 10278
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaWorldContinuity.cpp",
+      "sha256": "51df4ea55e9f63c838f65b6a0148c116019cb7fcca6a3ce7b89b3cc10e22594c",
+      "bytes": 17015
+    },
+    {
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/telemetry.jsonl",
+      "sha256": "81a1bf866db58bbf71ba42661f48dcfeeda2d2f438052cdf435a781f877f714f",
+      "bytes": 6735
+    },
+    {
+      "path": "Build/AAA/D17-01/raw/route-rival-01/telemetry.jsonl",
+      "sha256": "1a80b42305faf529cc3967e7609d9063cfe74ee37ff76dcb8a4a3364473b3389",
+      "bytes": 22933
+    }
+  ],
+  "findings": [
+    {
+      "criterion": "natural_arena_pressure",
+      "fact": "Contract 33 leaves the exact mechanic, timing and escalation UNKNOWN. Accepted packaged pressure evidence invokes the authoritative API from fixtures. Native ApplyArenaPressure explicitly adds no elapsed-time escalation.",
+      "decision": "Do not invent a timer or connect the service-bay power switch to pressure. Player-reachable pressure remains unqualified; inspect an exact accepted content trigger only when one is identified."
+    },
+    {
+      "criterion": "continuous_600_1200_seconds",
+      "fact": "Demo objective resolution sets Success and the player controller disables movement/look. Prior raw runs terminate in 9.41\u201334.10 simulation seconds.",
+      "decision": "Preserve accepted terminal behavior. A supported continuous content sequence is not yet established; restart stitching and idle padding remain prohibited.",
+      "causal_evidence": "BiellaOpenWorldGameMode inherits SpawnDemoActors and the two-target Demo objective. BiellaDemoObjectiveManager excludes streaming infected. In hud-1080-01 telemetry the rival alone kills both tracked infected by 9.3066 s; Success follows at 9.4109 s even while streamed population survives. This identifies the early terminal cause without changing accepted behavior.",
+      "additional_probe": {
+        "run": "raw/route-rival-01",
+        "input_plan": "rival-intercept-input.json",
+        "package": "preserved D08 Linux installed package; no native overlay",
+        "active_simulation_seconds": 14.007807950431015,
+        "terminal": "Success",
+        "player_weapon_events": 3,
+        "observed": "Normal sprint/fire input hits a streaming infected and the first objective infected, not the rival. Population infected then join the target set (target rises from 2 to 6 before success). Rival fire clears the remaining target set. This corrects any inference that all later population is excluded from objective counting; BiellaStreamingInfected and BiellaPopulationInfected have different registration behavior.",
+        "objective_progress": [
+          {
+            "sim_seconds": 1.168297343829181,
+            "id": "Demo01ClearArena",
+            "progress": "1",
+            "remaining": "1",
+            "state": "Active",
+            "target": "2"
+          },
+          {
+            "sim_seconds": 4.316255836689379,
+            "id": "Demo01ClearArena",
+            "progress": "1",
+            "remaining": "2",
+            "state": "Active",
+            "target": "3"
+          },
+          {
+            "sim_seconds": 4.617074330279138,
+            "id": "Demo01ClearArena",
+            "progress": "1",
+            "remaining": "4",
+            "state": "Active",
+            "target": "5"
+          },
+          {
+            "sim_seconds": 5.011083952093031,
+            "id": "Demo01ClearArena",
+            "progress": "2",
+            "remaining": "3",
+            "state": "Active",
+            "target": "5"
+          },
+          {
+            "sim_seconds": 8.104914647468831,
+            "id": "Demo01ClearArena",
+            "progress": "3",
+            "remaining": "2",
+            "state": "Active",
+            "target": "5"
+          },
+          {
+            "sim_seconds": 11.70818829810014,
+            "id": "Demo01ClearArena",
+            "progress": "4",
+            "remaining": "1",
+            "state": "Active",
+            "target": "5"
+          },
+          {
+            "sim_seconds": 12.30372317781439,
+            "id": "Demo01ClearArena",
+            "progress": "5",
+            "remaining": "1",
+            "state": "Active",
+            "target": "6"
+          },
+          {
+            "sim_seconds": 14.007807950431015,
+            "id": "Demo01ClearArena",
+            "progress": "6",
+            "remaining": "0",
+            "state": "Active",
+            "target": "6"
+          },
+          {
+            "sim_seconds": 14.213506494590547,
+            "id": "Demo01ClearArena",
+            "progress": "6",
+            "remaining": "1",
+            "state": "Succeeded",
+            "target": "7"
+          },
+          {
+            "sim_seconds": 15.412084757292178,
+            "id": "Demo01ClearArena",
+            "progress": "7",
+            "remaining": "0",
+            "state": "Succeeded",
+            "target": "7"
+          },
+          {
+            "sim_seconds": 15.613617894181516,
+            "id": "Demo01ClearArena",
+            "progress": "7",
+            "remaining": "1",
+            "state": "Succeeded",
+            "target": "8"
+          }
+        ],
+        "conclusion": "This ordinary-input attempt does not establish a continuous route. It does not prove that every possible input route fails."
+      }
+    }
+  ],
+  "independent_work": "Authored service-bay mesh/material/practical-light replacement is now built, recooked and validated in the installed package. The normal 720p run shows the bay in the traversed street. Next independent creation: service-bay wet approach surfaces, supported switch mounting and integrated organic infection, preserving validated collision and gameplay.",
+  "current_package_raw": [
+    {
+      "run": "service-720-01",
+      "telemetry": {
+        "path": "Build/AAA/D17-01/raw/service-720-01/telemetry.jsonl",
+        "sha256": "59ad374e66102623a76dd78d1a1c0c11db6728bfec30a3c7496ac7876eb3b330",
+        "bytes": 35745
+      },
+      "terminal_simulation_seconds": 32.21046835085144,
+      "duration_satisfied": false,
+      "arena_pressure_events": 0
+    },
+    {
+      "run": "service-1080-01",
+      "telemetry": {
+        "path": "Build/AAA/D17-01/raw/service-1080-01/telemetry.jsonl",
+        "sha256": "8dfaec87a24db19f4820ada1167bd8541ae1383c2ed1cbe1f13bde94af9b6e5c",
+        "bytes": 7087
+      },
+      "terminal_simulation_seconds": 8.700799009704497,
+      "duration_satisfied": false,
+      "arena_pressure_events": 0
+    }
+  ]
+}

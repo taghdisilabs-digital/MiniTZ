@@ -14,6 +14,7 @@ from run_d02_01 import identities, monitor, reject_material_fallbacks, runtime_h
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--task-id', choices=('D02-04', 'D17-01'), default='D02-04')
     p.add_argument('--fps', type=int, choices=(30, 60, 120), default=60)
     args = p.parse_args()
     out = args.output.resolve()
@@ -24,7 +25,7 @@ def main():
                  PROJECT.parents[1] / 'docs/project-state/04_BIELLA_ACTIVE_TASK.md', PROJECT / 'docs/PRODUCTION.md']
     def inputs():
         return identities(DEFAULT_EDITOR) + [file_identity(Path(__file__)), file_identity(PROJECT / 'tests/verify_d02_04.py')]
-    report = dict(task_id='D02-04', result='FAIL', revision=source_revision(),
+    report = dict(task_id=args.task_id, result='FAIL', revision=source_revision(),
                   requested_frame_cap=args.fps, capture_status='GENERATED_DRAFT',
                   identities_before=inputs(), protected_before=[file_identity(x) for x in protected])
     write_json(out / 'validation.json', report)
@@ -55,7 +56,7 @@ def main():
     except (AssertionError, OSError, ValueError, KeyError) as e:
         report['error'] = str(e)
         with Path('/mnt/biella-extra/biella-runtime/codex-production/failures.jsonl').open('a') as f:
-            f.write(json.dumps(dict(task_id='D02-04', time=datetime.now(timezone.utc).isoformat(),
+            f.write(json.dumps(dict(task_id=args.task_id, time=datetime.now(timezone.utc).isoformat(),
                                     type='runtime_validation', status='CONTINUE', diagnostics=str(e), evidence=str(out))) + '\n')
     write_json(out / 'validation.json', report)
     print(json.dumps({k: report[k] for k in ('task_id', 'result')} | {'output': str(out), 'error': report.get('error')}, indent=2))
