@@ -200,7 +200,7 @@ def test_start_production_uses_persistent_systemd_unit(tmp_path: Path, monkeypat
     monkeypatch.setattr(runner.state, "resolve_current_task", lambda *_args, **_kwargs: object())
     monkeypatch.setattr(runner.subprocess, "run", lambda cmd, **kwargs: calls.append(cmd) or Completed())
     assert runner.start_production(tmp_path, tmp_path / "project", tmp_path / "runtime") == 0
-    assert calls == [["systemctl", "start", "biella-codex-production.service"]]
+    assert calls == [["systemctl", "enable", "--now", "biella-codex-production.service"]]
 
 
 def test_persistent_production_unit_is_enabled_resume_contract():

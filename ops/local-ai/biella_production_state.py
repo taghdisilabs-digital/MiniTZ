@@ -247,14 +247,36 @@ def sync_current_state(repo_root: Path, production: ProductionState, task: TaskR
     if not path.exists():
         return
     lines = path.read_text(encoding="utf-8").splitlines()
-    _remove_yaml_block_field(lines, "active_execution", "feeder")
-    _remove_yaml_block_field(lines, "active_execution", "execution_started")
+    for field in ("feeder", "execution_started", "controller_service_state", "runner_process_state",
+                  "codex_child_process_state", "authoritative_persistent_task_session_id",
+                  "latest_attempt", "active_model", "active_reasoning", "current_increment",
+                  "predecessor", "predecessor_status"):
+        _remove_yaml_block_field(lines, "active_execution", field)
+    for field in ("source_alignment_commit", "source_alignment_tree"):
+        _remove_yaml_block_field(lines, "repository", field)
+    for field in ("running_customer_count", "current_state"):
+        _remove_yaml_block_field(lines, "customer_execution", field)
+    for field in ("current_frontier", "D03_01"):
+        _remove_yaml_block_field(lines, "games", field)
     task_id = task.id if task else "NONE"
+    completed = completed_count(production)
+    total = sum(len(section.tasks) for section in production.sections)
+    _update_yaml_block(lines, "repository", {
+        "source_identity_source": "LIVE_GIT_PLUS_RUNTIME",
+    })
     _update_yaml_block(lines, "active_execution", {
         "id": task_id, "project": "Biella Games", "section": task.section_id if task else "NONE",
         "state": state, "runner": "READY" if task else "STOPPED",
+        "runtime_state_source": "/mnt/biella-extra/biella-runtime/codex-production/runtime.json",
+    })
+    _update_yaml_block(lines, "customer_execution", {
+        "runtime_state_source": "DOCKER_PLUS_CUSTOMER_HANDOFF_RUNTIME",
     })
     _update_yaml_block(lines, "games", {
+        "current_section": task.section_id if task else "NONE",
+        "current_task": task_id,
+        "completed_tasks": str(completed),
+        "total_tasks": str(total),
         "completed_demo_tasks": str(completed_demo_count(production)),
         "queued_successor": task_id,
         "task_boundary": f"{task_id}_{state}",

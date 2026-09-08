@@ -67,6 +67,7 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 
 ## Volatile state and validation
 - `03` and `04` are live continuity/observer records and may change while production remains valid.
+- `03` and `04` do not persist attempt numbers, PIDs, child liveness, active model/reasoning, or point-in-time Git commit/tree snapshots. Those fast-changing facts are read from `runtime.json`, systemd and live Git so a restart cannot make canonical continuity files stale by construction.
 - Gameplay/runtime validators must not use exact byte identity of `03` or `04` as a correctness gate.
 - Stable project authority such as the active Project `PRODUCTION.md`, exact implementation inputs, artifacts, and task-derived evidence remain valid validation inputs.
 

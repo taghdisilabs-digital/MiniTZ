@@ -15,31 +15,21 @@ repository:
   canonical_checkout: /root/biella/repos/biella-engine
   git_identity_source: LIVE_GIT_READ_REQUIRED
   source_alignment_gate: VERIFIED_GITHUB_MAIN_SAFE_FAST_FORWARD_OR_FAIL_CLOSED
-  source_alignment_commit: e74d7ac78df0ee277b6993ec826971f44f75b850
-  source_alignment_tree: 727b82151f354abcde37d6b40f63f4817e454069
 
+  source_identity_source: LIVE_GIT_PLUS_RUNTIME
 active_execution:
   id: D04-01
   project: Biella Games
   section: post_d01
-  state: RUNNING
+  state: PENDING
   controller: biella-codex
-  controller_service_state: ACTIVE
-  runner_process_state: RUNNING
-  codex_child_process_state: RUNNING
-  authoritative_persistent_task_session_id: 01a07e77-854b-76e0-9ce5-d05c33ee83ad
-  latest_attempt: 305
-  active_model: gpt-reserve
-  active_reasoning: max
-  current_increment: DATA_DRIVEN_CONTENT_SYSTEM_MULTIPLICATION
-  predecessor: D03-01
-  predecessor_status: COMPLETE_OWNER_ACCEPTED
 
+  runner: READY
+  runtime_state_source: /mnt/biella-extra/biella-runtime/codex-production/runtime.json
 customer_execution:
-  running_customer_count: 0
   project_cell_execution_model: ISOLATED_PROJECT_CELL
-  current_state: PAUSED_FOR_BIELLA_PRODUCTION
 
+  runtime_state_source: DOCKER_PLUS_CUSTOMER_HANDOFF_RUNTIME
 website:
   execution_model: NO_PERMANENT_WEBSITE_AGENT
   live_projection: DETERMINISTIC_READ_ONLY
@@ -52,9 +42,10 @@ games:
   current_task: D04-01
   completed_tasks: 60
   total_tasks: 168
-  current_frontier: data_driven_content_system_multiplication
-  D03_01: COMPLETE_OWNER_ACCEPTED
 
+  completed_demo_tasks: 50
+  queued_successor: D04-01
+  task_boundary: D04-01_PENDING
 resources:
   strong_route_policy: HIGHEST_QUALITY_ELIGIBLE
   forced_route: gpt-reserve

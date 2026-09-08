@@ -1076,7 +1076,7 @@ def start_production(repo_root: Path, project_root: Path, runtime_root: Path) ->
     if service_active():
         print(json.dumps({"unit": UNIT_NAME, "status": "ALREADY_RUNNING"}, sort_keys=True)); return 0
     state.resolve_current_task(repo_root, project_root)
-    proc = subprocess.run(["systemctl", "start", f"{UNIT_NAME}.service"], text=True, capture_output=True, check=False)
+    proc = subprocess.run(["systemctl", "enable", "--now", f"{UNIT_NAME}.service"], text=True, capture_output=True, check=False)
     if proc.returncode != 0:
         print(proc.stderr or proc.stdout, file=sys.stderr, end=""); return proc.returncode
     print(json.dumps({"unit": UNIT_NAME, "status": "STARTED"}, sort_keys=True)); return 0

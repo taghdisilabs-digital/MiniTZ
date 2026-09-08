@@ -189,3 +189,36 @@ def test_sync_current_state_demo_count_excludes_completed_post_d01_tasks(tmp_pat
     current_text = state_path.read_text(encoding="utf-8")
     assert "completed_demo_tasks: 3" in current_text
     assert "completed_demo_tasks: 4" not in current_text
+
+
+def test_sync_current_state_removes_volatile_runtime_snapshots_and_updates_program_progress(tmp_path: Path):
+    repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
+    state_path = repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md"
+    state_path.write_text(
+        "repository:\n  source_alignment_commit: old\n  source_alignment_tree: oldtree\n"
+        "active_execution:\n  id: D01-030\n  state: RUNNING\n  latest_attempt: 99\n  active_model: stale\n"
+        "  active_reasoning: stale\n  controller_service_state: ACTIVE\n  runner_process_state: RUNNING\n"
+        "  codex_child_process_state: RUNNING\n  authoritative_persistent_task_session_id: stale-session\n"
+        "  current_increment: old\n  predecessor: OLD\n  predecessor_status: OLD\n"
+        "customer_execution:\n  running_customer_count: 99\n  current_state: OLD\n"
+        "games:\n  current_task: OLD\n  current_section: OLD\n  completed_tasks: 0\n  total_tasks: 0\n",
+        encoding="utf-8",
+    )
+    production = state.load_project_production(project)
+    current = state.find_task(production, "D01-030")
+    state.sync_current_state(repo, production, current)
+    updated = state_path.read_text()
+    for stale in ("source_alignment_commit:", "source_alignment_tree:", "latest_attempt:", "active_model:",
+                  "active_reasoning:", "controller_service_state:", "runner_process_state:",
+                  "codex_child_process_state:", "authoritative_persistent_task_session_id:",
+                  "current_increment:", "predecessor:", "predecessor_status:"):
+        assert stale not in updated
+    assert "runtime_state_source: /mnt/biella-extra/biella-runtime/codex-production/runtime.json" in updated
+    assert "source_identity_source: LIVE_GIT_PLUS_RUNTIME" in updated
+    assert "runtime_state_source: DOCKER_PLUS_CUSTOMER_HANDOFF_RUNTIME" in updated
+    assert "running_customer_count:" not in updated
+    assert "current_state:" not in updated
+    assert "current_task: D01-30" in updated
+    assert "current_section: demo01" in updated
+    assert "completed_tasks: 1" in updated
+    assert "total_tasks: 3" in updated
