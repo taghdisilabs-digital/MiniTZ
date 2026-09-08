@@ -2,14 +2,14 @@
   "schema": "biella.service_bay.art/v1",
   "status": "GENERATED_DRAFT",
   "source": "build_service_bay.py",
-  "source_sha256": "7a74c7723804f1f4bdc3191d202f7f4086fb4f0e3dd91c1d331a6baea4462736",
+  "source_sha256": "e34dae09560899baffc336d7019c5259cf06bd7c11da968986bf4e226fa1377d",
   "provenance": "Biella-authored mesh; no third-party geometry or textures",
   "blender": "5.0.1",
   "assets": [
     {
       "mesh": "SM_ServicePanel120",
       "fbx": "SM_ServicePanel120.fbx",
-      "sha256": "146a7df2a4bdae4c9aa02b46feaff5c41e0e3c1b04c592723f95da8948a9e64a",
+      "sha256": "cc58e41946b3c5e52650d62cc4122834dc5a1e583bcede3b1a3265ca1938c1be",
       "triangles": 3016,
       "bounds_min": [
         -50.0,
@@ -37,7 +37,7 @@
     {
       "mesh": "SM_ServicePanel240",
       "fbx": "SM_ServicePanel240.fbx",
-      "sha256": "409748fe805183a5c4e56ccfa366232f5942a0bd5cf5ea9d8b24b918d6aeb6d0",
+      "sha256": "97ca5861e3cc4a2713d047a33d0b6239edfaacba701d6a5b2c10399698aa9e49",
       "triangles": 3956,
       "bounds_min": [
         -50.0,
@@ -65,7 +65,7 @@
     {
       "mesh": "SM_ServiceBayMetalwork",
       "fbx": "SM_ServiceBayMetalwork.fbx",
-      "sha256": "4f38beadadb6d1ff3f3cf030aa054664f29b4fc1cb83c40c32f1ebbb76c658d9",
+      "sha256": "a520501e939b56350260bf137aef28255efe0ec052841bf84f9ba059e41e98a4",
       "triangles": 49916,
       "bounds_min": [
         -204.60000610351562,
@@ -87,6 +87,30 @@
         "Lamp",
         "Growth",
         "Vein"
+      ]
+    },
+    {
+      "mesh": "SM_ServiceGround",
+      "fbx": "SM_ServiceGround.fbx",
+      "sha256": "fbb57032e19907ca4f2fcb3ad431cb5196ed1abe880c329e221a651951d3565b",
+      "triangles": 37600,
+      "bounds_min": [
+        -521.4000244140625,
+        -365.3999938964844,
+        -2.0
+      ],
+      "bounds_max": [
+        532.0,
+        365.4000244140625,
+        1.9999998807907104
+      ],
+      "export_y_reflected": true,
+      "outward_volume_preserved": true,
+      "normalized_envelope_cm": null,
+      "material_slots": [
+        "Ground",
+        "Rubber",
+        "Steel"
       ]
     }
   ]

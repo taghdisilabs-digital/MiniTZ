@@ -27,6 +27,7 @@ for name, color, roughness, metallic in [
     ('Lamp', (1, .62, .28, 1), .3, 0),
     ('Growth', (.16, .007, .014, 1), .34, 0),
     ('Vein', (.42, .006, .016, 1), .28, 0),
+    ('Ground', (.095, .105, .11, 1), .7, 0),
 ]:
     mat = bpy.data.materials.new(name)
     mat.diffuse_color = color
@@ -304,6 +305,31 @@ strand('Header attached creeping edge',
        [(-17,243,264),(-17,219,264),(-12,199,265),
         (-9,180,264),(-12,154,262),(-10,130,261)], 4.8)
 export('SM_ServiceBayMetalwork')
+
+# Ground dressing lies within 3cm of the accepted support plane. It has no
+# collision; the original street remains the sole walking/physics surface.
+# Individually bevelled slabs retain physical joints instead of painted grids.
+for ix in range(5):
+    for iy in range(6):
+        box('Approach concrete slab %d %d'%(ix,iy),
+            (-466+ix*112, -305+iy*122, -.6), (110.8,120.8,2.8), 'Ground', .22)
+# Inset bonded conductive plates fill the exact existing hazard footprint.
+for ix in range(3):
+    for iy in range(3):
+        box('Inset service floor plate %d %d'%(ix,iy),
+            (120+ix*150,-143.333+iy*143.333, .5),
+            (148.8,142.133,3), 'Ground', .26)
+# Side aprons and rear threshold remain outside the hazard footprint.
+for side in (-1,1):
+    box('Concrete side apron', (270,side*290,-.6), (450,148,2.8),'Ground',.22)
+box('Rear concrete sill',(514,0,-.6),(36,730,2.8),'Ground',.22)
+# Drainage at the approach edge: recessed dark channels and narrow metal bars.
+# Slots are supported by the original road; no navigation blocker is created.
+for side in (-1,1):
+    box('Drain recessed channel',(-241,side*348,.2),(550,20,.4),'Rubber',.1)
+    for index in range(78):
+        box('Drain cross bar',(-510+index*7,side*348,.9),(2.1,19,1.4),'Steel',.18)
+export('SM_ServiceGround')
 
 bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'ServiceBay.blend'))
 (ROOT/'service-bay.json').write_text(json.dumps(dict(schema='biella.service_bay.art/v1',

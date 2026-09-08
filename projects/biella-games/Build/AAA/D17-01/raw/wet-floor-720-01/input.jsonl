@@ -1,0 +1,12 @@
+{"event": "capture_started", "elapsed_seconds": 5.759997293353081e-06, "window": "2097243"}
+{"event": "input_sent", "elapsed_seconds": 0.01598457107320428, "planned_at": 0, "input_clock_seconds": 0.01597340009175241, "input": ["keydown", "w"], "intended_beat": "Advance from the native start state"}
+{"event": "input_sent", "elapsed_seconds": 0.1431910740211606, "planned_at": 0.1, "input_clock_seconds": 0.14318495406769216, "input": ["keydown", "Shift_L"], "intended_beat": "Use normal sprint control"}
+{"event": "input_sent", "elapsed_seconds": 0.267358482000418, "planned_at": 0.2, "input_clock_seconds": 0.26735101209487766, "input": ["keydown", "a"], "intended_beat": "Pass left of initial encounter"}
+{"event": "input_sent", "elapsed_seconds": 2.2365450860233977, "planned_at": 2.2, "input_clock_seconds": 2.236539306002669, "input": ["keyup", "a"], "intended_beat": "Continue along the street"}
+{"event": "input_sent", "elapsed_seconds": 7.026804794091731, "planned_at": 7, "input_clock_seconds": 7.026800653082319, "input": ["keyup", "Shift_L"], "intended_beat": "Approach service bay at walking speed"}
+{"event": "input_sent", "elapsed_seconds": 13.066903671016917, "planned_at": 13, "input_clock_seconds": 13.066897061071359, "input": ["keyup", "w"], "intended_beat": "Turn approach toward the cabinet side"}
+{"event": "input_sent", "elapsed_seconds": 13.140316918026656, "planned_at": 13.1, "input_clock_seconds": 13.140311847091652, "input": ["keydown", "d"], "intended_beat": "Approach cabinet lateral coordinate"}
+{"event": "input_sent", "elapsed_seconds": 13.93662585306447, "planned_at": 13.9, "input_clock_seconds": 13.93662071309518, "input": ["keyup", "d"], "intended_beat": "Stop lateral input"}
+{"event": "input_sent", "elapsed_seconds": 14.05940702103544, "planned_at": 14, "input_clock_seconds": 14.059402231010608, "input": ["keydown", "w"], "intended_beat": "Approach west side of switch"}
+{"event": "native_terminal_observed", "elapsed_seconds": 14.58327366609592}
+{"event": "capture_finished", "elapsed_seconds": 25.159843908040784, "result": {"status": "CAPTURED", "reason": "native_terminal_state", "audio_capture": false, "input_delivery": "X11 keyboard/mouse", "world_mutation_or_automation_tests": false, "input_time_origin": "capture_started", "measured_input_run_seconds": 14.583320567035116, "actions_sent": 9, "game_alive_at_capture_end": true, "recorder_returncode": 255, "game_returncode": 0}}

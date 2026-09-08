@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/usr/local/bin/blender",
+    "--background",
+    "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/ServiceBay.blend",
+    "--python",
+    "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/mesh-author-05/geometry-readback.py"
+  ],
+  "pid": 3609871,
+  "returncode": 0,
+  "timed_out": false,
+  "timeout_seconds": 120,
+  "elapsed_seconds": 0.767,
+  "log": {
+    "path": "Build/AAA/D17-01/environment/mesh-author-05/geometry-readback.log",
+    "sha256": "b801a7994619f962261d1046187d2cba9a36e73c59737ba422c266bdc8feaa05",
+    "bytes": 250
+  }
+}

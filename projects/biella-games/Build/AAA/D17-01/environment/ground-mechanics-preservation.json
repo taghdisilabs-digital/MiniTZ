@@ -1,0 +1,20 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "previous_commit": "02174657d6e83409c441a928c5b1a029024cec8b",
+  "source_sha256": "e7f87b89612b52d79f1751139274f175fdab46ce8bccf6504d62a32012e706d2",
+  "unchanged_native_functions": {
+    "CanInteract": "15e8d2dace000db63ed367b7d8d4818583f2beff550c95c5238abb1ffc3d49e6",
+    "GetHazardCenter": "39d893dcc491059374975b15ed3ee24a8144889bd0c727c70f9df7230dcaf806",
+    "GetInteractionPrompt": "d73e31c73f7a1cc3178c2d0fe4d92492d8d5c04f8416caa76ae9106d160fa7bf",
+    "GetSwitchLocation": "bbccfb66ebc75466ec730e717c4ab33fc44137c50f39d6a7d62331130a6426b7",
+    "HasGround": "4d6eed8ffad20f9ac496acf15993cd9d7c62a9078e3c1b1e51b51d623c66be83",
+    "IsMatchActive": "dc46c67fea1ad398fe7f842caafd860bd47f212dd7dbe810d7ed02564f2d14f9",
+    "SetDormant": "ae5654eae9ae2df67e5b28d9ee7ef502f90487bcc2b7d43cebad9e3e0555c77c",
+    "TakeDamage": "795b5d9c2e68b539fd6c96ec2888620986638e9af50d88205d530e0c1642b6bc",
+    "Tick": "46e255d9a3e4d275b2745a5ba68e3f28fa4e3da73b2ab8a80475b62fda16b6fc",
+    "TryInteract": "c3598d1ecd27bb8a8d809e842fffd4c454c6030843beb27f4199045e897f154e",
+    "UpdateDebris": "bc38e0701d0dce1154d9ca300107769b48f01fc4b9997fc7885ab613b837727a"
+  },
+  "scope": "Exact function bytes preserve interaction eligibility, toggling, damage/physics, hazard tick, dormancy and support queries; presentation initialization/update changed only. Runtime regression remains separately required."
+}

@@ -1,0 +1,19 @@
+/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/build_service_bay.py:34: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat.use_nodes = True
+
+FBX export starting... '/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/SM_ServicePanel120.fbx'
+export finished in 0.0075 sec.
+
+FBX export starting... '/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/SM_ServicePanel240.fbx'
+export finished in 0.0077 sec.
+
+FBX export starting... '/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/SM_ServiceBayMetalwork.fbx'
+export finished in 0.0477 sec.
+
+FBX export starting... '/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/SM_ServiceGround.fbx'
+export finished in 0.0337 sec.
+Info: Saved as "ServiceBay.blend"
+D17_SERVICE_BAY_MESH COMPLETE
+Blender 5.0.1 (hash a3db93c5b259 built 2025-12-16 01:30:59)
+
+Blender quit

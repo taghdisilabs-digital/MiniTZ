@@ -21,7 +21,8 @@ def main():
     before=assets()
     report=dict(task_id='D17-01',result='FAIL',runs=[],
         sources=[file_identity(PROJECT/p) for p in ('Content/Python/author_service_bay.py',
-            'SourceAssets/Environment/service-bay.json','SourceAssets/Materials/ServiceSurface.hlsl')])
+            'SourceAssets/Environment/service-bay.json','SourceAssets/Materials/ServiceSurface.hlsl',
+            'SourceAssets/Materials/ServiceGround.hlsl')])
     try:
         for mode in ('author','readback'):
             previous=assets()

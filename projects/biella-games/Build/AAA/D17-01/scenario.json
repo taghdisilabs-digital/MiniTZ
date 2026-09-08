@@ -183,60 +183,85 @@
     },
     {
       "path": "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
-      "sha256": "758a71d3fdd1933601cfd69c303ede7a4660549deea3f8779f3928d57281e549",
-      "bytes": 14229
+      "sha256": "e7f87b89612b52d79f1751139274f175fdab46ce8bccf6504d62a32012e706d2",
+      "bytes": 15382
     },
     {
       "path": "SourceAssets/Environment/build_service_bay.py",
-      "sha256": "7a74c7723804f1f4bdc3191d202f7f4086fb4f0e3dd91c1d331a6baea4462736",
-      "bytes": 14606
+      "sha256": "e34dae09560899baffc336d7019c5259cf06bd7c11da968986bf4e226fa1377d",
+      "bytes": 15951
     },
     {
       "path": "SourceAssets/Environment/ServiceBay.blend",
-      "sha256": "fee77782598bc77fe12b5638fd6d9ef2242896d20c672de80c87c565ed061f9f",
-      "bytes": 160766
+      "sha256": "ae6796b212187b8ca05a70a5596826cdabe2721e1a13cc87c2e74e51bd11ff84",
+      "bytes": 247981
     },
     {
       "path": "Content/Python/author_service_bay.py",
-      "sha256": "8162d28c9b4bfec70008ddaa463da761a1289dbc69b3ea6eb8edd4d3df7c3bdc",
-      "bytes": 11871
+      "sha256": "b34091de5feca3e245db4ae4dede0b43aabab9b2c1bb8194452379ab1747df5e",
+      "bytes": 14744
     },
     {
       "path": "SourceAssets/Materials/ServiceSurface.hlsl",
       "sha256": "cdcd11ff86ed9f23d199915f2a01a71cd109c2ba09c865d664738b1b33f3fd85",
       "bytes": 2129
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaEnvironmentSite.h",
+      "sha256": "a2be9d40f72d90e594140e98b0307ace0910d84314f1cee13b8b2ad8dd60a79a",
+      "bytes": 2379
+    },
+    {
+      "path": "SourceAssets/Materials/ServiceGround.hlsl",
+      "sha256": "f6e2fcf21ed20a02f43e1f9cfa909f4a4cdb6a5f26b35d4d6f04446eb590d384",
+      "bytes": 2405
+    },
+    {
+      "path": "SourceAssets/Environment/SM_ServiceGround.fbx",
+      "sha256": "fbb57032e19907ca4f2fcb3ad431cb5196ed1abe880c329e221a651951d3565b",
+      "bytes": 496204
+    },
+    {
+      "path": "Content/Environment/ServiceBay/M_ServiceGround.uasset",
+      "sha256": "99080537be40bcd07a70a01f736e153200043bd19bf8f4fbc2cba5efa17583d6",
+      "bytes": 12814
+    },
+    {
+      "path": "Content/Environment/ServiceBay/SM_ServiceGround.uasset",
+      "sha256": "01c51dac0be6a1b617f9b8b298480d10b9620db9aa70db55158f65a64a5b1bad",
+      "bytes": 519687
     }
   ],
   "first_raw_run": "Build/AAA/D17-01/raw/entry-720-02/observation.json",
-  "acceptance": "INCOMPLETE: 600–1200 active seconds and full route remain unqualified; five major visual defect groups remain. Package-04 ordinary-input environment consequence is preserved; current package-05 raw runs do not reproduce the environment beat.",
-  "current_native_build": "Build/AAA/D17-01/build/game-02/result.json",
+  "acceptance": "INCOMPLETE: 600–1200 active seconds and full route remain unqualified; five major visual defect groups remain. Package-04 ordinary-input environment consequence is preserved. Current package-06 raw runs reach terminal state before the environment beat.",
+  "current_native_build": "Build/AAA/D17-01/build/game-03/result.json",
   "previous_raw_runs": [
     "Build/AAA/D17-01/raw/hud-720-01/observation.json",
     "Build/AAA/D17-01/raw/hud-1080-01/observation.json"
   ],
   "current_raw_runs": [
-    "Build/AAA/D17-01/raw/sheath-hazard-720-01/observation.json",
-    "Build/AAA/D17-01/raw/sheath-hazard-1080-01/observation.json"
+    "Build/AAA/D17-01/raw/wet-floor-720-01/observation.json",
+    "Build/AAA/D17-01/raw/wet-floor-1080-01/observation.json"
   ],
-  "current_package_status": "Editable lobed sheath and header mat extend infection across visible approach faces. Organic pigmentation/normal detail, reduced vein emission and metal-preserving material branch pass fresh asset readback, geometry clearance, cook, stage/archive/install readback and environment fixture. Native game/editor builds remain unchanged. Current ordinary-camera captures show the new art, but native Success occurs before environmental consequence. These are candidate visuals, not final acceptance.",
+  "current_package_status": "Editable service ground adds bevelled concrete slabs, metal hazard plates, drains, wetness/wear and native-powered perimeter lenses. Eleven native gameplay methods remain byte-identical to package-05 source. New game/editor builds, saved asset/geometry readback, cook/archive/install and environment fixture pass. Current raw footage binds the new package; no final visual acceptance is claimed. Close fixture inspection rejects blotchy grid-shaped wetness for correction.",
   "scope_findings": "Build/AAA/D17-01/environment/scope-findings.json",
   "current_package": {
-    "package_id": "cfd920b323ed65faf205b81783a2474b15930fef76a3ab99f1a1a7341a941048",
+    "package_id": "e4020d739f936bf18059147b3e91e0dabc54769fad206db3fa775f34c850a429",
+    "archive": {
+      "bytes": 483543613,
+      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-06.tar.zst",
+      "sha256": "f52825560b4e5fab242cf88b43afb12fd4453ba6cb4be6f54b96f59bfe2d7d5f"
+    },
+    "source_material_digest": "7651f19b69b25feebd119f77db1629eab164540ee7c1ddaa00ea0743830ebf48",
     "manifest": {
-      "path": "Build/AAA/D17-01/build/package-05/package-manifest.json",
-      "sha256": "7160f3f67cd2caca349a3632a89e02393bb6db0ea34240e4af39822a7f899e7b",
+      "path": "Build/AAA/D17-01/build/package-06/package-manifest.json",
+      "sha256": "d548c4adea7d3eda3d95ab15192c10241aaf43c9848bf9ad815a80252a2bb383",
       "bytes": 8669
     },
-    "archive": {
-      "bytes": 482834812,
-      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-05.tar.zst",
-      "sha256": "f5ce5ff65fa17f52e203424c2cfb8bb62dcecaaff241b37fab243ae9595db391"
-    },
-    "source_material_digest": "eb7b0019442dbdcf6640659be10bec2bb87e5a712ad957ea6e79bf58d9fc155a",
     "overlay": false
   },
   "route_feasibility_probe": "Build/AAA/D17-01/raw/route-rival-01/observation.json",
-  "observed_route_limits": "Package-05 original-timing 720p reaches native Success at 21.109894568973687 active seconds: no switch/panel/floor events. The 1080p run ends at 9.20354756055167 seconds before the bay. The read-only first-world-tick input probe ends at 12.70496472431114 seconds before the switch. Package-04 damage proof remains tied to its exact source/package. Interior/terrace/east-return and 600–1200 active seconds remain unqualified; these attempts do not prove every accepted route fails.",
+  "observed_route_limits": "Package-06 720p reaches Success at 12.202572849520948 active seconds; the approach floor is visible at gameplay distance. The 1080p run shows player/rival/infected and reaches Success at 8.713285327830818 seconds. Neither run toggles power, damages a panel or receives electrical-floor damage. Interior/terrace/east-return and 600–1200 active seconds remain unqualified. Historical package-04 consequence retains its own exact source/package identity.",
   "previous_service_candidate": {
     "source_commit": "0242b38e31451f24d51175fc4050172122c28a3a",
     "package": {
@@ -259,7 +284,7 @@
       "Build/AAA/D17-01/raw/service-1080-01/observation.json"
     ]
   },
-  "current_environment_probe": "Build/AAA/D17-01/raw/sheath-hazard-720-01/observation.json",
+  "current_environment_probe": "Build/AAA/D17-01/raw/wet-floor-720-01/observation.json",
   "previous_coordinate_candidate": {
     "source_commit": "5854ebea89bd581418924397bacbfc6ac7612db0",
     "package": {
@@ -308,5 +333,27 @@
     ],
     "observed_route_limits": "The corrected package-03 input run toggled power and destroyed panel 2 but did not cross its opening. Current growth-hazard-720-01 aligns the player with that opening: power turns on, panel 2 breaks into physics debris and nine electrical-floor pulses apply 27.249 damage. It ends in Success at 46.31332703580847 active seconds. Current 1080p ends at 9.021478963026311 seconds, with rival fire defeating both tracked infected before the bay. Interior/terrace/east-return and 600–1200 active seconds remain unqualified. These attempts do not prove every accepted input route fails."
   },
-  "input_timing_probe": "Build/AAA/D17-01/raw/sheath-hazard-720-02/observation.json"
+  "previous_sheath_candidate": {
+    "source_commit": "02174657d6e83409c441a928c5b1a029024cec8b",
+    "package": {
+      "package_id": "cfd920b323ed65faf205b81783a2474b15930fef76a3ab99f1a1a7341a941048",
+      "manifest": {
+        "path": "Build/AAA/D17-01/build/package-05/package-manifest.json",
+        "sha256": "7160f3f67cd2caca349a3632a89e02393bb6db0ea34240e4af39822a7f899e7b",
+        "bytes": 8669
+      },
+      "archive": {
+        "bytes": 482834812,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-05.tar.zst",
+        "sha256": "f5ce5ff65fa17f52e203424c2cfb8bb62dcecaaff241b37fab243ae9595db391"
+      },
+      "source_material_digest": "eb7b0019442dbdcf6640659be10bec2bb87e5a712ad957ea6e79bf58d9fc155a",
+      "overlay": false
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/sheath-hazard-720-01/observation.json",
+      "Build/AAA/D17-01/raw/sheath-hazard-1080-01/observation.json"
+    ],
+    "input_timing_probe": "Build/AAA/D17-01/raw/sheath-hazard-720-02/observation.json"
+  }
 }

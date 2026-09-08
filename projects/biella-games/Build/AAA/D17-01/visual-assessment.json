@@ -4,12 +4,10 @@
   "method": "Direct inspection of decoded frames from unedited normal-camera raw captures, plus explicitly separate editor and installed-package environment fixture frames; exact source/build/input/telemetry retained separately",
   "baseline_frame": "raw/entry-720-02/frame-13.png",
   "current_frames": [
-    "raw/sheath-hazard-720-01/frame-16.png",
-    "raw/sheath-hazard-720-01/frame-20.png",
-    "raw/sheath-hazard-1080-01/frame-04.png",
-    "raw/sheath-hazard-720-02/frame-12.png"
+    "raw/wet-floor-720-01/frame-12.png",
+    "raw/wet-floor-1080-01/frame-04.png"
   ],
-  "improved_boundary": "A thick dark-red tissue sheath now occupies the front right column and reaches a header mat, visible at normal approach distance. Vascular forks, varied tissue pigment and normal response are present; the warm mounted lamps and readable cabinet/panels remain. Evaluated source bounds clear panel movement and lamp/switch geometry. Current raw frames show these surfaces, but no current raw attempt activates the environmental consequence. Package-04 ordinary hazard proof remains separately preserved.",
+  "improved_boundary": "The service-bay approach now has bevelled slab joints, inset side drains and wet patches reflecting the existing practical lamps. The former solid status-color hazard slab is replaced by steel plates with a worn perimeter stripe and small lenses driven by native power. The ground is visible from the ordinary approach camera; close fixture views preserve safe and powered states. This improves local material/state separation but the blotchy grid-shaped wetness remains below the required quality.",
   "major_defects": [
     {
       "id": "focal_art",
@@ -21,7 +19,7 @@
     },
     {
       "id": "materials",
-      "finding": "The fixed service-bay metal has finer roughness/bump detail, but the bright orange hazard floor, whole-panel damage tint and primitive switch interface remain visually crude. Road and surrounding structures lack convincing wet wear, reflected light and material detail."
+      "finding": "The service floor gains slab/drain geometry and localized reflections, but its wetness reads as conspicuous blotchy grid-shaped patches. The abrupt rectangular transition to the dry road, whole-panel damage tint, primitive switch interface and flat surrounding surfaces still fail coherent material quality."
     },
     {
       "id": "infection",
@@ -33,7 +31,7 @@
     }
   ],
   "unproven": [
-    "The current 720p run proves ordinary power, panel physics and player electrical-floor damage. The 1080p run ends before the bay. Full player+rival+infected+environment consequence composition at gameplay distance remains unqualified; native arena_pressure has no observed natural transition.",
+    "Current 720p and 1080p ordinary runs reach Success before the switch; neither proves power, panel physics or player electrical-floor damage. Package-04 ordinary consequence remains separately preserved. Current package-06 fixture verifies those native behaviors but does not establish the full evolving player+rival+infected+arena composition. No natural arena_pressure transition is observed.",
     "Interior, terrace and east-return beats were not reached before terminal state.",
     "HUD occlusion during required later dense-combat states remains unqualified.",
     "No final temporal-quality or raw audio qualification is claimed."
@@ -46,7 +44,8 @@
   ],
   "service_bay_limit": "Editor and installed-package automation position actors/camera and drive states. These frames validate the affected layer only; they are not a raw canonical-slice run or final acceptance.",
   "service_bay_packaged_frames": [
-    "environment/runtime-05/captures/switch_safe.png"
+    "environment/runtime-06/captures/switch_safe.png",
+    "environment/runtime-06/captures/hazard_active.png"
   ],
   "previous_frames": [
     "raw/hud-720-01/frame-13.png",
@@ -60,7 +59,11 @@
     "raw/growth-hazard-720-01/frame-20.png",
     "raw/growth-hazard-720-01/frame-22.png",
     "raw/growth-hazard-720-01/frame-25.png",
-    "raw/growth-hazard-1080-01/frame-04.png"
+    "raw/growth-hazard-1080-01/frame-04.png",
+    "raw/sheath-hazard-720-01/frame-16.png",
+    "raw/sheath-hazard-720-01/frame-20.png",
+    "raw/sheath-hazard-1080-01/frame-04.png",
+    "raw/sheath-hazard-720-02/frame-12.png"
   ],
   "service_bay_coordinate_defect": {
     "status": "FIXED_IN_CURRENT_ASSETS_AND_PACKAGE",
@@ -76,8 +79,10 @@
     "environment/runtime-03/captures/switch_safe.png",
     "environment/runtime-03/captures/panel_damaged.png",
     "environment/runtime-04/captures/switch_safe.png",
-    "environment/runtime-04/captures/hazard_active.png"
+    "environment/runtime-04/captures/hazard_active.png",
+    "environment/runtime-05/captures/switch_safe.png"
   ],
-  "current_package_id": "cfd920b323ed65faf205b81783a2474b15930fef76a3ab99f1a1a7341a941048",
-  "service_bay_editor_frames_scope": "Historical authoring observations; package-05 changed-art proof is the fresh asset readback and current packaged/raw frames."
+  "current_package_id": "e4020d739f936bf18059147b3e91e0dabc54769fad206db3fa775f34c850a429",
+  "service_bay_editor_frames_scope": "Historical authoring observations. Current changed-art proof is assets-05 saved readback plus runtime-06 packaged fixture and package-06 ordinary raw frames.",
+  "next_action": "Correct the wetness mask in SourceAssets/Materials/ServiceGround.hlsl to remove the visible grid-shaped blotches, retaining differentiated concrete/steel and native-powered perimeter feedback. Re-author only affected assets, recook and compare the installed runtime and normal gameplay camera."
 }

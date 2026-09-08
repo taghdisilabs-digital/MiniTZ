@@ -1,0 +1,57 @@
+{
+  "binary": {
+    "bytes": 299185984,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/e4020d739f936bf18059147b3e91e0dabc54769fad206db3fa775f34c850a429/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "5f2528c0f025acdebc4fdaa8dc7508fea13bf611c850262fcec3c0218030e90d"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/e4020d739f936bf18059147b3e91e0dabc54769fad206db3fa775f34c850a429/payload",
+  "manifest": {
+    "bytes": 8669,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/e4020d739f936bf18059147b3e91e0dabc54769fad206db3fa775f34c850a429/manifest.json",
+    "sha256": "d548c4adea7d3eda3d95ab15192c10241aaf43c9848bf9ad815a80252a2bb383"
+  },
+  "package_id": "e4020d739f936bf18059147b3e91e0dabc54769fad206db3fa775f34c850a429",
+  "platform": "Linux",
+  "scope": "Byte-verified Linux Development package; not visual acceptance or Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "02174657d6e83409c441a928c5b1a029024cec8b",
+    "head_tree": "fb1bca9a48d0e47be7bf2d786fb6ddaba7524514",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      " M Content/Environment/ServiceBay/MI_ServiceGrowth.uasset",
+      " M Content/Environment/ServiceBay/MI_ServiceLamp.uasset",
+      " M Content/Environment/ServiceBay/MI_ServicePaint.uasset",
+      " M Content/Environment/ServiceBay/MI_ServiceRubber.uasset",
+      " M Content/Environment/ServiceBay/MI_ServiceSteel.uasset",
+      " M Content/Environment/ServiceBay/MI_ServiceVein.uasset",
+      " M Content/Environment/ServiceBay/M_ServiceMetal.uasset",
+      " M Content/Environment/ServiceBay/SM_ServiceBayMetalwork.uasset",
+      " M Content/Environment/ServiceBay/SM_ServicePanel120.uasset",
+      " M Content/Environment/ServiceBay/SM_ServicePanel240.uasset",
+      " M Content/Python/author_service_bay.py",
+      " M Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
+      " M Source/BiellaGames/Public/BiellaEnvironmentSite.h",
+      " M SourceAssets/Environment/SM_ServiceBayMetalwork.fbx",
+      " M SourceAssets/Environment/SM_ServicePanel120.fbx",
+      " M SourceAssets/Environment/SM_ServicePanel240.fbx",
+      " M SourceAssets/Environment/ServiceBay.blend",
+      " M SourceAssets/Environment/build_service_bay.py",
+      " M SourceAssets/Environment/service-bay.json",
+      " M tests/author_d17_01_service_bay.py",
+      " M tests/qualify_d17_01.py",
+      "?? Build/AAA/D17-01/environment/assets-05/",
+      "?? Build/AAA/D17-01/environment/ground-mechanics-preservation.json",
+      "?? Build/AAA/D17-01/environment/mesh-author-05/",
+      "?? Build/AAA/D17-01/environment/runtime-06/",
+      "?? Build/AAA/D17-01/raw/wet-floor-1080-01/",
+      "?? Build/AAA/D17-01/raw/wet-floor-720-01/",
+      "?? Content/Environment/ServiceBay/M_ServiceGround.uasset",
+      "?? Content/Environment/ServiceBay/SM_ServiceGround.uasset",
+      "?? SourceAssets/Environment/SM_ServiceGround.fbx",
+      "?? SourceAssets/Materials/ServiceGround.hlsl"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T15:27:58.471067+00:00"
+}

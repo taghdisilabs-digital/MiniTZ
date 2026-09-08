@@ -8,6 +8,7 @@
 #include "Components/PointLightComponent.h"
 #include "Components/TextRenderComponent.h"
 #include "Engine/DamageEvents.h"
+#include "Engine/StaticMesh.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
 #include "GameFramework/PlayerController.h"
@@ -28,8 +29,10 @@ void ABiellaEnvironmentSite::BeginPlay()
     auto* Base=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Environment/ServiceBay/M_ServiceMetal.M_ServiceMetal"));
     auto* NarrowPanel=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Environment/ServiceBay/SM_ServicePanel120.SM_ServicePanel120"));
     auto* WidePanel=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Environment/ServiceBay/SM_ServicePanel240.SM_ServicePanel240"));
+    auto* GroundMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Environment/ServiceBay/SM_ServiceGround.SM_ServiceGround"));
+    auto* GroundBase=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Environment/ServiceBay/M_ServiceGround.M_ServiceGround"));
     auto* Metalwork=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Environment/ServiceBay/SM_ServiceBayMetalwork.SM_ServiceBayMetalwork"));
-    checkf(Base && NarrowPanel && WidePanel && Metalwork, TEXT("Service-bay authored assets are required"));
+    checkf(Base && NarrowPanel && WidePanel && Metalwork && GroundMesh && GroundBase, TEXT("Service-bay authored assets are required"));
     auto Material=[this,Base](FLinearColor Color)
     {
         auto* M=UMaterialInstanceDynamic::Create(Base,this);
@@ -72,9 +75,18 @@ void ABiellaEnvironmentSite::BeginPlay()
     Dressing->SetCanEverAffectNavigation(false); Dressing->RegisterComponent();
     PowerMaterial=Material(FLinearColor::Green);
     Switch=Add(TEXT("Switch"),FVector(-208,-310,115),FVector(12,42,55),PowerMaterial,true);
-    Add(TEXT("HazardPad"),FVector(270,0,1),FVector(450,430,2),PowerMaterial,false);
-    for (int32 I=0;I<7;++I)
-    { Add(*FString::Printf(TEXT("WarningStripe%d"),I),FVector(80+I*62,0,3),FVector(20,410,2),Frame,false); }
+    // Visual ground follows the existing support plane and exact hazard bounds.
+    // Only small perimeter lamps report power; ground retains its material class.
+    GroundMaterial=UMaterialInstanceDynamic::Create(GroundBase,this);
+    const FVector Origin=GetActorLocation();
+    GroundMaterial->SetVectorParameterValue(TEXT("SiteOrigin"),FLinearColor(Origin.X,Origin.Y,Origin.Z));
+    auto* Ground=NewObject<UStaticMeshComponent>(this,TEXT("HazardPad"));
+    AddInstanceComponent(Ground); Ground->SetupAttachment(RootComponent);
+    Ground->SetStaticMesh(GroundMesh);
+    for (int32 Slot=0;Slot<GroundMesh->GetStaticMaterials().Num();++Slot)
+    { if (GroundMesh->GetStaticMaterials()[Slot].ImportedMaterialSlotName==TEXT("Ground")) { Ground->SetMaterial(Slot,GroundMaterial); } }
+    Ground->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    Ground->SetCanEverAffectNavigation(false); Ground->RegisterComponent();
     WarningLight=NewObject<UPointLightComponent>(this); AddInstanceComponent(WarningLight);
     WarningLight->SetupAttachment(RootComponent); WarningLight->SetRelativeLocation(FVector(-225,-310,115));
     WarningLight->SetLightColor(FLinearColor(1,0.08,0.005)); WarningLight->SetIntensity(180);
@@ -93,7 +105,7 @@ void ABiellaEnvironmentSite::BeginPlay()
     Sign->SetWorldSize(6.4f); Sign->SetTextRenderColor(FColor(220,230,225)); Sign->RegisterComponent();
     SetActorHiddenInGame(true); SetActorEnableCollision(false); UpdatePresentation();
     UE_LOG(LogTemp,Display,TEXT("D02_ENV READY id=%s panels=3 power=0"),*GetName());
-    UE_LOG(LogTemp,Display,TEXT("D17_ENV PRESENTATION metalwork=authored panels=authored collision=original_envelopes lights=mounted"));
+    UE_LOG(LogTemp,Display,TEXT("D17_ENV PRESENTATION metalwork=authored panels=authored collision=original_envelopes lights=mounted ground=wet_authored powered_feedback=perimeter"));
 }
 
 bool ABiellaEnvironmentSite::IsMatchActive() const
@@ -186,6 +198,7 @@ void ABiellaEnvironmentSite::UpdatePresentation()
 {
     PowerMaterial->SetVectorParameterValue(TEXT("BaseColor"),bPowered ? FLinearColor(1,0.12,0.005) : FLinearColor(0.025,0.35,0.18));
     PowerMaterial->SetScalarParameterValue(TEXT("Emission"),bPowered ? 0.45f : 0.08f);
+    GroundMaterial->SetScalarParameterValue(TEXT("Powered"),bPowered ? 1.0f : 0.0f);
     WarningLight->SetVisibility(bPowered && !bDormant);
     Sign->SetText(FText::FromString(bPowered ? TEXT("DANGER / LIVE FLOOR") : TEXT("SERVICE / ISOLATED")));
 }

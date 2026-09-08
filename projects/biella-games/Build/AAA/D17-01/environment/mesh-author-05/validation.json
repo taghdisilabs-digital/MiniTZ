@@ -1,0 +1,64 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "run": {
+    "command": [
+      "/usr/local/bin/blender",
+      "--background",
+      "--python",
+      "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/build_service_bay.py"
+    ],
+    "pid": 3609191,
+    "returncode": 0,
+    "timed_out": false,
+    "timeout_seconds": 120,
+    "elapsed_seconds": 3.93,
+    "log": {
+      "path": "Build/AAA/D17-01/environment/mesh-author-05/blender.log",
+      "sha256": "c524d5ef5e42a352308b13580287cd387e47d2e0a9ed371112db3e7e80a25e7e",
+      "bytes": 990
+    }
+  },
+  "source": {
+    "path": "SourceAssets/Environment/build_service_bay.py",
+    "sha256": "e34dae09560899baffc336d7019c5259cf06bd7c11da968986bf4e226fa1377d",
+    "bytes": 15951
+  },
+  "assets": [
+    {
+      "path": "SourceAssets/Environment/SM_ServiceBayMetalwork.fbx",
+      "sha256": "a520501e939b56350260bf137aef28255efe0ec052841bf84f9ba059e41e98a4",
+      "bytes": 1071452
+    },
+    {
+      "path": "SourceAssets/Environment/SM_ServiceGround.fbx",
+      "sha256": "fbb57032e19907ca4f2fcb3ad431cb5196ed1abe880c329e221a651951d3565b",
+      "bytes": 496204
+    },
+    {
+      "path": "SourceAssets/Environment/SM_ServicePanel120.fbx",
+      "sha256": "cc58e41946b3c5e52650d62cc4122834dc5a1e583bcede3b1a3265ca1938c1be",
+      "bytes": 68172
+    },
+    {
+      "path": "SourceAssets/Environment/SM_ServicePanel240.fbx",
+      "sha256": "97ca5861e3cc4a2713d047a33d0b6239edfaacba701d6a5b2c10399698aa9e49",
+      "bytes": 81324
+    },
+    {
+      "path": "SourceAssets/Environment/ServiceBay.blend",
+      "sha256": "ae6796b212187b8ca05a70a5596826cdabe2721e1a13cc87c2e74e51bd11ff84",
+      "bytes": 247981
+    },
+    {
+      "path": "SourceAssets/Environment/build_service_bay.py",
+      "sha256": "e34dae09560899baffc336d7019c5259cf06bd7c11da968986bf4e226fa1377d",
+      "bytes": 15951
+    },
+    {
+      "path": "SourceAssets/Environment/service-bay.json",
+      "sha256": "bf0b5d16bd67c52e31f7091d396ef0cba45446d6cffe2fee2d50703b276c4f54",
+      "bytes": 2730
+    }
+  ]
+}

@@ -14,6 +14,7 @@ ROOT = '/Game/Environment/ServiceBay'
 SPEC_PATH = PROJECT/'SourceAssets/Environment/service-bay.json'
 SPEC = json.loads(SPEC_PATH.read_text())
 SHADER = (PROJECT/'SourceAssets/Materials/ServiceSurface.hlsl').read_text()
+GROUND_SHADER = (PROJECT/'SourceAssets/Materials/ServiceGround.hlsl').read_text()
 VERIFY = '-D17VerifyServiceBay' in unreal.SystemLibrary.get_command_line()
 LIB = unreal.EditorAssetLibrary
 MAT = unreal.MaterialEditingLibrary
@@ -144,6 +145,43 @@ for name,color,rough,metal,wear,wet,emission in [
         assert abs(MAT.get_material_instance_scalar_parameter_value(instance,key)-value)<1e-5
     materials[name]=instance
 
+# A separate ground graph prevents native switch color from tinting the floor.
+ground=asset('M_ServiceGround',unreal.Material,unreal.MaterialFactoryNew())
+if not VERIFY:
+    MAT.delete_all_material_expressions(ground)
+    ground.set_editor_property('tangent_space_normal',False)
+    ground.set_editor_property('shading_model',unreal.MaterialShadingModel.MSM_DEFAULT_LIT)
+    position=node(ground,unreal.MaterialExpressionWorldPosition)
+    normal=node(ground,unreal.MaterialExpressionVertexNormalWS)
+    origin=node(ground,unreal.MaterialExpressionVectorParameter,parameter_name='SiteOrigin',
+                default_value=unreal.LinearColor(6500,700,0,1))
+    powered=node(ground,unreal.MaterialExpressionScalarParameter,parameter_name='Powered',default_value=0.)
+    shader=node(ground,unreal.MaterialExpressionCustom,code=GROUND_SHADER,
+        description='Weathered slabs and wet service plates; native powered perimeter',
+        output_type=unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+        inputs=[structure(unreal.CustomInput,input_name=n) for n in ('Position','SurfaceNormal','SiteOrigin','Powered')],
+        additional_outputs=[structure(unreal.CustomOutput,output_name=n,output_type=t) for n,t in (
+            ('OutColor',unreal.CustomMaterialOutputType.CMOT_FLOAT3),
+            ('OutMetal',unreal.CustomMaterialOutputType.CMOT_FLOAT1),
+            ('OutRough',unreal.CustomMaterialOutputType.CMOT_FLOAT1),
+            ('OutNormal',unreal.CustomMaterialOutputType.CMOT_FLOAT3),
+            ('OutEmission',unreal.CustomMaterialOutputType.CMOT_FLOAT3))])
+    for a,out,key in ((position,'XYZ','Position'),(normal,'','SurfaceNormal'),
+                      (origin,'RGB','SiteOrigin'),(powered,'','Powered')):
+        link(a,out,shader,key)
+    for out,prop in (('OutColor','MP_BASE_COLOR'),('OutMetal','MP_METALLIC'),
+                     ('OutRough','MP_ROUGHNESS'),('OutNormal','MP_NORMAL'),('OutEmission','MP_EMISSIVE_COLOR')):
+        assert MAT.connect_material_property(shader,out,getattr(unreal.MaterialProperty,prop))
+    MAT.layout_material_expressions(ground)
+    MAT.recompile_material(ground)
+    LIB.set_metadata_tag(ground,'D17.Status','GENERATED_DRAFT')
+    assert LIB.save_loaded_asset(ground,only_if_is_dirty=False)
+assert not ground.get_editor_property('tangent_space_normal')
+for prop in ('MP_BASE_COLOR','MP_ROUGHNESS','MP_METALLIC','MP_NORMAL','MP_EMISSIVE_COLOR'):
+    assert MAT.get_material_property_input_node(ground,getattr(unreal.MaterialProperty,prop)).get_editor_property('code')==GROUND_SHADER
+assert MAT.get_material_property_input_node(ground,unreal.MaterialProperty.MP_WORLD_POSITION_OFFSET) is None
+materials['Ground']=ground
+
 records=[]
 for entry in SPEC['assets']:
     source=SPEC_PATH.parent/entry['fbx']
@@ -204,7 +242,8 @@ for entry in SPEC['assets']:
 
 report=dict(task_id='D17-01',result='PASS',mode='readback' if VERIFY else 'author',
     source_sha256=hashlib.sha256(SPEC_PATH.read_bytes()).hexdigest(),meshes=records,
-    master=material.get_path_name(),status='GENERATED_DRAFT',
+    master=material.get_path_name(),ground_master=ground.get_path_name(),
+    ground_shader_sha256=hashlib.sha256(GROUND_SHADER.encode()).hexdigest(),status='GENERATED_DRAFT',
     collision='Panel boxes retain unit bounds; fixed dressing has no collision')
 Path(os.environ['BIELLA_D17_SERVICE_REPORT']).write_text(json.dumps(report,indent=2)+'\n')
 unreal.log('D17_SERVICE_ASSETS COMPLETE')

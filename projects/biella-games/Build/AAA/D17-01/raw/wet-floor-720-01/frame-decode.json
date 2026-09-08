@@ -1,0 +1,56 @@
+[
+  {
+    "command": [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-ss",
+      "4",
+      "-i",
+      "Build/AAA/D17-01/raw/wet-floor-720-01/raw-gameplay.mkv",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "Build/AAA/D17-01/raw/wet-floor-720-01/frame-04.png"
+    ],
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-ss",
+      "10",
+      "-i",
+      "Build/AAA/D17-01/raw/wet-floor-720-01/raw-gameplay.mkv",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "Build/AAA/D17-01/raw/wet-floor-720-01/frame-10.png"
+    ],
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-ss",
+      "12",
+      "-i",
+      "Build/AAA/D17-01/raw/wet-floor-720-01/raw-gameplay.mkv",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "Build/AAA/D17-01/raw/wet-floor-720-01/frame-12.png"
+    ],
+    "returncode": 0,
+    "stderr": ""
+  }
+]

@@ -42,6 +42,7 @@ private:
     UPROPERTY() TArray<TObjectPtr<UMaterialInstanceDynamic>> PanelMaterials;
     UPROPERTY() TObjectPtr<UStaticMeshComponent> Switch;
     UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> PowerMaterial;
+    UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> GroundMaterial;
     UPROPERTY() TObjectPtr<UPointLightComponent> WarningLight;
     UPROPERTY() TObjectPtr<UTextRenderComponent> Sign;
     TMap<TWeakObjectPtr<ABiellaDemoPawn>,float> HazardExposure;
