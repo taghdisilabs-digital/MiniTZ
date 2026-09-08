@@ -1,0 +1,281 @@
+{
+  "capture_status": "GENERATED_DRAFT_RUNTIME_EVIDENCE",
+  "diagnostics": [
+    "[2026.09.08-18.19.26:730][  0]LogRHI: Warning: Dynamic Uniform Buffers are enabled, but they will not be used with Vulkan bindless.",
+    "[2026.09.08-18.19.26:730][  0]LogRHI: Warning: Memory defrag is enabled, but it will not be used with Vulkan bindless.",
+    "[2026.09.08-18.19.27:511][  0]LogMoviePlayer: Warning: PassLoadingScreenWindowBackToGame failed.  No Window",
+    "[2026.09.08-18.19.28:193][  0]LogNavigation: Warning: ConstructTiledNavMesh: Failed to create navmesh of size 0.",
+    "[2026.09.08-18.19.28:293][  0]LogConsoleManager: Warning: Console variable 'r.MotionVectorSimulation' used in the render thread. Rendering artifacts could happen. Use ECVF_RenderThreadSafe or don't use in render thread.",
+    "[2026.09.08-18.19.35:627][227]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance",
+    "[2026.09.08-18.19.35:987][227]LogNavigation: Warning: ConstructTiledNavMesh: Failed to create navmesh of size 0.",
+    "[2026.09.08-18.19.57:555][411]LogUObjectGlobals: Warning: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.TorsoInsignia_-1_0) overwrite took  11.56ms. Fix the higher level code so that this does not happen.",
+    "[2026.09.08-18.19.57:556][411]LogUObjectGlobals: Warning: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.TorsoInsignia_-1_1) overwrite took   0.01ms. Fix the higher level code so that this does not happen.",
+    "[2026.09.08-18.19.57:556][411]LogUObjectGlobals: Warning: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.TorsoInsignia_1_0) overwrite took   0.01ms. Fix the higher level code so that this does not happen.",
+    "[2026.09.08-18.19.57:557][411]LogUObjectGlobals: Warning: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.TorsoInsignia_1_1) overwrite took   0.47ms. Fix the higher level code so that this does not happen.",
+    "[2026.09.08-18.19.57:558][411]LogUObjectGlobals: Warning: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.RoleHead) overwrite took   0.11ms. Fix the higher level code so that this does not happen.",
+    "[2026.09.08-18.19.57:558][411]LogUObjectGlobals: Warning: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.LeftBoot) overwrite took   0.01ms. Fix the higher level code so that this does not happen.",
+    "[2026.09.08-18.19.57:558][411]LogUObjectGlobals: Warning: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.RightBoot) overwrite took   0.01ms. Fix the higher level code so that this does not happen.",
+    "[2026.09.08-18.19.57:558][411]LogUObjectGlobals: Warning: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.RoleCrossA) overwrite took   0.02ms. Fix the higher level code so that this does not happen.",
+    "[2026.09.08-18.19.57:558][411]LogUObjectGlobals: Warning: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.RoleCrossB) overwrite took   0.01ms. Fix the higher level code so that this does not happen.",
+    "[2026.09.08-18.20.01:309][627]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance",
+    "[2026.09.08-18.20.01:629][627]LogNavigation: Warning: ConstructTiledNavMesh: Failed to create navmesh of size 0.",
+    "[2026.09.08-18.20.01:675][628]LogAutomationController: Warning: LogCrowdFollowing: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance [log] ",
+    "[2026.09.08-18.20.01:675][628]LogAutomationController: Warning: LogNavigation: ConstructTiledNavMesh: Failed to create navmesh of size 0. [log] ",
+    "[2026.09.08-18.20.01:675][628]LogAutomationController: Warning: LogUObjectGlobals: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.TorsoInsignia_-1_0) overwrite took  11.56ms. Fix the higher level code so that this does not happen. [log] ",
+    "[2026.09.08-18.20.01:675][628]LogAutomationController: Warning: LogUObjectGlobals: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.TorsoInsignia_-1_1) overwrite took   0.01ms. Fix the higher level code so that this does not happen. [log] ",
+    "[2026.09.08-18.20.01:675][628]LogAutomationController: Warning: LogUObjectGlobals: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.TorsoInsignia_1_0) overwrite took   0.01ms. Fix the higher level code so that this does not happen. [log] ",
+    "[2026.09.08-18.20.01:675][628]LogAutomationController: Warning: LogUObjectGlobals: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.TorsoInsignia_1_1) overwrite took   0.47ms. Fix the higher level code so that this does not happen. [log] ",
+    "[2026.09.08-18.20.01:675][628]LogAutomationController: Warning: LogUObjectGlobals: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.RoleHead) overwrite took   0.11ms. Fix the higher level code so that this does not happen. [log] ",
+    "[2026.09.08-18.20.01:675][628]LogAutomationController: Warning: LogUObjectGlobals: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.LeftBoot) overwrite took   0.01ms. Fix the higher level code so that this does not happen. [log] ",
+    "[2026.09.08-18.20.01:675][628]LogAutomationController: Warning: LogUObjectGlobals: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.RightBoot) overwrite took   0.01ms. Fix the higher level code so that this does not happen. [log] ",
+    "[2026.09.08-18.20.01:675][628]LogAutomationController: Warning: LogUObjectGlobals: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.RoleCrossA) overwrite took   0.02ms. Fix the higher level code so that this does not happen. [log] ",
+    "[2026.09.08-18.20.01:675][628]LogAutomationController: Warning: LogUObjectGlobals: Gamethread hitch waiting for resource cleanup on a UObject (StaticMeshComponent /Game/Maps/BiellaOpenWorldMap/_Generated_/4IRVSFCMT7UKFFHM2HUBKUANT.BiellaOpenWorldMap:PersistentLevel.BiellaStreamingInfected_UAID_FA163ECF0746E7FE02_1616338433.RoleCrossB) overwrite took   0.01ms. Fix the higher level code so that this does not happen. [log] ",
+    "[2026.09.08-18.20.01:675][628]LogAutomationController: Warning: LogCrowdFollowing: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance [log] ",
+    "[2026.09.08-18.20.01:675][628]LogAutomationController: Warning: LogNavigation: ConstructTiledNavMesh: Failed to create navmesh of size 0. [log] ",
+    "[2026.09.08-18.20.01:758][632]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance",
+    "[2026.09.08-18.20.02:138][632]LogVulkanRHI: Warning: Found 1 unfreed allocations!",
+    "[2026.09.08-18.20.02:289][632]LogVulkanRHI: Warning: Found 1 unfreed allocations!"
+  ],
+  "evidence": [
+    {
+      "bytes": 1082064,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/captures/hazard_active.png",
+      "sha256": "3612e917af276b4b0f29bbaea0eb89799903a17aecc9d99d1a3f39c6a6d1eac6"
+    },
+    {
+      "bytes": 1029119,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/captures/panel_damaged.png",
+      "sha256": "c9bc4ecc0fe594605d1e4db67ad1c68fd0677d755c96ffe4585a687c40a0b873"
+    },
+    {
+      "bytes": 1038156,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/captures/panel_destroyed.png",
+      "sha256": "65816fecd22640db2f444dc81e11df6ba1be53740eaead41836c177a6f075a05"
+    },
+    {
+      "bytes": 1040137,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/captures/stream_return.png",
+      "sha256": "9b196e4ce72ce90dea4036014460ad922ee00fa246feadc70e57e38e77f287de"
+    },
+    {
+      "bytes": 1035261,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/captures/switch_safe.png",
+      "sha256": "8dcc326a2f14474cd789569d7103009afb1972da39ae536a5ce932ebf52bc4a1"
+    },
+    {
+      "bytes": 1633,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/command.json",
+      "sha256": "a11f3f72c700d5d8b3f1b7239f0fe03eb550aa4a764dbf96a11df8f254b9c3a9"
+    },
+    {
+      "bytes": 1703,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/events.log",
+      "sha256": "a476695e1990a02df5c048bf66d4baf981ee1fe3dc20c13ecf164257503c1494"
+    },
+    {
+      "bytes": 158476,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/frames.csv",
+      "sha256": "600c2c8316715c6b5c77fd413a71df4ebe8610f632d01a8f79435a52c1834dde"
+    },
+    {
+      "bytes": 85511,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/resources.jsonl",
+      "sha256": "64dc1e21772c738aa24f7fb9044ac7f20fcf8ccf0690433d7329bd89f7c8fd8a"
+    },
+    {
+      "bytes": 84,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/result.json",
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "bytes": 311988,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/runtime.engine.log",
+      "sha256": "3e313551f8c02c1e75a979d4266d92b584b650a5724d8ac619593378cf14de3a"
+    },
+    {
+      "bytes": 309639,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/runtime.stdout.log",
+      "sha256": "50b061b9f44cdde537f8e8fc562f3f27337e2f7535503c8a762d502c64b4b986"
+    }
+  ],
+  "host": {
+    "cgroup_limits": {
+      "cpu.max": "max 100000",
+      "cpuset.cpus.effective": "0-14",
+      "memory.max": "max"
+    },
+    "clock_ticks_per_second": 100,
+    "cpu": "AMD EPYC 9124 16-Core Processor",
+    "cpu_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "gpus": [
+      {
+        "driver": "580.178.04",
+        "memory_utilization_percent": 0.0,
+        "name": "NVIDIA L40S",
+        "power_w": 83.79,
+        "processes": [
+          {
+            "name": "/usr/local/lib/ollama/llama-server",
+            "pid": 3098977,
+            "type": "C",
+            "used_memory": "26952 MiB"
+          }
+        ],
+        "pstate": "P0",
+        "sm_clock_mhz": 2520.0,
+        "temperature_c": 45.0,
+        "utilization_percent": 0.0,
+        "uuid": "GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5",
+        "vram_total_mib": 46068.0,
+        "vram_used_mib": 26962.0
+      }
+    ],
+    "logical_cpus": 15,
+    "memory_kib": {
+      "Active": 45371816,
+      "Active(anon)": 1752508,
+      "Active(file)": 43619308,
+      "AnonHugePages": 0,
+      "AnonPages": 2890632,
+      "Bounce": 0,
+      "Buffers": 1628780,
+      "Cached": 78405016,
+      "CommitLimit": 78805180,
+      "Committed_AS": 7184372,
+      "DirectMap1G": 2097152,
+      "DirectMap2M": 74536960,
+      "DirectMap4k": 15525740,
+      "Dirty": 300,
+      "FileHugePages": 0,
+      "FilePmdMapped": 0,
+      "HardwareCorrupted": 0,
+      "HugePages_Free": 0,
+      "HugePages_Rsvd": 0,
+      "HugePages_Surp": 0,
+      "HugePages_Total": 0,
+      "Hugepagesize": 2048,
+      "Hugetlb": 0,
+      "Inactive": 37529240,
+      "Inactive(anon)": 1173560,
+      "Inactive(file)": 36355680,
+      "KReclaimable": 4754508,
+      "KernelStack": 11632,
+      "Mapped": 23914088,
+      "MemAvailable": 84699272,
+      "MemFree": 891368,
+      "MemTotal": 90501504,
+      "Mlocked": 27448,
+      "NFS_Unstable": 0,
+      "PageTables": 127240,
+      "Percpu": 13376,
+      "SReclaimable": 4754508,
+      "SUnreclaim": 573188,
+      "SecPageTables": 0,
+      "Shmem": 50052,
+      "ShmemHugePages": 0,
+      "ShmemPmdMapped": 0,
+      "Slab": 5327696,
+      "SwapCached": 8560,
+      "SwapFree": 33340680,
+      "SwapTotal": 33554428,
+      "Unaccepted": 0,
+      "Unevictable": 27448,
+      "VmallocChunk": 0,
+      "VmallocTotal": 13743895347199,
+      "VmallocUsed": 195496,
+      "Writeback": 0,
+      "WritebackTmp": 0,
+      "Zswap": 0,
+      "Zswapped": 0
+    },
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39"
+  },
+  "manifest": {
+    "bytes": 8669,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/7a06321de73c8aece3380095c5ac45f64c4d0905dee3734b2e50dea2805effcb/manifest.json",
+    "sha256": "f0f5f3584625caadac9716a1f1fd7f4e28d5ffb84ed6802eacfc4f5fa6f09f77"
+  },
+  "observed": "2026-09-08T18:19:25.082174+00:00",
+  "orchestrator": {
+    "bytes": 33429,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d08_01_release.py",
+    "sha256": "441efd918434f7f7bb388a525e033a40e4238d8f35f93c2a7bd182f14b8928a6"
+  },
+  "package_id": "7a06321de73c8aece3380095c5ac45f64c4d0905dee3734b2e50dea2805effcb",
+  "result": "PASS",
+  "runtime": {
+    "elapsed_seconds": 37.51274606003426,
+    "log_finalization": {
+      "closed": true,
+      "elapsed_seconds": 0.026982593932189047,
+      "observed_writers": [],
+      "remaining_writers": [],
+      "timeout_seconds": 45
+    },
+    "returncode": 0,
+    "survivors": [],
+    "unreal_process_identities": [
+      {
+        "pid": 3742376,
+        "start_ticks": 53838036
+      }
+    ],
+    "watchdog_failure": null
+  },
+  "scenario": "environment",
+  "scope": "Outside-editor Linux Development Vulkan package. Source/engine/cache/network hidden; not Win64 Shipping acceptance.",
+  "settings_after": [
+    {
+      "bytes": 22,
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/environment-package-12/home/.config/Epic/UnrealEngine/5.8/Saved/Config/Linux/Manifest.ini",
+      "sha256": "e706d6c7c899d8d28e83512d7f29946334086c4a6eaf56f790bf0010e7df1e9c"
+    },
+    {
+      "bytes": 256,
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/environment-package-12/user/Saved/Config/CrashReportClient/UECC-Linux-01A0823F0E1971DF8109F241B0285FEF/CrashReportClient.ini",
+      "sha256": "b85bb31b225042d5175a8b4240162c29c5dfc294686e1926528fd0ab00346ac4"
+    },
+    {
+      "bytes": 1483,
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/environment-package-12/user/Saved/Config/Linux/GameUserSettings.ini",
+      "sha256": "c77dcbb1c1446da15825d6391820704b11fe6c0aaa7180715128c90a55678df9"
+    }
+  ],
+  "settings_before": [],
+  "state": "/mnt/biella-extra/biella-runtime/d17-01/environment-package-12",
+  "task_id": "D17-01",
+  "verification": {
+    "captures": [
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/captures/switch_safe.png",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/captures/panel_damaged.png",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/captures/panel_destroyed.png",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/captures/hazard_active.png",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/runtime-12/captures/stream_return.png"
+    ],
+    "frames": 1397,
+    "hazard_drops": {
+      "health": 15.911999999999992,
+      "infected_health": 15.911999999999999,
+      "rival_health": 15.912000000000006
+    },
+    "hazard_seconds": 1.485986297,
+    "median_frame_ms": 16.8964,
+    "scope": "Development Linux Vulkan causal evidence; no shipping or frame-rate qualification"
+  }
+}

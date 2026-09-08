@@ -1,0 +1,39 @@
+{
+  "task_id": "D17-01",
+  "result": "FAIL",
+  "revision": {
+    "head": "f0678897f50811e30e3f76d99900581815d5c1c6",
+    "head_tree": "9a85eec4204ed3d4bbdc9e015baaaa70b237cbba",
+    "project_status": [
+      " M Content/Maps/BiellaOpenWorldMap.umap",
+      " M Content/__ExternalActors__/Maps/BiellaOpenWorldMap/5/G9/15YJDXZ9FKHCBOIFFZ4GWS.uasset",
+      " M Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/4X/OAGDK0V5RO71D75MQR71A5.uasset",
+      " M tests/qualify_d17_01.py",
+      "?? Build/AAA/D17-01/environment/storm-assets-01/",
+      "?? Build/AAA/D17-01/environment/storm-editor-01/",
+      "?? Build/AAA/D17-01/environment/storm-editor-02/",
+      "?? Build/AAA/D17-01/environment/storm-probe-01/",
+      "?? Content/Environment/Atmosphere/",
+      "?? Content/Python/author_storm_lighting.py",
+      "?? Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/54/",
+      "?? Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/Z3/",
+      "?? SourceAssets/Environment/storm-lighting.json",
+      "?? tests/author_d17_01_storm.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "cook": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/build/cook-13/validation.json",
+    "sha256": "61fd4067fb22070bd9ec18209ac3cb5d041fa497ff5b575a92817280108dfb3d",
+    "bytes": 19666056
+  },
+  "destination": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-13/stage-14-archive",
+  "capture_status": "GENERATED_DRAFT",
+  "uat_temporary": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-13/stage-14-tmp",
+  "uat_saved_directory": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-13/stage-14-tmp/AutomationToolSaved",
+  "zen_data": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-13/cook-ddc/Zen",
+  "stage_directory": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-13/stage-14-staged",
+  "returncode": 0,
+  "error": "[Errno 20] Not a directory: 'Build/Presentation/package-toolchain-02/validation.json/validation.json'",
+  "elapsed_seconds": 45.809719406068325
+}

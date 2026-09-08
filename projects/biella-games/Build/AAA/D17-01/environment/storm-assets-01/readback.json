@@ -1,0 +1,26 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "status": "GENERATED_DRAFT",
+  "read_only": true,
+  "spec_sha256": "ba08894a7b86ce6d311790d5f32bacd7b3aa727e5f9b626affa8f30ff4f66281",
+  "map": "/Game/Maps/BiellaOpenWorldMap",
+  "edited_actor_packages": [
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/C/4X/OAGDK0V5RO71D75MQR71A5",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/5/G9/15YJDXZ9FKHCBOIFFZ4GWS",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/2/54/K1Z9VDR6A3UM9NRJ2SZ6CI",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/2/Z3/IWZJG407GI7ATKMCJ0ORFZ"
+  ],
+  "edited_actor_paths": {
+    "D02_Continuity_Sun": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.DirectionalLight_UAID_FA163ECF0746E7FE02_1616341435",
+    "D02_Continuity_Sky": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.SkyLight_UAID_FA163ECF0746E7FE02_1616342436",
+    "D17_Storm_Clouds": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.VolumetricCloud_UAID_FA163ECF0746CFFF02_1282975207",
+    "D17_Storm_Fog": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.ExponentialHeightFog_UAID_FA163ECF0746CFFF02_1282990208"
+  },
+  "cloud_material": "/Game/Environment/Atmosphere/MI_StormClouds.MI_StormClouds",
+  "engine_parent": "/Engine/EngineSky/VolumetricClouds/m_SimpleVolumetricCloud_Inst.m_SimpleVolumetricCloud_Inst",
+  "actor_count_before": 69,
+  "actor_count_after": 69,
+  "preexisting_actor_identities_preserved": true,
+  "scope": "Lighting authoring/readback only; visual and gameplay acceptance require rendered runtime"
+}

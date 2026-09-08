@@ -1,61 +1,61 @@
 {
   "current_environment_probe": {
-    "active_simulation_seconds": 18.312541172781494,
+    "active_simulation_seconds": 19.315267299243715,
     "arena_pressure_events": 0,
     "duration_satisfied": false,
     "electrical_floor_damage": [],
     "electrical_floor_total_damage": 0,
     "environment_panel_events": [],
     "environment_power_transitions": 0,
-    "input_actions": 23,
+    "input_actions": 24,
     "input_plan": {
       "bytes": 4167,
       "path": "Build/AAA/D17-01/service-hazard-input.json",
       "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
     },
-    "run": "floor-edge-720-01",
+    "run": "storm-720-01",
     "runtime_log": {
-      "bytes": 276630,
-      "path": "Build/AAA/D17-01/raw/floor-edge-720-01/runtime.engine.log",
-      "sha256": "d16bdeab9f7e7e806a225498364417bef4fc3e73f070216afe1fc33953d0c4e7"
+      "bytes": 285359,
+      "path": "Build/AAA/D17-01/raw/storm-720-01/runtime.engine.log",
+      "sha256": "c3183a74e7b65109e52a311094f5468db8e9a45e883620b70507cfba652dfcd1"
     },
     "telemetry": {
-      "bytes": 28787,
-      "path": "Build/AAA/D17-01/raw/floor-edge-720-01/telemetry.jsonl",
-      "sha256": "6b98a09fe98ea6ff892a14fb3136c9e67d6a79b1996be03ad9508102e1c02e2d"
+      "bytes": 31537,
+      "path": "Build/AAA/D17-01/raw/storm-720-01/telemetry.jsonl",
+      "sha256": "97f1391e0b1335fcafa0c38bd9ff913559d7b8674f2d280d86d2e1bdc7735851"
     },
     "terminal": "Success"
   },
   "current_package_raw": [
     {
-      "active_simulation_seconds": 18.312541172781494,
+      "active_simulation_seconds": 19.315267299243715,
       "arena_pressure_events": 0,
       "duration_satisfied": false,
       "electrical_floor_damage": [],
       "electrical_floor_total_damage": 0,
       "environment_panel_events": [],
       "environment_power_transitions": 0,
-      "input_actions": 23,
+      "input_actions": 24,
       "input_plan": {
         "bytes": 4167,
         "path": "Build/AAA/D17-01/service-hazard-input.json",
         "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
       },
-      "run": "floor-edge-720-01",
+      "run": "storm-720-01",
       "runtime_log": {
-        "bytes": 276630,
-        "path": "Build/AAA/D17-01/raw/floor-edge-720-01/runtime.engine.log",
-        "sha256": "d16bdeab9f7e7e806a225498364417bef4fc3e73f070216afe1fc33953d0c4e7"
+        "bytes": 285359,
+        "path": "Build/AAA/D17-01/raw/storm-720-01/runtime.engine.log",
+        "sha256": "c3183a74e7b65109e52a311094f5468db8e9a45e883620b70507cfba652dfcd1"
       },
       "telemetry": {
-        "bytes": 28787,
-        "path": "Build/AAA/D17-01/raw/floor-edge-720-01/telemetry.jsonl",
-        "sha256": "6b98a09fe98ea6ff892a14fb3136c9e67d6a79b1996be03ad9508102e1c02e2d"
+        "bytes": 31537,
+        "path": "Build/AAA/D17-01/raw/storm-720-01/telemetry.jsonl",
+        "sha256": "97f1391e0b1335fcafa0c38bd9ff913559d7b8674f2d280d86d2e1bdc7735851"
       },
       "terminal": "Success"
     },
     {
-      "active_simulation_seconds": 8.810429577657487,
+      "active_simulation_seconds": 8.905501947680023,
       "arena_pressure_events": 0,
       "duration_satisfied": false,
       "electrical_floor_damage": [],
@@ -68,16 +68,16 @@
         "path": "Build/AAA/D17-01/service-hazard-input.json",
         "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
       },
-      "run": "floor-edge-1080-01",
+      "run": "storm-1080-01",
       "runtime_log": {
-        "bytes": 180920,
-        "path": "Build/AAA/D17-01/raw/floor-edge-1080-01/runtime.engine.log",
-        "sha256": "013a6f66652f4aeb08de70aa2e3a94cd434f8390a14d2eb3acba29190ff2391f"
+        "bytes": 180818,
+        "path": "Build/AAA/D17-01/raw/storm-1080-01/runtime.engine.log",
+        "sha256": "2ace0f9536d9d420cc7d58f0fa3d385862ca9d35f3962a1f559be1f87ce1a6b0"
       },
       "telemetry": {
-        "bytes": 6732,
-        "path": "Build/AAA/D17-01/raw/floor-edge-1080-01/telemetry.jsonl",
-        "sha256": "a0e58aa70bd5d29f3f162dc83c942293fd2f4665cd937e60f7d2fc074df4c1b5"
+        "bytes": 6733,
+        "path": "Build/AAA/D17-01/raw/storm-1080-01/telemetry.jsonl",
+        "sha256": "128a45b8a298086f035bf198de0e15ae8e503a51bbc511cf52027f11bba1cd51"
       },
       "terminal": "Success"
     }
@@ -85,7 +85,7 @@
   "findings": [
     {
       "criterion": "natural_arena_pressure",
-      "decision": "Do not invent a timer or connect the switch to arena-pressure APIs. Package-04 ordinary-input power, panel destruction and electrical-floor consequence retain their exact source/package binding. Package-11 changes ground material presentation only and passes the installed environment fixture. Current ordinary-input outcomes are recorded without inheritance.",
+      "decision": "Do not invent a timer or connect the switch to arena-pressure APIs. Package-04 ordinary-input power, panel destruction and electrical-floor consequence retain their exact source/package binding. Package-12 changes native cloud/fog/lighting presentation only and passes the installed environment fixture. Current ordinary-input outcomes are recorded without inheritance.",
       "fact": "Contract 33 leaves the exact mechanic, timing and escalation UNKNOWN. Accepted packaged pressure evidence invokes the authoritative API from fixtures. Native ApplyArenaPressure explicitly adds no elapsed-time escalation."
     },
     {
@@ -192,7 +192,7 @@
       "causal_evidence": "BiellaOpenWorldGameMode inherits SpawnDemoActors and the two-target Demo objective. BiellaDemoObjectiveManager excludes streaming infected. In hud-1080-01 telemetry the rival alone kills both tracked infected by 9.3066 s; Success follows at 9.4109 s even while streamed population survives. This identifies the early terminal cause without changing accepted behavior.",
       "criterion": "continuous_600_1200_seconds",
       "decision": "Preserve accepted terminal behavior. A supported continuous content sequence is not yet established; restart stitching and idle padding remain prohibited.",
-      "fact": "Native objective success and player defeat terminate normal control. Package-11 raw runs terminate at 18.312541172781494 and 8.810429577657487 active seconds. The longest preserved interaction attempt lasted 57.1384 seconds before rival-fire defeat; none qualifies 600\u20131200 seconds."
+      "fact": "Native objective success and player defeat terminate normal control. Package-12 raw runs terminate at 19.315267299243715 and 8.905501947680023 active seconds. The longest preserved interaction attempt lasted 57.1384 seconds before rival-fire defeat; none qualifies 600\u20131200 seconds."
     }
   ],
   "floor_edge_material_validation": {
@@ -210,7 +210,7 @@
     "path": "Build/AAA/D17-01/environment/mesh-author-05/geometry-readback.json",
     "sha256": "ea52beca7942ac968ea45e599fa4fb10ec1af7efdb817c4a73cd2697824d3699"
   },
-  "independent_work": "Package-11 replaces the hard moisture cutoff at the surveyed service-apron bounds with a variable 85\u2013145 cm drying band. Color, roughness and normal response approach the existing dry-road material class; central conductive plates, hazard lenses, slab joints and geometry are preserved. Only M_ServiceGround.uasset changes among runtime material inputs. Native code, mesh source and collision are byte-identical to package-10. Saved graph readback, Lit Vulkan diagnostics, fresh cook/archive/install and installed environment regression pass. The matched editor switch-safe comparison shows a softer, lighter and rougher outer apron with reduced blue-player reflection at its edge; the wet center and warm lamp reflections remain. The installed switch-safe view confirms that appearance. Ordinary-input video frames at 15 and 19 seconds show the transition on approach and after lateral movement, with physical slab joints and drains still visible. This fixes the localized moisture boundary; it does not establish every perimeter angle, final temporal quality or scene-wide material coherence. The 720p ordinary-input run ended in native Success after 18.312541172781494 active seconds and 23 input actions. Its inspected 15-second and 19-second frames show the approach and wet-apron transition. Three weapon-fire events were recorded, but there were no bay power transitions, panel events or electrical-floor damage. The 1080p run ended in native Success after 8.810429577657487 active seconds and five input actions, also without bay events. Its four-second frame shows the blue player, yellow rival, red mannequin infected and block-bodied infected on the sparse daylight road. Both runs have native combat telemetry, zero restarts and no captured audio. Neither establishes 600\u20131200 active seconds, later route beats or the full evolving arena consequence. Create the required cold overcast/storm lighting in the existing OpenWorld approach, starting with the authored sun/sky/atmosphere in Content/Python/author_open_world.py; preserve playable geometry and native mechanics, retain readable warm service lamps, and qualify the affected map in installed gameplay.",
+  "independent_work": "Package-12 adds a saved native volumetric-cloud material instance and cloud/fog actors to OpenWorld, cools the existing sun and reduces sun/sky intensity. Fresh-process readback preserves existing actor identities. The native code, playable geometry, collision and service-bay materials remain unchanged. The six changed Unreal packages and authoring script are bound to fresh cook, archive readback, installation and runtime evidence. This creates a cold overcast base with readable warm task lamps; it does not qualify final storm lighting or the AAA slice.",
   "native_mechanics_preservation": {
     "bytes": 1439,
     "path": "Build/AAA/D17-01/environment/ground-mechanics-preservation.json",
@@ -495,6 +495,89 @@
         "bytes": 20862,
         "path": "Build/AAA/D17-01/raw/panel-impact-720-01/telemetry.jsonl",
         "sha256": "d1c49d0780a7e44da3943172d255fcaa6d63500bd3ea7e98fb7319a47f1934f7"
+      },
+      "terminal": "Success"
+    },
+    {
+      "active_simulation_seconds": 18.312541172781494,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 23,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "floor-edge-720-01",
+      "runtime_log": {
+        "bytes": 276630,
+        "path": "Build/AAA/D17-01/raw/floor-edge-720-01/runtime.engine.log",
+        "sha256": "d16bdeab9f7e7e806a225498364417bef4fc3e73f070216afe1fc33953d0c4e7"
+      },
+      "telemetry": {
+        "bytes": 28787,
+        "path": "Build/AAA/D17-01/raw/floor-edge-720-01/telemetry.jsonl",
+        "sha256": "6b98a09fe98ea6ff892a14fb3136c9e67d6a79b1996be03ad9508102e1c02e2d"
+      },
+      "terminal": "Success"
+    }
+  ],
+  "previous_floor_edge_package_raw": [
+    {
+      "active_simulation_seconds": 18.312541172781494,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 23,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "floor-edge-720-01",
+      "runtime_log": {
+        "bytes": 276630,
+        "path": "Build/AAA/D17-01/raw/floor-edge-720-01/runtime.engine.log",
+        "sha256": "d16bdeab9f7e7e806a225498364417bef4fc3e73f070216afe1fc33953d0c4e7"
+      },
+      "telemetry": {
+        "bytes": 28787,
+        "path": "Build/AAA/D17-01/raw/floor-edge-720-01/telemetry.jsonl",
+        "sha256": "6b98a09fe98ea6ff892a14fb3136c9e67d6a79b1996be03ad9508102e1c02e2d"
+      },
+      "terminal": "Success"
+    },
+    {
+      "active_simulation_seconds": 8.810429577657487,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 5,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "floor-edge-1080-01",
+      "runtime_log": {
+        "bytes": 180920,
+        "path": "Build/AAA/D17-01/raw/floor-edge-1080-01/runtime.engine.log",
+        "sha256": "013a6f66652f4aeb08de70aa2e3a94cd434f8390a14d2eb3acba29190ff2391f"
+      },
+      "telemetry": {
+        "bytes": 6732,
+        "path": "Build/AAA/D17-01/raw/floor-edge-1080-01/telemetry.jsonl",
+        "sha256": "a0e58aa70bd5d29f3f162dc83c942293fd2f4665cd937e60f7d2fc074df4c1b5"
       },
       "terminal": "Success"
     }
@@ -1118,9 +1201,59 @@
       "bytes": 14799,
       "path": "Content/Environment/ServiceBay/M_ServicePanel.uasset",
       "sha256": "d1329452aa58130b77f61581e66514c84507575f823b7eaefbfd3be483ef25b1"
+    },
+    {
+      "bytes": 1200,
+      "path": "SourceAssets/Environment/storm-lighting.json",
+      "sha256": "ba08894a7b86ce6d311790d5f32bacd7b3aa727e5f9b626affa8f30ff4f66281"
+    },
+    {
+      "bytes": 7125,
+      "path": "Content/Python/author_storm_lighting.py",
+      "sha256": "c44315819c3bdee1a54867a7dcf6706c43933f06dece84895df34f082903fc37"
+    },
+    {
+      "bytes": 4075,
+      "path": "tests/author_d17_01_storm.py",
+      "sha256": "3f0919eac3ad2237db1230f73a1a3d4229ea7a0ba667ae8abdd825c8bc9b621b"
+    },
+    {
+      "bytes": 5423,
+      "path": "Content/Environment/Atmosphere/MI_StormClouds.uasset",
+      "sha256": "d9d980520443939f9ef1e8d1ada34b1ea877ca57de3555a1b6e14c74205378cd"
+    },
+    {
+      "bytes": 13330,
+      "path": "Content/Maps/BiellaOpenWorldMap.umap",
+      "sha256": "e2c402f403bba1f52f24bc5177147f929da35829b960d1f59a3eb8e6e050de96"
+    },
+    {
+      "bytes": 3970,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/54/K1Z9VDR6A3UM9NRJ2SZ6CI.uasset",
+      "sha256": "6d01e87cae8fab5e3a6ff223656fbd179e556492c67da932ff82fa9b13d4a369"
+    },
+    {
+      "bytes": 3986,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/Z3/IWZJG407GI7ATKMCJ0ORFZ.uasset",
+      "sha256": "e1d24b2bab6c95e2037ad8905920ca7c8eba239b0e201e80a0c5b6acd4fbb098"
+    },
+    {
+      "bytes": 3952,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/5/G9/15YJDXZ9FKHCBOIFFZ4GWS.uasset",
+      "sha256": "8e99c560c8699af7c2d174733cf01ce9ab4a364609b46dc02ecf275ab34430fb"
+    },
+    {
+      "bytes": 4445,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/4X/OAGDK0V5RO71D75MQR71A5.uasset",
+      "sha256": "a248de2ebe170c742a07734878b28f3ee3859d03adba06fec921ba2a18e61623"
     }
   ],
   "status": "UNMET_CRITERIA_RETAINED",
+  "storm_lighting_validation": {
+    "bytes": 10380,
+    "path": "Build/AAA/D17-01/environment/storm-lighting-validation.json",
+    "sha256": "87e9a7fb4c599ef549196cc3f9b9a91001b707ba752b1d1e5a1ded6406c28412"
+  },
   "switch_material_validation": {
     "bytes": 7921,
     "path": "Build/AAA/D17-01/environment/switch-material-validation.json",

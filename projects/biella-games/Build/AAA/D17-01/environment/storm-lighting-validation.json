@@ -1,0 +1,239 @@
+{
+  "asset_validation": {
+    "bytes": 126991,
+    "path": "Build/AAA/D17-01/environment/storm-assets-01/validation.json",
+    "sha256": "f3d490cbcbe0e2ed688b9317422ddca22824081267bf9a099555f4bc135f4d44"
+  },
+  "candidate_status": "GENERATED_DRAFT",
+  "editor_validation": {
+    "bytes": 202822,
+    "path": "Build/AAA/D17-01/environment/storm-editor-02/validation.json",
+    "sha256": "ded02705a953d48e7c9ee08f8d4e7479868119cf58bc404fcd231637dd60e78b"
+  },
+  "excluded_evidence": [
+    {
+      "path": "environment/storm-editor-01/captures/switch_safe.png",
+      "reason": "Shader-compilation overlay; preserved as raw diagnostic, replaced for visual assessment by warm-cache editor-02."
+    },
+    {
+      "path": "environment/storm-editor-01/captures/panel_destroyed.png",
+      "reason": "Shader-compilation overlay; preserved raw, excluded from visual assessment."
+    },
+    {
+      "path": "raw/storm-1080-01/frame-04.png",
+      "reason": "Loading screen, not gameplay composition."
+    }
+  ],
+  "inspected_frames": [
+    {
+      "bytes": 309007,
+      "path": "Build/AAA/D17-01/raw/storm-720-01/frame-04.png",
+      "sha256": "abc57547cb8a29ea798822a99db9dd2f075297a160890bc7368e1b1722a8d3a1"
+    },
+    {
+      "bytes": 325063,
+      "path": "Build/AAA/D17-01/raw/storm-720-01/frame-15.png",
+      "sha256": "7e45d95119130b21034368714d31c1ff8aabd3c874652db7670a6b160fc07436"
+    },
+    {
+      "bytes": 363401,
+      "path": "Build/AAA/D17-01/raw/storm-720-01/frame-19.png",
+      "sha256": "1ea8dced21c12b5fcc146e65eec0c10356350c668f2252eb5c6ebb71bf86f345"
+    },
+    {
+      "bytes": 534218,
+      "path": "Build/AAA/D17-01/raw/storm-1080-01/frame-07.png",
+      "sha256": "f5565b81984f7333dc4691459105e4291bc5319417a623f557213e6c6fa47416"
+    },
+    {
+      "bytes": 522551,
+      "path": "Build/AAA/D17-01/raw/storm-1080-01/frame-10.png",
+      "sha256": "772233f2d0de89319fdcceb62ba8573087047418bae8fac76282f1430ecf5c3e"
+    },
+    {
+      "bytes": 1036811,
+      "path": "Build/AAA/D17-01/environment/storm-editor-02/captures/switch_safe.png",
+      "sha256": "12462091eb93988d624540e23d0bb6f7b1533635739d5266bedd09c5ae71c855"
+    },
+    {
+      "bytes": 1037040,
+      "path": "Build/AAA/D17-01/environment/storm-editor-02/captures/panel_destroyed.png",
+      "sha256": "05cc8bde66435282e25e2499af3211cebbf9e0059ae7f560b59335c94d0f4390"
+    },
+    {
+      "bytes": 1035261,
+      "path": "Build/AAA/D17-01/environment/runtime-12/captures/switch_safe.png",
+      "sha256": "8dcc326a2f14474cd789569d7103009afb1972da39ae536a5ce932ebf52bc4a1"
+    },
+    {
+      "bytes": 1038156,
+      "path": "Build/AAA/D17-01/environment/runtime-12/captures/panel_destroyed.png",
+      "sha256": "65816fecd22640db2f444dc81e11df6ba1be53740eaead41836c177a6f075a05"
+    }
+  ],
+  "limits": [
+    "Soft uniform cloud bands and flat distant masses still need authored scene lighting and temporal qualification.",
+    "The five major visual groups remain open; no final visual acceptance.",
+    "Environment fixture is controlled setup, not continuous ordinary-input slice evidence.",
+    "The 720p ordinary-input run ended in native Success after 19.315267299243715 active seconds and 24 input actions. Its four-second frame shows the player, rival and infected together under the overcast sky; the 15- and 19-second frames show the service-bay approach. Three weapon-fire events were recorded, but no bay power transitions, panel events or electrical-floor damage. The 1080p run ended in native Success after 8.905501947680023 active seconds and five input actions, also without bay events. Its seven- and ten-second frames show the player approaching the bay; the four-second frame is loading and is excluded from gameplay visual comparison. Both runs have native combat telemetry, zero restarts and no captured audio. Neither establishes 600\u20131200 active seconds, later route beats or the full evolving arena consequence."
+  ],
+  "material_input_delta": [
+    "Content/Environment/Atmosphere/MI_StormClouds.uasset",
+    "Content/Maps/BiellaOpenWorldMap.umap",
+    "Content/Python/author_storm_lighting.py",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/54/K1Z9VDR6A3UM9NRJ2SZ6CI.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/Z3/IWZJG407GI7ATKMCJ0ORFZ.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/5/G9/15YJDXZ9FKHCBOIFFZ4GWS.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/4X/OAGDK0V5RO71D75MQR71A5.uasset"
+  ],
+  "next_action": "Author missing industrial foreground and midground along the accepted Street01-to-service-bay approach, preserving the existing route, collision and mechanics; validate saved assets, installed traversal and ordinary-input camera captures.",
+  "observed": [
+    "Gray overcast replaces the clear daylight baseline; cooler ambient light retains blue-player and service-switch readability.",
+    "Warm practical lamps and wet-floor reflections remain visible; red infection seams remain distinguishable.",
+    "Saved native cloud/fog actors and material instance survive fresh process and cooked installation. Environment fixture verifies power, panel state, hazard damage and stream return on package-12."
+  ],
+  "ordinary_input_runs": [
+    {
+      "active_simulation_seconds": 19.315267299243715,
+      "audio_captured": false,
+      "capture_input_wall_seconds": 22.11754430597648,
+      "capture_video_seconds": 24.1,
+      "decoded_frames": 720,
+      "directory": "Build/AAA/D17-01/raw/storm-720-01",
+      "electrical_floor_damage": [],
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "events": {
+        "damage": 58,
+        "defeat": 12,
+        "objective_activated": 1,
+        "objective_progress": 14,
+        "objective_success": 1,
+        "phase": 2,
+        "telemetry_ready": 1,
+        "telemetry_shutdown": 1,
+        "weapon_fire": 3
+      },
+      "input_actions": 24,
+      "namespace_file_verification": true,
+      "natural_pressure_observed": false,
+      "player_defeats": [],
+      "raw_video": {
+        "bytes": 4202620,
+        "path": "Build/AAA/D17-01/raw/storm-720-01/raw-gameplay.mkv",
+        "sha256": "f320c7d826d4c7e45f55519acb0a1bc9832e8f212975883c82b0cf0e5b160c53"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "restart_count": 0,
+      "run": "storm-720-01",
+      "session": "01A0823F-EDC7-72BE-990D-8CE0C3BD5882",
+      "terminal": "Success",
+      "uninterrupted_duration_satisfied": false
+    },
+    {
+      "active_simulation_seconds": 8.905501947680023,
+      "audio_captured": false,
+      "capture_input_wall_seconds": 11.978753531933762,
+      "capture_video_seconds": 13.933,
+      "decoded_frames": 414,
+      "directory": "Build/AAA/D17-01/raw/storm-1080-01",
+      "electrical_floor_damage": [],
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "events": {
+        "damage": 11,
+        "defeat": 2,
+        "objective_activated": 1,
+        "objective_progress": 2,
+        "objective_success": 1,
+        "phase": 2,
+        "telemetry_ready": 1,
+        "telemetry_shutdown": 1
+      },
+      "input_actions": 5,
+      "namespace_file_verification": true,
+      "natural_pressure_observed": false,
+      "player_defeats": [],
+      "raw_video": {
+        "bytes": 3690278,
+        "path": "Build/AAA/D17-01/raw/storm-1080-01/raw-gameplay.mkv",
+        "sha256": "97a155ed4b8b0270c3f75ee83d4aa5036ca00b443718473f1d954ceac2f797ad"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "restart_count": 0,
+      "run": "storm-1080-01",
+      "session": "01A08240-D156-7B0E-8DA3-F513FA3993FB",
+      "terminal": "Success",
+      "uninterrupted_duration_satisfied": false
+    }
+  ],
+  "package_id": "7a06321de73c8aece3380095c5ac45f64c4d0905dee3734b2e50dea2805effcb",
+  "package_validation": {
+    "bytes": 18763,
+    "path": "Build/AAA/D17-01/environment/runtime-12/validation.json",
+    "sha256": "c1cd5d54833578b790828be76a1e9173c88b1ef208153e6c5e3bebaaa7224838"
+  },
+  "preservation": "Only six Unreal packages plus the author script differ in runtime material inputs from package-11. Existing geometry, collision, native mechanics and service-bay materials are unchanged.",
+  "previous_commit": "cbca5c7cd692fa77e0a66a7e1ebcf9983287e956",
+  "result": "PASS_AFFECTED_LAYER",
+  "saved_readback": {
+    "bytes": 1602,
+    "path": "Build/AAA/D17-01/environment/storm-assets-01/readback.json",
+    "sha256": "170c4ce87f7513a594ca51bfe95774d2ec1344dd147275087730d59069c44535"
+  },
+  "slice_acceptance": false,
+  "sources": [
+    {
+      "bytes": 1200,
+      "path": "SourceAssets/Environment/storm-lighting.json",
+      "sha256": "ba08894a7b86ce6d311790d5f32bacd7b3aa727e5f9b626affa8f30ff4f66281"
+    },
+    {
+      "bytes": 7125,
+      "path": "Content/Python/author_storm_lighting.py",
+      "sha256": "c44315819c3bdee1a54867a7dcf6706c43933f06dece84895df34f082903fc37"
+    },
+    {
+      "bytes": 4075,
+      "path": "tests/author_d17_01_storm.py",
+      "sha256": "3f0919eac3ad2237db1230f73a1a3d4229ea7a0ba667ae8abdd825c8bc9b621b"
+    },
+    {
+      "bytes": 5423,
+      "path": "Content/Environment/Atmosphere/MI_StormClouds.uasset",
+      "sha256": "d9d980520443939f9ef1e8d1ada34b1ea877ca57de3555a1b6e14c74205378cd"
+    },
+    {
+      "bytes": 13330,
+      "path": "Content/Maps/BiellaOpenWorldMap.umap",
+      "sha256": "e2c402f403bba1f52f24bc5177147f929da35829b960d1f59a3eb8e6e050de96"
+    },
+    {
+      "bytes": 3970,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/54/K1Z9VDR6A3UM9NRJ2SZ6CI.uasset",
+      "sha256": "6d01e87cae8fab5e3a6ff223656fbd179e556492c67da932ff82fa9b13d4a369"
+    },
+    {
+      "bytes": 3986,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/Z3/IWZJG407GI7ATKMCJ0ORFZ.uasset",
+      "sha256": "e1d24b2bab6c95e2037ad8905920ca7c8eba239b0e201e80a0c5b6acd4fbb098"
+    },
+    {
+      "bytes": 3952,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/5/G9/15YJDXZ9FKHCBOIFFZ4GWS.uasset",
+      "sha256": "8e99c560c8699af7c2d174733cf01ce9ab4a364609b46dc02ecf275ab34430fb"
+    },
+    {
+      "bytes": 4445,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/4X/OAGDK0V5RO71D75MQR71A5.uasset",
+      "sha256": "a248de2ebe170c742a07734878b28f3ee3859d03adba06fec921ba2a18e61623"
+    }
+  ],
+  "task_id": "D17-01"
+}

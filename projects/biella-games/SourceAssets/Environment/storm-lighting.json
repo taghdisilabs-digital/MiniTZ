@@ -1,0 +1,29 @@
+{
+  "schema": "biella.games.storm_lighting/v1",
+  "task_id": "D17-01",
+  "status": "GENERATED_DRAFT",
+  "map": "/Game/Maps/BiellaOpenWorldMap",
+  "direction": "Low overcast, cold diffuse daylight and atmospheric separation; retain existing warm service-bay practical lights and visible gameplay silhouettes.",
+  "cloud_parent": "/Engine/EngineSky/VolumetricClouds/m_SimpleVolumetricCloud_Inst",
+  "cloud_material": "/Game/Environment/Atmosphere/MI_StormClouds",
+  "cloud_scalars": {
+    "Cloud_GlobalCoverage": 0.35,
+    "Cloud_GlobalDensity": 0.024,
+    "StormClouds": 0.0
+  },
+  "cloud_vectors": {
+    "Cloud_AlbedoColor": [0.84, 0.88, 0.94, 0.5],
+    "Layout_WindControls": [0.32, 0.12, 0.16, 0.333333]
+  },
+  "sun_lux": 3.5,
+  "sun_color_linear": [0.78, 0.86, 1.0, 1.0],
+  "sun_source_angle_degrees": 4.0,
+  "sky_intensity": 0.8,
+  "cloud_base_km": 0.6,
+  "cloud_height_km": 1.2,
+  "fog_density": 0.007,
+  "fog_height_falloff": 0.15,
+  "fog_color_linear": [0.14, 0.18, 0.23, 1.0],
+  "volumetric_fog_distance_cm": 16000.0,
+  "scope": "Saved native lighting actors and a project-owned material instance. No lightning, rain mechanic, time manipulation, post-process overlay or world/AI mutation."
+}

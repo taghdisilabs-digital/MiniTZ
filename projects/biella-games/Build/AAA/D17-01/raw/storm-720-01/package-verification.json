@@ -1,0 +1,42 @@
+{
+  "binary": {
+    "bytes": 299185984,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/7a06321de73c8aece3380095c5ac45f64c4d0905dee3734b2e50dea2805effcb/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "784a93e01da177765c30a92d845254eb0b9b126a0bce8b8b39286914a4bd4900"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/7a06321de73c8aece3380095c5ac45f64c4d0905dee3734b2e50dea2805effcb/payload",
+  "manifest": {
+    "bytes": 8669,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/7a06321de73c8aece3380095c5ac45f64c4d0905dee3734b2e50dea2805effcb/manifest.json",
+    "sha256": "f0f5f3584625caadac9716a1f1fd7f4e28d5ffb84ed6802eacfc4f5fa6f09f77"
+  },
+  "package_id": "7a06321de73c8aece3380095c5ac45f64c4d0905dee3734b2e50dea2805effcb",
+  "platform": "Linux",
+  "scope": "Byte-verified Linux Development package; not visual acceptance or Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "f0678897f50811e30e3f76d99900581815d5c1c6",
+    "head_tree": "9a85eec4204ed3d4bbdc9e015baaaa70b237cbba",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      " M Content/Maps/BiellaOpenWorldMap.umap",
+      " M Content/__ExternalActors__/Maps/BiellaOpenWorldMap/5/G9/15YJDXZ9FKHCBOIFFZ4GWS.uasset",
+      " M Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/4X/OAGDK0V5RO71D75MQR71A5.uasset",
+      " M tests/qualify_d17_01.py",
+      "?? Build/AAA/D17-01/environment/runtime-12/",
+      "?? Build/AAA/D17-01/environment/storm-assets-01/",
+      "?? Build/AAA/D17-01/environment/storm-editor-01/",
+      "?? Build/AAA/D17-01/environment/storm-editor-02/",
+      "?? Build/AAA/D17-01/environment/storm-probe-01/",
+      "?? Build/AAA/D17-01/raw/storm-720-01/",
+      "?? Content/Environment/Atmosphere/",
+      "?? Content/Python/author_storm_lighting.py",
+      "?? Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/54/",
+      "?? Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/Z3/",
+      "?? SourceAssets/Environment/storm-lighting.json",
+      "?? tests/author_d17_01_storm.py"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T18:20:19.006137+00:00"
+}

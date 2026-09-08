@@ -1,0 +1,71 @@
+{
+  "scalar_parameters": {
+    "Layout_CloudGlobalScale": 256.0,
+    "Cloud_GlobalCoverage": -0.20000000298023224,
+    "Cloud_GlobalDensity": 0.00800000037997961,
+    "StormClouds": 0.0,
+    "Storm_LightningTexScale": 6.0
+  },
+  "vector_parameters": {
+    "Cloud_AlbedoColor": "<Struct 'LinearColor' (0x7d57e27fb8a0) {r: 0.980000, g: 0.980000, b: 0.980000, a: 0.500000}>",
+    "Layout_WindControls": "<Struct 'LinearColor' (0x7d57e27fb8a0) {r: 1.000000, g: 1.000000, b: 0.500000, a: 0.333333}>",
+    "Noise2_Coordinates": "<Struct 'LinearColor' (0x7d57e27fb8a0) {r: 60.000000, g: 60.000000, b: 75.000000, a: -6.000000}>",
+    "Noise3_Coordinates": "<Struct 'LinearColor' (0x7d57e27fb8a0) {r: 30.000000, g: 40.000000, b: 25.000000, a: 8.000000}>",
+    "Noise1_Coordinates": "<Struct 'LinearColor' (0x7d57e27fb8a0) {r: 4.167000, g: 4.444000, b: 9.091000, a: 7.000000}>",
+    "Layout_CloudType": "<Struct 'LinearColor' (0x7d57e27fb8a0) {r: 1.000000, g: 1.000000, b: 1.000000, a: 2.000000}>",
+    "Storm_LightningColor": "<Struct 'LinearColor' (0x7d57e27fb8a0) {r: 2.000000, g: 1.800000, b: 2.000000, a: 10.000000}>",
+    "Storm_AlbedoColor": "<Struct 'LinearColor' (0x7d57e27fb8a0) {r: 0.300000, g: 0.337500, b: 0.375000, a: 0.333333}>",
+    "Layout_GlobalTexturePlacement": "<Struct 'LinearColor' (0x7d57e27fb8a0) {r: 0.000000, g: 0.000000, b: 0.000000, a: 0.000000}>",
+    "Layout_CloudPerTypeScale": "<Struct 'LinearColor' (0x7d57e27fb8a0) {r: 1.000000, g: 1.000000, b: 1.000000, a: 1.000000}>",
+    "Layout_CloudTypeMask": "<Struct 'LinearColor' (0x7d57e27fb8a0) {r: 0.000000, g: 0.000000, b: 0.000000, a: 1.000000}>",
+    "Multiscatter_Controls": "<Struct 'LinearColor' (0x7d57e27fb8a0) {r: 0.666667, g: 0.250000, b: 0.180000, a: 1.000000}>",
+    "Phase_Controls": "<Struct 'LinearColor' (0x7d57e27fb9a0) {r: 0.800000, g: 0.166667, b: 0.575000, a: 1.000000}>",
+    "Noise3_MultChannel": "<Struct 'LinearColor' (0x7d57e27fb9a0) {r: 0.000000, g: 0.000000, b: 1.000000, a: 0.400000}>",
+    "Noise_Bias": "<Struct 'LinearColor' (0x7d57e27fbae0) {r: 0.500000, g: 0.800000, b: 0.500000, a: 0.000000}>",
+    "Noise_Strength": "<Struct 'LinearColor' (0x7d57e27fba20) {r: 0.800000, g: 0.080000, b: 0.030000, a: 2.500000}>",
+    "Storm_LightningAnim": "<Struct 'LinearColor' (0x7d57e27fba20) {r: 0.000000, g: 0.100000, b: 0.000000, a: 1.000000}>",
+    "Storm_LightningClouds": "<Struct 'LinearColor' (0x7d57e27fba20) {r: 6.000000, g: 0.050000, b: 0.175000, a: 2.500000}>",
+    "Storm_LightningMasks": "<Struct 'LinearColor' (0x7d57e27fba20) {r: 10.000000, g: 5.000000, b: 0.500000, a: 1.000000}>"
+  },
+  "actors": [
+    {
+      "label": "D02_Continuity_Atmosphere",
+      "class": "/Script/Engine.SkyAtmosphere",
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.SkyAtmosphere_UAID_FA163ECF0746EAFE02_1100162903",
+      "components": [
+        "/Script/Engine.BillboardComponent",
+        "/Script/Engine.SkyAtmosphereComponent",
+        "/Script/Engine.ArrowComponent"
+      ]
+    },
+    {
+      "label": "D02_Continuity_Sky",
+      "class": "/Script/Engine.SkyLight",
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.SkyLight_UAID_FA163ECF0746E7FE02_1616342436",
+      "components": [
+        "/Script/Engine.BillboardComponent",
+        "/Script/Engine.SkyLightComponent",
+        "/Script/Engine.BillboardComponent"
+      ]
+    },
+    {
+      "label": "D02_Continuity_Sun",
+      "class": "/Script/Engine.DirectionalLight",
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.DirectionalLight_UAID_FA163ECF0746E7FE02_1616341435",
+      "components": [
+        "/Script/Engine.DirectionalLightComponent",
+        "/Script/Engine.ArrowComponent",
+        "/Script/Engine.BillboardComponent"
+      ]
+    },
+    {
+      "label": "D02_Interior_Light",
+      "class": "/Script/Engine.PointLight",
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.PointLight_UAID_FA163ECF0746EAFE02_1100163904",
+      "components": [
+        "/Script/Engine.PointLightComponent",
+        "/Script/Engine.BillboardComponent"
+      ]
+    }
+  ]
+}

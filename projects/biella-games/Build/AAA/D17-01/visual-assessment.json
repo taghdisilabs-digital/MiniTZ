@@ -1,18 +1,21 @@
 {
   "baseline_frame": "raw/entry-720-02/frame-13.png",
   "current_frames": [
-    "raw/floor-edge-720-01/frame-15.png",
-    "raw/floor-edge-720-01/frame-19.png",
-    "raw/floor-edge-1080-01/frame-04.png"
+    "raw/storm-720-01/frame-04.png",
+    "raw/storm-720-01/frame-15.png",
+    "raw/storm-720-01/frame-19.png",
+    "raw/storm-1080-01/frame-07.png",
+    "raw/storm-1080-01/frame-10.png"
   ],
-  "current_package_id": "0c41fd851f85a8444a97cdf608ba917eecbf6490b1a815c5dbc321d6f44bc443",
+  "current_package_id": "7a06321de73c8aece3380095c5ac45f64c4d0905dee3734b2e50dea2805effcb",
+  "excluded_current_frame": "raw/storm-1080-01/frame-04.png is preserved loading footage and is excluded from gameplay visual comparison.",
   "floor_edge_material_validation": {
     "bytes": 9372,
     "path": "Build/AAA/D17-01/environment/floor-edge-material-validation.json",
     "sha256": "4a25c378c99271910d73c4f7f699be188dff8b9ba8a4ae991dccceae538b5f95"
   },
   "floor_material_diagnosis": "environment/floor-diagnosis.json",
-  "improved_boundary": "Package-11 replaces the hard moisture cutoff at the surveyed service-apron bounds with a variable 85\u2013145 cm drying band. Color, roughness and normal response approach the existing dry-road material class; central conductive plates, hazard lenses, slab joints and geometry are preserved. Only M_ServiceGround.uasset changes among runtime material inputs. Native code, mesh source and collision are byte-identical to package-10. Saved graph readback, Lit Vulkan diagnostics, fresh cook/archive/install and installed environment regression pass. The matched editor switch-safe comparison shows a softer, lighter and rougher outer apron with reduced blue-player reflection at its edge; the wet center and warm lamp reflections remain. The installed switch-safe view confirms that appearance. Ordinary-input video frames at 15 and 19 seconds show the transition on approach and after lateral movement, with physical slab joints and drains still visible. This fixes the localized moisture boundary; it does not establish every perimeter angle, final temporal quality or scene-wide material coherence. The 720p ordinary-input run ended in native Success after 18.312541172781494 active seconds and 23 input actions. Its inspected 15-second and 19-second frames show the approach and wet-apron transition. Three weapon-fire events were recorded, but there were no bay power transitions, panel events or electrical-floor damage. The 1080p run ended in native Success after 8.810429577657487 active seconds and five input actions, also without bay events. Its four-second frame shows the blue player, yellow rival, red mannequin infected and block-bodied infected on the sparse daylight road. Both runs have native combat telemetry, zero restarts and no captured audio. Neither establishes 600\u20131200 active seconds, later route beats or the full evolving arena consequence.",
+  "improved_boundary": "Package-12 adds a saved native volumetric-cloud material instance and cloud/fog actors to OpenWorld, cools the existing sun and reduces sun/sky intensity. Fresh-process readback preserves existing actor identities. The native code, playable geometry, collision and service-bay materials remain unchanged. The six changed Unreal packages and authoring script are bound to fresh cook, archive readback, installation and runtime evidence. This creates a cold overcast base with readable warm task lamps; it does not qualify final storm lighting or the AAA slice.",
   "major_defects": [
     {
       "finding": "Blue/yellow/red mannequin presentation, primitive infected body and block-like weapon remain in the focal encounter.",
@@ -31,12 +34,12 @@
       "id": "infection"
     },
     {
-      "finding": "Two motivated warm task lamps now illuminate the panels, but clear daylight and exposed sky still lack the required cold storm atmosphere and coherent scene-wide lighting contrast.",
+      "finding": "Native cloud/fog and cooler sun/sky now establish an overcast base while warm service lamps remain readable. Uniform soft cloud bands, flat distant masses and the bright primitive interior still lack coherent scene-wide storm lighting and contrast. Temporal stability through the full route remains unqualified.",
       "id": "lighting"
     }
   ],
   "method": "Direct inspection of decoded frames from unedited normal-camera raw captures, plus explicitly separate editor and installed-package environment fixture frames; exact source/build/input/telemetry retained separately",
-  "next_action": "Create the required cold overcast/storm lighting in the existing OpenWorld approach, starting with the authored sun/sky/atmosphere in Content/Python/author_open_world.py; preserve playable geometry and native mechanics, retain readable warm service lamps, and qualify the affected map in installed gameplay.",
+  "next_action": "Author missing industrial foreground and midground along the accepted Street01-to-service-bay approach, preserving the existing route, collision and mechanics; validate saved assets, installed traversal and ordinary-input camera captures.",
   "panel_material_validation": {
     "bytes": 7455,
     "path": "Build/AAA/D17-01/environment/panel-material-validation.json",
@@ -49,7 +52,8 @@
     "environment/switch-editor-02/captures/switch_safe.png",
     "environment/switch-editor-02/captures/panel_damaged.png",
     "environment/panel-editor-01/captures/panel_damaged.png",
-    "environment/panel-editor-01/captures/panel_destroyed.png"
+    "environment/panel-editor-01/captures/panel_destroyed.png",
+    "environment/floor-edge-editor-01/captures/switch_safe.png"
   ],
   "previous_frames": [
     "raw/hud-720-01/frame-13.png",
@@ -82,7 +86,10 @@
     "raw/switch-face-1080-01/frame-04.png",
     "raw/panel-impact-720-01/frame-12.png",
     "raw/panel-impact-720-01/frame-15.png",
-    "raw/panel-impact-1080-01/frame-04.png"
+    "raw/panel-impact-1080-01/frame-04.png",
+    "raw/floor-edge-720-01/frame-15.png",
+    "raw/floor-edge-720-01/frame-19.png",
+    "raw/floor-edge-1080-01/frame-04.png"
   ],
   "previous_packaged_frames": [
     "environment/runtime-03/captures/switch_safe.png",
@@ -99,7 +106,8 @@
     "environment/runtime-09/captures/switch_safe.png",
     "environment/runtime-09/captures/panel_damaged.png",
     "environment/runtime-10/captures/panel_damaged.png",
-    "environment/runtime-10/captures/panel_destroyed.png"
+    "environment/runtime-10/captures/panel_destroyed.png",
+    "environment/runtime-11/captures/switch_safe.png"
   ],
   "scope": "Preserves accepted mechanics evidence; rejects current final visual quality. Does not reopen predecessor task acceptance.",
   "service_bay_coordinate_defect": {
@@ -113,18 +121,25 @@
     "status": "FIXED_IN_CURRENT_ASSETS_AND_PACKAGE"
   },
   "service_bay_editor_frames": [
-    "environment/floor-edge-editor-01/captures/switch_safe.png"
+    "environment/storm-editor-02/captures/switch_safe.png",
+    "environment/storm-editor-02/captures/panel_destroyed.png"
   ],
-  "service_bay_editor_frames_scope": "Controlled Lit Vulkan environment fixture; compared with the preserved package-10 editor switch-safe frame. No ordinary-input route or final visual acceptance.",
-  "service_bay_limit": "The drying band improves only the wet-apron material boundary. Wider world/character/infection/storm-lighting defects remain, and the installed fixture is not slice proof.",
+  "service_bay_editor_frames_scope": "Controlled Lit Vulkan fixture with warmed shaders; compared with the preserved floor-edge-editor-01 switch-safe frame. Storm-editor-01 overlay frames are preserved but excluded. No ordinary-input route or final visual acceptance.",
+  "service_bay_limit": "Installed fixture confirms overcast light, readable controls, warm wet-floor reflections and unchanged environment behavior. Sparse industrial surroundings, prototype focal art and remaining material/infection/lighting defects still reject final visual quality.",
   "service_bay_packaged_frames": [
-    "environment/runtime-11/captures/switch_safe.png"
+    "environment/runtime-12/captures/switch_safe.png",
+    "environment/runtime-12/captures/panel_destroyed.png"
   ],
   "status": "REJECTED_CURRENT_CANDIDATE",
+  "storm_lighting_validation": {
+    "bytes": 10380,
+    "path": "Build/AAA/D17-01/environment/storm-lighting-validation.json",
+    "sha256": "87e9a7fb4c599ef549196cc3f9b9a91001b707ba752b1d1e5a1ded6406c28412"
+  },
   "switch_material_validation": "environment/switch-material-validation.json",
   "task_id": "D17-01",
   "unproven": [
-    "Current package-11 ordinary input records no bay power, panel or electrical-floor event. Package-04 ordinary consequence remains separately preserved. The package-11 fixture verifies native environment behavior but does not establish the full evolving player+rival+infected+arena composition. No natural arena_pressure transition is observed.",
+    "Current package-12 ordinary input records no bay power, panel or electrical-floor event. Package-04 ordinary consequence remains separately preserved. The package-12 fixture verifies native environment behavior but does not establish the full evolving player+rival+infected+arena composition. No natural arena_pressure transition is observed. The inspected 1080p gameplay frames do not show all encounter participants together.",
     "Interior, terrace and east-return beats were not reached before terminal state.",
     "HUD occlusion during required later dense-combat states remains unqualified.",
     "No final temporal-quality or raw audio qualification is claimed."
