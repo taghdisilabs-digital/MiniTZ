@@ -4,6 +4,7 @@
 
 #include "BiellaPlaytestTelemetry.h"
 #include "BiellaGameplayFeedback.h"
+#include "BiellaRuntimeText.h"
 #include "Net/UnrealNetwork.h"
 
 ABiellaGamesGameState::ABiellaGamesGameState()
@@ -54,7 +55,7 @@ void ABiellaGamesGameState::ResetState()
     bRivalAlive = true;
     bPlayerAlive = true;
     Phase = EDemo01Phase::Intro;
-    ObjectiveText = TEXT("Enter the arena.");
+    ObjectiveText = BiellaRuntimeText::ResolveString(FName(TEXT("objective_enter_arena")));
     if (UBiellaGameplayFeedback* Feedback = UBiellaGameplayFeedback::Get(GetWorld()))
     {
         Feedback->ResetFeedback();

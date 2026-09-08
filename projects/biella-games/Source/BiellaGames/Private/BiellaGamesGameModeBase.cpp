@@ -10,6 +10,7 @@
 #include "BiellaGamesPlayerController.h"
 #include "BiellaDemoObjectiveManager.h"
 #include "BiellaPlaytestTelemetry.h"
+#include "BiellaRuntimeText.h"
 #include "EngineUtils.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
@@ -213,7 +214,8 @@ void ABiellaGamesGameModeBase::HandlePlayerDefeat(ABiellaGamesCharacter* Player,
 
     bPlayerFailureHandled = true;
     State->bPlayerAlive = false;
-    State->SetPhase(EDemo01Phase::Failure, TEXT("You were defeated."));
+    State->SetPhase(EDemo01Phase::Failure,
+        BiellaRuntimeText::ResolveString(FName(TEXT("objective_defeated"))));
     UE_LOG(LogTemp, Display,
         TEXT("D01_SIGNAL PLAYER_FAILURE actor=%s health=%.1f phase=Failure reason=%s authority=server"),
         *GetNameSafe(Player), Player ? Player->GetHealth() : 0.0f, *Reason);

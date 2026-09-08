@@ -1,6 +1,8 @@
 // Copyright Biella Games. All Rights Reserved.
 
 #include "BiellaGamesGameInstance.h"
+#include "BiellaGameUserSettings.h"
+#include "BiellaRuntimeText.h"
 #include "BiellaRenderProfile.h"
 #include "SceneViewExtension.h"
 
@@ -11,6 +13,11 @@ UBiellaGamesGameInstance::UBiellaGamesGameInstance()
 void UBiellaGamesGameInstance::Init()
 {
     Super::Init();
+    BiellaRuntimeText::Initialize();
+    if (UBiellaGameUserSettings* Settings = UBiellaGameUserSettings::Get())
+    {
+        Settings->ApplyRuntimeSettings();
+    }
     BiellaRenderProfile::Configure();
     RenderReadback=BiellaRenderProfile::BeginReadback(this);
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL GAME_INSTANCE_READY"));

@@ -3,7 +3,9 @@
 #include "BiellaGameplayHUD.h"
 
 #include "BiellaDemoObjectiveManager.h"
+#include "BiellaGameUserSettings.h"
 #include "BiellaGamesCharacter.h"
+#include "BiellaRuntimeText.h"
 #include "BiellaVehicle.h"
 #include "BiellaEnvironmentSite.h"
 #include "EngineUtils.h"
@@ -31,7 +33,7 @@ const FLinearColor HudFailureColor(1.0f, 0.15f, 0.10f, 1.0f);
 const FLinearColor HudTerminalBackdropColor(0.002f, 0.006f, 0.012f, 0.84f);
 const FLinearColor HudTerminalCardColor(0.008f, 0.015f, 0.025f, 0.97f);
 
-UTextBlock* AddText(UWidgetTree* WidgetTree, UPanelWidget* Parent, const TCHAR* InitialText,
+UTextBlock* AddText(UWidgetTree* WidgetTree, UPanelWidget* Parent, const FText& InitialText,
     int32 FontSize, const FLinearColor& Color, const FName Name = NAME_None)
 {
     if (!WidgetTree || !Parent)
@@ -40,7 +42,7 @@ UTextBlock* AddText(UWidgetTree* WidgetTree, UPanelWidget* Parent, const TCHAR* 
     }
 
     UTextBlock* Text = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), Name);
-    Text->SetText(FText::FromString(InitialText));
+    Text->SetText(InitialText);
     FSlateFontInfo Font = Text->GetFont();
     Font.Size = FontSize;
     Text->SetFont(Font);
@@ -54,6 +56,12 @@ UTextBlock* AddText(UWidgetTree* WidgetTree, UPanelWidget* Parent, const TCHAR* 
         VerticalSlot->SetPadding(FMargin(0.0f, 2.0f, 0.0f, 2.0f));
     }
     return Text;
+}
+
+UTextBlock* AddText(UWidgetTree* WidgetTree, UPanelWidget* Parent, const TCHAR* InitialText,
+    int32 FontSize, const FLinearColor& Color, const FName Name = NAME_None)
+{
+    return AddText(WidgetTree, Parent, FText::FromString(InitialText), FontSize, Color, Name);
 }
 
 UBorder* AddCard(UWidgetTree* WidgetTree, UCanvasPanel* Canvas, const FName Name,
@@ -100,6 +108,18 @@ const TCHAR* PhaseLabel(EDemo01Phase Phase)
     default: return TEXT("UNKNOWN");
     }
 }
+
+FName PhaseKey(EDemo01Phase Phase)
+{
+    switch (Phase)
+    {
+    case EDemo01Phase::Intro: return FName(TEXT("phase_intro"));
+    case EDemo01Phase::Active: return FName(TEXT("phase_active"));
+    case EDemo01Phase::Success: return FName(TEXT("phase_success"));
+    case EDemo01Phase::Failure: return FName(TEXT("phase_failure"));
+    default: return FName(TEXT("phase_unknown"));
+    }
+}
 }
 
 TSharedRef<SWidget> UBiellaGameplayHUD::RebuildWidget()
@@ -114,13 +134,35 @@ TSharedRef<SWidget> UBiellaGameplayHUD::RebuildWidget()
 void UBiellaGameplayHUD::NativeConstruct()
 {
     Super::NativeConstruct();
+    ApplyUserSettings();
     RefreshFromRuntime();
 }
 
 void UBiellaGameplayHUD::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
     Super::NativeTick(MyGeometry, InDeltaTime);
+    ApplyUserSettings();
     RefreshFromRuntime();
+}
+
+void UBiellaGameplayHUD::ApplyUserSettings()
+{
+    const UBiellaGameUserSettings* Settings = UBiellaGameUserSettings::Get();
+    if (!Settings)
+    {
+        return;
+    }
+
+    const float NewScale = Settings->GetHUDScale();
+    if (FMath::IsNearlyEqual(AppliedHUDScale, NewScale, 0.001f))
+    {
+        return;
+    }
+
+    SetRenderScale(FVector2D(NewScale, NewScale));
+    AppliedHUDScale = NewScale;
+    UE_LOG(LogTemp, Display,
+        TEXT("D05_SIGNAL HUD_SCALE_APPLIED scale=%.2f accessibility=readability"), NewScale);
 }
 
 void UBiellaGameplayHUD::BuildLayout()
@@ -141,14 +183,16 @@ void UBiellaGameplayHUD::BuildLayout()
     {
         UVerticalBox* Stack = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
         ObjectiveCard->SetContent(Stack);
-        AddText(WidgetTree, Stack, TEXT("OBJECTIVE // DEMO 01"), 14, HudAccentColor,
+        AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("objective_label"))), 14, HudAccentColor,
             TEXT("ObjectiveLabel"));
-        ObjectiveText = AddText(WidgetTree, Stack, TEXT("Waiting for objective..."), 22,
+        ObjectiveText = AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("objective_waiting"))), 22,
             FLinearColor::White, TEXT("ObjectiveText"));
         ObjectiveText->SetAutoWrapText(true);
-        ObjectiveProgressText = AddText(WidgetTree, Stack, TEXT("PROGRESS 00 / 00"), 14,
+        ObjectiveProgressText = AddText(WidgetTree, Stack,
+            FText::FromString(FString::Printf(TEXT("%s 00 / 00"),
+                *BiellaRuntimeText::ResolveString(FName(TEXT("progress_prefix"))))), 14,
             HudSecondaryColor, TEXT("ObjectiveProgressText"));
-        PhaseText = AddText(WidgetTree, Stack, TEXT("INTRO"), 14, HudSuccessColor,
+        PhaseText = AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("phase_intro"))), 14, HudSuccessColor,
             TEXT("PhaseText"));
         AddVerticalPadding(ObjectiveText, FMargin(0.0f, 8.0f, 0.0f, 8.0f));
     }
@@ -160,9 +204,9 @@ void UBiellaGameplayHUD::BuildLayout()
     {
         UVerticalBox* Stack = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
         StatusCard->SetContent(Stack);
-        AddText(WidgetTree, Stack, TEXT("PLAYER STATUS"), 14, HudAccentColor,
+        AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("player_status"))), 14, HudAccentColor,
             TEXT("StatusLabel"));
-        AddText(WidgetTree, Stack, TEXT("HEALTH"), 14, HudSecondaryColor, TEXT("HealthLabel"));
+        AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("health"))), 14, HudSecondaryColor, TEXT("HealthLabel"));
 
         USizeBox* HealthBarSize = WidgetTree->ConstructWidget<USizeBox>(USizeBox::StaticClass());
         HealthBarSize->SetHeightOverride(12.0f);
@@ -175,9 +219,13 @@ void UBiellaGameplayHUD::BuildLayout()
 
         HealthText = AddText(WidgetTree, Stack, TEXT("100 / 100"), 24, FLinearColor::White,
             TEXT("HealthText"));
-        AmmoText = AddText(WidgetTree, Stack, TEXT("AMMO 60"), 20, HudWarningColor,
+        AmmoText = AddText(WidgetTree, Stack,
+            FText::FromString(FString::Printf(TEXT("%s 60"),
+                *BiellaRuntimeText::ResolveString(FName(TEXT("ammo_prefix"))))), 20, HudWarningColor,
             TEXT("AmmoText"));
-        ThreatsText = AddText(WidgetTree, Stack, TEXT("THREATS 02"), 14, HudSecondaryColor,
+        ThreatsText = AddText(WidgetTree, Stack,
+            FText::FromString(FString::Printf(TEXT("%s 02"),
+                *BiellaRuntimeText::ResolveString(FName(TEXT("threats_prefix"))))), 14, HudSecondaryColor,
             TEXT("ThreatsText"));
     }
 
@@ -187,10 +235,13 @@ void UBiellaGameplayHUD::BuildLayout()
     UVerticalBox* CountdownStack = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
     CountdownCard->SetContent(CountdownStack);
     VehiclePrompt=AddText(WidgetTree,CountdownStack,TEXT(""),14,HudWarningColor,TEXT("VehiclePrompt"));
-    UTextBlock* CountdownLabel = AddText(WidgetTree, CountdownStack, TEXT("THREAT COUNTDOWN"),
+    UTextBlock* CountdownLabel = AddText(WidgetTree, CountdownStack,
+        BiellaRuntimeText::Resolve(FName(TEXT("threat_countdown"))),
         14, HudWarningColor, TEXT("CountdownLabel"));
     CountdownLabel->SetJustification(ETextJustify::Center);
-    CountdownText = AddText(WidgetTree, CountdownStack, TEXT("02 TARGETS REMAIN"), 20,
+    CountdownText = AddText(WidgetTree, CountdownStack,
+        FText::FromString(FString::Printf(TEXT("02 %s"),
+            *BiellaRuntimeText::ResolveString(FName(TEXT("targets_remain_plural"))))), 20,
         FLinearColor::White, TEXT("CountdownText"));
     CountdownText->SetJustification(ETextJustify::Center);
 
@@ -261,7 +312,7 @@ void UBiellaGameplayHUD::BuildLayout()
 
     UVerticalBox* TerminalStack = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
     TerminalCard->SetContent(TerminalStack);
-    auto AddTerminalText = [this, TerminalStack](const TCHAR* InitialText, int32 FontSize,
+    auto AddTerminalText = [this, TerminalStack](const FText& InitialText, int32 FontSize,
         const FLinearColor& Color, const FName Name) -> UTextBlock*
     {
         UTextBlock* Text = AddText(WidgetTree, TerminalStack, InitialText, FontSize, Color, Name);
@@ -272,14 +323,14 @@ void UBiellaGameplayHUD::BuildLayout()
         }
         return Text;
     };
-    AddTerminalText(TEXT("DEMO 01 // TERMINAL STATE"), 14, HudAccentColor, TEXT("TerminalLabel"));
-    TerminalTitle = AddTerminalText(TEXT("SUCCESS // ARENA CLEARED"), 28, HudSuccessColor,
+    AddTerminalText(BiellaRuntimeText::Resolve(FName(TEXT("terminal_label"))), 14, HudAccentColor, TEXT("TerminalLabel"));
+    TerminalTitle = AddTerminalText(BiellaRuntimeText::Resolve(FName(TEXT("terminal_success_title"))), 28, HudSuccessColor,
         TEXT("TerminalTitle"));
     AddVerticalPadding(TerminalTitle, FMargin(0.0f, 18.0f, 0.0f, 10.0f));
-    TerminalMessage = AddTerminalText(TEXT("Arena cleared."), 18, FLinearColor::White,
+    TerminalMessage = AddTerminalText(BiellaRuntimeText::Resolve(FName(TEXT("objective_arena_cleared"))), 18, FLinearColor::White,
         TEXT("TerminalMessage"));
     AddVerticalPadding(TerminalMessage, FMargin(0.0f, 0.0f, 0.0f, 24.0f));
-    RestartPrompt = AddTerminalText(TEXT("PRESS R TO RESTART"), 18, HudWarningColor,
+    RestartPrompt = AddTerminalText(BiellaRuntimeText::Resolve(FName(TEXT("terminal_restart_prompt"))), 18, HudWarningColor,
         TEXT("RestartPrompt"));
 }
 
@@ -287,10 +338,13 @@ void UBiellaGameplayHUD::UpdateTerminalOverlay(EDemo01Phase Phase, const FString
 {
     const bool bShouldShow = Phase == EDemo01Phase::Success || Phase == EDemo01Phase::Failure;
     const bool bIsFailure = Phase == EDemo01Phase::Failure;
-    const FString Title = bShouldShow ?
-        (bIsFailure ? TEXT("FAILURE // YOU WERE DEFEATED") : TEXT("SUCCESS // ARENA CLEARED")) : TEXT("");
+    const FText TitleText = bShouldShow ?
+        BiellaRuntimeText::Resolve(bIsFailure ? FName(TEXT("terminal_failure_title")) :
+            FName(TEXT("terminal_success_title"))) : FText::GetEmpty();
+    const FString Title = TitleText.ToString();
     const FString Message = bShouldShow ? Objective : TEXT("");
-    const FString Prompt = bShouldShow ? TEXT("PRESS R TO RESTART") : TEXT("");
+    const FString Prompt = bShouldShow ?
+        BiellaRuntimeText::ResolveString(FName(TEXT("terminal_restart_prompt"))) : TEXT("");
 
     if (TerminalOverlay)
     {
@@ -298,7 +352,7 @@ void UBiellaGameplayHUD::UpdateTerminalOverlay(EDemo01Phase Phase, const FString
     }
     if (TerminalTitle)
     {
-        TerminalTitle->SetText(FText::FromString(Title));
+        TerminalTitle->SetText(TitleText);
         TerminalTitle->SetColorAndOpacity(FSlateColor(bIsFailure ? HudFailureColor : HudSuccessColor));
     }
     if (TerminalMessage)
@@ -363,8 +417,10 @@ void UBiellaGameplayHUD::RefreshFromRuntime()
         FMath::Max(ObjectiveManager->TargetCount, Remaining) : Remaining;
     const int32 Progress = ObjectiveManager.IsValid() ?
         FMath::Clamp(ObjectiveManager->ProgressCount, 0, Target) : FMath::Clamp(Target - Remaining, 0, Target);
+    ApplyUserSettings();
     const FString Objective = !GameState->ObjectiveText.IsEmpty() ? GameState->ObjectiveText :
-        ObjectiveManager.IsValid() ? ObjectiveManager->ObjectiveStatus : TEXT("Objective pending.");
+        ObjectiveManager.IsValid() ? ObjectiveManager->ObjectiveStatus :
+        BiellaRuntimeText::ResolveString(FName(TEXT("objective_pending")));
     const int32 Phase = static_cast<int32>(GameState->Phase);
 
     if (HealthBar)
@@ -380,7 +436,12 @@ void UBiellaGameplayHUD::RefreshFromRuntime()
     if (AmmoText)
     {
         const auto* V=Player->GetVehicle();
-        AmmoText->SetText(FText::FromString(V ? FString::Printf(TEXT("%02.0f km/h  CAR %.0f%%"),FMath::Abs(V->GetSpeed())*0.036f,V->GetHealth()) : FString::Printf(TEXT("AMMO %02d"), Ammo)));
+        AmmoText->SetText(FText::FromString(V ? FString::Printf(TEXT("%02.0f %s  %s %.0f%%"),
+            FMath::Abs(V->GetSpeed()) * 0.036f,
+            *BiellaRuntimeText::ResolveString(FName(TEXT("vehicle_speed_unit"))),
+            *BiellaRuntimeText::ResolveString(FName(TEXT("vehicle_health_prefix"))), V->GetHealth()) :
+            FString::Printf(TEXT("%s %02d"),
+                *BiellaRuntimeText::ResolveString(FName(TEXT("ammo_prefix"))), Ammo)));
     }
     if (VehiclePrompt)
     {
@@ -388,17 +449,19 @@ void UBiellaGameplayHUD::RefreshFromRuntime()
         if (Player.IsValid() && Player->GetVehicle())
         {
             const auto* V=Player->GetVehicle();
-            Hint=V->IsHeld() ? TEXT("Waiting for road collision") : TEXT("W/S Drive / reverse | A/D Steer | SPACE Brake | E Exit");
-            if (V->GetHealth()<=0) { Hint=TEXT("Vehicle disabled | Stop, then E to exit"); }
-            else if (V->GetLastRejection()==TEXT("exit_obstructed")) { Hint=TEXT("Exit blocked | Move to a clear space"); }
-            else if (V->GetLastRejection()==TEXT("exit_speed_or_roll")) { Hint=TEXT("Stop upright before exiting"); }
+            Hint=V->IsHeld() ? BiellaRuntimeText::ResolveString(FName(TEXT("vehicle_waiting"))) :
+                BiellaRuntimeText::ResolveString(FName(TEXT("vehicle_drive")));
+            if (V->GetHealth()<=0) { Hint=BiellaRuntimeText::ResolveString(FName(TEXT("vehicle_disabled_exit"))); }
+            else if (V->GetLastRejection()==TEXT("exit_obstructed")) { Hint=BiellaRuntimeText::ResolveString(FName(TEXT("vehicle_exit_blocked"))); }
+            else if (V->GetLastRejection()==TEXT("exit_speed_or_roll")) { Hint=BiellaRuntimeText::ResolveString(FName(TEXT("vehicle_stop_upright"))); }
         }
         else if (Player.IsValid())
         {
             for (TActorIterator<ABiellaVehicle> It(GetWorld());It;++It)
             {
                 if (FVector::Dist(It->GetActorLocation(),Player->GetActorLocation())<320)
-                { Hint=It->GetHealth()>0 ? TEXT("E Drive vehicle") : TEXT("Vehicle disabled"); break; }
+                { Hint=It->GetHealth()>0 ? BiellaRuntimeText::ResolveString(FName(TEXT("vehicle_drive_nearby"))) :
+                    BiellaRuntimeText::ResolveString(FName(TEXT("vehicle_disabled"))); break; }
             }
         }
         if (Player.IsValid() && !Player->GetVehicle())
@@ -411,12 +474,14 @@ void UBiellaGameplayHUD::RefreshFromRuntime()
     }
     if (ThreatsText)
     {
-        ThreatsText->SetText(FText::FromString(FString::Printf(TEXT("THREATS %02d"), Remaining)));
+        ThreatsText->SetText(FText::FromString(FString::Printf(TEXT("%s %02d"),
+            *BiellaRuntimeText::ResolveString(FName(TEXT("threats_prefix"))), Remaining)));
     }
     if (CountdownText)
     {
-        CountdownText->SetText(FText::FromString(
-            FString::Printf(TEXT("%02d TARGET%s REMAIN"), Remaining, Remaining == 1 ? TEXT("") : TEXT("S"))));
+        CountdownText->SetText(FText::FromString(FString::Printf(TEXT("%02d %s"), Remaining,
+            *BiellaRuntimeText::ResolveString(Remaining == 1 ? FName(TEXT("targets_remain_one")) :
+                FName(TEXT("targets_remain_plural"))))));
     }
     if (ObjectiveText)
     {
@@ -424,12 +489,12 @@ void UBiellaGameplayHUD::RefreshFromRuntime()
     }
     if (ObjectiveProgressText)
     {
-        ObjectiveProgressText->SetText(FText::FromString(
-            FString::Printf(TEXT("PROGRESS %02d / %02d"), Progress, Target)));
+        ObjectiveProgressText->SetText(FText::FromString(FString::Printf(TEXT("%s %02d / %02d"),
+            *BiellaRuntimeText::ResolveString(FName(TEXT("progress_prefix"))), Progress, Target)));
     }
     if (PhaseText)
     {
-        PhaseText->SetText(FText::FromString(PhaseLabel(GameState->Phase)));
+        PhaseText->SetText(BiellaRuntimeText::Resolve(PhaseKey(GameState->Phase)));
         PhaseText->SetColorAndOpacity(GameState->Phase == EDemo01Phase::Failure ?
             FSlateColor(FLinearColor(1.0f, 0.15f, 0.10f, 1.0f)) :
             GameState->Phase == EDemo01Phase::Success ? FSlateColor(HudSuccessColor) :

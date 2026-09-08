@@ -2,6 +2,7 @@
 
 #include "BiellaDemoObjectiveManager.h"
 #include "BiellaWorldContinuity.h"
+#include "BiellaRuntimeText.h"
 
 #include "BiellaDemoPawn.h"
 #include "BiellaGamesCharacter.h"
@@ -19,7 +20,7 @@ ABiellaDemoObjectiveManager::ABiellaDemoObjectiveManager()
     PrimaryActorTick.bCanEverTick = true;
     PrimaryActorTick.TickInterval = 0.1f;
     bReplicates = true;
-    ObjectiveStatus = TEXT("Objective is waiting to activate.");
+    ObjectiveStatus = BiellaRuntimeText::ResolveString(FName(TEXT("objective_waiting_status")));
 }
 
 void ABiellaDemoObjectiveManager::BeginPlay()
@@ -71,7 +72,7 @@ void ABiellaDemoObjectiveManager::ActivateObjective()
 
     RegisterCurrentInfected();
     ObjectiveState = EDemo01ObjectiveState::Active;
-    ObjectiveStatus = TEXT("Eliminate all infected.");
+    ObjectiveStatus = BiellaRuntimeText::ResolveString(FName(TEXT("objective_eliminate")));
     if (ABiellaGamesGameState* State = GetWorld()->GetGameState<ABiellaGamesGameState>())
     {
         State->SetPhase(EDemo01Phase::Active, ObjectiveStatus);
@@ -134,7 +135,7 @@ void ABiellaDemoObjectiveManager::EvaluateObjective()
         TargetCount > 0 && InfectedRemaining == 0)
     {
         ObjectiveState = EDemo01ObjectiveState::Succeeded;
-        ObjectiveStatus = TEXT("Arena cleared.");
+        ObjectiveStatus = BiellaRuntimeText::ResolveString(FName(TEXT("objective_arena_cleared")));
         if (State)
         {
             State->SetPhase(EDemo01Phase::Success, ObjectiveStatus);

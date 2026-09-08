@@ -4,6 +4,7 @@
 #include "BiellaVehicle.h"
 #include "BiellaEnvironmentSite.h"
 #include "BiellaGameplayFeedback.h"
+#include "BiellaGameUserSettings.h"
 
 #include "BiellaGamesGameModeBase.h"
 #include "BiellaPlaytestTelemetry.h"
@@ -205,7 +206,9 @@ void ABiellaGamesCharacter::JumpStarted(const FInputActionValue& Value)
 
 void ABiellaGamesCharacter::LookYaw(const FInputActionValue& Value)
 {
-    const float DeltaYaw = Value.Get<float>() * 0.8f;
+    const UBiellaGameUserSettings* Settings = UBiellaGameUserSettings::Get();
+    const float Sensitivity = Settings ? Settings->GetLookSensitivityX() : 0.8f;
+    const float DeltaYaw = Value.Get<float>() * Sensitivity;
     if (auto* V=GetVehicle())
     {
         auto R=V->CameraBoom->GetRelativeRotation();
@@ -218,10 +221,14 @@ void ABiellaGamesCharacter::LookYaw(const FInputActionValue& Value)
 
 void ABiellaGamesCharacter::LookPitch(const FInputActionValue& Value)
 {
+    const UBiellaGameUserSettings* Settings = UBiellaGameUserSettings::Get();
+    const float Sensitivity = Settings ? Settings->GetLookSensitivityY() : 0.6f;
+    const float Direction = Settings && Settings->IsInvertYEnabled() ? -1.0f : 1.0f;
+    const float DeltaPitch = Value.Get<float>() * Sensitivity * Direction;
     if (auto* V=GetVehicle())
     {
         auto R=V->CameraBoom->GetRelativeRotation();
-        R.Pitch=FMath::Clamp(R.Pitch+Value.Get<float>()*0.6f,-50.0f,5.0f);
+        R.Pitch=FMath::Clamp(R.Pitch+DeltaPitch,-50.0f,5.0f);
         V->CameraBoom->SetRelativeRotation(R);
         return;
     }
@@ -230,8 +237,26 @@ void ABiellaGamesCharacter::LookPitch(const FInputActionValue& Value)
         return;
     }
     FRotator Rotation = CameraBoom->GetRelativeRotation();
-    Rotation.Pitch = FMath::Clamp(Rotation.Pitch + Value.Get<float>() * 0.6f, -55.0f, 12.0f);
+    Rotation.Pitch = FMath::Clamp(Rotation.Pitch + DeltaPitch, -55.0f, 12.0f);
     CameraBoom->SetRelativeRotation(Rotation);
+}
+
+void ABiellaGamesCharacter::ResetTransientInputState()
+{
+    bSprintHeld = false;
+    bJumping = false;
+    JumpElapsed = 0.0f;
+    FireCooldownRemaining = 0.0f;
+    ConsumeMovementInputVector();
+    if (PawnMovement)
+    {
+        PawnMovement->StopMovementImmediately();
+    }
+    if (Vehicle.IsValid())
+    {
+        Vehicle->SetControls(0.0f, 0.0f, true);
+    }
+    UE_LOG(LogTemp, Display, TEXT("D05_SIGNAL INPUT_STATE_RESET pawn=%s"), *GetName());
 }
 
 void ABiellaGamesCharacter::JumpEnded(const FInputActionValue& Value)

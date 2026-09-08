@@ -42,6 +42,7 @@ public:
     void SprintStarted(const FInputActionValue& Value);
     void SprintEnded(const FInputActionValue& Value);
     void FireWeapon(const FInputActionValue& Value);
+    void ResetTransientInputState();
     bool FireWeaponAt(ABiellaDemoPawn* Target, float DamageAmount, const FString& DamageTag);
     int32 GetAmmo() const { return Ammo; }
     ABiellaVehicle* GetVehicle() const { return Vehicle.Get(); }

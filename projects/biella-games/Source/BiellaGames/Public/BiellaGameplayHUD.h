@@ -24,6 +24,10 @@ public:
     virtual void NativeConstruct() override;
     virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
     void RefreshFromRuntime();
+    void ApplyUserSettings();
+
+    UFUNCTION(BlueprintPure, Category="Demo01|HUD|Accessibility")
+    float GetAppliedHUDScale() const { return AppliedHUDScale; }
 
     UFUNCTION(BlueprintPure, Category="Demo01|HUD")
     bool IsRuntimeBound() const { return bRuntimeBound; }
@@ -45,6 +49,9 @@ public:
 
     UFUNCTION(BlueprintPure, Category="Demo01|HUD")
     FString GetDisplayedObjectiveText() const { return DisplayedObjectiveText; }
+
+    UFUNCTION(BlueprintPure, Category="Demo01|HUD")
+    int32 GetDisplayedPhase() const { return DisplayedPhase; }
 
     UFUNCTION(BlueprintPure, Category="Demo01|HUD|Terminal")
     bool IsTerminalOverlayVisible() const { return bTerminalOverlayVisible; }
@@ -112,6 +119,7 @@ private:
 
     bool bRuntimeBound = false;
     bool bLoggedReady = false;
+    float AppliedHUDScale = -1.0f;
     float DisplayedHealth = -1.0f;
     int32 DisplayedAmmo = -1;
     int32 DisplayedThreatCountdown = -1;

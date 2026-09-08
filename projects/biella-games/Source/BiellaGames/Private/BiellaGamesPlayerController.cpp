@@ -7,8 +7,10 @@
 #include "EngineUtils.h"
 
 #include "BiellaGameplayHUD.h"
+#include "BiellaGameUserSettings.h"
 #include "BiellaGamesGameModeBase.h"
 #include "BiellaGamesGameState.h"
+#include "BiellaSettingsWidget.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "InputCoreTypes.h"
 
@@ -30,8 +32,20 @@ void ABiellaGamesPlayerController::BeginPlay()
             UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL HUD_VIEWPORT_READY widget=%s owner=%s"),
                 *GameplayHUD->GetName(), *GetName());
         }
+        SettingsWidget = CreateWidget<UBiellaSettingsWidget>(this, UBiellaSettingsWidget::StaticClass());
+        if (SettingsWidget)
+        {
+            SettingsWidget->AddToViewport(200);
+            SettingsWidget->SetVisibility(ESlateVisibility::Collapsed);
+            UE_LOG(LogTemp, Display, TEXT("D05_SIGNAL SETTINGS_VIEWPORT_READY widget=%s owner=%s"),
+                *SettingsWidget->GetName(), *GetName());
+        }
     }
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL CONTROLLER_READY game_input=true"));
+    if (UBiellaGameUserSettings* Settings = UBiellaGameUserSettings::Get())
+    {
+        Settings->ApplyRuntimeSettings();
+    }
 }
 
 void ABiellaGamesPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -40,6 +54,11 @@ void ABiellaGamesPlayerController::EndPlay(const EEndPlayReason::Type EndPlayRea
     {
         GameplayHUD->RemoveFromParent();
         GameplayHUD = nullptr;
+    }
+    if (SettingsWidget)
+    {
+        SettingsWidget->RemoveFromParent();
+        SettingsWidget = nullptr;
     }
     Super::EndPlay(EndPlayReason);
 }
@@ -67,14 +86,29 @@ void ABiellaGamesPlayerController::UpdateTerminalInputState()
         GetWorld()->GetGameState<ABiellaGamesGameState>() : nullptr;
     const bool bTerminal = State &&
         (State->Phase == EDemo01Phase::Success || State->Phase == EDemo01Phase::Failure);
-    if (bTerminal == bTerminalInputActive)
+    const bool bTerminalChanged = bTerminal != bTerminalInputActive;
+    bTerminalInputActive = bTerminal;
+
+    if (bPauseSettingsActive)
     {
+        ResetIgnoreInputFlags();
+        SetIgnoreMoveInput(true);
+        SetIgnoreLookInput(true);
+        SessionMode = EBiellaSessionMode::PauseSettings;
         return;
     }
 
-    bTerminalInputActive = bTerminal;
-    SetIgnoreMoveInput(bTerminal);
-    SetIgnoreLookInput(bTerminal);
+    ResetIgnoreInputFlags();
+    if (bTerminal)
+    {
+        SetIgnoreMoveInput(true);
+        SetIgnoreLookInput(true);
+    }
+    SessionMode = bTerminal ? EBiellaSessionMode::Terminal : EBiellaSessionMode::Gameplay;
+    if (!bTerminalChanged)
+    {
+        return;
+    }
     UE_LOG(LogTemp, Display,
         TEXT("D01_SIGNAL TERMINAL_INPUT_STATE terminal=%s movement=%s look=%s restart_key=R"),
         bTerminal ? TEXT("true") : TEXT("false"),
@@ -91,7 +125,92 @@ void ABiellaGamesPlayerController::SetupInputComponent()
             &ABiellaGamesPlayerController::RestartDemo);
         InputComponent->BindKey(EKeys::E, IE_Pressed, this,
             &ABiellaGamesPlayerController::InteractWorld);
+        InputComponent->BindKey(EKeys::Escape, IE_Pressed, this,
+            &ABiellaGamesPlayerController::TogglePauseSettings);
     }
+}
+
+void ABiellaGamesPlayerController::TogglePauseSettings()
+{
+    if (bPauseSettingsActive)
+    {
+        ResumeFromSettings();
+    }
+    else
+    {
+        OpenPauseSettings();
+    }
+}
+
+void ABiellaGamesPlayerController::OpenPauseSettings()
+{
+    if (!IsLocalController() || bPauseSettingsActive || bTerminalInputActive ||
+        !SettingsWidget || !GetWorld())
+    {
+        return;
+    }
+
+    FlushPressedKeys();
+    if (!SetPause(true))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("D05_SIGNAL PAUSE_REJECTED reason=set_pause_failed"));
+        return;
+    }
+
+    bPauseSettingsActive = true;
+    SessionMode = EBiellaSessionMode::PauseSettings;
+    SetIgnoreMoveInput(true);
+    SetIgnoreLookInput(true);
+    bShowMouseCursor = true;
+    SettingsWidget->OpenSettings();
+
+    FInputModeGameAndUI InputMode;
+    InputMode.SetWidgetToFocus(SettingsWidget->TakeWidget());
+    InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+    InputMode.SetHideCursorDuringCapture(false);
+    SetInputMode(InputMode);
+    UE_LOG(LogTemp, Display,
+        TEXT("D05_SIGNAL SESSION_TRANSITION from=Gameplay to=PauseSettings paused=true cursor=true input=ui focus=settings"));
+}
+
+void ABiellaGamesPlayerController::ResumeFromSettings()
+{
+    if (!bPauseSettingsActive)
+    {
+        return;
+    }
+
+    if (SettingsWidget)
+    {
+        SettingsWidget->ApplyAndSave();
+        SettingsWidget->CloseSettings();
+    }
+    if (UBiellaGameUserSettings* Settings = UBiellaGameUserSettings::Get())
+    {
+        Settings->ApplyRuntimeSettings();
+    }
+
+    bPauseSettingsActive = false;
+    SetPause(false);
+    FlushPressedKeys();
+    if (ABiellaGamesCharacter* Character = Cast<ABiellaGamesCharacter>(GetPawn()))
+    {
+        Character->ResetTransientInputState();
+    }
+
+    const bool bTerminal = bTerminalInputActive;
+    ResetIgnoreInputFlags();
+    if (bTerminal)
+    {
+        SetIgnoreMoveInput(true);
+        SetIgnoreLookInput(true);
+    }
+    bShowMouseCursor = false;
+    SetInputMode(FInputModeGameOnly());
+    SessionMode = bTerminal ? EBiellaSessionMode::Terminal : EBiellaSessionMode::Gameplay;
+    UE_LOG(LogTemp, Display,
+        TEXT("D05_SIGNAL SESSION_TRANSITION from=PauseSettings to=%s paused=false cursor=false input=game_only stale_input=cleared"),
+        bTerminal ? TEXT("Terminal") : TEXT("Gameplay"));
 }
 
 void ABiellaGamesPlayerController::InteractWorld()
@@ -113,6 +232,10 @@ void ABiellaGamesPlayerController::InteractWorld()
 
 void ABiellaGamesPlayerController::RestartDemo()
 {
+    if (bPauseSettingsActive)
+    {
+        return;
+    }
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL RESTART_INPUT source=controller"));
     if (ABiellaGamesGameModeBase* Mode = GetWorld() ?
         GetWorld()->GetAuthGameMode<ABiellaGamesGameModeBase>() : nullptr)
