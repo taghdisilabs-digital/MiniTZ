@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 import re
+import shlex
 import subprocess
 import threading
 import time
@@ -159,25 +160,95 @@ class LiveProjection:
         return result
 
     @staticmethod
-    def _category(event: dict[str, object]) -> str:
+    def _shell_operations(raw: str, depth: int = 0) -> list[tuple[str, str]]:
+        """Describe executed commands, never test/render words inside read arguments."""
+        if depth > 3:
+            return [("TOOL", "")]
+        try:
+            lexer = shlex.shlex(raw, posix=True, punctuation_chars=";&|<>()")
+            lexer.whitespace_split = True
+            tokens = list(lexer)
+        except ValueError:
+            return [("TOOL", "")]
+        if not tokens:
+            return [("TOOL", "")]
+        # The journal wraps most commands in /bin/bash -lc <one quoted script>.
+        if Path(tokens[0]).name in {"bash", "sh", "zsh"}:
+            command_index = next((i for i, value in enumerate(tokens[1:], 1)
+                                  if value.startswith("-") and "c" in value[1:]), None)
+            if command_index is not None and command_index + 1 < len(tokens):
+                return LiveProjection._shell_operations(tokens[command_index + 1], depth + 1)
+        # Embedded scripts and output redirection are not claimed to be pure reads.
+        if any(value in {">", ">>", "<<", "<<<"} for value in tokens):
+            return [("TOOL", "")]
+        segments: list[list[str]] = [[]]
+        for token in tokens:
+            if token in {";", "&&", "||", "|", "&"}:
+                segments.append([])
+            else:
+                segments[-1].append(token)
+        result: list[tuple[str, str]] = []
+        read_commands = {"cat", "head", "tail", "rg", "grep", "ls", "nl", "wc", "stat", "file", "sha256sum", "sha1sum", "md5sum", "pwd", "sort", "uniq", "cut", "du", "df", "test", "true"}
+        git_reads = {"diff", "status", "log", "show", "ls-files", "check-ignore", "rev-parse", "cat-file", "merge-base", "ls-tree", "ls-remote"}
+        for segment in segments:
+            args = list(segment)
+            while args and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*=.*", args[0]):
+                args.pop(0)
+            if not args:
+                continue
+            command = Path(args[0]).name
+            kind, detail = "TOOL", ""
+            if command == "git":
+                sub = next((value for value in args[1:] if value in git_reads | {"commit"}), "")
+                kind = "COMMIT" if sub == "commit" else ("READ" if sub in git_reads else "TOOL")
+            elif command in read_commands:
+                kind = "READ"
+            elif command == "sed" and not any(x == "--in-place" or x.startswith("--in-place=") or (x.startswith("-") and not x.startswith("--") and "i" in x[1:]) for x in args[1:]):
+                kind = "READ"
+            elif command == "find" and not any(x in args for x in ("-exec", "-execdir", "-delete", "-ok", "-okdir", "-fprint", "-fprintf", "-fls")):
+                kind = "READ"
+            elif command in {"pytest", "unittest"}:
+                kind = "TEST"
+            elif command.startswith("python") or command in {"bash", "sh", "node"}:
+                script = args[1] if len(args) > 1 else ""
+                if script == "-m" and len(args) > 2 and args[2] in {"pytest", "unittest"}:
+                    kind = "TEST"
+                elif script and not script.startswith("-"):
+                    name = Path(script).name
+                    if name == "Build.sh":
+                        kind, detail = "BUILD", name
+                    elif ("tests/" in script or name.startswith(("test_", "verify_", "run_d"))) and name.endswith((".py", ".sh", ".js", ".mjs")):
+                        kind, detail = "TEST", name
+            elif command == "Build.sh" or (command == "cmake" and "--build" in args) or command == "ninja":
+                kind, detail = "BUILD", command
+            elif command.startswith("UnrealEditor") or command == "ffmpeg":
+                kind, detail = "RENDER", command
+            result.append((kind, detail))
+        return result or [("TOOL", "")]
+
+    @classmethod
+    def _operation(cls, event: dict[str, object]) -> tuple[str, str]:
+        operations = cls._shell_operations(str(event.get("text") or ""))
+        for kind in ("COMMIT", "BUILD", "TEST", "RENDER"):
+            match = next((item for item in operations if item[0] == kind), None)
+            if match:
+                return match
+        return ("READ", "") if all(item[0] == "READ" for item in operations) else ("TOOL", "")
+
+    @classmethod
+    def _category(cls, event: dict[str, object]) -> str:
         event_type = str(event.get("type") or "")
         tool = str(event.get("tool") or "")
-        raw = f"{tool} {event.get('text') or ''}".lower()
         if event_type.startswith("validation."):
             return "TEST"
         if event_type == "agent.message" or event_type.startswith("task.") or event_type in {"turn.completed", "dialog.queued", "dialog.started"}:
             return "BIELLA"
-        if "git commit" in raw or event_type.startswith("commit."):
+        if event_type.startswith("commit."):
             return "COMMIT"
-        if any(token in raw for token in ("verify_", "pytest", "unittest", "tests/run_", " tests/", "validation.json")):
-            return "TEST"
-        if any(token in raw for token in ("build.sh", "cmake --build", "ninja ", "compile", "build completed")):
-            return "BUILD"
-        if any(token in raw for token in ("capture", "render", "unrealeditor", "ffmpeg")):
-            return "RENDER"
         if tool == "file_change" or event_type == "artifact.created":
             return "ARTIFACT"
-        return "TOOL"
+        operation, _ = cls._operation(event)
+        return "TOOL" if operation == "READ" else operation
 
     @staticmethod
     def _state_word(event: dict[str, object]) -> str:
@@ -212,9 +283,7 @@ class LiveProjection:
         else:
             raw = str(event.get("text") or "")
             detail = ""
-            match = re.search(r"(?:tests/|Build/Presentation/)([A-Za-z0-9_.\-/]+)", raw)
-            if match:
-                detail = Path(match.group(1)).name
+            operation, detail = cls._operation(event)
             verbs = {"RUNNING": "running", "COMPLETED": "completed", "FAILED": "failed", "INFO": "updated"}
             verb = verbs.get(state, state.lower())
             labels = {
@@ -229,6 +298,15 @@ class LiveProjection:
             text = f"{labels[category]} {verb}"
             if detail:
                 text += f" · {detail}"
+            if operation == "READ" and category == "TOOL":
+                read_label = {"RUNNING": "Reading existing source/evidence", "COMPLETED": "Read existing source/evidence", "FAILED": "Source/evidence read failed"}.get(state, "Source/evidence read")
+                references = list(dict.fromkeys(re.findall(r"D\d{2}-\d{2}", raw)))
+                referenced = [reference for reference in references if reference != task_id]
+                text = f"{task_id} · {read_label}" if task_id else read_label
+                if referenced:
+                    text += " · reference " + ", ".join(referenced[:4])
+            elif task_id:
+                text = f"{task_id} · {text}"
         return {
             "event_id": int(event.get("event_id") or event.get("seq") or 0),
             "seq": int(event.get("seq") or 0),
@@ -237,6 +315,7 @@ class LiveProjection:
             "category": category,
             "state": state,
             "text": text,
+            "operation_kind": cls._operation(event)[0] if event_type.startswith("tool.") and str(event.get("tool") or "") != "file_change" else category,
         }
 
     def _task_started_at(self, task_id: str, events: list[dict[str, object]]) -> str:
