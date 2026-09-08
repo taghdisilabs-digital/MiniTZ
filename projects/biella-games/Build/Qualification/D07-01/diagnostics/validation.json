@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "tests_run": 51,
+  "receipt": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/diagnostics/20260908T074222.320535Z/validation.json",
+    "sha256": "56dd62471b5189a331665d3cf0cfb055a96f4108c2f3faf06ea7606b7ec180b6",
+    "bytes": 3652
+  },
+  "watchdog_expected_rejection": true
+}

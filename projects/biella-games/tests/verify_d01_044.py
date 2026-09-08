@@ -222,7 +222,7 @@ def verify_log(content, baseline):
             "classification": "Exact predecessor warning signatures remain disclosed; not warning-free."}
 
 
-def verify_run(directory, seconds, width, height, warmup):
+def verify_run(directory, seconds, width, height, warmup, log_verifier=verify_log):
     directory = Path(directory)
     require(numeric(seconds, "requested seconds") > 0 and numeric(warmup, "requested warmup") >= 0,
             "Invalid requested duration")
@@ -298,7 +298,7 @@ def verify_run(directory, seconds, width, height, warmup):
         stats["zero_or_unavailable_samples"] = len(measured) - len(samples)
         stats["interpretation"] = "Positive engine timer samples; may be pipelined/delayed; not FPS or additive frame cost."
         timings[key] = stats
-    log_report = verify_log((directory / "runtime.stdout.log").read_text(errors="replace"), BASELINE_LOG.read_text())
+    log_report = log_verifier((directory / "runtime.stdout.log").read_text(errors="replace"), BASELINE_LOG.read_text())
     return {"result": "PASS", "logs": log_report, "scope": "Observed native development-host workload; no shipping target or performance budget accepted.",
             "settings": perf["settings"], "measurement_start_wall_seconds": measured[0]["wall_seconds"] - measured[0]["wall_delta_ms"] / 1000,
             "measurement_end_wall_seconds": measured[-1]["wall_seconds"],

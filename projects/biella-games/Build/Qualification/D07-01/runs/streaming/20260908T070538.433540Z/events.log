@@ -1,0 +1,56 @@
+D02_01_TEST event=fixture_world_reload_requested wall=0.003876 phase=0 waypoint=0 location=V(0) loads=0 unloads=0
+D02_01_TEST event=world_ready wall=0.328982 phase=0 waypoint=0 location=V(Z=88.00) loads=0 unloads=0
+D02_01_TEST event=initial_shaders_ready wall=1.398294 phase=0 waypoint=0 location=V(Z=90.00) loads=15 unloads=0
+D02_01_TEST event=dormancy_active_tick_restore wall=1.399881 phase=0 waypoint=0 location=V(Z=90.00) loads=15 unloads=0
+D02_01_TEST event=outward_route wall=1.400180 phase=1 waypoint=0 location=V(Z=90.00) loads=15 unloads=0
+D02_01_TEST event=waypoint_reached wall=3.754221 phase=1 waypoint=0 location=V(X=0.05, Y=-726.58, Z=90.00) loads=15 unloads=0
+D02_01_TEST event=waypoint_reached wall=11.511823 phase=1 waypoint=1 location=V(X=3925.47, Y=-799.79, Z=90.00) loads=15 unloads=0
+D02_01_TEST event=waypoint_reached wall=13.075377 phase=1 waypoint=2 location=V(X=3999.31, Y=-75.01, Z=90.00) loads=15 unloads=0
+D02_01_TEST event=waypoint_reached wall=20.814498 phase=1 waypoint=3 location=V(X=7926.75, Y=-0.20, Z=90.00) loads=17 unloads=0
+D02_01_TEST event=waypoint_reached wall=25.296824 phase=1 waypoint=4 location=V(X=7999.67, Y=2224.07, Z=90.00) loads=17 unloads=0
+D02_01_TEST event=waypoint_reached wall=29.894210 phase=1 waypoint=5 location=V(X=8000.02, Y=79.66, Z=90.00) loads=17 unloads=0
+D02_01_TEST event=waypoint_reached wall=34.277499 phase=1 waypoint=6 location=V(X=9930.75, Y=966.07, Z=90.11) loads=19 unloads=3
+D02_01_TEST event=waypoint_reached wall=36.609256 phase=1 waypoint=7 location=V(X=9999.26, Y=2122.34, Z=314.47) loads=19 unloads=3
+D02_01_TEST event=waypoint_reached wall=38.919720 phase=1 waypoint=8 location=V(X=9999.99, Y=3323.12, Z=490.00) loads=19 unloads=4
+D02_01_TEST event=waypoint_reached wall=41.418597 phase=1 waypoint=9 location=V(X=10000.07, Y=2279.58, Z=347.45) loads=20 unloads=4
+D02_01_TEST event=waypoint_reached wall=43.742219 phase=1 waypoint=10 location=V(X=10000.00, Y=1072.06, Z=106.11) loads=20 unloads=4
+D02_01_TEST event=waypoint_reached wall=45.661548 phase=1 waypoint=11 location=V(X=10000.00, Y=74.95, Z=90.00) loads=20 unloads=4
+D02_01_TEST event=waypoint_reached wall=49.545269 phase=1 waypoint=12 location=V(X=11922.63, Y=0.39, Z=90.00) loads=20 unloads=4
+D02_01_TEST event=waypoint_reached wall=57.246491 phase=1 waypoint=13 location=V(X=15927.24, Y=0.00, Z=90.00) loads=22 unloads=7
+D02_01_TEST event=waypoint_reached wall=63.009569 phase=1 waypoint=14 location=V(X=18923.26, Y=-0.00, Z=90.00) loads=22 unloads=9
+D02_01_TEST event=first_unload wall=63.009807 phase=2 waypoint=0 location=V(X=18923.26, Y=-0.00, Z=90.00) loads=22 unloads=9
+D02_01_TEST event=persistent_encounter_dormant wall=63.027535 phase=2 waypoint=0 location=V(X=18931.03, Y=-0.00, Z=90.00) loads=22 unloads=9
+D02_01_TEST event=return_route wall=63.027711 phase=3 waypoint=0 location=V(X=18931.03, Y=-0.00, Z=90.00) loads=22 unloads=9
+D02_01_TEST event=waypoint_reached wall=69.010423 phase=3 waypoint=0 location=V(X=16076.65, Y=0.02, Z=90.00) loads=25 unloads=9
+D02_01_TEST event=waypoint_reached wall=76.700480 phase=3 waypoint=1 location=V(X=12078.40, Y=0.00, Z=90.00) loads=27 unloads=11
+D02_01_TEST event=waypoint_reached wall=84.391341 phase=3 waypoint=2 location=V(X=8079.01, Y=0.00, Z=90.00) loads=30 unloads=13
+D02_01_TEST event=waypoint_reached wall=92.098013 phase=3 waypoint=3 location=V(X=4073.30, Y=0.00, Z=90.00) loads=30 unloads=15
+D02_01_TEST event=waypoint_reached wall=93.663261 phase=3 waypoint=4 location=V(X=4000.67, Y=-720.49, Z=90.00) loads=30 unloads=15
+D02_01_TEST event=waypoint_reached wall=101.408940 phase=3 waypoint=5 location=V(X=76.53, Y=-799.69, Z=90.00) loads=30 unloads=15
+D02_01_TEST event=waypoint_reached wall=102.991225 phase=3 waypoint=6 location=V(X=1.08, Y=-76.78, Z=90.00) loads=30 unloads=15
+D02_01_TEST event=injury_restore wall=102.991284 phase=4 waypoint=0 location=V(X=1.08, Y=-76.78, Z=90.00) loads=30 unloads=15
+D02_01_TEST event=persistent_encounter_awake wall=103.006948 phase=4 waypoint=0 location=V(X=0.97, Y=-69.52, Z=90.00) loads=30 unloads=15
+D02_01_TEST event=injury_capture_wait wall=103.007014 phase=5 waypoint=0 location=V(X=0.97, Y=-69.52, Z=90.00) loads=30 unloads=15
+D02_01_TEST event=defeat_unload_route wall=103.217995 phase=6 waypoint=0 location=V(X=0.88, Y=-63.10, Z=90.00) loads=30 unloads=15
+D02_01_TEST event=waypoint_reached wall=104.802919 phase=6 waypoint=0 location=V(X=-0.02, Y=-722.51, Z=90.00) loads=30 unloads=15
+D02_01_TEST event=waypoint_reached wall=112.554137 phase=6 waypoint=1 location=V(X=3924.49, Y=-799.72, Z=90.00) loads=30 unloads=15
+D02_01_TEST event=waypoint_reached wall=114.140507 phase=6 waypoint=2 location=V(X=3999.11, Y=-72.42, Z=90.00) loads=30 unloads=15
+D02_01_TEST event=waypoint_reached wall=121.903680 phase=6 waypoint=3 location=V(X=7925.74, Y=-0.19, Z=90.00) loads=32 unloads=15
+D02_01_TEST event=waypoint_reached wall=129.594055 phase=6 waypoint=4 location=V(X=11924.87, Y=-0.00, Z=90.00) loads=34 unloads=18
+D02_01_TEST event=defeat_unload wall=129.594113 phase=7 waypoint=0 location=V(X=11924.87, Y=-0.00, Z=90.00) loads=34 unloads=18
+D02_01_TEST event=persistent_encounter_dormant_after_defeat wall=129.607684 phase=7 waypoint=0 location=V(X=11931.53, Y=-0.00, Z=90.00) loads=34 unloads=18
+D02_01_TEST event=defeat_return_route wall=129.607755 phase=8 waypoint=0 location=V(X=11931.53, Y=-0.00, Z=90.00) loads=34 unloads=18
+D02_01_TEST event=waypoint_reached wall=137.423079 phase=8 waypoint=0 location=V(X=8073.01, Y=0.02, Z=90.00) loads=37 unloads=20
+D02_01_TEST event=waypoint_reached wall=145.119037 phase=8 waypoint=1 location=V(X=4072.10, Y=0.00, Z=90.00) loads=37 unloads=22
+D02_01_TEST event=waypoint_reached wall=146.720220 phase=8 waypoint=2 location=V(X=4000.88, Y=-721.49, Z=90.00) loads=37 unloads=22
+D02_01_TEST event=waypoint_reached wall=154.477428 phase=8 waypoint=3 location=V(X=77.23, Y=-799.68, Z=90.00) loads=37 unloads=22
+D02_01_TEST event=waypoint_reached wall=156.053005 phase=8 waypoint=4 location=V(X=1.08, Y=-75.18, Z=90.00) loads=37 unloads=22
+D02_01_TEST event=defeat_restore wall=156.053083 phase=9 waypoint=0 location=V(X=1.08, Y=-75.18, Z=90.00) loads=37 unloads=22
+D02_01_TEST event=persistent_encounter_awake_after_defeat wall=156.068191 phase=9 waypoint=0 location=V(X=0.98, Y=-67.91, Z=90.00) loads=37 unloads=22
+D02_01_TEST event=invalid_debug_relocation wall=156.068444 phase=10 waypoint=0 location=V(X=100000.00, Z=-1000.00) loads=37 unloads=22
+D02_01_TEST event=debug_relocation_recovered wall=156.273747 phase=10 waypoint=0 location=V(X=1.08, Y=-75.18, Z=90.00) loads=40 unloads=25
+D02_01_TEST event=asynchronous_relocation wall=156.275415 phase=11 waypoint=0 location=V(X=1.08, Y=-75.18, Z=90.00) loads=40 unloads=25
+D02_01_TEST event=unavailable_relocation wall=156.383216 phase=12 waypoint=0 location=V(X=19000.00, Z=90.00) loads=46 unloads=25
+D02_01_TEST event=relocation_retry wall=166.387754 phase=13 waypoint=0 location=V(X=19000.00, Z=90.00) loads=46 unloads=33
+D02_01_TEST event=capture_wait wall=166.441456 phase=14 waypoint=0 location=V(Z=90.00) loads=51 unloads=33
+D02_01_TEST event=complete wall=166.644342 phase=14 waypoint=0 location=V(Z=90.00) loads=51 unloads=39

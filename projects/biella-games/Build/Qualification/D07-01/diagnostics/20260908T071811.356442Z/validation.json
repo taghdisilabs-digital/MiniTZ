@@ -1,0 +1,86 @@
+{
+  "task_id": "D07-01",
+  "result": "PASS",
+  "scope": "Synthetic diagnostic/measurement controls only; never gameplay, crash-free or target-tier evidence.",
+  "tests_run": 50,
+  "failures": 0,
+  "errors": 0,
+  "watchdog_command": [
+    "/usr/bin/python3",
+    "-c",
+    "import time; print('EXPECTED HANG CONTROL', flush=True); time.sleep(30)"
+  ],
+  "watchdog": {
+    "returncode": -15,
+    "watchdog_failure": "overall process deadline",
+    "elapsed_seconds": 0.5963255659444258,
+    "unreal_process_identities": [],
+    "survivors": [],
+    "log_finalization": {
+      "closed": true,
+      "elapsed_seconds": 0.03149569302331656,
+      "timeout_seconds": 45,
+      "observed_writers": [],
+      "remaining_writers": []
+    }
+  },
+  "source": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/test_d07_01_qualification.py",
+      "sha256": "e5309953e725e48c84a20f74380b3cadf1ce6de3725e411579e70aabc484944d",
+      "bytes": 8727
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d07_01_qualification.py",
+      "sha256": "76c8406dc8108dc8acbc23470559ab83b553befad33300121165166bb522e860",
+      "bytes": 28111
+    }
+  ],
+  "raw": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/diagnostics/20260908T071811.356442Z/assert.log",
+      "sha256": "7c5ad9e79d27e8da3e536b146bac5cebdaab0f4895ab789c0e8307ae3a9c5511",
+      "bytes": 138
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/diagnostics/20260908T071811.356442Z/device.log",
+      "sha256": "dd59d01fc80f30030cb3f445e9b611dd2ef5b31035db218bc4e4250872b1c501",
+      "bytes": 123
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/diagnostics/20260908T071811.356442Z/fatal.log",
+      "sha256": "400f004bc13cc4a5d88286217d75635c420d6551ada9ed5c10676c65de31f8a1",
+      "bytes": 133
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/diagnostics/20260908T071811.356442Z/positive.log",
+      "sha256": "78dd1136d7ca96af56d3f705baac65e2830c25d3c153edbb0e85e255557cc343",
+      "bytes": 102
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/diagnostics/20260908T071811.356442Z/telemetry.log",
+      "sha256": "662d84121cff87d0fa5d1ebc6fb085bb64b7e9faede4249cd37549ef3b43ae8f",
+      "bytes": 122
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/diagnostics/20260908T071811.356442Z/unittest.txt",
+      "sha256": "92db5711547ce69a0851fa3c3f96197257a5dbebf2e4da08256eaa30a613dbc2",
+      "bytes": 6955
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/diagnostics/20260908T071811.356442Z/watchdog-control/resources.jsonl",
+      "sha256": "a3cc18827bd1e79d2e9c5056e0b6d48c584cb24cf1d0a78aca3f1ca62c28c315",
+      "bytes": 2041
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/diagnostics/20260908T071811.356442Z/watchdog-control/runtime.stdout.log",
+      "sha256": "7e1b20c7623d6da0d585ef5a56f8aaca11995ec007c83a3fd205b8111333880e",
+      "bytes": 22
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/diagnostics/20260908T071811.356442Z/watchdog-control/watchdog.json",
+      "sha256": "f013cf3d9b26a0cefb913a8a46276ae7fdde5d4afd4c8f71accf78fea2791f8f",
+      "bytes": 172
+    }
+  ]
+}

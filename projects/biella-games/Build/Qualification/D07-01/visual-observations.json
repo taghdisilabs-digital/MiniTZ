@@ -1,0 +1,54 @@
+{
+  "task_id": "D07-01",
+  "scope": "Direct visual inspection of decoded retained runtime PNGs; supporting evidence only, not owner artistic acceptance. GENERATED_DRAFT captures.",
+  "observations": [
+    {
+      "image": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/runs/shadercold/20260908T073349.291735Z/captures/static_000.png",
+        "sha256": "5b305940aff76731ad75a249d90f561f4d32f4dd442e9686e0715fb14436326d",
+        "bytes": 998004
+      },
+      "observation": "Decoded 1280x720 cold-cache runtime still: cyan third-person character and shadow on asphalt, road markings, repeated facade structures, curb, sky and readable HUD. No checkerboard fallback is visible in this frame. Sparse current milestone content is not final AAA art acceptance; temporal behavior is assessed by the full capture sequence and frame trace."
+    },
+    {
+      "image": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/runs/shaderwarm/20260908T073823.708525Z/captures/pan_031.png",
+        "sha256": "da13ad1f08ff2a047419c9b1c3e7d6fd73ccd7529c14b93621908763c739fdd3",
+        "bytes": 1005629
+      },
+      "observation": "Decoded 1280x720 warm-cache pan endpoint: changed camera direction exposes the bright doorway and roadside structure while the player, asphalt, lane markings and shadow remain rendered. No gross holes or fallback checkerboard visible in this view; this still alone cannot establish absence of temporal ghosting, flicker or whole-world culling errors."
+    },
+    {
+      "image": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/runs/native1080/20260908T070256.679666Z/captures/final.png",
+        "sha256": "d35d92a0e9a80ec8ab39fda79869e5177e6d9a9a53a6f63e46f8559d28bd3461",
+        "bytes": 1849270
+      },
+      "observation": "Decoded 1920x1080 real runtime frame: cyan third-person rigged mannequin, red infected/yellow rival, shadows, arena blocks and health/ammo HUD. Sparse geometry and black space outside arena remain visible; not final AAA-art acceptance."
+    },
+    {
+      "image": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/runs/streaming/20260908T070538.433540Z/captures/distant_region.png",
+        "sha256": "f64105e147fab0e9a8c4d2653c882cb4086bd377fd2866003fdd042fdc128671",
+        "bytes": 974844
+      },
+      "observation": "Decoded 1280x720 real runtime frame: cyan player over lane-marked road, partial building edge, distant sparse streets/horizon and health 93/ammo 59. Ground is rendered; no claim of whole-world visual or seam completeness."
+    },
+    {
+      "image": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/runs/streaming/20260908T070538.433540Z/captures/terrace.png",
+        "sha256": "21b4c95f46449da9b077fcb2def5ba08382ad0df213df80506ede0c17b2e3164",
+        "bytes": 995940
+      },
+      "observation": "Decoded 1280x720 real runtime frame: cyan moving player on raised terrace floor with bounding parapet and projected shadow, health 93/ammo 59. Navigation/elevation correctness comes from live trace, not this still alone."
+    },
+    {
+      "image": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/runs/environment/20260908T071107.539586Z/captures/panel_destroyed.png",
+        "sha256": "be1ced7727b1dc6b00e9588319f18a4641d7d32fa301fc1fad359df8c32daf86",
+        "bytes": 1016069
+      },
+      "observation": "Decoded 1280x720 real runtime frame: damaged panel lies down across orange live-floor hazard opening, cyan player and intact side columns with shadows; health 100/ammo 58. Destruction/collision state is corroborated by runtime assertions and events."
+    }
+  ]
+}

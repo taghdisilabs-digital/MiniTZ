@@ -1,0 +1,3 @@
+/usr/bin/xvfb-run: 24: cannot create /dev/null: Permission denied
+/usr/bin/xvfb-run: 137: cannot create /dev/null: Permission denied
+xvfb-run: error: xauth command not found
