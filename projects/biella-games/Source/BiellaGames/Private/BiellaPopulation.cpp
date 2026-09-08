@@ -1,8 +1,8 @@
 // Copyright Biella Games. All Rights Reserved.
 #include "BiellaPopulation.h"
-#include "BiellaRival.h"
 #include "BiellaWorldContinuity.h"
 #include "Components/CapsuleComponent.h"
+#include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
 #include "GameFramework/FloatingPawnMovement.h"
@@ -80,24 +80,150 @@ void ABiellaPopulationDirector::BeginPlay()
 {
     Super::BeginPlay();
     if (!HasAuthority()) { SetActorTickEnabled(false); return; }
+
+    ContentRegistry = GetGameInstance() ? GetGameInstance()->GetSubsystem<UBiellaContentRegistrySubsystem>() : nullptr;
+    if (!ContentRegistry || !BuildFromContent())
+    {
+        SetActorTickEnabled(false);
+        return;
+    }
+
+    UE_LOG(LogTemp, Display,
+        TEXT("D04_CONTENT POPULATION_READY encounter=%s encounter_version=%d tuning=%s tuning_version=%d slots=%d variants=%d path=shared_population_admission"),
+        *GetActiveEncounterId().ToString(), GetActiveEncounterVersion(), *GetActiveTuningId().ToString(),
+        GetActiveTuningVersion(), Slots.Num(), ActiveEncounter ? ActiveEncounter->Composition.Num() : 0);
     TSet<FName> RegionIds;
     for (const FBiellaPopulationRegion& Region : Regions)
     {
-        if (Region.Id.IsNone() || RegionIds.Contains(Region.Id) || Region.Center.ContainsNaN() || Region.Slots < 1 || Region.Slots > 12)
-        { UE_LOG(LogTemp, Error, TEXT("D02_POP CONFIG_REJECTED region=%s"), *Region.Id.ToString()); continue; }
         RegionIds.Add(Region.Id);
-        for (int32 Index=0; Index<Region.Slots; ++Index)
-        {
-            FBiellaPopulationSlot Slot;
-            Slot.Id = FName(*FString::Printf(TEXT("D02Pop_%s_%02d"), *Region.Id.ToString(), Index));
-            Slot.Region = Region.Id;
-            Slot.Anchor = Region.Center + FVector((Index%4-1.5)*340, (Index/4-1)*400, 0);
-            Slot.bRival = Index%4 == 0;
-            Slots.Add(Slot);
-        }
+        UE_LOG(LogTemp, Display,
+            TEXT("D04_CONTENT REGION id=%s slots=%d encounter=%s encounter_version=%d"),
+            *Region.Id.ToString(), Region.Slots, *GetActiveEncounterId().ToString(), GetActiveEncounterVersion());
+    }
+    for (const FBiellaPopulationSlot& Slot : Slots)
+    {
+        UE_LOG(LogTemp, Display,
+            TEXT("D04_CONTENT SLOT id=%s variant=%s variant_version=%d encounter=%s encounter_version=%d tuning=%s tuning_version=%d effective_max_health=%.1f effective_movement_speed=%.1f role=%s path=shared_population_definition"),
+            *Slot.Id.ToString(), *Slot.VariantId.ToString(), Slot.VariantVersion,
+            *Slot.EncounterId.ToString(), Slot.EncounterVersion, *Slot.TuningId.ToString(), Slot.TuningVersion,
+            Slot.EffectiveMaxHealth, Slot.EffectiveMovementSpeed,
+            Slot.bRival ? TEXT("rival") : TEXT("infected"));
     }
     PreviousWall = FPlatformTime::Seconds();
     UE_LOG(LogTemp, Display, TEXT("D02_POP READY slots=%d max_active=%d budget=%d"), Slots.Num(), MaxActive, SpawnBudget);
+}
+
+bool ABiellaPopulationDirector::BuildFromContent()
+{
+    Slots.Reset();
+    Regions.Reset();
+    ActiveEncounter = nullptr;
+    ActiveTuning = nullptr;
+    bContentReady = false;
+
+    auto Reject = [this](const FString& Reason)
+    {
+        UE_LOG(LogTemp, Error, TEXT("D04_CONTENT POPULATION_REJECTED encounter=%s reason=%s"),
+            *EncounterId.ToString(), *Reason);
+        return false;
+    };
+
+    if (!ContentRegistry || !ContentRegistry->ValidateAll())
+    {
+        FString Reason = TEXT("registry_not_ready");
+        if (ContentRegistry && ContentRegistry->GetValidationIssues().Num() > 0)
+        {
+            const FBiellaContentValidationIssue& Issue = ContentRegistry->GetValidationIssues()[0];
+            Reason = FString::Printf(TEXT("registry_%s_%s"), *Issue.Code.ToString(), *Issue.Detail);
+        }
+        return Reject(Reason);
+    }
+
+    FString Failure;
+    const UBiellaEncounterData* Encounter = ContentRegistry->FindEncounter(EncounterId, INDEX_NONE, &Failure);
+    if (!Encounter) { return Reject(Failure); }
+    const UBiellaTuningData* Tuning = ContentRegistry->FindTuning(
+        Encounter->Tuning.ContentId, Encounter->Tuning.RequiredDefinitionVersion, &Failure);
+    if (!Tuning) { return Reject(Failure); }
+    if (Encounter->Regions.Num() == 0 || Encounter->Composition.Num() == 0)
+    { return Reject(TEXT("encounter_has_no_regions_or_composition")); }
+
+    int32 TotalSlots = 0;
+    TSet<FName> RegionIds;
+    for (const FBiellaEncounterRegionDefinition& Definition : Encounter->Regions)
+    {
+        if (Definition.RegionId.IsNone() || RegionIds.Contains(Definition.RegionId) ||
+            Definition.Center.ContainsNaN() || Definition.SlotCount < 1 || Definition.SlotCount > 12)
+        { return Reject(FString::Printf(TEXT("invalid_region=%s"), *Definition.RegionId.ToString())); }
+        RegionIds.Add(Definition.RegionId);
+        TotalSlots += Definition.SlotCount;
+    }
+    if (TotalSlots < 1 || TotalSlots > 36)
+    { return Reject(FString::Printf(TEXT("invalid_total_slots=%d"), TotalSlots)); }
+    if (Encounter->SlotColumns < 1 || Encounter->SlotColumns > 12 ||
+        !FMath::IsFinite(Encounter->SlotSpacing) || Encounter->SlotSpacing <= 0.0f ||
+        !FMath::IsFinite(Encounter->RowSpacing) || Encounter->RowSpacing <= 0.0f)
+    { return Reject(TEXT("invalid_encounter_layout")); }
+
+    ActiveEncounter = Encounter;
+    ActiveTuning = Tuning;
+    MaxActive = Tuning->MaxActive;
+    SpawnBudget = Tuning->SpawnBudget;
+    ActivationDistance = Tuning->ActivationDistance;
+    SuspensionDistance = Tuning->SuspensionDistance;
+    MinimumPlayerDistance = Tuning->MinimumPlayerDistance;
+    AdmissionFrameMs = Tuning->AdmissionFrameMs;
+
+    for (const FBiellaEncounterRegionDefinition& Definition : Encounter->Regions)
+    {
+        FBiellaPopulationRegion& Region = Regions.AddDefaulted_GetRef();
+        Region.Id = Definition.RegionId;
+        Region.Center = Definition.Center;
+        Region.Slots = Definition.SlotCount;
+        for (int32 Index = 0; Index < Region.Slots; ++Index)
+        {
+            const FBiellaEncounterMemberDefinition& Member = Encounter->Composition[Index % Encounter->Composition.Num()];
+            const FBiellaContentReference& Reference = Member.ActorVariant;
+            const UBiellaActorVariantData* Variant = ContentRegistry->FindActorVariant(
+                Reference.ContentId, Reference.RequiredDefinitionVersion, &Failure);
+            if (!Variant)
+            {
+                Slots.Reset();
+                Regions.Reset();
+                ActiveEncounter = nullptr;
+                ActiveTuning = nullptr;
+                return Reject(Failure);
+            }
+
+            FBiellaPopulationSlot Slot;
+            Slot.Id = FName(*FString::Printf(TEXT("D02Pop_%s_%02d"), *Region.Id.ToString(), Index));
+            Slot.Region = Region.Id;
+            Slot.Anchor = Region.Center + FVector(
+                (Index % Encounter->SlotColumns - (Encounter->SlotColumns - 1) * 0.5f) * Encounter->SlotSpacing,
+                (Index / Encounter->SlotColumns - 1) * Encounter->RowSpacing, 0.0f);
+            Slot.bRival = Variant->Role == EBiellaActorVariantRole::Rival;
+            Slot.VariantId = Variant->ContentId;
+            Slot.VariantVersion = Variant->DefinitionVersion;
+            Slot.EncounterId = Encounter->ContentId;
+            Slot.EncounterVersion = Encounter->DefinitionVersion;
+            Slot.TuningId = Tuning->ContentId;
+            Slot.TuningVersion = Tuning->DefinitionVersion;
+            Slot.EffectiveMaxHealth = Variant->MaxHealth;
+            Slot.EffectiveMovementSpeed = Variant->MovementSpeed;
+            Slots.Add(Slot);
+        }
+    }
+
+    bContentReady = Slots.Num() == TotalSlots;
+    if (!bContentReady)
+    {
+        Slots.Reset();
+        Regions.Reset();
+        ActiveEncounter = nullptr;
+        ActiveTuning = nullptr;
+        return Reject(TEXT("content_slot_build_incomplete"));
+    }
+    return true;
 }
 
 int32 ABiellaPopulationDirector::GetActiveCount() const
@@ -173,6 +299,7 @@ void ABiellaPopulationDirector::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
     if (!HasAuthority()) { return; }
+    if (!bContentReady) { return; }
     const double Now=FPlatformTime::Seconds();
     const float Sample=(Now-PreviousWall)*1000;
     PreviousWall=Now;
@@ -238,10 +365,31 @@ void ABiellaPopulationDirector::Tick(float DeltaTime)
         Params.OverrideLevel=GetWorld()->PersistentLevel;
         Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::DontSpawnIfColliding;
         Params.bDeferConstruction=true;
-        UClass* Type=Slot.bRival ? ABiellaRival::StaticClass() : ABiellaPopulationInfected::StaticClass();
+        FString ContentFailure;
+        const UBiellaActorVariantData* Variant = ContentRegistry ? ContentRegistry->FindActorVariant(
+            Slot.VariantId, Slot.VariantVersion, &ContentFailure) : nullptr;
+        if (!Variant || !Variant->ActorClass)
+        {
+            Explain(Slot, TEXT("content_unresolved"));
+            UE_LOG(LogTemp, Error,
+                TEXT("D04_CONTENT SPAWN_REJECTED id=%s variant=%s variant_version=%d reason=%s"),
+                *Slot.Id.ToString(), *Slot.VariantId.ToString(), Slot.VariantVersion, *ContentFailure);
+            continue;
+        }
+        UClass* Type=Variant->ActorClass.Get();
         ABiellaDemoPawn* Pawn=GetWorld()->SpawnActor<ABiellaDemoPawn>(Type,At,FRotator::ZeroRotator,Params);
         --Budget;
         if (!Pawn) { Explain(Slot,TEXT("spawn_collision_retry")); continue; }
+        FString ApplyFailure;
+        if (!Variant->ApplyToActor(Pawn, ApplyFailure))
+        {
+            Pawn->Destroy();
+            Explain(Slot, TEXT("content_incompatible"));
+            UE_LOG(LogTemp, Error,
+                TEXT("D04_CONTENT SPAWN_REJECTED id=%s variant=%s variant_version=%d reason=%s"),
+                *Slot.Id.ToString(), *Slot.VariantId.ToString(), Slot.VariantVersion, *ApplyFailure);
+            continue;
+        }
         Pawn->Tags.Add(TEXT("D02Population"));
         Pawn->Tags.Add(Slot.Id);
         Pawn->FinishSpawning(FTransform(FRotator::ZeroRotator,At));
@@ -253,6 +401,11 @@ void ABiellaPopulationDirector::Tick(float DeltaTime)
         Explain(Slot,TEXT("spawned"));
         UE_LOG(LogTemp, Display, TEXT("D02_POP SPAWN id=%s actor=%s x=%.2f y=%.2f z=%.2f active=%d frame_ms=%.3f"),
             *Slot.Id.ToString(),*Pawn->GetName(),At.X,At.Y,At.Z,Active,FrameAverageMs);
+        UE_LOG(LogTemp, Display,
+            TEXT("D04_CONTENT SPAWN id=%s variant=%s variant_version=%d encounter=%s encounter_version=%d tuning=%s tuning_version=%d role=%s max_health=%.1f movement_speed=%.1f path=shared_population_spawn active=%d"),
+            *Slot.Id.ToString(), *Slot.VariantId.ToString(), Slot.VariantVersion,
+            *Slot.EncounterId.ToString(), Slot.EncounterVersion, *Slot.TuningId.ToString(), Slot.TuningVersion,
+            Slot.bRival ? TEXT("rival") : TEXT("infected"), Slot.EffectiveMaxHealth, Slot.EffectiveMovementSpeed, Active);
     }
 }
 
@@ -260,5 +413,10 @@ void ABiellaPopulationDirector::EndPlay(const EEndPlayReason::Type Reason)
 {
     for (FBiellaPopulationSlot& Slot : Slots) { if (Slot.Pawn.IsValid()) { Slot.Pawn->Destroy(); } }
     Slots.Reset();
+    Regions.Reset();
+    ContentRegistry = nullptr;
+    ActiveEncounter = nullptr;
+    ActiveTuning = nullptr;
+    bContentReady = false;
     Super::EndPlay(Reason);
 }

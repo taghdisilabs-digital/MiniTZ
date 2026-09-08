@@ -1,6 +1,7 @@
 // Copyright Biella Games. All Rights Reserved.
 #pragma once
 #include "CoreMinimal.h"
+#include "BiellaContentDefinitions.h"
 #include "BiellaInfected.h"
 #include "NavigationPath.h"
 #include "BiellaPopulation.generated.h"
@@ -24,6 +25,14 @@ struct FBiellaPopulationSlot
     bool bFinished = false;
     TWeakObjectPtr<ABiellaDemoPawn> Pawn;
     FName Reason;
+    FName VariantId;
+    int32 VariantVersion = 0;
+    FName EncounterId;
+    int32 EncounterVersion = 0;
+    FName TuningId;
+    int32 TuningVersion = 0;
+    float EffectiveMaxHealth = 0.0f;
+    float EffectiveMovementSpeed = 0.0f;
 };
 
 // Reuses infected perception, pressure and melee. Only pursuit is specialized.
@@ -56,6 +65,7 @@ public:
     virtual void Tick(float DeltaTime) override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     UPROPERTY(EditAnywhere, Config, Category="Population") TArray<FBiellaPopulationRegion> Regions;
+    UPROPERTY(EditAnywhere, Config, Category="Population|Content") FName EncounterId = TEXT("D04.Encounter.StreetPopulation");
     UPROPERTY(EditAnywhere, Config, Category="Population") int32 MaxActive = 4;
     UPROPERTY(EditAnywhere, Config, Category="Population") int32 SpawnBudget = 2;
     UPROPERTY(EditAnywhere, Config, Category="Population") float ActivationDistance = 5000;
@@ -69,7 +79,13 @@ public:
     int32 GetActiveCount() const;
     int32 GetSpawnCount() const { return SpawnCount; }
     const TArray<FBiellaPopulationSlot>& GetSlots() const { return Slots; }
+    bool IsContentReady() const { return bContentReady; }
+    FName GetActiveEncounterId() const { return ActiveEncounter ? ActiveEncounter->ContentId : NAME_None; }
+    int32 GetActiveEncounterVersion() const { return ActiveEncounter ? ActiveEncounter->DefinitionVersion : 0; }
+    FName GetActiveTuningId() const { return ActiveTuning ? ActiveTuning->ContentId : NAME_None; }
+    int32 GetActiveTuningVersion() const { return ActiveTuning ? ActiveTuning->DefinitionVersion : 0; }
 private:
+    bool BuildFromContent();
     void Explain(FBiellaPopulationSlot& Slot, FName Reason);
     bool IsCombatRelevant(const ABiellaDemoPawn& Pawn, const FVector& Player) const;
     TArray<FBiellaPopulationSlot> Slots;
@@ -78,4 +94,8 @@ private:
     float FrameAverageMs = 0;
     bool bAdmissionHeld = true;
     int32 SpawnCount = 0;
+    bool bContentReady = false;
+    UBiellaContentRegistrySubsystem* ContentRegistry = nullptr;
+    const UBiellaEncounterData* ActiveEncounter = nullptr;
+    const UBiellaTuningData* ActiveTuning = nullptr;
 };

@@ -14,3 +14,6 @@ Saved/
 *.suo
 *.user
 *.userprefs
+# Task-generated evidence is durable runtime proof, not canonical source.
+Build/D04-01/
+Build/Content/D04-01/

@@ -1,0 +1,78 @@
+{
+  "schema": "biella.content/v1",
+  "task_id": "D04-01",
+  "definitions": {
+    "actor_variants": [
+      {
+        "content_id": "D04.Actor.InfectedStandard",
+        "definition_version": 1,
+        "role": "infected",
+        "actor_class": "/Script/BiellaGames.BiellaPopulationInfected",
+        "max_health": 70.0,
+        "movement_speed": 210.0,
+        "max_pressure_movement_multiplier": 1.5,
+        "aggro_range": 2200.0,
+        "attack_range": 170.0,
+        "attack_damage": 12.0,
+        "attack_cooldown": 0.85
+      },
+      {
+        "content_id": "D04.Actor.RivalStandard",
+        "definition_version": 1,
+        "role": "rival",
+        "actor_class": "/Script/BiellaGames.BiellaRival",
+        "max_health": 100.0,
+        "movement_speed": 260.0,
+        "weapon_range": 950.0,
+        "weapon_damage": 14.0,
+        "weapon_cooldown": 0.9,
+        "preferred_distance": 600.0
+      }
+    ],
+    "encounters": [
+      {
+        "content_id": "D04.Encounter.StreetPopulation",
+        "definition_version": 1,
+        "tuning": {
+          "content_id": "D04.Tuning.PopulationDevelopment",
+          "required_definition_version": 1
+        },
+        "regions": [
+          {"region_id": "Street01", "center": [4000.0, 0.0, 0.0], "slot_count": 12},
+          {"region_id": "Street03", "center": [12000.0, 0.0, 0.0], "slot_count": 12},
+          {"region_id": "Street05", "center": [20000.0, 0.0, 0.0], "slot_count": 12}
+        ],
+        "slot_columns": 4,
+        "slot_spacing": 340.0,
+        "row_spacing": 400.0,
+        "composition": [
+          {"actor_variant": {"content_id": "D04.Actor.RivalStandard", "required_definition_version": 1}},
+          {"actor_variant": {"content_id": "D04.Actor.InfectedStandard", "required_definition_version": 1}},
+          {"actor_variant": {"content_id": "D04.Actor.InfectedStandard", "required_definition_version": 1}},
+          {"actor_variant": {"content_id": "D04.Actor.InfectedStandard", "required_definition_version": 1}}
+        ]
+      }
+    ],
+    "tunings": [
+      {
+        "content_id": "D04.Tuning.PopulationDevelopment",
+        "definition_version": 1,
+        "max_active": 4,
+        "spawn_budget": 2,
+        "activation_distance": 5000.0,
+        "suspension_distance": 6500.0,
+        "minimum_player_distance": 1000.0,
+        "admission_frame_ms": 25.0
+      }
+    ]
+  },
+  "runtime_assets": {
+    "directory": "/Game/Data/D04",
+    "actor_variants": [
+      "DA_ActorVariant_InfectedStandard",
+      "DA_ActorVariant_RivalStandard"
+    ],
+    "encounters": ["DA_Encounter_StreetPopulation"],
+    "tunings": ["DA_Tuning_PopulationDevelopment"]
+  }
+}
