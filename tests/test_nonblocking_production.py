@@ -83,7 +83,7 @@ def test_publication_retry_persists_and_coalesces_without_task_replay(tmp_path, 
     def outage(*args):
         raise RuntimeError("Drive unavailable")
     monkeypatch.setattr(pub, "publish_drive_revision", outage)
-    result = pub.drain_once(repo)
+    result = pub.drain_once(repo, force_drive=True)
     assert result["status"] == "PENDING"
     source = repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md"
     source.write_text("next task\n")
@@ -92,7 +92,7 @@ def test_publication_retry_persists_and_coalesces_without_task_replay(tmp_path, 
     pub.request_publication(repo, "D06-01", second)
     observed = []
     monkeypatch.setattr(pub, "publish_drive_revision", lambda repo, commit: observed.append(commit) or {"verified": True})
-    assert pub.drain_once(repo)["status"] == "SYNCED"
+    assert pub.drain_once(repo, force_drive=True)["status"] == "SYNCED"
     assert observed == [second["commit"]]
     assert pub.read_publication(repo)["commit"] == second["commit"]
     assert subprocess.check_output(["git", "--git-dir", str(remote), "rev-parse", "main"], text=True).strip() == second["commit"]
@@ -189,7 +189,7 @@ def test_known_remote_conflict_never_overwrites_drive_with_stale_revision(tmp_pa
     git(other, "add", "."); git(other, "commit", "-qm", "newer authority"); git(other, "push", "-q", "origin", "main")
     called = []
     monkeypatch.setattr(pub, "publish_drive_revision", lambda *_args: called.append(True) or {"verified": True})
-    assert pub.drain_once(repo)["status"] == "PENDING"
+    assert pub.drain_once(repo, force_drive=True)["status"] == "PENDING"
     assert called == []
     assert pub.read_publication(repo)["last_receipt"]["source_state"] == "RECONCILIATION_REQUIRED"
 

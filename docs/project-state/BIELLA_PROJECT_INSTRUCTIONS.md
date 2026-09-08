@@ -3,7 +3,7 @@
 Mahdi Taghdisi is final authority for product, priorities, architecture, infrastructure, acceptance and work policy.
 
 LIVE TRUTH
-Before project-dependent edits/claims inspect actual Git branch/HEAD/tree/staged/dirty state, 03/04, relevant runtime/processes and touched source. Publication requires remote identity/readback. Do not substitute chat memory/plans/snapshots; unavailable live inspection is LIVE_STATUS_UNAVAILABLE.
+Before project-dependent work read live Git identity/worktree, 03/04, runtime and touched source. Publication needs remote readback; absent live evidence is LIVE_STATUS_UNAVAILABLE, never guessed from chat/plans.
 Authority: CURRENT_EXECUTION_STATE > CURRENT_GITHUB_SOURCE > CURRENT_CANONICAL_DRIVE > VERIFIED_HISTORICAL_EVIDENCE > REFERENCE_OR_PLAN > INFERENCE. UNKNOWN stays UNKNOWN. Resolve only material conflicts; no synthetic compromise.
 
 CONTEXT
@@ -51,7 +51,7 @@ D_NEXT_100_TASKS.json maps D05-01 through D23-05 with source digests, dependenci
 Execute -> validate -> commit exact task-owned paths/digests -> advance. Retain referenced proof despite ignore rules; exclude unrelated dirt. Never replay passed work just to publish.
 
 PUBLICATION
-Git differences are inline repair in the same task/session, preserving both revisions through compatible ordinary merge/fast-forward. No force-push/reset/stash/history rewrite. Transport loss never clears a known source conflict. Controller publication cursor retries exact GitHub/Drive bytes independently. COMPLETE means task acceptance; PUBLISHED/VERIFIED requires real readback. Actual deployment, Windows packaging, external-player and commercial-outcome contracts still require real evidence. Route missing operations to compatible configured Resources and finish independent preparation.
+Git differences are inline repair in the same task/session, preserving both revisions through compatible ordinary merge/fast-forward. No force-push/reset/stash/history rewrite. Transport loss never clears a known source conflict. GitHub publishes per task. Drive batches five completed tasks, with source/proof parts <=3,800,000,000 bytes; retries never count or pause production. COMPLETE means task acceptance; PUBLISHED/VERIFIED requires real readback. Actual deployment, Windows packaging, external-player and commercial-outcome contracts still require real evidence. Route missing operations to compatible configured Resources and finish independent preparation.
 
 QUALITY AND CACHE
 PROVEN_EXECUTION_STYLE / HOW_BIELLA_WILL_NOT_WORK in 07 and biella_execution_style.py are active. No silence watchdog, no-progress wait, complexity gate, post-acceptance polish loop, optional-Qwen startup gate, installer toggle, Git hook or observer dependency.

@@ -109,7 +109,7 @@ def test_github_readback_mismatch_never_publishes_drive(tmp_path, monkeypatch):
     called=[]
     monkeypatch.setattr(publication,"_remote",lambda args,**kw: subprocess.CompletedProcess(args,0,b"different refs/heads/main\n" if "ls-remote" in args else b"",b""))
     monkeypatch.setattr(publication,"publish_drive_revision",lambda *a,**kw: called.append(True) or {"verified":True})
-    result=publication.drain_once(repo)
+    result=publication.drain_once(repo, force_drive=True)
     assert not called
     assert result["last_receipt"]["source_state"]=="RECONCILIATION_REQUIRED"
 
@@ -121,7 +121,7 @@ def test_publication_conflict_survives_next_network_outage(tmp_path,monkeypatch)
     monkeypatch.setattr(publication,"_remote",lambda *a,**kw: (_ for _ in ()).throw(OSError("offline")))
     called=[]
     monkeypatch.setattr(publication,"publish_drive_revision",lambda *a,**kw: called.append(True) or {"verified":True})
-    assert publication.drain_once(repo)["status"]=="PENDING"
+    assert publication.drain_once(repo, force_drive=True)["status"]=="PENDING"
     assert not called
 
 

@@ -100,3 +100,5 @@ Recover routine tool/provider/publication failures within their affected boundar
 
 ## Exact audit-repair semantics
 Use the controller's exact task-owned path/digest set, never a whole-project prefix, for automatic commits. Preserve required task evidence even when ignored; do not include unrelated scratch. Reserve is preferred, not an outage dead-end: eligible strong alternatives retain highest-supported reasoning. Known source conflicts survive network errors. Website validation labels require real task-bound evidence, not shell keywords. Optional Qwen failure cannot prevent authoritative production restoration.
+
+Routine Drive sync is every five completed canonical tasks, never every attempt/tool event. GitHub and local progress stay per-task. Transfer source/proof in <=3,800,000,000-byte parts with manifest and exact readback; the controller handles batching without pausing production. See 07 for package/delta restoration and final partial-batch behavior.

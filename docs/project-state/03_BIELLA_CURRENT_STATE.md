@@ -62,6 +62,8 @@ execution_invariants:
   no_external_progress_hook_dependency: true
   automatic_advance_after_durable_completion: true
   publication_retry: CONTROLLER_OWNED_NONBLOCKING
+  drive_completed_task_interval: 5
+  drive_package_max_bytes: 3800000000
   execution_map: docs/task-program/D_NEXT_100_TASKS.json
   task_status_source: projects/biella-games/docs/PRODUCTION.md
   realtime_canonical_upgrade: true

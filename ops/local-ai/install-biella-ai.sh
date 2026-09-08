@@ -49,6 +49,7 @@ install -o root -g root -m 644 \
   "$SOURCE_DIR/biella_task_ledger.py" \
   "$SOURCE_DIR/biella_execution_map.py" \
   "$SOURCE_DIR/biella_publication.py" \
+  "$SOURCE_DIR/biella_drive_package.py" \
   "$SOURCE_DIR/biella_codex_routing.py" \
   "$SOURCE_DIR/biella_execution_style.py" \
   "$SOURCE_DIR/biella_production_evidence.py" \
