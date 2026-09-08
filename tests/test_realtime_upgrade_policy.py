@@ -74,3 +74,13 @@ def test_manual_progress_edits_use_sleep_sync_resume_transaction():
         assert "sleep" in text.lower()
         assert "sync" in text.lower()
         assert "resume" in text.lower()
+
+
+def test_production_policy_contains_no_no_progress_wait_or_retry_blocker():
+    text = PRODUCTION.read_text(encoding="utf-8")
+    for forbidden in (
+        "marked no-progress and is not called again",
+        "production waits without another model call",
+        "Packet/no-progress bookkeeping",
+    ):
+        assert forbidden not in text
