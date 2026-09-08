@@ -24,7 +24,7 @@ task:
     production_source: projects/biella-games/docs/PRODUCTION.md
     source_alignment_gate: VERIFIED_GITHUB_MAIN_PRE_EXECUTION_AND_POST_TURN_FAIL_CLOSED
     task_session: 01a07e77-854b-76e0-9ce5-d05c33ee83ad
-    current_attempt: 300
+    current_attempt: 305
     model: gpt-reserve
     reasoning: max
 
@@ -37,6 +37,8 @@ task:
 
   execution_directive:
     mode: RUN_D04_01_HIGHEST_QUALITY_NONBLOCKING
+    style: PROVEN_EXECUTION_STYLE
+    forbidden_patterns: HOW_BIELLA_WILL_NOT_WORK
     execution: Start D04-01 immediately. Task class describes complexity only and is not a blocker or approval gate.
     acceptance: Use only the exact D04-01 task contract and latest owner direction. Do not invent new completion gates or broaden scope.
     continue_rule: CONTINUE requires an exact unmet acceptance criterion and the smallest executable next action.

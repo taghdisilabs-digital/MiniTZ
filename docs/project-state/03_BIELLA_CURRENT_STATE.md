@@ -15,6 +15,8 @@ repository:
   canonical_checkout: /root/biella/repos/biella-engine
   git_identity_source: LIVE_GIT_READ_REQUIRED
   source_alignment_gate: VERIFIED_GITHUB_MAIN_SAFE_FAST_FORWARD_OR_FAIL_CLOSED
+  source_alignment_commit: e74d7ac78df0ee277b6993ec826971f44f75b850
+  source_alignment_tree: 727b82151f354abcde37d6b40f63f4817e454069
 
 active_execution:
   id: D04-01
@@ -26,7 +28,7 @@ active_execution:
   runner_process_state: RUNNING
   codex_child_process_state: RUNNING
   authoritative_persistent_task_session_id: 01a07e77-854b-76e0-9ce5-d05c33ee83ad
-  latest_attempt: 300
+  latest_attempt: 305
   active_model: gpt-reserve
   active_reasoning: max
   current_increment: DATA_DRIVEN_CONTENT_SYSTEM_MULTIPLICATION
@@ -68,6 +70,9 @@ execution_invariants:
   no_external_progress_hook_dependency: true
   automatic_advance_after_durable_completion: true
   realtime_canonical_upgrade: true
+  proven_execution_style: ACTIVE
+  active_progress_killer_audit: PASS
+  forbidden_pattern_contract: HOW_BIELLA_WILL_NOT_WORK
 
 engine_numbered_execution:
   P4_01_through_P4_05: COMPLETE_REUSE_REQUIRED
