@@ -1,0 +1,18 @@
+{
+  "schema": "biella.d08.source_transfer_check/v1",
+  "task_id": "D08-01",
+  "result": "PASS",
+  "scope": "SOURCE_TRANSFER_ONLY",
+  "release_candidate": false,
+  "native_win64_build_verified": false,
+  "observed_utc": "2026-09-08T10:29:59.4139254Z",
+  "platform": "Unix",
+  "powershell_version": "7.6.5",
+  "bundle_directory": "/mnt/biella-extra/biella-runtime/d08-01-win64-source-02/readback",
+  "manifest_sha256": "8c79e84957b78716d0de8462ac9d87e129e79a8d692c12eb548b5d93745b3660",
+  "material_input_digest": "62a468b231792a4e0be64320a79a9840b42af03a8349709d8bf3c0531d885bbf",
+  "project_files": 363,
+  "verified_files": 367,
+  "verified_bytes": 144730391.0,
+  "project_file": "/mnt/biella-extra/biella-runtime/d08-01-win64-source-02/readback/project/BiellaGames.uproject"
+}

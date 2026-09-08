@@ -1,0 +1,13 @@
+{
+  "schema": "biella.d08.source_transfer_check/v1",
+  "task_id": "D08-01",
+  "result": "FAIL",
+  "scope": "SOURCE_TRANSFER_ONLY",
+  "release_candidate": false,
+  "native_win64_build_verified": false,
+  "observed_utc": "2026-09-08T10:29:56.1104334Z",
+  "platform": "Unix",
+  "powershell_version": "7.6.5",
+  "bundle_directory": "/mnt/biella-extra/biella-runtime/d08-01-win64-source-02/readback",
+  "error": "Source transfer file membership differs"
+}

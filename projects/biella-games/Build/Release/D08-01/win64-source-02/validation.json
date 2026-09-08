@@ -1,0 +1,204 @@
+{
+  "archive": {
+    "bytes": 88216176,
+    "path": "/root/biella/artifacts/games/D08-01/BiellaGames-D08-Win64-source-8c79e84957b7.zip",
+    "sha256": "8b1676f4f6b8eed559d388b8ac6a9e6a602f8516d46ac8985cfddd33fe2fac85"
+  },
+  "bounded_content_negative": {
+    "bytes": 17229,
+    "path": "Content/Maps/BiellaGameplayMap.umap",
+    "sha256": "7899e51349e2540958c98b23372772cd195bd9f1ffd6e3385f430a0d2daeb777"
+  },
+  "cases": [
+    {
+      "case": "clean-source-readback",
+      "receipt": {
+        "bytes": 777,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/clean-source-readback.json",
+        "sha256": "a6715b2e0d9a728580c4fc96a4f7a7cdc7e6c22ead68088737f0c2d411ea2d20"
+      },
+      "result": "PASS"
+    },
+    {
+      "case": "missing-current-map",
+      "receipt": {
+        "bytes": 450,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/missing-current-map.json",
+        "sha256": "e8992b7ac586596e577a7b99ef6e7d4b9251d87db27a28a953af91330dce455e"
+      },
+      "result": "EXPECTED_REJECTION"
+    },
+    {
+      "case": "incompatible-engine-version",
+      "receipt": {
+        "bytes": 447,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/incompatible-engine-version.json",
+        "sha256": "33c5092165a049c6a72d5569c0276ac6a700d89e139956b226db35c6fbb36f79"
+      },
+      "result": "EXPECTED_REJECTION"
+    },
+    {
+      "case": "corrupted-current-map",
+      "receipt": {
+        "bytes": 484,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/corrupted-current-map.json",
+        "sha256": "e8b6f9e8acb49e0d4b661db9204c85fb69101411c52e6b9820a61213bb750376"
+      },
+      "result": "EXPECTED_REJECTION"
+    },
+    {
+      "case": "unexpected-empty-cache-directory",
+      "receipt": {
+        "bytes": 483,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/unexpected-empty-cache-directory.json",
+        "sha256": "5d094f9d53c29290183cc046ab839fa1d71004f6a7385454dfd074e9fea6f8e2"
+      },
+      "result": "EXPECTED_REJECTION"
+    },
+    {
+      "case": "restored-exact-source",
+      "receipt": {
+        "bytes": 777,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/restored-exact-source.json",
+        "sha256": "2dde0b4e64c621f1b93a2823f72fa4176f59a5c8550058f690c2fbcd177cacc6"
+      },
+      "result": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "bytes": 777,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/clean-source-readback.json",
+      "sha256": "a6715b2e0d9a728580c4fc96a4f7a7cdc7e6c22ead68088737f0c2d411ea2d20"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/clean-source-readback.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 778,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/clean-source-readback.stdout.log",
+      "sha256": "3aa72757f3e860aedf618cc1322a810dcd8af2d747b49aaa93023d3d48ad30c9"
+    },
+    {
+      "bytes": 4491,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/commands.json",
+      "sha256": "28526cc01e4f7bde3d133120f82e62cb5eb6828adff799a87891073315bd41cc"
+    },
+    {
+      "bytes": 484,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/corrupted-current-map.json",
+      "sha256": "e8b6f9e8acb49e0d4b661db9204c85fb69101411c52e6b9820a61213bb750376"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/corrupted-current-map.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 485,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/corrupted-current-map.stdout.log",
+      "sha256": "7fbf852bdbb48e08a6598bf06de355f70f4a99f48230a40de067bb4fd8fd894c"
+    },
+    {
+      "bytes": 76096,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/handoff-manifest.json",
+      "sha256": "8c79e84957b78716d0de8462ac9d87e129e79a8d692c12eb548b5d93745b3660"
+    },
+    {
+      "bytes": 447,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/incompatible-engine-version.json",
+      "sha256": "33c5092165a049c6a72d5569c0276ac6a700d89e139956b226db35c6fbb36f79"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/incompatible-engine-version.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 448,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/incompatible-engine-version.stdout.log",
+      "sha256": "b375125b5491a4ae3702d013def84a94087989c336b9ef855b39db478e742b35"
+    },
+    {
+      "bytes": 450,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/missing-current-map.json",
+      "sha256": "e8992b7ac586596e577a7b99ef6e7d4b9251d87db27a28a953af91330dce455e"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/missing-current-map.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 451,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/missing-current-map.stdout.log",
+      "sha256": "dda15ee99880f4d80b1f16b3332571025f3eba73f32f3b494de5be082dea4cf2"
+    },
+    {
+      "bytes": 777,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/restored-exact-source.json",
+      "sha256": "2dde0b4e64c621f1b93a2823f72fa4176f59a5c8550058f690c2fbcd177cacc6"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/restored-exact-source.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 778,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/restored-exact-source.stdout.log",
+      "sha256": "12f8f11e34b3e79dc8efa1d45db78c739d1774b59171f0f696317b445fbe99a1"
+    },
+    {
+      "bytes": 483,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/unexpected-empty-cache-directory.json",
+      "sha256": "5d094f9d53c29290183cc046ab839fa1d71004f6a7385454dfd074e9fea6f8e2"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/unexpected-empty-cache-directory.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 484,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/unexpected-empty-cache-directory.stdout.log",
+      "sha256": "b77d8f5bd1853db8561e3f089b758ae54f3d4c126404c6cd8ef8ea37137f86cf"
+    }
+  ],
+  "implementation": {
+    "bytes": 9808,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/prepare_d08_01_win64_source.py",
+    "sha256": "b81938acb80c8be300f4b8fc3bafaf5f106ae8724e399ac99df95b8882a9a6d5"
+  },
+  "limitations": [
+    "PowerShell source validation ran on Linux; this is not Windows SDK/build/runtime evidence.",
+    "No D16 rebuild/reproducibility acceptance is inferred from source archive restoration.",
+    "Current Development settings probe still needs its recorded native Windows path adaptation."
+  ],
+  "manifest": {
+    "bytes": 76096,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/handoff-manifest.json",
+    "sha256": "8c79e84957b78716d0de8462ac9d87e129e79a8d692c12eb548b5d93745b3660"
+  },
+  "material_files": 363,
+  "material_input_digest": "62a468b231792a4e0be64320a79a9840b42af03a8349709d8bf3c0531d885bbf",
+  "native_win64_build_verified": false,
+  "native_windows_powershell_execution": "NOT_EXECUTED",
+  "observed": "2026-09-08T10:29:50.348676+00:00",
+  "powershell": {
+    "bytes": 78256,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-powershell-7.6.5/tool/pwsh",
+    "sha256": "d989cd1ab2ead1be3331db2eef38d209759128981873e6300653df27bc7246c5"
+  },
+  "readback_directory": "/mnt/biella-extra/biella-runtime/d08-01-win64-source-02/readback",
+  "release_candidate": false,
+  "remote_transfer": "NOT_EXECUTED_NO_COMPATIBLE_WINDOWS_RESOURCE",
+  "result": "PASS",
+  "schema": "biella.d08.source_transfer_preparation/v1",
+  "scope": "SOURCE_TRANSFER_ONLY",
+  "source_bytes": 144638873,
+  "task_id": "D08-01",
+  "transfer_files": 368
+}

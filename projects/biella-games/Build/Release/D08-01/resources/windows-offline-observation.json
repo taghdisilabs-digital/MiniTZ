@@ -1,0 +1,25 @@
+{
+  "acceptance_changed": false,
+  "classification": "REQUIRES_OTHER_RESOURCE",
+  "device_list_observation": {
+    "device_id": "43ad83f1-0d3d-4e9a-9c9e-5abd32b6206f",
+    "device_name": "WIN-P7MA35DRF6Q",
+    "last_seen": "2026-09-08T09:56:04.327+00:00",
+    "operation": "remote_desktop_commander.list_devices",
+    "other_registered_devices_online": false,
+    "status": "offline"
+  },
+  "execution_attempted": false,
+  "next_action": "Use an actually connected compatible Windows UE 5.8.2 build/play resource; verify the source transfer and retained setup/build scripts before real UBT/UAT and Shipping play/update qualification.",
+  "observed_utc": "2026-09-08T10:30:23.926978+00:00",
+  "reason": "No repeated remote process request against the now-observed offline node; previous HTTP 504 observations are retained. Engine/toolchain installation and native Windows fixture/gameplay execution were not attempted.",
+  "route_observation": {
+    "compute.remote": [
+      "saturn",
+      "modal"
+    ],
+    "unreal.build.win64": []
+  },
+  "schema": "biella.d08.resource_observation/v1",
+  "task_id": "D08-01"
+}

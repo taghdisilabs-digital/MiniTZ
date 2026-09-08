@@ -1,0 +1,21 @@
+{
+  "cases": [],
+  "error": "Material membership changed since retained build",
+  "evidence": [],
+  "implementation": {
+    "bytes": 9816,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/prepare_d08_01_win64_source.py",
+    "sha256": "05800056dedac6175007c4ad3c41047052a8d2bc4a7ad2007690db3df08afeac"
+  },
+  "observed": "2026-09-08T10:29:23.652523+00:00",
+  "powershell": {
+    "bytes": 78256,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-powershell-7.6.5/tool/pwsh",
+    "sha256": "d989cd1ab2ead1be3331db2eef38d209759128981873e6300653df27bc7246c5"
+  },
+  "release_candidate": false,
+  "result": "FAIL",
+  "schema": "biella.d08.source_transfer_preparation/v1",
+  "scope": "SOURCE_TRANSFER_ONLY",
+  "task_id": "D08-01"
+}

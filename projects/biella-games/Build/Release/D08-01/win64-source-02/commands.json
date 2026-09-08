@@ -1,0 +1,122 @@
+[
+  {
+    "argv": [
+      "/mnt/biella-extra/biella-runtime/d08-01-powershell-7.6.5/tool/pwsh",
+      "-NoLogo",
+      "-NoProfile",
+      "-NonInteractive",
+      "-File",
+      "/mnt/biella-extra/biella-runtime/d08-01-win64-source-02/readback/tooling/verify_d08_01_win64_source.ps1",
+      "-BundleDirectory",
+      "/mnt/biella-extra/biella-runtime/d08-01-win64-source-02/readback",
+      "-ManifestSha256",
+      "8c79e84957b78716d0de8462ac9d87e129e79a8d692c12eb548b5d93745b3660",
+      "-Output",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/clean-source-readback.json",
+      "-RequiredEngineVersion",
+      "5.8.2"
+    ],
+    "case": "clean-source-readback",
+    "returncode": 0
+  },
+  {
+    "argv": [
+      "/mnt/biella-extra/biella-runtime/d08-01-powershell-7.6.5/tool/pwsh",
+      "-NoLogo",
+      "-NoProfile",
+      "-NonInteractive",
+      "-File",
+      "/mnt/biella-extra/biella-runtime/d08-01-win64-source-02/readback/tooling/verify_d08_01_win64_source.ps1",
+      "-BundleDirectory",
+      "/mnt/biella-extra/biella-runtime/d08-01-win64-source-02/readback",
+      "-ManifestSha256",
+      "8c79e84957b78716d0de8462ac9d87e129e79a8d692c12eb548b5d93745b3660",
+      "-Output",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/missing-current-map.json",
+      "-RequiredEngineVersion",
+      "5.8.2"
+    ],
+    "case": "missing-current-map",
+    "returncode": 1
+  },
+  {
+    "argv": [
+      "/mnt/biella-extra/biella-runtime/d08-01-powershell-7.6.5/tool/pwsh",
+      "-NoLogo",
+      "-NoProfile",
+      "-NonInteractive",
+      "-File",
+      "/mnt/biella-extra/biella-runtime/d08-01-win64-source-02/readback/tooling/verify_d08_01_win64_source.ps1",
+      "-BundleDirectory",
+      "/mnt/biella-extra/biella-runtime/d08-01-win64-source-02/readback",
+      "-ManifestSha256",
+      "8c79e84957b78716d0de8462ac9d87e129e79a8d692c12eb548b5d93745b3660",
+      "-Output",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/incompatible-engine-version.json",
+      "-RequiredEngineVersion",
+      "5.8.3"
+    ],
+    "case": "incompatible-engine-version",
+    "returncode": 1
+  },
+  {
+    "argv": [
+      "/mnt/biella-extra/biella-runtime/d08-01-powershell-7.6.5/tool/pwsh",
+      "-NoLogo",
+      "-NoProfile",
+      "-NonInteractive",
+      "-File",
+      "/mnt/biella-extra/biella-runtime/d08-01-win64-source-02/readback/tooling/verify_d08_01_win64_source.ps1",
+      "-BundleDirectory",
+      "/mnt/biella-extra/biella-runtime/d08-01-win64-source-02/readback",
+      "-ManifestSha256",
+      "8c79e84957b78716d0de8462ac9d87e129e79a8d692c12eb548b5d93745b3660",
+      "-Output",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/corrupted-current-map.json",
+      "-RequiredEngineVersion",
+      "5.8.2"
+    ],
+    "case": "corrupted-current-map",
+    "returncode": 1
+  },
+  {
+    "argv": [
+      "/mnt/biella-extra/biella-runtime/d08-01-powershell-7.6.5/tool/pwsh",
+      "-NoLogo",
+      "-NoProfile",
+      "-NonInteractive",
+      "-File",
+      "/mnt/biella-extra/biella-runtime/d08-01-win64-source-02/readback/tooling/verify_d08_01_win64_source.ps1",
+      "-BundleDirectory",
+      "/mnt/biella-extra/biella-runtime/d08-01-win64-source-02/readback",
+      "-ManifestSha256",
+      "8c79e84957b78716d0de8462ac9d87e129e79a8d692c12eb548b5d93745b3660",
+      "-Output",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/unexpected-empty-cache-directory.json",
+      "-RequiredEngineVersion",
+      "5.8.2"
+    ],
+    "case": "unexpected-empty-cache-directory",
+    "returncode": 1
+  },
+  {
+    "argv": [
+      "/mnt/biella-extra/biella-runtime/d08-01-powershell-7.6.5/tool/pwsh",
+      "-NoLogo",
+      "-NoProfile",
+      "-NonInteractive",
+      "-File",
+      "/mnt/biella-extra/biella-runtime/d08-01-win64-source-02/readback/tooling/verify_d08_01_win64_source.ps1",
+      "-BundleDirectory",
+      "/mnt/biella-extra/biella-runtime/d08-01-win64-source-02/readback",
+      "-ManifestSha256",
+      "8c79e84957b78716d0de8462ac9d87e129e79a8d692c12eb548b5d93745b3660",
+      "-Output",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/restored-exact-source.json",
+      "-RequiredEngineVersion",
+      "5.8.2"
+    ],
+    "case": "restored-exact-source",
+    "returncode": 0
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "canonical_local_archive": {
+    "bytes": 88216176,
+    "path": "/root/biella/artifacts/games/D08-01/BiellaGames-D08-Win64-source-8c79e84957b7.zip",
+    "sha256": "8b1676f4f6b8eed559d388b8ac6a9e6a602f8516d46ac8985cfddd33fe2fac85"
+  },
+  "exact_committed_transfer_copy": {
+    "bytes": 88216176,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/BiellaGames-D08-Win64-source-8c79e84957b7.zip",
+    "sha256": "8b1676f4f6b8eed559d388b8ac6a9e6a602f8516d46ac8985cfddd33fe2fac85"
+  },
+  "publication": "Auto Feeder owns GitHub/Drive continuity publication from exact committed bytes. No transfer to a Windows resource occurred.",
+  "schema": "biella.d08.source_transfer_publication/v1",
+  "scope": "SOURCE_TRANSFER_ONLY",
+  "source_receipt": {
+    "bytes": 9405,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/win64-source-02/validation.json",
+    "sha256": "50485a36794c0f1494be5d3bb28722a10e45e12bb1ce3b0c075873c075e44676"
+  },
+  "status": "LOCAL_VERIFIED_REMOTE_NOT_CLAIMED",
+  "task_id": "D08-01"
+}
