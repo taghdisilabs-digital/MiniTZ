@@ -9,7 +9,7 @@ Engine: `/opt/unreal/UE_5.8.2`
 Execution rule: one current task; verify, execute, persist evidence, then advance
 Evidence rule: editable source plus task-derived build/runtime/package evidence
 Current section: `post_d01`
-Current task: `D05-01`
+Current task: `D06-01`
 Progress: `50/50` Demo tasks complete
 
 ## Section: demo01 | Demo 01 — first playable vertical slice | COMPLETE
@@ -77,7 +77,7 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 - [x] D02-04 | hard_creation | Deeper interaction, destruction, and environment state | COMPLETE | Commit 490876e29ad7af867b6f15c3d75c1425ed688bb8; clean worktree.; Environment runs at 30/120 caps, vehicle/shared-combat regressions, and 14 negative controls passed.; 138 manifest entries verified against local and committed bytes; protected authority unchanged.; Acceptance: projects/biella-games/Build/Environment/D02-04-acceptance.md
 - [x] D03-01 | hard_creation | Production rendering, animation, VFX, and audio quality | COMPLETE | OWNER_ACCEPTED: Mahdi Taghdisi explicitly confirmed D03-01 verified passed on 2026-09-08; Reuse committed D03-01 rendering/animation/VFX/audio/package/runtime evidence already preserved in Git and Build/Presentation; Redundant post-acceptance uncommitted PSO/loading experiments discarded before transition
 - [x] D04-01 | hard_creation | Data-driven content system multiplication | COMPLETE | VERIFIED_PASS: full Vulkan D04-01 validation PASS at Build/D04-01/runs/20260908T025036.835791Z-vulkan-3f1a46bf/validation.json sha256=5301532e06377666190517945ebf7d7c11d9933d48ef6c81c996ebfd729e9f56; registry/runtime/environment/shared-gameplay regressions PASS; asset/source/protected-byte stability verified; implementation committed as 5b35545769c77256f5d826a3270b4bba31b1456c
-- [ ] D05-01 | medium | UI, settings, localization, and accessibility | PENDING | registry_status=PENDING
+- [x] D05-01 | medium | UI, settings, localization, and accessibility | COMPLETE | Build/UI/D05-01-acceptance.md records implementation, exact build/runtime commands, and criterion mapping.; Live Unreal automation passed all HUD, settings, persistence, localization, accessibility, and pause-transition criteria; result.json reports success=true.; Committed locally as 86eeb3c6d01d9ec8d2e4f5d4ac40fab3da19fd67; worktree is clean.
 - [ ] D06-01 | hard_creation | Cinematic and presentation integration | PENDING | registry_status=PENDING
 - [ ] D07-01 | hard | Full performance, stability, and scalability qualification | PENDING | registry_status=PENDING
 - [ ] D08-01 | hard | Delivery, update, and release-candidate qualification | PENDING | registry_status=PENDING

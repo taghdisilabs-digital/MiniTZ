@@ -1,5 +1,5 @@
 {
-  "current_task": "D05-01",
+  "current_task": "D06-01",
   "execution_authority": "current 03/04 + Project PRODUCTION.md",
   "execution_map": "docs/task-program/D_NEXT_100_TASKS.json",
   "registry_is_queue": false,
@@ -1429,7 +1429,7 @@
         "GAME-50-UI-ACCESSIBILITY"
       ],
       "program": "D05",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D05-01",
       "title": "UI, settings, localization, and accessibility"
