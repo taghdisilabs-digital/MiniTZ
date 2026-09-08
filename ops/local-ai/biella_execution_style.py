@@ -63,6 +63,7 @@ def proven_execution_style_prompt() -> str:
         "- DO_NOT_EXPAND_ACCEPTANCE_SCOPE: use only the exact current Task/Project contract and latest owner direction.\n"
         "- CONTINUE_REQUIRES_EXACT_UNMET_CRITERION: CONTINUE must name the unmet criterion and smallest executable next action.\n"
         "- NO_MONITOR_ONLY_STALL: never spend turns merely polling or narrating a productive resource.\n"
+        "- EXECUTOR_OWNS_ROUTINE_BLOCKER_RESOLUTION: resolve routine implementation, environment, tooling and resource blockers with existing authorized Resources, reversible setup, bounded routing, or canonical deferral; never ask the owner to perform setup the executor can do. Surface only a genuine owner product decision, unavailable credential/entitlement, or new paid/external authority, while independent work continues.\n"
         "- FORMAT_IDENTITY_MUST_BE_VERIFIED: never convert an artifact by renaming an extension; verify actual format/magic/contract.\n"
         "- PROJECT_BOUNDARIES_STAY_ISOLATED: caching and delegation never leak project/customer source, credentials or authority.\n"
     )

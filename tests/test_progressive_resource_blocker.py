@@ -73,3 +73,14 @@ def test_execution_map_order_tracks_canonical_production_after_deferral(tmp_path
     assert [item["task_id"] for item in synced["tasks"]] == ["VIS", "BLOCK"]
     assert [item["ordinal"] for item in synced["tasks"]] == [1, 2]
     assert [item["production_ordinal"] for item in synced["tasks"]] == [1, 2]
+
+
+def test_executor_owns_routine_blocker_resolution_policy():
+    root = Path(__file__).resolve().parents[1]
+    import biella_execution_style as style
+    prompt = style.proven_execution_style_prompt()
+    assert 'EXECUTOR_OWNS_ROUTINE_BLOCKER_RESOLUTION' in prompt
+    d08 = (root/'projects/biella-games/docs/task-guides/D08-01.md').read_text()
+    assert 'EXECUTOR_OWNS_ROUTINE_BLOCKER_RESOLUTION' in d08
+    system = (root/'docs/project-state/07_BIELLA_PRODUCTION_SYSTEM.md').read_text()
+    assert 'EXECUTOR_OWNS_ROUTINE_BLOCKER_RESOLUTION' in system

@@ -1473,7 +1473,7 @@
         },
         {
           "path": "projects/biella-games/docs/task-guides/D08-01.md",
-          "sha256": "2084a4ea38c5f7976123c2a5ec02a14c57e9f555c5442698447fa8b063542e11",
+          "sha256": "22730d10fe22799d8cea59129e4d11a96d4ffcf47f384b6b377ec6f02606365c",
           "selected_sections": [
             "Objective",
             "Authorized project-local output names",
