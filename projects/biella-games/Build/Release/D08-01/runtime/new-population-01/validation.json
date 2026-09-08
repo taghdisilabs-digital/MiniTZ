@@ -1,0 +1,218 @@
+{
+  "capture_status": "GENERATED_DRAFT_RUNTIME_EVIDENCE",
+  "error": "No explained finish and suspension",
+  "evidence": [
+    {
+      "bytes": 978546,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/captures/combat_result.png",
+      "sha256": "3e3b269a9fc2c3b50162ed35c7e2ea90ea2d6da90ae82c3f7fcfde92b40f50b2"
+    },
+    {
+      "bytes": 993381,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/captures/dense_start.png",
+      "sha256": "50256994a519186f7141a1da484de1bc22db996158274587d345b006d6817dd4"
+    },
+    {
+      "bytes": 1002644,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/captures/navigation_result.png",
+      "sha256": "e50da5d58479d5d2bb3542d8f71dfc25a87d8d1f7f93d19a26e194112f91e963"
+    },
+    {
+      "bytes": 1684,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/command.json",
+      "sha256": "8bf967369a90f83858a7f3186e9b3dcf0bed31e39cdacb022d1331c1b2c1a695"
+    },
+    {
+      "bytes": 1231,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/events.log",
+      "sha256": "3f280a3850e198aad891b6578f36b82f9cfcc9e91805eb4a01072068b4188f77"
+    },
+    {
+      "bytes": 147943,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/frames.csv",
+      "sha256": "dbe4b9de1ac231f3676775c6326930b8cad24f8e692440c44760f75f9194350e"
+    },
+    {
+      "bytes": 104637,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/resources.jsonl",
+      "sha256": "d87c233f3d49e8233a13ef7072105a9cc11d7c12f773523101b2a899fe568a54"
+    },
+    {
+      "bytes": 134,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/result.json",
+      "sha256": "e18fd977facb59f096783ae194beec8979710928f5a093d702c75a40178127b4"
+    },
+    {
+      "bytes": 308769,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/runtime.engine.log",
+      "sha256": "4ce598db5dfc0b2657fc00622a1f91a5a66232ff132b8be0e735591004a3fe19"
+    },
+    {
+      "bytes": 306366,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/runtime.stdout.log",
+      "sha256": "5088e946298a10ecb670978d88a09ac386ff7129bd0c5a988957e446d52aa2bd"
+    }
+  ],
+  "host": {
+    "cgroup_limits": {
+      "cpu.max": "max 100000",
+      "cpuset.cpus.effective": "0-14",
+      "memory.max": "max"
+    },
+    "clock_ticks_per_second": 100,
+    "cpu": "AMD EPYC 9124 16-Core Processor",
+    "cpu_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "gpus": [
+      {
+        "driver": "580.178.04",
+        "memory_utilization_percent": 0.0,
+        "name": "NVIDIA L40S",
+        "power_w": 83.79,
+        "processes": [
+          {
+            "name": "/usr/local/lib/ollama/llama-server",
+            "pid": 3098977,
+            "type": "C",
+            "used_memory": "26946 MiB"
+          }
+        ],
+        "pstate": "P0",
+        "sm_clock_mhz": 2520.0,
+        "temperature_c": 45.0,
+        "utilization_percent": 0.0,
+        "uuid": "GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5",
+        "vram_total_mib": 46068.0,
+        "vram_used_mib": 26956.0
+      }
+    ],
+    "logical_cpus": 15,
+    "memory_kib": {
+      "Active": 32473448,
+      "Active(anon)": 1442336,
+      "Active(file)": 31031112,
+      "AnonHugePages": 0,
+      "AnonPages": 1786632,
+      "Bounce": 0,
+      "Buffers": 695044,
+      "Cached": 78362172,
+      "CommitLimit": 78805180,
+      "Committed_AS": 6028732,
+      "DirectMap1G": 5242880,
+      "DirectMap2M": 73056256,
+      "DirectMap4k": 13860716,
+      "Dirty": 7440,
+      "FileHugePages": 0,
+      "FilePmdMapped": 0,
+      "HardwareCorrupted": 0,
+      "HugePages_Free": 0,
+      "HugePages_Rsvd": 0,
+      "HugePages_Surp": 0,
+      "HugePages_Total": 0,
+      "Hugepagesize": 2048,
+      "Hugetlb": 0,
+      "Inactive": 48353432,
+      "Inactive(anon)": 385992,
+      "Inactive(file)": 47967440,
+      "KReclaimable": 3216820,
+      "KernelStack": 11536,
+      "Mapped": 43477844,
+      "MemAvailable": 86381904,
+      "MemFree": 5088124,
+      "MemTotal": 90501504,
+      "Mlocked": 27448,
+      "NFS_Unstable": 0,
+      "PageTables": 125228,
+      "Percpu": 13376,
+      "SReclaimable": 3216820,
+      "SUnreclaim": 439032,
+      "SecPageTables": 0,
+      "Shmem": 49900,
+      "ShmemHugePages": 0,
+      "ShmemPmdMapped": 0,
+      "Slab": 3655852,
+      "SwapCached": 43952,
+      "SwapFree": 33292700,
+      "SwapTotal": 33554428,
+      "Unaccepted": 0,
+      "Unevictable": 27448,
+      "VmallocChunk": 0,
+      "VmallocTotal": 13743895347199,
+      "VmallocUsed": 195512,
+      "Writeback": 0,
+      "WritebackTmp": 0,
+      "Zswap": 0,
+      "Zswapped": 0
+    },
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39"
+  },
+  "manifest": {
+    "bytes": 8665,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-install/versions/fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c/manifest.json",
+    "sha256": "48cedd56873c9abbc62c0708872066036733bfd4c3e58cd0cbebe5e1d5572770"
+  },
+  "observed": "2026-09-08T09:33:22.512010+00:00",
+  "orchestrator": {
+    "bytes": 33224,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d08_01_release.py",
+    "sha256": "4a008021e008ab36a7c07959d302af81345885e7a309f81dea3d7daed4350790"
+  },
+  "package_id": "fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c",
+  "result": "FAIL",
+  "runtime": {
+    "elapsed_seconds": 46.31245728902286,
+    "log_finalization": {
+      "closed": true,
+      "elapsed_seconds": 0.031428235000930727,
+      "observed_writers": [],
+      "remaining_writers": [],
+      "timeout_seconds": 45
+    },
+    "returncode": 0,
+    "survivors": [],
+    "unreal_process_identities": [
+      {
+        "pid": 3396426,
+        "start_ticks": 50681779
+      }
+    ],
+    "watchdog_failure": null
+  },
+  "scenario": "population",
+  "scope": "Outside-editor Linux Development Vulkan package. Source/engine/cache/network hidden; not Win64 Shipping acceptance.",
+  "settings_after": [
+    {
+      "bytes": 22,
+      "path": "/mnt/biella-extra/biella-runtime/d08-01-native-state-new-population-01/home/.config/Epic/UnrealEngine/5.8/Saved/Config/Linux/Manifest.ini",
+      "sha256": "e706d6c7c899d8d28e83512d7f29946334086c4a6eaf56f790bf0010e7df1e9c"
+    },
+    {
+      "bytes": 256,
+      "path": "/mnt/biella-extra/biella-runtime/d08-01-native-state-new-population-01/user/Saved/Config/CrashReportClient/UECC-Linux-01A0805D72B376C488FD422B023401B5/CrashReportClient.ini",
+      "sha256": "b85bb31b225042d5175a8b4240162c29c5dfc294686e1926528fd0ab00346ac4"
+    },
+    {
+      "bytes": 1483,
+      "path": "/mnt/biella-extra/biella-runtime/d08-01-native-state-new-population-01/user/Saved/Config/Linux/GameUserSettings.ini",
+      "sha256": "c77dcbb1c1446da15825d6391820704b11fe6c0aaa7180715128c90a55678df9"
+    }
+  ],
+  "settings_before": [],
+  "state": "/mnt/biella-extra/biella-runtime/d08-01-native-state-new-population-01",
+  "task_id": "D08-01"
+}

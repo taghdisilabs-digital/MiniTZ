@@ -1,0 +1,7 @@
+{
+  "from_package": "fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03",
+  "installed": "/mnt/biella-extra/biella-runtime/d08-01-install/versions/4b4c3f3a7c2415d495cd50ace7241eb04980b63338ee0fae6290a7998a9a817d",
+  "recovered_verified_version": true,
+  "result": "PASS",
+  "to_package": "4b4c3f3a7c2415d495cd50ace7241eb04980b63338ee0fae6290a7998a9a817d"
+}

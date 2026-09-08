@@ -1,0 +1,13 @@
+Setting up bundled DotNet SDK
+Running command : dotnet Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll BiellaGames Linux Development -Project=/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject -WaitMutex -NoUBA -NoHotReloadFromIDE
+Log file: /home/unreal/.config/Epic/UnrealBuildTool/Log.txt
+Determining max actions to execute in parallel (15 physical cores, 15 logical cores)
+  Executing up to 15 processes, one per physical core
+UbaStorageServer - FileMapping backing: memfd
+UbaSessionServer - Disable remote execution (remote sessions will finish current processes)
+Invalidating makefile for BiellaGames (source file removed)
+Could not find definition for module 'BiellaLoadingScreen', (referenced via BiellaGames.Target.cs)
+
+Result: Failed (RulesError)
+Total execution time: 2.17 seconds
+Trace written to file /home/unreal/.config/Epic/UnrealBuildTool/Trace.uba with size 1.8kb

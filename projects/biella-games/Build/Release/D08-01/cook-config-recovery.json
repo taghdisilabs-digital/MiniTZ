@@ -1,0 +1,50 @@
+{
+  "canonical": {
+    "bytes": 1794,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Config/DefaultEngine.ini",
+    "sha256": "623ad5acc704e865cd6e2bcdf69c43b9b4143e60e7adbc3b8253a794e3dd0792"
+  },
+  "cook": {
+    "bytes": 9697426,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/cook-01/validation.json",
+    "sha256": "4c2f13cad4593651faa94e7fbccc564a7386a25f792a710139c8c1c3bc96c944"
+  },
+  "generated_raw_private": {
+    "bytes": 2167,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-package-01/generated-editor-config-evidence/DefaultEngine.generated.ini",
+    "sha256": "a42dd8374655e1cebc56c4ff4fd57652e832476918c1c4c307af9d0efc642c98"
+  },
+  "implementation": {
+    "bytes": 4705,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/restore_d08_01_cook_config.py",
+    "sha256": "e2115a5d4b9ff36e11e674680f44c2ae969a9121a20e83d23a5213c514366a1a"
+  },
+  "observed": "2026-09-08T09:01:34.578806+00:00",
+  "observed_editor_side_effect": "PostInitProperties appends its default Android File Server settings and generates a token. Existing configuration bytes were untouched. All other snapshot inputs, binaries and cooked outputs match the original receipt.",
+  "restored_snapshot": {
+    "bytes": 1794,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-package-01/project/Config/DefaultEngine.ini",
+    "sha256": "623ad5acc704e865cd6e2bcdf69c43b9b4143e60e7adbc3b8253a794e3dd0792"
+  },
+  "result": "PASS",
+  "scope": "The AFS editor module contains no content; file-server operations are PLATFORM_ANDROID guarded. Canonical Linux settings restored exactly before UAT stage. Cook receipt and cooked bytes preserved; no shader recook or Project configuration change.",
+  "source_evidence": [
+    {
+      "bytes": 936,
+      "path": "/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AndroidFileServer/AndroidFileServer.uplugin",
+      "sha256": "acb7d9f6fb295c0d28b9ee221d9d407373051168fc06aba62436183cc8eccf9b"
+    },
+    {
+      "bytes": 1125,
+      "path": "/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AndroidFileServer/Source/AndroidFileServerEditor/Private/AndroidFileServerRuntimeSettings.cpp",
+      "sha256": "db36ace337b0f3a7f393e3e380a2576d2178c2d7fe650dbab3b7f0fd56e765ae"
+    },
+    {
+      "bytes": 1934,
+      "path": "/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AndroidFileServer/Source/AndroidFileServer/Private/AndroidFileServerBPLibrary.cpp",
+      "sha256": "4ab7dce962daa7573f420e4199f73fe54949f63a29dd5d48a3a82d96f60d7587"
+    }
+  ],
+  "task_id": "D08-01",
+  "unchanged_other_records": 411
+}

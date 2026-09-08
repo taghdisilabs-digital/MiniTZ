@@ -81,7 +81,7 @@ def host_identity():
             "memory_kib": read_numbers("/proc/meminfo"), "cgroup_limits": limits, "gpus": gpu_sample()}
 
 
-def monitor(command, directory, timeout):
+def monitor(command, directory, timeout, process_names=("UnrealEditor",)):
     start = time.monotonic()
     failure, seen, last_sample = None, set(), 0
     log_path = directory / "runtime.stdout.log"
@@ -97,7 +97,7 @@ def monitor(command, directory, timeout):
                     members = process_members(process.pid)
                     samples = []
                     for member in members:
-                        if member["name"] == "UnrealEditor":
+                        if member["name"] in process_names:
                             try:
                                 samples.append(process_sample(member["pid"]))
                                 seen.add((member["pid"], member["start_ticks"]))

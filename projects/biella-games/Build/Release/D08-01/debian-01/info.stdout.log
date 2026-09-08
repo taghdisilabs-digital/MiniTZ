@@ -1,0 +1,14 @@
+ new Debian package, version 2.0.
+ size 433386214 bytes: control archive=450 bytes.
+     512 bytes,    11 lines      control
+ Package: biella-games-d08-diagnostic
+ Version: 0.1.0-demo01+d08.fb2845d0483e
+ Section: games
+ Priority: optional
+ Architecture: amd64
+ Maintainer: Biella Games
+ Installed-Size: 937985
+ Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.0), liblz4-1 (>= 0.0~r130), libstdc++6 (>= 10.2), libzstd1 (>= 1.5.5), zlib1g (>= 1:1.1.4)
+ Description: Biella Games D08 Linux Development diagnostic
+  Cooked native diagnostic package assembled on Ubuntu 24.04 amd64.
+  Requires a working Vulkan GPU and display. Not a Win64 release candidate.

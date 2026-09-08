@@ -1,0 +1,83 @@
+[
+  {
+    "argv": [
+      "dpkg",
+      "--print-architecture"
+    ],
+    "name": "architecture",
+    "returncode": 0
+  },
+  {
+    "argv": [
+      "dpkg-deb",
+      "--version"
+    ],
+    "name": "dpkg-version",
+    "returncode": 0
+  },
+  {
+    "argv": [
+      "dpkg-shlibdeps",
+      "-O",
+      "-S/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree",
+      "-l/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree/opt/biella-games-d08-diagnostic/fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03/BiellaGames/Binaries/Linux",
+      "-l/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree/opt/biella-games-d08-diagnostic/fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03/Engine/Binaries/ThirdParty/MsQuic/v220/linux",
+      "-l/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree/opt/biella-games-d08-diagnostic/fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03/Engine/Binaries/ThirdParty/Vulkan/Linux",
+      "-l/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree/opt/biella-games-d08-diagnostic/fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux",
+      "/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree/opt/biella-games-d08-diagnostic/fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03/BiellaGames/Binaries/Linux/BiellaGames",
+      "/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree/opt/biella-games-d08-diagnostic/fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so.2",
+      "/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree/opt/biella-games-d08-diagnostic/fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_api_dump.so",
+      "/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree/opt/biella-games-d08-diagnostic/fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_crash_diagnostic.so",
+      "/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree/opt/biella-games-d08-diagnostic/fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_gfxreconstruct.so",
+      "/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree/opt/biella-games-d08-diagnostic/fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_profiles.so",
+      "/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree/opt/biella-games-d08-diagnostic/fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_shader_object.so",
+      "/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree/opt/biella-games-d08-diagnostic/fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_synchronization2.so",
+      "/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree/opt/biella-games-d08-diagnostic/fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_validation.so",
+      "/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree/opt/biella-games-d08-diagnostic/fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03/Engine/Binaries/ThirdParty/Vulkan/Linux/libvulkan.so",
+      "/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree/opt/biella-games-d08-diagnostic/fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so",
+      "/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree/opt/biella-games-d08-diagnostic/fb2845d0483ef2114421054a7811ce5e1cdad3f5cff5427c5f5611f03ac44d03/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so.1.24"
+    ],
+    "name": "dependencies",
+    "returncode": 0
+  },
+  {
+    "argv": [
+      "dpkg-deb",
+      "--root-owner-group",
+      "--build",
+      "/mnt/biella-extra/biella-runtime/d08-01-debian-01/tree",
+      "/root/biella/artifacts/games/D08-01/biella-games-d08-diagnostic_0.1.0-demo01+d08.fb2845d0483e_amd64.deb"
+    ],
+    "name": "build",
+    "returncode": 0
+  },
+  {
+    "argv": [
+      "dpkg-deb",
+      "--info",
+      "/root/biella/artifacts/games/D08-01/biella-games-d08-diagnostic_0.1.0-demo01+d08.fb2845d0483e_amd64.deb"
+    ],
+    "name": "info",
+    "returncode": 0
+  },
+  {
+    "argv": [
+      "dpkg-deb",
+      "--extract",
+      "/root/biella/artifacts/games/D08-01/biella-games-d08-diagnostic_0.1.0-demo01+d08.fb2845d0483e_amd64.deb",
+      "/mnt/biella-extra/biella-runtime/d08-01-debian-01/readback"
+    ],
+    "name": "extract",
+    "returncode": 0
+  },
+  {
+    "argv": [
+      "dpkg-deb",
+      "--control",
+      "/root/biella/artifacts/games/D08-01/biella-games-d08-diagnostic_0.1.0-demo01+d08.fb2845d0483e_amd64.deb",
+      "/mnt/biella-extra/biella-runtime/d08-01-debian-01/readback-control"
+    ],
+    "name": "control",
+    "returncode": 0
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "cases": [
+    {
+      "case": "retained_packaged_FName_capitalization",
+      "result": "PASS"
+    },
+    {
+      "case": "equivalent_lowercase_reason",
+      "result": "PASS"
+    },
+    {
+      "case": "all_finished_reasons_removed",
+      "diagnostic": "No explained finish and suspension",
+      "result": "EXPECTED_REJECTION"
+    }
+  ],
+  "observed": "2026-09-08T09:40:44.746396+00:00",
+  "result": "PASS",
+  "scope": "Existing native evidence plus isolated log mutations; no replacement gameplay evidence. Raw original files unchanged.",
+  "source": {
+    "bytes": 306366,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/runtime.stdout.log",
+    "sha256": "5088e946298a10ecb670978d88a09ac386ff7129bd0c5a988957e446d52aa2bd"
+  },
+  "task_id": "D08-01",
+  "verifier": {
+    "bytes": 10722,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_02.py",
+    "sha256": "c9ba32ef11224cff79f7a8f7411ce54fe2c67bf9fead35443ea80269cbf60313"
+  }
+}

@@ -27,6 +27,7 @@ def project_inputs():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--task-id', choices=('D03-01', 'D08-01'), default='D03-01')
     parser.add_argument('--workspace', type=Path, required=True)
     parser.add_argument('--game-build', type=Path, required=True)
     parser.add_argument('--editor-build', type=Path, help='Require exact source and module bytes from an editor build receipt')
@@ -41,7 +42,7 @@ def main():
     cache.mkdir()
     source = project_inputs()
     before = [file_identity(f) for f in source]
-    report = dict(task_id='D03-01', result='FAIL', revision=source_revision(),
+    report = dict(task_id=args.task_id, result='FAIL', revision=source_revision(),
                   workspace=str(work), snapshot=str(snapshot), cache=str(cache),
                   inputs_before=before, editor=file_identity(DEFAULT_EDITOR),
                   editor_module=file_identity(PROJECT/'Binaries/Linux/libUnrealEditor-BiellaGames.so'),
@@ -111,7 +112,7 @@ def main():
         write_json(out/'validation.json', report)
         if report['result'] != 'PASS':
             with Path('/mnt/biella-extra/biella-runtime/codex-production/failures.jsonl').open('a') as stream:
-                stream.write(json.dumps(dict(task_id='D03-01', time=datetime.now(timezone.utc).isoformat(),
+                stream.write(json.dumps(dict(task_id=args.task_id, time=datetime.now(timezone.utc).isoformat(),
                                             type='isolated_cook', status='CONTINUE',
                                             diagnostics=report.get('error'), evidence=str(out)))+'\n')
     print(json.dumps(dict(result=report['result'], output=str(out), error=report.get('error'))))

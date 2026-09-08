@@ -1,0 +1,34 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_d08_01_release.py",
+    "-v"
+  ],
+  "inputs": [
+    {
+      "bytes": 33224,
+      "path": "tests/run_d08_01_release.py",
+      "sha256": "4a008021e008ab36a7c07959d302af81345885e7a309f81dea3d7daed4350790"
+    },
+    {
+      "bytes": 7350,
+      "path": "tests/test_d08_01_release.py",
+      "sha256": "2ab073c953d38cc7c8b68738d8818e8c831be83e4c15e1d2cc6568067ce308ae"
+    }
+  ],
+  "log": {
+    "bytes": 1657,
+    "path": "Build/Release/D08-01/tool-tests/final-02/unittest.log",
+    "sha256": "7983d7acba714d7a6f1bce9ac40e056b3ee91610c386f4e38db7ad0fcce5213c"
+  },
+  "result": "PASS",
+  "returncode": 0,
+  "scope": "Fault-injected installer tests using explicitly synthetic tiny ELF fixtures; never gameplay evidence.",
+  "task_id": "D08-01"
+}

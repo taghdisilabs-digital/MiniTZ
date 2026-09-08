@@ -1,0 +1,29 @@
+{
+  "task_id": "D08-01",
+  "result": "PASS",
+  "returncode": 0,
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_d08_01_release.py",
+    "-v"
+  ],
+  "observed": "2026-09-08T08:30:49.216725+00:00",
+  "scope": "12 installer fault-injection tests; fixtures never prove gameplay",
+  "inputs": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d08_01_release.py",
+      "sha256": "9b25e70858c453393d5a224de14e5b9f1ebcc53b46892c3c445de2867c85d447"
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/test_d08_01_release.py",
+      "sha256": "2ab073c953d38cc7c8b68738d8818e8c831be83e4c15e1d2cc6568067ce308ae"
+    }
+  ],
+  "log": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/final-01/unittest.log"
+}

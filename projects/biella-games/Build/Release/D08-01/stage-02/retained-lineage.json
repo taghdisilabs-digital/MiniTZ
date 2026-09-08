@@ -1,0 +1,21 @@
+{
+  "files": [
+    {
+      "bytes": 73200,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/stage-02/source-build-manifest.json",
+      "sha256": "764ec64a0dcbd235572dd60ac33712e2a62a5f52897234391f68e912d336e539"
+    },
+    {
+      "bytes": 8655,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/stage-02/package-manifest.json",
+      "sha256": "7cfc8f4e15b0b7a42f7f45940ec4412ae95a61733859d22010479580fbb7c575"
+    },
+    {
+      "bytes": 693,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/stage-02/install-update.json",
+      "sha256": "3a4c38acea5234bbbdbd139b9490eab42bfa2b32c28c8692d839a50c30f3cd9a"
+    }
+  ],
+  "scope": "Exact superseded attempt records retained as raw evidence; current canonical manifests will bind the corrected automation build.",
+  "task_id": "D08-01"
+}

@@ -1,0 +1,224 @@
+{
+  "capture_status": "GENERATED_DRAFT_RUNTIME_EVIDENCE",
+  "diagnostics": [
+    "[2026.09.08-09.37.37:736][  0]LogRHI: Warning: Dynamic Uniform Buffers are enabled, but they will not be used with Vulkan bindless.",
+    "[2026.09.08-09.37.37:736][  0]LogRHI: Warning: Memory defrag is enabled, but it will not be used with Vulkan bindless.",
+    "[2026.09.08-09.37.38:512][  0]LogMoviePlayer: Warning: PassLoadingScreenWindowBackToGame failed.  No Window",
+    "[2026.09.08-09.37.38:966][  0]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482350).",
+    "[2026.09.08-09.37.38:974][  0]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482350).",
+    "[2026.09.08-09.37.38:974][  0]LogNavigation: Warning: ProcessRegistrationCandidates RecastNavMesh_2147482350 will be removed. This warning will disapear once the map is saved.",
+    "[2026.09.08-09.37.40:205][  0]LogConsoleManager: Warning: Console variable 'r.MotionVectorSimulation' used in the render thread. Rendering artifacts could happen. Use ECVF_RenderThreadSafe or don't use in render thread.",
+    "[2026.09.08-09.37.48:583][424]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance",
+    "[2026.09.08-09.38.01:323][424]LogVulkanRHI: Warning: Found 1 unfreed allocations!",
+    "[2026.09.08-09.38.01:513][424]LogVulkanRHI: Warning: Found 1 unfreed allocations!"
+  ],
+  "evidence": [
+    {
+      "bytes": 2914,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-cinematic-01/cinematic.telemetry.jsonl",
+      "sha256": "c1f908da2c35bb4bf669062019ad0c2a4ccea944f45239fbf6f5fd645b1eaa50"
+    },
+    {
+      "bytes": 1693,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-cinematic-01/command.json",
+      "sha256": "38b04d0a4cf4afe4959a3c1600ddf5c127f32885eb91ac06a2cf0d7cc3f612ad"
+    },
+    {
+      "bytes": 59083,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-cinematic-01/resources.jsonl",
+      "sha256": "557ebf4bd17cc564684a7fbd550929e56fe374746eee1b77057688a14d86d6a7"
+    },
+    {
+      "bytes": 145016,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-cinematic-01/runtime.engine.log",
+      "sha256": "7712fe42cfbb0aa825bf1ae816eb76de3d99695b334de5f7b7170c4d01843b6b"
+    },
+    {
+      "bytes": 143602,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-cinematic-01/runtime.stdout.log",
+      "sha256": "17b23fe8ca792bc7497226df77e472a79c265d08166b65ea45a0d49d1c4cc72a"
+    }
+  ],
+  "host": {
+    "cgroup_limits": {
+      "cpu.max": "max 100000",
+      "cpuset.cpus.effective": "0-14",
+      "memory.max": "max"
+    },
+    "clock_ticks_per_second": 100,
+    "cpu": "AMD EPYC 9124 16-Core Processor",
+    "cpu_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "gpus": [
+      {
+        "driver": "580.178.04",
+        "memory_utilization_percent": 0.0,
+        "name": "NVIDIA L40S",
+        "power_w": 84.28,
+        "processes": [
+          {
+            "name": "/usr/local/lib/ollama/llama-server",
+            "pid": 3098977,
+            "type": "C",
+            "used_memory": "26946 MiB"
+          }
+        ],
+        "pstate": "P0",
+        "sm_clock_mhz": 2520.0,
+        "temperature_c": 45.0,
+        "utilization_percent": 0.0,
+        "uuid": "GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5",
+        "vram_total_mib": 46068.0,
+        "vram_used_mib": 26956.0
+      }
+    ],
+    "logical_cpus": 15,
+    "memory_kib": {
+      "Active": 32477032,
+      "Active(anon)": 1445456,
+      "Active(file)": 31031576,
+      "AnonHugePages": 0,
+      "AnonPages": 1789760,
+      "Bounce": 0,
+      "Buffers": 700420,
+      "Cached": 79057676,
+      "CommitLimit": 78805180,
+      "Committed_AS": 6017068,
+      "DirectMap1G": 5242880,
+      "DirectMap2M": 73015296,
+      "DirectMap4k": 13901676,
+      "Dirty": 113160,
+      "FileHugePages": 0,
+      "FilePmdMapped": 0,
+      "HardwareCorrupted": 0,
+      "HugePages_Free": 0,
+      "HugePages_Rsvd": 0,
+      "HugePages_Surp": 0,
+      "HugePages_Total": 0,
+      "Hugepagesize": 2048,
+      "Hugetlb": 0,
+      "Inactive": 49053784,
+      "Inactive(anon)": 385956,
+      "Inactive(file)": 48667828,
+      "KReclaimable": 3234792,
+      "KernelStack": 11552,
+      "Mapped": 43478016,
+      "MemAvailable": 86327652,
+      "MemFree": 4351912,
+      "MemTotal": 90501504,
+      "Mlocked": 27448,
+      "NFS_Unstable": 0,
+      "PageTables": 125192,
+      "Percpu": 13376,
+      "SReclaimable": 3234792,
+      "SUnreclaim": 442056,
+      "SecPageTables": 0,
+      "Shmem": 49900,
+      "ShmemHugePages": 0,
+      "ShmemPmdMapped": 0,
+      "Slab": 3676848,
+      "SwapCached": 44064,
+      "SwapFree": 33292700,
+      "SwapTotal": 33554428,
+      "Unaccepted": 0,
+      "Unevictable": 27448,
+      "VmallocChunk": 0,
+      "VmallocTotal": 13743895347199,
+      "VmallocUsed": 195448,
+      "Writeback": 0,
+      "WritebackTmp": 0,
+      "Zswap": 0,
+      "Zswapped": 0
+    },
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39"
+  },
+  "manifest": {
+    "bytes": 8665,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-install/versions/fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c/manifest.json",
+    "sha256": "48cedd56873c9abbc62c0708872066036733bfd4c3e58cd0cbebe5e1d5572770"
+  },
+  "observed": "2026-09-08T09:37:36.107745+00:00",
+  "orchestrator": {
+    "bytes": 33224,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d08_01_release.py",
+    "sha256": "4a008021e008ab36a7c07959d302af81345885e7a309f81dea3d7daed4350790"
+  },
+  "package_id": "fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c",
+  "result": "PASS",
+  "runtime": {
+    "elapsed_seconds": 25.729488960991148,
+    "log_finalization": {
+      "closed": true,
+      "elapsed_seconds": 0.030753508966881782,
+      "observed_writers": [],
+      "remaining_writers": [],
+      "timeout_seconds": 45
+    },
+    "returncode": 0,
+    "survivors": [],
+    "unreal_process_identities": [
+      {
+        "pid": 3399796,
+        "start_ticks": 50707139
+      }
+    ],
+    "watchdog_failure": null
+  },
+  "scenario": "cinematic",
+  "scope": "Outside-editor Linux Development Vulkan package. Source/engine/cache/network hidden; not Win64 Shipping acceptance.",
+  "settings_after": [
+    {
+      "bytes": 22,
+      "path": "/mnt/biella-extra/biella-runtime/d08-01-native-state-new-cinematic-01/home/.config/Epic/UnrealEngine/5.8/Saved/Config/Linux/Manifest.ini",
+      "sha256": "e706d6c7c899d8d28e83512d7f29946334086c4a6eaf56f790bf0010e7df1e9c"
+    },
+    {
+      "bytes": 256,
+      "path": "/mnt/biella-extra/biella-runtime/d08-01-native-state-new-cinematic-01/user/Saved/Config/CrashReportClient/UECC-Linux-01A08061514F71C693FC011401699F5F/CrashReportClient.ini",
+      "sha256": "b85bb31b225042d5175a8b4240162c29c5dfc294686e1926528fd0ab00346ac4"
+    },
+    {
+      "bytes": 1483,
+      "path": "/mnt/biella-extra/biella-runtime/d08-01-native-state-new-cinematic-01/user/Saved/Config/Linux/GameUserSettings.ini",
+      "sha256": "c77dcbb1c1446da15825d6391820704b11fe6c0aaa7180715128c90a55678df9"
+    }
+  ],
+  "settings_before": [],
+  "state": "/mnt/biella-extra/biella-runtime/d08-01-native-state-new-cinematic-01",
+  "task_id": "D08-01",
+  "verification": {
+    "handoff_paths": [
+      "skipped",
+      "watched"
+    ],
+    "log": {
+      "bytes": 143602,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-cinematic-01/runtime.stdout.log",
+      "sha256": "17b23fe8ca792bc7497226df77e472a79c265d08166b65ea45a0d49d1c4cc72a"
+    },
+    "signals": {
+      "skipped": 1,
+      "watched": 1
+    },
+    "telemetry": {
+      "bytes": 2914,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-cinematic-01/cinematic.telemetry.jsonl",
+      "sha256": "c1f908da2c35bb4bf669062019ad0c2a4ccea944f45239fbf6f5fd645b1eaa50"
+    }
+  }
+}

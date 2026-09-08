@@ -1,0 +1,15 @@
+{
+	"task_id": "D08-01",
+	"phase": "legacy",
+	"result": "PASS",
+	"settings_path": "/tmp/state/user/Saved/Config/Linux/GameUserSettings.ini",
+	"process_id": 3384320,
+	"look_x": 0.80000001192092896,
+	"look_y": 0.60000002384185791,
+	"hud_scale": 1,
+	"invert_y": false,
+	"motion_blur": false,
+	"resolution_x": 1280,
+	"resolution_y": 720,
+	"window_mode": 1
+}

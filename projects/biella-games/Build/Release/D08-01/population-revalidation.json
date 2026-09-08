@@ -1,0 +1,109 @@
+{
+  "observed": "2026-09-08T09:39:59.248345+00:00",
+  "original_failure": {
+    "bytes": 7540,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/validation.json",
+    "sha256": "46543e67fb0f5a85208547c2c346e6edf59596ca2770b253323840e45a2ff42a"
+  },
+  "package_id": "fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c",
+  "result": "PASS",
+  "scope": "Exact retained native evidence revalidated after allowing FName reason token capitalization. Original failed receipt and raw bytes are preserved; no gameplay replay or acceptance relaxation.",
+  "task_id": "D08-01",
+  "verification": {
+    "active_end": 1,
+    "all_frames": {
+      "frames": 2041,
+      "max_ms": 187.775232,
+      "p50_ms": 16.712549,
+      "p95_ms": 20.49078,
+      "p99_ms": 23.024605,
+      "peak_resident_bytes": 2357870592.0,
+      "wall_seconds": 34.864507971
+    },
+    "at_least_75_percent_active": {
+      "frames": 476,
+      "max_ms": 169.600792,
+      "p50_ms": 16.852332,
+      "p95_ms": 21.009261,
+      "p99_ms": 24.644349,
+      "peak_resident_bytes": 2357870592.0,
+      "wall_seconds": 8.186340734
+    },
+    "capture_status": "GENERATED_DRAFT",
+    "combat_duration_seconds": 20.016692,
+    "combat_frames": {
+      "frames": 1181,
+      "max_ms": 169.600792,
+      "p50_ms": 16.732798,
+      "p95_ms": 20.507351,
+      "p99_ms": 23.024605,
+      "peak_resident_bytes": 2357870592.0,
+      "wall_seconds": 20.015611151
+    },
+    "count": 4,
+    "files": [
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/result.json",
+        "sha256": "e18fd977facb59f096783ae194beec8979710928f5a093d702c75a40178127b4",
+        "size_bytes": 134
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/frames.csv",
+        "sha256": "dbe4b9de1ac231f3676775c6326930b8cad24f8e692440c44760f75f9194350e",
+        "size_bytes": 147943
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/events.log",
+        "sha256": "3f280a3850e198aad891b6578f36b82f9cfcc9e91805eb4a01072068b4188f77",
+        "size_bytes": 1231
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/runtime.stdout.log",
+        "sha256": "5088e946298a10ecb670978d88a09ac386ff7129bd0c5a988957e446d52aa2bd",
+        "size_bytes": 306366
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/runtime.engine.log",
+        "sha256": "4ce598db5dfc0b2657fc00622a1f91a5a66232ff132b8be0e735591004a3fe19",
+        "size_bytes": 308769
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/captures/dense_start.png",
+        "sha256": "50256994a519186f7141a1da484de1bc22db996158274587d345b006d6817dd4",
+        "size_bytes": 993381
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/captures/combat_result.png",
+        "sha256": "3e3b269a9fc2c3b50162ed35c7e2ea90ea2d6da90ae82c3f7fcfde92b40f50b2",
+        "size_bytes": 978546
+      },
+      {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-population-01/captures/navigation_result.png",
+        "sha256": "e50da5d58479d5d2bb3542d8f71dfc25a87d8d1f7f93d19a26e194112f91e963",
+        "size_bytes": 1002644
+      }
+    ],
+    "initial_infected": 3,
+    "initial_rivals": 1,
+    "max_overlap_pairs": 0.0,
+    "natural_damage_events": 22,
+    "natural_damage_sources": [
+      "D02Pop_Street03_00",
+      "D02Pop_Street03_01",
+      "D02Pop_Street03_02",
+      "D02Pop_Street03_03"
+    ],
+    "natural_damage_targets": [
+      "D02Pop_Street03_00",
+      "D02Pop_Street03_01",
+      "D02Pop_Street03_02",
+      "D02Pop_Street03_03"
+    ],
+    "result": "PASS"
+  },
+  "verifier": {
+    "bytes": 10722,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/verify_d02_02.py",
+    "sha256": "c9ba32ef11224cff79f7a8f7411ce54fe2c67bf9fead35443ea80269cbf60313"
+  }
+}

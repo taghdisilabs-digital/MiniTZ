@@ -1,0 +1,14 @@
+{
+  "from_package": null,
+  "installed": "/mnt/biella-extra/biella-runtime/d08-01-install/versions/4b4c3f3a7c2415d495cd50ace7241eb04980b63338ee0fae6290a7998a9a817d",
+  "manifest": {
+    "bytes": 8387,
+    "path": "Build/Release/D08-01/old-package-manifest.json",
+    "sha256": "a49066fbe186f6e5a109aa4f8f8cff8b1ee656dd90fd99a81cfdd930aad27952"
+  },
+  "observed": "2026-09-08T08:04:03.704157+00:00",
+  "result": "PASS",
+  "scope": "Byte-exact installation only; native launch/settings compatibility require separate evidence.",
+  "task_id": "D08-01",
+  "to_package": "4b4c3f3a7c2415d495cd50ace7241eb04980b63338ee0fae6290a7998a9a817d"
+}

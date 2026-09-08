@@ -19,6 +19,7 @@ def members(root):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--task-id', choices=('D03-01', 'D08-01'), default='D03-01')
     parser.add_argument('--cook', type=Path, required=True)
     parser.add_argument('--archive', type=Path, required=True)
     parser.add_argument('--dependencies', type=Path, required=True)
@@ -32,7 +33,7 @@ def main():
     snapshot = Path(cook['snapshot'])
     destination = Path(cook['workspace'])/f'{out.name}-archive'
     assert not destination.exists(), 'Fresh stage required'
-    report = dict(task_id='D03-01', result='FAIL', revision=source_revision(),
+    report = dict(task_id=args.task_id, result='FAIL', revision=source_revision(),
                   cook=file_identity(args.cook.resolve()/'validation.json'),
                   destination=str(destination), capture_status='GENERATED_DRAFT')
     write_json(out/'validation.json', report)
@@ -100,7 +101,7 @@ def main():
         write_json(out/'validation.json', report)
         if report['result'] != 'PASS':
             with Path('/mnt/biella-extra/biella-runtime/codex-production/failures.jsonl').open('a') as stream:
-                stream.write(json.dumps(dict(task_id='D03-01', time=datetime.now(timezone.utc).isoformat(),
+                stream.write(json.dumps(dict(task_id=args.task_id, time=datetime.now(timezone.utc).isoformat(),
                                             type='package_stage', status='CONTINUE', diagnostics=report.get('error'),
                                             evidence=str(out)))+'\n')
     print(json.dumps(dict(result=report['result'], output=str(out), error=report.get('error'))))

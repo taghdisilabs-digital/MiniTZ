@@ -1,0 +1,223 @@
+{
+  "capture_status": "GENERATED_DRAFT_RUNTIME_EVIDENCE",
+  "diagnostics": [
+    "LogUnixPlatformFile: Warning: create dir('/tmp/state/user/Saved/Config/CrashReportClient/') failed: errno=13 (Permission denied)",
+    "LogUnixPlatformFile: Warning: create dir('/tmp/state/user/Saved/Config/CrashReportClient/') failed: errno=13 (Permission denied)",
+    "LogUnixPlatformFile: Warning: create dir('/tmp/state/user/Saved/Config/CrashReportClient/') failed: errno=13 (Permission denied)",
+    "[2026.09.08-09.15.17:420][  0]LogRHI: Warning: Dynamic Uniform Buffers are enabled, but they will not be used with Vulkan bindless.",
+    "[2026.09.08-09.15.17:420][  0]LogRHI: Warning: Memory defrag is enabled, but it will not be used with Vulkan bindless.",
+    "[2026.09.08-09.15.18:516][  0]LogMoviePlayer: Warning: PassLoadingScreenWindowBackToGame failed.  No Window",
+    "[2026.09.08-09.15.19:995][  0]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482350).",
+    "[2026.09.08-09.15.20:008][  0]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482350).",
+    "[2026.09.08-09.15.20:008][  0]LogNavigation: Warning: ProcessRegistrationCandidates RecastNavMesh_2147482350 will be removed. This warning will disapear once the map is saved.",
+    "[2026.09.08-09.15.23:226][  0]LogConsoleManager: Warning: Console variable 'r.MotionVectorSimulation' used in the render thread. Rendering artifacts could happen. Use ECVF_RenderThreadSafe or don't use in render thread.",
+    "[2026.09.08-09.15.29:714][234]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance",
+    "[2026.09.08-09.15.55:326][234]LogVulkanRHI: Warning: Found 1 unfreed allocations!",
+    "[2026.09.08-09.15.55:471][234]LogVulkanRHI: Warning: Found 1 unfreed allocations!"
+  ],
+  "evidence": [
+    {
+      "bytes": 1693,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-settings-legacy-02/command.json",
+      "sha256": "580c473eb6d5b5f8f8d8b0bf6f84ea92505a4d7243c282397ffef42afa9e433e"
+    },
+    {
+      "bytes": 90235,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-settings-legacy-02/resources.jsonl",
+      "sha256": "8e2ff53bfafa906c245d25c71c2196caec3de8498dda6afdfdc2488bd28b811f"
+    },
+    {
+      "bytes": 146463,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-settings-legacy-02/runtime.engine.log",
+      "sha256": "4806b58dade199080d4c7b441cc571143e4b67d87f1fbc16340386a83dbfdf68"
+    },
+    {
+      "bytes": 145071,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-settings-legacy-02/runtime.stdout.log",
+      "sha256": "91610011165970b6a38a9996024ff92d45472a35b26e0ea8001974726e87f99b"
+    },
+    {
+      "bytes": 352,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-settings-legacy-02/settings.json",
+      "sha256": "87d9176d69cba6c877718d50799446cad7f38db2f74b1c40052dc8b65fcf5919"
+    }
+  ],
+  "host": {
+    "cgroup_limits": {
+      "cpu.max": "max 100000",
+      "cpuset.cpus.effective": "0-14",
+      "memory.max": "max"
+    },
+    "clock_ticks_per_second": 100,
+    "cpu": "AMD EPYC 9124 16-Core Processor",
+    "cpu_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "gpus": [
+      {
+        "driver": "580.178.04",
+        "memory_utilization_percent": 0.0,
+        "name": "NVIDIA L40S",
+        "power_w": 87.67,
+        "processes": [
+          {
+            "name": "/usr/local/lib/ollama/llama-server",
+            "pid": 3098977,
+            "type": "C",
+            "used_memory": "26946 MiB"
+          }
+        ],
+        "pstate": "P0",
+        "sm_clock_mhz": 2520.0,
+        "temperature_c": 45.0,
+        "utilization_percent": 0.0,
+        "uuid": "GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5",
+        "vram_total_mib": 46068.0,
+        "vram_used_mib": 26956.0
+      }
+    ],
+    "logical_cpus": 15,
+    "memory_kib": {
+      "Active": 34366852,
+      "Active(anon)": 3338076,
+      "Active(file)": 31028776,
+      "AnonHugePages": 0,
+      "AnonPages": 3683564,
+      "Bounce": 0,
+      "Buffers": 690640,
+      "Cached": 76767496,
+      "CommitLimit": 78805180,
+      "Committed_AS": 8498864,
+      "DirectMap1G": 5242880,
+      "DirectMap2M": 73115648,
+      "DirectMap4k": 13801324,
+      "Dirty": 940532,
+      "FileHugePages": 0,
+      "FilePmdMapped": 0,
+      "HardwareCorrupted": 0,
+      "HugePages_Free": 0,
+      "HugePages_Rsvd": 0,
+      "HugePages_Surp": 0,
+      "HugePages_Total": 0,
+      "Hugepagesize": 2048,
+      "Hugetlb": 0,
+      "Inactive": 46757356,
+      "Inactive(anon)": 386652,
+      "Inactive(file)": 46370704,
+      "KReclaimable": 3167272,
+      "KernelStack": 12072,
+      "Mapped": 43477124,
+      "MemAvailable": 84181504,
+      "MemFree": 4536344,
+      "MemTotal": 90501504,
+      "Mlocked": 27448,
+      "NFS_Unstable": 0,
+      "PageTables": 129188,
+      "Percpu": 13376,
+      "SReclaimable": 3167272,
+      "SUnreclaim": 434368,
+      "SecPageTables": 0,
+      "Shmem": 49900,
+      "ShmemHugePages": 0,
+      "ShmemPmdMapped": 0,
+      "Slab": 3601640,
+      "SwapCached": 43732,
+      "SwapFree": 33292700,
+      "SwapTotal": 33554428,
+      "Unaccepted": 0,
+      "Unevictable": 27448,
+      "VmallocChunk": 0,
+      "VmallocTotal": 13743895347199,
+      "VmallocUsed": 195912,
+      "Writeback": 0,
+      "WritebackTmp": 0,
+      "Zswap": 0,
+      "Zswapped": 0
+    },
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39"
+  },
+  "manifest": {
+    "bytes": 8665,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-install/versions/fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c/manifest.json",
+    "sha256": "48cedd56873c9abbc62c0708872066036733bfd4c3e58cd0cbebe5e1d5572770"
+  },
+  "observed": "2026-09-08T09:15:15.491854+00:00",
+  "orchestrator": {
+    "bytes": 33224,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d08_01_release.py",
+    "sha256": "4a008021e008ab36a7c07959d302af81345885e7a309f81dea3d7daed4350790"
+  },
+  "package_id": "fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c",
+  "result": "PASS",
+  "runtime": {
+    "elapsed_seconds": 40.26456677704118,
+    "log_finalization": {
+      "closed": true,
+      "elapsed_seconds": 0.03048249299172312,
+      "observed_writers": [],
+      "remaining_writers": [],
+      "timeout_seconds": 45
+    },
+    "returncode": 0,
+    "survivors": [],
+    "unreal_process_identities": [
+      {
+        "pid": 3384320,
+        "start_ticks": 50573084
+      }
+    ],
+    "watchdog_failure": null
+  },
+  "scenario": "settings",
+  "scope": "Outside-editor Linux Development Vulkan package. Source/engine/cache/network hidden; not Win64 Shipping acceptance.",
+  "settings_after": [
+    {
+      "bytes": 22,
+      "path": "/mnt/biella-extra/biella-runtime/d08-01-settings-recovery-state/home/.config/Epic/UnrealEngine/5.8/Saved/Config/Linux/Manifest.ini",
+      "sha256": "e706d6c7c899d8d28e83512d7f29946334086c4a6eaf56f790bf0010e7df1e9c"
+    },
+    {
+      "bytes": 2412,
+      "path": "/mnt/biella-extra/biella-runtime/d08-01-settings-recovery-state/user/Saved/Config/Linux/GameUserSettings.ini",
+      "sha256": "bd5306c37138704b282fb858a658b433f516f4d34ffd511955c872764b3d23ad"
+    }
+  ],
+  "settings_before": [
+    {
+      "bytes": 1327,
+      "path": "/mnt/biella-extra/biella-runtime/d08-01-settings-recovery-state/user/Saved/Config/Linux/GameUserSettings.ini",
+      "sha256": "1bece9165c83e37cc208622493193a60a51b8d1b62678de56bc56233133b7f88"
+    }
+  ],
+  "state": "/mnt/biella-extra/biella-runtime/d08-01-settings-recovery-state",
+  "task_id": "D08-01",
+  "verification": {
+    "hud_scale": 1,
+    "invert_y": false,
+    "look_x": 0.800000011920929,
+    "look_y": 0.6000000238418579,
+    "motion_blur": false,
+    "phase": "legacy",
+    "process_id": 3384320,
+    "resolution_x": 1280,
+    "resolution_y": 720,
+    "result": "PASS",
+    "settings_path": "/tmp/state/user/Saved/Config/Linux/GameUserSettings.ini",
+    "task_id": "D08-01",
+    "window_mode": 1
+  }
+}

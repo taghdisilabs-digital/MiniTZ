@@ -1,0 +1,34 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_d08_01_release.py",
+    "-v"
+  ],
+  "inputs": [
+    {
+      "bytes": 33224,
+      "path": "tests/run_d08_01_release.py",
+      "sha256": "4a008021e008ab36a7c07959d302af81345885e7a309f81dea3d7daed4350790"
+    },
+    {
+      "bytes": 8562,
+      "path": "tests/test_d08_01_release.py",
+      "sha256": "561418072fa838db35d3a2e945263cd7391a769e4d394191ea8734abfaafad85"
+    }
+  ],
+  "log": {
+    "bytes": 1805,
+    "path": "Build/Release/D08-01/tool-tests/final-03/unittest.log",
+    "sha256": "30893d2a5530d133cac3ae122d31f99633a9d5252f92e64c7421c835f835eee3"
+  },
+  "result": "PASS",
+  "returncode": 0,
+  "scope": "Fault-injected installer and archive-binding tests using explicitly synthetic fixtures; never gameplay evidence.",
+  "task_id": "D08-01"
+}

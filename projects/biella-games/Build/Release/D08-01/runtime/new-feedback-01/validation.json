@@ -1,0 +1,435 @@
+{
+  "capture_status": "GENERATED_DRAFT_RUNTIME_EVIDENCE",
+  "diagnostics": [
+    "[2026.09.08-09.36.41:254][  0]LogRHI: Warning: Dynamic Uniform Buffers are enabled, but they will not be used with Vulkan bindless.",
+    "[2026.09.08-09.36.41:254][  0]LogRHI: Warning: Memory defrag is enabled, but it will not be used with Vulkan bindless.",
+    "[2026.09.08-09.36.41:927][  0]LogMoviePlayer: Warning: PassLoadingScreenWindowBackToGame failed.  No Window",
+    "[2026.09.08-09.36.42:415][  0]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482350).",
+    "[2026.09.08-09.36.42:420][  0]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482350).",
+    "[2026.09.08-09.36.42:420][  0]LogNavigation: Warning: ProcessRegistrationCandidates RecastNavMesh_2147482350 will be removed. This warning will disapear once the map is saved.",
+    "[2026.09.08-09.36.43:576][  0]LogConsoleManager: Warning: Console variable 'r.MotionVectorSimulation' used in the render thread. Rendering artifacts could happen. Use ECVF_RenderThreadSafe or don't use in render thread.",
+    "[2026.09.08-09.36.48:221][306]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance",
+    "[2026.09.08-09.36.48:266][306]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482085).",
+    "[2026.09.08-09.36.48:273][306]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482085).",
+    "[2026.09.08-09.36.48:273][306]LogNavigation: Warning: ProcessRegistrationCandidates RecastNavMesh_2147482085 will be removed. This warning will disapear once the map is saved.",
+    "[2026.09.08-09.36.54:876][795]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance",
+    "[2026.09.08-09.36.54:915][795]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147481381).",
+    "[2026.09.08-09.36.54:920][795]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147481381).",
+    "[2026.09.08-09.36.54:920][795]LogNavigation: Warning: ProcessRegistrationCandidates RecastNavMesh_2147481381 will be removed. This warning will disapear once the map is saved.",
+    "[2026.09.08-09.36.56:959][965]LogAutomationController: Warning: LogCrowdFollowing: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance [log] ",
+    "[2026.09.08-09.36.56:959][965]LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482085). [log] ",
+    "[2026.09.08-09.36.56:959][965]LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482085). [log] ",
+    "[2026.09.08-09.36.56:959][965]LogAutomationController: Warning: LogNavigation: ProcessRegistrationCandidates RecastNavMesh_2147482085 will be removed. This warning will disapear once the map is saved. [log] ",
+    "[2026.09.08-09.36.56:959][965]LogAutomationController: Warning: LogCrowdFollowing: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance [log] ",
+    "[2026.09.08-09.36.56:959][965]LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147481381). [log] ",
+    "[2026.09.08-09.36.56:959][965]LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147481381). [log] ",
+    "[2026.09.08-09.36.56:959][965]LogAutomationController: Warning: LogNavigation: ProcessRegistrationCandidates RecastNavMesh_2147481381 will be removed. This warning will disapear once the map is saved. [log] ",
+    "[2026.09.08-09.36.57:004][967]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance",
+    "[2026.09.08-09.37.05:487][967]LogVulkanRHI: Warning: Found 1 unfreed allocations!",
+    "[2026.09.08-09.37.05:632][967]LogVulkanRHI: Warning: Found 1 unfreed allocations!"
+  ],
+  "evidence": [
+    {
+      "bytes": 752234,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/combat.png",
+      "sha256": "be479027152980caa1c6261afd8fc7c160c2b89b1abe3cd63682d2a1d0d0b124"
+    },
+    {
+      "bytes": 143404,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/combat.wav",
+      "sha256": "da7f2d7dacceb8d26f919e9fa69feb6ec66c6b354ada0d8206f221bf9ddceab6"
+    },
+    {
+      "bytes": 1712,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/command.json",
+      "sha256": "305c545daa38e8abc71178d88da29e409d9557dcb7fa521dc46b7389a8d67474"
+    },
+    {
+      "bytes": 754155,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/dense_combat.png",
+      "sha256": "491727db1b654ce26d41ebae9e569bf16e1b94426042bf01f97c3f477fb2eade"
+    },
+    {
+      "bytes": 202950,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/failure.png",
+      "sha256": "13ae3f2e4310c3f0ca87ab4e30ee8110c1cc2d900b1a2de87f5eb91dce0faf0c"
+    },
+    {
+      "bytes": 176172,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/failure.wav",
+      "sha256": "3f19cff1322d9fa0e1c40732482d34647f13d4577a30bd50f531eda68cea6699"
+    },
+    {
+      "bytes": 752106,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/hurt.png",
+      "sha256": "aca55416140ba22ec4066d6677b97d269df0d3843c956cbc9536716dc3a2c309"
+    },
+    {
+      "bytes": 65580,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/hurt.wav",
+      "sha256": "71882cd892c087ba5122fcb0ed4e362307d888b2131c5d24a11d646c6e92213a"
+    },
+    {
+      "bytes": 859114,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/pressure.png",
+      "sha256": "c44b05d052e1253ff42621799e46ab0e66bdac2ded89b45eb3e747e2165f0462"
+    },
+    {
+      "bytes": 122924,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/pressure.wav",
+      "sha256": "cfe0c745535af79010c1561e274bc989895a33e3267c916e1b3f3a49c9c6cdd3"
+    },
+    {
+      "bytes": 61126,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/resources.jsonl",
+      "sha256": "9e304814a9467972ffeb09c7558f69184d7853b33773fdb56cbfb37f10aec815"
+    },
+    {
+      "bytes": 250403,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/runtime.engine.log",
+      "sha256": "521afd3a0f7a0f436bfe2e65cf89800f5881b6d9ca57a38b3d445de83185b35e"
+    },
+    {
+      "bytes": 248298,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/runtime.stdout.log",
+      "sha256": "02a23038c6d6cab85f1e7de54881cb962f224ad6b4602dae5ec588dde7e9bcfa"
+    },
+    {
+      "bytes": 237975,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/success.png",
+      "sha256": "786f50a3c789e59f32641a97c8a79842f2610bc343288aa47fd62678b2bc6a27"
+    },
+    {
+      "bytes": 159788,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/success.wav",
+      "sha256": "74a48a08a25d2353e33903057864cce5c98cd4d5aaea0900d1457680ee0fbb22"
+    }
+  ],
+  "host": {
+    "cgroup_limits": {
+      "cpu.max": "max 100000",
+      "cpuset.cpus.effective": "0-14",
+      "memory.max": "max"
+    },
+    "clock_ticks_per_second": 100,
+    "cpu": "AMD EPYC 9124 16-Core Processor",
+    "cpu_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "gpus": [
+      {
+        "driver": "580.178.04",
+        "memory_utilization_percent": 0.0,
+        "name": "NVIDIA L40S",
+        "power_w": 84.03,
+        "processes": [
+          {
+            "name": "/usr/local/lib/ollama/llama-server",
+            "pid": 3098977,
+            "type": "C",
+            "used_memory": "26946 MiB"
+          }
+        ],
+        "pstate": "P0",
+        "sm_clock_mhz": 2520.0,
+        "temperature_c": 45.0,
+        "utilization_percent": 0.0,
+        "uuid": "GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5",
+        "vram_total_mib": 46068.0,
+        "vram_used_mib": 26956.0
+      }
+    ],
+    "logical_cpus": 15,
+    "memory_kib": {
+      "Active": 32473896,
+      "Active(anon)": 1442676,
+      "Active(file)": 31031220,
+      "AnonHugePages": 0,
+      "AnonPages": 1786976,
+      "Bounce": 0,
+      "Buffers": 699872,
+      "Cached": 78826536,
+      "CommitLimit": 78805180,
+      "Committed_AS": 6033200,
+      "DirectMap1G": 5242880,
+      "DirectMap2M": 73027584,
+      "DirectMap4k": 13889388,
+      "Dirty": 112916,
+      "FileHugePages": 0,
+      "FilePmdMapped": 0,
+      "HardwareCorrupted": 0,
+      "HugePages_Free": 0,
+      "HugePages_Rsvd": 0,
+      "HugePages_Surp": 0,
+      "HugePages_Total": 0,
+      "Hugepagesize": 2048,
+      "Hugetlb": 0,
+      "Inactive": 48822496,
+      "Inactive(anon)": 385964,
+      "Inactive(file)": 48436532,
+      "KReclaimable": 3228904,
+      "KernelStack": 11584,
+      "Mapped": 43477888,
+      "MemAvailable": 86318676,
+      "MemFree": 4572284,
+      "MemTotal": 90501504,
+      "Mlocked": 27448,
+      "NFS_Unstable": 0,
+      "PageTables": 125224,
+      "Percpu": 13376,
+      "SReclaimable": 3228904,
+      "SUnreclaim": 441276,
+      "SecPageTables": 0,
+      "Shmem": 49900,
+      "ShmemHugePages": 0,
+      "ShmemPmdMapped": 0,
+      "Slab": 3670180,
+      "SwapCached": 43948,
+      "SwapFree": 33292700,
+      "SwapTotal": 33554428,
+      "Unaccepted": 0,
+      "Unevictable": 27448,
+      "VmallocChunk": 0,
+      "VmallocTotal": 13743895347199,
+      "VmallocUsed": 195528,
+      "Writeback": 0,
+      "WritebackTmp": 0,
+      "Zswap": 0,
+      "Zswapped": 0
+    },
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39"
+  },
+  "manifest": {
+    "bytes": 8665,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-install/versions/fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c/manifest.json",
+    "sha256": "48cedd56873c9abbc62c0708872066036733bfd4c3e58cd0cbebe5e1d5572770"
+  },
+  "observed": "2026-09-08T09:36:39.683809+00:00",
+  "orchestrator": {
+    "bytes": 33224,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d08_01_release.py",
+    "sha256": "4a008021e008ab36a7c07959d302af81345885e7a309f81dea3d7daed4350790"
+  },
+  "package_id": "fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c",
+  "result": "PASS",
+  "runtime": {
+    "elapsed_seconds": 26.410570137028117,
+    "log_finalization": {
+      "closed": true,
+      "elapsed_seconds": 0.028915859991684556,
+      "observed_writers": [],
+      "remaining_writers": [],
+      "timeout_seconds": 45
+    },
+    "returncode": 0,
+    "survivors": [],
+    "unreal_process_identities": [
+      {
+        "pid": 3398942,
+        "start_ticks": 50701497
+      }
+    ],
+    "watchdog_failure": null
+  },
+  "scenario": "feedback",
+  "scope": "Outside-editor Linux Development Vulkan package. Source/engine/cache/network hidden; not Win64 Shipping acceptance.",
+  "settings_after": [
+    {
+      "bytes": 22,
+      "path": "/mnt/biella-extra/biella-runtime/d08-01-native-state-new-feedback-01/home/.config/Epic/UnrealEngine/5.8/Saved/Config/Linux/Manifest.ini",
+      "sha256": "e706d6c7c899d8d28e83512d7f29946334086c4a6eaf56f790bf0010e7df1e9c"
+    },
+    {
+      "bytes": 256,
+      "path": "/mnt/biella-extra/biella-runtime/d08-01-native-state-new-feedback-01/user/Saved/Config/CrashReportClient/UECC-Linux-01A0806074E97F60A7776E3E3B5E6BC1/CrashReportClient.ini",
+      "sha256": "b85bb31b225042d5175a8b4240162c29c5dfc294686e1926528fd0ab00346ac4"
+    },
+    {
+      "bytes": 1483,
+      "path": "/mnt/biella-extra/biella-runtime/d08-01-native-state-new-feedback-01/user/Saved/Config/Linux/GameUserSettings.ini",
+      "sha256": "c77dcbb1c1446da15825d6391820704b11fe6c0aaa7180715128c90a55678df9"
+    }
+  ],
+  "settings_before": [],
+  "state": "/mnt/biella-extra/biella-runtime/d08-01-native-state-new-feedback-01",
+  "task_id": "D08-01",
+  "verification": {
+    "audio": [
+      {
+        "audible_seconds": 0.3019,
+        "bytes": 143404,
+        "channels": 2,
+        "clipped_samples": 0,
+        "duration_seconds": 0.7467,
+        "frames": 35840,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/combat.wav",
+        "pcm_bits": 16,
+        "peak": 0.052887,
+        "rms": 0.007584,
+        "sample_rate": 48000,
+        "sha256": "da7f2d7dacceb8d26f919e9fa69feb6ec66c6b354ada0d8206f221bf9ddceab6",
+        "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+      },
+      {
+        "audible_seconds": 0.1731,
+        "bytes": 65580,
+        "channels": 2,
+        "clipped_samples": 0,
+        "duration_seconds": 0.3413,
+        "frames": 16384,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/hurt.wav",
+        "pcm_bits": 16,
+        "peak": 0.213989,
+        "rms": 0.034738,
+        "sample_rate": 48000,
+        "sha256": "71882cd892c087ba5122fcb0ed4e362307d888b2131c5d24a11d646c6e92213a",
+        "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+      },
+      {
+        "audible_seconds": 0.4936,
+        "bytes": 122924,
+        "channels": 2,
+        "clipped_samples": 0,
+        "duration_seconds": 0.64,
+        "frames": 30720,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/pressure.wav",
+        "pcm_bits": 16,
+        "peak": 0.124481,
+        "rms": 0.025421,
+        "sample_rate": 48000,
+        "sha256": "cfe0c745535af79010c1561e274bc989895a33e3267c916e1b3f3a49c9c6cdd3",
+        "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+      },
+      {
+        "audible_seconds": 0.643,
+        "bytes": 159788,
+        "channels": 2,
+        "clipped_samples": 0,
+        "duration_seconds": 0.832,
+        "frames": 39936,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/success.wav",
+        "pcm_bits": 16,
+        "peak": 0.069824,
+        "rms": 0.01816,
+        "sample_rate": 48000,
+        "sha256": "74a48a08a25d2353e33903057864cce5c98cd4d5aaea0900d1457680ee0fbb22",
+        "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+      },
+      {
+        "audible_seconds": 0.7858,
+        "bytes": 176172,
+        "channels": 2,
+        "clipped_samples": 0,
+        "duration_seconds": 0.9173,
+        "frames": 44032,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/failure.wav",
+        "pcm_bits": 16,
+        "peak": 0.07785,
+        "rms": 0.019988,
+        "sample_rate": 48000,
+        "sha256": "3f19cff1322d9fa0e1c40732482d34647f13d4577a30bd50f531eda68cea6699",
+        "source": "Unreal runtime master submix; software audio mixer, not physical-speaker capture"
+      }
+    ],
+    "frames": [
+      {
+        "bytes": 752234,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/combat.png",
+        "rgb_stddev": [
+          41.67558877137496,
+          47.02755704095916,
+          50.11015283737261
+        ],
+        "sha256": "be479027152980caa1c6261afd8fc7c160c2b89b1abe3cd63682d2a1d0d0b124",
+        "size": [
+          1280,
+          720
+        ]
+      },
+      {
+        "bytes": 752106,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/hurt.png",
+        "rgb_stddev": [
+          41.7734461081308,
+          46.90942315008303,
+          50.058257238081914
+        ],
+        "sha256": "aca55416140ba22ec4066d6677b97d269df0d3843c956cbc9536716dc3a2c309",
+        "size": [
+          1280,
+          720
+        ]
+      },
+      {
+        "bytes": 859114,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/pressure.png",
+        "rgb_stddev": [
+          38.602888346382706,
+          39.656938366201295,
+          42.38635546576635
+        ],
+        "sha256": "c44b05d052e1253ff42621799e46ab0e66bdac2ded89b45eb3e747e2165f0462",
+        "size": [
+          1280,
+          720
+        ]
+      },
+      {
+        "bytes": 237975,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/success.png",
+        "rgb_stddev": [
+          17.292285215428155,
+          23.231496996333895,
+          18.461574042484138
+        ],
+        "sha256": "786f50a3c789e59f32641a97c8a79842f2610bc343288aa47fd62678b2bc6a27",
+        "size": [
+          1280,
+          720
+        ]
+      },
+      {
+        "bytes": 202950,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/failure.png",
+        "rgb_stddev": [
+          25.023672268195845,
+          17.410416011241686,
+          15.783350796694746
+        ],
+        "sha256": "13ae3f2e4310c3f0ca87ab4e30ee8110c1cc2d900b1a2de87f5eb91dce0faf0c",
+        "size": [
+          1280,
+          720
+        ]
+      },
+      {
+        "bytes": 754155,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-feedback-01/dense_combat.png",
+        "rgb_stddev": [
+          41.784389466096684,
+          46.94369087822316,
+          50.08781427592412
+        ],
+        "sha256": "491727db1b654ce26d41ebae9e569bf16e1b94426042bf01f97c3f477fb2eade",
+        "size": [
+          1280,
+          720
+        ]
+      }
+    ]
+  }
+}

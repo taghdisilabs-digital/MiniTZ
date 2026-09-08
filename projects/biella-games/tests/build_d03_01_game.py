@@ -21,6 +21,7 @@ ENGINE = Path('/opt/unreal/UE_5.8.2/Engine')
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--task-id', choices=('D03-01', 'D08-01'), default='D03-01')
     args = parser.parse_args()
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=False)
@@ -31,7 +32,7 @@ def main():
     assert marker.is_file() and not held.exists(), 'Installed marker must be present and not already held'
     before = [file_identity(f) for f in sorted((PROJECT/'Source').rglob('*')) if f.is_file()]
     write_json(out/'inputs-before.json', before)
-    report = dict(task_id='D03-01', result='FAIL', revision=source_revision(),
+    report = dict(task_id=args.task_id, result='FAIL', revision=source_revision(),
                   marker_before=file_identity(marker), started=datetime.now(timezone.utc).isoformat())
     write_json(out/'result.json', report)
     command = [str(ENGINE/'Build/BatchFiles/Linux/Build.sh'), 'BiellaGames', 'Linux', 'Development',
@@ -66,7 +67,7 @@ def main():
         write_json(out/'result.json', report)
         if report['result'] != 'PASS':
             with Path('/mnt/biella-extra/biella-runtime/codex-production/failures.jsonl').open('a') as stream:
-                stream.write(json.dumps(dict(task_id='D03-01', time=datetime.now(timezone.utc).isoformat(),
+                stream.write(json.dumps(dict(task_id=args.task_id, time=datetime.now(timezone.utc).isoformat(),
                                             type='native_game_build', status='CONTINUE',
                                             diagnostics=report.get('error'), evidence=str(out)))+'\n')
     print(json.dumps(dict(result=report['result'], output=str(out), error=report.get('error'))))

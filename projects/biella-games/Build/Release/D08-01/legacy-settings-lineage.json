@@ -1,0 +1,24 @@
+{
+  "native_launch": {
+    "bytes": 19219,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/old-environment-02/validation.json",
+    "sha256": "989df40cdba5a75644bb30008e3839546d3b3b6b5bb2d118adbda67d883fb96a"
+  },
+  "package_manifest": {
+    "bytes": 8387,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/old-package-manifest.json",
+    "sha256": "a49066fbe186f6e5a109aa4f8f8cff8b1ee656dd90fd99a81cfdd930aad27952"
+  },
+  "retained_bytes": {
+    "bytes": 1327,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/legacy-GameUserSettings.ini",
+    "sha256": "1bece9165c83e37cc208622493193a60a51b8d1b62678de56bc56233133b7f88"
+  },
+  "runtime_state_file": {
+    "bytes": 1327,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-update-state/user/Saved/Config/Linux/GameUserSettings.ini",
+    "sha256": "1bece9165c83e37cc208622493193a60a51b8d1b62678de56bc56233133b7f88"
+  },
+  "scope": "Runtime-created D03 settings; no manual value edits. First launch used an unsupported SM6 override and failed; accepted launch uses packaged defaults. Native launch occurred during source compilation, so timing is diagnostic only.",
+  "task_id": "D08-01"
+}

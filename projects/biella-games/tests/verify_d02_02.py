@@ -113,7 +113,9 @@ def verify(output, count, renderer='vulkan'):
     require({(d[5],d[6]) for d in natural} >= {('1','2'),('2','1')}, 'No bidirectional autonomous rival/infected damage')
     require(len({d[0] for d in natural}) >= 2 and len({d[4] for d in natural}) >= 2, 'Combat collapsed to one actor')
     require(all(d[3] in ('infected_melee','rival_fire') for d in natural), 'Fixture damage in measured combat')
-    require('reason=finished' in scenario and ('reason=support_missing' in scenario or 'reason=distance_suspended' in scenario), 'No explained finish and suspension')
+    # Explain accepts FName: packaged name-pool spelling may be "Finished".
+    # Match the complete reason token, preserving the lifecycle requirement.
+    require(re.search(r'\breason=finished\b', scenario, re.IGNORECASE) and ('reason=support_missing' in scenario or 'reason=distance_suspended' in scenario), 'No explained finish and suspension')
     require('reason=active_obstructed' in scenario, 'No observed live obstruction retention')
     require('reason=occupied' not in live_log, 'Crowd overlap concealed through dormancy')
     obstacle = scenario.split('D02_POP_TEST event=dynamic_obstacle_added ',1)[1].split('D02_POP_TEST event=dynamic_obstacle_removed ',1)[0]

@@ -1,0 +1,17 @@
+D02_POP_TEST event=relocate phase=1 time=0.295548
+D02_POP_TEST event=placement_rejections_pass phase=1 time=2.301242
+D02_POP_TEST event=admission phase=2 time=2.301274
+D02_POP_TEST event=frame_pressure phase=3 time=2.610908
+D02_POP_TEST event=frame_guard_pass active=4 spawned=4 measured_ms=16.812 phase=3 time=4.622532
+D02_POP_TEST event=combat phase=4 time=4.622691
+D02_POP_TEST event=combat_observed moved=4 damaged=4 paths=28 phase=4 time=24.639383
+D02_POP_TEST event=depart phase=5 time=24.639470
+D02_POP_TEST event=suspended id=D02Pop_Street03_03 health=14.000 x=9202.707 y=-400.000 z=100.000 phase=5 time=26.647600
+D02_POP_TEST event=return phase=6 time=26.647658
+D02_POP_TEST event=continuity_tombstones_pass phase=6 time=26.718275
+D02_POP_TEST event=resumed id=D02Pop_Street03_03 health=14.000 x=9202.707 y=-400.000 z=100.000 active=1 spawned=4 phase=6 time=26.718311
+D02_POP_TEST event=navigation_obstruction phase=7 time=26.720612
+D02_POP_TEST event=dynamic_obstacle_added phase=7 time=26.735669
+D02_POP_TEST event=dynamic_obstacle_removed phase=7 time=29.732227
+D02_POP_TEST event=path_replanned_and_arrived first=1 final=3 distance=178.272 phase=7 time=33.169654
+D02_POP_TEST event=capture_wait phase=8 time=33.169698

@@ -1,0 +1,36 @@
+{
+  "added_source": [
+    {
+      "bytes": 5006,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Source/BiellaGames/Private/Tests/BiellaReleaseSettingsTest.cpp",
+      "sha256": "e8047c661de94fee4a97a8c6f2f32cca77b263ac9ecd136f34285c6e9d578186"
+    }
+  ],
+  "changed_inputs": [
+    {
+      "after": {
+        "bytes": 2758344,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/libUnrealEditor-BiellaGames.so",
+        "sha256": "58161e38470dcec5aa987d642d1f6473c24b3ffbc16d12bf7cc1e3dca81a86d6"
+      },
+      "before": {
+        "bytes": 2750552,
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/libUnrealEditor-BiellaGames.so",
+        "sha256": "ef1cebad8faa4953d0f0e756077039260f54b45eb0aa368cc132c3c0c45dcd1c"
+      }
+    }
+  ],
+  "predecessor_manifest": {
+    "bytes": 110082,
+    "path": "Build/Qualification/D07-01/manifest.json",
+    "sha256": "d345ed31d14cfdb79ceb89c0f5bfc3273b3f712e009e09876827ef9bc679a9a5"
+  },
+  "predecessor_summary": {
+    "bytes": 9120106,
+    "path": "Build/Qualification/D07-01/summary.json",
+    "sha256": "f4989927eb38cf177eea36c4679c324cf02422ac2310ba196aa63a8ceee1121c"
+  },
+  "scope": "Reuse accepted D07 measurements on their original editor binary. New Development-only settings probe changes editor/game binary identities; new package receives separate native evidence. No D07 status or evidence changed.",
+  "task_id": "D08-01",
+  "unchanged_input_count": 371
+}

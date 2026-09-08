@@ -1,0 +1,14 @@
+{
+  "from_package": "4b4c3f3a7c2415d495cd50ace7241eb04980b63338ee0fae6290a7998a9a817d",
+  "installed": "/mnt/biella-extra/biella-runtime/d08-01-install/versions/fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c",
+  "manifest": {
+    "bytes": 8665,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/package-manifest.json",
+    "sha256": "48cedd56873c9abbc62c0708872066036733bfd4c3e58cd0cbebe5e1d5572770"
+  },
+  "observed": "2026-09-08T09:15:12.943837+00:00",
+  "result": "PASS",
+  "scope": "Byte-exact installation only; native launch/settings compatibility require separate evidence.",
+  "task_id": "D08-01",
+  "to_package": "fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c"
+}

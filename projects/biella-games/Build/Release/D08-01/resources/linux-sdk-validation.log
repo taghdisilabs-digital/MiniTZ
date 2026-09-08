@@ -1,0 +1,6 @@
+Setting up bundled DotNet SDK
+Skipping UBT build...
+##PlatformValidate: Linux VALID v26_clang-20.1.8-rockylinux8
+##PlatformValidate: Win64 INVALID <UNKNOWN>
+Unable to find required SDK version 'MainVersion' for platform Win64. Check your SDK.json files
+Trace written to file /home/unreal/.config/Epic/UnrealBuildTool/Trace.uba with size 356b

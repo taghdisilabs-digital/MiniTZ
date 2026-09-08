@@ -1,0 +1,38 @@
+{
+  "base_package_id": "4b4c3f3a7c2415d495cd50ace7241eb04980b63338ee0fae6290a7998a9a817d",
+  "cases": [
+    {
+      "candidate_id": "4b4c3f3a7c2415d495cd50ace7241eb04980b63338ee0fae6290a7998a9a817d",
+      "case": "incomplete_real_package",
+      "diagnostic": "Package bytes, membership or executable permissions differ",
+      "result": "EXPECTED_REJECTION"
+    },
+    {
+      "candidate_id": "0e66fd2cc7439bbe3922bd57fc523587383b9ed1f5b9b1aa8210e8c06f300d6e",
+      "case": "incompatible_engine_manifest",
+      "diagnostic": "Incompatible update platform/configuration/engine/project",
+      "result": "EXPECTED_REJECTION"
+    }
+  ],
+  "current_after": {
+    "bytes": 126,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-install/CURRENT.json",
+    "sha256": "0572b5f2b4ec23f2cc86081477abcd860fdee7c2bf2c9a30842ac6f4563cf15b"
+  },
+  "current_before": {
+    "bytes": 126,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-install/CURRENT.json",
+    "sha256": "0572b5f2b4ec23f2cc86081477abcd860fdee7c2bf2c9a30842ac6f4563cf15b"
+  },
+  "observed": "2026-09-08T08:11:24.200300+00:00",
+  "removed_member": {
+    "bytes": 10437766,
+    "executable": false,
+    "path": "BiellaGames/Content/Paks/BiellaGames-Linux.pak",
+    "sha256": "0729e5e07eee5c66bfe53a545ea95c6b974879695b3ec5c58e2619ab3a5c7a75"
+  },
+  "result": "PASS",
+  "scope": "Actual packaged-file removal and incompatible update metadata; native content-version rejection is checked separately.",
+  "task_id": "D08-01",
+  "workspace": "/mnt/biella-extra/biella-runtime/d08-01-negative-old-02"
+}

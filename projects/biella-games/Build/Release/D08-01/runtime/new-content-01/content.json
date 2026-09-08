@@ -1,0 +1,22 @@
+{
+  "task_id": "D04-01",
+  "result": "PASS",
+  "registry": {
+    "actor_variants": [
+      {"content_id": "D04.Actor.InfectedStandard", "definition_version": 1, "role": "infected", "max_health": 70.0, "movement_speed": 210.0},
+      {"content_id": "D04.Actor.RivalStandard", "definition_version": 1, "role": "rival", "max_health": 100.0, "movement_speed": 260.0}
+    ],
+    "encounter": {"content_id": "D04.Encounter.StreetPopulation", "definition_version": 1, "tuning": {"content_id":"D04.Tuning.PopulationDevelopment","required_definition_version":1}, "regions": 3, "composition": 4, "slot_columns": 4, "slot_spacing": 340.0, "row_spacing": 400.0},
+    "tuning": {"content_id": "D04.Tuning.PopulationDevelopment", "definition_version": 1, "max_active": 4, "spawn_budget": 2, "activation_distance": 5000.0, "suspension_distance": 6500.0, "minimum_player_distance": 1000.0, "admission_frame_ms": 25.0}
+  },
+  "runtime": {"content_ready": true, "encounter_id": "D04.Encounter.StreetPopulation", "encounter_version": 1, "tuning_id": "D04.Tuning.PopulationDevelopment", "tuning_version": 1, "slots": 36, "rivals": 9, "infected": 27, "path": "shared_population"},
+  "negative_controls": {
+    "duplicate_definition": ["duplicate_id"],
+    "missing_reference": ["unresolved_reference"],
+    "incompatible_reference": ["incompatible_version"],
+    "malformed_tuning": ["invalid_range"],
+    "missing_definition_id": ["missing_id"],
+    "missing_lookup": {"result": "rejected", "failure": "unresolved"},
+    "incompatible_lookup": {"result": "rejected", "failure": "incompatible"}
+  }
+}

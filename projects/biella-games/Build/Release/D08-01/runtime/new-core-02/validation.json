@@ -1,0 +1,340 @@
+{
+  "capture_status": "GENERATED_DRAFT_RUNTIME_EVIDENCE",
+  "diagnostics": [
+    "[2026.09.08-09.36.12:579][  0]LogRHI: Warning: Dynamic Uniform Buffers are enabled, but they will not be used with Vulkan bindless.",
+    "[2026.09.08-09.36.12:579][  0]LogRHI: Warning: Memory defrag is enabled, but it will not be used with Vulkan bindless.",
+    "[2026.09.08-09.36.13:302][  0]LogMoviePlayer: Warning: PassLoadingScreenWindowBackToGame failed.  No Window",
+    "[2026.09.08-09.36.13:768][  0]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482350).",
+    "[2026.09.08-09.36.13:776][  0]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482350).",
+    "[2026.09.08-09.36.13:776][  0]LogNavigation: Warning: ProcessRegistrationCandidates RecastNavMesh_2147482350 will be removed. This warning will disapear once the map is saved.",
+    "[2026.09.08-09.36.15:235][  0]LogConsoleManager: Warning: Console variable 'r.MotionVectorSimulation' used in the render thread. Rendering artifacts could happen. Use ECVF_RenderThreadSafe or don't use in render thread.",
+    "[2026.09.08-09.36.19:961][306]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance",
+    "[2026.09.08-09.36.19:990][306]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482085).",
+    "[2026.09.08-09.36.19:998][306]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482085).",
+    "[2026.09.08-09.36.19:999][306]LogNavigation: Warning: ProcessRegistrationCandidates RecastNavMesh_2147482085 will be removed. This warning will disapear once the map is saved.",
+    "[2026.09.08-09.36.22:543][483]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance",
+    "[2026.09.08-09.36.22:578][483]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147481814).",
+    "[2026.09.08-09.36.22:585][483]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147481814).",
+    "[2026.09.08-09.36.22:585][483]LogNavigation: Warning: ProcessRegistrationCandidates RecastNavMesh_2147481814 will be removed. This warning will disapear once the map is saved.",
+    "[2026.09.08-09.36.27:753][903]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance",
+    "[2026.09.08-09.36.27:790][903]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147481549).",
+    "[2026.09.08-09.36.27:796][903]LogNavigation: Warning: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147481549).",
+    "[2026.09.08-09.36.27:796][903]LogNavigation: Warning: ProcessRegistrationCandidates RecastNavMesh_2147481549 will be removed. This warning will disapear once the map is saved.",
+    "[2026.09.08-09.36.27:875][905]LogAutomationController: Warning: LogCrowdFollowing: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance [log] ",
+    "[2026.09.08-09.36.27:875][905]LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482085). [log] ",
+    "[2026.09.08-09.36.27:875][905]LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147482085). [log] ",
+    "[2026.09.08-09.36.27:875][905]LogAutomationController: Warning: LogNavigation: ProcessRegistrationCandidates RecastNavMesh_2147482085 will be removed. This warning will disapear once the map is saved. [log] ",
+    "[2026.09.08-09.36.27:875][905]LogAutomationController: Warning: LogCrowdFollowing: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance [log] ",
+    "[2026.09.08-09.36.27:875][905]LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147481814). [log] ",
+    "[2026.09.08-09.36.27:875][905]LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147481814). [log] ",
+    "[2026.09.08-09.36.27:875][905]LogAutomationController: Warning: LogNavigation: ProcessRegistrationCandidates RecastNavMesh_2147481814 will be removed. This warning will disapear once the map is saved. [log] ",
+    "[2026.09.08-09.36.27:875][905]LogAutomationController: Warning: LogCrowdFollowing: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance [log] ",
+    "[2026.09.08-09.36.27:875][905]LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147481549). [log] ",
+    "[2026.09.08-09.36.27:875][905]LogAutomationController: Warning: LogNavigation: NavData RegistrationFailed_AgentNotValid, NavData instance contains navmesh that doesn't support any of expected agent types (RecastNavMesh_2147481549). [log] ",
+    "[2026.09.08-09.36.27:875][905]LogAutomationController: Warning: LogNavigation: ProcessRegistrationCandidates RecastNavMesh_2147481549 will be removed. This warning will disapear once the map is saved. [log] ",
+    "[2026.09.08-09.36.27:916][907]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance",
+    "[2026.09.08-09.36.36:817][907]LogVulkanRHI: Warning: Found 1 unfreed allocations!",
+    "[2026.09.08-09.36.36:965][907]LogVulkanRHI: Warning: Found 1 unfreed allocations!"
+  ],
+  "evidence": [
+    {
+      "bytes": 1749,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-core-02/command.json",
+      "sha256": "571e52bff1e254ba05c32fd50d9003d9f1fe341803ad222ac54d8be4c138549a"
+    },
+    {
+      "bytes": 61126,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-core-02/resources.jsonl",
+      "sha256": "b2f45eadd2008878348dfb65b6887773a692298df0deeba5f4167606d6e7085c"
+    },
+    {
+      "bytes": 194190,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-core-02/runtime.engine.log",
+      "sha256": "712d95ad94005a7547c1da2508c932f79018b025f89954c8c0b93db9dd3a4e7f"
+    },
+    {
+      "bytes": 192431,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-core-02/runtime.stdout.log",
+      "sha256": "7c48477a07a40504c0485ae924c5b2ea1e3972ffb5d6ee9fd0d657154e1d3d80"
+    },
+    {
+      "bytes": 23172,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-core-02/telemetry.jsonl",
+      "sha256": "a010cef73ca65fbc8e9537d4f5b8c36b801c991eb210fdec45487824d5c9afbf"
+    }
+  ],
+  "host": {
+    "cgroup_limits": {
+      "cpu.max": "max 100000",
+      "cpuset.cpus.effective": "0-14",
+      "memory.max": "max"
+    },
+    "clock_ticks_per_second": 100,
+    "cpu": "AMD EPYC 9124 16-Core Processor",
+    "cpu_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "gpus": [
+      {
+        "driver": "580.178.04",
+        "memory_utilization_percent": 0.0,
+        "name": "NVIDIA L40S",
+        "power_w": 83.55,
+        "processes": [
+          {
+            "name": "/usr/local/lib/ollama/llama-server",
+            "pid": 3098977,
+            "type": "C",
+            "used_memory": "26946 MiB"
+          }
+        ],
+        "pstate": "P0",
+        "sm_clock_mhz": 2520.0,
+        "temperature_c": 45.0,
+        "utilization_percent": 0.0,
+        "uuid": "GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5",
+        "vram_total_mib": 46068.0,
+        "vram_used_mib": 26956.0
+      }
+    ],
+    "logical_cpus": 15,
+    "memory_kib": {
+      "Active": 32473684,
+      "Active(anon)": 1442536,
+      "Active(file)": 31031148,
+      "AnonHugePages": 0,
+      "AnonPages": 1786804,
+      "Bounce": 0,
+      "Buffers": 699432,
+      "Cached": 78713336,
+      "CommitLimit": 78805180,
+      "Committed_AS": 6016788,
+      "DirectMap1G": 5242880,
+      "DirectMap2M": 73050112,
+      "DirectMap4k": 13866860,
+      "Dirty": 103888,
+      "FileHugePages": 0,
+      "FilePmdMapped": 0,
+      "HardwareCorrupted": 0,
+      "HugePages_Free": 0,
+      "HugePages_Rsvd": 0,
+      "HugePages_Surp": 0,
+      "HugePages_Total": 0,
+      "Hugepagesize": 2048,
+      "Hugetlb": 0,
+      "Inactive": 48708808,
+      "Inactive(anon)": 385964,
+      "Inactive(file)": 48322844,
+      "KReclaimable": 3226004,
+      "KernelStack": 11552,
+      "Mapped": 43477704,
+      "MemAvailable": 86340768,
+      "MemFree": 4682364,
+      "MemTotal": 90501504,
+      "Mlocked": 27448,
+      "NFS_Unstable": 0,
+      "PageTables": 125112,
+      "Percpu": 13376,
+      "SReclaimable": 3226004,
+      "SUnreclaim": 440872,
+      "SecPageTables": 0,
+      "Shmem": 49900,
+      "ShmemHugePages": 0,
+      "ShmemPmdMapped": 0,
+      "Slab": 3666876,
+      "SwapCached": 43948,
+      "SwapFree": 33292700,
+      "SwapTotal": 33554428,
+      "Unaccepted": 0,
+      "Unevictable": 27448,
+      "VmallocChunk": 0,
+      "VmallocTotal": 13743895347199,
+      "VmallocUsed": 195544,
+      "Writeback": 0,
+      "WritebackTmp": 0,
+      "Zswap": 0,
+      "Zswapped": 0
+    },
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39"
+  },
+  "manifest": {
+    "bytes": 8665,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-install/versions/fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c/manifest.json",
+    "sha256": "48cedd56873c9abbc62c0708872066036733bfd4c3e58cd0cbebe5e1d5572770"
+  },
+  "observed": "2026-09-08T09:36:11.036976+00:00",
+  "orchestrator": {
+    "bytes": 33224,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d08_01_release.py",
+    "sha256": "4a008021e008ab36a7c07959d302af81345885e7a309f81dea3d7daed4350790"
+  },
+  "package_id": "fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c",
+  "result": "PASS",
+  "runtime": {
+    "elapsed_seconds": 26.367446321994066,
+    "log_finalization": {
+      "closed": true,
+      "elapsed_seconds": 0.029770197987090796,
+      "observed_writers": [],
+      "remaining_writers": [],
+      "timeout_seconds": 45
+    },
+    "returncode": 0,
+    "survivors": [],
+    "unreal_process_identities": [
+      {
+        "pid": 3398542,
+        "start_ticks": 50698633
+      }
+    ],
+    "watchdog_failure": null
+  },
+  "scenario": "core",
+  "scope": "Outside-editor Linux Development Vulkan package. Source/engine/cache/network hidden; not Win64 Shipping acceptance.",
+  "settings_after": [
+    {
+      "bytes": 22,
+      "path": "/mnt/biella-extra/biella-runtime/d08-01-native-state-new-core-02/home/.config/Epic/UnrealEngine/5.8/Saved/Config/Linux/Manifest.ini",
+      "sha256": "e706d6c7c899d8d28e83512d7f29946334086c4a6eaf56f790bf0010e7df1e9c"
+    },
+    {
+      "bytes": 256,
+      "path": "/mnt/biella-extra/biella-runtime/d08-01-native-state-new-core-02/user/Saved/Config/CrashReportClient/UECC-Linux-01A080600503732DBF6F86D9774D5120/CrashReportClient.ini",
+      "sha256": "b85bb31b225042d5175a8b4240162c29c5dfc294686e1926528fd0ab00346ac4"
+    },
+    {
+      "bytes": 1483,
+      "path": "/mnt/biella-extra/biella-runtime/d08-01-native-state-new-core-02/user/Saved/Config/Linux/GameUserSettings.ini",
+      "sha256": "c77dcbb1c1446da15825d6391820704b11fe6c0aaa7180715128c90a55678df9"
+    }
+  ],
+  "settings_before": [],
+  "state": "/mnt/biella-extra/biella-runtime/d08-01-native-state-new-core-02",
+  "task_id": "D08-01",
+  "verification": {
+    "capture": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/runtime/new-core-02/telemetry.jsonl",
+    "checkpoints": [
+      {
+        "ammo": "60",
+        "health": "100.000",
+        "infected_remaining": "2",
+        "name": "active_baseline",
+        "objective_progress": "0",
+        "phase": "Active",
+        "pressure": "0.000",
+        "pressure_revision": "0",
+        "restart_relative": "0",
+        "target_count": "2"
+      },
+      {
+        "ammo": "60",
+        "health": "100.000",
+        "infected_remaining": "2",
+        "name": "movement",
+        "objective_progress": "0",
+        "phase": "Active",
+        "pressure": "0.000",
+        "pressure_revision": "0",
+        "restart_relative": "0",
+        "target_count": "2"
+      },
+      {
+        "ammo": "57",
+        "health": "100.000",
+        "infected_remaining": "1",
+        "name": "first_infected_defeated",
+        "objective_progress": "1",
+        "phase": "Active",
+        "pressure": "20.000",
+        "pressure_revision": "1",
+        "restart_relative": "0",
+        "target_count": "2"
+      },
+      {
+        "ammo": "54",
+        "health": "100.000",
+        "infected_remaining": "0",
+        "name": "success",
+        "objective_progress": "2",
+        "phase": "Success",
+        "pressure": "20.000",
+        "pressure_revision": "1",
+        "restart_relative": "0",
+        "target_count": "2"
+      },
+      {
+        "ammo": "60",
+        "health": "100.000",
+        "infected_remaining": "2",
+        "name": "restart_after_success",
+        "objective_progress": "0",
+        "phase": "Active",
+        "pressure": "0.000",
+        "pressure_revision": "0",
+        "restart_relative": "1",
+        "target_count": "2"
+      },
+      {
+        "ammo": "60",
+        "health": "0.000",
+        "infected_remaining": "2",
+        "name": "failure",
+        "objective_progress": "0",
+        "phase": "Failure",
+        "pressure": "0.000",
+        "pressure_revision": "0",
+        "restart_relative": "1",
+        "target_count": "2"
+      },
+      {
+        "ammo": "60",
+        "health": "100.000",
+        "infected_remaining": "2",
+        "name": "restart_after_failure",
+        "objective_progress": "0",
+        "phase": "Active",
+        "pressure": "0.000",
+        "pressure_revision": "0",
+        "restart_relative": "2",
+        "target_count": "2"
+      }
+    ],
+    "event_counts": {
+      "arena_pressure": 1,
+      "checkpoint": 7,
+      "damage": 15,
+      "defeat": 3,
+      "fixture": 2,
+      "input": 9,
+      "objective_activated": 2,
+      "objective_progress": 2,
+      "objective_success": 1,
+      "phase": 4,
+      "restart_requested": 2,
+      "scenario_begin": 1,
+      "scenario_complete": 1,
+      "weapon_fire": 6
+    },
+    "records": 72,
+    "restart_count": 2,
+    "scenario_events": 56,
+    "scope": "Single native gameplay trace; cross-process comparison is reported separately.",
+    "seed": 1337,
+    "session": "01A08060-0D92-710C-BD96-C5CACA729CE7",
+    "wall_seconds": 14.203125761996489
+  }
+}

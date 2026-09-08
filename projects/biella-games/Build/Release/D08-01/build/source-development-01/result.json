@@ -1,0 +1,38 @@
+{
+  "task_id": "D08-01",
+  "result": "PASS",
+  "revision": {
+    "head": "85309242963986e40ae8d12b9f615162c2f0aeea",
+    "head_tree": "1c91c8e299ba6ee25a29714b830f8445b63145fb",
+    "project_status": [
+      " M tests/build_d03_01_game.py",
+      " M tests/cook_d03_01_package.py",
+      "?? Build/Release/D08-01/resources/"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "marker_before": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "started": "2026-09-08T07:55:02.008283+00:00",
+  "returncode": 0,
+  "binary": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames",
+    "sha256": "81f3449fca367de364b501e61dddc6f316499c4248bbd56acab433b226c8d41e",
+    "bytes": 299177792
+  },
+  "receipt": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames.target",
+    "sha256": "7da8030a25e23d3976e834f2554ef35a869d9133100f3a7da197b666c115d023",
+    "bytes": 106593
+  },
+  "marker_after": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "inputs_unchanged": true,
+  "elapsed_seconds": 817.8432729199994
+}

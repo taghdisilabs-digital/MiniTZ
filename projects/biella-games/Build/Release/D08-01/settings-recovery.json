@@ -1,0 +1,15 @@
+{
+  "reason": "First new-package attempt changed its per-user file before the automation path guard failed. Recover exact retained old runtime bytes into a fresh isolated user directory; preserve failed-run state.",
+  "restored": {
+    "bytes": 1327,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-settings-recovery-state/user/Saved/Config/Linux/GameUserSettings.ini",
+    "sha256": "1bece9165c83e37cc208622493193a60a51b8d1b62678de56bc56233133b7f88"
+  },
+  "result": "PASS",
+  "source": {
+    "bytes": 1327,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/legacy-GameUserSettings.ini",
+    "sha256": "1bece9165c83e37cc208622493193a60a51b8d1b62678de56bc56233133b7f88"
+  },
+  "task_id": "D08-01"
+}
