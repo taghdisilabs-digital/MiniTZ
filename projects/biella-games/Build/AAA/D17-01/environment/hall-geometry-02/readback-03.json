@@ -1,0 +1,23 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "parts_read_back": 976,
+  "actual_blender_magic": true,
+  "blender_compression": "zstd",
+  "actual_binary_fbx_magic": true,
+  "entrance_volume_clear_cm": [
+    [
+      7800.1,
+      1400,
+      0
+    ],
+    [
+      8199.9,
+      1600,
+      599.9
+    ]
+  ],
+  "evaluated_modifiers": true,
+  "generated_draft": true,
+  "scope": "Editable mesh structural readback; runtime required"
+}

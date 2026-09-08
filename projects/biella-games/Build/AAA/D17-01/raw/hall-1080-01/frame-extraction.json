@@ -1,0 +1,73 @@
+{
+  "source_video": {
+    "path": "Build/AAA/D17-01/raw/hall-1080-01/raw-gameplay.mkv",
+    "bytes": 1392266,
+    "sha256": "bbf7d11ec66ed00238b6a3b81aa4a5d7edbbdedaad96afeb0c6411f44e99c66c"
+  },
+  "duration_seconds": 13.866,
+  "frames": [
+    {
+      "timestamp_seconds": 4,
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "4",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-1080-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-1080-01/frame-04.png"
+      ],
+      "returncode": 0,
+      "frame": {
+        "path": "Build/AAA/D17-01/raw/hall-1080-01/frame-04.png",
+        "bytes": 28880,
+        "sha256": "f7ceb03879d23922a05d7963503a1a700d22cddb52143c53d471da9e87d33257"
+      }
+    },
+    {
+      "timestamp_seconds": 7,
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "7",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-1080-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-1080-01/frame-07.png"
+      ],
+      "returncode": 0,
+      "frame": {
+        "path": "Build/AAA/D17-01/raw/hall-1080-01/frame-07.png",
+        "bytes": 552573,
+        "sha256": "6a7600caac4c62ac17b823e296def30af881a0643b57f543c90da58ba40d1c3a"
+      }
+    },
+    {
+      "timestamp_seconds": 10,
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "10",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-1080-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-1080-01/frame-10.png"
+      ],
+      "returncode": 0,
+      "frame": {
+        "path": "Build/AAA/D17-01/raw/hall-1080-01/frame-10.png",
+        "bytes": 559842,
+        "sha256": "db9a2e50836a9b6716857dae15610591463f7539eff01dab39d0c9e3a2f89c4c"
+      }
+    }
+  ]
+}

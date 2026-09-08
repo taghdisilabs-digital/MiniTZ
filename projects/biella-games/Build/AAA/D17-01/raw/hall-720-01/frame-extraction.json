@@ -1,0 +1,115 @@
+{
+  "source_video": {
+    "path": "Build/AAA/D17-01/raw/hall-720-01/raw-gameplay.mkv",
+    "bytes": 1721410,
+    "sha256": "e4944754d0098a0018210afb385f42f2c9d9c56e763206b49a2a00c03ee93bc9"
+  },
+  "duration_seconds": 19.6,
+  "frames": [
+    {
+      "timestamp_seconds": 4,
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "4",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-720-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-720-01/frame-04.png"
+      ],
+      "returncode": 0,
+      "frame": {
+        "path": "Build/AAA/D17-01/raw/hall-720-01/frame-04.png",
+        "bytes": 287811,
+        "sha256": "bb3b63d6e6d4c5d56d21d4b57f3aabf37adf326b1068253680a5b1ba0e5cfe6d"
+      }
+    },
+    {
+      "timestamp_seconds": 7,
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "7",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-720-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-720-01/frame-07.png"
+      ],
+      "returncode": 0,
+      "frame": {
+        "path": "Build/AAA/D17-01/raw/hall-720-01/frame-07.png",
+        "bytes": 296113,
+        "sha256": "d83c90f74d95442941b81a4fda3fa7704b2cba8e50a9d06819fa466b5d32527b"
+      }
+    },
+    {
+      "timestamp_seconds": 10,
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "10",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-720-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-720-01/frame-10.png"
+      ],
+      "returncode": 0,
+      "frame": {
+        "path": "Build/AAA/D17-01/raw/hall-720-01/frame-10.png",
+        "bytes": 292797,
+        "sha256": "24864c33222aaa143ff403424029317b39832c4e1106cd1e161e0bcfa45bf713"
+      }
+    },
+    {
+      "timestamp_seconds": 15,
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "15",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-720-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-720-01/frame-15.png"
+      ],
+      "returncode": 0,
+      "frame": {
+        "path": "Build/AAA/D17-01/raw/hall-720-01/frame-15.png",
+        "bytes": 285740,
+        "sha256": "e926e49cf6ee9e486df5a48764be967d7fa901a59628825f424a6cea0fe42a7f"
+      }
+    },
+    {
+      "timestamp_seconds": 19,
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "19",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-720-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-720-01/frame-19.png"
+      ],
+      "returncode": 0,
+      "frame": {
+        "path": "Build/AAA/D17-01/raw/hall-720-01/frame-19.png",
+        "bytes": 157555,
+        "sha256": "8dc5bf50bc1c4ee7d40928463d54cc41b8ed6edde95bae347bec9c2029d2d111"
+      }
+    }
+  ]
+}

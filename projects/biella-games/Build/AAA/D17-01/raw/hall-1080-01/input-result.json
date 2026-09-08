@@ -1,0 +1,13 @@
+{
+  "status": "CAPTURED",
+  "reason": "native_terminal_state",
+  "audio_capture": false,
+  "input_delivery": "X11 keyboard/mouse",
+  "world_mutation_or_automation_tests": false,
+  "input_time_origin": "capture_started",
+  "measured_input_run_seconds": 11.883201761986129,
+  "actions_sent": 5,
+  "game_alive_at_capture_end": true,
+  "recorder_returncode": 255,
+  "game_returncode": 0
+}

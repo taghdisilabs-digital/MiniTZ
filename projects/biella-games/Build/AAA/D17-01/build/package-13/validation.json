@@ -1,0 +1,33 @@
+{
+  "install": {
+    "from_package": "7a06321de73c8aece3380095c5ac45f64c4d0905dee3734b2e50dea2805effcb",
+    "installed": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/b8aba14b51e85545d158088e1bde9da2342c1c807d667ea3cae665be90b68017",
+    "result": "PASS",
+    "scope": "Byte-exact installation only; native launch/settings compatibility require separate evidence.",
+    "to_package": "b8aba14b51e85545d158088e1bde9da2342c1c807d667ea3cae665be90b68017"
+  },
+  "installed_manifest": {
+    "bytes": 8669,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/b8aba14b51e85545d158088e1bde9da2342c1c807d667ea3cae665be90b68017/manifest.json",
+    "sha256": "eed116fe6c6c0fcb9a567074520a799c30944868ef67643567c94479bc16a014"
+  },
+  "observed": "2026-09-08T19:01:16.538171+00:00",
+  "package": {
+    "bytes": 8669,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/build/package-13/package-manifest.json",
+    "sha256": "eed116fe6c6c0fcb9a567074520a799c30944868ef67643567c94479bc16a014"
+  },
+  "result": "PASS",
+  "runner": {
+    "bytes": 3199,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/package_d17_01.py",
+    "sha256": "b8607ed632e08fc3bc2deb561ebe1c8f8e4670db62bd05fb1459cc1b4ad53635"
+  },
+  "scope": "Recooked Linux Development package, exact archive and installed-member readback; local only",
+  "source": {
+    "bytes": 77750,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/build/package-13/source-build.json",
+    "sha256": "66ca17b5beb17c7f76c94745872a76555b628e86312ba2b1f1885d4525d7d61e"
+  },
+  "task_id": "D17-01"
+}

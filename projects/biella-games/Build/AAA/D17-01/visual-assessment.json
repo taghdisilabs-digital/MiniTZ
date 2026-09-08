@@ -1,28 +1,38 @@
 {
   "baseline_frame": "raw/entry-720-02/frame-13.png",
   "current_frames": [
-    "raw/storm-720-01/frame-04.png",
-    "raw/storm-720-01/frame-15.png",
-    "raw/storm-720-01/frame-19.png",
-    "raw/storm-1080-01/frame-07.png",
-    "raw/storm-1080-01/frame-10.png"
+    "raw/hall-720-01/frame-04.png",
+    "raw/hall-720-01/frame-10.png",
+    "raw/hall-720-01/frame-15.png",
+    "raw/hall-1080-01/frame-07.png",
+    "raw/hall-1080-01/frame-10.png"
   ],
-  "current_package_id": "7a06321de73c8aece3380095c5ac45f64c4d0905dee3734b2e50dea2805effcb",
-  "excluded_current_frame": "raw/storm-1080-01/frame-04.png is preserved loading footage and is excluded from gameplay visual comparison.",
+  "current_package_id": "b8aba14b51e85545d158088e1bde9da2342c1c807d667ea3cae665be90b68017",
+  "excluded_current_frame": [
+    {
+      "path": "raw/hall-1080-01/frame-04.png",
+      "reason": "Actually inspected loading screen; excluded from gameplay visual evidence."
+    }
+  ],
   "floor_edge_material_validation": {
     "bytes": 9372,
     "path": "Build/AAA/D17-01/environment/floor-edge-material-validation.json",
     "sha256": "4a25c378c99271910d73c4f7f699be188dff8b9ba8a4ae991dccceae538b5f95"
   },
   "floor_material_diagnosis": "environment/floor-diagnosis.json",
-  "improved_boundary": "Package-12 adds a saved native volumetric-cloud material instance and cloud/fog actors to OpenWorld, cools the existing sun and reduces sun/sky intensity. Fresh-process readback preserves existing actor identities. The native code, playable geometry, collision and service-bay materials remain unchanged. The six changed Unreal packages and authoring script are bound to fresh cook, archive readback, installation and runtime evidence. This creates a cold overcast base with readable warm task lamps; it does not qualify final storm lighting or the AAA slice.",
+  "hall_cladding_validation": {
+    "bytes": 10666,
+    "path": "Build/AAA/D17-01/environment/hall-cladding-validation.json",
+    "sha256": "e6a30388bf865aaa7fb05c546346d685820c396c8e5d025483177921f4c3995a"
+  },
+  "improved_boundary": "Package-13 adds a fitted manufactured-metal skin to the existing warehouse: 976 editable wall cassettes, folded ribs, fixing heads, roof fascias, ventilation housings and supported conduits. Native saved readback binds the mesh and existing physical materials. The original six building envelopes, collision profiles and four-meter entrance are preserved. Native gameplay and the retained storm/service-bay assets are unchanged. This is a local industrial-detail improvement; it does not qualify the final slice.",
   "major_defects": [
     {
       "finding": "Blue/yellow/red mannequin presentation, primitive infected body and block-like weapon remain in the focal encounter.",
       "id": "focal_art"
     },
     {
-      "finding": "The service bay gains authored construction detail, but the approach remains a broad empty road with repeated facades and primitive interior structure; dense vertical industrial layers are absent.",
+      "finding": "The existing warehouse now has fitted dark wall cassettes, ribs, fasteners, vents and roof-edge detail. The broad approach remains empty, repeated distant facades and exposed bright interior/entrance faces remain, and dense vertical industrial layers are absent. Local cladding does not close the scene-wide defect.",
       "id": "world_density"
     },
     {
@@ -39,7 +49,7 @@
     }
   ],
   "method": "Direct inspection of decoded frames from unedited normal-camera raw captures, plus explicitly separate editor and installed-package environment fixture frames; exact source/build/input/telemetry retained separately",
-  "next_action": "Author missing industrial foreground and midground along the accepted Street01-to-service-bay approach, preserving the existing route, collision and mechanics; validate saved assets, installed traversal and ordinary-input camera captures.",
+  "next_action": "Replace the exposed blank warehouse entrance reveals and interior faces along the existing service-bay approach with fitted industrial surfaces, preserving the four-meter opening and all original colliders; validate saved readback and the affected packaged camera/traversal scope.",
   "panel_material_validation": {
     "bytes": 7455,
     "path": "Build/AAA/D17-01/environment/panel-material-validation.json",
@@ -53,7 +63,9 @@
     "environment/switch-editor-02/captures/panel_damaged.png",
     "environment/panel-editor-01/captures/panel_damaged.png",
     "environment/panel-editor-01/captures/panel_destroyed.png",
-    "environment/floor-edge-editor-01/captures/switch_safe.png"
+    "environment/floor-edge-editor-01/captures/switch_safe.png",
+    "environment/storm-editor-02/captures/switch_safe.png",
+    "environment/storm-editor-02/captures/panel_destroyed.png"
   ],
   "previous_frames": [
     "raw/hud-720-01/frame-13.png",
@@ -89,7 +101,12 @@
     "raw/panel-impact-1080-01/frame-04.png",
     "raw/floor-edge-720-01/frame-15.png",
     "raw/floor-edge-720-01/frame-19.png",
-    "raw/floor-edge-1080-01/frame-04.png"
+    "raw/floor-edge-1080-01/frame-04.png",
+    "raw/storm-720-01/frame-04.png",
+    "raw/storm-720-01/frame-15.png",
+    "raw/storm-720-01/frame-19.png",
+    "raw/storm-1080-01/frame-07.png",
+    "raw/storm-1080-01/frame-10.png"
   ],
   "previous_packaged_frames": [
     "environment/runtime-03/captures/switch_safe.png",
@@ -107,7 +124,9 @@
     "environment/runtime-09/captures/panel_damaged.png",
     "environment/runtime-10/captures/panel_damaged.png",
     "environment/runtime-10/captures/panel_destroyed.png",
-    "environment/runtime-11/captures/switch_safe.png"
+    "environment/runtime-11/captures/switch_safe.png",
+    "environment/runtime-12/captures/switch_safe.png",
+    "environment/runtime-12/captures/panel_destroyed.png"
   ],
   "scope": "Preserves accepted mechanics evidence; rejects current final visual quality. Does not reopen predecessor task acceptance.",
   "service_bay_coordinate_defect": {
@@ -121,14 +140,14 @@
     "status": "FIXED_IN_CURRENT_ASSETS_AND_PACKAGE"
   },
   "service_bay_editor_frames": [
-    "environment/storm-editor-02/captures/switch_safe.png",
-    "environment/storm-editor-02/captures/panel_destroyed.png"
+    "environment/hall-editor-01/captures/switch_safe.png",
+    "environment/hall-editor-01/captures/panel_destroyed.png"
   ],
-  "service_bay_editor_frames_scope": "Controlled Lit Vulkan fixture with warmed shaders; compared with the preserved floor-edge-editor-01 switch-safe frame. Storm-editor-01 overlay frames are preserved but excluded. No ordinary-input route or final visual acceptance.",
-  "service_bay_limit": "Installed fixture confirms overcast light, readable controls, warm wet-floor reflections and unchanged environment behavior. Sparse industrial surroundings, prototype focal art and remaining material/infection/lighting defects still reject final visual quality.",
+  "service_bay_editor_frames_scope": "Controlled native Lit Vulkan fixture; inspected saved hall surfaces and retained switch/hazard behavior. This does not establish ordinary-input route or final visual acceptance.",
+  "service_bay_limit": "Installed fixture verifies the fitted cladding and retained bay controls, panel physics, hazard and stream return. Bright interior faces, sparse surroundings, prototype focal art and the other major groups remain.",
   "service_bay_packaged_frames": [
-    "environment/runtime-12/captures/switch_safe.png",
-    "environment/runtime-12/captures/panel_destroyed.png"
+    "environment/runtime-13/captures/switch_safe.png",
+    "environment/runtime-13/captures/panel_destroyed.png"
   ],
   "status": "REJECTED_CURRENT_CANDIDATE",
   "storm_lighting_validation": {
@@ -139,7 +158,7 @@
   "switch_material_validation": "environment/switch-material-validation.json",
   "task_id": "D17-01",
   "unproven": [
-    "Current package-12 ordinary input records no bay power, panel or electrical-floor event. Package-04 ordinary consequence remains separately preserved. The package-12 fixture verifies native environment behavior but does not establish the full evolving player+rival+infected+arena composition. No natural arena_pressure transition is observed. The inspected 1080p gameplay frames do not show all encounter participants together.",
+    "The 1280x720 ordinary-input run reached native Failure after 14.818728 active seconds and 17 input actions; it recorded 1 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. The 1920x1080 ordinary-input run reached native Success after 8.720026 active seconds and 5 input actions; it recorded 0 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. Both have zero restarts and no captured audio. Neither establishes 600\u20131200 active seconds, the later route or the full evolving arena consequence. Historical outcomes retain their original package identity.",
     "Interior, terrace and east-return beats were not reached before terminal state.",
     "HUD occlusion during required later dense-combat states remains unqualified.",
     "No final temporal-quality or raw audio qualification is claimed."

@@ -1,5 +1,5 @@
 {
-  "acceptance": "INCOMPLETE: continuous duration, full evolving encounter and five major visual groups remain unqualified. Current raw outcomes are bound to package-12; predecessor proof remains historical.",
+  "acceptance": "INCOMPLETE: continuous duration, full evolving encounter and five major visual groups remain unqualified. Current raw outcomes bind package-13; predecessor proof remains historical.",
   "baseline_package": {
     "configuration": "Development",
     "manifest": {
@@ -12,27 +12,27 @@
     "scope": "existing diagnostic package only; D08 Win64 status unchanged"
   },
   "candidate_status": "GENERATED_DRAFT",
-  "current_environment_probe": "Build/AAA/D17-01/raw/storm-720-01/observation.json",
+  "current_environment_probe": "Build/AAA/D17-01/raw/hall-720-01/observation.json",
   "current_native_build": "Build/AAA/D17-01/build/game-05/result.json",
   "current_package": {
     "archive": {
-      "bytes": 496842823,
-      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-12.tar.zst",
-      "sha256": "c4a8f075bdcb14dbb713a807fd7ef54a2415ad7a3fb2d265a304b6bb987e78d2"
+      "bytes": 500392194,
+      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-13.tar.zst",
+      "sha256": "360e0803214e312d29c9fd59456a3fc30779b242d386f7e9b17582d07f008be0"
     },
     "manifest": {
       "bytes": 8669,
-      "path": "Build/AAA/D17-01/build/package-12/package-manifest.json",
-      "sha256": "f0f5f3584625caadac9716a1f1fd7f4e28d5ffb84ed6802eacfc4f5fa6f09f77"
+      "path": "Build/AAA/D17-01/build/package-13/package-manifest.json",
+      "sha256": "eed116fe6c6c0fcb9a567074520a799c30944868ef67643567c94479bc16a014"
     },
     "overlay": false,
-    "package_id": "7a06321de73c8aece3380095c5ac45f64c4d0905dee3734b2e50dea2805effcb",
-    "source_material_digest": "95913c213241e0cc2669f88d1e215b412b73c32f884bff92fad8871885c8ed03"
+    "package_id": "b8aba14b51e85545d158088e1bde9da2342c1c807d667ea3cae665be90b68017",
+    "source_material_digest": "c30d916225d0683f68c60fc3766a7764a299716f57b3318245030b8437dbb43c"
   },
-  "current_package_status": "Package-12 adds a saved native volumetric-cloud material instance and cloud/fog actors to OpenWorld, cools the existing sun and reduces sun/sky intensity. Fresh-process readback preserves existing actor identities. The native code, playable geometry, collision and service-bay materials remain unchanged. The six changed Unreal packages and authoring script are bound to fresh cook, archive readback, installation and runtime evidence. This creates a cold overcast base with readable warm task lamps; it does not qualify final storm lighting or the AAA slice.",
+  "current_package_status": "Package-13 adds a fitted manufactured-metal skin to the existing warehouse: 976 editable wall cassettes, folded ribs, fixing heads, roof fascias, ventilation housings and supported conduits. Native saved readback binds the mesh and existing physical materials. The original six building envelopes, collision profiles and four-meter entrance are preserved. Native gameplay and the retained storm/service-bay assets are unchanged. This is a local industrial-detail improvement; it does not qualify the final slice.",
   "current_raw_runs": [
-    "Build/AAA/D17-01/raw/storm-720-01/observation.json",
-    "Build/AAA/D17-01/raw/storm-1080-01/observation.json"
+    "Build/AAA/D17-01/raw/hall-720-01/observation.json",
+    "Build/AAA/D17-01/raw/hall-1080-01/observation.json"
   ],
   "duration_contract_seconds": [
     600,
@@ -47,7 +47,7 @@
     {
       "bytes": 13330,
       "path": "Content/Maps/BiellaOpenWorldMap.umap",
-      "sha256": "e2c402f403bba1f52f24bc5177147f929da35829b960d1f59a3eb8e6e050de96"
+      "sha256": "c1b38f7838678e81da25b77fe86b2e1acad498c5111a76933818a301e521e7d6"
     },
     {
       "bytes": 2647,
@@ -193,6 +193,51 @@
       "bytes": 4445,
       "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/4X/OAGDK0V5RO71D75MQR71A5.uasset",
       "sha256": "a248de2ebe170c742a07734878b28f3ee3859d03adba06fec921ba2a18e61623"
+    },
+    {
+      "bytes": 8209,
+      "path": "SourceAssets/Environment/build_service_hall.py",
+      "sha256": "6d66c172f2efb6a894139bff1f7f2531fe88b0ff45aff7bd2bf25f108dc51340"
+    },
+    {
+      "bytes": 2271,
+      "path": "SourceAssets/Environment/verify_service_hall.py",
+      "sha256": "3b7d7ae3cb5ef9b82dfd1bfda341c555b66c1732b0c0485ca75cef44ea6fd5c2"
+    },
+    {
+      "bytes": 504785,
+      "path": "SourceAssets/Environment/ServiceHall.blend",
+      "sha256": "6526c284e5be9ed1f8736f314b378c62fba42329217204cbcf539e579f957ea4"
+    },
+    {
+      "bytes": 2611148,
+      "path": "SourceAssets/Environment/SM_ServiceHallCladding.fbx",
+      "sha256": "956545068d7f59dcbd67d244bd23b31a97f39b68e25c853a498cba7f85bb7b4e"
+    },
+    {
+      "bytes": 1124,
+      "path": "SourceAssets/Environment/service-hall.json",
+      "sha256": "91cbe90cbf10be2b91310847b1efb315158586b487ac6a61ea135738acc35330"
+    },
+    {
+      "bytes": 7325,
+      "path": "Content/Python/author_service_hall.py",
+      "sha256": "0ccb2dedccaf934fb4961901c2aa03d9cc88e257f097db9cf60d75d83432b0ff"
+    },
+    {
+      "bytes": 4073,
+      "path": "tests/author_d17_01_hall.py",
+      "sha256": "dfc48cddef6baf235908c5f783ac08a3c3aff483a45e6e1385687b88013fc653"
+    },
+    {
+      "bytes": 2534528,
+      "path": "Content/Environment/ServiceHall/SM_ServiceHallCladding.uasset",
+      "sha256": "25c061230585003445bf3873f4874d078669d6af6ef9d372c9df4776c4b3eb5e"
+    },
+    {
+      "bytes": 4520,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/SV/53Z03SIVN8RL07L77T5Z6P.uasset",
+      "sha256": "f75e9f950040a174ad3ea61350ff399b8362e7e498a438bab74c24a9f65ca566"
     }
   ],
   "end_state": {
@@ -207,8 +252,13 @@
     "sha256": "4a25c378c99271910d73c4f7f699be188dff8b9ba8a4ae991dccceae538b5f95"
   },
   "floor_material_diagnosis": "Build/AAA/D17-01/environment/floor-diagnosis.json",
+  "hall_cladding_validation": {
+    "bytes": 10666,
+    "path": "Build/AAA/D17-01/environment/hall-cladding-validation.json",
+    "sha256": "e6a30388bf865aaa7fb05c546346d685820c396c8e5d025483177921f4c3995a"
+  },
   "map": "/Game/Maps/BiellaOpenWorldMap",
-  "observed_route_limits": "The 720p ordinary-input run ended in native Success after 19.315267299243715 active seconds and 24 input actions. Its four-second frame shows the player, rival and infected together under the overcast sky; the 15- and 19-second frames show the service-bay approach. Three weapon-fire events were recorded, but no bay power transitions, panel events or electrical-floor damage. The 1080p run ended in native Success after 8.905501947680023 active seconds and five input actions, also without bay events. Its seven- and ten-second frames show the player approaching the bay; the four-second frame is loading and is excluded from gameplay visual comparison. Both runs have native combat telemetry, zero restarts and no captured audio. Neither establishes 600\u20131200 active seconds, later route beats or the full evolving arena consequence.",
+  "observed_route_limits": "The 1280x720 ordinary-input run reached native Failure after 14.818728 active seconds and 17 input actions; it recorded 1 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. The 1920x1080 ordinary-input run reached native Success after 8.720026 active seconds and 5 input actions; it recorded 0 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. Both have zero restarts and no captured audio. Neither establishes 600\u20131200 active seconds, the later route or the full evolving arena consequence. Historical outcomes retain their original package identity.",
   "owner_visual_direction": {
     "identity": "Biella-owned expression; no copied reference names, logos, slogans or HUD text",
     "industrial": "dense, vertically layered steel/concrete arena and plausible engineered connections",
@@ -432,6 +482,29 @@
       "Build/AAA/D17-01/raw/smooth-floor-1080-01/observation.json"
     ],
     "source_commit": "fdad60240ebd296e95a593789cc0fb8ed7716124"
+  },
+  "previous_storm_candidate": {
+    "observed_route_limits": "The 720p ordinary-input run ended in native Success after 19.315267299243715 active seconds and 24 input actions. Its four-second frame shows the player, rival and infected together under the overcast sky; the 15- and 19-second frames show the service-bay approach. Three weapon-fire events were recorded, but no bay power transitions, panel events or electrical-floor damage. The 1080p run ended in native Success after 8.905501947680023 active seconds and five input actions, also without bay events. Its seven- and ten-second frames show the player approaching the bay; the four-second frame is loading and is excluded from gameplay visual comparison. Both runs have native combat telemetry, zero restarts and no captured audio. Neither establishes 600\u20131200 active seconds, later route beats or the full evolving arena consequence.",
+    "package": {
+      "archive": {
+        "bytes": 496842823,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-12.tar.zst",
+        "sha256": "c4a8f075bdcb14dbb713a807fd7ef54a2415ad7a3fb2d265a304b6bb987e78d2"
+      },
+      "manifest": {
+        "bytes": 8669,
+        "path": "Build/AAA/D17-01/build/package-12/package-manifest.json",
+        "sha256": "f0f5f3584625caadac9716a1f1fd7f4e28d5ffb84ed6802eacfc4f5fa6f09f77"
+      },
+      "overlay": false,
+      "package_id": "7a06321de73c8aece3380095c5ac45f64c4d0905dee3734b2e50dea2805effcb",
+      "source_material_digest": "95913c213241e0cc2669f88d1e215b412b73c32f884bff92fad8871885c8ed03"
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/storm-720-01/observation.json",
+      "Build/AAA/D17-01/raw/storm-1080-01/observation.json"
+    ],
+    "source_commit": "bf7c10031690ff43d045287b9f6a0433df0b57a1"
   },
   "previous_switch_candidate": {
     "observed_route_limits": "Package-09 720p reaches native Success at 18.31323491682997 active seconds after approaching the bay. Its 23 ordinary inputs include interaction and fire attempts but produce no native power transition, panel event or electrical-floor damage. The 1080p run shows player/rival/infected at entry and reaches Success at 8.814891465881374 seconds. Interior/terrace/east-return and 600\u20131200 active seconds remain unqualified. Historical package-04 consequence retains its exact source/package identity.",

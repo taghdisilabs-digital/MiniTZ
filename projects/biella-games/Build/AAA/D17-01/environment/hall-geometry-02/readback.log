@@ -1,0 +1,8 @@
+Blender 5.0.1 (hash a3db93c5b259 built 2025-12-16 01:30:59)
+Traceback (most recent call last):
+  File "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/verify_service_hall.py", line 7, in <module>
+    assert (root/'ServiceHall.blend').read_bytes()[:7]==b'BLENDER'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+Blender quit

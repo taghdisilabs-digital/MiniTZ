@@ -17,7 +17,9 @@ from run_d08_01_release import digest, executable_format, identity, now, write, 
 PROJECT = Path(__file__).resolve().parents[1]
 ROOT = PROJECT / 'Build/AAA/D17-01'
 RUNS = ('entry-720-02', 'hud-720-01', 'hud-1080-01')
-CURRENT_RUNS = ('storm-720-01', 'storm-1080-01')
+CURRENT_RUNS = ('hall-720-01', 'hall-1080-01')
+STORM_RUNS = ('storm-720-01', 'storm-1080-01')
+STORM_COMMIT = 'bf7c10031690ff43d045287b9f6a0433df0b57a1'
 FLOOR_EDGE_RUNS = ('floor-edge-720-01', 'floor-edge-1080-01')
 FLOOR_EDGE_COMMIT = 'cbca5c7cd692fa77e0a66a7e1ebcf9983287e956'
 PANEL_RUNS = ('panel-impact-720-01', 'panel-impact-1080-01')
@@ -74,6 +76,17 @@ def check_input_binding(row):
     if (Path(row['path']).name == 'd17_01_raw_input.py' and
             row['sha256'] == '73578de1303d53b6f90f8753f35ccdf92397eae0bc37f91d7213be865987811a'):
         check_historical_source(row, GROWTH_COMMIT)
+    else:
+        check(row)
+
+
+def check_pre_hall(row):
+    """The only preexisting runtime asset changed by hall cladding is the map."""
+    path = Path(row['path'])
+    if path.is_absolute() and path.is_relative_to(PROJECT):
+        path = path.relative_to(PROJECT)
+    if path.as_posix() == 'Content/Maps/BiellaOpenWorldMap.umap':
+        check_historical_source(row, STORM_COMMIT)
     else:
         check(row)
 
@@ -325,7 +338,20 @@ def main():
         assert resolved['runtime_id'] == digest({k:v for k,v in resolved.items() if k != 'runtime_id'})
         exposed = read(ROOT / 'raw' / name / 'exposed-package-verification.json')
         assert exposed['status'] == 'PASS' and exposed['runtime_id'] == resolved['runtime_id']
-    package_root = ROOT / 'build/package-12'
+    storm_source = read(ROOT / 'build/package-12/source-build.json')
+    for row in storm_source['material_inputs']: check_historical_source(row, STORM_COMMIT)
+    storm_source_inputs = {r['path']: r for r in storm_source['material_inputs']}
+    storm_package = read(ROOT / 'build/package-12/package-manifest.json')
+    storm_runs = [observe(name) for name in STORM_RUNS]
+    for name in STORM_RUNS:
+        for row in read(ROOT / 'raw' / name / 'inputs.json').values(): check_input_binding(row)
+        resolved = read(ROOT / 'raw' / name / 'resolved-package.json')
+        assert resolved['base_package_id'] == storm_package['package_id']
+        assert resolved['files'] == storm_package['files'] and 'native_delta' not in resolved
+        assert resolved['runtime_id'] == digest({k:v for k,v in resolved.items() if k != 'runtime_id'})
+        exposed = read(ROOT / 'raw' / name / 'exposed-package-verification.json')
+        assert exposed['status'] == 'PASS' and exposed['runtime_id'] == resolved['runtime_id']
+    package_root = ROOT / 'build/package-13'
     installation = read(package_root / 'validation.json')
     assert installation['result'] == 'PASS'
     package = read(package_root / 'package-manifest.json')
@@ -337,7 +363,7 @@ def main():
     changed = sorted(p for p in before.keys() | after.keys() if before.get(p) != after.get(p))
     assert package['source_material_digest'] == native_source['material_input_digest']
     check(package['archive'])
-    for path in ('build/cook-13/validation.json', 'build/stage-15/validation.json'):
+    for path in ('build/cook-14/validation.json', 'build/stage-16/validation.json'):
         assert read(ROOT / path)['result'] == 'PASS', path
     installed = Path(installation['install']['installed'])
     assert current(installed.parents[1])[1] == package
@@ -385,7 +411,7 @@ def main():
         if row['path'] in switch_binaries: assert row == switch_binaries[row['path']]
         elif Path(row['path']).name in ('BiellaEnvironmentSite.cpp', 'M_ServiceGround.uasset'): check_historical_source(row, SWITCH_COMMIT)
         else: check_pre_storm(row)
-    environment = ROOT / 'environment/runtime-12/validation.json'
+    environment = ROOT / 'environment/runtime-13/validation.json'
     assert read(environment)['result'] == 'PASS'
     assert read(environment)['package_id'] == package['package_id']
     new_runs = [observe(name) for name in CURRENT_RUNS]
@@ -453,7 +479,7 @@ def main():
     assert not storm_authoring['slice_acceptance']
     storm_inputs = storm_authoring['inputs_before'] | storm_authoring['changed_inputs']
     for row in (list(storm_inputs.values()) +
-                [storm_authoring['author'], storm_authoring['spec']]): check(row)
+                [storm_authoring['author'], storm_authoring['spec']]): check_pre_hall(row)
     for run in storm_authoring['runs']:
         assert run['returncode'] == 0 and not run['timed_out'] and run['log_finalization']['closed']
         check(run['log'])
@@ -462,14 +488,52 @@ def main():
     assert storm_readback['spec_sha256'] == storm_authoring['spec']['sha256']
     storm_visual = read(ROOT / 'environment/storm-lighting-validation.json')
     assert storm_visual['result'] == 'PASS_AFFECTED_LAYER' and not storm_visual['slice_acceptance']
-    assert storm_visual['package_id'] == package['package_id']
-    for row in storm_visual['sources'] + storm_visual['inspected_frames']: check(row)
+    assert storm_visual['package_id'] == storm_package['package_id']
+    for row in storm_visual['sources'] + storm_visual['inspected_frames']: check_pre_hall(row)
     for key in ('asset_validation', 'saved_readback', 'editor_validation', 'package_validation'): check(storm_visual[key])
     diagnostic = read(PROJECT / storm_visual['editor_validation']['path'])
     assert diagnostic['result'] == 'PASS' and diagnostic['buffer'] == 'Lit'
     assert diagnostic['identities_before'] == diagnostic['identities_after']
+    for row in diagnostic['identities_after']: check_pre_hall(row)
+    assert storm_visual['ordinary_input_runs'] == storm_runs
+    hall_assets = ROOT / 'environment/hall-assets-03/validation.json'
+    hall_authoring = read(hall_assets)
+    assert hall_authoring['result'] == 'PASS' and hall_authoring['fresh_process_readback_verified']
+    assert hall_authoring['all_other_source_geometry_materials_config_unchanged']
+    assert not hall_authoring['slice_acceptance']
+    for row in (list((hall_authoring['inputs_before'] | hall_authoring['changed_inputs']).values()) +
+                [hall_authoring['author'], hall_authoring['spec']]): check(row)
+    for run in hall_authoring['runs']:
+        assert run['returncode'] == 0 and not run['timed_out'] and run['log_finalization']['closed']
+        check(run['log'])
+    hall_readback = read(hall_assets.parent / 'readback.json')
+    assert hall_readback['result'] == 'PASS' and hall_readback['read_only']
+    assert hall_readback['spec_sha256'] == hall_authoring['spec']['sha256']
+    assert len(hall_readback['supports']) == 6 and hall_readback['collision_boxes'] == 0
+    hall_visual = read(ROOT / 'environment/hall-cladding-validation.json')
+    assert hall_visual['result'] == 'PASS_AFFECTED_LAYER' and not hall_visual['slice_acceptance']
+    assert hall_visual['package_id'] == package['package_id']
+    for row in hall_visual['sources'] + hall_visual['inspected_frames']: check(row)
+    for key in ('asset_validation', 'saved_readback', 'geometry_validation', 'editor_validation', 'package_validation', 'frame_review'):
+        check(hall_visual[key])
+    frame_review = read(PROJECT / hall_visual['frame_review']['path'])
+    assert frame_review['reviewed'] and frame_review['package_id'] == package['package_id']
+    for name in CURRENT_RUNS:
+        extraction = read(ROOT / 'raw' / name / 'frame-extraction.json')
+        check(extraction['source_video'])
+        assert extraction['source_video'] == ref(ROOT / 'raw' / name / 'raw-gameplay.mkv')
+        for frame in extraction['frames']:
+            assert frame['returncode'] == 0 and 0 <= frame['timestamp_seconds'] < extraction['duration_seconds']
+            check(frame['frame'])
+    hall_geometry = read(PROJECT / hall_visual['geometry_validation']['path'])
+    assert hall_geometry['result'] == 'PASS' and hall_geometry['parts_read_back'] == 976
+    assert hall_geometry['actual_blender_magic'] and hall_geometry['actual_binary_fbx_magic']
+    for row in hall_geometry['sources']: check(row)
+    diagnostic = read(PROJECT / hall_visual['editor_validation']['path'])
+    assert diagnostic['result'] == 'PASS' and diagnostic['buffer'] == 'Lit'
+    assert diagnostic['identities_before'] == diagnostic['identities_after']
     for row in diagnostic['identities_after']: check(row)
-    assert storm_visual['ordinary_input_runs'] == new_runs
+    assert hall_visual['ordinary_input_runs'] == new_runs
     # Absence of an ordinary-input beat is an acceptance gap, not an integrity
     # error. Never carry the historical outcome into a newer raw run.
     ordinary_environment = new_runs[0]
@@ -549,9 +613,12 @@ def main():
     edge_delta = sorted(p for p in panel_inputs.keys() | floor_edge_inputs.keys() if panel_inputs.get(p) != floor_edge_inputs.get(p))
     assert edge_delta == ['Content/Environment/ServiceBay/M_ServiceGround.uasset'], edge_delta
     assert edge_visual['material_input_delta'] == edge_delta
-    storm_delta = sorted(p for p in floor_edge_inputs.keys() | after.keys() if floor_edge_inputs.get(p) != after.get(p))
+    storm_delta = sorted(p for p in floor_edge_inputs.keys() | storm_source_inputs.keys() if floor_edge_inputs.get(p) != storm_source_inputs.get(p))
     assert set(storm_delta) == set(storm_authoring['changed_inputs']) | {'Content/Python/author_storm_lighting.py'}, storm_delta
     assert storm_visual['material_input_delta'] == storm_delta
+    hall_delta = sorted(p for p in storm_source_inputs.keys() | after.keys() if storm_source_inputs.get(p) != after.get(p))
+    assert set(hall_delta) == set(hall_authoring['allowed_packages']) | {'Content/Python/author_service_hall.py'}, hall_delta
+    assert hall_visual['material_input_delta'] == hall_delta
     assert panel_delta == ['Content/Environment/ServiceBay/M_ServicePanel.uasset', 'Content/Python/author_service_panel.py', 'Source/BiellaGames/Private/BiellaEnvironmentSite.cpp'], panel_delta
     assert switch_delta == ['Content/Environment/ServiceBay/M_ServiceSwitch.uasset', 'Content/Python/author_service_switch.py', 'Source/BiellaGames/Private/BiellaEnvironmentSite.cpp'], switch_delta
     assert hash_delta == ['Content/Environment/ServiceBay/M_ServiceGround.uasset'], hash_delta
@@ -615,14 +682,14 @@ def main():
     assert read(ROOT / 'environment/scope-findings.json')['current_environment_probe']['electrical_floor_damage'] == floor_damage
     for frame in visual['current_frames'] + visual['service_bay_packaged_frames']:
         assert (ROOT / frame).read_bytes()[:8] == b'\x89PNG\r\n\x1a\n'
-    all_runs = runs + [route_probe] + previous_service_runs + coordinate_runs + growth_runs + sheath_runs + ground_runs + smooth_runs + integer_runs + switch_runs + panel_runs + floor_edge_runs + new_runs + new_probes
+    all_runs = runs + [route_probe] + previous_service_runs + coordinate_runs + growth_runs + sheath_runs + ground_runs + smooth_runs + integer_runs + switch_runs + panel_runs + floor_edge_runs + storm_runs + new_runs + new_probes
     assert not any(run['uninterrupted_duration_satisfied'] for run in all_runs)
     report = dict(
         schema='biella.games.d17.qualification/v1', task_id='D17-01', observed=now(),
         status='INCOMPLETE', result='CONTINUE', accepted=False,
         evidence_integrity='VERIFIED', scenario=ref(ROOT / 'scenario.json'),
         owner_visual_contract=ref(PROJECT / 'docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md'),
-        scope='Canonical slice candidate, HUD correction, editable service-bay materials and native cloud/fog lighting; current Linux Development raw diagnostics and separately bound historical environment consequence',
+        scope='Canonical slice candidate, HUD correction, editable service-bay materials, native cloud/fog lighting and fitted warehouse cladding; current Linux Development raw diagnostics and separately bound historical environment consequence',
         implementation=dict(changed_material_inputs=changed, build=ref(ROOT / 'build/game-05/result.json'),
                             editor_build=ref(ROOT / 'build/editor-05/validation.json'),
                             editable_source=ref(PROJECT / 'Source/BiellaGames/Private/BiellaEnvironmentSite.cpp'),
@@ -638,7 +705,9 @@ def main():
                             geometry_clearance=ref(ROOT / 'environment/mesh-author-05/geometry-readback.json'),
                             visual_delta_from_sheath_package=growth_delta,
                             visual_delta_from_ground_package=wetness_delta,
-                            floor_hash_delta=hash_delta, switch_material_delta=switch_delta, panel_material_delta=panel_delta, floor_edge_material_delta=edge_delta, visual_delta_from_previous_package=storm_delta,
+                            floor_hash_delta=hash_delta, switch_material_delta=switch_delta, panel_material_delta=panel_delta, floor_edge_material_delta=edge_delta, visual_delta_from_previous_package=hall_delta,
+                            hall_asset_readback=ref(hall_assets),
+                            hall_cladding_validation=ref(ROOT / 'environment/hall-cladding-validation.json'),
                             storm_asset_readback=ref(storm_assets),
                             storm_lighting_validation=ref(ROOT / 'environment/storm-lighting-validation.json'),
                             floor_edge_material_validation=ref(ROOT / 'environment/floor-edge-material-validation.json'),
@@ -649,14 +718,16 @@ def main():
                      payload_files_digest=digest(package['files']),
                      exact_resolved_manifests=[ref(ROOT / 'raw' / n / 'resolved-package.json')
                                                for n in CURRENT_RUNS + CURRENT_PROBES],
-                     cook=ref(ROOT / 'build/cook-13/validation.json'),
-                     stage=ref(ROOT / 'build/stage-15/validation.json'),
+                     cook=ref(ROOT / 'build/cook-14/validation.json'),
+                     stage=ref(ROOT / 'build/stage-16/validation.json'),
                      install=ref(package_root / 'validation.json'), format='ELF64-x86_64',
                      platform='Linux', configuration='Development', renderer='Vulkan'),
         first_raw_run=runs[0], previous_raw_runs=runs[1:], current_raw_runs=new_runs, previous_input_timing_probe=sheath_runs[-1],
         current_environment_probe=dict(observation=new_runs[0],
             input_plan=ref(ROOT / 'service-hazard-input.json'),
             scope='Ordinary input on the current package; switching, panel physics and electrical-floor outcomes are extracted from native logs/telemetry above'),
+        previous_storm_candidate=dict(source_commit=STORM_COMMIT,
+            package=ref(ROOT / 'build/package-12/package-manifest.json'), raw_runs=storm_runs),
         previous_floor_edge_candidate=dict(source_commit=FLOOR_EDGE_COMMIT,
             package=ref(ROOT / 'build/package-11/package-manifest.json'), raw_runs=floor_edge_runs),
         previous_panel_candidate=dict(source_commit=PANEL_COMMIT,
@@ -695,7 +766,8 @@ def main():
                                     'Package-09 binds a saved weathered service-switch material to the existing native BaseColor/Emission parameters; all twelve gameplay/presentation methods and the Switch component remain identical, with fresh native builds and packaged environment regression',
                                     'Package-10 replaces whole-panel tint with local first/latest point-hit coating/normal response; gameplay damage bytes and eleven other methods are preserved, with saved graph readback and fresh native/installed regression',
                                     'Package-11 confines apron moisture with a variable drying edge; geometry/native source are byte-identical, the saved material has fresh readback, and the rebuilt package passes installed environment regression',
-                                    'Package-12 binds saved native cloud/fog actors and cooler sun/sky lighting; all geometry and native source are preserved, with fresh asset readback, cooked shaders, installed environment behavior and normal-camera raw captures'],
+                                    'Package-12 binds saved native cloud/fog actors and cooler sun/sky lighting; all geometry and native source are preserved, with fresh asset readback, cooked shaders, installed environment behavior and normal-camera raw captures',
+                                    'Package-13 adds 976 editable fitted warehouse cladding parts, verified doorway clearance and preserved original colliders, with native saved readback, installed environment regression and raw gameplay captures'],
         unmet_criteria=[
             dict(id='continuous_slice_duration_and_route', required='600–1200 seconds of representative active gameplay with route beats',
                  observed=[{'run': r['run'], 'active_seconds': r['active_simulation_seconds'],

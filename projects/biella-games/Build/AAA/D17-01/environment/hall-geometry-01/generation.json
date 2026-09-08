@@ -1,0 +1,32 @@
+{
+  "task_id": "D17-01",
+  "command": [
+    "blender",
+    "--background",
+    "--python",
+    "SourceAssets/Environment/build_service_hall.py"
+  ],
+  "result": "GENERATED_DRAFT",
+  "outputs": [
+    {
+      "path": "SourceAssets/Environment/build_service_hall.py",
+      "bytes": 8129,
+      "sha256": "384adecd35fbfe191914ab9e919ad7c34f4f2609ec506d2af4a4382c91694284"
+    },
+    {
+      "path": "SourceAssets/Environment/service-hall.json",
+      "bytes": 1134,
+      "sha256": "fd075f35ea77b2f49bf2172f39095d559cc9dcdeb1d27dfea89ec99879f6419d"
+    },
+    {
+      "path": "SourceAssets/Environment/SM_ServiceHallCladding.fbx",
+      "bytes": 2596188,
+      "sha256": "9ef06bfb3fb1d82a6ab67c3805ca8ff7d068da3531279139d7235397a62eda2a"
+    },
+    {
+      "path": "SourceAssets/Environment/ServiceHall.blend",
+      "bytes": 504764,
+      "sha256": "e0a8323a10ba558619d6084b16c48ce2e9509196cdd47b013f001e9cc465c6cc"
+    }
+  ]
+}

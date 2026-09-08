@@ -1,0 +1,47 @@
+{
+  "binary": {
+    "bytes": 299185984,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/b8aba14b51e85545d158088e1bde9da2342c1c807d667ea3cae665be90b68017/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "784a93e01da177765c30a92d845254eb0b9b126a0bce8b8b39286914a4bd4900"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/b8aba14b51e85545d158088e1bde9da2342c1c807d667ea3cae665be90b68017/payload",
+  "manifest": {
+    "bytes": 8669,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/b8aba14b51e85545d158088e1bde9da2342c1c807d667ea3cae665be90b68017/manifest.json",
+    "sha256": "eed116fe6c6c0fcb9a567074520a799c30944868ef67643567c94479bc16a014"
+  },
+  "package_id": "b8aba14b51e85545d158088e1bde9da2342c1c807d667ea3cae665be90b68017",
+  "platform": "Linux",
+  "scope": "Byte-verified Linux Development package; not visual acceptance or Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "bf7c10031690ff43d045287b9f6a0433df0b57a1",
+    "head_tree": "9e17a9386957c0c4c743b4e4d24e21aef7082423",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      " M Content/Maps/BiellaOpenWorldMap.umap",
+      " M tests/qualify_d17_01.py",
+      "?? Build/AAA/D17-01/environment/hall-assets-01/",
+      "?? Build/AAA/D17-01/environment/hall-assets-02/",
+      "?? Build/AAA/D17-01/environment/hall-assets-03/",
+      "?? Build/AAA/D17-01/environment/hall-editor-01/",
+      "?? Build/AAA/D17-01/environment/hall-geometry-01/",
+      "?? Build/AAA/D17-01/environment/hall-geometry-02/",
+      "?? Build/AAA/D17-01/environment/runtime-13/",
+      "?? Build/AAA/D17-01/raw/hall-1080-01/",
+      "?? Build/AAA/D17-01/raw/hall-720-01/",
+      "?? Content/Environment/ServiceHall/",
+      "?? Content/Python/author_service_hall.py",
+      "?? Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/SV/",
+      "?? SourceAssets/Environment/SM_ServiceHallCladding.fbx",
+      "?? SourceAssets/Environment/ServiceHall.blend",
+      "?? SourceAssets/Environment/build_service_hall.py",
+      "?? SourceAssets/Environment/service-hall.json",
+      "?? SourceAssets/Environment/verify_service_hall.py",
+      "?? docs/production-support/",
+      "?? tests/author_d17_01_hall.py"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T19:03:40.960066+00:00"
+}

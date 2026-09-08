@@ -1,0 +1,52 @@
+{
+  "schema": "biella.service_hall.art/v1",
+  "task_id": "D17-01",
+  "status": "GENERATED_DRAFT",
+  "provenance": "Biella-authored geometry, no third-party asset inputs",
+  "map": "/Game/Maps/BiellaOpenWorldMap",
+  "actor_label": "D17_ServiceHall_Cladding",
+  "origin_cm": [
+    8000.0,
+    2250.0,
+    0.0
+  ],
+  "collision": "NoCollision",
+  "existing_collision_preserved": true,
+  "entrance_clear_bounds_cm": [
+    [
+      7800,
+      1475,
+      0
+    ],
+    [
+      8200,
+      1525,
+      600
+    ]
+  ],
+  "source": "build_service_hall.py",
+  "source_sha256": "6d66c172f2efb6a894139bff1f7f2531fe88b0ff45aff7bd2bf25f108dc51340",
+  "blender": "5.0.1",
+  "editable_parts": 976,
+  "mesh": "SM_ServiceHallCladding",
+  "fbx": "SM_ServiceHallCladding.fbx",
+  "sha256": "956545068d7f59dcbd67d244bd23b31a97f39b68e25c853a498cba7f85bb7b4e",
+  "triangles": 198464,
+  "bounds_min": [
+    -1090.79638671875,
+    -784.0,
+    0.5
+  ],
+  "bounds_max": [
+    1059.0,
+    808.39990234375,
+    700.0
+  ],
+  "export_y_reflected": true,
+  "outward_volume_preserved": true,
+  "material_slots": [
+    "Paint",
+    "Steel",
+    "Rubber"
+  ]
+}

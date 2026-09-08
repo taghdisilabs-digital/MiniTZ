@@ -1,0 +1,50 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "parts_read_back": 976,
+  "actual_blender_magic": true,
+  "blender_compression": "zstd",
+  "actual_binary_fbx_magic": true,
+  "entrance_volume_clear_cm": [
+    [
+      7800.1,
+      1400,
+      0
+    ],
+    [
+      8199.9,
+      1600,
+      599.9
+    ]
+  ],
+  "evaluated_modifiers": true,
+  "generated_draft": true,
+  "scope": "Editable mesh structural readback; runtime required",
+  "sources": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/ServiceHall.blend",
+      "sha256": "6526c284e5be9ed1f8736f314b378c62fba42329217204cbcf539e579f957ea4",
+      "bytes": 504785
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/SM_ServiceHallCladding.fbx",
+      "sha256": "956545068d7f59dcbd67d244bd23b31a97f39b68e25c853a498cba7f85bb7b4e",
+      "bytes": 2611148
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/build_service_hall.py",
+      "sha256": "6d66c172f2efb6a894139bff1f7f2531fe88b0ff45aff7bd2bf25f108dc51340",
+      "bytes": 8209
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/service-hall.json",
+      "sha256": "91cbe90cbf10be2b91310847b1efb315158586b487ac6a61ea135738acc35330",
+      "bytes": 1124
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/verify_service_hall.py",
+      "sha256": "3b7d7ae3cb5ef9b82dfd1bfda341c555b66c1732b0c0485ca75cef44ea6fd5c2",
+      "bytes": 2271
+    }
+  ]
+}

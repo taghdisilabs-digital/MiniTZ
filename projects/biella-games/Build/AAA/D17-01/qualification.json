@@ -7,100 +7,108 @@
       "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
     },
     "observation": {
-      "active_simulation_seconds": 19.315267299243715,
+      "active_simulation_seconds": 14.818727861100342,
       "audio_captured": false,
-      "capture_input_wall_seconds": 22.11754430597648,
-      "capture_video_seconds": 24.1,
-      "decoded_frames": 720,
-      "directory": "Build/AAA/D17-01/raw/storm-720-01",
+      "capture_input_wall_seconds": 17.640204293071292,
+      "capture_video_seconds": 19.6,
+      "decoded_frames": 588,
+      "directory": "Build/AAA/D17-01/raw/hall-720-01",
       "electrical_floor_damage": [],
       "environment_panel_events": [],
       "environment_power_transitions": 0,
       "events": {
-        "damage": 58,
-        "defeat": 12,
+        "damage": 51,
+        "defeat": 9,
         "objective_activated": 1,
-        "objective_progress": 14,
-        "objective_success": 1,
+        "objective_progress": 12,
         "phase": 2,
         "telemetry_ready": 1,
         "telemetry_shutdown": 1,
-        "weapon_fire": 3
+        "weapon_fire": 1
       },
-      "input_actions": 24,
+      "input_actions": 17,
       "namespace_file_verification": true,
       "natural_pressure_observed": false,
-      "player_defeats": [],
+      "player_defeats": [
+        {
+          "reason": "infected_melee",
+          "target": "BiellaStreamingCharacter:1"
+        }
+      ],
       "raw_video": {
-        "bytes": 4202620,
-        "path": "Build/AAA/D17-01/raw/storm-720-01/raw-gameplay.mkv",
-        "sha256": "f320c7d826d4c7e45f55519acb0a1bc9832e8f212975883c82b0cf0e5b160c53"
+        "bytes": 1721410,
+        "path": "Build/AAA/D17-01/raw/hall-720-01/raw-gameplay.mkv",
+        "sha256": "e4944754d0098a0018210afb385f42f2c9d9c56e763206b49a2a00c03ee93bc9"
       },
       "resolution": [
         1280,
         720
       ],
       "restart_count": 0,
-      "run": "storm-720-01",
-      "session": "01A0823F-EDC7-72BE-990D-8CE0C3BD5882",
-      "terminal": "Success",
+      "run": "hall-720-01",
+      "session": "01A08266-AC9E-7AB4-AE86-72EFBA5F7B15",
+      "terminal": "Failure",
       "uninterrupted_duration_satisfied": false
     },
     "scope": "Ordinary input on the current package; switching, panel physics and electrical-floor outcomes are extracted from native logs/telemetry above"
   },
   "current_raw_runs": [
     {
-      "active_simulation_seconds": 19.315267299243715,
+      "active_simulation_seconds": 14.818727861100342,
       "audio_captured": false,
-      "capture_input_wall_seconds": 22.11754430597648,
-      "capture_video_seconds": 24.1,
-      "decoded_frames": 720,
-      "directory": "Build/AAA/D17-01/raw/storm-720-01",
+      "capture_input_wall_seconds": 17.640204293071292,
+      "capture_video_seconds": 19.6,
+      "decoded_frames": 588,
+      "directory": "Build/AAA/D17-01/raw/hall-720-01",
       "electrical_floor_damage": [],
       "environment_panel_events": [],
       "environment_power_transitions": 0,
       "events": {
-        "damage": 58,
-        "defeat": 12,
+        "damage": 51,
+        "defeat": 9,
         "objective_activated": 1,
-        "objective_progress": 14,
-        "objective_success": 1,
+        "objective_progress": 12,
         "phase": 2,
         "telemetry_ready": 1,
         "telemetry_shutdown": 1,
-        "weapon_fire": 3
+        "weapon_fire": 1
       },
-      "input_actions": 24,
+      "input_actions": 17,
       "namespace_file_verification": true,
       "natural_pressure_observed": false,
-      "player_defeats": [],
+      "player_defeats": [
+        {
+          "reason": "infected_melee",
+          "target": "BiellaStreamingCharacter:1"
+        }
+      ],
       "raw_video": {
-        "bytes": 4202620,
-        "path": "Build/AAA/D17-01/raw/storm-720-01/raw-gameplay.mkv",
-        "sha256": "f320c7d826d4c7e45f55519acb0a1bc9832e8f212975883c82b0cf0e5b160c53"
+        "bytes": 1721410,
+        "path": "Build/AAA/D17-01/raw/hall-720-01/raw-gameplay.mkv",
+        "sha256": "e4944754d0098a0018210afb385f42f2c9d9c56e763206b49a2a00c03ee93bc9"
       },
       "resolution": [
         1280,
         720
       ],
       "restart_count": 0,
-      "run": "storm-720-01",
-      "session": "01A0823F-EDC7-72BE-990D-8CE0C3BD5882",
-      "terminal": "Success",
+      "run": "hall-720-01",
+      "session": "01A08266-AC9E-7AB4-AE86-72EFBA5F7B15",
+      "terminal": "Failure",
       "uninterrupted_duration_satisfied": false
     },
     {
-      "active_simulation_seconds": 8.905501947680023,
+      "active_simulation_seconds": 8.720026037597563,
       "audio_captured": false,
-      "capture_input_wall_seconds": 11.978753531933762,
-      "capture_video_seconds": 13.933,
-      "decoded_frames": 414,
-      "directory": "Build/AAA/D17-01/raw/storm-1080-01",
+      "capture_input_wall_seconds": 11.883201761986129,
+      "capture_video_seconds": 13.866,
+      "decoded_frames": 405,
+      "directory": "Build/AAA/D17-01/raw/hall-1080-01",
       "electrical_floor_damage": [],
       "environment_panel_events": [],
       "environment_power_transitions": 0,
       "events": {
-        "damage": 11,
+        "damage": 18,
         "defeat": 2,
         "objective_activated": 1,
         "objective_progress": 2,
@@ -114,26 +122,26 @@
       "natural_pressure_observed": false,
       "player_defeats": [],
       "raw_video": {
-        "bytes": 3690278,
-        "path": "Build/AAA/D17-01/raw/storm-1080-01/raw-gameplay.mkv",
-        "sha256": "97a155ed4b8b0270c3f75ee83d4aa5036ca00b443718473f1d954ceac2f797ad"
+        "bytes": 1392266,
+        "path": "Build/AAA/D17-01/raw/hall-1080-01/raw-gameplay.mkv",
+        "sha256": "bbf7d11ec66ed00238b6a3b81aa4a5d7edbbdedaad96afeb0c6411f44e99c66c"
       },
       "resolution": [
         1920,
         1080
       ],
       "restart_count": 0,
-      "run": "storm-1080-01",
-      "session": "01A08240-D156-7B0E-8DA3-F513FA3993FB",
+      "run": "hall-1080-01",
+      "session": "01A08267-A142-7D3A-B5C2-985B1056683B",
       "terminal": "Success",
       "uninterrupted_duration_satisfied": false
     }
   ],
   "evidence_files": [
     {
-      "bytes": 4154,
+      "bytes": 3479,
       "path": "Build/AAA/D17-01/README.md",
-      "sha256": "1ac4929840d1df38c2c4309a4c48eff4bcf6f596b52606df1980ddf0e3aae96c"
+      "sha256": "fb16072d4905a15302efd29657f6d17f4c9853d858391b492f6f5c6dbc67a63b"
     },
     {
       "bytes": 587,
@@ -366,6 +374,26 @@
       "sha256": "61fd4067fb22070bd9ec18209ac3cb5d041fa497ff5b575a92817280108dfb3d"
     },
     {
+      "bytes": 587,
+      "path": "Build/AAA/D17-01/build/cook-14/command.json",
+      "sha256": "1838587429864aba7ac9508a7bb451c9d0e8dbdd8f8d214cb2c55cfa66121e1c"
+    },
+    {
+      "bytes": 269473,
+      "path": "Build/AAA/D17-01/build/cook-14/cook.engine.log",
+      "sha256": "ed1440d6cae2bd50b9530ed780a9f59a1495beb27ab8e0825711c8d8d4441519"
+    },
+    {
+      "bytes": 269939,
+      "path": "Build/AAA/D17-01/build/cook-14/cook.stdout.log",
+      "sha256": "8c3d09c6a12a9bfcbd77f2c6274cd6153d294881bb0cb08cbd328030c78f466c"
+    },
+    {
+      "bytes": 19758897,
+      "path": "Build/AAA/D17-01/build/cook-14/validation.json",
+      "sha256": "2a18868b5b1c9c8ab09e63d52fc3754bc140004471d501be7914d810ba76a8b9"
+    },
+    {
       "bytes": 2409,
       "path": "Build/AAA/D17-01/build/cook-config-recovery-02.json",
       "sha256": "6c454fa84247b07f4867272adc6decdefd361cca0c60a58dba20c959a332240a"
@@ -414,6 +442,11 @@
       "bytes": 2409,
       "path": "Build/AAA/D17-01/build/cook-config-recovery-11.json",
       "sha256": "300cc13adfaf6240b10e3aec5e94f15ef96e7bb29ed4a95e9d8d6f548fffc12e"
+    },
+    {
+      "bytes": 2409,
+      "path": "Build/AAA/D17-01/build/cook-config-recovery-12.json",
+      "sha256": "329ebef0de9fa1e6aaf7d4770775123701e8c5d4de55fdf367ff575450af590a"
     },
     {
       "bytes": 2463,
@@ -776,6 +809,21 @@
       "sha256": "620d7f868274513a210c43e67b262d80f6e14c868a0e3c28510e04b56fe169d9"
     },
     {
+      "bytes": 8669,
+      "path": "Build/AAA/D17-01/build/package-13/package-manifest.json",
+      "sha256": "eed116fe6c6c0fcb9a567074520a799c30944868ef67643567c94479bc16a014"
+    },
+    {
+      "bytes": 77750,
+      "path": "Build/AAA/D17-01/build/package-13/source-build.json",
+      "sha256": "66ca17b5beb17c7f76c94745872a76555b628e86312ba2b1f1885d4525d7d61e"
+    },
+    {
+      "bytes": 1652,
+      "path": "Build/AAA/D17-01/build/package-13/validation.json",
+      "sha256": "7ee4c6d96aadfb543ad72860d802b817961cc7ca83f001c40677519a4333e014"
+    },
+    {
       "bytes": 1628,
       "path": "Build/AAA/D17-01/build/stage-02/validation.json",
       "sha256": "6745bf17b475473cd43198f465395eaf938cf7d946aec95d8cf5a0ec706cad5b"
@@ -969,6 +1017,21 @@
       "bytes": 21013,
       "path": "Build/AAA/D17-01/build/stage-15/validation.json",
       "sha256": "daefc5bf5cd07e8c812907d8e2fb3176803e12f39ef1032332326c53799af674"
+    },
+    {
+      "bytes": 912,
+      "path": "Build/AAA/D17-01/build/stage-16/command.json",
+      "sha256": "5faeb7a204ae012347d053aadc15d44e9659a09a5d7fd6dea2e3cc7b39eeeb73"
+    },
+    {
+      "bytes": 75574,
+      "path": "Build/AAA/D17-01/build/stage-16/stage.log",
+      "sha256": "f9a073d155b3b96f222a8f5a18e466bd8d31f9aab597a4f2da10160e18f3f356"
+    },
+    {
+      "bytes": 21134,
+      "path": "Build/AAA/D17-01/build/stage-16/validation.json",
+      "sha256": "c2f05c386bf133cfbd8443ed992872b1bfcba02483f824bf56e0bf960edddbb3"
     },
     {
       "bytes": 1186,
@@ -1854,6 +1917,186 @@
       "bytes": 1439,
       "path": "Build/AAA/D17-01/environment/ground-mechanics-preservation.json",
       "sha256": "790169151b2e904df9db25691094956e176ca66470cb2b4e2b6c7c6929efac6a"
+    },
+    {
+      "bytes": 601,
+      "path": "Build/AAA/D17-01/environment/hall-assets-01/author-command.json",
+      "sha256": "9f28d8deecd8370069b33ead770d23af6635f6e20f805072c455c49b38c0a3e3"
+    },
+    {
+      "bytes": 220903,
+      "path": "Build/AAA/D17-01/environment/hall-assets-01/author.log",
+      "sha256": "77b32e1b34e8f78f622c0b3761da5e0f956d27c1b01395cf9fab81202142a167"
+    },
+    {
+      "bytes": 124089,
+      "path": "Build/AAA/D17-01/environment/hall-assets-01/validation.json",
+      "sha256": "981554ae865e28884ca321cd12efd33fdcd30fe57337df965262739f8c593eb6"
+    },
+    {
+      "bytes": 601,
+      "path": "Build/AAA/D17-01/environment/hall-assets-02/author-command.json",
+      "sha256": "c995b33add18e332d348060a5bf09a1cd7f924346558e160a6b1e7c596dccdee"
+    },
+    {
+      "bytes": 226101,
+      "path": "Build/AAA/D17-01/environment/hall-assets-02/author.log",
+      "sha256": "24dbe8a002f1eab8b103312e94ef467f6071ba02444ba79022e176e519ef7f20"
+    },
+    {
+      "bytes": 124408,
+      "path": "Build/AAA/D17-01/environment/hall-assets-02/validation.json",
+      "sha256": "cae4b10fd195b2846580e65ee3d08a323213f450bb5cc4ecb5aa28d8e34024aa"
+    },
+    {
+      "bytes": 601,
+      "path": "Build/AAA/D17-01/environment/hall-assets-03/author-command.json",
+      "sha256": "39906cd97477bffb549fc273a1031d76e7b0c025692152ae0b914e8255a3e256"
+    },
+    {
+      "bytes": 3026,
+      "path": "Build/AAA/D17-01/environment/hall-assets-03/author.json",
+      "sha256": "d633a6e554fc71ff689a450622ae0d2c45ef4a14b971b9cbc699400fef58b1ed"
+    },
+    {
+      "bytes": 221284,
+      "path": "Build/AAA/D17-01/environment/hall-assets-03/author.log",
+      "sha256": "d292828134722eba3ae95db77afedfff7b3aa6fab2d2df4cd25d862c147bf917"
+    },
+    {
+      "bytes": 623,
+      "path": "Build/AAA/D17-01/environment/hall-assets-03/readback-command.json",
+      "sha256": "194037a55f1276198f487e79a1ab55977bbedb271e1395c779a1341c85ecd945"
+    },
+    {
+      "bytes": 3025,
+      "path": "Build/AAA/D17-01/environment/hall-assets-03/readback.json",
+      "sha256": "283e974ac86c00867821530d75056df785b934717c74cd1fbb1ecd4b8f32b98c"
+    },
+    {
+      "bytes": 218176,
+      "path": "Build/AAA/D17-01/environment/hall-assets-03/readback.log",
+      "sha256": "5fc0e40f3f7cd8d33bde6336c6cbb0d912f4e7eee6d1893e0c1fea32de17a4be"
+    },
+    {
+      "bytes": 127249,
+      "path": "Build/AAA/D17-01/environment/hall-assets-03/validation.json",
+      "sha256": "2c9d29439a0d89f26084c175c2445baf9d9addac1ac208f926055777b7ef5830"
+    },
+    {
+      "bytes": 10666,
+      "path": "Build/AAA/D17-01/environment/hall-cladding-validation.json",
+      "sha256": "e6a30388bf865aaa7fb05c546346d685820c396c8e5d025483177921f4c3995a"
+    },
+    {
+      "bytes": 1087746,
+      "path": "Build/AAA/D17-01/environment/hall-editor-01/captures/hazard_active.png",
+      "sha256": "567e89470c0ebfe9d34dcd78846cea16a2c864a1df98a997d31ebf1b645a81f1"
+    },
+    {
+      "bytes": 1045879,
+      "path": "Build/AAA/D17-01/environment/hall-editor-01/captures/panel_damaged.png",
+      "sha256": "128cf1d8e62d7ae12fc47cfcaf437da87e32c12c1fb62cb6e868d22214fe9c7b"
+    },
+    {
+      "bytes": 1054881,
+      "path": "Build/AAA/D17-01/environment/hall-editor-01/captures/panel_destroyed.png",
+      "sha256": "07db04289748043e6a329f5e1fa297522be4cf945c0a3b34bddef6490a174831"
+    },
+    {
+      "bytes": 1049640,
+      "path": "Build/AAA/D17-01/environment/hall-editor-01/captures/stream_return.png",
+      "sha256": "0410b87e8786b653d0ae47ba42f2c5373b1e613374e6a28a4f0750f978717560"
+    },
+    {
+      "bytes": 1046376,
+      "path": "Build/AAA/D17-01/environment/hall-editor-01/captures/switch_safe.png",
+      "sha256": "2feffaf8fc454cc09400d498738bf079c7e2d9d41c2c73553976e30ff7ab020a"
+    },
+    {
+      "bytes": 1703,
+      "path": "Build/AAA/D17-01/environment/hall-editor-01/events.log",
+      "sha256": "fe03e973f671c96d56a781b4063ac7e1946e44e41c0019b5f474d1beaf30c186"
+    },
+    {
+      "bytes": 161776,
+      "path": "Build/AAA/D17-01/environment/hall-editor-01/frames.csv",
+      "sha256": "4bd8460df3a20fcec63b1f417a89160698864554a8a6f03f9b2f02fad2ed0f6c"
+    },
+    {
+      "bytes": 11554,
+      "path": "Build/AAA/D17-01/environment/hall-editor-01/process-memory.jsonl",
+      "sha256": "f687414f85a91d3f377e4f3d2a2fe3490dcd928d06148113b0cb0778e3365452"
+    },
+    {
+      "bytes": 84,
+      "path": "Build/AAA/D17-01/environment/hall-editor-01/result.json",
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "bytes": 510316,
+      "path": "Build/AAA/D17-01/environment/hall-editor-01/runtime.engine.log",
+      "sha256": "561438a046c06b4a2353bb8a68665cc82311bcf22765e833ef992469d36813db"
+    },
+    {
+      "bytes": 509201,
+      "path": "Build/AAA/D17-01/environment/hall-editor-01/runtime.stdout.log",
+      "sha256": "4a4e0bcd25d1126859500f2356cc116a1581502a1ee038c9d193432aab33d943"
+    },
+    {
+      "bytes": 204287,
+      "path": "Build/AAA/D17-01/environment/hall-editor-01/validation.json",
+      "sha256": "7171510a26e522a21a8c066b46571b62f587511d4063dcb98ba0ca86d13d0715"
+    },
+    {
+      "bytes": 2013,
+      "path": "Build/AAA/D17-01/environment/hall-frame-review.json",
+      "sha256": "43ed40d78277f31a4b6461ad4320b4226719067967dc8d88808b5fca77c329d0"
+    },
+    {
+      "bytes": 1528,
+      "path": "Build/AAA/D17-01/environment/hall-geometry-01/blender.log",
+      "sha256": "a6f93a73d317cb90a7c6b1c939e2f35b2d7b703b204c6ffefcde82b151386eef"
+    },
+    {
+      "bytes": 926,
+      "path": "Build/AAA/D17-01/environment/hall-geometry-01/generation.json",
+      "sha256": "29faab7e7502702767b946efcb6fe9ca0aaabbef3d805623952d5ec8d97ef087"
+    },
+    {
+      "bytes": 1518,
+      "path": "Build/AAA/D17-01/environment/hall-geometry-02/blender.log",
+      "sha256": "842f9580967e707020e5320a6edc28910daf9901f5ddf7ccf5ccdaa86f18534d"
+    },
+    {
+      "bytes": 495,
+      "path": "Build/AAA/D17-01/environment/hall-geometry-02/readback-02.log",
+      "sha256": "04085c022499de19b4d1e418d59965abc174b9cff9d7a5f68dda5ef18e5bfd3c"
+    },
+    {
+      "bytes": 430,
+      "path": "Build/AAA/D17-01/environment/hall-geometry-02/readback-03.json",
+      "sha256": "8bc9648c9ddca3b1121ef074e7823c8904ed80b02c894d34efbecd426e425e29"
+    },
+    {
+      "bytes": 243,
+      "path": "Build/AAA/D17-01/environment/hall-geometry-02/readback-03.log",
+      "sha256": "a2108bd493438c4a89538c59b82d0b6ea7f91507c8f6585a98d8840df2e8fdfb"
+    },
+    {
+      "bytes": 1632,
+      "path": "Build/AAA/D17-01/environment/hall-geometry-02/readback-04.json",
+      "sha256": "33e9909013a296b876e59828bac5b637ba1e7c74c3295ffe5b0aa0081e090723"
+    },
+    {
+      "bytes": 243,
+      "path": "Build/AAA/D17-01/environment/hall-geometry-02/readback-04.log",
+      "sha256": "8b96a8b5c0db1a4d9057e5bedd7b0d5cbd43cc06578aa60b5204a982a83a9609"
+    },
+    {
+      "bytes": 391,
+      "path": "Build/AAA/D17-01/environment/hall-geometry-02/readback.log",
+      "sha256": "bb4f10666890c0380dacb4538c6206cddbbb03a8d410732aa67316dab62478f1"
     },
     {
       "bytes": 169,
@@ -2896,9 +3139,79 @@
       "sha256": "c1cd5d54833578b790828be76a1e9173c88b1ef208153e6c5e3bebaaa7224838"
     },
     {
-      "bytes": 49026,
+      "bytes": 1082400,
+      "path": "Build/AAA/D17-01/environment/runtime-13/captures/hazard_active.png",
+      "sha256": "01391e4ff1824ffc28ac19345e474454b329b07a5a2e8ca4aaeccf5dc4cbda80"
+    },
+    {
+      "bytes": 1046233,
+      "path": "Build/AAA/D17-01/environment/runtime-13/captures/panel_damaged.png",
+      "sha256": "f5570eabbb4f365b4018a40e4b1fb1dca42f7b74d7939f99ea922d28cbee4202"
+    },
+    {
+      "bytes": 1053993,
+      "path": "Build/AAA/D17-01/environment/runtime-13/captures/panel_destroyed.png",
+      "sha256": "fb04b3174f3ac62f3652d32a78fad844990c829ffead27e855b2f767eaaab0a0"
+    },
+    {
+      "bytes": 1047263,
+      "path": "Build/AAA/D17-01/environment/runtime-13/captures/stream_return.png",
+      "sha256": "f3d99b068be841357abddd58660e31aa4c4e75d344110cbf5caffafe36c231da"
+    },
+    {
+      "bytes": 1041559,
+      "path": "Build/AAA/D17-01/environment/runtime-13/captures/switch_safe.png",
+      "sha256": "673b2b6f8fc7f39c6a4bd60e8aa2b8eb7d8ad343650f96041849476e77c49070"
+    },
+    {
+      "bytes": 1633,
+      "path": "Build/AAA/D17-01/environment/runtime-13/command.json",
+      "sha256": "39e785bf9568d65381584176c4c7fee427a50740e68a5fcf5dd6680e6fe94161"
+    },
+    {
+      "bytes": 624,
+      "path": "Build/AAA/D17-01/environment/runtime-13/d17-scope.json",
+      "sha256": "65f8e55a6ac61708f538189e10f7acea2608160e4add03748b8357ce23325853"
+    },
+    {
+      "bytes": 1703,
+      "path": "Build/AAA/D17-01/environment/runtime-13/events.log",
+      "sha256": "e18217cb867b8cb984647e30cc907d79b02571511a95898129af8f68c8132d3c"
+    },
+    {
+      "bytes": 158712,
+      "path": "Build/AAA/D17-01/environment/runtime-13/frames.csv",
+      "sha256": "f0533130ef5ba35a604e6911cced9d76c6114d6f2b5efd2b4f1257fef0f9f0e8"
+    },
+    {
+      "bytes": 87983,
+      "path": "Build/AAA/D17-01/environment/runtime-13/resources.jsonl",
+      "sha256": "e1f8ff094f75e8b9e4a9528cb09cd3152b140ab10725916699a8e6a68ec061fa"
+    },
+    {
+      "bytes": 84,
+      "path": "Build/AAA/D17-01/environment/runtime-13/result.json",
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "bytes": 327338,
+      "path": "Build/AAA/D17-01/environment/runtime-13/runtime.engine.log",
+      "sha256": "b87dca0e3cdc1eb6ce5cf83a16683a61cf4f92d34ed5f1ff9aba8050aac4c4bf"
+    },
+    {
+      "bytes": 324886,
+      "path": "Build/AAA/D17-01/environment/runtime-13/runtime.stdout.log",
+      "sha256": "9579bd3fa43c8084d921acbc4b55f3097cb78a1e09a5f739444340aecb661a30"
+    },
+    {
+      "bytes": 18766,
+      "path": "Build/AAA/D17-01/environment/runtime-13/validation.json",
+      "sha256": "2c127d4b00e105b57fda7c660764da9b237803d1f0b8fb22f4a2adfe282c1930"
+    },
+    {
+      "bytes": 54172,
       "path": "Build/AAA/D17-01/environment/scope-findings.json",
-      "sha256": "d2a3aa38b7438352f150dc35e809ceabe3729bed558ad1855ee1b9f7ac75fb74"
+      "sha256": "1256266f49ea224c5ee2af7b85cbaa1acaaa62b0e728e1097911aa0da2d0d1aa"
     },
     {
       "bytes": 605,
@@ -3879,6 +4192,246 @@
       "bytes": 2365,
       "path": "Build/AAA/D17-01/raw/growth-hazard-720-01/video.json",
       "sha256": "ababb447079e4e24b7f476978115c745d493f9d4b6e5108571eaea5108db8489"
+    },
+    {
+      "bytes": 300,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/capture-command.json",
+      "sha256": "3bf9938bdee4db34e0d0f2aaf3028fc22c2fe71c7468b892864d1abcd717292e"
+    },
+    {
+      "bytes": 104,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/capture.log",
+      "sha256": "578fda0f24f3178991d23ced9fb462a3fd1bab55fa0950e18e69b69e08169524"
+    },
+    {
+      "bytes": 1675,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/command.json",
+      "sha256": "a7121f9492db955f933bac75e508554d768cbd4741b755156ff9a4753e1609f4"
+    },
+    {
+      "bytes": 321,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/execution.json",
+      "sha256": "a4c43cbeef2f3228957d5f651801226b412398cf72f473744ef8154148e234f4"
+    },
+    {
+      "bytes": 218,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/exposed-package-verification.json",
+      "sha256": "52a314ba9011399a4361ad260eb2deea1cc1a5c816d6409f53941f48ece4f181"
+    },
+    {
+      "bytes": 28880,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/frame-04.png",
+      "sha256": "f7ceb03879d23922a05d7963503a1a700d22cddb52143c53d471da9e87d33257"
+    },
+    {
+      "bytes": 552573,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/frame-07.png",
+      "sha256": "6a7600caac4c62ac17b823e296def30af881a0643b57f543c90da58ba40d1c3a"
+    },
+    {
+      "bytes": 559842,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/frame-10.png",
+      "sha256": "db9a2e50836a9b6716857dae15610591463f7539eff01dab39d0c9e3a2f89c4c"
+    },
+    {
+      "bytes": 2193,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/frame-extraction.json",
+      "sha256": "721e107655a1b8b067dfce18fbc2f45a0e6f8c38fd7c8de585a09c855752ddb7"
+    },
+    {
+      "bytes": 426,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/game-command.json",
+      "sha256": "b5d9bcfe0298fb49f02d622ed8cd9fdc826d17a19cc55242ad163f82313fc9ea"
+    },
+    {
+      "bytes": 2397,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/host.json",
+      "sha256": "faeaebec1a7f25c6bda8123fa60400f0bc403481a6f7265af23e87afe4ca3671"
+    },
+    {
+      "bytes": 385,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/input-result.json",
+      "sha256": "1ea95e8493c2d884071c4e4e2c911e0424601189426f856b79c25f8fb00fc678"
+    },
+    {
+      "bytes": 1633,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/input.jsonl",
+      "sha256": "c1218807285986d68020d989ffa5b6269e09087b58c25d9061f5a34c7bc71571"
+    },
+    {
+      "bytes": 608,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/inputs.json",
+      "sha256": "e4ca32f54fe3f078cfe11a2a21e740201a06e44a201a20f29ad198111ff85e4a"
+    },
+    {
+      "bytes": 913,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/observation.json",
+      "sha256": "25c2be9e56a22014f4d02b9460b78f61aa04d4add3e25df28fb08702417c4bb0"
+    },
+    {
+      "bytes": 2475,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/package-verification.json",
+      "sha256": "1d6797d3889bedf7c9e27f43fe3afceb7bf833e21860d9751a6e4db46d9fab3a"
+    },
+    {
+      "bytes": 1392266,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/raw-gameplay.mkv",
+      "sha256": "bbf7d11ec66ed00238b6a3b81aa4a5d7edbbdedaad96afeb0c6411f44e99c66c"
+    },
+    {
+      "bytes": 7658,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/resolved-package.json",
+      "sha256": "c065850790fe5ccc07889b47ada6408e83df0c1032fc588b1b0d13379e5a62aa"
+    },
+    {
+      "bytes": 56542,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/resources.jsonl",
+      "sha256": "8e5eee72d7c4a7a52452e7a9f725e4b81877dafa62b5c336747ea1ca2204fd87"
+    },
+    {
+      "bytes": 187194,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/runtime.engine.log",
+      "sha256": "977176552d74b94b46e7698f2c4e02569af655d57bf33b0c453e0460580ca250"
+    },
+    {
+      "bytes": 185598,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/runtime.stdout.log",
+      "sha256": "a1324338f414a897bff62dcfd9270ca65915c0a8fc84adbe026775854ec26db2"
+    },
+    {
+      "bytes": 9354,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/telemetry.jsonl",
+      "sha256": "8b4e811e5ded6feaf66d28c9f91d6abc4a230fcd0ef75cafb74a12b9f70409d1"
+    },
+    {
+      "bytes": 2347,
+      "path": "Build/AAA/D17-01/raw/hall-1080-01/video.json",
+      "sha256": "f4785810ac74144a6de14e4355b1323144bbad0ba68db25a41b0b8de82131de3"
+    },
+    {
+      "bytes": 299,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/capture-command.json",
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "bytes": 104,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/capture.log",
+      "sha256": "4f1dc5037d9ab460bb9048a6bea6d1acfe7bca3c1cfb32dac08b5d941b4c5b47"
+    },
+    {
+      "bytes": 1669,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/command.json",
+      "sha256": "a4d3b93dca2fc21557ab4cfabb20304ad0d09ecf5d37527fb3b2fe2a5765b916"
+    },
+    {
+      "bytes": 321,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/execution.json",
+      "sha256": "335e89882ba3919aca618d60453568fb0dccc67818bed23d423a19698303e106"
+    },
+    {
+      "bytes": 218,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/exposed-package-verification.json",
+      "sha256": "52a314ba9011399a4361ad260eb2deea1cc1a5c816d6409f53941f48ece4f181"
+    },
+    {
+      "bytes": 287811,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/frame-04.png",
+      "sha256": "bb3b63d6e6d4c5d56d21d4b57f3aabf37adf326b1068253680a5b1ba0e5cfe6d"
+    },
+    {
+      "bytes": 296113,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/frame-07.png",
+      "sha256": "d83c90f74d95442941b81a4fda3fa7704b2cba8e50a9d06819fa466b5d32527b"
+    },
+    {
+      "bytes": 292797,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/frame-10.png",
+      "sha256": "24864c33222aaa143ff403424029317b39832c4e1106cd1e161e0bcfa45bf713"
+    },
+    {
+      "bytes": 285740,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/frame-15.png",
+      "sha256": "e926e49cf6ee9e486df5a48764be967d7fa901a59628825f424a6cea0fe42a7f"
+    },
+    {
+      "bytes": 157555,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/frame-19.png",
+      "sha256": "8dc5bf50bc1c4ee7d40928463d54cc41b8ed6edde95bae347bec9c2029d2d111"
+    },
+    {
+      "bytes": 3478,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/frame-extraction.json",
+      "sha256": "45a89d562fa440b044793ee0a8cbc0fa8adbd9ad5e9c20228da29c7f3d621b86"
+    },
+    {
+      "bytes": 425,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/game-command.json",
+      "sha256": "68757b0e5c1ad0d026944a03037d1004a5196b1eaf9496935f65145de1bf40ae"
+    },
+    {
+      "bytes": 2396,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/host.json",
+      "sha256": "6bcda4139b6f0ebc657c3f08e8bf997c5cfdb1abf493b3e12dbf4c6da1a2dfeb"
+    },
+    {
+      "bytes": 386,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/input-result.json",
+      "sha256": "16b87a3a704824bca04bd7167d964cf91c39dbcb38c44779e014147e6dcbb863"
+    },
+    {
+      "bytes": 4017,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/input.jsonl",
+      "sha256": "1ed4f2f2b02c52d961aa8445460abea03d4a638281bcc11bf35dd8601e416715"
+    },
+    {
+      "bytes": 608,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/inputs.json",
+      "sha256": "e4ca32f54fe3f078cfe11a2a21e740201a06e44a201a20f29ad198111ff85e4a"
+    },
+    {
+      "bytes": 909,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/observation.json",
+      "sha256": "76bd79b090c1cae54bb3171b0691186ef9f35f82870498110b3f06401cc0c139"
+    },
+    {
+      "bytes": 2428,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/package-verification.json",
+      "sha256": "7b7b1c09383656a7e004d93405bbfda133c544d33a0b66fabe7f409f2d791106"
+    },
+    {
+      "bytes": 1721410,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/raw-gameplay.mkv",
+      "sha256": "e4944754d0098a0018210afb385f42f2c9d9c56e763206b49a2a00c03ee93bc9"
+    },
+    {
+      "bytes": 7658,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/resolved-package.json",
+      "sha256": "c065850790fe5ccc07889b47ada6408e83df0c1032fc588b1b0d13379e5a62aa"
+    },
+    {
+      "bytes": 58557,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/resources.jsonl",
+      "sha256": "a22c6178bb08975ca276b83ea744864b736034106e376bd086ef29d252fd62aa"
+    },
+    {
+      "bytes": 267471,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/runtime.engine.log",
+      "sha256": "9455378fa2bbff71408e0838b2752c5869b5345b9edc0c3c5d6683d70a98c7a5"
+    },
+    {
+      "bytes": 265392,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/runtime.stdout.log",
+      "sha256": "62639fdb7d3fa42b17bf5c7da414a495db60485f61eb57fe29bec9c7e4c0760d"
+    },
+    {
+      "bytes": 26603,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/telemetry.jsonl",
+      "sha256": "f483efb3c1174a4af464b452e83c4607425c6b610a8ae3c3bdb9298f10e83382"
+    },
+    {
+      "bytes": 2343,
+      "path": "Build/AAA/D17-01/raw/hall-720-01/video.json",
+      "sha256": "4bbb87257de1e54886c020e7c5bb3b597add08c459e9b981afe2c5d88505eb11"
     },
     {
       "bytes": 300,
@@ -6646,9 +7199,9 @@
       "sha256": "6e2e8f5f5a6aca6d8e64882af83105744e4ec4e60405b2f602ffbc9f54a7368a"
     },
     {
-      "bytes": 30323,
+      "bytes": 33764,
       "path": "Build/AAA/D17-01/scenario.json",
-      "sha256": "139386e8eeff01c85ec53c92112b069c017271b924c6564b188e2981a09f37a9"
+      "sha256": "73f66590868654ffb058c060b38adcd401d223c67a67b7bf7c434361e28f6822"
     },
     {
       "bytes": 4167,
@@ -6671,9 +7224,9 @@
       "sha256": "b398185f2d3415fff96e6100d01dd0b002043c99b034f9759891b867a90042eb"
     },
     {
-      "bytes": 9451,
+      "bytes": 10366,
       "path": "Build/AAA/D17-01/visual-assessment.json",
-      "sha256": "1f7124631840179d14b32621698a6630fa362b838092bc5a3761b8f6bb88619d"
+      "sha256": "9bd4e1a32296ba7fe944b35778327bb1beab2192b0f89240f4c500d5663c5255"
     }
   ],
   "evidence_integrity": "VERIFIED",
@@ -6762,13 +7315,16 @@
       "Content/Environment/ServiceBay/SM_ServiceGround.uasset",
       "Content/Environment/ServiceBay/SM_ServicePanel120.uasset",
       "Content/Environment/ServiceBay/SM_ServicePanel240.uasset",
+      "Content/Environment/ServiceHall/SM_ServiceHallCladding.uasset",
       "Content/Maps/BiellaOpenWorldMap.umap",
       "Content/Python/author_service_bay.py",
+      "Content/Python/author_service_hall.py",
       "Content/Python/author_service_panel.py",
       "Content/Python/author_service_switch.py",
       "Content/Python/author_storm_lighting.py",
       "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/54/K1Z9VDR6A3UM9NRJ2SZ6CI.uasset",
       "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/Z3/IWZJG407GI7ATKMCJ0ORFZ.uasset",
+      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/SV/53Z03SIVN8RL07L77T5Z6P.uasset",
       "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/5/G9/15YJDXZ9FKHCBOIFFZ4GWS.uasset",
       "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/4X/OAGDK0V5RO71D75MQR71A5.uasset",
       "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
@@ -6787,6 +7343,11 @@
         "sha256": "fbb57032e19907ca4f2fcb3ad431cb5196ed1abe880c329e221a651951d3565b"
       },
       {
+        "bytes": 2611148,
+        "path": "SourceAssets/Environment/SM_ServiceHallCladding.fbx",
+        "sha256": "956545068d7f59dcbd67d244bd23b31a97f39b68e25c853a498cba7f85bb7b4e"
+      },
+      {
         "bytes": 68172,
         "path": "SourceAssets/Environment/SM_ServicePanel120.fbx",
         "sha256": "cc58e41946b3c5e52650d62cc4122834dc5a1e583bcede3b1a3265ca1938c1be"
@@ -6802,9 +7363,19 @@
         "sha256": "ae6796b212187b8ca05a70a5596826cdabe2721e1a13cc87c2e74e51bd11ff84"
       },
       {
+        "bytes": 504785,
+        "path": "SourceAssets/Environment/ServiceHall.blend",
+        "sha256": "6526c284e5be9ed1f8736f314b378c62fba42329217204cbcf539e579f957ea4"
+      },
+      {
         "bytes": 15951,
         "path": "SourceAssets/Environment/build_service_bay.py",
         "sha256": "e34dae09560899baffc336d7019c5259cf06bd7c11da968986bf4e226fa1377d"
+      },
+      {
+        "bytes": 8209,
+        "path": "SourceAssets/Environment/build_service_hall.py",
+        "sha256": "6d66c172f2efb6a894139bff1f7f2531fe88b0ff45aff7bd2bf25f108dc51340"
       },
       {
         "bytes": 2730,
@@ -6812,9 +7383,19 @@
         "sha256": "bf0b5d16bd67c52e31f7091d396ef0cba45446d6cffe2fee2d50703b276c4f54"
       },
       {
+        "bytes": 1124,
+        "path": "SourceAssets/Environment/service-hall.json",
+        "sha256": "91cbe90cbf10be2b91310847b1efb315158586b487ac6a61ea135738acc35330"
+      },
+      {
         "bytes": 1200,
         "path": "SourceAssets/Environment/storm-lighting.json",
         "sha256": "ba08894a7b86ce6d311790d5f32bacd7b3aa727e5f9b626affa8f30ff4f66281"
+      },
+      {
+        "bytes": 2271,
+        "path": "SourceAssets/Environment/verify_service_hall.py",
+        "sha256": "3b7d7ae3cb5ef9b82dfd1bfda341c555b66c1732b0c0485ca75cef44ea6fd5c2"
       },
       {
         "bytes": 2129,
@@ -6848,9 +7429,9 @@
       "sha256": "24f8be7db990dd7873380d9c7e513c90c8319187a62e63855db0fd17f6e09fa2"
     },
     "environment_regression": {
-      "bytes": 18763,
-      "path": "Build/AAA/D17-01/environment/runtime-12/validation.json",
-      "sha256": "c1cd5d54833578b790828be76a1e9173c88b1ef208153e6c5e3bebaaa7224838"
+      "bytes": 18766,
+      "path": "Build/AAA/D17-01/environment/runtime-13/validation.json",
+      "sha256": "2c127d4b00e105b57fda7c660764da9b237803d1f0b8fb22f4a2adfe282c1930"
     },
     "floor_edge_material_delta": [
       "Content/Environment/ServiceBay/M_ServiceGround.uasset"
@@ -6873,6 +7454,16 @@
       "path": "Build/AAA/D17-01/environment/mesh-author-05/geometry-readback.json",
       "sha256": "ea52beca7942ac968ea45e599fa4fb10ec1af7efdb817c4a73cd2697824d3699"
     },
+    "hall_asset_readback": {
+      "bytes": 127249,
+      "path": "Build/AAA/D17-01/environment/hall-assets-03/validation.json",
+      "sha256": "2c9d29439a0d89f26084c175c2445baf9d9addac1ac208f926055777b7ef5830"
+    },
+    "hall_cladding_validation": {
+      "bytes": 10666,
+      "path": "Build/AAA/D17-01/environment/hall-cladding-validation.json",
+      "sha256": "e6a30388bf865aaa7fb05c546346d685820c396c8e5d025483177921f4c3995a"
+    },
     "panel_asset_readback": {
       "bytes": 3949,
       "path": "Build/AAA/D17-01/environment/panel-assets-01/validation.json",
@@ -6894,11 +7485,11 @@
       "sha256": "0766f0771b87e1b09604069cf40dfc601d418194f10d2303f954efc9ef807217"
     },
     "source_manifest": {
-      "bytes": 77159,
-      "path": "Build/AAA/D17-01/build/package-12/source-build.json",
-      "sha256": "cdcbf5e0be0aa548d2f32ef5036b0c443ad15e72f03294a14e0bf7f437ac36de"
+      "bytes": 77750,
+      "path": "Build/AAA/D17-01/build/package-13/source-build.json",
+      "sha256": "66ca17b5beb17c7f76c94745872a76555b628e86312ba2b1f1885d4525d7d61e"
     },
-    "source_material_digest": "95913c213241e0cc2669f88d1e215b412b73c32f884bff92fad8871885c8ed03",
+    "source_material_digest": "c30d916225d0683f68c60fc3766a7764a299716f57b3318245030b8437dbb43c",
     "storm_asset_readback": {
       "bytes": 126991,
       "path": "Build/AAA/D17-01/environment/storm-assets-01/validation.json",
@@ -6934,13 +7525,10 @@
       "Content/Python/author_service_bay.py"
     ],
     "visual_delta_from_previous_package": [
-      "Content/Environment/Atmosphere/MI_StormClouds.uasset",
+      "Content/Environment/ServiceHall/SM_ServiceHallCladding.uasset",
       "Content/Maps/BiellaOpenWorldMap.umap",
-      "Content/Python/author_storm_lighting.py",
-      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/54/K1Z9VDR6A3UM9NRJ2SZ6CI.uasset",
-      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/2/Z3/IWZJG407GI7ATKMCJ0ORFZ.uasset",
-      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/5/G9/15YJDXZ9FKHCBOIFFZ4GWS.uasset",
-      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/4X/OAGDK0V5RO71D75MQR71A5.uasset"
+      "Content/Python/author_service_hall.py",
+      "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/SV/53Z03SIVN8RL07L77T5Z6P.uasset"
     ],
     "visual_delta_from_sheath_package": [
       "Content/Environment/ServiceBay/MI_ServiceGrowth.uasset",
@@ -6965,11 +7553,11 @@
     ]
   },
   "index_generator": {
-    "bytes": 55320,
+    "bytes": 60551,
     "path": "tests/qualify_d17_01.py",
-    "sha256": "bd5c1324b9e5d89760975c885577b96cffdb90590ed639929f555169c00d163b"
+    "sha256": "b691a5f1a54f4f5ea9ee80ed5d5f4fb2e77395e17aec3d0465a2f605f762fad3"
   },
-  "observed": "2026-09-08T18:31:01.251552+00:00",
+  "observed": "2026-09-08T19:15:50.831318+00:00",
   "owner_visual_contract": {
     "bytes": 6734,
     "path": "docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
@@ -6978,41 +7566,41 @@
   "package": {
     "configuration": "Development",
     "cook": {
-      "bytes": 19666056,
-      "path": "Build/AAA/D17-01/build/cook-13/validation.json",
-      "sha256": "61fd4067fb22070bd9ec18209ac3cb5d041fa497ff5b575a92817280108dfb3d"
+      "bytes": 19758897,
+      "path": "Build/AAA/D17-01/build/cook-14/validation.json",
+      "sha256": "2a18868b5b1c9c8ab09e63d52fc3754bc140004471d501be7914d810ba76a8b9"
     },
     "exact_resolved_manifests": [
       {
         "bytes": 7658,
-        "path": "Build/AAA/D17-01/raw/storm-720-01/resolved-package.json",
-        "sha256": "c54445aaf294999ff118e782e810a32ee9e82a8f294920ea21ba2897d79c6da7"
+        "path": "Build/AAA/D17-01/raw/hall-720-01/resolved-package.json",
+        "sha256": "c065850790fe5ccc07889b47ada6408e83df0c1032fc588b1b0d13379e5a62aa"
       },
       {
         "bytes": 7658,
-        "path": "Build/AAA/D17-01/raw/storm-1080-01/resolved-package.json",
-        "sha256": "c54445aaf294999ff118e782e810a32ee9e82a8f294920ea21ba2897d79c6da7"
+        "path": "Build/AAA/D17-01/raw/hall-1080-01/resolved-package.json",
+        "sha256": "c065850790fe5ccc07889b47ada6408e83df0c1032fc588b1b0d13379e5a62aa"
       }
     ],
     "format": "ELF64-x86_64",
     "install": {
       "bytes": 1652,
-      "path": "Build/AAA/D17-01/build/package-12/validation.json",
-      "sha256": "620d7f868274513a210c43e67b262d80f6e14c868a0e3c28510e04b56fe169d9"
+      "path": "Build/AAA/D17-01/build/package-13/validation.json",
+      "sha256": "7ee4c6d96aadfb543ad72860d802b817961cc7ca83f001c40677519a4333e014"
     },
     "manifest": {
       "bytes": 8669,
-      "path": "Build/AAA/D17-01/build/package-12/package-manifest.json",
-      "sha256": "f0f5f3584625caadac9716a1f1fd7f4e28d5ffb84ed6802eacfc4f5fa6f09f77"
+      "path": "Build/AAA/D17-01/build/package-13/package-manifest.json",
+      "sha256": "eed116fe6c6c0fcb9a567074520a799c30944868ef67643567c94479bc16a014"
     },
-    "package_id": "7a06321de73c8aece3380095c5ac45f64c4d0905dee3734b2e50dea2805effcb",
-    "payload_files_digest": "1fe17d9bfc2dc696b45e44b770a5f637b4d56717bff03abfa711d3aa827fafbe",
+    "package_id": "b8aba14b51e85545d158088e1bde9da2342c1c807d667ea3cae665be90b68017",
+    "payload_files_digest": "fbc747b027c71e240580d70065732ebf71ad9886f47c17649c80a9355a2c160c",
     "platform": "Linux",
     "renderer": "Vulkan",
     "stage": {
-      "bytes": 21013,
-      "path": "Build/AAA/D17-01/build/stage-15/validation.json",
-      "sha256": "daefc5bf5cd07e8c812907d8e2fb3176803e12f39ef1032332326c53799af674"
+      "bytes": 21134,
+      "path": "Build/AAA/D17-01/build/stage-16/validation.json",
+      "sha256": "c2f05c386bf133cfbd8443ed992872b1bfcba02483f824bf56e0bf960edddbb3"
     }
   },
   "previous_coordinate_candidate": {
@@ -8141,6 +8729,95 @@
     ],
     "source_commit": "fdad60240ebd296e95a593789cc0fb8ed7716124"
   },
+  "previous_storm_candidate": {
+    "package": {
+      "bytes": 8669,
+      "path": "Build/AAA/D17-01/build/package-12/package-manifest.json",
+      "sha256": "f0f5f3584625caadac9716a1f1fd7f4e28d5ffb84ed6802eacfc4f5fa6f09f77"
+    },
+    "raw_runs": [
+      {
+        "active_simulation_seconds": 19.315267299243715,
+        "audio_captured": false,
+        "capture_input_wall_seconds": 22.11754430597648,
+        "capture_video_seconds": 24.1,
+        "decoded_frames": 720,
+        "directory": "Build/AAA/D17-01/raw/storm-720-01",
+        "electrical_floor_damage": [],
+        "environment_panel_events": [],
+        "environment_power_transitions": 0,
+        "events": {
+          "damage": 58,
+          "defeat": 12,
+          "objective_activated": 1,
+          "objective_progress": 14,
+          "objective_success": 1,
+          "phase": 2,
+          "telemetry_ready": 1,
+          "telemetry_shutdown": 1,
+          "weapon_fire": 3
+        },
+        "input_actions": 24,
+        "namespace_file_verification": true,
+        "natural_pressure_observed": false,
+        "player_defeats": [],
+        "raw_video": {
+          "bytes": 4202620,
+          "path": "Build/AAA/D17-01/raw/storm-720-01/raw-gameplay.mkv",
+          "sha256": "f320c7d826d4c7e45f55519acb0a1bc9832e8f212975883c82b0cf0e5b160c53"
+        },
+        "resolution": [
+          1280,
+          720
+        ],
+        "restart_count": 0,
+        "run": "storm-720-01",
+        "session": "01A0823F-EDC7-72BE-990D-8CE0C3BD5882",
+        "terminal": "Success",
+        "uninterrupted_duration_satisfied": false
+      },
+      {
+        "active_simulation_seconds": 8.905501947680023,
+        "audio_captured": false,
+        "capture_input_wall_seconds": 11.978753531933762,
+        "capture_video_seconds": 13.933,
+        "decoded_frames": 414,
+        "directory": "Build/AAA/D17-01/raw/storm-1080-01",
+        "electrical_floor_damage": [],
+        "environment_panel_events": [],
+        "environment_power_transitions": 0,
+        "events": {
+          "damage": 11,
+          "defeat": 2,
+          "objective_activated": 1,
+          "objective_progress": 2,
+          "objective_success": 1,
+          "phase": 2,
+          "telemetry_ready": 1,
+          "telemetry_shutdown": 1
+        },
+        "input_actions": 5,
+        "namespace_file_verification": true,
+        "natural_pressure_observed": false,
+        "player_defeats": [],
+        "raw_video": {
+          "bytes": 3690278,
+          "path": "Build/AAA/D17-01/raw/storm-1080-01/raw-gameplay.mkv",
+          "sha256": "97a155ed4b8b0270c3f75ee83d4aa5036ca00b443718473f1d954ceac2f797ad"
+        },
+        "resolution": [
+          1920,
+          1080
+        ],
+        "restart_count": 0,
+        "run": "storm-1080-01",
+        "session": "01A08240-D156-7B0E-8DA3-F513FA3993FB",
+        "terminal": "Success",
+        "uninterrupted_duration_satisfied": false
+      }
+    ],
+    "source_commit": "bf7c10031690ff43d045287b9f6a0433df0b57a1"
+  },
   "previous_switch_candidate": {
     "package": {
       "bytes": 8669,
@@ -8305,19 +8982,20 @@
     "Package-09 binds a saved weathered service-switch material to the existing native BaseColor/Emission parameters; all twelve gameplay/presentation methods and the Switch component remain identical, with fresh native builds and packaged environment regression",
     "Package-10 replaces whole-panel tint with local first/latest point-hit coating/normal response; gameplay damage bytes and eleven other methods are preserved, with saved graph readback and fresh native/installed regression",
     "Package-11 confines apron moisture with a variable drying edge; geometry/native source are byte-identical, the saved material has fresh readback, and the rebuilt package passes installed environment regression",
-    "Package-12 binds saved native cloud/fog actors and cooler sun/sky lighting; all geometry and native source are preserved, with fresh asset readback, cooked shaders, installed environment behavior and normal-camera raw captures"
+    "Package-12 binds saved native cloud/fog actors and cooler sun/sky lighting; all geometry and native source are preserved, with fresh asset readback, cooked shaders, installed environment behavior and normal-camera raw captures",
+    "Package-13 adds 976 editable fitted warehouse cladding parts, verified doorway clearance and preserved original colliders, with native saved readback, installed environment regression and raw gameplay captures"
   ],
   "scenario": {
-    "bytes": 30323,
+    "bytes": 33764,
     "path": "Build/AAA/D17-01/scenario.json",
-    "sha256": "139386e8eeff01c85ec53c92112b069c017271b924c6564b188e2981a09f37a9"
+    "sha256": "73f66590868654ffb058c060b38adcd401d223c67a67b7bf7c434361e28f6822"
   },
   "schema": "biella.games.d17.qualification/v1",
-  "scope": "Canonical slice candidate, HUD correction, editable service-bay materials and native cloud/fog lighting; current Linux Development raw diagnostics and separately bound historical environment consequence",
+  "scope": "Canonical slice candidate, HUD correction, editable service-bay materials, native cloud/fog lighting and fitted warehouse cladding; current Linux Development raw diagnostics and separately bound historical environment consequence",
   "scope_findings": {
-    "bytes": 49026,
+    "bytes": 54172,
     "path": "Build/AAA/D17-01/environment/scope-findings.json",
-    "sha256": "d2a3aa38b7438352f150dc35e809ceabe3729bed558ad1855ee1b9f7ac75fb74"
+    "sha256": "1256266f49ea224c5ee2af7b85cbaa1acaaa62b0e728e1097911aa0da2d0d1aa"
   },
   "status": "INCOMPLETE",
   "task_id": "D17-01",
@@ -8470,6 +9148,16 @@
           "active_seconds": 8.905501947680023,
           "run": "storm-1080-01",
           "terminal": "Success"
+        },
+        {
+          "active_seconds": 14.818727861100342,
+          "run": "hall-720-01",
+          "terminal": "Failure"
+        },
+        {
+          "active_seconds": 8.720026037597563,
+          "run": "hall-1080-01",
+          "terminal": "Success"
         }
       ],
       "required": "600\u20131200 seconds of representative active gameplay with route beats"
@@ -8479,43 +9167,47 @@
       "next_action": "Reuse verified ordinary-input environment outcomes; qualify the full player+rival+infected encounter and remaining route without inventing pressure timing or rewiring the switch",
       "observed": {
         "current_raw_environment": {
-          "active_simulation_seconds": 19.315267299243715,
+          "active_simulation_seconds": 14.818727861100342,
           "audio_captured": false,
-          "capture_input_wall_seconds": 22.11754430597648,
-          "capture_video_seconds": 24.1,
-          "decoded_frames": 720,
-          "directory": "Build/AAA/D17-01/raw/storm-720-01",
+          "capture_input_wall_seconds": 17.640204293071292,
+          "capture_video_seconds": 19.6,
+          "decoded_frames": 588,
+          "directory": "Build/AAA/D17-01/raw/hall-720-01",
           "electrical_floor_damage": [],
           "environment_panel_events": [],
           "environment_power_transitions": 0,
           "events": {
-            "damage": 58,
-            "defeat": 12,
+            "damage": 51,
+            "defeat": 9,
             "objective_activated": 1,
-            "objective_progress": 14,
-            "objective_success": 1,
+            "objective_progress": 12,
             "phase": 2,
             "telemetry_ready": 1,
             "telemetry_shutdown": 1,
-            "weapon_fire": 3
+            "weapon_fire": 1
           },
-          "input_actions": 24,
+          "input_actions": 17,
           "namespace_file_verification": true,
           "natural_pressure_observed": false,
-          "player_defeats": [],
+          "player_defeats": [
+            {
+              "reason": "infected_melee",
+              "target": "BiellaStreamingCharacter:1"
+            }
+          ],
           "raw_video": {
-            "bytes": 4202620,
-            "path": "Build/AAA/D17-01/raw/storm-720-01/raw-gameplay.mkv",
-            "sha256": "f320c7d826d4c7e45f55519acb0a1bc9832e8f212975883c82b0cf0e5b160c53"
+            "bytes": 1721410,
+            "path": "Build/AAA/D17-01/raw/hall-720-01/raw-gameplay.mkv",
+            "sha256": "e4944754d0098a0018210afb385f42f2c9d9c56e763206b49a2a00c03ee93bc9"
           },
           "resolution": [
             1280,
             720
           ],
           "restart_count": 0,
-          "run": "storm-720-01",
-          "session": "01A0823F-EDC7-72BE-990D-8CE0C3BD5882",
-          "terminal": "Success",
+          "run": "hall-720-01",
+          "session": "01A08266-AC9E-7AB4-AE86-72EFBA5F7B15",
+          "terminal": "Failure",
           "uninterrupted_duration_satisfied": false
         },
         "historical_ordinary_consequence": {
@@ -8640,7 +9332,7 @@
     },
     {
       "id": "zero_major_visual_defects",
-      "next_action": "Author missing industrial foreground and midground along the accepted Street01-to-service-bay approach, preserving the existing route, collision and mechanics; validate saved assets, installed traversal and ordinary-input camera captures.",
+      "next_action": "Replace the exposed blank warehouse entrance reveals and interior faces along the existing service-bay approach with fitted industrial surfaces, preserving the four-meter opening and all original colliders; validate saved readback and the affected packaged camera/traversal scope.",
       "observed": [
         "focal_art",
         "world_density",
@@ -8652,8 +9344,8 @@
     }
   ],
   "visual_assessment": {
-    "bytes": 9451,
+    "bytes": 10366,
     "path": "Build/AAA/D17-01/visual-assessment.json",
-    "sha256": "1f7124631840179d14b32621698a6630fa362b838092bc5a3761b8f6bb88619d"
+    "sha256": "9bd4e1a32296ba7fe944b35778327bb1beab2192b0f89240f4c500d5663c5255"
   }
 }
