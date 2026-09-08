@@ -12,6 +12,7 @@ def compile_task_packet(repo_root: Path, production: ProductionState, task: Task
     return (
         "Biella canonical production task. Execute one task boundary only.\n"
         f"PRODUCTION_SOURCE_ROOT: {production.project_root}\n"
+        f"PRODUCTION_PRIORITY: {production.priority_policy}; follow physical PRODUCTION.md order, not numeric task IDs.\n"
         f"SECTION: {section.id} | {section.title}\n"
         f"TASK: {task.id} [{task.task_class}] {task.title}\n"
         "ACTIVE_CONTRACT: docs/project-state/04_BIELLA_ACTIVE_TASK.md\n"
@@ -124,6 +125,7 @@ def compile_section_packet(production: ProductionState, section, *, audit: bool)
     mode = "Audit current source/evidence. Return complete=true only when this section is actually satisfied; otherwise return only missing delta tasks." if audit else "Plan incomplete work. Return 20-50 bounded tasks unless materially fewer are required by accepted scope."
     return (
         "Biella production section planning boundary.\n"
+        f"PRODUCTION_PRIORITY: {production.priority_policy}. Preserve this owner priority and current canonical task order.\n"
         f"PROJECT_ROOT: {production.project_root}\nSECTION: {section.id} | {section.title}\nMODE: {mode}\nEXISTING:\n{existing}\n"
         "Tasks must be non-overlapping, dependency-aware, execution-sized, and limited to this section. Preserve completed work. "
         "Use biella resource routing when specialized Resources reduce model work. Do not create approval or owner-decision gate tasks for already-authorized work; express executable missing work directly and provision routine task needs as part of execution. "

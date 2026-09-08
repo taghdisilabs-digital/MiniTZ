@@ -1,6 +1,7 @@
 # Biella Games Production
 
 Status: `IN_PROGRESS`
+Priority: `GAME_FIRST`
 Authority: Mahdi Taghdisi
 Project: Biella Games
 Canonical repository: `patrickminitz-web/biella-engine`
@@ -69,6 +70,21 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 
 ## Remaining sections
 
+## Owner priority — GAME_FIRST
+
+Biella Games delivery is priority NUMBER 1 under Mahdi's 2026-09-08 instruction.
+The physical row order below is authoritative; numeric D IDs identify work, not execution order.
+Keep D07/D08 first, then game-only prerequisite binding, reproducible builds, playable quality,
+native stability/release work and reusable game content before external-player sessions,
+website expansion, founder-leverage reports, non-game pilots or investor work.
+Engine/tooling work precedes game work only when it is a real dependency of that game output.
+Reuse existing accepted implementations and proof; do not rebuild predecessors or invent extra qualification.
+D15 binds only game-release predecessors and used Engine dependencies, not completion of all other programs.
+Native game qualification does not wait for external-player participation. Actual player evidence
+and external delivery remain required for the tasks that promise them; no fabricated pass.
+Game-proof publication does not require a completed non-game commercial pilot.
+Local state/ledger and GitHub remain per-task; routine Drive stays every five completions in <=3.8 GB parts.
+
 ## Section: post_d01 | Canonical D02-D24 continuation — D02-D08 Games; D09-D14 website/; D15-D24 repo-wide AAA | PENDING
 
 - [x] D02-01 | hard_creation | Open-world streaming and continuity | COMPLETE | Committed and published through 50836a1; GitHub readback verified.; Vulkan traversal: 779.53 m, 51 loads, 39 unloads; continuity and D01 regressions passed.; Editor build and non-editor module compilation passed. Full Game relink remains unqualified.; [Acceptance evidence](/root/biella/repos/biella-engine/projects/biella-games/Build/OpenWorld/D02-01-acceptance.md)
@@ -86,6 +102,54 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 - [x] D09-03 | deep_memory | Visual Canon and Asset Master Selection | COMPLETE_ALREADY | registry_status=COMPLETE
 - [x] D09-04 | deep_memory | Content and Story Canon | COMPLETE_ALREADY | registry_status=COMPLETE
 - [x] D09-05 | deep_memory | Universe Information Architecture | COMPLETE_ALREADY | registry_status=COMPLETE
+- [ ] D15-01 | deep_memory | Lock authoritative predecessor closure set | PENDING | registry_status=PENDING
+- [ ] D15-02 | deep_memory | Freeze current source and decision identities | PENDING | registry_status=PENDING
+- [ ] D15-03 | deep_memory | Create post-program evidence namespace | PENDING | registry_status=PENDING
+- [ ] D15-04 | deep_memory | Bind production-ready predecessor build | PENDING | registry_status=PENDING
+- [ ] D16-01 | hard | Reproduce release from clean checkout | PENDING | registry_status=PENDING
+- [ ] D16-02 | hard | Make package recipe reproducible | PENDING | registry_status=PENDING
+- [ ] D16-03 | hard | Qualify clean-machine install and launch | PENDING | registry_status=PENDING
+- [ ] D16-04 | hard | Qualify save, settings, restart, and reconstruction | PENDING | registry_status=PENDING
+- [ ] D16-05 | hard | Qualify crash, assert, and failure diagnostics | PENDING | registry_status=PENDING
+- [ ] D16-06 | hard | Qualify update and package replacement | PENDING | registry_status=PENDING
+- [ ] D16-07 | hard | Capture representative packaged-runtime baseline | PENDING | registry_status=PENDING
+- [ ] D16-08 | hard | Close reproducible-build proof | PENDING | registry_status=PENDING
+- [ ] D17-01 | hard_creation | Select canonical AAA challenger slice | PENDING | registry_status=PENDING
+- [ ] D17-02 | hard_creation | Prove traversal and camera quality | PENDING | registry_status=PENDING
+- [ ] D17-03 | hard_creation | Prove combat feel and consequence chain | PENDING | registry_status=PENDING
+- [ ] D17-04 | hard_creation | Prove player, rival, infected, and arena interaction | PENDING | registry_status=PENDING
+- [ ] D17-05 | hard_creation | Qualify animation and motion continuity | PENDING | registry_status=PENDING
+- [ ] D17-06 | hard_creation | Qualify audio, VFX, HUD, and gameplay readability | PENDING | registry_status=PENDING
+- [ ] D17-07 | hard_creation | Qualify environment, material, lighting, and world coherence | PENDING | registry_status=PENDING
+- [ ] D17-08 | hard_creation | Close AAA vertical-slice evidence package | PENDING | registry_status=PENDING
+- [ ] D19-01 | hard | Lock representative target hardware tiers from measured evidence | PENDING | registry_status=PENDING
+- [ ] D19-02 | hard | Lock native frame-time and responsiveness targets from evidence | PENDING | registry_status=PENDING
+- [ ] D19-03 | hard | Qualify world traversal streaming and hitch behavior | PENDING | registry_status=PENDING
+- [ ] D19-04 | hard | Qualify combat population stress behavior | PENDING | registry_status=PENDING
+- [ ] D19-05 | hard | Qualify memory, VRAM, residency, and leak behavior | PENDING | registry_status=PENDING
+- [ ] D19-06 | hard | Qualify sustained packaged-runtime stability | PENDING | registry_status=PENDING
+- [ ] D19-07 | hard | Requalify clean Shipping package | PENDING | registry_status=PENDING
+- [ ] D19-08 | hard | Close release-operations proof | PENDING | registry_status=PENDING
+- [ ] D20-01 | hard_creation | Select second production scenario from current accepted systems | PENDING | registry_status=PENDING
+- [ ] D20-02 | hard_creation | Produce second environment or encounter composition through reusable systems | PENDING | registry_status=PENDING
+- [ ] D20-03 | hard_creation | Produce different rival and infected encounter composition | PENDING | registry_status=PENDING
+- [ ] D20-04 | hard_creation | Produce alternate arena-pressure sequence from current accepted systems | PENDING | registry_status=PENDING
+- [ ] D20-05 | hard_creation | Measure content-system reuse versus bespoke work | PENDING | registry_status=PENDING
+- [ ] D20-06 | hard_creation | Package and qualify second scenario | PENDING | registry_status=PENDING
+- [ ] D20-07 | hard_creation | Compare production time, intervention, and quality across scenarios | PENDING | registry_status=PENDING
+- [ ] D20-08 | hard_creation | Close repeatable-content proof | PENDING | registry_status=PENDING
+- [ ] D23-01 | hard | Publish truthful playable-proof surface | PENDING | registry_status=PENDING
+- [ ] D18-01 | hard | Define blind external playtest contract | PENDING | registry_status=PENDING
+- [ ] D18-02 | hard | Prepare founder-independent playtest handoff | PENDING | registry_status=PENDING
+- [ ] D18-03 | hard | Run first independent external session | PENDING | registry_status=PENDING
+- [ ] D18-04 | hard | Run independent session on a different machine context | PENDING | registry_status=PENDING
+- [ ] D18-05 | hard | Aggregate external comprehension and friction evidence | PENDING | registry_status=PENDING
+- [ ] D18-06 | hard | Repair highest-impact reproducible external blockers | PENDING | registry_status=PENDING
+- [ ] D18-07 | hard | Run post-repair external replay | PENDING | registry_status=PENDING
+- [ ] D18-08 | hard | Close independent-player proof | PENDING | registry_status=PENDING
+- [ ] D23-02 | hard | Distribute qualified build to bounded external test cohort | PENDING | registry_status=PENDING
+- [ ] D23-03 | hard | Capture real demand signals from proof surface | PENDING | registry_status=PENDING
+- [ ] D23-04 | hard | Publish game demand evidence report | PENDING | registry_status=PENDING
 - [ ] D09-06 | deep_memory | Cloudflare + GitHub Website Delivery Topology | PENDING | registry_status=PENDING
 - [ ] D10-01 | hard_creation | Website Application Scaffold and Preview Deployment | PENDING | registry_status=PENDING
 - [ ] D10-02 | hard_creation | Biella Website Design System | PENDING | registry_status=PENDING
@@ -117,50 +181,6 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 - [ ] D14-04 | hard | Responsive, Browser, Device and Accessibility Qualification | PENDING | registry_status=PENDING
 - [ ] D14-05 | hard | Website Resilience, Error and Cost Boundaries | PENDING | registry_status=PENDING
 - [ ] D14-06 | hard | Cloudflare Production Launch and Final Website Qualification | PENDING | registry_status=PENDING
-- [ ] D15-01 | deep_memory | Lock authoritative predecessor closure set | PENDING | registry_status=PENDING
-- [ ] D15-02 | deep_memory | Freeze current source and decision identities | PENDING | registry_status=PENDING
-- [ ] D15-03 | deep_memory | Create post-program evidence namespace | PENDING | registry_status=PENDING
-- [ ] D15-04 | deep_memory | Bind production-ready predecessor build | PENDING | registry_status=PENDING
-- [ ] D16-01 | hard | Reproduce release from clean checkout | PENDING | registry_status=PENDING
-- [ ] D16-02 | hard | Make package recipe reproducible | PENDING | registry_status=PENDING
-- [ ] D16-03 | hard | Qualify clean-machine install and launch | PENDING | registry_status=PENDING
-- [ ] D16-04 | hard | Qualify save, settings, restart, and reconstruction | PENDING | registry_status=PENDING
-- [ ] D16-05 | hard | Qualify crash, assert, and failure diagnostics | PENDING | registry_status=PENDING
-- [ ] D16-06 | hard | Qualify update and package replacement | PENDING | registry_status=PENDING
-- [ ] D16-07 | hard | Capture representative packaged-runtime baseline | PENDING | registry_status=PENDING
-- [ ] D16-08 | hard | Close reproducible-build proof | PENDING | registry_status=PENDING
-- [ ] D17-01 | hard_creation | Select canonical AAA challenger slice | PENDING | registry_status=PENDING
-- [ ] D17-02 | hard_creation | Prove traversal and camera quality | PENDING | registry_status=PENDING
-- [ ] D17-03 | hard_creation | Prove combat feel and consequence chain | PENDING | registry_status=PENDING
-- [ ] D17-04 | hard_creation | Prove player, rival, infected, and arena interaction | PENDING | registry_status=PENDING
-- [ ] D17-05 | hard_creation | Qualify animation and motion continuity | PENDING | registry_status=PENDING
-- [ ] D17-06 | hard_creation | Qualify audio, VFX, HUD, and gameplay readability | PENDING | registry_status=PENDING
-- [ ] D17-07 | hard_creation | Qualify environment, material, lighting, and world coherence | PENDING | registry_status=PENDING
-- [ ] D17-08 | hard_creation | Close AAA vertical-slice evidence package | PENDING | registry_status=PENDING
-- [ ] D18-01 | hard | Define blind external playtest contract | PENDING | registry_status=PENDING
-- [ ] D18-02 | hard | Prepare founder-independent playtest handoff | PENDING | registry_status=PENDING
-- [ ] D18-03 | hard | Run first independent external session | PENDING | registry_status=PENDING
-- [ ] D18-04 | hard | Run independent session on a different machine context | PENDING | registry_status=PENDING
-- [ ] D18-05 | hard | Aggregate external comprehension and friction evidence | PENDING | registry_status=PENDING
-- [ ] D18-06 | hard | Repair highest-impact reproducible external blockers | PENDING | registry_status=PENDING
-- [ ] D18-07 | hard | Run post-repair external replay | PENDING | registry_status=PENDING
-- [ ] D18-08 | hard | Close independent-player proof | PENDING | registry_status=PENDING
-- [ ] D19-01 | hard | Lock representative target hardware tiers from measured evidence | PENDING | registry_status=PENDING
-- [ ] D19-02 | hard | Lock native frame-time and responsiveness targets from evidence | PENDING | registry_status=PENDING
-- [ ] D19-03 | hard | Qualify world traversal streaming and hitch behavior | PENDING | registry_status=PENDING
-- [ ] D19-04 | hard | Qualify combat population stress behavior | PENDING | registry_status=PENDING
-- [ ] D19-05 | hard | Qualify memory, VRAM, residency, and leak behavior | PENDING | registry_status=PENDING
-- [ ] D19-06 | hard | Qualify sustained packaged-runtime stability | PENDING | registry_status=PENDING
-- [ ] D19-07 | hard | Requalify clean Shipping package | PENDING | registry_status=PENDING
-- [ ] D19-08 | hard | Close release-operations proof | PENDING | registry_status=PENDING
-- [ ] D20-01 | hard_creation | Select second production scenario from current accepted systems | PENDING | registry_status=PENDING
-- [ ] D20-02 | hard_creation | Produce second environment or encounter composition through reusable systems | PENDING | registry_status=PENDING
-- [ ] D20-03 | hard_creation | Produce different rival and infected encounter composition | PENDING | registry_status=PENDING
-- [ ] D20-04 | hard_creation | Produce alternate arena-pressure sequence from current accepted systems | PENDING | registry_status=PENDING
-- [ ] D20-05 | hard_creation | Measure content-system reuse versus bespoke work | PENDING | registry_status=PENDING
-- [ ] D20-06 | hard_creation | Package and qualify second scenario | PENDING | registry_status=PENDING
-- [ ] D20-07 | hard_creation | Compare production time, intervention, and quality across scenarios | PENDING | registry_status=PENDING
-- [ ] D20-08 | hard_creation | Close repeatable-content proof | PENDING | registry_status=PENDING
 - [ ] D21-01 | deep_memory | Define founder-leverage evidence schema | PENDING | registry_status=PENDING
 - [ ] D21-02 | deep_memory | Compute accepted-task throughput from real traces | PENDING | registry_status=PENDING
 - [ ] D21-03 | deep_memory | Measure founder intervention per accepted outcome | PENDING | registry_status=PENDING
@@ -177,10 +197,6 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 - [ ] D22-06 | hard | Recover pilot after bounded infrastructure interruption | PENDING | registry_status=PENDING
 - [ ] D22-07 | hard | Continue external pilot with second objective or worker change | PENDING | registry_status=PENDING
 - [ ] D22-08 | hard | Close external replication proof | PENDING | registry_status=PENDING
-- [ ] D23-01 | hard | Publish truthful playable-proof surface | PENDING | registry_status=PENDING
-- [ ] D23-02 | hard | Distribute qualified build to bounded external test cohort | PENDING | registry_status=PENDING
-- [ ] D23-03 | hard | Capture real demand signals from proof surface | PENDING | registry_status=PENDING
-- [ ] D23-04 | hard | Publish game demand evidence report | PENDING | registry_status=PENDING
 - [ ] D23-05 | hard | Package external pilot commercial offer | PENDING | registry_status=PENDING
 - [ ] D23-06 | hard | Obtain and evidence first contracted or paid usage | PENDING | registry_status=PENDING
 - [ ] D24-01 | deep_memory | Build unified evidence index | PENDING | registry_status=PENDING

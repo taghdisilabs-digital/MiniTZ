@@ -175,3 +175,11 @@ The following patterns are forbidden because they caused observed waste, stalls,
 - Package parts and manifests publish under the existing Biella/D_TASK_PROGRAM Drive folder. Current canonical control files update in place during the same five-task batch, preserving their Drive IDs. Packages are transfer artifacts, never an extra active checkout, task queue or source authority.
 - Package construction and readback stream bounded chunks. Large transfers use transport-inactivity timeouts, not short whole-upload deadlines. Exact remote identity and streamed SHA-256 readback are required before transfer staging is deleted.
 - Manual maintenance publication and a task whose deliverable is explicitly external publication remain explicit operations; the routine worker never manufactures remote completion or pauses production to fill a package.
+
+## Owner priority — GAME_FIRST
+- Biella Games delivery is NUMBER 1. The existing runner/Auto Feeder selects the physical row order in Project PRODUCTION.md; numeric IDs are identities, not sort priority.
+- Continue the current D07 task/session, then D08, game-only source/build binding, reproducible builds, playable quality, native release/stability, and reusable game content. External-player tasks follow autonomous game work; unrelated website/business/pilot/investor tasks remain later.
+- Only a real consumed Engine/tooling dependency precedes the game output. Do not reopen completed predecessors, require all unrelated programs to close, add reviews, or lower required runtime/AAA evidence.
+- Priority metadata is read from PRODUCTION.md and projected to 03/04, task packets, the existing ledger and runtime. No second scheduler or task queue is introduced.
+- Keep current read-only website/status services operating. Website expansion does not preempt game production. Real player/platform/delivery evidence remains required for the exact tasks that promise it.
+- Local/GitHub continuity remains per-task; Drive remains five-completion batching with 3,800,000,000-byte parts. This explicit priority change is synchronized as maintenance, never interpreted as task completion.

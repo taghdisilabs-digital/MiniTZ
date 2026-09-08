@@ -332,3 +332,6 @@ If this template can be filled from current evidence, execute. Do not add anothe
 ## Next-100 production execution
 
 `docs/task-program/D_NEXT_100_TASKS.json` contains the next 100 existing task identities, normalized source sections/digests, dependencies, output contracts, and execution roots. It is not another queue. The runner injects only the active entry; `PRODUCTION.md` owns order/status and `D_TASK_LEDGER.json` is its derived projection. Reuse matching proof; no new gate, permanent agent, timer, or whole-program prompt load. Read `07_BIELLA_PRODUCTION_SYSTEM.md` for the implemented local-persistence/remote-publication split and inline source repair.
+
+## Owner production priority — GAME_FIRST
+Biella Games delivery is priority NUMBER 1 under Mahdi's 2026-09-08 instruction. Current Project PRODUCTION.md physical order supersedes older cross-program sequencing. Preserve completed evidence, real dependencies, task-derived quality and customer isolation; do not reopen earlier work or add a website/business prerequisite. Priority changes are applied by the existing maintenance transaction and projected to the existing records, not a new queue.

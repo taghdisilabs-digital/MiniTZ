@@ -11,6 +11,7 @@ task:
   title: Full performance, stability, and scalability qualification
   status: PENDING
   runner: READY
+  priority: GAME_FIRST
 
   authority:
     - Mahdi Taghdisi current product/execution authority

@@ -307,14 +307,16 @@ def _emit_validation_evidence(repo_root: Path, project_root: Path, result: evide
 
 def _task_prompt(repo_root: Path, production: state.ProductionState, task: state.TaskRecord, telemetry: Mapping[str, Any], capsule_path: Path, projection_path: Path | None = None, local_assist_path: Path | None = None, route: routing.Route | None = None) -> str:
     guide_path = Path(production.project_root) / "docs" / "task-guides" / f"{task.id}.md"
+    priority_context = f"\nPRODUCTION_PRIORITY: {production.priority_policy}. Follow physical PRODUCTION.md order, not numeric task IDs. Preserve accepted output and required quality.\n"
     if route is not None and routing.is_bounded_fallback(route):
-        return packets.compile_bounded_fallback_packet(task, capsule_path, projection_path, guide_path if guide_path.exists() else None) + execution_map.task_context(repo_root, task.id)
+        return priority_context + packets.compile_bounded_fallback_packet(task, capsule_path, projection_path, guide_path if guide_path.exists() else None) + execution_map.task_context(repo_root, task.id)
     if _resume_session_for(telemetry, task.id):
         prompt = packets.compile_resume_packet(task, capsule_path)
     else:
         prompt = packets.compile_task_packet(repo_root, production, task)
         if capsule_path.exists():
             prompt += f"\nTASK_MEMORY: {capsule_path}\nRead this bounded recovery capsule before redoing any existing work.\n"
+    prompt = priority_context + prompt
     if guide_path.exists():
         guide_text = guide_path.read_text(encoding="utf-8")[:12000]
         prompt += (
@@ -942,6 +944,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             if catalog is None:
                 catalog = routing.discover_catalog()
             production = state.sync_project_metadata(project_root)
+            telemetry["priority_policy"] = production.priority_policy
             task = state.resolve_current_task(repo_root, project_root)
             if task is None:
                 production = state.load_project_production(project_root)

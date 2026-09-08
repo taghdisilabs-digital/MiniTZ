@@ -39,6 +39,7 @@ class ProductionState:
     current_task: str | None
     sections: list[SectionRecord]
     run_id: str = "biella-games-production"
+    priority_policy: str = "CANONICAL_ORDER"
 
 
 @dataclass(frozen=True)
@@ -64,11 +65,15 @@ def load_project_production(project_root: Path) -> ProductionState:
     project_root = Path(project_root)
     lines = production_path(project_root).read_text(encoding="utf-8").splitlines()
     status = "IN_PROGRESS"; current_section = current_task = None
+    priority_policy = "CANONICAL_ORDER"
     sections: list[SectionRecord] = []; section: SectionRecord | None = None
     for raw in lines:
         line = raw.strip()
         if line.startswith("Status:") and not sections:
             status = _unquote(line.split(":", 1)[1])
+            continue
+        if line.startswith("Priority:") and not sections:
+            priority_policy = _unquote(line.split(":", 1)[1])
             continue
         if line.startswith("Current section:"):
             value = _unquote(line.split(":", 1)[1]); current_section = None if value in {"", "NONE", "null"} else value
@@ -93,7 +98,7 @@ def load_project_production(project_root: Path) -> ProductionState:
             ))
     if not sections:
         raise ValueError(f"no production sections found in {production_path(project_root)}")
-    return ProductionState(project_root, status, current_section, current_task, sections)
+    return ProductionState(project_root, status, current_section, current_task, sections, priority_policy=priority_policy)
 
 
 def find_task(production: ProductionState, task_id: str) -> TaskRecord:
@@ -196,6 +201,8 @@ def write_active_task(repo_root: Path, task: TaskRecord | None, *, project: str 
     if mapped:
         project = {"Games": "Biella Games", "Website": "Biella Website", "Engine": "Biella Engine", "Cross-project": "Biella cross-project proof"}.get(mapped["lane"], project)
     path = active_task_path(repo_root)
+    source_root = Path(repo_root) / "projects/biella-games"
+    priority = load_project_production(source_root).priority_policy if production_path(source_root).is_file() else "CANONICAL_ORDER"
     if task is None:
         text = (
             "# 04 - BIELLA ACTIVE TASK\n\n```yaml\nschema: biella.active_task/v9\n\n"
@@ -208,7 +215,7 @@ def write_active_task(repo_root: Path, task: TaskRecord | None, *, project: str 
             "# 04 - BIELLA ACTIVE TASK\n\n```yaml\nschema: biella.active_task/v9\n\n"
             f"task:\n  id: {task.id}\n  project: {project}\n  section: {task.section_id}\n"
             f"  class: {task.task_class}\n  title: {task.title}\n  status: PENDING\n"
-            "  runner: READY\n\n"
+            f"  runner: READY\n  priority: {priority}\n\n"
             "  authority:\n    - Mahdi Taghdisi current product/execution authority\n"
             "    - docs/project-state/03_BIELLA_CURRENT_STATE.md\n"
             "    - projects/biella-games/docs/PRODUCTION.md\n"
@@ -265,6 +272,7 @@ def sync_current_state(repo_root: Path, production: ProductionState, task: TaskR
     for field in ("current_frontier", "D03_01"):
         _remove_yaml_block_field(lines, "games", field)
     task_id = task.id if task else "NONE"
+    _update_yaml_block(lines, "execution_invariants", {"priority_policy": production.priority_policy})
     completed = completed_count(production)
     total = sum(len(section.tasks) for section in production.sections)
     _update_yaml_block(lines, "repository", {

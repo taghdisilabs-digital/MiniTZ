@@ -60,6 +60,8 @@ def _sort_key(task_id: str) -> tuple[int, int]:
 
 def build_task_ledger(repo_root: Path, production) -> dict[str, Any]:
     rows = _registry_rows(Path(repo_root))
+    order = [task_ids.canonical_task_id(t.id) for s in production.sections for t in s.tasks]
+    positions = {key: index for index, key in enumerate(order, 1)}
     for section in production.sections:
         for task in section.tasks:
             task_id = task_ids.canonical_task_id(task.id)
@@ -75,6 +77,7 @@ def build_task_ledger(repo_root: Path, production) -> dict[str, Any]:
             row["title"] = task.title
             row["status"] = task.status
             row["status_source"] = _LIVE_SOURCE
+            row["execution_ordinal"] = positions[task_id]
     mapped = {item["task_id"]: item for item in execution_map.load_map(repo_root)["tasks"]}
     for key, row in rows.items():
         if key in mapped:
@@ -88,7 +91,9 @@ def build_task_ledger(repo_root: Path, production) -> dict[str, Any]:
         "execution_authority": "current 03/04 + Project PRODUCTION.md",
         "current_task": task_ids.canonical_task_id(production.current_task) if production.current_task else None,
         "execution_map": execution_map.MAP_PATH if mapped else None,
-        "tasks": [rows[key] for key in sorted(rows, key=_sort_key)],
+        "priority_policy": getattr(production, "priority_policy", "CANONICAL_ORDER"),
+        "execution_order": order,
+        "tasks": [rows[key] for key in ([key for key in sorted(rows, key=_sort_key) if key not in positions] + order)],
     }
 
 

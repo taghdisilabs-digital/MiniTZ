@@ -63,3 +63,6 @@ Rollback proof requires an observed prior successful production version/deployme
 ## Next-100 production execution
 
 `docs/task-program/D_NEXT_100_TASKS.json` contains the next 100 existing task identities, normalized source sections/digests, dependencies, output contracts, and execution roots. It is not another queue. The runner injects only the active entry; `PRODUCTION.md` owns order/status and `D_TASK_LEDGER.json` is its derived projection. Reuse matching proof; no new gate, permanent agent, timer, or whole-program prompt load. Read `07_BIELLA_PRODUCTION_SYSTEM.md` for the implemented local-persistence/remote-publication split and inline source repair.
+
+## Owner production priority — GAME_FIRST
+Biella Games delivery is priority NUMBER 1. Existing website/live observers remain operational; website expansion follows the game work in the physical Project PRODUCTION.md order. Reuse existing website outputs rather than rebuilding completed work. Only an actual required game-delivery surface may be advanced as that exact task; do not let a website redesign preempt game production.

@@ -37,6 +37,8 @@ website:
   public_events: https://biellagames.dev/live-api/events
 
 games:
+  priority: 1
+  priority_objective: FASTEST_QUALIFIED_GAME_DELIVERY
   production_source: projects/biella-games/docs/PRODUCTION.md
   current_section: post_d01
   current_task: D07-01
@@ -71,6 +73,7 @@ execution_invariants:
   active_progress_killer_audit: PASS
   forbidden_pattern_contract: HOW_BIELLA_WILL_NOT_WORK
 
+  priority_policy: GAME_FIRST
 engine_numbered_execution:
   P4_01_through_P4_05: COMPLETE_REUSE_REQUIRED
   P4-06: INCOMPLETE_DEFERRED

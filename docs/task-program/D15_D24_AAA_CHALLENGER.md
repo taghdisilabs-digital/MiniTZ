@@ -6,7 +6,7 @@ Canonical IDs: `D##-##`. Dependency edges are authoritative; legacy IDs are alia
 
 | Task | Title | Status | Depends on | Legacy alias |
 |---|---|---|---|---|
-| `D15-01` | Lock authoritative predecessor closure set | `PENDING` | — | `AAA-SF-001` |
+| `D15-01` | Lock authoritative predecessor closure set | `PENDING` | D08-01 | `AAA-SF-001` |
 | `D15-02` | Freeze current source and decision identities | `PENDING` | D15-01 | `AAA-SF-002` |
 | `D15-03` | Create post-program evidence namespace | `PENDING` | D15-02 | `AAA-SF-003` |
 | `D15-04` | Bind production-ready predecessor build | `PENDING` | D15-03 | `AAA-SF-004` |
@@ -54,7 +54,7 @@ Canonical IDs: `D##-##`. Dependency edges are authoritative; legacy IDs are alia
 
 | Task | Title | Status | Depends on | Legacy alias |
 |---|---|---|---|---|
-| `D19-01` | Lock representative target hardware tiers from measured evidence | `PENDING` | D18-08 | `AAA-SF-029` |
+| `D19-01` | Lock representative target hardware tiers from measured evidence | `PENDING` | D17-08 | `AAA-SF-029` |
 | `D19-02` | Lock native frame-time and responsiveness targets from evidence | `PENDING` | D19-01 | `AAA-SF-030` |
 | `D19-03` | Qualify world traversal streaming and hitch behavior | `PENDING` | D19-02 | `AAA-SF-031` |
 | `D19-04` | Qualify combat population stress behavior | `PENDING` | D19-03 | `AAA-SF-032` |
@@ -106,20 +106,30 @@ Canonical IDs: `D##-##`. Dependency edges are authoritative; legacy IDs are alia
 
 | Task | Title | Status | Depends on | Legacy alias |
 |---|---|---|---|---|
-| `D23-01` | Publish truthful playable-proof surface | `PENDING` | D22-08 | `AAA-SF-061` |
+| `D23-01` | Publish truthful playable-proof surface | `PENDING` | D20-08 | `AAA-SF-061` |
 | `D23-02` | Distribute qualified build to bounded external test cohort | `PENDING` | D23-01 | `AAA-SF-062` |
 | `D23-03` | Capture real demand signals from proof surface | `PENDING` | D23-02 | `AAA-SF-063` |
 | `D23-04` | Publish game demand evidence report | `PENDING` | D23-03 | `AAA-SF-064` |
-| `D23-05` | Package external pilot commercial offer | `PENDING` | D23-04 | `AAA-SF-065` |
+| `D23-05` | Package external pilot commercial offer | `PENDING` | D23-04, D22-08 | `AAA-SF-065` |
 | `D23-06` | Obtain and evidence first contracted or paid usage | `PENDING` | D23-05 | `AAA-SF-066` |
 
 ## D24 — AAA Challenger — investor-grade evidence closure
 
 | Task | Title | Status | Depends on | Legacy alias |
 |---|---|---|---|---|
-| `D24-01` | Build unified evidence index | `PENDING` | D23-06 | `AAA-SF-067` |
+| `D24-01` | Build unified evidence index | `PENDING` | D23-06, D14-06 | `AAA-SF-067` |
 | `D24-02` | Define live investor demonstration runbook | `PENDING` | D24-01 | `AAA-SF-068` |
 | `D24-03` | Execute fresh live objective-to-outcome demonstration | `PENDING` | D24-02 | `AAA-SF-069` |
 | `D24-04` | Assemble technical and investor data-room proof bundle | `PENDING` | D24-03 | `AAA-SF-070` |
 | `D24-05` | Reconcile every AAA-challenger claim to current evidence | `PENDING` | D24-04 | `AAA-SF-071` |
 | `D24-06` | Declare or withhold AAA Challenger Solo Founder proof | `PENDING` | D24-05 | `AAA-SF-072` |
+
+## Current owner priority amendment — 2026-09-08
+
+GAME_FIRST: game delivery is priority 1. Project PRODUCTION.md supplies the actual order.
+D15-01 binds D08 game closure and only used Engine dependencies, not every Engine/Website program.
+D19-01 consumes packaged game/quality telemetry from D17-08; external-player proof is separate.
+D23-01 consumes the qualified game/content from D20-08, not a non-game external pilot.
+D23-05 still requires the actual external pilot; D24 unified proof still requires website closure.
+Original future-program aliases are historical references. This amendment supersedes their
+blanket activation/order gates without reducing task-specific runtime or external-evidence quality.

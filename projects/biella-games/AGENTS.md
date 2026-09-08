@@ -179,3 +179,6 @@ Once that decision is accepted, create or continue the real editable game projec
 ## Next-100 production execution
 
 `docs/task-program/D_NEXT_100_TASKS.json` contains the next 100 existing task identities, normalized source sections/digests, dependencies, output contracts, and execution roots. It is not another queue. The runner injects only the active entry; `PRODUCTION.md` owns order/status and `D_TASK_LEDGER.json` is its derived projection. Reuse matching proof; no new gate, permanent agent, timer, or whole-program prompt load. Read `07_BIELLA_PRODUCTION_SYSTEM.md` for the implemented local-persistence/remote-publication split and inline source repair.
+
+## Owner production priority — GAME_FIRST
+Game delivery is priority NUMBER 1. Follow the physical order in docs/PRODUCTION.md and the current active task. Reuse accepted implementations and evidence; perform only missing game outputs and task-derived validation. No unrelated website, Engine business, pilot or investor completion prerequisite. Shared Engine dependencies stay project-neutral; prioritize only what the game actually consumes. Do not weaken gameplay, AAA-quality, packaging or genuine external-player evidence requirements.

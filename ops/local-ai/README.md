@@ -39,3 +39,6 @@ Durable execution state is:
 Runtime telemetry under `/mnt/biella-extra/biella-runtime/codex-production/` contains only liveness, current attempt/model/PIDs, cooldowns, last result, and heartbeat. It is not a completion ledger.
 
 `production start` reconstructs the earliest unfinished canonical task, resumes any existing in-flight task bytes, executes one bounded writer at a time, refreshes heartbeat during long Codex attempts, validates structured evidence, retries publication until durable, advances 03/04 plus Project state, and continues automatically. Empty later sections are planned/audited just-in-time inside the same Project `PRODUCTION.md`. There is no separate active queue, batch ledger, model-specific project memory, or mutable progress authority.
+
+## Game-first production priority
+GAME_FIRST is the current owner priority: Biella Games delivery NUMBER 1. The runner reads the physical Project PRODUCTION.md order; existing task-class routing, preserved sessions and independent publication remain active. Do not sort work by numeric task IDs, create another feeder, or require unrelated website/business tasks before game work.

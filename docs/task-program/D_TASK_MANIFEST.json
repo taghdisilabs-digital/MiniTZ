@@ -229,5 +229,9 @@
     "task_count": 100,
     "registry_is_queue": false,
     "load_one_task_only": true
-  }
+  },
+  "priority_policy": "GAME_FIRST",
+  "execution_order_source": "projects/biella-games/docs/PRODUCTION.md",
+  "game_delivery_priority": 1,
+  "priority_rule": "Actual game production and consumed dependencies precede unrelated Website, founder reports, non-game pilots and investor tasks; preserve valid proof and external-evidence requirements."
 }

@@ -102,3 +102,6 @@ This missing historical object is not an instruction to reopen P0-01 or replace 
 ## Next-100 production execution
 
 `docs/task-program/D_NEXT_100_TASKS.json` contains the next 100 existing task identities, normalized source sections/digests, dependencies, output contracts, and execution roots. It is not another queue. The runner injects only the active entry; `PRODUCTION.md` owns order/status and `D_TASK_LEDGER.json` is its derived projection. Reuse matching proof; no new gate, permanent agent, timer, or whole-program prompt load. Read `07_BIELLA_PRODUCTION_SYSTEM.md` for the implemented local-persistence/remote-publication split and inline source repair.
+
+## Owner production priority — GAME_FIRST
+Game delivery is priority NUMBER 1. Physical Project PRODUCTION.md order drives the existing Auto Feeder; task numbers, historical plans and Drive snapshot age cannot roll it back. Synchronize current priority/ledger in place, preserving task IDs and accepted evidence. Local/GitHub per-task; routine Drive every five closures remains unchanged.
