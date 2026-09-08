@@ -40,9 +40,9 @@ def isolate_publication_and_state_only_fixture_git(monkeypatch):
     monkeypatch.setattr(runner.publication, "stop_worker", lambda _repo: None)
     monkeypatch.setattr(runner.publication, "request_publication", lambda *_args: {"status": "PENDING"})
     real = runner.evidence.enforce_clean_completion_boundary
-    def finalize(repo, result):
+    def finalize(repo, result, **kwargs):
         # These pre-existing state-machine fixtures deliberately have no Git repository.
-        return real(repo, result) if (Path(repo) / ".git").exists() else result
+        return real(repo, result, **kwargs) if (Path(repo) / ".git").exists() else result
     monkeypatch.setattr(runner.evidence, "enforce_clean_completion_boundary", finalize)
 
 
@@ -978,8 +978,8 @@ def test_persistent_unit_has_no_optional_qwen_startup_blocker():
     assert "ExecStartPre=/usr/local/lib/biella-workstation/biella-qwen-ready.sh" not in unit
     assert "Requires=biella-ollama.service" not in unit
     assert "Environment=BIELLA_PRODUCTION_RUNNER=/root/biella/repos/biella-engine/ops/local-ai/biella_production_runner.py" in unit
-    assert "Environment=BIELLA_CODEX_FORCE_MODEL=gpt-reserve" in unit
-    assert "Environment=BIELLA_CODEX_FORCE_REASONING=max" in unit
+    assert "Environment=BIELLA_CODEX_PREFER_MODEL=gpt-reserve" in unit
+    assert "Environment=BIELLA_CODEX_PREFER_REASONING=max" in unit
     assert "Environment=HOME=/root" in unit
 
 

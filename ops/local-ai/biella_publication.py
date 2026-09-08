@@ -74,6 +74,8 @@ def request_publication(repo: Path, task_id: str, identity: dict[str, str]) -> d
             "commit": commit, "tree": tree, "task_id": task_id,
             "requested_at": _now(), "last_receipt": prior.get("last_receipt"),
             "execution_authority": False,
+            "verified_files": prior.get("verified_files", {}),
+            "drive_folder_ids": prior.get("drive_folder_ids", {}),
         }
         _write(path, payload)
     worker = _WORKERS.get(str(repo.resolve()))
@@ -83,14 +85,35 @@ def request_publication(repo: Path, task_id: str, identity: dict[str, str]) -> d
 
 
 def _remote(args: list[str], *, timeout: float = 45.0) -> subprocess.CompletedProcess:
-    return subprocess.run(args, capture_output=True, timeout=timeout, check=True)
+    return subprocess.run(args, capture_output=True, timeout=timeout, check=True, env={**os.environ, "GIT_TERMINAL_PROMPT": "0"})
+
+
+def _error_detail(exc: Exception) -> str:
+    parts = [str(exc)]
+    for attribute in ("stdout", "stderr"):
+        value = getattr(exc, attribute, None)
+        if value:
+            parts.append(value.decode(errors="replace") if isinstance(value, bytes) else str(value))
+    return "\n".join(parts)[-3000:]
+
+
+def _drive_target(repo: Path, destination: str) -> str:
+    parent, separator, name = destination.rpartition("/")
+    folder_id = (read_publication(repo).get("drive_folder_ids") or {}).get(parent)
+    if separator and folder_id and destination.startswith("gdrive:"):
+        return f"gdrive,root_folder_id={folder_id}:{name}"
+    return destination
 
 
 def publish_drive_revision(repo: Path, commit: str) -> dict[str, Any]:
     import biella_production_evidence as evidence
     targets = evidence.drive_publications(repo) + evidence.derived_drive_publications(repo) + evidence.control_drive_publications(repo)
     files, errors = [], []
-    for relative, destination in targets:
+    options = ["--retries", "1", "--low-level-retries", "1", "--contimeout", "5s", "--timeout", "15s"]
+    for relative, destination in dict.fromkeys(targets):
+        cursor = read_publication(repo)
+        if cursor.get("commit") != commit:
+            return {"verified": False, "files": files, "errors": errors, "superseded": True}
         exists = subprocess.run(["git", "-C", str(repo), "cat-file", "-e", f"{commit}:{relative}"], capture_output=True)
         if exists.returncode:
             if (relative, destination) in evidence.drive_publications(repo):
@@ -98,16 +121,39 @@ def publish_drive_revision(repo: Path, commit: str) -> dict[str, Any]:
             continue
         data = subprocess.check_output(["git", "-C", str(repo), "show", f"{commit}:{relative}"])
         digest = hashlib.sha256(data).hexdigest()
+        prior = (cursor.get("verified_files") or {}).get(destination, {})
+        if prior.get("sha256") == digest and prior.get("file_id") and prior.get("status") == "VERIFIED":
+            files.append(prior)
+            continue
+        target = _drive_target(repo, destination)
         try:
-            with tempfile.NamedTemporaryFile(dir=_state_path(repo).parent) as local:
-                local.write(data); local.flush(); os.fsync(local.fileno())
-                _remote(["rclone", "copyto", local.name, destination, "--checksum", "--retries", "1", "--low-level-retries", "1", "--contimeout", "5s", "--timeout", "15s"])
-            remote = _remote(["rclone", "cat", destination, "--retries", "1", "--low-level-retries", "1", "--contimeout", "5s", "--timeout", "15s"]).stdout
+            # Read first: an interrupted receipt does not require another upload.
+            try:
+                remote = _remote(["rclone", "cat", target, *options]).stdout
+            except subprocess.CalledProcessError as exc:
+                if exc.returncode not in (3, 4):
+                    raise
+                remote = None
+            if remote is None or hashlib.sha256(remote).hexdigest() != digest:
+                with tempfile.NamedTemporaryFile(dir=_state_path(repo).parent) as local:
+                    local.write(data); local.flush(); os.fsync(local.fileno())
+                    _remote(["rclone", "copyto", local.name, target, "--checksum", *options])
+                remote = _remote(["rclone", "cat", target, *options]).stdout
             if hashlib.sha256(remote).hexdigest() != digest:
                 raise RuntimeError("exact Drive content readback mismatch")
-            files.append({"path": relative, "destination": destination, "sha256": digest, "status": "VERIFIED"})
-        except (OSError, RuntimeError, subprocess.SubprocessError) as exc:
-            errors.append({"path": relative, "destination": destination, "error": str(exc)[:1200]})
+            metadata = json.loads(_remote(["rclone", "lsjson", target, "--stat", *options]).stdout)
+            file_id = metadata.get("ID")
+            if not file_id:
+                raise RuntimeError("Drive content matched but file identity was not returned")
+            record = {"path": relative, "destination": destination, "sha256": digest,
+                      "file_id": file_id, "status": "VERIFIED", "verified_at": _now(), "commit": commit}
+            with _locked(repo) as path:
+                latest = json.loads(path.read_text())
+                latest.setdefault("verified_files", {})[destination] = record
+                _write(path, latest)
+            files.append(record)
+        except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as exc:
+            errors.append({"path": relative, "destination": destination, "error": _error_detail(exc)})
     return {"verified": not errors, "files": files, "errors": errors}
 
 
@@ -118,33 +164,45 @@ def drain_once(repo: Path) -> dict[str, Any]:
         return requested
     commit = requested["commit"]
     receipt: dict[str, Any] = {"commit": commit, "attempted_at": _now(), "github": "PENDING", "drive": "PENDING", "errors": []}
+    previous = requested.get("last_receipt") or {}
+    if previous.get("source_state") == "RECONCILIATION_REQUIRED":
+        receipt["source_state"] = "RECONCILIATION_REQUIRED"
     try:
-        _remote(["git", "-C", str(repo), "-c", "core.hooksPath=/dev/null", "push", "origin", f"{commit}:refs/heads/main"])
         remote = _remote(["git", "-C", str(repo), "ls-remote", "origin", "refs/heads/main"]).stdout.decode().split()
         if not remote or remote[0] != commit:
+            _remote(["git", "-C", str(repo), "-c", "core.hooksPath=/dev/null", "push", "origin", f"{commit}:refs/heads/main"])
+            remote = _remote(["git", "-C", str(repo), "ls-remote", "origin", "refs/heads/main"]).stdout.decode().split()
+        if not remote or remote[0] != commit:
+            receipt["source_state"] = "RECONCILIATION_REQUIRED"
+            receipt["remote_commit"] = remote[0] if remote else None
             raise RuntimeError("GitHub exact revision readback mismatch")
         receipt["github"] = "VERIFIED"
+        receipt["remote_commit"] = remote[0]
+        receipt.pop("source_state", None)
     except (OSError, RuntimeError, subprocess.SubprocessError) as exc:
-        detail = getattr(exc, "stderr", b"") or b""
-        detail = detail.decode(errors="replace") if isinstance(detail, bytes) else str(detail)
-        receipt["errors"].append({"target": "github", "error": (str(exc) + " " + detail)[-1200:]})
+        detail = _error_detail(exc)
+        receipt["errors"].append({"target": "github", "error": detail})
         if any(marker in detail.lower() for marker in ("non-fast-forward", "fetch first", "stale info")):
             receipt["source_state"] = "RECONCILIATION_REQUIRED"
-    # Transport failure permits independent replication, known newer authority does not.
+    # A known conflict survives transport loss; no stale canonical Drive overwrite.
     if receipt.get("source_state") != "RECONCILIATION_REQUIRED":
         try:
             drive = publish_drive_revision(repo, commit)
             receipt["drive"] = "VERIFIED" if drive.get("verified") else "PENDING"
             receipt["drive_readback"] = drive
         except (OSError, RuntimeError, subprocess.SubprocessError) as exc:
-            receipt["errors"].append({"target": "drive", "error": str(exc)[:1200]})
+            receipt["errors"].append({"target": "drive", "error": _error_detail(exc)})
     with _locked(repo) as path:
         current = json.loads(path.read_text())
-        current["last_receipt"] = receipt
-        if current.get("commit") == commit and receipt["github"] == receipt["drive"] == "VERIFIED":
-            current["status"] = "SYNCED"
-            current["verified_at"] = _now()
-        _write(path, current)
+        if current.get("commit") == commit:
+            current["last_receipt"] = receipt
+            if receipt["github"] == receipt["drive"] == "VERIFIED":
+                current["status"] = "SYNCED"
+                current["verified_at"] = _now()
+                current["consecutive_failures"] = 0
+            else:
+                current["consecutive_failures"] = int(current.get("consecutive_failures", 0)) + 1
+            _write(path, current)
     return current
 
 
@@ -175,7 +233,10 @@ def start_worker(repo: Path, *, failure_path: Path | None = None) -> None:
                     record_failure(json.dumps(result.get("last_receipt") or {}, sort_keys=True), result.get("task_id"))
             except Exception as exc:
                 record_failure(str(exc))
-            wake.wait(30.0); wake.clear()
+            cursor = read_publication(repo)
+            failures = int(cursor.get("consecutive_failures", 0))
+            # Publication-only backoff; never sleeps or rotates the executor.
+            wake.wait(min(300.0, 30.0 * (2 ** min(failures, 3)))); wake.clear()
     thread = threading.Thread(target=run, name="biella-publication", daemon=True)
     _WORKERS[key] = (thread, wake, stop)
     thread.start()

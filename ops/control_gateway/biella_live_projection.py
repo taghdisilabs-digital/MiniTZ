@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 import os
 import re
@@ -162,6 +163,8 @@ class LiveProjection:
         event_type = str(event.get("type") or "")
         tool = str(event.get("tool") or "")
         raw = f"{tool} {event.get('text') or ''}".lower()
+        if event_type.startswith("validation."):
+            return "TEST"
         if event_type == "agent.message" or event_type.startswith("task.") or event_type in {"turn.completed", "dialog.queued", "dialog.started"}:
             return "BIELLA"
         if "git commit" in raw or event_type.startswith("commit."):
@@ -180,7 +183,7 @@ class LiveProjection:
     def _state_word(event: dict[str, object]) -> str:
         status = str(event.get("status") or "").upper()
         event_type = str(event.get("type") or "")
-        if status in {"FAILED", "ERROR"}:
+        if event.get("exit_code") not in (None, 0) or status in {"FAILED", "ERROR"}:
             return "FAILED"
         if status in {"COMPLETED", "COMPLETE", "PASS", "PASSED"} or event_type in {"turn.completed"}:
             return "COMPLETED"
@@ -491,14 +494,40 @@ class LiveProjection:
 
     def _latest_validation(self, task_id: str, events: list[dict[str, object]]) -> dict[str, object] | None:
         for event in reversed(events):
-            if str(event.get("task_id") or "") != task_id:
+            if str(event.get("task_id") or "") != task_id or event.get("type") != "validation.completed":
                 continue
-            sanitized = self.sanitize_event(event)
-            if not sanitized or sanitized["category"] not in {"TEST", "BUILD", "RENDER"}:
+            try:
+                path = Path(str(event["evidence_path"]))
+                if not path.is_absolute():
+                    path = self.repo / path
+                path.resolve().relative_to(self.repo.resolve())
+                data = path.read_bytes()
+                if hashlib.sha256(data).hexdigest() != event.get("evidence_sha256"):
+                    continue
+                report = json.loads(data)
+                if report.get("task_id") != task_id or report.get("result") not in {"PASS", "FAIL", "FAILED"}:
+                    continue
+                verified_event = dict(event)
+                verified_event["status"] = "PASS" if report["result"] == "PASS" else "FAILED"
+                verified_event["text"] = "Task validation evidence"
+                return self.sanitize_event(verified_event)
+            except (KeyError, OSError, ValueError, TypeError):
                 continue
-            if sanitized["state"] in {"COMPLETED", "FAILED"}:
-                return sanitized
         return None
+
+    @staticmethod
+    def _task_status(task_id: str, runtime: dict, status: dict, memory: dict) -> str:
+        if str(runtime.get("task_id") or "") == task_id:
+            observed = str(runtime.get("status") or "UNKNOWN")
+            if observed in {"RUNNING", "ACTIVE"}:
+                return "RUNNING"
+            return observed
+        result = status.get("last_result") or {}
+        if result.get("task_id") == task_id:
+            return str(result.get("status") or "UNKNOWN")
+        if memory.get("task_id") == task_id and memory.get("last_status"):
+            return str(memory["last_status"])
+        return str(status.get("status") or "UNKNOWN")
 
     def _production_state(self, *, status: dict[str, object], runtime: dict[str, object], current: dict[str, object] | None, heartbeat_age: float | None) -> str:
         if str(status.get("status") or "").upper() == "ERROR":
@@ -610,7 +639,7 @@ class LiveProjection:
                 "task_id": task_id,
                 "task_title": title,
                 "task_summary": summary,
-                "task_status": str(memory.get("last_status") or (status.get("last_result") or {}).get("status") or status.get("status") or "UNKNOWN"),
+                "task_status": self._task_status(task_id, runtime, status, memory),
                 "current_operation": current,
                 "model": str(status.get("active_model") or runtime.get("active_model") or "UNKNOWN"),
                 "reasoning": str(status.get("active_reasoning") or runtime.get("active_reasoning") or "UNKNOWN"),

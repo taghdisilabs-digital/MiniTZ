@@ -97,3 +97,6 @@ Recover routine tool/provider/publication failures within their affected boundar
 ## Next-100 production execution
 
 `docs/task-program/D_NEXT_100_TASKS.json` contains the next 100 existing task identities, normalized source sections/digests, dependencies, output contracts, and execution roots. It is not another queue. The runner injects only the active entry; `PRODUCTION.md` owns order/status and `D_TASK_LEDGER.json` is its derived projection. Reuse matching proof; no new gate, permanent agent, timer, or whole-program prompt load. Read `07_BIELLA_PRODUCTION_SYSTEM.md` for the implemented local-persistence/remote-publication split and inline source repair.
+
+## Exact audit-repair semantics
+Use the controller's exact task-owned path/digest set, never a whole-project prefix, for automatic commits. Preserve required task evidence even when ignored; do not include unrelated scratch. Reserve is preferred, not an outage dead-end: eligible strong alternatives retain highest-supported reasoning. Known source conflicts survive network errors. Website validation labels require real task-bound evidence, not shell keywords. Optional Qwen failure cannot prevent authoritative production restoration.

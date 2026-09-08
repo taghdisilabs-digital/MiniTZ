@@ -167,7 +167,7 @@ def test_complete_with_task_owned_output_is_persisted_locally(tmp_path: Path):
     task_file = project / "active-task-output.txt"
     task_file.write_text("validated but not committed\n", encoding="utf-8")
     complete = evidence.TaskResult("D01-030", "COMPLETE", "done", ("runtime pass",))
-    normalized = evidence.enforce_clean_completion_boundary(repo, complete)
+    normalized = evidence.enforce_clean_completion_boundary(repo, complete, owned_files={str(task_file.relative_to(repo)): __import__("hashlib").sha256(task_file.read_bytes()).hexdigest()})
     assert normalized.status == "COMPLETE"
     assert "committed locally" in normalized.evidence[-1]
     assert subprocess.check_output(["git", "-C", str(repo), "status", "--porcelain"], text=True) == ""

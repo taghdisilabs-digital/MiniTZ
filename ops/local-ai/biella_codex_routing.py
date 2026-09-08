@@ -107,6 +107,18 @@ def select_route(task_class: str, catalog: Mapping[str, set[str]], cooldowns: Ma
         if task_class in {"creation", "hard_creation"} and reasoning_rank(reasoning) < reasoning_rank("high"):
             raise RuntimeError(f"forced Codex route reasoning is below creation minimum: {forced_model}:{reasoning}")
         return Route(forced_model, reasoning)
+    preferred = os.environ.get("BIELLA_CODEX_PREFER_MODEL", "").strip()
+    if preferred:
+        # Prefer Reserve, but an observed outage is not a permanent route pin.
+        strong = (preferred, *(item.model for item in _ROUTE_PROFILES["hard_creation"]),
+                  *(item.model for item in _DISCOVERED_STRONG_RECOVERY_ROUTES))
+        for model in dict.fromkeys(strong):
+            if model in excluded or model in _BOUNDED_FALLBACK_MODELS or _cooling_down(model, cooldowns, now):
+                continue
+            levels = catalog.get(model, set())
+            eligible = [level for level in _REASONING_ORDER if level in levels and reasoning_rank(level) >= reasoning_rank("high")]
+            if eligible:
+                return Route(model, eligible[-1])
     for route in candidates:
         if route.model in excluded or _cooling_down(route.model, cooldowns, now):
             continue

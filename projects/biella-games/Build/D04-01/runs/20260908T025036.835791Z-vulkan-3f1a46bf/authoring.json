@@ -1,0 +1,125 @@
+{
+  "actor_variants": [
+    {
+      "actor_class": "<Object '/Script/BiellaGames.BiellaPopulationInfected' (0x8060c951e00) Class 'Class'>",
+      "asset": "/Game/Data/D04/DA_ActorVariant_InfectedStandard",
+      "content_id": "D04.Actor.InfectedStandard",
+      "definition_version": 1,
+      "effective": {
+        "aggro_range": 2200.0,
+        "attack_cooldown": 0.8500000238418579,
+        "attack_damage": 12.0,
+        "attack_range": 170.0,
+        "max_health": 70.0,
+        "max_pressure_movement_multiplier": 1.5,
+        "movement_speed": 210.0,
+        "preferred_distance": 600.0,
+        "weapon_cooldown": 0.8999999761581421,
+        "weapon_damage": 14.0,
+        "weapon_range": 950.0
+      },
+      "role": "infected"
+    },
+    {
+      "actor_class": "<Object '/Script/BiellaGames.BiellaRival' (0x8060c952400) Class 'Class'>",
+      "asset": "/Game/Data/D04/DA_ActorVariant_RivalStandard",
+      "content_id": "D04.Actor.RivalStandard",
+      "definition_version": 1,
+      "effective": {
+        "aggro_range": 2200.0,
+        "attack_cooldown": 0.8500000238418579,
+        "attack_damage": 12.0,
+        "attack_range": 170.0,
+        "max_health": 100.0,
+        "max_pressure_movement_multiplier": 1.5,
+        "movement_speed": 260.0,
+        "preferred_distance": 600.0,
+        "weapon_cooldown": 0.8999999761581421,
+        "weapon_damage": 14.0,
+        "weapon_range": 950.0
+      },
+      "role": "rival"
+    }
+  ],
+  "encounters": [
+    {
+      "asset": "/Game/Data/D04/DA_Encounter_StreetPopulation",
+      "composition": [
+        {
+          "content_id": "D04.Actor.RivalStandard",
+          "required_definition_version": 1
+        },
+        {
+          "content_id": "D04.Actor.InfectedStandard",
+          "required_definition_version": 1
+        },
+        {
+          "content_id": "D04.Actor.InfectedStandard",
+          "required_definition_version": 1
+        },
+        {
+          "content_id": "D04.Actor.InfectedStandard",
+          "required_definition_version": 1
+        }
+      ],
+      "content_id": "D04.Encounter.StreetPopulation",
+      "definition_version": 1,
+      "regions": [
+        {
+          "center": [
+            4000.0,
+            0.0,
+            0.0
+          ],
+          "region_id": "Street01",
+          "slot_count": 12
+        },
+        {
+          "center": [
+            12000.0,
+            0.0,
+            0.0
+          ],
+          "region_id": "Street03",
+          "slot_count": 12
+        },
+        {
+          "center": [
+            20000.0,
+            0.0,
+            0.0
+          ],
+          "region_id": "Street05",
+          "slot_count": 12
+        }
+      ],
+      "row_spacing": 400.0,
+      "slot_columns": 4,
+      "slot_spacing": 340.0,
+      "tuning": {
+        "content_id": "D04.Tuning.PopulationDevelopment",
+        "required_definition_version": 1
+      }
+    }
+  ],
+  "mode": "author",
+  "result": "PASS",
+  "source": "/root/biella/repos/biella-engine/projects/biella-games/Content/Data/D04/D04-01-content.json",
+  "source_sha256": "14581c67dfcc5237e3e837d5c52112d8318206c235098f4de35d41999fa26020",
+  "task_id": "D04-01",
+  "tunings": [
+    {
+      "asset": "/Game/Data/D04/DA_Tuning_PopulationDevelopment",
+      "content_id": "D04.Tuning.PopulationDevelopment",
+      "definition_version": 1,
+      "effective": {
+        "activation_distance": 5000.0,
+        "admission_frame_ms": 25.0,
+        "max_active": 4,
+        "minimum_player_distance": 1000.0,
+        "spawn_budget": 2,
+        "suspension_distance": 6500.0
+      }
+    }
+  ]
+}

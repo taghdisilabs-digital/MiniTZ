@@ -48,8 +48,9 @@ games:
   task_boundary: D05-01_PENDING
 resources:
   strong_route_policy: HIGHEST_QUALITY_ELIGIBLE
-  forced_route: gpt-reserve
-  forced_reasoning: max
+  preferred_route: gpt-reserve
+  preferred_reasoning: max
+  route_outage: HIGHEST_SUPPORTED_ELIGIBLE_STRONG_ALTERNATIVE
   cache_efficiency: ACTIVE_QUALITY_FIRST
   local_qwen: NON_AUTHORITATIVE_ON_DEMAND
   project_data_leakage: FORBIDDEN

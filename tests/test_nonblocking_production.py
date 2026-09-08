@@ -139,7 +139,7 @@ def test_validated_task_files_are_committed_without_another_model_turn(tmp_path)
     task.parent.mkdir(parents=True); task.write_text("validated task output\n")
     unrelated = repo / "unrelated.txt"; unrelated.write_text("do not include\n")
     result = evidence.TaskResult("D05-01", "COMPLETE", "validated", ("runtime evidence",))
-    final = evidence.enforce_clean_completion_boundary(repo, result)
+    final = evidence.enforce_clean_completion_boundary(repo, result, owned_files={str(task.relative_to(repo)): __import__("hashlib").sha256(task.read_bytes()).hexdigest()})
     assert final.status == "COMPLETE"
     assert git(repo, "show", "HEAD:projects/biella-games/validated.txt") == "validated task output"
     assert unrelated.read_text() == "do not include\n"

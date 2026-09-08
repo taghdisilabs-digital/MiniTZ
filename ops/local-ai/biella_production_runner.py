@@ -237,6 +237,9 @@ def _write_task_capsule(repo_root: Path, project_root: Path, runtime_root: Path,
         summary=str(previous.get("summary", "")), evidence=previous.get("evidence", ()),
         dirty_paths=_project_dirty_paths(repo_root, project_root),
     )
+    for name in ("workspace_baseline", "owned_files", "live_observation"):
+        if name in existing:
+            capsule[name] = existing[name]
     capsule["last_status"] = previous.get("status")
     capsule["updated_at"] = datetime.now(timezone.utc).isoformat()
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -244,6 +247,62 @@ def _write_task_capsule(repo_root: Path, project_root: Path, runtime_root: Path,
     tmp.write_text(json.dumps(capsule, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
     os.replace(tmp, path)
     return path
+
+
+def _checkpoint_task_activity(repo_root: Path, project_root: Path, runtime_root: Path,
+                              task: state.TaskRecord, telemetry: Mapping[str, Any],
+                              baseline: Mapping[str, Any], previous_owned: Mapping[str, Any]) -> dict[str, Any]:
+    """Refresh recoverable bytes from actual activity; never changes task authority."""
+    owned = evidence.task_owned_outputs(repo_root, baseline, previous_owned)
+    path = _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
+    capsule = json.loads(path.read_text(encoding="utf-8"))
+    capsule["workspace_baseline"] = dict(baseline)
+    capsule["owned_files"] = owned
+    events = Path(runtime_root) / "events.jsonl"
+    if events.is_file():
+        with events.open("rb") as stream:
+            stream.seek(max(0, events.stat().st_size - 32768))
+            lines = stream.read().decode("utf-8", errors="replace").splitlines()
+        for line in reversed(lines):
+            try:
+                event = json.loads(line)
+            except ValueError:
+                continue
+            if event.get("task_id") == task.id and event.get("type") in {"agent.message", "tool.completed"}:
+                capsule["live_observation"] = {"time": event.get("time"), "type": event.get("type"),
+                    "seq": event.get("seq"), "text": str(event.get("text", ""))[:1200]}
+                break
+    tmp = path.with_suffix(".json.tmp")
+    with tmp.open("w", encoding="utf-8") as stream:
+        json.dump(capsule, stream, sort_keys=True, separators=(",", ":"))
+        stream.write("\n"); stream.flush(); os.fsync(stream.fileno())
+    os.replace(tmp, path)
+    return owned
+
+
+def _emit_validation_evidence(repo_root: Path, project_root: Path, result: evidence.TaskResult,
+                              journal: production_events.ProductionEventJournal) -> None:
+    # Only explicit result evidence references are considered, never command keywords.
+    seen = set()
+    for text in result.evidence:
+        for token in re.findall(r"(?:/|[A-Za-z0-9_.-]+/)[^\s`\"<>]*?\.json", text):
+            path = Path(token)
+            candidates = [path] if path.is_absolute() else [Path(repo_root) / path, Path(project_root) / path]
+            for candidate in candidates:
+                try:
+                    candidate = candidate.resolve()
+                    candidate.relative_to(Path(repo_root).resolve())
+                    if candidate in seen or not candidate.is_file():
+                        continue
+                    raw = candidate.read_bytes(); report = json.loads(raw)
+                    if not isinstance(report, dict) or report.get("task_id") != result.task_id or report.get("result") not in {"PASS", "FAIL", "FAILED"}:
+                        continue
+                    seen.add(candidate)
+                    journal.emit("validation.completed", task_id=result.task_id,
+                        status=report["result"], evidence_path=str(candidate),
+                        evidence_sha256=hashlib.sha256(raw).hexdigest(), text="Task validation evidence")
+                except (OSError, ValueError, TypeError):
+                    continue
 
 
 def _task_prompt(repo_root: Path, production: state.ProductionState, task: state.TaskRecord, telemetry: Mapping[str, Any], capsule_path: Path, projection_path: Path | None = None, local_assist_path: Path | None = None, route: routing.Route | None = None) -> str:
@@ -787,7 +846,14 @@ def _guard_source_alignment(
     except evidence.SourceTransportError as exc:
         head = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD"], text=True).strip()
         tree = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD^{tree}"], text=True).strip()
-        telemetry["source_alignment"] = {"state": "REMOTE_UNAVAILABLE_LOCAL_CONTINUATION", "commit": head, "tree": tree, "detail": str(exc)}
+        previous_alignment = dict(telemetry.get("source_alignment") or {})
+        if previous_alignment.get("state") == "RECONCILIATION_REQUIRED":
+            previous_alignment.update({"transport_state": "UNAVAILABLE", "transport_error": str(exc),
+                                       "commit": head, "tree": tree})
+            telemetry["source_alignment"] = previous_alignment
+        else:
+            telemetry["source_alignment"] = {"state": "REMOTE_UNAVAILABLE_LOCAL_CONTINUATION",
+                                             "commit": head, "tree": tree, "detail": str(exc)}
         journal.emit("source.transport_deferred", task_id=task_id or telemetry.get("task_id"), status="RETRY_INDEPENDENT", text=str(exc))
         _beat(runtime_path, telemetry)
         return True
@@ -961,6 +1027,22 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             _beat(runtime_path, telemetry)
             output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"{task.id}-{route.model}")
             capsule_path = _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
+            capsule_data = json.loads(capsule_path.read_text(encoding="utf-8"))
+            previous_owned = dict(capsule_data.get("owned_files") or {})
+            try:
+                ownership_baseline = evidence.workspace_snapshot(repo_root)
+            except (OSError, subprocess.SubprocessError) as exc:
+                ownership_baseline = dict(capsule_data.get("workspace_baseline") or {})
+                journal.emit("memory.observation_failed", task_id=task.id, status="ERROR", text=str(exc))
+            current_owned = dict(previous_owned)
+            def observe_activity(_at=None):
+                nonlocal current_owned
+                try:
+                    current_owned = _checkpoint_task_activity(repo_root, project_root, runtime_root,
+                        task, telemetry, ownership_baseline, previous_owned)
+                except (OSError, ValueError, subprocess.SubprocessError) as exc:
+                    journal.emit("memory.observation_failed", task_id=task.id, status="ERROR", text=str(exc))
+            observe_activity()
             projection_path = _refresh_memory_projection(repo_root, project_root, runtime_root, task.id, journal)
             local_assist_path = None  # Optional local AI remains available on demand inside the authoritative task; never block turn start.
             bounded_fallback = routing.is_bounded_fallback(route)
@@ -970,7 +1052,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             journal.emit(event_type, task_id=task.id, status="RUNNING", text=task.title, model=route.model, reasoning=route.reasoning, bounded_packet_id=bounded_packet_id)
             rc, error_text = invoke_structured(
                 prompt, route, schema_path, output, stdout, stderr, runtime_path, telemetry,
-                heartbeat_interval=heartbeat_interval, cwd=execution_map.task_working_directory(repo_root, project_root, task.id),
+                heartbeat_interval=heartbeat_interval, on_heartbeat=observe_activity, cwd=execution_map.task_working_directory(repo_root, project_root, task.id),
                 resume_session_id=resume_session_id, session_task_id=task.id,
                 allow_helper=False if bounded_fallback else _helper_allowed(task.id),
                 persist_session_identity=not bounded_fallback,
@@ -1017,7 +1099,9 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             if result.status in {"COMPLETE", "COMPLETE_ALREADY"} and (telemetry.get("source_alignment") or {}).get("state") == "RECONCILIATION_REQUIRED":
                 result = evidence.TaskResult(result.task_id, "CONTINUE",
                     "Preserve passed task evidence; reconcile only the observed source revision difference before closure: " + str(telemetry["source_alignment"].get("detail", "")), result.evidence)
-            result = evidence.enforce_clean_completion_boundary(repo_root, result)
+            observe_activity()
+            result = evidence.enforce_clean_completion_boundary(repo_root, result, owned_files=current_owned)
+            _emit_validation_evidence(repo_root, project_root, result, journal)
             telemetry["last_result"] = {
                 "task_id": result.task_id, "status": result.status, "summary": result.summary,
                 "evidence": list(result.evidence), "model": route.model, "reasoning": route.reasoning,

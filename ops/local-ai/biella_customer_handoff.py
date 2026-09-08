@@ -210,21 +210,38 @@ class BiellaCustomerHandoff:
         if not isinstance(services, dict):
             raise HandoffError("checkpoint service state is invalid")
         for name in PROTECTED_SERVICES:
-            state = services.get(name)
-            if not isinstance(state, dict):
+            if not isinstance(services.get(name), dict):
                 raise HandoffError(f"checkpoint missing service state for {name}")
-            self.set_enabled_state(name, str(state.get("enabled") or "unknown"))
-        # Clear the acknowledged request before the resumed runner reads it.
+        # Authoritative execution is restored before optional accelerators.
+        production = "biella-codex-production.service"
+        self.set_enabled_state(production, str(services[production].get("enabled") or "unknown"))
         self.pause_request_path.unlink(missing_ok=True)
         self.pause_ack_path.unlink(missing_ok=True)
+        self.set_active_state(production, bool(services[production].get("active")))
+        optional_errors = []
         for name in PROTECTED_SERVICES:
-            self.set_active_state(name, bool(services[name].get("active")))
+            if name == production:
+                continue
+            for operation, value in (("enabled", str(services[name].get("enabled") or "unknown")),
+                                     ("active", bool(services[name].get("active")))):
+                try:
+                    if operation == "enabled":
+                        self.set_enabled_state(name, value)
+                    else:
+                        self.set_active_state(name, value)
+                except (HandoffError, OSError, subprocess.SubprocessError) as exc:
+                    optional_errors.append({"service": name, "operation": operation, "error": str(exc)})
+        if optional_errors:
+            _atomic_json(self.handoff_root / "optional-resource-restore.json", {
+                "observed_at": _now(), "errors": optional_errors,
+                "production_restored": True, "execution_authority": False,
+            })
         self.history_root.mkdir(parents=True, exist_ok=True)
         digest = hashlib.sha256(self.active_checkpoint_path.read_bytes()).hexdigest()
         history = self.history_root / f"{digest}.json"
         shutil.copy2(self.active_checkpoint_path, history)
         self.active_checkpoint_path.unlink()
-        return {"status": "RESTORED", "checkpoint_sha256": digest, "history": str(history)}
+        return {"status": "RESTORED", "checkpoint_sha256": digest, "history": str(history), "optional_resource_errors": optional_errors}
 
     def import_lessons(self, source_path: Path, inbox_root: Path) -> dict[str, Any]:
         source_path = Path(source_path)

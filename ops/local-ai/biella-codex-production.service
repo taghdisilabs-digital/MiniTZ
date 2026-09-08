@@ -13,8 +13,8 @@ Environment=BIELLA_PRODUCTION_RUNNER=/root/biella/repos/biella-engine/ops/local-
 Environment=BIELLA_SOURCE_SYNC_INSTALLER=/root/biella/repos/biella-engine/ops/local-ai/install-biella-ai.sh
 Environment=HOME=/root
 Environment=BIELLA_CONTINUOUS_IDLE=1
-Environment=BIELLA_CODEX_FORCE_MODEL=gpt-reserve
-Environment=BIELLA_CODEX_FORCE_REASONING=max
+Environment=BIELLA_CODEX_PREFER_MODEL=gpt-reserve
+Environment=BIELLA_CODEX_PREFER_REASONING=max
 ExecCondition=/usr/local/lib/biella-ai/biella_customer_handoff.py guard-production
 ExecStartPre=/usr/local/lib/biella-ai/biella-production-source-sync.sh
 ExecStart=/usr/local/bin/biella-codex production run

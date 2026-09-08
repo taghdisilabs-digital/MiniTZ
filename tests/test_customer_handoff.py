@@ -96,8 +96,9 @@ def test_resume_restores_exact_pre_customer_service_state(tmp_path: Path, monkey
     monkeypatch.setattr(manager, "set_active_state", lambda name, state: active.append((name, state)))
     result = manager.resume()
     assert result["status"] == "RESTORED"
-    assert enabled == [(name, desired[name]["enabled"]) for name in handoff.PROTECTED_SERVICES]
-    assert active == [(name, desired[name]["active"]) for name in handoff.PROTECTED_SERVICES]
+    order = ("biella-codex-production.service", "biella-ollama.service", "biella-qwen-residency.service")
+    assert enabled == [(name, desired[name]["enabled"]) for name in order]
+    assert active == [(name, desired[name]["active"]) for name in order]
     assert not manager.active_checkpoint_path.exists()
 
 

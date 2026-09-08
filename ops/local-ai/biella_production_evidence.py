@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
@@ -122,33 +123,118 @@ def completion_boundary_dirty_paths(repo_root: Path) -> tuple[str, ...]:
     return tuple(sorted(dirty - allowed))
 
 
-def enforce_clean_completion_boundary(repo_root: Path, result: TaskResult) -> TaskResult:
-    """Finalize validated task-owned bytes directly; never replay work just to commit."""
+def _path_digest(path: Path) -> str | None:
+    if path.is_symlink():
+        return "symlink:" + hashlib.sha256(os.fsencode(os.readlink(path))).hexdigest()
+    if not path.exists():
+        return None
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def workspace_snapshot(repo_root: Path) -> dict[str, str | None]:
+    """Exact dirty-byte boundary, not an ownership claim by directory name."""
+    return {name: _path_digest(Path(repo_root) / name) for name in sorted(_dirty_paths(repo_root))}
+
+
+def task_owned_outputs(repo_root: Path, baseline: Mapping[str, str | None],
+                       previous: Mapping[str, str | None]) -> dict[str, str | None]:
+    current = workspace_snapshot(repo_root)
+    # Pre-existing unrelated dirty files are never absorbed, even if edited later.
+    return {name: digest for name, digest in current.items()
+            if name not in _CONTINUITY_PATHS and (name not in baseline or name in previous)}
+
+
+def _referenced_task_proof(repo_root: Path, result: TaskResult) -> dict[str, str | None]:
+    """Retain explicitly named task reports and their same-namespace raw inputs."""
+    root = Path(repo_root).resolve()
+    found: dict[str, str | None] = {}
+    def strings(value):
+        if isinstance(value, str):
+            yield value
+        elif isinstance(value, dict):
+            for item in value.values():
+                yield from strings(item)
+        elif isinstance(value, list):
+            for item in value:
+                yield from strings(item)
+    for text in result.evidence:
+        for token in re.findall(r"(?:/|[A-Za-z0-9_.-]+/)[^\s`\"<>;,]*?\.json", text):
+            raw = Path(token)
+            candidates = [raw] if raw.is_absolute() else [root / raw, root / "projects/biella-games" / raw]
+            for report_path in candidates:
+                try:
+                    report_path = report_path.resolve()
+                    report_path.relative_to(root)
+                    report = json.loads(report_path.read_bytes())
+                    if not isinstance(report, dict) or task_ids.canonical_task_id(str(report.get("task_id", ""))) != task_ids.canonical_task_id(result.task_id):
+                        continue
+                except (OSError, ValueError):
+                    continue
+                namespace = report_path.parent
+                pending = [report_path]
+                while pending:
+                    path = pending.pop()
+                    relative = path.relative_to(root).as_posix()
+                    if relative in found:
+                        continue
+                    found[relative] = _path_digest(path)
+                    if path.suffix != ".json":
+                        continue
+                    try:
+                        payload = json.loads(path.read_bytes())
+                    except (OSError, ValueError):
+                        continue
+                    for value in strings(payload):
+                        if len(value) > 4096 or "\n" in value:
+                            continue
+                        ref = Path(value)
+                        for candidate in ([ref] if ref.is_absolute() else [path.parent / ref, root / ref]):
+                            try:
+                                candidate = candidate.resolve()
+                                candidate.relative_to(namespace)
+                                if candidate.is_file() and candidate.relative_to(root).as_posix() not in found:
+                                    pending.append(candidate)
+                            except (OSError, ValueError):
+                                continue
+    return found
+
+
+def enforce_clean_completion_boundary(repo_root: Path, result: TaskResult, *,
+                                      owned_files: Mapping[str, str | None] | None = None) -> TaskResult:
+    """Commit the executor's exact recorded output set without another model turn."""
     if result.status not in _COMPLETE:
         return result
-    from biella_execution_map import task_entry
     try:
         dirty = _dirty_paths(Path(repo_root)) - set(_CONTINUITY_PATHS)
-        entry = task_entry(repo_root, result.task_id)
-        root = entry["execution_root"] if entry else "projects/biella-games"
-        if root == ".":
-            prefixes = ("src/", "ops/", "tests/", "docs/", "website/")
-        elif root == "website":
-            prefixes = ("website/", "ops/control_gateway/", ".github/workflows/")
-        else:
-            prefixes = (root.rstrip("/") + "/",)
-        owned = sorted(path for path in dirty if path.startswith(prefixes))
+        expected = dict(owned_files or {})
+        proof = _referenced_task_proof(repo_root, result)
+        for name, digest in proof.items():
+            expected.setdefault(name, digest)
+        tracked = set()
+        if proof:
+            raw = _git(repo_root, "ls-files", "-z", "--", *sorted(proof), text=False).stdout
+            tracked = {os.fsdecode(name) for name in raw.split(b"\0") if name}
+        owned = sorted((dirty & set(expected)) | (set(proof) - tracked))
         if not owned:
             return result
-        _git(repo_root, "add", "--", *owned)
+        for name in owned:
+            relative = Path(name)
+            if relative.is_absolute() or ".." in relative.parts or ".git" in relative.parts:
+                raise ValueError(f"invalid task output path: {name}")
+            if _path_digest(Path(repo_root) / name) != expected[name]:
+                raise ValueError(f"task output changed after the recorded validation boundary: {name}")
+        _git(repo_root, "add", "-f", "--", *owned)
         _git(repo_root, "commit", "--only", "-m", f"production: persist validated {result.task_id} output", "--", *owned)
         commit = _git(repo_root, "rev-parse", "HEAD").stdout.strip()
         return TaskResult(result.task_id, result.status, result.summary,
                           result.evidence + (f"Task-owned output committed locally: {commit}",))
-    except (OSError, subprocess.SubprocessError) as exc:
+    except (OSError, ValueError, subprocess.SubprocessError) as exc:
         return TaskResult(result.task_id, "CONTINUE",
-            f"Repair only the local output-persistence operation; reuse completed validation and do not repeat the task: {exc}",
-            result.evidence)
+            f"Repair only the exact output-persistence operation; preserve passed work: {exc}", result.evidence)
 
 
 def assert_remote_source_current(repo_root: Path) -> dict[str, str]:

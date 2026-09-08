@@ -1,0 +1,7 @@
+{
+  "task_id": "D02-01",
+  "suite": "BiellaGames.Demo01.SharedInteraction",
+  "result": "PASS",
+  "validation": "/root/biella/repos/biella-engine/projects/biella-games/Build/D04-01/runs/20260908T025036.835791Z-vulkan-3f1a46bf/shared/validation.json",
+  "error": null
+}
