@@ -1,0 +1,187 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS_AFFECTED_LAYER",
+  "candidate_status": "GENERATED_DRAFT",
+  "slice_acceptance": false,
+  "package_id": "a82f366731d941c0eaf874023cdb2f2a5e8c4384d3d2ad9fc7753535c0a07f84",
+  "sources": [
+    {
+      "path": "SourceAssets/Materials/ServiceSwitch.hlsl",
+      "sha256": "6ae930d0e8057fb4e3675d8dd9ac167af85f9b57bec518fd7088cce4dbb9aa42",
+      "bytes": 4665
+    },
+    {
+      "path": "Content/Python/author_service_switch.py",
+      "sha256": "af5aebe0eee8de23324d88f6b86430e52a3bd7369e844cdb9d703262e0dacb5a",
+      "bytes": 5036
+    },
+    {
+      "path": "Content/Environment/ServiceBay/M_ServiceSwitch.uasset",
+      "sha256": "02f9560e97e9b87cd15b1f5ab008942416097f2450314dc0f82aeef8741a54cb",
+      "bytes": 16798
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
+      "sha256": "f4255ffee3f1b591378db69c13bd08322414599dd94f144ae19b755524be3191",
+      "bytes": 15547
+    }
+  ],
+  "editor_validation": {
+    "path": "Build/AAA/D17-01/environment/switch-editor-02/validation.json",
+    "sha256": "7e6a3615ea7ba9657acfa40ac9ba2f871b3f239f86c3c6636df1c574d6f2d0ff",
+    "bytes": 199852
+  },
+  "package_validation": {
+    "path": "Build/AAA/D17-01/environment/runtime-09/validation.json",
+    "sha256": "3ccd02f3bbd48d46c0c9061fdfeb8f0ec5250857d8f6b177166325bbb4490da9",
+    "bytes": 18754
+  },
+  "asset_validation": {
+    "path": "Build/AAA/D17-01/environment/switch-assets-03/validation.json",
+    "sha256": "e59026c2f3dcb5f3fae5e44060ff4073f713985ddb93b5d56e6a87a779c56390",
+    "bytes": 3241
+  },
+  "saved_readback": {
+    "path": "Build/AAA/D17-01/environment/switch-assets-03/readback.json",
+    "sha256": "35e12faabb147a0ff8860cbc3c7aa4102573c7edcc94d844b009b7a648f282d4",
+    "bytes": 458
+  },
+  "final_log_identities": {
+    "path": "Build/AAA/D17-01/environment/switch-assets-03/log-finalization.json",
+    "sha256": "6edec859bd069ea2c7ade4084d959679a0aaefcb56958162def631da02742359",
+    "bytes": 2065
+  },
+  "mechanics_preservation": {
+    "path": "Build/AAA/D17-01/environment/switch-mechanics-preservation.json",
+    "sha256": "8d00cd2bac51e9640aec5b1f6ab0c8bac1548b3f2f6b39f5df3065077af4b391",
+    "bytes": 2004
+  },
+  "inspected_frames": [
+    {
+      "path": "Build/AAA/D17-01/environment/switch-editor-02/captures/switch_safe.png",
+      "sha256": "6226ff5fb919f436ab6d9fff14fea35d2428a237b007de38dfd773859bfd8d0b",
+      "bytes": 1121203
+    },
+    {
+      "path": "Build/AAA/D17-01/environment/switch-editor-02/captures/panel_damaged.png",
+      "sha256": "f4c0b4f62635bfa3708b869c0389e5ca328ef89d3c628987f5333ed9a78ed21f",
+      "bytes": 1133140
+    },
+    {
+      "path": "Build/AAA/D17-01/environment/runtime-09/captures/switch_safe.png",
+      "sha256": "4fec5131da611da5edc86f60af707ce57a9e9d14bb9dd31dd3855a02e47cab5e",
+      "bytes": 1122559
+    },
+    {
+      "path": "Build/AAA/D17-01/environment/runtime-09/captures/panel_damaged.png",
+      "sha256": "8ce37556e1eea6c41aab8d482d8e17a20e517d437f1dd186d8ab1bd4d6af3ffc",
+      "bytes": 1131843
+    }
+  ],
+  "observed": "Lit editor and installed-game fixture views show a recessed dark control face, worn border, fasteners, isolator grip, caution symbol and a small green safe/amber live lens. Housing material remains dark through the existing power change. Player partly occludes the lower face at the safe fixture camera. Existing wet floor remains continuous; the separate damaged panel still becomes uniformly orange.",
+  "material_contract": {
+    "shading": "DefaultLit",
+    "blend": "Opaque",
+    "world_position_offset": false,
+    "geometry": "Original Switch Cube, transform, collision and interaction trace preserved",
+    "native_state_parameters": [
+      "BaseColor",
+      "Emission"
+    ],
+    "state_scope": "Lens only; no new gameplay state"
+  },
+  "shader_failure": {
+    "validation": {
+      "path": "Build/AAA/D17-01/environment/switch-editor-01/validation.json",
+      "sha256": "8afd1b05ea59873ca91926c3bd203e3cd69b6816ca2d6608dc0ecc37c9c8bce0",
+      "bytes": 99940
+    },
+    "failed_source": {
+      "path": "Build/AAA/D17-01/environment/switch-editor-01/failed-ServiceSwitch.hlsl",
+      "sha256": "31d94f80b74161040524d51992948d48f09bdc60ad88bc7ce729e2daebf8bbcf",
+      "bytes": 4656
+    },
+    "cause": "triangle is reserved in HLSL; renamed local identifier to cautionMask",
+    "excluded_from_acceptance": true
+  },
+  "optional_resource": {
+    "result": {
+      "path": "Build/AAA/D17-01/environment/switch-resource-review-01/result.json",
+      "sha256": "70bae08f10e29aec0f8ea3c4aec803c73739e35ee89bb7d3730ebe21fa1e16fd",
+      "bytes": 156
+    },
+    "status": "TIMED_OUT_REROUTED_TO_LOCAL_UNREAL_VALIDATION",
+    "authoritative": false
+  },
+  "limits": [
+    "These fixture frames drive native state and position actors; they are not ordinary-input route proof.",
+    "This local material repair does not remove the five major scene-wide visual defect groups.",
+    "No continuous 600–1200 second sequence, natural arena-pressure timing, temporal-quality or audio acceptance is inferred."
+  ],
+  "ordinary_input_runs": [
+    {
+      "run": "switch-face-720-01",
+      "raw_video": {
+        "path": "Build/AAA/D17-01/raw/switch-face-720-01/raw-gameplay.mkv",
+        "sha256": "14752e3ca13948b894306c139d67fc7b0e30b7fe929b1c9dbd1f27b945d413ee",
+        "bytes": 6149896
+      },
+      "telemetry": {
+        "path": "Build/AAA/D17-01/raw/switch-face-720-01/telemetry.jsonl",
+        "sha256": "43d11a1048c62b424d9beb8c49ccc6e946a88476f535e2154ae4fafba8ce72fd",
+        "bytes": 29131
+      },
+      "runtime_log": {
+        "path": "Build/AAA/D17-01/raw/switch-face-720-01/runtime.engine.log",
+        "sha256": "3a7ade6fa8946ec8a13d48a65707ef45cb8e689938c7c30e947a9b3a0c429ec8",
+        "bytes": 272860
+      },
+      "active_simulation_seconds": 18.31323491682997,
+      "terminal": "Success",
+      "power_transitions": 0,
+      "panel_events": [],
+      "electrical_floor_damage": []
+    },
+    {
+      "run": "switch-face-1080-01",
+      "raw_video": {
+        "path": "Build/AAA/D17-01/raw/switch-face-1080-01/raw-gameplay.mkv",
+        "sha256": "db359224dc5e15f2f83efe05b382bf6348b3e2ec167703d4557136ea30fab37e",
+        "bytes": 5483866
+      },
+      "telemetry": {
+        "path": "Build/AAA/D17-01/raw/switch-face-1080-01/telemetry.jsonl",
+        "sha256": "8cded44f19b543607147254485338387d8251c96edfeeb400301f0574144f4e2",
+        "bytes": 6379
+      },
+      "runtime_log": {
+        "path": "Build/AAA/D17-01/raw/switch-face-1080-01/runtime.engine.log",
+        "sha256": "eb9109fd4998ab271569b0bd8fa0604c66699bbed4f92678c65a2edd170415a4",
+        "bytes": 183268
+      },
+      "active_simulation_seconds": 8.814891465881374,
+      "terminal": "Success",
+      "power_transitions": 0,
+      "panel_events": [],
+      "electrical_floor_damage": []
+    }
+  ],
+  "ordinary_input_inspected_frames": [
+    {
+      "path": "Build/AAA/D17-01/raw/switch-face-720-01/frame-12.png",
+      "sha256": "beb96c188a469e33c145af9518d06c11cb7902d6057b8bef4416e230b9822979",
+      "bytes": 362256
+    },
+    {
+      "path": "Build/AAA/D17-01/raw/switch-face-720-01/frame-17.png",
+      "sha256": "1f73f9c8ac7640930d5b5ccb7f6238a0b516d8127d95196e572739dab8223b9d",
+      "bytes": 503610
+    },
+    {
+      "path": "Build/AAA/D17-01/raw/switch-face-1080-01/frame-04.png",
+      "sha256": "999c40857f0f8f7348a8787420ce5aeaecaf64e81df34f995af27191dc8559e1",
+      "bytes": 802882
+    }
+  ],
+  "ordinary_input_observed": "At 720p frame 12 the service bay is visible from the approach; frame 17 shows its dark switch face, green lens and continuous wet floor. No native power transition or panel/electrical-floor consequence occurred in this run. At 1080p frame 4 the normal entry camera shows the player, rival and infected; the service switch is outside this view. Both runs terminate far before the required route duration."
+}

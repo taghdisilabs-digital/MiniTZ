@@ -1,0 +1,41 @@
+{
+  "binary": {
+    "bytes": 299185984,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/a82f366731d941c0eaf874023cdb2f2a5e8c4384d3d2ad9fc7753535c0a07f84/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "aa9a69c4b21d241959401876fa2e87c63522adee1467596c6ae7f8bcbb65dd30"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/a82f366731d941c0eaf874023cdb2f2a5e8c4384d3d2ad9fc7753535c0a07f84/payload",
+  "manifest": {
+    "bytes": 8669,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/a82f366731d941c0eaf874023cdb2f2a5e8c4384d3d2ad9fc7753535c0a07f84/manifest.json",
+    "sha256": "263679222bd151e9bda4db4e0deed44d9ca0f2d749ce65bd08db625459e26bce"
+  },
+  "package_id": "a82f366731d941c0eaf874023cdb2f2a5e8c4384d3d2ad9fc7753535c0a07f84",
+  "platform": "Linux",
+  "scope": "Byte-verified Linux Development package; not visual acceptance or Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "ef771a62b993fc4fa1718ff9ae21f447c7cabe45",
+    "head_tree": "5239e0f8b53c1c2e9ef03f623f97046167b957c3",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      " M Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
+      " M tests/qualify_d17_01.py",
+      "?? Build/AAA/D17-01/environment/runtime-09/",
+      "?? Build/AAA/D17-01/environment/switch-assets-01/",
+      "?? Build/AAA/D17-01/environment/switch-assets-02/",
+      "?? Build/AAA/D17-01/environment/switch-assets-03/",
+      "?? Build/AAA/D17-01/environment/switch-editor-01/",
+      "?? Build/AAA/D17-01/environment/switch-editor-02/",
+      "?? Build/AAA/D17-01/environment/switch-mechanics-preservation.json",
+      "?? Build/AAA/D17-01/environment/switch-resource-review-01/",
+      "?? Build/AAA/D17-01/raw/switch-face-720-01/",
+      "?? Content/Environment/ServiceBay/M_ServiceSwitch.uasset",
+      "?? Content/Python/author_service_switch.py",
+      "?? SourceAssets/Materials/ServiceSwitch.hlsl",
+      "?? tests/author_d17_01_service_switch.py"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T16:47:32.174814+00:00"
+}

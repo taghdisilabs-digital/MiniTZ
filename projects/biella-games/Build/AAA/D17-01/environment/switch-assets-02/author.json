@@ -1,0 +1,14 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "mode": "author",
+  "asset": "/Game/Environment/ServiceBay/M_ServiceSwitch.M_ServiceSwitch",
+  "shader_sha256": "31d94f80b74161040524d51992948d48f09bdc60ad88bc7ce729e2daebf8bbcf",
+  "status": "GENERATED_DRAFT",
+  "power_parameters": [
+    "BaseColor",
+    "Emission"
+  ],
+  "state_scope": "Lens only; original native power state",
+  "geometry_scope": "Original Switch mesh, transform and collision; no WPO"
+}

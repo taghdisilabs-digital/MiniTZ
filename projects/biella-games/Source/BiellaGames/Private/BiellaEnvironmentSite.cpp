@@ -31,8 +31,9 @@ void ABiellaEnvironmentSite::BeginPlay()
     auto* WidePanel=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Environment/ServiceBay/SM_ServicePanel240.SM_ServicePanel240"));
     auto* GroundMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Environment/ServiceBay/SM_ServiceGround.SM_ServiceGround"));
     auto* GroundBase=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Environment/ServiceBay/M_ServiceGround.M_ServiceGround"));
+    auto* SwitchBase=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Environment/ServiceBay/M_ServiceSwitch.M_ServiceSwitch"));
     auto* Metalwork=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Environment/ServiceBay/SM_ServiceBayMetalwork.SM_ServiceBayMetalwork"));
-    checkf(Base && NarrowPanel && WidePanel && Metalwork && GroundMesh && GroundBase, TEXT("Service-bay authored assets are required"));
+    checkf(Base && NarrowPanel && WidePanel && Metalwork && GroundMesh && GroundBase && SwitchBase, TEXT("Service-bay authored assets are required"));
     auto Material=[this,Base](FLinearColor Color)
     {
         auto* M=UMaterialInstanceDynamic::Create(Base,this);
@@ -73,7 +74,7 @@ void ABiellaEnvironmentSite::BeginPlay()
     AddInstanceComponent(Dressing); Dressing->SetupAttachment(RootComponent);
     Dressing->SetStaticMesh(Metalwork); Dressing->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     Dressing->SetCanEverAffectNavigation(false); Dressing->RegisterComponent();
-    PowerMaterial=Material(FLinearColor::Green);
+    PowerMaterial=UMaterialInstanceDynamic::Create(SwitchBase,this);
     Switch=Add(TEXT("Switch"),FVector(-208,-310,115),FVector(12,42,55),PowerMaterial,true);
     // Visual ground follows the existing support plane and exact hazard bounds.
     // Only small perimeter lamps report power; ground retains its material class.

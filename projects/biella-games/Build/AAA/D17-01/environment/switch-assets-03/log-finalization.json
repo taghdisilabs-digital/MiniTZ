@@ -1,0 +1,53 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "observed": "2026-09-08T16:45:19.567602+00:00",
+  "author_validation": {
+    "path": "Build/AAA/D17-01/environment/switch-assets-03/validation.json",
+    "sha256": "e59026c2f3dcb5f3fae5e44060ff4073f713985ddb93b5d56e6a87a779c56390",
+    "bytes": 3241
+  },
+  "logs": [
+    {
+      "recorded_at_launcher_exit": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/switch-assets-03/author.log",
+        "sha256": "3758b1e148fa87d879a8bab6b08e8d19d058496378d68a09ab626bf2912766ce",
+        "bytes": 216957
+      },
+      "final_identity": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/switch-assets-03/author.log",
+        "sha256": "2ec6863ec996853220e997bf4e5a6051f332263fd81835e596216c95950524ea",
+        "bytes": 217727
+      },
+      "finalization": {
+        "closed": true,
+        "elapsed_seconds": 0.01822959806304425,
+        "timeout_seconds": 45,
+        "observed_writers": [],
+        "remaining_writers": []
+      },
+      "changed_after_launcher_exit": true
+    },
+    {
+      "recorded_at_launcher_exit": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/switch-assets-03/readback.log",
+        "sha256": "ef68b667895e24f63b7b77b624f20b36fdcf227d63a65b38bc6719db801e0720",
+        "bytes": 215031
+      },
+      "final_identity": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/switch-assets-03/readback.log",
+        "sha256": "ef68b667895e24f63b7b77b624f20b36fdcf227d63a65b38bc6719db801e0720",
+        "bytes": 215031
+      },
+      "finalization": {
+        "closed": true,
+        "elapsed_seconds": 0.014894894906319678,
+        "timeout_seconds": 45,
+        "observed_writers": [],
+        "remaining_writers": []
+      },
+      "changed_after_launcher_exit": false
+    }
+  ],
+  "scope": "Final closed log identities; original validation is preserved. No asset changes or rerun."
+}

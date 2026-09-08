@@ -17,7 +17,9 @@ from run_d08_01_release import digest, executable_format, identity, now, write, 
 PROJECT = Path(__file__).resolve().parents[1]
 ROOT = PROJECT / 'Build/AAA/D17-01'
 RUNS = ('entry-720-02', 'hud-720-01', 'hud-1080-01')
-CURRENT_RUNS = ('integer-floor-720-01', 'integer-floor-1080-01')
+CURRENT_RUNS = ('switch-face-720-01', 'switch-face-1080-01')
+INTEGER_RUNS = ('integer-floor-720-01', 'integer-floor-1080-01')
+INTEGER_COMMIT = 'ef771a62b993fc4fa1718ff9ae21f447c7cabe45'
 SMOOTH_RUNS = ('smooth-floor-720-01', 'smooth-floor-1080-01')
 SMOOTH_COMMIT = 'fdad60240ebd296e95a593789cc0fb8ed7716124'
 GROUND_RUNS = ('wet-floor-720-01', 'wet-floor-1080-01')
@@ -251,7 +253,21 @@ def main():
         assert resolved['runtime_id'] == digest({k:v for k,v in resolved.items() if k != 'runtime_id'})
         exposed = read(ROOT / 'raw' / name / 'exposed-package-verification.json')
         assert exposed['status'] == 'PASS' and exposed['runtime_id'] == resolved['runtime_id']
-    package_root = ROOT / 'build/package-08'
+    integer_source = read(ROOT / 'build/package-08/source-build.json')
+    for row in integer_source['material_inputs']:
+        check_historical_source(row, INTEGER_COMMIT)
+    integer_package = read(ROOT / 'build/package-08/package-manifest.json')
+    integer_runs = [observe(name) for name in INTEGER_RUNS]
+    for name in INTEGER_RUNS:
+        for row in read(ROOT / 'raw' / name / 'inputs.json').values():
+            check_input_binding(row)
+        resolved = read(ROOT / 'raw' / name / 'resolved-package.json')
+        assert resolved['base_package_id'] == integer_package['package_id']
+        assert resolved['files'] == integer_package['files'] and 'native_delta' not in resolved
+        assert resolved['runtime_id'] == digest({k:v for k,v in resolved.items() if k != 'runtime_id'})
+        exposed = read(ROOT / 'raw' / name / 'exposed-package-verification.json')
+        assert exposed['status'] == 'PASS' and exposed['runtime_id'] == resolved['runtime_id']
+    package_root = ROOT / 'build/package-09'
     installation = read(package_root / 'validation.json')
     assert installation['result'] == 'PASS'
     package = read(package_root / 'package-manifest.json')
@@ -263,11 +279,11 @@ def main():
     changed = sorted(p for p in before.keys() | after.keys() if before.get(p) != after.get(p))
     assert package['source_material_digest'] == native_source['material_input_digest']
     check(package['archive'])
-    for path in ('build/cook-09/validation.json', 'build/stage-09/validation.json'):
+    for path in ('build/cook-10/validation.json', 'build/stage-10/validation.json'):
         assert read(ROOT / path)['result'] == 'PASS', path
     installed = Path(installation['install']['installed'])
     assert current(installed.parents[1])[1] == package
-    current_build = read(ROOT / 'build/game-03/result.json')
+    current_build = read(ROOT / 'build/game-04/result.json')
     assert current_build['result'] == 'PASS' and current_build['inputs_unchanged']
     assert native_source['binary']['sha256'] == current_build['binary']['sha256']
     check(current_build['binary'])
@@ -279,11 +295,46 @@ def main():
     assert read(ROOT / 'environment/assets-07/readback.json')['ground_shader_sha256'] == ref(PROJECT/'SourceAssets/Materials/ServiceGround.hlsl')['sha256']
     for mesh in read(ROOT / 'environment/assets-07/readback.json')['meshes']:
         assert mesh['authored_coordinates_verified']
-    environment = ROOT / 'environment/runtime-08/validation.json'
+    switch_assets = ROOT / 'environment/switch-assets-03/validation.json'
+    switch_report = read(switch_assets)
+    assert switch_report['result'] == 'PASS' and switch_report['preexisting_other_assets_unchanged']
+    assert set(switch_report['changed_assets']) == {'Content/Environment/ServiceBay/M_ServiceSwitch.uasset'}
+    for row in switch_report['sources'] + list(switch_report['changed_assets'].values()): check(row)
+    switch_readback = read(switch_assets.parent / 'readback.json')
+    assert switch_readback['shader_sha256'] == ref(PROJECT/'SourceAssets/Materials/ServiceSwitch.hlsl')['sha256']
+    assert switch_readback['power_parameters'] == ['BaseColor', 'Emission']
+    assert switch_readback['mode'] == 'readback' and switch_readback['result'] == 'PASS'
+    final_logs = read(switch_assets.parent / 'log-finalization.json')
+    assert final_logs['result'] == 'PASS'
+    check(final_logs['author_validation'])
+    for row in final_logs['logs']:
+        assert row['finalization']['closed']
+        check(row['final_identity'])
+    switch_visual = read(ROOT / 'environment/switch-material-validation.json')
+    assert switch_visual['result'] == 'PASS_AFFECTED_LAYER' and not switch_visual['slice_acceptance']
+    for row in (switch_visual['sources'] + switch_visual['inspected_frames'] +
+                switch_visual['ordinary_input_inspected_frames']):
+        check(row)
+    check(switch_visual['editor_validation'])
+    diagnostic = read(PROJECT / switch_visual['editor_validation']['path'])
+    assert diagnostic['result'] == 'PASS' and diagnostic['buffer'] == 'Lit'
+    assert diagnostic['identities_before'] == diagnostic['identities_after']
+    for row in diagnostic['identities_after']: check(row)
+    environment = ROOT / 'environment/runtime-09/validation.json'
     assert read(environment)['result'] == 'PASS'
     assert read(environment)['package_id'] == package['package_id']
     new_runs = [observe(name) for name in CURRENT_RUNS]
     new_probes = [observe(name) for name in CURRENT_PROBES]
+    assert len(switch_visual['ordinary_input_runs']) == len(new_runs)
+    for bound, observed in zip(switch_visual['ordinary_input_runs'], new_runs):
+        assert bound['run'] == observed['run']
+        assert bound['active_simulation_seconds'] == observed['active_simulation_seconds']
+        assert bound['terminal'] == observed['terminal']
+        assert bound['power_transitions'] == observed['environment_power_transitions']
+        assert bound['panel_events'] == observed['environment_panel_events']
+        assert bound['electrical_floor_damage'] == observed['electrical_floor_damage']
+        assert bound['raw_video'] == observed['raw_video']
+        for key in ('raw_video', 'telemetry', 'runtime_log'): check(bound[key])
     # Absence of an ordinary-input beat is an acceptance gap, not an integrity
     # error. Never carry the historical outcome into a newer raw run.
     ordinary_environment = new_runs[0]
@@ -298,7 +349,8 @@ def main():
     # state. Exact function readback proves gameplay methods remained identical.
     preserved = read(ROOT / 'environment/ground-mechanics-preservation.json')
     assert preserved['result'] == 'PASS' and len(preserved['unchanged_native_functions']) == 11
-    assert preserved['source_sha256'] == ref(PROJECT / 'Source/BiellaGames/Private/BiellaEnvironmentSite.cpp')['sha256']
+    prior_native = subprocess.check_output(['git','show',INTEGER_COMMIT+':projects/biella-games/Source/BiellaGames/Private/BiellaEnvironmentSite.cpp'],cwd=PROJECT)
+    assert preserved['source_sha256'] == hashlib.sha256(prior_native).hexdigest()
     original = subprocess.check_output(['git','show',SHEATH_COMMIT+':projects/biella-games/Source/BiellaGames/Private/BiellaEnvironmentSite.cpp'],cwd=PROJECT).decode()
     edited = (PROJECT/'Source/BiellaGames/Private/BiellaEnvironmentSite.cpp').read_text()
     def methods(text):
@@ -308,20 +360,35 @@ def main():
     for name, expected in preserved['unchanged_native_functions'].items():
         assert original_methods[name] == edited_methods[name]
         assert hashlib.sha256(edited_methods[name].encode()).hexdigest() == expected
+    switch_preserved = read(ROOT / 'environment/switch-mechanics-preservation.json')
+    assert switch_preserved['result'] == 'PASS' and switch_preserved['previous_commit'] == INTEGER_COMMIT
+    check_historical_source(switch_preserved['source_before'], INTEGER_COMMIT)
+    check(switch_preserved['source_after'])
+    prior_methods = methods(prior_native.decode())
+    assert len(switch_preserved['unchanged_native_functions']) == 12
+    for name, expected in switch_preserved['unchanged_native_functions'].items():
+        assert prior_methods[name] == edited_methods[name]
+        assert hashlib.sha256(edited_methods[name].encode()).hexdigest() == expected
+    assert switch_preserved['switch_component_declaration'] in edited
+    assert switch_preserved['switch_component_declaration'] in prior_native.decode()
     assert len(geometry['ground_parts']) == 200
     assert all(r['bounds_max'][2] <= 2.01 and r['bounds_min'][2] >= -2.01 for r in geometry['ground_parts'])
     prior_inputs = {r['path']: r for r in sheath_source['material_inputs']}
     growth_delta = sorted(p for p in prior_inputs.keys() | after.keys() if prior_inputs.get(p) != after.get(p))
     allowed = {'Source/BiellaGames/Private/BiellaEnvironmentSite.cpp',
-               'Source/BiellaGames/Public/BiellaEnvironmentSite.h', 'Content/Python/author_service_bay.py'}
+               'Source/BiellaGames/Public/BiellaEnvironmentSite.h', 'Content/Python/author_service_bay.py',
+               'Content/Python/author_service_switch.py'}
     assert growth_delta and all(p in allowed or p.startswith('Content/Environment/ServiceBay/') for p in growth_delta), growth_delta
     assert 'Content/Environment/ServiceBay/M_ServiceGround.uasset' in growth_delta
     assert 'Content/Environment/ServiceBay/SM_ServiceGround.uasset' in growth_delta
     ground_inputs = {r['path']:r for r in ground_source['material_inputs']}
-    wetness_delta = sorted(p for p in ground_inputs.keys() | after.keys() if ground_inputs.get(p) != after.get(p))
+    integer_inputs = {r['path']:r for r in integer_source['material_inputs']}
+    wetness_delta = sorted(p for p in ground_inputs.keys() | integer_inputs.keys() if ground_inputs.get(p) != integer_inputs.get(p))
     assert wetness_delta == ['Content/Environment/ServiceBay/M_ServiceGround.uasset', 'Content/Python/author_service_bay.py'], wetness_delta
     smooth_inputs = {r['path']:r for r in smooth_source['material_inputs']}
-    hash_delta = sorted(p for p in smooth_inputs.keys() | after.keys() if smooth_inputs.get(p) != after.get(p))
+    hash_delta = sorted(p for p in smooth_inputs.keys() | integer_inputs.keys() if smooth_inputs.get(p) != integer_inputs.get(p))
+    switch_delta = sorted(p for p in integer_inputs.keys() | after.keys() if integer_inputs.get(p) != after.get(p))
+    assert switch_delta == ['Content/Environment/ServiceBay/M_ServiceSwitch.uasset', 'Content/Python/author_service_switch.py', 'Source/BiellaGames/Private/BiellaEnvironmentSite.cpp'], switch_delta
     assert hash_delta == ['Content/Environment/ServiceBay/M_ServiceGround.uasset'], hash_delta
     diagnosis = read(ROOT / 'environment/floor-diagnosis.json')
     assert diagnosis['baseline_source_commit'] == SMOOTH_COMMIT
@@ -334,6 +401,11 @@ def main():
     assert {(o['phase'],o['buffer']) for o in diagnosis['observations']} == {
         ('before','WorldNormal'), ('before','Roughness'), ('before','BaseColor'),
         ('after','Roughness'), ('after','Lit')}
+    # Old editor binaries were rebuilt in place. Bind their exact identities to
+    # the preserved committed build report; never compare them with the new build.
+    old_editor_report = ROOT / 'build/editor-03/validation.json'
+    check_historical_source(ref(old_editor_report), INTEGER_COMMIT)
+    old_editor_binaries = {r['path']:r for r in read(old_editor_report)['binaries']}
     for observation in diagnosis['observations']:
         check(observation['validation']); check(observation['inspected_frame'])
         diagnostic = read(PROJECT / observation['validation']['path'])
@@ -343,6 +415,10 @@ def main():
         for row in diagnostic['identities_before']:
             if Path(row['path']).name == 'M_ServiceGround.uasset':
                 assert row['sha256'] == diagnosis['before_asset' if observation['phase']=='before' else 'after_asset']['sha256']
+            elif row['path'] in old_editor_binaries:
+                assert row == old_editor_binaries[row['path']]
+            elif Path(row['path']).name == 'BiellaEnvironmentSite.cpp':
+                check_historical_source(row, INTEGER_COMMIT)
             else:
                 check(row)
     failed_diagnostic = diagnosis['failed_diagnostic']
@@ -374,24 +450,27 @@ def main():
     assert read(ROOT / 'environment/scope-findings.json')['current_environment_probe']['electrical_floor_damage'] == floor_damage
     for frame in visual['current_frames'] + visual['service_bay_packaged_frames']:
         assert (ROOT / frame).read_bytes()[:8] == b'\x89PNG\r\n\x1a\n'
-    all_runs = runs + [route_probe] + previous_service_runs + coordinate_runs + growth_runs + sheath_runs + ground_runs + smooth_runs + new_runs + new_probes
+    all_runs = runs + [route_probe] + previous_service_runs + coordinate_runs + growth_runs + sheath_runs + ground_runs + smooth_runs + integer_runs + new_runs + new_probes
     assert not any(run['uninterrupted_duration_satisfied'] for run in all_runs)
     report = dict(
         schema='biella.games.d17.qualification/v1', task_id='D17-01', observed=now(),
         status='INCOMPLETE', result='CONTINUE', accepted=False,
         evidence_integrity='VERIFIED', scenario=ref(ROOT / 'scenario.json'),
         owner_visual_contract=ref(PROJECT / 'docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md'),
-        scope='Canonical slice candidate, HUD correction and editable service-bay growth/wet floor; current Linux Development raw diagnostics and separately bound historical environment consequence',
-        implementation=dict(changed_material_inputs=changed, build=ref(ROOT / 'build/game-03/result.json'),
-                            editor_build=ref(ROOT / 'build/editor-03/validation.json'),
+        scope='Canonical slice candidate, HUD correction and editable service-bay growth/wet floor/switch face; current Linux Development raw diagnostics and separately bound historical environment consequence',
+        implementation=dict(changed_material_inputs=changed, build=ref(ROOT / 'build/game-04/result.json'),
+                            editor_build=ref(ROOT / 'build/editor-04/validation.json'),
                             editable_source=ref(PROJECT / 'Source/BiellaGames/Private/BiellaEnvironmentSite.cpp'),
-                            editable_art=[ref(p) for p in sorted((PROJECT / 'SourceAssets/Environment').iterdir()) if p.is_file()] + [ref(PROJECT / 'SourceAssets/Materials/ServiceSurface.hlsl'), ref(PROJECT / 'SourceAssets/Materials/ServiceGround.hlsl')],
+                            editable_art=[ref(p) for p in sorted((PROJECT / 'SourceAssets/Environment').iterdir()) if p.is_file()] + [ref(PROJECT / 'SourceAssets/Materials/ServiceSurface.hlsl'), ref(PROJECT / 'SourceAssets/Materials/ServiceGround.hlsl'), ref(PROJECT / 'SourceAssets/Materials/ServiceSwitch.hlsl')],
                             source_manifest=ref(package_root / 'source-build.json'),
-                            asset_readback=ref(assets), environment_regression=ref(environment),
+                            asset_readback=ref(assets), switch_asset_readback=ref(switch_assets),
+                            switch_mechanics_preservation=ref(ROOT / 'environment/switch-mechanics-preservation.json'),
+                            switch_material_validation=ref(ROOT / 'environment/switch-material-validation.json'),
+                            environment_regression=ref(environment),
                             geometry_clearance=ref(ROOT / 'environment/mesh-author-05/geometry-readback.json'),
                             visual_delta_from_sheath_package=growth_delta,
                             visual_delta_from_ground_package=wetness_delta,
-                            visual_delta_from_previous_package=hash_delta,
+                            floor_hash_delta=hash_delta, visual_delta_from_previous_package=switch_delta,
                             floor_material_diagnosis=ref(ROOT / 'environment/floor-diagnosis.json'),
                             source_material_digest=native_source['material_input_digest']),
         package=dict(package_id=package['package_id'],
@@ -399,14 +478,16 @@ def main():
                      payload_files_digest=digest(package['files']),
                      exact_resolved_manifests=[ref(ROOT / 'raw' / n / 'resolved-package.json')
                                                for n in CURRENT_RUNS + CURRENT_PROBES],
-                     cook=ref(ROOT / 'build/cook-09/validation.json'),
-                     stage=ref(ROOT / 'build/stage-09/validation.json'),
+                     cook=ref(ROOT / 'build/cook-10/validation.json'),
+                     stage=ref(ROOT / 'build/stage-10/validation.json'),
                      install=ref(package_root / 'validation.json'), format='ELF64-x86_64',
                      platform='Linux', configuration='Development', renderer='Vulkan'),
         first_raw_run=runs[0], previous_raw_runs=runs[1:], current_raw_runs=new_runs, previous_input_timing_probe=sheath_runs[-1],
         current_environment_probe=dict(observation=new_runs[0],
             input_plan=ref(ROOT / 'service-hazard-input.json'),
             scope='Ordinary input on the current package; switching, panel physics and electrical-floor outcomes are extracted from native logs/telemetry above'),
+        previous_integer_candidate=dict(source_commit=INTEGER_COMMIT,
+            package=ref(ROOT / 'build/package-08/package-manifest.json'), raw_runs=integer_runs),
         previous_smooth_candidate=dict(source_commit=SMOOTH_COMMIT,
             package=ref(ROOT / 'build/package-07/package-manifest.json'), raw_runs=smooth_runs),
         previous_ground_candidate=dict(source_commit=GROUND_COMMIT,
@@ -433,7 +514,8 @@ def main():
                                     'New native/editor builds, isolated recook, archive readback and installed environment regression pass',
                                     'Ordinary input on package 03 toggles power and destroys a panel into simulated debris; capture/logs preserve the consequence',
                                     'Editable tapered growth follows the rail/column/header; a lobed tissue sheath covers the approach column/header faces with nonmetallic pigmentation, normal detail and embedded vascular branches',
-                                    'Package-04 ordinary input proves power/panel physics/electrical-floor damage; package-08 separately validates the integer ground-noise hash through exact material readback, controlled G-buffer diagnostics, a fresh cook/package and the installed environment fixture while reusing unchanged geometry and native builds'],
+                                    'Package-04 ordinary input proves power/panel physics/electrical-floor damage; package-08 separately validates the integer ground-noise hash through exact material readback, controlled G-buffer diagnostics, a fresh cook/package and the installed environment fixture while reusing unchanged geometry and native builds',
+                                    'Package-09 binds a saved weathered service-switch material to the existing native BaseColor/Emission parameters; all twelve gameplay/presentation methods and the Switch component remain identical, with fresh native builds and packaged environment regression'],
         unmet_criteria=[
             dict(id='continuous_slice_duration_and_route', required='600–1200 seconds of representative active gameplay with route beats',
                  observed=[{'run': r['run'], 'active_seconds': r['active_simulation_seconds'],
