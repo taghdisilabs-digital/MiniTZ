@@ -36,3 +36,23 @@ def test_website_live_facts_are_deterministic_projection_not_permanent_agent():
         assert "NO_PERMANENT_WEBSITE_AGENT" in text
         assert "/live-api/snapshot" in text
         assert "/live-api/events" in text
+
+
+def test_03_04_are_current_runtime_projections_without_superseded_control_files():
+    state = (ROOT / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_text(encoding="utf-8")
+    task = (ROOT / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").read_text(encoding="utf-8")
+    assert "state: RUNNING" in state
+    assert "controller_service_state: ACTIVE" in state
+    assert "runner_process_state: RUNNING" in state
+    assert "active_model: gpt-reserve" in state
+    assert "active_reasoning: max" in state
+    assert "status: RUNNING" in task
+    assert "runner: ACTIVE" in task
+    assert "model: gpt-reserve" in task
+    assert "reasoning: max" in task
+    for stale in (
+        "RESUME_OWNER_REQUESTED", "READY_TO_START", "owner-sleep-order.json",
+        "owner-resume-order.json", "session_derivative_recovery_backup",
+    ):
+        assert stale not in state
+        assert stale not in task
