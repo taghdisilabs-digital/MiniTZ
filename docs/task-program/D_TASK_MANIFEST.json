@@ -14,33 +14,197 @@
     "completed_work_reused": true,
     "auto_feeder_canonicalization": "ENABLED_COMPATIBLE"
   },
-  "legacy_prefixes": ["P0", "P1", "P2", "P3", "P4", "BU", "WEB-BU", "AAA-SF", "GAME", "BG-PROD", "CFNPC", "NVIDIA", "META"],
+  "legacy_prefixes": [
+    "P0",
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "BU",
+    "WEB-BU",
+    "AAA-SF",
+    "GAME",
+    "BG-PROD",
+    "CFNPC",
+    "NVIDIA",
+    "META"
+  ],
   "programs": [
-    {"id":"D00","description":"Biella Engine foundation / universal production system","range":"D00-01..D00-51","owner":"Engine","notes":"Legacy P0/P1/P2/P3/P4 aliases only"},
-    {"id":"D01","description":"Biella Games Demo 01","range":"D01-01..D01-50","owner":"Games","notes":"Rolling canonicalization; D01-001..050 accepted as compatibility aliases"},
-    {"id":"D02","description":"Games Stage 2 open-world/systemic expansion","range":"D02-01..D02-04","owner":"Games","notes":"JIT from current accepted Games source"},
-    {"id":"D03","description":"Games Stage 3 production quality","range":"D03-01","owner":"Games","notes":"Rendering/animation/VFX/audio"},
-    {"id":"D04","description":"Games Stage 4 content multiplication","range":"D04-01","owner":"Games","notes":"Data-driven content"},
-    {"id":"D05","description":"Games Stage 5 UI/settings/localization/accessibility","range":"D05-01","owner":"Games","notes":"Player-facing product surfaces"},
-    {"id":"D06","description":"Games Stage 6 cinematics/presentation","range":"D06-01","owner":"Games","notes":"Gameplay-backed presentation"},
-    {"id":"D07","description":"Games Stage 7 performance/stability/scalability","range":"D07-01","owner":"Games","notes":"Measured qualification"},
-    {"id":"D08","description":"Games Stage 8 delivery/release candidate","range":"D08-01","owner":"Games","notes":"Package/update/release candidate"},
-    {"id":"D09","description":"Website U0 source/canon/topology","range":"D09-01..D09-06","owner":"Website","notes":"Legacy BU-01..06 aliases"},
-    {"id":"D10","description":"Website U1 foundation","range":"D10-01..D10-06","owner":"Website","notes":"Legacy BU-07..12 aliases"},
-    {"id":"D11","description":"Website U2 core experience","range":"D11-01..D11-06","owner":"Website","notes":"Legacy BU-13..18 aliases"},
-    {"id":"D12","description":"Website U3 explorable universe","range":"D12-01..D12-06","owner":"Website","notes":"Legacy BU-19..24 aliases"},
-    {"id":"D13","description":"Website U4 knowledge/AI surfaces","range":"D13-01..D13-06","owner":"Website","notes":"Legacy BU-25..30 aliases"},
-    {"id":"D14","description":"Website U5 launch-grade delivery","range":"D14-01..D14-06","owner":"Website","notes":"Legacy BU-31..36 aliases"},
-    {"id":"D15","description":"AAA Challenger activation/truth lock","range":"D15-01..D15-04","owner":"Cross-project","notes":"Legacy AAA-SF-001..004 aliases"},
-    {"id":"D16","description":"AAA Challenger reproducible shippable build","range":"D16-01..D16-08","owner":"Games","notes":"Legacy AAA-SF-005..012 aliases"},
-    {"id":"D17","description":"AAA Challenger vertical-slice proof","range":"D17-01..D17-08","owner":"Games","notes":"Legacy AAA-SF-013..020 aliases"},
-    {"id":"D18","description":"AAA Challenger independent-player proof","range":"D18-01..D18-08","owner":"Games","notes":"Legacy AAA-SF-021..028 aliases"},
-    {"id":"D19","description":"AAA Challenger performance/release operations","range":"D19-01..D19-08","owner":"Games","notes":"Legacy AAA-SF-029..036 aliases"},
-    {"id":"D20","description":"AAA Challenger repeatable content proof","range":"D20-01..D20-08","owner":"Games","notes":"Legacy AAA-SF-037..044 aliases"},
-    {"id":"D21","description":"AAA Challenger solo-founder leverage","range":"D21-01..D21-08","owner":"Engine","notes":"Legacy AAA-SF-045..052 aliases"},
-    {"id":"D22","description":"AAA Challenger external Engine replication","range":"D22-01..D22-08","owner":"Engine","notes":"Legacy AAA-SF-053..060 aliases"},
-    {"id":"D23","description":"AAA Challenger demand/commercial proof","range":"D23-01..D23-06","owner":"Cross-project","notes":"Legacy AAA-SF-061..066 aliases"},
-    {"id":"D24","description":"AAA Challenger investor evidence closure","range":"D24-01..D24-06","owner":"Cross-project","notes":"Legacy AAA-SF-067..072 aliases"}
+    {
+      "id": "D00",
+      "description": "Biella Engine foundation / universal production system",
+      "range": "D00-01..D00-51",
+      "owner": "Engine",
+      "notes": "Legacy P0/P1/P2/P3/P4 aliases only"
+    },
+    {
+      "id": "D01",
+      "description": "Biella Games Demo 01",
+      "range": "D01-01..D01-50",
+      "owner": "Games",
+      "notes": "Rolling canonicalization; D01-001..050 accepted as compatibility aliases"
+    },
+    {
+      "id": "D02",
+      "description": "Games Stage 2 open-world/systemic expansion",
+      "range": "D02-01..D02-04",
+      "owner": "Games",
+      "notes": "JIT from current accepted Games source"
+    },
+    {
+      "id": "D03",
+      "description": "Games Stage 3 production quality",
+      "range": "D03-01",
+      "owner": "Games",
+      "notes": "Rendering/animation/VFX/audio"
+    },
+    {
+      "id": "D04",
+      "description": "Games Stage 4 content multiplication",
+      "range": "D04-01",
+      "owner": "Games",
+      "notes": "Data-driven content"
+    },
+    {
+      "id": "D05",
+      "description": "Games Stage 5 UI/settings/localization/accessibility",
+      "range": "D05-01",
+      "owner": "Games",
+      "notes": "Player-facing product surfaces"
+    },
+    {
+      "id": "D06",
+      "description": "Games Stage 6 cinematics/presentation",
+      "range": "D06-01",
+      "owner": "Games",
+      "notes": "Gameplay-backed presentation"
+    },
+    {
+      "id": "D07",
+      "description": "Games Stage 7 performance/stability/scalability",
+      "range": "D07-01",
+      "owner": "Games",
+      "notes": "Measured qualification"
+    },
+    {
+      "id": "D08",
+      "description": "Games Stage 8 delivery/release candidate",
+      "range": "D08-01",
+      "owner": "Games",
+      "notes": "Package/update/release candidate"
+    },
+    {
+      "id": "D09",
+      "description": "Website U0 source/canon/topology",
+      "range": "D09-01..D09-06",
+      "owner": "Website",
+      "notes": "Legacy BU-01..06 aliases"
+    },
+    {
+      "id": "D10",
+      "description": "Website U1 foundation",
+      "range": "D10-01..D10-06",
+      "owner": "Website",
+      "notes": "Legacy BU-07..12 aliases"
+    },
+    {
+      "id": "D11",
+      "description": "Website U2 core experience",
+      "range": "D11-01..D11-06",
+      "owner": "Website",
+      "notes": "Legacy BU-13..18 aliases"
+    },
+    {
+      "id": "D12",
+      "description": "Website U3 explorable universe",
+      "range": "D12-01..D12-06",
+      "owner": "Website",
+      "notes": "Legacy BU-19..24 aliases"
+    },
+    {
+      "id": "D13",
+      "description": "Website U4 knowledge/AI surfaces",
+      "range": "D13-01..D13-06",
+      "owner": "Website",
+      "notes": "Legacy BU-25..30 aliases"
+    },
+    {
+      "id": "D14",
+      "description": "Website U5 launch-grade delivery",
+      "range": "D14-01..D14-06",
+      "owner": "Website",
+      "notes": "Legacy BU-31..36 aliases"
+    },
+    {
+      "id": "D15",
+      "description": "AAA Challenger activation/truth lock",
+      "range": "D15-01..D15-04",
+      "owner": "Cross-project",
+      "notes": "Legacy AAA-SF-001..004 aliases"
+    },
+    {
+      "id": "D16",
+      "description": "AAA Challenger reproducible shippable build",
+      "range": "D16-01..D16-08",
+      "owner": "Games",
+      "notes": "Legacy AAA-SF-005..012 aliases"
+    },
+    {
+      "id": "D17",
+      "description": "AAA Challenger vertical-slice proof",
+      "range": "D17-01..D17-08",
+      "owner": "Games",
+      "notes": "Legacy AAA-SF-013..020 aliases"
+    },
+    {
+      "id": "D18",
+      "description": "AAA Challenger independent-player proof",
+      "range": "D18-01..D18-08",
+      "owner": "Games",
+      "notes": "Legacy AAA-SF-021..028 aliases"
+    },
+    {
+      "id": "D19",
+      "description": "AAA Challenger performance/release operations",
+      "range": "D19-01..D19-08",
+      "owner": "Games",
+      "notes": "Legacy AAA-SF-029..036 aliases"
+    },
+    {
+      "id": "D20",
+      "description": "AAA Challenger repeatable content proof",
+      "range": "D20-01..D20-08",
+      "owner": "Games",
+      "notes": "Legacy AAA-SF-037..044 aliases"
+    },
+    {
+      "id": "D21",
+      "description": "AAA Challenger solo-founder leverage",
+      "range": "D21-01..D21-08",
+      "owner": "Engine",
+      "notes": "Legacy AAA-SF-045..052 aliases"
+    },
+    {
+      "id": "D22",
+      "description": "AAA Challenger external Engine replication",
+      "range": "D22-01..D22-08",
+      "owner": "Engine",
+      "notes": "Legacy AAA-SF-053..060 aliases"
+    },
+    {
+      "id": "D23",
+      "description": "AAA Challenger demand/commercial proof",
+      "range": "D23-01..D23-06",
+      "owner": "Cross-project",
+      "notes": "Legacy AAA-SF-061..066 aliases"
+    },
+    {
+      "id": "D24",
+      "description": "AAA Challenger investor evidence closure",
+      "range": "D24-01..D24-06",
+      "owner": "Cross-project",
+      "notes": "Legacy AAA-SF-067..072 aliases"
+    }
   ],
   "task_source": {
     "human_readable_files": [
@@ -51,5 +215,19 @@
     "drive_ledger_id": "1y1tyAvgeRyKdz4rQiGQk_CC88Z7QpuummtcpV8W0Bso"
   },
   "mapping_policy": "Canonical D IDs are accepted/emitted by the production controller; legacy identifiers remain aliases only. Current execution/runtime status always outranks registry/Drive snapshots.",
-  "derived_ledger": {"github_path":"docs/task-program/D_TASK_LEDGER.json","drive_path":"Biella/D_TASK_PROGRAM/D_TASK_LEDGER.json","execution_authority":false,"drive_sync_failure_blocks_execution":false}
+  "derived_ledger": {
+    "github_path": "docs/task-program/D_TASK_LEDGER.json",
+    "drive_path": "Biella/D_TASK_PROGRAM/D_TASK_LEDGER.json",
+    "execution_authority": false,
+    "drive_sync_failure_blocks_execution": false
+  },
+  "execution_horizon": {
+    "path": "docs/task-program/D_NEXT_100_TASKS.json",
+    "human_readable": "docs/task-program/D_NEXT_100_TASKS.md",
+    "first_task": "D05-01",
+    "last_task": "D23-05",
+    "task_count": 100,
+    "registry_is_queue": false,
+    "load_one_task_only": true
+  }
 }

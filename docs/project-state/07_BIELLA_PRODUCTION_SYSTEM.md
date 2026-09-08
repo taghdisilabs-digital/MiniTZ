@@ -22,13 +22,11 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 - Production remains `systemd -> Biella controller -> persistent Codex task/session -> tasks`. Codex execution-session IDs are production continuity and are not ChatGPT conversation threads.
 - No ChatGPT conversation ID is invented or stored when the platform does not expose one.
 
-## Source alignment and fail-closed freshness
-- Before the persistent production service starts, `origin/main` is fetched and the canonical checkout is verified on `main`. If GitHub is ahead and its changed paths do not overlap preserved dirty work, the checkout is fast-forwarded without reset, clean, stash, rebase, or history rewrite.
-- Preserved local commits ahead of `origin/main` are valid in-flight task progress and are not rolled back. Divergence or any remote update overlapping dirty local work fails closed for reconciliation rather than guessing or overwriting bytes.
-- The systemd unit executes `biella_production_runner.py` directly from the aligned canonical repository, so a successful startup does not continue from an older copied controller implementation.
-- While production is running, the controller fetches/checks `origin/main` before selecting work and again after each model/section turn before accepting its result. If newer remote authority appears, no result or next-task transition is accepted; the runner exits for the systemd source-sync bootstrap to align and restart from current source.
-- Persistence performs the same remote-source guard before commit/push. Source drift exits to the alignment bootstrap instead of spinning a known-stale push retry. Temporary transport/publication failures still retry without losing task state.
-- Runtime status records the latest source-alignment receipt. After source alignment the bootstrap refreshes installed controller/unit bytes from the exact aligned canonical checkout while preserving service enablement state. `03` and `04` remain volatile observer/continuity records and their embedded historical Git identity fields are not execution freshness gates.
+## Source alignment and inline repair
+- Boot verifies the canonical local checkout and attempts a bounded fetch. Aligned/local-ahead source continues. Compatible non-overlapping remote updates fast-forward without reset, clean, stash or history rewrite.
+- A network/authentication/transport failure is reported as `REMOTE_UNAVAILABLE_LOCAL_CONTINUATION`, not fabricated alignment. Valid retained local source remains executable; publication retries independently.
+- A known source difference is `RECONCILIATION_REQUIRED`: the existing authoritative task/session receives the exact repair, preserves both revisions and current bytes, and uses an ordinary compatible merge/fast-forward. It does not stop/restart the production service or spin a known-stale push loop. Unresolved differences are not falsely accepted as aligned or complete.
+- Bootstrap/controller source refresh preserves service enablement; the runner executes from the canonical repository. Source repair is task-scoped work, not a permanent extra reviewer or progress hook.
 
 ## Continuous ordered progression
 - The canonical Project `PRODUCTION.md` list is the ordered source; there is no second mutable queue.
@@ -92,7 +90,7 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 - Real editable output plus task-derived validation is required.
 - Commit task implementation/evidence before `COMPLETE`.
 - GitHub/Drive publication uses canonical destinations and remote readback where required.
-- Publication failure preserves local work and remains `CONTINUE`; it never fabricates completion.
+- Implementation acceptance and remote publication are separate. Publication retry never fabricates remote completion and never reopens locally accepted implementation. Deployment/external-delivery tasks still require the real external outcome.
 
 ## Nonblocking acceptance and execution quality
 - `OWNER_ACCEPTANCE_FAST_PATH`: Mahdi's explicit acceptance of the current task is applied immediately through the canonical completion transition; no additional model turn, reviewer, approval hook, or task-class delay is permitted. The transition persists Git/Drive continuity and advances to the next canonical task automatically.
@@ -113,8 +111,8 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 ## Hardened continuous-cycle contract
 - Boot path is `systemd -> Docker/broker reconciliation -> customer guard -> GitHub source alignment -> canonical production runner`; optional Qwen/Ollama, Website, browser, chat, and observer state never gate authoritative production startup.
 - The steady loop is `RESOLVE CURRENT TASK -> LOAD BOUNDED CURRENT CONTEXT -> EXECUTE -> VALIDATE -> COMMIT CANONICAL TASK OUTPUT -> COMPLETE -> PERSIST/REMOTE READBACK -> ADVANCE -> NEXT TASK`. `CONTINUE` stays on the same task/session and must identify real unfinished work.
-- `CLEAN_TASK_BOUNDARY`: task-scoped dirty bytes are allowed only while a task is actively being developed. A `COMPLETE`/`COMPLETE_ALREADY` result with uncommitted non-continuity paths is deterministically normalized to `CONTINUE` before any completion event/state transition. Canonical implementation/evidence must be committed; rebuildable task-local logs/temp outputs that are not required proof are deliberately discarded.
-- Completion is controller-native and child-free: after a clean accepted task result, update canonical task state, refresh compact memory, publish/read back required GitHub/Drive continuity, then immediately select the next unfinished task. No reviewer, inactivity timer, Website callback, browser, chat, Git hook, Qwen readiness check, or task-class label participates in advancement.
+- `CLEAN_TASK_BOUNDARY`: finalize coherent validated task-owned source/proof into Git without another model turn merely to commit. Preserve and exclude unrelated dirty paths. Known unnecessary task-local scratch may be removed; required proof and unique outputs are never hidden or deleted to make Git look clean. A genuine local-write failure requires repair of that exact operation, not replay of passed work.
+- Completion is controller-native and child-free: after a validated task result, commit task-owned output, update and commit canonical continuity, record the publication cursor, and immediately select the next unfinished task. Publish/read back GitHub/Drive through the controller-owned deterministic helper. No reviewer, inactivity timer, Website callback, browser, chat, Git hook, Qwen readiness check, or task-class label participates in advancement.
 - Cache and local Qwen are accelerators only. Compact memory is rebuilt from current authority/evidence and may reduce rereads; Qwen may perform bounded assistance when useful. Cache/Qwen failure or non-use never creates a wait state and never lowers strong-route acceptance quality.
 - Workstation/resource installer refreshes preserve any already-running Ollama/Qwen state as well as enablement. Installation may not silently turn an active optional Resource into downtime; it also does not auto-start a Resource that was intentionally inactive before the refresh.
 
@@ -148,3 +146,11 @@ The following patterns are forbidden because they caused observed waste, stalls,
 - Long deterministic resource work may run to completion without model polling loops; quiet strong-model reasoning is allowed to remain quiet.
 - Project/customer isolation is preserved across cache, routing, delegation, artifacts and memory.
 - This style is an execution rule, not a new scheduler, reviewer, agent hierarchy, progress ledger, or archive authority.
+
+## Nonblocking publication and bounded task mapping
+- `biella_publication.py` owns a single coalescing publication cursor inside the actual canonical Git directory. It is not a task queue, source authority, archive or separate service. Exact committed bytes are the retry source; current files are never guessed from stale chat.
+- One helper thread inside the existing controller publishes and verifies GitHub and Drive independently of model execution. Network operations have bounded request timeouts; timeout does not kill, rotate or sleep the production task/session. The cursor survives controller restart and retries without a new model turn.
+- `LOCAL_PERSISTED_PUBLICATION_PENDING` is not `PUBLISHED`. Every remote receipt records the exact revision and digest; publication failures remain observable. Newer canonical revisions coalesce the desired destination, preserving prior source/proof in Git rather than generating duplicate active snapshots.
+- The next-100 map covers D05-01 through D23-05. It records actual canonical dependency edges and task contracts. The runner loads only one entry and uses its existing Games/Website/Engine execution directory. All task states still derive from `projects/biella-games/docs/PRODUCTION.md`; the ledger is regenerated from it, never a second mutable queue.
+- Actual Windows packaging, independent-player feedback, contracted usage, external delivery, and required runtime evidence cannot be replaced by invented results. Finish all independent authorized work and route the exact missing operation to a compatible configured Resource. Unknown shipping budgets are not fabricated; measure/report when the existing contract permits it.
+- Regression tests must not call the host's real service controls. Customer checkpoint uses the mockable service boundary; resume clears the acknowledged pause request before production starts so it cannot immediately pause again.

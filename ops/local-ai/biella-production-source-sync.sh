@@ -10,6 +10,12 @@ fail() {
   exit 75
 }
 
+handoff_source_repair() {
+  printf 'SOURCE_RECONCILIATION_REQUIRED: %s; preserve local bytes and repair inside the current executor task\n' "$*"
+  refresh_installed_controller
+  exit 0
+}
+
 refresh_installed_controller() {
   [[ -z "$BIELLA_SOURCE_SYNC_INSTALLER" ]] && return 0
   [[ -x "$BIELLA_SOURCE_SYNC_INSTALLER" ]] || fail "aligned controller installer missing: $BIELLA_SOURCE_SYNC_INSTALLER"
@@ -20,7 +26,16 @@ refresh_installed_controller() {
 branch="$(git -C "$REPO_ROOT" branch --show-current)"
 [[ "$branch" == "main" ]] || fail "canonical checkout is on branch $branch, expected main"
 
-git -C "$REPO_ROOT" fetch --quiet origin main || fail "cannot fetch origin/main"
+if ! GIT_TERMINAL_PROMPT=0 timeout 25s git -C "$REPO_ROOT" fetch --quiet origin main; then
+  # A transport outage does not invalidate the retained canonical Git objects.
+  git -C "$REPO_ROOT" rev-parse --verify HEAD^{tree} >/dev/null || fail "local source objects unavailable"
+  if git -C "$REPO_ROOT" show-ref --verify --quiet "$REMOTE_REF"; then
+    git -C "$REPO_ROOT" merge-base --is-ancestor "$REMOTE_REF" HEAD || handoff_source_repair "known remote revision needs reconciliation"
+  fi
+  refresh_installed_controller
+  printf 'REMOTE_UNAVAILABLE_LOCAL_CONTINUATION: retained local source; publication will retry independently\n'
+  exit 0
+fi
 local_head="$(git -C "$REPO_ROOT" rev-parse HEAD)"
 remote_head="$(git -C "$REPO_ROOT" rev-parse "$REMOTE_REF")"
 
@@ -37,10 +52,10 @@ if git -C "$REPO_ROOT" merge-base --is-ancestor "$remote_head" "$local_head"; th
 fi
 
 if ! git -C "$REPO_ROOT" merge-base --is-ancestor "$local_head" "$remote_head"; then
-  fail "local main and origin/main diverged; automatic history rewrite is forbidden"
+  handoff_source_repair "local main and origin/main diverged; automatic history rewrite is forbidden"
 fi
 
-python3 - "$REPO_ROOT" "$local_head" "$remote_head" <<'PY' || exit 75
+python3 - "$REPO_ROOT" "$local_head" "$remote_head" <<'PY' || handoff_source_repair "remote paths overlap preserved local work"
 from pathlib import PurePosixPath
 import subprocess
 import sys
@@ -77,7 +92,7 @@ if hits:
     raise SystemExit(1)
 PY
 
-git -C "$REPO_ROOT" merge --ff-only --quiet "$REMOTE_REF" || fail "safe fast-forward failed"
+git -C "$REPO_ROOT" merge --ff-only --quiet "$REMOTE_REF" || handoff_source_repair "safe fast-forward needs exact-path reconciliation"
 new_head="$(git -C "$REPO_ROOT" rev-parse HEAD)"
 [[ "$new_head" == "$remote_head" ]] || fail "post-fast-forward HEAD does not match origin/main"
 refresh_installed_controller

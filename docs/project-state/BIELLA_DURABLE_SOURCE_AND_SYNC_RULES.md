@@ -7,7 +7,7 @@ Date: 2026-09-05
 - **GitHub** = durable code/source history and durable copies of accepted architecture/execution specifications required to rebuild/operate the project.
 - **Google Drive** = live operator/project documents, current-state registers, prompt pack, migration ledgers, and chronological continuity.
 - **ChatGPT management conversation** = exactly one owner-designated current human management channel; all other ChatGPT conversations/threads are `RETIRED_FROM_CURRENT_BIELLA_AUTHORITY` and may be used only as historical continuity/evidence. ChatGPT is never production liveness or execution state.
-- **Worker/VPS/local workspace** = execution copy; disposable unless its outputs have been promoted durably.
+- **Canonical local workspace** = persistent execution/source and pending-publication output; never disposable while it holds unique current work. Only rebuildable worker copies and cache are disposable.
 - **Cache** = disposable optimization only.
 
 ## Live-source currentness rule
@@ -46,7 +46,7 @@ local implementation
 → accepted durable state
 ```
 
-A local commit is not durable merely because a model, shell, or Git command reported success.
+A local commit is not proof of off-machine replication. Local acceptance and remote publication are tracked separately; the publication cursor retries the latter without re-running the former.
 
 ## Project-document synchronization
 
@@ -88,7 +88,7 @@ Do not fabricate that source from completion reports. Re-establish P0-01 from th
 - `SINGLE_CODEX_AUTHORITY`: one Codex task/session owns authority, synthesis, edits, validation, completion, and task advancement. Parallel Codex/subagent fan-out is disabled for production.
 - `RESOURCE_PARALLELISM`: independent bounded work may execute concurrently through verified Resources when dependencies, side effects, and capacity permit. Local Qwen/Ollama, Cloudflare Workers/AI, external APIs, GPU tools, DCCs, build systems, and other Resources are implementations, never second authorities. Cloudflare is used only through an actually configured callable capability adapter.
 - `LOCAL_FIRST_EFFICIENCY`: before spending general Codex reasoning on bounded preprocessing, code review, classification, summarization, log triage, reasoning assistance, or Unreal assistance, prefer the configured local Qwen Resource when it can perform the work without reducing correctness. Reuse compact task memory, prompt caching, bounded tool output, and deterministic/local commands.
-- `FINAL_DELIVERABLE_PUBLICATION`: every final deliverable keeps an exact canonical local identity and, when current Project/task authority defines a canonical publication destination, the exact final file is published there and read back/verified before durable completion. Never invent a destination. Publication failure preserves the local file and remains retryable/`CONTINUE`; publication is never inferred from an attempted upload.
+- `FINAL_DELIVERABLE_PUBLICATION`: preserve exact canonical local output and task-derived proof. The controller commits task-owned output and continuity locally, records the exact Git revision in its durable publication cursor, and retries GitHub/Drive independently. A transport failure does not reopen validated implementation or stop unrelated execution. `COMPLETE` records satisfied task acceptance; `PUBLISHED/VERIFIED` requires actual remote identity and readback. When deployment, external delivery, or a remote operation is itself the task deliverable, its real evidence remains required. Never invent a destination or claim remote durability from a local commit.
 - `DURABLE_FAILURE_LEDGER`: every observed production/model/provider/tool/runtime/validation/publication failure or retry is recorded in AI-readable JSONL at `/mnt/biella-extra/biella-runtime/codex-production/failures.jsonl` with task/time/type/status and bounded diagnostics. Failure records aid diagnosis and never override current source/task authority.
 
 - `LOSSLESS_MEMORY_COMPACTION`: raw authority, evidence, artifacts, task records, and failure records are never rewritten or deleted by compression. The compactor creates rebuildable derivative JSON/JSON.GZ indexes with exact source digests, content-addressed unique records, equivalence groups that retain every exact variant and provenance, and a bounded current-task projection. Compaction failure is an optimization failure only and must never stall, reset, fail, kill, or advance a task.
@@ -98,3 +98,7 @@ Do not fabricate that source from completion reports. Re-establish P0-01 from th
 ## Realtime canonical upgrade and storage — 2026-09-08
 
 `REALTIME_CANONICAL_UPGRADE` supersedes the prior cold-archive/offload workflow. Update existing canonical Git/Drive/state identities in place at safe durable boundaries; no parallel archive workflow and no duplicate active snapshot tree. Git history and raw evidence may retain required proof/provenance. Rebuildable temporary data may be removed when no active source/task/evidence reference requires it.
+
+## Next-100 production execution
+
+`docs/task-program/D_NEXT_100_TASKS.json` contains the next 100 existing task identities, normalized source sections/digests, dependencies, output contracts, and execution roots. It is not another queue. The runner injects only the active entry; `PRODUCTION.md` owns order/status and `D_TASK_LEDGER.json` is its derived projection. Reuse matching proof; no new gate, permanent agent, timer, or whole-program prompt load. Read `07_BIELLA_PRODUCTION_SYSTEM.md` for the implemented local-persistence/remote-publication split and inline source repair.

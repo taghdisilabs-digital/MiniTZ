@@ -14,7 +14,7 @@ repository:
   branch: main
   canonical_checkout: /root/biella/repos/biella-engine
   git_identity_source: LIVE_GIT_READ_REQUIRED
-  source_alignment_gate: VERIFIED_GITHUB_MAIN_SAFE_FAST_FORWARD_OR_FAIL_CLOSED
+  source_alignment_policy: LOCAL_CONTINUATION_AND_INLINE_SOURCE_REPAIR
 
   source_identity_source: LIVE_GIT_PLUS_RUNTIME
 active_execution:
@@ -60,6 +60,9 @@ execution_invariants:
   no_monitor_only_stall: true
   no_external_progress_hook_dependency: true
   automatic_advance_after_durable_completion: true
+  publication_retry: CONTROLLER_OWNED_NONBLOCKING
+  execution_map: docs/task-program/D_NEXT_100_TASKS.json
+  task_status_source: projects/biella-games/docs/PRODUCTION.md
   realtime_canonical_upgrade: true
   proven_execution_style: ACTIVE
   active_progress_killer_audit: PASS

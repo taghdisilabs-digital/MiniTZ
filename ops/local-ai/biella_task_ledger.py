@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 import biella_task_ids as task_ids
+import biella_execution_map as execution_map
 
 CANONICAL_ID_RE = re.compile(r"^D\d{2}-\d{2}$")
 _ROW_RE = re.compile(
@@ -74,11 +75,19 @@ def build_task_ledger(repo_root: Path, production) -> dict[str, Any]:
             row["title"] = task.title
             row["status"] = task.status
             row["status_source"] = _LIVE_SOURCE
+    mapped = {item["task_id"]: item for item in execution_map.load_map(repo_root)["tasks"]}
+    for key, row in rows.items():
+        if key in mapped:
+            entry = mapped[key]
+            row["execution"] = {name: entry[name] for name in (
+                "ordinal", "lane", "execution_root", "objective", "deliverable", "validation",
+                "required_evidence", "source_refs", "external_input_evidence_required")}
     return {
         "schema": "biella.d_task_ledger/v1",
         "registry_is_queue": False,
         "execution_authority": "current 03/04 + Project PRODUCTION.md",
         "current_task": task_ids.canonical_task_id(production.current_task) if production.current_task else None,
+        "execution_map": execution_map.MAP_PATH if mapped else None,
         "tasks": [rows[key] for key in sorted(rows, key=_sort_key)],
     }
 

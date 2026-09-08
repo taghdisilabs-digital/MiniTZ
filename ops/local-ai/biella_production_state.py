@@ -191,6 +191,10 @@ def load_active_task(repo_root: Path) -> ActiveTask:
 
 
 def write_active_task(repo_root: Path, task: TaskRecord | None, *, project: str = "Biella Games", predecessor: str | None = None) -> None:
+    from biella_execution_map import task_entry
+    mapped = task_entry(repo_root, task.id) if task else None
+    if mapped:
+        project = {"Games": "Biella Games", "Website": "Biella Website", "Engine": "Biella Engine", "Cross-project": "Biella cross-project proof"}.get(mapped["lane"], project)
     path = active_task_path(repo_root)
     if task is None:
         text = (
@@ -207,7 +211,9 @@ def write_active_task(repo_root: Path, task: TaskRecord | None, *, project: str 
             "  runner: READY\n\n"
             "  authority:\n    - Mahdi Taghdisi current product/execution authority\n"
             "    - docs/project-state/03_BIELLA_CURRENT_STATE.md\n"
-            "    - projects/biella-games/docs/PRODUCTION.md\n\n"
+            "    - projects/biella-games/docs/PRODUCTION.md\n"
+            "    - docs/project-state/07_BIELLA_PRODUCTION_SYSTEM.md\n"
+            "    - docs/task-program/D_NEXT_100_TASKS.json (active entry only; not a queue)\n\n"
             f"  continuity:\n    completed_predecessor: {pred}\n"
             "    production_source: projects/biella-games/docs/PRODUCTION.md\n\n"
             "  preserve:\n    - all completed predecessor tasks and their evidence\n"

@@ -193,3 +193,7 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 ## Execution continuity
 
 The monorepo-native `biella-codex production` runner derives the current frontier from 03/04 plus the metadata and task rows above. Historical feeder/migration checkpoints are closed and are not active task pointers; completed task rows and evidence remain preserved unless materially invalidated.
+
+## Bounded execution map and publication
+
+The next-100 map is `docs/task-program/D_NEXT_100_TASKS.json` (D05-01 through D23-05), with a readable `.md` view. It supplies source-bound output/validation contracts and lane-specific working directories, not another queue. These task rows remain status/order authority. Controller commits local output/continuity, updates D_TASK_LEDGER, and advances while GitHub/Drive publication retries independently. Actual deployment, participant, platform and commercial evidence remain required by their task contracts.

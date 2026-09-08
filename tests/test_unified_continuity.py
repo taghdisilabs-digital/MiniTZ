@@ -34,7 +34,7 @@ def test_games_frontier_is_current_and_continuity_is_single_live_projection():
     assert "execution_started:" not in task
     assert "REALTIME_CANONICAL_UPGRADE" in state
     assert "D03-01 | hard_creation | Production rendering, animation, VFX, and audio quality | COMPLETE" in production
-    assert "D04-01 | hard_creation | Data-driven content system multiplication | PENDING" in production
+    assert "D04-01 | hard_creation | Data-driven content system multiplication | COMPLETE" in production
 
 
 def test_active_task_is_compact_task_packet_not_historical_ledger():

@@ -34,6 +34,18 @@ def isolate_remote_source_guard(monkeypatch):
     )
 
 
+@pytest.fixture(autouse=True)
+def isolate_publication_and_state_only_fixture_git(monkeypatch):
+    monkeypatch.setattr(runner.publication, "start_worker", lambda _repo, **_kwargs: None)
+    monkeypatch.setattr(runner.publication, "stop_worker", lambda _repo: None)
+    monkeypatch.setattr(runner.publication, "request_publication", lambda *_args: {"status": "PENDING"})
+    real = runner.evidence.enforce_clean_completion_boundary
+    def finalize(repo, result):
+        # These pre-existing state-machine fixtures deliberately have no Git repository.
+        return real(repo, result) if (Path(repo) / ".git").exists() else result
+    monkeypatch.setattr(runner.evidence, "enforce_clean_completion_boundary", finalize)
+
+
 def test_invoke_structured_never_rotates_silent_executor_on_timer(tmp_path: Path, monkeypatch):
     fake = tmp_path / "slow_valid.py"; output = tmp_path / "result.json"
     fake.write_text(
@@ -126,7 +138,7 @@ def test_run_completes_canonical_task_and_exits(tmp_path: Path, monkeypatch):
         return [sys.executable, "-c", code]
     monkeypatch.setattr(runner.routing, "build_codex_command", command)
     persisted = []
-    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: persisted.append(task_id) or {"commit": "c", "tree": "t"})
+    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: persisted.append(task_id) or {"commit": "c", "tree": "t"})
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.02) == 0
     assert persisted == ["D01-30", "SECTION-demo01"]
     production = state.load_project_production(project)
@@ -157,7 +169,7 @@ def test_runner_plans_and_audits_empty_next_section(tmp_path: Path, monkeypatch)
         code = f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"
         return [sys.executable, "-c", code]
     monkeypatch.setattr(runner.routing, "build_codex_command", command)
-    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: {"commit": task_id, "tree": "t"})
+    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: {"commit": task_id, "tree": "t"})
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.02) == 0
     production = state.load_project_production(project)
     assert state.find_task(production, "S2-001").status == "COMPLETE"
@@ -177,7 +189,7 @@ def test_observed_limit_falls_back_to_next_eligible_model(tmp_path: Path, monkey
         code = f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"
         return [sys.executable, "-c", code]
     monkeypatch.setattr(runner.routing, "build_codex_command", command)
-    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: {"commit": task_id, "tree": "t"})
+    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: {"commit": task_id, "tree": "t"})
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.02) == 0
     assert used[:2] == ["gpt-6-astra", "gpt-5.6-terra"]
     telemetry = runner.load_runtime(runtime_root / "runtime.json")
@@ -242,25 +254,17 @@ def test_task_result_schema_has_no_terminal_blockers():
     assert allowed == {"COMPLETE", "COMPLETE_ALREADY", "CONTINUE"}
 
 
-def test_persistence_failure_retries_without_runner_exit(tmp_path: Path, monkeypatch):
-    runtime = tmp_path / "runtime.json"
-    telemetry = runner.initial_runtime()
-    telemetry.update({"status": "RUNNING", "task_id": "D01-033"})
-    calls = {"n": 0}
-
-    def persist(_repo, _task_id):
-        calls["n"] += 1
-        if calls["n"] == 1:
-            raise RuntimeError("temporary push failure")
-        return {"commit": "c", "tree": "t"}
-
-    monkeypatch.setattr(runner.evidence, "persist_continuity", persist)
-    monkeypatch.setattr(runner.time, "sleep", lambda _seconds: None)
-    result = runner._persist_until_success(tmp_path, "D01-033", runtime, telemetry)
-    assert result == {"commit": "c", "tree": "t"}
-    assert calls["n"] == 2
-    assert telemetry["status"] == "RUNNING"
-    assert telemetry["last_result"]["status"] == "RECOVERED_PERSISTENCE"
+def test_local_persistence_failure_is_not_a_remote_retry_spin(tmp_path: Path, monkeypatch):
+    runtime = tmp_path / "runtime.json"; telemetry = runner.initial_runtime()
+    calls = []
+    def persist(*_args):
+        calls.append(True)
+        raise RuntimeError("local storage unavailable")
+    monkeypatch.setattr(runner.evidence, "persist_local_continuity", persist)
+    monkeypatch.setattr(runner.time, "sleep", lambda _seconds: pytest.fail("no blocking retry loop"))
+    with pytest.raises(RuntimeError, match="local storage"):
+        runner._persist_until_success(tmp_path, "D01-33", runtime, telemetry)
+    assert len(calls) == 1
 
 
 def test_section_planner_emits_canonical_d_series_ids(tmp_path: Path):
@@ -284,7 +288,7 @@ def test_derived_ledger_failure_never_blocks_critical_persistence(tmp_path: Path
     telemetry.update({"status": "RUNNING", "task_id": "D01-37"})
     monkeypatch.setattr(
         runner.evidence,
-        "persist_continuity",
+        "persist_local_continuity",
         lambda _repo, _task_id: {"commit": "c", "tree": "t"},
     )
     monkeypatch.setattr(
@@ -295,7 +299,7 @@ def test_derived_ledger_failure_never_blocks_critical_persistence(tmp_path: Path
     result = runner._persist_until_success(tmp_path, "D01-37", runtime, telemetry)
     assert result == {"commit": "c", "tree": "t"}
     assert telemetry["status"] == "RUNNING"
-    assert telemetry["last_result"]["derived_ledger"]["status"] == "PENDING_RETRY"
+    assert telemetry["last_result"]["status"] == "LOCAL_PERSISTED_PUBLICATION_PENDING"
 
 
 def test_pre_task_reconcile_defers_when_current_task_output_is_dirty(tmp_path: Path, monkeypatch):
@@ -312,7 +316,7 @@ def test_pre_task_reconcile_defers_when_current_task_output_is_dirty(tmp_path: P
     monkeypatch.setattr(runner.evidence, "continuity_changes", lambda _repo: True)
     monkeypatch.setattr(runner.evidence, "unexpected_dirty_paths", lambda _repo: {"projects/biella-games/partial.cpp"})
     persisted = []
-    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: persisted.append(task_id) or {"commit": "c", "tree": "t"})
+    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: persisted.append(task_id) or {"commit": "c", "tree": "t"})
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.02) == 0
     assert "RECONCILE-D01-30" not in persisted
     assert "D01-30" in persisted
@@ -601,7 +605,7 @@ def test_stale_resume_rotates_session_and_retries_same_astra_route(tmp_path: Pat
         return [sys.executable, "-c", code]
     monkeypatch.setattr(runner.routing, "build_codex_resume_command", resume_command)
     monkeypatch.setattr(runner.routing, "build_codex_command", new_command)
-    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: {"commit":task_id,"tree":"t"})
+    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: {"commit":task_id,"tree":"t"})
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
     assert used[:2] == [("resume", "gpt-6-astra", "stale-session"), ("new", "gpt-6-astra", None)]
     assert all(model != "gpt-5.6-terra" for _kind, model, _session in used)
@@ -926,20 +930,17 @@ def test_bounded_workspace_fingerprint_changes_only_when_project_working_bytes_c
     assert second != first
 
 
-def test_runner_fail_closed_before_model_when_source_is_behind(tmp_path: Path, monkeypatch):
+def test_source_difference_becomes_inline_repair_not_a_runner_stop(tmp_path: Path, monkeypatch):
     repo, project = write_repo_fixture(tmp_path)
-    runtime_root = tmp_path / "runtime"
-    monkeypatch.setattr(
-        runner.evidence,
-        "assert_remote_source_current",
-        lambda _repo: (_ for _ in ()).throw(runner.evidence.SourceAlignmentError("VPS source behind origin/main")),
-    )
-    called = []
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: called.append("catalog") or {"gpt-6-astra": {"ultra"}})
-    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == runner.SOURCE_REFRESH_EXIT
-    assert called == []
-    telemetry = runner.load_runtime(runtime_root / "runtime.json")
-    assert telemetry["status"] == "WAITING_FOR_SOURCE_SYNC"
+    runtime_root = tmp_path / "runtime"; runtime_root.mkdir()
+    telemetry = runner.initial_runtime()
+    telemetry.update({"status": "RUNNING", "task_id": "D05-01", "task_session_id": "retained-session"})
+    monkeypatch.setattr(runner.evidence, "assert_remote_source_current", lambda _repo: (_ for _ in ()).throw(runner.evidence.SourceAlignmentError("VPS source behind origin/main")))
+    journal = runner.production_events.ProductionEventJournal(runtime_root / "events.jsonl", failure_path=runtime_root / "failures.jsonl")
+    assert runner._guard_source_alignment(repo, runtime_root / "runtime.json", telemetry, journal)
+    assert telemetry["status"] == "RUNNING"
+    assert telemetry["task_session_id"] == "retained-session"
+    assert telemetry["source_alignment"]["state"] == "RECONCILIATION_REQUIRED"
 
 
 def test_runner_rechecks_source_after_model_before_accepting_result(tmp_path: Path, monkeypatch):
@@ -963,10 +964,11 @@ def test_runner_rechecks_source_after_model_before_accepting_result(tmp_path: Pa
 
     monkeypatch.setattr(runner.routing, "build_codex_command", command)
     persisted = []
-    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda *_args, **_kwargs: persisted.append(True) or {"commit": "c", "tree": "t"})
-    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == runner.SOURCE_REFRESH_EXIT
-    assert state.find_task(state.load_project_production(project), "D01-030").status == "PENDING"
-    assert persisted == []
+    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda *_args, **_kwargs: persisted.append(True) or {"commit": "c", "tree": "t"})
+    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
+    assert state.find_task(state.load_project_production(project), "D01-030").status == "COMPLETE"
+    assert persisted
+    assert checks["n"] >= 4
 
 
 def test_persistent_unit_has_no_optional_qwen_startup_blocker():
@@ -1006,14 +1008,14 @@ def test_source_alignment_failure_does_not_spin_persistence_retry(tmp_path: Path
     sleeps = []
     monkeypatch.setattr(
         runner.evidence,
-        "persist_continuity",
+        "persist_local_continuity",
         lambda *_args, **_kwargs: (_ for _ in ()).throw(runner.evidence.SourceAlignmentError("remote moved")),
     )
     monkeypatch.setattr(runner.time, "sleep", lambda seconds: sleeps.append(seconds))
     with pytest.raises(runner.evidence.SourceAlignmentError):
         runner._persist_until_success(tmp_path, "D03-01", runtime, telemetry)
     assert sleeps == []
-    assert telemetry["status"] == "WAITING_FOR_SOURCE_SYNC"
+    assert telemetry["last_result"] is None
 
 
 def test_installer_copies_source_sync_bootstrap():
@@ -1064,7 +1066,7 @@ def test_owner_accept_current_task_closes_and_advances_without_model_turn(tmp_pa
     telemetry = runner.initial_runtime(); telemetry.update({"status":"RUNNING","task_id":"D01-30","task_session_id":"sess","session_task_id":"D01-30"})
     runner.save_runtime(runtime_root / "runtime.json", telemetry)
     persisted=[]
-    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: persisted.append(task_id) or {"commit":"c","tree":"t"})
+    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: persisted.append(task_id) or {"commit":"c","tree":"t"})
     result = runner.accept_current_task(repo, project, runtime_root, "D01-30", ["OWNER_ACCEPTED: verified pass"])
     production = state.load_project_production(project)
     assert state.find_task(production, "D01-30").status == "COMPLETE"
@@ -1085,7 +1087,7 @@ def test_parser_exposes_owner_accept_fast_path():
     assert args.no_resume is False
 
 
-def test_runner_does_not_accept_complete_result_while_task_output_is_dirty(tmp_path: Path, monkeypatch):
+def test_runner_commits_validated_task_output_without_extra_model_turn(tmp_path: Path, monkeypatch):
     repo, project = write_repo_fixture(tmp_path); runtime_root = tmp_path / "runtime"
     subprocess.run(["git", "init", "-q", "-b", "main", str(repo)], check=True)
     subprocess.run(["git", "-C", str(repo), "config", "user.name", "Biella Test"], check=True)
@@ -1112,11 +1114,11 @@ def test_runner_does_not_accept_complete_result_while_task_output_is_dirty(tmp_p
         return [sys.executable, "-c", code]
     monkeypatch.setattr(runner.routing, "build_codex_command", command)
     persisted=[]
-    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: persisted.append(task_id) or {"commit":"c","tree":"t"})
+    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: persisted.append(task_id) or {"commit":"c","tree":"t"})
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
-    assert calls["n"] >= 2
+    assert calls["n"] == 1
     assert state.find_task(state.load_project_production(project), "D01-030").status == "COMPLETE"
     events=[json.loads(line) for line in (runtime_root/'events.jsonl').read_text().splitlines()]
     task_events=[e for e in events if e.get('task_id') in ('D01-030','D01-30') and e.get('type') in ('task.continue','task.completed')]
-    assert any(e.get('type') == 'task.continue' and 'commit or deliberately discard' in str(e.get('text')) for e in task_events)
+    assert not any(e.get("type") == "task.continue" for e in task_events)
     assert task_events[-1].get('type') == 'task.completed'

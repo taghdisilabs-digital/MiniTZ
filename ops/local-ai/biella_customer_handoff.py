@@ -183,10 +183,7 @@ class BiellaCustomerHandoff:
             "services": original_services,
         }
         _atomic_json(self.active_checkpoint_path, checkpoint)
-        for name in STOP_ORDER:
-            self.set_active_state(name, False)
-        for name in PROTECTED_SERVICES:
-            self.set_enabled_state(name, "disabled")
+        self.sleep_services()
         return checkpoint
     def sleep_services(self) -> None:
         for name in STOP_ORDER:
@@ -217,10 +214,11 @@ class BiellaCustomerHandoff:
             if not isinstance(state, dict):
                 raise HandoffError(f"checkpoint missing service state for {name}")
             self.set_enabled_state(name, str(state.get("enabled") or "unknown"))
-        for name in PROTECTED_SERVICES:
-            self.set_active_state(name, bool(services[name].get("active")))
+        # Clear the acknowledged request before the resumed runner reads it.
         self.pause_request_path.unlink(missing_ok=True)
         self.pause_ack_path.unlink(missing_ok=True)
+        for name in PROTECTED_SERVICES:
+            self.set_active_state(name, bool(services[name].get("active")))
         self.history_root.mkdir(parents=True, exist_ok=True)
         digest = hashlib.sha256(self.active_checkpoint_path.read_bytes()).hexdigest()
         history = self.history_root / f"{digest}.json"

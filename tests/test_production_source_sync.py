@@ -54,7 +54,7 @@ def test_source_sync_fast_forwards_remote_without_touching_nonoverlap_dirty_work
     assert dirty.read_text(encoding="utf-8") == "preserve me\n"
 
 
-def test_source_sync_refuses_remote_overlap_and_preserves_local_bytes(tmp_path: Path):
+def test_source_sync_hands_remote_overlap_to_executor_and_preserves_local_bytes(tmp_path: Path):
     local, _remote, other = _pair(tmp_path)
     before = _run("git", "rev-parse", "HEAD", cwd=local).stdout.strip()
     (local / "authority.txt").write_text("local uncommitted\n", encoding="utf-8")
@@ -64,8 +64,9 @@ def test_source_sync_refuses_remote_overlap_and_preserves_local_bytes(tmp_path: 
     assert _run("git", "push", "-q", "origin", "main", cwd=other).returncode == 0
 
     completed = _sync(local)
-    assert completed.returncode != 0
-    assert "overlap" in completed.stderr.lower()
+    assert completed.returncode == 0
+    assert "overlap" in (completed.stderr + completed.stdout).lower()
+    assert "RECONCILIATION_REQUIRED" in completed.stdout
     assert _run("git", "rev-parse", "HEAD", cwd=local).stdout.strip() == before
     assert (local / "authority.txt").read_text(encoding="utf-8") == "local uncommitted\n"
 

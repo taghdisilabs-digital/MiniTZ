@@ -16,6 +16,8 @@ task:
     - Mahdi Taghdisi current product/execution authority
     - docs/project-state/03_BIELLA_CURRENT_STATE.md
     - projects/biella-games/docs/PRODUCTION.md
+    - docs/project-state/07_BIELLA_PRODUCTION_SYSTEM.md
+    - docs/task-program/D_NEXT_100_TASKS.json (active entry only; not a queue)
 
   continuity:
     completed_predecessor: D04-01

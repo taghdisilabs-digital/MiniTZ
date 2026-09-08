@@ -21,6 +21,8 @@ import biella_production_evidence as evidence
 import biella_production_events as production_events
 import biella_production_state as state
 import biella_task_packet as packets
+import biella_publication as publication
+import biella_execution_map as execution_map
 
 UNIT_NAME = "biella-codex-production"
 SOURCE_REFRESH_EXIT = 75
@@ -160,7 +162,8 @@ def _task_capsule_path(runtime_root: Path, task_id: str) -> Path:
 def _project_dirty_paths(repo_root: Path, project_root: Path) -> list[str]:
     repo_root = Path(repo_root).resolve(); project_root = Path(project_root).resolve()
     try:
-        prefix = project_root.relative_to(repo_root).as_posix().rstrip("/") + "/"
+        relative_root = project_root.relative_to(repo_root).as_posix()
+        prefix = "" if relative_root == "." else relative_root.rstrip("/") + "/"
     except ValueError:
         return []
     proc = subprocess.run(["git", "-C", str(repo_root), "status", "--porcelain", "--untracked-files=all"], text=True, capture_output=True, check=False)
@@ -216,6 +219,7 @@ def _select_task_route(task: state.TaskRecord, catalog: Mapping[str, set[str]], 
     return route, _bounded_packet_id(repo_root, project_root, task) if routing.is_bounded_fallback(route) else None
 
 def _write_task_capsule(repo_root: Path, project_root: Path, runtime_root: Path, task: state.TaskRecord, telemetry: Mapping[str, Any]) -> Path:
+    project_root = execution_map.task_working_directory(repo_root, project_root, task.id)
     path = _task_capsule_path(runtime_root, task.id)
     existing: Mapping[str, Any] = {}
     if path.exists():
@@ -245,7 +249,7 @@ def _write_task_capsule(repo_root: Path, project_root: Path, runtime_root: Path,
 def _task_prompt(repo_root: Path, production: state.ProductionState, task: state.TaskRecord, telemetry: Mapping[str, Any], capsule_path: Path, projection_path: Path | None = None, local_assist_path: Path | None = None, route: routing.Route | None = None) -> str:
     guide_path = Path(production.project_root) / "docs" / "task-guides" / f"{task.id}.md"
     if route is not None and routing.is_bounded_fallback(route):
-        return packets.compile_bounded_fallback_packet(task, capsule_path, projection_path, guide_path if guide_path.exists() else None)
+        return packets.compile_bounded_fallback_packet(task, capsule_path, projection_path, guide_path if guide_path.exists() else None) + execution_map.task_context(repo_root, task.id)
     if _resume_session_for(telemetry, task.id):
         prompt = packets.compile_resume_packet(task, capsule_path)
     else:
@@ -273,6 +277,15 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
             "This local-Qwen output is non-authoritative bounded assistance. Reuse useful analysis, validate it against current source/evidence, "
             "and do not repeat its work with Codex unless validation or missing detail requires it.\n"
         )
+    alignment = telemetry.get("source_alignment") or {}
+    if alignment.get("state") == "RECONCILIATION_REQUIRED":
+        prompt += (
+            "\nSOURCE_REPAIR_WITHIN_CURRENT_TASK: " + str(alignment.get("detail", "")) + "\n"
+            "Inspect the exact local and remote revisions and affected paths. Reconcile compatible changes with a normal merge or fast-forward, preserving current work. "
+            "No reset, clean, stash, force-push, history rewrite or whole-task replay. Reuse unaffected validation. "
+            "This is an executable repair in the existing task/session, not a request for another approval or a reason to sleep.\n"
+        )
+    prompt += execution_map.task_context(repo_root, task.id)
     prompt += "\n" + execution_style.proven_execution_style_prompt()
     return prompt
 
@@ -630,7 +643,7 @@ def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, outp
         cmd = routing.build_codex_command(route, schema_path, output_path, cwd or Path("/root"), allow_helper=True) if allow_helper else routing.build_codex_command(route, schema_path, output_path, cwd or Path("/root"))
     stdout_path.parent.mkdir(parents=True, exist_ok=True)
     with stdout_path.open("w", encoding="utf-8") as stdout, stderr_path.open("w", encoding="utf-8") as stderr:
-        proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, text=True, stdout=stdout, stderr=stderr, env=os.environ.copy())
+        proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, text=True, stdout=stdout, stderr=stderr, env=os.environ.copy(), cwd=cwd, umask=0o022)
         telemetry["child_pid"] = proc.pid
         _beat(runtime_path, telemetry)
         assert proc.stdin is not None
@@ -771,73 +784,40 @@ def _guard_source_alignment(
 ) -> bool:
     try:
         identity = evidence.assert_remote_source_current(repo_root)
+    except evidence.SourceTransportError as exc:
+        head = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD"], text=True).strip()
+        tree = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD^{tree}"], text=True).strip()
+        telemetry["source_alignment"] = {"state": "REMOTE_UNAVAILABLE_LOCAL_CONTINUATION", "commit": head, "tree": tree, "detail": str(exc)}
+        journal.emit("source.transport_deferred", task_id=task_id or telemetry.get("task_id"), status="RETRY_INDEPENDENT", text=str(exc))
+        _beat(runtime_path, telemetry)
+        return True
     except evidence.SourceAlignmentError as exc:
         detail = str(exc)
-        telemetry["status"] = "WAITING_FOR_SOURCE_SYNC"
-        telemetry["active_model"] = None
-        telemetry["active_reasoning"] = None
-        telemetry["source_alignment"] = {"state": "BLOCKED", "detail": detail}
-        telemetry["last_result"] = {
-            "task_id": task_id or telemetry.get("task_id"),
-            "status": "WAITING_FOR_SOURCE_SYNC",
-            "summary": detail,
-            "evidence": [],
-        }
-        journal.emit(
-            "source.alignment_required", task_id=task_id or telemetry.get("task_id"),
-            status="WAITING_FOR_SOURCE_SYNC", text=detail,
-        )
+        telemetry["source_alignment"] = {"state": "RECONCILIATION_REQUIRED", "detail": detail}
+        journal.emit("source.reconciliation_required", task_id=task_id or telemetry.get("task_id"),
+                     status="REPAIR_INLINE", text=detail)
         _beat(runtime_path, telemetry)
-        return False
+        return True
     telemetry["source_alignment"] = identity
     return True
 
 
 def _persist_until_success(repo_root: Path, task_id: str, runtime_path: Path, telemetry: dict[str, Any], *, retry_seconds: float = 5.0, event_journal: production_events.ProductionEventJournal | None = None) -> dict[str, str]:
+    del retry_seconds
     previous = telemetry.get("last_result") if isinstance(telemetry.get("last_result"), dict) else {}
+    identity = evidence.persist_local_continuity(repo_root, task_id)
+    publication.request_publication(repo_root, task_id, identity)
+    telemetry["status"] = "RUNNING"
+    telemetry["last_result"] = {
+        "task_id": task_id, "status": "LOCAL_PERSISTED_PUBLICATION_PENDING",
+        "summary": "Canonical local continuity committed; remote publication is independently retryable.",
+        "evidence": list(previous.get("evidence", [])), "continuity": identity,
+    }
     if event_journal:
-        event_journal.emit("persistence.started", task_id=task_id, text="Persisting GitHub/Drive continuity")
-    while True:
-        try:
-            identity = evidence.persist_continuity(repo_root, task_id)
-        except evidence.SourceAlignmentError as exc:
-            telemetry["status"] = "WAITING_FOR_SOURCE_SYNC"
-            telemetry["source_alignment"] = {"state": "BLOCKED", "detail": str(exc)}
-            telemetry["last_result"] = {
-                "task_id": task_id, "status": "WAITING_FOR_SOURCE_SYNC",
-                "summary": str(exc), "evidence": list(previous.get("evidence", [])),
-            }
-            if event_journal:
-                event_journal.emit("source.alignment_required", task_id=task_id, status="WAITING_FOR_SOURCE_SYNC", text=str(exc))
-            _beat(runtime_path, telemetry)
-            raise
-        except Exception as exc:
-            telemetry["status"] = "RECOVERING_PERSISTENCE"
-            telemetry["last_result"] = {
-                "task_id": task_id, "status": "RECOVERING_PERSISTENCE",
-                "summary": str(exc), "evidence": list(previous.get("evidence", [])),
-            }
-            if event_journal:
-                event_journal.emit("persistence.retry", task_id=task_id, status="RETRY", text=str(exc))
-            _beat(runtime_path, telemetry)
-            time.sleep(max(0.05, retry_seconds))
-            continue
-        derived = {"status": "SYNCED"}
-        try:
-            evidence.publish_derived_task_ledger(repo_root)
-        except Exception as exc:
-            derived = {"status": "PENDING_RETRY", "error": str(exc)}
-        telemetry["status"] = "RUNNING"
-        telemetry["last_result"] = {
-            "task_id": task_id, "status": "RECOVERED_PERSISTENCE",
-            "summary": "Canonical Git/Drive publication recovered.",
-            "evidence": list(previous.get("evidence", [])), "continuity": identity,
-            "derived_ledger": derived,
-        }
-        if event_journal:
-            event_journal.emit("persistence.completed", task_id=task_id, status="COMPLETE", commit=identity.get("commit"), tree=identity.get("tree"))
-        _beat(runtime_path, telemetry)
-        return identity
+        event_journal.emit("persistence.local_completed", task_id=task_id, status="LOCAL_PERSISTED",
+                           commit=identity["commit"], tree=identity["tree"], publication="PENDING")
+    _beat(runtime_path, telemetry)
+    return identity
 
 
 def _customer_pause_requested(runtime_root: Path) -> bool:
@@ -878,6 +858,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
     journal = production_events.ProductionEventJournal(runtime_root / "events.jsonl", failure_path=runtime_root / "failures.jsonl")
     lock = ProductionLock(runtime_root / "run.lock"); lock.acquire()
     try:
+        publication.start_worker(repo_root, failure_path=runtime_root / "failures.jsonl")
         telemetry = load_runtime(runtime_path)
         reconciled_cooldowns = routing.reconcile_legacy_account_cooldowns(telemetry.get("cooldowns", {}))
         if reconciled_cooldowns != dict(telemetry.get("cooldowns", {}) or {}):
@@ -989,7 +970,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             journal.emit(event_type, task_id=task.id, status="RUNNING", text=task.title, model=route.model, reasoning=route.reasoning, bounded_packet_id=bounded_packet_id)
             rc, error_text = invoke_structured(
                 prompt, route, schema_path, output, stdout, stderr, runtime_path, telemetry,
-                heartbeat_interval=heartbeat_interval, cwd=project_root,
+                heartbeat_interval=heartbeat_interval, cwd=execution_map.task_working_directory(repo_root, project_root, task.id),
                 resume_session_id=resume_session_id, session_task_id=task.id,
                 allow_helper=False if bounded_fallback else _helper_allowed(task.id),
                 persist_session_identity=not bounded_fallback,
@@ -1033,12 +1014,14 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             except ValueError as exc:
                 _set_failure(telemetry, route, str(exc), task.id); _beat(runtime_path, telemetry); continue
             result = _normalize_result_for_route(result, route)
+            if result.status in {"COMPLETE", "COMPLETE_ALREADY"} and (telemetry.get("source_alignment") or {}).get("state") == "RECONCILIATION_REQUIRED":
+                result = evidence.TaskResult(result.task_id, "CONTINUE",
+                    "Preserve passed task evidence; reconcile only the observed source revision difference before closure: " + str(telemetry["source_alignment"].get("detail", "")), result.evidence)
             result = evidence.enforce_clean_completion_boundary(repo_root, result)
             telemetry["last_result"] = {
                 "task_id": result.task_id, "status": result.status, "summary": result.summary,
                 "evidence": list(result.evidence), "model": route.model, "reasoning": route.reasoning,
             }
-            journal.emit("task.completed" if result.status in {"COMPLETE", "COMPLETE_ALREADY"} else "task.continue", task_id=result.task_id, status=result.status, text=result.summary)
             _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
             _refresh_memory_projection(repo_root, project_root, runtime_root, task.id, journal)
             try:
@@ -1051,11 +1034,13 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 _clear_task_session(telemetry)
                 _refresh_memory_projection(repo_root, project_root, runtime_root, result.task_id, journal)
                 _persist_until_success(repo_root, result.task_id, runtime_path, telemetry, event_journal=journal)
+            journal.emit("task.completed" if result.status in {"COMPLETE", "COMPLETE_ALREADY"} else "task.continue", task_id=result.task_id, status=result.status, text=result.summary)
             _beat(runtime_path, telemetry)
             continue
     except evidence.SourceAlignmentError:
         return SOURCE_REFRESH_EXIT
     finally:
+        publication.stop_worker(repo_root)
         lock.release()
 
 
@@ -1111,7 +1096,8 @@ def accept_current_task(repo_root: Path, project_root: Path, runtime_root: Path,
         },
     })
     _beat(runtime_path, telemetry)
-    identity = evidence.persist_continuity(repo_root, canonical)
+    identity = evidence.persist_local_continuity(repo_root, canonical)
+    publication.request_publication(repo_root, canonical, identity)
     return {"accepted_task": canonical, "next_task": successor.id if successor else None, "continuity": identity}
 
 

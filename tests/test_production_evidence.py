@@ -156,7 +156,7 @@ def test_remote_source_guard_rejects_vps_behind_remote(tmp_path: Path):
         evidence.assert_remote_source_current(repo)
 
 
-def test_complete_with_uncommitted_task_output_is_normalized_to_continue(tmp_path: Path):
+def test_complete_with_task_owned_output_is_persisted_locally(tmp_path: Path):
     import subprocess
     repo, project = fixture(tmp_path)
     subprocess.run(["git", "init", "-q", "-b", "main", str(repo)], check=True)
@@ -168,9 +168,9 @@ def test_complete_with_uncommitted_task_output_is_normalized_to_continue(tmp_pat
     task_file.write_text("validated but not committed\n", encoding="utf-8")
     complete = evidence.TaskResult("D01-030", "COMPLETE", "done", ("runtime pass",))
     normalized = evidence.enforce_clean_completion_boundary(repo, complete)
-    assert normalized.status == "CONTINUE"
-    assert "commit or deliberately discard" in normalized.summary
-    assert "projects/biella-games/active-task-output.txt" in normalized.summary
+    assert normalized.status == "COMPLETE"
+    assert "committed locally" in normalized.evidence[-1]
+    assert subprocess.check_output(["git", "-C", str(repo), "status", "--porcelain"], text=True) == ""
 
 
 def test_complete_with_clean_task_output_stays_complete(tmp_path: Path):
