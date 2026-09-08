@@ -981,11 +981,12 @@ def test_persistent_unit_has_no_optional_qwen_startup_blocker():
     assert "Environment=HOME=/root" in unit
 
 
-def test_installer_preserves_an_existing_disabled_production_service():
+def test_installer_never_toggles_existing_production_enablement():
     installer = (LOCAL_AI / "install-biella-ai.sh").read_text()
     assert "production_unit_existed" in installer
-    assert "production_enablement" in installer
-    assert "systemctl disable biella-codex-production.service" in installer
+    assert "systemctl disable biella-codex-production.service" not in installer
+    assert "systemctl enable biella-codex-production.service" in installer
+    assert 'if [[ "$production_unit_existed" -eq 0 ]]' in installer
 
 
 def test_status_exposes_last_source_alignment_receipt(tmp_path: Path, monkeypatch):

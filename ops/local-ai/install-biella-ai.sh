@@ -9,10 +9,8 @@ readonly MANAGED_PREFIX="$INSTALL_DIR/"
 readonly PRODUCTION_UNIT=/etc/systemd/system/biella-codex-production.service
 
 production_unit_existed=0
-production_enablement=unknown
 if [[ -e "$PRODUCTION_UNIT" || -L "$PRODUCTION_UNIT" ]]; then
   production_unit_existed=1
-  production_enablement="$(systemctl is-enabled biella-codex-production.service 2>/dev/null || true)"
 fi
 
 [[ "$EUID" -eq 0 ]] || { printf 'Run the Biella AI installer as root.\n' >&2; exit 1; }
@@ -50,10 +48,8 @@ install -o root -g root -m 644 \
 install -o root -g root -m 644 "$SOURCE_DIR/biella-codex-production.service" "$PRODUCTION_UNIT"
 install -o root -g root -m 644 "$SOURCE_DIR/biella-customer-handoff@.service" /etc/systemd/system/biella-customer-handoff@.service
 systemctl daemon-reload
-if [[ "$production_unit_existed" -eq 0 || "$production_enablement" == "enabled" ]]; then
+if [[ "$production_unit_existed" -eq 0 ]]; then
   systemctl enable biella-codex-production.service >/dev/null
-else
-  systemctl disable biella-codex-production.service >/dev/null
 fi
 for obsolete in \
   /usr/local/bin/biella-ai-start \
