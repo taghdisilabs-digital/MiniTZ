@@ -1,0 +1,61 @@
+{
+  "schema": "biella.d08.resource_observation/v1",
+  "task_id": "D08-01",
+  "observed_utc": "2026-09-08T10:45:48.8130162Z",
+  "device_id": "43ad83f1-0d3d-4e9a-9c9e-5abd32b6206f",
+  "machine": "WIN-P7MA35DRF6Q",
+  "connectivity": "EXECUTION_VERIFIED",
+  "classification": "REQUIRES_OTHER_RESOURCE_FOR_GAME_BUILD_PLAY",
+  "acceptance_changed": false,
+  "release_candidate": false,
+  "storage": [
+    {
+      "DeviceID": "C:",
+      "DriveType": 3,
+      "Size": 53686038528,
+      "FreeSpace": 4181549056
+    },
+    {
+      "DeviceID": "G:",
+      "DriveType": 3,
+      "Size": 53686038528,
+      "FreeSpace": 3972468736
+    }
+  ],
+  "graphics": [
+    {
+      "Name": "Microsoft Remote Display Adapter",
+      "DriverVersion": "10.0.20348.1"
+    },
+    {
+      "Name": "Microsoft Basic Display Adapter",
+      "DriverVersion": "10.0.20348.1"
+    }
+  ],
+  "routes": {
+    "unreal.build.win64": [],
+    "compute.remote": [
+      "saturn",
+      "modal"
+    ]
+  },
+  "setup_repeated": false,
+  "engine_media_or_custom_installation_newly_observed": false,
+  "preserved_setup": {
+    "path": "Build/Release/D08-01/windows-setup-observation.json",
+    "bytes": 1872,
+    "sha256": "4fa2cf76591bd1b5c22661e5c576de61290cb3131ace8181ff63b7602bf9bebf"
+  },
+  "native_nsis_fixture": {
+    "path": "Build/Release/D08-01/tool-tests/nsis-04/native-01/verification.json",
+    "bytes": 1510,
+    "sha256": "5a45f062f3a55ed640600752259f21aa088faa71fe30bc748a9aaf8ced7d62c2"
+  },
+  "native_update_fixture": {
+    "path": "Build/Release/D08-01/tool-tests/windows-update-02/verification.json",
+    "bytes": 1177,
+    "sha256": "a976b873421fc7bccd951d24043afd0b39c943f3856d4bdb61cb2e8750c94f6c"
+  },
+  "unmet": "Actual UE 5.8.2 Win64 VALID, Development/Shipping game package identities and native Shipping gameplay/settings/update qualification.",
+  "next_action": "Route the retained exact source transfer to a connected compatible Windows UE 5.8.2 Resource with adequate storage and DX12 SM6 hardware GPU, verify source transfer and SDK, then execute the game build/play/update handoff."
+}

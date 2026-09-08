@@ -1,0 +1,41 @@
+{
+  "schema": "biella.d08.native_fixture_local_verification/v1",
+  "task_id": "D08-01",
+  "scope": "INSTALLER_TEST_FIXTURE_NOT_GAME",
+  "result": "PASS",
+  "release_candidate": false,
+  "device_id": "43ad83f1-0d3d-4e9a-9c9e-5abd32b6206f",
+  "remote_directory": "C:\\ProgramData\\Biella\\Win64Build\\D08-nsis-native-01",
+  "checks": [
+    "exact remote report byte/hash readback",
+    "seven native checks passed",
+    "unchanged source plan and script identity",
+    "exact two fixture identities",
+    "expected native installer exit codes 0/2/0/0/0",
+    "fixture state retained",
+    "only deliberately unowned sentinel remains",
+    "no fixture process remains"
+  ],
+  "files": [
+    {
+      "path": "Build/Release/D08-01/tool-tests/nsis-04/native-01/native-validation.json",
+      "bytes": 7291,
+      "sha256": "f8ef9be00997377357ab89306436808cf0f21e94e297aaa7cc90e9f90caa2651"
+    },
+    {
+      "path": "Build/Release/D08-01/tool-tests/nsis-04/native-01/remote-readback.json",
+      "bytes": 859,
+      "sha256": "3d1fdf9f8fac939a7b846ac26d5d9fbbec69090389a17b483aa8739a45edd798"
+    },
+    {
+      "path": "Build/Release/D08-01/tool-tests/nsis-04/native-01/remote-tools.json",
+      "bytes": 26927,
+      "sha256": "21fce4a5351029a37906af511eba2d157c1d16f992d7de08e265e3f93e28d997"
+    },
+    {
+      "path": "Build/Release/D08-01/tool-tests/nsis-04/native-01/transfer-readback.json",
+      "bytes": 1325,
+      "sha256": "17dd3a9a890698645754b4624a0418a86de9ec259dfc97f7d4106204aef0b04c"
+    }
+  ]
+}

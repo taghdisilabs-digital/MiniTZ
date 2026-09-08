@@ -1,0 +1,54 @@
+{
+  "readback": {
+    "observed_utc": "2026-09-08T10:44:05.8085104Z",
+    "files": [
+      {
+        "sha256": "448124c32f0a930b2adbb01f8f45b238ead0ebf587e6192c8ac25c1c7ccb47e6",
+        "name": "native-validation.json",
+        "bytes": 23187
+      },
+      {
+        "sha256": "bf1785131bdb62be6873ed063d982493b315b4cf2c480d8fcfc1a343c73ede29",
+        "name": "transfer-readback.json",
+        "bytes": 1203
+      }
+    ],
+    "machine": "WIN-P7MA35DRF6Q"
+  },
+  "command": "$ErrorActionPreference='Stop'; $d='C:\\ProgramData\\Biella\\Win64Build\\D08-update-native-01'; $t=Get-Content -LiteralPath (Join-Path $d 'transfer.json') -Raw | ConvertFrom-Json; $rows=@(); foreach($f in $t.files){$p=Join-Path $d $f.name; if([IO.Path]::GetFileName($f.name) -cne $f.name -or (Test-Path -LiteralPath $p)){throw 'Preserve existing member / invalid name'}; [IO.File]::WriteAllBytes($p,[Convert]::FromBase64String($f.base64)); $h=(Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToLowerInvariant(); if($h -ne $f.sha256 -or (Get-Item -LiteralPath $p).Length -ne $f.bytes){throw 'Transfer identity differs'}; $rows+=@{name=$f.name;sha256=$h;bytes=$f.bytes}}; $receipt=@{task_id='D08-01';scope=$t.scope;machine=[Environment]::MachineName;observed_utc=[DateTime]::UtcNow.ToString('o');files=$rows;result='PASS'} | ConvertTo-Json -Depth 8; [IO.File]::WriteAllText((Join-Path $d 'transfer-readback.json'),$receipt,(New-Object Text.UTF8Encoding($false))); & 'C:\\Python314\\python.exe' -X utf8 -B (Join-Path $d 'run_d08_01_windows_update_tests.py') --fixture-executable (Join-Path $d 'fixture.exe') --expected-sha256 '22277ae3fdd890474eb5bca150bc057bf5a9cb801f0598e9ee384c40521ad834' --output (Join-Path $d 'native-validation.json'); Write-Output ('BIELLA_NATIVE_TEST_EXIT='+$LASTEXITCODE)",
+  "run": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Process started with PID 4400 (shell: powershell.exe)\nInitial output:\n{\"result\": \"FAIL\", \"tests_run\": 14, \"scope\": \"NATIVE_WINDOWS_INSTALLER_FIXTURE_NOT_GAME\", \"output\": {\"path\": \"C:\\\\ProgramData\\\\Biella\\\\Win64Build\\\\D08-update-native-01\\\\native-validation.json\", \"sha256\": \"448124c32f0a930b2adbb01f8f45b238ead0ebf587e6192c8ac25c1c7ccb47e6\", \"bytes\": 23187}}\r\nBIELLA_NATIVE_TEST_EXIT=1\r\n"
+      },
+      {
+        "type": "text",
+        "text": "\n[executed on device: WIN-P7MA35DRF6Q (43ad83f1-0d3d-4e9a-9c9e-5abd32b6206f)]"
+      }
+    ],
+    "isError": false
+  },
+  "transfer": [
+    {
+      "name": "run_d08_01_windows_update_tests.py",
+      "bytes": 5635,
+      "sha256": "a53a18068a9c54fc98a28b4c063bd2b9e2e94c699d607525ac1a5a649b76fbb5"
+    },
+    {
+      "name": "run_d08_01_release.py",
+      "bytes": 33224,
+      "sha256": "4a008021e008ab36a7c07959d302af81345885e7a309f81dea3d7daed4350790"
+    },
+    {
+      "name": "test_d08_01_release.py",
+      "bytes": 8562,
+      "sha256": "561418072fa838db35d3a2e945263cd7391a769e4d394191ea8734abfaafad85"
+    },
+    {
+      "name": "fixture.exe",
+      "bytes": 2048,
+      "sha256": "22277ae3fdd890474eb5bca150bc057bf5a9cb801f0598e9ee384c40521ad834"
+    }
+  ]
+}

@@ -32,9 +32,9 @@
   },
   "game_build": false,
   "handoff": {
-    "bytes": 7715,
     "path": "Build/Release/D08-01/win64-handoff.md",
-    "sha256": "2cf8c9a72add8602d9e3e3ff4ced531f85e805c9f70868a71ecd0cb60e914e8f"
+    "bytes": 11885,
+    "sha256": "f706a2335fb6125a191a7de0612908105500fa7997c0e67088e8e422fd3b8d01"
   },
   "implementation": [
     {
@@ -51,6 +51,21 @@
       "bytes": 6001,
       "path": "tests/test_d08_01_windows_installer.ps1",
       "sha256": "18e71d4d00a8177a6cbc04df2e3f4c930228716b3a93566c24023e34f1b393cb"
+    },
+    {
+      "path": "tests/run_d08_01_release.py",
+      "bytes": 33412,
+      "sha256": "f07b3c7595f50e933ebb9a52d75ca2d8b38f1bd7ee1286efcf348422ba7105a9"
+    },
+    {
+      "path": "tests/run_d08_01_windows_update_tests.py",
+      "bytes": 5635,
+      "sha256": "a53a18068a9c54fc98a28b4c063bd2b9e2e94c699d607525ac1a5a649b76fbb5"
+    },
+    {
+      "path": "tests/test_d08_01_release.py",
+      "bytes": 8562,
+      "sha256": "561418072fa838db35d3a2e945263cd7391a769e4d394191ea8734abfaafad85"
     }
   ],
   "native_fixture_plan": {
@@ -63,8 +78,8 @@
     "path": "Build/Release/D08-01/tool-tests/nsis-04/native-script-precheck.json",
     "sha256": "142cf4b21d1c94e260f619cfa30862f291c6dce448da67bf1fa37e588e894919"
   },
-  "native_windows_execution": "NOT_EXECUTED",
-  "observed": "2026-09-08T10:19:57.994758+00:00",
+  "native_windows_execution": "PASS_INSTALLER_FIXTURES_ONLY",
+  "observed": "2026-09-08T10:47:38.893374+00:00",
   "preserved_linux_qualification": {
     "material_input_digest": "62a468b231792a4e0be64320a79a9840b42af03a8349709d8bf3c0531d885bbf",
     "material_inputs_verified": 363,
@@ -74,9 +89,36 @@
       "path": "Build/Release/D08-01/qualification.json",
       "sha256": "08556cb4b73a65a9e7fdaa3648db0e55e1f5304bf1e81d4853d45c4aafc869ab"
     },
-    "unchanged_from_commit": "ca432457b2066a192c6316e87087e99f8b37f217"
+    "unchanged_from_commit": "ca432457b2066a192c6316e87087e99f8b37f217",
+    "current_material_verification": {
+      "verified_files": 363,
+      "material_input_digest": "62a468b231792a4e0be64320a79a9840b42af03a8349709d8bf3c0531d885bbf",
+      "unchanged_package_source_qualification_files": [
+        {
+          "path": "Build/Release/D08-01/qualification.json",
+          "bytes": 104750,
+          "sha256": "08556cb4b73a65a9e7fdaa3648db0e55e1f5304bf1e81d4853d45c4aafc869ab"
+        },
+        {
+          "path": "Build/Release/D08-01/qualification.md",
+          "bytes": 3397,
+          "sha256": "2a525f097530ef884b0a642213cd4065c371f5aa4cfea2607e5aee2b80969b71"
+        },
+        {
+          "path": "Build/Release/D08-01/package-manifest.json",
+          "bytes": 8665,
+          "sha256": "48cedd56873c9abbc62c0708872066036733bfd4c3e58cd0cbebe5e1d5572770"
+        },
+        {
+          "path": "Build/Release/D08-01/source-build-manifest.json",
+          "bytes": 73200,
+          "sha256": "d2ab592518938287b1a3d142efda8bdc0a15c7c01652bd421e7764de6bd91f92"
+        }
+      ],
+      "helper_change_scope": "Windows copied-file fsync handle only; exact Linux package/runtime records retained and affected installer tests passed."
+    }
   },
-  "publication": "Exact local task files committed for Auto Feeder continuity publication; no external package delivery or remote execution claimed.",
+  "publication": "Both exact NSIS fixtures and qualification scripts executed on the identified Windows node with exact remote report readback. No game package delivery is claimed. Auto Feeder owns GitHub/Drive continuity from committed task bytes.",
   "release_candidate": false,
   "resource_review": {
     "bytes": 3703,
@@ -87,13 +129,36 @@
     "Two exact NSIS PE32 installers extracted with complete contained PE32+ x64 fixture payload SHA-256 readback.",
     "Unicode and dollar-sign file paths preserved; incorrect identity, truncated bytes, fixture misuse and Linux input rejected.",
     "PowerShell native test parses under 7.6.5 and rejects non-Windows execution before installing or writing fixture state.",
-    "Real Windows install/fixture launch/uninstall has not executed; three bounded connector reads failed HTTP 504.",
-    "No game assets/source/settings were changed."
+    "No game assets/source/settings were changed.",
+    "All seven native NSIS install/execute/reject/uninstall fixture checks passed; original prepared artifacts and plan unchanged.",
+    "All 14 native Windows portable-update tests passed with real x64 PE fixtures and explicitly synthetic content; this is not cooked Unreal/game/save qualification.",
+    "Actual native testing found and repaired read-only Windows file flush EBADF before activation. All 13 Linux installer regression tests pass; Linux branch unchanged."
   ],
   "schema": "biella.d08.windows_installer_preparation/v1",
-  "scope": "INSTALLER_ASSEMBLY_AND_LOCAL_TOOL_VALIDATION_ONLY",
-  "smallest_next_action": "Use an actually available compatible Windows UE 5.8.2 installation/media with adequate storage and DX12 SM6 hardware GPU; run the retained SDK validation and UBT/UAT package handoff. Run the prepared native NSIS fixture test after connector recovery without treating its result as game qualification.",
+  "scope": "INSTALLER_ASSEMBLY_AND_NATIVE_FIXTURE_VALIDATION_ONLY",
+  "smallest_next_action": "Route the retained exact source transfer to a connected compatible Windows UE 5.8.2 Resource with adequate storage and DX12 SM6 hardware GPU, verify source transfer and SDK, then execute the game build/play/update handoff.",
   "status": "CONTINUE",
   "task_id": "D08-01",
-  "unmet_criterion": "Exact Win64 UE 5.8.2 Shipping distributable and native Windows gameplay, install/update and supported settings reconstruction qualification."
+  "unmet_criterion": "Exact Win64 UE 5.8.2 Shipping distributable and native Windows gameplay, install/update and supported settings reconstruction qualification.",
+  "native_game_execution": "NOT_EXECUTED",
+  "native_nsis_validation": {
+    "path": "Build/Release/D08-01/tool-tests/nsis-04/native-01/verification.json",
+    "bytes": 1510,
+    "sha256": "5a45f062f3a55ed640600752259f21aa088faa71fe30bc748a9aaf8ced7d62c2"
+  },
+  "native_update_validation": {
+    "path": "Build/Release/D08-01/tool-tests/windows-update-02/verification.json",
+    "bytes": 1177,
+    "sha256": "a976b873421fc7bccd951d24043afd0b39c943f3856d4bdb61cb2e8750c94f6c"
+  },
+  "linux_update_regression": {
+    "path": "Build/Release/D08-01/tool-tests/windows-update-linux-regression-01/validation.json",
+    "bytes": 1203,
+    "sha256": "ce387fd96bd43050d7fc75d6da7afc121e3437e64ec564b390c89907b10f563d"
+  },
+  "current_resource_observation": {
+    "path": "Build/Release/D08-01/resources/windows-native-observation.json",
+    "bytes": 2070,
+    "sha256": "e42964f965a47a30d61382fb1942700900e68f43e2a5e1f8319c92283d71fbdc"
+  }
 }

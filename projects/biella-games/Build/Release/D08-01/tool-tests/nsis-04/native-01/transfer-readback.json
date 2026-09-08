@@ -1,0 +1,30 @@
+{
+    "schema":  "biella.d08.native_fixture_transfer_readback/v1",
+    "task_id":  "D08-01",
+    "scope":  "INSTALLER_TEST_FIXTURE_NOT_GAME",
+    "machine":  "WIN-P7MA35DRF6Q",
+    "result":  "PASS",
+    "observed_utc":  "2026-09-08T10:39:15.5035116Z",
+    "files":  [
+                  {
+                      "sha256":  "bea7d867d5f0ca5332deff38ef325f8f12fdd39b438f25d81221d9c6ec5f54bd",
+                      "name":  "native-plan.json",
+                      "bytes":  1948
+                  },
+                  {
+                      "sha256":  "18e71d4d00a8177a6cbc04df2e3f4c930228716b3a93566c24023e34f1b393cb",
+                      "name":  "test_d08_01_windows_installer.ps1",
+                      "bytes":  6001
+                  },
+                  {
+                      "sha256":  "e1d46106e941668bac9109c1e764e18bac84b11e33e842967b5587149369e6b0",
+                      "name":  "BiellaGames-D08-TEST_FIXTURE-9b4631d636f9-setup.exe",
+                      "bytes":  115429
+                  },
+                  {
+                      "sha256":  "c3e0f61b7fb1d78bb228de0cb2778b3fae6fc2eb1a42d13fef135645a339a737",
+                      "name":  "BiellaGames-D08-TEST_FIXTURE-5e7f17648546-setup.exe",
+                      "bytes":  115433
+                  }
+              ]
+}

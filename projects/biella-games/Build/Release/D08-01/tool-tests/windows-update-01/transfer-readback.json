@@ -1,0 +1,29 @@
+{
+    "scope":  "NATIVE_WINDOWS_INSTALLER_FIXTURE_NOT_GAME",
+    "task_id":  "D08-01",
+    "observed_utc":  "2026-09-08T10:43:15.0441325Z",
+    "files":  [
+                  {
+                      "sha256":  "a53a18068a9c54fc98a28b4c063bd2b9e2e94c699d607525ac1a5a649b76fbb5",
+                      "name":  "run_d08_01_windows_update_tests.py",
+                      "bytes":  5635
+                  },
+                  {
+                      "sha256":  "4a008021e008ab36a7c07959d302af81345885e7a309f81dea3d7daed4350790",
+                      "name":  "run_d08_01_release.py",
+                      "bytes":  33224
+                  },
+                  {
+                      "sha256":  "561418072fa838db35d3a2e945263cd7391a769e4d394191ea8734abfaafad85",
+                      "name":  "test_d08_01_release.py",
+                      "bytes":  8562
+                  },
+                  {
+                      "sha256":  "22277ae3fdd890474eb5bca150bc057bf5a9cb801f0598e9ee384c40521ad834",
+                      "name":  "fixture.exe",
+                      "bytes":  2048
+                  }
+              ],
+    "result":  "PASS",
+    "machine":  "WIN-P7MA35DRF6Q"
+}

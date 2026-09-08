@@ -1,0 +1,82 @@
+{
+  "readback": {
+    "observed_utc": "2026-09-08T10:45:48.8130162Z",
+    "files": [
+      {
+        "sha256": "35b87e1ed166961cdae54a6d94b4259fb5cd783a46121ea95407176ac3cf6575",
+        "name": "native-validation.json",
+        "bytes": 4251
+      },
+      {
+        "sha256": "52a6ee6f58f8b232cf19322f5afa6bd159f338f29c5baaf99c7b26bec6615f2f",
+        "name": "transfer-readback.json",
+        "bytes": 1203
+      }
+    ],
+    "fixture_processes": [],
+    "graphics": [
+      {
+        "Name": "Microsoft Remote Display Adapter",
+        "DriverVersion": "10.0.20348.1"
+      },
+      {
+        "Name": "Microsoft Basic Display Adapter",
+        "DriverVersion": "10.0.20348.1"
+      }
+    ],
+    "storage": [
+      {
+        "DeviceID": "C:",
+        "DriveType": 3,
+        "Size": 53686038528,
+        "FreeSpace": 4181549056
+      },
+      {
+        "DeviceID": "G:",
+        "DriveType": 3,
+        "Size": 53686038528,
+        "FreeSpace": 3972468736
+      }
+    ],
+    "machine": "WIN-P7MA35DRF6Q"
+  },
+  "command": "$ErrorActionPreference='Stop'; $d='C:\\ProgramData\\Biella\\Win64Build\\D08-update-native-02'; $t=Get-Content -LiteralPath (Join-Path $d 'transfer.json') -Raw | ConvertFrom-Json; $rows=@(); foreach($f in $t.files){$p=Join-Path $d $f.name; if([IO.Path]::GetFileName($f.name) -cne $f.name -or (Test-Path -LiteralPath $p)){throw 'Preserve existing member / invalid name'}; [IO.File]::WriteAllBytes($p,[Convert]::FromBase64String($f.base64)); $h=(Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToLowerInvariant(); if($h -ne $f.sha256 -or (Get-Item -LiteralPath $p).Length -ne $f.bytes){throw 'Transfer identity differs'}; $rows+=@{name=$f.name;sha256=$h;bytes=$f.bytes}}; $receipt=@{task_id='D08-01';scope=$t.scope;machine=[Environment]::MachineName;observed_utc=[DateTime]::UtcNow.ToString('o');files=$rows;result='PASS'} | ConvertTo-Json -Depth 8; [IO.File]::WriteAllText((Join-Path $d 'transfer-readback.json'),$receipt,(New-Object Text.UTF8Encoding($false))); & 'C:\\Python314\\python.exe' -X utf8 -B (Join-Path $d 'run_d08_01_windows_update_tests.py') --fixture-executable (Join-Path $d 'fixture.exe') --expected-sha256 '22277ae3fdd890474eb5bca150bc057bf5a9cb801f0598e9ee384c40521ad834' --output (Join-Path $d 'native-validation.json'); Write-Output ('BIELLA_NATIVE_TEST_EXIT='+$LASTEXITCODE)",
+  "run": {
+    "status": "fulfilled",
+    "value": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Process started with PID 6948 (shell: powershell.exe)\nInitial output:\n{\"result\": \"PASS\", \"tests_run\": 14, \"scope\": \"NATIVE_WINDOWS_INSTALLER_FIXTURE_NOT_GAME\", \"output\": {\"path\": \"C:\\\\ProgramData\\\\Biella\\\\Win64Build\\\\D08-update-native-02\\\\native-validation.json\", \"sha256\": \"35b87e1ed166961cdae54a6d94b4259fb5cd783a46121ea95407176ac3cf6575\", \"bytes\": 4251}}\r\nBIELLA_NATIVE_TEST_EXIT=0\r\n"
+        },
+        {
+          "type": "text",
+          "text": "\n[executed on device: WIN-P7MA35DRF6Q (43ad83f1-0d3d-4e9a-9c9e-5abd32b6206f)]"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "transfer": [
+    {
+      "name": "run_d08_01_windows_update_tests.py",
+      "bytes": 5635,
+      "sha256": "a53a18068a9c54fc98a28b4c063bd2b9e2e94c699d607525ac1a5a649b76fbb5"
+    },
+    {
+      "name": "run_d08_01_release.py",
+      "bytes": 33412,
+      "sha256": "f07b3c7595f50e933ebb9a52d75ca2d8b38f1bd7ee1286efcf348422ba7105a9"
+    },
+    {
+      "name": "test_d08_01_release.py",
+      "bytes": 8562,
+      "sha256": "561418072fa838db35d3a2e945263cd7391a769e4d394191ea8734abfaafad85"
+    },
+    {
+      "name": "fixture.exe",
+      "bytes": 2048,
+      "sha256": "22277ae3fdd890474eb5bca150bc057bf5a9cb801f0598e9ee384c40521ad834"
+    }
+  ]
+}

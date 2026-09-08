@@ -1,0 +1,58 @@
+{
+  "errors": [],
+  "executable": {
+    "bytes": 106208,
+    "path": "C:\\Python314\\python.exe",
+    "sha256": "4942b86a6597e5aee0128daa00050ed79bc21f6e709a78eb19cbfeb0c2f39ac9"
+  },
+  "failures": [],
+  "fixture": {
+    "bytes": 2048,
+    "path": "C:\\ProgramData\\Biella\\Win64Build\\D08-update-native-02\\fixture.exe",
+    "sha256": "22277ae3fdd890474eb5bca150bc057bf5a9cb801f0598e9ee384c40521ad834"
+  },
+  "game_runtime_verified": false,
+  "implementation": [
+    {
+      "bytes": 5635,
+      "path": "C:\\ProgramData\\Biella\\Win64Build\\D08-update-native-02\\run_d08_01_windows_update_tests.py",
+      "sha256": "a53a18068a9c54fc98a28b4c063bd2b9e2e94c699d607525ac1a5a649b76fbb5"
+    },
+    {
+      "bytes": 33412,
+      "path": "C:\\ProgramData\\Biella\\Win64Build\\D08-update-native-02\\run_d08_01_release.py",
+      "sha256": "f07b3c7595f50e933ebb9a52d75ca2d8b38f1bd7ee1286efcf348422ba7105a9"
+    },
+    {
+      "bytes": 8562,
+      "path": "C:\\ProgramData\\Biella\\Win64Build\\D08-update-native-02\\test_d08_01_release.py",
+      "sha256": "561418072fa838db35d3a2e945263cd7391a769e4d394191ea8734abfaafad85"
+    }
+  ],
+  "invocation": [
+    "C:\\ProgramData\\Biella\\Win64Build\\D08-update-native-02\\run_d08_01_windows_update_tests.py",
+    "--fixture-executable",
+    "C:\\ProgramData\\Biella\\Win64Build\\D08-update-native-02\\fixture.exe",
+    "--expected-sha256",
+    "22277ae3fdd890474eb5bca150bc057bf5a9cb801f0598e9ee384c40521ad834",
+    "--output",
+    "C:\\ProgramData\\Biella\\Win64Build\\D08-update-native-02\\native-validation.json"
+  ],
+  "limitations": [
+    "content.pak contains explicit synthetic bytes, not cooked Unreal assets.",
+    "Fixture launch and retained sentinel are not gameplay or UE settings/save reconstruction."
+  ],
+  "machine": "WIN-P7MA35DRF6Q",
+  "observed_utc": "2026-09-08T10:44:52.762793+00:00",
+  "platform": "Windows-2022Server-10.0.20348-SP0",
+  "python": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+  "release_candidate": false,
+  "result": "PASS",
+  "schema": "biella.d08.windows_update_fixture_validation/v1",
+  "scope": "NATIVE_WINDOWS_INSTALLER_FIXTURE_NOT_GAME",
+  "skipped": [],
+  "task_id": "D08-01",
+  "test_output": "test_exact_update_preserves_old_and_external_state (__main__.WindowsReleaseTests.test_exact_update_preserves_old_and_external_state) ... ok\ntest_extra_file_and_symlink_rejected (__main__.WindowsReleaseTests.test_extra_file_and_symlink_rejected) ... ok\ntest_incompatible_engine_and_platform_rejected (__main__.WindowsReleaseTests.test_incompatible_engine_and_platform_rejected) ... ok\ntest_incomplete_update_preserves_active_version (__main__.WindowsReleaseTests.test_incomplete_update_preserves_active_version) ... ok\ntest_interrupted_copy_can_retry (__main__.WindowsReleaseTests.test_interrupted_copy_can_retry) ... ok\ntest_interrupted_pointer_commit_recovers_verified_version (__main__.WindowsReleaseTests.test_interrupted_pointer_commit_recovers_verified_version) ... ok\ntest_manifest_rejects_extraction_changed_after_stage (__main__.WindowsReleaseTests.test_manifest_rejects_extraction_changed_after_stage) ... ok\ntest_manifest_tamper_traversal_and_case_collision_rejected (__main__.WindowsReleaseTests.test_manifest_tamper_traversal_and_case_collision_rejected) ... ok\ntest_mixed_content_preserves_active_version (__main__.WindowsReleaseTests.test_mixed_content_preserves_active_version) ... ok\ntest_native_fixture_launch_before_and_after_update (__main__.WindowsReleaseTests.test_native_fixture_launch_before_and_after_update) ... ok\ntest_parallel_installer_cannot_switch_pointer (__main__.WindowsReleaseTests.test_parallel_installer_cannot_switch_pointer) ... ok\ntest_postcopy_corruption_rejected (__main__.WindowsReleaseTests.test_postcopy_corruption_rejected) ... ok\ntest_renamed_elf_is_not_windows_binary (__main__.WindowsReleaseTests.test_renamed_elf_is_not_windows_binary) ... ok\ntest_wrong_update_base_rejected (__main__.WindowsReleaseTests.test_wrong_update_base_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 1.541s\n\nOK\n",
+  "tests_run": 14,
+  "ue_save_migration_verified": false
+}

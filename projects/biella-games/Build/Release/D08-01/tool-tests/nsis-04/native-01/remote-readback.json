@@ -1,0 +1,26 @@
+{
+  "schema": "biella.d08.native_fixture_remote_readback/v1",
+  "task_id": "D08-01",
+  "machine": "WIN-P7MA35DRF6Q",
+  "observed_utc": "2026-09-08T10:39:58.2461705Z",
+  "files": [
+    {
+      "sha256": "17dd3a9a890698645754b4624a0418a86de9ec259dfc97f7d4106204aef0b04c",
+      "name": "transfer-readback.json",
+      "bytes": 1325
+    },
+    {
+      "sha256": "f8ef9be00997377357ab89306436808cf0f21e94e297aaa7cc90e9f90caa2651",
+      "name": "native-validation.json",
+      "bytes": 7291
+    }
+  ],
+  "remaining_fixture_files": [
+    {
+      "path": "C:\\Users\\Administrator\\AppData\\Local\\BiellaGames-D08-InstallerFixture\\9b4631d636f9da90e8d2f8db5128e5d66509536dc2c29d49d1e5a9e0703c4c5a\\payload\\user-added.txt",
+      "sha256": "1ca036d47858a3459d8f1b2fc080d7ee525525e325c6c262c98f15fad3700648",
+      "bytes": 46
+    }
+  ],
+  "fixture_processes": []
+}

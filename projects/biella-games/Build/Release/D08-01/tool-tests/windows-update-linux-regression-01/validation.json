@@ -1,0 +1,40 @@
+{
+  "task_id": "D08-01",
+  "schema": "biella.d08.installer_linux_regression/v1",
+  "observed_utc": "2026-09-08T10:44:49.104050+00:00",
+  "scope": "INSTALLER_TEST_FIXTURES_NOT_GAME",
+  "result": "PASS",
+  "command": [
+    "/usr/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "test_d08_01_release",
+    "-v"
+  ],
+  "cwd": "/root/biella/repos/biella-engine/projects/biella-games/tests",
+  "exit_code": 0,
+  "release_candidate": false,
+  "files": [
+    {
+      "path": "tests/run_d08_01_release.py",
+      "bytes": 33412,
+      "sha256": "f07b3c7595f50e933ebb9a52d75ca2d8b38f1bd7ee1286efcf348422ba7105a9"
+    },
+    {
+      "path": "tests/test_d08_01_release.py",
+      "bytes": 8562,
+      "sha256": "561418072fa838db35d3a2e945263cd7391a769e4d394191ea8734abfaafad85"
+    },
+    {
+      "path": "Build/Release/D08-01/tool-tests/windows-update-linux-regression-01/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Build/Release/D08-01/tool-tests/windows-update-linux-regression-01/stderr.log",
+      "bytes": 1805,
+      "sha256": "cf23378bee8ef69933c55e6ec7a0b266d474c955ce05ff8ab59c36c3d7c659ab"
+    }
+  ]
+}

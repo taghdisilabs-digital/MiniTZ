@@ -1,0 +1,32 @@
+{
+  "task_id": "D08-01",
+  "schema": "biella.d08.windows_update_local_verification/v1",
+  "scope": "NATIVE_WINDOWS_INSTALLER_FIXTURE_NOT_GAME",
+  "result": "PASS",
+  "release_candidate": false,
+  "checks": [
+    "exact remote receipt byte/hash readback",
+    "all 14 native tests passed with no skips",
+    "native msvcrt locking and copied-file flush executed",
+    "current local implementation matches executed remote bytes",
+    "old/new x64 fixture processes executed through installed paths",
+    "no fixture process remains"
+  ],
+  "files": [
+    {
+      "path": "Build/Release/D08-01/tool-tests/windows-update-02/execution-readback.json",
+      "sha256": "498d32bc246d0871705ca641132c93d2919372686be74b23079537f4bfc2f17c",
+      "bytes": 3730
+    },
+    {
+      "path": "Build/Release/D08-01/tool-tests/windows-update-02/native-validation.json",
+      "sha256": "35b87e1ed166961cdae54a6d94b4259fb5cd783a46121ea95407176ac3cf6575",
+      "bytes": 4251
+    },
+    {
+      "path": "Build/Release/D08-01/tool-tests/windows-update-02/transfer-readback.json",
+      "sha256": "52a6ee6f58f8b232cf19322f5afa6bd159f338f29c5baaf99c7b26bec6615f2f",
+      "bytes": 1203
+    }
+  ]
+}

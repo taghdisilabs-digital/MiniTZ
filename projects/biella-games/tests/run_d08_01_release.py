@@ -241,7 +241,9 @@ def install(payload, manifest, root, expected_current=None):
             path.chmod(0o755 if path.is_dir() or path.stat().st_mode & 0o111 else 0o644)
         verify_package(partial / 'payload', manifest)
         for row in manifest['files']:
-            with (partial / 'payload' / row['path']).open('rb') as stream:
+            # Windows CRT _commit needs a writable handle even when no bytes
+            # are changed. Flush the private copy before publishing its pointer.
+            with (partial / 'payload' / row['path']).open('r+b' if os.name == 'nt' else 'rb') as stream:
                 os.fsync(stream.fileno())
         write(partial / 'manifest.json', manifest)
         for directory in sorted((p for p in partial.rglob('*') if p.is_dir()), reverse=True):
