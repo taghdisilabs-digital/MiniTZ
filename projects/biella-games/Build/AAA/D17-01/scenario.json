@@ -188,50 +188,55 @@
     },
     {
       "path": "SourceAssets/Environment/build_service_bay.py",
-      "sha256": "877f128ad654ac9466de0e6d8112fa4c35105d4d9a3d1134e3d9d76892d9a06c",
-      "bytes": 8460
+      "sha256": "79b7df4c225d383dea1d576146057ae05368df15dc5fdc7197ec032a9e821bd3",
+      "bytes": 10896
     },
     {
       "path": "SourceAssets/Environment/ServiceBay.blend",
-      "sha256": "51a7d3c77c1c52acd000775ad5623ea07bf8f182a9123ad9e1c3bd6595657679",
-      "bytes": 134398
+      "sha256": "1bdcee2b2fea67f67e18cc012417f29f0f57cb0662e5caf190076d39c2f1f957",
+      "bytes": 142646
     },
     {
       "path": "Content/Python/author_service_bay.py",
-      "sha256": "cea6592adeaf09e1f1bead81b94f334e9ea4f01faa1891a8c7bdfa74082543a2",
-      "bytes": 11233
+      "sha256": "49b078892b3a21408f72b1aafaad3f47d8b535fdb4614507e77587de7fc0af9f",
+      "bytes": 11326
+    },
+    {
+      "path": "SourceAssets/Materials/ServiceSurface.hlsl",
+      "sha256": "ca2eb1eef34853e5859b4956413f68afabfd5bc115e9d04d523d034b3478a44a",
+      "bytes": 1521
     }
   ],
   "first_raw_run": "Build/AAA/D17-01/raw/entry-720-02/observation.json",
-  "acceptance": "INCOMPLETE: observed native terminal prevents the duration/route contract; pressure consequence and zero-major visual quality are unproven or failing. Scenario timing is not proof.",
+  "acceptance": "INCOMPLETE: 600\u20131200 active seconds and full route remain unqualified; five major visual defect groups remain. Ordinary-input environment consequence is proven at 720p, without qualifying the full evolving encounter.",
   "current_native_build": "Build/AAA/D17-01/build/game-02/result.json",
   "previous_raw_runs": [
     "Build/AAA/D17-01/raw/hud-720-01/observation.json",
     "Build/AAA/D17-01/raw/hud-1080-01/observation.json"
   ],
   "current_raw_runs": [
-    "Build/AAA/D17-01/raw/service-720-02/observation.json",
-    "Build/AAA/D17-01/raw/service-1080-02/observation.json"
+    "Build/AAA/D17-01/raw/growth-hazard-720-01/observation.json",
+    "Build/AAA/D17-01/raw/growth-hazard-1080-01/observation.json"
   ],
-  "current_package_status": "Corrected imported mesh coordinates, fresh saved-asset readback, fresh snapshot cook with exact verified DDC reuse, stage/archive readback, installation and packaged environment interaction regression PASS. Existing native game/editor builds match unchanged native source. New raw 720p/1080p diagnostics preserved; final slice acceptance remains INCOMPLETE.",
+  "current_package_status": "Editable tapered attached growth, tissue/capillary materials and finer metal response pass fresh saved-asset readback, recook, stage/archive readback, exact installation and packaged environment regression. Native game/editor source and build identity are unchanged. Current 720p ordinary input proves switching, panel destruction/physics and electrical-floor damage. The 1080p run ends before the bay; full slice remains INCOMPLETE.",
   "scope_findings": "Build/AAA/D17-01/environment/scope-findings.json",
   "current_package": {
-    "package_id": "2742363eb178b6288092d670611742b12cc07089268ab02c54be97165da6d163",
+    "package_id": "35ac96d18e521d5dc2623cf335e0342b6673dc86450f2ec5efd2894d69971bd8",
     "manifest": {
-      "path": "Build/AAA/D17-01/build/package-03/package-manifest.json",
-      "sha256": "fd7789dd868a4025186fd7490579be0c3920d9a8486c7074d45160607fadb063",
+      "path": "Build/AAA/D17-01/build/package-04/package-manifest.json",
+      "sha256": "01e94698e27f24a61966b75227c7c10d0550e9cd0c921ee9e071080b52c2a71e",
       "bytes": 8669
     },
     "archive": {
-      "bytes": 481767476,
-      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-03.tar.zst",
-      "sha256": "51a82c9f37b4079cc5ba21d066112733b1ee6a5fe054e99ab826ec980a63f333"
+      "bytes": 482094922,
+      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-04.tar.zst",
+      "sha256": "ef762ad9a7d8f4affcd5a2035609cdd1e787cb729bede14d489eaafdb4fdeb1b"
     },
-    "source_material_digest": "ad4699e7d244d60e45798063bb32e2537648c4ec2a397564f62265047d0907e1",
+    "source_material_digest": "8bb3f4fee666a5d5215cba22e94513538160a8d02a403149e67300d422cf61d8",
     "overlay": false
   },
   "route_feasibility_probe": "Build/AAA/D17-01/raw/route-rival-01/observation.json",
-  "observed_route_limits": "service-720-02 frame-13 shows the corrected cabinet and service bay from the normal moving camera; no normal-input switch or destruction beat is proven in these two captures. Interior/terrace/return beats remain unproven. Current runs end at 34.112581229710486 and 9.009782609471586 active simulation seconds. The additional service-interaction-720-01 approach missed the switch and ended in player defeat by rival fire at 57.13843510946026 active simulation seconds; no power transition occurred. This longer active attempt still does not qualify the 600\u20131200 second route.",
+  "observed_route_limits": "The corrected package-03 input run toggled power and destroyed panel 2 but did not cross its opening. Current growth-hazard-720-01 aligns the player with that opening: power turns on, panel 2 breaks into physics debris and nine electrical-floor pulses apply 27.249 damage. It ends in Success at 46.31332703580847 active seconds. Current 1080p ends at 9.021478963026311 seconds, with rival fire defeating both tracked infected before the bay. Interior/terrace/east-return and 600\u20131200 active seconds remain unqualified. These attempts do not prove every accepted input route fails.",
   "previous_service_candidate": {
     "source_commit": "0242b38e31451f24d51175fc4050172122c28a3a",
     "package": {
@@ -254,5 +259,30 @@
       "Build/AAA/D17-01/raw/service-1080-01/observation.json"
     ]
   },
-  "current_environment_probe": "Build/AAA/D17-01/raw/service-interaction-720-01/observation.json"
+  "current_environment_probe": "Build/AAA/D17-01/raw/growth-hazard-720-01/observation.json",
+  "previous_coordinate_candidate": {
+    "source_commit": "5854ebea89bd581418924397bacbfc6ac7612db0",
+    "package": {
+      "package_id": "2742363eb178b6288092d670611742b12cc07089268ab02c54be97165da6d163",
+      "manifest": {
+        "path": "Build/AAA/D17-01/build/package-03/package-manifest.json",
+        "sha256": "fd7789dd868a4025186fd7490579be0c3920d9a8486c7074d45160607fadb063",
+        "bytes": 8669
+      },
+      "archive": {
+        "bytes": 481767476,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-03.tar.zst",
+        "sha256": "51a82c9f37b4079cc5ba21d066112733b1ee6a5fe054e99ab826ec980a63f333"
+      },
+      "source_material_digest": "ad4699e7d244d60e45798063bb32e2537648c4ec2a397564f62265047d0907e1",
+      "overlay": false
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/service-720-02/observation.json",
+      "Build/AAA/D17-01/raw/service-1080-02/observation.json",
+      "Build/AAA/D17-01/raw/service-interaction-720-01/observation.json",
+      "Build/AAA/D17-01/raw/service-interaction-720-02/observation.json"
+    ],
+    "observed_route_limits": "service-720-02 frame-13 shows the corrected cabinet and service bay from the normal moving camera; no normal-input switch or destruction beat is proven in these two captures. Interior/terrace/return beats remain unproven. Current runs end at 34.112581229710486 and 9.009782609471586 active simulation seconds. The additional service-interaction-720-01 approach missed the switch and ended in player defeat by rival fire at 57.13843510946026 active simulation seconds; no power transition occurred. This longer active attempt still does not qualify the 600\u20131200 second route."
+  }
 }

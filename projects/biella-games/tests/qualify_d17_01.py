@@ -16,8 +16,10 @@ from run_d08_01_release import digest, executable_format, identity, now, write, 
 PROJECT = Path(__file__).resolve().parents[1]
 ROOT = PROJECT / 'Build/AAA/D17-01'
 RUNS = ('entry-720-02', 'hud-720-01', 'hud-1080-01')
-CURRENT_RUNS = ('service-720-02', 'service-1080-02')
-CURRENT_PROBES = ('service-interaction-720-01',)
+CURRENT_RUNS = ('growth-hazard-720-01', 'growth-hazard-1080-01')
+CURRENT_PROBES = ()
+COORDINATE_RUNS = ('service-720-02', 'service-1080-02', 'service-interaction-720-01', 'service-interaction-720-02')
+COORDINATE_COMMIT = '5854ebea89bd581418924397bacbfc6ac7612db0'
 PREVIOUS_SERVICE_RUNS = ('service-720-01', 'service-1080-01')
 SERVICE_COMMIT = '0242b38e31451f24d51175fc4050172122c28a3a'
 HUD_COMMIT = '57190a294440c4dfa6deb9a9a50d23442c66fbc8'
@@ -91,6 +93,8 @@ def observe(name):
                 audio_captured=False, uninterrupted_duration_satisfied=600 <= duration <= 1200,
                 natural_pressure_observed=bool(events.get('arena_pressure', 0)),
                 environment_power_transitions=sum('D02_ENV POWER ' in line for line in log.splitlines()),
+                environment_panel_events=[line.split('D02_ENV PANEL ',1)[1] for line in log.splitlines() if 'D02_ENV PANEL ' in line],
+                electrical_floor_damage=[dict(sim_seconds=r['sim_seconds'], **r['fields']) for r in rows if r['event']=='damage' and r['fields'].get('tag')=='electrical_floor'],
                 player_defeats=[r['fields'] for r in rows if r['event'] == 'defeat' and
                                r['fields'].get('target', '').startswith('BiellaStreamingCharacter:')],
                 namespace_file_verification=(directory / 'exposed-package-verification.json').exists())
@@ -151,7 +155,23 @@ def main():
         assert resolved['base_package_id'] == previous_service_package['package_id']
         assert resolved['files'] == previous_service_package['files'] and 'native_delta' not in resolved
         assert resolved['runtime_id'] == digest({k: v for k, v in resolved.items() if k != 'runtime_id'})
-    package_root = ROOT / 'build/package-03'
+    coordinate_source = read(ROOT / 'build/package-03/source-build.json')
+    for row in coordinate_source['material_inputs']:
+        check_historical_source(row, COORDINATE_COMMIT)
+    coordinate_package = read(ROOT / 'build/package-03/package-manifest.json')
+    coordinate_runs = [observe(name) for name in COORDINATE_RUNS]
+    for name in COORDINATE_RUNS:
+        for row in read(ROOT / 'raw' / name / 'inputs.json').values():
+            check(row)
+        resolved = read(ROOT / 'raw' / name / 'resolved-package.json')
+        assert resolved['base_package_id'] == coordinate_package['package_id']
+        assert resolved['files'] == coordinate_package['files'] and 'native_delta' not in resolved
+        assert resolved['runtime_id'] == digest({k:v for k,v in resolved.items() if k != 'runtime_id'})
+        exposed = read(ROOT / 'raw' / name / 'exposed-package-verification.json')
+        assert exposed['status'] == 'PASS' and exposed['runtime_id'] == resolved['runtime_id']
+    assert coordinate_runs[-1]['environment_power_transitions'] == 1
+    assert any('physics=1' in line for line in coordinate_runs[-1]['environment_panel_events'])
+    package_root = ROOT / 'build/package-04'
     installation = read(package_root / 'validation.json')
     assert installation['result'] == 'PASS'
     package = read(package_root / 'package-manifest.json')
@@ -163,7 +183,7 @@ def main():
     changed = sorted(p for p in before.keys() | after.keys() if before.get(p) != after.get(p))
     assert package['source_material_digest'] == native_source['material_input_digest']
     check(package['archive'])
-    for path in ('build/cook-04/validation.json', 'build/stage-04/validation.json'):
+    for path in ('build/cook-05/validation.json', 'build/stage-05/validation.json'):
         assert read(ROOT / path)['result'] == 'PASS', path
     installed = Path(installation['install']['installed'])
     assert current(installed.parents[1])[1] == package
@@ -171,15 +191,26 @@ def main():
     assert current_build['result'] == 'PASS' and current_build['inputs_unchanged']
     assert native_source['binary']['sha256'] == current_build['binary']['sha256']
     check(current_build['binary'])
-    assets = ROOT / 'environment/assets-02/validation.json'
+    assets = ROOT / 'environment/assets-03/validation.json'
     assert read(assets)['result'] == 'PASS'
-    for mesh in read(ROOT / 'environment/assets-02/readback.json')['meshes']:
+    for mesh in read(ROOT / 'environment/assets-03/readback.json')['meshes']:
         assert mesh['authored_coordinates_verified']
-    environment = ROOT / 'environment/runtime-03/validation.json'
+    environment = ROOT / 'environment/runtime-04/validation.json'
     assert read(environment)['result'] == 'PASS'
     assert read(environment)['package_id'] == package['package_id']
     new_runs = [observe(name) for name in CURRENT_RUNS]
     new_probes = [observe(name) for name in CURRENT_PROBES]
+    # Qualify the observed consequence only. A short 1080p terminal run cannot
+    # inherit the environment outcome from the 720p run or the fixture.
+    ordinary_environment = new_runs[0]
+    assert ordinary_environment['environment_power_transitions'] == 1
+    assert any('health=0.0' in line and 'physics=1' in line
+               for line in ordinary_environment['environment_panel_events'])
+    floor_damage = ordinary_environment['electrical_floor_damage']
+    assert floor_damage and all(float(r['amount']) > 0 and float(r['health']) < 100
+                                and r['target'] == 'BiellaStreamingCharacter:1'
+                                and r['source'] == 'BiellaEnvironmentSite:1'
+                                for r in floor_damage)
     for name in CURRENT_RUNS + CURRENT_PROBES:
         for row in read(ROOT / 'raw' / name / 'inputs.json').values():
             check(row)
@@ -191,18 +222,24 @@ def main():
         assert exposed['status'] == 'PASS' and exposed['runtime_id'] == resolved['runtime_id']
     visual = read(ROOT / 'visual-assessment.json')
     assert visual['major_defects'] and not visual['zero_major_defects']
-    all_runs = runs + [route_probe] + previous_service_runs + new_runs + new_probes
+    assert visual['current_package_id'] == scenario['current_package']['package_id'] == package['package_id']
+    check(scenario['current_package']['manifest'])
+    assert scenario['current_package']['source_material_digest'] == package['source_material_digest']
+    assert read(ROOT / 'environment/scope-findings.json')['current_environment_probe']['electrical_floor_damage'] == floor_damage
+    for frame in visual['current_frames'] + visual['service_bay_packaged_frames']:
+        assert (ROOT / frame).read_bytes()[:8] == b'\x89PNG\r\n\x1a\n'
+    all_runs = runs + [route_probe] + previous_service_runs + coordinate_runs + new_runs + new_probes
     assert not any(run['uninterrupted_duration_satisfied'] for run in all_runs)
     report = dict(
         schema='biella.games.d17.qualification/v1', task_id='D17-01', observed=now(),
         status='INCOMPLETE', result='CONTINUE', accepted=False,
         evidence_integrity='VERIFIED', scenario=ref(ROOT / 'scenario.json'),
         owner_visual_contract=ref(PROJECT / 'docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md'),
-        scope='Canonical slice candidate, HUD correction and authored service-bay layer; Linux Development diagnostics',
+        scope='Canonical slice candidate, HUD correction, service-bay growth/material layer and ordinary environment consequence; Linux Development diagnostics',
         implementation=dict(changed_material_inputs=changed, build=ref(ROOT / 'build/game-02/result.json'),
                             editor_build=ref(ROOT / 'build/editor-02/validation.json'),
                             editable_source=ref(PROJECT / 'Source/BiellaGames/Private/BiellaEnvironmentSite.cpp'),
-                            editable_art=[ref(p) for p in sorted((PROJECT / 'SourceAssets/Environment').iterdir()) if p.is_file()],
+                            editable_art=[ref(p) for p in sorted((PROJECT / 'SourceAssets/Environment').iterdir()) if p.is_file()] + [ref(PROJECT / 'SourceAssets/Materials/ServiceSurface.hlsl')],
                             source_manifest=ref(package_root / 'source-build.json'),
                             asset_readback=ref(assets), environment_regression=ref(environment),
                             source_material_digest=native_source['material_input_digest']),
@@ -211,14 +248,16 @@ def main():
                      payload_files_digest=digest(package['files']),
                      exact_resolved_manifests=[ref(ROOT / 'raw' / n / 'resolved-package.json')
                                                for n in CURRENT_RUNS + CURRENT_PROBES],
-                     cook=ref(ROOT / 'build/cook-04/validation.json'),
-                     stage=ref(ROOT / 'build/stage-04/validation.json'),
+                     cook=ref(ROOT / 'build/cook-05/validation.json'),
+                     stage=ref(ROOT / 'build/stage-05/validation.json'),
                      install=ref(package_root / 'validation.json'), format='ELF64-x86_64',
                      platform='Linux', configuration='Development', renderer='Vulkan'),
         first_raw_run=runs[0], previous_raw_runs=runs[1:], current_raw_runs=new_runs,
-        current_environment_probe=dict(observation=new_probes[0],
-            input_plan=ref(ROOT / 'service-interaction-input.json'),
-            scope='Ordinary input on the current exact package; the approach missed cabinet reach/facing, no power transition was recorded, and rival fire defeated the player'),
+        current_environment_probe=dict(observation=new_runs[0],
+            input_plan=ref(ROOT / 'service-hazard-input.json'),
+            scope='Ordinary input on the current package; switching, panel physics and electrical-floor outcomes are extracted from native logs/telemetry above'),
+        previous_coordinate_candidate=dict(source_commit=COORDINATE_COMMIT,
+            package=ref(ROOT / 'build/package-03/package-manifest.json'), raw_runs=coordinate_runs),
         previous_service_candidate=dict(source_commit=SERVICE_COMMIT,
             package=ref(ROOT / 'build/package-02/package-manifest.json'),
             raw_runs=previous_service_runs,
@@ -232,18 +271,21 @@ def main():
                                     'Exact baseline/native-delta package identities and first raw run retained',
                                     'HUD change builds and existing live HUD/settings behavior tests pass',
                                     'Editable service-bay metalwork/PBR assets pass fresh saved-asset readback',
-                                    'New native/editor builds, isolated recook, archive readback and installed environment regression pass'],
+                                    'New native/editor builds, isolated recook, archive readback and installed environment regression pass',
+                                    'Ordinary input on package 03 toggles power and destroys a panel into simulated debris; capture/logs preserve the consequence',
+                                    'Editable tapered growth follows the rail/column/header and uses separate tissue and red capillary materials',
+                                    'Current-package 720p ordinary input powers the bay, destroys a panel into physical debris, crosses its opening and causes real electrical-floor player damage'],
         unmet_criteria=[
             dict(id='continuous_slice_duration_and_route', required='600–1200 seconds of representative active gameplay with route beats',
                  observed=[{'run': r['run'], 'active_seconds': r['active_simulation_seconds'],
                             'terminal': r['terminal']} for r in all_runs],
                  next_action='Identify an accepted continuous content route before changing objective behavior; no actor resets, idle padding or invented mechanics'),
             dict(id='player_rival_infected_arena_pressure', required='Player, rival, infected and arena consequence in the evolving real encounter',
-                 observed='Current raw runs record neither arena_pressure nor a power-switch transition. The ordinary-input service probe missed the cabinet approach; it does not invalidate the passing fixture or prove interaction impossible. The visual capture contract includes environment-consequence states.',
-                 next_action='Correct the normal approach to the existing cabinet using observed frames, current position and native reach/facing rules; capture its implemented power/shared-hazard consequence. Keep this distinct from the unqualified arena_pressure trigger; do not invent timing/escalation or switch-to-pressure API wiring'),
+                 observed='Current-package 720p ordinary input proves power, panel destruction/physics and electrical-floor player damage. The 1080p run shows player/rival/infected at entry but ends before the environment beat. Natural arena_pressure timing and the full evolving encounter composition remain unqualified.',
+                 next_action='Reuse verified ordinary-input environment outcomes; qualify the full player+rival+infected encounter and remaining route without inventing pressure timing or rewiring the switch'),
             dict(id='zero_major_visual_defects', required='All hard visual requirements with zero major defects',
                  observed=[d['id'] for d in visual['major_defects']],
-                 next_action='Continue the service-bay approach surface and integrated organic infection layer from the new runtime frames, preserving tested collision/gameplay')],
+                 next_action='Extend coherent infection coverage and wet approach surfaces, then improve cold-storm lighting and focal character presentation while preserving tested collision/gameplay')],
         scope_findings=ref(ROOT / 'environment/scope-findings.json'),
         proof_limits=['Short raw clips do not qualify long-form pacing or later route beats',
                       'HUD and environment automation use fixtures and are not raw-slice proof',

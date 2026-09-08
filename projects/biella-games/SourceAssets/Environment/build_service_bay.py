@@ -25,6 +25,8 @@ for name, color, roughness, metallic in [
     ('Steel', (.31, .34, .36, 1), .32, 1),
     ('Rubber', (.012, .015, .018, 1), .78, 0),
     ('Lamp', (1, .62, .28, 1), .3, 0),
+    ('Growth', (.055, .004, .008, 1), .34, 0),
+    ('Vein', (.42, .006, .016, 1), .28, 0),
 ]:
     mat = bpy.data.materials.new(name)
     mat.diffuse_color = color
@@ -63,6 +65,25 @@ def bolt(at, axis='X', radius=1.15, depth=.8):
     bpy.ops.mesh.primitive_cylinder_add(vertices=6, radius=radius, depth=depth,
                                       location=at, rotation=rotation)
     return finish(bpy.context.object, 'Captive hex bolt', 'Steel', .12)
+
+
+def strand(name, points, radius, material='Growth'):
+    """Editable tapered tissue following an explicit structural contact path."""
+    curve = bpy.data.curves.new(name, 'CURVE')
+    curve.dimensions = '3D'
+    curve.resolution_u = 6
+    curve.bevel_depth = radius
+    curve.bevel_resolution = 3
+    curve.use_fill_caps = True
+    spline = curve.splines.new('BEZIER')
+    spline.bezier_points.add(len(points)-1)
+    for i, (point, position) in enumerate(zip(spline.bezier_points, points)):
+        point.co = position
+        point.radius = max(.06, (1-i/(len(points)-1))**.6)
+        point.handle_left_type = point.handle_right_type = 'AUTO'
+    obj = bpy.data.objects.new(name, curve)
+    bpy.context.collection.objects.link(obj)
+    return finish(obj, name, material, 0)
 
 
 def export(name, envelope=None):
@@ -181,6 +202,34 @@ for y in (-170, 170):
     box('Lamp diffuser', (-22, y, 239.8), (21, 40, 1.6), 'Lamp', .5)
     for dy in (-15, 0, 15):
         box('Lamp safety cage', (-22, y+dy, 238.5), (24, 1.5, 1.5), 'Steel', .3)
+
+# Organic invasion follows the outside containment rail into the column and
+# header. It is attached dressing, not a new obstacle or damage mechanic.
+# The cabinet/switch side and movable panel surfaces remain clear. Named
+# tapered Bezier splines survive in the editable blend; only FBX copies bake.
+trunk = [(510,246,9),(415,247,16),(310,246,29),(205,246,42),
+         (95,246,52),(8,271,82),(9,271,145),(8,272,210),(9,275,256)]
+strand('Rail-to-column invaded tissue', trunk, 11)
+strand('Header takeover', [(9,271,145),(16,273,212),(13,272,258),
+                          (8,205,263),(9,130,263),(9,65,261)], 6.8)
+for index, x in enumerate((430,350,270,190,110)):
+    z = 12+(510-x)*.1
+    strand('Anchored root fan %02d'%index,
+           [(x,247,z),(x+8,253,12),(x+25,275,2.8),
+            (x+43,305+index*5,1.4),(x+78,320+index*3,.8)], 5.8-index*.5)
+    strand('Rail climbing branch %02d'%index,
+           [(x,247,z),(x-17,248,45),(x-38,242,64),
+            (x-66,230,66),(x-90,227,65)], 4.5)
+    # Narrow luminous capillaries stay on the tissue's exposed outer face.
+    strand('Red capillary %02d'%index,
+           [(x+10,254,z+3),(x-12,254,z+10),(x-40,250,49),
+            (x-63,239,68),(x-87,229,66)], .85, 'Vein')
+for index, z in enumerate((80,115,150,185)):
+    strand('Column attachment %02d'%index,
+           [(9,274,z),(15,276,z+13),(18,262,z+29),
+            (16,249,z+41),(14,243,z+51)], 3.6)
+strand('Column vascular seam', [(9,280,70),(11,280,108),(10,279,153),
+                               (10,279,207),(11,277,250),(9,219,266)], 1.2, 'Vein')
 export('SM_ServiceBayMetalwork')
 
 bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'ServiceBay.blend'))

@@ -1,0 +1,28 @@
+[
+  [
+    "ffmpeg",
+    "-v",
+    "error",
+    "-ss",
+    "4",
+    "-i",
+    "Build/AAA/D17-01/raw/growth-hazard-1080-01/raw-gameplay.mkv",
+    "-frames:v",
+    "1",
+    "-y",
+    "Build/AAA/D17-01/raw/growth-hazard-1080-01/frame-04.png"
+  ],
+  [
+    "ffmpeg",
+    "-v",
+    "error",
+    "-ss",
+    "10",
+    "-i",
+    "Build/AAA/D17-01/raw/growth-hazard-1080-01/raw-gameplay.mkv",
+    "-frames:v",
+    "1",
+    "-y",
+    "Build/AAA/D17-01/raw/growth-hazard-1080-01/frame-10.png"
+  ]
+]

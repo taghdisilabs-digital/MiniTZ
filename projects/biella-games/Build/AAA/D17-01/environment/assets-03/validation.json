@@ -1,0 +1,139 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "runs": [
+    {
+      "command": [
+        "runuser",
+        "-u",
+        "unreal",
+        "--",
+        "env",
+        "BIELLA_D17_SERVICE_REPORT=/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/assets-03/author.json",
+        "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+        "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+        "-run=pythonscript",
+        "-script=/root/biella/repos/biella-engine/projects/biella-games/Content/Python/author_service_bay.py",
+        "-EnablePlugins=PythonScriptPlugin",
+        "-unattended",
+        "-nullrhi",
+        "-nosound",
+        "-nop4",
+        "-stdout",
+        "-FullStdOutLogOutput"
+      ],
+      "pid": 3577255,
+      "returncode": 0,
+      "timed_out": false,
+      "timeout_seconds": 600,
+      "elapsed_seconds": 15.828,
+      "log": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/assets-03/author.log",
+        "sha256": "825e22b867cef1f4d15dbafe00384b046e14ffa1e3dcca1e321e88e0c2292624",
+        "bytes": 230337
+      }
+    },
+    {
+      "command": [
+        "runuser",
+        "-u",
+        "unreal",
+        "--",
+        "env",
+        "BIELLA_D17_SERVICE_REPORT=/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/assets-03/readback.json",
+        "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+        "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+        "-run=pythonscript",
+        "-script=/root/biella/repos/biella-engine/projects/biella-games/Content/Python/author_service_bay.py",
+        "-EnablePlugins=PythonScriptPlugin",
+        "-unattended",
+        "-nullrhi",
+        "-nosound",
+        "-nop4",
+        "-stdout",
+        "-FullStdOutLogOutput",
+        "-D17VerifyServiceBay"
+      ],
+      "pid": 3578981,
+      "returncode": 0,
+      "timed_out": false,
+      "timeout_seconds": 600,
+      "elapsed_seconds": 11.756,
+      "log": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/assets-03/readback.log",
+        "sha256": "fe559bf5a3fd6c61668c3df2b281fe8f6e5354f4eb5f5ac81faf43b26402f65a",
+        "bytes": 215319
+      }
+    }
+  ],
+  "sources": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Python/author_service_bay.py",
+      "sha256": "49b078892b3a21408f72b1aafaad3f47d8b535fdb4614507e77587de7fc0af9f",
+      "bytes": 11326
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/service-bay.json",
+      "sha256": "aba75e1e3e7efe2d4c6da70dedb1acb1cc9e4f0ba6a42dc916843ac2764a2721",
+      "bytes": 2138
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Materials/ServiceSurface.hlsl",
+      "sha256": "ca2eb1eef34853e5859b4956413f68afabfd5bc115e9d04d523d034b3478a44a",
+      "bytes": 1521
+    }
+  ],
+  "changed_assets": {
+    "Content/Environment/ServiceBay/MI_ServiceGrowth.uasset": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Environment/ServiceBay/MI_ServiceGrowth.uasset",
+      "sha256": "be36a252bd84a03f36f6563b364253940f21d9ff047ad0f4278a17b1ebcc1b49",
+      "bytes": 5826
+    },
+    "Content/Environment/ServiceBay/MI_ServiceLamp.uasset": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Environment/ServiceBay/MI_ServiceLamp.uasset",
+      "sha256": "d2f19087eba03503ec9513f8c451653ee54183f6917ece0995860b6253f27ab3",
+      "bytes": 5816
+    },
+    "Content/Environment/ServiceBay/MI_ServicePaint.uasset": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Environment/ServiceBay/MI_ServicePaint.uasset",
+      "sha256": "f209f5eb00f87d873098c0897b58a823b14bbf22fa311bc15354ad7c129d7cfa",
+      "bytes": 5821
+    },
+    "Content/Environment/ServiceBay/MI_ServiceRubber.uasset": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Environment/ServiceBay/MI_ServiceRubber.uasset",
+      "sha256": "20a52017e6c6c37bebee355c73ff4f399d7e9e438e40b3e861c1160cd7c6759d",
+      "bytes": 5826
+    },
+    "Content/Environment/ServiceBay/MI_ServiceSteel.uasset": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Environment/ServiceBay/MI_ServiceSteel.uasset",
+      "sha256": "9cf52529b55878bec7fd47979bf272fb1f8b67b7cf485ae1d78692b57cafaf21",
+      "bytes": 5821
+    },
+    "Content/Environment/ServiceBay/MI_ServiceVein.uasset": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Environment/ServiceBay/MI_ServiceVein.uasset",
+      "sha256": "2520be644e66ede74393360a740f4377de8195386b4d97dbbc29179330a0c033",
+      "bytes": 5816
+    },
+    "Content/Environment/ServiceBay/M_ServiceMetal.uasset": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Environment/ServiceBay/M_ServiceMetal.uasset",
+      "sha256": "6f74cfbb1822ff48ab3dd83502d7745fa7293fc141841e64aba84cc32c657097",
+      "bytes": 25665
+    },
+    "Content/Environment/ServiceBay/SM_ServiceBayMetalwork.uasset": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Environment/ServiceBay/SM_ServiceBayMetalwork.uasset",
+      "sha256": "84ea1d2e33519f5ad3a0c0934b144ba8e07760c1446e8b8117c88898505ad305",
+      "bytes": 560239
+    },
+    "Content/Environment/ServiceBay/SM_ServicePanel120.uasset": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Environment/ServiceBay/SM_ServicePanel120.uasset",
+      "sha256": "a93524a81fb184641d4ac123874e1866104e34f8a29e7ee24b3f8763abf97a43",
+      "bytes": 142516
+    },
+    "Content/Environment/ServiceBay/SM_ServicePanel240.uasset": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Environment/ServiceBay/SM_ServicePanel240.uasset",
+      "sha256": "cd24fb86ccbe5656a285c8c86063b04b8864b5c3eb7abb875638cd002bdf7c8c",
+      "bytes": 150336
+    }
+  },
+  "preexisting_other_assets_unchanged": true
+}

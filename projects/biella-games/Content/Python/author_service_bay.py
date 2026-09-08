@@ -13,7 +13,7 @@ PROJECT = Path(unreal.Paths.project_dir()).resolve()
 ROOT = '/Game/Environment/ServiceBay'
 SPEC_PATH = PROJECT/'SourceAssets/Environment/service-bay.json'
 SPEC = json.loads(SPEC_PATH.read_text())
-SHADER = (PROJECT/'SourceAssets/Materials/ProductionSurface.hlsl').read_text()
+SHADER = (PROJECT/'SourceAssets/Materials/ServiceSurface.hlsl').read_text()
 VERIFY = '-D17VerifyServiceBay' in unreal.SystemLibrary.get_command_line()
 LIB = unreal.EditorAssetLibrary
 MAT = unreal.MaterialEditingLibrary
@@ -59,7 +59,7 @@ if not VERIFY:
     MAT.set_base_material_usage(material, unreal.MaterialUsage.MATUSAGE_INSTANCED_STATIC_MESHES, True)
     params = {}
     for name, value in dict(BaseColor=(.055,.074,.08,1), Roughness=.48, Metallic=0.,
-                            DetailScale=1., ReliefCm=.045, Wear=.35, Wetness=.3,
+                            DetailScale=1., ReliefCm=.012, Wear=.35, Wetness=.3,
                             Emission=0.).items():
         vector = isinstance(value, tuple)
         params[name] = node(material, unreal.MaterialExpressionVectorParameter if vector else unreal.MaterialExpressionScalarParameter,
@@ -119,6 +119,8 @@ for name,color,rough,metal,wear,wet,emission in [
     ('Steel',(.31,.34,.36,1),.32,1,.22,.22,0),
     ('Rubber',(.012,.015,.018,1),.78,0,0,0,0),
     ('Lamp',(1,.62,.28,1),.3,0,0,0,3),
+    ('Growth',(.055,.004,.008,1),.34,0,0,.45,0),
+    ('Vein',(.42,.006,.016,1),.28,0,0,.4,3.5),
 ]:
     instance=asset('MI_Service'+name,unreal.MaterialInstanceConstant,unreal.MaterialInstanceConstantFactoryNew())
     parameters=dict(Roughness=rough,Metallic=metal,Wear=wear,Wetness=wet,Emission=emission)

@@ -1,0 +1,28 @@
+{
+  "binary": {
+    "bytes": 299185984,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/2742363eb178b6288092d670611742b12cc07089268ab02c54be97165da6d163/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "38403bd19aa32fb82ff8b9424213b96e451ede3de083065805f9343c8a88bde0"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/2742363eb178b6288092d670611742b12cc07089268ab02c54be97165da6d163/payload",
+  "manifest": {
+    "bytes": 8669,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/2742363eb178b6288092d670611742b12cc07089268ab02c54be97165da6d163/manifest.json",
+    "sha256": "fd7789dd868a4025186fd7490579be0c3920d9a8486c7074d45160607fadb063"
+  },
+  "package_id": "2742363eb178b6288092d670611742b12cc07089268ab02c54be97165da6d163",
+  "platform": "Linux",
+  "scope": "Byte-verified Linux Development package; not visual acceptance or Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "5854ebea89bd581418924397bacbfc6ac7612db0",
+    "head_tree": "e743af3da4ee91bcf3475f48e88273c4233a3c68",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      "?? Build/AAA/D17-01/raw/service-interaction-720-02/",
+      "?? Build/AAA/D17-01/service-interaction-corrected-input.json"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T14:18:04.861050+00:00"
+}

@@ -1,0 +1,53 @@
+{
+  "binary": {
+    "bytes": 299185984,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/35ac96d18e521d5dc2623cf335e0342b6673dc86450f2ec5efd2894d69971bd8/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "38403bd19aa32fb82ff8b9424213b96e451ede3de083065805f9343c8a88bde0"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/35ac96d18e521d5dc2623cf335e0342b6673dc86450f2ec5efd2894d69971bd8/payload",
+  "manifest": {
+    "bytes": 8669,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/35ac96d18e521d5dc2623cf335e0342b6673dc86450f2ec5efd2894d69971bd8/manifest.json",
+    "sha256": "01e94698e27f24a61966b75227c7c10d0550e9cd0c921ee9e071080b52c2a71e"
+  },
+  "package_id": "35ac96d18e521d5dc2623cf335e0342b6673dc86450f2ec5efd2894d69971bd8",
+  "platform": "Linux",
+  "scope": "Byte-verified Linux Development package; not visual acceptance or Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "5854ebea89bd581418924397bacbfc6ac7612db0",
+    "head_tree": "e743af3da4ee91bcf3475f48e88273c4233a3c68",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      " M Content/Environment/ServiceBay/MI_ServiceLamp.uasset",
+      " M Content/Environment/ServiceBay/MI_ServicePaint.uasset",
+      " M Content/Environment/ServiceBay/MI_ServiceRubber.uasset",
+      " M Content/Environment/ServiceBay/MI_ServiceSteel.uasset",
+      " M Content/Environment/ServiceBay/M_ServiceMetal.uasset",
+      " M Content/Environment/ServiceBay/SM_ServiceBayMetalwork.uasset",
+      " M Content/Environment/ServiceBay/SM_ServicePanel120.uasset",
+      " M Content/Environment/ServiceBay/SM_ServicePanel240.uasset",
+      " M Content/Python/author_service_bay.py",
+      " M SourceAssets/Environment/SM_ServiceBayMetalwork.fbx",
+      " M SourceAssets/Environment/SM_ServicePanel120.fbx",
+      " M SourceAssets/Environment/SM_ServicePanel240.fbx",
+      " M SourceAssets/Environment/ServiceBay.blend",
+      " M SourceAssets/Environment/build_service_bay.py",
+      " M SourceAssets/Environment/service-bay.json",
+      " M tests/author_d17_01_service_bay.py",
+      " M tests/qualify_d17_01.py",
+      "?? Build/AAA/D17-01/environment/assets-03/",
+      "?? Build/AAA/D17-01/environment/mesh-author-03/",
+      "?? Build/AAA/D17-01/environment/runtime-04/",
+      "?? Build/AAA/D17-01/raw/growth-hazard-720-01/",
+      "?? Build/AAA/D17-01/raw/service-interaction-720-02/",
+      "?? Build/AAA/D17-01/service-hazard-input.json",
+      "?? Build/AAA/D17-01/service-interaction-corrected-input.json",
+      "?? Content/Environment/ServiceBay/MI_ServiceGrowth.uasset",
+      "?? Content/Environment/ServiceBay/MI_ServiceVein.uasset",
+      "?? SourceAssets/Materials/ServiceSurface.hlsl"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T14:25:29.012851+00:00"
+}

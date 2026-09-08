@@ -4,10 +4,13 @@
   "method": "Direct inspection of decoded frames from unedited normal-camera raw captures, plus explicitly separate editor and installed-package environment fixture frames; exact source/build/input/telemetry retained separately",
   "baseline_frame": "raw/entry-720-02/frame-13.png",
   "current_frames": [
-    "raw/service-720-02/frame-13.png",
-    "raw/service-1080-02/frame-04.png"
+    "raw/growth-hazard-720-01/frame-16.png",
+    "raw/growth-hazard-720-01/frame-20.png",
+    "raw/growth-hazard-720-01/frame-22.png",
+    "raw/growth-hazard-720-01/frame-25.png",
+    "raw/growth-hazard-1080-01/frame-04.png"
   ],
-  "improved_boundary": "Compact native HUD retained. Corrected exported mesh handedness puts the cabinet behind its unchanged switch; the imported asymmetric bounds now match authored native coordinates. The installed-package fixture shows cabinet louvers, service-panel ribs/channels and warm lamps with mounted housings. Damage, physics, traversal, switching, shared hazard and streaming pass. Normal-camera service-720-02 frame-13 shows the corrected cabinet during street traversal. This fixes the local placement defect, while the five scene-wide major defect groups remain.",
+  "improved_boundary": "Correct cabinet alignment and compact native HUD are preserved. Finer metal microstructure reduces the coarse stone-like mottling; warm mounted lamps, ribs and cabinet hardware remain visible. Editable dark-red tapered growth and a luminous vascular seam follow the header/column/rail. Current 720p raw frames 16/20/25 show the supported switch, destroyed panel, player crossing debris and live hazard damage; native logs and telemetry corroborate those ordinary inputs. The growth is visible close to the open panel, but sparse and largely hidden on the initial approach; it does not yet form a convincing organic takeover.",
   "major_defects": [
     {
       "id": "focal_art",
@@ -19,11 +22,11 @@
     },
     {
       "id": "materials",
-      "finding": "Steel/paint/rubber separation is visible on the service bay, but coarse mottling, whole-panel orange damage feedback and a primitive colored switch interface remain. The switch is now supported by the correctly placed cabinet. Road and surrounding structures lack convincing wet wear, reflected light and material detail."
+      "finding": "The fixed service-bay metal has finer roughness/bump detail, but the bright orange hazard floor, whole-panel damage tint and primitive switch interface remain visually crude. Road and surrounding structures lack convincing wet wear, reflected light and material detail."
     },
     {
       "id": "infection",
-      "finding": "No visible organic infection invades engineered structures. Red actor colors do not satisfy this requirement."
+      "finding": "Sparse tapered dark-red strands and a luminous seam are now visible on the header/right column and rail. Most growth is hidden from the approach; coverage and tissue form remain too limited to read as integrated organic invasion of the arena."
     },
     {
       "id": "lighting",
@@ -31,9 +34,9 @@
     }
   ],
   "unproven": [
-    "Neither arena-pressure nor normal-input power/shared-hazard consequence is established. The latest ordinary-input probe missed the cabinet approach; automated fixture success is retained separately.",
+    "The current 720p run proves ordinary power, panel physics and player electrical-floor damage. The 1080p run ends before the bay. Full player+rival+infected+environment consequence composition at gameplay distance remains unqualified; native arena_pressure has no observed natural transition.",
     "Interior, terrace and east-return beats were not reached before terminal state.",
-    "HUD occlusion during the required later dense combat/pressure states remains unqualified.",
+    "HUD occlusion during required later dense-combat states remains unqualified.",
     "No final temporal-quality or raw audio qualification is claimed."
   ],
   "zero_major_defects": false,
@@ -44,15 +47,17 @@
   ],
   "service_bay_limit": "Editor and installed-package automation position actors/camera and drive states. These frames validate the affected layer only; they are not a raw canonical-slice run or final acceptance.",
   "service_bay_packaged_frames": [
-    "environment/runtime-03/captures/switch_safe.png",
-    "environment/runtime-03/captures/panel_damaged.png"
+    "environment/runtime-04/captures/switch_safe.png",
+    "environment/runtime-04/captures/hazard_active.png"
   ],
   "previous_frames": [
     "raw/hud-720-01/frame-13.png",
     "raw/hud-1080-01/frame-04.png",
     "raw/service-720-01/frame-13.png",
     "raw/service-720-01/frame-25.png",
-    "raw/service-1080-01/frame-04.png"
+    "raw/service-1080-01/frame-04.png",
+    "raw/service-720-02/frame-13.png",
+    "raw/service-1080-02/frame-04.png"
   ],
   "service_bay_coordinate_defect": {
     "status": "FIXED_IN_CURRENT_ASSETS_AND_PACKAGE",
@@ -63,5 +68,10 @@
     "packaged_runtime": "environment/runtime-03/validation.json",
     "normal_camera_frame": "raw/service-720-02/frame-13.png",
     "package_id": "2742363eb178b6288092d670611742b12cc07089268ab02c54be97165da6d163"
-  }
+  },
+  "previous_packaged_frames": [
+    "environment/runtime-03/captures/switch_safe.png",
+    "environment/runtime-03/captures/panel_damaged.png"
+  ],
+  "current_package_id": "35ac96d18e521d5dc2623cf335e0342b6673dc86450f2ec5efd2894d69971bd8"
 }
