@@ -18,7 +18,7 @@ repository:
 
   source_identity_source: LIVE_GIT_PLUS_RUNTIME
 active_execution:
-  id: D04-01
+  id: D05-01
   project: Biella Games
   section: post_d01
   state: PENDING
@@ -39,13 +39,13 @@ website:
 games:
   production_source: projects/biella-games/docs/PRODUCTION.md
   current_section: post_d01
-  current_task: D04-01
-  completed_tasks: 60
+  current_task: D05-01
+  completed_tasks: 61
   total_tasks: 168
 
   completed_demo_tasks: 50
-  queued_successor: D04-01
-  task_boundary: D04-01_PENDING
+  queued_successor: D05-01
+  task_boundary: D05-01_PENDING
 resources:
   strong_route_policy: HIGHEST_QUALITY_ELIGIBLE
   forced_route: gpt-reserve

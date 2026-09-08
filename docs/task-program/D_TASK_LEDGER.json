@@ -1,5 +1,5 @@
 {
-  "current_task": "D04-01",
+  "current_task": "D05-01",
   "execution_authority": "current 03/04 + Project PRODUCTION.md",
   "registry_is_queue": false,
   "schema": "biella.d_task_ledger/v1",
@@ -1388,7 +1388,7 @@
         "GAME-40-CONTENT-MULTIPLICATION"
       ],
       "program": "D04",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D04-01",
       "title": "Data-driven content system multiplication"
