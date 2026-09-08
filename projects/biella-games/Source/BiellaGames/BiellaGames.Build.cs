@@ -6,7 +6,7 @@ public class BiellaGames : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "NavigationSystem", "UMG", "Niagara" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "NavigationSystem", "UMG", "Niagara", "LevelSequence", "MovieScene", "MovieSceneTracks" });
 		
 		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore", "Json", "AudioMixer", "RenderCore", "RHI", "AnimGraphRuntime", "AnimationCore", "BiellaLoadingScreen" });
 		

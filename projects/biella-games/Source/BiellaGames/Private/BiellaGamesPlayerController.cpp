@@ -10,6 +10,7 @@
 #include "BiellaGameUserSettings.h"
 #include "BiellaGamesGameModeBase.h"
 #include "BiellaGamesGameState.h"
+#include "BiellaCinematicDirector.h"
 #include "BiellaSettingsWidget.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "InputCoreTypes.h"
@@ -98,6 +99,15 @@ void ABiellaGamesPlayerController::UpdateTerminalInputState()
         return;
     }
 
+    if (bCinematicInputActive)
+    {
+        ResetIgnoreInputFlags();
+        SetIgnoreMoveInput(true);
+        SetIgnoreLookInput(true);
+        SessionMode = EBiellaSessionMode::Cinematic;
+        return;
+    }
+
     ResetIgnoreInputFlags();
     if (bTerminal)
     {
@@ -127,6 +137,8 @@ void ABiellaGamesPlayerController::SetupInputComponent()
             &ABiellaGamesPlayerController::InteractWorld);
         InputComponent->BindKey(EKeys::Escape, IE_Pressed, this,
             &ABiellaGamesPlayerController::TogglePauseSettings);
+        InputComponent->BindKey(EKeys::C, IE_Pressed, this,
+            &ABiellaGamesPlayerController::SkipActiveCinematic);
     }
 }
 
@@ -144,7 +156,7 @@ void ABiellaGamesPlayerController::TogglePauseSettings()
 
 void ABiellaGamesPlayerController::OpenPauseSettings()
 {
-    if (!IsLocalController() || bPauseSettingsActive || bTerminalInputActive ||
+    if (!IsLocalController() || bPauseSettingsActive || bCinematicInputActive || bTerminalInputActive ||
         !SettingsWidget || !GetWorld())
     {
         return;
@@ -216,7 +228,7 @@ void ABiellaGamesPlayerController::ResumeFromSettings()
 void ABiellaGamesPlayerController::InteractWorld()
 {
     auto* P=Cast<ABiellaGamesCharacter>(GetPawn());
-    if (!P || P->IsDefeated() || IsPaused() || IsMoveInputIgnored()) { return; }
+    if (!P || P->IsDefeated() || IsPaused() || bCinematicInputActive || IsMoveInputIgnored()) { return; }
     if (P->GetVehicle()) { P->GetVehicle()->TryExit(); return; }
     for (TActorIterator<ABiellaEnvironmentSite> It(GetWorld());It;++It)
     { if (It->TryInteract(P)) { return; } }
@@ -232,7 +244,7 @@ void ABiellaGamesPlayerController::InteractWorld()
 
 void ABiellaGamesPlayerController::RestartDemo()
 {
-    if (bPauseSettingsActive)
+    if (bPauseSettingsActive || bCinematicInputActive)
     {
         return;
     }
@@ -241,5 +253,73 @@ void ABiellaGamesPlayerController::RestartDemo()
         GetWorld()->GetAuthGameMode<ABiellaGamesGameModeBase>() : nullptr)
     {
         Mode->RequestRestart();
+    }
+}
+
+bool ABiellaGamesPlayerController::EnterCinematicMode()
+{
+    if (!IsLocalController() || bPauseSettingsActive || bTerminalInputActive ||
+        bCinematicInputActive || !GetWorld())
+    {
+        return false;
+    }
+
+    FlushPressedKeys();
+    if (ABiellaGamesCharacter* Character = Cast<ABiellaGamesCharacter>(GetPawn()))
+    {
+        Character->ResetTransientInputState();
+    }
+    bCinematicInputActive = true;
+    ResetIgnoreInputFlags();
+    SetIgnoreMoveInput(true);
+    SetIgnoreLookInput(true);
+    bShowMouseCursor = false;
+    SetInputMode(FInputModeGameOnly());
+    SessionMode = EBiellaSessionMode::Cinematic;
+    UE_LOG(LogTemp, Display,
+        TEXT("D06_SIGNAL SESSION_TRANSITION from=Gameplay to=Cinematic paused=false cursor=false input=constrained"));
+    return true;
+}
+
+void ABiellaGamesPlayerController::ExitCinematicMode()
+{
+    if (!bCinematicInputActive)
+    {
+        return;
+    }
+
+    bCinematicInputActive = false;
+    FlushPressedKeys();
+    if (ABiellaGamesCharacter* Character = Cast<ABiellaGamesCharacter>(GetPawn()))
+    {
+        Character->ResetTransientInputState();
+    }
+    const bool bTerminal = bTerminalInputActive;
+    ResetIgnoreInputFlags();
+    if (bTerminal)
+    {
+        SetIgnoreMoveInput(true);
+        SetIgnoreLookInput(true);
+    }
+    bShowMouseCursor = false;
+    SetInputMode(FInputModeGameOnly());
+    SessionMode = bTerminal ? EBiellaSessionMode::Terminal : EBiellaSessionMode::Gameplay;
+    UE_LOG(LogTemp, Display,
+        TEXT("D06_SIGNAL SESSION_TRANSITION from=Cinematic to=%s paused=false cursor=false input=game_only stale_input=cleared"),
+        bTerminal ? TEXT("Terminal") : TEXT("Gameplay"));
+}
+
+void ABiellaGamesPlayerController::SkipActiveCinematic()
+{
+    if (!bCinematicInputActive || !GetWorld())
+    {
+        return;
+    }
+    if (ABiellaGamesGameModeBase* Mode = GetWorld()->GetAuthGameMode<ABiellaGamesGameModeBase>())
+    {
+        if (ABiellaCinematicDirector* Director = Mode->GetCinematicDirector())
+        {
+            Director->SkipRuntimeSequence();
+        }
     }
 }

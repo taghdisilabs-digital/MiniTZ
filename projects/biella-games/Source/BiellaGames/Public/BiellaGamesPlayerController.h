@@ -14,6 +14,7 @@ enum class EBiellaSessionMode : uint8
 {
     Gameplay,
     PauseSettings,
+    Cinematic,
     Terminal
 };
 
@@ -37,6 +38,11 @@ public:
     void TogglePauseSettings();
     void OpenPauseSettings();
     void ResumeFromSettings();
+    bool EnterCinematicMode();
+    void ExitCinematicMode();
+
+    UFUNCTION(BlueprintPure, Category="Biella|Session")
+    bool IsCinematicMode() const { return bCinematicInputActive; }
 
     UFUNCTION(BlueprintPure, Category="Biella|Session")
     bool IsPauseSettingsOpen() const { return bPauseSettingsActive; }
@@ -52,6 +58,7 @@ public:
 
 private:
     void UpdateTerminalInputState();
+    void SkipActiveCinematic();
 
     UPROPERTY(Transient)
     TObjectPtr<UBiellaGameplayHUD> GameplayHUD;
@@ -61,5 +68,6 @@ private:
 
     bool bTerminalInputActive = false;
     bool bPauseSettingsActive = false;
+    bool bCinematicInputActive = false;
     EBiellaSessionMode SessionMode = EBiellaSessionMode::Gameplay;
 };

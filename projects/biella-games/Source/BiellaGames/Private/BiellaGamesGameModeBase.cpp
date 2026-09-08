@@ -2,6 +2,7 @@
 #include "BiellaWorldContinuity.h"
 
 #include "BasicWorldGeometry.h"
+#include "BiellaCinematicDirector.h"
 #include "BiellaGamesCharacter.h"
 #include "BiellaGamesGameInstance.h"
 #include "BiellaGamesGameState.h"
@@ -15,6 +16,7 @@
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/CapsuleComponent.h"
+#include "Misc/CommandLine.h"
 #include "NavigationSystem.h"
 
 ABiellaGamesGameModeBase::ABiellaGamesGameModeBase()
@@ -59,12 +61,45 @@ void ABiellaGamesGameModeBase::BeginPlay()
                 ABiellaDemoObjectiveManager::StaticClass(), FVector::ZeroVector,
                 FRotator::ZeroRotator, ObjectiveParams);
         }
+
+        TArray<AActor*> ExistingDirectors;
+        UGameplayStatics::GetAllActorsOfClass(GetWorld(),
+            ABiellaCinematicDirector::StaticClass(), ExistingDirectors);
+        for (AActor* Actor : ExistingDirectors)
+        {
+            if (ABiellaCinematicDirector* Existing = Cast<ABiellaCinematicDirector>(Actor))
+            {
+                if (!IsValid(CinematicDirector))
+                {
+                    CinematicDirector = Existing;
+                }
+                else if (Existing != CinematicDirector)
+                {
+                    Existing->Destroy();
+                }
+            }
+        }
+        if (!IsValid(CinematicDirector))
+        {
+            FActorSpawnParameters CinematicParams;
+            CinematicParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+            CinematicDirector = GetWorld()->SpawnActor<ABiellaCinematicDirector>(
+                ABiellaCinematicDirector::StaticClass(), FVector::ZeroVector,
+                FRotator::ZeroRotator, CinematicParams);
+        }
     }
     if (ABiellaGamesGameState* State = GetWorld()->GetGameState<ABiellaGamesGameState>())
     {
         PressureState = State;
         State->OnArenaPressureChanged.AddUObject(this, &ABiellaGamesGameModeBase::ApplyArenaPressure);
         ApplyArenaPressure(*State);
+    }
+    if (FParse::Param(FCommandLine::Get(), TEXT("BiellaD06Cinematic")) &&
+        GetWorld()->GetWorldSettings())
+    {
+        GetWorld()->GetWorldSettings()->SetTimeDilation(0.0f);
+        UE_LOG(LogTemp, Display,
+            TEXT("D06_SIGNAL VALIDATION_HOLD active=true reason=fixture_wait real_world=true"));
     }
     UE_LOG(LogTemp, Display, TEXT("D01_SIGNAL MODE_READY class=BiellaGamesGameModeBase"));
 }
@@ -93,6 +128,7 @@ void ABiellaGamesGameModeBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
     InfectedActors.Reset();
     RivalActor = nullptr;
     ObjectiveManager = nullptr;
+    CinematicDirector = nullptr;
     bPressureSlotUsed[0] = bPressureSlotUsed[1] = false;
     PressureReinforcementCount = 0;
     NextPressureSpawnAttempt = 0.0f;
