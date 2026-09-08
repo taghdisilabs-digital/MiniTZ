@@ -32,8 +32,9 @@ void ABiellaEnvironmentSite::BeginPlay()
     auto* GroundMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Environment/ServiceBay/SM_ServiceGround.SM_ServiceGround"));
     auto* GroundBase=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Environment/ServiceBay/M_ServiceGround.M_ServiceGround"));
     auto* SwitchBase=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Environment/ServiceBay/M_ServiceSwitch.M_ServiceSwitch"));
+    auto* PanelBase=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Environment/ServiceBay/M_ServicePanel.M_ServicePanel"));
     auto* Metalwork=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Environment/ServiceBay/SM_ServiceBayMetalwork.SM_ServiceBayMetalwork"));
-    checkf(Base && NarrowPanel && WidePanel && Metalwork && GroundMesh && GroundBase && SwitchBase, TEXT("Service-bay authored assets are required"));
+    checkf(Base && NarrowPanel && WidePanel && Metalwork && GroundMesh && GroundBase && SwitchBase && PanelBase, TEXT("Service-bay authored assets are required"));
     auto Material=[this,Base](FLinearColor Color)
     {
         auto* M=UMaterialInstanceDynamic::Create(Base,this);
@@ -54,7 +55,8 @@ void ABiellaEnvironmentSite::BeginPlay()
     auto* Frame=Material(FLinearColor(0.08,0.10,0.12));
     for (int32 I=0;I<3;++I)
     {
-        auto* M=Material(FLinearColor(0.055,0.074,0.08)); PanelMaterials.Add(M);
+        auto* M=UMaterialInstanceDynamic::Create(PanelBase,this); PanelMaterials.Add(M);
+        M->SetVectorParameterValue(TEXT("PanelSize"),FLinearColor(12,I==1 ? 240 : 120,210));
         auto* P=Add(*FString::Printf(TEXT("Panel%d"),I),FVector(0,(I-1)*184,110),FVector(12,I==1 ? 240 : 120,210),M,true);
         // Imported simple boxes retain the original 100cm unit collision body.
         // The authored folded sheet replaces only the visible panel geometry.
@@ -154,8 +156,15 @@ float ABiellaEnvironmentSite::TakeDamage(float Amount,const FDamageEvent& Event,
     for (int32 I=0;I<Panels.Num();++I)
     {
         if (Point.HitInfo.GetComponent()!=Panels[I] || PanelHealth[I]<=0) { continue; }
+        const bool FirstImpact=PanelHealth[I]==68;
         const float Applied=FMath::Min(PanelHealth[I],Amount); PanelHealth[I]-=Applied; ++Revision;
-        PanelMaterials[I]->SetVectorParameterValue(TEXT("BaseColor"),PanelHealth[I]>0 ? FLinearColor(0.64,0.25,0.06) : FLinearColor(0.16,0.19,0.21));
+        // Presentation records the first and latest confirmed point hits. The
+        // original health, collision, navigation and debris behavior is intact.
+        const FVector LocalImpact=Panels[I]->GetComponentTransform().InverseTransformPosition(Point.HitInfo.ImpactPoint);
+        const FLinearColor Impact(LocalImpact.X,LocalImpact.Y,LocalImpact.Z);
+        if (FirstImpact) { PanelMaterials[I]->SetVectorParameterValue(TEXT("ImpactA"),Impact); }
+        PanelMaterials[I]->SetVectorParameterValue(TEXT("ImpactB"),Impact);
+        PanelMaterials[I]->SetScalarParameterValue(TEXT("DamageAmount"),1-PanelHealth[I]/68.0f);
         if (PanelHealth[I]<=0)
         {
             // The barrier geometry itself becomes light, non-walkable debris.

@@ -1,0 +1,15 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "mode": "author",
+  "asset": "/Game/Environment/ServiceBay/M_ServicePanel.M_ServicePanel",
+  "shader_sha256": "ee23f2410c63b168478d070265e14335fb9b06c4b15d3fe7df50fba16bceef29",
+  "status": "GENERATED_DRAFT",
+  "damage_parameters": [
+    "ImpactA",
+    "ImpactB",
+    "DamageAmount"
+  ],
+  "state_scope": "First and latest real point-hit positions; existing health only",
+  "geometry_scope": "Original folded panel meshes, transforms and collision; no WPO; closed impact relief"
+}

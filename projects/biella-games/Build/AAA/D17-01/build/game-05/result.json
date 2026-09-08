@@ -1,0 +1,45 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "revision": {
+    "head": "8236b5b4bbbdafb8499babb4f95b9dd80dfc32b0",
+    "head_tree": "da334057961bb1de95b020bbc68f1574f8fceaf2",
+    "project_status": [
+      " M Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
+      " M tests/qualify_d17_01.py",
+      "?? Build/AAA/D17-01/environment/panel-assets-01/",
+      "?? Build/AAA/D17-01/environment/panel-editor-01/",
+      "?? Build/AAA/D17-01/environment/panel-mechanics-preservation.json",
+      "?? Build/AAA/D17-01/environment/panel-native.diff",
+      "?? Content/Environment/ServiceBay/M_ServicePanel.uasset",
+      "?? Content/Python/author_service_panel.py",
+      "?? SourceAssets/Materials/ServicePanel.hlsl",
+      "?? tests/author_d17_01_service_panel.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "marker_before": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "started": "2026-09-08T17:08:24.177515+00:00",
+  "returncode": 0,
+  "binary": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames",
+    "sha256": "784a93e01da177765c30a92d845254eb0b9b126a0bce8b8b39286914a4bd4900",
+    "bytes": 299185984
+  },
+  "receipt": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames.target",
+    "sha256": "7da8030a25e23d3976e834f2554ef35a869d9133100f3a7da197b666c115d023",
+    "bytes": 106593
+  },
+  "marker_after": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "inputs_unchanged": true,
+  "elapsed_seconds": 108.20685064897407
+}

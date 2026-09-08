@@ -1,0 +1,16 @@
+{"event": "capture_started", "elapsed_seconds": 2.839951775968075e-06, "window": "2097243"}
+{"event": "input_sent", "elapsed_seconds": 0.017042732913978398, "planned_at": 0, "input_clock_seconds": 0.017037172918207943, "input": ["keydown", "w"], "intended_beat": "Advance from the native start state"}
+{"event": "input_sent", "elapsed_seconds": 0.1366427509346977, "planned_at": 0.1, "input_clock_seconds": 0.13663754099979997, "input": ["keydown", "Shift_L"], "intended_beat": "Use normal sprint control"}
+{"event": "input_sent", "elapsed_seconds": 0.2539195689605549, "planned_at": 0.2, "input_clock_seconds": 0.25391468894667923, "input": ["keydown", "a"], "intended_beat": "Pass left of initial encounter"}
+{"event": "input_sent", "elapsed_seconds": 2.2290489479200915, "planned_at": 2.2, "input_clock_seconds": 2.2290442779194564, "input": ["keyup", "a"], "intended_beat": "Continue along the street"}
+{"event": "input_sent", "elapsed_seconds": 7.07173409499228, "planned_at": 7, "input_clock_seconds": 7.071728964918293, "input": ["keyup", "Shift_L"], "intended_beat": "Approach service bay at walking speed"}
+{"event": "input_sent", "elapsed_seconds": 13.04661711701192, "planned_at": 13, "input_clock_seconds": 13.046611966914497, "input": ["keyup", "w"], "intended_beat": "Turn approach toward the cabinet side"}
+{"event": "input_sent", "elapsed_seconds": 13.170093686901964, "planned_at": 13.1, "input_clock_seconds": 13.170085706980899, "input": ["keydown", "d"], "intended_beat": "Approach cabinet lateral coordinate"}
+{"event": "input_sent", "elapsed_seconds": 13.956403365009464, "planned_at": 13.9, "input_clock_seconds": 13.956398344947957, "input": ["keyup", "d"], "intended_beat": "Stop lateral input"}
+{"event": "input_sent", "elapsed_seconds": 14.036295476951636, "planned_at": 14, "input_clock_seconds": 14.036290316958912, "input": ["keydown", "w"], "intended_beat": "Approach west side of switch"}
+{"event": "input_sent", "elapsed_seconds": 15.25114627298899, "planned_at": 15.2, "input_clock_seconds": 15.251139082945883, "input": ["keyup", "w"], "intended_beat": "Stop before cabinet"}
+{"event": "input_sent", "elapsed_seconds": 15.321113823913038, "planned_at": 15.3, "input_clock_seconds": 15.3211084039649, "input": ["keydown", "e"], "intended_beat": "Attempt native switch interaction"}
+{"event": "input_sent", "elapsed_seconds": 15.543483439949341, "planned_at": 15.5, "input_clock_seconds": 15.543477949919179, "input": ["keyup", "e"], "intended_beat": "Release interaction"}
+{"event": "input_sent", "elapsed_seconds": 16.022773607983254, "planned_at": 16, "input_clock_seconds": 16.022768597933464, "input": ["keydown", "d"], "intended_beat": "Move from cabinet toward panels"}
+{"event": "native_terminal_observed", "elapsed_seconds": 16.125283420900814}
+{"event": "capture_finished", "elapsed_seconds": 25.326744630001485, "result": {"status": "CAPTURED", "reason": "native_terminal_state", "audio_capture": false, "input_delivery": "X11 keyboard/mouse", "world_mutation_or_automation_tests": false, "input_time_origin": "capture_started", "measured_input_run_seconds": 16.12534500390757, "actions_sent": 13, "game_alive_at_capture_end": true, "recorder_returncode": 255, "game_returncode": 0}}

@@ -1,0 +1,31 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "previous_commit": "8236b5b4bbbdafb8499babb4f95b9dd80dfc32b0",
+  "source_before": {
+    "path": "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
+    "bytes": 15547,
+    "sha256": "f4255ffee3f1b591378db69c13bd08322414599dd94f144ae19b755524be3191"
+  },
+  "source_after": {
+    "path": "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
+    "bytes": 16320,
+    "sha256": "fe333d16c1dfc93e8ce62115a0d0b05a87a834f37f01d2ababc3e3023b5c62cc"
+  },
+  "unchanged_native_functions": {
+    "IsMatchActive": "dc46c67fea1ad398fe7f842caafd860bd47f212dd7dbe810d7ed02564f2d14f9",
+    "GetSwitchLocation": "bbccfb66ebc75466ec730e717c4ab33fc44137c50f39d6a7d62331130a6426b7",
+    "GetHazardCenter": "39d893dcc491059374975b15ed3ee24a8144889bd0c727c70f9df7230dcaf806",
+    "CanInteract": "15e8d2dace000db63ed367b7d8d4818583f2beff550c95c5238abb1ffc3d49e6",
+    "GetInteractionPrompt": "d73e31c73f7a1cc3178c2d0fe4d92492d8d5c04f8416caa76ae9106d160fa7bf",
+    "TryInteract": "c3598d1ecd27bb8a8d809e842fffd4c454c6030843beb27f4199045e897f154e",
+    "HasGround": "4d6eed8ffad20f9ac496acf15993cd9d7c62a9078e3c1b1e51b51d623c66be83",
+    "UpdateDebris": "bc38e0701d0dce1154d9ca300107769b48f01fc4b9997fc7885ab613b837727a",
+    "SetDormant": "ae5654eae9ae2df67e5b28d9ee7ef502f90487bcc2b7d43cebad9e3e0555c77c",
+    "UpdatePresentation": "9741a93665f5975a6fec437718de48b7a7a537889d0d9cacfaf46b809c0d0e90",
+    "Tick": "46e255d9a3e4d275b2745a5ba68e3f28fa4e3da73b2ab8a80475b62fda16b6fc"
+  },
+  "damage_gameplay_sha256": "3faa2f1c39261c84673cbaf721d984c11dab45baeb5dff8e18ca5dccc39f0d95",
+  "scope": "Only BeginPlay panel material binding and TakeDamage local presentation parameters changed. Runtime health, hit gates, trace, impulses, collision/navigation, power and streaming require installed fixture verification.",
+  "presentation_limits": "First and latest confirmed impact positions retained; normal/coating response only, no geometric hole, no new damage mechanic."
+}

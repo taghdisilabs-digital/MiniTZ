@@ -183,8 +183,8 @@
     },
     {
       "path": "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
-      "sha256": "f4255ffee3f1b591378db69c13bd08322414599dd94f144ae19b755524be3191",
-      "bytes": 15547
+      "sha256": "fe333d16c1dfc93e8ce62115a0d0b05a87a834f37f01d2ababc3e3023b5c62cc",
+      "bytes": 16320
     },
     {
       "path": "SourceAssets/Environment/build_service_bay.py",
@@ -245,38 +245,57 @@
       "path": "Content/Environment/ServiceBay/M_ServiceSwitch.uasset",
       "sha256": "02f9560e97e9b87cd15b1f5ab008942416097f2450314dc0f82aeef8741a54cb",
       "bytes": 16798
+    },
+    {
+      "path": "SourceAssets/Materials/ServicePanel.hlsl",
+      "sha256": "ee23f2410c63b168478d070265e14335fb9b06c4b15d3fe7df50fba16bceef29",
+      "bytes": 2760
+    },
+    {
+      "path": "Content/Python/author_service_panel.py",
+      "sha256": "10aa128d177733de21137456ea606158559dc7696a5c768a3cd73402f57c7e59",
+      "bytes": 5124
+    },
+    {
+      "path": "Content/Environment/ServiceBay/M_ServicePanel.uasset",
+      "sha256": "d1329452aa58130b77f61581e66514c84507575f823b7eaefbfd3be483ef25b1",
+      "bytes": 14799
     }
   ],
   "first_raw_run": "Build/AAA/D17-01/raw/entry-720-02/observation.json",
-  "acceptance": "INCOMPLETE: 600–1200 active seconds and full route remain unqualified; five major visual defect groups remain. Historical package-04 ordinary-input environment consequence is preserved. Current package-09 raw runs reach terminal state without an environment consequence.",
-  "current_native_build": "Build/AAA/D17-01/build/game-04/result.json",
+  "acceptance": "INCOMPLETE: continuous duration, full evolving encounter and five major visual groups remain unqualified. Current raw outcomes are bound to package-10; predecessor proof remains historical.",
+  "current_native_build": "Build/AAA/D17-01/build/game-05/result.json",
   "previous_raw_runs": [
     "Build/AAA/D17-01/raw/hud-720-01/observation.json",
     "Build/AAA/D17-01/raw/hud-1080-01/observation.json"
   ],
   "current_raw_runs": [
-    "Build/AAA/D17-01/raw/switch-face-720-01/observation.json",
-    "Build/AAA/D17-01/raw/switch-face-1080-01/observation.json"
+    "Build/AAA/D17-01/raw/panel-impact-720-01/observation.json",
+    "Build/AAA/D17-01/raw/panel-impact-1080-01/observation.json"
   ],
-  "current_package_status": "Package-09 binds the new editable M_ServiceSwitch material to the existing BaseColor/Emission power presentation. The Switch component and all twelve other native methods remain identical to package-08. Saved asset readback, Vulkan material execution, fresh native/editor builds, cook/archive/install and environment fixture pass. Ordinary 720p approach shows the dark control face and green lens. Other major visual defects remain; this is candidate art without final acceptance.",
-  "scope_findings": "Build/AAA/D17-01/environment/scope-findings.json",
+  "current_package_status": "Package-10 replaces uniform orange damage tint with dark coated steel and localized first/latest hit marks. Eleven native methods and all damage gameplay bytes remain identical to package-09 after excluding material bindings. Saved material readback, native/editor builds, cook/archive/install and installed environment checks pass. Candidate art only; no final visual acceptance.",
+  "scope_findings": {
+    "path": "Build/AAA/D17-01/environment/scope-findings.json",
+    "sha256": "299b88183ff139f285511fedfa98d9149dbce3a35a7d4f62495df8408781add2",
+    "bytes": 41490
+  },
   "current_package": {
-    "package_id": "a82f366731d941c0eaf874023cdb2f2a5e8c4384d3d2ad9fc7753535c0a07f84",
+    "package_id": "14b7dd6ec0355c3bf945f5bd06cf04868e392339105b949555a1c16d30c7c888",
     "archive": {
-      "bytes": 483768774,
-      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-09.tar.zst",
-      "sha256": "436986e5bc42da2f2451af56ebb546d66d347b58c3dc4322d05fe1f370af08d0"
+      "bytes": 483781613,
+      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-10.tar.zst",
+      "sha256": "b24986bd06b404abb630820dfc5aece3728a6f92779c7e277d94f2bb70ac78e8"
     },
-    "source_material_digest": "9bc0db2be19630e62acb17dd1df2406d798e6e6ecfb415bd2505f73e58f056a6",
+    "source_material_digest": "bc4ea67434974873eb6ae68c245909516c839342ad87acf176210a7afa7813a3",
     "manifest": {
-      "path": "Build/AAA/D17-01/build/package-09/package-manifest.json",
-      "sha256": "263679222bd151e9bda4db4e0deed44d9ca0f2d749ce65bd08db625459e26bce",
+      "path": "Build/AAA/D17-01/build/package-10/package-manifest.json",
+      "sha256": "02de5c91268cddb61978e1defde3bee02e9ecbf8375e6d7a85657bae0db3b0d7",
       "bytes": 8669
     },
     "overlay": false
   },
   "route_feasibility_probe": "Build/AAA/D17-01/raw/route-rival-01/observation.json",
-  "observed_route_limits": "Package-09 720p reaches native Success at 18.31323491682997 active seconds after approaching the bay. Its 23 ordinary inputs include interaction and fire attempts but produce no native power transition, panel event or electrical-floor damage. The 1080p run shows player/rival/infected at entry and reaches Success at 8.814891465881374 seconds. Interior/terrace/east-return and 600–1200 active seconds remain unqualified. Historical package-04 consequence retains its exact source/package identity.",
+  "observed_route_limits": "The 720p ordinary-input run ended in native Success after 13.70411386800697 active seconds and 13 input actions, recording one bay power transition with no panel damage or electrical-floor damage. Its inspected 12-second and 15-second video frames show approach to the bay and unbroken dark panels beside the abrupt wet-floor edge; they do not show a damaged panel. The 1080p run ended in native Success after 8.804244222992565 active seconds and five input actions, with no bay power, panel or electrical-floor events. Its four-second frame shows the blue player, yellow rival and red infected on a sparse flat road with placeholder focal geometry and oversized HUD panels. Both runs contain native combat events, zero restarts and no captured audio; neither establishes the long-form route or full evolving arena consequence. Later route beats and 600–1200 active seconds remain unqualified.",
   "previous_service_candidate": {
     "source_commit": "0242b38e31451f24d51175fc4050172122c28a3a",
     "package": {
@@ -299,7 +318,7 @@
       "Build/AAA/D17-01/raw/service-1080-01/observation.json"
     ]
   },
-  "current_environment_probe": "Build/AAA/D17-01/raw/switch-face-720-01/observation.json",
+  "current_environment_probe": "Build/AAA/D17-01/raw/panel-impact-720-01/observation.json",
   "previous_coordinate_candidate": {
     "source_commit": "5854ebea89bd581418924397bacbfc6ac7612db0",
     "package": {
@@ -439,5 +458,33 @@
     ],
     "observed_route_limits": "Package-08 720p reaches native Success at 15.935191704833414 active seconds after approaching the bay. Its 21 ordinary inputs include an interaction attempt and three shots, without a native power transition, panel event or electrical-floor damage. The 1080p run shows player/rival/infected at entry and reaches Success at 8.907017945253756 seconds. Interior/terrace/east-return and 600–1200 active seconds remain unqualified. Historical package-04 consequence retains its exact source/package identity."
   },
-  "switch_material_validation": "Build/AAA/D17-01/environment/switch-material-validation.json"
+  "switch_material_validation": "Build/AAA/D17-01/environment/switch-material-validation.json",
+  "previous_switch_candidate": {
+    "source_commit": "8236b5b4bbbdafb8499babb4f95b9dd80dfc32b0",
+    "package": {
+      "package_id": "a82f366731d941c0eaf874023cdb2f2a5e8c4384d3d2ad9fc7753535c0a07f84",
+      "archive": {
+        "bytes": 483768774,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-09.tar.zst",
+        "sha256": "436986e5bc42da2f2451af56ebb546d66d347b58c3dc4322d05fe1f370af08d0"
+      },
+      "source_material_digest": "9bc0db2be19630e62acb17dd1df2406d798e6e6ecfb415bd2505f73e58f056a6",
+      "manifest": {
+        "path": "Build/AAA/D17-01/build/package-09/package-manifest.json",
+        "sha256": "263679222bd151e9bda4db4e0deed44d9ca0f2d749ce65bd08db625459e26bce",
+        "bytes": 8669
+      },
+      "overlay": false
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/switch-face-720-01/observation.json",
+      "Build/AAA/D17-01/raw/switch-face-1080-01/observation.json"
+    ],
+    "observed_route_limits": "Package-09 720p reaches native Success at 18.31323491682997 active seconds after approaching the bay. Its 23 ordinary inputs include interaction and fire attempts but produce no native power transition, panel event or electrical-floor damage. The 1080p run shows player/rival/infected at entry and reaches Success at 8.814891465881374 seconds. Interior/terrace/east-return and 600–1200 active seconds remain unqualified. Historical package-04 consequence retains its exact source/package identity."
+  },
+  "panel_material_validation": {
+    "path": "Build/AAA/D17-01/environment/panel-material-validation.json",
+    "sha256": "f12dc522c4c7004b0f77a62dc1069c27bc01dc79f03c6101891398ada27f677e",
+    "bytes": 7455
+  }
 }

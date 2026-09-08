@@ -4,11 +4,11 @@
   "method": "Direct inspection of decoded frames from unedited normal-camera raw captures, plus explicitly separate editor and installed-package environment fixture frames; exact source/build/input/telemetry retained separately",
   "baseline_frame": "raw/entry-720-02/frame-13.png",
   "current_frames": [
-    "raw/switch-face-720-01/frame-12.png",
-    "raw/switch-face-720-01/frame-17.png",
-    "raw/switch-face-1080-01/frame-04.png"
+    "raw/panel-impact-720-01/frame-12.png",
+    "raw/panel-impact-720-01/frame-15.png",
+    "raw/panel-impact-1080-01/frame-04.png"
   ],
-  "improved_boundary": "Editor and installed-game fixture views show a weathered dark switch face with inset, fasteners, isolator grip, caution symbol and a small green safe/amber live lens. Existing power parameters affect the lens without recoloring the housing. Ordinary 720p approach frame 17 shows the dark face and green lens; the run does not operate power. The lower face is partly occluded by the player in the safe fixture view. The prior continuous ground-wetness repair remains visible. Whole-panel damage tint, abrupt dry-road boundary and surrounding material deficiencies remain.",
+  "improved_boundary": "Editor and installed runtime views retain dark coated steel after the first hit instead of tinting the entire sheet orange. The second hit detaches the sheet and opens the original passage; the installed fixture verifies damage, collision, debris and navigation behavior. The small impact mark is partly covered by the reticle, so these views do not fully establish its close detail or attachment during motion. The 720p ordinary-input run ended in native Success after 13.70411386800697 active seconds and 13 input actions, recording one bay power transition with no panel damage or electrical-floor damage. Its inspected 12-second and 15-second video frames show approach to the bay and unbroken dark panels beside the abrupt wet-floor edge; they do not show a damaged panel. The 1080p run ended in native Success after 8.804244222992565 active seconds and five input actions, with no bay power, panel or electrical-floor events. Its four-second frame shows the blue player, yellow rival and red infected on a sparse flat road with placeholder focal geometry and oversized HUD panels. Both runs contain native combat events, zero restarts and no captured audio; neither establishes the long-form route or full evolving arena consequence.",
   "major_defects": [
     {
       "id": "focal_art",
@@ -20,7 +20,7 @@
     },
     {
       "id": "materials",
-      "finding": "Angular ground-wetness breaks and the flat green switch face are repaired locally. The abrupt rectangular dry-road transition, whole-panel damage tint and flat surrounding surfaces still fall below coherent scene material quality."
+      "finding": "Ground wetness discontinuities, the flat green switch face and uniform orange panel-damage tint are repaired locally. The abrupt rectangular transition to dry road and flat surrounding surfaces still fail scene material coherence. The small panel impact detail remains partly reticle-occluded in fixture views."
     },
     {
       "id": "infection",
@@ -32,7 +32,7 @@
     }
   ],
   "unproven": [
-    "Current package-09 720p ordinary input approaches the bay but records no power transition, panel event or electrical-floor damage; the 1080p run ends near entry. Package-04 ordinary consequence remains separately preserved. Package-09 fixture verifies native environment behavior but does not establish the full evolving player+rival+infected+arena composition. No natural arena_pressure transition is observed.",
+    "Current package-10 720p ordinary input records one bay power transition but no panel or electrical-floor event; the 1080p run ends near entry without any bay event. Package-04 ordinary consequence remains separately preserved. The package-10 fixture verifies native environment behavior but does not establish the full evolving player+rival+infected+arena composition. No natural arena_pressure transition is observed.",
     "Interior, terrace and east-return beats were not reached before terminal state.",
     "HUD occlusion during required later dense-combat states remains unqualified.",
     "No final temporal-quality or raw audio qualification is claimed."
@@ -40,13 +40,13 @@
   "zero_major_defects": false,
   "scope": "Preserves accepted mechanics evidence; rejects current final visual quality. Does not reopen predecessor task acceptance.",
   "service_bay_editor_frames": [
-    "environment/switch-editor-02/captures/switch_safe.png",
-    "environment/switch-editor-02/captures/panel_damaged.png"
+    "environment/panel-editor-01/captures/panel_damaged.png",
+    "environment/panel-editor-01/captures/panel_destroyed.png"
   ],
   "service_bay_limit": "Editor and installed-package automation position actors/camera and drive states. These frames validate the affected layer only; they are not a raw canonical-slice run or final acceptance.",
   "service_bay_packaged_frames": [
-    "environment/runtime-09/captures/switch_safe.png",
-    "environment/runtime-09/captures/panel_damaged.png"
+    "environment/runtime-10/captures/panel_damaged.png",
+    "environment/runtime-10/captures/panel_destroyed.png"
   ],
   "previous_frames": [
     "raw/hud-720-01/frame-13.png",
@@ -73,7 +73,10 @@
     "raw/smooth-floor-1080-01/frame-04.png",
     "raw/integer-floor-720-01/frame-12.png",
     "raw/integer-floor-720-01/frame-17.png",
-    "raw/integer-floor-1080-01/frame-04.png"
+    "raw/integer-floor-1080-01/frame-04.png",
+    "raw/switch-face-720-01/frame-12.png",
+    "raw/switch-face-720-01/frame-17.png",
+    "raw/switch-face-1080-01/frame-04.png"
   ],
   "service_bay_coordinate_defect": {
     "status": "FIXED_IN_CURRENT_ASSETS_AND_PACKAGE",
@@ -96,16 +99,25 @@
     "environment/runtime-07/captures/switch_safe.png",
     "environment/runtime-07/captures/hazard_active.png",
     "environment/runtime-08/captures/switch_safe.png",
-    "environment/runtime-08/captures/hazard_active.png"
+    "environment/runtime-08/captures/hazard_active.png",
+    "environment/runtime-09/captures/switch_safe.png",
+    "environment/runtime-09/captures/panel_damaged.png"
   ],
-  "current_package_id": "a82f366731d941c0eaf874023cdb2f2a5e8c4384d3d2ad9fc7753535c0a07f84",
-  "service_bay_editor_frames_scope": "The current editor and installed-package environment fixtures validate switch material execution and native states only. Exact switch-assets-03 saved readback, switch-editor-02 Vulkan execution, runtime-09 package fixture and package-09 raw frames retain separate identities.",
-  "next_action": "Replace the whole-panel damage tint with a localized physical material response driven by the existing damage presentation; preserve panel health, hit traces, collision and debris behavior, then validate damaged/destroyed states in the installed game.",
+  "current_package_id": "14b7dd6ec0355c3bf945f5bd06cf04868e392339105b949555a1c16d30c7c888",
+  "service_bay_editor_frames_scope": "Current panel-editor-01 and runtime-10 fixture frames validate the panel material and native damaged/destroyed states. Exact panel-assets-01 saved readback, native builds and package-10 raw runs retain separate identities. Earlier switch evidence remains bound to package-09 and commit 8236b5b4bbbdafb8499babb4f95b9dd80dfc32b0.",
+  "next_action": "Soften the abrupt service-bay wet-floor boundary into the surrounding road using the existing ground material; preserve geometry, collision and hazard rules, then inspect the transition in packaged gameplay.",
   "previous_editor_frames": [
     "environment/editor-runtime-02/captures/switch_safe.png",
     "environment/editor-runtime-02/captures/panel_damaged.png",
-    "environment/floor-diagnosis-03/lit/captures/switch_safe.png"
+    "environment/floor-diagnosis-03/lit/captures/switch_safe.png",
+    "environment/switch-editor-02/captures/switch_safe.png",
+    "environment/switch-editor-02/captures/panel_damaged.png"
   ],
   "floor_material_diagnosis": "environment/floor-diagnosis.json",
-  "switch_material_validation": "environment/switch-material-validation.json"
+  "switch_material_validation": "environment/switch-material-validation.json",
+  "panel_material_validation": {
+    "path": "Build/AAA/D17-01/environment/panel-material-validation.json",
+    "sha256": "f12dc522c4c7004b0f77a62dc1069c27bc01dc79f03c6101891398ada27f677e",
+    "bytes": 7455
+  }
 }

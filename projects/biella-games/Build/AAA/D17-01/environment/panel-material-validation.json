@@ -1,0 +1,162 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS_AFFECTED_LAYER",
+  "candidate_status": "GENERATED_DRAFT",
+  "slice_acceptance": false,
+  "package_id": "14b7dd6ec0355c3bf945f5bd06cf04868e392339105b949555a1c16d30c7c888",
+  "sources": [
+    {
+      "path": "SourceAssets/Materials/ServicePanel.hlsl",
+      "sha256": "ee23f2410c63b168478d070265e14335fb9b06c4b15d3fe7df50fba16bceef29",
+      "bytes": 2760
+    },
+    {
+      "path": "Content/Python/author_service_panel.py",
+      "sha256": "10aa128d177733de21137456ea606158559dc7696a5c768a3cd73402f57c7e59",
+      "bytes": 5124
+    },
+    {
+      "path": "Content/Environment/ServiceBay/M_ServicePanel.uasset",
+      "sha256": "d1329452aa58130b77f61581e66514c84507575f823b7eaefbfd3be483ef25b1",
+      "bytes": 14799
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
+      "sha256": "fe333d16c1dfc93e8ce62115a0d0b05a87a834f37f01d2ababc3e3023b5c62cc",
+      "bytes": 16320
+    }
+  ],
+  "editor_validation": {
+    "path": "Build/AAA/D17-01/environment/panel-editor-01/validation.json",
+    "sha256": "311700e585b7c121d148a3a38560408e651bd142b018fc9c3a1505f660d86812",
+    "bytes": 200744
+  },
+  "package_validation": {
+    "path": "Build/AAA/D17-01/environment/runtime-10/validation.json",
+    "sha256": "6aee7f5b5d3771c295e213b3fb79292735f91f53cd4c55af0f745527e58b461d",
+    "bytes": 18766
+  },
+  "asset_validation": {
+    "path": "Build/AAA/D17-01/environment/panel-assets-01/validation.json",
+    "sha256": "64950ac4696a5da5f62f2d04fb150c48e09d921dc3ff5655f33a84ad6e06a27e",
+    "bytes": 3949
+  },
+  "saved_readback": {
+    "path": "Build/AAA/D17-01/environment/panel-assets-01/readback.json",
+    "sha256": "819576d105ff961b3489b7824f79d2a9a436a827e5c586477cca909a162fd4dd",
+    "bytes": 530
+  },
+  "mechanics_preservation": {
+    "path": "Build/AAA/D17-01/environment/panel-mechanics-preservation.json",
+    "sha256": "0766f0771b87e1b09604069cf40dfc601d418194f10d2303f954efc9ef807217",
+    "bytes": 1997
+  },
+  "inspected_frames": [
+    {
+      "path": "Build/AAA/D17-01/environment/panel-editor-01/captures/panel_damaged.png",
+      "sha256": "900614ff01772a2ee721df40f715ad695dd7eff60988aba3168eba95765b6b21",
+      "bytes": 1126995
+    },
+    {
+      "path": "Build/AAA/D17-01/environment/panel-editor-01/captures/panel_destroyed.png",
+      "sha256": "2f9d47d7a17bf3e2145c41055149c62c8304591303fc4a58a2ab58887cdabe6a",
+      "bytes": 1134280
+    },
+    {
+      "path": "Build/AAA/D17-01/environment/runtime-10/captures/panel_damaged.png",
+      "sha256": "93a7fcc7f9024d6cc3d258778d995b7329c778384d102dc9f91816dfc83d569c",
+      "bytes": 1126837
+    },
+    {
+      "path": "Build/AAA/D17-01/environment/runtime-10/captures/panel_destroyed.png",
+      "sha256": "da667c1b617c3e98ecfc83aaa46863f46c25cf9dc1d0739b6918ca7849712e66",
+      "bytes": 1133226
+    }
+  ],
+  "observed": "Editor and installed runtime views retain dark coated steel after the first hit instead of tinting the entire sheet orange. The second hit detaches the sheet and opens the original passage; the installed fixture verifies damage, collision, debris and navigation behavior. The small impact mark is partly covered by the reticle, so these views do not fully establish its close detail or attachment during motion.",
+  "material_contract": {
+    "shading": "DefaultLit",
+    "blend": "Opaque",
+    "world_position_offset": false,
+    "geometry": "Original panel meshes, transforms, collision and debris simulation preserved",
+    "native_state_parameters": [
+      "ImpactA",
+      "ImpactB",
+      "DamageAmount",
+      "PanelSize"
+    ],
+    "state_scope": "First and latest confirmed point-hit coordinates and existing panel health; presentation only",
+    "surface_scope": "Localized coating loss and closed normal relief; no geometric hole"
+  },
+  "limits": [
+    "Fixture positions and state setup are not ordinary-input route proof.",
+    "The small impact mark is partly occluded by the reticle at the fixture camera; close spatial detail and temporal attachment are not fully established by these views.",
+    "Five major visual groups, continuous 600–1200 seconds and the full evolving encounter remain unqualified."
+  ],
+  "ordinary_input_runs": [
+    {
+      "run": "panel-impact-720-01",
+      "raw_video": {
+        "path": "Build/AAA/D17-01/raw/panel-impact-720-01/raw-gameplay.mkv",
+        "sha256": "0a2378123a0231b428e00df76dce76ed3414db9922c3ed67e9e5534e7fd20b1c",
+        "bytes": 4874060
+      },
+      "telemetry": {
+        "path": "Build/AAA/D17-01/raw/panel-impact-720-01/telemetry.jsonl",
+        "sha256": "d1c49d0780a7e44da3943172d255fcaa6d63500bd3ea7e98fb7319a47f1934f7",
+        "bytes": 20862
+      },
+      "runtime_log": {
+        "path": "Build/AAA/D17-01/raw/panel-impact-720-01/runtime.engine.log",
+        "sha256": "0ed3bfb086d1ad5aaf4d46887618792c31307365be14632b353340be689f5419",
+        "bytes": 248185
+      },
+      "active_simulation_seconds": 13.70411386800697,
+      "terminal": "Success",
+      "power_transitions": 1,
+      "panel_events": [],
+      "electrical_floor_damage": []
+    },
+    {
+      "run": "panel-impact-1080-01",
+      "raw_video": {
+        "path": "Build/AAA/D17-01/raw/panel-impact-1080-01/raw-gameplay.mkv",
+        "sha256": "c7d05ee15270236f63074642603ba46a29e7a4d2607373e29f8f54e626484dd6",
+        "bytes": 5562370
+      },
+      "telemetry": {
+        "path": "Build/AAA/D17-01/raw/panel-impact-1080-01/telemetry.jsonl",
+        "sha256": "5fcc416c1b62a2f120e8884d674467b26475d88ad72b973438c68fedc98c0987",
+        "bytes": 6380
+      },
+      "runtime_log": {
+        "path": "Build/AAA/D17-01/raw/panel-impact-1080-01/runtime.engine.log",
+        "sha256": "f5a178d1310a5676e13363d2326cd7051da7bfb063c3cf95d7aafb1fae1d015d",
+        "bytes": 183345
+      },
+      "active_simulation_seconds": 8.804244222992565,
+      "terminal": "Success",
+      "power_transitions": 0,
+      "panel_events": [],
+      "electrical_floor_damage": []
+    }
+  ],
+  "ordinary_input_inspected_frames": [
+    {
+      "path": "Build/AAA/D17-01/raw/panel-impact-720-01/frame-12.png",
+      "sha256": "7496d542079d31fe2bcab70cd0eb4114d503e9df85836473761bf101500d9d7c",
+      "bytes": 362470
+    },
+    {
+      "path": "Build/AAA/D17-01/raw/panel-impact-720-01/frame-15.png",
+      "sha256": "ce1cc134ac06c5067c69282e9b16e7b5c8972e8985d7274c6efd59daafd55e5b",
+      "bytes": 480145
+    },
+    {
+      "path": "Build/AAA/D17-01/raw/panel-impact-1080-01/frame-04.png",
+      "sha256": "fb2dd7d5a96fb497f62efff8fb0e6a91ed54d912feaf61d9af1fb470e45e24d2",
+      "bytes": 776201
+    }
+  ],
+  "ordinary_input_observed": "The 720p ordinary-input run ended in native Success after 13.70411386800697 active seconds and 13 input actions, recording one bay power transition with no panel damage or electrical-floor damage. Its inspected 12-second and 15-second video frames show approach to the bay and unbroken dark panels beside the abrupt wet-floor edge; they do not show a damaged panel. The 1080p run ended in native Success after 8.804244222992565 active seconds and five input actions, with no bay power, panel or electrical-floor events. Its four-second frame shows the blue player, yellow rival and red infected on a sparse flat road with placeholder focal geometry and oversized HUD panels. Both runs contain native combat events, zero restarts and no captured audio; neither establishes the long-form route or full evolving arena consequence."
+}
