@@ -1,0 +1,145 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "mode": "author",
+  "source_sha256": "bf0b5d16bd67c52e31f7091d396ef0cba45446d6cffe2fee2d50703b276c4f54",
+  "meshes": [
+    {
+      "asset": "/Game/Environment/ServiceBay/SM_ServicePanel120",
+      "source_sha256": "cc58e41946b3c5e52650d62cc4122834dc5a1e583bcede3b1a3265ca1938c1be",
+      "bounds_extent": [
+        50.000003814697266,
+        50.000003814697266,
+        50.0
+      ],
+      "bounds_origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -50.000003814697266,
+        -50.000003814697266,
+        -50.0
+      ],
+      "bounds_max": [
+        50.000003814697266,
+        50.000003814697266,
+        50.0
+      ],
+      "authored_coordinates_verified": true,
+      "collision_boxes": 1,
+      "triangles": 3016,
+      "materials": [
+        "Paint",
+        "Steel",
+        "Rubber"
+      ]
+    },
+    {
+      "asset": "/Game/Environment/ServiceBay/SM_ServicePanel240",
+      "source_sha256": "97ca5861e3cc4a2713d047a33d0b6239edfaacba701d6a5b2c10399698aa9e49",
+      "bounds_extent": [
+        50.000003814697266,
+        50.000003814697266,
+        50.0
+      ],
+      "bounds_origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -50.000003814697266,
+        -50.000003814697266,
+        -50.0
+      ],
+      "bounds_max": [
+        50.000003814697266,
+        50.000003814697266,
+        50.0
+      ],
+      "authored_coordinates_verified": true,
+      "collision_boxes": 1,
+      "triangles": 3956,
+      "materials": [
+        "Paint",
+        "Steel",
+        "Rubber"
+      ]
+    },
+    {
+      "asset": "/Game/Environment/ServiceBay/SM_ServiceBayMetalwork",
+      "source_sha256": "a520501e939b56350260bf137aef28255efe0ec052841bf84f9ba059e41e98a4",
+      "bounds_extent": [
+        367.2999954223633,
+        337.3583068847656,
+        136.99316024780273
+      ],
+      "bounds_origin": [
+        162.70000457763672,
+        -5.141693115234375,
+        135.0775489807129
+      ],
+      "bounds_min": [
+        -204.59999084472656,
+        -342.5,
+        -1.9156112670898438
+      ],
+      "bounds_max": [
+        530.0,
+        332.21661376953125,
+        272.0707092285156
+      ],
+      "authored_coordinates_verified": true,
+      "collision_boxes": 0,
+      "triangles": 49916,
+      "materials": [
+        "Steel",
+        "Paint",
+        "Rubber",
+        "Lamp",
+        "Growth",
+        "Vein"
+      ]
+    },
+    {
+      "asset": "/Game/Environment/ServiceBay/SM_ServiceGround",
+      "source_sha256": "fbb57032e19907ca4f2fcb3ad431cb5196ed1abe880c329e221a651951d3565b",
+      "bounds_extent": [
+        526.7000122070312,
+        365.4000244140625,
+        1.9999999403953552
+      ],
+      "bounds_origin": [
+        5.29998779296875,
+        0.0,
+        -5.960464477539063e-08
+      ],
+      "bounds_min": [
+        -521.4000244140625,
+        -365.4000244140625,
+        -2.0
+      ],
+      "bounds_max": [
+        532.0,
+        365.4000244140625,
+        1.9999998807907104
+      ],
+      "authored_coordinates_verified": true,
+      "collision_boxes": 0,
+      "triangles": 37600,
+      "materials": [
+        "Ground",
+        "Rubber",
+        "Steel"
+      ]
+    }
+  ],
+  "ground_only": true,
+  "master": "/Game/Environment/ServiceBay/M_ServiceMetal.M_ServiceMetal",
+  "ground_master": "/Game/Environment/ServiceBay/M_ServiceGround.M_ServiceGround",
+  "ground_shader_sha256": "70eb154fb50aeaa923587d482ed0a1c2303d782ccfb4e06cfc9d138c32245c9e",
+  "status": "GENERATED_DRAFT",
+  "collision": "Panel boxes retain unit bounds; fixed dressing has no collision"
+}

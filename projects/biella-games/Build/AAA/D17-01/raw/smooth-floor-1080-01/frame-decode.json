@@ -1,0 +1,38 @@
+[
+  {
+    "command": [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-ss",
+      "4",
+      "-i",
+      "Build/AAA/D17-01/raw/smooth-floor-1080-01/raw-gameplay.mkv",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "Build/AAA/D17-01/raw/smooth-floor-1080-01/frame-04.png"
+    ],
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-ss",
+      "8",
+      "-i",
+      "Build/AAA/D17-01/raw/smooth-floor-1080-01/raw-gameplay.mkv",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "Build/AAA/D17-01/raw/smooth-floor-1080-01/frame-08.png"
+    ],
+    "returncode": 0,
+    "stderr": ""
+  }
+]

@@ -13,6 +13,7 @@ from run_d08_01_release import LEDGER, now
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--ground-only',action='store_true',help='Update only the ground material; verify all existing meshes/materials unchanged')
     a=p.parse_args(); out=a.output.resolve()
     ensure_runtime_output(out,pwd.getpwnam('unreal'))
     def assets():
@@ -31,6 +32,7 @@ def main():
                 '-run=pythonscript',f'-script={PROJECT}/Content/Python/author_service_bay.py',
                 '-EnablePlugins=PythonScriptPlugin','-unattended','-nullrhi','-nosound','-nop4','-stdout','-FullStdOutLogOutput']
             if mode=='readback': command.append('-D17VerifyServiceBay')
+            if a.ground_only: command.append('-D17GroundOnly')
             write_json(out/f'{mode}-command.json',command)
             run=runtime_run(command,out/f'{mode}.log',600); report['runs'].append(run)
             log=(out/f'{mode}.log').read_text(errors='replace')
@@ -43,7 +45,9 @@ def main():
         assert all(after.get(k)==v for k,v in before.items() if not k.startswith('Content/Environment/ServiceBay/'))
         changed={k:v for k,v in after.items() if before.get(k)!=v}
         assert changed and all(k.startswith('Content/Environment/ServiceBay/') for k in changed)
-        report.update(result='PASS',changed_assets=changed,preexisting_other_assets_unchanged=True)
+        if a.ground_only:
+            assert set(changed)=={'Content/Environment/ServiceBay/M_ServiceGround.uasset'}, sorted(changed)
+        report.update(result='PASS',changed_assets=changed,preexisting_other_assets_unchanged=True,ground_only=a.ground_only)
     except Exception as exc:
         report['error']=str(exc)
         with LEDGER.open('a') as f: f.write(json.dumps(dict(task_id='D17-01',time=now(),type='service_asset_authoring',status='FAILED',diagnostics=str(exc),evidence=str(out)))+'\n')

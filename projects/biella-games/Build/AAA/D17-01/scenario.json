@@ -4,14 +4,14 @@
   "slice_id": "Biella_ServiceCircuit_01",
   "status": "CANDIDATE_NOT_QUALIFIED",
   "candidate_status": "GENERATED_DRAFT",
-  "selection": "Existing open-world entry → Street01 → service bay → interior → raised terrace → Street03 → service-bay return",
+  "selection": "Existing open-world entry \u2192 Street01 \u2192 service bay \u2192 interior \u2192 raised terrace \u2192 Street03 \u2192 service-bay return",
   "selection_reason": "One existing editable map connects accepted traversal, autonomous population combat, player weapon input, interactive power/destruction, streaming and elevation; no new map or mechanic is assumed.",
   "map": "/Game/Maps/BiellaOpenWorldMap",
   "duration_contract_seconds": [
     600,
     1200
   ],
-  "timing_status": "UNQUALIFIED: 600–1200 seconds is the required active-play duration, not an implemented or measured route budget. Raw attempts reach terminal state much earlier.",
+  "timing_status": "UNQUALIFIED: 600\u20131200 seconds is the required active-play duration, not an implemented or measured route budget. Raw attempts reach terminal state much earlier.",
   "start_state": {
     "session": "fresh native process with fresh user state",
     "pawn": "ABiellaStreamingCharacter",
@@ -68,7 +68,7 @@
         100
       ],
       "existing_binding": "D02_Interior_Floor",
-      "player_beat": "Enter through the south doorway at x7800–8200,y1500, inspect interior sight lines and return through the same physical opening.",
+      "player_beat": "Enter through the south doorway at x7800\u20138200,y1500, inspect interior sight lines and return through the same physical opening.",
       "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
       "sequence_order": 4
     },
@@ -111,7 +111,7 @@
   ],
   "end_state": {
     "valid": "native objective success or player defeat, with real final actor/health/mission state recorded",
-    "qualification": "All required beats and 600–1200 seconds of meaningful active gameplay must precede the terminal state. A shorter success is still a duration failure.",
+    "qualification": "All required beats and 600\u20131200 seconds of meaningful active gameplay must precede the terminal state. A shorter success is still a duration failure.",
     "observed_first_run": "Success at sim_seconds 34.104978772753384; movement/look ignored, so later beats are not proven."
   },
   "prohibited_substitutions": [
@@ -198,8 +198,8 @@
     },
     {
       "path": "Content/Python/author_service_bay.py",
-      "sha256": "b34091de5feca3e245db4ae4dede0b43aabab9b2c1bb8194452379ab1747df5e",
-      "bytes": 14744
+      "sha256": "987d07b2fc8e4574c4c6b8e9d99004ce23be610e521f1aa3c21cddbd68dc0962",
+      "bytes": 14942
     },
     {
       "path": "SourceAssets/Materials/ServiceSurface.hlsl",
@@ -213,8 +213,8 @@
     },
     {
       "path": "SourceAssets/Materials/ServiceGround.hlsl",
-      "sha256": "f6e2fcf21ed20a02f43e1f9cfa909f4a4cdb6a5f26b35d4d6f04446eb590d384",
-      "bytes": 2405
+      "sha256": "70eb154fb50aeaa923587d482ed0a1c2303d782ccfb4e06cfc9d138c32245c9e",
+      "bytes": 3043
     },
     {
       "path": "SourceAssets/Environment/SM_ServiceGround.fbx",
@@ -223,8 +223,8 @@
     },
     {
       "path": "Content/Environment/ServiceBay/M_ServiceGround.uasset",
-      "sha256": "99080537be40bcd07a70a01f736e153200043bd19bf8f4fbc2cba5efa17583d6",
-      "bytes": 12814
+      "sha256": "2035e1840c480f322b690a19b1f27a4d9cbf8943dff02d02bd22c6dc413fac0f",
+      "bytes": 14136
     },
     {
       "path": "Content/Environment/ServiceBay/SM_ServiceGround.uasset",
@@ -233,35 +233,35 @@
     }
   ],
   "first_raw_run": "Build/AAA/D17-01/raw/entry-720-02/observation.json",
-  "acceptance": "INCOMPLETE: 600–1200 active seconds and full route remain unqualified; five major visual defect groups remain. Package-04 ordinary-input environment consequence is preserved. Current package-06 raw runs reach terminal state before the environment beat.",
+  "acceptance": "INCOMPLETE: 600\u20131200 active seconds and full route remain unqualified; five major visual defect groups remain. Package-04 ordinary-input environment consequence is preserved. Current package-06 raw runs reach terminal state before the environment beat.",
   "current_native_build": "Build/AAA/D17-01/build/game-03/result.json",
   "previous_raw_runs": [
     "Build/AAA/D17-01/raw/hud-720-01/observation.json",
     "Build/AAA/D17-01/raw/hud-1080-01/observation.json"
   ],
   "current_raw_runs": [
-    "Build/AAA/D17-01/raw/wet-floor-720-01/observation.json",
-    "Build/AAA/D17-01/raw/wet-floor-1080-01/observation.json"
+    "Build/AAA/D17-01/raw/smooth-floor-720-01/observation.json",
+    "Build/AAA/D17-01/raw/smooth-floor-1080-01/observation.json"
   ],
-  "current_package_status": "Editable service ground adds bevelled concrete slabs, metal hazard plates, drains, wetness/wear and native-powered perimeter lenses. Eleven native gameplay methods remain byte-identical to package-05 source. New game/editor builds, saved asset/geometry readback, cook/archive/install and environment fixture pass. Current raw footage binds the new package; no final visual acceptance is claimed. Close fixture inspection rejects blotchy grid-shaped wetness for correction.",
+  "current_package_status": "Package-07 corrects only the saved ground material: warped multi-scale wetness, restrained albedo contrast and filtered object-space aggregate normals. A ground-only authoring mode verifies all other saved assets remain unchanged. The current cook/archive/install and environment fixture pass; geometry and native builds match package-06. Close comparison shows reduced bright rectangular blotches but persistent broad angular patches, also visible in the normal approach camera. This remains rejected candidate art.",
   "scope_findings": "Build/AAA/D17-01/environment/scope-findings.json",
   "current_package": {
-    "package_id": "e4020d739f936bf18059147b3e91e0dabc54769fad206db3fa775f34c850a429",
+    "package_id": "2045bc24f85a3358cf5d6b55df69b34831e86cfebd88b09b2300bf94da9dd4a7",
     "archive": {
-      "bytes": 483543613,
-      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-06.tar.zst",
-      "sha256": "f52825560b4e5fab242cf88b43afb12fd4453ba6cb4be6f54b96f59bfe2d7d5f"
+      "bytes": 483664602,
+      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-07.tar.zst",
+      "sha256": "852766ae5ecf2a53238b9536f90730e1dfcd5fbabf155d1df99f28ca438f1b0e"
     },
-    "source_material_digest": "7651f19b69b25feebd119f77db1629eab164540ee7c1ddaa00ea0743830ebf48",
+    "source_material_digest": "3ad39b6aae773f4149288d87ae2baf838884c981dac8ec1d2c06db3e84356012",
     "manifest": {
-      "path": "Build/AAA/D17-01/build/package-06/package-manifest.json",
-      "sha256": "d548c4adea7d3eda3d95ab15192c10241aaf43c9848bf9ad815a80252a2bb383",
+      "path": "Build/AAA/D17-01/build/package-07/package-manifest.json",
+      "sha256": "655ef8d8ea019829c077b73c137a1643769d575400ae3eeb6b2af00c465bf24e",
       "bytes": 8669
     },
     "overlay": false
   },
   "route_feasibility_probe": "Build/AAA/D17-01/raw/route-rival-01/observation.json",
-  "observed_route_limits": "Package-06 720p reaches Success at 12.202572849520948 active seconds; the approach floor is visible at gameplay distance. The 1080p run shows player/rival/infected and reaches Success at 8.713285327830818 seconds. Neither run toggles power, damages a panel or receives electrical-floor damage. Interior/terrace/east-return and 600–1200 active seconds remain unqualified. Historical package-04 consequence retains its own exact source/package identity.",
+  "observed_route_limits": "Package-07 720p reaches Success at 22.60887735610595 active seconds after reaching the bay. Its 25 inputs include an interaction attempt and three shots, but native logs record no power transition, panel event or electrical-floor damage. The 1080p run shows player/rival/infected and reaches Success at 9.010236388945486 seconds. Interior/terrace/east-return and 600\u20131200 active seconds remain unqualified. Historical package-04 consequence retains its own exact source/package identity.",
   "previous_service_candidate": {
     "source_commit": "0242b38e31451f24d51175fc4050172122c28a3a",
     "package": {
@@ -284,7 +284,7 @@
       "Build/AAA/D17-01/raw/service-1080-01/observation.json"
     ]
   },
-  "current_environment_probe": "Build/AAA/D17-01/raw/wet-floor-720-01/observation.json",
+  "current_environment_probe": "Build/AAA/D17-01/raw/smooth-floor-720-01/observation.json",
   "previous_coordinate_candidate": {
     "source_commit": "5854ebea89bd581418924397bacbfc6ac7612db0",
     "package": {
@@ -308,7 +308,7 @@
       "Build/AAA/D17-01/raw/service-interaction-720-01/observation.json",
       "Build/AAA/D17-01/raw/service-interaction-720-02/observation.json"
     ],
-    "observed_route_limits": "service-720-02 frame-13 shows the corrected cabinet and service bay from the normal moving camera; no normal-input switch or destruction beat is proven in these two captures. Interior/terrace/return beats remain unproven. Current runs end at 34.112581229710486 and 9.009782609471586 active simulation seconds. The additional service-interaction-720-01 approach missed the switch and ended in player defeat by rival fire at 57.13843510946026 active simulation seconds; no power transition occurred. This longer active attempt still does not qualify the 600–1200 second route."
+    "observed_route_limits": "service-720-02 frame-13 shows the corrected cabinet and service bay from the normal moving camera; no normal-input switch or destruction beat is proven in these two captures. Interior/terrace/return beats remain unproven. Current runs end at 34.112581229710486 and 9.009782609471586 active simulation seconds. The additional service-interaction-720-01 approach missed the switch and ended in player defeat by rival fire at 57.13843510946026 active simulation seconds; no power transition occurred. This longer active attempt still does not qualify the 600\u20131200 second route."
   },
   "previous_growth_candidate": {
     "source_commit": "c24863b0c3c6b555f7871c6c6cb99579a0a0115e",
@@ -331,7 +331,7 @@
       "Build/AAA/D17-01/raw/growth-hazard-720-01/observation.json",
       "Build/AAA/D17-01/raw/growth-hazard-1080-01/observation.json"
     ],
-    "observed_route_limits": "The corrected package-03 input run toggled power and destroyed panel 2 but did not cross its opening. Current growth-hazard-720-01 aligns the player with that opening: power turns on, panel 2 breaks into physics debris and nine electrical-floor pulses apply 27.249 damage. It ends in Success at 46.31332703580847 active seconds. Current 1080p ends at 9.021478963026311 seconds, with rival fire defeating both tracked infected before the bay. Interior/terrace/east-return and 600–1200 active seconds remain unqualified. These attempts do not prove every accepted input route fails."
+    "observed_route_limits": "The corrected package-03 input run toggled power and destroyed panel 2 but did not cross its opening. Current growth-hazard-720-01 aligns the player with that opening: power turns on, panel 2 breaks into physics debris and nine electrical-floor pulses apply 27.249 damage. It ends in Success at 46.31332703580847 active seconds. Current 1080p ends at 9.021478963026311 seconds, with rival fire defeating both tracked infected before the bay. Interior/terrace/east-return and 600\u20131200 active seconds remain unqualified. These attempts do not prove every accepted input route fails."
   },
   "previous_sheath_candidate": {
     "source_commit": "02174657d6e83409c441a928c5b1a029024cec8b",
@@ -355,5 +355,27 @@
       "Build/AAA/D17-01/raw/sheath-hazard-1080-01/observation.json"
     ],
     "input_timing_probe": "Build/AAA/D17-01/raw/sheath-hazard-720-02/observation.json"
+  },
+  "previous_ground_candidate": {
+    "source_commit": "51811365a77cde9f45a8733a663a649c57766df9",
+    "package": {
+      "package_id": "e4020d739f936bf18059147b3e91e0dabc54769fad206db3fa775f34c850a429",
+      "archive": {
+        "bytes": 483543613,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-06.tar.zst",
+        "sha256": "f52825560b4e5fab242cf88b43afb12fd4453ba6cb4be6f54b96f59bfe2d7d5f"
+      },
+      "source_material_digest": "7651f19b69b25feebd119f77db1629eab164540ee7c1ddaa00ea0743830ebf48",
+      "manifest": {
+        "path": "Build/AAA/D17-01/build/package-06/package-manifest.json",
+        "sha256": "d548c4adea7d3eda3d95ab15192c10241aaf43c9848bf9ad815a80252a2bb383",
+        "bytes": 8669
+      },
+      "overlay": false
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/wet-floor-720-01/observation.json",
+      "Build/AAA/D17-01/raw/wet-floor-1080-01/observation.json"
+    ]
   }
 }

@@ -1,0 +1,724 @@
+
+Running AutomationTool...
+
+Setting up bundled DotNet SDK
+Start UAT Interactively: dotnet AutomationTool.dll BuildCookRun -project=/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/BiellaGames.uproject -noP4 -platform=Linux -clientconfig=Development -skipbuild -skipcook -stage -pak -iostore -zenstore -nodebuginfo -stagingdirectory=/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/stage-08-staged -archive -archivedirectory=/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/stage-08-archive -utf8output
+/opt/unreal/UE_5.8.2/Engine/Binaries/ThirdParty/DotNet/10.0/linux-x64/dotnet
+Starting AutomationTool...
+Parsing command line: BuildCookRun -project=/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/BiellaGames.uproject -noP4 -platform=Linux -clientconfig=Development -skipbuild -skipcook -stage -pak -iostore -zenstore -nodebuginfo -stagingdirectory=/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/stage-08-staged -archive -archivedirectory=/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/stage-08-archive -utf8output
+Initializing script modules...
+Total script module initialization time: 0.44 s.
+Using /opt/unreal/UE_5.8.2/Engine/Binaries/ThirdParty/DotNet/10.0/linux-x64/dotnet
+Executing commands...
+Setting up ProjectParams for /mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/BiellaGames.uproject
+********** STAGE COMMAND STARTED **********
+Creating Staging Manifest...
+Staging all 1 build products
+ Product 0: BiellaGames
+Running: /usr/bin/env -- "chmod" "+x" "/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Intermediate/Staging/BiellaGames.sh"
+Took 0.04s to run env, ExitCode=0
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/Localization/ToolTips.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/Localization/PortableObjectImport.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/Localization/Category.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/Localization/PropertyNames.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/Linux/LinuxEditorPerProjectUserSettings.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/Localization/PortableObjectExport.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/BaseSourceControlSettings.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/BaseEditorPerProjectUserSettings.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/Localization/Engine.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/Localization/RepairData.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/BaseLightmass.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/Linux/LinuxEditorGameAgnostic.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/BaseEditorSettings.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/BaseUnrealInsightsSettings.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/BaseEditorKeyBindings.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/Localization/Keywords.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/BaseEditor.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/Localization/Editor.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/BasePakFileRules.ini
+Excluding config file /opt/unreal/UE_5.8.2/Engine/Config/Localization/WordCount.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/BaseDeviceProfiles.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/ConsoleVariables.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/BaseInstallBundle.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/Linux/BaseLinuxEngine.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/Linux/LinuxEngine.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/Linux/DataDrivenPlatformInfo.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/Linux/LinuxGame.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/Unix/DataDrivenPlatformInfo.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/Unix/UnixEngine.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/VulkanPC/DataDrivenPlatformInfo.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/Base.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/BaseMaterialExpressions.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/BaseGameUserSettings.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/BaseEngine.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/BaseRuntimeOptions.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/BaseScalability.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/BaseCompat.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/PluginBase.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/BaseGame.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/Layouts/UE4ClassicLayout.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/Layouts/DefaultLayout.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/BaseHardware.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/BaseInput.ini
+Including config file /opt/unreal/UE_5.8.2/Engine/Config/ConfigRedirects.ini
+Including config file /mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Config/DefaultEngine.ini
+Including config file /mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Config/DefaultGame.ini
+Including config file /mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Config/DefaultInput.ini
+Reading oplog from Zen...
+Running UnrealPak with arguments: "/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/BiellaGames.uproject" IoStore -StartZenServerForStage -SponsorProcessID=3628402 -ProjectStore="/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/ue.projectstore"
+Running: /opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealPak "/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/BiellaGames.uproject" IoStore -StartZenServerForStage -SponsorProcessID=3628402 -ProjectStore="/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/ue.projectstore"
+LogInit: Running DelayedAutoRegister Phase StartOfEnginePreInit
+LogTrace: Initializing trace...
+LogTrace: Finished trace initialization.
+LogTrace: Display: Control listening on port 1985
+LogModuleManager: InternalLoadLibrary: 'PakFile' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-PakFile.so')
+LogModuleManager: InternalLoadLibrary: 'RSA' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-RSA.so')
+LogModuleManager: InternalLoadLibrary: 'SandboxFile' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-SandboxFile.so')
+LogInit: Running DelayedAutoRegister Phase FileSystemReady
+LogInit: Running DelayedAutoRegister Phase TaskGraphSystemReady
+LogInit: Running DelayedAutoRegister Phase StatSystemReady
+LogModuleManager: InternalLoadLibrary: 'CoreUObject' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-CoreUObject.so')
+LogInit: Session CrashGUID >====================================================
+         Session CrashGUID >   UECC-Linux-01A081ADAC6D71E097456DCB8A5FB838
+         Session CrashGUID >====================================================
+LogConfig: No local boot hotfix file found at: [../../../../../../mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/PersistentDownloadDir/HotfixForNextBoot.txt]
+LogInit: Running DelayedAutoRegister Phase IniSystemReady
+LogPluginManager: Mounting Engine plugin TcpMessaging
+LogPluginManager: Mounting Engine plugin PlatformCrypto
+LogModuleManager: InternalLoadLibrary: 'PlatformCrypto' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PlatformCrypto/Binaries/Linux/libUnrealPak-PlatformCrypto.so')
+LogModuleManager: InternalLoadLibrary: 'PlatformCryptoTypes' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PlatformCrypto/Binaries/Linux/libUnrealPak-PlatformCryptoTypes.so')
+LogModuleManager: InternalLoadLibrary: 'PlatformCryptoContext' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PlatformCrypto/Binaries/Linux/libUnrealPak-PlatformCryptoContext.so')
+LogInit: Running DelayedAutoRegister Phase EarliestPossiblePluginsLoaded
+LogInit: ExecutableName: UnrealPak
+LogInit: Build: ++UE5+Release-5.8-CL-56702186
+LogInit: Platform=LinuxEditor
+LogInit: MachineId=3da9d2f3021f461a93a81e6b23a2b4d7-000003e9
+LogInit: DeviceId=
+LogInit: Engine Version: 5.8.2-56702186+++UE5+Release-5.8
+LogInit: Compatible Engine Version: 5.8.0-55116800+++UE5+Release-5.8
+LogInit: Net CL: 55116800
+LogInit: OS: Ubuntu 24.04.4 LTS (6.8.0-138-generic), CPU: AMD EPYC 9124 16-Core Processor, GPU: NVIDIA L40S (NVIDIA UNIX x86_64 Kernel Module  580.178.04  Tue Jul  7 12:38:21 UTC 2026)
+LogInit: CPU Model ID: 19111, microcode revision: a101148
+LogInit: Compiled (64-bit): Aug  7 2026 15:10:39
+LogInit: Architecture: x64
+LogInit: Compiled with Clang: 20.1.8 (github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+LogInit: Build Configuration: Development
+LogInit: Branch Name: ++UE5+Release-5.8
+LogInit: Command Line: IoStore -StartZenServerForStage -SponsorProcessID=3628402 -ProjectStore=/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/ue.projectstore -nopak
+LogInit: Base Directory: /opt/unreal/UE_5.8.2/Engine/Binaries/Linux/
+LogInit: Allocator: Mimalloc
+LogInit: Installed Engine Build: 1
+LogInit: This binary is optimized with LTO: no, PGO: no, instrumented for PGO data collection: no
+LogDevObjectVersion: Number of dev versions registered: 35
+LogDevObjectVersion:   Dev-Blueprints (B0D832E4-1F89-4F0D-ACCF-7EB736FD4AA2): 10
+LogDevObjectVersion:   Dev-Build (E1C64328-A22C-4D53-A36C-8E866417BD8C): 0
+LogDevObjectVersion:   Dev-Core (375EC13C-06E4-48FB-B500-84F0262A717E): 4
+LogDevObjectVersion:   Dev-Editor (E4B068ED-F494-42E9-A231-DA0B2E46BB41): 40
+LogDevObjectVersion:   Dev-Framework (CFFC743F-43B0-4480-9391-14DF171D2073): 37
+LogDevObjectVersion:   Dev-Mobile (B02B49B5-BB20-44E9-A304-32B752E40360): 3
+LogDevObjectVersion:   Dev-Networking (A4E4105C-59A1-49B5-A7C5-40C4547EDFEE): 0
+LogDevObjectVersion:   Dev-Online (39C831C9-5AE6-47DC-9A44-9C173E1C8E7C): 0
+LogDevObjectVersion:   Dev-Physics (78F01B33-EBEA-4F98-B9B4-84EACCB95AA2): 20
+LogDevObjectVersion:   Dev-Platform (6631380F-2D4D-43E0-8009-CF276956A95A): 0
+LogDevObjectVersion:   Dev-Rendering (12F88B9F-8875-4AFC-A67C-D90C383ABD29): 49
+LogDevObjectVersion:   Dev-Sequencer (7B5AE74C-D270-4C10-A958-57980B212A5A): 13
+LogDevObjectVersion:   Dev-VR (D7296918-1DD6-4BDD-9DE2-64A83CC13884): 3
+LogDevObjectVersion:   Dev-LoadTimes (C2A15278-BFE7-4AFE-6C17-90FF531DF755): 1
+LogDevObjectVersion:   Private-Geometry (6EACA3D4-40EC-4CC1-B786-8BED09428FC5): 3
+LogDevObjectVersion:   Dev-AnimPhys (29E575DD-E0A3-4627-9D10-D276232CDCEA): 17
+LogDevObjectVersion:   Dev-Anim (AF43A65D-7FD3-4947-9873-3E8ED9C1BB05): 15
+LogDevObjectVersion:   Dev-ReflectionCapture (6B266CEC-1EC7-4B8F-A30B-E4D90942FC07): 1
+LogDevObjectVersion:   Dev-Automation (0DF73D61-A23F-47EA-B727-89E90C41499A): 1
+LogDevObjectVersion:   FortniteMain (601D1886-AC64-4F84-AA16-D3DE0DEAC7D6): 268
+LogDevObjectVersion:   FortniteValkyrie (8DBC2C5B-54A7-43E0-A768-FCBB7DA29060): 8
+LogDevObjectVersion:   FortniteSeason (5B4C06B7-2463-4AF8-805B-BF70CDF5D0DD): 15
+LogDevObjectVersion:   FortniteRelease (E7086368-6B23-4C58-8439-1B7016265E91): 20
+LogDevObjectVersion:   Dev-Enterprise (9DFFBCD6-494F-0158-E221-12823C92A888): 11
+LogDevObjectVersion:   Dev-Niagara (F2AED0AC-9AFE-416F-8664-AA7FFA26D6FC): 1
+LogDevObjectVersion:   Dev-Destruction (174F1F0B-B4C6-45A5-B13F-2EE8D0FB917D): 10
+LogDevObjectVersion:   Dev-Physics-Ext (35F94A83-E258-406C-A318-09F59610247C): 41
+LogDevObjectVersion:   Dev-PhysicsMaterial-Chaos (B68FC16E-8B1B-42E2-B453-215C058844FE): 1
+LogDevObjectVersion:   Dev-CineCamera (B2E18506-4273-CFC2-A54E-F4BB758BBA07): 1
+LogDevObjectVersion:   Dev-VirtualProduction (64F58936-FD1B-42BA-BA96-7289D5D0FA4E): 1
+LogDevObjectVersion:   UE5-Main (697DD581-E64F-41AB-AA4A-51ECBEB7B628): 123
+LogDevObjectVersion:   UE5-Release (D89B5E42-24BD-4D46-8412-ACA8DF641779): 68
+LogDevObjectVersion:   UE5-SpecialProject (59DA5D52-1232-4948-B878-597870B8E98B): 9
+LogDevObjectVersion:   Dev-MediaFramework (6F0ED827-A609-4895-9C91-998D90180EA4): 2
+LogDevObjectVersion:   Dev-NaniteResearch (30D58BE3-95EA-4282-A6E3-B159D8EBB06A): 1
+LogInit: Presizing for max 100000 objects, including 0 objects not considered by GC.
+LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: false, Async Post Load: false, Multithreaded: false
+LogInit: Object subsystem initialized
+LogConfig: Applying CVar settings from Section [Startup] File [../../../Engine/Config/ConsoleVariables.ini]
+LogConfig: CVar [[p.chaos.AllowCreatePhysxBodies:1]] deferred - dummy variable created
+LogConfig: CVar [[fx.SkipVectorVMBackendOptimizations:1]] deferred - dummy variable created
+LogConfig: Applying CVar settings from Section [Startup_Linux] File [../../../Engine/Config/ConsoleVariables.ini]
+LogConfig: Applying CVar settings from Section [ConsoleVariables] File [Engine]
+LogConfig: Set CVar [[g.TimeoutForBlockOnRenderFence:60000]]
+LogConfig: Set CVar [[memory.MemoryPressureCriticalThresholdPercent:10]]
+[2026.09.08-15.40.38:096][  0]LogInit: Unix hardware info:
+[2026.09.08-15.40.38:096][  0]LogInit:  - we are not the first instance of this executable
+[2026.09.08-15.40.38:096][  0]LogInit:  - this process' id (pid) is 3628576, parent process' id (ppid) is 3628402
+[2026.09.08-15.40.38:096][  0]LogInit:  - we are not running under debugger
+[2026.09.08-15.40.38:096][  0]LogInit:  - machine network name is 'biella-l40s-worker'
+[2026.09.08-15.40.38:096][  0]LogInit:  - user name is 'unreal' (unreal)
+[2026.09.08-15.40.38:096][  0]LogInit:  - we're logged in locally
+[2026.09.08-15.40.38:096][  0]LogInit:  - we're running with rendering
+[2026.09.08-15.40.38:096][  0]LogInit:  - CPU: AuthenticAMD 'AMD EPYC 9124 16-Core Processor' (signature: 0xA10F11)
+[2026.09.08-15.40.38:096][  0]LogInit:  - Number of physical cores available for the process: 15
+[2026.09.08-15.40.38:096][  0]LogInit:  - Number of logical cores available for the process: 15
+[2026.09.08-15.40.38:096][  0]LogInit:  - GPU Brand Info: NVIDIA L40S (NVIDIA UNIX x86_64 Kernel Module  580.178.04  Tue Jul  7 12:38:21 UTC 2026)
+[2026.09.08-15.40.38:096][  0]LogInit:  - Memory allocator used: Mimalloc
+[2026.09.08-15.40.38:096][  0]LogInit:  - This is an internal build.
+[2026.09.08-15.40.38:096][  0]LogCore: Skipped benchmarking clocks because the engine is running in a standalone program mode - CLOCK_MONOTONIC will be used.
+[2026.09.08-15.40.38:096][  0]LogInit: Unix-specific commandline switches:
+[2026.09.08-15.40.38:096][  0]LogInit:  -ansimalloc - use malloc()/free() from libc (useful for tools like valgrind and electric fence)
+[2026.09.08-15.40.38:096][  0]LogInit:  -jemalloc - use jemalloc for all memory allocation
+[2026.09.08-15.40.38:096][  0]LogInit:  -binnedmalloc - use binned malloc  for all memory allocation
+[2026.09.08-15.40.38:096][  0]LogInit:  -filemapcachesize=NUMBER - set the size for case-sensitive file mapping cache
+[2026.09.08-15.40.38:096][  0]LogInit:  -useksm - uses kernel same-page mapping (KSM) for mapped memory (OFF)
+[2026.09.08-15.40.38:096][  0]LogInit:  -ksmmergeall - marks all mmap'd memory pages suitable for KSM (OFF)
+[2026.09.08-15.40.38:096][  0]LogInit:  -preloadmodulesymbols - Loads the main module symbols file into memory (OFF)
+[2026.09.08-15.40.38:096][  0]LogInit:  -sigdfl=SIGNAL - Allows a specific signal to be set to its default handler rather then ignoring the signal
+[2026.09.08-15.40.38:096][  0]LogInit:  -crashhandlerstacksize - Allows setting crash handler stack sizes (204800)
+[2026.09.08-15.40.38:096][  0]LogInit:  -noexclusivelockonwrite - disables marking files created by the engine as exclusive locked while the engine has them opened
+[2026.09.08-15.40.38:096][  0]LogInit:  -httpproxy=ADDRESS:PORT - redirects HTTP requests to a proxy (only supported if compiled with libcurl)
+[2026.09.08-15.40.38:096][  0]LogInit:  -reuseconn - allow libcurl to reuse HTTP connections (only matters if compiled with libcurl)
+[2026.09.08-15.40.38:096][  0]LogInit:  -virtmemkb=NUMBER - sets process virtual memory (address space) limit (overrides VirtualMemoryLimitInKB value from .ini)
+[2026.09.08-15.40.38:096][  0]LogInit:  -allowsyscallfilterfile=PATH_TO_FILE - sets up a system call filter allow list. any invalid syscall in this list *will* cause a crash
+[2026.09.08-15.40.38:096][  0]LogInit:  - Physical RAM available (not considering process quota): 87 GB (88380 MB, 90501504 KB, 92673540096 bytes)
+[2026.09.08-15.40.38:096][  0]LogInit:  - VirtualMemoryAllocator pools will grow at scale 1
+[2026.09.08-15.40.38:096][  0]LogInit:  - MemoryRangeDecommit() will be a no-op (re-run with -vmapoolevict to change)
+[2026.09.08-15.40.38:096][  0]LogInit:  - PageSize 4096
+[2026.09.08-15.40.38:096][  0]LogInit:  - BinnedPageSize 65536
+[2026.09.08-15.40.38:103][  0]LogAssetRegistry: ActiveMountsLoading is disabled.
+[2026.09.08-15.40.38:103][  0]LogAssetRegistry: FAssetRegistry took 0.0001 seconds to start up
+[2026.09.08-15.40.38:103][  0]LogModuleManager: InternalLoadLibrary: 'TelemetryUtils' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-TelemetryUtils.so')
+[2026.09.08-15.40.38:104][  0]LogUObjectArray: 877 objects as part of root set at end of initial load.
+[2026.09.08-15.40.38:104][  0]LogUObjectArray: CloseDisregardForGC: 0/0 objects in disregard for GC pool
+[2026.09.08-15.40.38:105][  0]LogInit: Using OS detected language ().
+[2026.09.08-15.40.38:105][  0]LogInit: Using OS detected locale ().
+[2026.09.08-15.40.38:105][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the language.
+[2026.09.08-15.40.38:105][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the locale.
+[2026.09.08-15.40.38:105][  0]LogInit: Using OS detected language ().
+[2026.09.08-15.40.38:105][  0]LogInit: Using OS detected locale ().
+[2026.09.08-15.40.38:105][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the language.
+[2026.09.08-15.40.38:105][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the locale.
+[2026.09.08-15.40.38:105][  0]LogPakFile: Display: ProjectDir: ../../../../../../mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/
+[2026.09.08-15.40.38:105][  0]LogIoStore: Display: ==================== IoStore Utils ====================
+[2026.09.08-15.40.38:105][  0]LogIoStore: Display: Using command line for crypto configuration
+[2026.09.08-15.40.38:106][  0]LogZenServiceInstance: Found subprocess environment variable UE-ZenSubprocessDataPath=/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/cook-ddc/Zen
+[2026.09.08-15.40.38:122][  0]LogZenServiceInstance: Display: Launching zen utility '/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/zen service status'.
+[2026.09.08-15.40.38:148][  0]LogZenServiceInstance: Display: Writing plugin version info to '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zen_plugin_versions.json'
+[2026.09.08-15.40.38:148][  0]LogZenServiceInstance: Display: Read zen version cache file from '/home/unreal/.config/Epic/UnrealEngine/5.8/Saved/Zen/zen.version', version: '5.8.13-202605190912-linux-x86_64-release-094f62c2'
+[2026.09.08-15.40.38:148][  0]LogZenServiceInstance: InTree version at '/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/zenserver' is '5.8.13-202605190912-linux-x86_64-release-094f62c2'
+[2026.09.08-15.40.38:148][  0]LogZenServiceInstance: Display: Read zen version cache file from '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zen.version', version: '5.8.13-202605190912-linux-x86_64-release-094f62c2'
+[2026.09.08-15.40.38:148][  0]LogZenServiceInstance: Installed version at '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zenserver' is '5.8.13-202605190912-linux-x86_64-release-094f62c2'
+[2026.09.08-15.40.38:148][  0]LogZenServiceInstance: Display: Installed service at '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zenserver' is up to date
+[2026.09.08-15.40.38:150][  0]LogUnixPlatformFile: FUnixFileMapper::MapCaseInsensitiveFile: Lookup:/opt/unreal/UE_5.8.2/Engine/Binaries/DotNet/OidcToken/linux-x64/OidcToken Found:/opt/unreal/UE_5.8.2/Engine/Binaries/DotNET/OidcToken/linux-x64/OidcToken
+
+[2026.09.08-15.40.38:151][  0]LogZenServiceInstance: No current process using the data dir found, launching a new instance
+[2026.09.08-15.40.38:151][  0]LogZenServiceInstance: Display: Launching executable '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zenserver', working dir '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install', data dir '/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/cook-ddc/Zen', args '--port 8558 --data-dir /mnt/biella-extra/biella-runtime/d17-01/cook-service-08/cook-ddc/Zen --http asio --gc-cache-duration-seconds 1209600 --gc-interval-seconds 21600 --gc-low-diskspace-threshold 2147483648 --cache-bucket-limit-overwrites --quiet --restrict-content-types --allow-external-oidctoken-exe=false --plugins-config "/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zen_plugins_v1.json" --security-config-path "/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/security-config.json" --owner-pid 3628576  --child-id Zen_3628576_Startup --detach'
+[2026.09.08-15.40.38:188][  0]LogZenServiceInstance: Display: Unreal Zen Storage Server HTTP service at http://[::1]:8558 status: OK!.
+[2026.09.08-15.40.38:188][  0]LogZenServiceInstance: Local ZenServer AutoLaunch initialization completed in 0.041 seconds
+[2026.09.08-15.40.38:189][  0]LogZenServiceInstance: Display: Unreal Zen Storage Server HTTP service at http://[::1]:8558 status: OK!.
+[2026.09.08-15.40.39:194][  0]LogPakFile: Display: UnrealPak executed in 1.088376 seconds
+[2026.09.08-15.40.39:202][  0]LogCore: Engine exit requested (reason: UnrealPak Exiting)
+[2026.09.08-15.40.39:202][  0]LogExit: Preparing to exit.
+[2026.09.08-15.40.39:204][  0]LogExit: Object subsystem successfully closed.
+[2026.09.08-15.40.39:205][  0]LogPakFile: Destroying PakPlatformFile
+[2026.09.08-15.40.39:208][  0]LogExit: Exiting.
+Took 1.53s to run UnrealPak, ExitCode=0
+Reading oplog from http://[::1]:8558/prj/BiellaGames.407eba81/oplog/Linux/entries?trim_by_referencedset=true
+Parsed 699 package entries from oplog.
+Cleaning Stage Directory: /mnt/biella-extra/biella-runtime/d17-01/cook-service-08/stage-08-staged/Linux
+Creating pak using staging manifest.
+DumpManifest: /home/unreal/Library/Logs/Unreal Engine/LocalBuildLogs/PrePak_Linux_NonUFSFiles.txt, NumItems: 25
+DumpManifest: /home/unreal/Library/Logs/Unreal Engine/LocalBuildLogs/PrePak_Linux_NonUFSFilesDebug.txt, NumItems: 5
+DumpManifest: /home/unreal/Library/Logs/Unreal Engine/LocalBuildLogs/PrePak_Linux_UFSFiles.txt, NumItems: 2591
+No matching platform for PakFileRules for Section ExcludeContentForMobile : Linux
+Using 0 pak order files:
+Running UnrealPak with arguments: "/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/BiellaGames.uproject"  -cryptokeys="/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/BiellaGames/Metadata/Crypto.json" -compressionformats=Oodle -compresslevel=4 -compressmethod=Kraken  -ProjectStore="/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/ue.projectstore" -platform=Linux  -CreateMultiple="/home/unreal/Library/Logs/Unreal Engine/LocalBuildLogs/PakCommands.txt"
+Running: /opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealPak "/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/BiellaGames.uproject"  -cryptokeys="/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/BiellaGames/Metadata/Crypto.json" -compressionformats=Oodle -compresslevel=4 -compressmethod=Kraken  -ProjectStore="/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/ue.projectstore" -platform=Linux  -CreateMultiple="/home/unreal/Library/Logs/Unreal Engine/LocalBuildLogs/PakCommands.txt"
+LogInit: Running DelayedAutoRegister Phase StartOfEnginePreInit
+LogTrace: Initializing trace...
+LogTrace: Finished trace initialization.
+LogTrace: Display: Control listening on port 36758
+LogModuleManager: InternalLoadLibrary: 'PakFile' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-PakFile.so')
+LogModuleManager: InternalLoadLibrary: 'RSA' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-RSA.so')
+LogModuleManager: InternalLoadLibrary: 'SandboxFile' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-SandboxFile.so')
+LogInit: Running DelayedAutoRegister Phase FileSystemReady
+LogInit: Running DelayedAutoRegister Phase TaskGraphSystemReady
+LogInit: Running DelayedAutoRegister Phase StatSystemReady
+LogModuleManager: InternalLoadLibrary: 'CoreUObject' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-CoreUObject.so')
+OodleDataCompression: Display: Oodle v2.9.16 format for pak/iostore with method=Kraken, level=4=Normal
+LogInit: Session CrashGUID >====================================================
+         Session CrashGUID >   UECC-Linux-01A081ADB40575D5B2D30598E6D1C561
+         Session CrashGUID >====================================================
+LogConfig: No local boot hotfix file found at: [../../../../../../mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/PersistentDownloadDir/HotfixForNextBoot.txt]
+LogInit: Running DelayedAutoRegister Phase IniSystemReady
+LogPluginManager: Mounting Engine plugin PlatformCrypto
+LogPluginManager: Mounting Engine plugin TcpMessaging
+LogModuleManager: InternalLoadLibrary: 'PlatformCrypto' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PlatformCrypto/Binaries/Linux/libUnrealPak-PlatformCrypto.so')
+LogModuleManager: InternalLoadLibrary: 'PlatformCryptoTypes' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PlatformCrypto/Binaries/Linux/libUnrealPak-PlatformCryptoTypes.so')
+LogModuleManager: InternalLoadLibrary: 'PlatformCryptoContext' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PlatformCrypto/Binaries/Linux/libUnrealPak-PlatformCryptoContext.so')
+LogInit: Running DelayedAutoRegister Phase EarliestPossiblePluginsLoaded
+LogInit: ExecutableName: UnrealPak
+LogInit: Build: ++UE5+Release-5.8-CL-56702186
+LogInit: Platform=LinuxEditor
+LogInit: MachineId=3da9d2f3021f461a93a81e6b23a2b4d7-000003e9
+LogInit: DeviceId=
+LogInit: Engine Version: 5.8.2-56702186+++UE5+Release-5.8
+LogInit: Compatible Engine Version: 5.8.0-55116800+++UE5+Release-5.8
+LogInit: Net CL: 55116800
+LogInit: OS: Ubuntu 24.04.4 LTS (6.8.0-138-generic), CPU: AMD EPYC 9124 16-Core Processor, GPU: NVIDIA L40S (NVIDIA UNIX x86_64 Kernel Module  580.178.04  Tue Jul  7 12:38:21 UTC 2026)
+LogInit: CPU Model ID: 19111, microcode revision: a101148
+LogInit: Compiled (64-bit): Aug  7 2026 15:10:39
+LogInit: Architecture: x64
+LogInit: Compiled with Clang: 20.1.8 (github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+LogInit: Build Configuration: Development
+LogInit: Branch Name: ++UE5+Release-5.8
+LogInit: Command Line: -cryptokeys=/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/BiellaGames/Metadata/Crypto.json -compressionformats=Oodle -compresslevel=4 -compressmethod=Kraken -ProjectStore=/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/ue.projectstore -platform=Linux -CreateMultiple="/home/unreal/Library/Logs/Unreal Engine/LocalBuildLogs/PakCommands.txt" -nopak
+LogInit: Base Directory: /opt/unreal/UE_5.8.2/Engine/Binaries/Linux/
+LogInit: Allocator: Mimalloc
+LogInit: Installed Engine Build: 1
+LogInit: This binary is optimized with LTO: no, PGO: no, instrumented for PGO data collection: no
+LogDevObjectVersion: Number of dev versions registered: 35
+LogDevObjectVersion:   Dev-Blueprints (B0D832E4-1F89-4F0D-ACCF-7EB736FD4AA2): 10
+LogDevObjectVersion:   Dev-Build (E1C64328-A22C-4D53-A36C-8E866417BD8C): 0
+LogDevObjectVersion:   Dev-Core (375EC13C-06E4-48FB-B500-84F0262A717E): 4
+LogDevObjectVersion:   Dev-Editor (E4B068ED-F494-42E9-A231-DA0B2E46BB41): 40
+LogDevObjectVersion:   Dev-Framework (CFFC743F-43B0-4480-9391-14DF171D2073): 37
+LogDevObjectVersion:   Dev-Mobile (B02B49B5-BB20-44E9-A304-32B752E40360): 3
+LogDevObjectVersion:   Dev-Networking (A4E4105C-59A1-49B5-A7C5-40C4547EDFEE): 0
+LogDevObjectVersion:   Dev-Online (39C831C9-5AE6-47DC-9A44-9C173E1C8E7C): 0
+LogDevObjectVersion:   Dev-Physics (78F01B33-EBEA-4F98-B9B4-84EACCB95AA2): 20
+LogDevObjectVersion:   Dev-Platform (6631380F-2D4D-43E0-8009-CF276956A95A): 0
+LogDevObjectVersion:   Dev-Rendering (12F88B9F-8875-4AFC-A67C-D90C383ABD29): 49
+LogDevObjectVersion:   Dev-Sequencer (7B5AE74C-D270-4C10-A958-57980B212A5A): 13
+LogDevObjectVersion:   Dev-VR (D7296918-1DD6-4BDD-9DE2-64A83CC13884): 3
+LogDevObjectVersion:   Dev-LoadTimes (C2A15278-BFE7-4AFE-6C17-90FF531DF755): 1
+LogDevObjectVersion:   Private-Geometry (6EACA3D4-40EC-4CC1-B786-8BED09428FC5): 3
+LogDevObjectVersion:   Dev-AnimPhys (29E575DD-E0A3-4627-9D10-D276232CDCEA): 17
+LogDevObjectVersion:   Dev-Anim (AF43A65D-7FD3-4947-9873-3E8ED9C1BB05): 15
+LogDevObjectVersion:   Dev-ReflectionCapture (6B266CEC-1EC7-4B8F-A30B-E4D90942FC07): 1
+LogDevObjectVersion:   Dev-Automation (0DF73D61-A23F-47EA-B727-89E90C41499A): 1
+LogDevObjectVersion:   FortniteMain (601D1886-AC64-4F84-AA16-D3DE0DEAC7D6): 268
+LogDevObjectVersion:   FortniteValkyrie (8DBC2C5B-54A7-43E0-A768-FCBB7DA29060): 8
+LogDevObjectVersion:   FortniteSeason (5B4C06B7-2463-4AF8-805B-BF70CDF5D0DD): 15
+LogDevObjectVersion:   FortniteRelease (E7086368-6B23-4C58-8439-1B7016265E91): 20
+LogDevObjectVersion:   Dev-Enterprise (9DFFBCD6-494F-0158-E221-12823C92A888): 11
+LogDevObjectVersion:   Dev-Niagara (F2AED0AC-9AFE-416F-8664-AA7FFA26D6FC): 1
+LogDevObjectVersion:   Dev-Destruction (174F1F0B-B4C6-45A5-B13F-2EE8D0FB917D): 10
+LogDevObjectVersion:   Dev-Physics-Ext (35F94A83-E258-406C-A318-09F59610247C): 41
+LogDevObjectVersion:   Dev-PhysicsMaterial-Chaos (B68FC16E-8B1B-42E2-B453-215C058844FE): 1
+LogDevObjectVersion:   Dev-CineCamera (B2E18506-4273-CFC2-A54E-F4BB758BBA07): 1
+LogDevObjectVersion:   Dev-VirtualProduction (64F58936-FD1B-42BA-BA96-7289D5D0FA4E): 1
+LogDevObjectVersion:   UE5-Main (697DD581-E64F-41AB-AA4A-51ECBEB7B628): 123
+LogDevObjectVersion:   UE5-Release (D89B5E42-24BD-4D46-8412-ACA8DF641779): 68
+LogDevObjectVersion:   UE5-SpecialProject (59DA5D52-1232-4948-B878-597870B8E98B): 9
+LogDevObjectVersion:   Dev-MediaFramework (6F0ED827-A609-4895-9C91-998D90180EA4): 2
+LogDevObjectVersion:   Dev-NaniteResearch (30D58BE3-95EA-4282-A6E3-B159D8EBB06A): 1
+LogInit: Presizing for max 100000 objects, including 0 objects not considered by GC.
+LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: false, Async Post Load: false, Multithreaded: false
+LogInit: Object subsystem initialized
+LogConfig: Applying CVar settings from Section [Startup] File [../../../Engine/Config/ConsoleVariables.ini]
+LogConfig: CVar [[p.chaos.AllowCreatePhysxBodies:1]] deferred - dummy variable created
+LogConfig: CVar [[fx.SkipVectorVMBackendOptimizations:1]] deferred - dummy variable created
+LogConfig: Applying CVar settings from Section [Startup_Linux] File [../../../Engine/Config/ConsoleVariables.ini]
+LogConfig: Applying CVar settings from Section [ConsoleVariables] File [Engine]
+LogConfig: Set CVar [[g.TimeoutForBlockOnRenderFence:60000]]
+LogConfig: Set CVar [[memory.MemoryPressureCriticalThresholdPercent:10]]
+[2026.09.08-15.40.40:040][  0]LogInit: Unix hardware info:
+[2026.09.08-15.40.40:040][  0]LogInit:  - we are not the first instance of this executable
+[2026.09.08-15.40.40:040][  0]LogInit:  - this process' id (pid) is 3628691, parent process' id (ppid) is 3628402
+[2026.09.08-15.40.40:040][  0]LogInit:  - we are not running under debugger
+[2026.09.08-15.40.40:040][  0]LogInit:  - machine network name is 'biella-l40s-worker'
+[2026.09.08-15.40.40:040][  0]LogInit:  - user name is 'unreal' (unreal)
+[2026.09.08-15.40.40:040][  0]LogInit:  - we're logged in locally
+[2026.09.08-15.40.40:040][  0]LogInit:  - we're running with rendering
+[2026.09.08-15.40.40:040][  0]LogInit:  - CPU: AuthenticAMD 'AMD EPYC 9124 16-Core Processor' (signature: 0xA10F11)
+[2026.09.08-15.40.40:040][  0]LogInit:  - Number of physical cores available for the process: 15
+[2026.09.08-15.40.40:040][  0]LogInit:  - Number of logical cores available for the process: 15
+[2026.09.08-15.40.40:040][  0]LogInit:  - GPU Brand Info: NVIDIA L40S (NVIDIA UNIX x86_64 Kernel Module  580.178.04  Tue Jul  7 12:38:21 UTC 2026)
+[2026.09.08-15.40.40:040][  0]LogInit:  - Memory allocator used: Mimalloc
+[2026.09.08-15.40.40:040][  0]LogInit:  - This is an internal build.
+[2026.09.08-15.40.40:040][  0]LogCore: Skipped benchmarking clocks because the engine is running in a standalone program mode - CLOCK_MONOTONIC will be used.
+[2026.09.08-15.40.40:040][  0]LogInit: Unix-specific commandline switches:
+[2026.09.08-15.40.40:040][  0]LogInit:  -ansimalloc - use malloc()/free() from libc (useful for tools like valgrind and electric fence)
+[2026.09.08-15.40.40:040][  0]LogInit:  -jemalloc - use jemalloc for all memory allocation
+[2026.09.08-15.40.40:040][  0]LogInit:  -binnedmalloc - use binned malloc  for all memory allocation
+[2026.09.08-15.40.40:040][  0]LogInit:  -filemapcachesize=NUMBER - set the size for case-sensitive file mapping cache
+[2026.09.08-15.40.40:040][  0]LogInit:  -useksm - uses kernel same-page mapping (KSM) for mapped memory (OFF)
+[2026.09.08-15.40.40:040][  0]LogInit:  -ksmmergeall - marks all mmap'd memory pages suitable for KSM (OFF)
+[2026.09.08-15.40.40:040][  0]LogInit:  -preloadmodulesymbols - Loads the main module symbols file into memory (OFF)
+[2026.09.08-15.40.40:040][  0]LogInit:  -sigdfl=SIGNAL - Allows a specific signal to be set to its default handler rather then ignoring the signal
+[2026.09.08-15.40.40:040][  0]LogInit:  -crashhandlerstacksize - Allows setting crash handler stack sizes (204800)
+[2026.09.08-15.40.40:040][  0]LogInit:  -noexclusivelockonwrite - disables marking files created by the engine as exclusive locked while the engine has them opened
+[2026.09.08-15.40.40:040][  0]LogInit:  -httpproxy=ADDRESS:PORT - redirects HTTP requests to a proxy (only supported if compiled with libcurl)
+[2026.09.08-15.40.40:040][  0]LogInit:  -reuseconn - allow libcurl to reuse HTTP connections (only matters if compiled with libcurl)
+[2026.09.08-15.40.40:041][  0]LogInit:  -virtmemkb=NUMBER - sets process virtual memory (address space) limit (overrides VirtualMemoryLimitInKB value from .ini)
+[2026.09.08-15.40.40:041][  0]LogInit:  -allowsyscallfilterfile=PATH_TO_FILE - sets up a system call filter allow list. any invalid syscall in this list *will* cause a crash
+[2026.09.08-15.40.40:041][  0]LogInit:  - Physical RAM available (not considering process quota): 87 GB (88380 MB, 90501504 KB, 92673540096 bytes)
+[2026.09.08-15.40.40:041][  0]LogInit:  - VirtualMemoryAllocator pools will grow at scale 1
+[2026.09.08-15.40.40:041][  0]LogInit:  - MemoryRangeDecommit() will be a no-op (re-run with -vmapoolevict to change)
+[2026.09.08-15.40.40:041][  0]LogInit:  - PageSize 4096
+[2026.09.08-15.40.40:041][  0]LogInit:  - BinnedPageSize 65536
+[2026.09.08-15.40.40:048][  0]LogAssetRegistry: ActiveMountsLoading is disabled.
+[2026.09.08-15.40.40:048][  0]LogAssetRegistry: FAssetRegistry took 0.0001 seconds to start up
+[2026.09.08-15.40.40:048][  0]LogModuleManager: InternalLoadLibrary: 'TelemetryUtils' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-TelemetryUtils.so')
+[2026.09.08-15.40.40:049][  0]LogUObjectArray: 877 objects as part of root set at end of initial load.
+[2026.09.08-15.40.40:049][  0]LogUObjectArray: CloseDisregardForGC: 0/0 objects in disregard for GC pool
+[2026.09.08-15.40.40:049][  0]LogInit: Using OS detected language ().
+[2026.09.08-15.40.40:049][  0]LogInit: Using OS detected locale ().
+[2026.09.08-15.40.40:050][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the language.
+[2026.09.08-15.40.40:050][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the locale.
+[2026.09.08-15.40.40:050][  0]LogInit: Using OS detected language ().
+[2026.09.08-15.40.40:050][  0]LogInit: Using OS detected locale ().
+[2026.09.08-15.40.40:050][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the language.
+[2026.09.08-15.40.40:050][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the locale.
+[2026.09.08-15.40.40:050][  0]LogPakFile: Display: ProjectDir: ../../../../../../mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/
+[2026.09.08-15.40.40:050][  0]LogPakFile: Display: Parsing crypto keys from a crypto key cache file
+[2026.09.08-15.40.40:050][  0]LogPakFile: Continuing with 14 spawned worker threads.
+[2026.09.08-15.40.40:050][  0]LogPakFile: Display: CompressionFormats in priority order: Oodle, Zlib
+[2026.09.08-15.40.40:050][  0]LogZenServiceInstance: Found subprocess environment variable UE-ZenSubprocessDataPath=/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/cook-ddc/Zen
+[2026.09.08-15.40.40:067][  0]LogZenServiceInstance: Display: Launching zen utility '/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/zen service status'.
+[2026.09.08-15.40.40:093][  0]LogZenServiceInstance: Display: Writing plugin version info to '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zen_plugin_versions.json'
+[2026.09.08-15.40.40:093][  0]LogZenServiceInstance: Display: Read zen version cache file from '/home/unreal/.config/Epic/UnrealEngine/5.8/Saved/Zen/zen.version', version: '5.8.13-202605190912-linux-x86_64-release-094f62c2'
+[2026.09.08-15.40.40:093][  0]LogZenServiceInstance: InTree version at '/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/zenserver' is '5.8.13-202605190912-linux-x86_64-release-094f62c2'
+[2026.09.08-15.40.40:093][  0]LogZenServiceInstance: Display: Read zen version cache file from '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zen.version', version: '5.8.13-202605190912-linux-x86_64-release-094f62c2'
+[2026.09.08-15.40.40:093][  0]LogZenServiceInstance: Installed version at '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zenserver' is '5.8.13-202605190912-linux-x86_64-release-094f62c2'
+[2026.09.08-15.40.40:093][  0]LogZenServiceInstance: Display: Installed service at '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zenserver' is up to date
+[2026.09.08-15.40.40:095][  0]LogUnixPlatformFile: FUnixFileMapper::MapCaseInsensitiveFile: Lookup:/opt/unreal/UE_5.8.2/Engine/Binaries/DotNet/OidcToken/linux-x64/OidcToken Found:/opt/unreal/UE_5.8.2/Engine/Binaries/DotNET/OidcToken/linux-x64/OidcToken
+
+[2026.09.08-15.40.40:096][  0]LogZenServiceInstance: Found existing instance running on port 8558 matching our settings, no actions needed
+[2026.09.08-15.40.40:198][  0]LogZenServiceInstance: Display: Unreal Zen Storage Server HTTP service at http://[::1]:8558 status: OK!.
+[2026.09.08-15.40.40:198][  0]LogZenServiceInstance: Local ZenServer AutoLaunch initialization completed in 0.106 seconds
+[2026.09.08-15.40.40:199][  0]LogModuleManager: InternalLoadLibrary: 'SSL' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-SSL.so')
+[2026.09.08-15.40.40:216][  0]LogZenStore: Display: Opening oplog BiellaGames.407eba81 / Linux
+[2026.09.08-15.40.40:227][  0]LogIoStore: Display: Fetched 700 oplog items from Zen in 0.18 seconds
+[2026.09.08-15.40.40:238][  0]LogIoStore: Display: Parsed 700 oplog items 0.01 seconds, 3655 chunks
+[2026.09.08-15.40.40:243][  0]LogIoStore: Display: Loaded 855 chunk hashes from Zen in 0.00 seconds, 855 hashes updated in 0.00 seconds
+[2026.09.08-15.40.40:243][  0]LogPakFile: Display: Oodle enabled on 'NoPluginCompression' files
+[2026.09.08-15.40.40:244][  0]LogPakFile: Display: Loading response file /mnt/biella-extra/biella-runtime/d17-01/cook-service-08/stage-08-tmp/AutomationToolSaved/ResponseFiles/PakList_BiellaGames-Linux.txt
+[2026.09.08-15.40.40:253][  0]LogPakFile: Display: Added 1732 entries to add to pak file.
+[2026.09.08-15.40.40:253][  0]LogPakFile: Display: Collecting files to add to pak file...
+[2026.09.08-15.40.40:263][  0]LogPakFile: Display: Collected 1732 files in 0.01s.
+[2026.09.08-15.40.40:264][  0]LogPakFile: Display: Creating pak /mnt/biella-extra/biella-runtime/d17-01/cook-service-08/stage-08-staged/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.pak.
+[2026.09.08-15.40.40:366][  0]LogPakFile: Display: Created pak file: /mnt/biella-extra/biella-runtime/d17-01/cook-service-08/stage-08-staged/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.pak
+[2026.09.08-15.40.40:376][  0]LogPakFile: Display: CompressionFormat 0 [Oodle] : 386 files, 29337277 -> 10047546 bytes
+[2026.09.08-15.40.40:376][  0]LogPakFile: Display: CompressionFormat 2 [None] : 1346 files, 789483 -> 789483 bytes
+[2026.09.08-15.40.40:376][  0]LogPakFile: Display: Added 1732 files, 11078338 bytes total
+[2026.09.08-15.40.40:376][  0]LogPakFile: Display: PrimaryIndex size: 24142 bytes
+[2026.09.08-15.40.40:376][  0]LogPakFile: Display: PathHashIndex size: 53936 bytes
+[2026.09.08-15.40.40:376][  0]LogPakFile: Display: FullDirectoryIndex size: 57286 bytes
+[2026.09.08-15.40.40:376][  0]LogPakFile: Display: Compression summary: 34.25% of original size. Compressed Size 10047546 bytes, Original Size 29337277 bytes.
+[2026.09.08-15.40.40:376][  0]LogPakFile: Display: Encryption - DISABLED
+[2026.09.08-15.40.40:376][  0]LogPakFile: Display:
+[2026.09.08-15.40.40:376][  0]LogPakFile: Display: Writer and Compression Threads exited.
+[2026.09.08-15.40.40:377][  0]LogPakFile: Display: UnrealPak executed in 0.327459 seconds
+[2026.09.08-15.40.40:389][  0]LogCore: Engine exit requested (reason: UnrealPak Exiting)
+[2026.09.08-15.40.40:389][  0]LogExit: Preparing to exit.
+[2026.09.08-15.40.40:390][  0]LogExit: Object subsystem successfully closed.
+[2026.09.08-15.40.40:392][  0]LogPakFile: Destroying PakPlatformFile
+[2026.09.08-15.40.40:394][  0]LogExit: Exiting.
+Took 0.78s to run UnrealPak, ExitCode=0
+Running UnrealPak with arguments: "/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/BiellaGames.uproject" /mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/BiellaGames.uproject -CreateGlobalContainer="/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/stage-08-staged/Linux/BiellaGames/Content/Paks/global.utoc" -ProjectStore="/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/ue.projectstore" -CookedDirectory="/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux" -Commands="/home/unreal/Library/Logs/Unreal Engine/LocalBuildLogs/IoStoreCommands.txt" -compressionformats=Oodle -compresslevel=4 -compressmethod=Kraken   -cryptokeys="/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/BiellaGames/Metadata/Crypto.json" -compressionMinBytesSaved=1024 -compressionMinPercentSaved=5 -WriteBackMetadataToAssetRegistry=Disabled -platform=Linux 
+Running: /opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealPak "/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/BiellaGames.uproject" /mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/BiellaGames.uproject -CreateGlobalContainer="/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/stage-08-staged/Linux/BiellaGames/Content/Paks/global.utoc" -ProjectStore="/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/ue.projectstore" -CookedDirectory="/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux" -Commands="/home/unreal/Library/Logs/Unreal Engine/LocalBuildLogs/IoStoreCommands.txt" -compressionformats=Oodle -compresslevel=4 -compressmethod=Kraken   -cryptokeys="/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/BiellaGames/Metadata/Crypto.json" -compressionMinBytesSaved=1024 -compressionMinPercentSaved=5 -WriteBackMetadataToAssetRegistry=Disabled -platform=Linux
+LogInit: Running DelayedAutoRegister Phase StartOfEnginePreInit
+LogTrace: Initializing trace...
+LogTrace: Finished trace initialization.
+LogTrace: Display: Control listening on port 36765
+LogModuleManager: InternalLoadLibrary: 'PakFile' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-PakFile.so')
+LogModuleManager: InternalLoadLibrary: 'RSA' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-RSA.so')
+LogModuleManager: InternalLoadLibrary: 'SandboxFile' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-SandboxFile.so')
+LogInit: Running DelayedAutoRegister Phase FileSystemReady
+LogInit: Running DelayedAutoRegister Phase TaskGraphSystemReady
+LogInit: Running DelayedAutoRegister Phase StatSystemReady
+LogModuleManager: InternalLoadLibrary: 'CoreUObject' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-CoreUObject.so')
+OodleDataCompression: Display: Oodle v2.9.16 format for pak/iostore with method=Kraken, level=4=Normal
+LogInit: Session CrashGUID >====================================================
+         Session CrashGUID >   UECC-Linux-01A081ADB7257416A843FA536295DC3A
+         Session CrashGUID >====================================================
+LogConfig: No local boot hotfix file found at: [../../../../../../mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/PersistentDownloadDir/HotfixForNextBoot.txt]
+LogInit: Running DelayedAutoRegister Phase IniSystemReady
+LogPluginManager: Mounting Engine plugin PlatformCrypto
+LogPluginManager: Mounting Engine plugin TcpMessaging
+LogModuleManager: InternalLoadLibrary: 'PlatformCrypto' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PlatformCrypto/Binaries/Linux/libUnrealPak-PlatformCrypto.so')
+LogModuleManager: InternalLoadLibrary: 'PlatformCryptoTypes' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PlatformCrypto/Binaries/Linux/libUnrealPak-PlatformCryptoTypes.so')
+LogModuleManager: InternalLoadLibrary: 'PlatformCryptoContext' ('/opt/unreal/UE_5.8.2/Engine/Plugins/Experimental/PlatformCrypto/Binaries/Linux/libUnrealPak-PlatformCryptoContext.so')
+LogInit: Running DelayedAutoRegister Phase EarliestPossiblePluginsLoaded
+LogInit: ExecutableName: UnrealPak
+LogInit: Build: ++UE5+Release-5.8-CL-56702186
+LogInit: Platform=LinuxEditor
+LogInit: MachineId=3da9d2f3021f461a93a81e6b23a2b4d7-000003e9
+LogInit: DeviceId=
+LogInit: Engine Version: 5.8.2-56702186+++UE5+Release-5.8
+LogInit: Compatible Engine Version: 5.8.0-55116800+++UE5+Release-5.8
+LogInit: Net CL: 55116800
+LogInit: OS: Ubuntu 24.04.4 LTS (6.8.0-138-generic), CPU: AMD EPYC 9124 16-Core Processor, GPU: NVIDIA L40S (NVIDIA UNIX x86_64 Kernel Module  580.178.04  Tue Jul  7 12:38:21 UTC 2026)
+LogInit: CPU Model ID: 19111, microcode revision: a101148
+LogInit: Compiled (64-bit): Aug  7 2026 15:10:39
+LogInit: Architecture: x64
+LogInit: Compiled with Clang: 20.1.8 (github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+LogInit: Build Configuration: Development
+LogInit: Branch Name: ++UE5+Release-5.8
+LogInit: Command Line: /mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/BiellaGames.uproject -CreateGlobalContainer=/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/stage-08-staged/Linux/BiellaGames/Content/Paks/global.utoc -ProjectStore=/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/ue.projectstore -CookedDirectory=/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux -Commands="/home/unreal/Library/Logs/Unreal Engine/LocalBuildLogs/IoStoreCommands.txt" -compressionformats=Oodle -compresslevel=4 -compressmethod=Kraken -cryptokeys=/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/BiellaGames/Metadata/Crypto.json -compressionMinBytesSaved=1024 -compressionMinPercentSaved=5 -WriteBackMetadataToAssetRegistry=Disabled -platform=Linux -nopak
+LogInit: Base Directory: /opt/unreal/UE_5.8.2/Engine/Binaries/Linux/
+LogInit: Allocator: Mimalloc
+LogInit: Installed Engine Build: 1
+LogInit: This binary is optimized with LTO: no, PGO: no, instrumented for PGO data collection: no
+LogDevObjectVersion: Number of dev versions registered: 35
+LogDevObjectVersion:   Dev-Blueprints (B0D832E4-1F89-4F0D-ACCF-7EB736FD4AA2): 10
+LogDevObjectVersion:   Dev-Build (E1C64328-A22C-4D53-A36C-8E866417BD8C): 0
+LogDevObjectVersion:   Dev-Core (375EC13C-06E4-48FB-B500-84F0262A717E): 4
+LogDevObjectVersion:   Dev-Editor (E4B068ED-F494-42E9-A231-DA0B2E46BB41): 40
+LogDevObjectVersion:   Dev-Framework (CFFC743F-43B0-4480-9391-14DF171D2073): 37
+LogDevObjectVersion:   Dev-Mobile (B02B49B5-BB20-44E9-A304-32B752E40360): 3
+LogDevObjectVersion:   Dev-Networking (A4E4105C-59A1-49B5-A7C5-40C4547EDFEE): 0
+LogDevObjectVersion:   Dev-Online (39C831C9-5AE6-47DC-9A44-9C173E1C8E7C): 0
+LogDevObjectVersion:   Dev-Physics (78F01B33-EBEA-4F98-B9B4-84EACCB95AA2): 20
+LogDevObjectVersion:   Dev-Platform (6631380F-2D4D-43E0-8009-CF276956A95A): 0
+LogDevObjectVersion:   Dev-Rendering (12F88B9F-8875-4AFC-A67C-D90C383ABD29): 49
+LogDevObjectVersion:   Dev-Sequencer (7B5AE74C-D270-4C10-A958-57980B212A5A): 13
+LogDevObjectVersion:   Dev-VR (D7296918-1DD6-4BDD-9DE2-64A83CC13884): 3
+LogDevObjectVersion:   Dev-LoadTimes (C2A15278-BFE7-4AFE-6C17-90FF531DF755): 1
+LogDevObjectVersion:   Private-Geometry (6EACA3D4-40EC-4CC1-B786-8BED09428FC5): 3
+LogDevObjectVersion:   Dev-AnimPhys (29E575DD-E0A3-4627-9D10-D276232CDCEA): 17
+LogDevObjectVersion:   Dev-Anim (AF43A65D-7FD3-4947-9873-3E8ED9C1BB05): 15
+LogDevObjectVersion:   Dev-ReflectionCapture (6B266CEC-1EC7-4B8F-A30B-E4D90942FC07): 1
+LogDevObjectVersion:   Dev-Automation (0DF73D61-A23F-47EA-B727-89E90C41499A): 1
+LogDevObjectVersion:   FortniteMain (601D1886-AC64-4F84-AA16-D3DE0DEAC7D6): 268
+LogDevObjectVersion:   FortniteValkyrie (8DBC2C5B-54A7-43E0-A768-FCBB7DA29060): 8
+LogDevObjectVersion:   FortniteSeason (5B4C06B7-2463-4AF8-805B-BF70CDF5D0DD): 15
+LogDevObjectVersion:   FortniteRelease (E7086368-6B23-4C58-8439-1B7016265E91): 20
+LogDevObjectVersion:   Dev-Enterprise (9DFFBCD6-494F-0158-E221-12823C92A888): 11
+LogDevObjectVersion:   Dev-Niagara (F2AED0AC-9AFE-416F-8664-AA7FFA26D6FC): 1
+LogDevObjectVersion:   Dev-Destruction (174F1F0B-B4C6-45A5-B13F-2EE8D0FB917D): 10
+LogDevObjectVersion:   Dev-Physics-Ext (35F94A83-E258-406C-A318-09F59610247C): 41
+LogDevObjectVersion:   Dev-PhysicsMaterial-Chaos (B68FC16E-8B1B-42E2-B453-215C058844FE): 1
+LogDevObjectVersion:   Dev-CineCamera (B2E18506-4273-CFC2-A54E-F4BB758BBA07): 1
+LogDevObjectVersion:   Dev-VirtualProduction (64F58936-FD1B-42BA-BA96-7289D5D0FA4E): 1
+LogDevObjectVersion:   UE5-Main (697DD581-E64F-41AB-AA4A-51ECBEB7B628): 123
+LogDevObjectVersion:   UE5-Release (D89B5E42-24BD-4D46-8412-ACA8DF641779): 68
+LogDevObjectVersion:   UE5-SpecialProject (59DA5D52-1232-4948-B878-597870B8E98B): 9
+LogDevObjectVersion:   Dev-MediaFramework (6F0ED827-A609-4895-9C91-998D90180EA4): 2
+LogDevObjectVersion:   Dev-NaniteResearch (30D58BE3-95EA-4282-A6E3-B159D8EBB06A): 1
+LogInit: Presizing for max 100000 objects, including 0 objects not considered by GC.
+LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: false, Async Post Load: false, Multithreaded: false
+LogInit: Object subsystem initialized
+LogConfig: Applying CVar settings from Section [Startup] File [../../../Engine/Config/ConsoleVariables.ini]
+LogConfig: CVar [[p.chaos.AllowCreatePhysxBodies:1]] deferred - dummy variable created
+LogConfig: CVar [[fx.SkipVectorVMBackendOptimizations:1]] deferred - dummy variable created
+LogConfig: Applying CVar settings from Section [Startup_Linux] File [../../../Engine/Config/ConsoleVariables.ini]
+LogConfig: Applying CVar settings from Section [ConsoleVariables] File [Engine]
+LogConfig: Set CVar [[g.TimeoutForBlockOnRenderFence:60000]]
+LogConfig: Set CVar [[memory.MemoryPressureCriticalThresholdPercent:10]]
+[2026.09.08-15.40.40:843][  0]LogInit: Unix hardware info:
+[2026.09.08-15.40.40:843][  0]LogInit:  - we are not the first instance of this executable
+[2026.09.08-15.40.40:843][  0]LogInit:  - this process' id (pid) is 3628732, parent process' id (ppid) is 3628402
+[2026.09.08-15.40.40:843][  0]LogInit:  - we are not running under debugger
+[2026.09.08-15.40.40:843][  0]LogInit:  - machine network name is 'biella-l40s-worker'
+[2026.09.08-15.40.40:843][  0]LogInit:  - user name is 'unreal' (unreal)
+[2026.09.08-15.40.40:843][  0]LogInit:  - we're logged in locally
+[2026.09.08-15.40.40:843][  0]LogInit:  - we're running with rendering
+[2026.09.08-15.40.40:843][  0]LogInit:  - CPU: AuthenticAMD 'AMD EPYC 9124 16-Core Processor' (signature: 0xA10F11)
+[2026.09.08-15.40.40:843][  0]LogInit:  - Number of physical cores available for the process: 15
+[2026.09.08-15.40.40:843][  0]LogInit:  - Number of logical cores available for the process: 15
+[2026.09.08-15.40.40:843][  0]LogInit:  - GPU Brand Info: NVIDIA L40S (NVIDIA UNIX x86_64 Kernel Module  580.178.04  Tue Jul  7 12:38:21 UTC 2026)
+[2026.09.08-15.40.40:843][  0]LogInit:  - Memory allocator used: Mimalloc
+[2026.09.08-15.40.40:843][  0]LogInit:  - This is an internal build.
+[2026.09.08-15.40.40:843][  0]LogCore: Skipped benchmarking clocks because the engine is running in a standalone program mode - CLOCK_MONOTONIC will be used.
+[2026.09.08-15.40.40:843][  0]LogInit: Unix-specific commandline switches:
+[2026.09.08-15.40.40:843][  0]LogInit:  -ansimalloc - use malloc()/free() from libc (useful for tools like valgrind and electric fence)
+[2026.09.08-15.40.40:843][  0]LogInit:  -jemalloc - use jemalloc for all memory allocation
+[2026.09.08-15.40.40:843][  0]LogInit:  -binnedmalloc - use binned malloc  for all memory allocation
+[2026.09.08-15.40.40:843][  0]LogInit:  -filemapcachesize=NUMBER - set the size for case-sensitive file mapping cache
+[2026.09.08-15.40.40:843][  0]LogInit:  -useksm - uses kernel same-page mapping (KSM) for mapped memory (OFF)
+[2026.09.08-15.40.40:843][  0]LogInit:  -ksmmergeall - marks all mmap'd memory pages suitable for KSM (OFF)
+[2026.09.08-15.40.40:843][  0]LogInit:  -preloadmodulesymbols - Loads the main module symbols file into memory (OFF)
+[2026.09.08-15.40.40:843][  0]LogInit:  -sigdfl=SIGNAL - Allows a specific signal to be set to its default handler rather then ignoring the signal
+[2026.09.08-15.40.40:843][  0]LogInit:  -crashhandlerstacksize - Allows setting crash handler stack sizes (204800)
+[2026.09.08-15.40.40:843][  0]LogInit:  -noexclusivelockonwrite - disables marking files created by the engine as exclusive locked while the engine has them opened
+[2026.09.08-15.40.40:843][  0]LogInit:  -httpproxy=ADDRESS:PORT - redirects HTTP requests to a proxy (only supported if compiled with libcurl)
+[2026.09.08-15.40.40:843][  0]LogInit:  -reuseconn - allow libcurl to reuse HTTP connections (only matters if compiled with libcurl)
+[2026.09.08-15.40.40:843][  0]LogInit:  -virtmemkb=NUMBER - sets process virtual memory (address space) limit (overrides VirtualMemoryLimitInKB value from .ini)
+[2026.09.08-15.40.40:843][  0]LogInit:  -allowsyscallfilterfile=PATH_TO_FILE - sets up a system call filter allow list. any invalid syscall in this list *will* cause a crash
+[2026.09.08-15.40.40:843][  0]LogInit:  - Physical RAM available (not considering process quota): 87 GB (88380 MB, 90501504 KB, 92673540096 bytes)
+[2026.09.08-15.40.40:843][  0]LogInit:  - VirtualMemoryAllocator pools will grow at scale 1
+[2026.09.08-15.40.40:843][  0]LogInit:  - MemoryRangeDecommit() will be a no-op (re-run with -vmapoolevict to change)
+[2026.09.08-15.40.40:843][  0]LogInit:  - PageSize 4096
+[2026.09.08-15.40.40:843][  0]LogInit:  - BinnedPageSize 65536
+[2026.09.08-15.40.40:850][  0]LogAssetRegistry: ActiveMountsLoading is disabled.
+[2026.09.08-15.40.40:850][  0]LogAssetRegistry: FAssetRegistry took 0.0001 seconds to start up
+[2026.09.08-15.40.40:850][  0]LogModuleManager: InternalLoadLibrary: 'TelemetryUtils' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-TelemetryUtils.so')
+[2026.09.08-15.40.40:851][  0]LogUObjectArray: 877 objects as part of root set at end of initial load.
+[2026.09.08-15.40.40:851][  0]LogUObjectArray: CloseDisregardForGC: 0/0 objects in disregard for GC pool
+[2026.09.08-15.40.40:852][  0]LogInit: Using OS detected language ().
+[2026.09.08-15.40.40:852][  0]LogInit: Using OS detected locale ().
+[2026.09.08-15.40.40:852][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the language.
+[2026.09.08-15.40.40:852][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the locale.
+[2026.09.08-15.40.40:852][  0]LogInit: Using OS detected language ().
+[2026.09.08-15.40.40:852][  0]LogInit: Using OS detected locale ().
+[2026.09.08-15.40.40:852][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the language.
+[2026.09.08-15.40.40:852][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the locale.
+[2026.09.08-15.40.40:853][  0]LogPakFile: Display: ProjectDir: ../../../../../../mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/
+[2026.09.08-15.40.40:853][  0]LogIoStore: Display: ==================== IoStore Utils ====================
+[2026.09.08-15.40.40:853][  0]LogIoStore: Display: Parsing crypto keys from a crypto key cache file '/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/BiellaGames/Metadata/Crypto.json'
+[2026.09.08-15.40.40:853][  0]LogIoStore: Display: Container signing - DISABLED
+[2026.09.08-15.40.40:853][  0]LogIoStore: Display: Directory index - ENABLED
+[2026.09.08-15.40.40:853][  0]LogIoStore: Display: Using compression format 'Oodle'
+[2026.09.08-15.40.41:020][  0]LogConfig: Display: Read in platform Linux ini files took 0.17 seconds
+[2026.09.08-15.40.41:020][  0]LogIoStore: Display: Using memory mapping alignment '16384'
+[2026.09.08-15.40.41:020][  0]LogIoStore: Display: Using compression block size '65536'
+[2026.09.08-15.40.41:020][  0]LogIoStore: Display: Using compression block alignment '65536'
+[2026.09.08-15.40.41:020][  0]LogIoStore: Display: Using compression min bytes saved '1024'
+[2026.09.08-15.40.41:020][  0]LogIoStore: Display: Using compression min percent saved '5'
+[2026.09.08-15.40.41:020][  0]LogIoStore: Display: Using max partition size '0'
+[2026.09.08-15.40.41:020][  0]LogIoStore: Display: Not using DDC for compression
+[2026.09.08-15.40.41:020][  0]LogIoStore: Display: Container metadata disabled
+[2026.09.08-15.40.41:020][  0]LogIoStore: Display: Using command list file: '/home/unreal/Library/Logs/Unreal Engine/LocalBuildLogs/IoStoreCommands.txt'
+[2026.09.08-15.40.41:023][  0]LogIoStore: Display: Selected Oodle level 4 (Normal) from command line for shaders
+[2026.09.08-15.40.41:023][  0]LogZenServiceInstance: Found subprocess environment variable UE-ZenSubprocessDataPath=/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/cook-ddc/Zen
+[2026.09.08-15.40.41:040][  0]LogZenServiceInstance: Display: Launching zen utility '/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/zen service status'.
+[2026.09.08-15.40.41:066][  0]LogZenServiceInstance: Display: Writing plugin version info to '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zen_plugin_versions.json'
+[2026.09.08-15.40.41:066][  0]LogZenServiceInstance: Display: Read zen version cache file from '/home/unreal/.config/Epic/UnrealEngine/5.8/Saved/Zen/zen.version', version: '5.8.13-202605190912-linux-x86_64-release-094f62c2'
+[2026.09.08-15.40.41:066][  0]LogZenServiceInstance: InTree version at '/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/zenserver' is '5.8.13-202605190912-linux-x86_64-release-094f62c2'
+[2026.09.08-15.40.41:066][  0]LogZenServiceInstance: Display: Read zen version cache file from '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zen.version', version: '5.8.13-202605190912-linux-x86_64-release-094f62c2'
+[2026.09.08-15.40.41:066][  0]LogZenServiceInstance: Installed version at '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zenserver' is '5.8.13-202605190912-linux-x86_64-release-094f62c2'
+[2026.09.08-15.40.41:066][  0]LogZenServiceInstance: Display: Installed service at '/home/unreal/.config/Epic/UnrealEngine/Common/Zen/Install/zenserver' is up to date
+[2026.09.08-15.40.41:068][  0]LogUnixPlatformFile: FUnixFileMapper::MapCaseInsensitiveFile: Lookup:/opt/unreal/UE_5.8.2/Engine/Binaries/DotNet/OidcToken/linux-x64/OidcToken Found:/opt/unreal/UE_5.8.2/Engine/Binaries/DotNET/OidcToken/linux-x64/OidcToken
+
+[2026.09.08-15.40.41:069][  0]LogZenServiceInstance: Found existing instance running on port 8558 matching our settings, no actions needed
+[2026.09.08-15.40.41:273][  0]LogZenServiceInstance: Display: Unreal Zen Storage Server HTTP service at http://[::1]:8558 status: OK!.
+[2026.09.08-15.40.41:273][  0]LogZenServiceInstance: Local ZenServer AutoLaunch initialization completed in 0.207 seconds
+[2026.09.08-15.40.41:273][  0]LogModuleManager: InternalLoadLibrary: 'SSL' ('/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/libUnrealPak-SSL.so')
+[2026.09.08-15.40.41:297][  0]LogZenStore: Display: Opening oplog BiellaGames.407eba81 / Linux
+[2026.09.08-15.40.41:306][  0]LogIoStore: Display: Fetched 700 oplog items from Zen in 0.28 seconds
+[2026.09.08-15.40.41:322][  0]LogIoStore: Display: Parsed 700 oplog items 0.02 seconds, 3655 chunks
+[2026.09.08-15.40.41:327][  0]LogIoStore: Display: Loaded 855 chunk hashes from Zen in 0.00 seconds, 855 hashes updated in 0.00 seconds
+[2026.09.08-15.40.41:338][  0]LogIoStore: Display: Searching for cooked assets in folder '/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux'
+[2026.09.08-15.40.41:338][  0]LogIoStore: Display: Found '8' files
+[2026.09.08-15.40.41:363][  0]LogIoStore: Display: Creating container targets...
+[2026.09.08-15.40.41:448][  0]LogIoStore: Display: Processing shader libraries, compressing with Oodle Mermaid, level 4 (Normal)
+[2026.09.08-15.40.41:461][  0]LogIoStore: Display: Shader library chunk override is disabled
+[2026.09.08-15.40.41:527][  0]LogShaderLibrary: Display: Created IoStoreShaderArchive header: shaders grouped in 780 groups (179 of them didn't need new indices), average uncompressed size 480998 bytes, min 373 bytes, max 1117010 bytes (r.ShaderCodeLibrary.MaxShaderGroupSize=1048576)
+[2026.09.08-15.40.42:032][  0]LogIoStore: Display: Global-SF_VULKAN_SM6(VULKAN_SM6): Recompressed 8887 shaders as 780 groups. Library size changed from 90783 KB (4.04 : 1 ratio) to 75126 KB (4.88 : 1 ratio), 82.75% of previous.
+[2026.09.08-15.40.42:032][  0]LogIoStore: Display: Save IoStoreShaderCodeArchive 'Global-SF_VULKAN_SM6-VULKAN_SM6' with ChunkId 'b3936dac9476451600000008' for target file '/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/BiellaGames/Content/ShaderArchive-Global-SF_VULKAN_SM6-VULKAN_SM6.ushaderbytecode'
+[2026.09.08-15.40.42:057][  0]LogShaderLibrary: Display: Created IoStoreShaderArchive header: shaders grouped in 201 groups (61 of them didn't need new indices), average uncompressed size 134154 bytes, min 521 bytes, max 1008891 bytes (r.ShaderCodeLibrary.MaxShaderGroupSize=1048576)
+[2026.09.08-15.40.42:091][  0]LogIoStore: Display: BiellaGames-SF_VULKAN_SM5(VULKAN_SM5): Recompressed 1490 shaders as 201 groups. Library size changed from 7566 KB (3.48 : 1 ratio) to 5470 KB (4.81 : 1 ratio), 72.30% of previous.
+[2026.09.08-15.40.42:091][  0]LogIoStore: Display: Save IoStoreShaderCodeArchive 'BiellaGames-SF_VULKAN_SM5-VULKAN_SM5' with ChunkId 'e19e8143459fcffc00000008' for target file '/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/BiellaGames/Content/ShaderArchive-BiellaGames-SF_VULKAN_SM5-VULKAN_SM5.ushaderbytecode'
+[2026.09.08-15.40.42:134][  0]LogShaderLibrary: Display: Created IoStoreShaderArchive header: shaders grouped in 537 groups (173 of them didn't need new indices), average uncompressed size 321720 bytes, min 401 bytes, max 1050022 bytes (r.ShaderCodeLibrary.MaxShaderGroupSize=1048576)
+[2026.09.08-15.40.42:339][  0]LogIoStore: Display: Global-SF_VULKAN_SM5(VULKAN_SM5): Recompressed 6431 shaders as 537 groups. Library size changed from 44458 KB (3.79 : 1 ratio) to 34544 KB (4.88 : 1 ratio), 77.70% of previous.
+[2026.09.08-15.40.42:339][  0]LogIoStore: Display: Save IoStoreShaderCodeArchive 'Global-SF_VULKAN_SM5-VULKAN_SM5' with ChunkId 'c78ab3308c9fd89100000008' for target file '/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/BiellaGames/Content/ShaderArchive-Global-SF_VULKAN_SM5-VULKAN_SM5.ushaderbytecode'
+[2026.09.08-15.40.42:365][  0]LogShaderLibrary: Display: Created IoStoreShaderArchive header: shaders grouped in 236 groups (59 of them didn't need new indices), average uncompressed size 285666 bytes, min 1139 bytes, max 1013551 bytes (r.ShaderCodeLibrary.MaxShaderGroupSize=1048576)
+[2026.09.08-15.40.42:450][  0]LogIoStore: Display: BiellaGames-SF_VULKAN_SM6(VULKAN_SM6): Recompressed 2019 shaders as 236 groups. Library size changed from 16670 KB (3.95 : 1 ratio) to 13932 KB (4.73 : 1 ratio), 83.58% of previous.
+[2026.09.08-15.40.42:450][  0]LogIoStore: Display: Save IoStoreShaderCodeArchive 'BiellaGames-SF_VULKAN_SM6-VULKAN_SM6' with ChunkId '14055af98f02ffb400000008' for target file '/mnt/biella-extra/biella-runtime/d17-01/cook-service-08/project/Saved/Cooked/Linux/BiellaGames/Content/ShaderArchive-BiellaGames-SF_VULKAN_SM6-VULKAN_SM6.ushaderbytecode'
+[2026.09.08-15.40.42:478][  0]LogIoStore: Display: Shaders processed in 1.03 seconds
+[2026.09.08-15.40.42:479][  0]LogIoStore: Display: Initialized WriteRequestManager with MaxConcurrentSourceReads=7 (15 cores), MaxSourceBufferMemory=3072MiB
+[2026.09.08-15.40.42:481][  0]LogIoStore: Display: Processing redirects...
+[2026.09.08-15.40.42:481][  0]LogIoStore: Display: Creating disk layout...
+[2026.09.08-15.40.42:481][  0]LogIoStore: Display: Ordered 697 packages using fallback bundle order
+[2026.09.08-15.40.42:497][  0]LogIoStore: Display: Disabled WriteRequestManager memory throttling, MaxConcurrentSourceReads=7 (15 cores)
+[2026.09.08-15.40.42:497][  0]LogIoStore: Display: Writing container(s)...
+[2026.09.08-15.40.42:988][  0]LogIoStore: Display: Writing and compressing took 0.49 seconds, writes to disk took 0.31 seconds for 322,525,008 bytes @ 1,024,538,113 bytes per second.
+[2026.09.08-15.40.42:988][  0]LogIoStore: Display: global: Found perfect hashmap for 1 items.
+[2026.09.08-15.40.42:989][  0]LogIoStore: Display: BiellaGames-Linux: Found perfect hashmap for 2614 items.
+[2026.09.08-15.40.42:994][  0]LogIoStore: Display: Finalize took 0.0 seconds for 2 writers to write 267,765 bytes, 45,729,247 bytes per second
+[2026.09.08-15.40.42:994][  0]LogIoStore: Display: Writing tocs... [Physical: 797 MiB, Virtual: 6180 MiB]
+[2026.09.08-15.40.42:994][  0]LogIoStore: Display: 855 / 2,615 hashes were loaded from the hash database, by type:
+[2026.09.08-15.40.42:994][  0]LogIoStore: Display:     ExportBundleData           697
+[2026.09.08-15.40.42:994][  0]LogIoStore: Display:     BulkData                   158
+[2026.09.08-15.40.42:994][  0]LogIoStore: Display: 855 / 2,615 chunks attempted to compress, by type:
+[2026.09.08-15.40.42:994][  0]LogIoStore: Display:     ExportBundleData           697 / 697
+[2026.09.08-15.40.42:994][  0]LogIoStore: Display:     BulkData                   158 / 158
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:     ScriptObjects              0 / 1
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:     ContainerHeader            0 / 1
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:     ShaderCodeLibrary          0 / 4
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:     ShaderCode                 0 / 1,754
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Source bytes read:
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:     Zen:                        277,446,252
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:         ExportBundleData        225,736,022 bytes over 697 reads
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:         BulkData                 51,710,230 bytes over 158 reads
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:     Loose File:                           0
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:     Memory:                     265,391,080
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:         ShaderCodeLibrary         1,046,592 bytes over 8 reads
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:         ShaderCode              264,344,488 bytes over 3,508 reads
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Calculating stats...
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Container Summary
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: ==================
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:            Container      Flags      Chunk(s) #       TOC (KiB)       Raw Size (MiB)           Size (MiB)
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: ---------------------------------------------------------------------------------------------------------
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:               global  -/-/-/-/-               1            0.76                 3.06                 3.06 -
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:    BiellaGames-Linux  C/-/-/I/-            2614          260.73               416.89               304.53 (26.95% Oodle)
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: ---------------------------------------------------------------------------------------------------------
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:                Total                       2615          261.49               419.95               307.58
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: ** Flags: (C)ompressed / (E)ncrypted / (S)igned) / (I)ndexed) / (O)nDemand **
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Compression block padding:    25.72 MiB
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Container Directory Index
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: ==========================
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:            Container      Size (KiB)
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: ------------------------------------
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:               global            0.00
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:    BiellaGames-Linux           41.73
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Container Patch Report
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: ========================
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:            Container          Total #       Modified #          Added #   Modified (MiB)      Added (MiB)
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: ---------------------------------------------------------------------------------------------------------
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:               global                1                0                0             0.00             0.00
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:    BiellaGames-Linux             2614                0             2614             0.00           278.80
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: ---------------------------------------------------------------------------------------------------------
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: PackageStore
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: =============
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:            Container      Size (KiB)      Packages #     Localized #
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: --------------------------------------------------------------------
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:    BiellaGames-Linux              20             697               0
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: --------------------------------------------------------------------
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:                Total              20             697               0
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Input:       697 Packages
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Input:         0   B UExp
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Input:    215.28 MiB UAsset
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Input:     49.31 MiB UBulk
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Input:    107.10 MiB for 1317 Global shaders
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Input:      1.94 MiB for 175 Shared shaders
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Input:         0   B for 0 Unique shaders
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Input:     17.01 MiB for 262 Inline shaders
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Output:      980 Imported package entries
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Output:      399 Packages without imports
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Output:        0 Public runtime script objects
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Output:     3.06 MiB InitialLoadData
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display:
+[2026.09.08-15.40.42:995][  0]LogIoStore: Display: Success
+[2026.09.08-15.40.43:000][  0]LogPakFile: Display: UnrealPak executed in 2.147265 seconds
+[2026.09.08-15.40.43:011][  0]LogCore: Engine exit requested (reason: UnrealPak Exiting)
+[2026.09.08-15.40.43:011][  0]LogExit: Preparing to exit.
+[2026.09.08-15.40.43:012][  0]LogExit: Object subsystem successfully closed.
+[2026.09.08-15.40.43:013][  0]LogPakFile: Destroying PakPlatformFile
+[2026.09.08-15.40.43:015][  0]LogExit: Exiting.
+Took 4.00s to run UnrealPak, ExitCode=0
+DumpManifest: /home/unreal/Library/Logs/Unreal Engine/LocalBuildLogs/FinalCopyLinux_UFSFiles.txt, NumItems: 2592
+DumpManifest: /home/unreal/Library/Logs/Unreal Engine/LocalBuildLogs/FinalCopyLinux_NonUFSFiles.txt, NumItems: 25
+DumpManifest: /home/unreal/Library/Logs/Unreal Engine/LocalBuildLogs/FinalCopyLinux_NonUFSFilesDebug.txt, NumItems: 5
+Copying NonUFSFiles to staging directory: /mnt/biella-extra/biella-runtime/d17-01/cook-service-08/stage-08-staged/Linux
+Stage command time: 35.63 s
+********** STAGE COMMAND COMPLETED **********
+********** ARCHIVE COMMAND STARTED **********
+Archiving to /mnt/biella-extra/biella-runtime/d17-01/cook-service-08/stage-08-archive
+Archive command time: 5.43 s
+********** ARCHIVE COMMAND COMPLETED **********
+BuildCookRun time: 42.39 s
+BUILD SUCCESSFUL
+AutomationTool executed for 0h 0m 43s
+AutomationTool exiting with ExitCode=0 (Success)

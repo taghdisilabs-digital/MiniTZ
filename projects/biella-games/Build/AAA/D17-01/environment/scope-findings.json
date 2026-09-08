@@ -54,8 +54,8 @@
     },
     {
       "path": "Content/Python/author_service_bay.py",
-      "sha256": "b34091de5feca3e245db4ae4dede0b43aabab9b2c1bb8194452379ab1747df5e",
-      "bytes": 14744
+      "sha256": "987d07b2fc8e4574c4c6b8e9d99004ce23be610e521f1aa3c21cddbd68dc0962",
+      "bytes": 14942
     },
     {
       "path": "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
@@ -69,19 +69,19 @@
     },
     {
       "path": "SourceAssets/Materials/ServiceGround.hlsl",
-      "sha256": "f6e2fcf21ed20a02f43e1f9cfa909f4a4cdb6a5f26b35d4d6f04446eb590d384",
-      "bytes": 2405
+      "sha256": "70eb154fb50aeaa923587d482ed0a1c2303d782ccfb4e06cfc9d138c32245c9e",
+      "bytes": 3043
     }
   ],
   "findings": [
     {
       "criterion": "natural_arena_pressure",
       "fact": "Contract 33 leaves the exact mechanic, timing and escalation UNKNOWN. Accepted packaged pressure evidence invokes the authoritative API from fixtures. Native ApplyArenaPressure explicitly adds no elapsed-time escalation.",
-      "decision": "Do not invent a timer or connect the service-bay switch to the arena-pressure API. Package-04 ordinary input proves power, panel destruction and electrical-floor damage. Package-06 preserves all eleven gameplay methods and passes a fresh installed environment fixture, but its raw runs end before the environment beat. Keep outcomes bound to the package actually run."
+      "decision": "Do not invent a timer or connect the service-bay switch to the arena-pressure API. Package-04 ordinary input proves power, panel destruction and electrical-floor damage. Package-07 reuses package-06 native code and geometry, and passes the installed environment fixture, but its raw runs record none of those environment events. Keep outcomes bound to the package actually run."
     },
     {
       "criterion": "continuous_600_1200_seconds",
-      "fact": "Native objective success and player defeat terminate normal control. Package-06 raw runs terminate at 12.202572849520948 and 8.713285327830818 active seconds. Package-04 ordinary hazard proof lasted 46.3133 seconds; the longest preserved interaction attempt lasted 57.1384 seconds before rival-fire defeat. None qualifies the 600–1200 second route.",
+      "fact": "Native objective success and player defeat terminate normal control. Package-07 raw runs terminate at 22.60887735610595 and 9.010236388945486 active seconds. Package-04 ordinary hazard proof lasted 46.3133 seconds; the longest preserved interaction attempt lasted 57.1384 seconds before rival-fire defeat. None qualifies the 600\u20131200 second route.",
       "decision": "Preserve accepted terminal behavior. A supported continuous content sequence is not yet established; restart stitching and idle padding remain prohibited.",
       "causal_evidence": "BiellaOpenWorldGameMode inherits SpawnDemoActors and the two-target Demo objective. BiellaDemoObjectiveManager excludes streaming infected. In hud-1080-01 telemetry the rival alone kills both tracked infected by 9.3066 s; Success follows at 9.4109 s even while streamed population survives. This identifies the early terminal cause without changing accepted behavior.",
       "additional_probe": {
@@ -186,29 +186,29 @@
       }
     }
   ],
-  "independent_work": "Created 200 editable service-ground parts and independent PBR shader: concrete, steel, worn hazard border, drains and power-controlled perimeter lenses. Existing road support/collision and eleven native gameplay methods remain unchanged. Fresh builds, Blender/Unreal readback, package and environment fixture pass. Ordinary captures preserve the new package and early native terminal behavior. Five major visual groups remain; the wetness mask specifically needs its grid-shaped blotches corrected before extension to the surrounding arena.",
+  "independent_work": "The 200 editable ground parts, collision and all native gameplay code remain unchanged from package-06. Corrected only the saved ground material and added a narrowly scoped author/readback mode; other assets are byte-identical. Fresh cook, archive/install and environment fixture pass. Ordinary 720p footage reaches the bay and preserves remaining angular surface patches; the 1080p run preserves early terminal behavior. Five major visual groups remain. Isolate the service-floor base color, roughness and world-normal outputs in the existing editor runtime view to identify the remaining angular patches; repair the responsible material or imported-normal boundary, then validate the affected saved asset and packaged normal-camera output.",
   "current_package_raw": [
     {
-      "run": "wet-floor-720-01",
+      "run": "smooth-floor-720-01",
       "telemetry": {
-        "path": "Build/AAA/D17-01/raw/wet-floor-720-01/telemetry.jsonl",
-        "sha256": "a4d64e3647bbb171dc109e9ea5d0a611708f7d921452221ea811aeb9d9f3bec1",
-        "bytes": 18122
+        "path": "Build/AAA/D17-01/raw/smooth-floor-720-01/telemetry.jsonl",
+        "sha256": "24bf0fc2b17f00b08141558277ade6aa086717969b661c3ac560100cc45ede7c",
+        "bytes": 29842
       },
       "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/wet-floor-720-01/runtime.engine.log",
-        "sha256": "42207296298f2f3087f08ceabf1d0a6e48641b7cf03d259b4dbc694db4b43b0c",
-        "bytes": 231993
+        "path": "Build/AAA/D17-01/raw/smooth-floor-720-01/runtime.engine.log",
+        "sha256": "f562a67e815f1230be1c10edd50599acfc50460ef989d6356652bb372138c5ef",
+        "bytes": 301480
       },
       "input_plan": {
         "path": "Build/AAA/D17-01/service-hazard-input.json",
         "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
         "bytes": 4167
       },
-      "active_simulation_seconds": 12.202572849520948,
+      "active_simulation_seconds": 22.60887735610595,
       "terminal": "Success",
       "duration_satisfied": false,
-      "input_actions": 9,
+      "input_actions": 25,
       "arena_pressure_events": 0,
       "environment_power_transitions": 0,
       "environment_panel_events": [],
@@ -216,23 +216,23 @@
       "electrical_floor_total_damage": 0
     },
     {
-      "run": "wet-floor-1080-01",
+      "run": "smooth-floor-1080-01",
       "telemetry": {
-        "path": "Build/AAA/D17-01/raw/wet-floor-1080-01/telemetry.jsonl",
-        "sha256": "241b33510f0d50e4e296b3fbaf7fd1a70aaf0e85ae439179bcfd3d520dcec7f1",
-        "bytes": 12105
+        "path": "Build/AAA/D17-01/raw/smooth-floor-1080-01/telemetry.jsonl",
+        "sha256": "2b39a9c7361876540ed12cafbb83e68457e9e7630a2e5e18a8a29d246a158e05",
+        "bytes": 6730
       },
       "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/wet-floor-1080-01/runtime.engine.log",
-        "sha256": "e1dcd26857cf6849fa51ae9db1be1b28a01bcc65b4da332befe107662d9e330f",
-        "bytes": 204121
+        "path": "Build/AAA/D17-01/raw/smooth-floor-1080-01/runtime.engine.log",
+        "sha256": "b557eaed8e3f8fae23e6f097961d644a0eee05eaedfddf4e3ca923344fa5ade2",
+        "bytes": 188633
       },
       "input_plan": {
         "path": "Build/AAA/D17-01/service-hazard-input.json",
         "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
         "bytes": 4167
       },
-      "active_simulation_seconds": 8.713285327830818,
+      "active_simulation_seconds": 9.010236388945486,
       "terminal": "Success",
       "duration_satisfied": false,
       "input_actions": 5,
@@ -268,26 +268,26 @@
     }
   ],
   "current_environment_probe": {
-    "run": "wet-floor-720-01",
+    "run": "smooth-floor-720-01",
     "telemetry": {
-      "path": "Build/AAA/D17-01/raw/wet-floor-720-01/telemetry.jsonl",
-      "sha256": "a4d64e3647bbb171dc109e9ea5d0a611708f7d921452221ea811aeb9d9f3bec1",
-      "bytes": 18122
+      "path": "Build/AAA/D17-01/raw/smooth-floor-720-01/telemetry.jsonl",
+      "sha256": "24bf0fc2b17f00b08141558277ade6aa086717969b661c3ac560100cc45ede7c",
+      "bytes": 29842
     },
     "runtime_log": {
-      "path": "Build/AAA/D17-01/raw/wet-floor-720-01/runtime.engine.log",
-      "sha256": "42207296298f2f3087f08ceabf1d0a6e48641b7cf03d259b4dbc694db4b43b0c",
-      "bytes": 231993
+      "path": "Build/AAA/D17-01/raw/smooth-floor-720-01/runtime.engine.log",
+      "sha256": "f562a67e815f1230be1c10edd50599acfc50460ef989d6356652bb372138c5ef",
+      "bytes": 301480
     },
     "input_plan": {
       "path": "Build/AAA/D17-01/service-hazard-input.json",
       "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
       "bytes": 4167
     },
-    "active_simulation_seconds": 12.202572849520948,
+    "active_simulation_seconds": 22.60887735610595,
     "terminal": "Success",
     "duration_satisfied": false,
-    "input_actions": 9,
+    "input_actions": 25,
     "arena_pressure_events": 0,
     "environment_power_transitions": 0,
     "environment_panel_events": [],
@@ -710,5 +710,61 @@
     "path": "Build/AAA/D17-01/environment/ground-mechanics-preservation.json",
     "sha256": "790169151b2e904df9db25691094956e176ca66470cb2b4e2b6c7c6929efac6a",
     "bytes": 1439
-  }
+  },
+  "previous_ground_package_raw": [
+    {
+      "run": "wet-floor-720-01",
+      "telemetry": {
+        "path": "Build/AAA/D17-01/raw/wet-floor-720-01/telemetry.jsonl",
+        "sha256": "a4d64e3647bbb171dc109e9ea5d0a611708f7d921452221ea811aeb9d9f3bec1",
+        "bytes": 18122
+      },
+      "runtime_log": {
+        "path": "Build/AAA/D17-01/raw/wet-floor-720-01/runtime.engine.log",
+        "sha256": "42207296298f2f3087f08ceabf1d0a6e48641b7cf03d259b4dbc694db4b43b0c",
+        "bytes": 231993
+      },
+      "input_plan": {
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
+        "bytes": 4167
+      },
+      "active_simulation_seconds": 12.202572849520948,
+      "terminal": "Success",
+      "duration_satisfied": false,
+      "input_actions": 9,
+      "arena_pressure_events": 0,
+      "environment_power_transitions": 0,
+      "environment_panel_events": [],
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0
+    },
+    {
+      "run": "wet-floor-1080-01",
+      "telemetry": {
+        "path": "Build/AAA/D17-01/raw/wet-floor-1080-01/telemetry.jsonl",
+        "sha256": "241b33510f0d50e4e296b3fbaf7fd1a70aaf0e85ae439179bcfd3d520dcec7f1",
+        "bytes": 12105
+      },
+      "runtime_log": {
+        "path": "Build/AAA/D17-01/raw/wet-floor-1080-01/runtime.engine.log",
+        "sha256": "e1dcd26857cf6849fa51ae9db1be1b28a01bcc65b4da332befe107662d9e330f",
+        "bytes": 204121
+      },
+      "input_plan": {
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
+        "bytes": 4167
+      },
+      "active_simulation_seconds": 8.713285327830818,
+      "terminal": "Success",
+      "duration_satisfied": false,
+      "input_actions": 5,
+      "arena_pressure_events": 0,
+      "environment_power_transitions": 0,
+      "environment_panel_events": [],
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0
+    }
+  ]
 }

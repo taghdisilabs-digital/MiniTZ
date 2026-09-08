@@ -4,10 +4,12 @@
   "method": "Direct inspection of decoded frames from unedited normal-camera raw captures, plus explicitly separate editor and installed-package environment fixture frames; exact source/build/input/telemetry retained separately",
   "baseline_frame": "raw/entry-720-02/frame-13.png",
   "current_frames": [
-    "raw/wet-floor-720-01/frame-12.png",
-    "raw/wet-floor-1080-01/frame-04.png"
+    "raw/smooth-floor-720-01/frame-12.png",
+    "raw/smooth-floor-720-01/frame-17.png",
+    "raw/smooth-floor-720-01/frame-22.png",
+    "raw/smooth-floor-1080-01/frame-04.png"
   ],
-  "improved_boundary": "The service-bay approach now has bevelled slab joints, inset side drains and wet patches reflecting the existing practical lamps. The former solid status-color hazard slab is replaced by steel plates with a worn perimeter stripe and small lenses driven by native power. The ground is visible from the ordinary approach camera; close fixture views preserve safe and powered states. This improves local material/state separation but the blotchy grid-shaped wetness remains below the required quality.",
+  "improved_boundary": "At the same installed-fixture view, package-07 reduces package-06\u2019s conspicuous bright rectangular wetness blotches and retains slab joints, drains and local lamp reflections. Warped multi-scale wetness and lower color contrast are bound to the saved ground asset. Broad angular dark/light patches remain at fixture and normal gameplay distance (720p frames 17/22), with an abrupt rectangular boundary to the dry road. The correction improves this local surface but does not satisfy coherent PBR. The shader comment\u2019s derivative diagnosis is an implementation hypothesis, not an established root-cause finding; the remaining output needs channel isolation before further repair.",
   "major_defects": [
     {
       "id": "focal_art",
@@ -19,7 +21,7 @@
     },
     {
       "id": "materials",
-      "finding": "The service floor gains slab/drain geometry and localized reflections, but its wetness reads as conspicuous blotchy grid-shaped patches. The abrupt rectangular transition to the dry road, whole-panel damage tint, primitive switch interface and flat surrounding surfaces still fail coherent material quality."
+      "finding": "Bright grid-shaped wetness blotches are reduced, but broad angular patches still make the floor appear faceted. The abrupt rectangular dry-road transition, whole-panel damage tint, primitive switch interface and flat surrounding surfaces remain below coherent material quality. No root cause is claimed from the lit image alone."
     },
     {
       "id": "infection",
@@ -31,7 +33,7 @@
     }
   ],
   "unproven": [
-    "Current 720p and 1080p ordinary runs reach Success before the switch; neither proves power, panel physics or player electrical-floor damage. Package-04 ordinary consequence remains separately preserved. Current package-06 fixture verifies those native behaviors but does not establish the full evolving player+rival+infected+arena composition. No natural arena_pressure transition is observed.",
+    "Current 720p ordinary input reaches the bay but records no power transition, panel event or electrical-floor damage; the 1080p run ends near entry. Package-04 ordinary consequence remains separately preserved. Package-07 fixture verifies native environment behaviors but does not establish the full evolving player+rival+infected+arena composition. No natural arena_pressure transition is observed.",
     "Interior, terrace and east-return beats were not reached before terminal state.",
     "HUD occlusion during required later dense-combat states remains unqualified.",
     "No final temporal-quality or raw audio qualification is claimed."
@@ -44,8 +46,8 @@
   ],
   "service_bay_limit": "Editor and installed-package automation position actors/camera and drive states. These frames validate the affected layer only; they are not a raw canonical-slice run or final acceptance.",
   "service_bay_packaged_frames": [
-    "environment/runtime-06/captures/switch_safe.png",
-    "environment/runtime-06/captures/hazard_active.png"
+    "environment/runtime-07/captures/switch_safe.png",
+    "environment/runtime-07/captures/hazard_active.png"
   ],
   "previous_frames": [
     "raw/hud-720-01/frame-13.png",
@@ -63,7 +65,9 @@
     "raw/sheath-hazard-720-01/frame-16.png",
     "raw/sheath-hazard-720-01/frame-20.png",
     "raw/sheath-hazard-1080-01/frame-04.png",
-    "raw/sheath-hazard-720-02/frame-12.png"
+    "raw/sheath-hazard-720-02/frame-12.png",
+    "raw/wet-floor-720-01/frame-12.png",
+    "raw/wet-floor-1080-01/frame-04.png"
   ],
   "service_bay_coordinate_defect": {
     "status": "FIXED_IN_CURRENT_ASSETS_AND_PACKAGE",
@@ -80,9 +84,11 @@
     "environment/runtime-03/captures/panel_damaged.png",
     "environment/runtime-04/captures/switch_safe.png",
     "environment/runtime-04/captures/hazard_active.png",
-    "environment/runtime-05/captures/switch_safe.png"
+    "environment/runtime-05/captures/switch_safe.png",
+    "environment/runtime-06/captures/switch_safe.png",
+    "environment/runtime-06/captures/hazard_active.png"
   ],
-  "current_package_id": "e4020d739f936bf18059147b3e91e0dabc54769fad206db3fa775f34c850a429",
+  "current_package_id": "2045bc24f85a3358cf5d6b55df69b34831e86cfebd88b09b2300bf94da9dd4a7",
   "service_bay_editor_frames_scope": "Historical authoring observations. Current changed-art proof is assets-05 saved readback plus runtime-06 packaged fixture and package-06 ordinary raw frames.",
-  "next_action": "Correct the wetness mask in SourceAssets/Materials/ServiceGround.hlsl to remove the visible grid-shaped blotches, retaining differentiated concrete/steel and native-powered perimeter feedback. Re-author only affected assets, recook and compare the installed runtime and normal gameplay camera."
+  "next_action": "Isolate the service-floor base color, roughness and world-normal outputs in the existing editor runtime view to identify the remaining angular patches; repair the responsible material or imported-normal boundary, then validate the affected saved asset and packaged normal-camera output."
 }

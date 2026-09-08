@@ -16,6 +16,7 @@ SPEC = json.loads(SPEC_PATH.read_text())
 SHADER = (PROJECT/'SourceAssets/Materials/ServiceSurface.hlsl').read_text()
 GROUND_SHADER = (PROJECT/'SourceAssets/Materials/ServiceGround.hlsl').read_text()
 VERIFY = '-D17VerifyServiceBay' in unreal.SystemLibrary.get_command_line()
+GROUND_ONLY = '-D17GroundOnly' in unreal.SystemLibrary.get_command_line()
 LIB = unreal.EditorAssetLibrary
 MAT = unreal.MaterialEditingLibrary
 TOOLS = unreal.AssetToolsHelpers.get_asset_tools()
@@ -45,14 +46,14 @@ def asset(name, cls, factory):
     path = ROOT+'/'+name
     value = LIB.load_asset(path) if LIB.does_asset_exist(path) else None
     if value is None:
-        assert not VERIFY, path
+        assert not VERIFY and not GROUND_ONLY, path
         value = TOOLS.create_asset(name, ROOT, cls, factory)
     assert isinstance(value, cls), path
     return value
 
 
 material = asset('M_ServiceMetal', unreal.Material, unreal.MaterialFactoryNew())
-if not VERIFY:
+if not VERIFY and not GROUND_ONLY:
     MAT.delete_all_material_expressions(material)
     material.set_editor_property('tangent_space_normal', False)
     material.set_editor_property('blend_mode', unreal.BlendMode.BLEND_OPAQUE)
@@ -133,7 +134,7 @@ for name,color,rough,metal,wear,wet,emission in [
     organic = name in ('Growth','Vein')
     parameters=dict(Roughness=rough,Metallic=metal,Wear=wear,Wetness=wet,Emission=emission,
                     Organic=float(organic),ReliefCm=.065 if name=='Growth' else .012)
-    if not VERIFY:
+    if not VERIFY and not GROUND_ONLY:
         MAT.set_material_instance_parent(instance,material)
         MAT.set_material_instance_vector_parameter_value(instance,'BaseColor',unreal.LinearColor(*color))
         for key,value in parameters.items():
@@ -189,7 +190,7 @@ for entry in SPEC['assets']:
     path=ROOT+'/'+entry['mesh']
     mesh=LIB.load_asset(path) if LIB.does_asset_exist(path) else None
     if mesh is None or (not VERIFY and LIB.get_metadata_tag(mesh,'D17.SourceSHA256') != entry['sha256']):
-        assert not VERIFY, path
+        assert not VERIFY and not GROUND_ONLY, path
         task=unreal.AssetImportTask()
         task.filename=str(source); task.destination_path=ROOT; task.destination_name=entry['mesh']
         task.automated=True; task.replace_existing=True; task.save=True
@@ -206,7 +207,7 @@ for entry in SPEC['assets']:
     assert isinstance(mesh,unreal.StaticMesh)
     slots=mesh.get_editor_property('static_materials')
     names=[str(s.get_editor_property('imported_material_slot_name')) for s in slots]
-    if not VERIFY:
+    if not VERIFY and not GROUND_ONLY:
         for i,name in enumerate(names):
             mesh.set_material(i,materials[name])
         MESH.remove_collisions(mesh)
@@ -241,7 +242,7 @@ for entry in SPEC['assets']:
         collision_boxes=MESH.get_simple_collision_count(mesh),triangles=mesh.get_num_triangles(0),materials=names))
 
 report=dict(task_id='D17-01',result='PASS',mode='readback' if VERIFY else 'author',
-    source_sha256=hashlib.sha256(SPEC_PATH.read_bytes()).hexdigest(),meshes=records,
+    source_sha256=hashlib.sha256(SPEC_PATH.read_bytes()).hexdigest(),meshes=records,ground_only=GROUND_ONLY,
     master=material.get_path_name(),ground_master=ground.get_path_name(),
     ground_shader_sha256=hashlib.sha256(GROUND_SHADER.encode()).hexdigest(),status='GENERATED_DRAFT',
     collision='Panel boxes retain unit bounds; fixed dressing has no collision')
