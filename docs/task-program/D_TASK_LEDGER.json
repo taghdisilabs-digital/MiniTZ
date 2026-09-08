@@ -1848,9 +1848,10 @@
               "Objective",
               "Owner visual direction",
               "Execution law",
-              "Acceptance"
+              "Acceptance",
+              "Autonomous execution and blocker handling"
             ],
-            "sha256": "e4869f1862eff1d365390ad97dcb9442f66da6323f8de7dc36dc66ffab7ca3b4"
+            "sha256": "3e6934e241c986541a9aeb3e9c7bf8901d0342117a5f0bb1a7a72c27f7bb6cab"
           },
           {
             "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
@@ -1903,9 +1904,10 @@
               "Objective",
               "Owner visual direction",
               "Execution law",
-              "Acceptance"
+              "Acceptance",
+              "Autonomous execution and blocker handling"
             ],
-            "sha256": "837d9e95c90165fa1b0fba1293729f1af75ba884eb09c0717ec404c2a10389ef"
+            "sha256": "f395ec63028e103159181bc0e41ebf45dc6cebe049052acdbe5fbfc2229593e4"
           },
           {
             "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
@@ -1958,9 +1960,10 @@
               "Objective",
               "Owner visual direction",
               "Execution law",
-              "Acceptance"
+              "Acceptance",
+              "Autonomous execution and blocker handling"
             ],
-            "sha256": "bdea770b1f124d711a9f220b666361b9f07c01e7b818bbc8d92feebc88e74fe1"
+            "sha256": "7e0ad0a5a847442e8b17665d2bb2787df10bfb41013e666b76d14c132f70d0cb"
           },
           {
             "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
@@ -2013,9 +2016,10 @@
               "Objective",
               "Owner visual direction",
               "Execution law",
-              "Acceptance"
+              "Acceptance",
+              "Autonomous execution and blocker handling"
             ],
-            "sha256": "a55ae8cd7d1a4c5a96131fb65f5772794cc52f6c228f2411d0883602bca3861a"
+            "sha256": "1d2575859ec1e08eb2d95751a630eab4ba36423707b924074b8e294ed0e66b3e"
           },
           {
             "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
@@ -2068,9 +2072,10 @@
               "Objective",
               "Owner visual direction",
               "Execution law",
-              "Acceptance"
+              "Acceptance",
+              "Autonomous execution and blocker handling"
             ],
-            "sha256": "55a7b86480ecc07442208d96050dcba7234ad68ef147cdba803fd052be22a3c4"
+            "sha256": "0bf143e05a309b2ad8d8bcf2f7ef8770db93fe9f227c808bb63ec512fa73f4f2"
           },
           {
             "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
@@ -2123,9 +2128,10 @@
               "Objective",
               "Owner visual direction",
               "Execution law",
-              "Acceptance"
+              "Acceptance",
+              "Autonomous execution and blocker handling"
             ],
-            "sha256": "67083876bbb5e57076dc327e2d13aaedbb3c1fa5db83c3a66c15dd93937dc1cb"
+            "sha256": "376254261e38ecabedeae83b87722b257c5e1a750645955bbdda58dc3b598a2c"
           },
           {
             "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
@@ -2178,9 +2184,10 @@
               "Objective",
               "Owner visual direction",
               "Execution law",
-              "Acceptance"
+              "Acceptance",
+              "Autonomous execution and blocker handling"
             ],
-            "sha256": "ff0138cc0d8330553a94f0af106c53273c8ced028ca64630ba72ba78ff5ad733"
+            "sha256": "36d1dfc36c5b91a9a540601c85000d045bac8b15e9ac3bef5eca2b1770aa0e73"
           },
           {
             "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
@@ -2233,9 +2240,10 @@
               "Objective",
               "Owner visual direction",
               "Execution law",
-              "Acceptance"
+              "Acceptance",
+              "Autonomous execution and blocker handling"
             ],
-            "sha256": "df44da7374bdca8502eab06026cce2e47126e2eb8cf1571b4e7f7c2604a42dd6"
+            "sha256": "af4fb22d335014456e4c9fbf07a791f381a003e911fffcfbe44a2ebf44b3dccd"
           },
           {
             "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
@@ -2283,14 +2291,16 @@
             "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e"
           },
           {
-            "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-029_LOCK_REPRESENTATIVE_TARGET_HARDWARE_TIERS_FROM_MEASURED_EVIDENCE.md",
+            "path": "projects/biella-games/docs/task-guides/D19-01.md",
             "selected_sections": [
               "Objective",
               "Required deliverable",
               "Validation contract",
-              "Required evidence"
+              "Required evidence",
+              "Execution law",
+              "Autonomous execution and blocker handling"
             ],
-            "sha256": "568e555d6ac6422e1abab619389f5b347d1683c832164c4bbecb2bb23832aa5f"
+            "sha256": "92ef92d9a1f9d3e06afdf7707739deb09a91f5eeb7e185ffa115822e2d36a1fe"
           }
         ],
         "validation": "Each accepted value has measured evidence and owner/delegated authority; no GPU/RAM/VRAM target is inferred from installed hardware alone."
@@ -2326,14 +2336,16 @@
             "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e"
           },
           {
-            "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-030_LOCK_NATIVE_FRAME_TIME_AND_RESPONSIVENESS_TARGETS_FROM_EVIDENCE.md",
+            "path": "projects/biella-games/docs/task-guides/D19-02.md",
             "selected_sections": [
               "Objective",
               "Required deliverable",
               "Validation contract",
-              "Required evidence"
+              "Required evidence",
+              "Execution law",
+              "Autonomous execution and blocker handling"
             ],
-            "sha256": "f16d1a77390e1113248445d289eb52770481350662e5292bcb9f4c8ecd0b7fe8"
+            "sha256": "73c3a2338606b51998b3bcba58dcfa5d775ef19c7059328f70626f6667990411"
           }
         ],
         "validation": "Targets exclude generated frames as native performance and are tied to accepted hardware/scenario identities."

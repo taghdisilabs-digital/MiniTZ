@@ -113,7 +113,7 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Scenario file, package identity, first raw run capture.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D17-01.md` (SHA-256 `e4869f1862eff1d365390ad97dcb9442f66da6323f8de7dc36dc66ffab7ca3b4`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D17-01.md` (SHA-256 `3e6934e241c986541a9aeb3e9c7bf8901d0342117a5f0bb1a7a72c27f7bb6cab`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
 
 ## 005. D17-02 — Prove traversal and camera quality
 
@@ -127,7 +127,7 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Raw capture, runtime log, exact changed source if repaired.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D17-02.md` (SHA-256 `837d9e95c90165fa1b0fba1293729f1af75ba884eb09c0717ec404c2a10389ef`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D17-02.md` (SHA-256 `f395ec63028e103159181bc0e41ebf45dc6cebe049052acdbe5fbfc2229593e4`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
 
 ## 006. D17-03 — Prove combat feel and consequence chain
 
@@ -141,7 +141,7 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Raw combat capture, telemetry/log events, source/build identity.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D17-03.md` (SHA-256 `bdea770b1f124d711a9f220b666361b9f07c01e7b818bbc8d92feebc88e74fe1`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D17-03.md` (SHA-256 `7e0ad0a5a847442e8b17665d2bb2787df10bfb41013e666b76d14c132f70d0cb`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
 
 ## 007. D17-04 — Prove player, rival, infected, and arena interaction
 
@@ -155,7 +155,7 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Event timeline, raw video, runtime logs, package digest.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D17-04.md` (SHA-256 `a55ae8cd7d1a4c5a96131fb65f5772794cc52f6c228f2411d0883602bca3861a`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D17-04.md` (SHA-256 `1d2575859ec1e08eb2d95751a630eab4ba36423707b924074b8e294ed0e66b3e`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
 
 ## 008. D17-05 — Create and qualify final animation and motion layer
 
@@ -169,7 +169,7 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Raw captures at representative moments, source/asset identities, runtime evidence.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D17-05.md` (SHA-256 `55a7b86480ecc07442208d96050dcba7234ad68ef147cdba803fd052be22a3c4`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D17-05.md` (SHA-256 `0bf143e05a309b2ad8d8bcf2f7ef8770db93fe9f227c808bb63ec512fa73f4f2`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
 
 ## 009. D17-06 — Create and qualify final audio, VFX, HUD, and readability layer
 
@@ -183,7 +183,7 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Raw capture with audio, HUD/state event trace, exact source/asset identities.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D17-06.md` (SHA-256 `67083876bbb5e57076dc327e2d13aaedbb3c1fa5db83c3a66c15dd93937dc1cb`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D17-06.md` (SHA-256 `376254261e38ecabedeae83b87722b257c5e1a750645955bbdda58dc3b598a2c`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
 
 ## 010. D17-07 — Create and qualify final environment, material, lighting, and world layer
 
@@ -197,7 +197,7 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Raw traversal/combat captures, map/asset identities, runtime logs.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D17-07.md` (SHA-256 `ff0138cc0d8330553a94f0af106c53273c8ced028ca64630ba72ba78ff5ad733`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D17-07.md` (SHA-256 `36d1dfc36c5b91a9a540601c85000d045bac8b15e9ac3bef5eca2b1770aa0e73`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
 
 ## 011. D17-08 — Close AAA vertical-slice evidence package
 
@@ -211,7 +211,7 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Bundle digest/index, Git commit/tree, Drive readback.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D17-08.md` (SHA-256 `df44da7374bdca8502eab06026cce2e47126e2eb8cf1571b4e7f7c2604a42dd6`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D17-08.md` (SHA-256 `af4fb22d335014456e4c9fbf07a791f381a003e911fffcfbe44a2ebf44b3dccd`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
 
 ## 012. D19-01 — Lock representative target hardware tiers from measured evidence
 
@@ -225,7 +225,7 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Decision diff, telemetry source IDs, commit/tree.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-029_LOCK_REPRESENTATIVE_TARGET_HARDWARE_TIERS_FROM_MEASURED_EVIDENCE.md` (SHA-256 `568e555d6ac6422e1abab619389f5b347d1683c832164c4bbecb2bb23832aa5f`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D19-01.md` (SHA-256 `92ef92d9a1f9d3e06afdf7707739deb09a91f5eeb7e185ffa115822e2d36a1fe`)
 
 ## 013. D19-02 — Lock native frame-time and responsiveness targets from evidence
 
@@ -239,7 +239,7 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Decision record, benchmark telemetry, source commit.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-030_LOCK_NATIVE_FRAME_TIME_AND_RESPONSIVENESS_TARGETS_FROM_EVIDENCE.md` (SHA-256 `f16d1a77390e1113248445d289eb52770481350662e5292bcb9f4c8ecd0b7fe8`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e`); `projects/biella-games/docs/task-guides/D19-02.md` (SHA-256 `73c3a2338606b51998b3bcba58dcfa5d775ef19c7059328f70626f6667990411`)
 
 ## 014. D19-03 — Qualify world traversal streaming and hitch behavior
 
