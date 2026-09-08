@@ -1,0 +1,2 @@
+lld-link: error: undefined symbol: memcpy
+>>> referenced by /mnt/biella-extra/biella-runtime/d08-01-nsis-01/fixture.obj:(mainCRTStartup)

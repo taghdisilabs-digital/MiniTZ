@@ -1,0 +1,13 @@
+{
+  "schema": "biella.d08.nsis_native_fixture/v1",
+  "task_id": "D08-01",
+  "scope": "INSTALLER_TEST_FIXTURE_NOT_GAME",
+  "result": "FAIL",
+  "release_candidate": false,
+  "game_runtime_verified": false,
+  "observed_utc": "2026-09-08T10:17:06.2956088Z",
+  "machine": "biella-l40s-worker",
+  "cases": [],
+  "invocations": [],
+  "error": "Native Windows runtime required; Linux is not a native installer test"
+}

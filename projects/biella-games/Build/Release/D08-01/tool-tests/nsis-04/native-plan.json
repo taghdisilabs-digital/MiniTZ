@@ -1,0 +1,52 @@
+{
+  "fixtures": [
+    {
+      "archive_bytes": 115429,
+      "archive_name": "BiellaGames-D08-TEST_FIXTURE-9b4631d636f9-setup.exe",
+      "archive_sha256": "e1d46106e941668bac9109c1e764e18bac84b11e33e842967b5587149369e6b0",
+      "files": [
+        {
+          "bytes": 2048,
+          "executable": false,
+          "path": "fixture.exe",
+          "sha256": "22277ae3fdd890474eb5bca150bc057bf5a9cb801f0598e9ee384c40521ad834"
+        },
+        {
+          "bytes": 42,
+          "executable": false,
+          "path": "nested $ test/r\u00e9sum\u00e9 $.txt",
+          "sha256": "baf38727c57a7389ed887c85e721985f7742b8ae502a33f82f4eca35a8c9f5e3"
+        }
+      ],
+      "fixture_id": "9b4631d636f9da90e8d2f8db5128e5d66509536dc2c29d49d1e5a9e0703c4c5a",
+      "manifest_sha256": "9b1871cacdf21006e127768e454dd4b417fce4b074d9b0056faa4ed09ddbf5aa"
+    },
+    {
+      "archive_bytes": 115433,
+      "archive_name": "BiellaGames-D08-TEST_FIXTURE-5e7f17648546-setup.exe",
+      "archive_sha256": "c3e0f61b7fb1d78bb228de0cb2778b3fae6fc2eb1a42d13fef135645a339a737",
+      "files": [
+        {
+          "bytes": 2048,
+          "executable": false,
+          "path": "fixture.exe",
+          "sha256": "22277ae3fdd890474eb5bca150bc057bf5a9cb801f0598e9ee384c40521ad834"
+        },
+        {
+          "bytes": 42,
+          "executable": false,
+          "path": "nested $ test/r\u00e9sum\u00e9 $.txt",
+          "sha256": "8362396ddd9ff5b484cbe70859a6faf32ed561d5f07fd3b53d9ff69ed0ad928c"
+        }
+      ],
+      "fixture_id": "5e7f1764854619b769432998e5a9d7dd25796d004e8fe81a9bdb64e741d467f0",
+      "manifest_sha256": "46ab41664d4f895bcd44d556ea3d3cae1e4e959031e4d130e0199f46cd1b90b4"
+    }
+  ],
+  "schema": "biella.d08.nsis_native_fixture_plan/v1",
+  "scope": "INSTALLER_TEST_FIXTURE_NOT_GAME",
+  "script": {
+    "path": "tests/test_d08_01_windows_installer.ps1",
+    "sha256": "18e71d4d00a8177a6cbc04df2e3f4c930228716b3a93566c24023e34f1b393cb"
+  }
+}

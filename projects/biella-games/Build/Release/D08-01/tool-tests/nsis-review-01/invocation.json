@@ -1,0 +1,1 @@
+{"scope": "NON_AUTHORITATIVE_HELPER", "provider": "ollama-qwen", "returncode": 2, "prompt_source": "tests/build_d08_01_windows_installer.py"}

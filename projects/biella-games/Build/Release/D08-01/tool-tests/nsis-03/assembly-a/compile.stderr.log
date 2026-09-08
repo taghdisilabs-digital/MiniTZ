@@ -1,0 +1,4 @@
+File: "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/fixture-a/payload/nested $$ test/résumé $$.txt" -> no files found.
+Usage: File [/nonfatal] [/a] ([/r] [/x filespec [...]] filespec [...] |
+   /oname=outfile one_file_only)
+Error in script "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/assembly-a/installer.nsi" on line 39 -- aborting creation process

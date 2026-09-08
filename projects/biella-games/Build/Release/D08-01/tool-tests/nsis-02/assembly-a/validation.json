@@ -1,0 +1,62 @@
+{
+  "error": "compile failed; see retained logs",
+  "evidence": [
+    {
+      "bytes": 348,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-02/assembly-a/commands.json",
+      "sha256": "ef0093c966d40ac09925a29ad9d3307e46083f9f69acc6180d121e4f82c44fe4"
+    },
+    {
+      "bytes": 361,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-02/assembly-a/compile.stderr.log",
+      "sha256": "25b8d4ca52f9d2352b4e8681b68716ab551af36e0b44eec01dab8c12b43af962"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-02/assembly-a/compile.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2185,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-02/assembly-a/installer.nsi",
+      "sha256": "522c24635fec49bf530cb1d9da10138df1b91ad33cf2a7f4e63babb54d6dccc9"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-02/assembly-a/nsis-version.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 7,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-02/assembly-a/nsis-version.stdout.log",
+      "sha256": "3b5f72fa78a531d175e3169262426e85d393226e1177a4a86ea49a446240c12f"
+    }
+  ],
+  "fixture_id": "d2fde085cf2152e10eba140072e818247e4f577a6a55f3016d6cf62b4f204ba4",
+  "implementation": {
+    "bytes": 10798,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/build_d08_01_windows_installer.py",
+    "sha256": "ae191ad5f238019e19c844704af66f309dcc8359772159d9035785cba5b42189"
+  },
+  "install_directory": "$LOCALAPPDATA\\BiellaGames-D08-InstallerFixture\\d2fde085cf2152e10eba140072e818247e4f577a6a55f3016d6cf62b4f204ba4",
+  "limitations": [
+    "NSIS wrapper is a PE32 x86 process containing a verified PE32+ x64 payload.",
+    "No publisher signature/authentication is claimed.",
+    "No UE prerequisites are installed automatically; actual target dependencies still require qualification.",
+    "Existing version directories are rejected without writes. New versions install side by side.",
+    "Uninstaller removes exact package files; additional files and external user state are retained.",
+    "Game update compatibility and real Win64 play are separate required evidence."
+  ],
+  "manifest": {
+    "bytes": 623,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-02/fixture-a/manifest.json",
+    "sha256": "0c1292d9d8a4524e0d4b71680c4596b03469f0fe5c6563a6b887402b145f4923"
+  },
+  "observed": "2026-09-08T10:07:39.700541+00:00",
+  "release_candidate": false,
+  "result": "FAIL",
+  "schema": "biella.d08.nsis_assembly/v1",
+  "scope": "INSTALLER_TEST_FIXTURE_NOT_GAME",
+  "state_preservation": "Versioned payload only; no UE settings/save writes, registry, drivers, or reboot.",
+  "task_id": "D08-01"
+}

@@ -1,0 +1,55 @@
+[
+  {
+    "argv": [
+      "clang",
+      "--version"
+    ],
+    "returncode": 0
+  },
+  {
+    "argv": [
+      "lld-link",
+      "--version"
+    ],
+    "returncode": 0
+  },
+  {
+    "argv": [
+      "llvm-dlltool",
+      "-m",
+      "i386:x86-64",
+      "-d",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-04/kernel32.def",
+      "-l",
+      "/mnt/biella-extra/biella-runtime/d08-01-nsis-04/kernel32.lib"
+    ],
+    "returncode": 0
+  },
+  {
+    "argv": [
+      "clang",
+      "-target",
+      "x86_64-pc-windows-msvc",
+      "-ffreestanding",
+      "-fno-stack-protector",
+      "-c",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-04/fixture.c",
+      "-o",
+      "/mnt/biella-extra/biella-runtime/d08-01-nsis-04/fixture.obj"
+    ],
+    "returncode": 0
+  },
+  {
+    "argv": [
+      "lld-link",
+      "/entry:mainCRTStartup",
+      "/subsystem:console",
+      "/nodefaultlib",
+      "/machine:x64",
+      "/out:/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-04/fixture.exe",
+      "/mnt/biella-extra/biella-runtime/d08-01-nsis-04/fixture.obj",
+      "/mnt/biella-extra/biella-runtime/d08-01-nsis-04/kernel32.lib"
+    ],
+    "returncode": 0
+  }
+]

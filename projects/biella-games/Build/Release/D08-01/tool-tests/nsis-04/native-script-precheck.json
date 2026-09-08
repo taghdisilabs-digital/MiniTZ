@@ -1,0 +1,51 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "/mnt/biella-extra/biella-runtime/d08-01-powershell-7.6.5/tool/pwsh",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-04/parse-native-script.ps1",
+        "/root/biella/repos/biella-engine/projects/biella-games/tests/test_d08_01_windows_installer.ps1"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/mnt/biella-extra/biella-runtime/d08-01-powershell-7.6.5/tool/pwsh",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "/root/biella/repos/biella-engine/projects/biella-games/tests/test_d08_01_windows_installer.ps1",
+        "-FixtureDirectory",
+        "/mnt/biella-extra/biella-runtime/d08-01-nsis-native-linux-negative"
+      ],
+      "result": "EXPECTED_REJECTION",
+      "returncode": 1
+    }
+  ],
+  "native_windows_execution": "NOT_EXECUTED",
+  "observed": "2026-09-08T10:17:06.455320+00:00",
+  "parser": {
+    "errors": [],
+    "result": "PASS",
+    "version": "7.6.5"
+  },
+  "plan": {
+    "bytes": 1948,
+    "path": "Build/Release/D08-01/tool-tests/nsis-04/native-plan.json",
+    "sha256": "bea7d867d5f0ca5332deff38ef325f8f12fdd39b438f25d81221d9c6ec5f54bd"
+  },
+  "release_candidate": false,
+  "result": "PASS",
+  "schema": "biella.d08.nsis_native_script_precheck/v1",
+  "scope": "SYNTAX_AND_NONWINDOWS_REJECTION_ONLY",
+  "script": {
+    "bytes": 6001,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/test_d08_01_windows_installer.ps1",
+    "sha256": "18e71d4d00a8177a6cbc04df2e3f4c930228716b3a93566c24023e34f1b393cb"
+  }
+}

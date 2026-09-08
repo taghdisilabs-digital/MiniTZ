@@ -1,0 +1,19 @@
+[
+  {
+    "argv": [
+      "makensis",
+      "-VERSION"
+    ],
+    "name": "nsis-version",
+    "returncode": 0
+  },
+  {
+    "argv": [
+      "makensis",
+      "-V2",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-02/assembly-a/installer.nsi"
+    ],
+    "name": "compile",
+    "returncode": 1
+  }
+]

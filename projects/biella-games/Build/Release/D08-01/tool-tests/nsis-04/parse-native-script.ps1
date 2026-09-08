@@ -1,0 +1,1 @@
+$tokens=$null;$parseErrors=$null;[Management.Automation.Language.Parser]::ParseFile($args[0],[ref]$tokens,[ref]$parseErrors) | Out-Null; @{version=$PSVersionTable.PSVersion.ToString();errors=@($parseErrors | ForEach-Object {$_.Message});result=$(if($parseErrors.Count -eq 0){"PASS"}else{"FAIL"})} | ConvertTo-Json; if($parseErrors.Count){exit 1}

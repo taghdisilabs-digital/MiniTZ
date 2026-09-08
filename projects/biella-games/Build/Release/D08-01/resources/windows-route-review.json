@@ -1,0 +1,86 @@
+{
+  "classification": "REQUIRES_OTHER_RESOURCE",
+  "known_windows_setup": {
+    "bytes": 1872,
+    "path": "Build/Release/D08-01/windows-setup-observation.json",
+    "sha256": "4fa2cf76591bd1b5c22661e5c576de61290cb3131ace8181ff63b7602bf9bebf"
+  },
+  "next_action": "Supply/locate an actually available authorized UE 5.8.2 Windows installation/media on adequate storage with a hardware DX12 SM6 GPU resource, then run the retained UBT/UAT handoff. Native fixture install/uninstall can run on the existing Windows node after connector transport recovery.",
+  "no_setup_replay": true,
+  "observed": "2026-09-08T10:15:52.860081+00:00",
+  "provider_findings": [
+    {
+      "classification": "NO_VERIFIED_WIN64_BUILD_PLAY_RESOURCE",
+      "direct_observation": "Official Image.from_registry requires linux/amd64. No native Windows adapter is exposed by the configured route.",
+      "provider": "modal",
+      "source": "https://modal.com/docs/reference/modal.Image"
+    },
+    {
+      "additional_source": "https://saturncloud.io/docs/user-guide/how-to/advanced/create-images/",
+      "classification": "NO_VERIFIED_WIN64_BUILD_PLAY_RESOURCE",
+      "direct_observation": "Official resource images are Docker images; customization uses apt packages and bash.",
+      "inference": "No configured native Windows recipe/resource was observed; this is not a claim about every possible Saturn enterprise configuration.",
+      "provider": "saturn",
+      "source": "https://saturncloud.io/docs/user-guide/using-saturn-cloud/manage-images/saturn-cloud-images/"
+    }
+  ],
+  "routes": {
+    "compute.remote": [
+      "saturn",
+      "modal"
+    ],
+    "package.installer.windows": [
+      "nsis"
+    ],
+    "unreal.build.win64": []
+  },
+  "schema": "biella.d08.resource_review/v1",
+  "supplemental_preparation": {
+    "native_fixture_plan": {
+      "bytes": 1948,
+      "path": "Build/Release/D08-01/tool-tests/nsis-04/native-plan.json",
+      "sha256": "bea7d867d5f0ca5332deff38ef325f8f12fdd39b438f25d81221d9c6ec5f54bd"
+    },
+    "native_fixture_script": {
+      "bytes": 6001,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/test_d08_01_windows_installer.ps1",
+      "sha256": "18e71d4d00a8177a6cbc04df2e3f4c930228716b3a93566c24023e34f1b393cb"
+    },
+    "native_script_precheck": {
+      "bytes": 1708,
+      "path": "Build/Release/D08-01/tool-tests/nsis-04/native-script-precheck.json",
+      "sha256": "142cf4b21d1c94e260f619cfa30862f291c6dce448da67bf1fa37e588e894919"
+    },
+    "nsis_fixture_assembly": {
+      "bytes": 12822,
+      "path": "Build/Release/D08-01/tool-tests/nsis-04/validation.json",
+      "sha256": "b8b94f42d2c2fe4a6795ccae6b138e158ceccd95c0490b23f4b694c5f4640ab5"
+    }
+  },
+  "task_id": "D08-01",
+  "unmet": "Actual UE 5.8.2 Win64 VALID SDK marker, Development and Shipping packages, and exact Shipping native play/update evidence on an observed compatible DX12 SM6 resource. Installer fixture success cannot meet these criteria.",
+  "windows_connector": {
+    "device_id": "43ad83f1-0d3d-4e9a-9c9e-5abd32b6206f",
+    "native_fixture_execution": "NOT_EXECUTED",
+    "no_mutation_attempted": true,
+    "raw_results": {
+      "bytes": 2150,
+      "path": "Build/Release/D08-01/resources/windows-connector-failures.json",
+      "sha256": "946f409646eaa52dd9d710e5de553c5bc27e74054ae57157ea4668c80446ea5d"
+    },
+    "readonly_requests": [
+      {
+        "operation": "start_process compiler-probe identity",
+        "result": "HTTP_504"
+      },
+      {
+        "operation": "start_process bounded retry",
+        "result": "HTTP_504"
+      },
+      {
+        "operation": "read_file setup-result.json line 1",
+        "result": "HTTP_504"
+      }
+    ]
+  }
+}

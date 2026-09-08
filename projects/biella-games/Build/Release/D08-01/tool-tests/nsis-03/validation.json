@@ -1,0 +1,144 @@
+{
+  "cases": [],
+  "error": "Fixture NSIS assembly/readback failed",
+  "evidence": [
+    {
+      "bytes": 348,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/assembly-a/commands.json",
+      "sha256": "42022099e2cfc8b0ceb07511b93bf049cb62806e92a290649c191a2fe11ef5ee"
+    },
+    {
+      "bytes": 454,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/assembly-a/compile.stderr.log",
+      "sha256": "6dcb36583ad800610161dd1fe07ac07bc8f5cd5e80da4485d82b391772a4d1a1"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/assembly-a/compile.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2185,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/assembly-a/installer.nsi",
+      "sha256": "725a9e293e74a3ab92b39fa4dd066d3a1127a7effd98f889acd2f93934cdac48"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/assembly-a/nsis-version.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 7,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/assembly-a/nsis-version.stdout.log",
+      "sha256": "3b5f72fa78a531d175e3169262426e85d393226e1177a4a86ea49a446240c12f"
+    },
+    {
+      "bytes": 3214,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/assembly-a/validation.json",
+      "sha256": "79475469d41f060a225a0d28d7d1f64c2127fc70890ee6bba72169c90d369917"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/compiler-0.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 110,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/compiler-0.stdout.log",
+      "sha256": "3635b8631d4ebcd8ed7586f4e01e7a6b44407de9d38db6e01daca9c242ed7a53"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/compiler-1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 18,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/compiler-1.stdout.log",
+      "sha256": "0a280ea947d9519e98c355b4d520ebc689c736d83d9eb09e587a288be36c1b09"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/compiler-2.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/compiler-2.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/compiler-3.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/compiler-3.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/compiler-4.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/compiler-4.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1292,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/compiler-invocations.json",
+      "sha256": "63537d2594c2339fa79927abf12e6f87c34e4fae9d692533446c2cd69725e052"
+    },
+    {
+      "bytes": 623,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/fixture-a/manifest.json",
+      "sha256": "fea86658c84bf9203c864c6cf414778983a4f1b3682e42ce15d3acb5cf2539bb"
+    },
+    {
+      "bytes": 2048,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/fixture-a/payload/fixture.exe",
+      "sha256": "25a37455c23e4a8288458c1bb9dc9c9f4e20400efeda481643fbe9b3e5ff5bfd"
+    },
+    {
+      "bytes": 42,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/fixture-a/payload/nested $ test/r\u00e9sum\u00e9 $.txt",
+      "sha256": "baf38727c57a7389ed887c85e721985f7742b8ae502a33f82f4eca35a8c9f5e3"
+    },
+    {
+      "bytes": 614,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/fixture.c",
+      "sha256": "6cd236ab34caa1a441bac0ace2a8024097bd69674d727d3cdedb8566269a6c97"
+    },
+    {
+      "bytes": 2048,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/fixture.exe",
+      "sha256": "25a37455c23e4a8288458c1bb9dc9c9f4e20400efeda481643fbe9b3e5ff5bfd"
+    },
+    {
+      "bytes": 64,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/kernel32.def",
+      "sha256": "f5c97633311b695dcaf94fcd361b66ad717977e9f52d71083ac34abf337685cd"
+    }
+  ],
+  "fixture_binary": {
+    "bytes": 2048,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-03/fixture.exe",
+    "sha256": "25a37455c23e4a8288458c1bb9dc9c9f4e20400efeda481643fbe9b3e5ff5bfd"
+  },
+  "game_build": false,
+  "implementation": {
+    "bytes": 7160,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/test_d08_01_windows_installer.py",
+    "sha256": "42d04836f3cbb49b084eec857c66468b1b44e5ea59798d02bbe50cfa9be2e3db"
+  },
+  "native_execution": "NOT_RUN",
+  "observed": "2026-09-08T10:08:13.266225+00:00",
+  "release_candidate": false,
+  "result": "FAIL",
+  "schema": "biella.d08.nsis_fixture_test/v1",
+  "scope": "INSTALLER_TEST_FIXTURE_NOT_GAME",
+  "task_id": "D08-01"
+}

@@ -1,0 +1,21 @@
+{
+  "entrypoint": "fixture.exe",
+  "files": [
+    {
+      "bytes": 2048,
+      "executable": false,
+      "path": "fixture.exe",
+      "sha256": "2cb49ffcc7f5d57b7964881d81c8c4b834a10870ceddb744647a398513039ad6"
+    },
+    {
+      "bytes": 42,
+      "executable": false,
+      "path": "nested $ test/r\u00e9sum\u00e9 $.txt",
+      "sha256": "baf38727c57a7389ed887c85e721985f7742b8ae502a33f82f4eca35a8c9f5e3"
+    }
+  ],
+  "fixture_id": "d2fde085cf2152e10eba140072e818247e4f577a6a55f3016d6cf62b4f204ba4",
+  "fixture_scope": "INSTALLER_TEST_FIXTURE_NOT_GAME",
+  "schema": "biella.d08.installer_fixture/v1",
+  "version": "a"
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "argv": [
+      "makensis",
+      "-VERSION"
+    ],
+    "name": "nsis-version",
+    "returncode": 0
+  },
+  {
+    "argv": [
+      "makensis",
+      "-V2",
+      "/root/biella/repos/biella-engine/projects/biella-games/Build/Release/D08-01/tool-tests/nsis-04/assembly-a/installer.nsi"
+    ],
+    "name": "compile",
+    "returncode": 0
+  },
+  {
+    "argv": [
+      "7z",
+      "x",
+      "-y",
+      "-o/mnt/biella-extra/biella-runtime/d08-01-nsis-04/assembly-a/readback",
+      "/root/biella/artifacts/games/D08-01/BiellaGames-D08-TEST_FIXTURE-9b4631d636f9-setup.exe"
+    ],
+    "name": "extract",
+    "returncode": 0
+  }
+]

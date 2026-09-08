@@ -1,0 +1,8 @@
+{
+  "scope": "LOCAL_POWERSHELL_PARSER_TOOL_NOT_WINDOWS_RUNTIME",
+  "download_url": "https://github.com/PowerShell/PowerShell/releases/download/v7.6.5/powershell-7.6.5-linux-x64.tar.gz",
+  "sha256": "b34ab3b19acac1d3d4d0d3cfdb02acf62f457b0b6a962ff008132033f7566844",
+  "bytes": 73393424,
+  "executable": "/mnt/biella-extra/biella-runtime/d08-01-powershell-7.6.5/tool/pwsh",
+  "observed": "2026-09-08T10:15:00.994018+00:00"
+}

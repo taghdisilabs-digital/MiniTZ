@@ -1,0 +1,99 @@
+{
+  "fixture_artifacts": [
+    {
+      "canonical_local": {
+        "bytes": 115429,
+        "path": "/root/biella/artifacts/games/D08-01/BiellaGames-D08-TEST_FIXTURE-9b4631d636f9-setup.exe",
+        "sha256": "e1d46106e941668bac9109c1e764e18bac84b11e33e842967b5587149369e6b0"
+      },
+      "committed_readback": {
+        "bytes": 115429,
+        "path": "Build/Release/D08-01/tool-tests/nsis-04/BiellaGames-D08-TEST_FIXTURE-9b4631d636f9-setup.exe",
+        "sha256": "e1d46106e941668bac9109c1e764e18bac84b11e33e842967b5587149369e6b0"
+      }
+    },
+    {
+      "canonical_local": {
+        "bytes": 115433,
+        "path": "/root/biella/artifacts/games/D08-01/BiellaGames-D08-TEST_FIXTURE-5e7f17648546-setup.exe",
+        "sha256": "c3e0f61b7fb1d78bb228de0cb2778b3fae6fc2eb1a42d13fef135645a339a737"
+      },
+      "committed_readback": {
+        "bytes": 115433,
+        "path": "Build/Release/D08-01/tool-tests/nsis-04/BiellaGames-D08-TEST_FIXTURE-5e7f17648546-setup.exe",
+        "sha256": "c3e0f61b7fb1d78bb228de0cb2778b3fae6fc2eb1a42d13fef135645a339a737"
+      }
+    }
+  ],
+  "fixture_validation": {
+    "bytes": 12822,
+    "path": "Build/Release/D08-01/tool-tests/nsis-04/validation.json",
+    "sha256": "b8b94f42d2c2fe4a6795ccae6b138e158ceccd95c0490b23f4b694c5f4640ab5"
+  },
+  "game_build": false,
+  "handoff": {
+    "bytes": 7715,
+    "path": "Build/Release/D08-01/win64-handoff.md",
+    "sha256": "2cf8c9a72add8602d9e3e3ff4ced531f85e805c9f70868a71ecd0cb60e914e8f"
+  },
+  "implementation": [
+    {
+      "bytes": 10900,
+      "path": "tests/build_d08_01_windows_installer.py",
+      "sha256": "890e98b1323d1b65b0fc6179fd081b0ec0d8b3b78a4c43eb60cdfb0bed61e557"
+    },
+    {
+      "bytes": 7160,
+      "path": "tests/test_d08_01_windows_installer.py",
+      "sha256": "42d04836f3cbb49b084eec857c66468b1b44e5ea59798d02bbe50cfa9be2e3db"
+    },
+    {
+      "bytes": 6001,
+      "path": "tests/test_d08_01_windows_installer.ps1",
+      "sha256": "18e71d4d00a8177a6cbc04df2e3f4c930228716b3a93566c24023e34f1b393cb"
+    }
+  ],
+  "native_fixture_plan": {
+    "bytes": 1948,
+    "path": "Build/Release/D08-01/tool-tests/nsis-04/native-plan.json",
+    "sha256": "bea7d867d5f0ca5332deff38ef325f8f12fdd39b438f25d81221d9c6ec5f54bd"
+  },
+  "native_script_precheck": {
+    "bytes": 1708,
+    "path": "Build/Release/D08-01/tool-tests/nsis-04/native-script-precheck.json",
+    "sha256": "142cf4b21d1c94e260f619cfa30862f291c6dce448da67bf1fa37e588e894919"
+  },
+  "native_windows_execution": "NOT_EXECUTED",
+  "observed": "2026-09-08T10:19:57.994758+00:00",
+  "preserved_linux_qualification": {
+    "material_input_digest": "62a468b231792a4e0be64320a79a9840b42af03a8349709d8bf3c0531d885bbf",
+    "material_inputs_verified": 363,
+    "no_runtime_replay": true,
+    "qualification": {
+      "bytes": 104750,
+      "path": "Build/Release/D08-01/qualification.json",
+      "sha256": "08556cb4b73a65a9e7fdaa3648db0e55e1f5304bf1e81d4853d45c4aafc869ab"
+    },
+    "unchanged_from_commit": "ca432457b2066a192c6316e87087e99f8b37f217"
+  },
+  "publication": "Exact local task files committed for Auto Feeder continuity publication; no external package delivery or remote execution claimed.",
+  "release_candidate": false,
+  "resource_review": {
+    "bytes": 3703,
+    "path": "Build/Release/D08-01/resources/windows-route-review.json",
+    "sha256": "582420cf8acc917d02e62600475afa50d1fe84f8e74712972abc44151a771a03"
+  },
+  "results": [
+    "Two exact NSIS PE32 installers extracted with complete contained PE32+ x64 fixture payload SHA-256 readback.",
+    "Unicode and dollar-sign file paths preserved; incorrect identity, truncated bytes, fixture misuse and Linux input rejected.",
+    "PowerShell native test parses under 7.6.5 and rejects non-Windows execution before installing or writing fixture state.",
+    "Real Windows install/fixture launch/uninstall has not executed; three bounded connector reads failed HTTP 504.",
+    "No game assets/source/settings were changed."
+  ],
+  "schema": "biella.d08.windows_installer_preparation/v1",
+  "scope": "INSTALLER_ASSEMBLY_AND_LOCAL_TOOL_VALIDATION_ONLY",
+  "smallest_next_action": "Use an actually available compatible Windows UE 5.8.2 installation/media with adequate storage and DX12 SM6 hardware GPU; run the retained SDK validation and UBT/UAT package handoff. Run the prepared native NSIS fixture test after connector recovery without treating its result as game qualification.",
+  "status": "CONTINUE",
+  "task_id": "D08-01",
+  "unmet_criterion": "Exact Win64 UE 5.8.2 Shipping distributable and native Windows gameplay, install/update and supported settings reconstruction qualification."
+}
