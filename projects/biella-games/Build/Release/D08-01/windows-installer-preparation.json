@@ -33,8 +33,8 @@
   "game_build": false,
   "handoff": {
     "path": "Build/Release/D08-01/win64-handoff.md",
-    "bytes": 11885,
-    "sha256": "f706a2335fb6125a191a7de0612908105500fa7997c0e67088e8e422fd3b8d01"
+    "bytes": 13828,
+    "sha256": "e527bf3fd54c1eb55fa009171c32d366cdd94935063a7425e8ffca72d4da7610"
   },
   "implementation": [
     {
@@ -136,7 +136,7 @@
   ],
   "schema": "biella.d08.windows_installer_preparation/v1",
   "scope": "INSTALLER_ASSEMBLY_AND_NATIVE_FIXTURE_VALIDATION_ONLY",
-  "smallest_next_action": "Route the retained exact source transfer to a connected compatible Windows UE 5.8.2 Resource with adequate storage and DX12 SM6 hardware GPU, verify source transfer and SDK, then execute the game build/play/update handoff.",
+  "smallest_next_action": "Bind a connected native Windows Resource and its exact UE 5.8.2 engine root, or a callable authenticated provisioning path plus matching authorized engine media. Then verify the retained source transfer, require the real Win64 VALID SDK marker, and execute the existing Development/Shipping build, native play and old-to-new settings/update handoff.",
   "status": "CONTINUE",
   "task_id": "D08-01",
   "unmet_criterion": "Exact Win64 UE 5.8.2 Shipping distributable and native Windows gameplay, install/update and supported settings reconstruction qualification.",
@@ -157,8 +157,10 @@
     "sha256": "ce387fd96bd43050d7fc75d6da7afc121e3437e64ec564b390c89907b10f563d"
   },
   "current_resource_observation": {
-    "path": "Build/Release/D08-01/resources/windows-native-observation.json",
-    "bytes": 2070,
-    "sha256": "e42964f965a47a30d61382fb1942700900e68f43e2a5e1f8319c92283d71fbdc"
-  }
+    "path": "Build/Release/D08-01/resources/windows-media-observation.json",
+    "bytes": 8021,
+    "sha256": "275436d0618509b522e14fcd856cdb9d9756ce7a93d5acaf1617ea3252b314f5"
+  },
+  "resource_lookup_updated_utc": "2026-09-08T11:04:22.460328+00:00",
+  "missing_external_binding": "No observed connected UE 5.8.2 Windows resource with suitable storage/hardware GPU, nor a callable authenticated provisioning path and matching authorized media."
 }

@@ -1,0 +1,185 @@
+{
+  "schema": "biella.d08.resource_observation/v1",
+  "task_id": "D08-01",
+  "recorded_utc": "2026-09-08T11:03:40.001019+00:00",
+  "scope": "BOUNDED_ENGINE_MEDIA_AND_PROVISIONING_LOOKUP_NOT_GAME_QUALIFICATION",
+  "classification": "REQUIRES_OTHER_RESOURCE",
+  "release_candidate": false,
+  "acceptance_changed": false,
+  "receipts": {
+    "path": "Build/Release/D08-01/resources/windows-media-readback.json",
+    "bytes": 9785,
+    "sha256": "1633939979a5b2e792c25d95a89473f94f6f47e0504a8e9c21e8756f9bc98524"
+  },
+  "windows": {
+    "device_id": "43ad83f1-0d3d-4e9a-9c9e-5abd32b6206f",
+    "machine": "WIN-P7MA35DRF6Q",
+    "observed_utc": "2026-09-08T10:55:10.4717937Z",
+    "connectivity": "EXECUTION_VERIFIED",
+    "directories": [
+      {
+        "path": "C:\\tmp",
+        "exists": true,
+        "engine_media_candidates": []
+      },
+      {
+        "path": "C:\\Users\\Administrator",
+        "exists": true,
+        "engine_media_candidates": []
+      },
+      {
+        "path": "C:\\Users\\Administrator\\Downloads",
+        "exists": true,
+        "engine_media_candidates": []
+      }
+    ],
+    "candidate_filter": "(?i)unreal|^UE[_-]?5|^Epic",
+    "search_depth": "Direct children only; arbitrary nested/custom engine paths remain UNKNOWN.",
+    "storage": [
+      {
+        "DeviceID": "C:",
+        "VolumeName": "",
+        "FileSystem": "NTFS",
+        "DriveType": 3,
+        "ProviderName": null,
+        "Size": 53686038528,
+        "FreeSpace": 4155490304
+      },
+      {
+        "DeviceID": "G:",
+        "VolumeName": "Google Drive",
+        "FileSystem": "FAT32",
+        "DriveType": 3,
+        "ProviderName": null,
+        "Size": 53686038528,
+        "FreeSpace": 3947712512
+      }
+    ],
+    "storage_interpretation": "G: is the observed Google Drive FAT32 mount, not an additional independent build disk. C: has 4,155,490,304 bytes free at this observation.",
+    "graphics_observation_reused": {
+      "path": "Build/Release/D08-01/resources/windows-native-observation.json",
+      "bytes": 2070,
+      "sha256": "e42964f965a47a30d61382fb1942700900e68f43e2a5e1f8319c92283d71fbdc"
+    },
+    "graphics_repeated": false,
+    "setup_repeated": false,
+    "engine_installation_attempted": false
+  },
+  "games_drive": {
+    "folder_id": "1iMu5XD217l2a0VT1sspWx65pP5vkkTYa",
+    "verified_metadata_lineage": "GAMES/03_CONTEXT/unreal",
+    "children": [
+      {
+        "id": "1WZWM54BXqDt-S6C1EG5wOS62V_l068wL",
+        "name": "RENDERING_PERFORMANCE.md",
+        "mime_type": "text/markdown",
+        "bytes": 596
+      },
+      {
+        "id": "1N2g-pJE45MnEaNnkiZpR4gXGuwyVw1Lt",
+        "name": "RUNTIME.md",
+        "mime_type": "text/markdown",
+        "bytes": 534
+      }
+    ],
+    "engine_media_found": false,
+    "scope_limit": "Only the recorded name query and direct children of the matching Games folder; no global media-absence claim and no document contents fetched."
+  },
+  "epic_source_access": {
+    "gh_repository_lookup": "NOT_RESOLVED",
+    "configured_connector_version_file": "HTTP_404_NOT_FOUND",
+    "authorized_source_media_observed": false,
+    "scope_limit": "These authenticated lookups do not prove the repository is absent or establish the account entitlement reason."
+  },
+  "route": {
+    "capability": "unreal.build.win64",
+    "providers": []
+  },
+  "cloud_candidate": {
+    "provider": "AWS",
+    "status": "RESEARCH_ONLY_NO_CALLABLE_AUTHENTICATED_RESOURCE_OBSERVED",
+    "auth_presence": {
+      "observed_at": "2026-09-08T10:57:48.470626+00:00",
+      "method": "Local Python shutil.which('aws'), os.environ presence checks, and Path.is_file for standard AWS config paths; result transcribed from the completed command in this task session.",
+      "aws_cli_available": false,
+      "aws_auth_environment_presence_only": {
+        "AWS_ACCESS_KEY_ID": false,
+        "AWS_SECRET_ACCESS_KEY": false,
+        "AWS_SESSION_TOKEN": false,
+        "AWS_PROFILE": false,
+        "AWS_WEB_IDENTITY_TOKEN_FILE": false,
+        "AWS_ROLE_ARN": false,
+        "AWS_SHARED_CREDENTIALS_FILE": false,
+        "AWS_CONFIG_FILE": false,
+        "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI": false,
+        "AWS_CONTAINER_CREDENTIALS_FULL_URI": false
+      },
+      "aws_configuration_files_presence_only": [
+        {
+          "kind": "AWS_SHARED_CREDENTIALS_FILE",
+          "exists": false
+        },
+        {
+          "kind": "AWS_CONFIG_FILE",
+          "exists": false
+        }
+      ],
+      "secret_values_read_or_printed": false,
+      "cloud_provisioning_attempted": false,
+      "limitation": "This does not establish absence of an account or credentials outside the checked environment/standard configuration paths."
+    },
+    "compatible_exact_image_identity": "UNKNOWN",
+    "provisioned": false,
+    "primary_sources": [
+      {
+        "url": "https://aws.amazon.com/blogs/gametech/getting-started-with-unreal-engine-development-on-aws/",
+        "finding": "Official July 2023 guidance describes EC2 GPU Unreal workstations and links an Unreal Marketplace image. This is a possible provider capability, not an observed configured resource or exact 5.8.2 image."
+      },
+      {
+        "url": "https://aws.amazon.com/marketplace/pp/prodview-iu7szlwdt5clg",
+        "finding": "The returned page exposed Marketplace navigation and no exact Unreal 5.8.2 product version; no compatible image identity was established."
+      },
+      {
+        "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/offline-installer-of-unreal-engine",
+        "finding": "Epic documents organization-controlled offline installer access through its Developer Portal. No matching accessible installer or entitlement was established by this task lookup."
+      }
+    ]
+  },
+  "preserved_proof": [
+    {
+      "path": "Build/Release/D08-01/qualification.json",
+      "bytes": 104750,
+      "sha256": "08556cb4b73a65a9e7fdaa3648db0e55e1f5304bf1e81d4853d45c4aafc869ab"
+    },
+    {
+      "path": "Build/Release/D08-01/package-manifest.json",
+      "bytes": 8665,
+      "sha256": "48cedd56873c9abbc62c0708872066036733bfd4c3e58cd0cbebe5e1d5572770"
+    },
+    {
+      "path": "Build/Release/D08-01/source-build-manifest.json",
+      "bytes": 73200,
+      "sha256": "d2ab592518938287b1a3d142efda8bdc0a15c7c01652bd421e7764de6bd91f92"
+    },
+    {
+      "path": "Build/Release/D08-01/win64-source-02/validation.json",
+      "bytes": 9405,
+      "sha256": "50485a36794c0f1494be5d3bb28722a10e45e12bb1ce3b0c075873c075e44676"
+    },
+    {
+      "path": "Build/Release/D08-01/tool-tests/nsis-04/native-01/verification.json",
+      "bytes": 1510,
+      "sha256": "5a45f062f3a55ed640600752259f21aa088faa71fe30bc748a9aaf8ced7d62c2"
+    },
+    {
+      "path": "Build/Release/D08-01/tool-tests/windows-update-02/verification.json",
+      "bytes": 1177,
+      "sha256": "a976b873421fc7bccd951d24043afd0b39c943f3856d4bdb61cb2e8750c94f6c"
+    }
+  ],
+  "unmet_criterion": "Exact Win64 UE 5.8.2 Shipping distributable and native game play, diagnostics, install/update and supported per-user settings reconstruction on its exact bytes.",
+  "missing_external_binding": "No observed connected UE 5.8.2 Windows resource with suitable storage/hardware GPU, nor a callable authenticated provisioning path and matching authorized media.",
+  "next_action": "Bind a connected native Windows Resource and its exact UE 5.8.2 engine root, or a callable authenticated provisioning path plus matching authorized engine media. Then verify the retained source transfer, require the real Win64 VALID SDK marker, and execute the existing Development/Shipping build, native play and old-to-new settings/update handoff.",
+  "reuse": "Preserve all matching Linux game qualification, source transfer, compiler setup, native NSIS and native portable-update fixture results. Do not repeat unchanged failed engine/resource discovery on the same scopes.",
+  "publication": "These are lookup receipts, not a package publication. Auto Feeder owns canonical GitHub/Drive continuity from exact committed bytes."
+}

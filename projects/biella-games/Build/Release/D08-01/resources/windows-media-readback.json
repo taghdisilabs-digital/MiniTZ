@@ -1,0 +1,268 @@
+{
+  "schema": "biella.d08.resource_lookup_receipts/v1",
+  "task_id": "D08-01",
+  "scope": "Metadata-only observed Windows media and canonical Games Drive lookups; no game/source changes or publication.",
+  "windows_media": {
+    "tool": "remote_desktop_commander.start_process",
+    "device_id": "43ad83f1-0d3d-4e9a-9c9e-5abd32b6206f",
+    "candidate_name_filter": "(?i)unreal|^UE[_-]?5|^Epic",
+    "depth": "Direct children only in the three returned directories",
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Process started with PID 10020 (shell: powershell.exe)\nInitial output:\n{\"observed_utc\":\"2026-09-08T10:55:10.4717937Z\",\"machine\":\"WIN-P7MA35DRF6Q\",\"scope\":\"Previously unexamined custom roots and user download media names only; no customer directories read\",\"directories\":[{\"path\":\"C:\\\\tmp\",\"exists\":true,\"engine_media_candidates\":[]},{\"path\":\"C:\\\\Users\\\\Administrator\",\"exists\":true,\"engine_media_candidates\":[]},{\"path\":\"C:\\\\Users\\\\Administrator\\\\Downloads\",\"exists\":true,\"engine_media_candidates\":[]}],\"volumes\":[{\"DeviceID\":\"C:\",\"VolumeName\":\"\",\"FileSystem\":\"NTFS\",\"DriveType\":3,\"ProviderName\":null,\"Size\":53686038528,\"FreeSpace\":4155490304},{\"DeviceID\":\"G:\",\"VolumeName\":\"Google Drive\",\"FileSystem\":\"FAT32\",\"DriveType\":3,\"ProviderName\":null,\"Size\":53686038528,\"FreeSpace\":3947712512}]}\r\n"
+        },
+        {
+          "type": "text",
+          "text": "\n[executed on device: WIN-P7MA35DRF6Q (43ad83f1-0d3d-4e9a-9c9e-5abd32b6206f)]"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "drive_search": {
+    "tool": "google_drive.search",
+    "arguments": {
+      "best_effort_fetch": false,
+      "query": "Unreal",
+      "topn": 10,
+      "special_filter_query_str": "trashed = false and (name contains 'Unreal' or name contains 'UE_5.8' or name contains 'UE5.8')"
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "results": [
+          {
+            "url": "https://drive.google.com/drive/folders/1iMu5XD217l2a0VT1sspWx65pP5vkkTYa",
+            "title": "unreal",
+            "id": "1iMu5XD217l2a0VT1sspWx65pP5vkkTYa",
+            "mime_type": "application/vnd.google-apps.folder",
+            "size": null,
+            "file_or_folder": "folder",
+            "created_at": "2026-09-01T22:54:20.341Z",
+            "updated_at": "2026-09-01T22:54:20.341Z",
+            "viewedByMeTime": null,
+            "display_title": "unreal",
+            "display_url": "https://drive.google.com/drive/folders/1iMu5XD217l2a0VT1sspWx65pP5vkkTYa",
+            "parent_ids": [
+              "1LtDGB-ISooBByC7XJujOYML_Sy1XG5nX"
+            ],
+            "shared": true
+          }
+        ]
+      },
+      "isError": false
+    }
+  },
+  "drive_folder": {
+    "tool": "google_drive.search",
+    "arguments": {
+      "best_effort_fetch": false,
+      "topn": 20,
+      "special_filter_query_str": "trashed = false and '1iMu5XD217l2a0VT1sspWx65pP5vkkTYa' in parents"
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "results": [
+          {
+            "url": "https://drive.google.com/file/d/1WZWM54BXqDt-S6C1EG5wOS62V_l068wL/view?usp=drivesdk",
+            "title": "RENDERING_PERFORMANCE.md",
+            "id": "1WZWM54BXqDt-S6C1EG5wOS62V_l068wL",
+            "mime_type": "text/markdown",
+            "size": "596",
+            "file_or_folder": "file",
+            "created_at": "2026-09-01T23:00:20.969Z",
+            "updated_at": "2026-09-01T23:00:20.969Z",
+            "viewedByMeTime": null,
+            "display_title": "RENDERING_PERFORMANCE.md",
+            "display_url": "https://drive.google.com/file/d/1WZWM54BXqDt-S6C1EG5wOS62V_l068wL/view?usp=drivesdk",
+            "parent_ids": [
+              "1iMu5XD217l2a0VT1sspWx65pP5vkkTYa"
+            ],
+            "shared": true
+          },
+          {
+            "url": "https://drive.google.com/file/d/1N2g-pJE45MnEaNnkiZpR4gXGuwyVw1Lt/view?usp=drivesdk",
+            "title": "RUNTIME.md",
+            "id": "1N2g-pJE45MnEaNnkiZpR4gXGuwyVw1Lt",
+            "mime_type": "text/markdown",
+            "size": "534",
+            "file_or_folder": "file",
+            "created_at": "2026-09-01T23:00:15.725Z",
+            "updated_at": "2026-09-01T23:00:15.725Z",
+            "viewedByMeTime": null,
+            "display_title": "RUNTIME.md",
+            "display_url": "https://drive.google.com/file/d/1N2g-pJE45MnEaNnkiZpR4gXGuwyVw1Lt/view?usp=drivesdk",
+            "parent_ids": [
+              "1iMu5XD217l2a0VT1sspWx65pP5vkkTYa"
+            ],
+            "shared": true
+          }
+        ]
+      },
+      "isError": false
+    }
+  },
+  "drive_lineage": [
+    {
+      "file_id": "1LtDGB-ISooBByC7XJujOYML_Sy1XG5nX",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "id": "1LtDGB-ISooBByC7XJujOYML_Sy1XG5nX",
+          "title": "03_CONTEXT",
+          "mime_type": "application/vnd.google-apps.folder",
+          "size": null,
+          "url": "https://drive.google.com/drive/folders/1LtDGB-ISooBByC7XJujOYML_Sy1XG5nX",
+          "file_or_folder": "folder",
+          "created_time": null,
+          "modified_time": null,
+          "parent_ids": [
+            "1SgvztxBMthMRbr6BPS-n9OXa2RYyXXDb"
+          ],
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": null,
+          "permissions": null,
+          "source_visibility_status": "access_not_verified"
+        },
+        "isError": false
+      }
+    },
+    {
+      "file_id": "1SgvztxBMthMRbr6BPS-n9OXa2RYyXXDb",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "id": "1SgvztxBMthMRbr6BPS-n9OXa2RYyXXDb",
+          "title": "GAMES",
+          "mime_type": "application/vnd.google-apps.folder",
+          "size": null,
+          "url": "https://drive.google.com/drive/folders/1SgvztxBMthMRbr6BPS-n9OXa2RYyXXDb",
+          "file_or_folder": "folder",
+          "created_time": null,
+          "modified_time": null,
+          "parent_ids": [
+            "1hQ2IR00sxHdXiMAMiyzxadXstiPnMoz9"
+          ],
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": null,
+          "permissions": null,
+          "source_visibility_status": "access_not_verified"
+        },
+        "isError": false
+      }
+    }
+  ],
+  "epic_source": {
+    "gh": {
+      "command": [
+        "gh",
+        "repo",
+        "view",
+        "EpicGames/UnrealEngine",
+        "--json",
+        "nameWithOwner,isPrivate,url"
+      ],
+      "exit_code": 1,
+      "stderr": "GraphQL: Could not resolve to a Repository with the name 'EpicGames/UnrealEngine'. (repository)",
+      "observed_at": "2026-09-08T10:54:19.180431+00:00"
+    },
+    "connector": {
+      "tool": "github.fetch_file",
+      "arguments": {
+        "repository_full_name": "EpicGames/UnrealEngine",
+        "path": "Engine/Build/Build.version",
+        "start_line": 1,
+        "end_line": 20
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "GitHub API error 404: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#get-repository-content\",\"status\":\"404\"}"
+          }
+        ],
+        "structuredContent": {
+          "error": "GitHub API error 404: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#get-repository-content\",\"status\":\"404\"}",
+          "error_code": "NOT_FOUND",
+          "error_data": {
+            "message": "Not Found",
+            "documentation_url": "https://docs.github.com/rest/repos/contents#get-repository-content",
+            "status": "404"
+          }
+        },
+        "isError": true
+      },
+      "observed_at": "2026-09-08T10:57:14.835210+00:00"
+    }
+  },
+  "resource_route": {
+    "command": [
+      "biella",
+      "resource",
+      "route",
+      "unreal.build.win64"
+    ],
+    "exit_code": 0,
+    "result": {
+      "capability": "unreal.build.win64",
+      "providers": []
+    }
+  },
+  "aws_auth_presence_observation": {
+    "observed_at": "2026-09-08T10:57:48.470626+00:00",
+    "method": "Local Python shutil.which('aws'), os.environ presence checks, and Path.is_file for standard AWS config paths; result transcribed from the completed command in this task session.",
+    "aws_cli_available": false,
+    "aws_auth_environment_presence_only": {
+      "AWS_ACCESS_KEY_ID": false,
+      "AWS_SECRET_ACCESS_KEY": false,
+      "AWS_SESSION_TOKEN": false,
+      "AWS_PROFILE": false,
+      "AWS_WEB_IDENTITY_TOKEN_FILE": false,
+      "AWS_ROLE_ARN": false,
+      "AWS_SHARED_CREDENTIALS_FILE": false,
+      "AWS_CONFIG_FILE": false,
+      "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI": false,
+      "AWS_CONTAINER_CREDENTIALS_FULL_URI": false
+    },
+    "aws_configuration_files_presence_only": [
+      {
+        "kind": "AWS_SHARED_CREDENTIALS_FILE",
+        "exists": false
+      },
+      {
+        "kind": "AWS_CONFIG_FILE",
+        "exists": false
+      }
+    ],
+    "secret_values_read_or_printed": false,
+    "cloud_provisioning_attempted": false,
+    "limitation": "This does not establish absence of an account or credentials outside the checked environment/standard configuration paths."
+  }
+}
