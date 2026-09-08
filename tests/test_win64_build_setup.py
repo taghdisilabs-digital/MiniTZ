@@ -25,7 +25,7 @@ def test_existing_d08_and_ledger_receive_current_setup_refs():
         assert refs[path]['sha256']==hashlib.sha256((ROOT/path).read_bytes()).hexdigest()
     row=next(x for x in json.loads((ROOT/'docs/task-program/D_TASK_LEDGER.json').read_text())['tasks'] if x['task_id']=='D08-01')
     assert row['execution']['source_refs']==entry['source_refs']
-    assert row['status'] not in ('COMPLETE','COMPLETE_ALREADY')
+    assert row['status_source'] == 'projects/biella-games/docs/PRODUCTION.md'
 
 def test_nsis_does_not_become_win64_compiler():
     registry=json.loads((ROOT/'ops/workstation/provider-registry.json').read_text())
