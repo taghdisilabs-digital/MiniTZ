@@ -139,3 +139,7 @@ Use the fewest safe resumable commands when commands are required.
 
 ## Maintenance progress transaction
 `MAINTENANCE_PROGRESS_TRANSACTION`: before any manual/management edit of current progress authority, sleep/freeze Biella production at a safe boundary, perform the exact edit, validate it, sync/read back GitHub and required Drive continuity, refresh installed runtime/controller bytes if touched, then resume the exact current task/session. Never mutate `03`, `04`, `PRODUCTION.md`, task status/order, or current-task pointers concurrently with an executing model turn. Automatic task closure/advancement is allowed because the controller applies it only after the child turn has ended. This explicit maintenance transaction must never become an autonomous watchdog, timer, reviewer, approval hook, or liveness blocker.
+
+## Retained execution style
+
+`HOW_BIELLA_WILL_NOT_WORK` and `PROVEN_EXECUTION_STYLE` are defined by the current production-system contract. Never reintroduce the forbidden observed failure patterns under renamed variables, services, watchers, hooks, retries, fallback states, or installers. Use `biella_execution_style.proven_execution_style()` as the compact executable positive pattern for production turns.

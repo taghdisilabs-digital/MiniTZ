@@ -87,3 +87,7 @@ Use the configured local Qwen Resource for bounded source/log preprocessing and 
 Keep shell output targeted: exact file ranges, focused diffs, compact results and bounded log tails; expand only for a material missing detail. Read the current task capsule/projection before repeating work.
 Persist useful checkpoints and failures without destroying raw evidence. Refresh materially changed owner/task authority once; do not carry stale instructions forward just to preserve a cache hit.
 Recover routine tool/provider/publication failures within their affected boundary and continue independently useful work. No cache percentage, optional helper failure, routine approval, or unrelated maintenance becomes a new blocking stage.
+
+## Retained production style
+
+`HOW_BIELLA_WILL_NOT_WORK`: do not recreate previously observed progress killers by renaming them as recovery, watchdog, no-progress, readiness, installer-preservation, reviewer, observer, or fallback mechanisms. `PROVEN_EXECUTION_STYLE`: highest-quality eligible strong execution, persistent task/session reuse, exact lookup before path use, immediate accepted-task closure/advance, quality-first cached context, nonblocking optional Resources, strict Project isolation, and transactional manual progress edits. Production turns receive the executable version from `biella_execution_style.proven_execution_style_prompt()`.

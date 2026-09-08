@@ -322,3 +322,9 @@ If this template can be filled from current evidence, execute. Do not add anothe
 - Never edit live progress authority concurrently with an executing model turn.
 - Automatic controller completion/advancement already occurs at a child-free task boundary and is the machine-native equivalent of this transaction.
 - This maintenance sleep is explicit and temporary; it is never an autonomous progress gate, reviewer stage, timer, watchdog, or stall detector.
+
+## Execution style retention
+
+- `HOW_BIELLA_WILL_NOT_WORK` is defined in `07_BIELLA_PRODUCTION_SYSTEM.md`; those observed failure patterns are forbidden as active mechanisms.
+- `PROVEN_EXECUTION_STYLE` is the retained positive execution pattern and is executable through `biella_execution_style.proven_execution_style()` / `proven_execution_style_prompt()`.
+- Future controller/runtime changes must preserve the proven style or present new current evidence that a different mechanism is materially better without reducing correctness, continuity, isolation, or liveness.

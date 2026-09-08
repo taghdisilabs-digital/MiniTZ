@@ -108,3 +108,34 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 - No manual progress mutation is allowed concurrently with an active Codex child turn.
 - Controller-native completion/advancement occurs only after the child turn exits, so it is already a safe child-free progress transaction.
 - The maintenance transaction is explicit and owner/management initiated; it must never be triggered by an inactivity timer, watchdog, no-progress marker, optional local model readiness, reviewer hook, website observer, or chat lifecycle.
+
+## HOW BIELLA WILL NOT WORK
+
+The following patterns are forbidden because they caused observed waste, stalls, incorrect continuation, or unnecessary resource use during the 2026-09-07/08 production window. They are failure patterns, not fallback modes.
+
+- `post_acceptance_task_extension`: once Mahdi accepts the current task, no model may add another gate, experiment, polish pass, or continuation before canonical closure and advancement.
+- `timer_executor_rotation`: model silence or lack of emitted events is never sufficient reason to kill, rotate, or restart a healthy executor/session.
+- `no_progress_wait_state`: a no-change bounded/local result never creates a task wait state, suppresses later execution, or blocks stronger/local deterministic work.
+- `optional_local_ai_startup_gate`: Ollama, Qwen, GPU residency, website/control, helpers, and optional providers never gate authoritative production startup.
+- `installer_enablement_toggle`: source/controller refresh never silently enables or disables an existing production service; maintenance controls enablement explicitly.
+- `concurrent_manual_progress_edit`: management never edits `03`, `04`, `PRODUCTION.md`, task order/status, or current-task pointers while the production child is executing.
+- `format_by_renaming`: changing an extension never qualifies or converts a binary/artifact format; format/magic/schema and consumer contract must be verified before use.
+- `guessed_path_without_lookup`: commands and edits use retrieved exact paths/symbols/interfaces; path guessing followed by repeated failed commands is forbidden.
+- `request_time_full_asset_scan`: observer/API requests must not repeatedly rescan large asset trees or run expensive system probes when an incremental/cached read-only projection can serve current truth.
+- `missing_bootstrap_auth`: production/customer source alignment must inherit or explicitly load the verified host GitHub identity required by that exact operation; authenticated host state may not be silently dropped at bootstrap.
+- Historical raw evidence may record these failures, but none of these patterns may exist as an active controller mechanism, startup dependency, task state, or execution policy.
+
+## PROVEN EXECUTION STYLE
+
+`biella_execution_style.proven_execution_style()` (`ops/local-ai/biella_execution_style.py`) is the executable compact statement of the production style that is retained because it produced useful progress without lowering acceptance quality. `proven_execution_style_prompt()` injects the same rules into authoritative strong-task turns.
+
+- Highest-quality eligible strong route for synthesis/closure; current owner policy may pin a specific verified route/reasoning level.
+- Persistent task/session continuity and exact verified-work reuse instead of restarting from narrative history.
+- Immediate canonical closure/advance after accepted completion; task class describes complexity only.
+- Optional local/free/specialized resources are used when useful but never become startup or liveness dependencies.
+- Stable compact/cached context and verified outputs are reused quality-first; cache reduces repeated token/work cost but never becomes authority or a wait condition.
+- Exact source/path/interface retrieval precedes commands and edits when a value is retrievable; UNKNOWN remains UNKNOWN instead of becoming a guessed target.
+- Manual progress/state edits are transactional: `SLEEP/FREEZE -> EDIT -> VALIDATE -> SYNC/READBACK -> RESUME` with the exact task/session and current working bytes preserved.
+- Long deterministic resource work may run to completion without model polling loops; quiet strong-model reasoning is allowed to remain quiet.
+- Project/customer isolation is preserved across cache, routing, delegation, artifacts and memory.
+- This style is an execution rule, not a new scheduler, reviewer, agent hierarchy, progress ledger, or archive authority.

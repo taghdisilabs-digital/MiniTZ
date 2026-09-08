@@ -15,6 +15,11 @@ fi
 
 [[ "$EUID" -eq 0 ]] || { printf 'Run the Biella AI installer as root.\n' >&2; exit 1; }
 
+python3 "$SOURCE_DIR/biella_execution_style.py" audit \
+  --runner "$SOURCE_DIR/biella_production_runner.py" \
+  --unit "$SOURCE_DIR/biella-codex-production.service" \
+  --installer "$SOURCE_DIR/install-biella-ai.sh"
+
 remove_managed_link() {
   local path="$1"
   if [[ -L "$path" ]]; then
@@ -43,6 +48,7 @@ install -o root -g root -m 644 \
   "$SOURCE_DIR/biella_task_ids.py" \
   "$SOURCE_DIR/biella_task_ledger.py" \
   "$SOURCE_DIR/biella_codex_routing.py" \
+  "$SOURCE_DIR/biella_execution_style.py" \
   "$SOURCE_DIR/biella_production_evidence.py" \
   "$INSTALL_DIR/"
 install -o root -g root -m 644 "$SOURCE_DIR/biella-codex-production.service" "$PRODUCTION_UNIT"

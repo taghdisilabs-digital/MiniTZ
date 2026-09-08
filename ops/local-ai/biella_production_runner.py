@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
 import biella_codex_routing as routing
+import biella_execution_style as execution_style
 import biella_memory_compactor as memory_compactor
 import biella_production_evidence as evidence
 import biella_production_events as production_events
@@ -272,15 +273,7 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
             "This local-Qwen output is non-authoritative bounded assistance. Reuse useful analysis, validate it against current source/evidence, "
             "and do not repeat its work with Codex unless validation or missing detail requires it.\n"
         )
-    prompt += (
-        "\nEXECUTION_INVARIANTS:\n"
-        "- TASK_CLASS_IS_NOT_A_BLOCKER: hard/hard_creation/deep_memory describe complexity only; they never justify waiting, extra approval, or scope expansion.\n"
-        "- DO_NOT_EXPAND_ACCEPTANCE_SCOPE: use only the exact current Task/Project acceptance contract and latest owner direction; do not invent new completion gates.\n"
-        "- CONTINUE_REQUIRES_EXACT_UNMET_CRITERION: return CONTINUE only when a named acceptance criterion is still unmet, with the smallest executable next action.\n"
-        "- NO_MONITOR_ONLY_STALL: do not spend turns merely watching or restating progress unless an already-running external process must finish; when it exits, classify immediately.\n"
-        "- COMPLETE_IMMEDIATELY_WHEN_SATISFIED: if the exact acceptance contract is satisfied, return COMPLETE in this turn and let the controller persist and advance automatically.\n"
-        "- REUSE_VERIFIED_WORK: never redo passed work without material invalidation. Prefer cached/verified context and deterministic/local resources when they reduce cost without reducing correctness.\n"
-    )
+    prompt += "\n" + execution_style.proven_execution_style_prompt()
     return prompt
 
 
