@@ -1,0 +1,38 @@
+{
+  "binary": {
+    "bytes": 299185984,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/2b327215c81c8cb7186be4490daac1f9362799abfc34219f6730d809d0384949/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "5f2528c0f025acdebc4fdaa8dc7508fea13bf611c850262fcec3c0218030e90d"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/2b327215c81c8cb7186be4490daac1f9362799abfc34219f6730d809d0384949/payload",
+  "manifest": {
+    "bytes": 8669,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/2b327215c81c8cb7186be4490daac1f9362799abfc34219f6730d809d0384949/manifest.json",
+    "sha256": "cadf249cc1c68368a6d964d34f552c19e9f406411664185c8d5506a7807ad115"
+  },
+  "package_id": "2b327215c81c8cb7186be4490daac1f9362799abfc34219f6730d809d0384949",
+  "platform": "Linux",
+  "scope": "Byte-verified Linux Development package; not visual acceptance or Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "fdad60240ebd296e95a593789cc0fb8ed7716124",
+    "head_tree": "9265fc4a961807e01c84bbd91ebcb12cdc1cf121",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      " M Content/Environment/ServiceBay/M_ServiceGround.uasset",
+      " M SourceAssets/Materials/ServiceGround.hlsl",
+      " M tests/qualify_d17_01.py",
+      "?? Build/AAA/D17-01/environment/assets-07/",
+      "?? Build/AAA/D17-01/environment/floor-diagnosis-01/",
+      "?? Build/AAA/D17-01/environment/floor-diagnosis-02/",
+      "?? Build/AAA/D17-01/environment/floor-diagnosis-03/",
+      "?? Build/AAA/D17-01/environment/floor-diagnosis.json",
+      "?? Build/AAA/D17-01/environment/runtime-08/",
+      "?? Build/AAA/D17-01/raw/integer-floor-1080-01/",
+      "?? Build/AAA/D17-01/raw/integer-floor-720-01/",
+      "?? tests/diagnose_d17_01_floor.py"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T16:14:30.532222+00:00"
+}

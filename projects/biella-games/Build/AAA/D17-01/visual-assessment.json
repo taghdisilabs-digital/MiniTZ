@@ -4,12 +4,11 @@
   "method": "Direct inspection of decoded frames from unedited normal-camera raw captures, plus explicitly separate editor and installed-package environment fixture frames; exact source/build/input/telemetry retained separately",
   "baseline_frame": "raw/entry-720-02/frame-13.png",
   "current_frames": [
-    "raw/smooth-floor-720-01/frame-12.png",
-    "raw/smooth-floor-720-01/frame-17.png",
-    "raw/smooth-floor-720-01/frame-22.png",
-    "raw/smooth-floor-1080-01/frame-04.png"
+    "raw/integer-floor-720-01/frame-12.png",
+    "raw/integer-floor-720-01/frame-17.png",
+    "raw/integer-floor-1080-01/frame-04.png"
   ],
-  "improved_boundary": "At the same installed-fixture view, package-07 reduces package-06\u2019s conspicuous bright rectangular wetness blotches and retains slab joints, drains and local lamp reflections. Warped multi-scale wetness and lower color contrast are bound to the saved ground asset. Broad angular dark/light patches remain at fixture and normal gameplay distance (720p frames 17/22), with an abrupt rectangular boundary to the dry road. The correction improves this local surface but does not satisfy coherent PBR. The shader comment\u2019s derivative diagnosis is an implementation hypothesis, not an established root-cause finding; the remaining output needs channel isolation before further repair.",
+  "improved_boundary": "The controlled baseline WorldNormal view lacks the angular breaks visible in Roughness and BaseColor. Replacing only the ground noise hash removes those breaks in the post-change Roughness and Lit views. Package-08 fixture and ordinary 720p frame 17 confirm continuous damp/wet regions with retained joints, drains and local lamp reflections. The source/material intervention is established; no specific generated GPU instruction or compiler precision behavior is claimed. The abrupt rectangular dry-road boundary and surrounding material deficiencies remain.",
   "major_defects": [
     {
       "id": "focal_art",
@@ -21,7 +20,7 @@
     },
     {
       "id": "materials",
-      "finding": "Bright grid-shaped wetness blotches are reduced, but broad angular patches still make the floor appear faceted. The abrupt rectangular dry-road transition, whole-panel damage tint, primitive switch interface and flat surrounding surfaces remain below coherent material quality. No root cause is claimed from the lit image alone."
+      "finding": "The broad angular wetness breaks are repaired. The abrupt rectangular dry-road transition, whole-panel damage tint, primitive switch interface and flat surrounding surfaces still fall below coherent scene material quality."
     },
     {
       "id": "infection",
@@ -33,7 +32,7 @@
     }
   ],
   "unproven": [
-    "Current 720p ordinary input reaches the bay but records no power transition, panel event or electrical-floor damage; the 1080p run ends near entry. Package-04 ordinary consequence remains separately preserved. Package-07 fixture verifies native environment behaviors but does not establish the full evolving player+rival+infected+arena composition. No natural arena_pressure transition is observed.",
+    "Current 720p ordinary input approaches the bay but records no power transition, panel event or electrical-floor damage; the 1080p run ends near entry. Package-04 ordinary consequence remains separately preserved. Package-08 fixture verifies native environment behavior but does not establish the full evolving player+rival+infected+arena composition. No natural arena_pressure transition is observed.",
     "Interior, terrace and east-return beats were not reached before terminal state.",
     "HUD occlusion during required later dense-combat states remains unqualified.",
     "No final temporal-quality or raw audio qualification is claimed."
@@ -41,13 +40,12 @@
   "zero_major_defects": false,
   "scope": "Preserves accepted mechanics evidence; rejects current final visual quality. Does not reopen predecessor task acceptance.",
   "service_bay_editor_frames": [
-    "environment/editor-runtime-02/captures/switch_safe.png",
-    "environment/editor-runtime-02/captures/panel_damaged.png"
+    "environment/floor-diagnosis-03/lit/captures/switch_safe.png"
   ],
   "service_bay_limit": "Editor and installed-package automation position actors/camera and drive states. These frames validate the affected layer only; they are not a raw canonical-slice run or final acceptance.",
   "service_bay_packaged_frames": [
-    "environment/runtime-07/captures/switch_safe.png",
-    "environment/runtime-07/captures/hazard_active.png"
+    "environment/runtime-08/captures/switch_safe.png",
+    "environment/runtime-08/captures/hazard_active.png"
   ],
   "previous_frames": [
     "raw/hud-720-01/frame-13.png",
@@ -67,7 +65,11 @@
     "raw/sheath-hazard-1080-01/frame-04.png",
     "raw/sheath-hazard-720-02/frame-12.png",
     "raw/wet-floor-720-01/frame-12.png",
-    "raw/wet-floor-1080-01/frame-04.png"
+    "raw/wet-floor-1080-01/frame-04.png",
+    "raw/smooth-floor-720-01/frame-12.png",
+    "raw/smooth-floor-720-01/frame-17.png",
+    "raw/smooth-floor-720-01/frame-22.png",
+    "raw/smooth-floor-1080-01/frame-04.png"
   ],
   "service_bay_coordinate_defect": {
     "status": "FIXED_IN_CURRENT_ASSETS_AND_PACKAGE",
@@ -86,9 +88,16 @@
     "environment/runtime-04/captures/hazard_active.png",
     "environment/runtime-05/captures/switch_safe.png",
     "environment/runtime-06/captures/switch_safe.png",
-    "environment/runtime-06/captures/hazard_active.png"
+    "environment/runtime-06/captures/hazard_active.png",
+    "environment/runtime-07/captures/switch_safe.png",
+    "environment/runtime-07/captures/hazard_active.png"
   ],
-  "current_package_id": "2045bc24f85a3358cf5d6b55df69b34831e86cfebd88b09b2300bf94da9dd4a7",
-  "service_bay_editor_frames_scope": "Historical authoring observations. Current changed-art proof is assets-05 saved readback plus runtime-06 packaged fixture and package-06 ordinary raw frames.",
-  "next_action": "Isolate the service-floor base color, roughness and world-normal outputs in the existing editor runtime view to identify the remaining angular patches; repair the responsible material or imported-normal boundary, then validate the affected saved asset and packaged normal-camera output."
+  "current_package_id": "2b327215c81c8cb7186be4490daac1f9362799abfc34219f6730d809d0384949",
+  "service_bay_editor_frames_scope": "Current controlled editor material diagnosis uses the existing environment fixture. Exact assets-07 saved readback, runtime-08 packaged fixture and package-08 raw frames have separate identities; prior editor observations are retained in previous_editor_frames.",
+  "next_action": "Replace the flat green service-switch surface with an editable weathered control face driven by the existing BaseColor/Emission power parameters. Preserve the Switch component, transform, collision and interaction trace; validate saved-material readback, packaged power interaction and the normal approach camera.",
+  "previous_editor_frames": [
+    "environment/editor-runtime-02/captures/switch_safe.png",
+    "environment/editor-runtime-02/captures/panel_damaged.png"
+  ],
+  "floor_material_diagnosis": "environment/floor-diagnosis.json"
 }

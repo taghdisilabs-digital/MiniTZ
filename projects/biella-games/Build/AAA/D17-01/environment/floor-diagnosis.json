@@ -1,0 +1,135 @@
+{
+  "schema": "biella.games.d17.floor_material_diagnosis/v1",
+  "task_id": "D17-01",
+  "observed": "2026-09-08T16:11:43.789755+00:00",
+  "result": "LOCAL_DEFECT_REPAIRED_NOT_SLICE_ACCEPTANCE",
+  "baseline_source_commit": "fdad60240ebd296e95a593789cc0fb8ed7716124",
+  "baseline_package_id": "2045bc24f85a3358cf5d6b55df69b34831e86cfebd88b09b2300bf94da9dd4a7",
+  "before_source": {
+    "path": "SourceAssets/Materials/ServiceGround.hlsl",
+    "sha256": "70eb154fb50aeaa923587d482ed0a1c2303d782ccfb4e06cfc9d138c32245c9e",
+    "bytes": 3043,
+    "source_commit": "fdad60240ebd296e95a593789cc0fb8ed7716124"
+  },
+  "after_source": {
+    "path": "SourceAssets/Materials/ServiceGround.hlsl",
+    "sha256": "285c4c64e66cff4911856f7116b842d6656818277e4a515055d075dbb566d41c",
+    "bytes": 3371
+  },
+  "before_asset": {
+    "path": "Content/Environment/ServiceBay/M_ServiceGround.uasset",
+    "sha256": "2035e1840c480f322b690a19b1f27a4d9cbf8943dff02d02bd22c6dc413fac0f",
+    "bytes": 14136,
+    "source_commit": "fdad60240ebd296e95a593789cc0fb8ed7716124"
+  },
+  "after_asset": {
+    "path": "Content/Environment/ServiceBay/M_ServiceGround.uasset",
+    "sha256": "4125a89dce310038685c3f608af12d286d8846f58386829563f86ac29dcecead",
+    "bytes": 14855
+  },
+  "runtime_material_input_delta": [
+    "Content/Environment/ServiceBay/M_ServiceGround.uasset"
+  ],
+  "observations": [
+    {
+      "buffer": "WorldNormal",
+      "phase": "before",
+      "validation": {
+        "path": "Build/AAA/D17-01/environment/floor-diagnosis-02/world-normal/validation.json",
+        "sha256": "005d3770d9b20c3d4a493f3cf5ed92fbee8ce7da2c04468b7a3066b122a4ba78",
+        "bytes": 199171
+      },
+      "inspected_frame": {
+        "path": "Build/AAA/D17-01/environment/floor-diagnosis-02/world-normal/captures/switch_safe.png",
+        "sha256": "e9a1ddd4e3d23d9756c2e7071c8fae863e351eb5983488f866ec25f8ab455304",
+        "bytes": 208721
+      },
+      "scope": "EDITOR_FIXTURE_MATERIAL_DIAGNOSIS_NOT_SLICE_ACCEPTANCE"
+    },
+    {
+      "buffer": "Roughness",
+      "phase": "before",
+      "validation": {
+        "path": "Build/AAA/D17-01/environment/floor-diagnosis-02/roughness/validation.json",
+        "sha256": "ddc51dea8e4161a51ed762a3518cc499e15857d2537a0b51cf0d43ca181765a2",
+        "bytes": 199123
+      },
+      "inspected_frame": {
+        "path": "Build/AAA/D17-01/environment/floor-diagnosis-02/roughness/captures/switch_safe.png",
+        "sha256": "fdaa1c271a54333ebe8ce8e34cc1890dc8e566cfe614bed1ff645f19754c6c7f",
+        "bytes": 278615
+      },
+      "scope": "EDITOR_FIXTURE_MATERIAL_DIAGNOSIS_NOT_SLICE_ACCEPTANCE"
+    },
+    {
+      "buffer": "BaseColor",
+      "phase": "before",
+      "validation": {
+        "path": "Build/AAA/D17-01/environment/floor-diagnosis-02/base-color/validation.json",
+        "sha256": "1bed61905edf77480b5e32f6dbfcd0e33cb66b2c993b687ed2d7cdd59175d68e",
+        "bytes": 199140
+      },
+      "inspected_frame": {
+        "path": "Build/AAA/D17-01/environment/floor-diagnosis-02/base-color/captures/switch_safe.png",
+        "sha256": "73b1664fbaa7a0b12356b671be6c56aa6882b04bd59b8a7a14030d97418e6f93",
+        "bytes": 374048
+      },
+      "scope": "EDITOR_FIXTURE_MATERIAL_DIAGNOSIS_NOT_SLICE_ACCEPTANCE"
+    },
+    {
+      "buffer": "Roughness",
+      "phase": "after",
+      "validation": {
+        "path": "Build/AAA/D17-01/environment/floor-diagnosis-03/roughness/validation.json",
+        "sha256": "256d78874d79c7c1124361c6d4fc4aa923f87a62769c453eb9ed744bdcd0d33d",
+        "bytes": 199127
+      },
+      "inspected_frame": {
+        "path": "Build/AAA/D17-01/environment/floor-diagnosis-03/roughness/captures/switch_safe.png",
+        "sha256": "959ba07c72e940cdf086bf3fd413d03ef5281d8e2af8f2c547f2e35baae3943b",
+        "bytes": 247931
+      },
+      "scope": "EDITOR_FIXTURE_MATERIAL_DIAGNOSIS_NOT_SLICE_ACCEPTANCE"
+    },
+    {
+      "buffer": "Lit",
+      "phase": "after",
+      "validation": {
+        "path": "Build/AAA/D17-01/environment/floor-diagnosis-03/lit/validation.json",
+        "sha256": "cb0a08eb0c416560e8522d09c578a17ebe231147362b257851c23d6e150a3bb3",
+        "bytes": 198980
+      },
+      "inspected_frame": {
+        "path": "Build/AAA/D17-01/environment/floor-diagnosis-03/lit/captures/switch_safe.png",
+        "sha256": "b23cbe1a9ac7c4580636c64e65b593059f9516d567efcd6d1e554cdceaf5291a",
+        "bytes": 1121491
+      },
+      "scope": "EDITOR_FIXTURE_MATERIAL_DIAGNOSIS_NOT_SLICE_ACCEPTANCE"
+    }
+  ],
+  "findings": [
+    "Baseline WorldNormal is flat over slab interiors, with no angular field matching the lit defect; visible joints and bevel edges remain.",
+    "Baseline Roughness and BaseColor show the angular breaks before lighting, isolating the defect to the material noise field rather than imported slab normals.",
+    "Replacing only the floating-point sine hash with an integer lattice hash removes the broad angular breaks in the post-change Roughness and Lit views. Wet and dry fields now vary continuously across slab interiors."
+  ],
+  "causal_limit": "Controlled source/material change and channel captures establish the repair boundary. No specific generated GPU instruction or compiler precision transformation was diagnosed.",
+  "preserved": "386 runtime identity entries remain unchanged between diagnostic runs except M_ServiceGround.uasset. Geometry, imported normals, authoring script, native executable and fixture behavior are preserved.",
+  "asset_readback": {
+    "path": "Build/AAA/D17-01/environment/assets-07/validation.json",
+    "sha256": "c13fbaac1aa17cc82729c88ca181a69527cbc2cc42649a7b4618cb418b47722e",
+    "bytes": 3742
+  },
+  "failed_diagnostic": {
+    "validation": {
+      "path": "Build/AAA/D17-01/environment/floor-diagnosis-01/world-normal/validation.json",
+      "sha256": "374f7c6b0ff486adfdb2ebe0c0d76aa5ae38d7a9a3847e6a8dfb15e6d924d861",
+      "bytes": 99507
+    },
+    "excluded_from_channel_evidence": true,
+    "reason": "UE5.8 rejected viewmode buffervisualization; rerun with the engine-supported VisualizeBuffer token."
+  },
+  "limits": [
+    "Editor diagnostics use the existing environment fixture, not ordinary input or continuous-slice proof.",
+    "A repaired local moisture field does not satisfy all scene material, lighting, focal-art, infection or density requirements."
+  ]
+}

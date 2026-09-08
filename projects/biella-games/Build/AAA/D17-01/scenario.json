@@ -213,8 +213,8 @@
     },
     {
       "path": "SourceAssets/Materials/ServiceGround.hlsl",
-      "sha256": "70eb154fb50aeaa923587d482ed0a1c2303d782ccfb4e06cfc9d138c32245c9e",
-      "bytes": 3043
+      "sha256": "285c4c64e66cff4911856f7116b842d6656818277e4a515055d075dbb566d41c",
+      "bytes": 3371
     },
     {
       "path": "SourceAssets/Environment/SM_ServiceGround.fbx",
@@ -223,8 +223,8 @@
     },
     {
       "path": "Content/Environment/ServiceBay/M_ServiceGround.uasset",
-      "sha256": "2035e1840c480f322b690a19b1f27a4d9cbf8943dff02d02bd22c6dc413fac0f",
-      "bytes": 14136
+      "sha256": "4125a89dce310038685c3f608af12d286d8846f58386829563f86ac29dcecead",
+      "bytes": 14855
     },
     {
       "path": "Content/Environment/ServiceBay/SM_ServiceGround.uasset",
@@ -240,28 +240,28 @@
     "Build/AAA/D17-01/raw/hud-1080-01/observation.json"
   ],
   "current_raw_runs": [
-    "Build/AAA/D17-01/raw/smooth-floor-720-01/observation.json",
-    "Build/AAA/D17-01/raw/smooth-floor-1080-01/observation.json"
+    "Build/AAA/D17-01/raw/integer-floor-720-01/observation.json",
+    "Build/AAA/D17-01/raw/integer-floor-1080-01/observation.json"
   ],
-  "current_package_status": "Package-07 corrects only the saved ground material: warped multi-scale wetness, restrained albedo contrast and filtered object-space aggregate normals. A ground-only authoring mode verifies all other saved assets remain unchanged. The current cook/archive/install and environment fixture pass; geometry and native builds match package-06. Close comparison shows reduced bright rectangular blotches but persistent broad angular patches, also visible in the normal approach camera. This remains rejected candidate art.",
+  "current_package_status": "Package-08 changes only M_ServiceGround.uasset through an integer lattice hash in the editable ground shader. Controlled WorldNormal/Roughness/BaseColor diagnostics isolate the angular discontinuity to the material noise field; post-fix Roughness, lit fixture and ordinary 720p approach views show continuous wetness. Saved readback, fresh cook/archive/install and environment fixture pass. Geometry, native executable and gameplay behavior remain unchanged. Other major visual defects remain; this is rejected candidate art.",
   "scope_findings": "Build/AAA/D17-01/environment/scope-findings.json",
   "current_package": {
-    "package_id": "2045bc24f85a3358cf5d6b55df69b34831e86cfebd88b09b2300bf94da9dd4a7",
+    "package_id": "2b327215c81c8cb7186be4490daac1f9362799abfc34219f6730d809d0384949",
     "archive": {
-      "bytes": 483664602,
-      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-07.tar.zst",
-      "sha256": "852766ae5ecf2a53238b9536f90730e1dfcd5fbabf155d1df99f28ca438f1b0e"
+      "bytes": 483686863,
+      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-08.tar.zst",
+      "sha256": "1a7df8cc72ba9b70d7b99b22f3f4e1dfe059eb65dbca5c81263083f5e3945108"
     },
-    "source_material_digest": "3ad39b6aae773f4149288d87ae2baf838884c981dac8ec1d2c06db3e84356012",
+    "source_material_digest": "2f7a047eae0d59b8010913aa0e58fc5e2f2cb13940988578ca641c3f64b0f5e2",
     "manifest": {
-      "path": "Build/AAA/D17-01/build/package-07/package-manifest.json",
-      "sha256": "655ef8d8ea019829c077b73c137a1643769d575400ae3eeb6b2af00c465bf24e",
+      "path": "Build/AAA/D17-01/build/package-08/package-manifest.json",
+      "sha256": "cadf249cc1c68368a6d964d34f552c19e9f406411664185c8d5506a7807ad115",
       "bytes": 8669
     },
     "overlay": false
   },
   "route_feasibility_probe": "Build/AAA/D17-01/raw/route-rival-01/observation.json",
-  "observed_route_limits": "Package-07 720p reaches Success at 22.60887735610595 active seconds after reaching the bay. Its 25 inputs include an interaction attempt and three shots, but native logs record no power transition, panel event or electrical-floor damage. The 1080p run shows player/rival/infected and reaches Success at 9.010236388945486 seconds. Interior/terrace/east-return and 600\u20131200 active seconds remain unqualified. Historical package-04 consequence retains its own exact source/package identity.",
+  "observed_route_limits": "Package-08 720p reaches native Success at 15.935191704833414 active seconds after approaching the bay. Its 21 ordinary inputs include an interaction attempt and three shots, without a native power transition, panel event or electrical-floor damage. The 1080p run shows player/rival/infected at entry and reaches Success at 8.907017945253756 seconds. Interior/terrace/east-return and 600\u20131200 active seconds remain unqualified. Historical package-04 consequence retains its exact source/package identity.",
   "previous_service_candidate": {
     "source_commit": "0242b38e31451f24d51175fc4050172122c28a3a",
     "package": {
@@ -284,7 +284,7 @@
       "Build/AAA/D17-01/raw/service-1080-01/observation.json"
     ]
   },
-  "current_environment_probe": "Build/AAA/D17-01/raw/smooth-floor-720-01/observation.json",
+  "current_environment_probe": "Build/AAA/D17-01/raw/integer-floor-720-01/observation.json",
   "previous_coordinate_candidate": {
     "source_commit": "5854ebea89bd581418924397bacbfc6ac7612db0",
     "package": {
@@ -377,5 +377,28 @@
       "Build/AAA/D17-01/raw/wet-floor-720-01/observation.json",
       "Build/AAA/D17-01/raw/wet-floor-1080-01/observation.json"
     ]
-  }
+  },
+  "previous_smooth_candidate": {
+    "source_commit": "fdad60240ebd296e95a593789cc0fb8ed7716124",
+    "package": {
+      "package_id": "2045bc24f85a3358cf5d6b55df69b34831e86cfebd88b09b2300bf94da9dd4a7",
+      "archive": {
+        "bytes": 483664602,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-07.tar.zst",
+        "sha256": "852766ae5ecf2a53238b9536f90730e1dfcd5fbabf155d1df99f28ca438f1b0e"
+      },
+      "source_material_digest": "3ad39b6aae773f4149288d87ae2baf838884c981dac8ec1d2c06db3e84356012",
+      "manifest": {
+        "path": "Build/AAA/D17-01/build/package-07/package-manifest.json",
+        "sha256": "655ef8d8ea019829c077b73c137a1643769d575400ae3eeb6b2af00c465bf24e",
+        "bytes": 8669
+      },
+      "overlay": false
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/smooth-floor-720-01/observation.json",
+      "Build/AAA/D17-01/raw/smooth-floor-1080-01/observation.json"
+    ]
+  },
+  "floor_material_diagnosis": "Build/AAA/D17-01/environment/floor-diagnosis.json"
 }

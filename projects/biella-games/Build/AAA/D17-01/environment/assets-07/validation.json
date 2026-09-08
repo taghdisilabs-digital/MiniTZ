@@ -1,0 +1,102 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "runs": [
+    {
+      "command": [
+        "runuser",
+        "-u",
+        "unreal",
+        "--",
+        "env",
+        "BIELLA_D17_SERVICE_REPORT=/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/assets-07/author.json",
+        "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+        "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+        "-run=pythonscript",
+        "-script=/root/biella/repos/biella-engine/projects/biella-games/Content/Python/author_service_bay.py",
+        "-EnablePlugins=PythonScriptPlugin",
+        "-unattended",
+        "-nullrhi",
+        "-nosound",
+        "-nop4",
+        "-stdout",
+        "-FullStdOutLogOutput",
+        "-D17GroundOnly"
+      ],
+      "pid": 3645555,
+      "returncode": 0,
+      "timed_out": false,
+      "timeout_seconds": 600,
+      "elapsed_seconds": 12.469,
+      "log": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/assets-07/author.log",
+        "sha256": "cbaf13e42b9253459007f535976315725672ed2366fe4db2d67140a1475a90c8",
+        "bytes": 217074
+      }
+    },
+    {
+      "command": [
+        "runuser",
+        "-u",
+        "unreal",
+        "--",
+        "env",
+        "BIELLA_D17_SERVICE_REPORT=/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/assets-07/readback.json",
+        "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+        "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+        "-run=pythonscript",
+        "-script=/root/biella/repos/biella-engine/projects/biella-games/Content/Python/author_service_bay.py",
+        "-EnablePlugins=PythonScriptPlugin",
+        "-unattended",
+        "-nullrhi",
+        "-nosound",
+        "-nop4",
+        "-stdout",
+        "-FullStdOutLogOutput",
+        "-D17VerifyServiceBay",
+        "-D17GroundOnly"
+      ],
+      "pid": 3646749,
+      "returncode": 0,
+      "timed_out": false,
+      "timeout_seconds": 600,
+      "elapsed_seconds": 11.861,
+      "log": {
+        "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/assets-07/readback.log",
+        "sha256": "65432d5f203d6bf6943a571feebc3685826337ff0425d5f40298563c7ac5f110",
+        "bytes": 215350
+      }
+    }
+  ],
+  "sources": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Python/author_service_bay.py",
+      "sha256": "987d07b2fc8e4574c4c6b8e9d99004ce23be610e521f1aa3c21cddbd68dc0962",
+      "bytes": 14942
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/service-bay.json",
+      "sha256": "bf0b5d16bd67c52e31f7091d396ef0cba45446d6cffe2fee2d50703b276c4f54",
+      "bytes": 2730
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Materials/ServiceSurface.hlsl",
+      "sha256": "cdcd11ff86ed9f23d199915f2a01a71cd109c2ba09c865d664738b1b33f3fd85",
+      "bytes": 2129
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Materials/ServiceGround.hlsl",
+      "sha256": "285c4c64e66cff4911856f7116b842d6656818277e4a515055d075dbb566d41c",
+      "bytes": 3371
+    }
+  ],
+  "changed_assets": {
+    "Content/Environment/ServiceBay/M_ServiceGround.uasset": {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Content/Environment/ServiceBay/M_ServiceGround.uasset",
+      "sha256": "4125a89dce310038685c3f608af12d286d8846f58386829563f86ac29dcecead",
+      "bytes": 14855
+    }
+  },
+  "preexisting_other_assets_unchanged": true,
+  "ground_only": true
+}

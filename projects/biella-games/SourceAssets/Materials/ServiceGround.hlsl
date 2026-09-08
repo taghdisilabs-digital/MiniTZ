@@ -2,7 +2,14 @@
 // Static material response only: no displacement, collision, or game state.
 struct FGroundNoise
 {
-    float Hash(float2 p) { return frac(sin(dot(p,float2(127.1,311.7)))*43758.5453); }
+    // Integer lattice hashing avoids transcendental/large-multiplier rounding
+    // in the moisture field. Neighboring cells share exactly the same corners.
+    float Hash(float2 p) {
+        uint2 cell=asuint(int2(p));
+        uint h=cell.x*0x9e3779b9u ^ cell.y*0x85ebca6bu;
+        h^=h>>16; h*=0x7feb352du; h^=h>>15; h*=0x846ca68bu; h^=h>>16;
+        return float(h & 0x00ffffffu)*(1.0/16777216.0);
+    }
     float Value(float2 p) {
         float2 i=floor(p), f=frac(p); f=f*f*f*(f*(f*6.0-15.0)+10.0);
         return lerp(lerp(Hash(i),Hash(i+float2(1,0)),f.x),
@@ -44,9 +51,9 @@ OutRough=lerp(lerp(.78,.39,inside)+grit*.025,.095,puddle);
 float lens=inside*step(13.0,edge)*step(edge,15.0)*step(.72,frac((p.x+p.y)*.025));
 OutColor=lerp(OutColor,float3(.065,.029,.007),lens);
 OutEmission=lens*saturate(Powered)*float3(2.8,.43,.012);
-// Object-stable small aggregate relief. Screen-quad derivatives of the previous
-// thresholded wet height produced rectangular normal patches in the raw view.
-// Sample the smooth height field directly, fading detail with pixel footprint.
+// Object-stable small aggregate relief. Sample the smooth height field directly,
+// fading detail with pixel footprint. G-buffer diagnostics distinguish moisture
+// discontinuities from normals instead of inferring their cause from lit views.
 float2 detail=p*.14;
 float filtered=1.0-smoothstep(.20,.50,max(length(ddx(detail)),length(ddy(detail))));
 float2 slope=float2(
