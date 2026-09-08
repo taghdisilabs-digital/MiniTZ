@@ -1,0 +1,58 @@
+{
+  "schema": "biella.hall_interior/v1",
+  "task_id": "D17-01",
+  "status": "GENERATED_DRAFT",
+  "provenance": "Biella-authored geometry; retained Biella ServiceBay materials",
+  "map": "/Game/Maps/BiellaOpenWorldMap",
+  "actor_label": "D17_Hall_Interior",
+  "origin_cm": [
+    8000,
+    2250,
+    0
+  ],
+  "collision": "NoCollision",
+  "mesh": "SM_HallInterior",
+  "source": "build_hall_interior.py",
+  "source_sha256": "c58ca07b6114d940b570702a4ee6a95cdee6a6eebf94d9470b994a383104d59d",
+  "fbx": "SM_HallInterior.fbx",
+  "sha256": "fefe460132af1292dca6da03dfe87cbd2a5a33c80227a716a4b7685911577a1c",
+  "blender": "5.0.1",
+  "editable_parts": 382,
+  "triangles": 86024,
+  "bounds_min": [
+    -1006.5,
+    -752.0,
+    -1.0
+  ],
+  "bounds_max": [
+    1006.5,
+    764.0,
+    651.0
+  ],
+  "material_slots": [
+    "Paint",
+    "Steel",
+    "Rubber"
+  ],
+  "export_y_reflected": true,
+  "outward_volume_preserved": true,
+  "retained_envelopes": {
+    "floor_top_cm": 0,
+    "west_face_cm": -1000,
+    "east_face_cm": 1000,
+    "back_face_cm": 750,
+    "roof_soffit_cm": 650
+  },
+  "clear_route_min_cm": [
+    -199,
+    -850,
+    0.6
+  ],
+  "clear_route_max_cm": [
+    199,
+    680,
+    220
+  ],
+  "floor_detail_max_height_cm": 0.5,
+  "scope": "Fitted hall ribs, roof beams, supported cable trays and flush floor access plates; no changes to retained collision, light, materials or gameplay."
+}

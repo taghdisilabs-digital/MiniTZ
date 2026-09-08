@@ -1,0 +1,73 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "parts_read_back": 382,
+  "triangles": 86024,
+  "bounds_min": [
+    -1006.5,
+    -752.0,
+    -1.0
+  ],
+  "bounds_max": [
+    1006.5,
+    764.0,
+    651.0
+  ],
+  "materials": [
+    "Paint",
+    "Rubber",
+    "Steel"
+  ],
+  "roof_soffit_cm": 650,
+  "world_top_cm": 651.0,
+  "directly_supported_parts": 106,
+  "connected_supported_parts": 382,
+  "unsupported_parts": [],
+  "clear_route_intersections": [],
+  "clear_route_min_cm": [
+    -199,
+    -850,
+    0.6
+  ],
+  "clear_route_max_cm": [
+    199,
+    680,
+    220
+  ],
+  "floor_detail_parts": 80,
+  "floor_detail_max_height_cm": 0.5,
+  "actual_blender_magic": true,
+  "blender_compression": "zstd",
+  "actual_binary_fbx_magic": true,
+  "evaluated_modifiers": true,
+  "generated_draft": true,
+  "slice_acceptance": false,
+  "scope": "Editable geometry, envelope contacts and clear passage; native traversal and visible quality verified separately",
+  "sources": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/HallInterior.blend",
+      "sha256": "8fd0474a343a27cc31db68827a3218665122fcba138f519159e6ac71aed64552",
+      "bytes": 257319
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/SM_HallInterior.fbx",
+      "sha256": "fefe460132af1292dca6da03dfe87cbd2a5a33c80227a716a4b7685911577a1c",
+      "bytes": 1214348
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/build_hall_interior.py",
+      "sha256": "c58ca07b6114d940b570702a4ee6a95cdee6a6eebf94d9470b994a383104d59d",
+      "bytes": 8516
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/hall-interior.json",
+      "sha256": "3a727228a1366883e7c395c5daec26b916e07b345a282b514a8d95d0a864f685",
+      "bytes": 1388
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/verify_hall_interior.py",
+      "sha256": "cafbd6a098cf47763e914ed92d070aa771421d852bd541591e908cebbdb92aa5",
+      "bytes": 4698
+    }
+  ]
+}

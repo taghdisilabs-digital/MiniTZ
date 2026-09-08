@@ -1,0 +1,141 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "status": "GENERATED_DRAFT",
+  "read_only": false,
+  "spec_sha256": "3a727228a1366883e7c395c5daec26b916e07b345a282b514a8d95d0a864f685",
+  "map": "/Game/Maps/BiellaOpenWorldMap",
+  "mesh": "/Game/Environment/ServiceHall/SM_HallInterior.SM_HallInterior",
+  "triangles": 86024,
+  "bounds_min": [
+    -1006.5,
+    -752.0000610351562,
+    -1.0
+  ],
+  "bounds_max": [
+    1006.5,
+    764.0000610351562,
+    651.0
+  ],
+  "materials": [
+    "Paint",
+    "Steel",
+    "Rubber"
+  ],
+  "collision_boxes": 0,
+  "supports": {
+    "D02_Interior_West": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616332423",
+      "location_cm": [
+        6975,
+        2250,
+        300
+      ],
+      "scale": [
+        0.5,
+        15,
+        6
+      ],
+      "collision": "BlockAll",
+      "material": "/Game/Environment/ServiceBay/MI_ServicePaint.MI_ServicePaint"
+    },
+    "D02_Interior_East": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616332424",
+      "location_cm": [
+        9025,
+        2250,
+        300
+      ],
+      "scale": [
+        0.5,
+        15,
+        6
+      ],
+      "collision": "BlockAll",
+      "material": "/Game/Environment/ServiceBay/MI_ServicePaint.MI_ServicePaint"
+    },
+    "D02_Interior_Back": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616331422",
+      "location_cm": [
+        8000,
+        3025,
+        300
+      ],
+      "scale": [
+        21,
+        0.5,
+        6
+      ],
+      "collision": "BlockAll",
+      "material": "/Game/Environment/ServiceBay/MI_ServicePaint.MI_ServicePaint"
+    },
+    "D02_Interior_DoorWest": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616333425",
+      "location_cm": [
+        7400,
+        1500,
+        300
+      ],
+      "scale": [
+        8,
+        0.5,
+        6
+      ],
+      "collision": "BlockAll",
+      "material": "/Game/Environment/ServiceBay/MI_ServicePaint.MI_ServicePaint"
+    },
+    "D02_Interior_DoorEast": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616333426",
+      "location_cm": [
+        8600,
+        1500,
+        300
+      ],
+      "scale": [
+        8,
+        0.5,
+        6
+      ],
+      "collision": "BlockAll",
+      "material": "/Game/Environment/ServiceBay/MI_ServicePaint.MI_ServicePaint"
+    },
+    "D02_Interior_Roof": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616334427",
+      "location_cm": [
+        8000,
+        2250,
+        675
+      ],
+      "scale": [
+        21,
+        15.5,
+        0.5
+      ],
+      "collision": "BlockAll",
+      "material": "/Game/Environment/ServiceBay/MI_ServicePaint.MI_ServicePaint"
+    },
+    "D02_Interior_Floor": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616330421",
+      "location_cm": [
+        8000,
+        2250,
+        -50
+      ],
+      "scale": [
+        20,
+        15,
+        1
+      ],
+      "collision": "BlockAll",
+      "material": "/Game/OpenWorld/Materials/MI_Interior.MI_Interior"
+    }
+  },
+  "preexisting_actor_identities_preserved": true,
+  "edited_actor_paths": {
+    "D17_Hall_Interior": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746D9FF02_1961899967"
+  },
+  "edited_actor_packages": [
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/C/ZH/XSZB5N3GI0AUU2K71P4X85"
+  ],
+  "scope": "Fitted hall interior detail; unchanged supporting envelopes, collision, lights and gameplay; no slice acceptance"
+}

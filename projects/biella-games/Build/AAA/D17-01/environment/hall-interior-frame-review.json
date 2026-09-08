@@ -1,0 +1,28 @@
+{
+  "editor_frames": [
+    "environment/hall-interior-streaming-01/captures/interior.png",
+    "environment/hall-interior-streaming-01/captures/terrace.png"
+  ],
+  "excluded": [],
+  "observations": [
+    "Controlled normal-camera interior traversal shows vertical ribs, framed lower-wall lining and the upper conduit. The overhead trays are outside the inspected interior camera; their presence/support is verified by geometry and native readback, not these pixels.",
+    "The retained warm practical lights a broad golden floor. Access plates appear as nearly black rectangular strips with mottled reflections; surrounding interior space remains sparse.",
+    "The terrace remains a broad empty roof under soft grey cloud bands. The inspected ordinary frames show a wide empty street, repeated facades, blue player mannequin, yellow rival, red mannequin/primitive infected and a block-like weapon.",
+    "Installed Environment views show the bay on a wet jointed apron, the muted warm hall entrance, dark red smooth growth and panel destruction. This fixture verifies retained environment behavior separately from ordinary-input encounter proof.",
+    "The 1280x720 ordinary-input run reached native Failure after 14.800037 active seconds and 17 input actions; it recorded 1 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. The 1920x1080 ordinary-input run reached native Success after 8.724226 active seconds and 5 input actions; it recorded 0 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. Both have zero restarts, zero arena-pressure events and no captured audio. Neither establishes 600\u20131200 active seconds, the later route or the full evolving arena consequence. Historical outcomes retain their original package identity."
+  ],
+  "ordinary_frames": [
+    "raw/hall-interior-720-01/frame-04.png",
+    "raw/hall-interior-720-01/frame-15.png",
+    "raw/hall-interior-1080-01/frame-07.png",
+    "raw/hall-interior-1080-01/frame-10.png"
+  ],
+  "package_frames": [
+    "environment/runtime-16/captures/switch_safe.png",
+    "environment/runtime-16/captures/panel_destroyed.png"
+  ],
+  "package_id": "3434ab980ea68750798b9276a135d06b8b50adeb33faf02ef7c714cfc88e8849",
+  "reviewed": true,
+  "scope": "Manual inspection of decoded ordinary gameplay frames, current editor traversal and installed Environment fixture; not final visual or full-route acceptance.",
+  "task_id": "D17-01"
+}

@@ -1,0 +1,234 @@
+{
+  "archive": {
+    "bytes": 502686588,
+    "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-16.tar.zst",
+    "sha256": "96a2e8baedf991a10d2c5884cabaa13ba392666af8f3508d3a454c4c3dcf9f15"
+  },
+  "binary": "BiellaGames/Binaries/Linux/BiellaGames",
+  "binary_format": "ELF64-x86_64",
+  "configuration": "Development",
+  "engine_version": "5.8.2",
+  "entrypoint": "BiellaGames.sh",
+  "files": [
+    {
+      "bytes": 299185984,
+      "executable": true,
+      "path": "BiellaGames/Binaries/Linux/BiellaGames",
+      "sha256": "784a93e01da177765c30a92d845254eb0b9b126a0bce8b8b39286914a4bd4900"
+    },
+    {
+      "bytes": 11080414,
+      "executable": false,
+      "path": "BiellaGames/Content/Paks/BiellaGames-Linux.pak",
+      "sha256": "7c3faa9efc3d1bf66b49f3a402af49243a0378e552e88648fb4ea3af53d4192f"
+    },
+    {
+      "bytes": 339765856,
+      "executable": false,
+      "path": "BiellaGames/Content/Paks/BiellaGames-Linux.ucas",
+      "sha256": "825140bc7c4c184387b31035ea8c2203580a9bb410cd55cc4697fcdefc2dd093"
+    },
+    {
+      "bytes": 281475,
+      "executable": false,
+      "path": "BiellaGames/Content/Paks/BiellaGames-Linux.utoc",
+      "sha256": "3212a8a347ccd423a48a634ed206a820dbd65dd719351491912cb7088c812442"
+    },
+    {
+      "bytes": 3207088,
+      "executable": false,
+      "path": "BiellaGames/Content/Paks/global.ucas",
+      "sha256": "b3ce3495e88226d9c2864f34e369672f11561a0af5cbaa5f9c4e401d13210b3f"
+    },
+    {
+      "bytes": 782,
+      "executable": false,
+      "path": "BiellaGames/Content/Paks/global.utoc",
+      "sha256": "24d21e7f1d88d84875d365bedbef5bcac91d0ea1627f4ef6b51c45515388b474"
+    },
+    {
+      "bytes": 5085,
+      "executable": false,
+      "path": "BiellaGames/Content/UI/ST_BiellaRuntime.json",
+      "sha256": "fe0b1ffc9339711122f8a848784497b45cc27368740569d03406bba2780fc2a7"
+    },
+    {
+      "bytes": 258,
+      "executable": true,
+      "path": "BiellaGames.sh",
+      "sha256": "0f758fc1d431fca29cae27ecf35820d9ea70864532c0959f2d578e5216f68c46"
+    },
+    {
+      "bytes": 23,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so",
+      "sha256": "51aec15c714c5d96969f6a7608cdefc5c163e7fec0b2e0974ec1382380d11c5e"
+    },
+    {
+      "bytes": 9715408,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so.2",
+      "sha256": "ed3698c20005885c61a20f04ba772e329f67855713f5fecb26152a8f949ad280"
+    },
+    {
+      "bytes": 12512,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_api_dump.json",
+      "sha256": "4616e485e4dacaa8c1ef365fed23d2c117e8848148720a7acea70c96cb975179"
+    },
+    {
+      "bytes": 9170,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_crash_diagnostic.json",
+      "sha256": "77b6e62bc24994b056e316aa0bd5e056e8ff0dfa377ef1e0ec5b291a181b6a88"
+    },
+    {
+      "bytes": 26755,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_gfxreconstruct.json",
+      "sha256": "93065b7975a70a250569bfce2ee655bf6bc188a7844204d2c37700a770afb02e"
+    },
+    {
+      "bytes": 69029,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_profiles.json",
+      "sha256": "88deb508a3d16131cd747335063826a31f237e024f396542c05908b44760b895"
+    },
+    {
+      "bytes": 4356,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_shader_object.json",
+      "sha256": "1c6dd4b56db0e2dc4a7eb1e44e7ad933f399685436c644add05dadf4258e6b1d"
+    },
+    {
+      "bytes": 1860,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_synchronization2.json",
+      "sha256": "307c8b906289b7a3329fb44137dd3af595d91f26e5bde9cff1b4280801a45139"
+    },
+    {
+      "bytes": 94443,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_validation.json",
+      "sha256": "328861629130912c27f1db4f2be4fa3d64608ca7edf6f3d886c09cb5856834cc"
+    },
+    {
+      "bytes": 109065264,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_api_dump.so",
+      "sha256": "1b9871125c6f9afb2b0f09adbe3af3049a20837dca80ccea5d642be4dec31474"
+    },
+    {
+      "bytes": 13228088,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_crash_diagnostic.so",
+      "sha256": "99dda3ecafd809f0de42453536a2ea6299ac6216db9352e301065542e6685fbf"
+    },
+    {
+      "bytes": 99440744,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_gfxreconstruct.so",
+      "sha256": "2e8397383a72eb200e99a560a2b58947b8a0dc6cef3d1fe67245674df0d9e546"
+    },
+    {
+      "bytes": 2226960,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_profiles.so",
+      "sha256": "e2e9422a15730cd14904a0d27bbd7d463b5598fc7ffa1744d14fc47ce0dc87bf"
+    },
+    {
+      "bytes": 4174536,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_shader_object.so",
+      "sha256": "da3db6756cccaf502dab09a3de0cece49168654f7735612bb51f7555ef9f7cda"
+    },
+    {
+      "bytes": 5290240,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_synchronization2.so",
+      "sha256": "daa4bf2da5600deeff440b4c98fc3d68ba04121fdbb2f21d3463126c8d0a2c99"
+    },
+    {
+      "bytes": 37821704,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_validation.so",
+      "sha256": "cbecbd0d82217a789a3c3e1493cc60cb7cc036df8f22a0501af9b8ca23342e81"
+    },
+    {
+      "bytes": 4210872,
+      "executable": true,
+      "path": "Engine/Binaries/ThirdParty/Vulkan/Linux/libvulkan.so",
+      "sha256": "d59b6a2b184887fb6eddea3dd754bd2f5b59abc647577c3cd71bb530213ebbb0"
+    },
+    {
+      "bytes": 3,
+      "executable": false,
+      "path": "Engine/Config/StagedBuild_BiellaGames.ini",
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5"
+    },
+    {
+      "bytes": 259568,
+      "executable": true,
+      "path": "Engine/Content/Renderer/TessellationTable.bin",
+      "sha256": "edc4f3b628a139c5e185bbaeca661c95c1f427368d3b92892c5cff36c56dd941"
+    },
+    {
+      "bytes": 22146944,
+      "executable": true,
+      "path": "Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c"
+    },
+    {
+      "bytes": 22146944,
+      "executable": true,
+      "path": "Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so.1.24",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c"
+    },
+    {
+      "bytes": 2175,
+      "executable": false,
+      "path": "Manifest_NonUFSFiles_Linux.txt",
+      "sha256": "167924270c432ea25a1a6b30c5074c995446490c0fddffebbaa46561786e153c"
+    },
+    {
+      "bytes": 231682,
+      "executable": false,
+      "path": "Manifest_UFSFiles_Linux.txt",
+      "sha256": "6c12052c5d00bf07f1b7cda2d4c7aefcf6563bf6c709f44c6c1d4d74086595a4"
+    },
+    {
+      "bytes": 111,
+      "executable": true,
+      "path": "NOTICES.txt",
+      "sha256": "ba49ae5586f817b36a2772269f71f899cb1f54b5f2720fad951319edd5e140b8"
+    },
+    {
+      "bytes": 1334,
+      "executable": false,
+      "path": "ThirdPartyNotices/libsamplerate-COPYING.txt",
+      "sha256": "2c1f76ce2effdddb425018405d5690c0b1ab4e6976e35296b0a6db65c5e1a55d"
+    },
+    {
+      "bytes": 1091,
+      "executable": false,
+      "path": "ThirdPartyNotices/mimalloc-LICENSE.txt",
+      "sha256": "d9f5607dce0f93055be57077d1b9545e5b14d5814d8c99d6e1d0a5eff2f74c89"
+    }
+  ],
+  "package_id": "3434ab980ea68750798b9276a135d06b8b50adeb33faf02ef7c714cfc88e8849",
+  "platform": "Linux",
+  "project": "BiellaGames",
+  "qualification": "DIAGNOSTIC_ONLY_NOT_WIN64_RC",
+  "schema": "biella.d08.package/v1",
+  "source_manifest": {
+    "bytes": 78921,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/build/package-16/source-build.json",
+    "sha256": "0be110ce65a48d3be62cfd592d50f520b800ce6f2ad1dee4411a6e24efbc28ed"
+  },
+  "source_material_digest": "5ad6b7189649745948e50b32d74fdc96aa87bcdb193c252aa968c9b507153388",
+  "stage_receipt": {
+    "bytes": 20988,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/build/stage-20/validation.json",
+    "sha256": "ae41026d73bb16a78374e10a99cfa9ac16faee22fee5d99a54779e1394a079db"
+  }
+}

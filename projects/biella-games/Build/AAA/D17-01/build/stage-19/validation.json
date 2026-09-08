@@ -1,0 +1,39 @@
+{
+  "task_id": "D17-01",
+  "result": "FAIL",
+  "revision": {
+    "head": "3ea84e26fa2fda006a30cb6b06f40d64542d8896",
+    "head_tree": "442e82e71adf2281f8e433e92a3bea505efa118b",
+    "project_status": [
+      " M Content/Maps/BiellaOpenWorldMap.umap",
+      " M tests/qualify_d17_01.py",
+      "?? Build/AAA/D17-01/environment/hall-interior-author-01/",
+      "?? Build/AAA/D17-01/environment/hall-interior-geometry-01.json",
+      "?? Build/AAA/D17-01/environment/hall-interior-streaming-01/",
+      "?? Content/Environment/ServiceHall/SM_HallInterior.uasset",
+      "?? Content/Python/author_hall_interior.py",
+      "?? Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/ZH/",
+      "?? SourceAssets/Environment/HallInterior.blend",
+      "?? SourceAssets/Environment/SM_HallInterior.fbx",
+      "?? SourceAssets/Environment/build_hall_interior.py",
+      "?? SourceAssets/Environment/hall-interior.json",
+      "?? SourceAssets/Environment/verify_hall_interior.py",
+      "?? tests/author_d17_01_hall_interior.py"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "cook": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/build/cook-17/validation.json",
+    "sha256": "d14d2e5ef561ac387d21ae5e85005e5eca7da0c1de8a3dfc1580c8e0101d7f0a",
+    "bytes": 19771065
+  },
+  "destination": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-17/stage-19-archive",
+  "capture_status": "GENERATED_DRAFT",
+  "uat_temporary": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-17/stage-19-tmp",
+  "uat_saved_directory": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-17/stage-19-tmp/AutomationToolSaved",
+  "zen_data": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-17/cook-ddc/Zen",
+  "stage_directory": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-17/stage-19-staged",
+  "returncode": 1,
+  "error": "UAT stage failed; inspect stage.log",
+  "elapsed_seconds": 3.0700539250392467
+}

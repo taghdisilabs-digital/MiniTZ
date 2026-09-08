@@ -1,0 +1,42 @@
+{
+  "binary": {
+    "bytes": 299185984,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/3434ab980ea68750798b9276a135d06b8b50adeb33faf02ef7c714cfc88e8849/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "784a93e01da177765c30a92d845254eb0b9b126a0bce8b8b39286914a4bd4900"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/3434ab980ea68750798b9276a135d06b8b50adeb33faf02ef7c714cfc88e8849/payload",
+  "manifest": {
+    "bytes": 8669,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/3434ab980ea68750798b9276a135d06b8b50adeb33faf02ef7c714cfc88e8849/manifest.json",
+    "sha256": "b9ebe752b1a1f41c9beaed3b10b31bd38cac2aad44ac7b7c2532358b3a37d13d"
+  },
+  "package_id": "3434ab980ea68750798b9276a135d06b8b50adeb33faf02ef7c714cfc88e8849",
+  "platform": "Linux",
+  "scope": "Byte-verified Linux Development package; not visual acceptance or Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "3ea84e26fa2fda006a30cb6b06f40d64542d8896",
+    "head_tree": "442e82e71adf2281f8e433e92a3bea505efa118b",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      " M Content/Maps/BiellaOpenWorldMap.umap",
+      " M tests/qualify_d17_01.py",
+      "?? Build/AAA/D17-01/environment/hall-interior-author-01/",
+      "?? Build/AAA/D17-01/environment/hall-interior-geometry-01.json",
+      "?? Build/AAA/D17-01/environment/hall-interior-streaming-01/",
+      "?? Build/AAA/D17-01/environment/runtime-16/",
+      "?? Build/AAA/D17-01/raw/hall-interior-720-01/",
+      "?? Content/Environment/ServiceHall/SM_HallInterior.uasset",
+      "?? Content/Python/author_hall_interior.py",
+      "?? Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/ZH/",
+      "?? SourceAssets/Environment/HallInterior.blend",
+      "?? SourceAssets/Environment/SM_HallInterior.fbx",
+      "?? SourceAssets/Environment/build_hall_interior.py",
+      "?? SourceAssets/Environment/hall-interior.json",
+      "?? SourceAssets/Environment/verify_hall_interior.py",
+      "?? tests/author_d17_01_hall_interior.py"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T21:28:18.790493+00:00"
+}

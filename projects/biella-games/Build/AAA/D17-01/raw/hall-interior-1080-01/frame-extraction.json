@@ -1,0 +1,73 @@
+{
+  "duration_seconds": 13.966,
+  "source_video": {
+    "path": "Build/AAA/D17-01/raw/hall-interior-1080-01/raw-gameplay.mkv",
+    "sha256": "815500579dd8cd9afccceece7c127ac4029a7d638f3726738acd83755d1aa62a",
+    "bytes": 1425709
+  },
+  "frames": [
+    {
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "4",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-interior-1080-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-interior-1080-01/frame-04.png"
+      ],
+      "frame": {
+        "path": "Build/AAA/D17-01/raw/hall-interior-1080-01/frame-04.png",
+        "sha256": "fce9a8ef918ee7a0d3de21d3bf7805a11e64caceeb095621a91e6b625f9568ae",
+        "bytes": 29073
+      },
+      "returncode": 0,
+      "timestamp_seconds": 4
+    },
+    {
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "7",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-interior-1080-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-interior-1080-01/frame-07.png"
+      ],
+      "frame": {
+        "path": "Build/AAA/D17-01/raw/hall-interior-1080-01/frame-07.png",
+        "sha256": "6cb813fcb2ea0223022de403813899f62c579b1b7532340c7b1f3d88371de16d",
+        "bytes": 538747
+      },
+      "returncode": 0,
+      "timestamp_seconds": 7
+    },
+    {
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "10",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-interior-1080-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-interior-1080-01/frame-10.png"
+      ],
+      "frame": {
+        "path": "Build/AAA/D17-01/raw/hall-interior-1080-01/frame-10.png",
+        "sha256": "37eacc94bdce3a05e407fcf6dc95d1b8e72a7b924dc15ea788883abd3d919fdd",
+        "bytes": 550861
+      },
+      "returncode": 0,
+      "timestamp_seconds": 10
+    }
+  ]
+}

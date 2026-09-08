@@ -1,61 +1,61 @@
 {
   "current_environment_probe": {
-    "active_simulation_seconds": 14.942012830579188,
+    "active_simulation_seconds": 14.80003715021303,
     "arena_pressure_events": 0,
     "duration_satisfied": false,
     "electrical_floor_damage": [],
     "electrical_floor_total_damage": 0,
     "environment_panel_events": [],
     "environment_power_transitions": 0,
-    "input_actions": 18,
+    "input_actions": 17,
     "input_plan": {
       "bytes": 4167,
       "path": "Build/AAA/D17-01/service-hazard-input.json",
       "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
     },
-    "run": "hall-practical-720-01",
+    "run": "hall-interior-720-01",
     "runtime_log": {
-      "bytes": 262596,
-      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/runtime.engine.log",
-      "sha256": "688bec15cf5bc335c0a4ad59b3df66cda8c08e46b2719ddeda16d41a4497efa0"
+      "bytes": 265098,
+      "path": "Build/AAA/D17-01/raw/hall-interior-720-01/runtime.engine.log",
+      "sha256": "a146ee5c2981d04e6b72a8bb90b7a9ff0d09309de97d044fcb0883aee0bc9b5e"
     },
     "telemetry": {
-      "bytes": 26947,
-      "path": "Build/AAA/D17-01/raw/hall-practical-720-01/telemetry.jsonl",
-      "sha256": "ee4ff5be9a8cf516301aec7efde45936109a63c885233b1724094d7533ad1b8d"
+      "bytes": 26247,
+      "path": "Build/AAA/D17-01/raw/hall-interior-720-01/telemetry.jsonl",
+      "sha256": "aee4590f5d34f8e9727e9874f54e3b0d8ed1274c570e3101a237e25808b8a81c"
     },
     "terminal": "Failure"
   },
   "current_package_raw": [
     {
-      "active_simulation_seconds": 14.942012830579188,
+      "active_simulation_seconds": 14.80003715021303,
       "arena_pressure_events": 0,
       "duration_satisfied": false,
       "electrical_floor_damage": [],
       "electrical_floor_total_damage": 0,
       "environment_panel_events": [],
       "environment_power_transitions": 0,
-      "input_actions": 18,
+      "input_actions": 17,
       "input_plan": {
         "bytes": 4167,
         "path": "Build/AAA/D17-01/service-hazard-input.json",
         "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
       },
-      "run": "hall-practical-720-01",
+      "run": "hall-interior-720-01",
       "runtime_log": {
-        "bytes": 262596,
-        "path": "Build/AAA/D17-01/raw/hall-practical-720-01/runtime.engine.log",
-        "sha256": "688bec15cf5bc335c0a4ad59b3df66cda8c08e46b2719ddeda16d41a4497efa0"
+        "bytes": 265098,
+        "path": "Build/AAA/D17-01/raw/hall-interior-720-01/runtime.engine.log",
+        "sha256": "a146ee5c2981d04e6b72a8bb90b7a9ff0d09309de97d044fcb0883aee0bc9b5e"
       },
       "telemetry": {
-        "bytes": 26947,
-        "path": "Build/AAA/D17-01/raw/hall-practical-720-01/telemetry.jsonl",
-        "sha256": "ee4ff5be9a8cf516301aec7efde45936109a63c885233b1724094d7533ad1b8d"
+        "bytes": 26247,
+        "path": "Build/AAA/D17-01/raw/hall-interior-720-01/telemetry.jsonl",
+        "sha256": "aee4590f5d34f8e9727e9874f54e3b0d8ed1274c570e3101a237e25808b8a81c"
       },
       "terminal": "Failure"
     },
     {
-      "active_simulation_seconds": 8.716786465549376,
+      "active_simulation_seconds": 8.724226240941789,
       "arena_pressure_events": 0,
       "duration_satisfied": false,
       "electrical_floor_damage": [],
@@ -68,16 +68,16 @@
         "path": "Build/AAA/D17-01/service-hazard-input.json",
         "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
       },
-      "run": "hall-practical-1080-01",
+      "run": "hall-interior-1080-01",
       "runtime_log": {
-        "bytes": 187524,
-        "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/runtime.engine.log",
-        "sha256": "f07c2f234f16754df5501f0baade74b72136933af7d81318d40fb7e5480a6688"
+        "bytes": 187698,
+        "path": "Build/AAA/D17-01/raw/hall-interior-1080-01/runtime.engine.log",
+        "sha256": "24196bc0b7c3380b68704705073762d2172dd9ebfd2e10736bc9936c34da8790"
       },
       "telemetry": {
         "bytes": 9351,
-        "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/telemetry.jsonl",
-        "sha256": "a1d543f771fdec0f9c450eba224fc478981e9c532ebc02e20dedb269d1b999d6"
+        "path": "Build/AAA/D17-01/raw/hall-interior-1080-01/telemetry.jsonl",
+        "sha256": "659f8b5835055310d06030b889bff517d5977c9dccd457531cf1fd5c285d4794"
       },
       "terminal": "Success"
     }
@@ -85,7 +85,7 @@
   "findings": [
     {
       "criterion": "natural_arena_pressure",
-      "decision": "Do not invent a timer or connect the switch to arena-pressure APIs. Previous ordinary consequences retain their exact source/package bindings. Package-15 changes the supported local hall practical and lighting, and passes controlled installed regression; current ordinary outcomes are recorded without inheritance.",
+      "decision": "Do not invent a timer or connect the switch to arena-pressure APIs. Previous ordinary consequences retain their exact source/package bindings. Package-16 adds fitted hall interior geometry and passes controlled installed regression; current ordinary outcomes are recorded without inheritance.",
       "fact": "Contract 33 leaves the exact mechanic, timing and escalation UNKNOWN. Accepted packaged pressure evidence invokes the authoritative API from fixtures. Native ApplyArenaPressure explicitly adds no elapsed-time escalation."
     },
     {
@@ -192,7 +192,7 @@
       "causal_evidence": "BiellaOpenWorldGameMode inherits SpawnDemoActors and the two-target Demo objective. BiellaDemoObjectiveManager excludes streaming infected. In hud-1080-01 telemetry the rival alone kills both tracked infected by 9.3066 s; Success follows at 9.4109 s even while streamed population survives. This identifies the early terminal cause without changing accepted behavior.",
       "criterion": "continuous_600_1200_seconds",
       "decision": "Preserve accepted terminal behavior. A supported continuous content sequence is not yet established; restart stitching and idle padding remain prohibited.",
-      "fact": "The 1280x720 ordinary-input run reached native Failure after 14.942013 active seconds and 18 input actions; it recorded 1 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. The 1920x1080 ordinary-input run reached native Success after 8.716786 active seconds and 5 input actions; it recorded 0 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. Both have zero restarts, zero arena-pressure events and no captured audio. Neither establishes 600\u20131200 active seconds, the later route or the full evolving arena consequence. Historical outcomes retain their original package identity."
+      "fact": "The 1280x720 ordinary-input run reached native Failure after 14.800037 active seconds and 17 input actions; it recorded 1 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. The 1920x1080 ordinary-input run reached native Success after 8.724226 active seconds and 5 input actions; it recorded 0 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. Both have zero restarts, zero arena-pressure events and no captured audio. Neither establishes 600\u20131200 active seconds, the later route or the full evolving arena consequence. Historical outcomes retain their original package identity."
     }
   ],
   "floor_edge_material_validation": {
@@ -215,6 +215,11 @@
     "path": "Build/AAA/D17-01/environment/hall-cladding-validation.json",
     "sha256": "e6a30388bf865aaa7fb05c546346d685820c396c8e5d025483177921f4c3995a"
   },
+  "hall_interior_validation": {
+    "bytes": 10713,
+    "path": "Build/AAA/D17-01/environment/hall-interior-validation.json",
+    "sha256": "048234a9a8b5982c85af61021d56839f08c38705b21edf66d2ef9f1acc353dcb"
+  },
   "hall_practical_validation": {
     "bytes": 12765,
     "path": "Build/AAA/D17-01/environment/hall-practical-validation.json",
@@ -225,7 +230,7 @@
     "path": "Build/AAA/D17-01/environment/hall-surfaces-validation.json",
     "sha256": "5d249fe3fdcb4333418dda91b1caf917c3b494f3297ddef3b429681e612f6b1a"
   },
-  "independent_work": "Package-15 adds an editable roof-mounted practical with a fitted plate, stem, driver, reflector, diffuser and conduit, and changes the retained interior point light from white 12000 lumens to warm 1800 lumens. Fresh native readback verifies roof contact, saved light settings and preserved preexisting actor identities. Native geometry, collision, navigation, gameplay and all material assets otherwise remain unchanged. Controlled Lit views show a warm local interior pool and a muted entrance face; scene-wide visual acceptance remains open.",
+  "independent_work": "Package-16 adds fitted hall ribs, roof-bearing beams, lower wall lining, supported overhead cable trays, wall conduit and flush floor access plates. The Blender source has 382 editable parts and 86,024 exported triangles. Geometry checks verify support contacts, a clear central route and floor detail at most 0.5 cm above the retained floor; fresh native readback preserves every preexisting actor and all original colliders. Normal-camera WorldStreaming views show new wall structure and access plates under the retained warm practical. The floor plates still read nearly black against a broad golden floor; sparse space and the five major visual groups remain unqualified.",
   "native_mechanics_preservation": {
     "bytes": 1439,
     "path": "Build/AAA/D17-01/environment/ground-mechanics-preservation.json",
@@ -618,6 +623,33 @@
         "bytes": 27293,
         "path": "Build/AAA/D17-01/raw/hall-surfaces-720-01/telemetry.jsonl",
         "sha256": "af24e09c6504fcde9f628a40f764659065039acd170b64d5be15ff3817bd0776"
+      },
+      "terminal": "Failure"
+    },
+    {
+      "active_simulation_seconds": 14.942012830579188,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 18,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "hall-practical-720-01",
+      "runtime_log": {
+        "bytes": 262596,
+        "path": "Build/AAA/D17-01/raw/hall-practical-720-01/runtime.engine.log",
+        "sha256": "688bec15cf5bc335c0a4ad59b3df66cda8c08e46b2719ddeda16d41a4497efa0"
+      },
+      "telemetry": {
+        "bytes": 26947,
+        "path": "Build/AAA/D17-01/raw/hall-practical-720-01/telemetry.jsonl",
+        "sha256": "ee4ff5be9a8cf516301aec7efde45936109a63c885233b1724094d7533ad1b8d"
       },
       "terminal": "Failure"
     }
@@ -1030,6 +1062,62 @@
         "bytes": 6380,
         "path": "Build/AAA/D17-01/raw/panel-impact-1080-01/telemetry.jsonl",
         "sha256": "5fcc416c1b62a2f120e8884d674467b26475d88ad72b973438c68fedc98c0987"
+      },
+      "terminal": "Success"
+    }
+  ],
+  "previous_practical_package_raw": [
+    {
+      "active_simulation_seconds": 14.942012830579188,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 18,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "hall-practical-720-01",
+      "runtime_log": {
+        "bytes": 262596,
+        "path": "Build/AAA/D17-01/raw/hall-practical-720-01/runtime.engine.log",
+        "sha256": "688bec15cf5bc335c0a4ad59b3df66cda8c08e46b2719ddeda16d41a4497efa0"
+      },
+      "telemetry": {
+        "bytes": 26947,
+        "path": "Build/AAA/D17-01/raw/hall-practical-720-01/telemetry.jsonl",
+        "sha256": "ee4ff5be9a8cf516301aec7efde45936109a63c885233b1724094d7533ad1b8d"
+      },
+      "terminal": "Failure"
+    },
+    {
+      "active_simulation_seconds": 8.716786465549376,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 5,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "hall-practical-1080-01",
+      "runtime_log": {
+        "bytes": 187524,
+        "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/runtime.engine.log",
+        "sha256": "f07c2f234f16754df5501f0baade74b72136933af7d81318d40fb7e5480a6688"
+      },
+      "telemetry": {
+        "bytes": 9351,
+        "path": "Build/AAA/D17-01/raw/hall-practical-1080-01/telemetry.jsonl",
+        "sha256": "a1d543f771fdec0f9c450eba224fc478981e9c532ebc02e20dedb269d1b999d6"
       },
       "terminal": "Success"
     }

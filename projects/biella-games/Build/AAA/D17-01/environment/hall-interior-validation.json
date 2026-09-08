@@ -1,0 +1,238 @@
+{
+  "asset_validation": {
+    "bytes": 128870,
+    "path": "Build/AAA/D17-01/environment/hall-interior-author-01/validation.json",
+    "sha256": "b09765372ee9e006f6b7de372b557ce9282051cc7209072de583dc6a5c3f0353"
+  },
+  "candidate_status": "GENERATED_DRAFT",
+  "frame_review": {
+    "bytes": 2489,
+    "path": "Build/AAA/D17-01/environment/hall-interior-frame-review.json",
+    "sha256": "e8f997e6439c9b2469e1f3a835273e963ece550995dd62dc7b824a1be9a7a512"
+  },
+  "geometry_validation": {
+    "bytes": 2145,
+    "path": "Build/AAA/D17-01/environment/hall-interior-geometry-01.json",
+    "sha256": "a2141e6a11b51378b277e83389caf542b52a3fdb7e129fcdd7811dc7c4d589bb"
+  },
+  "inspected_frames": [
+    {
+      "bytes": 275044,
+      "path": "Build/AAA/D17-01/raw/hall-interior-720-01/frame-04.png",
+      "sha256": "4f966bd0ea3da9a453098d2f074a6ba742d184d705c24c332e1435e902ba8b7a"
+    },
+    {
+      "bytes": 281325,
+      "path": "Build/AAA/D17-01/raw/hall-interior-720-01/frame-15.png",
+      "sha256": "b117303c57b10fcc74b9c5289132657f430252befa2c3e2ac5ab3d75403d1c8b"
+    },
+    {
+      "bytes": 538747,
+      "path": "Build/AAA/D17-01/raw/hall-interior-1080-01/frame-07.png",
+      "sha256": "6cb813fcb2ea0223022de403813899f62c579b1b7532340c7b1f3d88371de16d"
+    },
+    {
+      "bytes": 550861,
+      "path": "Build/AAA/D17-01/raw/hall-interior-1080-01/frame-10.png",
+      "sha256": "37eacc94bdce3a05e407fcf6dc95d1b8e72a7b924dc15ea788883abd3d919fdd"
+    },
+    {
+      "bytes": 986919,
+      "path": "Build/AAA/D17-01/environment/hall-interior-streaming-01/captures/interior.png",
+      "sha256": "0bf5f1a3cb9aa9586a0a264838ef9273830de63474e632fa261c1b9d9a5da9a8"
+    },
+    {
+      "bytes": 1006064,
+      "path": "Build/AAA/D17-01/environment/hall-interior-streaming-01/captures/terrace.png",
+      "sha256": "7cad67e4124f4de64057b374f63e7cf119859ac09676b71b757704bbb9d7d58c"
+    },
+    {
+      "bytes": 1030148,
+      "path": "Build/AAA/D17-01/environment/runtime-16/captures/switch_safe.png",
+      "sha256": "3a61ddbe9c7862f759c01cf712e91ecefac1841021a0d14c51eda4141caeb86b"
+    },
+    {
+      "bytes": 1043131,
+      "path": "Build/AAA/D17-01/environment/runtime-16/captures/panel_destroyed.png",
+      "sha256": "4c2898ef3275d1f84edaaff22d15eee573995f3e06ab52675ba8f774ab7bfce5"
+    }
+  ],
+  "limits": [
+    "Current ordinary runs do not reach the interior, terrace or east return before native terminal state.",
+    "Roof trays are not visible in the inspected normal-camera interior frame.",
+    "Five major visual groups and 600\u20131200 seconds of full evolving gameplay remain unmet.",
+    "Encoded frame rate is not native game FPS; capture has no audio. Runtime warnings remain."
+  ],
+  "material_input_delta": [
+    "Content/Environment/ServiceHall/SM_HallInterior.uasset",
+    "Content/Maps/BiellaOpenWorldMap.umap",
+    "Content/Python/author_hall_interior.py",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/ZH/XSZB5N3GI0AUU2K71P4X85.uasset"
+  ],
+  "next_action": "Repair the service-hall access-plate finish and its contrast against the retained floor so the plates read as fitted steel; preserve geometry, colliders, warm practical and gameplay, then validate the affected material in normal-camera traversal.",
+  "observed": [
+    "Controlled normal-camera interior traversal shows vertical ribs, framed lower-wall lining and the upper conduit. The overhead trays are outside the inspected interior camera; their presence/support is verified by geometry and native readback, not these pixels.",
+    "The retained warm practical lights a broad golden floor. Access plates appear as nearly black rectangular strips with mottled reflections; surrounding interior space remains sparse.",
+    "The terrace remains a broad empty roof under soft grey cloud bands. The inspected ordinary frames show a wide empty street, repeated facades, blue player mannequin, yellow rival, red mannequin/primitive infected and a block-like weapon.",
+    "Installed Environment views show the bay on a wet jointed apron, the muted warm hall entrance, dark red smooth growth and panel destruction. This fixture verifies retained environment behavior separately from ordinary-input encounter proof.",
+    "The 1280x720 ordinary-input run reached native Failure after 14.800037 active seconds and 17 input actions; it recorded 1 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. The 1920x1080 ordinary-input run reached native Success after 8.724226 active seconds and 5 input actions; it recorded 0 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. Both have zero restarts, zero arena-pressure events and no captured audio. Neither establishes 600\u20131200 active seconds, the later route or the full evolving arena consequence. Historical outcomes retain their original package identity."
+  ],
+  "ordinary_input_runs": [
+    {
+      "active_simulation_seconds": 14.80003715021303,
+      "audio_captured": false,
+      "capture_input_wall_seconds": 17.598841420025565,
+      "capture_video_seconds": 19.566,
+      "decoded_frames": 585,
+      "directory": "Build/AAA/D17-01/raw/hall-interior-720-01",
+      "electrical_floor_damage": [],
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "events": {
+        "damage": 50,
+        "defeat": 9,
+        "objective_activated": 1,
+        "objective_progress": 12,
+        "phase": 2,
+        "telemetry_ready": 1,
+        "telemetry_shutdown": 1,
+        "weapon_fire": 1
+      },
+      "input_actions": 17,
+      "namespace_file_verification": true,
+      "natural_pressure_observed": false,
+      "player_defeats": [
+        {
+          "reason": "infected_melee",
+          "target": "BiellaStreamingCharacter:1"
+        }
+      ],
+      "raw_video": {
+        "bytes": 1747378,
+        "path": "Build/AAA/D17-01/raw/hall-interior-720-01/raw-gameplay.mkv",
+        "sha256": "d6c1bd63dfbfe64d563407a5153086af8a9bdb30c2e79c01b1c5807101712861"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "restart_count": 0,
+      "run": "hall-interior-720-01",
+      "session": "01A082EC-0B48-7040-9920-15DF4EA87A25",
+      "terminal": "Failure",
+      "uninterrupted_duration_satisfied": false
+    },
+    {
+      "active_simulation_seconds": 8.724226240941789,
+      "audio_captured": false,
+      "capture_input_wall_seconds": 11.992701216950081,
+      "capture_video_seconds": 13.966,
+      "decoded_frames": 405,
+      "directory": "Build/AAA/D17-01/raw/hall-interior-1080-01",
+      "electrical_floor_damage": [],
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "events": {
+        "damage": 18,
+        "defeat": 2,
+        "objective_activated": 1,
+        "objective_progress": 2,
+        "objective_success": 1,
+        "phase": 2,
+        "telemetry_ready": 1,
+        "telemetry_shutdown": 1
+      },
+      "input_actions": 5,
+      "namespace_file_verification": true,
+      "natural_pressure_observed": false,
+      "player_defeats": [],
+      "raw_video": {
+        "bytes": 1425709,
+        "path": "Build/AAA/D17-01/raw/hall-interior-1080-01/raw-gameplay.mkv",
+        "sha256": "815500579dd8cd9afccceece7c127ac4029a7d638f3726738acd83755d1aa62a"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "restart_count": 0,
+      "run": "hall-interior-1080-01",
+      "session": "01A082EF-EFB4-7301-97B0-557B5FE35C9F",
+      "terminal": "Success",
+      "uninterrupted_duration_satisfied": false
+    }
+  ],
+  "package_id": "3434ab980ea68750798b9276a135d06b8b50adeb33faf02ef7c714cfc88e8849",
+  "package_validation": {
+    "bytes": 18742,
+    "path": "Build/AAA/D17-01/environment/runtime-16/validation.json",
+    "sha256": "cc43a896dae903d367e43d3e1efa433ede54f05f8b1d7ad1ec2b2a73b936f490"
+  },
+  "preservation": "Four material inputs change: the new native interior mesh, its new World Partition actor, the map resave and its authoring script. All original geometry, collision, navigation, material assets, lighting, configuration and gameplay match package-15. The new detail mesh has no collision. Actual support and route-clearance checks are bounded geometry checks, not whole-scene visual acceptance.",
+  "previous_commit": "3ea84e26fa2fda006a30cb6b06f40d64542d8896",
+  "result": "PASS_AFFECTED_LAYER",
+  "saved_readback": {
+    "bytes": 3914,
+    "path": "Build/AAA/D17-01/environment/hall-interior-author-01/readback.json",
+    "sha256": "0ddd2bc345a6157e806f48439cce6816b4f056eb24c3c036fff52bf25b91cdb6"
+  },
+  "slice_acceptance": false,
+  "sources": [
+    {
+      "bytes": 8516,
+      "path": "SourceAssets/Environment/build_hall_interior.py",
+      "sha256": "c58ca07b6114d940b570702a4ee6a95cdee6a6eebf94d9470b994a383104d59d"
+    },
+    {
+      "bytes": 257319,
+      "path": "SourceAssets/Environment/HallInterior.blend",
+      "sha256": "8fd0474a343a27cc31db68827a3218665122fcba138f519159e6ac71aed64552"
+    },
+    {
+      "bytes": 1214348,
+      "path": "SourceAssets/Environment/SM_HallInterior.fbx",
+      "sha256": "fefe460132af1292dca6da03dfe87cbd2a5a33c80227a716a4b7685911577a1c"
+    },
+    {
+      "bytes": 1388,
+      "path": "SourceAssets/Environment/hall-interior.json",
+      "sha256": "3a727228a1366883e7c395c5daec26b916e07b345a282b514a8d95d0a864f685"
+    },
+    {
+      "bytes": 4698,
+      "path": "SourceAssets/Environment/verify_hall_interior.py",
+      "sha256": "cafbd6a098cf47763e914ed92d070aa771421d852bd541591e908cebbdb92aa5"
+    },
+    {
+      "bytes": 7663,
+      "path": "Content/Python/author_hall_interior.py",
+      "sha256": "26aef015b5259ee4b52192019931a4cac273c605d941037d36a93f117dec108a"
+    },
+    {
+      "bytes": 4171,
+      "path": "tests/author_d17_01_hall_interior.py",
+      "sha256": "adc43bf4c4d34fd7f6e6a9bc77885f64c37ef62e324a9052e5e17588f74eeda5"
+    },
+    {
+      "bytes": 1207702,
+      "path": "Content/Environment/ServiceHall/SM_HallInterior.uasset",
+      "sha256": "270ae4667fc0a23919f7b5d3555575e348136d29427b97452154bec405df35cb"
+    },
+    {
+      "bytes": 13330,
+      "path": "Content/Maps/BiellaOpenWorldMap.umap",
+      "sha256": "cbd30ee687fb3fa28b6706fbd6327a26aa8e18a924d007165eae5ab57564d586"
+    },
+    {
+      "bytes": 4504,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/ZH/XSZB5N3GI0AUU2K71P4X85.uasset",
+      "sha256": "1615e0354acd9867c18a0ded34a608ba6c2e649bbf5262ba237797813457ebbf"
+    }
+  ],
+  "streaming_validation": {
+    "bytes": 209617,
+    "path": "Build/AAA/D17-01/environment/hall-interior-streaming-01/validation.json",
+    "sha256": "c5e6393142437b15761c1c83ac330b967b9ea38d906d7dea1763aa48d1892de2"
+  },
+  "task_id": "D17-01"
+}
