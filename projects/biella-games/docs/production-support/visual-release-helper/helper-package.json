@@ -1,0 +1,19 @@
+{
+  "schema": "biella.games.helper_package/v1",
+  "name": "visual-release-helper",
+  "scope": "PROJECT_BIELLA_GAMES",
+  "status": "PROJECT_SUPPORT_NON_AUTHORITY",
+  "purpose": ["visual finishing", "filesystem placement", "D17-to-release packaging handoff"],
+  "governing_sources": [
+    "docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+    "docs/task-guides/D17-01.md",
+    "docs/task-guides/D17-07.md",
+    "docs/task-guides/D17-08.md",
+    "Build/AAA/D17-01/visual-assessment.json",
+    "Build/AAA/D17-01/qualification.json",
+    "Build/Release/D08-01/qualification.json"
+  ],
+  "files": ["README.md", "production-materials.md", "visual-finish-worklist.json", "filesystem-map.json", "release-handoff.md"],
+  "authority_rule": "live task/source/evidence outrank this helper",
+  "packaging_rule": "reuse D08 exact package/install lineage; do not create a second release mechanism"
+}

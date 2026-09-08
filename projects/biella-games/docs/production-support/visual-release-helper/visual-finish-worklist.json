@@ -1,0 +1,53 @@
+{
+  "schema": "biella.games.visual_release_helper/v1",
+  "status": "PROJECT_SUPPORT_NON_AUTHORITY",
+  "basis": "Build/AAA/D17-01/visual-assessment.json",
+  "acceptance": "docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+  "task_path": ["D17-01", "D17-02", "D17-03", "D17-04", "D17-05", "D17-06", "D17-07", "D17-08"],
+  "priority_rule": "fix visible major defects without changing accepted mechanics",
+  "groups": [
+    {
+      "id": "focal_art",
+      "observed": "prototype/mannequin-looking player-rival-infected presentation and block-like weapon remain focal defects",
+      "editable_targets": ["SourceAssets/Characters", "Content/Characters"],
+      "evidence_target": "Build/AAA/D17-01/raw",
+      "finish_material": ["production character silhouettes", "coherent equipment/weapon forms", "contact and animation cleanup", "distinct player-rival-infected readability"]
+    },
+    {
+      "id": "world_density",
+      "observed": "service-bay approach remains broad and sparse with insufficient vertical industrial layering",
+      "editable_targets": ["SourceAssets/Environment", "Content/Environment"],
+      "evidence_target": "Build/AAA/D17-01/environment",
+      "finish_material": ["foreground industrial structure", "midground catwalk/gantry layers", "functional barriers and props", "background depth silhouettes", "route-preserving set dressing"]
+    },
+    {
+      "id": "materials",
+      "observed": "localized wet ground, switch and panel improvements do not yet establish scene-wide material coherence",
+      "editable_targets": ["SourceAssets/Materials", "Content/Materials", "Content/Environment"],
+      "existing_sources": ["SourceAssets/Materials/ServiceGround.hlsl", "SourceAssets/Materials/ServicePanel.hlsl", "SourceAssets/Materials/ServiceSurface.hlsl", "SourceAssets/Materials/ServiceSwitch.hlsl"],
+      "finish_material": ["credible metal/concrete classes", "nonuniform roughness", "localized moisture", "wear/dirt", "damage response", "reflection coherence"]
+    },
+    {
+      "id": "infection",
+      "observed": "local red tissue/vascular growth exists but reads repetitive and coverage remains too sparse for coherent arena takeover",
+      "editable_targets": ["SourceAssets/Environment", "Content/Environment"],
+      "finish_material": ["engineered-to-organic transition zones", "surface attachment and compression", "scale variation", "vascular branching", "localized emissive response", "cause-and-effect invasion states"]
+    },
+    {
+      "id": "lighting",
+      "observed": "overcast cloud/fog base exists but storm contrast, distant depth and temporal stability remain unqualified",
+      "editable_targets": ["Content/Environment", "Content/Python"],
+      "finish_material": ["cold storm ambient field", "warm practical task lights", "readable shadow structure", "volumetric depth", "wet-surface reflection motivation", "stable gameplay exposure"]
+    }
+  ],
+  "global_runtime_checks": [
+    "normal gameplay camera",
+    "player+rival+infected+arena consequence readability",
+    "no major placeholder focal art",
+    "no floating/fused/unsupported geometry",
+    "no HUD dominance",
+    "real runtime animation/VFX/audio consequence",
+    "1280x720 and 1920x1080 evidence where the existing harness supports both"
+  ],
+  "never_store_final_art_in": ["Build", "Saved", "Intermediate", "DerivedDataCache", "/mnt/biella-extra/biella-runtime"]
+}
