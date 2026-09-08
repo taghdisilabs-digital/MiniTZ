@@ -79,7 +79,7 @@
         }
       ],
       "objective": "Integrate an in-game editable sequence into the real game world and prove clean gameplay handoff. This is runtime presentation, not a disconnected trailer scene and not new narrative canon.",
-      "deliverable": "- `ABiellaCinematicDirector` — bounded owner for entering/exiting/skipping one runtime sequence and applying explicit authoritative handoff events.\n- `Content/Cinematics/LS_Demo01_RuntimeHandoff.uasset` — technical in-game sequence asset.\n- `BiellaCinematicTest.cpp` and `tests/run_d06_01_cinematic.py` — native/runtime acceptance fixture.\n\nBuild a short technical sequence using existing world/player/arena-pressure presentation. It may move/cut the camera and use existing animation/VFX/audio, but it must not invent dialogue, lore, mission completion or fake combat.\n\nRequired flow:\n`GAMEPLAY -> CINEMATIC MODE -> CONTROL CONSTRAINED -> EXISTING RUNTIME STATE/PRESENTATION -> WATCHED OR SKIPPED HANDOFF -> GAMEPLAY CONTROL RESTORED`.",
+      "deliverable": "- `ABiellaCinematicDirector` \u2014 bounded owner for entering/exiting/skipping one runtime sequence and applying explicit authoritative handoff events.\n- `Content/Cinematics/LS_Demo01_RuntimeHandoff.uasset` \u2014 technical in-game sequence asset.\n- `BiellaCinematicTest.cpp` and `tests/run_d06_01_cinematic.py` \u2014 native/runtime acceptance fixture.\n\nBuild a short technical sequence using existing world/player/arena-pressure presentation. It may move/cut the camera and use existing animation/VFX/audio, but it must not invent dialogue, lore, mission completion or fake combat.\n\nRequired flow:\n`GAMEPLAY -> CINEMATIC MODE -> CONTROL CONSTRAINED -> EXISTING RUNTIME STATE/PRESENTATION -> WATCHED OR SKIPPED HANDOFF -> GAMEPLAY CONTROL RESTORED`.",
       "validation": "- Editable Level Sequence source and exact build/source identity.\n- Same runtime actors/world, no duplicate fake player or disconnected scene.\n- Input/camera ownership is transferred and restored.\n- Watched and skipped paths produce the same required authoritative state.\n- No stale input lock, missing equipment, duplicate actor or mission/world divergence.\n- Streamed assets/world remain valid around the sequence.\n- Capture supports presentation evidence but runtime state assertions are authoritative.",
       "required_evidence": "- Editable Level Sequence source and exact build/source identity.\n- Same runtime actors/world, no duplicate fake player or disconnected scene.\n- Input/camera ownership is transferred and restored.\n- Watched and skipped paths produce the same required authoritative state.\n- No stale input lock, missing equipment, duplicate actor or mission/world divergence.\n- Streamed assets/world remain valid around the sequence.\n- Capture supports presentation evidence but runtime state assertions are authoritative.",
       "resource_capabilities": [
@@ -219,7 +219,7 @@
         }
       ],
       "objective": "Produce and qualify an exact distributable build/update lineage. Release-candidate status belongs to one specific package identity, not a successful compile or screenshot.",
-      "deliverable": "- `tests/run_d08_01_release.py` — package/install/update/launch qualification orchestrator.\n- `Build/Release/D08-01/source-build-manifest.json`.\n- `Build/Release/D08-01/package-manifest.json`.\n- `Build/Release/D08-01/qualification.json` and `qualification.md`.",
+      "deliverable": "- `tests/run_d08_01_release.py` \u2014 package/install/update/launch qualification orchestrator.\n- `Build/Release/D08-01/source-build-manifest.json`.\n- `Build/Release/D08-01/package-manifest.json`.\n- `Build/Release/D08-01/qualification.json` and `qualification.md`.",
       "validation": "1. Clean dependency/content validation, including a bounded missing/incompatible-content negative case.\n2. Produce exact package with source/tree/config/content identity.\n3. Launch outside editor through intended entry point.\n4. Exercise real input/player/camera/gameplay, rivals/infected/pressure, current world/interactions, rendering/audio/VFX, save/settings reconstruction where implemented.\n5. Review fatal/assert/content-load diagnostics and package-specific resource/performance evidence.\n6. For update support, prove exact old-build -> update -> launch -> supported settings/save compatibility plus incomplete/incompatible update failure handling.\n7. Record known exclusions/limitations; do not invent store, launcher, certification, patch cadence or live-service requirements.\n\nOne exact packaged build must pass the current approved gameplay, production, stability and evidence contracts appropriate to its platform. Package command success alone is insufficient.",
       "required_evidence": "- Primary target platform: Windows PC x64 first.\n- Build/package path: UnrealBuildTool + Unreal AutomationTool; BuildGraph when useful.\n- Development package for iteration/evidence; Shipping for distributable qualification.\n- Runtime content: cooked Unreal assets/maps.\n- Save format: UE SaveGame/custom versioned serialization at platform per-user location.\n\nThe canonical Linux UE 5.8.2 VPS has previously reported Win64 SDK as unavailable. At D08 start, reobserve current package resources. Do not silently call a Linux package the final accepted Win64 release candidate. If Win64 remains unavailable on the current Resource, classify it `REQUIRES_OTHER_RESOURCE` and continue every platform-neutral preparation/validation that does not require Win64 while routing the final package step to an actually observed compatible Resource.",
       "resource_capabilities": [
@@ -261,12 +261,24 @@
         },
         {
           "path": "projects/biella-games/docs/task-guides/D17-01.md",
-          "sha256": "0711cb80f127bc42c70600cd00a68623dffa52fcc595958f23c50c27a56b2f28",
+          "sha256": "d32dbbba344dc343438d38eba97e4b20cefe4d783aacbae6e7c58fb24d0aa5a3",
           "selected_sections": [
             "Objective",
             "Owner visual direction",
             "Execution law",
             "Acceptance"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
+          "selected_sections": [
+            "Authority and quality bar",
+            "Current baseline classification",
+            "Hard visual requirements",
+            "Major-defect rejection",
+            "Execution loop",
+            "Evidence and completion"
           ]
         }
       ],
@@ -282,7 +294,7 @@
       "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
       "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Owner visual direction + current Biella visual canon + real gameplay readability; no reference-copying or screenshot-only acceptance.",
+      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
       "production_ordinal": 66,
       "priority": 1
     },
@@ -306,12 +318,24 @@
         },
         {
           "path": "projects/biella-games/docs/task-guides/D17-02.md",
-          "sha256": "d7a6fbe2f3ff3d8ecdadea1c8b38a6f17166770742a5f99d42f42ee79335eaee",
+          "sha256": "837d9e95c90165fa1b0fba1293729f1af75ba884eb09c0717ec404c2a10389ef",
           "selected_sections": [
             "Objective",
             "Owner visual direction",
             "Execution law",
             "Acceptance"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
+          "selected_sections": [
+            "Authority and quality bar",
+            "Current baseline classification",
+            "Hard visual requirements",
+            "Major-defect rejection",
+            "Execution loop",
+            "Evidence and completion"
           ]
         }
       ],
@@ -327,7 +351,7 @@
       "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
       "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Owner visual direction + current Biella visual canon + real gameplay readability; no reference-copying or screenshot-only acceptance.",
+      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
       "production_ordinal": 67,
       "priority": 1
     },
@@ -351,12 +375,24 @@
         },
         {
           "path": "projects/biella-games/docs/task-guides/D17-03.md",
-          "sha256": "0a355995fe7f05613f419bd5689bd5d191679addffcb7f201837b3a28644149f",
+          "sha256": "bdea770b1f124d711a9f220b666361b9f07c01e7b818bbc8d92feebc88e74fe1",
           "selected_sections": [
             "Objective",
             "Owner visual direction",
             "Execution law",
             "Acceptance"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
+          "selected_sections": [
+            "Authority and quality bar",
+            "Current baseline classification",
+            "Hard visual requirements",
+            "Major-defect rejection",
+            "Execution loop",
+            "Evidence and completion"
           ]
         }
       ],
@@ -372,7 +408,7 @@
       "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
       "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Owner visual direction + current Biella visual canon + real gameplay readability; no reference-copying or screenshot-only acceptance.",
+      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
       "production_ordinal": 68,
       "priority": 1
     },
@@ -396,12 +432,24 @@
         },
         {
           "path": "projects/biella-games/docs/task-guides/D17-04.md",
-          "sha256": "000109a1c2bc0f80501b30c0436b4e9287e75b65dc074fff909b88a31ac1b2bc",
+          "sha256": "a55ae8cd7d1a4c5a96131fb65f5772794cc52f6c228f2411d0883602bca3861a",
           "selected_sections": [
             "Objective",
             "Owner visual direction",
             "Execution law",
             "Acceptance"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
+          "selected_sections": [
+            "Authority and quality bar",
+            "Current baseline classification",
+            "Hard visual requirements",
+            "Major-defect rejection",
+            "Execution loop",
+            "Evidence and completion"
           ]
         }
       ],
@@ -417,7 +465,7 @@
       "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
       "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Owner visual direction + current Biella visual canon + real gameplay readability; no reference-copying or screenshot-only acceptance.",
+      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
       "production_ordinal": 69,
       "priority": 1
     },
@@ -441,12 +489,24 @@
         },
         {
           "path": "projects/biella-games/docs/task-guides/D17-05.md",
-          "sha256": "4117155b4dbc0f0cd84d10e658bad40b7b52dcd5a5a7bb68d8947992ca66c209",
+          "sha256": "55a7b86480ecc07442208d96050dcba7234ad68ef147cdba803fd052be22a3c4",
           "selected_sections": [
             "Objective",
             "Owner visual direction",
             "Execution law",
             "Acceptance"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
+          "selected_sections": [
+            "Authority and quality bar",
+            "Current baseline classification",
+            "Hard visual requirements",
+            "Major-defect rejection",
+            "Execution loop",
+            "Evidence and completion"
           ]
         }
       ],
@@ -462,7 +522,7 @@
       "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
       "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Owner visual direction + current Biella visual canon + real gameplay readability; no reference-copying or screenshot-only acceptance.",
+      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
       "production_ordinal": 70,
       "priority": 1
     },
@@ -486,12 +546,24 @@
         },
         {
           "path": "projects/biella-games/docs/task-guides/D17-06.md",
-          "sha256": "16d4398fe12733812ff8ebd7f93ee994b308a76a2787cb58c3f65ea5de7d04a0",
+          "sha256": "67083876bbb5e57076dc327e2d13aaedbb3c1fa5db83c3a66c15dd93937dc1cb",
           "selected_sections": [
             "Objective",
             "Owner visual direction",
             "Execution law",
             "Acceptance"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
+          "selected_sections": [
+            "Authority and quality bar",
+            "Current baseline classification",
+            "Hard visual requirements",
+            "Major-defect rejection",
+            "Execution loop",
+            "Evidence and completion"
           ]
         }
       ],
@@ -507,7 +579,7 @@
       "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
       "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Owner visual direction + current Biella visual canon + real gameplay readability; no reference-copying or screenshot-only acceptance.",
+      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
       "production_ordinal": 71,
       "priority": 1
     },
@@ -531,12 +603,24 @@
         },
         {
           "path": "projects/biella-games/docs/task-guides/D17-07.md",
-          "sha256": "eb843a0cfc499779b4445e233a4eeaf8847543df35642812980031fa253d5ce0",
+          "sha256": "ff0138cc0d8330553a94f0af106c53273c8ced028ca64630ba72ba78ff5ad733",
           "selected_sections": [
             "Objective",
             "Owner visual direction",
             "Execution law",
             "Acceptance"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
+          "selected_sections": [
+            "Authority and quality bar",
+            "Current baseline classification",
+            "Hard visual requirements",
+            "Major-defect rejection",
+            "Execution loop",
+            "Evidence and completion"
           ]
         }
       ],
@@ -552,7 +636,7 @@
       "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
       "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Owner visual direction + current Biella visual canon + real gameplay readability; no reference-copying or screenshot-only acceptance.",
+      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
       "production_ordinal": 72,
       "priority": 1
     },
@@ -576,12 +660,24 @@
         },
         {
           "path": "projects/biella-games/docs/task-guides/D17-08.md",
-          "sha256": "32a3126a3907ffb262c12af095e54c3e14d9674c8cbafe11e7a9eb26b35b4e9b",
+          "sha256": "df44da7374bdca8502eab06026cce2e47126e2eb8cf1571b4e7f7c2604a42dd6",
           "selected_sections": [
             "Objective",
             "Owner visual direction",
             "Execution law",
             "Acceptance"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
+          "selected_sections": [
+            "Authority and quality bar",
+            "Current baseline classification",
+            "Hard visual requirements",
+            "Major-defect rejection",
+            "Execution loop",
+            "Evidence and completion"
           ]
         }
       ],
@@ -597,7 +693,7 @@
       "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
       "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Owner visual direction + current Biella visual canon + real gameplay readability; no reference-copying or screenshot-only acceptance.",
+      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
       "production_ordinal": 73,
       "priority": 1
     },
@@ -2828,7 +2924,7 @@
     {
       "ordinal": 61,
       "task_id": "D11-02",
-      "title": "Home Journey — Objective to Delivery",
+      "title": "Home Journey \u2014 Objective to Delivery",
       "task_class": "hard_creation",
       "lane": "Website",
       "execution_root": "website",
@@ -2854,8 +2950,8 @@
           ]
         }
       ],
-      "objective": "Create the public interactive story of Research → Intelligence → Planning → Creation → Delivery using truthful representations of Task/Graph/Event/routing concepts.",
-      "deliverable": "Create the public interactive story of Research → Intelligence → Planning → Creation → Delivery using truthful representations of Task/Graph/Event/routing concepts.",
+      "objective": "Create the public interactive story of Research \u2192 Intelligence \u2192 Planning \u2192 Creation \u2192 Delivery using truthful representations of Task/Graph/Event/routing concepts.",
+      "deliverable": "Create the public interactive story of Research \u2192 Intelligence \u2192 Planning \u2192 Creation \u2192 Delivery using truthful representations of Task/Graph/Event/routing concepts.",
       "validation": "Exercise the complete objective-to-delivery journey; distinguish real runtime evidence from labeled demonstrations.",
       "required_evidence": "Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.",
       "resource_capabilities": [

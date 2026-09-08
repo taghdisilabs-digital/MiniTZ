@@ -189,3 +189,6 @@ The following patterns are forbidden because they caused observed waste, stalls,
 
 ## Windows build Resource setup
 `ops/workstation/setup-unreal-win64.ps1` and `build-unreal-win64.ps1` provide explicit Windows toolchain setup and UAT execution; instructions are `ops/workstation/UNREAL_WIN64.md`. No production service is controlled by them. D08 owns the real missing-resource and platform qualification outcome. Compiler probe, installer assembly, game compilation and game acceptance remain separate.
+## Visual final-layer quality execution
+- `VISUAL_FINAL_LAYER_ACCEPTANCE`: D17 reads `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md`; current D08 prototype captures are `NO_PASS_ON_CURRENT_D08_BASELINE`.
+- `VISUAL_QUALITY_IS_EXECUTION_WORK_NOT_OWNER_WAIT`: create/fix/validate automatically; no owner-review stall. `VISUAL_DEFECT_BUDGET_ZERO_MAJOR` and raw gameplay evidence are required; do not lower quality to close a task.

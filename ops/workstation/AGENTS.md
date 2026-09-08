@@ -113,3 +113,6 @@ Use `package.installer.debian` (dpkg-deb) and `package.installer.windows` (NSIS/
 For a Windows Unreal build requirement, use `ops/workstation/UNREAL_WIN64.md` and the setup/build PowerShell scripts. Reuse current toolchain evidence; a Win32 compiler probe is not Unreal/game qualification. Missing compatible engine/media/storage remains a scoped Resource gap, never a reason to replay Linux work or mislabel NSIS as a compiler.
 
 VISUAL_PRIORITY: D17 FINAL_VISUAL_LAYER follows D08 before D15/D16; create/fix missing production visuals against owner direction, then qualify. No review-only loop; preserve mechanics and accepted work.
+## Visual final-layer quality execution
+- `VISUAL_FINAL_LAYER_ACCEPTANCE`: D17 reads `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md`; current D08 prototype captures are `NO_PASS_ON_CURRENT_D08_BASELINE`.
+- `VISUAL_QUALITY_IS_EXECUTION_WORK_NOT_OWNER_WAIT`: create/fix/validate automatically; no owner-review stall. `VISUAL_DEFECT_BUDGET_ZERO_MAJOR` and raw gameplay evidence are required; do not lower quality to close a task.

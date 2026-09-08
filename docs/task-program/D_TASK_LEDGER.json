@@ -1942,7 +1942,19 @@
               "Execution law",
               "Acceptance"
             ],
-            "sha256": "0711cb80f127bc42c70600cd00a68623dffa52fcc595958f23c50c27a56b2f28"
+            "sha256": "d32dbbba344dc343438d38eba97e4b20cefe4d783aacbae6e7c58fb24d0aa5a3"
+          },
+          {
+            "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+            "selected_sections": [
+              "Authority and quality bar",
+              "Current baseline classification",
+              "Hard visual requirements",
+              "Major-defect rejection",
+              "Execution loop",
+              "Evidence and completion"
+            ],
+            "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07"
           }
         ],
         "validation": "Scenario can be executed in the packaged game and demonstrates the project's real player+rival+infected+arena interaction without scripted substitution."
@@ -1985,7 +1997,19 @@
               "Execution law",
               "Acceptance"
             ],
-            "sha256": "d7a6fbe2f3ff3d8ecdadea1c8b38a6f17166770742a5f99d42f42ee79335eaee"
+            "sha256": "837d9e95c90165fa1b0fba1293729f1af75ba884eb09c0717ec404c2a10389ef"
+          },
+          {
+            "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+            "selected_sections": [
+              "Authority and quality bar",
+              "Current baseline classification",
+              "Hard visual requirements",
+              "Major-defect rejection",
+              "Execution loop",
+              "Evidence and completion"
+            ],
+            "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07"
           }
         ],
         "validation": "The canonical route is playable without camera clipping, collision traps, navigation ambiguity that blocks intended play, or noninteractive presentation substitutions."
@@ -2028,7 +2052,19 @@
               "Execution law",
               "Acceptance"
             ],
-            "sha256": "0a355995fe7f05613f419bd5689bd5d191679addffcb7f201837b3a28644149f"
+            "sha256": "bdea770b1f124d711a9f220b666361b9f07c01e7b818bbc8d92feebc88e74fe1"
+          },
+          {
+            "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+            "selected_sections": [
+              "Authority and quality bar",
+              "Current baseline classification",
+              "Hard visual requirements",
+              "Major-defect rejection",
+              "Execution loop",
+              "Evidence and completion"
+            ],
+            "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07"
           }
         ],
         "validation": "Combat actions are responsive and legible, consequences are real simulation state, and no visual-only effect is counted as gameplay completion."
@@ -2071,7 +2107,19 @@
               "Execution law",
               "Acceptance"
             ],
-            "sha256": "000109a1c2bc0f80501b30c0436b4e9287e75b65dc074fff909b88a31ac1b2bc"
+            "sha256": "a55ae8cd7d1a4c5a96131fb65f5772794cc52f6c228f2411d0883602bca3861a"
+          },
+          {
+            "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+            "selected_sections": [
+              "Authority and quality bar",
+              "Current baseline classification",
+              "Hard visual requirements",
+              "Major-defect rejection",
+              "Execution loop",
+              "Evidence and completion"
+            ],
+            "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07"
           }
         ],
         "validation": "Actor decisions and world consequences originate from runtime state; the encounter is not a prerecorded or manually staged substitute for implementation."
@@ -2114,7 +2162,19 @@
               "Execution law",
               "Acceptance"
             ],
-            "sha256": "4117155b4dbc0f0cd84d10e658bad40b7b52dcd5a5a7bb68d8947992ca66c209"
+            "sha256": "55a7b86480ecc07442208d96050dcba7234ad68ef147cdba803fd052be22a3c4"
+          },
+          {
+            "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+            "selected_sections": [
+              "Authority and quality bar",
+              "Current baseline classification",
+              "Hard visual requirements",
+              "Major-defect rejection",
+              "Execution loop",
+              "Evidence and completion"
+            ],
+            "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07"
           }
         ],
         "validation": "No acceptance-blocking snapping, foot sliding, broken deformation, impossible pose transitions, or actor-state mismatch remains in the slice."
@@ -2157,7 +2217,19 @@
               "Execution law",
               "Acceptance"
             ],
-            "sha256": "16d4398fe12733812ff8ebd7f93ee994b308a76a2787cb58c3f65ea5de7d04a0"
+            "sha256": "67083876bbb5e57076dc327e2d13aaedbb3c1fa5db83c3a66c15dd93937dc1cb"
+          },
+          {
+            "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+            "selected_sections": [
+              "Authority and quality bar",
+              "Current baseline classification",
+              "Hard visual requirements",
+              "Major-defect rejection",
+              "Execution loop",
+              "Evidence and completion"
+            ],
+            "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07"
           }
         ],
         "validation": "Critical events are perceptible and attributable; UI/VFX/audio do not claim mechanics absent from runtime state and do not block gameplay readability."
@@ -2200,7 +2272,19 @@
               "Execution law",
               "Acceptance"
             ],
-            "sha256": "eb843a0cfc499779b4445e233a4eeaf8847543df35642812980031fa253d5ce0"
+            "sha256": "ff0138cc0d8330553a94f0af106c53273c8ced028ca64630ba72ba78ff5ad733"
+          },
+          {
+            "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+            "selected_sections": [
+              "Authority and quality bar",
+              "Current baseline classification",
+              "Hard visual requirements",
+              "Major-defect rejection",
+              "Execution loop",
+              "Evidence and completion"
+            ],
+            "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07"
           }
         ],
         "validation": "No acceptance-blocking floating/fused geometry, impossible access, contradictory scale/perspective, unreadable route, material failure, or unexplained world-state artifact remains."
@@ -2243,7 +2327,19 @@
               "Execution law",
               "Acceptance"
             ],
-            "sha256": "32a3126a3907ffb262c12af095e54c3e14d9674c8cbafe11e7a9eb26b35b4e9b"
+            "sha256": "df44da7374bdca8502eab06026cce2e47126e2eb8cf1571b4e7f7c2604a42dd6"
+          },
+          {
+            "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+            "selected_sections": [
+              "Authority and quality bar",
+              "Current baseline classification",
+              "Hard visual requirements",
+              "Major-defect rejection",
+              "Execution loop",
+              "Evidence and completion"
+            ],
+            "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07"
           }
         ],
         "validation": "A reviewer can trace every claimed visual/gameplay quality point to the exact running build and raw evidence; unresolved defects are disclosed."

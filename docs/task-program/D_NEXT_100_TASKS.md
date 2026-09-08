@@ -2,8 +2,6 @@
 
 Priority: **GAME_FIRST — game delivery is NUMBER 1.**
 
-Visual priority: **D17 FINAL_VISUAL_LAYER runs immediately after D08 before identity/reproducibility binding.**
-
 This map is not a queue. Physical Project PRODUCTION.md order is authoritative; task IDs and accepted work are preserved.
 
 Only task objectives, deliverables, validation, evidence and canonical dependency edges are extracted. Historical repository/controller paths, FUTURE_BLOCKED flags and raw activation/control instructions are not active.
@@ -41,6 +39,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D00_D08_ENGINE_GAMES.md` (SHA-256 `efd80e6b05a4cced5ff47d958c3ceaf1ba324e676033fea1c16e832af2a1d3fb`); `projects/biella-games/docs/task-guides/D05-01.md` (SHA-256 `82d2570d2425f63f183c67c5625756e1ab4688632f0a79921118d7657f1ba9dd`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 002. D06-01 — Cinematic and presentation integration
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D04-01
@@ -74,6 +74,8 @@ Required flow:
 
 **Source records.** `docs/task-program/D00_D08_ENGINE_GAMES.md` (SHA-256 `efd80e6b05a4cced5ff47d958c3ceaf1ba324e676033fea1c16e832af2a1d3fb`); `projects/biella-games/docs/task-guides/D06-01.md` (SHA-256 `91acf1055ea19691bcbf5bab7f3c781df022e5dd16c1e31971e42166e6ff5920`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 003. D07-01 — Full performance, stability, and scalability qualification
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D03-01, D04-01, D05-01, D06-01
@@ -102,6 +104,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 - Clear list of unresolved production risks tied to exact evidence.
 
 **Source records.** `docs/task-program/D00_D08_ENGINE_GAMES.md` (SHA-256 `efd80e6b05a4cced5ff47d958c3ceaf1ba324e676033fea1c16e832af2a1d3fb`); `projects/biella-games/docs/task-guides/D07-01.md` (SHA-256 `f79f11e10f01d809a612c8ffb8359d1041f3b1b601c2ea0fadc39535bffdde6f`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 004. D08-01 — Delivery, update, and release-candidate qualification
 
@@ -134,6 +138,8 @@ The canonical Linux UE 5.8.2 VPS has previously reported Win64 SDK as unavailabl
 
 **Source records.** `docs/task-program/D00_D08_ENGINE_GAMES.md` (SHA-256 `efd80e6b05a4cced5ff47d958c3ceaf1ba324e676033fea1c16e832af2a1d3fb`); `projects/biella-games/docs/task-guides/D08-01.md` (SHA-256 `2084a4ea38c5f7976123c2a5ec02a14c57e9f555c5442698447fa8b063542e11`); `ops/workstation/INSTALLERS.md` (SHA-256 `15b8e7ec478d7dc1c18881bef6e81bf823c4e245ed6e840002e4d025618124bd`); `ops/workstation/provider-registry.json` (SHA-256 `4937d73301d45dd3a12153453aa642d253bc4ede321b649a9e5cc5edfb799806`); `ops/workstation/setup-unreal-win64.ps1` (SHA-256 `90aa672e77eb9918fe211a9f27e4a18a4a91f8bb00056fafa59dcb3557ef56fe`); `ops/workstation/build-unreal-win64.ps1` (SHA-256 `329e783d07e936ee72f1936e05618b574d2419872e31d18bb84ef824d3a6e1f9`); `ops/workstation/UNREAL_WIN64.md` (SHA-256 `94ce7b44ea2f33cb478d451d5574be630cd1af6013fd29937c77f4142c2727d0`); `projects/biella-games/Build/Release/D08-01/windows-setup-observation.json` (SHA-256 `4fa2cf76591bd1b5c22661e5c576de61290cb3131ace8181ff63b7602bf9bebf`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 005. D17-01 — Select canonical AAA challenger slice
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D08-01
@@ -146,7 +152,9 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Scenario file, package identity, first raw run capture.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D17-01.md` (SHA-256 `0711cb80f127bc42c70600cd00a68623dffa52fcc595958f23c50c27a56b2f28`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D17-01.md` (SHA-256 `d32dbbba344dc343438d38eba97e4b20cefe4d783aacbae6e7c58fb24d0aa5a3`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
+
+**Quality.** AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.
 
 ## 006. D17-02 — Prove traversal and camera quality
 
@@ -160,7 +168,9 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Raw capture, runtime log, exact changed source if repaired.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D17-02.md` (SHA-256 `d7a6fbe2f3ff3d8ecdadea1c8b38a6f17166770742a5f99d42f42ee79335eaee`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D17-02.md` (SHA-256 `837d9e95c90165fa1b0fba1293729f1af75ba884eb09c0717ec404c2a10389ef`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
+
+**Quality.** AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.
 
 ## 007. D17-03 — Prove combat feel and consequence chain
 
@@ -174,7 +184,9 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Raw combat capture, telemetry/log events, source/build identity.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D17-03.md` (SHA-256 `0a355995fe7f05613f419bd5689bd5d191679addffcb7f201837b3a28644149f`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D17-03.md` (SHA-256 `bdea770b1f124d711a9f220b666361b9f07c01e7b818bbc8d92feebc88e74fe1`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
+
+**Quality.** AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.
 
 ## 008. D17-04 — Prove player, rival, infected, and arena interaction
 
@@ -188,7 +200,9 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Event timeline, raw video, runtime logs, package digest.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D17-04.md` (SHA-256 `000109a1c2bc0f80501b30c0436b4e9287e75b65dc074fff909b88a31ac1b2bc`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D17-04.md` (SHA-256 `a55ae8cd7d1a4c5a96131fb65f5772794cc52f6c228f2411d0883602bca3861a`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
+
+**Quality.** AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.
 
 ## 009. D17-05 — Create and qualify final animation and motion layer
 
@@ -202,7 +216,9 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Raw captures at representative moments, source/asset identities, runtime evidence.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D17-05.md` (SHA-256 `4117155b4dbc0f0cd84d10e658bad40b7b52dcd5a5a7bb68d8947992ca66c209`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D17-05.md` (SHA-256 `55a7b86480ecc07442208d96050dcba7234ad68ef147cdba803fd052be22a3c4`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
+
+**Quality.** AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.
 
 ## 010. D17-06 — Create and qualify final audio, VFX, HUD, and readability layer
 
@@ -216,7 +232,9 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Raw capture with audio, HUD/state event trace, exact source/asset identities.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D17-06.md` (SHA-256 `16d4398fe12733812ff8ebd7f93ee994b308a76a2787cb58c3f65ea5de7d04a0`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D17-06.md` (SHA-256 `67083876bbb5e57076dc327e2d13aaedbb3c1fa5db83c3a66c15dd93937dc1cb`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
+
+**Quality.** AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.
 
 ## 011. D17-07 — Create and qualify final environment, material, lighting, and world layer
 
@@ -230,7 +248,9 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Raw traversal/combat captures, map/asset identities, runtime logs.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D17-07.md` (SHA-256 `eb843a0cfc499779b4445e233a4eeaf8847543df35642812980031fa253d5ce0`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D17-07.md` (SHA-256 `ff0138cc0d8330553a94f0af106c53273c8ced028ca64630ba72ba78ff5ad733`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
+
+**Quality.** AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.
 
 ## 012. D17-08 — Close AAA vertical-slice evidence package
 
@@ -244,7 +264,9 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Bundle digest/index, Git commit/tree, Drive readback.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D17-08.md` (SHA-256 `32a3126a3907ffb262c12af095e54c3e14d9674c8cbafe11e7a9eb26b35b4e9b`)
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D17-08.md` (SHA-256 `df44da7374bdca8502eab06026cce2e47126e2eb8cf1571b4e7f7c2604a42dd6`); `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md` (SHA-256 `a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07`)
+
+**Quality.** AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.
 
 ## 013. D15-01 — Lock authoritative predecessor closure set
 
@@ -260,6 +282,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D15-01.md` (SHA-256 `5abf52224792d92a0638d20fb096bd039f037ee04b7624995eb28ef8f35a2f9a`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 014. D15-02 — Freeze current source and decision identities
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D15-01
@@ -273,6 +297,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Source-lock record with observed timestamps and remote identities.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D15-02.md` (SHA-256 `54d04b054acfa5deb2b74037f960ea440a85584bf92a10a940796a3ce236e037`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 015. D15-03 — Create post-program evidence namespace
 
@@ -288,6 +314,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D15-03.md` (SHA-256 `54eca7e7ac022fcc4cc47590fc80d78211f82f7577fbd8b7fc82674da78a5f13`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 016. D15-04 — Bind production-ready predecessor build
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D15-03
@@ -301,6 +329,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Exact package digest, source identity, and predecessor validation references.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D15-04.md` (SHA-256 `3894c98fb04a7647a60eec5f06251ad26c74585b64ae1e9f4404acc43169f00f`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 017. D16-01 — Reproduce release from clean checkout
 
@@ -316,6 +346,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D16-01.md` (SHA-256 `0276cb85d911b01f6f089f81bc1b9ee2131a45c9a345fb24b2f1e7430ade768d`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 018. D16-02 — Make package recipe reproducible
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D16-01
@@ -329,6 +361,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Two build logs, resulting package identities/digests, and recipe commit.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D16-02.md` (SHA-256 `0b13bea1a960ea841a017b2771423dd119cdea5a10afcd01ec9de32fda556ef2`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 019. D16-03 — Qualify clean-machine install and launch
 
@@ -344,6 +378,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D16-03.md` (SHA-256 `280ff71f0798b2786aab3d1cc097e7da6eec55a85a835485aeaba96643741fdc`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 020. D16-04 — Qualify save, settings, restart, and reconstruction
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D16-03
@@ -357,6 +393,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Before/after state evidence, save/version identity, runtime logs.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D16-04.md` (SHA-256 `6cc2413f5a6212179b709a79d2fefe32f5175036d0f136e64e5186211b00cae3`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 021. D16-05 — Qualify crash, assert, and failure diagnostics
 
@@ -372,6 +410,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D16-05.md` (SHA-256 `627dde721f0580e3af5de1cff1e0f68329fb14252f080a1047fb4dd7178e66fc`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 022. D16-06 — Qualify update and package replacement
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D16-05
@@ -385,6 +425,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Version identities, update steps, save/config compatibility evidence.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D16-06.md` (SHA-256 `d0e85e5fc1d1791f9c512d8e6c7f09aab9e7d68c26c18c4aa7c06d32259dea85`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 023. D16-07 — Capture representative packaged-runtime baseline
 
@@ -400,6 +442,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D16-07.md` (SHA-256 `cc59599b86d2cf005bff4463f50a43e207295bec9524560053646cbff685220f`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 024. D16-08 — Close reproducible-build proof
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D16-07
@@ -413,6 +457,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Evidence index, exact artifact digests and source commit/tree; GitHub/Drive readback only when published, with pending publication recorded separately.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `projects/biella-games/docs/task-guides/D16-08.md` (SHA-256 `842b7fb9969837e8167e96ac43060c9c7b92b9187d4b4d7300d5ca80269ac344`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 025. D19-01 — Lock representative target hardware tiers from measured evidence
 
@@ -428,6 +474,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-029_LOCK_REPRESENTATIVE_TARGET_HARDWARE_TIERS_FROM_MEASURED_EVIDENCE.md` (SHA-256 `568e555d6ac6422e1abab619389f5b347d1683c832164c4bbecb2bb23832aa5f`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 026. D19-02 — Lock native frame-time and responsiveness targets from evidence
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D19-01
@@ -441,6 +489,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Decision record, benchmark telemetry, source commit.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-030_LOCK_NATIVE_FRAME_TIME_AND_RESPONSIVENESS_TARGETS_FROM_EVIDENCE.md` (SHA-256 `f16d1a77390e1113248445d289eb52770481350662e5292bcb9f4c8ecd0b7fe8`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 027. D19-03 — Qualify world traversal streaming and hitch behavior
 
@@ -456,6 +506,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-031_QUALIFY_WORLD_TRAVERSAL_STREAMING_AND_HITCH_BEHAVIOR.md` (SHA-256 `d42916d4985c3ad2e08295be9a26cb2dba2145f03a26826fbeff8da2daab0996`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 028. D19-04 — Qualify combat population stress behavior
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D19-03
@@ -469,6 +521,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Actor/event counts, CPU/GPU/frame telemetry, runtime logs.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-032_QUALIFY_COMBAT_POPULATION_STRESS_BEHAVIOR.md` (SHA-256 `dc77c8d83e41cdee63e9ff3e12f5f1f5dbe6f1f7a0bc874aafe0936542a1d29e`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 029. D19-05 — Qualify memory, VRAM, residency, and leak behavior
 
@@ -484,6 +538,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-033_QUALIFY_MEMORY_VRAM_RESIDENCY_AND_LEAK_BEHAVIOR.md` (SHA-256 `0a5d4587327aee41bed49dfc20d9d9323b530fc1beec2795de790134a99d5eed`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 030. D19-06 — Qualify sustained packaged-runtime stability
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D19-05
@@ -497,6 +553,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Runtime logs, duration/scenario record, crash/assert artifacts if any.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-034_QUALIFY_SUSTAINED_PACKAGED_RUNTIME_STABILITY.md` (SHA-256 `774f839e6ebcd5418acee766257e91a3fb15704950246555a72b4855733c4a5d`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 031. D19-07 — Requalify clean Shipping package
 
@@ -512,6 +570,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-035_REQUALIFY_A_CLEAN_SHIPPING_PACKAGE.md` (SHA-256 `178233d0114d383d50f1c38f824d92db9a0118c5b80f5620ba5a9bfacf914597`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 032. D19-08 — Close release-operations proof
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D19-07
@@ -525,6 +585,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Bundle index/digest, Git source identity, Drive readback.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-036_CLOSE_RELEASE_OPERATIONS_PROOF.md` (SHA-256 `96e8fd50b1068e09cff7af034d68b547a481e8806226cdc934771bab483fe02b`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 033. D20-01 — Select second production scenario from current accepted systems
 
@@ -540,6 +602,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-037_SELECT_A_SECOND_PRODUCTION_SCENARIO_FROM_APPROVED_SYSTEMS.md` (SHA-256 `f280384878cf6347731a9f6708d3129a21ae6cc9a9da6d07c9be00c2986f4e89`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 034. D20-02 — Produce second environment or encounter composition through reusable systems
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D20-01
@@ -553,6 +617,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Source/asset diff, runtime traversal evidence.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-038_PRODUCE_THE_SECOND_ENVIRONMENT_OR_ENCOUNTER_COMPOSITION_THROUGH_REUSABLE_SYSTEMS.md` (SHA-256 `44f3441dc3f93049ae25bccb4df5727e7d5e1c1c29848f928447d62abc4128b0`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 035. D20-03 — Produce different rival and infected encounter composition
 
@@ -568,6 +634,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-039_PRODUCE_A_DIFFERENT_RIVAL_AND_INFECTED_ENCOUNTER_COMPOSITION.md` (SHA-256 `de35046995825e33dfd9e2eb20ff29ea9833e63d2763182ca992fb4d12f2d5b7`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 036. D20-04 — Produce alternate arena-pressure sequence from current accepted systems
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D20-03
@@ -581,6 +649,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** State/event trace, scenario source, runtime capture.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-040_PRODUCE_AN_ALTERNATE_APPROVED_ARENA_PRESSURE_SEQUENCE.md` (SHA-256 `b48a73566106d613bb84594051aa2222c9cdd22e5262814a7ba9ba90cb8f39db`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 037. D20-05 — Measure content-system reuse versus bespoke work
 
@@ -596,6 +666,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-041_MEASURE_CONTENT_SYSTEM_REUSE_VERSUS_BESPOKE_WORK.md` (SHA-256 `63ee98b55e6a23ca7e59feecd5d31f861b547d4e6fee45b7b1348fc48722be5a`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 038. D20-06 — Package and qualify second scenario
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D20-05
@@ -609,6 +681,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Package digest, raw gameplay, runtime logs.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-042_PACKAGE_AND_QUALIFY_THE_SECOND_SCENARIO.md` (SHA-256 `7f45071808751b15e1a0a630e846adb8cef56ec1f8ba5d1a7bd05a30ba953e7e`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 039. D20-07 — Compare production time, intervention, and quality across scenarios
 
@@ -624,6 +698,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-043_COMPARE_PRODUCTION_TIME_INTERVENTION_AND_QUALITY_ACROSS_SCENARIOS.md` (SHA-256 `0f45d0ac5d592e9d4357b9a5e77058e41fe635352333b9f5a0e39cf5484fd96a`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 040. D20-08 — Close repeatable-content proof
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D20-07
@@ -637,6 +713,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Bundle index/digest, source identities, Drive readback.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-044_CLOSE_REPEATABLE_CONTENT_PROOF.md` (SHA-256 `b9c21672c50b883da000925a6309f469e07a1e58aff10c6afc2864ea236d223a`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 041. D23-01 — Publish truthful playable-proof surface
 
@@ -652,6 +730,8 @@ Lane: **Cross-project** · Priority: **1** · Execution root: `.` · Dependencie
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-061_PUBLISH_A_TRUTHFUL_PLAYABLE_PROOF_SURFACE.md` (SHA-256 `9be2c8af52e361d3abc352d5a48c99b7c97cc726b3e65ef4eb70ff60f272d563`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 042. D18-01 — Define blind external playtest contract
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D17-08
@@ -665,6 +745,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Protocol file and test package identity.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-021_DEFINE_THE_BLIND_EXTERNAL_PLAYTEST_CONTRACT.md` (SHA-256 `12e80f365312e08d2e4af06ef887b54451d303d1a63641571b5cf1cd445d9eb9`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 043. D18-02 — Prepare founder-independent playtest handoff
 
@@ -680,6 +762,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-022_PREPARE_THE_FOUNDER_INDEPENDENT_PLAYTEST_HANDOFF.md` (SHA-256 `33b5d2a11f8775d70a0a08499514a61e5d23d77e54f04af6e231b18915f43220`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 044. D18-03 — Run first independent external session
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D18-02
@@ -693,6 +777,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Session ID, build digest, telemetry/logs, consented notes/captures.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-023_RUN_THE_FIRST_INDEPENDENT_EXTERNAL_SESSION.md` (SHA-256 `75aa91432f6b02699a538c65255ba023728ac1b191337a7996b583fb132bbc18`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 045. D18-04 — Run independent session on a different machine context
 
@@ -708,6 +794,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-024_RUN_AN_INDEPENDENT_SESSION_ON_A_DIFFERENT_MACHINE_CONTEXT.md` (SHA-256 `3cf384f621ba3518da4b8a1e4a1cc24f06b77f52ca5f69be8bc1e5b28f20b5ec`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 046. D18-05 — Aggregate external comprehension and friction evidence
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D18-04
@@ -721,6 +809,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Finding index with session references.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-025_AGGREGATE_EXTERNAL_COMPREHENSION_AND_FRICTION_EVIDENCE.md` (SHA-256 `db080ab04906ee5f88695beff9ccc9eeb1de40b2159537c4c82b9cebb70818ea`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 047. D18-06 — Repair highest-impact reproducible external blockers
 
@@ -736,6 +826,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-026_REPAIR_THE_HIGHEST_IMPACT_REPRODUCIBLE_EXTERNAL_BLOCKERS.md` (SHA-256 `b10a1ac4bb8751ff0281a3b8fd3597ad1859a138d672782a4d9853d69c6f9b6f`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 048. D18-07 — Run post-repair external replay
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D18-06
@@ -749,6 +841,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 **Required evidence.** Session logs/captures, package digest, comparison to prior findings.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-027_RUN_THE_POST_REPAIR_EXTERNAL_REPLAY.md` (SHA-256 `0abcbdeb5b04b08286fd9a7b66f6f7306031e7127f500f4c18547b782088eca5`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 049. D18-08 — Close independent-player proof
 
@@ -764,6 +858,8 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-028_CLOSE_INDEPENDENT_PLAYER_PROOF.md` (SHA-256 `a96bba678d936b9a4ac8528a20882a36fb7adb3a885082f8124e725e176d2c05`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 050. D23-02 — Distribute qualified build to bounded external test cohort
 
 Lane: **Cross-project** · Priority: **1** · Execution root: `.` · Dependencies: D23-01
@@ -777,6 +873,8 @@ Lane: **Cross-project** · Priority: **1** · Execution root: `.` · Dependencie
 **Required evidence.** Distribution artifact ID, package digest, tester delivery records without unnecessary personal data.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-062_DISTRIBUTE_THE_QUALIFIED_BUILD_TO_A_BOUNDED_EXTERNAL_TEST_COHORT.md` (SHA-256 `496c605445dbfa30aea0ef570b4cbf45457249d15e1e4cc2b0e30a0fb6fa53b6`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 051. D23-03 — Capture real demand signals from proof surface
 
@@ -792,6 +890,8 @@ Lane: **Cross-project** · Priority: **1** · Execution root: `.` · Dependencie
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-063_CAPTURE_REAL_DEMAND_SIGNALS_FROM_THE_PROOF_SURFACE.md` (SHA-256 `4ebac8d4a4c187a6c4e691b53148088c9efc1615375efc98afc055204a064193`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 052. D23-04 — Publish game demand evidence report
 
 Lane: **Cross-project** · Priority: **1** · Execution root: `.` · Dependencies: D23-03
@@ -805,6 +905,8 @@ Lane: **Cross-project** · Priority: **1** · Execution root: `.` · Dependencie
 **Required evidence.** Report digest and underlying source identities.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-064_PUBLISH_THE_GAME_DEMAND_EVIDENCE_REPORT.md` (SHA-256 `63ec03fd3d049a543d3508067fc176225a03a1b4e2b6b122949776000b286014`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 053. D09-06 — Cloudflare + GitHub Website Delivery Topology
 
@@ -820,6 +922,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 054. D10-01 — Website Application Scaffold and Preview Deployment
 
 Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencies: D09-03, D09-04, D09-05, D09-06
@@ -833,6 +937,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 **Required evidence.** Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 055. D10-02 — Biella Website Design System
 
@@ -848,6 +954,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 056. D10-03 — Typography, Iconography and Accessibility Foundation
 
 Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencies: D10-01, D10-02
@@ -861,6 +969,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 **Required evidence.** Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 057. D10-04 — Motion and Transition Language
 
@@ -876,6 +986,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 058. D10-05 — Website Asset Migration and Web Derivatives
 
 Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencies: D09-03, D10-01
@@ -889,6 +1001,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 **Required evidence.** Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 059. D10-06 — Website Content Registry
 
@@ -904,6 +1018,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 060. D11-01 — Cinematic Entry and Living Biella Core
 
 Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencies: D10-02, D10-04, D10-05, D10-06
@@ -917,6 +1033,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 **Required evidence.** Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 061. D11-02 — Home Journey — Objective to Delivery
 
@@ -932,6 +1050,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 062. D11-03 — Biella Engine Product Experience
 
 Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencies: D10-06, D11-02
@@ -945,6 +1065,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 **Required evidence.** Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 063. D11-04 — Biella Games Product Experience
 
@@ -960,6 +1082,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 064. D11-05 — Intelligence Experience
 
 Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencies: D10-06, D11-02
@@ -973,6 +1097,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 **Required evidence.** Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 065. D11-06 — Production Pipeline Experience
 
@@ -988,6 +1114,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 066. D12-01 — Capability Explorer
 
 Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencies: D11-03, D11-05, D11-06
@@ -1001,6 +1129,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 **Required evidence.** Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 067. D12-02 — Interactive Orchestration Demonstration
 
@@ -1016,6 +1146,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 068. D12-03 — Project and Showcase System
 
 Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencies: D10-06, D11-03, D11-04
@@ -1029,6 +1161,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 **Required evidence.** Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 069. D12-04 — Game / World Gallery and Playable Embeds
 
@@ -1044,6 +1178,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 070. D12-05 — 3D and Media Gallery
 
 Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencies: D10-05, D12-03
@@ -1057,6 +1193,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 **Required evidence.** Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 071. D12-06 — Interactive Timeline, News and Releases
 
@@ -1072,6 +1210,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 072. D13-01 — Public Documentation Hub
 
 Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencies: D10-06, D12-03
@@ -1085,6 +1225,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 **Required evidence.** Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 073. D13-02 — Public Website Search
 
@@ -1100,6 +1242,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 074. D13-03 — Ask Biella Public Guide
 
 Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencies: D13-01, D13-02
@@ -1113,6 +1257,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 **Required evidence.** Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 075. D13-04 — NVIDIA Compute / Model Demonstration
 
@@ -1128,6 +1274,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 076. D13-05 — Live Research / Tool Demonstration
 
 Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencies: D11-05, D12-02
@@ -1141,6 +1289,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 **Required evidence.** Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 077. D13-06 — About, Partner, Investor and Contact Experience
 
@@ -1156,6 +1306,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 078. D14-01 — SEO, Social Preview and Discoverability
 
 Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencies: D12-03, D13-01
@@ -1169,6 +1321,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 **Required evidence.** Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 079. D14-02 — Analytics, Privacy and Product Insight
 
@@ -1184,6 +1338,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 080. D14-03 — Performance, Caching and Core Web Vitals
 
 Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencies: D11-01, D12-04, D12-05, D14-01
@@ -1197,6 +1353,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 **Required evidence.** Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 081. D14-04 — Responsive, Browser, Device and Accessibility Qualification
 
@@ -1212,6 +1370,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 082. D14-05 — Website Resilience, Error and Cost Boundaries
 
 Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencies: D13-03, D13-05, D13-06, D14-02
@@ -1225,6 +1385,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 **Required evidence.** Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 083. D14-06 — Cloudflare Production Launch and Final Website Qualification
 
@@ -1240,6 +1402,8 @@ Lane: **Website** · Priority: **2** · Execution root: `website` · Dependencie
 
 **Source records.** `docs/task-program/D09_D14_WEBSITE.md` (SHA-256 `c58da04721db0c797f863125ea08c7484b9127ea015725ba350b02c2cd01f05f`); `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` (SHA-256 `278ac7f149be074e3e1d88997bcf5ff4456a46aae1abacf3da1fa2f1496b9022`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 084. D21-01 — Define founder-leverage evidence schema
 
 Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D20-08
@@ -1253,6 +1417,8 @@ Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D20-
 **Required evidence.** Schema/source commit and mapping to current Engine interfaces.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-045_DEFINE_THE_FOUNDER_LEVERAGE_EVIDENCE_SCHEMA.md` (SHA-256 `8787146aa08d6e2d092978bb97222044676a17b48403bc388f48700baffbeca7`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 085. D21-02 — Compute accepted-task throughput from real traces
 
@@ -1268,6 +1434,8 @@ Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D21-
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-046_COMPUTE_ACCEPTED_TASK_THROUGHPUT_FROM_REAL_TRACES.md` (SHA-256 `902566fa4ff555089b47ab9aadfd185fec3aa2c265028c6eb69e478ca775ff4c`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 086. D21-03 — Measure founder intervention per accepted outcome
 
 Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D21-02
@@ -1281,6 +1449,8 @@ Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D21-
 **Required evidence.** Event/task references and aggregate calculation.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-047_MEASURE_FOUNDER_INTERVENTION_PER_ACCEPTED_OUTCOME.md` (SHA-256 `1140a59adb4ca797b5d0333d3d40ec1d42ac1fd17ad3c768017de846cd296fa8`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 087. D21-04 — Measure compute, model, tool, and infrastructure cost per outcome
 
@@ -1296,6 +1466,8 @@ Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D21-
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-048_MEASURE_COMPUTE_MODEL_TOOL_AND_INFRASTRUCTURE_COST_PER_OUTCOME.md` (SHA-256 `3253f2df876a6fa0ce966ddcd091aee111ced9aabe067ec0e160274afce256e9`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 088. D21-05 — Measure objective-to-validated-artifact cycle time
 
 Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D21-04
@@ -1309,6 +1481,8 @@ Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D21-
 **Required evidence.** Task/run/event IDs and calculation output.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-049_MEASURE_OBJECTIVE_TO_VALIDATED_ARTIFACT_CYCLE_TIME.md` (SHA-256 `2e7c084403eaa23f7e2037103ae30e06d8290739e5e12a17b8839f837c924c66`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 089. D21-06 — Benchmark durable recovery after interruption
 
@@ -1324,6 +1498,8 @@ Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D21-
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-050_BENCHMARK_DURABLE_RECOVERY_AFTER_INTERRUPTION.md` (SHA-256 `2faeb6d0aa04752164b4211566c2fe7299fb3748529c9982f7efdda882e927db`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 090. D21-07 — Benchmark model or provider continuity on the same project
 
 Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D21-06
@@ -1337,6 +1513,8 @@ Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D21-
 **Required evidence.** Before/after worker/resource identities, task/run evidence, output validation.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-051_BENCHMARK_MODEL_OR_PROVIDER_CONTINUITY_ON_THE_SAME_PROJECT.md` (SHA-256 `d8ffe4d46135d970dd34239ab9944569ff460785ba0aeb08244e5cb8c9712cc6`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 091. D21-08 — Publish solo-founder leverage evidence report
 
@@ -1352,6 +1530,8 @@ Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D21-
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-052_PUBLISH_THE_SOLO_FOUNDER_LEVERAGE_EVIDENCE_REPORT.md` (SHA-256 `6b56cd1f91154ce1287cf2ac937cceadd4cae382a2e1862b012b6a6a34db2985`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 092. D22-01 — Select non-Biella-Games external pilot objective
 
 Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D21-08
@@ -1365,6 +1545,8 @@ Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D21-
 **Required evidence.** Pilot brief, project identity, accepted output contract.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-053_SELECT_A_NON_BIELLA_GAMES_EXTERNAL_PILOT_OBJECTIVE.md` (SHA-256 `9539f90f436622f96db1fba981d6199e57c5dcf38922c0da656f5e84c9bbebbe`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 093. D22-02 — Package repeatable external deployment and onboarding path
 
@@ -1380,6 +1562,8 @@ Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D22-
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-054_PACKAGE_THE_REPEATABLE_EXTERNAL_DEPLOYMENT_AND_ONBOARDING_PATH.md` (SHA-256 `478ed93f63318f29535d62664f801a8fd26221ebfa8787bff418fafa4a33f423`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 094. D22-03 — Onboard external pilot without founder reconstruction
 
 Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D22-02
@@ -1393,6 +1577,8 @@ Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D22-
 **Required evidence.** Project/task IDs, interface logs, persisted state readback.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-055_ONBOARD_THE_EXTERNAL_PILOT_WITHOUT_FOUNDER_RECONSTRUCTION.md` (SHA-256 `672ae2b190a9dfc279332715fe8fbcdad090b1de484c96478e3060c28c944ef5`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 095. D22-04 — Execute first external objective to a validated artifact
 
@@ -1408,6 +1594,8 @@ Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D22-
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-056_EXECUTE_THE_FIRST_EXTERNAL_OBJECTIVE_TO_A_VALIDATED_ARTIFACT.md` (SHA-256 `b38f544c33f0ef51c6fcbfa043fd573628ff729a9c6f7c69a2aa841de04ab93d`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 096. D22-05 — Persist and reconstruct external pilot state
 
 Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D22-04
@@ -1421,6 +1609,8 @@ Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D22-
 **Required evidence.** Shutdown/restart evidence, persisted object identities, reconstructed state readback.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-057_PERSIST_AND_RECONSTRUCT_THE_EXTERNAL_PILOT_STATE.md` (SHA-256 `3bd004bbe818129a2c6bfadd8df08cd4bb58a46e621b747b51053db9423ff0a0`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 097. D22-06 — Recover pilot after bounded infrastructure interruption
 
@@ -1436,6 +1626,8 @@ Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D22-
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-058_RECOVER_THE_PILOT_AFTER_A_BOUNDED_INFRASTRUCTURE_INTERRUPTION.md` (SHA-256 `f317b0e52c315b3dc85232a886826051c5bdf0a4fca4683b27e585d9d046093d`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 098. D22-07 — Continue external pilot with second objective or worker change
 
 Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D22-06
@@ -1449,6 +1641,8 @@ Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D22-
 **Required evidence.** Second task/run/artifact identities and validation.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-059_CONTINUE_THE_EXTERNAL_PILOT_WITH_A_SECOND_OBJECTIVE_OR_WORKER_CHANGE.md` (SHA-256 `73fae23bc1b28fb3aa7bc94065928f0411c820d3e5b3327c28f7ee701e2c03bb`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
 
 ## 099. D22-08 — Close external replication proof
 
@@ -1464,6 +1658,8 @@ Lane: **Engine** · Priority: **2** · Execution root: `.` · Dependencies: D22-
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-060_CLOSE_EXTERNAL_REPLICATION_PROOF.md` (SHA-256 `2dbebef7c492184452c492e7e7c358c6652291eb3e51b002f64a68f83c13240c`)
 
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
+
 ## 100. D23-05 — Package external pilot commercial offer
 
 Lane: **Cross-project** · Priority: **2** · Execution root: `.` · Dependencies: D23-04, D22-08
@@ -1477,3 +1673,5 @@ Lane: **Cross-project** · Priority: **2** · Execution root: `.` · Dependencie
 **Required evidence.** Offer document identity, capability/evidence references.
 
 **Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-065_PACKAGE_THE_EXTERNAL_PILOT_COMMERCIAL_OFFER.md` (SHA-256 `0e41c66eaa64540c3c63dfab90a102660baf7c3e1a97e41790df083c0de5f5d5`)
+
+**Quality.** Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.
