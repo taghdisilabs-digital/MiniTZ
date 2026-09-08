@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Cook an exact project snapshot with an initially empty, isolated filesystem DDC.
+"""Cook an exact snapshot with an isolated filesystem DDC, empty by default.
 
 Does not remove or reuse prior cook/cache directories. Keep failed snapshots.
+An explicit validated DDC seed may be copied for an affected-scope recook.
 The native game build and current editor build must already have succeeded.
 """
 import argparse
@@ -31,6 +32,7 @@ def main():
     parser.add_argument('--workspace', type=Path, required=True)
     parser.add_argument('--game-build', type=Path, required=True)
     parser.add_argument('--editor-build', type=Path, help='Require exact source and module bytes from an editor build receipt')
+    parser.add_argument('--ddc-seed', type=Path, help='Copy exact cache bytes from a successful cook validation; never reuse its cooked output')
     args = parser.parse_args()
     out, work = args.output.resolve(), args.workspace.resolve()
     assert not out.exists() and not work.exists(), 'Fresh output and workspace required'
@@ -50,6 +52,33 @@ def main():
     write_json(out/'validation.json', report)
     start = time.monotonic()
     try:
+        if args.ddc_seed:
+            seed_path = args.ddc_seed.resolve()
+            seed = json.loads(seed_path.read_text())
+            assert seed['result'] == 'PASS' and seed['editor'] == report['editor']
+            seed_root = Path(seed['cache']).resolve()
+            # Copy filesystem DDC records/blobs only. Zen contains cooked
+            # output, authentication and mutable process/log state; each new
+            # cook must build that independently. TestData is a speed probe.
+            seed_rows = [row for row in seed['cache_after']
+                         if Path(row['path']).relative_to(seed_root).parts[0] in ('Buckets', 'Content')]
+            assert seed_rows, 'Seed has no verified filesystem cache files'
+            assert seed_root != cache.resolve() and not cache.is_relative_to(seed_root)
+            for row in seed_rows:
+                source_cache = Path(row['path'])
+                assert source_cache.resolve().is_relative_to(seed_root)
+                assert file_identity(source_cache) == row, 'Seed cache bytes changed'
+                target_cache = cache / source_cache.relative_to(seed_root)
+                target_cache.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source_cache, target_cache)
+                copied = file_identity(target_cache)
+                assert all(copied[k] == row[k] for k in ('sha256', 'bytes'))
+            report['cache_seed'] = dict(validation=file_identity(seed_path),
+                source_cache=str(seed_root), copied_files=len(seed_rows),
+                copied_bytes=sum(row['bytes'] for row in seed_rows),
+                copied_roots=['Buckets', 'Content'], excluded_roots=['Zen', 'TestData'],
+                all_copied_digests_verified=True, cooked_outputs_reused=False)
+            report['cache_before'] = [file_identity(f) for f in sorted(cache.rglob('*')) if f.is_file()]
         build = json.loads((args.game_build/'result.json').read_text())
         assert build['result'] == 'PASS', 'Native game build not qualified'
         assert build['binary'] == file_identity(PROJECT/'Binaries/Linux/BiellaGames'), 'Game binary differs from build'

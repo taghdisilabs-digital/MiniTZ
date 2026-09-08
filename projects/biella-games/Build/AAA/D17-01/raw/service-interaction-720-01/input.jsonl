@@ -1,0 +1,24 @@
+{"event": "capture_started", "elapsed_seconds": 2.9910006560385227e-06, "window": "2097243"}
+{"event": "input_sent", "elapsed_seconds": 0.016654931998346, "planned_at": 0, "input": ["keydown", "w"], "intended_beat": "Advance from the native start state"}
+{"event": "input_sent", "elapsed_seconds": 0.13590445602312684, "planned_at": 0.1, "input": ["keydown", "Shift_L"], "intended_beat": "Use normal sprint control"}
+{"event": "input_sent", "elapsed_seconds": 0.2558493459946476, "planned_at": 0.2, "input": ["keydown", "a"], "intended_beat": "Pass left of initial encounter"}
+{"event": "input_sent", "elapsed_seconds": 2.2617830610251985, "planned_at": 2.2, "input": ["keyup", "a"], "intended_beat": "Continue along the street"}
+{"event": "input_sent", "elapsed_seconds": 7.068766503012739, "planned_at": 7, "input": ["keyup", "Shift_L"], "intended_beat": "Approach service bay at walking speed"}
+{"event": "input_sent", "elapsed_seconds": 13.068628377048299, "planned_at": 13, "input": ["keyup", "w"], "intended_beat": "Turn approach toward the cabinet side"}
+{"event": "input_sent", "elapsed_seconds": 13.137860116024967, "planned_at": 13.1, "input": ["keydown", "d"], "intended_beat": "Strafe toward the existing switch location"}
+{"event": "input_sent", "elapsed_seconds": 15.26380437600892, "planned_at": 15.2, "input": ["keyup", "d"], "intended_beat": "Finish lateral approach"}
+{"event": "input_sent", "elapsed_seconds": 15.34429497004021, "planned_at": 15.3, "input": ["keydown", "w"], "intended_beat": "Walk toward cabinet from west"}
+{"event": "input_sent", "elapsed_seconds": 17.05694974202197, "planned_at": 17, "input": ["keyup", "w"], "intended_beat": "Stop near intended interaction reach; reach is not presumed"}
+{"event": "input_sent", "elapsed_seconds": 17.12926011905074, "planned_at": 17.1, "input": ["keydown", "e"], "intended_beat": "Attempt existing power switch through normal input"}
+{"event": "input_sent", "elapsed_seconds": 17.354261413041968, "planned_at": 17.3, "input": ["keyup", "e"], "intended_beat": "Release interaction"}
+{"event": "input_sent", "elapsed_seconds": 18.034002809028607, "planned_at": 18, "input": ["mousedown", "1"], "intended_beat": "Fire the existing weapon at forward target or panel"}
+{"event": "input_sent", "elapsed_seconds": 18.143071922007948, "planned_at": 18.1, "input": ["mouseup", "1"], "intended_beat": "Release trigger"}
+{"event": "input_sent", "elapsed_seconds": 19.04613590502413, "planned_at": 19, "input": ["keydown", "w"], "intended_beat": "Continue through the real environment if unobstructed"}
+{"event": "input_sent", "elapsed_seconds": 21.052047375997063, "planned_at": 21, "input": ["keyup", "w"], "intended_beat": "Stop forward input"}
+{"event": "input_sent", "elapsed_seconds": 21.12557726801606, "planned_at": 21.1, "input": ["keydown", "d"], "intended_beat": "Continue traversing the approach"}
+{"event": "input_sent", "elapsed_seconds": 24.04777536302572, "planned_at": 24, "input": ["keyup", "d"], "intended_beat": "End bounded approach movement"}
+{"event": "input_sent", "elapsed_seconds": 24.15334337000968, "planned_at": 24.1, "input": ["mousemove_relative", "--", "-112", "0"], "intended_beat": "Look toward the street encounter"}
+{"event": "input_sent", "elapsed_seconds": 24.437261760002002, "planned_at": 24.4, "input": ["keydown", "w"], "intended_beat": "Continue normal traversal until native terminal or bounded observation end"}
+{"event": "input_sent", "elapsed_seconds": 55.03465408703778, "planned_at": 55, "input": ["keyup", "w"], "intended_beat": "End bounded diagnostic input"}
+{"event": "native_terminal_observed", "elapsed_seconds": 59.64575408102246}
+{"event": "capture_finished", "elapsed_seconds": 62.935679237998556, "result": {"status": "CAPTURED", "reason": "native_terminal_state", "audio_capture": false, "input_delivery": "X11 keyboard/mouse", "world_mutation_or_automation_tests": false, "measured_input_run_seconds": 59.64581989304861, "actions_sent": 21, "game_alive_at_capture_end": true, "recorder_returncode": 255, "game_returncode": 0}}

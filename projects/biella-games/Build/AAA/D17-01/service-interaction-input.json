@@ -1,0 +1,177 @@
+{
+  "schema": "biella.d17.raw_input_plan/v1",
+  "task_id": "D17-01",
+  "scope": "Ordinary-input environment-consequence probe on the corrected package. Uses the observed service-720-02 approach and unchanged switch reach/facing rules. Intended target/reach is not an observed result; no actor mutation, fixture, pressure API, timer or mechanic change.",
+  "actions": [
+    {
+      "at": 0,
+      "input": [
+        "keydown",
+        "w"
+      ],
+      "beat": "Advance from the native start state"
+    },
+    {
+      "at": 0.1,
+      "input": [
+        "keydown",
+        "Shift_L"
+      ],
+      "beat": "Use normal sprint control"
+    },
+    {
+      "at": 0.2,
+      "input": [
+        "keydown",
+        "a"
+      ],
+      "beat": "Pass left of initial encounter"
+    },
+    {
+      "at": 2.2,
+      "input": [
+        "keyup",
+        "a"
+      ],
+      "beat": "Continue along the street"
+    },
+    {
+      "at": 7,
+      "input": [
+        "keyup",
+        "Shift_L"
+      ],
+      "beat": "Approach service bay at walking speed"
+    },
+    {
+      "at": 13,
+      "input": [
+        "keyup",
+        "w"
+      ],
+      "beat": "Turn approach toward the cabinet side"
+    },
+    {
+      "at": 13.1,
+      "input": [
+        "keydown",
+        "d"
+      ],
+      "beat": "Strafe toward the existing switch location"
+    },
+    {
+      "at": 15.2,
+      "input": [
+        "keyup",
+        "d"
+      ],
+      "beat": "Finish lateral approach"
+    },
+    {
+      "at": 15.3,
+      "input": [
+        "keydown",
+        "w"
+      ],
+      "beat": "Walk toward cabinet from west"
+    },
+    {
+      "at": 17,
+      "input": [
+        "keyup",
+        "w"
+      ],
+      "beat": "Stop near intended interaction reach; reach is not presumed"
+    },
+    {
+      "at": 17.1,
+      "input": [
+        "keydown",
+        "e"
+      ],
+      "beat": "Attempt existing power switch through normal input"
+    },
+    {
+      "at": 17.3,
+      "input": [
+        "keyup",
+        "e"
+      ],
+      "beat": "Release interaction"
+    },
+    {
+      "at": 18,
+      "input": [
+        "mousedown",
+        "1"
+      ],
+      "beat": "Fire the existing weapon at forward target or panel"
+    },
+    {
+      "at": 18.1,
+      "input": [
+        "mouseup",
+        "1"
+      ],
+      "beat": "Release trigger"
+    },
+    {
+      "at": 19,
+      "input": [
+        "keydown",
+        "w"
+      ],
+      "beat": "Continue through the real environment if unobstructed"
+    },
+    {
+      "at": 21,
+      "input": [
+        "keyup",
+        "w"
+      ],
+      "beat": "Stop forward input"
+    },
+    {
+      "at": 21.1,
+      "input": [
+        "keydown",
+        "d"
+      ],
+      "beat": "Continue traversing the approach"
+    },
+    {
+      "at": 24,
+      "input": [
+        "keyup",
+        "d"
+      ],
+      "beat": "End bounded approach movement"
+    },
+    {
+      "at": 24.1,
+      "input": [
+        "mousemove_relative",
+        "--",
+        "-112",
+        "0"
+      ],
+      "beat": "Look toward the street encounter"
+    },
+    {
+      "at": 24.4,
+      "input": [
+        "keydown",
+        "w"
+      ],
+      "beat": "Continue normal traversal until native terminal or bounded observation end"
+    },
+    {
+      "at": 55,
+      "input": [
+        "keyup",
+        "w"
+      ],
+      "beat": "End bounded diagnostic input"
+    }
+  ]
+}

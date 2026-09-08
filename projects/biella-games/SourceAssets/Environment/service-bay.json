@@ -2,14 +2,14 @@
   "schema": "biella.service_bay.art/v1",
   "status": "GENERATED_DRAFT",
   "source": "build_service_bay.py",
-  "source_sha256": "34441393526c58c7072dc1b7c39654ee20eca868a4f2e7ee83f0dc5d6d949e71",
+  "source_sha256": "877f128ad654ac9466de0e6d8112fa4c35105d4d9a3d1134e3d9d76892d9a06c",
   "provenance": "Biella-authored mesh; no third-party geometry or textures",
   "blender": "5.0.1",
   "assets": [
     {
       "mesh": "SM_ServicePanel120",
       "fbx": "SM_ServicePanel120.fbx",
-      "sha256": "310de844ce9fd59a805877e3db1c787fd1550cb54b9944fc5953672cbfe64ba0",
+      "sha256": "315ab5296b56206b62566ccb99f370a46dba5f0f473ccc0f0dd9f92d5aaaa2b6",
       "triangles": 3016,
       "bounds_min": [
         -50.0,
@@ -21,6 +21,8 @@
         50.0,
         50.0
       ],
+      "export_y_reflected": true,
+      "outward_volume_preserved": true,
       "normalized_envelope_cm": [
         12,
         120,
@@ -35,7 +37,7 @@
     {
       "mesh": "SM_ServicePanel240",
       "fbx": "SM_ServicePanel240.fbx",
-      "sha256": "9d9e932262dad506a6038543c3a96f33d476e8e555a62c9abf2a1a0cc669be9a",
+      "sha256": "bcfcf4acdea32b97e18d5296dbfaa66cd8b4958ec9bc1d7797ac09655d930b86",
       "triangles": 3956,
       "bounds_min": [
         -50.0,
@@ -47,6 +49,8 @@
         50.0,
         50.0
       ],
+      "export_y_reflected": true,
+      "outward_volume_preserved": true,
       "normalized_envelope_cm": [
         12,
         240,
@@ -61,7 +65,7 @@
     {
       "mesh": "SM_ServiceBayMetalwork",
       "fbx": "SM_ServiceBayMetalwork.fbx",
-      "sha256": "b13e373fb7990801fc8d81e96ce62afcc0f4d154e4ca9b4a0d3146c4cbe63ea7",
+      "sha256": "6d15309dc8d1c83168a0a2dfad504a52f98a917f79bc8cb20e15d39a7d917f2c",
       "triangles": 11492,
       "bounds_min": [
         -204.60000610351562,
@@ -73,6 +77,8 @@
         275.0,
         260.0
       ],
+      "export_y_reflected": true,
+      "outward_volume_preserved": true,
       "normalized_envelope_cm": null,
       "material_slots": [
         "Steel",

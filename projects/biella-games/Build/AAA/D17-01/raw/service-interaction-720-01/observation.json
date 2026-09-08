@@ -1,0 +1,36 @@
+{
+  "acceptance": "NOT_QUALIFIED: raw observation requires route/duration/visual review",
+  "capture": {
+    "actions_sent": 21,
+    "audio_capture": false,
+    "game_alive_at_capture_end": true,
+    "game_returncode": 0,
+    "input_delivery": "X11 keyboard/mouse",
+    "measured_input_run_seconds": 59.64581989304861,
+    "reason": "native_terminal_state",
+    "recorder_returncode": 255,
+    "status": "CAPTURED",
+    "world_mutation_or_automation_tests": false
+  },
+  "maps": [
+    "BiellaOpenWorldMap",
+    "Untitled"
+  ],
+  "restart_counts": [
+    0
+  ],
+  "sessions": [
+    "01A08150-AE76-72B7-B85A-0AAAC5C58964"
+  ],
+  "task_id": "D17-01",
+  "telemetry_events": {
+    "damage": 113,
+    "defeat": 20,
+    "objective_activated": 1,
+    "objective_progress": 30,
+    "phase": 2,
+    "telemetry_ready": 1,
+    "telemetry_shutdown": 1,
+    "weapon_fire": 1
+  }
+}

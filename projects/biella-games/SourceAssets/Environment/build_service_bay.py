@@ -10,6 +10,7 @@ import json
 import math
 from pathlib import Path
 import bpy
+import bmesh
 from mathutils import Vector
 
 ROOT = Path(__file__).resolve().parent
@@ -95,11 +96,27 @@ def export(name, envelope=None):
         assert all(abs(v-50) < .001 for v in maximum), maximum
     obj.data.calc_loop_triangles()
     path = ROOT / (name+'.fbx')
+    # Authored coordinates are the native actor's coordinates. Unreal's FBX
+    # import reflects Y when converting the right-handed FBX mesh. Compensate
+    # on the export copy only, preserving the editable scene and outward faces.
+    mesh = bmesh.new()
+    mesh.from_mesh(obj.data)
+    volume_before = mesh.calc_volume(signed=True)
+    for vertex in mesh.verts:
+        vertex.co.y *= -1
+    bmesh.ops.reverse_faces(mesh, faces=list(mesh.faces))
+    volume_after = mesh.calc_volume(signed=True)
+    assert abs(volume_before-volume_after) < max(1, abs(volume_before))*1e-5
+    mesh.to_mesh(obj.data)
+    mesh.free()
+    obj.data.update()
+    obj.data.calc_loop_triangles()
     bpy.ops.export_scene.fbx(filepath=str(path), use_selection=True,
         object_types={'MESH'}, axis_forward='X', axis_up='Z', apply_unit_scale=True,
         bake_anim=False, add_leaf_bones=False, mesh_smooth_type='FACE')
     records.append(dict(mesh=name, fbx=path.name, sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
         triangles=len(obj.data.loop_triangles), bounds_min=minimum, bounds_max=maximum,
+        export_y_reflected=True, outward_volume_preserved=True,
         normalized_envelope_cm=envelope, material_slots=[m.name for m in obj.data.materials]))
     bpy.data.objects.remove(obj, do_unlink=True)
     collection = bpy.data.collections.new(name+' editable components')

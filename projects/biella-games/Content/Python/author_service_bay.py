@@ -172,6 +172,13 @@ for entry in SPEC['assets']:
         assert mesh.get_material(i)==materials[name]
     bounds=mesh.get_bounds()
     extent=[bounds.box_extent.x,bounds.box_extent.y,bounds.box_extent.z]
+    origin=[bounds.origin.x,bounds.origin.y,bounds.origin.z]
+    observed_min=[o-e for o,e in zip(origin,extent)]
+    observed_max=[o+e for o,e in zip(origin,extent)]
+    # Extents alone cannot catch reflection of an asymmetric cabinet. Require
+    # the saved imported mesh to occupy the authored native coordinates.
+    assert all(abs(a-b)<.02 for a,b in zip(observed_min,entry['bounds_min'])), (path,observed_min)
+    assert all(abs(a-b)<.02 for a,b in zip(observed_max,entry['bounds_max'])), (path,observed_max)
     if entry['normalized_envelope_cm']:
         assert max(abs(v-50) for v in extent)<.02,extent
         assert bounds.origin.length()<.02
@@ -181,7 +188,8 @@ for entry in SPEC['assets']:
         assert MESH.get_simple_collision_count(mesh)==1
     else:
         assert MESH.get_simple_collision_count(mesh)==0
-    records.append(dict(asset=path,source_sha256=entry['sha256'],bounds_extent=extent,
+    records.append(dict(asset=path,source_sha256=entry['sha256'],bounds_extent=extent,bounds_origin=origin,
+        bounds_min=observed_min,bounds_max=observed_max,authored_coordinates_verified=True,
         collision_boxes=MESH.get_simple_collision_count(mesh),triangles=mesh.get_num_triangles(0),materials=names))
 
 report=dict(task_id='D17-01',result='PASS',mode='readback' if VERIFY else 'author',

@@ -47,11 +47,11 @@
     {
       "criterion": "natural_arena_pressure",
       "fact": "Contract 33 leaves the exact mechanic, timing and escalation UNKNOWN. Accepted packaged pressure evidence invokes the authoritative API from fixtures. Native ApplyArenaPressure explicitly adds no elapsed-time escalation.",
-      "decision": "Do not invent a timer or connect the service-bay power switch to pressure. Player-reachable pressure remains unqualified; inspect an exact accepted content trigger only when one is identified."
+      "decision": "Do not invent a timer or connect the service-bay switch to the arena-pressure API. The visual capture contract also calls for environment-consequence states: attempt the already implemented power-switch/shared-hazard interaction with normal inputs. Keep that environmental proof distinct from the unqualified native arena_pressure trigger."
     },
     {
       "criterion": "continuous_600_1200_seconds",
-      "fact": "Demo objective resolution sets Success and the player controller disables movement/look. Prior raw runs terminate in 9.41\u201334.10 simulation seconds.",
+      "fact": "Native objective success and player defeat both terminate normal control. Current raw baseline routes end in Success at 34.1126 and 9.0098 active simulation seconds. The service interaction attempt remains active until rival fire defeats the player at 57.1384 seconds; the short success runs do not prove every input route must end immediately.",
       "decision": "Preserve accepted terminal behavior. A supported continuous content sequence is not yet established; restart stitching and idle padding remain prohibited.",
       "causal_evidence": "BiellaOpenWorldGameMode inherits SpawnDemoActors and the two-target Demo objective. BiellaDemoObjectiveManager excludes streaming infected. In hud-1080-01 telemetry the rival alone kills both tracked infected by 9.3066 s; Success follows at 9.4109 s even while streamed population survives. This identifies the early terminal cause without changing accepted behavior.",
       "additional_probe": {
@@ -156,8 +156,34 @@
       }
     }
   ],
-  "independent_work": "Authored service-bay mesh/material/practical-light replacement is now built, recooked and validated in the installed package. The normal 720p run shows the bay in the traversed street. Next independent creation: service-bay wet approach surfaces, supported switch mounting and integrated organic infection, preserving validated collision and gameplay.",
+  "independent_work": "Corrected FBX handedness on export copies; native collision and switch coordinates are preserved. Saved Unreal bounds now match authored asymmetric coordinates; the packaged fixture and normal 720p approach show the cabinet supporting the switch. Next independent visual creation: service-bay approach wet material breakup and integrated organic infection, preserving validated collision and gameplay.",
   "current_package_raw": [
+    {
+      "run": "service-720-02",
+      "telemetry": {
+        "path": "Build/AAA/D17-01/raw/service-720-02/telemetry.jsonl",
+        "sha256": "625a93d1208529536dd444316140e72f35630ae5278f146c350585bc94b90ced",
+        "bytes": 35784
+      },
+      "terminal_simulation_seconds": 34.112581229710486,
+      "active_simulation_seconds": 34.112581229710486,
+      "duration_satisfied": false,
+      "arena_pressure_events": 0
+    },
+    {
+      "run": "service-1080-02",
+      "telemetry": {
+        "path": "Build/AAA/D17-01/raw/service-1080-02/telemetry.jsonl",
+        "sha256": "868ce6253f57f3b40ec224ccd80a0ad1fe3ea68aab903fbf2f09822f523ce903",
+        "bytes": 6732
+      },
+      "terminal_simulation_seconds": 9.009782609471586,
+      "active_simulation_seconds": 9.009782609471586,
+      "duration_satisfied": false,
+      "arena_pressure_events": 0
+    }
+  ],
+  "previous_service_package_raw": [
     {
       "run": "service-720-01",
       "telemetry": {
@@ -180,5 +206,34 @@
       "duration_satisfied": false,
       "arena_pressure_events": 0
     }
-  ]
+  ],
+  "current_environment_probe": {
+    "run": "raw/service-interaction-720-01",
+    "telemetry": {
+      "path": "Build/AAA/D17-01/raw/service-interaction-720-01/telemetry.jsonl",
+      "sha256": "35428731c5e5ae7e09d33d2bed4f45f01d694af60a7e1986d23c8f25f64f217b",
+      "bytes": 57985
+    },
+    "runtime_log": {
+      "path": "Build/AAA/D17-01/raw/service-interaction-720-01/runtime.engine.log",
+      "sha256": "6b4093bbb6abee69b71885ff8810b99cc0fc32fabf70287622d0df882ed2df69",
+      "bytes": 434831
+    },
+    "input_plan": {
+      "path": "Build/AAA/D17-01/service-interaction-input.json",
+      "sha256": "b398185f2d3415fff96e6100d01dd0b002043c99b034f9759891b867a90042eb",
+      "bytes": 3336
+    },
+    "active_simulation_seconds": 57.13843510946026,
+    "terminal": "Failure",
+    "player_defeat": {
+      "reason": "rival_fire",
+      "target": "BiellaStreamingCharacter:1"
+    },
+    "input_actions": 21,
+    "arena_pressure_events": 0,
+    "environment_power_transitions": 0,
+    "observed": "Decoded frames at video seconds 17 and 20 show the approach passing the far/right side of the service bay, outside the cabinet approach; no interaction prompt is visible. The E key attempt records no power transition. This is a missed ordinary-input approach, not evidence that the passing switch implementation is broken.",
+    "next_action": "Correct the approach to the unchanged cabinet from observed runtime position and native reach/facing rules; then capture the implemented power/shared-hazard state with ordinary input."
+  }
 }

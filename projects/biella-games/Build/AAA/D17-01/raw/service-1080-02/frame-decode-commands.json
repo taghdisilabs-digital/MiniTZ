@@ -1,0 +1,28 @@
+[
+  [
+    "ffmpeg",
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-ss",
+    "4",
+    "-i",
+    "Build/AAA/D17-01/raw/service-1080-02/raw-gameplay.mkv",
+    "-frames:v",
+    "1",
+    "Build/AAA/D17-01/raw/service-1080-02/frame-04.png"
+  ],
+  [
+    "ffmpeg",
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-ss",
+    "10",
+    "-i",
+    "Build/AAA/D17-01/raw/service-1080-02/raw-gameplay.mkv",
+    "-frames:v",
+    "1",
+    "Build/AAA/D17-01/raw/service-1080-02/frame-10.png"
+  ]
+]

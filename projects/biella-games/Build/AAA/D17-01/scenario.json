@@ -188,18 +188,18 @@
     },
     {
       "path": "SourceAssets/Environment/build_service_bay.py",
-      "sha256": "34441393526c58c7072dc1b7c39654ee20eca868a4f2e7ee83f0dc5d6d949e71",
-      "bytes": 7707
+      "sha256": "877f128ad654ac9466de0e6d8112fa4c35105d4d9a3d1134e3d9d76892d9a06c",
+      "bytes": 8460
     },
     {
       "path": "SourceAssets/Environment/ServiceBay.blend",
-      "sha256": "9bcd8df6928659f659c2cfc32bae9d59fd0ae45da6c5976cc4a6bb6e8a53dc06",
-      "bytes": 134461
+      "sha256": "51a7d3c77c1c52acd000775ad5623ea07bf8f182a9123ad9e1c3bd6595657679",
+      "bytes": 134398
     },
     {
       "path": "Content/Python/author_service_bay.py",
-      "sha256": "fc5ff9c48fa3fa0f09143e07ffdf4ad9e8bce500cf2f398c2fe04bf740be8933",
-      "bytes": 10604
+      "sha256": "cea6592adeaf09e1f1bead81b94f334e9ea4f01faa1891a8c7bdfa74082543a2",
+      "bytes": 11233
     }
   ],
   "first_raw_run": "Build/AAA/D17-01/raw/entry-720-02/observation.json",
@@ -210,26 +210,49 @@
     "Build/AAA/D17-01/raw/hud-1080-01/observation.json"
   ],
   "current_raw_runs": [
-    "Build/AAA/D17-01/raw/service-720-01/observation.json",
-    "Build/AAA/D17-01/raw/service-1080-01/observation.json"
+    "Build/AAA/D17-01/raw/service-720-02/observation.json",
+    "Build/AAA/D17-01/raw/service-1080-02/observation.json"
   ],
-  "current_package_status": "Native game/editor builds, fresh asset readback, isolated cook, stage/archive exact readback, installation and packaged environment interaction regression PASS. Raw 720p/1080p diagnostic captures preserved; final slice acceptance remains INCOMPLETE.",
+  "current_package_status": "Corrected imported mesh coordinates, fresh saved-asset readback, fresh snapshot cook with exact verified DDC reuse, stage/archive readback, installation and packaged environment interaction regression PASS. Existing native game/editor builds match unchanged native source. New raw 720p/1080p diagnostics preserved; final slice acceptance remains INCOMPLETE.",
   "scope_findings": "Build/AAA/D17-01/environment/scope-findings.json",
   "current_package": {
-    "package_id": "1c539e9274baf5ba24ab603d2238dd0cef2069e5030dc8cc1e966622d50892a1",
+    "package_id": "2742363eb178b6288092d670611742b12cc07089268ab02c54be97165da6d163",
     "manifest": {
-      "path": "Build/AAA/D17-01/build/package-02/package-manifest.json",
-      "sha256": "d54c69e75a9792b8d3df714a1a5a4ab59def3a1210b34e5454d1aa00ca47a592",
+      "path": "Build/AAA/D17-01/build/package-03/package-manifest.json",
+      "sha256": "fd7789dd868a4025186fd7490579be0c3920d9a8486c7074d45160607fadb063",
       "bytes": 8669
     },
     "archive": {
-      "bytes": 481750430,
-      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-02.tar.zst",
-      "sha256": "2fd394366130ae69770c6f7f9a3ab53e48ff5e322fc834012c25ef75cc9c04ad"
+      "bytes": 481767476,
+      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-03.tar.zst",
+      "sha256": "51a82c9f37b4079cc5ba21d066112733b1ee6a5fe054e99ab826ec980a63f333"
     },
-    "source_material_digest": "7968dc8bab6d64dc0b892aec5f38003a30d441432ed1dd65383284d754fc3621",
+    "source_material_digest": "ad4699e7d244d60e45798063bb32e2537648c4ec2a397564f62265047d0907e1",
     "overlay": false
   },
   "route_feasibility_probe": "Build/AAA/D17-01/raw/route-rival-01/observation.json",
-  "observed_route_limits": "service-720-01 frame-13 shows the authored service bay from the normal moving camera; no normal-input switch or destruction beat is proven. Later interior/terrace/return beats remain unproven. Current raw runs end at 32.21046835085144 and 8.700799009704497 active simulation seconds."
+  "observed_route_limits": "service-720-02 frame-13 shows the corrected cabinet and service bay from the normal moving camera; no normal-input switch or destruction beat is proven in these two captures. Interior/terrace/return beats remain unproven. Current runs end at 34.112581229710486 and 9.009782609471586 active simulation seconds. The additional service-interaction-720-01 approach missed the switch and ended in player defeat by rival fire at 57.13843510946026 active simulation seconds; no power transition occurred. This longer active attempt still does not qualify the 600\u20131200 second route.",
+  "previous_service_candidate": {
+    "source_commit": "0242b38e31451f24d51175fc4050172122c28a3a",
+    "package": {
+      "package_id": "1c539e9274baf5ba24ab603d2238dd0cef2069e5030dc8cc1e966622d50892a1",
+      "manifest": {
+        "path": "Build/AAA/D17-01/build/package-02/package-manifest.json",
+        "sha256": "d54c69e75a9792b8d3df714a1a5a4ab59def3a1210b34e5454d1aa00ca47a592",
+        "bytes": 8669
+      },
+      "archive": {
+        "bytes": 481750430,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-02.tar.zst",
+        "sha256": "2fd394366130ae69770c6f7f9a3ab53e48ff5e322fc834012c25ef75cc9c04ad"
+      },
+      "source_material_digest": "7968dc8bab6d64dc0b892aec5f38003a30d441432ed1dd65383284d754fc3621",
+      "overlay": false
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/service-720-01/observation.json",
+      "Build/AAA/D17-01/raw/service-1080-01/observation.json"
+    ]
+  },
+  "current_environment_probe": "Build/AAA/D17-01/raw/service-interaction-720-01/observation.json"
 }

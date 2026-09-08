@@ -7,6 +7,7 @@ privately in the temporary workspace; generated authentication data is neither
 printed nor added to public evidence. Canonical source is never changed.
 """
 import json
+import argparse
 from pathlib import Path
 import shutil
 
@@ -18,7 +19,11 @@ ROOT = PROJECT / 'Build/AAA/D17-01/build'
 
 
 def main():
-    cook = json.loads((ROOT / 'cook-02/validation.json').read_text())
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--cook', type=Path, default=ROOT / 'cook-02/validation.json')
+    parser.add_argument('--output', type=Path, default=ROOT / 'cook-config-recovery.json')
+    args = parser.parse_args()
+    cook = json.loads(args.cook.read_text())
     assert cook['result'] == 'PASS'
     snapshot = Path(cook['snapshot'])
     config = snapshot / 'Config/DefaultEngine.ini'
@@ -51,9 +56,9 @@ def main():
     for row in all_files:
         assert identity(row['path']) == row, row['path']
     cause = Path('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AndroidFileServer/Source/AndroidFileServerEditor/Private/AndroidFileServerRuntimeSettings.cpp')
-    write(ROOT / 'cook-config-recovery.json', dict(
+    write(args.output, dict(
         task_id='D17-01', result='PASS', observed=now(), runner=identity(__file__),
-        cook=identity(ROOT / 'cook-02/validation.json'), changed_input=before,
+        cook=identity(args.cook), changed_input=before,
         restored_input=identity(config), canonical_source=source_id,
         private_original=identity(private_copy), appended_section=lines[0],
         appended_keys=keys, engine_cause=identity(cause),

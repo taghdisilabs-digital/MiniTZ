@@ -1,0 +1,114 @@
+{
+  "seed": "Build/AAA/D17-01/build/cook-02/validation.json",
+  "changed_count": 9,
+  "changed": [
+    {
+      "expected": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/.lock",
+        "sha256": "44c4c194df5ad8ec5538a67beb2ae862b3d50503910984f147bf5d72ded49a44",
+        "bytes": 206
+      },
+      "actual": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/.lock",
+        "sha256": "25a2718dd3c9c1585a66bde77552c537525fbf6a3c5978fa26d7f623d5f4fe7b",
+        "bytes": 206
+      }
+    },
+    {
+      "expected": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/auth/authstate",
+        "sha256": "71d6639af4217fc08c631d85aed7e67cc942aff052eb89f4e50198885060b9f4",
+        "bytes": 50
+      },
+      "actual": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/auth/authstate",
+        "sha256": "2780b921627d3b63845b6af4f02a187375e254f5afaaacd7bd921e4c4257e405",
+        "bytes": 50
+      }
+    },
+    {
+      "expected": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/gc/gc.dlog",
+        "sha256": "9571e80a298288c95cf868281eb3d141d6677fdff151fe3dd39e92f3475229a0",
+        "bytes": 576
+      },
+      "actual": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/gc/gc.dlog",
+        "sha256": "2b436daf1ae3ed43c30f9afb022157b4467236689a4e8e3f9aeab6ddcb4e9f66",
+        "bytes": 592
+      }
+    },
+    {
+      "expected": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/logs/cache_access.log",
+        "sha256": "a11c4d0983ced455c566704151a93e3e13368e603e76ea895d52711580396092",
+        "bytes": 314
+      },
+      "actual": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/logs/cache_access.log",
+        "sha256": "f3ddea3498d5afdf04397b79b8812a3ff32bdb53b9d59d38163cab70d7dc6532",
+        "bytes": 471
+      }
+    },
+    {
+      "expected": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/logs/http.1.log",
+        "sha256": "9df6455ea69ab0f1892eb059af852b5048bc852274e18aca291bb23fbb62bf60",
+        "bytes": 159
+      },
+      "actual": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/logs/http.1.log",
+        "sha256": "43a5f0e6e08784f9a88c31f81cc132b3d911276ba58e61e6931a40bef19756bf",
+        "bytes": 159
+      }
+    },
+    {
+      "expected": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/logs/http.log",
+        "sha256": "43a5f0e6e08784f9a88c31f81cc132b3d911276ba58e61e6931a40bef19756bf",
+        "bytes": 159
+      },
+      "actual": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/logs/http.log",
+        "sha256": "948775a3598c3e385b835a858510d77beef22ad6dd3fbac446ef0ae7d09b8fc7",
+        "bytes": 159
+      }
+    },
+    {
+      "expected": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/logs/zenserver.1.log",
+        "sha256": "add8ecc7e22ff9f6d62d499de3d454874a30030ebf04056463a30513eef788c7",
+        "bytes": 16268
+      },
+      "actual": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/logs/zenserver.1.log",
+        "sha256": "68b191b845226c81d031b15b55d7410b1e81832f54a50abcc30489295a545c96",
+        "bytes": 15440
+      }
+    },
+    {
+      "expected": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/logs/zenserver.log",
+        "sha256": "68b191b845226c81d031b15b55d7410b1e81832f54a50abcc30489295a545c96",
+        "bytes": 15440
+      },
+      "actual": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/logs/zenserver.log",
+        "sha256": "f9863c1e7cae9c80f8f490fd6b32b0185aff0d26296f7cc10840e469cfe786f2",
+        "bytes": 11471
+      }
+    },
+    {
+      "expected": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/projects/BiellaGames.a0776866/AccessTimes.zcb",
+        "sha256": "ea3bac495adbf5e5ef77551c23ae9c16b213a1b719674d36209cf50870ad5c3e",
+        "bytes": 51
+      },
+      "actual": {
+        "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-02/cook-ddc/Zen/projects/BiellaGames.a0776866/AccessTimes.zcb",
+        "sha256": "819b05c8fa0c61abbdc52964c2ea6c40b64242f47424a317226569a046bbf2f1",
+        "bytes": 51
+      }
+    }
+  ]
+}

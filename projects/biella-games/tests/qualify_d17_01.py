@@ -16,7 +16,10 @@ from run_d08_01_release import digest, executable_format, identity, now, write, 
 PROJECT = Path(__file__).resolve().parents[1]
 ROOT = PROJECT / 'Build/AAA/D17-01'
 RUNS = ('entry-720-02', 'hud-720-01', 'hud-1080-01')
-CURRENT_RUNS = ('service-720-01', 'service-1080-01')
+CURRENT_RUNS = ('service-720-02', 'service-1080-02')
+CURRENT_PROBES = ('service-interaction-720-01',)
+PREVIOUS_SERVICE_RUNS = ('service-720-01', 'service-1080-01')
+SERVICE_COMMIT = '0242b38e31451f24d51175fc4050172122c28a3a'
 HUD_COMMIT = '57190a294440c4dfa6deb9a9a50d23442c66fbc8'
 
 
@@ -37,10 +40,10 @@ def check(row):
     assert all(actual[k] == row[k] for k in ('sha256', 'bytes')), row['path']
 
 
-def check_historical_source(row):
+def check_historical_source(row, commit=HUD_COMMIT):
     """Historical gameplay proof binds its committed inputs, not newer visuals."""
     data = subprocess.check_output(['git', 'show',
-        HUD_COMMIT + ':projects/biella-games/' + row['path']], cwd=PROJECT)
+        commit + ':projects/biella-games/' + row['path']], cwd=PROJECT)
     assert hashlib.sha256(data).hexdigest() == row['sha256'] and len(data) == row['bytes'], row['path']
 
 
@@ -64,7 +67,8 @@ def observe(name):
     events = dict(Counter(r['event'] for r in rows))
     observation = read(directory / 'observation.json')
     assert events == observation['telemetry_events']
-    assert 'TERMINAL_INPUT_STATE terminal=true' in (directory / 'runtime.engine.log').read_text()
+    log = (directory / 'runtime.engine.log').read_text()
+    assert 'TERMINAL_INPUT_STATE terminal=true' in log
     video = read(directory / 'video.json')
     check(video['identity'])
     with (directory / 'raw-gameplay.mkv').open('rb') as stream:
@@ -86,6 +90,9 @@ def observe(name):
                 events=events, raw_video=ref(directory / 'raw-gameplay.mkv'),
                 audio_captured=False, uninterrupted_duration_satisfied=600 <= duration <= 1200,
                 natural_pressure_observed=bool(events.get('arena_pressure', 0)),
+                environment_power_transitions=sum('D02_ENV POWER ' in line for line in log.splitlines()),
+                player_defeats=[r['fields'] for r in rows if r['event'] == 'defeat' and
+                               r['fields'].get('target', '').startswith('BiellaStreamingCharacter:')],
                 namespace_file_verification=(directory / 'exposed-package-verification.json').exists())
 
 
@@ -134,7 +141,17 @@ def main():
     assert probe_package['runtime_id'] == digest({k: v for k, v in probe_package.items() if k != 'runtime_id'})
     probe_exposed = read(ROOT / 'raw/route-rival-01/exposed-package-verification.json')
     assert probe_exposed['status'] == 'PASS' and probe_exposed['runtime_id'] == probe_package['runtime_id']
-    package_root = ROOT / 'build/package-02'
+    previous_service_source = read(ROOT / 'build/package-02/source-build.json')
+    for row in previous_service_source['material_inputs']:
+        check_historical_source(row, SERVICE_COMMIT)
+    previous_service_package = read(ROOT / 'build/package-02/package-manifest.json')
+    previous_service_runs = [observe(name) for name in PREVIOUS_SERVICE_RUNS]
+    for name in PREVIOUS_SERVICE_RUNS:
+        resolved = read(ROOT / 'raw' / name / 'resolved-package.json')
+        assert resolved['base_package_id'] == previous_service_package['package_id']
+        assert resolved['files'] == previous_service_package['files'] and 'native_delta' not in resolved
+        assert resolved['runtime_id'] == digest({k: v for k, v in resolved.items() if k != 'runtime_id'})
+    package_root = ROOT / 'build/package-03'
     installation = read(package_root / 'validation.json')
     assert installation['result'] == 'PASS'
     package = read(package_root / 'package-manifest.json')
@@ -146,19 +163,26 @@ def main():
     changed = sorted(p for p in before.keys() | after.keys() if before.get(p) != after.get(p))
     assert package['source_material_digest'] == native_source['material_input_digest']
     check(package['archive'])
+    for path in ('build/cook-04/validation.json', 'build/stage-04/validation.json'):
+        assert read(ROOT / path)['result'] == 'PASS', path
     installed = Path(installation['install']['installed'])
     assert current(installed.parents[1])[1] == package
     current_build = read(ROOT / 'build/game-02/result.json')
     assert current_build['result'] == 'PASS' and current_build['inputs_unchanged']
     assert native_source['binary']['sha256'] == current_build['binary']['sha256']
     check(current_build['binary'])
-    assets = ROOT / 'environment/assets-01/validation.json'
+    assets = ROOT / 'environment/assets-02/validation.json'
     assert read(assets)['result'] == 'PASS'
-    environment = ROOT / 'environment/runtime-02/validation.json'
+    for mesh in read(ROOT / 'environment/assets-02/readback.json')['meshes']:
+        assert mesh['authored_coordinates_verified']
+    environment = ROOT / 'environment/runtime-03/validation.json'
     assert read(environment)['result'] == 'PASS'
     assert read(environment)['package_id'] == package['package_id']
     new_runs = [observe(name) for name in CURRENT_RUNS]
-    for name in CURRENT_RUNS:
+    new_probes = [observe(name) for name in CURRENT_PROBES]
+    for name in CURRENT_RUNS + CURRENT_PROBES:
+        for row in read(ROOT / 'raw' / name / 'inputs.json').values():
+            check(row)
         resolved = read(ROOT / 'raw' / name / 'resolved-package.json')
         assert resolved['base_package_id'] == package['package_id']
         assert resolved['files'] == package['files'] and 'native_delta' not in resolved
@@ -167,7 +191,8 @@ def main():
         assert exposed['status'] == 'PASS' and exposed['runtime_id'] == resolved['runtime_id']
     visual = read(ROOT / 'visual-assessment.json')
     assert visual['major_defects'] and not visual['zero_major_defects']
-    assert not any(run['uninterrupted_duration_satisfied'] for run in runs + [route_probe] + new_runs)
+    all_runs = runs + [route_probe] + previous_service_runs + new_runs + new_probes
+    assert not any(run['uninterrupted_duration_satisfied'] for run in all_runs)
     report = dict(
         schema='biella.games.d17.qualification/v1', task_id='D17-01', observed=now(),
         status='INCOMPLETE', result='CONTINUE', accepted=False,
@@ -185,12 +210,19 @@ def main():
                      manifest=ref(package_root / 'package-manifest.json'),
                      payload_files_digest=digest(package['files']),
                      exact_resolved_manifests=[ref(ROOT / 'raw' / n / 'resolved-package.json')
-                                               for n in CURRENT_RUNS],
-                     cook=ref(ROOT / 'build/cook-02/validation.json'),
-                     stage=ref(ROOT / 'build/stage-03/validation.json'),
+                                               for n in CURRENT_RUNS + CURRENT_PROBES],
+                     cook=ref(ROOT / 'build/cook-04/validation.json'),
+                     stage=ref(ROOT / 'build/stage-04/validation.json'),
                      install=ref(package_root / 'validation.json'), format='ELF64-x86_64',
                      platform='Linux', configuration='Development', renderer='Vulkan'),
         first_raw_run=runs[0], previous_raw_runs=runs[1:], current_raw_runs=new_runs,
+        current_environment_probe=dict(observation=new_probes[0],
+            input_plan=ref(ROOT / 'service-interaction-input.json'),
+            scope='Ordinary input on the current exact package; the approach missed cabinet reach/facing, no power transition was recorded, and rival fire defeated the player'),
+        previous_service_candidate=dict(source_commit=SERVICE_COMMIT,
+            package=ref(ROOT / 'build/package-02/package-manifest.json'),
+            raw_runs=previous_service_runs,
+            coordinate_defect=ref(ROOT / 'environment/coordinate-readback-01/validation.json')),
         route_feasibility_probe=dict(observation=route_probe,
             resolved_package=ref(ROOT / 'raw/route-rival-01/resolved-package.json'),
             scope='Ordinary-input diagnostic using unchanged D08 package; no proof of new service-bay visuals'),
@@ -203,11 +235,12 @@ def main():
                                     'New native/editor builds, isolated recook, archive readback and installed environment regression pass'],
         unmet_criteria=[
             dict(id='continuous_slice_duration_and_route', required='600–1200 seconds of representative active gameplay with route beats',
-                 observed=[{'run': r['run'], 'active_seconds': r['active_simulation_seconds']} for r in runs + [route_probe] + new_runs],
+                 observed=[{'run': r['run'], 'active_seconds': r['active_simulation_seconds'],
+                            'terminal': r['terminal']} for r in all_runs],
                  next_action='Identify an accepted continuous content route before changing objective behavior; no actor resets, idle padding or invented mechanics'),
             dict(id='player_rival_infected_arena_pressure', required='Player, rival, infected and arena consequence in the evolving real encounter',
-                 observed='Raw clips contain no arena_pressure event; current native code defines/consumes pressure but has no non-test call raising it',
-                 next_action='Use only an identified accepted player-reachable trigger; Contract 33 leaves timing/escalation UNKNOWN, so neither a timer nor switch-to-pressure wiring may be invented'),
+                 observed='Current raw runs record neither arena_pressure nor a power-switch transition. The ordinary-input service probe missed the cabinet approach; it does not invalidate the passing fixture or prove interaction impossible. The visual capture contract includes environment-consequence states.',
+                 next_action='Correct the normal approach to the existing cabinet using observed frames, current position and native reach/facing rules; capture its implemented power/shared-hazard consequence. Keep this distinct from the unqualified arena_pressure trigger; do not invent timing/escalation or switch-to-pressure API wiring'),
             dict(id='zero_major_visual_defects', required='All hard visual requirements with zero major defects',
                  observed=[d['id'] for d in visual['major_defects']],
                  next_action='Continue the service-bay approach surface and integrated organic infection layer from the new runtime frames, preserving tested collision/gameplay')],
@@ -218,6 +251,7 @@ def main():
                       'Encoded video frame rate does not measure native game FPS; raw video has no audio',
                       'Baseline capture predates namespace-file verification; later captures verify it',
                       'D07 soak/restart cycles are not reused as continuous slice duration',
+                      'Optional resource-review stdout.json is preserved empty raw output from the documented timeout; it is not JSON or a review result',
                       'No Win64 Shipping or remote publication acceptance'],
         publication=dict(local='Task-owned source/proof to be persisted by the task commit',
                          remote='Auto Feeder owns configured GitHub/Drive publication cursor; no remote success claimed'),
@@ -226,7 +260,7 @@ def main():
     report['evidence_files'] = [ref(p) for p in sorted(ROOT.rglob('*')) if p.is_file() and p not in excluded]
     write(ROOT / 'qualification.json', report)
     print(json.dumps(dict(task_id='D17-01', evidence_integrity='VERIFIED', acceptance='INCOMPLETE',
-                         raw_simulation_seconds=[r['active_simulation_seconds'] for r in new_runs],
+                         raw_simulation_seconds=[r['active_simulation_seconds'] for r in new_runs + new_probes],
                          hud_regressions='2 PASS', major_visual_defects=len(visual['major_defects']))))
 
 

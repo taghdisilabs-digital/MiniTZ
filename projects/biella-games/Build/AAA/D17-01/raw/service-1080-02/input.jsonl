@@ -1,0 +1,8 @@
+{"event": "capture_started", "elapsed_seconds": 3.4800032153725624e-06, "window": "2097243"}
+{"event": "input_sent", "elapsed_seconds": 0.01719241397222504, "planned_at": 0, "input": ["keydown", "w"], "intended_beat": "leave entry under real encounter pressure"}
+{"event": "input_sent", "elapsed_seconds": 0.16045830596704036, "planned_at": 0.1, "input": ["keydown", "Shift_L"], "intended_beat": "sprint along accepted street"}
+{"event": "input_sent", "elapsed_seconds": 0.23061246401630342, "planned_at": 0.2, "input": ["keydown", "a"], "intended_beat": "evade initial infected"}
+{"event": "input_sent", "elapsed_seconds": 2.2451560649788007, "planned_at": 2.2, "input": ["keyup", "a"], "intended_beat": "continue east"}
+{"event": "input_sent", "elapsed_seconds": 7.047775961982552, "planned_at": 7.0, "input": ["keyup", "Shift_L"], "intended_beat": "walking street inspection"}
+{"event": "native_terminal_observed", "elapsed_seconds": 11.513343140017241}
+{"event": "capture_finished", "elapsed_seconds": 24.209147247020155, "result": {"status": "CAPTURED", "reason": "native_terminal_state", "audio_capture": false, "input_delivery": "X11 keyboard/mouse", "world_mutation_or_automation_tests": false, "measured_input_run_seconds": 11.51339223200921, "actions_sent": 5, "game_alive_at_capture_end": true, "recorder_returncode": 255, "game_returncode": 0}}
