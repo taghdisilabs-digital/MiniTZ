@@ -57,6 +57,8 @@ resources:
   local_qwen: NON_AUTHORITATIVE_ON_DEMAND
   project_data_leakage: FORBIDDEN
   installer_capabilities: [package.installer.debian, package.installer.windows]
+  win64_setup_source: ops/workstation/UNREAL_WIN64.md
+  win64_readiness_source: projects/biella-games/Build/Release/D08-01/windows-setup-observation.json
 
 execution_invariants:
   owner_acceptance_fast_path: ACTIVE

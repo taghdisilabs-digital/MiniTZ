@@ -160,7 +160,7 @@
         },
         {
           "path": "projects/biella-games/docs/task-guides/D08-01.md",
-          "sha256": "1ad5a75324a1d17d1ee379d4987c2d1fcc2914b95c333144a02b2c6669a8dde3",
+          "sha256": "2084a4ea38c5f7976123c2a5ec02a14c57e9f555c5442698447fa8b063542e11",
           "selected_sections": [
             "Objective",
             "Authorized project-local output names",
@@ -188,6 +188,34 @@
             "routes.package.installer.debian",
             "routes.package.installer.windows"
           ]
+        },
+        {
+          "path": "ops/workstation/setup-unreal-win64.ps1",
+          "sha256": "90aa672e77eb9918fe211a9f27e4a18a4a91f8bb00056fafa59dcb3557ef56fe",
+          "selected_sections": [
+            "Current Windows setup and observed missing boundary"
+          ]
+        },
+        {
+          "path": "ops/workstation/build-unreal-win64.ps1",
+          "sha256": "329e783d07e936ee72f1936e05618b574d2419872e31d18bb84ef824d3a6e1f9",
+          "selected_sections": [
+            "Current Windows setup and observed missing boundary"
+          ]
+        },
+        {
+          "path": "ops/workstation/UNREAL_WIN64.md",
+          "sha256": "94ce7b44ea2f33cb478d451d5574be630cd1af6013fd29937c77f4142c2727d0",
+          "selected_sections": [
+            "Current Windows setup and observed missing boundary"
+          ]
+        },
+        {
+          "path": "projects/biella-games/Build/Release/D08-01/windows-setup-observation.json",
+          "sha256": "4fa2cf76591bd1b5c22661e5c576de61290cb3131ace8181ff63b7602bf9bebf",
+          "selected_sections": [
+            "Current Windows setup and observed missing boundary"
+          ]
         }
       ],
       "objective": "Produce and qualify an exact distributable build/update lineage. Release-candidate status belongs to one specific package identity, not a successful compile or screenshot.",
@@ -201,7 +229,7 @@
         "package.installer.windows"
       ],
       "external_input_evidence_required": true,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "next_action": "Use the current Windows setup scripts and recorded compiler proof. Supply/locate the exact missing compatible Unreal installation and suitable build/play Resource; continue independent Linux release work without repeating unchanged setup. No Win64 completion from installer/fixture success.",
       "reuse": "Reuse matching predecessor proof and package mechanisms with actual D08 inputs. Preserve material-input/recipe/package-specific records from the required release/update work so D15/D16 do not repeat it; two distinct real same-source recipe executions remain required for reproducibility.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",

@@ -134,9 +134,9 @@ The canonical Linux UE 5.8.2 VPS has previously reported Win64 SDK as unavailabl
 
 **Reuse.** Reuse matching predecessor proof and package mechanisms with actual D08 inputs. Preserve material-input/recipe/package-specific records from the required release/update work so D15/D16 do not repeat it; two distinct real same-source recipe executions remain required for reproducibility.
 
-**Source records.** `docs/task-program/D00_D08_ENGINE_GAMES.md` (SHA-256 `efd80e6b05a4cced5ff47d958c3ceaf1ba324e676033fea1c16e832af2a1d3fb`); `projects/biella-games/docs/task-guides/D08-01.md` (SHA-256 `1ad5a75324a1d17d1ee379d4987c2d1fcc2914b95c333144a02b2c6669a8dde3`)
+**Setup action.** Use the current Windows setup scripts and recorded compiler proof. Supply/locate the exact missing compatible Unreal installation and suitable build/play Resource; continue independent Linux release work without repeating unchanged setup. No Win64 completion from installer/fixture success.
 
-**Installer assembly.** `package.installer.debian` → `dpkg-deb`; `package.installer.windows` → NSIS `makensis`. Read `ops/workstation/INSTALLERS.md`. Already-built target payloads only; no Win64 game-build claim, OS change, new queue or acceptance reduction.
+**Source records.** `docs/task-program/D00_D08_ENGINE_GAMES.md` (SHA-256 `efd80e6b05a4cced5ff47d958c3ceaf1ba324e676033fea1c16e832af2a1d3fb`); `projects/biella-games/docs/task-guides/D08-01.md` (SHA-256 `2084a4ea38c5f7976123c2a5ec02a14c57e9f555c5442698447fa8b063542e11`); `ops/workstation/INSTALLERS.md` (SHA-256 `15b8e7ec478d7dc1c18881bef6e81bf823c4e245ed6e840002e4d025618124bd`); `ops/workstation/provider-registry.json` (SHA-256 `4937d73301d45dd3a12153453aa642d253bc4ede321b649a9e5cc5edfb799806`); `ops/workstation/setup-unreal-win64.ps1` (SHA-256 `90aa672e77eb9918fe211a9f27e4a18a4a91f8bb00056fafa59dcb3557ef56fe`); `ops/workstation/build-unreal-win64.ps1` (SHA-256 `329e783d07e936ee72f1936e05618b574d2419872e31d18bb84ef824d3a6e1f9`); `ops/workstation/UNREAL_WIN64.md` (SHA-256 `94ce7b44ea2f33cb478d451d5574be630cd1af6013fd29937c77f4142c2727d0`); `projects/biella-games/Build/Release/D08-01/windows-setup-observation.json` (SHA-256 `4fa2cf76591bd1b5c22661e5c576de61290cb3131ace8181ff63b7602bf9bebf`)
 
 
 ## 005. D15-01 — Lock authoritative predecessor closure set

@@ -1,0 +1,47 @@
+{
+  "schema": "biella.win64_setup_observation/v1",
+  "task_id": "D08-01",
+  "observed_utc": "2026-09-08T08:47:21.1016673Z",
+  "device_id": "43ad83f1-0d3d-4e9a-9c9e-5abd32b6206f",
+  "machine": "WIN-P7MA35DRF6Q",
+  "setup_path": "C:\\ProgramData\\Biella\\Win64Build\\setup-unreal-win64.ps1",
+  "build_path": "C:\\ProgramData\\Biella\\Win64Build\\build-unreal-win64.ps1",
+  "report_path": "C:\\ProgramData\\Biella\\Win64Build\\setup-result.json",
+  "required_engine_version": "5.8.2",
+  "status": "INCOMPLETE",
+  "compiler_probe": {
+    "status": "PASS",
+    "exit_code": 0,
+    "scope": "TOOLCHAIN_PROBE_NOT_GAME",
+    "sha256": "221871141ec0b40cd39019578ad597baebbb63da27fdc534749b2a484497d700"
+  },
+  "engine": null,
+  "sdk_validated": false,
+  "game_runtime_verified": false,
+  "missing": [
+    "UNREAL_NOT_FOUND"
+  ],
+  "actions": [],
+  "errors": [],
+  "free_bytes": 3446833152,
+  "volume_size_bytes": 53686038528,
+  "visual_studio": {
+    "version": "18.9.12105.275",
+    "path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\18\\BuildTools"
+  },
+  "graphics": [
+    "Microsoft Remote Display Adapter",
+    "Microsoft Basic Display Adapter"
+  ],
+  "scope": "Exact script digests were compared on L40S and Windows. Existing compiler executed; no Unreal MSI was supplied or installed. Engine discovery checked standard installations and current-user registrations; custom locations remain UNKNOWN.",
+  "scripts": {
+    "setup-unreal-win64.ps1": "90aa672e77eb9918fe211a9f27e4a18a4a91f8bb00056fafa59dcb3557ef56fe",
+    "build-unreal-win64.ps1": "329e783d07e936ee72f1936e05618b574d2419872e31d18bb84ef824d3a6e1f9"
+  },
+  "remote_report_sha256": "06343ff11aee083bce80e1d25205716fe7ff65c5c4cd0036bb765e6442c4362e",
+  "windows_verification": {
+    "powershell_parser": "PASS_BOTH_SCRIPTS",
+    "sdk_marker_negative_controls": 4,
+    "native_compile_link_run": "PASS"
+  }
+}

@@ -108,3 +108,6 @@ Biella Games delivery is priority NUMBER 1. Follow physical Project PRODUCTION.m
 
 ## Installer assembly resources
 Use `package.installer.debian` (dpkg-deb) and `package.installer.windows` (NSIS/makensis) through the existing resource registry. Read `ops/workstation/INSTALLERS.md`; these tools wrap already-built target payloads, do not provide Win64 game compilation/runtime, and do not add OS/desktop/Steam configuration. Keep installer recipes and outputs in their Project; preserve the active task and existing publication cadence.
+
+## Windows build setup
+For a Windows Unreal build requirement, use `ops/workstation/UNREAL_WIN64.md` and the setup/build PowerShell scripts. Reuse current toolchain evidence; a Win32 compiler probe is not Unreal/game qualification. Missing compatible engine/media/storage remains a scoped Resource gap, never a reason to replay Linux work or mislabel NSIS as a compiler.

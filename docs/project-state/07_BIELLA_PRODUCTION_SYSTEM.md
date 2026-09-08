@@ -186,3 +186,6 @@ The following patterns are forbidden because they caused observed waste, stalls,
 
 ## Installer-only resources
 `package.installer.debian` -> `dpkg-deb`; `package.installer.windows` -> NSIS `makensis`. The existing provider registry and `ops/workstation/INSTALLERS.md` own tool discovery/instructions. These free local tools assemble already-built payloads, never become startup/liveness dependencies, do not supply a Windows Unreal build Resource, and do not change task order/acceptance or five-task/3.8-GB publication.
+
+## Windows build Resource setup
+`ops/workstation/setup-unreal-win64.ps1` and `build-unreal-win64.ps1` provide explicit Windows toolchain setup and UAT execution; instructions are `ops/workstation/UNREAL_WIN64.md`. No production service is controlled by them. D08 owns the real missing-resource and platform qualification outcome. Compiler probe, installer assembly, game compilation and game acceptance remain separate.

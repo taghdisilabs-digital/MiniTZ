@@ -1780,7 +1780,7 @@
               "Current resource reality",
               "Cross-task evidence reuse"
             ],
-            "sha256": "1ad5a75324a1d17d1ee379d4987c2d1fcc2914b95c333144a02b2c6669a8dde3"
+            "sha256": "2084a4ea38c5f7976123c2a5ec02a14c57e9f555c5442698447fa8b063542e11"
           },
           {
             "path": "ops/workstation/INSTALLERS.md",
@@ -1799,6 +1799,34 @@
               "routes.package.installer.windows"
             ],
             "sha256": "4937d73301d45dd3a12153453aa642d253bc4ede321b649a9e5cc5edfb799806"
+          },
+          {
+            "path": "ops/workstation/setup-unreal-win64.ps1",
+            "selected_sections": [
+              "Current Windows setup and observed missing boundary"
+            ],
+            "sha256": "90aa672e77eb9918fe211a9f27e4a18a4a91f8bb00056fafa59dcb3557ef56fe"
+          },
+          {
+            "path": "ops/workstation/build-unreal-win64.ps1",
+            "selected_sections": [
+              "Current Windows setup and observed missing boundary"
+            ],
+            "sha256": "329e783d07e936ee72f1936e05618b574d2419872e31d18bb84ef824d3a6e1f9"
+          },
+          {
+            "path": "ops/workstation/UNREAL_WIN64.md",
+            "selected_sections": [
+              "Current Windows setup and observed missing boundary"
+            ],
+            "sha256": "94ce7b44ea2f33cb478d451d5574be630cd1af6013fd29937c77f4142c2727d0"
+          },
+          {
+            "path": "projects/biella-games/Build/Release/D08-01/windows-setup-observation.json",
+            "selected_sections": [
+              "Current Windows setup and observed missing boundary"
+            ],
+            "sha256": "4fa2cf76591bd1b5c22661e5c576de61290cb3131ace8181ff63b7602bf9bebf"
           }
         ],
         "validation": "1. Clean dependency/content validation, including a bounded missing/incompatible-content negative case.\n2. Produce exact package with source/tree/config/content identity.\n3. Launch outside editor through intended entry point.\n4. Exercise real input/player/camera/gameplay, rivals/infected/pressure, current world/interactions, rendering/audio/VFX, save/settings reconstruction where implemented.\n5. Review fatal/assert/content-load diagnostics and package-specific resource/performance evidence.\n6. For update support, prove exact old-build -> update -> launch -> supported settings/save compatibility plus incomplete/incompatible update failure handling.\n7. Record known exclusions/limitations; do not invent store, launcher, certification, patch cadence or live-service requirements.\n\nOne exact packaged build must pass the current approved gameplay, production, stability and evidence contracts appropriate to its platform. Package command success alone is insufficient."
