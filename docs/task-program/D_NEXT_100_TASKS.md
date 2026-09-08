@@ -105,10 +105,6 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 ## 004. D08-01 — Delivery, update, and release-candidate qualification
 
-**Exact input lookup.** `docs/runtime-contracts/AAA_TPP_RUNTIME_CONTRACTS_21_23.md` (sections 23 (packaging, launch and play-test evidence)); `docs/runtime-contracts/AAA_TPP_RUNTIME_CONTRACTS_50_59.md` (sections 55 (content compatibility), 58 (updates/save compatibility), 59 (release candidate)). Section numbers are not filenames.
-
-**Resource handoff.** Read `Build/Release/D08-01/D08-01-resource-observation.json`; reuse already installed tools and continue independent preparation. No accepted platform or quality requirement is removed.
-
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D07-01
 
 **Objective.** Produce and qualify an exact distributable build/update lineage. Release-candidate status belongs to one specific package identity, not a successful compile or screenshot.
@@ -136,11 +132,13 @@ One exact packaged build must pass the current approved gameplay, production, st
 
 The canonical Linux UE 5.8.2 VPS has previously reported Win64 SDK as unavailable. At D08 start, reobserve current package resources. Do not silently call a Linux package the final accepted Win64 release candidate. If Win64 remains unavailable on the current Resource, classify it `REQUIRES_OTHER_RESOURCE` and continue every platform-neutral preparation/validation that does not require Win64 while routing the final package step to an actually observed compatible Resource.
 
-**Source records.** `docs/task-program/D00_D08_ENGINE_GAMES.md` (SHA-256 `efd80e6b05a4cced5ff47d958c3ceaf1ba324e676033fea1c16e832af2a1d3fb`); `projects/biella-games/docs/task-guides/D08-01.md` (SHA-256 `d094ee37ee7331c125fc24fd884a7c99b6ae579ce375e22392c41b750542d64a`)
+**Reuse.** Reuse matching predecessor proof and package mechanisms with actual D08 inputs. Preserve material-input/recipe/package-specific records from the required release/update work so D15/D16 do not repeat it; two distinct real same-source recipe executions remain required for reproducibility.
+
+**Source records.** `docs/task-program/D00_D08_ENGINE_GAMES.md` (SHA-256 `efd80e6b05a4cced5ff47d958c3ceaf1ba324e676033fea1c16e832af2a1d3fb`); `projects/biella-games/docs/task-guides/D08-01.md` (SHA-256 `de18dfb36d7bc918cc024f0caf7e04b8924c55c4a209bab845a231c428f497fe`)
 
 ## 005. D15-01 — Lock authoritative predecessor closure set
 
-Lane: **Cross-project** · Priority: **1** · Execution root: `.` · Dependencies: D08-01
+Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D08-01
 
 **Objective.** Bind the accepted D08-01 game release and only the Engine/runtime dependencies actually used by it. Preserve completed work; do not wait for unrelated Website, Engine business, pilot or investor programs.
 
@@ -150,11 +148,13 @@ Lane: **Cross-project** · Priority: **1** · Execution root: `.` · Dependencie
 
 **Required evidence.** D08 source/build/proof digests, actual dependency identities and a game-scoped predecessor record; record remote verification only when observed.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-001_LOCK_THE_AUTHORITATIVE_PREDECESSOR_CLOSURE_SET.md` (SHA-256 `ecd2fc1d597d7c2cec21eb036d8e8d2042576e4727e46a3ac3b850cf1a44d4cd`)
+**Reuse.** Read the accepted D08 qualification and its referenced dependency identities once. Bind only the game release and Engine components it actually consumes. Do not inventory or wait for unrelated Website, business, pilot, investor or deferred Engine programs. This is a local evidence-binding operation: no build or runtime rerun, no extra sign-off; it does not freeze production. Reuse the existing publication cursor for remote receipts.
+
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `projects/biella-games/docs/task-guides/D15-01.md` (SHA-256 `a041572f1882061bfbd39c0c9d1a935aad395ed5a8f3a96e84caf3f5216a6cd9`)
 
 ## 006. D15-02 — Freeze current source and decision identities
 
-Lane: **Cross-project** · Priority: **1** · Execution root: `.` · Dependencies: D15-01
+Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D15-01
 
 **Objective.** Record exact accepted game source/build and used Engine dependency identities plus relevant accepted decisions. This is identity recording, not a production freeze or all-program restart.
 
@@ -164,11 +164,13 @@ Lane: **Cross-project** · Priority: **1** · Execution root: `.` · Dependencie
 
 **Required evidence.** Source-lock record with observed timestamps and remote identities.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-002_FREEZE_CURRENT_SOURCE_AND_DECISION_IDENTITIES.md` (SHA-256 `4666f5b5e46473c35c79c6c590f5edd8c078a5b5cff383eac5c1d801fc17ac60`)
+**Reuse.** Reuse the source-build manifest and the accepted package lineage produced by D08. The tested source commit may precede newer controller/document commits: record those identities separately rather than rebasing or rebuilding the package. Record only consumed decisions and material inputs; absent required facts stay UNKNOWN. This records identities and does not freeze production: no build or runtime rerun. The publication cursor carries remote status without another upload loop.
+
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `projects/biella-games/docs/task-guides/D15-02.md` (SHA-256 `c8a3527d886a105cf7636de7ad871779013c0e21abaa14e0484c6a7c8517e96b`)
 
 ## 007. D15-03 — Create post-program evidence namespace
 
-Lane: **Cross-project** · Priority: **1** · Execution root: `.` · Dependencies: D15-02
+Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D15-02
 
 **Objective.** Reuse the existing canonical game evidence namespace and index for the priority game proof work; add only missing task-scoped indexing, never a second source root.
 
@@ -178,11 +180,13 @@ Lane: **Cross-project** · Priority: **1** · Execution root: `.` · Dependencie
 
 **Required evidence.** Canonical local artifact/index digests, source commit/tree and observed remote receipts when published.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-003_CREATE_THE_POST_PROGRAM_EVIDENCE_NAMESPACE.md` (SHA-256 `b77136121c78b0216dec0339ee89ef202cacca84ef1890bd419c74c18d635a6d`)
+**Reuse.** Use the existing Games Build/Release evidence namespace and the D08 lineage, not a new top-level repository or archive. Write/read back the required task record itself as the namespace test; do not create a disposable dummy artifact and another validation round. Reference original bytes instead of copying every package/log. This does not freeze production and needs no build or runtime rerun. Existing configured destinations and the publication cursor remain authoritative for transfer status.
+
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `projects/biella-games/docs/task-guides/D15-03.md` (SHA-256 `4ae695d392c473d43269bab728ad5336b2abdcef8fc9200325a067ff200306b9`)
 
 ## 008. D15-04 — Bind production-ready predecessor build
 
-Lane: **Cross-project** · Priority: **1** · Execution root: `.` · Dependencies: D15-03
+Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D15-03
 
 **Objective.** Bind the exact build/package produced by the predecessor release program as the starting artifact for AAA-SF proof. Do not rebuild merely because this program started.
 
@@ -192,7 +196,9 @@ Lane: **Cross-project** · Priority: **1** · Execution root: `.` · Dependencie
 
 **Required evidence.** Exact package digest, source identity, and predecessor validation references.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-004_BIND_THE_PRODUCTION_READY_PREDECESSOR_BUILD.md` (SHA-256 `3712af0239a213c863e3595201ea8483c16c4947f5982d74b3cbb51a6932fe71`)
+**Reuse.** Resolve the accepted package through the D08 package manifest and qualification, not a stale task filename or current HEAD guess. Compare exact package/source/configuration/platform identities. Preserve original package bytes. Missing metadata is repaired locally; an actual missing/corrupt package invalidates only that artifact boundary, not completed gameplay. This does not freeze production: no build or runtime rerun for valid retained bytes. Use the publication cursor, not a new remote wait.
+
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `projects/biella-games/docs/task-guides/D15-04.md` (SHA-256 `c447719b114fe26e4dd163dd0102024b6012c9e5c0eb0b14355fdac18c231075`)
 
 ## 009. D16-01 — Reproduce release from clean checkout
 
@@ -206,7 +212,9 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Checkout commit/tree, build commands/logs, package digest.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-005_REPRODUCE_THE_RELEASE_FROM_A_CLEAN_CHECKOUT.md` (SHA-256 `533adf3449210375c55f02f724c6d65ffebd0b7ab0bb9bb08d8a6de8901fd19e`)
+**Reuse.** Reuse a retained D08 clean-build record only when it proves a clean source reconstruction with the same material inputs, accepted recipe, platform/configuration and qualified output. A build from an uncommitted development tree is not clean-build proof. If that record is absent or invalid, run exactly the missing clean reconstruction in a task-owned qualification Resource, never reset the canonical worktree or create a second active authority root. Reuse installed toolchains and declared caches unless the criterion specifically measures cold state. A controller-only commit does not invalidate game inputs.
+
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `projects/biella-games/docs/task-guides/D16-01.md` (SHA-256 `0276cb85d911b01f6f089f81bc1b9ee2131a45c9a345fb24b2f1e7430ade768d`)
 
 ## 010. D16-02 — Make package recipe reproducible
 
@@ -220,7 +228,9 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Two build logs, resulting package identities/digests, and recipe commit.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-006_MAKE_THE_PACKAGE_RECIPE_REPRODUCIBLE.md` (SHA-256 `5658328d22c1530475b685e9230d1436fa53465a0bcfdb44a35185973f52b687`)
+**Reuse.** Require two distinct actual executions of the same accepted source and recipe, with both logs and package identities. D08 and D16-01 may already supply them; reuse those matching records. An update from different source revisions does not prove two executions of the same recipe inputs, and copying a log never creates a second run. If only one qualifying execution exists, perform only the missing second execution. Preserve documented build nondeterminism; do not require byte-identical outputs unless the recipe contract actually promises it. Never run a third build solely because the task number changed.
+
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `projects/biella-games/docs/task-guides/D16-02.md` (SHA-256 `0b13bea1a960ea841a017b2771423dd119cdea5a10afcd01ec9de32fda556ef2`)
 
 ## 011. D16-03 — Qualify clean-machine install and launch
 
@@ -234,7 +244,9 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Target-machine identity, package digest, runtime log, and captured launch/play evidence.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-007_QUALIFY_A_CLEAN_MACHINE_INSTALL_AND_LAUNCH.md` (SHA-256 `1b4d0b4dbad7e4102d2aa5a2fb4db21a25695b590bea39a26e77fa382a880d53`)
+**Reuse.** Reuse D08 clean-install/play evidence only for the same exact package and a target environment independent of the development workspace. It must show the packaged executable outside the editor, real input/gameplay, prerequisites and clean exit; an editor launch or registered SDK is insufficient. Run only missing install/launch scenarios. Never reinstall already verified unchanged prerequisites, wipe the development user profile or substitute Linux/headless proof for accepted Win64 playable proof.
+
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `projects/biella-games/docs/task-guides/D16-03.md` (SHA-256 `280ff71f0798b2786aab3d1cc097e7da6eec55a85a835485aeaba96643741fdc`)
 
 ## 012. D16-04 — Qualify save, settings, restart, and reconstruction
 
@@ -248,7 +260,9 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Before/after state evidence, save/version identity, runtime logs.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-008_QUALIFY_SAVE_SETTINGS_RESTART_AND_RECONSTRUCTION.md` (SHA-256 `db94aa411169a8ab54cde23891ad9a9deb8f719571c47e4242bc9dd75b3e518e`)
+**Reuse.** Reuse the package-specific settings/save exit-and-relaunch scenario recorded in D08 when package, save schema and affected configuration match. D05 editor evidence supplies implementation context, not a packaged persistence pass. Exercise only missing save/settings lifecycle assertions in an isolated test-user location; preserve existing player saves and source. No whole D07 rerun, rebuild or overnight soak is created by this task.
+
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `projects/biella-games/docs/task-guides/D16-04.md` (SHA-256 `6cc2413f5a6212179b709a79d2fefe32f5175036d0f136e64e5186211b00cae3`)
 
 ## 013. D16-05 — Qualify crash, assert, and failure diagnostics
 
@@ -262,7 +276,9 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Diagnostic artifact identity, build identity, reproduction steps.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-009_QUALIFY_CRASH_ASSERT_AND_FAILURE_DIAGNOSTICS.md` (SHA-256 `818936a135dba2af3994e99ab579c4af49d34768694f1b92a8a12041038ebc05`)
+**Reuse.** Reuse exact-build packaged diagnostic evidence from D08 or an already observed failure. If missing, induce one bounded safe diagnostic inside a disposable qualification process and retrieve its real log/dump or equivalent accepted diagnostic. Never kill the production controller, corrupt accepted packages, or present a synthetic log fixture as a runtime crash. Verifier negative controls do not require repeating game builds.
+
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `projects/biella-games/docs/task-guides/D16-05.md` (SHA-256 `627dde721f0580e3af5de1cff1e0f68329fb14252f080a1047fb4dd7178e66fc`)
 
 ## 014. D16-06 — Qualify update and package replacement
 
@@ -276,7 +292,9 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Version identities, update steps, save/config compatibility evidence.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-010_QUALIFY_UPDATE_AND_PACKAGE_REPLACEMENT.md` (SHA-256 `4735ca2637ea699d64c1cc7265ef0547a3f5f75ef2eb989766d697f40a0cc3ba`)
+**Reuse.** Reuse the exact two-version update/compatibility evidence required by D08, matching both package identities, update recipe, supported save/config schema and post-update playable result. Rerun only a changed or uncovered update boundary, not the entire release qualification. Preserve original packages and test-user state; failure handling tests use isolated staging. A new task ID does not require new game code or another pair of packages.
+
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `projects/biella-games/docs/task-guides/D16-06.md` (SHA-256 `d0e85e5fc1d1791f9c512d8e6c7f09aab9e7d68c26c18c4aa7c06d32259dea85`)
 
 ## 015. D16-07 — Capture representative packaged-runtime baseline
 
@@ -290,21 +308,25 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 
 **Required evidence.** Telemetry files, runtime log, machine hardware identity, build digest.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-011_CAPTURE_THE_REPRESENTATIVE_PACKAGED_RUNTIME_BASELINE.md` (SHA-256 `60ed55c11fc169e64a65b92da52d7ef0751acdc7ee384ae1f099234512d94cbf`)
+**Reuse.** Reuse representative D08 packaged-runtime telemetry when the exact build/configuration/scenario and relevant hardware context match. D07 editor telemetry remains useful comparative evidence but is not relabeled as packaged data. Collect only missing package-specific metrics in a bounded representative traversal/combat run. Preserve native/display-frame distinctions and unavailable measurements; no invented target, full hardware sweep or repeated long soak merely for this baseline.
+
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `projects/biella-games/docs/task-guides/D16-07.md` (SHA-256 `cc59599b86d2cf005bff4463f50a43e207295bec9524560053646cbff685220f`)
 
 ## 016. D16-08 — Close reproducible-build proof
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D16-07
 
-**Objective.** Assemble a minimal chain from exact source to clean build to clean-machine play so an outside technical reviewer can reproduce the claim.
+**Objective.** Assemble the minimal reproducible chain from exact game source to clean build, package, install and play using existing qualified evidence.
 
 **Deliverable.** Reproducibility evidence bundle and index.
 
 **Validation.** Every link source -> build -> package -> install -> play -> persistence -> diagnostics is backed by exact identities; missing proof remains explicitly unresolved.
 
-**Required evidence.** Evidence index, digests, Git commit/tree, Drive readback.
+**Required evidence.** Evidence index, exact artifact digests and source commit/tree; GitHub/Drive readback only when published, with pending publication recorded separately.
 
-**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-012_CLOSE_REPRODUCIBLE_BUILD_PROOF.md` (SHA-256 `0c6c52209126760dee78c83026ba26cb9d815cfdb756721842424528998e74cc`)
+**Reuse.** Assemble references to the original D08 and D16 records once. Validate the source-to-package-to-play evidence links and material identities; do not rebuild, reinstall, replay all scenarios, copy all raw evidence or wait for another reviewer. Any missing link is repaired at that exact boundary. Record local acceptance separately from publication; remote readback is required only when published, through the existing publication cursor. No dedicated Drive upload or transfer wait is added to game progression.
+
+**Source records.** `docs/task-program/D15_D24_AAA_CHALLENGER.md` (SHA-256 `78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0`); `projects/biella-games/docs/task-guides/D16-08.md` (SHA-256 `842b7fb9969837e8167e96ac43060c9c7b92b9187d4b4d7300d5ca80269ac344`)
 
 ## 017. D17-01 — Select canonical AAA challenger slice
 

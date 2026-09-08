@@ -160,14 +160,15 @@
         },
         {
           "path": "projects/biella-games/docs/task-guides/D08-01.md",
-          "sha256": "d094ee37ee7331c125fc24fd884a7c99b6ae579ce375e22392c41b750542d64a",
+          "sha256": "de18dfb36d7bc918cc024f0caf7e04b8924c55c4a209bab845a231c428f497fe",
           "selected_sections": [
             "Objective",
             "Authorized project-local output names",
             "Required sequence",
             "Release-candidate acceptance",
             "Accepted delivery decisions",
-            "Current resource reality"
+            "Current resource reality",
+            "Cross-task evidence reuse"
           ]
         }
       ],
@@ -181,7 +182,7 @@
       ],
       "external_input_evidence_required": true,
       "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "reuse": "Reuse matching predecessor proof and package mechanisms with actual D08 inputs. Preserve material-input/recipe/package-specific records from the required release/update work so D15/D16 do not repeat it; two distinct real same-source recipe executions remain required for reproducibility.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
       "production_ordinal": 60,
@@ -197,8 +198,8 @@
       "task_id": "D15-01",
       "title": "Lock authoritative predecessor closure set",
       "task_class": "deep_memory",
-      "lane": "Cross-project",
-      "execution_root": ".",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
       "depends_on": [
         "D08-01"
       ],
@@ -211,13 +212,14 @@
           ]
         },
         {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-001_LOCK_THE_AUTHORITATIVE_PREDECESSOR_CLOSURE_SET.md",
-          "sha256": "ecd2fc1d597d7c2cec21eb036d8e8d2042576e4727e46a3ac3b850cf1a44d4cd",
+          "path": "projects/biella-games/docs/task-guides/D15-01.md",
+          "sha256": "a041572f1882061bfbd39c0c9d1a935aad395ed5a8f3a96e84caf3f5216a6cd9",
           "selected_sections": [
             "Objective",
             "Required deliverable",
             "Validation contract",
-            "Required evidence"
+            "Required evidence",
+            "Reuse boundary"
           ]
         }
       ],
@@ -230,21 +232,22 @@
         "llm.reasoning"
       ],
       "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "next_action": "Read the embedded current task guide, resolve its exact predecessor records, reuse matching proof and execute only the unmet task criterion. Do not reload historical task control envelopes.",
+      "reuse": "Read the accepted D08 qualification and its referenced dependency identities once. Bind only the game release and Engine components it actually consumes. Do not inventory or wait for unrelated Website, business, pilot, investor or deferred Engine programs. This is a local evidence-binding operation: no build or runtime rerun, no extra sign-off; it does not freeze production. Reuse the existing publication cursor for remote receipts.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
       "production_ordinal": 66,
       "priority": 1,
-      "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements."
+      "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements.",
+      "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
       "ordinal": 6,
       "task_id": "D15-02",
       "title": "Freeze current source and decision identities",
       "task_class": "deep_memory",
-      "lane": "Cross-project",
-      "execution_root": ".",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
       "depends_on": [
         "D15-01"
       ],
@@ -257,13 +260,14 @@
           ]
         },
         {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-002_FREEZE_CURRENT_SOURCE_AND_DECISION_IDENTITIES.md",
-          "sha256": "4666f5b5e46473c35c79c6c590f5edd8c078a5b5cff383eac5c1d801fc17ac60",
+          "path": "projects/biella-games/docs/task-guides/D15-02.md",
+          "sha256": "c8a3527d886a105cf7636de7ad871779013c0e21abaa14e0484c6a7c8517e96b",
           "selected_sections": [
             "Objective",
             "Required deliverable",
             "Validation contract",
-            "Required evidence"
+            "Required evidence",
+            "Reuse boundary"
           ]
         }
       ],
@@ -276,21 +280,22 @@
         "llm.reasoning"
       ],
       "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "next_action": "Read the embedded current task guide, resolve its exact predecessor records, reuse matching proof and execute only the unmet task criterion. Do not reload historical task control envelopes.",
+      "reuse": "Reuse the source-build manifest and the accepted package lineage produced by D08. The tested source commit may precede newer controller/document commits: record those identities separately rather than rebasing or rebuilding the package. Record only consumed decisions and material inputs; absent required facts stay UNKNOWN. This records identities and does not freeze production: no build or runtime rerun. The publication cursor carries remote status without another upload loop.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
       "production_ordinal": 67,
       "priority": 1,
-      "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements."
+      "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements.",
+      "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
       "ordinal": 7,
       "task_id": "D15-03",
       "title": "Create post-program evidence namespace",
       "task_class": "deep_memory",
-      "lane": "Cross-project",
-      "execution_root": ".",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
       "depends_on": [
         "D15-02"
       ],
@@ -303,13 +308,14 @@
           ]
         },
         {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-003_CREATE_THE_POST_PROGRAM_EVIDENCE_NAMESPACE.md",
-          "sha256": "b77136121c78b0216dec0339ee89ef202cacca84ef1890bd419c74c18d635a6d",
+          "path": "projects/biella-games/docs/task-guides/D15-03.md",
+          "sha256": "4ae695d392c473d43269bab728ad5336b2abdcef8fc9200325a067ff200306b9",
           "selected_sections": [
             "Objective",
             "Required deliverable",
             "Validation contract",
-            "Required evidence"
+            "Required evidence",
+            "Reuse boundary"
           ]
         }
       ],
@@ -322,21 +328,22 @@
         "llm.reasoning"
       ],
       "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "next_action": "Read the embedded current task guide, resolve its exact predecessor records, reuse matching proof and execute only the unmet task criterion. Do not reload historical task control envelopes.",
+      "reuse": "Use the existing Games Build/Release evidence namespace and the D08 lineage, not a new top-level repository or archive. Write/read back the required task record itself as the namespace test; do not create a disposable dummy artifact and another validation round. Reference original bytes instead of copying every package/log. This does not freeze production and needs no build or runtime rerun. Existing configured destinations and the publication cursor remain authoritative for transfer status.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
       "production_ordinal": 68,
       "priority": 1,
-      "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements."
+      "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements.",
+      "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
       "ordinal": 8,
       "task_id": "D15-04",
       "title": "Bind production-ready predecessor build",
       "task_class": "deep_memory",
-      "lane": "Cross-project",
-      "execution_root": ".",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
       "depends_on": [
         "D15-03"
       ],
@@ -349,13 +356,14 @@
           ]
         },
         {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-004_BIND_THE_PRODUCTION_READY_PREDECESSOR_BUILD.md",
-          "sha256": "3712af0239a213c863e3595201ea8483c16c4947f5982d74b3cbb51a6932fe71",
+          "path": "projects/biella-games/docs/task-guides/D15-04.md",
+          "sha256": "c447719b114fe26e4dd163dd0102024b6012c9e5c0eb0b14355fdac18c231075",
           "selected_sections": [
             "Objective",
             "Required deliverable",
             "Validation contract",
-            "Required evidence"
+            "Required evidence",
+            "Reuse boundary"
           ]
         }
       ],
@@ -368,13 +376,14 @@
         "llm.reasoning"
       ],
       "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "next_action": "Read the embedded current task guide, resolve its exact predecessor records, reuse matching proof and execute only the unmet task criterion. Do not reload historical task control envelopes.",
+      "reuse": "Resolve the accepted package through the D08 package manifest and qualification, not a stale task filename or current HEAD guess. Compare exact package/source/configuration/platform identities. Preserve original package bytes. Missing metadata is repaired locally; an actual missing/corrupt package invalidates only that artifact boundary, not completed gameplay. This does not freeze production: no build or runtime rerun for valid retained bytes. Use the publication cursor, not a new remote wait.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
       "production_ordinal": 69,
       "priority": 1,
-      "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements."
+      "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements.",
+      "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
       "ordinal": 9,
@@ -395,13 +404,14 @@
           ]
         },
         {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-005_REPRODUCE_THE_RELEASE_FROM_A_CLEAN_CHECKOUT.md",
-          "sha256": "533adf3449210375c55f02f724c6d65ffebd0b7ab0bb9bb08d8a6de8901fd19e",
+          "path": "projects/biella-games/docs/task-guides/D16-01.md",
+          "sha256": "0276cb85d911b01f6f089f81bc1b9ee2131a45c9a345fb24b2f1e7430ade768d",
           "selected_sections": [
             "Objective",
             "Required deliverable",
             "Validation contract",
-            "Required evidence"
+            "Required evidence",
+            "Reuse boundary"
           ]
         }
       ],
@@ -414,12 +424,13 @@
         "llm.reasoning"
       ],
       "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "next_action": "Read the embedded current task guide, resolve its exact predecessor records, reuse matching proof and execute only the unmet task criterion. Do not reload historical task control envelopes.",
+      "reuse": "Reuse a retained D08 clean-build record only when it proves a clean source reconstruction with the same material inputs, accepted recipe, platform/configuration and qualified output. A build from an uncommitted development tree is not clean-build proof. If that record is absent or invalid, run exactly the missing clean reconstruction in a task-owned qualification Resource, never reset the canonical worktree or create a second active authority root. Reuse installed toolchains and declared caches unless the criterion specifically measures cold state. A controller-only commit does not invalidate game inputs.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
       "production_ordinal": 70,
-      "priority": 1
+      "priority": 1,
+      "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
       "ordinal": 10,
@@ -440,13 +451,14 @@
           ]
         },
         {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-006_MAKE_THE_PACKAGE_RECIPE_REPRODUCIBLE.md",
-          "sha256": "5658328d22c1530475b685e9230d1436fa53465a0bcfdb44a35185973f52b687",
+          "path": "projects/biella-games/docs/task-guides/D16-02.md",
+          "sha256": "0b13bea1a960ea841a017b2771423dd119cdea5a10afcd01ec9de32fda556ef2",
           "selected_sections": [
             "Objective",
             "Required deliverable",
             "Validation contract",
-            "Required evidence"
+            "Required evidence",
+            "Reuse boundary"
           ]
         }
       ],
@@ -459,12 +471,13 @@
         "llm.reasoning"
       ],
       "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "next_action": "Read the embedded current task guide, resolve its exact predecessor records, reuse matching proof and execute only the unmet task criterion. Do not reload historical task control envelopes.",
+      "reuse": "Require two distinct actual executions of the same accepted source and recipe, with both logs and package identities. D08 and D16-01 may already supply them; reuse those matching records. An update from different source revisions does not prove two executions of the same recipe inputs, and copying a log never creates a second run. If only one qualifying execution exists, perform only the missing second execution. Preserve documented build nondeterminism; do not require byte-identical outputs unless the recipe contract actually promises it. Never run a third build solely because the task number changed.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
       "production_ordinal": 71,
-      "priority": 1
+      "priority": 1,
+      "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
       "ordinal": 11,
@@ -485,13 +498,14 @@
           ]
         },
         {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-007_QUALIFY_A_CLEAN_MACHINE_INSTALL_AND_LAUNCH.md",
-          "sha256": "1b4d0b4dbad7e4102d2aa5a2fb4db21a25695b590bea39a26e77fa382a880d53",
+          "path": "projects/biella-games/docs/task-guides/D16-03.md",
+          "sha256": "280ff71f0798b2786aab3d1cc097e7da6eec55a85a835485aeaba96643741fdc",
           "selected_sections": [
             "Objective",
             "Required deliverable",
             "Validation contract",
-            "Required evidence"
+            "Required evidence",
+            "Reuse boundary"
           ]
         }
       ],
@@ -504,12 +518,13 @@
         "llm.reasoning"
       ],
       "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "next_action": "Read the embedded current task guide, resolve its exact predecessor records, reuse matching proof and execute only the unmet task criterion. Do not reload historical task control envelopes.",
+      "reuse": "Reuse D08 clean-install/play evidence only for the same exact package and a target environment independent of the development workspace. It must show the packaged executable outside the editor, real input/gameplay, prerequisites and clean exit; an editor launch or registered SDK is insufficient. Run only missing install/launch scenarios. Never reinstall already verified unchanged prerequisites, wipe the development user profile or substitute Linux/headless proof for accepted Win64 playable proof.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
       "production_ordinal": 72,
-      "priority": 1
+      "priority": 1,
+      "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
       "ordinal": 12,
@@ -530,13 +545,14 @@
           ]
         },
         {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-008_QUALIFY_SAVE_SETTINGS_RESTART_AND_RECONSTRUCTION.md",
-          "sha256": "db94aa411169a8ab54cde23891ad9a9deb8f719571c47e4242bc9dd75b3e518e",
+          "path": "projects/biella-games/docs/task-guides/D16-04.md",
+          "sha256": "6cc2413f5a6212179b709a79d2fefe32f5175036d0f136e64e5186211b00cae3",
           "selected_sections": [
             "Objective",
             "Required deliverable",
             "Validation contract",
-            "Required evidence"
+            "Required evidence",
+            "Reuse boundary"
           ]
         }
       ],
@@ -549,12 +565,13 @@
         "llm.reasoning"
       ],
       "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "next_action": "Read the embedded current task guide, resolve its exact predecessor records, reuse matching proof and execute only the unmet task criterion. Do not reload historical task control envelopes.",
+      "reuse": "Reuse the package-specific settings/save exit-and-relaunch scenario recorded in D08 when package, save schema and affected configuration match. D05 editor evidence supplies implementation context, not a packaged persistence pass. Exercise only missing save/settings lifecycle assertions in an isolated test-user location; preserve existing player saves and source. No whole D07 rerun, rebuild or overnight soak is created by this task.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
       "production_ordinal": 73,
-      "priority": 1
+      "priority": 1,
+      "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
       "ordinal": 13,
@@ -575,13 +592,14 @@
           ]
         },
         {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-009_QUALIFY_CRASH_ASSERT_AND_FAILURE_DIAGNOSTICS.md",
-          "sha256": "818936a135dba2af3994e99ab579c4af49d34768694f1b92a8a12041038ebc05",
+          "path": "projects/biella-games/docs/task-guides/D16-05.md",
+          "sha256": "627dde721f0580e3af5de1cff1e0f68329fb14252f080a1047fb4dd7178e66fc",
           "selected_sections": [
             "Objective",
             "Required deliverable",
             "Validation contract",
-            "Required evidence"
+            "Required evidence",
+            "Reuse boundary"
           ]
         }
       ],
@@ -594,12 +612,13 @@
         "llm.reasoning"
       ],
       "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "next_action": "Read the embedded current task guide, resolve its exact predecessor records, reuse matching proof and execute only the unmet task criterion. Do not reload historical task control envelopes.",
+      "reuse": "Reuse exact-build packaged diagnostic evidence from D08 or an already observed failure. If missing, induce one bounded safe diagnostic inside a disposable qualification process and retrieve its real log/dump or equivalent accepted diagnostic. Never kill the production controller, corrupt accepted packages, or present a synthetic log fixture as a runtime crash. Verifier negative controls do not require repeating game builds.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
       "production_ordinal": 74,
-      "priority": 1
+      "priority": 1,
+      "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
       "ordinal": 14,
@@ -620,13 +639,14 @@
           ]
         },
         {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-010_QUALIFY_UPDATE_AND_PACKAGE_REPLACEMENT.md",
-          "sha256": "4735ca2637ea699d64c1cc7265ef0547a3f5f75ef2eb989766d697f40a0cc3ba",
+          "path": "projects/biella-games/docs/task-guides/D16-06.md",
+          "sha256": "d0e85e5fc1d1791f9c512d8e6c7f09aab9e7d68c26c18c4aa7c06d32259dea85",
           "selected_sections": [
             "Objective",
             "Required deliverable",
             "Validation contract",
-            "Required evidence"
+            "Required evidence",
+            "Reuse boundary"
           ]
         }
       ],
@@ -639,12 +659,13 @@
         "llm.reasoning"
       ],
       "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "next_action": "Read the embedded current task guide, resolve its exact predecessor records, reuse matching proof and execute only the unmet task criterion. Do not reload historical task control envelopes.",
+      "reuse": "Reuse the exact two-version update/compatibility evidence required by D08, matching both package identities, update recipe, supported save/config schema and post-update playable result. Rerun only a changed or uncovered update boundary, not the entire release qualification. Preserve original packages and test-user state; failure handling tests use isolated staging. A new task ID does not require new game code or another pair of packages.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
       "production_ordinal": 75,
-      "priority": 1
+      "priority": 1,
+      "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
       "ordinal": 15,
@@ -665,13 +686,14 @@
           ]
         },
         {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-011_CAPTURE_THE_REPRESENTATIVE_PACKAGED_RUNTIME_BASELINE.md",
-          "sha256": "60ed55c11fc169e64a65b92da52d7ef0751acdc7ee384ae1f099234512d94cbf",
+          "path": "projects/biella-games/docs/task-guides/D16-07.md",
+          "sha256": "cc59599b86d2cf005bff4463f50a43e207295bec9524560053646cbff685220f",
           "selected_sections": [
             "Objective",
             "Required deliverable",
             "Validation contract",
-            "Required evidence"
+            "Required evidence",
+            "Reuse boundary"
           ]
         }
       ],
@@ -684,12 +706,13 @@
         "llm.reasoning"
       ],
       "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "next_action": "Read the embedded current task guide, resolve its exact predecessor records, reuse matching proof and execute only the unmet task criterion. Do not reload historical task control envelopes.",
+      "reuse": "Reuse representative D08 packaged-runtime telemetry when the exact build/configuration/scenario and relevant hardware context match. D07 editor telemetry remains useful comparative evidence but is not relabeled as packaged data. Collect only missing package-specific metrics in a bounded representative traversal/combat run. Preserve native/display-frame distinctions and unavailable measurements; no invented target, full hardware sweep or repeated long soak merely for this baseline.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
       "production_ordinal": 76,
-      "priority": 1
+      "priority": 1,
+      "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
       "ordinal": 16,
@@ -710,31 +733,33 @@
           ]
         },
         {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-012_CLOSE_REPRODUCIBLE_BUILD_PROOF.md",
-          "sha256": "0c6c52209126760dee78c83026ba26cb9d815cfdb756721842424528998e74cc",
+          "path": "projects/biella-games/docs/task-guides/D16-08.md",
+          "sha256": "842b7fb9969837e8167e96ac43060c9c7b92b9187d4b4d7300d5ca80269ac344",
           "selected_sections": [
             "Objective",
             "Required deliverable",
             "Validation contract",
-            "Required evidence"
+            "Required evidence",
+            "Reuse boundary"
           ]
         }
       ],
-      "objective": "Assemble a minimal chain from exact source to clean build to clean-machine play so an outside technical reviewer can reproduce the claim.",
+      "objective": "Assemble the minimal reproducible chain from exact game source to clean build, package, install and play using existing qualified evidence.",
       "deliverable": "Reproducibility evidence bundle and index.",
       "validation": "Every link source -> build -> package -> install -> play -> persistence -> diagnostics is backed by exact identities; missing proof remains explicitly unresolved.",
-      "required_evidence": "Evidence index, digests, Git commit/tree, Drive readback.",
+      "required_evidence": "Evidence index, exact artifact digests and source commit/tree; GitHub/Drive readback only when published, with pending publication recorded separately.",
       "resource_capabilities": [
         "llm.code",
         "llm.reasoning"
       ],
       "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "next_action": "Read the embedded current task guide, resolve its exact predecessor records, reuse matching proof and execute only the unmet task criterion. Do not reload historical task control envelopes.",
+      "reuse": "Assemble references to the original D08 and D16 records once. Validate the source-to-package-to-play evidence links and material identities; do not rebuild, reinstall, replay all scenarios, copy all raw evidence or wait for another reviewer. Any missing link is repaired at that exact boundary. Record local acceptance separately from publication; remote readback is required only when published, through the existing publication cursor. No dedicated Drive upload or transfer wait is added to game progression.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
       "production_ordinal": 77,
-      "priority": 1
+      "priority": 1,
+      "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
       "ordinal": 17,
