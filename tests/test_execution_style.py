@@ -17,6 +17,10 @@ def test_proven_execution_style_is_executable_and_quality_first():
     assert profile["manual_progress_edit"] == "SLEEP_EDIT_VALIDATE_SYNC_RESUME"
     assert profile["cache"] == "QUALITY_FIRST_REUSE"
     assert profile["path_resolution"] == "LOOKUP_BEFORE_USE"
+    assert profile["completion_boundary"] == "CLEAN_CANONICAL_WORKTREE"
+    assert profile["dirty_during_task"] == "TASK_SCOPED_TEMPORARY_ONLY"
+    assert profile["cycle"] == "EXECUTE_VALIDATE_COMMIT_COMPLETE_PERSIST_ADVANCE"
+    assert profile["observer_authority"] == "READ_ONLY_ZERO_LIVENESS"
 
 
 def test_proven_style_records_exact_forbidden_failure_patterns():
@@ -47,6 +51,7 @@ def test_proven_style_prompt_is_compact_and_actionable():
         "OPTIONAL_RESOURCES_NEVER_BLOCK",
         "CACHE_REUSE_QUALITY_FIRST",
         "MANUAL_PROGRESS_EDIT_IS_TRANSACTIONAL",
+        "CLEAN_TASK_BOUNDARY",
     ):
         assert token in text
     assert len(text) < 3000

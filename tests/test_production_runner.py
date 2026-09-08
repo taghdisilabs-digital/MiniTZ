@@ -1083,3 +1083,40 @@ def test_parser_exposes_owner_accept_fast_path():
     assert args.task == "D04-01"
     assert args.evidence == ["OWNER_ACCEPTED: pass"]
     assert args.no_resume is False
+
+
+def test_runner_does_not_accept_complete_result_while_task_output_is_dirty(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path); runtime_root = tmp_path / "runtime"
+    subprocess.run(["git", "init", "-q", "-b", "main", str(repo)], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.name", "Biella Test"], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.email", "test@example.invalid"], check=True)
+    subprocess.run(["git", "-C", str(repo), "add", "."], check=True)
+    subprocess.run(["git", "-C", str(repo), "commit", "-qm", "base"], check=True)
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {"gpt-6-astra": {"ultra"}})
+    calls = {"n": 0}
+    def command(_route, _schema, output, _cwd):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            code = (
+                "import json,pathlib; "
+                f"pathlib.Path({str(project / 'dirty.txt')!r}).write_text('task bytes'); "
+                f"pathlib.Path({str(output)!r}).write_text(json.dumps({{'task_id':'D01-030','status':'COMPLETE','summary':'done','evidence':['runtime pass']}}))"
+            )
+        else:
+            code = (
+                "import json,pathlib,subprocess; "
+                f"subprocess.run(['git','-C',{str(repo)!r},'add','projects/biella-games/dirty.txt'],check=True); "
+                f"subprocess.run(['git','-C',{str(repo)!r},'commit','-qm','task output'],check=True); "
+                f"pathlib.Path({str(output)!r}).write_text(json.dumps({{'task_id':'D01-030','status':'COMPLETE','summary':'done','evidence':['runtime pass']}}))"
+            )
+        return [sys.executable, "-c", code]
+    monkeypatch.setattr(runner.routing, "build_codex_command", command)
+    persisted=[]
+    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: persisted.append(task_id) or {"commit":"c","tree":"t"})
+    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
+    assert calls["n"] >= 2
+    assert state.find_task(state.load_project_production(project), "D01-030").status == "COMPLETE"
+    events=[json.loads(line) for line in (runtime_root/'events.jsonl').read_text().splitlines()]
+    task_events=[e for e in events if e.get('task_id') in ('D01-030','D01-30') and e.get('type') in ('task.continue','task.completed')]
+    assert any(e.get('type') == 'task.continue' and 'commit or deliberately discard' in str(e.get('text')) for e in task_events)
+    assert task_events[-1].get('type') == 'task.completed'

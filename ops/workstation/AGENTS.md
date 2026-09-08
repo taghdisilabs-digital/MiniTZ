@@ -91,3 +91,5 @@ Recover routine tool/provider/publication failures within their affected boundar
 ## Retained production style
 
 `HOW_BIELLA_WILL_NOT_WORK`: do not recreate previously observed progress killers by renaming them as recovery, watchdog, no-progress, readiness, installer-preservation, reviewer, observer, or fallback mechanisms. `PROVEN_EXECUTION_STYLE`: highest-quality eligible strong execution, persistent task/session reuse, exact lookup before path use, immediate accepted-task closure/advance, quality-first cached context, nonblocking optional Resources, strict Project isolation, and transactional manual progress edits. Production turns receive the executable version from `biella_execution_style.proven_execution_style_prompt()`.
+
+`CLEAN_TASK_BOUNDARY`: a running task may have task-scoped dirty bytes, but durable completion may not. Before `COMPLETE`, commit canonical implementation/evidence and deliberately discard rebuildable task-local noise that is not required proof. A dirty completion claim is normalized back to `CONTINUE`; it never advances or enters persistence retry as if the task were complete.

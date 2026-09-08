@@ -1033,6 +1033,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             except ValueError as exc:
                 _set_failure(telemetry, route, str(exc), task.id); _beat(runtime_path, telemetry); continue
             result = _normalize_result_for_route(result, route)
+            result = evidence.enforce_clean_completion_boundary(repo_root, result)
             telemetry["last_result"] = {
                 "task_id": result.task_id, "status": result.status, "summary": result.summary,
                 "evidence": list(result.evidence), "model": route.model, "reasoning": route.reasoning,

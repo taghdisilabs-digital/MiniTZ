@@ -32,6 +32,10 @@ def proven_execution_style() -> dict[str, Any]:
         "manual_progress_edit": "SLEEP_EDIT_VALIDATE_SYNC_RESUME",
         "cache": "QUALITY_FIRST_REUSE",
         "path_resolution": "LOOKUP_BEFORE_USE",
+        "completion_boundary": "CLEAN_CANONICAL_WORKTREE",
+        "dirty_during_task": "TASK_SCOPED_TEMPORARY_ONLY",
+        "cycle": "EXECUTE_VALIDATE_COMMIT_COMPLETE_PERSIST_ADVANCE",
+        "observer_authority": "READ_ONLY_ZERO_LIVENESS",
         "model_silence": "NOT_FAILURE",
         "task_progression": "AUTO_ADVANCE_AFTER_ACCEPTED_COMPLETION",
         "project_isolation": "STRICT",
@@ -48,6 +52,7 @@ def proven_execution_style_prompt() -> str:
         "- OPTIONAL_RESOURCES_NEVER_BLOCK: local AI, GPU residency, website, observers, helpers and optional providers cannot gate production.\n"
         "- CACHE_REUSE_QUALITY_FIRST: reuse verified work, persistent session context and compact cached context when correctness is preserved.\n"
         "- MANUAL_PROGRESS_EDIT_IS_TRANSACTIONAL: sleep/freeze, edit, validate, sync/readback, then resume the exact task/session.\n"
+        "- CLEAN_TASK_BOUNDARY: dirty task-scoped work is temporary; before COMPLETE commit canonical implementation/evidence and deliberately discard rebuildable task-local noise.\n"
         "- AUTO_ADVANCE_AFTER_ACCEPTED_COMPLETION: persist and immediately select the next canonical task.\n"
         "- TASK_CLASS_IS_NOT_A_BLOCKER: hard/deep labels describe complexity only and never create approval or waiting stages.\n"
         "- DO_NOT_EXPAND_ACCEPTANCE_SCOPE: use only the exact current Task/Project contract and latest owner direction.\n"

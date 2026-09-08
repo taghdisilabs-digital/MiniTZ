@@ -109,6 +109,13 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 - Controller-native completion/advancement occurs only after the child turn exits, so it is already a safe child-free progress transaction.
 - The maintenance transaction is explicit and owner/management initiated; it must never be triggered by an inactivity timer, watchdog, no-progress marker, optional local model readiness, reviewer hook, website observer, or chat lifecycle.
 
+## Hardened continuous-cycle contract
+- Boot path is `systemd -> Docker/broker reconciliation -> customer guard -> GitHub source alignment -> canonical production runner`; optional Qwen/Ollama, Website, browser, chat, and observer state never gate authoritative production startup.
+- The steady loop is `RESOLVE CURRENT TASK -> LOAD BOUNDED CURRENT CONTEXT -> EXECUTE -> VALIDATE -> COMMIT CANONICAL TASK OUTPUT -> COMPLETE -> PERSIST/REMOTE READBACK -> ADVANCE -> NEXT TASK`. `CONTINUE` stays on the same task/session and must identify real unfinished work.
+- `CLEAN_TASK_BOUNDARY`: task-scoped dirty bytes are allowed only while a task is actively being developed. A `COMPLETE`/`COMPLETE_ALREADY` result with uncommitted non-continuity paths is deterministically normalized to `CONTINUE` before any completion event/state transition. Canonical implementation/evidence must be committed; rebuildable task-local logs/temp outputs that are not required proof are deliberately discarded.
+- Completion is controller-native and child-free: after a clean accepted task result, update canonical task state, refresh compact memory, publish/read back required GitHub/Drive continuity, then immediately select the next unfinished task. No reviewer, inactivity timer, Website callback, browser, chat, Git hook, Qwen readiness check, or task-class label participates in advancement.
+- Cache and local Qwen are accelerators only. Compact memory is rebuilt from current authority/evidence and may reduce rereads; Qwen may perform bounded assistance when useful. Cache/Qwen failure or non-use never creates a wait state and never lowers strong-route acceptance quality.
+
 ## HOW BIELLA WILL NOT WORK
 
 The following patterns are forbidden because they caused observed waste, stalls, incorrect continuation, or unnecessary resource use during the 2026-09-07/08 production window. They are failure patterns, not fallback modes.

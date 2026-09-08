@@ -105,6 +105,29 @@ def _dirty_paths(repo_root: Path) -> set[str]:
     return paths
 
 
+def completion_boundary_dirty_paths(repo_root: Path) -> tuple[str, ...]:
+    try:
+        dirty = _dirty_paths(Path(repo_root))
+    except subprocess.CalledProcessError:
+        return ()
+    allowed = {path for path in _CONTINUITY_PATHS if (Path(repo_root) / path).exists()}
+    return tuple(sorted(dirty - allowed))
+
+
+def enforce_clean_completion_boundary(repo_root: Path, result: TaskResult) -> TaskResult:
+    if result.status not in _COMPLETE:
+        return result
+    dirty = completion_boundary_dirty_paths(repo_root)
+    if not dirty:
+        return result
+    summary = (
+        "Completion deferred: commit or deliberately discard current-task output before COMPLETE: "
+        + ", ".join(dirty)
+        + ". Commit canonical implementation/evidence; discard rebuildable task-local noise; then return COMPLETE."
+    )
+    return TaskResult(result.task_id, "CONTINUE", summary, result.evidence)
+
+
 def assert_remote_source_current(repo_root: Path) -> dict[str, str]:
     repo_root = Path(repo_root)
     branch = _git(repo_root, "branch", "--show-current").stdout.strip()

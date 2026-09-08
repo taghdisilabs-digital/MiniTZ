@@ -154,3 +154,33 @@ def test_remote_source_guard_rejects_vps_behind_remote(tmp_path: Path):
     subprocess.run(["git", "-C", str(other), "push", "-q", "origin", "main"], check=True)
     with pytest.raises(evidence.SourceAlignmentError, match="behind origin/main"):
         evidence.assert_remote_source_current(repo)
+
+
+def test_complete_with_uncommitted_task_output_is_normalized_to_continue(tmp_path: Path):
+    import subprocess
+    repo, project = fixture(tmp_path)
+    subprocess.run(["git", "init", "-q", "-b", "main", str(repo)], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.name", "Biella Test"], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.email", "test@example.invalid"], check=True)
+    subprocess.run(["git", "-C", str(repo), "add", "."], check=True)
+    subprocess.run(["git", "-C", str(repo), "commit", "-qm", "base"], check=True)
+    task_file = project / "active-task-output.txt"
+    task_file.write_text("validated but not committed\n", encoding="utf-8")
+    complete = evidence.TaskResult("D01-030", "COMPLETE", "done", ("runtime pass",))
+    normalized = evidence.enforce_clean_completion_boundary(repo, complete)
+    assert normalized.status == "CONTINUE"
+    assert "commit or deliberately discard" in normalized.summary
+    assert "projects/biella-games/active-task-output.txt" in normalized.summary
+
+
+def test_complete_with_clean_task_output_stays_complete(tmp_path: Path):
+    import subprocess
+    repo, project = fixture(tmp_path)
+    subprocess.run(["git", "init", "-q", "-b", "main", str(repo)], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.name", "Biella Test"], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.email", "test@example.invalid"], check=True)
+    subprocess.run(["git", "-C", str(repo), "add", "."], check=True)
+    subprocess.run(["git", "-C", str(repo), "commit", "-qm", "base"], check=True)
+    complete = evidence.TaskResult("D01-030", "COMPLETE", "done", ("runtime pass",))
+    normalized = evidence.enforce_clean_completion_boundary(repo, complete)
+    assert normalized == complete
