@@ -10,7 +10,7 @@ Engine: `/opt/unreal/UE_5.8.2`
 Execution rule: one current task; verify, execute, persist evidence, then advance
 Evidence rule: editable source plus task-derived build/runtime/package evidence
 Current section: `post_d01`
-Current task: `D17-01`
+Current task: `D17-02`
 Progress: `50/50` Demo tasks complete
 
 ## Section: demo01 | Demo 01 — first playable vertical slice | COMPLETE
@@ -101,7 +101,7 @@ Local state/ledger and GitHub remain per-task; routine Drive stays every five co
 - [x] D09-03 | deep_memory | Visual Canon and Asset Master Selection | COMPLETE_ALREADY | registry_status=COMPLETE
 - [x] D09-04 | deep_memory | Content and Story Canon | COMPLETE_ALREADY | registry_status=COMPLETE
 - [x] D09-05 | deep_memory | Universe Information Architecture | COMPLETE_ALREADY | registry_status=COMPLETE
-- [ ] D17-01 | hard_creation | Select canonical AAA challenger slice | PENDING | registry_status=PENDING
+- [x] D17-01 | hard_creation | Select canonical AAA challenger slice | COMPLETE | Local task commit: 0e056c2456e20a462b0796423d94a877dc139ae7; 1,851 task-owned files / 815,794,707 bytes verified against the exact manifest.; Build/AAA/D17-01/qualification.json: COMPLETE/PASS, evidence_integrity=VERIFIED, package=3434ab980ea68750798b9276a135d06b8b50adeb33faf02ef7c714cfc88e8849.; tests/verify_d17_01_task_boundary.py: PASS; D17-01 selection closes while full-route, same-fight interaction and final-layer quality remain explicit downstream D17-02/04/05/06/07/08 work.
 - [ ] D17-02 | hard_creation | Prove traversal and camera quality | PENDING | registry_status=PENDING
 - [ ] D17-03 | hard_creation | Prove combat feel and consequence chain | PENDING | registry_status=PENDING
 - [ ] D17-04 | hard_creation | Prove player, rival, infected, and arena interaction | PENDING | registry_status=PENDING

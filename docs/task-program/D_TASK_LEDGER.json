@@ -1,5 +1,5 @@
 {
-  "current_task": "D17-01",
+  "current_task": "D17-02",
   "execution_authority": "current 03/04 + Project PRODUCTION.md",
   "execution_map": "docs/task-program/D_NEXT_100_TASKS.json",
   "execution_order": [
@@ -1873,7 +1873,7 @@
         "AAA-SF-013"
       ],
       "program": "D17",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D17-01",
       "title": "Select canonical AAA challenger slice"

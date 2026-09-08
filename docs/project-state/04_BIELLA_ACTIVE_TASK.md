@@ -4,11 +4,11 @@
 schema: biella.active_task/v9
 
 task:
-  id: D17-01
+  id: D17-02
   project: Biella Games
   section: post_d01
   class: hard_creation
-  title: Select canonical AAA challenger slice
+  title: Prove traversal and camera quality
   status: PENDING
   runner: READY
   priority: GAME_FIRST
@@ -21,7 +21,7 @@ task:
     - docs/task-program/D_NEXT_100_TASKS.json (active entry only; not a queue)
 
   continuity:
-    completed_predecessor: D09-05
+    completed_predecessor: D17-01
     production_source: projects/biella-games/docs/PRODUCTION.md
 
   preserve:
@@ -29,5 +29,5 @@ task:
     - Engine P4-06 as INCOMPLETE_DEFERRED
     - one-repository/one-controller/one-Project-production-source architecture
 
-  stop: Execute only D17-01; validate and persist it before advancing.
+  stop: Execute only D17-02; validate and persist it before advancing.
 ```
