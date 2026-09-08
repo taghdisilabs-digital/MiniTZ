@@ -7,6 +7,9 @@ RAW_RELATIVE = (
     Path("projects/biella-games/Build/Presentation/sample/runtime.engine.log"),
     Path("projects/biella-games/Build/Presentation/sample/native-views.csv"),
     Path("projects/biella-games/Build/Presentation/sample/readback.txt"),
+    Path("projects/biella-games/Build/UI/D05-01-runtime-05/runtime.log"),
+    Path("projects/biella-games/Build/D04-01/sample/runtime.stdout.log"),
+    Path("projects/biella-games/Build/Release/sample/frames.csv"),
 )
 
 
@@ -52,3 +55,20 @@ def test_raw_unreal_evidence_is_exempt_but_authored_source_stays_strict(tmp_path
     assert _git(repo, "add", "tests/authored.py", str(authored_receipt.relative_to(repo))).returncode == 0
     clean = _git(repo, "diff", "--cached", "--check")
     assert clean.returncode == 0, clean.stdout
+
+
+def test_raw_unreal_logs_keep_exact_bytes_when_autocrlf_is_enabled(tmp_path: Path):
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    assert _git(repo, "init", "-q").returncode == 0
+    shutil.copy2(ROOT / ".gitattributes", repo / ".gitattributes")
+    assert _git(repo, "config", "core.autocrlf", "true").returncode == 0
+    for relative in RAW_RELATIVE:
+        path = repo / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        raw = b"\xef\xbb\xbfraw proof  \r\nsecond line\r\n"
+        path.write_bytes(raw)
+        assert _git(repo, "add", "--", str(relative)).returncode == 0
+        stored = subprocess.check_output(["git", "-C", str(repo), "show", ":" + relative.as_posix()])
+        assert stored == raw
+        assert path.read_bytes() == raw
