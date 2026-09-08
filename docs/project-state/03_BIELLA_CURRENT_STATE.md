@@ -18,7 +18,7 @@ repository:
 
   source_identity_source: LIVE_GIT_PLUS_RUNTIME
 active_execution:
-  id: D07-01
+  id: D08-01
   project: Biella Games
   section: post_d01
   state: PENDING
@@ -41,13 +41,13 @@ games:
   priority_objective: FASTEST_QUALIFIED_GAME_DELIVERY
   production_source: projects/biella-games/docs/PRODUCTION.md
   current_section: post_d01
-  current_task: D07-01
-  completed_tasks: 63
+  current_task: D08-01
+  completed_tasks: 64
   total_tasks: 168
 
   completed_demo_tasks: 50
-  queued_successor: D07-01
-  task_boundary: D07-01_PENDING
+  queued_successor: D08-01
+  task_boundary: D08-01_PENDING
 resources:
   strong_route_policy: HIGHEST_QUALITY_ELIGIBLE
   model_selection: TASK_CLASS_ROUTER

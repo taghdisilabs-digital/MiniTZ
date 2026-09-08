@@ -10,7 +10,7 @@ Engine: `/opt/unreal/UE_5.8.2`
 Execution rule: one current task; verify, execute, persist evidence, then advance
 Evidence rule: editable source plus task-derived build/runtime/package evidence
 Current section: `post_d01`
-Current task: `D07-01`
+Current task: `D08-01`
 Progress: `50/50` Demo tasks complete
 
 ## Section: demo01 | Demo 01 — first playable vertical slice | COMPLETE
@@ -95,7 +95,7 @@ Local state/ledger and GitHub remain per-task; routine Drive stays every five co
 - [x] D04-01 | hard_creation | Data-driven content system multiplication | COMPLETE | VERIFIED_PASS: full Vulkan D04-01 validation PASS at Build/D04-01/runs/20260908T025036.835791Z-vulkan-3f1a46bf/validation.json sha256=5301532e06377666190517945ebf7d7c11d9933d48ef6c81c996ebfd729e9f56; registry/runtime/environment/shared-gameplay regressions PASS; asset/source/protected-byte stability verified; implementation committed as 5b35545769c77256f5d826a3270b4bba31b1456c
 - [x] D05-01 | medium | UI, settings, localization, and accessibility | COMPLETE | Build/UI/D05-01-acceptance.md records implementation, exact build/runtime commands, and criterion mapping.; Live Unreal automation passed all HUD, settings, persistence, localization, accessibility, and pause-transition criteria; result.json reports success=true.; Committed locally as 86eeb3c6d01d9ec8d2e4f5d4ac40fab3da19fd67; worktree is clean.
 - [x] D06-01 | hard_creation | Cinematic and presentation integration | COMPLETE | [D06-01 acceptance](</root/biella/repos/biella-engine/projects/biella-games/Build/Cinematics/D06-01-acceptance.md>); [Validation report](</root/biella/artifacts/games/D06-01/20260908T061117.897522Z-vulkan-eb4ffad8/validation.json>) records build, authoring, readback, and runtime PASS.; Watched and skipped runtime handoffs passed with the same player/world and restored input/camera state.; Local commit `7598e367964f5359b122d6ecf3ffac9e2cba7b80`; worktree clean.
-- [ ] D07-01 | hard | Full performance, stability, and scalability qualification | PENDING | registry_status=PENDING
+- [x] D07-01 | hard | Full performance, stability, and scalability qualification | COMPLETE | Commit 2745c29c55e55064d3c55442d3051dae407d231d; all 233 committed files verified byte-for-byte.; 10 runtime scenarios and 51 diagnostic/regression controls passed.; [Qualification report](/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/summary.md)
 - [ ] D08-01 | hard | Delivery, update, and release-candidate qualification | PENDING | registry_status=PENDING
 - [x] D09-01 | deep_memory | Full Drive + GitHub Website Source Inventory | COMPLETE_ALREADY | registry_status=COMPLETE
 - [x] D09-02 | deep_memory | Website Source Classification Using Migration Firewall | COMPLETE_ALREADY | registry_status=COMPLETE
