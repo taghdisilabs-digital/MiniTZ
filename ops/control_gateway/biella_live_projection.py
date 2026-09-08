@@ -17,6 +17,7 @@ from urllib.request import urlopen
 PREVIEWABLE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".mp4", ".webm", ".mov"}
 PUBLIC_ROOT_LANES = {
     "games-presentation": "Games",
+    "games-aaa": "Games",
     "games-generated": "Games",
     "games-visual-output": "Games",
     "website-generated": "Website",

@@ -45,6 +45,7 @@ def main() -> int:
         ],
         "Games": [
             AssetRoot("games-presentation", games_project / "Build" / "Presentation", "TASK_EVIDENCE"),
+            AssetRoot("games-aaa", games_project / "Build" / "AAA", "TASK_EVIDENCE"),
             AssetRoot("games-generated", Path("/root/biella/artifacts/games"), "GENERATED_DRAFT"),
             AssetRoot("games-visual-output", games_project / "visual_production" / "outputs", "GENERATED_DRAFT"),
             AssetRoot("games-content", games_project / "Content", "CURRENT_SOURCE"),

@@ -141,6 +141,25 @@ class LiveProjectionTest(unittest.TestCase):
         self.assertEqual(production["efficiency"]["capability_count"], 1)
         self.assertEqual(payload["system"]["local_ai"]["state"], "RESIDENT")
 
+    def test_aaa_task_evidence_can_drive_public_stage(self):
+        aaa = self.game / "Build" / "AAA"
+        frame = aaa / "D17-02" / "raw" / "route-720-02" / "service-approach.png"
+        frame.parent.mkdir(parents=True)
+        frame.write_bytes(b"\x89PNG\r\nlatest-d17-frame")
+        assets = AssetCatalog({
+            "Games": [AssetRoot("games-aaa", aaa, "TASK_EVIDENCE")],
+            "Website": [],
+        })
+        live = LiveProjection(repo=self.repo, runtime_root=self.runtime, assets=assets)
+        stage = live._stage({})
+        self.assertIsNotNone(stage["primary"])
+        self.assertEqual(stage["primary"]["name"], "service-approach.png")
+        self.assertIn("root_id=games-aaa", stage["primary"]["url"])
+        lane, resolved = live.resolve_public_asset(
+            "games-aaa", "D17-02/raw/route-720-02/service-approach.png")
+        self.assertEqual(lane, "Games")
+        self.assertEqual(resolved, frame)
+
     def test_public_asset_resolution_is_preview_only_and_root_bounded(self):
         lane, path = self.live.resolve_public_asset("games-presentation", "current/captures/frame.png")
         self.assertEqual(lane, "Games")
