@@ -1,0 +1,35 @@
+{
+  "binary": {
+    "bytes": 299185984,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/0c41fd851f85a8444a97cdf608ba917eecbf6490b1a815c5dbc321d6f44bc443/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "784a93e01da177765c30a92d845254eb0b9b126a0bce8b8b39286914a4bd4900"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/0c41fd851f85a8444a97cdf608ba917eecbf6490b1a815c5dbc321d6f44bc443/payload",
+  "manifest": {
+    "bytes": 8669,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/0c41fd851f85a8444a97cdf608ba917eecbf6490b1a815c5dbc321d6f44bc443/manifest.json",
+    "sha256": "d4f042dac3adeb4097f1346832ca4559eaa0048e26d9011b1201dbc1c38199e3"
+  },
+  "package_id": "0c41fd851f85a8444a97cdf608ba917eecbf6490b1a815c5dbc321d6f44bc443",
+  "platform": "Linux",
+  "scope": "Byte-verified Linux Development package; not visual acceptance or Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "1fbc5e9c00447b4997af87a6fdde0f1628deb712",
+    "head_tree": "df50b0e56b8526960b561bc050970d167ef6af3e",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      " M Content/Environment/ServiceBay/M_ServiceGround.uasset",
+      " M SourceAssets/Materials/ServiceGround.hlsl",
+      " M tests/author_d17_01_service_bay.py",
+      " M tests/qualify_d17_01.py",
+      "?? Build/AAA/D17-01/environment/assets-08/",
+      "?? Build/AAA/D17-01/environment/floor-edge-editor-01/",
+      "?? Build/AAA/D17-01/environment/runtime-11/",
+      "?? Build/AAA/D17-01/raw/floor-edge-1080-01/",
+      "?? Build/AAA/D17-01/raw/floor-edge-720-01/"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T17:48:59.086182+00:00"
+}

@@ -1,1047 +1,1135 @@
 {
-  "task_id": "D17-01",
-  "status": "UNMET_CRITERIA_RETAINED",
-  "sources": [
-    {
-      "path": "docs/runtime-contracts/AAA_TPP_RUNTIME_CONTRACTS_31_39.md",
-      "sha256": "bc690c5f971e4e38bb06a7834f5a1694ed64ace4dccd112b147d1c650aaae540",
-      "bytes": 18707
+  "current_environment_probe": {
+    "active_simulation_seconds": 18.312541172781494,
+    "arena_pressure_events": 0,
+    "duration_satisfied": false,
+    "electrical_floor_damage": [],
+    "electrical_floor_total_damage": 0,
+    "environment_panel_events": [],
+    "environment_power_transitions": 0,
+    "input_actions": 23,
+    "input_plan": {
+      "bytes": 4167,
+      "path": "Build/AAA/D17-01/service-hazard-input.json",
+      "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
     },
-    {
-      "path": "docs/DEMO_01_PACKAGED_ACCEPTANCE.md",
-      "sha256": "eb9ed35c5677d15a9a2c633ebcc52bfa3c520c34dadfa1e998fd72b8595fa21c",
-      "bytes": 3836
+    "run": "floor-edge-720-01",
+    "runtime_log": {
+      "bytes": 276630,
+      "path": "Build/AAA/D17-01/raw/floor-edge-720-01/runtime.engine.log",
+      "sha256": "d16bdeab9f7e7e806a225498364417bef4fc3e73f070216afe1fc33953d0c4e7"
     },
-    {
-      "path": "Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp",
-      "sha256": "93b371b4f14ceb12f43d07dc6c7c51441a1ae148b857f1dab168f4c223433e35",
-      "bytes": 15319
+    "telemetry": {
+      "bytes": 28787,
+      "path": "Build/AAA/D17-01/raw/floor-edge-720-01/telemetry.jsonl",
+      "sha256": "6b98a09fe98ea6ff892a14fb3136c9e67d6a79b1996be03ad9508102e1c02e2d"
     },
-    {
-      "path": "Source/BiellaGames/Private/BiellaDemoObjectiveManager.cpp",
-      "sha256": "c51037e42a20c8100519c0e3bbba6f6a4dd665bab401d9ac99107669540d729a",
-      "bytes": 6907
-    },
-    {
-      "path": "Source/BiellaGames/Private/BiellaGamesPlayerController.cpp",
-      "sha256": "7ce6872b8449f6bb39516a2927be1ae054978789f2f669779e165334f9e59bbd",
-      "bytes": 10278
-    },
-    {
-      "path": "Source/BiellaGames/Private/BiellaWorldContinuity.cpp",
-      "sha256": "51df4ea55e9f63c838f65b6a0148c116019cb7fcca6a3ce7b89b3cc10e22594c",
-      "bytes": 17015
-    },
-    {
-      "path": "Build/AAA/D17-01/raw/hud-1080-01/telemetry.jsonl",
-      "sha256": "81a1bf866db58bbf71ba42661f48dcfeeda2d2f438052cdf435a781f877f714f",
-      "bytes": 6735
-    },
-    {
-      "path": "Build/AAA/D17-01/raw/route-rival-01/telemetry.jsonl",
-      "sha256": "1a80b42305faf529cc3967e7609d9063cfe74ee37ff76dcb8a4a3364473b3389",
-      "bytes": 22933
-    },
-    {
-      "path": "SourceAssets/Environment/build_service_bay.py",
-      "sha256": "e34dae09560899baffc336d7019c5259cf06bd7c11da968986bf4e226fa1377d",
-      "bytes": 15951
-    },
-    {
-      "path": "SourceAssets/Materials/ServiceSurface.hlsl",
-      "sha256": "cdcd11ff86ed9f23d199915f2a01a71cd109c2ba09c865d664738b1b33f3fd85",
-      "bytes": 2129
-    },
-    {
-      "path": "Content/Python/author_service_bay.py",
-      "sha256": "987d07b2fc8e4574c4c6b8e9d99004ce23be610e521f1aa3c21cddbd68dc0962",
-      "bytes": 14942
-    },
-    {
-      "path": "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
-      "sha256": "fe333d16c1dfc93e8ce62115a0d0b05a87a834f37f01d2ababc3e3023b5c62cc",
-      "bytes": 16320
-    },
-    {
-      "path": "Source/BiellaGames/Public/BiellaEnvironmentSite.h",
-      "sha256": "a2be9d40f72d90e594140e98b0307ace0910d84314f1cee13b8b2ad8dd60a79a",
-      "bytes": 2379
-    },
-    {
-      "path": "SourceAssets/Materials/ServiceGround.hlsl",
-      "sha256": "285c4c64e66cff4911856f7116b842d6656818277e4a515055d075dbb566d41c",
-      "bytes": 3371
-    },
-    {
-      "path": "SourceAssets/Materials/ServiceSwitch.hlsl",
-      "sha256": "6ae930d0e8057fb4e3675d8dd9ac167af85f9b57bec518fd7088cce4dbb9aa42",
-      "bytes": 4665
-    },
-    {
-      "path": "Content/Python/author_service_switch.py",
-      "sha256": "af5aebe0eee8de23324d88f6b86430e52a3bd7369e844cdb9d703262e0dacb5a",
-      "bytes": 5036
-    },
-    {
-      "path": "Content/Environment/ServiceBay/M_ServiceSwitch.uasset",
-      "sha256": "02f9560e97e9b87cd15b1f5ab008942416097f2450314dc0f82aeef8741a54cb",
-      "bytes": 16798
-    },
-    {
-      "path": "SourceAssets/Materials/ServicePanel.hlsl",
-      "sha256": "ee23f2410c63b168478d070265e14335fb9b06c4b15d3fe7df50fba16bceef29",
-      "bytes": 2760
-    },
-    {
-      "path": "Content/Python/author_service_panel.py",
-      "sha256": "10aa128d177733de21137456ea606158559dc7696a5c768a3cd73402f57c7e59",
-      "bytes": 5124
-    },
-    {
-      "path": "Content/Environment/ServiceBay/M_ServicePanel.uasset",
-      "sha256": "d1329452aa58130b77f61581e66514c84507575f823b7eaefbfd3be483ef25b1",
-      "bytes": 14799
-    }
-  ],
-  "findings": [
-    {
-      "criterion": "natural_arena_pressure",
-      "fact": "Contract 33 leaves the exact mechanic, timing and escalation UNKNOWN. Accepted packaged pressure evidence invokes the authoritative API from fixtures. Native ApplyArenaPressure explicitly adds no elapsed-time escalation.",
-      "decision": "Do not invent a timer or connect the switch to arena-pressure APIs. Package-04 ordinary-input power, panel destruction and electrical-floor consequence retain their exact source/package binding. Package-10 changes panel material presentation only and passes the installed environment fixture. Current ordinary-input outcomes are recorded above without inheritance."
-    },
-    {
-      "criterion": "continuous_600_1200_seconds",
-      "fact": "Native objective success and player defeat terminate normal control. Package-10 raw runs terminate at 13.70411386800697 and 8.804244222992565 active seconds. The longest preserved interaction attempt lasted 57.1384 seconds before rival-fire defeat; none qualifies 600–1200 seconds.",
-      "decision": "Preserve accepted terminal behavior. A supported continuous content sequence is not yet established; restart stitching and idle padding remain prohibited.",
-      "causal_evidence": "BiellaOpenWorldGameMode inherits SpawnDemoActors and the two-target Demo objective. BiellaDemoObjectiveManager excludes streaming infected. In hud-1080-01 telemetry the rival alone kills both tracked infected by 9.3066 s; Success follows at 9.4109 s even while streamed population survives. This identifies the early terminal cause without changing accepted behavior.",
-      "additional_probe": {
-        "run": "raw/route-rival-01",
-        "input_plan": "rival-intercept-input.json",
-        "package": "preserved D08 Linux installed package; no native overlay",
-        "active_simulation_seconds": 14.007807950431015,
-        "terminal": "Success",
-        "player_weapon_events": 3,
-        "observed": "Normal sprint/fire input hits a streaming infected and the first objective infected, not the rival. Population infected then join the target set (target rises from 2 to 6 before success). Rival fire clears the remaining target set. This corrects any inference that all later population is excluded from objective counting; BiellaStreamingInfected and BiellaPopulationInfected have different registration behavior.",
-        "objective_progress": [
-          {
-            "sim_seconds": 1.168297343829181,
-            "id": "Demo01ClearArena",
-            "progress": "1",
-            "remaining": "1",
-            "state": "Active",
-            "target": "2"
-          },
-          {
-            "sim_seconds": 4.316255836689379,
-            "id": "Demo01ClearArena",
-            "progress": "1",
-            "remaining": "2",
-            "state": "Active",
-            "target": "3"
-          },
-          {
-            "sim_seconds": 4.617074330279138,
-            "id": "Demo01ClearArena",
-            "progress": "1",
-            "remaining": "4",
-            "state": "Active",
-            "target": "5"
-          },
-          {
-            "sim_seconds": 5.011083952093031,
-            "id": "Demo01ClearArena",
-            "progress": "2",
-            "remaining": "3",
-            "state": "Active",
-            "target": "5"
-          },
-          {
-            "sim_seconds": 8.104914647468831,
-            "id": "Demo01ClearArena",
-            "progress": "3",
-            "remaining": "2",
-            "state": "Active",
-            "target": "5"
-          },
-          {
-            "sim_seconds": 11.70818829810014,
-            "id": "Demo01ClearArena",
-            "progress": "4",
-            "remaining": "1",
-            "state": "Active",
-            "target": "5"
-          },
-          {
-            "sim_seconds": 12.30372317781439,
-            "id": "Demo01ClearArena",
-            "progress": "5",
-            "remaining": "1",
-            "state": "Active",
-            "target": "6"
-          },
-          {
-            "sim_seconds": 14.007807950431015,
-            "id": "Demo01ClearArena",
-            "progress": "6",
-            "remaining": "0",
-            "state": "Active",
-            "target": "6"
-          },
-          {
-            "sim_seconds": 14.213506494590547,
-            "id": "Demo01ClearArena",
-            "progress": "6",
-            "remaining": "1",
-            "state": "Succeeded",
-            "target": "7"
-          },
-          {
-            "sim_seconds": 15.412084757292178,
-            "id": "Demo01ClearArena",
-            "progress": "7",
-            "remaining": "0",
-            "state": "Succeeded",
-            "target": "7"
-          },
-          {
-            "sim_seconds": 15.613617894181516,
-            "id": "Demo01ClearArena",
-            "progress": "7",
-            "remaining": "1",
-            "state": "Succeeded",
-            "target": "8"
-          }
-        ],
-        "conclusion": "This ordinary-input attempt does not establish a continuous route. It does not prove that every possible input route fails."
-      }
-    }
-  ],
-  "independent_work": "Package-10 replaces uniform orange damage tint with dark coated steel and localized first/latest hit marks. Eleven native methods and all damage gameplay bytes remain identical to package-09 after excluding material bindings. Saved material readback, native/editor builds, cook/archive/install and installed environment checks pass. The 720p ordinary-input run ended in native Success after 13.70411386800697 active seconds and 13 input actions, recording one bay power transition with no panel damage or electrical-floor damage. Its inspected 12-second and 15-second video frames show approach to the bay and unbroken dark panels beside the abrupt wet-floor edge; they do not show a damaged panel. The 1080p run ended in native Success after 8.804244222992565 active seconds and five input actions, with no bay power, panel or electrical-floor events. Its four-second frame shows the blue player, yellow rival and red infected on a sparse flat road with placeholder focal geometry and oversized HUD panels. Both runs contain native combat events, zero restarts and no captured audio; neither establishes the long-form route or full evolving arena consequence. Soften the abrupt service-bay wet-floor boundary into the surrounding road using the existing ground material; preserve geometry, collision and hazard rules, then inspect the transition in packaged gameplay.",
+    "terminal": "Success"
+  },
   "current_package_raw": [
     {
-      "run": "panel-impact-720-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/panel-impact-720-01/telemetry.jsonl",
-        "sha256": "d1c49d0780a7e44da3943172d255fcaa6d63500bd3ea7e98fb7319a47f1934f7",
-        "bytes": 20862
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/panel-impact-720-01/runtime.engine.log",
-        "sha256": "0ed3bfb086d1ad5aaf4d46887618792c31307365be14632b353340be689f5419",
-        "bytes": 248185
-      },
-      "input_plan": {
-        "path": "Build/AAA/D17-01/service-hazard-input.json",
-        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
-        "bytes": 4167
-      },
-      "active_simulation_seconds": 13.70411386800697,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 13,
+      "active_simulation_seconds": 18.312541172781494,
       "arena_pressure_events": 0,
-      "environment_power_transitions": 1,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
       "environment_panel_events": [],
-      "electrical_floor_damage": [],
-      "electrical_floor_total_damage": 0
-    },
-    {
-      "run": "panel-impact-1080-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/panel-impact-1080-01/telemetry.jsonl",
-        "sha256": "5fcc416c1b62a2f120e8884d674467b26475d88ad72b973438c68fedc98c0987",
-        "bytes": 6380
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/panel-impact-1080-01/runtime.engine.log",
-        "sha256": "f5a178d1310a5676e13363d2326cd7051da7bfb063c3cf95d7aafb1fae1d015d",
-        "bytes": 183345
-      },
-      "input_plan": {
-        "path": "Build/AAA/D17-01/service-hazard-input.json",
-        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
-        "bytes": 4167
-      },
-      "active_simulation_seconds": 8.804244222992565,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 5,
-      "arena_pressure_events": 0,
       "environment_power_transitions": 0,
-      "environment_panel_events": [],
-      "electrical_floor_damage": [],
-      "electrical_floor_total_damage": 0
-    }
-  ],
-  "previous_service_package_raw": [
-    {
-      "run": "service-720-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/service-720-01/telemetry.jsonl",
-        "sha256": "59ad374e66102623a76dd78d1a1c0c11db6728bfec30a3c7496ac7876eb3b330",
-        "bytes": 35745
-      },
-      "terminal_simulation_seconds": 32.21046835085144,
-      "duration_satisfied": false,
-      "arena_pressure_events": 0
-    },
-    {
-      "run": "service-1080-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/service-1080-01/telemetry.jsonl",
-        "sha256": "8dfaec87a24db19f4820ada1167bd8541ae1383c2ed1cbe1f13bde94af9b6e5c",
-        "bytes": 7087
-      },
-      "terminal_simulation_seconds": 8.700799009704497,
-      "duration_satisfied": false,
-      "arena_pressure_events": 0
-    }
-  ],
-  "current_environment_probe": {
-    "run": "panel-impact-720-01",
-    "telemetry": {
-      "path": "Build/AAA/D17-01/raw/panel-impact-720-01/telemetry.jsonl",
-      "sha256": "d1c49d0780a7e44da3943172d255fcaa6d63500bd3ea7e98fb7319a47f1934f7",
-      "bytes": 20862
-    },
-    "runtime_log": {
-      "path": "Build/AAA/D17-01/raw/panel-impact-720-01/runtime.engine.log",
-      "sha256": "0ed3bfb086d1ad5aaf4d46887618792c31307365be14632b353340be689f5419",
-      "bytes": 248185
-    },
-    "input_plan": {
-      "path": "Build/AAA/D17-01/service-hazard-input.json",
-      "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
-      "bytes": 4167
-    },
-    "active_simulation_seconds": 13.70411386800697,
-    "terminal": "Success",
-    "duration_satisfied": false,
-    "input_actions": 13,
-    "arena_pressure_events": 0,
-    "environment_power_transitions": 1,
-    "environment_panel_events": [],
-    "electrical_floor_damage": [],
-    "electrical_floor_total_damage": 0
-  },
-  "previous_coordinate_package_raw": [
-    {
-      "run": "service-720-02",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/service-720-02/telemetry.jsonl",
-        "sha256": "625a93d1208529536dd444316140e72f35630ae5278f146c350585bc94b90ced",
-        "bytes": 35784
-      },
-      "terminal_simulation_seconds": 34.112581229710486,
-      "active_simulation_seconds": 34.112581229710486,
-      "duration_satisfied": false,
-      "arena_pressure_events": 0
-    },
-    {
-      "run": "service-1080-02",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/service-1080-02/telemetry.jsonl",
-        "sha256": "868ce6253f57f3b40ec224ccd80a0ad1fe3ea68aab903fbf2f09822f523ce903",
-        "bytes": 6732
-      },
-      "terminal_simulation_seconds": 9.009782609471586,
-      "active_simulation_seconds": 9.009782609471586,
-      "duration_satisfied": false,
-      "arena_pressure_events": 0
-    }
-  ],
-  "previous_environment_probes": [
-    {
-      "run": "raw/service-interaction-720-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/service-interaction-720-01/telemetry.jsonl",
-        "sha256": "35428731c5e5ae7e09d33d2bed4f45f01d694af60a7e1986d23c8f25f64f217b",
-        "bytes": 57985
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/service-interaction-720-01/runtime.engine.log",
-        "sha256": "6b4093bbb6abee69b71885ff8810b99cc0fc32fabf70287622d0df882ed2df69",
-        "bytes": 434831
-      },
-      "input_plan": {
-        "path": "Build/AAA/D17-01/service-interaction-input.json",
-        "sha256": "b398185f2d3415fff96e6100d01dd0b002043c99b034f9759891b867a90042eb",
-        "bytes": 3336
-      },
-      "active_simulation_seconds": 57.13843510946026,
-      "terminal": "Failure",
-      "player_defeat": {
-        "reason": "rival_fire",
-        "target": "BiellaStreamingCharacter:1"
-      },
-      "input_actions": 21,
-      "arena_pressure_events": 0,
-      "environment_power_transitions": 0,
-      "observed": "Decoded frames at video seconds 17 and 20 show the approach passing the far/right side of the service bay, outside the cabinet approach; no interaction prompt is visible. The E key attempt records no power transition. This is a missed ordinary-input approach, not evidence that the passing switch implementation is broken.",
-      "next_action": "Correct the approach to the unchanged cabinet from observed runtime position and native reach/facing rules; then capture the implemented power/shared-hazard state with ordinary input."
-    },
-    {
-      "run": "service-interaction-720-02",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/service-interaction-720-02/telemetry.jsonl",
-        "sha256": "117eccb065e798e6af0b8ff722d4233a941fcb8f7a170382b5a21ff65ffcd179",
-        "bytes": 33741
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/service-interaction-720-02/runtime.engine.log",
-        "sha256": "00c7521de3e5f35dad77bcd035d55eea3ceaaf21caba1459a234d1b0cebaf7e3",
-        "bytes": 375324
-      },
-      "input_plan": {
-        "bytes": 3807,
-        "path": "Build/AAA/D17-01/service-interaction-corrected-input.json",
-        "sha256": "50ffe2fb75a3a447c449f5ab3d831357c26d6e6448bcdadee593b5eb729e47a5"
-      },
-      "active_simulation_seconds": 36.91191414085915,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 26,
-      "arena_pressure_events": 0,
-      "environment_power_transitions": 1,
-      "environment_panel_events": [
-        "id=D02Environment01 panel=2 health=34.00 revision=2 physics=0",
-        "id=D02Environment01 panel=2 health=0.00 revision=3 physics=1"
-      ],
-      "electrical_floor_damage": [],
-      "electrical_floor_total_damage": 0
-    },
-    {
-      "run": "growth-hazard-720-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/growth-hazard-720-01/telemetry.jsonl",
-        "sha256": "8de21bcecd33ba1dbd7889b0f24d19b59db69e055d0324a83c202b827b3d656f",
-        "bytes": 45643
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/growth-hazard-720-01/runtime.engine.log",
-        "sha256": "f7c6bdaeea4f0cfd47f8bb00c119efce85746062a23f1eddb17d9065984b7942",
-        "bytes": 414900
-      },
+      "input_actions": 23,
       "input_plan": {
         "bytes": 4167,
         "path": "Build/AAA/D17-01/service-hazard-input.json",
         "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
       },
-      "active_simulation_seconds": 46.31332703580847,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 28,
+      "run": "floor-edge-720-01",
+      "runtime_log": {
+        "bytes": 276630,
+        "path": "Build/AAA/D17-01/raw/floor-edge-720-01/runtime.engine.log",
+        "sha256": "d16bdeab9f7e7e806a225498364417bef4fc3e73f070216afe1fc33953d0c4e7"
+      },
+      "telemetry": {
+        "bytes": 28787,
+        "path": "Build/AAA/D17-01/raw/floor-edge-720-01/telemetry.jsonl",
+        "sha256": "6b98a09fe98ea6ff892a14fb3136c9e67d6a79b1996be03ad9508102e1c02e2d"
+      },
+      "terminal": "Success"
+    },
+    {
+      "active_simulation_seconds": 8.810429577657487,
       "arena_pressure_events": 0,
-      "environment_power_transitions": 1,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 5,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "floor-edge-1080-01",
+      "runtime_log": {
+        "bytes": 180920,
+        "path": "Build/AAA/D17-01/raw/floor-edge-1080-01/runtime.engine.log",
+        "sha256": "013a6f66652f4aeb08de70aa2e3a94cd434f8390a14d2eb3acba29190ff2391f"
+      },
+      "telemetry": {
+        "bytes": 6732,
+        "path": "Build/AAA/D17-01/raw/floor-edge-1080-01/telemetry.jsonl",
+        "sha256": "a0e58aa70bd5d29f3f162dc83c942293fd2f4665cd937e60f7d2fc074df4c1b5"
+      },
+      "terminal": "Success"
+    }
+  ],
+  "findings": [
+    {
+      "criterion": "natural_arena_pressure",
+      "decision": "Do not invent a timer or connect the switch to arena-pressure APIs. Package-04 ordinary-input power, panel destruction and electrical-floor consequence retain their exact source/package binding. Package-11 changes ground material presentation only and passes the installed environment fixture. Current ordinary-input outcomes are recorded without inheritance.",
+      "fact": "Contract 33 leaves the exact mechanic, timing and escalation UNKNOWN. Accepted packaged pressure evidence invokes the authoritative API from fixtures. Native ApplyArenaPressure explicitly adds no elapsed-time escalation."
+    },
+    {
+      "additional_probe": {
+        "active_simulation_seconds": 14.007807950431015,
+        "conclusion": "This ordinary-input attempt does not establish a continuous route. It does not prove that every possible input route fails.",
+        "input_plan": "rival-intercept-input.json",
+        "objective_progress": [
+          {
+            "id": "Demo01ClearArena",
+            "progress": "1",
+            "remaining": "1",
+            "sim_seconds": 1.168297343829181,
+            "state": "Active",
+            "target": "2"
+          },
+          {
+            "id": "Demo01ClearArena",
+            "progress": "1",
+            "remaining": "2",
+            "sim_seconds": 4.316255836689379,
+            "state": "Active",
+            "target": "3"
+          },
+          {
+            "id": "Demo01ClearArena",
+            "progress": "1",
+            "remaining": "4",
+            "sim_seconds": 4.617074330279138,
+            "state": "Active",
+            "target": "5"
+          },
+          {
+            "id": "Demo01ClearArena",
+            "progress": "2",
+            "remaining": "3",
+            "sim_seconds": 5.011083952093031,
+            "state": "Active",
+            "target": "5"
+          },
+          {
+            "id": "Demo01ClearArena",
+            "progress": "3",
+            "remaining": "2",
+            "sim_seconds": 8.104914647468831,
+            "state": "Active",
+            "target": "5"
+          },
+          {
+            "id": "Demo01ClearArena",
+            "progress": "4",
+            "remaining": "1",
+            "sim_seconds": 11.70818829810014,
+            "state": "Active",
+            "target": "5"
+          },
+          {
+            "id": "Demo01ClearArena",
+            "progress": "5",
+            "remaining": "1",
+            "sim_seconds": 12.30372317781439,
+            "state": "Active",
+            "target": "6"
+          },
+          {
+            "id": "Demo01ClearArena",
+            "progress": "6",
+            "remaining": "0",
+            "sim_seconds": 14.007807950431015,
+            "state": "Active",
+            "target": "6"
+          },
+          {
+            "id": "Demo01ClearArena",
+            "progress": "6",
+            "remaining": "1",
+            "sim_seconds": 14.213506494590547,
+            "state": "Succeeded",
+            "target": "7"
+          },
+          {
+            "id": "Demo01ClearArena",
+            "progress": "7",
+            "remaining": "0",
+            "sim_seconds": 15.412084757292178,
+            "state": "Succeeded",
+            "target": "7"
+          },
+          {
+            "id": "Demo01ClearArena",
+            "progress": "7",
+            "remaining": "1",
+            "sim_seconds": 15.613617894181516,
+            "state": "Succeeded",
+            "target": "8"
+          }
+        ],
+        "observed": "Normal sprint/fire input hits a streaming infected and the first objective infected, not the rival. Population infected then join the target set (target rises from 2 to 6 before success). Rival fire clears the remaining target set. This corrects any inference that all later population is excluded from objective counting; BiellaStreamingInfected and BiellaPopulationInfected have different registration behavior.",
+        "package": "preserved D08 Linux installed package; no native overlay",
+        "player_weapon_events": 3,
+        "run": "raw/route-rival-01",
+        "terminal": "Success"
+      },
+      "causal_evidence": "BiellaOpenWorldGameMode inherits SpawnDemoActors and the two-target Demo objective. BiellaDemoObjectiveManager excludes streaming infected. In hud-1080-01 telemetry the rival alone kills both tracked infected by 9.3066 s; Success follows at 9.4109 s even while streamed population survives. This identifies the early terminal cause without changing accepted behavior.",
+      "criterion": "continuous_600_1200_seconds",
+      "decision": "Preserve accepted terminal behavior. A supported continuous content sequence is not yet established; restart stitching and idle padding remain prohibited.",
+      "fact": "Native objective success and player defeat terminate normal control. Package-11 raw runs terminate at 18.312541172781494 and 8.810429577657487 active seconds. The longest preserved interaction attempt lasted 57.1384 seconds before rival-fire defeat; none qualifies 600\u20131200 seconds."
+    }
+  ],
+  "floor_edge_material_validation": {
+    "bytes": 9372,
+    "path": "Build/AAA/D17-01/environment/floor-edge-material-validation.json",
+    "sha256": "4a25c378c99271910d73c4f7f699be188dff8b9ba8a4ae991dccceae538b5f95"
+  },
+  "floor_material_diagnosis": {
+    "bytes": 6302,
+    "path": "Build/AAA/D17-01/environment/floor-diagnosis.json",
+    "sha256": "af14c33f5c41499b3c90ae5d9208f0b9ddd88baf24f02ffc1da2b5ecffaae26e"
+  },
+  "geometry_clearance": {
+    "bytes": 52196,
+    "path": "Build/AAA/D17-01/environment/mesh-author-05/geometry-readback.json",
+    "sha256": "ea52beca7942ac968ea45e599fa4fb10ec1af7efdb817c4a73cd2697824d3699"
+  },
+  "independent_work": "Package-11 replaces the hard moisture cutoff at the surveyed service-apron bounds with a variable 85\u2013145 cm drying band. Color, roughness and normal response approach the existing dry-road material class; central conductive plates, hazard lenses, slab joints and geometry are preserved. Only M_ServiceGround.uasset changes among runtime material inputs. Native code, mesh source and collision are byte-identical to package-10. Saved graph readback, Lit Vulkan diagnostics, fresh cook/archive/install and installed environment regression pass. The matched editor switch-safe comparison shows a softer, lighter and rougher outer apron with reduced blue-player reflection at its edge; the wet center and warm lamp reflections remain. The installed switch-safe view confirms that appearance. Ordinary-input video frames at 15 and 19 seconds show the transition on approach and after lateral movement, with physical slab joints and drains still visible. This fixes the localized moisture boundary; it does not establish every perimeter angle, final temporal quality or scene-wide material coherence. The 720p ordinary-input run ended in native Success after 18.312541172781494 active seconds and 23 input actions. Its inspected 15-second and 19-second frames show the approach and wet-apron transition. Three weapon-fire events were recorded, but there were no bay power transitions, panel events or electrical-floor damage. The 1080p run ended in native Success after 8.810429577657487 active seconds and five input actions, also without bay events. Its four-second frame shows the blue player, yellow rival, red mannequin infected and block-bodied infected on the sparse daylight road. Both runs have native combat telemetry, zero restarts and no captured audio. Neither establishes 600\u20131200 active seconds, later route beats or the full evolving arena consequence. Create the required cold overcast/storm lighting in the existing OpenWorld approach, starting with the authored sun/sky/atmosphere in Content/Python/author_open_world.py; preserve playable geometry and native mechanics, retain readable warm service lamps, and qualify the affected map in installed gameplay.",
+  "native_mechanics_preservation": {
+    "bytes": 1439,
+    "path": "Build/AAA/D17-01/environment/ground-mechanics-preservation.json",
+    "sha256": "790169151b2e904df9db25691094956e176ca66470cb2b4e2b6c7c6929efac6a"
+  },
+  "panel_material_validation": {
+    "bytes": 7455,
+    "path": "Build/AAA/D17-01/environment/panel-material-validation.json",
+    "sha256": "f12dc522c4c7004b0f77a62dc1069c27bc01dc79f03c6101891398ada27f677e"
+  },
+  "panel_mechanics_preservation": {
+    "bytes": 1997,
+    "path": "Build/AAA/D17-01/environment/panel-mechanics-preservation.json",
+    "sha256": "0766f0771b87e1b09604069cf40dfc601d418194f10d2303f954efc9ef807217"
+  },
+  "previous_coordinate_package_raw": [
+    {
+      "active_simulation_seconds": 34.112581229710486,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "run": "service-720-02",
+      "telemetry": {
+        "bytes": 35784,
+        "path": "Build/AAA/D17-01/raw/service-720-02/telemetry.jsonl",
+        "sha256": "625a93d1208529536dd444316140e72f35630ae5278f146c350585bc94b90ced"
+      },
+      "terminal_simulation_seconds": 34.112581229710486
+    },
+    {
+      "active_simulation_seconds": 9.009782609471586,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "run": "service-1080-02",
+      "telemetry": {
+        "bytes": 6732,
+        "path": "Build/AAA/D17-01/raw/service-1080-02/telemetry.jsonl",
+        "sha256": "868ce6253f57f3b40ec224ccd80a0ad1fe3ea68aab903fbf2f09822f523ce903"
+      },
+      "terminal_simulation_seconds": 9.009782609471586
+    }
+  ],
+  "previous_environment_probes": [
+    {
+      "active_simulation_seconds": 57.13843510946026,
+      "arena_pressure_events": 0,
+      "environment_power_transitions": 0,
+      "input_actions": 21,
+      "input_plan": {
+        "bytes": 3336,
+        "path": "Build/AAA/D17-01/service-interaction-input.json",
+        "sha256": "b398185f2d3415fff96e6100d01dd0b002043c99b034f9759891b867a90042eb"
+      },
+      "next_action": "Correct the approach to the unchanged cabinet from observed runtime position and native reach/facing rules; then capture the implemented power/shared-hazard state with ordinary input.",
+      "observed": "Decoded frames at video seconds 17 and 20 show the approach passing the far/right side of the service bay, outside the cabinet approach; no interaction prompt is visible. The E key attempt records no power transition. This is a missed ordinary-input approach, not evidence that the passing switch implementation is broken.",
+      "player_defeat": {
+        "reason": "rival_fire",
+        "target": "BiellaStreamingCharacter:1"
+      },
+      "run": "raw/service-interaction-720-01",
+      "runtime_log": {
+        "bytes": 434831,
+        "path": "Build/AAA/D17-01/raw/service-interaction-720-01/runtime.engine.log",
+        "sha256": "6b4093bbb6abee69b71885ff8810b99cc0fc32fabf70287622d0df882ed2df69"
+      },
+      "telemetry": {
+        "bytes": 57985,
+        "path": "Build/AAA/D17-01/raw/service-interaction-720-01/telemetry.jsonl",
+        "sha256": "35428731c5e5ae7e09d33d2bed4f45f01d694af60a7e1986d23c8f25f64f217b"
+      },
+      "terminal": "Failure"
+    },
+    {
+      "active_simulation_seconds": 36.91191414085915,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
       "environment_panel_events": [
         "id=D02Environment01 panel=2 health=34.00 revision=2 physics=0",
         "id=D02Environment01 panel=2 health=0.00 revision=3 physics=1"
       ],
+      "environment_power_transitions": 1,
+      "input_actions": 26,
+      "input_plan": {
+        "bytes": 3807,
+        "path": "Build/AAA/D17-01/service-interaction-corrected-input.json",
+        "sha256": "50ffe2fb75a3a447c449f5ab3d831357c26d6e6448bcdadee593b5eb729e47a5"
+      },
+      "run": "service-interaction-720-02",
+      "runtime_log": {
+        "bytes": 375324,
+        "path": "Build/AAA/D17-01/raw/service-interaction-720-02/runtime.engine.log",
+        "sha256": "00c7521de3e5f35dad77bcd035d55eea3ceaaf21caba1459a234d1b0cebaf7e3"
+      },
+      "telemetry": {
+        "bytes": 33741,
+        "path": "Build/AAA/D17-01/raw/service-interaction-720-02/telemetry.jsonl",
+        "sha256": "117eccb065e798e6af0b8ff722d4233a941fcb8f7a170382b5a21ff65ffcd179"
+      },
+      "terminal": "Success"
+    },
+    {
+      "active_simulation_seconds": 46.31332703580847,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
       "electrical_floor_damage": [
         {
-          "sim_seconds": 18.03717748163035,
           "amount": "3.013",
           "health": "96.987",
+          "sim_seconds": 18.03717748163035,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         },
         {
-          "sim_seconds": 18.289419072621968,
           "amount": "3.027",
           "health": "93.960",
+          "sim_seconds": 18.289419072621968,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         },
         {
-          "sim_seconds": 18.54517993790796,
           "amount": "3.069",
           "health": "90.891",
+          "sim_seconds": 18.54517993790796,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         },
         {
-          "sim_seconds": 22.732528998458292,
           "amount": "3.089",
           "health": "87.802",
+          "sim_seconds": 22.732528998458292,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         },
         {
-          "sim_seconds": 22.986237858363893,
           "amount": "3.045",
           "health": "84.757",
+          "sim_seconds": 22.986237858363893,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         },
         {
-          "sim_seconds": 23.236642287054565,
           "amount": "3.005",
           "health": "69.753",
+          "sim_seconds": 23.236642287054565,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         },
         {
-          "sim_seconds": 29.68209650827339,
           "amount": "3.000",
           "health": "42.752",
+          "sim_seconds": 29.68209650827339,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         },
         {
-          "sim_seconds": 29.932105422893073,
           "amount": "3.000",
           "health": "39.752",
+          "sim_seconds": 29.932105422893073,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         },
         {
-          "sim_seconds": 30.18217909609666,
           "amount": "3.001",
           "health": "36.751",
+          "sim_seconds": 30.18217909609666,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         }
       ],
       "electrical_floor_total_damage": 27.249,
-      "observed": "Ordinary X11 input toggles the switch, destroys panel 2 with two 34-point hits, steps laterally into its physical opening, and crosses the powered floor. Nine electrical-floor pulses damage the player. Video frames 16/20/22/25 show power prompt, broken panel/gap, health decrease and return under live damage. No fixture, actor placement, reset or pressure API substitution.",
-      "next_action": "Reuse this verified environment consequence. Qualify gameplay-distance coexistence and remaining traversal beats; 1080p environmental state is still unproven because the native objective ended early."
-    },
-    {
-      "run": "integer-floor-720-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/integer-floor-720-01/telemetry.jsonl",
-        "sha256": "499c41a157f5637793e84d6d3d837077a072f3938073bd7a500f5b7ed3cd945a",
-        "bytes": 28406
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/integer-floor-720-01/runtime.engine.log",
-        "sha256": "e4e06e4c3874af34a4053b7a77fee4940ae515804a9786b72f0c120d1a7cf0d1",
-        "bytes": 264343
-      },
-      "input_plan": {
-        "path": "Build/AAA/D17-01/service-hazard-input.json",
-        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
-        "bytes": 4167
-      },
-      "active_simulation_seconds": 15.935191704833414,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 21,
-      "arena_pressure_events": 0,
-      "environment_power_transitions": 0,
-      "environment_panel_events": [],
-      "electrical_floor_damage": [],
-      "electrical_floor_total_damage": 0
-    },
-    {
-      "run": "switch-face-720-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/switch-face-720-01/telemetry.jsonl",
-        "sha256": "43d11a1048c62b424d9beb8c49ccc6e946a88476f535e2154ae4fafba8ce72fd",
-        "bytes": 29131
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/switch-face-720-01/runtime.engine.log",
-        "sha256": "3a7ade6fa8946ec8a13d48a65707ef45cb8e689938c7c30e947a9b3a0c429ec8",
-        "bytes": 272860
-      },
-      "input_plan": {
-        "path": "Build/AAA/D17-01/service-hazard-input.json",
-        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
-        "bytes": 4167
-      },
-      "active_simulation_seconds": 18.31323491682997,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 23,
-      "arena_pressure_events": 0,
-      "environment_power_transitions": 0,
-      "environment_panel_events": [],
-      "electrical_floor_damage": [],
-      "electrical_floor_total_damage": 0
-    }
-  ],
-  "previous_growth_package_raw": [
-    {
-      "run": "growth-hazard-720-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/growth-hazard-720-01/telemetry.jsonl",
-        "sha256": "8de21bcecd33ba1dbd7889b0f24d19b59db69e055d0324a83c202b827b3d656f",
-        "bytes": 45643
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/growth-hazard-720-01/runtime.engine.log",
-        "sha256": "f7c6bdaeea4f0cfd47f8bb00c119efce85746062a23f1eddb17d9065984b7942",
-        "bytes": 414900
-      },
+      "environment_panel_events": [
+        "id=D02Environment01 panel=2 health=34.00 revision=2 physics=0",
+        "id=D02Environment01 panel=2 health=0.00 revision=3 physics=1"
+      ],
+      "environment_power_transitions": 1,
+      "input_actions": 28,
       "input_plan": {
         "bytes": 4167,
         "path": "Build/AAA/D17-01/service-hazard-input.json",
         "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
       },
-      "active_simulation_seconds": 46.31332703580847,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 28,
+      "next_action": "Reuse this verified environment consequence. Qualify gameplay-distance coexistence and remaining traversal beats; 1080p environmental state is still unproven because the native objective ended early.",
+      "observed": "Ordinary X11 input toggles the switch, destroys panel 2 with two 34-point hits, steps laterally into its physical opening, and crosses the powered floor. Nine electrical-floor pulses damage the player. Video frames 16/20/22/25 show power prompt, broken panel/gap, health decrease and return under live damage. No fixture, actor placement, reset or pressure API substitution.",
+      "run": "growth-hazard-720-01",
+      "runtime_log": {
+        "bytes": 414900,
+        "path": "Build/AAA/D17-01/raw/growth-hazard-720-01/runtime.engine.log",
+        "sha256": "f7c6bdaeea4f0cfd47f8bb00c119efce85746062a23f1eddb17d9065984b7942"
+      },
+      "telemetry": {
+        "bytes": 45643,
+        "path": "Build/AAA/D17-01/raw/growth-hazard-720-01/telemetry.jsonl",
+        "sha256": "8de21bcecd33ba1dbd7889b0f24d19b59db69e055d0324a83c202b827b3d656f"
+      },
+      "terminal": "Success"
+    },
+    {
+      "active_simulation_seconds": 15.935191704833414,
       "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 21,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "integer-floor-720-01",
+      "runtime_log": {
+        "bytes": 264343,
+        "path": "Build/AAA/D17-01/raw/integer-floor-720-01/runtime.engine.log",
+        "sha256": "e4e06e4c3874af34a4053b7a77fee4940ae515804a9786b72f0c120d1a7cf0d1"
+      },
+      "telemetry": {
+        "bytes": 28406,
+        "path": "Build/AAA/D17-01/raw/integer-floor-720-01/telemetry.jsonl",
+        "sha256": "499c41a157f5637793e84d6d3d837077a072f3938073bd7a500f5b7ed3cd945a"
+      },
+      "terminal": "Success"
+    },
+    {
+      "active_simulation_seconds": 18.31323491682997,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 23,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "switch-face-720-01",
+      "runtime_log": {
+        "bytes": 272860,
+        "path": "Build/AAA/D17-01/raw/switch-face-720-01/runtime.engine.log",
+        "sha256": "3a7ade6fa8946ec8a13d48a65707ef45cb8e689938c7c30e947a9b3a0c429ec8"
+      },
+      "telemetry": {
+        "bytes": 29131,
+        "path": "Build/AAA/D17-01/raw/switch-face-720-01/telemetry.jsonl",
+        "sha256": "43d11a1048c62b424d9beb8c49ccc6e946a88476f535e2154ae4fafba8ce72fd"
+      },
+      "terminal": "Success"
+    },
+    {
+      "active_simulation_seconds": 13.70411386800697,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
       "environment_power_transitions": 1,
-      "environment_panel_events": [
-        "id=D02Environment01 panel=2 health=34.00 revision=2 physics=0",
-        "id=D02Environment01 panel=2 health=0.00 revision=3 physics=1"
-      ],
+      "input_actions": 13,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "panel-impact-720-01",
+      "runtime_log": {
+        "bytes": 248185,
+        "path": "Build/AAA/D17-01/raw/panel-impact-720-01/runtime.engine.log",
+        "sha256": "0ed3bfb086d1ad5aaf4d46887618792c31307365be14632b353340be689f5419"
+      },
+      "telemetry": {
+        "bytes": 20862,
+        "path": "Build/AAA/D17-01/raw/panel-impact-720-01/telemetry.jsonl",
+        "sha256": "d1c49d0780a7e44da3943172d255fcaa6d63500bd3ea7e98fb7319a47f1934f7"
+      },
+      "terminal": "Success"
+    }
+  ],
+  "previous_ground_package_raw": [
+    {
+      "active_simulation_seconds": 12.202572849520948,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 9,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "wet-floor-720-01",
+      "runtime_log": {
+        "bytes": 231993,
+        "path": "Build/AAA/D17-01/raw/wet-floor-720-01/runtime.engine.log",
+        "sha256": "42207296298f2f3087f08ceabf1d0a6e48641b7cf03d259b4dbc694db4b43b0c"
+      },
+      "telemetry": {
+        "bytes": 18122,
+        "path": "Build/AAA/D17-01/raw/wet-floor-720-01/telemetry.jsonl",
+        "sha256": "a4d64e3647bbb171dc109e9ea5d0a611708f7d921452221ea811aeb9d9f3bec1"
+      },
+      "terminal": "Success"
+    },
+    {
+      "active_simulation_seconds": 8.713285327830818,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 5,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "wet-floor-1080-01",
+      "runtime_log": {
+        "bytes": 204121,
+        "path": "Build/AAA/D17-01/raw/wet-floor-1080-01/runtime.engine.log",
+        "sha256": "e1dcd26857cf6849fa51ae9db1be1b28a01bcc65b4da332befe107662d9e330f"
+      },
+      "telemetry": {
+        "bytes": 12105,
+        "path": "Build/AAA/D17-01/raw/wet-floor-1080-01/telemetry.jsonl",
+        "sha256": "241b33510f0d50e4e296b3fbaf7fd1a70aaf0e85ae439179bcfd3d520dcec7f1"
+      },
+      "terminal": "Success"
+    }
+  ],
+  "previous_growth_package_raw": [
+    {
+      "active_simulation_seconds": 46.31332703580847,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
       "electrical_floor_damage": [
         {
-          "sim_seconds": 18.03717748163035,
           "amount": "3.013",
           "health": "96.987",
+          "sim_seconds": 18.03717748163035,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         },
         {
-          "sim_seconds": 18.289419072621968,
           "amount": "3.027",
           "health": "93.960",
+          "sim_seconds": 18.289419072621968,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         },
         {
-          "sim_seconds": 18.54517993790796,
           "amount": "3.069",
           "health": "90.891",
+          "sim_seconds": 18.54517993790796,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         },
         {
-          "sim_seconds": 22.732528998458292,
           "amount": "3.089",
           "health": "87.802",
+          "sim_seconds": 22.732528998458292,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         },
         {
-          "sim_seconds": 22.986237858363893,
           "amount": "3.045",
           "health": "84.757",
+          "sim_seconds": 22.986237858363893,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         },
         {
-          "sim_seconds": 23.236642287054565,
           "amount": "3.005",
           "health": "69.753",
+          "sim_seconds": 23.236642287054565,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         },
         {
-          "sim_seconds": 29.68209650827339,
           "amount": "3.000",
           "health": "42.752",
+          "sim_seconds": 29.68209650827339,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         },
         {
-          "sim_seconds": 29.932105422893073,
           "amount": "3.000",
           "health": "39.752",
+          "sim_seconds": 29.932105422893073,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         },
         {
-          "sim_seconds": 30.18217909609666,
           "amount": "3.001",
           "health": "36.751",
+          "sim_seconds": 30.18217909609666,
           "source": "BiellaEnvironmentSite:1",
           "tag": "electrical_floor",
           "target": "BiellaStreamingCharacter:1"
         }
       ],
-      "electrical_floor_total_damage": 27.249
-    },
-    {
-      "run": "growth-hazard-1080-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/growth-hazard-1080-01/telemetry.jsonl",
-        "sha256": "2e35ea4107cb81a896cff7380e2163ef65e19e676490c09d3f52409465403b25",
-        "bytes": 6732
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/growth-hazard-1080-01/runtime.engine.log",
-        "sha256": "241a18e7ff1aaaa5472656adb7b203526b3e0a0709ade17fdb74c0d1901daaec",
-        "bytes": 180638
-      },
+      "electrical_floor_total_damage": 27.249,
+      "environment_panel_events": [
+        "id=D02Environment01 panel=2 health=34.00 revision=2 physics=0",
+        "id=D02Environment01 panel=2 health=0.00 revision=3 physics=1"
+      ],
+      "environment_power_transitions": 1,
+      "input_actions": 28,
       "input_plan": {
         "bytes": 4167,
         "path": "Build/AAA/D17-01/service-hazard-input.json",
         "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
       },
+      "run": "growth-hazard-720-01",
+      "runtime_log": {
+        "bytes": 414900,
+        "path": "Build/AAA/D17-01/raw/growth-hazard-720-01/runtime.engine.log",
+        "sha256": "f7c6bdaeea4f0cfd47f8bb00c119efce85746062a23f1eddb17d9065984b7942"
+      },
+      "telemetry": {
+        "bytes": 45643,
+        "path": "Build/AAA/D17-01/raw/growth-hazard-720-01/telemetry.jsonl",
+        "sha256": "8de21bcecd33ba1dbd7889b0f24d19b59db69e055d0324a83c202b827b3d656f"
+      },
+      "terminal": "Success"
+    },
+    {
       "active_simulation_seconds": 9.021478963026311,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 5,
       "arena_pressure_events": 0,
-      "environment_power_transitions": 0,
-      "environment_panel_events": [],
+      "duration_satisfied": false,
       "electrical_floor_damage": [],
-      "electrical_floor_total_damage": 0
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 5,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "growth-hazard-1080-01",
+      "runtime_log": {
+        "bytes": 180638,
+        "path": "Build/AAA/D17-01/raw/growth-hazard-1080-01/runtime.engine.log",
+        "sha256": "241a18e7ff1aaaa5472656adb7b203526b3e0a0709ade17fdb74c0d1901daaec"
+      },
+      "telemetry": {
+        "bytes": 6732,
+        "path": "Build/AAA/D17-01/raw/growth-hazard-1080-01/telemetry.jsonl",
+        "sha256": "2e35ea4107cb81a896cff7380e2163ef65e19e676490c09d3f52409465403b25"
+      },
+      "terminal": "Success"
     }
   ],
-  "geometry_clearance": {
-    "path": "Build/AAA/D17-01/environment/mesh-author-05/geometry-readback.json",
-    "sha256": "ea52beca7942ac968ea45e599fa4fb10ec1af7efdb817c4a73cd2697824d3699",
-    "bytes": 52196
-  },
-  "previous_sheath_package_raw": [
+  "previous_integer_package_raw": [
     {
-      "run": "sheath-hazard-720-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/telemetry.jsonl",
-        "sha256": "c263eac999295709bf11b214e077825669a2274dcb929c525117e4c8aca82d64",
-        "bytes": 31915
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/runtime.engine.log",
-        "sha256": "aeb6e2dd7f33628f7441d02b07ea6bffe4fe50773817176872c48b5430e8665c",
-        "bytes": 301783
-      },
+      "active_simulation_seconds": 15.935191704833414,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 21,
       "input_plan": {
         "bytes": 4167,
         "path": "Build/AAA/D17-01/service-hazard-input.json",
         "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
       },
-      "active_simulation_seconds": 21.109894568973687,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 24,
-      "arena_pressure_events": 0,
-      "environment_power_transitions": 0,
-      "environment_panel_events": [],
-      "electrical_floor_damage": [],
-      "electrical_floor_total_damage": 0
+      "run": "integer-floor-720-01",
+      "runtime_log": {
+        "bytes": 264343,
+        "path": "Build/AAA/D17-01/raw/integer-floor-720-01/runtime.engine.log",
+        "sha256": "e4e06e4c3874af34a4053b7a77fee4940ae515804a9786b72f0c120d1a7cf0d1"
+      },
+      "telemetry": {
+        "bytes": 28406,
+        "path": "Build/AAA/D17-01/raw/integer-floor-720-01/telemetry.jsonl",
+        "sha256": "499c41a157f5637793e84d6d3d837077a072f3938073bd7a500f5b7ed3cd945a"
+      },
+      "terminal": "Success"
     },
     {
-      "run": "sheath-hazard-1080-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/telemetry.jsonl",
-        "sha256": "94a224ea7f4bfa0b160ae0769609676bc852c171f9558ab6d96af05140aaacb7",
-        "bytes": 7086
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/runtime.engine.log",
-        "sha256": "7f21325f5a40c905d5532f46b4e0a662023c6c0bd3c4a0840bd603169fa43c35",
-        "bytes": 182206
-      },
+      "active_simulation_seconds": 8.907017945253756,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 5,
       "input_plan": {
         "bytes": 4167,
         "path": "Build/AAA/D17-01/service-hazard-input.json",
         "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
       },
-      "active_simulation_seconds": 9.20354756055167,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 5,
+      "run": "integer-floor-1080-01",
+      "runtime_log": {
+        "bytes": 180042,
+        "path": "Build/AAA/D17-01/raw/integer-floor-1080-01/runtime.engine.log",
+        "sha256": "d748ab3cc044802fe01157bc20cf2a89b305c27a5883107a866acf0346ecbbf2"
+      },
+      "telemetry": {
+        "bytes": 6379,
+        "path": "Build/AAA/D17-01/raw/integer-floor-1080-01/telemetry.jsonl",
+        "sha256": "7ef201304eaef5822a07198db0b4888983af797b62676a432d19e78b998405c3"
+      },
+      "terminal": "Success"
+    }
+  ],
+  "previous_panel_package_raw": [
+    {
+      "active_simulation_seconds": 13.70411386800697,
       "arena_pressure_events": 0,
-      "environment_power_transitions": 0,
-      "environment_panel_events": [],
+      "duration_satisfied": false,
       "electrical_floor_damage": [],
-      "electrical_floor_total_damage": 0
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 1,
+      "input_actions": 13,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "panel-impact-720-01",
+      "runtime_log": {
+        "bytes": 248185,
+        "path": "Build/AAA/D17-01/raw/panel-impact-720-01/runtime.engine.log",
+        "sha256": "0ed3bfb086d1ad5aaf4d46887618792c31307365be14632b353340be689f5419"
+      },
+      "telemetry": {
+        "bytes": 20862,
+        "path": "Build/AAA/D17-01/raw/panel-impact-720-01/telemetry.jsonl",
+        "sha256": "d1c49d0780a7e44da3943172d255fcaa6d63500bd3ea7e98fb7319a47f1934f7"
+      },
+      "terminal": "Success"
+    },
+    {
+      "active_simulation_seconds": 8.804244222992565,
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 5,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "panel-impact-1080-01",
+      "runtime_log": {
+        "bytes": 183345,
+        "path": "Build/AAA/D17-01/raw/panel-impact-1080-01/runtime.engine.log",
+        "sha256": "f5a178d1310a5676e13363d2326cd7051da7bfb063c3cf95d7aafb1fae1d015d"
+      },
+      "telemetry": {
+        "bytes": 6380,
+        "path": "Build/AAA/D17-01/raw/panel-impact-1080-01/telemetry.jsonl",
+        "sha256": "5fcc416c1b62a2f120e8884d674467b26475d88ad72b973438c68fedc98c0987"
+      },
+      "terminal": "Success"
+    }
+  ],
+  "previous_service_package_raw": [
+    {
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "run": "service-720-01",
+      "telemetry": {
+        "bytes": 35745,
+        "path": "Build/AAA/D17-01/raw/service-720-01/telemetry.jsonl",
+        "sha256": "59ad374e66102623a76dd78d1a1c0c11db6728bfec30a3c7496ac7876eb3b330"
+      },
+      "terminal_simulation_seconds": 32.21046835085144
+    },
+    {
+      "arena_pressure_events": 0,
+      "duration_satisfied": false,
+      "run": "service-1080-01",
+      "telemetry": {
+        "bytes": 7087,
+        "path": "Build/AAA/D17-01/raw/service-1080-01/telemetry.jsonl",
+        "sha256": "8dfaec87a24db19f4820ada1167bd8541ae1383c2ed1cbe1f13bde94af9b6e5c"
+      },
+      "terminal_simulation_seconds": 8.700799009704497
     }
   ],
   "previous_sheath_input_timing_probe": {
-    "run": "sheath-hazard-720-02",
-    "telemetry": {
-      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/telemetry.jsonl",
-      "sha256": "e2a4a074d6edc3fe7fb4338b720334305822911400990ce96a28b099e8fbe646",
-      "bytes": 20139
-    },
-    "runtime_log": {
-      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/runtime.engine.log",
-      "sha256": "c13f52ff69623ecff0aa789dba0d6e5c748dac2c72c516105d29be48c0f79762",
-      "bytes": 247774
-    },
+    "active_simulation_seconds": 12.70496472431114,
+    "arena_pressure_events": 0,
+    "duration_satisfied": false,
+    "electrical_floor_damage": [],
+    "electrical_floor_total_damage": 0,
+    "environment_panel_events": [],
+    "environment_power_transitions": 0,
+    "input_actions": 9,
     "input_plan": {
       "bytes": 4442,
       "path": "Build/AAA/D17-01/service-hazard-tick-input.json",
       "sha256": "eefc80d77cd6b742282c586d6d68d89d4970a77a1f7299201591d881cfe76550"
     },
-    "active_simulation_seconds": 12.70496472431114,
-    "terminal": "Success",
-    "duration_satisfied": false,
-    "input_actions": 9,
-    "arena_pressure_events": 0,
-    "environment_power_transitions": 0,
-    "environment_panel_events": [],
-    "electrical_floor_damage": [],
-    "electrical_floor_total_damage": 0
+    "run": "sheath-hazard-720-02",
+    "runtime_log": {
+      "bytes": 247774,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/runtime.engine.log",
+      "sha256": "c13f52ff69623ecff0aa789dba0d6e5c748dac2c72c516105d29be48c0f79762"
+    },
+    "telemetry": {
+      "bytes": 20139,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/telemetry.jsonl",
+      "sha256": "e2a4a074d6edc3fe7fb4338b720334305822911400990ce96a28b099e8fbe646"
+    },
+    "terminal": "Success"
   },
-  "native_mechanics_preservation": {
-    "path": "Build/AAA/D17-01/environment/ground-mechanics-preservation.json",
-    "sha256": "790169151b2e904df9db25691094956e176ca66470cb2b4e2b6c7c6929efac6a",
-    "bytes": 1439
-  },
-  "previous_ground_package_raw": [
+  "previous_sheath_package_raw": [
     {
-      "run": "wet-floor-720-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/wet-floor-720-01/telemetry.jsonl",
-        "sha256": "a4d64e3647bbb171dc109e9ea5d0a611708f7d921452221ea811aeb9d9f3bec1",
-        "bytes": 18122
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/wet-floor-720-01/runtime.engine.log",
-        "sha256": "42207296298f2f3087f08ceabf1d0a6e48641b7cf03d259b4dbc694db4b43b0c",
-        "bytes": 231993
-      },
-      "input_plan": {
-        "path": "Build/AAA/D17-01/service-hazard-input.json",
-        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
-        "bytes": 4167
-      },
-      "active_simulation_seconds": 12.202572849520948,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 9,
+      "active_simulation_seconds": 21.109894568973687,
       "arena_pressure_events": 0,
-      "environment_power_transitions": 0,
-      "environment_panel_events": [],
+      "duration_satisfied": false,
       "electrical_floor_damage": [],
-      "electrical_floor_total_damage": 0
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 24,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "sheath-hazard-720-01",
+      "runtime_log": {
+        "bytes": 301783,
+        "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/runtime.engine.log",
+        "sha256": "aeb6e2dd7f33628f7441d02b07ea6bffe4fe50773817176872c48b5430e8665c"
+      },
+      "telemetry": {
+        "bytes": 31915,
+        "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/telemetry.jsonl",
+        "sha256": "c263eac999295709bf11b214e077825669a2274dcb929c525117e4c8aca82d64"
+      },
+      "terminal": "Success"
     },
     {
-      "run": "wet-floor-1080-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/wet-floor-1080-01/telemetry.jsonl",
-        "sha256": "241b33510f0d50e4e296b3fbaf7fd1a70aaf0e85ae439179bcfd3d520dcec7f1",
-        "bytes": 12105
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/wet-floor-1080-01/runtime.engine.log",
-        "sha256": "e1dcd26857cf6849fa51ae9db1be1b28a01bcc65b4da332befe107662d9e330f",
-        "bytes": 204121
-      },
-      "input_plan": {
-        "path": "Build/AAA/D17-01/service-hazard-input.json",
-        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
-        "bytes": 4167
-      },
-      "active_simulation_seconds": 8.713285327830818,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 5,
+      "active_simulation_seconds": 9.20354756055167,
       "arena_pressure_events": 0,
-      "environment_power_transitions": 0,
-      "environment_panel_events": [],
+      "duration_satisfied": false,
       "electrical_floor_damage": [],
-      "electrical_floor_total_damage": 0
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 5,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "sheath-hazard-1080-01",
+      "runtime_log": {
+        "bytes": 182206,
+        "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/runtime.engine.log",
+        "sha256": "7f21325f5a40c905d5532f46b4e0a662023c6c0bd3c4a0840bd603169fa43c35"
+      },
+      "telemetry": {
+        "bytes": 7086,
+        "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/telemetry.jsonl",
+        "sha256": "94a224ea7f4bfa0b160ae0769609676bc852c171f9558ab6d96af05140aaacb7"
+      },
+      "terminal": "Success"
     }
   ],
   "previous_smooth_package_raw": [
     {
-      "run": "smooth-floor-720-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/smooth-floor-720-01/telemetry.jsonl",
-        "sha256": "24bf0fc2b17f00b08141558277ade6aa086717969b661c3ac560100cc45ede7c",
-        "bytes": 29842
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/smooth-floor-720-01/runtime.engine.log",
-        "sha256": "f562a67e815f1230be1c10edd50599acfc50460ef989d6356652bb372138c5ef",
-        "bytes": 301480
-      },
-      "input_plan": {
-        "path": "Build/AAA/D17-01/service-hazard-input.json",
-        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
-        "bytes": 4167
-      },
       "active_simulation_seconds": 22.60887735610595,
-      "terminal": "Success",
+      "arena_pressure_events": 0,
       "duration_satisfied": false,
+      "electrical_floor_damage": [],
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
       "input_actions": 25,
-      "arena_pressure_events": 0,
-      "environment_power_transitions": 0,
-      "environment_panel_events": [],
-      "electrical_floor_damage": [],
-      "electrical_floor_total_damage": 0
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "smooth-floor-720-01",
+      "runtime_log": {
+        "bytes": 301480,
+        "path": "Build/AAA/D17-01/raw/smooth-floor-720-01/runtime.engine.log",
+        "sha256": "f562a67e815f1230be1c10edd50599acfc50460ef989d6356652bb372138c5ef"
+      },
+      "telemetry": {
+        "bytes": 29842,
+        "path": "Build/AAA/D17-01/raw/smooth-floor-720-01/telemetry.jsonl",
+        "sha256": "24bf0fc2b17f00b08141558277ade6aa086717969b661c3ac560100cc45ede7c"
+      },
+      "terminal": "Success"
     },
     {
-      "run": "smooth-floor-1080-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/smooth-floor-1080-01/telemetry.jsonl",
-        "sha256": "2b39a9c7361876540ed12cafbb83e68457e9e7630a2e5e18a8a29d246a158e05",
-        "bytes": 6730
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/smooth-floor-1080-01/runtime.engine.log",
-        "sha256": "b557eaed8e3f8fae23e6f097961d644a0eee05eaedfddf4e3ca923344fa5ade2",
-        "bytes": 188633
-      },
-      "input_plan": {
-        "path": "Build/AAA/D17-01/service-hazard-input.json",
-        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
-        "bytes": 4167
-      },
       "active_simulation_seconds": 9.010236388945486,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 5,
       "arena_pressure_events": 0,
-      "environment_power_transitions": 0,
-      "environment_panel_events": [],
+      "duration_satisfied": false,
       "electrical_floor_damage": [],
-      "electrical_floor_total_damage": 0
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 5,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "smooth-floor-1080-01",
+      "runtime_log": {
+        "bytes": 188633,
+        "path": "Build/AAA/D17-01/raw/smooth-floor-1080-01/runtime.engine.log",
+        "sha256": "b557eaed8e3f8fae23e6f097961d644a0eee05eaedfddf4e3ca923344fa5ade2"
+      },
+      "telemetry": {
+        "bytes": 6730,
+        "path": "Build/AAA/D17-01/raw/smooth-floor-1080-01/telemetry.jsonl",
+        "sha256": "2b39a9c7361876540ed12cafbb83e68457e9e7630a2e5e18a8a29d246a158e05"
+      },
+      "terminal": "Success"
     }
   ],
-  "floor_material_diagnosis": {
-    "path": "Build/AAA/D17-01/environment/floor-diagnosis.json",
-    "sha256": "af14c33f5c41499b3c90ae5d9208f0b9ddd88baf24f02ffc1da2b5ecffaae26e",
-    "bytes": 6302
-  },
-  "previous_integer_package_raw": [
-    {
-      "run": "integer-floor-720-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/integer-floor-720-01/telemetry.jsonl",
-        "sha256": "499c41a157f5637793e84d6d3d837077a072f3938073bd7a500f5b7ed3cd945a",
-        "bytes": 28406
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/integer-floor-720-01/runtime.engine.log",
-        "sha256": "e4e06e4c3874af34a4053b7a77fee4940ae515804a9786b72f0c120d1a7cf0d1",
-        "bytes": 264343
-      },
-      "input_plan": {
-        "path": "Build/AAA/D17-01/service-hazard-input.json",
-        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
-        "bytes": 4167
-      },
-      "active_simulation_seconds": 15.935191704833414,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 21,
-      "arena_pressure_events": 0,
-      "environment_power_transitions": 0,
-      "environment_panel_events": [],
-      "electrical_floor_damage": [],
-      "electrical_floor_total_damage": 0
-    },
-    {
-      "run": "integer-floor-1080-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/integer-floor-1080-01/telemetry.jsonl",
-        "sha256": "7ef201304eaef5822a07198db0b4888983af797b62676a432d19e78b998405c3",
-        "bytes": 6379
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/integer-floor-1080-01/runtime.engine.log",
-        "sha256": "d748ab3cc044802fe01157bc20cf2a89b305c27a5883107a866acf0346ecbbf2",
-        "bytes": 180042
-      },
-      "input_plan": {
-        "path": "Build/AAA/D17-01/service-hazard-input.json",
-        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
-        "bytes": 4167
-      },
-      "active_simulation_seconds": 8.907017945253756,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 5,
-      "arena_pressure_events": 0,
-      "environment_power_transitions": 0,
-      "environment_panel_events": [],
-      "electrical_floor_damage": [],
-      "electrical_floor_total_damage": 0
-    }
-  ],
-  "switch_mechanics_preservation": {
-    "path": "Build/AAA/D17-01/environment/switch-mechanics-preservation.json",
-    "sha256": "8d00cd2bac51e9640aec5b1f6ab0c8bac1548b3f2f6b39f5df3065077af4b391",
-    "bytes": 2004
-  },
-  "switch_material_validation": {
-    "path": "Build/AAA/D17-01/environment/switch-material-validation.json",
-    "sha256": "a3474525f0c97dbf7df68da023c29bb5043413a3b83a0f9d4d5df2b14bc9c9ec",
-    "bytes": 7921
-  },
   "previous_switch_package_raw": [
     {
-      "run": "switch-face-720-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/switch-face-720-01/telemetry.jsonl",
-        "sha256": "43d11a1048c62b424d9beb8c49ccc6e946a88476f535e2154ae4fafba8ce72fd",
-        "bytes": 29131
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/switch-face-720-01/runtime.engine.log",
-        "sha256": "3a7ade6fa8946ec8a13d48a65707ef45cb8e689938c7c30e947a9b3a0c429ec8",
-        "bytes": 272860
-      },
-      "input_plan": {
-        "path": "Build/AAA/D17-01/service-hazard-input.json",
-        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
-        "bytes": 4167
-      },
       "active_simulation_seconds": 18.31323491682997,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 23,
       "arena_pressure_events": 0,
-      "environment_power_transitions": 0,
-      "environment_panel_events": [],
+      "duration_satisfied": false,
       "electrical_floor_damage": [],
-      "electrical_floor_total_damage": 0
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 23,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "switch-face-720-01",
+      "runtime_log": {
+        "bytes": 272860,
+        "path": "Build/AAA/D17-01/raw/switch-face-720-01/runtime.engine.log",
+        "sha256": "3a7ade6fa8946ec8a13d48a65707ef45cb8e689938c7c30e947a9b3a0c429ec8"
+      },
+      "telemetry": {
+        "bytes": 29131,
+        "path": "Build/AAA/D17-01/raw/switch-face-720-01/telemetry.jsonl",
+        "sha256": "43d11a1048c62b424d9beb8c49ccc6e946a88476f535e2154ae4fafba8ce72fd"
+      },
+      "terminal": "Success"
     },
     {
-      "run": "switch-face-1080-01",
-      "telemetry": {
-        "path": "Build/AAA/D17-01/raw/switch-face-1080-01/telemetry.jsonl",
-        "sha256": "8cded44f19b543607147254485338387d8251c96edfeeb400301f0574144f4e2",
-        "bytes": 6379
-      },
-      "runtime_log": {
-        "path": "Build/AAA/D17-01/raw/switch-face-1080-01/runtime.engine.log",
-        "sha256": "eb9109fd4998ab271569b0bd8fa0604c66699bbed4f92678c65a2edd170415a4",
-        "bytes": 183268
-      },
-      "input_plan": {
-        "path": "Build/AAA/D17-01/service-hazard-input.json",
-        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f",
-        "bytes": 4167
-      },
       "active_simulation_seconds": 8.814891465881374,
-      "terminal": "Success",
-      "duration_satisfied": false,
-      "input_actions": 5,
       "arena_pressure_events": 0,
-      "environment_power_transitions": 0,
-      "environment_panel_events": [],
+      "duration_satisfied": false,
       "electrical_floor_damage": [],
-      "electrical_floor_total_damage": 0
+      "electrical_floor_total_damage": 0,
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "input_actions": 5,
+      "input_plan": {
+        "bytes": 4167,
+        "path": "Build/AAA/D17-01/service-hazard-input.json",
+        "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+      },
+      "run": "switch-face-1080-01",
+      "runtime_log": {
+        "bytes": 183268,
+        "path": "Build/AAA/D17-01/raw/switch-face-1080-01/runtime.engine.log",
+        "sha256": "eb9109fd4998ab271569b0bd8fa0604c66699bbed4f92678c65a2edd170415a4"
+      },
+      "telemetry": {
+        "bytes": 6379,
+        "path": "Build/AAA/D17-01/raw/switch-face-1080-01/telemetry.jsonl",
+        "sha256": "8cded44f19b543607147254485338387d8251c96edfeeb400301f0574144f4e2"
+      },
+      "terminal": "Success"
     }
   ],
-  "panel_mechanics_preservation": {
-    "path": "Build/AAA/D17-01/environment/panel-mechanics-preservation.json",
-    "sha256": "0766f0771b87e1b09604069cf40dfc601d418194f10d2303f954efc9ef807217",
-    "bytes": 1997
+  "sources": [
+    {
+      "bytes": 18707,
+      "path": "docs/runtime-contracts/AAA_TPP_RUNTIME_CONTRACTS_31_39.md",
+      "sha256": "bc690c5f971e4e38bb06a7834f5a1694ed64ace4dccd112b147d1c650aaae540"
+    },
+    {
+      "bytes": 3836,
+      "path": "docs/DEMO_01_PACKAGED_ACCEPTANCE.md",
+      "sha256": "eb9ed35c5677d15a9a2c633ebcc52bfa3c520c34dadfa1e998fd72b8595fa21c"
+    },
+    {
+      "bytes": 15319,
+      "path": "Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp",
+      "sha256": "93b371b4f14ceb12f43d07dc6c7c51441a1ae148b857f1dab168f4c223433e35"
+    },
+    {
+      "bytes": 6907,
+      "path": "Source/BiellaGames/Private/BiellaDemoObjectiveManager.cpp",
+      "sha256": "c51037e42a20c8100519c0e3bbba6f6a4dd665bab401d9ac99107669540d729a"
+    },
+    {
+      "bytes": 10278,
+      "path": "Source/BiellaGames/Private/BiellaGamesPlayerController.cpp",
+      "sha256": "7ce6872b8449f6bb39516a2927be1ae054978789f2f669779e165334f9e59bbd"
+    },
+    {
+      "bytes": 17015,
+      "path": "Source/BiellaGames/Private/BiellaWorldContinuity.cpp",
+      "sha256": "51df4ea55e9f63c838f65b6a0148c116019cb7fcca6a3ce7b89b3cc10e22594c"
+    },
+    {
+      "bytes": 6735,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/telemetry.jsonl",
+      "sha256": "81a1bf866db58bbf71ba42661f48dcfeeda2d2f438052cdf435a781f877f714f"
+    },
+    {
+      "bytes": 22933,
+      "path": "Build/AAA/D17-01/raw/route-rival-01/telemetry.jsonl",
+      "sha256": "1a80b42305faf529cc3967e7609d9063cfe74ee37ff76dcb8a4a3364473b3389"
+    },
+    {
+      "bytes": 15951,
+      "path": "SourceAssets/Environment/build_service_bay.py",
+      "sha256": "e34dae09560899baffc336d7019c5259cf06bd7c11da968986bf4e226fa1377d"
+    },
+    {
+      "bytes": 2129,
+      "path": "SourceAssets/Materials/ServiceSurface.hlsl",
+      "sha256": "cdcd11ff86ed9f23d199915f2a01a71cd109c2ba09c865d664738b1b33f3fd85"
+    },
+    {
+      "bytes": 14942,
+      "path": "Content/Python/author_service_bay.py",
+      "sha256": "987d07b2fc8e4574c4c6b8e9d99004ce23be610e521f1aa3c21cddbd68dc0962"
+    },
+    {
+      "bytes": 16320,
+      "path": "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
+      "sha256": "fe333d16c1dfc93e8ce62115a0d0b05a87a834f37f01d2ababc3e3023b5c62cc"
+    },
+    {
+      "bytes": 2379,
+      "path": "Source/BiellaGames/Public/BiellaEnvironmentSite.h",
+      "sha256": "a2be9d40f72d90e594140e98b0307ace0910d84314f1cee13b8b2ad8dd60a79a"
+    },
+    {
+      "bytes": 4149,
+      "path": "SourceAssets/Materials/ServiceGround.hlsl",
+      "sha256": "7472ac44402c694e31bbf35b2bb96c6ac0aa95e2219da273bd25110e5cabba94"
+    },
+    {
+      "bytes": 4665,
+      "path": "SourceAssets/Materials/ServiceSwitch.hlsl",
+      "sha256": "6ae930d0e8057fb4e3675d8dd9ac167af85f9b57bec518fd7088cce4dbb9aa42"
+    },
+    {
+      "bytes": 5036,
+      "path": "Content/Python/author_service_switch.py",
+      "sha256": "af5aebe0eee8de23324d88f6b86430e52a3bd7369e844cdb9d703262e0dacb5a"
+    },
+    {
+      "bytes": 16798,
+      "path": "Content/Environment/ServiceBay/M_ServiceSwitch.uasset",
+      "sha256": "02f9560e97e9b87cd15b1f5ab008942416097f2450314dc0f82aeef8741a54cb"
+    },
+    {
+      "bytes": 2760,
+      "path": "SourceAssets/Materials/ServicePanel.hlsl",
+      "sha256": "ee23f2410c63b168478d070265e14335fb9b06c4b15d3fe7df50fba16bceef29"
+    },
+    {
+      "bytes": 5124,
+      "path": "Content/Python/author_service_panel.py",
+      "sha256": "10aa128d177733de21137456ea606158559dc7696a5c768a3cd73402f57c7e59"
+    },
+    {
+      "bytes": 14799,
+      "path": "Content/Environment/ServiceBay/M_ServicePanel.uasset",
+      "sha256": "d1329452aa58130b77f61581e66514c84507575f823b7eaefbfd3be483ef25b1"
+    }
+  ],
+  "status": "UNMET_CRITERIA_RETAINED",
+  "switch_material_validation": {
+    "bytes": 7921,
+    "path": "Build/AAA/D17-01/environment/switch-material-validation.json",
+    "sha256": "a3474525f0c97dbf7df68da023c29bb5043413a3b83a0f9d4d5df2b14bc9c9ec"
   },
-  "panel_material_validation": {
-    "path": "Build/AAA/D17-01/environment/panel-material-validation.json",
-    "sha256": "f12dc522c4c7004b0f77a62dc1069c27bc01dc79f03c6101891398ada27f677e",
-    "bytes": 7455
-  }
+  "switch_mechanics_preservation": {
+    "bytes": 2004,
+    "path": "Build/AAA/D17-01/environment/switch-mechanics-preservation.json",
+    "sha256": "8d00cd2bac51e9640aec5b1f6ab0c8bac1548b3f2f6b39f5df3065077af4b391"
+  },
+  "task_id": "D17-01"
 }

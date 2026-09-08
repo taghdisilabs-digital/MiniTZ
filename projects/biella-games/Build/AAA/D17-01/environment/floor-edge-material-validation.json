@@ -1,0 +1,235 @@
+{
+  "asset_validation": {
+    "bytes": 4464,
+    "path": "Build/AAA/D17-01/environment/assets-08/validation.json",
+    "sha256": "97bb04cb387d9b62583a1d8bc699c9c81572b2da8adb06b707f111d37ecec8cf"
+  },
+  "candidate_status": "GENERATED_DRAFT",
+  "editor_validation": {
+    "bytes": 200854,
+    "path": "Build/AAA/D17-01/environment/floor-edge-editor-01/validation.json",
+    "sha256": "30c8fbb059db90129ea3cbbe49f35034a1610bed221ff0d791d16e72ebdc68f2"
+  },
+  "inspected_frames": [
+    {
+      "bytes": 1123682,
+      "path": "Build/AAA/D17-01/environment/panel-editor-01/captures/switch_safe.png",
+      "sha256": "d4bdc3e8fcbbc2e66c5f0fe16dd6cab1f2e9a5deb42cb24e050cdde96e846d92"
+    },
+    {
+      "bytes": 1124594,
+      "path": "Build/AAA/D17-01/environment/floor-edge-editor-01/captures/switch_safe.png",
+      "sha256": "6738b22a997551dc9a86b6778a61618675bf62c46833df46cba189352a6f6910"
+    },
+    {
+      "bytes": 1120861,
+      "path": "Build/AAA/D17-01/environment/runtime-11/captures/switch_safe.png",
+      "sha256": "c82ebc73caa3661190301a84f97b1c8e6e46b03ae137d56962a77fd990c42c1c"
+    }
+  ],
+  "limits": [
+    "Affected material validation only; the canonical slice remains incomplete.",
+    "Editor and installed environment fixtures are not ordinary-input route proof.",
+    "No power, panel or electrical-floor event occurred in these new ordinary-input runs; historical consequences retain their own package bindings.",
+    "The outer edge approaches the road material class, not an exact sample-by-sample match to its procedural noise.",
+    "Five major visual groups, long-form route, full evolving encounter and audio/temporal qualification remain unmet."
+  ],
+  "material_contract": {
+    "conductive_plate_response": "Preserved by the existing inside mask",
+    "dry_road_base_color": [
+      0.08,
+      0.1,
+      0.12
+    ],
+    "dry_road_mean_color_factor": 0.97,
+    "dry_road_roughness": 0.88,
+    "drying_width_cm": [
+      85,
+      145
+    ],
+    "geometry_opacity_displacement_collision": "Unchanged",
+    "surveyed_apron_cm": {
+      "x": [
+        -521.4,
+        532.0
+      ],
+      "y": [
+        -365.4,
+        365.4
+      ]
+    }
+  },
+  "material_input_delta": [
+    "Content/Environment/ServiceBay/M_ServiceGround.uasset"
+  ],
+  "observed": "The matched editor switch-safe comparison shows a softer, lighter and rougher outer apron with reduced blue-player reflection at its edge; the wet center and warm lamp reflections remain. The installed switch-safe view confirms that appearance. Ordinary-input video frames at 15 and 19 seconds show the transition on approach and after lateral movement, with physical slab joints and drains still visible. This fixes the localized moisture boundary; it does not establish every perimeter angle, final temporal quality or scene-wide material coherence.",
+  "observed_at": "2026-09-08T17:51:51.563272+00:00",
+  "ordinary_input_inspected_frames": [
+    {
+      "bytes": 430773,
+      "path": "Build/AAA/D17-01/raw/floor-edge-720-01/frame-15.png",
+      "sha256": "05023c1435091e07fbc5f7b3239fe99026931783860e3fd3f1a727b269b29037"
+    },
+    {
+      "bytes": 468280,
+      "path": "Build/AAA/D17-01/raw/floor-edge-720-01/frame-19.png",
+      "sha256": "97ebf159becc8ec7f8e23a87c805c65e20775796ef729a1f8338b6244159af59"
+    },
+    {
+      "bytes": 733593,
+      "path": "Build/AAA/D17-01/raw/floor-edge-1080-01/frame-04.png",
+      "sha256": "729234109c80753667373b442f217182b8ae217ab8e984e3b0959839d2ecaccd"
+    }
+  ],
+  "ordinary_input_observed": "The 720p ordinary-input run ended in native Success after 18.312541172781494 active seconds and 23 input actions. Its inspected 15-second and 19-second frames show the approach and wet-apron transition. Three weapon-fire events were recorded, but there were no bay power transitions, panel events or electrical-floor damage. The 1080p run ended in native Success after 8.810429577657487 active seconds and five input actions, also without bay events. Its four-second frame shows the blue player, yellow rival, red mannequin infected and block-bodied infected on the sparse daylight road. Both runs have native combat telemetry, zero restarts and no captured audio. Neither establishes 600\u20131200 active seconds, later route beats or the full evolving arena consequence.",
+  "ordinary_input_runs": [
+    {
+      "active_simulation_seconds": 18.312541172781494,
+      "audio_captured": false,
+      "capture_input_wall_seconds": 20.747844237019308,
+      "capture_video_seconds": 22.733,
+      "decoded_frames": 681,
+      "directory": "Build/AAA/D17-01/raw/floor-edge-720-01",
+      "electrical_floor_damage": [],
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "events": {
+        "damage": 51,
+        "defeat": 10,
+        "objective_activated": 1,
+        "objective_progress": 15,
+        "objective_success": 1,
+        "phase": 2,
+        "telemetry_ready": 1,
+        "telemetry_shutdown": 1,
+        "weapon_fire": 3
+      },
+      "input_actions": 23,
+      "namespace_file_verification": true,
+      "natural_pressure_observed": false,
+      "player_defeats": [],
+      "raw_video": {
+        "bytes": 6579342,
+        "path": "Build/AAA/D17-01/raw/floor-edge-720-01/raw-gameplay.mkv",
+        "sha256": "88c267a8194e5996111187ce9224d705c69d47b8c13b556dd5fb7c9aa9111ae9"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "restart_count": 0,
+      "run": "floor-edge-720-01",
+      "session": "01A0821E-0536-76A0-ABC8-AF52C4F92F94",
+      "terminal": "Success",
+      "uninterrupted_duration_satisfied": false
+    },
+    {
+      "active_simulation_seconds": 8.810429577657487,
+      "audio_captured": false,
+      "capture_input_wall_seconds": 11.653864781023003,
+      "capture_video_seconds": 13.633,
+      "decoded_frames": 406,
+      "directory": "Build/AAA/D17-01/raw/floor-edge-1080-01",
+      "electrical_floor_damage": [],
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "events": {
+        "damage": 11,
+        "defeat": 2,
+        "objective_activated": 1,
+        "objective_progress": 2,
+        "objective_success": 1,
+        "phase": 2,
+        "telemetry_ready": 1,
+        "telemetry_shutdown": 1
+      },
+      "input_actions": 5,
+      "namespace_file_verification": true,
+      "natural_pressure_observed": false,
+      "player_defeats": [],
+      "raw_video": {
+        "bytes": 5424008,
+        "path": "Build/AAA/D17-01/raw/floor-edge-1080-01/raw-gameplay.mkv",
+        "sha256": "c03e4157faede86562ca0c0c89d0a2ff40c23b40e8ff1194aca5000f27cef88f"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "restart_count": 0,
+      "run": "floor-edge-1080-01",
+      "session": "01A08223-3DFD-76D2-AC3B-536ADA2FEDEC",
+      "terminal": "Success",
+      "uninterrupted_duration_satisfied": false
+    }
+  ],
+  "package_id": "0c41fd851f85a8444a97cdf608ba917eecbf6490b1a815c5dbc321d6f44bc443",
+  "package_validation": {
+    "bytes": 18774,
+    "path": "Build/AAA/D17-01/environment/runtime-11/validation.json",
+    "sha256": "5caa1fa4b4b823ab69d1eb93acbafe6d84e5c6e4b07fef7aea2bab9e06a733b1"
+  },
+  "preserved_native_geometry": [
+    {
+      "bytes": 16320,
+      "path": "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
+      "sha256": "fe333d16c1dfc93e8ce62115a0d0b05a87a834f37f01d2ababc3e3023b5c62cc"
+    },
+    {
+      "bytes": 2379,
+      "path": "Source/BiellaGames/Public/BiellaEnvironmentSite.h",
+      "sha256": "a2be9d40f72d90e594140e98b0307ace0910d84314f1cee13b8b2ad8dd60a79a"
+    },
+    {
+      "bytes": 15951,
+      "path": "SourceAssets/Environment/build_service_bay.py",
+      "sha256": "e34dae09560899baffc336d7019c5259cf06bd7c11da968986bf4e226fa1377d"
+    },
+    {
+      "bytes": 247981,
+      "path": "SourceAssets/Environment/ServiceBay.blend",
+      "sha256": "ae6796b212187b8ca05a70a5596826cdabe2721e1a13cc87c2e74e51bd11ff84"
+    },
+    {
+      "bytes": 519687,
+      "path": "Content/Environment/ServiceBay/SM_ServiceGround.uasset",
+      "sha256": "01c51dac0be6a1b617f9b8b298480d10b9620db9aa70db55158f65a64a5b1bad"
+    },
+    {
+      "bytes": 14942,
+      "path": "Content/Python/author_service_bay.py",
+      "sha256": "987d07b2fc8e4574c4c6b8e9d99004ce23be610e521f1aa3c21cddbd68dc0962"
+    }
+  ],
+  "previous_commit": "1fbc5e9c00447b4997af87a6fdde0f1628deb712",
+  "result": "PASS_AFFECTED_LAYER",
+  "saved_readback": {
+    "bytes": 3617,
+    "path": "Build/AAA/D17-01/environment/assets-08/readback.json",
+    "sha256": "000e5062027b4362c21346b6127883128677fa749de16d71caa0174557a8c48a"
+  },
+  "slice_acceptance": false,
+  "sources": [
+    {
+      "bytes": 4149,
+      "path": "SourceAssets/Materials/ServiceGround.hlsl",
+      "sha256": "7472ac44402c694e31bbf35b2bb96c6ac0aa95e2219da273bd25110e5cabba94"
+    },
+    {
+      "bytes": 14942,
+      "path": "Content/Python/author_service_bay.py",
+      "sha256": "987d07b2fc8e4574c4c6b8e9d99004ce23be610e521f1aa3c21cddbd68dc0962"
+    },
+    {
+      "bytes": 15571,
+      "path": "Content/Environment/ServiceBay/M_ServiceGround.uasset",
+      "sha256": "bea23d08fecc383694956a85d68f662ff8cc944ae6a7c337d3b0e9dff34ad389"
+    },
+    {
+      "bytes": 3907,
+      "path": "tests/author_d17_01_service_bay.py",
+      "sha256": "cd71403655187c1a63b70235d7a4b9d99fa7b257b6e572958e69795880a7640d"
+    }
+  ],
+  "task_id": "D17-01"
+}

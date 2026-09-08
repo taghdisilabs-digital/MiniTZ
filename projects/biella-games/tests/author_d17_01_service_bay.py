@@ -6,6 +6,7 @@ import pwd
 from pathlib import Path
 from run_d01_039 import PROJECT, DEFAULT_EDITOR, file_identity, runtime_run, write_json
 from run_d01_042 import ensure_runtime_output
+from run_d01_043 import finalize_log
 from run_d02_01 import runtime_has_task_error
 from run_d08_01_release import LEDGER, now
 
@@ -15,6 +16,7 @@ def main():
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--ground-only',action='store_true',help='Update only the ground material; verify all existing meshes/materials unchanged')
     a=p.parse_args(); out=a.output.resolve()
+    assert not out.exists(), 'Preserve prior asset receipts; use a fresh output'
     ensure_runtime_output(out,pwd.getpwnam('unreal'))
     def assets():
         return {str(f.relative_to(PROJECT)):file_identity(f) for f in sorted((PROJECT/'Content').rglob('*'))
@@ -34,7 +36,11 @@ def main():
             if mode=='readback': command.append('-D17VerifyServiceBay')
             if a.ground_only: command.append('-D17GroundOnly')
             write_json(out/f'{mode}-command.json',command)
-            run=runtime_run(command,out/f'{mode}.log',600); report['runs'].append(run)
+            run=runtime_run(command,out/f'{mode}.log',600)
+            run['log_finalization']=finalize_log(out/f'{mode}.log')
+            run['log']=file_identity(out/f'{mode}.log')
+            report['runs'].append(run)
+            assert run['log_finalization']['closed'],'Commandlet log still has a writer'
             log=(out/f'{mode}.log').read_text(errors='replace')
             assert run['returncode']==0 and not run['timed_out'] and not runtime_has_task_error(log)
             assert 'D17_SERVICE_ASSETS COMPLETE' in log

@@ -1,118 +1,397 @@
 {
-  "schema": "biella.games.d17.scenario/v1",
-  "task_id": "D17-01",
-  "slice_id": "Biella_ServiceCircuit_01",
-  "status": "CANDIDATE_NOT_QUALIFIED",
+  "acceptance": "INCOMPLETE: continuous duration, full evolving encounter and five major visual groups remain unqualified. Current raw outcomes are bound to package-10; predecessor proof remains historical.",
+  "baseline_package": {
+    "configuration": "Development",
+    "manifest": {
+      "bytes": 8665,
+      "path": "Build/Release/D08-01/package-manifest.json",
+      "sha256": "48cedd56873c9abbc62c0708872066036733bfd4c3e58cd0cbebe5e1d5572770"
+    },
+    "package_id": "fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c",
+    "platform": "Linux",
+    "scope": "existing diagnostic package only; D08 Win64 status unchanged"
+  },
   "candidate_status": "GENERATED_DRAFT",
-  "selection": "Existing open-world entry → Street01 → service bay → interior → raised terrace → Street03 → service-bay return",
-  "selection_reason": "One existing editable map connects accepted traversal, autonomous population combat, player weapon input, interactive power/destruction, streaming and elevation; no new map or mechanic is assumed.",
-  "map": "/Game/Maps/BiellaOpenWorldMap",
+  "current_environment_probe": "Build/AAA/D17-01/raw/floor-edge-720-01/observation.json",
+  "current_native_build": "Build/AAA/D17-01/build/game-05/result.json",
+  "current_package": {
+    "archive": {
+      "bytes": 483833622,
+      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-11.tar.zst",
+      "sha256": "922e292334a2662f420a2e64de6fa1750ed74475804aa1e6b69b2ddad48b267f"
+    },
+    "manifest": {
+      "bytes": 8669,
+      "path": "Build/AAA/D17-01/build/package-11/package-manifest.json",
+      "sha256": "d4f042dac3adeb4097f1346832ca4559eaa0048e26d9011b1201dbc1c38199e3"
+    },
+    "overlay": false,
+    "package_id": "0c41fd851f85a8444a97cdf608ba917eecbf6490b1a815c5dbc321d6f44bc443",
+    "source_material_digest": "a38e5cad67e798849e57d1eed61acc37474917f3ae093a5e33bd38bc01b0616c"
+  },
+  "current_package_status": "Package-11 replaces the hard moisture cutoff at the surveyed service-apron bounds with a variable 85\u2013145 cm drying band. Color, roughness and normal response approach the existing dry-road material class; central conductive plates, hazard lenses, slab joints and geometry are preserved. Only M_ServiceGround.uasset changes among runtime material inputs. Native code, mesh source and collision are byte-identical to package-10. Saved graph readback, Lit Vulkan diagnostics, fresh cook/archive/install and installed environment regression pass. Candidate art only; no final visual acceptance.",
+  "current_raw_runs": [
+    "Build/AAA/D17-01/raw/floor-edge-720-01/observation.json",
+    "Build/AAA/D17-01/raw/floor-edge-1080-01/observation.json"
+  ],
   "duration_contract_seconds": [
     600,
     1200
   ],
-  "timing_status": "UNQUALIFIED: 600–1200 seconds is the required active-play duration, not an implemented or measured route budget. Raw attempts reach terminal state much earlier.",
-  "start_state": {
-    "session": "fresh native process with fresh user state",
-    "pawn": "ABiellaStreamingCharacter",
-    "spawn": "D02_PlayerStart",
-    "health": 100,
-    "ammo": 60,
-    "objective": "native Demo01 eliminate-all-infected objective, activated by existing mode",
-    "population": "current D04 content tuning, default active limits",
-    "arena_pressure": "normal game initial Inactive; this attempt observed no natural pressure transitions",
-    "camera": "normal gameplay third-person; no camera cuts or spectator substitution"
-  },
-  "route": [
+  "editable_bindings": [
     {
-      "id": "entry",
-      "landmark_cm": [
-        0,
-        0,
-        88
-      ],
-      "existing_binding": "D02_PlayerStart",
-      "player_beat": "Read player, initial rival and infected while evading/engaging with normal over-shoulder controls. Keep traversal continuous.",
-      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
-      "sequence_order": 1
+      "bytes": 20451,
+      "path": "Content/Python/author_open_world.py",
+      "sha256": "e8ec9e3031f4117b3c75bc3c537865d25846c19d2c9b58c3505bab80739cf927"
     },
     {
-      "id": "street_population",
-      "landmark_cm": [
-        4000,
-        0,
-        100
-      ],
-      "existing_binding": "D04.Encounter.StreetPopulation / Street01",
-      "player_beat": "Traverse the existing street; engage autonomous rival/infected population, use existing cover and observe resulting health/ammunition/state.",
-      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
-      "sequence_order": 2
+      "bytes": 13330,
+      "path": "Content/Maps/BiellaOpenWorldMap.umap",
+      "sha256": "5aa72a66492ec13ac2ba460bba391b0370003852ab2a413a27c051c95f2a4908"
     },
     {
-      "id": "service_bay",
-      "landmark_cm": [
-        6500,
-        700,
-        100
-      ],
-      "existing_binding": "D02Environment01",
-      "player_beat": "Approach the existing switch from the west, press E when the actual prompt appears, observe powered hazard; damage a panel with real shots and traverse the resulting opening.",
-      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
-      "sequence_order": 3
+      "bytes": 2647,
+      "path": "Content/Data/D04/D04-01-content.json",
+      "sha256": "14581c67dfcc5237e3e837d5c52112d8318206c235098f4de35d41999fa26020"
     },
     {
-      "id": "interior",
-      "landmark_cm": [
-        8000,
-        2250,
-        100
-      ],
-      "existing_binding": "D02_Interior_Floor",
-      "player_beat": "Enter through the south doorway at x7800–8200,y1500, inspect interior sight lines and return through the same physical opening.",
-      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
-      "sequence_order": 4
+      "bytes": 17015,
+      "path": "Source/BiellaGames/Private/BiellaWorldContinuity.cpp",
+      "sha256": "51df4ea55e9f63c838f65b6a0148c116019cb7fcca6a3ce7b89b3cc10e22594c"
     },
     {
-      "id": "terrace",
-      "landmark_cm": [
-        10000,
-        3500,
-        500
-      ],
-      "existing_binding": "D02_Terrace_Ramp / D02_Terrace_Floor",
-      "player_beat": "Walk the 4 m rise along the ramp from y1000 to 3000, observe the ground encounter from normal third-person camera, then descend.",
-      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
-      "sequence_order": 5
+      "bytes": 6907,
+      "path": "Source/BiellaGames/Private/BiellaDemoObjectiveManager.cpp",
+      "sha256": "c51037e42a20c8100519c0e3bbba6f6a4dd665bab401d9ac99107669540d729a"
     },
     {
-      "id": "east_return",
-      "landmark_cm": [
-        12000,
-        0,
-        100
-      ],
-      "existing_binding": "D04.Encounter.StreetPopulation / Street03",
-      "player_beat": "Engage the next existing streamed population and return along the navigable street without teleportation. Use the already implemented vehicle only if reached normally and available.",
-      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
-      "sequence_order": 6
+      "bytes": 15319,
+      "path": "Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp",
+      "sha256": "93b371b4f14ceb12f43d07dc6c7c51441a1ae148b857f1dab168f4c223433e35"
     },
     {
-      "id": "resolution",
-      "landmark_cm": [
-        6500,
-        700,
-        100
-      ],
-      "existing_binding": "Demo01 objective / native terminal state",
-      "player_beat": "Finish real remaining combat, observe native objective resolution and hazard/actor state. Success or defeat ends the run; terminal time never counts as active play.",
-      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
-      "sequence_order": 7
+      "bytes": 10278,
+      "path": "Source/BiellaGames/Private/BiellaGamesPlayerController.cpp",
+      "sha256": "7ce6872b8449f6bb39516a2927be1ae054978789f2f669779e165334f9e59bbd"
+    },
+    {
+      "bytes": 16320,
+      "path": "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
+      "sha256": "fe333d16c1dfc93e8ce62115a0d0b05a87a834f37f01d2ababc3e3023b5c62cc"
+    },
+    {
+      "bytes": 15951,
+      "path": "SourceAssets/Environment/build_service_bay.py",
+      "sha256": "e34dae09560899baffc336d7019c5259cf06bd7c11da968986bf4e226fa1377d"
+    },
+    {
+      "bytes": 247981,
+      "path": "SourceAssets/Environment/ServiceBay.blend",
+      "sha256": "ae6796b212187b8ca05a70a5596826cdabe2721e1a13cc87c2e74e51bd11ff84"
+    },
+    {
+      "bytes": 14942,
+      "path": "Content/Python/author_service_bay.py",
+      "sha256": "987d07b2fc8e4574c4c6b8e9d99004ce23be610e521f1aa3c21cddbd68dc0962"
+    },
+    {
+      "bytes": 2129,
+      "path": "SourceAssets/Materials/ServiceSurface.hlsl",
+      "sha256": "cdcd11ff86ed9f23d199915f2a01a71cd109c2ba09c865d664738b1b33f3fd85"
+    },
+    {
+      "bytes": 2379,
+      "path": "Source/BiellaGames/Public/BiellaEnvironmentSite.h",
+      "sha256": "a2be9d40f72d90e594140e98b0307ace0910d84314f1cee13b8b2ad8dd60a79a"
+    },
+    {
+      "bytes": 4149,
+      "path": "SourceAssets/Materials/ServiceGround.hlsl",
+      "sha256": "7472ac44402c694e31bbf35b2bb96c6ac0aa95e2219da273bd25110e5cabba94"
+    },
+    {
+      "bytes": 496204,
+      "path": "SourceAssets/Environment/SM_ServiceGround.fbx",
+      "sha256": "fbb57032e19907ca4f2fcb3ad431cb5196ed1abe880c329e221a651951d3565b"
+    },
+    {
+      "bytes": 15571,
+      "path": "Content/Environment/ServiceBay/M_ServiceGround.uasset",
+      "sha256": "bea23d08fecc383694956a85d68f662ff8cc944ae6a7c337d3b0e9dff34ad389"
+    },
+    {
+      "bytes": 519687,
+      "path": "Content/Environment/ServiceBay/SM_ServiceGround.uasset",
+      "sha256": "01c51dac0be6a1b617f9b8b298480d10b9620db9aa70db55158f65a64a5b1bad"
+    },
+    {
+      "bytes": 4665,
+      "path": "SourceAssets/Materials/ServiceSwitch.hlsl",
+      "sha256": "6ae930d0e8057fb4e3675d8dd9ac167af85f9b57bec518fd7088cce4dbb9aa42"
+    },
+    {
+      "bytes": 5036,
+      "path": "Content/Python/author_service_switch.py",
+      "sha256": "af5aebe0eee8de23324d88f6b86430e52a3bd7369e844cdb9d703262e0dacb5a"
+    },
+    {
+      "bytes": 16798,
+      "path": "Content/Environment/ServiceBay/M_ServiceSwitch.uasset",
+      "sha256": "02f9560e97e9b87cd15b1f5ab008942416097f2450314dc0f82aeef8741a54cb"
+    },
+    {
+      "bytes": 2760,
+      "path": "SourceAssets/Materials/ServicePanel.hlsl",
+      "sha256": "ee23f2410c63b168478d070265e14335fb9b06c4b15d3fe7df50fba16bceef29"
+    },
+    {
+      "bytes": 5124,
+      "path": "Content/Python/author_service_panel.py",
+      "sha256": "10aa128d177733de21137456ea606158559dc7696a5c768a3cd73402f57c7e59"
+    },
+    {
+      "bytes": 14799,
+      "path": "Content/Environment/ServiceBay/M_ServicePanel.uasset",
+      "sha256": "d1329452aa58130b77f61581e66514c84507575f823b7eaefbfd3be483ef25b1"
     }
   ],
   "end_state": {
-    "valid": "native objective success or player defeat, with real final actor/health/mission state recorded",
-    "qualification": "All required beats and 600–1200 seconds of meaningful active gameplay must precede the terminal state. A shorter success is still a duration failure.",
-    "observed_first_run": "Success at sim_seconds 34.104978772753384; movement/look ignored, so later beats are not proven."
+    "observed_first_run": "Success at sim_seconds 34.104978772753384; movement/look ignored, so later beats are not proven.",
+    "qualification": "All required beats and 600\u20131200 seconds of meaningful active gameplay must precede the terminal state. A shorter success is still a duration failure.",
+    "valid": "native objective success or player defeat, with real final actor/health/mission state recorded"
+  },
+  "first_raw_run": "Build/AAA/D17-01/raw/entry-720-02/observation.json",
+  "floor_edge_material_validation": {
+    "bytes": 9372,
+    "path": "Build/AAA/D17-01/environment/floor-edge-material-validation.json",
+    "sha256": "4a25c378c99271910d73c4f7f699be188dff8b9ba8a4ae991dccceae538b5f95"
+  },
+  "floor_material_diagnosis": "Build/AAA/D17-01/environment/floor-diagnosis.json",
+  "map": "/Game/Maps/BiellaOpenWorldMap",
+  "observed_route_limits": "The 720p ordinary-input run ended in native Success after 18.312541172781494 active seconds and 23 input actions. Its inspected 15-second and 19-second frames show the approach and wet-apron transition. Three weapon-fire events were recorded, but there were no bay power transitions, panel events or electrical-floor damage. The 1080p run ended in native Success after 8.810429577657487 active seconds and five input actions, also without bay events. Its four-second frame shows the blue player, yellow rival, red mannequin infected and block-bodied infected on the sparse daylight road. Both runs have native combat telemetry, zero restarts and no captured audio. Neither establishes 600\u20131200 active seconds, later route beats or the full evolving arena consequence.",
+  "owner_visual_direction": {
+    "identity": "Biella-owned expression; no copied reference names, logos, slogans or HUD text",
+    "industrial": "dense, vertically layered steel/concrete arena and plausible engineered connections",
+    "infection": "red bioluminescent organic invasion of structures, responding coherently to gameplay",
+    "lighting": "cold storm atmosphere, warm motivated task lights",
+    "readability": "distinct player/rival/infected and arena consequence from moving over-shoulder camera; compact live HUD",
+    "source": "docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+    "surfaces": "wet ground, differentiated PBR wear/moisture/roughness"
+  },
+  "panel_material_validation": {
+    "bytes": 7455,
+    "path": "Build/AAA/D17-01/environment/panel-material-validation.json",
+    "sha256": "f12dc522c4c7004b0f77a62dc1069c27bc01dc79f03c6101891398ada27f677e"
+  },
+  "previous_coordinate_candidate": {
+    "observed_route_limits": "service-720-02 frame-13 shows the corrected cabinet and service bay from the normal moving camera; no normal-input switch or destruction beat is proven in these two captures. Interior/terrace/return beats remain unproven. Current runs end at 34.112581229710486 and 9.009782609471586 active simulation seconds. The additional service-interaction-720-01 approach missed the switch and ended in player defeat by rival fire at 57.13843510946026 active simulation seconds; no power transition occurred. This longer active attempt still does not qualify the 600\u20131200 second route.",
+    "package": {
+      "archive": {
+        "bytes": 481767476,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-03.tar.zst",
+        "sha256": "51a82c9f37b4079cc5ba21d066112733b1ee6a5fe054e99ab826ec980a63f333"
+      },
+      "manifest": {
+        "bytes": 8669,
+        "path": "Build/AAA/D17-01/build/package-03/package-manifest.json",
+        "sha256": "fd7789dd868a4025186fd7490579be0c3920d9a8486c7074d45160607fadb063"
+      },
+      "overlay": false,
+      "package_id": "2742363eb178b6288092d670611742b12cc07089268ab02c54be97165da6d163",
+      "source_material_digest": "ad4699e7d244d60e45798063bb32e2537648c4ec2a397564f62265047d0907e1"
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/service-720-02/observation.json",
+      "Build/AAA/D17-01/raw/service-1080-02/observation.json",
+      "Build/AAA/D17-01/raw/service-interaction-720-01/observation.json",
+      "Build/AAA/D17-01/raw/service-interaction-720-02/observation.json"
+    ],
+    "source_commit": "5854ebea89bd581418924397bacbfc6ac7612db0"
+  },
+  "previous_ground_candidate": {
+    "package": {
+      "archive": {
+        "bytes": 483543613,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-06.tar.zst",
+        "sha256": "f52825560b4e5fab242cf88b43afb12fd4453ba6cb4be6f54b96f59bfe2d7d5f"
+      },
+      "manifest": {
+        "bytes": 8669,
+        "path": "Build/AAA/D17-01/build/package-06/package-manifest.json",
+        "sha256": "d548c4adea7d3eda3d95ab15192c10241aaf43c9848bf9ad815a80252a2bb383"
+      },
+      "overlay": false,
+      "package_id": "e4020d739f936bf18059147b3e91e0dabc54769fad206db3fa775f34c850a429",
+      "source_material_digest": "7651f19b69b25feebd119f77db1629eab164540ee7c1ddaa00ea0743830ebf48"
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/wet-floor-720-01/observation.json",
+      "Build/AAA/D17-01/raw/wet-floor-1080-01/observation.json"
+    ],
+    "source_commit": "51811365a77cde9f45a8733a663a649c57766df9"
+  },
+  "previous_growth_candidate": {
+    "observed_route_limits": "The corrected package-03 input run toggled power and destroyed panel 2 but did not cross its opening. Current growth-hazard-720-01 aligns the player with that opening: power turns on, panel 2 breaks into physics debris and nine electrical-floor pulses apply 27.249 damage. It ends in Success at 46.31332703580847 active seconds. Current 1080p ends at 9.021478963026311 seconds, with rival fire defeating both tracked infected before the bay. Interior/terrace/east-return and 600\u20131200 active seconds remain unqualified. These attempts do not prove every accepted input route fails.",
+    "package": {
+      "archive": {
+        "bytes": 482094922,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-04.tar.zst",
+        "sha256": "ef762ad9a7d8f4affcd5a2035609cdd1e787cb729bede14d489eaafdb4fdeb1b"
+      },
+      "manifest": {
+        "bytes": 8669,
+        "path": "Build/AAA/D17-01/build/package-04/package-manifest.json",
+        "sha256": "01e94698e27f24a61966b75227c7c10d0550e9cd0c921ee9e071080b52c2a71e"
+      },
+      "overlay": false,
+      "package_id": "35ac96d18e521d5dc2623cf335e0342b6673dc86450f2ec5efd2894d69971bd8",
+      "source_material_digest": "8bb3f4fee666a5d5215cba22e94513538160a8d02a403149e67300d422cf61d8"
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/growth-hazard-720-01/observation.json",
+      "Build/AAA/D17-01/raw/growth-hazard-1080-01/observation.json"
+    ],
+    "source_commit": "c24863b0c3c6b555f7871c6c6cb99579a0a0115e"
+  },
+  "previous_integer_candidate": {
+    "observed_route_limits": "Package-08 720p reaches native Success at 15.935191704833414 active seconds after approaching the bay. Its 21 ordinary inputs include an interaction attempt and three shots, without a native power transition, panel event or electrical-floor damage. The 1080p run shows player/rival/infected at entry and reaches Success at 8.907017945253756 seconds. Interior/terrace/east-return and 600\u20131200 active seconds remain unqualified. Historical package-04 consequence retains its exact source/package identity.",
+    "package": {
+      "archive": {
+        "bytes": 483686863,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-08.tar.zst",
+        "sha256": "1a7df8cc72ba9b70d7b99b22f3f4e1dfe059eb65dbca5c81263083f5e3945108"
+      },
+      "manifest": {
+        "bytes": 8669,
+        "path": "Build/AAA/D17-01/build/package-08/package-manifest.json",
+        "sha256": "cadf249cc1c68368a6d964d34f552c19e9f406411664185c8d5506a7807ad115"
+      },
+      "overlay": false,
+      "package_id": "2b327215c81c8cb7186be4490daac1f9362799abfc34219f6730d809d0384949",
+      "source_material_digest": "2f7a047eae0d59b8010913aa0e58fc5e2f2cb13940988578ca641c3f64b0f5e2"
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/integer-floor-720-01/observation.json",
+      "Build/AAA/D17-01/raw/integer-floor-1080-01/observation.json"
+    ],
+    "source_commit": "ef771a62b993fc4fa1718ff9ae21f447c7cabe45"
+  },
+  "previous_panel_candidate": {
+    "observed_route_limits": "The 720p ordinary-input run ended in native Success after 13.70411386800697 active seconds and 13 input actions, recording one bay power transition with no panel damage or electrical-floor damage. Its inspected 12-second and 15-second video frames show approach to the bay and unbroken dark panels beside the abrupt wet-floor edge; they do not show a damaged panel. The 1080p run ended in native Success after 8.804244222992565 active seconds and five input actions, with no bay power, panel or electrical-floor events. Its four-second frame shows the blue player, yellow rival and red infected on a sparse flat road with placeholder focal geometry and oversized HUD panels. Both runs contain native combat events, zero restarts and no captured audio; neither establishes the long-form route or full evolving arena consequence. Later route beats and 600\u20131200 active seconds remain unqualified.",
+    "package": {
+      "archive": {
+        "bytes": 483781613,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-10.tar.zst",
+        "sha256": "b24986bd06b404abb630820dfc5aece3728a6f92779c7e277d94f2bb70ac78e8"
+      },
+      "manifest": {
+        "bytes": 8669,
+        "path": "Build/AAA/D17-01/build/package-10/package-manifest.json",
+        "sha256": "02de5c91268cddb61978e1defde3bee02e9ecbf8375e6d7a85657bae0db3b0d7"
+      },
+      "overlay": false,
+      "package_id": "14b7dd6ec0355c3bf945f5bd06cf04868e392339105b949555a1c16d30c7c888",
+      "source_material_digest": "bc4ea67434974873eb6ae68c245909516c839342ad87acf176210a7afa7813a3"
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/panel-impact-720-01/observation.json",
+      "Build/AAA/D17-01/raw/panel-impact-1080-01/observation.json"
+    ],
+    "source_commit": "1fbc5e9c00447b4997af87a6fdde0f1628deb712"
+  },
+  "previous_raw_runs": [
+    "Build/AAA/D17-01/raw/hud-720-01/observation.json",
+    "Build/AAA/D17-01/raw/hud-1080-01/observation.json"
+  ],
+  "previous_service_candidate": {
+    "package": {
+      "archive": {
+        "bytes": 481750430,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-02.tar.zst",
+        "sha256": "2fd394366130ae69770c6f7f9a3ab53e48ff5e322fc834012c25ef75cc9c04ad"
+      },
+      "manifest": {
+        "bytes": 8669,
+        "path": "Build/AAA/D17-01/build/package-02/package-manifest.json",
+        "sha256": "d54c69e75a9792b8d3df714a1a5a4ab59def3a1210b34e5454d1aa00ca47a592"
+      },
+      "overlay": false,
+      "package_id": "1c539e9274baf5ba24ab603d2238dd0cef2069e5030dc8cc1e966622d50892a1",
+      "source_material_digest": "7968dc8bab6d64dc0b892aec5f38003a30d441432ed1dd65383284d754fc3621"
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/service-720-01/observation.json",
+      "Build/AAA/D17-01/raw/service-1080-01/observation.json"
+    ],
+    "source_commit": "0242b38e31451f24d51175fc4050172122c28a3a"
+  },
+  "previous_sheath_candidate": {
+    "input_timing_probe": "Build/AAA/D17-01/raw/sheath-hazard-720-02/observation.json",
+    "package": {
+      "archive": {
+        "bytes": 482834812,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-05.tar.zst",
+        "sha256": "f5ce5ff65fa17f52e203424c2cfb8bb62dcecaaff241b37fab243ae9595db391"
+      },
+      "manifest": {
+        "bytes": 8669,
+        "path": "Build/AAA/D17-01/build/package-05/package-manifest.json",
+        "sha256": "7160f3f67cd2caca349a3632a89e02393bb6db0ea34240e4af39822a7f899e7b"
+      },
+      "overlay": false,
+      "package_id": "cfd920b323ed65faf205b81783a2474b15930fef76a3ab99f1a1a7341a941048",
+      "source_material_digest": "eb7b0019442dbdcf6640659be10bec2bb87e5a712ad957ea6e79bf58d9fc155a"
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/sheath-hazard-720-01/observation.json",
+      "Build/AAA/D17-01/raw/sheath-hazard-1080-01/observation.json"
+    ],
+    "source_commit": "02174657d6e83409c441a928c5b1a029024cec8b"
+  },
+  "previous_smooth_candidate": {
+    "package": {
+      "archive": {
+        "bytes": 483664602,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-07.tar.zst",
+        "sha256": "852766ae5ecf2a53238b9536f90730e1dfcd5fbabf155d1df99f28ca438f1b0e"
+      },
+      "manifest": {
+        "bytes": 8669,
+        "path": "Build/AAA/D17-01/build/package-07/package-manifest.json",
+        "sha256": "655ef8d8ea019829c077b73c137a1643769d575400ae3eeb6b2af00c465bf24e"
+      },
+      "overlay": false,
+      "package_id": "2045bc24f85a3358cf5d6b55df69b34831e86cfebd88b09b2300bf94da9dd4a7",
+      "source_material_digest": "3ad39b6aae773f4149288d87ae2baf838884c981dac8ec1d2c06db3e84356012"
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/smooth-floor-720-01/observation.json",
+      "Build/AAA/D17-01/raw/smooth-floor-1080-01/observation.json"
+    ],
+    "source_commit": "fdad60240ebd296e95a593789cc0fb8ed7716124"
+  },
+  "previous_switch_candidate": {
+    "observed_route_limits": "Package-09 720p reaches native Success at 18.31323491682997 active seconds after approaching the bay. Its 23 ordinary inputs include interaction and fire attempts but produce no native power transition, panel event or electrical-floor damage. The 1080p run shows player/rival/infected at entry and reaches Success at 8.814891465881374 seconds. Interior/terrace/east-return and 600\u20131200 active seconds remain unqualified. Historical package-04 consequence retains its exact source/package identity.",
+    "package": {
+      "archive": {
+        "bytes": 483768774,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-09.tar.zst",
+        "sha256": "436986e5bc42da2f2451af56ebb546d66d347b58c3dc4322d05fe1f370af08d0"
+      },
+      "manifest": {
+        "bytes": 8669,
+        "path": "Build/AAA/D17-01/build/package-09/package-manifest.json",
+        "sha256": "263679222bd151e9bda4db4e0deed44d9ca0f2d749ce65bd08db625459e26bce"
+      },
+      "overlay": false,
+      "package_id": "a82f366731d941c0eaf874023cdb2f2a5e8c4384d3d2ad9fc7753535c0a07f84",
+      "source_material_digest": "9bc0db2be19630e62acb17dd1df2406d798e6e6ecfb415bd2505f73e58f056a6"
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/switch-face-720-01/observation.json",
+      "Build/AAA/D17-01/raw/switch-face-1080-01/observation.json"
+    ],
+    "source_commit": "8236b5b4bbbdafb8499babb4f95b9dd80dfc32b0"
   },
   "prohibited_substitutions": [
     "forced pressure values",
@@ -125,366 +404,115 @@
     "idle/terminal footage used to pad duration",
     "cinematic/render-only substitute"
   ],
-  "owner_visual_direction": {
-    "source": "docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
-    "industrial": "dense, vertically layered steel/concrete arena and plausible engineered connections",
-    "surfaces": "wet ground, differentiated PBR wear/moisture/roughness",
-    "infection": "red bioluminescent organic invasion of structures, responding coherently to gameplay",
-    "lighting": "cold storm atmosphere, warm motivated task lights",
-    "readability": "distinct player/rival/infected and arena consequence from moving over-shoulder camera; compact live HUD",
-    "identity": "Biella-owned expression; no copied reference names, logos, slogans or HUD text"
-  },
-  "baseline_package": {
-    "package_id": "fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c",
-    "manifest": {
-      "path": "Build/Release/D08-01/package-manifest.json",
-      "sha256": "48cedd56873c9abbc62c0708872066036733bfd4c3e58cd0cbebe5e1d5572770",
-      "bytes": 8665
-    },
-    "platform": "Linux",
-    "configuration": "Development",
-    "scope": "existing diagnostic package only; D08 Win64 status unchanged"
-  },
-  "editable_bindings": [
+  "route": [
     {
-      "path": "Content/Python/author_open_world.py",
-      "sha256": "e8ec9e3031f4117b3c75bc3c537865d25846c19d2c9b58c3505bab80739cf927",
-      "bytes": 20451
+      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
+      "existing_binding": "D02_PlayerStart",
+      "id": "entry",
+      "landmark_cm": [
+        0,
+        0,
+        88
+      ],
+      "player_beat": "Read player, initial rival and infected while evading/engaging with normal over-shoulder controls. Keep traversal continuous.",
+      "sequence_order": 1
     },
     {
-      "path": "Content/Maps/BiellaOpenWorldMap.umap",
-      "sha256": "5aa72a66492ec13ac2ba460bba391b0370003852ab2a413a27c051c95f2a4908",
-      "bytes": 13330
+      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
+      "existing_binding": "D04.Encounter.StreetPopulation / Street01",
+      "id": "street_population",
+      "landmark_cm": [
+        4000,
+        0,
+        100
+      ],
+      "player_beat": "Traverse the existing street; engage autonomous rival/infected population, use existing cover and observe resulting health/ammunition/state.",
+      "sequence_order": 2
     },
     {
-      "path": "Content/Data/D04/D04-01-content.json",
-      "sha256": "14581c67dfcc5237e3e837d5c52112d8318206c235098f4de35d41999fa26020",
-      "bytes": 2647
+      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
+      "existing_binding": "D02Environment01",
+      "id": "service_bay",
+      "landmark_cm": [
+        6500,
+        700,
+        100
+      ],
+      "player_beat": "Approach the existing switch from the west, press E when the actual prompt appears, observe powered hazard; damage a panel with real shots and traverse the resulting opening.",
+      "sequence_order": 3
     },
     {
-      "path": "Source/BiellaGames/Private/BiellaWorldContinuity.cpp",
-      "sha256": "51df4ea55e9f63c838f65b6a0148c116019cb7fcca6a3ce7b89b3cc10e22594c",
-      "bytes": 17015
+      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
+      "existing_binding": "D02_Interior_Floor",
+      "id": "interior",
+      "landmark_cm": [
+        8000,
+        2250,
+        100
+      ],
+      "player_beat": "Enter through the south doorway at x7800\u20138200,y1500, inspect interior sight lines and return through the same physical opening.",
+      "sequence_order": 4
     },
     {
-      "path": "Source/BiellaGames/Private/BiellaDemoObjectiveManager.cpp",
-      "sha256": "c51037e42a20c8100519c0e3bbba6f6a4dd665bab401d9ac99107669540d729a",
-      "bytes": 6907
+      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
+      "existing_binding": "D02_Terrace_Ramp / D02_Terrace_Floor",
+      "id": "terrace",
+      "landmark_cm": [
+        10000,
+        3500,
+        500
+      ],
+      "player_beat": "Walk the 4 m rise along the ramp from y1000 to 3000, observe the ground encounter from normal third-person camera, then descend.",
+      "sequence_order": 5
     },
     {
-      "path": "Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp",
-      "sha256": "93b371b4f14ceb12f43d07dc6c7c51441a1ae148b857f1dab168f4c223433e35",
-      "bytes": 15319
+      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
+      "existing_binding": "D04.Encounter.StreetPopulation / Street03",
+      "id": "east_return",
+      "landmark_cm": [
+        12000,
+        0,
+        100
+      ],
+      "player_beat": "Engage the next existing streamed population and return along the navigable street without teleportation. Use the already implemented vehicle only if reached normally and available.",
+      "sequence_order": 6
     },
     {
-      "path": "Source/BiellaGames/Private/BiellaGamesPlayerController.cpp",
-      "sha256": "7ce6872b8449f6bb39516a2927be1ae054978789f2f669779e165334f9e59bbd",
-      "bytes": 10278
-    },
-    {
-      "path": "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
-      "sha256": "fe333d16c1dfc93e8ce62115a0d0b05a87a834f37f01d2ababc3e3023b5c62cc",
-      "bytes": 16320
-    },
-    {
-      "path": "SourceAssets/Environment/build_service_bay.py",
-      "sha256": "e34dae09560899baffc336d7019c5259cf06bd7c11da968986bf4e226fa1377d",
-      "bytes": 15951
-    },
-    {
-      "path": "SourceAssets/Environment/ServiceBay.blend",
-      "sha256": "ae6796b212187b8ca05a70a5596826cdabe2721e1a13cc87c2e74e51bd11ff84",
-      "bytes": 247981
-    },
-    {
-      "path": "Content/Python/author_service_bay.py",
-      "sha256": "987d07b2fc8e4574c4c6b8e9d99004ce23be610e521f1aa3c21cddbd68dc0962",
-      "bytes": 14942
-    },
-    {
-      "path": "SourceAssets/Materials/ServiceSurface.hlsl",
-      "sha256": "cdcd11ff86ed9f23d199915f2a01a71cd109c2ba09c865d664738b1b33f3fd85",
-      "bytes": 2129
-    },
-    {
-      "path": "Source/BiellaGames/Public/BiellaEnvironmentSite.h",
-      "sha256": "a2be9d40f72d90e594140e98b0307ace0910d84314f1cee13b8b2ad8dd60a79a",
-      "bytes": 2379
-    },
-    {
-      "path": "SourceAssets/Materials/ServiceGround.hlsl",
-      "sha256": "285c4c64e66cff4911856f7116b842d6656818277e4a515055d075dbb566d41c",
-      "bytes": 3371
-    },
-    {
-      "path": "SourceAssets/Environment/SM_ServiceGround.fbx",
-      "sha256": "fbb57032e19907ca4f2fcb3ad431cb5196ed1abe880c329e221a651951d3565b",
-      "bytes": 496204
-    },
-    {
-      "path": "Content/Environment/ServiceBay/M_ServiceGround.uasset",
-      "sha256": "4125a89dce310038685c3f608af12d286d8846f58386829563f86ac29dcecead",
-      "bytes": 14855
-    },
-    {
-      "path": "Content/Environment/ServiceBay/SM_ServiceGround.uasset",
-      "sha256": "01c51dac0be6a1b617f9b8b298480d10b9620db9aa70db55158f65a64a5b1bad",
-      "bytes": 519687
-    },
-    {
-      "path": "SourceAssets/Materials/ServiceSwitch.hlsl",
-      "sha256": "6ae930d0e8057fb4e3675d8dd9ac167af85f9b57bec518fd7088cce4dbb9aa42",
-      "bytes": 4665
-    },
-    {
-      "path": "Content/Python/author_service_switch.py",
-      "sha256": "af5aebe0eee8de23324d88f6b86430e52a3bd7369e844cdb9d703262e0dacb5a",
-      "bytes": 5036
-    },
-    {
-      "path": "Content/Environment/ServiceBay/M_ServiceSwitch.uasset",
-      "sha256": "02f9560e97e9b87cd15b1f5ab008942416097f2450314dc0f82aeef8741a54cb",
-      "bytes": 16798
-    },
-    {
-      "path": "SourceAssets/Materials/ServicePanel.hlsl",
-      "sha256": "ee23f2410c63b168478d070265e14335fb9b06c4b15d3fe7df50fba16bceef29",
-      "bytes": 2760
-    },
-    {
-      "path": "Content/Python/author_service_panel.py",
-      "sha256": "10aa128d177733de21137456ea606158559dc7696a5c768a3cd73402f57c7e59",
-      "bytes": 5124
-    },
-    {
-      "path": "Content/Environment/ServiceBay/M_ServicePanel.uasset",
-      "sha256": "d1329452aa58130b77f61581e66514c84507575f823b7eaefbfd3be483ef25b1",
-      "bytes": 14799
+      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
+      "existing_binding": "Demo01 objective / native terminal state",
+      "id": "resolution",
+      "landmark_cm": [
+        6500,
+        700,
+        100
+      ],
+      "player_beat": "Finish real remaining combat, observe native objective resolution and hazard/actor state. Success or defeat ends the run; terminal time never counts as active play.",
+      "sequence_order": 7
     }
   ],
-  "first_raw_run": "Build/AAA/D17-01/raw/entry-720-02/observation.json",
-  "acceptance": "INCOMPLETE: continuous duration, full evolving encounter and five major visual groups remain unqualified. Current raw outcomes are bound to package-10; predecessor proof remains historical.",
-  "current_native_build": "Build/AAA/D17-01/build/game-05/result.json",
-  "previous_raw_runs": [
-    "Build/AAA/D17-01/raw/hud-720-01/observation.json",
-    "Build/AAA/D17-01/raw/hud-1080-01/observation.json"
-  ],
-  "current_raw_runs": [
-    "Build/AAA/D17-01/raw/panel-impact-720-01/observation.json",
-    "Build/AAA/D17-01/raw/panel-impact-1080-01/observation.json"
-  ],
-  "current_package_status": "Package-10 replaces uniform orange damage tint with dark coated steel and localized first/latest hit marks. Eleven native methods and all damage gameplay bytes remain identical to package-09 after excluding material bindings. Saved material readback, native/editor builds, cook/archive/install and installed environment checks pass. Candidate art only; no final visual acceptance.",
-  "scope_findings": {
-    "path": "Build/AAA/D17-01/environment/scope-findings.json",
-    "sha256": "299b88183ff139f285511fedfa98d9149dbce3a35a7d4f62495df8408781add2",
-    "bytes": 41490
-  },
-  "current_package": {
-    "package_id": "14b7dd6ec0355c3bf945f5bd06cf04868e392339105b949555a1c16d30c7c888",
-    "archive": {
-      "bytes": 483781613,
-      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-10.tar.zst",
-      "sha256": "b24986bd06b404abb630820dfc5aece3728a6f92779c7e277d94f2bb70ac78e8"
-    },
-    "source_material_digest": "bc4ea67434974873eb6ae68c245909516c839342ad87acf176210a7afa7813a3",
-    "manifest": {
-      "path": "Build/AAA/D17-01/build/package-10/package-manifest.json",
-      "sha256": "02de5c91268cddb61978e1defde3bee02e9ecbf8375e6d7a85657bae0db3b0d7",
-      "bytes": 8669
-    },
-    "overlay": false
-  },
   "route_feasibility_probe": "Build/AAA/D17-01/raw/route-rival-01/observation.json",
-  "observed_route_limits": "The 720p ordinary-input run ended in native Success after 13.70411386800697 active seconds and 13 input actions, recording one bay power transition with no panel damage or electrical-floor damage. Its inspected 12-second and 15-second video frames show approach to the bay and unbroken dark panels beside the abrupt wet-floor edge; they do not show a damaged panel. The 1080p run ended in native Success after 8.804244222992565 active seconds and five input actions, with no bay power, panel or electrical-floor events. Its four-second frame shows the blue player, yellow rival and red infected on a sparse flat road with placeholder focal geometry and oversized HUD panels. Both runs contain native combat events, zero restarts and no captured audio; neither establishes the long-form route or full evolving arena consequence. Later route beats and 600–1200 active seconds remain unqualified.",
-  "previous_service_candidate": {
-    "source_commit": "0242b38e31451f24d51175fc4050172122c28a3a",
-    "package": {
-      "package_id": "1c539e9274baf5ba24ab603d2238dd0cef2069e5030dc8cc1e966622d50892a1",
-      "manifest": {
-        "path": "Build/AAA/D17-01/build/package-02/package-manifest.json",
-        "sha256": "d54c69e75a9792b8d3df714a1a5a4ab59def3a1210b34e5454d1aa00ca47a592",
-        "bytes": 8669
-      },
-      "archive": {
-        "bytes": 481750430,
-        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-02.tar.zst",
-        "sha256": "2fd394366130ae69770c6f7f9a3ab53e48ff5e322fc834012c25ef75cc9c04ad"
-      },
-      "source_material_digest": "7968dc8bab6d64dc0b892aec5f38003a30d441432ed1dd65383284d754fc3621",
-      "overlay": false
-    },
-    "raw_runs": [
-      "Build/AAA/D17-01/raw/service-720-01/observation.json",
-      "Build/AAA/D17-01/raw/service-1080-01/observation.json"
-    ]
+  "schema": "biella.games.d17.scenario/v1",
+  "scope_findings": {
+    "bytes": 41490,
+    "path": "Build/AAA/D17-01/environment/scope-findings.json",
+    "sha256": "299b88183ff139f285511fedfa98d9149dbce3a35a7d4f62495df8408781add2"
   },
-  "current_environment_probe": "Build/AAA/D17-01/raw/panel-impact-720-01/observation.json",
-  "previous_coordinate_candidate": {
-    "source_commit": "5854ebea89bd581418924397bacbfc6ac7612db0",
-    "package": {
-      "package_id": "2742363eb178b6288092d670611742b12cc07089268ab02c54be97165da6d163",
-      "manifest": {
-        "path": "Build/AAA/D17-01/build/package-03/package-manifest.json",
-        "sha256": "fd7789dd868a4025186fd7490579be0c3920d9a8486c7074d45160607fadb063",
-        "bytes": 8669
-      },
-      "archive": {
-        "bytes": 481767476,
-        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-03.tar.zst",
-        "sha256": "51a82c9f37b4079cc5ba21d066112733b1ee6a5fe054e99ab826ec980a63f333"
-      },
-      "source_material_digest": "ad4699e7d244d60e45798063bb32e2537648c4ec2a397564f62265047d0907e1",
-      "overlay": false
-    },
-    "raw_runs": [
-      "Build/AAA/D17-01/raw/service-720-02/observation.json",
-      "Build/AAA/D17-01/raw/service-1080-02/observation.json",
-      "Build/AAA/D17-01/raw/service-interaction-720-01/observation.json",
-      "Build/AAA/D17-01/raw/service-interaction-720-02/observation.json"
-    ],
-    "observed_route_limits": "service-720-02 frame-13 shows the corrected cabinet and service bay from the normal moving camera; no normal-input switch or destruction beat is proven in these two captures. Interior/terrace/return beats remain unproven. Current runs end at 34.112581229710486 and 9.009782609471586 active simulation seconds. The additional service-interaction-720-01 approach missed the switch and ended in player defeat by rival fire at 57.13843510946026 active simulation seconds; no power transition occurred. This longer active attempt still does not qualify the 600–1200 second route."
+  "selection": "Existing open-world entry \u2192 Street01 \u2192 service bay \u2192 interior \u2192 raised terrace \u2192 Street03 \u2192 service-bay return",
+  "selection_reason": "One existing editable map connects accepted traversal, autonomous population combat, player weapon input, interactive power/destruction, streaming and elevation; no new map or mechanic is assumed.",
+  "slice_id": "Biella_ServiceCircuit_01",
+  "start_state": {
+    "ammo": 60,
+    "arena_pressure": "normal game initial Inactive; this attempt observed no natural pressure transitions",
+    "camera": "normal gameplay third-person; no camera cuts or spectator substitution",
+    "health": 100,
+    "objective": "native Demo01 eliminate-all-infected objective, activated by existing mode",
+    "pawn": "ABiellaStreamingCharacter",
+    "population": "current D04 content tuning, default active limits",
+    "session": "fresh native process with fresh user state",
+    "spawn": "D02_PlayerStart"
   },
-  "previous_growth_candidate": {
-    "source_commit": "c24863b0c3c6b555f7871c6c6cb99579a0a0115e",
-    "package": {
-      "package_id": "35ac96d18e521d5dc2623cf335e0342b6673dc86450f2ec5efd2894d69971bd8",
-      "manifest": {
-        "path": "Build/AAA/D17-01/build/package-04/package-manifest.json",
-        "sha256": "01e94698e27f24a61966b75227c7c10d0550e9cd0c921ee9e071080b52c2a71e",
-        "bytes": 8669
-      },
-      "archive": {
-        "bytes": 482094922,
-        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-04.tar.zst",
-        "sha256": "ef762ad9a7d8f4affcd5a2035609cdd1e787cb729bede14d489eaafdb4fdeb1b"
-      },
-      "source_material_digest": "8bb3f4fee666a5d5215cba22e94513538160a8d02a403149e67300d422cf61d8",
-      "overlay": false
-    },
-    "raw_runs": [
-      "Build/AAA/D17-01/raw/growth-hazard-720-01/observation.json",
-      "Build/AAA/D17-01/raw/growth-hazard-1080-01/observation.json"
-    ],
-    "observed_route_limits": "The corrected package-03 input run toggled power and destroyed panel 2 but did not cross its opening. Current growth-hazard-720-01 aligns the player with that opening: power turns on, panel 2 breaks into physics debris and nine electrical-floor pulses apply 27.249 damage. It ends in Success at 46.31332703580847 active seconds. Current 1080p ends at 9.021478963026311 seconds, with rival fire defeating both tracked infected before the bay. Interior/terrace/east-return and 600–1200 active seconds remain unqualified. These attempts do not prove every accepted input route fails."
-  },
-  "previous_sheath_candidate": {
-    "source_commit": "02174657d6e83409c441a928c5b1a029024cec8b",
-    "package": {
-      "package_id": "cfd920b323ed65faf205b81783a2474b15930fef76a3ab99f1a1a7341a941048",
-      "manifest": {
-        "path": "Build/AAA/D17-01/build/package-05/package-manifest.json",
-        "sha256": "7160f3f67cd2caca349a3632a89e02393bb6db0ea34240e4af39822a7f899e7b",
-        "bytes": 8669
-      },
-      "archive": {
-        "bytes": 482834812,
-        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-05.tar.zst",
-        "sha256": "f5ce5ff65fa17f52e203424c2cfb8bb62dcecaaff241b37fab243ae9595db391"
-      },
-      "source_material_digest": "eb7b0019442dbdcf6640659be10bec2bb87e5a712ad957ea6e79bf58d9fc155a",
-      "overlay": false
-    },
-    "raw_runs": [
-      "Build/AAA/D17-01/raw/sheath-hazard-720-01/observation.json",
-      "Build/AAA/D17-01/raw/sheath-hazard-1080-01/observation.json"
-    ],
-    "input_timing_probe": "Build/AAA/D17-01/raw/sheath-hazard-720-02/observation.json"
-  },
-  "previous_ground_candidate": {
-    "source_commit": "51811365a77cde9f45a8733a663a649c57766df9",
-    "package": {
-      "package_id": "e4020d739f936bf18059147b3e91e0dabc54769fad206db3fa775f34c850a429",
-      "archive": {
-        "bytes": 483543613,
-        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-06.tar.zst",
-        "sha256": "f52825560b4e5fab242cf88b43afb12fd4453ba6cb4be6f54b96f59bfe2d7d5f"
-      },
-      "source_material_digest": "7651f19b69b25feebd119f77db1629eab164540ee7c1ddaa00ea0743830ebf48",
-      "manifest": {
-        "path": "Build/AAA/D17-01/build/package-06/package-manifest.json",
-        "sha256": "d548c4adea7d3eda3d95ab15192c10241aaf43c9848bf9ad815a80252a2bb383",
-        "bytes": 8669
-      },
-      "overlay": false
-    },
-    "raw_runs": [
-      "Build/AAA/D17-01/raw/wet-floor-720-01/observation.json",
-      "Build/AAA/D17-01/raw/wet-floor-1080-01/observation.json"
-    ]
-  },
-  "previous_smooth_candidate": {
-    "source_commit": "fdad60240ebd296e95a593789cc0fb8ed7716124",
-    "package": {
-      "package_id": "2045bc24f85a3358cf5d6b55df69b34831e86cfebd88b09b2300bf94da9dd4a7",
-      "archive": {
-        "bytes": 483664602,
-        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-07.tar.zst",
-        "sha256": "852766ae5ecf2a53238b9536f90730e1dfcd5fbabf155d1df99f28ca438f1b0e"
-      },
-      "source_material_digest": "3ad39b6aae773f4149288d87ae2baf838884c981dac8ec1d2c06db3e84356012",
-      "manifest": {
-        "path": "Build/AAA/D17-01/build/package-07/package-manifest.json",
-        "sha256": "655ef8d8ea019829c077b73c137a1643769d575400ae3eeb6b2af00c465bf24e",
-        "bytes": 8669
-      },
-      "overlay": false
-    },
-    "raw_runs": [
-      "Build/AAA/D17-01/raw/smooth-floor-720-01/observation.json",
-      "Build/AAA/D17-01/raw/smooth-floor-1080-01/observation.json"
-    ]
-  },
-  "floor_material_diagnosis": "Build/AAA/D17-01/environment/floor-diagnosis.json",
-  "previous_integer_candidate": {
-    "source_commit": "ef771a62b993fc4fa1718ff9ae21f447c7cabe45",
-    "package": {
-      "package_id": "2b327215c81c8cb7186be4490daac1f9362799abfc34219f6730d809d0384949",
-      "archive": {
-        "bytes": 483686863,
-        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-08.tar.zst",
-        "sha256": "1a7df8cc72ba9b70d7b99b22f3f4e1dfe059eb65dbca5c81263083f5e3945108"
-      },
-      "source_material_digest": "2f7a047eae0d59b8010913aa0e58fc5e2f2cb13940988578ca641c3f64b0f5e2",
-      "manifest": {
-        "path": "Build/AAA/D17-01/build/package-08/package-manifest.json",
-        "sha256": "cadf249cc1c68368a6d964d34f552c19e9f406411664185c8d5506a7807ad115",
-        "bytes": 8669
-      },
-      "overlay": false
-    },
-    "raw_runs": [
-      "Build/AAA/D17-01/raw/integer-floor-720-01/observation.json",
-      "Build/AAA/D17-01/raw/integer-floor-1080-01/observation.json"
-    ],
-    "observed_route_limits": "Package-08 720p reaches native Success at 15.935191704833414 active seconds after approaching the bay. Its 21 ordinary inputs include an interaction attempt and three shots, without a native power transition, panel event or electrical-floor damage. The 1080p run shows player/rival/infected at entry and reaches Success at 8.907017945253756 seconds. Interior/terrace/east-return and 600–1200 active seconds remain unqualified. Historical package-04 consequence retains its exact source/package identity."
-  },
+  "status": "CANDIDATE_NOT_QUALIFIED",
   "switch_material_validation": "Build/AAA/D17-01/environment/switch-material-validation.json",
-  "previous_switch_candidate": {
-    "source_commit": "8236b5b4bbbdafb8499babb4f95b9dd80dfc32b0",
-    "package": {
-      "package_id": "a82f366731d941c0eaf874023cdb2f2a5e8c4384d3d2ad9fc7753535c0a07f84",
-      "archive": {
-        "bytes": 483768774,
-        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-09.tar.zst",
-        "sha256": "436986e5bc42da2f2451af56ebb546d66d347b58c3dc4322d05fe1f370af08d0"
-      },
-      "source_material_digest": "9bc0db2be19630e62acb17dd1df2406d798e6e6ecfb415bd2505f73e58f056a6",
-      "manifest": {
-        "path": "Build/AAA/D17-01/build/package-09/package-manifest.json",
-        "sha256": "263679222bd151e9bda4db4e0deed44d9ca0f2d749ce65bd08db625459e26bce",
-        "bytes": 8669
-      },
-      "overlay": false
-    },
-    "raw_runs": [
-      "Build/AAA/D17-01/raw/switch-face-720-01/observation.json",
-      "Build/AAA/D17-01/raw/switch-face-1080-01/observation.json"
-    ],
-    "observed_route_limits": "Package-09 720p reaches native Success at 18.31323491682997 active seconds after approaching the bay. Its 23 ordinary inputs include interaction and fire attempts but produce no native power transition, panel event or electrical-floor damage. The 1080p run shows player/rival/infected at entry and reaches Success at 8.814891465881374 seconds. Interior/terrace/east-return and 600–1200 active seconds remain unqualified. Historical package-04 consequence retains its exact source/package identity."
-  },
-  "panel_material_validation": {
-    "path": "Build/AAA/D17-01/environment/panel-material-validation.json",
-    "sha256": "f12dc522c4c7004b0f77a62dc1069c27bc01dc79f03c6101891398ada27f677e",
-    "bytes": 7455
-  }
+  "task_id": "D17-01",
+  "timing_status": "UNQUALIFIED: 600\u20131200 seconds is the required active-play duration, not an implemented or measured route budget. Raw attempts reach terminal state much earlier."
 }

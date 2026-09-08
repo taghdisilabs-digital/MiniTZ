@@ -1,0 +1,8 @@
+{"event": "capture_started", "elapsed_seconds": 3.720051608979702e-06, "window": "2097243"}
+{"event": "input_sent", "elapsed_seconds": 0.01898358401376754, "planned_at": 0, "input_clock_seconds": 0.018976074061356485, "input": ["keydown", "w"], "intended_beat": "Advance from the native start state"}
+{"event": "input_sent", "elapsed_seconds": 0.1423013110179454, "planned_at": 0.1, "input_clock_seconds": 0.14229462097864598, "input": ["keydown", "Shift_L"], "intended_beat": "Use normal sprint control"}
+{"event": "input_sent", "elapsed_seconds": 0.25928010302595794, "planned_at": 0.2, "input_clock_seconds": 0.259274412994273, "input": ["keydown", "a"], "intended_beat": "Pass left of initial encounter"}
+{"event": "input_sent", "elapsed_seconds": 2.2258471259847283, "planned_at": 2.2, "input_clock_seconds": 2.2258417460834607, "input": ["keyup", "a"], "intended_beat": "Continue along the street"}
+{"event": "input_sent", "elapsed_seconds": 7.030763064976782, "planned_at": 7, "input_clock_seconds": 7.030756514985114, "input": ["keyup", "Shift_L"], "intended_beat": "Approach service bay at walking speed"}
+{"event": "native_terminal_observed", "elapsed_seconds": 11.653788079041988}
+{"event": "capture_finished", "elapsed_seconds": 25.155491334036924, "result": {"status": "CAPTURED", "reason": "native_terminal_state", "audio_capture": false, "input_delivery": "X11 keyboard/mouse", "world_mutation_or_automation_tests": false, "input_time_origin": "capture_started", "measured_input_run_seconds": 11.653864781023003, "actions_sent": 5, "game_alive_at_capture_end": true, "recorder_returncode": 255, "game_returncode": 0}}
