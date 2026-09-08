@@ -1,0 +1,58 @@
+{
+  "schema": "biella.task_resource_observation/v1",
+  "task_id": "D08-01",
+  "observed_utc": "2026-09-08T07:21:53.120787+00:00",
+  "observation_only": true,
+  "acceptance_changed": false,
+  "compatible_win64_runtime_verified": false,
+  "windows_node": {
+    "device_id": "43ad83f1-0d3d-4e9a-9c9e-5abd32b6206f",
+    "device_name": "WIN-P7MA35DRF6Q",
+    "os": "Microsoft Windows Server 2022 Standard 10.0.20348",
+    "logical_processors": 6,
+    "total_memory_kib": 16776672,
+    "volume": "C:",
+    "volume_size_bytes": 53686038528,
+    "free_bytes": 2169950208,
+    "registry_build_tools": {
+      "name": "Visual Studio Build Tools 2026",
+      "version": "18.9.0",
+      "compiler_execution_verified": false
+    },
+    "registry_sdk": {
+      "name": "Windows Software Development Kit - Windows 10.0.26100.8249",
+      "version": "10.1.26100.8249",
+      "include_version": "10.0.26100.0"
+    },
+    "graphics_adapters": [
+      "Microsoft Remote Display Adapter",
+      "Microsoft Basic Display Adapter"
+    ],
+    "hardware_gpu_exposed": false,
+    "unreal_registration_found": false,
+    "unreal_standard_programfiles_installation_found": false,
+    "unreal_custom_location": "UNKNOWN",
+    "checked_scope": [
+      "Unreal registry installation records",
+      "ProgramFiles and ProgramFilesX86 Epic Games directories",
+      "Uninstall registry for build tools/SDK",
+      "Windows Kits includes",
+      "CIM logical disk and display adapters"
+    ]
+  },
+  "interpretation": [
+    "Installed build-tool/SDK registry records are not a proven Unreal compile or runtime. Missing MSBuild from PATH does not justify reinstalling an existing toolchain.",
+    "The browser/deployment node was not verified as a Win64 game-build/render Resource. No Unreal installation was found in the checked locations and only 2169950208 bytes were free.",
+    "This observation does not accept Linux output as a Win64 release or change game quality/platform requirements."
+  ],
+  "continuation": [
+    "Reuse valid D07 evidence and committed source; perform only D08 package-specific missing work.",
+    "Prepare manifests, incremental package recipe, dependency/update checks and existing Linux diagnostic package paths while locating an actually compatible Windows Resource.",
+    "Reobserve the exact required boundary after a material resource change or immediately before using that Resource. Do not repeatedly rediscover or reinstall unchanged tools."
+  ],
+  "source_identity_at_observation": {
+    "repo": "patrickminitz-web/biella-engine",
+    "commit": "449714de5393f71d2a205fd7f9b5714321b71d43",
+    "identity_role": "PROVENANCE_NOT_ROLLBACK_TARGET"
+  }
+}

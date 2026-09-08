@@ -117,7 +117,7 @@
         },
         {
           "path": "projects/biella-games/docs/task-guides/D07-01.md",
-          "sha256": "e44f6de6f543aca772cf62fdebde0d45a147989126d86a23c2f1d23d711819ff",
+          "sha256": "f79f11e10f01d809a612c8ffb8359d1041f3b1b601c2ea0fadc39535bffdde6f",
           "selected_sections": [
             "Objective",
             "Evidence required"
@@ -160,7 +160,7 @@
         },
         {
           "path": "projects/biella-games/docs/task-guides/D08-01.md",
-          "sha256": "6f37d1e4c12f0c0baabd116305f977e67837260974df2626233436b742db2a1e",
+          "sha256": "d094ee37ee7331c125fc24fd884a7c99b6ae579ce375e22392c41b750542d64a",
           "selected_sections": [
             "Objective",
             "Authorized project-local output names",
@@ -185,7 +185,12 @@
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
       "production_ordinal": 60,
-      "priority": 1
+      "priority": 1,
+      "resource_observation": {
+        "path": "projects/biella-games/Build/Release/D08-01/D08-01-resource-observation.json",
+        "sha256": "8e7092189c4fd8843aaf55c93e8f9803d91fe1cd99e65dd896103f7cdf368e72",
+        "role": "TIMESTAMPED_OBSERVATION_NOT_ACCEPTANCE"
+      }
     },
     {
       "ordinal": 5,

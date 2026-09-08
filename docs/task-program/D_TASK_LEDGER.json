@@ -1734,7 +1734,7 @@
               "Objective",
               "Evidence required"
             ],
-            "sha256": "e44f6de6f543aca772cf62fdebde0d45a147989126d86a23c2f1d23d711819ff"
+            "sha256": "f79f11e10f01d809a612c8ffb8359d1041f3b1b601c2ea0fadc39535bffdde6f"
           }
         ],
         "validation": "- Reproducible scenario manifest and raw machine-readable traces.\n- Frame-time distribution and worst/recurring hitches, not average FPS alone.\n- CPU/GPU/RAM/VRAM/resource context.\n- Streaming/LOD/culling correctness under motion.\n- Crash/hang/assert diagnostic pipeline with encountered failures retained.\n- Clear list of unresolved production risks tied to exact evidence."
@@ -1779,7 +1779,7 @@
               "Accepted delivery decisions",
               "Current resource reality"
             ],
-            "sha256": "6f37d1e4c12f0c0baabd116305f977e67837260974df2626233436b742db2a1e"
+            "sha256": "d094ee37ee7331c125fc24fd884a7c99b6ae579ce375e22392c41b750542d64a"
           }
         ],
         "validation": "1. Clean dependency/content validation, including a bounded missing/incompatible-content negative case.\n2. Produce exact package with source/tree/config/content identity.\n3. Launch outside editor through intended entry point.\n4. Exercise real input/player/camera/gameplay, rivals/infected/pressure, current world/interactions, rendering/audio/VFX, save/settings reconstruction where implemented.\n5. Review fatal/assert/content-load diagnostics and package-specific resource/performance evidence.\n6. For update support, prove exact old-build -> update -> launch -> supported settings/save compatibility plus incomplete/incompatible update failure handling.\n7. Record known exclusions/limitations; do not invent store, launcher, certification, patch cadence or live-service requirements.\n\nOne exact packaged build must pass the current approved gameplay, production, stability and evidence contracts appropriate to its platform. Package command success alone is insufficient."

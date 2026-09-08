@@ -74,6 +74,8 @@ Required flow:
 
 ## 003. D07-01 — Full performance, stability, and scalability qualification
 
+**Exact input lookup.** `docs/runtime-contracts/AAA_TPP_RUNTIME_CONTRACTS_11_20.md` (sections 17 (performance/frame pacing) and 18 (streaming/residency)); `docs/runtime-contracts/AAA_TPP_RUNTIME_CONTRACTS_40_49.md` (sections 40–49 (measurement, diagnostics and runtime quality)). Section numbers are not filenames.
+
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D03-01, D04-01, D05-01, D06-01
 
 **Objective.** Qualify the representative current game with measured runtime evidence. Do not invent FPS/resolution/RAM/VRAM/latency thresholds: current technical decisions explicitly leave those target tiers `UNKNOWN`. The task still measures and reports current behavior and production risks.
@@ -99,9 +101,13 @@ Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` ·
 - Crash/hang/assert diagnostic pipeline with encountered failures retained.
 - Clear list of unresolved production risks tied to exact evidence.
 
-**Source records.** `docs/task-program/D00_D08_ENGINE_GAMES.md` (SHA-256 `efd80e6b05a4cced5ff47d958c3ceaf1ba324e676033fea1c16e832af2a1d3fb`); `projects/biella-games/docs/task-guides/D07-01.md` (SHA-256 `e44f6de6f543aca772cf62fdebde0d45a147989126d86a23c2f1d23d711819ff`)
+**Source records.** `docs/task-program/D00_D08_ENGINE_GAMES.md` (SHA-256 `efd80e6b05a4cced5ff47d958c3ceaf1ba324e676033fea1c16e832af2a1d3fb`); `projects/biella-games/docs/task-guides/D07-01.md` (SHA-256 `f79f11e10f01d809a612c8ffb8359d1041f3b1b601c2ea0fadc39535bffdde6f`)
 
 ## 004. D08-01 — Delivery, update, and release-candidate qualification
+
+**Exact input lookup.** `docs/runtime-contracts/AAA_TPP_RUNTIME_CONTRACTS_21_23.md` (sections 23 (packaging, launch and play-test evidence)); `docs/runtime-contracts/AAA_TPP_RUNTIME_CONTRACTS_50_59.md` (sections 55 (content compatibility), 58 (updates/save compatibility), 59 (release candidate)). Section numbers are not filenames.
+
+**Resource handoff.** Read `Build/Release/D08-01/D08-01-resource-observation.json`; reuse already installed tools and continue independent preparation. No accepted platform or quality requirement is removed.
 
 Lane: **Games** · Priority: **1** · Execution root: `projects/biella-games` · Dependencies: D07-01
 
@@ -130,7 +136,7 @@ One exact packaged build must pass the current approved gameplay, production, st
 
 The canonical Linux UE 5.8.2 VPS has previously reported Win64 SDK as unavailable. At D08 start, reobserve current package resources. Do not silently call a Linux package the final accepted Win64 release candidate. If Win64 remains unavailable on the current Resource, classify it `REQUIRES_OTHER_RESOURCE` and continue every platform-neutral preparation/validation that does not require Win64 while routing the final package step to an actually observed compatible Resource.
 
-**Source records.** `docs/task-program/D00_D08_ENGINE_GAMES.md` (SHA-256 `efd80e6b05a4cced5ff47d958c3ceaf1ba324e676033fea1c16e832af2a1d3fb`); `projects/biella-games/docs/task-guides/D08-01.md` (SHA-256 `6f37d1e4c12f0c0baabd116305f977e67837260974df2626233436b742db2a1e`)
+**Source records.** `docs/task-program/D00_D08_ENGINE_GAMES.md` (SHA-256 `efd80e6b05a4cced5ff47d958c3ceaf1ba324e676033fea1c16e832af2a1d3fb`); `projects/biella-games/docs/task-guides/D08-01.md` (SHA-256 `d094ee37ee7331c125fc24fd884a7c99b6ae579ce375e22392c41b750542d64a`)
 
 ## 005. D15-01 — Lock authoritative predecessor closure set
 
