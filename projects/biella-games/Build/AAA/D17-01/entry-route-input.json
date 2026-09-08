@@ -1,0 +1,19 @@
+{
+  "schema": "biella.d17.raw_input_plan/v1",
+  "task_id": "D17-01",
+  "scope": "First normal-input entry and street traversal probe. Intended beats are not observed outcomes.",
+  "actions": [
+    {"at": 0, "input": ["keydown", "w"], "beat": "leave entry under real encounter pressure"},
+    {"at": 0.1, "input": ["keydown", "Shift_L"], "beat": "sprint along accepted street"},
+    {"at": 0.2, "input": ["keydown", "a"], "beat": "evade initial infected"},
+    {"at": 2.2, "input": ["keyup", "a"], "beat": "continue east"},
+    {"at": 7.0, "input": ["keyup", "Shift_L"], "beat": "walking street inspection"},
+    {"at": 13.0, "input": ["keyup", "w"], "beat": "observe street population"},
+    {"at": 13.1, "input": ["mousedown", "1"], "beat": "real weapon response"},
+    {"at": 14.0, "input": ["mouseup", "1"], "beat": "release trigger"},
+    {"at": 15.0, "input": ["keydown", "w"], "beat": "continue toward environment site"},
+    {"at": 22.0, "input": ["keydown", "d"], "beat": "north approach toward environment site"},
+    {"at": 24.0, "input": ["keyup", "d"], "beat": "continue east"},
+    {"at": 29.0, "input": ["keyup", "w"], "beat": "inspect normal gameplay composition"}
+  ]
+}

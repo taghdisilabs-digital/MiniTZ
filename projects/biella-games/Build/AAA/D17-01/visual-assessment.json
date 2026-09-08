@@ -1,0 +1,23 @@
+{
+  "task_id": "D17-01",
+  "status": "REJECTED_CURRENT_CANDIDATE",
+  "method": "Direct inspection of decoded frames from the task's unedited normal-camera runtime captures; source/build/input/telemetry retained separately",
+  "baseline_frame": "raw/entry-720-02/frame-13.png",
+  "current_frames": ["raw/hud-720-01/frame-13.png", "raw/hud-1080-01/frame-04.png"],
+  "improved_boundary": "Upper objective and status panels occupy less of the viewport; objective, health, ammunition and threats remain readable in inspected frames. Existing native behavior regressions passed.",
+  "major_defects": [
+    {"id": "focal_art", "finding": "Blue/yellow/red mannequin presentation, primitive infected body and block-like weapon remain in the focal encounter."},
+    {"id": "world_density", "finding": "Broad empty road, repeated facades and box-shaped service structure lack dense industrial layers and authored depth."},
+    {"id": "materials", "finding": "Road and structures remain flat and dry-looking; wetness, wear, material separation and coherent reflected light are missing."},
+    {"id": "infection", "finding": "No visible organic infection invades engineered structures. Red actor colors do not satisfy this requirement."},
+    {"id": "lighting", "finding": "Clear daylight and exposed sky do not provide the required cold storm atmosphere with motivated warm practical task lights."}
+  ],
+  "unproven": [
+    "No arena-pressure consequence was reached in a raw run.",
+    "Interior, terrace and east-return beats were not reached before terminal state.",
+    "HUD occlusion during the required later dense combat/pressure states remains unqualified.",
+    "No final temporal-quality or raw audio qualification is claimed."
+  ],
+  "zero_major_defects": false,
+  "scope": "Preserves accepted mechanics evidence; rejects current final visual quality. Does not reopen predecessor task acceptance."
+}

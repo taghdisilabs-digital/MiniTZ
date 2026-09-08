@@ -1,0 +1,197 @@
+{
+  "schema": "biella.games.d17.scenario/v1",
+  "task_id": "D17-01",
+  "slice_id": "Biella_ServiceCircuit_01",
+  "status": "CANDIDATE_NOT_QUALIFIED",
+  "candidate_status": "GENERATED_DRAFT",
+  "selection": "Existing open-world entry \u2192 Street01 \u2192 service bay \u2192 interior \u2192 raised terrace \u2192 Street03 \u2192 service-bay return",
+  "selection_reason": "One existing editable map connects accepted traversal, autonomous population combat, player weapon input, interactive power/destruction, streaming and elevation; no new map or mechanic is assumed.",
+  "map": "/Game/Maps/BiellaOpenWorldMap",
+  "duration_contract_seconds": [
+    600,
+    1200
+  ],
+  "timing_status": "UNQUALIFIED: 600\u20131200 seconds is the required active-play duration, not an implemented or measured route budget. Raw attempts reach terminal state much earlier.",
+  "start_state": {
+    "session": "fresh native process with fresh user state",
+    "pawn": "ABiellaStreamingCharacter",
+    "spawn": "D02_PlayerStart",
+    "health": 100,
+    "ammo": 60,
+    "objective": "native Demo01 eliminate-all-infected objective, activated by existing mode",
+    "population": "current D04 content tuning, default active limits",
+    "arena_pressure": "normal game initial Inactive; this attempt observed no natural pressure transitions",
+    "camera": "normal gameplay third-person; no camera cuts or spectator substitution"
+  },
+  "route": [
+    {
+      "id": "entry",
+      "landmark_cm": [
+        0,
+        0,
+        88
+      ],
+      "existing_binding": "D02_PlayerStart",
+      "player_beat": "Read player, initial rival and infected while evading/engaging with normal over-shoulder controls. Keep traversal continuous.",
+      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
+      "sequence_order": 1
+    },
+    {
+      "id": "street_population",
+      "landmark_cm": [
+        4000,
+        0,
+        100
+      ],
+      "existing_binding": "D04.Encounter.StreetPopulation / Street01",
+      "player_beat": "Traverse the existing street; engage autonomous rival/infected population, use existing cover and observe resulting health/ammunition/state.",
+      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
+      "sequence_order": 2
+    },
+    {
+      "id": "service_bay",
+      "landmark_cm": [
+        6500,
+        700,
+        100
+      ],
+      "existing_binding": "D02Environment01",
+      "player_beat": "Approach the existing switch from the west, press E when the actual prompt appears, observe powered hazard; damage a panel with real shots and traverse the resulting opening.",
+      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
+      "sequence_order": 3
+    },
+    {
+      "id": "interior",
+      "landmark_cm": [
+        8000,
+        2250,
+        100
+      ],
+      "existing_binding": "D02_Interior_Floor",
+      "player_beat": "Enter through the south doorway at x7800\u20138200,y1500, inspect interior sight lines and return through the same physical opening.",
+      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
+      "sequence_order": 4
+    },
+    {
+      "id": "terrace",
+      "landmark_cm": [
+        10000,
+        3500,
+        500
+      ],
+      "existing_binding": "D02_Terrace_Ramp / D02_Terrace_Floor",
+      "player_beat": "Walk the 4 m rise along the ramp from y1000 to 3000, observe the ground encounter from normal third-person camera, then descend.",
+      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
+      "sequence_order": 5
+    },
+    {
+      "id": "east_return",
+      "landmark_cm": [
+        12000,
+        0,
+        100
+      ],
+      "existing_binding": "D04.Encounter.StreetPopulation / Street03",
+      "player_beat": "Engage the next existing streamed population and return along the navigable street without teleportation. Use the already implemented vehicle only if reached normally and available.",
+      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
+      "sequence_order": 6
+    },
+    {
+      "id": "resolution",
+      "landmark_cm": [
+        6500,
+        700,
+        100
+      ],
+      "existing_binding": "Demo01 objective / native terminal state",
+      "player_beat": "Finish real remaining combat, observe native objective resolution and hazard/actor state. Success or defeat ends the run; terminal time never counts as active play.",
+      "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
+      "sequence_order": 7
+    }
+  ],
+  "end_state": {
+    "valid": "native objective success or player defeat, with real final actor/health/mission state recorded",
+    "qualification": "All required beats and 600\u20131200 seconds of meaningful active gameplay must precede the terminal state. A shorter success is still a duration failure.",
+    "observed_first_run": "Success at sim_seconds 34.104978772753384; movement/look ignored, so later beats are not proven."
+  },
+  "prohibited_substitutions": [
+    "forced pressure values",
+    "actor teleportation",
+    "invulnerability/health or ammo resets",
+    "AI dormancy manipulation",
+    "fixture-spawned encounter",
+    "restart stitching",
+    "time dilation",
+    "idle/terminal footage used to pad duration",
+    "cinematic/render-only substitute"
+  ],
+  "owner_visual_direction": {
+    "source": "docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+    "industrial": "dense, vertically layered steel/concrete arena and plausible engineered connections",
+    "surfaces": "wet ground, differentiated PBR wear/moisture/roughness",
+    "infection": "red bioluminescent organic invasion of structures, responding coherently to gameplay",
+    "lighting": "cold storm atmosphere, warm motivated task lights",
+    "readability": "distinct player/rival/infected and arena consequence from moving over-shoulder camera; compact live HUD",
+    "identity": "Biella-owned expression; no copied reference names, logos, slogans or HUD text"
+  },
+  "baseline_package": {
+    "package_id": "fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c",
+    "manifest": {
+      "path": "Build/Release/D08-01/package-manifest.json",
+      "sha256": "48cedd56873c9abbc62c0708872066036733bfd4c3e58cd0cbebe5e1d5572770",
+      "bytes": 8665
+    },
+    "platform": "Linux",
+    "configuration": "Development",
+    "scope": "existing diagnostic package only; D08 Win64 status unchanged"
+  },
+  "editable_bindings": [
+    {
+      "path": "Content/Python/author_open_world.py",
+      "sha256": "e8ec9e3031f4117b3c75bc3c537865d25846c19d2c9b58c3505bab80739cf927",
+      "bytes": 20451
+    },
+    {
+      "path": "Content/Maps/BiellaOpenWorldMap.umap",
+      "sha256": "5aa72a66492ec13ac2ba460bba391b0370003852ab2a413a27c051c95f2a4908",
+      "bytes": 13330
+    },
+    {
+      "path": "Content/Data/D04/D04-01-content.json",
+      "sha256": "14581c67dfcc5237e3e837d5c52112d8318206c235098f4de35d41999fa26020",
+      "bytes": 2647
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaWorldContinuity.cpp",
+      "sha256": "51df4ea55e9f63c838f65b6a0148c116019cb7fcca6a3ce7b89b3cc10e22594c",
+      "bytes": 17015
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaDemoObjectiveManager.cpp",
+      "sha256": "c51037e42a20c8100519c0e3bbba6f6a4dd665bab401d9ac99107669540d729a",
+      "bytes": 6907
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGamesGameModeBase.cpp",
+      "sha256": "93b371b4f14ceb12f43d07dc6c7c51441a1ae148b857f1dab168f4c223433e35",
+      "bytes": 15319
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGamesPlayerController.cpp",
+      "sha256": "7ce6872b8449f6bb39516a2927be1ae054978789f2f669779e165334f9e59bbd",
+      "bytes": 10278
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaEnvironmentSite.cpp",
+      "sha256": "2e2b28fb962fdaa5d73cbc7142dec7885c19f160d7ae33ba5651b2a7acfc3dd9",
+      "bytes": 12306
+    }
+  ],
+  "first_raw_run": "Build/AAA/D17-01/raw/entry-720-02/observation.json",
+  "acceptance": "INCOMPLETE: observed native terminal prevents the duration/route contract; pressure consequence and zero-major visual quality are unproven or failing. Scenario timing is not proof.",
+  "current_native_build": "Build/AAA/D17-01/build/game-01/result.json",
+  "current_raw_runs": [
+    "Build/AAA/D17-01/raw/hud-720-01/observation.json",
+    "Build/AAA/D17-01/raw/hud-1080-01/observation.json"
+  ]
+}

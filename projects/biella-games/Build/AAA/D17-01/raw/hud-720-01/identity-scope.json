@@ -1,0 +1,6 @@
+{
+  "package_verification_scope": "package-verification.json verifies the unchanged base installation only. It does not describe the native HUD delta mounted over it.",
+  "actual_runtime": "resolved-package.json plus exposed-package-verification.json identify the exact launched composite payload.",
+  "source": "native-source.json hashes current editable inputs and the passing native build.",
+  "platform": "Linux Development Vulkan diagnostic runtime; not Win64 Shipping."
+}

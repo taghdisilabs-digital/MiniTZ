@@ -1,0 +1,135 @@
+{
+  "behavior": [
+    "[2026.09.08-12.33.09:180][271]LogTemp: Display: D01_037_TEST PASS phase=runtime_binding health=75.0 ammo=59 countdown=1 objective_progress=1/2 objective=Eliminate all infected.",
+    "[2026.09.08-12.33.09:180][271]LogTemp: Display: D01_037_TEST COMPLETE widget=BiellaGameplayHUD source=authoritative_runtime health=75.0 ammo=59 countdown=1 objective_progress=1/2 phase=1"
+  ],
+  "host": {
+    "cgroup_limits": {
+      "cpu.max": "max 100000",
+      "cpuset.cpus.effective": "0-14",
+      "memory.max": "max"
+    },
+    "clock_ticks_per_second": 100,
+    "cpu": "AMD EPYC 9124 16-Core Processor",
+    "cpu_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "gpus": [
+      {
+        "driver": "580.178.04",
+        "memory_utilization_percent": 0.0,
+        "name": "NVIDIA L40S",
+        "power_w": 84.03,
+        "processes": [
+          {
+            "name": "/usr/local/lib/ollama/llama-server",
+            "pid": 3098977,
+            "type": "C",
+            "used_memory": "26952 MiB"
+          }
+        ],
+        "pstate": "P0",
+        "sm_clock_mhz": 2520.0,
+        "temperature_c": 45.0,
+        "utilization_percent": 0.0,
+        "uuid": "GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5",
+        "vram_total_mib": 46068.0,
+        "vram_used_mib": 26962.0
+      }
+    ],
+    "logical_cpus": 15,
+    "memory_kib": {
+      "Active": 41948324,
+      "Active(anon)": 1396332,
+      "Active(file)": 40551992,
+      "AnonHugePages": 0,
+      "AnonPages": 2222236,
+      "Bounce": 0,
+      "Buffers": 333488,
+      "Cached": 71130276,
+      "CommitLimit": 78805180,
+      "Committed_AS": 5988528,
+      "DirectMap1G": 4194304,
+      "DirectMap2M": 73988096,
+      "DirectMap4k": 13977452,
+      "Dirty": 424,
+      "FileHugePages": 0,
+      "FilePmdMapped": 0,
+      "HardwareCorrupted": 0,
+      "HugePages_Free": 0,
+      "HugePages_Rsvd": 0,
+      "HugePages_Surp": 0,
+      "HugePages_Total": 0,
+      "Hugepagesize": 2048,
+      "Hugetlb": 0,
+      "Inactive": 31714560,
+      "Inactive(anon)": 861596,
+      "Inactive(file)": 30852964,
+      "KReclaimable": 3125316,
+      "KernelStack": 10528,
+      "Mapped": 43353164,
+      "MemAvailable": 86153248,
+      "MemFree": 12544568,
+      "MemTotal": 90501504,
+      "Mlocked": 27448,
+      "NFS_Unstable": 0,
+      "PageTables": 118960,
+      "Percpu": 13376,
+      "SReclaimable": 3125316,
+      "SUnreclaim": 438788,
+      "SecPageTables": 0,
+      "Shmem": 50052,
+      "ShmemHugePages": 0,
+      "ShmemPmdMapped": 0,
+      "Slab": 3564104,
+      "SwapCached": 10636,
+      "SwapFree": 33466780,
+      "SwapTotal": 33554428,
+      "Unaccepted": 0,
+      "Unevictable": 27448,
+      "VmallocChunk": 0,
+      "VmallocTotal": 13743895347199,
+      "VmallocUsed": 194392,
+      "Writeback": 0,
+      "WritebackTmp": 0,
+      "Zswap": 0,
+      "Zswapped": 0
+    },
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39"
+  },
+  "native_delta": {
+    "bytes": 299181888,
+    "path": "/root/biella/artifacts/games/D17-01/18b3b98320acee0aa957adc09426bf858d0ae536010ce373d12f5459c69c16b7/BiellaGames",
+    "sha256": "18b3b98320acee0aa957adc09426bf858d0ae536010ce373d12f5459c69c16b7"
+  },
+  "observed": "2026-09-08T12:32:58.736681+00:00",
+  "resolved_package": {
+    "bytes": 8541,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hud-720-01/resolved-package.json",
+    "sha256": "26a5f582a0cb7b378c86af6d36745f619eb6e9b832d7fecca17b07700e12e43a"
+  },
+  "result": "PASS",
+  "runner": {
+    "bytes": 5977,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d17_01_hud_regression.py",
+    "sha256": "2f53fd57d3f0ab2caef6a09c82e31717ac08234b2258d2fd97e0e5461b2807dc"
+  },
+  "runtime_id": "437324abd08c8ba045891dd970f77047bd13f2e090b4348955dac3059307fcbf",
+  "scope": "Existing fixture-based HUD regression; not raw slice proof",
+  "task_id": "D17-01",
+  "test": "BiellaGames.Demo01.GameplayHUD"
+}

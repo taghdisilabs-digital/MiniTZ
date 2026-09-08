@@ -1,0 +1,15 @@
+{"event": "capture_started", "elapsed_seconds": 3.310968168079853e-06, "window": "2097243"}
+{"event": "input_sent", "elapsed_seconds": 0.025341778004076332, "planned_at": 0, "input": ["keydown", "w"], "intended_beat": "leave entry under real encounter pressure"}
+{"event": "input_sent", "elapsed_seconds": 0.14843050099443644, "planned_at": 0.1, "input": ["keydown", "Shift_L"], "intended_beat": "sprint along accepted street"}
+{"event": "input_sent", "elapsed_seconds": 0.27461342996684834, "planned_at": 0.2, "input": ["keydown", "a"], "intended_beat": "evade initial infected"}
+{"event": "input_sent", "elapsed_seconds": 2.249215600953903, "planned_at": 2.2, "input": ["keyup", "a"], "intended_beat": "continue east"}
+{"event": "input_sent", "elapsed_seconds": 7.051620387006551, "planned_at": 7.0, "input": ["keyup", "Shift_L"], "intended_beat": "walking street inspection"}
+{"event": "input_sent", "elapsed_seconds": 13.027263422962278, "planned_at": 13.0, "input": ["keyup", "w"], "intended_beat": "observe street population"}
+{"event": "input_sent", "elapsed_seconds": 13.132681980961934, "planned_at": 13.1, "input": ["mousedown", "1"], "intended_beat": "real weapon response"}
+{"event": "input_sent", "elapsed_seconds": 14.01797148596961, "planned_at": 14.0, "input": ["mouseup", "1"], "intended_beat": "release trigger"}
+{"event": "input_sent", "elapsed_seconds": 15.06587769498583, "planned_at": 15.0, "input": ["keydown", "w"], "intended_beat": "continue toward environment site"}
+{"event": "input_sent", "elapsed_seconds": 22.032060506986454, "planned_at": 22.0, "input": ["keydown", "d"], "intended_beat": "north approach toward environment site"}
+{"event": "input_sent", "elapsed_seconds": 24.034156024979893, "planned_at": 24.0, "input": ["keyup", "d"], "intended_beat": "continue east"}
+{"event": "input_sent", "elapsed_seconds": 29.048929999000393, "planned_at": 29.0, "input": ["keyup", "w"], "intended_beat": "inspect normal gameplay composition"}
+{"event": "native_terminal_observed", "elapsed_seconds": 36.739643213979434}
+{"event": "capture_finished", "elapsed_seconds": 40.124190528003965, "result": {"status": "CAPTURED", "reason": "native_terminal_state", "audio_capture": false, "input_delivery": "X11 keyboard/mouse", "world_mutation_or_automation_tests": false, "measured_input_run_seconds": 36.73972016497282, "actions_sent": 12, "game_alive_at_capture_end": true, "recorder_returncode": 255, "game_returncode": 0}}

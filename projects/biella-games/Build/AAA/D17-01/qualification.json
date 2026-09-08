@@ -1,0 +1,743 @@
+{
+  "accepted": false,
+  "current_raw_runs": [
+    {
+      "active_simulation_seconds": 12.811191760876682,
+      "audio_captured": false,
+      "capture_input_wall_seconds": 15.297318954020739,
+      "capture_video_seconds": 17.266,
+      "decoded_frames": 512,
+      "directory": "Build/AAA/D17-01/raw/hud-720-01",
+      "events": {
+        "damage": 36,
+        "defeat": 7,
+        "objective_activated": 1,
+        "objective_progress": 11,
+        "objective_success": 1,
+        "phase": 2,
+        "telemetry_ready": 1,
+        "telemetry_shutdown": 1,
+        "weapon_fire": 1
+      },
+      "input_actions": 9,
+      "namespace_file_verification": true,
+      "natural_pressure_observed": false,
+      "raw_video": {
+        "bytes": 3925324,
+        "path": "Build/AAA/D17-01/raw/hud-720-01/raw-gameplay.mkv",
+        "sha256": "23fd9cc0535b8474f68b8f42985f987b1b15ec0808fb8a55eba1d429d04ca670"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "restart_count": 0,
+      "run": "hud-720-01",
+      "session": "01A080FC-0512-729C-A722-65C79702320E",
+      "terminal": "Success",
+      "uninterrupted_duration_satisfied": false
+    },
+    {
+      "active_simulation_seconds": 9.410932061204221,
+      "audio_captured": false,
+      "capture_input_wall_seconds": 12.11824661900755,
+      "capture_video_seconds": 14.066,
+      "decoded_frames": 422,
+      "directory": "Build/AAA/D17-01/raw/hud-1080-01",
+      "events": {
+        "damage": 11,
+        "defeat": 2,
+        "objective_activated": 1,
+        "objective_progress": 2,
+        "objective_success": 1,
+        "phase": 2,
+        "telemetry_ready": 1,
+        "telemetry_shutdown": 1
+      },
+      "input_actions": 5,
+      "namespace_file_verification": true,
+      "natural_pressure_observed": false,
+      "raw_video": {
+        "bytes": 5686898,
+        "path": "Build/AAA/D17-01/raw/hud-1080-01/raw-gameplay.mkv",
+        "sha256": "ce0d62acb0894b573fe946631f2d3e02701b9ba39ff08227f4284f00d5d2b61f"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "restart_count": 0,
+      "run": "hud-1080-01",
+      "session": "01A080FC-DD94-7A8B-9930-B2317BC62413",
+      "terminal": "Success",
+      "uninterrupted_duration_satisfied": false
+    }
+  ],
+  "evidence_files": [
+    {
+      "bytes": 3834,
+      "path": "Build/AAA/D17-01/README.md",
+      "sha256": "f82354b0b9fc840f45b90f1c260225e7820e56fb11c5492f2a64a1b37cba09af"
+    },
+    {
+      "bytes": 106593,
+      "path": "Build/AAA/D17-01/build/game-01/BiellaGames.target",
+      "sha256": "7da8030a25e23d3976e834f2554ef35a869d9133100f3a7da197b666c115d023"
+    },
+    {
+      "bytes": 2491,
+      "path": "Build/AAA/D17-01/build/game-01/build.log",
+      "sha256": "a5cb6a8fc0fe0e4b31248bf4f24f30f50153578fc9fd43d76064a515665d7ce3"
+    },
+    {
+      "bytes": 277,
+      "path": "Build/AAA/D17-01/build/game-01/command.json",
+      "sha256": "85af5cedfb5e5502f590e804dd784f1c8a5fc6eef895aad93fb18ef5fd53bef5"
+    },
+    {
+      "bytes": 24859,
+      "path": "Build/AAA/D17-01/build/game-01/inputs-after.json",
+      "sha256": "f0598b5c42627b273ebbe78c3cb89e4776f6908ce102746807467bb10fd0f8f0"
+    },
+    {
+      "bytes": 24859,
+      "path": "Build/AAA/D17-01/build/game-01/inputs-before.json",
+      "sha256": "f0598b5c42627b273ebbe78c3cb89e4776f6908ce102746807467bb10fd0f8f0"
+    },
+    {
+      "bytes": 1469,
+      "path": "Build/AAA/D17-01/build/game-01/result.json",
+      "sha256": "84a919e75e6e5fb893af3370b29b749f0592b758542790650ae7e28c8881316b"
+    },
+    {
+      "bytes": 1186,
+      "path": "Build/AAA/D17-01/entry-route-input.json",
+      "sha256": "291285fdd5e8d26bc59f6340c7c04a5a0215f1780144b5d7dfe5a957c4afc1a3"
+    },
+    {
+      "bytes": 234,
+      "path": "Build/AAA/D17-01/raw/entry-720-01/failure.json",
+      "sha256": "c92d2f1a701b959a277b05893594051fd1b150e4334c2518395884359425a8c7"
+    },
+    {
+      "bytes": 299,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/capture-command.json",
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "bytes": 104,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/capture.log",
+      "sha256": "d4a93a8e6693750e5414ac694d046b1fb4e833393f4b00d4593b0ccd03991c2e"
+    },
+    {
+      "bytes": 1507,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/command.json",
+      "sha256": "89a2bf1adc51c74f21cb789321f20dfecb2016f27f335c6487da1271b23bd45e"
+    },
+    {
+      "bytes": 321,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/execution.json",
+      "sha256": "5bdbdeaece5a3ed05899fd968deda7a5a3e20fa4ebddd45a5d26d412964b75cf"
+    },
+    {
+      "bytes": 388266,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/frame-04.png",
+      "sha256": "adba3e3262f8c8e87238c103f33c6f73ebef32dd9e16fde6d061d916b8434df7"
+    },
+    {
+      "bytes": 335599,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/frame-13.png",
+      "sha256": "644f8f164230bf0bf2c40fdbba0063831e2658f8e5397c1928ed019685e441db"
+    },
+    {
+      "bytes": 255554,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/frame-26.png",
+      "sha256": "a8a50b4d064e808e5b917a45a307a13f627a5eb9da1d822baa1f2ed8ad193ff2"
+    },
+    {
+      "bytes": 155375,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/frame-37.png",
+      "sha256": "f5a0f3e3587ca663070cce78525e7d7b721f583c9d6a8876bdf03d0c91271d95"
+    },
+    {
+      "bytes": 425,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/game-command.json",
+      "sha256": "68757b0e5c1ad0d026944a03037d1004a5196b1eaf9496935f65145de1bf40ae"
+    },
+    {
+      "bytes": 2397,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/host.json",
+      "sha256": "110c6d59d2ce68fa4fc68aece4e9440fba7b059e213473213f53768003dba08e"
+    },
+    {
+      "bytes": 343,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/input-result.json",
+      "sha256": "ff10db1a0f4f973d3180c94266e054ef69751e51d61e7aecfda00a69b83e24e0"
+    },
+    {
+      "bytes": 2446,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/input.jsonl",
+      "sha256": "79d8f2ca9a0e6e1f2506b1f11e808dc4cdc635b5a24b7f699f7a53a21d3e8ab0"
+    },
+    {
+      "bytes": 605,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/inputs.json",
+      "sha256": "39371675cd2d06d1ab9bc3b1a01ee58159ecad6afbc2c86ee8a8ef111274c487"
+    },
+    {
+      "bytes": 893,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/observation.json",
+      "sha256": "4c9c07e7d5cb767e9528dacc1855b3f6b84b1742b5ca9f352fef946d66a3a004"
+    },
+    {
+      "bytes": 1447,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/package-verification.json",
+      "sha256": "2239840cbd79c1d773011c9c2013b56d143424a398d9cda81ae152553fbf3340"
+    },
+    {
+      "bytes": 8057247,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/raw-gameplay.mkv",
+      "sha256": "24823c6756ea4698628950b931aded54fd211e0df3a692d9b3ca028dcc96106d"
+    },
+    {
+      "bytes": 85183,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/resources.jsonl",
+      "sha256": "9836af3e4502614819a7d538e1b4f6e47968d0a55e235bfdcd7e5480eb3b39dc"
+    },
+    {
+      "bytes": 316471,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/runtime.engine.log",
+      "sha256": "d42cd25807126c06ed4ddeb17dfdeed6b70b68be2a3834d1336d3828e521170b"
+    },
+    {
+      "bytes": 314041,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/runtime.stdout.log",
+      "sha256": "eadc7c421d458765c321de83b53b3508ab8cc79288d2e833568c74d3f339553e"
+    },
+    {
+      "bytes": 36454,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/telemetry.jsonl",
+      "sha256": "883b736a5e7dc41861c83cfdc7d7f380c835c9fb81bf3305d7feb74c6a162608"
+    },
+    {
+      "bytes": 2347,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/video.json",
+      "sha256": "3207686b7badfe8eef20800ccfc50baf3bf4ecdc1de402699ea9059d8df4553a"
+    },
+    {
+      "bytes": 300,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/capture-command.json",
+      "sha256": "3bf9938bdee4db34e0d0f2aaf3028fc22c2fe71c7468b892864d1abcd717292e"
+    },
+    {
+      "bytes": 104,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/capture.log",
+      "sha256": "689c38f211840a616ec45d17aa4aada65441309edd41fcdbff8bee3829833bd5"
+    },
+    {
+      "bytes": 1858,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/command.json",
+      "sha256": "2165dfece48644cfe14a8fffbd9f423ccddc2f17d712310e07757566cc5cabee"
+    },
+    {
+      "bytes": 322,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/execution.json",
+      "sha256": "6215c4b34bcd5848f22bbe33a318c70a8e257858b1800349d29c060d38f1f1c0"
+    },
+    {
+      "bytes": 218,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/exposed-package-verification.json",
+      "sha256": "06c713b2c34fa5e8f4459ddbed1d63c90b54bad7c521411f83f55f07e310240f"
+    },
+    {
+      "bytes": 773487,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/frame-04.png",
+      "sha256": "3adedb389fd68a7ba2946af8ce40638496d8dd18b62abb9af3ba0a42ef2cfa1a"
+    },
+    {
+      "bytes": 426,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/game-command.json",
+      "sha256": "b5d9bcfe0298fb49f02d622ed8cd9fdc826d17a19cc55242ad163f82313fc9ea"
+    },
+    {
+      "bytes": 2398,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/host.json",
+      "sha256": "4bf8c122bc88d084ada48271524cf5d9a33e5926309da54c303ce663c3d58a97"
+    },
+    {
+      "bytes": 478,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/identity-scope.json",
+      "sha256": "23db7946c8b6febe1763269b000868e9d0a467fb05ceb82fd2c81b0b4ec7556f"
+    },
+    {
+      "bytes": 342,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/input-result.json",
+      "sha256": "d5914f7ae4e2861cd47234a7583ad5946cb2a74f08641f7ed67ea33713049241"
+    },
+    {
+      "bytes": 1357,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/input.jsonl",
+      "sha256": "c1d9843f757279ea5dd18c052f8fa12e87ff8798b836ea93d3ef482f70b4d12d"
+    },
+    {
+      "bytes": 605,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/inputs.json",
+      "sha256": "7e8cf230be94894b019b10af71ec2bd40e3be9e7a44c7ab1d9ac8df7733f53d1"
+    },
+    {
+      "bytes": 73182,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/native-source.json",
+      "sha256": "ba60b253d03d38849c3f45324a25aef8b1af1fbd42c8492d9ae967d1edeb6b5b"
+    },
+    {
+      "bytes": 868,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/observation.json",
+      "sha256": "6b4533303d3cfbab79b1ced905ba64171629bfc617ee1ebe704fb78d203aa9e5"
+    },
+    {
+      "bytes": 1547,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/package-verification.json",
+      "sha256": "c2df0e23887731f7590bb98999e40aec1b03759921a79df3b0f85430bd76dbf6"
+    },
+    {
+      "bytes": 5686898,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/raw-gameplay.mkv",
+      "sha256": "ce0d62acb0894b573fe946631f2d3e02701b9ba39ff08227f4284f00d5d2b61f"
+    },
+    {
+      "bytes": 8542,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/resolved-package.json",
+      "sha256": "3f35014010717c78a17ed1202a2f990db5e04c9d350bf0bc6ab9abf65bf704ee"
+    },
+    {
+      "bytes": 56546,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/resources.jsonl",
+      "sha256": "2286e315830822cfa547d5814484281927606516bb1810d2195109a960f6e7fc"
+    },
+    {
+      "bytes": 188204,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/runtime.engine.log",
+      "sha256": "8d49169c4b73081fdcbbe493f2a96a3799d860ff4bac0a4f2a38946897c726a4"
+    },
+    {
+      "bytes": 186598,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/runtime.stdout.log",
+      "sha256": "8d847f89f5ae84c2bcf274a3672c8c28cb2915ab2d4a576054675f5fdc2d3b48"
+    },
+    {
+      "bytes": 6735,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/telemetry.jsonl",
+      "sha256": "81a1bf866db58bbf71ba42661f48dcfeeda2d2f438052cdf435a781f877f714f"
+    },
+    {
+      "bytes": 2346,
+      "path": "Build/AAA/D17-01/raw/hud-1080-01/video.json",
+      "sha256": "0e00e6fd544faf3e7891cc767961d328f30f53c0470594e81b66d88e065608c5"
+    },
+    {
+      "bytes": 299,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/capture-command.json",
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "bytes": 104,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/capture.log",
+      "sha256": "277c4b7ea180b82f034d9c0bf2be10a002b8740895e9f48f60d8e0db39975295"
+    },
+    {
+      "bytes": 1852,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/command.json",
+      "sha256": "52a7b310fe221a56fac98ed61e7781d0bc904d2ecb0a6be257176c6893e7d488"
+    },
+    {
+      "bytes": 322,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/execution.json",
+      "sha256": "1d8d0b875c460fb42c8884c7c07fc97edf892760e8ce4e22f480f5982b5c11b8"
+    },
+    {
+      "bytes": 218,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/exposed-package-verification.json",
+      "sha256": "bae13cb85422b160e0f8b989d0bdcd11617476f63ea6f8d4e5986c5720e58160"
+    },
+    {
+      "bytes": 418722,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/frame-04.png",
+      "sha256": "42899874582f47accb4a5771cf4bd092f5bf6eb843c4070e81dcfde91250cfdf"
+    },
+    {
+      "bytes": 361398,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/frame-13.png",
+      "sha256": "d1554aa424d1cc73f76da2808b64051f7bb26adaa8becfc5899fc18161b1ccfe"
+    },
+    {
+      "bytes": 167034,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/frame-16.png",
+      "sha256": "0bd627828a59810688c2256e98c44541bfe9210d5298ea8d5a347b7b301461fc"
+    },
+    {
+      "bytes": 425,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/game-command.json",
+      "sha256": "68757b0e5c1ad0d026944a03037d1004a5196b1eaf9496935f65145de1bf40ae"
+    },
+    {
+      "bytes": 2401,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/host.json",
+      "sha256": "78d43713f8496e934ab23daa2c7d1636a35f0de355f1217f9d13312b6f38a3f3"
+    },
+    {
+      "bytes": 478,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/identity-scope.json",
+      "sha256": "23db7946c8b6febe1763269b000868e9d0a467fb05ceb82fd2c81b0b4ec7556f"
+    },
+    {
+      "bytes": 343,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/input-result.json",
+      "sha256": "d3a64f055f6650c9908320fc2834148e9cb128aa2ac86f397b8237d14424fe17"
+    },
+    {
+      "bytes": 1972,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/input.jsonl",
+      "sha256": "4865a17f9c38e63fada8183de24059fa86a277566d18effc8eff46032ee96322"
+    },
+    {
+      "bytes": 605,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/inputs.json",
+      "sha256": "7e8cf230be94894b019b10af71ec2bd40e3be9e7a44c7ab1d9ac8df7733f53d1"
+    },
+    {
+      "bytes": 73182,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/native-source.json",
+      "sha256": "f722856b5eff085aa6b0c7e46ed065f1623d4410be8601ab9af83563fb72ad1c"
+    },
+    {
+      "bytes": 892,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/observation.json",
+      "sha256": "6e01db08c2322308acb137e8d895a3c43f7724eb52db71f824e9774ec6083e3a"
+    },
+    {
+      "bytes": 1547,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/package-verification.json",
+      "sha256": "5b70082779ebd587a1dd7fd60316f28a45add0bcf268150ee9809b62f4fd81b2"
+    },
+    {
+      "bytes": 3925324,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/raw-gameplay.mkv",
+      "sha256": "23fd9cc0535b8474f68b8f42985f987b1b15ec0808fb8a55eba1d429d04ca670"
+    },
+    {
+      "bytes": 8541,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/resolved-package.json",
+      "sha256": "26a5f582a0cb7b378c86af6d36745f619eb6e9b832d7fecca17b07700e12e43a"
+    },
+    {
+      "bytes": 58600,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/resources.jsonl",
+      "sha256": "134df6499bd3bc4ba7066f0334db491bb11c85a5ec8864f52f11f699c67b0cca"
+    },
+    {
+      "bytes": 251572,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/runtime.engine.log",
+      "sha256": "93ae2165156080a88f50cda33ce4d5a37b179609ccd7ed41072721309b82d357"
+    },
+    {
+      "bytes": 249543,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/runtime.stdout.log",
+      "sha256": "db4538e83b4a1fb63d619f1ce54b7127e4e873229e262a890e09b9a00bbf8fc2"
+    },
+    {
+      "bytes": 20469,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/telemetry.jsonl",
+      "sha256": "be6a7ecc11e0cc74648e30f1b52ba2f6e20111ae6c69a096d1dbd983838c0160"
+    },
+    {
+      "bytes": 2342,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/video.json",
+      "sha256": "0e0df80725abaa1705d3403898164764db808eac0db5eeaf8bd9275bb4f28e92"
+    },
+    {
+      "bytes": 2170,
+      "path": "Build/AAA/D17-01/regression/hud-01/command.json",
+      "sha256": "ad638d77d8c11deb31355c6428893d6e1aa5faa9bcb8482ef6580580693a327d"
+    },
+    {
+      "bytes": 389,
+      "path": "Build/AAA/D17-01/regression/hud-01/execution.json",
+      "sha256": "96fc192054d916cddaed668a2ca7051773885ecfc01ed07134b5e7394db79a82"
+    },
+    {
+      "bytes": 61106,
+      "path": "Build/AAA/D17-01/regression/hud-01/resources.jsonl",
+      "sha256": "2a5198acd26c2f2ec1fb1918b900ddf4effdbb0b95e3cdd8af5ec06bed8ac97a"
+    },
+    {
+      "bytes": 158964,
+      "path": "Build/AAA/D17-01/regression/hud-01/runtime.engine.log",
+      "sha256": "e584c182518533de6b43411ba02d3c3c37880a7af7c35ca77921c8d933dadf9a"
+    },
+    {
+      "bytes": 157482,
+      "path": "Build/AAA/D17-01/regression/hud-01/runtime.stdout.log",
+      "sha256": "cda8430aa15d722ec5193c5ead2bb5ffa609c0694eb2fc92209b2f1f7ee5be62"
+    },
+    {
+      "bytes": 4053,
+      "path": "Build/AAA/D17-01/regression/hud-01/validation.json",
+      "sha256": "823ec6d30816aae533e99b30c721594f10417458c3dd773a1715c449302f4413"
+    },
+    {
+      "bytes": 2242,
+      "path": "Build/AAA/D17-01/regression/settings-01/command.json",
+      "sha256": "334e0ffc445231de6ee9535560769039cae2b507588ee624ec679a5122bd4d66"
+    },
+    {
+      "bytes": 388,
+      "path": "Build/AAA/D17-01/regression/settings-01/execution.json",
+      "sha256": "3542edf05ec046b8c95672cdbd3b075440dadd6ce2a6a3165a2311ca10b4fc0f"
+    },
+    {
+      "bytes": 59218,
+      "path": "Build/AAA/D17-01/regression/settings-01/resources.jsonl",
+      "sha256": "126e7ab6d1a343b8b97d46e4c9c3582764f59efae3cedf85c205fb4678a8a1ad"
+    },
+    {
+      "bytes": 72,
+      "path": "Build/AAA/D17-01/regression/settings-01/result.json",
+      "sha256": "fc836d84f8112994162678423e88a2147835367e1aff6bbd2f085cf72380243a"
+    },
+    {
+      "bytes": 163572,
+      "path": "Build/AAA/D17-01/regression/settings-01/runtime.engine.log",
+      "sha256": "8eb0b965c67d054f446eb728396871fadbb3d73d3336682caeeaa9cad474a695"
+    },
+    {
+      "bytes": 162102,
+      "path": "Build/AAA/D17-01/regression/settings-01/runtime.stdout.log",
+      "sha256": "5829aa594680f9b9071582ffcd6c2d340ff2d6bc63c5eb38ca4ece3259933561"
+    },
+    {
+      "bytes": 3955,
+      "path": "Build/AAA/D17-01/regression/settings-01/validation.json",
+      "sha256": "9e129a9d058a680b7020c2916a5590871fdde7c40ca08423aea3bd500a30e4b5"
+    },
+    {
+      "bytes": 5977,
+      "path": "Build/AAA/D17-01/resources/harness/2f53fd57d3f0ab2caef6a09c82e31717ac08234b2258d2fd97e0e5461b2807dc.py",
+      "sha256": "2f53fd57d3f0ab2caef6a09c82e31717ac08234b2258d2fd97e0e5461b2807dc"
+    },
+    {
+      "bytes": 7686,
+      "path": "Build/AAA/D17-01/resources/harness/73578de1303d53b6f90f8753f35ccdf92397eae0bc37f91d7213be865987811a.py",
+      "sha256": "73578de1303d53b6f90f8753f35ccdf92397eae0bc37f91d7213be865987811a"
+    },
+    {
+      "bytes": 8391,
+      "path": "Build/AAA/D17-01/resources/harness/d884695aececed17316f5787e39886528b19cb665dce93a1d0fe8b6b6a5a220c.py",
+      "sha256": "d884695aececed17316f5787e39886528b19cb665dce93a1d0fe8b6b6a5a220c"
+    },
+    {
+      "bytes": 1481,
+      "path": "Build/AAA/D17-01/resources/harness.json",
+      "sha256": "78e92b51f18fbebfab3b7fddc8d6a6abde56d3d2a549f09e87079831af18e020"
+    },
+    {
+      "bytes": 469,
+      "path": "Build/AAA/D17-01/resources/inputs.json",
+      "sha256": "ddb51f310308f0ae623039ed60c89e8dd1af4891716a5f04c155d6ce52ee93f1"
+    },
+    {
+      "bytes": 1687,
+      "path": "Build/AAA/D17-01/resources/response.json",
+      "sha256": "37e2dcc73271ce278592635cc8e2dc31afa835c786bb0593d6ef754121744616"
+    },
+    {
+      "bytes": 733,
+      "path": "Build/AAA/D17-01/resources/validation.json",
+      "sha256": "5e2c3f679f2aaa8eaa73764acb8197ec6f5ad4bb31587632f40a1021878d0b07"
+    },
+    {
+      "bytes": 8723,
+      "path": "Build/AAA/D17-01/scenario.json",
+      "sha256": "2bf9f67c421248ddbe43dc07ab8c1c92c2b02c2eaf68861eb564d3f6bdbc2101"
+    },
+    {
+      "bytes": 1899,
+      "path": "Build/AAA/D17-01/visual-assessment.json",
+      "sha256": "c907be017d9538527fb86347a8834df78eb41a37cd73dc03f299bbe16990761e"
+    }
+  ],
+  "evidence_integrity": "VERIFIED",
+  "first_raw_run": {
+    "active_simulation_seconds": 34.104978772753384,
+    "audio_captured": false,
+    "capture_input_wall_seconds": 36.73972016497282,
+    "capture_video_seconds": 38.566,
+    "decoded_frames": 1147,
+    "directory": "Build/AAA/D17-01/raw/entry-720-02",
+    "events": {
+      "damage": 69,
+      "defeat": 13,
+      "objective_activated": 1,
+      "objective_progress": 18,
+      "objective_success": 1,
+      "phase": 2,
+      "telemetry_ready": 1,
+      "telemetry_shutdown": 1,
+      "weapon_fire": 1
+    },
+    "input_actions": 12,
+    "namespace_file_verification": false,
+    "natural_pressure_observed": false,
+    "raw_video": {
+      "bytes": 8057247,
+      "path": "Build/AAA/D17-01/raw/entry-720-02/raw-gameplay.mkv",
+      "sha256": "24823c6756ea4698628950b931aded54fd211e0df3a692d9b3ca028dcc96106d"
+    },
+    "resolution": [
+      1280,
+      720
+    ],
+    "restart_count": 0,
+    "run": "entry-720-02",
+    "session": "01A080F5-8378-7CC8-AE8D-F867B178384B",
+    "terminal": "Success",
+    "uninterrupted_duration_satisfied": false
+  },
+  "hud_regressions": [
+    {
+      "bytes": 4053,
+      "path": "Build/AAA/D17-01/regression/hud-01/validation.json",
+      "sha256": "823ec6d30816aae533e99b30c721594f10417458c3dd773a1715c449302f4413"
+    },
+    {
+      "bytes": 3955,
+      "path": "Build/AAA/D17-01/regression/settings-01/validation.json",
+      "sha256": "9e129a9d058a680b7020c2916a5590871fdde7c40ca08423aea3bd500a30e4b5"
+    }
+  ],
+  "implementation": {
+    "build": {
+      "bytes": 1469,
+      "path": "Build/AAA/D17-01/build/game-01/result.json",
+      "sha256": "84a919e75e6e5fb893af3370b29b749f0592b758542790650ae7e28c8881316b"
+    },
+    "changed_material_inputs": [
+      "Source/BiellaGames/Private/BiellaGameplayHUD.cpp"
+    ],
+    "editable_source": {
+      "bytes": 22829,
+      "path": "Source/BiellaGames/Private/BiellaGameplayHUD.cpp",
+      "sha256": "558b0de7845940f337baa02fe77e56168151a23d6362c4e816484fb22121187a"
+    },
+    "native_delta": {
+      "bytes": 299181888,
+      "path": "/root/biella/artifacts/games/D17-01/18b3b98320acee0aa957adc09426bf858d0ae536010ce373d12f5459c69c16b7/BiellaGames",
+      "sha256": "18b3b98320acee0aa957adc09426bf858d0ae536010ce373d12f5459c69c16b7"
+    },
+    "native_receipt": {
+      "bytes": 106593,
+      "path": "Build/AAA/D17-01/build/game-01/BiellaGames.target",
+      "sha256": "7da8030a25e23d3976e834f2554ef35a869d9133100f3a7da197b666c115d023"
+    },
+    "source_manifest": {
+      "bytes": 73182,
+      "path": "Build/AAA/D17-01/raw/hud-720-01/native-source.json",
+      "sha256": "f722856b5eff085aa6b0c7e46ed065f1623d4410be8601ab9af83563fb72ad1c"
+    },
+    "source_material_digest": "f51eb4efeb75fe7ef3a7b76df6a6e7539e461fdba89b8658580a1f0edf304673"
+  },
+  "index_generator": {
+    "bytes": 11259,
+    "path": "tests/qualify_d17_01.py",
+    "sha256": "8cc62e32f840d809e378e7abdb06a0f017b4a0763cf296f1e620931b7b1b8136"
+  },
+  "observed": "2026-09-08T12:39:51.879842+00:00",
+  "owner_visual_contract": {
+    "bytes": 6734,
+    "path": "docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+    "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07"
+  },
+  "package": {
+    "base_manifest": {
+      "bytes": 8665,
+      "path": "Build/Release/D08-01/package-manifest.json",
+      "sha256": "48cedd56873c9abbc62c0708872066036733bfd4c3e58cd0cbebe5e1d5572770"
+    },
+    "base_package_id": "fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c",
+    "configuration": "Development",
+    "cook_reuse": "All content/config/reflected declarations/shaders unchanged; native HUD layout only",
+    "exact_resolved_manifests": [
+      {
+        "bytes": 8541,
+        "path": "Build/AAA/D17-01/raw/hud-720-01/resolved-package.json",
+        "sha256": "26a5f582a0cb7b378c86af6d36745f619eb6e9b832d7fecca17b07700e12e43a"
+      },
+      {
+        "bytes": 8542,
+        "path": "Build/AAA/D17-01/raw/hud-1080-01/resolved-package.json",
+        "sha256": "3f35014010717c78a17ed1202a2f990db5e04c9d350bf0bc6ab9abf65bf704ee"
+      }
+    ],
+    "format": "ELF64-x86_64",
+    "payload_files_digest": "206df2f2a982b0bcddfce7288aa443d97b0d7a2c0d542828599286276dac55bc",
+    "platform": "Linux",
+    "renderer": "Vulkan"
+  },
+  "proof_limits": [
+    "Short raw clips do not qualify long-form pacing or later route beats",
+    "HUD automation uses fixtures and is not raw-slice proof",
+    "Encoded video frame rate does not measure native game FPS; raw video has no audio",
+    "Baseline capture predates namespace-file verification; later captures verify it",
+    "D07 soak/restart cycles are not reused as continuous slice duration",
+    "No Win64 Shipping or remote publication acceptance"
+  ],
+  "publication": {
+    "local": "Task-owned source/proof to be persisted by the task commit",
+    "remote": "Auto Feeder owns configured GitHub/Drive publication cursor; no remote success claimed"
+  },
+  "result": "CONTINUE",
+  "satisfied_partial_criteria": [
+    "Editable route/start/beat/end candidate exists and binds owner direction",
+    "Exact baseline/native-delta package identities and first raw run retained",
+    "HUD change builds and existing live HUD/settings behavior tests pass"
+  ],
+  "scenario": {
+    "bytes": 8723,
+    "path": "Build/AAA/D17-01/scenario.json",
+    "sha256": "2bf9f67c421248ddbe43dc07ab8c1c92c2b02c2eaf68861eb564d3f6bdbc2101"
+  },
+  "schema": "biella.games.d17.qualification/v1",
+  "scope": "Canonical slice selection candidate and partial native HUD correction; Linux Development diagnostics",
+  "status": "INCOMPLETE",
+  "task_id": "D17-01",
+  "unmet_criteria": [
+    {
+      "id": "continuous_slice_duration_and_route",
+      "next_action": "Resolve early terminal behavior for the selected existing content route without actor resets, idle padding or invented mechanics; then run normal inputs continuously",
+      "observed": "Every raw attempt reaches native Success before 35 simulation seconds; later beats are unproven",
+      "required": "600\u20131200 seconds of representative active gameplay with route beats"
+    },
+    {
+      "id": "player_rival_infected_arena_pressure",
+      "next_action": "Trace the selected map/content pressure entry and bind a supported player-reachable trigger; fixture SetArenaPressure calls cannot substitute for the run",
+      "observed": "Raw clips contain no arena_pressure event; current native code defines/consumes pressure but has no non-test call raising it",
+      "required": "Player, rival, infected and arena consequence in the evolving real encounter"
+    },
+    {
+      "id": "zero_major_visual_defects",
+      "next_action": "Author the existing service-bay approach industrial materials, lighting and infection layer while preserving collision/gameplay; validate affected build and recapture",
+      "observed": [
+        "focal_art",
+        "world_density",
+        "materials",
+        "infection",
+        "lighting"
+      ],
+      "required": "All hard visual requirements with zero major defects"
+    }
+  ],
+  "visual_assessment": {
+    "bytes": 1899,
+    "path": "Build/AAA/D17-01/visual-assessment.json",
+    "sha256": "c907be017d9538527fb86347a8834df78eb41a37cd73dc03f299bbe16990761e"
+  }
+}

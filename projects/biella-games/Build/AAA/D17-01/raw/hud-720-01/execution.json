@@ -1,0 +1,14 @@
+{
+  "elapsed_seconds": 29.695931136026047,
+  "log_finalization": {
+    "closed": true,
+    "elapsed_seconds": 0.027409203990828246,
+    "observed_writers": [],
+    "remaining_writers": [],
+    "timeout_seconds": 45
+  },
+  "returncode": 0,
+  "survivors": [],
+  "unreal_process_identities": [],
+  "watchdog_failure": null
+}

@@ -1,0 +1,7 @@
+{
+  "task_id": "D17-01",
+  "status": "SETUP_FAILED_BEFORE_GAME_LAUNCH",
+  "cause": "output was pre-created before ensure_runtime_output required a fresh directory",
+  "recovered_by": "raw/entry-720-02",
+  "gameplay_evidence": false
+}

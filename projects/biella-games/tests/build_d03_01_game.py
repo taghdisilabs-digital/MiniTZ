@@ -21,7 +21,7 @@ ENGINE = Path('/opt/unreal/UE_5.8.2/Engine')
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--task-id', choices=('D03-01', 'D08-01'), default='D03-01')
+    parser.add_argument('--task-id', choices=('D03-01', 'D08-01', 'D17-01'), default='D03-01')
     args = parser.parse_args()
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=False)

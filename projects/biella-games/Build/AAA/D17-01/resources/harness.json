@@ -1,0 +1,41 @@
+{
+  "scope": "Exact harness copies for reproducibility, not new source authority",
+  "versions": [
+    {
+      "canonical": {
+        "path": "tests/d17_01_raw_input.py",
+        "bytes": 7686,
+        "sha256": "73578de1303d53b6f90f8753f35ccdf92397eae0bc37f91d7213be865987811a"
+      },
+      "exact_copy": {
+        "path": "Build/AAA/D17-01/resources/harness/73578de1303d53b6f90f8753f35ccdf92397eae0bc37f91d7213be865987811a.py",
+        "bytes": 7686,
+        "sha256": "73578de1303d53b6f90f8753f35ccdf92397eae0bc37f91d7213be865987811a"
+      }
+    },
+    {
+      "canonical": {
+        "path": "tests/run_d17_01_slice.py",
+        "bytes": 8391,
+        "sha256": "d884695aececed17316f5787e39886528b19cb665dce93a1d0fe8b6b6a5a220c"
+      },
+      "exact_copy": {
+        "path": "Build/AAA/D17-01/resources/harness/d884695aececed17316f5787e39886528b19cb665dce93a1d0fe8b6b6a5a220c.py",
+        "bytes": 8391,
+        "sha256": "d884695aececed17316f5787e39886528b19cb665dce93a1d0fe8b6b6a5a220c"
+      }
+    },
+    {
+      "canonical": {
+        "path": "tests/run_d17_01_hud_regression.py",
+        "bytes": 5977,
+        "sha256": "2f53fd57d3f0ab2caef6a09c82e31717ac08234b2258d2fd97e0e5461b2807dc"
+      },
+      "exact_copy": {
+        "path": "Build/AAA/D17-01/resources/harness/2f53fd57d3f0ab2caef6a09c82e31717ac08234b2258d2fd97e0e5461b2807dc.py",
+        "bytes": 5977,
+        "sha256": "2f53fd57d3f0ab2caef6a09c82e31717ac08234b2258d2fd97e0e5461b2807dc"
+      }
+    }
+  ]
+}

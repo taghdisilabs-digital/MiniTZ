@@ -1,0 +1,14 @@
+{
+  "task_id": "D17-01",
+  "provider": "ollama-qwen",
+  "classification": "ASSISTANCE_ONLY_NOT_AUTHORITY",
+  "source_response": "response.json",
+  "validated_findings": [
+    "Native objective success stops normal movement/look: directly observed in raw capture and BiellaGamesPlayerController::UpdateTerminalInputState."
+  ],
+  "rejected_or_unproven": [
+    "Helper claim that the player becomes world-dormant: unsupported; controller terminal input is the proven reason.",
+    "Any assertion that no other accepted route could ever support the duration: not established by one failed route probe."
+  ],
+  "authority_action": "Use exact runtime terminal evidence; preserve existing mechanics and mark this candidate unqualified."
+}

@@ -1,0 +1,31 @@
+{
+  "binary": {
+    "bytes": 299181888,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-install/versions/fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "42159b5d02226010eb1efa8768ea4ac582d4877cff01816a396fcac8d3b60c32"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d08-01-install/versions/fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c/payload",
+  "manifest": {
+    "bytes": 8665,
+    "path": "/mnt/biella-extra/biella-runtime/d08-01-install/versions/fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c/manifest.json",
+    "sha256": "48cedd56873c9abbc62c0708872066036733bfd4c3e58cd0cbebe5e1d5572770"
+  },
+  "package_id": "fbb3a496dd5b4cbcf103354d44e0f5b3c554c90e8d2d459ef628579abd0eee4c",
+  "platform": "Linux",
+  "scope": "unchanged accepted Linux Development package; not Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "8a0e98afc12a74f938c69fce3398061141daa3e7",
+    "head_tree": "60e090f18af7643804cc4457cd31256e1332f020",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      " M Source/BiellaGames/Private/BiellaGameplayHUD.cpp",
+      " M tests/build_d03_01_game.py",
+      "?? Build/AAA/",
+      "?? tests/d17_01_raw_input.py",
+      "?? tests/run_d17_01_slice.py"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T12:26:31.403161+00:00"
+}

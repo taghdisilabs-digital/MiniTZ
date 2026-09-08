@@ -1,0 +1,14 @@
+{
+  "task_id": "D17-01",
+  "sources": [
+    {
+      "path": "Source/BiellaGames/Private/BiellaDemoObjectiveManager.cpp",
+      "sha256": "c51037e42a20c8100519c0e3bbba6f6a4dd665bab401d9ac99107669540d729a"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaWorldContinuity.cpp",
+      "sha256": "51df4ea55e9f63c838f65b6a0148c116019cb7fcca6a3ce7b89b3cc10e22594c"
+    }
+  ],
+  "prompt_sha256": "2e524c92ae1f04de50826340a24813e7976378d8c4fc20e9cbe1ce85f273bd38"
+}

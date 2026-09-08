@@ -178,14 +178,14 @@ void UBiellaGameplayHUD::BuildLayout()
 
     UBorder* ObjectiveCard = AddCard(WidgetTree, RootCanvas, TEXT("ObjectiveCard"),
         FVector2D::ZeroVector, FVector2D::ZeroVector,
-        FVector2D(32.0f, 28.0f), FVector2D(480.0f, 200.0f));
+        FVector2D(24.0f, 24.0f), FVector2D(360.0f, 154.0f));
     if (ObjectiveCard)
     {
         UVerticalBox* Stack = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
         ObjectiveCard->SetContent(Stack);
-        AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("objective_label"))), 14, HudAccentColor,
+        AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("objective_label"))), 12, HudAccentColor,
             TEXT("ObjectiveLabel"));
-        ObjectiveText = AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("objective_waiting"))), 22,
+        ObjectiveText = AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("objective_waiting"))), 18,
             FLinearColor::White, TEXT("ObjectiveText"));
         ObjectiveText->SetAutoWrapText(true);
         ObjectiveProgressText = AddText(WidgetTree, Stack,
@@ -194,18 +194,18 @@ void UBiellaGameplayHUD::BuildLayout()
             HudSecondaryColor, TEXT("ObjectiveProgressText"));
         PhaseText = AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("phase_intro"))), 14, HudSuccessColor,
             TEXT("PhaseText"));
-        AddVerticalPadding(ObjectiveText, FMargin(0.0f, 8.0f, 0.0f, 8.0f));
+        AddVerticalPadding(ObjectiveText, FMargin(0.0f, 4.0f, 0.0f, 4.0f));
     }
 
     UBorder* StatusCard = AddCard(WidgetTree, RootCanvas, TEXT("StatusCard"),
         FVector2D(1.0f, 0.0f), FVector2D(1.0f, 0.0f),
-        FVector2D(-32.0f, 28.0f), FVector2D(280.0f, 246.0f));
+        FVector2D(-24.0f, 24.0f), FVector2D(240.0f, 174.0f));
     if (StatusCard)
     {
         UVerticalBox* Stack = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
         StatusCard->SetContent(Stack);
-        AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("player_status"))), 14, HudAccentColor,
-            TEXT("StatusLabel"));
+        // Health, ammunition and threats supply their own labels. Avoid a
+        // duplicate panel heading that pushes the live encounter off screen.
         AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("health"))), 14, HudSecondaryColor, TEXT("HealthLabel"));
 
         USizeBox* HealthBarSize = WidgetTree->ConstructWidget<USizeBox>(USizeBox::StaticClass());
@@ -217,11 +217,11 @@ void UBiellaGameplayHUD::BuildLayout()
         Stack->AddChild(HealthBarSize);
         AddVerticalPadding(HealthBarSize, FMargin(0.0f, 3.0f, 0.0f, 6.0f));
 
-        HealthText = AddText(WidgetTree, Stack, TEXT("100 / 100"), 24, FLinearColor::White,
+        HealthText = AddText(WidgetTree, Stack, TEXT("100 / 100"), 18, FLinearColor::White,
             TEXT("HealthText"));
         AmmoText = AddText(WidgetTree, Stack,
             FText::FromString(FString::Printf(TEXT("%s 60"),
-                *BiellaRuntimeText::ResolveString(FName(TEXT("ammo_prefix"))))), 20, HudWarningColor,
+                *BiellaRuntimeText::ResolveString(FName(TEXT("ammo_prefix"))))), 18, HudWarningColor,
             TEXT("AmmoText"));
         ThreatsText = AddText(WidgetTree, Stack,
             FText::FromString(FString::Printf(TEXT("%s 02"),
