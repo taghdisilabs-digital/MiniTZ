@@ -9,7 +9,7 @@ Engine: `/opt/unreal/UE_5.8.2`
 Execution rule: one current task; verify, execute, persist evidence, then advance
 Evidence rule: editable source plus task-derived build/runtime/package evidence
 Current section: `post_d01`
-Current task: `D06-01`
+Current task: `D07-01`
 Progress: `50/50` Demo tasks complete
 
 ## Section: demo01 | Demo 01 — first playable vertical slice | COMPLETE
@@ -78,7 +78,7 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 - [x] D03-01 | hard_creation | Production rendering, animation, VFX, and audio quality | COMPLETE | OWNER_ACCEPTED: Mahdi Taghdisi explicitly confirmed D03-01 verified passed on 2026-09-08; Reuse committed D03-01 rendering/animation/VFX/audio/package/runtime evidence already preserved in Git and Build/Presentation; Redundant post-acceptance uncommitted PSO/loading experiments discarded before transition
 - [x] D04-01 | hard_creation | Data-driven content system multiplication | COMPLETE | VERIFIED_PASS: full Vulkan D04-01 validation PASS at Build/D04-01/runs/20260908T025036.835791Z-vulkan-3f1a46bf/validation.json sha256=5301532e06377666190517945ebf7d7c11d9933d48ef6c81c996ebfd729e9f56; registry/runtime/environment/shared-gameplay regressions PASS; asset/source/protected-byte stability verified; implementation committed as 5b35545769c77256f5d826a3270b4bba31b1456c
 - [x] D05-01 | medium | UI, settings, localization, and accessibility | COMPLETE | Build/UI/D05-01-acceptance.md records implementation, exact build/runtime commands, and criterion mapping.; Live Unreal automation passed all HUD, settings, persistence, localization, accessibility, and pause-transition criteria; result.json reports success=true.; Committed locally as 86eeb3c6d01d9ec8d2e4f5d4ac40fab3da19fd67; worktree is clean.
-- [ ] D06-01 | hard_creation | Cinematic and presentation integration | PENDING | registry_status=PENDING
+- [x] D06-01 | hard_creation | Cinematic and presentation integration | COMPLETE | [D06-01 acceptance](</root/biella/repos/biella-engine/projects/biella-games/Build/Cinematics/D06-01-acceptance.md>); [Validation report](</root/biella/artifacts/games/D06-01/20260908T061117.897522Z-vulkan-eb4ffad8/validation.json>) records build, authoring, readback, and runtime PASS.; Watched and skipped runtime handoffs passed with the same player/world and restored input/camera state.; Local commit `7598e367964f5359b122d6ecf3ffac9e2cba7b80`; worktree clean.
 - [ ] D07-01 | hard | Full performance, stability, and scalability qualification | PENDING | registry_status=PENDING
 - [ ] D08-01 | hard | Delivery, update, and release-candidate qualification | PENDING | registry_status=PENDING
 - [x] D09-01 | deep_memory | Full Drive + GitHub Website Source Inventory | COMPLETE_ALREADY | registry_status=COMPLETE
