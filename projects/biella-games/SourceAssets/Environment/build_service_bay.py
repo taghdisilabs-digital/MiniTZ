@@ -25,7 +25,7 @@ for name, color, roughness, metallic in [
     ('Steel', (.31, .34, .36, 1), .32, 1),
     ('Rubber', (.012, .015, .018, 1), .78, 0),
     ('Lamp', (1, .62, .28, 1), .3, 0),
-    ('Growth', (.055, .004, .008, 1), .34, 0),
+    ('Growth', (.16, .007, .014, 1), .34, 0),
     ('Vein', (.42, .006, .016, 1), .28, 0),
 ]:
     mat = bpy.data.materials.new(name)
@@ -84,6 +84,45 @@ def strand(name, points, radius, material='Growth'):
     obj = bpy.data.objects.new(name, curve)
     bpy.context.collection.objects.link(obj)
     return finish(obj, name, material, 0)
+
+
+def sheath(name, centerline, widths, depths):
+    """Closed, uneven living tissue, rooted into a fixed structural face.
+
+    Cross-sections are explicitly authored in the local YZ plane. The negative
+    X side faces the ordinary approach; the positive side penetrates only the
+    fixed steel. No growth is parented to a moving panel.
+    """
+    vertices, faces = [], []
+    segments = 32
+    for row, ((x, y, z), width, depth) in enumerate(zip(centerline, widths, depths)):
+        for col in range(segments):
+            angle = 2*math.pi*col/segments
+            lobe = 1 + .12*math.sin(3*angle+row*.63) + .055*math.sin(7*angle-row*.47)
+            vertices.append((x-depth*math.cos(angle)*lobe,
+                             y+width*math.sin(angle)*lobe, z))
+    for row in range(len(centerline)-1):
+        for col in range(segments):
+            a = row*segments+col
+            b = row*segments+(col+1)%segments
+            faces.append((a, b, b+segments, a+segments))
+    faces.extend((tuple(reversed(range(segments))),
+                  tuple((len(centerline)-1)*segments+i for i in range(segments))))
+    mesh = bpy.data.meshes.new(name)
+    mesh.from_pydata(vertices, [], faces)
+    mesh.update()
+    # Explicitly recalculate normals; the asymmetric export subsequently
+    # preserves their signed volume through Unreal's handedness conversion.
+    bm = bmesh.new(); bm.from_mesh(mesh)
+    bmesh.ops.recalc_face_normals(bm, faces=list(bm.faces))
+    assert abs(bm.calc_volume(signed=True)) > 1
+    bm.to_mesh(mesh); bm.free()
+    obj = bpy.data.objects.new(name, mesh)
+    bpy.context.collection.objects.link(obj)
+    for polygon in mesh.polygons: polygon.use_smooth = True
+    modifier = obj.modifiers.new('Continuous lobed tissue', 'SUBSURF')
+    modifier.levels = modifier.render_levels = 2
+    return finish(obj, name, 'Growth', 0)
 
 
 def export(name, envelope=None):
@@ -230,6 +269,40 @@ for index, z in enumerate((80,115,150,185)):
             (16,249,z+41),(14,243,z+51)], 3.6)
 strand('Column vascular seam', [(9,280,70),(11,280,108),(10,279,153),
                                (10,279,207),(11,277,250),(9,219,266)], 1.2, 'Vein')
+
+# A broad, closed sheath invades the approach-facing fixed flange. Varying
+# cross-sections create folds and real shadow depth instead of detached rods.
+# Its inner edge stays outside panel 2's y=244cm envelope; the cabinet is on
+# the opposite side of the bay. The front is west / negative X.
+sheath('Approach column tissue sheath',
+       [(-13,263,3),(-17,267,13),(-18,269,31),(-16,263,51),
+        (-17,269,72),(-16,265,93),(-16,267,117),(-17,265,140),
+        (-15,268,164),(-17,266,186),(-15,265,208),(-14,266,228),
+        (-13,267,245),(-10,268,255)],
+       [1,12,16,12,15,11,14,12,15,12,13,11,8,1],
+       [1,10,16,10,14,11,16,12,15,10,14,11,7,1])
+for index, (z, y, dx) in enumerate(((28,266,-31),(65,269,-29),
+                                  (104,266,-30),(147,267,-29),(190,266,-29))):
+    strand('Embedded front vascular fork %02d'%index,
+           [(dx,y,z),(dx-2,y+3,z+9),(dx+1,y-1,z+20),
+            (dx+5,y-7,z+27),(dx+9,y-11,z+31)], 1.1, 'Vein')
+    strand('Column lateral tissue anchor %02d'%index,
+           [(-24,y+9,z+4),(-13,282,z+10),(1,280,z+15),
+            (13,276,z+19),(15,266,z+25)], 4.4)
+
+# A continuous flat organic mat wraps the right header end, visibly meeting
+# the column. It terminates before the lamp's y=194cm outer edge and keeps
+# the central safety fascia readable. Short tips lie on the header top.
+sheath('Header end tissue mat',
+       [(-13,249,236),(-17,248,240),(-18,246,246),(-18,245,253),
+        (-16,246,260),(-10,249,266),(-4,251,270)],
+       [8,22,29,31,27,18,1], [1,6,8,10,9,7,1])
+strand('Column header vascular bridge',
+       [(-26,267,207),(-27,269,219),(-24,263,233),(-27,256,246),
+        (-27,247,253),(-25,230,258),(-18,218,263)], 1.3, 'Vein')
+strand('Header attached creeping edge',
+       [(-17,243,264),(-17,219,264),(-12,199,265),
+        (-9,180,264),(-12,154,262),(-10,130,261)], 4.8)
 export('SM_ServiceBayMetalwork')
 
 bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'ServiceBay.blend'))

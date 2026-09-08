@@ -4,14 +4,14 @@
   "slice_id": "Biella_ServiceCircuit_01",
   "status": "CANDIDATE_NOT_QUALIFIED",
   "candidate_status": "GENERATED_DRAFT",
-  "selection": "Existing open-world entry \u2192 Street01 \u2192 service bay \u2192 interior \u2192 raised terrace \u2192 Street03 \u2192 service-bay return",
+  "selection": "Existing open-world entry → Street01 → service bay → interior → raised terrace → Street03 → service-bay return",
   "selection_reason": "One existing editable map connects accepted traversal, autonomous population combat, player weapon input, interactive power/destruction, streaming and elevation; no new map or mechanic is assumed.",
   "map": "/Game/Maps/BiellaOpenWorldMap",
   "duration_contract_seconds": [
     600,
     1200
   ],
-  "timing_status": "UNQUALIFIED: 600\u20131200 seconds is the required active-play duration, not an implemented or measured route budget. Raw attempts reach terminal state much earlier.",
+  "timing_status": "UNQUALIFIED: 600–1200 seconds is the required active-play duration, not an implemented or measured route budget. Raw attempts reach terminal state much earlier.",
   "start_state": {
     "session": "fresh native process with fresh user state",
     "pawn": "ABiellaStreamingCharacter",
@@ -68,7 +68,7 @@
         100
       ],
       "existing_binding": "D02_Interior_Floor",
-      "player_beat": "Enter through the south doorway at x7800\u20138200,y1500, inspect interior sight lines and return through the same physical opening.",
+      "player_beat": "Enter through the south doorway at x7800–8200,y1500, inspect interior sight lines and return through the same physical opening.",
       "completion_evidence": "raw continuous input/video plus matching runtime state; not inferred from the input plan",
       "sequence_order": 4
     },
@@ -111,7 +111,7 @@
   ],
   "end_state": {
     "valid": "native objective success or player defeat, with real final actor/health/mission state recorded",
-    "qualification": "All required beats and 600\u20131200 seconds of meaningful active gameplay must precede the terminal state. A shorter success is still a duration failure.",
+    "qualification": "All required beats and 600–1200 seconds of meaningful active gameplay must precede the terminal state. A shorter success is still a duration failure.",
     "observed_first_run": "Success at sim_seconds 34.104978772753384; movement/look ignored, so later beats are not proven."
   },
   "prohibited_substitutions": [
@@ -188,55 +188,55 @@
     },
     {
       "path": "SourceAssets/Environment/build_service_bay.py",
-      "sha256": "79b7df4c225d383dea1d576146057ae05368df15dc5fdc7197ec032a9e821bd3",
-      "bytes": 10896
+      "sha256": "7a74c7723804f1f4bdc3191d202f7f4086fb4f0e3dd91c1d331a6baea4462736",
+      "bytes": 14606
     },
     {
       "path": "SourceAssets/Environment/ServiceBay.blend",
-      "sha256": "1bdcee2b2fea67f67e18cc012417f29f0f57cb0662e5caf190076d39c2f1f957",
-      "bytes": 142646
+      "sha256": "fee77782598bc77fe12b5638fd6d9ef2242896d20c672de80c87c565ed061f9f",
+      "bytes": 160766
     },
     {
       "path": "Content/Python/author_service_bay.py",
-      "sha256": "49b078892b3a21408f72b1aafaad3f47d8b535fdb4614507e77587de7fc0af9f",
-      "bytes": 11326
+      "sha256": "8162d28c9b4bfec70008ddaa463da761a1289dbc69b3ea6eb8edd4d3df7c3bdc",
+      "bytes": 11871
     },
     {
       "path": "SourceAssets/Materials/ServiceSurface.hlsl",
-      "sha256": "ca2eb1eef34853e5859b4956413f68afabfd5bc115e9d04d523d034b3478a44a",
-      "bytes": 1521
+      "sha256": "cdcd11ff86ed9f23d199915f2a01a71cd109c2ba09c865d664738b1b33f3fd85",
+      "bytes": 2129
     }
   ],
   "first_raw_run": "Build/AAA/D17-01/raw/entry-720-02/observation.json",
-  "acceptance": "INCOMPLETE: 600\u20131200 active seconds and full route remain unqualified; five major visual defect groups remain. Ordinary-input environment consequence is proven at 720p, without qualifying the full evolving encounter.",
+  "acceptance": "INCOMPLETE: 600–1200 active seconds and full route remain unqualified; five major visual defect groups remain. Package-04 ordinary-input environment consequence is preserved; current package-05 raw runs do not reproduce the environment beat.",
   "current_native_build": "Build/AAA/D17-01/build/game-02/result.json",
   "previous_raw_runs": [
     "Build/AAA/D17-01/raw/hud-720-01/observation.json",
     "Build/AAA/D17-01/raw/hud-1080-01/observation.json"
   ],
   "current_raw_runs": [
-    "Build/AAA/D17-01/raw/growth-hazard-720-01/observation.json",
-    "Build/AAA/D17-01/raw/growth-hazard-1080-01/observation.json"
+    "Build/AAA/D17-01/raw/sheath-hazard-720-01/observation.json",
+    "Build/AAA/D17-01/raw/sheath-hazard-1080-01/observation.json"
   ],
-  "current_package_status": "Editable tapered attached growth, tissue/capillary materials and finer metal response pass fresh saved-asset readback, recook, stage/archive readback, exact installation and packaged environment regression. Native game/editor source and build identity are unchanged. Current 720p ordinary input proves switching, panel destruction/physics and electrical-floor damage. The 1080p run ends before the bay; full slice remains INCOMPLETE.",
+  "current_package_status": "Editable lobed sheath and header mat extend infection across visible approach faces. Organic pigmentation/normal detail, reduced vein emission and metal-preserving material branch pass fresh asset readback, geometry clearance, cook, stage/archive/install readback and environment fixture. Native game/editor builds remain unchanged. Current ordinary-camera captures show the new art, but native Success occurs before environmental consequence. These are candidate visuals, not final acceptance.",
   "scope_findings": "Build/AAA/D17-01/environment/scope-findings.json",
   "current_package": {
-    "package_id": "35ac96d18e521d5dc2623cf335e0342b6673dc86450f2ec5efd2894d69971bd8",
+    "package_id": "cfd920b323ed65faf205b81783a2474b15930fef76a3ab99f1a1a7341a941048",
     "manifest": {
-      "path": "Build/AAA/D17-01/build/package-04/package-manifest.json",
-      "sha256": "01e94698e27f24a61966b75227c7c10d0550e9cd0c921ee9e071080b52c2a71e",
+      "path": "Build/AAA/D17-01/build/package-05/package-manifest.json",
+      "sha256": "7160f3f67cd2caca349a3632a89e02393bb6db0ea34240e4af39822a7f899e7b",
       "bytes": 8669
     },
     "archive": {
-      "bytes": 482094922,
-      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-04.tar.zst",
-      "sha256": "ef762ad9a7d8f4affcd5a2035609cdd1e787cb729bede14d489eaafdb4fdeb1b"
+      "bytes": 482834812,
+      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-05.tar.zst",
+      "sha256": "f5ce5ff65fa17f52e203424c2cfb8bb62dcecaaff241b37fab243ae9595db391"
     },
-    "source_material_digest": "8bb3f4fee666a5d5215cba22e94513538160a8d02a403149e67300d422cf61d8",
+    "source_material_digest": "eb7b0019442dbdcf6640659be10bec2bb87e5a712ad957ea6e79bf58d9fc155a",
     "overlay": false
   },
   "route_feasibility_probe": "Build/AAA/D17-01/raw/route-rival-01/observation.json",
-  "observed_route_limits": "The corrected package-03 input run toggled power and destroyed panel 2 but did not cross its opening. Current growth-hazard-720-01 aligns the player with that opening: power turns on, panel 2 breaks into physics debris and nine electrical-floor pulses apply 27.249 damage. It ends in Success at 46.31332703580847 active seconds. Current 1080p ends at 9.021478963026311 seconds, with rival fire defeating both tracked infected before the bay. Interior/terrace/east-return and 600\u20131200 active seconds remain unqualified. These attempts do not prove every accepted input route fails.",
+  "observed_route_limits": "Package-05 original-timing 720p reaches native Success at 21.109894568973687 active seconds: no switch/panel/floor events. The 1080p run ends at 9.20354756055167 seconds before the bay. The read-only first-world-tick input probe ends at 12.70496472431114 seconds before the switch. Package-04 damage proof remains tied to its exact source/package. Interior/terrace/east-return and 600–1200 active seconds remain unqualified; these attempts do not prove every accepted route fails.",
   "previous_service_candidate": {
     "source_commit": "0242b38e31451f24d51175fc4050172122c28a3a",
     "package": {
@@ -259,7 +259,7 @@
       "Build/AAA/D17-01/raw/service-1080-01/observation.json"
     ]
   },
-  "current_environment_probe": "Build/AAA/D17-01/raw/growth-hazard-720-01/observation.json",
+  "current_environment_probe": "Build/AAA/D17-01/raw/sheath-hazard-720-01/observation.json",
   "previous_coordinate_candidate": {
     "source_commit": "5854ebea89bd581418924397bacbfc6ac7612db0",
     "package": {
@@ -283,6 +283,30 @@
       "Build/AAA/D17-01/raw/service-interaction-720-01/observation.json",
       "Build/AAA/D17-01/raw/service-interaction-720-02/observation.json"
     ],
-    "observed_route_limits": "service-720-02 frame-13 shows the corrected cabinet and service bay from the normal moving camera; no normal-input switch or destruction beat is proven in these two captures. Interior/terrace/return beats remain unproven. Current runs end at 34.112581229710486 and 9.009782609471586 active simulation seconds. The additional service-interaction-720-01 approach missed the switch and ended in player defeat by rival fire at 57.13843510946026 active simulation seconds; no power transition occurred. This longer active attempt still does not qualify the 600\u20131200 second route."
-  }
+    "observed_route_limits": "service-720-02 frame-13 shows the corrected cabinet and service bay from the normal moving camera; no normal-input switch or destruction beat is proven in these two captures. Interior/terrace/return beats remain unproven. Current runs end at 34.112581229710486 and 9.009782609471586 active simulation seconds. The additional service-interaction-720-01 approach missed the switch and ended in player defeat by rival fire at 57.13843510946026 active simulation seconds; no power transition occurred. This longer active attempt still does not qualify the 600–1200 second route."
+  },
+  "previous_growth_candidate": {
+    "source_commit": "c24863b0c3c6b555f7871c6c6cb99579a0a0115e",
+    "package": {
+      "package_id": "35ac96d18e521d5dc2623cf335e0342b6673dc86450f2ec5efd2894d69971bd8",
+      "manifest": {
+        "path": "Build/AAA/D17-01/build/package-04/package-manifest.json",
+        "sha256": "01e94698e27f24a61966b75227c7c10d0550e9cd0c921ee9e071080b52c2a71e",
+        "bytes": 8669
+      },
+      "archive": {
+        "bytes": 482094922,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-04.tar.zst",
+        "sha256": "ef762ad9a7d8f4affcd5a2035609cdd1e787cb729bede14d489eaafdb4fdeb1b"
+      },
+      "source_material_digest": "8bb3f4fee666a5d5215cba22e94513538160a8d02a403149e67300d422cf61d8",
+      "overlay": false
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/growth-hazard-720-01/observation.json",
+      "Build/AAA/D17-01/raw/growth-hazard-1080-01/observation.json"
+    ],
+    "observed_route_limits": "The corrected package-03 input run toggled power and destroyed panel 2 but did not cross its opening. Current growth-hazard-720-01 aligns the player with that opening: power turns on, panel 2 breaks into physics debris and nine electrical-floor pulses apply 27.249 damage. It ends in Success at 46.31332703580847 active seconds. Current 1080p ends at 9.021478963026311 seconds, with rival fire defeating both tracked infected before the bay. Interior/terrace/east-return and 600–1200 active seconds remain unqualified. These attempts do not prove every accepted input route fails."
+  },
+  "input_timing_probe": "Build/AAA/D17-01/raw/sheath-hazard-720-02/observation.json"
 }

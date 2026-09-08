@@ -1,0 +1,50 @@
+{
+  "binary": {
+    "bytes": 299185984,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/cfd920b323ed65faf205b81783a2474b15930fef76a3ab99f1a1a7341a941048/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "38403bd19aa32fb82ff8b9424213b96e451ede3de083065805f9343c8a88bde0"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/cfd920b323ed65faf205b81783a2474b15930fef76a3ab99f1a1a7341a941048/payload",
+  "manifest": {
+    "bytes": 8669,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/cfd920b323ed65faf205b81783a2474b15930fef76a3ab99f1a1a7341a941048/manifest.json",
+    "sha256": "7160f3f67cd2caca349a3632a89e02393bb6db0ea34240e4af39822a7f899e7b"
+  },
+  "package_id": "cfd920b323ed65faf205b81783a2474b15930fef76a3ab99f1a1a7341a941048",
+  "platform": "Linux",
+  "scope": "Byte-verified Linux Development package; not visual acceptance or Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "c24863b0c3c6b555f7871c6c6cb99579a0a0115e",
+    "head_tree": "7e32a4d75bdfd63cfb7215a99bfcfcf95659b5b2",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      " M Content/Environment/ServiceBay/MI_ServiceGrowth.uasset",
+      " M Content/Environment/ServiceBay/MI_ServiceLamp.uasset",
+      " M Content/Environment/ServiceBay/MI_ServicePaint.uasset",
+      " M Content/Environment/ServiceBay/MI_ServiceRubber.uasset",
+      " M Content/Environment/ServiceBay/MI_ServiceSteel.uasset",
+      " M Content/Environment/ServiceBay/MI_ServiceVein.uasset",
+      " M Content/Environment/ServiceBay/M_ServiceMetal.uasset",
+      " M Content/Environment/ServiceBay/SM_ServiceBayMetalwork.uasset",
+      " M Content/Environment/ServiceBay/SM_ServicePanel120.uasset",
+      " M Content/Environment/ServiceBay/SM_ServicePanel240.uasset",
+      " M Content/Python/author_service_bay.py",
+      " M SourceAssets/Environment/SM_ServiceBayMetalwork.fbx",
+      " M SourceAssets/Environment/SM_ServicePanel120.fbx",
+      " M SourceAssets/Environment/SM_ServicePanel240.fbx",
+      " M SourceAssets/Environment/ServiceBay.blend",
+      " M SourceAssets/Environment/build_service_bay.py",
+      " M SourceAssets/Environment/service-bay.json",
+      " M SourceAssets/Materials/ServiceSurface.hlsl",
+      " M tests/qualify_d17_01.py",
+      "?? Build/AAA/D17-01/environment/assets-04/",
+      "?? Build/AAA/D17-01/environment/mesh-author-04/",
+      "?? Build/AAA/D17-01/environment/runtime-05/",
+      "?? Build/AAA/D17-01/raw/sheath-hazard-1080-01/",
+      "?? Build/AAA/D17-01/raw/sheath-hazard-720-01/"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T14:54:20.945008+00:00"
+}

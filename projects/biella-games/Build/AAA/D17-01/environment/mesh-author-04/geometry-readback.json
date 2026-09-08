@@ -1,0 +1,40 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "source_blend_sha256": "fee77782598bc77fe12b5638fd6d9ef2242896d20c672de80c87c565ed061f9f",
+  "records": [
+    {
+      "name": "Approach column tissue sheath",
+      "vertices": 6914,
+      "bounds_min": [
+        -32.78282165527344,
+        251.41665649414062,
+        3.1951956748962402
+      ],
+      "bounds_max": [
+        -0.022698651999235153,
+        282.4319152832031,
+        254.80470275878906
+      ],
+      "outside_moving_panel_envelope": true,
+      "clear_of_lamp_and_switch": true
+    },
+    {
+      "name": "Header end tissue mat",
+      "vertices": 3330,
+      "bounds_min": [
+        -27.762279510498047,
+        215.55880737304688,
+        236.07801818847656
+      ],
+      "bounds_max": [
+        -2.821218490600586,
+        276.091064453125,
+        269.9219665527344
+      ],
+      "outside_moving_panel_envelope": true,
+      "clear_of_lamp_and_switch": true
+    }
+  ],
+  "scope": "Read-only evaluated geometry in saved editable blend; fresh Unreal bounds/collision readback is separate"
+}

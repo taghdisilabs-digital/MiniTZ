@@ -2,14 +2,14 @@
   "schema": "biella.service_bay.art/v1",
   "status": "GENERATED_DRAFT",
   "source": "build_service_bay.py",
-  "source_sha256": "79b7df4c225d383dea1d576146057ae05368df15dc5fdc7197ec032a9e821bd3",
+  "source_sha256": "7a74c7723804f1f4bdc3191d202f7f4086fb4f0e3dd91c1d331a6baea4462736",
   "provenance": "Biella-authored mesh; no third-party geometry or textures",
   "blender": "5.0.1",
   "assets": [
     {
       "mesh": "SM_ServicePanel120",
       "fbx": "SM_ServicePanel120.fbx",
-      "sha256": "7b8db15308938dfd90dee9a444d619350c7f5484ff96fac34ff53563a7209fff",
+      "sha256": "146a7df2a4bdae4c9aa02b46feaff5c41e0e3c1b04c592723f95da8948a9e64a",
       "triangles": 3016,
       "bounds_min": [
         -50.0,
@@ -37,7 +37,7 @@
     {
       "mesh": "SM_ServicePanel240",
       "fbx": "SM_ServicePanel240.fbx",
-      "sha256": "e67d0d9acbab100b4663b5f543b199260613d52373c90a361def3767a031b720",
+      "sha256": "409748fe805183a5c4e56ccfa366232f5942a0bd5cf5ea9d8b24b918d6aeb6d0",
       "triangles": 3956,
       "bounds_min": [
         -50.0,
@@ -65,8 +65,8 @@
     {
       "mesh": "SM_ServiceBayMetalwork",
       "fbx": "SM_ServiceBayMetalwork.fbx",
-      "sha256": "4093134ccf53db7a0db564f6aabd259433271be609ece4e5ba05746f4dc44457",
-      "triangles": 23124,
+      "sha256": "4f38beadadb6d1ff3f3cf030aa054664f29b4fc1cb83c40c32f1ebbb76c658d9",
+      "triangles": 49916,
       "bounds_min": [
         -204.60000610351562,
         -342.5,

@@ -1,0 +1,400 @@
+{
+  "task_id": "D17-01",
+  "result": "PASS",
+  "revision": {
+    "head": "c24863b0c3c6b555f7871c6c6cb99579a0a0115e",
+    "head_tree": "7e32a4d75bdfd63cfb7215a99bfcfcf95659b5b2",
+    "project_status": [
+      " M Content/Environment/ServiceBay/MI_ServiceGrowth.uasset",
+      " M Content/Environment/ServiceBay/MI_ServiceLamp.uasset",
+      " M Content/Environment/ServiceBay/MI_ServicePaint.uasset",
+      " M Content/Environment/ServiceBay/MI_ServiceRubber.uasset",
+      " M Content/Environment/ServiceBay/MI_ServiceSteel.uasset",
+      " M Content/Environment/ServiceBay/MI_ServiceVein.uasset",
+      " M Content/Environment/ServiceBay/M_ServiceMetal.uasset",
+      " M Content/Environment/ServiceBay/SM_ServiceBayMetalwork.uasset",
+      " M Content/Environment/ServiceBay/SM_ServicePanel120.uasset",
+      " M Content/Environment/ServiceBay/SM_ServicePanel240.uasset",
+      " M Content/Python/author_service_bay.py",
+      " M SourceAssets/Environment/SM_ServiceBayMetalwork.fbx",
+      " M SourceAssets/Environment/SM_ServicePanel120.fbx",
+      " M SourceAssets/Environment/SM_ServicePanel240.fbx",
+      " M SourceAssets/Environment/ServiceBay.blend",
+      " M SourceAssets/Environment/build_service_bay.py",
+      " M SourceAssets/Environment/service-bay.json",
+      " M SourceAssets/Materials/ServiceSurface.hlsl",
+      " M tests/qualify_d17_01.py",
+      "?? Build/AAA/D17-01/environment/assets-04/",
+      "?? Build/AAA/D17-01/environment/mesh-author-04/"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "cook": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/build/cook-06/validation.json",
+    "sha256": "35a9cccbbced193962525f7a56bcb0d00df26a150cfade1e033b1da898047096",
+    "bytes": 19503429
+  },
+  "destination": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive",
+  "capture_status": "GENERATED_DRAFT",
+  "uat_temporary": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-tmp",
+  "uat_saved_directory": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-tmp/AutomationToolSaved",
+  "zen_data": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/cook-ddc/Zen",
+  "stage_directory": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-staged",
+  "returncode": 0,
+  "dependencies": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/package-toolchain-02/validation.json",
+    "sha256": "765ef41dfdacc529f234418a4e6661946df6aa019383ff69b2d39a0e178c470c",
+    "bytes": 8836
+  },
+  "members": [
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/BiellaGames/Binaries/Linux/BiellaGames",
+      "sha256": "38403bd19aa32fb82ff8b9424213b96e451ede3de083065805f9343c8a88bde0",
+      "bytes": 299185984
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.pak",
+      "sha256": "0ccaad28e76ed2e433102d92e793bbda49c3cd26ecf60654f7b9052442d806ff",
+      "bytes": 11078296
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.ucas",
+      "sha256": "4832c0e687af76cad6f887d41dfb9ed17d312585708156044ba9fbb54180e487",
+      "bytes": 318334784
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.utoc",
+      "sha256": "31a184d8b010629f4e37638bd21b71940e83e3528bf9db43389348701d709621",
+      "bytes": 265679
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/BiellaGames/Content/Paks/global.ucas",
+      "sha256": "b3ce3495e88226d9c2864f34e369672f11561a0af5cbaa5f9c4e401d13210b3f",
+      "bytes": 3207088
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/BiellaGames/Content/Paks/global.utoc",
+      "sha256": "24d21e7f1d88d84875d365bedbef5bcac91d0ea1627f4ef6b51c45515388b474",
+      "bytes": 782
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/BiellaGames/Content/UI/ST_BiellaRuntime.json",
+      "sha256": "fe0b1ffc9339711122f8a848784497b45cc27368740569d03406bba2780fc2a7",
+      "bytes": 5085
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/BiellaGames.sh",
+      "sha256": "0f758fc1d431fca29cae27ecf35820d9ea70864532c0959f2d578e5216f68c46",
+      "bytes": 258
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so",
+      "sha256": "51aec15c714c5d96969f6a7608cdefc5c163e7fec0b2e0974ec1382380d11c5e",
+      "bytes": 23
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so.2",
+      "sha256": "ed3698c20005885c61a20f04ba772e329f67855713f5fecb26152a8f949ad280",
+      "bytes": 9715408
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_api_dump.json",
+      "sha256": "4616e485e4dacaa8c1ef365fed23d2c117e8848148720a7acea70c96cb975179",
+      "bytes": 12512
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_crash_diagnostic.json",
+      "sha256": "77b6e62bc24994b056e316aa0bd5e056e8ff0dfa377ef1e0ec5b291a181b6a88",
+      "bytes": 9170
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_gfxreconstruct.json",
+      "sha256": "93065b7975a70a250569bfce2ee655bf6bc188a7844204d2c37700a770afb02e",
+      "bytes": 26755
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_profiles.json",
+      "sha256": "88deb508a3d16131cd747335063826a31f237e024f396542c05908b44760b895",
+      "bytes": 69029
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_shader_object.json",
+      "sha256": "1c6dd4b56db0e2dc4a7eb1e44e7ad933f399685436c644add05dadf4258e6b1d",
+      "bytes": 4356
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_synchronization2.json",
+      "sha256": "307c8b906289b7a3329fb44137dd3af595d91f26e5bde9cff1b4280801a45139",
+      "bytes": 1860
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_validation.json",
+      "sha256": "328861629130912c27f1db4f2be4fa3d64608ca7edf6f3d886c09cb5856834cc",
+      "bytes": 94443
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_api_dump.so",
+      "sha256": "1b9871125c6f9afb2b0f09adbe3af3049a20837dca80ccea5d642be4dec31474",
+      "bytes": 109065264
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_crash_diagnostic.so",
+      "sha256": "99dda3ecafd809f0de42453536a2ea6299ac6216db9352e301065542e6685fbf",
+      "bytes": 13228088
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_gfxreconstruct.so",
+      "sha256": "2e8397383a72eb200e99a560a2b58947b8a0dc6cef3d1fe67245674df0d9e546",
+      "bytes": 99440744
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_profiles.so",
+      "sha256": "e2e9422a15730cd14904a0d27bbd7d463b5598fc7ffa1744d14fc47ce0dc87bf",
+      "bytes": 2226960
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_shader_object.so",
+      "sha256": "da3db6756cccaf502dab09a3de0cece49168654f7735612bb51f7555ef9f7cda",
+      "bytes": 4174536
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_synchronization2.so",
+      "sha256": "daa4bf2da5600deeff440b4c98fc3d68ba04121fdbb2f21d3463126c8d0a2c99",
+      "bytes": 5290240
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_validation.so",
+      "sha256": "cbecbd0d82217a789a3c3e1493cc60cb7cc036df8f22a0501af9b8ca23342e81",
+      "bytes": 37821704
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libvulkan.so",
+      "sha256": "d59b6a2b184887fb6eddea3dd754bd2f5b59abc647577c3cd71bb530213ebbb0",
+      "bytes": 4210872
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Config/StagedBuild_BiellaGames.ini",
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "bytes": 3
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Content/Renderer/TessellationTable.bin",
+      "sha256": "edc4f3b628a139c5e185bbaeca661c95c1f427368d3b92892c5cff36c56dd941",
+      "bytes": 259568
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c",
+      "bytes": 22146944
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so.1.24",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c",
+      "bytes": 22146944
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Manifest_NonUFSFiles_Linux.txt",
+      "sha256": "2706002b8e6efef1237db365d58c0914eb0c11f86b697999809ef39056032aee",
+      "bytes": 2175
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/Manifest_UFSFiles_Linux.txt",
+      "sha256": "7cb027c336cf8489e5f7bf5bbc5aae4d52c8d502dac961a9d485eafac8d79a66",
+      "bytes": 229121
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/NOTICES.txt",
+      "sha256": "ba49ae5586f817b36a2772269f71f899cb1f54b5f2720fad951319edd5e140b8",
+      "bytes": 111
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/ThirdPartyNotices/libsamplerate-COPYING.txt",
+      "sha256": "2c1f76ce2effdddb425018405d5690c0b1ab4e6976e35296b0a6db65c5e1a55d",
+      "bytes": 1334
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/stage-06-archive/Linux/ThirdPartyNotices/mimalloc-LICENSE.txt",
+      "sha256": "d9f5607dce0f93055be57077d1b9545e5b14d5814d8c99d6e1d0a5eff2f74c89",
+      "bytes": 1091
+    }
+  ],
+  "archive": {
+    "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-05.tar.zst",
+    "sha256": "f5ce5ff65fa17f52e203424c2cfb8bb62dcecaaff241b37fab243ae9595db391",
+    "bytes": 482834812
+  },
+  "readback_members": [
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/BiellaGames/Binaries/Linux/BiellaGames",
+      "sha256": "38403bd19aa32fb82ff8b9424213b96e451ede3de083065805f9343c8a88bde0",
+      "bytes": 299185984
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.pak",
+      "sha256": "0ccaad28e76ed2e433102d92e793bbda49c3cd26ecf60654f7b9052442d806ff",
+      "bytes": 11078296
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.ucas",
+      "sha256": "4832c0e687af76cad6f887d41dfb9ed17d312585708156044ba9fbb54180e487",
+      "bytes": 318334784
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/BiellaGames/Content/Paks/BiellaGames-Linux.utoc",
+      "sha256": "31a184d8b010629f4e37638bd21b71940e83e3528bf9db43389348701d709621",
+      "bytes": 265679
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/BiellaGames/Content/Paks/global.ucas",
+      "sha256": "b3ce3495e88226d9c2864f34e369672f11561a0af5cbaa5f9c4e401d13210b3f",
+      "bytes": 3207088
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/BiellaGames/Content/Paks/global.utoc",
+      "sha256": "24d21e7f1d88d84875d365bedbef5bcac91d0ea1627f4ef6b51c45515388b474",
+      "bytes": 782
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/BiellaGames/Content/UI/ST_BiellaRuntime.json",
+      "sha256": "fe0b1ffc9339711122f8a848784497b45cc27368740569d03406bba2780fc2a7",
+      "bytes": 5085
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/BiellaGames.sh",
+      "sha256": "0f758fc1d431fca29cae27ecf35820d9ea70864532c0959f2d578e5216f68c46",
+      "bytes": 258
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so",
+      "sha256": "51aec15c714c5d96969f6a7608cdefc5c163e7fec0b2e0974ec1382380d11c5e",
+      "bytes": 23
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/MsQuic/v220/linux/libmsquic.so.2",
+      "sha256": "ed3698c20005885c61a20f04ba772e329f67855713f5fecb26152a8f949ad280",
+      "bytes": 9715408
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_api_dump.json",
+      "sha256": "4616e485e4dacaa8c1ef365fed23d2c117e8848148720a7acea70c96cb975179",
+      "bytes": 12512
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_crash_diagnostic.json",
+      "sha256": "77b6e62bc24994b056e316aa0bd5e056e8ff0dfa377ef1e0ec5b291a181b6a88",
+      "bytes": 9170
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_gfxreconstruct.json",
+      "sha256": "93065b7975a70a250569bfce2ee655bf6bc188a7844204d2c37700a770afb02e",
+      "bytes": 26755
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_profiles.json",
+      "sha256": "88deb508a3d16131cd747335063826a31f237e024f396542c05908b44760b895",
+      "bytes": 69029
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_shader_object.json",
+      "sha256": "1c6dd4b56db0e2dc4a7eb1e44e7ad933f399685436c644add05dadf4258e6b1d",
+      "bytes": 4356
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_synchronization2.json",
+      "sha256": "307c8b906289b7a3329fb44137dd3af595d91f26e5bde9cff1b4280801a45139",
+      "bytes": 1860
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/VkLayer_khronos_validation.json",
+      "sha256": "328861629130912c27f1db4f2be4fa3d64608ca7edf6f3d886c09cb5856834cc",
+      "bytes": 94443
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_api_dump.so",
+      "sha256": "1b9871125c6f9afb2b0f09adbe3af3049a20837dca80ccea5d642be4dec31474",
+      "bytes": 109065264
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_crash_diagnostic.so",
+      "sha256": "99dda3ecafd809f0de42453536a2ea6299ac6216db9352e301065542e6685fbf",
+      "bytes": 13228088
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_gfxreconstruct.so",
+      "sha256": "2e8397383a72eb200e99a560a2b58947b8a0dc6cef3d1fe67245674df0d9e546",
+      "bytes": 99440744
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_profiles.so",
+      "sha256": "e2e9422a15730cd14904a0d27bbd7d463b5598fc7ffa1744d14fc47ce0dc87bf",
+      "bytes": 2226960
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_shader_object.so",
+      "sha256": "da3db6756cccaf502dab09a3de0cece49168654f7735612bb51f7555ef9f7cda",
+      "bytes": 4174536
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_synchronization2.so",
+      "sha256": "daa4bf2da5600deeff440b4c98fc3d68ba04121fdbb2f21d3463126c8d0a2c99",
+      "bytes": 5290240
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libVkLayer_khronos_validation.so",
+      "sha256": "cbecbd0d82217a789a3c3e1493cc60cb7cc036df8f22a0501af9b8ca23342e81",
+      "bytes": 37821704
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Binaries/ThirdParty/Vulkan/Linux/libvulkan.so",
+      "sha256": "d59b6a2b184887fb6eddea3dd754bd2f5b59abc647577c3cd71bb530213ebbb0",
+      "bytes": 4210872
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Config/StagedBuild_BiellaGames.ini",
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "bytes": 3
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Content/Renderer/TessellationTable.bin",
+      "sha256": "edc4f3b628a139c5e185bbaeca661c95c1f427368d3b92892c5cff36c56dd941",
+      "bytes": 259568
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c",
+      "bytes": 22146944
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Linux/libonnxruntime.so.1.24",
+      "sha256": "bc33abfd6154771fe4cb4268d8a8323ce86ab5ee3e110f87f36d26eb1126079c",
+      "bytes": 22146944
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Manifest_NonUFSFiles_Linux.txt",
+      "sha256": "2706002b8e6efef1237db365d58c0914eb0c11f86b697999809ef39056032aee",
+      "bytes": 2175
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/Manifest_UFSFiles_Linux.txt",
+      "sha256": "7cb027c336cf8489e5f7bf5bbc5aae4d52c8d502dac961a9d485eafac8d79a66",
+      "bytes": 229121
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/NOTICES.txt",
+      "sha256": "ba49ae5586f817b36a2772269f71f899cb1f54b5f2720fad951319edd5e140b8",
+      "bytes": 111
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/ThirdPartyNotices/libsamplerate-COPYING.txt",
+      "sha256": "2c1f76ce2effdddb425018405d5690c0b1ab4e6976e35296b0a6db65c5e1a55d",
+      "bytes": 1334
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback/Linux/ThirdPartyNotices/mimalloc-LICENSE.txt",
+      "sha256": "d9f5607dce0f93055be57077d1b9545e5b14d5814d8c99d6e1d0a5eff2f74c89",
+      "bytes": 1091
+    }
+  ],
+  "archive_readback": "/mnt/biella-extra/biella-runtime/d17-01/cook-service-06/archive-readback",
+  "elapsed_seconds": 52.445781477028504
+}

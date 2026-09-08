@@ -1,0 +1,243 @@
+{
+  "schema": "biella.d17.raw_input_plan/v1",
+  "task_id": "D17-01",
+  "scope": "Ordinary-input power, panel damage and hazard-entry route. Adds a short lateral step toward the gap created by the over-shoulder weapon; existing camera, collision and gameplay remain unchanged. Outcomes must be observed.",
+  "actions": [
+    {
+      "at": 0,
+      "input": [
+        "keydown",
+        "w"
+      ],
+      "beat": "Advance from the native start state"
+    },
+    {
+      "at": 0,
+      "input": [
+        "keydown",
+        "Shift_L"
+      ],
+      "beat": "Use normal sprint control"
+    },
+    {
+      "at": 0,
+      "input": [
+        "keydown",
+        "a"
+      ],
+      "beat": "Pass left of initial encounter"
+    },
+    {
+      "at": 0.15,
+      "input": [
+        "keyup",
+        "a"
+      ],
+      "beat": "Continue along the street"
+    },
+    {
+      "at": 4.9,
+      "input": [
+        "keyup",
+        "Shift_L"
+      ],
+      "beat": "Approach service bay at walking speed"
+    },
+    {
+      "at": 10.9,
+      "input": [
+        "keyup",
+        "w"
+      ],
+      "beat": "Turn approach toward the cabinet side"
+    },
+    {
+      "at": 11.0,
+      "input": [
+        "keydown",
+        "d"
+      ],
+      "beat": "Approach cabinet lateral coordinate"
+    },
+    {
+      "at": 11.8,
+      "input": [
+        "keyup",
+        "d"
+      ],
+      "beat": "Stop lateral input"
+    },
+    {
+      "at": 11.9,
+      "input": [
+        "keydown",
+        "w"
+      ],
+      "beat": "Approach west side of switch"
+    },
+    {
+      "at": 13.1,
+      "input": [
+        "keyup",
+        "w"
+      ],
+      "beat": "Stop before cabinet"
+    },
+    {
+      "at": 13.2,
+      "input": [
+        "keydown",
+        "e"
+      ],
+      "beat": "Attempt native switch interaction"
+    },
+    {
+      "at": 13.4,
+      "input": [
+        "keyup",
+        "e"
+      ],
+      "beat": "Release interaction"
+    },
+    {
+      "at": 13.9,
+      "input": [
+        "keydown",
+        "d"
+      ],
+      "beat": "Move from cabinet toward panels"
+    },
+    {
+      "at": 14.55,
+      "input": [
+        "keyup",
+        "d"
+      ],
+      "beat": "Stop aligned toward existing panel"
+    },
+    {
+      "at": 14.9,
+      "input": [
+        "mousedown",
+        "1"
+      ],
+      "beat": "Fire at destructible panel"
+    },
+    {
+      "at": 15.0,
+      "input": [
+        "mouseup",
+        "1"
+      ],
+      "beat": "Release trigger"
+    },
+    {
+      "at": 15.4,
+      "input": [
+        "mousedown",
+        "1"
+      ],
+      "beat": "Second shot at panel"
+    },
+    {
+      "at": 15.5,
+      "input": [
+        "mouseup",
+        "1"
+      ],
+      "beat": "Release trigger"
+    },
+    {
+      "at": 15.9,
+      "input": [
+        "mousedown",
+        "1"
+      ],
+      "beat": "Third shot if required"
+    },
+    {
+      "at": 16.0,
+      "input": [
+        "mouseup",
+        "1"
+      ],
+      "beat": "Release trigger"
+    },
+    {
+      "at": 16.2,
+      "input": [
+        "keydown",
+        "d"
+      ],
+      "beat": "Align player with the panel gap offset from shoulder aim"
+    },
+    {
+      "at": 16.43,
+      "input": [
+        "keyup",
+        "d"
+      ],
+      "beat": "Stop lateral step before entering gap"
+    },
+    {
+      "at": 16.9,
+      "input": [
+        "keydown",
+        "w"
+      ],
+      "beat": "Enter existing service hazard area if panel opened"
+    },
+    {
+      "at": 18.9,
+      "input": [
+        "keyup",
+        "w"
+      ],
+      "beat": "Stop forward movement"
+    },
+    {
+      "at": 21.9,
+      "input": [
+        "keydown",
+        "s"
+      ],
+      "beat": "Withdraw from hazard"
+    },
+    {
+      "at": 24.9,
+      "input": [
+        "keyup",
+        "s"
+      ],
+      "beat": "Stop withdrawal"
+    },
+    {
+      "at": 25.9,
+      "input": [
+        "mousemove_relative",
+        "--",
+        "112",
+        "0"
+      ],
+      "beat": "Look along approach"
+    },
+    {
+      "at": 26.9,
+      "input": [
+        "keydown",
+        "w"
+      ],
+      "beat": "Continue ordinary traversal"
+    },
+    {
+      "at": 52.9,
+      "input": [
+        "keyup",
+        "w"
+      ],
+      "beat": "End bounded diagnostic input"
+    }
+  ],
+  "input_time_origin": "first_world_tick",
+  "timing_basis": "First nonzero-frame native D02_STREAM ENCOUNTER_RESIDENCY after Active; read-only synchronization. Startup and terminal capture remain in the raw video and never count as active duration."
+}

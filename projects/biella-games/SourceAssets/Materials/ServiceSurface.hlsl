@@ -28,10 +28,19 @@ float3 P = Position * clamp(DetailScale,.25,4.0);
 float height = .12*Grain.Filtered(P*.055)
              + .26*Grain.Filtered(P*.70+float3(11.1,3.7,8.9))
              + .16*Grain.Filtered(P*2.8+float3(2.3,7.1,4.9));
+// Tissue has broad pigmentation, soft folds and fine fibers. Keep its
+// moisture/normal response separate from coated metal, without world motion.
+float macro = Grain.Value(P*.068+float3(7.1,1.3,8.7));
+float phase = P.z*1.3 + Grain.Value(P*.18)*12.0;
+float fibers = sin(phase) * (1.0-smoothstep(.4,1.4,max(abs(ddx(phase)),abs(ddy(phase)))));
+float tissueHeight = .55*Grain.Filtered(P*.32) + .12*fibers + .15*Grain.Filtered(P*2.1);
+float pigment = saturate(.75*macro + .125*fibers + .125);
+float metalGrain = .5+.5*height;
+height = lerp(height,tissueHeight,saturate(Organic));
 float3 N = normalize(SurfaceNormal);
 float3 dx = ddx(Position), dy = ddy(Position);
 float3 rx = cross(dy,N), ry = cross(N,dx);
 float det = dot(dx,rx);
 float3 gradient = (ddx(height)*rx+ddy(height)*ry)*sign(det)/max(abs(det),.00001);
 ReliefNormal = normalize(N-clamp(ReliefCm,0.0,.20)*gradient);
-return .5+.5*height;
+return lerp(metalGrain,pigment,saturate(Organic));

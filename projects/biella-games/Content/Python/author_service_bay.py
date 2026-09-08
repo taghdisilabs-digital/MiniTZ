@@ -60,7 +60,7 @@ if not VERIFY:
     params = {}
     for name, value in dict(BaseColor=(.055,.074,.08,1), Roughness=.48, Metallic=0.,
                             DetailScale=1., ReliefCm=.012, Wear=.35, Wetness=.3,
-                            Emission=0.).items():
+                            Emission=0., Organic=0.).items():
         vector = isinstance(value, tuple)
         params[name] = node(material, unreal.MaterialExpressionVectorParameter if vector else unreal.MaterialExpressionScalarParameter,
             parameter_name=name, default_value=unreal.LinearColor(*value) if vector else value,
@@ -70,10 +70,11 @@ if not VERIFY:
     grain = node(material, unreal.MaterialExpressionCustom, code=SHADER,
         description='Biella filtered centimeter-scale metal wear',
         output_type=unreal.CustomMaterialOutputType.CMOT_FLOAT1,
-        inputs=[structure(unreal.CustomInput, input_name=n) for n in ('Position','SurfaceNormal','DetailScale','ReliefCm')],
+        inputs=[structure(unreal.CustomInput, input_name=n) for n in ('Position','SurfaceNormal','DetailScale','ReliefCm','Organic')],
         additional_outputs=[structure(unreal.CustomOutput, output_name='ReliefNormal',output_type=unreal.CustomMaterialOutputType.CMOT_FLOAT3)])
     for a, output, key in ((pos,'XYZ','Position'),(normal,'','SurfaceNormal'),
-                          (params['DetailScale'],'','DetailScale'),(params['ReliefCm'],'','ReliefCm')):
+                          (params['DetailScale'],'','DetailScale'),(params['ReliefCm'],'','ReliefCm'),
+                          (params['Organic'],'','Organic')):
         link(a, output, grain, key)
     # Shallow oxidation and accumulated dirt modulate distinct material inputs.
     # Metallic is reduced in oxidized regions; moisture affects roughness/color,
@@ -83,17 +84,22 @@ float wet = saturate(Wetness) * smoothstep(0.35, 0.60, Grain);
 OutColor = lerp(BaseColor, float3(0.12,0.042,0.018), dirt) * lerp(1.0,0.72,wet);
 OutMetal = saturate(Metallic) * (1.0-dirt);
 OutRough = clamp(lerp(Roughness + dirt * 0.22, 0.17, wet), 0.12, 0.94);
+float tissueWet = saturate(Wetness) * smoothstep(0.3,0.65,Grain);
+float3 tissueColor = BaseColor * lerp(0.32,1.65,Grain);
+OutColor = lerp(OutColor,tissueColor,saturate(Organic));
+OutMetal *= 1.0-saturate(Organic);
+OutRough = lerp(OutRough,clamp(Roughness + 0.1*(1.0-Grain)-0.16*tissueWet,0.18,0.65),saturate(Organic));
 return 0.0;'''
     surface = node(material, unreal.MaterialExpressionCustom, code=code,
         description='Oxide and dampness affect physical response independently',
         output_type=unreal.CustomMaterialOutputType.CMOT_FLOAT1,
-        inputs=[structure(unreal.CustomInput,input_name=n) for n in ('Grain','BaseColor','Roughness','Metallic','Wear','Wetness')],
+        inputs=[structure(unreal.CustomInput,input_name=n) for n in ('Grain','BaseColor','Roughness','Metallic','Wear','Wetness','Organic')],
         additional_outputs=[structure(unreal.CustomOutput,output_name=n,output_type=t) for n,t in (
             ('OutColor',unreal.CustomMaterialOutputType.CMOT_FLOAT3),
             ('OutMetal',unreal.CustomMaterialOutputType.CMOT_FLOAT1),
             ('OutRough',unreal.CustomMaterialOutputType.CMOT_FLOAT1))])
     link(grain,'',surface,'Grain')
-    for key in ('BaseColor','Roughness','Metallic','Wear','Wetness'):
+    for key in ('BaseColor','Roughness','Metallic','Wear','Wetness','Organic'):
         link(params[key], 'RGB' if key=='BaseColor' else '', surface, key)
     emission = node(material,unreal.MaterialExpressionMultiply)
     link(params['BaseColor'],'RGB',emission,'A'); link(params['Emission'],'',emission,'B')
@@ -119,11 +125,13 @@ for name,color,rough,metal,wear,wet,emission in [
     ('Steel',(.31,.34,.36,1),.32,1,.22,.22,0),
     ('Rubber',(.012,.015,.018,1),.78,0,0,0,0),
     ('Lamp',(1,.62,.28,1),.3,0,0,0,3),
-    ('Growth',(.055,.004,.008,1),.34,0,0,.45,0),
-    ('Vein',(.42,.006,.016,1),.28,0,0,.4,3.5),
+    ('Growth',(.16,.007,.014,1),.34,0,0,.7,0),
+    ('Vein',(.42,.006,.016,1),.28,0,0,.4,1.8),
 ]:
     instance=asset('MI_Service'+name,unreal.MaterialInstanceConstant,unreal.MaterialInstanceConstantFactoryNew())
-    parameters=dict(Roughness=rough,Metallic=metal,Wear=wear,Wetness=wet,Emission=emission)
+    organic = name in ('Growth','Vein')
+    parameters=dict(Roughness=rough,Metallic=metal,Wear=wear,Wetness=wet,Emission=emission,
+                    Organic=float(organic),ReliefCm=.065 if name=='Growth' else .012)
     if not VERIFY:
         MAT.set_material_instance_parent(instance,material)
         MAT.set_material_instance_vector_parameter_value(instance,'BaseColor',unreal.LinearColor(*color))

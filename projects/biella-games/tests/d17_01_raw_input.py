@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import signal
 import subprocess
@@ -77,6 +78,10 @@ def main():
             start = time.monotonic()
             event('capture_started', window=window)
             next_action = 0
+            origin_mode = plan.get('input_time_origin', 'capture_started')
+            assert origin_mode in ('capture_started', 'first_world_tick')
+            input_origin = start if origin_mode == 'capture_started' else None
+            result['input_time_origin'] = origin_mode
             result['reason'] = 'bounded_route_probe_finished'
             while game.poll() is None and time.monotonic()-start < args.seconds:
                 elapsed = time.monotonic()-start
@@ -87,7 +92,17 @@ def main():
                     break
                 if recorder.poll() is not None:
                     raise RuntimeError('Raw recorder exited during gameplay')
-                while next_action < len(plan['actions']) and plan['actions'][next_action]['at'] <= elapsed:
+                if input_origin is None:
+                    # Read only an existing native world-tick signal. Never alter
+                    # simulation time, objective state, AI, or input responsiveness.
+                    active_text = text.split('PHASE phase=1', 1)[-1] if 'PHASE phase=1' in text else ''
+                    tick = re.search(r'^.*\]\[\s*[1-9][0-9]*\]LogTemp: Display: D02_STREAM ENCOUNTER_RESIDENCY .*$', active_text, re.M)
+                    if tick:
+                        input_origin = time.monotonic()
+                        result['input_origin_capture_seconds'] = input_origin-start
+                        event('input_clock_started', native_log_line=tick.group(0))
+                input_elapsed = time.monotonic()-input_origin if input_origin is not None else -1
+                while next_action < len(plan['actions']) and plan['actions'][next_action]['at'] <= input_elapsed:
                     action = plan['actions'][next_action]
                     operation = action['input']
                     if operation[0] not in {'keydown', 'keyup', 'mousedown', 'mouseup', 'mousemove_relative'}:
@@ -95,7 +110,7 @@ def main():
                     if any(key in {'r', 'R', 'grave', 'asciitilde'} for key in operation[1:]):
                         raise ValueError('Restart/console input is forbidden in the continuous run')
                     subprocess.run(['xdotool', *operation], check=True)
-                    event('input_sent', planned_at=action['at'], input=operation,
+                    event('input_sent', planned_at=action['at'], input_clock_seconds=time.monotonic()-input_origin, input=operation,
                           intended_beat=action['beat'])
                     next_action += 1
                 time.sleep(.05)

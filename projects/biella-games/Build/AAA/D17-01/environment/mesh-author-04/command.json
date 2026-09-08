@@ -1,0 +1,6 @@
+[
+  "/usr/local/bin/blender",
+  "--background",
+  "--python",
+  "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/build_service_bay.py"
+]

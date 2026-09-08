@@ -1,0 +1,13 @@
+{"event": "capture_started", "elapsed_seconds": 3.0299415811896324e-06, "window": "2097243"}
+{"event": "input_clock_started", "elapsed_seconds": 2.0968861539149657, "native_log_line": "[2026.09.08-15.00.14:214][  1]LogTemp: Display: D02_STREAM ENCOUNTER_RESIDENCY actor=BiellaInfected_2147482261 dormant=1 health=70.0"}
+{"event": "input_sent", "elapsed_seconds": 2.1151101120049134, "planned_at": 0, "input_clock_seconds": 0.01822457800153643, "input": ["keydown", "w"], "intended_beat": "Advance from the native start state"}
+{"event": "input_sent", "elapsed_seconds": 2.1348484609043226, "planned_at": 0, "input_clock_seconds": 0.03796296694781631, "input": ["keydown", "Shift_L"], "intended_beat": "Use normal sprint control"}
+{"event": "input_sent", "elapsed_seconds": 2.1529226870043203, "planned_at": 0, "input_clock_seconds": 0.05603699292987585, "input": ["keydown", "a"], "intended_beat": "Pass left of initial encounter"}
+{"event": "input_sent", "elapsed_seconds": 2.272734418977052, "planned_at": 0.15, "input_clock_seconds": 0.17584978498052806, "input": ["keyup", "a"], "intended_beat": "Continue along the street"}
+{"event": "input_sent", "elapsed_seconds": 7.066882696002722, "planned_at": 4.9, "input_clock_seconds": 4.969996982021257, "input": ["keyup", "Shift_L"], "intended_beat": "Approach service bay at walking speed"}
+{"event": "input_sent", "elapsed_seconds": 13.027123175910674, "planned_at": 10.9, "input_clock_seconds": 10.930237030959688, "input": ["keyup", "w"], "intended_beat": "Turn approach toward the cabinet side"}
+{"event": "input_sent", "elapsed_seconds": 13.147868606960401, "planned_at": 11.0, "input_clock_seconds": 11.050983272958547, "input": ["keydown", "d"], "intended_beat": "Approach cabinet lateral coordinate"}
+{"event": "input_sent", "elapsed_seconds": 13.944272113963962, "planned_at": 11.8, "input_clock_seconds": 11.847385189961642, "input": ["keyup", "d"], "intended_beat": "Stop lateral input"}
+{"event": "input_sent", "elapsed_seconds": 14.015957030002028, "planned_at": 11.9, "input_clock_seconds": 11.919070216012187, "input": ["keydown", "w"], "intended_beat": "Approach west side of switch"}
+{"event": "native_terminal_observed", "elapsed_seconds": 15.049665772006847}
+{"event": "capture_finished", "elapsed_seconds": 25.02395808591973, "result": {"status": "CAPTURED", "reason": "native_terminal_state", "audio_capture": false, "input_delivery": "X11 keyboard/mouse", "world_mutation_or_automation_tests": false, "input_time_origin": "first_world_tick", "input_origin_capture_seconds": 2.096880153985694, "measured_input_run_seconds": 15.04972542298492, "actions_sent": 9, "game_alive_at_capture_end": true, "recorder_returncode": 255, "game_returncode": 0}}

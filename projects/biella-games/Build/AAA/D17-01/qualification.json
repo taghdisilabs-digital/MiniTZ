@@ -7,252 +7,139 @@
       "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
     },
     "observation": {
-      "active_simulation_seconds": 46.31332703580847,
+      "active_simulation_seconds": 21.109894568973687,
       "audio_captured": false,
-      "capture_input_wall_seconds": 48.493732454953715,
-      "capture_video_seconds": 50.466,
-      "decoded_frames": 1514,
-      "directory": "Build/AAA/D17-01/raw/growth-hazard-720-01",
-      "electrical_floor_damage": [
-        {
-          "amount": "3.013",
-          "health": "96.987",
-          "sim_seconds": 18.03717748163035,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        },
-        {
-          "amount": "3.027",
-          "health": "93.960",
-          "sim_seconds": 18.289419072621968,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        },
-        {
-          "amount": "3.069",
-          "health": "90.891",
-          "sim_seconds": 18.54517993790796,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        },
-        {
-          "amount": "3.089",
-          "health": "87.802",
-          "sim_seconds": 22.732528998458292,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        },
-        {
-          "amount": "3.045",
-          "health": "84.757",
-          "sim_seconds": 22.986237858363893,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        },
-        {
-          "amount": "3.005",
-          "health": "69.753",
-          "sim_seconds": 23.236642287054565,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        },
-        {
-          "amount": "3.000",
-          "health": "42.752",
-          "sim_seconds": 29.68209650827339,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        },
-        {
-          "amount": "3.000",
-          "health": "39.752",
-          "sim_seconds": 29.932105422893073,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        },
-        {
-          "amount": "3.001",
-          "health": "36.751",
-          "sim_seconds": 30.18217909609666,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        }
-      ],
-      "environment_panel_events": [
-        "id=D02Environment01 panel=2 health=34.00 revision=2 physics=0",
-        "id=D02Environment01 panel=2 health=0.00 revision=3 physics=1"
-      ],
-      "environment_power_transitions": 1,
+      "capture_input_wall_seconds": 23.761980192968622,
+      "capture_video_seconds": 25.7,
+      "decoded_frames": 771,
+      "directory": "Build/AAA/D17-01/raw/sheath-hazard-720-01",
+      "electrical_floor_damage": [],
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
       "events": {
-        "damage": 88,
-        "defeat": 15,
+        "damage": 58,
+        "defeat": 11,
         "objective_activated": 1,
-        "objective_progress": 23,
+        "objective_progress": 16,
         "objective_success": 1,
         "phase": 2,
         "telemetry_ready": 1,
         "telemetry_shutdown": 1,
-        "weapon_fire": 1
+        "weapon_fire": 3
       },
-      "input_actions": 28,
+      "input_actions": 24,
       "namespace_file_verification": true,
       "natural_pressure_observed": false,
       "player_defeats": [],
       "raw_video": {
-        "bytes": 13514741,
-        "path": "Build/AAA/D17-01/raw/growth-hazard-720-01/raw-gameplay.mkv",
-        "sha256": "1de66016cd7417f1a37a0182bca73249ff6bd6683ba5806c005cd269878ad31e"
+        "bytes": 5882975,
+        "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/raw-gameplay.mkv",
+        "sha256": "e6645c46dfcb9e9e8616925a4907b1fd21971f5b3c1e75815a8a3e815e625e45"
       },
       "resolution": [
         1280,
         720
       ],
       "restart_count": 0,
-      "run": "growth-hazard-720-01",
-      "session": "01A08168-EDB6-7AD1-A3C2-611AB4B3BF6B",
+      "run": "sheath-hazard-720-01",
+      "session": "01A08182-44EE-7E7E-8620-45B1B149FA7D",
       "terminal": "Success",
       "uninterrupted_duration_satisfied": false
     },
     "scope": "Ordinary input on the current package; switching, panel physics and electrical-floor outcomes are extracted from native logs/telemetry above"
   },
+  "current_input_timing_probe": {
+    "active_simulation_seconds": 12.70496472431114,
+    "audio_captured": false,
+    "capture_input_wall_seconds": 15.04972542298492,
+    "capture_video_seconds": 16.966,
+    "decoded_frames": 509,
+    "directory": "Build/AAA/D17-01/raw/sheath-hazard-720-02",
+    "electrical_floor_damage": [],
+    "environment_panel_events": [],
+    "environment_power_transitions": 0,
+    "events": {
+      "damage": 36,
+      "defeat": 7,
+      "objective_activated": 1,
+      "objective_progress": 11,
+      "objective_success": 1,
+      "phase": 2,
+      "telemetry_ready": 1,
+      "telemetry_shutdown": 1
+    },
+    "input_actions": 9,
+    "namespace_file_verification": true,
+    "natural_pressure_observed": false,
+    "player_defeats": [],
+    "raw_video": {
+      "bytes": 4490912,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/raw-gameplay.mkv",
+      "sha256": "5bf2da2e29fe6e5aac7f733f1193352eaf121283b29a5be9c6841fda99d1919f"
+    },
+    "resolution": [
+      1280,
+      720
+    ],
+    "restart_count": 0,
+    "run": "sheath-hazard-720-02",
+    "session": "01A08188-A7A4-7484-87F1-BF39F676DB7D",
+    "terminal": "Success",
+    "uninterrupted_duration_satisfied": false
+  },
   "current_raw_runs": [
     {
-      "active_simulation_seconds": 46.31332703580847,
+      "active_simulation_seconds": 21.109894568973687,
       "audio_captured": false,
-      "capture_input_wall_seconds": 48.493732454953715,
-      "capture_video_seconds": 50.466,
-      "decoded_frames": 1514,
-      "directory": "Build/AAA/D17-01/raw/growth-hazard-720-01",
-      "electrical_floor_damage": [
-        {
-          "amount": "3.013",
-          "health": "96.987",
-          "sim_seconds": 18.03717748163035,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        },
-        {
-          "amount": "3.027",
-          "health": "93.960",
-          "sim_seconds": 18.289419072621968,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        },
-        {
-          "amount": "3.069",
-          "health": "90.891",
-          "sim_seconds": 18.54517993790796,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        },
-        {
-          "amount": "3.089",
-          "health": "87.802",
-          "sim_seconds": 22.732528998458292,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        },
-        {
-          "amount": "3.045",
-          "health": "84.757",
-          "sim_seconds": 22.986237858363893,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        },
-        {
-          "amount": "3.005",
-          "health": "69.753",
-          "sim_seconds": 23.236642287054565,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        },
-        {
-          "amount": "3.000",
-          "health": "42.752",
-          "sim_seconds": 29.68209650827339,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        },
-        {
-          "amount": "3.000",
-          "health": "39.752",
-          "sim_seconds": 29.932105422893073,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        },
-        {
-          "amount": "3.001",
-          "health": "36.751",
-          "sim_seconds": 30.18217909609666,
-          "source": "BiellaEnvironmentSite:1",
-          "tag": "electrical_floor",
-          "target": "BiellaStreamingCharacter:1"
-        }
-      ],
-      "environment_panel_events": [
-        "id=D02Environment01 panel=2 health=34.00 revision=2 physics=0",
-        "id=D02Environment01 panel=2 health=0.00 revision=3 physics=1"
-      ],
-      "environment_power_transitions": 1,
+      "capture_input_wall_seconds": 23.761980192968622,
+      "capture_video_seconds": 25.7,
+      "decoded_frames": 771,
+      "directory": "Build/AAA/D17-01/raw/sheath-hazard-720-01",
+      "electrical_floor_damage": [],
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
       "events": {
-        "damage": 88,
-        "defeat": 15,
+        "damage": 58,
+        "defeat": 11,
         "objective_activated": 1,
-        "objective_progress": 23,
+        "objective_progress": 16,
         "objective_success": 1,
         "phase": 2,
         "telemetry_ready": 1,
         "telemetry_shutdown": 1,
-        "weapon_fire": 1
+        "weapon_fire": 3
       },
-      "input_actions": 28,
+      "input_actions": 24,
       "namespace_file_verification": true,
       "natural_pressure_observed": false,
       "player_defeats": [],
       "raw_video": {
-        "bytes": 13514741,
-        "path": "Build/AAA/D17-01/raw/growth-hazard-720-01/raw-gameplay.mkv",
-        "sha256": "1de66016cd7417f1a37a0182bca73249ff6bd6683ba5806c005cd269878ad31e"
+        "bytes": 5882975,
+        "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/raw-gameplay.mkv",
+        "sha256": "e6645c46dfcb9e9e8616925a4907b1fd21971f5b3c1e75815a8a3e815e625e45"
       },
       "resolution": [
         1280,
         720
       ],
       "restart_count": 0,
-      "run": "growth-hazard-720-01",
-      "session": "01A08168-EDB6-7AD1-A3C2-611AB4B3BF6B",
+      "run": "sheath-hazard-720-01",
+      "session": "01A08182-44EE-7E7E-8620-45B1B149FA7D",
       "terminal": "Success",
       "uninterrupted_duration_satisfied": false
     },
     {
-      "active_simulation_seconds": 9.021478963026311,
+      "active_simulation_seconds": 9.20354756055167,
       "audio_captured": false,
-      "capture_input_wall_seconds": 11.460113083943725,
-      "capture_video_seconds": 13.433,
-      "decoded_frames": 401,
-      "directory": "Build/AAA/D17-01/raw/growth-hazard-1080-01",
+      "capture_input_wall_seconds": 11.828204103047028,
+      "capture_video_seconds": 13.8,
+      "decoded_frames": 412,
+      "directory": "Build/AAA/D17-01/raw/sheath-hazard-1080-01",
       "electrical_floor_damage": [],
       "environment_panel_events": [],
       "environment_power_transitions": 0,
       "events": {
-        "damage": 11,
+        "damage": 12,
         "defeat": 2,
         "objective_activated": 1,
         "objective_progress": 2,
@@ -266,26 +153,26 @@
       "natural_pressure_observed": false,
       "player_defeats": [],
       "raw_video": {
-        "bytes": 5687900,
-        "path": "Build/AAA/D17-01/raw/growth-hazard-1080-01/raw-gameplay.mkv",
-        "sha256": "074be6eb0686c9b6f3207a6d0a0ebc4fd1f9a1eddc6b17afde68738c5874b292"
+        "bytes": 5825878,
+        "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/raw-gameplay.mkv",
+        "sha256": "8ccb2659ebfaa466a04bf2cf34342ed320eb47b90ff0db2a283e35be3d9b555e"
       },
       "resolution": [
         1920,
         1080
       ],
       "restart_count": 0,
-      "run": "growth-hazard-1080-01",
-      "session": "01A0816D-8686-7A81-84FE-1C3AC1905C51",
+      "run": "sheath-hazard-1080-01",
+      "session": "01A08183-5C9D-767E-ACB3-CE5EAF6337EB",
       "terminal": "Success",
       "uninterrupted_duration_satisfied": false
     }
   ],
   "evidence_files": [
     {
-      "bytes": 5833,
+      "bytes": 5277,
       "path": "Build/AAA/D17-01/README.md",
-      "sha256": "7ac72845914d6a9b336b4812d10a20eac4a5e93ab31985d14262205ce72f82fa"
+      "sha256": "2dda6d692ac61b4fae59d5ebb543d795971c33b9b3e235ea14449f939110cafb"
     },
     {
       "bytes": 587,
@@ -358,6 +245,26 @@
       "sha256": "903568ff3e8d3628f06b7927624d63dd0ae86601b15724a81a8fb7e8b1bdd36c"
     },
     {
+      "bytes": 587,
+      "path": "Build/AAA/D17-01/build/cook-06/command.json",
+      "sha256": "f5c7f776405420a946ead19978c4f8addfd299002a6de8dcd3910b37fe509eff"
+    },
+    {
+      "bytes": 275868,
+      "path": "Build/AAA/D17-01/build/cook-06/cook.engine.log",
+      "sha256": "5d01a49c3d270e73f42434b9927e569a6daee77ab482d0b66d13c72e8e09b365"
+    },
+    {
+      "bytes": 276287,
+      "path": "Build/AAA/D17-01/build/cook-06/cook.stdout.log",
+      "sha256": "f530d63c580e460c96aa2010f05066ab6d172b4309ab501b345d937e13faff32"
+    },
+    {
+      "bytes": 19503429,
+      "path": "Build/AAA/D17-01/build/cook-06/validation.json",
+      "sha256": "35a9cccbbced193962525f7a56bcb0d00df26a150cfade1e033b1da898047096"
+    },
+    {
       "bytes": 2409,
       "path": "Build/AAA/D17-01/build/cook-config-recovery-02.json",
       "sha256": "6c454fa84247b07f4867272adc6decdefd361cca0c60a58dba20c959a332240a"
@@ -366,6 +273,11 @@
       "bytes": 2409,
       "path": "Build/AAA/D17-01/build/cook-config-recovery-03.json",
       "sha256": "46ccb5e125a3a63265b946d763a39cba4aeedbf3b68e2540f1dc3f65d2272ea6"
+    },
+    {
+      "bytes": 2409,
+      "path": "Build/AAA/D17-01/build/cook-config-recovery-04.json",
+      "sha256": "f6b2e46ee2937d90fab71a42fc40dca6daa2bc8355ab06cf3507c38a2a193254"
     },
     {
       "bytes": 2463,
@@ -488,6 +400,21 @@
       "sha256": "c25530e86b27eb9689acb5c39adbccf48ed7cc3e24b775a6fdf377ca3098e482"
     },
     {
+      "bytes": 8669,
+      "path": "Build/AAA/D17-01/build/package-05/package-manifest.json",
+      "sha256": "7160f3f67cd2caca349a3632a89e02393bb6db0ea34240e4af39822a7f899e7b"
+    },
+    {
+      "bytes": 75254,
+      "path": "Build/AAA/D17-01/build/package-05/source-build.json",
+      "sha256": "02abffbfd2ae14fe063068c68b73cd83ae726c11ed25b76f497f99cdce10716a"
+    },
+    {
+      "bytes": 1652,
+      "path": "Build/AAA/D17-01/build/package-05/validation.json",
+      "sha256": "f0e4e885218b5ed7dcb20e088f897f3292025d5ea80e51234ef68630c769203d"
+    },
+    {
       "bytes": 1628,
       "path": "Build/AAA/D17-01/build/stage-02/validation.json",
       "sha256": "6745bf17b475473cd43198f465395eaf938cf7d946aec95d8cf5a0ec706cad5b"
@@ -536,6 +463,21 @@
       "bytes": 21637,
       "path": "Build/AAA/D17-01/build/stage-05/validation.json",
       "sha256": "9fc7652dbce1a16690818f10d7afa20cea4d87403a3691f99debd98e6bcb0af6"
+    },
+    {
+      "bytes": 912,
+      "path": "Build/AAA/D17-01/build/stage-06/command.json",
+      "sha256": "9a1db77c1010fb91bf0ed684e3d08d227fbbb3428b91c0aa28d18a2f52df3500"
+    },
+    {
+      "bytes": 75454,
+      "path": "Build/AAA/D17-01/build/stage-06/stage.log",
+      "sha256": "ce7760967a325ed83188dc378b193a88e84e6ad7b9f80ccf93be2bb4d3f6bc68"
+    },
+    {
+      "bytes": 21441,
+      "path": "Build/AAA/D17-01/build/stage-06/validation.json",
+      "sha256": "8c4b4ca7d73b0213aebbe8807316572f680ef6e9073df81424396e911d675b8e"
     },
     {
       "bytes": 1186,
@@ -646,6 +588,41 @@
       "bytes": 6166,
       "path": "Build/AAA/D17-01/environment/assets-03/validation.json",
       "sha256": "74cef03cb09fb5400a8c71e48080748260ee0f0eb15e94c441322646ece266a1"
+    },
+    {
+      "bytes": 598,
+      "path": "Build/AAA/D17-01/environment/assets-04/author-command.json",
+      "sha256": "135017e261b4c2bc3c84e2f6a170c1483659eb4d5fba65ddd29a5ffab112c497"
+    },
+    {
+      "bytes": 2648,
+      "path": "Build/AAA/D17-01/environment/assets-04/author.json",
+      "sha256": "f30bbc231db4e0f4d1aa13ebe20c499abcddf1bae9ca7a7dc1c47b19fdb22705"
+    },
+    {
+      "bytes": 231184,
+      "path": "Build/AAA/D17-01/environment/assets-04/author.log",
+      "sha256": "244649a393d9adf1ecc4c250cd2961650e2bf9e5b75b565d387a18d583b0810b"
+    },
+    {
+      "bytes": 626,
+      "path": "Build/AAA/D17-01/environment/assets-04/readback-command.json",
+      "sha256": "d1a1831a65cf25e1c81f3c0f9fa81f38b3dd934a79d55967b90bbc7f13ac25df"
+    },
+    {
+      "bytes": 2650,
+      "path": "Build/AAA/D17-01/environment/assets-04/readback.json",
+      "sha256": "759b365f7b971ed4869cadd7c62b9fea1fc3f12c4eb5aec055931dce6eb96873"
+    },
+    {
+      "bytes": 215471,
+      "path": "Build/AAA/D17-01/environment/assets-04/readback.log",
+      "sha256": "4bff36ef28ca3340f99cdcfe2f919660b6b2ea3c26e5602972100323433857fd"
+    },
+    {
+      "bytes": 6167,
+      "path": "Build/AAA/D17-01/environment/assets-04/validation.json",
+      "sha256": "e16910aca18c68cdaf9c82a1afe691aac7fb38a1dc4a08d6101d9e8363a606cd"
     },
     {
       "bytes": 296,
@@ -841,6 +818,66 @@
       "bytes": 832,
       "path": "Build/AAA/D17-01/environment/mesh-author-03/runtime.log",
       "sha256": "dd0284d835fb3c3ac905b1d1416ae785bc41a11e0dbca379e6b438db623423e7"
+    },
+    {
+      "bytes": 169,
+      "path": "Build/AAA/D17-01/environment/mesh-author-04/command.json",
+      "sha256": "1a0759f14c8e53f32bffe27f7d02f1d55d5cf5f05311ddda1b10abeb62f28d97"
+    },
+    {
+      "bytes": 63,
+      "path": "Build/AAA/D17-01/environment/mesh-author-04/execution.json",
+      "sha256": "dc4dc8470fd93ae52698f863fc3983f349233383a463841ea72e87116ef8eb5f"
+    },
+    {
+      "bytes": 1512,
+      "path": "Build/AAA/D17-01/environment/mesh-author-04/geometry-readback-01.py",
+      "sha256": "91af9a4a4da934696598a3460050e7d87782170db42d218db97ea5fa81436e3b"
+    },
+    {
+      "bytes": 250,
+      "path": "Build/AAA/D17-01/environment/mesh-author-04/geometry-readback-02.log",
+      "sha256": "2f5c1795b70e9f8d25f7efb89378a78c07ac754aeda7f571c41e525a2d56a53a"
+    },
+    {
+      "bytes": 290,
+      "path": "Build/AAA/D17-01/environment/mesh-author-04/geometry-readback-command-02.json",
+      "sha256": "9c9ac4ab8b5930d97501bd6c3e2a52e995cf64190e7155e92b7e60b1404b8785"
+    },
+    {
+      "bytes": 290,
+      "path": "Build/AAA/D17-01/environment/mesh-author-04/geometry-readback-command.json",
+      "sha256": "9c9ac4ab8b5930d97501bd6c3e2a52e995cf64190e7155e92b7e60b1404b8785"
+    },
+    {
+      "bytes": 63,
+      "path": "Build/AAA/D17-01/environment/mesh-author-04/geometry-readback-execution-02.json",
+      "sha256": "5796c9c9a76e578f5c663e542e063e01ae9ff7b567fe4bcedf883975aa4d4839"
+    },
+    {
+      "bytes": 63,
+      "path": "Build/AAA/D17-01/environment/mesh-author-04/geometry-readback-execution.json",
+      "sha256": "62e450a046fcbf88604354fb7a8d7520562210dfdb6f304191f464badde6b57f"
+    },
+    {
+      "bytes": 1061,
+      "path": "Build/AAA/D17-01/environment/mesh-author-04/geometry-readback.json",
+      "sha256": "275e9799123b05c1d9a11d99e3a3ad8fb5cb3d7200b32a03d1dfc5e0e0238a02"
+    },
+    {
+      "bytes": 519,
+      "path": "Build/AAA/D17-01/environment/mesh-author-04/geometry-readback.log",
+      "sha256": "8c2df91944a7f6a9794cbc6f08a98556bb852075bb036ae640ddf0a6f94bb923"
+    },
+    {
+      "bytes": 1512,
+      "path": "Build/AAA/D17-01/environment/mesh-author-04/geometry-readback.py",
+      "sha256": "3f75fa99bb254442c57002c876107a6cc64332e8d0af55ea153daa06abf42eed"
+    },
+    {
+      "bytes": 832,
+      "path": "Build/AAA/D17-01/environment/mesh-author-04/runtime.log",
+      "sha256": "1cfad237e00e532d5385d6c651f09d714ba5ac814bdefaebccaa19aa9ce8d159"
     },
     {
       "bytes": 832,
@@ -1083,9 +1120,79 @@
       "sha256": "7116c8e48e5c5b8fd3ea6488736ea49788b24aa1cc036b8cf33b6b2a37ce2fee"
     },
     {
-      "bytes": 20896,
+      "bytes": 1177724,
+      "path": "Build/AAA/D17-01/environment/runtime-05/captures/hazard_active.png",
+      "sha256": "75bc8294abf0320efce3956dbd0fc839bfeb520e48873793507511d4aca670a2"
+    },
+    {
+      "bytes": 1100336,
+      "path": "Build/AAA/D17-01/environment/runtime-05/captures/panel_damaged.png",
+      "sha256": "29c43cebb66591f5c8c172b298bb3a0f986a6e044353abf120c87dc0f91f4b9b"
+    },
+    {
+      "bytes": 1101100,
+      "path": "Build/AAA/D17-01/environment/runtime-05/captures/panel_destroyed.png",
+      "sha256": "d4f352827f1897fb5ee5ecaa872d38af2001c1b847d7bb34208c5a38bd2d9091"
+    },
+    {
+      "bytes": 1114851,
+      "path": "Build/AAA/D17-01/environment/runtime-05/captures/stream_return.png",
+      "sha256": "f4c8163e9b988933209e91577a47a45d7b438cbf79135cce9e736b59aec8654d"
+    },
+    {
+      "bytes": 1101347,
+      "path": "Build/AAA/D17-01/environment/runtime-05/captures/switch_safe.png",
+      "sha256": "e8ccfb12fd69f72e1fe0f6ef563e325c1017289c23c92c54ad358a28b42b64e0"
+    },
+    {
+      "bytes": 1633,
+      "path": "Build/AAA/D17-01/environment/runtime-05/command.json",
+      "sha256": "54fcf26768cfa471ec275966460186079de33f05ced2b05d2dbc578df40cdb7b"
+    },
+    {
+      "bytes": 624,
+      "path": "Build/AAA/D17-01/environment/runtime-05/d17-scope.json",
+      "sha256": "afd16dd26a4e707f5fcf9aa46194575aebb0f69365a7f5127242f2fc4f78e248"
+    },
+    {
+      "bytes": 1703,
+      "path": "Build/AAA/D17-01/environment/runtime-05/events.log",
+      "sha256": "bbbaecf0995a609ae3cdf66c50eab84d746a9e1ff3c330a3984db3b060ddb84d"
+    },
+    {
+      "bytes": 162374,
+      "path": "Build/AAA/D17-01/environment/runtime-05/frames.csv",
+      "sha256": "f116b96ed864ccf9067b2e87babe0d0559e501423827b349da116b0773178eca"
+    },
+    {
+      "bytes": 85535,
+      "path": "Build/AAA/D17-01/environment/runtime-05/resources.jsonl",
+      "sha256": "eae37e21ff4dcf7fe3b5b0ea2ac2831b40167a30e35d359c935d1055eea1b9b7"
+    },
+    {
+      "bytes": 84,
+      "path": "Build/AAA/D17-01/environment/runtime-05/result.json",
+      "sha256": "d6a6421a63fe72d7d057e6e18ce486cb5c76557fdb06244749f4bbcb6095a321"
+    },
+    {
+      "bytes": 317106,
+      "path": "Build/AAA/D17-01/environment/runtime-05/runtime.engine.log",
+      "sha256": "35f331ab63cc7b19133f92bdceca0ce9ad845d7f2cfbb690aac78d7854401f2d"
+    },
+    {
+      "bytes": 314723,
+      "path": "Build/AAA/D17-01/environment/runtime-05/runtime.stdout.log",
+      "sha256": "451b6321bdf1e1866b68aede8de91a524b9b2c357864e09c2c19f0295f786845"
+    },
+    {
+      "bytes": 18778,
+      "path": "Build/AAA/D17-01/environment/runtime-05/validation.json",
+      "sha256": "4623f2fc579705c2b9a4657845c9c3c95962594d94456bcec0b1324635dd03e7"
+    },
+    {
+      "bytes": 25697,
       "path": "Build/AAA/D17-01/environment/scope-findings.json",
-      "sha256": "36d934e14fc0951fd4a6f7237a9cc4deb485e74be2e6c0ad65ba9ed6701807f1"
+      "sha256": "7bf2b6139e6c8a08ebfc4c2c32fa6b12373bf0e241d49d01cc0e6d3f3b7e57e5"
     },
     {
       "bytes": 234,
@@ -2468,6 +2575,351 @@
       "sha256": "f0af0ae46cc9f7b0c99094fb44f3ab9b002007d98e55c55e10c93892a195ab7f"
     },
     {
+      "bytes": 300,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/capture-command.json",
+      "sha256": "3bf9938bdee4db34e0d0f2aaf3028fc22c2fe71c7468b892864d1abcd717292e"
+    },
+    {
+      "bytes": 104,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/capture.log",
+      "sha256": "20934ec5367b783cb840afc8e2f1747f49f6abbea70e931500a735272de8aedb"
+    },
+    {
+      "bytes": 1711,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/command.json",
+      "sha256": "35e763517ebf4c2faf52e2b9132d29619f237baf97359653d6a264ce6229ed7b"
+    },
+    {
+      "bytes": 244,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/decode-commands.json",
+      "sha256": "2e3bcf2f6bc3619b5669719abccf9b07d42c1a0911d52b4e71ad591b7bf2072f"
+    },
+    {
+      "bytes": 321,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/execution.json",
+      "sha256": "0a872c00207274b0b2aa11369ff519f7d8e79892794da8060e76d567ddc256b0"
+    },
+    {
+      "bytes": 218,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/exposed-package-verification.json",
+      "sha256": "bc4bf7e3f5b5db6ecdea91a758a89bb706690f4e0b74a33349a99bb3e5af3aeb"
+    },
+    {
+      "bytes": 757319,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/frame-04.png",
+      "sha256": "a1d422dcadab3f43296cacb09c066632572bf1a69cd7203e25910a77ced2d850"
+    },
+    {
+      "bytes": 426,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/game-command.json",
+      "sha256": "b5d9bcfe0298fb49f02d622ed8cd9fdc826d17a19cc55242ad163f82313fc9ea"
+    },
+    {
+      "bytes": 2398,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/host.json",
+      "sha256": "05d1dd808bb7e2cfffc3381025152926014403ce3e376bb2a32b475170fa28e0"
+    },
+    {
+      "bytes": 343,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/input-result.json",
+      "sha256": "cf72795e16ff394c9a69b0a6e1fcff7225e99241e03ead4fca08a1b638a66c6c"
+    },
+    {
+      "bytes": 1376,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/input.jsonl",
+      "sha256": "848bf0986b44b00e132a5320e1796ffc55e547a01404411627b4c0babb2cd7e7"
+    },
+    {
+      "bytes": 608,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/inputs.json",
+      "sha256": "553a21f294bbac4b7e5174ed2eec12e2f2fd90da3a9344d90f2718323b8bc873"
+    },
+    {
+      "bytes": 869,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/observation.json",
+      "sha256": "4fc8fac432802129eae8a0e89e7e6e4f62511c8659230caf5fb2ed1de986fa4d"
+    },
+    {
+      "bytes": 2799,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/package-verification.json",
+      "sha256": "1c45e92c89f20ecc1590dfbe75847967d800432e877ebdc884892c1de349fdcb"
+    },
+    {
+      "bytes": 5825878,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/raw-gameplay.mkv",
+      "sha256": "8ccb2659ebfaa466a04bf2cf34342ed320eb47b90ff0db2a283e35be3d9b555e"
+    },
+    {
+      "bytes": 7658,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/resolved-package.json",
+      "sha256": "723312d66b4cbeb1949d6f77def82d154036405d1df5d521b7041e9d9b6b602c"
+    },
+    {
+      "bytes": 56535,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/resources.jsonl",
+      "sha256": "ce91d0043878d3ec125a3c72c324511891ea832ed1315d03e9d8715e39b94a81"
+    },
+    {
+      "bytes": 182206,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/runtime.engine.log",
+      "sha256": "7f21325f5a40c905d5532f46b4e0a662023c6c0bd3c4a0840bd603169fa43c35"
+    },
+    {
+      "bytes": 180607,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/runtime.stdout.log",
+      "sha256": "ee048dc03d5599612cf724286c7ff7efdeb4fbc6ec78833c5ad7f06c2def6c26"
+    },
+    {
+      "bytes": 7086,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/telemetry.jsonl",
+      "sha256": "94a224ea7f4bfa0b160ae0769609676bc852c171f9558ab6d96af05140aaacb7"
+    },
+    {
+      "bytes": 2366,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/video.json",
+      "sha256": "b5f58fa9f222bcc5f5ef5cda41bdc1115a5104ce8a76236933c465770de87cee"
+    },
+    {
+      "bytes": 299,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/capture-command.json",
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "bytes": 104,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/capture.log",
+      "sha256": "508d90ca747fc52e028a28a6edaf85cd17860e1d34a75ca09ead15987b77db38"
+    },
+    {
+      "bytes": 1705,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/command.json",
+      "sha256": "d3f1651e1a0ff0998d7e4a0cbca103a22977af0fc406f16824a6c267ed4e327f"
+    },
+    {
+      "bytes": 1202,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/decode-commands.json",
+      "sha256": "9bc321bf1c3b0a490d939636c25e58c07c9b9dce8ea600d6f47e8bfb7f2580a9"
+    },
+    {
+      "bytes": 322,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/execution.json",
+      "sha256": "0f5c3cf7c42f63670cf6457e5c9aa4153b25ce4924d51d430de4bd379451fe19"
+    },
+    {
+      "bytes": 218,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/exposed-package-verification.json",
+      "sha256": "bc4bf7e3f5b5db6ecdea91a758a89bb706690f4e0b74a33349a99bb3e5af3aeb"
+    },
+    {
+      "bytes": 415823,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/frame-04.png",
+      "sha256": "ffb7e5f1e54f08265b5d7e3afe84b1e00b9426b1975c1a3b7efcbe50780b4747"
+    },
+    {
+      "bytes": 388485,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/frame-13.png",
+      "sha256": "50e5d764f1aa10405de1dd3ef5b551802a238ab66194d823c851a0d6ad8830a3"
+    },
+    {
+      "bytes": 459209,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/frame-16.png",
+      "sha256": "d54a10beb2f7cc3186878636c693563fdbb05f488feb861ad35fca75843dcdc4"
+    },
+    {
+      "bytes": 546055,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/frame-20.png",
+      "sha256": "f3847f2027a148856e5e260b42266ef34b8b0e8a04b9d60bf19d524ce93ba008"
+    },
+    {
+      "bytes": 521488,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/frame-22.png",
+      "sha256": "e7e469e44aeeb7eb8a3f7cd46daf0f80d4d2e9acd53084467664023e8805de45"
+    },
+    {
+      "bytes": 425,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/game-command.json",
+      "sha256": "68757b0e5c1ad0d026944a03037d1004a5196b1eaf9496935f65145de1bf40ae"
+    },
+    {
+      "bytes": 2398,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/host.json",
+      "sha256": "e8a581ddcb99fa236de834caf2a7ed46bcb53f20cbfcad80c666e71b50093608"
+    },
+    {
+      "bytes": 344,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/input-result.json",
+      "sha256": "e2b831d8c90be72b937fae35c73974941dba506f2f4bcdace35c1212ac4e8d80"
+    },
+    {
+      "bytes": 4373,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/input.jsonl",
+      "sha256": "44e99209d0fb4bd15ece15bb8d1cd7ab5686e4d1de589790120d139c079e982e"
+    },
+    {
+      "bytes": 608,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/inputs.json",
+      "sha256": "553a21f294bbac4b7e5174ed2eec12e2f2fd90da3a9344d90f2718323b8bc873"
+    },
+    {
+      "bytes": 894,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/observation.json",
+      "sha256": "ec3e412597ad89546f86a4df6508113231d33960bc3cb457c6668ea388bc72db"
+    },
+    {
+      "bytes": 2743,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/package-verification.json",
+      "sha256": "1f7acaad77f0bf253210e03269173873256cfbd4c1cb078d1943d158a8173bba"
+    },
+    {
+      "bytes": 5882975,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/raw-gameplay.mkv",
+      "sha256": "e6645c46dfcb9e9e8616925a4907b1fd21971f5b3c1e75815a8a3e815e625e45"
+    },
+    {
+      "bytes": 7658,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/resolved-package.json",
+      "sha256": "723312d66b4cbeb1949d6f77def82d154036405d1df5d521b7041e9d9b6b602c"
+    },
+    {
+      "bytes": 60661,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/resources.jsonl",
+      "sha256": "00462e0b107bf20180118487f6c75563ae3432d1d0dfa1ba4ed8dc66627e3dc6"
+    },
+    {
+      "bytes": 301783,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/runtime.engine.log",
+      "sha256": "aeb6e2dd7f33628f7441d02b07ea6bffe4fe50773817176872c48b5430e8665c"
+    },
+    {
+      "bytes": 299479,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/runtime.stdout.log",
+      "sha256": "6c9e5b0511f9e444ada164ec5cbfdbcf0cf4d86fcd0d2928c851d60905c10fbd"
+    },
+    {
+      "bytes": 31915,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/telemetry.jsonl",
+      "sha256": "c263eac999295709bf11b214e077825669a2274dcb929c525117e4c8aca82d64"
+    },
+    {
+      "bytes": 2362,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/video.json",
+      "sha256": "27993f6f944d5c8cbfe6371dee70b2086807cfaa774341f70dc957205d762d40"
+    },
+    {
+      "bytes": 299,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/capture-command.json",
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "bytes": 104,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/capture.log",
+      "sha256": "ac13a2317552870228371ed58404940166d0d876253f25baf21303d0539ed76b"
+    },
+    {
+      "bytes": 1710,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/command.json",
+      "sha256": "222eb11c90c2482629e5ca081ffce4ec5412d9ebb73103e85c1d160f73c66dbd"
+    },
+    {
+      "bytes": 722,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/decode-commands.json",
+      "sha256": "3eab4dd167e91eaa013e669c6f6f7232e94a52ff776503ee71542de1b500d41a"
+    },
+    {
+      "bytes": 320,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/execution.json",
+      "sha256": "272b746503fc94dbd617452ceae158ecb0055a213d6948ec8b4ff7ccd8c2305f"
+    },
+    {
+      "bytes": 218,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/exposed-package-verification.json",
+      "sha256": "bc4bf7e3f5b5db6ecdea91a758a89bb706690f4e0b74a33349a99bb3e5af3aeb"
+    },
+    {
+      "bytes": 410600,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/frame-04.png",
+      "sha256": "3873384a4e19f3f886745baaaa51e41d877ad06c87764a3eb779964166350293"
+    },
+    {
+      "bytes": 366193,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/frame-12.png",
+      "sha256": "64d4c8164ca681c2b46c44daf9b67143096d0fb572f08279e2bd8b876cd0aa14"
+    },
+    {
+      "bytes": 396506,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/frame-14.png",
+      "sha256": "888359554d6eed634b0cdf1e67d93ba855595b59decaa8fcd0d053e08bcdafa4"
+    },
+    {
+      "bytes": 425,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/game-command.json",
+      "sha256": "68757b0e5c1ad0d026944a03037d1004a5196b1eaf9496935f65145de1bf40ae"
+    },
+    {
+      "bytes": 2399,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/host.json",
+      "sha256": "6006d35a6b7b62258a5937593a9c18d4f1b77403c7e4d5be8d912d92499af6df"
+    },
+    {
+      "bytes": 438,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/input-result.json",
+      "sha256": "c75fc57daf3b7d21f811318de02c0c596302aea182885de44d4fc4597bc11641"
+    },
+    {
+      "bytes": 2719,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/input.jsonl",
+      "sha256": "4d228864502663d9e170b4b4a3da2b18f9efee79ad7259261adfa55726f3b2a8"
+    },
+    {
+      "bytes": 613,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/inputs.json",
+      "sha256": "099d23aba034389949f2d35f07ea079d223fecc984d33456894ed338b0df51c9"
+    },
+    {
+      "bytes": 969,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/observation.json",
+      "sha256": "ea02daed40e975d9887c0253c6a8cf8ff49135a4584f8556cf4b6282a126272b"
+    },
+    {
+      "bytes": 2952,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/package-verification.json",
+      "sha256": "b1b61f6d4c5e9bcc07aef715aa76c0163054e8b79cb71605983b00e56f277c7b"
+    },
+    {
+      "bytes": 4490912,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/raw-gameplay.mkv",
+      "sha256": "5bf2da2e29fe6e5aac7f733f1193352eaf121283b29a5be9c6841fda99d1919f"
+    },
+    {
+      "bytes": 7658,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/resolved-package.json",
+      "sha256": "723312d66b4cbeb1949d6f77def82d154036405d1df5d521b7041e9d9b6b602c"
+    },
+    {
+      "bytes": 56685,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/resources.jsonl",
+      "sha256": "3f7303240fed02ecfc97cfd54bae98ba9bc319ceed4fac0d7f0024ab20e4791b"
+    },
+    {
+      "bytes": 247774,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/runtime.engine.log",
+      "sha256": "c13f52ff69623ecff0aa789dba0d6e5c748dac2c72c516105d29be48c0f79762"
+    },
+    {
+      "bytes": 245799,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/runtime.stdout.log",
+      "sha256": "50134fc1417b3c7867de3fa2c872028186956e2f3582805f52d30eb6f9dd22b4"
+    },
+    {
+      "bytes": 20139,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/telemetry.jsonl",
+      "sha256": "e2a4a074d6edc3fe7fb4338b720334305822911400990ce96a28b099e8fbe646"
+    },
+    {
+      "bytes": 2362,
+      "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/video.json",
+      "sha256": "ac9cba4b92aa1f5e5d158b38118ea7c113be54741c73746a43e8cb75c8c97dd3"
+    },
+    {
       "bytes": 2170,
       "path": "Build/AAA/D17-01/regression/hud-01/command.json",
       "sha256": "ad638d77d8c11deb31355c6428893d6e1aa5faa9bcb8482ef6580580693a327d"
@@ -2573,14 +3025,19 @@
       "sha256": "6e2e8f5f5a6aca6d8e64882af83105744e4ec4e60405b2f602ffbc9f54a7368a"
     },
     {
-      "bytes": 14298,
+      "bytes": 15908,
       "path": "Build/AAA/D17-01/scenario.json",
-      "sha256": "28b465f22b99c9a66ce09eafa2d9b2e36a4945f5a568df9431ec77969d35fda2"
+      "sha256": "5c558afde0f2fe3e1ad98f70b13c9aa4b91503a0152cc76ab6f920faf91e89f8"
     },
     {
       "bytes": 4167,
       "path": "Build/AAA/D17-01/service-hazard-input.json",
       "sha256": "762c078e05c60000d8f2ad440ce6e78f241e83406a8b2947922c73a8886ca78f"
+    },
+    {
+      "bytes": 4442,
+      "path": "Build/AAA/D17-01/service-hazard-tick-input.json",
+      "sha256": "eefc80d77cd6b742282c586d6d68d89d4970a77a1f7299201591d881cfe76550"
     },
     {
       "bytes": 3807,
@@ -2593,9 +3050,9 @@
       "sha256": "b398185f2d3415fff96e6100d01dd0b002043c99b034f9759891b867a90042eb"
     },
     {
-      "bytes": 5101,
+      "bytes": 5429,
       "path": "Build/AAA/D17-01/visual-assessment.json",
-      "sha256": "c8c720421c5c45c7151e8595b42107b1739ce5638698af13568b01a56a9f1bba"
+      "sha256": "d86d3b1c1ca31d71894cf755aecd352c1e083560910c0c058c130244ebe2dbe5"
     }
   ],
   "evidence_integrity": "VERIFIED",
@@ -2659,9 +3116,9 @@
   ],
   "implementation": {
     "asset_readback": {
-      "bytes": 6166,
-      "path": "Build/AAA/D17-01/environment/assets-03/validation.json",
-      "sha256": "74cef03cb09fb5400a8c71e48080748260ee0f0eb15e94c441322646ece266a1"
+      "bytes": 6167,
+      "path": "Build/AAA/D17-01/environment/assets-04/validation.json",
+      "sha256": "e16910aca18c68cdaf9c82a1afe691aac7fb38a1dc4a08d6101d9e8363a606cd"
     },
     "build": {
       "bytes": 1668,
@@ -2685,39 +3142,39 @@
     ],
     "editable_art": [
       {
-        "bytes": 477276,
+        "bytes": 1071468,
         "path": "SourceAssets/Environment/SM_ServiceBayMetalwork.fbx",
-        "sha256": "4093134ccf53db7a0db564f6aabd259433271be609ece4e5ba05746f4dc44457"
+        "sha256": "4f38beadadb6d1ff3f3cf030aa054664f29b4fc1cb83c40c32f1ebbb76c658d9"
       },
       {
         "bytes": 68156,
         "path": "SourceAssets/Environment/SM_ServicePanel120.fbx",
-        "sha256": "7b8db15308938dfd90dee9a444d619350c7f5484ff96fac34ff53563a7209fff"
+        "sha256": "146a7df2a4bdae4c9aa02b46feaff5c41e0e3c1b04c592723f95da8948a9e64a"
       },
       {
-        "bytes": 81324,
+        "bytes": 81308,
         "path": "SourceAssets/Environment/SM_ServicePanel240.fbx",
-        "sha256": "e67d0d9acbab100b4663b5f543b199260613d52373c90a361def3767a031b720"
+        "sha256": "409748fe805183a5c4e56ccfa366232f5942a0bd5cf5ea9d8b24b918d6aeb6d0"
       },
       {
-        "bytes": 142646,
+        "bytes": 160766,
         "path": "SourceAssets/Environment/ServiceBay.blend",
-        "sha256": "1bdcee2b2fea67f67e18cc012417f29f0f57cb0662e5caf190076d39c2f1f957"
+        "sha256": "fee77782598bc77fe12b5638fd6d9ef2242896d20c672de80c87c565ed061f9f"
       },
       {
-        "bytes": 10896,
+        "bytes": 14606,
         "path": "SourceAssets/Environment/build_service_bay.py",
-        "sha256": "79b7df4c225d383dea1d576146057ae05368df15dc5fdc7197ec032a9e821bd3"
+        "sha256": "7a74c7723804f1f4bdc3191d202f7f4086fb4f0e3dd91c1d331a6baea4462736"
       },
       {
         "bytes": 2138,
         "path": "SourceAssets/Environment/service-bay.json",
-        "sha256": "aba75e1e3e7efe2d4c6da70dedb1acb1cc9e4f0ba6a42dc916843ac2764a2721"
+        "sha256": "1d225c56b00f4c92c4ee304bb37969dcf8dd4c7b3366511a1742f929644dc82f"
       },
       {
-        "bytes": 1521,
+        "bytes": 2129,
         "path": "SourceAssets/Materials/ServiceSurface.hlsl",
-        "sha256": "ca2eb1eef34853e5859b4956413f68afabfd5bc115e9d04d523d034b3478a44a"
+        "sha256": "cdcd11ff86ed9f23d199915f2a01a71cd109c2ba09c865d664738b1b33f3fd85"
       }
     ],
     "editable_source": {
@@ -2731,23 +3188,41 @@
       "sha256": "1e229cc8090eba4b04272069626ddff4658ac6216f9c94a263bf64c69f6c9309"
     },
     "environment_regression": {
-      "bytes": 18773,
-      "path": "Build/AAA/D17-01/environment/runtime-04/validation.json",
-      "sha256": "7116c8e48e5c5b8fd3ea6488736ea49788b24aa1cc036b8cf33b6b2a37ce2fee"
+      "bytes": 18778,
+      "path": "Build/AAA/D17-01/environment/runtime-05/validation.json",
+      "sha256": "4623f2fc579705c2b9a4657845c9c3c95962594d94456bcec0b1324635dd03e7"
+    },
+    "geometry_clearance": {
+      "bytes": 1061,
+      "path": "Build/AAA/D17-01/environment/mesh-author-04/geometry-readback.json",
+      "sha256": "275e9799123b05c1d9a11d99e3a3ad8fb5cb3d7200b32a03d1dfc5e0e0238a02"
     },
     "source_manifest": {
-      "bytes": 75253,
-      "path": "Build/AAA/D17-01/build/package-04/source-build.json",
-      "sha256": "95da3e8ccaa079e0218e60ba9592cd4548ae3df9ff842579b4579fe75171d65b"
+      "bytes": 75254,
+      "path": "Build/AAA/D17-01/build/package-05/source-build.json",
+      "sha256": "02abffbfd2ae14fe063068c68b73cd83ae726c11ed25b76f497f99cdce10716a"
     },
-    "source_material_digest": "8bb3f4fee666a5d5215cba22e94513538160a8d02a403149e67300d422cf61d8"
+    "source_material_digest": "eb7b0019442dbdcf6640659be10bec2bb87e5a712ad957ea6e79bf58d9fc155a",
+    "visual_delta_from_previous_package": [
+      "Content/Environment/ServiceBay/MI_ServiceGrowth.uasset",
+      "Content/Environment/ServiceBay/MI_ServiceLamp.uasset",
+      "Content/Environment/ServiceBay/MI_ServicePaint.uasset",
+      "Content/Environment/ServiceBay/MI_ServiceRubber.uasset",
+      "Content/Environment/ServiceBay/MI_ServiceSteel.uasset",
+      "Content/Environment/ServiceBay/MI_ServiceVein.uasset",
+      "Content/Environment/ServiceBay/M_ServiceMetal.uasset",
+      "Content/Environment/ServiceBay/SM_ServiceBayMetalwork.uasset",
+      "Content/Environment/ServiceBay/SM_ServicePanel120.uasset",
+      "Content/Environment/ServiceBay/SM_ServicePanel240.uasset",
+      "Content/Python/author_service_bay.py"
+    ]
   },
   "index_generator": {
-    "bytes": 22250,
+    "bytes": 26134,
     "path": "tests/qualify_d17_01.py",
-    "sha256": "8ba4575ad09a38b262a40ff2417cc43e450ea3905ba402803d46acf403d58734"
+    "sha256": "b6ee03f7d06e42018eb3e1d3be8bb9d3a36d3ea4df5d6e2b48c21cb478864276"
   },
-  "observed": "2026-09-08T14:34:35.376547+00:00",
+  "observed": "2026-09-08T15:05:08.457262+00:00",
   "owner_visual_contract": {
     "bytes": 6734,
     "path": "docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
@@ -2756,41 +3231,46 @@
   "package": {
     "configuration": "Development",
     "cook": {
-      "bytes": 19488921,
-      "path": "Build/AAA/D17-01/build/cook-05/validation.json",
-      "sha256": "903568ff3e8d3628f06b7927624d63dd0ae86601b15724a81a8fb7e8b1bdd36c"
+      "bytes": 19503429,
+      "path": "Build/AAA/D17-01/build/cook-06/validation.json",
+      "sha256": "35a9cccbbced193962525f7a56bcb0d00df26a150cfade1e033b1da898047096"
     },
     "exact_resolved_manifests": [
       {
         "bytes": 7658,
-        "path": "Build/AAA/D17-01/raw/growth-hazard-720-01/resolved-package.json",
-        "sha256": "accaa79003561cb9eddc3cacfd016809944ee96bf2c8ce49d805cefd599bbf37"
+        "path": "Build/AAA/D17-01/raw/sheath-hazard-720-01/resolved-package.json",
+        "sha256": "723312d66b4cbeb1949d6f77def82d154036405d1df5d521b7041e9d9b6b602c"
       },
       {
         "bytes": 7658,
-        "path": "Build/AAA/D17-01/raw/growth-hazard-1080-01/resolved-package.json",
-        "sha256": "accaa79003561cb9eddc3cacfd016809944ee96bf2c8ce49d805cefd599bbf37"
+        "path": "Build/AAA/D17-01/raw/sheath-hazard-1080-01/resolved-package.json",
+        "sha256": "723312d66b4cbeb1949d6f77def82d154036405d1df5d521b7041e9d9b6b602c"
+      },
+      {
+        "bytes": 7658,
+        "path": "Build/AAA/D17-01/raw/sheath-hazard-720-02/resolved-package.json",
+        "sha256": "723312d66b4cbeb1949d6f77def82d154036405d1df5d521b7041e9d9b6b602c"
       }
     ],
     "format": "ELF64-x86_64",
     "install": {
       "bytes": 1652,
-      "path": "Build/AAA/D17-01/build/package-04/validation.json",
-      "sha256": "c25530e86b27eb9689acb5c39adbccf48ed7cc3e24b775a6fdf377ca3098e482"
+      "path": "Build/AAA/D17-01/build/package-05/validation.json",
+      "sha256": "f0e4e885218b5ed7dcb20e088f897f3292025d5ea80e51234ef68630c769203d"
     },
     "manifest": {
       "bytes": 8669,
-      "path": "Build/AAA/D17-01/build/package-04/package-manifest.json",
-      "sha256": "01e94698e27f24a61966b75227c7c10d0550e9cd0c921ee9e071080b52c2a71e"
+      "path": "Build/AAA/D17-01/build/package-05/package-manifest.json",
+      "sha256": "7160f3f67cd2caca349a3632a89e02393bb6db0ea34240e4af39822a7f899e7b"
     },
-    "package_id": "35ac96d18e521d5dc2623cf335e0342b6673dc86450f2ec5efd2894d69971bd8",
-    "payload_files_digest": "620f9f50fd2ee1579e9ae5ce0d41aab107ab8289127436714c3a008ef348cbe1",
+    "package_id": "cfd920b323ed65faf205b81783a2474b15930fef76a3ab99f1a1a7341a941048",
+    "payload_files_digest": "54438ee23d5b052638e3590ff7f50300bee549274bc78858c5cdb8324b82c20b",
     "platform": "Linux",
     "renderer": "Vulkan",
     "stage": {
-      "bytes": 21637,
-      "path": "Build/AAA/D17-01/build/stage-05/validation.json",
-      "sha256": "9fc7652dbce1a16690818f10d7afa20cea4d87403a3691f99debd98e6bcb0af6"
+      "bytes": 21441,
+      "path": "Build/AAA/D17-01/build/stage-06/validation.json",
+      "sha256": "8c4b4ca7d73b0213aebbe8807316572f680ef6e9073df81424396e911d675b8e"
     }
   },
   "previous_coordinate_candidate": {
@@ -2968,6 +3448,171 @@
       }
     ],
     "source_commit": "5854ebea89bd581418924397bacbfc6ac7612db0"
+  },
+  "previous_growth_candidate": {
+    "package": {
+      "bytes": 8669,
+      "path": "Build/AAA/D17-01/build/package-04/package-manifest.json",
+      "sha256": "01e94698e27f24a61966b75227c7c10d0550e9cd0c921ee9e071080b52c2a71e"
+    },
+    "raw_runs": [
+      {
+        "active_simulation_seconds": 46.31332703580847,
+        "audio_captured": false,
+        "capture_input_wall_seconds": 48.493732454953715,
+        "capture_video_seconds": 50.466,
+        "decoded_frames": 1514,
+        "directory": "Build/AAA/D17-01/raw/growth-hazard-720-01",
+        "electrical_floor_damage": [
+          {
+            "amount": "3.013",
+            "health": "96.987",
+            "sim_seconds": 18.03717748163035,
+            "source": "BiellaEnvironmentSite:1",
+            "tag": "electrical_floor",
+            "target": "BiellaStreamingCharacter:1"
+          },
+          {
+            "amount": "3.027",
+            "health": "93.960",
+            "sim_seconds": 18.289419072621968,
+            "source": "BiellaEnvironmentSite:1",
+            "tag": "electrical_floor",
+            "target": "BiellaStreamingCharacter:1"
+          },
+          {
+            "amount": "3.069",
+            "health": "90.891",
+            "sim_seconds": 18.54517993790796,
+            "source": "BiellaEnvironmentSite:1",
+            "tag": "electrical_floor",
+            "target": "BiellaStreamingCharacter:1"
+          },
+          {
+            "amount": "3.089",
+            "health": "87.802",
+            "sim_seconds": 22.732528998458292,
+            "source": "BiellaEnvironmentSite:1",
+            "tag": "electrical_floor",
+            "target": "BiellaStreamingCharacter:1"
+          },
+          {
+            "amount": "3.045",
+            "health": "84.757",
+            "sim_seconds": 22.986237858363893,
+            "source": "BiellaEnvironmentSite:1",
+            "tag": "electrical_floor",
+            "target": "BiellaStreamingCharacter:1"
+          },
+          {
+            "amount": "3.005",
+            "health": "69.753",
+            "sim_seconds": 23.236642287054565,
+            "source": "BiellaEnvironmentSite:1",
+            "tag": "electrical_floor",
+            "target": "BiellaStreamingCharacter:1"
+          },
+          {
+            "amount": "3.000",
+            "health": "42.752",
+            "sim_seconds": 29.68209650827339,
+            "source": "BiellaEnvironmentSite:1",
+            "tag": "electrical_floor",
+            "target": "BiellaStreamingCharacter:1"
+          },
+          {
+            "amount": "3.000",
+            "health": "39.752",
+            "sim_seconds": 29.932105422893073,
+            "source": "BiellaEnvironmentSite:1",
+            "tag": "electrical_floor",
+            "target": "BiellaStreamingCharacter:1"
+          },
+          {
+            "amount": "3.001",
+            "health": "36.751",
+            "sim_seconds": 30.18217909609666,
+            "source": "BiellaEnvironmentSite:1",
+            "tag": "electrical_floor",
+            "target": "BiellaStreamingCharacter:1"
+          }
+        ],
+        "environment_panel_events": [
+          "id=D02Environment01 panel=2 health=34.00 revision=2 physics=0",
+          "id=D02Environment01 panel=2 health=0.00 revision=3 physics=1"
+        ],
+        "environment_power_transitions": 1,
+        "events": {
+          "damage": 88,
+          "defeat": 15,
+          "objective_activated": 1,
+          "objective_progress": 23,
+          "objective_success": 1,
+          "phase": 2,
+          "telemetry_ready": 1,
+          "telemetry_shutdown": 1,
+          "weapon_fire": 1
+        },
+        "input_actions": 28,
+        "namespace_file_verification": true,
+        "natural_pressure_observed": false,
+        "player_defeats": [],
+        "raw_video": {
+          "bytes": 13514741,
+          "path": "Build/AAA/D17-01/raw/growth-hazard-720-01/raw-gameplay.mkv",
+          "sha256": "1de66016cd7417f1a37a0182bca73249ff6bd6683ba5806c005cd269878ad31e"
+        },
+        "resolution": [
+          1280,
+          720
+        ],
+        "restart_count": 0,
+        "run": "growth-hazard-720-01",
+        "session": "01A08168-EDB6-7AD1-A3C2-611AB4B3BF6B",
+        "terminal": "Success",
+        "uninterrupted_duration_satisfied": false
+      },
+      {
+        "active_simulation_seconds": 9.021478963026311,
+        "audio_captured": false,
+        "capture_input_wall_seconds": 11.460113083943725,
+        "capture_video_seconds": 13.433,
+        "decoded_frames": 401,
+        "directory": "Build/AAA/D17-01/raw/growth-hazard-1080-01",
+        "electrical_floor_damage": [],
+        "environment_panel_events": [],
+        "environment_power_transitions": 0,
+        "events": {
+          "damage": 11,
+          "defeat": 2,
+          "objective_activated": 1,
+          "objective_progress": 2,
+          "objective_success": 1,
+          "phase": 2,
+          "telemetry_ready": 1,
+          "telemetry_shutdown": 1
+        },
+        "input_actions": 5,
+        "namespace_file_verification": true,
+        "natural_pressure_observed": false,
+        "player_defeats": [],
+        "raw_video": {
+          "bytes": 5687900,
+          "path": "Build/AAA/D17-01/raw/growth-hazard-1080-01/raw-gameplay.mkv",
+          "sha256": "074be6eb0686c9b6f3207a6d0a0ebc4fd1f9a1eddc6b17afde68738c5874b292"
+        },
+        "resolution": [
+          1920,
+          1080
+        ],
+        "restart_count": 0,
+        "run": "growth-hazard-1080-01",
+        "session": "01A0816D-8686-7A81-84FE-1C3AC1905C51",
+        "terminal": "Success",
+        "uninterrupted_duration_satisfied": false
+      }
+    ],
+    "source_commit": "c24863b0c3c6b555f7871c6c6cb99579a0a0115e"
   },
   "previous_raw_runs": [
     {
@@ -3214,20 +3859,20 @@
     "Editable service-bay metalwork/PBR assets pass fresh saved-asset readback",
     "New native/editor builds, isolated recook, archive readback and installed environment regression pass",
     "Ordinary input on package 03 toggles power and destroys a panel into simulated debris; capture/logs preserve the consequence",
-    "Editable tapered growth follows the rail/column/header and uses separate tissue and red capillary materials",
-    "Current-package 720p ordinary input powers the bay, destroys a panel into physical debris, crosses its opening and causes real electrical-floor player damage"
+    "Editable tapered growth follows the rail/column/header; a lobed tissue sheath covers the approach column/header faces with nonmetallic pigmentation, normal detail and embedded vascular branches",
+    "Package-04 ordinary input proves power/panel physics/electrical-floor damage; unchanged native mechanics are reused, with fresh package-05 fixture proof and ordinary-camera observation of the changed art"
   ],
   "scenario": {
-    "bytes": 14298,
+    "bytes": 15908,
     "path": "Build/AAA/D17-01/scenario.json",
-    "sha256": "28b465f22b99c9a66ce09eafa2d9b2e36a4945f5a568df9431ec77969d35fda2"
+    "sha256": "5c558afde0f2fe3e1ad98f70b13c9aa4b91503a0152cc76ab6f920faf91e89f8"
   },
   "schema": "biella.games.d17.qualification/v1",
   "scope": "Canonical slice candidate, HUD correction, service-bay growth/material layer and ordinary environment consequence; Linux Development diagnostics",
   "scope_findings": {
-    "bytes": 20896,
+    "bytes": 25697,
     "path": "Build/AAA/D17-01/environment/scope-findings.json",
-    "sha256": "36d934e14fc0951fd4a6f7237a9cc4deb485e74be2e6c0ad65ba9ed6701807f1"
+    "sha256": "7bf2b6139e6c8a08ebfc4c2c32fa6b12373bf0e241d49d01cc0e6d3f3b7e57e5"
   },
   "status": "INCOMPLETE",
   "task_id": "D17-01",
@@ -3295,6 +3940,21 @@
           "active_seconds": 9.021478963026311,
           "run": "growth-hazard-1080-01",
           "terminal": "Success"
+        },
+        {
+          "active_seconds": 21.109894568973687,
+          "run": "sheath-hazard-720-01",
+          "terminal": "Success"
+        },
+        {
+          "active_seconds": 9.20354756055167,
+          "run": "sheath-hazard-1080-01",
+          "terminal": "Success"
+        },
+        {
+          "active_seconds": 12.70496472431114,
+          "run": "sheath-hazard-720-02",
+          "terminal": "Success"
         }
       ],
       "required": "600\u20131200 seconds of representative active gameplay with route beats"
@@ -3302,12 +3962,12 @@
     {
       "id": "player_rival_infected_arena_pressure",
       "next_action": "Reuse verified ordinary-input environment outcomes; qualify the full player+rival+infected encounter and remaining route without inventing pressure timing or rewiring the switch",
-      "observed": "Current-package 720p ordinary input proves power, panel destruction/physics and electrical-floor player damage. The 1080p run shows player/rival/infected at entry but ends before the environment beat. Natural arena_pressure timing and the full evolving encounter composition remain unqualified.",
+      "observed": "Package-04 ordinary input proves power, panel destruction/physics and electrical-floor player damage. Package-05 fixture behavior passes; its current 720p and 1080p raw runs do not reach the environmental consequence. First-world-tick synchronization is observed in an additional 720p run, which ends at 12.705 active seconds before the switch. Natural arena_pressure timing and the full evolving encounter composition remain unqualified.",
       "required": "Player, rival, infected and arena consequence in the evolving real encounter"
     },
     {
       "id": "zero_major_visual_defects",
-      "next_action": "Extend coherent infection coverage and wet approach surfaces, then improve cold-storm lighting and focal character presentation while preserving tested collision/gameplay",
+      "next_action": "Replace the exposed dry service-bay approach and hazard-floor visual treatment with coherent wet worn surfaces; retain the tested hazard state and collision, then validate the affected layer in the package and ordinary camera",
       "observed": [
         "focal_art",
         "world_density",
@@ -3319,8 +3979,8 @@
     }
   ],
   "visual_assessment": {
-    "bytes": 5101,
+    "bytes": 5429,
     "path": "Build/AAA/D17-01/visual-assessment.json",
-    "sha256": "c8c720421c5c45c7151e8595b42107b1739ce5638698af13568b01a56a9f1bba"
+    "sha256": "d86d3b1c1ca31d71894cf755aecd352c1e083560910c0c058c130244ebe2dbe5"
   }
 }

@@ -1,0 +1,9 @@
+00:00.221  blend            | Read blend: "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/ServiceBay.blend"
+Blender 5.0.1 (hash a3db93c5b259 built 2025-12-16 01:30:59)
+Traceback (most recent call last):
+  File "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/mesh-author-04/geometry-readback.py", line 7, in <module>
+    assert Path(bpy.data.filepath).resolve()==blend
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+Blender quit

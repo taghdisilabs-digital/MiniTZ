@@ -1,0 +1,7 @@
+[
+  "/usr/local/bin/blender",
+  "--background",
+  "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/ServiceBay.blend",
+  "--python",
+  "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/mesh-author-04/geometry-readback.py"
+]
