@@ -1,7 +1,7 @@
 const q=(s)=>document.querySelector(s);
 const state={snapshot:null,source:null,stageKey:"",refreshTimer:null,elapsedBase:null,elapsedReceived:0,lastHeartbeat:null,staleAfter:25};
 const els={
- connection:q('[data-connection]'),connectionDot:q('[data-connection-dot]'),clock:q('[data-clock]'),production:q('[data-production-state]'),taskId:q('[data-task-id]'),taskTitle:q('[data-task-title]'),taskSummary:q('[data-task-summary]'),operation:q('[data-operation]'),operationMeta:q('[data-operation-meta]'),progressLabel:q('[data-progress-label]'),progressBar:q('[data-progress-bar]'),model:q('[data-model]'),reasoning:q('[data-reasoning]'),heartbeat:q('[data-heartbeat]'),elapsed:q('[data-elapsed]'),commit:q('[data-commit]'),validation:q('[data-validation]'),stage:q('[data-stage]'),stageName:q('[data-stage-name]'),stageSource:q('[data-stage-source]'),background:q('[data-background-stack]'),feed:q('[data-feed]'),showcase:q('[data-showcase]'),showcaseCount:q('[data-showcase-count]'),gpuName:q('[data-gpu-name]'),gpuLoad:q('[data-gpu-load]'),gpuMeter:q('[data-gpu-meter]'),gpuPercent:q('[data-gpu-percent]'),vramMeter:q('[data-vram-meter]'),vram:q('[data-vram]'),hostLoad:q('[data-host-load]'),hostRam:q('[data-host-ram]')
+ connection:q('[data-connection]'),connectionDot:q('[data-connection-dot]'),clock:q('[data-clock]'),production:q('[data-production-state]'),taskId:q('[data-task-id]'),taskTitle:q('[data-task-title]'),taskSummary:q('[data-task-summary]'),operation:q('[data-operation]'),operationMeta:q('[data-operation-meta]'),progressLabel:q('[data-progress-label]'),progressBar:q('[data-progress-bar]'),model:q('[data-model]'),reasoning:q('[data-reasoning]'),attempt:q('[data-attempt]'),sessionState:q('[data-session-state]'),heartbeat:q('[data-heartbeat]'),elapsed:q('[data-elapsed]'),commit:q('[data-commit]'),validation:q('[data-validation]'),stage:q('[data-stage]'),stageName:q('[data-stage-name]'),stageSource:q('[data-stage-source]'),background:q('[data-background-stack]'),feed:q('[data-feed]'),showcase:q('[data-showcase]'),showcaseCount:q('[data-showcase-count]'),gpuName:q('[data-gpu-name]'),gpuLoad:q('[data-gpu-load]'),gpuMeter:q('[data-gpu-meter]'),gpuPercent:q('[data-gpu-percent]'),vramMeter:q('[data-vram-meter]'),vram:q('[data-vram]'),hostLoad:q('[data-host-load]'),hostRam:q('[data-host-ram]'),localAi:q('[data-local-ai]'),localAiMeta:q('[data-local-ai-meta]'),tokenSaver:q('[data-token-saver]'),tokenSaverMeta:q('[data-token-saver-meta]')
 };
 
 function setConnection(label){
@@ -60,19 +60,26 @@ function renderShowcase(items){
   els.showcase.replaceChildren(...nodes);renderBackground(list);
 }
 function updateSystem(system){
-  const gpu=system?.gpu||{},host=system?.host||{};
+  const gpu=system?.gpu||{},host=system?.host||{},localAi=system?.local_ai||{};
   els.gpuName.textContent=gpu.name||'Unavailable';
   const util=gpu.utilization_percent;els.gpuPercent.textContent=util===null||util===undefined?'—':`${Math.round(number(util))}%`;els.gpuMeter.style.width=`${pct(util)}%`;
   els.gpuLoad.textContent=gpu.temperature_c===null||gpu.temperature_c===undefined?'GPU telemetry unavailable':`${Math.round(number(gpu.temperature_c))}°C · ${number(gpu.power_w).toFixed(0)} W`;
   const used=number(gpu.memory_used_mib),total=number(gpu.memory_total_mib);els.vram.textContent=total?`${(used/1024).toFixed(1)} / ${(total/1024).toFixed(1)} GiB`:'—';els.vramMeter.style.width=`${total?pct(used*100/total):0}%`;
   els.hostLoad.textContent=host.load_1m===null||host.load_1m===undefined?'—':`${number(host.load_1m).toFixed(2)} / ${number(host.cpu_count)} CPU`;
   const ru=number(host.ram_used_mib),rt=number(host.ram_total_mib);els.hostRam.textContent=rt?`${(ru/1024).toFixed(1)} / ${(rt/1024).toFixed(1)} GiB RAM`:'RAM telemetry unavailable';
+  els.localAi.textContent=localAi.state||'OFFLINE';
+  const ctx=number(localAi.context_length),localVram=number(localAi.vram_mib);
+  els.localAiMeta.textContent=localAi.model?`${localAi.model}${ctx?` · ${(ctx/1024).toFixed(0)}K ctx`:''}${localVram?` · ${(localVram/1024).toFixed(1)} GiB VRAM`:''}`:'Optional local assist';
 }
 function applySnapshot(data){
   state.snapshot=data;state.lastHeartbeat=data.production?.heartbeat_at||null;state.staleAfter=number(data.connection?.stale_after_seconds,25);state.elapsedBase=data.generated_at?Date.parse(data.generated_at):Date.now();state.elapsedReceived=number(data.production?.elapsed_task_seconds,0);
   setConnection(data.connection?.state||'LIVE');setProduction(data.production?.state||'ERROR');
   els.taskId.textContent=data.production?.task_id||'UNKNOWN';els.taskTitle.textContent=data.production?.task_title||data.production?.task_id||'Unknown task';els.taskSummary.textContent=data.production?.task_summary||'No task summary available.';
-  els.model.textContent=data.production?.model||'UNKNOWN';els.reasoning.textContent=data.production?.reasoning||'UNKNOWN';els.heartbeat.textContent=ageText(state.lastHeartbeat);els.elapsed.textContent=duration(state.elapsedReceived);
+  els.model.textContent=data.production?.model||'UNKNOWN';els.reasoning.textContent=data.production?.reasoning||'UNKNOWN';
+  els.attempt.textContent=data.production?.attempt?`#${data.production.attempt}`:'—';
+  const continuity=data.production?.continuity||{};els.sessionState.textContent=continuity.session_state||'FRESH';
+  const efficiency=data.production?.efficiency||{};els.tokenSaver.textContent=efficiency.state||'UNAVAILABLE';els.tokenSaverMeta.textContent=efficiency.state==='ACTIVE'?`${number(efficiency.projection_bytes).toLocaleString()} B · ${number(efficiency.source_ref_count)} refs · ${number(efficiency.capability_count)} capabilities`:'Compacted task context unavailable';
+  els.heartbeat.textContent=ageText(state.lastHeartbeat);els.elapsed.textContent=duration(state.elapsedReceived);
   const progress=data.production?.progress||{};els.progressLabel.textContent=progress.total?`${progress.completed} / ${progress.total} · ${progress.percent}%`:'NO TOTAL';els.progressBar.style.width=`${pct(progress.percent)}%`;
   const commit=data.production?.commit||{};els.commit.textContent=`${shortSha(commit.commit)} · ${commit.message||'source unavailable'}`;
   const op=data.production?.current_operation;if(op){els.operation.textContent=op.text||'Production state updated';els.operationMeta.textContent=`${op.category||'BIELLA'} · ${op.state||'INFO'} · ${eventTime(op.time)}`;}else{els.operation.textContent='Waiting for production event';els.operationMeta.textContent='BIELLA · WAITING';}

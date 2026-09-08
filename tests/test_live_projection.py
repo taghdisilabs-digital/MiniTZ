@@ -107,6 +107,40 @@ class LiveProjectionTest(unittest.TestCase):
         self.assertEqual(calls,before)
         self.assertEqual(first,second)
 
+    def test_snapshot_surfaces_runtime_continuity_efficiency_and_local_ai(self):
+        (self.game / "docs").mkdir(parents=True, exist_ok=True)
+        (self.game / "docs" / "PRODUCTION.md").write_text(
+            "Current section: `post_d01`\nCurrent task: `D04-01`\n"
+            "- [x] D03-01 | hard_creation | done | COMPLETE | evidence\n"
+            "- [ ] D04-01 | hard_creation | live | PENDING | evidence\n"
+        )
+        (self.runtime / "runtime.json").write_text(json.dumps({
+            "status": "RUNNING", "task_id": "D04-01", "attempt": 306,
+            "task_session_id": "session-abc", "session_task_id": "D04-01",
+            "active_model": "gpt-reserve", "active_reasoning": "max",
+            "heartbeat_at": "2026-09-08T02:20:00+00:00",
+        }))
+        (self.runtime / "task-memory" / "D04-01.json").write_text(json.dumps({"title": "Data-driven content"}))
+        memory_dir = self.runtime / "memory"
+        memory_dir.mkdir()
+        (memory_dir / "current-task.json").write_text(json.dumps({
+            "schema": "biella.compacted_task_projection/v1", "task_id": "D04-01",
+            "generated_at": "2026-09-08T02:19:00+00:00",
+            "source_refs": ["a", "b"], "capabilities": {"llm.fast": ["ollama-qwen"]},
+        }))
+        self.live._system_activity = lambda: {
+            "gpu": {}, "host": {},
+            "local_ai": {"state": "RESIDENT", "model": "qwen3-coder-next:biella", "context_length": 16384},
+        }
+        payload = self.live.refresh(force_system=True)
+        production = payload["production"]
+        self.assertEqual(production["attempt"], 306)
+        self.assertEqual(production["continuity"]["session_state"], "PERSISTENT")
+        self.assertEqual(production["efficiency"]["state"], "ACTIVE")
+        self.assertEqual(production["efficiency"]["source_ref_count"], 2)
+        self.assertEqual(production["efficiency"]["capability_count"], 1)
+        self.assertEqual(payload["system"]["local_ai"]["state"], "RESIDENT")
+
     def test_public_asset_resolution_is_preview_only_and_root_bounded(self):
         lane, path = self.live.resolve_public_asset("games-presentation", "current/captures/frame.png")
         self.assertEqual(lane, "Games")

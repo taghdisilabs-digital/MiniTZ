@@ -1,6 +1,8 @@
 import csv
 import json
 import pathlib
+import re
+import subprocess
 import unittest
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -26,6 +28,24 @@ class WebsiteContractTests(unittest.TestCase):
             self.assertTrue(item['runtime_build_id'])
             self.assertTrue(item['artifact_sha256'])
             self.assertEqual(item['acceptance_authority'], 'Mahdi Taghdisi')
+
+    def test_live_page_surfaces_execution_changes_not_only_task_completion(self):
+        html = (ROOT / 'src/live/index.html').read_text()
+        app = (ROOT / 'src/live/app.js').read_text()
+        for token in ('data-attempt','data-session-state','data-token-saver','data-local-ai'):
+            self.assertIn(token, html)
+        for token in ('production?.attempt','production?.continuity','production?.efficiency','system?.local_ai'):
+            self.assertIn(token, app)
+
+    def test_build_fingerprints_live_assets_so_browser_cache_cannot_hide_updates(self):
+        subprocess.run(['node', 'scripts/build.mjs'], cwd=ROOT, check=True, capture_output=True, text=True)
+        html = (ROOT / 'dist/live/index.html').read_text()
+        app_match = re.search(r'/live/app\.([0-9a-f]{12})\.js', html)
+        css_match = re.search(r'/live/styles\.([0-9a-f]{12})\.css', html)
+        self.assertIsNotNone(app_match)
+        self.assertIsNotNone(css_match)
+        self.assertTrue((ROOT / f'dist/live/app.{app_match.group(1)}.js').is_file())
+        self.assertTrue((ROOT / f'dist/live/styles.{css_match.group(1)}.css').is_file())
 
     def test_bu07_scaffold_has_real_entrypoint_build_and_governance(self):
         required = ['src/index.html','src/styles.css','src/app.js','src/live/index.html','src/live/styles.css','src/live/app.js','scripts/build.mjs','package.json','AGENTS.md','wrangler.jsonc','content/website-visual-assets.csv','content/asset-resolution.json','content/game-runtime-media.json']

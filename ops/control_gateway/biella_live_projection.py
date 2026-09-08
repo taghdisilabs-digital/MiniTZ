@@ -10,6 +10,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote
+from urllib.request import urlopen
 
 PREVIEWABLE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".mp4", ".webm", ".mov"}
 PUBLIC_ROOT_LANES = {
@@ -252,6 +253,57 @@ class LiveProjection:
             pass
         return ""
 
+    def _local_ai_status(self) -> dict[str, object]:
+        result: dict[str, object] = {
+            "state": "OFFLINE",
+            "model": None,
+            "context_length": None,
+            "vram_mib": None,
+        }
+        try:
+            with urlopen("http://127.0.0.1:11434/api/ps", timeout=0.75) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+        except Exception:
+            return result
+        models = payload.get("models") if isinstance(payload, dict) else None
+        if not isinstance(models, list):
+            return result
+        for item in models:
+            if not isinstance(item, dict):
+                continue
+            name = str(item.get("name") or item.get("model") or "")
+            if name != "qwen3-coder-next:biella":
+                continue
+            result.update({
+                "state": "RESIDENT" if int(item.get("size_vram") or 0) > 0 else "LOADED",
+                "model": name,
+                "context_length": int(item.get("context_length") or 0) or None,
+                "vram_mib": round(int(item.get("size_vram") or 0) / (1024 * 1024), 1),
+            })
+            break
+        return result
+
+    def _efficiency_status(self, task_id: str) -> dict[str, object]:
+        path = self.runtime_root / "memory" / "current-task.json"
+        projection = _read_json(path)
+        active = (
+            projection.get("schema") == "biella.compacted_task_projection/v1"
+            and str(projection.get("task_id") or "") == task_id
+        )
+        try:
+            size = path.stat().st_size if active else None
+        except OSError:
+            size = None
+        capabilities = projection.get("capabilities") if isinstance(projection.get("capabilities"), dict) else {}
+        source_refs = projection.get("source_refs") if isinstance(projection.get("source_refs"), list) else []
+        return {
+            "state": "ACTIVE" if active else "UNAVAILABLE",
+            "projection_bytes": size,
+            "generated_at": str(projection.get("generated_at") or "") if active else "",
+            "source_ref_count": len(source_refs) if active else 0,
+            "capability_count": len(capabilities) if active else 0,
+        }
+
     def _system_activity(self) -> dict[str, object]:
         gpu = {"name": "Unavailable", "utilization_percent": None, "memory_used_mib": None, "memory_total_mib": None, "temperature_c": None, "power_w": None}
         rc, output = self._run([
@@ -288,6 +340,7 @@ class LiveProjection:
             load_1m = None
         return {
             "gpu": gpu,
+            "local_ai": self._local_ai_status(),
             "host": {
                 "load_1m": load_1m,
                 "cpu_count": os.cpu_count() or 0,
@@ -561,6 +614,11 @@ class LiveProjection:
                 "current_operation": current,
                 "model": str(status.get("active_model") or runtime.get("active_model") or "UNKNOWN"),
                 "reasoning": str(status.get("active_reasoning") or runtime.get("active_reasoning") or "UNKNOWN"),
+                "attempt": int(runtime.get("attempt") or 0) or None,
+                "continuity": {
+                    "session_state": "PERSISTENT" if runtime.get("task_session_id") and str(runtime.get("session_task_id") or task_id) == task_id else "FRESH",
+                },
+                "efficiency": self._efficiency_status(task_id),
                 "heartbeat_at": heartbeat_at,
                 "heartbeat_age_seconds": round(heartbeat_age, 1) if heartbeat_age is not None else None,
                 "task_started_at": started_at,
