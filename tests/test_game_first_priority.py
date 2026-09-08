@@ -28,16 +28,15 @@ def test_game_first_is_native_production_policy():
 
 def test_game_quality_content_and_delivery_precede_unrelated_website():
     order = ids(production()); pos = {key: i for i, key in enumerate(order)}
-    assert pos["D08-01"] < pos["D15-01"] < pos["D16-01"]
-    assert pos["D17-08"] < pos["D19-01"] < pos["D20-01"]
+    assert pos["D17-08"] < pos["D19-01"] < pos["D20-01"] < pos["D23-01"] < pos["D18-01"] < pos["D18-02"] < pos["D08-01"] < pos["D15-01"] < pos["D16-01"]
     assert pos["D20-08"] < pos["D18-03"]
     assert pos["D23-04"] < pos["D09-06"] < pos["D21-01"]
 
 
 def test_no_invented_cross_product_prerequisite_for_game():
     rows = ledger._registry_rows(ROOT)
-    assert rows["D17-01"]["depends_on"] == ["D08-01"]
-    assert rows["D15-01"]["depends_on"] == ["D17-08"]
+    assert rows["D17-01"]["depends_on"] == ["D07-01"]
+    assert set(rows["D15-01"]["depends_on"]) == {"D17-08", "D08-01"}
     assert rows["D19-01"]["depends_on"] == ["D17-08"]
     assert rows["D23-01"]["depends_on"] == ["D20-08"]
     assert "D22-08" in rows["D23-05"]["depends_on"]

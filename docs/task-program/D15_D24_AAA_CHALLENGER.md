@@ -6,7 +6,7 @@ Canonical IDs: `D##-##`. Dependency edges are authoritative; legacy IDs are alia
 
 | Task | Title | Status | Depends on | Legacy alias |
 |---|---|---|---|---|
-| `D15-01` | Lock authoritative predecessor closure set | `PENDING` | D17-08 | `AAA-SF-001` |
+| `D15-01` | Lock authoritative predecessor closure set | `PENDING` | D17-08, D08-01 | `AAA-SF-001` |
 | `D15-02` | Freeze current source and decision identities | `PENDING` | D15-01 | `AAA-SF-002` |
 | `D15-03` | Create post-program evidence namespace | `PENDING` | D15-02 | `AAA-SF-003` |
 | `D15-04` | Bind production-ready predecessor build | `PENDING` | D15-03 | `AAA-SF-004` |
@@ -28,7 +28,7 @@ Canonical IDs: `D##-##`. Dependency edges are authoritative; legacy IDs are alia
 
 | Task | Title | Status | Depends on | Legacy alias |
 |---|---|---|---|---|
-| `D17-01` | Select canonical AAA challenger slice | `PENDING` | D08-01 | `AAA-SF-013` |
+| `D17-01` | Select canonical AAA challenger slice | `PENDING` | D07-01 | `AAA-SF-013` |
 | `D17-02` | Prove traversal and camera quality | `PENDING` | D17-01 | `AAA-SF-014` |
 | `D17-03` | Prove combat feel and consequence chain | `PENDING` | D17-02 | `AAA-SF-015` |
 | `D17-04` | Prove player, rival, infected, and arena interaction | `PENDING` | D17-03 | `AAA-SF-016` |

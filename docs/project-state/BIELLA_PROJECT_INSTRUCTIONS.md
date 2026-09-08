@@ -63,5 +63,7 @@ MAINTENANCE_PROGRESS_TRANSACTION: progress edits require SLEEP/FREEZE -> EDIT ->
 EVIDENCE
 Validation follows the exact task contract: editable source, required tests/build/runtime/browser behavior, structural/decoded media proof, bytes/digests, remote readback. Gameplay needs real input/simulation/world reaction, performance measured traces, migration provenance/classification/normalized destination verification. Exit code/HTTP200/screenshot/mock/agent claim alone is insufficient unless explicitly allowed by the contract. Never invent source/IDs/tests/artifacts/targets/shipping languages/AAA thresholds/publication/completion. Execute directly; report observed results and exact unresolved boundaries.
 
-VISUAL_PRIORITY: D17 FINAL_VISUAL_LAYER follows D08 before D15/D16; create/fix against owner direction, then qualify. No review-only loop.
+VISUAL_PRIORITY: D17 FINAL_VISUAL_LAYER runs before resource-blocked D08; D08 remains pending and must close before D15/D16; create/fix against owner direction, then qualify. No review-only loop.
 VISUAL_FINAL_LAYER_ACCEPTANCE: D17 uses projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md. NO_PASS_ON_CURRENT_D08_BASELINE; VISUAL_QUALITY_IS_EXECUTION_WORK_NOT_OWNER_WAIT; zero major visual defects; create/fix then raw-gameplay validate.
+
+RESOURCE_BLOCKER_PROGRESSIVE_ROUTING: an unchanged `REQUIRES_OTHER_RESOURCE` result never consumes repeated strong-model turns when later canonical tasks are dependency-runnable. Preserve the blocked task/status/evidence/session, move only its canonical row behind the contiguous runnable work in the same Project production source, continue immediately, and never treat deferral as completion.

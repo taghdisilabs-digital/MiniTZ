@@ -30,7 +30,7 @@ _RUNTIME_KEYS = {
     "status", "project", "task_id", "attempt", "pid", "child_pid",
     "active_model", "active_reasoning", "cooldowns", "last_result",
     "heartbeat_at", "updated_at", "task_session_id", "session_task_id",
-    "source_alignment",
+    "task_sessions", "source_alignment",
 }
 
 
@@ -64,7 +64,7 @@ def initial_runtime() -> dict[str, Any]:
         "pid": None, "child_pid": None, "active_model": None,
         "active_reasoning": None, "cooldowns": {}, "last_result": None,
         "heartbeat_at": None, "updated_at": datetime.now(timezone.utc).isoformat(),
-        "task_session_id": None, "session_task_id": None,
+        "task_session_id": None, "session_task_id": None, "task_sessions": {},
         "source_alignment": None,
     }
 
@@ -73,6 +73,7 @@ def save_runtime(path: Path, runtime: Mapping[str, Any]) -> None:
     path = Path(path); path.parent.mkdir(parents=True, exist_ok=True)
     payload = {key: runtime.get(key) for key in _RUNTIME_KEYS}
     payload["cooldowns"] = dict(payload.get("cooldowns") or {})
+    payload["task_sessions"] = dict(payload.get("task_sessions") or {})
     payload["attempt"] = int(payload.get("attempt") or 0)
     tmp = path.with_suffix(path.suffix + ".tmp")
     tmp.write_text(json.dumps(payload, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
@@ -87,6 +88,10 @@ def load_runtime(path: Path) -> dict[str, Any]:
     for key in _RUNTIME_KEYS:
         if key in raw:
             result[key] = raw[key]
+    result["task_sessions"] = dict(result.get("task_sessions") or {})
+    current_task = result.get("session_task_id"); current_session = result.get("task_session_id")
+    if isinstance(current_task, str) and current_task and isinstance(current_session, str) and current_session:
+        result["task_sessions"].setdefault(current_task, current_session)
     return result
 
 
@@ -126,16 +131,81 @@ def _extract_codex_session_id(path: Path) -> str | None:
 
 
 def _resume_session_for(telemetry: Mapping[str, Any], task_id: str) -> str | None:
-    if telemetry.get("session_task_id") != task_id:
-        return None
-    raw = telemetry.get("task_session_id")
-    return str(raw) if isinstance(raw, str) and raw else None
+    if telemetry.get("session_task_id") == task_id:
+        raw = telemetry.get("task_session_id")
+        if isinstance(raw, str) and raw:
+            return str(raw)
+    sessions = telemetry.get("task_sessions")
+    if isinstance(sessions, Mapping):
+        raw = sessions.get(task_id)
+        if isinstance(raw, str) and raw:
+            return str(raw)
+    return None
+
+
+def _record_task_session(telemetry: dict[str, Any], task_id: str, session_id: str) -> None:
+    sessions = dict(telemetry.get("task_sessions") or {})
+    sessions[task_id] = session_id
+    telemetry["task_sessions"] = sessions
+    telemetry["task_session_id"] = session_id
+    telemetry["session_task_id"] = task_id
 
 
 def _resume_session_for_route(telemetry: Mapping[str, Any], task_id: str, route: routing.Route) -> str | None:
     if routing.is_bounded_fallback(route):
         return None
     return _resume_session_for(telemetry, task_id)
+
+
+def _resource_blocker_deferral_tail(production: state.ProductionState, blocked_task_id: str, dependencies: Mapping[str, Sequence[str]]) -> str | None:
+    """Return the last contiguous later pending task runnable without the blocked task."""
+    ordered = [task for section in production.sections for task in section.tasks]
+    completed = {task.id for task in ordered if task.status in state._COMPLETE}
+    try:
+        start = next(index for index, task in enumerate(ordered) if task.id == blocked_task_id)
+    except StopIteration:
+        return None
+    available = set(completed); tail = None
+    for task in ordered[start + 1:]:
+        if task.status in state._COMPLETE:
+            available.add(task.id); continue
+        required = set(dependencies.get(task.id, ()))
+        if blocked_task_id in required or not required.issubset(available):
+            break
+        tail = task.id; available.add(task.id)
+    return tail
+
+
+def _resource_blocker_summary(telemetry: Mapping[str, Any], task_id: str) -> str | None:
+    previous = telemetry.get("last_result")
+    if not isinstance(previous, Mapping) or previous.get("task_id") != task_id or previous.get("status") != "CONTINUE":
+        return None
+    summary = str(previous.get("summary", "")).strip()
+    return summary if summary.startswith("REQUIRES_OTHER_RESOURCE:") else None
+
+
+def _defer_resource_blocker(repo_root: Path, project_root: Path, production: state.ProductionState, task: state.TaskRecord, telemetry: dict[str, Any], journal: production_events.ProductionEventJournal, runtime_path: Path) -> bool:
+    summary = _resource_blocker_summary(telemetry, task.id)
+    if not summary:
+        return False
+    dependencies = {item["task_id"]: tuple(item.get("depends_on") or ()) for item in execution_map.load_map(repo_root).get("tasks", [])}
+    tail = _resource_blocker_deferral_tail(production, task.id, dependencies)
+    if not tail:
+        return False
+    # Seed legacy single-session runtime into the per-task registry before switching frontier.
+    current_session = _resume_session_for(telemetry, task.id)
+    if current_session:
+        _record_task_session(telemetry, task.id, current_session)
+    production = state.defer_pending_task_after(project_root, task.id, tail)
+    execution_map.sync_production_order(repo_root, production)
+    production, successor = state.activate_project_frontier(repo_root, project_root)
+    telemetry.update({"task_id": successor.id if successor else None, "last_result": {
+        "task_id": task.id, "status": "RESOURCE_DEFERRED", "summary": summary,
+        "evidence": [f"Canonical task row moved after {tail}; status/evidence unchanged."],
+    }})
+    journal.emit("task.resource_deferred", task_id=task.id, status="RESOURCE_DEFERRED", text=f"{summary} Independent work continues through {tail}.")
+    _beat(runtime_path, telemetry)
+    return True
 
 
 def _normalize_result_for_route(result: evidence.TaskResult, route: routing.Route) -> evidence.TaskResult:
@@ -150,6 +220,11 @@ def _normalize_result_for_route(result: evidence.TaskResult, route: routing.Rout
 
 
 def _clear_task_session(telemetry: dict[str, Any]) -> None:
+    task_id = telemetry.get("session_task_id")
+    sessions = dict(telemetry.get("task_sessions") or {})
+    if isinstance(task_id, str) and task_id:
+        sessions.pop(task_id, None)
+    telemetry["task_sessions"] = sessions
     telemetry["task_session_id"] = None
     telemetry["session_task_id"] = None
 
@@ -714,8 +789,7 @@ def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, outp
         while proc.poll() is None:
             event_offset, live_session = _drain_codex_events(stdout_path, event_offset, event_journal, session_task_id)
             if persist_session_identity and live_session and session_task_id and telemetry.get("task_session_id") != live_session:
-                telemetry["task_session_id"] = live_session
-                telemetry["session_task_id"] = session_task_id
+                _record_task_session(telemetry, session_task_id, live_session)
                 _beat(runtime_path, telemetry)
             now_mono = time.monotonic()
             if now_mono >= next_beat:
@@ -727,13 +801,11 @@ def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, outp
         rc = int(proc.returncode or 0)
         event_offset, final_session = _drain_codex_events(stdout_path, event_offset, event_journal, session_task_id, final=True)
         if persist_session_identity and final_session and session_task_id:
-            telemetry["task_session_id"] = final_session
-            telemetry["session_task_id"] = session_task_id
+            _record_task_session(telemetry, session_task_id, final_session)
     telemetry["child_pid"] = None
     observed_session = resume_session_id or _extract_codex_session_id(stdout_path)
     if persist_session_identity and observed_session and session_task_id:
-        telemetry["task_session_id"] = observed_session
-        telemetry["session_task_id"] = session_task_id
+        _record_task_session(telemetry, session_task_id, observed_session)
     observed = _beat(runtime_path, telemetry)
     if on_heartbeat:
         on_heartbeat(observed)
@@ -1007,6 +1079,8 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     _set_failure(telemetry, route, f"invalid section plan: {exc}", f"PLAN:{section.id}"); _beat(runtime_path, telemetry); continue
                 telemetry["last_result"] = {"task_id": None, "status": "SECTION_REFRESH", "summary": str(plan.get("summary", "")), "evidence": list(plan.get("evidence", [])), "model": route.model, "reasoning": route.reasoning}
                 _beat(runtime_path, telemetry); continue
+            if _defer_resource_blocker(repo_root, project_root, production, task, telemetry, journal, runtime_path):
+                continue
             now = datetime.now(timezone.utc)
             route, bounded_packet_id = _select_task_route(
                 task, catalog, telemetry.get("cooldowns", {}), now, telemetry, repo_root, project_root

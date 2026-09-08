@@ -17,15 +17,15 @@ def order():
     return rows
 
 
-def test_visual_last_layer_runs_immediately_after_d08_before_binding_reproducibility():
+def test_visual_last_layer_runs_before_resource_blocked_d08_and_binding():
     ids=order(); pos={x:i for i,x in enumerate(ids)}
-    assert pos['D08-01'] < pos['D17-01'] < pos['D17-08'] < pos['D15-01'] < pos['D16-01'] < pos['D19-01']
+    assert pos['D17-01'] < pos['D17-08'] < pos['D08-01'] < pos['D15-01'] < pos['D16-01']
 
 
 def test_dependencies_follow_visual_first_chain():
     rows={x['task_id']:x for x in json.loads(MAP.read_text())['tasks']}
-    assert rows['D17-01']['depends_on']==['D08-01']
-    assert rows['D15-01']['depends_on']==['D17-08']
+    assert rows['D17-01']['depends_on']==['D07-01']
+    assert set(rows['D15-01']['depends_on'])=={'D17-08','D08-01'}
     for i in range(2,9):
         assert rows[f'D17-{i:02d}']['depends_on']==[f'D17-{i-1:02d}']
 
@@ -50,5 +50,5 @@ def test_d17_map_uses_current_guides_and_matching_digests():
 
 def test_registry_dependency_matches_visual_first_chain():
     text=REG.read_text()
-    assert '| `D17-01` | Select canonical AAA challenger slice | `PENDING` | D08-01 |' in text
-    assert '| `D15-01` | Lock authoritative predecessor closure set | `PENDING` | D17-08 |' in text
+    assert '| `D17-01` | Select canonical AAA challenger slice | `PENDING` | D07-01 |' in text
+    assert '| `D15-01` | Lock authoritative predecessor closure set | `PENDING` | D17-08, D08-01 |' in text

@@ -354,6 +354,46 @@ def resolve_current_task(repo_root: Path, project_root: Path) -> TaskRecord | No
     return current
 
 
+def defer_pending_task_after(project_root: Path, task_id: str, after_task_id: str) -> ProductionState:
+    """Move one pending row later in the same canonical section without changing status/evidence."""
+    canonical = task_ids.canonical_task_id(task_id)
+    after = task_ids.canonical_task_id(after_task_id)
+    production = load_project_production(project_root)
+    task = find_task(production, canonical); anchor = find_task(production, after)
+    if task.status in _COMPLETE or anchor.status in _COMPLETE:
+        raise ValueError("resource deferral requires pending task rows")
+    if task.section_id != anchor.section_id:
+        raise ValueError("resource deferral cannot cross canonical sections")
+    ordered = [item.id for section in production.sections for item in section.tasks]
+    if ordered.index(after) <= ordered.index(canonical):
+        raise ValueError("resource deferral anchor must follow the blocked task")
+    path = production_path(project_root); lines = path.read_text(encoding="utf-8").splitlines()
+    task_index = anchor_index = None
+    for index, raw in enumerate(lines):
+        match = _TASK_RE.match(raw.strip())
+        if not match:
+            continue
+        current = task_ids.canonical_task_id(match.group("id"))
+        if current == canonical: task_index = index
+        if current == after: anchor_index = index
+    if task_index is None or anchor_index is None:
+        raise KeyError(f"missing task row for deferral: {canonical}/{after}")
+    row = lines.pop(task_index)
+    if task_index < anchor_index: anchor_index -= 1
+    lines.insert(anchor_index + 1, row)
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return sync_project_metadata(project_root)
+
+
+def activate_project_frontier(repo_root: Path, project_root: Path) -> tuple[ProductionState, TaskRecord | None]:
+    """Refresh 03/04 from the canonical physical order after an explicit order change."""
+    production = sync_project_metadata(project_root); task = next_task(production)
+    predecessor = _previous_completed_task(production, task.id) if task else None
+    write_active_task(repo_root, task, predecessor=predecessor)
+    sync_current_state(repo_root, production, task, state="PENDING" if task else "COMPLETE")
+    return production, task
+
+
 def mark_task_complete(repo_root: Path, project_root: Path, task_id: str, status: str, evidence: Sequence[str]) -> ProductionState:
     if status not in _COMPLETE:
         raise ValueError("completion status required")

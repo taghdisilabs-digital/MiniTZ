@@ -10,7 +10,7 @@ Engine: `/opt/unreal/UE_5.8.2`
 Execution rule: one current task; verify, execute, persist evidence, then advance
 Evidence rule: editable source plus task-derived build/runtime/package evidence
 Current section: `post_d01`
-Current task: `D08-01`
+Current task: `D17-01`
 Progress: `50/50` Demo tasks complete
 
 ## Section: demo01 | Demo 01 — first playable vertical slice | COMPLETE
@@ -74,7 +74,7 @@ Source: migrated from `docs/DEMO_01_QUEUE.md`; latest preservation commit `f7e74
 
 Biella Games delivery is priority NUMBER 1 under Mahdi's 2026-09-08 instruction.
 The physical row order below is authoritative; numeric D IDs identify work, not execution order.
-Keep D07/D08 first, then game-only prerequisite binding, reproducible builds, playable quality,
+Keep completed D07 proof; route resource-independent playable/visual/proof work ahead of resource-blocked D08, then return to D08 before binding/reproducibility,
 native stability/release work and reusable game content before external-player sessions,
 website expansion, founder-leverage reports, non-game pilots or investor work.
 Engine/tooling work precedes game work only when it is a real dependency of that game output.
@@ -96,7 +96,6 @@ Local state/ledger and GitHub remain per-task; routine Drive stays every five co
 - [x] D05-01 | medium | UI, settings, localization, and accessibility | COMPLETE | Build/UI/D05-01-acceptance.md records implementation, exact build/runtime commands, and criterion mapping.; Live Unreal automation passed all HUD, settings, persistence, localization, accessibility, and pause-transition criteria; result.json reports success=true.; Committed locally as 86eeb3c6d01d9ec8d2e4f5d4ac40fab3da19fd67; worktree is clean.
 - [x] D06-01 | hard_creation | Cinematic and presentation integration | COMPLETE | [D06-01 acceptance](</root/biella/repos/biella-engine/projects/biella-games/Build/Cinematics/D06-01-acceptance.md>); [Validation report](</root/biella/artifacts/games/D06-01/20260908T061117.897522Z-vulkan-eb4ffad8/validation.json>) records build, authoring, readback, and runtime PASS.; Watched and skipped runtime handoffs passed with the same player/world and restored input/camera state.; Local commit `7598e367964f5359b122d6ecf3ffac9e2cba7b80`; worktree clean.
 - [x] D07-01 | hard | Full performance, stability, and scalability qualification | COMPLETE | Commit 2745c29c55e55064d3c55442d3051dae407d231d; all 233 committed files verified byte-for-byte.; 10 runtime scenarios and 51 diagnostic/regression controls passed.; [Qualification report](/root/biella/repos/biella-engine/projects/biella-games/Build/Qualification/D07-01/summary.md)
-- [ ] D08-01 | hard | Delivery, update, and release-candidate qualification | PENDING | registry_status=PENDING
 - [x] D09-01 | deep_memory | Full Drive + GitHub Website Source Inventory | COMPLETE_ALREADY | registry_status=COMPLETE
 - [x] D09-02 | deep_memory | Website Source Classification Using Migration Firewall | COMPLETE_ALREADY | registry_status=COMPLETE
 - [x] D09-03 | deep_memory | Visual Canon and Asset Master Selection | COMPLETE_ALREADY | registry_status=COMPLETE
@@ -110,18 +109,6 @@ Local state/ledger and GitHub remain per-task; routine Drive stays every five co
 - [ ] D17-06 | hard_creation | Create and qualify final audio, VFX, HUD, and readability layer | PENDING | registry_status=PENDING
 - [ ] D17-07 | hard_creation | Create and qualify final environment, material, lighting, and world layer | PENDING | registry_status=PENDING
 - [ ] D17-08 | hard_creation | Close AAA vertical-slice evidence package | PENDING | registry_status=PENDING
-- [ ] D15-01 | deep_memory | Lock authoritative predecessor closure set | PENDING | registry_status=PENDING
-- [ ] D15-02 | deep_memory | Freeze current source and decision identities | PENDING | registry_status=PENDING
-- [ ] D15-03 | deep_memory | Create post-program evidence namespace | PENDING | registry_status=PENDING
-- [ ] D15-04 | deep_memory | Bind production-ready predecessor build | PENDING | registry_status=PENDING
-- [ ] D16-01 | hard | Reproduce release from clean checkout | PENDING | registry_status=PENDING
-- [ ] D16-02 | hard | Make package recipe reproducible | PENDING | registry_status=PENDING
-- [ ] D16-03 | hard | Qualify clean-machine install and launch | PENDING | registry_status=PENDING
-- [ ] D16-04 | hard | Qualify save, settings, restart, and reconstruction | PENDING | registry_status=PENDING
-- [ ] D16-05 | hard | Qualify crash, assert, and failure diagnostics | PENDING | registry_status=PENDING
-- [ ] D16-06 | hard | Qualify update and package replacement | PENDING | registry_status=PENDING
-- [ ] D16-07 | hard | Capture representative packaged-runtime baseline | PENDING | registry_status=PENDING
-- [ ] D16-08 | hard | Close reproducible-build proof | PENDING | registry_status=PENDING
 - [ ] D19-01 | hard | Lock representative target hardware tiers from measured evidence | PENDING | registry_status=PENDING
 - [ ] D19-02 | hard | Lock native frame-time and responsiveness targets from evidence | PENDING | registry_status=PENDING
 - [ ] D19-03 | hard | Qualify world traversal streaming and hitch behavior | PENDING | registry_status=PENDING
@@ -141,6 +128,19 @@ Local state/ledger and GitHub remain per-task; routine Drive stays every five co
 - [ ] D23-01 | hard | Publish truthful playable-proof surface | PENDING | registry_status=PENDING
 - [ ] D18-01 | hard | Define blind external playtest contract | PENDING | registry_status=PENDING
 - [ ] D18-02 | hard | Prepare founder-independent playtest handoff | PENDING | registry_status=PENDING
+- [ ] D08-01 | hard | Delivery, update, and release-candidate qualification | PENDING | registry_status=PENDING
+- [ ] D15-01 | deep_memory | Lock authoritative predecessor closure set | PENDING | registry_status=PENDING
+- [ ] D15-02 | deep_memory | Freeze current source and decision identities | PENDING | registry_status=PENDING
+- [ ] D15-03 | deep_memory | Create post-program evidence namespace | PENDING | registry_status=PENDING
+- [ ] D15-04 | deep_memory | Bind production-ready predecessor build | PENDING | registry_status=PENDING
+- [ ] D16-01 | hard | Reproduce release from clean checkout | PENDING | registry_status=PENDING
+- [ ] D16-02 | hard | Make package recipe reproducible | PENDING | registry_status=PENDING
+- [ ] D16-03 | hard | Qualify clean-machine install and launch | PENDING | registry_status=PENDING
+- [ ] D16-04 | hard | Qualify save, settings, restart, and reconstruction | PENDING | registry_status=PENDING
+- [ ] D16-05 | hard | Qualify crash, assert, and failure diagnostics | PENDING | registry_status=PENDING
+- [ ] D16-06 | hard | Qualify update and package replacement | PENDING | registry_status=PENDING
+- [ ] D16-07 | hard | Capture representative packaged-runtime baseline | PENDING | registry_status=PENDING
+- [ ] D16-08 | hard | Close reproducible-build proof | PENDING | registry_status=PENDING
 - [ ] D18-03 | hard | Run first independent external session | PENDING | registry_status=PENDING
 - [ ] D18-04 | hard | Run independent session on a different machine context | PENDING | registry_status=PENDING
 - [ ] D18-05 | hard | Aggregate external comprehension and friction evidence | PENDING | registry_status=PENDING

@@ -79,7 +79,7 @@
         }
       ],
       "objective": "Integrate an in-game editable sequence into the real game world and prove clean gameplay handoff. This is runtime presentation, not a disconnected trailer scene and not new narrative canon.",
-      "deliverable": "- `ABiellaCinematicDirector` \u2014 bounded owner for entering/exiting/skipping one runtime sequence and applying explicit authoritative handoff events.\n- `Content/Cinematics/LS_Demo01_RuntimeHandoff.uasset` \u2014 technical in-game sequence asset.\n- `BiellaCinematicTest.cpp` and `tests/run_d06_01_cinematic.py` \u2014 native/runtime acceptance fixture.\n\nBuild a short technical sequence using existing world/player/arena-pressure presentation. It may move/cut the camera and use existing animation/VFX/audio, but it must not invent dialogue, lore, mission completion or fake combat.\n\nRequired flow:\n`GAMEPLAY -> CINEMATIC MODE -> CONTROL CONSTRAINED -> EXISTING RUNTIME STATE/PRESENTATION -> WATCHED OR SKIPPED HANDOFF -> GAMEPLAY CONTROL RESTORED`.",
+      "deliverable": "- `ABiellaCinematicDirector` — bounded owner for entering/exiting/skipping one runtime sequence and applying explicit authoritative handoff events.\n- `Content/Cinematics/LS_Demo01_RuntimeHandoff.uasset` — technical in-game sequence asset.\n- `BiellaCinematicTest.cpp` and `tests/run_d06_01_cinematic.py` — native/runtime acceptance fixture.\n\nBuild a short technical sequence using existing world/player/arena-pressure presentation. It may move/cut the camera and use existing animation/VFX/audio, but it must not invent dialogue, lore, mission completion or fake combat.\n\nRequired flow:\n`GAMEPLAY -> CINEMATIC MODE -> CONTROL CONSTRAINED -> EXISTING RUNTIME STATE/PRESENTATION -> WATCHED OR SKIPPED HANDOFF -> GAMEPLAY CONTROL RESTORED`.",
       "validation": "- Editable Level Sequence source and exact build/source identity.\n- Same runtime actors/world, no duplicate fake player or disconnected scene.\n- Input/camera ownership is transferred and restored.\n- Watched and skipped paths produce the same required authoritative state.\n- No stale input lock, missing equipment, duplicate actor or mission/world divergence.\n- Streamed assets/world remain valid around the sequence.\n- Capture supports presentation evidence but runtime state assertions are authoritative.",
       "required_evidence": "- Editable Level Sequence source and exact build/source identity.\n- Same runtime actors/world, no duplicate fake player or disconnected scene.\n- Input/camera ownership is transferred and restored.\n- Watched and skipped paths produce the same required authoritative state.\n- No stale input lock, missing equipment, duplicate actor or mission/world divergence.\n- Streamed assets/world remain valid around the sequence.\n- Capture supports presentation evidence but runtime state assertions are authoritative.",
       "resource_capabilities": [
@@ -142,6 +142,1319 @@
     },
     {
       "ordinal": 4,
+      "task_id": "D17-01",
+      "title": "Select canonical AAA challenger slice",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D07-01"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D17-01"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/task-guides/D17-01.md",
+          "sha256": "e4869f1862eff1d365390ad97dcb9442f66da6323f8de7dc36dc66ffab7ca3b4",
+          "selected_sections": [
+            "Objective",
+            "Owner visual direction",
+            "Execution law",
+            "Acceptance"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
+          "selected_sections": [
+            "Authority and quality bar",
+            "Current baseline classification",
+            "Hard visual requirements",
+            "Major-defect rejection",
+            "Execution loop",
+            "Evidence and completion"
+          ]
+        }
+      ],
+      "objective": "Choose a 10-20 minute representative sequence from implemented, accepted gameplay/content and bind the owner visual direction. Identify only the missing final-layer gaps; do not invent mechanics to make the slice more cinematic.",
+      "deliverable": "Canonical slice scenario definition with start state, route, combat/system beats, end state, and exact build identity.",
+      "validation": "Scenario can be executed in the packaged game and demonstrates the project's real player+rival+infected+arena interaction without scripted substitution.",
+      "required_evidence": "Scenario file, package identity, first raw run capture.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
+      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
+      "production_ordinal": 65,
+      "priority": 1
+    },
+    {
+      "ordinal": 5,
+      "task_id": "D17-02",
+      "title": "Prove traversal and camera quality",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-01"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D17-02"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/task-guides/D17-02.md",
+          "sha256": "837d9e95c90165fa1b0fba1293729f1af75ba884eb09c0717ec404c2a10389ef",
+          "selected_sections": [
+            "Objective",
+            "Owner visual direction",
+            "Execution law",
+            "Acceptance"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
+          "selected_sections": [
+            "Authority and quality bar",
+            "Current baseline classification",
+            "Hard visual requirements",
+            "Major-defect rejection",
+            "Execution loop",
+            "Evidence and completion"
+          ]
+        }
+      ],
+      "objective": "Create/fix only traversal, camera, collision, framing and route-readability gaps needed for the selected slice, then prove raw gameplay navigation at production camera distance.",
+      "deliverable": "Traversal/camera issue record plus accepted run evidence after task-scoped fixes if required.",
+      "validation": "The canonical route is playable without camera clipping, collision traps, navigation ambiguity that blocks intended play, or noninteractive presentation substitutions.",
+      "required_evidence": "Raw capture, runtime log, exact changed source if repaired.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
+      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
+      "production_ordinal": 66,
+      "priority": 1
+    },
+    {
+      "ordinal": 6,
+      "task_id": "D17-03",
+      "title": "Prove combat feel and consequence chain",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-02"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D17-03"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/task-guides/D17-03.md",
+          "sha256": "bdea770b1f124d711a9f220b666361b9f07c01e7b818bbc8d92feebc88e74fe1",
+          "selected_sections": [
+            "Objective",
+            "Owner visual direction",
+            "Execution law",
+            "Acceptance"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
+          "selected_sections": [
+            "Authority and quality bar",
+            "Current baseline classification",
+            "Hard visual requirements",
+            "Major-defect rejection",
+            "Execution loop",
+            "Evidence and completion"
+          ]
+        }
+      ],
+      "objective": "Create/fix only combat-feedback and consequence-chain gaps needed for the slice, then prove real input -> action -> hit -> damage -> reaction -> state change.",
+      "deliverable": "Combat-quality evidence and bounded repair changes where current behavior fails acceptance.",
+      "validation": "Combat actions are responsive and legible, consequences are real simulation state, and no visual-only effect is counted as gameplay completion.",
+      "required_evidence": "Raw combat capture, telemetry/log events, source/build identity.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
+      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
+      "production_ordinal": 67,
+      "priority": 1
+    },
+    {
+      "ordinal": 7,
+      "task_id": "D17-04",
+      "title": "Prove player, rival, infected, and arena interaction",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-03"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D17-04"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/task-guides/D17-04.md",
+          "sha256": "a55ae8cd7d1a4c5a96131fb65f5772794cc52f6c228f2411d0883602bca3861a",
+          "selected_sections": [
+            "Objective",
+            "Owner visual direction",
+            "Execution law",
+            "Acceptance"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
+          "selected_sections": [
+            "Authority and quality bar",
+            "Current baseline classification",
+            "Hard visual requirements",
+            "Major-defect rejection",
+            "Execution loop",
+            "Evidence and completion"
+          ]
+        }
+      ],
+      "objective": "Create/fix only encounter-composition gaps needed so player, rival contestant, infected and approved arena pressure materially affect the same evolving fight.",
+      "deliverable": "System-interaction evidence trace and raw gameplay capture.",
+      "validation": "Actor decisions and world consequences originate from runtime state; the encounter is not a prerecorded or manually staged substitute for implementation.",
+      "required_evidence": "Event timeline, raw video, runtime logs, package digest.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
+      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
+      "production_ordinal": 68,
+      "priority": 1
+    },
+    {
+      "ordinal": 8,
+      "task_id": "D17-05",
+      "title": "Create and qualify final animation and motion layer",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-04"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D17-05"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/task-guides/D17-05.md",
+          "sha256": "55a7b86480ecc07442208d96050dcba7234ad68ef147cdba803fd052be22a3c4",
+          "selected_sections": [
+            "Objective",
+            "Owner visual direction",
+            "Execution law",
+            "Acceptance"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
+          "selected_sections": [
+            "Authority and quality bar",
+            "Current baseline classification",
+            "Hard visual requirements",
+            "Major-defect rejection",
+            "Execution loop",
+            "Evidence and completion"
+          ]
+        }
+      ],
+      "objective": "FINAL_VISUAL_LAYER: create/fix animation, locomotion, aim, weapon handling, hit/death reactions, transitions, deformation and motion continuity until the selected slice reaches the owner visual direction at gameplay distance; then validate. No review-only loop.",
+      "deliverable": "Animation-quality defect list reduced to accepted slice quality, with exact repaired assets/source where needed.",
+      "validation": "No acceptance-blocking snapping, foot sliding, broken deformation, impossible pose transitions, or actor-state mismatch remains in the slice.",
+      "required_evidence": "Raw captures at representative moments, source/asset identities, runtime evidence.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
+      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
+      "production_ordinal": 69,
+      "priority": 1
+    },
+    {
+      "ordinal": 9,
+      "task_id": "D17-06",
+      "title": "Create and qualify final audio, VFX, HUD, and readability layer",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-05"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D17-06"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/task-guides/D17-06.md",
+          "sha256": "67083876bbb5e57076dc327e2d13aaedbb3c1fa5db83c3a66c15dd93937dc1cb",
+          "selected_sections": [
+            "Objective",
+            "Owner visual direction",
+            "Execution law",
+            "Acceptance"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
+          "selected_sections": [
+            "Authority and quality bar",
+            "Current baseline classification",
+            "Hard visual requirements",
+            "Major-defect rejection",
+            "Execution loop",
+            "Evidence and completion"
+          ]
+        }
+      ],
+      "objective": "FINAL_VISUAL_LAYER: create/fix event-driven audio, VFX, HUD hierarchy and gameplay readability until the selected slice communicates threats, routes, hazards and consequences at the owner visual direction quality; then validate. No review-only loop.",
+      "deliverable": "Readability evidence and task-scoped fixes to existing implemented feedback.",
+      "validation": "Critical events are perceptible and attributable; UI/VFX/audio do not claim mechanics absent from runtime state and do not block gameplay readability.",
+      "required_evidence": "Raw capture with audio, HUD/state event trace, exact source/asset identities.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
+      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
+      "production_ordinal": 70,
+      "priority": 1
+    },
+    {
+      "ordinal": 10,
+      "task_id": "D17-07",
+      "title": "Create and qualify final environment, material, lighting, and world layer",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-06"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D17-07"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/task-guides/D17-07.md",
+          "sha256": "ff0138cc0d8330553a94f0af106c53273c8ced028ca64630ba72ba78ff5ad733",
+          "selected_sections": [
+            "Objective",
+            "Owner visual direction",
+            "Execution law",
+            "Acceptance"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
+          "selected_sections": [
+            "Authority and quality bar",
+            "Current baseline classification",
+            "Hard visual requirements",
+            "Major-defect rejection",
+            "Execution loop",
+            "Evidence and completion"
+          ]
+        }
+      ],
+      "objective": "FINAL_VISUAL_LAYER: create/fix environment density, modular composition, materials, wetness/reflection response, motivated lighting, infection integration, props, damage/state coherence and spatial depth until the selected slice reaches the owner visual direction while remaining playable and buildable; then validate. No review-only loop.",
+      "deliverable": "Environment-quality evidence and bounded corrections within accepted project visual direction.",
+      "validation": "No acceptance-blocking floating/fused geometry, impossible access, contradictory scale/perspective, unreadable route, material failure, or unexplained world-state artifact remains.",
+      "required_evidence": "Raw traversal/combat captures, map/asset identities, runtime logs.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
+      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
+      "production_ordinal": 71,
+      "priority": 1
+    },
+    {
+      "ordinal": 11,
+      "task_id": "D17-08",
+      "title": "Close AAA vertical-slice evidence package",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-07"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D17-08"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/task-guides/D17-08.md",
+          "sha256": "df44da7374bdca8502eab06026cce2e47126e2eb8cf1571b4e7f7c2604a42dd6",
+          "selected_sections": [
+            "Objective",
+            "Owner visual direction",
+            "Execution law",
+            "Acceptance"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
+          "selected_sections": [
+            "Authority and quality bar",
+            "Current baseline classification",
+            "Hard visual requirements",
+            "Major-defect rejection",
+            "Execution loop",
+            "Evidence and completion"
+          ]
+        }
+      ],
+      "objective": "Package truthful raw gameplay, captures, source/build identities and criterion results for the polished canonical slice. Do not edit evidence to hide runtime defects.",
+      "deliverable": "Indexed slice bundle containing exact build, scenario, raw full run, selected excerpts, metrics, known limitations, and source identities.",
+      "validation": "A reviewer can trace every claimed visual/gameplay quality point to the exact running build and raw evidence; unresolved defects are disclosed.",
+      "required_evidence": "Bundle digest/index, Git commit/tree, Drive readback.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
+      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
+      "production_ordinal": 72,
+      "priority": 1
+    },
+    {
+      "ordinal": 12,
+      "task_id": "D19-01",
+      "title": "Lock representative target hardware tiers from measured evidence",
+      "task_class": "hard",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-08"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D19-01"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-029_LOCK_REPRESENTATIVE_TARGET_HARDWARE_TIERS_FROM_MEASURED_EVIDENCE.md",
+          "sha256": "568e555d6ac6422e1abab619389f5b347d1683c832164c4bbecb2bb23832aa5f",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Use packaged-runtime telemetry and accepted product intent to replace only the hardware-tier UNKNOWNs that can now be decided.",
+      "deliverable": "Updated technical decision entries for measured target hardware tiers or explicit retained UNKNOWNs where evidence is insufficient.",
+      "validation": "Each accepted value has measured evidence and owner/delegated authority; no GPU/RAM/VRAM target is inferred from installed hardware alone.",
+      "required_evidence": "Decision diff, telemetry source IDs, commit/tree.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 73,
+      "priority": 1,
+      "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements."
+    },
+    {
+      "ordinal": 13,
+      "task_id": "D19-02",
+      "title": "Lock native frame-time and responsiveness targets from evidence",
+      "task_class": "hard",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D19-01"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D19-02"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-030_LOCK_NATIVE_FRAME_TIME_AND_RESPONSIVENESS_TARGETS_FROM_EVIDENCE.md",
+          "sha256": "f16d1a77390e1113248445d289eb52770481350662e5292bcb9f4c8ecd0b7fe8",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Define target native FPS/frame-time/hitch/latency tiers only where representative measurements support a production decision.",
+      "deliverable": "Updated performance decision entries and repeatable benchmark scenarios.",
+      "validation": "Targets exclude generated frames as native performance and are tied to accepted hardware/scenario identities.",
+      "required_evidence": "Decision record, benchmark telemetry, source commit.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 74,
+      "priority": 1
+    },
+    {
+      "ordinal": 14,
+      "task_id": "D19-03",
+      "title": "Qualify world traversal streaming and hitch behavior",
+      "task_class": "hard",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D19-02"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D19-03"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-031_QUALIFY_WORLD_TRAVERSAL_STREAMING_AND_HITCH_BEHAVIOR.md",
+          "sha256": "d42916d4985c3ad2e08295be9a26cb2dba2145f03a26826fbeff8da2daab0996",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Run representative high-motion traversal through streamed world boundaries and repair acceptance-blocking stalls or continuity defects.",
+      "deliverable": "Traversal stress evidence and bounded fixes.",
+      "validation": "Streaming, HLOD/culling/occlusion, collision, and world-state continuity remain valid through the scenario within accepted performance targets.",
+      "required_evidence": "Frame-time trace, streaming logs, raw capture, build digest.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 75,
+      "priority": 1
+    },
+    {
+      "ordinal": 15,
+      "task_id": "D19-04",
+      "title": "Qualify combat population stress behavior",
+      "task_class": "hard",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D19-03"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D19-04"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-032_QUALIFY_COMBAT_POPULATION_STRESS_BEHAVIOR.md",
+          "sha256": "dc77c8d83e41cdee63e9ff3e12f5f1f5dbe6f1f7a0bc874aafe0936542a1d29e",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Run representative simultaneous player/rival/infected combat at the population level supported by current content and measure degradation.",
+      "deliverable": "Combat stress profile and bounded optimization changes if required.",
+      "validation": "Simulation correctness and gameplay readability remain intact at the accepted scenario load; counts are evidence-driven rather than ambition-driven.",
+      "required_evidence": "Actor/event counts, CPU/GPU/frame telemetry, runtime logs.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 76,
+      "priority": 1
+    },
+    {
+      "ordinal": 16,
+      "task_id": "D19-05",
+      "title": "Qualify memory, VRAM, residency, and leak behavior",
+      "task_class": "hard",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D19-04"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D19-05"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-033_QUALIFY_MEMORY_VRAM_RESIDENCY_AND_LEAK_BEHAVIOR.md",
+          "sha256": "0a5d4587327aee41bed49dfc20d9d9323b530fc1beec2795de790134a99d5eed",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Measure resource residency through traversal, combat, restart, and repeated scenario execution.",
+      "deliverable": "Resource qualification record and leak/residency fixes where evidenced.",
+      "validation": "RAM/VRAM/resource use is bounded for accepted scenarios and does not grow materially from lifecycle defects across repeated runs.",
+      "required_evidence": "Resource traces, lifecycle logs, build/source identity.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 77,
+      "priority": 1
+    },
+    {
+      "ordinal": 17,
+      "task_id": "D19-06",
+      "title": "Qualify sustained packaged-runtime stability",
+      "task_class": "hard",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D19-05"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D19-06"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-034_QUALIFY_SUSTAINED_PACKAGED_RUNTIME_STABILITY.md",
+          "sha256": "774f839e6ebcd5418acee766257e91a3fb15704950246555a72b4855733c4a5d",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Run the accepted representative soak/repetition duration chosen from current release risk and capture crashes, hangs, asserts, and state degradation.",
+      "deliverable": "Stability run evidence plus repaired failures limited to reproduced issues.",
+      "validation": "The exact packaged build survives the accepted duration/repetition scenario without unresolved release-blocking failure.",
+      "required_evidence": "Runtime logs, duration/scenario record, crash/assert artifacts if any.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 78,
+      "priority": 1
+    },
+    {
+      "ordinal": 18,
+      "task_id": "D19-07",
+      "title": "Requalify clean Shipping package",
+      "task_class": "hard",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D19-06"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D19-07"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-035_REQUALIFY_A_CLEAN_SHIPPING_PACKAGE.md",
+          "sha256": "178233d0114d383d50f1c38f824d92db9a0118c5b80f5620ba5a9bfacf914597",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Produce and validate the accepted Win64 Shipping configuration after performance/stability repairs.",
+      "deliverable": "Shipping package with exact source/build identity and clean-machine play evidence.",
+      "validation": "Package launches outside editor, completes the canonical slice, persists required state, and exits/relaunches cleanly on the qualified environment.",
+      "required_evidence": "Shipping package digest, runtime logs, raw play capture.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 79,
+      "priority": 1
+    },
+    {
+      "ordinal": 19,
+      "task_id": "D19-08",
+      "title": "Close release-operations proof",
+      "task_class": "hard",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D19-07"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D19-08"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-036_CLOSE_RELEASE_OPERATIONS_PROOF.md",
+          "sha256": "96e8fd50b1068e09cff7af034d68b547a481e8806226cdc934771bab483fe02b",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Assemble current build, performance, stability, persistence, diagnostics, update, and clean-machine results into one release-operations evidence set.",
+      "deliverable": "Release-operations qualification bundle.",
+      "validation": "Every accepted release claim points to fresh exact-build evidence; stale predecessor logs are references only.",
+      "required_evidence": "Bundle index/digest, Git source identity, Drive readback.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 80,
+      "priority": 1
+    },
+    {
+      "ordinal": 20,
+      "task_id": "D20-01",
+      "title": "Select second production scenario from current accepted systems",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D19-08"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D20-01"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-037_SELECT_A_SECOND_PRODUCTION_SCENARIO_FROM_APPROVED_SYSTEMS.md",
+          "sha256": "f280384878cf6347731a9f6708d3129a21ae6cc9a9da6d07c9be00c2986f4e89",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Choose a materially different scenario that reuses existing systems and approved content vocabulary rather than introducing a new project identity.",
+      "deliverable": "Second-scenario production brief with reuse targets, required variation, and acceptance scenario.",
+      "validation": "Scenario is distinct enough to test repeatability but remains within accepted mechanics, art direction, and current project scope.",
+      "required_evidence": "Brief, source/asset references, acceptance route.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 81,
+      "priority": 1
+    },
+    {
+      "ordinal": 21,
+      "task_id": "D20-02",
+      "title": "Produce second environment or encounter composition through reusable systems",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D20-01"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D20-02"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-038_PRODUCE_THE_SECOND_ENVIRONMENT_OR_ENCOUNTER_COMPOSITION_THROUGH_REUSABLE_SYSTEMS.md",
+          "sha256": "44f3441dc3f93049ae25bccb4df5727e7d5e1c1c29848f928447d62abc4128b0",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Build the second scenario using existing modular world/content systems before adding bespoke logic.",
+      "deliverable": "Editable scenario content integrated in the game.",
+      "validation": "Scenario is playable, collision/navigation-valid, and reuses production systems; bespoke code is justified by an actual missing universal/project capability.",
+      "required_evidence": "Source/asset diff, runtime traversal evidence.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 82,
+      "priority": 1
+    },
+    {
+      "ordinal": 22,
+      "task_id": "D20-03",
+      "title": "Produce different rival and infected encounter composition",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D20-02"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D20-03"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-039_PRODUCE_A_DIFFERENT_RIVAL_AND_INFECTED_ENCOUNTER_COMPOSITION.md",
+          "sha256": "de35046995825e33dfd9e2eb20ff29ea9833e63d2763182ca992fb4d12f2d5b7",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Use existing actor/system definitions to create a meaningfully different interaction pattern without forking core AI behavior per encounter.",
+      "deliverable": "Second encounter composition and runtime evidence.",
+      "validation": "Rival/infected behavior remains driven by shared systems and current approved tuning/content data, with real state interaction.",
+      "required_evidence": "Encounter data/source identity, raw gameplay/event trace.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 83,
+      "priority": 1
+    },
+    {
+      "ordinal": 23,
+      "task_id": "D20-04",
+      "title": "Produce alternate arena-pressure sequence from current accepted systems",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D20-03"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D20-04"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-040_PRODUCE_AN_ALTERNATE_APPROVED_ARENA_PRESSURE_SEQUENCE.md",
+          "sha256": "b48a73566106d613bb84594051aa2222c9cdd22e5262814a7ba9ba90cb8f39db",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Recombine the already approved arena-pressure mechanism with the second scenario without inventing a new pressure mechanic.",
+      "deliverable": "Second pressure sequence integrated into scenario data/world state.",
+      "validation": "The same authoritative pressure system drives different valid consequences; no duplicate pressure controller is created.",
+      "required_evidence": "State/event trace, scenario source, runtime capture.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 84,
+      "priority": 1
+    },
+    {
+      "ordinal": 24,
+      "task_id": "D20-05",
+      "title": "Measure content-system reuse versus bespoke work",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D20-04"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D20-05"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-041_MEASURE_CONTENT_SYSTEM_REUSE_VERSUS_BESPOKE_WORK.md",
+          "sha256": "63ee98b55e6a23ca7e59feecd5d31f861b547d4e6fee45b7b1348fc48722be5a",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Quantify which second-scenario outputs were achieved through reusable data/assets/systems and which required new implementation.",
+      "deliverable": "Reuse report tied to source diffs and production task evidence.",
+      "validation": "Counts/times come from real changed files/tasks/traces; no claim of reuse is based only on architecture intent.",
+      "required_evidence": "Git diff stats, task/run identities, categorized reuse record.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 85,
+      "priority": 1
+    },
+    {
+      "ordinal": 25,
+      "task_id": "D20-06",
+      "title": "Package and qualify second scenario",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D20-05"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D20-06"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-042_PACKAGE_AND_QUALIFY_THE_SECOND_SCENARIO.md",
+          "sha256": "7f45071808751b15e1a0a630e846adb8cef56ec1f8ba5d1a7bd05a30ba953e7e",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Build a package containing the second scenario and execute its representative route outside the editor.",
+      "deliverable": "Second-scenario packaged proof.",
+      "validation": "Clean launch and real play succeed with the same release pipeline and evidence standards used for the canonical slice.",
+      "required_evidence": "Package digest, raw gameplay, runtime logs.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 86,
+      "priority": 1
+    },
+    {
+      "ordinal": 26,
+      "task_id": "D20-07",
+      "title": "Compare production time, intervention, and quality across scenarios",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D20-06"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D20-07"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-043_COMPARE_PRODUCTION_TIME_INTERVENTION_AND_QUALITY_ACROSS_SCENARIOS.md",
+          "sha256": "0f45d0ac5d592e9d4357b9a5e77058e41fe635352333b9f5a0e39cf5484fd96a",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Compare first- and second-scenario creation using actual task/run timelines and acceptance evidence.",
+      "deliverable": "Repeatability comparison with elapsed production time, accepted-task count, founder interventions, changed source/assets, and validation outcome where observable.",
+      "validation": "Metrics are computed from durable traces and comparable task boundaries; missing telemetry is marked unknown rather than estimated.",
+      "required_evidence": "Trace IDs, calculation inputs, comparison report.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 87,
+      "priority": 1
+    },
+    {
+      "ordinal": 27,
+      "task_id": "D20-08",
+      "title": "Close repeatable-content proof",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D20-07"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D20-08"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-044_CLOSE_REPEATABLE_CONTENT_PROOF.md",
+          "sha256": "b9c21672c50b883da000925a6309f469e07a1e58aff10c6afc2864ea236d223a",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Demonstrate that the playable quality pipeline can produce more than one strong scenario without rebuilding the game architecture each time.",
+      "deliverable": "Repeatable-content evidence bundle linking both scenarios and their production traces.",
+      "validation": "Both scenarios run in qualified packages, share core systems, and have evidence-linked production metrics; one-off bespoke hero work is separated from reusable capability.",
+      "required_evidence": "Bundle index/digest, source identities, Drive readback.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 88,
+      "priority": 1
+    },
+    {
+      "ordinal": 28,
+      "task_id": "D23-01",
+      "title": "Publish truthful playable-proof surface",
+      "task_class": "hard",
+      "lane": "Cross-project",
+      "execution_root": ".",
+      "depends_on": [
+        "D20-08"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D23-01"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-061_PUBLISH_A_TRUTHFUL_PLAYABLE_PROOF_SURFACE.md",
+          "sha256": "9be2c8af52e361d3abc352d5a48c99b7c97cc726b3e65ef4eb70ff60f272d563",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Prepare and publish a public-facing proof surface using only accepted build facts and gameplay evidence; no invented title/release date/platform promise or fake gameplay.",
+      "deliverable": "Public proof page or media package with raw-gameplay provenance and exact build/source references kept internally.",
+      "validation": "Published material matches the running product and does not present generated concepts or cinematics as implemented gameplay.",
+      "required_evidence": "Published URL/identity, source media digest, internal evidence mapping.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 89,
+      "priority": 1,
+      "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements."
+    },
+    {
+      "ordinal": 29,
+      "task_id": "D18-01",
+      "title": "Define blind external playtest contract",
+      "task_class": "hard",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-08"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D18-01"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-021_DEFINE_THE_BLIND_EXTERNAL_PLAYTEST_CONTRACT.md",
+          "sha256": "12e80f365312e08d2e4af06ef887b54451d303d1a63641571b5cf1cd445d9eb9",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Define what an external player receives, what founder help is prohibited during the session, what evidence is collected, and what counts as completion/failure.",
+      "deliverable": "Consent-aware playtest protocol and telemetry/question set limited to product evaluation.",
+      "validation": "Protocol can be run without exposing internal secrets or requiring founder coaching; success criteria derive from the playable product rather than investor narrative.",
+      "required_evidence": "Protocol file and test package identity.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 90,
+      "priority": 1
+    },
+    {
+      "ordinal": 30,
+      "task_id": "D18-02",
+      "title": "Prepare founder-independent playtest handoff",
+      "task_class": "hard",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D18-01"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
+          "selected_sections": [
+            "D18-02"
+          ]
+        },
+        {
+          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-022_PREPARE_THE_FOUNDER_INDEPENDENT_PLAYTEST_HANDOFF.md",
+          "sha256": "33b5d2a11f8775d70a0a08499514a61e5d23d77e54f04af6e231b18915f43220",
+          "selected_sections": [
+            "Objective",
+            "Required deliverable",
+            "Validation contract",
+            "Required evidence"
+          ]
+        }
+      ],
+      "objective": "Create the smallest package, instructions, and issue-report path needed for an outside player to install, launch, play, and report results.",
+      "deliverable": "External playtest handoff bundle.",
+      "validation": "A person not using the development workspace can follow the instructions without hidden commands or direct founder intervention.",
+      "required_evidence": "Bundle digest, clean-machine dry run, instructions readback.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
+      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
+      "production_ordinal": 91,
+      "priority": 1
+    },
+    {
+      "ordinal": 31,
       "task_id": "D08-01",
       "title": "Delivery, update, and release-candidate qualification",
       "task_class": "hard",
@@ -219,7 +1532,7 @@
         }
       ],
       "objective": "Produce and qualify an exact distributable build/update lineage. Release-candidate status belongs to one specific package identity, not a successful compile or screenshot.",
-      "deliverable": "- `tests/run_d08_01_release.py` \u2014 package/install/update/launch qualification orchestrator.\n- `Build/Release/D08-01/source-build-manifest.json`.\n- `Build/Release/D08-01/package-manifest.json`.\n- `Build/Release/D08-01/qualification.json` and `qualification.md`.",
+      "deliverable": "- `tests/run_d08_01_release.py` — package/install/update/launch qualification orchestrator.\n- `Build/Release/D08-01/source-build-manifest.json`.\n- `Build/Release/D08-01/package-manifest.json`.\n- `Build/Release/D08-01/qualification.json` and `qualification.md`.",
       "validation": "1. Clean dependency/content validation, including a bounded missing/incompatible-content negative case.\n2. Produce exact package with source/tree/config/content identity.\n3. Launch outside editor through intended entry point.\n4. Exercise real input/player/camera/gameplay, rivals/infected/pressure, current world/interactions, rendering/audio/VFX, save/settings reconstruction where implemented.\n5. Review fatal/assert/content-load diagnostics and package-specific resource/performance evidence.\n6. For update support, prove exact old-build -> update -> launch -> supported settings/save compatibility plus incomplete/incompatible update failure handling.\n7. Record known exclusions/limitations; do not invent store, launcher, certification, patch cadence or live-service requirements.\n\nOne exact packaged build must pass the current approved gameplay, production, stability and evidence contracts appropriate to its platform. Package command success alone is insufficient.",
       "required_evidence": "- Primary target platform: Windows PC x64 first.\n- Build/package path: UnrealBuildTool + Unreal AutomationTool; BuildGraph when useful.\n- Development package for iteration/evidence; Shipping for distributable qualification.\n- Runtime content: cooked Unreal assets/maps.\n- Save format: UE SaveGame/custom versioned serialization at platform per-user location.\n\nThe canonical Linux UE 5.8.2 VPS has previously reported Win64 SDK as unavailable. At D08 start, reobserve current package resources. Do not silently call a Linux package the final accepted Win64 release candidate. If Win64 remains unavailable on the current Resource, classify it `REQUIRES_OTHER_RESOURCE` and continue every platform-neutral preparation/validation that does not require Win64 while routing the final package step to an actually observed compatible Resource.",
       "resource_capabilities": [
@@ -233,7 +1546,7 @@
       "reuse": "Reuse matching predecessor proof and package mechanisms with actual D08 inputs. Preserve material-input/recipe/package-specific records from the required release/update work so D15/D16 do not repeat it; two distinct real same-source recipe executions remain required for reproducibility.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 60,
+      "production_ordinal": 92,
       "priority": 1,
       "resource_observation": {
         "path": "projects/biella-games/Build/Release/D08-01/D08-01-resource-observation.json",
@@ -242,475 +1555,20 @@
       }
     },
     {
-      "ordinal": 5,
-      "task_id": "D17-01",
-      "title": "Select canonical AAA challenger slice",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D08-01"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D17-01"
-          ]
-        },
-        {
-          "path": "projects/biella-games/docs/task-guides/D17-01.md",
-          "sha256": "d32dbbba344dc343438d38eba97e4b20cefe4d783aacbae6e7c58fb24d0aa5a3",
-          "selected_sections": [
-            "Objective",
-            "Owner visual direction",
-            "Execution law",
-            "Acceptance"
-          ]
-        },
-        {
-          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
-          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
-          "selected_sections": [
-            "Authority and quality bar",
-            "Current baseline classification",
-            "Hard visual requirements",
-            "Major-defect rejection",
-            "Execution loop",
-            "Evidence and completion"
-          ]
-        }
-      ],
-      "objective": "Choose a 10-20 minute representative sequence from implemented, accepted gameplay/content and bind the owner visual direction. Identify only the missing final-layer gaps; do not invent mechanics to make the slice more cinematic.",
-      "deliverable": "Canonical slice scenario definition with start state, route, combat/system beats, end state, and exact build identity.",
-      "validation": "Scenario can be executed in the packaged game and demonstrates the project's real player+rival+infected+arena interaction without scripted substitution.",
-      "required_evidence": "Scenario file, package identity, first raw run capture.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
-      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
-      "production_ordinal": 66,
-      "priority": 1
-    },
-    {
-      "ordinal": 6,
-      "task_id": "D17-02",
-      "title": "Prove traversal and camera quality",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D17-01"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D17-02"
-          ]
-        },
-        {
-          "path": "projects/biella-games/docs/task-guides/D17-02.md",
-          "sha256": "837d9e95c90165fa1b0fba1293729f1af75ba884eb09c0717ec404c2a10389ef",
-          "selected_sections": [
-            "Objective",
-            "Owner visual direction",
-            "Execution law",
-            "Acceptance"
-          ]
-        },
-        {
-          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
-          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
-          "selected_sections": [
-            "Authority and quality bar",
-            "Current baseline classification",
-            "Hard visual requirements",
-            "Major-defect rejection",
-            "Execution loop",
-            "Evidence and completion"
-          ]
-        }
-      ],
-      "objective": "Create/fix only traversal, camera, collision, framing and route-readability gaps needed for the selected slice, then prove raw gameplay navigation at production camera distance.",
-      "deliverable": "Traversal/camera issue record plus accepted run evidence after task-scoped fixes if required.",
-      "validation": "The canonical route is playable without camera clipping, collision traps, navigation ambiguity that blocks intended play, or noninteractive presentation substitutions.",
-      "required_evidence": "Raw capture, runtime log, exact changed source if repaired.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
-      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
-      "production_ordinal": 67,
-      "priority": 1
-    },
-    {
-      "ordinal": 7,
-      "task_id": "D17-03",
-      "title": "Prove combat feel and consequence chain",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D17-02"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D17-03"
-          ]
-        },
-        {
-          "path": "projects/biella-games/docs/task-guides/D17-03.md",
-          "sha256": "bdea770b1f124d711a9f220b666361b9f07c01e7b818bbc8d92feebc88e74fe1",
-          "selected_sections": [
-            "Objective",
-            "Owner visual direction",
-            "Execution law",
-            "Acceptance"
-          ]
-        },
-        {
-          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
-          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
-          "selected_sections": [
-            "Authority and quality bar",
-            "Current baseline classification",
-            "Hard visual requirements",
-            "Major-defect rejection",
-            "Execution loop",
-            "Evidence and completion"
-          ]
-        }
-      ],
-      "objective": "Create/fix only combat-feedback and consequence-chain gaps needed for the slice, then prove real input -> action -> hit -> damage -> reaction -> state change.",
-      "deliverable": "Combat-quality evidence and bounded repair changes where current behavior fails acceptance.",
-      "validation": "Combat actions are responsive and legible, consequences are real simulation state, and no visual-only effect is counted as gameplay completion.",
-      "required_evidence": "Raw combat capture, telemetry/log events, source/build identity.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
-      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
-      "production_ordinal": 68,
-      "priority": 1
-    },
-    {
-      "ordinal": 8,
-      "task_id": "D17-04",
-      "title": "Prove player, rival, infected, and arena interaction",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D17-03"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D17-04"
-          ]
-        },
-        {
-          "path": "projects/biella-games/docs/task-guides/D17-04.md",
-          "sha256": "a55ae8cd7d1a4c5a96131fb65f5772794cc52f6c228f2411d0883602bca3861a",
-          "selected_sections": [
-            "Objective",
-            "Owner visual direction",
-            "Execution law",
-            "Acceptance"
-          ]
-        },
-        {
-          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
-          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
-          "selected_sections": [
-            "Authority and quality bar",
-            "Current baseline classification",
-            "Hard visual requirements",
-            "Major-defect rejection",
-            "Execution loop",
-            "Evidence and completion"
-          ]
-        }
-      ],
-      "objective": "Create/fix only encounter-composition gaps needed so player, rival contestant, infected and approved arena pressure materially affect the same evolving fight.",
-      "deliverable": "System-interaction evidence trace and raw gameplay capture.",
-      "validation": "Actor decisions and world consequences originate from runtime state; the encounter is not a prerecorded or manually staged substitute for implementation.",
-      "required_evidence": "Event timeline, raw video, runtime logs, package digest.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
-      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
-      "production_ordinal": 69,
-      "priority": 1
-    },
-    {
-      "ordinal": 9,
-      "task_id": "D17-05",
-      "title": "Create and qualify final animation and motion layer",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D17-04"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D17-05"
-          ]
-        },
-        {
-          "path": "projects/biella-games/docs/task-guides/D17-05.md",
-          "sha256": "55a7b86480ecc07442208d96050dcba7234ad68ef147cdba803fd052be22a3c4",
-          "selected_sections": [
-            "Objective",
-            "Owner visual direction",
-            "Execution law",
-            "Acceptance"
-          ]
-        },
-        {
-          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
-          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
-          "selected_sections": [
-            "Authority and quality bar",
-            "Current baseline classification",
-            "Hard visual requirements",
-            "Major-defect rejection",
-            "Execution loop",
-            "Evidence and completion"
-          ]
-        }
-      ],
-      "objective": "FINAL_VISUAL_LAYER: create/fix animation, locomotion, aim, weapon handling, hit/death reactions, transitions, deformation and motion continuity until the selected slice reaches the owner visual direction at gameplay distance; then validate. No review-only loop.",
-      "deliverable": "Animation-quality defect list reduced to accepted slice quality, with exact repaired assets/source where needed.",
-      "validation": "No acceptance-blocking snapping, foot sliding, broken deformation, impossible pose transitions, or actor-state mismatch remains in the slice.",
-      "required_evidence": "Raw captures at representative moments, source/asset identities, runtime evidence.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
-      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
-      "production_ordinal": 70,
-      "priority": 1
-    },
-    {
-      "ordinal": 10,
-      "task_id": "D17-06",
-      "title": "Create and qualify final audio, VFX, HUD, and readability layer",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D17-05"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D17-06"
-          ]
-        },
-        {
-          "path": "projects/biella-games/docs/task-guides/D17-06.md",
-          "sha256": "67083876bbb5e57076dc327e2d13aaedbb3c1fa5db83c3a66c15dd93937dc1cb",
-          "selected_sections": [
-            "Objective",
-            "Owner visual direction",
-            "Execution law",
-            "Acceptance"
-          ]
-        },
-        {
-          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
-          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
-          "selected_sections": [
-            "Authority and quality bar",
-            "Current baseline classification",
-            "Hard visual requirements",
-            "Major-defect rejection",
-            "Execution loop",
-            "Evidence and completion"
-          ]
-        }
-      ],
-      "objective": "FINAL_VISUAL_LAYER: create/fix event-driven audio, VFX, HUD hierarchy and gameplay readability until the selected slice communicates threats, routes, hazards and consequences at the owner visual direction quality; then validate. No review-only loop.",
-      "deliverable": "Readability evidence and task-scoped fixes to existing implemented feedback.",
-      "validation": "Critical events are perceptible and attributable; UI/VFX/audio do not claim mechanics absent from runtime state and do not block gameplay readability.",
-      "required_evidence": "Raw capture with audio, HUD/state event trace, exact source/asset identities.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
-      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
-      "production_ordinal": 71,
-      "priority": 1
-    },
-    {
-      "ordinal": 11,
-      "task_id": "D17-07",
-      "title": "Create and qualify final environment, material, lighting, and world layer",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D17-06"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D17-07"
-          ]
-        },
-        {
-          "path": "projects/biella-games/docs/task-guides/D17-07.md",
-          "sha256": "ff0138cc0d8330553a94f0af106c53273c8ced028ca64630ba72ba78ff5ad733",
-          "selected_sections": [
-            "Objective",
-            "Owner visual direction",
-            "Execution law",
-            "Acceptance"
-          ]
-        },
-        {
-          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
-          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
-          "selected_sections": [
-            "Authority and quality bar",
-            "Current baseline classification",
-            "Hard visual requirements",
-            "Major-defect rejection",
-            "Execution loop",
-            "Evidence and completion"
-          ]
-        }
-      ],
-      "objective": "FINAL_VISUAL_LAYER: create/fix environment density, modular composition, materials, wetness/reflection response, motivated lighting, infection integration, props, damage/state coherence and spatial depth until the selected slice reaches the owner visual direction while remaining playable and buildable; then validate. No review-only loop.",
-      "deliverable": "Environment-quality evidence and bounded corrections within accepted project visual direction.",
-      "validation": "No acceptance-blocking floating/fused geometry, impossible access, contradictory scale/perspective, unreadable route, material failure, or unexplained world-state artifact remains.",
-      "required_evidence": "Raw traversal/combat captures, map/asset identities, runtime logs.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
-      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
-      "production_ordinal": 72,
-      "priority": 1
-    },
-    {
-      "ordinal": 12,
-      "task_id": "D17-08",
-      "title": "Close AAA vertical-slice evidence package",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D17-07"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D17-08"
-          ]
-        },
-        {
-          "path": "projects/biella-games/docs/task-guides/D17-08.md",
-          "sha256": "df44da7374bdca8502eab06026cce2e47126e2eb8cf1571b4e7f7c2604a42dd6",
-          "selected_sections": [
-            "Objective",
-            "Owner visual direction",
-            "Execution law",
-            "Acceptance"
-          ]
-        },
-        {
-          "path": "projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
-          "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07",
-          "selected_sections": [
-            "Authority and quality bar",
-            "Current baseline classification",
-            "Hard visual requirements",
-            "Major-defect rejection",
-            "Execution loop",
-            "Evidence and completion"
-          ]
-        }
-      ],
-      "objective": "Package truthful raw gameplay, captures, source/build identities and criterion results for the polished canonical slice. Do not edit evidence to hide runtime defects.",
-      "deliverable": "Indexed slice bundle containing exact build, scenario, raw full run, selected excerpts, metrics, known limitations, and source identities.",
-      "validation": "A reviewer can trace every claimed visual/gameplay quality point to the exact running build and raw evidence; unresolved defects are disclosed.",
-      "required_evidence": "Bundle digest/index, Git commit/tree, Drive readback.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
-      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "AAA_REALISTIC_RUNTIME_BAR; VISUAL_DEFECT_BUDGET_ZERO_MAJOR; NO_PASS_ON_CURRENT_D08_BASELINE; RAW_GAMEPLAY_CAPTURE_REQUIRED; create/fix then task-derived runtime qualification.",
-      "production_ordinal": 73,
-      "priority": 1
-    },
-    {
-      "ordinal": 13,
+      "ordinal": 32,
       "task_id": "D15-01",
       "title": "Lock authoritative predecessor closure set",
       "task_class": "deep_memory",
       "lane": "Games",
       "execution_root": "projects/biella-games",
       "depends_on": [
-        "D17-08"
+        "D17-08",
+        "D08-01"
       ],
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D15-01"
           ]
@@ -740,13 +1598,13 @@
       "reuse": "Read the accepted D08 qualification and its referenced dependency identities once. Bind only the game release and Engine components it actually consumes. Do not inventory or wait for unrelated Website, business, pilot, investor or deferred Engine programs. This is a local evidence-binding operation: no build or runtime rerun, no extra sign-off; it does not freeze production. Reuse the existing publication cursor for remote receipts.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 74,
+      "production_ordinal": 93,
       "priority": 1,
       "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements.",
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 14,
+      "ordinal": 33,
       "task_id": "D15-02",
       "title": "Freeze current source and decision identities",
       "task_class": "deep_memory",
@@ -758,7 +1616,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D15-02"
           ]
@@ -788,13 +1646,13 @@
       "reuse": "Reuse the source-build manifest and the accepted package lineage produced by D08. The tested source commit may precede newer controller/document commits: record those identities separately rather than rebasing or rebuilding the package. Record only consumed decisions and material inputs; absent required facts stay UNKNOWN. This records identities and does not freeze production: no build or runtime rerun. The publication cursor carries remote status without another upload loop.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 75,
+      "production_ordinal": 94,
       "priority": 1,
       "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements.",
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 15,
+      "ordinal": 34,
       "task_id": "D15-03",
       "title": "Create post-program evidence namespace",
       "task_class": "deep_memory",
@@ -806,7 +1664,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D15-03"
           ]
@@ -836,13 +1694,13 @@
       "reuse": "Use the existing Games Build/Release evidence namespace and the D08 lineage, not a new top-level repository or archive. Write/read back the required task record itself as the namespace test; do not create a disposable dummy artifact and another validation round. Reference original bytes instead of copying every package/log. This does not freeze production and needs no build or runtime rerun. Existing configured destinations and the publication cursor remain authoritative for transfer status.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 76,
+      "production_ordinal": 95,
       "priority": 1,
       "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements.",
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 16,
+      "ordinal": 35,
       "task_id": "D15-04",
       "title": "Bind production-ready predecessor build",
       "task_class": "deep_memory",
@@ -854,7 +1712,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D15-04"
           ]
@@ -884,13 +1742,13 @@
       "reuse": "Resolve the accepted package through the D08 package manifest and qualification, not a stale task filename or current HEAD guess. Compare exact package/source/configuration/platform identities. Preserve original package bytes. Missing metadata is repaired locally; an actual missing/corrupt package invalidates only that artifact boundary, not completed gameplay. This does not freeze production: no build or runtime rerun for valid retained bytes. Use the publication cursor, not a new remote wait.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 77,
+      "production_ordinal": 96,
       "priority": 1,
       "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements.",
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 17,
+      "ordinal": 36,
       "task_id": "D16-01",
       "title": "Reproduce release from clean checkout",
       "task_class": "hard",
@@ -902,7 +1760,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D16-01"
           ]
@@ -932,12 +1790,12 @@
       "reuse": "Reuse a retained D08 clean-build record only when it proves a clean source reconstruction with the same material inputs, accepted recipe, platform/configuration and qualified output. A build from an uncommitted development tree is not clean-build proof. If that record is absent or invalid, run exactly the missing clean reconstruction in a task-owned qualification Resource, never reset the canonical worktree or create a second active authority root. Reuse installed toolchains and declared caches unless the criterion specifically measures cold state. A controller-only commit does not invalidate game inputs.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 78,
+      "production_ordinal": 97,
       "priority": 1,
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 18,
+      "ordinal": 37,
       "task_id": "D16-02",
       "title": "Make package recipe reproducible",
       "task_class": "hard",
@@ -949,7 +1807,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D16-02"
           ]
@@ -979,12 +1837,12 @@
       "reuse": "Require two distinct actual executions of the same accepted source and recipe, with both logs and package identities. D08 and D16-01 may already supply them; reuse those matching records. An update from different source revisions does not prove two executions of the same recipe inputs, and copying a log never creates a second run. If only one qualifying execution exists, perform only the missing second execution. Preserve documented build nondeterminism; do not require byte-identical outputs unless the recipe contract actually promises it. Never run a third build solely because the task number changed.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 79,
+      "production_ordinal": 98,
       "priority": 1,
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 19,
+      "ordinal": 38,
       "task_id": "D16-03",
       "title": "Qualify clean-machine install and launch",
       "task_class": "hard",
@@ -996,7 +1854,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D16-03"
           ]
@@ -1026,12 +1884,12 @@
       "reuse": "Reuse D08 clean-install/play evidence only for the same exact package and a target environment independent of the development workspace. It must show the packaged executable outside the editor, real input/gameplay, prerequisites and clean exit; an editor launch or registered SDK is insufficient. Run only missing install/launch scenarios. Never reinstall already verified unchanged prerequisites, wipe the development user profile or substitute Linux/headless proof for accepted Win64 playable proof.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 80,
+      "production_ordinal": 99,
       "priority": 1,
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 20,
+      "ordinal": 39,
       "task_id": "D16-04",
       "title": "Qualify save, settings, restart, and reconstruction",
       "task_class": "hard",
@@ -1043,7 +1901,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D16-04"
           ]
@@ -1073,12 +1931,12 @@
       "reuse": "Reuse the package-specific settings/save exit-and-relaunch scenario recorded in D08 when package, save schema and affected configuration match. D05 editor evidence supplies implementation context, not a packaged persistence pass. Exercise only missing save/settings lifecycle assertions in an isolated test-user location; preserve existing player saves and source. No whole D07 rerun, rebuild or overnight soak is created by this task.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 81,
+      "production_ordinal": 100,
       "priority": 1,
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 21,
+      "ordinal": 40,
       "task_id": "D16-05",
       "title": "Qualify crash, assert, and failure diagnostics",
       "task_class": "hard",
@@ -1090,7 +1948,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D16-05"
           ]
@@ -1120,12 +1978,12 @@
       "reuse": "Reuse exact-build packaged diagnostic evidence from D08 or an already observed failure. If missing, induce one bounded safe diagnostic inside a disposable qualification process and retrieve its real log/dump or equivalent accepted diagnostic. Never kill the production controller, corrupt accepted packages, or present a synthetic log fixture as a runtime crash. Verifier negative controls do not require repeating game builds.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 82,
+      "production_ordinal": 101,
       "priority": 1,
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 22,
+      "ordinal": 41,
       "task_id": "D16-06",
       "title": "Qualify update and package replacement",
       "task_class": "hard",
@@ -1137,7 +1995,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D16-06"
           ]
@@ -1167,12 +2025,12 @@
       "reuse": "Reuse the exact two-version update/compatibility evidence required by D08, matching both package identities, update recipe, supported save/config schema and post-update playable result. Rerun only a changed or uncovered update boundary, not the entire release qualification. Preserve original packages and test-user state; failure handling tests use isolated staging. A new task ID does not require new game code or another pair of packages.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 83,
+      "production_ordinal": 102,
       "priority": 1,
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 23,
+      "ordinal": 42,
       "task_id": "D16-07",
       "title": "Capture representative packaged-runtime baseline",
       "task_class": "hard",
@@ -1184,7 +2042,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D16-07"
           ]
@@ -1214,12 +2072,12 @@
       "reuse": "Reuse representative D08 packaged-runtime telemetry when the exact build/configuration/scenario and relevant hardware context match. D07 editor telemetry remains useful comparative evidence but is not relabeled as packaged data. Collect only missing package-specific metrics in a bounded representative traversal/combat run. Preserve native/display-frame distinctions and unavailable measurements; no invented target, full hardware sweep or repeated long soak merely for this baseline.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 84,
+      "production_ordinal": 103,
       "priority": 1,
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 24,
+      "ordinal": 43,
       "task_id": "D16-08",
       "title": "Close reproducible-build proof",
       "task_class": "hard",
@@ -1231,7 +2089,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D16-08"
           ]
@@ -1261,866 +2119,9 @@
       "reuse": "Assemble references to the original D08 and D16 records once. Validate the source-to-package-to-play evidence links and material identities; do not rebuild, reinstall, replay all scenarios, copy all raw evidence or wait for another reviewer. Any missing link is repaired at that exact boundary. Record local acceptance separately from publication; remote readback is required only when published, through the existing publication cursor. No dedicated Drive upload or transfer wait is added to game progression.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 85,
+      "production_ordinal": 104,
       "priority": 1,
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
-    },
-    {
-      "ordinal": 25,
-      "task_id": "D19-01",
-      "title": "Lock representative target hardware tiers from measured evidence",
-      "task_class": "hard",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D17-08"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D19-01"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-029_LOCK_REPRESENTATIVE_TARGET_HARDWARE_TIERS_FROM_MEASURED_EVIDENCE.md",
-          "sha256": "568e555d6ac6422e1abab619389f5b347d1683c832164c4bbecb2bb23832aa5f",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Use packaged-runtime telemetry and accepted product intent to replace only the hardware-tier UNKNOWNs that can now be decided.",
-      "deliverable": "Updated technical decision entries for measured target hardware tiers or explicit retained UNKNOWNs where evidence is insufficient.",
-      "validation": "Each accepted value has measured evidence and owner/delegated authority; no GPU/RAM/VRAM target is inferred from installed hardware alone.",
-      "required_evidence": "Decision diff, telemetry source IDs, commit/tree.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 86,
-      "priority": 1,
-      "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements."
-    },
-    {
-      "ordinal": 26,
-      "task_id": "D19-02",
-      "title": "Lock native frame-time and responsiveness targets from evidence",
-      "task_class": "hard",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D19-01"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D19-02"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-030_LOCK_NATIVE_FRAME_TIME_AND_RESPONSIVENESS_TARGETS_FROM_EVIDENCE.md",
-          "sha256": "f16d1a77390e1113248445d289eb52770481350662e5292bcb9f4c8ecd0b7fe8",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Define target native FPS/frame-time/hitch/latency tiers only where representative measurements support a production decision.",
-      "deliverable": "Updated performance decision entries and repeatable benchmark scenarios.",
-      "validation": "Targets exclude generated frames as native performance and are tied to accepted hardware/scenario identities.",
-      "required_evidence": "Decision record, benchmark telemetry, source commit.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 87,
-      "priority": 1
-    },
-    {
-      "ordinal": 27,
-      "task_id": "D19-03",
-      "title": "Qualify world traversal streaming and hitch behavior",
-      "task_class": "hard",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D19-02"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D19-03"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-031_QUALIFY_WORLD_TRAVERSAL_STREAMING_AND_HITCH_BEHAVIOR.md",
-          "sha256": "d42916d4985c3ad2e08295be9a26cb2dba2145f03a26826fbeff8da2daab0996",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Run representative high-motion traversal through streamed world boundaries and repair acceptance-blocking stalls or continuity defects.",
-      "deliverable": "Traversal stress evidence and bounded fixes.",
-      "validation": "Streaming, HLOD/culling/occlusion, collision, and world-state continuity remain valid through the scenario within accepted performance targets.",
-      "required_evidence": "Frame-time trace, streaming logs, raw capture, build digest.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 88,
-      "priority": 1
-    },
-    {
-      "ordinal": 28,
-      "task_id": "D19-04",
-      "title": "Qualify combat population stress behavior",
-      "task_class": "hard",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D19-03"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D19-04"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-032_QUALIFY_COMBAT_POPULATION_STRESS_BEHAVIOR.md",
-          "sha256": "dc77c8d83e41cdee63e9ff3e12f5f1f5dbe6f1f7a0bc874aafe0936542a1d29e",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Run representative simultaneous player/rival/infected combat at the population level supported by current content and measure degradation.",
-      "deliverable": "Combat stress profile and bounded optimization changes if required.",
-      "validation": "Simulation correctness and gameplay readability remain intact at the accepted scenario load; counts are evidence-driven rather than ambition-driven.",
-      "required_evidence": "Actor/event counts, CPU/GPU/frame telemetry, runtime logs.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 89,
-      "priority": 1
-    },
-    {
-      "ordinal": 29,
-      "task_id": "D19-05",
-      "title": "Qualify memory, VRAM, residency, and leak behavior",
-      "task_class": "hard",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D19-04"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D19-05"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-033_QUALIFY_MEMORY_VRAM_RESIDENCY_AND_LEAK_BEHAVIOR.md",
-          "sha256": "0a5d4587327aee41bed49dfc20d9d9323b530fc1beec2795de790134a99d5eed",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Measure resource residency through traversal, combat, restart, and repeated scenario execution.",
-      "deliverable": "Resource qualification record and leak/residency fixes where evidenced.",
-      "validation": "RAM/VRAM/resource use is bounded for accepted scenarios and does not grow materially from lifecycle defects across repeated runs.",
-      "required_evidence": "Resource traces, lifecycle logs, build/source identity.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 90,
-      "priority": 1
-    },
-    {
-      "ordinal": 30,
-      "task_id": "D19-06",
-      "title": "Qualify sustained packaged-runtime stability",
-      "task_class": "hard",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D19-05"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D19-06"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-034_QUALIFY_SUSTAINED_PACKAGED_RUNTIME_STABILITY.md",
-          "sha256": "774f839e6ebcd5418acee766257e91a3fb15704950246555a72b4855733c4a5d",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Run the accepted representative soak/repetition duration chosen from current release risk and capture crashes, hangs, asserts, and state degradation.",
-      "deliverable": "Stability run evidence plus repaired failures limited to reproduced issues.",
-      "validation": "The exact packaged build survives the accepted duration/repetition scenario without unresolved release-blocking failure.",
-      "required_evidence": "Runtime logs, duration/scenario record, crash/assert artifacts if any.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 91,
-      "priority": 1
-    },
-    {
-      "ordinal": 31,
-      "task_id": "D19-07",
-      "title": "Requalify clean Shipping package",
-      "task_class": "hard",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D19-06"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D19-07"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-035_REQUALIFY_A_CLEAN_SHIPPING_PACKAGE.md",
-          "sha256": "178233d0114d383d50f1c38f824d92db9a0118c5b80f5620ba5a9bfacf914597",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Produce and validate the accepted Win64 Shipping configuration after performance/stability repairs.",
-      "deliverable": "Shipping package with exact source/build identity and clean-machine play evidence.",
-      "validation": "Package launches outside editor, completes the canonical slice, persists required state, and exits/relaunches cleanly on the qualified environment.",
-      "required_evidence": "Shipping package digest, runtime logs, raw play capture.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 92,
-      "priority": 1
-    },
-    {
-      "ordinal": 32,
-      "task_id": "D19-08",
-      "title": "Close release-operations proof",
-      "task_class": "hard",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D19-07"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D19-08"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-036_CLOSE_RELEASE_OPERATIONS_PROOF.md",
-          "sha256": "96e8fd50b1068e09cff7af034d68b547a481e8806226cdc934771bab483fe02b",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Assemble current build, performance, stability, persistence, diagnostics, update, and clean-machine results into one release-operations evidence set.",
-      "deliverable": "Release-operations qualification bundle.",
-      "validation": "Every accepted release claim points to fresh exact-build evidence; stale predecessor logs are references only.",
-      "required_evidence": "Bundle index/digest, Git source identity, Drive readback.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 93,
-      "priority": 1
-    },
-    {
-      "ordinal": 33,
-      "task_id": "D20-01",
-      "title": "Select second production scenario from current accepted systems",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D19-08"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D20-01"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-037_SELECT_A_SECOND_PRODUCTION_SCENARIO_FROM_APPROVED_SYSTEMS.md",
-          "sha256": "f280384878cf6347731a9f6708d3129a21ae6cc9a9da6d07c9be00c2986f4e89",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Choose a materially different scenario that reuses existing systems and approved content vocabulary rather than introducing a new project identity.",
-      "deliverable": "Second-scenario production brief with reuse targets, required variation, and acceptance scenario.",
-      "validation": "Scenario is distinct enough to test repeatability but remains within accepted mechanics, art direction, and current project scope.",
-      "required_evidence": "Brief, source/asset references, acceptance route.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 94,
-      "priority": 1
-    },
-    {
-      "ordinal": 34,
-      "task_id": "D20-02",
-      "title": "Produce second environment or encounter composition through reusable systems",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D20-01"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D20-02"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-038_PRODUCE_THE_SECOND_ENVIRONMENT_OR_ENCOUNTER_COMPOSITION_THROUGH_REUSABLE_SYSTEMS.md",
-          "sha256": "44f3441dc3f93049ae25bccb4df5727e7d5e1c1c29848f928447d62abc4128b0",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Build the second scenario using existing modular world/content systems before adding bespoke logic.",
-      "deliverable": "Editable scenario content integrated in the game.",
-      "validation": "Scenario is playable, collision/navigation-valid, and reuses production systems; bespoke code is justified by an actual missing universal/project capability.",
-      "required_evidence": "Source/asset diff, runtime traversal evidence.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 95,
-      "priority": 1
-    },
-    {
-      "ordinal": 35,
-      "task_id": "D20-03",
-      "title": "Produce different rival and infected encounter composition",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D20-02"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D20-03"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-039_PRODUCE_A_DIFFERENT_RIVAL_AND_INFECTED_ENCOUNTER_COMPOSITION.md",
-          "sha256": "de35046995825e33dfd9e2eb20ff29ea9833e63d2763182ca992fb4d12f2d5b7",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Use existing actor/system definitions to create a meaningfully different interaction pattern without forking core AI behavior per encounter.",
-      "deliverable": "Second encounter composition and runtime evidence.",
-      "validation": "Rival/infected behavior remains driven by shared systems and current approved tuning/content data, with real state interaction.",
-      "required_evidence": "Encounter data/source identity, raw gameplay/event trace.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 96,
-      "priority": 1
-    },
-    {
-      "ordinal": 36,
-      "task_id": "D20-04",
-      "title": "Produce alternate arena-pressure sequence from current accepted systems",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D20-03"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D20-04"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-040_PRODUCE_AN_ALTERNATE_APPROVED_ARENA_PRESSURE_SEQUENCE.md",
-          "sha256": "b48a73566106d613bb84594051aa2222c9cdd22e5262814a7ba9ba90cb8f39db",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Recombine the already approved arena-pressure mechanism with the second scenario without inventing a new pressure mechanic.",
-      "deliverable": "Second pressure sequence integrated into scenario data/world state.",
-      "validation": "The same authoritative pressure system drives different valid consequences; no duplicate pressure controller is created.",
-      "required_evidence": "State/event trace, scenario source, runtime capture.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 97,
-      "priority": 1
-    },
-    {
-      "ordinal": 37,
-      "task_id": "D20-05",
-      "title": "Measure content-system reuse versus bespoke work",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D20-04"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D20-05"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-041_MEASURE_CONTENT_SYSTEM_REUSE_VERSUS_BESPOKE_WORK.md",
-          "sha256": "63ee98b55e6a23ca7e59feecd5d31f861b547d4e6fee45b7b1348fc48722be5a",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Quantify which second-scenario outputs were achieved through reusable data/assets/systems and which required new implementation.",
-      "deliverable": "Reuse report tied to source diffs and production task evidence.",
-      "validation": "Counts/times come from real changed files/tasks/traces; no claim of reuse is based only on architecture intent.",
-      "required_evidence": "Git diff stats, task/run identities, categorized reuse record.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 98,
-      "priority": 1
-    },
-    {
-      "ordinal": 38,
-      "task_id": "D20-06",
-      "title": "Package and qualify second scenario",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D20-05"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D20-06"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-042_PACKAGE_AND_QUALIFY_THE_SECOND_SCENARIO.md",
-          "sha256": "7f45071808751b15e1a0a630e846adb8cef56ec1f8ba5d1a7bd05a30ba953e7e",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Build a package containing the second scenario and execute its representative route outside the editor.",
-      "deliverable": "Second-scenario packaged proof.",
-      "validation": "Clean launch and real play succeed with the same release pipeline and evidence standards used for the canonical slice.",
-      "required_evidence": "Package digest, raw gameplay, runtime logs.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 99,
-      "priority": 1
-    },
-    {
-      "ordinal": 39,
-      "task_id": "D20-07",
-      "title": "Compare production time, intervention, and quality across scenarios",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D20-06"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D20-07"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-043_COMPARE_PRODUCTION_TIME_INTERVENTION_AND_QUALITY_ACROSS_SCENARIOS.md",
-          "sha256": "0f45d0ac5d592e9d4357b9a5e77058e41fe635352333b9f5a0e39cf5484fd96a",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Compare first- and second-scenario creation using actual task/run timelines and acceptance evidence.",
-      "deliverable": "Repeatability comparison with elapsed production time, accepted-task count, founder interventions, changed source/assets, and validation outcome where observable.",
-      "validation": "Metrics are computed from durable traces and comparable task boundaries; missing telemetry is marked unknown rather than estimated.",
-      "required_evidence": "Trace IDs, calculation inputs, comparison report.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 100,
-      "priority": 1
-    },
-    {
-      "ordinal": 40,
-      "task_id": "D20-08",
-      "title": "Close repeatable-content proof",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D20-07"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D20-08"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-044_CLOSE_REPEATABLE_CONTENT_PROOF.md",
-          "sha256": "b9c21672c50b883da000925a6309f469e07a1e58aff10c6afc2864ea236d223a",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Demonstrate that the playable quality pipeline can produce more than one strong scenario without rebuilding the game architecture each time.",
-      "deliverable": "Repeatable-content evidence bundle linking both scenarios and their production traces.",
-      "validation": "Both scenarios run in qualified packages, share core systems, and have evidence-linked production metrics; one-off bespoke hero work is separated from reusable capability.",
-      "required_evidence": "Bundle index/digest, source identities, Drive readback.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 101,
-      "priority": 1
-    },
-    {
-      "ordinal": 41,
-      "task_id": "D23-01",
-      "title": "Publish truthful playable-proof surface",
-      "task_class": "hard",
-      "lane": "Cross-project",
-      "execution_root": ".",
-      "depends_on": [
-        "D20-08"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D23-01"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-061_PUBLISH_A_TRUTHFUL_PLAYABLE_PROOF_SURFACE.md",
-          "sha256": "9be2c8af52e361d3abc352d5a48c99b7c97cc726b3e65ef4eb70ff60f272d563",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Prepare and publish a public-facing proof surface using only accepted build facts and gameplay evidence; no invented title/release date/platform promise or fake gameplay.",
-      "deliverable": "Public proof page or media package with raw-gameplay provenance and exact build/source references kept internally.",
-      "validation": "Published material matches the running product and does not present generated concepts or cinematics as implemented gameplay.",
-      "required_evidence": "Published URL/identity, source media digest, internal evidence mapping.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 102,
-      "priority": 1,
-      "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements."
-    },
-    {
-      "ordinal": 42,
-      "task_id": "D18-01",
-      "title": "Define blind external playtest contract",
-      "task_class": "hard",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D17-08"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D18-01"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-021_DEFINE_THE_BLIND_EXTERNAL_PLAYTEST_CONTRACT.md",
-          "sha256": "12e80f365312e08d2e4af06ef887b54451d303d1a63641571b5cf1cd445d9eb9",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Define what an external player receives, what founder help is prohibited during the session, what evidence is collected, and what counts as completion/failure.",
-      "deliverable": "Consent-aware playtest protocol and telemetry/question set limited to product evaluation.",
-      "validation": "Protocol can be run without exposing internal secrets or requiring founder coaching; success criteria derive from the playable product rather than investor narrative.",
-      "required_evidence": "Protocol file and test package identity.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 103,
-      "priority": 1
-    },
-    {
-      "ordinal": 43,
-      "task_id": "D18-02",
-      "title": "Prepare founder-independent playtest handoff",
-      "task_class": "hard",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D18-01"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
-          "selected_sections": [
-            "D18-02"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-022_PREPARE_THE_FOUNDER_INDEPENDENT_PLAYTEST_HANDOFF.md",
-          "sha256": "33b5d2a11f8775d70a0a08499514a61e5d23d77e54f04af6e231b18915f43220",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Create the smallest package, instructions, and issue-report path needed for an outside player to install, launch, play, and report results.",
-      "deliverable": "External playtest handoff bundle.",
-      "validation": "A person not using the development workspace can follow the instructions without hidden commands or direct founder intervention.",
-      "required_evidence": "Bundle digest, clean-machine dry run, instructions readback.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 104,
-      "priority": 1
     },
     {
       "ordinal": 44,
@@ -2135,7 +2136,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D18-03"
           ]
@@ -2180,7 +2181,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D18-04"
           ]
@@ -2225,7 +2226,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D18-05"
           ]
@@ -2270,7 +2271,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D18-06"
           ]
@@ -2315,7 +2316,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D18-07"
           ]
@@ -2360,7 +2361,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D18-08"
           ]
@@ -2405,7 +2406,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D23-02"
           ]
@@ -2450,7 +2451,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D23-03"
           ]
@@ -2495,7 +2496,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D23-04"
           ]
@@ -2924,7 +2925,7 @@
     {
       "ordinal": 61,
       "task_id": "D11-02",
-      "title": "Home Journey \u2014 Objective to Delivery",
+      "title": "Home Journey — Objective to Delivery",
       "task_class": "hard_creation",
       "lane": "Website",
       "execution_root": "website",
@@ -2950,8 +2951,8 @@
           ]
         }
       ],
-      "objective": "Create the public interactive story of Research \u2192 Intelligence \u2192 Planning \u2192 Creation \u2192 Delivery using truthful representations of Task/Graph/Event/routing concepts.",
-      "deliverable": "Create the public interactive story of Research \u2192 Intelligence \u2192 Planning \u2192 Creation \u2192 Delivery using truthful representations of Task/Graph/Event/routing concepts.",
+      "objective": "Create the public interactive story of Research → Intelligence → Planning → Creation → Delivery using truthful representations of Task/Graph/Event/routing concepts.",
+      "deliverable": "Create the public interactive story of Research → Intelligence → Planning → Creation → Delivery using truthful representations of Task/Graph/Event/routing concepts.",
       "validation": "Exercise the complete objective-to-delivery journey; distinguish real runtime evidence from labeled demonstrations.",
       "required_evidence": "Exact source/revision; consumed Engine interfaces and capability mode; editable website changes; task-derived validation and artifact identities; remote readback for actual deployment outputs.",
       "resource_capabilities": [
@@ -4150,7 +4151,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D21-01"
           ]
@@ -4195,7 +4196,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D21-02"
           ]
@@ -4240,7 +4241,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D21-03"
           ]
@@ -4285,7 +4286,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D21-04"
           ]
@@ -4330,7 +4331,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D21-05"
           ]
@@ -4375,7 +4376,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D21-06"
           ]
@@ -4420,7 +4421,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D21-07"
           ]
@@ -4465,7 +4466,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D21-08"
           ]
@@ -4510,7 +4511,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D22-01"
           ]
@@ -4555,7 +4556,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D22-02"
           ]
@@ -4600,7 +4601,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D22-03"
           ]
@@ -4645,7 +4646,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D22-04"
           ]
@@ -4690,7 +4691,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D22-05"
           ]
@@ -4735,7 +4736,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D22-06"
           ]
@@ -4780,7 +4781,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D22-07"
           ]
@@ -4825,7 +4826,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D22-08"
           ]
@@ -4871,7 +4872,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "sha256": "12ea5a8f016da58b5100029a968301a447d179a80777e675e392c5dc9221534e",
           "selected_sections": [
             "D23-05"
           ]

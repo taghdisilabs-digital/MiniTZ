@@ -178,7 +178,7 @@ The following patterns are forbidden because they caused observed waste, stalls,
 
 ## Owner priority — GAME_FIRST
 - Biella Games delivery is NUMBER 1. The existing runner/Auto Feeder selects the physical row order in Project PRODUCTION.md; numeric IDs are identities, not sort priority.
-- Continue the current game task, then move D17 FINAL_VISUAL_LAYER creation/qualification immediately after D08; only afterward bind identities/reproducibility in D15/D16, then native release/stability and reusable game content. External-player tasks follow autonomous game work; unrelated website/business/pilot/investor tasks remain later.
+- Resource-independent GAME_FIRST work advances ahead of an unchanged external-resource blocker. Current order runs D17 final visual creation/qualification, then D19/D20 proof work and bounded handoff preparation before returning to pending D08; D08 must still close before D15/D16 and any task that actually requires its Win64 evidence. External-player execution that requires the qualified build remains later; unrelated website/business/pilot/investor tasks remain later.
 - Only a real consumed Engine/tooling dependency precedes the game output. Do not reopen completed predecessors, require all unrelated programs to close, add reviews, or lower required runtime/AAA evidence.
 - Priority metadata is read from PRODUCTION.md and projected to 03/04, task packets, the existing ledger and runtime. No second scheduler or task queue is introduced.
 - Keep current read-only website/status services operating. Website expansion does not preempt game production. Real player/platform/delivery evidence remains required for the exact tasks that promise it.
@@ -192,3 +192,5 @@ The following patterns are forbidden because they caused observed waste, stalls,
 ## Visual final-layer quality execution
 - `VISUAL_FINAL_LAYER_ACCEPTANCE`: D17 reads `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md`; current D08 prototype captures are `NO_PASS_ON_CURRENT_D08_BASELINE`.
 - `VISUAL_QUALITY_IS_EXECUTION_WORK_NOT_OWNER_WAIT`: create/fix/validate automatically; no owner-review stall. `VISUAL_DEFECT_BUDGET_ZERO_MAJOR` and raw gameplay evidence are required; do not lower quality to close a task.
+
+RESOURCE_BLOCKER_PROGRESSIVE_ROUTING: an unchanged `REQUIRES_OTHER_RESOURCE` result never consumes repeated strong-model turns when later canonical tasks are dependency-runnable. Preserve the blocked task/status/evidence/session, move only its canonical row behind the contiguous runnable work in the same Project production source, continue immediately, and never treat deferral as completion.
