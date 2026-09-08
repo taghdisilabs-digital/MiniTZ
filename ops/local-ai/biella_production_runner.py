@@ -27,7 +27,7 @@ _RUNTIME_KEYS = {
     "status", "project", "task_id", "attempt", "pid", "child_pid",
     "active_model", "active_reasoning", "cooldowns", "last_result",
     "heartbeat_at", "updated_at", "task_session_id", "session_task_id",
-    "bounded_no_progress", "source_alignment",
+    "source_alignment",
 }
 
 
@@ -61,7 +61,7 @@ def initial_runtime() -> dict[str, Any]:
         "pid": None, "child_pid": None, "active_model": None,
         "active_reasoning": None, "cooldowns": {}, "last_result": None,
         "heartbeat_at": None, "updated_at": datetime.now(timezone.utc).isoformat(),
-        "task_session_id": None, "session_task_id": None, "bounded_no_progress": {},
+        "task_session_id": None, "session_task_id": None,
         "source_alignment": None,
     }
 
@@ -70,7 +70,6 @@ def save_runtime(path: Path, runtime: Mapping[str, Any]) -> None:
     path = Path(path); path.parent.mkdir(parents=True, exist_ok=True)
     payload = {key: runtime.get(key) for key in _RUNTIME_KEYS}
     payload["cooldowns"] = dict(payload.get("cooldowns") or {})
-    payload["bounded_no_progress"] = dict(payload.get("bounded_no_progress") or {})
     payload["attempt"] = int(payload.get("attempt") or 0)
     tmp = path.with_suffix(path.suffix + ".tmp")
     tmp.write_text(json.dumps(payload, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
@@ -147,22 +146,6 @@ def _normalize_result_for_route(result: evidence.TaskResult, route: routing.Rout
     )
 
 
-def _mark_bounded_no_progress(telemetry: dict[str, Any], route: routing.Route, packet_id: str) -> None:
-    markers = telemetry.setdefault("bounded_no_progress", {})
-    markers[route.model] = packet_id
-
-
-def _bounded_no_progress_blocked(telemetry: Mapping[str, Any], route: routing.Route, packet_id: str) -> bool:
-    markers = telemetry.get("bounded_no_progress") if isinstance(telemetry.get("bounded_no_progress"), Mapping) else {}
-    return bool(routing.is_bounded_fallback(route) and markers.get(route.model) == packet_id)
-
-
-def _clear_bounded_no_progress(telemetry: dict[str, Any], route: routing.Route) -> None:
-    markers = telemetry.get("bounded_no_progress")
-    if isinstance(markers, dict):
-        markers.pop(route.model, None)
-
-
 def _clear_task_session(telemetry: dict[str, Any]) -> None:
     telemetry["task_session_id"] = None
     telemetry["session_task_id"] = None
@@ -225,19 +208,11 @@ def _bounded_packet_id(repo_root: Path, project_root: Path, task: state.TaskReco
 
 
 def _select_task_route(task: state.TaskRecord, catalog: Mapping[str, set[str]], cooldowns: Mapping[str, str], now: datetime, telemetry: Mapping[str, Any], repo_root: Path, project_root: Path) -> tuple[routing.Route | None, str | None]:
-    packet_id = _bounded_packet_id(repo_root, project_root, task)
-    excluded: set[str] = set()
-    while True:
-        try:
-            route = routing.select_route(task.task_class, catalog, cooldowns, now, excluded_models=excluded)
-        except RuntimeError:
-            return None, packet_id if excluded else None
-        if not routing.is_bounded_fallback(route):
-            return route, None
-        if not _bounded_no_progress_blocked(telemetry, route, packet_id):
-            return route, packet_id
-        excluded.add(route.model)
-
+    try:
+        route = routing.select_route(task.task_class, catalog, cooldowns, now)
+    except RuntimeError:
+        return None, None
+    return route, _bounded_packet_id(repo_root, project_root, task) if routing.is_bounded_fallback(route) else None
 
 def _write_task_capsule(repo_root: Path, project_root: Path, runtime_root: Path, task: state.TaskRecord, telemetry: Mapping[str, Any]) -> Path:
     path = _task_capsule_path(runtime_root, task.id)
@@ -648,61 +623,6 @@ def _drain_codex_events(path: Path, offset: int, journal: production_events.Prod
     return offset + consumed, session_id
 
 
-_PERSISTENT_CODEX_DESCENDANT_MARKERS = (
-    "codex --search exec",
-    "codex-code-mode-host",
-    "saturn-mcp",
-    "mcp/server.mjs",
-)
-
-
-def _has_productive_descendant(root_pid: int) -> bool:
-    """Return true when Codex owns a real local command/build/test descendant.
-
-    Long-lived Codex/MCP helper processes do not count as task progress. This is
-    intentionally process-local: remote model waiting with no active tool remains
-    eligible for bounded executor rotation.
-    """
-    proc = subprocess.run(
-        ["ps", "-eo", "pid=,ppid=,args="], text=True, capture_output=True, check=False
-    )
-    if proc.returncode != 0:
-        return True  # fail open: never rotate merely because process inspection failed
-    rows: dict[int, tuple[int, str]] = {}
-    for raw in proc.stdout.splitlines():
-        parts = raw.strip().split(None, 2)
-        if len(parts) < 3:
-            continue
-        try:
-            pid, ppid = int(parts[0]), int(parts[1])
-        except ValueError:
-            continue
-        rows[pid] = (ppid, parts[2])
-    descendants: set[int] = set()
-    changed = True
-    while changed:
-        changed = False
-        for pid, (ppid, _cmd) in rows.items():
-            if pid in descendants:
-                continue
-            if ppid == root_pid or ppid in descendants:
-                descendants.add(pid); changed = True
-    for pid in descendants:
-        cmd = rows[pid][1]
-        if any(marker in cmd for marker in _PERSISTENT_CODEX_DESCENDANT_MARKERS):
-            continue
-        return True
-    return False
-
-
-def _stall_seconds() -> float:
-    raw = os.environ.get("BIELLA_CODEX_STALL_SECONDS", "180")
-    try:
-        return max(0.05, float(raw))
-    except ValueError:
-        return 180.0
-
-
 def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, output_path: Path,
                       stdout_path: Path, stderr_path: Path, runtime_path: Path,
                       telemetry: dict[str, Any], *, heartbeat_interval: float = 30.0,
@@ -724,14 +644,8 @@ def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, outp
         proc.stdin.write(prompt); proc.stdin.close()
         next_beat = time.monotonic()
         event_offset = 0
-        last_progress = time.monotonic()
-        stall_seconds = _stall_seconds()
-        next_stall_check = last_progress + min(5.0, max(0.25, stall_seconds / 4.0))
         while proc.poll() is None:
-            previous_offset = event_offset
             event_offset, live_session = _drain_codex_events(stdout_path, event_offset, event_journal, session_task_id)
-            if event_offset > previous_offset:
-                last_progress = time.monotonic()
             if persist_session_identity and live_session and session_task_id and telemetry.get("task_session_id") != live_session:
                 telemetry["task_session_id"] = live_session
                 telemetry["session_task_id"] = session_task_id
@@ -742,23 +656,6 @@ def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, outp
                 if on_heartbeat:
                     on_heartbeat(observed)
                 next_beat = now_mono + heartbeat_interval
-            if now_mono >= next_stall_check:
-                idle_for = now_mono - last_progress
-                if idle_for >= stall_seconds and not _has_productive_descendant(proc.pid):
-                    detail = f"Codex executor produced no event output for {idle_for:.1f}s with no productive local descendant; rotating preserved task/session."
-                    if event_journal is not None and session_task_id:
-                        event_journal.emit(
-                            "task.executor_stall_recovery", task_id=session_task_id,
-                            status="RECOVERING", text=detail, model=route.model, reasoning=route.reasoning,
-                        )
-                    stderr.write("BIELLA_EXECUTOR_STALL_ROTATION: " + detail + "\n"); stderr.flush()
-                    proc.terminate()
-                    try:
-                        proc.wait(timeout=5)
-                    except subprocess.TimeoutExpired:
-                        proc.kill(); proc.wait(timeout=5)
-                    break
-                next_stall_check = now_mono + min(5.0, max(0.25, stall_seconds / 4.0))
             time.sleep(min(0.05, max(0.005, heartbeat_interval / 4)))
         rc = int(proc.returncode or 0)
         event_offset, final_session = _drain_codex_events(stdout_path, event_offset, event_journal, session_task_id, final=True)
@@ -1072,17 +969,9 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 task, catalog, telemetry.get("cooldowns", {}), now, telemetry, repo_root, project_root
             )
             if route is None:
-                waiting_strong = bounded_packet_id is not None
-                target_status = "WAITING_FOR_STRONG_MODEL" if waiting_strong else "RECOVERING_MODEL"
-                prior_status = telemetry.get("status")
-                telemetry.update({"status": target_status, "task_id": task.id, "active_model": None, "active_reasoning": None})
-                if waiting_strong and prior_status != target_status:
-                    journal.emit(
-                        "task.awaiting_strong_model", task_id=task.id, status=target_status,
-                        text="Bounded fallback already produced no progress for this exact task/worktree packet; waiting without another model call until state or route availability changes.",
-                    )
+                telemetry.update({"status": "RECOVERING_MODEL", "task_id": task.id, "active_model": None, "active_reasoning": None})
                 _beat(runtime_path, telemetry)
-                time.sleep(5.0)
+                time.sleep(2.0)
                 catalog = routing.discover_catalog(); continue
             telemetry.update({"status": "RUNNING", "task_id": task.id, "active_model": route.model, "active_reasoning": route.reasoning})
             if evidence.continuity_changes(repo_root):
@@ -1101,7 +990,6 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             projection_path = _refresh_memory_projection(repo_root, project_root, runtime_root, task.id, journal)
             local_assist_path = None  # Optional local AI remains available on demand inside the authoritative task; never block turn start.
             bounded_fallback = routing.is_bounded_fallback(route)
-            workspace_before = _task_workspace_fingerprint(repo_root, project_root) if bounded_fallback else None
             prompt = _task_prompt(repo_root, production, task, telemetry, capsule_path, projection_path, local_assist_path, route=route)
             resume_session_id = _resume_session_for_route(telemetry, task.id, route)
             event_type = "task.bounded_fallback_started" if bounded_fallback else ("task.continued" if resume_session_id else "task.started")
@@ -1152,18 +1040,6 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             except ValueError as exc:
                 _set_failure(telemetry, route, str(exc), task.id); _beat(runtime_path, telemetry); continue
             result = _normalize_result_for_route(result, route)
-            if bounded_fallback:
-                workspace_after = _task_workspace_fingerprint(repo_root, project_root)
-                if workspace_after == workspace_before:
-                    assert bounded_packet_id is not None
-                    _mark_bounded_no_progress(telemetry, route, bounded_packet_id)
-                    journal.emit(
-                        "task.bounded_no_progress", task_id=task.id, status="CONTINUE",
-                        text="Bounded fallback changed no project working bytes; this exact model/packet will not be called again until the task worktree or guide changes.",
-                        model=route.model, bounded_packet_id=bounded_packet_id,
-                    )
-                else:
-                    _clear_bounded_no_progress(telemetry, route)
             telemetry["last_result"] = {
                 "task_id": result.task_id, "status": result.status, "summary": result.summary,
                 "evidence": list(result.evidence), "model": route.model, "reasoning": route.reasoning,

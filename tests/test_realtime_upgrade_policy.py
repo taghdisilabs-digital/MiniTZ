@@ -65,3 +65,12 @@ def test_production_contract_requires_nonblocking_autoadvance_quality_and_token_
         "CACHE_EFFICIENCY_QUALITY_FIRST", "PROJECT_DATA_LEAKAGE_FORBIDDEN",
     ):
         assert token in text
+
+
+def test_manual_progress_edits_use_sleep_sync_resume_transaction():
+    for path in (CONTRACT, INSTRUCTIONS, PRODUCTION):
+        text = path.read_text(encoding="utf-8")
+        assert "MAINTENANCE_PROGRESS_TRANSACTION" in text
+        assert "sleep" in text.lower()
+        assert "sync" in text.lower()
+        assert "resume" in text.lower()

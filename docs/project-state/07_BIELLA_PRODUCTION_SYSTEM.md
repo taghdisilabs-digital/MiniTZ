@@ -101,3 +101,10 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 - `CACHE_EFFICIENCY_QUALITY_FIRST`: reuse the persistent task session, compact task memory, verified outputs, prompt-cache-friendly stable context and cached local-assist results. Prefer deterministic/local/specialized/free-fit Resources before general-model work when they preserve correctness. Never pad prompts, probe quota, or reduce reasoning/acceptance quality merely to save tokens.
 - Authoritative synthesis and closure use the highest-quality eligible strong route and its highest supported reasoning level under current owner policy; bounded/local fallbacks cannot lower acceptance or self-promote to task authority.
 - `PROJECT_DATA_LEAKAGE_FORBIDDEN`: Engine/Project/customer namespaces remain isolated; token/cache optimization never broadens context across Project boundaries or copies credentials/customer source into shared memory.
+
+## Maintenance progress transaction
+- `MAINTENANCE_PROGRESS_TRANSACTION`: manual/management progress edits use `SLEEP/FREEZE -> EDIT -> VALIDATE -> SYNC/READBACK -> RESUME`.
+- Progress authority includes `03`, `04`, `PRODUCTION.md`, current-task pointers, task status and task order.
+- No manual progress mutation is allowed concurrently with an active Codex child turn.
+- Controller-native completion/advancement occurs only after the child turn exits, so it is already a safe child-free progress transaction.
+- The maintenance transaction is explicit and owner/management initiated; it must never be triggered by an inactivity timer, watchdog, no-progress marker, optional local model readiness, reviewer hook, website observer, or chat lifecycle.

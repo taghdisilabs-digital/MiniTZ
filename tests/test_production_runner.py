@@ -34,26 +34,30 @@ def isolate_remote_source_guard(monkeypatch):
     )
 
 
-def test_invoke_structured_rotates_idle_executor_without_productive_descendant(tmp_path: Path, monkeypatch):
-    fake = tmp_path / "idle.py"; output = tmp_path / "result.json"
-    fake.write_text("import time\ntime.sleep(5)\n")
-    monkeypatch.setenv("BIELLA_CODEX_STALL_SECONDS", "0.08")
+def test_invoke_structured_never_rotates_silent_executor_on_timer(tmp_path: Path, monkeypatch):
+    fake = tmp_path / "slow_valid.py"; output = tmp_path / "result.json"
+    fake.write_text(
+        "import json,os,time\n"
+        "time.sleep(0.4)\n"
+        "open(os.environ['OUT'],'w').write(json.dumps({'task_id':'T','status':'CONTINUE','summary':'ok','evidence':['pass']}))\n"
+    )
+    monkeypatch.setenv("OUT", str(output))
+    monkeypatch.setenv("BIELLA_CODEX_STALL_SECONDS", "0.02")
     monkeypatch.setattr(routing, "build_codex_command", lambda *_args, **_kwargs: [sys.executable, str(fake)])
-    monkeypatch.setattr(runner, "_has_productive_descendant", lambda _pid: False)
-    runtime = tmp_path / "runtime.json"; telemetry = runner.initial_runtime()
+    telemetry = runner.initial_runtime()
     journal = runner.production_events.ProductionEventJournal(tmp_path / "events.jsonl", failure_path=tmp_path / "failures.jsonl")
     rc, detail = runner.invoke_structured(
         "prompt", routing.Route("gpt-6-astra", "ultra"), tmp_path / "schema", output,
-        tmp_path / "stdout.log", tmp_path / "stderr.log", runtime, telemetry,
+        tmp_path / "stdout.log", tmp_path / "stderr.log", tmp_path / "runtime.json", telemetry,
         heartbeat_interval=0.01, event_journal=journal, session_task_id="D03-01", cwd=tmp_path,
     )
-    assert rc != 0
-    assert "BIELLA_EXECUTOR_STALL_ROTATION" in detail
-    events = [json.loads(line) for line in (tmp_path / "events.jsonl").read_text().splitlines()]
-    assert any(e["type"] == "task.executor_stall_recovery" for e in events)
+    assert rc == 0, detail
+    assert "BIELLA_EXECUTOR_STALL_ROTATION" not in detail
+    event_path = tmp_path / "events.jsonl"
+    events = [json.loads(line) for line in event_path.read_text().splitlines()] if event_path.exists() else []
+    assert not any(e.get("type") == "task.executor_stall_recovery" for e in events)
 
-
-def test_invoke_structured_does_not_rotate_when_productive_descendant_exists(tmp_path: Path, monkeypatch):
+def test_invoke_structured_slow_valid_executor_finishes_without_watchdog(tmp_path: Path, monkeypatch):
     fake = tmp_path / "slow_valid.py"; output = tmp_path / "result.json"
     fake.write_text(
         "import json,os,time\n"
@@ -63,7 +67,6 @@ def test_invoke_structured_does_not_rotate_when_productive_descendant_exists(tmp
     monkeypatch.setenv("OUT", str(output))
     monkeypatch.setenv("BIELLA_CODEX_STALL_SECONDS", "0.05")
     monkeypatch.setattr(routing, "build_codex_command", lambda *_args, **_kwargs: [sys.executable, str(fake)])
-    monkeypatch.setattr(runner, "_has_productive_descendant", lambda _pid: True)
     telemetry = runner.initial_runtime()
     rc, detail = runner.invoke_structured(
         "prompt", routing.Route("gpt-6-astra", "ultra"), tmp_path / "schema", output,
@@ -895,14 +898,18 @@ def test_bounded_fallback_result_can_never_close_whole_task():
     assert strong == complete
 
 
-def test_bounded_no_progress_marker_blocks_only_same_packet_and_model():
-    telemetry = runner.initial_runtime()
+def test_bounded_fallback_no_progress_never_creates_a_wait_state(tmp_path: Path):
+    repo, project = write_repo_fixture(tmp_path)
+    task = state.find_task(state.load_project_production(project), "D01-030")
     qwen = routing.Route("qwen3-coder-next:biella", "none", "ollama")
-    spark = routing.Route("gpt-5.3-codex-spark", "xhigh")
-    runner._mark_bounded_no_progress(telemetry, qwen, "packet-a")
-    assert runner._bounded_no_progress_blocked(telemetry, qwen, "packet-a")
-    assert not runner._bounded_no_progress_blocked(telemetry, qwen, "packet-b")
-    assert not runner._bounded_no_progress_blocked(telemetry, spark, "packet-a")
+    telemetry = runner.initial_runtime()
+    telemetry["bounded_no_progress"] = {qwen.model: runner._bounded_packet_id(repo, project, task)}
+    route, packet = runner._select_task_route(
+        task, {qwen.model: {"local"}}, {}, datetime.now(timezone.utc), telemetry, repo, project
+    )
+    assert route == qwen
+    assert packet is not None
+    assert "bounded_no_progress" not in runner.initial_runtime()
 
 
 def test_bounded_workspace_fingerprint_changes_only_when_project_working_bytes_change(tmp_path: Path):
@@ -962,13 +969,12 @@ def test_runner_rechecks_source_after_model_before_accepting_result(tmp_path: Pa
     assert persisted == []
 
 
-def test_persistent_unit_aligns_source_before_qwen_and_runs_canonical_repo_runner():
+def test_persistent_unit_has_no_optional_qwen_startup_blocker():
     unit = (LOCAL_AI / "biella-codex-production.service").read_text()
     source_pre = "ExecStartPre=/usr/local/lib/biella-ai/biella-production-source-sync.sh"
-    qwen_pre = "ExecStartPre=/usr/local/lib/biella-workstation/biella-qwen-ready.sh"
     assert source_pre in unit
-    assert qwen_pre in unit
-    assert unit.index(source_pre) < unit.index(qwen_pre)
+    assert "ExecStartPre=/usr/local/lib/biella-workstation/biella-qwen-ready.sh" not in unit
+    assert "Requires=biella-ollama.service" not in unit
     assert "Environment=BIELLA_PRODUCTION_RUNNER=/root/biella/repos/biella-engine/ops/local-ai/biella_production_runner.py" in unit
     assert "Environment=BIELLA_CODEX_FORCE_MODEL=gpt-reserve" in unit
     assert "Environment=BIELLA_CODEX_FORCE_REASONING=max" in unit

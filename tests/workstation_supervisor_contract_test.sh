@@ -96,11 +96,11 @@ bash -n "$INSTALLER"
 
 echo 'workstation supervisor contract: PASS'
 
-# Production routing must not start before local Qwen residency is confirmed.
+# Production must not depend on optional local Qwen residency.
 PRODUCTION_SERVICE="$ROOT_DIR/ops/local-ai/biella-codex-production.service"
 require_file "$PRODUCTION_SERVICE"
-require_literal "$PRODUCTION_SERVICE" 'After=network-online.target docker.service project-sandbox-broker.service biella-ollama.service biella-qwen-residency.service'
-require_literal "$PRODUCTION_SERVICE" 'ExecStartPre=/usr/local/lib/biella-workstation/biella-qwen-ready.sh'
+forbid_literal "$PRODUCTION_SERVICE" 'Requires=biella-ollama.service'
+forbid_literal "$PRODUCTION_SERVICE" 'ExecStartPre=/usr/local/lib/biella-workstation/biella-qwen-ready.sh'
 
 require_literal "$SERVICE" 'ExecCondition=+/usr/local/lib/biella-ai/biella_customer_handoff.py guard-production'
 require_literal "$RESIDENCY_SERVICE" 'ExecCondition=+/usr/local/lib/biella-ai/biella_customer_handoff.py guard-production'

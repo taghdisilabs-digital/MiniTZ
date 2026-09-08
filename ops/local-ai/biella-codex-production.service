@@ -1,9 +1,8 @@
 [Unit]
 RequiresMountsFor=/mnt/biella-extra
 Description=Biella Canonical Production Runner
-After=network-online.target docker.service project-sandbox-broker.service biella-ollama.service biella-qwen-residency.service
-Requires=biella-ollama.service
-Wants=network-online.target docker.service project-sandbox-broker.service biella-qwen-residency.service
+After=network-online.target docker.service project-sandbox-broker.service
+Wants=network-online.target docker.service project-sandbox-broker.service
 
 [Service]
 Type=simple
@@ -18,7 +17,6 @@ Environment=BIELLA_CODEX_FORCE_MODEL=gpt-reserve
 Environment=BIELLA_CODEX_FORCE_REASONING=max
 ExecCondition=/usr/local/lib/biella-ai/biella_customer_handoff.py guard-production
 ExecStartPre=/usr/local/lib/biella-ai/biella-production-source-sync.sh
-ExecStartPre=/usr/local/lib/biella-workstation/biella-qwen-ready.sh
 ExecStart=/usr/local/bin/biella-codex production run
 Restart=on-failure
 RestartSec=10
