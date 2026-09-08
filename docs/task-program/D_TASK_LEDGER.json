@@ -1780,7 +1780,25 @@
               "Current resource reality",
               "Cross-task evidence reuse"
             ],
-            "sha256": "de18dfb36d7bc918cc024f0caf7e04b8924c55c4a209bab845a231c428f497fe"
+            "sha256": "1ad5a75324a1d17d1ee379d4987c2d1fcc2914b95c333144a02b2c6669a8dde3"
+          },
+          {
+            "path": "ops/workstation/INSTALLERS.md",
+            "selected_sections": [
+              "Available capabilities",
+              "Execution instructions"
+            ],
+            "sha256": "15b8e7ec478d7dc1c18881bef6e81bf823c4e245ed6e840002e4d025618124bd"
+          },
+          {
+            "path": "ops/workstation/provider-registry.json",
+            "selected_sections": [
+              "providers.dpkg-deb",
+              "providers.nsis",
+              "routes.package.installer.debian",
+              "routes.package.installer.windows"
+            ],
+            "sha256": "4937d73301d45dd3a12153453aa642d253bc4ede321b649a9e5cc5edfb799806"
           }
         ],
         "validation": "1. Clean dependency/content validation, including a bounded missing/incompatible-content negative case.\n2. Produce exact package with source/tree/config/content identity.\n3. Launch outside editor through intended entry point.\n4. Exercise real input/player/camera/gameplay, rivals/infected/pressure, current world/interactions, rendering/audio/VFX, save/settings reconstruction where implemented.\n5. Review fatal/assert/content-load diagnostics and package-specific resource/performance evidence.\n6. For update support, prove exact old-build -> update -> launch -> supported settings/save compatibility plus incomplete/incompatible update failure handling.\n7. Record known exclusions/limitations; do not invent store, launcher, certification, patch cadence or live-service requirements.\n\nOne exact packaged build must pass the current approved gameplay, production, stability and evidence contracts appropriate to its platform. Package command success alone is insufficient."

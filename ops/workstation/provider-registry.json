@@ -85,6 +85,19 @@
         "DEEPGRAM_API_KEY"
       ]
     },
+    "dpkg-deb": {
+      "authority": "RESOURCE_IMPLEMENTATION",
+      "capabilities": [
+        "package.installer.debian"
+      ],
+      "command": "dpkg-deb",
+      "cost_class": "local_free_software",
+      "display_name": "Debian package installer builder",
+      "instructions": "ops/workstation/INSTALLERS.md",
+      "locator_env": [],
+      "required_env": [],
+      "scope": "INSTALLER_ASSEMBLY_ONLY"
+    },
     "elevenlabs": {
       "capabilities": [
         "audio.speech"
@@ -170,6 +183,19 @@
       "required_env": [
         "NEON_API_KEY"
       ]
+    },
+    "nsis": {
+      "authority": "RESOURCE_IMPLEMENTATION",
+      "capabilities": [
+        "package.installer.windows"
+      ],
+      "command": "makensis",
+      "cost_class": "local_free_software",
+      "display_name": "NSIS Windows installer compiler",
+      "instructions": "ops/workstation/INSTALLERS.md",
+      "locator_env": [],
+      "required_env": [],
+      "scope": "INSTALLER_ASSEMBLY_ONLY"
     },
     "ollama-qwen": {
       "capabilities": [
@@ -359,6 +385,12 @@
     ],
     "observability.query": [
       "axiom"
+    ],
+    "package.installer.debian": [
+      "dpkg-deb"
+    ],
+    "package.installer.windows": [
+      "nsis"
     ],
     "reasoning": [
       "ollama-qwen"

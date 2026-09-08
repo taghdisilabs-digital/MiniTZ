@@ -134,7 +134,10 @@ The canonical Linux UE 5.8.2 VPS has previously reported Win64 SDK as unavailabl
 
 **Reuse.** Reuse matching predecessor proof and package mechanisms with actual D08 inputs. Preserve material-input/recipe/package-specific records from the required release/update work so D15/D16 do not repeat it; two distinct real same-source recipe executions remain required for reproducibility.
 
-**Source records.** `docs/task-program/D00_D08_ENGINE_GAMES.md` (SHA-256 `efd80e6b05a4cced5ff47d958c3ceaf1ba324e676033fea1c16e832af2a1d3fb`); `projects/biella-games/docs/task-guides/D08-01.md` (SHA-256 `de18dfb36d7bc918cc024f0caf7e04b8924c55c4a209bab845a231c428f497fe`)
+**Source records.** `docs/task-program/D00_D08_ENGINE_GAMES.md` (SHA-256 `efd80e6b05a4cced5ff47d958c3ceaf1ba324e676033fea1c16e832af2a1d3fb`); `projects/biella-games/docs/task-guides/D08-01.md` (SHA-256 `1ad5a75324a1d17d1ee379d4987c2d1fcc2914b95c333144a02b2c6669a8dde3`)
+
+**Installer assembly.** `package.installer.debian` → `dpkg-deb`; `package.installer.windows` → NSIS `makensis`. Read `ops/workstation/INSTALLERS.md`. Already-built target payloads only; no Win64 game-build claim, OS change, new queue or acceptance reduction.
+
 
 ## 005. D15-01 — Lock authoritative predecessor closure set
 

@@ -37,6 +37,8 @@ install -o root -g root -m 755 \
   "$SOURCE_DIR/biella-provider-configure.sh" \
   "$SOURCE_DIR/biella-provider-check.sh" \
   "$SOURCE_DIR/biella-resource.py" \
+  "$SOURCE_DIR/install-package-tools.sh" \
+  "$SOURCE_DIR/INSTALLERS.md" \
   "$SOURCE_DIR/biella-qwen-ready.sh" \
   "$SOURCE_DIR/biella-qwen-residency.sh" \
   "$SOURCE_DIR/provider-registry.json" \

@@ -56,6 +56,7 @@ resources:
   cache_efficiency: ACTIVE_QUALITY_FIRST
   local_qwen: NON_AUTHORITATIVE_ON_DEMAND
   project_data_leakage: FORBIDDEN
+  installer_capabilities: [package.installer.debian, package.installer.windows]
 
 execution_invariants:
   owner_acceptance_fast_path: ACTIVE

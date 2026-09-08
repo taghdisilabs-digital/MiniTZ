@@ -105,3 +105,6 @@ Routine Drive sync is every five completed canonical tasks, never every attempt/
 
 ## Owner production priority — GAME_FIRST
 Biella Games delivery is priority NUMBER 1. Follow physical Project PRODUCTION.md order, not numeric IDs or old website-before-game plans. Execute only the active task; game quality, native stability, packaging and content work precede unrelated website/business/pilot/investor work. Reuse accepted proof; only real consumed Engine dependencies take precedence. Keep required quality and external-evidence contracts; no extra gates or replay. The existing runner, ledger and five-task Drive routine remain the mechanisms.
+
+## Installer assembly resources
+Use `package.installer.debian` (dpkg-deb) and `package.installer.windows` (NSIS/makensis) through the existing resource registry. Read `ops/workstation/INSTALLERS.md`; these tools wrap already-built target payloads, do not provide Win64 game compilation/runtime, and do not add OS/desktop/Steam configuration. Keep installer recipes and outputs in their Project; preserve the active task and existing publication cadence.

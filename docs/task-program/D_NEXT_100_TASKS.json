@@ -160,7 +160,7 @@
         },
         {
           "path": "projects/biella-games/docs/task-guides/D08-01.md",
-          "sha256": "de18dfb36d7bc918cc024f0caf7e04b8924c55c4a209bab845a231c428f497fe",
+          "sha256": "1ad5a75324a1d17d1ee379d4987c2d1fcc2914b95c333144a02b2c6669a8dde3",
           "selected_sections": [
             "Objective",
             "Authorized project-local output names",
@@ -170,6 +170,24 @@
             "Current resource reality",
             "Cross-task evidence reuse"
           ]
+        },
+        {
+          "path": "ops/workstation/INSTALLERS.md",
+          "sha256": "15b8e7ec478d7dc1c18881bef6e81bf823c4e245ed6e840002e4d025618124bd",
+          "selected_sections": [
+            "Available capabilities",
+            "Execution instructions"
+          ]
+        },
+        {
+          "path": "ops/workstation/provider-registry.json",
+          "sha256": "4937d73301d45dd3a12153453aa642d253bc4ede321b649a9e5cc5edfb799806",
+          "selected_sections": [
+            "providers.dpkg-deb",
+            "providers.nsis",
+            "routes.package.installer.debian",
+            "routes.package.installer.windows"
+          ]
         }
       ],
       "objective": "Produce and qualify an exact distributable build/update lineage. Release-candidate status belongs to one specific package identity, not a successful compile or screenshot.",
@@ -178,7 +196,9 @@
       "required_evidence": "- Primary target platform: Windows PC x64 first.\n- Build/package path: UnrealBuildTool + Unreal AutomationTool; BuildGraph when useful.\n- Development package for iteration/evidence; Shipping for distributable qualification.\n- Runtime content: cooked Unreal assets/maps.\n- Save format: UE SaveGame/custom versioned serialization at platform per-user location.\n\nThe canonical Linux UE 5.8.2 VPS has previously reported Win64 SDK as unavailable. At D08 start, reobserve current package resources. Do not silently call a Linux package the final accepted Win64 release candidate. If Win64 remains unavailable on the current Resource, classify it `REQUIRES_OTHER_RESOURCE` and continue every platform-neutral preparation/validation that does not require Win64 while routing the final package step to an actually observed compatible Resource.",
       "resource_capabilities": [
         "unreal.assist",
-        "llm.code"
+        "llm.code",
+        "package.installer.debian",
+        "package.installer.windows"
       ],
       "external_input_evidence_required": true,
       "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",

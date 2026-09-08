@@ -183,3 +183,6 @@ The following patterns are forbidden because they caused observed waste, stalls,
 - Priority metadata is read from PRODUCTION.md and projected to 03/04, task packets, the existing ledger and runtime. No second scheduler or task queue is introduced.
 - Keep current read-only website/status services operating. Website expansion does not preempt game production. Real player/platform/delivery evidence remains required for the exact tasks that promise it.
 - Local/GitHub continuity remains per-task; Drive remains five-completion batching with 3,800,000,000-byte parts. This explicit priority change is synchronized as maintenance, never interpreted as task completion.
+
+## Installer-only resources
+`package.installer.debian` -> `dpkg-deb`; `package.installer.windows` -> NSIS `makensis`. The existing provider registry and `ops/workstation/INSTALLERS.md` own tool discovery/instructions. These free local tools assemble already-built payloads, never become startup/liveness dependencies, do not supply a Windows Unreal build Resource, and do not change task order/acceptance or five-task/3.8-GB publication.
