@@ -1,0 +1,21 @@
+[
+  "runuser",
+  "-u",
+  "unreal",
+  "--",
+  "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor",
+  "/mnt/biella-extra/biella-runtime/d17-01/cook-service-15/project/BiellaGames.uproject",
+  "-run=Cook",
+  "-TargetPlatform=Linux",
+  "-CookAll",
+  "-unversioned",
+  "-unattended",
+  "-nop4",
+  "-nullrhi",
+  "-nosound",
+  "-stdout",
+  "-FullStdOutLogOutput",
+  "-DDC=(Local)",
+  "-LocalDataCachePath=/mnt/biella-extra/biella-runtime/d17-01/cook-service-15/cook-ddc",
+  "-AbsLog=/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/build/cook-15/cook.engine.log"
+]

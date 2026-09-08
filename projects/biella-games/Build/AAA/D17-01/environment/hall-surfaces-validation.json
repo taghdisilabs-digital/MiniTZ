@@ -1,0 +1,288 @@
+{
+  "asset_validation": {
+    "bytes": 130026,
+    "path": "Build/AAA/D17-01/environment/hall-surfaces-assets-02/validation.json",
+    "sha256": "b7420cfedf8f8b3d37cbc5339c28d6440eb85ddd33f398da9d45acfa2a5f7ad0"
+  },
+  "basecolor_validation": {
+    "bytes": 204537,
+    "path": "Build/AAA/D17-01/environment/hall-surfaces-basecolor-01/validation.json",
+    "sha256": "19b19b382c67038f578d343610e052d5ed54e34b75be04c8b6b0557075bf2830"
+  },
+  "candidate_status": "GENERATED_DRAFT",
+  "editor_validation": {
+    "bytes": 204438,
+    "path": "Build/AAA/D17-01/environment/hall-surfaces-editor-01/validation.json",
+    "sha256": "1c9690532328aacc2f260836f81ffbae845de51708d90f412b07230fe2df8f0c"
+  },
+  "excluded_evidence": [],
+  "frame_review": {
+    "bytes": 4574,
+    "path": "Build/AAA/D17-01/environment/hall-surfaces-frame-review.json",
+    "sha256": "c0be76297e4d06fa7352277b29f1b0e7c1c50dc5ce94866a4a6270e489dba737"
+  },
+  "geometry_validation": {
+    "bytes": 1632,
+    "path": "Build/AAA/D17-01/environment/hall-geometry-02/readback-04.json",
+    "sha256": "33e9909013a296b876e59828bac5b637ba1e7c74c3295ffe5b0aa0081e090723"
+  },
+  "inspected_frames": [
+    {
+      "bytes": 270593,
+      "path": "Build/AAA/D17-01/raw/hall-surfaces-720-01/frame-04.png",
+      "sha256": "69fc59d4dac5328a62c7ca550625ee8590b800210f334c22a58823dd0852da87"
+    },
+    {
+      "bytes": 293072,
+      "path": "Build/AAA/D17-01/raw/hall-surfaces-720-01/frame-10.png",
+      "sha256": "f5a8d08219b40c217e3032c0665e18042a8e4372de1f6367234ddebfc21db5f9"
+    },
+    {
+      "bytes": 282051,
+      "path": "Build/AAA/D17-01/raw/hall-surfaces-720-01/frame-15.png",
+      "sha256": "f9470ceeb03b3f189d883fde780d168d231e0845092c8559df655d499096084d"
+    },
+    {
+      "bytes": 559615,
+      "path": "Build/AAA/D17-01/raw/hall-surfaces-1080-01/frame-07.png",
+      "sha256": "25552f8a70a1f8577781b285fe5bb0d6f8ff5ee7669996a13ab76a4b66e12e15"
+    },
+    {
+      "bytes": 556667,
+      "path": "Build/AAA/D17-01/raw/hall-surfaces-1080-01/frame-10.png",
+      "sha256": "9d26085ce4110e583e425211ff6413756bb343e46389707a82e2b44b634cf5c5"
+    },
+    {
+      "bytes": 1041116,
+      "path": "Build/AAA/D17-01/environment/hall-surfaces-editor-01/captures/switch_safe.png",
+      "sha256": "3c1008753e592c9b09fc65851bbdead0905768ba74a810ec6d1a4ee53358df26"
+    },
+    {
+      "bytes": 1037078,
+      "path": "Build/AAA/D17-01/environment/runtime-14/captures/switch_safe.png",
+      "sha256": "fe18609e9ade214171fa67d53bd87d0ffe5f2d5918168c8b21ca368625d998f6"
+    },
+    {
+      "bytes": 1050233,
+      "path": "Build/AAA/D17-01/environment/runtime-14/captures/panel_destroyed.png",
+      "sha256": "c0bf9b2a60d8cd6e23a2c8098b6477bbab70f1b9fd9142566f5bfe768ed90b79"
+    },
+    {
+      "bytes": 365031,
+      "path": "Build/AAA/D17-01/environment/hall-surfaces-basecolor-01/captures/switch_safe.png",
+      "sha256": "c7ba661cc05ba617ad557777602be26b1bad7b324840c663b1d3c1c9dac614b6"
+    },
+    {
+      "bytes": 354541,
+      "path": "Build/AAA/D17-01/environment/hall-surfaces-basecolor-01/captures/panel_destroyed.png",
+      "sha256": "88d7a8d13a15f000b3d96b718ee6205d355ea5c1392f653cbb2433f8914e33c7"
+    }
+  ],
+  "limits": [
+    "The 1280x720 ordinary-input run reached native Failure after 15.019373 active seconds and 18 input actions; it recorded 2 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. The 1920x1080 ordinary-input run reached native Success after 8.711372 active seconds and 5 input actions; it recorded 0 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. Both have zero restarts and no captured audio. Neither establishes 600\u20131200 active seconds, the later route or the full evolving arena consequence. Historical outcomes retain their original package identity.",
+    "Five major visual groups remain open. Controlled environment fixtures do not substitute for ordinary-input slice proof.",
+    "The same entrance inner face is dark gray in BaseColor but almost white in Lit. Saved MI_ServicePaint binding is verified; the remaining bright appearance is a lighting-response defect. The light responsible is not established by this comparison. No lighting or scene-wide material acceptance is claimed."
+  ],
+  "material_input_delta": [
+    "Content/Environment/ServiceHall/SM_ServiceHallCladding.uasset",
+    "Content/Maps/BiellaOpenWorldMap.umap",
+    "Content/Python/author_service_hall.py",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/1T/O40B8WS8BP35VZSJEO02LP.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/6R/WTO08A5NAS2A4KKMBTLF8C.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/V2/CQF0QGUO9N4HFEDEW3GNBG.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/MO/N53GEA3MYFDQ8NY2N51SXZ.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/XQ/A81CIRKVMGQW9M11WGFTSG.uasset",
+    "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/6O/ZHV798ZWDXI4J4SJS2XHT7.uasset"
+  ],
+  "next_action": "Read back the existing warehouse light and correct its unmotivated bright interior wash with a supported warm practical-light treatment, preserving all accepted geometry, collision and gameplay. Validate saved settings and the affected native runtime view before cooking.",
+  "observed": [
+    "Native saved readback confirms matching weathered paint on all six existing warehouse envelopes. Lit editor and installed views show darker doorway framing, reveals and soffit while preserving the four-meter opening.",
+    "The same entrance inner face is dark gray in BaseColor but almost white in Lit. Saved MI_ServicePaint binding is verified; the remaining bright appearance is a lighting-response defect. The light responsible is not established by this comparison. No lighting or scene-wide material acceptance is claimed.",
+    "Ordinary gameplay views show dark hall cladding and vents from the entry street, with player, rival and infected in local combat. Broad empty road, cloned distant facades, prototype focal art and dominant HUD remain below the final contract.",
+    "Both ordinary runs terminate before reaching the service bay. No later route, 600\u20131200-second duration, audio or evolving arena-pressure consequence is established.",
+    "Five major visual groups remain open; the coating and controlled fixture regression do not close any whole group."
+  ],
+  "ordinary_input_runs": [
+    {
+      "active_simulation_seconds": 15.019373443850782,
+      "audio_captured": false,
+      "capture_input_wall_seconds": 17.772302913013846,
+      "capture_video_seconds": 19.766,
+      "decoded_frames": 591,
+      "directory": "Build/AAA/D17-01/raw/hall-surfaces-720-01",
+      "electrical_floor_damage": [],
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "events": {
+        "damage": 51,
+        "defeat": 9,
+        "objective_activated": 1,
+        "objective_progress": 13,
+        "phase": 2,
+        "telemetry_ready": 1,
+        "telemetry_shutdown": 1,
+        "weapon_fire": 2
+      },
+      "input_actions": 18,
+      "namespace_file_verification": true,
+      "natural_pressure_observed": false,
+      "player_defeats": [
+        {
+          "reason": "infected_melee",
+          "target": "BiellaStreamingCharacter:1"
+        }
+      ],
+      "raw_video": {
+        "bytes": 1759976,
+        "path": "Build/AAA/D17-01/raw/hall-surfaces-720-01/raw-gameplay.mkv",
+        "sha256": "d210a56e4c53cf7927b74b487902792f43a4eec153ef2fdd5b2b124f2eaa9187"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "restart_count": 0,
+      "run": "hall-surfaces-720-01",
+      "session": "01A0828D-E946-7915-B1A8-8066258D3322",
+      "terminal": "Failure",
+      "uninterrupted_duration_satisfied": false
+    },
+    {
+      "active_simulation_seconds": 8.711371905112173,
+      "audio_captured": false,
+      "capture_input_wall_seconds": 11.817918088054284,
+      "capture_video_seconds": 13.8,
+      "decoded_frames": 403,
+      "directory": "Build/AAA/D17-01/raw/hall-surfaces-1080-01",
+      "electrical_floor_damage": [],
+      "environment_panel_events": [],
+      "environment_power_transitions": 0,
+      "events": {
+        "damage": 18,
+        "defeat": 2,
+        "objective_activated": 1,
+        "objective_progress": 2,
+        "objective_success": 1,
+        "phase": 2,
+        "telemetry_ready": 1,
+        "telemetry_shutdown": 1
+      },
+      "input_actions": 5,
+      "namespace_file_verification": true,
+      "natural_pressure_observed": false,
+      "player_defeats": [],
+      "raw_video": {
+        "bytes": 1448360,
+        "path": "Build/AAA/D17-01/raw/hall-surfaces-1080-01/raw-gameplay.mkv",
+        "sha256": "a28e2f1937f0150ea95b11234bdf7a5d2d516951ba0e23ec100532595349e155"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "restart_count": 0,
+      "run": "hall-surfaces-1080-01",
+      "session": "01A08291-683E-7743-8D90-D3BE73E78F09",
+      "terminal": "Success",
+      "uninterrupted_duration_satisfied": false
+    }
+  ],
+  "package_id": "c46e0b28a9e7f9b4db278a79a78f5a8f14135b886c57054b599a402b68b9bbaf",
+  "package_validation": {
+    "bytes": 18742,
+    "path": "Build/AAA/D17-01/environment/runtime-14/validation.json",
+    "sha256": "d03c75fc350a55af9421ace8fb1304954951e9bb83bc860f2196e9c701027d1a"
+  },
+  "preservation": "Nine material inputs differ from package-13: six existing envelope actors, map and cladding mesh resaves, and the existing hall authoring script. Mesh topology/bounds, actor transforms, collider profiles, native gameplay, configuration and material assets are unchanged.",
+  "previous_commit": "228c9d87bd8ad72901a94119c2065d7d68bcefcf",
+  "result": "PASS_AFFECTED_LAYER",
+  "saved_readback": {
+    "bytes": 5049,
+    "path": "Build/AAA/D17-01/environment/hall-surfaces-assets-02/readback.json",
+    "sha256": "a1c68431e759c6548b9edecd7b35f85f15cc6ef1ddf0294d53cebbaafd0991f5"
+  },
+  "slice_acceptance": false,
+  "sources": [
+    {
+      "bytes": 8209,
+      "path": "SourceAssets/Environment/build_service_hall.py",
+      "sha256": "6d66c172f2efb6a894139bff1f7f2531fe88b0ff45aff7bd2bf25f108dc51340"
+    },
+    {
+      "bytes": 2271,
+      "path": "SourceAssets/Environment/verify_service_hall.py",
+      "sha256": "3b7d7ae3cb5ef9b82dfd1bfda341c555b66c1732b0c0485ca75cef44ea6fd5c2"
+    },
+    {
+      "bytes": 504785,
+      "path": "SourceAssets/Environment/ServiceHall.blend",
+      "sha256": "6526c284e5be9ed1f8736f314b378c62fba42329217204cbcf539e579f957ea4"
+    },
+    {
+      "bytes": 2611148,
+      "path": "SourceAssets/Environment/SM_ServiceHallCladding.fbx",
+      "sha256": "956545068d7f59dcbd67d244bd23b31a97f39b68e25c853a498cba7f85bb7b4e"
+    },
+    {
+      "bytes": 1124,
+      "path": "SourceAssets/Environment/service-hall.json",
+      "sha256": "91cbe90cbf10be2b91310847b1efb315158586b487ac6a61ea135738acc35330"
+    },
+    {
+      "bytes": 8273,
+      "path": "Content/Python/author_service_hall.py",
+      "sha256": "89f6b88b68105974145df54303b894ae571dcff8d8e154936f493b8687c9f6c4"
+    },
+    {
+      "bytes": 4073,
+      "path": "tests/author_d17_01_hall.py",
+      "sha256": "dfc48cddef6baf235908c5f783ac08a3c3aff483a45e6e1385687b88013fc653"
+    },
+    {
+      "bytes": 2534532,
+      "path": "Content/Environment/ServiceHall/SM_ServiceHallCladding.uasset",
+      "sha256": "43fc43271019791cfa238a0d30264d0623a2fedff79c60492be8938e51f8c91c"
+    },
+    {
+      "bytes": 13330,
+      "path": "Content/Maps/BiellaOpenWorldMap.umap",
+      "sha256": "748fee2b0c14a5160a0ce7f5f7b8c354473614eb32366e078143c14f3147c63c"
+    },
+    {
+      "bytes": 4551,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/1T/O40B8WS8BP35VZSJEO02LP.uasset",
+      "sha256": "66c6688e785b1c8a9864ee3c2e0c6c95ea6b31e77784ab823b854655fef10911"
+    },
+    {
+      "bytes": 4520,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/SV/53Z03SIVN8RL07L77T5Z6P.uasset",
+      "sha256": "f75e9f950040a174ad3ea61350ff399b8362e7e498a438bab74c24a9f65ca566"
+    },
+    {
+      "bytes": 4539,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/6R/WTO08A5NAS2A4KKMBTLF8C.uasset",
+      "sha256": "7ad29afa3b0776ec22a282b0318885f3650e1171e0ab2c6c3f793af44528c3f0"
+    },
+    {
+      "bytes": 4539,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/V2/CQF0QGUO9N4HFEDEW3GNBG.uasset",
+      "sha256": "e15b3b921702449f8633a80abff39f3f5eb729440bc0bac2f688e566a1937b27"
+    },
+    {
+      "bytes": 4539,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/MO/N53GEA3MYFDQ8NY2N51SXZ.uasset",
+      "sha256": "462158b912d7668a184ec92c824e4aad82c51a24c8014bde18ebd07bce02210d"
+    },
+    {
+      "bytes": 4539,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/XQ/A81CIRKVMGQW9M11WGFTSG.uasset",
+      "sha256": "c49fa9a0c694c414846f18a9a58a64ecb3fe4f56c264bd9a790c74ac214fbedb"
+    },
+    {
+      "bytes": 4551,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/6O/ZHV798ZWDXI4J4SJS2XHT7.uasset",
+      "sha256": "da30df21fdd652c7d18a96333eeed0b4fa8086b5f978231c9336f592d846675a"
+    }
+  ],
+  "task_id": "D17-01"
+}

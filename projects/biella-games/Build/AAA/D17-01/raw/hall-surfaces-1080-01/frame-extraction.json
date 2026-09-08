@@ -1,0 +1,73 @@
+{
+  "source_video": {
+    "path": "Build/AAA/D17-01/raw/hall-surfaces-1080-01/raw-gameplay.mkv",
+    "bytes": 1448360,
+    "sha256": "a28e2f1937f0150ea95b11234bdf7a5d2d516951ba0e23ec100532595349e155"
+  },
+  "duration_seconds": 13.8,
+  "frames": [
+    {
+      "timestamp_seconds": 4,
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "4",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-surfaces-1080-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-surfaces-1080-01/frame-04.png"
+      ],
+      "returncode": 0,
+      "frame": {
+        "path": "Build/AAA/D17-01/raw/hall-surfaces-1080-01/frame-04.png",
+        "bytes": 26817,
+        "sha256": "d01fcd2b763ab8040933303a7f44fd49806fd474cfcfb31ab2425b85c937075a"
+      }
+    },
+    {
+      "timestamp_seconds": 7,
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "7",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-surfaces-1080-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-surfaces-1080-01/frame-07.png"
+      ],
+      "returncode": 0,
+      "frame": {
+        "path": "Build/AAA/D17-01/raw/hall-surfaces-1080-01/frame-07.png",
+        "bytes": 559615,
+        "sha256": "25552f8a70a1f8577781b285fe5bb0d6f8ff5ee7669996a13ab76a4b66e12e15"
+      }
+    },
+    {
+      "timestamp_seconds": 10,
+      "command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "10",
+        "-i",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-surfaces-1080-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/raw/hall-surfaces-1080-01/frame-10.png"
+      ],
+      "returncode": 0,
+      "frame": {
+        "path": "Build/AAA/D17-01/raw/hall-surfaces-1080-01/frame-10.png",
+        "bytes": 556667,
+        "sha256": "9d26085ce4110e583e425211ff6413756bb343e46389707a82e2b44b634cf5c5"
+      }
+    }
+  ]
+}

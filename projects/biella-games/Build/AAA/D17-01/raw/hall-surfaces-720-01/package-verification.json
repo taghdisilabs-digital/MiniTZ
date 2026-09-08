@@ -1,0 +1,41 @@
+{
+  "binary": {
+    "bytes": 299185984,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/c46e0b28a9e7f9b4db278a79a78f5a8f14135b886c57054b599a402b68b9bbaf/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "784a93e01da177765c30a92d845254eb0b9b126a0bce8b8b39286914a4bd4900"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/c46e0b28a9e7f9b4db278a79a78f5a8f14135b886c57054b599a402b68b9bbaf/payload",
+  "manifest": {
+    "bytes": 8669,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/c46e0b28a9e7f9b4db278a79a78f5a8f14135b886c57054b599a402b68b9bbaf/manifest.json",
+    "sha256": "f341ded77b4393ea177c911d45a49f0523156ce6841752e4cf4d4a04cc336196"
+  },
+  "package_id": "c46e0b28a9e7f9b4db278a79a78f5a8f14135b886c57054b599a402b68b9bbaf",
+  "platform": "Linux",
+  "scope": "Byte-verified Linux Development package; not visual acceptance or Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "228c9d87bd8ad72901a94119c2065d7d68bcefcf",
+    "head_tree": "e359088d43853af588a765210a4d9621ead7a7bf",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      " M Content/Environment/ServiceHall/SM_ServiceHallCladding.uasset",
+      " M Content/Maps/BiellaOpenWorldMap.umap",
+      " M Content/Python/author_service_hall.py",
+      " M Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/1T/O40B8WS8BP35VZSJEO02LP.uasset",
+      " M Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/6R/WTO08A5NAS2A4KKMBTLF8C.uasset",
+      " M Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/V2/CQF0QGUO9N4HFEDEW3GNBG.uasset",
+      " M Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/MO/N53GEA3MYFDQ8NY2N51SXZ.uasset",
+      " M Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/XQ/A81CIRKVMGQW9M11WGFTSG.uasset",
+      " M Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/6O/ZHV798ZWDXI4J4SJS2XHT7.uasset",
+      " M tests/qualify_d17_01.py",
+      "?? Build/AAA/D17-01/environment/hall-surfaces-assets-01/",
+      "?? Build/AAA/D17-01/environment/hall-surfaces-assets-02/",
+      "?? Build/AAA/D17-01/environment/hall-surfaces-editor-01/",
+      "?? Build/AAA/D17-01/environment/runtime-14/",
+      "?? Build/AAA/D17-01/raw/hall-surfaces-720-01/"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T19:45:29.751701+00:00"
+}

@@ -1,5 +1,5 @@
 {
-  "acceptance": "INCOMPLETE: continuous duration, full evolving encounter and five major visual groups remain unqualified. Current raw outcomes bind package-13; predecessor proof remains historical.",
+  "acceptance": "INCOMPLETE: continuous duration, full evolving encounter and five major visual groups remain unqualified. Current raw outcomes bind package-14; predecessor proof remains historical.",
   "baseline_package": {
     "configuration": "Development",
     "manifest": {
@@ -12,27 +12,27 @@
     "scope": "existing diagnostic package only; D08 Win64 status unchanged"
   },
   "candidate_status": "GENERATED_DRAFT",
-  "current_environment_probe": "Build/AAA/D17-01/raw/hall-720-01/observation.json",
+  "current_environment_probe": "Build/AAA/D17-01/raw/hall-surfaces-720-01/observation.json",
   "current_native_build": "Build/AAA/D17-01/build/game-05/result.json",
   "current_package": {
     "archive": {
-      "bytes": 500392194,
-      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-13.tar.zst",
-      "sha256": "360e0803214e312d29c9fd59456a3fc30779b242d386f7e9b17582d07f008be0"
+      "bytes": 500391673,
+      "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-14.tar.zst",
+      "sha256": "069c44296839d20d011844af820e1f47dac9087ef52980ed2d3213f9ed297365"
     },
     "manifest": {
       "bytes": 8669,
-      "path": "Build/AAA/D17-01/build/package-13/package-manifest.json",
-      "sha256": "eed116fe6c6c0fcb9a567074520a799c30944868ef67643567c94479bc16a014"
+      "path": "Build/AAA/D17-01/build/package-14/package-manifest.json",
+      "sha256": "f341ded77b4393ea177c911d45a49f0523156ce6841752e4cf4d4a04cc336196"
     },
     "overlay": false,
-    "package_id": "b8aba14b51e85545d158088e1bde9da2342c1c807d667ea3cae665be90b68017",
-    "source_material_digest": "c30d916225d0683f68c60fc3766a7764a299716f57b3318245030b8437dbb43c"
+    "package_id": "c46e0b28a9e7f9b4db278a79a78f5a8f14135b886c57054b599a402b68b9bbaf",
+    "source_material_digest": "d97daf66f5572eb88b169dcb564c514abf9d37acf93b097d4277a7260f0598b2"
   },
-  "current_package_status": "Package-13 adds a fitted manufactured-metal skin to the existing warehouse: 976 editable wall cassettes, folded ribs, fixing heads, roof fascias, ventilation housings and supported conduits. Native saved readback binds the mesh and existing physical materials. The original six building envelopes, collision profiles and four-meter entrance are preserved. Native gameplay and the retained storm/service-bay assets are unchanged. This is a local industrial-detail improvement; it does not qualify the final slice.",
+  "current_package_status": "Package-14 applies the retained weathered MI_ServicePaint material to six existing warehouse entrance, interior and soffit envelopes. Fresh native readback preserves their actor identities, transforms, mesh geometry, BlockAll collision and four-meter doorway; fitted cladding and native gameplay remain unchanged. The saved coating improves local dark surface continuity, but bright interior light response remains unresolved.",
   "current_raw_runs": [
-    "Build/AAA/D17-01/raw/hall-720-01/observation.json",
-    "Build/AAA/D17-01/raw/hall-1080-01/observation.json"
+    "Build/AAA/D17-01/raw/hall-surfaces-720-01/observation.json",
+    "Build/AAA/D17-01/raw/hall-surfaces-1080-01/observation.json"
   ],
   "duration_contract_seconds": [
     600,
@@ -47,7 +47,7 @@
     {
       "bytes": 13330,
       "path": "Content/Maps/BiellaOpenWorldMap.umap",
-      "sha256": "c1b38f7838678e81da25b77fe86b2e1acad498c5111a76933818a301e521e7d6"
+      "sha256": "748fee2b0c14a5160a0ce7f5f7b8c354473614eb32366e078143c14f3147c63c"
     },
     {
       "bytes": 2647,
@@ -220,9 +220,9 @@
       "sha256": "91cbe90cbf10be2b91310847b1efb315158586b487ac6a61ea135738acc35330"
     },
     {
-      "bytes": 7325,
+      "bytes": 8273,
       "path": "Content/Python/author_service_hall.py",
-      "sha256": "0ccb2dedccaf934fb4961901c2aa03d9cc88e257f097db9cf60d75d83432b0ff"
+      "sha256": "89f6b88b68105974145df54303b894ae571dcff8d8e154936f493b8687c9f6c4"
     },
     {
       "bytes": 4073,
@@ -230,14 +230,44 @@
       "sha256": "dfc48cddef6baf235908c5f783ac08a3c3aff483a45e6e1385687b88013fc653"
     },
     {
-      "bytes": 2534528,
+      "bytes": 2534532,
       "path": "Content/Environment/ServiceHall/SM_ServiceHallCladding.uasset",
-      "sha256": "25c061230585003445bf3873f4874d078669d6af6ef9d372c9df4776c4b3eb5e"
+      "sha256": "43fc43271019791cfa238a0d30264d0623a2fedff79c60492be8938e51f8c91c"
     },
     {
       "bytes": 4520,
       "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/SV/53Z03SIVN8RL07L77T5Z6P.uasset",
       "sha256": "f75e9f950040a174ad3ea61350ff399b8362e7e498a438bab74c24a9f65ca566"
+    },
+    {
+      "bytes": 4551,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/1T/O40B8WS8BP35VZSJEO02LP.uasset",
+      "sha256": "66c6688e785b1c8a9864ee3c2e0c6c95ea6b31e77784ab823b854655fef10911"
+    },
+    {
+      "bytes": 4539,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/6/6R/WTO08A5NAS2A4KKMBTLF8C.uasset",
+      "sha256": "7ad29afa3b0776ec22a282b0318885f3650e1171e0ab2c6c3f793af44528c3f0"
+    },
+    {
+      "bytes": 4539,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/V2/CQF0QGUO9N4HFEDEW3GNBG.uasset",
+      "sha256": "e15b3b921702449f8633a80abff39f3f5eb729440bc0bac2f688e566a1937b27"
+    },
+    {
+      "bytes": 4539,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/MO/N53GEA3MYFDQ8NY2N51SXZ.uasset",
+      "sha256": "462158b912d7668a184ec92c824e4aad82c51a24c8014bde18ebd07bce02210d"
+    },
+    {
+      "bytes": 4539,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/9/XQ/A81CIRKVMGQW9M11WGFTSG.uasset",
+      "sha256": "c49fa9a0c694c414846f18a9a58a64ecb3fe4f56c264bd9a790c74ac214fbedb"
+    },
+    {
+      "bytes": 4551,
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/E/6O/ZHV798ZWDXI4J4SJS2XHT7.uasset",
+      "sha256": "da30df21fdd652c7d18a96333eeed0b4fa8086b5f978231c9336f592d846675a"
     }
   ],
   "end_state": {
@@ -257,8 +287,13 @@
     "path": "Build/AAA/D17-01/environment/hall-cladding-validation.json",
     "sha256": "e6a30388bf865aaa7fb05c546346d685820c396c8e5d025483177921f4c3995a"
   },
+  "hall_surfaces_validation": {
+    "bytes": 13228,
+    "path": "Build/AAA/D17-01/environment/hall-surfaces-validation.json",
+    "sha256": "5d249fe3fdcb4333418dda91b1caf917c3b494f3297ddef3b429681e612f6b1a"
+  },
   "map": "/Game/Maps/BiellaOpenWorldMap",
-  "observed_route_limits": "The 1280x720 ordinary-input run reached native Failure after 14.818728 active seconds and 17 input actions; it recorded 1 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. The 1920x1080 ordinary-input run reached native Success after 8.720026 active seconds and 5 input actions; it recorded 0 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. Both have zero restarts and no captured audio. Neither establishes 600\u20131200 active seconds, the later route or the full evolving arena consequence. Historical outcomes retain their original package identity.",
+  "observed_route_limits": "The 1280x720 ordinary-input run reached native Failure after 15.019373 active seconds and 18 input actions; it recorded 2 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. The 1920x1080 ordinary-input run reached native Success after 8.711372 active seconds and 5 input actions; it recorded 0 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. Both have zero restarts and no captured audio. Neither establishes 600\u20131200 active seconds, the later route or the full evolving arena consequence. Historical outcomes retain their original package identity.",
   "owner_visual_direction": {
     "identity": "Biella-owned expression; no copied reference names, logos, slogans or HUD text",
     "industrial": "dense, vertically layered steel/concrete arena and plausible engineered connections",
@@ -365,6 +400,29 @@
       "Build/AAA/D17-01/raw/growth-hazard-1080-01/observation.json"
     ],
     "source_commit": "c24863b0c3c6b555f7871c6c6cb99579a0a0115e"
+  },
+  "previous_hall_candidate": {
+    "observed_route_limits": "The 1280x720 ordinary-input run reached native Failure after 14.818728 active seconds and 17 input actions; it recorded 1 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. The 1920x1080 ordinary-input run reached native Success after 8.720026 active seconds and 5 input actions; it recorded 0 weapon-fire events, 0 power transitions, 0 panel log events and 0 electrical-floor damage events. Both have zero restarts and no captured audio. Neither establishes 600\u20131200 active seconds, the later route or the full evolving arena consequence. Historical outcomes retain their original package identity.",
+    "package": {
+      "archive": {
+        "bytes": 500392194,
+        "path": "/root/biella/artifacts/games/D17-01/BiellaGames-Linux-Development-service-bay-13.tar.zst",
+        "sha256": "360e0803214e312d29c9fd59456a3fc30779b242d386f7e9b17582d07f008be0"
+      },
+      "manifest": {
+        "bytes": 8669,
+        "path": "Build/AAA/D17-01/build/package-13/package-manifest.json",
+        "sha256": "eed116fe6c6c0fcb9a567074520a799c30944868ef67643567c94479bc16a014"
+      },
+      "overlay": false,
+      "package_id": "b8aba14b51e85545d158088e1bde9da2342c1c807d667ea3cae665be90b68017",
+      "source_material_digest": "c30d916225d0683f68c60fc3766a7764a299716f57b3318245030b8437dbb43c"
+    },
+    "raw_runs": [
+      "Build/AAA/D17-01/raw/hall-720-01/observation.json",
+      "Build/AAA/D17-01/raw/hall-1080-01/observation.json"
+    ],
+    "source_commit": "228c9d87bd8ad72901a94119c2065d7d68bcefcf"
   },
   "previous_integer_candidate": {
     "observed_route_limits": "Package-08 720p reaches native Success at 15.935191704833414 active seconds after approaching the bay. Its 21 ordinary inputs include an interaction attempt and three shots, without a native power transition, panel event or electrical-floor damage. The 1080p run shows player/rival/infected at entry and reaches Success at 8.907017945253756 seconds. Interior/terrace/east-return and 600\u20131200 active seconds remain unqualified. Historical package-04 consequence retains its exact source/package identity.",

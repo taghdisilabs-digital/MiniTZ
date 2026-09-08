@@ -1,0 +1,19 @@
+[
+  "runuser",
+  "-u",
+  "unreal",
+  "--",
+  "env",
+  "BIELLA_HALL_LIGHT_REPORT=/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/hall-light-readback-01/readback.json",
+  "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+  "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+  "-run=pythonscript",
+  "-script=/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-01/environment/hall-light-readback-01/read_light.py",
+  "-EnablePlugins=PythonScriptPlugin",
+  "-unattended",
+  "-nullrhi",
+  "-nosound",
+  "-nop4",
+  "-stdout",
+  "-FullStdOutLogOutput"
+]

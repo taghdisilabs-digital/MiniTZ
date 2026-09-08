@@ -1,0 +1,112 @@
+{
+  "basecolor_validation": {
+    "bytes": 204537,
+    "path": "Build/AAA/D17-01/environment/hall-surfaces-basecolor-01/validation.json",
+    "sha256": "19b19b382c67038f578d343610e052d5ed54e34b75be04c8b6b0557075bf2830"
+  },
+  "diagnostic_frames": [
+    "environment/hall-surfaces-basecolor-01/captures/switch_safe.png",
+    "environment/hall-surfaces-basecolor-01/captures/panel_destroyed.png"
+  ],
+  "editor_frames": [
+    "environment/hall-surfaces-editor-01/captures/switch_safe.png"
+  ],
+  "excluded": [],
+  "observations": [
+    "Native saved readback confirms matching weathered paint on all six existing warehouse envelopes. Lit editor and installed views show darker doorway framing, reveals and soffit while preserving the four-meter opening.",
+    "The same entrance inner face is dark gray in BaseColor but almost white in Lit. Saved MI_ServicePaint binding is verified; the remaining bright appearance is a lighting-response defect. The light responsible is not established by this comparison. No lighting or scene-wide material acceptance is claimed.",
+    "Ordinary gameplay views show dark hall cladding and vents from the entry street, with player, rival and infected in local combat. Broad empty road, cloned distant facades, prototype focal art and dominant HUD remain below the final contract.",
+    "Both ordinary runs terminate before reaching the service bay. No later route, 600\u20131200-second duration, audio or evolving arena-pressure consequence is established.",
+    "Five major visual groups remain open; the coating and controlled fixture regression do not close any whole group."
+  ],
+  "ordinary_frames": [
+    "raw/hall-surfaces-720-01/frame-04.png",
+    "raw/hall-surfaces-720-01/frame-10.png",
+    "raw/hall-surfaces-720-01/frame-15.png",
+    "raw/hall-surfaces-1080-01/frame-07.png",
+    "raw/hall-surfaces-1080-01/frame-10.png"
+  ],
+  "package_frames": [
+    "environment/runtime-14/captures/switch_safe.png",
+    "environment/runtime-14/captures/panel_destroyed.png"
+  ],
+  "package_id": "c46e0b28a9e7f9b4db278a79a78f5a8f14135b886c57054b599a402b68b9bbaf",
+  "pixel_comparison": {
+    "method": "Unmodified PNG RGB pixel means; identical fixture viewpoint; BaseColor is diagnostic, not final gameplay appearance",
+    "rois": [
+      {
+        "comparison": {
+          "BaseColor": {
+            "mean_rgb": [
+              69.42280701754386,
+              75.18070175438596,
+              77.08947368421053
+            ],
+            "source": {
+              "bytes": 365031,
+              "path": "Build/AAA/D17-01/environment/hall-surfaces-basecolor-01/captures/switch_safe.png",
+              "sha256": "c7ba661cc05ba617ad557777602be26b1bad7b324840c663b1d3c1c9dac614b6"
+            }
+          },
+          "Lit": {
+            "mean_rgb": [
+              203.25087719298244,
+              205.6140350877193,
+              205.94912280701755
+            ],
+            "source": {
+              "bytes": 1041116,
+              "path": "Build/AAA/D17-01/environment/hall-surfaces-editor-01/captures/switch_safe.png",
+              "sha256": "3c1008753e592c9b09fc65851bbdead0905768ba74a810ec6d1a4ee53358df26"
+            }
+          }
+        },
+        "name": "entrance_inner_face",
+        "rectangle_xyxy_exclusive": [
+          927,
+          112,
+          942,
+          150
+        ]
+      },
+      {
+        "comparison": {
+          "BaseColor": {
+            "mean_rgb": [
+              70.38020833333333,
+              74.59375,
+              75.86979166666667
+            ],
+            "source": {
+              "bytes": 365031,
+              "path": "Build/AAA/D17-01/environment/hall-surfaces-basecolor-01/captures/switch_safe.png",
+              "sha256": "c7ba661cc05ba617ad557777602be26b1bad7b324840c663b1d3c1c9dac614b6"
+            }
+          },
+          "Lit": {
+            "mean_rgb": [
+              86.19791666666667,
+              94.15625,
+              95.58333333333333
+            ],
+            "source": {
+              "bytes": 1041116,
+              "path": "Build/AAA/D17-01/environment/hall-surfaces-editor-01/captures/switch_safe.png",
+              "sha256": "3c1008753e592c9b09fc65851bbdead0905768ba74a810ec6d1a4ee53358df26"
+            }
+          }
+        },
+        "name": "door_reveal",
+        "rectangle_xyxy_exclusive": [
+          908,
+          116,
+          914,
+          148
+        ]
+      }
+    ]
+  },
+  "reviewed": true,
+  "scope": "Affected saved warehouse envelope coating and local lighting diagnosis only; not final visual or route acceptance",
+  "task_id": "D17-01"
+}

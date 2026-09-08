@@ -1,0 +1,31 @@
+{
+  "task_id": "D17-01",
+  "read_only": true,
+  "properties": {
+    "intensity": 12000.0,
+    "attenuation_radius": 2600.0,
+    "use_inverse_squared_falloff": true,
+    "source_radius": 20.0,
+    "cast_shadows": true,
+    "use_temperature": false,
+    "temperature": 6500.0,
+    "specular_scale": 1.0,
+    "indirect_lighting_intensity": 1.0,
+    "volumetric_scattering_intensity": 1.0,
+    "intensity_units": "<LightUnits.LUMENS: 2>",
+    "mobility": "<ComponentMobility.MOVABLE: 2>",
+    "color_linear": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "location_cm": [
+      8000.0,
+      2250.0,
+      520.0
+    ],
+    "actor_path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.PointLight_UAID_FA163ECF0746EAFE02_1100163904",
+    "actor_package": "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/F/19/X6BYEWCT1X4KMSG4E70PKS"
+  }
+}

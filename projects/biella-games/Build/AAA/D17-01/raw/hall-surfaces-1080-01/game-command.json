@@ -1,0 +1,19 @@
+[
+  "/tmp/package/BiellaGames.sh",
+  "/Game/Maps/BiellaOpenWorldMap",
+  "-vulkan",
+  "-NoVSync",
+  "-windowed",
+  "-ResX=1920",
+  "-ResY=1080",
+  "-unattended",
+  "-AudioMixer",
+  "-nosplash",
+  "-stdout",
+  "-FullStdOutLogOutput",
+  "-NoAsyncLoadingThread",
+  "-UserDir=/tmp/state/user/",
+  "-AbsLog=/tmp/evidence/runtime.engine.log",
+  "-ExecCmds=t.MaxFPS 60,r.VSync 0",
+  "-BiellaTelemetry=/tmp/evidence/telemetry.jsonl"
+]

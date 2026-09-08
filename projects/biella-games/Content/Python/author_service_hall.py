@@ -67,6 +67,8 @@ expected={'D02_Interior_West':([6975,2250,300],[.5,15,6]),
 'D02_Interior_DoorEast':([8600,1500,300],[8,.5,6]),
 'D02_Interior_Roof':([8000,2250,675],[21,15.5,.5])}
 supports={}
+surface=LIB.load_asset('/Game/Environment/ServiceBay/MI_ServicePaint')
+require(surface is not None,'Retained weathered coating missing')
 for label,(location,scale) in expected.items():
     a=existing.get(label); require(isinstance(a,unreal.StaticMeshActor),'Supporting building missing')
     component=a.static_mesh_component
@@ -74,7 +76,15 @@ for label,(location,scale) in expected.items():
     for actual,values in ((a.get_actor_location(),location),(a.get_actor_scale3d(),scale)):
         require(max(abs(getattr(actual,k)-v) for k,v in zip(('x','y','z'),values))<.001,'Building envelope changed')
     require(component.get_editor_property('static_mesh').get_path_name()=='/Engine/BasicShapes/Cube.Cube','Original collider mesh changed')
-    supports[label]=dict(path=a.get_path_name(),location_cm=location,scale=scale,collision='BlockAll')
+    # The envelope is also visible at the entrance reveals and soffit. Coat its
+    # existing faces rather than adding thickness inside the four-meter opening.
+    # The retained world-space PBR material matches the fitted outer cassettes.
+    if not VERIFY:
+        a.modify(); component.modify()
+        component.set_editor_property('override_materials',[surface])
+    require(component.get_material(0)==surface,'Entrance/interior surface binding differs')
+    supports[label]=dict(path=a.get_path_name(),location_cm=location,scale=scale,collision='BlockAll',
+                        material=component.get_material(0).get_path_name())
 a=existing.get(SPEC['actor_label'])
 if a is None:
     require(not VERIFY,'Saved visual actor missing')
@@ -100,8 +110,10 @@ report=dict(task_id='D17-01',result='PASS',status='GENERATED_DRAFT',read_only=VE
     spec_sha256=hashlib.sha256(SPEC_PATH.read_bytes()).hexdigest(),map=SPEC['map'],
     mesh=mesh.get_path_name(),triangles=mesh.get_num_triangles(0),bounds_min=actual_min,bounds_max=actual_max,
     materials=slots,collision_boxes=0,supports=supports,preexisting_actor_identities_preserved=True,
-    edited_actor_paths={SPEC['actor_label']:a.get_path_name()},
-    edited_actor_packages=[str(descs[SPEC['actor_label']].actor_package)],
-    scope='Fitted visual skin; preserved original collision and entrance; no gameplay acceptance')
+    edited_actor_paths={**{label:existing[label].get_path_name() for label in expected},
+                       SPEC['actor_label']:a.get_path_name()},
+    edited_actor_packages=[str(descs[label].actor_package) for label in [SPEC['actor_label'],*expected]],
+    surface_scope='Existing entrance reveals, inner wall faces and roof soffit; no geometry or collision changes',
+    scope='Fitted visual skin and matching weathered envelope coating; preserved original collision and entrance; no gameplay acceptance')
 Path(os.environ['BIELLA_D17_HALL_REPORT']).write_text(json.dumps(report,indent=2)+'\n')
 print('D17_HALL COMPLETE')
