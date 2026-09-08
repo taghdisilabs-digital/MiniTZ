@@ -9,8 +9,8 @@ task:
   section: post_d01
   class: hard_creation
   title: Data-driven content system multiplication
-  status: PENDING
-  runner: READY
+  status: RUNNING
+  runner: ACTIVE
 
   authority:
     - Mahdi Taghdisi latest explicit instruction
@@ -23,7 +23,10 @@ task:
     predecessor_status: COMPLETE_OWNER_ACCEPTED
     production_source: projects/biella-games/docs/PRODUCTION.md
     source_alignment_gate: VERIFIED_GITHUB_MAIN_PRE_EXECUTION_AND_POST_TURN_FAIL_CLOSED
-    task_session: FRESH_PER_NEW_TASK
+    task_session: 01a07e77-854b-76e0-9ce5-d05c33ee83ad
+    current_attempt: 300
+    model: gpt-reserve
+    reasoning: max
 
   preserve:
     - all completed predecessor tasks and accepted evidence

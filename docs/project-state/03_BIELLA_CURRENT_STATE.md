@@ -20,14 +20,15 @@ active_execution:
   id: D04-01
   project: Biella Games
   section: post_d01
-  state: READY_TO_START
+  state: RUNNING
   controller: biella-codex
-  controller_service_state: INACTIVE
-  runner_process_state: STOPPED
-  codex_child_process_state: STOPPED
-  authoritative_persistent_task_session_id: null
-  active_model: null
-  active_reasoning: null
+  controller_service_state: ACTIVE
+  runner_process_state: RUNNING
+  codex_child_process_state: RUNNING
+  authoritative_persistent_task_session_id: 01a07e77-854b-76e0-9ce5-d05c33ee83ad
+  latest_attempt: 300
+  active_model: gpt-reserve
+  active_reasoning: max
   current_increment: DATA_DRIVEN_CONTENT_SYSTEM_MULTIPLICATION
   predecessor: D03-01
   predecessor_status: COMPLETE_OWNER_ACCEPTED
