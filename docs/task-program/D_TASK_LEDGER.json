@@ -68,6 +68,14 @@
     "D09-03",
     "D09-04",
     "D09-05",
+    "D17-01",
+    "D17-02",
+    "D17-03",
+    "D17-04",
+    "D17-05",
+    "D17-06",
+    "D17-07",
+    "D17-08",
     "D15-01",
     "D15-02",
     "D15-03",
@@ -80,14 +88,6 @@
     "D16-06",
     "D16-07",
     "D16-08",
-    "D17-01",
-    "D17-02",
-    "D17-03",
-    "D17-04",
-    "D17-05",
-    "D17-06",
-    "D17-07",
-    "D17-08",
     "D19-01",
     "D19-02",
     "D19-03",
@@ -1919,12 +1919,356 @@
         "D08-01"
       ],
       "execution": {
+        "deliverable": "Canonical slice scenario definition with start state, route, combat/system beats, end state, and exact build identity.",
+        "execution_root": "projects/biella-games",
+        "external_input_evidence_required": false,
+        "lane": "Games",
+        "objective": "Choose a 10-20 minute representative sequence from implemented, accepted gameplay/content and bind the owner visual direction. Identify only the missing final-layer gaps; do not invent mechanics to make the slice more cinematic.",
+        "ordinal": 5,
+        "required_evidence": "Scenario file, package identity, first raw run capture.",
+        "source_refs": [
+          {
+            "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+            "selected_sections": [
+              "D17-01"
+            ],
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
+          },
+          {
+            "path": "projects/biella-games/docs/task-guides/D17-01.md",
+            "selected_sections": [
+              "Objective",
+              "Owner visual direction",
+              "Execution law",
+              "Acceptance"
+            ],
+            "sha256": "0711cb80f127bc42c70600cd00a68623dffa52fcc595958f23c50c27a56b2f28"
+          }
+        ],
+        "validation": "Scenario can be executed in the packaged game and demonstrates the project's real player+rival+infected+arena interaction without scripted substitution."
+      },
+      "execution_ordinal": 66,
+      "legacy_aliases": [
+        "AAA-SF-013"
+      ],
+      "program": "D17",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
+      "task_id": "D17-01",
+      "title": "Select canonical AAA challenger slice"
+    },
+    {
+      "depends_on": [
+        "D17-01"
+      ],
+      "execution": {
+        "deliverable": "Traversal/camera issue record plus accepted run evidence after task-scoped fixes if required.",
+        "execution_root": "projects/biella-games",
+        "external_input_evidence_required": false,
+        "lane": "Games",
+        "objective": "Create/fix only traversal, camera, collision, framing and route-readability gaps needed for the selected slice, then prove raw gameplay navigation at production camera distance.",
+        "ordinal": 6,
+        "required_evidence": "Raw capture, runtime log, exact changed source if repaired.",
+        "source_refs": [
+          {
+            "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+            "selected_sections": [
+              "D17-02"
+            ],
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
+          },
+          {
+            "path": "projects/biella-games/docs/task-guides/D17-02.md",
+            "selected_sections": [
+              "Objective",
+              "Owner visual direction",
+              "Execution law",
+              "Acceptance"
+            ],
+            "sha256": "d7a6fbe2f3ff3d8ecdadea1c8b38a6f17166770742a5f99d42f42ee79335eaee"
+          }
+        ],
+        "validation": "The canonical route is playable without camera clipping, collision traps, navigation ambiguity that blocks intended play, or noninteractive presentation substitutions."
+      },
+      "execution_ordinal": 67,
+      "legacy_aliases": [
+        "AAA-SF-014"
+      ],
+      "program": "D17",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
+      "task_id": "D17-02",
+      "title": "Prove traversal and camera quality"
+    },
+    {
+      "depends_on": [
+        "D17-02"
+      ],
+      "execution": {
+        "deliverable": "Combat-quality evidence and bounded repair changes where current behavior fails acceptance.",
+        "execution_root": "projects/biella-games",
+        "external_input_evidence_required": false,
+        "lane": "Games",
+        "objective": "Create/fix only combat-feedback and consequence-chain gaps needed for the slice, then prove real input -> action -> hit -> damage -> reaction -> state change.",
+        "ordinal": 7,
+        "required_evidence": "Raw combat capture, telemetry/log events, source/build identity.",
+        "source_refs": [
+          {
+            "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+            "selected_sections": [
+              "D17-03"
+            ],
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
+          },
+          {
+            "path": "projects/biella-games/docs/task-guides/D17-03.md",
+            "selected_sections": [
+              "Objective",
+              "Owner visual direction",
+              "Execution law",
+              "Acceptance"
+            ],
+            "sha256": "0a355995fe7f05613f419bd5689bd5d191679addffcb7f201837b3a28644149f"
+          }
+        ],
+        "validation": "Combat actions are responsive and legible, consequences are real simulation state, and no visual-only effect is counted as gameplay completion."
+      },
+      "execution_ordinal": 68,
+      "legacy_aliases": [
+        "AAA-SF-015"
+      ],
+      "program": "D17",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
+      "task_id": "D17-03",
+      "title": "Prove combat feel and consequence chain"
+    },
+    {
+      "depends_on": [
+        "D17-03"
+      ],
+      "execution": {
+        "deliverable": "System-interaction evidence trace and raw gameplay capture.",
+        "execution_root": "projects/biella-games",
+        "external_input_evidence_required": false,
+        "lane": "Games",
+        "objective": "Create/fix only encounter-composition gaps needed so player, rival contestant, infected and approved arena pressure materially affect the same evolving fight.",
+        "ordinal": 8,
+        "required_evidence": "Event timeline, raw video, runtime logs, package digest.",
+        "source_refs": [
+          {
+            "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+            "selected_sections": [
+              "D17-04"
+            ],
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
+          },
+          {
+            "path": "projects/biella-games/docs/task-guides/D17-04.md",
+            "selected_sections": [
+              "Objective",
+              "Owner visual direction",
+              "Execution law",
+              "Acceptance"
+            ],
+            "sha256": "000109a1c2bc0f80501b30c0436b4e9287e75b65dc074fff909b88a31ac1b2bc"
+          }
+        ],
+        "validation": "Actor decisions and world consequences originate from runtime state; the encounter is not a prerecorded or manually staged substitute for implementation."
+      },
+      "execution_ordinal": 69,
+      "legacy_aliases": [
+        "AAA-SF-016"
+      ],
+      "program": "D17",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
+      "task_id": "D17-04",
+      "title": "Prove player, rival, infected, and arena interaction"
+    },
+    {
+      "depends_on": [
+        "D17-04"
+      ],
+      "execution": {
+        "deliverable": "Animation-quality defect list reduced to accepted slice quality, with exact repaired assets/source where needed.",
+        "execution_root": "projects/biella-games",
+        "external_input_evidence_required": false,
+        "lane": "Games",
+        "objective": "FINAL_VISUAL_LAYER: create/fix animation, locomotion, aim, weapon handling, hit/death reactions, transitions, deformation and motion continuity until the selected slice reaches the owner visual direction at gameplay distance; then validate. No review-only loop.",
+        "ordinal": 9,
+        "required_evidence": "Raw captures at representative moments, source/asset identities, runtime evidence.",
+        "source_refs": [
+          {
+            "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+            "selected_sections": [
+              "D17-05"
+            ],
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
+          },
+          {
+            "path": "projects/biella-games/docs/task-guides/D17-05.md",
+            "selected_sections": [
+              "Objective",
+              "Owner visual direction",
+              "Execution law",
+              "Acceptance"
+            ],
+            "sha256": "4117155b4dbc0f0cd84d10e658bad40b7b52dcd5a5a7bb68d8947992ca66c209"
+          }
+        ],
+        "validation": "No acceptance-blocking snapping, foot sliding, broken deformation, impossible pose transitions, or actor-state mismatch remains in the slice."
+      },
+      "execution_ordinal": 70,
+      "legacy_aliases": [
+        "AAA-SF-017"
+      ],
+      "program": "D17",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
+      "task_id": "D17-05",
+      "title": "Create and qualify final animation and motion layer"
+    },
+    {
+      "depends_on": [
+        "D17-05"
+      ],
+      "execution": {
+        "deliverable": "Readability evidence and task-scoped fixes to existing implemented feedback.",
+        "execution_root": "projects/biella-games",
+        "external_input_evidence_required": false,
+        "lane": "Games",
+        "objective": "FINAL_VISUAL_LAYER: create/fix event-driven audio, VFX, HUD hierarchy and gameplay readability until the selected slice communicates threats, routes, hazards and consequences at the owner visual direction quality; then validate. No review-only loop.",
+        "ordinal": 10,
+        "required_evidence": "Raw capture with audio, HUD/state event trace, exact source/asset identities.",
+        "source_refs": [
+          {
+            "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+            "selected_sections": [
+              "D17-06"
+            ],
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
+          },
+          {
+            "path": "projects/biella-games/docs/task-guides/D17-06.md",
+            "selected_sections": [
+              "Objective",
+              "Owner visual direction",
+              "Execution law",
+              "Acceptance"
+            ],
+            "sha256": "16d4398fe12733812ff8ebd7f93ee994b308a76a2787cb58c3f65ea5de7d04a0"
+          }
+        ],
+        "validation": "Critical events are perceptible and attributable; UI/VFX/audio do not claim mechanics absent from runtime state and do not block gameplay readability."
+      },
+      "execution_ordinal": 71,
+      "legacy_aliases": [
+        "AAA-SF-018"
+      ],
+      "program": "D17",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
+      "task_id": "D17-06",
+      "title": "Create and qualify final audio, VFX, HUD, and readability layer"
+    },
+    {
+      "depends_on": [
+        "D17-06"
+      ],
+      "execution": {
+        "deliverable": "Environment-quality evidence and bounded corrections within accepted project visual direction.",
+        "execution_root": "projects/biella-games",
+        "external_input_evidence_required": false,
+        "lane": "Games",
+        "objective": "FINAL_VISUAL_LAYER: create/fix environment density, modular composition, materials, wetness/reflection response, motivated lighting, infection integration, props, damage/state coherence and spatial depth until the selected slice reaches the owner visual direction while remaining playable and buildable; then validate. No review-only loop.",
+        "ordinal": 11,
+        "required_evidence": "Raw traversal/combat captures, map/asset identities, runtime logs.",
+        "source_refs": [
+          {
+            "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+            "selected_sections": [
+              "D17-07"
+            ],
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
+          },
+          {
+            "path": "projects/biella-games/docs/task-guides/D17-07.md",
+            "selected_sections": [
+              "Objective",
+              "Owner visual direction",
+              "Execution law",
+              "Acceptance"
+            ],
+            "sha256": "eb843a0cfc499779b4445e233a4eeaf8847543df35642812980031fa253d5ce0"
+          }
+        ],
+        "validation": "No acceptance-blocking floating/fused geometry, impossible access, contradictory scale/perspective, unreadable route, material failure, or unexplained world-state artifact remains."
+      },
+      "execution_ordinal": 72,
+      "legacy_aliases": [
+        "AAA-SF-019"
+      ],
+      "program": "D17",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
+      "task_id": "D17-07",
+      "title": "Create and qualify final environment, material, lighting, and world layer"
+    },
+    {
+      "depends_on": [
+        "D17-07"
+      ],
+      "execution": {
+        "deliverable": "Indexed slice bundle containing exact build, scenario, raw full run, selected excerpts, metrics, known limitations, and source identities.",
+        "execution_root": "projects/biella-games",
+        "external_input_evidence_required": false,
+        "lane": "Games",
+        "objective": "Package truthful raw gameplay, captures, source/build identities and criterion results for the polished canonical slice. Do not edit evidence to hide runtime defects.",
+        "ordinal": 12,
+        "required_evidence": "Bundle digest/index, Git commit/tree, Drive readback.",
+        "source_refs": [
+          {
+            "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+            "selected_sections": [
+              "D17-08"
+            ],
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
+          },
+          {
+            "path": "projects/biella-games/docs/task-guides/D17-08.md",
+            "selected_sections": [
+              "Objective",
+              "Owner visual direction",
+              "Execution law",
+              "Acceptance"
+            ],
+            "sha256": "32a3126a3907ffb262c12af095e54c3e14d9674c8cbafe11e7a9eb26b35b4e9b"
+          }
+        ],
+        "validation": "A reviewer can trace every claimed visual/gameplay quality point to the exact running build and raw evidence; unresolved defects are disclosed."
+      },
+      "execution_ordinal": 73,
+      "legacy_aliases": [
+        "AAA-SF-020"
+      ],
+      "program": "D17",
+      "status": "PENDING",
+      "status_source": "projects/biella-games/docs/PRODUCTION.md",
+      "task_id": "D17-08",
+      "title": "Close AAA vertical-slice evidence package"
+    },
+    {
+      "depends_on": [
+        "D17-08"
+      ],
+      "execution": {
         "deliverable": "Game predecessor record linking exact accepted source/build/proof identities and naming superseded references as inactive; reuse existing records instead of another sign-off stage.",
         "execution_root": "projects/biella-games",
         "external_input_evidence_required": false,
         "lane": "Games",
-        "objective": "Bind the accepted D08-01 game release and only the Engine/runtime dependencies actually used by it. Preserve completed work; do not wait for unrelated Website, Engine business, pilot or investor programs.",
-        "ordinal": 5,
+        "objective": "Bind the accepted D17-08 polished game source/slice proof plus the D08 release mechanism and only Engine/runtime dependencies actually consumed. Do not wait for unrelated Website/business programs.",
+        "ordinal": 13,
         "required_evidence": "D08 source/build/proof digests, actual dependency identities and a game-scoped predecessor record; record remote verification only when observed.",
         "source_refs": [
           {
@@ -1932,7 +2276,7 @@
             "selected_sections": [
               "D15-01"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "projects/biella-games/docs/task-guides/D15-01.md",
@@ -1943,12 +2287,12 @@
               "Required evidence",
               "Reuse boundary"
             ],
-            "sha256": "a041572f1882061bfbd39c0c9d1a935aad395ed5a8f3a96e84caf3f5216a6cd9"
+            "sha256": "5abf52224792d92a0638d20fb096bd039f037ee04b7624995eb28ef8f35a2f9a"
           }
         ],
         "validation": "The required game release and consumed dependencies have task-appropriate retained proof. No unrelated program closure is a prerequisite. Do not reopen valid completed work."
       },
-      "execution_ordinal": 66,
+      "execution_ordinal": 74,
       "legacy_aliases": [
         "AAA-SF-001"
       ],
@@ -1968,7 +2312,7 @@
         "external_input_evidence_required": false,
         "lane": "Games",
         "objective": "Record exact accepted game source/build and used Engine dependency identities plus relevant accepted decisions. This is identity recording, not a production freeze or all-program restart.",
-        "ordinal": 6,
+        "ordinal": 14,
         "required_evidence": "Source-lock record with observed timestamps and remote identities.",
         "source_refs": [
           {
@@ -1976,7 +2320,7 @@
             "selected_sections": [
               "D15-02"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "projects/biella-games/docs/task-guides/D15-02.md",
@@ -1987,12 +2331,12 @@
               "Required evidence",
               "Reuse boundary"
             ],
-            "sha256": "c8a3527d886a105cf7636de7ad871779013c0e21abaa14e0484c6a7c8517e96b"
+            "sha256": "54d04b054acfa5deb2b74037f960ea440a85584bf92a10a940796a3ce236e037"
           }
         ],
         "validation": "Recorded local commit/tree and required source/artifact digests match the accepted game release. Preserve UNKNOWN values. GitHub readback and five-task Drive publication use the existing independent publication mechanism."
       },
-      "execution_ordinal": 67,
+      "execution_ordinal": 75,
       "legacy_aliases": [
         "AAA-SF-002"
       ],
@@ -2012,7 +2356,7 @@
         "external_input_evidence_required": false,
         "lane": "Games",
         "objective": "Reuse the existing canonical game evidence namespace and index for the priority game proof work; add only missing task-scoped indexing, never a second source root.",
-        "ordinal": 7,
+        "ordinal": 15,
         "required_evidence": "Canonical local artifact/index digests, source commit/tree and observed remote receipts when published.",
         "source_refs": [
           {
@@ -2020,7 +2364,7 @@
             "selected_sections": [
               "D15-03"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "projects/biella-games/docs/task-guides/D15-03.md",
@@ -2031,12 +2375,12 @@
               "Required evidence",
               "Reuse boundary"
             ],
-            "sha256": "4ae695d392c473d43269bab728ad5336b2abdcef8fc9200325a067ff200306b9"
+            "sha256": "54eca7e7ac022fcc4cc47590fc80d78211f82f7577fbd8b7fc82674da78a5f13"
           }
         ],
         "validation": "Write and read back a bounded required artifact in the existing namespace and link its digest without changing predecessor proof. Drive publication is independently recorded, not a game-start dependency."
       },
-      "execution_ordinal": 68,
+      "execution_ordinal": 76,
       "legacy_aliases": [
         "AAA-SF-003"
       ],
@@ -2056,7 +2400,7 @@
         "external_input_evidence_required": false,
         "lane": "Games",
         "objective": "Bind the exact build/package produced by the predecessor release program as the starting artifact for AAA-SF proof. Do not rebuild merely because this program started.",
-        "ordinal": 8,
+        "ordinal": 16,
         "required_evidence": "Exact package digest, source identity, and predecessor validation references.",
         "source_refs": [
           {
@@ -2064,7 +2408,7 @@
             "selected_sections": [
               "D15-04"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "projects/biella-games/docs/task-guides/D15-04.md",
@@ -2075,12 +2419,12 @@
               "Required evidence",
               "Reuse boundary"
             ],
-            "sha256": "c447719b114fe26e4dd163dd0102024b6012c9e5c0eb0b14355fdac18c231075"
+            "sha256": "3894c98fb04a7647a60eec5f06251ad26c74585b64ae1e9f4404acc43169f00f"
           }
         ],
         "validation": "Exact retained package and source identities match the accepted game release. Repair only a missing/corrupt boundary from preserved source; do not replay valid build work or stop for unrelated program completion."
       },
-      "execution_ordinal": 69,
+      "execution_ordinal": 77,
       "legacy_aliases": [
         "AAA-SF-004"
       ],
@@ -2100,7 +2444,7 @@
         "external_input_evidence_required": false,
         "lane": "Games",
         "objective": "Prove the accepted game can be built from a clean repository checkout using current documented dependencies rather than founder-local hidden state.",
-        "ordinal": 9,
+        "ordinal": 17,
         "required_evidence": "Checkout commit/tree, build commands/logs, package digest.",
         "source_refs": [
           {
@@ -2108,7 +2452,7 @@
             "selected_sections": [
               "D16-01"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "projects/biella-games/docs/task-guides/D16-01.md",
@@ -2124,7 +2468,7 @@
         ],
         "validation": "Fresh checkout at the bound commit produces a valid package through the accepted Unreal build/package path; missing undocumented dependencies are captured as defects."
       },
-      "execution_ordinal": 70,
+      "execution_ordinal": 78,
       "legacy_aliases": [
         "AAA-SF-005"
       ],
@@ -2144,7 +2488,7 @@
         "external_input_evidence_required": false,
         "lane": "Games",
         "objective": "Reduce the successful build/package procedure to the smallest durable documented recipe and source-controlled configuration needed to repeat it.",
-        "ordinal": 10,
+        "ordinal": 18,
         "required_evidence": "Two build logs, resulting package identities/digests, and recipe commit.",
         "source_refs": [
           {
@@ -2152,7 +2496,7 @@
             "selected_sections": [
               "D16-02"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "projects/biella-games/docs/task-guides/D16-02.md",
@@ -2168,7 +2512,7 @@
         ],
         "validation": "A second execution of the recipe from the same source succeeds without undocumented interactive repair; documented nondeterministic bytes are distinguished from reproducible functional output."
       },
-      "execution_ordinal": 71,
+      "execution_ordinal": 79,
       "legacy_aliases": [
         "AAA-SF-006"
       ],
@@ -2188,7 +2532,7 @@
         "external_input_evidence_required": false,
         "lane": "Games",
         "objective": "Install or unpack the package on a machine/environment that does not depend on the development editor workspace and prove clean launch.",
-        "ordinal": 11,
+        "ordinal": 19,
         "required_evidence": "Target-machine identity, package digest, runtime log, and captured launch/play evidence.",
         "source_refs": [
           {
@@ -2196,7 +2540,7 @@
             "selected_sections": [
               "D16-03"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "projects/biella-games/docs/task-guides/D16-03.md",
@@ -2212,7 +2556,7 @@
         ],
         "validation": "Packaged executable launches outside the editor, reaches real playable runtime, accepts player input, and exits cleanly; no developer-only path is required."
       },
-      "execution_ordinal": 72,
+      "execution_ordinal": 80,
       "legacy_aliases": [
         "AAA-SF-007"
       ],
@@ -2232,7 +2576,7 @@
         "external_input_evidence_required": false,
         "lane": "Games",
         "objective": "Prove normal player state survives the package lifecycle required by the accepted game behavior.",
-        "ordinal": 12,
+        "ordinal": 20,
         "required_evidence": "Before/after state evidence, save/version identity, runtime logs.",
         "source_refs": [
           {
@@ -2240,7 +2584,7 @@
             "selected_sections": [
               "D16-04"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "projects/biella-games/docs/task-guides/D16-04.md",
@@ -2256,7 +2600,7 @@
         ],
         "validation": "State is created through gameplay, process is terminated normally, package relaunches, and required state reconstructs without duplication/corruption."
       },
-      "execution_ordinal": 73,
+      "execution_ordinal": 81,
       "legacy_aliases": [
         "AAA-SF-008"
       ],
@@ -2276,7 +2620,7 @@
         "external_input_evidence_required": false,
         "lane": "Games",
         "objective": "Ensure a release candidate failure produces actionable diagnostics without requiring an attached editor session.",
-        "ordinal": 13,
+        "ordinal": 21,
         "required_evidence": "Diagnostic artifact identity, build identity, reproduction steps.",
         "source_refs": [
           {
@@ -2284,7 +2628,7 @@
             "selected_sections": [
               "D16-05"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "projects/biella-games/docs/task-guides/D16-05.md",
@@ -2300,7 +2644,7 @@
         ],
         "validation": "An induced safe diagnostic scenario or observed real failure produces retrievable evidence tied to the exact build; no destructive or fabricated crash proof."
       },
-      "execution_ordinal": 74,
+      "execution_ordinal": 82,
       "legacy_aliases": [
         "AAA-SF-009"
       ],
@@ -2320,7 +2664,7 @@
         "external_input_evidence_required": false,
         "lane": "Games",
         "objective": "Prove the game can move from one exact package identity to another without losing required supported state.",
-        "ordinal": 14,
+        "ordinal": 22,
         "required_evidence": "Version identities, update steps, save/config compatibility evidence.",
         "source_refs": [
           {
@@ -2328,7 +2672,7 @@
             "selected_sections": [
               "D16-06"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "projects/biella-games/docs/task-guides/D16-06.md",
@@ -2344,7 +2688,7 @@
         ],
         "validation": "Version B installs or replaces Version A as designed, launches, and preserves or intentionally migrates supported state; incompatibility is explicit rather than silent."
       },
-      "execution_ordinal": 75,
+      "execution_ordinal": 83,
       "legacy_aliases": [
         "AAA-SF-010"
       ],
@@ -2364,7 +2708,7 @@
         "external_input_evidence_required": false,
         "lane": "Games",
         "objective": "Capture performance and resource behavior from the packaged game in one representative traversal/combat scenario before further proof polishing.",
-        "ordinal": 15,
+        "ordinal": 23,
         "required_evidence": "Telemetry files, runtime log, machine hardware identity, build digest.",
         "source_refs": [
           {
@@ -2372,7 +2716,7 @@
             "selected_sections": [
               "D16-07"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "projects/biella-games/docs/task-guides/D16-07.md",
@@ -2388,7 +2732,7 @@
         ],
         "validation": "Telemetry comes from the exact packaged build and repeatable scenario; generated/display frames are not substituted for native simulation/render evidence."
       },
-      "execution_ordinal": 76,
+      "execution_ordinal": 84,
       "legacy_aliases": [
         "AAA-SF-011"
       ],
@@ -2408,7 +2752,7 @@
         "external_input_evidence_required": false,
         "lane": "Games",
         "objective": "Assemble the minimal reproducible chain from exact game source to clean build, package, install and play using existing qualified evidence.",
-        "ordinal": 16,
+        "ordinal": 24,
         "required_evidence": "Evidence index, exact artifact digests and source commit/tree; GitHub/Drive readback only when published, with pending publication recorded separately.",
         "source_refs": [
           {
@@ -2416,7 +2760,7 @@
             "selected_sections": [
               "D16-08"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "projects/biella-games/docs/task-guides/D16-08.md",
@@ -2432,7 +2776,7 @@
         ],
         "validation": "Every link source -> build -> package -> install -> play -> persistence -> diagnostics is backed by exact identities; missing proof remains explicitly unresolved."
       },
-      "execution_ordinal": 77,
+      "execution_ordinal": 85,
       "legacy_aliases": [
         "AAA-SF-012"
       ],
@@ -2441,350 +2785,6 @@
       "status_source": "projects/biella-games/docs/PRODUCTION.md",
       "task_id": "D16-08",
       "title": "Close reproducible-build proof"
-    },
-    {
-      "depends_on": [
-        "D16-08"
-      ],
-      "execution": {
-        "deliverable": "Canonical slice scenario definition with start state, route, combat/system beats, end state, and exact build identity.",
-        "execution_root": "projects/biella-games",
-        "external_input_evidence_required": false,
-        "lane": "Games",
-        "objective": "Choose a 10-20 minute representative sequence only from implemented, accepted gameplay and content; do not invent a mechanic to make the demo more cinematic.",
-        "ordinal": 17,
-        "required_evidence": "Scenario file, package identity, first raw run capture.",
-        "source_refs": [
-          {
-            "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-            "selected_sections": [
-              "D17-01"
-            ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
-          },
-          {
-            "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-013_SELECT_THE_CANONICAL_AAA_CHALLENGER_SLICE.md",
-            "selected_sections": [
-              "Objective",
-              "Required deliverable",
-              "Validation contract",
-              "Required evidence"
-            ],
-            "sha256": "ce7da5441ba6b62b30a4ce74d7f79b58a46a0fd7fc0491938d3360bcbf2c21d8"
-          }
-        ],
-        "validation": "Scenario can be executed in the packaged game and demonstrates the project's real player+rival+infected+arena interaction without scripted substitution."
-      },
-      "execution_ordinal": 78,
-      "legacy_aliases": [
-        "AAA-SF-013"
-      ],
-      "program": "D17",
-      "status": "PENDING",
-      "status_source": "projects/biella-games/docs/PRODUCTION.md",
-      "task_id": "D17-01",
-      "title": "Select canonical AAA challenger slice"
-    },
-    {
-      "depends_on": [
-        "D17-01"
-      ],
-      "execution": {
-        "deliverable": "Traversal/camera issue record plus accepted run evidence after task-scoped fixes if required.",
-        "execution_root": "projects/biella-games",
-        "external_input_evidence_required": false,
-        "lane": "Games",
-        "objective": "Evaluate player locomotion, camera behavior, collision, readability, and spatial navigation in raw gameplay.",
-        "ordinal": 18,
-        "required_evidence": "Raw capture, runtime log, exact changed source if repaired.",
-        "source_refs": [
-          {
-            "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-            "selected_sections": [
-              "D17-02"
-            ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
-          },
-          {
-            "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-014_PROVE_TRAVERSAL_AND_CAMERA_QUALITY_IN_THE_CANONICAL_SLICE.md",
-            "selected_sections": [
-              "Objective",
-              "Required deliverable",
-              "Validation contract",
-              "Required evidence"
-            ],
-            "sha256": "daffc416be38980e138f690fd2437715c7eb2b531e5a2233d9b1b682bddcc97a"
-          }
-        ],
-        "validation": "The canonical route is playable without camera clipping, collision traps, navigation ambiguity that blocks intended play, or noninteractive presentation substitutions."
-      },
-      "execution_ordinal": 79,
-      "legacy_aliases": [
-        "AAA-SF-014"
-      ],
-      "program": "D17",
-      "status": "PENDING",
-      "status_source": "projects/biella-games/docs/PRODUCTION.md",
-      "task_id": "D17-02",
-      "title": "Prove traversal and camera quality"
-    },
-    {
-      "depends_on": [
-        "D17-02"
-      ],
-      "execution": {
-        "deliverable": "Combat-quality evidence and bounded repair changes where current behavior fails acceptance.",
-        "execution_root": "projects/biella-games",
-        "external_input_evidence_required": false,
-        "lane": "Games",
-        "objective": "Exercise real input -> weapon/action -> hit resolution -> damage -> reaction -> state change during the canonical slice.",
-        "ordinal": 19,
-        "required_evidence": "Raw combat capture, telemetry/log events, source/build identity.",
-        "source_refs": [
-          {
-            "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-            "selected_sections": [
-              "D17-03"
-            ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
-          },
-          {
-            "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-015_PROVE_COMBAT_FEEL_AND_CONSEQUENCE_CHAIN.md",
-            "selected_sections": [
-              "Objective",
-              "Required deliverable",
-              "Validation contract",
-              "Required evidence"
-            ],
-            "sha256": "714802f7ee1355a17457737d9816920a9079dfbd11a50afa4aaf63513b762dea"
-          }
-        ],
-        "validation": "Combat actions are responsive and legible, consequences are real simulation state, and no visual-only effect is counted as gameplay completion."
-      },
-      "execution_ordinal": 80,
-      "legacy_aliases": [
-        "AAA-SF-015"
-      ],
-      "program": "D17",
-      "status": "PENDING",
-      "status_source": "projects/biella-games/docs/PRODUCTION.md",
-      "task_id": "D17-03",
-      "title": "Prove combat feel and consequence chain"
-    },
-    {
-      "depends_on": [
-        "D17-03"
-      ],
-      "execution": {
-        "deliverable": "System-interaction evidence trace and raw gameplay capture.",
-        "execution_root": "projects/biella-games",
-        "external_input_evidence_required": false,
-        "lane": "Games",
-        "objective": "Capture at least one genuine interaction where player, rival, infected, and approved arena pressure all affect the same evolving encounter.",
-        "ordinal": 20,
-        "required_evidence": "Event timeline, raw video, runtime logs, package digest.",
-        "source_refs": [
-          {
-            "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-            "selected_sections": [
-              "D17-04"
-            ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
-          },
-          {
-            "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-016_PROVE_PLAYER_RIVAL_INFECTED_AND_ARENA_INTERACTION.md",
-            "selected_sections": [
-              "Objective",
-              "Required deliverable",
-              "Validation contract",
-              "Required evidence"
-            ],
-            "sha256": "a838d7816412eb33a643b9e9d300c92d51fc27ca34dd0ba73cbccbcebe68531c"
-          }
-        ],
-        "validation": "Actor decisions and world consequences originate from runtime state; the encounter is not a prerecorded or manually staged substitute for implementation."
-      },
-      "execution_ordinal": 81,
-      "legacy_aliases": [
-        "AAA-SF-016"
-      ],
-      "program": "D17",
-      "status": "PENDING",
-      "status_source": "projects/biella-games/docs/PRODUCTION.md",
-      "task_id": "D17-04",
-      "title": "Prove player, rival, infected, and arena interaction"
-    },
-    {
-      "depends_on": [
-        "D17-04"
-      ],
-      "execution": {
-        "deliverable": "Animation-quality defect list reduced to accepted slice quality, with exact repaired assets/source where needed.",
-        "execution_root": "projects/biella-games",
-        "external_input_evidence_required": false,
-        "lane": "Games",
-        "objective": "Inspect locomotion, aim, weapon handling, hit/death reactions, transitions, deformation, and motion continuity at gameplay distance.",
-        "ordinal": 21,
-        "required_evidence": "Raw captures at representative moments, source/asset identities, runtime evidence.",
-        "source_refs": [
-          {
-            "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-            "selected_sections": [
-              "D17-05"
-            ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
-          },
-          {
-            "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-017_QUALIFY_ANIMATION_AND_MOTION_CONTINUITY.md",
-            "selected_sections": [
-              "Objective",
-              "Required deliverable",
-              "Validation contract",
-              "Required evidence"
-            ],
-            "sha256": "41a976f308d7d0b50d5d6feeace9b943f546203b7ff4d25183c3a2647fb38eb9"
-          }
-        ],
-        "validation": "No acceptance-blocking snapping, foot sliding, broken deformation, impossible pose transitions, or actor-state mismatch remains in the slice."
-      },
-      "execution_ordinal": 82,
-      "legacy_aliases": [
-        "AAA-SF-017"
-      ],
-      "program": "D17",
-      "status": "PENDING",
-      "status_source": "projects/biella-games/docs/PRODUCTION.md",
-      "task_id": "D17-05",
-      "title": "Qualify animation and motion continuity"
-    },
-    {
-      "depends_on": [
-        "D17-05"
-      ],
-      "execution": {
-        "deliverable": "Readability evidence and task-scoped fixes to existing implemented feedback.",
-        "execution_root": "projects/biella-games",
-        "external_input_evidence_required": false,
-        "lane": "Games",
-        "objective": "Verify event-driven audio/VFX/UI communicate real gameplay state without obscuring targets, routes, hazards, or decisions.",
-        "ordinal": 22,
-        "required_evidence": "Raw capture with audio, HUD/state event trace, exact source/asset identities.",
-        "source_refs": [
-          {
-            "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-            "selected_sections": [
-              "D17-06"
-            ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
-          },
-          {
-            "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-018_QUALIFY_AUDIO_VFX_HUD_AND_GAMEPLAY_READABILITY.md",
-            "selected_sections": [
-              "Objective",
-              "Required deliverable",
-              "Validation contract",
-              "Required evidence"
-            ],
-            "sha256": "c1b2b4e65c9b33a1194421f00154e9e549dd630f70ec51541ce361d24057d9ae"
-          }
-        ],
-        "validation": "Critical events are perceptible and attributable; UI/VFX/audio do not claim mechanics absent from runtime state and do not block gameplay readability."
-      },
-      "execution_ordinal": 83,
-      "legacy_aliases": [
-        "AAA-SF-018"
-      ],
-      "program": "D17",
-      "status": "PENDING",
-      "status_source": "projects/biella-games/docs/PRODUCTION.md",
-      "task_id": "D17-06",
-      "title": "Qualify audio, VFX, HUD, and gameplay readability"
-    },
-    {
-      "depends_on": [
-        "D17-06"
-      ],
-      "execution": {
-        "deliverable": "Environment-quality evidence and bounded corrections within accepted project visual direction.",
-        "execution_root": "projects/biella-games",
-        "external_input_evidence_required": false,
-        "lane": "Games",
-        "objective": "Evaluate the canonical slice environment as a playable production space: geometry, scale, materials, lighting, props, collision, navigation, and damage/state coherence.",
-        "ordinal": 23,
-        "required_evidence": "Raw traversal/combat captures, map/asset identities, runtime logs.",
-        "source_refs": [
-          {
-            "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-            "selected_sections": [
-              "D17-07"
-            ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
-          },
-          {
-            "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-019_QUALIFY_ENVIRONMENT_MATERIAL_LIGHTING_AND_WORLD_COHERENCE.md",
-            "selected_sections": [
-              "Objective",
-              "Required deliverable",
-              "Validation contract",
-              "Required evidence"
-            ],
-            "sha256": "2214fd571f41b6fddfa514c8043fb230ebd94dfb8c3ae40d7c13cff2e5c29df7"
-          }
-        ],
-        "validation": "No acceptance-blocking floating/fused geometry, impossible access, contradictory scale/perspective, unreadable route, material failure, or unexplained world-state artifact remains."
-      },
-      "execution_ordinal": 84,
-      "legacy_aliases": [
-        "AAA-SF-019"
-      ],
-      "program": "D17",
-      "status": "PENDING",
-      "status_source": "projects/biella-games/docs/PRODUCTION.md",
-      "task_id": "D17-07",
-      "title": "Qualify environment, material, lighting, and world coherence"
-    },
-    {
-      "depends_on": [
-        "D17-07"
-      ],
-      "execution": {
-        "deliverable": "Indexed slice bundle containing exact build, scenario, raw full run, selected excerpts, metrics, known limitations, and source identities.",
-        "execution_root": "projects/biella-games",
-        "external_input_evidence_required": false,
-        "lane": "Games",
-        "objective": "Package the canonical slice proof without editing raw gameplay into evidence that hides runtime defects.",
-        "ordinal": 24,
-        "required_evidence": "Bundle digest/index, Git commit/tree, Drive readback.",
-        "source_refs": [
-          {
-            "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-            "selected_sections": [
-              "D17-08"
-            ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
-          },
-          {
-            "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-020_CLOSE_THE_AAA_VERTICAL_SLICE_EVIDENCE_PACKAGE.md",
-            "selected_sections": [
-              "Objective",
-              "Required deliverable",
-              "Validation contract",
-              "Required evidence"
-            ],
-            "sha256": "36b3bf652b3645882b0a4e2621d269bfd80b9de0c1a773e8f6ad4cdee8399078"
-          }
-        ],
-        "validation": "A reviewer can trace every claimed visual/gameplay quality point to the exact running build and raw evidence; unresolved defects are disclosed."
-      },
-      "execution_ordinal": 85,
-      "legacy_aliases": [
-        "AAA-SF-020"
-      ],
-      "program": "D17",
-      "status": "PENDING",
-      "status_source": "projects/biella-games/docs/PRODUCTION.md",
-      "task_id": "D17-08",
-      "title": "Close AAA vertical-slice evidence package"
     },
     {
       "depends_on": [
@@ -2804,7 +2804,7 @@
             "selected_sections": [
               "D19-01"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-029_LOCK_REPRESENTATIVE_TARGET_HARDWARE_TIERS_FROM_MEASURED_EVIDENCE.md",
@@ -2847,7 +2847,7 @@
             "selected_sections": [
               "D19-02"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-030_LOCK_NATIVE_FRAME_TIME_AND_RESPONSIVENESS_TARGETS_FROM_EVIDENCE.md",
@@ -2890,7 +2890,7 @@
             "selected_sections": [
               "D19-03"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-031_QUALIFY_WORLD_TRAVERSAL_STREAMING_AND_HITCH_BEHAVIOR.md",
@@ -2933,7 +2933,7 @@
             "selected_sections": [
               "D19-04"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-032_QUALIFY_COMBAT_POPULATION_STRESS_BEHAVIOR.md",
@@ -2976,7 +2976,7 @@
             "selected_sections": [
               "D19-05"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-033_QUALIFY_MEMORY_VRAM_RESIDENCY_AND_LEAK_BEHAVIOR.md",
@@ -3019,7 +3019,7 @@
             "selected_sections": [
               "D19-06"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-034_QUALIFY_SUSTAINED_PACKAGED_RUNTIME_STABILITY.md",
@@ -3062,7 +3062,7 @@
             "selected_sections": [
               "D19-07"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-035_REQUALIFY_A_CLEAN_SHIPPING_PACKAGE.md",
@@ -3105,7 +3105,7 @@
             "selected_sections": [
               "D19-08"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-036_CLOSE_RELEASE_OPERATIONS_PROOF.md",
@@ -3148,7 +3148,7 @@
             "selected_sections": [
               "D20-01"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-037_SELECT_A_SECOND_PRODUCTION_SCENARIO_FROM_APPROVED_SYSTEMS.md",
@@ -3191,7 +3191,7 @@
             "selected_sections": [
               "D20-02"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-038_PRODUCE_THE_SECOND_ENVIRONMENT_OR_ENCOUNTER_COMPOSITION_THROUGH_REUSABLE_SYSTEMS.md",
@@ -3234,7 +3234,7 @@
             "selected_sections": [
               "D20-03"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-039_PRODUCE_A_DIFFERENT_RIVAL_AND_INFECTED_ENCOUNTER_COMPOSITION.md",
@@ -3277,7 +3277,7 @@
             "selected_sections": [
               "D20-04"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-040_PRODUCE_AN_ALTERNATE_APPROVED_ARENA_PRESSURE_SEQUENCE.md",
@@ -3320,7 +3320,7 @@
             "selected_sections": [
               "D20-05"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-041_MEASURE_CONTENT_SYSTEM_REUSE_VERSUS_BESPOKE_WORK.md",
@@ -3363,7 +3363,7 @@
             "selected_sections": [
               "D20-06"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-042_PACKAGE_AND_QUALIFY_THE_SECOND_SCENARIO.md",
@@ -3406,7 +3406,7 @@
             "selected_sections": [
               "D20-07"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-043_COMPARE_PRODUCTION_TIME_INTERVENTION_AND_QUALITY_ACROSS_SCENARIOS.md",
@@ -3449,7 +3449,7 @@
             "selected_sections": [
               "D20-08"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-044_CLOSE_REPEATABLE_CONTENT_PROOF.md",
@@ -3492,7 +3492,7 @@
             "selected_sections": [
               "D23-01"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-061_PUBLISH_A_TRUTHFUL_PLAYABLE_PROOF_SURFACE.md",
@@ -3535,7 +3535,7 @@
             "selected_sections": [
               "D18-01"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-021_DEFINE_THE_BLIND_EXTERNAL_PLAYTEST_CONTRACT.md",
@@ -3578,7 +3578,7 @@
             "selected_sections": [
               "D18-02"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-022_PREPARE_THE_FOUNDER_INDEPENDENT_PLAYTEST_HANDOFF.md",
@@ -3621,7 +3621,7 @@
             "selected_sections": [
               "D18-03"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-023_RUN_THE_FIRST_INDEPENDENT_EXTERNAL_SESSION.md",
@@ -3664,7 +3664,7 @@
             "selected_sections": [
               "D18-04"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-024_RUN_AN_INDEPENDENT_SESSION_ON_A_DIFFERENT_MACHINE_CONTEXT.md",
@@ -3707,7 +3707,7 @@
             "selected_sections": [
               "D18-05"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-025_AGGREGATE_EXTERNAL_COMPREHENSION_AND_FRICTION_EVIDENCE.md",
@@ -3750,7 +3750,7 @@
             "selected_sections": [
               "D18-06"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-026_REPAIR_THE_HIGHEST_IMPACT_REPRODUCIBLE_EXTERNAL_BLOCKERS.md",
@@ -3793,7 +3793,7 @@
             "selected_sections": [
               "D18-07"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-027_RUN_THE_POST_REPAIR_EXTERNAL_REPLAY.md",
@@ -3836,7 +3836,7 @@
             "selected_sections": [
               "D18-08"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-028_CLOSE_INDEPENDENT_PLAYER_PROOF.md",
@@ -3879,7 +3879,7 @@
             "selected_sections": [
               "D23-02"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-062_DISTRIBUTE_THE_QUALIFIED_BUILD_TO_A_BOUNDED_EXTERNAL_TEST_COHORT.md",
@@ -3922,7 +3922,7 @@
             "selected_sections": [
               "D23-03"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-063_CAPTURE_REAL_DEMAND_SIGNALS_FROM_THE_PROOF_SURFACE.md",
@@ -3965,7 +3965,7 @@
             "selected_sections": [
               "D23-04"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-064_PUBLISH_THE_GAME_DEMAND_EVIDENCE_REPORT.md",
@@ -5387,7 +5387,7 @@
             "selected_sections": [
               "D21-01"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-045_DEFINE_THE_FOUNDER_LEVERAGE_EVIDENCE_SCHEMA.md",
@@ -5430,7 +5430,7 @@
             "selected_sections": [
               "D21-02"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-046_COMPUTE_ACCEPTED_TASK_THROUGHPUT_FROM_REAL_TRACES.md",
@@ -5473,7 +5473,7 @@
             "selected_sections": [
               "D21-03"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-047_MEASURE_FOUNDER_INTERVENTION_PER_ACCEPTED_OUTCOME.md",
@@ -5516,7 +5516,7 @@
             "selected_sections": [
               "D21-04"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-048_MEASURE_COMPUTE_MODEL_TOOL_AND_INFRASTRUCTURE_COST_PER_OUTCOME.md",
@@ -5559,7 +5559,7 @@
             "selected_sections": [
               "D21-05"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-049_MEASURE_OBJECTIVE_TO_VALIDATED_ARTIFACT_CYCLE_TIME.md",
@@ -5602,7 +5602,7 @@
             "selected_sections": [
               "D21-06"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-050_BENCHMARK_DURABLE_RECOVERY_AFTER_INTERRUPTION.md",
@@ -5645,7 +5645,7 @@
             "selected_sections": [
               "D21-07"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-051_BENCHMARK_MODEL_OR_PROVIDER_CONTINUITY_ON_THE_SAME_PROJECT.md",
@@ -5688,7 +5688,7 @@
             "selected_sections": [
               "D21-08"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-052_PUBLISH_THE_SOLO_FOUNDER_LEVERAGE_EVIDENCE_REPORT.md",
@@ -5731,7 +5731,7 @@
             "selected_sections": [
               "D22-01"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-053_SELECT_A_NON_BIELLA_GAMES_EXTERNAL_PILOT_OBJECTIVE.md",
@@ -5774,7 +5774,7 @@
             "selected_sections": [
               "D22-02"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-054_PACKAGE_THE_REPEATABLE_EXTERNAL_DEPLOYMENT_AND_ONBOARDING_PATH.md",
@@ -5817,7 +5817,7 @@
             "selected_sections": [
               "D22-03"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-055_ONBOARD_THE_EXTERNAL_PILOT_WITHOUT_FOUNDER_RECONSTRUCTION.md",
@@ -5860,7 +5860,7 @@
             "selected_sections": [
               "D22-04"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-056_EXECUTE_THE_FIRST_EXTERNAL_OBJECTIVE_TO_A_VALIDATED_ARTIFACT.md",
@@ -5903,7 +5903,7 @@
             "selected_sections": [
               "D22-05"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-057_PERSIST_AND_RECONSTRUCT_THE_EXTERNAL_PILOT_STATE.md",
@@ -5946,7 +5946,7 @@
             "selected_sections": [
               "D22-06"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-058_RECOVER_THE_PILOT_AFTER_A_BOUNDED_INFRASTRUCTURE_INTERRUPTION.md",
@@ -5989,7 +5989,7 @@
             "selected_sections": [
               "D22-07"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-059_CONTINUE_THE_EXTERNAL_PILOT_WITH_A_SECOND_OBJECTIVE_OR_WORKER_CHANGE.md",
@@ -6032,7 +6032,7 @@
             "selected_sections": [
               "D22-08"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-060_CLOSE_EXTERNAL_REPLICATION_PROOF.md",
@@ -6076,7 +6076,7 @@
             "selected_sections": [
               "D23-05"
             ],
-            "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0"
+            "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071"
           },
           {
             "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-065_PACKAGE_THE_EXTERNAL_PILOT_COMMERCIAL_OFFER.md",

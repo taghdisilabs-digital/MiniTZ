@@ -243,9 +243,9 @@
     },
     {
       "ordinal": 5,
-      "task_id": "D15-01",
-      "title": "Lock authoritative predecessor closure set",
-      "task_class": "deep_memory",
+      "task_id": "D17-01",
+      "title": "Select canonical AAA challenger slice",
+      "task_class": "hard_creation",
       "lane": "Games",
       "execution_root": "projects/biella-games",
       "depends_on": [
@@ -254,14 +254,374 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "selected_sections": [
+            "D17-01"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/task-guides/D17-01.md",
+          "sha256": "0711cb80f127bc42c70600cd00a68623dffa52fcc595958f23c50c27a56b2f28",
+          "selected_sections": [
+            "Objective",
+            "Owner visual direction",
+            "Execution law",
+            "Acceptance"
+          ]
+        }
+      ],
+      "objective": "Choose a 10-20 minute representative sequence from implemented, accepted gameplay/content and bind the owner visual direction. Identify only the missing final-layer gaps; do not invent mechanics to make the slice more cinematic.",
+      "deliverable": "Canonical slice scenario definition with start state, route, combat/system beats, end state, and exact build identity.",
+      "validation": "Scenario can be executed in the packaged game and demonstrates the project's real player+rival+infected+arena interaction without scripted substitution.",
+      "required_evidence": "Scenario file, package identity, first raw run capture.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
+      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Owner visual direction + current Biella visual canon + real gameplay readability; no reference-copying or screenshot-only acceptance.",
+      "production_ordinal": 66,
+      "priority": 1
+    },
+    {
+      "ordinal": 6,
+      "task_id": "D17-02",
+      "title": "Prove traversal and camera quality",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-01"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "selected_sections": [
+            "D17-02"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/task-guides/D17-02.md",
+          "sha256": "d7a6fbe2f3ff3d8ecdadea1c8b38a6f17166770742a5f99d42f42ee79335eaee",
+          "selected_sections": [
+            "Objective",
+            "Owner visual direction",
+            "Execution law",
+            "Acceptance"
+          ]
+        }
+      ],
+      "objective": "Create/fix only traversal, camera, collision, framing and route-readability gaps needed for the selected slice, then prove raw gameplay navigation at production camera distance.",
+      "deliverable": "Traversal/camera issue record plus accepted run evidence after task-scoped fixes if required.",
+      "validation": "The canonical route is playable without camera clipping, collision traps, navigation ambiguity that blocks intended play, or noninteractive presentation substitutions.",
+      "required_evidence": "Raw capture, runtime log, exact changed source if repaired.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
+      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Owner visual direction + current Biella visual canon + real gameplay readability; no reference-copying or screenshot-only acceptance.",
+      "production_ordinal": 67,
+      "priority": 1
+    },
+    {
+      "ordinal": 7,
+      "task_id": "D17-03",
+      "title": "Prove combat feel and consequence chain",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-02"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "selected_sections": [
+            "D17-03"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/task-guides/D17-03.md",
+          "sha256": "0a355995fe7f05613f419bd5689bd5d191679addffcb7f201837b3a28644149f",
+          "selected_sections": [
+            "Objective",
+            "Owner visual direction",
+            "Execution law",
+            "Acceptance"
+          ]
+        }
+      ],
+      "objective": "Create/fix only combat-feedback and consequence-chain gaps needed for the slice, then prove real input -> action -> hit -> damage -> reaction -> state change.",
+      "deliverable": "Combat-quality evidence and bounded repair changes where current behavior fails acceptance.",
+      "validation": "Combat actions are responsive and legible, consequences are real simulation state, and no visual-only effect is counted as gameplay completion.",
+      "required_evidence": "Raw combat capture, telemetry/log events, source/build identity.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
+      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Owner visual direction + current Biella visual canon + real gameplay readability; no reference-copying or screenshot-only acceptance.",
+      "production_ordinal": 68,
+      "priority": 1
+    },
+    {
+      "ordinal": 8,
+      "task_id": "D17-04",
+      "title": "Prove player, rival, infected, and arena interaction",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-03"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "selected_sections": [
+            "D17-04"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/task-guides/D17-04.md",
+          "sha256": "000109a1c2bc0f80501b30c0436b4e9287e75b65dc074fff909b88a31ac1b2bc",
+          "selected_sections": [
+            "Objective",
+            "Owner visual direction",
+            "Execution law",
+            "Acceptance"
+          ]
+        }
+      ],
+      "objective": "Create/fix only encounter-composition gaps needed so player, rival contestant, infected and approved arena pressure materially affect the same evolving fight.",
+      "deliverable": "System-interaction evidence trace and raw gameplay capture.",
+      "validation": "Actor decisions and world consequences originate from runtime state; the encounter is not a prerecorded or manually staged substitute for implementation.",
+      "required_evidence": "Event timeline, raw video, runtime logs, package digest.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
+      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Owner visual direction + current Biella visual canon + real gameplay readability; no reference-copying or screenshot-only acceptance.",
+      "production_ordinal": 69,
+      "priority": 1
+    },
+    {
+      "ordinal": 9,
+      "task_id": "D17-05",
+      "title": "Create and qualify final animation and motion layer",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-04"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "selected_sections": [
+            "D17-05"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/task-guides/D17-05.md",
+          "sha256": "4117155b4dbc0f0cd84d10e658bad40b7b52dcd5a5a7bb68d8947992ca66c209",
+          "selected_sections": [
+            "Objective",
+            "Owner visual direction",
+            "Execution law",
+            "Acceptance"
+          ]
+        }
+      ],
+      "objective": "FINAL_VISUAL_LAYER: create/fix animation, locomotion, aim, weapon handling, hit/death reactions, transitions, deformation and motion continuity until the selected slice reaches the owner visual direction at gameplay distance; then validate. No review-only loop.",
+      "deliverable": "Animation-quality defect list reduced to accepted slice quality, with exact repaired assets/source where needed.",
+      "validation": "No acceptance-blocking snapping, foot sliding, broken deformation, impossible pose transitions, or actor-state mismatch remains in the slice.",
+      "required_evidence": "Raw captures at representative moments, source/asset identities, runtime evidence.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
+      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Owner visual direction + current Biella visual canon + real gameplay readability; no reference-copying or screenshot-only acceptance.",
+      "production_ordinal": 70,
+      "priority": 1
+    },
+    {
+      "ordinal": 10,
+      "task_id": "D17-06",
+      "title": "Create and qualify final audio, VFX, HUD, and readability layer",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-05"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "selected_sections": [
+            "D17-06"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/task-guides/D17-06.md",
+          "sha256": "16d4398fe12733812ff8ebd7f93ee994b308a76a2787cb58c3f65ea5de7d04a0",
+          "selected_sections": [
+            "Objective",
+            "Owner visual direction",
+            "Execution law",
+            "Acceptance"
+          ]
+        }
+      ],
+      "objective": "FINAL_VISUAL_LAYER: create/fix event-driven audio, VFX, HUD hierarchy and gameplay readability until the selected slice communicates threats, routes, hazards and consequences at the owner visual direction quality; then validate. No review-only loop.",
+      "deliverable": "Readability evidence and task-scoped fixes to existing implemented feedback.",
+      "validation": "Critical events are perceptible and attributable; UI/VFX/audio do not claim mechanics absent from runtime state and do not block gameplay readability.",
+      "required_evidence": "Raw capture with audio, HUD/state event trace, exact source/asset identities.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
+      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Owner visual direction + current Biella visual canon + real gameplay readability; no reference-copying or screenshot-only acceptance.",
+      "production_ordinal": 71,
+      "priority": 1
+    },
+    {
+      "ordinal": 11,
+      "task_id": "D17-07",
+      "title": "Create and qualify final environment, material, lighting, and world layer",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-06"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "selected_sections": [
+            "D17-07"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/task-guides/D17-07.md",
+          "sha256": "eb843a0cfc499779b4445e233a4eeaf8847543df35642812980031fa253d5ce0",
+          "selected_sections": [
+            "Objective",
+            "Owner visual direction",
+            "Execution law",
+            "Acceptance"
+          ]
+        }
+      ],
+      "objective": "FINAL_VISUAL_LAYER: create/fix environment density, modular composition, materials, wetness/reflection response, motivated lighting, infection integration, props, damage/state coherence and spatial depth until the selected slice reaches the owner visual direction while remaining playable and buildable; then validate. No review-only loop.",
+      "deliverable": "Environment-quality evidence and bounded corrections within accepted project visual direction.",
+      "validation": "No acceptance-blocking floating/fused geometry, impossible access, contradictory scale/perspective, unreadable route, material failure, or unexplained world-state artifact remains.",
+      "required_evidence": "Raw traversal/combat captures, map/asset identities, runtime logs.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
+      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Owner visual direction + current Biella visual canon + real gameplay readability; no reference-copying or screenshot-only acceptance.",
+      "production_ordinal": 72,
+      "priority": 1
+    },
+    {
+      "ordinal": 12,
+      "task_id": "D17-08",
+      "title": "Close AAA vertical-slice evidence package",
+      "task_class": "hard_creation",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-07"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
+          "selected_sections": [
+            "D17-08"
+          ]
+        },
+        {
+          "path": "projects/biella-games/docs/task-guides/D17-08.md",
+          "sha256": "32a3126a3907ffb262c12af095e54c3e14d9674c8cbafe11e7a9eb26b35b4e9b",
+          "selected_sections": [
+            "Objective",
+            "Owner visual direction",
+            "Execution law",
+            "Acceptance"
+          ]
+        }
+      ],
+      "objective": "Package truthful raw gameplay, captures, source/build identities and criterion results for the polished canonical slice. Do not edit evidence to hide runtime defects.",
+      "deliverable": "Indexed slice bundle containing exact build, scenario, raw full run, selected excerpts, metrics, known limitations, and source identities.",
+      "validation": "A reviewer can trace every claimed visual/gameplay quality point to the exact running build and raw evidence; unresolved defects are disclosed.",
+      "required_evidence": "Bundle digest/index, Git commit/tree, Drive readback.",
+      "resource_capabilities": [
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "external_input_evidence_required": false,
+      "next_action": "Execute only the missing final-layer creation/qualification for this slice; reuse accepted mechanics, source and evidence.",
+      "reuse": "Reuse D08 and completed gameplay/rendering/content evidence when material inputs match. Visual-layer source changes invalidate only affected downstream build/runtime proof.",
+      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
+      "quality": "Owner visual direction + current Biella visual canon + real gameplay readability; no reference-copying or screenshot-only acceptance.",
+      "production_ordinal": 73,
+      "priority": 1
+    },
+    {
+      "ordinal": 13,
+      "task_id": "D15-01",
+      "title": "Lock authoritative predecessor closure set",
+      "task_class": "deep_memory",
+      "lane": "Games",
+      "execution_root": "projects/biella-games",
+      "depends_on": [
+        "D17-08"
+      ],
+      "source_refs": [
+        {
+          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D15-01"
           ]
         },
         {
           "path": "projects/biella-games/docs/task-guides/D15-01.md",
-          "sha256": "a041572f1882061bfbd39c0c9d1a935aad395ed5a8f3a96e84caf3f5216a6cd9",
+          "sha256": "5abf52224792d92a0638d20fb096bd039f037ee04b7624995eb28ef8f35a2f9a",
           "selected_sections": [
             "Objective",
             "Required deliverable",
@@ -271,7 +631,7 @@
           ]
         }
       ],
-      "objective": "Bind the accepted D08-01 game release and only the Engine/runtime dependencies actually used by it. Preserve completed work; do not wait for unrelated Website, Engine business, pilot or investor programs.",
+      "objective": "Bind the accepted D17-08 polished game source/slice proof plus the D08 release mechanism and only Engine/runtime dependencies actually consumed. Do not wait for unrelated Website/business programs.",
       "deliverable": "Game predecessor record linking exact accepted source/build/proof identities and naming superseded references as inactive; reuse existing records instead of another sign-off stage.",
       "validation": "The required game release and consumed dependencies have task-appropriate retained proof. No unrelated program closure is a prerequisite. Do not reopen valid completed work.",
       "required_evidence": "D08 source/build/proof digests, actual dependency identities and a game-scoped predecessor record; record remote verification only when observed.",
@@ -284,13 +644,13 @@
       "reuse": "Read the accepted D08 qualification and its referenced dependency identities once. Bind only the game release and Engine components it actually consumes. Do not inventory or wait for unrelated Website, business, pilot, investor or deferred Engine programs. This is a local evidence-binding operation: no build or runtime rerun, no extra sign-off; it does not freeze production. Reuse the existing publication cursor for remote receipts.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 66,
+      "production_ordinal": 74,
       "priority": 1,
       "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements.",
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 6,
+      "ordinal": 14,
       "task_id": "D15-02",
       "title": "Freeze current source and decision identities",
       "task_class": "deep_memory",
@@ -302,14 +662,14 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D15-02"
           ]
         },
         {
           "path": "projects/biella-games/docs/task-guides/D15-02.md",
-          "sha256": "c8a3527d886a105cf7636de7ad871779013c0e21abaa14e0484c6a7c8517e96b",
+          "sha256": "54d04b054acfa5deb2b74037f960ea440a85584bf92a10a940796a3ce236e037",
           "selected_sections": [
             "Objective",
             "Required deliverable",
@@ -332,13 +692,13 @@
       "reuse": "Reuse the source-build manifest and the accepted package lineage produced by D08. The tested source commit may precede newer controller/document commits: record those identities separately rather than rebasing or rebuilding the package. Record only consumed decisions and material inputs; absent required facts stay UNKNOWN. This records identities and does not freeze production: no build or runtime rerun. The publication cursor carries remote status without another upload loop.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 67,
+      "production_ordinal": 75,
       "priority": 1,
       "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements.",
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 7,
+      "ordinal": 15,
       "task_id": "D15-03",
       "title": "Create post-program evidence namespace",
       "task_class": "deep_memory",
@@ -350,14 +710,14 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D15-03"
           ]
         },
         {
           "path": "projects/biella-games/docs/task-guides/D15-03.md",
-          "sha256": "4ae695d392c473d43269bab728ad5336b2abdcef8fc9200325a067ff200306b9",
+          "sha256": "54eca7e7ac022fcc4cc47590fc80d78211f82f7577fbd8b7fc82674da78a5f13",
           "selected_sections": [
             "Objective",
             "Required deliverable",
@@ -380,13 +740,13 @@
       "reuse": "Use the existing Games Build/Release evidence namespace and the D08 lineage, not a new top-level repository or archive. Write/read back the required task record itself as the namespace test; do not create a disposable dummy artifact and another validation round. Reference original bytes instead of copying every package/log. This does not freeze production and needs no build or runtime rerun. Existing configured destinations and the publication cursor remain authoritative for transfer status.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 68,
+      "production_ordinal": 76,
       "priority": 1,
       "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements.",
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 8,
+      "ordinal": 16,
       "task_id": "D15-04",
       "title": "Bind production-ready predecessor build",
       "task_class": "deep_memory",
@@ -398,14 +758,14 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D15-04"
           ]
         },
         {
           "path": "projects/biella-games/docs/task-guides/D15-04.md",
-          "sha256": "c447719b114fe26e4dd163dd0102024b6012c9e5c0eb0b14355fdac18c231075",
+          "sha256": "3894c98fb04a7647a60eec5f06251ad26c74585b64ae1e9f4404acc43169f00f",
           "selected_sections": [
             "Objective",
             "Required deliverable",
@@ -428,13 +788,13 @@
       "reuse": "Resolve the accepted package through the D08 package manifest and qualification, not a stale task filename or current HEAD guess. Compare exact package/source/configuration/platform identities. Preserve original package bytes. Missing metadata is repaired locally; an actual missing/corrupt package invalidates only that artifact boundary, not completed gameplay. This does not freeze production: no build or runtime rerun for valid retained bytes. Use the publication cursor, not a new remote wait.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 69,
+      "production_ordinal": 77,
       "priority": 1,
       "owner_priority_amendment": "2026-09-08 GAME_FIRST; current D-series registry amendment supersedes older cross-program activation/order requirements.",
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 9,
+      "ordinal": 17,
       "task_id": "D16-01",
       "title": "Reproduce release from clean checkout",
       "task_class": "hard",
@@ -446,7 +806,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D16-01"
           ]
@@ -476,12 +836,12 @@
       "reuse": "Reuse a retained D08 clean-build record only when it proves a clean source reconstruction with the same material inputs, accepted recipe, platform/configuration and qualified output. A build from an uncommitted development tree is not clean-build proof. If that record is absent or invalid, run exactly the missing clean reconstruction in a task-owned qualification Resource, never reset the canonical worktree or create a second active authority root. Reuse installed toolchains and declared caches unless the criterion specifically measures cold state. A controller-only commit does not invalidate game inputs.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 70,
+      "production_ordinal": 78,
       "priority": 1,
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 10,
+      "ordinal": 18,
       "task_id": "D16-02",
       "title": "Make package recipe reproducible",
       "task_class": "hard",
@@ -493,7 +853,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D16-02"
           ]
@@ -523,12 +883,12 @@
       "reuse": "Require two distinct actual executions of the same accepted source and recipe, with both logs and package identities. D08 and D16-01 may already supply them; reuse those matching records. An update from different source revisions does not prove two executions of the same recipe inputs, and copying a log never creates a second run. If only one qualifying execution exists, perform only the missing second execution. Preserve documented build nondeterminism; do not require byte-identical outputs unless the recipe contract actually promises it. Never run a third build solely because the task number changed.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 71,
+      "production_ordinal": 79,
       "priority": 1,
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 11,
+      "ordinal": 19,
       "task_id": "D16-03",
       "title": "Qualify clean-machine install and launch",
       "task_class": "hard",
@@ -540,7 +900,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D16-03"
           ]
@@ -570,12 +930,12 @@
       "reuse": "Reuse D08 clean-install/play evidence only for the same exact package and a target environment independent of the development workspace. It must show the packaged executable outside the editor, real input/gameplay, prerequisites and clean exit; an editor launch or registered SDK is insufficient. Run only missing install/launch scenarios. Never reinstall already verified unchanged prerequisites, wipe the development user profile or substitute Linux/headless proof for accepted Win64 playable proof.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 72,
+      "production_ordinal": 80,
       "priority": 1,
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 12,
+      "ordinal": 20,
       "task_id": "D16-04",
       "title": "Qualify save, settings, restart, and reconstruction",
       "task_class": "hard",
@@ -587,7 +947,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D16-04"
           ]
@@ -617,12 +977,12 @@
       "reuse": "Reuse the package-specific settings/save exit-and-relaunch scenario recorded in D08 when package, save schema and affected configuration match. D05 editor evidence supplies implementation context, not a packaged persistence pass. Exercise only missing save/settings lifecycle assertions in an isolated test-user location; preserve existing player saves and source. No whole D07 rerun, rebuild or overnight soak is created by this task.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 73,
+      "production_ordinal": 81,
       "priority": 1,
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 13,
+      "ordinal": 21,
       "task_id": "D16-05",
       "title": "Qualify crash, assert, and failure diagnostics",
       "task_class": "hard",
@@ -634,7 +994,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D16-05"
           ]
@@ -664,12 +1024,12 @@
       "reuse": "Reuse exact-build packaged diagnostic evidence from D08 or an already observed failure. If missing, induce one bounded safe diagnostic inside a disposable qualification process and retrieve its real log/dump or equivalent accepted diagnostic. Never kill the production controller, corrupt accepted packages, or present a synthetic log fixture as a runtime crash. Verifier negative controls do not require repeating game builds.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 74,
+      "production_ordinal": 82,
       "priority": 1,
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 14,
+      "ordinal": 22,
       "task_id": "D16-06",
       "title": "Qualify update and package replacement",
       "task_class": "hard",
@@ -681,7 +1041,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D16-06"
           ]
@@ -711,12 +1071,12 @@
       "reuse": "Reuse the exact two-version update/compatibility evidence required by D08, matching both package identities, update recipe, supported save/config schema and post-update playable result. Rerun only a changed or uncovered update boundary, not the entire release qualification. Preserve original packages and test-user state; failure handling tests use isolated staging. A new task ID does not require new game code or another pair of packages.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 75,
+      "production_ordinal": 83,
       "priority": 1,
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 15,
+      "ordinal": 23,
       "task_id": "D16-07",
       "title": "Capture representative packaged-runtime baseline",
       "task_class": "hard",
@@ -728,7 +1088,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D16-07"
           ]
@@ -758,12 +1118,12 @@
       "reuse": "Reuse representative D08 packaged-runtime telemetry when the exact build/configuration/scenario and relevant hardware context match. D07 editor telemetry remains useful comparative evidence but is not relabeled as packaged data. Collect only missing package-specific metrics in a bounded representative traversal/combat run. Preserve native/display-frame distinctions and unavailable measurements; no invented target, full hardware sweep or repeated long soak merely for this baseline.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 76,
+      "production_ordinal": 84,
       "priority": 1,
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
     },
     {
-      "ordinal": 16,
+      "ordinal": 24,
       "task_id": "D16-08",
       "title": "Close reproducible-build proof",
       "task_class": "hard",
@@ -775,7 +1135,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D16-08"
           ]
@@ -805,369 +1165,9 @@
       "reuse": "Assemble references to the original D08 and D16 records once. Validate the source-to-package-to-play evidence links and material identities; do not rebuild, reinstall, replay all scenarios, copy all raw evidence or wait for another reviewer. Any missing link is repaired at that exact boundary. Record local acceptance separately from publication; remote readback is required only when published, through the existing publication cursor. No dedicated Drive upload or transfer wait is added to game progression.",
       "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
       "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 77,
+      "production_ordinal": 85,
       "priority": 1,
       "execution_input_policy": "CURRENT_GAME_GUIDE_WITH_MATERIAL_PROOF_REUSE"
-    },
-    {
-      "ordinal": 17,
-      "task_id": "D17-01",
-      "title": "Select canonical AAA challenger slice",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D16-08"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
-          "selected_sections": [
-            "D17-01"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-013_SELECT_THE_CANONICAL_AAA_CHALLENGER_SLICE.md",
-          "sha256": "ce7da5441ba6b62b30a4ce74d7f79b58a46a0fd7fc0491938d3360bcbf2c21d8",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Choose a 10-20 minute representative sequence only from implemented, accepted gameplay and content; do not invent a mechanic to make the demo more cinematic.",
-      "deliverable": "Canonical slice scenario definition with start state, route, combat/system beats, end state, and exact build identity.",
-      "validation": "Scenario can be executed in the packaged game and demonstrates the project's real player+rival+infected+arena interaction without scripted substitution.",
-      "required_evidence": "Scenario file, package identity, first raw run capture.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 78,
-      "priority": 1
-    },
-    {
-      "ordinal": 18,
-      "task_id": "D17-02",
-      "title": "Prove traversal and camera quality",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D17-01"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
-          "selected_sections": [
-            "D17-02"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-014_PROVE_TRAVERSAL_AND_CAMERA_QUALITY_IN_THE_CANONICAL_SLICE.md",
-          "sha256": "daffc416be38980e138f690fd2437715c7eb2b531e5a2233d9b1b682bddcc97a",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Evaluate player locomotion, camera behavior, collision, readability, and spatial navigation in raw gameplay.",
-      "deliverable": "Traversal/camera issue record plus accepted run evidence after task-scoped fixes if required.",
-      "validation": "The canonical route is playable without camera clipping, collision traps, navigation ambiguity that blocks intended play, or noninteractive presentation substitutions.",
-      "required_evidence": "Raw capture, runtime log, exact changed source if repaired.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 79,
-      "priority": 1
-    },
-    {
-      "ordinal": 19,
-      "task_id": "D17-03",
-      "title": "Prove combat feel and consequence chain",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D17-02"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
-          "selected_sections": [
-            "D17-03"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-015_PROVE_COMBAT_FEEL_AND_CONSEQUENCE_CHAIN.md",
-          "sha256": "714802f7ee1355a17457737d9816920a9079dfbd11a50afa4aaf63513b762dea",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Exercise real input -> weapon/action -> hit resolution -> damage -> reaction -> state change during the canonical slice.",
-      "deliverable": "Combat-quality evidence and bounded repair changes where current behavior fails acceptance.",
-      "validation": "Combat actions are responsive and legible, consequences are real simulation state, and no visual-only effect is counted as gameplay completion.",
-      "required_evidence": "Raw combat capture, telemetry/log events, source/build identity.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 80,
-      "priority": 1
-    },
-    {
-      "ordinal": 20,
-      "task_id": "D17-04",
-      "title": "Prove player, rival, infected, and arena interaction",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D17-03"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
-          "selected_sections": [
-            "D17-04"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-016_PROVE_PLAYER_RIVAL_INFECTED_AND_ARENA_INTERACTION.md",
-          "sha256": "a838d7816412eb33a643b9e9d300c92d51fc27ca34dd0ba73cbccbcebe68531c",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Capture at least one genuine interaction where player, rival, infected, and approved arena pressure all affect the same evolving encounter.",
-      "deliverable": "System-interaction evidence trace and raw gameplay capture.",
-      "validation": "Actor decisions and world consequences originate from runtime state; the encounter is not a prerecorded or manually staged substitute for implementation.",
-      "required_evidence": "Event timeline, raw video, runtime logs, package digest.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 81,
-      "priority": 1
-    },
-    {
-      "ordinal": 21,
-      "task_id": "D17-05",
-      "title": "Qualify animation and motion continuity",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D17-04"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
-          "selected_sections": [
-            "D17-05"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-017_QUALIFY_ANIMATION_AND_MOTION_CONTINUITY.md",
-          "sha256": "41a976f308d7d0b50d5d6feeace9b943f546203b7ff4d25183c3a2647fb38eb9",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Inspect locomotion, aim, weapon handling, hit/death reactions, transitions, deformation, and motion continuity at gameplay distance.",
-      "deliverable": "Animation-quality defect list reduced to accepted slice quality, with exact repaired assets/source where needed.",
-      "validation": "No acceptance-blocking snapping, foot sliding, broken deformation, impossible pose transitions, or actor-state mismatch remains in the slice.",
-      "required_evidence": "Raw captures at representative moments, source/asset identities, runtime evidence.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 82,
-      "priority": 1
-    },
-    {
-      "ordinal": 22,
-      "task_id": "D17-06",
-      "title": "Qualify audio, VFX, HUD, and gameplay readability",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D17-05"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
-          "selected_sections": [
-            "D17-06"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-018_QUALIFY_AUDIO_VFX_HUD_AND_GAMEPLAY_READABILITY.md",
-          "sha256": "c1b2b4e65c9b33a1194421f00154e9e549dd630f70ec51541ce361d24057d9ae",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Verify event-driven audio/VFX/UI communicate real gameplay state without obscuring targets, routes, hazards, or decisions.",
-      "deliverable": "Readability evidence and task-scoped fixes to existing implemented feedback.",
-      "validation": "Critical events are perceptible and attributable; UI/VFX/audio do not claim mechanics absent from runtime state and do not block gameplay readability.",
-      "required_evidence": "Raw capture with audio, HUD/state event trace, exact source/asset identities.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 83,
-      "priority": 1
-    },
-    {
-      "ordinal": 23,
-      "task_id": "D17-07",
-      "title": "Qualify environment, material, lighting, and world coherence",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D17-06"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
-          "selected_sections": [
-            "D17-07"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-019_QUALIFY_ENVIRONMENT_MATERIAL_LIGHTING_AND_WORLD_COHERENCE.md",
-          "sha256": "2214fd571f41b6fddfa514c8043fb230ebd94dfb8c3ae40d7c13cff2e5c29df7",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Evaluate the canonical slice environment as a playable production space: geometry, scale, materials, lighting, props, collision, navigation, and damage/state coherence.",
-      "deliverable": "Environment-quality evidence and bounded corrections within accepted project visual direction.",
-      "validation": "No acceptance-blocking floating/fused geometry, impossible access, contradictory scale/perspective, unreadable route, material failure, or unexplained world-state artifact remains.",
-      "required_evidence": "Raw traversal/combat captures, map/asset identities, runtime logs.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 84,
-      "priority": 1
-    },
-    {
-      "ordinal": 24,
-      "task_id": "D17-08",
-      "title": "Close AAA vertical-slice evidence package",
-      "task_class": "hard_creation",
-      "lane": "Games",
-      "execution_root": "projects/biella-games",
-      "depends_on": [
-        "D17-07"
-      ],
-      "source_refs": [
-        {
-          "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
-          "selected_sections": [
-            "D17-08"
-          ]
-        },
-        {
-          "path": "docs/future/aaa-challenger-solo-founder/tasks/AAA-SF-020_CLOSE_THE_AAA_VERTICAL_SLICE_EVIDENCE_PACKAGE.md",
-          "sha256": "36b3bf652b3645882b0a4e2621d269bfd80b9de0c1a773e8f6ad4cdee8399078",
-          "selected_sections": [
-            "Objective",
-            "Required deliverable",
-            "Validation contract",
-            "Required evidence"
-          ]
-        }
-      ],
-      "objective": "Package the canonical slice proof without editing raw gameplay into evidence that hides runtime defects.",
-      "deliverable": "Indexed slice bundle containing exact build, scenario, raw full run, selected excerpts, metrics, known limitations, and source identities.",
-      "validation": "A reviewer can trace every claimed visual/gameplay quality point to the exact running build and raw evidence; unresolved defects are disclosed.",
-      "required_evidence": "Bundle digest/index, Git commit/tree, Drive readback.",
-      "resource_capabilities": [
-        "llm.code",
-        "llm.reasoning"
-      ],
-      "external_input_evidence_required": false,
-      "next_action": "Compare the exact current implementation and retained evidence with this objective; reuse satisfied parts and execute only the missing deliverable.",
-      "reuse": "Persistent task session + bounded task capsule + matching source/content digests; reuse prior passing evidence unless materially invalidated.",
-      "persistence": "Commit coherent task-owned implementation and proof locally; controller records exact publication intent and retries GitHub/Drive independently. Never claim deployed/remote-verified until readback.",
-      "quality": "Task-derived build/runtime/browser/negative-control evidence; no substitute screenshots, generated media, mock success, guessed targets or unapproved scope.",
-      "production_ordinal": 85,
-      "priority": 1
     },
     {
       "ordinal": 25,
@@ -1182,7 +1182,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D19-01"
           ]
@@ -1228,7 +1228,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D19-02"
           ]
@@ -1273,7 +1273,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D19-03"
           ]
@@ -1318,7 +1318,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D19-04"
           ]
@@ -1363,7 +1363,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D19-05"
           ]
@@ -1408,7 +1408,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D19-06"
           ]
@@ -1453,7 +1453,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D19-07"
           ]
@@ -1498,7 +1498,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D19-08"
           ]
@@ -1543,7 +1543,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D20-01"
           ]
@@ -1588,7 +1588,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D20-02"
           ]
@@ -1633,7 +1633,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D20-03"
           ]
@@ -1678,7 +1678,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D20-04"
           ]
@@ -1723,7 +1723,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D20-05"
           ]
@@ -1768,7 +1768,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D20-06"
           ]
@@ -1813,7 +1813,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D20-07"
           ]
@@ -1858,7 +1858,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D20-08"
           ]
@@ -1903,7 +1903,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D23-01"
           ]
@@ -1949,7 +1949,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D18-01"
           ]
@@ -1994,7 +1994,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D18-02"
           ]
@@ -2039,7 +2039,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D18-03"
           ]
@@ -2084,7 +2084,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D18-04"
           ]
@@ -2129,7 +2129,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D18-05"
           ]
@@ -2174,7 +2174,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D18-06"
           ]
@@ -2219,7 +2219,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D18-07"
           ]
@@ -2264,7 +2264,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D18-08"
           ]
@@ -2309,7 +2309,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D23-02"
           ]
@@ -2354,7 +2354,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D23-03"
           ]
@@ -2399,7 +2399,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D23-04"
           ]
@@ -4054,7 +4054,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D21-01"
           ]
@@ -4099,7 +4099,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D21-02"
           ]
@@ -4144,7 +4144,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D21-03"
           ]
@@ -4189,7 +4189,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D21-04"
           ]
@@ -4234,7 +4234,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D21-05"
           ]
@@ -4279,7 +4279,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D21-06"
           ]
@@ -4324,7 +4324,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D21-07"
           ]
@@ -4369,7 +4369,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D21-08"
           ]
@@ -4414,7 +4414,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D22-01"
           ]
@@ -4459,7 +4459,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D22-02"
           ]
@@ -4504,7 +4504,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D22-03"
           ]
@@ -4549,7 +4549,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D22-04"
           ]
@@ -4594,7 +4594,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D22-05"
           ]
@@ -4639,7 +4639,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D22-06"
           ]
@@ -4684,7 +4684,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D22-07"
           ]
@@ -4729,7 +4729,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D22-08"
           ]
@@ -4775,7 +4775,7 @@
       "source_refs": [
         {
           "path": "docs/task-program/D15_D24_AAA_CHALLENGER.md",
-          "sha256": "78e6f8cbf228e6ec2e479eab10fec8f9502866bff68e5cdfa37403b5966b0db0",
+          "sha256": "8f6c1053eafcd7e6426576adb24fe1c4474dc9d8d38d35df0ac50a6c39d94071",
           "selected_sections": [
             "D23-05"
           ]

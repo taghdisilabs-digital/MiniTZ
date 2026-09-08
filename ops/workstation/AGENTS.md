@@ -111,3 +111,5 @@ Use `package.installer.debian` (dpkg-deb) and `package.installer.windows` (NSIS/
 
 ## Windows build setup
 For a Windows Unreal build requirement, use `ops/workstation/UNREAL_WIN64.md` and the setup/build PowerShell scripts. Reuse current toolchain evidence; a Win32 compiler probe is not Unreal/game qualification. Missing compatible engine/media/storage remains a scoped Resource gap, never a reason to replay Linux work or mislabel NSIS as a compiler.
+
+VISUAL_PRIORITY: D17 FINAL_VISUAL_LAYER follows D08 before D15/D16; create/fix missing production visuals against owner direction, then qualify. No review-only loop; preserve mechanics and accepted work.

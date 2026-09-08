@@ -36,7 +36,8 @@ def test_game_quality_content_and_delivery_precede_unrelated_website():
 
 def test_no_invented_cross_product_prerequisite_for_game():
     rows = ledger._registry_rows(ROOT)
-    assert rows["D15-01"]["depends_on"] == ["D08-01"]
+    assert rows["D17-01"]["depends_on"] == ["D08-01"]
+    assert rows["D15-01"]["depends_on"] == ["D17-08"]
     assert rows["D19-01"]["depends_on"] == ["D17-08"]
     assert rows["D23-01"]["depends_on"] == ["D20-08"]
     assert "D22-08" in rows["D23-05"]["depends_on"]
