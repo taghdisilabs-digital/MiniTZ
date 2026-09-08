@@ -16,28 +16,25 @@ def test_current_state_has_one_repo_and_preserves_deferred_engine_frontier():
     assert "/root/biella/repos/biella-games" not in text
 
 
-def test_consolidation_is_closed_and_games_frontier_is_current():
+def test_games_frontier_is_current_and_continuity_is_single_live_projection():
     state = STATE.read_text(encoding="utf-8")
     task = TASK.read_text(encoding="utf-8")
     production = PRODUCTION.read_text(encoding="utf-8")
     current_match = re.search(r"^Current task: `([^`]+)`$", production, re.MULTILINE)
-    progress_match = re.search(r"^Progress: `(\d+)/50` Demo tasks complete$", production, re.MULTILINE)
-    assert current_match and progress_match
+    assert current_match
     current_task = current_match.group(1)
-    completed = int(progress_match.group(1))
-    assert "consolidation_state: COMPLETE_VERIFIED" in state
-    assert f"id: {current_task}" in state
-    assert f"id: {current_task}" in task
-    assert "BIELLA-CONSOLIDATION-2026-09-05" not in task
-    assert f"completed_demo_tasks: {completed}" in state
-    assert f"queued_successor: {current_task}" in state
-    assert "runner: READY" in state
+    completed = sum(1 for line in production.splitlines() if line.startswith("- [x]") and " | " in line)
+    assert f"  id: {current_task}" in state
+    assert f"  id: {current_task}" in task
+    assert f"  current_task: {current_task}" in state
+    assert f"  completed_tasks: {completed}" in state
     assert "feeder:" not in state
+    assert "feeder:" not in task
     assert "execution_started:" not in state
     assert "execution_started:" not in task
-    assert "navigation_state: VERIFIED" in state
-    assert production.count("- [x] D01-") == completed
-    assert "latest_preservation_commit: f7e74205988cb48946e62efeffe5c5330ec6437b" in state
+    assert "REALTIME_CANONICAL_UPGRADE" in state
+    assert "D03-01 | hard_creation | Production rendering, animation, VFX, and audio quality | COMPLETE" in production
+    assert "D04-01 | hard_creation | Data-driven content system multiplication | PENDING" in production
 
 
 def test_active_task_is_compact_task_packet_not_historical_ledger():

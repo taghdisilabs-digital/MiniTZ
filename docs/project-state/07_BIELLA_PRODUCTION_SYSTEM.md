@@ -93,3 +93,11 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 - GitHub/Drive publication uses canonical destinations and remote readback where required.
 - Publication failure preserves local work and remains `CONTINUE`; it never fabricates completion.
 
+## Nonblocking acceptance and execution quality
+- `OWNER_ACCEPTANCE_FAST_PATH`: Mahdi's explicit acceptance of the current task is applied immediately through the canonical completion transition; no additional model turn, reviewer, approval hook, or task-class delay is permitted. The transition persists Git/Drive continuity and advances to the next canonical task automatically.
+- `TASK_CLASS_IS_NOT_A_BLOCKER`: `hard`, `hard_creation`, `deep_memory`, and other task classes describe complexity only. They never create a wait state, extra approval requirement, or permission to expand acceptance scope.
+- `NO_MONITOR_ONLY_STALL`: a model may wait on an already-running productive external process, but it must not spend repeated reasoning/tool turns merely polling or narrating progress. Long deterministic work is treated as a Resource wait; the model must not create polling/narration loops while that Resource is already productive.
+- `NO_EXTERNAL_PROGRESS_HOOK_DEPENDENCY`: task completion/advancement is controller-native. Browser state, chat lifecycle, git hooks, website events, and external observer callbacks are never required for liveness or progression.
+- `CACHE_EFFICIENCY_QUALITY_FIRST`: reuse the persistent task session, compact task memory, verified outputs, prompt-cache-friendly stable context and cached local-assist results. Prefer deterministic/local/specialized/free-fit Resources before general-model work when they preserve correctness. Never pad prompts, probe quota, or reduce reasoning/acceptance quality merely to save tokens.
+- Authoritative synthesis and closure use the highest-quality eligible strong route and its highest supported reasoning level under current owner policy; bounded/local fallbacks cannot lower acceptance or self-promote to task authority.
+- `PROJECT_DATA_LEAKAGE_FORBIDDEN`: Engine/Project/customer namespaces remain isolated; token/cache optimization never broadens context across Project boundaries or copies credentials/customer source into shared memory.

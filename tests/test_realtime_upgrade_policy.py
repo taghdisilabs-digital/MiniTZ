@@ -38,21 +38,30 @@ def test_website_live_facts_are_deterministic_projection_not_permanent_agent():
         assert "/live-api/events" in text
 
 
-def test_03_04_are_current_runtime_projections_without_superseded_control_files():
-    state = (ROOT / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_text(encoding="utf-8")
-    task = (ROOT / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").read_text(encoding="utf-8")
-    assert "state: RUNNING" in state
-    assert "controller_service_state: ACTIVE" in state
-    assert "runner_process_state: RUNNING" in state
-    assert "active_model: gpt-reserve" in state
-    assert "active_reasoning: max" in state
-    assert "status: RUNNING" in task
-    assert "runner: ACTIVE" in task
-    assert "model: gpt-reserve" in task
-    assert "reasoning: max" in task
+def test_03_04_are_current_task_projections_without_superseded_control_files():
+    import re
+    state_text = (ROOT / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_text(encoding="utf-8")
+    task_text = (ROOT / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").read_text(encoding="utf-8")
+    production = (ROOT / "projects/biella-games/docs/PRODUCTION.md").read_text(encoding="utf-8")
+    current = re.search(r"^Current task: `([^`]+)`$", production, re.MULTILINE)
+    assert current
+    task_id = current.group(1)
+    assert f"  id: {task_id}" in state_text
+    assert f"  id: {task_id}" in task_text
+    assert "D03-01\n  project:" not in state_text if task_id != "D03-01" else True
     for stale in (
-        "RESUME_OWNER_REQUESTED", "READY_TO_START", "owner-sleep-order.json",
+        "RESUME_OWNER_REQUESTED", "owner-sleep-order.json",
         "owner-resume-order.json", "session_derivative_recovery_backup",
     ):
-        assert stale not in state
-        assert stale not in task
+        assert stale not in state_text
+        assert stale not in task_text
+
+
+def test_production_contract_requires_nonblocking_autoadvance_quality_and_token_efficiency():
+    text = (ROOT / "docs/project-state/07_BIELLA_PRODUCTION_SYSTEM.md").read_text(encoding="utf-8")
+    for token in (
+        "OWNER_ACCEPTANCE_FAST_PATH", "TASK_CLASS_IS_NOT_A_BLOCKER",
+        "NO_MONITOR_ONLY_STALL", "NO_EXTERNAL_PROGRESS_HOOK_DEPENDENCY",
+        "CACHE_EFFICIENCY_QUALITY_FIRST", "PROJECT_DATA_LEAKAGE_FORBIDDEN",
+    ):
+        assert token in text

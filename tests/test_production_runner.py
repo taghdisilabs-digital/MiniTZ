@@ -1036,3 +1036,43 @@ def test_customer_pause_request_exits_at_safe_boundary_without_model_call(tmp_pa
     ack = json.loads((runtime_root / "customer-pause-ack.json").read_text())
     assert ack["task_id"] == "D01-30"
     assert ack["child_pid"] is None
+
+
+def test_strong_task_prompt_forbids_hard_class_stall_and_scope_growth(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    production = state.load_project_production(project)
+    task = state.find_task(production, "D01-030")
+    capsule = tmp_path / "capsule.json"; capsule.write_text("{}")
+    monkeypatch.setattr(runner.packets, "compile_task_packet", lambda *_args: "BASE")
+    prompt = runner._task_prompt(repo, production, task, runner.initial_runtime(), capsule)
+    assert "TASK_CLASS_IS_NOT_A_BLOCKER" in prompt
+    assert "DO_NOT_EXPAND_ACCEPTANCE_SCOPE" in prompt
+    assert "CONTINUE_REQUIRES_EXACT_UNMET_CRITERION" in prompt
+    assert "NO_MONITOR_ONLY_STALL" in prompt
+
+
+def test_owner_accept_current_task_closes_and_advances_without_model_turn(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path); runtime_root = tmp_path / "runtime"
+    runtime_root.mkdir()
+    telemetry = runner.initial_runtime(); telemetry.update({"status":"RUNNING","task_id":"D01-30","task_session_id":"sess","session_task_id":"D01-30"})
+    runner.save_runtime(runtime_root / "runtime.json", telemetry)
+    persisted=[]
+    monkeypatch.setattr(runner.evidence, "persist_continuity", lambda _repo, task_id, **_kw: persisted.append(task_id) or {"commit":"c","tree":"t"})
+    result = runner.accept_current_task(repo, project, runtime_root, "D01-30", ["OWNER_ACCEPTED: verified pass"])
+    production = state.load_project_production(project)
+    assert state.find_task(production, "D01-30").status == "COMPLETE"
+    assert result["accepted_task"] == "D01-30"
+    assert result["next_task"] is None
+    after = runner.load_runtime(runtime_root / "runtime.json")
+    assert after["task_session_id"] is None
+    assert after["session_task_id"] is None
+    assert after["status"] == "COMPLETE"
+    assert persisted == ["D01-30"]
+
+
+def test_parser_exposes_owner_accept_fast_path():
+    args = runner._parser().parse_args(["accept", "--task", "D04-01", "--evidence", "OWNER_ACCEPTED: pass"])
+    assert args.command == "accept"
+    assert args.task == "D04-01"
+    assert args.evidence == ["OWNER_ACCEPTED: pass"]
+    assert args.no_resume is False

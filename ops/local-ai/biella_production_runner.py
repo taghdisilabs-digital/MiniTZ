@@ -12,7 +12,7 @@ import sys
 import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Callable, Mapping
+from typing import Any, Callable, Mapping, Sequence
 
 import biella_codex_routing as routing
 import biella_memory_compactor as memory_compactor
@@ -297,6 +297,15 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
             "This local-Qwen output is non-authoritative bounded assistance. Reuse useful analysis, validate it against current source/evidence, "
             "and do not repeat its work with Codex unless validation or missing detail requires it.\n"
         )
+    prompt += (
+        "\nEXECUTION_INVARIANTS:\n"
+        "- TASK_CLASS_IS_NOT_A_BLOCKER: hard/hard_creation/deep_memory describe complexity only; they never justify waiting, extra approval, or scope expansion.\n"
+        "- DO_NOT_EXPAND_ACCEPTANCE_SCOPE: use only the exact current Task/Project acceptance contract and latest owner direction; do not invent new completion gates.\n"
+        "- CONTINUE_REQUIRES_EXACT_UNMET_CRITERION: return CONTINUE only when a named acceptance criterion is still unmet, with the smallest executable next action.\n"
+        "- NO_MONITOR_ONLY_STALL: do not spend turns merely watching or restating progress unless an already-running external process must finish; when it exits, classify immediately.\n"
+        "- COMPLETE_IMMEDIATELY_WHEN_SATISFIED: if the exact acceptance contract is satisfied, return COMPLETE in this turn and let the controller persist and advance automatically.\n"
+        "- REUSE_VERIFIED_WORK: never redo passed work without material invalidation. Prefer cached/verified context and deterministic/local resources when they reduce cost without reducing correctness.\n"
+    )
     return prompt
 
 
@@ -1203,11 +1212,48 @@ def start_production(repo_root: Path, project_root: Path, runtime_root: Path) ->
     print(json.dumps({"unit": UNIT_NAME, "status": "STARTED"}, sort_keys=True)); return 0
 
 
+def accept_current_task(repo_root: Path, project_root: Path, runtime_root: Path, task_id: str, owner_evidence: Sequence[str]) -> dict[str, Any]:
+    repo_root = Path(repo_root); project_root = Path(project_root); runtime_root = Path(runtime_root)
+    evidence_items = tuple(str(item).strip() for item in owner_evidence if str(item).strip())
+    if not evidence_items:
+        raise ValueError("owner acceptance requires evidence")
+    production = state.load_project_production(project_root)
+    current = state.next_task(production)
+    canonical = state.task_ids.canonical_task_id(task_id)
+    if current is None or current.id != canonical:
+        raise ValueError(f"owner acceptance task mismatch: current={current.id if current else 'NONE'} requested={canonical}")
+    dirty = _project_dirty_paths(repo_root, project_root)
+    if dirty:
+        raise RuntimeError("owner acceptance requires committed or deliberately discarded current-task work: " + ", ".join(dirty))
+    state.mark_task_complete(repo_root, project_root, canonical, "COMPLETE", evidence_items)
+    updated = state.load_project_production(project_root)
+    successor = state.next_task(updated)
+    runtime_path = runtime_root / "runtime.json"
+    telemetry = load_runtime(runtime_path)
+    _clear_task_session(telemetry)
+    telemetry.update({
+        "status": "READY_TO_START" if successor else "COMPLETE",
+        "task_id": successor.id if successor else None,
+        "pid": None, "child_pid": None, "active_model": None, "active_reasoning": None,
+        "last_result": {
+            "task_id": canonical, "status": "COMPLETE", "summary": "Owner-accepted task completion applied immediately.",
+            "evidence": list(evidence_items),
+        },
+    })
+    _beat(runtime_path, telemetry)
+    identity = evidence.persist_continuity(repo_root, canonical)
+    return {"accepted_task": canonical, "next_task": successor.id if successor else None, "continuity": identity}
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="biella-codex production")
     sub = parser.add_subparsers(dest="command", required=True)
     for name in ("sync", "run", "start", "status"):
         sub.add_parser(name)
+    accept = sub.add_parser("accept")
+    accept.add_argument("--task", required=True)
+    accept.add_argument("--evidence", action="append", required=True)
+    accept.add_argument("--no-resume", action="store_true")
     return parser
 
 
@@ -1224,6 +1270,19 @@ def main(argv=None) -> int:
     if args.command == "sync":
         state.resolve_current_task(repo_root, project_root)
         print(json.dumps(production_status(repo_root, project_root, runtime_root / "runtime.json"), sort_keys=True)); return 0
+    if args.command == "accept":
+        if service_active():
+            stopped = subprocess.run(["systemctl", "stop", f"{UNIT_NAME}.service"], text=True, capture_output=True, check=False)
+            if stopped.returncode != 0:
+                print(stopped.stderr or stopped.stdout, file=sys.stderr, end="")
+                return stopped.returncode
+        result = accept_current_task(repo_root, project_root, runtime_root, args.task, args.evidence)
+        if result.get("next_task") and not args.no_resume:
+            rc = start_production(repo_root, project_root, runtime_root)
+            if rc != 0:
+                return rc
+        print(json.dumps(result, sort_keys=True))
+        return 0
     raise AssertionError(args.command)
 
 
