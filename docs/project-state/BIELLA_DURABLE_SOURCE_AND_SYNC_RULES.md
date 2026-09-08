@@ -28,7 +28,7 @@ Rules:
 
 1. A prior chat message, remembered value, earlier tool result, old Git commit, old Drive revision, or prior completion report is evidence of **past state** only until live currentness is established when the active task depends on it.
 2. Read only the smallest relevant GitHub and/or Drive sources needed by the task; do not perform broad re-audits of unrelated stable material.
-3. Every durable numbered-task transition is expected to be committed to GitHub and reflected in required Drive continuity, but that expectation never substitutes for live readback.
+3. Local state/ledger and GitHub publication remain per-task. Routine Drive publication is every five additional completed tasks in parts capped at 3,800,000,000 bytes; recorded batching never means rollback or false synchronization.
 4. If GitHub and Drive disagree, resolve by current project authority, exact revision/identity, and task relevance. Never synthesize conflicting claims.
 5. If a required current fact cannot be observed, record `UNKNOWN` rather than infer it.
 6. Chat/project history remains valuable for continuity and discovery, but current observed durable sources outrank remembered history for mutable facts.
@@ -37,13 +37,13 @@ Rules:
 
 ```text
 local implementation
-→ focused verification
-→ regression verification
-→ commit
-→ push GitHub
-→ remote commit/tree readback
-→ update Drive current-state/execution ledger
-→ accepted durable state
+→ task-derived validation
+→ local source/proof and continuity commit
+→ accepted task closure and next task
+
+Independent publication:
+GitHub per-task -> exact readback
+Drive every five additional completions -> exact package/file readback
 ```
 
 A local commit is not proof of off-machine replication. Local acceptance and remote publication are tracked separately; the publication cursor retries the latter without re-running the former.
@@ -77,11 +77,11 @@ Spot or otherwise reclaimable compute may be used only for disposable/rebuildabl
 
 It must not be the only location of canonical Biella source or accepted execution state.
 
-## Current P0-01 handling
+## Historical P0-01 provenance — not execution authority
 
 The previously observed local P0-01 SHA `b7cc3db0a9feb34d72764261d32163d2b05ac123` is retained as historical evidence only because its exact Git objects are not present in the connected GitHub history and the original Spot workspace is unavailable.
 
-Do not fabricate that source from completion reports. Re-establish P0-01 from the exact canonical contract and current durable source, then push and verify it normally.
+This missing historical object is not an instruction to reopen P0-01 or replace later accepted implementation. Current source and the canonical task ledger determine continuation. Preserve the historical identity for provenance only.
 
 ## Hardened execution law — 2026-09-05
 

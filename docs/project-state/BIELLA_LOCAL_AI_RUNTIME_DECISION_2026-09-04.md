@@ -1,6 +1,8 @@
 # Biella local-AI runtime decision — 2026-09-04
 
-Status: `IMPLEMENTED_IN_REPOSITORY / RUNTIME_VALIDATION_PENDING`
+Status: `HISTORICAL_EVIDENCE_ONLY`
+
+Retained at this path because the manifest and recovery references depend on it. The September 4 behavior below is historical, not current startup/routing policy. Current authority is `03_BIELLA_CURRENT_STATE.md`, `04_BIELLA_ACTIVE_TASK.md`, `07_BIELLA_PRODUCTION_SYSTEM.md`, and observed source/runtime. Do not install old startup gates or reopen tasks from this record.
 
 This is a bounded current-state decision for the Biella Engine execution
 boundary. It applies across the three connected lanes — Biella Website, Biella

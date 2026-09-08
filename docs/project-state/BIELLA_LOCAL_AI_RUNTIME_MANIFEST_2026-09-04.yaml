@@ -1,6 +1,8 @@
 manifest: BIELLA_LOCAL_AI_RUNTIME_2026-09-04
-status: IMPLEMENTED_IN_REPOSITORY_RUNTIME_VALIDATION_PENDING
-authority: current_project_state_only
+status: HISTORICAL_EVIDENCE_ONLY
+authority: NONE_HISTORICAL_REFERENCE
+current_runtime_contract: docs/project-state/07_BIELLA_PRODUCTION_SYSTEM.md
+retained_dependency: tests/local_ai_runtime_contract_test.sh
 effective_date: 2026-09-04
 project_lanes:
   - WEBSITE

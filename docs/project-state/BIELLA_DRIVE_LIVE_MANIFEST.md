@@ -62,7 +62,7 @@ Old date-scoped state registers are isolated at:
 
 - `90_ARCHIVE_STATE_REGISTERS/` — `1ial0B97YusH413_sYWRnHIKpYMFDF37i`
 
-Current observed numbered boundary remains `35 / 51` durable prompts complete; active prompt `P3-05` / global `36`.
+This index does not store a current task or completion count. Read live `03`, `04`, `projects/biella-games/docs/PRODUCTION.md`, and runtime; historical prompt identities below never dispatch work.
 
 ## 30_EXECUTION
 
@@ -99,11 +99,11 @@ Direct prompt-program structure:
 
 Numbered total: `51`.
 
-Current active prompt:
+Historical prompt lookup (not an active boundary):
 
 - `P3-05` / global `36` — `3D Modeling and Scene Production Pack`
 - Drive ID: `1TIG3GggwGdu3ma1e5MeeIontVUO4pmSP4aggJKps0Kg`
-- Successor: `P3-06`; not authorized before P3-05 durable close.
+- Retained for references and provenance only. It cannot reopen completed tasks or replace the current production order.
 
 Auxiliary DR research packs were moved from the prompt-program root into `90_RESEARCH_REFERENCE/` without changing their Drive IDs.
 

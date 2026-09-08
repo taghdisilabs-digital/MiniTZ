@@ -48,9 +48,9 @@ games:
   task_boundary: D07-01_PENDING
 resources:
   strong_route_policy: HIGHEST_QUALITY_ELIGIBLE
-  preferred_route: gpt-reserve
-  preferred_reasoning: max
-  route_outage: HIGHEST_SUPPORTED_ELIGIBLE_STRONG_ALTERNATIVE
+  model_selection: TASK_CLASS_ROUTER
+  routing_source: ops/local-ai/biella_codex_routing.py
+  route_outage: ELIGIBLE_CONFIGURED_FALLBACK
   cache_efficiency: ACTIVE_QUALITY_FIRST
   local_qwen: NON_AUTHORITATIVE_ON_DEMAND
   project_data_leakage: FORBIDDEN
