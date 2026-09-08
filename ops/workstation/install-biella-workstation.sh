@@ -9,6 +9,8 @@ readonly CHECK_LINK="/usr/local/bin/biella-provider-check"
 
 ollama_enablement="$(systemctl is-enabled biella-ollama.service 2>/dev/null || true)"
 qwen_enablement="$(systemctl is-enabled biella-qwen-residency.service 2>/dev/null || true)"
+ollama_active="$(systemctl is-active biella-ollama.service 2>/dev/null || true)"
+qwen_active="$(systemctl is-active biella-qwen-residency.service 2>/dev/null || true)"
 
 [[ "$EUID" -eq 0 ]] || { printf 'Run workstation installer as root.\n' >&2; exit 1; }
 
@@ -56,6 +58,14 @@ if command -v systemctl >/dev/null 2>&1; then
     systemctl enable biella-qwen-residency.service >/dev/null
   else
     systemctl disable biella-qwen-residency.service >/dev/null
+  fi
+  # Installation must not turn an already-running optional resource into downtime.
+  # Restore only pre-existing active state; never start a previously inactive service.
+  if [[ "$ollama_active" == "active" ]]; then
+    systemctl start biella-ollama.service
+  fi
+  if [[ "$qwen_active" == "active" ]]; then
+    systemctl start biella-qwen-residency.service
   fi
 fi
 

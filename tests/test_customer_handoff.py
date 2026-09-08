@@ -194,3 +194,13 @@ def test_resume_refuses_when_checkpointed_task_memory_changes(tmp_path: Path, mo
     monkeypatch.setattr(manager, "verify_source_alignment", lambda: None)
     with pytest.raises(handoff.HandoffError, match="runtime continuity"):
         manager.resume()
+
+
+def test_workstation_installer_preserves_existing_ai_service_active_state():
+    installer = (ROOT / "ops/workstation/install-biella-workstation.sh").read_text(encoding="utf-8")
+    assert "ollama_active" in installer
+    assert "qwen_active" in installer
+    assert 'if [[ "$ollama_active" == "active" ]]' in installer
+    assert 'systemctl start biella-ollama.service' in installer
+    assert 'if [[ "$qwen_active" == "active" ]]' in installer
+    assert 'systemctl start biella-qwen-residency.service' in installer

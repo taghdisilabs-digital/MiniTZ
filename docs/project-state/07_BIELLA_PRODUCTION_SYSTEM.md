@@ -115,6 +115,7 @@ volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
 - `CLEAN_TASK_BOUNDARY`: task-scoped dirty bytes are allowed only while a task is actively being developed. A `COMPLETE`/`COMPLETE_ALREADY` result with uncommitted non-continuity paths is deterministically normalized to `CONTINUE` before any completion event/state transition. Canonical implementation/evidence must be committed; rebuildable task-local logs/temp outputs that are not required proof are deliberately discarded.
 - Completion is controller-native and child-free: after a clean accepted task result, update canonical task state, refresh compact memory, publish/read back required GitHub/Drive continuity, then immediately select the next unfinished task. No reviewer, inactivity timer, Website callback, browser, chat, Git hook, Qwen readiness check, or task-class label participates in advancement.
 - Cache and local Qwen are accelerators only. Compact memory is rebuilt from current authority/evidence and may reduce rereads; Qwen may perform bounded assistance when useful. Cache/Qwen failure or non-use never creates a wait state and never lowers strong-route acceptance quality.
+- Workstation/resource installer refreshes preserve any already-running Ollama/Qwen state as well as enablement. Installation may not silently turn an active optional Resource into downtime; it also does not auto-start a Resource that was intentionally inactive before the refresh.
 
 ## HOW BIELLA WILL NOT WORK
 
