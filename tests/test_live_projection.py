@@ -134,12 +134,13 @@ class LiveProjectionTest(unittest.TestCase):
         }
         payload = self.live.refresh(force_system=True)
         production = payload["production"]
-        self.assertEqual(production["attempt"], 306)
-        self.assertEqual(production["continuity"]["session_state"], "PERSISTENT")
+        self.assertEqual(production["execution_mode"], "AI_ACCELERATED_BUILD")
+        self.assertEqual(production["continuity_status"], "PRESERVED")
         self.assertEqual(production["efficiency"]["state"], "ACTIVE")
         self.assertEqual(production["efficiency"]["source_ref_count"], 2)
         self.assertEqual(production["efficiency"]["capability_count"], 1)
         self.assertEqual(payload["system"]["local_ai"]["state"], "RESIDENT")
+        self.assertNotIn("model", payload["system"]["local_ai"])
 
     def test_aaa_task_evidence_can_drive_public_stage(self):
         aaa = self.game / "Build" / "AAA"
@@ -159,6 +160,55 @@ class LiveProjectionTest(unittest.TestCase):
             "games-aaa", "D17-02/raw/route-720-02/service-approach.png")
         self.assertEqual(lane, "Games")
         self.assertEqual(resolved, frame)
+
+    def test_latest_unreal_capture_preempts_older_preferred_evidence(self):
+        aaa = self.game / "Build" / "AAA"
+        latest = aaa / "D17-02" / "raw" / "live-1080" / "latest-frame.png"
+        latest.parent.mkdir(parents=True)
+        latest.write_bytes(b"\x89PNG\r\nlatest-unreal-frame")
+        os.utime(self.capture, (1000, 1000))
+        os.utime(latest, (3000, 3000))
+        assets = AssetCatalog({
+            "Games": [
+                AssetRoot("games-presentation", self.presentation, "TASK_EVIDENCE"),
+                AssetRoot("games-aaa", aaa, "TASK_EVIDENCE"),
+            ],
+            "Website": [],
+        })
+        live = LiveProjection(repo=self.repo, runtime_root=self.runtime, assets=assets)
+        stage = live._stage({"capture": str(self.capture)})
+        self.assertEqual(stage["mode"], "LATEST_UNREAL_CAPTURE_FIRST")
+        self.assertEqual(stage["primary"]["name"], "latest-frame.png")
+        self.assertEqual(stage["primary"]["stream_role"], "UNREAL_LIVE_FRAME")
+        self.assertIn("root_id=games-aaa", stage["primary"]["url"])
+
+    def test_public_snapshot_redacts_executor_and_model_identity(self):
+        (self.game / "docs").mkdir(parents=True, exist_ok=True)
+        (self.game / "docs" / "PRODUCTION.md").write_text(
+            "Current section: `live`\nCurrent task: `D17-02`\n- [ ] D17-02 | hard | live | PENDING | evidence\n"
+        )
+        (self.runtime / "runtime.json").write_text(json.dumps({
+            "status": "RUNNING", "task_id": "D17-02", "attempt": 356,
+            "task_session_id": "secret-session", "session_task_id": "D17-02",
+            "active_model": "internal-model-name", "active_reasoning": "ultra",
+            "heartbeat_at": "2026-09-09T19:00:00+00:00",
+        }))
+        (self.runtime / "task-memory" / "D17-02.json").write_text(json.dumps({"title": "World build"}))
+        self.live._system_activity = lambda: {
+            "gpu": {}, "host": {},
+            "local_ai": {"state": "RESIDENT", "model": "private-local-model", "context_length": 16384, "vram_mib": 12000},
+        }
+        payload = self.live.refresh(force_system=True)
+        production = payload["production"]
+        self.assertNotIn("model", production)
+        self.assertNotIn("reasoning", production)
+        self.assertNotIn("attempt", production)
+        self.assertNotIn("continuity", production)
+        self.assertEqual(production["execution_mode"], "AI_ACCELERATED_BUILD")
+        local_ai = payload["system"]["local_ai"]
+        self.assertEqual(local_ai["state"], "RESIDENT")
+        self.assertNotIn("model", local_ai)
+        self.assertNotIn("context_length", local_ai)
 
     def test_public_asset_resolution_is_preview_only_and_root_bounded(self):
         lane, path = self.live.resolve_public_asset("games-presentation", "current/captures/frame.png")

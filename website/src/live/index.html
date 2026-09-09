@@ -4,17 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <title>Biella Live — Production Theatre</title>
-  <meta name="description" content="Watch Biella build in real time: current task, model, tools, validation, runtime output and system activity directly from the production VPS.">
+  <meta name="theme-color" content="#06070b">
+  <title>MiniTZ Live — Unreal Capability Stream</title>
+  <meta name="description" content="MiniTZ live build theatre: the newest Unreal frame, capability telemetry, validation state and production evidence from TaghdisiLabs.">
   <link rel="stylesheet" href="/live/styles.css">
   <script type="module" src="/live/app.js"></script>
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
-  <div class="ambient ambient-a" aria-hidden="true"></div>
-  <div class="ambient ambient-b" aria-hidden="true"></div>
+  <div class="beam beam-a" aria-hidden="true"></div>
+  <div class="beam beam-b" aria-hidden="true"></div>
+
   <header class="topbar">
-    <a class="brand" href="/" aria-label="Biella home"><strong>BIELLA</strong><span>LIVE PRODUCTION</span></a>
+    <a class="brand" href="https://taghdisilabs.digital" aria-label="TaghdisiLabs home">
+      <span class="brand-mark">M</span>
+      <span><strong>MINITZ</strong><small>TAGHDISI LABS // LIVE BUILD SYSTEM</small></span>
+    </a>
     <div class="top-status">
       <span class="connection-dot" data-connection-dot></span>
       <strong data-connection>CONNECTING</strong>
@@ -24,91 +29,118 @@
   </header>
 
   <main>
-    <section class="theatre" aria-labelledby="task-title">
+    <section class="hero-grid" aria-labelledby="stream-title">
       <div class="visual-shell">
         <div class="visual-grid" aria-hidden="true"></div>
         <div class="background-stack" data-background-stack aria-hidden="true"></div>
         <div class="stage" data-stage>
           <div class="stage-empty">
-            <span class="stage-mark">B</span>
-            <p>Resolving current production output…</p>
+            <span class="stage-mark">M</span>
+            <strong>UNREAL FEED INITIALIZING</strong>
+            <p>Waiting for the newest verified capture.</p>
           </div>
+        </div>
+        <div class="stage-hud stage-hud-top">
+          <span class="hud-chip"><i></i> UNREAL LIVE FRAME</span>
+          <span class="hud-chip muted" data-stage-source>LIVE OUTPUT</span>
         </div>
         <div class="stage-overlay">
           <div>
-            <span class="micro">CURRENT OUTPUT</span>
-            <strong data-stage-name>WAITING FOR VPS SNAPSHOT</strong>
+            <span class="micro">LATEST GENERATED FRAME</span>
+            <strong data-stage-name>WAITING FOR CAPTURE</strong>
           </div>
-          <span class="source-chip" data-stage-source>LIVE SOURCE</span>
+          <div class="frame-status"><span data-stream-status>SYNCING</span><b>LIVE</b></div>
         </div>
         <div class="scanline" aria-hidden="true"></div>
       </div>
 
-      <aside class="telemetry">
+      <aside class="mission-panel">
         <div class="state-row">
           <span class="state-pill" data-production-state>CONNECTING</span>
-          <span class="task-id" data-task-id>—</span>
+          <span class="task-id" data-task-id>BUILD STATE</span>
         </div>
-        <p class="micro">CURRENT TASK</p>
-        <h1 id="task-title" data-task-title>Loading production state</h1>
-        <p class="task-summary" data-task-summary>Reading the VPS controller directly.</p>
+        <p class="micro">CURRENT WORLD-BUILD OBJECTIVE</p>
+        <h1 id="stream-title" data-task-title>Resolving MiniTZ build state</h1>
+        <p class="task-summary" data-task-summary>Reading the public evidence projection.</p>
 
         <div class="operation-block">
-          <span class="micro">CURRENT OPERATION</span>
-          <strong data-operation>Waiting for event stream</strong>
-          <span class="operation-meta" data-operation-meta>—</span>
+          <span class="micro">NOW EXECUTING</span>
+          <strong data-operation>Waiting for build event</strong>
+          <span class="operation-meta" data-operation-meta>PUBLIC BUILD FEED</span>
         </div>
 
         <div class="progress-block">
-          <div class="progress-head"><span>PROGRAM PROGRESS</span><strong data-progress-label>—</strong></div>
+          <div class="progress-head"><span>PRODUCTION PROGRESS</span><strong data-progress-label>—</strong></div>
           <div class="progress-track"><span data-progress-bar></span></div>
         </div>
 
-        <dl class="stats">
-          <div><dt>MODEL</dt><dd data-model>—</dd></div>
-          <div><dt>REASONING</dt><dd data-reasoning>—</dd></div>
-          <div><dt>ATTEMPT</dt><dd data-attempt>—</dd></div>
-          <div><dt>SESSION</dt><dd data-session-state>—</dd></div>
-          <div><dt>HEARTBEAT</dt><dd data-heartbeat>—</dd></div>
-          <div><dt>TASK ELAPSED</dt><dd data-elapsed>—</dd></div>
-          <div><dt>CURRENT COMMIT</dt><dd data-commit>—</dd></div>
-          <div><dt>VALIDATION</dt><dd data-validation>—</dd></div>
-        </dl>
+        <div class="mission-stats">
+          <div><span>CONTINUITY</span><strong data-continuity>PRESERVING</strong></div>
+          <div><span>EXECUTION</span><strong data-execution-mode>AI ACCELERATED</strong></div>
+          <div><span>VALIDATION</span><strong data-validation>WAITING</strong></div>
+          <div><span>HEARTBEAT</span><strong data-heartbeat>—</strong></div>
+          <div><span>BUILD ELAPSED</span><strong data-elapsed>—</strong></div>
+          <div><span>SOURCE</span><strong data-commit>—</strong></div>
+        </div>
       </aside>
     </section>
 
-    <section class="system-strip" aria-label="Live production resources">
-      <div class="system-cell"><span>GPU</span><strong data-gpu-name>—</strong><small data-gpu-load>—</small></div>
-      <div class="meter-cell"><span>GPU ACTIVITY</span><div class="meter"><i data-gpu-meter></i></div><strong data-gpu-percent>—</strong></div>
-      <div class="meter-cell"><span>VRAM</span><div class="meter"><i data-vram-meter></i></div><strong data-vram>—</strong></div>
-      <div class="system-cell"><span>HOST LOAD</span><strong data-host-load>—</strong><small data-host-ram>—</small></div>
-      <div class="system-cell"><span>LOCAL AI</span><strong data-local-ai>—</strong><small data-local-ai-meta>—</small></div>
-      <div class="system-cell"><span>TOKEN SAVER</span><strong data-token-saver>—</strong><small data-token-saver-meta>—</small></div>
+    <section class="telemetry-grid" aria-label="MiniTZ capability telemetry">
+      <article class="metric-card gpu-card">
+        <div class="metric-head"><span>GPU COMPUTE</span><strong data-gpu-percent>—</strong></div>
+        <canvas data-gpu-chart width="480" height="128" aria-label="GPU activity history"></canvas>
+        <div class="metric-foot"><span data-gpu-name>GPU</span><small data-gpu-load>Waiting for telemetry</small></div>
+      </article>
+      <article class="metric-card">
+        <div class="metric-head"><span>VRAM PIPELINE</span><strong data-vram>—</strong></div>
+        <canvas data-vram-chart width="480" height="128" aria-label="VRAM history"></canvas>
+        <div class="metric-foot"><span>LIVE GRAPH</span><small>Rolling render + AI allocation</small></div>
+      </article>
+      <article class="metric-card compact-metrics">
+        <div><span>HOST LOAD</span><strong data-host-load>—</strong><small data-host-ram>—</small></div>
+        <div><span>LOCAL AI ACCELERATOR</span><strong data-local-ai>OFFLINE</strong><small data-local-ai-meta>Private implementation hidden</small></div>
+        <div><span>CONTEXT CACHE</span><strong data-token-saver>—</strong><small data-token-saver-meta>—</small></div>
+      </article>
     </section>
 
-    <section class="live-grid">
-      <div class="feed-panel">
+    <section class="capability-section">
+      <div class="section-head">
+        <div><p class="micro">CAPABILITY DECK</p><h2>What this system is doing, live.</h2></div>
+        <span class="live-badge">EVIDENCE BACKED</span>
+      </div>
+      <div class="capability-grid">
+        <article><span>01</span><h3>Unreal world production</h3><p>Automated build, render and capture loops turn authored game state into visible proof.</p><strong data-capability-stream>STREAM READY</strong></article>
+        <article><span>02</span><h3>AI-accelerated execution</h3><p>Local and cloud compute are routed as resources while one build authority preserves task truth.</p><strong data-capability-local>RESOURCE STATUS</strong></article>
+        <article><span>03</span><h3>Persistent continuity</h3><p>Task state, source identity and owned-file integrity survive pauses, restarts and long production runs.</p><strong data-capability-continuity>CONTINUITY</strong></article>
+        <article><span>04</span><h3>Automated validation</h3><p>Build outputs are measured and verified before capability claims are promoted.</p><strong data-capability-validation>VALIDATION</strong></article>
+        <article><span>05</span><h3>Evidence memory</h3><p>Reusable context is compacted without replacing raw evidence or source provenance.</p><strong data-capability-cache>CACHE</strong></article>
+        <article><span>06</span><h3>Live visual publishing</h3><p>The newest eligible Unreal frame becomes the public stage automatically as production advances.</p><strong>AUTO PUBLISH</strong></article>
+      </div>
+    </section>
+
+    <section class="lower-grid">
+      <div class="console-panel">
         <div class="section-head">
-          <div><p class="micro">PRODUCTION FEED</p><h2>Biella is building</h2></div>
-          <span class="feed-pulse">STREAMING</span>
+          <div><p class="micro">BUILD CONSOLE</p><h2>Sanitized capability feed</h2></div>
+          <span class="console-live">LIVE EVENTS</span>
         </div>
-        <div class="feed" data-feed aria-live="polite"></div>
+        <div class="console" data-capability-console data-feed aria-live="polite"></div>
       </div>
 
       <aside class="showcase-panel">
         <div class="section-head">
-          <div><p class="micro">SHOWCASE</p><h2>Recent outputs</h2></div>
+          <div><p class="micro">FRAME BUFFER</p><h2>Recent Unreal output</h2></div>
           <span class="showcase-count" data-showcase-count>0</span>
         </div>
-        <p class="showcase-copy">Selected current task evidence and recent VPS-produced visuals rotate here as production advances.</p>
+        <p class="showcase-copy">Newest captures are selected automatically. Click a frame to inspect it on the main stage.</p>
         <div class="showcase" data-showcase></div>
       </aside>
     </section>
   </main>
 
   <footer>
-    <span>VPS → /live-api/snapshot + SSE</span>
-    <a href="/">biellagames.dev</a>
+    <span>MiniTZ // TaghdisiLabs Digital // Read-only public capability stream</span>
+    <a href="https://taghdisilabs.digital">taghdisilabs.digital</a>
   </footer>
 </body>
 </html>

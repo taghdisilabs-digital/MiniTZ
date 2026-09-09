@@ -29,13 +29,26 @@ class WebsiteContractTests(unittest.TestCase):
             self.assertTrue(item['artifact_sha256'])
             self.assertEqual(item['acceptance_authority'], 'Mahdi Taghdisi')
 
-    def test_live_page_surfaces_execution_changes_not_only_task_completion(self):
+    def test_live_page_is_minitz_unreal_capability_stream_without_worker_identity(self):
         html = (ROOT / 'src/live/index.html').read_text()
         app = (ROOT / 'src/live/app.js').read_text()
-        for token in ('data-attempt','data-session-state','data-token-saver','data-local-ai'):
+        for token in ('MINITZ', 'UNREAL LIVE FRAME', 'data-capability-console', 'data-gpu-chart', 'data-vram-chart', 'data-local-ai'):
             self.assertIn(token, html)
-        for token in ('production?.attempt','production?.continuity','production?.efficiency','system?.local_ai'):
-            self.assertIn(token, app)
+        for forbidden in ('data-model', 'data-reasoning', 'data-attempt', 'data-session-state', 'Codex', 'Qwen'):
+            self.assertNotIn(forbidden, html)
+        for forbidden in ('production?.model', 'production?.reasoning', 'production?.attempt', 'production?.continuity?.session_state'):
+            self.assertNotIn(forbidden, app)
+        self.assertIn('system?.local_ai', app)
+        self.assertIn('requestAnimationFrame', app)
+
+    def test_minitz_public_subdomain_routes_to_live_theatre_without_replacing_apex(self):
+        server = (ROOT / 'ops/static_server.py').read_text()
+        tunnel = (ROOT / 'ops/biella-public.yml').read_text()
+        self.assertIn('minitz.taghdisilabs.digital', server)
+        self.assertIn('/live/', server)
+        self.assertIn('hostname: minitz.taghdisilabs.digital', tunnel)
+        self.assertIn('^/live-api/.*', tunnel)
+        self.assertIn('hostname: biellagames.dev', tunnel)
 
     def test_build_fingerprints_live_assets_so_browser_cache_cannot_hide_updates(self):
         subprocess.run(['node', 'scripts/build.mjs'], cwd=ROOT, check=True, capture_output=True, text=True)

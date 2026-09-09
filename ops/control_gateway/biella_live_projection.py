@@ -18,6 +18,7 @@ PREVIEWABLE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".mp4", ".webm
 PUBLIC_ROOT_LANES = {
     "games-presentation": "Games",
     "games-aaa": "Games",
+    "games-unreal-screenshots": "Games",
     "games-generated": "Games",
     "games-visual-output": "Games",
     "website-generated": "Website",
@@ -339,8 +340,6 @@ class LiveProjection:
     def _local_ai_status(self) -> dict[str, object]:
         result: dict[str, object] = {
             "state": "OFFLINE",
-            "model": None,
-            "context_length": None,
             "vram_mib": None,
         }
         try:
@@ -359,8 +358,6 @@ class LiveProjection:
                 continue
             result.update({
                 "state": "RESIDENT" if int(item.get("size_vram") or 0) > 0 else "LOADED",
-                "model": name,
-                "context_length": int(item.get("context_length") or 0) or None,
                 "vram_mib": round(int(item.get("size_vram") or 0) / (1024 * 1024), 1),
             })
             break
@@ -386,6 +383,16 @@ class LiveProjection:
             "source_ref_count": len(source_refs) if active else 0,
             "capability_count": len(capabilities) if active else 0,
         }
+
+    @staticmethod
+    def _public_system(system: dict[str, object]) -> dict[str, object]:
+        public = copy.deepcopy(system)
+        local_ai = public.get("local_ai") if isinstance(public.get("local_ai"), dict) else {}
+        public["local_ai"] = {
+            "state": str(local_ai.get("state") or "OFFLINE"),
+            "vram_mib": local_ai.get("vram_mib"),
+        }
+        return public
 
     def _system_activity(self) -> dict[str, object]:
         gpu = {"name": "Unavailable", "utilization_percent": None, "memory_used_mib": None, "memory_total_mib": None, "temperature_c": None, "power_w": None}
@@ -545,22 +552,33 @@ class LiveProjection:
             "url": f"/live-api/asset?root_id={quote(root_id, safe='')}&path={quote(path, safe='/')}",
         }
 
+    def _recent_unreal_assets(self, limit: int = 16) -> list[dict[str, object]]:
+        items = self._recent_public_assets(max(limit * 8, 48))
+        unreal_roots = {"games-aaa", "games-unreal-screenshots"}
+        result = [item for item in items if str(item.get("root_id") or "") in unreal_roots and str(item.get("kind") or "image") == "image"]
+        result.sort(key=lambda item: (str(item.get("modified_at") or ""), str(item.get("path") or "")), reverse=True)
+        return result[:limit]
+
     def _stage(self, memory: dict[str, object]) -> dict[str, object]:
+        unreal = self._recent_unreal_assets(16)
         preferred = self._preferred_assets(memory)
         recent = self._recent_public_assets(30)
         merged: list[dict[str, object]] = []
         seen: set[str] = set()
-        for item in preferred + recent:
+        for item in unreal + preferred + recent:
             key = f"{item['root_id']}:{item['path']}"
             if key in seen:
                 continue
             seen.add(key)
             merged.append(item)
         public = [self._public_asset(item) for item in merged[:12]]
+        if public and unreal:
+            public[0]["stream_role"] = "UNREAL_LIVE_FRAME"
         return {
             "primary": public[0] if public else None,
             "showcase": public[1:10] if len(public) > 1 else [],
-            "mode": "CURRENT_TASK_EVIDENCE_THEN_RECENT_VPS_OUTPUTS",
+            "mode": "LATEST_UNREAL_CAPTURE_FIRST",
+            "unreal_live": bool(unreal),
         }
 
     def resolve_public_asset(self, root_id: str, relative_path: str) -> tuple[str, Path]:
@@ -721,12 +739,8 @@ class LiveProjection:
                 "task_summary": summary,
                 "task_status": self._task_status(task_id, runtime, status, memory),
                 "current_operation": current,
-                "model": str(status.get("active_model") or runtime.get("active_model") or "UNKNOWN"),
-                "reasoning": str(status.get("active_reasoning") or runtime.get("active_reasoning") or "UNKNOWN"),
-                "attempt": int(runtime.get("attempt") or 0) or None,
-                "continuity": {
-                    "session_state": "PERSISTENT" if runtime.get("task_session_id") and str(runtime.get("session_task_id") or task_id) == task_id else "FRESH",
-                },
+                "execution_mode": "AI_ACCELERATED_BUILD",
+                "continuity_status": "PRESERVED" if runtime.get("task_session_id") and str(runtime.get("session_task_id") or task_id) == task_id else "FRESH",
                 "efficiency": self._efficiency_status(task_id),
                 "heartbeat_at": heartbeat_at,
                 "heartbeat_age_seconds": round(heartbeat_age, 1) if heartbeat_age is not None else None,
@@ -737,7 +751,8 @@ class LiveProjection:
                 "commit": git,
             },
             "stage": stage,
-            "system": system,
+            "system": self._public_system(system),
+            "public_identity": "MiniTZ",
         }
         with self._cache_lock:
             if asset_due:
