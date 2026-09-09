@@ -8,12 +8,14 @@ try:
     from .biella_control_assets import AssetCatalog, AssetRoot
     from .biella_control_gateway import AuthStore, EventHub, SessionStore, build_server
     from .biella_live_projection import LiveProjection
+    from .minitz_live_projection import MiniTZLiveProjection
     from .biella_control_runner import ProductionJournalTailer
     from .biella_control_state import WorkstationState
 except ImportError:
     from biella_control_assets import AssetCatalog, AssetRoot
     from biella_control_gateway import AuthStore, EventHub, SessionStore, build_server
     from biella_live_projection import LiveProjection
+    from minitz_live_projection import MiniTZLiveProjection
     from biella_control_runner import ProductionJournalTailer
     from biella_control_state import WorkstationState
 
@@ -53,6 +55,7 @@ def main() -> int:
         ],
     })
     live = LiveProjection(repo=repo, runtime_root=production_runtime_root, assets=asset_catalog)
+    minitz_live = MiniTZLiveProjection(repo=repo, runtime_root=production_runtime_root, assets=asset_catalog, analysis_root=Path("/root/biella/analysis/live_audit"))
 
     def publish(lane: str, event: dict[str, object]) -> None:
         events.publish(lane, event)
@@ -60,6 +63,7 @@ def main() -> int:
             live.observe_event(event)
 
     live.start()
+    minitz_live.start()
     journal_tailer = ProductionJournalTailer(production_runtime_root / "events.jsonl", publish)
     journal_tailer.start()
 
@@ -73,6 +77,7 @@ def main() -> int:
         assets=asset_catalog,
         events=events,
         live=live,
+        live_by_host={"minitz.taghdisilabs.digital": minitz_live},
     )
     print(f"Biella control gateway listening on http://{host}:{port}", flush=True)
     try:
@@ -81,6 +86,7 @@ def main() -> int:
         pass
     finally:
         journal_tailer.stop()
+        minitz_live.stop()
         live.stop()
         server.server_close()
     return 0

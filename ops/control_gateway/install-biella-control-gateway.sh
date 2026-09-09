@@ -20,6 +20,7 @@ install -d -o root -g root -m 700 /root/.config/biella-control
 install -o root -g root -m 644 \
   "$SOURCE_DIR/biella_control_gateway.py" \
   "$SOURCE_DIR/biella_live_projection.py" \
+  "$SOURCE_DIR/minitz_live_projection.py" \
   "$SOURCE_DIR/biella_control_assets.py" \
   "$SOURCE_DIR/biella_control_state.py" \
   "$SOURCE_DIR/biella_control_runner.py" \

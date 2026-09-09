@@ -158,7 +158,7 @@ class EventHub:
 class ControlHTTPServer(ThreadingHTTPServer):
     daemon_threads = True
 
-    def __init__(self, address, handler, *, static_root, auth_store, sessions, state, assets, events, live=None):
+    def __init__(self, address, handler, *, static_root, auth_store, sessions, state, assets, events, live=None, live_by_host=None):
         super().__init__(address, handler)
         self.static_root = Path(static_root).resolve()
         self.auth_store = auth_store
@@ -167,6 +167,7 @@ class ControlHTTPServer(ThreadingHTTPServer):
         self.assets = assets
         self.events = events
         self.live = live
+        self.live_by_host = {str(host).lower(): projection for host, projection in (live_by_host or {}).items()}
 
 
 class ControlHandler(BaseHTTPRequestHandler):
@@ -346,12 +347,17 @@ class ControlHandler(BaseHTTPRequestHandler):
             disposition=f'inline; filename="{candidate.name}"',
         )
 
+    def _live_projection(self):
+        host = self.headers.get("Host", "").split(":", 1)[0].strip().lower()
+        return self.server.live_by_host.get(host, self.server.live)
+
     def _serve_live_asset(self, root_id: str, relative_path: str) -> None:
-        if self.server.live is None:
+        live = self._live_projection()
+        if live is None:
             self._json(HTTPStatus.NOT_FOUND, {"error": "live_unavailable"})
             return
         try:
-            _, candidate = self.server.live.resolve_public_asset(root_id, relative_path)
+            _, candidate = live.resolve_public_asset(root_id, relative_path)
         except (ValueError, OSError):
             self._json(HTTPStatus.NOT_FOUND, {"error": "asset_not_found"})
             return
@@ -361,13 +367,17 @@ class ControlHandler(BaseHTTPRequestHandler):
         )
 
     def _handle_live_events(self) -> None:
-        if self.server.live is None:
+        live = self._live_projection()
+        if live is None:
             self._json(HTTPStatus.NOT_FOUND, {"error": "live_unavailable"})
             return
         try:
             after_id = int(self.headers.get("Last-Event-ID", "0") or 0)
         except ValueError:
             after_id = 0
+        if hasattr(live, "events_since"):
+            self._handle_projection_events(live, after_id)
+            return
         lane = "Games"
         channel, replay = self.server.events.subscribe_with_replay(lane, after_id)
         self.send_response(HTTPStatus.OK)
@@ -379,7 +389,7 @@ class ControlHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
         def send_event(event: dict[str, object]) -> None:
-            safe = self.server.live.sanitize_event(event)
+            safe = live.sanitize_event(event)
             if not safe:
                 return
             payload = json.dumps(safe, separators=(",", ":")).encode()
@@ -401,13 +411,52 @@ class ControlHandler(BaseHTTPRequestHandler):
                 try:
                     send_event(channel.get(timeout=10))
                 except queue.Empty:
-                    heartbeat = self.server.live.heartbeat_event()
+                    heartbeat = live.heartbeat_event()
                     self.wfile.write(b"data: " + json.dumps(heartbeat, separators=(",", ":")).encode() + b"\n\n")
                 self.wfile.flush()
         except (BrokenPipeError, ConnectionResetError):
             pass
         finally:
             self.server.events.unsubscribe(lane, channel)
+
+
+    def _handle_projection_events(self, live, after_id: int) -> None:
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", "text/event-stream; charset=utf-8")
+        self.send_header("Cache-Control", "no-cache, no-transform")
+        self.send_header("Connection", "keep-alive")
+        self.send_header("X-Accel-Buffering", "no")
+        self._security_headers()
+        self.end_headers()
+        cursor = after_id
+        last_heartbeat = 0.0
+        try:
+            connected = {
+                "event_id": 0, "seq": 0, "time": "", "task_id": "",
+                "category": "MINITZ", "state": "CONNECTED", "text": "MiniTZ live stream connected",
+            }
+            self.wfile.write(b"data: " + json.dumps(connected, separators=(",", ":")).encode() + b"\n\n")
+            self.wfile.flush()
+            while True:
+                events = live.events_since(cursor)
+                for event in events:
+                    safe = live.sanitize_event(event)
+                    if not safe:
+                        continue
+                    event_id = int(safe.get("event_id") or 0)
+                    if event_id:
+                        cursor = max(cursor, event_id)
+                        self.wfile.write(f"id: {event_id}\n".encode())
+                    self.wfile.write(b"data: " + json.dumps(safe, separators=(",", ":")).encode() + b"\n\n")
+                now = time.monotonic()
+                if not events and now - last_heartbeat >= 10:
+                    heartbeat = live.heartbeat_event()
+                    self.wfile.write(b"data: " + json.dumps(heartbeat, separators=(",", ":")).encode() + b"\n\n")
+                    last_heartbeat = now
+                self.wfile.flush()
+                time.sleep(1)
+        except (BrokenPipeError, ConnectionResetError):
+            pass
 
     def _handle_events(self, lane: str) -> None:
         try:
@@ -448,10 +497,11 @@ class ControlHandler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         path = parsed.path
         if path == "/live-api/snapshot":
-            if self.server.live is None:
+            live = self._live_projection()
+            if live is None:
                 self._json(HTTPStatus.NOT_FOUND, {"error": "live_unavailable"})
             else:
-                self._json(HTTPStatus.OK, self.server.live.snapshot())
+                self._json(HTTPStatus.OK, live.snapshot())
             return
         if path == "/live-api/events":
             self._handle_live_events()
@@ -566,7 +616,7 @@ class ControlHandler(BaseHTTPRequestHandler):
 
 
 def build_server(*, host: str, port: int, static_root: Path, auth_store: AuthStore,
-                 sessions: SessionStore, state, assets, events: EventHub, live=None) -> ControlHTTPServer:
+                 sessions: SessionStore, state, assets, events: EventHub, live=None, live_by_host=None) -> ControlHTTPServer:
     return ControlHTTPServer(
         (host, port), ControlHandler,
         static_root=static_root,
@@ -576,4 +626,5 @@ def build_server(*, host: str, port: int, static_root: Path, auth_store: AuthSto
         assets=assets,
         events=events,
         live=live,
+        live_by_host=live_by_host,
     )
