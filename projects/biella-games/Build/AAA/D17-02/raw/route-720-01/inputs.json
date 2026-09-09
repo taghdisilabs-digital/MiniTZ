@@ -1,0 +1,17 @@
+{
+  "driver": {
+    "bytes": 9473,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/d17_01_raw_input.py",
+    "sha256": "31e98b340530c9c38441f527adc0e2f8dbcea36d78fea6f52dfa9023b1a8f9a3"
+  },
+  "plan": {
+    "bytes": 3984,
+    "path": "Build/AAA/D17-02/route-input.json",
+    "sha256": "a8b340f04c37fe7afad51e40ba514d77f736d1337e368e137b6f539979ce49bc"
+  },
+  "runner": {
+    "bytes": 9469,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d17_01_slice.py",
+    "sha256": "8681e5f7401490409f3edacad0d292ae70ae3e23387fe2fa2f3e05e88c6ec1a2"
+  }
+}

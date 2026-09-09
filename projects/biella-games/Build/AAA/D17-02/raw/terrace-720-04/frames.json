@@ -1,0 +1,58 @@
+{
+  "source_video": {
+    "bytes": 17572071,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/terrace-720-04/raw-gameplay.mkv",
+    "sha256": "d0f54fe1515d2ca57b4bba3f7f0d98d68bd94da6709f1586a092a3811624e10a"
+  },
+  "scope": "Unmodified decoded raw frames; supporting inspection only",
+  "frames": [
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/hall-approach.png",
+      "sha256": "4470472df945e47f2256bab1f79280f154d0e8a0424b78a465d0dd7a833a4e5b",
+      "bytes": 222893,
+      "video_seconds": 31.656968911993317,
+      "native_frame": "1575",
+      "beat": "Hall south approach"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/hall-interior.png",
+      "sha256": "4161a928ed044edbed2874175bf6d8f423167559b2d04e3498874e970b49e80d",
+      "bytes": 507358,
+      "video_seconds": 37.26077726704534,
+      "native_frame": "1912",
+      "beat": "Inspect hall from production camera"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/ramp-ascent.png",
+      "sha256": "2f6ac74945ff1a41507538378d74125f6c973336e9c87dd56b1c61fb2457d87a",
+      "bytes": 303580,
+      "video_seconds": 48.22594165196642,
+      "native_frame": "2567",
+      "beat": "Ascend ramp"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/terrace-summit.png",
+      "sha256": "d9f4f8b41513835be696b354d7325b5ea79715a07202be7d4b439a2775c6f0c0",
+      "bytes": 423633,
+      "video_seconds": 50.51946516998578,
+      "native_frame": "2704",
+      "beat": "Terrace summit"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/terrace-overlook.png",
+      "sha256": "10bd3bb7304986eb4163022f074d928724ea4fd310279ec156f0f63f8e996896",
+      "bytes": 443477,
+      "video_seconds": 52.12816881900653,
+      "native_frame": "2802",
+      "beat": "Terrace overlook at normal camera distance"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/ramp-descent.png",
+      "sha256": "9308881a256e7b7ed56d69e87193f2b4256a6b71b739da0b36f8d6aedf913a18",
+      "bytes": 292001,
+      "video_seconds": 56.882122341077775,
+      "native_frame": "3085",
+      "beat": "Ramp ground contact"
+    }
+  ]
+}

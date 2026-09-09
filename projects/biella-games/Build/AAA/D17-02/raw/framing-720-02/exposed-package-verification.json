@@ -1,0 +1,6 @@
+{
+  "runtime_id": "0f6e12edb42f51bcc7a416e9252ac5617cc395e2b0e57f95031d20962f1fd3a0",
+  "status": "PASS",
+  "scope": "Exact membership, bytes and executable permissions inside native launch namespace",
+  "files": 34
+}

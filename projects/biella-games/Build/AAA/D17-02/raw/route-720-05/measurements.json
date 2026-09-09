@@ -1,0 +1,343 @@
+{
+  "active_sim_seconds": 32.172770883888006,
+  "camera_collision_observations": {
+    "body_occlusion": {
+      "blockers": [],
+      "first_native_frames": [],
+      "frames": 0,
+      "longest_seconds": 0.0
+    },
+    "camera_overlap": {
+      "blockers": [],
+      "first_native_frames": [],
+      "frames": 0,
+      "longest_seconds": 0.0
+    },
+    "feet_outside_frame": {
+      "blockers": [],
+      "first_native_frames": [
+        "850",
+        "851",
+        "852",
+        "853",
+        "854"
+      ],
+      "frames": 13,
+      "longest_seconds": 0.2397821
+    },
+    "head_outside_frame": {
+      "blockers": [],
+      "first_native_frames": [
+        "850",
+        "851",
+        "852",
+        "853",
+        "854"
+      ],
+      "frames": 11,
+      "longest_seconds": 0.20559629999999998
+    },
+    "near_plane_geometry_hits": {
+      "blockers": [],
+      "first_native_frames": [],
+      "frames": 0,
+      "longest_seconds": 0.0
+    },
+    "nonplayer_view": {
+      "blockers": [],
+      "first_native_frames": [],
+      "frames": 0,
+      "longest_seconds": 0.0
+    },
+    "pawn_static_overlap": {
+      "blockers": [],
+      "first_native_frames": [],
+      "frames": 0,
+      "longest_seconds": 0.0
+    },
+    "player_center_outside_frame": {
+      "blockers": [],
+      "first_native_frames": [],
+      "frames": 0,
+      "longest_seconds": 0.0
+    }
+  },
+  "evidence": {
+    "input-result.json": {
+      "bytes": 384,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/route-720-05/input-result.json",
+      "sha256": "cca6349f0d4c8a3a10b948a5d27521809d05f155faefe67b1bed48389b6ec14f"
+    },
+    "input.jsonl": {
+      "bytes": 64793,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/route-720-05/input.jsonl",
+      "sha256": "3a827122b75b4b298e5741c9fba4972e9c8c16b0dd0393eb9170b8687942bb03"
+    },
+    "inputs.json": {
+      "bytes": 1897,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/route-720-05/inputs.json",
+      "sha256": "0ec2ca6ea2b86f69b01391ac96176bd5865f68eafbc181f9689d086c8ad3c252"
+    },
+    "native-source.json": {
+      "bytes": 79111,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/route-720-05/native-source.json",
+      "sha256": "3bd6168bcdd6d2cc548e3213b2bc87eb3e083eb4dfc4d514d5dcdb4ba7f78d8c"
+    },
+    "raw-gameplay.mkv": {
+      "bytes": 8568127,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/route-720-05/raw-gameplay.mkv",
+      "sha256": "3a99974542eb4d78d907f469c64d2c7ed025269c785b622a3a46936ecff500f7"
+    },
+    "resolved-package.json": {
+      "bytes": 8704,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/route-720-05/resolved-package.json",
+      "sha256": "e5d8224260014b41a56e35e49fbd7544a3ac00725707a7688fc97796cbfaa592"
+    },
+    "runtime.engine.log": {
+      "bytes": 286793,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/route-720-05/runtime.engine.log",
+      "sha256": "aa9ae1aec03e81b091df5b8b3de6d6de3e24f9a0f8a9d095666dce6eec4ea7b7"
+    },
+    "telemetry.jsonl": {
+      "bytes": 2376205,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/route-720-05/telemetry.jsonl",
+      "sha256": "4895df0288d3ab82e16700ed8c553a34df898a0b6231f59e91c834554a956856"
+    }
+  },
+  "faults": [
+    "Route incomplete: 12/28 stages",
+    "Raw run did not finish the route using ordinary inputs"
+  ],
+  "floor_hold_count_at_first_ready": 2,
+  "floor_hold_count_at_last_ready": 2,
+  "frame_ms": {
+    "maximum": 400.0,
+    "p50": 16.6688,
+    "p95": 21.3257,
+    "p99": 30.9138
+  },
+  "limits": [
+    "Instrument-assisted X11 route; not external-player usability evidence",
+    "Read-only native collision probes do not prove visual quality",
+    "No AAA, whole-slice duration, shipping or platform qualification inferred"
+  ],
+  "path_length_cm": 11724.861296464718,
+  "production_camera": {
+    "arm_values": [
+      520.0
+    ],
+    "fov_values": [
+      90.0
+    ],
+    "min_arm_distance_cm": 84.3448
+  },
+  "ready_active_frames": 1785,
+  "required_stages": 28,
+  "route_complete": false,
+  "schema": "biella.d17.traversal_measurement/v1",
+  "stages": [
+    {
+      "beat": "Evade surviving infected",
+      "health": 100.0,
+      "index": 0,
+      "kind": "walk",
+      "native_frame": "98",
+      "native_match": true,
+      "position": [
+        -0.0293,
+        -732.9932,
+        90.0
+      ],
+      "position_error_cm": 67.00680640599133,
+      "sim_seconds": 2.817943873757031,
+      "video_seconds": 5.294165675994009
+    },
+    {
+      "beat": "Defensive approach to street rivals",
+      "health": 100.0,
+      "index": 1,
+      "kind": "walk",
+      "native_frame": "463",
+      "native_match": true,
+      "position": [
+        3267.8679,
+        -799.2518,
+        90.0
+      ],
+      "position_error_cm": 32.140809785224576,
+      "sim_seconds": 9.649306480714586,
+      "video_seconds": 12.145071825943887
+    },
+    {
+      "beat": "Defeat street rival with normal pursuit and fire",
+      "health": 100.0,
+      "index": 2,
+      "kind": "rival",
+      "native_frame": "782",
+      "native_match": true,
+      "position": [
+        2468.943,
+        -273.7398,
+        90.0
+      ],
+      "position_error_cm": null,
+      "sim_seconds": 15.235212673374917,
+      "video_seconds": 17.720750823034905
+    },
+    {
+      "beat": "Street01 approach",
+      "health": 88.0,
+      "index": 3,
+      "kind": "walk",
+      "native_frame": "983",
+      "native_match": true,
+      "position": [
+        3965.8865,
+        -783.5264,
+        90.0
+      ],
+      "position_error_cm": 37.88285072707697,
+      "sim_seconds": 18.9027658001869,
+      "video_seconds": 21.392597416997887
+    },
+    {
+      "beat": "Service bay approach",
+      "health": 88.0,
+      "index": 4,
+      "kind": "walk",
+      "native_frame": "1209",
+      "native_match": true,
+      "position": [
+        5857.9964,
+        -506.7462,
+        90.0
+      ],
+      "position_error_cm": 42.54190436969178,
+      "sim_seconds": 22.820836692058947,
+      "video_seconds": 25.305468267994
+    },
+    {
+      "beat": "West service cabinet approach",
+      "health": 88.0,
+      "index": 5,
+      "kind": "walk",
+      "native_frame": "1329",
+      "native_match": true,
+      "position": [
+        6045.6028,
+        361.1525,
+        90.0
+      ],
+      "position_error_cm": 29.180706367221553,
+      "sim_seconds": 24.877603304514196,
+      "video_seconds": 27.359323745942675
+    },
+    {
+      "beat": "Operate existing service switch",
+      "health": 88.0,
+      "index": 6,
+      "kind": "interact",
+      "native_frame": "1397",
+      "native_match": true,
+      "position": [
+        6052.7569,
+        408.2792,
+        90.0
+      ],
+      "position_error_cm": null,
+      "sim_seconds": 26.012958695122506,
+      "video_seconds": 28.49530681001488
+    },
+    {
+      "beat": "Align service panel opening",
+      "health": 88.0,
+      "index": 7,
+      "kind": "walk",
+      "native_frame": "1476",
+      "native_match": true,
+      "position": [
+        6059.4379,
+        842.3713,
+        90.0
+      ],
+      "position_error_cm": 37.63289810923414,
+      "sim_seconds": 27.331289130204823,
+      "video_seconds": 29.82225394702982
+    },
+    {
+      "beat": "Break panel with ordinary weapon fire",
+      "health": 88.0,
+      "index": 8,
+      "kind": "fire",
+      "native_frame": "1605",
+      "native_match": true,
+      "position": [
+        6060.0731,
+        885.6839,
+        90.0
+      ],
+      "position_error_cm": null,
+      "sim_seconds": 29.578706434869673,
+      "video_seconds": 32.05080480198376
+    },
+    {
+      "beat": "Traverse the real broken panel opening",
+      "health": 88.0,
+      "index": 9,
+      "kind": "walk",
+      "native_frame": "1687",
+      "native_match": true,
+      "position": [
+        6667.5552,
+        883.9875,
+        90.0
+      ],
+      "position_error_cm": 32.444802407936066,
+      "sim_seconds": 30.94721658056369,
+      "video_seconds": 33.43900404102169
+    },
+    {
+      "beat": "Leave service hazard",
+      "health": 88.0,
+      "index": 10,
+      "kind": "walk",
+      "native_frame": "1725",
+      "native_match": true,
+      "position": [
+        6970.3228,
+        883.9726,
+        90.0
+      ],
+      "position_error_cm": 29.677212648764794,
+      "sim_seconds": 31.58171384682646,
+      "video_seconds": 34.06311625801027
+    },
+    {
+      "beat": "Hall south approach",
+      "health": 88.0,
+      "index": 11,
+      "kind": "walk",
+      "native_frame": "1775",
+      "native_match": true,
+      "position": [
+        7270.4664,
+        984.8786,
+        90.0
+      ],
+      "position_error_cm": 33.179666467883386,
+      "sim_seconds": 32.41589892929187,
+      "video_seconds": 34.89689085294958
+    }
+  ],
+  "status": "UNMET_CRITERIA",
+  "task_id": "D17-02",
+  "unexplained_position_steps": [],
+  "video_decode": {
+    "diagnostics": "",
+    "returncode": 0
+  },
+  "z_min_max": [
+    90.0,
+    90.0
+  ]
+}

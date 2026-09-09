@@ -1,0 +1,209 @@
+{
+  "active_sim_seconds": 25.851812848821282,
+  "active_unready_after_start": 0,
+  "camera_collision_observations": {
+    "body_occlusion": {
+      "blockers": [],
+      "first_native_frames": [],
+      "frames": 0,
+      "longest_seconds": 0.0
+    },
+    "camera_overlap": {
+      "blockers": [],
+      "first_native_frames": [],
+      "frames": 0,
+      "longest_seconds": 0.0
+    },
+    "feet_outside_frame": {
+      "blockers": [],
+      "first_native_frames": [],
+      "frames": 0,
+      "longest_seconds": 0.0
+    },
+    "head_outside_frame": {
+      "blockers": [],
+      "first_native_frames": [],
+      "frames": 0,
+      "longest_seconds": 0.0
+    },
+    "near_plane_geometry_hits": {
+      "blockers": [],
+      "first_native_frames": [],
+      "frames": 0,
+      "longest_seconds": 0.0
+    },
+    "nonplayer_view": {
+      "blockers": [],
+      "first_native_frames": [],
+      "frames": 0,
+      "longest_seconds": 0.0
+    },
+    "pawn_static_overlap": {
+      "blockers": [],
+      "first_native_frames": [],
+      "frames": 0,
+      "longest_seconds": 0.0
+    },
+    "player_center_outside_frame": {
+      "blockers": [],
+      "first_native_frames": [],
+      "frames": 0,
+      "longest_seconds": 0.0
+    }
+  },
+  "evidence": {
+    "input-result.json": {
+      "bytes": 387,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/framing-720-03/input-result.json",
+      "sha256": "5f149221c1cd6090058d14fab44520d4f4944893e3587e5dfdc1d05f178339b7"
+    },
+    "input.jsonl": {
+      "bytes": 47584,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/framing-720-03/input.jsonl",
+      "sha256": "3636a2423b44254618baaaed15aad450fb45684202edf513ecd0a17d0da7e595"
+    },
+    "inputs.json": {
+      "bytes": 1915,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/framing-720-03/inputs.json",
+      "sha256": "d3281ab8cb80af744d9f7e851a988d3406572c078baa68e93d5c7b71b4e40d2c"
+    },
+    "native-source.json": {
+      "bytes": 81017,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/framing-720-03/native-source.json",
+      "sha256": "49837c406e6e6c1b7513d4aa9b2ac6cf47d8926fb23c32cad23aa7cbb881e8f7"
+    },
+    "raw-gameplay.mkv": {
+      "bytes": 5058767,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/framing-720-03/raw-gameplay.mkv",
+      "sha256": "242ddddd3ba068ef608a08b4d621e82b892e2863e5d82e55c7279b2e562948c3"
+    },
+    "resolved-package.json": {
+      "bytes": 8693,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/framing-720-03/resolved-package.json",
+      "sha256": "a6de839e399349a26eda266e67b585f6f68685bba6adcf6392451dd361b2db0f"
+    },
+    "runtime.engine.log": {
+      "bytes": 276825,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/framing-720-03/runtime.engine.log",
+      "sha256": "cae5aa91bebd2d37468a2039570763cc8475e776b0c111d232f931f5f2c2e11f"
+    },
+    "telemetry.jsonl": {
+      "bytes": 1865719,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/framing-720-03/telemetry.jsonl",
+      "sha256": "d12059e7e3b162c3a349a1646f6ae7cbd8ad297d5fe3dc30de7f1b427df7e718"
+    }
+  },
+  "faults": [
+    "Route incomplete: 4/35 stages",
+    "Raw run did not finish the route using ordinary inputs"
+  ],
+  "floor_hold_count_at_first_ready": 2,
+  "floor_hold_count_at_last_ready": 2,
+  "frame_ms": {
+    "maximum": 400.0,
+    "p50": 16.8007,
+    "p95": 21.985,
+    "p99": 33.822
+  },
+  "limits": [
+    "Instrument-assisted X11 route; not external-player usability evidence",
+    "Read-only native collision probes do not prove visual quality",
+    "No AAA, whole-slice duration, shipping or platform qualification inferred"
+  ],
+  "measurement_source": {
+    "bytes": 9675,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/measure_d17_02_route.py",
+    "sha256": "662851fc59f204200f6bcf8c8ee7937323a352a52ba3491046856c4516fe3de1"
+  },
+  "path_length_cm": 6311.71507510946,
+  "production_camera": {
+    "arm_values": [
+      520.0
+    ],
+    "fov_values": [
+      90.0
+    ],
+    "min_arm_distance_cm": 530.5893
+  },
+  "ready_active_frames": 1404,
+  "required_stages": 35,
+  "route_complete": false,
+  "schema": "biella.d17.traversal_measurement/v1",
+  "stages": [
+    {
+      "beat": "Evade surviving infected",
+      "health": 100.0,
+      "index": 0,
+      "kind": "walk",
+      "native_frame": "104",
+      "native_match": true,
+      "position": [
+        0.0072,
+        -771.3376,
+        90.0
+      ],
+      "position_error_cm": 28.662400904320677,
+      "sim_seconds": 2.78550910850754,
+      "video_seconds": 5.445110230939463
+    },
+    {
+      "beat": "Defensive approach to street rivals",
+      "health": 100.0,
+      "index": 1,
+      "kind": "walk",
+      "native_frame": "465",
+      "native_match": true,
+      "position": [
+        3252.283,
+        -800.2935,
+        90.0
+      ],
+      "position_error_cm": 47.7179026283638,
+      "sim_seconds": 9.51273500820389,
+      "video_seconds": 12.173053874983452
+    },
+    {
+      "beat": "Clear live west-street rival 1",
+      "health": 100.0,
+      "index": 2,
+      "kind": "rival",
+      "native_frame": "688",
+      "native_match": true,
+      "position": [
+        3204.4187,
+        -373.518,
+        90.0
+      ],
+      "position_error_cm": null,
+      "sim_seconds": 13.425506860890891,
+      "video_seconds": 16.09454071894288
+    },
+    {
+      "beat": "Street01 approach",
+      "health": 100.0,
+      "index": 3,
+      "kind": "walk",
+      "native_frame": "812",
+      "native_match": true,
+      "position": [
+        3941.4508,
+        -768.509,
+        90.0
+      ],
+      "position_error_cm": 66.48076339543636,
+      "sim_seconds": 15.69503697467735,
+      "video_seconds": 18.374549712985754
+    }
+  ],
+  "status": "UNMET_CRITERIA",
+  "task_id": "D17-02",
+  "unexplained_position_steps": [],
+  "video_decode": {
+    "diagnostics": "",
+    "returncode": 0
+  },
+  "z_min_max": [
+    90.0,
+    90.0
+  ]
+}

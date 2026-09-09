@@ -1,0 +1,66 @@
+{
+  "source_video": {
+    "bytes": 32625535,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/terrace-1080-02/raw-gameplay.mkv",
+    "sha256": "4b79ada7adb8cd5e7197e7a7837db11f9b79dd9a4603bbd18ba35d31942af892"
+  },
+  "scope": "Unmodified raw decoded frames; native occlusion timestamp interpolated, not exact rendered frame synchronization",
+  "frames": [
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/hall-interior.png",
+      "sha256": "03d4d3442539778ac41da5a7c3b22d598503fc601a87476b22be5a83e7ebf839",
+      "bytes": 823514,
+      "video_seconds": 33.876993688056245,
+      "native_frame": "1299",
+      "beat": "Inspect hall from production camera"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/ramp-ascent.png",
+      "sha256": "364823424dab1915ad570e77e91e3106157ebd8376b2105cb6c5b3a253f5c075",
+      "bytes": 556801,
+      "video_seconds": 44.88029446906876,
+      "native_frame": "1839",
+      "beat": "Ascend ramp"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/terrace-overlook.png",
+      "sha256": "4fd651a53b2fa6383c3bff3bf43f7c4a4443d0a3a9a9724f03df434acfde7eed",
+      "bytes": 855684,
+      "video_seconds": 48.816323437029496,
+      "native_frame": "2062",
+      "beat": "Terrace overlook at normal camera distance"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/panel-exit.png",
+      "sha256": "cf70db9c57ca69db5ca14a6b2e732806af3b206a47ca70f56a7bb3d6c5018f7c",
+      "bytes": 844843,
+      "video_seconds": 26.744824294000864,
+      "native_frame": "949",
+      "beat": "Traverse the real broken panel opening"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/panel-occlusion--0.08.png",
+      "sha256": "55358af1199d57af84dd91a8322807f79aeede7674ba419646acd7d7f55c6913",
+      "bytes": 840579,
+      "video_seconds": 26.919226342886688,
+      "native_frame": "961 (approximate mapping)",
+      "beat": "Single native upper-body sight obstruction at panel exit"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/panel-occlusion-0.png",
+      "sha256": "06928fcc908952bc74c1a8ba1ec050593ca5c8c8fd8d68f36b08c85d6ec97566",
+      "bytes": 864083,
+      "video_seconds": 26.999226342886686,
+      "native_frame": "961 (approximate mapping)",
+      "beat": "Single native upper-body sight obstruction at panel exit"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/panel-occlusion-0.08.png",
+      "sha256": "13b7f5c2fc6c4762c5e19118ec16ea3311cf883abecb0d1ccc209a5ebe0a7fab",
+      "bytes": 680975,
+      "video_seconds": 27.079226342886685,
+      "native_frame": "961 (approximate mapping)",
+      "beat": "Single native upper-body sight obstruction at panel exit"
+    }
+  ]
+}

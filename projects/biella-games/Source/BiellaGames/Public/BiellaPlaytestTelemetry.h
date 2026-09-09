@@ -30,6 +30,9 @@ public:
     bool HasWriteError() const { return bWriteError; }
 
 private:
+    void SampleTraversalFrame();
+    FDelegateHandle TraversalFrameHandle;
+    double LastTraversalActorsTime = -1.0;
     void Write(UWorld* World, const TCHAR* Event, const TMap<FString, FString>& Fields);
     FString ResolveActorId(AActor* Actor);
 

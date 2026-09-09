@@ -1,0 +1,618 @@
+{
+  "schema": "biella.d17.raw_attempt_index/v1",
+  "task_id": "D17-02",
+  "scope": "Rebuildable evidence index only; not task order, status authority or visual acceptance",
+  "current_material_input_digest": "37486201998b0f6d4c7fdb486ef132ebf21df3749c0bb88893ed085cae40d716",
+  "attempts": [
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/framing-1080-01/measurements.json",
+        "bytes": 15440,
+        "sha256": "ba4c3b3ce832e1e4a267c6b53148044cf14b1cd2944f48033c10230056f9e0d4"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": false,
+      "completed_stages": 28,
+      "required_stages": 35,
+      "ready_active_frames": 2097,
+      "faults": [
+        "Route incomplete: 28/35 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "material_input_digest": "37486201998b0f6d4c7fdb486ef132ebf21df3749c0bb88893ed085cae40d716",
+      "matches_current_native_material_inputs": true,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/framing-1080-01/input-result.json",
+        "bytes": 386,
+        "sha256": "0e7ca4e2ced2210500328304b441af64cbc45f188e146302ed78aee6c32f0644"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 50.57129580003675
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/framing-1080-02/measurements.json",
+        "bytes": 14301,
+        "sha256": "19aa17733a356fddb83cc077f4ceff9be663322a440f3d92244ebbfab1ce1245"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": false,
+      "completed_stages": 25,
+      "required_stages": 35,
+      "ready_active_frames": 1688,
+      "faults": [
+        "Route incomplete: 25/35 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "material_input_digest": "37486201998b0f6d4c7fdb486ef132ebf21df3749c0bb88893ed085cae40d716",
+      "matches_current_native_material_inputs": true,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/framing-1080-02/input-result.json",
+        "bytes": 387,
+        "sha256": "9f9bad1502767adeb0609d015628ceec5b35e05e87b1f343fe4a3afe994e2593"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 42.003973062033765
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/framing-1080-03/measurements.json",
+        "bytes": 5633,
+        "sha256": "5011cd189a9edafae631a90fb151038b3028d4c5ca2051c740e1df50bf4b47b7"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": false,
+      "completed_stages": 2,
+      "required_stages": 35,
+      "ready_active_frames": 805,
+      "faults": [
+        "Route incomplete: 2/35 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "material_input_digest": "37486201998b0f6d4c7fdb486ef132ebf21df3749c0bb88893ed085cae40d716",
+      "matches_current_native_material_inputs": true,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/framing-1080-03/input-result.json",
+        "bytes": 386,
+        "sha256": "c7788be832e0ac1b6a2a5ac4824ef7beee8ad46267d14b9fc3051d5df8a6c265"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 23.095429509994574
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/framing-1080-04/measurements.json",
+        "bytes": 5044,
+        "sha256": "8df094d10da7a13822e30b8d4a8baf75fa779600715f7619265650452ac0b566"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": false,
+      "completed_stages": 1,
+      "required_stages": 35,
+      "ready_active_frames": 238,
+      "faults": [
+        "Route incomplete: 1/35 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "material_input_digest": "37486201998b0f6d4c7fdb486ef132ebf21df3749c0bb88893ed085cae40d716",
+      "matches_current_native_material_inputs": true,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/framing-1080-04/input-result.json",
+        "bytes": 385,
+        "sha256": "cdd9a4513c13ca1475d3fe2667e99e353e5e5a213b0f20d4648a1f035a493ac9"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 9.994625508086756
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/framing-1080-05/measurements.json",
+        "bytes": 4665,
+        "sha256": "1cf7ac078c3c18583b537796c277d58af12120c9c45e936fa125ecfe67999ae2"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": false,
+      "completed_stages": 0,
+      "required_stages": 35,
+      "ready_active_frames": 119,
+      "faults": [
+        "Route incomplete: 0/35 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "material_input_digest": "37486201998b0f6d4c7fdb486ef132ebf21df3749c0bb88893ed085cae40d716",
+      "matches_current_native_material_inputs": true,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/framing-1080-05/input-result.json",
+        "bytes": 386,
+        "sha256": "350a77e6f520d3944c8ea05360d40412e60a6bf211a49d4d3012c97dcb96bfcb"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 7.0016979039646685
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/framing-1080-06/measurements.json",
+        "bytes": 7406,
+        "sha256": "bf2150873b947602be78047c0e2144938f1d244440510cf1a105cc0deedc91f9"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": false,
+      "completed_stages": 7,
+      "required_stages": 35,
+      "ready_active_frames": 1920,
+      "faults": [
+        "Route incomplete: 7/35 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "material_input_digest": "37486201998b0f6d4c7fdb486ef132ebf21df3749c0bb88893ed085cae40d716",
+      "matches_current_native_material_inputs": true,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/framing-1080-06/input-result.json",
+        "bytes": 387,
+        "sha256": "92a778fa4af03e08e497843fd879ec6181d28a4e091ab9447e87da7851269080"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 47.433226322056726
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/framing-720-01/measurements.json",
+        "bytes": 6586,
+        "sha256": "ad2bead690d87d2324221f72886bf98dd9e77e0847e4a4388b228841099056d7"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": false,
+      "completed_stages": 5,
+      "required_stages": 35,
+      "ready_active_frames": 1236,
+      "faults": [
+        "Route incomplete: 5/35 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "material_input_digest": "37486201998b0f6d4c7fdb486ef132ebf21df3749c0bb88893ed085cae40d716",
+      "matches_current_native_material_inputs": true,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/framing-720-01/input-result.json",
+        "bytes": 387,
+        "sha256": "53d776119e98a4c9c017a409fa2d1d5a134cd38b463abe948d1076c8ff300dce"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 26.083668100996874
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/framing-720-02/measurements.json",
+        "bytes": 5811,
+        "sha256": "be6203fa3c2d916459d7d67390ab624a415083c6fc201b4bc93ec89d55637ff1"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": false,
+      "completed_stages": 3,
+      "required_stages": 35,
+      "ready_active_frames": 1124,
+      "faults": [
+        "Route incomplete: 3/35 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "material_input_digest": "37486201998b0f6d4c7fdb486ef132ebf21df3749c0bb88893ed085cae40d716",
+      "matches_current_native_material_inputs": true,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/framing-720-02/input-result.json",
+        "bytes": 386,
+        "sha256": "af98478643fd967a13ed0e90de9a959dedd60a1ea63c390a5d2c3c8d7d024f90"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 24.13724385201931
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/framing-720-03/measurements.json",
+        "bytes": 6178,
+        "sha256": "55bba40adec3f02a6695a34fc8e76e2ef4a727def26a77ec3db443504a52e399"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": false,
+      "completed_stages": 4,
+      "required_stages": 35,
+      "ready_active_frames": 1404,
+      "faults": [
+        "Route incomplete: 4/35 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "material_input_digest": "37486201998b0f6d4c7fdb486ef132ebf21df3749c0bb88893ed085cae40d716",
+      "matches_current_native_material_inputs": true,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/framing-720-03/input-result.json",
+        "bytes": 387,
+        "sha256": "5f149221c1cd6090058d14fab44520d4f4944893e3587e5dfdc1d05f178339b7"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 29.050718792015687
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/framing-720-04/measurements.json",
+        "bytes": 6584,
+        "sha256": "fb78fe8dd923e1b7bdfbd5427a186b8fa85f7fb0ce77e18abc5695ea495c7154"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": false,
+      "completed_stages": 5,
+      "required_stages": 35,
+      "ready_active_frames": 1526,
+      "faults": [
+        "Route incomplete: 5/35 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "material_input_digest": "37486201998b0f6d4c7fdb486ef132ebf21df3749c0bb88893ed085cae40d716",
+      "matches_current_native_material_inputs": true,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/framing-720-04/input-result.json",
+        "bytes": 386,
+        "sha256": "bfac3d0cd944b53d0df2d5a7f013a7a8492a32fcd4af295d41a5c4f11f7eb72a"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 31.00383373897057
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/framing-720-05/measurements.json",
+        "bytes": 18024,
+        "sha256": "faf6228345983f530b36531d3784c743acfea704486c46167d0eb9dae5f4e793"
+      },
+      "status": "MEASUREMENTS_CLEAR_REQUIRES_VISUAL_QUALIFICATION",
+      "route_complete": true,
+      "completed_stages": 35,
+      "required_stages": 35,
+      "ready_active_frames": 4450,
+      "faults": [],
+      "material_input_digest": "37486201998b0f6d4c7fdb486ef132ebf21df3749c0bb88893ed085cae40d716",
+      "matches_current_native_material_inputs": true,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/framing-720-05/input-result.json",
+        "bytes": 419,
+        "sha256": "60b7d0153e03381a91717b05d3b90ed43132aa2654fa93357f49829907709a3e"
+      },
+      "input_reason": "route_inputs_finished",
+      "input_seconds": 76.82454539905302
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01",
+      "status": "NO_MEASUREMENT_RECORD",
+      "route_complete": false,
+      "material_input_digest": "aab82001277ee385a6afb30fd9cfabd172044d162c87954e9c30a7fa3000f670",
+      "matches_current_native_material_inputs": false,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/route-1080-01/input-result.json",
+        "bytes": 386,
+        "sha256": "115100a63361e1329856fe5c576a121ae5a93d9b497bffe816587b9a44a9993e"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 23.449530389043503
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02",
+      "status": "NO_MEASUREMENT_RECORD",
+      "route_complete": false,
+      "material_input_digest": "aab82001277ee385a6afb30fd9cfabd172044d162c87954e9c30a7fa3000f670",
+      "matches_current_native_material_inputs": false,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/route-1080-02/input-result.json",
+        "bytes": 386,
+        "sha256": "17de7a15653f2ba58bdf7902eda37f139505f57f6a91ba685fb9d5af3fb5eafe"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 57.88249711098615
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01",
+      "status": "NO_MEASUREMENT_RECORD",
+      "route_complete": false,
+      "material_input_digest": "aab82001277ee385a6afb30fd9cfabd172044d162c87954e9c30a7fa3000f670",
+      "matches_current_native_material_inputs": false,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/route-720-01/input-result.json",
+        "bytes": 385,
+        "sha256": "c29eb5198c78343d3b3968bc2a191d5cd2d78f3e3e1ba5df578f17234360f880"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 14.344833540963009
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02",
+      "status": "NO_MEASUREMENT_RECORD",
+      "route_complete": false,
+      "material_input_digest": "aab82001277ee385a6afb30fd9cfabd172044d162c87954e9c30a7fa3000f670",
+      "matches_current_native_material_inputs": false,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/route-720-02/input-result.json",
+        "bytes": 385,
+        "sha256": "edebc54dd31c9e55d52ae8a39bf49a47b20db9bfb7add4d3268ec6a2782b1879"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 19.241146118030883
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03",
+      "status": "NO_MEASUREMENT_RECORD",
+      "route_complete": false,
+      "material_input_digest": "aab82001277ee385a6afb30fd9cfabd172044d162c87954e9c30a7fa3000f670",
+      "matches_current_native_material_inputs": false,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/route-720-03/input-result.json",
+        "bytes": 385,
+        "sha256": "58ebdf373e0e1b0880fc8747a98ac005e1ee408679dea9b496d6ba3571a6af41"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 29.779162844992243
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04",
+      "status": "NO_MEASUREMENT_RECORD",
+      "route_complete": false,
+      "material_input_digest": "aab82001277ee385a6afb30fd9cfabd172044d162c87954e9c30a7fa3000f670",
+      "matches_current_native_material_inputs": false,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/route-720-04/input-result.json",
+        "bytes": 385,
+        "sha256": "965ff15eb83e7afc78384f98ab18dc604157595e10bf0f54627b1c7c1f894824"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 24.417944898013957
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/route-720-05/measurements.json",
+        "bytes": 9174,
+        "sha256": "b2001550789bd8ab4eb4f4951f877eb98907eab049fff94b3b6e9e95f9de3611"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": false,
+      "completed_stages": 12,
+      "required_stages": 28,
+      "ready_active_frames": 1785,
+      "faults": [
+        "Route incomplete: 12/28 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "material_input_digest": "aab82001277ee385a6afb30fd9cfabd172044d162c87954e9c30a7fa3000f670",
+      "matches_current_native_material_inputs": false,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/route-720-05/input-result.json",
+        "bytes": 384,
+        "sha256": "cca6349f0d4c8a3a10b948a5d27521809d05f155faefe67b1bed48389b6ec14f"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 35.16967213596217
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06",
+      "status": "NO_MEASUREMENT_RECORD",
+      "route_complete": false,
+      "material_input_digest": "aab82001277ee385a6afb30fd9cfabd172044d162c87954e9c30a7fa3000f670",
+      "matches_current_native_material_inputs": false,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/route-720-06/input-result.json",
+        "bytes": 385,
+        "sha256": "888ce8ec520ada595abe8794ecf36c39bec016d024c70419d906bc8bedc8999d"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 32.480326169054024
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/route-720-07/measurements.json",
+        "bytes": 14129,
+        "sha256": "bd6f735a8dc7939750c93fb38e77f7fa1268e7a8d5820d46571a2b5d61d3b265"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": false,
+      "completed_stages": 25,
+      "required_stages": 29,
+      "ready_active_frames": 3878,
+      "faults": [
+        "Route incomplete: 25/29 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "material_input_digest": "aab82001277ee385a6afb30fd9cfabd172044d162c87954e9c30a7fa3000f670",
+      "matches_current_native_material_inputs": false,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/route-720-07/input-result.json",
+        "bytes": 384,
+        "sha256": "3849a2c4fa04f3e6faa3b901ade74799910e34859987385f051b48bad6aa1bac"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 69.40763379004784
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/route-720-08/measurements.json",
+        "bytes": 16126,
+        "sha256": "274ad5f4ae2be7fe037899a456d94f1b72811c23d637ac1a2c9efafd42eb0ee7"
+      },
+      "status": "MEASUREMENTS_CLEAR_REQUIRES_VISUAL_QUALIFICATION",
+      "route_complete": true,
+      "completed_stages": 30,
+      "required_stages": 30,
+      "ready_active_frames": 4627,
+      "faults": [],
+      "material_input_digest": "aab82001277ee385a6afb30fd9cfabd172044d162c87954e9c30a7fa3000f670",
+      "matches_current_native_material_inputs": false,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/route-720-08/input-result.json",
+        "bytes": 419,
+        "sha256": "9bae3fdf27ec750d1f34f456867f76984f5eb46c3f8eee2f7c40bc12d219b469"
+      },
+      "input_reason": "route_inputs_finished",
+      "input_seconds": 80.93645504291635
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/terrace-1080-01/measurements.json",
+        "bytes": 5042,
+        "sha256": "73f4969c74a734ab5b6bcc4c156377b4b5595376062277d0044a000b8fe621db"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": false,
+      "completed_stages": 1,
+      "required_stages": 35,
+      "ready_active_frames": 227,
+      "faults": [
+        "Route incomplete: 1/35 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "material_input_digest": "7fcd1bbb47ff084356aa6f562c5b71ffbded37935a9b94eaa705b795fbe3db4d",
+      "matches_current_native_material_inputs": false,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/terrace-1080-01/input-result.json",
+        "bytes": 385,
+        "sha256": "61d29b83f27a6ddd18b6ca9ce8f5e6bcfddb769bf68ad94fac06c9becf310230"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 9.601727211964317
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/terrace-1080-02/measurements.json",
+        "bytes": 18117,
+        "sha256": "953817979bf98616ebaf3a064791106120963480e823ebe03fc68c047b535dec"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": true,
+      "completed_stages": 35,
+      "required_stages": 35,
+      "ready_active_frames": 3489,
+      "faults": [
+        "Native camera/collision issue: body_occlusion"
+      ],
+      "material_input_digest": "7fcd1bbb47ff084356aa6f562c5b71ffbded37935a9b94eaa705b795fbe3db4d",
+      "matches_current_native_material_inputs": false,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/terrace-1080-02/input-result.json",
+        "bytes": 419,
+        "sha256": "852aa6ea67d6dba01dc4c43f4d8ff6ee5d0f43227934c41e6ee998cfbaaebdca"
+      },
+      "input_reason": "route_inputs_finished",
+      "input_seconds": 73.27959704701789
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/terrace-720-01/measurements.json",
+        "bytes": 12077,
+        "sha256": "743ec027200f3f28c0e65938dc7315275307ce8c1f73fa5d9d09f8dbf447c75e"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": false,
+      "completed_stages": 19,
+      "required_stages": 32,
+      "ready_active_frames": 2721,
+      "faults": [
+        "Traversal became unavailable after initial readiness",
+        "New floor safety hold during the route",
+        "Route incomplete: 19/32 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "material_input_digest": "7fcd1bbb47ff084356aa6f562c5b71ffbded37935a9b94eaa705b795fbe3db4d",
+      "matches_current_native_material_inputs": false,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/terrace-720-01/input-result.json",
+        "bytes": 386,
+        "sha256": "8b2a66dea0fdfc330ffbfe1e65fbf58c01c021de9a4796d521a36a927d67aa3a"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 55.66390661394689
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/terrace-720-02/measurements.json",
+        "bytes": 8911,
+        "sha256": "30a56f6ed1924e7ef287408229ad1834ead655debcbd53cffa0fe03a74a4cf5e"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": false,
+      "completed_stages": 11,
+      "required_stages": 33,
+      "ready_active_frames": 1374,
+      "faults": [
+        "Route incomplete: 11/33 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "material_input_digest": "7fcd1bbb47ff084356aa6f562c5b71ffbded37935a9b94eaa705b795fbe3db4d",
+      "matches_current_native_material_inputs": false,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/terrace-720-02/input-result.json",
+        "bytes": 387,
+        "sha256": "4fbb6f3bc2c0cc57d122fdb1723a0d861c680923295d7b3244944634c9416f2b"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 28.753814634983428
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/terrace-720-03/measurements.json",
+        "bytes": 7091,
+        "sha256": "ddd88d0e99cd6af3c2ec97e4960432ed67033dac7f68f80f5b9822a0abf68db7"
+      },
+      "status": "UNMET_CRITERIA",
+      "route_complete": false,
+      "completed_stages": 6,
+      "required_stages": 35,
+      "ready_active_frames": 1238,
+      "faults": [
+        "Route incomplete: 6/35 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "material_input_digest": "7fcd1bbb47ff084356aa6f562c5b71ffbded37935a9b94eaa705b795fbe3db4d",
+      "matches_current_native_material_inputs": false,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/terrace-720-03/input-result.json",
+        "bytes": 386,
+        "sha256": "6538bee79798ebfde8f64263c8dcdbcc06bfbf9eb4f446d46952ca59962873aa"
+      },
+      "input_reason": "native_terminal_state",
+      "input_seconds": 26.21249224897474
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04",
+      "measurements": {
+        "path": "Build/AAA/D17-02/raw/terrace-720-04/measurements.json",
+        "bytes": 18029,
+        "sha256": "7713cee6b92c1b551a9801ebf36e9e5bf4b85dfd1e8315c627c4a3388353c5e7"
+      },
+      "status": "MEASUREMENTS_CLEAR_REQUIRES_VISUAL_QUALIFICATION",
+      "route_complete": true,
+      "completed_stages": 35,
+      "required_stages": 35,
+      "ready_active_frames": 4372,
+      "faults": [],
+      "material_input_digest": "7fcd1bbb47ff084356aa6f562c5b71ffbded37935a9b94eaa705b795fbe3db4d",
+      "matches_current_native_material_inputs": false,
+      "input_result": {
+        "path": "Build/AAA/D17-02/raw/terrace-720-04/input-result.json",
+        "bytes": 418,
+        "sha256": "9b4b20274d939024feaf46d2b6d142ca4b01866927f26d5e52055baa959c6caa"
+      },
+      "input_reason": "route_inputs_finished",
+      "input_seconds": 76.0369210659992
+    }
+  ]
+}

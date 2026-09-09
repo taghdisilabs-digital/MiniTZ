@@ -1,0 +1,3978 @@
+{
+  "schema": "biella.d17.task_owned_files/v1",
+  "task_id": "D17-02",
+  "status": "IN_PROGRESS_CHECKPOINT",
+  "base_revision": "a0a7de28735c4a5461419c507efff8b4fac4f489",
+  "scope": "Exact task-owned source and proof; not Project task identity, order, status or next-task metadata",
+  "files": [
+    {
+      "path": "Build/AAA/D17-02/build/cook-01/command.json",
+      "bytes": 587,
+      "sha256": "0ca50c7f0ffdc5dc49503e64126470fac32fd819c0a652d30be959ce190a33f0"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/cook-01/cook.engine.log",
+      "bytes": 270657,
+      "sha256": "b26da4376cae2f52d09bce2ab8542df608c5bc75f7e9b0d218fbd444da9b996c"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/cook-01/cook.stdout.log",
+      "bytes": 271115,
+      "sha256": "732705fda1d995b468233716dbd15d63fd4c6e9cdf535ce132b8aadd60f497fc"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/cook-01/validation.json",
+      "bytes": 19782062,
+      "sha256": "28906dbf6d83a8aa0bfe86935368ae491c0c32ac4935697702d6bb404e575f4f"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/cook-config-recovery.json",
+      "bytes": 2409,
+      "sha256": "53deb295ecc87e5e093c0e38ab20d7ad419f5fd083b7bc700416411f88324434"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/editor-01/build.log",
+      "bytes": 10566,
+      "sha256": "7705c6f6c10486b6de97589a19e00f38cc8c2bfc9d8d8afcb078aacb46a27a4b"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/editor-01/command.json",
+      "bytes": 225,
+      "sha256": "b6dae846d52e3c465f4a7130415b4c4d26cd636ff05297ffe0677ff7799d66a1"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/editor-01/validation.json",
+      "bytes": 55542,
+      "sha256": "5f23a2249f088623bfac5caabdba8832747728f4f23d1faf95ad4bebdd8e1f61"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/game-01/build.log",
+      "bytes": 3044,
+      "sha256": "b4b1e750e386debac6f7194898455231f5d1cfee862052b7b024e35f42873032"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/game-01/command.json",
+      "bytes": 277,
+      "sha256": "85af5cedfb5e5502f590e804dd784f1c8a5fc6eef895aad93fb18ef5fd53bef5"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/game-01/inputs-after.json",
+      "bytes": 25094,
+      "sha256": "be424da2137b6d6162014bb6b54cc32a07ff404dc50b11d501bc28a4193de075"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/game-01/inputs-before.json",
+      "bytes": 25094,
+      "sha256": "be424da2137b6d6162014bb6b54cc32a07ff404dc50b11d501bc28a4193de075"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/game-01/result.json",
+      "bytes": 1119,
+      "sha256": "b64b355cc9984ebc766fc5a727e7fc740683ad57b6bd68d67d950a4d23990f4a"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/game-02/build.log",
+      "bytes": 2490,
+      "sha256": "0fead5864c24e2b44fff77459dbdec1982718aec70e6abcae3904fa316f44f03"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/game-02/command.json",
+      "bytes": 277,
+      "sha256": "85af5cedfb5e5502f590e804dd784f1c8a5fc6eef895aad93fb18ef5fd53bef5"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/game-02/inputs-after.json",
+      "bytes": 25094,
+      "sha256": "4670b3d57fa8b65c4fe7a0a5f10196cfb24621350f349b79e00f0c4642beae83"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/game-02/inputs-before.json",
+      "bytes": 25094,
+      "sha256": "4670b3d57fa8b65c4fe7a0a5f10196cfb24621350f349b79e00f0c4642beae83"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/game-02/result.json",
+      "bytes": 1546,
+      "sha256": "e2738c5e707bdee6d3f0bdc2a5c174e48674147962be39eed02179b17a5547cb"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/game-03/build.log",
+      "bytes": 2623,
+      "sha256": "47b8405dffce146eb1be534113a5d969562b225198552d8c30e2c37995f82262"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/game-03/command.json",
+      "bytes": 277,
+      "sha256": "85af5cedfb5e5502f590e804dd784f1c8a5fc6eef895aad93fb18ef5fd53bef5"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/game-03/inputs-after.json",
+      "bytes": 25094,
+      "sha256": "5b141e6f20de578d821b6e16c90241df248c1f5c412c03f0b3fe6fa743b8b200"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/game-03/inputs-before.json",
+      "bytes": 25094,
+      "sha256": "5b141e6f20de578d821b6e16c90241df248c1f5c412c03f0b3fe6fa743b8b200"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/game-03/result.json",
+      "bytes": 3146,
+      "sha256": "903f34d4b35d8a12c77f5f5da3ae77f38da5fc9e6602ddf07d37b8aff14f9851"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/native-framing-change.json",
+      "bytes": 3480,
+      "sha256": "b891f0a321ca165d23a32cc2ad5eb18e9ce4671b491aaef324d54bb28fd49c63"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/package-01/package-manifest.json",
+      "bytes": 8665,
+      "sha256": "ad2657a8bdb851382d01a64ad3441d8420ce47843b84c7a379ee993ea600aa37"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/package-01/source-build.json",
+      "bytes": 81017,
+      "sha256": "d8145d13644fff311d3a5b96c47d2beff60cf70dca3ecb7bd12b3b4f8f1a7d2e"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/package-01/validation.json",
+      "bytes": 1590,
+      "sha256": "fc94b6152b6ef7476c38f19952746b3957daec7e19f53628f8b207b1a027fcd9"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/stage-01/command.json",
+      "bytes": 912,
+      "sha256": "9d8a99292e9f261961ca3ae0dc25b3c95ca73c53b1dc19784e64ec1f67a39471"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/stage-01/stage.log",
+      "bytes": 75454,
+      "sha256": "69cd322d72041b0b47d5e8d478ade98540d7ebdc8fe75f66045b5d4c8c01f50d"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/stage-01/validation.json",
+      "bytes": 21805,
+      "sha256": "477fb12abee728e8a5e522180af8018032fe1df56bbc51fa5ac2ae563ec99de8"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-01/author-command.json",
+      "bytes": 608,
+      "sha256": "6a3e4c3f6a0c70a59876725d88ae0078d435d5fb48fc6e89119bd5f57ecd37d2"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-01/author.log",
+      "bytes": 221453,
+      "sha256": "106bea0b347a0b1a37f68580f65e0c6893a60da8e36a9c3987d8aa20ba2a0b4e"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-01/validation.json",
+      "bytes": 127240,
+      "sha256": "62c3693531488424ffa44510a4bb6ea8520bef52087152c73052973ecc9a3c9e"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-02/author-command.json",
+      "bytes": 608,
+      "sha256": "f9443ffad71866959843a2246bf7c2219ffed758dd60098bab7cfa25085d8402"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-02/author.log",
+      "bytes": 224173,
+      "sha256": "bf4c34aae303b4491d5b682beb41d4e8aed45d2304e80252a6cd5d33bfe12b77"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-02/validation.json",
+      "bytes": 127547,
+      "sha256": "5c5983db78dbaef6bc0a66bb0a799d56a21d9069be37ac2548fba72a45a2b3b9"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-03/author-command.json",
+      "bytes": 608,
+      "sha256": "de9f63628d06e56fd6ccce866a7da2ca2c1f29f0b9b694c22f3ab1a511615fa6"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-03/author.json",
+      "bytes": 4754,
+      "sha256": "81e40ef7b4c6561d962ca6ed3707bd66ef363432f51105831df0ee57a155e583"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-03/author.log",
+      "bytes": 226986,
+      "sha256": "54b1f7ed4cb3180cd5713d1a19c2e3a84aa694e16af00d4a7d311ab760eb21f2"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-03/readback-command.json",
+      "bytes": 638,
+      "sha256": "e40a1f342bf4d47d69fea7051fc04cb8bb69b2b7f8f1f968ba5fb7f66a75d3d9"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-03/readback.json",
+      "bytes": 4753,
+      "sha256": "5043f3e6961f4559c809176867316422030631be3543164540410bfb2e3f5a55"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-03/readback.log",
+      "bytes": 218199,
+      "sha256": "8c0f27fa8d5468e6de07931c44d338e717056e90bf3de39c80d58cb888324978"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-03/validation.json",
+      "bytes": 129090,
+      "sha256": "964101091d9a2d01366dbc7016ca621dbe2c98c88e0db3667aee46246f5ca26b"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-04/author-command.json",
+      "bytes": 608,
+      "sha256": "eadf6d0d3e6b4b2d0541e883ae49d9df8a8404ec2d9faec5d62b9e5c12a45dbe"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-04/author.json",
+      "bytes": 5038,
+      "sha256": "fe60d6172612ab37dbe1bc4447f9cce4e068cce88c2084090a23a8302c2af7d6"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-04/author.log",
+      "bytes": 221127,
+      "sha256": "e969a9c0df2a56dc15fcc1bf39c58114cfaf5074781b2fd234b49c72c85b2bb5"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-04/readback-command.json",
+      "bytes": 638,
+      "sha256": "96862ab0a9127beb5e38de1c1a313294ac50db832d57a04c300c7c78ee06a561"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-04/readback.json",
+      "bytes": 5037,
+      "sha256": "a0687152444382751a40ddf52b6af9453c1604727bcc4f0da410899c9d5c1225"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-04/readback.log",
+      "bytes": 218353,
+      "sha256": "617d967895f4c4eb1ab07aaf94559f808f5224468c4f4592f1d23953222822ab"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-04/validation.json",
+      "bytes": 133127,
+      "sha256": "5d7151708534a7915f74d8beae510fb532936af12207d919e53cfe8fa24e19f2"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-mesh-01/blender.log",
+      "bytes": 1977,
+      "sha256": "97b0fc0bc1fffbea871a507d148937ce0e9791f6c573f3694fdfa6c2d4f8753f"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-mesh-01/generated-spec.json",
+      "bytes": 2057,
+      "sha256": "767990df78ae478e0d1ddaf8a85945ab31ce13d11fa051fe5b0c439d8d9aa940"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-mesh-01/validation.json",
+      "bytes": 204,
+      "sha256": "0d7322636622d0b26ed740dd3a754535ac2c4914daa9641836f3f117c9b05bfa"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-mesh-02/blender.log",
+      "bytes": 1977,
+      "sha256": "eafd9c3bf3d50e8146839b9a4a8779b81857c07cc5fa086c63b19572f2d15866"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-mesh-02/generated-spec.json",
+      "bytes": 2057,
+      "sha256": "918fd85e3b4d5737d0bcdc6375f0827b2091beae3c2cc564b28e22fc11717cb3"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-mesh-02/generator.py",
+      "bytes": 8193,
+      "sha256": "bf1eeecd0e583e217ac2f3c972d647330799802d4f199c10fc0b02c951036790"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-mesh-02/readback.log",
+      "bytes": 247,
+      "sha256": "7c3767d113db7b17bc8befb6f1ac665ed15466185f69addd3d07a2b7fd84b0e8"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-mesh-02/validation.json",
+      "bytes": 1876,
+      "sha256": "40ef739c16fd746f05bbef1a6ffa9a39a450f353b7247405623249fc41584901"
+    },
+    {
+      "path": "Build/AAA/D17-02/measurement-tests.log",
+      "bytes": 874,
+      "sha256": "120de31bd29faebd2b26b9c51fd5bc723814c838225f16b824958129fe0b4302"
+    },
+    {
+      "path": "Build/AAA/D17-02/qualification.json",
+      "bytes": 22120,
+      "sha256": "9ebe88045c4a3c5f566d666afeb4836a01ad4795f12763f2db84d9e4b1784874"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw-attempts.json",
+      "bytes": 24794,
+      "sha256": "1f6315644a106caf3bf40077b45e81b2ec29d1d4da58ef0bda9f2dad3e81ec73"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/capture-command.json",
+      "bytes": 300,
+      "sha256": "3bf9938bdee4db34e0d0f2aaf3028fc22c2fe71c7468b892864d1abcd717292e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/capture.log",
+      "bytes": 104,
+      "sha256": "55e9fcd7cb647dd8be00941c92a3dd2dcb9d502bd25b28892f2ed7a72318cbfa"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/command.json",
+      "bytes": 2125,
+      "sha256": "504baac7a3934ebd41c4e39d186c2e132f51a7de64d59ad95cb201bd03f7eeb2"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/execution.json",
+      "bytes": 320,
+      "sha256": "f62894a84dcb4aeba6d5302eeed3a68cdd5d36eab7134ed918dfee8bb4236898"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "ce091ac6063c0fd420d5e52caa8e1733233b672b3a86031642f8e85d3294f2aa"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/frames.json",
+      "bytes": 1629,
+      "sha256": "97f941bfa4e62a6968505f37679b6aa24085d441b6b9f4fc488f43a227ebb654"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/game-command.json",
+      "bytes": 457,
+      "sha256": "dd54a93b45207bb014b85b1a554a3ef65d2b18857d06e9ddf7150883f46e934b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/hall-interior.png",
+      "bytes": 818493,
+      "sha256": "7936744dd3de12a86340c4601c6e4fb26222c38ed9c4b1845cad34242f0a4e1b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/host.json",
+      "bytes": 2396,
+      "sha256": "f735dff71941cacfd3d523a21bcdb31f8839219d6ff7d68f14881498ad18384b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/input-result.json",
+      "bytes": 386,
+      "sha256": "0e7ca4e2ced2210500328304b441af64cbc45f188e146302ed78aee6c32f0644"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/input-source/d17_02_route_input.py",
+      "bytes": 10218,
+      "sha256": "087ec997958c3a97e42352ba04593f0880255fa2477ee9f373719f27b9e38292"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/input-source/route-input.json",
+      "bytes": 6694,
+      "sha256": "709522a70324c0e4aef53bdc41d5c382038eab5cd70cd78fcf8370de7f438835"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/input-source/run_d17_01_slice.py",
+      "bytes": 10753,
+      "sha256": "1cfcca5f52f039ef5897b5d06dfda4fadb737e5862b262c46856fe932efbd757"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/input.jsonl",
+      "bytes": 92129,
+      "sha256": "669fa0195f8571ac1829411312b77afbc96488ee91eb65e05293c49c3e965e21"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/inputs.json",
+      "bytes": 1913,
+      "sha256": "7c2c236972ad8f4847389cbe2d68dbdc0ad05b63a852fdd32a8903f89d04eee8"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/measurements.json",
+      "bytes": 15440,
+      "sha256": "ba4c3b3ce832e1e4a267c6b53148044cf14b1cd2944f48033c10230056f9e0d4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/native-source.json",
+      "bytes": 81017,
+      "sha256": "a1d5749b99d615814dc1169f905baac8c3370eca15ad22062d9883a381e7d394"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/observation.json",
+      "bytes": 995,
+      "sha256": "52aae51bd7e9be8d5b1761a8006b0ecad778d6abe16a0b89751f4d63145c2718"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/package-verification.json",
+      "bytes": 3240,
+      "sha256": "b5492efbbda73962415f9c2ec13ed4b75d40ddd8d8436cf20e129db9b9e55163"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/panel-exit.png",
+      "bytes": 634853,
+      "sha256": "83c618e82139f09c137b30ae7bfdb6ac869882db6c147c38e0c33b61b4748112"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/ramp-ascent.png",
+      "bytes": 543444,
+      "sha256": "a3bc04e55b9301defc6b311ef28d73f9126261e31e0020cba1d495214ece7504"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/raw-gameplay.mkv",
+      "bytes": 24943250,
+      "sha256": "5ca74c10f9c6b7a7c6857e0b1422ae64dfd8604a0d5ebd247a81d9bede90111a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/resolved-package.json",
+      "bytes": 8694,
+      "sha256": "a200947c1287b29bf8e0068c5eaacc0e7b07d71d47a3832229bc8762ac02c1f9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/resources.jsonl",
+      "bytes": 111595,
+      "sha256": "442cca4a1c3a283ff7a91a8cfc9a3080d9e062946e4c2d1300e5ac15de38fa56"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/runtime.engine.log",
+      "bytes": 257074,
+      "sha256": "28bfdac6f8d47215ff27ba4d031dd9df7afbb5df6160adfad83508a3cfcf2cfe"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/runtime.stdout.log",
+      "bytes": 255014,
+      "sha256": "a8f5af107995c68d6f91249a8c502116781629845e196dfabdfeb4cfb49985eb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/telemetry.jsonl",
+      "bytes": 2565254,
+      "sha256": "b0c6cc7f3e96c6a0394dedd73934cd3176f031b83e3f9fd49ea1ed0ad1c2f231"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/terrace-overlook.png",
+      "bytes": 895787,
+      "sha256": "84f455126a7f82020df4feb27f5c1e79d42498f0605b57b41e14031974e56aae"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/video.json",
+      "bytes": 2357,
+      "sha256": "b52e0488e225f5a4be57be10293dfaf5193f1c79aeb69e1a782096dcaa2fc74d"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/capture-command.json",
+      "bytes": 300,
+      "sha256": "3bf9938bdee4db34e0d0f2aaf3028fc22c2fe71c7468b892864d1abcd717292e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/capture.log",
+      "bytes": 104,
+      "sha256": "cca6046e56ebecb771c819253b27312222ed1fff39208a46d642e5c5a3f317fb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/command.json",
+      "bytes": 2129,
+      "sha256": "268fc123c82b343b750c90d5cdbe7928ddcefb4c294e780583ba05f4fcdce7f7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/execution.json",
+      "bytes": 319,
+      "sha256": "8ed1d77261c113e3e768eeb51f87b5540eb9ef4763d80916eba638adc878dcf7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "11902b62b0b0019367a109580efa169e102bc23b8bd7a63fbe4b38301ad86dad"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/game-command.json",
+      "bytes": 457,
+      "sha256": "dd54a93b45207bb014b85b1a554a3ef65d2b18857d06e9ddf7150883f46e934b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/host.json",
+      "bytes": 2396,
+      "sha256": "a8ba55961124d4d40db00d93c49da3d252ed604c61ce3c3aeb9c393029b048f1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/input-result.json",
+      "bytes": 387,
+      "sha256": "9f9bad1502767adeb0609d015628ceec5b35e05e87b1f343fe4a3afe994e2593"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/input-source/d17_02_route_input.py",
+      "bytes": 10218,
+      "sha256": "087ec997958c3a97e42352ba04593f0880255fa2477ee9f373719f27b9e38292"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/input-source/route-input-720.json",
+      "bytes": 6768,
+      "sha256": "f07cb8cc5cce8896f5e8d2034ffd0885ff6845f19b8ef09a5f4aaefd8376569c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/input-source/run_d17_01_slice.py",
+      "bytes": 10753,
+      "sha256": "1cfcca5f52f039ef5897b5d06dfda4fadb737e5862b262c46856fe932efbd757"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/input.jsonl",
+      "bytes": 78505,
+      "sha256": "06fd4722e52f764a26c673c400516d83faa7f027f0e6c49c104a8f5b3c8786b6"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/inputs.json",
+      "bytes": 1921,
+      "sha256": "baced50bb629a27bf992d590e0050fefb06d857f0c2f4a49a24ec325c229f975"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/measurements.json",
+      "bytes": 14301,
+      "sha256": "19aa17733a356fddb83cc077f4ceff9be663322a440f3d92244ebbfab1ce1245"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/native-source.json",
+      "bytes": 81017,
+      "sha256": "afde336bda220a87027802e93600b35c71cae0ceb24ee086486e270ea1e7e0e1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/observation.json",
+      "bytes": 995,
+      "sha256": "1938cfe6988ec401e7a90baf045622e393369bc193f2d016e55d79ab5fe54d88"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/package-verification.json",
+      "bytes": 3240,
+      "sha256": "fa8bd5c5c257610fa30cae462b53829672cdbeb9acc4504e8ee28ea6c386f787"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/raw-gameplay.mkv",
+      "bytes": 19505922,
+      "sha256": "429e3f4d23c1450737a73995c111b2de26101440536db5ffa914f405bba704d5"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/resolved-package.json",
+      "bytes": 8694,
+      "sha256": "65ba99dffb8b6fd1d0b7eec170eeaf77c74ecc1f10d9cb97800f2c987b5315d9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/resources.jsonl",
+      "bytes": 95345,
+      "sha256": "8b53f89ff161ae9fa51985ca9a21a8bf082bb0ac59f3a78a1ebe0f82a93c4129"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/runtime.engine.log",
+      "bytes": 238049,
+      "sha256": "4b222450c3d3a80ced7b997b9e34702dda27d335fb84e19461cbe6112bc89697"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/runtime.stdout.log",
+      "bytes": 236106,
+      "sha256": "2c5f248d83d6c5bec4fac5bf435aa46b9521d7ef90bb818b7d114829e1008812"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/telemetry.jsonl",
+      "bytes": 2123459,
+      "sha256": "fb54e9af5466f39aaf59ccbfe8ce358d5b6406f8416044d7de87512432a510b3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-02/video.json",
+      "bytes": 2357,
+      "sha256": "6356e88c1ec070d6fec2007a122be092d49c7f69209a90c38ae5b58a1a9643b0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/capture-command.json",
+      "bytes": 300,
+      "sha256": "3bf9938bdee4db34e0d0f2aaf3028fc22c2fe71c7468b892864d1abcd717292e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/capture.log",
+      "bytes": 104,
+      "sha256": "b4f889a343f4d660875f2b79c7154b128d97a4f35650ebb343376f75b3fee9e2"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/command.json",
+      "bytes": 2130,
+      "sha256": "23997a1784d2ae706beff59fe72cd44762c1766f7a98396453e6d512257dac70"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/execution.json",
+      "bytes": 321,
+      "sha256": "eeaebf4c7c35e9966ae74301bf368845475221fd06b4f611c35bfe4054213c44"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "366f581e48a01320a88004e34e82c1220d9e628e6b1d52cf7d6e17b507e628e6"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/game-command.json",
+      "bytes": 457,
+      "sha256": "dd54a93b45207bb014b85b1a554a3ef65d2b18857d06e9ddf7150883f46e934b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/host.json",
+      "bytes": 2396,
+      "sha256": "ca793d6530b1f4ac7e4de56604c3db56444c6f47fa21d0244a0d4c007649d9c8"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/input-result.json",
+      "bytes": 386,
+      "sha256": "c7788be832e0ac1b6a2a5ac4824ef7beee8ad46267d14b9fc3051d5df8a6c265"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/input-source/d17_02_route_input.py",
+      "bytes": 10218,
+      "sha256": "087ec997958c3a97e42352ba04593f0880255fa2477ee9f373719f27b9e38292"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/input-source/route-input-1080.json",
+      "bytes": 6874,
+      "sha256": "1eb259025ded2db8c684b7634f2e17a3f20555041771cb5e1d7b55e9506e5af4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/input-source/run_d17_01_slice.py",
+      "bytes": 10753,
+      "sha256": "1cfcca5f52f039ef5897b5d06dfda4fadb737e5862b262c46856fe932efbd757"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/input.jsonl",
+      "bytes": 14467,
+      "sha256": "9a82c0fdffce875f08179fed9d55c6488e03327700f2923db59369fac5218554"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/inputs.json",
+      "bytes": 1923,
+      "sha256": "015f500fbfb1e03c5ff4893943befdc67e037f1ee86f11865796705defe37e63"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/measurements.json",
+      "bytes": 5633,
+      "sha256": "5011cd189a9edafae631a90fb151038b3028d4c5ca2051c740e1df50bf4b47b7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/native-source.json",
+      "bytes": 81017,
+      "sha256": "cb79fee68f3f98e76a2c09c125341568d641302d55a5155e03f035ce582c2374"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/observation.json",
+      "bytes": 964,
+      "sha256": "eee87fd07d171c27fa50126a005719624d18ab5455f3f86ee391b48ee25d052b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/package-verification.json",
+      "bytes": 3240,
+      "sha256": "33f675b2f32db9eb3a698740a8e63d1f3554a7819b8b69ef8a14918d422ae735"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/raw-gameplay.mkv",
+      "bytes": 7199505,
+      "sha256": "b28bedc5d57b585e7f28ddc6b96d8c36adb30374332f1e97d3bb998c3635dcd4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/resolved-package.json",
+      "bytes": 8694,
+      "sha256": "14db36479bf95fc95ba5ea13887cc8c0291f0a59c4ae795374f46c0a96ed0d92"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/resources.jsonl",
+      "bytes": 60626,
+      "sha256": "3129f41bf792a1213ecb509e04e66c39441e792be9f8fc94f2cfbd2ab7b17e78"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/runtime.engine.log",
+      "bytes": 193750,
+      "sha256": "a833d7cc9d28e6a9aad01ed34cb0627cee981f6ff0ce4e5ed153bb0885b9c9a7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/runtime.stdout.log",
+      "bytes": 192108,
+      "sha256": "e45b24792ece222241209c38fbaed7cbbe48e615ee948c0dde92ad27005a8ff0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/telemetry.jsonl",
+      "bytes": 998312,
+      "sha256": "f4f1a6fd576af6eaa1a54c83a9ad95140b96b3afe60a50692a5c8d40bee8dd81"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-03/video.json",
+      "bytes": 2354,
+      "sha256": "eb124ab0b857f9a4cbfe6a5494a6e0fdcc9d37f0d32ac02248b540605d75b546"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/capture-command.json",
+      "bytes": 300,
+      "sha256": "3bf9938bdee4db34e0d0f2aaf3028fc22c2fe71c7468b892864d1abcd717292e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/capture.log",
+      "bytes": 104,
+      "sha256": "b6ba05b141389d22c25b036b6b0be11d61d680ee7c4c0acb094a871406a7a1f8"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/command.json",
+      "bytes": 2130,
+      "sha256": "2c216f594dc3dd6dd6759c511cf887f7e9834aead9134454e21078d0df5717c1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/execution.json",
+      "bytes": 321,
+      "sha256": "80e21d09fedd2402f976aa74f3cce85f90f4300fe496b0dae908dcfedd8b9f08"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "53e81b0472d2318dc4136ca92e77dd7db134227d1871b077358b337f76412989"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/game-command.json",
+      "bytes": 457,
+      "sha256": "dd54a93b45207bb014b85b1a554a3ef65d2b18857d06e9ddf7150883f46e934b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/host.json",
+      "bytes": 2396,
+      "sha256": "8c719f6c90317edfa2dd7b21f720ebaddef9974e7359a1e096c8de7eceb2d62b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/input-result.json",
+      "bytes": 385,
+      "sha256": "cdd9a4513c13ca1475d3fe2667e99e353e5e5a213b0f20d4648a1f035a493ac9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/input-source/d17_02_route_input.py",
+      "bytes": 11308,
+      "sha256": "1d5a272526d2a2442d3dafe7e714a70861fad20ed7a5a226b4da4a3a615f2b3b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/input-source/route-input-1080.json",
+      "bytes": 7358,
+      "sha256": "007d09c5b31eabc1520b14f1561125533cdca8d591fa43464365a61ee61e110b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/input-source/run_d17_01_slice.py",
+      "bytes": 10753,
+      "sha256": "1cfcca5f52f039ef5897b5d06dfda4fadb737e5862b262c46856fe932efbd757"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/input.jsonl",
+      "bytes": 8336,
+      "sha256": "323bf45d570111f8013155a327cb5dea0118c0179fb3aefba2be6ac465455d6d"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/inputs.json",
+      "bytes": 1923,
+      "sha256": "45e77f743dbd39369e76770c7d4a9be97228ac3e04cb0474c9a0f0b060927e3c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/measurements.json",
+      "bytes": 5044,
+      "sha256": "8df094d10da7a13822e30b8d4a8baf75fa779600715f7619265650452ac0b566"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/native-source.json",
+      "bytes": 81017,
+      "sha256": "6a3e89b5365d9eccd26ce18480a41d038730b4e6bbf8b2edac9b264274838d56"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/observation.json",
+      "bytes": 990,
+      "sha256": "e5982d22690804ccff3886c57055dd842a9994b0def1a8501e607b2b86f0ed2a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/package-verification.json",
+      "bytes": 3240,
+      "sha256": "63c5e13e82bc1003429d8e78bd735a713e6a3401b241de07582fe8ac7d04f7f5"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/raw-gameplay.mkv",
+      "bytes": 2998948,
+      "sha256": "835005be76d599ba2df84c647e327ba0a42df69778030b55a133ddb14ef4388f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/resolved-package.json",
+      "bytes": 8694,
+      "sha256": "31f137c708081783511dcf5d611347bd06b700b672db2e9bc10d425268fd5d48"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/resources.jsonl",
+      "bytes": 54570,
+      "sha256": "7621f3ad7d0a17e4b94fc878921175309c19f1c1ca6d2563572330e43def4083"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/runtime.engine.log",
+      "bytes": 181788,
+      "sha256": "606d77e6a50e2562fac261e5d3b6a1e51dcaadacf3901ac1b220c7aece4082cf"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/runtime.stdout.log",
+      "bytes": 180226,
+      "sha256": "826131ad75e3c62c2f660e8b62578b19fb41977a7323ccffdf6740eeec0c2d7f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/telemetry.jsonl",
+      "bytes": 396823,
+      "sha256": "7199b5f539d0d1e32730baec8726c893b0b8c618160a626640b8fd3a463af737"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-04/video.json",
+      "bytes": 2354,
+      "sha256": "c7fd2bcae3cc67a8f2ac625207bb6f140832014ad8a1059e938f0aaa6bf51479"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/capture-command.json",
+      "bytes": 300,
+      "sha256": "3bf9938bdee4db34e0d0f2aaf3028fc22c2fe71c7468b892864d1abcd717292e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/capture.log",
+      "bytes": 104,
+      "sha256": "58d4150d532612d1dbab986bb7ea85324be6e9b3268adf5aecc9248bd6a69d46"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/command.json",
+      "bytes": 2130,
+      "sha256": "754db932bc7d10705fad8085df83969323fb889ef1adbf0bdf33860e016129a1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/execution.json",
+      "bytes": 322,
+      "sha256": "3700a83ac954105cc02e1fdceaa19bc224ff4555985fff4abee239087b9f30dd"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "e06094f47c202c12e76228e5d8cca07180e0d3d1b6ad8d6ebdc5e9f99062129f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/game-command.json",
+      "bytes": 457,
+      "sha256": "dd54a93b45207bb014b85b1a554a3ef65d2b18857d06e9ddf7150883f46e934b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/host.json",
+      "bytes": 2396,
+      "sha256": "249908a988ad8badcbc367b5e27e954f05047fafabea3f34ab79bdf7711f9136"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/input-result.json",
+      "bytes": 386,
+      "sha256": "350a77e6f520d3944c8ea05360d40412e60a6bf211a49d4d3012c97dcb96bfcb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/input-source/d17_02_route_input.py",
+      "bytes": 11701,
+      "sha256": "fec79ccbdd54c0b381a20f9ded714a0853150324eea69223a7ad94cf06d5db22"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/input-source/route-input-1080.json",
+      "bytes": 7388,
+      "sha256": "300c2d68d7d740786c1387a9aaa9f363b09285d786136efeabf68c61cc1133ae"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/input-source/run_d17_01_slice.py",
+      "bytes": 10753,
+      "sha256": "1cfcca5f52f039ef5897b5d06dfda4fadb737e5862b262c46856fe932efbd757"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/input.jsonl",
+      "bytes": 7783,
+      "sha256": "a31890197b34503f6951190afa6dd08082b977d04b44d548e30f17b3d5d0dd54"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/inputs.json",
+      "bytes": 1923,
+      "sha256": "1b1668bfa795fe48f7f2bcd108a1662021642fed3f244c73de74cc80f7c6122c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/measurements.json",
+      "bytes": 4665,
+      "sha256": "1cf7ac078c3c18583b537796c277d58af12120c9c45e936fa125ecfe67999ae2"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/native-source.json",
+      "bytes": 81017,
+      "sha256": "1b1762f98086c47c99ea38a5a3aeb461d1163d60ffa2b295d6183200ac388052"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/observation.json",
+      "bytes": 992,
+      "sha256": "be141dcbf5f15f1ada5a36896f6a457ed12cfedf7bec9d7e66d3574ab30ccb78"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/package-verification.json",
+      "bytes": 3240,
+      "sha256": "392a2d21b1a4250b8618588ddb0b1526d4775f0b524ffd4b8b60b4757596abf5"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/raw-gameplay.mkv",
+      "bytes": 2056121,
+      "sha256": "c0d818ec078a49b9200d7ac9d4d252396cff12c97efb28108fe847199774c3c6"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/resolved-package.json",
+      "bytes": 8694,
+      "sha256": "2eb4c0650fd69a6326f451dd13e52a309d150a83a6e088bdccf0323d8cb63088"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/resources.jsonl",
+      "bytes": 54425,
+      "sha256": "8fba7cadb3d18f3c2dd534eee9cafddd5662c60e02e7892c5218f90a223c6b85"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/runtime.engine.log",
+      "bytes": 180278,
+      "sha256": "30e15131d33f943afd1e40f701096c642ca91d24172c1b20cc3984cfb6939b50"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/runtime.stdout.log",
+      "bytes": 178723,
+      "sha256": "2f5135af19de5cd28d1398d2e9afef8ead57b779c0b1c64894d80b66deea6939"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/telemetry.jsonl",
+      "bytes": 268038,
+      "sha256": "62359485f632409d54a3fd94476c456aed7d209a75bba1ff7415d42d2df4e693"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-05/video.json",
+      "bytes": 2353,
+      "sha256": "26fb2459620b996735f4cd97c649477caecb17a634fd48a3114859f00e7247bc"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/capture-command.json",
+      "bytes": 300,
+      "sha256": "3bf9938bdee4db34e0d0f2aaf3028fc22c2fe71c7468b892864d1abcd717292e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/capture.log",
+      "bytes": 104,
+      "sha256": "99c8713295b76a17f1dd28d59ad36b9b846f3538801f2e02bb406e00e7db2a98"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/command.json",
+      "bytes": 2130,
+      "sha256": "720e9b6ed8f15f1941f995ee75c6bab9fa74525eef9317bc0334e7adf2ade4f9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/execution.json",
+      "bytes": 321,
+      "sha256": "283f4fc61794ffcdc6f86de4063ab6376e864acf793663ed905f749bfbcd3318"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "bc0af4ad851fc3b544bff6016d2a8d40f3c5b111ca807c280e5f163458abd838"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/game-command.json",
+      "bytes": 457,
+      "sha256": "dd54a93b45207bb014b85b1a554a3ef65d2b18857d06e9ddf7150883f46e934b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/host.json",
+      "bytes": 2396,
+      "sha256": "828cc529d64b7a90829050027587968b54598f4ecd20040075a47b85f5389659"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/input-result.json",
+      "bytes": 387,
+      "sha256": "92a778fa4af03e08e497843fd879ec6181d28a4e091ab9447e87da7851269080"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/input-source/d17_02_route_input.py",
+      "bytes": 11820,
+      "sha256": "3a87a0a060ed7a6abba656b36bbfe348142e15712c46818402fa1acf1cecaab3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/input-source/route-input-1080.json",
+      "bytes": 7390,
+      "sha256": "ca7a7f3bfbd25c6b521b33e2eb3da33659334835fc10c214152fa49fa576e869"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/input-source/run_d17_01_slice.py",
+      "bytes": 10753,
+      "sha256": "1cfcca5f52f039ef5897b5d06dfda4fadb737e5862b262c46856fe932efbd757"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/input.jsonl",
+      "bytes": 72582,
+      "sha256": "e4db457db8095923c584e86ed105d0c7e322945f581844bc2166326d8f3fc5e4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/inputs.json",
+      "bytes": 1923,
+      "sha256": "121bfe301a99e336d266525c0ae2c74727b5a51dc1cab96cb18f9cf384e1fbfd"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/measurements.json",
+      "bytes": 7406,
+      "sha256": "bf2150873b947602be78047c0e2144938f1d244440510cf1a105cc0deedc91f9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/native-source.json",
+      "bytes": 81017,
+      "sha256": "d9fed08f990f967ba2f269ff78306eb74e938b44188db7af58721345665e1601"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/observation.json",
+      "bytes": 998,
+      "sha256": "cb5411fedc3886f0d0e7d317d9e07d3e59848f5779dd34f46bb3ddbcae4469c1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/package-verification.json",
+      "bytes": 3240,
+      "sha256": "ba652914def13545287d8712707ffbd23f8cd01b76832f41a10138e7936ea1be"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/raw-gameplay.mkv",
+      "bytes": 20380355,
+      "sha256": "b430953c07512d3b1598495c57f98bf6f831939bc8cdc434fdb2102741f75530"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/resolved-package.json",
+      "bytes": 8694,
+      "sha256": "7cf53afa84c5d640584cdc934550944d90664ce06698cd515466622794d8d41f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/resources.jsonl",
+      "bytes": 105500,
+      "sha256": "5c73f70014c096ae5fe6172dccc1707c95acbb64d8cf7776a15c1adfce04fea4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/runtime.engine.log",
+      "bytes": 276231,
+      "sha256": "c04b99e9018c8cacf1610b30a0520807e32f292db91f43e2cfa95c4796064098"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/runtime.stdout.log",
+      "bytes": 274029,
+      "sha256": "8c8ae85ff5446045610d88972cda9044d23f8a4b36aa9ce76967ddf419c07beb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/telemetry.jsonl",
+      "bytes": 2418354,
+      "sha256": "fdab274c41ef253389c778ecad5e2ec69a4a2c544df41482feb1d48f19a03cd7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/video.json",
+      "bytes": 2357,
+      "sha256": "79c3b41b91f2b4f5b9032986698fdf49034df39582f0d94bc4fe566302a7b93f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/capture.log",
+      "bytes": 104,
+      "sha256": "6eb8d5b3d1a6f8fbaa99874bc914de5b1abcc5255575beacfb6e42b36f9abbe2"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/command.json",
+      "bytes": 2116,
+      "sha256": "7efaab81543855972aad23c992003f1a95c94a41ce09020f2a0bd84de3d3b871"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/execution.json",
+      "bytes": 321,
+      "sha256": "ebc2e78419bcbd7c0e773301330d1ba32e0e88b7d8a359c7cf04fef95abc660b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "fb70d3270130911a2945df3b31dd24ec075e78261fe5038cb685479500f1dcd5"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/host.json",
+      "bytes": 2399,
+      "sha256": "36276c317891dc95a59be00c1db948137b4c493b129aced14730574ce12dd4d0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/input-result.json",
+      "bytes": 387,
+      "sha256": "53d776119e98a4c9c017a409fa2d1d5a134cd38b463abe948d1076c8ff300dce"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/input-source/d17_02_route_input.py",
+      "bytes": 8420,
+      "sha256": "fe9d127fb07f6389472a8abcb63dca785679af416eba4414b0406fe938c0e206"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/input-source/route-input.json",
+      "bytes": 6694,
+      "sha256": "709522a70324c0e4aef53bdc41d5c382038eab5cd70cd78fcf8370de7f438835"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/input-source/run_d17_01_slice.py",
+      "bytes": 10753,
+      "sha256": "1cfcca5f52f039ef5897b5d06dfda4fadb737e5862b262c46856fe932efbd757"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/input.jsonl",
+      "bytes": 51316,
+      "sha256": "35a0621deca05b7441f910bb1a3aa488df7e42afaa85f2672a97ab16aa7c6a39"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/inputs.json",
+      "bytes": 1907,
+      "sha256": "f94613b300f182906352a2466cc34a0430a5c7b85f00cf8cc335c4889fc8f8d0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/measurements.json",
+      "bytes": 6586,
+      "sha256": "ad2bead690d87d2324221f72886bf98dd9e77e0847e4a4388b228841099056d7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/native-source.json",
+      "bytes": 81017,
+      "sha256": "0d811b4e3502dbb70bcdb2c711a0bf5b32498f9297be4b9510060bd94288a65e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/observation.json",
+      "bytes": 998,
+      "sha256": "33a49ec53fa35274e69197d38f0f8d38e967c324a5278e54b5d3d07a20a76d38"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/package-verification.json",
+      "bytes": 3240,
+      "sha256": "1d5d3be577452f08e831dc404720995c1d38d0d5edb805804c0636f4d9eca18b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/raw-gameplay.mkv",
+      "bytes": 5387216,
+      "sha256": "136b3c584283a356ae3e3cb5df99e5297f1b5b11fbebb8506d3d465e5b11b3b1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/resolved-package.json",
+      "bytes": 8693,
+      "sha256": "18ffb32752786600939f22f91f5fd1ee94c984955ed2e2918f93df5554996b6c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/resources.jsonl",
+      "bytes": 64862,
+      "sha256": "b646746107948173c8f4bcaedc6c87b23e69b81bd6dd1c938cae84d7961200e8"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/runtime.engine.log",
+      "bytes": 267417,
+      "sha256": "5ed1c5ad2ced85eee81d1c1536674624556197a5ded81bc8f2a833c9a8cc7183"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/runtime.stdout.log",
+      "bytes": 265271,
+      "sha256": "363b423452e17b43e2a34e3d3379a6bc4c908d02ca5d4b2f75ce34ec99a92850"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/telemetry.jsonl",
+      "bytes": 1704177,
+      "sha256": "60c7ec4ac2651409421f03f6d33c81d75e9b89e38af2afb1369aaa2eb902bc03"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-01/video.json",
+      "bytes": 2350,
+      "sha256": "c72f9ce6ad64dc679d499999b0f8a748a1d202300b284692a3c0a5118cc88e6c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/capture.log",
+      "bytes": 104,
+      "sha256": "6cbbcc5cdb064c6928c7a7a093dc9d118390e33a209f090a3618927e76f3770c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/command.json",
+      "bytes": 2120,
+      "sha256": "347ae1e8d9a5eabc13feb78d8d42904ef5059b788d2faf2afddfa0bab0ab1204"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/execution.json",
+      "bytes": 322,
+      "sha256": "e41d38a5fe1c4fae6b86cf8d4dcd45fad10307106076b8b66922356ab9a68793"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "02b6db8d0fde812e9e573577ba806d74692923c93a8a8c5371dbb6c3a86de49f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/host.json",
+      "bytes": 2396,
+      "sha256": "5c1d0722d01927ec7ac5dd36045d510e8ceb93930999d1835e300d669cf3c5e5"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/input-result.json",
+      "bytes": 386,
+      "sha256": "af98478643fd967a13ed0e90de9a959dedd60a1ea63c390a5d2c3c8d7d024f90"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/input-source/d17_02_route_input.py",
+      "bytes": 8420,
+      "sha256": "fe9d127fb07f6389472a8abcb63dca785679af416eba4414b0406fe938c0e206"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/input-source/route-input-720.json",
+      "bytes": 6768,
+      "sha256": "f07cb8cc5cce8896f5e8d2034ffd0885ff6845f19b8ef09a5f4aaefd8376569c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/input-source/run_d17_01_slice.py",
+      "bytes": 10753,
+      "sha256": "1cfcca5f52f039ef5897b5d06dfda4fadb737e5862b262c46856fe932efbd757"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/input.jsonl",
+      "bytes": 44093,
+      "sha256": "ec6abd2abae6bb730b59b0a099f679519479bacb4057d5be86be469e6cfde07b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/inputs.json",
+      "bytes": 1915,
+      "sha256": "4ffdf03560be9e6536ec7247c27c08e06ac942f15ff5aeb15bc33a2d45066d8c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/measurements.json",
+      "bytes": 5811,
+      "sha256": "be6203fa3c2d916459d7d67390ab624a415083c6fc201b4bc93ec89d55637ff1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/native-source.json",
+      "bytes": 81017,
+      "sha256": "5f17c7b11229c63cf866fed8b27965bc99d451d3b20aadd7828f58a236ef2ba4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/observation.json",
+      "bytes": 996,
+      "sha256": "6f680697c642c9a15de982aad84cea9717c5a1b0af34a4627d1a2774f841d9b0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/package-verification.json",
+      "bytes": 3240,
+      "sha256": "4a9776d14d25b46c7a8e3dcee1d73411d07a7893fbfaa16fa83e9f10bda4cd78"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/raw-gameplay.mkv",
+      "bytes": 4789280,
+      "sha256": "ee8b51bae4c319b158e66824d823e45ccd2a062160e17bb9d022488903cfe732"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/resolved-package.json",
+      "bytes": 8693,
+      "sha256": "d19957bffa07b11af6ea0691b681a2ff5c26b1e126fbce404b648ae14f8f8ef6"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/resources.jsonl",
+      "bytes": 60747,
+      "sha256": "2ca40c808be448763cea5a16b86dc0b5c45610926b5fa3220f5b92249cc4e853"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/runtime.engine.log",
+      "bytes": 245638,
+      "sha256": "078e266071e15940a193e0674d7d930fef0dc9a0b6fd9cc1efbe683c7cb59913"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/runtime.stdout.log",
+      "bytes": 243652,
+      "sha256": "a468acf4292eccdd06b8221e2326aef7fc88a5348f7623c429c20bab8efe5740"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/telemetry.jsonl",
+      "bytes": 1504684,
+      "sha256": "246e137bbe30a76357ab172941e29984b1741984a84720fc419c79f2e5b478ce"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-02/video.json",
+      "bytes": 2350,
+      "sha256": "4e6a0042f05c9e5013d2503fae1e34eb8da70568cb5aa00e175a4fa5cdb766d8"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/capture.log",
+      "bytes": 104,
+      "sha256": "a1684ae15ea7b257c908829c3ffa67ac0caefc86de8eb9a2dbf608a6a62c4517"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/command.json",
+      "bytes": 2120,
+      "sha256": "c26daa29efcaf998ddd0fea771720b05b86755de8378b1f751854327aad54f2d"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/execution.json",
+      "bytes": 318,
+      "sha256": "6b4f69f20bf5be38cba9fcabdb4a189b7795d92f9d4f4cea26c52bc62801b6e4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "6c2c2324f23bed0f8260182a88f82045280435c26e91521c45bb0cf4e157635f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/host.json",
+      "bytes": 2396,
+      "sha256": "650301b1d3c3e230273217cd4d58baf097b4655729c194cc589b06923d82657c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/input-result.json",
+      "bytes": 387,
+      "sha256": "5f149221c1cd6090058d14fab44520d4f4944893e3587e5dfdc1d05f178339b7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/input-source/d17_02_route_input.py",
+      "bytes": 9418,
+      "sha256": "76455404f77bc96c962cd8c5d1727cce0f195923357d4d8a3880b43afb516e3c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/input-source/route-input-720.json",
+      "bytes": 6768,
+      "sha256": "f07cb8cc5cce8896f5e8d2034ffd0885ff6845f19b8ef09a5f4aaefd8376569c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/input-source/run_d17_01_slice.py",
+      "bytes": 10753,
+      "sha256": "1cfcca5f52f039ef5897b5d06dfda4fadb737e5862b262c46856fe932efbd757"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/input.jsonl",
+      "bytes": 47584,
+      "sha256": "3636a2423b44254618baaaed15aad450fb45684202edf513ecd0a17d0da7e595"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/inputs.json",
+      "bytes": 1915,
+      "sha256": "d3281ab8cb80af744d9f7e851a988d3406572c078baa68e93d5c7b71b4e40d2c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/measurements.json",
+      "bytes": 6178,
+      "sha256": "55bba40adec3f02a6695a34fc8e76e2ef4a727def26a77ec3db443504a52e399"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/native-source.json",
+      "bytes": 81017,
+      "sha256": "49837c406e6e6c1b7513d4aa9b2ac6cf47d8926fb23c32cad23aa7cbb881e8f7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/observation.json",
+      "bytes": 970,
+      "sha256": "ebf3f073dc1fb654e53d76c39a1fbbc6c935e70307816b37d667c8efd3e20d30"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/package-verification.json",
+      "bytes": 3240,
+      "sha256": "e406c7f352168ca7ea811c91a78deec0988593200ba736b9d712c7ea01aabdb0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/raw-gameplay.mkv",
+      "bytes": 5058767,
+      "sha256": "242ddddd3ba068ef608a08b4d621e82b892e2863e5d82e55c7279b2e562948c3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/resolved-package.json",
+      "bytes": 8693,
+      "sha256": "a6de839e399349a26eda266e67b585f6f68685bba6adcf6392451dd361b2db0f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/resources.jsonl",
+      "bytes": 70919,
+      "sha256": "f3fa90c21d567b49a4da76fd25a32450ccf560ba66dcae5937b909c1680c547d"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/runtime.engine.log",
+      "bytes": 276825,
+      "sha256": "cae5aa91bebd2d37468a2039570763cc8475e776b0c111d232f931f5f2c2e11f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/runtime.stdout.log",
+      "bytes": 274621,
+      "sha256": "9cf3bacbda3b5c7be308b759f390f8108474b8a9f83adfbd20d59988a770e148"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/telemetry.jsonl",
+      "bytes": 1865719,
+      "sha256": "d12059e7e3b162c3a349a1646f6ae7cbd8ad297d5fe3dc30de7f1b427df7e718"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-03/video.json",
+      "bytes": 2350,
+      "sha256": "70466bd83b75cc2d12ce64914c3b5c91a331c047c6b604d8d28f9375b926d014"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/capture.log",
+      "bytes": 104,
+      "sha256": "c426d4c6eb7ecafeb7295436bcedcc4bc5ab71e59309b0372320c4e170e60f51"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/command.json",
+      "bytes": 2120,
+      "sha256": "4f641d73a5594fa1ad41fc774ea0330343be1614b27d932dcff4f5a63b522b67"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/execution.json",
+      "bytes": 319,
+      "sha256": "3cf7cf30586f0a7e9e375a37bc1b4c36aaf3751b7b5d12819a7597a55f31f98b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "c5bad952a45260feccf33426371e6ee4f6be8d51cfa1257cccf3d984b3f575ab"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/frames.json",
+      "bytes": 776,
+      "sha256": "53f3d90594f3a5c95371094f606bf3394a61f39ac562fe35b3454a65d3ca8980"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/host.json",
+      "bytes": 2396,
+      "sha256": "34477355cee236871263c031cca7ad8987bb1a982c6d9275985b2e34b9f05e2e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/input-result.json",
+      "bytes": 386,
+      "sha256": "bfac3d0cd944b53d0df2d5a7f013a7a8492a32fcd4af295d41a5c4f11f7eb72a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/input-source/d17_02_route_input.py",
+      "bytes": 10192,
+      "sha256": "3d9b46d23db23a0f0a23cbca920e75cf9c66627f9bc6345bc1a9f63ed76dac07"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/input-source/route-input-720.json",
+      "bytes": 6768,
+      "sha256": "f07cb8cc5cce8896f5e8d2034ffd0885ff6845f19b8ef09a5f4aaefd8376569c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/input-source/run_d17_01_slice.py",
+      "bytes": 10753,
+      "sha256": "1cfcca5f52f039ef5897b5d06dfda4fadb737e5862b262c46856fe932efbd757"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/input.jsonl",
+      "bytes": 55653,
+      "sha256": "22cabcd030e43bf1d623ec1ab8587473f37a6ea011fc436645c4b8f2154b8745"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/inputs.json",
+      "bytes": 1917,
+      "sha256": "33ef31e9a8064fca1658a2bf597e9ba02e80bbf7ab96eed371356e1e7b5b0d79"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/measurements.json",
+      "bytes": 6584,
+      "sha256": "fb78fe8dd923e1b7bdfbd5427a186b8fa85f7fb0ce77e18abc5695ea495c7154"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/native-source.json",
+      "bytes": 81017,
+      "sha256": "fcc66c41d92593106115baa4cd25f36402b1b786b3c258eb6038264b6d9efbf0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/observation.json",
+      "bytes": 969,
+      "sha256": "3edc476926e69426840212e5c6d2c7313da048fa9c4da2140c4a48977b21d3f9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/package-verification.json",
+      "bytes": 3240,
+      "sha256": "4547772d87d0733cd96f5b6f28041749020a98ef252cedf1dab4199b21e6c284"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/raw-gameplay.mkv",
+      "bytes": 5520070,
+      "sha256": "5b769fcd1bbabbd8154abea9ce07e18e786f0d5a1280d5f8a9802599b81b9ab5"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/resolved-package.json",
+      "bytes": 8693,
+      "sha256": "79c4eeabed5496fbb6d851a518d0fa21bd2d3f6cf82aa1f82cf142ef71a16133"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/resources.jsonl",
+      "bytes": 74863,
+      "sha256": "7aa49cbd05c0b8b10909e0a67c3106249f1726ed0980aba3dc8d407785c3232b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/runtime.engine.log",
+      "bytes": 276557,
+      "sha256": "6cb3d08d3826387482d7bc3806f8a8a20aef08faa3933f35c2c0ad39ea04b3eb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/runtime.stdout.log",
+      "bytes": 274376,
+      "sha256": "7f9f19b0d8f8c58846d955f1e4bb8bcc1abf1eeca656d96e75843b043ebbb210"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/street-hud.png",
+      "bytes": 213024,
+      "sha256": "0296c1fbc981ae36870179c711a2a45999f234e912330504a33f1c006101eb1b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/telemetry.jsonl",
+      "bytes": 2000681,
+      "sha256": "2b848ed7ad97f11d7bbbdf1649cf0d64a8d2da9cd702abbdc40d7750a6aa68a1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/video.json",
+      "bytes": 2350,
+      "sha256": "450ceb0ebaad8759f99d61fd3fe38c3c729b0ab40227bd911a9567618d3495bc"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/capture.log",
+      "bytes": 104,
+      "sha256": "526f95a30c0982e8163c4b39e60a4e4e79d15cf645cccc4ba3a1e625fccc6952"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/command.json",
+      "bytes": 2120,
+      "sha256": "1520e984bb9c8b035cdcc7f95d6a61572804be719bf36ad464b05e29ffa7e8fe"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/execution.json",
+      "bytes": 320,
+      "sha256": "320ab595af693a73b67fe99783fb3e9d83c5563ff1754baa99ebd4b2f38502d0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "e10050b2c7e85210b78233ae41bfc4c7ce0f1d479fbf406c8688bd3e014fa143"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/frames.json",
+      "bytes": 1525,
+      "sha256": "20bd57b98768e539b7b26e04d1ecbe0160eac823e582ff2d1c9a1bdd27e12cf2"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/hall-interior.png",
+      "bytes": 441767,
+      "sha256": "e3895df0958237541be50c9b4f69adda6e1ea7645e297ac05cccbf140499976a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/host.json",
+      "bytes": 2396,
+      "sha256": "5aea701ddcc10ef290d0ceec3588164317c7e7fef8d87fc5375fffbf58b03c61"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/input-result.json",
+      "bytes": 419,
+      "sha256": "60b7d0153e03381a91717b05d3b90ed43132aa2654fa93357f49829907709a3e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/input-source/d17_02_route_input.py",
+      "bytes": 10218,
+      "sha256": "087ec997958c3a97e42352ba04593f0880255fa2477ee9f373719f27b9e38292"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/input-source/route-input-720.json",
+      "bytes": 6768,
+      "sha256": "f07cb8cc5cce8896f5e8d2034ffd0885ff6845f19b8ef09a5f4aaefd8376569c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/input-source/run_d17_01_slice.py",
+      "bytes": 10753,
+      "sha256": "1cfcca5f52f039ef5897b5d06dfda4fadb737e5862b262c46856fe932efbd757"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/input.jsonl",
+      "bytes": 126635,
+      "sha256": "3bf240fc1f4912dc5517e00644dcf41893256c1111c44308bc285927a2f4c576"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/inputs.json",
+      "bytes": 1917,
+      "sha256": "35aad16d1bef3dc2008f94c3066385d4cc5793dda457605b152e3706afa43210"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/measurements.json",
+      "bytes": 18024,
+      "sha256": "faf6228345983f530b36531d3784c743acfea704486c46167d0eb9dae5f4e793"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/native-source.json",
+      "bytes": 81017,
+      "sha256": "008da5c3293855f9df578c9106b410a88c90a5a71af88c37105485323544beb3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/observation.json",
+      "bytes": 1004,
+      "sha256": "d51533c612bcd1fc5d387ea57a035f98d5b558f0bbeacab7ab35f33b2c5df501"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/package-verification.json",
+      "bytes": 3240,
+      "sha256": "1f11f8c2e784f3b0cad543e575a7ea749219b7b4a0c0cf40fa5ac685240610f3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/panel-exit.png",
+      "bytes": 331556,
+      "sha256": "ffef75ddb43bd0be03681a47fc9d9b86a7fd5a1b7beef441281839aea3f4c1f3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/ramp-ascent.png",
+      "bytes": 295110,
+      "sha256": "44e3548f2ec56322b9e49b87538e5346e87e3832a386969e01db71906c49a80e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/raw-gameplay.mkv",
+      "bytes": 18734006,
+      "sha256": "330c545a6fced7d59108f955447d17c171e5729d71861e5a006f675c35dfb787"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/resolved-package.json",
+      "bytes": 8693,
+      "sha256": "da2a18b16eaf3fc8331752e69585aff7a77df5dc6d34a963d082e2031f197d92"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/resources.jsonl",
+      "bytes": 162419,
+      "sha256": "1ec65b9d8712392f4fcaeff7ef99590cac002cd2b18af697e413e283d5ca26ec"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/runtime.engine.log",
+      "bytes": 270841,
+      "sha256": "f0d8aa37fcd8a5054973043221ead500951ccc914bf87a65621075cea0124fde"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/runtime.stdout.log",
+      "bytes": 268634,
+      "sha256": "e4a935a3d9c434be7e65ed028b8de26b344f6e6f8690c8fde0446bff6f80cc7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/telemetry.jsonl",
+      "bytes": 5277486,
+      "sha256": "9be61fb9df6933cf5e1df96abc21409013df0f1053b98192992140ec7794adff"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/terrace-overlook.png",
+      "bytes": 453652,
+      "sha256": "0f16129c7bd43484f0735225df3003dd15406a1cc4a1766b0354ae6929ac4df4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/video.json",
+      "bytes": 2353,
+      "sha256": "3584fed083577e4ab0dcda90a2f9782c0245dc089e322b39e5eee54ae8d99c8f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/capture-command.json",
+      "bytes": 300,
+      "sha256": "3bf9938bdee4db34e0d0f2aaf3028fc22c2fe71c7468b892864d1abcd717292e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/capture.log",
+      "bytes": 104,
+      "sha256": "91decc5114012f5bc3956cc872884308fe1fea894584eafd00f970d6377f2240"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/command.json",
+      "bytes": 1996,
+      "sha256": "e33a4308acc6e56aa73c7b60e9657990edc9e6d4b2887c6807b2008f04bd9b98"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/execution.json",
+      "bytes": 322,
+      "sha256": "5cacab7e4322f97d9e71e7799f4b14cd72d60e5017ddcdcb037f98973c44e86d"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "0043d5f2d3ee71e495e921573dfe56dfcf19307fef4228c2a5f2cdade8720105"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/game-command.json",
+      "bytes": 457,
+      "sha256": "dd54a93b45207bb014b85b1a554a3ef65d2b18857d06e9ddf7150883f46e934b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/host.json",
+      "bytes": 2396,
+      "sha256": "2244d69d7f4c2455722fc5c685442964c6025fd332e595060247103d3b63d643"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/input-result.json",
+      "bytes": 386,
+      "sha256": "115100a63361e1329856fe5c576a121ae5a93d9b497bffe816587b9a44a9993e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/input-source/d17_02_route_input.py",
+      "bytes": 6575,
+      "sha256": "6163c13cce20dfb2a4dc0ed21e6abf6aa8e492414c33428b7a424092bad6dab1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/input-source/route-input.json",
+      "bytes": 4879,
+      "sha256": "f5af24ddd4dc9c2647b422e00620ab5cfdb06b564c76e4b65b38b4a07c2b3129"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/input-source/run_d17_01_slice.py",
+      "bytes": 9936,
+      "sha256": "43899069557afa10630050382371d7f4ff230be16133a08cdaeb2e272d6a7bbc"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/input.jsonl",
+      "bytes": 12358,
+      "sha256": "9ad609853a1ac6e203d869a1861725fc0e87a9fe45e5de09f08ac198a095e96b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/inputs.json",
+      "bytes": 1901,
+      "sha256": "a45e05d58a541dd9724eb989a4e79194fd1b2aa51af88cdab7e59aec66a5e4f5"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/native-source.json",
+      "bytes": 79111,
+      "sha256": "89890bfa4b7547e10afabf61808c7f632684a1e29a447bd0c57dfeb9805489f9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/observation.json",
+      "bytes": 964,
+      "sha256": "dd0a9623d3326b228ce7b5c157457935bc234a33e612a30da92e149e0670e43a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/package-verification.json",
+      "bytes": 1790,
+      "sha256": "18d2f551442d3174a93e5ba54d66b6da033d8477231f4caeac23a31a0dd474f8"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/raw-gameplay.mkv",
+      "bytes": 6955284,
+      "sha256": "5b3fe026b1de3de5025240050e498ae39f735b4c4e16e6f3b39852cddfef4fb1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/resolved-package.json",
+      "bytes": 8705,
+      "sha256": "b3cf7471bd538447967952fbf84ba0ba0eade68b5c2ee2386704e16f91f52765"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/resources.jsonl",
+      "bytes": 60621,
+      "sha256": "d50beb8fedd198764bcb2afea8e17f07c76ef456211f2f792a640f94069d7139"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/runtime.engine.log",
+      "bytes": 193751,
+      "sha256": "0e371619851c8ec34201d0335eb1f668f1453cb7b47b027c9f3a08e4a2fa4c08"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/runtime.stdout.log",
+      "bytes": 192109,
+      "sha256": "032dd82e4f7896d550b517466e43041181762e67da4ce69b1178dbfdcadd1bf3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/telemetry.jsonl",
+      "bytes": 1022090,
+      "sha256": "d4677df4354fe45e264992661ab61def7b6932eab4c945e30fb67c8f115ee1f9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-01/video.json",
+      "bytes": 2350,
+      "sha256": "d0b7e1fc33cdf60672db5141344198c79d16c18a8f7315223a454e6e7033121c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/capture-command.json",
+      "bytes": 300,
+      "sha256": "3bf9938bdee4db34e0d0f2aaf3028fc22c2fe71c7468b892864d1abcd717292e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/capture.log",
+      "bytes": 104,
+      "sha256": "118efe99b795572922e2025bfc29c6b0813eedbf36944ffe281c529dde2a0d38"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/command.json",
+      "bytes": 1996,
+      "sha256": "259bc9e8ab27f579351dd33d065768a1cb2df707dbebb7809a63de88502a98b4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/execution.json",
+      "bytes": 321,
+      "sha256": "c6922c44521178a77c9b2135edb43c232598071c58002ff06012a31dee346444"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "19848a2ff87f60dc262d4167bb59dae93c2acbbd9dcc09d448f3777ab4afa24c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/game-command.json",
+      "bytes": 457,
+      "sha256": "dd54a93b45207bb014b85b1a554a3ef65d2b18857d06e9ddf7150883f46e934b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/host.json",
+      "bytes": 2396,
+      "sha256": "033207a0c1159d5bd67169e392e189c9870c6c5ccc6e78f11d63a31b24fb80a7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/input-result.json",
+      "bytes": 386,
+      "sha256": "17de7a15653f2ba58bdf7902eda37f139505f57f6a91ba685fb9d5af3fb5eafe"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/input-source/d17_02_route_input.py",
+      "bytes": 7011,
+      "sha256": "1f65a753f4f3b553bbcc3924759a389447c7ac5c256c414c4cdb85d56ed87aaa"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/input-source/route-input.json",
+      "bytes": 4915,
+      "sha256": "501c4025ad57f49294035eee4775a07eb7b7c08b5c6aebaf74c4ed8170fc42bd"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/input-source/run_d17_01_slice.py",
+      "bytes": 9936,
+      "sha256": "43899069557afa10630050382371d7f4ff230be16133a08cdaeb2e272d6a7bbc"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/input.jsonl",
+      "bytes": 89000,
+      "sha256": "e1bea93493ab9416d5b3044b7f84c7bd2fd4767a1d798f072c56eb3d3f0bb0b7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/inputs.json",
+      "bytes": 1901,
+      "sha256": "b05a2c7c75968b6a71c4bed82bdd8880a6f6576365360bedee0d066aa1bdea25"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/native-source.json",
+      "bytes": 79111,
+      "sha256": "e429098d3e6041e73edd3787baac6075dde324353c0d9e0af6ca42c24546f4ee"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/observation.json",
+      "bytes": 968,
+      "sha256": "34640ead194d2cd43da4b9d434f89e19a2a5c42564edec54b8b3a6c905a926f8"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/package-verification.json",
+      "bytes": 2019,
+      "sha256": "51707c57c8760e99d858f8afb9e9a70ba2793e5395851319feeac874457e6ebb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/raw-gameplay.mkv",
+      "bytes": 24778244,
+      "sha256": "79e5d6e5f720493811c70630f2a76acb480f9c81a40d241ba619ede2e7124c23"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/resolved-package.json",
+      "bytes": 8705,
+      "sha256": "fa37bef7f28bfc8669a4b1fedc2de1b1f11d622bdbde57358db0a16b1ed3d596"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/resources.jsonl",
+      "bytes": 127736,
+      "sha256": "c5ba6d7e513ecb00a207846fa5925fe19e6a7f295fe7e60576e2267efd9d1efc"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/runtime.engine.log",
+      "bytes": 318324,
+      "sha256": "c1b5a6ae02954d61074374622c2748017cd63c5de0c1d9a480abcf389518aee5"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/runtime.stdout.log",
+      "bytes": 315889,
+      "sha256": "b6bae0857588fa22c95da9a7ea74c39a0c1a586dc719d20ac38fe91a80bb8b46"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/telemetry.jsonl",
+      "bytes": 3332495,
+      "sha256": "b2034765c6a7549fbbb74e8a9c242fbc40b45f6cb4b7f42c5e51cd492fa2ef22"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-1080-02/video.json",
+      "bytes": 2353,
+      "sha256": "f940d5ee493b17f6d1cc20a58a85e0561aad00a6e6969ed64023ce3913b56dc2"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/capture.log",
+      "bytes": 104,
+      "sha256": "274dad4a20e838cf87d2445138d95d71bbeb26fbfb24539212f9c4b16b96cdbf"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/command.json",
+      "bytes": 1990,
+      "sha256": "c4b2e1f79876e3e007e9a3b70dc297f564226c266f2f1fc827858a3bdfd7a264"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/execution.json",
+      "bytes": 321,
+      "sha256": "0ddb84652a9e3fa651b7d13d01154993930b87d328387bbb8036553d8e8857d3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "9a4d594b32e04cf34aedcf291e6533111c62aabd56ffd68cb56346803b9fd26c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/host.json",
+      "bytes": 2400,
+      "sha256": "5c9448c8ef0beb22117187ca2710e2a8e301a9ca6b83e1939efb43bbbe453e60"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/input-result.json",
+      "bytes": 385,
+      "sha256": "c29eb5198c78343d3b3968bc2a191d5cd2d78f3e3e1ba5df578f17234360f880"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/input.jsonl",
+      "bytes": 25629,
+      "sha256": "5a36b8591d00784180b17962906ee28736834c2102a4eb2cc4ec4f8f92f39215"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/inputs.json",
+      "bytes": 599,
+      "sha256": "7163ec198836b0e573974de8ef040ff9f24d98c234c4cb861febe003ff6d4660"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/native-source.json",
+      "bytes": 79111,
+      "sha256": "1b25d99acd96d3d4153aa738195644438c1b483a4a72b708f34dc94e0dace877"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/observation.json",
+      "bytes": 963,
+      "sha256": "8de09e50aaa4d3a7da580e8ba71744e494470c8e0e8c1838b2a85548827bb5eb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/package-verification.json",
+      "bytes": 1748,
+      "sha256": "e1a7eeba7ff9d78843645e90d5210f706f916f5a79b500a35ea9e9cad03104b0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/raw-gameplay.mkv",
+      "bytes": 1476164,
+      "sha256": "4fac94665dcd86826e356a54182d0276da8be2fcc230e053c4b442b8ea6783a0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/resolved-package.json",
+      "bytes": 8704,
+      "sha256": "f7fd88923c38b3e05d0b809f6c7b97dc3c834488e6f0fcb07fcf7839607cf1ca"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/resources.jsonl",
+      "bytes": 56511,
+      "sha256": "2e1c0a0816433a0dbd77956e2d4e7998b2a0dfc006ec82d72b8ae555baa72a02"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/runtime.engine.log",
+      "bytes": 245995,
+      "sha256": "f5c70270c14edc78eb1a9f235c42c5c8bb5debcaad9844b2dbe180ab3ea90098"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/runtime.stdout.log",
+      "bytes": 244038,
+      "sha256": "fb34c3a2b5b58353856ce181dcbfce0fbed1c475f346a8dbcb77ce99969142ba"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/telemetry.jsonl",
+      "bytes": 936652,
+      "sha256": "c573e3645b37cc3706a3bd4b24c694dbe272431d93ab059910b1acc9cd095cd3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-01/video.json",
+      "bytes": 2345,
+      "sha256": "6e5dd0dd4ea0ef96d114bca67e2c8d9f0d1b541ba45201eaaa605ff922be7f83"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/capture.log",
+      "bytes": 104,
+      "sha256": "45f7d1732bd0fab176382152539d0878461adfc0e84825cf3a02e5372d621925"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/command.json",
+      "bytes": 1990,
+      "sha256": "ba15cd6c9570d96049e8783ec0bef19562b36e9508e16bbbf0ed32ae56734b7a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/execution.json",
+      "bytes": 322,
+      "sha256": "b76715ec398265aba06a7c07fab2457da4bcebfe9eefa96db7bc2ae7a2e9666b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "26e6ceae2124ac9181b61c513628687637ddb95c88e243a74eaa01a7ab8f5323"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/host.json",
+      "bytes": 2397,
+      "sha256": "c8d8366d6772ad80498647df7b94cb655fa8d424f5f3130b3356eac36b3b62f1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/input-result.json",
+      "bytes": 385,
+      "sha256": "edebc54dd31c9e55d52ae8a39bf49a47b20db9bfb7add4d3268ec6a2782b1879"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/input.jsonl",
+      "bytes": 17337,
+      "sha256": "9dbf836d3fc67843bbd48ebb5b80fe18bddfe4e3e605914321dbbde1e952a5c8"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/inputs.json",
+      "bytes": 826,
+      "sha256": "38dabd782e528bc133fd36365841040b119601b04fb95ca6c1f25e2c2db5719a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/native-source.json",
+      "bytes": 79111,
+      "sha256": "45c1b6ab34ceba81a7a450762c2f41bd17fa430292dba75b50932d43807c106c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/observation.json",
+      "bytes": 971,
+      "sha256": "22c338e3a60ccc03665996687152ad732505e6ae4674b1031d29f789a0726d2d"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/package-verification.json",
+      "bytes": 1748,
+      "sha256": "d538a2645193fdce3ec810938a536d83c4fa99c042a0389ca5c927ce401c27c1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/raw-gameplay.mkv",
+      "bytes": 3874211,
+      "sha256": "2dfd97e7b46b9a0a8d68cd136c44c89833d496623aac5be099dfb5dcd7fc4f60"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/resolved-package.json",
+      "bytes": 8704,
+      "sha256": "d63051b4d9d9ee631fffa83a0ca6534930d119f6165a514b257c6acd6a3c3a81"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/resources.jsonl",
+      "bytes": 56655,
+      "sha256": "4bc9a43ab65da51816e3d8c97d9f4f35529ba5e97748da3707c814591bb2251d"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/runtime.engine.log",
+      "bytes": 268386,
+      "sha256": "b6fe24ec8dfca08014a8480c7437ed3ed68263439b361ac4ffa1f105b9adf713"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/runtime.stdout.log",
+      "bytes": 266281,
+      "sha256": "1607b74753c8084300b5b2ab531676bd5dc8a8c146ae9424a93054efc1480118"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/service-approach.png",
+      "bytes": 297776,
+      "sha256": "a6dc5a2d0d2e5fa1d8743e073c5d37537261c556329cea263fee3b2896c73719"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/telemetry.jsonl",
+      "bytes": 1288510,
+      "sha256": "c3fe9aff8bd8bb6d97d3fcf5111c8eddf2044701889252c10f3690820fa7f3dd"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-02/video.json",
+      "bytes": 2346,
+      "sha256": "54805c18283d7f130532b58b7ca88ab8df0437942b87c14eda6b631f06c142d9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/capture.log",
+      "bytes": 104,
+      "sha256": "2049b6cf0acf25b7d355a2dd773d23ffa87dc715d2d36b49cffb58efd56178db"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/command.json",
+      "bytes": 1990,
+      "sha256": "4a13fd3255583315ef405d3f3ad6de96d094ce1953d94ceef711bcaa23b82b90"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/execution.json",
+      "bytes": 321,
+      "sha256": "097eea7b98b7799b0e6cf8539ee780ef0bc0dc8065762170b8a5ae3da40f094a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "db816d392dec2c3a864be63e5170da3671e53b66f265d228eba16e98af99adf5"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/host.json",
+      "bytes": 2396,
+      "sha256": "a956e761de43f513dee8974f91a26d958fa73363a30d500a9fc89552a37ea4fc"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/input-result.json",
+      "bytes": 385,
+      "sha256": "58ebdf373e0e1b0880fc8747a98ac005e1ee408679dea9b496d6ba3571a6af41"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/input-source/d17_01_raw_input.py",
+      "bytes": 9473,
+      "sha256": "31e98b340530c9c38441f527adc0e2f8dbcea36d78fea6f52dfa9023b1a8f9a3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/input-source/d17_02_route_input.py",
+      "bytes": 5927,
+      "sha256": "f26fd8e49f40d8ab628410c0def696aa90caa85879176620f75f80db0653bd6f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/input-source/route-input.json",
+      "bytes": 3998,
+      "sha256": "f864d753fd5fbe7964f0b61863570bee4ebc5c31ead5fe4ce74f20a61ece13c9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/input-source/run_d17_01_slice.py",
+      "bytes": 9936,
+      "sha256": "43899069557afa10630050382371d7f4ff230be16133a08cdaeb2e272d6a7bbc"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/input.jsonl",
+      "bytes": 45510,
+      "sha256": "6c9d9f5cda4c9862900089ab51f48b89abd4832858727a90ede5eb062a0fdc77"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/inputs.json",
+      "bytes": 1897,
+      "sha256": "f1e94892cae2fba1bf87addfb54b42e7954968ff7d7c0c1970e2879ca3ac50e0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/native-source.json",
+      "bytes": 79111,
+      "sha256": "35b3d164f6b15ae4dcbf86a6cdd682479ab6bbc98095e012934fb121d34fc00c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/observation.json",
+      "bytes": 996,
+      "sha256": "36c978eebbfcd07ae644f811bd1bcbcf2aab4baf9062e06f267894b7cacfdc58"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/package-verification.json",
+      "bytes": 1748,
+      "sha256": "223b102a753f4efa39f9d6f4bc86e0b2863b856020b1a8d2d98f18951cce0f04"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/raw-gameplay.mkv",
+      "bytes": 6641804,
+      "sha256": "0e3e5af14c6c49b7c0ec13ff5eff1456b28f1666cb29ae04f1a44da794ff5e63"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/resolved-package.json",
+      "bytes": 8704,
+      "sha256": "7aed81c7d0ca7b25853d4e3a9d59549fe89f2e95cf5fd80834e69b679d8140ab"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/resources.jsonl",
+      "bytes": 72837,
+      "sha256": "a3f4338bbe533d8deaa276ec3ed124aea7098853cb22a25ce5a079c331c0d8e9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/runtime.engine.log",
+      "bytes": 294188,
+      "sha256": "ffcc3713f22429e4f399a35a8e7c50d57058e9229983698c7bd0b6c9e62ebe07"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/runtime.stdout.log",
+      "bytes": 291891,
+      "sha256": "33b988e0da0eac7be73e509af2c9ee73b9548f03bb7e48343d6bf0e65383d946"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/telemetry.jsonl",
+      "bytes": 1938096,
+      "sha256": "309b76c61ed1fbb807a8be30cd4fbe9a66e938ce3d2347516a02a62c062abab0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-03/video.json",
+      "bytes": 2346,
+      "sha256": "a9d86516578adaeec8eb49e8fba8a119ed8aeeb288109a0fbb98c0efa70aca0f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/capture.log",
+      "bytes": 104,
+      "sha256": "ce445404a4eb5a2639f210e01899d187eceb2af162d425d3632426775fe34322"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/command.json",
+      "bytes": 1990,
+      "sha256": "aea744969ee2064ed2a9daa9db97e84b6caae918d0d329caff10860a33675adb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/execution.json",
+      "bytes": 321,
+      "sha256": "f93e2b86f215ead4047fb8817f96c26f91addca0f095cf2c0688193c017873f8"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "1e66c3ef1acf61bf6b75583f0e741305bd53dab2ff7c8240ee94451da0c06e9c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/host.json",
+      "bytes": 2396,
+      "sha256": "219c06aac02d3fb31e44c6c0b106476760cf714d9bffbc949a81962feb207dba"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/input-result.json",
+      "bytes": 385,
+      "sha256": "965ff15eb83e7afc78384f98ab18dc604157595e10bf0f54627b1c7c1f894824"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/input-source/d17_01_raw_input.py",
+      "bytes": 9473,
+      "sha256": "31e98b340530c9c38441f527adc0e2f8dbcea36d78fea6f52dfa9023b1a8f9a3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/input-source/d17_02_route_input.py",
+      "bytes": 6213,
+      "sha256": "448e3cf827521b5fc1ab51bea77e076e80433064699316e8e8d1b07d7200ebee"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/input-source/route-input.json",
+      "bytes": 4490,
+      "sha256": "d0c73c651da00eb8a5878e70473df044eec6b9f16d7550ca95f3b4f20de6cf00"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/input-source/run_d17_01_slice.py",
+      "bytes": 9936,
+      "sha256": "43899069557afa10630050382371d7f4ff230be16133a08cdaeb2e272d6a7bbc"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/input.jsonl",
+      "bytes": 35504,
+      "sha256": "042e2bb85b8e45cd27f4c7a410a6221ceef8e33317a58085a0b515baa866352f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/inputs.json",
+      "bytes": 1897,
+      "sha256": "5c31e4c2c335bee387c17635376520db94735dbc39ac50c41726fb005e59fbd0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/native-source.json",
+      "bytes": 79111,
+      "sha256": "cefb898c140fbbbe4d2a69e39cfd5cf8c3c101e13597c2a2fd1b7de50e72c037"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/observation.json",
+      "bytes": 967,
+      "sha256": "34ecdd83f5570c0f6eaece9f35c3f941be1bc1ff9381e477bd4d55887f136d63"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/package-verification.json",
+      "bytes": 1748,
+      "sha256": "4896b958016f5ce0cd233671bae976f90a530948f899de6d992cdadcdb003c78"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/raw-gameplay.mkv",
+      "bytes": 4872282,
+      "sha256": "bf8e81ad631edefea4fbf9c581e55c57023c3e71a5d87672aba82ce1bf8a6931"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/resolved-package.json",
+      "bytes": 8704,
+      "sha256": "1aafbcd23a91fbcaa8cd0958c4b14510bca1711ec55a4ba828893fad03dd497f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/resources.jsonl",
+      "bytes": 60745,
+      "sha256": "f6ae836f0f074b6ba37f42a1b40cb76781de4aaf150c0dfe0d0e4def1d113203"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/runtime.engine.log",
+      "bytes": 250869,
+      "sha256": "2d4ae33fd74d008f123a06095f6809fe12fb298c0f56717441bb25e2cd129ba0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/runtime.stdout.log",
+      "bytes": 248828,
+      "sha256": "e33bdc00b5e055e500c093f2b891798510c2e50ca4bce0fd931552a422164c8c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/telemetry.jsonl",
+      "bytes": 1615663,
+      "sha256": "80e9e5699eeb7c29b5161ac9f77bc0d10693cdc907f667c5e3c159018ac3e38a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-04/video.json",
+      "bytes": 2346,
+      "sha256": "1d745abba06fc9ed5bcfaa902483e5ed308a74f7b7453735b6a922957c11ff70"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/capture.log",
+      "bytes": 104,
+      "sha256": "0049c65d697ca114a90ca1b92e5790b299a88d1cab360f5e80bf21bd526bb4bf"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/command.json",
+      "bytes": 1990,
+      "sha256": "b7262015ad5f3b0de3b6f892bcf226e5336cd29bb153d6a066a2d064213c3777"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/execution.json",
+      "bytes": 321,
+      "sha256": "a0c38f173ef65d3a9c4601cd1e53484b85daa6527d510be16b6f003f6c6a1f5e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "b59409599b86b20c33f8af7a06e091b5a3b4d1bad6117d1adcb53df3785139ee"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/host.json",
+      "bytes": 2396,
+      "sha256": "9bb895f7f5059db12139ae459f2a98629d3f4cf55341bbf88085b02fcf35e8c4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/input-result.json",
+      "bytes": 384,
+      "sha256": "cca6349f0d4c8a3a10b948a5d27521809d05f155faefe67b1bed48389b6ec14f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/input-source/d17_01_raw_input.py",
+      "bytes": 9473,
+      "sha256": "31e98b340530c9c38441f527adc0e2f8dbcea36d78fea6f52dfa9023b1a8f9a3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/input-source/d17_02_route_input.py",
+      "bytes": 6213,
+      "sha256": "448e3cf827521b5fc1ab51bea77e076e80433064699316e8e8d1b07d7200ebee"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/input-source/route-input.json",
+      "bytes": 4334,
+      "sha256": "e0bd202d438d0399d30baa0ce1d89be3c44d3dedc1a365738f1d613019ec56bc"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/input-source/run_d17_01_slice.py",
+      "bytes": 9936,
+      "sha256": "43899069557afa10630050382371d7f4ff230be16133a08cdaeb2e272d6a7bbc"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/input.jsonl",
+      "bytes": 64793,
+      "sha256": "3a827122b75b4b298e5741c9fba4972e9c8c16b0dd0393eb9170b8687942bb03"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/inputs.json",
+      "bytes": 1897,
+      "sha256": "0ec2ca6ea2b86f69b01391ac96176bd5865f68eafbc181f9689d086c8ad3c252"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/measurements.json",
+      "bytes": 9174,
+      "sha256": "b2001550789bd8ab4eb4f4951f877eb98907eab049fff94b3b6e9e95f9de3611"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/native-source.json",
+      "bytes": 79111,
+      "sha256": "3bd6168bcdd6d2cc548e3213b2bc87eb3e083eb4dfc4d514d5dcdb4ba7f78d8c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/observation.json",
+      "bytes": 995,
+      "sha256": "1dae818527c78eaa4502b09f663d0603f7e31c9a2329e6c26a783c077d62bf58"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/package-verification.json",
+      "bytes": 1748,
+      "sha256": "ab1e9a3b431c71ecbfa935727623414d544d0af685e3403e68243ab3747faf6a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/raw-gameplay.mkv",
+      "bytes": 8568127,
+      "sha256": "3a99974542eb4d78d907f469c64d2c7ed025269c785b622a3a46936ecff500f7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/resolved-package.json",
+      "bytes": 8704,
+      "sha256": "e5d8224260014b41a56e35e49fbd7544a3ac00725707a7688fc97796cbfaa592"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/resources.jsonl",
+      "bytes": 81083,
+      "sha256": "4570167069f41a04d2548ed2275de293e2134cb91f4c4b2194cd95fac82e05af"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/runtime.engine.log",
+      "bytes": 286793,
+      "sha256": "aa9ae1aec03e81b091df5b8b3de6d6de3e24f9a0f8a9d095666dce6eec4ea7b7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/runtime.stdout.log",
+      "bytes": 284509,
+      "sha256": "933340a7a30c984e96e1133819e760a8e7bbfee717250164816ff9bf4c6d525f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/telemetry.jsonl",
+      "bytes": 2376205,
+      "sha256": "4895df0288d3ab82e16700ed8c553a34df898a0b6231f59e91c834554a956856"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-05/video.json",
+      "bytes": 2347,
+      "sha256": "f7def71a0a271a2b18fbd147b6cfc5b563d78242b576cc0f03bd3e4b0ea8991b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/capture.log",
+      "bytes": 104,
+      "sha256": "ea67b624e12ced60bdaf43b89565850e501ca6dd1976acb4bde9f5db2a3de38e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/command.json",
+      "bytes": 1990,
+      "sha256": "2c0c4ba5e2d6f07f9b97192134088616414eefafef43815389dbde0c84a85eee"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/execution.json",
+      "bytes": 321,
+      "sha256": "4d5256f25276e18b4183637d41cfe7d853425ad72b4fc5d9453619a9742c349f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "cf9f443c43a184caec40e127da49b08e5521be1032b422f7cb4d3c1d4ecf0a9b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/host.json",
+      "bytes": 2396,
+      "sha256": "84782f84f3e2271da23aa12df2253885277c4662e09055a0400f927abec3d458"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/input-result.json",
+      "bytes": 385,
+      "sha256": "888ce8ec520ada595abe8794ecf36c39bec016d024c70419d906bc8bedc8999d"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/input-source/d17_01_raw_input.py",
+      "bytes": 9473,
+      "sha256": "31e98b340530c9c38441f527adc0e2f8dbcea36d78fea6f52dfa9023b1a8f9a3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/input-source/d17_02_route_input.py",
+      "bytes": 6278,
+      "sha256": "42191d23e313ff4f555523917307e00f7c6b2392d7435ec657303caa7029e76b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/input-source/route-input.json",
+      "bytes": 4509,
+      "sha256": "ff425c8e66ae6b6ef105d07045f19db6f6270f790985293335321242ca83f54a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/input-source/run_d17_01_slice.py",
+      "bytes": 9936,
+      "sha256": "43899069557afa10630050382371d7f4ff230be16133a08cdaeb2e272d6a7bbc"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/input.jsonl",
+      "bytes": 42933,
+      "sha256": "02468a3e51e318cc6bea19d8f7b15a112f4b7dabe2518b4726bd8bd000618962"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/inputs.json",
+      "bytes": 1897,
+      "sha256": "32472861ec01d85973c13002f72d6b110784285d0ef09b2bb8f7b574568b2db5"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/native-source.json",
+      "bytes": 79111,
+      "sha256": "17ede54f134a08c868d54ddb93ec4e5bcbf18fbf5e2c150eb42d4c9d29222897"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/observation.json",
+      "bytes": 967,
+      "sha256": "57a9dc9aef0d24e74000f4b4a7a467130e234ecb25980d55759f396b4bf66759"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/package-verification.json",
+      "bytes": 1790,
+      "sha256": "98790b0f97553b3074b67b333bc1743f3c193473277ef2d521a04f323229f862"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/raw-gameplay.mkv",
+      "bytes": 6321855,
+      "sha256": "68fcd8616191dd73beca306086c94196da6f2472d65adfe598bec217d9682927"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/resolved-package.json",
+      "bytes": 8704,
+      "sha256": "970bb433b8fb89594ad73a978ec669aceb1bfd0b60b2c18e4f3a677913f860cd"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/resources.jsonl",
+      "bytes": 77032,
+      "sha256": "ee04a6fd0bf1e06817d0195ce6478dab5de4dad9bcc18de7107dbcba930d3294"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/runtime.engine.log",
+      "bytes": 258313,
+      "sha256": "19b6fe2982397678e5300e7518d4582509d981f2eb13267fcd31a8309d6288b7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/runtime.stdout.log",
+      "bytes": 256246,
+      "sha256": "2363a24b61aed28df588e75653782cd4ec04f2faa84e432b47141eafb5acf9e6"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/telemetry.jsonl",
+      "bytes": 2271795,
+      "sha256": "2eb978ec095266ad4c94ded3cb46904348fd90c76d1befe565060f2e3bcdd273"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-06/video.json",
+      "bytes": 2347,
+      "sha256": "de1a5f7cd099a16f7cfe4b6af598e36f33e6cfa079031fac22c398882688235b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/capture.log",
+      "bytes": 104,
+      "sha256": "311b340116b47e98378b7e362d575e623ec0bf57ba76d2311648d4afb5cec258"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/command.json",
+      "bytes": 1990,
+      "sha256": "9af3ae2884bc2847f3e23b939a03a063b65d1eda26797495e6a66faf3d18bdb0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/execution.json",
+      "bytes": 320,
+      "sha256": "049d75fd626a63847557d726a5c314ee56d876a458b668eaca5293bc09929de3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "8d5186d193bf29d93582c1f3cd0e3b107c67d6cf8c9d20d1272e314df47f2cb3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/hall-turn.png",
+      "bytes": 445394,
+      "sha256": "a35a99b8cfcf5dddffe8595b4964e35e6e29eb18412596d477eaf0dc67725180"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/hall.png",
+      "bytes": 465761,
+      "sha256": "c86ea2f4da4907c4a8468d2c15c90deefb609efb72af1221cb872e7d04152b3a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/host.json",
+      "bytes": 2396,
+      "sha256": "252feafd5631a7d02922fc055128b0323b485eb0991d918669efc4141e0c7d34"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/input-result.json",
+      "bytes": 384,
+      "sha256": "3849a2c4fa04f3e6faa3b901ade74799910e34859987385f051b48bad6aa1bac"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/input-source/d17_01_raw_input.py",
+      "bytes": 9473,
+      "sha256": "31e98b340530c9c38441f527adc0e2f8dbcea36d78fea6f52dfa9023b1a8f9a3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/input-source/d17_02_route_input.py",
+      "bytes": 6337,
+      "sha256": "c13dd4e7214957a269637125482c6fc4e37909bfaa65e4b4d97f687221986da6"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/input-source/route-input.json",
+      "bytes": 4545,
+      "sha256": "865795b3794584dc928cd4b3be1dc5e918e67ef215afc680cbdca8033eee107e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/input-source/run_d17_01_slice.py",
+      "bytes": 9936,
+      "sha256": "43899069557afa10630050382371d7f4ff230be16133a08cdaeb2e272d6a7bbc"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/input.jsonl",
+      "bytes": 116690,
+      "sha256": "30e029ccd9b68cc468c421a2300cf24464c2604bb33d417d98478fc908024e88"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/inputs.json",
+      "bytes": 1897,
+      "sha256": "af2ffc83790ea0ed0d25a663ca730d86c05bbf0d1ec9cf94694f028e8027a0a9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/measurements.json",
+      "bytes": 14129,
+      "sha256": "bd6f735a8dc7939750c93fb38e77f7fa1268e7a8d5820d46571a2b5d61d3b265"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/native-source.json",
+      "bytes": 79111,
+      "sha256": "0476535379fb983e2be2e58c19f1b64d90a0de36cce657f3c88b3d7ceaf8dbd6"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/observation.json",
+      "bytes": 992,
+      "sha256": "f87a94a77e791c83541f8d8e3133e6c583b2f38c40c57027c5d64357b22d07c4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/package-verification.json",
+      "bytes": 1790,
+      "sha256": "fa66f4824790f89157c63a3e5995826ad80f5c8880bed6d2916e37a0217933ce"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/ramp-ascent.png",
+      "bytes": 240708,
+      "sha256": "1a434a7c7f7a6c1be42b74c4167fb988a4cfdbd12f41ef4a49ebd2d4a3521eb9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/raw-gameplay.mkv",
+      "bytes": 15920093,
+      "sha256": "3157b1e4177d31c4a4b6e937f54e1efa626ccec1b774a7231a6b0e6c86bf6b07"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/resolved-package.json",
+      "bytes": 8704,
+      "sha256": "81d6b5d7a9969ed01c086c5f1e35710e4d6144c53284ba3866a551ccb97d3bd3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/resources.jsonl",
+      "bytes": 148187,
+      "sha256": "674c1381dfdebd91d778581cb3d0b34f64104eeec109b2ad6ec0a99aef6f8fa4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/runtime.engine.log",
+      "bytes": 350266,
+      "sha256": "408a7c4a7cdbdaae6b3c24b0eada260e9c4b0761a7166ec45b647c818799ced5"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/runtime.stdout.log",
+      "bytes": 347569,
+      "sha256": "02e66e6d5628b1f50653326ca54e6bb9324618d35f61f3dee67d9048f2562dc1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/telemetry.jsonl",
+      "bytes": 4692904,
+      "sha256": "350e196c4925a17b4bb48df94c3809aa88d3c05bb4dd9ee3e21f0746f2c60aae"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/terrace.png",
+      "bytes": 327197,
+      "sha256": "9d2adca2abd3a92d58e3a7d93266ee38b316057c8e332f37d0eb22fda767fccc"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-07/video.json",
+      "bytes": 2349,
+      "sha256": "cd23c2693686b6f2fb03e373ec2a96f9aa7b1e4e7390acdab455c3192faa983e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/capture.log",
+      "bytes": 104,
+      "sha256": "4b38e08ad860e1d391706513b9a71abe68579fc876bbcb07172aedb10b57fef5"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/command.json",
+      "bytes": 1990,
+      "sha256": "b34db47a58f1d39e7415dbedad6cb4556aa55fb8800c113bddd194b56f515aab"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/execution.json",
+      "bytes": 321,
+      "sha256": "83c83a804dd41fd9c9eedbfd571c78b63cde452991508dd3cb595d6e3cb2df60"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "4a64f7ce6555798bdd1bc781b2983eceda5bd25ac5e3d814672f791ee252a671"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/host.json",
+      "bytes": 2396,
+      "sha256": "bb7526806ad8f7aa3c60e12399806148fbba878c34febd24f577c65f98132a8b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/input-result.json",
+      "bytes": 419,
+      "sha256": "9bae3fdf27ec750d1f34f456867f76984f5eb46c3f8eee2f7c40bc12d219b469"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/input-source/d17_02_route_input.py",
+      "bytes": 6575,
+      "sha256": "6163c13cce20dfb2a4dc0ed21e6abf6aa8e492414c33428b7a424092bad6dab1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/input-source/route-input.json",
+      "bytes": 4879,
+      "sha256": "f5af24ddd4dc9c2647b422e00620ab5cfdb06b564c76e4b65b38b4a07c2b3129"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/input-source/run_d17_01_slice.py",
+      "bytes": 9936,
+      "sha256": "43899069557afa10630050382371d7f4ff230be16133a08cdaeb2e272d6a7bbc"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/input.jsonl",
+      "bytes": 126725,
+      "sha256": "b5be6a36abc396371708d4afc3ca18790dc2a80197687a4e70dc24a21ed08ff9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/inputs.json",
+      "bytes": 1897,
+      "sha256": "7e23949dcd0931f35e91a34aa31aa4d0d76a1bbe1d653091fe730421540a8305"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/measurements.json",
+      "bytes": 16126,
+      "sha256": "274ad5f4ae2be7fe037899a456d94f1b72811c23d637ac1a2c9efafd42eb0ee7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/native-source.json",
+      "bytes": 79111,
+      "sha256": "52f2a774e1981c27ce562377c1155c19745cfe4f5dd89128c0cbb9c79c1478a7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/observation.json",
+      "bytes": 1004,
+      "sha256": "5b3b70f1733658ef8f62f0129d5d8f7e0fc0a5a49eb695f9a0c80919f6c4ab01"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/package-verification.json",
+      "bytes": 1790,
+      "sha256": "f004fda12cd735aa794d3376ba7a4af5050b72f4602b76a87ca2d04949c62611"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/raw-gameplay.mkv",
+      "bytes": 17727922,
+      "sha256": "4705c33f7f3d465b3806341b9111b4ecc04e381ec187d8bafbf96bb69290398b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/resolved-package.json",
+      "bytes": 8704,
+      "sha256": "3110c682fc93ff6d5b20576018daf09999ab1c28b300b6e1fa8fb0d9b6e7822e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/resources.jsonl",
+      "bytes": 170554,
+      "sha256": "a9fb492b0e65f5a78005fbe93a9e7fbeeef8fef9747e54f82448d101431cc014"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/runtime.engine.log",
+      "bytes": 299150,
+      "sha256": "939c94c12d643cfc363cf11c288c68912d20d8f814bdf232f14aa35aa5d7642c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/runtime.stdout.log",
+      "bytes": 296756,
+      "sha256": "e8a15b303dabc7e2cd1626a31cbad641ac58ac52934ba83e703b2fe499827f7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/telemetry.jsonl",
+      "bytes": 5746084,
+      "sha256": "6dc5e8b13a9aecd95d4b1df84c5ab76a7c163ad96da88f3e71d8a5ba1ff07606"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/route-720-08/video.json",
+      "bytes": 2349,
+      "sha256": "11d664de51bec7bfd01d9030f3cab400031dd6cce07e1f9af95bc1565dc2917a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/capture-command.json",
+      "bytes": 300,
+      "sha256": "3bf9938bdee4db34e0d0f2aaf3028fc22c2fe71c7468b892864d1abcd717292e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/capture.log",
+      "bytes": 104,
+      "sha256": "2c9d56b81954459f0404331ffec815ceef21d86325609667c3ca237f77237c9a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/command.json",
+      "bytes": 1814,
+      "sha256": "6f4bec44ab0e3ae9704f40418dfa8496238f543121c478fd3edd4a83c7b7f0de"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/execution.json",
+      "bytes": 321,
+      "sha256": "50fe2a915ff9ba09cf5024883f5d076fc1834320b4959f09ac815798e27f809e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "6c015c331c3f58a09331bf9f73bd7c525ea79335760d268dc9aaaaa53d1647d6"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/game-command.json",
+      "bytes": 457,
+      "sha256": "dd54a93b45207bb014b85b1a554a3ef65d2b18857d06e9ddf7150883f46e934b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/host.json",
+      "bytes": 2397,
+      "sha256": "ead8f4d671647ecaea0668dcebbf5e2f00c4f1cf3033320d1eab69b7bd956e7e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/input-result.json",
+      "bytes": 385,
+      "sha256": "61d29b83f27a6ddd18b6ca9ce8f5e6bcfddb769bf68ad94fac06c9becf310230"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/input-source/d17_02_route_input.py",
+      "bytes": 8420,
+      "sha256": "fe9d127fb07f6389472a8abcb63dca785679af416eba4414b0406fe938c0e206"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/input-source/route-input.json",
+      "bytes": 6768,
+      "sha256": "f07cb8cc5cce8896f5e8d2034ffd0885ff6845f19b8ef09a5f4aaefd8376569c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/input-source/run_d17_01_slice.py",
+      "bytes": 10477,
+      "sha256": "20ea14b6ae2e52f3b4f6829a89dc0a3c41946322344d053ffd4ba7eb9548d123"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/input.jsonl",
+      "bytes": 8489,
+      "sha256": "5f314f612bf5f0e4d57bf9a2c806ecaa414295f61f81a6c4172c355a730533a0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/inputs.json",
+      "bytes": 1911,
+      "sha256": "ba32af947a87e2f87f33e0789592e271390720e25287b69cf27c05400dd4f9b4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/measurements.json",
+      "bytes": 5042,
+      "sha256": "73f4969c74a734ab5b6bcc4c156377b4b5595376062277d0044a000b8fe621db"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/native-source.json",
+      "bytes": 81017,
+      "sha256": "d8145d13644fff311d3a5b96c47d2beff60cf70dca3ecb7bd12b3b4f8f1a7d2e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/observation.json",
+      "bytes": 991,
+      "sha256": "fc5cf576903bee2ea6d760b316621d1a35b5fc7d7e4f044857064b199b1738f0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/package-verification.json",
+      "bytes": 3005,
+      "sha256": "bb5d866921ace8d029998805372979763f64347b5bf27667fe0dd1e52396ac40"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/raw-gameplay.mkv",
+      "bytes": 2584296,
+      "sha256": "389fbd4ab0716cc968f81c5fa3971ba70e05db7cfe537bbb33a9702672084f26"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/resolved-package.json",
+      "bytes": 7911,
+      "sha256": "265f0b6787761bb8d25b4acf2fbb94e1d6ba1288cd36457d9997a28f94b07e87"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/resources.jsonl",
+      "bytes": 54543,
+      "sha256": "52bcd6a00d51c94e5bf7eac80aae0ee82d9313c5120d6e24b0aaea3524f1ae65"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/runtime.engine.log",
+      "bytes": 192602,
+      "sha256": "551f34b4402072550c2267b4976ccb9eb4d16d193222021dfac04ac535c26217"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/runtime.stdout.log",
+      "bytes": 190940,
+      "sha256": "640b23087a665bf535bf871947cb86a88f574329019a5b222d7f7297214fe261"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/telemetry.jsonl",
+      "bytes": 409672,
+      "sha256": "2dddff5b5ab6c1c0af9a48dc94e5ed2a3b32839236934694bcc90cb1e7ab4115"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-01/video.json",
+      "bytes": 2354,
+      "sha256": "8c50c35776a1b47c63b3231e9eb22f8044f7293a0ca176e4c1869b73643c73de"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/capture-command.json",
+      "bytes": 300,
+      "sha256": "3bf9938bdee4db34e0d0f2aaf3028fc22c2fe71c7468b892864d1abcd717292e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/capture.log",
+      "bytes": 104,
+      "sha256": "2f8f71e5c1f44760d1701595fda5c1b0d9daef3775c638965f94f12eca24800c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/command.json",
+      "bytes": 1935,
+      "sha256": "79e5034f97b3bc1b7d779c45b39140f00354184585d233d666f873e0d19738bf"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/execution.json",
+      "bytes": 320,
+      "sha256": "652eab3bf7b32301904e8d2c11470a00f6925bf690fa1fff5c5d7327760c27b4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "2832f8fea539d1db5cb2c58c6c688c2674519b6a21f92726429cf3b2aa00a680"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/frames.json",
+      "bytes": 2747,
+      "sha256": "9066759629a5d37ba716662fb13b304f7c02a50c758d21670db5763cd38d2532"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/game-command.json",
+      "bytes": 457,
+      "sha256": "dd54a93b45207bb014b85b1a554a3ef65d2b18857d06e9ddf7150883f46e934b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/hall-interior.png",
+      "bytes": 823514,
+      "sha256": "03d4d3442539778ac41da5a7c3b22d598503fc601a87476b22be5a83e7ebf839"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/host.json",
+      "bytes": 2396,
+      "sha256": "d08177855a03379df0da3f71f9e2963a03b062544047137fd054c6b9e6c65cb2"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/input-result.json",
+      "bytes": 419,
+      "sha256": "852aa6ea67d6dba01dc4c43f4d8ff6ee5d0f43227934c41e6ee998cfbaaebdca"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/input-source/d17_02_route_input.py",
+      "bytes": 8420,
+      "sha256": "fe9d127fb07f6389472a8abcb63dca785679af416eba4414b0406fe938c0e206"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/input-source/route-input.json",
+      "bytes": 6694,
+      "sha256": "709522a70324c0e4aef53bdc41d5c382038eab5cd70cd78fcf8370de7f438835"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/input-source/run_d17_01_slice.py",
+      "bytes": 10514,
+      "sha256": "68c50a0991d374932020a95aa0fc1462f65dc49273516a760f4685919d9cd166"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/input.jsonl",
+      "bytes": 115625,
+      "sha256": "0884473ddcbcc0140983eda62baa7068ccd1bccea587473431fb09356e1dd181"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/inputs.json",
+      "bytes": 1911,
+      "sha256": "4003f281fb2e8bb31d589fdcec245ca7c187e554d5f4748d6ae2507b3e32ebd3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/measurements.json",
+      "bytes": 18117,
+      "sha256": "953817979bf98616ebaf3a064791106120963480e823ebe03fc68c047b535dec"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/native-source.json",
+      "bytes": 81017,
+      "sha256": "d8145d13644fff311d3a5b96c47d2beff60cf70dca3ecb7bd12b3b4f8f1a7d2e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/observation.json",
+      "bytes": 1004,
+      "sha256": "deb5fea0124a5ccddebe05c77e5956eb470e103976f5a0627fa8dfddf6cdc6a1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/package-verification.json",
+      "bytes": 3005,
+      "sha256": "644e225021a55d090d6c30a4ce1bd4445e6cb135decb040fe81a6ad92471d278"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/panel-exit.png",
+      "bytes": 844843,
+      "sha256": "cf70db9c57ca69db5ca14a6b2e732806af3b206a47ca70f56a7bb3d6c5018f7c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/panel-occlusion--0.08.png",
+      "bytes": 840579,
+      "sha256": "55358af1199d57af84dd91a8322807f79aeede7674ba419646acd7d7f55c6913"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/panel-occlusion-0.08.png",
+      "bytes": 680975,
+      "sha256": "13b7f5c2fc6c4762c5e19118ec16ea3311cf883abecb0d1ccc209a5ebe0a7fab"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/panel-occlusion-0.png",
+      "bytes": 864083,
+      "sha256": "06928fcc908952bc74c1a8ba1ec050593ca5c8c8fd8d68f36b08c85d6ec97566"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/ramp-ascent.png",
+      "bytes": 556801,
+      "sha256": "364823424dab1915ad570e77e91e3106157ebd8376b2105cb6c5b3a253f5c075"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/raw-gameplay.mkv",
+      "bytes": 32625535,
+      "sha256": "4b79ada7adb8cd5e7197e7a7837db11f9b79dd9a4603bbd18ba35d31942af892"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/resolved-package.json",
+      "bytes": 7911,
+      "sha256": "be5e433da762a70b723fe6ab715c001def961b79a10ae4a73a843350a1524544"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/resources.jsonl",
+      "bytes": 156154,
+      "sha256": "7f919cbda1c670d1cf42ca6839116b24ea123f3b2bd1af8e7595c02541013dd9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/runtime.engine.log",
+      "bytes": 308015,
+      "sha256": "0b46c2cd4d3f97afa100bf41d66843ec1a4d5046887db8cf2bd0fe2b1c1a4b5c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/runtime.stdout.log",
+      "bytes": 305584,
+      "sha256": "14a555e8f6531f0ef2f4a7aecfa59981cf65b0986ff57be3726043dde8c1d9f4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/telemetry.jsonl",
+      "bytes": 4117029,
+      "sha256": "ebf5b5b46d73c3959250894190ea5474321587c985d6186adaff0c8f655c6529"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/terrace-overlook.png",
+      "bytes": 855684,
+      "sha256": "4fd651a53b2fa6383c3bff3bf43f7c4a4443d0a3a9a9724f03df434acfde7eed"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-1080-02/video.json",
+      "bytes": 2357,
+      "sha256": "5671ffb7af8611c9302ac09cc8b1f168067949c671dc7081f4a6765fd1dbfdbb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/capture.log",
+      "bytes": 104,
+      "sha256": "a3fafd805cf3028611289357728cc768277c68ab4523f97a7385e1e6df75d6f0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/command.json",
+      "bytes": 1808,
+      "sha256": "cb6b79e986bc046923779254f2a488dc53153657943f502ac0711811625dd7cf"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/execution.json",
+      "bytes": 320,
+      "sha256": "9c9d104e89e3e9c75396532b24aa35694c8df83d72f36e480b48e5b6a4bc7f62"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "efbeef29173996657df1575726e292d8dd24a38052611ab2a7fdd976632a8ba2"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/host.json",
+      "bytes": 2396,
+      "sha256": "d23150a6d398a75ac9228ce739ee6d1b1134b1a907a8ec6c4fe681f3fb4b9d8d"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/input-result.json",
+      "bytes": 386,
+      "sha256": "8b2a66dea0fdfc330ffbfe1e65fbf58c01c021de9a4796d521a36a927d67aa3a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/input-source/d17_02_route_input.py",
+      "bytes": 7739,
+      "sha256": "a854d7064c9eaa3a221e54c7de46363f13b1923500b3ed25a57ea35e29a97e7f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/input-source/route-input.json",
+      "bytes": 5285,
+      "sha256": "7ab04b41bfe04641d91776820a6316bc944b3730f9f79e7c01e84e088a8a983a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/input-source/run_d17_01_slice.py",
+      "bytes": 10477,
+      "sha256": "20ea14b6ae2e52f3b4f6829a89dc0a3c41946322344d053ffd4ba7eb9548d123"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/input.jsonl",
+      "bytes": 105488,
+      "sha256": "2af576ae99922888ae352d559fea3f81bb4486f277c902cd0a928017985fe9c3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/inputs.json",
+      "bytes": 1907,
+      "sha256": "db444268754ae4450382eacf865a0ac164dabcb0cc6272e756a8cb53291d4f34"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/measurements.json",
+      "bytes": 12077,
+      "sha256": "743ec027200f3f28c0e65938dc7315275307ce8c1f73fa5d9d09f8dbf447c75e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/native-source.json",
+      "bytes": 81017,
+      "sha256": "d8145d13644fff311d3a5b96c47d2beff60cf70dca3ecb7bd12b3b4f8f1a7d2e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/observation.json",
+      "bytes": 997,
+      "sha256": "a7dfc02d3167a76aaccb84149780897ff2c72f3d0225369214e9cf97fd46f860"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/package-verification.json",
+      "bytes": 3005,
+      "sha256": "8c8c6859b3c041ffba6b1b678a2cbc5ac813042d6bb2a1c253f3cd537221639a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/raw-gameplay.mkv",
+      "bytes": 12421391,
+      "sha256": "492f4f3173d74d6b5d8451ff156b8ec6955b2a54268f18b570b53a8c69f404f9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/resolved-package.json",
+      "bytes": 7910,
+      "sha256": "3d3a10a7ec35990362ce87f7b8937d65dd2f9f2cf67370a2bc3ecd3092f80e16"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/resources.jsonl",
+      "bytes": 121616,
+      "sha256": "c365cc33955ed4bffced6c8da5a066fb4541e7e5d1b6b9e51db8a70ae4be2490"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/runtime.engine.log",
+      "bytes": 305333,
+      "sha256": "9a004c00e76f802fdc513abbfbaa68b4f59f275afb481d864b1ff1688b9439ab"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/runtime.stdout.log",
+      "bytes": 302927,
+      "sha256": "b83133580938dbc0cb5aac778c41784a94c26e4512c9e5add68e568852d4d411"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/telemetry.jsonl",
+      "bytes": 3605434,
+      "sha256": "e3cde82b6d804beae7535f08e5c5cb53af8088e59d4163732bf28cd941d75b36"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-01/video.json",
+      "bytes": 2353,
+      "sha256": "394e69552be956fb6c40b77ecaa9639ca6a4c531e72678dbe4a2275c9f0b3f09"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/capture.log",
+      "bytes": 104,
+      "sha256": "401a823f183d64523f91a727b95eff08cb8d7cbe3311304e8e973034232a3955"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/command.json",
+      "bytes": 1808,
+      "sha256": "8e926e436b7e91885ff75256b5961255c4b6f4bbd1cdaeab5b8434572e74e5c0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/execution.json",
+      "bytes": 321,
+      "sha256": "77cc8ee413edc80cae8a9a107441031bc03137f9c2ae0b421a6c84fa14c56ffd"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "631dd15ff951702b8ca2fc73610eee8b6ce9086856f66e35d61e63fa38578619"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/host.json",
+      "bytes": 2396,
+      "sha256": "18f3fd757b3b01d9884f9854b0c39c743d420bccb7a17dba5c41074a95f4ecbe"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/input-result.json",
+      "bytes": 387,
+      "sha256": "4fbb6f3bc2c0cc57d122fdb1723a0d861c680923295d7b3244944634c9416f2b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/input-source/d17_02_route_input.py",
+      "bytes": 8127,
+      "sha256": "6f95f9c861007773c34856b95690912061409251c2c460b617cd5b8e2de7f59a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/input-source/route-input.json",
+      "bytes": 5392,
+      "sha256": "1a09dc6d305e05960c9294dbcf5407403c91a91a842090ae90306469c0e4aa0f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/input-source/run_d17_01_slice.py",
+      "bytes": 10477,
+      "sha256": "20ea14b6ae2e52f3b4f6829a89dc0a3c41946322344d053ffd4ba7eb9548d123"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/input.jsonl",
+      "bytes": 51933,
+      "sha256": "5998475cde64b1abc0413b478c8b45b76e161c53a452ceaa4ff9294832e0eeb2"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/inputs.json",
+      "bytes": 1907,
+      "sha256": "a8b738ea58d5f17ad69d3faebc4c744f98fde410257417a190e4658fd5fa3d14"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/measurements.json",
+      "bytes": 8911,
+      "sha256": "30a56f6ed1924e7ef287408229ad1834ead655debcbd53cffa0fe03a74a4cf5e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/native-source.json",
+      "bytes": 81017,
+      "sha256": "d8145d13644fff311d3a5b96c47d2beff60cf70dca3ecb7bd12b3b4f8f1a7d2e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/observation.json",
+      "bytes": 997,
+      "sha256": "865af8cca6d9e4cfe3d8f9e2b96e85de857a40fcd34849d274b18350d2e34e47"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/package-verification.json",
+      "bytes": 3005,
+      "sha256": "bf9e9e701cff47fb31de82dd82896ec181950478c017727a7dcfc03a977fac25"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/raw-gameplay.mkv",
+      "bytes": 6310268,
+      "sha256": "ec023c9361fa5e714472e53d682f0213148ea1741c1d37a19168cfbd688f1099"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/resolved-package.json",
+      "bytes": 7910,
+      "sha256": "2f171598d978e495327b148af5ebc04a801b2e05a3469e83e4867823f0f722c1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/resources.jsonl",
+      "bytes": 70756,
+      "sha256": "89fa126bffb0cdb6f2bd3ea6f015c76d14a0f19e9a8bea51a54015d7ebc17fe0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/runtime.engine.log",
+      "bytes": 281317,
+      "sha256": "b2f8ff6a3459a89d55a75dca2971c4d73cc5f11968d5e11bfee13d36b3869577"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/runtime.stdout.log",
+      "bytes": 279091,
+      "sha256": "52dbd145e30884a02e6878cd83d40b31fdf1e0b341908e4cc8f7807b2e4e4ddd"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/telemetry.jsonl",
+      "bytes": 1866720,
+      "sha256": "d83434fbac233e6e8db13d6b15ecfd534bbf8fef5d8232add6a7db81d7c628eb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-02/video.json",
+      "bytes": 2350,
+      "sha256": "8118fd9b0d00207fa89239b2b463c825efc7b6666b75c88931ffc90eb81318f4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/capture.log",
+      "bytes": 104,
+      "sha256": "9a8c6d781b1ed81ae9b6975d060d6ece349fcdbf7752e9f9d31ee36095550d8f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/command.json",
+      "bytes": 1808,
+      "sha256": "6807c7c308b187d8e83a98b9e7c2420c84523c7aaac48d8de8fabdc299d0c3b6"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/execution.json",
+      "bytes": 321,
+      "sha256": "0f0f2f22c7dfeeb0293f135ff5fb08364754f731fb27a72bc159527e55a91af1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "86542627b1a3ba2d66a2509cd17b8defa7ab7a5f6a429bf7ca60acff9870e80a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/host.json",
+      "bytes": 2396,
+      "sha256": "c508f3fd956462d81949b76e9e1d2eb704985f1e62d623f9ae503d8bcef6875a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/input-result.json",
+      "bytes": 386,
+      "sha256": "6538bee79798ebfde8f64263c8dcdbcc06bfbf9eb4f446d46952ca59962873aa"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/input-source/d17_02_route_input.py",
+      "bytes": 8420,
+      "sha256": "fe9d127fb07f6389472a8abcb63dca785679af416eba4414b0406fe938c0e206"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/input-source/route-input.json",
+      "bytes": 6222,
+      "sha256": "a3d918613b39165c32e64ee57e72070ff56b3314875700bbdb0e777ea51df9c3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/input-source/run_d17_01_slice.py",
+      "bytes": 10477,
+      "sha256": "20ea14b6ae2e52f3b4f6829a89dc0a3c41946322344d053ffd4ba7eb9548d123"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/input.jsonl",
+      "bytes": 36314,
+      "sha256": "ad854c33a94400268165b742f80a6175bf0cf71ad6235909b2f78a97f54fb5e2"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/inputs.json",
+      "bytes": 1907,
+      "sha256": "ecb94c01a0063b5a7dd4706afb64423917d305536dd45f0a90b7144f0d0549a3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/measurements.json",
+      "bytes": 7091,
+      "sha256": "ddd88d0e99cd6af3c2ec97e4960432ed67033dac7f68f80f5b9822a0abf68db7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/native-source.json",
+      "bytes": 81017,
+      "sha256": "d8145d13644fff311d3a5b96c47d2beff60cf70dca3ecb7bd12b3b4f8f1a7d2e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/observation.json",
+      "bytes": 969,
+      "sha256": "a889f7fa1da04b2ece84e2e5aed5c7a49b9e74665ccd2dea6843f734152c6ef1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/package-verification.json",
+      "bytes": 3005,
+      "sha256": "0a8b44a927ca1675bf265f4155498ae8a41c684f4ada2d1d2376d917288f406d"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/raw-gameplay.mkv",
+      "bytes": 4916692,
+      "sha256": "380f9f03fae916acb5bbb2025067d80aec1216cd7b7ff2387a783f267c0dd6c4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/resolved-package.json",
+      "bytes": 7910,
+      "sha256": "da9a897b16cd051270728e21b7e42e6038c67d2cec4679a2a57971254e371028"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/resources.jsonl",
+      "bytes": 64784,
+      "sha256": "b15ae034d3bffa8170f914123cb1c08a8a17c74a852e7d3fc45b7b7791d2c602"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/runtime.engine.log",
+      "bytes": 251171,
+      "sha256": "6f26082c0500cc972949667115e8fc5a9d2e12d93b7c6ab7eb94bc9e67ebf1e0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/runtime.stdout.log",
+      "bytes": 249126,
+      "sha256": "a449926f6cdc8529a163508b99ce63066e26a515c3ba8473e59c8c587efd96b9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/telemetry.jsonl",
+      "bytes": 1729988,
+      "sha256": "1f63255cc546fa881e60958ae8562b25e07b1aeb5ff37e9fa8f434f9ad4c10fd"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-03/video.json",
+      "bytes": 2350,
+      "sha256": "835d9570db38006067f9724948cb2929b227b27eae28e80b44967444056177a0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/capture-command.json",
+      "bytes": 299,
+      "sha256": "32223e6757d0348118ffcfff711359788bec278768cec19f5ad7b563f657c676"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/capture.log",
+      "bytes": 104,
+      "sha256": "4488e7beb656018802fa24f87502a36a193aa698e66741613919a17b8c7a5dfc"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/command.json",
+      "bytes": 1808,
+      "sha256": "de22948fc977407d6535f56d271555dbccd559b6978e75e13a9c0f5e2bf0354a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/execution.json",
+      "bytes": 320,
+      "sha256": "ecab5cd868acbaaefb210e57fe0753b3e3211f16d1b815dcb2b4309936c5a969"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/exposed-package-verification.json",
+      "bytes": 218,
+      "sha256": "ceab144f9b98da94da45f90b737b97e0310fe1b7da88423d5be80c31474bda28"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/frames.json",
+      "bytes": 2168,
+      "sha256": "2e0447c96ec54bf9ef9082d1c3d7553317881e5a79b2e8508a307d3340288357"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/game-command.json",
+      "bytes": 456,
+      "sha256": "a741ea47185778cc6869aa86a2c19130d7cff244ffd653952505c039f5b8cb7b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/hall-approach.png",
+      "bytes": 222893,
+      "sha256": "4470472df945e47f2256bab1f79280f154d0e8a0424b78a465d0dd7a833a4e5b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/hall-interior.png",
+      "bytes": 507358,
+      "sha256": "4161a928ed044edbed2874175bf6d8f423167559b2d04e3498874e970b49e80d"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/host.json",
+      "bytes": 2396,
+      "sha256": "1b3b851ae7c3ac1a3b66b3876cc6d8142586102faa1f88cb705b036bcf02f58f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/input-result.json",
+      "bytes": 418,
+      "sha256": "9b4b20274d939024feaf46d2b6d142ca4b01866927f26d5e52055baa959c6caa"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/input-source/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/input-source/d17_02_route_input.py",
+      "bytes": 8420,
+      "sha256": "fe9d127fb07f6389472a8abcb63dca785679af416eba4414b0406fe938c0e206"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/input-source/route-input.json",
+      "bytes": 6768,
+      "sha256": "f07cb8cc5cce8896f5e8d2034ffd0885ff6845f19b8ef09a5f4aaefd8376569c"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/input-source/run_d17_01_slice.py",
+      "bytes": 10477,
+      "sha256": "20ea14b6ae2e52f3b4f6829a89dc0a3c41946322344d053ffd4ba7eb9548d123"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/input.jsonl",
+      "bytes": 122137,
+      "sha256": "dc445ce9b315155c24289e1443d48f6e09cf82180ffd539e0e94a7f6f78d82c3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/inputs.json",
+      "bytes": 1907,
+      "sha256": "bcb0b581549ea60b8d683f9db2fc9bb6165a7baadd458e0224ab1475228f02c1"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/measurements.json",
+      "bytes": 18029,
+      "sha256": "7713cee6b92c1b551a9801ebf36e9e5bf4b85dfd1e8315c627c4a3388353c5e7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/native-source.json",
+      "bytes": 81017,
+      "sha256": "d8145d13644fff311d3a5b96c47d2beff60cf70dca3ecb7bd12b3b4f8f1a7d2e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/observation.json",
+      "bytes": 1003,
+      "sha256": "97570fb09278f3fd35cbf790a3e1bd9cb5e39c65e9fdcace5dfeb9033a09b9c8"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/package-verification.json",
+      "bytes": 3005,
+      "sha256": "dfbdc4ef9338501cbf97415915fe54bcee2b5ba53d4e8ac84aa6580b81dae6f6"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/ramp-ascent.png",
+      "bytes": 303580,
+      "sha256": "2f6ac74945ff1a41507538378d74125f6c973336e9c87dd56b1c61fb2457d87a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/ramp-descent.png",
+      "bytes": 292001,
+      "sha256": "9308881a256e7b7ed56d69e87193f2b4256a6b71b739da0b36f8d6aedf913a18"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/raw-gameplay.mkv",
+      "bytes": 17572071,
+      "sha256": "d0f54fe1515d2ca57b4bba3f7f0d98d68bd94da6709f1586a092a3811624e10a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/resolved-package.json",
+      "bytes": 7910,
+      "sha256": "ec6a0254758a075a779ecb771e53d040aac3e6771a297124cae3dac9f29ec551"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/resources.jsonl",
+      "bytes": 160308,
+      "sha256": "cccab1222c5a866c77ad3accf6ccfa709b42494fa81a87e01a96f4f142e34c03"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/runtime.engine.log",
+      "bytes": 269885,
+      "sha256": "86fd9e58c682175b4a4882e2cc571ceb8761227daf82b727172918f74ff38966"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/runtime.stdout.log",
+      "bytes": 267678,
+      "sha256": "56598d6814fbc591e49731f72eeb252e2dbea90e204a9924246398d47a630667"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/telemetry.jsonl",
+      "bytes": 5195879,
+      "sha256": "401352560a6a48975493ee1fd4463a54c14def635ae86d833a38f6b02a7c015b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/terrace-overlook.png",
+      "bytes": 443477,
+      "sha256": "10bd3bb7304986eb4163022f074d928724ea4fd310279ec156f0f63f8e996896"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/terrace-summit.png",
+      "bytes": 423633,
+      "sha256": "d9f4f8b41513835be696b354d7325b5ea79715a07202be7d4b439a2775c6f0c0"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/terrace-720-04/video.json",
+      "bytes": 2353,
+      "sha256": "3f85a8ae03c783a0a22ec7a1d599e225e8ea287c0fe45ad6f6f0689400395ae7"
+    },
+    {
+      "path": "Build/AAA/D17-02/route-input-1080.json",
+      "bytes": 7390,
+      "sha256": "ca7a7f3bfbd25c6b521b33e2eb3da33659334835fc10c214152fa49fa576e869"
+    },
+    {
+      "path": "Build/AAA/D17-02/route-input-720.json",
+      "bytes": 6768,
+      "sha256": "f07cb8cc5cce8896f5e8d2034ffd0885ff6845f19b8ef09a5f4aaefd8376569c"
+    },
+    {
+      "path": "Build/AAA/D17-02/route-input.json",
+      "bytes": 6694,
+      "sha256": "709522a70324c0e4aef53bdc41d5c382038eab5cd70cd78fcf8370de7f438835"
+    },
+    {
+      "path": "Build/AAA/D17-02/traversal-camera-issues.md",
+      "bytes": 8224,
+      "sha256": "b1b1b1055f9bee676fe00cc8d5078358ec77fdcfddbbc6ce452347e1b6613273"
+    },
+    {
+      "path": "Build/AAA/D17-02/visual-assessment.json",
+      "bytes": 7368,
+      "sha256": "554c3c9c32abec0a1e8eeb34530e862399ad7b0afcfd75fbdbc762efff77174b"
+    },
+    {
+      "path": "Content/Environment/TerraceRoute/SM_TerraceRoute.uasset",
+      "bytes": 2676477,
+      "sha256": "821a54bab42828db1f79ff577aba5c521843ac68ffc658749a91bd70f9f27bc0"
+    },
+    {
+      "path": "Content/Maps/BiellaOpenWorldMap.umap",
+      "bytes": 13330,
+      "sha256": "3f5f142122098d0d5562288bf0d3cfe3b1cd0bb0ce4435a8ca7c3067d974562f"
+    },
+    {
+      "path": "Content/Python/author_terrace_route.py",
+      "bytes": 7493,
+      "sha256": "c219eb3ccf9f74f5cda29b656242ce4097442c8c7b9b78b86b7598f8b094095f"
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/1/ZY/KWMQBAB6YP8GJ9A3CTV02X.uasset",
+      "bytes": 4485,
+      "sha256": "6e0304f680659d40b9d6aebcf607bb30ab6363c677d7d663d5f9582695324b44"
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/3/M9/NBOVZU9XG3II1RGMXOELEA.uasset",
+      "bytes": 3748,
+      "sha256": "a372ebce7f326a4b3cdb5800a8d92292280f32697164819bef5ae972aec56a03"
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/8N/AJ4GKHJL0TXKW45PEY6L3L.uasset",
+      "bytes": 3748,
+      "sha256": "9cf26f249bbc2699535808ab108f2dd9e0f2b2f3134e64a28f1a770b7c1455fd"
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/6A/9QEWM4FV1PQVNYS9EWJL8U.uasset",
+      "bytes": 3748,
+      "sha256": "1e5c6bcf9e9b90109e5db9474f277a6ff64e2bd61feeda56c74c7eb5ec719481"
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/A/3D/ZUR6RFCQQ4Z4FDZVI8ZE12.uasset",
+      "bytes": 3748,
+      "sha256": "ea6df7cde079a5336b71aaf67efbbbe73d4286623fbaadafb2667408493c4029"
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/B/IJ/62KCZE8IX7714DEA8GFTFV.uasset",
+      "bytes": 3748,
+      "sha256": "34186c45829b0c9c2fcfa3f801aa9ab8d34b7b9bc17c9123832eae5d92b53eeb"
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/U3/89IV5L5UUH4F1SFCZ107P4.uasset",
+      "bytes": 3748,
+      "sha256": "b652cca7dafa2ae523b71a54439cc632bc9e8000064dea30dc8b3d5a5a1f92fb"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGameplayHUD.cpp",
+      "bytes": 23169,
+      "sha256": "1801d9a482692f25aa0e2eae2a98f0919c38262591948a8527343e46a0b1f3df"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+      "bytes": 22186,
+      "sha256": "f1f8b91bd31effb3b15d921b3863893a1e771bd029d0c6d2518272c8c9faf307"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaPlaytestTelemetry.cpp",
+      "bytes": 5878,
+      "sha256": "8ca6507a8dfad1c3fe6dcaaf1728e6ca27b26ce2d8496858eb929a61d8079161"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaTraversalTelemetry.cpp",
+      "bytes": 6002,
+      "sha256": "aabf1257cfe40c09b37f5a9241e6d73f983e4a6cc8f993eed070c2e667256a1c"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaGamesCharacter.h",
+      "bytes": 4000,
+      "sha256": "1b3b24a6042eb0b14def671bbc00d0830f4ff8dc5dc2d1287d1080e38f998c15"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaPlaytestTelemetry.h",
+      "bytes": 1450,
+      "sha256": "75ef58f8b4ffaa43f7ea3dca0452e1ca50d1c9786d5926e78445d77ce7685212"
+    },
+    {
+      "path": "SourceAssets/Environment/SM_TerraceRoute.fbx",
+      "bytes": 2725996,
+      "sha256": "9d124127878950143cd4d46d0ea39bd8ea97349a52890cb7287e4677f2402ebd"
+    },
+    {
+      "path": "SourceAssets/Environment/TerraceRoute.blend",
+      "bytes": 535693,
+      "sha256": "a523b6f470bb3b452f4912b37daadc45d475c6741e7c6f4516e97e612f92e248"
+    },
+    {
+      "path": "SourceAssets/Environment/build_terrace_route.py",
+      "bytes": 8193,
+      "sha256": "bf1eeecd0e583e217ac2f3c972d647330799802d4f199c10fc0b02c951036790"
+    },
+    {
+      "path": "SourceAssets/Environment/terrace-route.json",
+      "bytes": 2057,
+      "sha256": "918fd85e3b4d5737d0bcdc6375f0827b2091beae3c2cc564b28e22fc11717cb3"
+    },
+    {
+      "path": "SourceAssets/Environment/verify_terrace_route.py",
+      "bytes": 2641,
+      "sha256": "8da3d29b68ca0c629cd5eaf53d12e14a69b13e6c928376ebf7b398d49a4b63d3"
+    },
+    {
+      "path": "tests/author_d17_02_terrace.py",
+      "bytes": 4169,
+      "sha256": "9b1f99f48cebeecedada705ae16894a48ad32d3be04ea7a20b7284273a5e9506"
+    },
+    {
+      "path": "tests/build_d03_01_editor.py",
+      "bytes": 2608,
+      "sha256": "ebbaccb6c597483e25dceca9890f70eeba492ae3fd77558ebe9ba876d6a751f7"
+    },
+    {
+      "path": "tests/build_d03_01_game.py",
+      "bytes": 4088,
+      "sha256": "9660c049fbdef8e7581deb7339f36b9a7a9ccf549f2401a803ad1aca33e2be70"
+    },
+    {
+      "path": "tests/cook_d03_01_package.py",
+      "bytes": 9701,
+      "sha256": "079abea0d3bf398e228efd8b85f8d345c76cdf5d3831a19e2c576cfa1386ec41"
+    },
+    {
+      "path": "tests/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "tests/d17_02_route_input.py",
+      "bytes": 11820,
+      "sha256": "3a87a0a060ed7a6abba656b36bbfe348142e15712c46818402fa1acf1cecaab3"
+    },
+    {
+      "path": "tests/measure_d17_02_route.py",
+      "bytes": 9675,
+      "sha256": "662851fc59f204200f6bcf8c8ee7937323a352a52ba3491046856c4516fe3de1"
+    },
+    {
+      "path": "tests/package_d17_01.py",
+      "bytes": 3304,
+      "sha256": "d6b09137ff76353bc84c0597c87f9ce6c758cd392807fceb3fce2a2e00342943"
+    },
+    {
+      "path": "tests/repair_d17_01_cook_config.py",
+      "bytes": 3744,
+      "sha256": "0824eb714572840b6e44a54e2076cfa567e6ab80acab83e5772ab256fd21a82e"
+    },
+    {
+      "path": "tests/run_d17_01_slice.py",
+      "bytes": 10753,
+      "sha256": "1cfcca5f52f039ef5897b5d06dfda4fadb737e5862b262c46856fe932efbd757"
+    },
+    {
+      "path": "tests/stage_d03_01_package.py",
+      "bytes": 6772,
+      "sha256": "73d6817a488919961bcb57a71e210fdd0e556f631319ec8c301f78fb4c069bce"
+    },
+    {
+      "path": "tests/test_d17_02_measurements.py",
+      "bytes": 3341,
+      "sha256": "e57a673467cf30cdfb0748531f81ef7587c535ed32234be3f1ef1eac87b6b3a8"
+    },
+    {
+      "path": "tests/verify_d17_02_task_boundary.py",
+      "bytes": 3110,
+      "sha256": "39ee2ba2b6e56994cf74e5abd940f1223747e6d513dba04d9175e9f3f235e196"
+    }
+  ],
+  "exclusions": {
+    "self_and_verification_receipt": [
+      "Build/AAA/D17-02/task-boundary-verification.json",
+      "Build/AAA/D17-02/task-owned-files.json"
+    ],
+    "bytecode": "Rebuildable Python bytecode excluded; source retained",
+    "external_payloads": "Canonical archive and pinned native binary remain at exact paths/digests in qualification.json and package/resolved-runtime records"
+  },
+  "acceptance": false
+}

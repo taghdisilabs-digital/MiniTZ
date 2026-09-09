@@ -9,6 +9,7 @@
 #include "HAL/PlatformTime.h"
 #include "Misc/CommandLine.h"
 #include "Misc/Guid.h"
+#include "Misc/CoreDelegates.h"
 #include "Misc/Parse.h"
 #include "Misc/Paths.h"
 #include "Policies/CondensedJsonPrintPolicy.h"
@@ -44,10 +45,16 @@ void UBiellaPlaytestTelemetry::Initialize(FSubsystemCollectionBase& Collection)
     Session = FGuid::NewGuid().ToString(EGuidFormats::DigitsWithHyphens);
     WallStart = FPlatformTime::Seconds();
     Write(GetWorld(), TEXT("telemetry_ready"), {{TEXT("format"), TEXT("jsonl_utf8")}});
+    if (FParse::Param(FCommandLine::Get(), TEXT("BiellaTraversalTelemetry")))
+    {
+        TraversalFrameHandle = FCoreDelegates::OnEndFrame.AddUObject(this,
+            &UBiellaPlaytestTelemetry::SampleTraversalFrame);
+    }
 }
 
 void UBiellaPlaytestTelemetry::Deinitialize()
 {
+    FCoreDelegates::OnEndFrame.Remove(TraversalFrameHandle);
     if (IsCapturing())
     {
         Write(GetWorld(), TEXT("telemetry_shutdown"), {});

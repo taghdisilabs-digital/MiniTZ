@@ -1,0 +1,74 @@
+{
+  "task_id": "D17-02",
+  "result": "PASS",
+  "status": "GENERATED_DRAFT",
+  "read_only": false,
+  "spec_sha256": "918fd85e3b4d5737d0bcdc6375f0827b2091beae3c2cc564b28e22fc11717cb3",
+  "mesh": "/Game/Environment/TerraceRoute/SM_TerraceRoute.SM_TerraceRoute",
+  "triangles": 190856,
+  "bounds_min": [
+    -1003.0000610351562,
+    -2003.47119140625,
+    -38.41201400756836
+  ],
+  "bounds_max": [
+    1003.0,
+    1003.0003051757812,
+    522.5000610351562
+  ],
+  "materials": [
+    "Paint",
+    "Steel"
+  ],
+  "preserved_colliders": {
+    "D02_Terrace_Ramp": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616335428",
+      "transform": "<Struct 'Transform' (0x75548429f150) {rotation: {x: 0.098538, y: 0.000000, z: 0.000000, w: 0.995133}, translation: {x: 10000.000000, y: 2003.922323, z: 180.388386}, scale3d: {x: 4.000000, y: 20.396078, z: 0.400000}}>",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "collision": "BlockAll"
+    },
+    "D02_Terrace_Floor": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616336429",
+      "transform": "<Struct 'Transform' (0x75548429f150) {rotation: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}, translation: {x: 10000.000000, y: 3500.000000, z: 350.000000}, scale3d: {x: 20.000000, y: 10.000000, z: 1.000000}}>",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "collision": "BlockAll"
+    },
+    "D02_Terrace_BackRail": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616336430",
+      "transform": "<Struct 'Transform' (0x75548429f150) {rotation: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}, translation: {x: 10000.000000, y: 3975.000000, z: 460.000000}, scale3d: {x: 20.000000, y: 0.500000, z: 1.200000}}>",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "collision": "BlockAll"
+    },
+    "D02_Terrace_WestRail": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616337431",
+      "transform": "<Struct 'Transform' (0x75548429f150) {rotation: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}, translation: {x: 9025.000000, y: 3500.000000, z: 460.000000}, scale3d: {x: 0.500000, y: 10.000000, z: 1.200000}}>",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "collision": "BlockAll"
+    },
+    "D02_Terrace_EastRail": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616338432",
+      "transform": "<Struct 'Transform' (0x75548429f150) {rotation: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}, translation: {x: 10975.000000, y: 3500.000000, z: 460.000000}, scale3d: {x: 0.500000, y: 10.000000, z: 1.200000}}>",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "collision": "BlockAll"
+    }
+  },
+  "edited_actor_paths": {
+    "D17_TerraceRoute": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746DFFF02_1680818023",
+    "D17_TerraceColumn_00": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746DFFF02_1680820024",
+    "D17_TerraceColumn_01": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746DFFF02_1680821025",
+    "D17_TerraceColumn_02": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746DFFF02_1680822026",
+    "D17_TerraceColumn_03": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746DFFF02_1680823027",
+    "D17_TerraceColumn_04": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746DFFF02_1680824028",
+    "D17_TerraceColumn_05": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746DFFF02_1680825029"
+  },
+  "edited_actor_packages": [
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/1/ZY/KWMQBAB6YP8GJ9A3CTV02X",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/A/3D/ZUR6RFCQQ4Z4FDZVI8ZE12",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/8N/AJ4GKHJL0TXKW45PEY6L3L",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/3/M9/NBOVZU9XG3II1RGMXOELEA",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/B/IJ/62KCZE8IX7714DEA8GFTFV",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/C/U3/89IV5L5UUH4F1SFCZ107P4",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/7/6A/9QEWM4FV1PQVNYS9EWJL8U"
+  ],
+  "scope": "Fitted route skin plus six column colliders; requires affected cooked runtime traversal and camera proof"
+}

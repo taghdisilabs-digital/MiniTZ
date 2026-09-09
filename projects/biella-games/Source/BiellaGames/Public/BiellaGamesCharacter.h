@@ -24,6 +24,7 @@ public:
 
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaTime) override; 
+    virtual void CalcCamera(float DeltaTime, FMinimalViewInfo& OutResult) override;
     virtual void Defeat(const FString& Reason) override;
     virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 

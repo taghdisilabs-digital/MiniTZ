@@ -1,0 +1,35 @@
+{
+  "binary": {
+    "bytes": 299185984,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/3434ab980ea68750798b9276a135d06b8b50adeb33faf02ef7c714cfc88e8849/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "784a93e01da177765c30a92d845254eb0b9b126a0bce8b8b39286914a4bd4900"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/3434ab980ea68750798b9276a135d06b8b50adeb33faf02ef7c714cfc88e8849/payload",
+  "manifest": {
+    "bytes": 8669,
+    "path": "/mnt/biella-extra/biella-runtime/d17-01-install/versions/3434ab980ea68750798b9276a135d06b8b50adeb33faf02ef7c714cfc88e8849/manifest.json",
+    "sha256": "b9ebe752b1a1f41c9beaed3b10b31bd38cac2aad44ac7b7c2532358b3a37d13d"
+  },
+  "package_id": "3434ab980ea68750798b9276a135d06b8b50adeb33faf02ef7c714cfc88e8849",
+  "platform": "Linux",
+  "scope": "Byte-verified Linux Development package; not visual acceptance or Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "a0a7de28735c4a5461419c507efff8b4fac4f489",
+    "head_tree": "f6d02fa7a5edf8b4dd673dbce60fb08f1a615c72",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      " M Source/BiellaGames/Private/BiellaPlaytestTelemetry.cpp",
+      " M Source/BiellaGames/Public/BiellaPlaytestTelemetry.h",
+      " M tests/build_d03_01_game.py",
+      " M tests/d17_01_raw_input.py",
+      " M tests/run_d17_01_slice.py",
+      "?? Build/AAA/D17-02/",
+      "?? Source/BiellaGames/Private/BiellaTraversalTelemetry.cpp",
+      "?? tests/d17_02_route_input.py",
+      "?? tests/measure_d17_02_route.py"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T22:37:45.995554+00:00"
+}

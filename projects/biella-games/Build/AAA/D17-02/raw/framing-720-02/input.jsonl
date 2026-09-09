@@ -1,0 +1,234 @@
+{"event": "capture_started", "elapsed_seconds": 3.0400697141885757e-06, "window": "2097243"}
+{"event": "route_stage_started", "elapsed_seconds": 2.6775186890736222, "stage": 0, "intended": {"kind": "walk", "at": [0, -800], "beat": "Evade surviving infected", "radius": 70, "defend_against_nearest_rival": true, "clear_immediate_enemy": true}, "observed": {"ammo": "60", "arm": "520.0000", "arm_distance": "530.5893", "body_blocker": "None", "body_occluded": "false", "camera_overlap": "false", "camera_pitch": "-18.0000", "camera_x": "-477.5535", "camera_y": "90.0000", "camera_yaw": "0.0000", "camera_z": "300.9969", "center_u": "0.4135", "center_v": "0.5940", "delta_ms": "400.0000", "feet_v": "0.7225", "fov": "90.0000", "frame": "1", "head_v": "0.4622", "health": "100.0000", "holds": "2", "near_blocker": "", "near_hits": "0", "pawn_static_overlap": "false", "phase": "Active", "projected": "true", "ready": "false", "speed": "0.0000", "view_target_player": "true", "wait_reason": "Navigation", "x": "0.0000", "y": "0.0000", "yaw": "0.0000", "z": "88.0000"}}
+{"event": "input_sent", "elapsed_seconds": 2.6846129400655627, "input": ["mousemove_relative", "--", -500, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 2.769784424104728, "input": ["mousemove_relative", "--", -500, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 2.85765869601164, "input": ["mousemove_relative", "--", -500, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 2.9432370190043002, "input": ["mousemove_relative", "--", -500, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 3.030734223080799, "input": ["mousemove_relative", "--", -500, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 3.1161199220223352, "input": ["mousemove_relative", "--", -500, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 3.204128297045827, "input": ["mousemove_relative", "--", -500, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 3.291456126025878, "input": ["mousemove_relative", "--", -500, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 3.3772572150919586, "input": ["mousemove_relative", "--", -500, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 3.46140740707051, "input": ["mousemove_relative", "--", -500, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 3.5464084680425003, "input": ["mousemove_relative", "--", -500, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 3.635446534026414, "input": ["mousemove_relative", "--", -500, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 3.7208766050171107, "input": ["mousemove_relative", "--", -500, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 3.8057861630804837, "input": ["mousemove_relative", "--", -500, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 3.894712367095053, "input": ["mousemove_relative", "--", -500, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 3.979640197008848, "input": ["mousemove_relative", "--", -500, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 4.072904143016785, "input": ["mousemove_relative", "--", -36, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 4.092425320064649, "input": ["keydown", "w"], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 4.914796766010113, "input": ["mousemove_relative", "--", 1, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 5.161249825032428, "input": ["mousemove_relative", "--", -1, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 5.328920129104517, "input": ["mousemove_relative", "--", 1, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 5.494668091996573, "input": ["mousemove_relative", "--", -1, 0], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "input_sent", "elapsed_seconds": 5.67758404603228, "input": ["keyup", "w"], "stage": 0, "intended_beat": "Evade surviving infected"}
+{"event": "route_stage_reached", "elapsed_seconds": 5.678595658042468, "stage": 0, "intended": {"kind": "walk", "at": [0, -800], "beat": "Evade surviving infected", "radius": 70, "defend_against_nearest_rival": true, "clear_immediate_enemy": true}, "observed": {"ammo": "60", "arm": "520.0000", "arm_distance": "530.5893", "body_blocker": "None", "body_occluded": "false", "camera_overlap": "false", "camera_pitch": "-18.0000", "camera_x": "90.1243", "camera_y": "-285.9048", "camera_yaw": "-90.0160", "camera_z": "302.9969", "center_u": "0.4135", "center_v": "0.5940", "delta_ms": "17.8426", "feet_v": "0.7225", "fov": "90.0000", "frame": "101", "head_v": "0.4622", "health": "100.0000", "holds": "2", "near_blocker": "", "near_hits": "0", "pawn_static_overlap": "false", "phase": "Active", "projected": "true", "ready": "true", "speed": "520.0000", "view_target_player": "true", "wait_reason": "None", "x": "-0.0090", "y": "-763.4331", "yaw": "-90.0160", "z": "90.0000"}}
+{"event": "route_stage_started", "elapsed_seconds": 5.760483327088878, "stage": 1, "intended": {"kind": "walk", "at": [3300, -800], "beat": "Defensive approach to street rivals", "defend_against_nearest_rival": true, "clear_immediate_enemy": true}, "observed": {"ammo": "60", "arm": "520.0000", "arm_distance": "530.5893", "body_blocker": "None", "body_occluded": "false", "camera_overlap": "false", "camera_pitch": "-18.0000", "camera_x": "90.1172", "camera_y": "-327.2998", "camera_yaw": "-90.0160", "camera_z": "302.9969", "center_u": "0.4135", "center_v": "0.5940", "delta_ms": "17.1881", "feet_v": "0.7225", "fov": "90.0000", "frame": "107", "head_v": "0.4622", "health": "100.0000", "holds": "2", "near_blocker": "", "near_hits": "0", "pawn_static_overlap": "false", "phase": "Active", "projected": "true", "ready": "true", "speed": "301.1588", "view_target_player": "true", "wait_reason": "None", "x": "-0.0162", "y": "-804.8281", "yaw": "-90.0160", "z": "90.0000"}}
+{"event": "input_sent", "elapsed_seconds": 5.76855062704999, "input": ["mousemove_relative", "--", 500, 0], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 5.857897205045447, "input": ["mousemove_relative", "--", 500, 0], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 5.94973601505626, "input": ["mousemove_relative", "--", 500, 0], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 6.0366488210856915, "input": ["mousemove_relative", "--", 114, 0], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 6.06212433706969, "input": ["keydown", "w"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 8.857278300100006, "input": ["mousedown", "1"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 8.952459510066546, "input": ["mouseup", "1"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 9.201503004063852, "input": ["mousedown", "1"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 9.292337374063209, "input": ["mouseup", "1"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 9.543632015003823, "input": ["mousedown", "1"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 9.636219211039133, "input": ["mouseup", "1"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 9.885414139018394, "input": ["mousedown", "1"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 9.974298167042434, "input": ["mouseup", "1"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 10.229141012066975, "input": ["mousedown", "1"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 10.31958278408274, "input": ["mouseup", "1"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 10.573130592005327, "input": ["mousedown", "1"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 10.662718256004155, "input": ["mouseup", "1"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 10.831738018081523, "input": ["mousemove_relative", "--", -1, 0], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 10.922892124042846, "input": ["mousedown", "1"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 11.017267007031478, "input": ["mouseup", "1"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 11.10607516404707, "input": ["mousemove_relative", "--", 1, 0], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 11.274188757059164, "input": ["mousedown", "1"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 11.361431731027551, "input": ["mousemove_relative", "--", -1, 0], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 11.367434807005338, "input": ["mouseup", "1"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 11.618444462073967, "input": ["mousemove_relative", "--", 1, 0], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 11.86828916403465, "input": ["mousemove_relative", "--", -1, 0], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 12.121798312058672, "input": ["mousemove_relative", "--", 1, 0], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "input_sent", "elapsed_seconds": 12.388115620007738, "input": ["keyup", "w"], "stage": 1, "intended_beat": "Defensive approach to street rivals"}
+{"event": "route_stage_reached", "elapsed_seconds": 12.388226123061031, "stage": 1, "intended": {"kind": "walk", "at": [3300, -800], "beat": "Defensive approach to street rivals", "defend_against_nearest_rival": true, "clear_immediate_enemy": true}, "observed": {"ammo": "52", "arm": "520.0000", "arm_distance": "530.5893", "body_blocker": "None", "body_occluded": "false", "camera_overlap": "false", "camera_pitch": "-18.0000", "camera_x": "2760.9202", "camera_y": "-713.4155", "camera_yaw": "0.3680", "camera_z": "302.9969", "center_u": "0.4135", "center_v": "0.5940", "delta_ms": "18.3446", "feet_v": "0.7225", "fov": "90.0000", "frame": "463", "head_v": "0.4622", "health": "100.0000", "holds": "2", "near_blocker": "", "near_hits": "0", "pawn_static_overlap": "false", "phase": "Active", "projected": "true", "ready": "true", "speed": "520.0000", "view_target_player": "true", "wait_reason": "None", "x": "3239.0419", "y": "-800.3464", "yaw": "0.3680", "z": "90.0000"}}
+{"event": "route_stage_started", "elapsed_seconds": 12.46951555099804, "stage": 2, "intended": {"kind": "rival", "target": "nearest_admitted", "beat": "Clear live west-street rival 1", "timeout": 20, "skip_if_not_admitted": true, "admission_wait_seconds": 0, "admission_radius_cm": 6000}, "observed": {"ammo": "52", "arm": "520.0000", "arm_distance": "530.5893", "body_blocker": "None", "body_occluded": "false", "camera_overlap": "false", "camera_pitch": "-18.0000", "camera_x": "2805.2614", "camera_y": "-713.1323", "camera_yaw": "0.3680", "camera_z": "302.9969", "center_u": "0.4135", "center_v": "0.5940", "delta_ms": "19.2106", "feet_v": "0.7225", "fov": "90.0000", "frame": "469", "head_v": "0.4622", "health": "100.0000", "holds": "2", "near_blocker": "", "near_hits": "0", "pawn_static_overlap": "false", "phase": "Active", "projected": "true", "ready": "true", "speed": "284.1331", "view_target_player": "true", "wait_reason": "None", "x": "3283.3831", "y": "-800.0633", "yaw": "0.3680", "z": "90.0000"}}
+{"event": "route_rival_selected", "elapsed_seconds": 12.469610523083247, "stage": 2, "target": "BiellaRival:3", "selection": "closest live observed rival", "radius_cm": 6000}
+{"event": "input_sent", "elapsed_seconds": 12.476841013995, "input": ["mousemove_relative", "--", 500, -218], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 12.568124514073133, "input": ["mousemove_relative", "--", 500, -110], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 12.65962480707094, "input": ["mousemove_relative", "--", 194, -48], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 12.755130204022862, "input": ["mousemove_relative", "--", 65, -18], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 12.773553811013699, "input": ["keydown", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 12.86058302107267, "input": ["mousemove_relative", "--", 21, -6], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 12.950177733087912, "input": ["mousemove_relative", "--", 11, -2], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 13.03532061399892, "input": ["mousemove_relative", "--", 12, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 13.12173256999813, "input": ["mousemove_relative", "--", 12, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 13.213269993080758, "input": ["mousemove_relative", "--", 3, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 13.300018897047266, "input": ["mousemove_relative", "--", 9, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 13.38692107400857, "input": ["mousemove_relative", "--", 9, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 13.476164238993078, "input": ["mousemove_relative", "--", 10, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 13.567299665068276, "input": ["mousemove_relative", "--", 4, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 13.655677073053084, "input": ["mousemove_relative", "--", 9, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 13.740864113089629, "input": ["mousemove_relative", "--", 11, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 13.830370574025437, "input": ["mousemove_relative", "--", 11, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 13.928608260001056, "input": ["mousemove_relative", "--", 10, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.013968044077046, "input": ["mousemove_relative", "--", 4, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.03278956899885, "input": ["keydown", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.050080283079296, "input": ["keyup", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.13605524005834, "input": ["mousemove_relative", "--", 16, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.223544278065674, "input": ["mousemove_relative", "--", 6, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.239783080061898, "input": ["keyup", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.257636125083081, "input": ["keydown", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.349573826999404, "input": ["mousemove_relative", "--", 13, -2], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.439968158025295, "input": ["mousemove_relative", "--", 5, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.526713530998677, "input": ["mousemove_relative", "--", 5, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.616176882060245, "input": ["mousemove_relative", "--", 8, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.632954725064337, "input": ["keydown", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.651321990066208, "input": ["keyup", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.740846922039054, "input": ["mousemove_relative", "--", 8, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.827413332066499, "input": ["mousemove_relative", "--", 9, -1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.84877822000999, "input": ["keyup", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.866823590011336, "input": ["keydown", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 14.964419802068733, "input": ["mousemove_relative", "--", 8, -1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 15.0508845790755, "input": ["mousemove_relative", "--", 6, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 15.14082207903266, "input": ["mousemove_relative", "--", 7, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 15.226712475065142, "input": ["mousemove_relative", "--", 7, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 15.243891866062768, "input": ["keydown", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 15.26663584401831, "input": ["keyup", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 15.353282286087051, "input": ["mousemove_relative", "--", 8, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 15.441907078027725, "input": ["mousemove_relative", "--", 6, -1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 15.461249815067276, "input": ["keyup", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 15.479654272086918, "input": ["keydown", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 15.568710634019226, "input": ["mousemove_relative", "--", 6, -1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 15.657582132029347, "input": ["mousemove_relative", "--", 5, -1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 15.749788560089655, "input": ["mousemove_relative", "--", 5, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 15.834455120027997, "input": ["mousemove_relative", "--", 2, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 15.924381830031052, "input": ["mousemove_relative", "--", 5, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 15.94647053501103, "input": ["keydown", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 15.96530233102385, "input": ["keyup", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 16.0533934320556, "input": ["mousemove_relative", "--", 5, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 16.13958098401781, "input": ["mousemove_relative", "--", 5, -1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 16.159210916026495, "input": ["keyup", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 16.178154004039243, "input": ["keydown", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 16.26657363306731, "input": ["mousemove_relative", "--", 4, -1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 16.35288909706287, "input": ["mousemove_relative", "--", 5, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 16.43912854010705, "input": ["mousemove_relative", "--", 5, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 16.527844305033796, "input": ["mousemove_relative", "--", 2, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 16.549057251075283, "input": ["keydown", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 16.568906738073565, "input": ["keyup", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 16.65620705310721, "input": ["mousemove_relative", "--", 6, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 16.746716066030785, "input": ["mousemove_relative", "--", 2, -1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 16.76540642802138, "input": ["keyup", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 16.788432882050984, "input": ["keydown", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 16.87800241599325, "input": ["mousemove_relative", "--", 5, -1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 16.967964207055047, "input": ["mousemove_relative", "--", 3, -1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 17.055472146021202, "input": ["mousemove_relative", "--", 2, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 17.07461510808207, "input": ["keydown", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 17.095991688081995, "input": ["keyup", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 17.18777132802643, "input": ["mousemove_relative", "--", 6, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 17.277837661094964, "input": ["mousemove_relative", "--", 2, -1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 17.29487455904018, "input": ["keyup", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 17.310646950034425, "input": ["keydown", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 17.40016583201941, "input": ["mousemove_relative", "--", 3, -1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 17.491027812007815, "input": ["mousemove_relative", "--", 4, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 17.57841460907366, "input": ["mousemove_relative", "--", 1, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 17.665806056000292, "input": ["mousemove_relative", "--", 0, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 17.75508933304809, "input": ["mousemove_relative", "--", 0, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 17.77652337308973, "input": ["keydown", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 17.801548919058405, "input": ["keyup", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 17.893473892007023, "input": ["mousemove_relative", "--", 1, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 18.067331197089516, "input": ["mousemove_relative", "--", 2, -1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 18.088726496091112, "input": ["keyup", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 18.10935965005774, "input": ["keydown", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 18.199047675007023, "input": ["mousemove_relative", "--", 3, -2], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 18.285483302082866, "input": ["mousemove_relative", "--", 3, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 18.371549612027593, "input": ["mousemove_relative", "--", 1, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 18.45805776002817, "input": ["mousemove_relative", "--", 0, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 18.547423389041796, "input": ["mousemove_relative", "--", -3, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 18.635681724059395, "input": ["mousemove_relative", "--", -22, 2], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 18.653678872040473, "input": ["keydown", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 18.67412794206757, "input": ["keyup", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 18.762220864067785, "input": ["mousemove_relative", "--", -30, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 18.848976018023677, "input": ["mousemove_relative", "--", -32, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 18.86433781008236, "input": ["keyup", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 18.884063825011253, "input": ["keydown", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 18.97601274808403, "input": ["mousemove_relative", "--", -32, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 19.06633951701224, "input": ["mousemove_relative", "--", -31, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 19.160745622008108, "input": ["mousemove_relative", "--", -33, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 19.247301691095345, "input": ["mousemove_relative", "--", -35, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 19.33467059803661, "input": ["mousemove_relative", "--", -42, 2], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 19.425471435999498, "input": ["mousemove_relative", "--", -20, 2], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 19.444376514060423, "input": ["keydown", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 19.466593802091666, "input": ["keyup", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 19.558948303107172, "input": ["mousemove_relative", "--", -53, 2], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 19.570213509025052, "input": ["mousedown", "1"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 19.671659253071994, "input": ["mousemove_relative", "--", -46, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 19.691268004011363, "input": ["keyup", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 19.712666015024297, "input": ["keydown", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 19.718030047020875, "input": ["mouseup", "1"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 19.805368083063513, "input": ["mousemove_relative", "--", -38, -1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 19.894257962005213, "input": ["mousemove_relative", "--", -43, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 19.986881859018467, "input": ["mousemove_relative", "--", -42, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.072032059077173, "input": ["mousemove_relative", "--", -21, 3], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.091481007053517, "input": ["keydown", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.10845458402764, "input": ["keyup", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.11459652299527, "input": ["mousedown", "1"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.19924282305874, "input": ["mousemove_relative", "--", -61, 2], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.206454655039124, "input": ["mouseup", "1"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.29144747101236, "input": ["mousemove_relative", "--", -28, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.37817152508069, "input": ["mousemove_relative", "--", -38, -2], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.382285841042176, "input": ["mousedown", "1"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.471534717013128, "input": ["mousemove_relative", "--", -40, -2], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.49097680603154, "input": ["keyup", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.51011365908198, "input": ["keydown", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.521440776064992, "input": ["mouseup", "1"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.607581257005222, "input": ["mousemove_relative", "--", -33, -2], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.69644358602818, "input": ["mousemove_relative", "--", -29, -1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.787019549054094, "input": ["mousemove_relative", "--", -28, 0], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.8745983610861, "input": ["mousemove_relative", "--", -14, 1], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.960894865100272, "input": ["mousemove_relative", "--", -20, 2], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 20.964975770097226, "input": ["mousedown", "1"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.054668076103553, "input": ["mousemove_relative", "--", -26, 2], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.05946209700778, "input": ["mouseup", "1"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.151115863001905, "input": ["mousemove_relative", "--", -31, 3], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.17184384900611, "input": ["keyup", "w"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.261718288995326, "input": ["mousemove_relative", "--", -40, 6], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.357727137045003, "input": ["mousemove_relative", "--", -44, 5], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.36480106599629, "input": ["mousedown", "1"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.457193358102813, "input": ["mousemove_relative", "--", -48, 4], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.460792374098673, "input": ["mouseup", "1"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.547174310078844, "input": ["mousemove_relative", "--", -27, 2], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.63474175101146, "input": ["mousemove_relative", "--", -36, 3], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.72205072606448, "input": ["mousemove_relative", "--", -49, 3], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.732778372010216, "input": ["mousedown", "1"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.817498754011467, "input": ["mousemove_relative", "--", -59, 4], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.820779482019134, "input": ["mouseup", "1"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.906121076084673, "input": ["mousemove_relative", "--", -62, 4], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 21.99261080508586, "input": ["mousemove_relative", "--", -62, 3], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 22.019554491038434, "input": ["keydown", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 22.10553369903937, "input": ["mousemove_relative", "--", -38, 2], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 22.12441488506738, "input": ["keyup", "s"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 22.12932614807505, "input": ["mousedown", "1"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "input_sent", "elapsed_seconds": 22.21826191805303, "input": ["mouseup", "1"], "stage": 2, "intended_beat": "Clear live west-street rival 1"}
+{"event": "route_stage_reached", "elapsed_seconds": 22.218328580027446, "stage": 2, "intended": {"kind": "rival", "target": "nearest_admitted", "beat": "Clear live west-street rival 1", "timeout": 20, "skip_if_not_admitted": true, "admission_wait_seconds": 0, "admission_radius_cm": 6000}, "observed": {"ammo": "45", "arm": "520.0000", "arm_distance": "530.5893", "body_blocker": "None", "body_occluded": "false", "camera_overlap": "false", "camera_pitch": "-3.4680", "camera_x": "3185.0723", "camera_y": "984.4339", "camera_yaw": "15.1520", "camera_z": "176.3546", "center_u": "0.4135", "center_v": "0.5940", "delta_ms": "20.7617", "feet_v": "0.7384", "fov": "90.0000", "frame": "1023", "head_v": "0.4571", "health": "100.0000", "holds": "2", "near_blocker": "", "near_hits": "0", "pawn_static_overlap": "false", "phase": "Active", "projected": "true", "ready": "true", "speed": "29.9945", "view_target_player": "true", "wait_reason": "None", "x": "3706.3887", "y": "1032.3621", "yaw": "15.1520", "z": "90.0000"}}
+{"event": "route_stage_started", "elapsed_seconds": 22.300235172035173, "stage": 3, "intended": {"kind": "walk", "at": [4000, -800], "beat": "Street01 approach", "radius": 70, "defend_against_nearest_rival": true, "clear_immediate_enemy": true}, "observed": {"ammo": "45", "arm": "520.0000", "arm_distance": "530.5893", "body_blocker": "None", "body_occluded": "false", "camera_overlap": "false", "camera_pitch": "-3.4680", "camera_x": "3185.0723", "camera_y": "984.4339", "camera_yaw": "15.1520", "camera_z": "176.3546", "center_u": "0.4135", "center_v": "0.5940", "delta_ms": "16.6675", "feet_v": "0.7384", "fov": "90.0000", "frame": "1028", "head_v": "0.4571", "health": "100.0000", "holds": "2", "near_blocker": "", "near_hits": "0", "pawn_static_overlap": "false", "phase": "Active", "projected": "true", "ready": "true", "speed": "0.0000", "view_target_player": "true", "wait_reason": "None", "x": "3706.3887", "y": "1032.3621", "yaw": "15.1520", "z": "90.0000"}}
+{"event": "input_sent", "elapsed_seconds": 22.3076627580449, "input": ["mousemove_relative", "--", -500, 346], "stage": 3, "intended_beat": "Street01 approach"}
+{"event": "input_sent", "elapsed_seconds": 22.396710550994612, "input": ["mousemove_relative", "--", -500, 0], "stage": 3, "intended_beat": "Street01 approach"}
+{"event": "input_sent", "elapsed_seconds": 22.484948285040446, "input": ["mousemove_relative", "--", -500, 0], "stage": 3, "intended_beat": "Street01 approach"}
+{"event": "input_sent", "elapsed_seconds": 22.494123628013767, "input": ["mousedown", "1"], "stage": 3, "intended_beat": "Street01 approach"}
+{"event": "input_sent", "elapsed_seconds": 22.58063545601908, "input": ["mousemove_relative", "--", -215, 0], "stage": 3, "intended_beat": "Street01 approach"}
+{"event": "input_sent", "elapsed_seconds": 22.599487863015383, "input": ["keydown", "w"], "stage": 3, "intended_beat": "Street01 approach"}
+{"event": "input_sent", "elapsed_seconds": 22.606583272106946, "input": ["mouseup", "1"], "stage": 3, "intended_beat": "Street01 approach"}
+{"event": "input_sent", "elapsed_seconds": 22.777630038093776, "input": ["mousemove_relative", "--", -1, 0], "stage": 3, "intended_beat": "Street01 approach"}
+{"event": "input_sent", "elapsed_seconds": 22.866025907103904, "input": ["mousedown", "1"], "stage": 3, "intended_beat": "Street01 approach"}
+{"event": "input_sent", "elapsed_seconds": 22.95383553300053, "input": ["mouseup", "1"], "stage": 3, "intended_beat": "Street01 approach"}
+{"event": "input_sent", "elapsed_seconds": 23.209304754040204, "input": ["mousedown", "1"], "stage": 3, "intended_beat": "Street01 approach"}
+{"event": "input_sent", "elapsed_seconds": 23.29869707301259, "input": ["mouseup", "1"], "stage": 3, "intended_beat": "Street01 approach"}
+{"event": "input_sent", "elapsed_seconds": 23.553177644032985, "input": ["mousedown", "1"], "stage": 3, "intended_beat": "Street01 approach"}
+{"event": "input_sent", "elapsed_seconds": 23.645743099041283, "input": ["mouseup", "1"], "stage": 3, "intended_beat": "Street01 approach"}
+{"event": "input_sent", "elapsed_seconds": 23.899619357078336, "input": ["mousedown", "1"], "stage": 3, "intended_beat": "Street01 approach"}
+{"event": "input_sent", "elapsed_seconds": 24.0556682680035, "input": ["mouseup", "1"], "stage": 3, "intended_beat": "Street01 approach"}
+{"event": "native_terminal_observed", "elapsed_seconds": 24.137193811009638}
+{"event": "capture_finished", "elapsed_seconds": 27.371414121007547, "result": {"status": "CAPTURED", "reason": "native_terminal_state", "audio_capture": false, "input_delivery": "X11 keyboard/mouse", "world_mutation_or_automation_tests": false, "input_time_origin": "capture_started", "measured_input_run_seconds": 24.13724385201931, "actions_sent": 223, "game_alive_at_capture_end": true, "recorder_returncode": 255, "game_returncode": 0}}

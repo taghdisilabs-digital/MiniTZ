@@ -1,0 +1,12 @@
+test_forged_waypoint_observation (__main__.TraversalProofRejection.test_forged_waypoint_observation) ... ok
+test_geometry_overlap_is_rejected (__main__.TraversalProofRejection.test_geometry_overlap_is_rejected) ... ok
+test_intact_captured_route (__main__.TraversalProofRejection.test_intact_captured_route) ... ok
+test_missing_return_stage (__main__.TraversalProofRejection.test_missing_return_stage) ... ok
+test_native_sequence_gap (__main__.TraversalProofRejection.test_native_sequence_gap) ... ok
+test_nonproduction_camera_is_rejected (__main__.TraversalProofRejection.test_nonproduction_camera_is_rejected) ... ok
+test_wrong_terrace_height_even_with_matching_native_frame (__main__.TraversalProofRejection.test_wrong_terrace_height_even_with_matching_native_frame) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.339s
+
+OK

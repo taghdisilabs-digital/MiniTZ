@@ -1,0 +1,57 @@
+{
+  "binary": {
+    "bytes": 299198272,
+    "path": "/mnt/biella-extra/biella-runtime/d17-02-install/versions/5bbaeadaa2f984f6d81df57bd100d9c9dbbfa21061c16fe646f5179272c3317f/payload/BiellaGames/Binaries/Linux/BiellaGames",
+    "sha256": "57a505f04efeafe55c25e08db278eb502c5eac50398c2c9026c647f7579e3c42"
+  },
+  "configuration": "Development",
+  "installed_payload": "/mnt/biella-extra/biella-runtime/d17-02-install/versions/5bbaeadaa2f984f6d81df57bd100d9c9dbbfa21061c16fe646f5179272c3317f/payload",
+  "manifest": {
+    "bytes": 8665,
+    "path": "/mnt/biella-extra/biella-runtime/d17-02-install/versions/5bbaeadaa2f984f6d81df57bd100d9c9dbbfa21061c16fe646f5179272c3317f/manifest.json",
+    "sha256": "ad2657a8bdb851382d01a64ad3441d8420ce47843b84c7a379ee993ea600aa37"
+  },
+  "package_id": "5bbaeadaa2f984f6d81df57bd100d9c9dbbfa21061c16fe646f5179272c3317f",
+  "platform": "Linux",
+  "scope": "Byte-verified Linux Development package; not visual acceptance or Win64 Shipping",
+  "source_revision_at_capture": {
+    "head": "a0a7de28735c4a5461419c507efff8b4fac4f489",
+    "head_tree": "f6d02fa7a5edf8b4dd673dbce60fb08f1a615c72",
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit.",
+    "project_status": [
+      " M Content/Maps/BiellaOpenWorldMap.umap",
+      " M Source/BiellaGames/Private/BiellaPlaytestTelemetry.cpp",
+      " M Source/BiellaGames/Public/BiellaPlaytestTelemetry.h",
+      " M tests/build_d03_01_editor.py",
+      " M tests/build_d03_01_game.py",
+      " M tests/cook_d03_01_package.py",
+      " M tests/d17_01_raw_input.py",
+      " M tests/package_d17_01.py",
+      " M tests/repair_d17_01_cook_config.py",
+      " M tests/run_d17_01_slice.py",
+      " M tests/stage_d03_01_package.py",
+      "?? Build/AAA/D17-02/",
+      "?? Content/Environment/TerraceRoute/",
+      "?? Content/Python/author_terrace_route.py",
+      "?? Content/__ExternalActors__/Maps/BiellaOpenWorldMap/1/ZY/",
+      "?? Content/__ExternalActors__/Maps/BiellaOpenWorldMap/3/M9/",
+      "?? Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/8N/",
+      "?? Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/6A/",
+      "?? Content/__ExternalActors__/Maps/BiellaOpenWorldMap/A/3D/",
+      "?? Content/__ExternalActors__/Maps/BiellaOpenWorldMap/B/IJ/",
+      "?? Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/U3/",
+      "?? Source/BiellaGames/Private/BiellaTraversalTelemetry.cpp",
+      "?? SourceAssets/Environment/SM_TerraceRoute.fbx",
+      "?? SourceAssets/Environment/TerraceRoute.blend",
+      "?? SourceAssets/Environment/build_terrace_route.py",
+      "?? SourceAssets/Environment/terrace-route.json",
+      "?? SourceAssets/Environment/verify_terrace_route.py",
+      "?? tests/author_d17_02_terrace.py",
+      "?? tests/d17_02_route_input.py",
+      "?? tests/measure_d17_02_route.py",
+      "?? tests/test_d17_02_measurements.py"
+    ]
+  },
+  "status": "EXACT_MEMBERSHIP_BYTES_PERMISSIONS_VERIFIED",
+  "verified_at": "2026-09-08T23:05:46.878191+00:00"
+}

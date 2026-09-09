@@ -1,0 +1,42 @@
+{
+  "driver": {
+    "bytes": 9473,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/d17_01_raw_input.py",
+    "sha256": "31e98b340530c9c38441f527adc0e2f8dbcea36d78fea6f52dfa9023b1a8f9a3",
+    "snapshot": {
+      "bytes": 9473,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/route-720-05/input-source/d17_01_raw_input.py",
+      "sha256": "31e98b340530c9c38441f527adc0e2f8dbcea36d78fea6f52dfa9023b1a8f9a3"
+    }
+  },
+  "plan": {
+    "bytes": 4334,
+    "path": "Build/AAA/D17-02/route-input.json",
+    "sha256": "e0bd202d438d0399d30baa0ce1d89be3c44d3dedc1a365738f1d613019ec56bc",
+    "snapshot": {
+      "bytes": 4334,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/route-720-05/input-source/route-input.json",
+      "sha256": "e0bd202d438d0399d30baa0ce1d89be3c44d3dedc1a365738f1d613019ec56bc"
+    }
+  },
+  "route_controller": {
+    "bytes": 6213,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/d17_02_route_input.py",
+    "sha256": "448e3cf827521b5fc1ab51bea77e076e80433064699316e8e8d1b07d7200ebee",
+    "snapshot": {
+      "bytes": 6213,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/route-720-05/input-source/d17_02_route_input.py",
+      "sha256": "448e3cf827521b5fc1ab51bea77e076e80433064699316e8e8d1b07d7200ebee"
+    }
+  },
+  "runner": {
+    "bytes": 9936,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/run_d17_01_slice.py",
+    "sha256": "43899069557afa10630050382371d7f4ff230be16133a08cdaeb2e272d6a7bbc",
+    "snapshot": {
+      "bytes": 9936,
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/route-720-05/input-source/run_d17_01_slice.py",
+      "sha256": "43899069557afa10630050382371d7f4ff230be16133a08cdaeb2e272d6a7bbc"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "task_id": "D17-02",
+  "raw_video": {
+    "path": "Build/AAA/D17-02/raw/framing-1080-01/raw-gameplay.mkv",
+    "bytes": 24943250,
+    "sha256": "5ca74c10f9c6b7a7c6857e0b1422ae64dfd8604a0d5ebd247a81d9bede90111a"
+  },
+  "extraction": "Unmodified ffmpeg frame at measured input event timestamp; native-frame mapping is approximate at 30 fps, no compositing",
+  "route_status": "Partial 28/35 run; native Success before descent/return, not a full-route pass",
+  "frames": [
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/panel-exit.png",
+      "bytes": 634853,
+      "sha256": "83c618e82139f09c137b30ae7bfdb6ac869882db6c147c38e0c33b61b4748112",
+      "video_seconds": 26.99351087200921,
+      "native_frame": "944",
+      "route_stage": 14
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/hall-interior.png",
+      "bytes": 818493,
+      "sha256": "7936744dd3de12a86340c4601c6e4fb26222c38ed9c4b1845cad34242f0a4e1b",
+      "video_seconds": 31.761945654987358,
+      "native_frame": "1163",
+      "route_stage": 20
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/ramp-ascent.png",
+      "bytes": 543444,
+      "sha256": "a3bc04e55b9301defc6b311ef28d73f9126261e31e0020cba1d495214ece7504",
+      "video_seconds": 44.40402174403425,
+      "native_frame": "1777",
+      "route_stage": 25
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/terrace-overlook.png",
+      "bytes": 895787,
+      "sha256": "84f455126a7f82020df4feb27f5c1e79d42498f0605b57b41e14031974e56aae",
+      "video_seconds": 48.37954784394242,
+      "native_frame": "1982",
+      "route_stage": 27
+    }
+  ]
+}

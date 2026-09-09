@@ -1,0 +1,30 @@
+{
+  "task_id": "D17-02",
+  "result": "FAIL",
+  "revision": {
+    "head": "6ebb227f3aad9816385a8cc1110f5fa91187c604",
+    "head_tree": "351ea8c71b3965df05c32352feb1b84f3b2986f8",
+    "project_status": [
+      " M Source/BiellaGames/Private/BiellaPlaytestTelemetry.cpp",
+      " M Source/BiellaGames/Public/BiellaPlaytestTelemetry.h",
+      " M tests/build_d03_01_game.py",
+      "?? Source/BiellaGames/Private/BiellaTraversalTelemetry.cpp"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "marker_before": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "started": "2026-09-08T22:07:33.612786+00:00",
+  "returncode": 6,
+  "error": "Native game build failed; inspect build.log",
+  "marker_after": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "inputs_unchanged": true,
+  "elapsed_seconds": 30.074182262062095
+}

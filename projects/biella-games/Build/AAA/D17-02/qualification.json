@@ -1,0 +1,526 @@
+{
+  "schema": "biella.d17.traversal_qualification/v1",
+  "task_id": "D17-02",
+  "title": "Prove traversal and camera quality",
+  "status": "IN_PROGRESS",
+  "acceptance": false,
+  "updated_at": "2026-09-09T00:04:29.176983+00:00",
+  "scope": "Canonical selected route; traversal, camera, collision, framing and route readability",
+  "predecessor": {
+    "task_id": "D17-01",
+    "qualification_path": "Build/AAA/D17-01/qualification.json",
+    "preserved": true
+  },
+  "verified_progress": [
+    "Editable fitted terrace decking, edge strips, parapet cladding and grounded columns/bracing; actual Blender/FBX/native asset readback and preserved original traversal collision verified.",
+    "Affected game/editor builds, content cook, stage, archive and installed membership verification pass. Current game-03 camera/HUD native build passes over unchanged cooked content.",
+    "Production camera retains 520 cm target arm and 90-degree FOV. Upper-body sphere sweep repairs observed one-frame panel-corner occlusion; compact HUD exposes floor and player feet.",
+    "Current native 720p raw run framing-720-05 completes 35/35 route stages, 4450 ready active frames, 290.588 m path, with no measured camera, near-plane, capsule, framing or unexplained movement fault.",
+    "Current native 1080p framing-1080-01 reaches 28/35 route stages through terrace overlook with no measured camera/collision faults; it is partial, not accepted full-route evidence.",
+    "Seven measurement proof-rejection tests pass; full raw-video decode passes for measured current runs. All 27 raw attempts and exact inputs remain preserved."
+  ],
+  "exact_evidence": [
+    {
+      "path": "Build/AAA/D17-02/build/game-02/result.json",
+      "bytes": 1546,
+      "sha256": "e2738c5e707bdee6d3f0bdc2a5c174e48674147962be39eed02179b17a5547cb"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/game-03/result.json",
+      "bytes": 3146,
+      "sha256": "903f34d4b35d8a12c77f5f5da3ae77f38da5fc9e6602ddf07d37b8aff14f9851"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/editor-01/validation.json",
+      "bytes": 55542,
+      "sha256": "5f23a2249f088623bfac5caabdba8832747728f4f23d1faf95ad4bebdd8e1f61"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-mesh-02/validation.json",
+      "bytes": 1876,
+      "sha256": "40ef739c16fd746f05bbef1a6ffa9a39a450f353b7247405623249fc41584901"
+    },
+    {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-04/validation.json",
+      "bytes": 133127,
+      "sha256": "5d7151708534a7915f74d8beae510fb532936af12207d919e53cfe8fa24e19f2"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/cook-01/validation.json",
+      "bytes": 19782062,
+      "sha256": "28906dbf6d83a8aa0bfe86935368ae491c0c32ac4935697702d6bb404e575f4f"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/cook-config-recovery.json",
+      "bytes": 2409,
+      "sha256": "53deb295ecc87e5e093c0e38ab20d7ad419f5fd083b7bc700416411f88324434"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/stage-01/validation.json",
+      "bytes": 21805,
+      "sha256": "477fb12abee728e8a5e522180af8018032fe1df56bbc51fa5ac2ae563ec99de8"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/package-01/validation.json",
+      "bytes": 1590,
+      "sha256": "fc94b6152b6ef7476c38f19952746b3957daec7e19f53628f8b207b1a027fcd9"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/package-01/package-manifest.json",
+      "bytes": 8665,
+      "sha256": "ad2657a8bdb851382d01a64ad3441d8420ce47843b84c7a379ee993ea600aa37"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/package-01/source-build.json",
+      "bytes": 81017,
+      "sha256": "d8145d13644fff311d3a5b96c47d2beff60cf70dca3ecb7bd12b3b4f8f1a7d2e"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/native-framing-change.json",
+      "bytes": 3480,
+      "sha256": "b891f0a321ca165d23a32cc2ad5eb18e9ce4671b491aaef324d54bb28fd49c63"
+    },
+    {
+      "path": "Build/AAA/D17-02/measurement-tests.log",
+      "bytes": 874,
+      "sha256": "120de31bd29faebd2b26b9c51fd5bc723814c838225f16b824958129fe0b4302"
+    },
+    {
+      "path": "Build/AAA/D17-02/traversal-camera-issues.md",
+      "bytes": 8224,
+      "sha256": "b1b1b1055f9bee676fe00cc8d5078358ec77fdcfddbbc6ce452347e1b6613273"
+    },
+    {
+      "path": "Build/AAA/D17-02/visual-assessment.json",
+      "bytes": 7368,
+      "sha256": "554c3c9c32abec0a1e8eeb34530e862399ad7b0afcfd75fbdbc762efff77174b"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw-attempts.json",
+      "bytes": 24794,
+      "sha256": "1f6315644a106caf3bf40077b45e81b2ec29d1d4da58ef0bda9f2dad3e81ec73"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/measurements.json",
+      "bytes": 18024,
+      "sha256": "faf6228345983f530b36531d3784c743acfea704486c46167d0eb9dae5f4e793"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/input-result.json",
+      "bytes": 419,
+      "sha256": "60b7d0153e03381a91717b05d3b90ed43132aa2654fa93357f49829907709a3e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/input.jsonl",
+      "bytes": 126635,
+      "sha256": "3bf240fc1f4912dc5517e00644dcf41893256c1111c44308bc285927a2f4c576"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/inputs.json",
+      "bytes": 1917,
+      "sha256": "35aad16d1bef3dc2008f94c3066385d4cc5793dda457605b152e3706afa43210"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/native-source.json",
+      "bytes": 81017,
+      "sha256": "008da5c3293855f9df578c9106b410a88c90a5a71af88c37105485323544beb3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/resolved-package.json",
+      "bytes": 8693,
+      "sha256": "da2a18b16eaf3fc8331752e69585aff7a77df5dc6d34a963d082e2031f197d92"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/runtime.engine.log",
+      "bytes": 270841,
+      "sha256": "f0d8aa37fcd8a5054973043221ead500951ccc914bf87a65621075cea0124fde"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/telemetry.jsonl",
+      "bytes": 5277486,
+      "sha256": "9be61fb9df6933cf5e1df96abc21409013df0f1053b98192992140ec7794adff"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/raw-gameplay.mkv",
+      "bytes": 18734006,
+      "sha256": "330c545a6fced7d59108f955447d17c171e5729d71861e5a006f675c35dfb787"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/frames.json",
+      "bytes": 1525,
+      "sha256": "20bd57b98768e539b7b26e04d1ecbe0160eac823e582ff2d1c9a1bdd27e12cf2"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/measurements.json",
+      "bytes": 15440,
+      "sha256": "ba4c3b3ce832e1e4a267c6b53148044cf14b1cd2944f48033c10230056f9e0d4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/input-result.json",
+      "bytes": 386,
+      "sha256": "0e7ca4e2ced2210500328304b441af64cbc45f188e146302ed78aee6c32f0644"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/input.jsonl",
+      "bytes": 92129,
+      "sha256": "669fa0195f8571ac1829411312b77afbc96488ee91eb65e05293c49c3e965e21"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/inputs.json",
+      "bytes": 1913,
+      "sha256": "7c2c236972ad8f4847389cbe2d68dbdc0ad05b63a852fdd32a8903f89d04eee8"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/native-source.json",
+      "bytes": 81017,
+      "sha256": "a1d5749b99d615814dc1169f905baac8c3370eca15ad22062d9883a381e7d394"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/resolved-package.json",
+      "bytes": 8694,
+      "sha256": "a200947c1287b29bf8e0068c5eaacc0e7b07d71d47a3832229bc8762ac02c1f9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/runtime.engine.log",
+      "bytes": 257074,
+      "sha256": "28bfdac6f8d47215ff27ba4d031dd9df7afbb5df6160adfad83508a3cfcf2cfe"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/telemetry.jsonl",
+      "bytes": 2565254,
+      "sha256": "b0c6cc7f3e96c6a0394dedd73934cd3176f031b83e3f9fd49ea1ed0ad1c2f231"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/raw-gameplay.mkv",
+      "bytes": 24943250,
+      "sha256": "5ca74c10f9c6b7a7c6857e0b1422ae64dfd8604a0d5ebd247a81d9bede90111a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/frames.json",
+      "bytes": 1629,
+      "sha256": "97f941bfa4e62a6968505f37679b6aa24085d441b6b9f4fc488f43a227ebb654"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/measurements.json",
+      "bytes": 7406,
+      "sha256": "bf2150873b947602be78047c0e2144938f1d244440510cf1a105cc0deedc91f9"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/input-result.json",
+      "bytes": 387,
+      "sha256": "92a778fa4af03e08e497843fd879ec6181d28a4e091ab9447e87da7851269080"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/input.jsonl",
+      "bytes": 72582,
+      "sha256": "e4db457db8095923c584e86ed105d0c7e322945f581844bc2166326d8f3fc5e4"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/inputs.json",
+      "bytes": 1923,
+      "sha256": "121bfe301a99e336d266525c0ae2c74727b5a51dc1cab96cb18f9cf384e1fbfd"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/native-source.json",
+      "bytes": 81017,
+      "sha256": "d9fed08f990f967ba2f269ff78306eb74e938b44188db7af58721345665e1601"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/resolved-package.json",
+      "bytes": 8694,
+      "sha256": "7cf53afa84c5d640584cdc934550944d90664ce06698cd515466622794d8d41f"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/runtime.engine.log",
+      "bytes": 276231,
+      "sha256": "c04b99e9018c8cacf1610b30a0520807e32f292db91f43e2cfa95c4796064098"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/telemetry.jsonl",
+      "bytes": 2418354,
+      "sha256": "fdab274c41ef253389c778ecad5e2ec69a4a2c544df41482feb1d48f19a03cd7"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/raw-gameplay.mkv",
+      "bytes": 20380355,
+      "sha256": "b430953c07512d3b1598495c57f98bf6f831939bc8cdc434fdb2102741f75530"
+    },
+    {
+      "path": "/root/biella/artifacts/games/D17-02/BiellaGames-Linux-Development-terrace-01.tar.zst",
+      "bytes": 506435701,
+      "sha256": "9dfc2b51ddd606fc43901ff2194420821abdd5d9268dae629db777d419dedbfc"
+    },
+    {
+      "path": "/root/biella/artifacts/games/D17-02/d19ffe69f0d8c614b16cb59750577e006f62dcc0d01ac3b03f325580ecc6f18d/BiellaGames",
+      "bytes": 299198272,
+      "sha256": "d19ffe69f0d8c614b16cb59750577e006f62dcc0d01ac3b03f325580ecc6f18d"
+    }
+  ],
+  "unmet_criteria": [
+    "Complete the descent/return in a current-build 1080p raw ordinary-input route. Best current run reaches 28/35 stages; latest 7/35 run ends when rivals kill the last infected.",
+    "Satisfy zero-major-defect route/framing visual quality: sparse exterior composition, flat broad surfaces, inadequate motivated exterior lighting and terrace infection, and mannequin-like focal player remain visible in exact current raw frames."
+  ],
+  "next_action": "Create the missing approach/terrace framing in SourceAssets/Environment/build_terrace_route.py and Content/Python/author_terrace_route.py: grounded industrial junctions, motivated practical route cues, coherent surface breakup and retained red growth, preserving walkable planes and camera clearance. Requalify affected cooked content at production camera distance, including the full 1080p return. Do not repeat the unchanged unsuccessful 1080p input plan.",
+  "publication": {
+    "owner": "Auto Feeder",
+    "status": "NOT_CLAIMED",
+    "local_task_commit": "Containing Git commit; exact revision recorded in task recovery capsule and controller publication cursor after commit",
+    "note": "Task-owned local implementation/proof is persisted. Controller owns GitHub/Drive continuity publication and canonical status transition. No remote publication or readback is claimed and no destination is invented."
+  },
+  "limits": [
+    "Functional measurements and byte integrity do not establish final visual acceptance; all visual major defects remain explicit.",
+    "No external-player usability study, Win64 Shipping, final encounter or whole-slice AAA acceptance inferred.",
+    "Linux Development Vulkan diagnostic build with actual interactive native gameplay; raw video is 30 fps without audio. Native frame times are measured separately.",
+    "Current full 720p success does not imply current full 1080p success. Prior game-02 full 1080p route is comparison evidence with a measured camera fault, not a substitute for game-03 proof.",
+    "No 03/04 task identity, Project PRODUCTION status/next-task metadata or task order changed; predecessor evidence and Engine P4-06 INCOMPLETE_DEFERRED are preserved."
+  ],
+  "editable_source_and_assets": [
+    {
+      "path": "Content/Maps/BiellaOpenWorldMap.umap",
+      "bytes": 13330,
+      "sha256": "3f5f142122098d0d5562288bf0d3cfe3b1cd0bb0ce4435a8ca7c3067d974562f"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGameplayHUD.cpp",
+      "bytes": 23169,
+      "sha256": "1801d9a482692f25aa0e2eae2a98f0919c38262591948a8527343e46a0b1f3df"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+      "bytes": 22186,
+      "sha256": "f1f8b91bd31effb3b15d921b3863893a1e771bd029d0c6d2518272c8c9faf307"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaPlaytestTelemetry.cpp",
+      "bytes": 5878,
+      "sha256": "8ca6507a8dfad1c3fe6dcaaf1728e6ca27b26ce2d8496858eb929a61d8079161"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaGamesCharacter.h",
+      "bytes": 4000,
+      "sha256": "1b3b24a6042eb0b14def671bbc00d0830f4ff8dc5dc2d1287d1080e38f998c15"
+    },
+    {
+      "path": "Source/BiellaGames/Public/BiellaPlaytestTelemetry.h",
+      "bytes": 1450,
+      "sha256": "75ef58f8b4ffaa43f7ea3dca0452e1ca50d1c9786d5926e78445d77ce7685212"
+    },
+    {
+      "path": "tests/build_d03_01_editor.py",
+      "bytes": 2608,
+      "sha256": "ebbaccb6c597483e25dceca9890f70eeba492ae3fd77558ebe9ba876d6a751f7"
+    },
+    {
+      "path": "tests/build_d03_01_game.py",
+      "bytes": 4088,
+      "sha256": "9660c049fbdef8e7581deb7339f36b9a7a9ccf549f2401a803ad1aca33e2be70"
+    },
+    {
+      "path": "tests/cook_d03_01_package.py",
+      "bytes": 9701,
+      "sha256": "079abea0d3bf398e228efd8b85f8d345c76cdf5d3831a19e2c576cfa1386ec41"
+    },
+    {
+      "path": "tests/d17_01_raw_input.py",
+      "bytes": 9532,
+      "sha256": "227e181d59bc9faae0e30205e49b5f0250317a45cdd9b2713ec245dd574100bb"
+    },
+    {
+      "path": "tests/package_d17_01.py",
+      "bytes": 3304,
+      "sha256": "d6b09137ff76353bc84c0597c87f9ce6c758cd392807fceb3fce2a2e00342943"
+    },
+    {
+      "path": "tests/repair_d17_01_cook_config.py",
+      "bytes": 3744,
+      "sha256": "0824eb714572840b6e44a54e2076cfa567e6ab80acab83e5772ab256fd21a82e"
+    },
+    {
+      "path": "tests/run_d17_01_slice.py",
+      "bytes": 10753,
+      "sha256": "1cfcca5f52f039ef5897b5d06dfda4fadb737e5862b262c46856fe932efbd757"
+    },
+    {
+      "path": "tests/stage_d03_01_package.py",
+      "bytes": 6772,
+      "sha256": "73d6817a488919961bcb57a71e210fdd0e556f631319ec8c301f78fb4c069bce"
+    },
+    {
+      "path": "Content/Environment/TerraceRoute/SM_TerraceRoute.uasset",
+      "bytes": 2676477,
+      "sha256": "821a54bab42828db1f79ff577aba5c521843ac68ffc658749a91bd70f9f27bc0"
+    },
+    {
+      "path": "Content/Python/author_terrace_route.py",
+      "bytes": 7493,
+      "sha256": "c219eb3ccf9f74f5cda29b656242ce4097442c8c7b9b78b86b7598f8b094095f"
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/1/ZY/KWMQBAB6YP8GJ9A3CTV02X.uasset",
+      "bytes": 4485,
+      "sha256": "6e0304f680659d40b9d6aebcf607bb30ab6363c677d7d663d5f9582695324b44"
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/3/M9/NBOVZU9XG3II1RGMXOELEA.uasset",
+      "bytes": 3748,
+      "sha256": "a372ebce7f326a4b3cdb5800a8d92292280f32697164819bef5ae972aec56a03"
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/4/8N/AJ4GKHJL0TXKW45PEY6L3L.uasset",
+      "bytes": 3748,
+      "sha256": "9cf26f249bbc2699535808ab108f2dd9e0f2b2f3134e64a28f1a770b7c1455fd"
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/7/6A/9QEWM4FV1PQVNYS9EWJL8U.uasset",
+      "bytes": 3748,
+      "sha256": "1e5c6bcf9e9b90109e5db9474f277a6ff64e2bd61feeda56c74c7eb5ec719481"
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/A/3D/ZUR6RFCQQ4Z4FDZVI8ZE12.uasset",
+      "bytes": 3748,
+      "sha256": "ea6df7cde079a5336b71aaf67efbbbe73d4286623fbaadafb2667408493c4029"
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/B/IJ/62KCZE8IX7714DEA8GFTFV.uasset",
+      "bytes": 3748,
+      "sha256": "34186c45829b0c9c2fcfa3f801aa9ab8d34b7b9bc17c9123832eae5d92b53eeb"
+    },
+    {
+      "path": "Content/__ExternalActors__/Maps/BiellaOpenWorldMap/C/U3/89IV5L5UUH4F1SFCZ107P4.uasset",
+      "bytes": 3748,
+      "sha256": "b652cca7dafa2ae523b71a54439cc632bc9e8000064dea30dc8b3d5a5a1f92fb"
+    },
+    {
+      "path": "Source/BiellaGames/Private/BiellaTraversalTelemetry.cpp",
+      "bytes": 6002,
+      "sha256": "aabf1257cfe40c09b37f5a9241e6d73f983e4a6cc8f993eed070c2e667256a1c"
+    },
+    {
+      "path": "SourceAssets/Environment/SM_TerraceRoute.fbx",
+      "bytes": 2725996,
+      "sha256": "9d124127878950143cd4d46d0ea39bd8ea97349a52890cb7287e4677f2402ebd"
+    },
+    {
+      "path": "SourceAssets/Environment/TerraceRoute.blend",
+      "bytes": 535693,
+      "sha256": "a523b6f470bb3b452f4912b37daadc45d475c6741e7c6f4516e97e612f92e248"
+    },
+    {
+      "path": "SourceAssets/Environment/build_terrace_route.py",
+      "bytes": 8193,
+      "sha256": "bf1eeecd0e583e217ac2f3c972d647330799802d4f199c10fc0b02c951036790"
+    },
+    {
+      "path": "SourceAssets/Environment/terrace-route.json",
+      "bytes": 2057,
+      "sha256": "918fd85e3b4d5737d0bcdc6375f0827b2091beae3c2cc564b28e22fc11717cb3"
+    },
+    {
+      "path": "SourceAssets/Environment/verify_terrace_route.py",
+      "bytes": 2641,
+      "sha256": "8da3d29b68ca0c629cd5eaf53d12e14a69b13e6c928376ebf7b398d49a4b63d3"
+    },
+    {
+      "path": "tests/author_d17_02_terrace.py",
+      "bytes": 4169,
+      "sha256": "9b1f99f48cebeecedada705ae16894a48ad32d3be04ea7a20b7284273a5e9506"
+    },
+    {
+      "path": "tests/d17_02_route_input.py",
+      "bytes": 11820,
+      "sha256": "3a87a0a060ed7a6abba656b36bbfe348142e15712c46818402fa1acf1cecaab3"
+    },
+    {
+      "path": "tests/measure_d17_02_route.py",
+      "bytes": 9675,
+      "sha256": "662851fc59f204200f6bcf8c8ee7937323a352a52ba3491046856c4516fe3de1"
+    },
+    {
+      "path": "tests/test_d17_02_measurements.py",
+      "bytes": 3341,
+      "sha256": "e57a673467cf30cdfb0748531f81ef7587c535ed32234be3f1ef1eac87b6b3a8"
+    },
+    {
+      "path": "tests/verify_d17_02_task_boundary.py",
+      "bytes": 3110,
+      "sha256": "39ee2ba2b6e56994cf74e5abd940f1223747e6d513dba04d9175e9f3f235e196"
+    }
+  ],
+  "runtime_package": "5bbaeadaa2f984f6d81df57bd100d9c9dbbfa21061c16fe646f5179272c3317f",
+  "preservation": {
+    "native_author_readback": {
+      "path": "Build/AAA/D17-02/environment/terrace-assets-04/validation.json",
+      "sha256": "5d7151708534a7915f74d8beae510fb532936af12207d919e53cfe8fa24e19f2",
+      "bytes": 133127
+    },
+    "original_ramp_deck_parapet_transforms_and_collision_profiles_preserved": true,
+    "unaffected_source_assets_config_preserved": true,
+    "telemetry": "Opt-in read-only native end-frame probes; no serialized gameplay properties added",
+    "unchanged_gameplay_rules": "Movement, combat, autonomous AI, objective completion, world streaming and save formats remain unchanged; task changes are terrace assets/colliders, camera view calculation, HUD layout and opt-in read-only telemetry."
+  },
+  "current_source_manifest": "Build/AAA/D17-02/raw/framing-720-05/native-source.json",
+  "current_material_input_digest": "37486201998b0f6d4c7fdb486ef132ebf21df3749c0bb88893ed085cae40d716",
+  "material_input_count": 403,
+  "input_plan_status": {
+    "accepted_functional_720p_snapshot": "Build/AAA/D17-02/raw/framing-720-05/input-source",
+    "current_1080p_plan": "Build/AAA/D17-02/route-input-1080.json",
+    "current_1080p_status": "UNSUCCESSFUL_EXPERIMENT",
+    "note": "Each runtime binds its own executed driver/plan bytes. Later input-only experiments do not alter the native source or retroactively change earlier raw evidence."
+  },
+  "current_raw_runs": [
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05",
+      "runtime_id": "e4bb9f50e7fa542648c594d7fe2e1feb16b81c174a01cce4425ad1cf27f267d4",
+      "route_complete": true,
+      "completed_stages": 35,
+      "required_stages": 35,
+      "ready_active_frames": 4450,
+      "faults": [],
+      "active_sim_seconds": 76.1651955395937,
+      "frame_ms": {
+        "maximum": 400.0,
+        "p50": 16.6678,
+        "p95": 18.6472,
+        "p99": 22.5266
+      }
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01",
+      "runtime_id": "c40e28110258f4ee872c00b0fe7838141386f5141376d9c1bc70da6be4c09d3b",
+      "route_complete": false,
+      "completed_stages": 28,
+      "required_stages": 35,
+      "ready_active_frames": 2097,
+      "faults": [
+        "Route incomplete: 28/35 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "active_sim_seconds": 47.566081915050745,
+      "frame_ms": {
+        "maximum": 400.0,
+        "p50": 21.3288,
+        "p95": 32.7144,
+        "p99": 39.5038
+      }
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06",
+      "runtime_id": "58bc54718c9269427960e6719b6a1729282d4fa09b03c785700b87b187043906",
+      "route_complete": false,
+      "completed_stages": 7,
+      "required_stages": 35,
+      "ready_active_frames": 1920,
+      "faults": [
+        "Route incomplete: 7/35 stages",
+        "Raw run did not finish the route using ordinary inputs"
+      ],
+      "active_sim_seconds": 44.264241591095924,
+      "frame_ms": {
+        "maximum": 400.0,
+        "p50": 21.6696,
+        "p95": 33.6467,
+        "p99": 41.1232
+      }
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "schema": "biella.terrace_route.art/v1",
+  "task_id": "D17-02",
+  "status": "GENERATED_DRAFT",
+  "provenance": "Biella-authored geometry; no third-party asset inputs",
+  "map": "/Game/Maps/BiellaOpenWorldMap",
+  "actor_label": "D17_TerraceRoute",
+  "origin_cm": [
+    10000.0,
+    3000.0,
+    0.0
+  ],
+  "collision": "NoCollision",
+  "retained_walkable_planes": true,
+  "proposed_column_colliders": [
+    {
+      "center": [
+        9140,
+        3100,
+        150
+      ],
+      "size": [
+        34,
+        34,
+        300
+      ]
+    },
+    {
+      "center": [
+        9140,
+        3850,
+        150
+      ],
+      "size": [
+        34,
+        34,
+        300
+      ]
+    },
+    {
+      "center": [
+        10000,
+        3100,
+        150
+      ],
+      "size": [
+        34,
+        34,
+        300
+      ]
+    },
+    {
+      "center": [
+        10000,
+        3850,
+        150
+      ],
+      "size": [
+        34,
+        34,
+        300
+      ]
+    },
+    {
+      "center": [
+        10860,
+        3100,
+        150
+      ],
+      "size": [
+        34,
+        34,
+        300
+      ]
+    },
+    {
+      "center": [
+        10860,
+        3850,
+        150
+      ],
+      "size": [
+        34,
+        34,
+        300
+      ]
+    }
+  ],
+  "source": "build_terrace_route.py",
+  "source_sha256": "bf1eeecd0e583e217ac2f3c972d647330799802d4f199c10fc0b02c951036790",
+  "blender": "5.0.1",
+  "editable_parts": 1054,
+  "mesh": "SM_TerraceRoute",
+  "fbx": "SM_TerraceRoute.fbx",
+  "sha256": "9d124127878950143cd4d46d0ea39bd8ea97349a52890cb7287e4677f2402ebd",
+  "triangles": 190856,
+  "bounds_min": [
+    -1003.0,
+    -2003.47119140625,
+    -38.41201400756836
+  ],
+  "bounds_max": [
+    1003.0,
+    1003.000244140625,
+    522.5000610351562
+  ],
+  "export_y_reflected": true,
+  "outward_volume_preserved": true,
+  "material_slots": [
+    "Paint",
+    "Steel"
+  ],
+  "limits": [
+    "Must be imported, collision-bound and raw-runtime qualified before route acceptance",
+    "No final environment, character, HUD or whole-slice visual acceptance"
+  ]
+}

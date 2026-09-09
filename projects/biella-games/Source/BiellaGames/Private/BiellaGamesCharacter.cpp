@@ -136,6 +136,27 @@ void ABiellaGamesCharacter::Tick(float DeltaTime)
     }
 }
 
+void ABiellaGamesCharacter::CalcCamera(float DeltaTime, FMinimalViewInfo& OutResult)
+{
+    if (CameraBoom && FollowCamera && GetWorld() && !GetVehicle())
+    {
+        // The normal arm sweeps from the capsule centre. With a shoulder
+        // offset, that ray can clear a corner while the upper-body sightline
+        // crosses it. Resolve this second corridor before the real view is
+        // sampled. Rebase from the arm socket each frame, so prior retraction
+        // never accumulates in the camera's relative transform.
+        const FVector Desired = CameraBoom->GetSocketLocation(USpringArmComponent::SocketName);
+        const FVector Focus = GetActorLocation() + FVector(0.0f, 0.0f, 45.0f);
+        FHitResult Hit;
+        FCollisionQueryParams Query(SCENE_QUERY_STAT(BiellaShoulderClearance), false, this);
+        const bool bBlocked = GetWorld()->SweepSingleByChannel(Hit, Focus, Desired,
+            FQuat::Identity, ECC_Camera, FCollisionShape::MakeSphere(CameraBoom->ProbeSize), Query);
+        FollowCamera->SetWorldLocation(bBlocked && !Hit.bStartPenetrating ? Hit.Location : Desired);
+    }
+    // The component remains the actual camera and weapon-trace origin.
+    Super::CalcCamera(DeltaTime, OutResult);
+}
+
 void ABiellaGamesCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);

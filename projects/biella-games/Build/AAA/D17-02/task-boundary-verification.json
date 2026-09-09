@@ -1,0 +1,12 @@
+{
+  "task_id": "D17-02",
+  "result": "PASS",
+  "scope": "Exact task-owned file, current material source and resolved runtime integrity only; no visual acceptance",
+  "task_files": 792,
+  "material_inputs": 403,
+  "acceptance": false,
+  "unmet_criteria": [
+    "Complete the descent/return in a current-build 1080p raw ordinary-input route. Best current run reaches 28/35 stages; latest 7/35 run ends when rivals kill the last infected.",
+    "Satisfy zero-major-defect route/framing visual quality: sparse exterior composition, flat broad surfaces, inadequate motivated exterior lighting and terrace infection, and mannequin-like focal player remain visible in exact current raw frames."
+  ]
+}

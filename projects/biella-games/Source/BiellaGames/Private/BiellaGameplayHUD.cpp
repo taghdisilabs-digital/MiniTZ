@@ -178,46 +178,52 @@ void UBiellaGameplayHUD::BuildLayout()
 
     UBorder* ObjectiveCard = AddCard(WidgetTree, RootCanvas, TEXT("ObjectiveCard"),
         FVector2D::ZeroVector, FVector2D::ZeroVector,
-        FVector2D(24.0f, 24.0f), FVector2D(360.0f, 154.0f));
+        FVector2D(24.0f, 24.0f), FVector2D(300.0f, 118.0f));
     if (ObjectiveCard)
     {
         UVerticalBox* Stack = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
         ObjectiveCard->SetContent(Stack);
-        AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("objective_label"))), 12, HudAccentColor,
+        ObjectiveCard->SetPadding(FMargin(12.0f, 8.0f));
+        AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("objective_label"))), 10, HudAccentColor,
             TEXT("ObjectiveLabel"));
-        ObjectiveText = AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("objective_waiting"))), 18,
+        ObjectiveText = AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("objective_waiting"))), 16,
             FLinearColor::White, TEXT("ObjectiveText"));
         ObjectiveText->SetAutoWrapText(true);
         ObjectiveProgressText = AddText(WidgetTree, Stack,
             FText::FromString(FString::Printf(TEXT("%s 00 / 00"),
-                *BiellaRuntimeText::ResolveString(FName(TEXT("progress_prefix"))))), 14,
+                *BiellaRuntimeText::ResolveString(FName(TEXT("progress_prefix"))))), 11,
             HudSecondaryColor, TEXT("ObjectiveProgressText"));
         PhaseText = AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("phase_intro"))), 14, HudSuccessColor,
             TEXT("PhaseText"));
-        AddVerticalPadding(ObjectiveText, FMargin(0.0f, 4.0f, 0.0f, 4.0f));
+        AddVerticalPadding(ObjectiveText, FMargin(0.0f, 1.0f, 0.0f, 1.0f));
+        // Keep the real remaining-threat state in the objective hierarchy.
+        // It no longer covers the player's feet and approaching floor hazards.
+        CountdownText = AddText(WidgetTree, Stack, TEXT(""), 12, HudWarningColor,
+            TEXT("CountdownText"));
     }
 
     UBorder* StatusCard = AddCard(WidgetTree, RootCanvas, TEXT("StatusCard"),
-        FVector2D(1.0f, 0.0f), FVector2D(1.0f, 0.0f),
-        FVector2D(-24.0f, 24.0f), FVector2D(240.0f, 174.0f));
+        FVector2D(1.0f, 1.0f), FVector2D(1.0f, 1.0f),
+        FVector2D(-24.0f, -24.0f), FVector2D(188.0f, 108.0f));
     if (StatusCard)
     {
         UVerticalBox* Stack = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
         StatusCard->SetContent(Stack);
+        StatusCard->SetPadding(FMargin(12.0f, 8.0f));
         // Health, ammunition and threats supply their own labels. Avoid a
         // duplicate panel heading that pushes the live encounter off screen.
-        AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("health"))), 14, HudSecondaryColor, TEXT("HealthLabel"));
+        AddText(WidgetTree, Stack, BiellaRuntimeText::Resolve(FName(TEXT("health"))), 10, HudSecondaryColor, TEXT("HealthLabel"));
 
         USizeBox* HealthBarSize = WidgetTree->ConstructWidget<USizeBox>(USizeBox::StaticClass());
-        HealthBarSize->SetHeightOverride(12.0f);
+        HealthBarSize->SetHeightOverride(6.0f);
         HealthBar = WidgetTree->ConstructWidget<UProgressBar>(UProgressBar::StaticClass(), TEXT("HealthBar"));
         HealthBar->SetPercent(1.0f);
         HealthBar->SetFillColorAndOpacity(HudSuccessColor);
         HealthBarSize->AddChild(HealthBar);
         Stack->AddChild(HealthBarSize);
-        AddVerticalPadding(HealthBarSize, FMargin(0.0f, 3.0f, 0.0f, 6.0f));
+        AddVerticalPadding(HealthBarSize, FMargin(0.0f, 2.0f, 0.0f, 3.0f));
 
-        HealthText = AddText(WidgetTree, Stack, TEXT("100 / 100"), 18, FLinearColor::White,
+        HealthText = AddText(WidgetTree, Stack, TEXT("100 / 100"), 14, FLinearColor::White,
             TEXT("HealthText"));
         AmmoText = AddText(WidgetTree, Stack,
             FText::FromString(FString::Printf(TEXT("%s 60"),
@@ -227,23 +233,20 @@ void UBiellaGameplayHUD::BuildLayout()
             FText::FromString(FString::Printf(TEXT("%s 02"),
                 *BiellaRuntimeText::ResolveString(FName(TEXT("threats_prefix"))))), 14, HudSecondaryColor,
             TEXT("ThreatsText"));
+        ThreatsText->SetVisibility(ESlateVisibility::Collapsed);
     }
 
-    UBorder* CountdownCard = AddCard(WidgetTree, RootCanvas, TEXT("CountdownCard"),
+    // Only contextual interaction text occupies the lower aiming lane.
+    UBorder* InteractionCard = AddCard(WidgetTree, RootCanvas, TEXT("InteractionCard"),
         FVector2D(0.5f, 1.0f), FVector2D(0.5f, 1.0f),
-        FVector2D(0.0f, -28.0f), FVector2D(320.0f, 92.0f));
-    UVerticalBox* CountdownStack = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
-    CountdownCard->SetContent(CountdownStack);
-    VehiclePrompt=AddText(WidgetTree,CountdownStack,TEXT(""),14,HudWarningColor,TEXT("VehiclePrompt"));
-    UTextBlock* CountdownLabel = AddText(WidgetTree, CountdownStack,
-        BiellaRuntimeText::Resolve(FName(TEXT("threat_countdown"))),
-        14, HudWarningColor, TEXT("CountdownLabel"));
-    CountdownLabel->SetJustification(ETextJustify::Center);
-    CountdownText = AddText(WidgetTree, CountdownStack,
-        FText::FromString(FString::Printf(TEXT("02 %s"),
-            *BiellaRuntimeText::ResolveString(FName(TEXT("targets_remain_plural"))))), 20,
-        FLinearColor::White, TEXT("CountdownText"));
-    CountdownText->SetJustification(ETextJustify::Center);
+        FVector2D(0.0f, -28.0f), FVector2D(420.0f, 44.0f));
+    InteractionCard->SetBrushColor(FLinearColor::Transparent);
+    InteractionCard->SetPadding(FMargin(8.0f));
+    UVerticalBox* InteractionStack = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
+    InteractionCard->SetContent(InteractionStack);
+    VehiclePrompt = AddText(WidgetTree, InteractionStack, TEXT(""), 14, HudWarningColor, TEXT("VehiclePrompt"));
+    VehiclePrompt->SetJustification(ETextJustify::Center);
+    VehiclePrompt->SetAutoWrapText(true);
 
     // Geometry keeps the sight centered independently of font bearings. Dark
     // backing preserves the cyan strokes against both sky and shadowed cover.
@@ -495,6 +498,8 @@ void UBiellaGameplayHUD::RefreshFromRuntime()
     if (PhaseText)
     {
         PhaseText->SetText(BiellaRuntimeText::Resolve(PhaseKey(GameState->Phase)));
+        PhaseText->SetVisibility(GameState->Phase == EDemo01Phase::Active ?
+            ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible);
         PhaseText->SetColorAndOpacity(GameState->Phase == EDemo01Phase::Failure ?
             FSlateColor(FLinearColor(1.0f, 0.15f, 0.10f, 1.0f)) :
             GameState->Phase == EDemo01Phase::Success ? FSlateColor(HudSuccessColor) :

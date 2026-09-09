@@ -1,0 +1,19 @@
+{
+  "task_id": "D17-02",
+  "raw_video": {
+    "path": "Build/AAA/D17-02/raw/framing-720-04/raw-gameplay.mkv",
+    "bytes": 5520070,
+    "sha256": "5b769fcd1bbabbd8154abea9ce07e18e786f0d5a1280d5f8a9802599b81b9ab5"
+  },
+  "extraction": "Unmodified ffmpeg frame at video timestamp; no compositing or camera override",
+  "frames": [
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-04/street-hud.png",
+      "bytes": 213024,
+      "sha256": "0296c1fbc981ae36870179c711a2a45999f234e912330504a33f1c006101eb1b",
+      "video_seconds": 13.0,
+      "observation": "Compact live objective and health/ammo cards remain legible; player/rival/infected unobscured. Exterior remains sparse and mannequin presentation is a major visual defect."
+    }
+  ],
+  "visual_acceptance": false
+}

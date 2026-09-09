@@ -1,0 +1,1 @@
+{"result": "FAIL", "reason": "Joined mesh retained ramp rotation, producing non-world-space export reflection and loose bounds. Apply rotation before reflection; preserve editable source and re-export."}

@@ -1,0 +1,253 @@
+{
+  "schema": "biella.d17.raw_input_plan/v1",
+  "task_id": "D17-02",
+  "controller": "d17_02_telemetry_guided_input",
+  "scope": "Ordinary X11 controls guided by read-only live measurements. Not human-player evidence or fixture world mutation.",
+  "actions": [],
+  "stages": [
+    {
+      "kind": "walk",
+      "at": [
+        0,
+        -800
+      ],
+      "beat": "Evade surviving infected",
+      "radius": 70,
+      "defend_against_nearest_rival": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        3300,
+        -800
+      ],
+      "beat": "Defensive approach to street rivals",
+      "defend_against_nearest_rival": true
+    },
+    {
+      "kind": "rival",
+      "target": "BiellaRival:3",
+      "beat": "Defeat street rival with normal pursuit and fire",
+      "timeout": 20
+    },
+    {
+      "kind": "walk",
+      "at": [
+        4000,
+        -800
+      ],
+      "beat": "Street01 approach",
+      "radius": 70,
+      "defend_against_nearest_rival": true
+    },
+    {
+      "kind": "rival",
+      "target": "BiellaRival:4",
+      "beat": "Pursue admitted reserve rival before service route",
+      "timeout": 25
+    },
+    {
+      "kind": "walk",
+      "at": [
+        5900,
+        -500
+      ],
+      "beat": "Service bay approach",
+      "radius": 70,
+      "defend_against_nearest_rival": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        6100,
+        390
+      ],
+      "beat": "West service cabinet approach",
+      "radius": 35
+    },
+    {
+      "kind": "interact",
+      "yaw": 0,
+      "beat": "Operate existing service switch"
+    },
+    {
+      "kind": "walk",
+      "at": [
+        6060,
+        880
+      ],
+      "beat": "Align service panel opening",
+      "radius": 40
+    },
+    {
+      "kind": "fire",
+      "at": [
+        6500,
+        884,
+        130
+      ],
+      "beat": "Break panel with ordinary weapon fire",
+      "shots": 2,
+      "timeout": 8
+    },
+    {
+      "kind": "walk",
+      "at": [
+        6700,
+        884
+      ],
+      "beat": "Traverse the real broken panel opening",
+      "radius": 50
+    },
+    {
+      "kind": "walk",
+      "at": [
+        7000,
+        884
+      ],
+      "beat": "Leave service hazard",
+      "radius": 70
+    },
+    {
+      "kind": "walk",
+      "at": [
+        7300,
+        1000
+      ],
+      "beat": "Hall south approach",
+      "radius": 70
+    },
+    {
+      "kind": "walk",
+      "at": [
+        8000,
+        1250
+      ],
+      "beat": "Align 4m hall doorway",
+      "radius": 40
+    },
+    {
+      "kind": "walk",
+      "at": [
+        8000,
+        2200
+      ],
+      "beat": "Cross hall threshold",
+      "radius": 50
+    },
+    {
+      "kind": "look",
+      "yaw": 0,
+      "beat": "Inspect hall from production camera"
+    },
+    {
+      "kind": "look",
+      "yaw": 180,
+      "beat": "Turn inside hall with real camera collision"
+    },
+    {
+      "kind": "walk",
+      "at": [
+        8000,
+        1250
+      ],
+      "beat": "Exit through the same doorway",
+      "radius": 50
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        1000
+      ],
+      "beat": "Terrace ramp foot",
+      "radius": 50
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        2200
+      ],
+      "beat": "Ascend ramp",
+      "radius": 70
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        3400
+      ],
+      "beat": "Terrace summit",
+      "radius": 70
+    },
+    {
+      "kind": "look",
+      "yaw": -90,
+      "beat": "Terrace overlook at normal camera distance"
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        2200
+      ],
+      "beat": "Descend ramp",
+      "radius": 70
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        1000
+      ],
+      "beat": "Ramp ground contact",
+      "radius": 70
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        0
+      ],
+      "beat": "Return to street",
+      "radius": 70
+    },
+    {
+      "kind": "walk",
+      "at": [
+        12000,
+        0
+      ],
+      "beat": "Street03 east route",
+      "radius": 70
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10500,
+        -800
+      ],
+      "beat": "East return detour",
+      "radius": 70
+    },
+    {
+      "kind": "walk",
+      "at": [
+        8000,
+        -800
+      ],
+      "beat": "Return street",
+      "radius": 70
+    },
+    {
+      "kind": "walk",
+      "at": [
+        5900,
+        -500
+      ],
+      "beat": "Service circuit return",
+      "radius": 70
+    }
+  ]
+}

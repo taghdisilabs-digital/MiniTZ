@@ -1,0 +1,63 @@
+{
+  "task_id": "D17-02",
+  "result": "PASS",
+  "parts_read_back": 1054,
+  "actual_blender_magic": true,
+  "blender_compression": "zstd",
+  "actual_binary_fbx_magic": true,
+  "center_route_vertices_clear": true,
+  "clearance_cm": {
+    "x": [
+      9860,
+      10140
+    ],
+    "y": [
+      1000,
+      3500
+    ],
+    "above_floor": [
+      2,
+      190
+    ]
+  },
+  "evaluated_modifiers": true,
+  "bounds_min": [
+    -1003.0,
+    -2003.4713134765625,
+    -38.41203308105469
+  ],
+  "bounds_max": [
+    1003.0,
+    1003.0,
+    522.5
+  ],
+  "status": "GENERATED_DRAFT",
+  "scope": "Editable source structural readback; native import, collision and raw runtime remain required",
+  "sources": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/TerraceRoute.blend",
+      "sha256": "a523b6f470bb3b452f4912b37daadc45d475c6741e7c6f4516e97e612f92e248",
+      "bytes": 535693
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/SM_TerraceRoute.fbx",
+      "sha256": "9d124127878950143cd4d46d0ea39bd8ea97349a52890cb7287e4677f2402ebd",
+      "bytes": 2725996
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/build_terrace_route.py",
+      "sha256": "bf1eeecd0e583e217ac2f3c972d647330799802d4f199c10fc0b02c951036790",
+      "bytes": 8193
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/terrace-route.json",
+      "sha256": "918fd85e3b4d5737d0bcdc6375f0827b2091beae3c2cc564b28e22fc11717cb3",
+      "bytes": 2057
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/verify_terrace_route.py",
+      "sha256": "8da3d29b68ca0c629cd5eaf53d12e14a69b13e6c928376ebf7b398d49a4b63d3",
+      "bytes": 2641
+    }
+  ]
+}

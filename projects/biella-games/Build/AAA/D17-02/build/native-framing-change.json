@@ -1,0 +1,83 @@
+{
+  "task_id": "D17-02",
+  "status": "NATIVE_BUILD_PASS_720P_ROUTE_CLEAR_1080P_ROUTE_INCOMPLETE",
+  "base_package_id": "5bbaeadaa2f984f6d81df57bd100d9c9dbbfa21061c16fe646f5179272c3317f",
+  "base_source": {
+    "path": "Build/AAA/D17-02/build/package-01/source-build.json",
+    "sha256": "d8145d13644fff311d3a5b96c47d2beff60cf70dca3ecb7bd12b3b4f8f1a7d2e",
+    "bytes": 81017
+  },
+  "changes": [
+    {
+      "before": {
+        "bytes": 20950,
+        "path": "Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+        "sha256": "bb3eb7215f246510053423b9795378802ef466d65c66a528877d75a052c89bf5"
+      },
+      "after": {
+        "path": "Source/BiellaGames/Private/BiellaGamesCharacter.cpp",
+        "sha256": "f1f8b91bd31effb3b15d921b3863893a1e771bd029d0c6d2518272c8c9faf307",
+        "bytes": 22186
+      }
+    },
+    {
+      "before": {
+        "bytes": 3916,
+        "path": "Source/BiellaGames/Public/BiellaGamesCharacter.h",
+        "sha256": "5dff7c01dda2c23fdff77623c958b2529a81e0f0658246681745be3ab6878859"
+      },
+      "after": {
+        "path": "Source/BiellaGames/Public/BiellaGamesCharacter.h",
+        "sha256": "1b3b24a6042eb0b14def671bbc00d0830f4ff8dc5dc2d1287d1080e38f998c15",
+        "bytes": 4000
+      }
+    },
+    {
+      "before": {
+        "bytes": 22829,
+        "path": "Source/BiellaGames/Private/BiellaGameplayHUD.cpp",
+        "sha256": "558b0de7845940f337baa02fe77e56168151a23d6362c4e816484fb22121187a"
+      },
+      "after": {
+        "path": "Source/BiellaGames/Private/BiellaGameplayHUD.cpp",
+        "sha256": "1801d9a482692f25aa0e2eae2a98f0919c38262591948a8527343e46a0b1f3df",
+        "bytes": 23169
+      }
+    }
+  ],
+  "scope": "Camera view calculation and native HUD layout only; no reflected property, asset, shader, config, movement, AI, objective, combat-rule or save-format edits",
+  "camera": "520 cm target arm / 90 degree FOV preserved; second sphere sweep from upper body to normal arm socket; component retains actual view/weapon-trace identity",
+  "hud": "Objective and remaining threats in one compact top-left card; health/ammo bottom-right; lower centre used only for contextual interaction text",
+  "source_card_area_fraction_1280x720": {
+    "before": 0.13741319444444444,
+    "after": 0.06044270833333333
+  },
+  "limits": [
+    "Card geometry area is a source-layout calculation; actual 720p and partial 1080p raw frames now demonstrate the layout.",
+    "Prior game-02/cooked evidence remains valid only for its material inputs.",
+    "Complete current 1080p route and zero-major-defect final visual acceptance remain unmet."
+  ],
+  "build": "Build/AAA/D17-02/build/game-03/result.json",
+  "raw_validation": {
+    "framing-720-05": {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/measurements.json",
+      "bytes": 18024,
+      "sha256": "faf6228345983f530b36531d3784c743acfea704486c46167d0eb9dae5f4e793"
+    },
+    "framing-1080-01": {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/measurements.json",
+      "bytes": 15440,
+      "sha256": "ba4c3b3ce832e1e4a267c6b53148044cf14b1cd2944f48033c10230056f9e0d4"
+    },
+    "framing-1080-06": {
+      "path": "Build/AAA/D17-02/raw/framing-1080-06/measurements.json",
+      "bytes": 7406,
+      "sha256": "bf2150873b947602be78047c0e2144938f1d244440510cf1a105cc0deedc91f9"
+    }
+  },
+  "raw_rendering": {
+    "path": "Build/AAA/D17-02/visual-assessment.json",
+    "bytes": 7368,
+    "sha256": "554c3c9c32abec0a1e8eeb34530e862399ad7b0afcfd75fbdbc762efff77174b"
+  }
+}

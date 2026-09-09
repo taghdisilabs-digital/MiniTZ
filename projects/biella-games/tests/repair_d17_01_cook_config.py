@@ -21,6 +21,7 @@ ROOT = PROJECT / 'Build/AAA/D17-01/build'
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--cook', type=Path, default=ROOT / 'cook-02/validation.json')
+    parser.add_argument('--task-id', choices=('D17-01', 'D17-02'), default='D17-01')
     parser.add_argument('--output', type=Path, default=ROOT / 'cook-config-recovery.json')
     args = parser.parse_args()
     cook = json.loads(args.cook.read_text())
@@ -57,7 +58,7 @@ def main():
         assert identity(row['path']) == row, row['path']
     cause = Path('/opt/unreal/UE_5.8.2/Engine/Plugins/Runtime/AndroidFileServer/Source/AndroidFileServerEditor/Private/AndroidFileServerRuntimeSettings.cpp')
     write(args.output, dict(
-        task_id='D17-01', result='PASS', observed=now(), runner=identity(__file__),
+        task_id=args.task_id, result='PASS', observed=now(), runner=identity(__file__),
         cook=identity(args.cook), changed_input=before,
         restored_input=identity(config), canonical_source=source_id,
         private_original=identity(private_copy), appended_section=lines[0],

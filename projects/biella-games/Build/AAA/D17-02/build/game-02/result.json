@@ -1,0 +1,40 @@
+{
+  "task_id": "D17-02",
+  "result": "PASS",
+  "revision": {
+    "head": "6ebb227f3aad9816385a8cc1110f5fa91187c604",
+    "head_tree": "351ea8c71b3965df05c32352feb1b84f3b2986f8",
+    "project_status": [
+      " M Source/BiellaGames/Private/BiellaPlaytestTelemetry.cpp",
+      " M Source/BiellaGames/Public/BiellaPlaytestTelemetry.h",
+      " M tests/build_d03_01_game.py",
+      " M tests/run_d17_01_slice.py",
+      "?? Source/BiellaGames/Private/BiellaTraversalTelemetry.cpp"
+    ],
+    "note": "File hashes identify tested working bytes; HEAD may precede the task commit."
+  },
+  "marker_before": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "started": "2026-09-08T22:08:39.557363+00:00",
+  "returncode": 0,
+  "binary": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames",
+    "sha256": "57a505f04efeafe55c25e08db278eb502c5eac50398c2c9026c647f7579e3c42",
+    "bytes": 299198272
+  },
+  "receipt": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Binaries/Linux/BiellaGames.target",
+    "sha256": "7da8030a25e23d3976e834f2554ef35a869d9133100f3a7da197b666c115d023",
+    "bytes": 106593
+  },
+  "marker_after": {
+    "path": "/opt/unreal/UE_5.8.2/Engine/Build/InstalledBuild.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "inputs_unchanged": true,
+  "elapsed_seconds": 105.54000082006678
+}

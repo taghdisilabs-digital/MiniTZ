@@ -1,0 +1,10 @@
+/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/build_terrace_route.py:21: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m=bpy.data.materials.new(name); m.diffuse_color=color; m.use_nodes=True
+Info: Saved as "TerraceRoute.blend"
+
+FBX export starting... '/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/SM_TerraceRoute.fbx'
+export finished in 0.1226 sec.
+D17_TERRACE_ROUTE_MESH COMPLETE {"schema": "biella.terrace_route.art/v1", "task_id": "D17-02", "status": "GENERATED_DRAFT", "provenance": "Biella-authored geometry; no third-party asset inputs", "map": "/Game/Maps/BiellaOpenWorldMap", "actor_label": "D17_TerraceRoute", "origin_cm": [10000.0, 3000.0, 0.0], "collision": "NoCollision", "retained_walkable_planes": true, "proposed_column_colliders": [{"center": [9140, 3100, 150], "size": [34, 34, 300]}, {"center": [9140, 3850, 150], "size": [34, 34, 300]}, {"center": [10000, 3100, 150], "size": [34, 34, 300]}, {"center": [10000, 3850, 150], "size": [34, 34, 300]}, {"center": [10860, 3100, 150], "size": [34, 34, 300]}, {"center": [10860, 3850, 150], "size": [34, 34, 300]}], "source": "build_terrace_route.py", "source_sha256": "9c9f07f1ce797050b4224b47abc04dd2f3e5dc7d0c7a35297fb365e9080317d6", "blender": "5.0.1", "editable_parts": 1054, "mesh": "SM_TerraceRoute", "fbx": "SM_TerraceRoute.fbx", "sha256": "e3fc3c48f93380a08aa0a10ab44865274f11bac3e3187f0bf6a2347896c09de8", "triangles": 190856, "bounds_min": [-1003.0, -2030.64990234375, -554.4231567382812], "bounds_max": [1003.0, 1098.465576171875, 715.2461547851562], "export_y_reflected": true, "outward_volume_preserved": true, "material_slots": ["Paint", "Steel"], "limits": ["Must be imported, collision-bound and raw-runtime qualified before route acceptance", "No final environment, character, HUD or whole-slice visual acceptance"]}
+Blender 5.0.1 (hash a3db93c5b259 built 2025-12-16 01:30:59)
+
+Blender quit

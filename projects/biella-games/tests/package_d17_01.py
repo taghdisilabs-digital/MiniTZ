@@ -15,6 +15,7 @@ from run_d08_01_release import (LEDGER, current, identity, install, launch_insta
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=('install', 'environment'))
+    parser.add_argument('--task-id', choices=('D17-01', 'D17-02'), default='D17-01')
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--install-root', type=Path, required=True)
     parser.add_argument('--build', type=Path)
@@ -28,7 +29,7 @@ def main():
             output.mkdir(parents=True, exist_ok=False)
             source_path = output / 'source-build.json'
             source = source_manifest(args.build.resolve(), source_path)
-            source.update(task_id='D17-01', schema='biella.d17.source_build/v1')
+            source.update(task_id=args.task_id, schema='biella.d17.source_build/v1')
             write(source_path, source)
             package_path = output / 'package-manifest.json'
             result = package_manifest(args.stage.resolve() / 'validation.json', source_path, package_path)
@@ -39,20 +40,20 @@ def main():
             directory, readback = current(args.install_root)
             assert readback == manifest
             write(output / 'validation.json', dict(
-                task_id='D17-01', result='PASS', observed=now(), runner=identity(__file__),
+                task_id=args.task_id, result='PASS', observed=now(), runner=identity(__file__),
                 package=identity(package_path), source=identity(source_path), install=installed,
                 installed_manifest=identity(directory / 'manifest.json'),
                 scope='Recooked Linux Development package, exact archive and installed-member readback; local only'))
         else:
             assert args.state
-            result = launch_installed(args.install_root, args.state, output, 'environment', task_id='D17-01')
+            result = launch_installed(args.install_root, args.state, output, 'environment', task_id=args.task_id)
             write(output / 'd17-scope.json', dict(
-                task_id='D17-01', runner=identity(__file__), result=result,
+                task_id=args.task_id, runner=identity(__file__), result=result,
                 scope='Existing environment fixture: damage, physics, traversal, switch, hazard and streaming; not raw slice'))
         print(json.dumps(dict(result='PASS', action=args.action, output=str(output))))
     except Exception as exc:
         with LEDGER.open('a') as stream:
-            stream.write(json.dumps(dict(task_id='D17-01', time=now(), type='package_' + args.action,
+            stream.write(json.dumps(dict(task_id=args.task_id, time=now(), type='package_' + args.action,
                                          status='FAILED', diagnostics=str(exc)[:1000], evidence=str(output))) + '\n')
         raise
 

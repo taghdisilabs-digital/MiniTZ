@@ -1,0 +1,171 @@
+{
+  "schema": "biella.d17.raw_visual_assessment/v1",
+  "task_id": "D17-02",
+  "status": "MAJOR_DEFECTS_REMAIN",
+  "acceptance": false,
+  "contract": {
+    "path": "docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md",
+    "bytes": 6734,
+    "sha256": "a02f91a4a15192c47274eb15b40a2a989fa0861909e652ce227e67c635ae0b07"
+  },
+  "source_manifest": {
+    "path": "Build/AAA/D17-02/raw/framing-720-05/native-source.json",
+    "bytes": 81017,
+    "sha256": "008da5c3293855f9df578c9106b410a88c90a5a71af88c37105485323544beb3"
+  },
+  "raw_video": {
+    "path": "Build/AAA/D17-02/raw/framing-720-05/raw-gameplay.mkv",
+    "bytes": 18734006,
+    "sha256": "330c545a6fced7d59108f955447d17c171e5729d71861e5a006f675c35dfb787"
+  },
+  "frames": [
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/panel-exit.png",
+      "bytes": 331556,
+      "sha256": "ffef75ddb43bd0be03681a47fc9d9b86a7fd5a1b7beef441281839aea3f4c1f3",
+      "video_seconds": 31.51541078707669,
+      "native_frame": "1602",
+      "route_stage": 14
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/hall-interior.png",
+      "bytes": 441767,
+      "sha256": "e3895df0958237541be50c9b4f69adda6e1ea7645e297ac05cccbf140499976a",
+      "video_seconds": 36.266278367023915,
+      "native_frame": "1886",
+      "route_stage": 20
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/ramp-ascent.png",
+      "bytes": 295110,
+      "sha256": "44e3548f2ec56322b9e49b87538e5346e87e3832a386969e01db71906c49a80e",
+      "video_seconds": 48.78060847101733,
+      "native_frame": "2636",
+      "route_stage": 25
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/terrace-overlook.png",
+      "bytes": 453652,
+      "sha256": "0f16129c7bd43484f0735225df3003dd15406a1cc4a1766b0354ae6929ac4df4",
+      "video_seconds": 52.80207797605544,
+      "native_frame": "2878",
+      "route_stage": 27
+    }
+  ],
+  "method": "Direct inspection of unmodified raw-runtime frame extractions, supported by full video decode and ordinary-input native route measurements; no generated/render-only substitute.",
+  "observed_improvements": [
+    "Fitted deck panels, traction ribs, bright lateral edge strips and real ground-bearing columns/braces are visible during ramp ascent.",
+    "Compact top-left objective and bottom-right health/ammo leave the player, feet and approaching floor visible; text is readable in the inspected 720p frames.",
+    "Hall threshold, service-panel exit and four-metre-wide ramp remain accessible with the actual production player camera."
+  ],
+  "major_defects": [
+    {
+      "id": "route-composition",
+      "requirements": [
+        "DENSE_VERTICAL_WORLD",
+        "GAMEPLAY_DISTANCE_READABILITY"
+      ],
+      "frames": [
+        "terrace-overlook.png",
+        "ramp-ascent.png"
+      ],
+      "observed": "Large empty road and plain surrounding ground separate the terrace from isolated repeated tower masses. Approach/return orientation has little authored foreground or midground support."
+    },
+    {
+      "id": "route-materials",
+      "requirements": [
+        "PHYSICALLY_COHERENT_PBR"
+      ],
+      "frames": [
+        "terrace-overlook.png",
+        "ramp-ascent.png",
+        "hall-interior.png"
+      ],
+      "observed": "Fitted geometric panel detail is present, but broad painted/deck/ground surfaces read flat and uniform at gameplay distance; coherent wear, moisture and wet-surface response are insufficient."
+    },
+    {
+      "id": "route-lighting",
+      "requirements": [
+        "LIGHTING_ATMOSPHERE_DEPTH"
+      ],
+      "frames": [
+        "ramp-ascent.png",
+        "terrace-overlook.png"
+      ],
+      "observed": "Terrace approach is dominated by even cool sky illumination and dark support shadows, with insufficient motivated warm practical light or atmospheric depth. The hall does show warm light; that does not qualify the exterior."
+    },
+    {
+      "id": "route-infection",
+      "requirements": [
+        "INFECTION_ARCHITECTURE_INTEGRATION"
+      ],
+      "frames": [
+        "ramp-ascent.png",
+        "terrace-overlook.png",
+        "panel-exit.png"
+      ],
+      "observed": "Service-bay red growth is visible, but the terrace route and broad adjacent framing lack coherent infection invading the engineered structure."
+    },
+    {
+      "id": "focal-player",
+      "requirements": [
+        "NO_PLACEHOLDER_OR_PRIMITIVE_FOCAL_ART"
+      ],
+      "frames": [
+        "ramp-ascent.png",
+        "terrace-overlook.png"
+      ],
+      "observed": "Bright blue mannequin-like player presentation remains plainly visible. Preserved movement/animation mechanics are not final focal-art acceptance."
+    }
+  ],
+  "limits": [
+    "Instrument-assisted navigation does not establish external-player usability.",
+    "This task does not claim D17-04 full encounter or D17-08 whole-slice qualification.",
+    "Functional camera/collision success cannot close the listed major defects."
+  ],
+  "next_creation_boundary": {
+    "source": [
+      "SourceAssets/Environment/build_terrace_route.py",
+      "Content/Python/author_terrace_route.py"
+    ],
+    "action": "Re-author approach/terrace route framing with grounded industrial junctions, motivated practical route cues and physically coherent surface breakup; integrate retained red growth while preserving walkable planes and camera clearance. Qualify the affected cooked content through the same raw route before acceptance.",
+    "preservation": "Preserve existing traversal/collision bounds and accepted combat, AI, objectives, streaming and predecessor evidence; no owner-review pause."
+  },
+  "supporting_1080p_inspection": {
+    "raw_video": {
+      "path": "Build/AAA/D17-02/raw/framing-1080-01/raw-gameplay.mkv",
+      "bytes": 24943250,
+      "sha256": "5ca74c10f9c6b7a7c6857e0b1422ae64dfd8604a0d5ebd247a81d9bede90111a"
+    },
+    "frames": [
+      {
+        "path": "Build/AAA/D17-02/raw/framing-1080-01/panel-exit.png",
+        "bytes": 634853,
+        "sha256": "83c618e82139f09c137b30ae7bfdb6ac869882db6c147c38e0c33b61b4748112",
+        "video_seconds": 26.99351087200921,
+        "native_frame": "944",
+        "route_stage": 14
+      },
+      {
+        "path": "Build/AAA/D17-02/raw/framing-1080-01/hall-interior.png",
+        "bytes": 818493,
+        "sha256": "7936744dd3de12a86340c4601c6e4fb26222c38ed9c4b1845cad34242f0a4e1b",
+        "video_seconds": 31.761945654987358,
+        "native_frame": "1163",
+        "route_stage": 20
+      },
+      {
+        "path": "Build/AAA/D17-02/raw/framing-1080-01/terrace-overlook.png",
+        "bytes": 895787,
+        "sha256": "84f455126a7f82020df4feb27f5c1e79d42498f0605b57b41e14031974e56aae",
+        "video_seconds": 48.37954784394242,
+        "native_frame": "1982",
+        "route_stage": 27
+      }
+    ],
+    "route_status": "Partial 28/35 run; native Success before descent/return, not a full-route pass",
+    "observed": "The inspected 1080p panel/hall/overlook frames retain readable compact HUD and visible player/feet. Red service growth and warm hall light remain visible. The exterior road, horizon and repeated isolated tower masses remain sparse; player presentation and broad surfaces remain below final visual quality.",
+    "limits": "These are exact partial-run frames; they do not complete the 1080p descent/return or establish final encounter acceptance."
+  },
+  "updated_at": "2026-09-09T00:03:11.706386+00:00"
+}
