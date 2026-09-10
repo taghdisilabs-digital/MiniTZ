@@ -74,6 +74,20 @@ class InvestorDeckTests(unittest.TestCase):
         self.assertIn('REMOTE_MAIN_MISSING', deployer)
         self.assertNotIn("run(['git','ls-remote','origin','refs/heads/main']).split()[0]", deployer)
 
+    def test_live_deploy_remote_status_does_not_turn_transport_loss_into_local_deploy_stall(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("website_deploy_live", ROOT/'ops/deploy_live.py')
+        module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+        original = module.run
+        try:
+            module.run = lambda args, cwd=module.REPO, env=None: "" if args[:2] == ['git','ls-remote'] else original(args, cwd=cwd, env=env)
+            status, reason, remote = module.remote_sync_state("local-head")
+        finally:
+            module.run = original
+        self.assertEqual((status, reason, remote), ('NEEDS_MODIFICATION', 'REMOTE_MAIN_MISSING', None))
+        deployer = (ROOT/'ops/deploy_live.py').read_text()
+        self.assertIn('LOCAL_CANONICAL_DEPLOY_CONTINUES', deployer)
+
     def test_visual_reference_manifest_is_exact_and_non_authoritative_for_metrics(self):
         manifest = json.loads((ROOT/'content/investor-deck-manifest.json').read_text())
         self.assertEqual(manifest['status'], 'ACCEPTED_VISUAL_REFERENCE')

@@ -20,26 +20,40 @@ def write(path,obj):
     path.parent.mkdir(parents=True,exist_ok=True)
     tmp=path.with_suffix(path.suffix+'.tmp'); tmp.write_text(json.dumps(obj,indent=2)+'\n'); os.replace(tmp,path)
 
+def remote_sync_state(head):
+    try:
+        rows=run(['git','ls-remote','origin','refs/heads/main']).split()
+    except subprocess.CalledProcessError:
+        return 'OFFLINE','REMOTE_UNREACHABLE',None
+    if not rows:
+        return 'NEEDS_MODIFICATION','REMOTE_MAIN_MISSING',None
+    remote=rows[0]
+    if remote == head:
+        return 'ACTIVE','REMOTE_CURRENT',remote
+    try:
+        run(['git','merge-base','--is-ancestor',remote,head])
+    except subprocess.CalledProcessError:
+        return 'NEEDS_MODIFICATION','REMOTE_MAIN_CONFLICT',remote
+    return 'NEEDS_MODIFICATION','REMOTE_MAIN_BEHIND',remote
+
 def main():
     LOCK.parent.mkdir(parents=True,exist_ok=True)
     with LOCK.open('w') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX)
         head=run(['git','rev-parse','HEAD']); tree=run(['git','rev-parse','HEAD^{tree}'])
         state=json.loads(STATE.read_text()) if STATE.exists() else {}
-        try:
-            remote_rows=run(['git','ls-remote','origin','refs/heads/main']).split()
-        except subprocess.CalledProcessError as exc:
-            write(STATE,{**state,'last_seen_commit':head,'last_status':'OFFLINE','status_reason':'REMOTE_UNREACHABLE','updated_at':datetime.now(timezone.utc).isoformat()})
+        remote_status,remote_reason,remote=remote_sync_state(head)
+        remote_fields={'remote_sync_status':remote_status,'remote_sync_reason':remote_reason,'remote_commit':remote}
+        if remote_reason == 'REMOTE_MAIN_CONFLICT':
+            write(STATE,{**state,**remote_fields,'last_seen_commit':head,'last_status':'NEEDS_MODIFICATION','status_reason':remote_reason,'updated_at':datetime.now(timezone.utc).isoformat()})
             return 0
-        if not remote_rows:
-            write(STATE,{**state,'last_seen_commit':head,'last_status':'NEEDS_MODIFICATION','status_reason':'REMOTE_MAIN_MISSING','updated_at':datetime.now(timezone.utc).isoformat()})
-            return 0
-        remote=remote_rows[0]
-        if remote != head:
-            write(STATE,{**state,'last_seen_commit':head,'last_status':'NEEDS_MODIFICATION','status_reason':'REMOTE_MAIN_NOT_CURRENT','remote_commit':remote,'updated_at':datetime.now(timezone.utc).isoformat()})
-            return 0
+        # LOCAL_CANONICAL_DEPLOY_CONTINUES: missing/unreachable/behind Git transport
+        # must not stall a valid local public release. Remote synchronization remains
+        # visible as its own four-state field and can heal independently.
         last=state.get('last_deployed_commit')
-        if last == head: return 0
+        if last == head:
+            write(STATE,{**state,**remote_fields,'last_seen_commit':head,'last_status':'ACTIVE','status_reason':'DEPLOYED','updated_at':datetime.now(timezone.utc).isoformat()})
+            return 0
         relevant=True
         if last:
             try:
@@ -48,7 +62,7 @@ def main():
             except subprocess.CalledProcessError:
                 relevant=True
         if not relevant:
-            write(STATE,{**state,'last_seen_commit':head,'last_status':'ACTIVE','status_reason':'SKIPPED_IRRELEVANT','updated_at':datetime.now(timezone.utc).isoformat()})
+            write(STATE,{**state,**remote_fields,'last_seen_commit':head,'last_status':'ACTIVE','status_reason':'SKIPPED_IRRELEVANT','updated_at':datetime.now(timezone.utc).isoformat()})
             return 0
         env=os.environ.copy(); env.update(BIELLA_SOURCE_COMMIT=head,BIELLA_SOURCE_TREE=tree,BIELLA_SOURCE_BRANCH='main',BIELLA_DEPLOY_ENV='PRODUCTION',BIELLA_DEPLOYMENT_STATUS='PRODUCTION_DEPLOYED')
         subprocess.run(['node','scripts/build.mjs'],cwd=WEB,env=env,check=True,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE,text=True)
@@ -96,8 +110,8 @@ def main():
         except FileNotFoundError: pass
         link.symlink_to(release)
         os.replace(link,CURRENT)
-        receipt={'schema':'biella.website.live-deploy/v1','source_commit':head,'source_tree':tree,'active_task':active,'program':snap['program'],'deployed_at':datetime.now(timezone.utc).isoformat(),'investor_page_sha256':sha(release/'investors/index.html'),'snapshot_sha256':sha(release/'data/investor-snapshot.json'),'status':'DEPLOYED_LOCAL_ORIGIN'}
-        write(RECEIPT,receipt); write(STATE,{**state,'last_seen_commit':head,'last_deployed_commit':head,'last_status':'ACTIVE','status_reason':'DEPLOYED','updated_at':receipt['deployed_at']})
+        receipt={'schema':'biella.website.live-deploy/v1','source_commit':head,'source_tree':tree,'active_task':active,'program':snap['program'],'deployed_at':datetime.now(timezone.utc).isoformat(),'investor_page_sha256':sha(release/'investors/index.html'),'snapshot_sha256':sha(release/'data/investor-snapshot.json'),'status':'ACTIVE','status_reason':'DEPLOYED_LOCAL_ORIGIN',**remote_fields}
+        write(RECEIPT,receipt); write(STATE,{**state,**remote_fields,'last_seen_commit':head,'last_deployed_commit':head,'last_status':'ACTIVE','status_reason':'DEPLOYED','updated_at':receipt['deployed_at']})
         releases=sorted((p for p in RELEASES.iterdir() if p.is_dir()),key=lambda p:p.stat().st_mtime,reverse=True)
         for old in releases[5:]: shutil.rmtree(old,ignore_errors=True)
         return 0
