@@ -253,6 +253,8 @@ def test_private_secret_verifier_ignores_invalid_short_api_key_placeholders(tmp_
     target.write_text("ordinary abcd placeholder text")
     receipt = verifier.verify_secret_leaks(env, [target])
     assert receipt["result"] == "PASS"
+    assert receipt["schema"] == "minitz.private_secret_leak_receipt/v3"
+    assert receipt["verifier_version"] == "3"
     assert receipt["secret_entry_count"] == 1
     assert receipt["exact_value_hit_count"] == 0
 

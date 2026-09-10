@@ -10,8 +10,8 @@ from pathlib import Path
 from typing import Sequence
 from urllib.parse import parse_qsl, urlsplit
 
-_SCHEMA = "minitz.private_secret_leak_receipt/v2"
-_VERSION = "2"
+_SCHEMA = "minitz.private_secret_leak_receipt/v3"
+_VERSION = "3"
 _SECRET_SEGMENTS = {"SECRET", "TOKEN", "PASSWORD", "PASSWD", "CREDENTIAL", "CREDENTIALS", "COOKIE"}
 _SECRET_QUERY_KEYS = {"token", "secret", "password", "passwd", "api_key", "apikey", "access_key", "credential", "signature", "sig"}
 
