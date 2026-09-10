@@ -90,8 +90,6 @@ def apply_result(repo_root: Path, project_root: Path, result: TaskResult, route:
 _CONTINUITY_PATHS = (
     "docs/project-state/03_BIELLA_CURRENT_STATE.md",
     "docs/project-state/04_BIELLA_ACTIVE_TASK.md",
-    "projects/biella-games/docs/PRODUCTION.md",
-    "docs/task-program/D_TASK_LEDGER.json",
 )
 
 
@@ -268,18 +266,12 @@ def drive_publications(repo_root: Path) -> tuple[tuple[str, str], ...]:
     return (
         ("docs/project-state/03_BIELLA_CURRENT_STATE.md", "gdrive:Biella/CURRENT/03_BIELLA_CURRENT_STATE.md"),
         ("docs/project-state/04_BIELLA_ACTIVE_TASK.md", "gdrive:Biella/CURRENT/04_BIELLA_ACTIVE_TASK.md"),
-        ("projects/biella-games/docs/PRODUCTION.md", "gdrive:Biella/PROJECTS/GAMES/PRODUCTION.md"),
     )
 
 
 def derived_drive_publications(repo_root: Path) -> tuple[tuple[str, str], ...]:
     del repo_root
-    return (
-        ("docs/task-program/D_TASK_MANIFEST.json", "gdrive:Biella/D_TASK_PROGRAM/D_TASK_MANIFEST.json"),
-        ("docs/task-program/D_NEXT_100_TASKS.json", "gdrive:Biella/D_TASK_PROGRAM/D_NEXT_100_TASKS.json"),
-        ("docs/task-program/D_NEXT_100_TASKS.md", "gdrive:Biella/D_TASK_PROGRAM/D_NEXT_100_TASKS.md"),
-        ("docs/task-program/D_TASK_LEDGER.json", "gdrive:Biella/D_TASK_PROGRAM/D_TASK_LEDGER.json"),
-    )
+    return ()
 
 
 

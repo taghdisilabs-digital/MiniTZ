@@ -131,7 +131,7 @@ def test_status_uses_service_plus_fresh_heartbeat(tmp_path: Path, monkeypatch):
 
 def test_run_completes_canonical_task_and_exits(tmp_path: Path, monkeypatch):
     repo, project = write_repo_fixture(tmp_path); runtime_root = tmp_path / "runtime"
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {"gpt-6-astra": {"ultra"}})
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra": {"ultra"}})
     def command(_route, _schema, output, _cwd):
         payload = {"task_id": "D01-030", "status": "COMPLETE", "summary": "done", "evidence": ["runtime pass"]}
         code = f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"
@@ -158,7 +158,7 @@ def test_runner_plans_and_audits_empty_next_section(tmp_path: Path, monkeypatch)
     (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").write_text("active_execution:\n  id: NONE\n  state: READY\ngames:\n  completed_demo_tasks: 1\n  queued_successor: NONE\n")
     (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").write_text("task:\n  id: NONE\n  project: Biella Games\n  section: NONE\n  class: NONE\n  title: No active Project task\n  status: COMPLETE\n")
     (project / "docs/PRODUCTION.md").write_text("# P\n\nStatus: `IN_PROGRESS`\nCurrent section: `stage2`\nCurrent task: `NONE`\n\n## Section: demo01 | Demo | COMPLETE\n\n- [x] D01-050 | deep_memory | Close demo | COMPLETE | pass\n\n## Section: stage2 | Expansion | PENDING_UNPLANNED\n")
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {"gpt-6-astra": {"ultra"}, "gpt-5.6-luna": {"medium"}})
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra": {"ultra"}, "gpt-5.6-luna": {"medium"}})
     calls = {"plan": 0}
     def command(_route, schema, output, _cwd):
         if Path(schema).name == "section-plan-schema.json":
@@ -179,7 +179,7 @@ def test_runner_plans_and_audits_empty_next_section(tmp_path: Path, monkeypatch)
 
 def test_observed_limit_falls_back_to_next_eligible_model(tmp_path: Path, monkeypatch):
     repo, project = write_repo_fixture(tmp_path); runtime_root = tmp_path / "runtime"
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {"gpt-6-astra": {"ultra"}, "gpt-5.6-terra": {"ultra"}})
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra": {"ultra"}, "gpt-5.6-terra": {"ultra"}})
     used = []
     def command(route, _schema, output, _cwd):
         used.append(route.model)
@@ -305,7 +305,7 @@ def test_derived_ledger_failure_never_blocks_critical_persistence(tmp_path: Path
 def test_pre_task_reconcile_defers_when_current_task_output_is_dirty(tmp_path: Path, monkeypatch):
     repo, project = write_repo_fixture(tmp_path)
     runtime_root = tmp_path / "runtime"
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {"gpt-6-astra": {"ultra"}})
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra": {"ultra"}})
 
     def command(_route, _schema, output, _cwd):
         payload = {"task_id": "D01-030", "status": "COMPLETE", "summary": "done", "evidence": ["runtime pass"]}
@@ -330,7 +330,7 @@ def test_runner_startup_clears_stale_child_pid_before_first_work(tmp_path: Path,
     stale = runner.initial_runtime()
     stale["child_pid"] = 999999
     runner.save_runtime(runtime_root / "runtime.json", stale)
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {})
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {})
     monkeypatch.setattr(runner.state, "sync_project_metadata", lambda _project: (_ for _ in ()).throw(RuntimeError("stop after startup")))
     with pytest.raises(RuntimeError, match="stop after startup"):
         runner.run_production(repo, project, runtime_root)
@@ -563,7 +563,8 @@ def test_local_resource_assist_failure_is_non_blocking_and_recorded(tmp_path: Pa
     journal = runner.production_events.ProductionEventJournal(tmp_path / "events.jsonl", failure_path=tmp_path / "failures.jsonl")
     assert runner._ensure_local_resource_assist(tmp_path, "D02-01", projection, journal) is None
     failures = [json.loads(line) for line in (tmp_path / "failures.jsonl").read_text().splitlines()]
-    assert failures[-1]["failure_type"] == "resource.local_assist_failed"
+    assert failures[-1]["failure_type"] == "PROCESS_FAILED"
+    assert failures[-1]["event_type"] == "resource.local_assist_failed"
 
 
 def test_runtime_failure_does_not_cooldown_model():
@@ -591,7 +592,7 @@ def test_stale_resume_rotates_session_and_retries_same_astra_route(tmp_path: Pat
     telemetry["task_session_id"] = "stale-session"
     telemetry["session_task_id"] = task.id
     runner.save_runtime(runtime_root / "runtime.json", telemetry)
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {
         "gpt-6-astra": {"ultra"}, "gpt-5.6-terra": {"ultra"}
     })
     used = []
@@ -955,7 +956,7 @@ def test_runner_rechecks_source_after_model_before_accepting_result(tmp_path: Pa
         return {"state": "ALIGNED", "commit": "c", "tree": "t", "remote_commit": "c"}
 
     monkeypatch.setattr(runner.evidence, "assert_remote_source_current", guard)
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {"gpt-6-astra": {"ultra"}})
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra": {"ultra"}})
 
     def command(_route, _schema, output, _cwd):
         payload = {"task_id": "D01-030", "status": "COMPLETE", "summary": "done", "evidence": ["runtime pass"]}
@@ -1037,7 +1038,7 @@ def test_customer_pause_request_exits_at_safe_boundary_without_model_call(tmp_pa
     )
     monkeypatch.setattr(
         runner.routing, "discover_catalog",
-        lambda: (_ for _ in ()).throw(AssertionError("model catalog must not be touched after pause request")),
+        lambda **_kwargs: (_ for _ in ()).throw(AssertionError("model catalog must not be touched after pause request")),
     )
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
     runtime = runner.load_runtime(runtime_root / "runtime.json")
@@ -1094,7 +1095,7 @@ def test_runner_commits_validated_task_output_without_extra_model_turn(tmp_path:
     subprocess.run(["git", "-C", str(repo), "config", "user.email", "test@example.invalid"], check=True)
     subprocess.run(["git", "-C", str(repo), "add", "."], check=True)
     subprocess.run(["git", "-C", str(repo), "commit", "-qm", "base"], check=True)
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda: {"gpt-6-astra": {"ultra"}})
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra": {"ultra"}})
     calls = {"n": 0}
     def command(_route, _schema, output, _cwd):
         calls["n"] += 1
@@ -1122,3 +1123,179 @@ def test_runner_commits_validated_task_output_without_extra_model_turn(tmp_path:
     task_events=[e for e in events if e.get('task_id') in ('D01-030','D01-30') and e.get('type') in ('task.continue','task.completed')]
     assert not any(e.get("type") == "task.continue" for e in task_events)
     assert task_events[-1].get('type') == 'task.completed'
+
+
+def _write_taskbooster_local_assist(runtime: Path, text: str) -> Path:
+    path = runtime / "memory/taskbooster-test-local.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps({"provider":"ollama-qwen","model":"qwen3-coder-next:biella","text":text,"usage":{}}))
+    return path
+
+
+def test_taskbooster_accepts_grounded_spark_assist_for_strong_route(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime = tmp_path / "runtime"; runtime.mkdir()
+    target = project / "Config/DefaultEngine.ini"; target.parent.mkdir(parents=True); target.write_text("[Renderer]\nr.Test=1\n")
+    task = state.find_task(state.load_project_production(project), "D01-030")
+    local = _write_taskbooster_local_assist(runtime, "Inspect `Config/DefaultEngine.ini` exactly.")
+    monkeypatch.setattr(runner, "_bounded_packet_id", lambda *_args: "state-1")
+    output_holder = {}
+    monkeypatch.setattr(runner.routing, "build_taskbooster_command", lambda _route,_schema,output,_cwd: output_holder.setdefault("cmd", ["spark-fake", str(output)]))
+    real_run = runner.subprocess.run
+    def fake_run(argv, **kwargs):
+        if argv and argv[0] == "spark-fake":
+            prompt = kwargs["input"]; packet = json.loads(prompt.split("TASKBOOSTER_PACKET_JSON:\n",1)[1])
+            result = {"booster_id":packet["booster_id"],"status":"USEFUL","finding":"r.Test is enabled","evidence_refs":[{"path":"Config/DefaultEngine.ini","sha256":packet["allowed_reads"][0]["sha256"],"line_start":2,"line_end":2,"quote":"r.Test=1"}],"candidate_actions":[],"candidate_patch":"","recommended_commands":[],"uncertainties":[]}
+            Path(argv[1]).write_text(json.dumps(result)); return subprocess.CompletedProcess(argv,0,stdout="{}\n",stderr="")
+        return real_run(argv, **kwargs)
+    monkeypatch.setattr(runner.subprocess, "run", fake_run)
+    journal = runner.production_events.ProductionEventJournal(runtime/"events.jsonl", failure_path=runtime/"failures.jsonl")
+    path = runner._ensure_taskbooster_assist(repo, project, runtime, task, routing.Route("gpt-6-astra","ultra"), {"gpt-5.3-codex-spark":{"xhigh"}}, local, journal)
+    assert path and path.exists()
+    payload = json.loads(path.read_text())
+    assert payload["authority"] == "NONE"
+    assert payload["result"]["finding"] == "r.Test is enabled"
+
+
+def test_taskbooster_skips_bounded_route_and_no_grounded_target(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime = tmp_path / "runtime"; runtime.mkdir()
+    task = state.find_task(state.load_project_production(project), "D01-030")
+    called = []
+    monkeypatch.setattr(runner.routing, "build_taskbooster_command", lambda *_a,**_k: called.append(True) or ["never"])
+    local = _write_taskbooster_local_assist(runtime, "No exact project path is named here.")
+    catalog = {"gpt-5.3-codex-spark":{"xhigh"}}
+    assert runner._ensure_taskbooster_assist(repo, project, runtime, task, routing.Route("gpt-5.3-codex-spark","xhigh"), catalog, local) is None
+    assert runner._ensure_taskbooster_assist(repo, project, runtime, task, routing.Route("gpt-6-astra","ultra"), catalog, local) is None
+    assert called == []
+
+
+def test_taskbooster_process_failure_is_preserved_and_nonblocking(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime = tmp_path / "runtime"; runtime.mkdir()
+    target = project / "Config/DefaultEngine.ini"; target.parent.mkdir(parents=True); target.write_text("x=1\n")
+    task = state.find_task(state.load_project_production(project), "D01-030")
+    local = _write_taskbooster_local_assist(runtime, "Inspect `Config/DefaultEngine.ini`.")
+    monkeypatch.setattr(runner, "_bounded_packet_id", lambda *_args: "state-1")
+    monkeypatch.setattr(runner.routing, "build_taskbooster_command", lambda *_a,**_k: ["spark-fail"])
+    real_run = runner.subprocess.run
+    monkeypatch.setattr(runner.subprocess, "run", lambda argv, **kwargs: subprocess.CompletedProcess(argv,9,stdout="partial spark output",stderr="spark failed") if argv[0]=="spark-fail" else real_run(argv,**kwargs))
+    journal = runner.production_events.ProductionEventJournal(runtime/"events.jsonl", failure_path=runtime/"failures.jsonl")
+    result = runner._ensure_taskbooster_assist(repo, project, runtime, task, routing.Route("gpt-6-astra","ultra"), {"gpt-5.3-codex-spark":{"xhigh"}}, local, journal)
+    assert result is None
+    rejected = list((runtime/"memory/taskbooster").glob("*.rejected.json")); assert len(rejected)==1
+    failure = json.loads(rejected[0].read_text()); assert failure["reason"] == "PROCESS_FAILED"
+    rows = [json.loads(line) for line in (runtime/"failures.jsonl").read_text().splitlines()]
+    assert any(row["failure_type"] == "PROCESS_FAILED" and row["event_type"] == "resource.taskbooster_failed" for row in rows)
+
+
+def test_taskbooster_stale_input_is_rejected_without_blocking(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime = tmp_path / "runtime"; runtime.mkdir()
+    target = project / "Config/DefaultEngine.ini"; target.parent.mkdir(parents=True); target.write_text("x=1\n")
+    task = state.find_task(state.load_project_production(project), "D01-030")
+    local = _write_taskbooster_local_assist(runtime, "Inspect `Config/DefaultEngine.ini`.")
+    monkeypatch.setattr(runner, "_bounded_packet_id", lambda *_args: "state-1")
+    holder = {}
+    monkeypatch.setattr(runner.routing, "build_taskbooster_command", lambda _route,_schema,output,_cwd: holder.setdefault("cmd", ["spark-stale", str(output)]))
+    real_run = runner.subprocess.run
+    def fake_run(argv, **kwargs):
+        if argv[0] == "spark-stale":
+            packet = json.loads(kwargs["input"].split("TASKBOOSTER_PACKET_JSON:\n",1)[1])
+            target.write_text("x=2\n")
+            Path(argv[1]).write_text(json.dumps({"booster_id":packet["booster_id"],"status":"NO_ACTION","finding":"","evidence_refs":[],"candidate_actions":[],"candidate_patch":"","recommended_commands":[],"uncertainties":[]}))
+            return subprocess.CompletedProcess(argv,0,stdout="{}",stderr="")
+        return real_run(argv, **kwargs)
+    monkeypatch.setattr(runner.subprocess, "run", fake_run)
+    journal = runner.production_events.ProductionEventJournal(runtime/"events.jsonl", failure_path=runtime/"failures.jsonl")
+    assert runner._ensure_taskbooster_assist(repo, project, runtime, task, routing.Route("gpt-6-astra","ultra"), {"gpt-5.3-codex-spark":{"xhigh"}}, local, journal) is None
+    rejected = list((runtime/"memory/taskbooster").glob("*.rejected.json")); assert len(rejected)==1
+    assert json.loads(rejected[0].read_text())["reason"] == "STALE_INPUT_DIGEST"
+    rows = [json.loads(line) for line in (runtime / "failures.jsonl").read_text().splitlines()]
+    assert any(row["failure_type"] == "STALE_INPUT" and row["event_type"] == "resource.taskbooster_rejected" for row in rows)
+
+
+def test_task_prompt_injects_taskbooster_as_non_authoritative_assist(tmp_path: Path):
+    repo, project = write_repo_fixture(tmp_path)
+    production = state.load_project_production(project); task = state.find_task(production, "D01-030")
+    capsule = tmp_path / "task.json"; capsule.write_text("{}")
+    booster_path = tmp_path / "booster.json"; booster_path.write_text("{}")
+    prompt = runner._task_prompt(repo, production, task, runner.initial_runtime(), capsule, taskbooster_path=booster_path, route=routing.Route("gpt-6-astra","ultra"))
+    assert f"TASKBOOSTER_ASSIST: {booster_path}" in prompt
+    assert "non-authoritative" in prompt.lower()
+    assert "validate" in prompt.lower()
+
+
+def test_prepare_optional_task_assists_requires_resident_qwen_and_strong_route(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime = tmp_path / "runtime"; runtime.mkdir()
+    task = state.find_task(state.load_project_production(project), "D01-030")
+    projection = runtime / "memory/current-task.json"; projection.parent.mkdir(parents=True); projection.write_text("{}")
+    local = _write_taskbooster_local_assist(runtime, "Inspect `Config/DefaultEngine.ini`.")
+    booster_path = runtime / "memory/taskbooster/accepted.json"; booster_path.parent.mkdir(parents=True); booster_path.write_text("{}")
+    calls = []
+    monkeypatch.setattr(runner, "_local_qwen_resident", lambda: True)
+    monkeypatch.setattr(runner, "_ensure_local_resource_assist", lambda *_a, **_k: calls.append("qwen") or local)
+    monkeypatch.setattr(runner, "_ensure_taskbooster_assist", lambda *_a, **_k: calls.append("spark") or booster_path)
+    strong = routing.Route("gpt-6-astra", "ultra")
+    result = runner._prepare_optional_task_assists(repo, project, runtime, task, strong, {"gpt-5.3-codex-spark":{"xhigh"}}, projection)
+    assert result == (local, booster_path)
+    assert calls == ["qwen", "spark"]
+    calls.clear(); monkeypatch.setattr(runner, "_local_qwen_resident", lambda: False)
+    assert runner._prepare_optional_task_assists(repo, project, runtime, task, strong, {}, projection) == (None, None)
+    assert calls == []
+    monkeypatch.setattr(runner, "_local_qwen_resident", lambda: True)
+    assert runner._prepare_optional_task_assists(repo, project, runtime, task, routing.Route("gpt-5.3-codex-spark","xhigh"), {"gpt-5.3-codex-spark":{"xhigh"}}, projection) == (None, None)
+    assert calls == []
+
+
+def test_local_assist_invalid_json_preserves_raw_provider_result(tmp_path: Path, monkeypatch):
+    project = tmp_path / "repo/projects/biella-games"; project.mkdir(parents=True)
+    projection = tmp_path / "memory/current-task.json"; projection.parent.mkdir(parents=True)
+    projection.write_text(json.dumps({"task_id":"D04-01","task_memory":{"task_class":"hard","summary":"Inspect current task"},"failures":[],"capabilities":{}}))
+    raw = "not-json-from-qwen"
+    monkeypatch.setattr(runner.subprocess,"run",lambda argv,**kwargs: subprocess.CompletedProcess(argv,0,stdout=raw,stderr=""))
+    journal=runner.production_events.ProductionEventJournal(tmp_path/"events.jsonl",failure_path=tmp_path/"failures.jsonl")
+    assert runner._ensure_local_resource_assist(tmp_path,"D04-01",projection,journal,project_root=project) is None
+    raw_files=list((tmp_path/"memory/local-assist").glob("D04-01-*.raw.json"))
+    assert len(raw_files)==1
+    assert raw_files[0].read_text()==raw
+    rows=[json.loads(line) for line in (tmp_path/"failures.jsonl").read_text().splitlines()]
+    assert any(row["failure_type"]=="INVALID_RESULT" and row["event_type"]=="resource.local_assist_failed" for row in rows)
+
+
+def test_local_assist_scope_rejection_preserves_raw_provider_result(tmp_path: Path, monkeypatch):
+    project = tmp_path / "repo/projects/biella-games"; project.mkdir(parents=True)
+    projection = tmp_path / "memory/current-task.json"; projection.parent.mkdir(parents=True)
+    projection.write_text(json.dumps({"task_id":"D04-02","task_memory":{"task_class":"hard","summary":"Current bounded task"},"failures":[],"capabilities":{}}))
+    envelope={"provider":"ollama-qwen","model":"qwen3-coder-next:biella","text":"Inspect `invented/path.cpp`.","usage":{}}
+    raw=json.dumps(envelope)
+    monkeypatch.setattr(runner.subprocess,"run",lambda argv,**kwargs: subprocess.CompletedProcess(argv,0,stdout=raw,stderr=""))
+    assert runner._ensure_local_resource_assist(tmp_path,"D04-02",projection,project_root=project) is None
+    raw_files=list((tmp_path/"memory/local-assist").glob("D04-02-*.raw.json")); assert len(raw_files)==1
+    assert raw_files[0].read_text()==raw
+    rejected=list((tmp_path/"memory/local-assist").glob("D04-02-*.rejected")); assert len(rejected)==1
+    assert json.loads(rejected[0].read_text())["raw_result_path"] == str(raw_files[0])
+
+
+def test_taskbooster_invalid_json_is_preserved_as_rejected_evidence(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime = tmp_path / "runtime"; runtime.mkdir()
+    target = project / "Config/DefaultEngine.ini"; target.parent.mkdir(parents=True); target.write_text("x=1\n")
+    task = state.find_task(state.load_project_production(project), "D01-030")
+    local = _write_taskbooster_local_assist(runtime, "Inspect `Config/DefaultEngine.ini`.")
+    monkeypatch.setattr(runner, "_bounded_packet_id", lambda *_args: "state-1")
+    monkeypatch.setattr(runner.routing, "build_taskbooster_command", lambda _route,_schema,output,_cwd: ["spark-invalid", str(output)])
+    real_run = runner.subprocess.run
+    def fake_run(argv, **kwargs):
+        if argv[0] == "spark-invalid":
+            Path(argv[1]).write_text('{"broken":')
+            return subprocess.CompletedProcess(argv,0,stdout="{}",stderr="")
+        return real_run(argv, **kwargs)
+    monkeypatch.setattr(runner.subprocess, "run", fake_run)
+    journal = runner.production_events.ProductionEventJournal(runtime/"events.jsonl", failure_path=runtime/"failures.jsonl")
+    assert runner._ensure_taskbooster_assist(repo, project, runtime, task, routing.Route("gpt-6-astra","ultra"), {"gpt-5.3-codex-spark":{"xhigh"}}, local, journal) is None
+    rejected = list((runtime/"memory/taskbooster").glob("*.rejected.json")); assert len(rejected)==1
+    payload=json.loads(rejected[0].read_text()); assert payload["reason"]=="INVALID_RESULT"
+    assert payload["preserve_raw"] is True
+    assert Path(payload["raw_result_path"]).read_text()=='{"broken":'

@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 from pathlib import Path
 from typing import Any
 
 import biella_task_ids as task_ids
 import biella_execution_map as execution_map
+import minitz_task_program as minitz
 
 CANONICAL_ID_RE = re.compile(r"^D\d{2}-\d{2}$")
 _ROW_RE = re.compile(
@@ -17,7 +19,12 @@ _REGISTRY_FILES = (
     "docs/task-program/D09_D14_WEBSITE.md",
     "docs/task-program/D15_D24_AAA_CHALLENGER.md",
 )
-_LIVE_SOURCE = "projects/biella-games/docs/PRODUCTION.md"
+_LIVE_SOURCE = "NONCANONICAL_TEST_FIXTURE_ONLY"
+_CANONICAL_REPO_ROOT = Path("/root/biella/repos/biella-engine")
+
+
+def _use_minitz(repo_root: Path) -> bool:
+    return bool(os.environ.get("MINITZ_TASK_PROGRAM_PATH")) or Path(repo_root).resolve() == _CANONICAL_REPO_ROOT
 
 
 def ledger_path(repo_root: Path) -> Path:
@@ -59,6 +66,16 @@ def _sort_key(task_id: str) -> tuple[int, int]:
 
 
 def build_task_ledger(repo_root: Path, production) -> dict[str, Any]:
+    if _use_minitz(repo_root):
+        projection = execution_map.load_map(repo_root)
+        return {
+            "schema": "minitz.task_ledger_projection/v1", "registry_is_queue": False,
+            "execution_authority": False, "order_authority": False, "status_authority": False,
+            "task_program": projection["task_program"], "current_task": production.current_task,
+            "priority_policy": "MINITZ_TASK_PROGRAM",
+            "execution_order": [row["task_id"] for row in projection["tasks"]],
+            "tasks": projection["tasks"],
+        }
     rows = _registry_rows(Path(repo_root))
     order = [task_ids.canonical_task_id(t.id) for s in production.sections for t in s.tasks]
     positions = {key: index for index, key in enumerate(order, 1)}
@@ -99,6 +116,8 @@ def build_task_ledger(repo_root: Path, production) -> dict[str, Any]:
 
 def sync_task_ledger(repo_root: Path, production) -> dict[str, Any]:
     payload = build_task_ledger(Path(repo_root), production)
+    if _use_minitz(repo_root):
+        return payload
     path = ledger_path(repo_root)
     path.parent.mkdir(parents=True, exist_ok=True)
     rendered = json.dumps(payload, indent=2, sort_keys=True) + "\n"

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
@@ -17,6 +18,39 @@ class Route:
     model: str
     reasoning: str
     provider: str = "openai"
+
+
+@dataclass(frozen=True)
+class SimpleResourceDecision:
+    kind: str
+    command: str | None = None
+
+
+def simple_resource_plan(task_class: str, *, deterministic_command: str | None,
+                         grounded_context: bool, local_qwen_resident: bool,
+                         spark_available: bool, read_only_microanalysis: bool) -> tuple[SimpleResourceDecision, ...]:
+    if str(task_class) != "simple":
+        return (SimpleResourceDecision("GENERAL_CODEX"),)
+    exact_command = str(deterministic_command or "").strip()
+    if exact_command:
+        return (SimpleResourceDecision("DETERMINISTIC", exact_command),)
+    plan: list[SimpleResourceDecision] = []
+    if grounded_context and local_qwen_resident:
+        plan.append(SimpleResourceDecision("LOCAL_QWEN"))
+    if grounded_context and read_only_microanalysis and spark_available:
+        plan.append(SimpleResourceDecision("SPARK"))
+    plan.append(SimpleResourceDecision("GENERAL_CODEX"))
+    return tuple(plan)
+
+
+def classify_simple_operation(task_class: str, *, deterministic_command: str | None,
+                              grounded_context: bool, local_qwen_resident: bool,
+                              spark_available: bool, read_only_microanalysis: bool) -> SimpleResourceDecision:
+    return simple_resource_plan(
+        task_class, deterministic_command=deterministic_command, grounded_context=grounded_context,
+        local_qwen_resident=local_qwen_resident, spark_available=spark_available,
+        read_only_microanalysis=read_only_microanalysis,
+    )[0]
 
 
 _ROUTE_PROFILES: dict[str, tuple[Route, ...]] = {
@@ -199,11 +233,67 @@ def _discover_local_ollama_models() -> set[str]:
     return models
 
 
-def discover_catalog() -> dict[str, set[str]]:
-    codex_bin = os.environ.get("BIELLA_CODEX_BIN", "/usr/bin/codex")
-    proc = subprocess.run([codex_bin, "debug", "models"], text=True, capture_output=True, check=False)
+_CATALOG_CACHE_SCHEMA = "minitz.model_catalog_cache/v1"
+
+
+def _catalog_digest(catalog: Mapping[str, set[str]]) -> str:
+    normalized = {str(model): sorted(str(level) for level in levels) for model, levels in sorted(catalog.items())}
+    encoded = json.dumps(normalized, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def persist_catalog_cache(path: Path, catalog: Mapping[str, set[str]], *, state: str,
+                          source: str = "codex_debug_models", observed_at: datetime | None = None,
+                          probe_state: str | None = None) -> None:
+    target = Path(path); target.parent.mkdir(parents=True, exist_ok=True)
+    normalized = {str(model): sorted(str(level) for level in levels) for model, levels in sorted(catalog.items())}
+    effective_probe_state = probe_state or ("LIVE_DISCOVERED" if state == "LIVE_DISCOVERED" else "DISCOVERY_UNAVAILABLE")
+    payload = {
+        "schema": _CATALOG_CACHE_SCHEMA, "state": str(state), "probe_state": effective_probe_state,
+        "source": str(source), "observed_at": (observed_at or datetime.now(timezone.utc)).isoformat(),
+        "catalog": normalized, "catalog_digest": _catalog_digest({k: set(v) for k, v in normalized.items()}),
+    }
+    tmp = target.with_suffix(target.suffix + ".tmp")
+    tmp.write_text(json.dumps(payload, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+    os.replace(tmp, target)
+
+
+def _load_catalog_cache(path: Path) -> dict[str, set[str]] | None:
+    try:
+        payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if not isinstance(payload, dict) or payload.get("schema") != _CATALOG_CACHE_SCHEMA:
+        return None
+    if payload.get("state") not in {"LIVE_DISCOVERED", "LAST_KNOWN_GOOD"}:
+        return None
+    raw_catalog = payload.get("catalog")
+    if not isinstance(raw_catalog, dict):
+        return None
     result: dict[str, set[str]] = {}
-    if proc.returncode == 0:
+    for model, levels in raw_catalog.items():
+        if not isinstance(model, str) or not isinstance(levels, list) or not levels:
+            return None
+        parsed = {str(level) for level in levels if isinstance(level, str) and level}
+        if not parsed:
+            return None
+        result[model] = parsed
+    if payload.get("catalog_digest") != _catalog_digest(result):
+        return None
+    return result
+
+
+def discover_catalog(*, cache_path: Path | None = None, timeout_seconds: float = 2.0) -> dict[str, set[str]]:
+    codex_bin = os.environ.get("BIELLA_CODEX_BIN", "/usr/bin/codex")
+    result: dict[str, set[str]] = {}
+    try:
+        proc = subprocess.run(
+            [codex_bin, "debug", "models"], text=True, capture_output=True, check=False,
+            timeout=max(0.05, float(timeout_seconds)),
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        proc = None
+    if proc is not None and proc.returncode == 0:
         try:
             data = json.loads(proc.stdout)
         except json.JSONDecodeError:
@@ -214,8 +304,20 @@ def discover_catalog() -> dict[str, set[str]]:
             levels = {str(level.get("effort")) for level in item.get("supported_reasoning_levels", []) if isinstance(level, dict) and level.get("effort")}
             if levels:
                 result[item["slug"]] = levels
+    if result and cache_path is not None:
+        persist_catalog_cache(cache_path, result, state="LIVE_DISCOVERED")
+    if not result and cache_path is not None:
+        cached = _load_catalog_cache(cache_path)
+        if cached:
+            result = cached
+            persist_catalog_cache(cache_path, result, state="LAST_KNOWN_GOOD", source="cached_codex_debug_models")
     if not result:
         result = fallback_catalog()
+        if cache_path is not None:
+            persist_catalog_cache(
+                cache_path, result, state="STATIC_FALLBACK", source="builtin_route_profiles",
+                probe_state="DISCOVERY_UNAVAILABLE",
+            )
     local_model = os.environ.get("BIELLA_CODEX_LOCAL_MODEL", _LOCAL_OSS_MODEL)
     if local_model in _discover_local_ollama_models():
         result[local_model] = {"local"}
@@ -284,6 +386,31 @@ def build_codex_command(route: Route, schema_path: Path, output_path: Path, cwd:
     return [
         *_provider_prefix(route), "exec",
         *_production_exec_args(route, schema_path, output_path, allow_helper=allow_helper),
+        "-C", str(cwd),
+        "-",
+    ]
+
+
+def build_taskbooster_command(route: Route, schema_path: Path, output_path: Path, cwd: Path) -> list[str]:
+    if route.provider != "openai" or route.model != "gpt-5.3-codex-spark":
+        raise ValueError("TaskBooster requires the Spark OpenAI route")
+    codex_bin = os.environ.get("BIELLA_CODEX_BIN", "/usr/bin/codex")
+    return [
+        codex_bin, "exec",
+        "--sandbox", "read-only",
+        "--disable", "plugins",
+        "--disable", "multi_agent",
+        "--disable", "multi_agent_v2",
+        "-c", 'shell_environment_policy.inherit="all"',
+        "-c", 'model_auto_compact_token_limit=12000',
+        "-c", 'tool_output_token_limit=4000',
+        "-c", 'max_concurrent_threads_per_session=1',
+        "-c", 'max_depth=1',
+        "-c", f'model_reasoning_effort="{route.reasoning}"',
+        "-m", route.model,
+        "--json",
+        "--output-schema", str(schema_path),
+        "-o", str(output_path),
         "-C", str(cwd),
         "-",
     ]

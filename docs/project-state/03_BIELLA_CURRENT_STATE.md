@@ -1,85 +1,47 @@
-# 03 - BIELLA CURRENT STATE
+# 03 - MINITZ CURRENT STATE PROJECTION
 
 ```yaml
-schema: biella.current_state/v13
+schema: minitz.current_state_projection/v1
 state_class: VOLATILE_CURRENT
-update_rule: REALTIME_CANONICAL_UPGRADE
+projection_authority: false
 
 authority:
-  if_conflict: [CURRENT_EXECUTION_STATE, CURRENT_GITHUB_SOURCE, CURRENT_CANONICAL_DRIVE, VERIFIED_EVIDENCE, INFERENCE]
-  rule: replace_stale_current_fields_in_place; preserve accepted outputs; no_duplicate_active_state
+  progression_source: MINITZ_TASK_PROGRAM_ONLY
+  task_program_path: /root/biella/analysis/live_audit/TASK_PROGRAM.json
+  program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
+  program_revision: 27
+  program_sha256: 7169769f48ce705b16ed547ad103470cc98263e07c6dbac9e6e24557daa3fb35
+  task_program_authority: true
+  production_execution_authority: true
+  production_order_status_authority: true
 
 repository:
-  repository: patrickminitz-web/biella-engine
+  repository: taghdisilabs-digital/MiniTZ
   branch: main
   canonical_checkout: /root/biella/repos/biella-engine
-  git_identity_source: LIVE_GIT_READ_REQUIRED
-  source_alignment_policy: LOCAL_CONTINUATION_AND_INLINE_SOURCE_REPAIR
+  source_identity_source: LIVE_GIT_READ_REQUIRED
 
-  source_identity_source: LIVE_GIT_PLUS_RUNTIME
 active_execution:
-  id: D17-02
-  project: Biella Games
-  section: post_d01
+  id: UNIFY-01
+  task_revision: 3
+  task_sha256: 4fbced8b814df3e5a70f651bfc8509a52e6757df77c7a41ca1158fe6af5a621f
+  lane: Engine
   state: PENDING
-  controller: biella-codex
-
   runner: READY
+  run_ref: commander-run://17ce7d66-d0dc-4592-b608-944e6682d2af/182617/UNIFY-01-r3
+  session_ref: commander-session://17ce7d66-d0dc-4592-b608-944e6682d2af/182617
   runtime_state_source: /mnt/biella-extra/biella-runtime/codex-production/runtime.json
-customer_execution:
-  project_cell_execution_model: ISOLATED_PROJECT_CELL
 
-  runtime_state_source: DOCKER_PLUS_CUSTOMER_HANDOFF_RUNTIME
-website:
-  execution_model: NO_PERMANENT_WEBSITE_AGENT
-  live_projection: DETERMINISTIC_READ_ONLY
-  public_snapshot: https://biellagames.dev/live-api/snapshot
-  public_events: https://biellagames.dev/live-api/events
-
-games:
-  priority: 1
-  priority_objective: FASTEST_QUALIFIED_GAME_DELIVERY
-  production_source: projects/biella-games/docs/PRODUCTION.md
-  current_section: post_d01
-  current_task: D17-02
-  completed_tasks: 65
-  total_tasks: 168
-
-  completed_demo_tasks: 50
-  queued_successor: D17-02
-  task_boundary: D17-02_PENDING
-resources:
-  strong_route_policy: HIGHEST_QUALITY_ELIGIBLE
-  model_selection: TASK_CLASS_ROUTER
-  routing_source: ops/local-ai/biella_codex_routing.py
-  route_outage: ELIGIBLE_CONFIGURED_FALLBACK
-  cache_efficiency: ACTIVE_QUALITY_FIRST
-  local_qwen: NON_AUTHORITATIVE_ON_DEMAND
-  project_data_leakage: FORBIDDEN
-  installer_capabilities: [package.installer.debian, package.installer.windows]
-  win64_setup_source: ops/workstation/UNREAL_WIN64.md
-  win64_readiness_source: projects/biella-games/Build/Release/D08-01/windows-setup-observation.json
+progress:
+  completed_tasks: 11
+  active_tasks: 18
+  total_tasks: 29
 
 execution_invariants:
-  owner_acceptance_fast_path: ACTIVE
-  task_class_is_not_a_blocker: true
-  no_monitor_only_stall: true
-  no_external_progress_hook_dependency: true
-  automatic_advance_after_durable_completion: true
-  publication_retry: CONTROLLER_OWNED_NONBLOCKING
-  drive_completed_task_interval: 5
-  drive_package_max_bytes: 3800000000
-  execution_map: docs/task-program/D_NEXT_100_TASKS.json
-  task_status_source: projects/biella-games/docs/PRODUCTION.md
-  realtime_canonical_upgrade: true
-  proven_execution_style: ACTIVE
-  active_progress_killer_audit: PASS
-  forbidden_pattern_contract: HOW_BIELLA_WILL_NOT_WORK
-
-  priority_policy: GAME_FIRST
-  visual_last_layer_priority: D17_BEFORE_RESOURCE_BLOCKED_D08
-engine_numbered_execution:
-  P4_01_through_P4_05: COMPLETE_REUSE_REQUIRED
-  P4-06: INCOMPLETE_DEFERRED
-  FOUNDATION_COMPLETE: false
+  one_task_program: true
+  derived_ledgers_authority: false
+  runner_and_auto_feeder_source: MINITZ_TASK_PROGRAM_ONLY
+  hidden_task_queue_allowed: false
+  publication_cursor_authority: false
+  local_qwen_authority: false
 ```

@@ -277,3 +277,29 @@ def test_owner_forced_model_respects_observed_cooldown(monkeypatch):
     monkeypatch.setenv("BIELLA_CODEX_FORCE_REASONING", "max")
     with __import__("pytest").raises(RuntimeError, match="forced Codex route"):
         routing.select_route("hard_creation", current, {"gpt-reserve": "2026-09-12T21:41:00+00:00"}, NOW)
+
+
+def test_taskbooster_spark_command_is_read_only_and_schema_bound(tmp_path: Path):
+    route = routing.Route("gpt-5.3-codex-spark", "xhigh")
+    schema = tmp_path / "booster.schema.json"
+    output = tmp_path / "booster.json"
+    cmd = routing.build_taskbooster_command(route, schema, output, tmp_path)
+    assert cmd[0].endswith("codex")
+    assert "--sandbox" in cmd and cmd[cmd.index("--sandbox") + 1] == "read-only"
+    assert "workspace-write" not in cmd
+    assert "--dangerously-bypass-approvals-and-sandbox" not in cmd
+    assert "--dangerously-bypass-hook-trust" not in cmd
+    assert "--output-schema" in cmd and cmd[cmd.index("--output-schema") + 1] == str(schema)
+    assert "-o" in cmd and cmd[cmd.index("-o") + 1] == str(output)
+    assert "--disable" in cmd
+    assert "multi_agent" in cmd and "multi_agent_v2" in cmd and "plugins" in cmd
+    assert "-m" in cmd and cmd[cmd.index("-m") + 1] == "gpt-5.3-codex-spark"
+
+
+def test_taskbooster_command_rejects_non_spark_route(tmp_path: Path):
+    import pytest
+    with pytest.raises(ValueError, match="Spark"):
+        routing.build_taskbooster_command(
+            routing.Route("gpt-6-astra", "ultra"),
+            tmp_path / "schema.json", tmp_path / "out.json", tmp_path,
+        )

@@ -91,9 +91,13 @@ class ProductionEventJournal:
             failure = {
                 "schema": "biella.failure_event/v1",
                 "seq": event["seq"], "time": event["time"], "lane": event["lane"],
-                "failure_type": event["type"], "status": event.get("status") or "FAILED",
+                "failure_type": event.get("failure_type") or event["type"],
+                "event_type": event["type"], "status": event.get("status") or "FAILED",
             }
-            for key in ("task_id", "text", "tool", "detail", "exit_code", "model", "reasoning"):
+            for key in (
+                "task_id", "text", "tool", "detail", "exit_code", "model", "reasoning",
+                "helper_budget_seconds", "elapsed_seconds", "raw_result_path", "provider",
+            ):
                 if key in event:
                     failure[key] = event[key]
             with self.failure_path.open("a", encoding="utf-8") as handle:

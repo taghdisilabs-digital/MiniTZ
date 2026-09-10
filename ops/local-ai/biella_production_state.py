@@ -1,16 +1,29 @@
 from __future__ import annotations
 
+import os
 import re
+import subprocess
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Sequence
 
 import biella_task_ids as task_ids
 import biella_task_ledger as task_ledger
+import minitz_task_program as minitz
 
 _COMPLETE = {"COMPLETE", "COMPLETE_ALREADY"}
 _SECTION_RE = re.compile(r"^## Section: (?P<id>[A-Za-z0-9_-]+) \| (?P<title>.+?) \| (?P<status>[A-Z_]+)$")
 _TASK_RE = re.compile(r"^- \[(?P<done>[xX ])\] (?P<id>[A-Z0-9-]+) \| (?P<class>[a-z_]+) \| (?P<title>.+?) \| (?P<status>[A-Z_]+) \|\s*(?P<evidence>.*)$")
+_CANONICAL_REPO_ROOT = Path("/root/biella/repos/biella-engine")
+_CANONICAL_PROJECT_ROOT = _CANONICAL_REPO_ROOT / "projects/biella-games"
+
+
+def _use_minitz_project(project_root: Path) -> bool:
+    return bool(os.environ.get("MINITZ_TASK_PROGRAM_PATH")) or Path(project_root).resolve() == _CANONICAL_PROJECT_ROOT
+
+
+def _use_minitz_repo(repo_root: Path) -> bool:
+    return bool(os.environ.get("MINITZ_TASK_PROGRAM_PATH")) or Path(repo_root).resolve() == _CANONICAL_REPO_ROOT
 
 
 @dataclass(frozen=True)
@@ -52,6 +65,60 @@ class ActiveTask:
     status: str
 
 
+def _minitz_current_row(program: dict) -> dict | None:
+    execution = program.get("current_execution")
+    if isinstance(execution, dict) and execution.get("task_id"):
+        current = minitz.task_by_id(program, str(execution["task_id"]))
+        if minitz.runnable(program, current):
+            return current
+    current = next((row for row in program["tasks"] if minitz.runnable(program, row)), None)
+    if current is not None:
+        return current
+    active = [row["task_id"] for row in program["tasks"] if row.get("status") in minitz.ACTIVE_STATUSES]
+    if active:
+        raise ValueError("MiniTZ active tasks exist but none is dependency-runnable: " + ",".join(active))
+    return None
+
+
+def _minitz_production(project_root: Path) -> ProductionState:
+    program = minitz.load()
+    current = _minitz_current_row(program)
+    tasks: list[TaskRecord] = []
+    for row in program["tasks"]:
+        completion = row.get("completion") if isinstance(row.get("completion"), dict) else {}
+        completion_evidence = completion.get("evidence") if isinstance(completion, dict) else []
+        evidence = tuple(str(item) for item in completion_evidence or ()) + (
+            f"MINITZ_TASK_REVISION:{row['revision']}",
+            f"MINITZ_TASK_SHA256:{row['task_record_sha256']}",
+        )
+        tasks.append(TaskRecord(
+            str(row["task_id"]), minitz.task_class(program, row), str(row["title"]),
+            str(row["status"]), evidence, "minitz",
+        ))
+    active = any(row.get("status") in minitz.ACTIVE_STATUSES for row in program["tasks"])
+    section = SectionRecord("minitz", "MiniTZ Tasks", "IN_PROGRESS" if active else "COMPLETE", tasks)
+    return ProductionState(
+        Path(project_root), "IN_PROGRESS" if active else "COMPLETE",
+        "minitz" if current is not None else None, current["task_id"] if current else None,
+        [section], run_id="minitz-task-program", priority_policy="MINITZ_TASK_PROGRAM",
+    )
+
+
+def _live_repository_identity(repo_root: Path) -> str:
+    try:
+        proc = subprocess.run(
+            ["git", "-C", str(Path(repo_root)), "remote", "get-url", "origin"],
+            text=True, capture_output=True, check=False, timeout=3,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return "UNKNOWN"
+    if proc.returncode != 0 or not proc.stdout.strip():
+        return "UNKNOWN"
+    remote = proc.stdout.strip()
+    match = re.match(r"^(?:https://github\.com/|git@github\.com:)([^/]+/[^/]+?)(?:\.git)?$", remote)
+    return match.group(1) if match else remote
+
+
 def _unquote(value: str) -> str:
     value = value.strip()
     return value[1:-1] if value.startswith("`") and value.endswith("`") else value
@@ -63,6 +130,8 @@ def production_path(project_root: Path) -> Path:
 
 def load_project_production(project_root: Path) -> ProductionState:
     project_root = Path(project_root)
+    if _use_minitz_project(project_root):
+        return _minitz_production(project_root)
     lines = production_path(project_root).read_text(encoding="utf-8").splitlines()
     status = "IN_PROGRESS"; current_section = current_task = None
     priority_policy = "CANONICAL_ORDER"
@@ -111,6 +180,13 @@ def find_task(production: ProductionState, task_id: str) -> TaskRecord:
 
 
 def next_task(production: ProductionState) -> TaskRecord | None:
+    if production.run_id == "minitz-task-program":
+        if production.current_task is None:
+            active = [task.id for section in production.sections for task in section.tasks if task.status in minitz.ACTIVE_STATUSES]
+            if active:
+                raise ValueError("MiniTZ active tasks exist but no executable current task: " + ",".join(active))
+            return None
+        return next(task for section in production.sections for task in section.tasks if task.id == production.current_task)
     for section in production.sections:
         if section.status in _COMPLETE:
             continue
@@ -126,6 +202,8 @@ def completed_count(production: ProductionState) -> int:
 
 
 def completed_demo_count(production: ProductionState) -> int:
+    if production.run_id == "minitz-task-program":
+        return 0
     demo = next((section for section in production.sections if section.id == "demo01"), None)
     if demo is None:
         return 0
@@ -142,6 +220,8 @@ def _replace_meta(lines: list[str], prefix: str, value: str | None) -> None:
 
 
 def sync_project_metadata(project_root: Path) -> ProductionState:
+    if _use_minitz_project(project_root):
+        return load_project_production(project_root)
     path = production_path(project_root)
     production = load_project_production(project_root)
     task = next_task(production)
@@ -196,6 +276,34 @@ def load_active_task(repo_root: Path) -> ActiveTask:
 
 
 def write_active_task(repo_root: Path, task: TaskRecord | None, *, project: str = "Biella Games", predecessor: str | None = None) -> None:
+    if _use_minitz_repo(repo_root):
+        path = active_task_path(repo_root)
+        program = minitz.load(); ident = minitz.program_identity(program)
+        if task is None:
+            text = (
+                "# 04 - MINITZ ACTIVE TASK PROJECTION\n\n```yaml\n"
+                "schema: minitz.active_task_projection/v1\n"
+                "projection_authority: false\n"
+                f"task_program: {ident['path']}\nprogram_revision: {ident['revision']}\nprogram_sha256: {ident['sha256']}\n\n"
+                "task:\n  id: NONE\n  project: MiniTZ\n  section: NONE\n  class: NONE\n"
+                "  title: No active MiniTZ task\n  status: COMPLETE\n  runner: STOPPED\n```\n"
+            )
+        else:
+            row = minitz.task_by_id(program, task.id); lane = minitz.task_lane(program, row)
+            text = (
+                "# 04 - MINITZ ACTIVE TASK PROJECTION\n\n```yaml\n"
+                "schema: minitz.active_task_projection/v1\nprojection_authority: false\n"
+                f"task_program: {ident['path']}\nprogram_id: {ident['program_id']}\nprogram_revision: {ident['revision']}\nprogram_sha256: {ident['sha256']}\n\n"
+                f"task:\n  id: {task.id}\n  project: MiniTZ\n  section: minitz\n  class: {task.task_class}\n"
+                f"  title: {task.title}\n  status: {task.status}\n  runner: READY\n  lane: {lane}\n"
+                f"  revision: {row['revision']}\n  task_sha256: {row['task_record_sha256']}\n\n"
+                "authority:\n  progression: MINITZ_TASK_PROGRAM_ONLY\n  derived_ledgers: NON_AUTHORITATIVE\n"
+                "  runner_and_auto_feeder: CONSUME_MINITZ_TASK_PROGRAM\n\n"
+                f"stop: Execute only the current MiniTZ task {task.id}; validate and persist before advancing.\n```\n"
+            )
+        if not path.exists() or path.read_text(encoding="utf-8") != text:
+            path.write_text(text, encoding="utf-8")
+        return
     from biella_execution_map import task_entry
     mapped = task_entry(repo_root, task.id) if task else None
     if mapped:
@@ -257,6 +365,44 @@ def _update_yaml_block(lines: list[str], block: str, fields: dict[str, str]) -> 
 
 def sync_current_state(repo_root: Path, production: ProductionState, task: TaskRecord | None, *, state: str = "PENDING") -> None:
     path = current_state_path(repo_root)
+    if _use_minitz_repo(repo_root):
+        program = minitz.load(); ident = minitz.program_identity(program); current = _minitz_current_row(program)
+        completed = sum(row.get("status") in minitz.COMPLETE_STATUSES for row in program["tasks"])
+        active_count = sum(row.get("status") in minitz.ACTIVE_STATUSES for row in program["tasks"])
+        execution = program.get("current_execution") if isinstance(program.get("current_execution"), dict) else {}
+        if current is None:
+            active_text = "  id: NONE\n  state: COMPLETE\n  runner: STOPPED\n"
+        else:
+            active_text = (
+                f"  id: {current['task_id']}\n  task_revision: {current['revision']}\n"
+                f"  task_sha256: {current['task_record_sha256']}\n  lane: {minitz.task_lane(program, current)}\n"
+                f"  state: {current['status']}\n  runner: READY\n"
+            )
+        continuity = ""
+        if execution.get("run_ref"):
+            continuity += f"  run_ref: {execution['run_ref']}\n"
+        if execution.get("session_ref"):
+            continuity += f"  session_ref: {execution['session_ref']}\n"
+        repository_identity = _live_repository_identity(repo_root)
+        text = (
+            "# 03 - MINITZ CURRENT STATE PROJECTION\n\n```yaml\n"
+            "schema: minitz.current_state_projection/v1\nstate_class: VOLATILE_CURRENT\nprojection_authority: false\n\n"
+            "authority:\n  progression_source: MINITZ_TASK_PROGRAM_ONLY\n"
+            f"  task_program_path: {ident['path']}\n  program_id: {ident['program_id']}\n"
+            f"  program_revision: {ident['revision']}\n  program_sha256: {ident['sha256']}\n"
+            "  task_program_authority: true\n  production_execution_authority: true\n  production_order_status_authority: true\n\n"
+            f"repository:\n  repository: {repository_identity}\n  branch: main\n"
+            "  canonical_checkout: /root/biella/repos/biella-engine\n  source_identity_source: LIVE_GIT_READ_REQUIRED\n\n"
+            "active_execution:\n" + active_text + continuity +
+            "  runtime_state_source: /mnt/biella-extra/biella-runtime/codex-production/runtime.json\n\n"
+            f"progress:\n  completed_tasks: {completed}\n  active_tasks: {active_count}\n  total_tasks: {len(program['tasks'])}\n\n"
+            "execution_invariants:\n  one_task_program: true\n  derived_ledgers_authority: false\n"
+            "  runner_and_auto_feeder_source: MINITZ_TASK_PROGRAM_ONLY\n  hidden_task_queue_allowed: false\n"
+            "  publication_cursor_authority: false\n  local_qwen_authority: false\n```\n"
+        )
+        if not path.exists() or path.read_text(encoding="utf-8") != text:
+            path.write_text(text, encoding="utf-8")
+        return
     if not path.exists():
         return
     lines = path.read_text(encoding="utf-8").splitlines()
@@ -317,6 +463,11 @@ def _block_field(text: str, block: str, field: str) -> str | None:
 
 
 def resolve_current_task(repo_root: Path, project_root: Path) -> TaskRecord | None:
+    if _use_minitz_project(project_root):
+        production = load_project_production(project_root); current = next_task(production)
+        write_active_task(repo_root, current, predecessor=_previous_completed_task(production, current.id) if current else None)
+        sync_current_state(repo_root, production, current, state=current.status if current else "COMPLETE")
+        return current
     production = sync_project_metadata(project_root)
     task_ledger.sync_task_ledger(repo_root, production)
     current = next_task(production)
@@ -355,7 +506,10 @@ def resolve_current_task(repo_root: Path, project_root: Path) -> TaskRecord | No
 
 
 def defer_pending_task_after(project_root: Path, task_id: str, after_task_id: str) -> ProductionState:
-    """Move one pending row later in the same canonical section without changing status/evidence."""
+    """Move one active task later without changing its completion evidence."""
+    if _use_minitz_project(project_root):
+        minitz.defer_task_after(task_id, after_task_id, reason=f"Controller resource deferral: {task_id} after {after_task_id}")
+        return load_project_production(project_root)
     canonical = task_ids.canonical_task_id(task_id)
     after = task_ids.canonical_task_id(after_task_id)
     production = load_project_production(project_root)
@@ -386,7 +540,12 @@ def defer_pending_task_after(project_root: Path, task_id: str, after_task_id: st
 
 
 def activate_project_frontier(repo_root: Path, project_root: Path) -> tuple[ProductionState, TaskRecord | None]:
-    """Refresh 03/04 from the canonical physical order after an explicit order change."""
+    """Refresh derived 03/04 from the canonical MiniTZ order after an explicit order change."""
+    if _use_minitz_project(project_root):
+        production = load_project_production(project_root); task = next_task(production)
+        write_active_task(repo_root, task, predecessor=_previous_completed_task(production, task.id) if task else None)
+        sync_current_state(repo_root, production, task, state=task.status if task else "COMPLETE")
+        return production, task
     production = sync_project_metadata(project_root); task = next_task(production)
     predecessor = _previous_completed_task(production, task.id) if task else None
     write_active_task(repo_root, task, predecessor=predecessor)
@@ -397,6 +556,12 @@ def activate_project_frontier(repo_root: Path, project_root: Path) -> tuple[Prod
 def mark_task_complete(repo_root: Path, project_root: Path, task_id: str, status: str, evidence: Sequence[str]) -> ProductionState:
     if status not in _COMPLETE:
         raise ValueError("completion status required")
+    if _use_minitz_project(project_root):
+        minitz.complete_task(task_id, status, evidence)
+        production = load_project_production(project_root); successor = next_task(production)
+        write_active_task(repo_root, successor, predecessor=task_id)
+        sync_current_state(repo_root, production, successor, state=successor.status if successor else "COMPLETE")
+        return production
     canonical_id = task_ids.canonical_task_id(task_id)
     path = production_path(project_root)
     lines = path.read_text(encoding="utf-8").splitlines()
@@ -420,6 +585,8 @@ def mark_task_complete(repo_root: Path, project_root: Path, task_id: str, status
 
 
 def mark_section_status(project_root: Path, section_id: str, status: str) -> ProductionState:
+    if _use_minitz_project(project_root):
+        raise ValueError("MiniTZ Task Program has no independently mutable section status")
     path = production_path(project_root)
     lines = path.read_text(encoding="utf-8").splitlines()
     found = False
@@ -439,6 +606,8 @@ _ALLOWED_TASK_CLASSES = {"simple", "medium", "creation", "hard", "deep_memory", 
 
 
 def apply_section_plan(repo_root: Path, project_root: Path, section_id: str, plan: dict) -> ProductionState:
+    if _use_minitz_project(project_root):
+        raise ValueError("MiniTZ forbids section planning as a second task queue")
     if plan.get("section_id") != section_id:
         raise ValueError("section plan id mismatch")
     production = load_project_production(project_root)

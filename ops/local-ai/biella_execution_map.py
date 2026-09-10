@@ -2,13 +2,40 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any
 
-MAP_PATH = "docs/task-program/D_NEXT_100_TASKS.json"
+import minitz_task_program as minitz
+
+MAP_PATH = "docs/task-program/D_NEXT_100_TASKS.json"  # noncanonical test fixture compatibility only
+_CANONICAL_REPO_ROOT = Path("/root/biella/repos/biella-engine")
+
+
+def _use_minitz(repo: Path) -> bool:
+    return bool(os.environ.get("MINITZ_TASK_PROGRAM_PATH")) or Path(repo).resolve() == _CANONICAL_REPO_ROOT
 
 
 def load_map(repo: Path) -> dict[str, Any]:
+    if _use_minitz(repo):
+        program = minitz.load(); ident = minitz.program_identity(program); tasks = []
+        for ordinal, row in enumerate(program["tasks"], 1):
+            scope = row.get("write_scope") if isinstance(row.get("write_scope"), dict) else {}
+            tasks.append({
+                "task_id": row["task_id"], "revision": row["revision"], "status": row["status"],
+                "task_sha256": row["task_record_sha256"], "ordinal": ordinal,
+                "lane": minitz.task_lane(program, row), "execution_root": scope.get("execution_root"),
+                "allowed_paths": list(scope.get("allowed_paths") or []), "write_authority": scope.get("authority"),
+                "depends_on": list(minitz.hard_dependencies(row)), "objective": row.get("objective"),
+                "deliverable": row.get("deliverables") or [], "validation": row.get("validation") or [],
+                "required_evidence": row.get("required_evidence") or [], "source_refs": row.get("source_refs") or [],
+                "external_input_evidence_required": False,
+            })
+        return {
+            "schema": "minitz.task_execution_projection/v1", "registry_is_queue": False,
+            "execution_authority": False, "order_authority": False, "status_authority": False,
+            "task_program": ident, "tasks": tasks,
+        }
     path = Path(repo) / MAP_PATH
     if not path.is_file():
         return {"tasks": [], "registry_is_queue": False}
@@ -26,6 +53,14 @@ def task_working_directory(repo: Path, default: Path, task_id: str) -> Path:
     entry = task_entry(repo, task_id)
     if entry is None:
         return Path(default)
+    if _use_minitz(repo):
+        program = minitz.load(); row = minitz.task_by_id(program, task_id); target = minitz.execution_root(row)
+        if not target.is_dir():
+            raise FileNotFoundError(f"MiniTZ execution directory is missing: {target}")
+        allowed = (row.get("write_scope") or {}).get("allowed_paths") or []
+        if not allowed and (row.get("write_scope") or {}).get("authority") != "READ_ONLY":
+            raise ValueError(f"MiniTZ task has no bounded write paths: {task_id}")
+        return target
     root = Path(repo).resolve()
     target = (root / entry["execution_root"]).resolve()
     target.relative_to(root)
@@ -38,9 +73,18 @@ def task_context(repo: Path, task_id: str) -> str:
     entry = task_entry(repo, task_id)
     if entry is None:
         return ""
+    if _use_minitz(repo):
+        program = minitz.load(); row = minitz.task_by_id(program, task_id); ident = minitz.program_identity(program)
+        payload = {"task_program": ident, "task": row, "projection_authority": False}
+        return (
+            "\nCURRENT_MINITZ_TASK\n"
+            "This is the exact current task from the one living MiniTZ Task Program. No ledger, map, runner, helper, or session may advance or reorder it independently.\n"
+            + json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2)
+            + "\nEND_CURRENT_MINITZ_TASK\n"
+        )
     return (
         "\nCURRENT_TASK_EXECUTION_MAP\n"
-        "Only this task is loaded. PRODUCTION.md owns status/order; this map supplies scoped work and evidence, not another queue.\n"
+        "Noncanonical fixture map; it has no production authority.\n"
         + json.dumps(entry, ensure_ascii=False, sort_keys=True, indent=2)
         + "\nEND_CURRENT_TASK_EXECUTION_MAP\n"
         "Reuse material-input-matching evidence. Implement only unmet requirements. No repeated approvals, invented scope, full-program context preload, or completion from a self-report. "
@@ -77,8 +121,10 @@ def _render_human_readable(data: dict[str, Any]) -> str:
 
 
 def sync_production_order(repo: Path, production: Any) -> dict[str, Any]:
-    """Keep the non-authoritative task map's order metadata aligned to canonical PRODUCTION.md."""
+    """Return a derived projection; MiniTZ production order is never copied into another mutable list."""
     repo = Path(repo); data = load_map(repo)
+    if _use_minitz(repo):
+        return data
     order = [task.id for section in production.sections for task in section.tasks]
     positions = {task_id: index for index, task_id in enumerate(order, 1)}
     tasks = list(data.get("tasks", []))

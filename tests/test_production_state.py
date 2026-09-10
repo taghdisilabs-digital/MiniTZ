@@ -222,3 +222,118 @@ def test_sync_current_state_removes_volatile_runtime_snapshots_and_updates_progr
     assert "current_section: demo01" in updated
     assert "completed_tasks: 1" in updated
     assert "total_tasks: 3" in updated
+
+
+def _write_minitz_program(path: Path, task_ids=("UNIFY-01", "UNIFY-02")) -> Path:
+    import json
+    tasks = []
+    for task_id in task_ids:
+        row = {
+            "task_id": task_id,
+            "revision": 1,
+            "status": "PENDING",
+            "title": f"Execute {task_id}",
+            "active_task_survival": True,
+            "review_state": "VALUE_GATE_PASSED",
+            "dependencies": [],
+            "scope": {"system": "MiniTZ"},
+            "source_refs": [],
+            "acceptance": ["validated current-task completion"],
+        }
+        row["task_record_sha256"] = state.minitz.task_digest(row)
+        tasks.append(row)
+    program = {
+        "schema": "minitz.living_task_program/v1",
+        "program_id": "MINITZ_REBORN_SINGLE_TASK_PROGRAM",
+        "single_transformation_lineage": True,
+        "intended_final_task_program_count": 1,
+        "task_program_authority": True,
+        "production_execution_authority": True,
+        "production_order_status_authority": True,
+        "current_live_production_authority": str(path.resolve()),
+        "dependency_types": list(state.minitz.DEPENDENCY_TYPES),
+        "revision": 1,
+        "status": "ACTIVE_MINITZ_TASK_PROGRAM",
+        "task_count": len(tasks),
+        "tasks": tasks,
+        "current_execution": {
+            "task_id": tasks[0]["task_id"],
+            "task_revision": tasks[0]["revision"],
+            "task_sha256": tasks[0]["task_record_sha256"],
+        },
+    }
+    path.write_text(json.dumps(program, indent=2) + "\n", encoding="utf-8")
+    return path
+
+
+def _write_minitz_projection_fixture(tmp_path: Path, monkeypatch):
+    repo = tmp_path / "repo"
+    project = repo / "project"
+    (repo / "docs/project-state").mkdir(parents=True)
+    project.mkdir()
+    (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").write_text("stale\n")
+    (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").write_text("stale\n")
+    program = _write_minitz_program(tmp_path / "TASK_PROGRAM.json")
+    monkeypatch.setenv("MINITZ_TASK_PROGRAM_PATH", str(program))
+    return repo, project, program
+
+
+def test_minitz_resolution_does_not_require_precompiled_write_scope(tmp_path: Path, monkeypatch):
+    repo, project, _program = _write_minitz_projection_fixture(tmp_path, monkeypatch)
+    resolved = state.resolve_current_task(repo, project)
+    assert resolved is not None
+    assert resolved.id == "UNIFY-01"
+    assert "MINITZ ACTIVE TASK PROJECTION" in (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").read_text()
+    assert "MINITZ CURRENT STATE PROJECTION" in (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_text()
+
+
+def test_minitz_completion_advances_to_successor_without_precompiled_write_scope(tmp_path: Path, monkeypatch):
+    repo, project, _program = _write_minitz_projection_fixture(tmp_path, monkeypatch)
+    state.mark_task_complete(repo, project, "UNIFY-01", "COMPLETE", ["validator pass"])
+    production = state.load_project_production(project)
+    assert state.find_task(production, "UNIFY-01").status == "COMPLETE"
+    assert production.current_task == "UNIFY-02"
+    assert state.resolve_current_task(repo, project).id == "UNIFY-02"
+
+
+def test_minitz_runner_falls_back_to_canonical_repo_when_scope_is_not_precompiled(tmp_path: Path, monkeypatch):
+    repo, project, _program = _write_minitz_projection_fixture(tmp_path, monkeypatch)
+    import biella_production_runner as runner
+    assert runner._task_working_directory(repo, project, "UNIFY-01") == repo.resolve()
+
+
+def test_runner_reads_live_minitz_owner_direction(tmp_path: Path, monkeypatch):
+    repo, project, program_path = _write_minitz_projection_fixture(tmp_path, monkeypatch)
+    import json
+    program = json.loads(program_path.read_text())
+    program["owner_direction"] = {
+        "identity": "MiniTZ",
+        "owner": "Mahdi Taghdisi Neghab",
+        "organization": "TaghdisiLabs.Digital",
+        "contact": "Solo@taghdisilabs.digital",
+        "project_brand_injection": "FORBIDDEN_UNLESS_PROJECT_EXPLICITLY_REQUIRES_IT",
+        "automatic_task_progression": "MANDATORY",
+        "validator_creation": "AUTOMATIC_WHEN_REQUIRED",
+    }
+    program_path.write_text(json.dumps(program, indent=2) + "\n")
+    import biella_production_runner as runner
+    rendered = runner._minitz_owner_direction(project)
+    assert "Mahdi Taghdisi Neghab" in rendered
+    assert "TaghdisiLabs.Digital" in rendered
+    assert "Solo@taghdisilabs.digital" in rendered
+    assert "FORBIDDEN_UNLESS_PROJECT_EXPLICITLY_REQUIRES_IT" in rendered
+    assert "AUTOMATIC_WHEN_REQUIRED" in rendered
+
+
+def test_minitz_state_projection_uses_live_git_remote_identity(tmp_path: Path, monkeypatch):
+    repo, project, _program = _write_minitz_projection_fixture(tmp_path, monkeypatch)
+    import subprocess
+    subprocess.run(["git", "-C", str(repo), "init", "-q"], check=True)
+    subprocess.run([
+        "git", "-C", str(repo), "remote", "add", "origin",
+        "https://github.com/taghdisilabs-digital/MiniTZ.git",
+    ], check=True)
+    state.resolve_current_task(repo, project)
+    rendered = (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_text()
+    assert "repository: taghdisilabs-digital/MiniTZ" in rendered
+    assert "patrickminitz-web" not in rendered

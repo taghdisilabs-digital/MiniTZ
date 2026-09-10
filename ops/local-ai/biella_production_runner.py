@@ -10,6 +10,7 @@ import re
 import subprocess
 import sys
 import time
+import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
@@ -17,6 +18,8 @@ from typing import Any, Callable, Mapping, Sequence
 import biella_codex_routing as routing
 import biella_execution_style as execution_style
 import biella_memory_compactor as memory_compactor
+import minitz_taskbooster as taskbooster
+import minitz_task_program as minitz
 import biella_production_evidence as evidence
 import biella_production_events as production_events
 import biella_production_state as state
@@ -286,15 +289,75 @@ def _bounded_packet_id(repo_root: Path, project_root: Path, task: state.TaskReco
     return digest.hexdigest()
 
 
+def _task_working_directory(repo_root: Path, project_root: Path, task_id: str) -> Path:
+    if state._use_minitz_project(Path(project_root)):
+        program = minitz.load()
+        row = minitz.task_by_id(program, task_id)
+        scope = row.get("write_scope")
+        if isinstance(scope, dict):
+            return minitz.execution_root(row)
+        return Path(repo_root).resolve()
+    return execution_map.task_working_directory(repo_root, project_root, task_id)
+
+
+def _simple_task_resource_context(repo_root: Path, project_root: Path, task: state.TaskRecord) -> tuple[bool, bool]:
+    working_root = _task_working_directory(repo_root, project_root, task.id)
+    parts = [task.title, *task.evidence]
+    guide = Path(project_root) / "docs" / "task-guides" / f"{task.id}.md"
+    if guide.is_file():
+        parts.append(guide.read_text(encoding="utf-8", errors="replace")[:12000])
+    context = "\n".join(str(part) for part in parts if str(part).strip())
+    grounded = bool(taskbooster.extract_grounded_targets(context, working_root))
+    read_only = grounded and bool(re.search(r"\b(?:read[- ]?only|inspect|audit|verify|review|analy(?:se|ze)|diagnos(?:e|tic))\b", context, re.I))
+    return grounded, read_only
+
+
+def _simple_helper_attempted_models(telemetry: Mapping[str, Any], task_id: str, packet_id: str) -> set[str]:
+    current = telemetry.get("simple_resource_attempts")
+    if not isinstance(current, Mapping) or current.get("task_id") != task_id or current.get("task_state_digest") != packet_id:
+        return set()
+    models = current.get("models")
+    return {str(model) for model in models} if isinstance(models, list) else set()
+
+
+def _record_simple_helper_attempt(telemetry: dict[str, Any], task_id: str, packet_id: str, route: routing.Route) -> None:
+    if not routing.is_bounded_fallback(route):
+        return
+    attempted = _simple_helper_attempted_models(telemetry, task_id, packet_id)
+    attempted.add(route.model)
+    telemetry["simple_resource_attempts"] = {
+        "task_id": task_id, "task_state_digest": packet_id, "models": sorted(attempted),
+        "authority": "NONE",
+    }
+
+
 def _select_task_route(task: state.TaskRecord, catalog: Mapping[str, set[str]], cooldowns: Mapping[str, str], now: datetime, telemetry: Mapping[str, Any], repo_root: Path, project_root: Path) -> tuple[routing.Route | None, str | None]:
+    packet_id = _bounded_packet_id(repo_root, project_root, task)
+    if task.task_class == "simple":
+        grounded, read_only = _simple_task_resource_context(repo_root, project_root, task)
+        local_model = os.environ.get("BIELLA_CODEX_LOCAL_MODEL", "qwen3-coder-next:biella")
+        qwen_available = _local_qwen_resident() and local_model in catalog and "local" in catalog.get(local_model, set())
+        spark_available = "xhigh" in catalog.get("gpt-5.3-codex-spark", set())
+        attempted = _simple_helper_attempted_models(telemetry, task.id, packet_id)
+        for decision in routing.simple_resource_plan(
+            task.task_class, deterministic_command=None, grounded_context=grounded,
+            local_qwen_resident=qwen_available, spark_available=spark_available,
+            read_only_microanalysis=read_only,
+        ):
+            if decision.kind == "LOCAL_QWEN" and local_model not in attempted:
+                return routing.Route(local_model, "none", "ollama"), packet_id
+            if decision.kind == "SPARK" and "gpt-5.3-codex-spark" not in attempted:
+                return routing.Route("gpt-5.3-codex-spark", "xhigh"), packet_id
+            if decision.kind == "GENERAL_CODEX":
+                break
     try:
         route = routing.select_route(task.task_class, catalog, cooldowns, now)
     except RuntimeError:
         return None, None
-    return route, _bounded_packet_id(repo_root, project_root, task) if routing.is_bounded_fallback(route) else None
+    return route, packet_id if routing.is_bounded_fallback(route) else None
 
 def _write_task_capsule(repo_root: Path, project_root: Path, runtime_root: Path, task: state.TaskRecord, telemetry: Mapping[str, Any]) -> Path:
-    project_root = execution_map.task_working_directory(repo_root, project_root, task.id)
+    project_root = _task_working_directory(repo_root, project_root, task.id)
     path = _task_capsule_path(runtime_root, task.id)
     existing: Mapping[str, Any] = {}
     if path.exists():
@@ -380,18 +443,33 @@ def _emit_validation_evidence(repo_root: Path, project_root: Path, result: evide
                     continue
 
 
-def _task_prompt(repo_root: Path, production: state.ProductionState, task: state.TaskRecord, telemetry: Mapping[str, Any], capsule_path: Path, projection_path: Path | None = None, local_assist_path: Path | None = None, route: routing.Route | None = None) -> str:
+def _minitz_owner_direction(project_root: Path) -> str:
+    if not state._use_minitz_project(Path(project_root)):
+        return ""
+    program = minitz.load()
+    direction = program.get("owner_direction")
+    if not isinstance(direction, Mapping) or not direction:
+        return ""
+    return (
+        "\nMINITZ_OWNER_DIRECTION\n"
+        + json.dumps(dict(direction), ensure_ascii=False, sort_keys=True, indent=2)
+        + "\nEND_MINITZ_OWNER_DIRECTION\n"
+    )
+
+
+def _task_prompt(repo_root: Path, production: state.ProductionState, task: state.TaskRecord, telemetry: Mapping[str, Any], capsule_path: Path, projection_path: Path | None = None, local_assist_path: Path | None = None, taskbooster_path: Path | None = None, route: routing.Route | None = None) -> str:
     guide_path = Path(production.project_root) / "docs" / "task-guides" / f"{task.id}.md"
-    priority_context = f"\nPRODUCTION_PRIORITY: {production.priority_policy}. Follow physical PRODUCTION.md order, not numeric task IDs. Preserve accepted output and required quality.\n"
+    priority_context = f"\nMINITZ_TASK_PROGRAM: {production.priority_policy}. Follow the exact living MiniTZ Task Program order/status and current Task/Run continuity. No ledger, map, helper, or session may advance it independently. Preserve accepted output and required quality.\n"
+    owner_context = _minitz_owner_direction(production.project_root)
     if route is not None and routing.is_bounded_fallback(route):
-        return priority_context + packets.compile_bounded_fallback_packet(task, capsule_path, projection_path, guide_path if guide_path.exists() else None) + execution_map.task_context(repo_root, task.id)
+        return priority_context + owner_context + packets.compile_bounded_fallback_packet(task, capsule_path, projection_path, guide_path if guide_path.exists() else None) + execution_map.task_context(repo_root, task.id)
     if _resume_session_for(telemetry, task.id):
         prompt = packets.compile_resume_packet(task, capsule_path)
     else:
         prompt = packets.compile_task_packet(repo_root, production, task)
         if capsule_path.exists():
             prompt += f"\nTASK_MEMORY: {capsule_path}\nRead this bounded recovery capsule before redoing any existing work.\n"
-    prompt = priority_context + prompt
+    prompt = priority_context + owner_context + prompt
     if guide_path.exists():
         guide_text = guide_path.read_text(encoding="utf-8")[:12000]
         prompt += (
@@ -412,6 +490,13 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
             f"\nLOCAL_RESOURCE_ASSIST: {local_assist_path}\n"
             "This local-Qwen output is non-authoritative bounded assistance. Reuse useful analysis, validate it against current source/evidence, "
             "and do not repeat its work with Codex unless validation or missing detail requires it.\n"
+        )
+    if taskbooster_path and Path(taskbooster_path).exists():
+        prompt += (
+            f"\nTASKBOOSTER_ASSIST: {taskbooster_path}\n"
+            "This Spark TaskBooster result is non-authoritative, read-only, evidence-grounded assistance produced for one exact microtask. "
+            "Validate it against current source/evidence before reuse. It cannot complete, advance, reorder, commit, publish, or mutate the task. "
+            "Do not repeat its analysis unless validation or missing detail requires it.\n"
         )
     alignment = telemetry.get("source_alignment") or {}
     if alignment.get("state") == "RECONCILIATION_REQUIRED":
@@ -461,7 +546,8 @@ def _assist_projection_payload(projection: Mapping[str, Any]) -> dict[str, Any]:
         failures.append({
             key: row.get(key) for key in (
                 "task_id", "failure_type", "type", "status", "text",
-                "detail", "diagnostic", "tool", "exit_code", "evidence"
+                "detail", "diagnostic", "tool", "exit_code", "evidence",
+                "helper_budget_seconds", "elapsed_seconds", "provider", "model", "event_type"
             ) if row.get(key) is not None
         })
     return {
@@ -597,6 +683,35 @@ def _assist_invented_failure_claim(text: str, failures: list[Mapping[str, Any]])
     return None
 
 
+_QWEN_HELPER_BUDGET_SECONDS = 90.0
+_SPARK_HELPER_BUDGET_SECONDS = 180.0
+
+
+def _helper_failure_cools_model(failure_type: str) -> bool:
+    del failure_type
+    return False
+
+
+def _helper_process_failure_type(detail: str) -> str:
+    text = str(detail or "").lower()
+    unavailable = ("connection refused", "failed to connect", "service unavailable", "no route to host", "provider unavailable")
+    return "PROVIDER_UNAVAILABLE" if any(token in text for token in unavailable) else "PROCESS_FAILED"
+
+
+def _emit_helper_failure(journal: production_events.ProductionEventJournal | None, event_type: str, *,
+                         task_id: str, failure_type: str, budget_seconds: float, started: float,
+                         text: str, provider: str, model: str | None = None, raw_result_path: Path | None = None,
+                         detail: str | None = None, exit_code: int | None = None, status: str = "ERROR") -> None:
+    if journal is None:
+        return
+    journal.emit(
+        event_type, task_id=task_id, status=status, text=text, provider=provider, model=model,
+        failure_type=failure_type, helper_budget_seconds=budget_seconds,
+        elapsed_seconds=max(0.0, time.monotonic() - started),
+        raw_result_path=str(raw_result_path) if raw_result_path else None, detail=detail, exit_code=exit_code,
+    )
+
+
 def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_path: Path, journal: production_events.ProductionEventJournal | None = None, *, project_root: Path | None = None) -> Path | None:
     try:
         projection = json.loads(Path(projection_path).read_text(encoding="utf-8"))
@@ -616,6 +731,7 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
     safe_task = str(task_id).replace("/", "_")
     path = Path(runtime_root) / "memory" / "local-assist" / f"{safe_task}-{digest[:20]}.json"
     rejected_path = path.with_suffix(path.suffix + ".rejected")
+    raw_path = path.with_suffix(path.suffix + ".raw.json")
     if rejected_path.exists():
         return None
     if path.exists():
@@ -650,8 +766,6 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
             journal.emit("resource.local_assist_recovery", task_id=task_id, status="RECOVERED", text=recovery_text, provider="ollama-qwen")
         return None
     task_class = str((meaningful.get("task_memory") or {}).get("task_class") or "")
-    if task_class == "simple" and not meaningful.get("failures"):
-        return None
     prompt = (
         "You are Biella's bounded local Qwen execution assistant. Do not decide authority or completion. "
         "Use the compact task state below to reduce general Codex reasoning. Return a concise technical assist: "
@@ -668,21 +782,36 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
     ]
     if journal is not None:
         journal.emit("resource.local_assist_started", task_id=task_id, status="RUNNING", text=digest[:20], provider="ollama-qwen")
+    helper_started = time.monotonic()
     try:
-        proc = subprocess.run(argv, text=True, capture_output=True, timeout=90, check=False)
-    except (OSError, subprocess.TimeoutExpired) as exc:
-        if journal is not None:
-            journal.emit("resource.local_assist_failed", task_id=task_id, status="ERROR", text=str(exc), provider="ollama-qwen")
+        proc = subprocess.run(argv, text=True, capture_output=True, timeout=_QWEN_HELPER_BUDGET_SECONDS, check=False)
+    except subprocess.TimeoutExpired as exc:
+        raw_path.parent.mkdir(parents=True, exist_ok=True)
+        partial = exc.output.decode("utf-8", errors="replace") if isinstance(exc.output, bytes) else str(exc.output or "")
+        raw_path.write_text(partial, encoding="utf-8")
+        _emit_helper_failure(journal, "resource.local_assist_failed", task_id=task_id,
+            failure_type="HELPER_DEADLINE_EXCEEDED", budget_seconds=_QWEN_HELPER_BUDGET_SECONDS, started=helper_started,
+            text="Local Qwen helper deadline exceeded", provider="ollama-qwen", raw_result_path=raw_path)
         return None
+    except OSError as exc:
+        _emit_helper_failure(journal, "resource.local_assist_failed", task_id=task_id,
+            failure_type="PROVIDER_UNAVAILABLE", budget_seconds=_QWEN_HELPER_BUDGET_SECONDS, started=helper_started,
+            text=str(exc), provider="ollama-qwen")
+        return None
+    raw_path.parent.mkdir(parents=True, exist_ok=True)
+    raw_path.write_text(proc.stdout or "", encoding="utf-8")
     if proc.returncode != 0:
-        if journal is not None:
-            journal.emit("resource.local_assist_failed", task_id=task_id, status="ERROR", text=(proc.stderr or proc.stdout or "local assist failed")[-1600:], provider="ollama-qwen")
+        detail = (proc.stderr or proc.stdout or "local assist failed")[-1600:]
+        _emit_helper_failure(journal, "resource.local_assist_failed", task_id=task_id,
+            failure_type=_helper_process_failure_type(detail), budget_seconds=_QWEN_HELPER_BUDGET_SECONDS, started=helper_started,
+            text=detail, provider="ollama-qwen", raw_result_path=raw_path, exit_code=proc.returncode)
         return None
     try:
         payload = json.loads(proc.stdout)
     except json.JSONDecodeError:
-        if journal is not None:
-            journal.emit("resource.local_assist_failed", task_id=task_id, status="ERROR", text="Local assist returned invalid JSON", provider="ollama-qwen")
+        _emit_helper_failure(journal, "resource.local_assist_failed", task_id=task_id,
+            failure_type="INVALID_RESULT", budget_seconds=_QWEN_HELPER_BUDGET_SECONDS, started=helper_started,
+            text="Local assist returned invalid JSON", provider="ollama-qwen", raw_result_path=raw_path)
         return None
     assist_text = str(payload.get("text") or "")
     missing_paths = _assist_unresolved_paths(assist_text, project_root)
@@ -703,9 +832,12 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
         else:
             rejection = {"reason":"ungrounded_paths","paths":missing_paths}
             recovery_text = "Rejected local assist with ungrounded paths: " + ", ".join(missing_paths)
+        rejection["raw_result_path"] = str(raw_path)
+        rejection["raw_sha256"] = hashlib.sha256((proc.stdout or "").encode("utf-8")).hexdigest()
         rejected_path.write_text(json.dumps(rejection, sort_keys=True) + "\n", encoding="utf-8")
-        if journal is not None:
-            journal.emit("resource.local_assist_recovery", task_id=task_id, status="RECOVERED", text=recovery_text, provider="ollama-qwen")
+        _emit_helper_failure(journal, "resource.local_assist_recovery", task_id=task_id,
+            failure_type="VALIDATION_REJECTED", budget_seconds=_QWEN_HELPER_BUDGET_SECONDS, started=helper_started,
+            text=recovery_text, provider="ollama-qwen", raw_result_path=raw_path, detail=str(rejected_path), status="RECOVERED")
         return None
     result = {
         "schema": "biella.local_resource_assist/v1",
@@ -715,6 +847,7 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
         "model": payload.get("model"),
         "text": assist_text,
         "usage": payload.get("usage") or {},
+        "raw_result_path": str(raw_path),
         "created_at": datetime.now(timezone.utc).isoformat(),
         "authority": "NON_AUTHORITATIVE_RESOURCE_ASSIST",
     }
@@ -725,6 +858,253 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
     if journal is not None:
         journal.emit("resource.local_assist_completed", task_id=task_id, status="COMPLETE", text=str(path), provider=str(result.get("provider") or "ollama-qwen"), model=str(result.get("model") or ""))
     return path
+
+
+
+def _taskbooster_atomic_json(path: Path, payload: Mapping[str, Any]) -> None:
+    path = Path(path); path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n", encoding="utf-8")
+    os.replace(tmp, path)
+
+
+def _taskbooster_prompt(packet: Mapping[str, Any]) -> str:
+    return (
+        "You are MiniTZ Spark TaskBooster, a non-authoritative read-only microtask assistant. "
+        "Work only on the exact objective and allowed_reads in the packet. Do not inspect other paths, do not use web search, "
+        "do not mutate files, do not advance/complete/reorder tasks, and do not invent symbols, failures, commands, paths, or evidence. "
+        "A USEFUL finding requires exact current evidence_refs with path, SHA-256, line range, and exact quote. "
+        "candidate_patch is text only and may mention only allowlisted paths. recommended_commands must be empty unless the packet explicitly allows the exact command. "
+        "Return only the requested structured result.\n\nTASKBOOSTER_PACKET_JSON:\n"
+        + json.dumps(dict(packet), sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    )
+
+
+def _taskbooster_reject(base: Path, task_id: str, packet: Mapping[str, Any], reason: str,
+                        raw_text: str, journal: production_events.ProductionEventJournal | None,
+                        *, raw_result_path: Path | None = None, evidence_items: Sequence[str] = (),
+                        failure_type: str = "VALIDATION_REJECTED", helper_started: float | None = None,
+                        exit_code: int | None = None) -> Path:
+    short = str(packet.get("booster_id") or "TB").replace(":", "_")
+    rejected = Path(base) / f"{str(task_id).replace('/', '_')}-{short}.rejected.json"
+    payload = taskbooster.failure_evidence(reason, raw_text)
+    payload.update({
+        "task_id": task_id, "booster_id": packet.get("booster_id"),
+        "raw_result_path": str(raw_result_path) if raw_result_path else None,
+        "evidence": list(evidence_items),
+    })
+    _taskbooster_atomic_json(rejected, payload)
+    event_type = "resource.taskbooster_failed" if failure_type in {"HELPER_DEADLINE_EXCEEDED", "PROVIDER_UNAVAILABLE", "PROCESS_FAILED"} else "resource.taskbooster_rejected"
+    _emit_helper_failure(
+        journal, event_type, task_id=task_id, failure_type=failure_type,
+        budget_seconds=_SPARK_HELPER_BUDGET_SECONDS, started=helper_started if helper_started is not None else time.monotonic(),
+        text=reason, provider="openai", model="gpt-5.3-codex-spark", raw_result_path=raw_result_path,
+        detail="; ".join(evidence_items), exit_code=exit_code,
+    )
+    return rejected
+
+
+def _ensure_taskbooster_assist(repo_root: Path, project_root: Path, runtime_root: Path,
+                               task: state.TaskRecord, strong_route: routing.Route,
+                               catalog: Mapping[str, set[str]], local_assist_path: Path | None,
+                               journal: production_events.ProductionEventJournal | None = None) -> Path | None:
+    if routing.is_bounded_fallback(strong_route):
+        return None
+    levels = catalog.get("gpt-5.3-codex-spark", set())
+    if "xhigh" not in levels or local_assist_path is None or not Path(local_assist_path).is_file():
+        return None
+    try:
+        local_assist = json.loads(Path(local_assist_path).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        if journal is not None:
+            journal.emit("resource.taskbooster_rejected", task_id=task.id, status="ERROR", text="INVALID_LOCAL_ASSIST", detail=str(exc))
+        return None
+    working_root = _task_working_directory(repo_root, project_root, task.id)
+    task_state_digest = _bounded_packet_id(repo_root, project_root, task)
+    packet = taskbooster.compile_packet(
+        task_id=task.id, task_state_digest=task_state_digest,
+        objective=f"{task.id}: {task.title}. Produce one exact evidence-grounded technical micro-analysis for the authoritative strong turn.",
+        acceptance=("Every USEFUL finding cites exact allowlisted current-source lines.",
+                    "Do not mutate files, execute unapproved commands, or decide task completion/advancement."),
+        scope_root=working_root, local_assist=local_assist,
+    )
+    if not packet.get("allowed_reads"):
+        return None
+    base = Path(runtime_root) / "memory" / "taskbooster"
+    base.mkdir(parents=True, exist_ok=True)
+    safe = str(task.id).replace("/", "_")
+    short = str(packet["booster_id"]).replace(":", "_")
+    accepted_path = base / f"{safe}-{short}.json"
+    rejected_path = base / f"{safe}-{short}.rejected.json"
+    raw_path = base / f"{safe}-{short}.raw.json"
+    trace_path = base / f"{safe}-{short}.trace.json"
+    schema_path = base / "taskbooster-result.schema.json"
+    if rejected_path.exists():
+        return None
+    if accepted_path.exists():
+        try:
+            cached = json.loads(accepted_path.read_text(encoding="utf-8"))
+            cached_result = cached.get("result") if isinstance(cached, Mapping) else None
+            if isinstance(cached_result, Mapping):
+                checked = taskbooster.validate_result(packet, cached_result, working_root,
+                                                      current_task_state_digest=_bounded_packet_id(repo_root, project_root, task))
+                if checked.accepted:
+                    return accepted_path
+        except (OSError, json.JSONDecodeError):
+            pass
+    schema_payload = taskbooster.booster_result_schema()
+    expected_schema = json.dumps(schema_payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n"
+    if not schema_path.exists() or schema_path.read_text(encoding="utf-8", errors="replace") != expected_schema:
+        schema_path.write_text(expected_schema, encoding="utf-8")
+    spark_route = routing.Route("gpt-5.3-codex-spark", "xhigh")
+    command = routing.build_taskbooster_command(spark_route, schema_path, raw_path, working_root)
+    prompt = _taskbooster_prompt(packet)
+    if journal is not None:
+        journal.emit("resource.taskbooster_started", task_id=task.id, status="RUNNING",
+                     text=str(packet["booster_id"]), model=spark_route.model, reasoning=spark_route.reasoning)
+    helper_started = time.monotonic()
+    try:
+        proc = subprocess.run(command, input=prompt, text=True, capture_output=True, timeout=_SPARK_HELPER_BUDGET_SECONDS, check=False)
+    except subprocess.TimeoutExpired as exc:
+        partial = exc.output.decode("utf-8", errors="replace") if isinstance(exc.output, bytes) else str(exc.output or "")
+        raw = json.dumps({"partial_output": partial}, sort_keys=True)
+        _taskbooster_reject(base, task.id, packet, "HELPER_DEADLINE_EXCEEDED", raw, journal,
+                            failure_type="HELPER_DEADLINE_EXCEEDED", helper_started=helper_started)
+        return None
+    except OSError as exc:
+        raw = json.dumps({"exception_type": type(exc).__name__}, sort_keys=True)
+        _taskbooster_reject(base, task.id, packet, "PROVIDER_UNAVAILABLE", raw, journal,
+                            failure_type="PROVIDER_UNAVAILABLE", helper_started=helper_started)
+        return None
+    trace = {"returncode": proc.returncode, "stdout": proc.stdout or "", "stderr": proc.stderr or ""}
+    _taskbooster_atomic_json(trace_path, trace)
+    if proc.returncode != 0:
+        detail = proc.stderr or proc.stdout or "Spark helper process failed"
+        failure_type = _helper_process_failure_type(detail)
+        _taskbooster_reject(base, task.id, packet, failure_type, json.dumps(trace, sort_keys=True), journal,
+                            raw_result_path=raw_path if raw_path.exists() else None, failure_type=failure_type,
+                            helper_started=helper_started, exit_code=proc.returncode)
+        return None
+    try:
+        raw_text = raw_path.read_text(encoding="utf-8")
+        result = json.loads(raw_text)
+    except (OSError, json.JSONDecodeError) as exc:
+        raw_text = raw_path.read_text(encoding="utf-8", errors="replace") if raw_path.exists() else json.dumps(trace, sort_keys=True)
+        _taskbooster_reject(base, task.id, packet, "INVALID_RESULT", raw_text, journal,
+                            raw_result_path=raw_path if raw_path.exists() else None, evidence_items=(str(exc),),
+                            failure_type="INVALID_RESULT", helper_started=helper_started)
+        return None
+    checked = taskbooster.validate_result(
+        packet, result, working_root,
+        current_task_state_digest=_bounded_packet_id(repo_root, project_root, task),
+    )
+    if not checked.accepted:
+        failure_type = "STALE_INPUT" if checked.reason == "STALE_INPUT_DIGEST" else "VALIDATION_REJECTED"
+        _taskbooster_reject(base, task.id, packet, checked.reason, raw_text, journal,
+                            raw_result_path=raw_path, evidence_items=checked.evidence,
+                            failure_type=failure_type, helper_started=helper_started)
+        return None
+    wrapper = {
+        "schema": "minitz.taskbooster_assist/v1", "authority": "NONE",
+        "task_id": task.id, "booster_id": packet["booster_id"],
+        "provider": "openai", "model": spark_route.model,
+        "task_state_digest": task_state_digest,
+        "packet": packet, "result": result,
+        "raw_result_path": str(raw_path), "trace_path": str(trace_path),
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    _taskbooster_atomic_json(accepted_path, wrapper)
+    if journal is not None:
+        journal.emit("resource.taskbooster_completed", task_id=task.id, status="COMPLETE",
+                     text=str(accepted_path), model=spark_route.model, reasoning=spark_route.reasoning)
+    return accepted_path
+
+
+def _local_qwen_resident() -> bool:
+    try:
+        found = False
+        for comm in Path("/proc").glob("[0-9]*/comm"):
+            try:
+                if comm.read_text(encoding="utf-8", errors="ignore").strip() == "ollama":
+                    found = True; break
+            except OSError:
+                continue
+        if not found:
+            return False
+        with urllib.request.urlopen("http://127.0.0.1:11434/api/ps", timeout=1.0) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+        return any(
+            item.get("name") == "qwen3-coder-next:biella" or item.get("model") == "qwen3-coder-next:biella"
+            for item in payload.get("models", []) if isinstance(item, Mapping)
+        )
+    except Exception:
+        return False
+
+def _deterministic_projection_context(runtime_root: Path, task: state.TaskRecord, projection_path: Path,
+                                      working_root: Path) -> Path | None:
+    try:
+        projection = json.loads(Path(projection_path).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if not isinstance(projection, Mapping):
+        return None
+    meaningful = _assist_projection_payload(projection)
+    memory = meaningful.get("task_memory") if isinstance(meaningful.get("task_memory"), Mapping) else {}
+    pieces = [str(memory.get(key) or "") for key in ("title", "summary", "next_action")]
+    evidence_items = memory.get("evidence") if isinstance(memory.get("evidence"), list) else []
+    pieces.extend(str(item) for item in evidence_items)
+    text = "\n".join(piece for piece in pieces if piece.strip())
+    if not taskbooster.extract_grounded_targets(text, working_root):
+        return None
+    payload = {
+        "schema": "minitz.deterministic_context_assist/v1", "authority": "NON_AUTHORITATIVE_DETERMINISTIC_CONTEXT",
+        "task_id": task.id, "text": text[:6000],
+        "projection_sha256": hashlib.sha256(Path(projection_path).read_bytes()).hexdigest(),
+    }
+    digest = hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+    path = Path(runtime_root) / "memory" / "taskbooster" / f"{str(task.id).replace('/', '_')}-projection-{digest[:20]}.json"
+    _taskbooster_atomic_json(path, payload)
+    return path
+
+
+def _prepare_optional_task_assists(repo_root: Path, project_root: Path, runtime_root: Path,
+                                   task: state.TaskRecord, route: routing.Route,
+                                   catalog: Mapping[str, set[str]], projection_path: Path | None,
+                                   journal: production_events.ProductionEventJournal | None = None) -> tuple[Path | None, Path | None]:
+    if routing.is_bounded_fallback(route) or projection_path is None or not Path(projection_path).is_file():
+        return None, None
+    if task.task_class == "simple":
+        return None, None
+    working_root = _task_working_directory(repo_root, project_root, task.id)
+    qwen_resident = _local_qwen_resident()
+    if task.task_class == "simple":
+        deterministic_context = _deterministic_projection_context(runtime_root, task, Path(projection_path), working_root)
+        decision = routing.classify_simple_operation(
+            "simple", deterministic_command=None, grounded_context=deterministic_context is not None,
+            local_qwen_resident=qwen_resident,
+            spark_available="xhigh" in catalog.get("gpt-5.3-codex-spark", set()),
+            read_only_microanalysis=deterministic_context is not None,
+        )
+        if decision.kind == "LOCAL_QWEN":
+            local_assist = _ensure_local_resource_assist(runtime_root, task.id, projection_path, journal, project_root=working_root)
+            if local_assist is None:
+                local_assist = deterministic_context
+        elif decision.kind == "SPARK":
+            local_assist = deterministic_context
+        else:
+            return None, None
+        if local_assist is None:
+            return None, None
+        boosted = _ensure_taskbooster_assist(repo_root, project_root, runtime_root, task, route, catalog, local_assist, journal)
+        return local_assist, boosted
+    if not qwen_resident:
+        return None, None
+    local_assist = _ensure_local_resource_assist(runtime_root, task.id, projection_path, journal, project_root=working_root)
+    if local_assist is None:
+        return None, None
+    boosted = _ensure_taskbooster_assist(repo_root, project_root, runtime_root, task, route, catalog, local_assist, journal)
+    return local_assist, boosted
+
 
 
 def _helper_allowed(task_id: str) -> bool:
@@ -987,6 +1367,16 @@ def _acknowledge_customer_pause(repo_root: Path, project_root: Path, runtime_roo
     _beat(runtime_path, telemetry)
 
 
+_MODEL_CATALOG_DISCOVERY_DEADLINE_SECONDS = 1.0
+
+
+def _discover_runtime_catalog(runtime_root: Path) -> dict[str, set[str]]:
+    return routing.discover_catalog(
+        cache_path=Path(runtime_root) / "model-catalog-cache.json",
+        timeout_seconds=_MODEL_CATALOG_DISCOVERY_DEADLINE_SECONDS,
+    )
+
+
 def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, heartbeat_interval: float = 30.0) -> int:
     repo_root = Path(repo_root); project_root = Path(project_root); runtime_root = Path(runtime_root)
     runtime_root.mkdir(parents=True, exist_ok=True)
@@ -1003,7 +1393,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
         reconciled_cooldowns = routing.reconcile_legacy_account_cooldowns(telemetry.get("cooldowns", {}))
         if reconciled_cooldowns != dict(telemetry.get("cooldowns", {}) or {}):
             telemetry["cooldowns"] = reconciled_cooldowns
-        telemetry.update({"status": "RUNNING", "project": "biella-games", "pid": os.getpid(), "child_pid": None})
+        telemetry.update({"status": "RUNNING", "project": "minitz", "pid": os.getpid(), "child_pid": None})
         journal.emit("production.started", task_id=telemetry.get("task_id"), status="RUNNING", text="Biella production runner active")
         _beat(runtime_path, telemetry)
         catalog: Mapping[str, set[str]] | None = None
@@ -1014,7 +1404,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             if not _guard_source_alignment(repo_root, runtime_path, telemetry, journal):
                 return SOURCE_REFRESH_EXIT
             if catalog is None:
-                catalog = routing.discover_catalog()
+                catalog = _discover_runtime_catalog(runtime_root)
             production = state.sync_project_metadata(project_root)
             telemetry["priority_policy"] = production.priority_policy
             task = state.resolve_current_task(repo_root, project_root)
@@ -1049,7 +1439,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     telemetry.update({"status": "WAITING_FOR_TASK", "task_id": None, "child_pid": None, "active_model": None, "active_reasoning": None, "last_result": discovery})
                     if prior != "WAITING_FOR_TASK":
                         journal.emit("production.awaiting_task", status="WAITING_FOR_TASK", text="Canonical task list exhausted; owner task requested and current projects/capabilities inventoried read-only.")
-                    _beat(runtime_path, telemetry); time.sleep(5.0); catalog = routing.discover_catalog(); continue
+                    _beat(runtime_path, telemetry); time.sleep(5.0); catalog = _discover_runtime_catalog(runtime_root); continue
                 if section.id == "demo01" and section.tasks and all(t.status in {"COMPLETE", "COMPLETE_ALREADY"} for t in section.tasks):
                     state.mark_section_status(project_root, section.id, "COMPLETE")
                     _persist_until_success(repo_root, f"SECTION-{section.id}", runtime_path, telemetry, event_journal=journal)
@@ -1062,7 +1452,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     )
                 except RuntimeError:
                     telemetry.update({"status": "RECOVERING_MODEL", "task_id": f"PLAN:{section.id}", "active_model": None, "active_reasoning": None})
-                    _beat(runtime_path, telemetry); time.sleep(min(5.0, max(0.5, routing.earliest_cooldown_delay(telemetry.get("cooldowns", {}), now)))); catalog = routing.discover_catalog(); continue
+                    _beat(runtime_path, telemetry); time.sleep(min(5.0, max(0.5, routing.earliest_cooldown_delay(telemetry.get("cooldowns", {}), now)))); catalog = _discover_runtime_catalog(runtime_root); continue
                 telemetry.update({"status": "RUNNING", "task_id": f"PLAN:{section.id}", "active_model": route.model, "active_reasoning": route.reasoning})
                 _beat(runtime_path, telemetry)
                 output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"PLAN-{section.id}-{route.model}")
@@ -1089,7 +1479,9 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 telemetry.update({"status": "RECOVERING_MODEL", "task_id": task.id, "active_model": None, "active_reasoning": None})
                 _beat(runtime_path, telemetry)
                 time.sleep(2.0)
-                catalog = routing.discover_catalog(); continue
+                catalog = _discover_runtime_catalog(runtime_root); continue
+            if task.task_class == "simple" and bounded_packet_id and routing.is_bounded_fallback(route):
+                _record_simple_helper_attempt(telemetry, task.id, bounded_packet_id, route)
             telemetry.update({"status": "RUNNING", "task_id": task.id, "active_model": route.model, "active_reasoning": route.reasoning})
             if evidence.continuity_changes(repo_root):
                 unexpected = evidence.unexpected_dirty_paths(repo_root)
@@ -1121,15 +1513,20 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     journal.emit("memory.observation_failed", task_id=task.id, status="ERROR", text=str(exc))
             observe_activity()
             projection_path = _refresh_memory_projection(repo_root, project_root, runtime_root, task.id, journal)
-            local_assist_path = None  # Optional local AI remains available on demand inside the authoritative task; never block turn start.
             bounded_fallback = routing.is_bounded_fallback(route)
-            prompt = _task_prompt(repo_root, production, task, telemetry, capsule_path, projection_path, local_assist_path, route=route)
+            local_assist_path, taskbooster_path = _prepare_optional_task_assists(
+                repo_root, project_root, runtime_root, task, route, catalog, projection_path, journal
+            )
+            prompt = _task_prompt(
+                repo_root, production, task, telemetry, capsule_path, projection_path,
+                local_assist_path, taskbooster_path, route=route
+            )
             resume_session_id = _resume_session_for_route(telemetry, task.id, route)
             event_type = "task.bounded_fallback_started" if bounded_fallback else ("task.continued" if resume_session_id else "task.started")
             journal.emit(event_type, task_id=task.id, status="RUNNING", text=task.title, model=route.model, reasoning=route.reasoning, bounded_packet_id=bounded_packet_id)
             rc, error_text = invoke_structured(
                 prompt, route, schema_path, output, stdout, stderr, runtime_path, telemetry,
-                heartbeat_interval=heartbeat_interval, on_heartbeat=observe_activity, cwd=execution_map.task_working_directory(repo_root, project_root, task.id),
+                heartbeat_interval=heartbeat_interval, on_heartbeat=observe_activity, cwd=_task_working_directory(repo_root, project_root, task.id),
                 resume_session_id=resume_session_id, session_task_id=task.id,
                 allow_helper=False if bounded_fallback else _helper_allowed(task.id),
                 persist_session_identity=not bounded_fallback,

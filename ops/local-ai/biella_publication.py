@@ -14,6 +14,8 @@ import tempfile
 import threading
 from typing import Any
 
+import minitz_task_program as minitz
+
 _WORKERS: dict[str, tuple[threading.Thread, threading.Event, threading.Event]] = {}
 _DRIVE_WORKERS: dict[str, tuple[threading.Thread, threading.Event, threading.Event]] = {}
 DRIVE_TASK_INTERVAL = 5
@@ -66,19 +68,11 @@ def read_publication(repo: Path) -> dict[str, Any]:
 
 
 def _completed_snapshot(repo: Path, commit: str) -> tuple[list[str], bool]:
-    proc = subprocess.run(["git", "-C", str(repo), "show", f"{commit}:projects/biella-games/docs/PRODUCTION.md"], capture_output=True, text=True, timeout=20)
-    if proc.returncode:
-        return [], False
-    completed, statuses = [], []
-    for line in proc.stdout.splitlines():
-        match = re.match(r"^- \[[ x]\] (D\d{2}-\d{2}) \| ", line)
-        fields = line.split(" | ")
-        if match and len(fields) >= 4:
-            done = fields[3].strip() in {"COMPLETE", "COMPLETE_ALREADY"}
-            statuses.append(done)
-            if done and match.group(1) not in completed:
-                completed.append(match.group(1))
-    return completed, bool(statuses) and all(statuses)
+    del repo, commit
+    program = minitz.load()
+    completed = [row["task_id"] for row in program["tasks"] if row.get("status") in minitz.COMPLETE_STATUSES]
+    finished = not any(row.get("status") in minitz.ACTIVE_STATUSES for row in program["tasks"])
+    return completed, finished
 
 
 def _schedule_drive(payload: dict[str, Any]) -> None:
@@ -123,6 +117,7 @@ def request_publication(repo: Path, task_id: str, identity: dict[str, str]) -> d
             "completed_ids": completed, "program_finished": finished, "drive_batch": batch,
             "verified_files": prior.get("verified_files", {}),
             "drive_folder_ids": prior.get("drive_folder_ids", {}),
+            "task_program": minitz.program_identity(minitz.load()),
         })
         _schedule_drive(payload)
         _write(path, payload)
