@@ -18,6 +18,8 @@ PROTECTED_SERVICES = (
     "biella-qwen-residency.service",
     "biella-codex-production.service",
 )
+HANDOFF_OWNER_ID = "customer-handoff"
+PAUSED_FOR_CUSTOMER = "PAUSED_FOR_CUSTOMER"
 STOP_ORDER = tuple(reversed(PROTECTED_SERVICES))
 
 
@@ -33,6 +35,104 @@ def _sha256(path: Path) -> str | None:
     if not Path(path).is_file():
         return None
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def _safe_resolved_path(value: object, *, base: Path) -> Path | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    try:
+        candidate = Path(value).resolve()
+    except OSError:
+        return None
+    try:
+        candidate.relative_to(base.resolve())
+    except ValueError:
+        return None
+    return candidate
+
+
+def _task_workspace_paths(repo_root: Path, project_root: Path | None) -> list[str]:
+    if project_root is None:
+        return []
+    try:
+        relative_root = project_root.relative_to(repo_root).as_posix()
+    except ValueError:
+        return []
+    prefix = "" if relative_root == "." else relative_root.rstrip("/") + "/"
+    proc = subprocess.run(
+        ["git", "-C", str(repo_root), "status", "--porcelain=v1", "-z", "--untracked-files=all"],
+        capture_output=True, check=True,
+    )
+    paths = []
+    for record in proc.stdout.split(b"\0"):
+        if len(record) < 4:
+            continue
+        raw = record[3:].decode("utf-8", errors="surrogateescape")
+        if " -> " in raw:
+            raw = raw.split(" -> ", 1)[1]
+        if raw == relative_root:
+            continue
+        if relative_root == "." or raw.startswith(prefix):
+            paths.append(raw[len(prefix):] if relative_root != "." else raw)
+    return sorted(dict.fromkeys(paths))
+
+
+def _scoped_task_state(repo_root: Path, project_root: Path | None) -> dict[str, str]:
+    def file_digest(path: Path) -> str:
+        digest = hashlib.sha256()
+        with path.open("rb") as handle:
+            for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+                digest.update(chunk)
+        return digest.hexdigest()
+
+    if project_root is None:
+        return {}
+    entries: dict[str, str] = {}
+    for raw in _task_workspace_paths(repo_root, project_root):
+        path = project_root / raw
+        if not path.exists():
+            entries[raw] = "MISSING"
+        elif path.is_symlink():
+            entries[raw] = f"SYMLINK:{os.readlink(path)}"
+        elif path.is_file():
+            try:
+                digest = file_digest(path)
+                entries[raw] = f"FILE:{path.stat().st_size}:{digest}"
+            except OSError:
+                entries[raw] = "UNREADABLE"
+        else:
+            entries[raw] = f"TYPE:{int(path.stat().st_mode)}"
+    return entries
+
+
+def _task_scope_fingerprint(state: dict[str, str]) -> str:
+    digest = hashlib.sha256()
+    for path in sorted(state):
+        digest.update(path.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(state[path].encode("utf-8"))
+        digest.update(b"\n")
+    return digest.hexdigest()
+
+
+def _load_task_memory(path: Path) -> dict[str, Any]:
+    if not path.is_file():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _load_runtime(payload: Path) -> dict[str, Any]:
+    if not payload.is_file():
+        return {}
+    try:
+        raw = json.loads(payload.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+    return raw if isinstance(raw, dict) else {}
 
 def _atomic_json(path: Path, payload: dict[str, Any]) -> None:
     path = Path(path)
