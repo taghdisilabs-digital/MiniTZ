@@ -1,6 +1,9 @@
 from pathlib import Path
 import importlib.util
+import json
 import sys
+
+import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 LOCAL_AI = ROOT / "ops/local-ai"
@@ -337,3 +340,86 @@ def test_minitz_state_projection_uses_live_git_remote_identity(tmp_path: Path, m
     rendered = (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_text()
     assert "repository: taghdisilabs-digital/MiniTZ" in rendered
     assert "patrickminitz-web" not in rendered
+
+
+def test_minitz_completion_persists_family_and_transition_receipt(tmp_path: Path, monkeypatch):
+    repo, project, program_path = _write_minitz_projection_fixture(tmp_path, monkeypatch)
+    program = json.loads(program_path.read_text(encoding="utf-8"))
+    program["current_execution"].update({
+        "run_ref": "commander-run://run-1",
+        "session_ref": "commander-session://session-1",
+        "run_state_ref": {"path": "/tmp/run-state.json", "sha256": "state-digest"},
+    })
+    program_path.write_text(json.dumps(program, indent=2) + "\n", encoding="utf-8")
+
+    state.resolve_current_task(repo, project)
+    state.mark_task_complete(repo, project, "UNIFY-01", "COMPLETE", ["validator pass"])
+
+    program = json.loads(program_path.read_text(encoding="utf-8"))
+    evidence = program["tasks"][0]["completion"]["evidence"]
+    assert "MINITZ_TRANSITION_PREDECESSOR_TASK_ID:UNIFY-01" in evidence
+    assert "MINITZ_TRANSITION_RUN_REF:commander-run://run-1" in evidence
+    assert "MINITZ_TRANSITION_SESSION_REF:commander-session://session-1" in evidence
+    assert "MINITZ_TRANSITION_RUN_STATE_REF:{\"path\":\"/tmp/run-state.json\",\"sha256\":\"state-digest\"}" in evidence
+
+    active = (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").read_text(encoding="utf-8")
+    current = (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_text(encoding="utf-8")
+    for rendered in (active, current):
+        assert "id: MINITZ_PROGRESSION_FAMILY" in rendered
+        assert "scheduler_mechanism: GENERIC_SCHEDULER_PLAN_ONLY" in rendered
+        assert "progression_mutation: false" in rendered
+        assert "predecessor_task_id: UNIFY-01" in rendered
+        assert "run_ref: commander-run://run-1" in rendered
+        assert "session_ref: commander-session://session-1" in rendered
+
+
+def test_minitz_resolution_repairs_stale_projection_from_canonical_receipt(tmp_path: Path, monkeypatch):
+    repo, project, program_path = _write_minitz_projection_fixture(tmp_path, monkeypatch)
+    state.mark_task_complete(repo, project, "UNIFY-01", "COMPLETE", ["validator pass"])
+    active_path = repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md"
+    current_path = repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md"
+    active_path.write_text("stale active projection\n", encoding="utf-8")
+    current_path.unlink()
+
+    resolved = state.resolve_current_task(repo, project)
+    identity = state.minitz.program_identity(state.minitz.load(program_path))
+    assert resolved.id == "UNIFY-02"
+    for path in (active_path, current_path):
+        rendered = path.read_text(encoding="utf-8")
+        assert f"program_revision: {identity['revision']}" in rendered
+        assert f"program_sha256: {identity['sha256']}" in rendered
+        assert "predecessor_task_id: UNIFY-01" in rendered
+
+
+def test_normal_active_projection_fails_closed_when_production_source_is_missing(tmp_path: Path):
+    repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
+    production_path = project / "docs/PRODUCTION.md"
+    task = state.find_task(state.load_project_production(project), "D01-030")
+    production_path.unlink()
+    with pytest.raises(FileNotFoundError):
+        state.write_active_task(repo, task)
+
+
+def test_normal_progression_priority_rejects_malformed_authority(tmp_path: Path):
+    _repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
+    path = project / "docs/PRODUCTION.md"
+    path.write_text(path.read_text(encoding="utf-8").replace(
+        "Status: `IN_PROGRESS`\n", "Status: `IN_PROGRESS`\nPriority: `NOT_A_POLICY`\n", 1
+    ), encoding="utf-8")
+    with pytest.raises(ValueError, match="unsupported progression priority policy"):
+        state.load_project_production(project)
+
+
+def test_scheduler_family_attachment_is_explicitly_plan_only():
+    sys.path.insert(0, str(ROOT / "src"))
+    from biella.scheduler import SchedulerContractError, SchedulerFamilyAttachment
+
+    attachment = SchedulerFamilyAttachment.minitz()
+    assert attachment.progression_authority == "MINITZ_TASK_PROGRAM_ONLY"
+    assert attachment.progression_mutation is False
+    with pytest.raises(SchedulerContractError):
+        SchedulerFamilyAttachment(
+            family_id="MINITZ_PROGRESSION_FAMILY",
+            progression_authority="MINITZ_TASK_PROGRAM_ONLY",
+            progression_mutation=True,
+        )

@@ -3,17 +3,30 @@ from __future__ import annotations
 import os
 import re
 import subprocess
+import fcntl
+import json
+import tempfile
+from contextlib import contextmanager
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Sequence
+from typing import Mapping, Sequence
 
 import biella_task_ids as task_ids
 import biella_task_ledger as task_ledger
 import minitz_task_program as minitz
 
 _COMPLETE = {"COMPLETE", "COMPLETE_ALREADY"}
+MINITZ_PROGRESSION_AUTHORITY = "MINITZ_TASK_PROGRAM_ONLY"
+MINITZ_PROGRESSION_FAMILY = "MINITZ_PROGRESSION_FAMILY"
+MINITZ_SCHEDULER_MECHANISM = "GENERIC_SCHEDULER_PLAN_ONLY"
+_MINITZ_RECEIPT_FIELDS = (
+    "predecessor_task_id", "predecessor_task_revision", "predecessor_task_sha256",
+    "predecessor_program_revision", "predecessor_program_sha256",
+    "run_ref", "session_ref", "run_state_ref",
+)
 _SECTION_RE = re.compile(r"^## Section: (?P<id>[A-Za-z0-9_-]+) \| (?P<title>.+?) \| (?P<status>[A-Z_]+)$")
 _TASK_RE = re.compile(r"^- \[(?P<done>[xX ])\] (?P<id>[A-Z0-9-]+) \| (?P<class>[a-z_]+) \| (?P<title>.+?) \| (?P<status>[A-Z_]+) \|\s*(?P<evidence>.*)$")
+_PRIORITY_POLICIES = {"CANONICAL_ORDER", "GAME_FIRST", "MINITZ_TASK_PROGRAM"}
 _CANONICAL_REPO_ROOT = Path("/root/biella/repos/biella-engine")
 _CANONICAL_PROJECT_ROOT = _CANONICAL_REPO_ROOT / "projects/biella-games"
 
@@ -24,6 +37,138 @@ def _use_minitz_project(project_root: Path) -> bool:
 
 def _use_minitz_repo(repo_root: Path) -> bool:
     return bool(os.environ.get("MINITZ_TASK_PROGRAM_PATH")) or Path(repo_root).resolve() == _CANONICAL_REPO_ROOT
+
+
+@contextmanager
+def _minitz_transition_lock(program_path: Path | None = None):
+    """Serialize canonical MiniTZ transitions and projection repair.
+
+    The Task Program adapter owns the status mutation lock.  This separate
+    transition lock covers the short interval in which its committed bytes
+    are reflected into the derived 03/04 projections, allowing a later
+    resolver to repair either projection after an interrupted write.
+    """
+    path = Path(program_path or minitz.program_path()).resolve()
+    lock_path = path.with_name(path.name + ".transition.lock")
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    with lock_path.open("a+") as lock:
+        fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(lock.fileno(), fcntl.LOCK_UN)
+
+
+def _atomic_write_text(path: Path, text: str) -> None:
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, temporary = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
+    temporary_path = Path(temporary)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as stream:
+            stream.write(text)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary_path, path)
+        directory = os.open(path.parent, os.O_DIRECTORY)
+        try:
+            os.fsync(directory)
+        finally:
+            os.close(directory)
+    finally:
+        temporary_path.unlink(missing_ok=True)
+
+
+def _yaml_scalar(value: object) -> str:
+    text = "NONE" if value is None else str(value)
+    if not text or "\n" in text or "\r" in text:
+        raise ValueError("MiniTZ transition receipt contains an invalid scalar")
+    return text
+
+
+def _receipt_scalar(value: object) -> str:
+    """Normalize a run/session reference before hashing and projection."""
+    if value is None:
+        return "NONE"
+    if isinstance(value, Mapping):
+        return json.dumps(dict(value), sort_keys=True, separators=(",", ":"))
+    return _yaml_scalar(value)
+
+
+def _minitz_transition_receipt(program: Mapping[str, object], task_id: str) -> dict[str, object]:
+    task = minitz.task_by_id(program, task_id)
+    execution = program.get("current_execution")
+    execution = execution if isinstance(execution, Mapping) else {}
+    receipt: dict[str, object] = {
+        "predecessor_task_id": task["task_id"],
+        "predecessor_task_revision": int(task["revision"]),
+        "predecessor_task_sha256": task["task_record_sha256"],
+        "predecessor_program_revision": int(program["revision"]),
+        "predecessor_program_sha256": program.get("_observed_sha256") or minitz.file_sha256(
+            Path(str(program.get("_observed_path") or minitz.program_path()))
+        ),
+        "run_ref": _receipt_scalar(execution.get("run_ref")),
+        "session_ref": _receipt_scalar(execution.get("session_ref")),
+        "run_state_ref": _receipt_scalar(execution.get("run_state_ref")),
+    }
+    receipt["receipt_sha256"] = minitz.digest(receipt)
+    return receipt
+
+
+def _minitz_completion_evidence(evidence: Sequence[str], receipt: Mapping[str, object]) -> list[str]:
+    clean = [str(item).strip() for item in evidence if str(item).strip()]
+    if not clean:
+        raise ValueError("MiniTZ completion requires evidence")
+    result = list(clean)
+    for field_name in _MINITZ_RECEIPT_FIELDS + ("receipt_sha256",):
+        marker = f"MINITZ_TRANSITION_{field_name.upper()}:{_yaml_scalar(receipt[field_name])}"
+        if marker not in result:
+            result.append(marker)
+    return result
+
+
+def _minitz_receipt_from_program(program: Mapping[str, object]) -> dict[str, object] | None:
+    latest: dict[str, object] | None = None
+    for row in program.get("tasks", []):
+        completion = row.get("completion") if isinstance(row, Mapping) else None
+        values: dict[str, str] = {}
+        if not isinstance(completion, Mapping) or not isinstance(completion.get("evidence"), Sequence):
+            continue
+        for item in completion["evidence"]:
+            text = str(item)
+            if not text.startswith("MINITZ_TRANSITION_") or ":" not in text:
+                continue
+            key, value = text.split(":", 1)
+            field_name = key.removeprefix("MINITZ_TRANSITION_").lower()
+            if field_name in _MINITZ_RECEIPT_FIELDS + ("receipt_sha256",):
+                values[field_name] = value
+        if not values:
+            continue
+        required = set(_MINITZ_RECEIPT_FIELDS + ("receipt_sha256",))
+        if set(values) != required:
+            raise ValueError(f"MiniTZ transition receipt is incomplete for {row.get('task_id')}")
+        candidate: dict[str, object] = dict(values)
+        for field_name in ("predecessor_task_revision", "predecessor_program_revision"):
+            try:
+                candidate[field_name] = int(str(candidate[field_name]))
+            except (TypeError, ValueError) as exc:
+                raise ValueError("MiniTZ transition receipt revision is malformed") from exc
+        body = {field_name: candidate[field_name] for field_name in _MINITZ_RECEIPT_FIELDS}
+        if candidate["receipt_sha256"] != minitz.digest(body):
+            raise ValueError("MiniTZ transition receipt digest mismatch")
+        latest = candidate
+    return latest
+
+
+def _minitz_projection_text(text: str, path: Path, ident: Mapping[str, object]) -> None:
+    if path.exists() and path.read_text(encoding="utf-8") == text:
+        return
+    _atomic_write_text(path, text)
+    observed = path.read_text(encoding="utf-8")
+    revision_marker = f"program_revision: {ident['revision']}"
+    sha_marker = f"program_sha256: {ident['sha256']}"
+    if revision_marker not in observed or sha_marker not in observed:
+        raise IOError(f"MiniTZ projection readback mismatch: {path}")
 
 
 @dataclass(frozen=True)
@@ -142,7 +287,9 @@ def load_project_production(project_root: Path) -> ProductionState:
             status = _unquote(line.split(":", 1)[1])
             continue
         if line.startswith("Priority:") and not sections:
-            priority_policy = _unquote(line.split(":", 1)[1])
+            priority_policy = _unquote(line.split(":", 1)[1]).strip()
+            if priority_policy not in _PRIORITY_POLICIES:
+                raise ValueError(f"unsupported progression priority policy: {priority_policy or 'EMPTY'}")
             continue
         if line.startswith("Current section:"):
             value = _unquote(line.split(":", 1)[1]); current_section = None if value in {"", "NONE", "null"} else value
@@ -275,34 +422,69 @@ def load_active_task(repo_root: Path) -> ActiveTask:
     return ActiveTask(task_ids.canonical_task_id(values["id"]), values["project"], values["section"], values["class"], values["title"], values["status"])
 
 
-def write_active_task(repo_root: Path, task: TaskRecord | None, *, project: str = "Biella Games", predecessor: str | None = None) -> None:
+def write_active_task(
+    repo_root: Path,
+    task: TaskRecord | None,
+    *,
+    project: str = "Biella Games",
+    predecessor: str | None = None,
+    transition_receipt: Mapping[str, object] | None = None,
+) -> None:
     if _use_minitz_repo(repo_root):
         path = active_task_path(repo_root)
         program = minitz.load(); ident = minitz.program_identity(program)
+        receipt = transition_receipt or _minitz_receipt_from_program(program)
+        family_text = (
+            "progression_family:\n"
+            f"  id: {MINITZ_PROGRESSION_FAMILY}\n"
+            f"  scheduler_mechanism: {MINITZ_SCHEDULER_MECHANISM}\n"
+            "  progression_mutation: false\n\n"
+        )
+        receipt_text = ""
+        if receipt is not None:
+            receipt_text = (
+                "transition_receipt:\n"
+                f"  predecessor_task_id: {_yaml_scalar(receipt['predecessor_task_id'])}\n"
+                f"  predecessor_task_revision: {_yaml_scalar(receipt['predecessor_task_revision'])}\n"
+                f"  predecessor_task_sha256: {_yaml_scalar(receipt['predecessor_task_sha256'])}\n"
+                f"  predecessor_program_revision: {_yaml_scalar(receipt['predecessor_program_revision'])}\n"
+                f"  predecessor_program_sha256: {_yaml_scalar(receipt['predecessor_program_sha256'])}\n"
+                f"  run_ref: {_yaml_scalar(receipt['run_ref'])}\n"
+                f"  session_ref: {_yaml_scalar(receipt['session_ref'])}\n"
+                f"  run_state_ref: {_yaml_scalar(receipt['run_state_ref'])}\n"
+                f"  receipt_sha256: {_yaml_scalar(receipt['receipt_sha256'])}\n\n"
+            )
+        header = (
+            "# 04 - MINITZ ACTIVE TASK PROJECTION\n\n```yaml\n"
+            "schema: minitz.active_task_projection/v1\n"
+            "projection_authority: false\n"
+            f"task_program: {ident['path']}\nprogram_id: {ident['program_id']}\n"
+            f"program_revision: {ident['revision']}\nprogram_sha256: {ident['sha256']}\n\n"
+            f"{family_text}"
+        )
         if task is None:
             text = (
-                "# 04 - MINITZ ACTIVE TASK PROJECTION\n\n```yaml\n"
-                "schema: minitz.active_task_projection/v1\n"
-                "projection_authority: false\n"
-                f"task_program: {ident['path']}\nprogram_revision: {ident['revision']}\nprogram_sha256: {ident['sha256']}\n\n"
+                header +
+                f"authority:\n  progression: {MINITZ_PROGRESSION_AUTHORITY}\n"
+                "  derived_ledgers: NON_AUTHORITATIVE\n"
+                "  runner_and_auto_feeder: CONSUME_MINITZ_TASK_PROGRAM\n\n"
                 "task:\n  id: NONE\n  project: MiniTZ\n  section: NONE\n  class: NONE\n"
-                "  title: No active MiniTZ task\n  status: COMPLETE\n  runner: STOPPED\n```\n"
+                "  title: No active MiniTZ task\n  status: COMPLETE\n  runner: STOPPED\n\n"
+                f"{receipt_text}stop: No active MiniTZ task; validate and persist before advancing.\n```\n"
             )
         else:
             row = minitz.task_by_id(program, task.id); lane = minitz.task_lane(program, row)
             text = (
-                "# 04 - MINITZ ACTIVE TASK PROJECTION\n\n```yaml\n"
-                "schema: minitz.active_task_projection/v1\nprojection_authority: false\n"
-                f"task_program: {ident['path']}\nprogram_id: {ident['program_id']}\nprogram_revision: {ident['revision']}\nprogram_sha256: {ident['sha256']}\n\n"
+                header +
                 f"task:\n  id: {task.id}\n  project: MiniTZ\n  section: minitz\n  class: {task.task_class}\n"
                 f"  title: {task.title}\n  status: {task.status}\n  runner: READY\n  lane: {lane}\n"
                 f"  revision: {row['revision']}\n  task_sha256: {row['task_record_sha256']}\n\n"
-                "authority:\n  progression: MINITZ_TASK_PROGRAM_ONLY\n  derived_ledgers: NON_AUTHORITATIVE\n"
+                f"authority:\n  progression: {MINITZ_PROGRESSION_AUTHORITY}\n"
+                "  derived_ledgers: NON_AUTHORITATIVE\n"
                 "  runner_and_auto_feeder: CONSUME_MINITZ_TASK_PROGRAM\n\n"
-                f"stop: Execute only the current MiniTZ task {task.id}; validate and persist before advancing.\n```\n"
+                f"{receipt_text}stop: Execute only the current MiniTZ task {task.id}; validate and persist before advancing.\n```\n"
             )
-        if not path.exists() or path.read_text(encoding="utf-8") != text:
-            path.write_text(text, encoding="utf-8")
+        _minitz_projection_text(text, path, ident)
         return
     from biella_execution_map import task_entry
     mapped = task_entry(repo_root, task.id) if task else None
@@ -310,7 +492,7 @@ def write_active_task(repo_root: Path, task: TaskRecord | None, *, project: str 
         project = {"Games": "Biella Games", "Website": "Biella Website", "Engine": "Biella Engine", "Cross-project": "Biella cross-project proof"}.get(mapped["lane"], project)
     path = active_task_path(repo_root)
     source_root = Path(repo_root) / "projects/biella-games"
-    priority = load_project_production(source_root).priority_policy if production_path(source_root).is_file() else "CANONICAL_ORDER"
+    priority = load_project_production(source_root).priority_policy
     if task is None:
         text = (
             "# 04 - BIELLA ACTIVE TASK\n\n```yaml\nschema: biella.active_task/v9\n\n"
@@ -363,10 +545,18 @@ def _update_yaml_block(lines: list[str], block: str, fields: dict[str, str]) -> 
         lines[insert_at:insert_at] = additions
 
 
-def sync_current_state(repo_root: Path, production: ProductionState, task: TaskRecord | None, *, state: str = "PENDING") -> None:
+def sync_current_state(
+    repo_root: Path,
+    production: ProductionState,
+    task: TaskRecord | None,
+    *,
+    state: str = "PENDING",
+    transition_receipt: Mapping[str, object] | None = None,
+) -> None:
     path = current_state_path(repo_root)
     if _use_minitz_repo(repo_root):
         program = minitz.load(); ident = minitz.program_identity(program); current = _minitz_current_row(program)
+        receipt = transition_receipt or _minitz_receipt_from_program(program)
         completed = sum(row.get("status") in minitz.COMPLETE_STATUSES for row in program["tasks"])
         active_count = sum(row.get("status") in minitz.ACTIVE_STATUSES for row in program["tasks"])
         execution = program.get("current_execution") if isinstance(program.get("current_execution"), dict) else {}
@@ -383,25 +573,45 @@ def sync_current_state(repo_root: Path, production: ProductionState, task: TaskR
             continuity += f"  run_ref: {execution['run_ref']}\n"
         if execution.get("session_ref"):
             continuity += f"  session_ref: {execution['session_ref']}\n"
+        if execution.get("run_state_ref"):
+            continuity += f"  run_state_ref: {_receipt_scalar(execution['run_state_ref'])}\n"
+        receipt_text = ""
+        if receipt is not None:
+            receipt_text = (
+                "transition_receipt:\n"
+                f"  predecessor_task_id: {_yaml_scalar(receipt['predecessor_task_id'])}\n"
+                f"  predecessor_task_revision: {_yaml_scalar(receipt['predecessor_task_revision'])}\n"
+                f"  predecessor_task_sha256: {_yaml_scalar(receipt['predecessor_task_sha256'])}\n"
+                f"  predecessor_program_revision: {_yaml_scalar(receipt['predecessor_program_revision'])}\n"
+                f"  predecessor_program_sha256: {_yaml_scalar(receipt['predecessor_program_sha256'])}\n"
+                f"  run_ref: {_yaml_scalar(receipt['run_ref'])}\n"
+                f"  session_ref: {_yaml_scalar(receipt['session_ref'])}\n"
+                f"  run_state_ref: {_yaml_scalar(receipt['run_state_ref'])}\n"
+                f"  receipt_sha256: {_yaml_scalar(receipt['receipt_sha256'])}\n\n"
+            )
         repository_identity = _live_repository_identity(repo_root)
         text = (
             "# 03 - MINITZ CURRENT STATE PROJECTION\n\n```yaml\n"
             "schema: minitz.current_state_projection/v1\nstate_class: VOLATILE_CURRENT\nprojection_authority: false\n\n"
-            "authority:\n  progression_source: MINITZ_TASK_PROGRAM_ONLY\n"
+            f"authority:\n  progression_source: {MINITZ_PROGRESSION_AUTHORITY}\n"
             f"  task_program_path: {ident['path']}\n  program_id: {ident['program_id']}\n"
             f"  program_revision: {ident['revision']}\n  program_sha256: {ident['sha256']}\n"
             "  task_program_authority: true\n  production_execution_authority: true\n  production_order_status_authority: true\n\n"
+            "progression_family:\n"
+            f"  id: {MINITZ_PROGRESSION_FAMILY}\n"
+            f"  scheduler_mechanism: {MINITZ_SCHEDULER_MECHANISM}\n"
+            "  progression_mutation: false\n\n"
             f"repository:\n  repository: {repository_identity}\n  branch: main\n"
             "  canonical_checkout: /root/biella/repos/biella-engine\n  source_identity_source: LIVE_GIT_READ_REQUIRED\n\n"
             "active_execution:\n" + active_text + continuity +
-            "  runtime_state_source: /mnt/biella-extra/biella-runtime/codex-production/runtime.json\n\n"
+            "  runtime_state_source: /mnt/biella-extra/biella-runtime/codex-production/runtime.json\n\n" + receipt_text +
             f"progress:\n  completed_tasks: {completed}\n  active_tasks: {active_count}\n  total_tasks: {len(program['tasks'])}\n\n"
             "execution_invariants:\n  one_task_program: true\n  derived_ledgers_authority: false\n"
-            "  runner_and_auto_feeder_source: MINITZ_TASK_PROGRAM_ONLY\n  hidden_task_queue_allowed: false\n"
+            f"  runner_and_auto_feeder_source: {MINITZ_PROGRESSION_AUTHORITY}\n  hidden_task_queue_allowed: false\n"
+            "  generic_scheduler_progression_mutation: false\n"
             "  publication_cursor_authority: false\n  local_qwen_authority: false\n```\n"
         )
-        if not path.exists() or path.read_text(encoding="utf-8") != text:
-            path.write_text(text, encoding="utf-8")
+        _minitz_projection_text(text, path, ident)
         return
     if not path.exists():
         return
@@ -464,10 +674,21 @@ def _block_field(text: str, block: str, field: str) -> str | None:
 
 def resolve_current_task(repo_root: Path, project_root: Path) -> TaskRecord | None:
     if _use_minitz_project(project_root):
-        production = load_project_production(project_root); current = next_task(production)
-        write_active_task(repo_root, current, predecessor=_previous_completed_task(production, current.id) if current else None)
-        sync_current_state(repo_root, production, current, state=current.status if current else "COMPLETE")
-        return current
+        with _minitz_transition_lock():
+            program = minitz.load()
+            receipt = _minitz_receipt_from_program(program)
+            production = load_project_production(project_root); current = next_task(production)
+            write_active_task(
+                repo_root, current,
+                predecessor=_previous_completed_task(production, current.id) if current else None,
+                transition_receipt=receipt,
+            )
+            sync_current_state(
+                repo_root, production, current,
+                state=current.status if current else "COMPLETE",
+                transition_receipt=receipt,
+            )
+            return current
     production = sync_project_metadata(project_root)
     task_ledger.sync_task_ledger(repo_root, production)
     current = next_task(production)
@@ -508,8 +729,13 @@ def resolve_current_task(repo_root: Path, project_root: Path) -> TaskRecord | No
 def defer_pending_task_after(project_root: Path, task_id: str, after_task_id: str) -> ProductionState:
     """Move one active task later without changing its completion evidence."""
     if _use_minitz_project(project_root):
-        minitz.defer_task_after(task_id, after_task_id, reason=f"Controller resource deferral: {task_id} after {after_task_id}")
-        return load_project_production(project_root)
+        with _minitz_transition_lock():
+            minitz.defer_task_after(
+                task_id, after_task_id,
+                reason=f"Controller resource deferral: {task_id} after {after_task_id}",
+                path=minitz.program_path(),
+            )
+            return load_project_production(project_root)
     canonical = task_ids.canonical_task_id(task_id)
     after = task_ids.canonical_task_id(after_task_id)
     production = load_project_production(project_root)
@@ -542,10 +768,20 @@ def defer_pending_task_after(project_root: Path, task_id: str, after_task_id: st
 def activate_project_frontier(repo_root: Path, project_root: Path) -> tuple[ProductionState, TaskRecord | None]:
     """Refresh derived 03/04 from the canonical MiniTZ order after an explicit order change."""
     if _use_minitz_project(project_root):
-        production = load_project_production(project_root); task = next_task(production)
-        write_active_task(repo_root, task, predecessor=_previous_completed_task(production, task.id) if task else None)
-        sync_current_state(repo_root, production, task, state=task.status if task else "COMPLETE")
-        return production, task
+        with _minitz_transition_lock():
+            program = minitz.load(); receipt = _minitz_receipt_from_program(program)
+            production = load_project_production(project_root); task = next_task(production)
+            write_active_task(
+                repo_root, task,
+                predecessor=_previous_completed_task(production, task.id) if task else None,
+                transition_receipt=receipt,
+            )
+            sync_current_state(
+                repo_root, production, task,
+                state=task.status if task else "COMPLETE",
+                transition_receipt=receipt,
+            )
+            return production, task
     production = sync_project_metadata(project_root); task = next_task(production)
     predecessor = _previous_completed_task(production, task.id) if task else None
     write_active_task(repo_root, task, predecessor=predecessor)
@@ -557,11 +793,27 @@ def mark_task_complete(repo_root: Path, project_root: Path, task_id: str, status
     if status not in _COMPLETE:
         raise ValueError("completion status required")
     if _use_minitz_project(project_root):
-        minitz.complete_task(task_id, status, evidence)
-        production = load_project_production(project_root); successor = next_task(production)
-        write_active_task(repo_root, successor, predecessor=task_id)
-        sync_current_state(repo_root, production, successor, state=successor.status if successor else "COMPLETE")
-        return production
+        with _minitz_transition_lock():
+            program_path = minitz.program_path()
+            before = minitz.load(program_path)
+            prior_task = minitz.task_by_id(before, task_id)
+            if prior_task.get("status") in minitz.COMPLETE_STATUSES:
+                receipt = _minitz_receipt_from_program(before)
+                minitz.complete_task(task_id, status, evidence, path=program_path)
+            else:
+                receipt = _minitz_transition_receipt(before, task_id)
+                completion_evidence = _minitz_completion_evidence(evidence, receipt)
+                minitz.complete_task(task_id, status, completion_evidence, path=program_path)
+            after = minitz.load(program_path)
+            receipt = _minitz_receipt_from_program(after) or receipt
+            production = load_project_production(project_root); successor = next_task(production)
+            write_active_task(repo_root, successor, predecessor=task_id, transition_receipt=receipt)
+            sync_current_state(
+                repo_root, production, successor,
+                state=successor.status if successor else "COMPLETE",
+                transition_receipt=receipt,
+            )
+            return production
     canonical_id = task_ids.canonical_task_id(task_id)
     path = production_path(project_root)
     lines = path.read_text(encoding="utf-8").splitlines()

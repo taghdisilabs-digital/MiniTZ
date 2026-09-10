@@ -457,23 +457,69 @@ class SchedulerQueueEntry:
         }))
 
 
+@dataclass(frozen=True)
+class SchedulerFamilyAttachment:
+    """A read-only semantic attachment for a scheduler implementation.
+
+    Scheduling can plan and dispatch work, but it must never become a second
+    authority for MiniTZ task order or status.  The attachment is explicit so
+    callers can prove that relationship at construction time.
+    """
+
+    family_id: str
+    progression_authority: str
+    progression_mutation: bool = False
+    mechanism: str = "GENERIC_SCHEDULER_PLAN_ONLY"
+
+    def __post_init__(self) -> None:
+        if self.family_id != "MINITZ_PROGRESSION_FAMILY":
+            raise SchedulerContractError("unknown scheduler semantic family")
+        if self.progression_authority != "MINITZ_TASK_PROGRAM_ONLY":
+            raise SchedulerContractError("scheduler progression authority must be MiniTZ Task Program")
+        if self.progression_mutation:
+            raise SchedulerContractError("generic scheduler cannot mutate MiniTZ progression")
+        if self.mechanism != "GENERIC_SCHEDULER_PLAN_ONLY":
+            raise SchedulerContractError("scheduler family mechanism must remain plan-only")
+
+    @classmethod
+    def minitz(cls) -> "SchedulerFamilyAttachment":
+        return cls(
+            family_id="MINITZ_PROGRESSION_FAMILY",
+            progression_authority="MINITZ_TASK_PROGRAM_ONLY",
+        )
+
+
 DispatchCallback = Callable[[ScheduledDispatch], None]
 
 
 class Scheduler:
     """Atomic multi-Resource reservations plus concurrent Node dispatch."""
 
-    def __init__(self, database_path: str | Path, *, aging_seconds: float = 30.0) -> None:
+    def __init__(
+        self,
+        database_path: str | Path,
+        *,
+        aging_seconds: float = 30.0,
+        family_attachment: SchedulerFamilyAttachment | None = None,
+    ) -> None:
         self.database_path = Path(database_path).resolve()
         if not math.isfinite(aging_seconds) or aging_seconds <= 0:
             raise SchedulerContractError("aging_seconds must be positive and finite")
+        if family_attachment is not None and not isinstance(family_attachment, SchedulerFamilyAttachment):
+            raise SchedulerContractError("family_attachment must be a SchedulerFamilyAttachment")
         self.aging_seconds = float(aging_seconds)
+        self._family_attachment = family_attachment
         self.projects = ProjectStore(self.database_path)
         self.resources = ResourceService(self.database_path)
         self.runs = RunService(self.database_path)
         self.executions = NodeExecutionService(self.database_path)
         self.graphs = self.executions.graphs
         self._initialize_schema()
+
+    @property
+    def family_attachment(self) -> SchedulerFamilyAttachment | None:
+        """Return the explicit semantic family attachment, if configured."""
+        return self._family_attachment
 
     def _connect(self) -> sqlite3.Connection:
         connection = sqlite3.connect(self.database_path, timeout=30.0)
@@ -1699,7 +1745,7 @@ class Scheduler:
 
 __all__ = [
     "ResourceAllocation", "ResourceAllocationRef", "ResourceClaim", "ResourceReservation",
-    "ScheduleCycleResult", "ScheduledDispatch", "Scheduler", "SchedulerAuthorityError",
+    "ScheduleCycleResult", "ScheduledDispatch", "Scheduler", "SchedulerFamilyAttachment", "SchedulerAuthorityError",
     "SchedulerConflictError", "SchedulerContractError", "SchedulerError", "SchedulerIntegrityError",
     "SchedulerMetrics", "SchedulerNotFoundError", "SchedulerScopeError", "SchedulingRequest",
     "SchedulerQueueEntry", "SchedulerService",

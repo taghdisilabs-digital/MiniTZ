@@ -225,8 +225,12 @@ def _normalize_result_for_route(result: evidence.TaskResult, route: routing.Rout
 def _clear_task_session(telemetry: dict[str, Any]) -> None:
     task_id = telemetry.get("session_task_id")
     sessions = dict(telemetry.get("task_sessions") or {})
-    if isinstance(task_id, str) and task_id:
-        sessions.pop(task_id, None)
+    current_session = telemetry.get("task_session_id")
+    if isinstance(task_id, str) and task_id and isinstance(current_session, str) and current_session:
+        # Keep the completed task's session in the continuity map while clearing
+        # the live slot.  The Task Program transition receipt carries the same
+        # value for crash recovery and cross-projection repair.
+        sessions[task_id] = current_session
     telemetry["task_sessions"] = sessions
     telemetry["task_session_id"] = None
     telemetry["session_task_id"] = None
