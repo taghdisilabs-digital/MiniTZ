@@ -9,8 +9,8 @@ authority:
   progression_source: MINITZ_TASK_PROGRAM_ONLY
   task_program_path: /root/biella/analysis/live_audit/TASK_PROGRAM.json
   program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-  program_revision: 28
-  program_sha256: 31dbc703809e6d20cba15fe4cf398f0867a8ad0626a4613f1e403daf6c52b8e6
+  program_revision: 31
+  program_sha256: 0761279a9bda1f16fee2a3d24f8a5b2f52b7054871a66b6716ebc8ce51f7d643
   task_program_authority: true
   production_execution_authority: true
   production_order_status_authority: true
@@ -22,17 +22,17 @@ repository:
   source_identity_source: LIVE_GIT_READ_REQUIRED
 
 active_execution:
-  id: UNIFY-14
-  task_revision: 8
-  task_sha256: b6ef553e66d9d6dfb0db3bc66bf7580bcb0c6e27cf0731d63596cde9cc732f8f
+  id: UNIFY-02
+  task_revision: 5
+  task_sha256: 8b84ce809c6aa10e349ac5aa7fb907be9479f1f7888e8866c321502c2191c47b
   lane: Engine
-  state: DEFERRED
+  state: PENDING
   runner: READY
   runtime_state_source: /mnt/biella-extra/biella-runtime/codex-production/runtime.json
 
 progress:
-  completed_tasks: 12
-  active_tasks: 17
+  completed_tasks: 13
+  active_tasks: 16
   total_tasks: 29
 
 execution_invariants:
