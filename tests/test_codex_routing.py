@@ -312,3 +312,16 @@ def test_taskbooster_command_rejects_non_spark_route(tmp_path: Path):
             routing.Route("gpt-6-astra", "ultra"),
             tmp_path / "schema.json", tmp_path / "out.json", tmp_path,
         )
+
+
+def test_codex_peer_command_is_read_only_and_single_agent(tmp_path: Path):
+    command = routing.build_codex_peer_command(
+        routing.Route("gpt-6-astra", "ultra"),
+        tmp_path / "peer.schema.json", tmp_path / "peer.result.json", tmp_path,
+    )
+    joined = " ".join(command)
+    assert "--sandbox read-only" in joined
+    assert "--disable multi_agent" in joined
+    assert "--disable multi_agent_v2" in joined
+    assert "--output-schema" in command
+    assert command[-1] == "-"

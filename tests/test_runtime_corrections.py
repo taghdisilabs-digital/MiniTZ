@@ -146,7 +146,7 @@ def test_qwen_timeout_is_helper_deadline_exceeded(tmp_path: Path, monkeypatch):
     assert runner._ensure_local_resource_assist(tmp_path, "T", projection, journal, project_root=project) is None
     row = _failure_rows(tmp_path/"failures.jsonl")[-1]
     assert row["failure_type"] == "HELPER_DEADLINE_EXCEEDED"
-    assert row["helper_budget_seconds"] == 90
+    assert row["helper_budget_seconds"] == 110
     assert row["elapsed_seconds"] >= 0
 
 
@@ -243,6 +243,18 @@ def test_private_secret_verifier_safe_and_leak_fixtures(tmp_path: Path):
     assert leak_receipt["result"] == "FAIL" and leak_receipt["exact_value_hit_count"] == 1
     assert "super-private-value-123" not in json.dumps(safe_receipt)
     assert "super-private-value-123" not in json.dumps(leak_receipt)
+
+
+def test_private_secret_verifier_ignores_invalid_short_api_key_placeholders(tmp_path: Path):
+    verifier = _load("minitz_private_secret_verifier")
+    env = tmp_path / "runtime.env"
+    env.write_text("GEMINI_API_KEY=abcd\nBIELLA_GOOGLE_API_KEY=abcd\nCLIENT_SECRET=real-secret-value-12345\n")
+    target = tmp_path / "helper.sh"
+    target.write_text("ordinary abcd placeholder text")
+    receipt = verifier.verify_secret_leaks(env, [target])
+    assert receipt["result"] == "PASS"
+    assert receipt["secret_entry_count"] == 1
+    assert receipt["exact_value_hit_count"] == 0
 
 
 def test_private_secret_verifier_failure_is_unknown(tmp_path: Path):

@@ -134,6 +134,15 @@ class MiniTZLiveProjection(LiveProjection):
 
     def refresh(self, *, force_assets: bool = False, force_system: bool = False, force_git: bool = False) -> dict[str, object]:
         now = datetime.now(timezone.utc)
+        runtime = _read_json(self.runtime_path)
+        raw_coder_statuses = runtime.get("coder_statuses") if isinstance(runtime.get("coder_statuses"), dict) else {}
+        coder_statuses = {
+            "codex": str(raw_coder_statuses.get("codex") or "NEEDS_MODIFICATION"),
+            "agr": str(raw_coder_statuses.get("agr") or "NEEDS_MODIFICATION"),
+        }
+        raw_coder_detail = runtime.get("coder_status_detail") if isinstance(runtime.get("coder_status_detail"), dict) else {}
+        coder_detail = {key: str(value)[:240] for key, value in raw_coder_detail.items() if key in {"codex", "agr"} and value}
+        active_coder = str(runtime.get("active_coder") or "codex")
         stream = self._latest_stream()
         task_id = stream.parent.name if stream else "UNKNOWN"
         program, task = self._task_record(task_id)
@@ -192,6 +201,9 @@ class MiniTZLiveProjection(LiveProjection):
                 "task_status": task_status,
                 "current_operation": current,
                 "execution_mode": "MINITZ_TASK_PROGRAM",
+                "active_coder": active_coder,
+                "main_coders": coder_statuses,
+                "main_coder_detail": coder_detail,
                 "continuity_status": "PRESERVED" if checkpoint else "FRESH",
                 "efficiency": {"state": "ACTIVE", "projection_bytes": self.program_path.stat().st_size if self.program_path.is_file() else None, "source_ref_count": 1, "capability_count": len(task.get("required_capabilities") or []) if isinstance(task.get("required_capabilities"), list) else 0},
                 "heartbeat_at": now.isoformat(),

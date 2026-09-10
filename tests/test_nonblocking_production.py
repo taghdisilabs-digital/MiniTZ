@@ -46,6 +46,22 @@ def test_checkpoint_uses_mockable_sleep_boundary_not_real_systemd(tmp_path, monk
     assert calls == ["sleep"]
 
 
+def test_sleep_boundary_excludes_public_website_and_control_spine():
+    assert "biella-public-site.service" not in handoff.PROTECTED_SERVICES
+    assert "biella-control-gateway.service" not in handoff.PROTECTED_SERVICES
+    assert "caddy.service" not in handoff.PROTECTED_SERVICES
+    assert "biella-website-live-deploy.path" not in handoff.PROTECTED_SERVICES
+
+
+def test_owner_sleep_entrypoint_uses_bounded_handoff_and_never_names_public_spine():
+    script = ROOT / "ops/local-ai/minitz-owner-sleep"
+    assert script.is_file()
+    text = script.read_text()
+    assert "biella-customer-handoff checkpoint" in text
+    for forbidden in ("biella-public-site.service", "biella-control-gateway.service", "caddy.service", "biella-website-live-deploy.path"):
+        assert forbidden not in text
+
+
 def test_local_continuity_commit_does_not_need_remote_transport(tmp_path, monkeypatch):
     repo, _ = repository(tmp_path)
     (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").write_text("upgraded\n")
@@ -126,11 +142,11 @@ def test_next_hundred_map_has_exact_source_bound_tasks():
 
 def test_runner_injects_only_active_task_execution_map():
     import biella_execution_map as mapping
-    text = mapping.task_context(ROOT, "D05-01")
-    assert "D05-01" in text
-    assert "D23-05" not in text
+    text = mapping.task_context(ROOT, "UNIFY-04")
+    assert "UNIFY-04" in text
+    assert "ENDUSER-SPEC-01" not in text
     assert len(text) < 14000
-    assert mapping.task_working_directory(ROOT, ROOT / "projects/biella-games", "D10-01") == ROOT / "website"
+    assert mapping.task_working_directory(ROOT, ROOT / "projects/biella-games", "ENDUSER-SPEC-01") == ROOT
 
 
 def test_validated_task_files_are_committed_without_another_model_turn(tmp_path):

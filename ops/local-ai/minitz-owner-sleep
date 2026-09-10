@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+# Canonical MiniTZ owner-sleep boundary. The handoff manager only owns the
+# private production/model services in PROTECTED_SERVICES; the public website
+# and public control/live projection are intentionally outside this boundary.
+exec /usr/local/bin/biella-customer-handoff checkpoint

@@ -38,7 +38,10 @@ class FakeCommands:
         if command == "/usr/local/bin/biella-codex production status":
             return 0, json.dumps({
                 "status": "STOPPED", "current_section": "demo01", "current_task": "D01-019",
-                "completed": 18, "total": 50, "active_model": None, "active_reasoning": None,
+                "completed": 18, "total": 50, "active_coder": "codex",
+                "main_coders": {"codex": "ACTIVE", "agr": "NEEDS_MODIFICATION"},
+                "main_coder_detail": {"agr": "eligibility check failed"},
+                "active_model": None, "active_reasoning": None,
                 "heartbeat_at": "2026-09-05T00:00:00+00:00", "sections": [{"id": "demo01", "status": "IN_PROGRESS", "completed": 18, "total": 50}],
             })
         if command == "/usr/local/bin/biella providers":
@@ -86,6 +89,9 @@ class MonorepoProjectionTest(unittest.TestCase):
         self.assertEqual(payload["control"]["status"], "STOPPED")
         self.assertEqual(payload["control"]["current_task"], "D01-019")
         self.assertEqual(payload["control"]["completed"], 18)
+        self.assertEqual(payload["control"]["active_coder"], "codex")
+        self.assertEqual(payload["control"]["main_coders"], {"codex": "ACTIVE", "agr": "NEEDS_MODIFICATION"})
+        self.assertEqual(payload["control"]["main_coder_detail"]["agr"], "eligibility check failed")
         self.assertEqual(payload["work"]["current_task"], "D01-019")
         self.assertEqual(payload["work"]["tasks"][0]["id"], "D01-018")
         self.assertEqual(payload["work"]["tasks"][1]["id"], "D01-019")

@@ -1371,3 +1371,447 @@ def test_taskbooster_invalid_json_is_preserved_as_rejected_evidence(tmp_path: Pa
     payload=json.loads(rejected[0].read_text()); assert payload["reason"]=="INVALID_RESULT"
     assert payload["preserve_raw"] is True
     assert Path(payload["raw_result_path"]).read_text()=='{"broken":'
+
+
+def test_runtime_has_shared_main_coder_state():
+    telemetry = runner.initial_runtime()
+    assert telemetry["active_coder"] == "codex"
+    assert telemetry["coder_sessions"] == {}
+    assert telemetry["coder_statuses"] == {
+        "codex": "NEEDS_MODIFICATION",
+        "agr": "NEEDS_MODIFICATION",
+    }
+
+
+def test_task_native_sessions_are_scoped_per_coder():
+    telemetry = runner.initial_runtime()
+    runner._record_task_session(telemetry, "D02-01", "codex-session", coder_id="codex")
+    runner._record_task_session(telemetry, "D02-01", "agr-conversation", coder_id="agr")
+    assert runner._resume_session_for(telemetry, "D02-01", coder_id="codex") == "codex-session"
+    assert runner._resume_session_for(telemetry, "D02-01", coder_id="agr") == "agr-conversation"
+    assert telemetry["coder_sessions"]["D02-01"] == {
+        "codex": "codex-session",
+        "agr": "agr-conversation",
+    }
+
+
+def test_legacy_task_session_migrates_to_codex_backend(tmp_path: Path):
+    runtime = tmp_path / "runtime.json"
+    runtime.write_text(json.dumps({
+        "task_session_id": "legacy-session",
+        "session_task_id": "D02-01",
+        "task_sessions": {"D02-01": "legacy-session"},
+    }))
+    telemetry = runner.load_runtime(runtime)
+    assert telemetry["coder_sessions"]["D02-01"]["codex"] == "legacy-session"
+    assert runner._resume_session_for(telemetry, "D02-01", coder_id="codex") == "legacy-session"
+
+
+def test_cross_coder_handoff_uses_shared_resume_packet_without_native_agr_session(tmp_path: Path):
+    repo, project = write_repo_fixture(tmp_path)
+    production = state.load_project_production(project)
+    task = state.find_task(production, "D01-030")
+    telemetry = runner.initial_runtime()
+    (repo / "ops/workstation").mkdir(parents=True, exist_ok=True)
+    (repo / "ops/workstation/AGENTS.md").write_text("engine policy")
+    (project / "AGENTS.md").write_text("project policy")
+    runner._record_task_session(telemetry, task.id, "codex-session", coder_id="codex")
+    capsule = runner._task_capsule_path(tmp_path / "runtime", task.id)
+    capsule.parent.mkdir(parents=True)
+    capsule.write_text(json.dumps({"task_id": task.id, "summary": "partial"}))
+    prompt = runner._task_prompt(repo, production, task, telemetry, capsule, coder_id="agr")
+    assert "RESUME_EXISTING_TASK_SESSION" in prompt
+    assert "MAIN_CODER_BACKEND: agr" in prompt
+    assert f"SHARED_MINITZ_POLICY: {repo / 'ops/workstation/AGENTS.md'}" in prompt
+    assert f"PROJECT_AGENTS_POLICY: {project / 'AGENTS.md'}" in prompt
+
+
+def test_task_capsule_records_all_native_sessions_without_splitting_memory(tmp_path: Path):
+    repo, project = write_repo_fixture(tmp_path)
+    production = state.load_project_production(project)
+    task = state.find_task(production, "D01-030")
+    telemetry = runner.initial_runtime()
+    runner._record_task_session(telemetry, task.id, "codex-session", coder_id="codex")
+    runner._record_task_session(telemetry, task.id, "agr-session", coder_id="agr")
+    path = runner._write_task_capsule(repo, project, tmp_path / "runtime", task, telemetry)
+    payload = json.loads(path.read_text())
+    assert payload["coder_sessions"] == {"codex": "codex-session", "agr": "agr-session"}
+    assert payload["task_id"] == task.id
+
+
+def test_invoke_agr_structured_writes_result_and_records_agr_session(tmp_path: Path, monkeypatch):
+    fake = tmp_path / "fake_agr.py"
+    output = tmp_path / "result.json"
+    fake.write_text(
+        "import json,sys\n"
+        "msg=json.loads(sys.stdin.readline())\n"
+        "assert msg['event']=='user'\n"
+        "result={'task_id':'D01-030','status':'CONTINUE','summary':'agr continued','evidence':['agr evidence'],'task_revision':1,'task_digest':'0'*64,'scope_ref':'task://D01-030','family_revision':None,'authority_ref':None,'accepted_criteria':[]}\n"
+        "print(json.dumps({'event':'result','result':{'conversation_id':'agr-conv-1','status':'SUCCESS','response':'ok','structured_output':result,'usage':{'input_tokens':20,'output_tokens':10,'cache_read_tokens':15}}}),flush=True)\n"
+    )
+    monkeypatch.setattr(runner.main_coder, "build_agr_stream_command", lambda *_args, **_kwargs: [sys.executable, str(fake)])
+    telemetry = runner.initial_runtime()
+    telemetry["active_coder"] = "agr"
+    rc, detail = runner.invoke_agr_structured(
+        "shared prompt", "gemini-3.8-flash-high", "high", tmp_path / "schema.json", output,
+        tmp_path / "agr.stdout", tmp_path / "agr.stderr", tmp_path / "runtime.json", telemetry,
+        cwd=tmp_path, session_task_id="D01-030", heartbeat_interval=0.01,
+    )
+    assert rc == 0
+    assert json.loads(output.read_text())["summary"] == "agr continued"
+    assert runner._resume_session_for(telemetry, "D01-030", coder_id="agr") == "agr-conv-1"
+    assert telemetry["coder_statuses"]["agr"] == "ACTIVE"
+    assert telemetry["last_coder_usage"]["agr"]["cache_read_tokens"] == 15
+    assert "agr continued" not in detail or isinstance(detail, str)
+
+
+def test_invoke_agr_eligibility_error_marks_needs_modification_without_touching_codex_session(tmp_path: Path, monkeypatch):
+    fake = tmp_path / "fake_agr_error.py"
+    fake.write_text(
+        "import json,sys\n"
+        "sys.stdin.readline()\n"
+        "print(json.dumps({'event':'result','result':{'conversation_id':'','status':'ERROR','response':'','error':'Eligibility check failed: not available in your location','usage':{}}}),flush=True)\n"
+        "raise SystemExit(1)\n"
+    )
+    monkeypatch.setattr(runner.main_coder, "build_agr_stream_command", lambda *_args, **_kwargs: [sys.executable, str(fake)])
+    telemetry = runner.initial_runtime()
+    runner._record_task_session(telemetry, "D01-030", "codex-session", coder_id="codex")
+    rc, detail = runner.invoke_agr_structured(
+        "shared prompt", "gemini-3.8-flash-high", "high", tmp_path / "schema.json", tmp_path / "result.json",
+        tmp_path / "agr.stdout", tmp_path / "agr.stderr", tmp_path / "runtime.json", telemetry,
+        cwd=tmp_path, session_task_id="D01-030", heartbeat_interval=0.01,
+    )
+    assert rc != 0
+    assert "Eligibility check failed" in detail
+    assert telemetry["coder_statuses"]["agr"] == "NEEDS_MODIFICATION"
+    assert runner._resume_session_for(telemetry, "D01-030", coder_id="codex") == "codex-session"
+
+
+def test_main_coder_selection_prefers_full_codex_and_keeps_active_agr_as_peer(tmp_path: Path):
+    repo, project = write_repo_fixture(tmp_path)
+    task = state.find_task(state.load_project_production(project), "D01-030")
+    telemetry = runner.initial_runtime()
+    telemetry["coder_statuses"]["agr"] = "ACTIVE"
+    telemetry["active_coder"] = "codex"
+    catalog = {"gpt-6-astra": {"ultra"}}
+    coder_id, route, packet, peer = runner._select_main_task_route(
+        task, catalog, {"claude-opus-4-6-thinking"}, telemetry, datetime.now(timezone.utc), repo, project
+    )
+    assert coder_id == "codex"
+    assert route == routing.Route("gpt-6-astra", "ultra")
+    assert packet is None
+    assert peer == "agr"
+
+
+def test_main_coder_selection_uses_agr_before_bounded_codex_fallback(tmp_path: Path):
+    repo, project = write_repo_fixture(tmp_path)
+    task = state.find_task(state.load_project_production(project), "D01-030")
+    telemetry = runner.initial_runtime()
+    telemetry["coder_statuses"]["agr"] = "ACTIVE"
+    telemetry["active_coder"] = "codex"
+    catalog = {"qwen3-coder-next:biella": {"local"}}
+    coder_id, route, packet, peer = runner._select_main_task_route(
+        task, catalog, {"claude-opus-4-6-thinking"}, telemetry, datetime.now(timezone.utc), repo, project
+    )
+    assert coder_id == "agr"
+    assert route.provider == "antigravity"
+    assert route.model == "claude-opus-4-6-thinking"
+    assert packet is None
+    assert peer is None
+
+
+def test_main_coder_selection_falls_back_to_existing_codex_qwen_when_agr_not_usable(tmp_path: Path):
+    repo, project = write_repo_fixture(tmp_path)
+    task = state.find_task(state.load_project_production(project), "D01-030")
+    telemetry = runner.initial_runtime()
+    telemetry["coder_statuses"]["agr"] = "NEEDS_MODIFICATION"
+    catalog = {"qwen3-coder-next:biella": {"local"}}
+    coder_id, route, packet, peer = runner._select_main_task_route(
+        task, catalog, {"claude-opus-4-6-thinking"}, telemetry, datetime.now(timezone.utc), repo, project
+    )
+    assert coder_id == "codex"
+    assert route.provider == "ollama"
+    assert peer is None
+
+
+
+def _typed_test_completion(task_id: str) -> dict:
+    return {
+        "kind": "VALIDATION", "task_id": task_id, "task_revision": 1,
+        "task_digest": "0" * 64, "scope_ref": f"task://test/{task_id}",
+        "evidence_ref": "test://runtime-pass", "evidence_sha256": "1" * 64,
+        "implementation_ref": "test://implementation", "verdict": "PASS",
+    }
+
+def test_run_production_executes_agr_when_it_is_selected_main_coder(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime_root = tmp_path / "runtime"
+    runtime_root.mkdir(parents=True)
+    telemetry = runner.initial_runtime()
+    telemetry["coder_statuses"]["agr"] = "ACTIVE"
+    telemetry["active_coder"] = "agr"
+    runner.save_runtime(runtime_root / "runtime.json", telemetry)
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"qwen3-coder-next:biella": {"local"}})
+    monkeypatch.setattr(runner.main_coder, "discover_agr_models", lambda **_kwargs: {"claude-opus-4-6-thinking"})
+    monkeypatch.setattr(runner, "_prepare_optional_task_assists", lambda *_args, **_kwargs: (None, None))
+    monkeypatch.setattr(runner.evidence, "parse_result", lambda _path, task_id: runner.evidence.TaskResult(task_id, "COMPLETE", "done", ("runtime pass",)))
+    monkeypatch.setattr(runner.routing, "build_codex_command", lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("Codex must not execute")))
+    calls = []
+    def fake_agr(prompt, model, effort, _schema, output, *_args, **kwargs):
+        calls.append((prompt, model, effort, kwargs.get("resume_session_id")))
+        payload = {"task_id":"D01-030","status":"COMPLETE","summary":"done by agr","evidence":["runtime pass"]}
+        Path(output).write_text(json.dumps(payload))
+        kwargs["telemetry"]["coder_statuses"]["agr"] = "ACTIVE" if "telemetry" in kwargs else "ACTIVE"
+        return 0, ""
+    # use an explicit wrapper because telemetry is positional in the real signature
+    def invoke_agr(prompt, model, effort, schema, output, stdout, stderr, runtime_path, telemetry, **kwargs):
+        calls.append((prompt, model, effort, kwargs.get("resume_session_id")))
+        Path(output).write_text(json.dumps({"task_id":"D01-030","status":"COMPLETE","summary":"done by agr","evidence":[_typed_test_completion("D01-030")]}))
+        telemetry["coder_statuses"]["agr"] = "ACTIVE"
+        runner._record_task_session(telemetry, "D01-030", "agr-session", coder_id="agr")
+        return 0, ""
+    monkeypatch.setattr(runner, "invoke_agr_structured", invoke_agr)
+    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: {"commit":task_id,"tree":"t"})
+    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
+    assert calls and calls[0][1] == "claude-opus-4-6-thinking"
+    assert "MAIN_CODER_BACKEND: agr" in calls[0][0]
+    assert state.find_task(state.load_project_production(project), "D01-030").status == "COMPLETE"
+
+
+def test_codex_usage_exhaustion_hands_same_task_to_active_agr_without_replay(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime_root = tmp_path / "runtime"
+    runtime_root.mkdir(parents=True)
+    telemetry = runner.initial_runtime()
+    telemetry["coder_statuses"]["agr"] = "ACTIVE"
+    runner.save_runtime(runtime_root / "runtime.json", telemetry)
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {
+        "gpt-6-astra": {"ultra"}, "qwen3-coder-next:biella": {"local"}
+    })
+    monkeypatch.setattr(runner.main_coder, "discover_agr_models", lambda **_kwargs: {"claude-opus-4-6-thinking"})
+    monkeypatch.setattr(runner, "_prepare_optional_task_assists", lambda *_args, **_kwargs: (None, None))
+    monkeypatch.setattr(runner.evidence, "parse_result", lambda _path, task_id: runner.evidence.TaskResult(task_id, "COMPLETE", "done", ("runtime pass",)))
+    codex_calls = []
+    def codex_command(route, _schema, _output, _cwd, **_kwargs):
+        codex_calls.append(route.model)
+        return [sys.executable, "-c", "import sys; print('usage_limit_exceeded: try again at Sep 12, 2026 5:05 PM UTC', file=sys.stderr); sys.exit(1)"]
+    monkeypatch.setattr(runner.routing, "build_codex_command", codex_command)
+    agr_prompts = []
+    def invoke_agr(prompt, model, effort, schema, output, stdout, stderr, runtime_path, telemetry, **kwargs):
+        agr_prompts.append(prompt)
+        Path(output).write_text(json.dumps({"task_id":"D01-030","status":"COMPLETE","summary":"continued by agr","evidence":[_typed_test_completion("D01-030")]}))
+        telemetry["coder_statuses"]["agr"] = "ACTIVE"
+        runner._record_task_session(telemetry, "D01-030", "agr-session", coder_id="agr")
+        return 0, ""
+    monkeypatch.setattr(runner, "invoke_agr_structured", invoke_agr)
+    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: {"commit":task_id,"tree":"t"})
+    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
+    assert codex_calls == ["gpt-6-astra"]
+    assert len(agr_prompts) == 1
+    assert "RESUME_EXISTING_TASK_SESSION" in agr_prompts[0]
+    assert "MAIN_CODER_BACKEND: agr" in agr_prompts[0]
+    final = runner.load_runtime(runtime_root / "runtime.json")
+    assert final["coder_sessions"]["D01-030"]["agr"] == "agr-session"
+
+
+def test_peer_assist_launch_is_nonblocking_and_collects_content_addressed_result(tmp_path: Path, monkeypatch):
+    fake = tmp_path / "peer_agr.py"
+    fake.write_text(
+        "import json,sys,time\n"
+        "msg=json.loads(sys.stdin.readline()); assert msg['event']=='user'\n"
+        "time.sleep(0.25)\n"
+        "payload={'status':'USEFUL','summary':'check exact boundary','findings':['f1'],'evidence_refs':['file.py:1'],'candidate_actions':['run test']}\n"
+        "print(json.dumps({'event':'result','result':{'conversation_id':'peer-conv','status':'SUCCESS','structured_output':payload,'usage':{}}}),flush=True)\n"
+    )
+    monkeypatch.setattr(runner.main_coder, "build_agr_stream_command", lambda *_a, **_k: [sys.executable, str(fake)])
+    repo, project = write_repo_fixture(tmp_path)
+    task = state.find_task(state.load_project_production(project), "D01-030")
+    capsule = tmp_path / "runtime/task-memory/D01-30.json"; capsule.parent.mkdir(parents=True); capsule.write_text('{"summary":"shared"}')
+    projection = tmp_path / "runtime/memory/current-task.json"; projection.parent.mkdir(parents=True); projection.write_text('{"task_id":"D01-30"}')
+    inflight = {}
+    started = runner._launch_main_coder_peer_assist(
+        repo, project, tmp_path / "runtime", task, "x" * 64,
+        primary_coder="codex", peer_coder="agr",
+        peer_route=routing.Route("claude-opus-4-6-thinking", "high", "antigravity"),
+        capsule_path=capsule, projection_path=projection, inflight=inflight,
+    )
+    assert started is True
+    assert len(inflight) == 1
+    handle = next(iter(inflight.values()))
+    assert handle.process.poll() is None
+    handle.process.wait(timeout=2)
+    telemetry = runner.initial_runtime()
+    journal = runner.production_events.ProductionEventJournal(tmp_path / "runtime/events.jsonl")
+    runner._collect_main_coder_peer_assists(inflight, telemetry, journal)
+    assert not inflight
+    accepted = list((tmp_path / "runtime/memory/main-coder-peer").glob("*.accepted.json"))
+    assert len(accepted) == 1
+    wrapper = json.loads(accepted[0].read_text())
+    assert wrapper["authority"] == "NONE"
+    assert wrapper["result"]["status"] == "USEFUL"
+    assert wrapper["peer_coder"] == "agr"
+
+
+def test_peer_assist_cache_prevents_duplicate_dispatch(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    task = state.find_task(state.load_project_production(project), "D01-030")
+    capsule = tmp_path / "runtime/task-memory/D01-30.json"; capsule.parent.mkdir(parents=True); capsule.write_text('{"summary":"shared"}')
+    projection = tmp_path / "runtime/memory/current-task.json"; projection.parent.mkdir(parents=True); projection.write_text('{"task_id":"D01-30"}')
+    peer_root = tmp_path / "runtime/memory/main-coder-peer"; peer_root.mkdir(parents=True)
+    key = runner._main_coder_peer_key(task, "x" * 64, "agr", "claude-opus-4-6-thinking", capsule, projection)
+    (peer_root / f"{task.id}-{key}.accepted.json").write_text(json.dumps({"task_state_digest":"x" * 64,"authority":"NONE"}))
+    monkeypatch.setattr(runner.subprocess, "Popen", lambda *_a, **_k: (_ for _ in ()).throw(AssertionError("duplicate peer must not launch")))
+    inflight = {}
+    assert runner._launch_main_coder_peer_assist(
+        repo, project, tmp_path / "runtime", task, "x" * 64,
+        primary_coder="codex", peer_coder="agr",
+        peer_route=routing.Route("claude-opus-4-6-thinking", "high", "antigravity"),
+        capsule_path=capsule, projection_path=projection, inflight=inflight,
+    ) is False
+
+
+def test_primary_prompt_consumes_current_peer_assist_without_making_it_authority(tmp_path: Path):
+    repo, project = write_repo_fixture(tmp_path)
+    production = state.load_project_production(project)
+    task = state.find_task(production, "D01-030")
+    capsule = tmp_path / "runtime/task-memory/D01-30.json"; capsule.parent.mkdir(parents=True); capsule.write_text('{"summary":"shared"}')
+    peer = tmp_path / "runtime/memory/main-coder-peer/peer.accepted.json"; peer.parent.mkdir(parents=True); peer.write_text('{"authority":"NONE","result":{"status":"USEFUL"}}')
+    prompt = runner._task_prompt(repo, production, task, runner.initial_runtime(), capsule, peer_assist_path=peer)
+    assert f"MAIN_CODER_PEER_ASSIST: {peer}" in prompt
+    assert "non-authoritative" in prompt.lower()
+    assert "cannot complete, advance, reorder" in prompt.lower()
+
+
+def test_codex_never_consumes_agr_native_live_session_slot():
+    telemetry = runner.initial_runtime()
+    telemetry["active_coder"] = "agr"
+    runner._record_task_session(telemetry, "UNIFY-04", "agr-conversation", coder_id="agr")
+    assert telemetry["task_session_id"] == "agr-conversation"
+    assert runner._resume_session_for(telemetry, "UNIFY-04", coder_id="codex") is None
+    assert runner._resume_session_for(telemetry, "UNIFY-04", coder_id="agr") == "agr-conversation"
+
+
+def test_clearing_live_agr_session_does_not_pollute_legacy_codex_registry():
+    telemetry = runner.initial_runtime()
+    telemetry["active_coder"] = "agr"
+    runner._record_task_session(telemetry, "UNIFY-04", "agr-conversation", coder_id="agr")
+    runner._clear_task_session(telemetry)
+    assert telemetry["task_sessions"] == {}
+    assert telemetry["coder_sessions"]["UNIFY-04"] == {"agr": "agr-conversation"}
+    assert telemetry["task_session_id"] is None
+
+
+def test_run_production_launches_active_second_coder_as_nonblocking_peer(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime_root = tmp_path / "runtime"; runtime_root.mkdir(parents=True)
+    telemetry = runner.initial_runtime(); telemetry["coder_statuses"]["agr"] = "ACTIVE"; telemetry["active_coder"] = "codex"
+    runner.save_runtime(runtime_root / "runtime.json", telemetry)
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra": {"ultra"}})
+    monkeypatch.setattr(runner.main_coder, "discover_agr_models", lambda **_kwargs: {"claude-opus-4-6-thinking"})
+    monkeypatch.setattr(runner, "_prepare_optional_task_assists", lambda *_args, **_kwargs: (None, None))
+    monkeypatch.setattr(runner.evidence, "parse_result", lambda _path, task_id: runner.evidence.TaskResult(task_id, "COMPLETE", "done", ("runtime pass",)))
+    peer_calls = []
+    def launch(repo, project, runtime, task, digest, **kwargs):
+        peer_calls.append((kwargs["primary_coder"], kwargs["peer_coder"], kwargs["peer_route"].provider, digest))
+        return True
+    monkeypatch.setattr(runner, "_launch_main_coder_peer_assist", launch)
+    def command(_route, _schema, output, _cwd, **_kwargs):
+        code = f"import pathlib; pathlib.Path({str(output)!r}).write_text('{{}}')"
+        return [sys.executable, "-c", code]
+    monkeypatch.setattr(runner.routing, "build_codex_command", command)
+    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: {"commit":task_id,"tree":"t"})
+    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
+    assert peer_calls
+    assert peer_calls[0][0:3] == ("codex", "agr", "antigravity")
+
+
+def test_production_status_exposes_main_coder_four_state_truth(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime = tmp_path / "runtime.json"
+    now = datetime(2026, 9, 10, 20, 0, tzinfo=timezone.utc)
+    telemetry = runner.initial_runtime()
+    telemetry["heartbeat_at"] = now.isoformat()
+    telemetry["active_coder"] = "codex"
+    telemetry["coder_statuses"] = {"codex": "ACTIVE", "agr": "NEEDS_MODIFICATION"}
+    telemetry["coder_status_detail"] = {"agr": "eligibility check failed"}
+    runner.save_runtime(runtime, telemetry)
+    monkeypatch.setattr(runner, "service_active", lambda: True)
+    payload = runner.production_status(repo, project, runtime, now=now)
+    assert payload["active_coder"] == "codex"
+    assert payload["main_coders"] == {"codex": "ACTIVE", "agr": "NEEDS_MODIFICATION"}
+    assert payload["main_coder_detail"]["agr"] == "eligibility check failed"
+
+
+def test_main_coder_class_route_uses_agr_when_codex_strong_route_unavailable():
+    telemetry = runner.initial_runtime()
+    telemetry["coder_statuses"]["agr"] = "ACTIVE"
+    coder, route = runner._select_main_coder_class_route(
+        "deep_memory", {"qwen3-coder-next:biella": {"local"}},
+        {"claude-opus-4-6-thinking"}, telemetry, datetime.now(timezone.utc),
+    )
+    assert coder == "agr"
+    assert route.provider == "antigravity"
+    assert route.model == "claude-opus-4-6-thinking"
+
+
+def test_main_coder_class_route_keeps_codex_primary_and_agr_available_in_parallel():
+    telemetry = runner.initial_runtime()
+    telemetry["coder_statuses"]["agr"] = "ACTIVE"
+    telemetry["active_coder"] = "codex"
+    coder, route = runner._select_main_coder_class_route(
+        "deep_memory", {"gpt-6-astra": {"ultra"}},
+        {"claude-opus-4-6-thinking"}, telemetry, datetime.now(timezone.utc),
+    )
+    assert coder == "codex"
+    assert route.provider == "openai"
+    assert telemetry["coder_statuses"] == {"codex": "ACTIVE", "agr": "ACTIVE"}
+
+
+def test_needs_modification_agr_gets_one_nonblocking_useful_recovery_peer_attempt(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime_root = tmp_path / "runtime"; runtime_root.mkdir(parents=True)
+    telemetry = runner.initial_runtime(); telemetry["coder_statuses"]["agr"] = "NEEDS_MODIFICATION"
+    runner.save_runtime(runtime_root / "runtime.json", telemetry)
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra": {"ultra"}})
+    monkeypatch.setattr(runner.main_coder, "discover_agr_models", lambda **_kwargs: {"claude-opus-4-6-thinking"})
+    monkeypatch.setattr(runner, "_prepare_optional_task_assists", lambda *_args, **_kwargs: (None, None))
+    monkeypatch.setattr(runner.evidence, "parse_result", lambda _path, task_id: runner.evidence.TaskResult(task_id, "COMPLETE", "done", ("runtime pass",)))
+    recovery = []
+    def launch(_repo, _project, _runtime, _task, _digest, **kwargs):
+        recovery.append((kwargs["primary_coder"], kwargs["peer_coder"], kwargs["peer_route"].provider))
+        return True
+    monkeypatch.setattr(runner, "_launch_main_coder_peer_assist", launch)
+    monkeypatch.setattr(runner.routing, "build_codex_command", lambda _route, _schema, output, _cwd, **_kwargs: [sys.executable, "-c", f"from pathlib import Path; Path({str(output)!r}).write_text('{{}}')"])
+    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: {"commit":task_id,"tree":"t"})
+    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
+    assert recovery == [("codex", "agr", "antigravity")]
+
+
+def test_failed_peer_assist_creates_rejected_cache_marker(tmp_path: Path, monkeypatch):
+    fake = tmp_path / "bad_peer.py"
+    fake.write_text("import sys; sys.stdin.readline(); print('eligibility failed', file=sys.stderr); raise SystemExit(1)\n")
+    monkeypatch.setattr(runner.main_coder, "build_agr_stream_command", lambda *_a, **_k: [sys.executable, str(fake)])
+    repo, project = write_repo_fixture(tmp_path)
+    task = state.find_task(state.load_project_production(project), "D01-030")
+    capsule = tmp_path / "runtime/task-memory/D01-30.json"; capsule.parent.mkdir(parents=True); capsule.write_text('{"summary":"shared"}')
+    projection = tmp_path / "runtime/memory/current-task.json"; projection.parent.mkdir(parents=True); projection.write_text('{"task_id":"D01-30"}')
+    inflight = {}
+    assert runner._launch_main_coder_peer_assist(
+        repo, project, tmp_path / "runtime", task, "x" * 64,
+        primary_coder="codex", peer_coder="agr",
+        peer_route=routing.Route("claude-opus-4-6-thinking", "high", "antigravity"),
+        capsule_path=capsule, projection_path=projection, inflight=inflight,
+    )
+    handle = next(iter(inflight.values())); handle.process.wait(timeout=2)
+    telemetry = runner.initial_runtime()
+    runner._collect_main_coder_peer_assists(inflight, telemetry)
+    rejected = list((tmp_path / "runtime/memory/main-coder-peer").glob("*.rejected.json"))
+    assert len(rejected) == 1
+    assert telemetry["coder_statuses"]["agr"] == "NEEDS_MODIFICATION"
+    # Same exact state must not immediately hammer the unusable provider again.
+    assert runner._launch_main_coder_peer_assist(
+        repo, project, tmp_path / "runtime", task, "x" * 64,
+        primary_coder="codex", peer_coder="agr",
+        peer_route=routing.Route("claude-opus-4-6-thinking", "high", "antigravity"),
+        capsule_path=capsule, projection_path=projection, inflight={},
+    ) is False

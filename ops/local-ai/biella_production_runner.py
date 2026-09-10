@@ -11,6 +11,7 @@ import subprocess
 import sys
 import time
 import urllib.request
+from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
@@ -18,6 +19,7 @@ from typing import Any, Callable, Mapping, Sequence
 import biella_codex_routing as routing
 import biella_execution_style as execution_style
 import biella_memory_compactor as memory_compactor
+import biella_main_coder as main_coder
 import minitz_taskbooster as taskbooster
 import minitz_task_program as minitz
 import biella_production_evidence as evidence
@@ -33,12 +35,26 @@ _RUNTIME_KEYS = {
     "status", "project", "task_id", "attempt", "pid", "child_pid",
     "active_model", "active_reasoning", "cooldowns", "last_result",
     "heartbeat_at", "updated_at", "task_session_id", "session_task_id",
-    "task_sessions", "source_alignment",
+    "task_sessions", "coder_sessions", "coder_statuses", "coder_status_detail", "last_coder_usage", "active_coder", "source_alignment",
 }
 
 
 class AlreadyRunning(RuntimeError):
     pass
+
+
+@dataclass
+class MainCoderPeerHandle:
+    key: str
+    peer_coder: str
+    model: str
+    task_id: str
+    task_state_digest: str
+    process: subprocess.Popen
+    output_path: Path
+    stdout_path: Path
+    stderr_path: Path
+    accepted_path: Path
 
 
 class ProductionLock:
@@ -68,7 +84,9 @@ def initial_runtime() -> dict[str, Any]:
         "active_reasoning": None, "cooldowns": {}, "last_result": None,
         "heartbeat_at": None, "updated_at": datetime.now(timezone.utc).isoformat(),
         "task_session_id": None, "session_task_id": None, "task_sessions": {},
-        "source_alignment": None,
+        "coder_sessions": {}, "coder_statuses": {"codex": "NEEDS_MODIFICATION", "agr": "NEEDS_MODIFICATION"},
+        "coder_status_detail": {}, "last_coder_usage": {},
+        "active_coder": "codex", "source_alignment": None,
     }
 
 
@@ -77,6 +95,10 @@ def save_runtime(path: Path, runtime: Mapping[str, Any]) -> None:
     payload = {key: runtime.get(key) for key in _RUNTIME_KEYS}
     payload["cooldowns"] = dict(payload.get("cooldowns") or {})
     payload["task_sessions"] = dict(payload.get("task_sessions") or {})
+    payload["coder_sessions"] = {str(task): dict(sessions) for task, sessions in dict(payload.get("coder_sessions") or {}).items() if isinstance(sessions, Mapping)}
+    payload["coder_statuses"] = dict(payload.get("coder_statuses") or {})
+    payload["coder_status_detail"] = dict(payload.get("coder_status_detail") or {})
+    payload["last_coder_usage"] = dict(payload.get("last_coder_usage") or {})
     payload["attempt"] = int(payload.get("attempt") or 0)
     tmp = path.with_suffix(path.suffix + ".tmp")
     tmp.write_text(json.dumps(payload, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
@@ -92,9 +114,21 @@ def load_runtime(path: Path) -> dict[str, Any]:
         if key in raw:
             result[key] = raw[key]
     result["task_sessions"] = dict(result.get("task_sessions") or {})
+    result["coder_sessions"] = {str(task): dict(sessions) for task, sessions in dict(result.get("coder_sessions") or {}).items() if isinstance(sessions, Mapping)}
+    result["coder_statuses"] = dict(result.get("coder_statuses") or {})
+    result["coder_status_detail"] = dict(result.get("coder_status_detail") or {})
+    result["last_coder_usage"] = dict(result.get("last_coder_usage") or {})
+    result["coder_statuses"].setdefault("codex", "NEEDS_MODIFICATION")
+    result["coder_statuses"].setdefault("agr", "NEEDS_MODIFICATION")
     current_task = result.get("session_task_id"); current_session = result.get("task_session_id")
     if isinstance(current_task, str) and current_task and isinstance(current_session, str) and current_session:
         result["task_sessions"].setdefault(current_task, current_session)
+    # Old runtime files had only one Codex-native session map. Migrate it once into
+    # the provider-scoped map without changing the legacy compatibility fields.
+    if "coder_sessions" not in raw:
+        for task_id, session_id in result["task_sessions"].items():
+            if isinstance(session_id, str) and session_id:
+                result["coder_sessions"].setdefault(str(task_id), {})["codex"] = session_id
     return result
 
 
@@ -133,8 +167,17 @@ def _extract_codex_session_id(path: Path) -> str | None:
     return None
 
 
-def _resume_session_for(telemetry: Mapping[str, Any], task_id: str) -> str | None:
-    if telemetry.get("session_task_id") == task_id:
+def _resume_session_for(telemetry: Mapping[str, Any], task_id: str, *, coder_id: str = "codex") -> str | None:
+    coder_sessions = telemetry.get("coder_sessions")
+    if isinstance(coder_sessions, Mapping):
+        sessions = coder_sessions.get(task_id)
+        if isinstance(sessions, Mapping):
+            raw = sessions.get(coder_id)
+            if isinstance(raw, str) and raw:
+                return raw
+    if coder_id != "codex":
+        return None
+    if telemetry.get("active_coder") in {None, "codex"} and telemetry.get("session_task_id") == task_id:
         raw = telemetry.get("task_session_id")
         if isinstance(raw, str) and raw:
             return str(raw)
@@ -146,19 +189,42 @@ def _resume_session_for(telemetry: Mapping[str, Any], task_id: str) -> str | Non
     return None
 
 
-def _record_task_session(telemetry: dict[str, Any], task_id: str, session_id: str) -> None:
-    sessions = dict(telemetry.get("task_sessions") or {})
-    sessions[task_id] = session_id
-    telemetry["task_sessions"] = sessions
-    telemetry["task_session_id"] = session_id
-    telemetry["session_task_id"] = task_id
+def _record_task_session(telemetry: dict[str, Any], task_id: str, session_id: str, *, coder_id: str = "codex") -> None:
+    all_sessions = {str(task): dict(sessions) for task, sessions in dict(telemetry.get("coder_sessions") or {}).items() if isinstance(sessions, Mapping)}
+    all_sessions.setdefault(task_id, {})[coder_id] = session_id
+    telemetry["coder_sessions"] = all_sessions
+    if coder_id == "codex":
+        legacy = dict(telemetry.get("task_sessions") or {})
+        legacy[task_id] = session_id
+        telemetry["task_sessions"] = legacy
+    if telemetry.get("active_coder", "codex") == coder_id:
+        telemetry["task_session_id"] = session_id
+        telemetry["session_task_id"] = task_id
 
 
-def _resume_session_for_route(telemetry: Mapping[str, Any], task_id: str, route: routing.Route) -> str | None:
-    if routing.is_bounded_fallback(route):
+def _resume_session_for_route(telemetry: Mapping[str, Any], task_id: str, route: routing.Route, *, coder_id: str = "codex") -> str | None:
+    if coder_id == "codex" and routing.is_bounded_fallback(route):
         return None
-    return _resume_session_for(telemetry, task_id)
+    return _resume_session_for(telemetry, task_id, coder_id=coder_id)
 
+
+def _task_has_shared_continuity(telemetry: Mapping[str, Any], task_id: str, capsule_path: Path | None = None) -> bool:
+    coder_sessions = telemetry.get("coder_sessions")
+    if isinstance(coder_sessions, Mapping):
+        sessions = coder_sessions.get(task_id)
+        if isinstance(sessions, Mapping) and any(isinstance(value, str) and value for value in sessions.values()):
+            return True
+    if _resume_session_for(telemetry, task_id, coder_id="codex"):
+        return True
+    if capsule_path and Path(capsule_path).is_file():
+        try:
+            capsule = json.loads(Path(capsule_path).read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            return False
+        if isinstance(capsule, Mapping) and capsule.get("task_id") == task_id:
+            if str(capsule.get("summary") or "").strip() or capsule.get("evidence") or capsule.get("owned_files") or int(capsule.get("dirty_path_count") or 0) > 0:
+                return True
+    return False
 
 def _resource_blocker_deferral_tail(production: state.ProductionState, blocked_task_id: str, dependencies: Mapping[str, Sequence[str]]) -> str | None:
     """Return the last contiguous later pending task runnable without the blocked task."""
@@ -229,17 +295,28 @@ def _normalize_result_for_route(result: evidence.TaskResult, route: routing.Rout
 
 
 def _clear_task_session(telemetry: dict[str, Any]) -> None:
-    task_id = telemetry.get("session_task_id")
-    sessions = dict(telemetry.get("task_sessions") or {})
-    current_session = telemetry.get("task_session_id")
-    if isinstance(task_id, str) and task_id and isinstance(current_session, str) and current_session:
-        # Keep the completed task's session in the continuity map while clearing
-        # the live slot.  The Task Program transition receipt carries the same
-        # value for crash recovery and cross-projection repair.
-        sessions[task_id] = current_session
-    telemetry["task_sessions"] = sessions
+    # Native provider sessions are already stored in coder_sessions. Clearing the
+    # live slot must never reinterpret one provider's conversation as another's.
     telemetry["task_session_id"] = None
     telemetry["session_task_id"] = None
+
+
+def _drop_coder_task_session(telemetry: dict[str, Any], task_id: str, coder_id: str) -> None:
+    sessions_by_task = {str(task): dict(values) for task, values in dict(telemetry.get("coder_sessions") or {}).items() if isinstance(values, Mapping)}
+    task_sessions = sessions_by_task.get(task_id)
+    if isinstance(task_sessions, dict):
+        task_sessions.pop(coder_id, None)
+        if task_sessions:
+            sessions_by_task[task_id] = task_sessions
+        else:
+            sessions_by_task.pop(task_id, None)
+    telemetry["coder_sessions"] = sessions_by_task
+    if coder_id == "codex":
+        legacy = dict(telemetry.get("task_sessions") or {})
+        legacy.pop(task_id, None)
+        telemetry["task_sessions"] = legacy
+    if telemetry.get("active_coder") == coder_id and telemetry.get("session_task_id") == task_id:
+        _clear_task_session(telemetry)
 
 
 def _task_capsule_path(runtime_root: Path, task_id: str) -> Path:
@@ -366,6 +443,112 @@ def _select_task_route(task: state.TaskRecord, catalog: Mapping[str, set[str]], 
         return None, None
     return route, packet_id if routing.is_bounded_fallback(route) else None
 
+
+def _select_main_task_route(
+    task: state.TaskRecord,
+    codex_catalog: Mapping[str, set[str]],
+    agr_models: set[str],
+    telemetry: dict[str, Any],
+    now: datetime,
+    repo_root: Path,
+    project_root: Path,
+) -> tuple[str | None, routing.Route | None, str | None, str | None]:
+    codex_route, packet_id = _select_task_route(
+        task, codex_catalog, telemetry.get("cooldowns", {}), now, telemetry, repo_root, project_root
+    )
+    statuses = dict(telemetry.get("coder_statuses") or {})
+    codex_full = bool(
+        codex_route is not None
+        and codex_route.provider == "openai"
+        and not routing.is_bounded_fallback(codex_route)
+    )
+    if codex_full:
+        statuses["codex"] = "ACTIVE"
+    elif codex_route is None and statuses.get("codex") == "ACTIVE":
+        statuses["codex"] = "OUT_OF_CREDIT" if telemetry.get("cooldowns") else "NEEDS_MODIFICATION"
+    telemetry["coder_statuses"] = statuses
+
+    agr_usable = statuses.get("agr") == "ACTIVE" and bool(agr_models)
+    current = str(telemetry.get("active_coder") or "codex")
+    if current == "agr" and agr_usable:
+        model = main_coder.select_agr_model(task.task_class, agr_models)
+        peer = "codex" if codex_full else None
+        return "agr", routing.Route(model, main_coder.agr_effort(task.task_class), "antigravity"), None, peer
+    if codex_full:
+        peer = "agr" if agr_usable else None
+        return "codex", codex_route, packet_id, peer
+    if agr_usable:
+        model = main_coder.select_agr_model(task.task_class, agr_models)
+        return "agr", routing.Route(model, main_coder.agr_effort(task.task_class), "antigravity"), None, None
+    if codex_route is not None:
+        return "codex", codex_route, packet_id, None
+    return None, None, None, None
+
+def _select_main_coder_class_route(
+    task_class: str,
+    codex_catalog: Mapping[str, set[str]],
+    agr_models: set[str],
+    telemetry: dict[str, Any],
+    now: datetime,
+) -> tuple[str | None, routing.Route | None]:
+    try:
+        codex_route = routing.select_route(
+            task_class, codex_catalog, telemetry.get("cooldowns", {}), now,
+            excluded_models=set(routing.bounded_fallback_models()),
+        )
+    except RuntimeError:
+        codex_route = None
+    statuses = dict(telemetry.get("coder_statuses") or {})
+    if codex_route is not None and codex_route.provider == "openai":
+        statuses["codex"] = "ACTIVE"
+    elif statuses.get("codex") == "ACTIVE":
+        statuses["codex"] = "OUT_OF_CREDIT" if telemetry.get("cooldowns") else "NEEDS_MODIFICATION"
+    telemetry["coder_statuses"] = statuses
+    agr_usable = statuses.get("agr") == "ACTIVE" and bool(agr_models)
+    current = str(telemetry.get("active_coder") or "codex")
+    if current == "agr" and agr_usable:
+        try:
+            model = main_coder.select_agr_model(task_class, agr_models)
+        except RuntimeError:
+            pass
+        else:
+            return "agr", routing.Route(model, main_coder.agr_effort(task_class), "antigravity")
+    if codex_route is not None and codex_route.provider == "openai":
+        return "codex", codex_route
+    if agr_usable:
+        try:
+            model = main_coder.select_agr_model(task_class, agr_models)
+        except RuntimeError:
+            return None, None
+        return "agr", routing.Route(model, main_coder.agr_effort(task_class), "antigravity")
+    return None, None
+
+
+def _select_main_coder_peer_route(
+    peer_coder: str | None,
+    task: state.TaskRecord,
+    codex_catalog: Mapping[str, set[str]],
+    agr_models: set[str],
+    telemetry: dict[str, Any],
+    now: datetime,
+    repo_root: Path,
+    project_root: Path,
+) -> routing.Route | None:
+    if peer_coder == "agr" and telemetry.get("coder_statuses", {}).get("agr") == "ACTIVE":
+        try:
+            model = main_coder.select_agr_model(task.task_class, agr_models)
+        except RuntimeError:
+            return None
+        return routing.Route(model, main_coder.agr_effort(task.task_class), "antigravity")
+    if peer_coder == "codex":
+        route, _packet = _select_task_route(
+            task, codex_catalog, telemetry.get("cooldowns", {}), now, telemetry, repo_root, project_root
+        )
+        if route is not None and route.provider == "openai" and not routing.is_bounded_fallback(route):
+            return route
+    return None
+
+
 def _write_task_capsule(repo_root: Path, project_root: Path, runtime_root: Path, task: state.TaskRecord, telemetry: Mapping[str, Any]) -> Path:
     project_root = _task_working_directory(repo_root, project_root, task.id)
     path = _task_capsule_path(runtime_root, task.id)
@@ -380,11 +563,14 @@ def _write_task_capsule(repo_root: Path, project_root: Path, runtime_root: Path,
     previous = telemetry.get("last_result") if isinstance(telemetry.get("last_result"), dict) else {}
     if previous.get("task_id") != task.id:
         previous = existing
+    active_coder = str(telemetry.get("active_coder") or "codex")
     capsule = packets.build_task_memory_capsule(
-        task, project_root, session_id=_resume_session_for(telemetry, task.id),
+        task, project_root, session_id=_resume_session_for(telemetry, task.id, coder_id=active_coder),
         summary=str(previous.get("summary", "")), evidence=previous.get("evidence", ()),
         dirty_paths=_project_dirty_paths(repo_root, project_root),
     )
+    task_coder_sessions = (telemetry.get("coder_sessions") or {}).get(task.id, {}) if isinstance(telemetry.get("coder_sessions"), Mapping) else {}
+    capsule["coder_sessions"] = dict(task_coder_sessions) if isinstance(task_coder_sessions, Mapping) else {}
     for name in ("workspace_baseline", "owned_files", "live_observation"):
         if name in existing:
             capsule[name] = existing[name]
@@ -485,19 +671,208 @@ def _minitz_owner_direction(project_root: Path) -> str:
     )
 
 
-def _task_prompt(repo_root: Path, production: state.ProductionState, task: state.TaskRecord, telemetry: Mapping[str, Any], capsule_path: Path, projection_path: Path | None = None, local_assist_path: Path | None = None, taskbooster_path: Path | None = None, route: routing.Route | None = None) -> str:
+def _main_coder_peer_key(
+    task: state.TaskRecord,
+    task_state_digest: str,
+    peer_coder: str,
+    model: str,
+    capsule_path: Path,
+    projection_path: Path | None,
+) -> str:
+    capsule_digest = hashlib.sha256(Path(capsule_path).read_bytes()).hexdigest()
+    projection_digest = "NONE"
+    if projection_path is not None and Path(projection_path).is_file():
+        projection_digest = hashlib.sha256(Path(projection_path).read_bytes()).hexdigest()
+    return main_coder.peer_assist_key(
+        task.id, task_state_digest, peer_coder, model, capsule_digest, projection_digest
+    )
+
+
+def _peer_root(runtime_root: Path) -> Path:
+    root = Path(runtime_root) / "memory" / "main-coder-peer"
+    root.mkdir(parents=True, exist_ok=True)
+    return root
+
+
+def _launch_main_coder_peer_assist(
+    repo_root: Path,
+    project_root: Path,
+    runtime_root: Path,
+    task: state.TaskRecord,
+    task_state_digest: str,
+    *,
+    primary_coder: str,
+    peer_coder: str,
+    peer_route: routing.Route,
+    capsule_path: Path,
+    projection_path: Path | None,
+    inflight: dict[str, MainCoderPeerHandle],
+) -> bool:
+    key = _main_coder_peer_key(task, task_state_digest, peer_coder, peer_route.model, capsule_path, projection_path)
+    if key in inflight:
+        return False
+    root = _peer_root(runtime_root)
+    safe_task = re.sub(r"[^A-Za-z0-9_.-]+", "_", task.id)
+    base = root / f"{safe_task}-{key}"
+    accepted_path = base.with_suffix(".accepted.json")
+    rejected_path = base.with_suffix(".rejected.json")
+    if accepted_path.is_file() or rejected_path.is_file():
+        return False
+    schema_path = root / "peer-assist.schema.json"
+    if not schema_path.is_file():
+        schema_path.write_text(json.dumps(main_coder.peer_assist_schema(), sort_keys=True) + "\n", encoding="utf-8")
+    output_path = base.with_suffix(".result.json")
+    stdout_path = base.with_suffix(".stdout.log")
+    stderr_path = base.with_suffix(".stderr.log")
+    working_root = _task_working_directory(repo_root, project_root, task.id)
+    prompt = main_coder.peer_assist_prompt(
+        task_id=task.id, title=task.title, task_state_digest=task_state_digest,
+        capsule_path=capsule_path, projection_path=projection_path,
+        policy_paths=main_coder.shared_policy_paths(repo_root, working_root),
+        primary_coder=primary_coder, peer_coder=peer_coder,
+    )
+    if peer_coder == "agr":
+        command = main_coder.build_agr_stream_command(
+            peer_route.model, peer_route.reasoning, schema_path, read_only=True
+        )
+        stdin_text = main_coder.agr_user_event(prompt) + "\n"
+    elif peer_coder == "codex":
+        command = routing.build_codex_peer_command(peer_route, schema_path, output_path, working_root)
+        stdin_text = prompt
+    else:
+        raise ValueError(f"unsupported main coder peer: {peer_coder}")
+    with stdout_path.open("w", encoding="utf-8") as stdout, stderr_path.open("w", encoding="utf-8") as stderr:
+        process = subprocess.Popen(
+            command, stdin=subprocess.PIPE, text=True, stdout=stdout, stderr=stderr,
+            env=os.environ.copy(), cwd=working_root, umask=0o022,
+        )
+        assert process.stdin is not None
+        process.stdin.write(stdin_text)
+        process.stdin.close()
+    inflight[key] = MainCoderPeerHandle(
+        key, peer_coder, peer_route.model, task.id, task_state_digest,
+        process, output_path, stdout_path, stderr_path, accepted_path,
+    )
+    return True
+
+
+def _collect_main_coder_peer_assists(
+    inflight: dict[str, MainCoderPeerHandle],
+    telemetry: dict[str, Any],
+    journal: production_events.ProductionEventJournal | None = None,
+) -> None:
+    for key, handle in list(inflight.items()):
+        rc = handle.process.poll()
+        if rc is None:
+            continue
+        stdout_text = _tail(handle.stdout_path)
+        stderr_text = _tail(handle.stderr_path)
+        detail = (stderr_text + "\n" + stdout_text).strip()
+        try:
+            if rc != 0:
+                raise ValueError(detail or f"peer exited {rc}")
+            if handle.peer_coder == "agr":
+                envelope = main_coder.parse_agr_stream_result(stdout_text.splitlines())
+                if str(envelope.get("status") or "").upper() != "SUCCESS":
+                    raise ValueError(str(envelope.get("error") or envelope.get("status") or "AGR peer failed"))
+                raw_result = envelope.get("structured_output")
+                if not isinstance(raw_result, Mapping):
+                    response = str(envelope.get("response") or "")
+                    raw_result = json.loads(response) if response.strip() else None
+            else:
+                raw_result = json.loads(handle.output_path.read_text(encoding="utf-8"))
+            result = main_coder.validate_peer_assist(raw_result)  # type: ignore[arg-type]
+            wrapper = {
+                "schema": "minitz.main_coder_peer_assist/v1",
+                "authority": "NONE",
+                "task_id": handle.task_id,
+                "task_state_digest": handle.task_state_digest,
+                "peer_key": handle.key,
+                "peer_coder": handle.peer_coder,
+                "model": handle.model,
+                "result": result,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+            }
+            tmp = handle.accepted_path.with_suffix(handle.accepted_path.suffix + ".tmp")
+            tmp.write_text(json.dumps(wrapper, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+            os.replace(tmp, handle.accepted_path)
+            telemetry.setdefault("coder_statuses", {})[handle.peer_coder] = "ACTIVE"
+            if journal is not None:
+                journal.emit("coder.peer_assist_completed", task_id=handle.task_id, status="ACTIVE", text=str(handle.accepted_path), coder=handle.peer_coder, model=handle.model)
+        except (OSError, ValueError, json.JSONDecodeError, TypeError) as exc:
+            telemetry.setdefault("coder_status_detail", {})[handle.peer_coder] = str(exc)[-1200:]
+            if handle.peer_coder == "agr":
+                telemetry.setdefault("coder_statuses", {})["agr"] = main_coder.classify_agr_observation(int(rc), detail + "\n" + str(exc))
+            rejected_path = handle.accepted_path.with_name(handle.accepted_path.name.replace(".accepted.json", ".rejected.json"))
+            rejected = {
+                "schema": "minitz.main_coder_peer_rejection/v1", "authority": "NONE",
+                "task_id": handle.task_id, "task_state_digest": handle.task_state_digest,
+                "peer_key": handle.key, "peer_coder": handle.peer_coder, "model": handle.model,
+                "status": telemetry.get("coder_statuses", {}).get(handle.peer_coder),
+                "detail": str(exc)[-1200:], "created_at": datetime.now(timezone.utc).isoformat(),
+            }
+            try:
+                tmp = rejected_path.with_suffix(rejected_path.suffix + ".tmp")
+                tmp.write_text(json.dumps(rejected, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+                os.replace(tmp, rejected_path)
+            except OSError:
+                pass
+            if journal is not None:
+                journal.emit("coder.peer_assist_failed", task_id=handle.task_id, status=telemetry.get("coder_statuses", {}).get(handle.peer_coder), text=str(exc)[-1200:], coder=handle.peer_coder, model=handle.model)
+        finally:
+            inflight.pop(key, None)
+
+
+def _latest_main_coder_peer_assist(runtime_root: Path, task_id: str, task_state_digest: str) -> Path | None:
+    root = Path(runtime_root) / "memory" / "main-coder-peer"
+    if not root.is_dir():
+        return None
+    safe_task = re.sub(r"[^A-Za-z0-9_.-]+", "_", task_id)
+    matches: list[tuple[str, Path]] = []
+    for path in root.glob(f"{safe_task}-*.accepted.json"):
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(payload, Mapping) or payload.get("authority") != "NONE":
+            continue
+        if payload.get("task_id") != task_id or payload.get("task_state_digest") != task_state_digest:
+            continue
+        matches.append((str(payload.get("created_at") or ""), path))
+    return max(matches, default=("", None), key=lambda item: item[0])[1]
+
+
+def _terminate_main_coder_peers(inflight: dict[str, MainCoderPeerHandle]) -> None:
+    for handle in list(inflight.values()):
+        if handle.process.poll() is None:
+            try:
+                handle.process.terminate()
+            except OSError:
+                pass
+    inflight.clear()
+
+
+def _task_prompt(repo_root: Path, production: state.ProductionState, task: state.TaskRecord, telemetry: Mapping[str, Any], capsule_path: Path, projection_path: Path | None = None, local_assist_path: Path | None = None, taskbooster_path: Path | None = None, route: routing.Route | None = None, peer_assist_path: Path | None = None, *, coder_id: str = "codex") -> str:
     guide_path = Path(production.project_root) / "docs" / "task-guides" / f"{task.id}.md"
     priority_context = f"\nMINITZ_TASK_PROGRAM: {production.priority_policy}. Follow the exact living MiniTZ Task Program order/status and current Task/Run continuity. No ledger, map, helper, or session may advance it independently. Preserve accepted output and required quality.\n"
     owner_context = _minitz_owner_direction(production.project_root)
+    working_root = _task_working_directory(repo_root, Path(production.project_root), task.id)
+    policies = main_coder.shared_policy_paths(repo_root, working_root)
+    policy_context = f"\nMAIN_CODER_BACKEND: {coder_id}\n"
+    if policies:
+        policy_context += f"SHARED_MINITZ_POLICY: {policies[0]}\n"
+        if len(policies) > 1:
+            policy_context += f"PROJECT_AGENTS_POLICY: {policies[1]}\n"
+        policy_context += "Apply these same MiniTZ/Project instructions regardless of coder backend; backend change never changes authority, acceptance, memory, cache, or task scope.\n"
     if route is not None and routing.is_bounded_fallback(route):
-        return priority_context + owner_context + packets.compile_bounded_fallback_packet(task, capsule_path, projection_path, guide_path if guide_path.exists() else None) + execution_map.task_context(repo_root, task.id)
-    if _resume_session_for(telemetry, task.id):
+        return priority_context + owner_context + policy_context + packets.compile_bounded_fallback_packet(task, capsule_path, projection_path, guide_path if guide_path.exists() else None) + execution_map.task_context(repo_root, task.id)
+    if _task_has_shared_continuity(telemetry, task.id, capsule_path):
         prompt = packets.compile_resume_packet(task, capsule_path)
     else:
         prompt = packets.compile_task_packet(repo_root, production, task)
         if capsule_path.exists():
             prompt += f"\nTASK_MEMORY: {capsule_path}\nRead this bounded recovery capsule before redoing any existing work.\n"
-    prompt = priority_context + owner_context + prompt
+    prompt = priority_context + owner_context + policy_context + prompt
     if production.run_id == "minitz-task-program":
         prompt += (
             "\nMINITZ_VALIDATION_COMPLETION_FAMILY\n"
@@ -536,6 +911,13 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
             "This Spark TaskBooster result is non-authoritative, read-only, evidence-grounded assistance produced for one exact microtask. "
             "Validate it against current source/evidence before reuse. It cannot complete, advance, reorder, commit, publish, or mutate the task. "
             "Do not repeat its analysis unless validation or missing detail requires it.\n"
+        )
+    if peer_assist_path and Path(peer_assist_path).exists():
+        prompt += (
+            f"\nMAIN_CODER_PEER_ASSIST: {peer_assist_path}\n"
+            "This is non-authoritative read-only assistance from the other main coder using the same MiniTZ task state. "
+            "Reuse grounded findings when useful and validate them against current source/evidence. It cannot complete, advance, reorder, commit, publish, or mutate the task. "
+            "Do not repeat equivalent analysis unless the current source changed or validation requires it.\n"
         )
     alignment = telemetry.get("source_alignment") or {}
     if alignment.get("state") == "RECONCILIATION_REQUIRED":
@@ -1231,6 +1613,104 @@ def invoke_structured(prompt: str, route: routing.Route, schema_path: Path, outp
     return rc, _tail(stderr_path) + "\n" + _tail(stdout_path)
 
 
+def invoke_agr_structured(
+    prompt: str,
+    model: str,
+    effort: str,
+    schema_path: Path,
+    output_path: Path,
+    stdout_path: Path,
+    stderr_path: Path,
+    runtime_path: Path,
+    telemetry: dict[str, Any],
+    *,
+    heartbeat_interval: float = 30.0,
+    on_heartbeat: Callable[[datetime], None] | None = None,
+    cwd: Path | None = None,
+    resume_session_id: str | None = None,
+    session_task_id: str | None = None,
+    read_only: bool = False,
+    persist_session_identity: bool = True,
+    event_journal: production_events.ProductionEventJournal | None = None,
+) -> tuple[int, str]:
+    cmd = main_coder.build_agr_stream_command(
+        model, effort, schema_path, read_only=read_only, conversation_id=resume_session_id
+    )
+    stdout_path.parent.mkdir(parents=True, exist_ok=True)
+    with stdout_path.open("w", encoding="utf-8") as stdout, stderr_path.open("w", encoding="utf-8") as stderr:
+        proc = subprocess.Popen(
+            cmd, stdin=subprocess.PIPE, text=True, stdout=stdout, stderr=stderr,
+            env=os.environ.copy(), cwd=cwd, umask=0o022,
+        )
+        telemetry["child_pid"] = proc.pid
+        _beat(runtime_path, telemetry)
+        assert proc.stdin is not None
+        proc.stdin.write(main_coder.agr_user_event(prompt) + "\n")
+        proc.stdin.flush()
+        proc.stdin.close()
+        next_beat = time.monotonic()
+        while proc.poll() is None:
+            now_mono = time.monotonic()
+            if now_mono >= next_beat:
+                observed = _beat(runtime_path, telemetry)
+                if on_heartbeat:
+                    on_heartbeat(observed)
+                next_beat = now_mono + heartbeat_interval
+            time.sleep(min(0.05, max(0.005, heartbeat_interval / 4)))
+        rc = int(proc.returncode or 0)
+    telemetry["child_pid"] = None
+    stdout_text = _tail(stdout_path)
+    stderr_text = _tail(stderr_path)
+    detail = (stderr_text + "\n" + stdout_text).strip()
+    result: dict[str, object] | None = None
+    try:
+        result = main_coder.parse_agr_stream_result(stdout_text.splitlines())
+    except ValueError:
+        result = None
+    status_text = detail
+    if result is not None and result.get("error"):
+        status_text += "\n" + str(result.get("error"))
+    observed_status = main_coder.classify_agr_observation(rc, status_text)
+    if result is not None and str(result.get("status") or "").upper() == "SUCCESS" and rc == 0:
+        observed_status = "ACTIVE"
+    telemetry.setdefault("coder_statuses", {})["agr"] = observed_status
+    telemetry.setdefault("coder_status_detail", {})["agr"] = str(result.get("error") if result else detail)[-1200:]
+    if result is not None and isinstance(result.get("usage"), Mapping):
+        telemetry.setdefault("last_coder_usage", {})["agr"] = dict(result["usage"])
+    if result is not None and persist_session_identity and session_task_id:
+        conversation_id = result.get("conversation_id")
+        if isinstance(conversation_id, str) and conversation_id:
+            _record_task_session(telemetry, session_task_id, conversation_id, coder_id="agr")
+    if rc == 0 and result is not None and str(result.get("status") or "").upper() == "SUCCESS":
+        structured = result.get("structured_output")
+        if not isinstance(structured, Mapping):
+            response = str(result.get("response") or "").strip()
+            try:
+                candidate = json.loads(response)
+            except json.JSONDecodeError:
+                candidate = None
+            structured = candidate if isinstance(candidate, Mapping) else None
+        if not isinstance(structured, Mapping):
+            rc = 1
+            detail = (detail + "\nAGR SUCCESS response did not contain structured output").strip()
+            telemetry["coder_statuses"]["agr"] = "NEEDS_MODIFICATION"
+        else:
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            tmp = output_path.with_suffix(output_path.suffix + ".tmp")
+            tmp.write_text(json.dumps(dict(structured), sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+            os.replace(tmp, output_path)
+    if event_journal is not None and session_task_id:
+        event_journal.emit(
+            "coder.agr.completed" if rc == 0 else "coder.agr.failed",
+            task_id=session_task_id, status=telemetry["coder_statuses"]["agr"],
+            text=str(result.get("error") if result else detail)[-1200:], model=model, reasoning=effort,
+        )
+    observed = _beat(runtime_path, telemetry)
+    if on_heartbeat:
+        on_heartbeat(observed)
+    return rc, detail
+
+
 def _attempt_paths(runtime_root: Path, telemetry: dict[str, Any], stem: str) -> tuple[Path, Path, Path]:
     telemetry["attempt"] = int(telemetry.get("attempt") or 0) + 1
     attempts = runtime_root / "attempts"; attempts.mkdir(parents=True, exist_ok=True)
@@ -1323,6 +1803,9 @@ def production_status(repo_root: Path, project_root: Path, runtime_path: Path, *
         "run_id": "biella-production", "status": liveness,
         "current_section": production.current_section, "current_task": production.current_task,
         "completed": state.completed_count(production), "total": sum(len(s.tasks) for s in production.sections),
+        "active_coder": telemetry.get("active_coder"),
+        "main_coders": telemetry.get("coder_statuses") or {},
+        "main_coder_detail": telemetry.get("coder_status_detail") or {},
         "active_model": telemetry.get("active_model"), "active_reasoning": telemetry.get("active_reasoning"),
         "cooldowns": telemetry.get("cooldowns") or {}, "heartbeat_at": telemetry.get("heartbeat_at"),
         "last_result": telemetry.get("last_result"), "source_alignment": telemetry.get("source_alignment"),
@@ -1470,7 +1953,10 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
         journal.emit("production.started", task_id=telemetry.get("task_id"), status="RUNNING", text="Biella production runner active")
         _beat(runtime_path, telemetry)
         catalog: Mapping[str, set[str]] | None = None
+        agr_models: set[str] = main_coder.discover_agr_models(timeout_seconds=2.0)
+        peer_inflight: dict[str, MainCoderPeerHandle] = {}
         while True:
+            _collect_main_coder_peer_assists(peer_inflight, telemetry, journal)
             if _customer_pause_requested(runtime_root):
                 _acknowledge_customer_pause(repo_root, project_root, runtime_root, runtime_path, telemetry, journal)
                 return 0
@@ -1518,23 +2004,54 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     _persist_until_success(repo_root, f"SECTION-{section.id}", runtime_path, telemetry, event_journal=journal)
                     continue
                 now = datetime.now(timezone.utc)
-                try:
-                    route = routing.select_route(
-                        "deep_memory", catalog, telemetry.get("cooldowns", {}), now,
-                        excluded_models=set(routing.bounded_fallback_models()),
-                    )
-                except RuntimeError:
+                planner_coder, route = _select_main_coder_class_route(
+                    "deep_memory", catalog, agr_models, telemetry, now
+                )
+                if route is None or planner_coder is None:
                     telemetry.update({"status": "RECOVERING_MODEL", "task_id": f"PLAN:{section.id}", "active_model": None, "active_reasoning": None})
-                    _beat(runtime_path, telemetry); time.sleep(min(5.0, max(0.5, routing.earliest_cooldown_delay(telemetry.get("cooldowns", {}), now)))); catalog = _discover_runtime_catalog(runtime_root); continue
-                telemetry.update({"status": "RUNNING", "task_id": f"PLAN:{section.id}", "active_model": route.model, "active_reasoning": route.reasoning})
+                    _beat(runtime_path, telemetry)
+                    time.sleep(min(5.0, max(0.5, routing.earliest_cooldown_delay(telemetry.get("cooldowns", {}), now))))
+                    catalog = _discover_runtime_catalog(runtime_root)
+                    agr_models = main_coder.discover_agr_models(timeout_seconds=2.0)
+                    continue
+                telemetry.update({
+                    "status": "RUNNING", "task_id": f"PLAN:{section.id}", "active_coder": planner_coder,
+                    "active_model": route.model, "active_reasoning": route.reasoning,
+                })
                 _beat(runtime_path, telemetry)
                 output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"PLAN-{section.id}-{route.model}")
-                rc, error_text = invoke_structured(packets.compile_section_packet(production, section, audit=bool(section.tasks)), route, section_schema_path, output, stdout, stderr, runtime_path, telemetry, heartbeat_interval=heartbeat_interval, cwd=project_root, session_task_id=f"PLAN:{section.id}", event_journal=journal)
+                section_prompt = packets.compile_section_packet(production, section, audit=bool(section.tasks))
+                policies = main_coder.shared_policy_paths(repo_root, project_root)
+                section_prompt = (
+                    f"MAIN_CODER_BACKEND: {planner_coder}\n"
+                    + "".join(f"SHARED_POLICY: {policy}\n" for policy in policies)
+                    + "Same MiniTZ authority, memory, cache, validation and no-replay rules apply regardless of backend.\n"
+                    + section_prompt
+                )
+                planner_session = _resume_session_for(telemetry, f"PLAN:{section.id}", coder_id=planner_coder)
+                if planner_coder == "agr":
+                    rc, error_text = invoke_agr_structured(
+                        section_prompt, route.model, route.reasoning, section_schema_path, output, stdout, stderr, runtime_path, telemetry,
+                        heartbeat_interval=heartbeat_interval, cwd=project_root, resume_session_id=planner_session,
+                        session_task_id=f"PLAN:{section.id}", read_only=False, persist_session_identity=True, event_journal=journal,
+                    )
+                else:
+                    rc, error_text = invoke_structured(
+                        section_prompt, route, section_schema_path, output, stdout, stderr, runtime_path, telemetry,
+                        heartbeat_interval=heartbeat_interval, cwd=project_root, resume_session_id=planner_session,
+                        session_task_id=f"PLAN:{section.id}", event_journal=journal,
+                    )
+                    if rc == 0:
+                        telemetry.setdefault("coder_statuses", {})["codex"] = "ACTIVE"
                 if rc != 0:
-                    _set_failure(telemetry, route, error_text, f"PLAN:{section.id}")
-                    refreshed_catalog = _refresh_catalog_after_route_failure(runtime_root, telemetry, error_text)
-                    if refreshed_catalog is not None:
-                        catalog = refreshed_catalog
+                    if planner_coder == "agr":
+                        telemetry.setdefault("coder_statuses", {})["agr"] = main_coder.classify_agr_observation(rc, error_text)
+                        telemetry["last_result"] = {"task_id": f"PLAN:{section.id}", "status": "CODER_FAILOVER", "summary": error_text[-2000:], "evidence": [], "coder": "agr", "model": route.model, "reasoning": route.reasoning}
+                    else:
+                        _set_failure(telemetry, route, error_text, f"PLAN:{section.id}")
+                        refreshed_catalog = _refresh_catalog_after_route_failure(runtime_root, telemetry, error_text)
+                        if refreshed_catalog is not None:
+                            catalog = refreshed_catalog
                     _beat(runtime_path, telemetry); continue
                 if not _guard_source_alignment(repo_root, runtime_path, telemetry, journal, task_id=f"PLAN:{section.id}"):
                     return SOURCE_REFRESH_EXIT
@@ -1544,22 +2061,28 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     _persist_until_success(repo_root, f"PLAN-{section.id}", runtime_path, telemetry, event_journal=journal)
                 except (OSError, json.JSONDecodeError, ValueError, KeyError) as exc:
                     _set_failure(telemetry, route, f"invalid section plan: {exc}", f"PLAN:{section.id}"); _beat(runtime_path, telemetry); continue
-                telemetry["last_result"] = {"task_id": None, "status": "SECTION_REFRESH", "summary": str(plan.get("summary", "")), "evidence": list(plan.get("evidence", [])), "model": route.model, "reasoning": route.reasoning}
+                telemetry["last_result"] = {"task_id": None, "status": "SECTION_REFRESH", "summary": str(plan.get("summary", "")), "evidence": list(plan.get("evidence", [])), "coder": planner_coder, "model": route.model, "reasoning": route.reasoning}
                 _beat(runtime_path, telemetry); continue
             if _defer_resource_blocker(repo_root, project_root, production, task, telemetry, journal, runtime_path):
                 continue
             now = datetime.now(timezone.utc)
-            route, bounded_packet_id = _select_task_route(
-                task, catalog, telemetry.get("cooldowns", {}), now, telemetry, repo_root, project_root
+            coder_id, route, bounded_packet_id, peer_coder = _select_main_task_route(
+                task, catalog, agr_models, telemetry, now, repo_root, project_root
             )
-            if route is None:
+            if route is None or coder_id is None:
                 telemetry.update({"status": "RECOVERING_MODEL", "task_id": task.id, "active_model": None, "active_reasoning": None})
                 _beat(runtime_path, telemetry)
                 time.sleep(2.0)
-                catalog = _discover_runtime_catalog(runtime_root); continue
-            if task.task_class == "simple" and bounded_packet_id and routing.is_bounded_fallback(route):
+                catalog = _discover_runtime_catalog(runtime_root)
+                agr_models = main_coder.discover_agr_models(timeout_seconds=2.0)
+                continue
+            bounded_fallback = coder_id == "codex" and routing.is_bounded_fallback(route)
+            if task.task_class == "simple" and bounded_packet_id and bounded_fallback:
                 _record_simple_helper_attempt(telemetry, task.id, bounded_packet_id, route)
-            telemetry.update({"status": "RUNNING", "task_id": task.id, "active_model": route.model, "active_reasoning": route.reasoning})
+            telemetry.update({
+                "status": "RUNNING", "task_id": task.id, "active_coder": coder_id,
+                "active_model": route.model, "active_reasoning": route.reasoning,
+            })
             if evidence.continuity_changes(repo_root):
                 unexpected = evidence.unexpected_dirty_paths(repo_root)
                 if unexpected:
@@ -1590,30 +2113,99 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     journal.emit("memory.observation_failed", task_id=task.id, status="ERROR", text=str(exc))
             observe_activity()
             projection_path = _refresh_memory_projection(repo_root, project_root, runtime_root, task.id, journal)
-            bounded_fallback = routing.is_bounded_fallback(route)
+            task_state_digest = _bounded_packet_id(repo_root, project_root, task)
+            peer_assist_path = _latest_main_coder_peer_assist(runtime_root, task.id, task_state_digest)
+            dispatch_peer = peer_coder
+            peer_route = _select_main_coder_peer_route(
+                dispatch_peer, task, catalog, agr_models, telemetry, now, repo_root, project_root
+            )
+            # A configured AGR backend that is present but not yet usable gets one
+            # useful read-only recovery attempt per exact task-state digest. It runs
+            # beside Codex and can never stall the canonical writer. Rejection is
+            # content-addressed so an unchanged broken state is not hammered.
+            if (
+                peer_route is None and dispatch_peer is None and coder_id == "codex"
+                and telemetry.get("coder_statuses", {}).get("agr") == "NEEDS_MODIFICATION"
+                and agr_models
+            ):
+                try:
+                    recovery_model = main_coder.select_agr_model(task.task_class, agr_models)
+                except RuntimeError:
+                    recovery_model = None
+                if recovery_model:
+                    dispatch_peer = "agr"
+                    peer_route = routing.Route(recovery_model, main_coder.agr_effort(task.task_class), "antigravity")
+            if dispatch_peer and peer_route is not None:
+                try:
+                    launched = _launch_main_coder_peer_assist(
+                        repo_root, project_root, runtime_root, task, task_state_digest,
+                        primary_coder=coder_id, peer_coder=dispatch_peer, peer_route=peer_route,
+                        capsule_path=capsule_path, projection_path=projection_path, inflight=peer_inflight,
+                    )
+                    if launched:
+                        journal.emit(
+                            "coder.peer_assist_started", task_id=task.id, status=telemetry.get("coder_statuses", {}).get(dispatch_peer),
+                            text="Independent read-only main-coder peer assist launched",
+                            coder=dispatch_peer, primary_coder=coder_id, model=peer_route.model,
+                        )
+                except (OSError, ValueError, subprocess.SubprocessError) as exc:
+                    telemetry.setdefault("coder_status_detail", {})[dispatch_peer] = str(exc)[-1200:]
+                    journal.emit(
+                        "coder.peer_assist_failed", task_id=task.id, status=telemetry.get("coder_statuses", {}).get(dispatch_peer),
+                        text=str(exc)[-1200:], coder=dispatch_peer, model=peer_route.model,
+                    )
             local_assist_path, taskbooster_path = _prepare_optional_task_assists(
                 repo_root, project_root, runtime_root, task, route, catalog, projection_path, journal
             )
             prompt = _task_prompt(
                 repo_root, production, task, telemetry, capsule_path, projection_path,
-                local_assist_path, taskbooster_path, route=route
+                local_assist_path, taskbooster_path, route=route, peer_assist_path=peer_assist_path, coder_id=coder_id
             )
-            resume_session_id = _resume_session_for_route(telemetry, task.id, route)
-            event_type = "task.bounded_fallback_started" if bounded_fallback else ("task.continued" if resume_session_id else "task.started")
-            journal.emit(event_type, task_id=task.id, status="RUNNING", text=task.title, model=route.model, reasoning=route.reasoning, bounded_packet_id=bounded_packet_id)
-            rc, error_text = invoke_structured(
-                prompt, route, schema_path, output, stdout, stderr, runtime_path, telemetry,
-                heartbeat_interval=heartbeat_interval, on_heartbeat=observe_activity, cwd=_task_working_directory(repo_root, project_root, task.id),
-                resume_session_id=resume_session_id, session_task_id=task.id,
-                allow_helper=False if bounded_fallback else _helper_allowed(task.id),
-                persist_session_identity=not bounded_fallback,
-                event_journal=journal,
+            resume_session_id = _resume_session_for_route(telemetry, task.id, route, coder_id=coder_id)
+            event_type = "task.bounded_fallback_started" if bounded_fallback else ("task.continued" if _task_has_shared_continuity(telemetry, task.id, capsule_path) else "task.started")
+            journal.emit(
+                event_type, task_id=task.id, status="RUNNING", text=task.title,
+                model=route.model, reasoning=route.reasoning, coder=coder_id,
+                peer_coder=peer_coder, bounded_packet_id=bounded_packet_id,
             )
+            if coder_id == "agr":
+                rc, error_text = invoke_agr_structured(
+                    prompt, route.model, route.reasoning, schema_path, output, stdout, stderr, runtime_path, telemetry,
+                    heartbeat_interval=heartbeat_interval, on_heartbeat=observe_activity, cwd=_task_working_directory(repo_root, project_root, task.id),
+                    resume_session_id=resume_session_id, session_task_id=task.id, read_only=False,
+                    persist_session_identity=True, event_journal=journal,
+                )
+            else:
+                rc, error_text = invoke_structured(
+                    prompt, route, schema_path, output, stdout, stderr, runtime_path, telemetry,
+                    heartbeat_interval=heartbeat_interval, on_heartbeat=observe_activity, cwd=_task_working_directory(repo_root, project_root, task.id),
+                    resume_session_id=resume_session_id, session_task_id=task.id,
+                    allow_helper=False if bounded_fallback else _helper_allowed(task.id),
+                    persist_session_identity=not bounded_fallback,
+                    event_journal=journal,
+                )
+                if rc == 0:
+                    telemetry.setdefault("coder_statuses", {})["codex"] = "ACTIVE"
             if rc != 0:
+                if coder_id == "agr":
+                    telemetry.setdefault("coder_statuses", {})["agr"] = main_coder.classify_agr_observation(rc, error_text)
+                    telemetry["last_result"] = {
+                        "task_id": task.id, "status": "CODER_FAILOVER",
+                        "summary": error_text[-2000:], "evidence": [],
+                        "coder": "agr", "model": route.model, "reasoning": route.reasoning,
+                    }
+                    journal.emit(
+                        "task.coder_failover", task_id=task.id, status=telemetry["coder_statuses"]["agr"],
+                        text=error_text[-1200:], coder="agr", model=route.model, reasoning=route.reasoning,
+                    )
+                    _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
+                    _beat(runtime_path, telemetry)
+                    continue
                 stale_resume = resume_session_id and _is_stale_resume_error(error_text)
                 incompatible_resume = resume_session_id and _is_resume_protocol_incompatible(error_text)
                 if stale_resume or incompatible_resume:
                     stale_session_id = resume_session_id
+                    _drop_coder_task_session(telemetry, task.id, "codex")
                     _clear_task_session(telemetry)
                     telemetry["status"] = "RECOVERING_SESSION"
                     # Rotate only the executor-session boundary. The canonical Task,
@@ -1648,7 +2240,13 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             try:
                 result = evidence.parse_result(output, task.id)
             except ValueError as exc:
-                _set_failure(telemetry, route, str(exc), task.id); _beat(runtime_path, telemetry); continue
+                if coder_id == "agr":
+                    telemetry.setdefault("coder_statuses", {})["agr"] = "NEEDS_MODIFICATION"
+                    telemetry.setdefault("coder_status_detail", {})["agr"] = str(exc)[-1200:]
+                    telemetry["last_result"] = {"task_id": task.id, "status": "CODER_FAILOVER", "summary": str(exc), "evidence": [], "coder": "agr", "model": route.model, "reasoning": route.reasoning}
+                else:
+                    _set_failure(telemetry, route, str(exc), task.id)
+                _beat(runtime_path, telemetry); continue
             result = _normalize_result_for_route(result, route)
             if result.status in {"COMPLETE", "COMPLETE_ALREADY"} and (telemetry.get("source_alignment") or {}).get("state") == "RECONCILIATION_REQUIRED":
                 result = evidence.TaskResult(result.task_id, "CONTINUE",
@@ -1660,7 +2258,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             _emit_validation_evidence(repo_root, project_root, result, journal)
             telemetry["last_result"] = {
                 "task_id": result.task_id, "status": result.status, "summary": result.summary,
-                "evidence": list(result.evidence), "model": route.model, "reasoning": route.reasoning,
+                "evidence": list(result.evidence), "coder": coder_id, "model": route.model, "reasoning": route.reasoning,
             }
             _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
             _refresh_memory_projection(repo_root, project_root, runtime_root, task.id, journal)
@@ -1680,6 +2278,9 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
     except evidence.SourceAlignmentError:
         return SOURCE_REFRESH_EXIT
     finally:
+        if "peer_inflight" in locals():
+            _collect_main_coder_peer_assists(peer_inflight, telemetry if "telemetry" in locals() else initial_runtime(), journal if "journal" in locals() else None)
+            _terminate_main_coder_peers(peer_inflight)
         publication.stop_worker(repo_root)
         lock.release()
 

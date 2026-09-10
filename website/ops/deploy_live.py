@@ -25,10 +25,18 @@ def main():
     with LOCK.open('w') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX)
         head=run(['git','rev-parse','HEAD']); tree=run(['git','rev-parse','HEAD^{tree}'])
-        remote=run(['git','ls-remote','origin','refs/heads/main']).split()[0]
         state=json.loads(STATE.read_text()) if STATE.exists() else {}
+        try:
+            remote_rows=run(['git','ls-remote','origin','refs/heads/main']).split()
+        except subprocess.CalledProcessError as exc:
+            write(STATE,{**state,'last_seen_commit':head,'last_status':'OFFLINE','status_reason':'REMOTE_UNREACHABLE','updated_at':datetime.now(timezone.utc).isoformat()})
+            return 0
+        if not remote_rows:
+            write(STATE,{**state,'last_seen_commit':head,'last_status':'NEEDS_MODIFICATION','status_reason':'REMOTE_MAIN_MISSING','updated_at':datetime.now(timezone.utc).isoformat()})
+            return 0
+        remote=remote_rows[0]
         if remote != head:
-            write(STATE,{**state,'last_seen_commit':head,'last_status':'DEFERRED_REMOTE','updated_at':datetime.now(timezone.utc).isoformat()})
+            write(STATE,{**state,'last_seen_commit':head,'last_status':'NEEDS_MODIFICATION','status_reason':'REMOTE_MAIN_NOT_CURRENT','remote_commit':remote,'updated_at':datetime.now(timezone.utc).isoformat()})
             return 0
         last=state.get('last_deployed_commit')
         if last == head: return 0
@@ -40,7 +48,7 @@ def main():
             except subprocess.CalledProcessError:
                 relevant=True
         if not relevant:
-            write(STATE,{**state,'last_seen_commit':head,'last_status':'SKIPPED_IRRELEVANT','updated_at':datetime.now(timezone.utc).isoformat()})
+            write(STATE,{**state,'last_seen_commit':head,'last_status':'ACTIVE','status_reason':'SKIPPED_IRRELEVANT','updated_at':datetime.now(timezone.utc).isoformat()})
             return 0
         env=os.environ.copy(); env.update(BIELLA_SOURCE_COMMIT=head,BIELLA_SOURCE_TREE=tree,BIELLA_SOURCE_BRANCH='main',BIELLA_DEPLOY_ENV='PRODUCTION',BIELLA_DEPLOYMENT_STATUS='PRODUCTION_DEPLOYED')
         subprocess.run(['node','scripts/build.mjs'],cwd=WEB,env=env,check=True,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE,text=True)
@@ -89,7 +97,7 @@ def main():
         link.symlink_to(release)
         os.replace(link,CURRENT)
         receipt={'schema':'biella.website.live-deploy/v1','source_commit':head,'source_tree':tree,'active_task':active,'program':snap['program'],'deployed_at':datetime.now(timezone.utc).isoformat(),'investor_page_sha256':sha(release/'investors/index.html'),'snapshot_sha256':sha(release/'data/investor-snapshot.json'),'status':'DEPLOYED_LOCAL_ORIGIN'}
-        write(RECEIPT,receipt); write(STATE,{**state,'last_seen_commit':head,'last_deployed_commit':head,'last_status':'DEPLOYED','updated_at':receipt['deployed_at']})
+        write(RECEIPT,receipt); write(STATE,{**state,'last_seen_commit':head,'last_deployed_commit':head,'last_status':'ACTIVE','status_reason':'DEPLOYED','updated_at':receipt['deployed_at']})
         releases=sorted((p for p in RELEASES.iterdir() if p.is_dir()),key=lambda p:p.stat().st_mtime,reverse=True)
         for old in releases[5:]: shutil.rmtree(old,ignore_errors=True)
         return 0

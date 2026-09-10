@@ -442,6 +442,29 @@ def build_taskbooster_command(route: Route, schema_path: Path, output_path: Path
     ]
 
 
+def build_codex_peer_command(route: Route, schema_path: Path, output_path: Path, cwd: Path) -> list[str]:
+    if route.provider != "openai":
+        raise ValueError("Codex peer assist requires an OpenAI Codex route")
+    codex_bin = os.environ.get("BIELLA_CODEX_BIN", "/usr/bin/codex")
+    return [
+        codex_bin, "exec",
+        "--sandbox", "read-only",
+        "--disable", "plugins",
+        "--disable", "multi_agent",
+        "--disable", "multi_agent_v2",
+        "-c", 'shell_environment_policy.inherit="all"',
+        "-c", 'max_concurrent_threads_per_session=1',
+        "-c", 'max_depth=1',
+        "-c", f'model_reasoning_effort="{route.reasoning}"',
+        "-m", route.model,
+        "--json",
+        "--output-schema", str(schema_path),
+        "-o", str(output_path),
+        "-C", str(cwd),
+        "-",
+    ]
+
+
 def build_codex_resume_command(route: Route, schema_path: Path, output_path: Path, session_id: str, *, allow_helper: bool = False) -> list[str]:
     return [
         *_provider_prefix(route), "exec", "resume",

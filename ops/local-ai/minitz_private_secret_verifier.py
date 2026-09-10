@@ -38,6 +38,11 @@ def _credential_bearing_value(value: str) -> bool:
 def _entry_class(key: str, value: str) -> str:
     normalized = re.sub(r"[^A-Z0-9]+", "_", key.upper()).strip("_")
     segments = set(normalized.split("_")) if normalized else set()
+    # API keys shorter than eight bytes are not valid usable credentials for any
+    # configured MiniTZ provider. Treat them as placeholder/config material so a
+    # short sentinel cannot create exact-value false positives in ordinary code.
+    if (normalized == "API_KEY" or normalized.endswith("_API_KEY")) and len(value.encode("utf-8")) < 8:
+        return "CONFIG"
     if segments & _SECRET_SEGMENTS:
         return "SECRET"
     if normalized.endswith("_KEY") or normalized in {"KEY", "PRIVATE_KEY"}:

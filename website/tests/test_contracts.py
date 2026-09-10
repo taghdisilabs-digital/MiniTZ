@@ -34,8 +34,11 @@ class WebsiteContractTests(unittest.TestCase):
         app = (ROOT / 'src/live/app.js').read_text()
         for token in ('MINITZ', 'UNREAL LIVE FRAME', 'data-capability-console', 'data-gpu-chart', 'data-vram-chart', 'data-local-ai'):
             self.assertIn(token, html)
-        for forbidden in ('data-model', 'data-reasoning', 'data-attempt', 'data-session-state', 'Codex', 'Qwen'):
+        for forbidden in ('data-model', 'data-reasoning', 'data-attempt', 'data-session-state', 'Qwen'):
             self.assertNotIn(forbidden, html)
+        for token in ('MAIN CODERS', 'Codex', 'Antigravity', 'data-coder-codex', 'data-coder-agr'):
+            self.assertIn(token, html)
+        self.assertIn('production?.main_coders', app)
         for forbidden in ('production?.model', 'production?.reasoning', 'production?.attempt', 'production?.continuity?.session_state'):
             self.assertNotIn(forbidden, app)
         self.assertIn('system?.local_ai', app)

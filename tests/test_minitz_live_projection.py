@@ -69,3 +69,28 @@ def test_minitz_projection_uses_current_task_checkpoint_not_legacy_runtime():
         assert events
         assert any("MiniTZ update" in event["text"] for event in events)
         assert all("/root/biella/" not in event["text"] for event in events)
+
+
+def test_minitz_projection_exposes_main_coder_pool_from_runtime():
+    with tempfile.TemporaryDirectory() as tmp:
+        base = Path(tmp); repo = base / "repo"; repo.mkdir()
+        runtime = base / "runtime"; runtime.mkdir()
+        (runtime / "runtime.json").write_text(json.dumps({
+            "active_coder": "codex",
+            "coder_statuses": {"codex": "ACTIVE", "agr": "NEEDS_MODIFICATION"},
+            "coder_status_detail": {"agr": "eligibility check failed"},
+        }))
+        analysis = base / "live_audit"; execution = analysis / "minitz_execution"
+        stream_dir = execution / "T-1"; stream_dir.mkdir(parents=True)
+        (analysis / "TASK_PROGRAM.json").write_text(json.dumps({
+            "revision": 1, "tasks": [{"task_id": "T-1", "status": "PENDING", "title": "Task"}]
+        }))
+        (stream_dir / "stdout.jsonl").write_text(json.dumps({"type": "turn.started"}) + "\n")
+        live = MiniTZLiveProjection(repo=repo, runtime_root=runtime, assets=AssetCatalog({"Games": [], "Website": []}), analysis_root=analysis)
+        live._stage = lambda memory: {"primary": None, "showcase": [], "mode": "NONE", "unreal_live": False}
+        live._system_activity = lambda: {"gpu": {}, "host": {}, "local_ai": {"state": "OFFLINE"}}
+        live._git_info = lambda: {"commit": "TEST", "tree": "TEST", "message": "test", "committed_at": ""}
+        snapshot = live.refresh(force_assets=True, force_system=True, force_git=True)
+        assert snapshot["production"]["active_coder"] == "codex"
+        assert snapshot["production"]["main_coders"] == {"codex": "ACTIVE", "agr": "NEEDS_MODIFICATION"}
+        assert snapshot["production"]["main_coder_detail"]["agr"] == "eligibility check failed"

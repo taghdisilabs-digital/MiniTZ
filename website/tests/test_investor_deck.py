@@ -69,6 +69,11 @@ class InvestorDeckTests(unittest.TestCase):
         service = (ROOT/'ops/biella-website-live-deploy.service').read_text()
         self.assertIn('RequiresMountsFor=/mnt/biella-extra', service)
 
+    def test_live_deploy_handles_missing_remote_main_without_crashing(self):
+        deployer = (ROOT/'ops/deploy_live.py').read_text()
+        self.assertIn('REMOTE_MAIN_MISSING', deployer)
+        self.assertNotIn("run(['git','ls-remote','origin','refs/heads/main']).split()[0]", deployer)
+
     def test_visual_reference_manifest_is_exact_and_non_authoritative_for_metrics(self):
         manifest = json.loads((ROOT/'content/investor-deck-manifest.json').read_text())
         self.assertEqual(manifest['status'], 'ACCEPTED_VISUAL_REFERENCE')
