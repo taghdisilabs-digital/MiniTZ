@@ -724,6 +724,14 @@ class LiveProjection:
         if not summary or summary.lower().startswith(("invalid structured result", "missing structured result")):
             summary = str((current or {}).get("text") or (status.get("last_result") or {}).get("summary") or "").strip()
         production_state = self._production_state(status=status, runtime=runtime, current=current, heartbeat_age=heartbeat_age)
+        raw_coder_statuses = runtime.get("coder_statuses") if isinstance(runtime.get("coder_statuses"), dict) else {}
+        coder_statuses = {
+            "codex": str(raw_coder_statuses.get("codex") or "NEEDS_MODIFICATION"),
+            "agr": str(raw_coder_statuses.get("agr") or "NEEDS_MODIFICATION"),
+        }
+        raw_coder_detail = runtime.get("coder_status_detail") if isinstance(runtime.get("coder_status_detail"), dict) else {}
+        coder_detail = {key: str(value)[:240] for key, value in raw_coder_detail.items() if key in {"codex", "agr"} and value}
+        active_coder = str(runtime.get("active_coder") or "codex")
         payload: dict[str, object] = {
             "schema": "biella.public_live_snapshot/v1",
             "mode": "READ_ONLY_OBSERVER",
@@ -740,6 +748,9 @@ class LiveProjection:
                 "task_status": self._task_status(task_id, runtime, status, memory),
                 "current_operation": current,
                 "execution_mode": "AI_ACCELERATED_BUILD",
+                "active_coder": active_coder,
+                "main_coders": coder_statuses,
+                "main_coder_detail": coder_detail,
                 "continuity_status": "PRESERVED" if runtime.get("task_session_id") and str(runtime.get("session_task_id") or task_id) == task_id else "FRESH",
                 "efficiency": self._efficiency_status(task_id),
                 "heartbeat_at": heartbeat_at,

@@ -66,6 +66,23 @@ class LiveProjectionTest(unittest.TestCase):
         self.assertEqual(status["total"], 2)
         self.assertEqual(status["active_model"], "model-a")
 
+    def test_apex_public_projection_exposes_main_coder_pool_with_safe_defaults(self):
+        (self.game / "docs").mkdir(parents=True)
+        (self.game / "docs" / "PRODUCTION.md").write_text("Current task: `D03-01`\n- [ ] D03-01 | hard | live | PENDING | evidence\n")
+        (self.runtime / "runtime.json").write_text(json.dumps({
+            "status": "RUNNING", "task_id": "D03-01",
+            "active_coder": "agr",
+            "coder_statuses": {"codex": "ACTIVE", "agr": "NEEDS_MODIFICATION"},
+            "coder_status_detail": {"agr": "eligibility check failed"},
+            "heartbeat_at": "2026-09-10T22:00:00+00:00",
+        }))
+        self.live._system_activity = lambda: {"gpu": {}, "host": {}, "local_ai": {"state": "OFFLINE"}}
+        payload = self.live.refresh(force_system=True)
+        production = payload["production"]
+        self.assertEqual(production["active_coder"], "agr")
+        self.assertEqual(production["main_coders"], {"codex": "ACTIVE", "agr": "NEEDS_MODIFICATION"})
+        self.assertEqual(production["main_coder_detail"]["agr"], "eligibility check failed")
+
     def test_current_task_evidence_resolves_to_public_stage_asset(self):
         newer = self.capture.parent / "newer.png"
         newer.write_bytes(b"\x89PNG\r\nnewer-frame")
