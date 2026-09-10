@@ -1,0 +1,19 @@
+[
+  "runuser",
+  "-u",
+  "unreal",
+  "--",
+  "env",
+  "BIELLA_D17_SHADOW_REPORT=/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/shadow-casters-01/inspect-source-before/meshes.json",
+  "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+  "/mnt/biella-extra/biella-runtime/d17-02/cook-terrace-04/project/BiellaGames.uproject",
+  "-run=pythonscript",
+  "-script=/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/shadow-casters-01/inspect_source_geometry.py",
+  "-EnablePlugins=PythonScriptPlugin",
+  "-unattended",
+  "-nullrhi",
+  "-nosound",
+  "-nop4",
+  "-stdout",
+  "-FullStdOutLogOutput"
+]

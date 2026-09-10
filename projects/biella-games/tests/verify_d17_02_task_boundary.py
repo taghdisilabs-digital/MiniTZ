@@ -39,7 +39,8 @@ def main():
     assert source['material_input_digest'] == q['current_material_input_digest']
     for item in source['material_inputs']:
         check(item)
-    package = json.loads((PROJECT/'Build/AAA/D17-02/build/package-01/package-manifest.json').read_text())
+    package_path = q.get('runtime_package_manifest', 'Build/AAA/D17-02/build/package-01/package-manifest.json')
+    package = json.loads((PROJECT/package_path).read_text())
     assert package['package_id'] == q['runtime_package']
     check(package['archive'])
     for run in q.get('current_raw_runs', []):

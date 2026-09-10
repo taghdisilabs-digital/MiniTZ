@@ -51,6 +51,11 @@ def main():
         assert authored['spec_sha256'] == readback['spec_sha256'] == report['spec']['sha256']
         allowed = {'Content/Maps/BiellaOpenWorldMap.umap', 'Content/Environment/TerraceRoute/SM_TerraceRoute.uasset'}
         allowed.update('Content/'+p.removeprefix('/Game/')+'.uasset' for p in authored['edited_actor_packages'])
+        assert authored['lights'] == readback['lights']
+        assert authored['material_packages'] == readback['material_packages']
+        assert authored['shader_sha256'] == readback['shader_sha256']
+        assert authored['nanite_settings'] == readback['nanite_settings']
+        allowed.update('Content/'+p.removeprefix('/Game/')+'.uasset' for p in authored['material_packages'])
         after = identities()
         changed = {p: v for p, v in after.items() if before.get(p) != v}
         assert before.keys() <= after.keys(), 'Preexisting source removed'

@@ -1,0 +1,25 @@
+{
+  "extraction": "Unmodified ffmpeg video frame at measured route event time; approximate native-frame mapping at 30 fps. No compositing, grading or rendering.",
+  "extractor": {
+    "bytes": 1826,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/extract_d17_02_route_frames.py",
+    "sha256": "a3b2307f5018eba63ad8f168e5a5b9c4519ff5ad0b53a1b94d51a38f5a0657f5"
+  },
+  "frames": [
+    {
+      "beat": "Terrace ramp foot",
+      "bytes": 802024,
+      "native_frame": "1347",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-720-01/ramp-foot.png",
+      "route_stage": 5,
+      "sha256": "ba220b005b23936453362a376e85490bfe1703a6220c7644969e64fae7739b72",
+      "video_seconds": 28.67014525097329
+    }
+  ],
+  "raw_video": {
+    "bytes": 7440656,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-720-01/raw-gameplay.mkv",
+    "sha256": "b3dcf68d4d60d2dda36e4e8a6cf6b831c69d0b91620277450ef446d41ed9124a"
+  },
+  "task_id": "D17-02"
+}

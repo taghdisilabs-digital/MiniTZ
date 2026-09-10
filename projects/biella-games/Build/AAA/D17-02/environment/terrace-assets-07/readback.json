@@ -1,0 +1,306 @@
+{
+  "task_id": "D17-02",
+  "result": "PASS",
+  "status": "GENERATED_DRAFT",
+  "read_only": true,
+  "spec_sha256": "67a8ac8da0525bfd85b12b6b72823ee3ff64ee01de1332dfc97a0043ab2b87a1",
+  "mesh": "/Game/Environment/TerraceRoute/SM_TerraceRoute.SM_TerraceRoute",
+  "triangles": 291188,
+  "bounds_min": [
+    -1003.0000610351562,
+    -2003.47119140625,
+    -38.41201400756836
+  ],
+  "bounds_max": [
+    1003.0,
+    1029.0,
+    925.9999389648438
+  ],
+  "materials": [
+    "Paint",
+    "Steel",
+    "Lamp",
+    "Growth",
+    "Vein"
+  ],
+  "material_packages": [
+    "/Game/Environment/TerraceRoute/M_TerraceSurface",
+    "/Game/Environment/TerraceRoute/MI_TerracePaint",
+    "/Game/Environment/TerraceRoute/MI_TerraceSteel"
+  ],
+  "lights": [
+    {
+      "label": "D17_TerracePractical_0",
+      "position": [
+        10000,
+        1150,
+        482.0
+      ],
+      "lumens": 1600,
+      "attenuation_cm": 760,
+      "source_radius_cm": 14,
+      "source_length_cm": 145,
+      "color_linear": [
+        1,
+        0.62,
+        0.28,
+        1
+      ]
+    },
+    {
+      "label": "D17_TerracePractical_1",
+      "position": [
+        10000,
+        2250,
+        702.0
+      ],
+      "lumens": 1600,
+      "attenuation_cm": 760,
+      "source_radius_cm": 14,
+      "source_length_cm": 145,
+      "color_linear": [
+        1,
+        0.62,
+        0.28,
+        1
+      ]
+    },
+    {
+      "label": "D17_TerracePractical_2",
+      "position": [
+        10000,
+        3250,
+        852
+      ],
+      "lumens": 1600,
+      "attenuation_cm": 760,
+      "source_radius_cm": 14,
+      "source_length_cm": 145,
+      "color_linear": [
+        1,
+        0.62,
+        0.28,
+        1
+      ]
+    }
+  ],
+  "shader_sha256": "eaf7e2747d9bcc95470dd19c1b157c76eda67e559ccaea4e3c2766f8c0bbf7c8",
+  "preserved_colliders": {
+    "D02_Terrace_Ramp": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616335428",
+      "transform": {
+        "location": [
+          10000.0,
+          2003.9223227027637,
+          180.3883864861816
+        ],
+        "rotation": [
+          0.09853762000499226,
+          0.0,
+          0.0,
+          0.9951333264662338
+        ],
+        "scale": [
+          4.0,
+          20.396078054371138,
+          0.4
+        ]
+      },
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "collision": "BlockAll"
+    },
+    "D02_Terrace_Floor": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616336429",
+      "transform": {
+        "location": [
+          10000.0,
+          3500.0,
+          350.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          20.0,
+          10.0,
+          1.0
+        ]
+      },
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "collision": "BlockAll"
+    },
+    "D02_Terrace_BackRail": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616336430",
+      "transform": {
+        "location": [
+          10000.0,
+          3975.0,
+          460.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          20.0,
+          0.5,
+          1.2
+        ]
+      },
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "collision": "BlockAll"
+    },
+    "D02_Terrace_WestRail": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616337431",
+      "transform": {
+        "location": [
+          9025.0,
+          3500.0,
+          460.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          0.5,
+          10.0,
+          1.2
+        ]
+      },
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "collision": "BlockAll"
+    },
+    "D02_Terrace_EastRail": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616338432",
+      "transform": {
+        "location": [
+          10975.0,
+          3500.0,
+          460.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          0.5,
+          10.0,
+          1.2
+        ]
+      },
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "collision": "BlockAll"
+    }
+  },
+  "edited_actor_paths": {
+    "D17_TerraceRoute": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746DFFF02_1680818023",
+    "D17_TerraceColumn_00": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746DFFF02_1680820024",
+    "D17_TerraceColumn_01": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746DFFF02_1680821025",
+    "D17_TerraceColumn_02": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746DFFF02_1680822026",
+    "D17_TerraceColumn_03": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746DFFF02_1680823027",
+    "D17_TerraceColumn_04": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746DFFF02_1680824028",
+    "D17_TerraceColumn_05": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746DFFF02_1680825029",
+    "D17_TerracePortal_0_W": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130158903",
+    "D17_TerracePortal_0_E": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130159904",
+    "D17_TerracePortalBeam_0": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130160905",
+    "D17_TerracePortal_1_W": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130161906",
+    "D17_TerracePortal_1_E": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130162907",
+    "D17_TerracePortalBeam_1": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130163908",
+    "D17_TerracePortal_2_W": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130163909",
+    "D17_TerracePortal_2_E": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130164910",
+    "D17_TerracePortalBeam_2": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130165911",
+    "D17_TerraceGuard_W_00": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130166912",
+    "D17_TerraceGuard_W_01": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130166913",
+    "D17_TerraceGuard_W_02": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130167914",
+    "D17_TerraceGuard_W_03": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130168915",
+    "D17_TerraceGuard_W_04": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130169916",
+    "D17_TerraceGuard_W_05": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130169917",
+    "D17_TerraceGuard_W_06": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130170918",
+    "D17_TerraceGuard_W_07": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130171919",
+    "D17_TerraceGuard_W_08": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130171920",
+    "D17_TerraceGuard_W_09": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130172921",
+    "D17_TerraceGuard_E_00": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130173922",
+    "D17_TerraceGuard_E_01": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130174923",
+    "D17_TerraceGuard_E_02": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130174924",
+    "D17_TerraceGuard_E_03": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130175925",
+    "D17_TerraceGuard_E_04": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130176926",
+    "D17_TerraceGuard_E_05": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130177927",
+    "D17_TerraceGuard_E_06": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130177928",
+    "D17_TerraceGuard_E_07": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130178929",
+    "D17_TerraceGuard_E_08": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130179930",
+    "D17_TerraceGuard_E_09": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130179931",
+    "D17_TerraceRearScreen_00": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130180932",
+    "D17_TerraceRearScreen_01": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130181933",
+    "D17_TerraceRearScreen_02": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130182934",
+    "D17_TerraceRearScreen_03": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130182935",
+    "D17_TerraceRearScreen_04": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130183936",
+    "D17_TerraceRearScreen_05": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130184937",
+    "D17_TerraceRearScreen_06": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130185938",
+    "D17_TerraceRearScreen_07": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130185939",
+    "D17_TerraceRearScreen_08": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E4FF02_1130186940",
+    "D17_TerracePractical_0": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.PointLight_UAID_FA163ECF0746E4FF02_1130187941",
+    "D17_TerracePractical_1": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.PointLight_UAID_FA163ECF0746E4FF02_1130190942",
+    "D17_TerracePractical_2": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.PointLight_UAID_FA163ECF0746E4FF02_1130192943"
+  },
+  "edited_actor_packages": [
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/1/ZY/KWMQBAB6YP8GJ9A3CTV02X",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/A/3D/ZUR6RFCQQ4Z4FDZVI8ZE12",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/8N/AJ4GKHJL0TXKW45PEY6L3L",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/3/M9/NBOVZU9XG3II1RGMXOELEA",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/B/IJ/62KCZE8IX7714DEA8GFTFV",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/C/U3/89IV5L5UUH4F1SFCZ107P4",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/7/6A/9QEWM4FV1PQVNYS9EWJL8U",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/8/BW/RWVQ231S91WNBDXY9J0J3O",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/0Y/KWDFQ11EDSM0ESA22Z5338",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/OX/YUNA9A81XFK6TOTB2MS795",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/ZP/0C2R3TAW0AZIR1NI2N0YAC",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/2/UO/EUKWSU8LQ2BG8BN1XPNPRO",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/2/5Y/LKBFSKHRND1N183IC2HU6Q",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/5/0M/CI06LB7WN2SQETRGETIUB9",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/7/RA/QVQDDSE15UUUC4E1NVEKBF",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/E/6T/GHZ0E86JWUVADRKPF76GZ8",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/1/E9/OVKBC7IHMZMOJB04OF19T5",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/8/BP/INYL5SU3MKGUUUV1LQX4TT",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/A/XY/961K5M9CMVUM80507RME5G",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/4I/7RCCAEAQ8HTO0UUJ8IBPIQ",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/D/EO/TPMGR2KK6NZIQD8G2XUAZ0",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/D/SG/2X8R2PN35PX8IJJJNPSBLP",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/QS/J1UW1SXB6RB8XUSXTIFK2V",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/SP/Y7I4RWMF723V1Y2X83E3UX",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/7/GF/T9P4GFRPSNFT0DH33ROI0N",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/5/LD/6RAKYEEYODLQTJJPX6XRF3",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/E/RP/Y3ER0RFSTL7CMSHN5O6EO1",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/1/3N/DZ7LH3YVZ0YN257349Z42A",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/A/QU/VFYTX2IWOAW6WHM4X7J9R9",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/E/11/PX4T555U4JJ4IY285F3FJW",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/7/M5/YW9EXLFZZJ0DE2XEQXFJXN",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/B/LY/A5JI1GCHT46V545N9ZCSA4",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/D/P5/BB5ZB7IGWXYZSD5BM0LR4S",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/2/LV/Z0EZ25EJ8XO1IC710ECKIP",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/7/XV/99SC67KPLCV6DFKCE66KJ4",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/9/8V/CM3Q02QXUQ8QWH78SWI08E",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/2/8B/WVTXZ04D5M1Q57PUPQQBEN",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/1/E3/NQGWLSFLCNXZHC4RC2OR0J",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/B/2S/YBLUE05PDEMYQRB211C6OD",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/B/PH/9O7DIYQ9QIEDHT99X0MVFF",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/8/KZ/0LYEQL6H89VXB0QZ2LRPXF",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/HN/EYTJ264NTHMMEMDJDQ4NMD",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/3/AP/0NP2F9AAKXR9WMES2IGDA4",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/4/BH/34YXA06KVL1HTTNNHAN6WG",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/2/7D/1I06TQHIGUNN4LTV27UEPL",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/9/P3/92YDLX153O6BKGIL7QN115",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/2/MV/MU1Z3VEWCP7BAFRJIT8FIE",
+    "/Game/__ExternalActors__/Maps/BiellaOpenWorldMap/B/AM/LBE8A08EJUVVACAWPG3TF6"
+  ],
+  "scope": "Supported terrace approach, surface graph, matched colliders and practical lights; affected raw runtime required"
+}

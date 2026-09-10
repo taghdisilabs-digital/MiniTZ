@@ -1,0 +1,229 @@
+{
+  "task_id": "D17-02",
+  "status": "EDITABLE_IMPLEMENTATION_RUNTIME_QUALIFICATION_PENDING",
+  "acceptance": false,
+  "creation": "Supported service portals, guards and pipes frame the four-metre rise. Screen at the summit, visible fixture housings, joint-rooted red tissue, authored PBR terrace response.",
+  "source": [
+    {
+      "path": "SourceAssets/Environment/build_terrace_route.py",
+      "bytes": 14659,
+      "sha256": "3c7482e0408f3cec137399ec1f5800e6c7efbead07f6f88452b08ac5300cac59"
+    },
+    {
+      "path": "SourceAssets/Environment/terrace-route.json",
+      "bytes": 10081,
+      "sha256": "67a8ac8da0525bfd85b12b6b72823ee3ff64ee01de1332dfc97a0043ab2b87a1"
+    },
+    {
+      "path": "SourceAssets/Environment/TerraceRoute.blend",
+      "bytes": 849458,
+      "sha256": "8973d0ee6aeb9410c5613a26875ebccc5d04d64b6188630aed409735ceecb74e"
+    },
+    {
+      "path": "SourceAssets/Environment/SM_TerraceRoute.fbx",
+      "bytes": 4464748,
+      "sha256": "dd797689154b237d1949141ac89cee0e4718dbd84af0c65a4aa09035ca4b36d5"
+    },
+    {
+      "path": "SourceAssets/Materials/TerraceSurface.hlsl",
+      "bytes": 1638,
+      "sha256": "eaf7e2747d9bcc95470dd19c1b157c76eda67e559ccaea4e3c2766f8c0bbf7c8"
+    },
+    {
+      "path": "Content/Python/author_terrace_route.py",
+      "bytes": 15083,
+      "sha256": "14227e575013e1db3a9c9a7257479f960e32b7283a9e24c0b4225d71eb0a9d58"
+    }
+  ],
+  "native_readback": {
+    "path": "Build/AAA/D17-02/environment/terrace-assets-07/readback.json",
+    "bytes": 15856,
+    "sha256": "1681b4e1b30444fc32042a4453b12f7c1dd57f5ef1f3f7bd9a6151831d79cee1"
+  },
+  "geometry_reuse": {
+    "path": "Build/AAA/D17-02/terrace-approach-02/lighting-revision.json",
+    "bytes": 1856,
+    "sha256": "38e6e1997420b9076680c096765d7fec3f342888705487bc40496571bcf14751"
+  },
+  "editable_parts": 1565,
+  "triangles": 291188,
+  "new_collision_proxies": 38,
+  "preserved_collision": {
+    "D02_Terrace_Ramp": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616335428",
+      "transform": {
+        "location": [
+          10000.0,
+          2003.9223227027637,
+          180.3883864861816
+        ],
+        "rotation": [
+          0.09853762000499226,
+          0.0,
+          0.0,
+          0.9951333264662338
+        ],
+        "scale": [
+          4.0,
+          20.396078054371138,
+          0.4
+        ]
+      },
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "collision": "BlockAll"
+    },
+    "D02_Terrace_Floor": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616336429",
+      "transform": {
+        "location": [
+          10000.0,
+          3500.0,
+          350.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          20.0,
+          10.0,
+          1.0
+        ]
+      },
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "collision": "BlockAll"
+    },
+    "D02_Terrace_BackRail": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616336430",
+      "transform": {
+        "location": [
+          10000.0,
+          3975.0,
+          460.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          20.0,
+          0.5,
+          1.2
+        ]
+      },
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "collision": "BlockAll"
+    },
+    "D02_Terrace_WestRail": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616337431",
+      "transform": {
+        "location": [
+          9025.0,
+          3500.0,
+          460.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          0.5,
+          10.0,
+          1.2
+        ]
+      },
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "collision": "BlockAll"
+    },
+    "D02_Terrace_EastRail": {
+      "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616338432",
+      "transform": {
+        "location": [
+          10975.0,
+          3500.0,
+          460.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          0.5,
+          10.0,
+          1.2
+        ]
+      },
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "collision": "BlockAll"
+    }
+  },
+  "lights": [
+    {
+      "label": "D17_TerracePractical_0",
+      "position": [
+        10000,
+        1150,
+        482.0
+      ],
+      "lumens": 1600,
+      "attenuation_cm": 760,
+      "source_radius_cm": 14,
+      "source_length_cm": 145,
+      "color_linear": [
+        1,
+        0.62,
+        0.28,
+        1
+      ]
+    },
+    {
+      "label": "D17_TerracePractical_1",
+      "position": [
+        10000,
+        2250,
+        702.0
+      ],
+      "lumens": 1600,
+      "attenuation_cm": 760,
+      "source_radius_cm": 14,
+      "source_length_cm": 145,
+      "color_linear": [
+        1,
+        0.62,
+        0.28,
+        1
+      ]
+    },
+    {
+      "label": "D17_TerracePractical_2",
+      "position": [
+        10000,
+        3250,
+        852
+      ],
+      "lumens": 1600,
+      "attenuation_cm": 760,
+      "source_radius_cm": 14,
+      "source_length_cm": 145,
+      "color_linear": [
+        1,
+        0.62,
+        0.28,
+        1
+      ]
+    }
+  ],
+  "raw_iteration": {
+    "run": "Build/AAA/D17-02/raw/approach-720-01",
+    "result": "6/13 stages; native objective Success before ascent; no camera/collision faults. Ramp-foot frame overlit with coarse orange surface patches.",
+    "response": "Reduce luminaire output from 16000 to 1600 lumens and attenuation from 1050 to 760 cm; reduce oxide contrast and blend two noise scales. Preserve exact prior generator/HLSL as raw iteration inputs and keep geometry byte-identical."
+  }
+}

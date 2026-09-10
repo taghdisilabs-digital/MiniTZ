@@ -1,0 +1,24 @@
+{
+  "task_id": "D17-02",
+  "status": "INPUT_REPAIR_FULL_1080P_RUNTIME_VERIFIED",
+  "cause": "Optional stage16 selected BiellaRival:2 at (3233.5774,-398.4145) from (7308.5214,1003.4313), then walked back across service-wall navigation. Native hold at (6608.2671,731.0954), frame1094..1367. Autonomous rival fire then completed the native objective at sim37.9114854.",
+  "failed_run": "Build/AAA/D17-02/raw/nanite-full-1080-01",
+  "selected_distance_cm": 4309.331763755679,
+  "repair": "Only three optional east-rival checks now admit within 650cm. All actual traversal/hall/panel/terrace/return waypoints and native gameplay rules unchanged.",
+  "before_sha256": "f07cb8cc5cce8896f5e8d2034ffd0885ff6845f19b8ef09a5f4aaefd8376569c",
+  "after_sha256": "6fdb3a536c520bc9972eb72ec515a45a97b0343a4b37538353634f768489428d",
+  "changed_stage_indices": [
+    16,
+    17,
+    18
+  ],
+  "required_stage_count": 35,
+  "runtime_result": {
+    "path": "Build/AAA/D17-02/raw/nanite-full-1080-02/measurements.json",
+    "completed_stages": 35,
+    "required_stages": 35,
+    "native_ready_frames": 3262,
+    "measured_camera_collision_framing_faults": 0
+  },
+  "limits": "Ordinary-input route completion establishes this repaired optional-pursuit decision in the observed run. Autonomous rivals may still end other runs; native AI/objective rules remain unchanged."
+}

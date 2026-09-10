@@ -1,0 +1,181 @@
+{
+  "schema": "biella.d17.raw_input_plan/v1",
+  "task_id": "D17-02",
+  "controller": "d17_02_telemetry_guided_input",
+  "scope": "Affected terrace boundary only: ordinary-input spawn approach, ascent, summit orbit, descent and street return. Earlier full-route evidence is retained separately; this plan does not claim full canonical-route coverage. Uses the previously completed full-720 opening to engage admitted rivals before leaving the west street; no AI or objective mutation.",
+  "actions": [],
+  "stages": [
+    {
+      "kind": "walk",
+      "at": [
+        0,
+        -800
+      ],
+      "beat": "Evade surviving infected",
+      "radius": 70,
+      "defend_against_nearest_rival": true,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        3300,
+        -800
+      ],
+      "beat": "Defensive approach to street rivals",
+      "defend_against_nearest_rival": true,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "rival",
+      "target": "nearest_admitted",
+      "beat": "Clear live west-street rival 1",
+      "timeout": 20,
+      "skip_if_not_admitted": true,
+      "admission_wait_seconds": 0,
+      "admission_radius_cm": 6000
+    },
+    {
+      "kind": "walk",
+      "at": [
+        4000,
+        -800
+      ],
+      "beat": "Street01 approach",
+      "radius": 70,
+      "defend_against_nearest_rival": true,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "rival",
+      "target": "nearest_admitted",
+      "beat": "Pursue admitted reserve rival before service route",
+      "timeout": 25,
+      "skip_if_not_admitted": true,
+      "admission_wait_seconds": 0,
+      "admission_radius_cm": 6000
+    },
+    {
+      "kind": "walk",
+      "at": [
+        4500,
+        -800
+      ],
+      "beat": "Advance within street before late rival check",
+      "radius": 70,
+      "clear_immediate_enemy": true,
+      "defend_against_nearest_rival": true
+    },
+    {
+      "kind": "rival",
+      "target": "nearest_admitted",
+      "skip_if_not_admitted": true,
+      "admission_radius_cm": 6000,
+      "beat": "Engage live late-admitted street rival"
+    },
+    {
+      "kind": "walk",
+      "at": [
+        5900,
+        -800
+      ],
+      "radius": 70,
+      "beat": "Street approach to changed terrace",
+      "defend_against_nearest_rival": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        9500,
+        -800
+      ],
+      "radius": 70,
+      "beat": "Cross street to terrace approach",
+      "defend_against_nearest_rival": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        500
+      ],
+      "radius": 70,
+      "beat": "Align the unchanged ramp entry"
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        1000
+      ],
+      "beat": "Terrace ramp foot",
+      "radius": 50,
+      "clear_immediate_enemy": false
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        2200
+      ],
+      "beat": "Ascend ramp",
+      "radius": 70,
+      "clear_immediate_enemy": false
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        3400
+      ],
+      "beat": "Terrace summit",
+      "radius": 70,
+      "clear_immediate_enemy": false
+    },
+    {
+      "kind": "look",
+      "yaw": -90,
+      "beat": "Terrace overlook at normal camera distance",
+      "clear_immediate_enemy": false
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        2200
+      ],
+      "beat": "Descend ramp",
+      "radius": 70,
+      "clear_immediate_enemy": false
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        1000
+      ],
+      "beat": "Ramp ground contact",
+      "radius": 70,
+      "clear_immediate_enemy": false
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        0
+      ],
+      "beat": "Return to street",
+      "radius": 70,
+      "clear_immediate_enemy": false
+    },
+    {
+      "kind": "walk",
+      "at": [
+        9500,
+        -800
+      ],
+      "radius": 70,
+      "beat": "Return beyond terrace approach"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "command": [
+    "runuser",
+    "-u",
+    "unreal",
+    "--",
+    "env",
+    "BIELLA_D17_SHADOW_REPORT=/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/shadow-casters-01/inspect-after/meshes.json",
+    "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+    "/root/biella/repos/biella-engine/projects/biella-games/BiellaGames.uproject",
+    "-run=pythonscript",
+    "-script=/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/shadow-casters-01/inspect_meshes.py",
+    "-EnablePlugins=PythonScriptPlugin",
+    "-unattended",
+    "-nullrhi",
+    "-nosound",
+    "-nop4",
+    "-stdout",
+    "-FullStdOutLogOutput"
+  ],
+  "pid": 19000,
+  "returncode": 0,
+  "timed_out": false,
+  "timeout_seconds": 180,
+  "elapsed_seconds": 15.765,
+  "log": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/shadow-casters-01/inspect-after/runtime.log",
+    "sha256": "23e5b709b415e1fd47b3802a4bd741eef12c2eefd3dc5b95fcebbf5729925c8a",
+    "bytes": 215874
+  },
+  "finalization": {
+    "closed": true,
+    "elapsed_seconds": 4.78508906904608,
+    "timeout_seconds": 45,
+    "observed_writers": [
+      {
+        "pid": 19008,
+        "fd": "1"
+      },
+      {
+        "pid": 19008,
+        "fd": "2"
+      }
+    ],
+    "remaining_writers": []
+  }
+}

@@ -1437,6 +1437,629 @@ class ValidationService:
     recordEvaluation = record_evaluation
 
 
+# A validation graph can have many producers, validators, audits, and
+# diagnostic collectors.  This adapter gives those implementations one
+# bounded, provenance-linked admission family without becoming a second task
+# or progression authority.
+VALIDATION_COMPLETION_FAMILY_REVISION = "validation-completion-family.v1"
+_COMPLETION_STATUSES = {"COMPLETE", "COMPLETE_ALREADY", "CONTINUE"}
+_COMPLETION_VERDICTS = {"PASS", "FAIL", "FAILED", "INCONCLUSIVE", "ERROR"}
+_COMPLETION_KINDS = {
+    "VALIDATION", "AUDIT", "DIAGNOSTIC", "FAMILY_RECEIPT", "COMPLETION_FAMILY",
+    "RETIRED", "SUPERSEDED",
+}
+_COMPLETION_TOKEN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}")
+_COMPLETION_TASK_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}")
+_COMPLETION_MAX_EVIDENCE = 256
+_COMPLETION_MAX_CRITERIA = 128
+_COMPLETION_MAX_REFS = 256
+
+
+def _completion_task_id(value: object) -> str:
+    if not isinstance(value, str) or _COMPLETION_TASK_ID.fullmatch(value) is None:
+        raise ValidationContractError("completion task_id is malformed")
+    return value
+
+
+def _completion_revision(value: object) -> int:
+    if isinstance(value, bool) or not isinstance(value, int) or value < 1:
+        raise ValidationContractError("completion task revision is malformed")
+    return value
+
+
+def _completion_digest(value: object, label: str) -> str:
+    if not isinstance(value, str) or _SHA.fullmatch(value) is None:
+        raise ValidationContractError(f"{label} is not an exact SHA-256 digest")
+    return value
+
+
+def _completion_token(value: object, label: str) -> str:
+    if not isinstance(value, str) or _COMPLETION_TOKEN.fullmatch(value) is None:
+        raise ValidationContractError(f"{label} is malformed")
+    return value
+
+
+def _completion_texts(value: object, label: str, maximum: int = _COMPLETION_MAX_CRITERIA) -> tuple[str, ...]:
+    if value is None:
+        return ()
+    if isinstance(value, (str, bytes)) or not isinstance(value, Sequence) or len(value) > maximum:
+        raise ValidationContractError(f"{label} is malformed or unbounded")
+    result = tuple(_text(item, label, 512) for item in value)
+    if len(set(result)) != len(result):
+        raise ValidationContractError(f"{label} contains duplicates")
+    return result
+
+
+def _completion_refs(value: object, label: str, maximum: int = _COMPLETION_MAX_REFS) -> tuple[str, ...]:
+    if value is None:
+        return ()
+    if isinstance(value, (str, bytes)) or not isinstance(value, Sequence) or len(value) > maximum:
+        raise ValidationContractError(f"{label} is malformed or unbounded")
+    result = tuple(_ref(item, label) for item in value)
+    if len(set(result)) != len(result):
+        raise ValidationContractError(f"{label} contains duplicates")
+    return result
+
+
+@dataclass(frozen=True)
+class ValidationCompletionEvidence:
+    """One bounded validation-family record.
+
+    The record describes evidence; it does not grant task progression.  A
+    family receipt later binds any number of these records to one final
+    completion authority.
+    """
+
+    kind: str
+    task_id: str
+    task_revision: int
+    task_digest: str
+    scope_ref: str
+    evidence_ref: str
+    evidence_sha256: str
+    implementation_ref: str
+    verdict: str
+    criterion: str | None = None
+    evidence_state: str = "CURRENT"
+    source_ref: str | None = None
+    family_revision: str | None = None
+    authority_ref: str | None = None
+    accepted_criteria: tuple[str, ...] = ()
+    implementation_refs: tuple[str, ...] = ()
+    value_receipt_refs: tuple[str, ...] = ()
+    record_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        kind = _completion_token(self.kind, "completion evidence kind")
+        if kind not in _COMPLETION_KINDS:
+            raise ValidationContractError("completion evidence kind is unsupported")
+        task_id = _completion_task_id(self.task_id)
+        revision = _completion_revision(self.task_revision)
+        task_digest = _completion_digest(self.task_digest, "completion task digest")
+        scope_ref = _ref(self.scope_ref, "completion scope_ref")
+        evidence_ref = _ref(self.evidence_ref, "completion evidence_ref")
+        evidence_sha256 = _completion_digest(self.evidence_sha256, "completion evidence digest")
+        implementation_ref = _ref(self.implementation_ref, "completion implementation_ref")
+        verdict = self.verdict.value if isinstance(self.verdict, ValidationVerdict) else self.verdict
+        if not isinstance(verdict, str) or verdict not in _COMPLETION_VERDICTS:
+            raise ValidationContractError("completion validation verdict is unsupported")
+        criterion = None if self.criterion is None else _text(self.criterion, "completion criterion", 512)
+        evidence_state = self.evidence_state.value if isinstance(self.evidence_state, ValidationEvidenceState) else self.evidence_state
+        if evidence_state not in {item.value for item in ValidationEvidenceState}:
+            raise ValidationContractError("completion evidence state is unsupported")
+        source_ref = None if self.source_ref is None else _ref(self.source_ref, "completion source_ref")
+        family_revision = None if self.family_revision is None else _text(self.family_revision, "completion family revision", 128)
+        authority_ref = None if self.authority_ref is None else _ref(self.authority_ref, "completion authority_ref")
+        accepted_criteria = _completion_texts(self.accepted_criteria, "completion accepted_criteria")
+        implementation_refs = _completion_refs(self.implementation_refs, "completion implementation_refs")
+        value_receipt_refs = _completion_refs(self.value_receipt_refs, "completion value_receipt_refs")
+        object.__setattr__(self, "kind", kind)
+        object.__setattr__(self, "task_id", task_id)
+        object.__setattr__(self, "task_revision", revision)
+        object.__setattr__(self, "task_digest", task_digest)
+        object.__setattr__(self, "scope_ref", scope_ref)
+        object.__setattr__(self, "evidence_ref", evidence_ref)
+        object.__setattr__(self, "evidence_sha256", evidence_sha256)
+        object.__setattr__(self, "implementation_ref", implementation_ref)
+        object.__setattr__(self, "verdict", verdict)
+        object.__setattr__(self, "criterion", criterion)
+        object.__setattr__(self, "evidence_state", evidence_state)
+        object.__setattr__(self, "source_ref", source_ref)
+        object.__setattr__(self, "family_revision", family_revision)
+        object.__setattr__(self, "authority_ref", authority_ref)
+        object.__setattr__(self, "accepted_criteria", accepted_criteria)
+        object.__setattr__(self, "implementation_refs", implementation_refs)
+        object.__setattr__(self, "value_receipt_refs", value_receipt_refs)
+        object.__setattr__(self, "record_sha256", _sha(self._payload_without_digest()))
+
+    def _payload_without_digest(self) -> dict[str, object]:
+        payload: dict[str, object] = {
+            "accepted_criteria": list(self.accepted_criteria),
+            "authority_ref": self.authority_ref,
+            "criterion": self.criterion,
+            "evidence_ref": self.evidence_ref,
+            "evidence_sha256": self.evidence_sha256,
+            "evidence_state": self.evidence_state,
+            "family_revision": self.family_revision,
+            "implementation_ref": self.implementation_ref,
+            "implementation_refs": list(self.implementation_refs),
+            "kind": self.kind,
+            "scope_ref": self.scope_ref,
+            "source_ref": self.source_ref,
+            "task_digest": self.task_digest,
+            "task_id": self.task_id,
+            "task_revision": self.task_revision,
+            "value_receipt_refs": list(self.value_receipt_refs),
+            "verdict": self.verdict,
+        }
+        return payload
+
+    def payload(self) -> dict[str, object]:
+        return {**self._payload_without_digest(), "record_sha256": self.record_sha256}
+
+    def to_json(self) -> str:
+        return _json(self.payload())
+
+    @classmethod
+    def from_mapping(cls, value: Mapping[str, object]) -> "ValidationCompletionEvidence":
+        if not isinstance(value, Mapping):
+            raise ValidationContractError("completion evidence must be an object")
+        allowed = {
+            "accepted_criteria", "authority_ref", "criterion", "digest", "evidence_digest",
+            "evidence_ref", "evidence_sha256", "evidence_state", "family_revision",
+            "implementation", "implementation_ref", "implementation_refs", "kind",
+            "provenance_ref", "record_sha256", "ref", "result", "scope_ref", "source_digest",
+            "source_ref", "status", "task_digest", "task_id", "task_revision", "task_sha256",
+            "validation_verdict", "validator_ref", "verdict", "value_receipt_refs", "revision",
+        }
+        unknown = set(value) - allowed
+        if unknown:
+            raise ValidationContractError(f"unsupported completion evidence fields: {sorted(unknown)}")
+
+        def pick(*keys: str, default: object = None) -> object:
+            for key in keys:
+                if key in value:
+                    return value[key]
+            return default
+
+        record = cls(
+            kind=pick("kind"),
+            task_id=pick("task_id"),
+            task_revision=pick("task_revision", "revision"),
+            task_digest=pick("task_digest", "task_sha256"),
+            scope_ref=pick("scope_ref"),
+            evidence_ref=pick("evidence_ref", "ref"),
+            evidence_sha256=pick("evidence_sha256", "evidence_digest", "source_digest", "digest"),
+            implementation_ref=pick("implementation_ref", "validator_ref", "implementation"),
+            verdict=pick("verdict", "validation_verdict", "result", "status"),
+            criterion=pick("criterion"),
+            evidence_state=pick("evidence_state", default="CURRENT"),
+            source_ref=pick("source_ref", "provenance_ref"),
+            family_revision=pick("family_revision"),
+            authority_ref=pick("authority_ref"),
+            accepted_criteria=pick("accepted_criteria", default=()),
+            implementation_refs=pick("implementation_refs", default=()),
+            value_receipt_refs=pick("value_receipt_refs", default=()),
+        )
+        supplied_digest = value.get("record_sha256")
+        if supplied_digest is not None:
+            if not hmac.compare_digest(_completion_digest(supplied_digest, "completion record digest"), record.record_sha256):
+                raise ValidationIntegrityError("completion evidence record digest changed")
+        return record
+
+
+@dataclass(frozen=True)
+class ValidationValueReceipt:
+    """Receipt preserving the destination and proof for retired behavior."""
+
+    retired_ref: str
+    destination_ref: str
+    evidence_refs: tuple[str, ...]
+    reason: str
+    receipt_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        retired_ref = _ref(self.retired_ref, "retired value ref")
+        destination_ref = _ref(self.destination_ref, "value destination ref")
+        evidence_refs = _completion_refs(self.evidence_refs, "value receipt evidence_refs", 128)
+        if not evidence_refs:
+            raise ValidationContractError("value receipt must retain evidence refs")
+        reason = _text(self.reason, "value receipt reason", 2048)
+        object.__setattr__(self, "retired_ref", retired_ref)
+        object.__setattr__(self, "destination_ref", destination_ref)
+        object.__setattr__(self, "evidence_refs", evidence_refs)
+        object.__setattr__(self, "reason", reason)
+        object.__setattr__(self, "receipt_sha256", _sha(self._payload_without_digest()))
+
+    def _payload_without_digest(self) -> dict[str, object]:
+        return {
+            "destination_ref": self.destination_ref,
+            "evidence_refs": list(self.evidence_refs),
+            "reason": self.reason,
+            "retired_ref": self.retired_ref,
+        }
+
+    def payload(self) -> dict[str, object]:
+        return {**self._payload_without_digest(), "receipt_sha256": self.receipt_sha256}
+
+    @classmethod
+    def from_mapping(cls, value: Mapping[str, object]) -> "ValidationValueReceipt":
+        if not isinstance(value, Mapping):
+            raise ValidationContractError("value receipt must be an object")
+        allowed = {"destination_ref", "evidence_refs", "reason", "retired_ref", "receipt_sha256"}
+        unknown = set(value) - allowed
+        if unknown:
+            raise ValidationContractError(f"unsupported value receipt fields: {sorted(unknown)}")
+        receipt = cls(
+            retired_ref=value.get("retired_ref"),
+            destination_ref=value.get("destination_ref"),
+            evidence_refs=value.get("evidence_refs"),
+            reason=value.get("reason"),
+        )
+        supplied_digest = value.get("receipt_sha256")
+        if supplied_digest is not None and _completion_digest(supplied_digest, "value receipt digest") != receipt.receipt_sha256:
+            raise ValidationIntegrityError("value receipt digest changed")
+        return receipt
+
+
+@dataclass(frozen=True)
+class ValidationCompletionDecision:
+    """The sole semantic admission decision for one exact Task revision."""
+
+    task_id: str
+    task_revision: int
+    task_digest: str
+    scope_ref: str
+    status: str
+    accepted: bool
+    evidence: tuple[ValidationCompletionEvidence, ...]
+    implementation_refs: tuple[str, ...]
+    family_revision: str
+    authority_ref: str
+    accepted_criteria: tuple[str, ...]
+    value_receipts: tuple[ValidationValueReceipt, ...] = ()
+    reason: str = ""
+    decision_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        task_id = _completion_task_id(self.task_id)
+        revision = _completion_revision(self.task_revision)
+        digest = _completion_digest(self.task_digest, "decision task digest")
+        scope = _ref(self.scope_ref, "decision scope_ref")
+        if self.status not in _COMPLETION_STATUSES:
+            raise ValidationContractError("decision status is unsupported")
+        if not isinstance(self.accepted, bool):
+            raise ValidationContractError("decision accepted flag is malformed")
+        evidence = tuple(self.evidence)
+        if len(evidence) > _COMPLETION_MAX_EVIDENCE or not all(isinstance(item, ValidationCompletionEvidence) for item in evidence):
+            raise ValidationContractError("decision evidence is malformed or unbounded")
+        implementations = _completion_refs(self.implementation_refs, "decision implementation_refs")
+        family_revision = _text(self.family_revision, "decision family revision", 128)
+        authority_ref = _ref(self.authority_ref, "decision authority_ref")
+        accepted_criteria = _completion_texts(self.accepted_criteria, "decision accepted_criteria")
+        value_receipts = tuple(self.value_receipts)
+        if len(value_receipts) > _COMPLETION_MAX_REFS or not all(isinstance(item, ValidationValueReceipt) for item in value_receipts):
+            raise ValidationContractError("decision value receipts are malformed or unbounded")
+        reason = "" if self.reason == "" else _text(self.reason, "decision reason", 2048)
+        object.__setattr__(self, "task_id", task_id)
+        object.__setattr__(self, "task_revision", revision)
+        object.__setattr__(self, "task_digest", digest)
+        object.__setattr__(self, "scope_ref", scope)
+        object.__setattr__(self, "evidence", evidence)
+        object.__setattr__(self, "implementation_refs", implementations)
+        object.__setattr__(self, "family_revision", family_revision)
+        object.__setattr__(self, "authority_ref", authority_ref)
+        object.__setattr__(self, "accepted_criteria", accepted_criteria)
+        object.__setattr__(self, "value_receipts", value_receipts)
+        object.__setattr__(self, "reason", reason)
+        object.__setattr__(self, "decision_sha256", _sha(self._payload_without_digest()))
+
+    @property
+    def progression_authority(self) -> bool:
+        return False
+
+    @property
+    def authority_collision_free(self) -> bool:
+        return True
+
+    @property
+    def evidence_refs(self) -> tuple[str, ...]:
+        return tuple(item.evidence_ref for item in self.evidence)
+
+    def _payload_without_digest(self) -> dict[str, object]:
+        return {
+            "accepted": self.accepted,
+            "accepted_criteria": list(self.accepted_criteria),
+            "authority_ref": self.authority_ref,
+            "evidence": [item.payload() for item in self.evidence],
+            "family_revision": self.family_revision,
+            "implementation_refs": list(self.implementation_refs),
+            "reason": self.reason,
+            "scope_ref": self.scope_ref,
+            "status": self.status,
+            "task_digest": self.task_digest,
+            "task_id": self.task_id,
+            "task_revision": self.task_revision,
+            "value_receipts": [item.payload() for item in self.value_receipts],
+        }
+
+    def payload(self) -> dict[str, object]:
+        return {**self._payload_without_digest(), "decision_sha256": self.decision_sha256}
+
+
+class ValidationCompletionFamily:
+    """Attach plural validation mechanisms to one completion authority.
+
+    This class deliberately has no task mutation, queue, scheduler, or
+    progression API.  ``ValidationService`` may be supplied as the existing
+    semantic graph binding; it is never replaced or duplicated here.
+    """
+
+    family_revision = VALIDATION_COMPLETION_FAMILY_REVISION
+    semantic_graph_ref = "validation-graph://minitz/completion"
+
+    def __init__(self, validation_service: ValidationService | None = None) -> None:
+        if validation_service is not None and not isinstance(validation_service, ValidationService):
+            raise TypeError("validation_service must be the existing ValidationService")
+        self.validation_service = validation_service
+
+    @staticmethod
+    def _identity(task_id: str, task_revision: int, task_digest: str, scope_ref: str) -> tuple[str, int, str, str]:
+        return (
+            _completion_task_id(task_id),
+            _completion_revision(task_revision),
+            _completion_digest(task_digest, "completion task digest"),
+            _ref(scope_ref, "completion scope_ref"),
+        )
+
+    @classmethod
+    def completion_authority_ref(cls, task_id: str, task_revision: int, scope_ref: str) -> str:
+        task_id, revision, _, scope = cls._identity(task_id, task_revision, "0" * 64, scope_ref)
+        scope_digest = _sha({"scope_ref": scope})[:32]
+        return f"task-completion://minitz/{task_id}/{revision}/{scope_digest}"
+
+    authority_ref_for = completion_authority_ref
+
+    @staticmethod
+    def _evidence(value: object) -> ValidationCompletionEvidence:
+        if isinstance(value, ValidationCompletionEvidence):
+            return value
+        if isinstance(value, Mapping):
+            return ValidationCompletionEvidence.from_mapping(value)
+        raise ValidationContractError("completion evidence must be typed, not an arbitrary string")
+
+    @staticmethod
+    def _value_receipt(value: object) -> ValidationValueReceipt:
+        if isinstance(value, ValidationValueReceipt):
+            return value
+        if isinstance(value, Mapping):
+            return ValidationValueReceipt.from_mapping(value)
+        raise ValidationContractError("value receipt must be typed")
+
+    @staticmethod
+    def _rejected(identity: tuple[str, int, str, str], status: str, evidence: tuple[ValidationCompletionEvidence, ...], family_revision: str, authority_ref: str, reason: str, accepted_criteria: tuple[str, ...] = (), value_receipts: tuple[ValidationValueReceipt, ...] = ()) -> ValidationCompletionDecision:
+        return ValidationCompletionDecision(
+            identity[0], identity[1], identity[2], identity[3], status, False, evidence,
+            tuple(sorted({item.implementation_ref for item in evidence if item.kind not in {"FAMILY_RECEIPT", "COMPLETION_FAMILY"}})),
+            family_revision, authority_ref, accepted_criteria, value_receipts, reason,
+        )
+
+    def admit(
+        self,
+        task_id: str,
+        task_revision: int,
+        task_digest: str,
+        scope_ref: str,
+        status: str,
+        evidence: Sequence[ValidationCompletionEvidence | Mapping[str, object]],
+        *,
+        required_criteria: Sequence[str] = (),
+        accepted_criteria: Sequence[str] = (),
+        family_revision: str | None = None,
+        authority_ref: str | None = None,
+        value_receipts: Sequence[ValidationValueReceipt | Mapping[str, object]] = (),
+        retired_refs: Sequence[str] = (),
+    ) -> ValidationCompletionDecision:
+        if status not in _COMPLETION_STATUSES:
+            raise ValidationContractError("completion status is unsupported")
+        identity = self._identity(task_id, task_revision, task_digest, scope_ref)
+        family_revision = self.family_revision if family_revision is None else _text(family_revision, "completion family revision", 128)
+        if family_revision != self.family_revision:
+            raise ValidationAuthorityError("completion family revision is not current")
+        expected_authority = self.completion_authority_ref(identity[0], identity[1], identity[3])
+        authority_ref = expected_authority if authority_ref is None else _ref(authority_ref, "completion authority_ref")
+        if authority_ref != expected_authority:
+            raise ValidationAuthorityError("multiple or stale completion authorities are not admissible")
+        if isinstance(evidence, (str, bytes)) or not isinstance(evidence, Sequence) or len(evidence) > _COMPLETION_MAX_EVIDENCE:
+            raise ValidationContractError("completion evidence is malformed or unbounded")
+        records = tuple(self._evidence(item) for item in evidence)
+        if len({item.evidence_ref for item in records}) != len(records):
+            raise ValidationConflictError("completion evidence refs are duplicated")
+        required = _completion_texts(required_criteria, "required completion criteria")
+        declared = _completion_texts(accepted_criteria, "accepted completion criteria")
+        receipts = tuple(self._value_receipt(item) for item in value_receipts)
+        if len(receipts) > _COMPLETION_MAX_REFS:
+            raise ValidationContractError("completion value receipts are unbounded")
+        if len({item.retired_ref for item in receipts}) != len(receipts):
+            raise ValidationConflictError("completion value receipts are duplicated")
+
+        for item in records:
+            if item.task_id != identity[0] or item.task_revision != identity[1]:
+                raise ValidationScopeError("completion evidence crossed Task revision scope")
+            if item.task_digest != identity[2]:
+                raise ValidationAuthorityError("completion evidence has a stale task digest")
+            if item.scope_ref != identity[3]:
+                raise ValidationScopeError("completion evidence crossed completion scope")
+            if item.evidence_state != ValidationEvidenceState.CURRENT.value:
+                raise ValidationAuthorityError("historical evidence cannot admit current completion")
+            if item.family_revision is not None and item.family_revision != family_revision:
+                raise ValidationAuthorityError("completion evidence belongs to another family revision")
+            if item.authority_ref is not None and item.authority_ref != authority_ref:
+                raise ValidationAuthorityError("completion evidence cites another completion authority")
+
+        if status == "CONTINUE":
+            return self._rejected(identity, status, records, family_revision, authority_ref, "task remains in progress", declared, receipts)
+        if not records:
+            raise ValidationContractError("completion requires typed evidence")
+
+        ordinary = tuple(item for item in records if item.kind not in {"FAMILY_RECEIPT", "COMPLETION_FAMILY"})
+        implementation_refs = tuple(sorted({item.implementation_ref for item in ordinary}))
+        if not implementation_refs:
+            return self._rejected(identity, status, records, family_revision, authority_ref, "no validation implementation evidence was attached", declared, receipts)
+        family_records = tuple(item for item in records if item.kind in {"FAMILY_RECEIPT", "COMPLETION_FAMILY"})
+        if len(family_records) > 1:
+            return self._rejected(identity, status, records, family_revision, authority_ref, "more than one final family authority receipt was attached", declared, receipts)
+        family_record = family_records[0] if family_records else None
+        if family_record is not None:
+            if family_record.family_revision != family_revision or family_record.authority_ref != authority_ref:
+                raise ValidationAuthorityError("family receipt is not bound to the one current authority")
+            receipt_criteria = family_record.accepted_criteria
+            receipt_implementations = set(family_record.implementation_refs)
+            if not set(implementation_refs).issubset(receipt_implementations):
+                return self._rejected(identity, status, records, family_revision, authority_ref, "family receipt does not conserve all implementation value", declared or receipt_criteria, receipts)
+        else:
+            receipt_criteria = ()
+
+        if not declared:
+            declared = receipt_criteria
+        if set(declared) - set(required):
+            if required:
+                return self._rejected(identity, status, records, family_revision, authority_ref, "completion cited unsupported acceptance criteria", declared, receipts)
+        missing = tuple(item for item in required if item not in set(declared))
+        if missing:
+            return self._rejected(identity, status, records, family_revision, authority_ref, "completion is missing required criteria: " + ", ".join(missing), declared, receipts)
+        if required and family_record is None:
+            return self._rejected(identity, status, records, family_revision, authority_ref, "completion is missing the single family authority receipt", declared, receipts)
+
+        vetoes = tuple(item for item in records if item.verdict in {"FAIL", "FAILED"})
+        if vetoes:
+            return self._rejected(identity, status, records, family_revision, authority_ref, "cited FAIL/FAILED validation evidence vetoes completion", declared, receipts)
+
+        retired = {item.evidence_ref for item in records if item.kind in {"RETIRED", "SUPERSEDED"}}
+        retired.update(_completion_refs(retired_refs, "retired behavior refs"))
+        receipt_by_ref = {item.retired_ref: item for item in receipts}
+        if retired and not retired.issubset(receipt_by_ref):
+            missing_receipts = ", ".join(sorted(retired - set(receipt_by_ref)))
+            return self._rejected(identity, status, records, family_revision, authority_ref, "retired behavior lacks a value-conservation receipt: " + missing_receipts, declared, receipts)
+
+        return ValidationCompletionDecision(
+            identity[0], identity[1], identity[2], identity[3], status, True, records,
+            implementation_refs, family_revision, authority_ref, declared, receipts,
+            "semantic validation family admitted",
+        )
+
+    attach = admit
+
+    def verify_prior_acceptance(
+        self,
+        task_id: str,
+        completed_revision: int,
+        scope_ref: str,
+        completion_evidence: Sequence[object],
+        *,
+        expected_task_digest: str | None = None,
+        required_criteria: Sequence[str] = (),
+    ) -> ValidationCompletionDecision:
+        """Read back a persisted completion before honoring COMPLETE_ALREADY."""
+        completed_revision = _completion_revision(completed_revision)
+        prior_revision = completed_revision - 1
+        identity_digest = expected_task_digest or "0" * 64
+        identity = self._identity(task_id, max(1, prior_revision), identity_digest, scope_ref)
+        if prior_revision < 1:
+            raise ValidationAuthorityError("completed Task has no independently readable prior revision")
+        if isinstance(completion_evidence, (str, bytes)) or not isinstance(completion_evidence, Sequence) or len(completion_evidence) > _COMPLETION_MAX_EVIDENCE + 8:
+            raise ValidationIntegrityError("persisted completion evidence is malformed or unbounded")
+        markers: dict[str, set[str]] = {"revision": set(), "digest": set(), "task_id": set()}
+        records: list[ValidationCompletionEvidence] = []
+        for item in completion_evidence:
+            if isinstance(item, ValidationCompletionEvidence):
+                records.append(item)
+                continue
+            if isinstance(item, Mapping):
+                records.append(ValidationCompletionEvidence.from_mapping(item))
+                continue
+            if not isinstance(item, str):
+                raise ValidationIntegrityError("persisted completion evidence contains an unsupported value")
+            text = item.strip()
+            if text.startswith("{"):
+                try:
+                    parsed = json.loads(text)
+                except json.JSONDecodeError as exc:
+                    raise ValidationIntegrityError("persisted typed completion evidence is invalid JSON") from exc
+                if not isinstance(parsed, Mapping):
+                    raise ValidationIntegrityError("persisted typed completion evidence is not an object")
+                records.append(ValidationCompletionEvidence.from_mapping(parsed))
+                continue
+            if text.startswith("MINITZ_TASK_REVISION:"):
+                markers["revision"].add(text.split(":", 1)[1])
+            elif text.startswith("MINITZ_TASK_SHA256:"):
+                markers["digest"].add(text.split(":", 1)[1])
+            elif text.startswith("MINITZ_TRANSITION_PREDECESSOR_TASK_ID:"):
+                markers["task_id"].add(text.split(":", 1)[1])
+            elif text.startswith("MINITZ_TRANSITION_PREDECESSOR_TASK_REVISION:"):
+                markers["revision"].add(text.split(":", 1)[1])
+            elif text.startswith("MINITZ_TRANSITION_PREDECESSOR_TASK_SHA256:"):
+                markers["digest"].add(text.split(":", 1)[1])
+        if markers["revision"] != {str(prior_revision)} or len(markers["digest"]) != 1:
+            return self._rejected(identity, "COMPLETE_ALREADY", tuple(records), self.family_revision, self.completion_authority_ref(identity[0], identity[1], identity[3]), "prior completion markers are absent or stale")
+        prior_digest = next(iter(markers["digest"]))
+        _completion_digest(prior_digest, "persisted prior task digest")
+        if markers["task_id"] and markers["task_id"] != {identity[0]}:
+            return self._rejected(identity, "COMPLETE_ALREADY", tuple(records), self.family_revision, self.completion_authority_ref(identity[0], identity[1], identity[3]), "prior completion markers reference a different task")
+        identity = (identity[0], max(1, prior_revision), prior_digest, identity[3])
+        for item in records:
+            if item.task_id != identity[0] or item.task_revision != identity[1]:
+                return self._rejected(
+                    identity,
+                    "COMPLETE_ALREADY",
+                    tuple(records),
+                    self.family_revision,
+                    self.completion_authority_ref(identity[0], identity[1], identity[3]),
+                    "prior completion evidence is tied to a different Task revision",
+                )
+            if item.task_digest != identity[2]:
+                return self._rejected(
+                    identity,
+                    "COMPLETE_ALREADY",
+                    tuple(records),
+                    self.family_revision,
+                    self.completion_authority_ref(identity[0], identity[1], identity[3]),
+                    "prior completion evidence digest does not match the expected prior revision",
+                )
+            if item.scope_ref != identity[3]:
+                return self._rejected(
+                    identity,
+                    "COMPLETE_ALREADY",
+                    tuple(records),
+                    self.family_revision,
+                    self.completion_authority_ref(identity[0], identity[1], identity[3]),
+                    "prior completion evidence scope is not the required prior scope",
+                )
+            if item.evidence_state != ValidationEvidenceState.CURRENT.value:
+                return self._rejected(
+                    identity,
+                    "COMPLETE_ALREADY",
+                    tuple(records),
+                    self.family_revision,
+                    self.completion_authority_ref(identity[0], identity[1], identity[3]),
+                    "prior completion evidence is not CURRENT",
+                )
+        accepted = tuple(sorted({criterion for item in records for criterion in item.accepted_criteria}))
+        return self.admit(
+            identity[0], identity[1], identity[2], identity[3], "COMPLETE_ALREADY", tuple(records),
+            required_criteria=required_criteria, accepted_criteria=accepted,
+            authority_ref=self.completion_authority_ref(identity[0], identity[1], identity[3]),
+        )
+
+
+# Explicit aliases make the family discoverable without introducing another
+# implementation or authority name in callers.
+ValidationCompletionAdmission = ValidationCompletionFamily
+CompletionAdmission = ValidationCompletionFamily
+CompletionEvidence = ValidationCompletionEvidence
+CompletionDecision = ValidationCompletionDecision
+
+
 __all__ = [
     "CompositeMetric", "EvaluationResult", "EvaluationResultRef", "MetricMeasurement",
     "ProjectValidationCriteria", "ValidationAggregate", "ValidationAuthorityError",
@@ -1445,4 +2068,8 @@ __all__ = [
     "ValidationNotFoundError", "ValidationPlan", "ValidationPlanRef",
     "ValidationResult", "ValidationResultRef", "ValidationScopeError",
     "ValidationService", "ValidationSubject", "ValidationVerdict",
+    "VALIDATION_COMPLETION_FAMILY_REVISION", "ValidationCompletionEvidence",
+    "ValidationValueReceipt", "ValidationCompletionDecision", "ValidationCompletionFamily",
+    "ValidationCompletionAdmission", "CompletionAdmission", "CompletionEvidence",
+    "CompletionDecision",
 ]

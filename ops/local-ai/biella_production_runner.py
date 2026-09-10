@@ -219,6 +219,12 @@ def _normalize_result_for_route(result: evidence.TaskResult, route: routing.Rout
         "CONTINUE",
         f"Bounded fallback completed its bounded work but cannot close the whole task. {result.summary}".strip(),
         result.evidence,
+        result.task_revision,
+        result.task_digest,
+        result.scope_ref,
+        result.family_revision,
+        result.authority_ref,
+        result.accepted_criteria,
     )
 
 
@@ -426,6 +432,24 @@ def _emit_validation_evidence(repo_root: Path, project_root: Path, result: evide
                               journal: production_events.ProductionEventJournal) -> None:
     # Only explicit result evidence references are considered, never command keywords.
     seen = set()
+    # Typed family records are independently observable diagnostics.  Emitting a
+    # FAIL record never mutates or advances the task; the completion adapter is
+    # the only place that can make the final semantic admission decision.
+    for record in result.completion_evidence:
+        try:
+            journal.emit(
+                "validation.completed", task_id=result.task_id,
+                status=record.verdict, evidence_path=record.evidence_ref,
+                evidence_sha256=record.evidence_sha256,
+                implementation_ref=record.implementation_ref,
+                family_revision=record.family_revision,
+                authority_ref=record.authority_ref,
+                text="Typed MiniTZ validation-family evidence",
+            )
+        except Exception:
+            # Staged diagnostics are optional observability; one malformed or
+            # failed emission must not suppress unrelated evidence.
+            continue
     for text in result.evidence:
         for token in re.findall(r"(?:/|[A-Za-z0-9_.-]+/)[^\s`\"<>]*?\.json", text):
             path = Path(token)
@@ -474,6 +498,17 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
         if capsule_path.exists():
             prompt += f"\nTASK_MEMORY: {capsule_path}\nRead this bounded recovery capsule before redoing any existing work.\n"
     prompt = priority_context + owner_context + prompt
+    if production.run_id == "minitz-task-program":
+        prompt += (
+            "\nMINITZ_VALIDATION_COMPLETION_FAMILY\n"
+            "For COMPLETE or COMPLETE_ALREADY, use the exact current MiniTZ Task Program task revision and task_record digest. "
+            "Return task_revision, task_digest, scope_ref, family_revision, authority_ref, and accepted_criteria. "
+            "Every completion evidence entry must be a bounded typed JSON validation-family record with exact task identity, "
+            "evidence digest, evidence reference, implementation reference, verdict, and current provenance. Include exactly one "
+            "FAMILY_RECEIPT binding all useful implementation refs and required criteria. Cited FAIL or FAILED evidence vetoes "
+            "completion. Helpers, audits, and diagnostics never progress the Task; invalid or stale records yield no assist and "
+            "the strong route continues.\nEND_MINITZ_VALIDATION_COMPLETION_FAMILY\n"
+        )
     if guide_path.exists():
         guide_text = guide_path.read_text(encoding="utf-8")[:12000]
         prompt += (
@@ -687,7 +722,7 @@ def _assist_invented_failure_claim(text: str, failures: list[Mapping[str, Any]])
     return None
 
 
-_QWEN_HELPER_BUDGET_SECONDS = 90.0
+_FAST_LLM_HELPER_BUDGET_SECONDS = 110.0
 _SPARK_HELPER_BUDGET_SECONDS = 180.0
 
 
@@ -767,11 +802,11 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
             recovery_text = "Rejected cached local assist with ungrounded paths: " + ", ".join(missing)
         rejected_path.write_text(json.dumps(rejection, sort_keys=True) + "\n", encoding="utf-8")
         if journal is not None:
-            journal.emit("resource.local_assist_recovery", task_id=task_id, status="RECOVERED", text=recovery_text, provider="ollama-qwen")
+            journal.emit("resource.local_assist_recovery", task_id=task_id, status="RECOVERED", text=recovery_text, provider="fast-llm-pool")
         return None
     task_class = str((meaningful.get("task_memory") or {}).get("task_class") or "")
     prompt = (
-        "You are Biella's bounded local Qwen execution assistant. Do not decide authority or completion. "
+        "You are MiniTZ's bounded fast-LLM execution assistant. Do not decide authority or completion. "
         "Use the compact task state below to reduce general Codex reasoning. Return a concise technical assist: "
         "(1) next smallest action, (2) likely failure cause if any, (3) exact files/tests/tools to inspect or run, "
         "(4) reusable verified pattern if supported. Mention only file/asset paths literally supported by the input; never invent a path, API, symbol, test, or command target. "
@@ -782,40 +817,40 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
     )
     argv = [
         "/usr/local/bin/biella", "resource", "fast-llm",
-        "--provider", "ollama-qwen", "--max-tokens", "320", "--prompt", prompt,
+        "--max-tokens", "320", "--prompt", prompt,
     ]
     if journal is not None:
-        journal.emit("resource.local_assist_started", task_id=task_id, status="RUNNING", text=digest[:20], provider="ollama-qwen")
+        journal.emit("resource.local_assist_started", task_id=task_id, status="RUNNING", text=digest[:20], provider="fast-llm-pool")
     helper_started = time.monotonic()
     try:
-        proc = subprocess.run(argv, text=True, capture_output=True, timeout=_QWEN_HELPER_BUDGET_SECONDS, check=False)
+        proc = subprocess.run(argv, text=True, capture_output=True, timeout=_FAST_LLM_HELPER_BUDGET_SECONDS, check=False)
     except subprocess.TimeoutExpired as exc:
         raw_path.parent.mkdir(parents=True, exist_ok=True)
         partial = exc.output.decode("utf-8", errors="replace") if isinstance(exc.output, bytes) else str(exc.output or "")
         raw_path.write_text(partial, encoding="utf-8")
         _emit_helper_failure(journal, "resource.local_assist_failed", task_id=task_id,
-            failure_type="HELPER_DEADLINE_EXCEEDED", budget_seconds=_QWEN_HELPER_BUDGET_SECONDS, started=helper_started,
-            text="Local Qwen helper deadline exceeded", provider="ollama-qwen", raw_result_path=raw_path)
+            failure_type="HELPER_DEADLINE_EXCEEDED", budget_seconds=_FAST_LLM_HELPER_BUDGET_SECONDS, started=helper_started,
+            text="Fast-LLM helper deadline exceeded", provider="fast-llm-pool", raw_result_path=raw_path)
         return None
     except OSError as exc:
         _emit_helper_failure(journal, "resource.local_assist_failed", task_id=task_id,
-            failure_type="PROVIDER_UNAVAILABLE", budget_seconds=_QWEN_HELPER_BUDGET_SECONDS, started=helper_started,
-            text=str(exc), provider="ollama-qwen")
+            failure_type="PROVIDER_UNAVAILABLE", budget_seconds=_FAST_LLM_HELPER_BUDGET_SECONDS, started=helper_started,
+            text=str(exc), provider="fast-llm-pool")
         return None
     raw_path.parent.mkdir(parents=True, exist_ok=True)
     raw_path.write_text(proc.stdout or "", encoding="utf-8")
     if proc.returncode != 0:
         detail = (proc.stderr or proc.stdout or "local assist failed")[-1600:]
         _emit_helper_failure(journal, "resource.local_assist_failed", task_id=task_id,
-            failure_type=_helper_process_failure_type(detail), budget_seconds=_QWEN_HELPER_BUDGET_SECONDS, started=helper_started,
-            text=detail, provider="ollama-qwen", raw_result_path=raw_path, exit_code=proc.returncode)
+            failure_type=_helper_process_failure_type(detail), budget_seconds=_FAST_LLM_HELPER_BUDGET_SECONDS, started=helper_started,
+            text=detail, provider="fast-llm-pool", raw_result_path=raw_path, exit_code=proc.returncode)
         return None
     try:
         payload = json.loads(proc.stdout)
     except json.JSONDecodeError:
         _emit_helper_failure(journal, "resource.local_assist_failed", task_id=task_id,
-            failure_type="INVALID_RESULT", budget_seconds=_QWEN_HELPER_BUDGET_SECONDS, started=helper_started,
-            text="Local assist returned invalid JSON", provider="ollama-qwen", raw_result_path=raw_path)
+            failure_type="INVALID_RESULT", budget_seconds=_FAST_LLM_HELPER_BUDGET_SECONDS, started=helper_started,
+            text="Fast-LLM assist returned invalid JSON", provider="fast-llm-pool", raw_result_path=raw_path)
         return None
     assist_text = str(payload.get("text") or "")
     missing_paths = _assist_unresolved_paths(assist_text, project_root)
@@ -840,7 +875,7 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
         rejection["raw_sha256"] = hashlib.sha256((proc.stdout or "").encode("utf-8")).hexdigest()
         rejected_path.write_text(json.dumps(rejection, sort_keys=True) + "\n", encoding="utf-8")
         _emit_helper_failure(journal, "resource.local_assist_recovery", task_id=task_id,
-            failure_type="VALIDATION_REJECTED", budget_seconds=_QWEN_HELPER_BUDGET_SECONDS, started=helper_started,
+            failure_type="VALIDATION_REJECTED", budget_seconds=_FAST_LLM_HELPER_BUDGET_SECONDS, started=helper_started,
             text=recovery_text, provider="ollama-qwen", raw_result_path=raw_path, detail=str(rejected_path), status="RECOVERED")
         return None
     result = {
@@ -851,6 +886,8 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
         "model": payload.get("model"),
         "text": assist_text,
         "usage": payload.get("usage") or {},
+        "latency_ms": payload.get("latency_ms"),
+        "routing_evidence": payload.get("routing_evidence") or {},
         "raw_result_path": str(raw_path),
         "created_at": datetime.now(timezone.utc).isoformat(),
         "authority": "NON_AUTHORITATIVE_RESOURCE_ASSIST",
@@ -860,7 +897,7 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
     tmp.write_text(json.dumps(result, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n", encoding="utf-8")
     os.replace(tmp, path)
     if journal is not None:
-        journal.emit("resource.local_assist_completed", task_id=task_id, status="COMPLETE", text=str(path), provider=str(result.get("provider") or "ollama-qwen"), model=str(result.get("model") or ""))
+        journal.emit("resource.local_assist_completed", task_id=task_id, status="COMPLETE", text=str(path), provider=str(result.get("provider") or "fast-llm-pool"), model=str(result.get("model") or ""))
     return path
 
 
@@ -1101,8 +1138,6 @@ def _prepare_optional_task_assists(repo_root: Path, project_root: Path, runtime_
             return None, None
         boosted = _ensure_taskbooster_assist(repo_root, project_root, runtime_root, task, route, catalog, local_assist, journal)
         return local_assist, boosted
-    if not qwen_resident:
-        return None, None
     local_assist = _ensure_local_resource_assist(runtime_root, task.id, projection_path, journal, project_root=working_root)
     if local_assist is None:
         return None, None
@@ -1617,7 +1652,9 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             result = _normalize_result_for_route(result, route)
             if result.status in {"COMPLETE", "COMPLETE_ALREADY"} and (telemetry.get("source_alignment") or {}).get("state") == "RECONCILIATION_REQUIRED":
                 result = evidence.TaskResult(result.task_id, "CONTINUE",
-                    "Preserve passed task evidence; reconcile only the observed source revision difference before closure: " + str(telemetry["source_alignment"].get("detail", "")), result.evidence)
+                    "Preserve passed task evidence; reconcile only the observed source revision difference before closure: " + str(telemetry["source_alignment"].get("detail", "")), result.evidence,
+                    result.task_revision, result.task_digest, result.scope_ref,
+                    result.family_revision, result.authority_ref, result.accepted_criteria)
             observe_activity()
             result = evidence.enforce_clean_completion_boundary(repo_root, result, owned_files=current_owned)
             _emit_validation_evidence(repo_root, project_root, result, journal)

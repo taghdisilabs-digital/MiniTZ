@@ -1,0 +1,182 @@
+{
+  "task_id": "D17-02",
+  "status": "NATIVE_REPAIR_VERIFIED_RUNTIME_PENDING",
+  "acceptance": false,
+  "updated_at": "2026-09-09T00:48:17.905276+00:00",
+  "observation": {
+    "run": "raw/approach-full-1080-01",
+    "log": {
+      "path": "Build/AAA/D17-02/raw/approach-full-1080-01/runtime.engine.log",
+      "bytes": 299339,
+      "sha256": "16a2f1e46abbe93ec2d8c61feb91b9e2f80a349da83818009eea626023e046c4"
+    },
+    "native_frame": 900,
+    "diagnostic": "Non-Nanite Marking Job Queue overflow",
+    "visible_frames": [
+      {
+        "path": "Build/AAA/D17-02/raw/approach-full-1080-01/panel-exit.png",
+        "bytes": 659293,
+        "sha256": "a4e46f67792b5db77d26a3aa4bd88786071b3576cca66df8253afac70b534f7a"
+      },
+      {
+        "path": "Build/AAA/D17-02/raw/approach-full-1080-01/hall-turn.png",
+        "bytes": 837419,
+        "sha256": "eb2492303594e26b8f86a3b195c341e15667e162813a6b36df713325e2885279"
+      }
+    ]
+  },
+  "diagnosis": {
+    "engine_source": {
+      "path": "/opt/unreal/UE_5.8.2/Engine/Shaders/Private/VirtualShadowMaps/VirtualShadowMapBuildPerPageDrawCommands.usf",
+      "bytes": 19540,
+      "sha256": "c32c74a2786f2632edf80387792f66631265415bdc6af44b407092cac4ffe432"
+    },
+    "detail": "Shader reports queue overflow when a non-Nanite large marking job cannot enter its groupshared queue. Runtime warning can affect performance and overlays objective text; absence of camera faults does not accept it.",
+    "asset_boundary": "Detailed 291188-triangle terrace spans a 40m route. Enable its Nanite cluster path while preserving source geometry, fallback detail, material behavior, practical lights and collision."
+  },
+  "native_readback": {
+    "path": "Build/AAA/D17-02/environment/terrace-assets-08/readback.json",
+    "bytes": 16014,
+    "sha256": "a9a250c9ccd92223f21dd915e1a91435870a4715cda1fdf621647308552c2798"
+  },
+  "author": {
+    "path": "Content/Python/author_terrace_route.py",
+    "bytes": 16271,
+    "sha256": "fbeb569119e91e2390a44e90aa80541299e857bd206f2a015cc9b80cdc11bb65"
+  },
+  "mesh": {
+    "path": "Content/Environment/TerraceRoute/SM_TerraceRoute.uasset",
+    "bytes": 4269374,
+    "sha256": "3bc1c10ab7c3ec410a391a69dd66c4e3e0b346016e8294853aedd27808522b52"
+  },
+  "nanite_settings": {
+    "enabled": true,
+    "keep_percent_triangles": 1.0,
+    "fallback_percent_triangles": 1.0,
+    "fallback_relative_error": 0.0
+  },
+  "triangles": 291188,
+  "preserved": {
+    "warning_suppression": false,
+    "shadow_quality_reduction": false,
+    "gameplay_source_changes": false,
+    "authored_geometry_unchanged": true,
+    "colliders": {
+      "D02_Terrace_Ramp": {
+        "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616335428",
+        "transform": {
+          "location": [
+            10000.0,
+            2003.9223227027637,
+            180.3883864861816
+          ],
+          "rotation": [
+            0.09853762000499226,
+            0.0,
+            0.0,
+            0.9951333264662338
+          ],
+          "scale": [
+            4.0,
+            20.396078054371138,
+            0.4
+          ]
+        },
+        "mesh": "/Engine/BasicShapes/Cube.Cube",
+        "collision": "BlockAll"
+      },
+      "D02_Terrace_Floor": {
+        "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616336429",
+        "transform": {
+          "location": [
+            10000.0,
+            3500.0,
+            350.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "scale": [
+            20.0,
+            10.0,
+            1.0
+          ]
+        },
+        "mesh": "/Engine/BasicShapes/Cube.Cube",
+        "collision": "BlockAll"
+      },
+      "D02_Terrace_BackRail": {
+        "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616336430",
+        "transform": {
+          "location": [
+            10000.0,
+            3975.0,
+            460.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "scale": [
+            20.0,
+            0.5,
+            1.2
+          ]
+        },
+        "mesh": "/Engine/BasicShapes/Cube.Cube",
+        "collision": "BlockAll"
+      },
+      "D02_Terrace_WestRail": {
+        "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616337431",
+        "transform": {
+          "location": [
+            9025.0,
+            3500.0,
+            460.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "scale": [
+            0.5,
+            10.0,
+            1.2
+          ]
+        },
+        "mesh": "/Engine/BasicShapes/Cube.Cube",
+        "collision": "BlockAll"
+      },
+      "D02_Terrace_EastRail": {
+        "path": "/Game/Maps/BiellaOpenWorldMap.BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616338432",
+        "transform": {
+          "location": [
+            10975.0,
+            3500.0,
+            460.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "scale": [
+            0.5,
+            10.0,
+            1.2
+          ]
+        },
+        "mesh": "/Engine/BasicShapes/Cube.Cube",
+        "collision": "BlockAll"
+      }
+    }
+  }
+}

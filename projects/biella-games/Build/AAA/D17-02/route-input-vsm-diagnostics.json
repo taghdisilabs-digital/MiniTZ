@@ -1,0 +1,330 @@
+{
+  "schema": "biella.d17.raw_input_plan/v1",
+  "task_id": "D17-02",
+  "controller": "d17_02_telemetry_guided_input",
+  "scope": "Ordinary X11 controls guided by read-only live measurements. Not human-player evidence or fixture world mutation.",
+  "actions": [],
+  "stages": [
+    {
+      "kind": "walk",
+      "at": [
+        0,
+        -800
+      ],
+      "beat": "Evade surviving infected",
+      "radius": 70,
+      "defend_against_nearest_rival": true,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        3300,
+        -800
+      ],
+      "beat": "Defensive approach to street rivals",
+      "defend_against_nearest_rival": true,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "rival",
+      "target": "nearest_admitted",
+      "beat": "Clear live west-street rival 1",
+      "timeout": 20,
+      "skip_if_not_admitted": true,
+      "admission_wait_seconds": 0,
+      "admission_radius_cm": 6000
+    },
+    {
+      "kind": "walk",
+      "at": [
+        4000,
+        -800
+      ],
+      "beat": "Street01 approach",
+      "radius": 70,
+      "defend_against_nearest_rival": true,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "rival",
+      "target": "nearest_admitted",
+      "beat": "Pursue admitted reserve rival before service route",
+      "timeout": 25,
+      "skip_if_not_admitted": true,
+      "admission_wait_seconds": 0,
+      "admission_radius_cm": 6000
+    },
+    {
+      "kind": "walk",
+      "at": [
+        4500,
+        -800
+      ],
+      "beat": "Advance within street before late rival check",
+      "radius": 70,
+      "clear_immediate_enemy": true,
+      "defend_against_nearest_rival": true
+    },
+    {
+      "kind": "rival",
+      "target": "nearest_admitted",
+      "skip_if_not_admitted": true,
+      "admission_radius_cm": 6000,
+      "beat": "Engage live late-admitted street rival"
+    },
+    {
+      "kind": "walk",
+      "at": [
+        5900,
+        -500
+      ],
+      "beat": "Service bay approach",
+      "radius": 70,
+      "defend_against_nearest_rival": true,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        6100,
+        390
+      ],
+      "beat": "West service cabinet approach",
+      "radius": 35,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "interact",
+      "yaw": 0,
+      "beat": "Operate existing service switch"
+    },
+    {
+      "kind": "interact",
+      "beat": "Isolate electrical floor before crossing",
+      "yaw": 0
+    },
+    {
+      "kind": "walk",
+      "at": [
+        6060,
+        880
+      ],
+      "beat": "Align service panel opening",
+      "radius": 40,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "fire",
+      "at": [
+        6500,
+        884,
+        130
+      ],
+      "beat": "Break panel with ordinary weapon fire",
+      "shots": 2,
+      "timeout": 8
+    },
+    {
+      "kind": "walk",
+      "at": [
+        6700,
+        884
+      ],
+      "beat": "Traverse the real broken panel opening",
+      "radius": 50,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        7000,
+        884
+      ],
+      "beat": "Leave service hazard",
+      "radius": 70,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        7300,
+        1000
+      ],
+      "beat": "Hall south approach",
+      "radius": 70,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "rival",
+      "target": "nearest_admitted",
+      "skip_if_not_admitted": true,
+      "beat": "Check nearby east-street rival 1",
+      "admission_wait_seconds": 0,
+      "admission_radius_cm": 650
+    },
+    {
+      "kind": "rival",
+      "target": "nearest_admitted",
+      "skip_if_not_admitted": true,
+      "beat": "Check nearby east-street rival 2",
+      "admission_wait_seconds": 0,
+      "admission_radius_cm": 650
+    },
+    {
+      "kind": "rival",
+      "target": "nearest_admitted",
+      "skip_if_not_admitted": true,
+      "beat": "Check nearby east-street rival 3",
+      "admission_wait_seconds": 0,
+      "admission_radius_cm": 650
+    },
+    {
+      "kind": "walk",
+      "at": [
+        8000,
+        1250
+      ],
+      "beat": "Align 4m hall doorway",
+      "radius": 40,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        8000,
+        2200
+      ],
+      "beat": "Cross hall threshold",
+      "radius": 50,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "look",
+      "yaw": 0,
+      "beat": "Inspect hall from production camera"
+    },
+    {
+      "kind": "look",
+      "yaw": 180,
+      "beat": "Turn inside hall with real camera collision"
+    },
+    {
+      "kind": "walk",
+      "at": [
+        8000,
+        1250
+      ],
+      "beat": "Exit through the same doorway",
+      "radius": 50,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        1000
+      ],
+      "beat": "Terrace ramp foot",
+      "radius": 50,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        2200
+      ],
+      "beat": "Ascend ramp",
+      "radius": 70,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        3400
+      ],
+      "beat": "Terrace summit",
+      "radius": 70,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "look",
+      "yaw": -90,
+      "beat": "Terrace overlook at normal camera distance"
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        2200
+      ],
+      "beat": "Descend ramp",
+      "radius": 70,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        1000
+      ],
+      "beat": "Ramp ground contact",
+      "radius": 70,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10000,
+        0
+      ],
+      "beat": "Return to street",
+      "radius": 70,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        12000,
+        0
+      ],
+      "beat": "Street03 east route",
+      "radius": 70,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        10500,
+        -800
+      ],
+      "beat": "East return detour",
+      "radius": 70,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        8000,
+        -800
+      ],
+      "beat": "Return street",
+      "radius": 70,
+      "clear_immediate_enemy": true
+    },
+    {
+      "kind": "walk",
+      "at": [
+        5900,
+        -500
+      ],
+      "beat": "Service circuit return",
+      "radius": 70,
+      "clear_immediate_enemy": true
+    }
+  ],
+  "d17_02_vsm_page_diagnostics": true,
+  "diagnostic_scope": "Read-only UE per-primitive VSM page-area attribution; not acceptance or performance proof."
+}

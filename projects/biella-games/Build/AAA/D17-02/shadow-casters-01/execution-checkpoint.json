@@ -1,0 +1,31 @@
+{
+  "task_id": "D17-02",
+  "status": "NATIVE_REPAIR_AND_PACKAGE_VERIFIED_RAW_RUNNING",
+  "updated_at": "2026-09-09T20:37:52.939960+00:00",
+  "native": {
+    "path": "Build/AAA/D17-02/environment/shadow-assets-04/validation.json",
+    "bytes": 155252,
+    "sha256": "d675b747c15173c4cccba984c7b84bf861858306113c59128abff53cbc60cab8"
+  },
+  "source_geometry": {
+    "path": "Build/AAA/D17-02/shadow-casters-01/source-geometry-comparison.json",
+    "bytes": 2433,
+    "sha256": "c8ba81f7c64606f67cdd2836d0ec8b4a522e10fe91aab1d18582afcaa5b11f8b"
+  },
+  "package": {
+    "path": "Build/AAA/D17-02/build/package-05/package-manifest.json",
+    "bytes": 8664,
+    "sha256": "068fc227e5be1c5335a54ddbd32aa82aae8a6ef7c1bd607c068cf0e5a848a34a"
+  },
+  "source": {
+    "path": "Build/AAA/D17-02/build/package-05/source-build.json",
+    "bytes": 90979,
+    "sha256": "67f5ccc3feae9853173c4c8ef7a35397adfa8fbdbc780ff59e03c2304f8df80d"
+  },
+  "slice_acceptance": false,
+  "raw_job": {
+    "pid": 55670,
+    "log": "/mnt/biella-extra/biella-runtime/d17-02/capture-shadow05-job.log"
+  },
+  "next_action": "Inspect and measure both current full routes; refresh qualification and exact ownership; commit task checkpoint. Major visual quality remains unmet."
+}

@@ -1,0 +1,31 @@
+{
+  "/Engine/BasicShapes/Cube": {},
+  "/Game/Environment/ServiceHall/SM_ServiceHallCladding": {
+    "bounds_origin": {
+      "before": [
+        -15.898193359375,
+        12.199951171875,
+        350.25
+      ],
+      "after": [
+        -12.25537109375,
+        12.463134765625,
+        343.16668701171875
+      ]
+    },
+    "bounds_extent": {
+      "before": [
+        1074.898193359375,
+        796.2000122070312,
+        349.75
+      ],
+      "after": [
+        1080.853271484375,
+        799.998046875,
+        359.3681640625
+      ]
+    }
+  },
+  "/Game/Environment/ServiceHall/SM_HallInterior": {},
+  "/Game/Environment/TerraceRoute/SM_TerraceRoute": {}
+}

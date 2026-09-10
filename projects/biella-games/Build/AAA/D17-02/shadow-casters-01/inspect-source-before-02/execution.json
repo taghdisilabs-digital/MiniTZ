@@ -1,0 +1,47 @@
+{
+  "command": [
+    "runuser",
+    "-u",
+    "unreal",
+    "--",
+    "env",
+    "BIELLA_D17_SHADOW_REPORT=/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/shadow-casters-01/inspect-source-before-02/meshes.json",
+    "/opt/unreal/UE_5.8.2/Engine/Binaries/Linux/UnrealEditor-Cmd",
+    "/mnt/biella-extra/biella-runtime/d17-02/cook-terrace-04/project/BiellaGames.uproject",
+    "-run=pythonscript",
+    "-script=/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/shadow-casters-01/inspect_source_geometry_02.py",
+    "-EnablePlugins=PythonScriptPlugin",
+    "-unattended",
+    "-nullrhi",
+    "-nosound",
+    "-nop4",
+    "-stdout",
+    "-FullStdOutLogOutput"
+  ],
+  "pid": 26724,
+  "returncode": 255,
+  "timed_out": false,
+  "timeout_seconds": 600,
+  "elapsed_seconds": 17.719,
+  "log": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/shadow-casters-01/inspect-source-before-02/runtime.log",
+    "sha256": "5362c5ef49ea4960f495d30f67544c4cca2dac4f9df81210f53bfef3c8d2b79d",
+    "bytes": 219225
+  },
+  "log_finalization": {
+    "closed": true,
+    "elapsed_seconds": 2.8327923180768266,
+    "timeout_seconds": 45,
+    "observed_writers": [
+      {
+        "pid": 26729,
+        "fd": "1"
+      },
+      {
+        "pid": 26729,
+        "fd": "2"
+      }
+    ],
+    "remaining_writers": []
+  }
+}

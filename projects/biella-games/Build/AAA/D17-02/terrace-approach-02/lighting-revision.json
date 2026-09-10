@@ -1,0 +1,74 @@
+{
+  "task_id": "D17-02",
+  "result": "PASS",
+  "scope": "Reuse exact Blender/FBX geometry and clearance readback; only three fixture outputs and shader surface response changed after raw inspection. Geometry, origin, bounds, parts and all collider volumes are unchanged.",
+  "retained_geometry_readback": "Build/AAA/D17-02/terrace-approach-02/geometry-readback.json",
+  "unchanged_mesh_files": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/TerraceRoute.blend",
+      "sha256": "8973d0ee6aeb9410c5613a26875ebccc5d04d64b6188630aed409735ceecb74e",
+      "bytes": 849458
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/SM_TerraceRoute.fbx",
+      "sha256": "dd797689154b237d1949141ac89cee0e4718dbd84af0c65a4aa09035ca4b36d5",
+      "bytes": 4464748
+    }
+  ],
+  "practical_lights": [
+    {
+      "label": "D17_TerracePractical_0",
+      "position": [
+        10000,
+        1150,
+        482.0
+      ],
+      "lumens": 1600,
+      "attenuation_cm": 760,
+      "source_radius_cm": 14,
+      "source_length_cm": 145,
+      "color_linear": [
+        1,
+        0.62,
+        0.28,
+        1
+      ]
+    },
+    {
+      "label": "D17_TerracePractical_1",
+      "position": [
+        10000,
+        2250,
+        702.0
+      ],
+      "lumens": 1600,
+      "attenuation_cm": 760,
+      "source_radius_cm": 14,
+      "source_length_cm": 145,
+      "color_linear": [
+        1,
+        0.62,
+        0.28,
+        1
+      ]
+    },
+    {
+      "label": "D17_TerracePractical_2",
+      "position": [
+        10000,
+        3250,
+        852
+      ],
+      "lumens": 1600,
+      "attenuation_cm": 760,
+      "source_radius_cm": 14,
+      "source_length_cm": 145,
+      "color_linear": [
+        1,
+        0.62,
+        0.28,
+        1
+      ]
+    }
+  ]
+}

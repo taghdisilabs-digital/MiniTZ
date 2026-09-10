@@ -1,0 +1,90 @@
+{
+  "/Engine/BasicShapes/Cube": {
+    "triangles": 48,
+    "bounds_origin": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "bounds_extent": [
+      50.0,
+      50.0,
+      50.0
+    ],
+    "materials": [
+      "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+    ],
+    "simple_collisions": 1,
+    "convex_collisions": 0,
+    "collision_geometry": "(SphereElems=,BoxElems=((X=100.000000,Y=100.000000,Z=100.000000)),SphylElems=,ConvexElems=,TaperedCapsuleElems=,LevelSetElems=,SkinnedLevelSetElems=,MLLevelSetElems=,SkinnedTriangleMeshElems=)",
+    "collision_trace": "<CollisionTraceFlag.CTF_USE_DEFAULT: 0>"
+  },
+  "/Game/Environment/ServiceHall/SM_ServiceHallCladding": {
+    "triangles": 198464,
+    "bounds_origin": [
+      -15.898193359375,
+      12.199951171875,
+      350.25
+    ],
+    "bounds_extent": [
+      1074.898193359375,
+      796.2000122070312,
+      349.75
+    ],
+    "materials": [
+      "/Game/Environment/ServiceBay/MI_ServicePaint.MI_ServicePaint",
+      "/Game/Environment/ServiceBay/MI_ServiceSteel.MI_ServiceSteel",
+      "/Game/Environment/ServiceBay/MI_ServiceRubber.MI_ServiceRubber"
+    ],
+    "simple_collisions": 0,
+    "convex_collisions": 0,
+    "collision_geometry": "(SphereElems=,BoxElems=,SphylElems=,ConvexElems=,TaperedCapsuleElems=,LevelSetElems=,SkinnedLevelSetElems=,MLLevelSetElems=,SkinnedTriangleMeshElems=)",
+    "collision_trace": "<CollisionTraceFlag.CTF_USE_DEFAULT: 0>"
+  },
+  "/Game/Environment/ServiceHall/SM_HallInterior": {
+    "triangles": 86024,
+    "bounds_origin": [
+      0.0,
+      6.0,
+      325.0
+    ],
+    "bounds_extent": [
+      1006.5,
+      758.0000610351562,
+      326.0
+    ],
+    "materials": [
+      "/Game/Environment/ServiceBay/MI_ServicePaint.MI_ServicePaint",
+      "/Game/Environment/ServiceBay/MI_ServiceSteel.MI_ServiceSteel",
+      "/Game/Environment/ServiceBay/MI_ServiceRubber.MI_ServiceRubber"
+    ],
+    "simple_collisions": 0,
+    "convex_collisions": 0,
+    "collision_geometry": "(SphereElems=,BoxElems=,SphylElems=,ConvexElems=,TaperedCapsuleElems=,LevelSetElems=,SkinnedLevelSetElems=,MLLevelSetElems=,SkinnedTriangleMeshElems=)",
+    "collision_trace": "<CollisionTraceFlag.CTF_USE_DEFAULT: 0>"
+  },
+  "/Game/Environment/TerraceRoute/SM_TerraceRoute": {
+    "triangles": 291188,
+    "bounds_origin": [
+      -3.0517578125e-05,
+      -487.235595703125,
+      443.7939624786377
+    ],
+    "bounds_extent": [
+      1003.0000305175781,
+      1516.235595703125,
+      482.20597648620605
+    ],
+    "materials": [
+      "/Game/Environment/TerraceRoute/MI_TerracePaint.MI_TerracePaint",
+      "/Game/Environment/TerraceRoute/MI_TerraceSteel.MI_TerraceSteel",
+      "/Game/Environment/ServiceBay/MI_ServiceLamp.MI_ServiceLamp",
+      "/Game/Environment/ServiceBay/MI_ServiceGrowth.MI_ServiceGrowth",
+      "/Game/Environment/ServiceBay/MI_ServiceVein.MI_ServiceVein"
+    ],
+    "simple_collisions": 0,
+    "convex_collisions": 0,
+    "collision_geometry": "(SphereElems=,BoxElems=,SphylElems=,ConvexElems=,TaperedCapsuleElems=,LevelSetElems=,SkinnedLevelSetElems=,MLLevelSetElems=,SkinnedTriangleMeshElems=)",
+    "collision_trace": "<CollisionTraceFlag.CTF_USE_DEFAULT: 0>"
+  }
+}

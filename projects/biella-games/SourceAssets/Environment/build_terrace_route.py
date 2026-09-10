@@ -17,7 +17,10 @@ bpy.context.preferences.filepaths.save_version = 0
 parts, materials = [], {}
 for name, color, metal, rough in [('Paint', (.055,.074,.08,1),0,.48),
                                  ('Steel', (.31,.34,.36,1),1,.32),
-                                 ('Rubber', (.012,.015,.018,1),0,.78)]:
+                                 ('Rubber', (.012,.015,.018,1),0,.78),
+                                 ('Lamp', (1,.62,.28,1),0,.3),
+                                 ('Growth', (.16,.007,.014,1),0,.34),
+                                 ('Vein', (.42,.006,.016,1),0,.28)]:
     m=bpy.data.materials.new(name); m.diffuse_color=color; m.use_nodes=True
     node=m.node_tree.nodes.get('Principled BSDF')
     node.inputs['Base Color'].default_value=color
@@ -106,6 +109,109 @@ for x in (9140,10000,10860):
     box('Deck longitudinal structural web',(x,3500,279),(3,1000,40),'Paint',.3)
     for z in (259,299): box('Deck longitudinal flange',(x,3500,z),(30,1000,3),'Steel',.3)
 
+# Three grounded service portals frame the ascent without narrowing the
+# retained four-metre deck. All solids have explicit native box proxies.
+# Five metres of overhead clearance leaves the production camera unobstructed.
+fixtures, structure_colliders = [], []
+for i, y in enumerate((1150, 2250, 3250)):
+    floor = min(400, (y-1000)*.2)
+    top = floor+500
+    for side in (-1, 1):
+        x = 10000+side*260
+        box('Portal grounded upright', (x,y,top/2), (22,28,top), 'Paint', .8)
+        box('Portal anchored shoe', (x,y,5), (62,68,10), 'Steel', .7)
+        structure_colliders.append(dict(label='D17_TerracePortal_%d_%s'%(i,'W' if side<0 else 'E'),
+                                       center=[x,y,top/2],size=[22,28,top]))
+        for dx in (-23,23):
+            for dy in (-26,26): rod('Portal foundation anchor', (x+dx,y+dy,10),(x+dx,y+dy,16),2.8,vertices=6)
+        # Bolted knee plates and rain-proof cable runs share the same support.
+        rod('Portal knee brace',(x,y,top-85),(x-side*90,y,top-12),4,'Steel')
+        for z in (top-120,top-40):
+            box('Portal bolted joint plate',(x,y-16,z),(32,4,34),'Steel',.3)
+            for dx in (-10,10):rod('Portal joint fixing',(x+dx,y-19,z),(x+dx,y-21,z),2,vertices=6)
+    box('Portal boxed crosshead',(10000,y,top),(542,28,22),'Paint',.8)
+    box('Portal weathered coping',(10000,y,top+13),(554,40,4),'Steel',.3)
+    structure_colliders.append(dict(label='D17_TerracePortalBeam_%d'%i,center=[10000,y,top],size=[542,28,22]))
+    for x in (9930,10070):rod('Luminaire suspension',(x,y,top-11),(x,y,top-31),1.8)
+    box('Supported sealed luminaire housing',(10000,y,top-37),(180,34,12),'Paint',.5)
+    box('Warm opal luminaire lens',(10000,y,top-44),(168,26,2),'Lamp',.3)
+    for x in range(9920,10081,20):rod('Luminaire protective cage',(x,y-17,top-45),(x,y+17,top-45),.6)
+    fixtures.append(dict(label='D17_TerracePractical_%d'%i,position=[10000,y,top-48],
+                         lumens=1600,attenuation_cm=760,source_radius_cm=14,source_length_cm=145,
+                         color_linear=[1,.62,.28,1]))
+# Layered conduits and ventilated guards run outside both retained ramp edges.
+# Side panels have matching solid collision; their nearest face is 2.4 m from
+# the centre, leaving 40 cm between dressing and the original ramp edge.
+for side in (-1,1):
+    x=10000+side*258
+    for j in range(10):
+        y=1250+j*200; floor=min(400,(y-1000)*.2)
+        box('Service guard folded cassette',(x,y,floor+115),(26,188,170),'Paint',.7)
+        structure_colliders.append(dict(label='D17_TerraceGuard_%s_%02d'%('W' if side<0 else 'E',j),
+                                       center=[x,y,floor+115],size=[26,188,170]))
+        for zoff in (45,80,115,150,185):
+            box('Guard rain louvre',(x-side*15,y,floor+zoff),(5,174,4),'Steel',.25)
+        for dy in (-82,82):
+            box('Guard returned seam',(x-side*15,y+dy,floor+115),(4,3,162),'Steel',.15)
+    for dz,r in ((240,9),(280,5),(305,3)):
+        a=(x,1150,30+dz); b=(x,3000,400+dz)
+        rod('Ascending industrial utility pipe',a,b,r,'Paint',20)
+        rod('Level terrace utility pipe',b,(x,3900,400+dz),r,'Paint',20)
+        for y in (1200,1800,2400,2950,3500,3850):
+            z=min(400,(y-1000)*.2)+dz
+            rod('Pipe coupling sleeve',(x,y-5,z-1),(x,y+5,z+1),r+1.5,'Steel',20)
+# A supported rear service screen gives the summit a spatial destination.
+# It seats on the retained parapet, with ribbed panels and a defined coping.
+for i in range(9):
+    x=9200+i*200
+    box('Rear service screen panel',(x,4008,720),(192,12,396),'Paint',.6)
+    box('Rear screen grounded rib',(x-98,4008,460),(12,28,920),'Steel',.4)
+    for z in range(560,900,42):box('Rear screen folded louvre',(x,3998,z),(176,10,7),'Steel',.3)
+    structure_colliders.append(dict(label='D17_TerraceRearScreen_%02d'%i,center=[x,4008,720],size=[200,28,400]))
+box('Rear screen top coping',(10000,4008,923),(1808,42,6),'Steel',.5)
+
+# Tissue is anchored to engineered joints, with tapering branch topology and
+# a separate wet red surface/emissive vascular strand; no floating spheres.
+def tissue(name, points, radii, material='Growth'):
+    verts,faces=[],[]; sides=10
+    for i,point in enumerate(points):
+        direction=Vector(points[min(i+1,len(points)-1)])-Vector(points[max(0,i-1)])
+        rotation=direction.to_track_quat('Z','Y')
+        for j in range(sides):
+            angle=j*math.tau/sides
+            v=Vector(point)-ORIGIN+rotation@Vector((math.cos(angle)*radii[i],math.sin(angle)*radii[i],0))
+            verts.append(v)
+        if i:
+            for j in range(sides):
+                a=(i-1)*sides+j;b=(i-1)*sides+(j+1)%sides
+                faces.append((a,b,b+sides,a+sides))
+    faces += [tuple(reversed(range(sides))),tuple(range((len(points)-1)*sides,len(points)*sides))]
+    mesh=bpy.data.meshes.new(name);mesh.from_pydata(verts,[],faces);mesh.update()
+    obj=bpy.data.objects.new(name,mesh);bpy.context.collection.objects.link(obj)
+    mesh.materials.append(materials[material])
+    for face in mesh.polygons:face.use_smooth=True
+    parts.append(obj)
+for side in (-1,1):
+    x=10000+side*241
+    for branch in range(7):
+        y0=1220+branch*330
+        points=[];radii=[]
+        for k in range(18):
+            y=y0+k*14;z=min(400,(y-1000)*.2)+45+k*9+12*math.sin(k*.47+branch)
+            points.append((x+side*(5+7*math.sin(k*.42+branch)),y,z))
+            radii.append(2+7*math.sin(math.pi*(k+1)/20)**2)
+        tissue('Rooted vascular growth',points,radii)
+        tissue('Red bioluminescent vein',[(p[0]-side*7,p[1],p[2]+2) for p in points],[1.25]*len(points),'Vein')
+        for offset in (4,9,13):
+            a=Vector(points[offset]);fork=[a+Vector((-side*3*k,k*7,k*4)) for k in range(7)]
+            tissue('Tapered tissue branch',fork,[4*(1-k/7) for k in range(7)])
+# Rear-screen tissue grows out of joints, above the parapet collision line.
+for j in range(5):
+    x0=9340+j*310
+    points=[(x0+80*math.sin(k*.35+j),3986,510+k*20) for k in range(20)]
+    tissue('Screen invading tissue root',points,[4+9*math.sin(math.pi*k/21)**2 for k in range(20)])
+    tissue('Screen vascular seam',[(x,y-10,z) for x,y,z in points],[1.5]*20,'Vein')
+
 # Gap-free physical visual decking; no fake HUD route arrow or image backdrop.
 bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'TerraceRoute.blend'))
 bpy.ops.object.select_all(action='DESELECT')
@@ -122,7 +228,7 @@ bpy.context.view_layer.update()
 bounds=[obj.matrix_world@Vector(v) for v in obj.bound_box]
 minimum=[min(v[i] for v in bounds) for i in range(3)]
 maximum=[max(v[i] for v in bounds) for i in range(3)]
-assert -45 < minimum[2] < 1 and 522 <= maximum[2] <= 523, (minimum,maximum)
+assert -45 < minimum[2] < 1 and 925 <= maximum[2] <= 927, (minimum,maximum)
 bm=bmesh.new(); bm.from_mesh(obj.data); volume=bm.calc_volume(signed=True)
 for v in bm.verts:v.co.y*=-1
 bmesh.ops.reverse_faces(bm,faces=list(bm.faces))
@@ -135,6 +241,7 @@ spec=dict(schema='biella.terrace_route.art/v1',task_id='D17-02',status='GENERATE
     provenance='Biella-authored geometry; no third-party asset inputs',map='/Game/Maps/BiellaOpenWorldMap',
     actor_label='D17_TerraceRoute',origin_cm=list(ORIGIN),collision='NoCollision',
     retained_walkable_planes=True,proposed_column_colliders=columns,
+    structure_colliders=structure_colliders,practical_lights=fixtures,
     source=Path(__file__).name,source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
     blender=bpy.app.version_string,editable_parts=len(parts),mesh=obj.name,fbx=path.name,
     sha256=hashlib.sha256(path.read_bytes()).hexdigest(),triangles=len(obj.data.loop_triangles),

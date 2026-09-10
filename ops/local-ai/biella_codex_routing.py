@@ -372,7 +372,7 @@ def local_model_catalog_path() -> Path:
 def _production_exec_args(route: Route, schema_path: Path, output_path: Path, *, allow_helper: bool = False) -> list[str]:
     fanout = ["--enable", "multi_agent", "--disable", "multi_agent_v2"] if allow_helper else ["--disable", "multi_agent", "--disable", "multi_agent_v2"]
     local = route.provider == "ollama"
-    execution_safety = ["--sandbox", "workspace-write"] if is_bounded_fallback(route) else ["--dangerously-bypass-approvals-and-sandbox", "--dangerously-bypass-hook-trust"]
+    execution_safety = ["--sandbox", "workspace-write", "--skip-git-repo-check"] if is_bounded_fallback(route) else ["--dangerously-bypass-approvals-and-sandbox", "--dangerously-bypass-hook-trust"]
     args = [
         *execution_safety,
         "--disable", "plugins",

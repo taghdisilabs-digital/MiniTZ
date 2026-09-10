@@ -555,6 +555,32 @@ def test_local_resource_assist_is_cached_by_meaningful_projection(tmp_path: Path
     assert len(calls) == 1
 
 
+def test_local_resource_assist_uses_live_registry_pool_and_persists_routing_evidence(tmp_path: Path, monkeypatch):
+    projection = tmp_path / "memory/current-task.json"
+    projection.parent.mkdir(parents=True)
+    projection.write_text(json.dumps({"task_id":"D02-01","task_memory":{"task_class":"hard","summary":"route assist"},"failures":[],"capabilities":{}}))
+    calls = []
+    def fake_run(argv, **kwargs):
+        calls.append(argv)
+        return subprocess.CompletedProcess(argv, 0, stdout=json.dumps({
+            "capability":"llm.fast","provider":"groq","model":"qwen/test","latency_ms":17,
+            "text":"Likely failure cause if any: NONE","usage":{"total_tokens":9},
+            "routing_evidence":{"authority":"RESOURCE_IMPLEMENTATION","capability":"llm.fast","attempt_limit":3,
+                "attempted":[{"provider":"ollama-qwen","status":"FAILED","failure_code":"TRANSPORT_ERROR"},{"provider":"groq","status":"SUCCEEDED"}],
+                "fallback_used":True,"selection":"ordered-capability-route"}
+        })+"\n", stderr="")
+    monkeypatch.setattr(runner.subprocess, "run", fake_run)
+    path = runner._ensure_local_resource_assist(tmp_path, "D02-01", projection)
+    assert path
+    assert len(calls) == 1
+    assert "--provider" not in calls[0]
+    payload = json.loads(path.read_text())
+    assert payload["provider"] == "groq"
+    assert payload["latency_ms"] == 17
+    assert payload["routing_evidence"]["fallback_used"] is True
+    assert [x["provider"] for x in payload["routing_evidence"]["attempted"]] == ["ollama-qwen", "groq"]
+
+
 def test_local_resource_assist_failure_is_non_blocking_and_recorded(tmp_path: Path, monkeypatch):
     projection = tmp_path / "memory" / "current-task.json"
     projection.parent.mkdir(parents=True)
@@ -1277,6 +1303,22 @@ def test_prepare_optional_task_assists_requires_resident_qwen_and_strong_route(t
     monkeypatch.setattr(runner, "_local_qwen_resident", lambda: True)
     assert runner._prepare_optional_task_assists(repo, project, runtime, task, routing.Route("gpt-5.3-codex-spark","xhigh"), {"gpt-5.3-codex-spark":{"xhigh"}}, projection) == (None, None)
     assert calls == []
+
+
+def test_prepare_optional_task_assists_uses_fast_llm_pool_when_qwen_not_resident(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime = tmp_path / "runtime"; runtime.mkdir()
+    task = state.find_task(state.load_project_production(project), "D01-030")
+    projection = runtime / "memory/current-task.json"; projection.parent.mkdir(parents=True); projection.write_text("{}")
+    assist = runtime / "memory/local-assist/external.json"; assist.parent.mkdir(parents=True); assist.write_text("{}")
+    booster = runtime / "memory/taskbooster/external.json"; booster.parent.mkdir(parents=True); booster.write_text("{}")
+    calls = []
+    monkeypatch.setattr(runner, "_local_qwen_resident", lambda: False)
+    monkeypatch.setattr(runner, "_ensure_local_resource_assist", lambda *_a, **_k: calls.append("fast-llm") or assist)
+    monkeypatch.setattr(runner, "_ensure_taskbooster_assist", lambda *_a, **_k: calls.append("booster") or booster)
+    result = runner._prepare_optional_task_assists(repo, project, runtime, task, routing.Route("gpt-6-astra", "ultra"), {}, projection)
+    assert result == (assist, booster)
+    assert calls == ["fast-llm", "booster"]
 
 
 def test_local_assist_invalid_json_preserves_raw_provider_result(tmp_path: Path, monkeypatch):

@@ -195,6 +195,7 @@ def test_spark_bounded_fallback_uses_workspace_write_without_approval_bypass(tmp
     )
     joined = " ".join(cmd)
     assert "--sandbox workspace-write" in joined
+    assert "--skip-git-repo-check" in cmd
     assert "--dangerously-bypass-approvals-and-sandbox" not in cmd
 
 

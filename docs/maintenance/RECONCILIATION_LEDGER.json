@@ -1,0 +1,848 @@
+{
+  "schema": "biella.reconciliation_ledger/v1",
+  "execution_authority": false,
+  "dispatch_source": false,
+  "may_change_project_order_or_status": false,
+  "purpose": "Owner-directed frozen maintenance, MiniTZ identity reconciliation, exhaustive historical digestion, and duplicate-mechanism unification tracking.",
+  "created_from_frozen_state": {
+    "branch": "main",
+    "head": "b3e67f13d43d23d9e417bc44737e9f7196fb2bf3",
+    "tree": "5872fe80e4c648ca63c0767d1c564fd23688a301",
+    "current_task": "D17-02",
+    "current_task_status": "PENDING",
+    "dirty_task_owned_paths": 366,
+    "task_session_id": "01a0830c-a890-79a0-ae6e-2f2aa95f404a",
+    "runtime_status": "PAUSED_FOR_CUSTOMER"
+  },
+  "hard_rules": [
+    "ONE_DEFECT_BOUNDARY_PER_IMPLEMENTATION_MESSAGE",
+    "SMALL_PATCH_BROAD_DEPENDENCY_AND_RULE_AUDIT",
+    "NO_PRODUCTION_RESUME_UNTIL_OWNER_DIRECTS",
+    "PRODUCTION_MD_REMAINS_ONLY_PROJECT_ORDER_STATUS_AUTHORITY",
+    "D_NEXT_100_TASKS_IS_NOT_A_MAINTENANCE_QUEUE",
+    "RAW_HISTORICAL_BYTES_REMAIN_IMMUTABLE_PROVENANCE",
+    "ZERO_UNPROCESSED_HISTORICAL_SOURCES_AT_DIGESTION_CLOSURE",
+    "NO_MECHANICAL_MINITZ_TO_ACTIVE_SOURCE_ACTIVATION",
+    "NO_FIXED_AGENT_HIERARCHY_OR_GENERIC_APPROVAL_GATE_REINTRODUCTION",
+    "NO_OPTIONAL_RESOURCE_CACHE_MODEL_GPU_OR_REMOTE_SERVICE_MAY_BECOME_PRODUCTION_LIVENESS_GATE",
+    "PRESERVE_D17_02_TASK_BYTES_SESSION_AND_VALID_NEWER_EVIDENCE",
+    "PER_SOURCE_DISCOVERY_BEFORE_CROSS_SOURCE_RESOLUTION",
+    "UNKNOWN_IS_FIRST_CLASS_NOT_FALSE",
+    "RAW_SECRET_VALUES_NEVER_EMITTED"
+  ],
+  "digestion_lanes": {
+    "CLEAN_CAPABILITY_SOURCE": {
+      "definition": "Source whose semantics are project-neutral capability/mechanism data and contain no legacy MiniTZ behavioral/control authority.",
+      "process": [
+        "content digest + provenance",
+        "overlap/current-owner comparison",
+        "local AI bounded extraction/comparison when useful",
+        "authoritative Codex verification",
+        "current contract + regression validation",
+        "merge only into the existing semantic owner; never create a parallel mechanism"
+      ]
+    },
+    "MINITZ_BEHAVIOR_BEARING_SOURCE": {
+      "definition": "Any source containing MiniTZ-era control policy, agent hierarchy, approval/review gates, resource restrictions, liveness rules, memory/routing authority, hardware/provider assumptions, or self-modification behavior.",
+      "process": [
+        "immutable raw digest + provenance",
+        "first independent semantic extraction",
+        "second independent conflict-oriented review",
+        "line/concept mapping against current 00/01/03/04/06/07 + live implementation",
+        "explicit classification for every extracted rule",
+        "reject or clean-reimplement; never copy/rename active",
+        "regression proving no progress/liveness/project-isolation regression",
+        "final exact-source/destination/readback verification"
+      ]
+    }
+  },
+  "historical_closure_contract": {
+    "allowed_source_processing_states": [
+      "DISCOVERED",
+      "DIGESTED",
+      "CLASSIFIED",
+      "NORMALIZED_CANDIDATE",
+      "VERIFIED_DESTINATION",
+      "DUPLICATE_ACCOUNTED",
+      "OBSOLETE_ACCOUNTED"
+    ],
+    "forbidden_final_states": [
+      "DISCOVERED",
+      "UNREAD",
+      "UNPROCESSED",
+      "UNCLASSIFIED"
+    ],
+    "classification_set": [
+      "UNIVERSAL_GOOD",
+      "UNIVERSAL_REWRITE",
+      "PROJECT_SPECIFIC",
+      "HISTORICAL_EVIDENCE",
+      "DUPLICATE",
+      "OBSOLETE_OR_DRIFT"
+    ],
+    "rule": "HISTORICAL_EVIDENCE is a classification/destination for preserved provenance, not permission to leave material unread or undigested."
+  },
+  "source_inventory": [
+    {
+      "source_id": "LEGACY-MINITZ-SECURITY",
+      "kind": "MINITZ_BEHAVIOR_BEARING_SOURCE",
+      "drive_file_id": "1nQuy0wo4lmKRbgl8gVWJiXlzFfI-_gS6",
+      "title": "MiniTZ SECURITY & STABILITY FRAMEWORK.txt",
+      "modified_at": "2026-06-20T16:45:49.908Z",
+      "processing_state": "DIGESTED",
+      "notes": [
+        "contains fixed agent permissions, approval/review concepts, stability-first expansion semantics"
+      ]
+    },
+    {
+      "source_id": "LEGACY-MINITZ-PRODUCTION",
+      "kind": "MINITZ_BEHAVIOR_BEARING_SOURCE",
+      "drive_file_id": "1XtGNWLfSPVnv05S5IV51Uq_RVcU3t07h",
+      "title": "MiniTZ PRODUCTION SYSTEM & WORKFLOW ARCHITECTURE.txt",
+      "modified_at": "2026-06-20T16:47:33.901Z",
+      "processing_state": "DIGESTED",
+      "notes": [
+        "contains Captain/Scout/Builder/Ninja/QA staged workflow and human review gate; also useful mission-to-verified-result concept"
+      ]
+    },
+    {
+      "source_id": "LEGACY-MINITZ-TECHNICAL",
+      "kind": "MINITZ_BEHAVIOR_BEARING_SOURCE",
+      "drive_file_id": "12Raxtifa0jXfCMbo3TLuPx-KdCEAdX_2",
+      "title": "MiniTZ TECHNICAL ARCHITECTURE (2).txt",
+      "modified_at": "2026-06-20T16:55:02.442Z",
+      "processing_state": "DIGESTED",
+      "notes": [
+        "contains orchestrator/model separation, three-level memory, model routing, checkpoints, fixed agent layer and machine-role assumptions"
+      ]
+    },
+    {
+      "source_id": "LEGACY-MINITZ-TRAINING",
+      "kind": "MINITZ_BEHAVIOR_BEARING_SOURCE",
+      "drive_file_id": "1aQuCBpSCsdKplm4_D98K97FVD8WNU0U0",
+      "title": "MiniTZ TRAINING & EVOLUTION SYSTEM.txt",
+      "modified_at": "2026-06-20T16:43:43.192Z",
+      "processing_state": "DIGESTED",
+      "notes": [
+        "contains failure-to-learning, project/system memory and improvement concepts plus approval-centric integration semantics"
+      ]
+    },
+    {
+      "source_id": "LEGACY-MINITZ-DRIVE-ROOT",
+      "kind": "MINITZ_BEHAVIOR_BEARING_SOURCE",
+      "drive_folder_id": "1yiX9FJlwAdP_CBp5uxjHKb2EjGhYk5Cu",
+      "title": "MiniTZ",
+      "processing_state": "DISCOVERED",
+      "notes": [
+        "root requires exhaustive recursive registry; titles alone never establish authority"
+      ]
+    },
+    {
+      "source_id": "CURRENT-ENGINE-KERNEL",
+      "kind": "CLEAN_CAPABILITY_SOURCE",
+      "repository": "patrickminitz-web/biella-engine",
+      "path": "src/biella",
+      "lineage_start": "2026-08-28",
+      "processing_state": "DIGESTED",
+      "notes": [
+        "clean-room kernel capability/resource/graph/memory/routing/validation/storage/learning implementations"
+      ]
+    },
+    {
+      "source_id": "CURRENT-PRODUCTION-CONTROLLER",
+      "kind": "CLEAN_CAPABILITY_SOURCE",
+      "repository": "patrickminitz-web/biella-engine",
+      "path": "ops/local-ai",
+      "lineage_start": "2026-09-04",
+      "processing_state": "DIGESTED",
+      "notes": [
+        "battle-tested live progression/session/task-memory/publication source; sole production progression authority"
+      ]
+    },
+    {
+      "source_id": "RETIRED-CODEX-FEEDER-LINEAGE",
+      "kind": "MINITZ_BEHAVIOR_BEARING_SOURCE",
+      "repository": "patrickminitz-web/biella-engine",
+      "former_path": "ops/local-ai/biella_codex_feeder.py",
+      "lineage_start": "2026-09-04T22:54:46+00:00",
+      "retired_at": "2026-09-05T03:35:07+00:00",
+      "processing_state": "DIGESTED",
+      "notes": [
+        "superseded feeder implementation; semantics must be compared before any reuse"
+      ]
+    },
+    {
+      "source_id": "CURRENT-POLICY-DUPLICATION",
+      "kind": "CLEAN_CAPABILITY_SOURCE",
+      "paths": [
+        "docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md",
+        "docs/project-state/BIELLA_DURABLE_SOURCE_AND_SYNC_RULES.md",
+        "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md",
+        "docs/project-state/07_BIELLA_PRODUCTION_SYSTEM.md",
+        "ops/local-ai/biella_execution_style.py"
+      ],
+      "processing_state": "DIGESTED",
+      "notes": [
+        "same policies repeated at different dates; drift/unification target"
+      ]
+    }
+  ],
+  "work_items": [
+    {
+      "id": "MAINT-R01",
+      "title": "Implement maintenance-specific checkpoint/resume source-transition semantics",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R02",
+      "title": "Bind autonomous COMPLETE to task-specific semantic acceptance",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R01"
+      ],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R03",
+      "title": "Make cited FAIL/FAILED validation veto autonomous completion",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R02"
+      ],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R04",
+      "title": "Require independently provable prior acceptance for COMPLETE_ALREADY",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R03"
+      ],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R05",
+      "title": "Make completion evidence serialization structurally safe and bounded",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R04"
+      ],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R06",
+      "title": "Make PRODUCTION/03/04/ledger canonical transition crash-consistent",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R05"
+      ],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R07",
+      "title": "Remove silent CANONICAL_ORDER priority fallback under malformed/missing authority",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R06"
+      ],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R08",
+      "title": "Refresh/reroute on observed model-unavailable or stale catalog failure",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R07"
+      ],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R09",
+      "title": "Add bounded request-time provider failover without quota probing",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R08"
+      ],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R10",
+      "title": "Normalize successful recovery/retry statuses in failure projection",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R09"
+      ],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R11",
+      "title": "Recover safely from missing/corrupt publication cursor",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R10"
+      ],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R12",
+      "title": "Make unfinished-checkpoint publication semantics explicit and restart-independent",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R11"
+      ],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R13",
+      "title": "Prevent Drive canonical revision rollback with monotonic ancestry guard",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R12"
+      ],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R14",
+      "title": "Correct stale 06 source-resolution pointers and same-ID Drive readback",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R13"
+      ],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R15",
+      "title": "Contain D23 repository-root write scope before activation",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R14"
+      ],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R16",
+      "title": "Run integrated frozen-state validation with D17 preservation proof",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R15"
+      ],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R17",
+      "title": "Synchronize verified maintenance source to GitHub/required Drive/install",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R16"
+      ],
+      "notes": []
+    },
+    {
+      "id": "MAINT-R18",
+      "title": "Resume exact D17 task/session and prove live continuation",
+      "group": "HARDENING",
+      "status": "PENDING",
+      "depends_on": [
+        "MAINT-R17"
+      ],
+      "notes": []
+    },
+    {
+      "id": "RNAME-01",
+      "title": "Establish ACTIVE_MINITZ versus LEGACY_MINITZ identity firewall",
+      "group": "RENAME",
+      "status": "PENDING",
+      "depends_on": [],
+      "notes": []
+    },
+    {
+      "id": "RNAME-02",
+      "title": "Add compatibility identity/config/schema semantics before physical rename",
+      "group": "RENAME",
+      "status": "PENDING",
+      "depends_on": [
+        "RNAME-01"
+      ],
+      "notes": []
+    },
+    {
+      "id": "RNAME-03",
+      "title": "Migrate Engine package/API/module namespace without ancestry change",
+      "group": "RENAME",
+      "status": "PENDING",
+      "depends_on": [
+        "RNAME-02"
+      ],
+      "notes": []
+    },
+    {
+      "id": "RNAME-04",
+      "title": "Migrate controller CLI/systemd/install names while retaining exactly one controller",
+      "group": "RENAME",
+      "status": "PENDING",
+      "depends_on": [
+        "RNAME-03"
+      ],
+      "notes": []
+    },
+    {
+      "id": "RNAME-05",
+      "title": "Rename current GitHub repository in place to the accepted MiniTZ target identity",
+      "group": "RENAME",
+      "status": "PENDING",
+      "depends_on": [
+        "RNAME-04"
+      ],
+      "notes": []
+    },
+    {
+      "id": "RNAME-06",
+      "title": "Rename active canonical source records while preserving historical filenames/claims",
+      "group": "RENAME",
+      "status": "PENDING",
+      "depends_on": [
+        "RNAME-05"
+      ],
+      "notes": []
+    },
+    {
+      "id": "RNAME-07",
+      "title": "Rename current Drive authority in place preserving exact folder/file IDs",
+      "group": "RENAME",
+      "status": "PENDING",
+      "depends_on": [
+        "RNAME-06"
+      ],
+      "notes": []
+    },
+    {
+      "id": "RNAME-08",
+      "title": "Migrate canonical filesystem/runtime paths only after continuity proof",
+      "group": "RENAME",
+      "status": "PENDING",
+      "depends_on": [
+        "RNAME-07"
+      ],
+      "notes": []
+    },
+    {
+      "id": "RNAME-09",
+      "title": "Remove compatibility aliases only after zero-active-caller verification",
+      "group": "RENAME",
+      "status": "PENDING",
+      "depends_on": [
+        "RNAME-08"
+      ],
+      "notes": []
+    },
+    {
+      "id": "HIST-D01",
+      "title": "Build exhaustive recursive historical source registry across Git, Drive, archives, backups and manifests",
+      "group": "HISTORICAL_DIGESTION",
+      "status": "PENDING",
+      "depends_on": [],
+      "notes": [
+        "MINITZ_RAW_FILE protocol: IDENTITY_PROVENANCE"
+      ],
+      "forensics_stages": [
+        "IDENTITY_PROVENANCE"
+      ]
+    },
+    {
+      "id": "HIST-D02",
+      "title": "Digest every discovered historical object and bind exact provenance; zero unread/unhashed sources",
+      "group": "HISTORICAL_DIGESTION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D01"
+      ],
+      "notes": [
+        "MINITZ_RAW_FILE protocol: IDENTITY_PROVENANCE, STRUCTURAL_PARSE, EVIDENCE_STRENGTH"
+      ],
+      "forensics_stages": [
+        "IDENTITY_PROVENANCE",
+        "STRUCTURAL_PARSE",
+        "EVIDENCE_STRENGTH"
+      ]
+    },
+    {
+      "id": "HIST-D03",
+      "title": "Classify every digested object using the exact six-class migration taxonomy",
+      "group": "HISTORICAL_DIGESTION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D02"
+      ],
+      "notes": [
+        "MINITZ_RAW_FILE protocol: SEMANTIC_UNIT_EXTRACTION"
+      ],
+      "forensics_stages": [
+        "SEMANTIC_UNIT_EXTRACTION"
+      ]
+    },
+    {
+      "id": "HIST-D04",
+      "title": "Extract clean project-neutral capability candidates and map same-function current owners",
+      "group": "HISTORICAL_DIGESTION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D03"
+      ],
+      "notes": [
+        "MINITZ_RAW_FILE protocol: CAPABILITY_DISCOVERY, BEHAVIOR_STATE_IO_ANALYSIS"
+      ],
+      "forensics_stages": [
+        "CAPABILITY_DISCOVERY",
+        "BEHAVIOR_STATE_IO_ANALYSIS"
+      ]
+    },
+    {
+      "id": "HIST-D05",
+      "title": "Super-observe MiniTZ behavior-bearing sources with independent double review and current-rule conflict matrix",
+      "group": "HISTORICAL_DIGESTION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D04"
+      ],
+      "notes": [
+        "MINITZ_RAW_FILE protocol: BEHAVIOR_STATE_IO_ANALYSIS, FAILURE_RECOVERY_BEHAVIOR, CONTAMINATION_PROGRESS_KILLER_FLAGS"
+      ],
+      "forensics_stages": [
+        "BEHAVIOR_STATE_IO_ANALYSIS",
+        "FAILURE_RECOVERY_BEHAVIOR",
+        "CONTAMINATION_PROGRESS_KILLER_FLAGS"
+      ]
+    },
+    {
+      "id": "HIST-D06",
+      "title": "Assign every classified item an explicit destination: existing owner, clean reimplementation candidate, project scope, duplicate, obsolete, or preserved evidence",
+      "group": "HISTORICAL_DIGESTION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D05"
+      ],
+      "notes": [
+        "MINITZ_RAW_FILE protocol: DEPENDENCIES_RELATIONS, UNIQUE_OVERLAP_CANDIDATES"
+      ],
+      "forensics_stages": [
+        "DEPENDENCIES_RELATIONS",
+        "UNIQUE_OVERLAP_CANDIDATES"
+      ]
+    },
+    {
+      "id": "HIST-D07",
+      "title": "Integrate verified candidates one defect/capability boundary at a time without parallel authority",
+      "group": "HISTORICAL_DIGESTION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D06"
+      ],
+      "notes": [
+        "MINITZ_RAW_FILE protocol: FILE_CAPABILITY_RECORD"
+      ],
+      "forensics_stages": [
+        "FILE_CAPABILITY_RECORD"
+      ]
+    },
+    {
+      "id": "HIST-D08",
+      "title": "Close digestion only when registry proves zero DISCOVERED/UNREAD/UNPROCESSED/UNCLASSIFIED objects",
+      "group": "HISTORICAL_DIGESTION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D07"
+      ],
+      "notes": [
+        "MINITZ_RAW_FILE protocol: FILE_CAPABILITY_RECORD, UNIQUE_OVERLAP_CANDIDATES"
+      ],
+      "forensics_stages": [
+        "FILE_CAPABILITY_RECORD",
+        "UNIQUE_OVERLAP_CANDIDATES"
+      ]
+    },
+    {
+      "id": "UNIFY-01",
+      "title": "Choose one semantic owner for Scheduler versus Auto Feeder progression",
+      "group": "UNIFICATION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D06"
+      ],
+      "notes": [
+        "Do not replace battle-tested live progression authority wholesale."
+      ]
+    },
+    {
+      "id": "UNIFY-02",
+      "title": "Unify generic RoutingService/routing learning with live Codex/provider routing without a second router",
+      "group": "UNIFICATION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D06"
+      ],
+      "notes": [
+        "Do not replace battle-tested live progression authority wholesale."
+      ]
+    },
+    {
+      "id": "UNIFY-03",
+      "title": "Unify ValidationService semantics with live completion/evidence admission",
+      "group": "UNIFICATION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D06"
+      ],
+      "notes": [
+        "Do not replace battle-tested live progression authority wholesale."
+      ]
+    },
+    {
+      "id": "UNIFY-04",
+      "title": "Unify CheckpointService, task/session continuity, customer handoff and maintenance checkpoint semantics",
+      "group": "UNIFICATION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D06"
+      ],
+      "notes": [
+        "Do not replace battle-tested live progression authority wholesale."
+      ]
+    },
+    {
+      "id": "UNIFY-05",
+      "title": "Unify Run/Project/Engine memory and retrieval semantics with live task-memory/compactor/task packets",
+      "group": "UNIFICATION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D06"
+      ],
+      "notes": [
+        "Do not replace battle-tested live progression authority wholesale."
+      ]
+    },
+    {
+      "id": "UNIFY-06",
+      "title": "Reconcile EventLedger/CallLedger with live events/failures/attempt journals and choose durable owners",
+      "group": "UNIFICATION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D06"
+      ],
+      "notes": [
+        "Do not replace battle-tested live progression authority wholesale."
+      ]
+    },
+    {
+      "id": "UNIFY-07",
+      "title": "Connect failure-repair learning to live failure evidence without autonomous policy mutation",
+      "group": "UNIFICATION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D06"
+      ],
+      "notes": [
+        "Do not replace battle-tested live progression authority wholesale."
+      ]
+    },
+    {
+      "id": "UNIFY-08",
+      "title": "Connect model-evaluation evidence to live routing without making evaluation a liveness gate",
+      "group": "UNIFICATION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D06"
+      ],
+      "notes": [
+        "Do not replace battle-tested live progression authority wholesale."
+      ]
+    },
+    {
+      "id": "UNIFY-09",
+      "title": "Reconcile Artifact/ContentRef/ObjectStore semantics with Git/Build/Drive production durability",
+      "group": "UNIFICATION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D06"
+      ],
+      "notes": [
+        "Do not replace battle-tested live progression authority wholesale."
+      ]
+    },
+    {
+      "id": "UNIFY-10",
+      "title": "Reconcile Workspace, IsolatedRuntime and ProjectCell into one layered isolation model",
+      "group": "UNIFICATION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D06"
+      ],
+      "notes": [
+        "Do not replace battle-tested live progression authority wholesale."
+      ]
+    },
+    {
+      "id": "UNIFY-11",
+      "title": "Reconcile GitAdapter with production source-sync/publication responsibilities",
+      "group": "UNIFICATION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D06"
+      ],
+      "notes": [
+        "Do not replace battle-tested live progression authority wholesale."
+      ]
+    },
+    {
+      "id": "UNIFY-12",
+      "title": "Reconcile ProductionIntegration manifests with live publication cursor/package semantics",
+      "group": "UNIFICATION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D06"
+      ],
+      "notes": [
+        "Do not replace battle-tested live progression authority wholesale."
+      ]
+    },
+    {
+      "id": "UNIFY-13",
+      "title": "Retire or constrain bootstrap src/biella/runtime.py abstractions after durable-service compatibility proof",
+      "group": "UNIFICATION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D06"
+      ],
+      "notes": [
+        "Do not replace battle-tested live progression authority wholesale."
+      ]
+    },
+    {
+      "id": "UNIFY-14",
+      "title": "Deduplicate active policy copies into explicit authority/projection relationships to prevent drift",
+      "group": "UNIFICATION",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D06"
+      ],
+      "notes": [
+        "Do not replace battle-tested live progression authority wholesale."
+      ]
+    },
+    {
+      "id": "DIGEST-GATE-01",
+      "title": "Define executable source-kind detector/evidence record for CLEAN_CAPABILITY_SOURCE versus MINITZ_BEHAVIOR_BEARING_SOURCE",
+      "group": "DIGESTION_GOVERNANCE",
+      "status": "PENDING",
+      "depends_on": [
+        "HIST-D02"
+      ],
+      "notes": [
+        "MINITZ_RAW_FILE protocol: IDENTITY_PROVENANCE, STRUCTURAL_PARSE"
+      ],
+      "forensics_stages": [
+        "IDENTITY_PROVENANCE",
+        "STRUCTURAL_PARSE"
+      ]
+    },
+    {
+      "id": "DIGEST-GATE-02",
+      "title": "Require behavior-bearing sources to pass independent double review + conflict matrix + exact verification before native candidate status",
+      "group": "DIGESTION_GOVERNANCE",
+      "status": "PENDING",
+      "depends_on": [
+        "DIGEST-GATE-01"
+      ],
+      "notes": [
+        "MINITZ_RAW_FILE protocol: CONTAMINATION_PROGRESS_KILLER_FLAGS, EVIDENCE_STRENGTH"
+      ],
+      "forensics_stages": [
+        "CONTAMINATION_PROGRESS_KILLER_FLAGS",
+        "EVIDENCE_STRENGTH"
+      ]
+    },
+    {
+      "id": "DIGEST-GATE-03",
+      "title": "Permit clean capability candidates to use bounded local-AI extraction plus Codex verification and existing-owner merge path",
+      "group": "DIGESTION_GOVERNANCE",
+      "status": "PENDING",
+      "depends_on": [
+        "DIGEST-GATE-01"
+      ],
+      "notes": [
+        "MINITZ_RAW_FILE protocol: SEMANTIC_UNIT_EXTRACTION, CAPABILITY_DISCOVERY, EVIDENCE_STRENGTH"
+      ],
+      "forensics_stages": [
+        "SEMANTIC_UNIT_EXTRACTION",
+        "CAPABILITY_DISCOVERY",
+        "EVIDENCE_STRENGTH"
+      ]
+    }
+  ],
+  "counts": {
+    "work_items": 52,
+    "source_inventory_entries": 9
+  },
+  "forensics_protocol": {
+    "corpus_id": "MINITZ_RAW_FILE",
+    "execution_authority": false,
+    "dispatch_source": false,
+    "root": "/root/biella/analysis/minitz_raw_files",
+    "governing_spec": "/root/biella/analysis/minitz_raw_files/spec/BIELLA_SOURCE_SEMANTIC_FORENSICS_SPEC_v1.json",
+    "governing_spec_sha256": "cb5eb57a7b65198c060739c365a3986fae5168a173da82a31fb87725e1db2c58",
+    "output_schema": "/root/biella/analysis/minitz_raw_files/schema/source-semantic-forensics-v1.schema.json",
+    "pipeline": "/root/biella/analysis/minitz_raw_files/state/PIPELINE.json",
+    "source_registry": "/root/biella/analysis/minitz_raw_files/state/SOURCE_REGISTRY.jsonl",
+    "records_dir": "/root/biella/analysis/minitz_raw_files/records",
+    "review_events": "/root/biella/analysis/minitz_raw_files/reviews/REVIEW_EVENTS.jsonl",
+    "relations": "/root/biella/analysis/minitz_raw_files/relations/RELATIONS.jsonl",
+    "evidence_events": "/root/biella/analysis/minitz_raw_files/evidence/EVIDENCE_EVENTS.jsonl",
+    "baseline": "/root/biella/analysis/minitz_raw_files/manifests/FROZEN_OBSERVATION_BASELINE.json",
+    "manifest": "/root/biella/analysis/minitz_raw_files/manifests/CORPUS_MANIFEST.json",
+    "recorder": "/root/biella/analysis/minitz_raw_files/tools/minitz_source_forensics.py",
+    "rules": [
+      "RAW_SOURCE_IMMUTABLE",
+      "UNKNOWN_FIRST_CLASS",
+      "PER_SOURCE_DISCOVERY_BEFORE_CROSS_SOURCE_RESOLUTION",
+      "CAPABILITY_SEPARATE_FROM_MECHANISM",
+      "IMPLEMENTATION_SEPARATE_FROM_RUNTIME_REACHABILITY",
+      "CAPABILITY_VALUE_SEPARATE_FROM_AUTHORITY",
+      "UNIT_LEVEL_CONTAMINATION_NOT_FILE_DISCARD",
+      "NO_RAW_SECRET_VALUES",
+      "NO_SECOND_QUEUE_OR_CONTROLLER"
+    ],
+    "source_registry_schema": "/root/biella/analysis/minitz_raw_files/schema/source-registry-entry.schema.json",
+    "corpus_validator": "/root/biella/analysis/minitz_raw_files/tools/minitz_corpus_validate.py",
+    "foundation_status": "VERIFIED",
+    "foundation_hashes": {
+      "spec": "cb5eb57a7b65198c060739c365a3986fae5168a173da82a31fb87725e1db2c58",
+      "output_schema": "7baace7f4c9f742cfaa93929803a8548be580c47ec0154f77eeb901fef70f420",
+      "registry_schema": "a99b58d88b859d4d267bc4a235c2902358e2850b0ae2ca9af3b01084c65a4ee5",
+      "pipeline": "4aff4d79596d9431c3712a48076cb4210b3cf2326a4e8c33e1a31bc5ada3afec",
+      "review_contract": "155c88660694bf999fa421109e342dfe87caf609af4cb2a31cd5057bb400c622",
+      "recorder": "0a588cb21faaa576e47173fc1af0da9f7d789d0cb1ec82c8a6f23d25efb83580",
+      "validator": "789e42a431c61c6c3256c276eb4f487129d12262d1d639737132d29d19b9c37a",
+      "manifest": "58c74c0657586f0b7b2aa82d0cae9e7c0a735ed42d8bac423bc69866be1effe4"
+    },
+    "next_processing_boundary": "HIST-D01",
+    "current_corpus_status": "PROCESSING; governing spec structurally indexed; 3 explicit closure blockers; exhaustive historical enumeration remains next at HIST-D01."
+  }
+}

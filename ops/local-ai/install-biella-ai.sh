@@ -44,6 +44,8 @@ install -o root -g root -m 644 \
   "$SOURCE_DIR/biella_production_state.py" \
   "$SOURCE_DIR/biella_production_events.py" \
   "$SOURCE_DIR/biella_memory_compactor.py" \
+  "$SOURCE_DIR/minitz_taskbooster.py" \
+  "$SOURCE_DIR/minitz_task_program.py" \
   "$SOURCE_DIR/minitz_policy.py" \
   "$SOURCE_DIR/biella_task_packet.py" \
   "$SOURCE_DIR/biella_task_ids.py" \

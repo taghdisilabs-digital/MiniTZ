@@ -1,0 +1,114 @@
+{
+  "extraction": "Unmodified ffmpeg video frame at measured route event time; approximate native-frame mapping at 30 fps. No compositing, grading or rendering.",
+  "extractor": {
+    "bytes": 1826,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/extract_d17_02_route_frames.py",
+    "sha256": "a3b2307f5018eba63ad8f168e5a5b9c4519ff5ad0b53a1b94d51a38f5a0657f5"
+  },
+  "frames": [
+    {
+      "beat": "Terrace ramp foot",
+      "bytes": 806033,
+      "native_frame": "1663",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/nanite-full-1080-02/ramp-foot.png",
+      "route_stage": 24,
+      "sha256": "d2f255c78286fdf45875d2af0ae7c88b024a3ae3c5822b1a2ad728ae91c025c7",
+      "video_seconds": 42.60703084198758
+    },
+    {
+      "beat": "Ascend ramp",
+      "bytes": 1900998,
+      "native_frame": "1807",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/nanite-full-1080-02/ramp-ascent.png",
+      "route_stage": 25,
+      "sha256": "528612f8a46fb580fb91549c8e742748e4ee92399c679f81f23ec7ff5c41b945",
+      "video_seconds": 45.3459153319709
+    },
+    {
+      "beat": "Terrace summit",
+      "bytes": 1408345,
+      "native_frame": "1916",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/nanite-full-1080-02/terrace-summit.png",
+      "route_stage": 26,
+      "sha256": "0f143bc3140e027d523d578ee10886a9da95f766ba832af070e4a07fce9316a7",
+      "video_seconds": 47.6961882970063
+    },
+    {
+      "beat": "Terrace overlook at normal camera distance",
+      "bytes": 1578290,
+      "native_frame": "1990",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/nanite-full-1080-02/terrace-overlook.png",
+      "route_stage": 27,
+      "sha256": "2ec36cf42be85be4d8e8722b0a5337d23645ff20071bcfdda8892e77a9c8c299",
+      "video_seconds": 49.306522961938754
+    },
+    {
+      "beat": "Descend ramp",
+      "bytes": 1697614,
+      "native_frame": "2102",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/nanite-full-1080-02/ramp-descent.png",
+      "route_stage": 28,
+      "sha256": "549bdbc58af268eb3b37e176cd41e903a73e80d156a082ae98b0afbf9397e79f",
+      "video_seconds": 51.7913075479446
+    },
+    {
+      "beat": "Return to street",
+      "bytes": 539398,
+      "native_frame": "2311",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/nanite-full-1080-02/street-return.png",
+      "route_stage": 30,
+      "sha256": "f709b0abe92fe8ae80429940e7d8fb6c5133d5ece834f7e062b94b24531e6437",
+      "video_seconds": 56.03848393098451
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/nanite-full-1080-02/panel-exit.png",
+      "bytes": 670680,
+      "sha256": "875d0f0521cdb7650e7f29ac599f94e1fa0fce6e9ebd8d7d23dc811c4524104e",
+      "route_stage": 13,
+      "native_frame": "915",
+      "video_seconds": 27.27336455998011,
+      "beat": "panel-exit",
+      "command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-ss",
+        "27.27336455998011",
+        "-i",
+        "Build/AAA/D17-02/raw/nanite-full-1080-02/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "Build/AAA/D17-02/raw/nanite-full-1080-02/panel-exit.png"
+      ]
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/nanite-full-1080-02/hall-turn.png",
+      "bytes": 836833,
+      "sha256": "9e0f8f255c11b886240d76f320663ff3eba5877db2b1b256265c58895d1bc149",
+      "route_stage": 22,
+      "native_frame": "1319",
+      "video_seconds": 35.984485613997094,
+      "beat": "hall-turn",
+      "command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-ss",
+        "35.984485613997094",
+        "-i",
+        "Build/AAA/D17-02/raw/nanite-full-1080-02/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "Build/AAA/D17-02/raw/nanite-full-1080-02/hall-turn.png"
+      ]
+    }
+  ],
+  "raw_video": {
+    "bytes": 44279501,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/nanite-full-1080-02/raw-gameplay.mkv",
+    "sha256": "434302cb037bcad3dc4becdd312ef285dcf1f283d4139a24043944bc9b81d023"
+  },
+  "task_id": "D17-02"
+}

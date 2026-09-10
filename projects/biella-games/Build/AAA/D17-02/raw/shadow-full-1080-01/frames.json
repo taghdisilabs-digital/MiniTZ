@@ -1,0 +1,15 @@
+{
+  "extraction": "Unmodified ffmpeg video frame at measured route event time; approximate native-frame mapping at 30 fps. No compositing, grading or rendering.",
+  "extractor": {
+    "bytes": 1980,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/extract_d17_02_route_frames.py",
+    "sha256": "cceedee01550a8be5bb47df972e374037de94b361593186f1eca8b3f43b0b3aa"
+  },
+  "frames": [],
+  "raw_video": {
+    "bytes": 3821449,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/shadow-full-1080-01/raw-gameplay.mkv",
+    "sha256": "5b59aa9a88242fe9d3c47c40e1de6aae8f4ffe2c876d9ac6a4e62c53794706de"
+  },
+  "task_id": "D17-02"
+}

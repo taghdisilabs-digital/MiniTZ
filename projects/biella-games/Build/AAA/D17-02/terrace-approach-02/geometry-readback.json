@@ -1,0 +1,66 @@
+{
+  "task_id": "D17-02",
+  "result": "PASS",
+  "parts_read_back": 1565,
+  "actual_blender_magic": true,
+  "blender_compression": "zstd",
+  "actual_binary_fbx_magic": true,
+  "center_route_vertices_clear": true,
+  "center_route_collider_volumes_clear": true,
+  "native_structure_proxy_count": 38,
+  "practical_light_count": 3,
+  "clearance_cm": {
+    "x": [
+      9860,
+      10140
+    ],
+    "y": [
+      1000,
+      3500
+    ],
+    "above_floor": [
+      2,
+      190
+    ]
+  },
+  "evaluated_modifiers": true,
+  "bounds_min": [
+    -1003.0,
+    -2003.4713134765625,
+    -38.41203308105469
+  ],
+  "bounds_max": [
+    1003.0,
+    1029.0,
+    926.0
+  ],
+  "status": "GENERATED_DRAFT",
+  "scope": "Editable source structural readback; native import, collision and raw runtime remain required",
+  "sources": [
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/TerraceRoute.blend",
+      "sha256": "8973d0ee6aeb9410c5613a26875ebccc5d04d64b6188630aed409735ceecb74e",
+      "bytes": 849458
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/SM_TerraceRoute.fbx",
+      "sha256": "dd797689154b237d1949141ac89cee0e4718dbd84af0c65a4aa09035ca4b36d5",
+      "bytes": 4464748
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/build_terrace_route.py",
+      "sha256": "d387d791ab0cd5b7f8232d959611d035736aaca17bf0747b6f28788fa07d6a20",
+      "bytes": 14661
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/terrace-route.json",
+      "sha256": "13254f3bee445202434a39af730e61b91e457323ce8cc9b457c5f47c23cfffdc",
+      "bytes": 10087
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/SourceAssets/Environment/verify_terrace_route.py",
+      "sha256": "0986f7545cb42c923da1f95a766b8bd816daa930d40f2f1001032231ed2ac246",
+      "bytes": 3541
+    }
+  ]
+}

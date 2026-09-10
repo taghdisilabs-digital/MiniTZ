@@ -1,0 +1,70 @@
+{
+  "extraction": "Unmodified ffmpeg video frame at measured route event time; approximate native-frame mapping at 30 fps. No compositing, grading or rendering.",
+  "extractor": {
+    "bytes": 1826,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/extract_d17_02_route_frames.py",
+    "sha256": "a3b2307f5018eba63ad8f168e5a5b9c4519ff5ad0b53a1b94d51a38f5a0657f5"
+  },
+  "frames": [
+    {
+      "beat": "Terrace ramp foot",
+      "bytes": 553833,
+      "native_frame": "2022",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-720-02/ramp-foot.png",
+      "route_stage": 10,
+      "sha256": "bed8c74316b62694657ae3598835f2ee578150a722100f94de464ac7b170039f",
+      "video_seconds": 40.1901668299688
+    },
+    {
+      "beat": "Ascend ramp",
+      "bytes": 951156,
+      "native_frame": "2162",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-720-02/ramp-ascent.png",
+      "route_stage": 11,
+      "sha256": "677539bcc41f37683846177a567f2c8259f74d5a53a2a75328dd6d453871c39f",
+      "video_seconds": 42.51367487793323
+    },
+    {
+      "beat": "Terrace summit",
+      "bytes": 787039,
+      "native_frame": "2302",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-720-02/terrace-summit.png",
+      "route_stage": 12,
+      "sha256": "27c8253197605e0f70797219db897649c8008d27951d0824b8880c98292a5f1b",
+      "video_seconds": 44.86391564202495
+    },
+    {
+      "beat": "Terrace overlook at normal camera distance",
+      "bytes": 802926,
+      "native_frame": "2401",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-720-02/terrace-overlook.png",
+      "route_stage": 13,
+      "sha256": "1556462bf0e38099b2f0088ae3673c8cc6041189fb422e52ba608cdeabff1827",
+      "video_seconds": 46.48752363398671
+    },
+    {
+      "beat": "Descend ramp",
+      "bytes": 909701,
+      "native_frame": "2547",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-720-02/ramp-descent.png",
+      "route_stage": 14,
+      "sha256": "dcc50d6d87ff2d8c1ac3c4ebb457a2df40a41a944bfbe3500bcb5b7dfa9a37f6",
+      "video_seconds": 48.94589816394728
+    },
+    {
+      "beat": "Return to street",
+      "bytes": 310761,
+      "native_frame": "2807",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-720-02/street-return.png",
+      "route_stage": 16,
+      "sha256": "f06bded2311cf27e24fdfbe901a38bcd151052e52912d6681a999241c18640d2",
+      "video_seconds": 53.2983467169106
+    }
+  ],
+  "raw_video": {
+    "bytes": 18614706,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-720-02/raw-gameplay.mkv",
+    "sha256": "ddec25df9b87804f6ed910bac71dec0e0eae8f2017fcf9f41ffaae1577e6cd6f"
+  },
+  "task_id": "D17-02"
+}

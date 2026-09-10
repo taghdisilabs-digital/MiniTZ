@@ -1,0 +1,128 @@
+{
+  "task_id": "D17-02",
+  "status": "DIAGNOSTIC_NATIVE_OBSERVATION_NOT_ACCEPTANCE",
+  "runtime_log": {
+    "path": "Build/AAA/D17-02/raw/vsm-diagnostic-1080-01/runtime.engine.log",
+    "bytes": 293277,
+    "sha256": "2a6fee3f8f6e035c311a4835af347285208b9e183af4629dc0132ddfd21ddd4b"
+  },
+  "targets": [
+    {
+      "label": "D02_Region_00_Floor",
+      "component": "BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616299375.StaticMeshComponent0",
+      "max_page_overlap": 741,
+      "observations": [
+        "[2026.09.09-01.07.53:336][  4]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 741, D02_Region_00_Floor, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616299375.StaticMeshComponent0",
+        "[2026.09.09-01.07.58:352][191]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 624, D02_Region_00_Floor, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616299375.StaticMeshComponent0"
+      ]
+    },
+    {
+      "label": "D02_Region_00_SouthEdge",
+      "component": "BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616300376.StaticMeshComponent0",
+      "max_page_overlap": 536,
+      "observations": [
+        "[2026.09.09-01.07.54:747][ 56]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 536, D02_Region_00_SouthEdge, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616300376.StaticMeshComponent0"
+      ]
+    },
+    {
+      "label": "D02_Region_01_Floor",
+      "component": "BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616305383.StaticMeshComponent0",
+      "max_page_overlap": 862,
+      "observations": [
+        "[2026.09.09-01.07.57:016][135]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 756, D02_Region_01_Floor, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616305383.StaticMeshComponent0",
+        "[2026.09.09-01.08.02:026][335]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 852, D02_Region_01_Floor, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616305383.StaticMeshComponent0",
+        "[2026.09.09-01.08.07:061][538]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 862, D02_Region_01_Floor, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616305383.StaticMeshComponent0",
+        "[2026.09.09-01.08.13:228][803]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 655, D02_Region_01_Floor, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616305383.StaticMeshComponent0"
+      ]
+    },
+    {
+      "label": "D02_Region_01_SouthEdge",
+      "component": "BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616305384.StaticMeshComponent0",
+      "max_page_overlap": 893,
+      "observations": [
+        "[2026.09.09-01.08.01:303][306]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 893, D02_Region_01_SouthEdge, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616305384.StaticMeshComponent0"
+      ]
+    },
+    {
+      "label": "D02_Region_02_Floor",
+      "component": "BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616310391.StaticMeshComponent0",
+      "max_page_overlap": 702,
+      "observations": [
+        "[2026.09.09-01.08.05:748][482]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 702, D02_Region_02_Floor, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616310391.StaticMeshComponent0",
+        "[2026.09.09-01.08.12:574][776]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 555, D02_Region_02_Floor, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616310391.StaticMeshComponent0",
+        "[2026.09.09-01.08.17:678][997]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 578, D02_Region_02_Floor, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616310391.StaticMeshComponent0",
+        "[2026.09.09-01.08.23:644][276]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 594, D02_Region_02_Floor, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616310391.StaticMeshComponent0",
+        "[2026.09.09-01.08.28:679][520]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 577, D02_Region_02_Floor, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616310391.StaticMeshComponent0"
+      ]
+    },
+    {
+      "label": "D17_ServiceHall_Cladding",
+      "component": "BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746D1FF02_1704662559.StaticMeshComponent0",
+      "max_page_overlap": 528,
+      "observations": [
+        "[2026.09.09-01.08.19:272][ 66]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 528, D17_ServiceHall_Cladding, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746D1FF02_1704662559.StaticMeshComponent0",
+        "[2026.09.09-01.08.25:153][348]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 514, D17_ServiceHall_Cladding, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746D1FF02_1704662559.StaticMeshComponent0"
+      ]
+    },
+    {
+      "label": "D02_Interior_Roof",
+      "component": "BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616334427.StaticMeshComponent0",
+      "max_page_overlap": 627,
+      "observations": [
+        "[2026.09.09-01.08.19:299][ 67]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 574, D02_Interior_Roof, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616334427.StaticMeshComponent0",
+        "[2026.09.09-01.08.25:428][362]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 627, D02_Interior_Roof, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616334427.StaticMeshComponent0"
+      ]
+    },
+    {
+      "label": "D17_Hall_Interior",
+      "component": "BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746D9FF02_1961899967.StaticMeshComponent0",
+      "max_page_overlap": 590,
+      "observations": [
+        "[2026.09.09-01.08.19:471][ 75]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 590, D17_Hall_Interior, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746D9FF02_1961899967.StaticMeshComponent0",
+        "[2026.09.09-01.08.25:153][348]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 514, D17_Hall_Interior, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746D9FF02_1961899967.StaticMeshComponent0"
+      ]
+    },
+    {
+      "label": "D02_Interior_Floor",
+      "component": "BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616330421.StaticMeshComponent0",
+      "max_page_overlap": 568,
+      "observations": [
+        "[2026.09.09-01.08.20:937][145]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 543, D02_Interior_Floor, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616330421.StaticMeshComponent0",
+        "[2026.09.09-01.08.26:142][399]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 568, D02_Interior_Floor, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616330421.StaticMeshComponent0"
+      ]
+    },
+    {
+      "label": "D17_TerraceRoute",
+      "component": "BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746DFFF02_1680818023.StaticMeshComponent0",
+      "max_page_overlap": 516,
+      "observations": [
+        "[2026.09.09-01.08.29:973][580]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 516, D17_TerraceRoute, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746DFFF02_1680818023.StaticMeshComponent0"
+      ]
+    },
+    {
+      "label": "D02_Region_03_Floor",
+      "component": "BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616315398.StaticMeshComponent0",
+      "max_page_overlap": 560,
+      "observations": [
+        "[2026.09.09-01.08.30:349][597]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 560, D02_Region_03_Floor, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616315398.StaticMeshComponent0"
+      ]
+    },
+    {
+      "label": "D02_Terrace_Ramp",
+      "component": "BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616335428.StaticMeshComponent0",
+      "max_page_overlap": 707,
+      "observations": [
+        "[2026.09.09-01.08.33:223][730]LogRenderer: Warning: Non-Nanite VSM page overlap performance Warning, 707, D02_Terrace_Ramp, BiellaOpenWorldMap:PersistentLevel.StaticMeshActor_UAID_FA163ECF0746E7FE02_1616335428.StaticMeshComponent0"
+      ]
+    }
+  ],
+  "material_fallback_warnings": [
+    "[2026.09.09-01.07.48:865][  0]LogMaterial: Warning: Material /Game/Environment/TerraceRoute/MI_TerracePaint.MI_TerracePaint missing usage flag Nanite! Default Material will be used in game.",
+    "[2026.09.09-01.07.48:865][  0]LogMaterial: Warning: Material /Game/Environment/TerraceRoute/MI_TerraceSteel.MI_TerraceSteel missing usage flag Nanite! Default Material will be used in game.",
+    "[2026.09.09-01.07.48:865][  0]LogMaterial: Warning: Material /Game/Environment/ServiceBay/MI_ServiceLamp.MI_ServiceLamp missing usage flag Nanite! Default Material will be used in game.",
+    "[2026.09.09-01.07.48:865][  0]LogMaterial: Warning: Material /Game/Environment/ServiceBay/MI_ServiceGrowth.MI_ServiceGrowth missing usage flag Nanite! Default Material will be used in game.",
+    "[2026.09.09-01.07.48:865][  0]LogMaterial: Warning: Material /Game/Environment/ServiceBay/MI_ServiceVein.MI_ServiceVein missing usage flag Nanite! Default Material will be used in game."
+  ],
+  "scope": "Measured largest non-Nanite page footprints along ordinary-input route; not exhaustive or proof of sole overflow cause.",
+  "repair": "Enable full-detail Nanite and material usage for these existing casters only. Duplicate Engine cube into Project; preserve all actor presentation, material bindings and collision geometry."
+}

@@ -1,0 +1,137 @@
+{
+  "extraction": "Unmodified ffmpeg video frame at measured route event time; approximate native-frame mapping at 30 fps. No compositing, grading or rendering.",
+  "extractor": {
+    "bytes": 1826,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/tests/extract_d17_02_route_frames.py",
+    "sha256": "a3b2307f5018eba63ad8f168e5a5b9c4519ff5ad0b53a1b94d51a38f5a0657f5"
+  },
+  "frames": [
+    {
+      "beat": "Terrace ramp foot",
+      "bytes": 824910,
+      "native_frame": "1602",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-full-1080-01/ramp-foot.png",
+      "route_stage": 24,
+      "sha256": "8aa31bb30517c1590cd1e14a193a510c6ec8f2158d46e2ea86e418611dcb57b1",
+      "video_seconds": 42.269988251966424
+    },
+    {
+      "beat": "Ascend ramp",
+      "bytes": 1841312,
+      "native_frame": "1728",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-full-1080-01/ramp-ascent.png",
+      "route_stage": 25,
+      "sha256": "89ec2cabaaeef02d7df18e599464b0bfde7cfbdf039c9c1a452ff3c27df02917",
+      "video_seconds": 45.00628262700047
+    },
+    {
+      "beat": "Terrace summit",
+      "bytes": 1419183,
+      "native_frame": "1845",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-full-1080-01/terrace-summit.png",
+      "route_stage": 26,
+      "sha256": "f2eadcd8dc2e3bf4a7fcc290ec780b38d00ba4cd1a68eecebc528cabd3f4470d",
+      "video_seconds": 47.37279706296977
+    },
+    {
+      "beat": "Terrace overlook at normal camera distance",
+      "bytes": 1528185,
+      "native_frame": "1932",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-full-1080-01/terrace-overlook.png",
+      "route_stage": 27,
+      "sha256": "e0f14bee72d2ce1c36a27e31f6cda1c163b1ca8ac1f4761676b693512bc9f15b",
+      "video_seconds": 48.977727320976555
+    },
+    {
+      "beat": "Descend ramp",
+      "bytes": 1716181,
+      "native_frame": "2043",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-full-1080-01/ramp-descent.png",
+      "route_stage": 28,
+      "sha256": "e5b33d79278800910b76b8d7a2fd1ff9f3b5e597d83f09f19888f13fb51725b8",
+      "video_seconds": 51.44265402597375
+    },
+    {
+      "beat": "Return to street",
+      "bytes": 511562,
+      "native_frame": "2253",
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-full-1080-01/street-return.png",
+      "route_stage": 30,
+      "sha256": "4010da9fba4f25c53be53a3d017af95a62bc18516c83bf6b96f9f85d3dce54f8",
+      "video_seconds": 55.809135805931874
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-full-1080-01/panel-exit.png",
+      "bytes": 659293,
+      "sha256": "a4e46f67792b5db77d26a3aa4bd88786071b3576cca66df8253afac70b534f7a",
+      "video_seconds": 27.473737922962755,
+      "native_frame": "922",
+      "route_stage": 14,
+      "beat": "Leave service hazard",
+      "extraction_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-ss",
+        "27.473737922962755",
+        "-i",
+        "Build/AAA/D17-02/raw/approach-full-1080-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "Build/AAA/D17-02/raw/approach-full-1080-01/panel-exit.png"
+      ]
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-full-1080-01/hall-threshold.png",
+      "bytes": 812330,
+      "sha256": "387ed5aaa92f2f228feb66cc5f51955de9aabb763fea47eeba3b94ffbb19bb00",
+      "video_seconds": 32.36349168000743,
+      "native_frame": "1130",
+      "route_stage": 20,
+      "beat": "Cross hall threshold",
+      "extraction_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-ss",
+        "32.36349168000743",
+        "-i",
+        "Build/AAA/D17-02/raw/approach-full-1080-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "Build/AAA/D17-02/raw/approach-full-1080-01/hall-threshold.png"
+      ]
+    },
+    {
+      "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-full-1080-01/hall-turn.png",
+      "bytes": 837419,
+      "sha256": "eb2492303594e26b8f86a3b195c341e15667e162813a6b36df713325e2885279",
+      "video_seconds": 35.61103376792744,
+      "native_frame": "1302",
+      "route_stage": 22,
+      "beat": "Turn inside hall with real camera collision",
+      "extraction_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-ss",
+        "35.61103376792744",
+        "-i",
+        "Build/AAA/D17-02/raw/approach-full-1080-01/raw-gameplay.mkv",
+        "-frames:v",
+        "1",
+        "Build/AAA/D17-02/raw/approach-full-1080-01/hall-turn.png"
+      ]
+    }
+  ],
+  "raw_video": {
+    "bytes": 44150294,
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/raw/approach-full-1080-01/raw-gameplay.mkv",
+    "sha256": "0d1e667cdff2c2a8b0c8a300b3ea6e47e9665096b2d35bb196e15f8eb107efc7"
+  },
+  "task_id": "D17-02",
+  "additional_extraction": "Panel/hall entries include exact ffmpeg commands; same unmodified raw source, no grading or compositing."
+}

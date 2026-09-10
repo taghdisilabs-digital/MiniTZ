@@ -1,0 +1,67 @@
+{
+  "task_id": "D17-02",
+  "result": "PASS",
+  "before": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/shadow-casters-01/inspect-source-before-04/meshes.json",
+    "sha256": "0b198a9ece02cef2f76c659d81dd3c8d1cec2d5dbe8bed63136752a643a545bc",
+    "bytes": 5808
+  },
+  "after": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/shadow-casters-01/inspect-source-after-04/meshes.json",
+    "sha256": "51e687e110af8fc973807bf73ceaf1b1e95f00955778faf888fcd4463c12c26e",
+    "bytes": 5823
+  },
+  "editable_geometry_collision_material_bindings_unchanged": true,
+  "render_bounds_changes": {
+    "/Game/Environment/ServiceHall/SM_ServiceHallCladding": {
+      "before": {
+        "origin": [
+          -15.898193359375,
+          12.199951171875,
+          350.25
+        ],
+        "extent": [
+          1074.898193359375,
+          796.2000122070312,
+          349.75
+        ]
+      },
+      "after": {
+        "origin": [
+          -12.25537109375,
+          12.463134765625,
+          343.16668701171875
+        ],
+        "extent": [
+          1080.853271484375,
+          799.998046875,
+          359.3681640625
+        ]
+      }
+    }
+  },
+  "slice_acceptance": false,
+  "pre_repair_source_manifest": {
+    "path": "/root/biella/repos/biella-engine/projects/biella-games/Build/AAA/D17-02/build/package-04/source-build.json",
+    "bytes": 90610,
+    "sha256": "60c5340e2bc0c406fc30ddd7e34ecba23567cf440278fd118bc287b94b3e199f"
+  },
+  "pre_repair_material_input_digest": "5dcaac14193d3dd5cac14587480902ad1bacc15c390140b8bfb90c8d84a564cb",
+  "inspected_snapshot_mesh_inputs": [
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-02/cook-terrace-04/project/Content/Environment/ServiceHall/SM_ServiceHallCladding.uasset",
+      "bytes": 2534532,
+      "sha256": "43fc43271019791cfa238a0d30264d0623a2fedff79c60492be8938e51f8c91c"
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-02/cook-terrace-04/project/Content/Environment/ServiceHall/SM_HallInterior.uasset",
+      "bytes": 1207702,
+      "sha256": "270ae4667fc0a23919f7b5d3555575e348136d29427b97452154bec405df35cb"
+    },
+    {
+      "path": "/mnt/biella-extra/biella-runtime/d17-02/cook-terrace-04/project/Content/Environment/TerraceRoute/SM_TerraceRoute.uasset",
+      "bytes": 4269374,
+      "sha256": "3bc1c10ab7c3ec410a391a69dd66c4e3e0b346016e8294853aedd27808522b52"
+    }
+  ]
+}

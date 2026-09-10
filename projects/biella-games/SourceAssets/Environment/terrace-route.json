@@ -86,14 +86,566 @@
       ]
     }
   ],
+  "structure_colliders": [
+    {
+      "label": "D17_TerracePortal_0_W",
+      "center": [
+        9740,
+        1150,
+        265.0
+      ],
+      "size": [
+        22,
+        28,
+        530.0
+      ]
+    },
+    {
+      "label": "D17_TerracePortal_0_E",
+      "center": [
+        10260,
+        1150,
+        265.0
+      ],
+      "size": [
+        22,
+        28,
+        530.0
+      ]
+    },
+    {
+      "label": "D17_TerracePortalBeam_0",
+      "center": [
+        10000,
+        1150,
+        530.0
+      ],
+      "size": [
+        542,
+        28,
+        22
+      ]
+    },
+    {
+      "label": "D17_TerracePortal_1_W",
+      "center": [
+        9740,
+        2250,
+        375.0
+      ],
+      "size": [
+        22,
+        28,
+        750.0
+      ]
+    },
+    {
+      "label": "D17_TerracePortal_1_E",
+      "center": [
+        10260,
+        2250,
+        375.0
+      ],
+      "size": [
+        22,
+        28,
+        750.0
+      ]
+    },
+    {
+      "label": "D17_TerracePortalBeam_1",
+      "center": [
+        10000,
+        2250,
+        750.0
+      ],
+      "size": [
+        542,
+        28,
+        22
+      ]
+    },
+    {
+      "label": "D17_TerracePortal_2_W",
+      "center": [
+        9740,
+        3250,
+        450.0
+      ],
+      "size": [
+        22,
+        28,
+        900
+      ]
+    },
+    {
+      "label": "D17_TerracePortal_2_E",
+      "center": [
+        10260,
+        3250,
+        450.0
+      ],
+      "size": [
+        22,
+        28,
+        900
+      ]
+    },
+    {
+      "label": "D17_TerracePortalBeam_2",
+      "center": [
+        10000,
+        3250,
+        900
+      ],
+      "size": [
+        542,
+        28,
+        22
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_W_00",
+      "center": [
+        9742,
+        1250,
+        165.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_W_01",
+      "center": [
+        9742,
+        1450,
+        205.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_W_02",
+      "center": [
+        9742,
+        1650,
+        245.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_W_03",
+      "center": [
+        9742,
+        1850,
+        285.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_W_04",
+      "center": [
+        9742,
+        2050,
+        325.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_W_05",
+      "center": [
+        9742,
+        2250,
+        365.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_W_06",
+      "center": [
+        9742,
+        2450,
+        405.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_W_07",
+      "center": [
+        9742,
+        2650,
+        445.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_W_08",
+      "center": [
+        9742,
+        2850,
+        485.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_W_09",
+      "center": [
+        9742,
+        3050,
+        515
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_E_00",
+      "center": [
+        10258,
+        1250,
+        165.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_E_01",
+      "center": [
+        10258,
+        1450,
+        205.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_E_02",
+      "center": [
+        10258,
+        1650,
+        245.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_E_03",
+      "center": [
+        10258,
+        1850,
+        285.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_E_04",
+      "center": [
+        10258,
+        2050,
+        325.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_E_05",
+      "center": [
+        10258,
+        2250,
+        365.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_E_06",
+      "center": [
+        10258,
+        2450,
+        405.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_E_07",
+      "center": [
+        10258,
+        2650,
+        445.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_E_08",
+      "center": [
+        10258,
+        2850,
+        485.0
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceGuard_E_09",
+      "center": [
+        10258,
+        3050,
+        515
+      ],
+      "size": [
+        26,
+        188,
+        170
+      ]
+    },
+    {
+      "label": "D17_TerraceRearScreen_00",
+      "center": [
+        9200,
+        4008,
+        720
+      ],
+      "size": [
+        200,
+        28,
+        400
+      ]
+    },
+    {
+      "label": "D17_TerraceRearScreen_01",
+      "center": [
+        9400,
+        4008,
+        720
+      ],
+      "size": [
+        200,
+        28,
+        400
+      ]
+    },
+    {
+      "label": "D17_TerraceRearScreen_02",
+      "center": [
+        9600,
+        4008,
+        720
+      ],
+      "size": [
+        200,
+        28,
+        400
+      ]
+    },
+    {
+      "label": "D17_TerraceRearScreen_03",
+      "center": [
+        9800,
+        4008,
+        720
+      ],
+      "size": [
+        200,
+        28,
+        400
+      ]
+    },
+    {
+      "label": "D17_TerraceRearScreen_04",
+      "center": [
+        10000,
+        4008,
+        720
+      ],
+      "size": [
+        200,
+        28,
+        400
+      ]
+    },
+    {
+      "label": "D17_TerraceRearScreen_05",
+      "center": [
+        10200,
+        4008,
+        720
+      ],
+      "size": [
+        200,
+        28,
+        400
+      ]
+    },
+    {
+      "label": "D17_TerraceRearScreen_06",
+      "center": [
+        10400,
+        4008,
+        720
+      ],
+      "size": [
+        200,
+        28,
+        400
+      ]
+    },
+    {
+      "label": "D17_TerraceRearScreen_07",
+      "center": [
+        10600,
+        4008,
+        720
+      ],
+      "size": [
+        200,
+        28,
+        400
+      ]
+    },
+    {
+      "label": "D17_TerraceRearScreen_08",
+      "center": [
+        10800,
+        4008,
+        720
+      ],
+      "size": [
+        200,
+        28,
+        400
+      ]
+    }
+  ],
+  "practical_lights": [
+    {
+      "label": "D17_TerracePractical_0",
+      "position": [
+        10000,
+        1150,
+        482.0
+      ],
+      "lumens": 1600,
+      "attenuation_cm": 760,
+      "source_radius_cm": 14,
+      "source_length_cm": 145,
+      "color_linear": [
+        1,
+        0.62,
+        0.28,
+        1
+      ]
+    },
+    {
+      "label": "D17_TerracePractical_1",
+      "position": [
+        10000,
+        2250,
+        702.0
+      ],
+      "lumens": 1600,
+      "attenuation_cm": 760,
+      "source_radius_cm": 14,
+      "source_length_cm": 145,
+      "color_linear": [
+        1,
+        0.62,
+        0.28,
+        1
+      ]
+    },
+    {
+      "label": "D17_TerracePractical_2",
+      "position": [
+        10000,
+        3250,
+        852
+      ],
+      "lumens": 1600,
+      "attenuation_cm": 760,
+      "source_radius_cm": 14,
+      "source_length_cm": 145,
+      "color_linear": [
+        1,
+        0.62,
+        0.28,
+        1
+      ]
+    }
+  ],
   "source": "build_terrace_route.py",
-  "source_sha256": "bf1eeecd0e583e217ac2f3c972d647330799802d4f199c10fc0b02c951036790",
+  "source_sha256": "3c7482e0408f3cec137399ec1f5800e6c7efbead07f6f88452b08ac5300cac59",
   "blender": "5.0.1",
-  "editable_parts": 1054,
+  "editable_parts": 1565,
   "mesh": "SM_TerraceRoute",
   "fbx": "SM_TerraceRoute.fbx",
-  "sha256": "9d124127878950143cd4d46d0ea39bd8ea97349a52890cb7287e4677f2402ebd",
-  "triangles": 190856,
+  "sha256": "dd797689154b237d1949141ac89cee0e4718dbd84af0c65a4aa09035ca4b36d5",
+  "triangles": 291188,
   "bounds_min": [
     -1003.0,
     -2003.47119140625,
@@ -101,14 +653,17 @@
   ],
   "bounds_max": [
     1003.0,
-    1003.000244140625,
-    522.5000610351562
+    1029.0,
+    925.9999389648438
   ],
   "export_y_reflected": true,
   "outward_volume_preserved": true,
   "material_slots": [
     "Paint",
-    "Steel"
+    "Steel",
+    "Lamp",
+    "Growth",
+    "Vein"
   ],
   "limits": [
     "Must be imported, collision-bound and raw-runtime qualified before route acceptance",
