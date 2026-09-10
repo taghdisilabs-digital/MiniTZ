@@ -2,13 +2,27 @@ from __future__ import annotations
 
 import gzip
 import hashlib
+import importlib.util
 import json
 import os
 import re
+import sys
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping
+
+try:
+    from minitz_policy import build_policy_projection
+except ModuleNotFoundError:  # Loaded directly by tests or another controller.
+    _POLICY_MODULE_PATH = Path(__file__).with_name("minitz_policy.py")
+    _POLICY_SPEC = importlib.util.spec_from_file_location("_biella_minitz_policy", _POLICY_MODULE_PATH)
+    if not _POLICY_SPEC or not _POLICY_SPEC.loader:
+        raise
+    _POLICY_MODULE = importlib.util.module_from_spec(_POLICY_SPEC)
+    sys.modules[_POLICY_SPEC.name] = _POLICY_MODULE
+    _POLICY_SPEC.loader.exec_module(_POLICY_MODULE)
+    build_policy_projection = _POLICY_MODULE.build_policy_projection
 
 SCHEMA = "biella.compacted_memory/v1"
 _TASK_RE = re.compile(r"^- \[(?P<done>[xX ])\] (?P<id>[A-Z0-9-]+) \| (?P<class>[a-z_]+) \| (?P<title>.+?) \| (?P<status>[A-Z_]+) \|\s*(?P<evidence>.*)$")
@@ -24,6 +38,13 @@ class MemoryRecord:
     task_class: str | None = None
     verified: bool = False
     capabilities: tuple[str, ...] = ()
+    scope_ref: str | None = None
+    rule_identity: str | None = None
+    policy_digest: str | None = None
+    authority: str | None = None
+    origin_kind: str | None = None
+    semantic_status: str | None = None
+    replacement_rule_ids: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -94,6 +115,15 @@ def merge_records(records: Iterable[MemoryRecord]) -> dict[str, Any]:
                 task_classes[record.task_class].append(ref)
         if record.capabilities:
             row["capabilities"] = sorted(set(record.capabilities))
+        for field in (
+            "scope_ref", "rule_identity", "policy_digest", "authority", "origin_kind",
+            "semantic_status",
+        ):
+            value = getattr(record, field)
+            if value:
+                row[field] = value
+        if record.replacement_rule_ids:
+            row["replacement_rule_ids"] = sorted(set(record.replacement_rule_ids))
         rows.append(row)
         categories.setdefault(record.category, [])
         if ref not in categories[record.category]:
@@ -105,11 +135,22 @@ def merge_records(records: Iterable[MemoryRecord]) -> dict[str, Any]:
             "equivalence_ref": eq_ref,
             "content_refs": [], "source_refs": [], "task_ids": [],
             "task_classes": [], "verified_values": [], "capabilities": [],
+            "scope_refs": [], "rule_identities": [], "policy_digests": [],
+            "authorities": [], "origin_kinds": [], "semantic_statuses": [],
+            "replacement_rule_ids": [],
         })
-        for field, value in (("content_refs", ref), ("source_refs", record.source_ref),
-                             ("task_ids", record.task_id), ("task_classes", record.task_class)):
+        for field, value in (
+            ("content_refs", ref), ("source_refs", record.source_ref),
+            ("task_ids", record.task_id), ("task_classes", record.task_class),
+            ("scope_refs", record.scope_ref), ("rule_identities", record.rule_identity),
+            ("policy_digests", record.policy_digest), ("authorities", record.authority),
+            ("origin_kinds", record.origin_kind), ("semantic_statuses", record.semantic_status),
+        ):
             if value and value not in group[field]:
                 group[field].append(value)
+        for replacement_rule_id in record.replacement_rule_ids:
+            if replacement_rule_id not in group["replacement_rule_ids"]:
+                group["replacement_rule_ids"].append(replacement_rule_id)
         if bool(record.verified) not in group["verified_values"]:
             group["verified_values"].append(bool(record.verified))
         for capability in record.capabilities:
@@ -118,7 +159,11 @@ def merge_records(records: Iterable[MemoryRecord]) -> dict[str, Any]:
 
     equivalence_groups = []
     for group in groups.values():
-        for field in ("content_refs", "source_refs", "task_ids", "task_classes", "capabilities"):
+        for field in (
+            "content_refs", "source_refs", "task_ids", "task_classes", "capabilities",
+            "scope_refs", "rule_identities", "policy_digests", "authorities", "origin_kinds",
+            "semantic_statuses", "replacement_rule_ids",
+        ):
             group[field] = sorted(group[field])
         group["verified_values"] = sorted(group["verified_values"])
         group["variant_count"] = len(group["content_refs"])
@@ -140,10 +185,53 @@ def merge_records(records: Iterable[MemoryRecord]) -> dict[str, Any]:
     }
 
 
-def _policy_records(path: Path) -> list[MemoryRecord]:
+def _policy_records(path: Path, policy_projection: Mapping[str, Any] | None = None) -> list[MemoryRecord]:
+    if policy_projection is not None:
+        prefix = f"{path}:chunk:"
+        projected = [
+            item for item in policy_projection.get("records", [])
+            if isinstance(item, Mapping) and str(item.get("source_ref", "")).startswith(prefix)
+        ]
+        return [
+            MemoryRecord(
+                str(item.get("category") or "instruction"),
+                str(item.get("text") or ""),
+                str(item.get("source_ref") or ""),
+                scope_ref=str(item.get("scope_ref") or "") or None,
+                rule_identity=str(item.get("rule_identity") or "") or None,
+                policy_digest=str(item.get("policy_digest") or "") or None,
+                authority=str(item.get("authority") or "") or None,
+                origin_kind=str(item.get("origin_kind") or "") or None,
+                semantic_status=str(item.get("semantic_status") or "") or None,
+                replacement_rule_ids=tuple(str(value) for value in item.get("replacement_rule_ids", []) if str(value)),
+            )
+            for item in projected
+        ]
     text = path.read_text(encoding="utf-8")
     chunks = [chunk.strip() for chunk in re.split(r"\n\s*\n", text) if chunk.strip()]
     return [MemoryRecord("instruction", chunk, f"{path}:chunk:{index}") for index, chunk in enumerate(chunks)]
+
+
+def _policy_projection_records(policy_projection: Mapping[str, Any]) -> list[MemoryRecord]:
+    records: list[MemoryRecord] = []
+    for item in policy_projection.get("records", []):
+        if not isinstance(item, Mapping):
+            continue
+        records.append(
+            MemoryRecord(
+                str(item.get("category") or "instruction"),
+                str(item.get("text") or ""),
+                str(item.get("source_ref") or ""),
+                scope_ref=str(item.get("scope_ref") or "") or None,
+                rule_identity=str(item.get("rule_identity") or "") or None,
+                policy_digest=str(item.get("policy_digest") or "") or None,
+                authority=str(item.get("authority") or "") or None,
+                origin_kind=str(item.get("origin_kind") or "") or None,
+                semantic_status=str(item.get("semantic_status") or "") or None,
+                replacement_rule_ids=tuple(str(value) for value in item.get("replacement_rule_ids", []) if str(value)),
+            )
+        )
+    return records
 
 
 def _production_records(path: Path) -> list[MemoryRecord]:
@@ -237,15 +325,23 @@ def _capability_records(path: Path) -> tuple[list[MemoryRecord], dict[str, list[
     return records, {key: sorted(set(value)) for key, value in sorted(capabilities.items())}
 
 
-def _source_files(repo_root: Path, project_root: Path, runtime_root: Path) -> list[Path]:
-    candidates = [
+def _source_files(
+    repo_root: Path,
+    project_root: Path,
+    runtime_root: Path,
+    *,
+    active_policy_paths: Iterable[Path] | None = None,
+) -> list[Path]:
+    policy_candidates = list(active_policy_paths) if active_policy_paths is not None else [
         repo_root / "docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md",
-        repo_root / "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md",
         repo_root / "docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml",
         repo_root / "docs/project-state/BIELLA_DURABLE_SOURCE_AND_SYNC_RULES.md",
         repo_root / "ops/workstation/AGENTS.md",
-        repo_root / "ops/workstation/provider-registry.json",
         project_root / "AGENTS.md",
+    ]
+    candidates = [
+        *policy_candidates,
+        repo_root / "ops/workstation/provider-registry.json",
         project_root / "docs/PRODUCTION.md",
         runtime_root / "failures.jsonl",
     ]
@@ -292,6 +388,7 @@ def _projection(index: Mapping[str, Any], *, current_task_id: str | None,
     categories = index.get("categories", {})
     task_classes = index.get("task_classes", {})
     current_class = str((task_memory or {}).get("task_class") or "")
+    policy = index.get("policy", {})
 
     verified_refs: list[str] = []
     for row in index.get("records", []):
@@ -320,6 +417,19 @@ def _projection(index: Mapping[str, Any], *, current_task_id: str | None,
         ],
         "task_class_refs": list(task_classes.get(current_class, [])) if current_class else [],
         "source_refs": [source.get("path") for source in index.get("sources", [])],
+        "policy": {
+            "schema": policy.get("schema"),
+            "authority": policy.get("authority"),
+            "active_historical_steering_target": policy.get("active_historical_steering_target"),
+            "legacy_policy_active_input": policy.get("legacy_policy_active_input"),
+            "execution_inputs": policy.get("execution_inputs", {}),
+            "semantic_replacement_rule_ids": [
+                str(rule.get("rule_id"))
+                for rule in policy.get("semantic_replacements", [])
+                if isinstance(rule, Mapping)
+            ],
+            "active_authority_conflicts": policy.get("active_authority_conflicts", []),
+        },
         "full_index": "memory/compacted-memory.json",
     }
     encoded = json.dumps(projection, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
@@ -383,22 +493,28 @@ def refresh_compacted_memory(repo_root: Path, project_root: Path, runtime_root: 
     sources: list[dict[str, Any]] = []
     capabilities: dict[str, list[str]] = {}
 
-    policy_paths = {
-        repo_root / "docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md",
-        repo_root / "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md",
-        repo_root / "docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml",
-        repo_root / "docs/project-state/BIELLA_DURABLE_SOURCE_AND_SYNC_RULES.md",
-        repo_root / "ops/workstation/AGENTS.md",
-        project_root / "AGENTS.md",
+    policy_projection = build_policy_projection(repo_root, project_root)
+    active_policy_paths = {
+        repo_root / str(row["path"])
+        for row in policy_projection.get("active_sources", [])
+        if isinstance(row, Mapping)
     }
+    records.extend(_policy_projection_records(policy_projection))
+
+    policy_paths = set(active_policy_paths)
     production_path = project_root / "docs/PRODUCTION.md"
     registry_path = repo_root / "ops/workstation/provider-registry.json"
     failures_path = runtime_root / "failures.jsonl"
 
-    for path in _source_files(repo_root, project_root, runtime_root):
+    for path in _source_files(
+        repo_root, project_root, runtime_root, active_policy_paths=active_policy_paths,
+    ):
         sources.append(_source_identity(path, repo_root))
         if path in policy_paths:
-            records.extend(_policy_records(path))
+            # The semantic policy projection above is the only active policy
+            # record source.  This branch is intentionally a no-op so a raw
+            # source cannot create a second authority or duplicate records.
+            continue
         elif path == production_path:
             records.extend(_production_records(path))
         elif path == registry_path:
@@ -416,6 +532,9 @@ def refresh_compacted_memory(repo_root: Path, project_root: Path, runtime_root: 
         "repo_root": str(repo_root),
         "project_root": str(project_root),
         "sources": sorted(sources, key=lambda item: item["path"]),
+        "policy": {
+            key: value for key, value in policy_projection.items() if key != "records"
+        },
         "capabilities": capabilities,
         **merged,
     }

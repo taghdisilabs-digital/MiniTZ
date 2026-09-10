@@ -219,3 +219,79 @@ def test_bridge_contract_is_a_compacted_policy_source(tmp_path: Path):
     assert any("BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml" in item for item in source_paths)
     instructions = [index["content"][ref]["text"] for ref in index["categories"]["instruction"]]
     assert any("isolated_project_cell" in item for item in instructions)
+
+
+def test_minitz_policy_excludes_legacy_steering_but_preserves_exact_provenance(tmp_path: Path):
+    repo, project, runtime = fixture(tmp_path)
+    legacy = repo / "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md"
+    legacy_bytes = legacy.read_bytes()
+    result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
+    index = json.loads(result.index_path.read_text())
+    policy = index["policy"]
+
+    assert policy["active_historical_steering_target"] == 0
+    assert policy["legacy_policy_active_input"] is False
+    assert all(item["path"] != "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md" for item in index["sources"])
+    assert all(
+        "Use Resources." not in item["text"]
+        for item in index["content"].values()
+    )
+    legacy_rows = [
+        item for item in policy["provenance_sources"]
+        if item["path"] == "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md"
+    ]
+    assert len(legacy_rows) == 1
+    assert legacy_rows[0]["sha256"] == memory._sha(legacy_bytes)
+    assert legacy_rows[0]["active_input"] is False
+    assert legacy_rows[0]["provenance_only"] is True
+
+    replacement_ids = {item["rule_id"] for item in policy["semantic_replacements"]}
+    assert "p4-06-scoped-acceptance" in replacement_ids
+    replacement_text = " ".join(item["statement"] for item in policy["semantic_replacements"])
+    assert "current task-specific acceptance" in replacement_text
+
+
+def test_minitz_policy_has_one_candidate_projection_per_rule_and_scope(tmp_path: Path):
+    repo, project, runtime = fixture(tmp_path)
+    result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
+    policy = json.loads(result.index_path.read_text())["policy"]
+    active_keys = [
+        (item["scope_ref"], item["rule_identity"])
+        for item in policy["active_rule_index"]
+        if item["active_projection_count"] == 1
+    ]
+
+    assert active_keys
+    assert len(active_keys) == len(set(active_keys))
+    assert policy["active_authority_conflicts"] == []
+    assert policy["authority"] == "NONE_CANDIDATE_ANALYSIS"
+    assert set(policy["execution_inputs"]) == {
+        "scope://minitz/system",
+        "scope://project/projects/biella-games",
+    }
+    assert all(
+        policy["execution_inputs"][scope]["agents_policy_digest"]
+        for scope in policy["execution_inputs"]
+    )
+
+
+def test_scoped_policy_digest_changes_invalidate_only_dependent_scope(tmp_path: Path):
+    repo, project, runtime = fixture(tmp_path)
+    first = memory.build_policy_projection(repo, project)
+    first_inputs = first["execution_inputs"]
+
+    project_agents = project / "AGENTS.md"
+    project_agents.write_text(project_agents.read_text() + "\nScoped change.\n")
+    second = memory.build_policy_projection(repo, project)
+    second_inputs = second["execution_inputs"]
+
+    system_scope = "scope://minitz/system"
+    project_scope = "scope://project/projects/biella-games"
+    assert second_inputs[system_scope]["effective_policy_digest"] == first_inputs[system_scope]["effective_policy_digest"]
+    assert second_inputs[project_scope]["effective_policy_digest"] != first_inputs[project_scope]["effective_policy_digest"]
+    assert second["invalidation"]["scope_dependencies"][project_scope] == "scope-ref:" + project_scope
+
+    legacy = repo / "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md"
+    legacy.write_text(legacy.read_text() + "\nHistorical-only change.\n")
+    third = memory.build_policy_projection(repo, project)
+    assert third["execution_inputs"] == second_inputs
