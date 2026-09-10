@@ -576,6 +576,36 @@ def test_runtime_failure_does_not_cooldown_model():
     assert telemetry["last_result"]["status"] == "RUNTIME_RECOVERY"
 
 
+def test_explicit_model_unavailable_failure_refreshes_catalog_but_generic_runtime_does_not(tmp_path: Path, monkeypatch):
+    telemetry = runner.initial_runtime()
+    route = routing.Route("gpt-6-astra", "ultra")
+    detail = "provider rejected request: model unavailable"
+    runner._set_failure(telemetry, route, detail, "UNIFY-02")
+
+    assert telemetry["status"] == "RECOVERING_MODEL"
+    assert telemetry["last_result"]["status"] == "MODEL_RECOVERY"
+    assert telemetry["last_result"]["catalog_refresh_required"] is True
+    assert route.model in telemetry["cooldowns"]
+
+    discovered = []
+    monkeypatch.setattr(
+        runner,
+        "_discover_runtime_catalog",
+        lambda runtime_root: discovered.append(runtime_root) or {"gpt-5.6-luna": {"max"}},
+    )
+    refreshed = runner._refresh_catalog_after_route_failure(tmp_path, telemetry, detail)
+    assert refreshed == {"gpt-5.6-luna": {"max"}}
+    assert discovered == [tmp_path]
+    assert telemetry["last_result"]["catalog_refresh"] == {
+        "status": "REFRESHED",
+        "models": ["gpt-5.6-luna"],
+    }
+
+    generic = runner.initial_runtime()
+    assert runner._refresh_catalog_after_route_failure(tmp_path, generic, "ordinary native process failed") is None
+    assert discovered == [tmp_path]
+
+
 def test_stale_resume_schema_error_is_classified_for_session_rotation():
     assert runner._is_stale_resume_error("turn/start failed: ActiveTurnOutputSchemaMismatch (code -32603)")
     assert not runner._is_stale_resume_error("usage_limit_exceeded")

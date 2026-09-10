@@ -135,3 +135,97 @@ def test_local_qwen_fast_llm_uses_local_openai_endpoint_without_secret():
     assert result["text"] == "local result"
     assert calls[0][1] == "http://127.0.0.1:11434/v1/chat/completions"
     assert calls[0][2] == {}
+
+
+def test_fast_llm_uses_bounded_capability_equivalent_failover_with_evidence():
+    registry = resource.load_registry(REGISTRY)
+    calls = []
+
+    def transport(method, url, headers, body, timeout):
+        calls.append((method, url, headers, body, timeout))
+        if "api.groq.com" in url:
+            raise resource.ResourceError("provider unavailable", failure_code="TRANSPORT_ERROR", retryable=True)
+        return {
+            "choices": [{"message": {"content": "fallback result"}}],
+            "usage": {"total_tokens": 11},
+            "model": body["model"],
+        }
+
+    result = resource.run_fast_llm(
+        registry,
+        "bounded failover",
+        env=configured_env(),
+        provider="groq",
+        command_exists=lambda _command: False,
+        transport=transport,
+        max_failover_attempts=2,
+    )
+
+    assert result["provider"] == "cerebras"
+    assert [call[1] for call in calls] == [
+        "https://api.groq.com/openai/v1/chat/completions",
+        "https://api.cerebras.ai/v1/chat/completions",
+    ]
+    evidence = result["routing_evidence"]
+    assert evidence["authority"] == "RESOURCE_IMPLEMENTATION"
+    assert evidence["capability"] == "llm.fast"
+    assert evidence["attempt_limit"] == 2
+    assert evidence["fallback_used"] is True
+    assert evidence["attempted"] == [
+        {"provider": "groq", "model": None, "status": "FAILED", "failure_code": "TRANSPORT_ERROR"},
+        {"provider": "cerebras", "model": "qwen-3.8-27b", "status": "SUCCEEDED"},
+    ]
+    assert "groq-secret" not in json.dumps(result)
+    assert "cerebras-secret" not in json.dumps(result)
+
+
+def test_fast_llm_does_not_fan_out_for_unclassified_adapter_failure():
+    registry = resource.load_registry(REGISTRY)
+    calls = []
+
+    def transport(method, url, headers, body, timeout):
+        calls.append(url)
+        raise resource.ResourceError("adapter invariant failed")
+
+    try:
+        resource.run_fast_llm(
+            registry,
+            "no retry",
+            env=configured_env(),
+            provider="groq",
+            transport=transport,
+            max_failover_attempts=3,
+        )
+    except resource.ResourceError as exc:
+        assert exc.failure_code == "ROUTE_EXHAUSTED"
+        assert len(exc.evidence["attempted"]) == 1
+    else:
+        raise AssertionError("expected bounded route failure")
+    assert calls == ["https://api.groq.com/openai/v1/chat/completions"]
+
+
+def test_fast_llm_respects_explicit_non_retryable_resource_failure():
+    registry = resource.load_registry(REGISTRY)
+    calls = []
+
+    def transport(method, url, headers, body, timeout):
+        calls.append(url)
+        raise resource.ResourceError("provider unavailable", failure_code="AUTHORIZATION", retryable=False)
+
+    try:
+        resource.run_fast_llm(
+            registry,
+            "no auth retry",
+            env=configured_env(),
+            provider="groq",
+            transport=transport,
+            max_failover_attempts=3,
+        )
+    except resource.ResourceError as exc:
+        assert exc.failure_code == "ROUTE_EXHAUSTED"
+        assert exc.evidence["attempted"] == [
+            {"provider": "groq", "model": None, "status": "FAILED", "failure_code": "AUTHORIZATION"},
+        ]
+    else:
+        raise AssertionError("expected bounded route failure")
+    assert calls == ["https://api.groq.com/openai/v1/chat/completions"]

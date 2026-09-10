@@ -370,9 +370,11 @@ class RoutingCalibration:
 class RoutingLearningService:
     """Ranks P1-eligible candidates; it never admits, schedules, or executes a route."""
 
-    def __init__(self, database_path: str | Path) -> None:
+    def __init__(self, database_path: str | Path, *, routing_service: RoutingService | None = None) -> None:
         self.database_path = Path(database_path).resolve()
-        self.routing = RoutingService(database_path)
+        if routing_service is not None and routing_service.database_path != self.database_path:
+            raise RoutingLearningError("RoutingLearningService and RoutingService must share one database scope")
+        self.routing = routing_service or RoutingService(self.database_path)
         connection = sqlite3.connect(self.database_path)
         try:
             connection.executescript(

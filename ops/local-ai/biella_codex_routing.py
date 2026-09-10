@@ -180,6 +180,17 @@ def select_route(task_class: str, catalog: Mapping[str, set[str]], cooldowns: Ma
 _LIMIT_RE = re.compile(r"(?:usage_limit_exceeded|rate_limit_exceeded|usage limit|rate limit)", re.I)
 _ACCOUNT_USAGE_RE = re.compile(r"(?:you(?:'|’)?ve hit your usage limit|chatgpt\.com/codex/settings/usage)", re.I)
 _LOCAL_COMPAT_RE = re.compile(r"(?:does not support thinking|failed to decode models response.*missing field [`']?models)", re.I | re.S)
+_MODEL_UNAVAILABLE_RE = re.compile(
+    r"(?:model[_ -]?(?:unavailable|not[_ -]?found|not[_ -]?available|does[_ -]?not[_ -]?exist)"
+    r"|(?:unknown|invalid)\s+model|no\s+such\s+model|model\s+is\s+(?:unavailable|not\s+available|unknown)"
+    r"|model\s+[^\n]{0,160}\b(?:not\s+found|not\s+available|does\s+not\s+exist)\b)",
+    re.I,
+)
+_CATALOG_STALE_RE = re.compile(
+    r"(?:(?:model\s+)?catalog|model\s+(?:list|inventory))[^\n]{0,160}\b(?:stale|outdated|invalid|refresh|missing|does\s+not\s+contain)\b"
+    r"|\b(?:missing|absent|not\s+in|not\s+listed)\b[^\n]{0,120}\b(?:model\s+)?(?:catalog|model\s+(?:list|inventory))\b",
+    re.I,
+)
 _RETRY_RE = re.compile(r"(?:try again at|retry at|available at)\s+([A-Za-z]{3}\s+\d{1,2}(?:st|nd|rd|th)?,\s+\d{4}\s+\d{1,2}:\d{2}\s+[AP]M(?:\s+UTC)?)", re.I)
 
 
@@ -193,6 +204,21 @@ def is_account_usage_limit_error(text: str) -> bool:
 
 def is_local_provider_compatibility_error(text: str) -> bool:
     return bool(_LOCAL_COMPAT_RE.search(text))
+
+
+def is_model_unavailable_error(text: str) -> bool:
+    """Recognize an explicit model-availability failure, not a generic runtime error."""
+    return bool(_MODEL_UNAVAILABLE_RE.search(str(text or "")))
+
+
+def is_catalog_stale_error(text: str) -> bool:
+    """Recognize evidence that the observed model catalog no longer matches a provider."""
+    return bool(_CATALOG_STALE_RE.search(str(text or "")))
+
+
+def requires_catalog_refresh(text: str) -> bool:
+    """Return whether this failure invalidates the affected model/catalog route."""
+    return is_model_unavailable_error(text) or is_catalog_stale_error(text)
 
 
 def limit_retry_at(text: str, observed_at: datetime) -> datetime:

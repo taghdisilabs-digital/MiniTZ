@@ -1222,7 +1222,8 @@ def _set_failure(telemetry: dict[str, Any], route: routing.Route, detail: str, t
     observed = datetime.now(timezone.utc)
     limited = routing.is_limit_error(detail)
     local_compat = route.provider == "ollama" and routing.is_local_provider_compatibility_error(detail)
-    model_recovery = limited or local_compat
+    catalog_refresh = routing.requires_catalog_refresh(detail)
+    model_recovery = limited or local_compat or catalog_refresh
     result = {
         "task_id": task_id,
         "status": "MODEL_RECOVERY" if model_recovery else "RUNTIME_RECOVERY",
@@ -1243,6 +1244,12 @@ def _set_failure(telemetry: dict[str, Any], route: routing.Route, detail: str, t
         retry_at = observed + timedelta(seconds=60)
         telemetry.setdefault("cooldowns", {})[route.model] = retry_at.isoformat()
         result["retry_at"] = retry_at.isoformat()
+        telemetry["status"] = "RECOVERING_MODEL"
+    elif catalog_refresh:
+        retry_at = observed + timedelta(seconds=60)
+        telemetry.setdefault("cooldowns", {})[route.model] = retry_at.isoformat()
+        result["retry_at"] = retry_at.isoformat()
+        result["catalog_refresh_required"] = True
         telemetry["status"] = "RECOVERING_MODEL"
     else:
         # Runtime/session/tooling failure is not evidence that the model is unavailable.
@@ -1381,6 +1388,33 @@ def _discover_runtime_catalog(runtime_root: Path) -> dict[str, set[str]]:
     )
 
 
+def _refresh_catalog_after_route_failure(
+    runtime_root: Path,
+    telemetry: dict[str, Any],
+    detail: str,
+) -> dict[str, set[str]] | None:
+    """Refresh only for an explicit model/catalog invalidation signal."""
+    if not routing.requires_catalog_refresh(detail):
+        return None
+    try:
+        catalog = _discover_runtime_catalog(runtime_root)
+    except Exception as exc:  # pragma: no cover - discovery implementations vary by host
+        result = telemetry.setdefault("last_result", {})
+        if isinstance(result, dict):
+            result["catalog_refresh"] = {
+                "status": "FAILED",
+                "error": f"{type(exc).__name__}: {str(exc)[:500]}",
+            }
+        return None
+    result = telemetry.setdefault("last_result", {})
+    if isinstance(result, dict):
+        result["catalog_refresh"] = {
+            "status": "REFRESHED",
+            "models": sorted(catalog),
+        }
+    return catalog
+
+
 def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, heartbeat_interval: float = 30.0) -> int:
     repo_root = Path(repo_root); project_root = Path(project_root); runtime_root = Path(runtime_root)
     runtime_root.mkdir(parents=True, exist_ok=True)
@@ -1462,7 +1496,11 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"PLAN-{section.id}-{route.model}")
                 rc, error_text = invoke_structured(packets.compile_section_packet(production, section, audit=bool(section.tasks)), route, section_schema_path, output, stdout, stderr, runtime_path, telemetry, heartbeat_interval=heartbeat_interval, cwd=project_root, session_task_id=f"PLAN:{section.id}", event_journal=journal)
                 if rc != 0:
-                    _set_failure(telemetry, route, error_text, f"PLAN:{section.id}"); _beat(runtime_path, telemetry); continue
+                    _set_failure(telemetry, route, error_text, f"PLAN:{section.id}")
+                    refreshed_catalog = _refresh_catalog_after_route_failure(runtime_root, telemetry, error_text)
+                    if refreshed_catalog is not None:
+                        catalog = refreshed_catalog
+                    _beat(runtime_path, telemetry); continue
                 if not _guard_source_alignment(repo_root, runtime_path, telemetry, journal, task_id=f"PLAN:{section.id}"):
                     return SOURCE_REFRESH_EXIT
                 try:
@@ -1564,6 +1602,9 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     _beat(runtime_path, telemetry)
                     continue
                 _set_failure(telemetry, route, error_text, task.id)
+                refreshed_catalog = _refresh_catalog_after_route_failure(runtime_root, telemetry, error_text)
+                if refreshed_catalog is not None:
+                    catalog = refreshed_catalog
                 journal.emit("task.runtime_recovery", task_id=task.id, status=telemetry.get("status"), text=error_text[-1200:])
                 _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
                 _beat(runtime_path, telemetry); continue

@@ -131,6 +131,14 @@ def test_local_provider_compatibility_error_parser_is_bounded_to_local_protocol_
     assert not routing.is_local_provider_compatibility_error("ordinary native process failed")
 
 
+def test_model_availability_and_stale_catalog_signals_are_distinct_from_runtime_errors():
+    assert routing.is_model_unavailable_error("provider says model unavailable")
+    assert routing.is_model_unavailable_error("model qwen3-coder-next:biella not found")
+    assert routing.is_catalog_stale_error("model catalog is stale and must refresh")
+    assert routing.requires_catalog_refresh("the model catalog does not contain this revision")
+    assert not routing.requires_catalog_refresh("ordinary native process failed")
+
+
 def test_account_usage_retry_parser_accepts_ordinal_provider_date():
     observed = datetime(2026, 9, 6, 23, 40, tzinfo=timezone.utc)
     retry = routing.limit_retry_at(
