@@ -86,6 +86,7 @@ def test_invalid_commander_output_keeps_raw_evidence_and_failure_link(
 ) -> None:
     repo, project, runtime, capsule, projection, task = _fixture(tmp_path)
     monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ("groq",))
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
     monkeypatch.setattr(runner.commander, "build_resource_command", lambda provider, **_k: ["commander", provider])
     envelope = json.dumps({"provider": "groq", "model": "qwen", "text": "not-json"})
 
