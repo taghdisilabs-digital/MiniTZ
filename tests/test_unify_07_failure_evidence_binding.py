@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import sqlite3
 from pathlib import Path
+from typing import Any
 
 import pytest
+from _pytest.monkeypatch import MonkeyPatch
 
 from biella.failure_repair_learning import (
     FailureLearningContractError,
@@ -12,8 +14,13 @@ from biella.failure_repair_learning import (
 from biella.project import ProjectRef
 
 
-def _failure(project: ProjectRef | None, *, evidence_ref: str = "journal-evidence://sha256/" + "a" * 64, classification: str = "PROCESS_FAILED"):
-    provenance = {
+def _failure(
+    project: ProjectRef | None,
+    *,
+    evidence_ref: str = "journal-evidence://sha256/" + "a" * 64,
+    classification: str = "PROCESS_FAILED",
+) -> dict[str, object]:
+    provenance: dict[str, str] = {
         "task_id": "UNIFY-07",
         "run_id": "run-42",
         "attempt_id": "attempt-1822",
@@ -96,12 +103,11 @@ def test_conflicting_reuse_of_exact_failure_identity_is_rejected(tmp_path: Path)
         service.record_unified_failure_evidence(_failure(project, classification="VALIDATION_REJECTED"))
 
 
-def test_live_failure_projection_feeds_learning_nonblocking(tmp_path: Path, monkeypatch) -> None:
-    import sys
+def test_live_failure_projection_feeds_learning_nonblocking(tmp_path: Path, monkeypatch: MonkeyPatch) -> None:
     ops = Path(__file__).parents[1] / "ops" / "local-ai"
     monkeypatch.syspath_prepend(str(ops))
-    import biella_memory_compactor as memory_compactor
-    import biella_production_events as production_events
+    import biella_memory_compactor as memory_compactor  # type: ignore[import-not-found]
+    import biella_production_events as production_events  # type: ignore[import-not-found]
 
     runtime = tmp_path / "runtime"
     runtime.mkdir()
@@ -132,7 +138,7 @@ def test_live_failure_projection_feeds_learning_nonblocking(tmp_path: Path, monk
         assert connection.execute("SELECT COUNT(*) FROM failure_observations").fetchone()[0] == 1
 
 
-def test_live_failure_learning_unavailable_scope_and_bad_rows_do_not_block(tmp_path: Path, monkeypatch) -> None:
+def test_live_failure_learning_unavailable_scope_and_bad_rows_do_not_block(tmp_path: Path, monkeypatch: MonkeyPatch) -> None:
     ops = Path(__file__).parents[1] / "ops" / "local-ai"
     monkeypatch.syspath_prepend(str(ops))
     import biella_memory_compactor as memory_compactor

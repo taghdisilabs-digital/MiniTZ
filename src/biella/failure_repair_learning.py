@@ -771,8 +771,14 @@ class FailureLearningService:
         if payload.get("artifact_refs") or payload.get("resource_snapshot_refs"):
             raise FailureLearningIntegrityError("unified failure binding unexpectedly contains typed artifact/resource refs")
         environment = payload.get("environment_summary")
+        raw_evidence_refs = payload.get("raw_evidence_refs", ())
+        source_refs = payload.get("source_refs", ())
         if not isinstance(environment, Mapping):
             raise FailureLearningIntegrityError("unified failure binding environment is malformed")
+        if not isinstance(raw_evidence_refs, Sequence) or isinstance(raw_evidence_refs, (str, bytes, bytearray)):
+            raise FailureLearningIntegrityError("unified failure binding raw evidence refs are malformed")
+        if not isinstance(source_refs, Sequence) or isinstance(source_refs, (str, bytes, bytearray)):
+            raise FailureLearningIntegrityError("unified failure binding source refs are malformed")
         return FailureObservation(
             observation_ref=str(payload["observation_ref"]),
             project_ref=ProjectRef(str(payload["project_ref"])),
@@ -785,8 +791,8 @@ class FailureLearningService:
             runtime_ref=str(payload["runtime_ref"]),
             failure_category=str(payload["failure_category"]),
             error_code=None if payload.get("error_code") is None else str(payload["error_code"]),
-            raw_evidence_refs=tuple(str(item) for item in payload.get("raw_evidence_refs", ())),
-            source_refs=tuple(str(item) for item in payload.get("source_refs", ())),
+            raw_evidence_refs=tuple(str(item) for item in raw_evidence_refs),
+            source_refs=tuple(str(item) for item in source_refs),
             artifact_refs=(),
             resource_snapshot_refs=(),
             environment_summary=MappingProxyType({str(k): str(v) for k, v in environment.items()}),
@@ -816,7 +822,10 @@ class FailureLearningService:
         if _ABSOLUTE_REF.fullmatch(evidence_ref) is None:
             raise FailureLearningContractError("unified failure evidence requires an exact evidence reference")
         classification = _key(projection.get("failure_classification"), "failure classification")
-        recorded_at = _timestamp(projection.get("recorded_at"), "failure recorded_at")
+        recorded_at_value = projection.get("recorded_at")
+        if not isinstance(recorded_at_value, str):
+            raise FailureLearningContractError("failure recorded_at is malformed")
+        recorded_at = _timestamp(recorded_at_value, "failure recorded_at")
         raw_provenance = projection.get("provenance")
         if not isinstance(raw_provenance, Mapping):
             raise FailureLearningContractError("unified failure provenance is malformed")
