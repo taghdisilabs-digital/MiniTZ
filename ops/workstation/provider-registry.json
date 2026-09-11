@@ -326,6 +326,21 @@
       "required_env": [
         "UPSTASH_API_KEY"
       ]
+    },
+    "windows-browser-cloud": {
+      "authority": "RESOURCE_IMPLEMENTATION",
+      "capabilities": [
+        "browser.actions",
+        "hosting.cpanel"
+      ],
+      "command": "minitz-browser-cloud",
+      "cost_class": "owned_remote_compute",
+      "display_name": "MiniTZ Windows authenticated browser cloud",
+      "instructions": "ops/workstation/WINDOWS_BROWSER_CLOUD.md",
+      "locator_env": [],
+      "required_env": [],
+      "scope": "AUTHENTICATED_BROWSER_RESOURCE_ONLY",
+      "target_manifest": "ops/workstation/windows-browser-cloud-targets.json"
     }
   },
   "routes": {
@@ -337,6 +352,9 @@
       "deepgram",
       "assemblyai",
       "groq"
+    ],
+    "browser.actions": [
+      "windows-browser-cloud"
     ],
     "cache.ephemeral": [
       "upstash"
@@ -351,6 +369,9 @@
     "database.sql": [
       "neon",
       "supabase"
+    ],
+    "hosting.cpanel": [
+      "windows-browser-cloud"
     ],
     "image.generate": [
       "stabilityai",
