@@ -11,7 +11,7 @@ import subprocess
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
 
 PROTECTED_SERVICES = (
     "biella-ollama.service",
@@ -21,6 +21,17 @@ PROTECTED_SERVICES = (
 HANDOFF_OWNER_ID = "customer-handoff"
 PAUSED_FOR_CUSTOMER = "PAUSED_FOR_CUSTOMER"
 STOP_ORDER = tuple(reversed(PROTECTED_SERVICES))
+MINITZ_TASK_PROGRAM_PATH = Path("/root/biella/analysis/live_audit/TASK_PROGRAM.json")
+_SHA256 = re.compile(r"[0-9a-f]{64}\Z")
+_CREDENTIAL_FIELD = re.compile(
+    r"(?:api[_-]?key|password|passwd|login[_-]?token|refresh[_-]?token|access[_-]?token|"
+    r"auth(?:entication)?[_-]?secret|private[_-]?key|credential(?:s)?)\Z",
+    re.IGNORECASE,
+)
+_OBVIOUS_SECRET = re.compile(
+    r"(?:\bbearer\s+[A-Za-z0-9._~+/=-]{16,}|\b(?:sk|ghp|github_pat|xox[baprs]-)[A-Za-z0-9._-]{12,})",
+    re.IGNORECASE,
+)
 
 
 class HandoffError(RuntimeError):
@@ -35,6 +46,79 @@ def _sha256(path: Path) -> str | None:
     if not Path(path).is_file():
         return None
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def _canonical_digest(value: object) -> str:
+    encoded = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def _assert_credential_free(value: object, *, _field: str | None = None) -> None:
+    """Reject raw authentication material while permitting refs and digests."""
+    if isinstance(value, dict):
+        for key, child in value.items():
+            key_text = str(key)
+            if _CREDENTIAL_FIELD.fullmatch(key_text) and not key_text.lower().endswith(("_ref", "_refs", "_sha256")):
+                if child not in (None, "", "UNKNOWN", "NONE"):
+                    raise HandoffError("checkpoint contains a raw credential field")
+            _assert_credential_free(child, _field=key_text)
+        return
+    if isinstance(value, (list, tuple)):
+        for child in value:
+            _assert_credential_free(child, _field=_field)
+        return
+    if isinstance(value, str) and _OBVIOUS_SECRET.search(value):
+        raise HandoffError("checkpoint contains raw authentication material")
+
+
+def _minitz_program_identity(task_id: str | None) -> dict[str, Any] | None:
+    """Read the live MiniTZ program without copying task content into a checkpoint."""
+    if not task_id:
+        return None
+    configured = os.environ.get("MINITZ_TASK_PROGRAM_PATH")
+    program_path = Path(configured).expanduser().resolve() if configured else MINITZ_TASK_PROGRAM_PATH
+    if not program_path.is_file():
+        if configured:
+            raise HandoffError("MiniTZ Task Program is missing")
+        return None
+    try:
+        program = json.loads(program_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        if configured or task_id.startswith(("UNIFY-", "SEMANTIC-", "OS-", "OWNER-", "DATA-", "BOOST-")):
+            raise HandoffError("MiniTZ Task Program cannot be read") from exc
+        return None
+    if not isinstance(program, dict):
+        raise HandoffError("MiniTZ Task Program is not an object")
+    tasks = program.get("tasks")
+    if not isinstance(tasks, list):
+        raise HandoffError("MiniTZ Task Program tasks are invalid")
+    row = next((item for item in tasks if isinstance(item, dict) and item.get("task_id") == task_id), None)
+    if row is None:
+        return None
+    if program.get("schema") != "minitz.living_task_program/v1" or program.get("program_id") != "MINITZ_REBORN_SINGLE_TASK_PROGRAM":
+        raise HandoffError("MiniTZ Task Program authority is invalid")
+    task_digest = _canonical_digest({key: value for key, value in row.items() if key != "task_record_sha256"})
+    if row.get("task_record_sha256") != task_digest:
+        raise HandoffError("MiniTZ task digest is invalid")
+    execution = program.get("current_execution")
+    if (
+        not isinstance(execution, dict)
+        or execution.get("task_id") != task_id
+        or execution.get("task_revision") != row.get("revision")
+        or execution.get("task_sha256") != task_digest
+    ):
+        raise HandoffError("MiniTZ current task identity is stale")
+    return {
+        "authority_path": str(program_path),
+        "program_id": str(program["program_id"]),
+        "program_revision": int(program["revision"]),
+        "program_sha256": _sha256(program_path),
+        "task_id": task_id,
+        "task_revision": int(row["revision"]),
+        "task_digest": task_digest,
+        "scope_ref": f"task://minitz/{task_id}/{int(row['revision'])}",
+        "progression_authority": "MINITZ_TASK_PROGRAM_ONLY",
+    }
 
 
 def _safe_resolved_path(value: object, *, base: Path) -> Path | None:
@@ -284,19 +368,128 @@ class BiellaCustomerHandoff:
             return subprocess.check_output(["git", "-C", str(self.repo_root), *args], text=True).strip()
         return {"branch": git("branch", "--show-current"), "head": git("rev-parse", "HEAD"), "tree": git("rev-parse", "HEAD^{tree}")}
 
-    def _runtime_identity(self) -> tuple[str | None, dict[str, str | None]]:
+    def _runtime_identity(self) -> tuple[str | None, dict[str, Any]]:
         runtime_path = self.runtime_root / "runtime.json"
-        runtime: dict[str, Any] = {}
-        if runtime_path.is_file():
-            runtime = json.loads(runtime_path.read_text(encoding="utf-8"))
+        runtime = _load_runtime(runtime_path)
         task_id = str(runtime.get("task_id") or "") or None
         task_memory = self.runtime_root / "task-memory" / f"{task_id}.json" if task_id else Path("/")
         projection = self.runtime_root / "memory/current-task.json"
-        return task_id, {
+        memory = _load_task_memory(task_memory) if task_id else {}
+        if task_id and memory.get("task_id") not in (None, task_id):
+            raise HandoffError("MiniTZ task memory belongs to another task")
+        runtime_session = str(runtime.get("task_session_id") or runtime.get("session_id") or "") or None
+        memory_session = str(memory.get("session_id") or "") or None
+        if runtime_session and memory_session and runtime_session != memory_session:
+            raise HandoffError("MiniTZ task/session identity is inconsistent")
+        session_id = runtime_session or memory_session
+        task_identity = _minitz_program_identity(task_id)
+        declared_identity = memory.get("task_identity") or memory.get("task_authority")
+        if task_identity is not None and isinstance(declared_identity, dict):
+            if declared_identity.get("task_id") not in (None, task_id):
+                raise HandoffError("MiniTZ task memory identity belongs to another task")
+            if declared_identity.get("task_revision") not in (None, task_identity["task_revision"]):
+                raise HandoffError("MiniTZ task memory revision is stale")
+            if declared_identity.get("task_digest") not in (None, task_identity["task_digest"]):
+                raise HandoffError("MiniTZ task memory digest is stale")
+        identity: dict[str, Any] = {
             "runtime_sha256": _sha256(runtime_path),
             "task_memory_sha256": _sha256(task_memory) if task_id else None,
             "projection_sha256": _sha256(projection),
         }
+        if task_identity is not None:
+            identity["task_identity"] = task_identity
+        identity["session_identity"] = {
+            "task_id": task_id,
+            "session_id": session_id,
+            "session_sha256": hashlib.sha256(session_id.encode("utf-8")).hexdigest() if session_id else None,
+        }
+        return task_id, identity
+
+    def _owner_lifecycle(self, task_identity: Mapping[str, Any] | None) -> dict[str, Any] | None:
+        if not isinstance(task_identity, dict):
+            return None
+        wake_path = self.runtime_root / "recovery/owner-os-wake-current.json"
+        wake = _load_runtime(wake_path)
+        expected = {
+            "current_task_id": task_identity.get("task_id"),
+            "current_task_revision": task_identity.get("task_revision"),
+            "current_task_sha256": task_identity.get("task_digest"),
+            "program_revision": task_identity.get("program_revision"),
+            "program_sha256": task_identity.get("program_sha256"),
+        }
+        if (
+            wake.get("schema") == "minitz.owner_wake_receipt/v1"
+            and all(wake.get(key) == value for key, value in expected.items())
+            and wake.get("host_power_change_authorized") is False
+            and wake.get("control_gateway_authorized") is False
+        ):
+            return {
+                "state": "EXPLICIT_OWNER_WAKE_ACTIVE",
+                "receipt_ref": str(wake_path),
+                "receipt_sha256": _sha256(wake_path),
+                "owner_instruction": str(wake.get("owner_instruction") or ""),
+            }
+        return {
+            "state": "OWNER_SLEEP",
+            "receipt_ref": str(wake_path),
+            "receipt_sha256": _sha256(wake_path),
+            "reason": "explicit_owner_wake_receipt_missing_or_stale",
+        }
+
+    @staticmethod
+    def _validate_checkpoint_envelope(checkpoint: dict[str, Any]) -> None:
+        _assert_credential_free(checkpoint)
+        if checkpoint.get("schema") != "biella.customer_handoff_checkpoint/v1":
+            raise HandoffError("checkpoint schema is invalid")
+        owner_id = checkpoint.get("owner_id")
+        if owner_id is not None and owner_id != HANDOFF_OWNER_ID:
+            raise HandoffError("checkpoint owner is foreign")
+        task_id = checkpoint.get("task_id")
+        task_identity = checkpoint.get("task_identity")
+        if task_identity is not None and owner_id != HANDOFF_OWNER_ID:
+            raise HandoffError("MiniTZ checkpoint owner is missing or foreign")
+        if task_identity is not None:
+            if not isinstance(task_identity, dict) or task_identity.get("task_id") != task_id:
+                raise HandoffError("checkpoint task identity is invalid")
+            runtime = checkpoint.get("runtime")
+            if not isinstance(runtime, dict) or runtime.get("task_identity") != task_identity:
+                raise HandoffError("checkpoint task identity is not bound to runtime identity")
+            for key in ("task_digest", "program_sha256"):
+                if not isinstance(task_identity.get(key), str) or _SHA256.fullmatch(task_identity[key]) is None:
+                    raise HandoffError("checkpoint task identity digest is invalid")
+            for key in ("task_revision", "program_revision"):
+                if isinstance(task_identity.get(key), bool) or not isinstance(task_identity.get(key), int) or task_identity[key] < 1:
+                    raise HandoffError("checkpoint task identity revision is invalid")
+            if task_identity.get("progression_authority") != "MINITZ_TASK_PROGRAM_ONLY":
+                raise HandoffError("checkpoint task progression authority is invalid")
+        session_identity = checkpoint.get("session_identity")
+        if session_identity is not None:
+            if not isinstance(session_identity, dict) or session_identity.get("task_id") != task_id:
+                raise HandoffError("checkpoint session identity is invalid")
+            session_id = session_identity.get("session_id")
+            if session_id is not None and (not isinstance(session_id, str) or len(session_id) > 256 or "\x00" in session_id):
+                raise HandoffError("checkpoint session identity is invalid")
+            session_sha = session_identity.get("session_sha256")
+            if session_sha is not None and (not isinstance(session_sha, str) or _SHA256.fullmatch(session_sha) is None):
+                raise HandoffError("checkpoint session identity digest is invalid")
+            if session_id is None and session_sha is not None:
+                raise HandoffError("checkpoint session identity digest is invalid")
+            if session_id is not None and session_sha != hashlib.sha256(session_id.encode("utf-8")).hexdigest():
+                raise HandoffError("checkpoint session identity digest does not match session")
+            runtime = checkpoint.get("runtime")
+            if not isinstance(runtime, dict) or runtime.get("session_identity") != session_identity:
+                raise HandoffError("checkpoint session identity is not bound to runtime identity")
+        owner_lifecycle = checkpoint.get("owner_lifecycle")
+        if owner_lifecycle is not None:
+            if not isinstance(owner_lifecycle, dict) or owner_lifecycle.get("state") not in {"EXPLICIT_OWNER_WAKE_ACTIVE", "OWNER_SLEEP"}:
+                raise HandoffError("checkpoint owner lifecycle is invalid")
+
+    def _worktree_identity(self, workspace_fingerprint: str, task_scope: dict[str, Any] | None) -> dict[str, Any]:
+        identity = self._git_identity()
+        identity["workspace_fingerprint"] = workspace_fingerprint
+        if task_scope is not None:
+            identity["task_owned_overlap_fingerprint"] = task_scope["fingerprint"]
+        return identity
     def cooperative_pause(self, timeout_seconds: float = 3600.0) -> None:
         _atomic_json(self.pause_request_path, {
             "schema": "biella.customer_pause_request/v1",
@@ -314,8 +507,19 @@ class BiellaCustomerHandoff:
         raise HandoffError("production did not reach a cooperative customer checkpoint before timeout")
 
     def _assert_workspace_compatible(self, checkpoint: dict[str, Any]) -> None:
+        self._validate_checkpoint_envelope(checkpoint)
+        worktree = checkpoint.get("worktree_identity")
+        if isinstance(worktree, dict):
+            try:
+                current_worktree = self._git_identity()
+            except (OSError, subprocess.SubprocessError) as exc:
+                raise HandoffError("current worktree identity is unavailable") from exc
+            if worktree.get("branch") != current_worktree.get("branch"):
+                raise HandoffError("MiniTZ worktree branch changed while customer checkpoint was held")
         task_scope = checkpoint.get("task_scope")
         if isinstance(task_scope, dict):
+            if task_scope.get("task_id") != checkpoint.get("task_id"):
+                raise HandoffError("task-owned checkpoint scope belongs to another task")
             owned = task_scope.get("owned_files")
             if not isinstance(owned, dict) or not owned:
                 raise HandoffError("task-owned checkpoint scope is invalid")
@@ -329,8 +533,11 @@ class BiellaCustomerHandoff:
                 candidate = _safe_task_owned_path(self.repo_root, raw_path)
                 if candidate is None:
                     raise HandoffError("task-owned checkpoint scope path is invalid")
-                if _path_identity(candidate) != expected:
-                    changed.append(raw_path)
+                actual = _path_identity(candidate)
+                if actual != expected:
+                    changed.append(
+                        f"{raw_path} (expected={expected or 'MISSING'}, observed={actual or 'MISSING'})"
+                    )
             if changed:
                 sample = ", ".join(changed[:5])
                 raise HandoffError(f"task-owned checkpoint overlap changed while checkpoint was held: {sample}")
@@ -342,7 +549,12 @@ class BiellaCustomerHandoff:
 
     def checkpoint(self) -> dict[str, Any]:
         if self.active_checkpoint_path.is_file():
-            current = json.loads(self.active_checkpoint_path.read_text(encoding="utf-8"))
+            try:
+                current = json.loads(self.active_checkpoint_path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError) as exc:
+                raise HandoffError("active checkpoint is invalid") from exc
+            if not isinstance(current, dict):
+                raise HandoffError("active checkpoint is invalid")
             self._assert_workspace_compatible(current)
             self.sleep_services()
             return current
@@ -353,17 +565,30 @@ class BiellaCustomerHandoff:
         task_memory_path = self.runtime_root / "task-memory" / f"{task_id}.json" if task_id else Path("/")
         task_memory = _load_task_memory(task_memory_path) if task_id else {}
         task_scope = _task_owned_scope(self.repo_root, task_id, task_memory)
+        workspace_fingerprint = dirty_workspace_fingerprint(self.repo_root)
+        task_identity = runtime_identity.get("task_identity")
+        session_identity = runtime_identity.get("session_identity")
         checkpoint = {
             "schema": "biella.customer_handoff_checkpoint/v1",
             "created_at": _now(),
             "repo": self._git_identity(),
             "task_id": task_id,
             "runtime": runtime_identity,
-            "workspace_fingerprint": dirty_workspace_fingerprint(self.repo_root),
+            "workspace_fingerprint": workspace_fingerprint,
             "services": original_services,
+            "owner_id": HANDOFF_OWNER_ID,
+            "worktree_identity": self._worktree_identity(workspace_fingerprint, task_scope),
         }
+        if task_identity is not None:
+            checkpoint["task_identity"] = task_identity
+        if session_identity is not None:
+            checkpoint["session_identity"] = session_identity
+        owner_lifecycle = self._owner_lifecycle(task_identity)
+        if owner_lifecycle is not None:
+            checkpoint["owner_lifecycle"] = owner_lifecycle
         if task_scope is not None:
             checkpoint["task_scope"] = task_scope
+        _assert_credential_free(checkpoint)
         self.last_resume_path.unlink(missing_ok=True)
         _atomic_json(self.active_checkpoint_path, checkpoint)
         self.sleep_services()
@@ -384,14 +609,35 @@ class BiellaCustomerHandoff:
         if receipt.get("status") == "RESTORED" and receipt.get("checkpoint_sha256") == checkpoint_digest:
             self.active_checkpoint_path.unlink(missing_ok=True)
             return {**receipt, "status": "RESTORED_ALREADY"}
-        if self.running_customer_count() != 0:
-            raise HandoffError("cannot resume Biella while a customer container is still running")
-        checkpoint = json.loads(self.active_checkpoint_path.read_text(encoding="utf-8"))
+        try:
+            checkpoint = json.loads(self.active_checkpoint_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise HandoffError("active checkpoint is invalid") from exc
+        if not isinstance(checkpoint, dict):
+            raise HandoffError("active checkpoint is invalid")
+        self._validate_checkpoint_envelope(checkpoint)
         self._assert_workspace_compatible(checkpoint)
         current_task, current_runtime = self._runtime_identity()
         expected_runtime = checkpoint.get("runtime")
         if current_task != checkpoint.get("task_id") or not isinstance(expected_runtime, dict) or current_runtime != expected_runtime:
             raise HandoffError("Biella runtime continuity changed while customer checkpoint was held")
+        task_identity = current_runtime.get("task_identity")
+        current_owner_lifecycle = self._owner_lifecycle(task_identity)
+        if isinstance(task_identity, dict) and (
+            not isinstance(current_owner_lifecycle, dict)
+            or current_owner_lifecycle.get("state") != "EXPLICIT_OWNER_WAKE_ACTIVE"
+        ):
+            return {
+                "status": "OWNER_SLEEP_PRESERVED",
+                "checkpoint_sha256": checkpoint_digest,
+                "task_id": current_task,
+                "task_identity": task_identity,
+                "owner_id": checkpoint.get("owner_id"),
+                "owner_lifecycle": current_owner_lifecycle,
+                "reason": "explicit_owner_resume_is_required_before_service_restore",
+            }
+        if self.running_customer_count() != 0:
+            raise HandoffError("cannot resume Biella while a customer container is still running")
         self.verify_source_alignment()
         self._assert_workspace_compatible(checkpoint)
         services = checkpoint.get("services")

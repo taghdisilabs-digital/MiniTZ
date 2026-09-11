@@ -406,6 +406,90 @@ def _task_working_directory(repo_root: Path, project_root: Path, task_id: str) -
     return execution_map.task_working_directory(repo_root, project_root, task_id)
 
 
+def _minitz_capsule_continuity(repo_root: Path, runtime_root: Path, task: state.TaskRecord) -> dict[str, Any]:
+    """Capture bounded current identity for a MiniTZ task-memory capsule.
+
+    The capsule is a recovery projection, not a progression authority.  It records
+    only digests and identity metadata so a fresh provider session can re-bootstrap
+    from the live Task Program, OS policy, and durable task memory.
+    """
+    authority = packets._task_authority(task)
+    if authority is None:
+        return {}
+    program = minitz.load()
+    row = minitz.task_by_id(program, task.id)
+    if (
+        int(row.get("revision", 0)) != int(authority["task_revision"])
+        or str(row.get("task_record_sha256") or "") != str(authority["task_digest"])
+    ):
+        raise ValueError("MiniTZ task capsule identity is stale")
+    program_identity = minitz.program_identity(program)
+
+    def git_value(*args: str) -> str:
+        result = subprocess.run(
+            ["git", "-C", str(Path(repo_root).resolve()), *args],
+            text=True, capture_output=True, check=False,
+        )
+        if result.returncode != 0 or not result.stdout.strip():
+            raise RuntimeError("MiniTZ task capsule worktree identity is unavailable")
+        return result.stdout.strip()
+
+    try:
+        worktree_identity = {
+            "branch": git_value("branch", "--show-current"),
+            "head": git_value("rev-parse", "HEAD"),
+            "tree": git_value("rev-parse", "HEAD^{tree}"),
+            "workspace_fingerprint": _task_workspace_fingerprint(repo_root, repo_root),
+        }
+    except RuntimeError:
+        # Legacy/unit-test fixtures may be plain directories.  Preserve the
+        # exact MiniTZ task/session authority while omitting this optional
+        # worktree representation; the canonical MiniTZ repository is a Git
+        # worktree and records it there.
+        worktree_identity = None
+
+    wake_path = Path(runtime_root) / "recovery" / "owner-os-wake-current.json"
+    owner_lifecycle: dict[str, Any] = {
+        "state": "OWNER_SLEEP",
+        "receipt_ref": str(wake_path),
+        "receipt_sha256": hashlib.sha256(wake_path.read_bytes()).hexdigest() if wake_path.is_file() else None,
+        "reason": "explicit_owner_wake_receipt_missing_or_stale",
+    }
+    if wake_path.is_file():
+        try:
+            wake = json.loads(wake_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            wake = None
+        expected = {
+            "current_task_id": task.id,
+            "current_task_revision": authority["task_revision"],
+            "current_task_sha256": authority["task_digest"],
+            "program_revision": program_identity["revision"],
+            "program_sha256": program_identity["sha256"],
+        }
+        if isinstance(wake, Mapping) and wake.get("schema") == "minitz.owner_wake_receipt/v1" and all(
+            wake.get(key) == value for key, value in expected.items()
+        ):
+            if wake.get("host_power_change_authorized") is False and wake.get("control_gateway_authorized") is False:
+                owner_lifecycle = {
+                    "state": "EXPLICIT_OWNER_WAKE_ACTIVE",
+                    "receipt_ref": str(wake_path),
+                    "receipt_sha256": hashlib.sha256(wake_path.read_bytes()).hexdigest(),
+                    "owner_instruction": str(wake.get("owner_instruction") or ""),
+                }
+            else:
+                owner_lifecycle["reason"] = "owner_wake_receipt_does_not_authorize_host_or_control_power"
+
+    return {
+        "task_revision": authority["task_revision"],
+        "task_digest": authority["task_digest"],
+        "program_identity": program_identity,
+        "worktree_identity": worktree_identity,
+        "owner_lifecycle": owner_lifecycle,
+        "policy_ref": str(Path(repo_root).resolve() / "ops" / "workstation" / "AGENTS.md"),
+    }
+
+
 def _simple_task_resource_context(repo_root: Path, project_root: Path, task: state.TaskRecord) -> tuple[bool, bool]:
     working_root = _task_working_directory(repo_root, project_root, task.id)
     parts = [task.title, *task.evidence]
@@ -583,10 +667,12 @@ def _write_task_capsule(repo_root: Path, project_root: Path, runtime_root: Path,
     if previous.get("task_id") != task.id:
         previous = existing
     active_coder = str(telemetry.get("active_coder") or "codex")
+    continuity = _minitz_capsule_continuity(repo_root, runtime_root, task)
     capsule = packets.build_task_memory_capsule(
         task, project_root, session_id=_resume_session_for(telemetry, task.id, coder_id=active_coder),
         summary=str(previous.get("summary", "")), evidence=previous.get("evidence", ()),
         dirty_paths=_project_dirty_paths(repo_root, project_root),
+        **continuity,
     )
     task_coder_sessions = (telemetry.get("coder_sessions") or {}).get(task.id, {}) if isinstance(telemetry.get("coder_sessions"), Mapping) else {}
     capsule["coder_sessions"] = dict(task_coder_sessions) if isinstance(task_coder_sessions, Mapping) else {}
@@ -688,6 +774,40 @@ def _minitz_owner_direction(project_root: Path) -> str:
         + json.dumps(dict(direction), ensure_ascii=False, sort_keys=True, indent=2)
         + "\nEND_MINITZ_OWNER_DIRECTION\n"
     )
+
+
+def _minitz_owner_wake_context(capsule_path: Path, task_id: str) -> str:
+    runtime_root = Path(capsule_path).resolve().parent.parent
+    path = runtime_root / "recovery" / "owner-os-wake-current.json"
+    try:
+        receipt = json.loads(path.read_text(encoding="utf-8"))
+        program = minitz.load()
+    except (OSError, json.JSONDecodeError, ValueError):
+        return ""
+    if not isinstance(receipt, Mapping):
+        return ""
+    if (receipt.get("schema") != "minitz.owner_wake_receipt/v1"
+        or str(receipt.get("program_sha256") or "") != str(program.get("_observed_sha256") or "")
+        or int(receipt.get("program_revision") or 0) != int(program.get("revision") or 0)
+        or str(receipt.get("current_task_id") or "") != str(task_id)):
+        return ""
+    safe = {
+        "state": "EXPLICIT_OWNER_WAKE_ACTIVE",
+        "owner_instruction": receipt.get("owner_instruction"),
+        "recorded_at": receipt.get("recorded_at"),
+        "program_revision": receipt.get("program_revision"),
+        "program_sha256": receipt.get("program_sha256"),
+        "current_task_id": receipt.get("current_task_id"),
+        "current_task_revision": receipt.get("current_task_revision"),
+        "current_task_sha256": receipt.get("current_task_sha256"),
+        "authorized_components": receipt.get("authorized_components") or [],
+        "host_power_change_authorized": bool(receipt.get("host_power_change_authorized", False)),
+        "control_gateway_authorized": bool(receipt.get("control_gateway_authorized", False)),
+    }
+    return ("\nMINITZ_OWNER_WAKE_STATE\n"
+        "The owner explicitly resumed the listed MiniTZ OS progress components. Continue canonical task execution and progress; do not reinterpret this run as owner-asleep. This receipt does not authorize host power changes or any component explicitly marked unauthorized.\n"
+        + json.dumps(safe, ensure_ascii=False, sort_keys=True, indent=2)
+        + "\nEND_MINITZ_OWNER_WAKE_STATE\n")
 
 
 def _main_coder_peer_key(
@@ -1351,6 +1471,7 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
     guide_path = Path(production.project_root) / "docs" / "task-guides" / f"{task.id}.md"
     priority_context = f"\nMINITZ_TASK_PROGRAM: {production.priority_policy}. Follow the exact living MiniTZ Task Program order/status and current Task/Run continuity. No ledger, map, helper, or session may advance it independently. Preserve accepted output and required quality.\n"
     owner_context = _minitz_owner_direction(production.project_root)
+    wake_context = _minitz_owner_wake_context(capsule_path, task.id)
     working_root = _task_working_directory(repo_root, Path(production.project_root), task.id)
     policies = main_coder.shared_policy_paths(repo_root, working_root)
     policy_context = f"\nMAIN_CODER_BACKEND: {coder_id}\n"
@@ -1360,14 +1481,14 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
             policy_context += f"PROJECT_AGENTS_POLICY: {policies[1]}\n"
         policy_context += "Apply these same MiniTZ/Project instructions regardless of coder backend; backend change never changes authority, acceptance, memory, cache, or task scope.\n"
     if route is not None and routing.is_bounded_fallback(route):
-        return priority_context + owner_context + policy_context + packets.compile_bounded_fallback_packet(task, capsule_path, projection_path, guide_path if guide_path.exists() else None) + execution_map.task_context(repo_root, task.id)
+        return priority_context + owner_context + wake_context + policy_context + packets.compile_bounded_fallback_packet(task, capsule_path, projection_path, guide_path if guide_path.exists() else None) + execution_map.task_context(repo_root, task.id)
     if _task_has_shared_continuity(telemetry, task.id, capsule_path):
         prompt = packets.compile_resume_packet(task, capsule_path)
     else:
         prompt = packets.compile_task_packet(repo_root, production, task)
         if capsule_path.exists():
             prompt += f"\nTASK_MEMORY: {capsule_path}\nRead this bounded recovery capsule before redoing any existing work.\n"
-    prompt = priority_context + owner_context + policy_context + prompt
+    prompt = priority_context + owner_context + wake_context + policy_context + prompt
     if production.run_id == "minitz-task-program":
         prompt += (
             "\nMINITZ_VALIDATION_COMPLETION_FAMILY\n"
@@ -1388,11 +1509,19 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
             "--- TASK GUIDE CONTENT ---\n" + guide_text + "\n--- END TASK GUIDE CONTENT ---\n"
         )
     if projection_path and Path(projection_path).exists():
+        os_memory_index = Path(projection_path).parent / "compacted-memory.json"
+        if os_memory_index.is_file():
+            prompt += (
+                f"\nMINITZ_OS_MEMORY_INDEX: {os_memory_index}\n"
+                "This is the primary MiniTZ OS-wide memory/experience/evidence index. It serves the MiniTZ OS system, not one task. "
+                "Use it when system-wide prior decisions, verified mechanisms, failures, capabilities, provenance, or reusable experience materially affect the current task. "
+                "Historical material remains provenance unless current MiniTZ OS policy promotes it; raw secrets remain excluded.\n"
+            )
         prompt += (
             f"\nMEMORY_PROJECTION: {projection_path}\n"
-            "This is a rebuildable compact derivative of current authority, verified actions, failures, and capabilities. "
-            "Use it to avoid redundant rereads; follow its source refs back to raw authority/evidence when exact detail is required. "
-            "It never overrides current source or task authority.\n"
+            "This is a rebuildable bounded current-task derivative of the MiniTZ OS-wide memory index. "
+            "Use it for efficient current-task context, but do not treat the current task as the owner or scope of MiniTZ memory. "
+            "Follow its source refs or the OS memory index when exact system-wide detail is required. It never overrides current source or task authority.\n"
         )
     if local_assist_path and Path(local_assist_path).exists():
         prompt += (
@@ -1436,8 +1565,9 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
 
 def _refresh_memory_projection(repo_root: Path, project_root: Path, runtime_root: Path, task_id: str, journal: production_events.ProductionEventJournal | None = None) -> Path | None:
     try:
+        memory_project_root = repo_root if state._use_minitz_project(Path(project_root)) else project_root
         result = memory_compactor.refresh_compacted_memory(
-            repo_root, project_root, runtime_root, current_task_id=task_id
+            repo_root, memory_project_root, runtime_root, current_task_id=task_id
         )
     except Exception as exc:
         if journal is not None:
@@ -2020,12 +2150,12 @@ def _prepare_optional_task_assists(repo_root: Path, project_root: Path, runtime_
             return None, None
         if local_assist is None:
             return None, None
-        boosted = _ensure_taskbooster_assist(repo_root, project_root, runtime_root, task, route, catalog, local_assist, journal)
+        boosted = None  # retired legacy TaskBooster; use five-Boost fabric
         return local_assist, boosted
     local_assist = _ensure_local_resource_assist(runtime_root, task.id, projection_path, journal, project_root=working_root)
     if local_assist is None:
         return None, None
-    boosted = _ensure_taskbooster_assist(repo_root, project_root, runtime_root, task, route, catalog, local_assist, journal)
+    boosted = None  # retired legacy TaskBooster; use five-Boost fabric
     return local_assist, boosted
 
 
@@ -2563,7 +2693,8 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 _beat(runtime_path, telemetry)
                 output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"PLAN-{section.id}-{route.model}")
                 section_prompt = packets.compile_section_packet(production, section, audit=bool(section.tasks))
-                policies = main_coder.shared_policy_paths(repo_root, project_root)
+                policy_root = repo_root if state._use_minitz_project(Path(project_root)) else project_root
+                policies = main_coder.shared_policy_paths(repo_root, policy_root)
                 section_prompt = (
                     f"MAIN_CODER_BACKEND: {planner_coder}\n"
                     + "".join(f"SHARED_POLICY: {policy}\n" for policy in policies)
@@ -2841,7 +2972,7 @@ def default_repo_root() -> Path:
 
 def default_project_root(repo_root: Path | None = None) -> Path:
     repo = repo_root or default_repo_root()
-    return Path(os.environ.get("BIELLA_PROJECT_ROOT", str(repo / "projects/biella-games")))
+    return Path(os.environ.get("BIELLA_PROJECT_ROOT", str(repo)))
 
 
 def default_runtime_root() -> Path:

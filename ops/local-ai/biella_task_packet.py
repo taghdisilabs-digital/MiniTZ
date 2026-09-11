@@ -1,11 +1,112 @@
 from __future__ import annotations
 
+import re
 from pathlib import Path
+from typing import Any, Mapping
 
 from biella_production_state import ProductionState, TaskRecord, active_task_path
 
 
+_SHA256 = re.compile(r"[0-9a-f]{64}\Z")
+_SECRET_ASSIGNMENT = re.compile(
+    r"(?i)(?P<prefix>(?:[\"']?(?:api[_-]?key|password|passwd|login[_-]?token|refresh[_-]?token|"
+    r"access[_-]?token|auth(?:entication)?[_-]?secret|private[_-]?key|credential(?:s)?|"
+    r"authorization|bearer|token|secret)[\"']?\s*[:=]\s*[\"']?))(?P<value>[^,\s\"'};]+)"
+)
+_OBVIOUS_SECRET = re.compile(
+    r"(?:\bbearer\s+[A-Za-z0-9._~+/=-]{16,}|\b(?:sk|ghp|github_pat|xox[baprs]-)[A-Za-z0-9._-]{12,})",
+    re.IGNORECASE,
+)
+_SECRET_KEY = re.compile(
+    r"(?:api[_-]?key|password|passwd|login[_-]?token|refresh[_-]?token|access[_-]?token|"
+    r"auth(?:entication)?[_-]?secret|private[_-]?key|credential(?:s)?|authorization|bearer|token|secret)\Z",
+    re.IGNORECASE,
+)
+
+
+def _redact_text(value: object) -> str:
+    text = str(value)
+    text = _SECRET_ASSIGNMENT.sub(lambda match: match.group("prefix") + "[REDACTED]", text)
+    return _OBVIOUS_SECRET.sub("[REDACTED]", text)
+
+
+def _safe_object(value: object, *, maximum: int = 4096, depth: int = 0) -> object:
+    if depth > 8:
+        return "[TRUNCATED]"
+    if isinstance(value, Mapping):
+        result: dict[str, object] = {}
+        for key, child in value.items():
+            name = str(key)
+            if _SECRET_KEY.fullmatch(name) and not name.lower().endswith(("_ref", "_refs", "_sha256")):
+                result[name] = "[REDACTED]"
+            else:
+                result[name] = _safe_object(child, maximum=maximum, depth=depth + 1)
+        return result
+    if isinstance(value, (list, tuple)):
+        return [_safe_object(child, maximum=maximum, depth=depth + 1) for child in value[:64]]
+    if isinstance(value, str):
+        return _bounded_text(_redact_text(value), maximum)
+    if value is None or isinstance(value, (bool, int, float)):
+        return value
+    return _bounded_text(_redact_text(value), maximum)
+
+
+def _task_authority(task: TaskRecord, *, task_revision: int | None = None,
+                    task_digest: str | None = None) -> dict[str, object] | None:
+    revision = task_revision
+    digest = task_digest
+    for raw in task.evidence:
+        marker = str(raw).strip()
+        if marker.startswith("MINITZ_TASK_REVISION:"):
+            candidate = marker.split(":", 1)[1].strip()
+            if revision is None and candidate.isdigit():
+                revision = int(candidate)
+        elif marker.startswith("MINITZ_TASK_SHA256:"):
+            candidate = marker.split(":", 1)[1].strip()
+            if digest is None and _SHA256.fullmatch(candidate):
+                digest = candidate
+    if revision is None and digest is None:
+        return None
+    if isinstance(revision, bool) or not isinstance(revision, int) or revision < 1 or not isinstance(digest, str) or _SHA256.fullmatch(digest) is None:
+        raise ValueError("MiniTZ task identity requires an exact positive revision and SHA-256 digest")
+    return {
+        "task_id": task.id,
+        "task_revision": revision,
+        "task_digest": digest,
+        "scope_ref": f"task://minitz/{task.id}/{revision}",
+        "progression_authority": "MINITZ_TASK_PROGRAM_ONLY",
+    }
+
+
 def compile_task_packet(repo_root: Path, production: ProductionState, task: TaskRecord) -> str:
+    if production.priority_policy == "MINITZ_TASK_PROGRAM":
+        authority = _task_authority(task)
+        identity = ""
+        if authority is not None:
+            identity = (
+                f"MINITZ_TASK_REVISION: {authority['task_revision']}\n"
+                f"MINITZ_TASK_SHA256: {authority['task_digest']}\n"
+                f"MINITZ_TASK_SCOPE_REF: {authority['scope_ref']}\n"
+            )
+        return (
+            "MiniTZ OS canonical task. Execute exactly the current living Task Program boundary.\n"
+            f"MINITZ_REPO_ROOT: {Path(repo_root).resolve()}\n"
+            f"TASK: {task.id} [{task.task_class}] {task.title}\n"
+            + identity
+            + "TASK_AUTHORITY: /root/biella/analysis/live_audit/TASK_PROGRAM.json\n"
+            "ACTIVE_GOAL: BUILD_MINITZ_OS_ONLY\n"
+            "Preserve exact current task revision/digest, verified work, task/session memory, checkpoints, evidence and failures. "
+            "Read only the smallest current OS source/evidence set needed for the next decision. "
+            "Historical non-OS game/project, website, market, pilot, investor and old product-edition material is provenance only unless this exact OS task explicitly requires a migrated capability. "
+            "Use task-fit deterministic/local/specialized resources first when quality is preserved; provider/model/resource selection never changes authority. "
+            "Five Boost sections and thirty Commander lanes are non-independent derived execution support under this same canonical task; they cannot change task order/status/completion. "
+            "Do not run the retired one/two TaskBooster workflow. "
+            "Fresh provider sessions bootstrap only from the current MiniTZ OS policy and durable task memory; provider/model/helper changes cannot override the Task Program or create another progression authority. "
+            "Raw API/login secrets must not enter prompts, semantic memory, general caches, ordinary logs, source, or public artifacts. "
+            "Never start/stop/sleep/resume/reboot/power-transition MiniTZ or the host unless Mahdi explicitly ordered that lifecycle action. "
+            "Repair the smallest failed boundary; never reset, clean, stash, or replay the whole task. "
+            "Validate exact affected scope and return only evidence-grounded task status. Do not advance beyond this task.\n"
+        )
     contract_path = active_task_path(repo_root)
     contract = contract_path.read_text(encoding="utf-8").strip()
     section = next(section for section in production.sections if section.id == task.section_id)
@@ -33,33 +134,75 @@ def compile_task_packet(repo_root: Path, production: ProductionState, task: Task
         "Do not probe quota/balance, do not inspect or manage Codex usage/resets/credits, and do not advance beyond this task."
     )
 
-
 def _bounded_text(value: str, maximum: int) -> str:
-    value = str(value).strip()
+    value = _redact_text(value).strip()
     return value if len(value) <= maximum else value[: maximum - 3] + "..."
 
 
 def build_task_memory_capsule(task: TaskRecord, project_root: Path, *, session_id: str | None,
-                              summary: str = "", evidence=(), dirty_paths=()) -> dict[str, object]:
+                              summary: str = "", evidence=(), dirty_paths=(),
+                              task_revision: int | None = None, task_digest: str | None = None,
+                              program_identity: Mapping[str, object] | None = None,
+                              worktree_identity: Mapping[str, object] | None = None,
+                              owner_lifecycle: Mapping[str, object] | None = None,
+                              policy_ref: str | None = None,
+                              checkpoint_identity: Mapping[str, object] | None = None) -> dict[str, object]:
     paths = sorted(dict.fromkeys(_bounded_text(str(item), 240) for item in dirty_paths if str(item).strip()))
     proof = [_bounded_text(str(item), 480) for item in evidence if str(item).strip()]
-    return {
+    capsule: dict[str, object] = {
         "schema": "biella.task_memory/v1",
         "task_id": task.id,
         "task_class": task.task_class,
         "title": _bounded_text(task.title, 240),
         "project_root": str(Path(project_root)),
-        "session_id": session_id,
+        "session_id": _redact_text(session_id) if session_id is not None else None,
         "summary": _bounded_text(summary, 3000),
         "evidence": proof[:24],
         "dirty_path_count": len(paths),
         "dirty_paths": paths[:80],
         "next_action": "Continue this task from preserved work; resolve the remaining validation/failure without redoing verified work.",
     }
+    authority = _task_authority(task, task_revision=task_revision, task_digest=task_digest)
+    if authority is not None:
+        capsule.update({
+            "task_revision": authority["task_revision"],
+            "task_digest": authority["task_digest"],
+            "scope_ref": authority["scope_ref"],
+            "progression_authority": "MINITZ_TASK_PROGRAM_ONLY",
+            "provider_session_authority": False,
+            "task_identity": dict(authority),
+            "bootstrap": {
+                "source": "CURRENT_MINITZ_OS_POLICY_AND_DURABLE_TASK_MEMORY",
+                "policy_ref": _bounded_text(policy_ref or "ops/workstation/AGENTS.md", 512),
+                "task_memory_ref": f"task-memory/{task.id}.json",
+                "provider_session_override": False,
+                "progression_authority": "MINITZ_TASK_PROGRAM_ONLY",
+                "owner_resume_required": True,
+            },
+        })
+        capsule["session_identity"] = {
+            "task_id": task.id,
+            "session_id": capsule["session_id"],
+        }
+        if program_identity is not None:
+            capsule["program_identity"] = _safe_object(program_identity, maximum=1024)
+        if worktree_identity is not None:
+            capsule["worktree_identity"] = _safe_object(worktree_identity, maximum=2048)
+        if owner_lifecycle is not None:
+            capsule["owner_lifecycle"] = _safe_object(owner_lifecycle, maximum=1024)
+        if checkpoint_identity is not None:
+            capsule["checkpoint_identity"] = _safe_object(checkpoint_identity, maximum=2048)
+        capsule["continuity"] = {
+            "task": dict(authority),
+            "session": capsule["session_identity"],
+            "worktree": capsule.get("worktree_identity"),
+            "checkpoint": capsule.get("checkpoint_identity"),
+        }
+    return capsule
 
 
 def compile_resume_packet(task: TaskRecord, capsule_path: Path) -> str:
-    return (
+    packet = (
         "RESUME_EXISTING_TASK_SESSION\n"
         f"TASK: {task.id} [{task.task_class}] {task.title}\n"
         f"TASK_MEMORY: {Path(capsule_path)}\n"
@@ -70,12 +213,23 @@ def compile_resume_packet(task: TaskRecord, capsule_path: Path) -> str:
         "Do not stop for confirmation or routine permission when this task is already authorized. Final deliverables must remain at their canonical local path and be published/read back at any configured canonical destination; never invent a destination. Diagnose prior failures from `/mnt/biella-extra/biella-runtime/codex-production/failures.jsonl` when relevant. Commit coherent task-owned implementation/evidence; the controller can finalize an omitted task-local commit without task replay. Return CONTINUE only for actual unmet task work, not a continuity publication retry. "
         "Do not advance beyond this task or manage Codex quota/usage.\n"
     )
+    authority = _task_authority(task)
+    if authority is not None:
+        packet += (
+            f"MINITZ_TASK_REVISION: {authority['task_revision']}\n"
+            f"MINITZ_TASK_SHA256: {authority['task_digest']}\n"
+            f"MINITZ_TASK_SCOPE_REF: {authority['scope_ref']}\n"
+            "Fresh provider sessions must bootstrap from the current MiniTZ OS policy and durable task memory in TASK_MEMORY. "
+            "Provider/model/helper changes are replaceable Resources only; they cannot override MiniTZ authority or create another task-progression source. "
+            "Owner sleep remains authoritative until Mahdi explicitly resumes MiniTZ; no helper, provider, installer, recovery flow, or session may imply resume.\n"
+        )
+    return packet
 
 
 def _bounded_file_content(path: Path | None, maximum: int) -> str:
     if path is None or not Path(path).is_file():
         return "NONE"
-    text = Path(path).read_text(encoding="utf-8", errors="replace").strip()
+    text = _redact_text(Path(path).read_text(encoding="utf-8", errors="replace")).strip()
     return text if len(text) <= maximum else text[: maximum - 1] + "…"
 
 

@@ -24,6 +24,17 @@ except ModuleNotFoundError:  # Loaded directly by tests or another controller.
     _POLICY_SPEC.loader.exec_module(_POLICY_MODULE)
     build_policy_projection = _POLICY_MODULE.build_policy_projection
 
+try:
+    import minitz_data_residency as data_residency
+except ModuleNotFoundError:  # Loaded directly by tests or another controller.
+    _RESIDENCY_MODULE_PATH = Path(__file__).with_name("minitz_data_residency.py")
+    _RESIDENCY_SPEC = importlib.util.spec_from_file_location("_biella_minitz_data_residency", _RESIDENCY_MODULE_PATH)
+    if not _RESIDENCY_SPEC or not _RESIDENCY_SPEC.loader:
+        raise
+    data_residency = importlib.util.module_from_spec(_RESIDENCY_SPEC)
+    sys.modules[_RESIDENCY_SPEC.name] = data_residency
+    _RESIDENCY_SPEC.loader.exec_module(data_residency)
+
 SCHEMA = "biella.compacted_memory/v1"
 _TASK_RE = re.compile(r"^- \[(?P<done>[xX ])\] (?P<id>[A-Z0-9-]+) \| (?P<class>[a-z_]+) \| (?P<title>.+?) \| (?P<status>[A-Z_]+) \|\s*(?P<evidence>.*)$")
 _COMPLETE = {"COMPLETE", "COMPLETE_ALREADY"}
@@ -410,13 +421,20 @@ def _projection(index: Mapping[str, Any], *, current_task_id: str | None,
         "task_memory": dict(task_memory or {}),
         "failures": _active_failure_projection(failures),
         "capabilities": dict(index.get("capabilities", {})),
+        "data_residency": dict(index.get("data_residency", {})),
         "instruction_refs": list(categories.get("instruction", [])),
         "verified_actions": [
             {"content_ref": ref, "text": content.get(ref, {}).get("text", "")}
             for ref in verified_refs[:20]
         ],
         "task_class_refs": list(task_classes.get(current_class, [])) if current_class else [],
-        "source_refs": [source.get("path") for source in index.get("sources", [])],
+        "source_refs": [
+            source.get("path") for source in index.get("sources", [])
+            if not (
+                "/task-memory/" in str(source.get("path") or "")
+                and not (current_task_id and str(source.get("path") or "").endswith(f"/task-memory/{current_task_id}.json"))
+            )
+        ],
         "policy": {
             "schema": policy.get("schema"),
             "authority": policy.get("authority"),
@@ -443,7 +461,12 @@ def _projection(index: Mapping[str, Any], *, current_task_id: str | None,
     projection["task_class_refs"] = projection["task_class_refs"][:64]
     projection["task_memory"] = {
         key: value for key, value in (task_memory or {}).items()
-        if key in {"task_id", "task_class", "title", "session_id", "summary", "next_action", "last_status", "dirty_path_count"}
+        if key in {
+            "task_id", "task_class", "title", "session_id", "summary", "next_action", "last_status",
+            "dirty_path_count", "task_revision", "task_digest", "scope_ref", "progression_authority",
+            "provider_session_authority", "task_identity", "session_identity", "program_identity",
+            "worktree_identity", "owner_lifecycle", "bootstrap", "checkpoint_identity", "continuity",
+        }
     }
     def encoded_bytes() -> int:
         return len(json.dumps(projection, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8"))
@@ -536,6 +559,7 @@ def refresh_compacted_memory(repo_root: Path, project_root: Path, runtime_root: 
             key: value for key, value in policy_projection.items() if key != "records"
         },
         "capabilities": capabilities,
+        "data_residency": data_residency.semantic_memory_policy(),
         **merged,
     }
 
@@ -571,7 +595,10 @@ def refresh_compacted_memory(repo_root: Path, project_root: Path, runtime_root: 
     gzip_path = memory_root / "compacted-memory.json.gz"
     projection_path = memory_root / "current-task.json"
     encoded = (json.dumps(index, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n").encode("utf-8")
+    projection_encoded = (json.dumps(projection, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n").encode("utf-8")
+    encoded = data_residency.redact_raw_auth_credentials(encoded)
+    projection_encoded = data_residency.redact_raw_auth_credentials(projection_encoded)
     _atomic_write(index_path, encoded)
     _atomic_write(gzip_path, gzip.compress(encoded, compresslevel=9, mtime=0))
-    _atomic_write(projection_path, (json.dumps(projection, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n").encode("utf-8"))
+    _atomic_write(projection_path, projection_encoded)
     return CompactionResult(index_path, gzip_path, projection_path)
