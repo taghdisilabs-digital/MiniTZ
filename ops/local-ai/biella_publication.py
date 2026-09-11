@@ -23,6 +23,18 @@ DRIVE_PART_MAX_BYTES = 3_800_000_000
 DRIVE_PACKAGE_DESTINATION = "gdrive:Biella/D_TASK_PROGRAM"
 
 
+class PublicationStateError(RuntimeError):
+    """Publication continuity cannot be reconstructed without losing source intent."""
+
+
+def _canonical_json(payload: dict[str, Any]) -> bytes:
+    return json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+
+
+def _sha(payload: dict[str, Any]) -> str:
+    return hashlib.sha256(_canonical_json(payload)).hexdigest()
+
+
 def _now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
@@ -33,6 +45,31 @@ def _git(repo: Path, *args: str) -> str:
 
 def _state_path(repo: Path) -> Path:
     return Path(_git(repo, "rev-parse", "--absolute-git-dir")) / "biella-publication.json"
+
+
+def _recovery_path(repo: Path) -> Path:
+    return _state_path(repo).with_name("biella-publication.recovery.json")
+
+
+def source_publication_identity(repo: Path, ref: str = "refs/heads/main") -> dict[str, str]:
+    repo = Path(repo).resolve()
+    if not isinstance(ref, str) or not ref.startswith("refs/") or any(char.isspace() for char in ref):
+        raise ValueError("publication source ref is malformed")
+    git_dir = str(Path(_git(repo, "rev-parse", "--absolute-git-dir")).resolve())
+    worktree = str(Path(_git(repo, "rev-parse", "--show-toplevel")).resolve())
+    try:
+        remote = _git(repo, "config", "--get", "remote.origin.url")
+    except subprocess.CalledProcessError:
+        remote = ""
+    repository_payload = {"git_dir": git_dir, "remote": remote, "worktree": worktree}
+    repository_digest = _sha(repository_payload)
+    publication_payload = {"repository_digest": repository_digest, "ref": ref}
+    return {
+        "schema": "minitz.source_publication_identity/v1",
+        "repository_ref": f"git-repository://sha256/{repository_digest}",
+        "ref": ref,
+        "publication_ref": f"source-publication://sha256/{_sha(publication_payload)}",
+    }
 
 
 @contextmanager
@@ -62,9 +99,49 @@ def _write(path: Path, payload: dict[str, Any]) -> None:
         Path(name).unlink(missing_ok=True)
 
 
+def _load_state_file(path: Path) -> dict[str, Any]:
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise PublicationStateError(f"publication state is unreadable: {path}: {exc}") from exc
+    if not isinstance(raw, dict):
+        raise PublicationStateError(f"publication state is not an object: {path}")
+    return raw
+
+
+def _read_state_locked(repo: Path, path: Path) -> dict[str, Any]:
+    recovery = _recovery_path(repo)
+    if path.is_file():
+        try:
+            return _load_state_file(path)
+        except PublicationStateError as cursor_error:
+            if not recovery.is_file():
+                raise cursor_error
+            try:
+                restored = _load_state_file(recovery)
+            except PublicationStateError as recovery_error:
+                raise PublicationStateError(
+                    f"publication cursor and recovery snapshot are unreadable: {cursor_error}; {recovery_error}"
+                ) from recovery_error
+            _write(path, restored)
+            return restored
+    if recovery.is_file():
+        restored = _load_state_file(recovery)
+        _write(path, restored)
+        return restored
+    return {}
+
+
+def _write_state(repo: Path, path: Path, payload: dict[str, Any]) -> None:
+    _write(path, payload)
+    _write(_recovery_path(repo), payload)
+
+
 def read_publication(repo: Path) -> dict[str, Any]:
-    path = _state_path(Path(repo))
-    return json.loads(path.read_text()) if path.is_file() else {"status": "NO_PENDING_PUBLICATION"}
+    repo = Path(repo).resolve()
+    with _locked(repo) as path:
+        state = _read_state_locked(repo, path)
+    return state if state else {"status": "NO_PENDING_PUBLICATION"}
 
 
 def _completed_snapshot(repo: Path, commit: str) -> tuple[list[str], bool]:
@@ -98,7 +175,7 @@ def request_publication(repo: Path, task_id: str, identity: dict[str, str]) -> d
         raise ValueError("publication commit/tree do not match local Git objects")
     completed, finished = _completed_snapshot(repo, commit)
     with _locked(repo) as path:
-        prior = json.loads(path.read_text()) if path.is_file() else {}
+        prior = _read_state_locked(repo, path)
         batch = prior.get("drive_batch")
         if batch is None:
             baseline_commit = prior.get("commit") or commit
@@ -110,17 +187,26 @@ def request_publication(repo: Path, task_id: str, identity: dict[str, str]) -> d
                 "pending": None, "status": "BATCHING", "previous_pending_commit": prior.get("commit") if prior.get("status") == "PENDING" else None,
             }
         payload = dict(prior)
+        requested_at = _now()
+        source_identity = source_publication_identity(repo)
         payload.update({
-            "schema": "biella.publication_cursor/v2", "status": "PENDING",
+            "schema": "biella.publication_cursor/v3", "status": "PENDING",
             "commit": commit, "tree": tree, "task_id": task_id,
-            "requested_at": _now(), "execution_authority": False,
+            "requested_at": requested_at, "execution_authority": False,
+            "source_identity": source_identity,
+            "publication_ref": source_identity["publication_ref"],
+            "publication_intent": {
+                "commit": commit, "tree": tree, "task_id": task_id,
+                "requested_at": requested_at, "publication_ref": source_identity["publication_ref"],
+            },
+            "semantic_bindings": prior.get("semantic_bindings", {}),
             "completed_ids": completed, "program_finished": finished, "drive_batch": batch,
             "verified_files": prior.get("verified_files", {}),
             "drive_folder_ids": prior.get("drive_folder_ids", {}),
             "task_program": minitz.program_identity(minitz.load()),
         })
         _schedule_drive(payload)
-        _write(path, payload)
+        _write_state(repo, path, payload)
     for workers in (_WORKERS, _DRIVE_WORKERS):
         worker = workers.get(str(repo.resolve()))
         if worker:
@@ -130,7 +216,7 @@ def request_publication(repo: Path, task_id: str, identity: dict[str, str]) -> d
 
 def finish_drive_batch(repo: Path, batch: dict[str, Any], receipt: dict[str, Any]) -> None:
     with _locked(repo) as path:
-        current = json.loads(path.read_text())
+        current = _read_state_locked(repo, path)
         state = current["drive_batch"]
         if (state.get("pending") or {}).get("commit") != batch["commit"]:
             return
@@ -147,7 +233,7 @@ def finish_drive_batch(repo: Path, batch: dict[str, Any], receipt: dict[str, Any
         else:
             state["status"] = "PENDING"
             state["failures"] = int(state.get("failures", 0)) + 1
-        _write(path, current)
+        _write_state(repo, path, current)
 
 
 def _remote(args: list[str], *, timeout: float = 45.0) -> subprocess.CompletedProcess:
@@ -171,10 +257,73 @@ def _drive_target(repo: Path, destination: str) -> str:
     return destination
 
 
+def attach_publication_binding(
+    repo: Path, *, implementation_ref: str, object_ref: str
+) -> dict[str, str]:
+    repo = Path(repo).resolve()
+    for value, label in ((implementation_ref, "implementation_ref"), (object_ref, "object_ref")):
+        if not isinstance(value, str) or "://" not in value or any(char.isspace() for char in value):
+            raise ValueError(f"publication {label} is malformed")
+    with _locked(repo) as path:
+        state = _read_state_locked(repo, path)
+        publication_ref = state.get("publication_ref")
+        if not isinstance(publication_ref, str):
+            raise PublicationStateError("publication semantic identity is not established")
+        payload = {
+            "publication_ref": publication_ref,
+            "implementation_ref": implementation_ref,
+            "object_ref": object_ref,
+            "execution_authority": False,
+        }
+        binding_ref = f"publication-binding://sha256/{_sha(payload)}"
+        binding = {**payload, "binding_ref": binding_ref}
+        state.setdefault("semantic_bindings", {})[binding_ref] = binding
+        _write_state(repo, path, state)
+    return binding
+
+
+def _is_ancestor(repo: Path, ancestor: str, descendant: str) -> bool:
+    if ancestor == descendant:
+        return True
+    result = subprocess.run(
+        ["git", "-C", str(repo), "merge-base", "--is-ancestor", ancestor, descendant],
+        capture_output=True, timeout=20,
+    )
+    if result.returncode == 0:
+        return True
+    if result.returncode == 1:
+        return False
+    raise PublicationStateError(
+        "could not verify publication ancestry: " + result.stderr.decode(errors="replace")[-1200:]
+    )
+
+
+def _verified_publication_commits(cursor: dict[str, Any]) -> tuple[str, ...]:
+    values: set[str] = set()
+    for record in (cursor.get("verified_files") or {}).values():
+        if isinstance(record, dict) and isinstance(record.get("commit"), str):
+            values.add(record["commit"])
+    batch = cursor.get("drive_batch") or {}
+    if isinstance(batch, dict):
+        for key in ("baseline_commit", "package_base_commit"):
+            value = batch.get(key)
+            if isinstance(value, str) and value:
+                values.add(value)
+    return tuple(sorted(values))
+
+
 def publish_drive_revision(repo: Path, commit: str) -> dict[str, Any]:
     import biella_production_evidence as evidence
     targets = evidence.drive_publications(repo) + evidence.derived_drive_publications(repo) + evidence.control_drive_publications(repo)
     files, errors = [], []
+    cursor = read_publication(repo)
+    for prior_commit in _verified_publication_commits(cursor):
+        if prior_commit != commit and not _is_ancestor(repo, prior_commit, commit):
+            return {
+                "verified": False, "files": files,
+                "errors": [{"error": f"non-ancestor canonical publication replacement rejected: {prior_commit} -> {commit}"}],
+                "source_state": "RECONCILIATION_REQUIRED",
+            }
     options = ["--retries", "1", "--low-level-retries", "1", "--contimeout", "5s", "--timeout", "15s"]
     for relative, destination in dict.fromkeys(targets):
         cursor = read_publication(repo)
@@ -216,9 +365,9 @@ def publish_drive_revision(repo: Path, commit: str) -> dict[str, Any]:
             record = {"path": relative, "destination": destination, "sha256": digest,
                       "file_id": file_id, "status": "VERIFIED", "verified_at": _now(), "commit": commit}
             with _locked(repo) as path:
-                latest = json.loads(path.read_text())
+                latest = _read_state_locked(repo, path)
                 latest.setdefault("verified_files", {})[destination] = record
-                _write(path, latest)
+                _write_state(repo, path, latest)
             files.append(record)
         except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as exc:
             errors.append({"path": relative, "destination": destination, "error": _error_detail(exc)})
@@ -267,12 +416,12 @@ def drain_once(repo: Path, *, drive: bool = True, force_drive: bool = False) -> 
     elif (requested.get("drive_batch") or {}).get("pending"):
         receipt["drive"] = "PENDING"
     with _locked(repo) as path:
-        current = json.loads(path.read_text())
+        current = _read_state_locked(repo, path)
         if current.get("commit") == commit:
             current["last_receipt"] = receipt
             current["status"] = "BATCHING" if receipt["github"] == "VERIFIED" and receipt["drive"] == "BATCHING" else ("SYNCED" if receipt["github"] == receipt["drive"] == "VERIFIED" else "PENDING")
             current["consecutive_failures"] = 0 if receipt["github"] == "VERIFIED" else int(current.get("consecutive_failures", 0)) + 1
-            _write(path, current)
+            _write_state(repo, path, current)
     if drive and not force_drive and (current.get("drive_batch") or {}).get("pending"):
         drain_drive_once(repo)
         current = read_publication(repo)
@@ -330,9 +479,9 @@ def _publish_package_file(repo: Path, source: Path, destination: str, digest: st
         raise RuntimeError("package bytes matched but Drive file identity is missing")
     record = {"destination": destination, "sha256": digest, "bytes": size, "file_id": metadata["ID"], "status": "VERIFIED", "commit": commit, "verified_at": _now()}
     with _locked(repo) as path:
-        current = json.loads(path.read_text())
+        current = _read_state_locked(repo, path)
         current.setdefault("verified_files", {})[destination] = record
-        _write(path, current)
+        _write_state(repo, path, current)
     return record
 
 
