@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -205,3 +206,112 @@ def test_workstation_installer_preserves_existing_ai_service_active_state():
     assert 'systemctl start biella-ollama.service' in installer
     assert 'if [[ "$qwen_active" == "active" ]]' in installer
     assert 'systemctl start biella-qwen-residency.service' in installer
+
+
+def _runtime_with_owned_task(root: Path, repo: Path) -> tuple[Path, Path]:
+    runtime = _runtime(root)
+    project = repo / "projects/minitz-test"
+    project.mkdir(parents=True)
+    owned = project / "task-owned.txt"
+    owned.write_text("preserved task bytes\n", encoding="utf-8")
+    payload = json.loads((runtime / "task-memory/D03-01.json").read_text(encoding="utf-8"))
+    payload["project_root"] = str(project)
+    payload["owned_files"] = {
+        owned.relative_to(repo).as_posix(): hashlib.sha256(owned.read_bytes()).hexdigest(),
+    }
+    (runtime / "task-memory/D03-01.json").write_text(json.dumps(payload, sort_keys=True) + "\n", encoding="utf-8")
+    return runtime, owned
+
+
+def _inactive_services() -> dict[str, dict[str, object]]:
+    return {name: {"active": False, "enabled": "disabled"} for name in handoff.PROTECTED_SERVICES}
+
+
+def test_resume_allows_nonoverlap_workspace_change_when_task_owned_bytes_match(tmp_path: Path, monkeypatch):
+    repo = _git_repo(tmp_path)
+    runtime, owned = _runtime_with_owned_task(tmp_path, repo)
+    manager = handoff.BiellaCustomerHandoff(repo, runtime, tmp_path / "handoff")
+    monkeypatch.setattr(manager, "service_states", _inactive_services)
+    monkeypatch.setattr(manager, "sleep_services", lambda: None)
+    checkpoint = manager.checkpoint()
+    assert checkpoint["task_scope"]["owned_files"] == {
+        owned.relative_to(repo).as_posix(): hashlib.sha256(owned.read_bytes()).hexdigest(),
+    }
+
+    unrelated = repo / "ops/maintenance.txt"
+    unrelated.parent.mkdir(parents=True)
+    unrelated.write_text("independent management change\n", encoding="utf-8")
+    monkeypatch.setattr(manager, "running_customer_count", lambda: 0)
+    monkeypatch.setattr(manager, "verify_source_alignment", lambda: None)
+    monkeypatch.setattr(manager, "set_enabled_state", lambda *_args: None)
+    monkeypatch.setattr(manager, "set_active_state", lambda *_args: None)
+
+    result = manager.resume()
+    assert result["status"] == "RESTORED"
+    assert owned.read_text(encoding="utf-8") == "preserved task bytes\n"
+
+
+def test_resume_fails_closed_when_task_owned_path_changes(tmp_path: Path, monkeypatch):
+    repo = _git_repo(tmp_path)
+    runtime, owned = _runtime_with_owned_task(tmp_path, repo)
+    manager = handoff.BiellaCustomerHandoff(repo, runtime, tmp_path / "handoff")
+    monkeypatch.setattr(manager, "service_states", _inactive_services)
+    monkeypatch.setattr(manager, "sleep_services", lambda: None)
+    manager.checkpoint()
+
+    owned.write_text("overlapping mutation\n", encoding="utf-8")
+    monkeypatch.setattr(manager, "running_customer_count", lambda: 0)
+    monkeypatch.setattr(manager, "verify_source_alignment", lambda: None)
+    with pytest.raises(handoff.HandoffError, match="task-owned.*overlap"):
+        manager.resume()
+
+
+def test_successful_resume_retry_is_idempotent_and_does_not_restore_services_twice(tmp_path: Path, monkeypatch):
+    repo = _git_repo(tmp_path)
+    runtime, _owned = _runtime_with_owned_task(tmp_path, repo)
+    manager = handoff.BiellaCustomerHandoff(repo, runtime, tmp_path / "handoff")
+    desired = _inactive_services()
+    desired["biella-codex-production.service"] = {"active": True, "enabled": "enabled"}
+    monkeypatch.setattr(manager, "service_states", lambda: desired)
+    monkeypatch.setattr(manager, "cooperative_pause", lambda timeout_seconds=3600.0: None)
+    monkeypatch.setattr(manager, "sleep_services", lambda: None)
+    manager.checkpoint()
+    monkeypatch.setattr(manager, "running_customer_count", lambda: 0)
+    monkeypatch.setattr(manager, "verify_source_alignment", lambda: None)
+    enabled: list[tuple[str, str]] = []
+    active: list[tuple[str, bool]] = []
+    monkeypatch.setattr(manager, "set_enabled_state", lambda name, state: enabled.append((name, state)))
+    monkeypatch.setattr(manager, "set_active_state", lambda name, state: active.append((name, state)))
+
+    first = manager.resume()
+    first_enabled = list(enabled)
+    first_active = list(active)
+    second = manager.resume()
+
+    assert first["status"] == "RESTORED"
+    assert second["status"] == "RESTORED_ALREADY"
+    assert second["checkpoint_sha256"] == first["checkpoint_sha256"]
+    assert enabled == first_enabled
+    assert active == first_active
+
+
+def test_task_owned_symlink_identity_is_preserved_without_following_target(tmp_path: Path, monkeypatch):
+    repo = _git_repo(tmp_path)
+    runtime = _runtime(tmp_path)
+    outside = tmp_path / "outside-target.txt"
+    outside.write_text("outside bytes are not checkpoint payload\n", encoding="utf-8")
+    link = repo / "projects/minitz-test/owned-link"
+    link.parent.mkdir(parents=True)
+    link.symlink_to(outside)
+    identity = "symlink:" + hashlib.sha256(os.fsencode(str(outside))).hexdigest()
+    payload = json.loads((runtime / "task-memory/D03-01.json").read_text(encoding="utf-8"))
+    payload["project_root"] = str(link.parent)
+    payload["owned_files"] = {link.relative_to(repo).as_posix(): identity}
+    (runtime / "task-memory/D03-01.json").write_text(json.dumps(payload, sort_keys=True) + "\n", encoding="utf-8")
+    manager = handoff.BiellaCustomerHandoff(repo, runtime, tmp_path / "handoff")
+    monkeypatch.setattr(manager, "service_states", _inactive_services)
+    monkeypatch.setattr(manager, "sleep_services", lambda: None)
+
+    checkpoint = manager.checkpoint()
+
+    assert checkpoint["task_scope"]["owned_files"][link.relative_to(repo).as_posix()] == identity

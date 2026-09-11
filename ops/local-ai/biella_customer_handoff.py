@@ -51,6 +51,18 @@ def _safe_resolved_path(value: object, *, base: Path) -> Path | None:
     return candidate
 
 
+def _safe_task_owned_path(repo_root: Path, raw_path: str) -> Path | None:
+    relative = Path(raw_path)
+    if relative.is_absolute() or not raw_path or relative.as_posix() != raw_path or ".." in relative.parts:
+        return None
+    candidate = repo_root / relative
+    try:
+        candidate.parent.resolve().relative_to(repo_root.resolve())
+    except (OSError, ValueError):
+        return None
+    return candidate
+
+
 def _task_workspace_paths(repo_root: Path, project_root: Path | None) -> list[str]:
     if project_root is None:
         return []
@@ -105,14 +117,52 @@ def _scoped_task_state(repo_root: Path, project_root: Path | None) -> dict[str, 
     return entries
 
 
-def _task_scope_fingerprint(state: dict[str, str]) -> str:
+def _task_scope_fingerprint(state: dict[str, str | None]) -> str:
     digest = hashlib.sha256()
     for path in sorted(state):
         digest.update(path.encode("utf-8"))
         digest.update(b"\0")
-        digest.update(state[path].encode("utf-8"))
+        value = state[path]
+        digest.update(("MISSING" if value is None else value).encode("utf-8"))
         digest.update(b"\n")
     return digest.hexdigest()
+
+
+def _path_identity(path: Path) -> str | None:
+    if path.is_symlink():
+        return "symlink:" + hashlib.sha256(os.fsencode(os.readlink(path))).hexdigest()
+    if not path.exists():
+        return None
+    if not path.is_file():
+        return f"type:{int(path.stat().st_mode)}"
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _task_owned_scope(repo_root: Path, task_id: str | None, task_memory: dict[str, Any]) -> dict[str, Any] | None:
+    raw_owned = task_memory.get("owned_files")
+    if not task_id or not isinstance(raw_owned, dict) or not raw_owned:
+        return None
+    normalized: dict[str, str | None] = {}
+    for raw_path, expected in raw_owned.items():
+        if not isinstance(raw_path, str) or not raw_path or (expected is not None and not isinstance(expected, str)):
+            raise HandoffError("task-owned checkpoint state is invalid")
+        candidate = _safe_task_owned_path(repo_root, raw_path)
+        if candidate is None:
+            raise HandoffError("task-owned checkpoint path is not canonical MiniTZ repository state")
+        actual = _path_identity(candidate)
+        if actual != expected:
+            raise HandoffError(f"task-owned memory is stale for {raw_path}")
+        normalized[raw_path] = expected
+    return {
+        "schema": "minitz.task_owned_checkpoint_scope/v1",
+        "task_id": task_id,
+        "owned_files": normalized,
+        "fingerprint": _task_scope_fingerprint(normalized),
+    }
 
 
 def _load_task_memory(path: Path) -> dict[str, Any]:
@@ -172,6 +222,7 @@ class BiellaCustomerHandoff:
         self.handoff_root = Path(handoff_root).resolve()
         self.active_checkpoint_path = self.handoff_root / "active.json"
         self.history_root = self.handoff_root / "history"
+        self.last_resume_path = self.handoff_root / "last-resume.json"
         self.pause_request_path = self.runtime_root / "customer-pause-request.json"
         self.pause_ack_path = self.runtime_root / "customer-pause-ack.json"
     def service_states(self) -> dict[str, dict[str, Any]]:
@@ -262,17 +313,46 @@ class BiellaCustomerHandoff:
             time.sleep(0.25)
         raise HandoffError("production did not reach a cooperative customer checkpoint before timeout")
 
+    def _assert_workspace_compatible(self, checkpoint: dict[str, Any]) -> None:
+        task_scope = checkpoint.get("task_scope")
+        if isinstance(task_scope, dict):
+            owned = task_scope.get("owned_files")
+            if not isinstance(owned, dict) or not owned:
+                raise HandoffError("task-owned checkpoint scope is invalid")
+            expected_fingerprint = task_scope.get("fingerprint")
+            if not isinstance(expected_fingerprint, str) or expected_fingerprint != _task_scope_fingerprint(owned):
+                raise HandoffError("task-owned checkpoint scope fingerprint is invalid")
+            changed = []
+            for raw_path, expected in owned.items():
+                if not isinstance(raw_path, str) or (expected is not None and not isinstance(expected, str)):
+                    raise HandoffError("task-owned checkpoint scope is invalid")
+                candidate = _safe_task_owned_path(self.repo_root, raw_path)
+                if candidate is None:
+                    raise HandoffError("task-owned checkpoint scope path is invalid")
+                if _path_identity(candidate) != expected:
+                    changed.append(raw_path)
+            if changed:
+                sample = ", ".join(changed[:5])
+                raise HandoffError(f"task-owned checkpoint overlap changed while checkpoint was held: {sample}")
+            return
+        expected = str(checkpoint.get("workspace_fingerprint") or "")
+        current = dirty_workspace_fingerprint(self.repo_root)
+        if not expected or current != expected:
+            raise HandoffError("Biella dirty worktree changed while customer checkpoint was held")
+
     def checkpoint(self) -> dict[str, Any]:
         if self.active_checkpoint_path.is_file():
             current = json.loads(self.active_checkpoint_path.read_text(encoding="utf-8"))
-            if current.get("workspace_fingerprint") != dirty_workspace_fingerprint(self.repo_root):
-                raise HandoffError("existing customer checkpoint no longer matches Biella dirty worktree")
+            self._assert_workspace_compatible(current)
             self.sleep_services()
             return current
         original_services = self.service_states()
         if original_services["biella-codex-production.service"]["active"]:
             self.cooperative_pause()
         task_id, runtime_identity = self._runtime_identity()
+        task_memory_path = self.runtime_root / "task-memory" / f"{task_id}.json" if task_id else Path("/")
+        task_memory = _load_task_memory(task_memory_path) if task_id else {}
+        task_scope = _task_owned_scope(self.repo_root, task_id, task_memory)
         checkpoint = {
             "schema": "biella.customer_handoff_checkpoint/v1",
             "created_at": _now(),
@@ -282,6 +362,9 @@ class BiellaCustomerHandoff:
             "workspace_fingerprint": dirty_workspace_fingerprint(self.repo_root),
             "services": original_services,
         }
+        if task_scope is not None:
+            checkpoint["task_scope"] = task_scope
+        self.last_resume_path.unlink(missing_ok=True)
         _atomic_json(self.active_checkpoint_path, checkpoint)
         self.sleep_services()
         return checkpoint
@@ -292,20 +375,25 @@ class BiellaCustomerHandoff:
             self.set_enabled_state(name, "disabled")
 
     def resume(self) -> dict[str, Any]:
+        receipt = _load_runtime(self.last_resume_path)
         if not self.active_checkpoint_path.is_file():
+            if receipt.get("status") == "RESTORED" and isinstance(receipt.get("checkpoint_sha256"), str):
+                return {**receipt, "status": "RESTORED_ALREADY"}
             return {"status": "NO_CHECKPOINT"}
+        checkpoint_digest = hashlib.sha256(self.active_checkpoint_path.read_bytes()).hexdigest()
+        if receipt.get("status") == "RESTORED" and receipt.get("checkpoint_sha256") == checkpoint_digest:
+            self.active_checkpoint_path.unlink(missing_ok=True)
+            return {**receipt, "status": "RESTORED_ALREADY"}
         if self.running_customer_count() != 0:
             raise HandoffError("cannot resume Biella while a customer container is still running")
         checkpoint = json.loads(self.active_checkpoint_path.read_text(encoding="utf-8"))
-        expected = str(checkpoint.get("workspace_fingerprint") or "")
-        current = dirty_workspace_fingerprint(self.repo_root)
-        if not expected or current != expected:
-            raise HandoffError("Biella dirty worktree changed while customer checkpoint was held")
+        self._assert_workspace_compatible(checkpoint)
         current_task, current_runtime = self._runtime_identity()
         expected_runtime = checkpoint.get("runtime")
         if current_task != checkpoint.get("task_id") or not isinstance(expected_runtime, dict) or current_runtime != expected_runtime:
             raise HandoffError("Biella runtime continuity changed while customer checkpoint was held")
         self.verify_source_alignment()
+        self._assert_workspace_compatible(checkpoint)
         services = checkpoint.get("services")
         if not isinstance(services, dict):
             raise HandoffError("checkpoint service state is invalid")
@@ -340,8 +428,17 @@ class BiellaCustomerHandoff:
         digest = hashlib.sha256(self.active_checkpoint_path.read_bytes()).hexdigest()
         history = self.history_root / f"{digest}.json"
         shutil.copy2(self.active_checkpoint_path, history)
+        result = {"status": "RESTORED", "checkpoint_sha256": digest, "history": str(history), "optional_resource_errors": optional_errors}
+        _atomic_json(self.last_resume_path, {
+            "schema": "minitz.customer_handoff_resume_receipt/v1",
+            "status": "RESTORED",
+            "restored_at": _now(),
+            "checkpoint_sha256": digest,
+            "history": str(history),
+            "optional_resource_errors": optional_errors,
+        })
         self.active_checkpoint_path.unlink()
-        return {"status": "RESTORED", "checkpoint_sha256": digest, "history": str(history), "optional_resource_errors": optional_errors}
+        return result
 
     def import_lessons(self, source_path: Path, inbox_root: Path) -> dict[str, Any]:
         source_path = Path(source_path)
