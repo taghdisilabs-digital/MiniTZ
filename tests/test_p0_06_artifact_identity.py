@@ -18,12 +18,15 @@ from biella.artifact import (
     ArtifactContentError,
     ArtifactDerivation,
     ArtifactIntegrityError,
+    ArtifactRepresentation,
     ArtifactRef,
     ArtifactScopeError,
     ArtifactService,
     ContentRef,
     SourceRef,
+    StorageLocation,
 )
+from biella.object_store import ContentLocation, MemoryObjectStorageBackend, ReplicaState
 from biella.capability import Capability, CapabilityRef, CapabilityRegistry
 from biella.migration import QuarantineRef
 from biella.project import Project, ProjectAccess, ProjectRef, ProjectStore
@@ -110,6 +113,16 @@ class ArtifactIdentityTests(unittest.TestCase):
             source_content_refs=source_content_refs,
             derivation_type="artifact.derived",
             metadata={},
+        )
+
+    def _location(self, label: str, content_ref: ContentRef | None = None) -> ContentLocation:
+        content = self.content if content_ref is None else content_ref
+        return ContentLocation(
+            backend_id="memory",
+            locator=f"memory://shared/{label}",
+            content_digest=content.digest,
+            size_bytes=content.size_bytes,
+            created_at="2026-08-28T00:00:00+00:00",
         )
 
     def test_t01_content_ref_is_exact_sha256_size_and_media_type(self) -> None:
@@ -730,6 +743,205 @@ class ArtifactIdentityTests(unittest.TestCase):
                 self.assertNotEqual(node.module, "migration")
         prohibited = {"provider", "gpu", "bucket", "object_key", "game_engine"}
         self.assertTrue({field.name for field in fields(Artifact)}.isdisjoint(prohibited))
+
+    def test_t19_backend_location_is_the_representation_storage_location(self) -> None:
+        backend = MemoryObjectStorageBackend()
+        content = backend.put(b"backend bytes", media_type="text/plain")
+        artifact = self._create_artifact(content_ref=content)
+        location = backend.location(content)
+        self.assertIsInstance(location, StorageLocation)
+        representation = self.artifacts.publish_representation(
+            self.alpha_access, artifact_ref=artifact.artifact_ref,
+            role="runtime", platform="linux", consumer="viewer", scope="project",
+            content_ref=content, storage_locations=(location,),
+        )
+        self.assertEqual(representation.storage_locations, (location,))
+        restarted = ArtifactService(self.database_path)
+        persisted = restarted.get_current_representation(
+            self.alpha_access, artifact.artifact_ref, role="runtime",
+            platform="linux", consumer="viewer", scope="project",
+        )
+        self.assertIsInstance(persisted.storage_locations[0], ContentLocation)
+        self.assertIs(persisted.storage_locations[0].state, ReplicaState.AVAILABLE)
+        self.assertEqual(persisted.storage_locations, (location,))
+
+    def test_t19_representation_heads_are_independent_by_all_key_dimensions(self) -> None:
+        artifact = self._create_artifact()
+        dimensions = (
+            ("preview", "linux", "viewer", "project"),
+            ("preview", "windows", "viewer", "project"),
+            ("preview", "linux", "editor", "project"),
+            ("preview", "linux", "viewer", "task-42"),
+        )
+        published = {
+            key: self.artifacts.publish_representation(
+                self.alpha_access,
+                artifact_ref=artifact.artifact_ref,
+                role=key[0],
+                platform=key[1],
+                consumer=key[2],
+                scope=key[3],
+                content_ref=self.content,
+                storage_locations=(self._location("shared"),),
+            )
+            for key in dimensions
+        }
+
+        heads = self.artifacts.list_representation_heads(
+            self.alpha_access, artifact.artifact_ref
+        )
+        self.assertEqual(len(heads), len(dimensions))
+        self.assertEqual(
+            {(head.role, head.platform, head.consumer, head.scope) for head in heads},
+            set(dimensions),
+        )
+        for key, representation in published.items():
+            with self.subTest(key=key):
+                current = self.artifacts.get_current_representation(
+                    self.alpha_access,
+                    artifact.artifact_ref,
+                    role=key[0], platform=key[1], consumer=key[2], scope=key[3],
+                )
+                self.assertIsInstance(current, ArtifactRepresentation)
+                self.assertEqual(current.representation_ref, representation.representation_ref)
+
+    def test_t20_rejected_representation_is_immutable_history_not_current(self) -> None:
+        artifact = self._create_artifact()
+        first = self.artifacts.publish_representation(
+            self.alpha_access,
+            artifact_ref=artifact.artifact_ref,
+            role="preview", platform="linux", consumer="viewer", scope="project",
+            content_ref=self.content, storage_locations=(self._location("v1"),),
+        )
+        changed = ContentRef.from_bytes(b"rejected bytes", media_type="text/plain")
+        rejected = self.artifacts.publish_representation(
+            self.alpha_access,
+            artifact_ref=artifact.artifact_ref,
+            role="preview", platform="linux", consumer="viewer", scope="project",
+            content_ref=changed, storage_locations=(self._location("rejected", changed),),
+            status="REJECTED",
+        )
+        self.assertEqual(rejected.revision, 2)
+        self.assertEqual(
+            self.artifacts.get_current_representation(
+                self.alpha_access, artifact.artifact_ref,
+                role="preview", platform="linux", consumer="viewer", scope="project",
+            ),
+            first,
+        )
+        third = self.artifacts.publish_representation(
+            self.alpha_access,
+            artifact_ref=artifact.artifact_ref,
+            role="preview", platform="linux", consumer="viewer", scope="project",
+            content_ref=changed, storage_locations=(self._location("v3", changed),),
+        )
+        self.assertEqual(third.revision, 3)
+        self.assertEqual(
+            [item.revision for item in self.artifacts.list_representations(
+                self.alpha_access, artifact.artifact_ref,
+            )],
+            [1, 2, 3],
+        )
+        self.assertEqual(
+            [head.representation_ref.revision for head in self.artifacts.list_representation_heads(
+                self.alpha_access, artifact.artifact_ref,
+            )],
+            [1, 3],
+        )
+        connection = sqlite3.connect(self.database_path)
+        try:
+            with self.assertRaises(sqlite3.IntegrityError):
+                connection.execute(
+                    "UPDATE artifact_representations SET status = 'ACCEPTED'"
+                )
+            connection.rollback()
+            with self.assertRaises(sqlite3.IntegrityError):
+                connection.execute("DELETE FROM artifact_representations")
+            connection.rollback()
+        finally:
+            connection.close()
+
+    def test_t21_shared_content_and_location_keep_project_authorization_distinct(self) -> None:
+        alpha_artifact = self._create_artifact()
+        beta_artifact = self._create_artifact(
+            access=self.beta_access, project=self.beta,
+        )
+        location = self._location("same-object")
+        alpha_representation = self.artifacts.publish_representation(
+            self.alpha_access,
+            artifact_ref=alpha_artifact.artifact_ref,
+            role="preview", platform="linux", consumer="viewer", scope="project",
+            content_ref=self.content, storage_locations=(location,),
+        )
+        beta_representation = self.artifacts.publish_representation(
+            self.beta_access,
+            artifact_ref=beta_artifact.artifact_ref,
+            role="preview", platform="linux", consumer="viewer", scope="project",
+            content_ref=self.content, storage_locations=(location,),
+        )
+        self.assertEqual(alpha_representation.content_ref, beta_representation.content_ref)
+        self.assertEqual(alpha_representation.storage_locations, beta_representation.storage_locations)
+        self.assertNotEqual(alpha_representation.representation_ref, beta_representation.representation_ref)
+        with self.assertRaises(ArtifactScopeError):
+            self.artifacts.get_representation(self.beta_access, alpha_representation.representation_ref)
+        with self.assertRaises(ArtifactScopeError):
+            self.artifacts.get_current_representation(
+                self.alpha_access, beta_artifact.artifact_ref,
+                role="preview", platform="linux", consumer="viewer", scope="project",
+            )
+
+    def test_t22_representation_and_head_digests_detect_tampering(self) -> None:
+        artifact = self._create_artifact()
+        representation = self.artifacts.publish_representation(
+            self.alpha_access,
+            artifact_ref=artifact.artifact_ref,
+            role="tamper", platform="linux", consumer="viewer", scope="project",
+            content_ref=self.content, storage_locations=(self._location("tamper"),),
+        )
+        connection = sqlite3.connect(self.database_path)
+        try:
+            connection.execute("DROP TRIGGER artifact_representations_no_update")
+            connection.execute(
+                "UPDATE artifact_representations SET role = 'tampered' "
+                "WHERE project_id = ? AND artifact_id = ? AND artifact_revision = ?",
+                (artifact.project_ref.value, artifact.artifact_id, artifact.revision),
+            )
+            connection.commit()
+        finally:
+            connection.close()
+        with self.assertRaises(ArtifactIntegrityError):
+            self.artifacts.get_representation(
+                self.alpha_access, representation.representation_ref,
+            )
+
+        head_artifact = self._create_artifact()
+        head_representation = self.artifacts.publish_representation(
+            self.alpha_access,
+            artifact_ref=head_artifact.artifact_ref,
+            role="head-tamper", platform="linux", consumer="viewer", scope="project",
+            content_ref=self.content, storage_locations=(self._location("head"),),
+        )
+        connection = sqlite3.connect(self.database_path)
+        try:
+            connection.execute("DROP TRIGGER artifact_representation_heads_no_update")
+            connection.execute(
+                "UPDATE artifact_representation_heads SET record_sha256 = ? "
+                "WHERE project_id = ? AND artifact_id = ? AND artifact_revision = ?",
+                (
+                    "0" * 64,
+                    head_artifact.project_ref.value,
+                    head_artifact.artifact_id,
+                    head_artifact.revision,
+                ),
+            )
+            connection.commit()
+        finally:
+            connection.close()
+        with self.assertRaises(ArtifactIntegrityError):
+            self.artifacts.get_current_representation(
+                self.alpha_access, head_representation.artifact_ref,
+                role="head-tamper", platform="linux", consumer="viewer", scope="project",
+            )
 
     def test_concurrent_conflicting_revision_has_one_winner(self) -> None:
         artifact = self._create_artifact()

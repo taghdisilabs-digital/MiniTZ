@@ -12,7 +12,7 @@ from pathlib import Path
 import re
 import sqlite3
 from types import MappingProxyType
-from typing import cast
+from typing import Protocol, cast, runtime_checkable
 from uuid import uuid4
 
 from .project import (
@@ -124,6 +124,18 @@ def _validate_type(value: object, field_name: str) -> str:
     return value
 
 
+def _validate_dimension(value: object, field_name: str) -> str:
+    """Validate a bounded head dimension without prescribing its vocabulary."""
+    if (
+        not isinstance(value, str)
+        or not value
+        or len(value) > 128
+        or any(ord(character) < 32 for character in value)
+    ):
+        raise ArtifactContractError(f"{field_name} must be bounded serialized text")
+    return value
+
+
 def _freeze_metadata(value: Mapping[str, str]) -> Mapping[str, str]:
     if not isinstance(value, Mapping):
         raise ArtifactContractError("Artifact metadata must be a mapping")
@@ -190,6 +202,28 @@ class ContentRef:
             raise ArtifactContentError("ContentRef digest or size does not match bytes")
 
 
+@runtime_checkable
+class StorageLocation(Protocol):
+    """Read-only physical-location contract owned by the ObjectStore family."""
+
+    @property
+    def backend_id(self) -> str: ...
+    @property
+    def locator(self) -> str: ...
+    @property
+    def content_digest(self) -> str: ...
+    @property
+    def state(self) -> object: ...
+    @property
+    def size_bytes(self) -> int: ...
+    @property
+    def verified_at(self) -> str | None: ...
+    @property
+    def created_at(self) -> str: ...
+    @property
+    def failure_ref(self) -> str | None: ...
+
+
 def _canonical_content_refs(values: Sequence[ContentRef]) -> tuple[ContentRef, ...]:
     canonical: dict[tuple[str, str, int], ContentRef] = {}
     for item in values:
@@ -231,6 +265,41 @@ class ArtifactRef:
         return (
             f"artifact://{self.project_ref.value}/{self.artifact_id}"
             f"/{self.revision}"
+        )
+
+
+_REPRESENTATION_ID_PATTERN = re.compile(r"rep_[0-9a-f]{32}")
+
+
+@dataclass(frozen=True, order=True)
+class ArtifactRepresentationRef:
+    """Exact immutable representation revision for one semantic Artifact."""
+
+    artifact_ref: ArtifactRef
+    representation_id: str
+    revision: int
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.artifact_ref, ArtifactRef):
+            raise TypeError("artifact_ref must be ArtifactRef")
+        if (
+            not isinstance(self.representation_id, str)
+            or _REPRESENTATION_ID_PATTERN.fullmatch(self.representation_id) is None
+        ):
+            raise ArtifactContractError("Artifact representation identity is malformed")
+        if (
+            not isinstance(self.revision, int)
+            or isinstance(self.revision, bool)
+            or self.revision < 1
+        ):
+            raise ArtifactContractError("Artifact representation revision must be positive")
+
+    @property
+    def value(self) -> str:
+        return (
+            f"representation://{self.artifact_ref.project_ref.value}/"
+            f"{self.artifact_ref.artifact_id}/{self.artifact_ref.revision}/"
+            f"{self.representation_id}/{self.revision}"
         )
 
 
@@ -569,6 +638,127 @@ class Artifact:
         )
 
 
+def _location_payload(location: StorageLocation) -> dict[str, object]:
+    state = location.state
+    return {
+        "backend_id": location.backend_id,
+        "content_digest": location.content_digest,
+        "created_at": location.created_at,
+        "failure_ref": location.failure_ref,
+        "locator": location.locator,
+        "size_bytes": location.size_bytes,
+        "state": state.value if hasattr(state, "value") else state,
+        "verified_at": location.verified_at,
+    }
+
+
+@dataclass(frozen=True)
+class ArtifactRepresentation:
+    """Immutable content representation attached to one logical Artifact."""
+
+    representation_ref: ArtifactRepresentationRef
+    role: str
+    platform: str
+    consumer: str
+    scope: str
+    content_ref: ContentRef
+    storage_locations: tuple[StorageLocation, ...]
+    status: str
+    created_at: str
+    semantic_digest: str = field(init=False)
+    record_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.representation_ref, ArtifactRepresentationRef):
+            raise TypeError("representation_ref must be ArtifactRepresentationRef")
+        for field_name, value in (
+            ("role", self.role),
+            ("platform", self.platform),
+            ("consumer", self.consumer),
+            ("scope", self.scope),
+        ):
+            _validate_dimension(value, field_name)
+        if not isinstance(self.content_ref, ContentRef):
+            raise ArtifactContentError("Artifact representation content_ref must be ContentRef")
+        if not isinstance(self.storage_locations, tuple) or not all(
+            isinstance(item, StorageLocation) for item in self.storage_locations
+        ):
+            raise ArtifactContractError("Artifact representation locations are malformed")
+        if len(self.storage_locations) > 128:
+            raise ArtifactContractError("Artifact representation locations are unbounded")
+        locations = tuple(
+            sorted(
+                set(self.storage_locations),
+                key=lambda item: (item.backend_id, item.locator, item.content_digest),
+            )
+        )
+        for location in locations:
+            if location.content_digest != self.content_ref.digest:
+                raise ArtifactContentError(
+                    "StorageLocation must identify the representation ContentRef"
+                )
+            if location.size_bytes != self.content_ref.size_bytes:
+                raise ArtifactContentError(
+                    "StorageLocation size must match the representation ContentRef"
+                )
+        if self.status not in {"ACCEPTED", "REJECTED"}:
+            raise ArtifactContractError("Artifact representation status is malformed")
+        _validate_timestamp(self.created_at, "created_at")
+        object.__setattr__(self, "storage_locations", locations)
+        object.__setattr__(self, "semantic_digest", self._semantic_digest())
+        object.__setattr__(self, "record_sha256", self._record_digest())
+
+    @property
+    def artifact_ref(self) -> ArtifactRef:
+        return self.representation_ref.artifact_ref
+
+    @property
+    def revision(self) -> int:
+        return self.representation_ref.revision
+
+    def _semantic_payload(self) -> dict[str, object]:
+        return {
+            "artifact_ref": self.artifact_ref.value,
+            "consumer": self.consumer,
+            "content_ref": _content_payload(self.content_ref),
+            "platform": self.platform,
+            "role": self.role,
+            "scope": self.scope,
+            "status": self.status,
+            "storage_locations": [_location_payload(item) for item in self.storage_locations],
+        }
+
+    def _semantic_digest(self) -> str:
+        return _sha256(self._semantic_payload())
+
+    def _record_digest(self) -> str:
+        return _sha256(
+            {
+                "created_at": self.created_at,
+                "representation_id": self.representation_ref.representation_id,
+                "representation_revision": self.revision,
+                "semantic_digest": self.semantic_digest,
+            }
+        )
+
+
+@dataclass(frozen=True)
+class RepresentationHead:
+    """One immutable historical or current head event for a representation key."""
+
+    representation_ref: ArtifactRepresentationRef
+    role: str
+    platform: str
+    consumer: str
+    scope: str
+    updated_at: str
+    record_sha256: str
+
+    @property
+    def artifact_ref(self) -> ArtifactRef:
+        return self.representation_ref.artifact_ref
+
+
 @dataclass(frozen=True)
 class ArtifactDerivation:
     """Immutable generic provenance relationship for one Artifact revision."""
@@ -759,6 +949,67 @@ class ArtifactService:
                     ) ON UPDATE RESTRICT ON DELETE RESTRICT
                 );
 
+                CREATE TABLE IF NOT EXISTS artifact_representations (
+                    project_id TEXT NOT NULL,
+                    artifact_id TEXT NOT NULL,
+                    artifact_revision INTEGER NOT NULL,
+                    artifact_record_sha256 TEXT NOT NULL,
+                    representation_id TEXT NOT NULL,
+                    representation_revision INTEGER NOT NULL,
+                    role TEXT NOT NULL,
+                    platform TEXT NOT NULL,
+                    consumer TEXT NOT NULL,
+                    scope TEXT NOT NULL,
+                    content_json TEXT NOT NULL,
+                    storage_locations_json TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    semantic_digest TEXT NOT NULL,
+                    record_sha256 TEXT NOT NULL,
+                    PRIMARY KEY (
+                        project_id, artifact_id, artifact_revision,
+                        representation_id, representation_revision
+                    ),
+                    UNIQUE (
+                        project_id, artifact_id, artifact_revision,
+                        representation_id, representation_revision, record_sha256
+                    ),
+                    FOREIGN KEY (
+                        project_id, artifact_id, artifact_revision,
+                        artifact_record_sha256
+                    ) REFERENCES artifact_revisions(
+                        project_id, artifact_id, revision, record_sha256
+                    ) ON UPDATE RESTRICT ON DELETE RESTRICT
+                );
+
+                CREATE TABLE IF NOT EXISTS artifact_representation_heads (
+                    head_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    project_id TEXT NOT NULL,
+                    artifact_id TEXT NOT NULL,
+                    artifact_revision INTEGER NOT NULL,
+                    role TEXT NOT NULL,
+                    platform TEXT NOT NULL,
+                    consumer TEXT NOT NULL,
+                    scope TEXT NOT NULL,
+                    representation_id TEXT NOT NULL,
+                    representation_revision INTEGER NOT NULL,
+                    representation_record_sha256 TEXT NOT NULL,
+                    updated_at TEXT NOT NULL,
+                    record_sha256 TEXT NOT NULL,
+                    UNIQUE (
+                        project_id, artifact_id, artifact_revision,
+                        role, platform, consumer, scope, representation_revision
+                    ),
+                    FOREIGN KEY (
+                        project_id, artifact_id, artifact_revision,
+                        representation_id, representation_revision,
+                        representation_record_sha256
+                    ) REFERENCES artifact_representations(
+                        project_id, artifact_id, artifact_revision,
+                        representation_id, representation_revision, record_sha256
+                    ) ON UPDATE RESTRICT ON DELETE RESTRICT
+                );
+
                 CREATE TABLE IF NOT EXISTS artifact_source_artifact_bindings (
                     project_id TEXT NOT NULL,
                     artifact_id TEXT NOT NULL,
@@ -877,6 +1128,22 @@ class ArtifactService:
                 CREATE TRIGGER IF NOT EXISTS artifact_heads_no_delete
                 BEFORE DELETE ON artifact_heads
                 BEGIN SELECT RAISE(ABORT, 'Artifact head cannot be deleted'); END;
+
+                CREATE TRIGGER IF NOT EXISTS artifact_representations_no_update
+                BEFORE UPDATE ON artifact_representations
+                BEGIN SELECT RAISE(ABORT, 'Artifact representations are immutable'); END;
+
+                CREATE TRIGGER IF NOT EXISTS artifact_representations_no_delete
+                BEFORE DELETE ON artifact_representations
+                BEGIN SELECT RAISE(ABORT, 'Artifact representations cannot be deleted'); END;
+
+                CREATE TRIGGER IF NOT EXISTS artifact_representation_heads_no_update
+                BEFORE UPDATE ON artifact_representation_heads
+                BEGIN SELECT RAISE(ABORT, 'Representation head history is immutable'); END;
+
+                CREATE TRIGGER IF NOT EXISTS artifact_representation_heads_no_delete
+                BEFORE DELETE ON artifact_representation_heads
+                BEGIN SELECT RAISE(ABORT, 'Representation head history cannot be deleted'); END;
                 """
             )
         finally:
@@ -995,6 +1262,288 @@ class ArtifactService:
             expected_task_digest=expected_task_digest,
             expected_prior=None,
         )
+
+    def publish_representation(
+        self,
+        requesting_access: ProjectAccess,
+        *,
+        artifact_ref: ArtifactRef,
+        role: str,
+        platform: str,
+        consumer: str,
+        scope: str | None = None,
+        scope_ref: str | None = None,
+        content_ref: ContentRef,
+        storage_locations: Sequence[StorageLocation],
+        status: str = "ACCEPTED",
+    ) -> ArtifactRepresentation:
+        """Attach one immutable representation and optionally advance its keyed head.
+
+        The supplied locations are observations from an existing
+        ``ObjectStorageBackend``. This method records the logical Project
+        binding only; it never writes, deduplicates, or deletes physical bytes.
+        """
+        self._authorize(requesting_access, artifact_ref.project_ref)
+        if scope is None:
+            scope = scope_ref
+        elif scope_ref is not None and scope != scope_ref:
+            raise ArtifactContractError("scope and scope_ref disagree")
+        if scope is None:
+            raise ArtifactContractError("representation scope is required")
+        if not isinstance(storage_locations, Sequence) or isinstance(
+            storage_locations, (str, bytes)
+        ):
+            raise ArtifactContractError("storage_locations must be a sequence")
+        if not isinstance(content_ref, ContentRef):
+            raise ArtifactContentError("representation content_ref must be ContentRef")
+        normalized_locations = tuple(storage_locations)
+        if not all(isinstance(item, StorageLocation) for item in normalized_locations):
+            raise ArtifactContractError("storage_locations must contain StorageLocation")
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN IMMEDIATE")
+            artifact = self._fetch_artifact(connection, artifact_ref)
+            latest = self._fetch_latest_representation_row(
+                connection,
+                artifact_ref,
+                role=role,
+                platform=platform,
+                consumer=consumer,
+                scope=scope,
+            )
+            if latest is None:
+                representation_id = f"rep_{uuid4().hex}"
+                representation_revision = 1
+            else:
+                latest_reference = self._representation_ref_from_row(latest)
+                latest_representation = self._fetch_representation(
+                    connection, artifact, latest_reference
+                )
+                representation_id = latest_representation.representation_ref.representation_id
+                representation_revision = latest_representation.revision + 1
+            now = self._database_now(connection)
+            representation = ArtifactRepresentation(
+                representation_ref=ArtifactRepresentationRef(
+                    artifact_ref,
+                    representation_id,
+                    representation_revision,
+                ),
+                role=role,
+                platform=platform,
+                consumer=consumer,
+                scope=scope,
+                content_ref=content_ref,
+                storage_locations=normalized_locations,
+                status=status,
+                created_at=now,
+            )
+            self._insert_representation(connection, artifact, representation)
+            if representation.status == "ACCEPTED":
+                self._insert_representation_head(connection, representation)
+            connection.commit()
+            return representation
+        except Exception:
+            connection.rollback()
+            raise
+        finally:
+            connection.close()
+
+    # A descriptive alias for callers that treat a representation as a
+    # registration operation. Both names remain owned by ArtifactService.
+    register_representation = publish_representation
+
+    def get_representation(
+        self,
+        requesting_access: ProjectAccess,
+        representation_ref: ArtifactRepresentationRef,
+    ) -> ArtifactRepresentation:
+        self._authorize(requesting_access, representation_ref.artifact_ref.project_ref)
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN")
+            artifact = self._fetch_artifact(connection, representation_ref.artifact_ref)
+            representation = self._fetch_representation(
+                connection, artifact, representation_ref
+            )
+            connection.commit()
+            return representation
+        except Exception:
+            connection.rollback()
+            raise
+        finally:
+            connection.close()
+
+    def list_representations(
+        self,
+        requesting_access: ProjectAccess,
+        artifact_ref: ArtifactRef,
+        *,
+        role: str | None = None,
+        platform: str | None = None,
+        consumer: str | None = None,
+        scope: str | None = None,
+        include_rejected: bool = True,
+    ) -> tuple[ArtifactRepresentation, ...]:
+        self._authorize(requesting_access, artifact_ref.project_ref)
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN")
+            artifact = self._fetch_artifact(connection, artifact_ref)
+            clauses = [
+                "project_id = ?", "artifact_id = ?", "artifact_revision = ?",
+            ]
+            parameters: list[object] = [
+                artifact_ref.project_ref.value, artifact_ref.artifact_id, artifact_ref.revision,
+            ]
+            for name, value in (
+                ("role", role), ("platform", platform),
+                ("consumer", consumer), ("scope", scope),
+            ):
+                if value is not None:
+                    _validate_dimension(value, name)
+                    clauses.append(f"{name} = ?")
+                    parameters.append(value)
+            if not include_rejected:
+                clauses.append("status = 'ACCEPTED'")
+            rows = connection.execute(
+                "SELECT * FROM artifact_representations WHERE "
+                + " AND ".join(clauses)
+                + " ORDER BY role, platform, consumer, scope, representation_revision",
+                parameters,
+            ).fetchall()
+            values = tuple(
+                self._fetch_representation(connection, artifact, self._representation_ref_from_row(row))
+                for row in rows
+            )
+            connection.commit()
+            return values
+        except Exception:
+            connection.rollback()
+            raise
+        finally:
+            connection.close()
+
+    def get_current_representation(
+        self,
+        requesting_access: ProjectAccess,
+        artifact_ref: ArtifactRef,
+        *,
+        role: str,
+        platform: str,
+        consumer: str,
+        scope: str | None = None,
+        scope_ref: str | None = None,
+    ) -> ArtifactRepresentation:
+        if scope is None:
+            scope = scope_ref
+        elif scope_ref is not None and scope != scope_ref:
+            raise ArtifactContractError("scope and scope_ref disagree")
+        if scope is None:
+            raise ArtifactContractError("representation scope is required")
+        self._authorize(requesting_access, artifact_ref.project_ref)
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN")
+            artifact = self._fetch_artifact(connection, artifact_ref)
+            row = self._fetch_current_representation_row(
+                connection, artifact_ref, role=role, platform=platform,
+                consumer=consumer, scope=scope,
+            )
+            if row is None:
+                raise ArtifactNotFoundError("Current Artifact representation not found")
+            representation = self._fetch_representation(
+                connection, artifact, self._representation_ref_from_row(row)
+            )
+            connection.commit()
+            return representation
+        except Exception:
+            connection.rollback()
+            raise
+        finally:
+            connection.close()
+
+    resolve_current_representation = get_current_representation
+
+    def list_representation_heads(
+        self,
+        requesting_access: ProjectAccess,
+        artifact_ref: ArtifactRef,
+        *,
+        role: str | None = None,
+        platform: str | None = None,
+        consumer: str | None = None,
+        scope: str | None = None,
+    ) -> tuple[RepresentationHead, ...]:
+        self._authorize(requesting_access, artifact_ref.project_ref)
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN")
+            artifact = self._fetch_artifact(connection, artifact_ref)
+            clauses = [
+                "project_id = ?", "artifact_id = ?", "artifact_revision = ?",
+            ]
+            parameters: list[object] = [
+                artifact_ref.project_ref.value, artifact_ref.artifact_id, artifact_ref.revision,
+            ]
+            for name, value in (
+                ("role", role), ("platform", platform),
+                ("consumer", consumer), ("scope", scope),
+            ):
+                if value is not None:
+                    _validate_dimension(value, name)
+                    clauses.append(f"{name} = ?")
+                    parameters.append(value)
+            rows = connection.execute(
+                "SELECT * FROM artifact_representation_heads WHERE "
+                + " AND ".join(clauses) + " ORDER BY head_id",
+                parameters,
+            ).fetchall()
+            heads: list[RepresentationHead] = []
+            for row in rows:
+                reference = ArtifactRepresentationRef(
+                    artifact_ref,
+                    cast(str, row["representation_id"]),
+                    cast(int, row["representation_revision"]),
+                )
+                self._fetch_representation(connection, artifact, reference)
+                expected = self._representation_head_sha256(row)
+                self._verify_digest(expected, row["record_sha256"], "Representation head")
+                heads.append(
+                    RepresentationHead(
+                        representation_ref=reference,
+                        role=cast(str, row["role"]),
+                        platform=cast(str, row["platform"]),
+                        consumer=cast(str, row["consumer"]),
+                        scope=cast(str, row["scope"]),
+                        updated_at=cast(str, row["updated_at"]),
+                        record_sha256=cast(str, row["record_sha256"]),
+                    )
+                )
+            connection.commit()
+            return tuple(heads)
+        except Exception:
+            connection.rollback()
+            raise
+        finally:
+            connection.close()
+
+    def get_current_representation_head(
+        self,
+        requesting_access: ProjectAccess,
+        artifact_ref: ArtifactRef,
+        *,
+        role: str,
+        platform: str,
+        consumer: str,
+        scope: str,
+    ) -> RepresentationHead:
+        heads = self.list_representation_heads(
+            requesting_access, artifact_ref, role=role, platform=platform,
+            consumer=consumer, scope=scope,
+        )
+        if not heads:
+            raise ArtifactNotFoundError("Current Artifact representation head not found")
+        return heads[-1]
 
     def get_artifact(
         self,
@@ -1410,6 +1959,294 @@ class ArtifactService:
                 derivation.created_at,
                 derivation.record_sha256,
             ),
+        )
+
+    @staticmethod
+    def _insert_representation(
+        connection: sqlite3.Connection,
+        artifact: Artifact,
+        representation: ArtifactRepresentation,
+    ) -> None:
+        if representation.artifact_ref != artifact.artifact_ref:
+            raise ArtifactConflictError("Representation Artifact identity conflicts")
+        connection.execute(
+            """
+            INSERT INTO artifact_representations (
+                project_id, artifact_id, artifact_revision,
+                artifact_record_sha256, representation_id, representation_revision,
+                role, platform, consumer, scope, content_json,
+                storage_locations_json, status, created_at, semantic_digest,
+                record_sha256
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                artifact.project_ref.value,
+                artifact.artifact_id,
+                artifact.revision,
+                artifact.record_sha256,
+                representation.representation_ref.representation_id,
+                representation.revision,
+                representation.role,
+                representation.platform,
+                representation.consumer,
+                representation.scope,
+                _json(_content_payload(representation.content_ref)),
+                _json([_location_payload(item) for item in representation.storage_locations]),
+                representation.status,
+                representation.created_at,
+                representation.semantic_digest,
+                representation.record_sha256,
+            ),
+        )
+
+    @classmethod
+    def _insert_representation_head(
+        cls,
+        connection: sqlite3.Connection,
+        representation: ArtifactRepresentation,
+    ) -> None:
+        if representation.status != "ACCEPTED":
+            raise ArtifactContractError("Only accepted representations can become heads")
+        head = {
+            "artifact_id": representation.artifact_ref.artifact_id,
+            "artifact_revision": representation.artifact_ref.revision,
+            "consumer": representation.consumer,
+            "platform": representation.platform,
+            "project_id": representation.artifact_ref.project_ref.value,
+            "representation_id": representation.representation_ref.representation_id,
+            "representation_record_sha256": representation.record_sha256,
+            "representation_revision": representation.revision,
+            "role": representation.role,
+            "scope": representation.scope,
+            "updated_at": representation.created_at,
+        }
+        connection.execute(
+            """
+            INSERT INTO artifact_representation_heads (
+                project_id, artifact_id, artifact_revision,
+                role, platform, consumer, scope, representation_id,
+                representation_revision, representation_record_sha256,
+                updated_at, record_sha256
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                head["project_id"],
+                head["artifact_id"],
+                head["artifact_revision"],
+                head["role"],
+                head["platform"],
+                head["consumer"],
+                head["scope"],
+                head["representation_id"],
+                head["representation_revision"],
+                head["representation_record_sha256"],
+                head["updated_at"],
+                cls._representation_head_sha256(head),
+            ),
+        )
+
+    def _fetch_current_representation_row(
+        self,
+        connection: sqlite3.Connection,
+        artifact_ref: ArtifactRef,
+        *,
+        role: str,
+        platform: str,
+        consumer: str,
+        scope: str,
+    ) -> sqlite3.Row | None:
+        if not connection.in_transaction:
+            raise ArtifactIntegrityError(
+                "Artifact representation reads require one explicit durable snapshot"
+            )
+        for name, value in (
+            ("role", role), ("platform", platform),
+            ("consumer", consumer), ("scope", scope),
+        ):
+            _validate_dimension(value, name)
+        row = connection.execute(
+            """
+            SELECT * FROM artifact_representation_heads
+            WHERE project_id = ? AND artifact_id = ? AND artifact_revision = ?
+              AND role = ? AND platform = ? AND consumer = ? AND scope = ?
+            ORDER BY representation_revision DESC, head_id DESC
+            LIMIT 1
+            """,
+            (
+                artifact_ref.project_ref.value,
+                artifact_ref.artifact_id,
+                artifact_ref.revision,
+                role,
+                platform,
+                consumer,
+                scope,
+            ),
+        ).fetchone()
+        if row is None:
+            return None
+        self._verify_digest(
+            self._representation_head_sha256(cast(Mapping[str, object], row)),
+            row["record_sha256"],
+            "Artifact representation head",
+        )
+        return cast(sqlite3.Row, row)
+
+    @staticmethod
+    def _fetch_latest_representation_row(
+        connection: sqlite3.Connection,
+        artifact_ref: ArtifactRef,
+        *,
+        role: str,
+        platform: str,
+        consumer: str,
+        scope: str,
+    ) -> sqlite3.Row | None:
+        if not connection.in_transaction:
+            raise ArtifactIntegrityError(
+                "Artifact representation reads require one explicit durable snapshot"
+            )
+        row = connection.execute(
+            """
+            SELECT * FROM artifact_representations
+            WHERE project_id = ? AND artifact_id = ? AND artifact_revision = ?
+              AND role = ? AND platform = ? AND consumer = ? AND scope = ?
+            ORDER BY representation_revision DESC
+            LIMIT 1
+            """,
+            (
+                artifact_ref.project_ref.value,
+                artifact_ref.artifact_id,
+                artifact_ref.revision,
+                role,
+                platform,
+                consumer,
+                scope,
+            ),
+        ).fetchone()
+        return None if row is None else cast(sqlite3.Row, row)
+
+    def _fetch_representation(
+        self,
+        connection: sqlite3.Connection,
+        artifact: Artifact,
+        representation_ref: ArtifactRepresentationRef,
+    ) -> ArtifactRepresentation:
+        if not connection.in_transaction:
+            raise ArtifactIntegrityError(
+                "Artifact representation reads require one explicit durable snapshot"
+            )
+        row = connection.execute(
+            """
+            SELECT * FROM artifact_representations
+            WHERE project_id = ? AND artifact_id = ? AND artifact_revision = ?
+              AND representation_id = ? AND representation_revision = ?
+            """,
+            (
+                representation_ref.artifact_ref.project_ref.value,
+                representation_ref.artifact_ref.artifact_id,
+                representation_ref.artifact_ref.revision,
+                representation_ref.representation_id,
+                representation_ref.revision,
+            ),
+        ).fetchone()
+        if row is None:
+            raise ArtifactNotFoundError("Artifact representation not found")
+        try:
+            if (
+                cast(str, row["artifact_record_sha256"]) != artifact.record_sha256
+                or cast(str, row["project_id"]) != artifact.project_ref.value
+                or cast(str, row["artifact_id"]) != artifact.artifact_id
+                or cast(int, row["artifact_revision"]) != artifact.revision
+            ):
+                raise ArtifactIntegrityError("Artifact representation binding is inconsistent")
+            representation = ArtifactRepresentation(
+                representation_ref=representation_ref,
+                role=cast(str, row["role"]),
+                platform=cast(str, row["platform"]),
+                consumer=cast(str, row["consumer"]),
+                scope=cast(str, row["scope"]),
+                content_ref=self._parse_content(
+                    cast(dict[str, object], json.loads(cast(str, row["content_json"])))
+                ),
+                storage_locations=tuple(
+                    self._parse_location(value)
+                    for value in cast(
+                        list[dict[str, object]],
+                        json.loads(cast(str, row["storage_locations_json"])),
+                    )
+                ),
+                status=cast(str, row["status"]),
+                created_at=cast(str, row["created_at"]),
+            )
+        except (KeyError, TypeError, ValueError, json.JSONDecodeError, ArtifactError) as exc:
+            if isinstance(exc, ArtifactIntegrityError):
+                raise
+            raise ArtifactIntegrityError("Persisted Artifact representation is malformed") from exc
+        self._verify_digest(
+            representation.semantic_digest,
+            row["semantic_digest"],
+            "Artifact representation semantic contract",
+        )
+        self._verify_digest(
+            representation.record_sha256,
+            row["record_sha256"],
+            "Artifact representation",
+        )
+        return representation
+
+    @classmethod
+    def _parse_location(cls, value: Mapping[str, object]) -> StorageLocation:
+        from .object_store import ContentLocation, ReplicaState
+
+        return cast(
+            StorageLocation,
+            ContentLocation(
+                backend_id=cast(str, value["backend_id"]),
+            locator=cast(str, value["locator"]),
+            content_digest=cast(str, value["content_digest"]),
+            state=ReplicaState(cast(str, value["state"])),
+            size_bytes=cast(int, value["size_bytes"]),
+            verified_at=cast(str | None, value["verified_at"]),
+            created_at=cast(str, value["created_at"]),
+                failure_ref=cast(str | None, value["failure_ref"]),
+            ),
+        )
+
+    @classmethod
+    def _representation_ref_from_row(
+        cls, row: sqlite3.Row
+    ) -> ArtifactRepresentationRef:
+        try:
+            return ArtifactRepresentationRef(
+                artifact_ref=ArtifactRef(
+                    ProjectRef(cast(str, row["project_id"])),
+                    cast(str, row["artifact_id"]),
+                    cast(int, row["artifact_revision"]),
+                ),
+                representation_id=cast(str, row["representation_id"]),
+                revision=cast(int, row["representation_revision"]),
+            )
+        except (KeyError, TypeError, ValueError, ArtifactError) as exc:
+            raise ArtifactIntegrityError(
+                "Persisted Artifact representation reference is malformed"
+            ) from exc
+
+    @staticmethod
+    def _representation_head_sha256(row: Mapping[str, object]) -> str:
+        return _sha256(
+            {
+                "artifact_id": row["artifact_id"],
+                "artifact_revision": row["artifact_revision"],
+                "consumer": row["consumer"],
+                "platform": row["platform"],
+                "project_id": row["project_id"],
+                "representation_id": row["representation_id"],
+                "representation_record_sha256": row["representation_record_sha256"],
+                "representation_revision": row["representation_revision"],
+                "role": row["role"],
+                "scope": row["scope"],
+                "updated_at": row["updated_at"],
+            }
         )
 
     @classmethod
