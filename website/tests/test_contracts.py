@@ -29,26 +29,16 @@ class WebsiteContractTests(unittest.TestCase):
             self.assertTrue(item['artifact_sha256'])
             self.assertEqual(item['acceptance_authority'], 'Mahdi Taghdisi')
 
-    def test_live_page_is_minitz_unreal_capability_stream_without_worker_identity(self):
+    def test_live_page_is_minitz_i_can_brand_campaign(self):
         html = (ROOT / 'src/live/index.html').read_text()
         app = (ROOT / 'src/live/app.js').read_text()
-        for token in ('MINITZ', 'UNREAL LIVE FRAME', 'data-capability-console', 'data-gpu-chart', 'data-vram-chart', 'data-local-ai'):
+        for token in ('MiniTZ OS', 'I can code.', 'I can build.', 'I can create.', 'I can design.', 'I can make.', 'I can automate.', 'Working Prototype', 'data-film-line', 'data-replay'):
             self.assertIn(token, html)
-        for forbidden in ('data-model', 'data-reasoning', 'data-attempt', 'data-session-state', 'Qwen'):
+        for forbidden in ('UNREAL LIVE FRAME', 'CAPABILITY DECK', '30 COMMANDER LANES', '5 BOOST WORKERS', 'LOCAL AI ACCELERATOR', 'GPU COMPUTE', 'MAIN CODERS'):
             self.assertNotIn(forbidden, html)
-        for token in ('MAIN CODERS', 'Codex', 'Antigravity', 'data-coder-codex', 'data-coder-agr'):
-            self.assertIn(token, html)
-        self.assertIn('production?.main_coders', app)
-        for forbidden in ('production?.model', 'production?.reasoning', 'production?.attempt', 'production?.continuity?.session_state'):
-            self.assertNotIn(forbidden, app)
-        self.assertIn('30 COMMANDER LANES', html)
-        self.assertIn('5 BOOST WORKERS', html)
-        self.assertIn('data-boost-state', html)
-        self.assertIn('production?.boosts', app)
-        self.assertIn('data-commander-state', html)
-        self.assertIn('data-commander-meta', html)
-        self.assertIn('production?.commanders', app)
-        self.assertIn('system?.local_ai', app)
+        self.assertIn('16000', app)
+        self.assertIn('17000', app)
+        self.assertIn('18500', app)
         self.assertIn('requestAnimationFrame', app)
 
     def test_minitz_public_subdomain_routes_to_live_theatre_without_replacing_apex(self):
