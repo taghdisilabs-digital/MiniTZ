@@ -679,7 +679,7 @@ class LiveProjection:
                 # The observer never owns production. Keep serving the last valid projection.
                 continue
 
-    def _commander_summary(self, task_id: str) -> dict[str, object]:
+    def _commander_summary(self, task_id: str, *, force_offline: bool = False) -> dict[str, object]:
         index = _read_json(self.runtime_root / "memory" / "commander-fabric" / "current.json")
         if index.get("authority") != "NONE" or str(index.get("task_id") or "") != str(task_id):
             index = {"authority": "NONE", "task_id": task_id, "total_lanes": 30, "lanes": []}
@@ -707,7 +707,11 @@ class LiveProjection:
                 "activity": activity,
                 "provider": str(raw.get("provider") or "") or None,
             })
-        if "ACTIVE" in statuses:
+        if force_offline:
+            aggregate = "OFFLINE"
+            active = 0
+            inflight = 0
+        elif "ACTIVE" in statuses:
             aggregate = "ACTIVE"
         elif "OUT_OF_CREDIT" in statuses:
             aggregate = "OUT_OF_CREDIT"
@@ -811,7 +815,7 @@ class LiveProjection:
                 "task_summary": summary,
                 "task_status": self._task_status(task_id, runtime, status, memory),
                 "current_operation": current,
-                "commanders": self._commander_summary(task_id),
+                "commanders": self._commander_summary(task_id, force_offline=str(status.get("status") or "") == "STOPPED"),
                 "boosts": self._boost_summary(task_id),
                 "execution_mode": "AI_ACCELERATED_BUILD",
                 "active_coder": active_coder,

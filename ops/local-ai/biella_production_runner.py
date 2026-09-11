@@ -2322,6 +2322,15 @@ def production_status(repo_root: Path, project_root: Path, runtime_path: Path, *
     if commander_index.get("authority") != "NONE" or str(commander_index.get("task_id") or "") != current_task_id:
         commander_index = {"authority": "NONE", "task_id": current_task_id, "total_lanes": commander.COMMANDER_LANE_COUNT, "lanes": []}
     commander_summary = commander.public_summary(commander_index)
+    if liveness == "STOPPED":
+        stopped_lanes = []
+        for raw in commander_summary.get("lanes", []):
+            row = dict(raw)
+            row["status"] = "OFFLINE"
+            if row.get("activity") == "RUNNING":
+                row["activity"] = "STOPPED"
+            stopped_lanes.append(row)
+        commander_summary = {**commander_summary, "status": "OFFLINE", "active": 0, "inflight": 0, "lanes": stopped_lanes}
     boost_index = boost_fabric.read_json(Path(runtime_path).parent / "memory" / "boost-fabric" / "current.json")
     if boost_index.get("authority") != "NONE" or boost_index.get("progression_authority") is not False or str(boost_index.get("current_task_id") or "") != current_task_id:
         boost_index = {"authority":"NONE","progression_authority":False,"current_task_id":current_task_id,"runtime_state":"ARMED_NOT_STARTED","total_commanders":30,"boosts":[]}

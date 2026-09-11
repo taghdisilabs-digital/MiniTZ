@@ -2141,3 +2141,19 @@ def test_production_status_exposes_five_boost_control_summary(tmp_path, monkeypa
     assert status["boosts"]["total_boosts"] == 5
     assert status["boosts"]["runtime_state"] == "ARMED_NOT_STARTED"
     assert status["boosts"]["current_task_id"] == "T-BOOST"
+
+
+def test_production_status_forces_stale_commander_lanes_offline_when_service_stopped(tmp_path, monkeypatch):
+    task = state.TaskRecord("T", "hard", "Task", "PENDING", (), "minitz")
+    production = state.ProductionState(tmp_path, "IN_PROGRESS", "minitz", "T", [state.SectionRecord("minitz", "MiniTZ", "IN_PROGRESS", [task])], run_id="minitz-task-program", priority_policy="MINITZ_TASK_PROGRAM")
+    monkeypatch.setattr(runner.state, "load_project_production", lambda _root: production)
+    monkeypatch.setattr(runner.state, "completed_count", lambda _production: 0)
+    monkeypatch.setattr(runner, "load_runtime", lambda _path: {})
+    monkeypatch.setattr(runner, "service_active", lambda: False)
+    monkeypatch.setattr(runner.commander, "read_json", lambda _path: {"authority":"NONE","task_id":"T","total_lanes":30,"lanes":[{"lane_id":"CMD-01","role":"requirements","status":"ACTIVE","activity":"RUNNING","provider":"groq"}]})
+    status = runner.production_status(tmp_path, tmp_path, tmp_path / "runtime.json")
+    assert status["status"] == "STOPPED"
+    assert status["commanders"]["status"] == "OFFLINE"
+    assert status["commanders"]["active"] == 0
+    assert status["commanders"]["inflight"] == 0
+    assert status["commanders"]["lanes"][0]["status"] == "OFFLINE"

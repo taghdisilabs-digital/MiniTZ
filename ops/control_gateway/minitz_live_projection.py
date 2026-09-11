@@ -135,6 +135,7 @@ class MiniTZLiveProjection(LiveProjection):
     def refresh(self, *, force_assets: bool = False, force_system: bool = False, force_git: bool = False) -> dict[str, object]:
         now = datetime.now(timezone.utc)
         runtime = _read_json(self.runtime_path)
+        production_status = self._production_status()
         raw_coder_statuses = runtime.get("coder_statuses") if isinstance(runtime.get("coder_statuses"), dict) else {}
         coder_statuses = {
             "codex": str(raw_coder_statuses.get("codex") or "NEEDS_MODIFICATION"),
@@ -200,7 +201,7 @@ class MiniTZLiveProjection(LiveProjection):
                 "task_summary": summary,
                 "task_status": task_status,
                 "current_operation": current,
-                "commanders": self._commander_summary(task_id),
+                "commanders": self._commander_summary(task_id, force_offline=str(production_status.get("status") or "") == "STOPPED"),
                 "boosts": self._boost_summary(task_id),
                 "execution_mode": "MINITZ_TASK_PROGRAM",
                 "active_coder": active_coder,

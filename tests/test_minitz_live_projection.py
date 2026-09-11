@@ -136,3 +136,22 @@ def test_minitz_live_snapshot_exposes_sanitized_five_boost_summary():
         assert boosts["total_boosts"] == 5
         assert boosts["runtime_state"] == "ARMED_NOT_STARTED"
         assert "/private/" not in json.dumps(boosts)
+
+
+def test_minitz_public_snapshot_forces_commander_offline_when_production_stopped():
+    with tempfile.TemporaryDirectory() as tmp:
+        base=Path(tmp); repo=base/"repo"; repo.mkdir(); runtime=base/"runtime"; runtime.mkdir()
+        (runtime/"runtime.json").write_text(json.dumps({"task_id":"T"}))
+        fabric=runtime/"memory/commander-fabric"; fabric.mkdir(parents=True)
+        (fabric/"current.json").write_text(json.dumps({"schema":"minitz.commander_fabric/v1","authority":"NONE","task_id":"T","total_lanes":30,"lanes":[{"lane_id":"CMD-01","role":"requirements","status":"ACTIVE","activity":"RUNNING","provider":"groq"}]}))
+        analysis=base/"audit"; stream=analysis/"minitz_execution"/"T"; stream.mkdir(parents=True)
+        (stream/"stdout.jsonl").write_text(json.dumps({"type":"turn.started"})+"\n")
+        (analysis/"TASK_PROGRAM.json").write_text(json.dumps({"revision":1,"tasks":[{"task_id":"T","status":"PENDING","title":"Task"}]}))
+        live=MiniTZLiveProjection(repo=repo,runtime_root=runtime,assets=AssetCatalog({"Games":[],"Website":[]}),analysis_root=analysis)
+        live._stage=lambda memory:{"primary":None,"showcase":[],"mode":"NONE","unreal_live":False}
+        live._system_activity=lambda:{"gpu":{},"host":{},"local_ai":{"state":"OFFLINE"}}
+        live._git_info=lambda:{"commit":"TEST","tree":"TEST","message":"test","committed_at":""}
+        live._production_status=lambda:{"status":"STOPPED"}
+        commanders=live.refresh(force_assets=True,force_system=True,force_git=True)["production"]["commanders"]
+        assert commanders["status"] == "OFFLINE"
+        assert commanders["active"] == 0 and commanders["inflight"] == 0
