@@ -1854,6 +1854,7 @@ class ValidationCompletionFamily:
         evidence: Sequence[ValidationCompletionEvidence | Mapping[str, object]],
         *,
         required_criteria: Sequence[str] = (),
+        allowed_criteria: Sequence[str] = (),
         accepted_criteria: Sequence[str] = (),
         family_revision: str | None = None,
         authority_ref: str | None = None,
@@ -1876,7 +1877,10 @@ class ValidationCompletionFamily:
         if len({item.evidence_ref for item in records}) != len(records):
             raise ValidationConflictError("completion evidence refs are duplicated")
         required = _completion_texts(required_criteria, "required completion criteria")
+        allowed = _completion_texts(allowed_criteria, "allowed completion criteria")
         declared = _completion_texts(accepted_criteria, "accepted completion criteria")
+        if allowed and set(required) - set(allowed):
+            raise ValidationContractError("required completion criteria are outside the allowed task acceptance contract")
         receipts = tuple(self._value_receipt(item) for item in value_receipts)
         if len(receipts) > _COMPLETION_MAX_REFS:
             raise ValidationContractError("completion value receipts are unbounded")
@@ -1922,9 +1926,11 @@ class ValidationCompletionFamily:
 
         if not declared:
             declared = receipt_criteria
-        if set(declared) - set(required):
-            if required:
-                return self._rejected(identity, status, records, family_revision, authority_ref, "completion cited unsupported acceptance criteria", declared, receipts)
+        if family_record is not None and set(declared) - set(receipt_criteria):
+            return self._rejected(identity, status, records, family_revision, authority_ref, "family receipt does not bind declared acceptance criteria", declared, receipts)
+        supported = set(allowed) if allowed else (set(required) if required else set(declared))
+        if set(declared) - supported:
+            return self._rejected(identity, status, records, family_revision, authority_ref, "completion cited unsupported acceptance criteria", declared, receipts)
         missing = tuple(item for item in required if item not in set(declared))
         if missing:
             return self._rejected(identity, status, records, family_revision, authority_ref, "completion is missing required criteria: " + ", ".join(missing), declared, receipts)
@@ -1959,6 +1965,7 @@ class ValidationCompletionFamily:
         *,
         expected_task_digest: str | None = None,
         required_criteria: Sequence[str] = (),
+        allowed_criteria: Sequence[str] = (),
     ) -> ValidationCompletionDecision:
         """Read back a persisted completion before honoring COMPLETE_ALREADY."""
         completed_revision = _completion_revision(completed_revision)
@@ -2047,7 +2054,8 @@ class ValidationCompletionFamily:
         accepted = tuple(sorted({criterion for item in records for criterion in item.accepted_criteria}))
         return self.admit(
             identity[0], identity[1], identity[2], identity[3], "COMPLETE_ALREADY", tuple(records),
-            required_criteria=required_criteria, accepted_criteria=accepted,
+            required_criteria=required_criteria, allowed_criteria=allowed_criteria,
+            accepted_criteria=accepted,
             authority_ref=self.completion_authority_ref(identity[0], identity[1], identity[3]),
         )
 

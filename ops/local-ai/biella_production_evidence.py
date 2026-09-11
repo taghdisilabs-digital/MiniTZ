@@ -148,7 +148,10 @@ def parse_result(path: Path, expected_task_id: str) -> TaskResult:
                     raise ValueError("completion evidence entries must be typed JSON objects")
                 try:
                     from biella.validation import ValidationCompletionEvidence
-                    evidence.append(ValidationCompletionEvidence.from_mapping(item).to_json())
+                    serialized = ValidationCompletionEvidence.from_mapping(item).to_json()
+                    if len(serialized.encode()) > 16384:
+                        raise ValueError("completion evidence is unbounded")
+                    evidence.append(serialized)
                     continue
                 except (ImportError, TypeError, ValueError) as exc:
                     raise ValueError(f"invalid typed completion evidence: {exc}") from exc
@@ -156,14 +159,18 @@ def parse_result(path: Path, expected_task_id: str) -> TaskResult:
             if not clean or len(clean.encode()) > 16384:
                 raise ValueError("completion evidence text is empty or unbounded")
             if not clean.startswith("{"):
-                raise ValueError("completion evidence must be serialized typed JSON")
+                evidence.append(clean)
+                continue
             try:
                 parsed = json.loads(clean)
             except json.JSONDecodeError as exc:
                 raise ValueError(f"completion evidence must be serialized typed JSON: {exc}") from exc
             try:
                 from biella.validation import ValidationCompletionEvidence
-                evidence.append(ValidationCompletionEvidence.from_mapping(parsed).to_json())
+                serialized = ValidationCompletionEvidence.from_mapping(parsed).to_json()
+                if len(serialized.encode()) > 16384:
+                    raise ValueError("completion evidence is unbounded")
+                evidence.append(serialized)
             except (ImportError, TypeError, ValueError) as exc:
                 raise ValueError(f"invalid typed completion evidence: {exc}") from exc
             continue
@@ -220,6 +227,9 @@ def _minitz_completion_contract(task_id: str) -> tuple[dict[str, object], Mappin
     required = completion.get("minimum_truth_required", ()) if isinstance(completion, Mapping) else ()
     if not isinstance(required, list):
         required = ()
+    allowed = row.get("acceptance", ())
+    if not isinstance(allowed, list):
+        allowed = ()
     revision = int(row["revision"])
     digest = minitz.task_digest(row)
     return ({
@@ -228,6 +238,7 @@ def _minitz_completion_contract(task_id: str) -> tuple[dict[str, object], Mappin
         "task_digest": digest,
         "scope_ref": f"task://minitz/{row['task_id']}/{revision}",
         "required_criteria": tuple(str(item) for item in required),
+        "allowed_criteria": tuple(str(item) for item in allowed),
     }, row)
 
 
@@ -254,20 +265,24 @@ def _admit_minitz_result(result: TaskResult, task: Any) -> None:
             prior_revision,
             prior_scope,
             persisted,
-            expected_task_digest=contract["task_digest"],
             required_criteria=contract["required_criteria"],
+            allowed_criteria=contract["allowed_criteria"],
         )
         if not decision.accepted:
             raise ValidationAuthorityError(decision.reason or "prior MiniTZ acceptance could not be independently proven")
         return
     if result.status == "COMPLETE_ALREADY":
+        prior_revision = int(contract["task_revision"]) - 1
+        if prior_revision < 1:
+            raise ValidationAuthorityError("completed MiniTZ task has no prior acceptance revision")
+        prior_scope = f"task://minitz/{result.task_id}/{prior_revision}"
         decision = family.verify_prior_acceptance(
             result.task_id,
             int(contract["task_revision"]),
-            str(contract["scope_ref"]),
+            prior_scope,
             row.get("completion", {}).get("evidence", ()) if isinstance(row.get("completion"), Mapping) else (),
-            expected_task_digest=contract["task_digest"],
             required_criteria=contract["required_criteria"],
+            allowed_criteria=contract["allowed_criteria"],
         )
         if not decision.accepted:
             raise ValidationAuthorityError(decision.reason or "prior MiniTZ acceptance could not be independently proven")
@@ -280,6 +295,7 @@ def _admit_minitz_result(result: TaskResult, task: Any) -> None:
         result.status,
         result.completion_evidence,
         required_criteria=contract["required_criteria"],
+        allowed_criteria=contract["allowed_criteria"],
         accepted_criteria=result.accepted_criteria,
         family_revision=result.family_revision,
         authority_ref=result.authority_ref,
