@@ -972,3 +972,60 @@ class CallLedgerTests(unittest.TestCase):
                 text=True,
             )
             self.assertEqual(reader.returncode, 0, f"{reader.stdout}\n{reader.stderr}")
+
+    def test_t16_call_and_event_share_immutable_evidence_family_edges(self) -> None:
+        call = self._model("evidence-family-call")
+        start_relations = self.ledger.list_evidence_relations_for_call(
+            self.alpha_access,
+            call.call_ref,
+        )
+        self.assertEqual(len(start_relations), 1)
+        self.assertEqual(start_relations[0].relation_type, "REALIZES")
+        self.assertEqual(start_relations[0].left_exact_ref, call.call_ref.value)
+        self.assertEqual(start_relations[0].right_exact_ref, call.event_ref.value)
+        self.assertEqual(start_relations[0].qualification["phase"], "START")
+        self.assertEqual(start_relations[0].authority, "NONE_DERIVED_EVIDENCE")
+
+        call_record = self.ledger.evidence_record_for_call(
+            self.alpha_access,
+            call.call_ref,
+        )
+        self.assertEqual(call_record.record_kind, "CALL")
+        self.assertEqual(call_record.exact_ref, call.call_ref.value)
+        self.assertEqual(call_record.task_ref, f"task://{self.alpha.value}/{self.task.task_ref.task_id}/{self.task.task_ref.revision}")
+        self.assertEqual(call_record.attempt_ref, f"attempt://{self.alpha.value}/{self.run_record.run_ref.run_id}/{self.node_attempt.attempt_id}")
+
+        event_record = self.ledger.events.evidence_record_for_event(
+            self.alpha_access,
+            call.event_ref,
+        )
+        self.assertEqual(event_record.record_kind, "EVENT")
+        self.assertEqual(event_record.exact_ref, call.event_ref.value)
+        self.assertEqual(event_record.attempt_ref, call_record.attempt_ref)
+
+        finished = self.ledger.finish_model_call(
+            self.alpha_access,
+            self.node_attempt,
+            call.call_ref,
+            idempotency_key="evidence-family-call-finish",
+            status="SUCCEEDED",
+            output_refs=(self.response_ref,),
+            usage=None,
+            cost=None,
+            failure_category=None,
+            failure_reason=None,
+            failure_evidence_refs=(),
+        )
+        self.assertEqual(finished.status, "SUCCEEDED")
+        terminal_relations = self.ledger.list_evidence_relations_for_call(
+            self.alpha_access,
+            call.call_ref,
+        )
+        self.assertEqual(
+            [relation.qualification["phase"] for relation in terminal_relations],
+            ["START", "TERMINAL"],
+        )
+        self.assertEqual(
+            terminal_relations[1].right_exact_ref,
+            finished.state.status_event_ref.value,
+        )

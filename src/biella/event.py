@@ -23,6 +23,19 @@ from .artifact import (
     ArtifactService,
     ContentRef,
 )
+from .evidence_graph import (
+    EVIDENCE_AUTHORITY,
+    EVIDENCE_FAMILY_REF,
+    EVIDENCE_FAMILY_REVISION,
+    EVIDENCE_RELATION_SCHEMA,
+    MINITZ_SEMANTIC_GRAPH,
+    EvidenceGraph,
+    EvidenceContractError,
+    EvidenceRecord,
+    EvidenceRelation,
+    EvidenceRelationType,
+    derived_provenance,
+)
 from .graph import Graph, GraphError, GraphRef, GraphService, NodeRef
 from .project import ProjectAccess, ProjectRef, ProjectScopeError, ProjectStore
 from .run import (
@@ -150,6 +163,15 @@ def _task_ref_value(task_ref: TaskRef) -> str:
 
 def _run_ref_value(run_ref: RunRef) -> str:
     return f"run://{run_ref.project_ref.value}/{run_ref.run_id}"
+
+
+_SEMANTIC_COMPONENT_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.:-]{0,255}")
+
+
+def _semantic_component(value: object) -> str | None:
+    if not isinstance(value, str) or _SEMANTIC_COMPONENT_PATTERN.fullmatch(value) is None:
+        return None
+    return value
 
 
 def _freeze_metadata(value: Mapping[str, EventValue]) -> Mapping[str, EventValue]:
@@ -451,6 +473,30 @@ class EventLedger:
                         ON UPDATE RESTRICT ON DELETE RESTRICT
                 );
 
+                CREATE TABLE IF NOT EXISTS evidence_relations (
+                    project_id TEXT NOT NULL,
+                    relation_id TEXT NOT NULL,
+                    project_ref TEXT NOT NULL,
+                    semantic_graph TEXT NOT NULL,
+                    family_ref TEXT NOT NULL,
+                    family_revision INTEGER NOT NULL,
+                    authority TEXT NOT NULL,
+                    relation_type TEXT NOT NULL,
+                    left_exact_ref TEXT NOT NULL,
+                    right_exact_ref TEXT NOT NULL,
+                    scope_ref TEXT NOT NULL,
+                    evidence_refs_json TEXT NOT NULL,
+                    qualification_json TEXT NOT NULL,
+                    provenance_json TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    record_sha256 TEXT NOT NULL,
+                    PRIMARY KEY (project_id, relation_id),
+                    UNIQUE (project_id, relation_id, record_sha256),
+                    FOREIGN KEY (project_id) REFERENCES projects(project_id)
+                        ON UPDATE RESTRICT ON DELETE RESTRICT,
+                    CHECK (project_id = project_ref)
+                );
+
                 CREATE TRIGGER IF NOT EXISTS events_no_update BEFORE UPDATE ON events
                 BEGIN SELECT RAISE(ABORT, 'Events are immutable'); END;
                 CREATE TRIGGER IF NOT EXISTS events_no_delete BEFORE DELETE ON events
@@ -467,6 +513,12 @@ class EventLedger:
                   OR NEW.project_id != OLD.project_id
                   OR NEW.run_id != OLD.run_id
                 BEGIN SELECT RAISE(ABORT, 'Run Event head must advance monotonically'); END;
+                CREATE TRIGGER IF NOT EXISTS evidence_relations_no_update
+                BEFORE UPDATE ON evidence_relations
+                BEGIN SELECT RAISE(ABORT, 'Evidence relations are immutable'); END;
+                CREATE TRIGGER IF NOT EXISTS evidence_relations_no_delete
+                BEFORE DELETE ON evidence_relations
+                BEGIN SELECT RAISE(ABORT, 'Evidence relations cannot be deleted'); END;
                 """
             )
         finally:
@@ -700,6 +752,280 @@ class EventLedger:
         for event in events:
             self._validate_relationships(requesting_access, event)
         return events
+
+    def append_evidence_relation(
+        self,
+        requesting_access: ProjectAccess,
+        relation: EvidenceRelation,
+    ) -> EvidenceRelation:
+        """Persist one immutable semantic-family edge beside native Events.
+
+        This sidecar is intentionally relation-only.  It does not allocate
+        Event identities, change run heads, or participate in task
+        progression.  Replaying the same deterministic relation is safe and
+        returns the original verified edge.
+        """
+
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN IMMEDIATE")
+            persisted = self.append_evidence_relation_in_transaction(
+                connection,
+                requesting_access,
+                relation,
+            )
+            connection.commit()
+            return persisted
+        except sqlite3.IntegrityError as exc:
+            connection.rollback()
+            raise EventConflictError("Evidence relation identity conflicts") from exc
+        except Exception:
+            connection.rollback()
+            raise
+        finally:
+            connection.close()
+
+    def append_evidence_relation_in_transaction(
+        self,
+        connection: sqlite3.Connection,
+        requesting_access: ProjectAccess,
+        relation: EvidenceRelation,
+    ) -> EvidenceRelation:
+        """Append a relation inside a caller-owned atomic transaction."""
+
+        return self._append_evidence_relation_in_transaction(
+            connection,
+            requesting_access,
+            relation,
+        )
+
+    def list_evidence_relations(
+        self,
+        requesting_access: ProjectAccess,
+        project_ref: ProjectRef,
+        *,
+        left_exact_ref: str | None = None,
+        right_exact_ref: str | None = None,
+        relation_type: EvidenceRelationType | str | None = None,
+    ) -> tuple[EvidenceRelation, ...]:
+        """Read verified immutable relations for one exact Project scope."""
+
+        self._authorize(requesting_access, project_ref)
+        conditions = ["project_id = ?"]
+        parameters: list[object] = [project_ref.value]
+        if left_exact_ref is not None:
+            conditions.append("left_exact_ref = ?")
+            parameters.append(left_exact_ref)
+        if right_exact_ref is not None:
+            conditions.append("right_exact_ref = ?")
+            parameters.append(right_exact_ref)
+        if relation_type is not None:
+            try:
+                normalized_relation_type = (
+                    relation_type.value
+                    if isinstance(relation_type, EvidenceRelationType)
+                    else EvidenceRelationType(str(relation_type).upper()).value
+                )
+            except (TypeError, ValueError) as exc:
+                raise EventContractError("Evidence relation type is malformed") from exc
+            conditions.append("relation_type = ?")
+            parameters.append(normalized_relation_type)
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN")
+            rows = connection.execute(
+                "SELECT * FROM evidence_relations WHERE "
+                + " AND ".join(conditions)
+                + " ORDER BY created_at, relation_id",
+                tuple(parameters),
+            ).fetchall()
+            relations = tuple(
+                self._evidence_relation_from_row(cast(sqlite3.Row, row)) for row in rows
+            )
+            connection.commit()
+            return relations
+        except Exception:
+            connection.rollback()
+            raise
+        finally:
+            connection.close()
+
+    def evidence_record_for_event(
+        self,
+        requesting_access: ProjectAccess,
+        event_ref: EventRef,
+    ) -> EvidenceRecord:
+        """Expose an authority-free semantic view of one native Event."""
+
+        event = self.get_event(requesting_access, event_ref)
+        project_ref = event.project_ref.value
+        task_ref = None if event.task_ref is None else _task_ref_value(event.task_ref)
+        run_ref = None if event.run_ref is None else _run_ref_value(event.run_ref)
+        session_id = _semantic_component(event.metadata.get("session_id"))
+        session_ref = (
+            None if session_id is None else f"session://{project_ref}/{session_id}"
+        )
+        attempt_id = _semantic_component(
+            event.metadata.get("node_attempt_id")
+            or event.metadata.get("attempt_id")
+            or event.metadata.get("run_attempt_id")
+        )
+        attempt_ref = (
+            None
+            if event.run_ref is None or attempt_id is None
+            else f"attempt://{project_ref}/{event.run_ref.run_id}/{attempt_id}"
+        )
+        provenance = derived_provenance(
+            source_identity="native://biella/event-ledger",
+            source_revision_or_observation="event.record",
+            source_sha256_or_private_receipt=event.record_sha256,
+            origin_kind="NATIVE_RECORD",
+            observed_at_or_unknown=event.created_at,
+            extraction_or_derivation_ref=event.event_ref.value,
+            scope_ref=project_ref,
+            evidence_state="OBSERVED",
+        )
+        return EvidenceGraph.record(
+            record_kind="EVENT",
+            exact_ref=event.event_ref.value,
+            project_ref=project_ref,
+            task_ref=task_ref,
+            run_ref=run_ref,
+            session_ref=session_ref,
+            attempt_ref=attempt_ref,
+            payload={
+                "event_type": event.event_type,
+                "idempotency_key": event.idempotency_key,
+                "actor_ref": event.actor_ref,
+                "object_refs": list(event.object_refs),
+                "sequence": event.sequence,
+                "semantic_digest": event.semantic_digest,
+                "record_sha256": event.record_sha256,
+                "metadata": dict(event.metadata),
+            },
+            provenance=provenance,
+        )
+
+    def get_evidence_relation(
+        self,
+        requesting_access: ProjectAccess,
+        project_ref: ProjectRef,
+        relation_id: str,
+    ) -> EvidenceRelation:
+        """Read one verified relation without making it an active head."""
+
+        self._authorize(requesting_access, project_ref)
+        if not isinstance(relation_id, str) or not relation_id:
+            raise EventContractError("Evidence relation identity is malformed")
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN")
+            row = connection.execute(
+                "SELECT * FROM evidence_relations WHERE project_id = ? AND relation_id = ?",
+                (project_ref.value, relation_id),
+            ).fetchone()
+            if row is None:
+                raise EventNotFoundError("Evidence relation not found")
+            relation = self._evidence_relation_from_row(cast(sqlite3.Row, row))
+            connection.commit()
+            return relation
+        except Exception:
+            connection.rollback()
+            raise
+        finally:
+            connection.close()
+
+    def _append_evidence_relation_in_transaction(
+        self,
+        connection: sqlite3.Connection,
+        requesting_access: ProjectAccess,
+        relation: EvidenceRelation,
+    ) -> EvidenceRelation:
+        self._require_transaction(connection)
+        if not isinstance(relation, EvidenceRelation):
+            raise EventContractError("EvidenceRelation is required")
+        if (
+            relation.semantic_graph != MINITZ_SEMANTIC_GRAPH
+            or relation.family_ref != EVIDENCE_FAMILY_REF
+            or relation.family_revision != EVIDENCE_FAMILY_REVISION
+            or relation.authority != EVIDENCE_AUTHORITY
+        ):
+            raise EventContractError("Evidence relation is outside the MiniTZ semantic family")
+        try:
+            project_ref = ProjectRef(relation.project_ref)
+        except (TypeError, ValueError) as exc:
+            raise EventContractError("Evidence relation Project identity is malformed") from exc
+        self._authorize(requesting_access, project_ref)
+        row = connection.execute(
+            "SELECT * FROM evidence_relations WHERE project_id = ? AND relation_id = ?",
+            (project_ref.value, relation.relation_id),
+        ).fetchone()
+        if row is not None:
+            existing = self._evidence_relation_from_row(cast(sqlite3.Row, row))
+            if existing.record_sha256 != relation.record_sha256:
+                raise EventConflictError("Evidence relation identity has conflicting content")
+            return existing
+        created_at = relation.provenance.observed_at_or_unknown
+        if created_at == "UNKNOWN":
+            created_at = self._database_now(connection)
+        connection.execute(
+            """
+            INSERT INTO evidence_relations (
+                project_id, relation_id, project_ref, semantic_graph,
+                family_ref, family_revision, authority, relation_type,
+                left_exact_ref, right_exact_ref, scope_ref,
+                evidence_refs_json, qualification_json, provenance_json,
+                created_at, record_sha256
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                project_ref.value,
+                relation.relation_id,
+                relation.project_ref,
+                relation.semantic_graph,
+                relation.family_ref,
+                relation.family_revision,
+                relation.authority,
+                relation.relation_type,
+                relation.left_exact_ref,
+                relation.right_exact_ref,
+                relation.scope_ref,
+                _json(list(relation.evidence_refs)),
+                _json(dict(relation.qualification)),
+                _json(relation.provenance.to_payload()),
+                created_at,
+                relation.record_sha256,
+            ),
+        )
+        return relation
+
+    @staticmethod
+    def _evidence_relation_from_row(row: sqlite3.Row) -> EvidenceRelation:
+        try:
+            relation = EvidenceRelation.from_payload(
+                {
+                    "schema": EVIDENCE_RELATION_SCHEMA,
+                    "relation_id": row["relation_id"],
+                    "semantic_graph": row["semantic_graph"],
+                    "family_ref": row["family_ref"],
+                    "family_revision": row["family_revision"],
+                    "authority": row["authority"] if "authority" in row.keys() else EVIDENCE_AUTHORITY,
+                    "relation_type": row["relation_type"],
+                    "left_exact_ref": row["left_exact_ref"],
+                    "right_exact_ref": row["right_exact_ref"],
+                    "project_ref": row["project_ref"],
+                    "scope_ref": row["scope_ref"],
+                    "evidence_refs": json.loads(row["evidence_refs_json"]),
+                    "qualification": json.loads(row["qualification_json"]),
+                    "provenance": json.loads(row["provenance_json"]),
+                    "record_sha256": row["record_sha256"],
+                }
+            )
+        except (EvidenceContractError, KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
+            raise EventIntegrityError("Evidence relation failed verification") from exc
+        if row["project_id"] != relation.project_ref:
+            raise EventIntegrityError("Evidence relation Project scope is inconsistent")
+        return relation
 
     def _append_in_transaction(
         self,

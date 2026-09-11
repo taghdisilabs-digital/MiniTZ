@@ -17,6 +17,13 @@ from uuid import uuid4
 
 from .artifact import Artifact, ArtifactError, ArtifactRef, ArtifactService, ContentRef
 from .capability import CapabilityRef
+from .evidence_graph import (
+    EvidenceGraph,
+    EvidenceRecord,
+    EvidenceRelation,
+    EvidenceRelationType,
+    derived_provenance,
+)
 from .event import Event, EventError, EventLedger, EventRef
 from .execution import (
     NodeExecutionAttempt,
@@ -1179,6 +1186,92 @@ class CallLedgerService:
             self._get_call_for_event(requesting_access, event_ref, "TOOL"),
         )
 
+    def list_evidence_relations_for_call(
+        self,
+        requesting_access: ProjectAccess,
+        call_ref: ModelCallRef | ToolCallRef,
+    ) -> tuple[EvidenceRelation, ...]:
+        """Return the immutable family edges for one native Call identity."""
+
+        call = self._get_call(requesting_access, call_ref, "MODEL" if isinstance(call_ref, ModelCallRef) else "TOOL")
+        return self.events.list_evidence_relations(
+            requesting_access,
+            call.project_ref,
+            left_exact_ref=call.call_ref.value,
+            relation_type=EvidenceRelationType.REALIZES,
+        )
+
+    def evidence_record_for_call(
+        self,
+        requesting_access: ProjectAccess,
+        call_ref: ModelCallRef | ToolCallRef,
+    ) -> EvidenceRecord:
+        """Expose a bounded authority-free semantic view of a native Call."""
+
+        call = self._get_call(requesting_access, call_ref, "MODEL" if isinstance(call_ref, ModelCallRef) else "TOOL")
+        if isinstance(call, ModelCall):
+            kind_payload = {
+                "provider_id": call.provider_id,
+                "model_id": call.model_id,
+                "deployment_id": call.deployment_id,
+            }
+            record_kind = "MODEL_CALL"
+        else:
+            kind_payload = {
+                "tool_id": call.tool_id,
+                "implementation_id": call.implementation_id,
+                "parent_model_call_ref": (
+                    None
+                    if call.parent_model_call_ref is None
+                    else call.parent_model_call_ref.value
+                ),
+            }
+            record_kind = "TOOL_CALL"
+        # EvidenceKind intentionally preserves CALL as the family kind; the
+        # native subtype remains a payload value rather than a competing kind.
+        task_ref = f"task://{call.task_ref.project_ref.value}/{call.task_ref.task_id}/{call.task_ref.revision}"
+        run_ref = f"run://{call.run_ref.project_ref.value}/{call.run_ref.run_id}"
+        payload: dict[str, object] = {
+            "call_subtype": record_kind,
+            "call_ref": call.call_ref.value,
+            "event_ref": call.event_ref.value,
+            "event_record_sha256": call.event_record_sha256,
+            "status": call.status,
+            "purpose": call.purpose,
+            "capability_ref": call.capability_ref.value,
+            "runtime_id": call.runtime_id,
+            "provider_trace_id": call.provider_trace_id,
+            "input_refs": [item.value for item in call.input_refs],
+            "input_provenance_sha256": call.input_provenance_sha256,
+            "output_refs": [item.value for item in call.output_refs],
+            "failure_evidence_refs": [item.value for item in call.failure_evidence_refs],
+            "failure_category": call.failure_category,
+            "failure_reason": call.failure_reason,
+            **kind_payload,
+        }
+        provenance = derived_provenance(
+            source_identity="native://biella/call-ledger",
+            source_revision_or_observation="call.record",
+            source_sha256_or_private_receipt=call.record_sha256,
+            origin_kind="NATIVE_RECORD",
+            observed_at_or_unknown=call.created_at,
+            extraction_or_derivation_ref=call.call_ref.value,
+            scope_ref=call.project_ref.value,
+            evidence_state="OBSERVED",
+        )
+        return EvidenceGraph.record(
+            record_kind="CALL",
+            exact_ref=call.call_ref.value,
+            project_ref=call.project_ref.value,
+            task_ref=task_ref,
+            run_ref=run_ref,
+            attempt_ref=(
+                f"attempt://{call.project_ref.value}/{call.run_ref.run_id}/{call.node_attempt_id}"
+            ),
+            payload=payload,
+            provenance=provenance,
+        )
+
     def _start_call(
         self,
         access: ProjectAccess,
@@ -1393,6 +1486,14 @@ class CallLedgerService:
                     _head_sha256(call.call_ref, initial_state),
                 ),
             )
+            self._append_call_event_relation(
+                connection,
+                access,
+                call,
+                event,
+                phase="START",
+                source_sha256=call.record_sha256,
+            )
             connection.commit()
             return call
         except sqlite3.IntegrityError as exc:
@@ -1556,6 +1657,20 @@ class CallLedgerService:
             )
             if updated.rowcount != 1:
                 raise CallConflictError("Call state changed concurrently")
+            self._append_call_event_relation(
+                connection,
+                access,
+                current,
+                terminal_event,
+                phase="TERMINAL",
+                source_sha256=_sha256(
+                    {
+                        "call_record_sha256": current.record_sha256,
+                        "event_record_sha256": terminal_event.record_sha256,
+                        "state_record_sha256": terminal.record_sha256,
+                    }
+                ),
+            )
             connection.commit()
             return self._with_state(current, terminal)
         except sqlite3.IntegrityError as exc:
@@ -1566,6 +1681,50 @@ class CallLedgerService:
             raise
         finally:
             connection.close()
+
+    def _append_call_event_relation(
+        self,
+        connection: sqlite3.Connection,
+        access: ProjectAccess,
+        call: CallRecord,
+        event: Event,
+        *,
+        phase: str,
+        source_sha256: str,
+    ) -> EvidenceRelation:
+        relation = EvidenceRelation(
+            relation_type=EvidenceRelationType.REALIZES,
+            left_exact_ref=call.call_ref.value,
+            right_exact_ref=event.event_ref.value,
+            project_ref=call.project_ref.value,
+            scope_ref=call.project_ref.value,
+            evidence_refs=(event.event_ref.value,),
+            qualification={
+                "call_kind": "MODEL" if isinstance(call, ModelCall) else "TOOL",
+                "event_type": event.event_type,
+                "phase": phase,
+                "status": event.metadata.get("status"),
+                "task_ref": f"task://{call.task_ref.project_ref.value}/{call.task_ref.task_id}/{call.task_ref.revision}",
+                "run_ref": f"run://{call.run_ref.project_ref.value}/{call.run_ref.run_id}",
+                "run_attempt_id": call.run_attempt_id,
+                "node_attempt_id": call.node_attempt_id,
+            },
+            provenance=derived_provenance(
+                source_identity="native://biella/call-ledger",
+                source_revision_or_observation=f"call.event.{phase.lower()}",
+                source_sha256_or_private_receipt=source_sha256,
+                origin_kind="DERIVED_RELATION",
+                observed_at_or_unknown=event.created_at,
+                extraction_or_derivation_ref=call.call_ref.value,
+                scope_ref=call.project_ref.value,
+                evidence_state="OBSERVED",
+            ),
+        )
+        return self.events.append_evidence_relation_in_transaction(
+            connection,
+            access,
+            relation,
+        )
 
     def _get_call(
         self,
