@@ -261,7 +261,10 @@ def test_t02_registers_contract_and_real_descriptor(tmp_path: Path) -> None:
         idempotency_key="describe-real-runtime",
     )
     assert descriptor.adapter_kind == "oci.container.cli"
-    assert descriptor.runtime_version == "29.1.3"
+    installed_runtime_version = subprocess.check_output(
+        ["docker", "version", "--format", "{{.Client.Version}}"], text=True, timeout=10
+    ).strip()
+    assert descriptor.runtime_version == installed_runtime_version
     assert descriptor.supported_network_policies == (RuntimeNetworkPolicy.NONE,)
     assert descriptor.enforced_limit_kinds == ("cpu", "memory", "process")
     assert descriptor.unsupported_limit_kinds == ("gpu", "restricted_network", "storage")
