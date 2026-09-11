@@ -22,16 +22,26 @@ def test_approved_bridge_is_registered_as_current_machine_guidance():
     assert "CURRENT_GITHUB_SOURCE" in text
 
 
-def test_current_execution_policies_define_biella_owned_project_cells():
+def test_donor_project_cell_guidance_is_preserved_while_current_minitz_policy_is_native():
     instructions = INSTRUCTIONS.read_text(encoding="utf-8")
     production = PRODUCTION.read_text(encoding="utf-8")
     agents = AGENTS.read_text(encoding="utf-8")
-    for text in (instructions, production, agents):
-        assert "ISOLATED_PROJECT_CELL" in text
-        assert "chatgpt_remote" in text
-        assert "replaceable" in text.lower()
+
+    # Preserve exact donor guidance as provenance/evidence rather than erasing it.
+    for donor_text in (instructions, production):
+        assert "ISOLATED_PROJECT_CELL" in donor_text
+        assert "chatgpt_remote" in donor_text
+        assert "replaceable" in donor_text.lower()
     assert "Biella owns task execution" in instructions
-    assert "project-specific state remains inside the Project cell" in instructions
+    assert "Project state stays inside its cell" in instructions
+
+    # Current execution policy is MiniTZ-native and keeps the valuable isolation law
+    # without requiring donor brand/queue/resource names to remain active authority.
+    assert "project cells" in agents.lower()
+    assert "replaceable MiniTZ execution Resources" in agents
+    assert "dedicated Ubuntu 26.04 sandbox" in agents
+    assert "host VPS OS files are read-only references" in agents
+    assert "isolated by project/task scope" in agents
 
 
 def test_drive_manifest_points_to_exact_bridge_object_and_git_counterpart():
