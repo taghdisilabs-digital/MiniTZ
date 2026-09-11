@@ -266,7 +266,8 @@ class ProductionEventJournal:
             }
             for key in _PROVENANCE_FIELDS + (
                 "text", "tool", "detail", "exit_code", "model", "reasoning",
-                "helper_budget_seconds", "elapsed_seconds", "raw_result_path", "provider",
+                "helper_budget_seconds", "elapsed_seconds", "raw_result_path",
+                "raw_result_sha256", "raw_result_bytes", "evidence_ref", "provider",
             ):
                 if key in event:
                     failure[key] = event[key]

@@ -166,6 +166,60 @@ def _tail(path: Path, maximum_bytes: int = 65536) -> str:
     return path.read_bytes()[-maximum_bytes:].decode("utf-8", errors="replace")
 
 
+def _commander_output_evidence(path: Path, *, prefix: str) -> dict[str, Any]:
+    """Capture one completed Commander stream without embedding provider bytes."""
+
+    source_path = Path(path)
+    result: dict[str, Any] = {f"{prefix}_capture_path": str(source_path)}
+    try:
+        raw = source_path.read_bytes()
+    except OSError as exc:
+        result.update({
+            f"{prefix}_path": str(source_path),
+            f"{prefix}_available": False,
+            f"{prefix}_read_error": type(exc).__name__,
+        })
+        return result
+
+    digest = hashlib.sha256(raw).hexdigest()
+    evidence_path = source_path.with_name(
+        f"{source_path.stem}.{digest}.evidence{source_path.suffix}"
+    )
+    try:
+        file_descriptor = os.open(evidence_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+    except FileExistsError:
+        pass
+    except OSError:
+        evidence_path = source_path
+    else:
+        try:
+            with os.fdopen(file_descriptor, "wb") as handle:
+                handle.write(raw)
+                handle.flush()
+                os.fsync(handle.fileno())
+        except OSError:
+            evidence_path = source_path
+
+    result.update({
+        f"{prefix}_path": str(evidence_path),
+        f"{prefix}_sha256": digest,
+        f"{prefix}_bytes": len(raw),
+        f"{prefix}_available": True,
+    })
+    return result
+
+
+def _commander_rejection_type(returncode: int, error: BaseException) -> str:
+    if int(returncode) != 0:
+        return "PROCESS_FAILED"
+    if isinstance(error, json.JSONDecodeError):
+        return "INVALID_RESULT"
+    message = str(error).lower()
+    if "provider text" in message or "resource result" in message:
+        return "INVALID_RESULT"
+    return "VALIDATION_REJECTED"
+
+
 def _extract_codex_session_id(path: Path) -> str | None:
     if not path.exists():
         return None
@@ -1359,6 +1413,8 @@ def _collect_commander_assists(
             continue
         stdout_text = _tail(handle.stdout_path)
         stderr_text = _tail(handle.stderr_path)
+        raw_result_evidence = _commander_output_evidence(handle.stdout_path, prefix="raw_result")
+        raw_error_evidence = _commander_output_evidence(handle.stderr_path, prefix="raw_error")
         detail = (stderr_text + "\n" + stdout_text).strip()
         try:
             if rc != 0:
@@ -1386,6 +1442,9 @@ def _collect_commander_assists(
                 "routing_evidence": meta.get("routing_evidence") or {},
                 "usage": meta.get("usage") or {},
                 "result": result,
+                **raw_result_evidence,
+                **raw_error_evidence,
+                "evidence_ref": raw_result_evidence.get("raw_result_path"),
                 "cache_key": handle.key,
                 "created_at": datetime.now(timezone.utc).isoformat(),
             }
@@ -1399,16 +1458,27 @@ def _collect_commander_assists(
                     "commander.assist_completed", task_id=handle.task_id, status="ACTIVE",
                     text=str(handle.accepted_path), lane_id=handle.lane_id, role=handle.role,
                     provider=wrapper.get("provider"), authority="NONE",
+                    raw_result_path=wrapper.get("raw_result_path"),
+                    raw_result_sha256=wrapper.get("raw_result_sha256"),
+                    raw_result_bytes=wrapper.get("raw_result_bytes"),
+                    evidence_ref=wrapper.get("evidence_ref"),
                 )
         except (OSError, ValueError, json.JSONDecodeError, TypeError) as exc:
             status = commander.classify_failure(int(rc), detail + "\n" + str(exc))
+            if status == "ACTIVE":
+                status = "NEEDS_MODIFICATION"
+            failure_type = _commander_rejection_type(int(rc), exc)
             rejected = {
                 "schema": "minitz.commander_rejection/v1", "authority": "NONE",
                 "progression_authority": False,
                 "task_id": handle.task_id, "task_state_digest": handle.task_state_digest,
                 "projection_digest": handle.projection_digest, "lane_id": handle.lane_id,
                 "role": handle.role, "provider": handle.requested_provider,
-                "cache_key": handle.key, "status": status, "detail": str(exc)[-1200:],
+                "cache_key": handle.key, "status": status, "failure_type": failure_type,
+                "detail": str(exc)[-1200:],
+                **raw_result_evidence,
+                **raw_error_evidence,
+                "evidence_ref": raw_result_evidence.get("raw_result_path"),
                 "retry_after": commander.failure_retry_after(status),
                 "created_at": datetime.now(timezone.utc).isoformat(),
             }
@@ -1422,6 +1492,11 @@ def _collect_commander_assists(
                     "commander.assist_failed", task_id=handle.task_id, status=status,
                     text=str(exc)[-1200:], lane_id=handle.lane_id, role=handle.role,
                     provider=handle.requested_provider, authority="NONE",
+                    failure_type=failure_type,
+                    raw_result_path=raw_result_evidence.get("raw_result_path"),
+                    raw_result_sha256=raw_result_evidence.get("raw_result_sha256"),
+                    raw_result_bytes=raw_result_evidence.get("raw_result_bytes"),
+                    evidence_ref=raw_result_evidence.get("raw_result_path"),
                 )
         finally:
             handle.lease_path.unlink(missing_ok=True)
