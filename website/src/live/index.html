@@ -24,20 +24,22 @@
 
   <main>
     <section class="experience" id="experience">
-      <div class="film-shell">
-        <video class="hero-film" data-hero-video playsinline autoplay muted preload="auto" poster="/live/assets/human-code.jpg">
-          <source media="(max-width: 760px)" src="/live/assets/minitz-ican-film-mobile.mp4" type="video/mp4">
-          <source src="/live/assets/minitz-ican-film.mp4" type="video/mp4">
-        </video>
-        <div class="film-topline"><span>MiniTZ OS</span><span>I can.</span></div>
-        <div class="film-actions">
-          <button type="button" data-film-sound>Play with sound</button>
-          <button type="button" data-film-replay>Replay film</button>
+      <div class="photo-hero">
+        <img class="photo-hero-main" src="/live/assets/human-code.jpg" alt="A young person looking directly at the camera" decoding="async">
+        <div class="photo-hero-copy">
+          <p class="kicker">MINITZ OS</p>
+          <h1>I can.</h1>
+          <p>The computer should meet you where your intention begins.</p>
+        </div>
+        <div class="photo-hero-strip" aria-hidden="true">
+          <img src="/live/assets/human-build.jpg" alt="">
+          <img src="/live/assets/human-create.jpg" alt="">
+          <img src="/live/assets/human-design.jpg" alt="">
         </div>
       </div>
       <div class="experience-statement reveal-on-scroll">
         <p class="kicker">ONE SYSTEM</p>
-        <h1>The point isn’t what the computer can do.</h1>
+        <h2>The point isn’t what the computer can do.</h2>
         <p class="statement-accent">It’s what you can do with it.</p>
         <p class="statement-copy">MiniTZ OS is built for the moment between having an idea and making it real.</p>
       </div>
@@ -45,27 +47,27 @@
 
     <section class="people" aria-label="I can stories">
       <article class="person reveal-on-scroll">
-        <img src="/live/assets/human-code.jpg" alt="A person looking directly into the camera" loading="lazy" decoding="async">
+        <img src="/live/assets/human-code.jpg" alt="A young person outside at golden hour" loading="lazy" decoding="async">
         <div><span>01</span><h2>I can code.</h2><p>Curiosity becomes something you can act on.</p></div>
       </article>
       <article class="person reveal-on-scroll">
-        <img src="/live/assets/human-build.jpg" alt="A person working with their hands" loading="lazy" decoding="async">
+        <img src="/live/assets/human-build.jpg" alt="A construction worker on site" loading="lazy" decoding="async">
         <div><span>02</span><h2>I can build.</h2><p>A business. A tool. A system. Something real.</p></div>
       </article>
       <article class="person reveal-on-scroll">
-        <img src="/live/assets/human-create.jpg" alt="A person creating in a real work environment" loading="lazy" decoding="async">
+        <img src="/live/assets/human-create.jpg" alt="A ceramic artist at work" loading="lazy" decoding="async">
         <div><span>03</span><h2>I can create.</h2><p>An idea can leave your head and enter the world.</p></div>
       </article>
       <article class="person reveal-on-scroll">
-        <img src="/live/assets/human-design.jpg" alt="A person designing and making" loading="lazy" decoding="async">
+        <img src="/live/assets/human-design.jpg" alt="A maker sewing in a workshop" loading="lazy" decoding="async">
         <div><span>04</span><h2>I can design.</h2><p>Intent becomes form.</p></div>
       </article>
       <article class="person reveal-on-scroll">
-        <img src="/live/assets/human-make.jpg" alt="A person making something in a workshop" loading="lazy" decoding="async">
+        <img src="/live/assets/human-make.jpg" alt="A baker working with bread" loading="lazy" decoding="async">
         <div><span>05</span><h2>I can make.</h2><p>The computer becomes part of the work, not the obstacle.</p></div>
       </article>
       <article class="person reveal-on-scroll">
-        <img src="/live/assets/human-automate.jpg" alt="A person working in a professional environment" loading="lazy" decoding="async">
+        <img src="/live/assets/human-automate.jpg" alt="A mechanic working on a vehicle" loading="lazy" decoding="async">
         <div><span>06</span><h2>I can automate.</h2><p>Give repetition to the system. Keep your time.</p></div>
       </article>
     </section>
@@ -141,6 +143,8 @@
         <button type="button" data-locker-filter="CAPABILITY">Capabilities</button>
         <button type="button" data-locker-filter="SYSTEM">System</button>
         <button type="button" data-locker-filter="DEPLOYMENT">Deployments</button>
+        <button type="button" data-locker-filter="FAILURE">Failures</button>
+        <button type="button" data-locker-filter="ORIGIN">Origins</button>
       </div>
       <div class="locker-list" data-locker-list><p class="locker-loading">Loading verified evidence…</p></div>
     </section>
@@ -152,18 +156,27 @@
       <div class="founder-copy reveal-on-scroll">
         <p class="kicker">WHY THIS EXISTS</p>
         <h2>I couldn’t code.</h2>
-        <p>I was non-technical.</p>
-        <p>But I still wanted to build.</p>
-        <p class="founder-turn">So I built MiniTZ OS.</p>
-        <p class="founder-close">Now you don’t have to be technical either.</p>
+        <p>I started by building my own AI assistant.</p>
+        <p>Every hardware change meant setting it up again.</p>
+        <p>A day or more just to get back to work.</p>
+        <p>Then I watched “running” turn into silent stalls.</p>
+        <p class="founder-turn">So I stopped thinking of MiniTZ as another tool.</p>
+        <p class="founder-close">I made it the OS.</p>
         <div class="founder-id"><b>Mahdi Taghdisi Neghab</b><span>Founder, MiniTZ OS</span></div>
       </div>
     </section>
 
-    <section class="final-lockup" aria-label="MiniTZ OS final statement">
-      <p>MiniTZ OS</p>
-      <h2>I can.</h2>
-      <span>Working Prototype</span>
+    <section class="final-film" id="final-film" aria-label="MiniTZ OS I Can film">
+      <div class="final-film-shell">
+        <video class="ending-film" data-final-film playsinline preload="metadata" poster="/live/assets/human-code.jpg">
+          <source media="(max-width: 760px)" src="/live/assets/minitz-ican-film-mobile.mp4" type="video/mp4">
+          <source src="/live/assets/minitz-ican-film.mp4" type="video/mp4">
+        </video>
+        <button class="film-play" type="button" data-film-play>
+          <span>Play the film</span>
+          <small>Sound on</small>
+        </button>
+      </div>
     </section>
   </main>
 

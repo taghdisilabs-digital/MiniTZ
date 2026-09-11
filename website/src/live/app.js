@@ -130,13 +130,28 @@ async function loadLocker(){
 }
 
 function setupExperience(){
-  const video=q('[data-hero-video]'),sound=q('[data-film-sound]'),replay=q('[data-film-replay]');
-  if(video&&sound)sound.addEventListener('click',async()=>{video.muted=false;video.currentTime=0;try{await video.play();sound.textContent='Sound on';}catch{sound.textContent='Tap to play with sound';}});
-  if(video&&replay)replay.addEventListener('click',async()=>{video.currentTime=0;try{await video.play();}catch{}});
+  const film=q('[data-final-film]'),play=q('[data-film-play]');
+  if(film&&play){
+    play.addEventListener('click',async()=>{
+      film.muted=false;
+      film.volume=1;
+      film.currentTime=0;
+      try{
+        await film.play();
+        play.classList.add('is-hidden');
+      }catch{
+        play.querySelector('span').textContent='Tap again to play';
+      }
+    });
+    film.addEventListener('ended',()=>{
+      play.classList.remove('is-hidden');
+      const label=play.querySelector('span');if(label)label.textContent='Replay the film';
+    });
+  }
   const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('is-visible');}),{threshold:.14,rootMargin:'0px 0px -6% 0px'});
   qa('.reveal-on-scroll').forEach(el=>observer.observe(el));
   qa('[data-locker-filter]').forEach(btn=>btn.addEventListener('click',()=>{state.lockerFilter=btn.dataset.lockerFilter;qa('[data-locker-filter]').forEach(b=>b.classList.toggle('is-active',b===btn));renderLocker();}));
-  document.addEventListener('visibilitychange',()=>{if(document.hidden&&video&&!video.paused)video.pause();});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden&&film&&!film.paused)film.pause();});
 }
 
 function tick(){

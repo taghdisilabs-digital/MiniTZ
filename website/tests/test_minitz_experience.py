@@ -3,7 +3,7 @@ ROOT=pathlib.Path(__file__).resolve().parents[1]
 class MiniTZExperienceTests(unittest.TestCase):
  def test_experience_structure(self):
   html=(ROOT/'src/live/index.html').read_text()
-  for token in ('id="experience"','id="capabilities"','id="locker"','id="founder"','data-locker','hero-film','I couldn’t code.'):
+  for token in ('id="experience"','id="capabilities"','id="locker"','id="founder"','id="final-film"','data-locker','photo-hero','I couldn’t code.'):
    self.assertIn(token,html)
  def test_live_system_dashboard_is_literal_text_first(self):
   html=(ROOT/'src/live/index.html').read_text()
@@ -24,4 +24,34 @@ class MiniTZExperienceTests(unittest.TestCase):
   p=ROOT/'src/live/assets/minitz-ican-film.mp4'
   self.assertGreater(p.stat().st_size,4_000_000)
   self.assertIn(b'ftyp',p.read_bytes()[:64])
+ def test_film_is_final_and_founder_photo_is_not_inside_film_section(self):
+  html=(ROOT/'src/live/index.html').read_text()
+  self.assertIn('id="final-film"',html)
+  self.assertLess(html.index('id="founder"'),html.index('id="final-film"'))
+  self.assertEqual(html.count('mahdi-original.jpg'),1)
+  film=html[html.index('id="final-film"'):html.index('</section>',html.index('id="final-film"'))]
+  self.assertNotIn('mahdi-original.jpg',film)
+  self.assertNotIn('autoplay',film)
+  self.assertNotIn('muted',film)
+  self.assertIn('Play the film',film)
+
+ def test_opening_is_not_a_video_player(self):
+  html=(ROOT/'src/live/index.html').read_text()
+  opening=html[html.index('id="experience"'):html.index('id="system"')]
+  self.assertNotIn('<video',opening)
+ def test_final_film_requires_explicit_sound_play(self):
+  app=(ROOT/'src/live/app.js').read_text()
+  self.assertIn("q('[data-final-film]')",app)
+  self.assertIn("q('[data-film-play]')",app)
+  self.assertIn('film.muted=false',app)
+  self.assertIn('await film.play()',app)
+ def test_locker_contains_origin_and_failure_history(self):
+  data=json.loads((ROOT/'content/locker-index.json').read_text())
+  ids={e['id'] for e in data['entries']}
+  for wanted in ('origin-os-20260620','assistant-setup-20260627','vps-configurator-20260826','silent-stall-loss-20260906'):
+   self.assertIn(wanted,ids)
+ def test_founder_story_connects_hardware_pain_to_os(self):
+  html=(ROOT/'src/live/index.html').read_text()
+  for token in ('I started by building my own AI assistant.','Every hardware change meant setting it up again.','A day or more just to get back to work.','So I stopped thinking of MiniTZ as another tool.','I made it the OS.'):
+   self.assertIn(token,html)
 
