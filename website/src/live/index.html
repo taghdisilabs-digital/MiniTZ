@@ -4,153 +4,70 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#06070b">
-  <title>MiniTZ Live — Unreal Capability Stream</title>
-  <meta name="description" content="MiniTZ live build theatre: the newest Unreal frame, capability telemetry, validation state and production evidence from TaghdisiLabs.">
+  <meta name="theme-color" content="#050505">
+  <title>MiniTZ OS — I can.</title>
+  <meta name="description" content="MiniTZ OS. I can code. I can build. I can create. I can make.">
   <link rel="stylesheet" href="/live/styles.css">
   <script type="module" src="/live/app.js"></script>
 </head>
 <body>
-  <div class="noise" aria-hidden="true"></div>
-  <div class="beam beam-a" aria-hidden="true"></div>
-  <div class="beam beam-b" aria-hidden="true"></div>
-
-  <header class="topbar">
-    <a class="brand" href="https://taghdisilabs.digital" aria-label="TaghdisiLabs home">
-      <span class="brand-mark">M</span>
-      <span><strong>MINITZ</strong><small>TAGHDISI LABS // LIVE BUILD SYSTEM</small></span>
-    </a>
-    <div class="top-status">
-      <span class="connection-dot" data-connection-dot></span>
-      <strong data-connection>CONNECTING</strong>
-      <span class="divider"></span>
-      <span data-clock>--:--:--</span>
-    </div>
-  </header>
-
   <main>
-    <section class="hero-grid" aria-labelledby="stream-title">
-      <div class="visual-shell">
-        <div class="visual-grid" aria-hidden="true"></div>
-        <div class="background-stack" data-background-stack aria-hidden="true"></div>
-        <div class="stage" data-stage>
-          <div class="stage-empty">
-            <span class="stage-mark">M</span>
-            <strong>UNREAL FEED INITIALIZING</strong>
-            <p>Waiting for the newest verified capture.</p>
-          </div>
+    <section class="film" data-film aria-label="MiniTZ OS I Can">
+      <div class="grain" aria-hidden="true"></div>
+      <div class="film-frame">
+        <p class="person-context" data-context>After school · outside</p>
+        <p class="film-line" data-film-line>I can code.</p>
+        <div class="reveal" data-reveal aria-hidden="true">
+          <h1>MiniTZ OS</h1>
+          <p>I can.</p>
+          <small>Working Prototype</small>
         </div>
-        <div class="stage-hud stage-hud-top">
-          <span class="hud-chip"><i></i> UNREAL LIVE FRAME</span>
-          <span class="hud-chip muted" data-stage-source>LIVE OUTPUT</span>
-        </div>
-        <div class="stage-overlay">
-          <div>
-            <span class="micro">LATEST GENERATED FRAME</span>
-            <strong data-stage-name>WAITING FOR CAPTURE</strong>
-          </div>
-          <div class="frame-status"><span data-stream-status>SYNCING</span><b>LIVE</b></div>
-        </div>
-        <div class="scanline" aria-hidden="true"></div>
       </div>
-
-      <aside class="mission-panel">
-        <div class="state-row">
-          <span class="state-pill" data-production-state>CONNECTING</span>
-          <span class="task-id" data-task-id>BUILD STATE</span>
-        </div>
-        <p class="micro">CURRENT WORLD-BUILD OBJECTIVE</p>
-        <h1 id="stream-title" data-task-title>Resolving MiniTZ build state</h1>
-        <p class="task-summary" data-task-summary>Reading the public evidence projection.</p>
-
-        <div class="operation-block">
-          <span class="micro">NOW EXECUTING</span>
-          <strong data-operation>Waiting for build event</strong>
-          <span class="operation-meta" data-operation-meta>PUBLIC BUILD FEED</span>
-        </div>
-
-        <div class="coder-pool" aria-label="MiniTZ main coder pool">
-          <div class="coder-pool-head"><span>MAIN CODERS</span><small data-active-coder>PRIMARY · CODEX</small></div>
-          <div class="coder-grid">
-            <div><span>Codex</span><strong data-coder-codex>NEEDS MODIFICATION</strong></div>
-            <div><span>Antigravity</span><strong data-coder-agr>NEEDS MODIFICATION</strong></div>
-          </div>
-        </div>
-
-        <div class="progress-block">
-          <div class="progress-head"><span>PRODUCTION PROGRESS</span><strong data-progress-label>—</strong></div>
-          <div class="progress-track"><span data-progress-bar></span></div>
-        </div>
-
-        <div class="mission-stats">
-          <div><span>CONTINUITY</span><strong data-continuity>PRESERVING</strong></div>
-          <div><span>EXECUTION</span><strong data-execution-mode>AI ACCELERATED</strong></div>
-          <div><span>VALIDATION</span><strong data-validation>WAITING</strong></div>
-          <div><span>HEARTBEAT</span><strong data-heartbeat>—</strong></div>
-          <div><span>BUILD ELAPSED</span><strong data-elapsed>—</strong></div>
-          <div><span>SOURCE</span><strong data-commit>—</strong></div>
-        </div>
-      </aside>
+      <div class="film-controls">
+        <button type="button" data-replay>Replay 20 seconds</button>
+        <a href="#meaning">Continue</a>
+      </div>
+      <div class="film-progress" aria-hidden="true"><span data-film-progress></span></div>
     </section>
 
-    <section class="telemetry-grid" aria-label="MiniTZ capability telemetry">
-      <article class="metric-card gpu-card">
-        <div class="metric-head"><span>GPU COMPUTE</span><strong data-gpu-percent>—</strong></div>
-        <canvas data-gpu-chart width="480" height="128" aria-label="GPU activity history"></canvas>
-        <div class="metric-foot"><span data-gpu-name>GPU</span><small data-gpu-load>Waiting for telemetry</small></div>
-      </article>
-      <article class="metric-card">
-        <div class="metric-head"><span>VRAM PIPELINE</span><strong data-vram>—</strong></div>
-        <canvas data-vram-chart width="480" height="128" aria-label="VRAM history"></canvas>
-        <div class="metric-foot"><span>LIVE GRAPH</span><small>Rolling render + AI allocation</small></div>
-      </article>
-      <article class="metric-card compact-metrics">
-        <div><span>HOST LOAD</span><strong data-host-load>—</strong><small data-host-ram>—</small></div>
-        <div><span>LOCAL AI ACCELERATOR</span><strong data-local-ai>OFFLINE</strong><small data-local-ai-meta>Private implementation hidden</small></div>
-        <div><span>CONTEXT CACHE</span><strong data-token-saver>—</strong><small data-token-saver-meta>—</small></div>
-        <div><span>30 COMMANDER LANES</span><strong data-commander-state>OFFLINE</strong><small data-commander-meta>30 logical read-only assist channels</small></div>
-        <div><span>5 BOOST WORKERS</span><strong data-boost-state>OFFLINE</strong><small data-boost-meta>5 isolated task-section workers</small></div>
-      </article>
+    <section class="meaning" id="meaning">
+      <p class="eyebrow">THE IDEA</p>
+      <h2>The point is not what the computer can do.</h2>
+      <p class="lead">The point is what you can do with it.</p>
+      <p class="body-copy">MiniTZ OS is built around a simpler relationship with the computer: you decide what you want to make, build, learn, change, or automate. The system should meet you there.</p>
     </section>
 
-    <section class="capability-section">
-      <div class="section-head">
-        <div><p class="micro">CAPABILITY DECK</p><h2>What this system is doing, live.</h2></div>
-        <span class="live-badge">EVIDENCE BACKED</span>
+    <section class="voices" aria-label="I can statements">
+      <article><span>01</span><p>I can code.</p><small>Without needing to become “a computer person” first.</small></article>
+      <article><span>02</span><p>I can build.</p><small>A business. A tool. A workflow. Something real.</small></article>
+      <article><span>03</span><p>I can create.</p><small>An idea can move from your head into the world.</small></article>
+      <article><span>04</span><p>I can design.</p><small>Not because a title says designer. Because you have intent.</small></article>
+      <article><span>05</span><p>I can make.</p><small>The computer becomes part of the work, not the obstacle.</small></article>
+      <article><span>06</span><p>I can automate.</p><small>Repetition becomes something you can choose to leave behind.</small></article>
+    </section>
+
+    <section class="human-rule">
+      <div>
+        <p class="eyebrow">HUMAN FIRST</p>
+        <h2>Real people before product.</h2>
       </div>
-      <div class="capability-grid">
-        <article><span>01</span><h3>Unreal world production</h3><p>Automated build, render and capture loops turn authored game state into visible proof.</p><strong data-capability-stream>STREAM READY</strong></article>
-        <article><span>02</span><h3>AI-accelerated execution</h3><p>Local and cloud compute are routed as resources while one build authority preserves task truth.</p><strong data-capability-local>RESOURCE STATUS</strong></article>
-        <article><span>03</span><h3>Persistent continuity</h3><p>Task state, source identity and owned-file integrity survive pauses, restarts and long production runs.</p><strong data-capability-continuity>CONTINUITY</strong></article>
-        <article><span>04</span><h3>Automated validation</h3><p>Build outputs are measured and verified before capability claims are promoted.</p><strong data-capability-validation>VALIDATION</strong></article>
-        <article><span>05</span><h3>Evidence memory</h3><p>Reusable context is compacted without replacing raw evidence or source provenance.</p><strong data-capability-cache>CACHE</strong></article>
-        <article><span>06</span><h3>Live visual publishing</h3><p>The newest eligible Unreal frame becomes the public stage automatically as production advances.</p><strong>AUTO PUBLISH</strong></article>
+      <div class="manifesto">
+        <p>Confidence should feel ordinary.</p>
+        <p>Age, profession, background, and technical identity should not decide who gets to make things with a computer.</p>
+        <p>MiniTZ OS belongs at the end of that thought, not at the beginning.</p>
       </div>
     </section>
 
-    <section class="lower-grid">
-      <div class="console-panel">
-        <div class="section-head">
-          <div><p class="micro">BUILD CONSOLE</p><h2>Sanitized capability feed</h2></div>
-          <span class="console-live">LIVE EVENTS</span>
-        </div>
-        <div class="console" data-capability-console data-feed aria-live="polite"></div>
-      </div>
-
-      <aside class="showcase-panel">
-        <div class="section-head">
-          <div><p class="micro">FRAME BUFFER</p><h2>Recent Unreal output</h2></div>
-          <span class="showcase-count" data-showcase-count>0</span>
-        </div>
-        <p class="showcase-copy">Newest captures are selected automatically. Click a frame to inspect it on the main stage.</p>
-        <div class="showcase" data-showcase></div>
-      </aside>
+    <section class="final-lockup" aria-label="MiniTZ OS">
+      <p class="final-name">MiniTZ OS</p>
+      <p class="final-line">I can.</p>
+      <p class="prototype">Working Prototype</p>
     </section>
   </main>
 
   <footer>
-    <span>MiniTZ // TaghdisiLabs Digital // Read-only public capability stream</span>
-    <a href="https://taghdisilabs.digital">taghdisilabs.digital</a>
+    <span>MiniTZ OS</span>
+    <span>I can.</span>
   </footer>
 </body>
 </html>
