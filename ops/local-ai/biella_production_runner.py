@@ -209,6 +209,220 @@ def _commander_output_evidence(path: Path, *, prefix: str) -> dict[str, Any]:
     return result
 
 
+def _commander_file_identity(path: Path, *, prefix: str) -> dict[str, Any]:
+    source_path = Path(path)
+    result: dict[str, Any] = {f"{prefix}_path": str(source_path)}
+    try:
+        raw = source_path.read_bytes()
+    except OSError as exc:
+        result.update({
+            f"{prefix}_available": False,
+            f"{prefix}_read_error": type(exc).__name__,
+        })
+        return result
+    result.update({
+        f"{prefix}_sha256": hashlib.sha256(raw).hexdigest(),
+        f"{prefix}_bytes": len(raw),
+        f"{prefix}_available": True,
+    })
+    return result
+
+
+def _commander_immutable_json(path: Path, payload: Mapping[str, Any]) -> bool:
+    """Create one metadata sidecar without rewriting an existing evidence record."""
+
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    raw = (json.dumps(dict(payload), sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n").encode("utf-8")
+    try:
+        descriptor = os.open(target, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+    except FileExistsError:
+        existing = commander.read_json(target)
+        if (
+            existing.get("schema") != payload.get("schema")
+            or existing.get("rejection_sha256") != payload.get("rejection_sha256")
+            or existing.get("raw_result_sha256") != payload.get("raw_result_sha256")
+        ):
+            raise ValueError(f"immutable Commander evidence link conflict: {target}")
+        return False
+    try:
+        with os.fdopen(descriptor, "wb") as handle:
+            handle.write(raw)
+            handle.flush()
+            os.fsync(handle.fileno())
+    except OSError:
+        try:
+            target.unlink(missing_ok=True)
+        except OSError:
+            pass
+        raise
+    return True
+
+
+def _commander_link_path(rejected_path: Path) -> Path:
+    name = Path(rejected_path).name
+    if name.endswith(".rejected.json"):
+        name = name[:-len(".rejected.json")] + ".evidence-link.json"
+    else:
+        name += ".evidence-link.json"
+    return Path(rejected_path).with_name(name)
+
+
+def _journal_commander_link_refs(
+    journal: production_events.ProductionEventJournal,
+) -> set[str]:
+    refs: set[str] = set()
+    for segment in production_events._journal_segment_paths(journal.path):
+        for _line_number, _raw, item in production_events._iter_jsonl_objects(segment):
+            if (
+                item.get("type") == "commander.assist_evidence_linked"
+                and isinstance(item.get("evidence_link_ref"), str)
+            ):
+                refs.add(str(item["evidence_link_ref"]))
+    return refs
+
+
+def _existing_commander_failure_type(payload: Mapping[str, Any], stdout_path: Path) -> str:
+    existing = str(payload.get("failure_type") or "").strip()
+    if existing:
+        return existing
+    try:
+        commander.parse_resource_result(stdout_path.read_text(encoding="utf-8", errors="replace"))
+    except Exception as exc:
+        return _commander_rejection_type(0, exc)
+    return "VALIDATION_REJECTED"
+
+
+def reconcile_commander_rejection_evidence(
+    runtime_root: Path,
+    journal: production_events.ProductionEventJournal | None = None,
+) -> tuple[Path, ...]:
+    """Attach old Commander rejection artifacts to raw output and journal identity.
+
+    This is deliberately append-only: original rejection/stdout/stderr/journal
+    bytes are never rewritten. A content-addressed raw capture and an immutable
+    sidecar bind the existing records; an optional distinct journal event records
+    that relation without re-emitting the original failure.
+    """
+
+    root = _commander_root(runtime_root)
+    if not root.is_dir():
+        return ()
+    events_path = Path(runtime_root) / "events.jsonl"
+    failures_path = Path(runtime_root) / "failures.jsonl"
+    occurrence_index = production_events.build_commander_failure_occurrence_index(
+        events_path, failures_path,
+    )
+    existing_link_refs = _journal_commander_link_refs(journal) if journal is not None else set()
+    linked: list[Path] = []
+    for rejected_path in sorted(root.glob("*.rejected.json")):
+        payload = commander.read_json(rejected_path)
+        if (
+            payload.get("schema") != "minitz.commander_rejection/v1"
+            or payload.get("authority") != "NONE"
+            or not payload.get("cache_key")
+        ):
+            continue
+        key = str(payload.get("cache_key"))
+        if rejected_path.name != f"{key}.rejected.json":
+            continue
+        stdout_path, stderr_path, _lease_path, _accepted_path, _rejected_path = _commander_paths(runtime_root, key)
+        raw_result = _commander_output_evidence(stdout_path, prefix="raw_result")
+        if not raw_result.get("raw_result_available"):
+            continue
+        raw_error = _commander_output_evidence(stderr_path, prefix="raw_error")
+        rejection_identity = _commander_file_identity(rejected_path, prefix="rejection")
+        occurrence = production_events.find_commander_failure_occurrence(
+            events_path, failures_path, payload, occurrence_index=occurrence_index,
+        )
+        event = occurrence.get("event") if isinstance(occurrence.get("event"), Mapping) else {}
+        failure = occurrence.get("failure") if isinstance(occurrence.get("failure"), Mapping) else {}
+        failure_type = _existing_commander_failure_type(payload, stdout_path)
+        legacy_failure_type = str(
+            failure.get("failure_type")
+            or event.get("failure_type")
+            or event.get("event_type")
+            or "commander.assist_failed"
+        )
+        if event and failure:
+            link_status = "LINKED"
+        elif event:
+            link_status = "EVENT_LINKED_FAILURE_UNRESOLVED"
+        else:
+            link_status = "RAW_LINKED_JOURNAL_UNRESOLVED"
+        link_path = _commander_link_path(rejected_path)
+        link: dict[str, Any] = {
+            "schema": "minitz.commander_evidence_link/v1",
+            "record_kind": "EVIDENCE_LINK",
+            "semantic_graph": "MiniTZ",
+            "semantic_family_ref": production_events._EVIDENCE_FAMILY_REF,
+            "family_revision": production_events._EVIDENCE_FAMILY_REVISION,
+            "authority": "NONE_DERIVED_EVIDENCE",
+            "evidence_authority": "NONE_DERIVED_EVIDENCE",
+            "projection_authority": False,
+            "progression_authority": False,
+            "task_id": payload.get("task_id"),
+            "task_state_digest": payload.get("task_state_digest"),
+            "projection_digest": payload.get("projection_digest"),
+            "lane_id": payload.get("lane_id"),
+            "role": payload.get("role"),
+            "provider": payload.get("provider"),
+            "cache_key": key,
+            "status": payload.get("status"),
+            "failure_type": failure_type,
+            "legacy_failure_type": legacy_failure_type,
+            "event_type": "commander.assist_failed",
+            "created_at": payload.get("created_at"),
+            "rejection_ref": str(rejected_path),
+            **rejection_identity,
+            **raw_result,
+            **raw_error,
+            "evidence_ref": raw_result.get("raw_result_path"),
+            "evidence_link_ref": str(link_path),
+            "source_event_ref": event.get("ref"),
+            "source_failure_ref": failure.get("ref"),
+            "source_event_line": event.get("source_line"),
+            "source_failure_line": failure.get("source_line"),
+            "source_event_raw_sha256": event.get("raw_sha256"),
+            "source_failure_raw_sha256": failure.get("raw_sha256"),
+            "legacy_event_identity": event.get("ref"),
+            "source_status": payload.get("status"),
+            "link_status": link_status,
+        }
+        _commander_immutable_json(link_path, link)
+        if journal is not None and str(link_path) not in existing_link_refs:
+            journal.emit(
+                "commander.assist_evidence_linked",
+                task_id=str(payload.get("task_id") or "") or None,
+                status="LINKED",
+                text=str(link_path),
+                lane_id=payload.get("lane_id"),
+                role=payload.get("role"),
+                provider=payload.get("provider"),
+                cache_key=key,
+                source_status=payload.get("status"),
+                failure_type=failure_type,
+                legacy_failure_type=legacy_failure_type,
+                rejection_ref=str(rejected_path),
+                rejection_sha256=rejection_identity.get("rejection_sha256"),
+                rejection_bytes=rejection_identity.get("rejection_bytes"),
+                raw_result_capture_path=raw_result.get("raw_result_capture_path"),
+                raw_result_path=raw_result.get("raw_result_path"),
+                raw_result_sha256=raw_result.get("raw_result_sha256"),
+                raw_result_bytes=raw_result.get("raw_result_bytes"),
+                evidence_ref=raw_result.get("raw_result_path"),
+                evidence_link_ref=str(link_path),
+                source_event_ref=event.get("ref"),
+                source_failure_ref=failure.get("ref"),
+                legacy_event_identity=event.get("ref"),
+                link_status=link_status,
+                authority="NONE",
+            )
+            existing_link_refs.add(str(link_path))
+        linked.append(link_path)
+    return tuple(linked)
+
+
 def _commander_rejection_type(returncode: int, error: BaseException) -> str:
     if int(returncode) != 0:
         return "PROCESS_FAILED"
@@ -1338,12 +1552,16 @@ def _launch_commander_assists(
                 )
         except (OSError, ValueError, subprocess.SubprocessError) as exc:
             status = commander.classify_failure(getattr(exc, "returncode", 1) or 1, str(exc))
+            raw_result_evidence = _commander_output_evidence(stdout_path, prefix="raw_result")
+            raw_error_evidence = _commander_output_evidence(stderr_path, prefix="raw_error")
             rejected = {
                 "schema": "minitz.commander_rejection/v1", "authority": "NONE",
                 "task_id": task.id, "task_state_digest": task_state_digest,
                 "projection_digest": projection_digest, "lane_id": lane.lane_id,
                 "role": lane.role, "provider": provider, "cache_key": key,
                 "status": status, "detail": str(exc)[-1200:],
+                **raw_result_evidence, **raw_error_evidence,
+                "evidence_ref": raw_result_evidence.get("raw_result_path"),
                 "retry_after": commander.failure_retry_after(status),
                 "created_at": datetime.now(timezone.utc).isoformat(),
             }
@@ -1354,6 +1572,11 @@ def _launch_commander_assists(
                     "commander.assist_failed", task_id=task.id, status=status,
                     text=str(exc)[-1200:], lane_id=lane.lane_id, role=lane.role,
                     provider=provider, authority="NONE",
+                    raw_result_capture_path=raw_result_evidence.get("raw_result_capture_path"),
+                    raw_result_path=raw_result_evidence.get("raw_result_path"),
+                    raw_result_sha256=raw_result_evidence.get("raw_result_sha256"),
+                    raw_result_bytes=raw_result_evidence.get("raw_result_bytes"),
+                    evidence_ref=raw_result_evidence.get("raw_result_path"),
                 )
     index = {
         "schema": "minitz.commander_fabric/v1",
@@ -1458,6 +1681,7 @@ def _collect_commander_assists(
                     "commander.assist_completed", task_id=handle.task_id, status="ACTIVE",
                     text=str(handle.accepted_path), lane_id=handle.lane_id, role=handle.role,
                     provider=wrapper.get("provider"), authority="NONE",
+                    raw_result_capture_path=wrapper.get("raw_result_capture_path"),
                     raw_result_path=wrapper.get("raw_result_path"),
                     raw_result_sha256=wrapper.get("raw_result_sha256"),
                     raw_result_bytes=wrapper.get("raw_result_bytes"),
@@ -1493,6 +1717,7 @@ def _collect_commander_assists(
                     text=str(exc)[-1200:], lane_id=handle.lane_id, role=handle.role,
                     provider=handle.requested_provider, authority="NONE",
                     failure_type=failure_type,
+                    raw_result_capture_path=raw_result_evidence.get("raw_result_capture_path"),
                     raw_result_path=raw_result_evidence.get("raw_result_path"),
                     raw_result_sha256=raw_result_evidence.get("raw_result_sha256"),
                     raw_result_bytes=raw_result_evidence.get("raw_result_bytes"),
@@ -2687,6 +2912,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
     journal = production_events.ProductionEventJournal(runtime_root / "events.jsonl", failure_path=runtime_root / "failures.jsonl")
     lock = ProductionLock(runtime_root / "run.lock"); lock.acquire()
     try:
+        reconcile_commander_rejection_evidence(runtime_root, journal)
         publication.start_worker(repo_root, failure_path=runtime_root / "failures.jsonl")
         telemetry = load_runtime(runtime_path)
         reconciled_cooldowns = routing.reconcile_legacy_account_cooldowns(telemetry.get("cooldowns", {}))

@@ -5,7 +5,7 @@ import json
 import os
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Iterator, Mapping
 
 _MAX_TEXT = 4000
 _EVENT_STREAM_ID = "minitz-production-events-v1"
@@ -46,6 +46,12 @@ def _journal_event_ref(seq: object) -> str | None:
     if not isinstance(seq, int) or isinstance(seq, bool) or seq < 1:
         return None
     return f"journal-event://{_EVENT_STREAM_ID}/{seq}"
+
+
+def _journal_failure_ref(seq: object) -> str | None:
+    if not isinstance(seq, int) or isinstance(seq, bool) or seq < 1:
+        return None
+    return f"journal-failure://{_FAILURE_STREAM_ID}/{seq}"
 
 
 def _occurrence_ref(
@@ -121,6 +127,18 @@ def _project_stream(path: Path, *, source_kind: str, stream_id: str):
             evidence["status"] = item.get("status")
             evidence["recorded_at"] = item.get("time")
             evidence["source_schema"] = item.get("schema")
+            evidence["linked_evidence_ref"] = item.get("evidence_ref")
+            evidence["evidence_link_ref"] = item.get("evidence_link_ref")
+            evidence["source_event_ref"] = item.get("source_event_ref")
+            evidence["source_failure_ref"] = item.get("source_failure_ref")
+            evidence["link_status"] = item.get("link_status")
+            evidence["raw_result_capture_path"] = item.get("raw_result_capture_path")
+            evidence["raw_result_path"] = item.get("raw_result_path")
+            evidence["raw_result_sha256"] = item.get("raw_result_sha256")
+            evidence["raw_result_bytes"] = item.get("raw_result_bytes")
+            evidence["cache_key"] = item.get("cache_key")
+            evidence["provider"] = item.get("provider")
+            evidence["legacy_failure_type"] = item.get("legacy_failure_type")
             evidence["provenance"] = {
                 key: item[key] for key in _PROVENANCE_FIELDS
                 if key in item and item[key] not in (None, "")
@@ -152,6 +170,138 @@ def project_operational_evidence(events_path: Path, failures_path: Path):
     for segment in event_segments:
         yield from _project_stream(segment, source_kind="EVENT", stream_id=_EVENT_STREAM_ID)
     yield from _project_stream(Path(failures_path), source_kind="FAILURE", stream_id=_FAILURE_STREAM_ID)
+
+
+def _parse_timestamp(value: object) -> datetime | None:
+    if not isinstance(value, str) or not value:
+        return None
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return parsed.replace(tzinfo=timezone.utc) if parsed.tzinfo is None else parsed
+
+
+def _iter_jsonl_objects(path: Path) -> Iterator[tuple[int, bytes, Mapping[str, Any]]]:
+    path = Path(path)
+    if not path.is_file():
+        return
+    try:
+        handle = path.open("rb")
+    except OSError:
+        return
+    with handle:
+        for line_number, raw in enumerate(handle, 1):
+            try:
+                item = json.loads(raw.decode("utf-8"))
+            except (UnicodeDecodeError, json.JSONDecodeError):
+                # Invalid legacy lines are themselves preserved evidence. They
+                # cannot safely be used as an identity match.
+                continue
+            if isinstance(item, Mapping):
+                yield line_number, raw, item
+
+
+def build_commander_failure_occurrence_index(
+    events_path: Path, failures_path: Path,
+) -> dict[str, tuple[dict[str, Any], ...]]:
+    """Read Commander failure journal occurrences once for bounded reconciliation.
+
+    Historical rejection artifacts can outnumber the current task.  Indexing the
+    two append-only journals once keeps reconciliation linear in journal size;
+    callers still require an exact, unique event/failure match before linking.
+    """
+
+    event_matches: list[dict[str, Any]] = []
+    for segment in _journal_segment_paths(Path(events_path)):
+        for line_number, raw, item in _iter_jsonl_objects(segment):
+            if str(item.get("type") or "") != "commander.assist_failed":
+                continue
+            seq = item.get("seq")
+            event_matches.append({
+                "item": item,
+                "ref": item.get("journal_event_ref") or _journal_event_ref(seq),
+                "seq": seq,
+                "source_path": str(segment),
+                "source_line": line_number,
+                "raw_sha256": hashlib.sha256(raw).hexdigest(),
+                "time": item.get("time"),
+                "event_type": item.get("type"),
+                "failure_type": item.get("failure_type"),
+                "status": item.get("status"),
+            })
+
+    failure_matches: list[dict[str, Any]] = []
+    for segment in _journal_segment_paths(Path(failures_path)):
+        for line_number, raw, item in _iter_jsonl_objects(segment):
+            if str(item.get("event_type") or "") != "commander.assist_failed":
+                continue
+            item_ref = item.get("origin_event_ref") or _journal_event_ref(item.get("seq"))
+            failure_matches.append({
+                "item": item,
+                "ref": _journal_failure_ref(item.get("seq")),
+                "origin_event_ref": item_ref,
+                "seq": item.get("seq"),
+                "source_path": str(segment),
+                "source_line": line_number,
+                "raw_sha256": hashlib.sha256(raw).hexdigest(),
+                "failure_type": item.get("failure_type"),
+                "status": item.get("status"),
+            })
+    return {"events": tuple(event_matches), "failures": tuple(failure_matches)}
+
+
+def _commander_occurrence_matches(
+    item: Mapping[str, Any], rejection: Mapping[str, Any],
+) -> bool:
+    if str(item.get("type") or "") != "commander.assist_failed":
+        return False
+    for key in ("task_id", "lane_id", "provider"):
+        expected = str(rejection.get(key) or "")
+        if expected and str(item.get(key) or "") != expected:
+            return False
+    expected_status = str(rejection.get("status") or "")
+    if expected_status and str(item.get("status") or "") != expected_status:
+        return False
+    expected_detail = str(rejection.get("detail") or "")
+    if expected_detail and str(item.get("text") or "") != expected_detail:
+        return False
+    created_at = _parse_timestamp(rejection.get("created_at"))
+    recorded_at = _parse_timestamp(item.get("time"))
+    if created_at is None or recorded_at is None:
+        return False
+    return abs((recorded_at - created_at).total_seconds()) <= 5.0
+
+
+def find_commander_failure_occurrence(
+    events_path: Path, failures_path: Path, rejection: Mapping[str, Any],
+    *, occurrence_index: Mapping[str, tuple[dict[str, Any], ...]] | None = None,
+) -> dict[str, Any]:
+    """Find one exact legacy Commander failure occurrence without rewriting journals.
+
+    A rejection artifact and its stdout are immutable evidence. This helper only
+    binds them to a uniquely matching event/failure line; ambiguous or malformed
+    journal material is left unlinked rather than guessed.
+    """
+
+    index = occurrence_index or build_commander_failure_occurrence_index(
+        events_path, failures_path,
+    )
+    event_matches = [
+        entry for entry in index.get("events", ())
+        if _commander_occurrence_matches(entry["item"], rejection)
+    ]
+    event = event_matches[0] if len(event_matches) == 1 else None
+    failure: dict[str, Any] | None = None
+    if event is not None:
+        failure_matches = [
+            entry for entry in index.get("failures", ())
+            if event.get("ref") and entry.get("origin_event_ref") == event.get("ref")
+            and (event.get("seq") is None or entry.get("seq") == event.get("seq"))
+        ]
+        if len(failure_matches) == 1:
+            failure = failure_matches[0]
+    return {"event": event, "failure": failure, "event_candidates": len(event_matches)}
 
 
 def _bounded(value: object, limit: int = _MAX_TEXT) -> str:
@@ -267,7 +417,10 @@ class ProductionEventJournal:
             for key in _PROVENANCE_FIELDS + (
                 "text", "tool", "detail", "exit_code", "model", "reasoning",
                 "helper_budget_seconds", "elapsed_seconds", "raw_result_path",
-                "raw_result_sha256", "raw_result_bytes", "evidence_ref", "provider",
+                "raw_result_capture_path", "raw_result_sha256", "raw_result_bytes",
+                "evidence_ref", "evidence_link_ref", "source_event_ref",
+                "source_failure_ref", "link_status", "rejection_ref", "cache_key",
+                "legacy_failure_type", "provider",
             ):
                 if key in event:
                     failure[key] = event[key]
