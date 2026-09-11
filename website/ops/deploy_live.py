@@ -81,8 +81,9 @@ def main():
         public_text=(release/'index.html').read_text()+'\n'+(release/'investors/index.html').read_text()
         for banned in ('does not manufacture it','without pretending','EVIDENCE-GATED','RUNTIME-GATED','Registered, not fabricated','Remote identity or no claim','ACCEPTANCE BOUNDARY','evidence before claims','remain evidence-gated','without inventing a speed claim','No fabricated ARR','pre-commercial'):
             assert banned not in public_text, banned
-        assert 'creates, builds, manufactures, tests, debugs, validates, packages, deploys, and publishes' in public_text
-        assert 'Capital accelerates an operating system already producing' in public_text
+        assert 'FOUR MONTHS.' in (release/'index.html').read_text()
+        assert 'Founder-directed company execution engine' in (release/'investors/index.html').read_text()
+        assert 'Capital accelerates an operating system already producing' in (release/'investors/index.html').read_text()
         # Approved deck images contain historical slide text. Render only scenic
         # regions on the live page so pixel text can never contradict live data.
         ref=WEB/'reference/investor-deck-v1'; live_ref=release/'investors/reference'

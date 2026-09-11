@@ -50,12 +50,12 @@ class InvestorDeckTests(unittest.TestCase):
             'No fabricated ARR','pre-commercial','not currently bound to canonical live evidence',
         )
         for phrase in banned: self.assertNotIn(phrase, public)
+        self.assertIn('FOUR MONTHS.', home)
         for phrase in (
-            'One founder. One execution system. Real products.',
-            'creates, builds, manufactures, tests, debugs, validates, packages, deploys, and publishes',
+            'Founder-directed company execution engine',
             'Product proof established. Commercial expansion is the next multiplier.',
             'Capital accelerates an operating system already producing',
-        ): self.assertIn(phrase, public)
+        ): self.assertIn(phrase, investor)
 
     def test_live_deploy_source_is_in_single_repo_and_has_no_external_copy_overlay(self):
         deployer = (ROOT/'ops/deploy_live.py').read_text()
