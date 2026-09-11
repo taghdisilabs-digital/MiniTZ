@@ -2205,6 +2205,7 @@ def __getattr__(name: str) -> Any:
         "RepairStrategy",
         "RootCauseCandidate",
         "RootCauseState",
+        "UnifiedFailureEvidenceBinding",
     }:
         from . import failure_repair_learning
 

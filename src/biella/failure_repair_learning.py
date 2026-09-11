@@ -601,6 +601,16 @@ class FailureKnowledgeProjection:
         )
 
 
+@dataclass(frozen=True)
+class UnifiedFailureEvidenceBinding:
+    evidence_ref: str
+    learning_state: str
+    failure_classification: str
+    project_ref: ProjectRef | None
+    observation: FailureObservation | None
+    source_digest: str
+
+
 class FailureLearningService:
     """Persists immutable evidence and emits only conditional repair proposals."""
 
@@ -608,6 +618,7 @@ class FailureLearningService:
         "failure_observations",
         "failure_learning_versions",
         "repair_attempts",
+        "failure_evidence_bindings",
     )
 
     def __init__(self, database_path: str | Path) -> None:
@@ -664,6 +675,16 @@ class FailureLearningService:
                     algorithm_version TEXT NOT NULL,
                     derivation_sha256 TEXT NOT NULL,
                     PRIMARY KEY (project_id, observation_ref)
+                );
+                CREATE TABLE IF NOT EXISTS failure_evidence_bindings (
+                    evidence_ref TEXT NOT NULL PRIMARY KEY,
+                    source_digest TEXT NOT NULL,
+                    learning_state TEXT NOT NULL CHECK (learning_state IN ('RECORDED','UNAVAILABLE_SCOPE')),
+                    project_id TEXT,
+                    failure_classification TEXT NOT NULL,
+                    observation_ref TEXT,
+                    payload_json TEXT NOT NULL,
+                    created_at TEXT NOT NULL
                 );
                 """
             )
@@ -744,6 +765,153 @@ class FailureLearningService:
             raise
         finally:
             connection.close()
+
+    @staticmethod
+    def _binding_observation_from_payload(payload: Mapping[str, object]) -> FailureObservation:
+        if payload.get("artifact_refs") or payload.get("resource_snapshot_refs"):
+            raise FailureLearningIntegrityError("unified failure binding unexpectedly contains typed artifact/resource refs")
+        environment = payload.get("environment_summary")
+        if not isinstance(environment, Mapping):
+            raise FailureLearningIntegrityError("unified failure binding environment is malformed")
+        return FailureObservation(
+            observation_ref=str(payload["observation_ref"]),
+            project_ref=ProjectRef(str(payload["project_ref"])),
+            task_ref=str(payload["task_ref"]),
+            run_ref=str(payload["run_ref"]),
+            node_ref=str(payload["node_ref"]),
+            attempt_id=str(payload["attempt_id"]),
+            capability_ref=str(payload["capability_ref"]),
+            implementation_ref=str(payload["implementation_ref"]),
+            runtime_ref=str(payload["runtime_ref"]),
+            failure_category=str(payload["failure_category"]),
+            error_code=None if payload.get("error_code") is None else str(payload["error_code"]),
+            raw_evidence_refs=tuple(str(item) for item in payload.get("raw_evidence_refs", ())),
+            source_refs=tuple(str(item) for item in payload.get("source_refs", ())),
+            artifact_refs=(),
+            resource_snapshot_refs=(),
+            environment_summary=MappingProxyType({str(k): str(v) for k, v in environment.items()}),
+            sanitized_summary=str(payload["sanitized_summary"]),
+            normalized_signature=str(payload["normalized_signature"]),
+            binding_state=str(payload["binding_state"]),
+            created_at=str(payload["created_at"]),
+        )
+
+    def record_unified_failure_evidence(
+        self,
+        projection: Mapping[str, object],
+        *,
+        resource_context: Mapping[str, str] = MappingProxyType({}),
+    ) -> UnifiedFailureEvidenceBinding:
+        """Bind one UNIFY-06 failure identity into scoped learning without inventing authority.
+
+        The exact operational evidence identity remains the source of truth. Missing
+        Project scope makes learning unavailable but never blocks or rewrites the raw
+        failure. Repeated import of the same identity is idempotent.
+        """
+        if not isinstance(projection, Mapping):
+            raise FailureLearningContractError("unified failure evidence must be a mapping")
+        if projection.get("schema") != "minitz.operational_evidence_projection/v1" or projection.get("source_kind") != "FAILURE":
+            raise FailureLearningContractError("unsupported unified failure evidence projection")
+        evidence_ref = _sanitize(projection.get("evidence_ref"), "unified failure evidence ref", 1024)
+        if _ABSOLUTE_REF.fullmatch(evidence_ref) is None:
+            raise FailureLearningContractError("unified failure evidence requires an exact evidence reference")
+        classification = _key(projection.get("failure_classification"), "failure classification")
+        recorded_at = _timestamp(projection.get("recorded_at"), "failure recorded_at")
+        raw_provenance = projection.get("provenance")
+        if not isinstance(raw_provenance, Mapping):
+            raise FailureLearningContractError("unified failure provenance is malformed")
+        project_value = raw_provenance.get("project_ref") or projection.get("project_ref")
+        project_ref = None if project_value in (None, "") else ProjectRef(str(project_value))
+        context = _freeze_mapping(resource_context, "failure resource context")
+        source_identity = {
+            "evidence_ref": evidence_ref,
+            "journal_event_ref": projection.get("journal_event_ref"),
+            "failure_classification": classification,
+            "project_ref": None if project_ref is None else project_ref.value,
+            "recorded_at": recorded_at,
+            "status": projection.get("status"),
+            "provider": projection.get("provider"),
+            "model": projection.get("model"),
+            "provenance": dict(raw_provenance),
+            "resource_context": dict(context),
+        }
+        source_digest = _digest(source_identity)
+
+        connection = self._connect()
+        try:
+            existing = connection.execute(
+                "SELECT * FROM failure_evidence_bindings WHERE evidence_ref=?", (evidence_ref,)
+            ).fetchone()
+            if existing is not None:
+                if existing["source_digest"] != source_digest or existing["failure_classification"] != classification:
+                    raise FailureLearningContractError("exact failure evidence identity was reused with conflicting meaning")
+                observation = None
+                if existing["observation_ref"] is not None:
+                    row = connection.execute(
+                        "SELECT payload_json,record_sha256 FROM failure_observations WHERE project_id=? AND observation_ref=?",
+                        (existing["project_id"], existing["observation_ref"]),
+                    ).fetchone()
+                    if row is None:
+                        raise FailureLearningIntegrityError("failure evidence binding lost its durable observation")
+                    observation = self._binding_observation_from_payload(
+                        self._verify_payload(row["payload_json"], row["record_sha256"])
+                    )
+                return UnifiedFailureEvidenceBinding(
+                    evidence_ref, str(existing["learning_state"]), classification,
+                    None if existing["project_id"] is None else ProjectRef(str(existing["project_id"])),
+                    observation, source_digest,
+                )
+        finally:
+            connection.close()
+
+        if project_ref is None:
+            payload = {**source_identity, "learning_state": "UNAVAILABLE_SCOPE", "observation_ref": None}
+            connection = self._connect()
+            try:
+                connection.execute(
+                    "INSERT INTO failure_evidence_bindings VALUES (?,?,?,?,?,?,?,?)",
+                    (evidence_ref, source_digest, "UNAVAILABLE_SCOPE", None, classification, None, _canonical(payload), recorded_at),
+                )
+                connection.commit()
+            finally:
+                connection.close()
+            return UnifiedFailureEvidenceBinding(evidence_ref, "UNAVAILABLE_SCOPE", classification, None, None, source_digest)
+
+        environment = dict(context)
+        for key in ("provider", "model", "status"):
+            value = projection.get(key)
+            if value not in (None, ""):
+                environment.setdefault(key, str(value))
+        task_context = raw_provenance.get("task_ref") or raw_provenance.get("task_id")
+        run_context = raw_provenance.get("run_ref") or raw_provenance.get("run_id") or "unified-failure"
+        attempt_context = raw_provenance.get("attempt_id") or raw_provenance.get("run_attempt_id") or ("failure_" + evidence_ref.rsplit("/", 1)[-1][:64])
+        node_context = raw_provenance.get("node_attempt_id")
+        journal_event_ref = projection.get("journal_event_ref")
+        source_refs = (str(journal_event_ref),) if isinstance(journal_event_ref, str) and _ABSOLUTE_REF.fullmatch(journal_event_ref) else ()
+        summary = f"{classification}: {projection.get('status') or 'UNKNOWN'}"
+        observation = self.record_observation(
+            project_ref, str(run_context), str(attempt_context), summary,
+            task_ref=None if task_context is None else str(task_context),
+            node_ref=None if node_context is None else str(node_context),
+            failure_category=classification,
+            raw_evidence_refs=(evidence_ref,),
+            source_refs=source_refs,
+            environment=environment,
+            created_at=recorded_at,
+        )
+        payload = {**source_identity, "learning_state": "RECORDED", "observation_ref": observation.observation_ref}
+        connection = self._connect()
+        try:
+            connection.execute(
+                "INSERT INTO failure_evidence_bindings VALUES (?,?,?,?,?,?,?,?)",
+                (evidence_ref, source_digest, "RECORDED", project_ref.value, classification, observation.observation_ref, _canonical(payload), recorded_at),
+            )
+            connection.commit()
+        except sqlite3.IntegrityError as exc:
+            raise FailureLearningContractError("exact failure evidence identity already has a binding") from exc
+        finally:
+            connection.close()
+        return UnifiedFailureEvidenceBinding(evidence_ref, "RECORDED", classification, project_ref, observation, source_digest)
 
     def record_observation(
         self,

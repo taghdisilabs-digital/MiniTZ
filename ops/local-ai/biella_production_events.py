@@ -154,6 +154,12 @@ def _journal_segment_paths(path: Path) -> tuple[Path, ...]:
     return tuple(candidates)
 
 
+def project_failure_evidence(failures_path: Path):
+    """Yield only the unified failure-evidence projection for learning consumers."""
+
+    yield from _project_stream(Path(failures_path), source_kind="FAILURE", stream_id=_FAILURE_STREAM_ID)
+
+
 def project_operational_evidence(events_path: Path, failures_path: Path):
     """Yield a rebuildable, authority-free view over raw operational journals.
 

@@ -12,6 +12,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
+from biella.failure_repair_learning import FailureLearningError, FailureLearningService
+from biella.project import ProjectError
+
 try:
     from minitz_policy import build_policy_projection
 except ModuleNotFoundError:  # Loaded directly by tests or another controller.
@@ -34,6 +37,17 @@ except ModuleNotFoundError:  # Loaded directly by tests or another controller.
     data_residency = importlib.util.module_from_spec(_RESIDENCY_SPEC)
     sys.modules[_RESIDENCY_SPEC.name] = data_residency
     _RESIDENCY_SPEC.loader.exec_module(data_residency)
+
+try:
+    import biella_production_events as production_events
+except ModuleNotFoundError:
+    _EVENTS_MODULE_PATH = Path(__file__).with_name("biella_production_events.py")
+    _EVENTS_SPEC = importlib.util.spec_from_file_location("_biella_production_events", _EVENTS_MODULE_PATH)
+    if not _EVENTS_SPEC or not _EVENTS_SPEC.loader:
+        raise
+    production_events = importlib.util.module_from_spec(_EVENTS_SPEC)
+    sys.modules[_EVENTS_SPEC.name] = production_events
+    _EVENTS_SPEC.loader.exec_module(production_events)
 
 SCHEMA = "biella.compacted_memory/v1"
 _TASK_RE = re.compile(r"^- \[(?P<done>[xX ])\] (?P<id>[A-Z0-9-]+) \| (?P<class>[a-z_]+) \| (?P<title>.+?) \| (?P<status>[A-Z_]+) \|\s*(?P<evidence>.*)$")
@@ -506,6 +520,59 @@ def _projection(index: Mapping[str, Any], *, current_task_id: str | None,
     return projection
 
 
+def refresh_failure_learning_projection(
+    runtime_root: Path, *, current_task_id: str | None = None
+) -> dict[str, Any]:
+    """Attach unified failure evidence to scoped learning without owning progression."""
+
+    runtime_root = Path(runtime_root).resolve()
+    failures_path = runtime_root / "failures.jsonl"
+    learning_db = runtime_root / "memory" / "failure-learning.sqlite3"
+    learning_db.parent.mkdir(parents=True, exist_ok=True)
+    service = FailureLearningService(learning_db)
+    recorded = unavailable = rejected = 0
+    if failures_path.exists():
+        for row in production_events.project_failure_evidence(failures_path):
+            if not isinstance(row, Mapping):
+                rejected += 1
+                continue
+            if row.get("parse_state") != "JSON":
+                rejected += 1
+                continue
+            provenance = row.get("provenance") if isinstance(row.get("provenance"), Mapping) else {}
+            if current_task_id and provenance.get("task_id") != current_task_id:
+                continue
+            resource_context = {
+                key: str(value)
+                for key, value in (
+                    ("provider", row.get("provider")),
+                    ("model", row.get("model")),
+                    ("provider_state", row.get("status")),
+                )
+                if value not in (None, "")
+            }
+            try:
+                binding = service.record_unified_failure_evidence(row, resource_context=resource_context)
+            except (FailureLearningError, ProjectError, TypeError, ValueError):
+                rejected += 1
+                continue
+            if binding.learning_state == "RECORDED":
+                recorded += 1
+            else:
+                unavailable += 1
+    return {
+        "schema": "minitz.failure_learning_projection/v1",
+        "authority": "NONE_DERIVED_LEARNING",
+        "progression_authority": False,
+        "blocking": False,
+        "current_task_id": current_task_id,
+        "recorded": recorded,
+        "unavailable_scope": unavailable,
+        "rejected": rejected,
+        "database": str(learning_db),
+    }
+
+
 def refresh_compacted_memory(repo_root: Path, project_root: Path, runtime_root: Path, *,
                              current_task_id: str | None = None,
                              projection_max_chars: int = 12000) -> CompactionResult:
@@ -562,6 +629,21 @@ def refresh_compacted_memory(repo_root: Path, project_root: Path, runtime_root: 
         "data_residency": data_residency.semantic_memory_policy(),
         **merged,
     }
+    try:
+        failure_learning_projection = refresh_failure_learning_projection(
+            runtime_root, current_task_id=current_task_id
+        )
+    except Exception as exc:
+        failure_learning_projection = {
+            "schema": "minitz.failure_learning_projection/v1",
+            "authority": "NONE_DERIVED_LEARNING",
+            "progression_authority": False,
+            "blocking": False,
+            "current_task_id": current_task_id,
+            "state": "UNAVAILABLE",
+            "error_class": type(exc).__name__,
+        }
+    index["failure_learning"] = failure_learning_projection
 
     task_memory: Mapping[str, Any] | None = None
     if current_task_id:
@@ -590,6 +672,7 @@ def refresh_compacted_memory(repo_root: Path, project_root: Path, runtime_root: 
         index, current_task_id=current_task_id, task_memory=task_memory,
         failures=failures, maximum_chars=max(2048, int(projection_max_chars)),
     )
+    projection["failure_learning"] = failure_learning_projection
     memory_root = runtime_root / "memory"
     index_path = memory_root / "compacted-memory.json"
     gzip_path = memory_root / "compacted-memory.json.gz"
