@@ -200,6 +200,7 @@ class MiniTZLiveProjection(LiveProjection):
                 "task_summary": summary,
                 "task_status": task_status,
                 "current_operation": current,
+                "commanders": self._commander_summary(task_id),
                 "execution_mode": "MINITZ_TASK_PROGRAM",
                 "active_coder": active_coder,
                 "main_coders": coder_statuses,

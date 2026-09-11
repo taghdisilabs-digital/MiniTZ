@@ -679,6 +679,49 @@ class LiveProjection:
                 # The observer never owns production. Keep serving the last valid projection.
                 continue
 
+    def _commander_summary(self, task_id: str) -> dict[str, object]:
+        index = _read_json(self.runtime_root / "memory" / "commander-fabric" / "current.json")
+        if index.get("authority") != "NONE" or str(index.get("task_id") or "") != str(task_id):
+            index = {"authority": "NONE", "task_id": task_id, "total_lanes": 30, "lanes": []}
+        lanes = index.get("lanes") if isinstance(index.get("lanes"), list) else []
+        safe = []
+        active = inflight = useful = rejected = 0
+        valid = {"OFFLINE", "ACTIVE", "OUT_OF_CREDIT", "NEEDS_MODIFICATION"}
+        statuses = set()
+        for raw in lanes:
+            if not isinstance(raw, dict):
+                continue
+            status = str(raw.get("status") or "OFFLINE")
+            if status not in valid:
+                status = "NEEDS_MODIFICATION"
+            activity = str(raw.get("activity") or "UNASSIGNED")
+            statuses.add(status)
+            active += status == "ACTIVE"
+            inflight += activity == "RUNNING"
+            useful += activity == "USEFUL"
+            rejected += activity == "REJECTED"
+            safe.append({
+                "lane_id": str(raw.get("lane_id") or ""),
+                "role": str(raw.get("role") or ""),
+                "status": status,
+                "activity": activity,
+                "provider": str(raw.get("provider") or "") or None,
+            })
+        if "ACTIVE" in statuses:
+            aggregate = "ACTIVE"
+        elif "OUT_OF_CREDIT" in statuses:
+            aggregate = "OUT_OF_CREDIT"
+        elif "NEEDS_MODIFICATION" in statuses:
+            aggregate = "NEEDS_MODIFICATION"
+        else:
+            aggregate = "OFFLINE"
+        return {
+            "schema": "minitz.commander_public_summary/v1", "authority": "NONE",
+            "task_id": str(task_id), "status": aggregate,
+            "total_lanes": int(index.get("total_lanes") or 30),
+            "active": active, "inflight": inflight, "useful": useful, "rejected": rejected,
+        }
+
     def refresh(
         self, *, force_assets: bool = False, force_system: bool = False, force_git: bool = False,
     ) -> dict[str, object]:
@@ -747,6 +790,7 @@ class LiveProjection:
                 "task_summary": summary,
                 "task_status": self._task_status(task_id, runtime, status, memory),
                 "current_operation": current,
+                "commanders": self._commander_summary(task_id),
                 "execution_mode": "AI_ACCELERATED_BUILD",
                 "active_coder": active_coder,
                 "main_coders": coder_statuses,

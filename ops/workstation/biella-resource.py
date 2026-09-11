@@ -338,7 +338,7 @@ def _parser() -> argparse.ArgumentParser:
     sub.add_parser("status")
     route = sub.add_parser("route"); route.add_argument("capability")
     search = sub.add_parser("search"); search.add_argument("query"); search.add_argument("--provider"); search.add_argument("--limit", type=int, default=5); search.add_argument("--semantic", action="store_true")
-    llm = sub.add_parser("fast-llm"); llm.add_argument("--prompt"); llm.add_argument("--provider"); llm.add_argument("--model"); llm.add_argument("--max-tokens", type=int, default=512)
+    llm = sub.add_parser("fast-llm"); llm.add_argument("--prompt"); llm.add_argument("--provider"); llm.add_argument("--model"); llm.add_argument("--max-tokens", type=int, default=512); llm.add_argument("--max-failover-attempts", type=int)
     return parser
 
 
@@ -356,7 +356,7 @@ def main(argv: list[str] | None = None) -> int:
             prompt = args.prompt if args.prompt is not None else sys.stdin.read()
             if not prompt.strip():
                 raise ResourceError("fast-llm prompt is empty")
-            result = run_fast_llm(registry, prompt, provider=args.provider, model=args.model, max_tokens=max(16, min(args.max_tokens, 4096)))
+            result = run_fast_llm(registry, prompt, provider=args.provider, model=args.model, max_tokens=max(16, min(args.max_tokens, 4096)), max_failover_attempts=args.max_failover_attempts)
         else:
             raise AssertionError(args.command)
     except ResourceError as exc:

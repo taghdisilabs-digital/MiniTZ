@@ -94,3 +94,22 @@ def test_minitz_projection_exposes_main_coder_pool_from_runtime():
         assert snapshot["production"]["active_coder"] == "codex"
         assert snapshot["production"]["main_coders"] == {"codex": "ACTIVE", "agr": "NEEDS_MODIFICATION"}
         assert snapshot["production"]["main_coder_detail"]["agr"] == "eligibility check failed"
+
+
+def test_minitz_live_snapshot_exposes_same_bounded_commander_summary():
+    with tempfile.TemporaryDirectory() as tmp:
+        base=Path(tmp); repo=base/"repo"; repo.mkdir(); runtime=base/"runtime"; runtime.mkdir()
+        (runtime/"runtime.json").write_text(json.dumps({"task_id":"T"}))
+        fabric=runtime/"memory/commander-fabric"; fabric.mkdir(parents=True)
+        (fabric/"current.json").write_text(json.dumps({"schema":"minitz.commander_fabric/v1","authority":"NONE","task_id":"T","total_lanes":30,"lanes":[{"lane_id":"CMD-01","role":"requirements","status":"ACTIVE","activity":"USEFUL","provider":"groq","summary":"PRIVATE"}]}))
+        analysis=base/"audit"; execution=analysis/"minitz_execution"; stream=execution/"T"; stream.mkdir(parents=True)
+        (stream/"stdout.jsonl").write_text(json.dumps({"type":"turn.started"})+"\n")
+        (analysis/"TASK_PROGRAM.json").write_text(json.dumps({"revision":1,"tasks":[{"task_id":"T","status":"PENDING","title":"Task"}]}))
+        live=MiniTZLiveProjection(repo=repo,runtime_root=runtime,assets=AssetCatalog({"Games":[],"Website":[]}),analysis_root=analysis)
+        live._stage=lambda memory:{"primary":None,"showcase":[],"mode":"NONE","unreal_live":False}
+        live._system_activity=lambda:{"gpu":{},"host":{},"local_ai":{"state":"OFFLINE"}}
+        live._git_info=lambda:{"commit":"TEST","tree":"TEST","message":"test","committed_at":""}
+        commanders=live.refresh(force_assets=True,force_system=True,force_git=True)["production"]["commanders"]
+        assert commanders["total_lanes"] == 30 and commanders["useful"] == 1
+        assert "lanes" not in commanders and "provider" not in json.dumps(commanders)
+        assert "PRIVATE" not in json.dumps(commanders)

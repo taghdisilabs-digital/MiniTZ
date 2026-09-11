@@ -1815,3 +1815,288 @@ def test_failed_peer_assist_creates_rejected_cache_marker(tmp_path: Path, monkey
         peer_route=routing.Route("claude-opus-4-6-thinking", "high", "antigravity"),
         capsule_path=capsule, projection_path=projection, inflight={},
     ) is False
+
+
+class _CommanderFakeStdin:
+    def __init__(self):
+        self.text = ""; self.closed = False
+    def write(self, value):
+        self.text += value
+    def close(self):
+        self.closed = True
+
+
+class _CommanderFakeProcess:
+    _next_pid = 50000
+    def __init__(self, *, rc=None, stdout_handle=None, stdout_payload=None):
+        type(self)._next_pid += 1
+        self.pid = type(self)._next_pid
+        self.stdin = _CommanderFakeStdin()
+        self._rc = rc
+        self.terminated = False
+        if stdout_handle is not None and stdout_payload is not None:
+            stdout_handle.write(stdout_payload); stdout_handle.flush()
+    def poll(self): return self._rc
+    def terminate(self): self.terminated = True; self._rc = -15
+
+
+def _commander_fixture(tmp_path: Path):
+    repo = tmp_path / "repo"; repo.mkdir()
+    (repo / "ops/workstation").mkdir(parents=True)
+    (repo / "ops/workstation/provider-registry.json").write_text(json.dumps({
+        "schema":"biella.provider_registry/v1",
+        "providers":{"groq":{"required_env":["GROQ_API_KEY"],"default_model":"qwen"}},
+        "routes":{"llm.fast":["groq"]},
+    }))
+    project = repo / "projects/game"; project.mkdir(parents=True)
+    runtime = tmp_path / "runtime"; (runtime / "memory").mkdir(parents=True)
+    capsule = runtime / "task-memory/T.json"; capsule.parent.mkdir(parents=True)
+    capsule.write_text(json.dumps({"task_id":"T","task_class":"hard","title":"Task","summary":"Current state","evidence":["src/x.py"]}))
+    projection = runtime / "memory/current-task.json"
+    projection.write_text(json.dumps({"task_id":"T","task_memory":{"task_id":"T","summary":"Current state"},"failures":[],"source_refs":["src/x.py"],"capabilities":{}}))
+    task = state.TaskRecord("T", "hard", "Task", "PENDING")
+    return repo, project, runtime, capsule, projection, task
+
+
+def test_commander_launch_is_nonblocking_and_writes_exact_thirty_lane_index(tmp_path: Path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ("groq","cerebras","mistral"))
+    monkeypatch.setattr(runner.commander, "build_resource_command", lambda provider, **_k: ["commander", provider])
+    created=[]
+    def popen(command, stdin=None, text=None, stdout=None, stderr=None, env=None, cwd=None, umask=None):
+        proc=_CommanderFakeProcess(); created.append((command, proc)); return proc
+    monkeypatch.setattr(runner.subprocess, "Popen", popen)
+    inflight={}
+    index = runner._launch_commander_assists(repo, project, runtime, task, "a"*64, capsule, projection, inflight)
+    assert index == runtime / "memory/commander-fabric/current.json"
+    assert len(inflight) == 3 and len(created) == 3
+    assert {handle.requested_provider for handle in inflight.values()} == {"groq", "cerebras", "mistral"}
+    assert all(handle.process.poll() is None for handle in inflight.values())
+    assert all(handle.process.stdin.closed for handle in inflight.values())
+    assert all("AUTHORITY: NONE" in handle.process.stdin.text for handle in inflight.values())
+    payload=json.loads(index.read_text())
+    assert payload["total_lanes"] == 30
+    assert len(payload["lanes"]) == 30
+    assert sum(row["status"] == "ACTIVE" and row["activity"] == "RUNNING" for row in payload["lanes"]) == 3
+    assert sum(row["activity"] == "UNASSIGNED" for row in payload["lanes"]) == 27
+
+
+def test_commander_launch_with_zero_providers_never_blocks_or_spawns(tmp_path: Path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ())
+    monkeypatch.setattr(runner.subprocess, "Popen", lambda *_a, **_k: (_ for _ in ()).throw(AssertionError("must not spawn")))
+    inflight={}
+    index = runner._launch_commander_assists(repo, project, runtime, task, "a"*64, capsule, projection, inflight)
+    assert inflight == {}
+    payload=json.loads(index.read_text())
+    assert payload["total_lanes"] == 30
+    assert len(payload["lanes"]) == 30
+    assert all(row["status"] == "OFFLINE" for row in payload["lanes"])
+
+
+def test_commander_cached_accepted_result_suppresses_duplicate_lane_work(tmp_path: Path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ("groq",))
+    monkeypatch.setenv("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", "1")
+    digest=__import__('hashlib').sha256(projection.read_bytes()).hexdigest()
+    lane=runner.commander.commander_lanes()[0]
+    key=runner.commander.commander_cache_key("T","a"*64,digest,lane.lane_id,lane.role,"groq")
+    root=runtime/"memory/commander-fabric"; root.mkdir(parents=True,exist_ok=True)
+    (root/f"{key}.accepted.json").write_text(json.dumps({"authority":"NONE","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"lane_id":"CMD-01","role":"requirements","requested_provider":"groq","result":{"lane_id":"CMD-01","status":"USEFUL","summary":"cached","findings":[],"evidence_refs":[],"candidate_actions":[],"uncertainties":[]}}))
+    monkeypatch.setattr(runner.subprocess, "Popen", lambda *_a, **_k: (_ for _ in ()).throw(AssertionError("cached lane must not spawn")))
+    inflight={}
+    index=runner._launch_commander_assists(repo, project, runtime, task, "a"*64, capsule, projection, inflight)
+    assert inflight == {}
+    row=json.loads(index.read_text())["lanes"][0]
+    assert row["activity"] == "USEFUL" and row["status"] == "ACTIVE"
+
+
+def test_commander_collect_validates_and_persists_result_without_task_mutation(tmp_path: Path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ("groq",))
+    monkeypatch.setenv("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", "1")
+    body={"lane_id":"CMD-01","status":"USEFUL","summary":"check overlap","findings":["overlap"],"evidence_refs":["src/x.py"],"candidate_actions":["test overlap"],"uncertainties":[]}
+    envelope=json.dumps({"provider":"groq","model":"qwen","latency_ms":1,"text":json.dumps(body),"usage":{}})
+    def popen(command, stdin=None, text=None, stdout=None, stderr=None, env=None, cwd=None, umask=None):
+        return _CommanderFakeProcess(rc=0, stdout_handle=stdout, stdout_payload=envelope)
+    monkeypatch.setattr(runner.subprocess, "Popen", popen)
+    inflight={}
+    index=runner._launch_commander_assists(repo, project, runtime, task, "a"*64, capsule, projection, inflight)
+    assert len(inflight)==1
+    handle=next(iter(inflight.values())); lease=handle.lease_path
+    assert lease.exists()
+    runner._collect_commander_assists(runtime, inflight)
+    assert inflight == {} and not lease.exists() and handle.accepted_path.exists()
+    accepted=json.loads(handle.accepted_path.read_text())
+    assert accepted["authority"] == "NONE" and accepted["result"]["status"] == "USEFUL"
+    row=json.loads(index.read_text())["lanes"][0]
+    assert row["status"] == "ACTIVE" and row["activity"] == "USEFUL"
+
+
+def test_commander_prompt_reference_is_non_authoritative_and_never_waits(tmp_path: Path, monkeypatch):
+    task=state.TaskRecord("T","hard","Task","PENDING")
+    production=state.ProductionState(tmp_path,"IN_PROGRESS","s","T",[state.SectionRecord("s","S","IN_PROGRESS",[task])],run_id="minitz-task-program")
+    capsule=tmp_path/"capsule.json"; capsule.write_text('{}')
+    index=tmp_path/"current.json"; index.write_text('{"authority":"NONE","total_lanes":30}')
+    monkeypatch.setattr(runner, "_task_working_directory", lambda *_a: tmp_path)
+    monkeypatch.setattr(runner, "_task_has_shared_continuity", lambda *_a: True)
+    monkeypatch.setattr(runner.packets, "compile_resume_packet", lambda *_a: "BASE")
+    monkeypatch.setattr(runner.execution_map, "task_context", lambda *_a: "")
+    monkeypatch.setattr(runner.execution_style, "proven_execution_style_prompt", lambda: "")
+    monkeypatch.setattr(runner, "_minitz_owner_direction", lambda *_a: "")
+    monkeypatch.setattr(runner.main_coder, "shared_policy_paths", lambda *_a: ())
+    prompt=runner._task_prompt(tmp_path,production,task,runner.initial_runtime(),capsule,commander_index_path=index)
+    assert f"COMMANDER_FABRIC_INDEX: {index}" in prompt
+    assert "AUTHORITY: NONE" in prompt
+    assert "never wait" in prompt.lower()
+    assert "cannot complete, advance, reorder, commit, publish, or mutate" in prompt
+
+
+def test_terminate_commander_assists_terminates_only_owned_children_and_removes_leases(tmp_path: Path):
+    lease=tmp_path/"lease.json"; lease.write_text('{}')
+    proc=_CommanderFakeProcess(rc=None)
+    handle=runner.CommanderHandle(
+        key="k", lane_id="CMD-01", role="requirements", requested_provider="groq",
+        task_id="T", task_state_digest="a"*64, projection_digest="b"*64,
+        process=proc, stdout_path=tmp_path/"out", stderr_path=tmp_path/"err",
+        lease_path=lease, accepted_path=tmp_path/"a.json", rejected_path=tmp_path/"r.json",
+    )
+    inflight={"k":handle}
+    runner._terminate_commander_assists(tmp_path, inflight)
+    assert proc.terminated is True
+    assert inflight == {} and not lease.exists()
+
+
+def test_production_status_exposes_bounded_commander_fabric_summary(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime_root = tmp_path / "runtime"; runtime_root.mkdir()
+    runtime = runtime_root / "runtime.json"
+    now = datetime(2026, 9, 11, 0, 0, tzinfo=timezone.utc)
+    telemetry = runner.initial_runtime(); telemetry["heartbeat_at"] = now.isoformat()
+    runner.save_runtime(runtime, telemetry)
+    root = runtime_root / "memory/commander-fabric"; root.mkdir(parents=True)
+    (root / "current.json").write_text(json.dumps({
+        "schema":"minitz.commander_fabric/v1","authority":"NONE","task_id":"D01-30","total_lanes":30,
+        "lanes":[
+            {"lane_id":"CMD-01","role":"requirements","status":"ACTIVE","activity":"USEFUL","provider":"groq","summary":"PRIVATE","result_path":"/private/a"},
+            {"lane_id":"CMD-02","role":"tests","status":"OUT_OF_CREDIT","activity":"REJECTED","provider":"mistral","result_path":"/private/b"},
+        ],
+    }))
+    monkeypatch.setattr(runner, "service_active", lambda: True)
+    payload=runner.production_status(repo, project, runtime, now=now)
+    assert payload["commanders"]["total_lanes"] == 30
+    assert payload["commanders"]["useful"] == 1
+    assert "PRIVATE" not in json.dumps(payload["commanders"])
+    assert "/private/" not in json.dumps(payload["commanders"])
+
+
+def test_production_status_rejects_commander_index_without_exact_current_task_identity(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime_root=tmp_path/"runtime"; runtime_root.mkdir(); runtime=runtime_root/"runtime.json"
+    now=datetime(2026,9,11,tzinfo=timezone.utc); telemetry=runner.initial_runtime(); telemetry["heartbeat_at"]=now.isoformat(); runner.save_runtime(runtime,telemetry)
+    root=runtime_root/"memory/commander-fabric"; root.mkdir(parents=True)
+    (root/"current.json").write_text(json.dumps({"authority":"NONE","task_id":"","total_lanes":30,"lanes":[{"lane_id":"CMD-01","role":"requirements","status":"ACTIVE","activity":"USEFUL","provider":"groq","summary":"STALE"}]}))
+    monkeypatch.setattr(runner,"service_active",lambda:True)
+    public=runner.production_status(repo,project,runtime,now=now)["commanders"]
+    assert public["task_id"] == "D01-30"
+    assert public["useful"] == 0 and public["active"] == 0
+    assert "STALE" not in json.dumps(public)
+
+
+def test_commander_rejected_cache_retries_only_after_bounded_retry_after(tmp_path: Path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ("groq",))
+    monkeypatch.setenv("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", "1")
+    digest=__import__('hashlib').sha256(projection.read_bytes()).hexdigest(); lane=runner.commander.commander_lanes()[0]
+    key=runner.commander.commander_cache_key("T","a"*64,digest,lane.lane_id,lane.role,"groq")
+    root=runtime/"memory/commander-fabric"; root.mkdir(parents=True,exist_ok=True); rejected=root/f"{key}.rejected.json"
+    future=(datetime.now(timezone.utc)+timedelta(minutes=10)).isoformat()
+    rejected.write_text(json.dumps({"authority":"NONE","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"lane_id":"CMD-01","role":"requirements","provider":"groq","status":"OUT_OF_CREDIT","retry_after":future}))
+    monkeypatch.setattr(runner.subprocess,"Popen",lambda *_a,**_k:(_ for _ in ()).throw(AssertionError("must suppress before retry_after")))
+    inflight={}; runner._launch_commander_assists(repo,project,runtime,task,"a"*64,capsule,projection,inflight)
+    assert inflight == {} and rejected.exists()
+    past=(datetime.now(timezone.utc)-timedelta(seconds=1)).isoformat(); payload=json.loads(rejected.read_text()); payload["retry_after"]=past; rejected.write_text(json.dumps(payload))
+    spawned=[]
+    def popen(command,stdin=None,text=None,stdout=None,stderr=None,env=None,cwd=None,umask=None):
+        proc=_CommanderFakeProcess(); spawned.append(proc); return proc
+    monkeypatch.setattr(runner.subprocess,"Popen",popen)
+    runner._launch_commander_assists(repo,project,runtime,task,"a"*64,capsule,projection,inflight)
+    assert len(inflight) == 1 and spawned and not rejected.exists()
+
+
+def test_commander_provider_ramps_after_one_valid_canary_result(tmp_path: Path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ("groq",))
+    monkeypatch.setenv("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", "10")
+    digest=__import__('hashlib').sha256(projection.read_bytes()).hexdigest(); lane=runner.commander.commander_lanes()[0]
+    key=runner.commander.commander_cache_key("T","a"*64,digest,lane.lane_id,lane.role,"groq")
+    root=runtime/"memory/commander-fabric"; root.mkdir(parents=True,exist_ok=True); accepted=root/f"{key}.accepted.json"
+    result={"lane_id":"CMD-01","status":"USEFUL","summary":"canary pass","findings":[],"evidence_refs":[],"candidate_actions":[],"uncertainties":[]}
+    accepted.write_text(json.dumps({"authority":"NONE","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"lane_id":"CMD-01","role":"requirements","requested_provider":"groq","provider":"groq","result":result}))
+    (root/"current.json").write_text(json.dumps({"schema":"minitz.commander_fabric/v1","authority":"NONE","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"total_lanes":30,"lanes":[{"lane_id":"CMD-01","role":"requirements","status":"ACTIVE","activity":"USEFUL","provider":"groq","result_path":str(accepted)}]}))
+    spawned=[]
+    def popen(command,stdin=None,text=None,stdout=None,stderr=None,env=None,cwd=None,umask=None):
+        proc=_CommanderFakeProcess(); spawned.append(proc); return proc
+    monkeypatch.setattr(runner.subprocess,"Popen",popen)
+    inflight={}; index=runner._launch_commander_assists(repo,project,runtime,task,"a"*64,capsule,projection,inflight)
+    assert len(inflight) == 9 and len(spawned) == 9
+    rows=json.loads(index.read_text())["lanes"]
+    assert rows[0]["activity"] == "USEFUL"
+    assert sum(row["activity"] == "RUNNING" for row in rows) == 9
+    assert sum(row["activity"] == "UNASSIGNED" for row in rows) == 20
+
+
+def test_commander_provider_failure_backs_off_other_lanes_for_same_provider(tmp_path: Path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ("groq",))
+    monkeypatch.setenv("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", "10")
+    digest=__import__('hashlib').sha256(projection.read_bytes()).hexdigest(); lane=runner.commander.commander_lanes()[0]
+    key=runner.commander.commander_cache_key("T","a"*64,digest,lane.lane_id,lane.role,"groq")
+    root=runtime/"memory/commander-fabric"; root.mkdir(parents=True,exist_ok=True); rejected=root/f"{key}.rejected.json"
+    retry=(datetime.now(timezone.utc)+timedelta(minutes=30)).isoformat()
+    rejected.write_text(json.dumps({"authority":"NONE","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"lane_id":"CMD-01","role":"requirements","provider":"groq","status":"OUT_OF_CREDIT","retry_after":retry}))
+    (root/"current.json").write_text(json.dumps({"schema":"minitz.commander_fabric/v1","authority":"NONE","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"total_lanes":30,"lanes":[{"lane_id":"CMD-01","role":"requirements","status":"OUT_OF_CREDIT","activity":"REJECTED","provider":"groq","result_path":str(rejected)}]}))
+    monkeypatch.setattr(runner.subprocess,"Popen",lambda *_a,**_k:(_ for _ in ()).throw(AssertionError("blocked provider must not spawn")))
+    inflight={}; index=runner._launch_commander_assists(repo,project,runtime,task,"a"*64,capsule,projection,inflight)
+    assert inflight == {}
+    rows=json.loads(index.read_text())["lanes"]
+    assert rows[0]["activity"] == "REJECTED"
+    assert all(row["status"] == "OUT_OF_CREDIT" for row in rows[:10])
+    assert all(row["activity"] in {"REJECTED","PROVIDER_BACKOFF"} for row in rows[:10])
+
+
+def test_commander_prepare_failure_is_nonblocking_and_returns_existing_index(tmp_path: Path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    index=runtime/"memory/commander-fabric/current.json"; index.parent.mkdir(parents=True,exist_ok=True); index.write_text('{"authority":"NONE"}')
+    monkeypatch.setattr(runner,"_launch_commander_assists",lambda *_a,**_k:(_ for _ in ()).throw(OSError("assist index unavailable")))
+    class Journal:
+        def __init__(self): self.rows=[]
+        def emit(self,*args,**kwargs): self.rows.append((args,kwargs))
+    journal=Journal()
+    result=runner._prepare_commander_assists_nonblocking(repo,project,runtime,task,"a"*64,capsule,projection,{},journal)
+    assert result == index
+    assert journal.rows and journal.rows[-1][0][0] == "commander.fabric_failed"
+    assert journal.rows[-1][1]["status"] == "NEEDS_MODIFICATION"
+
+
+def test_commander_cleanup_index_failure_never_escapes_or_preserves_owned_child(tmp_path: Path, monkeypatch):
+    lease=tmp_path/"lease.json"; lease.write_text('{}'); proc=_CommanderFakeProcess(rc=None)
+    handle=runner.CommanderHandle(key="k",lane_id="CMD-01",role="requirements",requested_provider="groq",task_id="T",task_state_digest="a"*64,projection_digest="b"*64,process=proc,stdout_path=tmp_path/"o",stderr_path=tmp_path/"e",lease_path=lease,accepted_path=tmp_path/"a",rejected_path=tmp_path/"r")
+    monkeypatch.setattr(runner,"_update_commander_index_lane",lambda *_a,**_k:(_ for _ in ()).throw(OSError("index read-only")))
+    inflight={"k":handle}
+    runner._terminate_commander_assists(tmp_path,inflight)
+    assert proc.terminated and inflight == {} and not lease.exists()
+
+
+def test_commander_collect_io_failure_is_nonblocking_and_cleans_owned_handles(tmp_path: Path, monkeypatch):
+    lease=tmp_path/"lease.json"; lease.write_text('{}'); proc=_CommanderFakeProcess(rc=0)
+    handle=runner.CommanderHandle(key="k",lane_id="CMD-01",role="requirements",requested_provider="groq",task_id="T",task_state_digest="a"*64,projection_digest="b"*64,process=proc,stdout_path=tmp_path/"missing-out",stderr_path=tmp_path/"missing-err",lease_path=lease,accepted_path=tmp_path/"a",rejected_path=tmp_path/"r")
+    monkeypatch.setattr(runner,"_tail",lambda *_a,**_k:(_ for _ in ()).throw(OSError("output unreadable")))
+    class Journal:
+        def __init__(self): self.rows=[]
+        def emit(self,*args,**kwargs): self.rows.append((args,kwargs))
+    journal=Journal(); inflight={"k":handle}
+    runner._collect_commander_assists_nonblocking(tmp_path,inflight,journal)
+    assert inflight == {} and not lease.exists()
+    assert journal.rows and journal.rows[-1][0][0] == "commander.fabric_failed"
+    assert journal.rows[-1][1]["status"] == "NEEDS_MODIFICATION"

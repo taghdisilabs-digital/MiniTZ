@@ -41,6 +41,10 @@ class WebsiteContractTests(unittest.TestCase):
         self.assertIn('production?.main_coders', app)
         for forbidden in ('production?.model', 'production?.reasoning', 'production?.attempt', 'production?.continuity?.session_state'):
             self.assertNotIn(forbidden, app)
+        self.assertIn('30 COMMANDER LANES', html)
+        self.assertIn('data-commander-state', html)
+        self.assertIn('data-commander-meta', html)
+        self.assertIn('production?.commanders', app)
         self.assertIn('system?.local_ai', app)
         self.assertIn('requestAnimationFrame', app)
 

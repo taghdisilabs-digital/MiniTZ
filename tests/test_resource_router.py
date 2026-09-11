@@ -229,3 +229,16 @@ def test_fast_llm_respects_explicit_non_retryable_resource_failure():
     else:
         raise AssertionError("expected bounded route failure")
     assert calls == ["https://api.groq.com/openai/v1/chat/completions"]
+
+
+def test_fast_llm_cli_forwards_explicit_single_provider_attempt(monkeypatch, capsys):
+    seen = {}
+    monkeypatch.setattr(resource, "load_registry", lambda _path=REGISTRY: {"providers": {}, "routes": {}})
+    def fake_run(registry, prompt, **kwargs):
+        seen.update(kwargs)
+        return {"provider":"groq","model":"test","text":"ok","usage":{},"routing_evidence":{}}
+    monkeypatch.setattr(resource, "run_fast_llm", fake_run)
+    assert resource.main(["fast-llm", "--prompt", "bounded", "--provider", "groq", "--max-failover-attempts", "1"]) == 0
+    assert seen["provider"] == "groq"
+    assert seen["max_failover_attempts"] == 1
+    assert json.loads(capsys.readouterr().out)["provider"] == "groq"

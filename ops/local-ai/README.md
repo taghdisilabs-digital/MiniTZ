@@ -18,6 +18,10 @@ biella-codex
 
 Mahdi owns main-coder usage policy. The controller chooses Codex or AGR by task fit and observed availability, while continuing to use local Qwen/Ollama, L40S GPU, Unreal, GitHub, Drive, Cloudflare, Saturn, Modal, configured APIs, shell/build tools, and other project resources when useful.
 
+## 30-Commander Assist Fabric
+
+`minitz_commander_fabric.py` defines 30 stable read-only Commander lanes (`CMD-01`..`CMD-30`). The production runner launches missing content-addressed lane work without waiting, writes durable non-authoritative leases/results under `memory/commander-fabric/`, and gives the canonical writer only the current fabric index path. Commander work cannot mutate task state, completion, Git, Drive, or publication. Local Qwen remains reserved for the writer by default; external `llm.fast` Resources back Commander lanes when usable. Existing TaskBoosters remain separate.
+
 ## Progressive Auto Feeder
 
 The Auto Feeder is the progressive production section of the same controller:

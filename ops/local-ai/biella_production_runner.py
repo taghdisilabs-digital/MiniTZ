@@ -20,6 +20,7 @@ import biella_codex_routing as routing
 import biella_execution_style as execution_style
 import biella_memory_compactor as memory_compactor
 import biella_main_coder as main_coder
+import minitz_commander_fabric as commander
 import minitz_taskbooster as taskbooster
 import minitz_task_program as minitz
 import biella_production_evidence as evidence
@@ -55,6 +56,23 @@ class MainCoderPeerHandle:
     stdout_path: Path
     stderr_path: Path
     accepted_path: Path
+
+
+@dataclass
+class CommanderHandle:
+    key: str
+    lane_id: str
+    role: str
+    requested_provider: str
+    task_id: str
+    task_state_digest: str
+    projection_digest: str
+    process: subprocess.Popen
+    stdout_path: Path
+    stderr_path: Path
+    lease_path: Path
+    accepted_path: Path
+    rejected_path: Path
 
 
 class ProductionLock:
@@ -852,7 +870,483 @@ def _terminate_main_coder_peers(inflight: dict[str, MainCoderPeerHandle]) -> Non
     inflight.clear()
 
 
-def _task_prompt(repo_root: Path, production: state.ProductionState, task: state.TaskRecord, telemetry: Mapping[str, Any], capsule_path: Path, projection_path: Path | None = None, local_assist_path: Path | None = None, taskbooster_path: Path | None = None, route: routing.Route | None = None, peer_assist_path: Path | None = None, *, coder_id: str = "codex") -> str:
+def _commander_root(runtime_root: Path) -> Path:
+    return Path(runtime_root) / "memory" / "commander-fabric"
+
+
+def _commander_index_path(runtime_root: Path) -> Path:
+    return _commander_root(runtime_root) / "current.json"
+
+
+def _commander_paths(runtime_root: Path, key: str) -> tuple[Path, Path, Path, Path, Path]:
+    root = _commander_root(runtime_root)
+    return (
+        root / f"{key}.stdout.json",
+        root / f"{key}.stderr.log",
+        root / f"{key}.lease.json",
+        root / f"{key}.accepted.json",
+        root / f"{key}.rejected.json",
+    )
+
+
+def _commander_provider_limit() -> int:
+    try:
+        value = int(os.environ.get("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", str(commander.DEFAULT_PROVIDER_MAX_INFLIGHT)))
+    except ValueError:
+        value = commander.DEFAULT_PROVIDER_MAX_INFLIGHT
+    return max(1, min(commander.COMMANDER_LANE_COUNT, value))
+
+
+def _commander_result_tokens() -> int:
+    try:
+        value = int(os.environ.get("BIELLA_COMMANDER_RESULT_MAX_TOKENS", str(commander.DEFAULT_RESULT_MAX_TOKENS)))
+    except ValueError:
+        value = commander.DEFAULT_RESULT_MAX_TOKENS
+    return max(64, min(1024, value))
+
+
+def _commander_index_row(
+    lane: commander.CommanderLane,
+    *,
+    provider: str | None,
+    key: str | None,
+    status: str,
+    activity: str,
+    result_path: Path | None = None,
+) -> dict[str, Any]:
+    return {
+        "lane_id": lane.lane_id,
+        "role": lane.role,
+        "status": status if status in commander.COMMANDER_STATUSES else "NEEDS_MODIFICATION",
+        "activity": activity,
+        "provider": provider,
+        "cache_key": key,
+        "result_path": str(result_path) if result_path is not None else None,
+    }
+
+
+def _commander_cached_row(
+    lane: commander.CommanderLane,
+    *,
+    task_id: str,
+    task_state_digest: str,
+    projection_digest: str,
+    provider: str,
+    key: str,
+    accepted_path: Path,
+    rejected_path: Path,
+) -> dict[str, Any] | None:
+    if accepted_path.is_file():
+        payload = commander.read_json(accepted_path)
+        result = payload.get("result") if isinstance(payload.get("result"), Mapping) else {}
+        if (
+            payload.get("authority") == "NONE"
+            and payload.get("task_id") == task_id
+            and payload.get("task_state_digest") == task_state_digest
+            and payload.get("projection_digest") == projection_digest
+            and payload.get("lane_id") == lane.lane_id
+        ):
+            activity = str(result.get("status") or "NO_FINDING")
+            return _commander_index_row(
+                lane, provider=str(payload.get("provider") or provider), key=key,
+                status="ACTIVE", activity=activity, result_path=accepted_path,
+            )
+    if rejected_path.is_file():
+        payload = commander.read_json(rejected_path)
+        if (
+            payload.get("authority") == "NONE"
+            and payload.get("task_id") == task_id
+            and payload.get("task_state_digest") == task_state_digest
+            and payload.get("projection_digest") == projection_digest
+            and payload.get("lane_id") == lane.lane_id
+        ):
+            retry_after = str(payload.get("retry_after") or "")
+            if retry_after:
+                try:
+                    retry_at = datetime.fromisoformat(retry_after.replace("Z", "+00:00"))
+                    if retry_at.tzinfo is None:
+                        retry_at = retry_at.replace(tzinfo=timezone.utc)
+                except ValueError:
+                    retry_at = datetime.now(timezone.utc)
+                if datetime.now(timezone.utc) >= retry_at:
+                    rejected_path.unlink(missing_ok=True)
+                    return None
+            status = str(payload.get("status") or "NEEDS_MODIFICATION")
+            return _commander_index_row(
+                lane, provider=str(payload.get("provider") or provider), key=key,
+                status=status, activity="REJECTED", result_path=rejected_path,
+            )
+    return None
+
+
+def _update_commander_index_lane(
+    runtime_root: Path,
+    handle: CommanderHandle,
+    *,
+    status: str,
+    activity: str,
+    provider: str | None,
+    result_path: Path | None,
+) -> None:
+    path = _commander_index_path(runtime_root)
+    index = commander.read_json(path)
+    if (
+        index.get("task_id") != handle.task_id
+        or index.get("task_state_digest") != handle.task_state_digest
+        or index.get("projection_digest") != handle.projection_digest
+    ):
+        return
+    rows = index.get("lanes") if isinstance(index.get("lanes"), list) else []
+    updated = []
+    for raw in rows:
+        if not isinstance(raw, Mapping) or raw.get("lane_id") != handle.lane_id:
+            updated.append(dict(raw) if isinstance(raw, Mapping) else raw)
+            continue
+        row = dict(raw)
+        row.update({
+            "status": status if status in commander.COMMANDER_STATUSES else "NEEDS_MODIFICATION",
+            "activity": activity,
+            "provider": provider or handle.requested_provider,
+            "result_path": str(result_path) if result_path is not None else None,
+        })
+        updated.append(row)
+    index["lanes"] = updated
+    index["updated_at"] = datetime.now(timezone.utc).isoformat()
+    commander.atomic_json(path, index)
+
+
+def _launch_commander_assists(
+    repo_root: Path,
+    project_root: Path,
+    runtime_root: Path,
+    task: state.TaskRecord,
+    task_state_digest: str,
+    capsule_path: Path,
+    projection_path: Path | None,
+    inflight: dict[str, CommanderHandle],
+    journal: production_events.ProductionEventJournal | None = None,
+) -> Path:
+    root = _commander_root(runtime_root)
+    root.mkdir(parents=True, exist_ok=True)
+    index_path = _commander_index_path(runtime_root)
+    projection_digest = "NONE"
+    projection: dict[str, object] = {}
+    if projection_path is not None and Path(projection_path).is_file():
+        projection_digest = hashlib.sha256(Path(projection_path).read_bytes()).hexdigest()
+        projection = commander.read_json(Path(projection_path))
+    capsule = commander.read_json(Path(capsule_path)) if Path(capsule_path).is_file() else {}
+    context = commander.bounded_context(capsule, projection)
+    try:
+        registry = json.loads((Path(repo_root) / "ops/workstation/provider-registry.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        registry = {"providers": {}, "routes": {"llm.fast": []}}
+    providers = commander.eligible_external_providers(registry, os.environ)
+    provider_limit = _commander_provider_limit()
+    schedule = commander.provider_schedule(commander.commander_lanes(), providers, per_provider_limit=provider_limit)
+    prior_index = commander.read_json(index_path)
+    same_index = (
+        prior_index.get("authority") == "NONE"
+        and prior_index.get("task_id") == task.id
+        and prior_index.get("task_state_digest") == task_state_digest
+        and prior_index.get("projection_digest") == projection_digest
+    )
+    provider_proven_active: set[str] = set()
+    provider_backoff: dict[str, tuple[str, str]] = {}
+    if same_index:
+        for raw in prior_index.get("lanes", []) if isinstance(prior_index.get("lanes"), list) else []:
+            if not isinstance(raw, Mapping):
+                continue
+            provider = str(raw.get("provider") or "")
+            result_path = Path(str(raw.get("result_path") or "")) if raw.get("result_path") else None
+            if not provider or result_path is None or not result_path.is_file():
+                continue
+            payload = commander.read_json(result_path)
+            if (
+                payload.get("authority") != "NONE"
+                or payload.get("task_id") != task.id
+                or payload.get("task_state_digest") != task_state_digest
+                or payload.get("projection_digest") != projection_digest
+            ):
+                continue
+            if str(raw.get("status") or "") == "ACTIVE" and str(raw.get("activity") or "") in {"USEFUL", "NO_FINDING"}:
+                provider_proven_active.add(provider)
+                continue
+            if str(raw.get("activity") or "") == "REJECTED":
+                retry_after = str(payload.get("retry_after") or "")
+                if not retry_after:
+                    continue
+                try:
+                    retry_at = datetime.fromisoformat(retry_after.replace("Z", "+00:00"))
+                    if retry_at.tzinfo is None:
+                        retry_at = retry_at.replace(tzinfo=timezone.utc)
+                except ValueError:
+                    continue
+                if datetime.now(timezone.utc) < retry_at:
+                    status = str(payload.get("status") or "NEEDS_MODIFICATION")
+                    provider_backoff[provider] = (status, retry_after)
+    provider_inflight: dict[str, int] = {}
+    for existing in inflight.values():
+        provider_inflight[existing.requested_provider] = provider_inflight.get(existing.requested_provider, 0) + 1
+    rows: list[dict[str, Any]] = []
+    launched = 0
+    for lane in commander.commander_lanes():
+        provider = schedule.get(lane.lane_id)
+        if not provider:
+            rows.append(_commander_index_row(lane, provider=None, key=None, status="OFFLINE", activity="UNASSIGNED"))
+            continue
+        key = commander.commander_cache_key(
+            task.id, task_state_digest, projection_digest, lane.lane_id, lane.role, provider
+        )
+        stdout_path, stderr_path, lease_path, accepted_path, rejected_path = _commander_paths(runtime_root, key)
+        cached = _commander_cached_row(
+            lane, task_id=task.id, task_state_digest=task_state_digest,
+            projection_digest=projection_digest, provider=provider, key=key,
+            accepted_path=accepted_path, rejected_path=rejected_path,
+        )
+        if cached is not None:
+            rows.append(cached)
+            continue
+        blocked = provider_backoff.get(provider)
+        if blocked is not None:
+            rows.append(_commander_index_row(
+                lane, provider=provider, key=key, status=blocked[0], activity="PROVIDER_BACKOFF"
+            ))
+            continue
+        existing = inflight.get(key)
+        if existing is not None and existing.process.poll() is None:
+            rows.append(_commander_index_row(lane, provider=provider, key=key, status="ACTIVE", activity="RUNNING"))
+            continue
+        lease = commander.read_json(lease_path) if lease_path.is_file() else {}
+        if lease:
+            if commander.lease_is_stale(lease):
+                lease_path.unlink(missing_ok=True)
+            else:
+                rows.append(_commander_index_row(lane, provider=provider, key=key, status="ACTIVE", activity="RUNNING"))
+                continue
+        effective_provider_limit = provider_limit if provider in provider_proven_active else 1
+        if len(inflight) >= commander.COMMANDER_LANE_COUNT or provider_inflight.get(provider, 0) >= effective_provider_limit:
+            rows.append(_commander_index_row(lane, provider=provider, key=key, status="OFFLINE", activity="UNASSIGNED"))
+            continue
+        packet = commander.commander_packet(
+            lane=lane, task_id=task.id, task_state_digest=task_state_digest,
+            projection_digest=projection_digest, requested_provider=provider, context=context,
+        )
+        prompt = commander.commander_prompt(packet)
+        command = commander.build_resource_command(provider, max_tokens=_commander_result_tokens())
+        try:
+            with stdout_path.open("w", encoding="utf-8") as stdout, stderr_path.open("w", encoding="utf-8") as stderr:
+                process = subprocess.Popen(
+                    command, stdin=subprocess.PIPE, text=True, stdout=stdout, stderr=stderr,
+                    env=os.environ.copy(), cwd=Path(repo_root), umask=0o022,
+                )
+                assert process.stdin is not None
+                process.stdin.write(prompt)
+                process.stdin.close()
+            commander.atomic_json(
+                lease_path,
+                commander.lease_record(key, task.id, lane.lane_id, provider, int(process.pid)),
+            )
+            inflight[key] = CommanderHandle(
+                key=key, lane_id=lane.lane_id, role=lane.role, requested_provider=provider,
+                task_id=task.id, task_state_digest=task_state_digest, projection_digest=projection_digest,
+                process=process, stdout_path=stdout_path, stderr_path=stderr_path,
+                lease_path=lease_path, accepted_path=accepted_path, rejected_path=rejected_path,
+            )
+            provider_inflight[provider] = provider_inflight.get(provider, 0) + 1
+            launched += 1
+            rows.append(_commander_index_row(lane, provider=provider, key=key, status="ACTIVE", activity="RUNNING"))
+            if journal is not None:
+                journal.emit(
+                    "commander.assist_started", task_id=task.id, status="ACTIVE",
+                    text=f"{lane.lane_id} {lane.role}", lane_id=lane.lane_id,
+                    role=lane.role, provider=provider, authority="NONE",
+                )
+        except (OSError, ValueError, subprocess.SubprocessError) as exc:
+            status = commander.classify_failure(getattr(exc, "returncode", 1) or 1, str(exc))
+            rejected = {
+                "schema": "minitz.commander_rejection/v1", "authority": "NONE",
+                "task_id": task.id, "task_state_digest": task_state_digest,
+                "projection_digest": projection_digest, "lane_id": lane.lane_id,
+                "role": lane.role, "provider": provider, "cache_key": key,
+                "status": status, "detail": str(exc)[-1200:],
+                "retry_after": commander.failure_retry_after(status),
+                "created_at": datetime.now(timezone.utc).isoformat(),
+            }
+            commander.atomic_json(rejected_path, rejected)
+            rows.append(_commander_index_row(lane, provider=provider, key=key, status=status, activity="REJECTED", result_path=rejected_path))
+            if journal is not None:
+                journal.emit(
+                    "commander.assist_failed", task_id=task.id, status=status,
+                    text=str(exc)[-1200:], lane_id=lane.lane_id, role=lane.role,
+                    provider=provider, authority="NONE",
+                )
+    index = {
+        "schema": "minitz.commander_fabric/v1",
+        "authority": "NONE",
+        "progression_authority": False,
+        "task_id": task.id,
+        "task_state_digest": task_state_digest,
+        "projection_digest": projection_digest,
+        "total_lanes": commander.COMMANDER_LANE_COUNT,
+        "provider_limit": provider_limit,
+        "provider_canary_first": True,
+        "provider_proven_active": sorted(provider_proven_active),
+        "provider_backoff": {provider: {"status": value[0], "retry_after": value[1]} for provider, value in sorted(provider_backoff.items())},
+        "eligible_providers": list(providers),
+        "launched_this_pass": launched,
+        "lanes": rows,
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+    }
+    commander.atomic_json(index_path, index)
+    return index_path
+
+
+def _prepare_commander_assists_nonblocking(
+    repo_root: Path,
+    project_root: Path,
+    runtime_root: Path,
+    task: state.TaskRecord,
+    task_state_digest: str,
+    capsule_path: Path,
+    projection_path: Path | None,
+    inflight: dict[str, CommanderHandle],
+    journal: production_events.ProductionEventJournal | None = None,
+) -> Path | None:
+    try:
+        return _launch_commander_assists(
+            repo_root, project_root, runtime_root, task, task_state_digest,
+            capsule_path, projection_path, inflight, journal,
+        )
+    except Exception as exc:
+        if journal is not None:
+            journal.emit(
+                "commander.fabric_failed", task_id=task.id, status="NEEDS_MODIFICATION",
+                text=str(exc)[-1200:], authority="NONE",
+            )
+        existing = _commander_index_path(runtime_root)
+        return existing if existing.is_file() else None
+
+
+def _collect_commander_assists(
+    runtime_root: Path,
+    inflight: dict[str, CommanderHandle],
+    journal: production_events.ProductionEventJournal | None = None,
+) -> None:
+    for key, handle in list(inflight.items()):
+        rc = handle.process.poll()
+        if rc is None:
+            continue
+        stdout_text = _tail(handle.stdout_path)
+        stderr_text = _tail(handle.stderr_path)
+        detail = (stderr_text + "\n" + stdout_text).strip()
+        try:
+            if rc != 0:
+                raise ValueError(detail or f"Commander exited {rc}")
+            raw_result, meta = commander.parse_resource_result(stdout_text)
+            packet = {
+                "lane_id": handle.lane_id,
+                "task_id": handle.task_id,
+                "task_state_digest": handle.task_state_digest,
+                "projection_digest": handle.projection_digest,
+            }
+            result = commander.validate_commander_result(packet, raw_result)
+            wrapper = {
+                "schema": "minitz.commander_assist/v1",
+                "authority": "NONE",
+                "progression_authority": False,
+                "task_id": handle.task_id,
+                "task_state_digest": handle.task_state_digest,
+                "projection_digest": handle.projection_digest,
+                "lane_id": handle.lane_id,
+                "role": handle.role,
+                "requested_provider": handle.requested_provider,
+                "provider": meta.get("provider") or handle.requested_provider,
+                "model": meta.get("model"),
+                "routing_evidence": meta.get("routing_evidence") or {},
+                "usage": meta.get("usage") or {},
+                "result": result,
+                "cache_key": handle.key,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+            }
+            commander.atomic_json(handle.accepted_path, wrapper)
+            _update_commander_index_lane(
+                runtime_root, handle, status="ACTIVE", activity=str(result.get("status") or "NO_FINDING"),
+                provider=str(wrapper.get("provider") or handle.requested_provider), result_path=handle.accepted_path,
+            )
+            if journal is not None:
+                journal.emit(
+                    "commander.assist_completed", task_id=handle.task_id, status="ACTIVE",
+                    text=str(handle.accepted_path), lane_id=handle.lane_id, role=handle.role,
+                    provider=wrapper.get("provider"), authority="NONE",
+                )
+        except (OSError, ValueError, json.JSONDecodeError, TypeError) as exc:
+            status = commander.classify_failure(int(rc), detail + "\n" + str(exc))
+            rejected = {
+                "schema": "minitz.commander_rejection/v1", "authority": "NONE",
+                "progression_authority": False,
+                "task_id": handle.task_id, "task_state_digest": handle.task_state_digest,
+                "projection_digest": handle.projection_digest, "lane_id": handle.lane_id,
+                "role": handle.role, "provider": handle.requested_provider,
+                "cache_key": handle.key, "status": status, "detail": str(exc)[-1200:],
+                "retry_after": commander.failure_retry_after(status),
+                "created_at": datetime.now(timezone.utc).isoformat(),
+            }
+            commander.atomic_json(handle.rejected_path, rejected)
+            _update_commander_index_lane(
+                runtime_root, handle, status=status, activity="REJECTED",
+                provider=handle.requested_provider, result_path=handle.rejected_path,
+            )
+            if journal is not None:
+                journal.emit(
+                    "commander.assist_failed", task_id=handle.task_id, status=status,
+                    text=str(exc)[-1200:], lane_id=handle.lane_id, role=handle.role,
+                    provider=handle.requested_provider, authority="NONE",
+                )
+        finally:
+            handle.lease_path.unlink(missing_ok=True)
+            inflight.pop(key, None)
+
+
+def _collect_commander_assists_nonblocking(
+    runtime_root: Path,
+    inflight: dict[str, CommanderHandle],
+    journal: production_events.ProductionEventJournal | None = None,
+) -> None:
+    try:
+        _collect_commander_assists(runtime_root, inflight, journal)
+    except Exception as exc:
+        if journal is not None:
+            journal.emit(
+                "commander.fabric_failed", status="NEEDS_MODIFICATION",
+                text=str(exc)[-1200:], authority="NONE",
+            )
+        _terminate_commander_assists(runtime_root, inflight)
+
+
+def _terminate_commander_assists(runtime_root: Path, inflight: dict[str, CommanderHandle]) -> None:
+    for key, handle in list(inflight.items()):
+        try:
+            if handle.process.poll() is None:
+                try:
+                    handle.process.terminate()
+                except OSError:
+                    pass
+            try:
+                handle.lease_path.unlink(missing_ok=True)
+            except OSError:
+                pass
+            try:
+                _update_commander_index_lane(
+                    runtime_root, handle, status="OFFLINE", activity="TERMINATED",
+                    provider=handle.requested_provider, result_path=None,
+                )
+            except OSError:
+                pass
+        finally:
+            inflight.pop(key, None)
+
+
+def _task_prompt(repo_root: Path, production: state.ProductionState, task: state.TaskRecord, telemetry: Mapping[str, Any], capsule_path: Path, projection_path: Path | None = None, local_assist_path: Path | None = None, taskbooster_path: Path | None = None, route: routing.Route | None = None, peer_assist_path: Path | None = None, commander_index_path: Path | None = None, *, coder_id: str = "codex") -> str:
     guide_path = Path(production.project_root) / "docs" / "task-guides" / f"{task.id}.md"
     priority_context = f"\nMINITZ_TASK_PROGRAM: {production.priority_policy}. Follow the exact living MiniTZ Task Program order/status and current Task/Run continuity. No ledger, map, helper, or session may advance it independently. Preserve accepted output and required quality.\n"
     owner_context = _minitz_owner_direction(production.project_root)
@@ -918,6 +1412,13 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
             "This is non-authoritative read-only assistance from the other main coder using the same MiniTZ task state. "
             "Reuse grounded findings when useful and validate them against current source/evidence. It cannot complete, advance, reorder, commit, publish, or mutate the task. "
             "Do not repeat equivalent analysis unless the current source changed or validation requires it.\n"
+        )
+    if commander_index_path and Path(commander_index_path).exists():
+        prompt += (
+            f"\nCOMMANDER_FABRIC_INDEX: {commander_index_path}\n"
+            "AUTHORITY: NONE. This index represents exactly 30 non-authoritative read-only Commander assist lanes sharing this MiniTZ task state. "
+            "Read accepted result paths only when useful, validate every finding against current source/evidence, and never wait for unfinished lanes. "
+            "Commander lanes cannot complete, advance, reorder, commit, publish, or mutate the task. They are optional acceleration only.\n"
         )
     alignment = telemetry.get("source_alignment") or {}
     if alignment.get("state") == "RECONCILIATION_REQUIRED":
@@ -1799,6 +2300,11 @@ def production_status(repo_root: Path, project_root: Path, runtime_path: Path, *
     sections = []
     for section in production.sections:
         sections.append({"id": section.id, "status": section.status, "completed": sum(t.status in {"COMPLETE", "COMPLETE_ALREADY"} for t in section.tasks), "total": len(section.tasks)})
+    commander_index = commander.read_json(Path(runtime_path).parent / "memory" / "commander-fabric" / "current.json")
+    current_task_id = str(production.current_task or telemetry.get("task_id") or "")
+    if commander_index.get("authority") != "NONE" or str(commander_index.get("task_id") or "") != current_task_id:
+        commander_index = {"authority": "NONE", "task_id": current_task_id, "total_lanes": commander.COMMANDER_LANE_COUNT, "lanes": []}
+    commander_summary = commander.public_summary(commander_index)
     return {
         "run_id": "biella-production", "status": liveness,
         "current_section": production.current_section, "current_task": production.current_task,
@@ -1806,6 +2312,7 @@ def production_status(repo_root: Path, project_root: Path, runtime_path: Path, *
         "active_coder": telemetry.get("active_coder"),
         "main_coders": telemetry.get("coder_statuses") or {},
         "main_coder_detail": telemetry.get("coder_status_detail") or {},
+        "commanders": commander_summary,
         "active_model": telemetry.get("active_model"), "active_reasoning": telemetry.get("active_reasoning"),
         "cooldowns": telemetry.get("cooldowns") or {}, "heartbeat_at": telemetry.get("heartbeat_at"),
         "last_result": telemetry.get("last_result"), "source_alignment": telemetry.get("source_alignment"),
@@ -1955,8 +2462,10 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
         catalog: Mapping[str, set[str]] | None = None
         agr_models: set[str] = main_coder.discover_agr_models(timeout_seconds=2.0)
         peer_inflight: dict[str, MainCoderPeerHandle] = {}
+        commander_inflight: dict[str, CommanderHandle] = {}
         while True:
             _collect_main_coder_peer_assists(peer_inflight, telemetry, journal)
+            _collect_commander_assists_nonblocking(runtime_root, commander_inflight, journal)
             if _customer_pause_requested(runtime_root):
                 _acknowledge_customer_pause(repo_root, project_root, runtime_root, runtime_path, telemetry, journal)
                 return 0
@@ -2114,6 +2623,10 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             observe_activity()
             projection_path = _refresh_memory_projection(repo_root, project_root, runtime_root, task.id, journal)
             task_state_digest = _bounded_packet_id(repo_root, project_root, task)
+            commander_index_path = _prepare_commander_assists_nonblocking(
+                repo_root, project_root, runtime_root, task, task_state_digest,
+                capsule_path, projection_path, commander_inflight, journal,
+            )
             peer_assist_path = _latest_main_coder_peer_assist(runtime_root, task.id, task_state_digest)
             dispatch_peer = peer_coder
             peer_route = _select_main_coder_peer_route(
@@ -2159,7 +2672,8 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             )
             prompt = _task_prompt(
                 repo_root, production, task, telemetry, capsule_path, projection_path,
-                local_assist_path, taskbooster_path, route=route, peer_assist_path=peer_assist_path, coder_id=coder_id
+                local_assist_path, taskbooster_path, route=route, peer_assist_path=peer_assist_path,
+                commander_index_path=commander_index_path, coder_id=coder_id
             )
             resume_session_id = _resume_session_for_route(telemetry, task.id, route, coder_id=coder_id)
             event_type = "task.bounded_fallback_started" if bounded_fallback else ("task.continued" if _task_has_shared_continuity(telemetry, task.id, capsule_path) else "task.started")
@@ -2281,6 +2795,9 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
         if "peer_inflight" in locals():
             _collect_main_coder_peer_assists(peer_inflight, telemetry if "telemetry" in locals() else initial_runtime(), journal if "journal" in locals() else None)
             _terminate_main_coder_peers(peer_inflight)
+        if "commander_inflight" in locals():
+            _collect_commander_assists_nonblocking(runtime_root, commander_inflight, journal if "journal" in locals() else None)
+            _terminate_commander_assists(runtime_root, commander_inflight)
         publication.stop_worker(repo_root)
         lock.release()
 

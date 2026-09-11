@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 import os
 import tempfile
 import unittest
@@ -239,3 +240,26 @@ class LiveProjectionTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_public_live_snapshot_exposes_bounded_commander_fabric_summary():
+    with tempfile.TemporaryDirectory() as tmp:
+        base=Path(tmp); repo=base/"repo"; game=repo/"projects/biella-games"; (game/"docs").mkdir(parents=True)
+        (game/"docs/PRODUCTION.md").write_text("Current task: `T`\n- [ ] T | hard | live | PENDING | evidence\n")
+        runtime=base/"runtime"; (runtime/"task-memory").mkdir(parents=True)
+        (runtime/"runtime.json").write_text(json.dumps({"status":"RUNNING","task_id":"T","heartbeat_at":datetime.now(timezone.utc).isoformat()}))
+        fabric=runtime/"memory/commander-fabric"; fabric.mkdir(parents=True)
+        (fabric/"current.json").write_text(json.dumps({
+            "schema":"minitz.commander_fabric/v1","authority":"NONE","task_id":"T","total_lanes":30,
+            "lanes":[{"lane_id":"CMD-01","role":"requirements","status":"ACTIVE","activity":"RUNNING","provider":"groq","result_path":"/private/result","summary":"PRIVATE"}],
+        }))
+        live=LiveProjection(repo=repo,runtime_root=runtime,assets=AssetCatalog({"Games":[],"Website":[]}))
+        live._stage=lambda memory:{"primary":None,"showcase":[],"mode":"NONE","unreal_live":False}
+        live._system_activity=lambda:{"gpu":{},"host":{},"local_ai":{"state":"OFFLINE"}}
+        live._git_info=lambda:{"commit":"TEST","tree":"TEST","message":"test","committed_at":""}
+        snapshot=live.refresh(force_assets=True,force_system=True,force_git=True)
+        commanders=snapshot["production"]["commanders"]
+        assert commanders["total_lanes"] == 30 and commanders["inflight"] == 1
+        assert "lanes" not in commanders
+        assert "provider" not in json.dumps(commanders)
+        assert "PRIVATE" not in json.dumps(commanders) and "/private/" not in json.dumps(commanders)
