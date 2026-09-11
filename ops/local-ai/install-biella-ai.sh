@@ -48,6 +48,8 @@ install -o root -g root -m 644 \
   "$SOURCE_DIR/biella_memory_compactor.py" \
   "$SOURCE_DIR/biella_main_coder.py" \
   "$SOURCE_DIR/minitz_commander_fabric.py" \
+  "$SOURCE_DIR/minitz_boost_fabric.py" \
+  "$SOURCE_DIR/minitz_founder_extension.py" \
   "$SOURCE_DIR/minitz_taskbooster.py" \
   "$SOURCE_DIR/minitz_task_program.py" \
   "$SOURCE_DIR/minitz_policy.py" \

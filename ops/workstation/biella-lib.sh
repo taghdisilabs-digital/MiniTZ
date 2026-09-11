@@ -56,9 +56,9 @@ biella_exec_or_fail() {
   command -v "$command" >/dev/null 2>&1 || { printf 'Missing command: %s\n' "$command" >&2; return 1; }
   exec "$command" "$@"
 }
-readonly BIELLA_QWEN_NUM_GPU=26
+readonly BIELLA_QWEN_NUM_GPU=34
 readonly BIELLA_QWEN_NUM_CTX=16384
-readonly BIELLA_VRAM_LIMIT_BYTES=$((30 * 1024 * 1024 * 1024))
+readonly BIELLA_VRAM_LIMIT_BYTES=$((35828 * 1024 * 1024))
 
 biella_wait_for_ollama() {
   local attempt

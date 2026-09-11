@@ -239,6 +239,62 @@ def _transaction(program: dict[str, Any], *, prior_revision: int, prior_sha: str
     }
 
 
+
+def _normalized_insert_task(raw: Mapping[str, Any]) -> dict[str, Any]:
+    task = dict(raw)
+    task_id = str(task.get("task_id") or "").strip()
+    _need(bool(task_id), "inserted MiniTZ task requires task_id")
+    task["task_id"] = task_id
+    task["revision"] = int(task.get("revision") or 1)
+    _need(task["revision"] >= 1, "inserted MiniTZ task revision must be positive")
+    task["status"] = str(task.get("status") or "PENDING")
+    _need(task["status"] in ACTIVE_STATUSES, "inserted MiniTZ task must be active")
+    _need(task.get("active_task_survival") is True, "inserted MiniTZ task requires survival gate")
+    _need(task.get("review_state") == "VALUE_GATE_PASSED", "inserted MiniTZ task requires value gate")
+    _need(isinstance(task.get("dependencies"), list), "inserted MiniTZ task requires dependencies")
+    executable_scope(task)
+    task["task_record_sha256"] = task_digest(task)
+    return task
+
+
+def insert_tasks_after(after_task_id: str, tasks: Sequence[Mapping[str, Any]], *, evidence: Sequence[str], path: Path | None = None) -> dict[str, Any]:
+    clean_evidence = [str(item).strip() for item in evidence if str(item).strip()]
+    _need(bool(clean_evidence), "MiniTZ task-program evolution requires evidence")
+    normalized = [_normalized_insert_task(task) for task in tasks]
+    _need(bool(normalized), "MiniTZ task-program evolution requires tasks")
+    new_ids = [task["task_id"] for task in normalized]
+    _need(len(new_ids) == len(set(new_ids)), "duplicate inserted MiniTZ task identity")
+    path = Path(path or program_path()).resolve()
+    with _locked(path):
+        program = load(path)
+        prior_sha = program["_observed_sha256"]
+        prior_revision = int(program["revision"])
+        existing = {row["task_id"]: row for row in program["tasks"]}
+        overlap = [task_id for task_id in new_ids if task_id in existing]
+        if overlap:
+            _need(set(overlap) == set(new_ids), "partial MiniTZ task-program extension already exists")
+            for task in normalized:
+                _need(existing[task["task_id"]] == task, f"conflicting existing MiniTZ task: {task['task_id']}")
+            return program_identity(program)
+        _need(after_task_id in existing, "MiniTZ task-program insertion anchor is absent")
+        combined_ids = set(existing) | set(new_ids)
+        for task in normalized:
+            for dep in task["dependencies"]:
+                _need(isinstance(dep, dict) and dep.get("dependency_type") in DEPENDENCY_TYPES, f"invalid inserted MiniTZ dependency: {task['task_id']}")
+                ref = str(dep.get("task_ref") or "")
+                _need(ref in combined_ids and ref != task["task_id"], f"invalid inserted MiniTZ dependency: {task['task_id']}")
+        rows = list(program["tasks"])
+        anchor = next(index for index, row in enumerate(rows) if row["task_id"] == after_task_id)
+        rows[anchor + 1:anchor + 1] = normalized
+        program["tasks"] = rows
+        program["task_count"] = len(rows)
+        program["revision"] = prior_revision + 1
+        _transaction(program, prior_revision=prior_revision, prior_sha=prior_sha, action="EVOLVE::INSERT::" + ",".join(new_ids), evidence=clean_evidence)
+        new_sha = _atomic_write(path, program)
+    observed = load(path)
+    _need(observed["_observed_sha256"] == new_sha, "MiniTZ task-program evolution readback mismatch")
+    return program_identity(observed)
+
 def complete_task(task_id: str, status: str, evidence: Sequence[str], *, path: Path | None = None) -> dict[str, Any]:
     _need(status in {"COMPLETE", "COMPLETE_ALREADY"}, "completion status required")
     clean_evidence = [str(item).strip() for item in evidence if str(item).strip()]

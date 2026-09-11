@@ -1,0 +1,54 @@
+{
+  "schema": "minitz.gpu_residency_policy/v1",
+  "authority": "RESOURCE_CONFIGURATION",
+  "start_enabled": false,
+  "max_resident_model_slots": 2,
+  "gpu": {
+    "resource": "NVIDIA L40S",
+    "observed_total_vram_mib": 46068,
+    "required_free_vram_mib": 2048,
+    "max_combined_resident_vram_mib": 44020
+  },
+  "slots": [
+    {
+      "slot_id": "logic",
+      "state": "CONFIGURED_NOT_RUNNING",
+      "model": "qwen3-coder-next:biella",
+      "gpu_blocks": 34,
+      "total_model_blocks": 48,
+      "estimated_vram_mib": 35246,
+      "max_vram_mib": 35828,
+      "context_tokens": 16384,
+      "priority": 1,
+      "capabilities": [
+        "code.generate",
+        "code.compare",
+        "reason.calculate",
+        "logic.analyze"
+      ]
+    },
+    {
+      "slot_id": "visual",
+      "state": "UNBOUND_NEEDS_QUALIFICATION",
+      "model": null,
+      "target_vram_mib": 8192,
+      "max_vram_mib": 8192,
+      "priority": 2,
+      "capabilities": [
+        "image.generate",
+        "visual.create"
+      ],
+      "binding_rule": "Bind only a locally present, functionally qualified visual-generation resource; do not auto-download on boot."
+    }
+  ],
+  "admission": {
+    "combined_resident_vram_mib_must_not_exceed": 44020,
+    "actual_vram_readback_required": true,
+    "visual_slot_may_remain_unbound_without_falsely_reporting_ready": true
+  },
+  "measurement_basis": {
+    "logic_observation_gpu_blocks": 26,
+    "logic_observation_vram_mib": 26953,
+    "logic_projection_method": "linear planning estimate only; actual startup readback is authoritative"
+  }
+}

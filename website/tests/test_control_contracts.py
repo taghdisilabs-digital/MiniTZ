@@ -20,7 +20,7 @@ class ControlConsoleContractTests(unittest.TestCase):
     def test_control_console_is_one_observer_surface_with_four_views(self):
         html = (CONTROL / "index.html").read_text(encoding="utf-8")
         app = (CONTROL / "app.js").read_text(encoding="utf-8")
-        for label in ("Control", "Work", "Outputs", "System"):
+        for label in ("Control", "Work", "Boosts", "Outputs", "System"):
             self.assertIn(label, html)
         for forbidden in ("project-switcher", "project-button", 'data-lane="Website"', 'data-lane="Engine"', 'data-lane="Games"'):
             self.assertNotIn(forbidden, html)
@@ -31,6 +31,7 @@ class ControlConsoleContractTests(unittest.TestCase):
             self.assertNotIn(obsolete, html)
         self.assertEqual(html.count('data-view="control"'), 1)
         self.assertEqual(html.count('data-view="work"'), 1)
+        self.assertEqual(html.count('data-view="boosts"'), 1)
         self.assertEqual(html.count('data-view="outputs"'), 1)
         self.assertEqual(html.count('data-view="system"'), 1)
 
@@ -77,6 +78,11 @@ class ControlConsoleContractTests(unittest.TestCase):
             self.assertNotIn(forbidden, app)
         self.assertIn("event.lastEventId", app)
         self.assertIn("live-dialog", css)
+
+    def test_boost_view_renders_five_workers_and_commander_lanes(self):
+        app = (CONTROL / "app.js").read_text(encoding="utf-8")
+        for token in ("renderBoosts", "BOOST-01", "commander_lanes", "boost_task_lists", "reserved_usage_policy"):
+            self.assertIn(token, app)
 
     def test_build_copies_the_private_console(self):
         build = (ROOT / "scripts" / "build.mjs").read_text(encoding="utf-8")

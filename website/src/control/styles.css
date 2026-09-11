@@ -142,3 +142,5 @@ input:focus { border-color: #58636e; }
   .asset-grid { grid-template-columns: 1fr; }
   .source-list > div { display: grid; }
 }
+
+.boost-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}.boost-card{min-width:0}.compact-task-list{margin-top:14px}.compact-task-list .task-row{grid-template-columns:90px 1fr auto}

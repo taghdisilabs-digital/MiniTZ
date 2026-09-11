@@ -57,7 +57,7 @@ def test_owner_sleep_entrypoint_uses_bounded_handoff_and_never_names_public_spin
     script = ROOT / "ops/local-ai/minitz-owner-sleep"
     assert script.is_file()
     text = script.read_text()
-    assert "biella-customer-handoff checkpoint" in text
+    assert "/usr/local/lib/biella-ai/biella_customer_handoff.py checkpoint" in text
     for forbidden in ("biella-public-site.service", "biella-control-gateway.service", "caddy.service", "biella-website-live-deploy.path"):
         assert forbidden not in text
 
@@ -142,11 +142,15 @@ def test_next_hundred_map_has_exact_source_bound_tasks():
 
 def test_runner_injects_only_active_task_execution_map():
     import biella_execution_map as mapping
-    text = mapping.task_context(ROOT, "UNIFY-04")
+    canonical = Path("/root/biella/repos/biella-engine")
+    program = Path("/root/biella/analysis/live_audit/TASK_PROGRAM.json")
+    if not canonical.is_dir() or not program.is_file():
+        pytest.skip("canonical MiniTZ Task Program is not mounted")
+    text = mapping.task_context(canonical, "UNIFY-04")
     assert "UNIFY-04" in text
     assert "ENDUSER-SPEC-01" not in text
     assert len(text) < 14000
-    assert mapping.task_working_directory(ROOT, ROOT / "projects/biella-games", "ENDUSER-SPEC-01") == ROOT
+    assert mapping.task_working_directory(canonical, canonical / "projects/biella-games", "ENDUSER-SPEC-01") == canonical
 
 
 def test_validated_task_files_are_committed_without_another_model_turn(tmp_path):

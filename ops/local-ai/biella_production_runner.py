@@ -21,6 +21,7 @@ import biella_execution_style as execution_style
 import biella_memory_compactor as memory_compactor
 import biella_main_coder as main_coder
 import minitz_commander_fabric as commander
+import minitz_boost_fabric as boost_fabric
 import minitz_taskbooster as taskbooster
 import minitz_task_program as minitz
 import biella_production_evidence as evidence
@@ -2278,6 +2279,22 @@ def service_active() -> bool:
     return subprocess.run(["systemctl", "is-active", "--quiet", UNIT_NAME], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
 
 
+def _refresh_boost_fabric(runtime_root: Path) -> Path:
+    current_path = Path(runtime_root) / "memory" / "boost-fabric" / "current.json"
+    current = boost_fabric.read_json(current_path)
+    program_path = minitz.program_path()
+    if current_path.is_file() and program_path.is_file():
+        try:
+            observed_sha = minitz.file_sha256(program_path)
+        except OSError:
+            observed_sha = ""
+        if observed_sha and str(current.get("source_program_sha256") or "") == observed_sha:
+            return current_path
+    program = minitz.load()
+    _, current_path = boost_fabric.refresh_runtime(Path(runtime_root), program)
+    return current_path
+
+
 def production_status(repo_root: Path, project_root: Path, runtime_path: Path, *, now: datetime | None = None) -> dict[str, Any]:
     production = state.load_project_production(project_root)
     telemetry = load_runtime(runtime_path)
@@ -2305,6 +2322,10 @@ def production_status(repo_root: Path, project_root: Path, runtime_path: Path, *
     if commander_index.get("authority") != "NONE" or str(commander_index.get("task_id") or "") != current_task_id:
         commander_index = {"authority": "NONE", "task_id": current_task_id, "total_lanes": commander.COMMANDER_LANE_COUNT, "lanes": []}
     commander_summary = commander.public_summary(commander_index)
+    boost_index = boost_fabric.read_json(Path(runtime_path).parent / "memory" / "boost-fabric" / "current.json")
+    if boost_index.get("authority") != "NONE" or boost_index.get("progression_authority") is not False or str(boost_index.get("current_task_id") or "") != current_task_id:
+        boost_index = {"authority":"NONE","progression_authority":False,"current_task_id":current_task_id,"runtime_state":"ARMED_NOT_STARTED","total_commanders":30,"boosts":[]}
+    boost_summary = boost_fabric.control_summary(boost_index)
     return {
         "run_id": "biella-production", "status": liveness,
         "current_section": production.current_section, "current_task": production.current_task,
@@ -2313,6 +2334,7 @@ def production_status(repo_root: Path, project_root: Path, runtime_path: Path, *
         "main_coders": telemetry.get("coder_statuses") or {},
         "main_coder_detail": telemetry.get("coder_status_detail") or {},
         "commanders": commander_summary,
+        "boosts": boost_summary,
         "active_model": telemetry.get("active_model"), "active_reasoning": telemetry.get("active_reasoning"),
         "cooldowns": telemetry.get("cooldowns") or {}, "heartbeat_at": telemetry.get("heartbeat_at"),
         "last_result": telemetry.get("last_result"), "source_alignment": telemetry.get("source_alignment"),
@@ -2476,6 +2498,8 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             production = state.sync_project_metadata(project_root)
             telemetry["priority_policy"] = production.priority_policy
             task = state.resolve_current_task(repo_root, project_root)
+            if production.run_id == "minitz-task-program":
+                _refresh_boost_fabric(runtime_root)
             if task is None:
                 production = state.load_project_production(project_root)
                 section = _first_incomplete_section(production)

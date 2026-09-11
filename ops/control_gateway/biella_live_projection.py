@@ -722,6 +722,27 @@ class LiveProjection:
             "active": active, "inflight": inflight, "useful": useful, "rejected": rejected,
         }
 
+    def _boost_summary(self, task_id: str) -> dict[str, object]:
+        current = _read_json(self.runtime_root / "memory" / "boost-fabric" / "current.json")
+        if current.get("authority") != "NONE" or current.get("progression_authority") is not False or str(current.get("current_task_id") or "") != str(task_id):
+            current = {"authority":"NONE","progression_authority":False,"current_task_id":task_id,"runtime_state":"ARMED_NOT_STARTED","total_commanders":30,"boosts":[]}
+        safe = []
+        for raw in current.get("boosts", []) if isinstance(current.get("boosts"), list) else []:
+            if not isinstance(raw, dict):
+                continue
+            safe.append({
+                "boost_id": str(raw.get("boost_id") or ""),
+                "name": str(raw.get("name") or ""),
+                "status": str(raw.get("status") or "UNKNOWN"),
+                "commander_lanes": [str(item) for item in raw.get("commander_lanes", [])],
+            })
+        return {
+            "schema":"minitz.boost_public_summary/v1", "authority":"NONE",
+            "current_task_id": str(task_id), "runtime_state": str(current.get("runtime_state") or "UNKNOWN"),
+            "total_boosts": len(safe), "total_commanders": int(current.get("total_commanders") or 30),
+            "boosts": safe,
+        }
+
     def refresh(
         self, *, force_assets: bool = False, force_system: bool = False, force_git: bool = False,
     ) -> dict[str, object]:
@@ -791,6 +812,7 @@ class LiveProjection:
                 "task_status": self._task_status(task_id, runtime, status, memory),
                 "current_operation": current,
                 "commanders": self._commander_summary(task_id),
+                "boosts": self._boost_summary(task_id),
                 "execution_mode": "AI_ACCELERATED_BUILD",
                 "active_coder": active_coder,
                 "main_coders": coder_statuses,

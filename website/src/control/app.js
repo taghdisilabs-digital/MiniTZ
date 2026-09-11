@@ -170,6 +170,25 @@ function renderWork() {
   return `<div class="section-heading"><div><span class="eyebrow">WORK</span><h2>Canonical execution graph</h2><p>One executable row per canonical task. Completed work remains visible but secondary.</p></div></div><div class="task-list">${rows || empty("No tasks reported")}</div>`;
 }
 
+function renderBoosts() {
+  const c = control();
+  const b = c.boosts || {};
+  const boost_task_lists = b.boost_task_lists || b.boosts || [];
+  const reserved_usage_policy = b.reserved_usage_policy || {};
+  const laneRows = c.commanders?.lanes || [];
+  const laneMap = new Map(laneRows.map((row) => [row.lane_id, row]));
+  const expected = ["BOOST-01", "BOOST-02", "BOOST-03", "BOOST-04", "BOOST-05"];
+  const cards = expected.map((boostId) => {
+    const row = boost_task_lists.find((item) => item.boost_id === boostId) || {boost_id: boostId, name: "Unassigned", status: "ARMED_NOT_STARTED", commander_lanes: [], task_preview: []};
+    const lanes = (row.commander_lanes || []).map((laneId) => { const lane = laneMap.get(laneId) || {lane_id: laneId, status: "OFFLINE", activity: "UNASSIGNED"}; return `<div class="section-row"><span class="mono">${esc(laneId)}</span><b>${esc(lane.activity || "UNASSIGNED")}</b>${badge(lane.status || "OFFLINE")}</div>`; }).join("");
+    const tasks = (row.task_preview || []).slice(0, 12).map((task) => `<article class="task-row"><span class="task-id mono">${esc(task.canonical_task_id)}</span><div><b>${esc(task.title)}</b><small>${esc(task.section_id)} · ${esc(task.write_authority || "READ_ONLY")}</small></div>${badge(task.boost_status)}</article>`).join("");
+    return `<article class="panel boost-card"><header><b>${esc(row.boost_id)} · ${esc(row.name || "")}</b>${badge(row.status)}</header><div class="section-list">${lanes || empty("Commander lanes not projected")}</div><div class="task-list compact-task-list">${tasks || empty("No queued task preview")}</div></article>`;
+  }).join("");
+  return `<div class="section-heading"><div><span class="eyebrow">BOOSTS</span><h2>Five-worker execution fabric</h2><p>Derived sections only. Canonical task progression remains singular.</p></div>${badge(b.runtime_state || "UNKNOWN")}</div>
+    <div class="fact-grid"><div><span>Workers</span><b>${Number(b.total_boosts || 5)}</b></div><div><span>Commanders</span><b>${Number(b.total_commanders || 30)}</b></div><div><span>Reserved route</span><b>${esc(reserved_usage_policy.preferred_model || "gpt-reserve")}</b></div><div><span>Quota probing</span><b>${reserved_usage_policy.quota_probe_forbidden === false ? "ALLOWED" : "FORBIDDEN"}</b></div></div>
+    <div class="boost-grid">${cards}</div>`;
+}
+
 function assetFileUrl(item) {
   return apiPath("assets/file?lane=" + encodeURIComponent(state.lane) + "&root_id=" + encodeURIComponent(item.root_id || "") + "&path=" + encodeURIComponent(item.path || ""));
 }
@@ -205,6 +224,7 @@ function render() {
   document.querySelectorAll(".nav-button").forEach((b) => b.classList.toggle("active", b.dataset.view === state.view));
   if (state.view === "control") viewRoot.innerHTML = renderControl();
   else if (state.view === "work") viewRoot.innerHTML = renderWork();
+  else if (state.view === "boosts") viewRoot.innerHTML = renderBoosts();
   else if (state.view === "outputs") viewRoot.innerHTML = renderOutputs();
   else viewRoot.innerHTML = renderSystem();
   updateLiveStrip();

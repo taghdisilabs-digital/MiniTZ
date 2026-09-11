@@ -43,6 +43,7 @@ install -o root -g root -m 755 \
   "$SOURCE_DIR/INSTALLERS.md" \
   "$SOURCE_DIR/biella-qwen-ready.sh" \
   "$SOURCE_DIR/biella-qwen-residency.sh" \
+  "$SOURCE_DIR/minitz-gpu-residency.json" \
   "$SOURCE_DIR/provider-registry.json" \
   "$SOURCE_DIR/setup-unreal-win64.ps1" \
   "$SOURCE_DIR/build-unreal-win64.ps1" \

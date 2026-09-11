@@ -8,6 +8,7 @@ INSTALLER="$ROOT_DIR/ops/workstation/install-biella-workstation.sh"
 SERVICE="$ROOT_DIR/ops/workstation/biella-ollama.service"
 RESIDENCY="$ROOT_DIR/ops/workstation/biella-qwen-residency.sh"
 RESIDENCY_SERVICE="$ROOT_DIR/ops/workstation/biella-qwen-residency.service"
+GPU_POLICY="$ROOT_DIR/ops/workstation/minitz-gpu-residency.json"
 POLICY="$ROOT_DIR/ops/workstation/AGENTS.md"
 PROVIDERS="$ROOT_DIR/ops/workstation/biella-provider-check.sh"
 CONFIGURER="$ROOT_DIR/ops/workstation/biella-provider-configure.sh"
@@ -31,7 +32,7 @@ forbid_literal() {
     exit 1
   }
 }
-for f in "$CLI" "$LIB" "$INSTALLER" "$SERVICE" "$RESIDENCY" "$RESIDENCY_SERVICE" "$POLICY" "$PROVIDERS" "$CONFIGURER"; do require_file "$f"; done
+for f in "$CLI" "$LIB" "$INSTALLER" "$SERVICE" "$RESIDENCY" "$RESIDENCY_SERVICE" "$GPU_POLICY" "$POLICY" "$PROVIDERS" "$CONFIGURER"; do require_file "$f"; done
 
 for cmd in up down status doctor providers configure resource modal logs cleanup; do
   require_literal "$CLI" "$cmd"
@@ -50,19 +51,22 @@ require_literal "$SERVICE" 'User=ollama'
 require_literal "$SERVICE" 'OLLAMA_HOST=127.0.0.1:11434'
 require_literal "$SERVICE" 'OLLAMA_CONTEXT_LENGTH=16384'
 require_literal "$SERVICE" 'OLLAMA_NUM_PARALLEL=1'
-require_literal "$SERVICE" 'OLLAMA_MAX_LOADED_MODELS=1'
+require_literal "$SERVICE" 'OLLAMA_MAX_LOADED_MODELS=2'
 require_literal "$SERVICE" 'OLLAMA_FLASH_ATTENTION=1'
 require_literal "$SERVICE" 'OLLAMA_KV_CACHE_TYPE=q8_0'
 require_literal "$SERVICE" 'OLLAMA_KEEP_ALIVE=-1'
 require_literal "$LIB" '/v1/responses'
-require_literal "$LIB" '30 * 1024 * 1024 * 1024'
-require_literal "$POLICY" 'Codex chooses local Qwen'
+require_literal "$LIB" '35828 * 1024 * 1024'
+require_literal "$POLICY" 'The MiniTZ main-coder controller chooses local Qwen'
 require_literal "$POLICY" 'one external provider'
 require_literal "$POLICY" 'free/trial/prepaid'
 require_literal "$POLICY" 'paid external Resources'
 require_literal "$POLICY" 'biella resource route'
 require_literal "$POLICY" 'Never print secret values'
 require_literal "$INSTALLER" '/root/.codex/AGENTS.md'
+require_literal "$INSTALLER" 'minitz-gpu-residency.json'
+require_literal "$GPU_POLICY" '"max_resident_model_slots": 2'
+require_literal "$GPU_POLICY" '"required_free_vram_mib": 2048'
 require_literal "$INSTALLER" 'ollama_active'
 require_literal "$INSTALLER" 'qwen_active'
 require_literal "$CLI" 'readlink -f'

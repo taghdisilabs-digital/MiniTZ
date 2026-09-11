@@ -185,6 +185,7 @@ class WorkstationState:
             "main_coders": production_status.get("main_coders", {}),
             "main_coder_detail": production_status.get("main_coder_detail", {}),
             "commanders": production_status.get("commanders", {}),
+            "boosts": production_status.get("boosts", {}),
             "active_model": production_status.get("active_model"),
             "active_reasoning": production_status.get("active_reasoning"),
             "heartbeat_at": production_status.get("heartbeat_at"),

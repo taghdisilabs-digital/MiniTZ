@@ -2100,3 +2100,44 @@ def test_commander_collect_io_failure_is_nonblocking_and_cleans_owned_handles(tm
     assert inflight == {} and not lease.exists()
     assert journal.rows and journal.rows[-1][0][0] == "commander.fabric_failed"
     assert journal.rows[-1][1]["status"] == "NEEDS_MODIFICATION"
+
+
+def test_refresh_boost_fabric_derives_five_worker_current_state(tmp_path, monkeypatch):
+    task = {
+        "task_id": "T-BOOST", "revision": 2, "task_record_sha256": "a" * 64,
+        "status": "PENDING", "task_class": "hard", "title": "Boost test",
+        "write_scope": {"authority": "TASK_OWNED_ONLY", "allowed_paths": ["src/a.py", "ops/a.py", "tests/test_a.py", "website/a.js"]},
+    }
+    program = {
+        "program_id": "TEST", "revision": 7, "tasks": [task],
+        "current_execution": {"task_id": "T-BOOST", "task_revision": 2, "task_sha256": "a" * 64},
+    }
+    monkeypatch.setattr(runner.minitz, "load", lambda: program)
+    current_path = runner._refresh_boost_fabric(tmp_path)
+    current = json.loads(current_path.read_text(encoding="utf-8"))
+    assert current["current_task_id"] == "T-BOOST"
+    assert current["desired_boost_workers"] == 5
+    assert current["runtime_state"] == "ARMED_NOT_STARTED"
+    assert len(current["boosts"]) == 5
+
+
+def test_production_status_exposes_five_boost_control_summary(tmp_path, monkeypatch):
+    task = state.TaskRecord("T-BOOST", "hard", "Boost task", "PENDING", (), "minitz")
+    production = state.ProductionState(tmp_path, "IN_PROGRESS", "minitz", "T-BOOST", [state.SectionRecord("minitz", "MiniTZ", "IN_PROGRESS", [task])], run_id="minitz-task-program", priority_policy="MINITZ_TASK_PROGRAM")
+    monkeypatch.setattr(runner.state, "load_project_production", lambda _root: production)
+    monkeypatch.setattr(runner.state, "completed_count", lambda _production: 0)
+    monkeypatch.setattr(runner, "load_runtime", lambda _path: {})
+    monkeypatch.setattr(runner, "service_active", lambda: False)
+    monkeypatch.setattr(runner.commander, "read_json", lambda _path: {"authority":"NONE","task_id":"T-BOOST","total_lanes":30,"lanes":[]})
+    monkeypatch.setattr(runner.commander, "public_summary", lambda _index: {"schema":"minitz.commander_public_summary/v1","authority":"NONE","task_id":"T-BOOST","total_lanes":30,"active":0,"inflight":0,"useful":0,"rejected":0,"lanes":[]})
+    boost_root = tmp_path / "memory/boost-fabric"
+    boost_root.mkdir(parents=True)
+    (boost_root / "current.json").write_text(json.dumps({
+        "schema":"minitz.boost_fabric/v1","authority":"NONE","progression_authority":False,
+        "runtime_state":"ARMED_NOT_STARTED","current_task_id":"T-BOOST","total_commanders":30,
+        "boosts":[{"boost_id":f"BOOST-{i:02d}","name":f"B{i}","status":"WAITING_FOR_OWNER_RESUME","commander_lanes":[f"CMD-{i:02d}"]} for i in range(1,6)]
+    }))
+    status = runner.production_status(tmp_path, tmp_path, tmp_path / "runtime.json")
+    assert status["boosts"]["total_boosts"] == 5
+    assert status["boosts"]["runtime_state"] == "ARMED_NOT_STARTED"
+    assert status["boosts"]["current_task_id"] == "T-BOOST"
