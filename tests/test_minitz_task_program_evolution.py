@@ -82,3 +82,118 @@ def test_insert_tasks_is_idempotent_only_for_exact_existing_extension(tmp_path):
         minitz.insert_tasks_after(
             "RUNTIME-AI-01", [conflict], evidence=["owner-approved architecture expansion"], path=path
         )
+
+
+def test_public_program_never_persists_derived_current_execution(tmp_path):
+    path = program_copy(tmp_path)
+    loaded = minitz.load(path)
+    assert loaded["current_execution"]["task_id"]
+    public = minitz.public_program(loaded)
+    assert "current_execution" not in public
+
+
+def test_first_active_row_is_the_only_current_task_even_if_later_task_is_dependency_runnable(tmp_path):
+    path = program_copy(tmp_path)
+    raw = json.loads(path.read_text())
+    active = [row for row in raw["tasks"] if row["status"] in minitz.ACTIVE_STATUSES]
+    first, later = active[0], active[1]
+    first["dependencies"] = [{"dependency_type": "HARD", "task_ref": later["task_id"], "reason": "blocked on later row for negative control"}]
+    first["task_record_sha256"] = minitz.task_digest(first)
+    raw.pop("current_execution", None)
+    path.write_text(json.dumps(raw, indent=2) + "\n")
+    program = minitz.load(path)
+    with pytest.raises(ValueError, match="first active MiniTZ task is blocked"):
+        minitz.current_task(program)
+
+
+def test_claim_task_marks_same_task_working_and_records_writer_in_same_row(tmp_path):
+    path = program_copy(tmp_path)
+    before = minitz.load(path)
+    current = minitz.current_task(before)
+    assert current is not None
+    identity = minitz.claim_task(
+        current["task_id"], worker_id="codex:gpt-5.6", worker_role="PRIMARY_WRITER",
+        write_authority=True, evidence=["owner single-task authority test"], path=path,
+    )
+    assert identity["revision"] == before["revision"] + 1
+    raw = json.loads(path.read_text())
+    assert "current_execution" not in raw
+    claimed = next(row for row in raw["tasks"] if row["task_id"] == current["task_id"])
+    assert claimed["status"] == "WORKING"
+    assert claimed["workers"][0]["worker_id"] == "codex:gpt-5.6"
+    assert claimed["workers"][0]["status"] == "WORKING"
+    loaded = minitz.load(path)
+    assert loaded["current_execution"]["task_id"] == current["task_id"]
+    assert minitz.current_task(loaded)["task_id"] == current["task_id"]
+
+
+def test_read_only_worker_can_join_without_changing_task_definition_digest(tmp_path):
+    path = program_copy(tmp_path)
+    current = minitz.current_task(minitz.load(path))
+    assert current is not None
+    minitz.claim_task(current["task_id"], worker_id="codex:writer", worker_role="PRIMARY_WRITER", write_authority=True,
+                      evidence=["writer claim"], path=path)
+    working = minitz.task_by_id(minitz.load(path), current["task_id"])
+    revision = working["revision"]
+    definition_digest = working["task_record_sha256"]
+    minitz.claim_task(current["task_id"], worker_id="qwen:helper", worker_role="READ_ONLY_ASSIST", write_authority=False,
+                      evidence=["helper claim"], path=path)
+    joined = minitz.task_by_id(minitz.load(path), current["task_id"])
+    assert joined["revision"] == revision
+    assert joined["task_record_sha256"] == definition_digest
+    assert [worker["worker_id"] for worker in joined["workers"]] == ["codex:writer", "qwen:helper"]
+
+
+def test_complete_task_requires_working_and_completes_workers(tmp_path):
+    path = program_copy(tmp_path)
+    current = minitz.current_task(minitz.load(path))
+    assert current is not None
+    with pytest.raises(ValueError, match="must be WORKING"):
+        minitz.complete_task(current["task_id"], "COMPLETE", ["should fail"], path=path)
+    minitz.claim_task(current["task_id"], worker_id="codex:writer", worker_role="PRIMARY_WRITER", write_authority=True,
+                      evidence=["writer claim"], path=path)
+    minitz.complete_task(current["task_id"], "COMPLETE", ["validated completion"], path=path)
+    completed = minitz.task_by_id(minitz.load(path), current["task_id"])
+    assert completed["status"] == "COMPLETE"
+    assert all(worker["status"] == "COMPLETE" for worker in completed["workers"])
+
+
+def test_rewrite_future_horizon_preserves_current_row_and_replaces_only_suffix(tmp_path):
+    path = program_copy(tmp_path)
+    before = minitz.load(path)
+    current = minitz.current_task(before)
+    assert current is not None
+    current_before = copy.deepcopy(current)
+    future = [copy.deepcopy(row) for row in before["tasks"] if before["tasks"].index(row) > before["tasks"].index(current)]
+    inserted = task("CAP-OWNER-TEST", current["task_id"])
+    inserted["context_policy"] = {"mode": "TASK_LOCAL_MINIMUM", "hard_token_limit": 24000}
+    rewritten = [inserted, *future]
+    identity = minitz.rewrite_future_horizon(
+        current["task_id"], rewritten,
+        program_updates={"task_system_contract": {"authority": "tasks[]", "persisted_task_lists": 1}},
+        evidence=["owner requested one detailed task list"], path=path,
+    )
+    after = minitz.load(path)
+    assert identity["revision"] == before["revision"] + 1
+    assert minitz.task_by_id(after, current["task_id"]) == current_before
+    ids = [row["task_id"] for row in after["tasks"]]
+    assert ids[ids.index(current["task_id"]) + 1] == "CAP-OWNER-TEST"
+    assert after["task_system_contract"]["authority"] == "tasks[]"
+    assert "current_execution" not in json.loads(path.read_text())
+
+
+def test_task_context_payload_is_bounded_to_declared_task_fields():
+    row = task("CTX-TEST", "RUNTIME-AI-01")
+    row["procedure"] = ["read exact source", "execute bounded change", "validate"]
+    row["context_policy"] = {
+        "mode": "TASK_LOCAL_MINIMUM",
+        "target_token_budget": 8000,
+        "hard_token_limit": 16000,
+        "default_fields": ["task_id", "status", "title", "objective", "procedure", "dependencies", "write_scope"],
+    }
+    row["unrelated_blob"] = "x" * 1000
+    payload = minitz.task_context_payload(row)
+    assert payload["task_id"] == "CTX-TEST"
+    assert payload["procedure"] == row["procedure"]
+    assert "unrelated_blob" not in payload
+    assert payload["context_policy"]["mode"] == "TASK_LOCAL_MINIMUM"

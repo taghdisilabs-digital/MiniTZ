@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
 DEFAULT_TASK_PROGRAM_PATH = Path("/root/biella/analysis/live_audit/TASK_PROGRAM.json")
-ACTIVE_STATUSES = {"PENDING", "DEFERRED", "IN_PROGRESS", "REQUIRES_OTHER_RESOURCE"}
+ACTIVE_STATUSES = {"PENDING", "WORKING", "DEFERRED", "IN_PROGRESS", "REQUIRES_OTHER_RESOURCE"}
 COMPLETE_STATUSES = {"COMPLETE", "COMPLETE_ALREADY", "COMPLETED", "DUPLICATE", "OBSOLETE", "RETIRED", "SUPERSEDED"}
 DEPENDENCY_TYPES = (
     "HARD", "FAMILY_LOCAL", "RECOMMENDED_ORDER", "NONBLOCKING_INPUT",
@@ -38,8 +38,37 @@ def digest(value: Any) -> str:
     return hashlib.sha256(encoded(value)).hexdigest()
 
 
+VOLATILE_TASK_FIELDS = {"task_record_sha256", "workers", "worker_state_sha256"}
+
+
 def task_digest(task: Mapping[str, Any]) -> str:
-    return digest({key: value for key, value in task.items() if key != "task_record_sha256"})
+    return digest({key: value for key, value in task.items() if key not in VOLATILE_TASK_FIELDS})
+
+
+def _first_active_row(program: Mapping[str, Any]) -> dict[str, Any] | None:
+    tasks = program.get("tasks") if isinstance(program.get("tasks"), list) else []
+    active = [row for row in tasks if isinstance(row, dict) and row.get("status") in ACTIVE_STATUSES]
+    working = [row for row in active if row.get("status") == "WORKING"]
+    _need(len(working) <= 1, "MiniTZ permits at most one WORKING task")
+    if not active:
+        return None
+    first = active[0]
+    if working and working[0].get("task_id") != first.get("task_id"):
+        raise ValueError("MiniTZ WORKING task is not the first active task")
+    return first
+
+
+def _derived_execution_pointer(task: Mapping[str, Any] | None) -> dict[str, Any] | None:
+    if task is None:
+        return None
+    return {
+        "task_id": task["task_id"],
+        "task_revision": task["revision"],
+        "task_sha256": task_digest(task),
+        "run_ref": None,
+        "session_ref": None,
+        "run_state_ref": None,
+    }
 
 
 def file_sha256(path: Path) -> str:
@@ -84,20 +113,20 @@ def load(path: Path | None = None) -> dict[str, Any]:
         if task.get("status") in ACTIVE_STATUSES:
             _need(task.get("active_task_survival") is True, f"active MiniTZ task lacks survival gate: {task.get('task_id')}")
             _need(task.get("review_state") == "VALUE_GATE_PASSED", f"active MiniTZ task lacks value gate: {task.get('task_id')}")
-    execution = program.get("current_execution")
-    if isinstance(execution, dict) and execution.get("task_id"):
-        matches = [task for task in tasks if task["task_id"] == execution["task_id"]]
-        _need(len(matches) == 1, "current MiniTZ task is absent")
-        task = matches[0]
-        _need(execution.get("task_revision") == task.get("revision"), "current MiniTZ task revision mismatch")
-        _need(execution.get("task_sha256") == task_digest(task), "current MiniTZ task digest mismatch")
+    # Persisted current-task pointers are legacy compatibility only.  Array order
+    # plus tasks[].status is the sole task/order/status authority.
+    first_active = _first_active_row(program)
+    program["current_execution"] = _derived_execution_pointer(first_active)
     program["_observed_sha256"] = hashlib.sha256(raw).hexdigest()
     program["_observed_path"] = str(path)
     return program
 
 
 def public_program(program: Mapping[str, Any]) -> dict[str, Any]:
-    return {key: value for key, value in program.items() if not key.startswith("_observed_")}
+    return {
+        key: value for key, value in program.items()
+        if not key.startswith("_observed_") and key != "current_execution"
+    }
 
 
 def program_identity(program: Mapping[str, Any] | None = None) -> dict[str, Any]:
@@ -109,6 +138,32 @@ def program_identity(program: Mapping[str, Any] | None = None) -> dict[str, Any]
         "task_count": program["task_count"],
         "sha256": str(program.get("_observed_sha256") or file_sha256(program_path())),
     }
+
+
+def task_context_payload(task: Mapping[str, Any]) -> dict[str, Any]:
+    policy = task.get("context_policy") if isinstance(task.get("context_policy"), Mapping) else {}
+    mode = str(policy.get("mode") or "TASK_LOCAL_MINIMUM")
+    _need(mode == "TASK_LOCAL_MINIMUM", f"unsupported MiniTZ task context mode: {mode}")
+    fields = policy.get("default_fields")
+    if not isinstance(fields, list) or not fields:
+        fields = [
+            "task_id", "revision", "status", "title", "scope", "objective", "dependencies",
+            "procedure", "inputs", "source_refs", "deliverables", "required_capabilities",
+            "resource_requirements", "write_scope", "validation", "acceptance",
+            "negative_controls", "required_evidence", "workers", "completion",
+        ]
+    payload = {str(key): task[key] for key in fields if isinstance(key, str) and key in task}
+    payload["context_policy"] = dict(policy) if policy else {
+        "mode": "TASK_LOCAL_MINIMUM",
+        "target_token_budget": 12000,
+        "hard_token_limit": 32000,
+    }
+    hard_limit = payload["context_policy"].get("hard_token_limit", 32000)
+    _need(isinstance(hard_limit, int) and not isinstance(hard_limit, bool) and hard_limit > 0,
+          "MiniTZ task context hard_token_limit must be a positive integer")
+    # Conservative UTF-8/JSON bound: four encoded characters per requested token.
+    _need(len(encoded(payload)) <= hard_limit * 4, f"MiniTZ task context exceeds hard token budget: {task.get('task_id')}")
+    return payload
 
 
 def task_by_id(program: Mapping[str, Any], task_id: str) -> dict[str, Any]:
@@ -123,7 +178,8 @@ def hard_dependencies(task: Mapping[str, Any]) -> tuple[str, ...]:
 
 
 def runnable(program: Mapping[str, Any], task: Mapping[str, Any]) -> bool:
-    if task.get("status") not in ACTIVE_STATUSES:
+    first = _first_active_row(program)
+    if first is None or task.get("task_id") != first.get("task_id"):
         return False
     completed = {row["task_id"] for row in program["tasks"] if row.get("status") in COMPLETE_STATUSES}
     return set(hard_dependencies(task)).issubset(completed)
@@ -140,19 +196,18 @@ def executable_scope(task: Mapping[str, Any]) -> Mapping[str, Any]:
 
 
 def current_task(program: Mapping[str, Any]) -> dict[str, Any] | None:
-    execution = program.get("current_execution")
-    if isinstance(execution, dict) and execution.get("task_id"):
-        task = task_by_id(program, execution["task_id"])
-        if runnable(program, task):
-            executable_scope(task)
-            return task
-    task = next((task for task in program["tasks"] if runnable(program, task)), None)
-    if task is not None:
-        executable_scope(task)
-        return task
-    active = [row["task_id"] for row in program["tasks"] if row.get("status") in ACTIVE_STATUSES]
-    _need(not active, "active MiniTZ tasks exist but none is runnable: " + ",".join(active))
-    return None
+    task = _first_active_row(program)
+    if task is None:
+        return None
+    completed = {row["task_id"] for row in program["tasks"] if row.get("status") in COMPLETE_STATUSES}
+    missing = [dep for dep in hard_dependencies(task) if dep not in completed]
+    if missing:
+        raise ValueError(
+            "first active MiniTZ task is blocked: " + str(task.get("task_id"))
+            + " missing=" + ",".join(missing)
+        )
+    executable_scope(task)
+    return task
 
 
 def task_class(program: Mapping[str, Any], task: Mapping[str, Any]) -> str:
@@ -188,14 +243,7 @@ def execution_root(task: Mapping[str, Any]) -> Path:
 
 
 def _execution_pointer(task: Mapping[str, Any]) -> dict[str, Any]:
-    return {
-        "task_id": task["task_id"],
-        "task_revision": task["revision"],
-        "task_sha256": task_digest(task),
-        "run_ref": None,
-        "session_ref": None,
-        "run_state_ref": None,
-    }
+    return dict(_derived_execution_pointer(task) or {})
 
 
 @contextmanager
@@ -295,6 +343,130 @@ def insert_tasks_after(after_task_id: str, tasks: Sequence[Mapping[str, Any]], *
     _need(observed["_observed_sha256"] == new_sha, "MiniTZ task-program evolution readback mismatch")
     return program_identity(observed)
 
+def rewrite_future_horizon(
+    after_task_id: str, future_tasks: Sequence[Mapping[str, Any]], *,
+    program_updates: Mapping[str, Any] | None, evidence: Sequence[str],
+    path: Path | None = None,
+) -> dict[str, Any]:
+    clean_evidence = [str(item).strip() for item in evidence if str(item).strip()]
+    _need(bool(clean_evidence), "MiniTZ future-horizon rewrite requires evidence")
+    path = Path(path or program_path()).resolve()
+    with _locked(path):
+        program = load(path)
+        prior_sha = program["_observed_sha256"]; prior_revision = int(program["revision"])
+        rows = list(program["tasks"])
+        ids = [row["task_id"] for row in rows]
+        _need(after_task_id in ids, "MiniTZ future-horizon anchor is absent")
+        anchor = ids.index(after_task_id)
+        prefix = rows[: anchor + 1]
+        anchor_before = dict(prefix[-1])
+        prefix_ids = {row["task_id"] for row in prefix}
+        rewritten: list[dict[str, Any]] = []
+        seen = set(prefix_ids)
+        valid_statuses = ACTIVE_STATUSES | COMPLETE_STATUSES
+        for raw in future_tasks:
+            task = dict(raw)
+            task_id = str(task.get("task_id") or "").strip()
+            _need(bool(task_id) and task_id not in seen, f"invalid/duplicate future MiniTZ task: {task_id}")
+            seen.add(task_id); task["task_id"] = task_id
+            _need(task.get("status") in valid_statuses, f"unsupported future MiniTZ task status: {task_id}")
+            _need(isinstance(task.get("dependencies"), list), f"future MiniTZ task dependencies missing: {task_id}")
+            if task.get("status") in ACTIVE_STATUSES:
+                _need(task.get("active_task_survival") is True, f"future MiniTZ task lacks survival gate: {task_id}")
+                _need(task.get("review_state") == "VALUE_GATE_PASSED", f"future MiniTZ task lacks value gate: {task_id}")
+                executable_scope(task)
+            task["task_record_sha256"] = task_digest(task)
+            rewritten.append(task)
+        combined = prefix + rewritten
+        combined_ids = {row["task_id"] for row in combined}
+        for task in combined:
+            for dep in task.get("dependencies", []):
+                _need(
+                    isinstance(dep, dict)
+                    and dep.get("dependency_type") in DEPENDENCY_TYPES
+                    and dep.get("task_ref") in combined_ids
+                    and dep.get("task_ref") != task.get("task_id"),
+                    f"invalid MiniTZ dependency after future rewrite: {task.get('task_id')}",
+                )
+        protected = {
+            "schema", "program_id", "tasks", "task_count", "revision",
+            "current_execution", "single_transformation_lineage",
+            "task_program_authority", "production_execution_authority",
+            "production_order_status_authority", "current_live_production_authority",
+        }
+        for key, value in dict(program_updates or {}).items():
+            _need(key not in protected, f"protected MiniTZ program field cannot be rewritten: {key}")
+            program[key] = value
+        program["tasks"] = combined
+        program["task_count"] = len(combined)
+        program["revision"] = prior_revision + 1
+        _transaction(
+            program, prior_revision=prior_revision, prior_sha=prior_sha,
+            action=f"EVOLVE::FUTURE_HORIZON_AFTER::{after_task_id}", evidence=clean_evidence,
+        )
+        new_sha = _atomic_write(path, program)
+    observed = load(path)
+    _need(observed["_observed_sha256"] == new_sha, "MiniTZ future-horizon rewrite readback mismatch")
+    _need(task_by_id(observed, after_task_id) == anchor_before, "MiniTZ future-horizon rewrite changed the preserved anchor")
+    return program_identity(observed)
+
+
+def claim_task(
+    task_id: str, *, worker_id: str, worker_role: str, write_authority: bool,
+    evidence: Sequence[str], path: Path | None = None,
+) -> dict[str, Any]:
+    clean_evidence = [str(item).strip() for item in evidence if str(item).strip()]
+    _need(bool(clean_evidence), "MiniTZ task claim requires evidence")
+    worker_id = str(worker_id).strip(); worker_role = str(worker_role).strip()
+    _need(bool(worker_id), "MiniTZ task claim requires worker_id")
+    _need(bool(worker_role), "MiniTZ task claim requires worker_role")
+    _need(isinstance(write_authority, bool), "MiniTZ task claim write_authority must be boolean")
+    path = Path(path or program_path()).resolve()
+    with _locked(path):
+        program = load(path)
+        prior_sha = program["_observed_sha256"]; prior_revision = int(program["revision"])
+        current = current_task(program)
+        _need(current is not None and current["task_id"] == task_id, "MiniTZ claim must target the first active task")
+        task = task_by_id(program, task_id)
+        workers = list(task.get("workers") or [])
+        existing = next((row for row in workers if str(row.get("worker_id")) == worker_id), None)
+        if existing is not None:
+            _need(bool(existing.get("write_authority")) == write_authority, "MiniTZ worker claim authority conflict")
+            _need(str(existing.get("role")) == worker_role, "MiniTZ worker claim role conflict")
+            if existing.get("status") == "WORKING":
+                return program_identity(program)
+        writers = [row for row in workers if row.get("status") == "WORKING" and row.get("write_authority") is True]
+        if write_authority:
+            _need(not writers, "MiniTZ task already has a WORKING writer")
+        elif task.get("status") != "WORKING":
+            raise ValueError("first MiniTZ task claim must be a writer")
+        now = datetime.now(timezone.utc).isoformat()
+        if task.get("status") != "WORKING":
+            _need(task.get("status") in ACTIVE_STATUSES, "MiniTZ task is not active")
+            task["revision"] = int(task["revision"]) + 1
+            task["status"] = "WORKING"
+        workers.append({
+            "worker_id": worker_id,
+            "role": worker_role,
+            "write_authority": write_authority,
+            "status": "WORKING",
+            "claimed_at": now,
+            "evidence": clean_evidence,
+        })
+        task["workers"] = workers
+        task["worker_state_sha256"] = digest(workers)
+        task["task_record_sha256"] = task_digest(task)
+        program["revision"] = prior_revision + 1
+        _transaction(
+            program, prior_revision=prior_revision, prior_sha=prior_sha,
+            action=f"CLAIM::{task_id}::{worker_id}", evidence=clean_evidence,
+        )
+        new_sha = _atomic_write(path, program)
+    observed = load(path)
+    _need(observed["_observed_sha256"] == new_sha, "MiniTZ task claim readback mismatch")
+    return program_identity(observed)
+
+
 def complete_task(task_id: str, status: str, evidence: Sequence[str], *, path: Path | None = None) -> dict[str, Any]:
     _need(status in {"COMPLETE", "COMPLETE_ALREADY"}, "completion status required")
     clean_evidence = [str(item).strip() for item in evidence if str(item).strip()]
@@ -305,19 +477,27 @@ def complete_task(task_id: str, status: str, evidence: Sequence[str], *, path: P
         task = task_by_id(program, task_id)
         if task.get("status") in COMPLETE_STATUSES:
             return program_identity(program)
-        _need(task.get("status") in ACTIVE_STATUSES, "MiniTZ task is not active")
+        _need(task.get("status") == "WORKING", "MiniTZ task must be WORKING before completion")
+        now = datetime.now(timezone.utc).isoformat()
+        workers = list(task.get("workers") or [])
+        _need(any(row.get("write_authority") is True and row.get("status") == "WORKING" for row in workers),
+              "MiniTZ completion requires a WORKING writer claim")
+        for worker in workers:
+            if worker.get("status") == "WORKING":
+                worker["status"] = "COMPLETE"
+                worker["completed_at"] = now
+        task["workers"] = workers
+        task["worker_state_sha256"] = digest(workers)
         task["revision"] = int(task["revision"]) + 1
         task["status"] = status
         task["active_task_survival"] = False
         task["completion"] = {
             "status": status,
             "evidence": clean_evidence,
-            "recorded_at": datetime.now(timezone.utc).isoformat(),
+            "recorded_at": now,
         }
         task["task_record_sha256"] = task_digest(task)
         program["revision"] = prior_revision + 1
-        successor = next((row for row in program["tasks"] if runnable(program, row)), None)
-        program["current_execution"] = _execution_pointer(successor) if successor else None
         _transaction(program, prior_revision=prior_revision, prior_sha=prior_sha, action=f"COMPLETE::{task_id}", evidence=clean_evidence)
         new_sha = _atomic_write(path, program)
     observed = load(path)
