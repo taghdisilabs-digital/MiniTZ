@@ -32,7 +32,7 @@ class WebsiteContractTests(unittest.TestCase):
     def test_live_page_is_minitz_i_can_brand_campaign(self):
         html = (ROOT / 'src/live/index.html').read_text()
         app = (ROOT / 'src/live/app.js').read_text()
-        for token in ('MiniTZ OS', 'I can.', 'Working Prototype', 'hero-film', 'id="system"', 'id="locker"', 'I couldn’t code.'):
+        for token in ('MiniTZ OS', 'I can.', 'photo-hero', 'id="system"', 'id="locker"', 'id="final-film"', 'Play the film', 'I couldn’t code.'):
             self.assertIn(token, html)
         for token in ('/live-api/snapshot', '/live-api/events', 'EventSource', '/data/locker-index.json'):
             self.assertIn(token, app)
