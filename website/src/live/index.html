@@ -4,69 +4,172 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#050403">
   <title>MiniTZ OS — I can.</title>
-  <meta name="description" content="MiniTZ OS. I can code. I can build. I can create. I can make.">
+  <meta name="description" content="MiniTZ OS. One system for people who want to build, create, design, make, automate and move ideas into the world.">
   <link rel="stylesheet" href="/live/styles.css">
   <script type="module" src="/live/app.js"></script>
 </head>
 <body>
+  <header class="site-nav">
+    <a class="wordmark" href="#experience">MiniTZ <span>OS</span></a>
+    <nav aria-label="Main navigation">
+      <a href="#experience">Experience</a>
+      <a href="#system">Now</a>
+      <a href="#locker">Locker</a>
+      <a href="#founder">Founder</a>
+    </nav>
+    <span class="nav-status"><i data-connection-dot></i><b data-connection>CONNECTING</b></span>
+  </header>
+
   <main>
-    <section class="film" data-film aria-label="MiniTZ OS I Can">
-      <div class="grain" aria-hidden="true"></div>
-      <div class="film-frame">
-        <p class="person-context" data-context>After school · outside</p>
-        <p class="film-line" data-film-line>I can code.</p>
-        <div class="reveal" data-reveal aria-hidden="true">
-          <h1>MiniTZ OS</h1>
-          <p>I can.</p>
-          <small>Working Prototype</small>
+    <section class="experience" id="experience">
+      <div class="film-shell">
+        <video class="hero-film" data-hero-video playsinline autoplay muted preload="auto" poster="/live/assets/human-code.jpg">
+          <source media="(max-width: 760px)" src="/live/assets/minitz-ican-film-mobile.mp4" type="video/mp4">
+          <source src="/live/assets/minitz-ican-film.mp4" type="video/mp4">
+        </video>
+        <div class="film-topline"><span>MiniTZ OS</span><span>I can.</span></div>
+        <div class="film-actions">
+          <button type="button" data-film-sound>Play with sound</button>
+          <button type="button" data-film-replay>Replay film</button>
         </div>
       </div>
-      <div class="film-controls">
-        <button type="button" data-replay>Replay 20 seconds</button>
-        <a href="#meaning">Continue</a>
-      </div>
-      <div class="film-progress" aria-hidden="true"><span data-film-progress></span></div>
-    </section>
-
-    <section class="meaning" id="meaning">
-      <p class="eyebrow">THE IDEA</p>
-      <h2>The point is not what the computer can do.</h2>
-      <p class="lead">The point is what you can do with it.</p>
-      <p class="body-copy">MiniTZ OS is built around a simpler relationship with the computer: you decide what you want to make, build, learn, change, or automate. The system should meet you there.</p>
-    </section>
-
-    <section class="voices" aria-label="I can statements">
-      <article><span>01</span><p>I can code.</p><small>Without needing to become “a computer person” first.</small></article>
-      <article><span>02</span><p>I can build.</p><small>A business. A tool. A workflow. Something real.</small></article>
-      <article><span>03</span><p>I can create.</p><small>An idea can move from your head into the world.</small></article>
-      <article><span>04</span><p>I can design.</p><small>Not because a title says designer. Because you have intent.</small></article>
-      <article><span>05</span><p>I can make.</p><small>The computer becomes part of the work, not the obstacle.</small></article>
-      <article><span>06</span><p>I can automate.</p><small>Repetition becomes something you can choose to leave behind.</small></article>
-    </section>
-
-    <section class="human-rule">
-      <div>
-        <p class="eyebrow">HUMAN FIRST</p>
-        <h2>Real people before product.</h2>
-      </div>
-      <div class="manifesto">
-        <p>Confidence should feel ordinary.</p>
-        <p>Age, profession, background, and technical identity should not decide who gets to make things with a computer.</p>
-        <p>MiniTZ OS belongs at the end of that thought, not at the beginning.</p>
+      <div class="experience-statement reveal-on-scroll">
+        <p class="kicker">ONE SYSTEM</p>
+        <h1>The point isn’t what the computer can do.</h1>
+        <p class="statement-accent">It’s what you can do with it.</p>
+        <p class="statement-copy">MiniTZ OS is built for the moment between having an idea and making it real.</p>
       </div>
     </section>
 
-    <section class="final-lockup" aria-label="MiniTZ OS">
-      <p class="final-name">MiniTZ OS</p>
-      <p class="final-line">I can.</p>
-      <p class="prototype">Working Prototype</p>
+    <section class="people" aria-label="I can stories">
+      <article class="person reveal-on-scroll">
+        <img src="/live/assets/human-code.jpg" alt="A person looking directly into the camera" loading="lazy" decoding="async">
+        <div><span>01</span><h2>I can code.</h2><p>Curiosity becomes something you can act on.</p></div>
+      </article>
+      <article class="person reveal-on-scroll">
+        <img src="/live/assets/human-build.jpg" alt="A person working with their hands" loading="lazy" decoding="async">
+        <div><span>02</span><h2>I can build.</h2><p>A business. A tool. A system. Something real.</p></div>
+      </article>
+      <article class="person reveal-on-scroll">
+        <img src="/live/assets/human-create.jpg" alt="A person creating in a real work environment" loading="lazy" decoding="async">
+        <div><span>03</span><h2>I can create.</h2><p>An idea can leave your head and enter the world.</p></div>
+      </article>
+      <article class="person reveal-on-scroll">
+        <img src="/live/assets/human-design.jpg" alt="A person designing and making" loading="lazy" decoding="async">
+        <div><span>04</span><h2>I can design.</h2><p>Intent becomes form.</p></div>
+      </article>
+      <article class="person reveal-on-scroll">
+        <img src="/live/assets/human-make.jpg" alt="A person making something in a workshop" loading="lazy" decoding="async">
+        <div><span>05</span><h2>I can make.</h2><p>The computer becomes part of the work, not the obstacle.</p></div>
+      </article>
+      <article class="person reveal-on-scroll">
+        <img src="/live/assets/human-automate.jpg" alt="A person working in a professional environment" loading="lazy" decoding="async">
+        <div><span>06</span><h2>I can automate.</h2><p>Give repetition to the system. Keep your time.</p></div>
+      </article>
+    </section>
+
+    <section class="capabilities" id="capabilities">
+      <header class="section-intro reveal-on-scroll">
+        <p class="kicker">MINITZ OS</p>
+        <h2>One system.<br>Many capabilities.</h2>
+        <p>These are not separate products. They are things MiniTZ OS can do with you.</p>
+      </header>
+      <div class="capability-list reveal-on-scroll" aria-label="MiniTZ OS capabilities">
+        <div><b>Build</b><span>Turn intention into working things.</span></div>
+        <div><b>Code</b><span>Use software without needing programming to be your identity.</span></div>
+        <div><b>Create</b><span>Move from idea to artifact.</span></div>
+        <div><b>Design</b><span>Shape systems, interfaces and experiences.</span></div>
+        <div><b>Make</b><span>Coordinate tools, files, media and real workflows.</span></div>
+        <div><b>Automate</b><span>Hand repetitive work to the system.</span></div>
+        <div><b>Remember</b><span>Preserve context, decisions and verified history.</span></div>
+        <div><b>Research</b><span>Find, compare and synthesize what the work needs.</span></div>
+        <div><b>Execute</b><span>Use models, machines and tools as resources.</span></div>
+        <div><b>Validate</b><span>Test the result before calling it done.</span></div>
+        <div><b>Deploy</b><span>Move finished work into the world.</span></div>
+      </div>
+    </section>
+
+    <section class="system" id="system" aria-labelledby="system-title">
+      <header class="system-head">
+        <div><p class="kicker">MINITZ OS — NOW</p><h2 id="system-title">What the system is doing right now.</h2></div>
+        <div class="system-live"><i data-connection-dot></i><span data-connection-secondary>CONNECTING</span></div>
+      </header>
+
+      <div class="current-task">
+        <span class="field-label">CURRENT TASK</span>
+        <strong data-task-id>—</strong>
+        <h3 data-task-title>Reading MiniTZ OS state</h3>
+        <p data-task-summary>Waiting for the live evidence projection.</p>
+      </div>
+
+      <div class="literal-dashboard" data-system-dashboard>
+        <div><span>STATUS</span><strong data-production-state>CONNECTING</strong></div>
+        <div><span>PROGRESS</span><strong data-progress-label>—</strong></div>
+        <div class="wide"><span>NOW EXECUTING</span><strong data-operation>Waiting for activity</strong><small data-operation-meta>—</small></div>
+        <div><span>CODEX</span><strong data-coder-codex>—</strong></div>
+        <div><span>ANTIGRAVITY</span><strong data-coder-agr>—</strong></div>
+        <div><span>COMMANDERS</span><strong data-commander-state>—</strong><small data-commander-meta>—</small></div>
+        <div><span>BOOST GROUPS</span><strong data-boost-state>—</strong><small data-boost-meta>—</small></div>
+        <div><span>LOCAL AI</span><strong data-local-ai>—</strong><small data-local-ai-meta>—</small></div>
+        <div><span>GPU</span><strong data-gpu-name>—</strong><small data-gpu-load>—</small></div>
+        <div><span>VRAM</span><strong data-vram>—</strong></div>
+        <div><span>HOST</span><strong data-host-load>—</strong><small data-host-ram>—</small></div>
+        <div><span>VALIDATION</span><strong data-validation>—</strong></div>
+        <div><span>SOURCE</span><strong data-commit>—</strong></div>
+        <div><span>HEARTBEAT</span><strong data-heartbeat>—</strong></div>
+        <div><span>CONTINUITY</span><strong data-continuity>—</strong></div>
+        <div><span>ELAPSED</span><strong data-elapsed>—</strong></div>
+      </div>
+
+      <div class="event-panel">
+        <div class="event-head"><span>RECENT ACTIVITY</span><span>LIVE EVENTS</span></div>
+        <div class="event-feed" data-feed aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="locker" id="locker" data-locker>
+      <header class="section-intro locker-intro reveal-on-scroll">
+        <p class="kicker">THE LOCKER</p>
+        <h2>Things we actually made.</h2>
+        <p>Creations, systems, deployments and milestones with the evidence attached.</p>
+      </header>
+      <div class="locker-tools" role="group" aria-label="Filter the Locker">
+        <button type="button" class="is-active" data-locker-filter="ALL">All</button>
+        <button type="button" data-locker-filter="CREATION">Creations</button>
+        <button type="button" data-locker-filter="CAPABILITY">Capabilities</button>
+        <button type="button" data-locker-filter="SYSTEM">System</button>
+        <button type="button" data-locker-filter="DEPLOYMENT">Deployments</button>
+      </div>
+      <div class="locker-list" data-locker-list><p class="locker-loading">Loading verified evidence…</p></div>
+    </section>
+
+    <section class="founder" id="founder">
+      <figure class="founder-photo reveal-on-scroll">
+        <img src="/live/assets/mahdi-original.jpg" alt="Mahdi Taghdisi Neghab" loading="lazy" decoding="async">
+      </figure>
+      <div class="founder-copy reveal-on-scroll">
+        <p class="kicker">WHY THIS EXISTS</p>
+        <h2>I couldn’t code.</h2>
+        <p>I was non-technical.</p>
+        <p>But I still wanted to build.</p>
+        <p class="founder-turn">So I built MiniTZ OS.</p>
+        <p class="founder-close">Now you don’t have to be technical either.</p>
+        <div class="founder-id"><b>Mahdi Taghdisi Neghab</b><span>Founder, MiniTZ OS</span></div>
+      </div>
+    </section>
+
+    <section class="final-lockup" aria-label="MiniTZ OS final statement">
+      <p>MiniTZ OS</p>
+      <h2>I can.</h2>
+      <span>Working Prototype</span>
     </section>
   </main>
 
   <footer>
-    <span>MiniTZ OS</span>
+    <a class="wordmark" href="#experience">MiniTZ <span>OS</span></a>
+    <nav><a href="#system">Now</a><a href="#locker">Locker</a><a href="#founder">Founder</a></nav>
     <span>I can.</span>
   </footer>
 </body>

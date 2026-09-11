@@ -32,14 +32,12 @@ class WebsiteContractTests(unittest.TestCase):
     def test_live_page_is_minitz_i_can_brand_campaign(self):
         html = (ROOT / 'src/live/index.html').read_text()
         app = (ROOT / 'src/live/app.js').read_text()
-        for token in ('MiniTZ OS', 'I can code.', 'I can build.', 'I can create.', 'I can design.', 'I can make.', 'I can automate.', 'Working Prototype', 'data-film-line', 'data-replay'):
+        for token in ('MiniTZ OS', 'I can.', 'Working Prototype', 'hero-film', 'id="system"', 'id="locker"', 'I couldn’t code.'):
             self.assertIn(token, html)
-        for forbidden in ('UNREAL LIVE FRAME', 'CAPABILITY DECK', '30 COMMANDER LANES', '5 BOOST WORKERS', 'LOCAL AI ACCELERATOR', 'GPU COMPUTE', 'MAIN CODERS'):
+        for token in ('/live-api/snapshot', '/live-api/events', 'EventSource', '/data/locker-index.json'):
+            self.assertIn(token, app)
+        for forbidden in ('<canvas', 'visual-grid', 'scanline', 'background-stack'):
             self.assertNotIn(forbidden, html)
-        self.assertIn('16000', app)
-        self.assertIn('17000', app)
-        self.assertIn('18500', app)
-        self.assertIn('requestAnimationFrame', app)
 
     def test_minitz_public_subdomain_routes_to_live_theatre_without_replacing_apex(self):
         server = (ROOT / 'ops/static_server.py').read_text()

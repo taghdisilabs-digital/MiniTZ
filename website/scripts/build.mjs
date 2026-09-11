@@ -21,7 +21,7 @@ liveHtml=liveHtml.replace('/live/app.js',`/live/app.${liveAppHash}.js`).replace(
 await writeFile(resolve(dist,"live","index.html"),liveHtml);
 await cp(resolve(root,"src","investors"),resolve(dist,"investors"),{recursive:true});
 await cp(resolve(root,"reference","investor-deck-v1"),resolve(dist,"investors","reference"),{recursive:true});
-for(const file of["game-runtime-media.json","asset-resolution.json","control-runtime.json","investor-deck-manifest.json"])await cp(resolve(root,"content",file),resolve(dist,"data",file));
+for(const file of["game-runtime-media.json","asset-resolution.json","control-runtime.json","investor-deck-manifest.json","locker-index.json"])await cp(resolve(root,"content",file),resolve(dist,"data",file));
 
 const csv=await readFile(resolve(root,"content","website-visual-assets.csv"),"utf8");
 const lines=csv.trim().split(/\r?\n/);const headers=lines.shift().split(",");
