@@ -45,4 +45,13 @@ class MiniTZExperienceTests(unittest.TestCase):
   self.assertIn("q('[data-film-play]')",app)
   self.assertIn('film.muted=false',app)
   self.assertIn('await film.play()',app)
+ def test_locker_contains_origin_and_failure_history(self):
+  data=json.loads((ROOT/'content/locker-index.json').read_text())
+  ids={e['id'] for e in data['entries']}
+  for wanted in ('origin-os-20260620','assistant-setup-20260627','vps-configurator-20260826','silent-stall-loss-20260906'):
+   self.assertIn(wanted,ids)
+ def test_founder_story_connects_hardware_pain_to_os(self):
+  html=(ROOT/'src/live/index.html').read_text()
+  for token in ('I started by building my own AI assistant.','Every hardware change meant setting it up again.','A day or more just to get back to work.','So I stopped thinking of MiniTZ as another tool.','I made it the OS.'):
+   self.assertIn(token,html)
 

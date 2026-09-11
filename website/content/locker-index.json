@@ -8,10 +8,18 @@
       "title": "The I Can site went live",
       "summary": "MiniTZ OS moved from a developer-facing live page to a human-first public experience and was deployed with production readback.",
       "type": "DEPLOYMENT",
-      "capability_tags": ["build", "test", "deploy", "publish"],
+      "capability_tags": [
+        "build",
+        "test",
+        "deploy",
+        "publish"
+      ],
       "media": [],
       "evidence_summary": "Source commit 84588ab. Website tests passed before deploy. Production release and HTTP readback were verified.",
-      "evidence_refs": ["git:84588ab", "deployment:2026-09-11T15:06:37Z"],
+      "evidence_refs": [
+        "git:84588ab",
+        "deployment:2026-09-11T15:06:37Z"
+      ],
       "source_revision": "84588abb54a92fd91fa4d87261d13641effe42ab",
       "status": "VERIFIED"
     },
@@ -21,10 +29,16 @@
       "title": "Evidence became one graph",
       "summary": "MiniTZ OS unified event evidence so activity, failures and task proof can be followed through one evidence family.",
       "type": "SYSTEM",
-      "capability_tags": ["remember", "validate", "trace"],
+      "capability_tags": [
+        "remember",
+        "validate",
+        "trace"
+      ],
       "media": [],
       "evidence_summary": "Committed source revision records the event evidence family unification.",
-      "evidence_refs": ["git:ed1b83e"],
+      "evidence_refs": [
+        "git:ed1b83e"
+      ],
       "source_revision": "ed1b83e58b15fd233901f647fbc718879078a962",
       "status": "VERIFIED"
     },
@@ -34,10 +48,16 @@
       "title": "Work learned to survive interruption",
       "summary": "Task-owned checkpoint continuity was unified so MiniTZ OS can preserve execution context across long-running work.",
       "type": "SYSTEM",
-      "capability_tags": ["remember", "continue", "recover"],
+      "capability_tags": [
+        "remember",
+        "continue",
+        "recover"
+      ],
       "media": [],
       "evidence_summary": "Checkpoint continuity change is preserved in source revision 2399ec1.",
-      "evidence_refs": ["git:2399ec1"],
+      "evidence_refs": [
+        "git:2399ec1"
+      ],
       "source_revision": "2399ec1",
       "status": "VERIFIED"
     },
@@ -47,10 +67,16 @@
       "title": "Five parallel work groups came online",
       "summary": "MiniTZ OS added its five-group Boost execution fabric while keeping one progression authority.",
       "type": "CAPABILITY",
-      "capability_tags": ["execute", "parallelize", "coordinate"],
+      "capability_tags": [
+        "execute",
+        "parallelize",
+        "coordinate"
+      ],
       "media": [],
       "evidence_summary": "The five-group runtime fabric is recorded by committed source revision 220f2c9.",
-      "evidence_refs": ["git:220f2c9"],
+      "evidence_refs": [
+        "git:220f2c9"
+      ],
       "source_revision": "220f2c9",
       "status": "VERIFIED"
     },
@@ -60,10 +86,16 @@
       "title": "Thirty assist lanes became available",
       "summary": "MiniTZ OS added thirty bounded Commander assist lanes for parallel read-only or isolated work.",
       "type": "CAPABILITY",
-      "capability_tags": ["assist", "inspect", "parallelize"],
+      "capability_tags": [
+        "assist",
+        "inspect",
+        "parallelize"
+      ],
       "media": [],
       "evidence_summary": "The 30-lane assist fabric is preserved in source revision e4cf74d.",
-      "evidence_refs": ["git:e4cf74d"],
+      "evidence_refs": [
+        "git:e4cf74d"
+      ],
       "source_revision": "e4cf74d",
       "status": "VERIFIED"
     },
@@ -73,10 +105,16 @@
       "title": "Multiple coding backends became one capability",
       "summary": "MiniTZ OS unified main coding backends behind one operating system instead of exposing them as separate products.",
       "type": "CAPABILITY",
-      "capability_tags": ["code", "route", "execute"],
+      "capability_tags": [
+        "code",
+        "route",
+        "execute"
+      ],
       "media": [],
       "evidence_summary": "Coder unification and public control hardening are recorded in source revision 29469eb.",
-      "evidence_refs": ["git:29469eb"],
+      "evidence_refs": [
+        "git:29469eb"
+      ],
       "source_revision": "29469eb",
       "status": "VERIFIED"
     },
@@ -86,10 +124,16 @@
       "title": "Routing became MiniTZ-owned",
       "summary": "Resource and execution routing were unified under MiniTZ OS authority instead of separate service identities.",
       "type": "SYSTEM",
-      "capability_tags": ["route", "execute", "coordinate"],
+      "capability_tags": [
+        "route",
+        "execute",
+        "coordinate"
+      ],
       "media": [],
       "evidence_summary": "Routing-family authority was unified in source revision d0df5d7.",
-      "evidence_refs": ["git:d0df5d7"],
+      "evidence_refs": [
+        "git:d0df5d7"
+      ],
       "source_revision": "d0df5d7",
       "status": "VERIFIED"
     },
@@ -99,10 +143,16 @@
       "title": "The live site connected to real MiniTZ runtime",
       "summary": "The public observer was routed to current MiniTZ OS runtime state instead of a static or reconstructed feed.",
       "type": "SYSTEM",
-      "capability_tags": ["observe", "publish", "trace"],
+      "capability_tags": [
+        "observe",
+        "publish",
+        "trace"
+      ],
       "media": [],
       "evidence_summary": "The live projection routing fix is preserved in source revision aa67584.",
-      "evidence_refs": ["git:aa67584"],
+      "evidence_refs": [
+        "git:aa67584"
+      ],
       "source_revision": "aa67584",
       "status": "VERIFIED"
     },
@@ -112,10 +162,23 @@
       "title": "Runtime visuals became public proof",
       "summary": "MiniTZ OS began publishing verified runtime visual output through the public live stream.",
       "type": "CREATION",
-      "capability_tags": ["build", "render", "publish"],
-      "media": [{"kind":"image","url":"/live-api/asset?root_id=games-aaa&path=D17-02/raw/nanite-full-1080-02/hall-turn.png","alt":"Verified runtime environment capture"}],
+      "capability_tags": [
+        "build",
+        "render",
+        "publish"
+      ],
+      "media": [
+        {
+          "kind": "image",
+          "url": "/live-api/asset?root_id=games-aaa&path=D17-02/raw/nanite-full-1080-02/hall-turn.png",
+          "alt": "Verified runtime environment capture"
+        }
+      ],
       "evidence_summary": "The capability stream is tied to committed source revision 4baec2a and runtime evidence served by the read-only live projection.",
-      "evidence_refs": ["git:4baec2a", "live-api:runtime-visual"],
+      "evidence_refs": [
+        "git:4baec2a",
+        "live-api:runtime-visual"
+      ],
       "source_revision": "4baec2afe78ee3c6a118287a730492c6c1f27a52",
       "status": "VERIFIED"
     },
@@ -125,11 +188,107 @@
       "title": "A playable 3D slice was preserved as proof",
       "summary": "A selected interactive slice and its packaged runtime evidence were closed and retained as a verified creation milestone.",
       "type": "CREATION",
-      "capability_tags": ["build", "render", "validate", "package"],
-      "media": [{"kind":"image","url":"/live-api/asset?root_id=games-aaa&path=D17-02/raw/nanite-full-1080-02/terrace-summit.png","alt":"Verified runtime capture from the creation archive"}],
+      "capability_tags": [
+        "build",
+        "render",
+        "validate",
+        "package"
+      ],
+      "media": [
+        {
+          "kind": "image",
+          "url": "/live-api/asset?root_id=games-aaa&path=D17-02/raw/nanite-full-1080-02/terrace-summit.png",
+          "alt": "Verified runtime capture from the creation archive"
+        }
+      ],
       "evidence_summary": "The selected slice and package proof are recorded in committed source revision 0e056c2.",
-      "evidence_refs": ["git:0e056c2"],
+      "evidence_refs": [
+        "git:0e056c2"
+      ],
       "source_revision": "0e056c2",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "silent-stall-loss-20260906",
+      "timestamp": "2026-09-06T09:34:43Z",
+      "title": "Three days where “running” was not progress",
+      "summary": "Two game efforts were hit by a silent-stall failure: MiniTZ could look alive while productive work was not actually advancing. The founder reports roughly three days of lost or blocked time before the failure became explicit engineering law.",
+      "type": "FAILURE",
+      "capability_tags": [
+        "recover",
+        "observe",
+        "continue",
+        "validate"
+      ],
+      "media": [],
+      "evidence_summary": "Founder incident report establishes the human cost. Preserved source history records “remove nonfunctional progress stalls” (b340cdd2) and “rotate silent stalled executors” (49ec2d9a). The later production-system record explicitly attributes observed waste, stalls and incorrect continuation to the 2026-09-07/08 production window and forbids the failure patterns.",
+      "evidence_refs": [
+        "founder-report:2026-09-11",
+        "git:b340cdd2",
+        "git:49ec2d9a",
+        "drive:1hixk6TT0ZrD0KpVeEItFXqZiXD8vxySq"
+      ],
+      "source_revision": "b340cdd2+49ec2d9a",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "vps-configurator-20260826",
+      "timestamp": "2026-08-26T23:10:41Z",
+      "title": "Machine setup started becoming a repeatable system",
+      "summary": "A verified VPS configurator package was added so environment setup could move away from one-off manual reconstruction toward something reproducible.",
+      "type": "SYSTEM",
+      "capability_tags": [
+        "configure",
+        "install",
+        "recover",
+        "migrate"
+      ],
+      "media": [],
+      "evidence_summary": "Committed source revision a112b223 records the verified VPS configurator package.",
+      "evidence_refs": [
+        "git:a112b223"
+      ],
+      "source_revision": "a112b223",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "assistant-setup-20260627",
+      "timestamp": "2026-06-27T04:13:11Z",
+      "title": "Before the OS, there was the assistant",
+      "summary": "A preserved backup contains the working taghdisilabs assistant, local workspace agent instructions and a complete project setup package. This was the tool-building phase before MiniTZ became the operating system.",
+      "type": "ORIGIN",
+      "capability_tags": [
+        "assist",
+        "build",
+        "configure"
+      ],
+      "media": [],
+      "evidence_summary": "Drive backup preserves .agent.md for “taghdisilabs assistant” and SETUP_COMPLETE.md documenting the configured project environment.",
+      "evidence_refs": [
+        "drive:1yN289LrJ7RM7w3T8ENvqWITb8M1Tavtj",
+        "drive:1vaazBa7puptk2u2Z5t_XOzwWMG9TPsFp"
+      ],
+      "source_revision": "drive:2026-06-27-assistant-backup",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "origin-os-20260620",
+      "timestamp": "2026-06-20T16:57:14Z",
+      "title": "The idea became: make it the OS",
+      "summary": "A preserved June document already defines MiniTZ as an operating system rather than a chatbot or tool: command-driven, multi-project, local + VPS, continuously reporting progress and designed not to stop when something breaks.",
+      "type": "ORIGIN",
+      "capability_tags": [
+        "operate",
+        "observe",
+        "recover",
+        "connect"
+      ],
+      "media": [],
+      "evidence_summary": "Drive preserves “MiniTZ OPERATING SYSTEM (USER INTERFACE & DAILY USAGE) v1.0”, modified June 20, 2026, explicitly stating “Not a chatbot. Not a tool. But a system.”",
+      "evidence_refs": [
+        "drive:1__WU50N8LQjZw5rXgUaZc5T6SWOvsy4E"
+      ],
+      "source_revision": "drive:1__WU50N8LQjZw5rXgUaZc5T6SWOvsy4E",
       "status": "VERIFIED"
     }
   ]
