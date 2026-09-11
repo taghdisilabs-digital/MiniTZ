@@ -30,7 +30,8 @@ class WebsiteContractTests(unittest.TestCase):
             self.assertEqual(item['acceptance_authority'], 'Mahdi Taghdisi')
 
     def test_live_page_is_minitz_i_can_brand_campaign(self):
-        html = (ROOT / 'src/live/index.html').read_text()
+        html = (ROOT / 'src/live/theatre/index.html').read_text()
+        loader = (ROOT / 'src/live/index.html').read_text()
         app = (ROOT / 'src/live/app.js').read_text()
         for token in ('MiniTZ OS', 'I can.', 'photo-hero', 'id="system"', 'id="locker"', 'id="final-film"', 'Play the film', 'I couldn’t code.'):
             self.assertIn(token, html)
@@ -38,6 +39,8 @@ class WebsiteContractTests(unittest.TestCase):
             self.assertIn(token, app)
         for forbidden in ('<canvas', 'visual-grid', 'scanline', 'background-stack'):
             self.assertNotIn(forbidden, html)
+        self.assertIn('/portfolio/index.html', loader)
+        self.assertIn('/live/theatre/index.html', loader)
 
     def test_minitz_public_subdomain_routes_to_live_theatre_without_replacing_apex(self):
         server = (ROOT / 'ops/static_server.py').read_text()
@@ -50,7 +53,7 @@ class WebsiteContractTests(unittest.TestCase):
 
     def test_build_fingerprints_live_assets_so_browser_cache_cannot_hide_updates(self):
         subprocess.run(['node', 'scripts/build.mjs'], cwd=ROOT, check=True, capture_output=True, text=True)
-        html = (ROOT / 'dist/live/index.html').read_text()
+        html = (ROOT / 'dist/live/theatre/index.html').read_text()
         app_match = re.search(r'/live/app\.([0-9a-f]{12})\.js', html)
         css_match = re.search(r'/live/styles\.([0-9a-f]{12})\.css', html)
         self.assertIsNotNone(app_match)
@@ -99,5 +102,17 @@ class WebsiteContractTests(unittest.TestCase):
         self.assertTrue((ROOT / 'dist/data/portfolio-media.json').is_file())
         self.assertTrue((ROOT / 'dist/archive/index.html').is_file())
 
+
+    def test_public_root_router_preserves_portfolio_and_live_minitz_without_host_mutation(self):
+        loader = (ROOT / 'src/live/index.html').read_text()
+        theatre = (ROOT / 'src/live/theatre/index.html').read_text()
+        build = (ROOT / 'scripts/build.mjs').read_text()
+        self.assertIn("location.pathname", loader)
+        self.assertIn("/portfolio/index.html", loader)
+        self.assertIn("/live/theatre/index.html", loader)
+        self.assertIn('MiniTZ OS', theatre)
+        self.assertIn('I can.', theatre)
+        self.assertIn('resolve(dist,"portfolio")', build)
+        self.assertIn('resolve(dist,"live","theatre","index.html")', build)
 
 if __name__ == '__main__': unittest.main()
