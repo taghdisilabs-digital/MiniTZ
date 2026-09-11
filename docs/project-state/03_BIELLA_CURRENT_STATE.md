@@ -9,8 +9,8 @@ authority:
   progression_source: MINITZ_TASK_PROGRAM_ONLY
   task_program_path: /root/biella/analysis/live_audit/TASK_PROGRAM.json
   program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-  program_revision: 46
-  program_sha256: 6a464e96bcbebe15b4ce5fb5d98b4cf1bfcfa00122137205b597420f9297c31c
+  program_revision: 47
+  program_sha256: 47df71628da6c4ff81fc37190940c4e8fa807dcbfbde660c0f5feee58c44dc3d
   task_program_authority: true
   production_execution_authority: true
   production_order_status_authority: true
@@ -37,8 +37,8 @@ active_execution:
 
 progress:
   completed_tasks: 14
-  active_tasks: 786
-  total_tasks: 800
+  active_tasks: 793
+  total_tasks: 807
 
 execution_invariants:
   one_task_program: true
