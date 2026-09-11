@@ -117,8 +117,12 @@ def _section(task: Mapping[str, Any], group: BoostGroup, current_task_id: str | 
 
 def build_task_plan(program: Mapping[str, Any]) -> dict[str, Any]:
     tasks = program.get("tasks") if isinstance(program.get("tasks"), list) else []
-    current = program.get("current_execution") if isinstance(program.get("current_execution"), Mapping) else {}
-    current_task_id = str(current.get("task_id") or "") or None
+    active_statuses = {"PENDING", "WORKING", "DEFERRED", "IN_PROGRESS", "REQUIRES_OTHER_RESOURCE"}
+    current_task_id = next(
+        (str(task.get("task_id") or "") for task in tasks
+         if isinstance(task, Mapping) and task.get("status") in active_statuses),
+        None,
+    )
     groups = boost_groups()
     task_lists = {
         group.boost_id: [_section(task, group, current_task_id) for task in tasks if isinstance(task, Mapping)]

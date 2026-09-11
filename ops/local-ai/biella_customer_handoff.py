@@ -97,15 +97,22 @@ def _minitz_program_identity(task_id: str | None) -> dict[str, Any] | None:
         return None
     if program.get("schema") != "minitz.living_task_program/v1" or program.get("program_id") != "MINITZ_REBORN_SINGLE_TASK_PROGRAM":
         raise HandoffError("MiniTZ Task Program authority is invalid")
-    task_digest = _canonical_digest({key: value for key, value in row.items() if key != "task_record_sha256"})
+    volatile_task_fields = {"task_record_sha256", "workers", "worker_state_sha256"}
+    task_digest = _canonical_digest({key: value for key, value in row.items() if key not in volatile_task_fields})
     if row.get("task_record_sha256") != task_digest:
         raise HandoffError("MiniTZ task digest is invalid")
-    execution = program.get("current_execution")
+    active_statuses = {"PENDING", "WORKING", "DEFERRED", "IN_PROGRESS", "REQUIRES_OTHER_RESOURCE"}
+    active_rows = [item for item in tasks if isinstance(item, dict) and item.get("status") in active_statuses]
+    working_rows = [item for item in active_rows if item.get("status") == "WORKING"]
+    if len(working_rows) > 1:
+        raise HandoffError("MiniTZ has multiple WORKING tasks")
+    current = active_rows[0] if active_rows else None
     if (
-        not isinstance(execution, dict)
-        or execution.get("task_id") != task_id
-        or execution.get("task_revision") != row.get("revision")
-        or execution.get("task_sha256") != task_digest
+        not isinstance(current, dict)
+        or current.get("task_id") != task_id
+        or current.get("revision") != row.get("revision")
+        or row.get("task_record_sha256") != task_digest
+        or (working_rows and working_rows[0].get("task_id") != task_id)
     ):
         raise HandoffError("MiniTZ current task identity is stale")
     return {

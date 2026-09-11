@@ -663,6 +663,57 @@ def _bounded_packet_id(repo_root: Path, project_root: Path, task: state.TaskReco
     return digest.hexdigest()
 
 
+MINITZ_PRODUCTION_WRITER_ID = "minitz:production-runner"
+
+
+def _ensure_minitz_writer_claim(
+    repo_root: Path, project_root: Path, task: state.TaskRecord,
+    journal: production_events.ProductionEventJournal | None = None,
+) -> state.TaskRecord | None:
+    """Claim the first MiniTZ task before write execution.
+
+    The production runner is the stable writer controller; provider/model failover
+    remains implementation detail. A task already owned by another writer is not
+    executed by this runner.
+    """
+    if not state._use_minitz_project(Path(project_root)):
+        return task
+    program = minitz.load()
+    current = minitz.current_task(program)
+    if current is None or str(current.get("task_id") or "") != task.id:
+        raise ValueError("MiniTZ writer claim target is not the first active task")
+    workers = current.get("workers") if isinstance(current.get("workers"), list) else []
+    writers = [
+        row for row in workers
+        if isinstance(row, Mapping) and row.get("status") == "WORKING" and row.get("write_authority") is True
+    ]
+    if current.get("status") == "WORKING":
+        if len(writers) != 1:
+            raise ValueError("MiniTZ WORKING task must have exactly one writer")
+        if str(writers[0].get("worker_id") or "") != MINITZ_PRODUCTION_WRITER_ID:
+            if journal is not None:
+                journal.emit(
+                    "task.writer_owned_elsewhere", task_id=task.id, status="WAITING",
+                    text=f"Current MiniTZ task is owned by {writers[0].get('worker_id')}; production runner remains read-only.",
+                )
+            return None
+    else:
+        minitz.claim_task(
+            task.id, worker_id=MINITZ_PRODUCTION_WRITER_ID, worker_role="PRIMARY_WRITER",
+            write_authority=True,
+            evidence=["MiniTZ production runner has a viable execution route and is claiming the current task before write execution"],
+        )
+        if journal is not None:
+            journal.emit(
+                "task.writer_claimed", task_id=task.id, status="WORKING",
+                text="MiniTZ production runner claimed the current task before write execution.",
+            )
+    refreshed = state.resolve_current_task(repo_root, project_root)
+    if refreshed is None or refreshed.id != task.id:
+        raise ValueError("MiniTZ writer claim changed current task identity")
+    return refreshed
+
+
 def _task_working_directory(repo_root: Path, project_root: Path, task_id: str) -> Path:
     if state._use_minitz_project(Path(project_root)):
         program = minitz.load()
@@ -3050,6 +3101,19 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 catalog = _discover_runtime_catalog(runtime_root)
                 agr_models = main_coder.discover_agr_models(timeout_seconds=2.0)
                 continue
+            if production.run_id == "minitz-task-program":
+                claimed_task = _ensure_minitz_writer_claim(repo_root, project_root, task, journal)
+                if claimed_task is None:
+                    telemetry.update({
+                        "status": "WAITING_FOR_WRITER", "task_id": task.id,
+                        "active_model": None, "active_reasoning": None,
+                    })
+                    _beat(runtime_path, telemetry)
+                    time.sleep(5.0)
+                    continue
+                task = claimed_task
+                production = state.load_project_production(project_root)
+                _refresh_boost_fabric(runtime_root)
             bounded_fallback = coder_id == "codex" and routing.is_bounded_fallback(route)
             if task.task_class == "simple" and bounded_packet_id and bounded_fallback:
                 _record_simple_helper_attempt(telemetry, task.id, bounded_packet_id, route)

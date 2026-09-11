@@ -227,8 +227,9 @@ def test_sync_current_state_removes_volatile_runtime_snapshots_and_updates_progr
     assert "total_tasks: 3" in updated
 
 
-def _write_minitz_program(path: Path, task_ids=("UNIFY-01", "UNIFY-02")) -> Path:
+def _write_minitz_program(path: Path, task_ids=("UNIFY-01", "UNIFY-02"), *, execution_root: Path | None = None) -> Path:
     import json
+    root = (execution_root or path.parent).resolve()
     tasks = []
     for task_id in task_ids:
         row = {
@@ -240,6 +241,11 @@ def _write_minitz_program(path: Path, task_ids=("UNIFY-01", "UNIFY-02")) -> Path
             "review_state": "VALUE_GATE_PASSED",
             "dependencies": [],
             "scope": {"system": "MiniTZ"},
+            "write_scope": {
+                "authority": "TASK_OWNED_ONLY",
+                "execution_root": str(root),
+                "allowed_paths": [str(root)],
+            },
             "source_refs": [],
             "acceptance": ["validated current-task completion"],
         }
@@ -276,7 +282,7 @@ def _write_minitz_projection_fixture(tmp_path: Path, monkeypatch):
     project.mkdir()
     (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").write_text("stale\n")
     (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").write_text("stale\n")
-    program = _write_minitz_program(tmp_path / "TASK_PROGRAM.json")
+    program = _write_minitz_program(tmp_path / "TASK_PROGRAM.json", execution_root=repo)
     monkeypatch.setenv("MINITZ_TASK_PROGRAM_PATH", str(program))
     return repo, project, program
 
@@ -290,8 +296,12 @@ def test_minitz_resolution_does_not_require_precompiled_write_scope(tmp_path: Pa
     assert "MINITZ CURRENT STATE PROJECTION" in (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_text()
 
 
-def test_minitz_completion_advances_to_successor_without_precompiled_write_scope(tmp_path: Path, monkeypatch):
-    repo, project, _program = _write_minitz_projection_fixture(tmp_path, monkeypatch)
+def test_minitz_completion_advances_to_successor_with_task_local_write_scope(tmp_path: Path, monkeypatch):
+    repo, project, program = _write_minitz_projection_fixture(tmp_path, monkeypatch)
+    state.minitz.claim_task(
+        "UNIFY-01", worker_id="test:writer", worker_role="PRIMARY_WRITER",
+        write_authority=True, evidence=["test writer claim"], path=program,
+    )
     state.mark_task_complete(repo, project, "UNIFY-01", "COMPLETE", ["validator pass"])
     production = state.load_project_production(project)
     assert state.find_task(production, "UNIFY-01").status == "COMPLETE"
@@ -299,7 +309,7 @@ def test_minitz_completion_advances_to_successor_without_precompiled_write_scope
     assert state.resolve_current_task(repo, project).id == "UNIFY-02"
 
 
-def test_minitz_runner_falls_back_to_canonical_repo_when_scope_is_not_precompiled(tmp_path: Path, monkeypatch):
+def test_minitz_runner_uses_declared_task_local_execution_root(tmp_path: Path, monkeypatch):
     repo, project, _program = _write_minitz_projection_fixture(tmp_path, monkeypatch)
     import biella_production_runner as runner
     assert runner._task_working_directory(repo, project, "UNIFY-01") == repo.resolve()
@@ -344,23 +354,21 @@ def test_minitz_state_projection_uses_live_git_remote_identity(tmp_path: Path, m
 
 def test_minitz_completion_persists_family_and_transition_receipt(tmp_path: Path, monkeypatch):
     repo, project, program_path = _write_minitz_projection_fixture(tmp_path, monkeypatch)
-    program = json.loads(program_path.read_text(encoding="utf-8"))
-    program["current_execution"].update({
-        "run_ref": "commander-run://run-1",
-        "session_ref": "commander-session://session-1",
-        "run_state_ref": {"path": "/tmp/run-state.json", "sha256": "state-digest"},
-    })
-    program_path.write_text(json.dumps(program, indent=2) + "\n", encoding="utf-8")
-
+    state.minitz.claim_task(
+        "UNIFY-01", worker_id="test:writer", worker_role="PRIMARY_WRITER",
+        write_authority=True, evidence=["test writer claim"], path=program_path,
+    )
     state.resolve_current_task(repo, project)
     state.mark_task_complete(repo, project, "UNIFY-01", "COMPLETE", ["validator pass"])
 
     program = json.loads(program_path.read_text(encoding="utf-8"))
+    assert "current_execution" not in program
     evidence = program["tasks"][0]["completion"]["evidence"]
     assert "MINITZ_TRANSITION_PREDECESSOR_TASK_ID:UNIFY-01" in evidence
-    assert "MINITZ_TRANSITION_RUN_REF:commander-run://run-1" in evidence
-    assert "MINITZ_TRANSITION_SESSION_REF:commander-session://session-1" in evidence
-    assert "MINITZ_TRANSITION_RUN_STATE_REF:{\"path\":\"/tmp/run-state.json\",\"sha256\":\"state-digest\"}" in evidence
+    assert "MINITZ_TRANSITION_PREDECESSOR_TASK_REVISION:2" in evidence
+    assert "MINITZ_TRANSITION_RUN_REF:NONE" in evidence
+    assert "MINITZ_TRANSITION_SESSION_REF:NONE" in evidence
+    assert "MINITZ_TRANSITION_RUN_STATE_REF:NONE" in evidence
 
     active = (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").read_text(encoding="utf-8")
     current = (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_text(encoding="utf-8")
@@ -369,12 +377,16 @@ def test_minitz_completion_persists_family_and_transition_receipt(tmp_path: Path
         assert "scheduler_mechanism: GENERIC_SCHEDULER_PLAN_ONLY" in rendered
         assert "progression_mutation: false" in rendered
         assert "predecessor_task_id: UNIFY-01" in rendered
-        assert "run_ref: commander-run://run-1" in rendered
-        assert "session_ref: commander-session://session-1" in rendered
+        assert "run_ref: NONE" in rendered
+        assert "session_ref: NONE" in rendered
 
 
 def test_minitz_resolution_repairs_stale_projection_from_canonical_receipt(tmp_path: Path, monkeypatch):
     repo, project, program_path = _write_minitz_projection_fixture(tmp_path, monkeypatch)
+    state.minitz.claim_task(
+        "UNIFY-01", worker_id="test:writer", worker_role="PRIMARY_WRITER",
+        write_authority=True, evidence=["test writer claim"], path=program_path,
+    )
     state.mark_task_complete(repo, project, "UNIFY-01", "COMPLETE", ["validator pass"])
     active_path = repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md"
     current_path = repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md"

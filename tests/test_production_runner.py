@@ -2157,3 +2157,95 @@ def test_production_status_forces_stale_commander_lanes_offline_when_service_sto
     assert status["commanders"]["active"] == 0
     assert status["commanders"]["inflight"] == 0
     assert status["commanders"]["lanes"][0]["status"] == "OFFLINE"
+def _single_authority_runner_fixture(tmp_path: Path, monkeypatch, *, writer_id: str | None = None):
+    repo = tmp_path / "repo"
+    project = repo / "project"
+    (repo / "docs/project-state").mkdir(parents=True)
+    project.mkdir(parents=True)
+    path = tmp_path / "TASK_PROGRAM.json"
+    tasks = []
+    for index, task_id in enumerate(("CLAIM-01", "CLAIM-02")):
+        row = {
+            "task_id": task_id,
+            "revision": 1,
+            "status": "PENDING",
+            "title": task_id,
+            "active_task_survival": True,
+            "review_state": "VALUE_GATE_PASSED",
+            "dependencies": [] if index == 0 else [{"dependency_type": "HARD", "task_ref": "CLAIM-01"}],
+            "write_scope": {"authority": "TASK_OWNED_ONLY", "execution_root": str(repo.resolve()), "allowed_paths": [str(repo.resolve())]},
+            "acceptance": ["writer claim is exact"],
+        }
+        row["task_record_sha256"] = runner.minitz.task_digest(row)
+        tasks.append(row)
+    program = {
+        "schema": "minitz.living_task_program/v1",
+        "program_id": "MINITZ_REBORN_SINGLE_TASK_PROGRAM",
+        "single_transformation_lineage": True,
+        "intended_final_task_program_count": 1,
+        "task_program_authority": True,
+        "production_execution_authority": True,
+        "production_order_status_authority": True,
+        "current_live_production_authority": str(path.resolve()),
+        "dependency_types": list(runner.minitz.DEPENDENCY_TYPES),
+        "revision": 1,
+        "status": "ACTIVE_MINITZ_TASK_PROGRAM",
+        "task_count": len(tasks),
+        "tasks": tasks,
+    }
+    path.write_text(json.dumps(program, indent=2) + "\n", encoding="utf-8")
+    monkeypatch.setenv("MINITZ_TASK_PROGRAM_PATH", str(path))
+    if writer_id is not None:
+        runner.minitz.claim_task(
+            "CLAIM-01", worker_id=writer_id, worker_role="PRIMARY_WRITER",
+            write_authority=True, evidence=["fixture writer claim"], path=path,
+        )
+    task = state.resolve_current_task(repo, project)
+    assert task is not None
+    return repo, project, path, task
+
+
+def test_minitz_production_runner_claims_unclaimed_current_task_before_write(tmp_path: Path, monkeypatch):
+    repo, project, path, task = _single_authority_runner_fixture(tmp_path, monkeypatch)
+    before = runner.minitz.load(path)
+    claimed = runner._ensure_minitz_writer_claim(repo, project, task)
+    assert claimed is not None
+    after = runner.minitz.load(path)
+    current = runner.minitz.current_task(after)
+    assert current is not None
+    assert after["revision"] == before["revision"] + 1
+    assert current["status"] == "WORKING"
+    assert current["workers"] == [{
+        "worker_id": runner.MINITZ_PRODUCTION_WRITER_ID,
+        "role": "PRIMARY_WRITER",
+        "write_authority": True,
+        "status": "WORKING",
+        "claimed_at": current["workers"][0]["claimed_at"],
+        "evidence": ["MiniTZ production runner has a viable execution route and is claiming the current task before write execution"],
+    }]
+    assert claimed.id == "CLAIM-01"
+    assert "current_execution" not in json.loads(path.read_text(encoding="utf-8"))
+
+
+def test_minitz_production_runner_reuses_its_existing_writer_claim(tmp_path: Path, monkeypatch):
+    repo, project, path, task = _single_authority_runner_fixture(
+        tmp_path, monkeypatch, writer_id=runner.MINITZ_PRODUCTION_WRITER_ID,
+    )
+    before = runner.minitz.program_identity(runner.minitz.load(path))
+    claimed = runner._ensure_minitz_writer_claim(repo, project, task)
+    after = runner.minitz.program_identity(runner.minitz.load(path))
+    assert claimed is not None
+    assert after == before
+
+
+def test_minitz_production_runner_never_steals_external_writer_claim(tmp_path: Path, monkeypatch):
+    repo, project, path, task = _single_authority_runner_fixture(
+        tmp_path, monkeypatch, writer_id="chatgpt:gpt-5.6-sol",
+    )
+    before = path.read_bytes()
+    assert runner._ensure_minitz_writer_claim(repo, project, task) is None
+    assert path.read_bytes() == before
+    current = runner.minitz.current_task(runner.minitz.load(path))
+    assert current is not None
+    writers = [row for row in current["workers"] if row["write_authority"]]
+    assert [row["worker_id"] for row in writers] == ["chatgpt:gpt-5.6-sol"]

@@ -261,3 +261,34 @@ def test_checkpoint_rejects_foreign_owner_stale_binding_and_raw_secret_payload(t
     manager.active_checkpoint_path.write_text(json.dumps(payload, sort_keys=True) + "\n", encoding="utf-8")
     with pytest.raises(handoff.HandoffError, match="raw credential"):
         manager.resume()
+
+
+def test_handoff_identity_uses_first_active_task_row_without_persisted_current_execution(tmp_path: Path, monkeypatch):
+    task = {
+        "task_id": "BRIDGE-TEST",
+        "revision": 2,
+        "status": "WORKING",
+        "active_task_survival": True,
+        "review_state": "VALUE_GATE_PASSED",
+        "title": "Bridge test",
+        "dependencies": [],
+        "write_scope": {"authority": "TASK_OWNED_ONLY", "execution_root": str(tmp_path), "allowed_paths": [str(tmp_path)]},
+        "workers": [{"worker_id": "chatgpt:test", "role": "PRIMARY_WRITER", "write_authority": True, "status": "WORKING"}],
+    }
+    task["worker_state_sha256"] = minitz.digest(task["workers"])
+    task["task_record_sha256"] = minitz.task_digest(task)
+    program_path = tmp_path / "TASK_PROGRAM.json"
+    program = {
+        "schema": "minitz.living_task_program/v1",
+        "program_id": "MINITZ_REBORN_SINGLE_TASK_PROGRAM",
+        "revision": 9,
+        "tasks": [task],
+    }
+    program_path.write_text(json.dumps(program, indent=2) + "\n", encoding="utf-8")
+    monkeypatch.setenv("MINITZ_TASK_PROGRAM_PATH", str(program_path))
+    identity = handoff._minitz_program_identity("BRIDGE-TEST")
+    assert identity is not None
+    assert identity["task_id"] == "BRIDGE-TEST"
+    assert identity["task_revision"] == 2
+    assert identity["task_digest"] == task["task_record_sha256"]
+    assert identity["program_sha256"] == hashlib.sha256(program_path.read_bytes()).hexdigest()

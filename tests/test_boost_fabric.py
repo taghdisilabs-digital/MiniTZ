@@ -42,9 +42,9 @@ def test_task_plan_keeps_canonical_task_count_and_creates_five_derived_lists():
     assert plan["schema"] == "minitz.five_boost_task_plan/v1"
     assert plan["authority"] == "NONE"
     assert plan["progression_authority"] is False
-    assert plan["canonical_task_count"] == len(program["tasks"]) == 800
+    assert plan["canonical_task_count"] == len(program["tasks"])
     assert set(plan["boost_task_lists"]) == {f"BOOST-{i:02d}" for i in range(1, 6)}
-    assert all(len(rows) == 800 for rows in plan["boost_task_lists"].values())
+    assert all(len(rows) == len(program["tasks"]) for rows in plan["boost_task_lists"].values())
     assert plan["source_program_id"] == program["program_id"]
     assert plan["source_program_revision"] == program["revision"]
 
@@ -81,9 +81,9 @@ def test_boost_plan_uses_reserved_usage_without_quota_probe_and_waits_for_owner_
 def test_current_task_sections_bind_exact_task_revision_and_digest():
     mod = load_module()
     program = live_program()
-    current_id = program["current_execution"]["task_id"]
-    task = next(row for row in program["tasks"] if row["task_id"] == current_id)
     plan = mod.build_task_plan(program)
+    current_id = plan["current_task_id"]
+    task = next(row for row in program["tasks"] if row["task_id"] == current_id)
     for boost_id, rows in plan["boost_task_lists"].items():
         row = next(item for item in rows if item["canonical_task_id"] == current_id)
         assert row["section_id"] == f"{current_id}::{boost_id}"
@@ -120,7 +120,8 @@ def test_public_summary_hides_private_assignment_paths_and_write_scope(tmp_path)
 def test_worker_report_is_bound_to_exact_boost_task_and_updates_status(tmp_path):
     mod = load_module(); program = live_program()
     _, current_path = mod.refresh_runtime(tmp_path, program)
-    task = next(row for row in program["tasks"] if row["task_id"] == program["current_execution"]["task_id"])
+    current_id = mod.build_task_plan(program)["current_task_id"]
+    task = next(row for row in program["tasks"] if row["task_id"] == current_id)
     report = mod.record_worker_report(
         tmp_path, "BOOST-02", task_id=task["task_id"], task_record_sha256=task["task_record_sha256"],
         status="ACTIVE", summary="core implementation", source_program_sha256=mod.build_task_plan(program)["source_program_sha256"],
@@ -134,7 +135,8 @@ def test_worker_report_is_bound_to_exact_boost_task_and_updates_status(tmp_path)
 
 
 def test_worker_report_rejects_stale_or_foreign_task_identity(tmp_path):
-    mod = load_module(); program = live_program(); task = next(row for row in program["tasks"] if row["task_id"] == program["current_execution"]["task_id"])
+    mod = load_module(); program = live_program(); current_id = mod.build_task_plan(program)["current_task_id"]
+    task = next(row for row in program["tasks"] if row["task_id"] == current_id)
     mod.refresh_runtime(tmp_path, program)
     with pytest.raises(ValueError):
         mod.record_worker_report(tmp_path, "BOOST-02", task_id="OTHER", task_record_sha256=task["task_record_sha256"], status="ACTIVE", source_program_sha256=mod.build_task_plan(program)["source_program_sha256"])

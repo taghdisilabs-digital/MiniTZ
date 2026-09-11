@@ -39,20 +39,22 @@ def test_extension_dependencies_are_internal_or_existing_canonical_tasks():
             assert dep["task_ref"] != task["task_id"]
 
 
-def test_extension_apply_preserves_current_execution_and_inserts_after_runtime_ai(tmp_path):
+def test_extension_apply_is_idempotent_and_preserves_canonical_os_order(tmp_path):
     raw = json.loads(LIVE.read_text(encoding="utf-8"))
     path = tmp_path / "TASK_PROGRAM.json"
     raw["current_live_production_authority"] = str(path.resolve())
     path.write_text(json.dumps(raw, indent=2) + "\n", encoding="utf-8")
     before = minitz.load(path)
-    current = dict(before["current_execution"])
     identity = extension.apply_extension(path=path)
     after = minitz.load(path)
-    assert identity["task_count"] == before["task_count"] + 7
-    assert after["current_execution"] == current
-    ids = [task["task_id"] for task in after["tasks"]]
-    anchor = ids.index("RUNTIME-AI-01")
-    assert ids[anchor + 1:anchor + 8] == [task["task_id"] for task in extension.extension_tasks()]
+    assert identity["task_count"] == before["task_count"]
+    assert after["current_execution"] == before["current_execution"]
+    assert [task["task_id"] for task in after["tasks"]] == [task["task_id"] for task in before["tasks"]]
+    assert [task["task_id"] for task in extension.extension_tasks(path=path)] == [
+        "HAL-LINUX-01", "HAL-FOUNDER-01", "TRUST-NODE-01",
+        "GPU-RESIDENCY-01", "BOOST-FABRIC-01", "BROWSER-SWARM-01",
+        "SYSTEM-QUALIFY-01",
+    ]
 
 
 def test_local_ai_installer_carries_boost_and_founder_modules():
