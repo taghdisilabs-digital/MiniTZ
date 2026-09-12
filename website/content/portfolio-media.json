@@ -1,0 +1,247 @@
+{
+  "schema": "minitz.portfolio.media/v1",
+  "items": [
+    {
+      "id": "old-site",
+      "project_id": "taghdisilabs",
+      "title": "Taghdisi Labs before the portfolio rebuild",
+      "kind": "image",
+      "source_path": "website/reference/portfolio/taghdisilabs-pre-portfolio.png",
+      "public_path": "/portfolio-media/taghdisilabs-pre-portfolio.png",
+      "status": "HISTORICAL_EVIDENCE",
+      "category": "Websites",
+      "caption": "The exact public homepage captured before this portfolio deployment."
+    },
+    {
+      "id": "minitz-film",
+      "project_id": "current-minitz",
+      "title": "MiniTZ — I Can film",
+      "kind": "video",
+      "source_path": "website/src/live/assets/minitz-ican-film.mp4",
+      "public_path": "/portfolio-media/minitz-ican-film.mp4",
+      "status": "VERIFIED",
+      "category": "MiniTZ",
+      "caption": "Current MiniTZ public campaign film."
+    },
+    {
+      "id": "investor-01",
+      "project_id": "biella-engine",
+      "title": "Founder execution engine",
+      "kind": "image",
+      "source_path": "website/reference/investor-deck-v1/01_founder_execution_engine.png",
+      "public_path": "/portfolio-media/01_founder_execution_engine.png",
+      "status": "HISTORICAL_EVIDENCE",
+      "category": "Biella",
+      "caption": "Investor/production presentation visual preserved as historical project media."
+    },
+    {
+      "id": "investor-02",
+      "project_id": "biella-engine",
+      "title": "Founder-directed execution system",
+      "kind": "image",
+      "source_path": "website/reference/investor-deck-v1/02_founder_directed_execution_system.png",
+      "public_path": "/portfolio-media/02_founder_directed_execution_system.png",
+      "status": "HISTORICAL_EVIDENCE",
+      "category": "Biella",
+      "caption": "Investor/production presentation visual preserved as historical project media."
+    },
+    {
+      "id": "investor-03",
+      "project_id": "biella-engine",
+      "title": "Proven progress",
+      "kind": "image",
+      "source_path": "website/reference/investor-deck-v1/03_proven_progress.png",
+      "public_path": "/portfolio-media/03_proven_progress.png",
+      "status": "HISTORICAL_EVIDENCE",
+      "category": "Biella",
+      "caption": "Investor/production presentation visual preserved as historical project media."
+    },
+    {
+      "id": "investor-04",
+      "project_id": "biella-engine",
+      "title": "Operating loop",
+      "kind": "image",
+      "source_path": "website/reference/investor-deck-v1/04_operating_loop.png",
+      "public_path": "/portfolio-media/04_operating_loop.png",
+      "status": "HISTORICAL_EVIDENCE",
+      "category": "Biella",
+      "caption": "Investor/production presentation visual preserved as historical project media."
+    },
+    {
+      "id": "investor-05",
+      "project_id": "biella-engine",
+      "title": "Games — first visible proof",
+      "kind": "image",
+      "source_path": "website/reference/investor-deck-v1/05_games_first_visible_proof.png",
+      "public_path": "/portfolio-media/05_games_first_visible_proof.png",
+      "status": "HISTORICAL_EVIDENCE",
+      "category": "Biella",
+      "caption": "Investor/production presentation visual preserved as historical project media."
+    },
+    {
+      "id": "investor-06",
+      "project_id": "biella-engine",
+      "title": "Capability coverage",
+      "kind": "image",
+      "source_path": "website/reference/investor-deck-v1/06_capability_coverage.png",
+      "public_path": "/portfolio-media/06_capability_coverage.png",
+      "status": "HISTORICAL_EVIDENCE",
+      "category": "Biella",
+      "caption": "Investor/production presentation visual preserved as historical project media."
+    },
+    {
+      "id": "investor-07",
+      "project_id": "biella-engine",
+      "title": "Execution insights",
+      "kind": "image",
+      "source_path": "website/reference/investor-deck-v1/07_execution_insights.png",
+      "public_path": "/portfolio-media/07_execution_insights.png",
+      "status": "HISTORICAL_EVIDENCE",
+      "category": "Biella",
+      "caption": "Investor/production presentation visual preserved as historical project media."
+    },
+    {
+      "id": "investor-08",
+      "project_id": "biella-engine",
+      "title": "Product to company proof",
+      "kind": "image",
+      "source_path": "website/reference/investor-deck-v1/08_product_to_company_proof.png",
+      "public_path": "/portfolio-media/08_product_to_company_proof.png",
+      "status": "HISTORICAL_EVIDENCE",
+      "category": "Biella",
+      "caption": "Investor/production presentation visual preserved as historical project media."
+    },
+    {
+      "id": "investor-09",
+      "project_id": "biella-engine",
+      "title": "Financial posture",
+      "kind": "image",
+      "source_path": "website/reference/investor-deck-v1/09_financial_posture.png",
+      "public_path": "/portfolio-media/09_financial_posture.png",
+      "status": "HISTORICAL_EVIDENCE",
+      "category": "Biella",
+      "caption": "Investor/production presentation visual preserved as historical project media."
+    },
+    {
+      "id": "investor-10",
+      "project_id": "biella-engine",
+      "title": "Professional financial framing",
+      "kind": "image",
+      "source_path": "website/reference/investor-deck-v1/10_professional_financial_framing.png",
+      "public_path": "/portfolio-media/10_professional_financial_framing.png",
+      "status": "HISTORICAL_EVIDENCE",
+      "category": "Biella",
+      "caption": "Investor/production presentation visual preserved as historical project media."
+    },
+    {
+      "id": "games-hazard",
+      "project_id": "biella-games",
+      "title": "D17 hazard active",
+      "kind": "image",
+      "source_path": "projects/biella-games/Build/AAA/D17-01/environment/runtime-06/captures/hazard_active.png",
+      "public_path": "/portfolio-media/games-hazard.png",
+      "status": "VERIFIED",
+      "category": "Games",
+      "caption": "Observed Biella Games runtime/production capture."
+    },
+    {
+      "id": "games-damaged",
+      "project_id": "biella-games",
+      "title": "D17 damaged panel",
+      "kind": "image",
+      "source_path": "projects/biella-games/Build/AAA/D17-01/environment/runtime-06/captures/panel_damaged.png",
+      "public_path": "/portfolio-media/games-damaged.png",
+      "status": "VERIFIED",
+      "category": "Games",
+      "caption": "Observed Biella Games runtime/production capture."
+    },
+    {
+      "id": "games-destroyed",
+      "project_id": "biella-games",
+      "title": "D17 destroyed panel",
+      "kind": "image",
+      "source_path": "projects/biella-games/Build/AAA/D17-01/environment/runtime-06/captures/panel_destroyed.png",
+      "public_path": "/portfolio-media/games-destroyed.png",
+      "status": "VERIFIED",
+      "category": "Games",
+      "caption": "Observed Biella Games runtime/production capture."
+    },
+    {
+      "id": "games-return",
+      "project_id": "biella-games",
+      "title": "D17 stream return",
+      "kind": "image",
+      "source_path": "projects/biella-games/Build/AAA/D17-01/environment/runtime-06/captures/stream_return.png",
+      "public_path": "/portfolio-media/games-return.png",
+      "status": "VERIFIED",
+      "category": "Games",
+      "caption": "Observed Biella Games runtime/production capture."
+    },
+    {
+      "id": "games-safe",
+      "project_id": "biella-games",
+      "title": "D17 switch safe",
+      "kind": "image",
+      "source_path": "projects/biella-games/Build/AAA/D17-01/environment/runtime-06/captures/switch_safe.png",
+      "public_path": "/portfolio-media/games-safe.png",
+      "status": "VERIFIED",
+      "category": "Games",
+      "caption": "Observed Biella Games runtime/production capture."
+    },
+    {
+      "id": "games-ramp",
+      "project_id": "biella-games",
+      "title": "D17 terrace ramp ascent",
+      "kind": "image",
+      "source_path": "projects/biella-games/Build/AAA/D17-02/raw/approach-full-1080-01/ramp-ascent.png",
+      "public_path": "/portfolio-media/games-ramp.png",
+      "status": "VERIFIED",
+      "category": "Games",
+      "caption": "Observed Biella Games runtime/production capture."
+    },
+    {
+      "id": "games-overlook",
+      "project_id": "biella-games",
+      "title": "D17 terrace overlook",
+      "kind": "image",
+      "source_path": "projects/biella-games/Build/AAA/D17-02/raw/approach-full-1080-01/terrace-overlook.png",
+      "public_path": "/portfolio-media/games-overlook.png",
+      "status": "VERIFIED",
+      "category": "Games",
+      "caption": "Observed Biella Games runtime/production capture."
+    },
+    {
+      "id": "games-summit",
+      "project_id": "biella-games",
+      "title": "D17 terrace summit",
+      "kind": "image",
+      "source_path": "projects/biella-games/Build/AAA/D17-02/raw/approach-full-1080-01/terrace-summit.png",
+      "public_path": "/portfolio-media/games-summit.png",
+      "status": "VERIFIED",
+      "category": "Games",
+      "caption": "Observed Biella Games runtime/production capture."
+    },
+    {
+      "id": "games-demo-final",
+      "project_id": "biella-games",
+      "title": "Demo01 D01-044 final capture",
+      "kind": "image",
+      "source_path": "projects/biella-games/Build/Demo01/D01-044-runs/20260905T095503.680759Z-1920x1080/captures/final.png",
+      "public_path": "/portfolio-media/games-demo-final.png",
+      "status": "VERIFIED",
+      "category": "Games",
+      "caption": "Observed Biella Games runtime/production capture."
+    },
+    {
+      "id": "games-demo-warmup",
+      "project_id": "biella-games",
+      "title": "Demo01 D01-044 warmup",
+      "kind": "image",
+      "source_path": "projects/biella-games/Build/Demo01/D01-044-runs/20260905T095503.680759Z-1920x1080/captures/warmup.png",
+      "public_path": "/portfolio-media/games-demo-warmup.png",
+      "status": "VERIFIED",
+      "category": "Games",
+      "caption": "Observed Biella Games runtime/production capture."
+    }
+  ]
+}

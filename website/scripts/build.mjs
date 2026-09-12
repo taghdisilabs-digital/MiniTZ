@@ -1,6 +1,6 @@
 import{cp,mkdir,readFile,rm,writeFile}from"node:fs/promises";
 import{createHash}from"node:crypto";
-import{resolve}from"node:path";
+import{dirname,resolve}from"node:path";
 
 const root=resolve(import.meta.dirname,"..");
 const repo=resolve(root,"..");
@@ -8,20 +8,34 @@ const dist=resolve(root,"dist");
 await rm(dist,{recursive:true,force:true});
 await mkdir(resolve(dist,"data"),{recursive:true});
 for(const file of["index.html","styles.css","app.js"])await cp(resolve(root,"src",file),resolve(dist,file));
+await mkdir(resolve(dist,"portfolio"),{recursive:true});
+await cp(resolve(dist,"index.html"),resolve(dist,"portfolio","index.html"));
 await cp(resolve(root,"src","control"),resolve(dist,"control"),{recursive:true});
 await cp(resolve(root,"src","live"),resolve(dist,"live"),{recursive:true});
+await cp(resolve(root,"src","archive"),resolve(dist,"archive"),{recursive:true});
 const liveApp=await readFile(resolve(dist,"live","app.js"));
 const liveCss=await readFile(resolve(dist,"live","styles.css"));
 const liveAppHash=createHash("sha256").update(liveApp).digest("hex").slice(0,12);
 const liveCssHash=createHash("sha256").update(liveCss).digest("hex").slice(0,12);
 await writeFile(resolve(dist,"live",`app.${liveAppHash}.js`),liveApp);
 await writeFile(resolve(dist,"live",`styles.${liveCssHash}.css`),liveCss);
-let liveHtml=await readFile(resolve(dist,"live","index.html"),"utf8");
+let liveHtml=await readFile(resolve(dist,"live","theatre","index.html"),"utf8");
 liveHtml=liveHtml.replace('/live/app.js',`/live/app.${liveAppHash}.js`).replace('/live/styles.css',`/live/styles.${liveCssHash}.css`);
-await writeFile(resolve(dist,"live","index.html"),liveHtml);
+await writeFile(resolve(dist,"live","theatre","index.html"),liveHtml);
 await cp(resolve(root,"src","investors"),resolve(dist,"investors"),{recursive:true});
 await cp(resolve(root,"reference","investor-deck-v1"),resolve(dist,"investors","reference"),{recursive:true});
-for(const file of["game-runtime-media.json","asset-resolution.json","control-runtime.json","investor-deck-manifest.json","locker-index.json"])await cp(resolve(root,"content",file),resolve(dist,"data",file));
+for(const file of["game-runtime-media.json","asset-resolution.json","control-runtime.json","investor-deck-manifest.json","locker-index.json","portfolio-index.json","portfolio-media.json"])await cp(resolve(root,"content",file),resolve(dist,"data",file));
+
+const portfolioMedia=JSON.parse(await readFile(resolve(root,"content","portfolio-media.json"),"utf8"));
+for(const item of portfolioMedia.items||[]){
+  const source=resolve(repo,String(item.source_path||""));
+  if(!source.startsWith(repo+"/"))throw new Error(`portfolio media escaped repo: ${item.source_path}`);
+  const relativePublic=String(item.public_path||"").replace(/^\/+/,"");
+  if(!relativePublic.startsWith("portfolio-media/"))throw new Error(`invalid portfolio public path: ${item.public_path}`);
+  const target=resolve(dist,relativePublic);
+  await mkdir(dirname(target),{recursive:true});
+  await cp(source,target);
+}
 
 const csv=await readFile(resolve(root,"content","website-visual-assets.csv"),"utf8");
 const lines=csv.trim().split(/\r?\n/);const headers=lines.shift().split(",");

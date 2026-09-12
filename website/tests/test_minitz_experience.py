@@ -1,12 +1,13 @@
 import hashlib,json,pathlib,unittest
 ROOT=pathlib.Path(__file__).resolve().parents[1]
+EXPERIENCE=ROOT/'src/live/theatre/index.html'
 class MiniTZExperienceTests(unittest.TestCase):
  def test_experience_structure(self):
-  html=(ROOT/'src/live/index.html').read_text()
+  html=EXPERIENCE.read_text()
   for token in ('id="experience"','id="capabilities"','id="locker"','id="founder"','id="final-film"','data-locker','photo-hero','I couldn’t code.'):
    self.assertIn(token,html)
  def test_live_system_dashboard_is_literal_text_first(self):
-  html=(ROOT/'src/live/index.html').read_text()
+  html=EXPERIENCE.read_text()
   for token in ('id="system"','CURRENT TASK','STATUS','PROGRESS','NOW EXECUTING','CODEX','ANTIGRAVITY','COMMANDERS','LOCAL AI','GPU','VALIDATION','SOURCE','HEARTBEAT'):
    self.assertIn(token,html)
   for forbidden in ('<canvas','visual-grid','scanline','background-stack'):
@@ -25,7 +26,7 @@ class MiniTZExperienceTests(unittest.TestCase):
   self.assertGreater(p.stat().st_size,4_000_000)
   self.assertIn(b'ftyp',p.read_bytes()[:64])
  def test_film_is_final_and_founder_photo_is_not_inside_film_section(self):
-  html=(ROOT/'src/live/index.html').read_text()
+  html=EXPERIENCE.read_text()
   self.assertIn('id="final-film"',html)
   self.assertLess(html.index('id="founder"'),html.index('id="final-film"'))
   self.assertEqual(html.count('mahdi-original.jpg'),1)
@@ -36,7 +37,7 @@ class MiniTZExperienceTests(unittest.TestCase):
   self.assertIn('Play the film',film)
 
  def test_opening_is_not_a_video_player(self):
-  html=(ROOT/'src/live/index.html').read_text()
+  html=EXPERIENCE.read_text()
   opening=html[html.index('id="experience"'):html.index('id="system"')]
   self.assertNotIn('<video',opening)
  def test_final_film_requires_explicit_sound_play(self):
@@ -51,7 +52,7 @@ class MiniTZExperienceTests(unittest.TestCase):
   for wanted in ('origin-os-20260620','assistant-setup-20260627','vps-configurator-20260826','silent-stall-loss-20260906'):
    self.assertIn(wanted,ids)
  def test_founder_story_connects_hardware_pain_to_os(self):
-  html=(ROOT/'src/live/index.html').read_text()
+  html=EXPERIENCE.read_text()
   for token in ('I started by building my own AI assistant.','Every hardware change meant setting it up again.','A day or more just to get back to work.','So I stopped thinking of MiniTZ as another tool.','I made it the OS.'):
    self.assertIn(token,html)
 
