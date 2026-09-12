@@ -11,8 +11,7 @@
   <div class="loading">LOADING MINITZ…</div>
   <script>
     (()=>{
-      const rootPath=location.pathname==='/'||location.pathname==='/index.html';
-      const target=rootPath?'/portfolio/index.html':'/live/theatre/index.html';
+      const target='/live/theatre/index.html';
       fetch(target,{cache:'no-store'}).then(response=>{
         if(!response.ok)throw new Error(String(response.status));
         return response.text();
