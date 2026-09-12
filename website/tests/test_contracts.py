@@ -42,6 +42,11 @@ class WebsiteContractTests(unittest.TestCase):
         self.assertIn('/portfolio/index.html', loader)
         self.assertIn('/live/theatre/index.html', loader)
 
+    def test_public_origin_maps_minitz_deep_links_to_live_page(self):
+        server = (ROOT / 'ops/static_server.py').read_text()
+        for token in ("DASHBOARD_HOST='taghdisilabs.digital'", "'/locker'", "'/founder'", "'/system'", "'/experience'", "'/capabilities'", "'/final-film'", "self.path='/live/index.html'"):
+            self.assertIn(token, server)
+
     def test_minitz_public_subdomain_routes_to_live_theatre_without_replacing_apex(self):
         server = (ROOT / 'ops/static_server.py').read_text()
         tunnel = (ROOT / 'ops/biella-public.yml').read_text()
