@@ -39,8 +39,8 @@ class WebsiteContractTests(unittest.TestCase):
             self.assertIn(token, app)
         for forbidden in ('<canvas', 'visual-grid', 'scanline', 'background-stack'):
             self.assertNotIn(forbidden, html)
-        self.assertIn('/portfolio/index.html', loader)
-        self.assertIn('/live/theatre/index.html', loader)
+        self.assertIn("const target='/live/theatre/index.html'", loader)
+        self.assertNotIn("rootPath?'/portfolio/index.html'", loader)
 
     def test_public_origin_maps_minitz_deep_links_to_live_page(self):
         server = (ROOT / 'ops/static_server.py').read_text()
@@ -108,16 +108,15 @@ class WebsiteContractTests(unittest.TestCase):
         self.assertTrue((ROOT / 'dist/archive/index.html').is_file())
 
 
-    def test_public_root_router_preserves_portfolio_and_live_minitz_without_host_mutation(self):
+    def test_public_root_routes_to_minitz_while_portfolio_stays_separate(self):
         loader = (ROOT / 'src/live/index.html').read_text()
         theatre = (ROOT / 'src/live/theatre/index.html').read_text()
         build = (ROOT / 'scripts/build.mjs').read_text()
-        self.assertIn("location.pathname", loader)
-        self.assertIn("/portfolio/index.html", loader)
-        self.assertIn("/live/theatre/index.html", loader)
+        self.assertIn("const target='/live/theatre/index.html'", loader)
+        self.assertNotIn("rootPath?'/portfolio/index.html'", loader)
+        self.assertIn('resolve(dist,"portfolio")', build)
         self.assertIn('MiniTZ OS', theatre)
         self.assertIn('I can.', theatre)
-        self.assertIn('resolve(dist,"portfolio")', build)
         self.assertIn('resolve(dist,"live","theatre","index.html")', build)
 
 if __name__ == '__main__': unittest.main()
