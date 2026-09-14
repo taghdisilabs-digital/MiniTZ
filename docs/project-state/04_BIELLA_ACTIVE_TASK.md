@@ -5,8 +5,8 @@ schema: minitz.active_task_projection/v1
 projection_authority: false
 task_program: /root/biella/analysis/live_audit/TASK_PROGRAM.json
 program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-program_revision: 69
-program_sha256: 805ebcb591a6aa5b6c602f06dfe3513da3a96d982c7b6d01d537ed6986136c8e
+program_revision: 71
+program_sha256: 4371349753b3431c69e31734aa6ebe713e855e0511fb76388c35069e757c69aa
 
 progression_family:
   id: MINITZ_PROGRESSION_FAMILY
