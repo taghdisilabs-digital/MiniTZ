@@ -5,6 +5,9 @@ REPO="$SANDBOX/workspace/repo"
 STATE="$SANDBOX/state/image-build"
 OUTPUT=${1:-$SANDBOX/output/images}
 NAME=minitz-os-lab
+if ! command -v docker >/dev/null 2>&1 || ! docker info >/dev/null 2>&1; then
+    exec "$REPO/ops/workstation/minitz-os-sandbox/build-image-local.sh" "$@"
+fi
 [ -z "$(docker ps -q --filter name=^/$NAME$)" ] || {
     echo 'MiniTZ must be OFF before image-source staging' >&2
     exit 2
@@ -42,6 +45,10 @@ chmod +x "$STATE/image-layout.sh"
 docker run --rm -e SOURCE_SHA="$SOURCE_SHA" -v "$STATE:/build" "$TAG" \
     /bin/bash /build/image-layout.sh /build
 IMAGE="$STATE/MiniTZ-OS-${SOURCE_SHA:0:16}.raw"
-cp --reflink=auto --sparse=always "$IMAGE" "$OUTPUT/$(basename "$IMAGE")"
+OUTPUT_IMAGE="$OUTPUT/$(basename "$IMAGE")"
+cp --reflink=auto --sparse=always "$IMAGE" "$OUTPUT_IMAGE"
+if [ -n "${MINITZ_UPDATE_SIGNING_KEY_FILE:-}" ]; then
+    "$REPO/ops/workstation/minitz-os-sandbox/sign-image.sh" "$OUTPUT_IMAGE"
+fi
 printf '%s\n' "$TAG" >"$STATE/rootfs-image-tag"
-printf '%s\n' "$OUTPUT/$(basename "$IMAGE")"
+printf '%s\n' "$OUTPUT_IMAGE"

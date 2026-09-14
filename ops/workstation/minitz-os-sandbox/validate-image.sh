@@ -3,8 +3,11 @@ set -Eeuo pipefail
 SANDBOX=${MINITZ_OS_SANDBOX_ROOT:-/root/attached-storage/minitz-os-sandbox}
 STATE="$SANDBOX/state/image-build"
 IMAGE=${1:?image path required}
-TAG=$(cat "$STATE/rootfs-image-tag")
 test -f "$IMAGE"
+if ! command -v docker >/dev/null 2>&1 || ! docker info >/dev/null 2>&1; then
+    exec "$SANDBOX/workspace/repo/ops/workstation/minitz-os-sandbox/validate-image-local.sh" "$IMAGE"
+fi
+TAG=$(cat "$STATE/rootfs-image-tag")
 WORK="$STATE/validation"
 rm -rf "$WORK"
 mkdir -p "$WORK"
