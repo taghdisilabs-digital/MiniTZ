@@ -5,8 +5,8 @@ schema: minitz.active_task_projection/v1
 projection_authority: false
 task_program: /state/task-program/TASK_PROGRAM.json
 program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-program_revision: 93
-program_sha256: 7286431027836dbcdf8a556fd2f4d92c5374bdded63da9c61a6aab10e2195be9
+program_revision: 94
+program_sha256: 048c88202bae47a5361bb89077f070a7cfba60b5ed9ac10f4db48312d22de14b
 
 progression_family:
   id: MINITZ_PROGRESSION_FAMILY
@@ -19,11 +19,11 @@ task:
   section: minitz
   class: medium
   title: Build one bootable installable MiniTZ OS artifact from the canonical source
-  status: PENDING
+  status: WORKING
   runner: READY
   lane: Engine
-  revision: 1
-  task_sha256: c733b5f30e3af54fe65a9d615392c7dd189a2eed5b878b4a6e8e8a019d7a5b58
+  revision: 2
+  task_sha256: dea40e1be100263c1bce3c6596409b539936d4fa7eb5ffdc2860cf3ee02f3477
 
 authority:
   progression: MINITZ_TASK_PROGRAM_ONLY
