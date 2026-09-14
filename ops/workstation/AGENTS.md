@@ -107,7 +107,7 @@ Capability availability must be truthful: Ready, Degraded, Unavailable, Needs Se
 
 ## Filesystem, storage, credentials, and isolation
 
-MiniTZ OS build, qualification, packaging, and generated OS-file work use the Ubuntu 26.04 environment rooted at `/root/attached-storage/minitz-os-sandbox`, with the repository at `/workspace/repo` inside the container. This boundary exists to protect the main VPS OS system files: host `/etc`, `/usr`, `/lib`, `/bin`, `/sbin`, and `/boot` are read-only references under `/host-vps` and must not be mutated by MiniTZ. Host `/root`, raw credential stores, and private MiniTZ state are not exposed through the host-OS reference mount. GPU access uses NVIDIA container passthrough. Network access is normally available; there is no separate owner-authorization network gate.
+MiniTZ OS build, qualification, packaging, and generated OS-file work use the Ubuntu 26.04 environment rooted at `/root/attached-storage/minitz-os-sandbox`, with the repository at `/workspace/repo` inside the container. This boundary exists to protect the main VPS OS system files: host VPS OS files are read-only references; host `/etc`, `/usr`, `/lib`, `/bin`, `/sbin`, and `/boot` are read-only references under `/host-vps` and must not be mutated by MiniTZ. Host `/root`, raw credential stores, and private MiniTZ state are not exposed through the host-OS reference mount. GPU access uses NVIDIA container passthrough. Network access is normally available; there is no separate owner-authorization network gate.
 
 Unknown storage is not automatically trusted or mounted mutable. Storage, credentials, project cells, memory, caches, artifacts, browser sessions, provider sessions, and publications remain isolated by project/task scope where applicable.
 
@@ -143,7 +143,7 @@ Raw duplicate failure logs are evicted after the durable guard exists. Raw logs 
 
 MiniTZ OS has one canonical source tree, one private GitHub repository, and exactly one active branch: main. No fork, no parallel repository, no split source.
 
-Ubuntu 24.04 VPS remains the host OS and is not the MiniTZ OS product image. The Ubuntu 26.04 sandbox is the isolated MiniTZ OS build and qualification environment. The canonical source tree is the source that is installed; development, installed, and release semantics must converge on that same tree rather than diverging into separate authorities.
+Ubuntu 24.04 VPS remains the host OS and is not the MiniTZ OS product image. The dedicated Ubuntu 26.04 sandbox is the isolated MiniTZ OS build and qualification environment. The canonical source tree is the source that is installed; development, installed, and release semantics must converge on that same tree rather than diverging into separate authorities.
 
 All capabilities, APIs, credential/secret behavior, resource behavior, memory behavior, and task behavior belong to that one MiniTZ OS source tree, together with lifecycle behavior, UI behavior, installation logic, update/recovery logic, and release metadata.
 
